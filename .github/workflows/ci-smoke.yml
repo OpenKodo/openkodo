@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "ubuntu ok"
-  macos:
-    runs-on: macos-latest
+  windows:
+    runs-on: windows-latest
     steps:
-      - run: echo "macos ok"
+      - run: echo "windows ok"
