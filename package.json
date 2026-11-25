@@ -1,12 +1,13 @@
 {
-  "name": "orca",
+  "name": "openkodo",
   "version": "1.4.214",
-  "description": "Next-gen IDE for parallel agentic development",
-  "homepage": "https://github.com/stablyai/orca",
-  "author": "stablyai",
+  "description": "OpenKodo Code — an agent IDE for the OpenKodo subscription",
+  "homepage": "https://github.com/OpenKodo/openkodo",
+  "author": "OpenKodo",
   "bin": {
     "orca": "./out/cli/index.js",
-    "orca-dev": "./config/scripts/development/launch/orca-dev.mjs"
+    "orca-dev": "./config/scripts/development/launch/orca-dev.mjs",
+    "openkodo": "./out/cli/index.js"
   },
   "main": "./out/main/index.js",
   "scripts": {
