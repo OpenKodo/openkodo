@@ -9,8 +9,21 @@ permissions:
   contents: read
 
 jobs:
-  macos:
-    runs-on: macos-14
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: --win nsis
+            pattern: dist/*.exe
+          - os: ubuntu-latest
+            target: --linux AppImage
+            pattern: dist/*.AppImage
+          - os: macos-latest
+            target: --mac dmg zip
+            pattern: dist/*.dmg
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -31,12 +44,10 @@ jobs:
       - name: Package (unsigned)
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
-        run: pnpm exec electron-builder --config config/electron-builder.config.cjs --mac dmg zip --publish never
-      - name: Upload macOS artifacts
+        run: pnpm exec electron-builder --config config/electron-builder.config.cjs ${{ matrix.target }} --publish never
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: openkodo-macos-${{ runner.arch }}
-          path: |
-            dist/*.dmg
-            dist/*.zip
+          name: openkodo-${{ matrix.os }}
+          path: ${{ matrix.pattern }}
           if-no-files-found: error
