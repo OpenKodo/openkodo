@@ -182,6 +182,13 @@ export type PreloadApi = {
     saveApiKey: (key: string) => Promise<{ apiKeyConfigured: boolean }>
     clearApiKey: () => Promise<{ apiKeyConfigured: boolean }>
   }
+  openkodo: {
+    status: () => Promise<{ connected: boolean; login: OpenKodoLoginState }>
+    loginStart: () => Promise<OpenKodoLoginState>
+    loginState: () => Promise<OpenKodoLoginState>
+    logout: () => Promise<void>
+    usage: () => Promise<OpenKodoUsage | null>
+  }
   minimaxCredentials: MinimaxCredentialsApi
   zcodePlanCredentials: ZcodePlanCredentialsApi
   grokAccounts: GrokAccountsApi
@@ -211,4 +218,22 @@ declare global {
   interface Window {
     api: PreloadApi
   }
+}
+
+export type OpenKodoLoginState =
+  | { status: 'idle' }
+  | { status: 'pending'; userCode: string; verificationUri: string; expiresAt: number }
+  | { status: 'connected'; email: string; plan: string; openCodePath: string }
+  | { status: 'expired' | 'error'; message: string }
+
+export type OpenKodoUsage = {
+  email?: string
+  cost_5h_micros: number
+  cost_7d_micros: number
+  credits_remaining_micros: number
+  credits_per_5h_micros: number
+  credits_per_week_micros: number
+  credits_included_micros: number
+  oldest_5h?: string | null
+  oldest_7d?: string | null
 }

@@ -15140,6 +15140,24 @@
           "cancel": "Cancel",
           "confirm": "Remove",
           "unknownHost": "Unknown host"
+        },
+        "OpenKodo": {
+          "account": "Account",
+          "last5h": "Last 5 hours",
+          "last7d": "Last 7 days",
+          "thisMonth": "This month",
+          "writtenTo": "OpenCode provider written to",
+          "refresh": "Refresh",
+          "disconnect": "Disconnect",
+          "enterCode": "Enter this code at openkodo.dev/activate. The browser should have opened already.",
+          "openBrowser": "Open browser",
+          "approved": "I approved it",
+          "failed": "Sign-in failed.",
+          "connectHint": "Sign in with your OpenKodo account. The app creates a key for this device and fills in the model provider for you.",
+          "starting": "Starting…",
+          "connect": "Connect OpenKodo",
+          "title": "OpenKodo",
+          "description": "Your OpenKodo subscription, connected to this app."
         }
       },
       "right": {

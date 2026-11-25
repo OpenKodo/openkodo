@@ -72,6 +72,7 @@ import { registerCodexConfigSyncHandlers } from '../accounts/codex-config-sync'
 import { getPtyIdForPaneKey } from '../pty/pane/key-state'
 import { registerClaudeAccountHandlers } from '../accounts/claude-accounts'
 import { registerOpenCodeGoCredentialsHandlers } from '../accounts/opencode-go-credentials'
+import { registerOpenKodoHandlers } from '../accounts/openkodo-credentials'
 import { registerMiniMaxCredentialsHandlers } from '../accounts/minimax-credentials'
 import { registerZcodePlanCredentialsHandlers } from '../accounts/zcode-plan-credentials'
 import { registerGrokAccountHandlers } from '../accounts/grok-accounts'
@@ -155,6 +156,7 @@ export async function registerCoreHandlers(
       runtime.moveRunningClaudePanes(change, held)
     )
     registerOpenCodeGoCredentialsHandlers(rateLimits)
+    registerOpenKodoHandlers()
     registerMiniMaxCredentialsHandlers(rateLimits)
     registerZcodePlanCredentialsHandlers(rateLimits)
     registerGrokAccountHandlers()

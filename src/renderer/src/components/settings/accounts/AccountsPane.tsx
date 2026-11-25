@@ -62,6 +62,7 @@ import { isSystemDefaultActive } from './scope/system-default-lanes'
 import { renderClaudeAccountsSection } from './claude/accounts-pane-claude-section'
 import { renderCodexAccountsSection } from './codex/accounts-pane-codex-section'
 import { renderOpenCodeAccountsSection } from './providers/accounts-pane-opencode-section'
+import { OpenKodoAccountsSection } from './providers/OpenKodoAccountsSection'
 import { MiniMaxAccountsSection } from './usage/MiniMaxAccountsSection'
 import { useUsageHostSettings } from './usage/use-usage-host-settings'
 import { ManagedDataAccountsSection } from './providers/ManagedDataAccountsSection'
@@ -380,6 +381,7 @@ export function AccountsPane({
         ownerPlatform={accountOwnerPlatform}
       />
     ) : null,
+    <OpenKodoAccountsSection key="openkodo" />,
     matchesSettingsSearch(searchQuery, getAccountsOpencodeSearchEntries())
       ? renderOpenCodeAccountsSection(model, t)
       : null,
