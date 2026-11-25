@@ -20,12 +20,7 @@ jobs:
           - os: ubuntu-latest
             target: --linux tar.gz
             pattern: dist/*.tar.gz
-          - os: macos-latest
-            target: --mac dmg zip
-            pattern: dist/*.dmg
-            optional: true
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.optional == true }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
