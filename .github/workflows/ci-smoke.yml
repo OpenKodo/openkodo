@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  smoke:
+  ubuntu:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "actions ok"
+      - run: echo "ubuntu ok"
+  macos:
+    runs-on: macos-latest
+    steps:
+      - run: echo "macos ok"
