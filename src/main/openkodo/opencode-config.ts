@@ -3,12 +3,9 @@ import { dirname, join } from 'node:path'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { applyEdits, modify, parse, type ParseError } from 'jsonc-parser'
 
-const CONFIG_MODELS = {
-  'deepseek-v4-pro-0813': { name: 'DeepSeek V4 Pro 0813' },
-  'deepseek-v4.1-flash-1017': { name: 'DeepSeek V4.1 Flash 1017' },
-  'deepseek-v4.1-flash-economy': { name: 'DeepSeek V4.1 Flash Eco' }
-}
-const DEFAULT_MODEL = 'openkodo/deepseek-v4-pro-0813'
+const PREFERRED_DEFAULT = 'deepseek-v4-pro-0813'
+
+type ModelPreset = { code: string; name: string }
 
 export function openCodeConfigPath(): string {
   const base = process.env.XDG_CONFIG_HOME || join(homedir(), '.config')
@@ -19,7 +16,8 @@ export function openCodeConfigPath(): string {
 // every other key. Refuses to touch a file it cannot parse rather than risking
 // a customer's editor configuration.
 export async function configureOpenCodeForOpenKodo(
-  apiKey: string
+  apiKey: string,
+  presets: ModelPreset[]
 ): Promise<{ ok: boolean; path: string; error?: string }> {
   const path = openCodeConfigPath()
   await mkdir(dirname(path), { recursive: true })
@@ -50,7 +48,12 @@ export async function configureOpenCodeForOpenKodo(
         npm: '@ai-sdk/openai-compatible',
         name: 'OpenKodo',
         options: { baseURL: 'https://api.openkodo.dev/v1', apiKey },
-        models: CONFIG_MODELS
+        models: Object.fromEntries(
+          (presets.length > 0
+            ? presets
+            : [{ code: PREFERRED_DEFAULT, name: 'DeepSeek V4 Pro 0813' }]
+          ).map((preset) => [preset.code, { name: preset.name }])
+        )
       },
       { formattingOptions: { insertSpaces: true, tabSize: 2 } }
     )

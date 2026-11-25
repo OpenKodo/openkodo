@@ -18,7 +18,9 @@ describe('OpenCode provider config', () => {
     await mkdir(join(path, '..'), { recursive: true })
     await writeFile(path, JSON.stringify({ theme: 'dark', model: 'anthropic/claude' }, null, 2))
 
-    const result = await configureOpenCodeForOpenKodo('ok_live_test')
+    const result = await configureOpenCodeForOpenKodo('ok_live_test', [
+      { code: 'deepseek-v4.1-flash-1017', name: 'DeepSeek V4.1 Flash 1017' }
+    ])
     expect(result.ok).toBe(true)
 
     const config = JSON.parse(await readFile(path, 'utf8'))
@@ -38,7 +40,9 @@ describe('OpenCode provider config', () => {
     await mkdir(join(path, '..'), { recursive: true })
     await writeFile(path, '{ this is not json')
 
-    const result = await configureOpenCodeForOpenKodo('ok_live_test')
+    const result = await configureOpenCodeForOpenKodo('ok_live_test', [
+      { code: 'deepseek-v4.1-flash-1017', name: 'DeepSeek V4.1 Flash 1017' }
+    ])
     expect(result.ok).toBe(false)
     expect(await readFile(path, 'utf8')).toBe('{ this is not json')
   })

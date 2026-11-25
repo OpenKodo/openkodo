@@ -48,12 +48,17 @@ async function exchange(deviceCode: string): Promise<OpenKodoLoginState> {
     return { status: 'error', message: 'Could not complete sign-in.' }
   }
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the exchange endpoint is ours; missing fields are handled below
-  const body = (await res.json()) as { api_key?: string; plan?: string; user?: { email?: string } }
+  const body = (await res.json()) as {
+    api_key?: string
+    plan?: string
+    models?: { code: string; name: string }[]
+    user?: { email?: string }
+  }
   if (!body.api_key) {
     return { status: 'error', message: 'Sign-in did not return a key.' }
   }
   await saveOpenKodoKey(body.api_key)
-  const configured = await configureOpenCodeForOpenKodo(body.api_key)
+  const configured = await configureOpenCodeForOpenKodo(body.api_key, body.models ?? [])
   return {
     status: 'connected',
     email: body.user?.email ?? '',
