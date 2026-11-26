@@ -40,7 +40,7 @@ export async function resolveAgentConversation(
   if (isTerminalHandle(text)) {
     throw new AgentConversationRefusal(
       CODES.terminalHandle,
-      `${text} is a terminal handle, which changes when the terminal restarts. Use \`orca terminal …\` for it, or the agent's \`orca_session_id:\` from \`orca agent list\`.`
+      `${text} is a terminal handle, which changes when the terminal restarts. Use \`openkodo terminal …\` for it, or the agent's \`orca_session_id:\` from \`openkodo agent list\`.`
     )
   }
   const id = orcaSessionIdOf(text)
@@ -89,7 +89,7 @@ export async function resolveAgentConversation(
     // says nothing about whether the agent exists or where.
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `OpenKodo can't tell what ${text} names: no agent here has that ID, and this identity file can't look up provider conversation ids in the current version. Copy the agent's ID with Copy OpenKodo Session ID, or find it with \`orca agent list\`.`
+      `OpenKodo can't tell what ${text} names: no agent here has that ID, and this identity file can't look up provider conversation ids in the current version. Copy the agent's ID with Copy OpenKodo Session ID, or find it with \`openkodo agent list\`.`
     )
   }
   if (Array.isArray(linked) && linked.length > 0) {
@@ -102,7 +102,7 @@ export async function resolveAgentConversation(
       )
     : new AgentConversationRefusal(
         CODES.invalidId,
-        `${text || 'That'} is not an OpenKodo session ID. Find agents' IDs with \`orca agent list\`, or copy one with Copy OpenKodo Session ID.`
+        `${text || 'That'} is not an OpenKodo session ID. Find agents' IDs with \`openkodo agent list\`, or copy one with Copy OpenKodo Session ID.`
       )
 }
 

@@ -1,4 +1,4 @@
-// `orca drive|docs|sheets`: Drive, Docs and Sheets as the Google account the host has connected;
+// `openkodo drive|docs|sheets`: Drive, Docs and Sheets as the Google account the host has connected;
 // this reads the command's files and text here and prints the host's answer.
 import { basename } from 'node:path'
 import type {
@@ -91,7 +91,9 @@ async function pairs(flags: Flags, cwd: string) {
   }
   const replacement = flags.get('new')
   if (typeof replacement !== 'string') {
-    invalid('Give the exact old text and the new text: orca docs replace <doc> "<old>" "<new>".')
+    invalid(
+      'Give the exact old text and the new text: openkodo docs replace <doc> "<old>" "<new>".'
+    )
   }
   return [{ old: getRequiredStringFlag(flags, 'old'), new: replacement }]
 }
@@ -115,7 +117,7 @@ export const GOOGLE_FILES_HANDLERS: Record<string, CommandHandler> = {
     })
     const inFolder = getOptionalStringFlag(flags, 'in')
     const again = [
-      'orca drive search',
+      'openkodo drive search',
       ...(query ? [JSON.stringify(query)] : []),
       ...(inFolder ? [`--in ${JSON.stringify(inFolder)}`] : [])
     ]
@@ -131,7 +133,7 @@ export const GOOGLE_FILES_HANDLERS: Record<string, CommandHandler> = {
       ...(limit !== undefined ? { limit } : {})
     })
     printResult(result, json, (view) =>
-      formatDriveList(view, `orca drive list ${JSON.stringify(folder)}`)
+      formatDriveList(view, `openkodo drive list ${JSON.stringify(folder)}`)
     )
   },
   'drive read': async ({ flags, client, json, cwd }) => {

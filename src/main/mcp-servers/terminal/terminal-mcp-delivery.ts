@@ -28,7 +28,7 @@ import { writeTerminalMcpLaunchFile, wslGuestDrivePath } from './terminal-mcp-la
 
 /** One terminal launch, with the servers it gets already shaped for a terminal. */
 export type TerminalMcpLaunch = {
-  /** Relayed ones carry `RELAY_AUTHORIZATION`; command servers with saved env run through `orca mcp exec`. */
+  /** Relayed ones carry `RELAY_AUTHORIZATION`; command servers with saved env run through `openkodo mcp exec`. */
   servers: readonly BotToolServer[]
   /** The relay token, when one of `servers` goes through the relay. */
   token: string | null

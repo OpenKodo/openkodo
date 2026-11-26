@@ -10,7 +10,7 @@ import { NativeChatComposerField } from '../../../composer/editor/NativeChatComp
 import { FloatingTerminalToggleButton } from '../../../../floating-terminal/trigger/FloatingTerminalToggleButton'
 import { FLOATING_TERMINAL_TRIGGER_POSITION_STORAGE_KEY } from '../../../../floating-terminal/trigger/floating-terminal-trigger-position'
 
-// A bot's Home Chat that started three workers with `orca orchestration worker-start`.
+// A bot's Home Chat that started three workers with `openkodo orchestration worker-start`.
 const SOURCE = '6c3f8e4a-ad5b-4a9c-9e37-2f4d8a0b3c59'
 const minutes = (count: number) => Date.now() - count * 60_000
 

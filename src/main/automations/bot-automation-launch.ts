@@ -41,7 +41,7 @@ export type BotAutomationSessions = {
       actsFor: BotConversationActsFor
     }
   ): Promise<BotRunSend>
-  /** One of the bot's chats by its id from `orca bot chats`; when it is gone, the bot's Chat with
+  /** One of the bot's chats by its id from `openkodo bot chats`; when it is gone, the bot's Chat with
    *  `homeIfGone`, else refused. */
   sendToBotChat(
     bot: Bot,

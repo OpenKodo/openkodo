@@ -48,7 +48,7 @@ const isWindows = process.platform === 'win32'
 it.skipIf(!isWindows)(
   'runs npm Codex past a policy-blocked shim with its args, stdin and exit code',
   async () => {
-    const root = await mkdtemp(join(tmpdir(), 'orca npm codex '))
+    const root = await mkdtemp(join(tmpdir(), 'openkodo npm codex '))
     try {
       const bin = join(root, 'node_modules', '@openai', 'codex', 'bin')
       await mkdir(bin, { recursive: true })

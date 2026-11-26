@@ -81,7 +81,7 @@ async function chatForItem(
   if (record.ownerBotId !== bot.id) {
     throw new OrchestrationError(
       'invalid_argument',
-      `Item ${record.number} is not ${bot.name}'s, so pick one that \`orca bot item list --bot "${bot.name}"\` lists.`
+      `Item ${record.number} is not ${bot.name}'s, so pick one that \`openkodo bot item list --bot "${bot.name}"\` lists.`
     )
   }
   const owning = runtime.botItems.owningChat(record)
@@ -108,13 +108,13 @@ export async function botChatAddress(
 ): Promise<OrcaSessionAddress> {
   const bot = addressedBot(runtime, to, '--chat')
   await runtime.ensureStructuredAgentSessionHost().catch(() => undefined)
-  // `orca bot chats` prints `chat:<id>`; the bare id and a session address name it too.
+  // `openkodo bot chats` prints `chat:<id>`; the bare id and a session address name it too.
   const id = chat.startsWith('chat:') ? chat.slice('chat:'.length) : chat
   const sessionId = parseOrcaSessionAddress(id) ?? (isOrcaSessionId(id) ? id : null)
   if (!sessionId || botOfSession(runtime.bots, sessionId)?.id !== bot.id) {
     return refuse({
       code: 'bot_chat_not_found',
-      message: `${bot.name} has no chat ${chat}, so pick one that \`orca bot chats --bot "${bot.name}"\` lists.`
+      message: `${bot.name} has no chat ${chat}, so pick one that \`openkodo bot chats --bot "${bot.name}"\` lists.`
     })
   }
   return formatOrcaSessionAddress(sessionId)

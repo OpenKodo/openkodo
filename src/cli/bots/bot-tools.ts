@@ -1,4 +1,4 @@
-// `orca bot tools`: a bot's own tools (MCP servers) beside the ones it gets from its owner's agent.
+// `openkodo bot tools`: a bot's own tools (MCP servers) beside the ones it gets from its owner's agent.
 import { createInterface } from 'node:readline'
 import { BOTS_TOOLS_OWNED_SIGN_IN_RUNTIME_CAPABILITY } from '../../shared/bot-runtime-capabilities'
 import type { BotOwnTool, BotToolProblem, BotTools } from '../../shared/bot-tools'
@@ -29,7 +29,7 @@ async function target(context: Pick<HandlerContext, 'flags' | 'client'>) {
 
 const problemText = (problem: BotToolProblem): string =>
   problem.kind === 'sign-in'
-    ? 'needs sign-in: `orca bot tools connect <name>`'
+    ? 'needs sign-in: `openkodo bot tools connect <name>`'
     : problem.kind === 'unconfirmed'
       ? 'native connection not confirmed'
       : `won't start${problem.detail ? `: ${problem.detail}` : ''}`
@@ -165,8 +165,8 @@ export async function runRemoteBotToolSignIn(
       return relayPastedAddresses(ctx, view, input)
     },
     interrupted: {
-      finished: `Interrupted, but ${name} had already signed in. See it with \`orca bot tools\`.`,
-      unconfirmed: `Interrupted, and ${host} didn't confirm the sign-in stopped. Run \`orca bot tools\` to check.`
+      finished: `Interrupted, but ${name} had already signed in. See it with \`openkodo bot tools\`.`,
+      unconfirmed: `Interrupted, and ${host} didn't confirm the sign-in stopped. Run \`openkodo bot tools\` to check.`
     }
   })
   if (done.phase !== 'signedIn') {
@@ -212,7 +212,7 @@ export const BOT_TOOLS_HANDLERS: Record<string, CommandHandler> = {
     })
     printResult(result, json, ({ tool }) =>
       tool.remote
-        ? `Added ${tool.name}. If it needs a sign-in: \`orca bot tools connect ${tool.name}\`.`
+        ? `Added ${tool.name}. If it needs a sign-in: \`openkodo bot tools connect ${tool.name}\`.`
         : `Added ${tool.name}.`
     )
   },
@@ -234,7 +234,7 @@ export const BOT_TOOLS_HANDLERS: Record<string, CommandHandler> = {
         if (finish) {
           throw new RuntimeClientError(
             'invalid_argument',
-            `Run \`orca bot tools connect ${name}\` and paste the address when it asks.`
+            `Run \`openkodo bot tools connect ${name}\` and paste the address when it asks.`
           )
         }
         await runRemoteBotToolSignIn(ctx, bot, name)
@@ -260,7 +260,7 @@ export const BOT_TOOLS_HANDLERS: Record<string, CommandHandler> = {
     )
     printResult(result, json, ({ authorizationUrl }) =>
       authorizationUrl
-        ? `Ask your owner to open this page and sign in to ${name}:\n${authorizationUrl}\nIf their browser then shows a page that can't load, finish with \`orca bot tools connect ${name} --finish <that address>\`.`
+        ? `Ask your owner to open this page and sign in to ${name}:\n${authorizationUrl}\nIf their browser then shows a page that can't load, finish with \`openkodo bot tools connect ${name} --finish <that address>\`.`
         : `The sign-in page for ${name} opened in the browser.`
     )
   }

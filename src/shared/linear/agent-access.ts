@@ -38,7 +38,7 @@ export const LINEAR_ERROR_CODES = [
   'linear_auth_expired',
   'linear_network_error',
   'linear_partial',
-  // A bot's comment on the issue that woke it, which it answers with `orca bot reply`.
+  // A bot's comment on the issue that woke it, which it answers with `openkodo bot reply`.
   'linear_waking_issue'
 ] as const
 

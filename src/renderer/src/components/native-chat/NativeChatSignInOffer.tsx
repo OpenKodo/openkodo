@@ -1,4 +1,4 @@
-// The Sign in card a bot asks for with `orca bot connectors --offer <source> --sign-in` (and a webhook
+// The Sign in card a bot asks for with `openkodo bot connectors --offer <source> --sign-in` (and a webhook
 // offer): this computer's own sign-in, or a paired server's, and Continue once the bot's events can
 // reach it.
 import { Check } from 'lucide-react'

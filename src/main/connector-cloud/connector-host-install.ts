@@ -1,4 +1,4 @@
-// The connector and what moves with it, on any host: the desktop app, Electron `orca serve` and orcad.
+// The connector and what moves with it, on any host: the desktop app, Electron `openkodo serve` and orcad.
 import { BotAvatarSync } from './bot-avatar-sync'
 import { withBotsCloudClient } from './bots-cloud-client'
 import { createConnectorCloud } from './connector-cloud-install'

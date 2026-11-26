@@ -31,7 +31,7 @@ export abstract class UpdaterMacInstallPreflight extends UpdaterPackageRecovery 
         version: pendingVersion,
         retryAction: 'install',
         message:
-          'Could not check for other running OpenKodo instances. OpenKodo remains open. Try again. If the check keeps failing, close the other OpenKodo instances and background orca serve servers, then quit OpenKodo to let the update install on exit. Reopen OpenKodo afterwards.'
+          'Could not check for other running OpenKodo instances. OpenKodo remains open. Try again. If the check keeps failing, close the other OpenKodo instances and background openkodo serve servers, then quit OpenKodo to let the update install on exit. Reopen OpenKodo afterwards.'
       })
       recordUpdaterLifecycle('macos_running_instances_check_failed')
       return false

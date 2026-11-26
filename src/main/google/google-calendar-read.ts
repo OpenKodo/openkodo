@@ -1,4 +1,4 @@
-// Calendar reads for `orca calendar list|get`: events in a window (today and tomorrow by default,
+// Calendar reads for `openkodo calendar list|get`: events in a window (today and tomorrow by default,
 // in the calendar's own time zone), one event in full, or the calendars there are. Repeating events
 // come back as single occurrences.
 import { z } from 'zod'
@@ -97,7 +97,7 @@ export function parseCalendarEventRef(
     return { calendarId: calendar, eventId: trimmed }
   }
   throw new GoogleToolError(
-    `"${trimmed.slice(0, 80)}" isn't an event id. Use the calendar:…:event:… ref \`orca calendar list\` prints.`
+    `"${trimmed.slice(0, 80)}" isn't an event id. Use the calendar:…:event:… ref \`openkodo calendar list\` prints.`
   )
 }
 
@@ -117,7 +117,7 @@ export async function pickCalendar(
     )
     if (!entry) {
       throw new GoogleToolError(
-        `${api.email} has no calendar ${id}. \`orca calendar list --calendars\` lists them.`
+        `${api.email} has no calendar ${id}. \`openkodo calendar list --calendars\` lists them.`
       )
     }
     return entry
@@ -130,7 +130,7 @@ export async function pickCalendar(
   }
   throw new GoogleToolError(
     matches.length === 0
-      ? `No calendar is named "${id}". \`orca calendar list --calendars\` lists them.`
+      ? `No calendar is named "${id}". \`openkodo calendar list --calendars\` lists them.`
       : `Several calendars are named "${id}"; pass one's id: ${matches.map((entry) => entry.id).join(', ')}.`
   )
 }

@@ -260,7 +260,7 @@ export const ACCOUNT_HANDLERS: Record<string, CommandHandler> = {
         `Unsupported --agent "${agent}". Use "claude", "codex", "opencode", or "devin".`
       )
     }
-    rejectAccountRemoteSelectionFlags(ctx, 'orca account add')
+    rejectAccountRemoteSelectionFlags(ctx, 'openkodo account add')
     rejectOpenCodeLoginFlagsForAgent(ctx, agent)
     if (agent === 'opencode' || agent === 'devin') {
       await addDataAccount(ctx, agent, runAgentLoginInTerminal)
@@ -272,7 +272,7 @@ export const ACCOUNT_HANDLERS: Record<string, CommandHandler> = {
     await (agent === 'claude' ? addClaudeAccount(ctx) : addCodexAccount(ctx))
   },
   'account list': async (ctx) => {
-    rejectAccountRemoteSelectionFlags(ctx, 'orca account list')
+    rejectAccountRemoteSelectionFlags(ctx, 'openkodo account list')
     const provider = ctx.flags.get('agent')
     if (provider !== undefined) {
       await listAgentAccounts(ctx, provider)
@@ -299,11 +299,11 @@ export const ACCOUNT_HANDLERS: Record<string, CommandHandler> = {
     )
   },
   'account select': async (ctx) => {
-    rejectAccountRemoteSelectionFlags(ctx, 'orca account select')
+    rejectAccountRemoteSelectionFlags(ctx, 'openkodo account select')
     await selectAgentAccount(ctx)
   },
   'account rm': async (ctx) => {
-    rejectAccountRemoteSelectionFlags(ctx, 'orca account rm')
+    rejectAccountRemoteSelectionFlags(ctx, 'openkodo account rm')
     await removeAgentAccount(ctx)
   }
 }

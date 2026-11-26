@@ -150,7 +150,7 @@ function bot(memory: string) {
     read: () => files.get(MEMORY) ?? '',
     write: (text: string) => files.set(MEMORY, text),
     remove: () => files.delete(MEMORY),
-    /** Forget, as Settings runs it, or as a chat's own `orca bot memory forget` does. */
+    /** Forget, as Settings runs it, or as a chat's own `openkodo bot memory forget` does. */
     forget: (fact: string, sessionId?: string) =>
       record.forget(
         'bot-1',
@@ -508,7 +508,7 @@ describe('a chat hears of MEMORY.md edited outside it', () => {
     const forgetCommand: AgentJournalItemBody = {
       kind: 'tool-call',
       name: 'Bash',
-      input: { command: 'orca bot memory forget --fact "owner fact"' },
+      input: { command: 'openkodo bot memory forget --fact "owner fact"' },
       state: 'completed'
     }
     expect(await forget('owner fact', 's1')).toBe(true)

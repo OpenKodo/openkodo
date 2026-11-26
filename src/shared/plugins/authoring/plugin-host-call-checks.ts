@@ -248,7 +248,7 @@ export async function pluginHostCallFindings(
     if (spec === null) {
       failure = `${call.file}: calls host method "${call.name}", which OpenKodo's ${thisHostApi} does not have; it is unreleased or misspelled`
     } else if (spec.proposed) {
-      failure = `${call.file}: calls proposed host method "${call.name}"; only development plugins (orca plugin dev) may call it until it is released`
+      failure = `${call.file}: calls proposed host method "${call.name}"; only development plugins (openkodo plugin dev) may call it until it is released`
     }
     if (failure !== null && guardWorks && guarded.has(call.name)) {
       warnings.push(`${failure}; the orca.host.has('${call.name}') guard skips it`)

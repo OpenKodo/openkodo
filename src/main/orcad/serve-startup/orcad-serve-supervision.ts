@@ -1,4 +1,4 @@
-// `orca serve --supervise` runs orcad under a service manager, which restarts it routinely.
+// `openkodo serve --supervise` runs orcad under a service manager, which restarts it routinely.
 import process from 'node:process'
 import { OPENKODO_SERVE_SUPERVISED_ENV } from '../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
 

@@ -135,7 +135,7 @@ export async function deliverAndSettleWorkerStartReadiness(args: {
       timeoutMs: args.timeoutMs,
       effects,
       residualResources: [],
-      nextCommands: [`orca orchestration worker-show --dispatch ${args.dispatchId} --json`],
+      nextCommands: [`openkodo orchestration worker-show --dispatch ${args.dispatchId} --json`],
       next: `Worker ${terminalHandle} (Dispatch ${args.dispatchId}) is live, but its agent hasn't finished starting. OpenKodo holds the task and hands it over once the agent is up; the worker then runs it and reports as usual. If the start fails, or the agent isn't up within ${agentStartCeilingText()}, OpenKodo sends you an error report. Sending the task again would run it twice once the agent is up.`,
       ...(args.terminalRevealWarning ? { warning: args.terminalRevealWarning } : {})
     }
@@ -182,12 +182,12 @@ export async function deliverAndSettleWorkerStartReadiness(args: {
       ...(deliveredPrompt ? { prompt: deliveredPrompt } : {}),
       residualResources: JSON.parse(worker.residual_resources) as unknown[],
       nextCommands: [
-        `orca orchestration worker-show --dispatch ${args.dispatchId} --json`,
+        `openkodo orchestration worker-show --dispatch ${args.dispatchId} --json`,
         // A structured worker or a chat has no screen to read.
         ...(structuredSession || chatAssigneeSessionId(terminalHandle)
           ? []
-          : [`orca terminal read --terminal ${terminalHandle} --screen`]),
-        `orca orchestration worker-abandon --dispatch ${args.dispatchId} --json`
+          : [`openkodo terminal read --terminal ${terminalHandle} --screen`]),
+        `openkodo orchestration worker-abandon --dispatch ${args.dispatchId} --json`
       ],
       ...(args.terminalRevealWarning ? { warning: args.terminalRevealWarning } : {})
     }

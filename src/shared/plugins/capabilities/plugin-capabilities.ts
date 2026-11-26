@@ -33,7 +33,7 @@ export const PLUGIN_CAPABILITY_KINDS = [
 
 export type PluginCapabilityKind = (typeof PLUGIN_CAPABILITY_KINDS)[number]
 
-/** The release each capability arrived in; engines.orca must cover every one a plugin asks for. */
+/** The release each capability arrived in; engines.openkodo must cover every one a plugin asks for. */
 export const PLUGIN_CAPABILITY_SINCE: Record<PluginCapabilityKind, string> = {
   'workspace:read': PLUGIN_SCHEMA_SINCE_V1,
   'workspace:write': PLUGIN_HOST_ACTIONS_SINCE,

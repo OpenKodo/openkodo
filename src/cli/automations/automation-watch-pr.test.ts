@@ -26,7 +26,7 @@ afterEach(() => {
 
 type Host = { github?: unknown; ciFinished?: boolean }
 
-/** The `automation.create` params `orca automations watch-pr <argv>` sends a host whose bot has
+/** The `automation.create` params `openkodo automations watch-pr <argv>` sends a host whose bot has
  *  GitHub, on an OpenKodo Cloud that sends github.ci_finished unless the host says otherwise. */
 async function watchPr(argv: string[], host: Host = {}): Promise<Record<string, unknown>> {
   vi.useFakeTimers({ now: NOW, toFake: ['Date'] })

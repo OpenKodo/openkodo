@@ -1,4 +1,4 @@
-// What an import brought over (`orca bot import done`), as the desktop's card: each thing made, with Open
+// What an import brought over (`openkodo bot import done`), as the desktop's card: each thing made, with Open
 // where the phone has its page, what stayed in the old app, and when to turn the paused automations on.
 import { Pressable, Text, View } from 'react-native'
 import { Check, ChevronRight, CirclePause } from 'lucide-react-native'

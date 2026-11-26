@@ -188,7 +188,9 @@ function formatLegacyAwareCheckMessages(
           replyTarget.startsWith('run:') || replyTarget.startsWith('dispatch:')
             ? ''
             : ` --from ${replyTarget}`
-        lines.push(`[Reply: orca orchestration reply --id ${message.id}${replyFrom} --body "..."]`)
+        lines.push(
+          `[Reply: openkodo orchestration reply --id ${message.id}${replyFrom} --body "..."]`
+        )
       }
       if (!legacyReadOnly && message.for_item) {
         lines.push(

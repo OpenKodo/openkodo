@@ -5,7 +5,7 @@ export const ORCHESTRATION_SESSION_WORKERS_METHOD = 'orchestration.sessionWorker
 /** A result line is a glance, not the report; the full text stays in `worker-show`. */
 export const ORCHESTRATION_SESSION_WORKER_SUMMARY_MAX = 280
 
-/** How far a chat reads back; older workers stay in `orca orchestration worker-list`. */
+/** How far a chat reads back; older workers stay in `openkodo orchestration worker-list`. */
 export const ORCHESTRATION_SESSION_WORKERS_LIMIT = 50
 
 /** The Dispatch's lifecycle, never the agent's own state: `working` is an open Dispatch whose

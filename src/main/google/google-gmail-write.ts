@@ -1,4 +1,4 @@
-// Gmail writes for `orca gmail draft|send|archive|label|mark-read`. Mail is drafted first and sent
+// Gmail writes for `openkodo gmail draft|send|archive|label|mark-read`. Mail is drafted first and sent
 // as its own step; a reply stays in its thread, and a revised draft keeps what it doesn't change.
 import { z } from 'zod'
 import type {
@@ -37,7 +37,7 @@ export function parseDraftRef(ref: string): string {
   const id = /^gmail:draft:([A-Za-z0-9_-]+)$/.exec(trimmed)?.[1] ?? trimmed
   if (!/^[A-Za-z0-9_-]+$/.test(id)) {
     throw new GoogleToolError(
-      `"${trimmed.slice(0, 80)}" isn't a draft id. Use the gmail:draft:… ref \`orca gmail draft\` prints.`
+      `"${trimmed.slice(0, 80)}" isn't a draft id. Use the gmail:draft:… ref \`openkodo gmail draft\` prints.`
     )
   }
   return id
@@ -152,7 +152,7 @@ export async function sendGmailDraft(api: GoogleApi, ref: string): Promise<Gmail
   )
   if (!draft) {
     throw new GoogleToolError(
-      'That draft is gone: it was already sent or deleted. `orca gmail search "in:sent"` shows what went out.'
+      'That draft is gone: it was already sent or deleted. `openkodo gmail search "in:sent"` shows what went out.'
     )
   }
   const to = splitAddresses(header(draft.message, 'To'))
@@ -160,7 +160,7 @@ export async function sendGmailDraft(api: GoogleApi, ref: string): Promise<Gmail
   const bcc = splitAddresses(header(draft.message, 'Bcc'))
   if (to.length + cc.length + bcc.length === 0) {
     throw new GoogleToolError(
-      'That draft has no recipients. Add them with `orca gmail draft --draft <ref> --to …`.'
+      'That draft has no recipients. Add them with `openkodo gmail draft --draft <ref> --to …`.'
     )
   }
   const sent = await api.send(

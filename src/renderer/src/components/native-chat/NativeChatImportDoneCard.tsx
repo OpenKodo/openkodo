@@ -1,4 +1,4 @@
-// What an import brought over (`orca bot import done`): each thing created, with a way to open it, what stayed
+// What an import brought over (`openkodo bot import done`): each thing created, with a way to open it, what stayed
 // in the old app, and when to turn the paused automations on.
 import { Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'

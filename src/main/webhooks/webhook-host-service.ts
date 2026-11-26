@@ -1,5 +1,5 @@
 // This host's webhooks: its hooks' lifecycle, its calls' runs, and the reads the card, row and
-// `orca webhooks` make. Everything runs here, on the bot's execution host, never on a viewer.
+// `openkodo webhooks` make. Everything runs here, on the bot's execution host, never on a viewer.
 import type { WebhookFilters } from '../../../cloud/packages/connector-contract/src/webhook-matcher'
 import {
   automationWebhookTrigger,

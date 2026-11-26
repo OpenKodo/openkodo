@@ -27,7 +27,7 @@ export type PluginDevRequestResult = { pluginKey: string; name: string; result: 
 export const PLUGIN_DEV_REQUEST_PANEL_ID = 'orca-cli'
 
 const LOGS_HINT =
-  'Worker errors appear in `orca plugin logs <plugin-key>` and `orca plugin dev watch`.'
+  'Worker errors appear in `openkodo plugin logs <plugin-key>` and `openkodo plugin dev watch`.'
 
 function requestNextStep(code: PluginErrorCode, name: string): string {
   if (code === 'unknown_method') {
@@ -42,7 +42,7 @@ function requestNextStep(code: PluginErrorCode, name: string): string {
   return code === 'too_large' ? 'Answer with less than 1 MiB of JSON.' : LOGS_HINT
 }
 
-/** `orca plugin dev request`: one `plugin.request` through the real panel → worker bridge. */
+/** `openkodo plugin dev request`: one `plugin.request` through the real panel → worker bridge. */
 export async function requestPluginDevPanelHandler(input: {
   service: PluginDevRequestService
   target: PluginDevFolderTarget
@@ -64,7 +64,7 @@ export async function requestPluginDevPanelHandler(input: {
       PLUGIN_INVALID_CODE,
       'That plugin is invalid, so its worker cannot run.',
       {
-        nextSteps: ['Run `orca plugin validate <dir>` and fix the manifest.']
+        nextSteps: ['Run `openkodo plugin validate <dir>` and fix the manifest.']
       }
     )
   }
@@ -74,13 +74,13 @@ export async function requestPluginDevPanelHandler(input: {
     throw new PluginCliError(
       'invalid_argument',
       `${key} is not approved and enabled, so its worker cannot run.`,
-      { nextSteps: ['Run `orca plugin dev load <dir>` and approve it with `--approve`.'] }
+      { nextSteps: ['Run `openkodo plugin dev load <dir>` and approve it with `--approve`.'] }
     )
   }
   if (!plugin.manifest.main) {
     throw new PluginCliError('invalid_argument', `${key} has no worker to answer ${name}.`, {
       nextSteps: [
-        'Add "main" (a trusted-worker plugin) whose activate(orca) calls orca.panels.handle; `orca plugin create --template worker-panel` scaffolds one.'
+        'Add "main" (a trusted-worker plugin) whose activate(orca) calls orca.panels.handle; `openkodo plugin create --template worker-panel` scaffolds one.'
       ]
     })
   }

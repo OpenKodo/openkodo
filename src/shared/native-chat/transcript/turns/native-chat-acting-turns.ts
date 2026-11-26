@@ -2,7 +2,7 @@ import type { NativeChatMessage } from '../../native-chat-types'
 import { isQuietBotResult, quietBotResultText } from '../../../bot-quiet-result'
 import { nativeChatBotMessageCardOf } from '../../bot-cards/native-chat-bot-card-kind'
 
-// The orca and gh invocations that post where someone else reads them.
+// The openkodo and gh invocations that post where someone else reads them.
 const POSTS =
   /(?:\borca\}?"?\s+(?:slack\s+(?:post|attach)|bot\s+reply|linear\s+(?:comment|create|save-issue))|\bgh\s+(?:pr|issue)\s+(?:comment|review|create))\b/
 

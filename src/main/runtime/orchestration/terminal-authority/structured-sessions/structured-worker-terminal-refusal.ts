@@ -15,8 +15,8 @@ export function structuredWorkerTerminalRefusal(
   if (resolveStructuredWorkerAuthority(handle, db)) {
     return agentSessionRefusal(
       `${handle} is a chat worker, not a terminal, so it takes no typed input. ` +
-        `Send it work with \`orca orchestration send --to ${handle} --subject "<topic>" --body "<message>"\`, ` +
-        'read its recent output with `orca orchestration worker-read --dispatch <dispatch_id>` (or `orca terminal read`), ' +
+        `Send it work with \`openkodo orchestration send --to ${handle} --subject "<topic>" --body "<message>"\`, ` +
+        'read its recent output with `openkodo orchestration worker-read --dispatch <dispatch_id>` (or `openkodo terminal read`), ' +
         'and open it from its chat tab.'
     )
   }
@@ -24,7 +24,7 @@ export function structuredWorkerTerminalRefusal(
   if (parseOrcaSessionAddress(handle)) {
     return agentSessionRefusal(
       `${handle} is a chat session, not a terminal, so terminal commands cannot address it. ` +
-        `Message it with \`orca orchestration send --to ${handle} --subject "<topic>" --body "<message>"\`.`
+        `Message it with \`openkodo orchestration send --to ${handle} --subject "<topic>" --body "<message>"\`.`
     )
   }
   return new Error(TERMINAL_HANDLE_STALE)

@@ -21,7 +21,7 @@ export async function resetServeHostIdentity(userDataPath: string): Promise<void
   if (result.status === 'running') {
     throw new RuntimeClientError(
       'runtime_running',
-      `Stop OpenKodo (the desktop app or \`orca serve\`) for ${userDataPath} first. ${result.message}`
+      `Stop OpenKodo (the desktop app or \`openkodo serve\`) for ${userDataPath} first. ${result.message}`
     )
   }
   if (result.status === 'failed') {
@@ -43,7 +43,7 @@ export const SERVE_RESET_IDENTITY_HANDLERS: Record<string, CommandHandler> = {
       if (!confirm) {
         throw new RuntimeClientError(
           'confirmation_required',
-          `${RESET_WARNING} Run \`orca serve reset-identity --yes\` to continue.`
+          `${RESET_WARNING} Run \`openkodo serve reset-identity --yes\` to continue.`
         )
       }
       if (!(await confirm(`${RESET_WARNING}\nReset ${userDataPath}? [y/N] `))) {

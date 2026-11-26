@@ -233,7 +233,7 @@ function lifecycleRefusal(args: {
       ? {
           code: 'sender_not_assignee',
           reason:
-            'No active Dispatch belongs to this message sender. Send --type status instead; `orca orchestration gate-create` only blocks a Task in a Run you coordinate.'
+            'No active Dispatch belongs to this message sender. Send --type status instead; `openkodo orchestration gate-create` only blocks a Task in a Run you coordinate.'
         }
       : null
   }

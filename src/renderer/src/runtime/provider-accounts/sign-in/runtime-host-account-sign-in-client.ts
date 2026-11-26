@@ -129,7 +129,7 @@ async function follow(attempt: Attempt): Promise<HostAccountSignInStatus> {
     throw new Error(
       attempt.accountId
         ? 'This server runs an older OpenKodo that cannot re-authenticate accounts from here. Update OpenKodo on that server, or remove the account and add it again.'
-        : 'This server runs an older OpenKodo that cannot add accounts from here. Update OpenKodo on that server, or run `orca account add` in a terminal there.'
+        : 'This server runs an older OpenKodo that cannot add accounts from here. Update OpenKodo on that server, or run `openkodo account add` in a terminal there.'
     )
   }
   if (attempt.cancelRequested) {

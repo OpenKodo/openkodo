@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS provider_links(
 
 const SELECT_LINK = `SELECT orca_session_id FROM provider_links
   WHERE execution_host = ? AND wsl_distro = ? AND agent = ? AND provider_session_id = ? AND locator = ?`
-// Reverse lookups for `orca agent` reads: indexes only, so older builds open the file unchanged.
+// Reverse lookups for `openkodo agent` reads: indexes only, so older builds open the file unchanged.
 const LOOKUP_INDEX_SQL = `CREATE INDEX IF NOT EXISTS provider_links_by_orca_session
   ON provider_links(orca_session_id);
 CREATE INDEX IF NOT EXISTS provider_links_by_provider_session

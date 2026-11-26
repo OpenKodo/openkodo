@@ -40,7 +40,7 @@ export class HostAccountSignInFlows extends CallerOwnedSignInFlows<
           ? null
           : accountId
             ? 'Signing in again from another device is not available on Windows hosts yet. Sign in again on that host.'
-            : 'Adding accounts from another device is not available on Windows hosts yet. Run `orca account add` in a terminal on that host.',
+            : 'Adding accounts from another device is not available on Windows hosts yet. Run `openkodo account add` in a terminal on that host.',
       startKey: (accountId) => accountId,
       acceptsPrompt: (provider, prompt) => isHostAccountSignInPage(provider, prompt.url),
       acceptsCode: (prompt) => prompt?.needsCode === true,

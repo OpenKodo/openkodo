@@ -117,7 +117,7 @@ export function mount(
   return mountPanel(target, { ...options, host: options.host ?? mockHost() })
 }
 
-/** Scenarios for `orca plugin check`: export them as the default of `<entry>.check.ts` beside the
+/** Scenarios for `openkodo plugin check`: export them as the default of `<entry>.check.ts` beside the
  *  panel. Check renders the panel once per scenario, each on its own mock host. */
 export function defineCheck<S extends Record<string, Record<string, unknown>>>(scenarios: S): S {
   return scenarios

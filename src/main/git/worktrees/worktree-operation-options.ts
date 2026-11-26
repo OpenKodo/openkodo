@@ -105,7 +105,7 @@ export function worktreeAddTimeoutMessage(timeoutMs: number): string {
   if (timeoutMs >= WORKTREE_ADD_TIMEOUT_MAX_MS) {
     return stopped
   }
-  return `${stopped} To allow more time, set OPENKODO_WORKTREE_ADD_TIMEOUT_MS (milliseconds, up to ${WORKTREE_ADD_TIMEOUT_MAX_MS}) in the environment that starts OpenKodo on the machine running Git (the remote host for SSH or \`orca serve\` workspaces), then restart OpenKodo there.`
+  return `${stopped} To allow more time, set OPENKODO_WORKTREE_ADD_TIMEOUT_MS (milliseconds, up to ${WORKTREE_ADD_TIMEOUT_MAX_MS}) in the environment that starts OpenKodo on the machine running Git (the remote host for SSH or \`openkodo serve\` workspaces), then restart OpenKodo there.`
 }
 
 export type GitExecOptionsForWorktree = {

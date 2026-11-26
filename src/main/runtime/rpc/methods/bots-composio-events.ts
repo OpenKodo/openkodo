@@ -30,7 +30,7 @@ export const BOT_COMPOSIO_EVENTS_METHODS = [
       const automation = webhooksOf(context.runtime).automationOf(params.hookId)
       if (automation.bot?.botId !== bot.id) {
         throw new InvalidArgumentError(
-          'That webhook isn’t one of yours. `orca webhooks list` lists them.'
+          'That webhook isn’t one of yours. `openkodo webhooks list` lists them.'
         )
       }
       const type = await bots.withKey((api) => api.triggerType(params.trigger))

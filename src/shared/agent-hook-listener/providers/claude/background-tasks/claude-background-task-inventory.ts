@@ -43,7 +43,7 @@ export function readClaudeBackgroundAgentTasks(hookPayload: Record<string, unkno
   hasRunningNonAgentTask: boolean
   /** Ids of the running shell-like entries; one without an id is counted but not listed. */
   runningNonAgentTaskIds: string[]
-  /** Running shells blocked on `orca orchestration check --wait`, which recovers them after a listener restart. */
+  /** Running shells blocked on `openkodo orchestration check --wait`, which recovers them after a listener restart. */
   runningAgentWaitIds: string[]
   /** What each running shell-like entry runs (its command, else its description), except worker waits. */
   runningNonAgentTaskCommands: string[]

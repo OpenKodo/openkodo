@@ -1,5 +1,5 @@
 // Where a bot's Google setup is stuck, and the one thing the owner can press to move it on. The setup
-// cards draw it and `orca bot google-setup show` prints it, so the bot names only buttons that exist.
+// cards draw it and `openkodo bot google-setup show` prints it, so the bot names only buttons that exist.
 import type { GoogleAccountView, GoogleStatusView } from './google-connect-types'
 import { GOOGLE_CHOICE_SERVICES, type GoogleServiceChoice } from './google-scopes'
 import {

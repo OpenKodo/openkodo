@@ -1,9 +1,9 @@
 // The host list's servers for an agent in a WSL distro. The guest can't reach Windows loopback, and
 // its `orca` is a bridge to the Windows CLI, so a server that needs OpenKodo goes through that CLI:
 // - one through the relay (saved headers, OpenKodo's sign-in, or a shared process) runs as
-//   `orca mcp connect`, which bridges its stdio to the relay on Windows;
+//   `openkodo mcp connect`, which bridges its stdio to the relay on Windows;
 // - a command server with saved env runs in the guest, under a wrapper that reads the env from
-//   `orca mcp env` over a pipe and execs the command, so no value sits on argv or in history.
+//   `openkodo mcp env` over a pipe and execs the command, so no value sits on argv or in history.
 import type { BotToolServer } from '../../../shared/bot-tools'
 import { mcpEnvWrapperCommand } from '../../../shared/mcp-servers/mcp-env-pairs'
 import { getAppEnvironment, hasAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
@@ -58,7 +58,7 @@ export type WslServerLaunch = {
   launcher: string | null
 }
 
-/** `orca mcp connect <id>` in the guest, naming the launch's workspace outright as the env wrapper
+/** `openkodo mcp connect <id>` in the guest, naming the launch's workspace outright as the env wrapper
  *  does, so both resolve it the same way (mcp-caller-workspace.ts). */
 export function wslConnectServer(
   entry: McpLaunchEntry,

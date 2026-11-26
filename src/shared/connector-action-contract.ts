@@ -32,7 +32,7 @@ export const CONNECTOR_ACTION_VERBS = [
 export type ConnectorActionVerb =
   | (typeof CONNECTOR_ACTION_VERBS)[number]
   | 'capabilities'
-  // A reply's file into the thread that woke the run (`orca bot reply --file`).
+  // A reply's file into the thread that woke the run (`openkodo bot reply --file`).
   | 'reply'
   // Sent only to a cloud listing `places`.
   | 'places'
@@ -41,9 +41,9 @@ export type ConnectorActionVerb =
 const WORKSPACE_REF = /^[a-z]+:[^:\s]+:workspace$/
 export const isConnectorWorkspaceRef = (value: string): boolean => WORKSPACE_REF.test(value.trim())
 
-// The most files one `orca bot reply` posts with its words.
+// The most files one `openkodo bot reply` posts with its words.
 export const CONNECTOR_REPLY_MAX_FILES = 10
-// The most buttons one `orca bot reply` offers, and the longest label each takes (Slack's own cap).
+// The most buttons one `openkodo bot reply` offers, and the longest label each takes (Slack's own cap).
 export const CONNECTOR_REPLY_MAX_CHOICES = 10
 export const CONNECTOR_REPLY_CHOICE_MAX_CHARS = 75
 
@@ -118,7 +118,7 @@ export const ConnectorActionArgs = z
     stream: z.literal(true).optional(),
     // find: each match as what a rule or result names; sent only to a cloud listing `refs`.
     of: z.enum(['place', 'subject']).optional(),
-    // find: the workspace (a ref from `orca bot connectors`) to look a person up in.
+    // find: the workspace (a ref from `openkodo bot connectors`) to look a person up in.
     workspace: z.string().min(1).max(2048).optional(),
     // find: what in a place matches words and filters; sent only to a cloud listing `find.search`.
     search: ConnectorSearch.optional(),

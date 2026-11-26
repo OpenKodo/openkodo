@@ -30,7 +30,7 @@ describe('parseGmailRef', () => {
   it('refuses a token with no API id and points to search', () => {
     // A "thread-a:" token (mail sent from the new UI), and consonants that decode to nothing.
     for (const token of ['FFNDWLvlXsCvcpmszhgMDVsFSpjtQQCM', 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB']) {
-      expect(() => parseGmailRef(link(token))).toThrow(/orca gmail search.*rfc822msgid:/)
+      expect(() => parseGmailRef(link(token))).toThrow(/openkodo gmail search.*rfc822msgid:/)
     }
   })
 })

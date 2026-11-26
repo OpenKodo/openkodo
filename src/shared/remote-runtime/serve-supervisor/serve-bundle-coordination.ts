@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto'
 import { dirname, join } from 'node:path'
 
-/** launchd label prefix `orca serve service install` writes; only those supervisors register. */
+/** launchd label prefix `openkodo serve service install` writes; only those supervisors register. */
 export const SERVE_LAUNCHD_LABEL_PREFIX = 'dev.openkodo.serve'
 export const SERVE_COORDINATION_PROTOCOL = 1
 /** orcad restarts its own browser helper; under the serve prefix so older installers park it too. */

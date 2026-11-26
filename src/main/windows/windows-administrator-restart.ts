@@ -29,7 +29,7 @@ export function prepareWindowsAdministratorRestart(): Electron.RelaunchOptions {
   if (!launcher || !existsSync(launcher)) {
     throw new Error('The Windows administrator launcher is unavailable.')
   }
-  // The user asked for this restart, so the elevated window comes forward even when `orca open` started this one.
+  // The user asked for this restart, so the elevated window comes forward even when `openkodo open` started this one.
   const args = process.argv
     .slice(1)
     .filter((arg) => arg !== RESTART_LOCAL_TERMINALS_ARG && arg !== BACKGROUND_OPEN_ARG)

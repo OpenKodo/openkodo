@@ -9,7 +9,7 @@ import { OptionalString, requiredString } from './rpc-param-primitives'
 
 const text = (max: number, missing: string) => z.string().trim().min(1, missing).max(max)
 
-/** `orca bot suggest`, from a look-around run: the host knows the run by its chat. */
+/** `openkodo bot suggest`, from a look-around run: the host knows the run by its chat. */
 export const BotSuggest = z.object({
   callerSessionId: requiredString('Run this from a look-around run.'),
   title: text(SUGGESTION_LIMITS.title, 'Missing title'),
@@ -35,7 +35,7 @@ export const BotLookNow = z.object({ botId: requiredString('Missing bot id') })
 /** The owner saw the bot's Up next: what it lists stops counting as new. */
 export const BotUpNextSeen = z.object({ botId: requiredString('Missing bot id') })
 
-/** `orca bot look-around set`: the bot changes its own Look around when its owner asks in chat. */
+/** `openkodo bot look-around set`: the bot changes its own Look around when its owner asks in chat. */
 export const BotLookAroundSet = z.object({
   /** Absent: the bot whose chat ran the command. */
   botId: OptionalString,
@@ -49,7 +49,7 @@ export const BotLookAroundSet = z.object({
 export type BotSuggestParams = z.infer<typeof BotSuggest>
 export type BotLookAroundSetParams = z.infer<typeof BotLookAroundSet>
 
-/** `orca bot connectors --offer`: the bot asks OpenKodo to show its owner a Connect card in this chat. */
+/** `openkodo bot connectors --offer`: the bot asks OpenKodo to show its owner a Connect card in this chat. */
 export const BotConnectorOffer = z
   .object({
     callerSessionId: requiredString('Run this from your chat.'),

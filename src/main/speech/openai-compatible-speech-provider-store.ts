@@ -47,7 +47,7 @@ export function openAiCompatibleTranscriptionUrl(baseUrl: string): string {
 }
 
 export async function readOpenAiCompatibleSpeechProvider(): Promise<OpenAiCompatibleSpeechProvider | null> {
-  // The store caches what it read; another process (desktop vs orca serve) may have removed the file since.
+  // The store caches what it read; another process (desktop vs openkodo serve) may have removed the file since.
   const raw = (await store.has()) ? await store.read() : null
   if (raw === null) {
     return null

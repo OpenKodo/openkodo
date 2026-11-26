@@ -8,7 +8,7 @@ export abstract class OrcaRuntimeWithWebhookOperations extends OrcaRuntimeWithOr
   /** A serve or orcad host (session-window-graph.ts), whose signed-out copy names it. */
   abstract servesWithoutWindow: () => boolean
 
-  /** This host's webhooks; null in `orca serve` and in builds without cloud auth. */
+  /** This host's webhooks; null in `openkodo serve` and in builds without cloud auth. */
   getWebhooks(): WebhookHostService | null {
     return this.webhooks
   }

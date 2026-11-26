@@ -13,7 +13,7 @@ const CLONE_OWN_DATA_HINT =
   'Or, on that machine only, give OpenKodo its own data: for OpenKodo-managed SSH servers set ' +
   `${OPENKODO_MACHINE_NAME_ENV} where its non-interactive SSH logins read it (~/.zshenv, or above the ` +
   'interactive check in ~/.bashrc), guarded by a test that matches only that machine, since a ' +
-  'shared home applies it everywhere; for `orca serve` set OPENKODO_USER_DATA.'
+  'shared home applies it everywhere; for `openkodo serve` set OPENKODO_USER_DATA.'
 
 /** Lock heartbeats refresh the record's mtime well inside this window. */
 export const ORCAD_LOCK_HEARTBEAT_MS = 60_000

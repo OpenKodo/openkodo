@@ -106,7 +106,7 @@ export const PLUGIN_WORKSPACE_CREATE_HANDLERS = {
       )
       return { workspaceId: listedId(worktree) }
     }
-    // The agent starts after setup, in the terminal setup ran in, as `orca worktree create
+    // The agent starts after setup, in the terminal setup ran in, as `openkodo worktree create
     // --agent` does; the prompt rides its launch.
     const launched = agentLaunchAnswer.parse(
       await effect(ctx, 'agent.launch', {

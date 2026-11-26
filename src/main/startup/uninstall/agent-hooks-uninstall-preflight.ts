@@ -43,7 +43,7 @@ export async function removeAgentHooksForUninstall(
 }
 
 /**
- * Uninstall only: Windows hook entries call the ~/.orca scripts by bare path, so once that folder
+ * Uninstall only: Windows hook entries call the ~/.openkodo scripts by bare path, so once that folder
  * is removed every agent would fail a hook per event; the last install takes them out. File edits
  * only; no window or shell.
  */

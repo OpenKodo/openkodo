@@ -11,7 +11,7 @@ import {
 } from './plugin-host-api-workspace-methods'
 import { spec, WORKER_ONLY } from './plugin-host-method-spec'
 
-/** Host API 1.8: the person's automations on this OpenKodo, as `orca automations` reads and writes
+/** Host API 1.8: the person's automations on this OpenKodo, as `openkodo automations` reads and writes
  *  them. Plugin-created ones record the plugin, which OpenKodo's Automations page shows. */
 
 export const PLUGIN_AUTOMATION_LIST_LIMIT = 200

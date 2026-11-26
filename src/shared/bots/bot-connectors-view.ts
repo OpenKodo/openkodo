@@ -1,4 +1,4 @@
-// `orca bot connectors`: per service, the tool a bot uses, who it acts as, whether it is signed in on
+// `openkodo bot connectors`: per service, the tool a bot uses, who it acts as, whether it is signed in on
 // this computer, and whether OpenKodo Cloud wakes it there; with the workspaces it is in, as refs.
 import { botLinearWorkspaces, botSlackApps, type Bot } from '../bot-types'
 import { CONNECTOR_OFFER_NAMES, type ConnectorOfferSource } from './bot-connector-offer'
@@ -57,7 +57,7 @@ export type LocalSignIns = {
   googleDefault?: GoogleDefaultRead
 }
 
-const OFFER_GOOGLE = '`orca bot connectors --offer google`'
+const OFFER_GOOGLE = '`openkodo bot connectors --offer google`'
 const GOOGLE_HOST_GAPS: Record<Exclude<GoogleHostConnect, 'connected'>, string> = {
   'no-app': `Google isn't set up on this computer; ${OFFER_GOOGLE} asks your owner to set it up.`,
   'signed-out': `Nobody is signed in to Google on this computer; ${OFFER_GOOGLE} asks your owner to sign in.`,
@@ -120,7 +120,7 @@ function googleService(
   ].join('; ')
   return {
     source: 'google',
-    tool: 'orca gmail|calendar|contacts',
+    tool: 'openkodo gmail|calendar|contacts',
     actsAs: 'owner',
     signedIn: gap === undefined,
     ...(gap ? { gap } : {}),
@@ -129,7 +129,8 @@ function googleService(
   }
 }
 
-const SLACK_NO_APP = 'Run `orca bot connectors --offer slack` to show your owner a Connect card.'
+const SLACK_NO_APP =
+  'Run `openkodo bot connectors --offer slack` to show your owner a Connect card.'
 const SLACK_NOT_INSTALLED =
   "Your Slack app isn't installed. Ask your owner to finish its setup, or remove it, under Slack on your page in OpenKodo."
 
@@ -165,7 +166,7 @@ export function botConnectorServices(
     },
     {
       source: 'linear',
-      tool: 'orca linear',
+      tool: 'openkodo linear',
       actsAs: 'owner',
       signedIn: local.linear,
       ...(local.linear ? {} : { gap: LINEAR_NO_KEY }),
@@ -173,7 +174,7 @@ export function botConnectorServices(
     },
     {
       source: 'slack',
-      tool: 'orca slack',
+      tool: 'openkodo slack',
       actsAs: 'bot',
       signedIn: slack,
       ...(slack ? {} : { gap: hasApp ? SLACK_NOT_INSTALLED : SLACK_NO_APP }),
@@ -206,7 +207,7 @@ function serviceLines(service: BotConnectorService, botName: string): string[] {
       ? null
       : service.wakes
         ? `  Connected: OpenKodo wakes ${botName} on @mentions and watched events here.`
-        : `  Not connected for wakes: \`orca bot connectors --offer ${service.source}\` to be @mentioned or to watch.`
+        : `  Not connected for wakes: \`openkodo bot connectors --offer ${service.source}\` to be @mentioned or to watch.`
   return [
     `${name}: \`${service.tool}\`, ${as}. ${state}`,
     ...(service.detail ? [`  ${service.detail}`] : []),

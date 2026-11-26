@@ -12,7 +12,7 @@ import { type BotHomeFilesystem, localBotHomeFilesystem } from './bot-home'
 // A login shell can put another install's `orca` first on PATH; OPENKODO_CLI_COMMAND names this session's.
 // Windows shells don't expand this form.
 export const BOT_OPENKODO_CLI =
-  process.platform === 'win32' ? 'orca' : '"${OPENKODO_CLI_COMMAND:-orca}"'
+  process.platform === 'win32' ? 'openkodo' : '"${OPENKODO_CLI_COMMAND:-openkodo}"'
 
 // Which command does which job, ahead of SOUL.md and MEMORY.md so a remembered listing never outranks it.
 // Workflow only: the soul owns style.
@@ -29,11 +29,11 @@ const BOT_TOOLS = [
   `- Do something later, on a schedule, or each time something happens (a mention, a new issue, a call to a webhook): \`${BOT_OPENKODO_CLI} automations trigger-options --bot <your name>\` first, every time, then \`${BOT_OPENKODO_CLI} automations create --bot <your name> ...\`.`,
   `- A webhook's URL: no command prints it. Your owner copies it with Copy URL on its automation's card in OpenKodo; tell them that. \`${BOT_OPENKODO_CLI} webhooks list --bot <your name>\` lists your webhooks.`,
   `- An MCP server you don't have (such as Notion's): \`${BOT_OPENKODO_CLI} bot tools add <its URL or the command that starts it>\`; \`${BOT_OPENKODO_CLI} bot tools\` lists yours and your owner's. If it signs in in a browser, run \`${BOT_OPENKODO_CLI} bot tools connect <name>\` and give your owner the page it prints.`,
-  `- Google: when they ask to connect it, run \`${BOT_OPENKODO_CLI} bot connectors --offer google\`; it uses the Google already set up on this computer. Only for a setup card, or when the offer says Google isn't set up here, read \`${BOT_OPENKODO_CLI} skills get orca-cli --reference google-setup\` first, every time.`,
-  `- Apps through your owner's Composio account (a Composio setup card, an app OpenKodo doesn't connect itself, or an app's events): \`${BOT_OPENKODO_CLI} skills get orca-cli --reference composio\` first.`,
-  `- Bringing over a bot your owner had in another app (OpenKodo's first message says they made you to take one over, or they ask later): \`${BOT_OPENKODO_CLI} skills get orca-cli --reference bot-import\` first, every time.`,
+  `- Google: when they ask to connect it, run \`${BOT_OPENKODO_CLI} bot connectors --offer google\`; it uses the Google already set up on this computer. Only for a setup card, or when the offer says Google isn't set up here, read \`${BOT_OPENKODO_CLI} skills get openkodo-cli --reference google-setup\` first, every time.`,
+  `- Apps through your owner's Composio account (a Composio setup card, an app OpenKodo doesn't connect itself, or an app's events): \`${BOT_OPENKODO_CLI} skills get openkodo-cli --reference composio\` first.`,
+  `- Bringing over a bot your owner had in another app (OpenKodo's first message says they made you to take one over, or they ask later): \`${BOT_OPENKODO_CLI} skills get openkodo-cli --reference bot-import\` first, every time.`,
   `- Projects: \`${BOT_OPENKODO_CLI} repo list\`. Code work: a worker (see Rules).`,
-  `- Your owner's workspaces, what each agent there was last asked and said, and which bot each is under: \`${BOT_OPENKODO_CLI} worktree ps --since 7d\`. To take one over when your owner hands it to you or agrees to your offer, move it under your home and ask its agent where it stands: "Take over a workspace" in \`${BOT_OPENKODO_CLI} skills get orca-cli --reference bots\`.`,
+  `- Your owner's workspaces, what each agent there was last asked and said, and which bot each is under: \`${BOT_OPENKODO_CLI} worktree ps --since 7d\`. To take one over when your owner hands it to you or agrees to your offer, move it under your home and ask its agent where it stands: "Take over a workspace" in \`${BOT_OPENKODO_CLI} skills get openkodo-cli --reference bots\`.`,
   `- Other bots on this computer and what each is for: \`${BOT_OPENKODO_CLI} bot list\`.`,
   `- Your other chats, or another bot's: \`${BOT_OPENKODO_CLI} bot chats [--bot <name>]\` lists each with its title, last ask and last answer. When your owner asks about another chat ("ask my other chat about X", "what did the PR chat decide"), pick it by title and last ask, then read its last answer there or ask it with \`${BOT_OPENKODO_CLI} orchestration send --to bot:<name> --chat <id> --type question\`; if more than one could match, ask your owner which, naming them. To give another bot, or yourself (\`--to bot:<your name>\`), a separate job in a chat of its own, add \`--chat new\` to the handoff: it starts a new chat titled from --subject.`,
   `- A new bot: when your owner asks for one, or work fits no bot \`${BOT_OPENKODO_CLI} bot list\` shows, propose it with \`${BOT_OPENKODO_CLI} bot create --offer --name "<name>" --purpose "<one sentence>"\` (add \`--template <id>\` and a \`--worktree id:<id>\` for each workspace it is for); OpenKodo shows your owner a card and creates nothing until they press Create bot.`,
@@ -43,7 +43,7 @@ const BOT_TOOLS = [
         `- What you are doing for your owner and what you need from them: \`${BOT_OPENKODO_CLI} bot item list\` (\`--all\` adds closed ones); one item: \`${BOT_OPENKODO_CLI} bot item show <n>\`.`
       ]
     : []),
-  `- More on each: \`${BOT_OPENKODO_CLI} skills get orca-cli --reference bots\`.`
+  `- More on each: \`${BOT_OPENKODO_CLI} skills get openkodo-cli --reference bots\`.`
 ]
 
 const botItemRules = [

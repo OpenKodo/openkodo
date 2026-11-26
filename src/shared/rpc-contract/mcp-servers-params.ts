@@ -74,7 +74,7 @@ export const McpServerAgentFilesAllow = z.object({
   allowed: z.boolean()
 })
 
-// `orca mcp connect` in an agent's own MCP file: the workspace its session runs in (null for none),
+// `openkodo mcp connect` in an agent's own MCP file: the workspace its session runs in (null for none),
 // its folder (whose own MCP files may name the server too), and who is calling, so a Look around or a
 // bot that hasn't opted in gets nothing.
 export const McpServerConnect = z.strictObject({

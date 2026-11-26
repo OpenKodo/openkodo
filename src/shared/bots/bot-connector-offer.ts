@@ -1,4 +1,4 @@
-// The Connect card a bot asks OpenKodo to put in its chat (`orca bot connectors --offer`). Older clients and
+// The Connect card a bot asks OpenKodo to put in its chat (`openkodo bot connectors --offer`). Older clients and
 // the phone paint its `text` as a plain line.
 import * as z from 'zod'
 import type {
@@ -180,12 +180,12 @@ export function connectorOfferReply(
     return {
       offered: true,
       addAccess: true,
-      message: `${name} is already connected. Your owner now sees a card in this chat to add ${addAccessWhat(source)}${workspace ? ` (${workspace})` : ''}; don't ask which. Before using a new one, check with \`orca bot connectors\`.`
+      message: `${name} is already connected. Your owner now sees a card in this chat to add ${addAccessWhat(source)}${workspace ? ` (${workspace})` : ''}; don't ask which. Before using a new one, check with \`openkodo bot connectors\`.`
     }
   }
   return {
     offered: true,
-    message: `Your owner now sees a Connect card for ${name}${workspace ? ` (${workspace})` : ''} in this chat; it turns to Connected once they connect it. Don't tell them where to click. Before using it, check with \`orca bot connectors\`.`
+    message: `Your owner now sees a Connect card for ${name}${workspace ? ` (${workspace})` : ''} in this chat; it turns to Connected once they connect it. Don't tell them where to click. Before using it, check with \`openkodo bot connectors\`.`
   }
 }
 

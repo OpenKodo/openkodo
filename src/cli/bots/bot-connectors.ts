@@ -1,4 +1,4 @@
-// `orca bot connectors [--offer <source>]`: what a bot can use where, or a Connect card for its owner.
+// `openkodo bot connectors [--offer <source>]`: what a bot can use where, or a Connect card for its owner.
 import { OFFER_SOURCES } from '../../shared/bots/bot-connector-offer'
 import { formatBotConnectors, type BotConnectorsView } from '../../shared/bots/bot-connectors-view'
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'

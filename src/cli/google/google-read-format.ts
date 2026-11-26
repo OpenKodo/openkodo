@@ -1,4 +1,4 @@
-// How `orca gmail|calendar|contacts` print their answers: OpenKodo's own lines plain, everything a
+// How `openkodo gmail|calendar|contacts` print their answers: OpenKodo's own lines plain, everything a
 // sender, organizer or author wrote fenced as content, the content capped, and paging lines after it.
 import type {
   CalendarEventSummary,
@@ -114,7 +114,7 @@ export function formatGmailSearch(view: GmailSearchView, query: string): string 
   )
   const zone = Intl.DateTimeFormat().resolvedOptions().timeZone
   return [
-    `${view.threads.length} threads for ${view.account}${about}, times in ${zone}; \`orca gmail read <ref>\` opens one.`,
+    `${view.threads.length} threads for ${view.account}${about}, times in ${zone}; \`openkodo gmail read <ref>\` opens one.`,
     cappedUntrusted(
       'senders, subjects and snippets as the mail has them',
       lines.join('\n'),
@@ -122,7 +122,7 @@ export function formatGmailSearch(view: GmailSearchView, query: string): string 
     ),
     ...(view.nextPageToken
       ? [
-          `Next page: orca gmail search ${JSON.stringify(query)} --page ${view.nextPageToken}${accountFlag(view.account)}`
+          `Next page: openkodo gmail search ${JSON.stringify(query)} --page ${view.nextPageToken}${accountFlag(view.account)}`
         ]
       : [])
   ].join('\n')
@@ -156,7 +156,7 @@ export function formatGmailRead(view: GmailReadView, ref: string): string {
     untrustedContent('subject', view.subject.slice(0, 1_000) || '(no subject)'),
     ...messages,
     ...(view.nextOffset !== undefined
-      ? [`More: orca gmail read ${ref} --offset ${view.nextOffset}${accountFlag(view.account)}`]
+      ? [`More: openkodo gmail read ${ref} --offset ${view.nextOffset}${accountFlag(view.account)}`]
       : [])
   ].join('\n')
 }
@@ -178,10 +178,10 @@ export function formatCalendarList(view: CalendarListView): string {
       view.events.map((event) => eventLine(event, view.timeZone)).join('\n'),
       'Pick a shorter window with --from/--to.'
     ),
-    '`orca calendar get <ref>` shows one in full.',
+    '`openkodo calendar get <ref>` shows one in full.',
     ...(view.nextPageToken
       ? [
-          `Next page: orca calendar list --calendar ${view.calendar.id} --from ${view.from} --to ${view.to} --page ${view.nextPageToken}${accountFlag(view.account)}`
+          `Next page: openkodo calendar list --calendar ${view.calendar.id} --from ${view.from} --to ${view.to} --page ${view.nextPageToken}${accountFlag(view.account)}`
         ]
       : [])
   ].join('\n')

@@ -161,7 +161,7 @@ describe('agent MCP config discovery and move', () => {
       ],
       [
         { name: 'db', command: 'pg-mcp', args: [] },
-        // Off in orca and in Droid, on in docs: only docs gets it, and Droid stays off.
+        // Off in openkodo and in Droid, on in docs: only docs gets it, and Droid stays off.
         { workspaces: { later: false, on: ['repo-2'], off: [] }, agentsOff: ['droid'] }
       ],
       [

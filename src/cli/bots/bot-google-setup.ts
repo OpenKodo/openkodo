@@ -1,4 +1,4 @@
-// `orca bot google-setup …`: the bot moves its Google setup run; OpenKodo draws the cards from it.
+// `openkodo bot google-setup …`: the bot moves its Google setup run; OpenKodo draws the cards from it.
 import {
   readInjectedAgentSessionId,
   readInjectedBotToken

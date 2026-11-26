@@ -1,4 +1,4 @@
-// `orca google status` and `orca google connect`'s lines: the client, each account and its
+// `openkodo google status` and `openkodo google connect`'s lines: the client, each account and its
 // services, and which bots may use them.
 import type { GoogleClientView } from '../../shared/google/google-client-config'
 import type {
@@ -35,7 +35,7 @@ export function formatGoogleAccount(
   const name = isDefault ? `${account.email} (default)` : account.email
   if (account.status === 'reconnect') {
     return [
-      `  ${name}: Reconnect. ${account.reason ?? 'Google access ended.'} Run \`orca google connect --account ${account.email}\`.`
+      `  ${name}: Reconnect. ${account.reason ?? 'Google access ended.'} Run \`openkodo google connect --account ${account.email}\`.`
     ]
   }
   return [`  ${name}: connected`, ...serviceLines(account)]
@@ -43,7 +43,7 @@ export function formatGoogleAccount(
 
 export function clientLine(client: GoogleClientView | null): string {
   if (!client) {
-    return 'Google client: none yet. Add your team’s Desktop app client with `orca google client import <file>`.'
+    return 'Google client: none yet. Add your team’s Desktop app client with `openkodo google client import <file>`.'
   }
   const project = client.projectId ? ` in project ${client.projectId}` : ''
   return `Google client: ${client.clientId}${project}${client.source === 'team' ? ' (your team’s)' : ''}`
@@ -62,6 +62,6 @@ export function formatGoogleStatus(view: GoogleStatusView): string {
     ...view.accounts.flatMap((account) => formatGoogleAccount(account, view.defaultAccount)),
     bots.length > 0
       ? `Bots that may use Google: ${bots.join(', ')}`
-      : 'No bot may use Google yet. Turn one on with `orca google bot <bot> --on`.'
+      : 'No bot may use Google yet. Turn one on with `openkodo google bot <bot> --on`.'
   ].join('\n')
 }

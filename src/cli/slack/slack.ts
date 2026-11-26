@@ -1,4 +1,4 @@
-// `orca slack find|check|read|post|react|edit|delete|attach`: a bot's Slack verbs, as its own app, through its host and OpenKodo Cloud.
+// `openkodo slack find|check|read|post|react|edit|delete|attach`: a bot's Slack verbs, as its own app, through its host and OpenKodo Cloud.
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import type { CommandHandler, HandlerContext } from '../dispatch/dispatch'
 import { getOptionalStringFlag, getRequiredStringFlag } from '../arguments/flags'
@@ -16,12 +16,12 @@ const ACT_TIMEOUT_MS = 180_000
 // The host words its own refusals; this is the one it can't: no bot chat here.
 const HOST_REFUSALS: Readonly<Record<string, string>> = {
   not_a_bot_session:
-    "This isn't a bot's chat. `orca slack` acts as a bot: run it from a bot's chat or one of its automation runs."
+    "This isn't a bot's chat. `openkodo slack` acts as a bot: run it from a bot's chat or one of its automation runs."
 }
 
 // GitHub and Linear are the owner's, through their own tools; only Slack is the bot's.
 const NOT_SLACK =
-  '`orca slack` works only in Slack. On GitHub use `gh`, on Linear `orca linear`; to answer where you were woken, `orca bot reply`.'
+  '`openkodo slack` works only in Slack. On GitHub use `gh`, on Linear `openkodo linear`; to answer where you were woken, `openkodo bot reply`.'
 const OTHER_SOURCE =
   /^(?:linear|github):|^[\w.-]+\/[\w.-]+#\d+$|^[A-Z][A-Z0-9]*-\d+$|^https:\/\/(?:github\.com|linear\.app)\//
 
@@ -34,7 +34,7 @@ export function refuseOtherSource(input: string | undefined): void {
 const isSlackRef = (ref: string) => ref.startsWith('slack:')
 
 const FIND_FORMS =
-  'Look a channel or person up with `orca slack find <#channel, link or @name>`, or search messages with `orca slack find --search "<words>" [--workspace <name>]`.'
+  'Look a channel or person up with `openkodo slack find <#channel, link or @name>`, or search messages with `openkodo slack find --search "<words>" [--workspace <name>]`.'
 
 /** A search runs in a workspace, named by --workspace when no place is given; with neither, the host
  *  searches the workspace of the conversation the run answers. */

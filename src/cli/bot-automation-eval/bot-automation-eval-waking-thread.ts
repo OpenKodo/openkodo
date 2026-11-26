@@ -1,5 +1,5 @@
-// The Slack thread that woke the bot, as the cloud treats it (v3): `orca bot reply --file` attaches
-// there, and a `orca slack post` or `attach` aimed at it is refused with `use_reply`.
+// The Slack thread that woke the bot, as the cloud treats it (v3): `openkodo bot reply --file` attaches
+// there, and a `openkodo slack post` or `attach` aimed at it is refused with `use_reply`.
 import type { EvalHostState } from './bot-automation-eval-host'
 import { EVAL_UPLOAD_PREFIX } from './bot-automation-eval-artifacts'
 import { ConnectorActionArgs } from '../../shared/connector-action-contract'
@@ -7,7 +7,7 @@ import WORLD from './bot-automation-eval-slack-world.json'
 import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
 
 const USE_REPLY =
-  'That\'s the thread that woke you: answer there with `orca bot reply --text "..."` (your final message is posted there too).'
+  'That\'s the thread that woke you: answer there with `openkodo bot reply --text "..."` (your final message is posted there too).'
 
 /** A stage call: a file's upload slot, which the CLI sends its bytes to (data: here, as Slack's URL
  *  takes them there). */

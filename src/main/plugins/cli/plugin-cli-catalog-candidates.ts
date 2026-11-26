@@ -68,8 +68,8 @@ export function matchesCatalogSelector(
 
 function catalogNextSteps(): string[] {
   return [
-    '`orca plugin catalog list` shows the catalogs on this OpenKodo host.',
-    'Install straight from the repository instead: `orca plugin install <owner>/<repo>`.'
+    '`openkodo plugin catalog list` shows the catalogs on this OpenKodo host.',
+    'Install straight from the repository instead: `openkodo plugin install <owner>/<repo>`.'
   ]
 }
 
@@ -89,7 +89,7 @@ async function findListing(
       {
         catalog: selector,
         nextSteps: [
-          '`orca plugin catalog list` shows the catalogs; `orca plugin catalog add <url>` adds one.'
+          '`openkodo plugin catalog list` shows the catalogs; `openkodo plugin catalog add <url>` adds one.'
         ]
       }
     )

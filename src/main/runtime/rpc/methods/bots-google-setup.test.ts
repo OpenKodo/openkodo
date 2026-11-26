@@ -165,7 +165,7 @@ describe('bots.googleSetup.start from OpenKodo with newApp', () => {
       kind: 'no-key'
     })
     expect(state.lines).toEqual([
-      'Setup of a new Google app started by your owner (from settings). Run `orca bot google-setup show` and carry on from there.'
+      'Setup of a new Google app started by your owner (from settings). Run `openkodo bot google-setup show` and carry on from there.'
     ])
   })
 

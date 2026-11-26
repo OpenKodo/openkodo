@@ -124,7 +124,7 @@ describe('a worker start cut before its agent ran', () => {
       lastError: expect.stringContaining(
         "OpenKodo refused the worker's terminal because this host is at its terminal limit (256 of 256 terminals in use)."
       ),
-      nextCommands: ['orca orchestration worker-list --terminal-state reclaimable --json']
+      nextCommands: ['openkodo orchestration worker-list --terminal-state reclaimable --json']
     })
     const mailbox = dispatchReportMailbox(db, db.getDispatchContextById(dispatch.id)!)
     const told = db

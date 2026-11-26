@@ -106,7 +106,7 @@ export const BotCreate = z.object({
   }).optional()
 })
 
-/** `orca bot create --offer`: a card in the calling bot's chat proposing a new bot; OpenKodo picks its mascot. */
+/** `openkodo bot create --offer`: a card in the calling bot's chat proposing a new bot; OpenKodo picks its mascot. */
 export const BotCreateOfferRequest = BotProposalSchema.omit({ mascot: true }).extend({
   callerSessionId: requiredString("Run this from a bot's chat.")
 })
@@ -235,7 +235,7 @@ export const BotChatsSeen = z.object({ sessionIds: z.array(z.string().min(1)).ma
 /** The bot's Chat: open it (created on first use), or reset it to a new conversation. */
 export const BotChat = z.object({ botId: requiredString('Missing bot id') })
 
-/** New Home Chat. `orca bot new-chat` from a bot's own chat names it by that chat instead. */
+/** New Home Chat. `openkodo bot new-chat` from a bot's own chat names it by that chat instead. */
 export const BotChatReset = z.object({
   botId: OptionalString,
   callerSessionId: OptionalString

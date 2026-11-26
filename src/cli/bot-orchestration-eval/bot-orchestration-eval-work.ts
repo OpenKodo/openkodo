@@ -129,7 +129,7 @@ export async function recordEvalWorkerStart(
   }
 }
 
-/** `orca bot work list`, as the runtime's bots.work.list answers it. */
+/** `openkodo bot work list`, as the runtime's bots.work.list answers it. */
 export async function listEvalWork(
   record: BotWorkRecord,
   state: EvalHostState
@@ -138,7 +138,7 @@ export async function listEvalWork(
   return { items: await record.list(bot?.id ?? ''), botName: bot?.name ?? '' }
 }
 
-/** `orca bot work list|forget`, answered as the runtime's bots.work methods do; undefined for
+/** `openkodo bot work list|forget`, answered as the runtime's bots.work methods do; undefined for
  *  any other method. */
 export async function serveEvalWork(
   record: BotWorkRecord,

@@ -1,4 +1,4 @@
-// `orca worktree ps --since`: this computer's workspaces and every paired server's, in one list, each
+// `openkodo worktree ps --since`: this computer's workspaces and every paired server's, in one list, each
 // row naming the bot it is under even when that bot lives here and the workspace on a server (its
 // parent on another machine, joined by each host's own installationId).
 import {

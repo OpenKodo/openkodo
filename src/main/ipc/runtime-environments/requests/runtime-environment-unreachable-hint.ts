@@ -3,7 +3,7 @@ import { classifyRuntimeEnvironmentHost } from '../../../../shared/remote-runtim
 import type { KnownRuntimeEnvironment } from '../../../../shared/remote-runtime/host-catalog/runtime-environments'
 
 const UNREACHABLE_RE =
-  /could not connect to the remote orca runtime|remote orca runtime closed the connection|timed out (?:waiting for|while connecting to) the remote orca runtime/i
+  /could not connect to the remote openkodo runtime|remote openkodo runtime closed the connection|timed out (?:waiting for|while connecting to) the remote openkodo runtime/i
 
 export function withRuntimeUnreachableHint(
   environment: Pick<KnownRuntimeEnvironment, 'orcadDeployment' | 'sshAccess'>,

@@ -44,7 +44,7 @@ export async function targetEvent(
   }
   if (event.recurrence) {
     throw new GoogleToolError(
-      'That is a whole repeating event. Add --series to change every occurrence, or use one occurrence’s ref from `orca calendar list`.'
+      'That is a whole repeating event. Add --series to change every occurrence, or use one occurrence’s ref from `openkodo calendar list`.'
     )
   }
   return { calendar, event }

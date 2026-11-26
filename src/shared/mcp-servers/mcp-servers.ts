@@ -87,7 +87,7 @@ export type McpServer = {
 }
 
 /**
- * What `orca mcp connect` bridges an agent's stdio to: nothing (off for that agent, workspace or
+ * What `openkodo mcp connect` bridges an agent's stdio to: nothing (off for that agent, workspace or
  * caller), an HTTP address with the headers to send (OpenKodo's relay and its token when OpenKodo holds the
  * sign-in), or the command that starts it. It carries a token and secret env, so it's never logged.
  */

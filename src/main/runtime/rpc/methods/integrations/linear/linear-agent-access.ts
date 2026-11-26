@@ -134,7 +134,7 @@ export const LINEAR_AGENT_ACCESS_METHODS = [
           return null
         }
       )
-      // Only a run a Linear issue woke pays for this read: its answer there is `orca bot reply`.
+      // Only a run a Linear issue woke pays for this read: its answer there is `openkodo bot reply`.
       const waking = wakingLinearIssue(write)
       if (waking) {
         const { issue } = await runtime.resolveLinearAgentWriteTarget(params, signal)

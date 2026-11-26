@@ -1,4 +1,4 @@
-// `orca docs read|create|append|replace|comment`. Edits name exact text, never positions: OpenKodo
+// `openkodo docs read|create|append|replace|comment`. Edits name exact text, never positions: OpenKodo
 // finds the text in a fresh read and refuses an edit whose text isn't there exactly once (unless
 // --all). With --suggest, edits land as suggestions the doc's owner accepts or rejects in Docs.
 import { z } from 'zod'
@@ -191,7 +191,7 @@ export async function replaceInDoc(
     }
     const count = findInDocument(texts, pair.old, args.matchCase === true).length
     if (count === 0) {
-      problems.push(`${label} isn't in the doc. Copy it exactly from \`orca docs read\`.`)
+      problems.push(`${label} isn't in the doc. Copy it exactly from \`openkodo docs read\`.`)
     } else if (count > 1 && !args.all) {
       problems.push(
         `${label} is in the doc ${count} times. Quote more of the text around it, or pass --all.`
@@ -248,7 +248,7 @@ export async function commentOnDoc(
   if (!only || found.length > 1) {
     throw new GoogleToolError(
       found.length === 0
-        ? `"${short(args.on)}" isn't in the doc. Copy it exactly from \`orca docs read\`.`
+        ? `"${short(args.on)}" isn't in the doc. Copy it exactly from \`openkodo docs read\`.`
         : `"${short(args.on)}" is in the doc ${found.length} times. Quote more of the text around it.`
     )
   }

@@ -1,4 +1,4 @@
-// `orca bot item`: one short line per write, one row per item, and an item with its activity.
+// `openkodo bot item`: one short line per write, one row per item, and an item with its activity.
 import { formatLocalTime } from '../output/local-time'
 import {
   botItemCommentImages,

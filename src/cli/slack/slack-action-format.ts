@@ -1,4 +1,4 @@
-// How `orca slack` prints each verb's answer.
+// How `openkodo slack` prints each verb's answer.
 import { inlineUntrusted, untrustedContent } from '../../shared/quoted-text-fence'
 import type { SlackVerb } from './slack-action-args'
 

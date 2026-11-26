@@ -89,7 +89,7 @@ export function pluginEngineFloor(
   return floor ? { version: floor.version, field: formatPluginSchemaPath(floor.path) } : null
 }
 
-/** Why enforced: an older OpenKodo reports "requires OpenKodo >=X" only when engines.orca covers every
+/** Why enforced: an older OpenKodo reports "requires OpenKodo >=X" only when engines.openkodo covers every
  *  field the plugin uses, so authors may not under-declare it. */
 export function validatePluginEngineFloor(
   schema: z.core.$ZodType,

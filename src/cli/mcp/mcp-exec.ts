@@ -1,4 +1,4 @@
-// `orca mcp exec <id>`: an agent terminal's command server whose saved environment stays with
+// `openkodo mcp exec <id>`: an agent terminal's command server whose saved environment stays with
 // OpenKodo. The running OpenKodo on this computer hands over the command and its environment, and this
 // process becomes the server (execve), or on Windows starts it and stays as its wrapper, so the
 // values never sit in the agent's config, its command line or its own environment.
@@ -138,7 +138,7 @@ export const MCP_EXEC_HANDLERS: Record<string, CommandHandler> = {
     if (process.stdout.isTTY) {
       throw new RuntimeClientError(
         'invalid_argument',
-        'orca mcp env prints saved values; OpenKodo runs it for a WSL terminal’s server, not a person.'
+        'openkodo mcp env prints saved values; OpenKodo runs it for a WSL terminal’s server, not a person.'
       )
     }
     const { env } = await commandServer(ctx)

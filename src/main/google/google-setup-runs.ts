@@ -1,5 +1,5 @@
 // Each bot's Google setup run on this computer, saved beside this runtime's data so it survives a
-// restart. The bot moves it with `orca bot google-setup`; the owner's card answers change its path.
+// restart. The bot moves it with `openkodo bot google-setup`; the owner's card answers change its path.
 // Nothing a bot sends can hand itself the clicks back: only an owner answer leaves Guide me here.
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, readFileSync } from 'node:fs'
@@ -173,7 +173,7 @@ export class GoogleSetupRuns {
     }
     if (current?.state !== 'running') {
       throw new GoogleSetupError(
-        'No Google setup is running for this bot. Start one with `orca bot google-setup start`.'
+        'No Google setup is running for this bot. Start one with `openkodo bot google-setup start`.'
       )
     }
     const next: GoogleSetupRun = structuredClone(current)

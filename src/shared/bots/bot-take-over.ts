@@ -47,7 +47,7 @@ export function botTakeOverKickoff(takeOver: BotTakeOver): string {
   const team =
     agents.length === 0
       ? 'It has no agents open.'
-      : `Its agents keep running and now work for you: ${agents.join(', ')}. \`orca worktree ps --json\` gives each one's handle.`
+      : `Its agents keep running and now work for you: ${agents.join(', ')}. \`openkodo worktree ps --json\` gives each one's handle.`
   const lines = [
     `${TOOK_OVER_TURN_PREFIX}${workspace.name} (${where}). OpenKodo already moved it under your home, so don't move it. ${team}]`
   ]

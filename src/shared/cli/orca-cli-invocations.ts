@@ -26,9 +26,9 @@ export function orcaCliInvocations(command: string): string[][] {
 }
 
 /** Canonical form a child row carries for a worker wait; raw commands outgrow the operation preview. */
-export const OPENKODO_ORCHESTRATION_WAIT_COMMAND = 'orca orchestration check --wait'
+export const OPENKODO_ORCHESTRATION_WAIT_COMMAND = 'openkodo orchestration check --wait'
 
-/** A command that blocks on `orca orchestration check --wait` is waiting on worker agents, not monitoring. */
+/** A command that blocks on `openkodo orchestration check --wait` is waiting on worker agents, not monitoring. */
 export function runsOrcaOrchestrationWait(command: unknown): boolean {
   return (
     typeof command === 'string' &&

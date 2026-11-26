@@ -97,7 +97,7 @@ export abstract class AgentBrowserBridgeUtilityCommands extends AgentBrowserBrid
     throw new BrowserError(
       'browser_no_dialog',
       passkeyRequest
-        ? `No JavaScript dialog is open on this page. ${formatBrowserPasskeyRequest(passkeyRequest.origin, `orca dialog dismiss --page ${target.browserPageId}`)}`
+        ? `No JavaScript dialog is open on this page. ${formatBrowserPasskeyRequest(passkeyRequest.origin, `openkodo dialog dismiss --page ${target.browserPageId}`)}`
         : 'No JavaScript dialog is open on this page'
     )
   }

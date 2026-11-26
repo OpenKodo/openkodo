@@ -106,7 +106,7 @@ const BROWSER_COMMAND_WORDS = new Set<string>(
 
 export type OrcaBrowserCommand = { pageId: string | null }
 
-/** The first `orca <browser command>` a shell command line runs, with the page it
+/** The first `openkodo <browser command>` a shell command line runs, with the page it
  *  targets, or null when it runs none. Quoted text is an argument, never a command. */
 export function parseOrcaBrowserCommand(command: string): OrcaBrowserCommand | null {
   const args = orcaCliInvocations(command).find((invocation) =>

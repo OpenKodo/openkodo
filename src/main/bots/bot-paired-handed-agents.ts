@@ -1,5 +1,5 @@
 // A workspace handed to a bot from a paired computer keeps its link in that computer's store, and its
-// agents run there: Activity asks that computer (its `worktree ps`, as `orca worktree ps --on` does)
+// agents run there: Activity asks that computer (its `worktree ps`, as `openkodo worktree ps --on` does)
 // which of them are still under the bot's home, and what their agents are doing.
 import type { Bot } from '../../shared/bot-types'
 import type { BotHandedAgentObservation } from '../../shared/bots/bot-activity-handed-agents'

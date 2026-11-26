@@ -21,6 +21,6 @@ export type AgentSessionCapabilities = {
   /** A message sent while a turn runs: handed to the running agent at once (`inject`), or held by
    *  OpenKodo and sent as the next prompt once the turn ends (`queue`). */
   steering: 'inject' | 'queue'
-  /** provider enforces its launch permission setting; orca answers emitted requests by the session setting. Provider settings still control when requests are emitted, so this is not sandboxing. */
+  /** provider enforces its launch permission setting; openkodo answers emitted requests by the session setting. Provider settings still control when requests are emitted, so this is not sandboxing. */
   approvalEnforcement: 'provider' | 'orca'
 }

@@ -118,7 +118,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
       }
     ],
     state: EMPTY_WORLD,
-    // Both sides live in the orca project; one worker or two, all in orca.
+    // Both sides live in the openkodo project; one worker or two, all in orca.
     checks: [[startsInOneOf([[OPENKODO_REPO], [OPENKODO_REPO, OPENKODO_REPO]]), handsOffFirst]]
   },
   {

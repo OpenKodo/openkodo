@@ -1,4 +1,4 @@
-// A doc's open comments, as `orca docs read` shows them: each clipped, and only as many as fit
+// A doc's open comments, as `openkodo docs read` shows them: each clipped, and only as many as fit
 // beside a full page of text.
 import { z } from 'zod'
 import type { DocsComment } from '../../shared/google/google-files-types'

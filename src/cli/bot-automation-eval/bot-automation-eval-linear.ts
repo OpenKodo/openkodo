@@ -229,7 +229,7 @@ export function searchLinear(
   }
 }
 
-/** `orca linear issue`'s answer: the owner's own view of the issue. */
+/** `openkodo linear issue`'s answer: the owner's own view of the issue. */
 export function ownerLinearIssue(input: string, run?: LinearRun) {
   const issue = linearIssue(input, run)
   if (!issue) {

@@ -35,7 +35,7 @@ export function formatAccountsBlock(label: string, block: AccountsBlock): string
     block.activeAccountIdsByRuntime?.host,
     ...Object.values(block.activeAccountIdsByRuntime?.wsl ?? {})
   ])
-  // Why the id: `orca account select --account` needs it when one email signs into several orgs.
+  // Why the id: `openkodo account select --account` needs it when one email signs into several orgs.
   const lines = block.accounts.map(
     (account) =>
       `  ${account.id}  ${getManagedAccountInlineLabel(account)}${activeAccountIds.has(account.id) ? ' (active)' : ''}${

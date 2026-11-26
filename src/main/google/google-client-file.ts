@@ -1,5 +1,5 @@
 // Google's own client file format, read and written only on the host that keeps the client: what an
-// admin downloads (a "Desktop app" client), and what `orca google client export` hands a teammate.
+// admin downloads (a "Desktop app" client), and what `openkodo google client export` hands a teammate.
 import { z } from 'zod'
 import {
   GOOGLE_CLIENT_FILE_MAX_BYTES,

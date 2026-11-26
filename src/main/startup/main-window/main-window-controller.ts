@@ -57,7 +57,7 @@ const AGENT_STATE_CRASH_BREADCRUMB_MIN_INTERVAL_MS = 30_000
 
 export async function openMainWindow(options: MainWindowOpenOptions = {}): Promise<BrowserWindow> {
   logStartupMilestone('open-main-window-start')
-  // The launch's first window honours the background request `orca open` put on its argv.
+  // The launch's first window honours the background request `openkodo open` put on its argv.
   const revealInBackground =
     options.revealInBackground ??
     (!state.hasOpenedMainWindow && argvRequestsBackgroundOpen(process.argv))

@@ -53,7 +53,7 @@ export type GoogleSignInDeps = {
   http: GoogleHttp
   now: () => number
   client: () => GoogleClientConfig | null | Promise<GoogleClientConfig | null>
-  /** Absent on a host with no browser of its own (orca serve). */
+  /** Absent on a host with no browser of its own (openkodo serve). */
   openBrowser?: (url: string) => Promise<void>
 }
 

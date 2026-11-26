@@ -113,8 +113,8 @@ function formatSkillSelectionHelp(verb: SkillMutationVerb, skillNames: string[])
     `Choose one or more skills to ${verb}:`,
     ...skillNames.map((name) => `  ${name}`),
     '',
-    `Usage: orca skills ${verb} --skill <name> [--skill <name> ...]`,
-    `   or: orca skills ${verb} --all`
+    `Usage: openkodo skills ${verb} --skill <name> [--skill <name> ...]`,
+    `   or: openkodo skills ${verb} --all`
   ].join('\n')
 }
 
@@ -134,10 +134,10 @@ function rejectNonlocalSkillMutationFlags(
   }
   rejectRemoteSelectionFlags(
     nonlocalFlags,
-    `orca skills ${verb}; it writes on the machine that runs it`,
+    `openkodo skills ${verb}; it writes on the machine that runs it`,
     {
       nextSteps: [
-        `Run \`orca skills ${verb}\` on the machine whose agents need the skills.`,
+        `Run \`openkodo skills ${verb}\` on the machine whose agents need the skills.`,
         'Drop the flag to write on this machine.'
       ]
     }
@@ -163,8 +163,8 @@ export function createSkillMutationHandler(verb: SkillMutationVerb): CommandHand
     if (process.env.OPENKODO_CLI_CWD) {
       throw new RuntimeClientError(
         'invalid_environment',
-        `orca skills ${verb} writes to the machine that runs it, but this shell forwards ` +
-          `orca to the OpenKodo host. Run the same orca skills ${verb} command on the machine ` +
+        `openkodo skills ${verb} writes to the machine that runs it, but this shell forwards ` +
+          `openkodo to the OpenKodo host. Run the same openkodo skills ${verb} command on the machine ` +
           "you want it on, where it can detect that host's agents."
       )
     }
@@ -195,7 +195,7 @@ export function createSkillMutationHandler(verb: SkillMutationVerb): CommandHand
         : []
     const notInstalledLines = notInstalled.map(
       (name) =>
-        `${name}: not installed, so skipped. Install it with: orca skills install --skill ${name}`
+        `${name}: not installed, so skipped. Install it with: openkodo skills install --skill ${name}`
     )
     // Why the home's own separator: path.join would mix them for a home from another OS.
     const backupFolder = collapseHomePath(

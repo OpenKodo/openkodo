@@ -1,4 +1,4 @@
-// Which source addresses `orca serve` accepts, decided once at startup.
+// Which source addresses `openkodo serve` accepts, decided once at startup.
 import { classifyRemotePairingHostname } from '../../../../shared/remote-runtime/pairing/remote-pairing-address'
 import { resolveAdvertisedPairingHostname } from './pairing/network/pairing-endpoint'
 import { classifyNetworkSource } from '../transports/websocket/source-admission/network-source-class'

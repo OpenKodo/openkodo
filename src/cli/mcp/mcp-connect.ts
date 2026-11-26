@@ -1,4 +1,4 @@
-// `orca mcp connect <id> --agent <agent>`: the entry OpenKodo keeps in Grok's, Cursor's and Droid's own
+// `openkodo mcp connect <id> --agent <agent>`: the entry OpenKodo keeps in Grok's, Cursor's and Droid's own
 // MCP file. It asks the OpenKodo its entry pins (OPENKODO_USER_DATA_PATH) which server that is for this
 // session and bridges the agent's stdio to it. It never opens OpenKodo, and never writes to stdout
 // anything but the protocol: a failure is one line on stderr.
@@ -71,7 +71,7 @@ const connect: CommandHandler = async ({ flags, client, cwd }) => {
   } catch (error) {
     // OpenKodo isn't running (or can't be reached): the agent shows this server as failed to start.
     const reason = error instanceof Error ? error.message : String(error)
-    process.stderr.write(`orca mcp connect: ${reason}\n`)
+    process.stderr.write(`openkodo mcp connect: ${reason}\n`)
     process.exitCode = 1
   }
 }

@@ -38,7 +38,7 @@ function chats(names: Record<string, Partial<AgentSessionRecord>>) {
   }
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: naming uses only the store read and the name write.
   setStructuredAgentSessionHost(host as unknown as StructuredAgentSessionHost)
-  /** The title `orca bot chats`, the row line and an item's Chat field show: the record's name. */
+  /** The title `openkodo bot chats`, the row line and an item's Chat field show: the record's name. */
   const title = (id: string) =>
     botChatRecordRow(
       // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a row reads the record's name and turn.

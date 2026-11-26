@@ -1,4 +1,4 @@
-// How `orca gmail draft|send|archive|label|mark-read` and the calendar writes print: OpenKodo's line
+// How `openkodo gmail draft|send|archive|label|mark-read` and the calendar writes print: OpenKodo's line
 // saying what changed, then what Google holds (subjects, people, titles, someone else's in a reply or
 // an invite) fenced as content, then the next step.
 import type {
@@ -40,7 +40,7 @@ export function formatGmailDraft(view: GmailDraftView): string {
     `${what} ${view.ref} ${view.updated ? 'updated' : 'saved'} for ${view.account} in ${view.threadRef}, not sent.`,
     mailContent(view),
     `Open: ${view.link}`,
-    `Send: orca gmail send ${view.ref}   Revise: orca gmail draft --draft ${view.ref} …`
+    `Send: openkodo gmail send ${view.ref}   Revise: openkodo gmail draft --draft ${view.ref} …`
   ].join('\n')
 }
 
@@ -115,6 +115,6 @@ export function formatCalendarSuggest(view: CalendarSuggestView): string {
       return `${index + 1}. ${formatWhen(Date.parse(slot.start), view.timeZone)}–${end}`
     }),
     ...unknown,
-    'Book one: orca calendar create --title … --start <time> --duration … --with …'
+    'Book one: openkodo calendar create --title … --start <time> --duration … --with …'
   ].join('\n')
 }

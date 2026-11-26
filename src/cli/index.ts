@@ -81,7 +81,7 @@ export async function main(
     await runClaudeTeams(argv.slice(1), cwd)
     return
   }
-  // Why: tools that use orca as BROWSER run it with the URL as the only argument (#21956).
+  // Why: tools that use openkodo as BROWSER run it with the URL as the only argument (#21956).
   const commandArgv =
     argv.length === 1 && /^https?:\/\//i.test(argv[0]) ? ['open-url', '--url', argv[0]] : argv
   const parsed = normalizeCommandPositionals(

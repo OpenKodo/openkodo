@@ -46,7 +46,7 @@ export function driveIdOf(ref: string): string | null {
       }
     }
     throw new GoogleToolError(
-      'That Google link has no file id OpenKodo can use. Use the id `orca drive search` prints.'
+      'That Google link has no file id OpenKodo can use. Use the id `openkodo drive search` prints.'
     )
   }
   return ID.test(trimmed) ? trimmed : null
@@ -57,7 +57,7 @@ export function requireDriveId(ref: string, what = 'file'): string {
   const id = driveIdOf(ref)
   if (!id) {
     throw new GoogleToolError(
-      `"${ref.trim().slice(0, 80)}" isn't a Google ${what} id or link. \`orca drive search <words>\` finds one.`
+      `"${ref.trim().slice(0, 80)}" isn't a Google ${what} id or link. \`openkodo drive search <words>\` finds one.`
     )
   }
   return id
@@ -119,7 +119,7 @@ export async function resolveFolder(
   const [only, ...others] = found.files
   if (!only) {
     throw new GoogleToolError(
-      `No folder named "${inlineName(trimmed)}" in ${api.email}'s Drive. \`orca drive search\` finds it; \`orca drive mkdir\` makes one.`
+      `No folder named "${inlineName(trimmed)}" in ${api.email}'s Drive. \`openkodo drive search\` finds it; \`openkodo drive mkdir\` makes one.`
     )
   }
   if (others.length > 0) {

@@ -47,7 +47,7 @@ export type PluginDevWatchEvent =
       error?: string
     }
   | ({ type: 'approval'; pluginKey: string } & PluginDevWatchApproval)
-  /** `--check`: `orca plugin check` after the load and after each reload. `ok` also needs OpenKodo to
+  /** `--check`: `openkodo plugin check` after the load and after each reload. `ok` also needs OpenKodo to
    *  run the plugin (`pluginStatus` running, idle or restarting); `checkOk` is the check alone. */
   | ({
       type: 'check'

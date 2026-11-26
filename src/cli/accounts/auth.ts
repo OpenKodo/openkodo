@@ -85,7 +85,7 @@ export async function runAuthLogin(
   ctx: HandlerContext,
   interrupts: AuthInterruptSource = processInterrupts
 ): Promise<void> {
-  rejectRemoteFlags(ctx, 'orca auth login')
+  rejectRemoteFlags(ctx, 'openkodo auth login')
   const orgFlag = ctx.flags.get('org')
   if (orgFlag === true) {
     throw new RuntimeClientError('invalid_argument', 'Missing a value for --org.')
@@ -124,9 +124,9 @@ export async function runAuthLogin(
     },
     interrupted: {
       finished:
-        'Interrupted, but the sign-in had already finished: this host is signed in. Run `orca auth logout` to undo it.',
+        'Interrupted, but the sign-in had already finished: this host is signed in. Run `openkodo auth logout` to undo it.',
       unconfirmed:
-        "Interrupted, and the host didn't confirm the sign-in stopped. Run `orca auth status` to check."
+        "Interrupted, and the host didn't confirm the sign-in stopped. Run `openkodo auth status` to check."
     }
   })
   if (done.phase === 'waiting' || done.phase === 'starting') {
@@ -150,7 +150,7 @@ export async function runAuthLogin(
     const lines = [formatStatus(status)]
     if (typeof orgFlag !== 'string' && (status.organizations?.length ?? 0) > 1) {
       lines.push(
-        `This account belongs to ${status.organizations?.length} organizations. Pick one with \`orca auth login --switch --org <name>\`.`
+        `This account belongs to ${status.organizations?.length} organizations. Pick one with \`openkodo auth login --switch --org <name>\`.`
       )
     }
     return lines.join('\n')
@@ -160,7 +160,7 @@ export async function runAuthLogin(
 export const AUTH_HANDLERS: Record<string, CommandHandler> = {
   'auth login': (ctx) => runAuthLogin(ctx),
   'auth status': async (ctx) => {
-    rejectRemoteFlags(ctx, 'orca auth status')
+    rejectRemoteFlags(ctx, 'openkodo auth status')
     await assertHostSupportsSignIn(ctx)
     const status = await ctx.client.call<OrcaAccountServerStatus>('orcaAccount.status')
     printResult(status, ctx.json, formatStatus)
@@ -169,7 +169,7 @@ export const AUTH_HANDLERS: Record<string, CommandHandler> = {
     }
   },
   'auth logout': async (ctx) => {
-    rejectRemoteFlags(ctx, 'orca auth logout')
+    rejectRemoteFlags(ctx, 'openkodo auth logout')
     await assertHostSupportsSignIn(ctx)
     const status = await ctx.client.call<OrcaAccountServerStatus>('orcaAccount.signOut')
     printResult(status, ctx.json, formatStatus)

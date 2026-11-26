@@ -34,7 +34,7 @@ export type ClaudeSessionMoveCandidate = {
 }
 
 /** Match npm Claude by its fresh command line: generic node/python may now run user programs.
- *  Agent Teams: a packaged `orca claude-teams` leads the foreground as `OpenKodo`, a name any `orca` command shares. */
+ *  Agent Teams: a packaged `openkodo claude-teams` leads the foreground as `OpenKodo`, a name any `orca` command shares. */
 function isClaudeProcess(processName: string | null, agentTeams: boolean): boolean {
   const agent = recognizeAgentProcess(processName)?.agent
   return agent === 'claude' || (agentTeams && agent === 'claude-agent-teams')

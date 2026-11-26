@@ -1,5 +1,5 @@
 // The servers a terminal pane of an agent gets from the host list, shaped for its CLI before relay
-// addresses are filled in: saved env behind `orca mcp exec` on this host, and in WSL everything that
+// addresses are filled in: saved env behind `openkodo mcp exec` on this host, and in WSL everything that
 // needs OpenKodo behind the guest's `orca`.
 import { access } from 'node:fs/promises'
 import type { BotToolServer } from '../../../shared/bot-tools'
@@ -34,7 +34,7 @@ async function orcaCliLauncher(): Promise<{ launcher: string; userDataPath: stri
 }
 
 /**
- * A command server with saved env as `orca mcp exec <id>`: the CLI fetches the env from the running
+ * A command server with saved env as `openkodo mcp exec <id>`: the CLI fetches the env from the running
  * OpenKodo and execs the real command, so no saved value sits in the agent's config, argv or env.
  * `OPENKODO_USER_DATA_PATH` is named outright since agents start servers with a trimmed environment.
  */
@@ -120,6 +120,6 @@ export async function terminalServers(
     }
     return shaped ? [shaped] : []
   })
-  // In WSL a shared server is already an `orca mcp connect` entry, not a relay address.
+  // In WSL a shared server is already an `openkodo mcp connect` entry, not a relay address.
   return { folder, servers, sharedProcesses: wsl ? new Map() : sharedProcesses, bridged }
 }

@@ -276,10 +276,10 @@ export function serveInstallRefusalMessage(
 ): string {
   const pids = result.pids.slice(0, 10).join(', ')
   if (result.reason === 'unresponsive') {
-    return `Background orca serve services (process IDs: ${pids}) did not pause for the update in time. OpenKodo remains open; retry the update, or stop those services first.`
+    return `Background openkodo serve services (process IDs: ${pids}) did not pause for the update in time. OpenKodo remains open; retry the update, or stop those services first.`
   }
   if (result.reason === 'busy') {
     return 'Another OpenKodo window is already installing this update. OpenKodo remains open; retry in a minute.'
   }
-  return `Close the other OpenKodo instances (process IDs: ${pids}) before installing this update. Background orca serve instances also need to stop. OpenKodo remains open; retry the update after closing them.`
+  return `Close the other OpenKodo instances (process IDs: ${pids}) before installing this update. Background openkodo serve instances also need to stop. OpenKodo remains open; retry the update after closing them.`
 }

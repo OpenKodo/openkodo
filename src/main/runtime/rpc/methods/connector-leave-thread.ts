@@ -1,4 +1,4 @@
-// `orca bot reply --leave-thread`: the calling bot stops being woken in the Slack thread its chat
+// `openkodo bot reply --leave-thread`: the calling bot stops being woken in the Slack thread its chat
 // answers, until someone @mentions it. OpenKodo decides which bot, which thread and whether this turn
 // may, from its own records; the agent names nothing. The thread is then owed OpenKodo's own
 // confirmation, saved with the mute, which the turn's end posts.

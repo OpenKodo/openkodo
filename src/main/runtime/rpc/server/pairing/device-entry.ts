@@ -63,7 +63,7 @@ export type DeviceEntry = {
   ticketFirstSeenAt?: number
   // A plain-http browser re-registers a session-only key from this link on each page load.
   servesSessionBrowsers?: true
-  // Minted by `orca pair` in a terminal this paired client opened; revoking that client revokes this.
+  // Minted by `openkodo pair` in a terminal this paired client opened; revoking that client revokes this.
   createdByDeviceId?: string
   // A phone's desktop installation (the one relaying it, or whose terminal minted its offer), whose
   // current account claim names its messages; a shared parent row's last claim may be another's.

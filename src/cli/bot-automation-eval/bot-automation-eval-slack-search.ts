@@ -108,8 +108,8 @@ function conversationNote({ channel, thread }: SlackConversation): string {
   return kind === true
     ? 'Public channels and this conversation only.'
     : kind === false
-      ? `Public channels only. This conversation is private and isn't searched; read it with \`orca slack read ${ref}\`.`
-      : `Public channels only. Read this conversation with \`orca slack read ${ref}\`.`
+      ? `Public channels only. This conversation is private and isn't searched; read it with \`openkodo slack read ${ref}\`.`
+      : `Public channels only. Read this conversation with \`openkodo slack read ${ref}\`.`
 }
 
 /** find --search's answer as the asker: the world's messages holding every term of the query as

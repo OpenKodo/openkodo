@@ -43,7 +43,7 @@ function rejectForwardedSkillFilesystem(ctx: HandlerContext, command: string): v
   }
   throw new RuntimeClientError(
     'invalid_environment',
-    `orca skills ${command} must run on the machine whose installed skills you want to use. Run the command from an OpenKodo terminal on that machine.`
+    `openkodo skills ${command} must run on the machine whose installed skills you want to use. Run the command from an OpenKodo terminal on that machine.`
   )
 }
 
@@ -155,7 +155,7 @@ export const SKILL_SHARING_HANDLERS: Record<string, CommandHandler> = {
     if (skillSelectors.length === 0) {
       throw new RuntimeClientError(
         'invalid_argument',
-        'Select at least one installed skill with --skill. Run `orca skills installed` to list them.'
+        'Select at least one installed skill with --skill. Run `openkodo skills installed` to list them.'
       )
     }
     const bundleLabel = stringFlag(ctx, 'bundle-name')

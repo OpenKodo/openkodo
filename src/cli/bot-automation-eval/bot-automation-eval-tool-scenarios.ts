@@ -12,7 +12,7 @@ import {
   type EvalScenario
 } from './bot-automation-eval-grading'
 
-/** Where the first `orca <path...>` ran, flags aside; -1 when it never did. */
+/** Where the first `openkodo <path...>` ran, flags aside; -1 when it never did. */
 function commandIndex(outcome: EvalOutcome, ...path: string[]): number {
   return outcome.commands.findIndex((argv) => {
     const words = argv.filter((word) => !word.startsWith('-'))
@@ -20,7 +20,7 @@ function commandIndex(outcome: EvalOutcome, ...path: string[]): number {
   })
 }
 
-/** The owner's separate `linear` CLI: Linear work goes through `orca linear`. */
+/** The owner's separate `linear` CLI: Linear work goes through `openkodo linear`. */
 function ownerLinearCli(outcome: EvalOutcome): string[] {
   return outcome.ownerTools.includes('linear') ? ["ran the owner's `linear` CLI"] : []
 }
@@ -39,9 +39,11 @@ function onlyWrite(
       ]
 }
 
-/** A removed `orca connector` verb: GitHub and Linear work is the owner's own `gh` and `orca linear`. */
+/** A removed `openkodo connector` verb: GitHub and Linear work is the owner's own `gh` and `openkodo linear`. */
 function ranConnector(outcome: EvalOutcome): string[] {
-  return commandIndex(outcome, 'connector') === -1 ? [] : ['ran a removed `orca connector` verb']
+  return commandIndex(outcome, 'connector') === -1
+    ? []
+    : ['ran a removed `openkodo connector` verb']
 }
 
 /** Read trigger-options this turn, then made the webhook it now lists. */
@@ -95,7 +97,7 @@ export const TOOL_SCENARIOS: EvalScenario[] = [
     id: 'tools-webhook-stale-memory',
     category: 'tools',
     memory:
-      '- 2026-10-28: `orca automations trigger-options --bot Ranger` lists Slack, Linear and GitHub events only; there is no webhook trigger, so outside services cannot start me.',
+      '- 2026-10-28: `openkodo automations trigger-options --bot Ranger` lists Slack, Linear and GitHub events only; there is no webhook trigger, so outside services cannot start me.',
     state: { webhooks: true },
     message: DEPLOY_MESSAGE,
     grade: madeWebhookAfterOptions
@@ -127,7 +129,7 @@ export const TOOL_SCENARIOS: EvalScenario[] = [
     ]
   },
   {
-    // Linear work is the owner's: `orca linear`, never a connector post.
+    // Linear work is the owner's: `openkodo linear`, never a connector post.
     id: 'tools-linear-owner-comment',
     category: 'tools',
     message: "Comment on ENG-9310 in Linear that the fix ships in today's release.",
@@ -149,7 +151,7 @@ export const TOOL_SCENARIOS: EvalScenario[] = [
     message: "What's the latest on ENG-9310?",
     grade: (outcome) => [
       ...ranConnector(outcome),
-      ...(commandIndex(outcome, 'linear') === -1 ? ['never ran `orca linear`'] : []),
+      ...(commandIndex(outcome, 'linear') === -1 ? ['never ran `openkodo linear`'] : []),
       ...(/bob/i.test(outcome.reply) ? [] : ['reply leaves out the assignee (Bob Lee)'])
     ]
   },

@@ -19,7 +19,7 @@ import { readAgentConversation } from '../../../agent-conversations/agent-conver
 // Listing reads every workspace's open agents, so no workspace page may hide one.
 const AGENT_LIST_WORKTREE_LIMIT = 10_000
 
-/** `orca agent list/show/read`: agents by their OpenKodo session ID, chats and terminals alike.
+/** `openkodo agent list/show/read`: agents by their OpenKodo session ID, chats and terminals alike.
  *  Read-only: none of these sends to, starts or wakes an agent. */
 export const AGENT_CONVERSATION_METHODS = [
   defineMethod({

@@ -1,4 +1,4 @@
-// Whether a bot's running turn may leave its Slack thread (`orca bot reply --leave-thread`): read
+// Whether a bot's running turn may leave its Slack thread (`openkodo bot reply --leave-thread`): read
 // from OpenKodo's own record of that turn, never the model's say-so. Only the turn now running counts,
 // never an earlier one a worker's report would read back to, and every message it took must be a
 // person who can ask the bot in this thread, or the owner typing in OpenKodo.

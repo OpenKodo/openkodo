@@ -45,7 +45,7 @@ export function googleSetupAnswerLine(card: GoogleSetupCard, values: readonly st
 /** The line the bot reads when its owner starts a setup from OpenKodo. */
 export function googleSetupStartLine(from: string, newApp?: true): string {
   const what = newApp ? 'Setup of a new Google app' : 'Google setup'
-  return `${what} started by your owner (from ${from}). Run \`orca bot google-setup show\` and carry on from there.`
+  return `${what} started by your owner (from ${from}). Run \`openkodo bot google-setup show\` and carry on from there.`
 }
 
 /** The run's bot, named by its run's token, and who is asking. A bot reaches only its own; anything a

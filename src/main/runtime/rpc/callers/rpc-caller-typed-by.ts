@@ -32,7 +32,7 @@ export function typedByOf(context: {
   if (!claim) {
     return { by: 'device', deviceId: caller.deviceId }
   }
-  // Null when signed out, and in `orca serve`: nothing to compare with, so no message is another's.
+  // Null when signed out, and in `openkodo serve`: nothing to compare with, so no message is another's.
   const hostAccountId = context.runtime.getConnectorCloud?.()?.signedInAccount() ?? null
   return {
     by: 'device',

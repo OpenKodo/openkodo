@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { runProcess } from '@orca/process-host'
 import { SERVE_LAUNCHD_LABEL_PREFIX } from './serve-bundle-coordination'
 
-/** One `orca serve service install` unit; profiles other than the default carry a hash suffix. */
+/** One `openkodo serve service install` unit; profiles other than the default carry a hash suffix. */
 export type InstalledServeServiceUnit = {
   manager: 'launchd' | 'systemd'
   name: string

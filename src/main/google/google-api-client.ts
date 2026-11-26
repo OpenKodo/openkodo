@@ -34,7 +34,7 @@ export async function resolveGoogleAccount(wanted: string | undefined): Promise<
     const record = await readGoogleAccount(wanted)
     if (!record) {
       throw new GoogleToolError(
-        `${wanted} isn't connected on this computer. \`orca google status\` lists the accounts here.`
+        `${wanted} isn't connected on this computer. \`openkodo google status\` lists the accounts here.`
       )
     }
     return record.email

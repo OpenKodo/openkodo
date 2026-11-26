@@ -28,7 +28,7 @@ export const REPLY_ONLY_REFUSAL = 'A tidy-up only replies: everything it needs i
 
 /** Read-only commands, by program then subcommand words; the subcommand must come first. */
 const READ_COMMANDS: Record<string, readonly (readonly string[])[]> = {
-  orca: [
+  openkodo: [
     ['slack', 'find'],
     ['slack', 'read'],
     ['slack', 'check'],
@@ -64,7 +64,7 @@ const READ_COMMANDS: Record<string, readonly (readonly string[])[]> = {
 /** Arguments that make an otherwise-read command write, run something, or send something. */
 const REFUSED_ARGUMENTS: Record<string, (word: string) => boolean> = {
   // Joining a channel, saving a downloaded file, and showing a Connect card.
-  orca: (word) => /^--(join|download|out|offer)/.test(word),
+  openkodo: (word) => /^--(join|download|out|offer)/.test(word),
   // Bundled short flags (`-iXPOST`, `-if`) count: any single-dash word naming X, f or F.
   gh: (word) => /^--(method|input|field|raw-field)/.test(word) || /^-[^-]*[XfF]/.test(word),
   // Output files, external programs, and pathspec magic.
@@ -114,7 +114,7 @@ function partRefusal(part: string, shell: LookAroundShell): string | null {
   const read = part.replace(TRAILING_REDIRECT[shell], '')
   const inner =
     shell === 'bash' && read.startsWith(BOT_CLI_PREFIX)
-      ? `orca ${read.slice(BOT_CLI_PREFIX.length)}`
+      ? `openkodo ${read.slice(BOT_CLI_PREFIX.length)}`
       : read
   const parsed = words(inner)
   if (!parsed) {

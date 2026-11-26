@@ -18,7 +18,7 @@ import {
   requiredString
 } from './rpc-param-primitives'
 
-// `orca bot item`: run from a bot's chat, the bot and chat are the caller's; `item` is the number the
+// `openkodo bot item`: run from a bot's chat, the bot and chat are the caller's; `item` is the number the
 // CLI shows, or the item's uid.
 
 const Caller = { callerSessionId: OptionalString, retryRequest: OptionalString }

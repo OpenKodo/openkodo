@@ -80,7 +80,7 @@ function record(state: EvalHostState, target: StandInBot, purpose: BotRequestPur
   return value
 }
 
-/** `orca bot list`, as bots.roster answers it. */
+/** `openkodo bot list`, as bots.roster answers it. */
 export function roster(state: EvalHostState): { bots: BotRosterEntry[] } {
   return {
     bots: state.bots.map((bot) => ({

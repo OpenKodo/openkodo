@@ -1,4 +1,4 @@
-// Calendar writes for `orca calendar create|update|delete|respond`. Update, delete and respond act
+// Calendar writes for `openkodo calendar create|update|delete|respond`. Update, delete and respond act
 // on one occurrence of a repeating event unless --series; invitees get Google's normal emails
 // unless --no-notify.
 import { randomUUID } from 'node:crypto'
@@ -45,7 +45,7 @@ function emails(entries: string[]): string[] {
     const email = (/<([^<>]+)>/.exec(entry)?.[1] ?? entry).trim().toLowerCase()
     if (!EMAIL.test(email)) {
       throw new GoogleToolError(
-        `"${entry.slice(0, 80)}" isn't an email address. \`orca contacts find <name>\` looks one up.`
+        `"${entry.slice(0, 80)}" isn't an email address. \`openkodo contacts find <name>\` looks one up.`
       )
     }
     return email

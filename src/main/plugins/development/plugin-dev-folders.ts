@@ -57,7 +57,7 @@ export function assertPluginSystemEnabled(service: {
       'Plugins are turned off on this OpenKodo host.',
       {
         nextSteps: [
-          'Ask the user to click "Turn on plugins" in OpenKodo Settings → Plugins (or, on a host with no window such as `orca serve`, to run `orca plugin system on` against it), then run the command again.'
+          'Ask the user to click "Turn on plugins" in OpenKodo Settings → Plugins (or, on a host with no window such as `openkodo serve`, to run `openkodo plugin system on` against it), then run the command again.'
         ]
       }
     )
@@ -160,8 +160,8 @@ async function loadAddedDevFolder(
       path,
       error,
       nextSteps: [
-        'Run `orca plugin validate <dir>` for every problem, fix them, then `orca plugin dev reload <dir>`.',
-        'The folder stays in the development list; `orca plugin dev unload <dir>` removes it.'
+        'Run `openkodo plugin validate <dir>` for every problem, fix them, then `openkodo plugin dev reload <dir>`.',
+        'The folder stays in the development list; `openkodo plugin dev unload <dir>` removes it.'
       ]
     })
   }
@@ -182,7 +182,7 @@ async function loadAddedDevFolder(
           ...error.data,
           nextSteps: [
             ...error.data.nextSteps,
-            'Until then the folder stays loaded but nothing in it runs; `orca plugin dev unload <dir>` removes it.'
+            'Until then the folder stays loaded but nothing in it runs; `openkodo plugin dev unload <dir>` removes it.'
           ]
         },
         error.code !== 'approval_required'
@@ -233,7 +233,7 @@ export async function unloadPluginDevFolder(input: {
       {
         loaded: [...stored],
         nextSteps: [
-          'Pass the absolute folder path or plugin key shown by `orca plugin list --json`.'
+          'Pass the absolute folder path or plugin key shown by `openkodo plugin list --json`.'
         ]
       }
     )

@@ -1,4 +1,4 @@
-// `orca bot connectors --offer`: a bot that needs Slack, Linear, GitHub or Google asks OpenKodo to put a
+// `openkodo bot connectors --offer`: a bot that needs Slack, Linear, GitHub or Google asks OpenKodo to put a
 // Connect card in its chat, instead of telling its owner where to click.
 import { noWindowAnswersGoogleCards } from '../../../google/google-card-reach'
 import { randomUUID } from 'node:crypto'

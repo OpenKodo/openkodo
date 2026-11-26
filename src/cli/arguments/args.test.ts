@@ -44,7 +44,7 @@ describe('parseArgs', () => {
         {
           path: ['emulator', 'permissions'],
           summary: 'Permissions',
-          usage: 'orca emulator permissions <op> <package> [permission]',
+          usage: 'openkodo emulator permissions <op> <package> [permission]',
           allowedFlags: ['op', 'package', 'permission'],
           positionalArgs: ['op', 'package', 'permission']
         }

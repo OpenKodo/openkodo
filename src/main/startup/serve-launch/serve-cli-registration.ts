@@ -47,12 +47,12 @@ export async function registerCliForHeadlessServe(): Promise<void> {
         ...(appImageDeadlineAt === undefined ? {} : { appImageDeadlineAt })
       })
       console.log(
-        `[serve] bare orca dispatcher ${dispatcher.state}: ${dispatcher.dispatcherPath}` +
+        `[serve] bare openkodo dispatcher ${dispatcher.state}: ${dispatcher.dispatcherPath}` +
           `${dispatcher.target ? ` -> ${dispatcher.target}` : ''}`
       )
     } catch (error) {
       console.warn(
-        '[serve] bare orca dispatcher install skipped:',
+        '[serve] bare openkodo dispatcher install skipped:',
         error instanceof Error ? error.message : String(error)
       )
     }

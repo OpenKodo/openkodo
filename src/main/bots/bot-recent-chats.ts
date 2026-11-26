@@ -17,7 +17,7 @@ export const BOT_RECENT_CHATS = {
 } as const
 
 export type BotRecentChat = {
-  /** Its OpenKodo session id as `orca bot chats` lists it, which `--chat` takes. */
+  /** Its OpenKodo session id as `openkodo bot chats` lists it, which `--chat` takes. */
   id: string
   title: string | null
   lastActivityAt: number

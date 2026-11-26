@@ -92,7 +92,7 @@ export async function refuseClientDoneWithoutKey(
 export function requireUnchangedRun(botId: string, checked: GoogleSetupRun | null): void {
   if (checked && googleSetupRuns().get(botId)?.id !== checked.id) {
     throw new InvalidArgumentError(
-      'This Google setup changed while OpenKodo checked it. Run `orca bot google-setup show` and carry on from there.'
+      'This Google setup changed while OpenKodo checked it. Run `openkodo bot google-setup show` and carry on from there.'
     )
   }
 }

@@ -1,4 +1,4 @@
-// The times and lengths `orca calendar create|update|suggest-time` take: a day, a time with its
+// The times and lengths `openkodo calendar create|update|suggest-time` take: a day, a time with its
 // offset, or a bare local time in the event's zone; lengths like 30m, 1h or 1h30m.
 import { GoogleToolError } from './google-api-client'
 import { addDays, zonedInstant } from './google-time-zone'

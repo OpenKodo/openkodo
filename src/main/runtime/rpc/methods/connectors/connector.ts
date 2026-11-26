@@ -28,7 +28,7 @@ export function requireSeam(
 }
 
 export const CONNECTOR_METHODS = [
-  // `orca bot reply`: the calling pane names its cloud conversation and turn; OpenKodo Cloud posts it.
+  // `openkodo bot reply`: the calling pane names its cloud conversation and turn; OpenKodo Cloud posts it.
   defineMethod({
     name: 'connector.reply',
     permission: 'workspace',

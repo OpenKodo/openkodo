@@ -90,7 +90,7 @@ export async function readBotChats(
   return all ? rows : rows.filter((row) => !row.closed)
 }
 
-/** One of a bot's chats that takes mail, by the id `orca bot chats` prints, with the session running
+/** One of a bot's chats that takes mail, by the id `openkodo bot chats` prints, with the session running
  *  it now (a /clear moves it on); null when the bot has no such chat or it was closed. */
 export async function botChatTakingMail(
   runtime: Pick<

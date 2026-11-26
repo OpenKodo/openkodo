@@ -28,7 +28,7 @@ function notFound(source: string, input: string): ConnectorRefNotFoundError {
   const repo = source === 'github' ? GITHUB_REPO.exec(input.trim())?.[1] : undefined
   return new ConnectorRefNotFoundError(
     repo
-      ? `${repo} isn't among the repositories the OpenKodo GitHub app can reach; add it with \`orca bot connectors --offer github\`.`
+      ? `${repo} isn't among the repositories the OpenKodo GitHub app can reach; add it with \`openkodo bot connectors --offer github\`.`
       : `Nothing the bot reaches in ${source} matches "${input}". Pass a link, an id or a ref.`
   )
 }

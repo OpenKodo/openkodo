@@ -1,4 +1,4 @@
-// `orca bot import`: bringing a bot over from another app. The bot reads the old files itself; these put
+// `openkodo bot import`: bringing a bot over from another app. The bot reads the old files itself; these put
 // its plan and summary in front of its owner as cards, and list the bots other apps keep on this host.
 import { readdir, readFile, realpath, stat } from 'node:fs/promises'
 import { join, resolve } from 'node:path'

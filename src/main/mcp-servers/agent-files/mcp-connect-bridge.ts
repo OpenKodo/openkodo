@@ -1,4 +1,4 @@
-// `orca mcp connect`'s stdio side: the agent starts it as an MCP server and it becomes the host's
+// `openkodo mcp connect`'s stdio side: the agent starts it as an MCP server and it becomes the host's
 // server (its HTTP address, through OpenKodo's relay when OpenKodo holds the sign-in, or its command). A
 // server that's off for the session answers as one with no tools and stays up, so the agent never
 // shows it failing. Each message is forwarded as it arrives: the agent's stdio may cross WSL interop.
@@ -67,7 +67,7 @@ async function runCommand(
   return await new Promise<number>((resolve) => {
     child.once('error', (error) => {
       process.stderr.write(
-        `orca mcp connect: couldn't start ${connection.command}: ${error.message}\n`
+        `openkodo mcp connect: couldn't start ${connection.command}: ${error.message}\n`
       )
       resolve(1)
     })

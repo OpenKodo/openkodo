@@ -218,7 +218,7 @@ export function registerRuntimeClientIpcBridge(
     publish: (environments) => useAppStore.getState().setRuntimeEnvironments(environments)
   })
   unsubs.push(() => setRuntimeEnvironmentCatalogSource(null))
-  // `orca environment add/rm` edits the registry without any renderer request (#25251).
+  // `openkodo environment add/rm` edits the registry without any renderer request (#25251).
   const stopCatalogChanged = window.api.runtimeEnvironments?.onCatalogChanged?.(() => {
     void refreshRuntimeEnvironmentCatalog()
   })

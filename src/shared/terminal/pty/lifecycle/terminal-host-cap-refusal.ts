@@ -62,7 +62,7 @@ export function terminalUsageNotice(
   ) {
     return undefined
   }
-  return `${usage.terminalsInUse} of ${usage.maxTerminals} in use on this computer; release finished workers with \`orca orchestration worker-release --dispatch <dispatch_id>\` (list them with \`orca orchestration worker-list --terminal-state reclaimable\`)`
+  return `${usage.terminalsInUse} of ${usage.maxTerminals} in use on this computer; release finished workers with \`openkodo orchestration worker-release --dispatch <dispatch_id>\` (list them with \`openkodo orchestration worker-list --terminal-state reclaimable\`)`
 }
 
 /** Why a start failed at the cap and how to free terminals, for agents and the people they tell. */

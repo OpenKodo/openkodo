@@ -11,7 +11,7 @@ export function createTerminalRevealWarning(handle: string, error?: unknown): st
       : `OpenKodo could not make it discoverable.${reason}`
   return [
     `Terminal ${handle} is running, but ${status}`,
-    `Run \`orca terminal focus --terminal ${handle}\` to reveal and focus it.`
+    `Run \`openkodo terminal focus --terminal ${handle}\` to reveal and focus it.`
   ].join(' ')
 }
 

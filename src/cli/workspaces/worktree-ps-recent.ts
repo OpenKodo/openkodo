@@ -1,4 +1,4 @@
-// `orca worktree ps --since <age>`: only the workspaces touched recently, newest first, so a long list
+// `openkodo worktree ps --since <age>`: only the workspaces touched recently, newest first, so a long list
 // doesn't flood whoever reads it.
 import type { RuntimeWorktreePsResult } from '../../shared/worktree/catalog/runtime-worktree-contracts'
 import { RuntimeClientError } from '../runtime/connection/types'

@@ -45,7 +45,7 @@ import {
  * `contributes` key names deliberately mirror common Electron-ecosystem
  * manifest conventions so future adapters stay cheap.
  *
- * Lives in `shared` so the desktop app, the headless `orca serve` runtime,
+ * Lives in `shared` so the desktop app, the headless `openkodo serve` runtime,
  * the relay, and the CLI validate manifests identically (SSH/remote parity).
  */
 
@@ -221,10 +221,10 @@ function buildPluginManifestSchema(enforceEngineFloor: boolean) {
   )
 }
 
-/** Authoring schema: also refuses an engines.orca below the newest field it uses. */
+/** Authoring schema: also refuses an engines.openkodo below the newest field it uses. */
 export const pluginManifestSchema = buildPluginManifestSchema(true)
 // Why no floor at runtime: the floor only lets older hosts say "requires OpenKodo X"; a host that
-// parses every field and meets engines.orca runs the plugin fine, so refusing it strands installs.
+// parses every field and meets engines.openkodo runs the plugin fine, so refusing it strands installs.
 const hostPluginManifestSchema = buildPluginManifestSchema(false)
 
 /** The manifest file as written; format 2 may leave `publisher` out. */

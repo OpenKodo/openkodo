@@ -1,4 +1,4 @@
-// `orca bot connectors`: what a bot can use where, read live on this computer and from OpenKodo Cloud.
+// `openkodo bot connectors`: what a bot can use where, read live on this computer and from OpenKodo Cloud.
 import { z } from 'zod'
 import {
   botConnectorServices,

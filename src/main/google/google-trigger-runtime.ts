@@ -1,4 +1,4 @@
-// Google rules ride the host's automation tick beside Look around, on desktop and `orca serve` alike.
+// Google rules ride the host's automation tick beside Look around, on desktop and `openkodo serve` alike.
 import type { AutomationService } from '../automations/automation-service'
 import type { Store } from '../persistence/loading-store/store'
 import type { OrcaRuntimeService } from '../runtime/orca-runtime'

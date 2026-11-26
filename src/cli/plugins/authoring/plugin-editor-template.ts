@@ -105,7 +105,7 @@ export function editor(input: PluginTemplateInput): PluginTemplate {
       }),
       'README.md': readme(
         input,
-        `A custom editor for \`${extension}\` files, in TypeScript with no build step. \`editor/sync.ts\` keeps the file in step through \`orca.document.session\` (replace its stand-in \`mergeText\` with your format's merge), and \`editor/main.ts\` is the view. \`orca plugin test .\` runs \`editor/sync.test.ts\` in Node with \`mockEditorHost\`; \`orca plugin check .\` reads every file the editor loads; \`orca plugin shot <plugin-key> --editor <file>\` saves a PNG of it. \`"frame": "isolated"\` keeps it to the OpenKodo desktop app. Loading it needs approval: \`orca plugin dev watch .\` prints the exact access and the \`--approve\` fingerprint.`
+        `A custom editor for \`${extension}\` files, in TypeScript with no build step. \`editor/sync.ts\` keeps the file in step through \`orca.document.session\` (replace its stand-in \`mergeText\` with your format's merge), and \`editor/main.ts\` is the view. \`openkodo plugin test .\` runs \`editor/sync.test.ts\` in Node with \`mockEditorHost\`; \`openkodo plugin check .\` reads every file the editor loads; \`openkodo plugin shot <plugin-key> --editor <file>\` saves a PNG of it. \`"frame": "isolated"\` keeps it to the OpenKodo desktop app. Loading it needs approval: \`openkodo plugin dev watch .\` prints the exact access and the \`--approve\` fingerprint.`
       ),
       ...COMMON_FILES
     }

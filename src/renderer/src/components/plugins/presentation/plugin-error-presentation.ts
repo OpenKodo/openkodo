@@ -46,7 +46,7 @@ export function pluginInstallErrorMessage(cause: unknown): string {
   // Why: a fork of an official template keeps its reserved id/publisher, and this refusal used to
   // fall through to a generic failure with no hint to rename (#12598). Checked before the Git
   // heuristic because a reserved key such as `github.x` contains "git".
-  if (detail.includes('reserved for official orca plugins')) {
+  if (detail.includes('reserved for official openkodo plugins')) {
     return translate(
       'auto.components.settings.pluginError.installReservedIdentity',
       'This plugin uses a name reserved for official OpenKodo plugins, which install only from OpenKodo’s catalog. For your own copy or fork, change "id" in openkodo-plugin.json so it doesn’t start with "openkodo-", and set "publisher" to your own name.'

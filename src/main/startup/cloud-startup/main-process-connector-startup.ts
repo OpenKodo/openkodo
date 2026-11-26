@@ -11,7 +11,7 @@ import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-path
 import { mainProcessState as state } from '../main-process-state'
 
 /**
- * The desktop's or Electron `orca serve`'s connector, as this process's own OpenKodo account.
+ * The desktop's or Electron `openkodo serve`'s connector, as this process's own OpenKodo account.
  * Created before the window exists, so its sign-in and sign-out hooks always find it.
  */
 export function installMainProcessConnectorCloud(serve: boolean): void {
@@ -27,7 +27,7 @@ export function installMainProcessConnectorCloud(serve: boolean): void {
     kind: serve ? 'serve' : 'desktop',
     isFenced: () => state.isQuitting
   })
-  // `orca serve` runs agents too, with its own offscreen browser or a paired desktop's.
+  // `openkodo serve` runs agents too, with its own offscreen browser or a paired desktop's.
   installGoogleSetupHostWatch(runtime, {
     setStandingDownloadClaim: (resolver) => browserManager.setStandingDownloadClaim(resolver),
     getWorktreeIdForTab: (id) => browserManager.getWorktreeIdForTab(id),

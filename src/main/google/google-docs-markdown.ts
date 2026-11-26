@@ -1,4 +1,4 @@
-// Markdown to Docs edits, for `orca docs append` (the Docs API takes no Markdown): headings, bullet
+// Markdown to Docs edits, for `openkodo docs append` (the Docs API takes no Markdown): headings, bullet
 // and numbered lists, bold, italic, code and links. Tables and quotes go in as plain lines.
 
 type Span = { start: number; end: number; bold?: true; italic?: true; code?: true; link?: string }

@@ -11,7 +11,7 @@ import {
 import { bindWorkerTerminal } from '../../db/worker-terminal/worker-bound-terminals'
 import { resolveStructuredWorkerIdentityForSession } from '../../terminal-authority/structured-sessions/structured-worker-authority'
 
-/** `orca terminal create` run by a worker's own agent binds the new terminal to that worker, so it closes
+/** `openkodo terminal create` run by a worker's own agent binds the new terminal to that worker, so it closes
  *  with it. People's windows and phones send no caller, and any other agent's terminal or chat names no
  *  worker, so their terminals get no owner; nor does one created with --keep-open. */
 export function bindTerminalToCallingWorker(

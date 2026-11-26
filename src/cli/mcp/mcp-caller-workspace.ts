@@ -1,4 +1,4 @@
-// Which workspace an `orca mcp` bridge's session is in, one rule for `connect`, `exec` and `env`:
+// Which workspace an `openkodo mcp` bridge's session is in, one rule for `connect`, `exec` and `env`:
 // what its launch named (`--workspace`, or `--outside-workspace` for a pane in none), else the OpenKodo
 // pane's own (WSL forwards it), else the one holding cwd (an agent's own MCP file names neither).
 import type { RuntimeClient } from '../runtime/client'

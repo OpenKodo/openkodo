@@ -317,7 +317,7 @@ export function orcadMachineHomeDir(
   return joinRemotePath(host, loginHome, RELAY_REMOTE_DIR, ORCAD_MACHINE_HOMES_DIRNAME, machineKey)
 }
 
-/** Keep data roots shallow beside ~/.orca so long shared-home paths fit Unix socket limits. */
+/** Keep data roots shallow beside ~/.openkodo so long shared-home paths fit Unix socket limits. */
 export function orcadMachineDataRoot(
   host: RemoteHostPlatform,
   loginHome: string,

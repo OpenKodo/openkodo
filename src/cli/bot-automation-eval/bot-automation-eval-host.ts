@@ -29,11 +29,11 @@ export type EvalHostState = {
   automations: Automation[]
   /** Whether the host's OpenKodo Cloud takes webhooks, as bots.list says. */
   webhooks?: boolean
-  /** What `orca slack find` and automations' place lookups match: Slack channels, Linear teams and issues, GitHub repos. */
+  /** What `openkodo slack find` and automations' place lookups match: Slack channels, Linear teams and issues, GitHub repos. */
   places?: {
     ref: string
     label: string
-    /** What `orca slack read` returns there; a Linear issue in `linear` reads as its description. */
+    /** What `openkodo slack read` returns there; a Linear issue in `linear` reads as its description. */
     messages?: {
       author: string
       text: string
@@ -47,7 +47,7 @@ export type EvalHostState = {
   timezone: string
   /** Orchestration stand-in state (see bot-orchestration-eval); shaped like the runtime's replies. */
   worktrees?: Record<string, unknown>[]
-  /** What `orca terminal read` shows for an agent's terminal, by handle. */
+  /** What `openkodo terminal read` shows for an agent's terminal, by handle. */
   terminalTranscripts?: Record<string, string>
   workers?: StandInWorker[]
   /** Unread mail for the bot's run, what it already read, and what it sent. */
@@ -109,7 +109,7 @@ export type EvalHostState = {
   items?: { number: number; title: string }[]
   /** The GitHub repository each project tracks, by project id. */
   githubRepos?: Record<string, { id: number; fullName: string }>
-  /** The owner's `gh` (signed in unless `signedOut`), and whether `orca linear` has no login or key. */
+  /** The owner's `gh` (signed in unless `signedOut`), and whether `openkodo linear` has no login or key. */
   github?: EvalGithub
   linearSignedOut?: true
   /** A recurring look; suggestions use the real look-around state transitions. */
@@ -216,7 +216,7 @@ export function childEnv(standIn: string, home: string): Record<string, string> 
     OPENKODO_EVAL_LOG: join(evalFolder(home), 'log.jsonl'),
     // A real gh reached past the stand-in (by absolute path) finds no login of the owner's.
     GH_CONFIG_DIR: join(evalFolder(home), 'no-gh'),
-    // `orca status` reads the app's metadata directly, past the stand-in; point it at nothing.
+    // `openkodo status` reads the app's metadata directly, past the stand-in; point it at nothing.
     OPENKODO_USER_DATA_PATH: join(evalFolder(home), 'no-orca'),
     // A bot is a native chat; without these, chat-only commands refuse before the stand-in.
     OPENKODO_AGENT_SESSION_ID: randomUUID(),

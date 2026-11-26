@@ -18,7 +18,7 @@ export const PLUGIN_HOOK_LIMIT = PLUGIN_HOOK_NAMES.length
 
 export type PluginHookName = (typeof PLUGIN_HOOK_NAMES)[number]
 
-/** The release each hook arrived in; engines.orca must cover every one a plugin lists. */
+/** The release each hook arrived in; engines.openkodo must cover every one a plugin lists. */
 export const PLUGIN_HOOK_SINCE: Record<PluginHookName, string> = {
   'terminal.send': PLUGIN_HOOKS_SINCE,
   'workspace.create.before': PLUGIN_HOOKS_SINCE,

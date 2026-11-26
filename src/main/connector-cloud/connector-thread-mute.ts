@@ -1,5 +1,5 @@
 // Per-thread mute for a bot's Slack thread, decided before the agent sees the message: once the bot
-// has left the thread (`orca bot reply --leave-thread`), later replies stop reaching it until someone
+// has left the thread (`openkodo bot reply --leave-thread`), later replies stop reaching it until someone
 // @mentions it. The bot's own posts (a background run's result, an automation) still go out.
 import type {
   ConnectorConversation,

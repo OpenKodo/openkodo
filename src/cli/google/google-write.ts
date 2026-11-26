@@ -1,4 +1,4 @@
-// `orca gmail draft|send|archive|label|mark-read`, `orca calendar create|update|delete|respond|
+// `openkodo gmail draft|send|archive|label|mark-read`, `openkodo calendar create|update|delete|respond|
 // suggest-time`: Google changes the host makes as a connected account; this prints them.
 import type {
   CalendarSuggestView,

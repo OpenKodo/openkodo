@@ -1,5 +1,5 @@
-// `orca bot chats` as text: each chat's id first (all `--chat` takes), then its title, when it was
-// last active, and its last exchange, as `orca worktree ps` shows an agent's.
+// `openkodo bot chats` as text: each chat's id first (all `--chat` takes), then its title, when it was
+// last active, and its last exchange, as `openkodo worktree ps` shows an agent's.
 import { BOT_CHAT_ID_PREFIX, type BotChatRow } from '../../shared/bots/bot-chat-row'
 import { botAddressArgument } from '../../shared/bot-roster'
 import { ago, oneLine } from '../workspaces/worktree-ps-format'
@@ -40,7 +40,7 @@ export function formatBotChats(result: BotChatsResult, now = Date.now()): string
     ...result.chats.map((chat) => formatChat(chat, address, now)),
     [
       "Titles only help match your owner's words; if more than one chat fits, ask them which.",
-      `Ask one: orca orchestration send --to ${address} --chat <id> --type question|handoff --subject "<text>"`
+      `Ask one: openkodo orchestration send --to ${address} --chat <id> --type question|handoff --subject "<text>"`
     ].join('\n')
   ].join('\n\n')
 }

@@ -56,7 +56,7 @@ type Deps = { relay?: Pick<BotToolRelay, 'grant'>; hostFolder?: string }
 
 type OfferedTools = { tools: SessionMcpTools; bridged: readonly BotToolServer[] }
 
-/** Of what the pane runs: its servers as delivered, and the definitions behind its `orca mcp exec`
+/** Of what the pane runs: its servers as delivered, and the definitions behind its `openkodo mcp exec`
  *  bridges, whose command or saved env can change while the bridge entry stays the same. */
 function fingerprintOf({ tools, bridged }: OfferedTools): string {
   return createHash('sha256')

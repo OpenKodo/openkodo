@@ -21,10 +21,10 @@ import { runtimeAccessDeniedError } from './runtime-access-denied'
 import { MAX_LOCAL_RUNTIME_RPC_MESSAGE_BYTES } from '../../../shared/remote-runtime/rpc/local-runtime-rpc-limits'
 import { daemonSocketDirIsTrusted } from '../../../main/daemon/endpoint/publication/daemon-socket-endpoint-path'
 
-// Agents read these; a blip must not send them to `orca open`, which raises the window.
+// Agents read these; a blip must not send them to `openkodo open`, which raises the window.
 const TRANSIENT_DISCONNECT_NEXT_STEPS = [
   'OpenKodo is usually busy or restarting: wait a few seconds, then retry. If the command changes something, first check whether it already took effect, and retry with the request ID this error names, if any.',
-  "Do not run 'orca open' to recover. Run it only if the user asks, or if 'orca status --json' reports OpenKodo is not running or still cannot connect after about 30 seconds of retries."
+  "Do not run 'openkodo open' to recover. Run it only if the user asks, or if 'openkodo status --json' reports OpenKodo is not running or still cannot connect after about 30 seconds of retries."
 ]
 
 export async function sendRequest<TResult>(

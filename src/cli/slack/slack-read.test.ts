@@ -145,7 +145,7 @@ describe('Slack read refusals', () => {
     [
       'not_in_place',
       'slack_channel_not_joined',
-      "The bot isn't in this channel. Run `orca slack check <ref> --join` to join a public channel, or ask someone to invite it."
+      "The bot isn't in this channel. Run `openkodo slack check <ref> --join` to join a public channel, or ask someone to invite it."
     ],
     [
       'not_found',
@@ -172,7 +172,7 @@ describe('Slack read refusals', () => {
       message: "That message is gone, or the bot can't see it."
     })
     expect(error.message).toMatch(
-      /^That message is gone, or the bot can't see it\. .*`orca slack read <channel>`/
+      /^That message is gone, or the bot can't see it\. .*`openkodo slack read <channel>`/
     )
   })
 

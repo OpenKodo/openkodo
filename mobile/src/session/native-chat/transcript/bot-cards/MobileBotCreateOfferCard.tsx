@@ -1,4 +1,4 @@
-// The card a bot shows with `orca bot create --offer`: a new bot it proposes. Nothing is made until
+// The card a bot shows with `openkodo bot create --offer`: a new bot it proposes. Nothing is made until
 // the owner presses Create bot (or creates from Edit); the card then reads Created, from the bots there are.
 import { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'

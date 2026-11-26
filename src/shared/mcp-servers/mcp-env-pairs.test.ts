@@ -46,7 +46,7 @@ async function runWrapped(
 
 // The wrapper runs in a WSL guest; bash is there, and on the macOS and Linux runners.
 describe.skipIf(process.platform === 'win32')(
-  'a WSL server’s saved env through orca mcp env',
+  'a WSL server’s saved env through openkodo mcp env',
   () => {
     it('reaches the server intact, whatever the values hold', async () => {
       const env = {

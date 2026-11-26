@@ -265,7 +265,7 @@ export function agentMcpServerMergeKey(configName: string, server: BotToolServer
 const OPENKODO_LAUNCHER = /(^|[\\/])orca(-[a-z]+)?(\.(cmd|exe))?$/i
 
 /**
- * An entry OpenKodo keeps in an agent's file itself: the `orca mcp connect` / `orca mcp exec` bridge,
+ * An entry OpenKodo keeps in an agent's file itself: the `openkodo mcp connect` / `openkodo mcp exec` bridge,
  * possibly behind `cmd /c`, which pins OpenKodo's data folder. Never listed as the agent's own.
  */
 export function isOrcaOwnedAgentMcpServer(server: BotToolServer): boolean {

@@ -37,7 +37,7 @@ function unnamedPlaces(source: Rule['source'], count: number): string {
   }
 }
 
-/** Names first; the rest counted ("#orca and 1 more"), or wholly in words when none is named. */
+/** Names first; the rest counted ("#openkodo and 1 more"), or wholly in words when none is named. */
 function listed(names: string[], unnamed: number, unnamedWords: string): string {
   if (names.length === 0) {
     return unnamedWords

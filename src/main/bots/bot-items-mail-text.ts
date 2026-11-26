@@ -119,7 +119,7 @@ export function botItemChangeMail(
       ...body,
       '',
       ...(next.length > 0 ? [next.join(' '), ''] : []),
-      `Check with \`orca bot item show <n>\` before acting: items may have changed since, and mail can repeat after a crash. If nothing needs doing, stay silent with ${BOT_QUIET_MARKER}.`
+      `Check with \`openkodo bot item show <n>\` before acting: items may have changed since, and mail can repeat after a crash. If nothing needs doing, stay silent with ${BOT_QUIET_MARKER}.`
     ].join('\n')
   }
 }
@@ -215,7 +215,7 @@ export function botItemRequestMail(item: {
   const doneMeans = item.doneMeans ? `\nDone means: ${inlineUntrusted(item.doneMeans, 400)}` : ''
   return {
     subject: `New item: ${inlineUntrusted(item.title)}`,
-    body: `An item was added for you: "${inlineUntrusted(item.title)}".${doneMeans}\nRead it with \`orca bot item show ${item.uid}\`, then do it and keep the item current. If show says it was never made, add it yourself if it is still wanted.`
+    body: `An item was added for you: "${inlineUntrusted(item.title)}".${doneMeans}\nRead it with \`openkodo bot item show ${item.uid}\`, then do it and keep the item current. If show says it was never made, add it yourself if it is still wanted.`
   }
 }
 
@@ -238,6 +238,6 @@ export function botItemMakerCommentMail(
 ): { subject: string; body: string } {
   return {
     subject: `${makerName} commented (${itemName(item)})`,
-    body: `${makerName}, which added ${itemName(item)} for you, commented on it:\n${fenceQuotedText(commentText)}${imagesNote(images, 0, false)}\n\nCheck with \`orca bot item show ${item.number}\` before acting. If nothing needs doing, stay silent with ${BOT_QUIET_MARKER}.`
+    body: `${makerName}, which added ${itemName(item)} for you, commented on it:\n${fenceQuotedText(commentText)}${imagesNote(images, 0, false)}\n\nCheck with \`openkodo bot item show ${item.number}\` before acting. If nothing needs doing, stay silent with ${BOT_QUIET_MARKER}.`
   }
 }

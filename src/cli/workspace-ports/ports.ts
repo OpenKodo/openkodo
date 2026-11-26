@@ -119,7 +119,7 @@ async function resolvePortsTarget(
   if (isNativeFolderSelector(selector)) {
     throw new RuntimeClientError(
       'invalid_argument',
-      'OpenKodo does not tie ports to native folder workspaces yet. Run `orca ports --all` to list every listener on the host.'
+      'OpenKodo does not tie ports to native folder workspaces yet. Run `openkodo ports --all` to list every listener on the host.'
     )
   }
   const shown = await client.call<{ worktree: RuntimeWorktreeRecord }>('worktree.show', {

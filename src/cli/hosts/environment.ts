@@ -70,8 +70,8 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
   'host list': async ({ client, flags, json }) => {
     rejectLocalPairingStoreRetargeting(
       flags,
-      '`orca host list`. It answers from this machine\u2019s own pairing store, so a routed answer would name servers paired with a different machine.',
-      'Run `orca host list` on that machine to see the SSH targets registered there.'
+      '`openkodo host list`. It answers from this machine\u2019s own pairing store, so a routed answer would name servers paired with a different machine.',
+      'Run `openkodo host list` on that machine to see the SSH targets registered there.'
     )
     const sshTargets = (await listSshTargets(client)).map((target) => ({
       kind: 'ssh' as const,
@@ -107,8 +107,8 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
   'host rm': async ({ client, flags, json }) => {
     rejectLocalPairingStoreRetargeting(
       flags,
-      '`orca host rm`. It removes an SSH target from this machine\u2019s own OpenKodo runtime, the same one `orca host list` reads.',
-      'Run `orca host rm` on that machine to remove an SSH target registered there.'
+      '`openkodo host rm`. It removes an SSH target from this machine\u2019s own OpenKodo runtime, the same one `openkodo host list` reads.',
+      'Run `openkodo host rm` on that machine to remove an SSH target registered there.'
     )
     const targetId = requireSshHostFlag(flags)
     // Unlike listSshTargets, this keeps runtime_unavailable instead of reporting an unknown target.
@@ -120,7 +120,9 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
         `Unknown SSH target in --host ssh:${targetId}: this OpenKodo host has no SSH target with that id.`,
         {
           knownSshTargets: targets,
-          nextSteps: ['Run `orca host list` to see each SSH target and its --host ssh:<id> flag.']
+          nextSteps: [
+            'Run `openkodo host list` to see each SSH target and its --host ssh:<id> flag.'
+          ]
         }
       )
     }
@@ -137,8 +139,8 @@ export const ENVIRONMENT_HANDLERS: Record<string, CommandHandler> = {
   'environment list': async ({ flags, json }) => {
     rejectLocalPairingStoreRetargeting(
       flags,
-      '`orca environment list`. Paired servers are stored on this machine, so there is no other host to ask.',
-      'Run `orca environment list` on that machine to see the servers paired with it.'
+      '`openkodo environment list`. Paired servers are stored on this machine, so there is no other host to ask.',
+      'Run `openkodo environment list` on that machine to see the servers paired with it.'
     )
     const environments = (await listEnvironments(getDefaultUserDataPath())).map(
       redactRuntimeEnvironment
@@ -206,14 +208,16 @@ function requireSshHostFlag(flags: Map<string, string | boolean>): string {
   const named = host.kind === 'alias' ? host.alias : host.id
   const nextStep =
     host.kind === 'runtime'
-      ? 'A paired OpenKodo server is removed with `orca environment rm --environment <name>`.'
+      ? 'A paired OpenKodo server is removed with `openkodo environment rm --environment <name>`.'
       : host.kind === 'local' || normalizeTypedName(named) === LOCAL_HOST_LIST_NAME
         ? 'This machine is always listed and cannot be removed.'
-        : 'Pass the SSH target id as --host ssh:<target-id>; `orca host list` prints it.'
+        : 'Pass the SSH target id as --host ssh:<target-id>; `openkodo host list` prints it.'
   throw new RuntimeClientError(
     'invalid_argument',
-    `\`orca host rm\` removes saved SSH targets only, and --host ${named} is not one.`,
-    { nextSteps: [nextStep, 'Run `orca host list` to see each SSH target and its --host flag.'] }
+    `\`openkodo host rm\` removes saved SSH targets only, and --host ${named} is not one.`,
+    {
+      nextSteps: [nextStep, 'Run `openkodo host list` to see each SSH target and its --host flag.']
+    }
   )
 }
 

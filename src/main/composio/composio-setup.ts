@@ -55,8 +55,8 @@ export function composioSetupStartLine(
 ): string {
   const what = app ? `for ${appLabel(app)}` : 'with no app picked'
   const next = app
-    ? `Run \`orca skills get orca-cli --reference composio\`, then set it up as it says, with \`orca bot composio setup --app ${app.slug}\`.`
-    : 'Run `orca skills get orca-cli --reference composio`, then set it up as it says; ask which app first.'
+    ? `Run \`openkodo skills get openkodo-cli --reference composio\`, then set it up as it says, with \`openkodo bot composio setup --app ${app.slug}\`.`
+    : 'Run `openkodo skills get openkodo-cli --reference composio`, then set it up as it says; ask which app first.'
   return `Composio setup started by your owner from ${FROM_LABEL[from]}, ${what}. ${next}`
 }
 

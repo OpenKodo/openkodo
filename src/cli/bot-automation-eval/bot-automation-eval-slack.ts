@@ -96,7 +96,7 @@ export const messageRef = (message: (typeof WORLD.messages)[number]) =>
 export const labelOf = (message: (typeof WORLD.messages)[number], length: number) =>
   `${authorOf(message.author)}: ${message.text.replace(/\s+/g, ' ').slice(0, length)}`
 
-/** The workspace, as `orca bot connectors` lists it. */
+/** The workspace, as `openkodo bot connectors` lists it. */
 export const SLACK_WORKSPACE = z
   .array(z.object({ ref: z.string(), label: z.string() }))
   .parse(ANSWERS.workspaces)[0]!

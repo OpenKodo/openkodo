@@ -23,7 +23,7 @@ export function runtimeAccessDeniedError(
     systemCode,
     nextSteps: [
       retryStep,
-      "Do not restart OpenKodo or run 'orca open'; a restart cannot grant this command access."
+      "Do not restart OpenKodo or run 'openkodo open'; a restart cannot grant this command access."
     ]
   })
 }

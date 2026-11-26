@@ -1,4 +1,4 @@
-// A paired client with a terminal can run `orca pair`; revoking that client must take the link it minted.
+// A paired client with a terminal can run `openkodo pair`; revoking that client must take the link it minted.
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

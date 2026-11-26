@@ -1,4 +1,4 @@
-// `orca contacts find`: a person's email by name, from the account's contacts, the people it has
+// `openkodo contacts find`: a person's email by name, from the account's contacts, the people it has
 // emailed ("other contacts") and the company directory, so "email Sam" needs no address.
 import { z } from 'zod'
 import type { ContactSource, ContactsFindView } from '../../shared/google/google-read-types'

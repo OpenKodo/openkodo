@@ -36,7 +36,7 @@ describe('a read-only Codex session', () => {
 
   it('approves a read on the allow-list without asking anyone', () => {
     const { disposition, connection } = answer(CODEX_COMMAND_APPROVAL_METHOD, {
-      command: `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-orca}" slack read slack:T1:C1'`
+      command: `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-openkodo}" slack read slack:T1:C1'`
     })
     expect(disposition).toEqual({ kind: 'responded', method: CODEX_COMMAND_APPROVAL_METHOD })
     expect(connection.respond).toHaveBeenCalledWith(7, { decision: 'accept' })
@@ -45,7 +45,7 @@ describe('a read-only Codex session', () => {
   it("refuses a tidy-up even a look's allowed read", () => {
     const { connection } = answer(
       CODEX_COMMAND_APPROVAL_METHOD,
-      { command: `/bin/zsh -lc 'orca slack read slack:T1:C1'` },
+      { command: `/bin/zsh -lc 'openkodo slack read slack:T1:C1'` },
       'reply-only'
     )
     expect(connection.respond).toHaveBeenCalledWith(7, { decision: 'decline' })

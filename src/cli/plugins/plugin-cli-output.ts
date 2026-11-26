@@ -26,11 +26,11 @@ export function resolveLocalPluginPath(
   value: string,
   command: string
 ): string {
-  rejectRemoteSelectionFlags(ctx.flags, `orca plugin ${command}; it works on local files`)
+  rejectRemoteSelectionFlags(ctx.flags, `openkodo plugin ${command}; it works on local files`)
   if (process.env.OPENKODO_CLI_CWD) {
     throw new RuntimeClientError(
       'invalid_environment',
-      `orca plugin ${command} works on the files of the machine that runs it, but this shell forwards orca to the OpenKodo host. Write and check the plugin files on this machine directly, or run the command on the OpenKodo host.`
+      `openkodo plugin ${command} works on the files of the machine that runs it, but this shell forwards openkodo to the OpenKodo host. Write and check the plugin files on this machine directly, or run the command on the OpenKodo host.`
     )
   }
   return isAbsolute(value) ? value : resolve(ctx.cwd, value)

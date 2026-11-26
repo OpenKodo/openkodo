@@ -1,4 +1,4 @@
-// `orca worktree ps` as text: per workspace, what an agent reading it needs to tell what the work is
+// `openkodo worktree ps` as text: per workspace, what an agent reading it needs to tell what the work is
 // and where it stands: its name, project, owner bot, PR and issue, and each agent's last exchange.
 import type {
   RuntimeWorktreeAgentRow,

@@ -1,4 +1,4 @@
-// `orca bot reply --choice <label>`: the buttons a reply offers under its text.
+// `openkodo bot reply --choice <label>`: the buttons a reply offers under its text.
 import {
   CONNECTOR_REPLY_CHOICE_MAX_CHARS,
   CONNECTOR_REPLY_MAX_CHOICES

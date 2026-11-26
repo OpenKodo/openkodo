@@ -40,7 +40,7 @@ describe('Google read output', () => {
       '[OpenKodo: attachment gmail:att:m1:1: a .pdf, 2 KB; --download gmail:att:m1:1 saves it]'
     )
     expect(text).toContain(
-      'More: orca gmail read gmail:thread:t1 --offset 20000 --account ada@acme.dev'
+      'More: openkodo gmail read gmail:thread:t1 --offset 20000 --account ada@acme.dev'
     )
   })
 
@@ -103,7 +103,7 @@ describe('Google read output', () => {
       nextPageToken: 'c2'
     })
     expect(paged.split('\n').at(-1)).toBe(
-      'Next page: orca calendar list --calendar primary --from 2026-11-03T00:00:00-05:00 --to 2026-11-05T00:00:00-05:00 --page c2 --account ada@acme.dev'
+      'Next page: openkodo calendar list --calendar primary --from 2026-11-03T00:00:00-05:00 --to 2026-11-05T00:00:00-05:00 --page c2 --account ada@acme.dev'
     )
   })
 
@@ -126,7 +126,9 @@ describe('Google read output', () => {
       'x'
     )
     const lines = page.split('\n')
-    expect(lines.at(-1)).toBe('Next page: orca gmail search "x" --page p2 --account ada@acme.dev')
+    expect(lines.at(-1)).toBe(
+      'Next page: openkodo gmail search "x" --page p2 --account ada@acme.dev'
+    )
     expect(lines.at(-2)).toMatch(/^\[OpenKodo: truncated at 20000 of \d+ characters\./)
     expect(lines.at(-3)).toBe('>>>')
   })

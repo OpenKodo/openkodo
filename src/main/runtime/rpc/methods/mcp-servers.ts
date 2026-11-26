@@ -279,7 +279,7 @@ export const MCP_SERVER_METHODS = [
       )
   }),
   defineMethod({
-    // `orca mcp connect` in Grok's, Cursor's and Droid's own MCP files. The answer carries the
+    // `openkodo mcp connect` in Grok's, Cursor's and Droid's own MCP files. The answer carries the
     // relay token or a command's secret env, so this host's own CLI is the only caller it serves.
     name: 'mcpServers.connect',
     permission: 'workspace',

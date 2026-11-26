@@ -1,4 +1,4 @@
-// Drives a sign-in the host runs (`openkodo auth login`, `orca google connect`): waits for its prompt, shows
+// Drives a sign-in the host runs (`openkodo auth login`, `openkodo google connect`): waits for its prompt, shows
 // it, waits for the end, and on Ctrl+C stops it on the host and says whether it had already finished.
 import type { HostAccountSignInPhase } from '../../shared/agent-accounts/host-account-sign-in-types'
 import type { RuntimeStatus } from '../../shared/remote-runtime/session-graph/runtime-session-contracts'

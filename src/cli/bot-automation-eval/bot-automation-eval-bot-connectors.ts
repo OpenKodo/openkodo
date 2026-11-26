@@ -1,5 +1,5 @@
-// `orca bot connectors`, `orca bot reply --react` and `--leave-thread` on the stand-in host: each service's row read
-// from the scenario (is gh signed in, does `orca linear` have a key), as bots-connectors.ts builds it.
+// `openkodo bot connectors`, `openkodo bot reply --react` and `--leave-thread` on the stand-in host: each service's row read
+// from the scenario (is gh signed in, does `openkodo linear` have a key), as bots-connectors.ts builds it.
 import { botConnectorServices, type BotConnectorsView } from '../../shared/bots/bot-connectors-view'
 import type { EvalHostState } from './bot-automation-eval-host'
 import { workspaces } from './bot-automation-eval-connector'

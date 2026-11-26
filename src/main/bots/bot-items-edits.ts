@@ -212,7 +212,7 @@ export function assertBotItemSetInput(changes: BotItemSetInput): void {
   if (changes.comment !== undefined && changes.status === undefined) {
     throw new BotItemError(
       'invalid_argument',
-      '--comment goes with --status; otherwise use `orca bot item comment`.'
+      '--comment goes with --status; otherwise use `openkodo bot item comment`.'
     )
   }
   if (changes.title !== undefined && !changes.title.trim()) {

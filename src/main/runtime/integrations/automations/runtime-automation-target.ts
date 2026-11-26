@@ -205,11 +205,11 @@ export function requireCreatableAutomationBot(
   return bot
 }
 
-/** One of a bot's chats that takes mail, by its id from `orca bot chats`; null when it is gone. */
+/** One of a bot's chats that takes mail, by its id from `openkodo bot chats`; null when it is gone. */
 export type BotChatLookup = (bot: Bot, id: string) => Promise<{ title: string | null } | null>
 
 export function botChatGone(botName: string, id: string): string {
-  return `${botName} has no chat chat:${id} that takes mail, so pick one that \`orca bot chats --bot "${botName}"\` lists.`
+  return `${botName} has no chat chat:${id} that takes mail, so pick one that \`openkodo bot chats --bot "${botName}"\` lists.`
 }
 
 /** A target that runs in a chosen chat, once that is one of the bot's chats that takes mail; saved

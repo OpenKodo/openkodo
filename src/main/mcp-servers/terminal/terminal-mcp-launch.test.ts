@@ -121,7 +121,7 @@ describe('the host list in an agent terminal', () => {
     for (const [agent, command] of [
       ['claude', 'claude --foo'],
       ['codex', 'codex --foo'],
-      ['claude-agent-teams', 'orca claude-teams --foo']
+      ['claude-agent-teams', 'openkodo claude-teams --foo']
     ] as const) {
       const input = launch(agent, command)
       const before = structuredClone({ env: input.env, envToDelete: input.envToDelete })
@@ -135,12 +135,12 @@ describe('the host list in an agent terminal', () => {
   it('gives an Agent Teams lead the config after its claude-teams subcommand, which forwards it to claude', async () => {
     process.env.OPENKODO_MCP_SERVERS = '1'
     const hostFolder = await hostList()
-    const input = launch('claude-agent-teams', 'orca claude-teams --foo')
+    const input = launch('claude-agent-teams', 'openkodo claude-teams --foo')
     const { command, pane } = await withTerminalMcpServers(input, { relay, hostFolder })
 
     const parsed = tokenizeStartupCommand(command!, 'posix')
     const tokens = parsed.ok ? parsed.tokens : []
-    expect(tokens.slice(0, 2)).toEqual(['orca', 'claude-teams'])
+    expect(tokens.slice(0, 2)).toEqual(['openkodo', 'claude-teams'])
     expect(tokens[2]).toMatch(/^--mcp-config=/)
     expect(tokens.slice(3)).toEqual(['--foo'])
     expect(command).not.toContain(TOKEN)
@@ -237,7 +237,7 @@ describe('the host list in an agent terminal', () => {
     expect(JSON.stringify(input.env)).not.toContain('hunter2')
   })
 
-  it('gives a Codex terminal the secret-env server through orca mcp exec, never its value', async () => {
+  it('gives a Codex terminal the secret-env server through openkodo mcp exec, never its value', async () => {
     process.env.OPENKODO_MCP_SERVERS = '1'
     const folder = tempDir('mcp-host-list-')
     await changeBotToolEntries(folder, () => [

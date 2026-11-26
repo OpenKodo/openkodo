@@ -1,4 +1,4 @@
-// How `orca drive|docs|sheets` print their answers: OpenKodo's own lines plain, every file name and
+// How `openkodo drive|docs|sheets` print their answers: OpenKodo's own lines plain, every file name and
 // every text someone else wrote fenced as content, and the whole answer capped.
 import type {
   DocsComment,
@@ -54,7 +54,7 @@ export function formatDriveList(view: DriveListView, more: string): string {
   return [
     capToolOutput(
       [
-        `${view.files.length} file${view.files.length === 1 ? '' : 's'}${view.folder ? ` in folder ${view.folder.id}` : ''} for ${view.account}; \`orca drive read <id>\` opens one.`,
+        `${view.files.length} file${view.files.length === 1 ? '' : 's'}${view.folder ? ` in folder ${view.folder.id}` : ''} for ${view.account}; \`openkodo drive read <id>\` opens one.`,
         untrustedContent('files as Drive lists them', view.files.map(fileLine).join('\n'))
       ].join('\n'),
       'Pass --limit for fewer.'
@@ -82,7 +82,7 @@ export function formatDriveRead(view: DriveReadView): string {
     ),
     ...partLine(view.part),
     ...(view.nextOffset !== undefined
-      ? [`More: orca drive read ${view.file.id} --offset ${view.nextOffset}`]
+      ? [`More: openkodo drive read ${view.file.id} --offset ${view.nextOffset}`]
       : [])
   ].join('\n')
 }
@@ -136,7 +136,7 @@ export function formatDocsRead(view: DocsReadView): string {
     ),
     ...partLine(view.part),
     ...(view.nextOffset !== undefined
-      ? [`More: orca docs read ${view.id} --offset ${view.nextOffset}`]
+      ? [`More: openkodo docs read ${view.id} --offset ${view.nextOffset}`]
       : [])
   ].join('\n')
 }
@@ -172,7 +172,7 @@ export function formatSheetsRead(view: SheetsReadView): string {
     ),
     ...(view.nextRange
       ? [
-          `More rows: orca sheets read ${view.id}${tab ? ` --tab ${JSON.stringify(inlineUntrusted(tab, 100))}` : ''} --range ${view.nextRange}`
+          `More rows: openkodo sheets read ${view.id}${tab ? ` --tab ${JSON.stringify(inlineUntrusted(tab, 100))}` : ''} --range ${view.nextRange}`
         ]
       : [])
   ].join('\n')

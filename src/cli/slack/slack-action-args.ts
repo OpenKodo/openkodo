@@ -1,4 +1,4 @@
-// Each `orca slack` verb's arguments, from the CLI's flags.
+// Each `openkodo slack` verb's arguments, from the CLI's flags.
 import { randomUUID } from 'node:crypto'
 import type { ConnectorActionArgs } from '../../shared/connector-action-contract'
 import type { HandlerContext } from '../dispatch/dispatch'
@@ -104,7 +104,7 @@ export function scheduledFor(at: string | undefined, nowMs: number): { postAt?: 
   return { postAt }
 }
 
-/** The verbs `orca slack` sends in one call, as connector.act names them; attach takes several. */
+/** The verbs `openkodo slack` sends in one call, as connector.act names them; attach takes several. */
 export type SlackVerb =
   | 'find'
   | 'check'
@@ -158,7 +158,7 @@ export async function actionArgs(
       if (cancel !== undefined && !cancel.trim()) {
         throw new RuntimeClientError(
           'invalid_argument',
-          '--cancel takes the id `orca slack scheduled <place>` lists.'
+          '--cancel takes the id `openkodo slack scheduled <place>` lists.'
         )
       }
       return cancel ? { cancel: cancel.trim() } : {}

@@ -17,7 +17,7 @@ const METHOD_NOT_FOUND = -32601
 const OWNER_RETRY_BUDGET_MS = 35_000
 
 export const REMOTE_CLI_UNAVAILABLE =
-  'This terminal was started by an older version of OpenKodo, so orca commands are unavailable ' +
+  'This terminal was started by an older version of OpenKodo, so openkodo commands are unavailable ' +
   'in it. Run them in a new terminal on this host.'
 
 export type LegacyRelayOwnerClaim = { ownerGeneration: number; ownerLease: string }

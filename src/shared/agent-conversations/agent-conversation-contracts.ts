@@ -3,7 +3,7 @@ import type { RuntimeListingHostScope } from '../execution-host/runtime-listing-
 
 export type AgentConversationKind = 'chat' | 'terminal'
 
-/** One open agent, chat or terminal, as `orca agent list` shows it. */
+/** One open agent, chat or terminal, as `openkodo agent list` shows it. */
 export type AgentConversationRow = {
   /** The conversation's OpenKodo session ID (a chat's /clear root); null for a terminal agent the
    *  host has not named yet, which no command can address by ID. */
@@ -57,7 +57,7 @@ export type AgentReadResult = {
   /** The latest turn as this read's own history records it: `working`, an unfinished turn;
    *  `done`, an ended turn whose reply is in `entries`. Absent means unknown, never done. Live
    *  `agent list`/`show` may differ. A terminal agent that exited mid-turn may keep reading
-   *  `working`; check `orca agent show`. */
+   *  `working`; check `openkodo agent show`. */
   state?: AgentStatusState
   entries: AgentReadEntry[]
   /** Conversation content was omitted or an entry was shortened. */
@@ -67,7 +67,7 @@ export type AgentReadResult = {
 export const AGENT_READ_DEFAULT_LIMIT = 20
 export const AGENT_READ_MAX_LIMIT = 100
 
-/** Codes `orca agent` refusals carry in `--json`; the message says what to do. */
+/** Codes `openkodo agent` refusals carry in `--json`; the message says what to do. */
 export const AGENT_CONVERSATION_REFUSAL_CODES = {
   unknown: 'agent_unknown',
   providerId: 'agent_provider_id',

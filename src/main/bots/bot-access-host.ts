@@ -16,7 +16,7 @@ import type { ConnectorCloud } from '../connector-cloud/connector-cloud'
 
 export type BotAccessHostDeps = {
   bots: () => readonly Bot[]
-  /** Null when this host has no signed-in OpenKodo account (orca serve today). */
+  /** Null when this host has no signed-in OpenKodo account (openkodo serve today). */
   cloud: () => Pick<ConnectorCloud, 'call'> | null
   updateBot: (botId: string, edit: (bot: Bot) => BotUpdateParams['updates']) => Promise<Bot>
 }

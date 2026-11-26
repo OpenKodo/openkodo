@@ -145,7 +145,7 @@ function withAgentSetup(
 
 type RunsInChoice = Pick<AutomationBotTarget, 'runsIn' | 'chat'>
 
-/** new, chat (the Home Chat), or chat:<id> for one of the bot's chats as `orca bot chats` prints it. */
+/** new, chat (the Home Chat), or chat:<id> for one of the bot's chats as `openkodo bot chats` prints it. */
 function parseRunsIn(raw: string | undefined, fallback: AutomationBotRunsIn): RunsInChoice {
   if (raw === undefined || raw === 'new' || raw === 'chat') {
     return { runsIn: raw ?? fallback }

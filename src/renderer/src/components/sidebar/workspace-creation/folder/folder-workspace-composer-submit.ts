@@ -86,7 +86,7 @@ export async function submitFolderWorkspaceCreate({
     projectGroup
   )
   const launchPlatform = launchHost.kind === 'known' ? launchHost.platform : null
-  // SSH folders use the plain orca relay shim; keep the Linux-only local executable rename out of remote launches.
+  // SSH folders use the plain openkodo relay shim; keep the Linux-only local executable rename out of remote launches.
   const launchIsRemote = Boolean(projectGroup.connectionId)
   const launchShell = resolveExecutionHostAgentStartupShell(launchHost, terminalWindowsShell)
   const preferences =

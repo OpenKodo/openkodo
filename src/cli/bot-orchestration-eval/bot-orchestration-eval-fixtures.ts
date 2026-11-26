@@ -15,7 +15,7 @@ function repo(id: string, displayName: string, path = `projects/${displayName}`)
   return { id, displayName, path }
 }
 
-// Relative paths become checkouts in the scratch home; one-off clones of orca sit beside the real one.
+// Relative paths become checkouts in the scratch home; one-off clones of openkodo sit beside the real one.
 export const PROJECTS: Repo[] = [
   repo(CLOUD_REPO, 'api'),
   repo('678b455b-03fc-45f3-8220-d8be37445c2f', 'marketing-site'),
@@ -187,7 +187,7 @@ export const FLAKY_DONE_MAIL = workerDone(
   'Fixed the flaky scrollback test: it read the buffer before the 16 ms flush timer fired. Switched it to fake timers and flushed explicitly; 200/200 local runs pass. Opened PR https://github.com/OpenKodo/openkodo/pull/30901.'
 )
 
-export const WOKEN = `You have 1 orchestration message. Run \`orca orchestration check --run ${EVAL_RUN_ID}\`.`
+export const WOKEN = `You have 1 orchestration message. Run \`openkodo orchestration check --run ${EVAL_RUN_ID}\`.`
 
 /** The workspace names a status answer could list. */
 export const OWNER_WORKSPACE_NAMES = OWNER_WORKSPACES.map((row) => String(row.displayName))

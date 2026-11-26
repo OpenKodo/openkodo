@@ -1,4 +1,4 @@
-// `orca bot work list`: the work a bot started, one line each, from its work record and orchestration.
+// `openkodo bot work list`: the work a bot started, one line each, from its work record and orchestration.
 import type { ConnectorSource } from '../connectors/external-conversation-link'
 import { CONNECTOR_SOURCE_NAMES } from '../connectors/external-conversation-link'
 import type { BotWorkPullRequest } from './bot-work-pull-request'

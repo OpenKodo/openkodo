@@ -6,7 +6,7 @@ export type OrcaInstallIdentity = {
   installKind: OrcaUninstallInstallKind
   appPath: string | null
   removeAppCommand: string | null
-  /** Another OpenKodo build that runs the same ~/.orca hook scripts. */
+  /** Another OpenKodo build that runs the same ~/.openkodo hook scripts. */
   otherOrcaBuildName: string | null
 }
 

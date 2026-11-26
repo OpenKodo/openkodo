@@ -214,7 +214,7 @@ function waitTimeoutError(
     `Timed out after ${timeoutMs} ms waiting for ${goal}; last check: ${lastSeen}.`,
     {
       nextSteps: [
-        'Run `orca computer get-app-state --app <app> --json` to see what the app shows now.',
+        'Run `openkodo computer get-app-state --app <app> --json` to see what the app shows now.',
         'If the app is still working, wait again with a longer --timeout; otherwise match text the tree actually shows.',
         ...(condition.kind === 'enabled'
           ? ['Every matching element must be enabled, so use text only the intended control shows.']

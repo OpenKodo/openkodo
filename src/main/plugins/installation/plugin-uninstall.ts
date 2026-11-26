@@ -27,7 +27,7 @@ export function canRemoveInstalledPlugin(
 
 /**
  * Removes an installed plugin with its approval, disabled flag and theme choices. Shared by the
- * Plugins page and `orca plugin uninstall`; false when the key is bundled, dev-only or unknown.
+ * Plugins page and `openkodo plugin uninstall`; false when the key is bundled, dev-only or unknown.
  */
 export async function uninstallInstalledPlugin(input: {
   pluginService: UninstallingPluginService

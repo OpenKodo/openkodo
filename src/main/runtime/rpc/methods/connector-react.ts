@@ -1,4 +1,4 @@
-// `orca bot reply --react`: the calling bot's emoji on the message that woke its run, as the bot.
+// `openkodo bot reply --react`: the calling bot's emoji on the message that woke its run, as the bot.
 import { ConnectorReact } from '../../../../shared/rpc-contract/connectors/connector-params'
 import { defineMethod } from '../core'
 import { ConnectorActError, actAsBot } from './connector-act'
@@ -29,7 +29,7 @@ export function wakingMessageRef(
 }
 
 const NO_MESSAGE =
-  'Nothing to react to: no Slack or GitHub message woke this run. Reply with `orca bot reply --text` instead.'
+  'Nothing to react to: no Slack or GitHub message woke this run. Reply with `openkodo bot reply --text` instead.'
 
 export const CONNECTOR_REACT_METHOD = defineMethod({
   name: 'connector.react',

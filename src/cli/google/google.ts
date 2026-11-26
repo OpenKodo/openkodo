@@ -1,4 +1,4 @@
-// `orca google …`: the Google client and accounts kept by the OpenKodo on this computer, and which bots
+// `openkodo google …`: the Google client and accounts kept by the OpenKodo on this computer, and which bots
 // may use them. The host runs the sign-in; this command shows its link and relays a pasted address.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
@@ -85,7 +85,7 @@ export function readAccounts(value: string | undefined): string[] | undefined {
   if (invalid.length > 0) {
     throw new RuntimeClientError(
       'invalid_argument',
-      `--accounts takes Google account emails, comma-separated, not ${invalid.join(', ') || 'an empty one'}. \`orca google status\` lists the accounts here.`
+      `--accounts takes Google account emails, comma-separated, not ${invalid.join(', ') || 'an empty one'}. \`openkodo google status\` lists the accounts here.`
     )
   }
   return emails
@@ -125,7 +125,7 @@ export async function runGoogleConnect(
   interrupts: AuthInterruptSource = processInterrupts,
   input: NodeJS.ReadableStream = process.stdin
 ): Promise<void> {
-  prepare(ctx, 'orca google connect')
+  prepare(ctx, 'openkodo google connect')
   const account = getOptionalStringFlag(ctx.flags, 'account')
   const services = readServices(getOptionalStringFlag(ctx.flags, 'services'))
   const started = await ctx.client.call<GoogleSignInStatus>('google.signIn.start', {
@@ -159,9 +159,9 @@ export async function runGoogleConnect(
     },
     interrupted: {
       finished:
-        'Interrupted, but Google had already connected. See it with `orca google status`; `orca google disconnect` undoes it.',
+        'Interrupted, but Google had already connected. See it with `openkodo google status`; `openkodo google disconnect` undoes it.',
       unconfirmed:
-        "Interrupted, and this computer didn't confirm the sign-in stopped. Run `orca google status` to check."
+        "Interrupted, and this computer didn't confirm the sign-in stopped. Run `openkodo google status` to check."
     }
   })
   if (done.phase !== 'signedIn' || !done.account) {
@@ -184,7 +184,7 @@ export async function runGoogleConnect(
 
 export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
   'google status': async (ctx) => {
-    prepare(ctx, 'orca google status')
+    prepare(ctx, 'openkodo google status')
     const status = await ctx.client.call<GoogleStatusView>('google.status', {
       ...caller(),
       ...(ctx.flags.get('check') === true ? { check: true } : {})
@@ -192,7 +192,7 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
     printResult(status, ctx.json, formatGoogleStatus)
   },
   'google client import': async (ctx) => {
-    prepare(ctx, 'orca google client import')
+    prepare(ctx, 'openkodo google client import')
     const path = resolve(ctx.cwd, getRequiredStringFlag(ctx.flags, 'file'))
     let file: string
     try {
@@ -205,11 +205,11 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
       file
     })
     printResult(result, ctx.json, ({ client }) =>
-      [`Saved. ${clientLine(client)}`, 'Next: `orca google connect`.'].join('\n')
+      [`Saved. ${clientLine(client)}`, 'Next: `openkodo google connect`.'].join('\n')
     )
   },
   'google client export': async (ctx) => {
-    prepare(ctx, 'orca google client export')
+    prepare(ctx, 'openkodo google client export')
     const path = resolve(ctx.cwd, getRequiredStringFlag(ctx.flags, 'out'))
     const result = await ctx.client.call<{ file: string }>('google.client.export', caller())
     writeFileSync(path, result.result.file, { mode: 0o600 })
@@ -217,12 +217,12 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
       { ...result, result: { path } },
       ctx.json,
       ({ path: saved }) =>
-        `Saved to ${saved}. A teammate adds it with \`orca google client import ${saved}\`.`
+        `Saved to ${saved}. A teammate adds it with \`openkodo google client import ${saved}\`.`
     )
   },
   'google connect': (ctx) => runGoogleConnect(ctx),
   'google disconnect': async (ctx) => {
-    prepare(ctx, 'orca google disconnect')
+    prepare(ctx, 'openkodo google disconnect')
     const account = getOptionalStringFlag(ctx.flags, 'account')
     const revoke = ctx.flags.get('revoke') === true
     const result = await ctx.client.call<{
@@ -246,7 +246,7 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
     )
   },
   'google bot': async (ctx) => {
-    prepare(ctx, 'orca google bot')
+    prepare(ctx, 'openkodo google bot')
     // An empty --accounts is refused, never read as absent (which --on would make every account).
     const accounts = readAccounts(getOptionalStringFlagAllowingEmpty(ctx.flags, 'accounts'))
     const picked = [
@@ -275,7 +275,7 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
     if (accounts && result.result.bot.google && !result.result.bot.accounts) {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        `This OpenKodo didn't keep the account list: ${result.result.bot.name} now has every Google account. Run \`orca google bot --bot ${bot.id} --off\`, update OpenKodo, then try again.`
+        `This OpenKodo didn't keep the account list: ${result.result.bot.name} now has every Google account. Run \`openkodo google bot --bot ${bot.id} --off\`, update OpenKodo, then try again.`
       )
     }
     printResult(result, ctx.json, ({ bot: saved, warning }) =>

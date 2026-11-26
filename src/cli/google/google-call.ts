@@ -1,4 +1,4 @@
-// How every `orca gmail|calendar|contacts|drive|docs|sheets` command calls the host: as the bot run its
+// How every `openkodo gmail|calendar|contacts|drive|docs|sheets` command calls the host: as the bot run its
 // token names (none: the owner), from the chat it runs in, as the account named, and never with a
 // request too large for a paired server.
 import {

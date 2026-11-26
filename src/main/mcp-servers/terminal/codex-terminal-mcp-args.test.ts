@@ -69,7 +69,7 @@ describe('a WSL terminal’s guest wrapper in Codex overrides', () => {
   })
 })
 
-describe('a WSL server that runs the guest’s orca under Codex', () => {
+describe('a WSL server that runs the guest’s openkodo under Codex', () => {
   it('passes on the interop variables Codex would otherwise leave out', () => {
     const connect = {
       name: 'linear',

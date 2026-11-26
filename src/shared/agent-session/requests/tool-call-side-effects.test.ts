@@ -36,7 +36,7 @@ describe('toolCallHasSideEffects', () => {
       ['Bash', { command: 'diff <(rm -rf x) a' }],
       ['Bash', { command: "sed -n '1w /tmp/x' a" }],
       ['Bash', { command: 'sort -uo out in' }],
-      ['Bash', { command: 'orca orchestration check' }],
+      ['Bash', { command: 'openkodo orchestration check' }],
       ['Bash', { command: 'cat a > /dev/nullx' }],
       ['Bash', { command: 'sed -n 1p -i a.ts' }],
       ['Bash', { command: 'gh api -iXDELETE repos/o/r/git/refs/heads/main' }],

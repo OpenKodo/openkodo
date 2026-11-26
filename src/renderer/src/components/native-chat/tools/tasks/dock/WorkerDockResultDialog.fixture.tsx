@@ -7,7 +7,7 @@ import type { WorkerDockResult } from '../../../../../../../shared/orchestration
 const PROMPT =
   'You are a read-only audit worker for the billing release checklist. Change nothing, push no...'
 const ERROR =
-  'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git. To allow more time, set OPENKODO_WORKTREE_ADD_TIMEOUT_MS (milliseconds, up to 1800000) in the environment that starts OpenKodo on the machine running Git (the remote host for SSH or `orca serve` workspaces), then restart OpenKodo there.'
+  'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git. To allow more time, set OPENKODO_WORKTREE_ADD_TIMEOUT_MS (milliseconds, up to 1800000) in the environment that starts OpenKodo on the machine running Git (the remote host for SSH or `openkodo serve` workspaces), then restart OpenKodo there.'
 // The worst case the card meets: one long first sentence, then a raw multi-line log.
 const LONG_ERROR = `The worker could not start because Git refused to create the worktree at /workspace/billing/.worktrees/release-audit-checklist-and-follow-up-notes while another process held its index lock for longer than the allowed wait. ${Array.from(
   { length: 24 },

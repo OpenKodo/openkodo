@@ -6,8 +6,8 @@ const ALLOW = 'allow'
 /** [command, ALLOW or text the refusal names]: Bash first, then PowerShell. */
 const BASH: readonly (readonly [string, string])[] = [
   ['gh pr view 12 --repo o/r', ALLOW],
-  ['orca bot list', ALLOW],
-  ['orca bot item show 3', ALLOW],
+  ['openkodo bot list', ALLOW],
+  ['openkodo bot item show 3', ALLOW],
   ['git log -3', ALLOW],
   ["gh pr list --search 'is:open draft'", ALLOW],
   ['gh pr list --author @me --json number,title', ALLOW],
@@ -20,7 +20,10 @@ const BASH: readonly (readonly [string, string])[] = [
   ['gh pr view 12 || gh pr list', ALLOW],
   ['gh pr checks 12 2>&1 && gh run list --limit 5 2>/dev/null', ALLOW],
   ["gh pr list --search 'a;b && c || d'", ALLOW],
-  ['"${OPENKODO_CLI_COMMAND:-orca}" bot list && "${OPENKODO_CLI_COMMAND:-orca}" bot chats', ALLOW],
+  [
+    '"${OPENKODO_CLI_COMMAND:-openkodo}" bot list && "${OPENKODO_CLI_COMMAND:-openkodo}" bot chats',
+    ALLOW
+  ],
   ["/bin/zsh -lc 'git status && git log -3 2>&1'", ALLOW],
   ["/bin/sh -c 'git status'", ALLOW],
   ["/opt/homebrew/bin/bash -lc 'git log -3'", ALLOW],
@@ -36,22 +39,25 @@ const BASH: readonly (readonly [string, string])[] = [
   ["sh\n-c 'git status'", 'a second line'],
   ["/usr/bin/zsh -lc 'git status; rm x'", '"rm x" isn\'t a read'],
   // Codex joins argv with shlex: a script with a ' is double-quoted, or split into runs.
-  [`/bin/zsh -lc "orca bot suggest --title 'Follow up' --why 'Needs review' --ask 'Do it'"`, ALLOW],
   [
-    `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-orca}" bot suggest --title '"'A b' --why 'c d'"`,
+    `/bin/zsh -lc "openkodo bot suggest --title 'Follow up' --why 'Needs review' --ask 'Do it'"`,
+    ALLOW
+  ],
+  [
+    `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-openkodo}" bot suggest --title '"'A b' --why 'c d'"`,
     ALLOW
   ],
   [`/bin/zsh -lc 'gh pr list --search '"'"'a b'"'"''`, ALLOW],
   [`/bin/zsh -lc 'gh pr list --search '\\''a b'"'"' --json '"'"'c, d'\\'`, ALLOW],
   [
-    `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-orca}" bot suggest --title '"'A b' && \\""'\${OPENKODO_CLI_COMMAND:-orca}" bot list'`,
+    `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-openkodo}" bot suggest --title '"'A b' && \\""'\${OPENKODO_CLI_COMMAND:-openkodo}" bot list'`,
     ALLOW
   ],
-  [`/bin/zsh -lc "orca bot suggest --title 'Ship it"'!'"' --why 'a\\\\b'"`, ALLOW],
+  [`/bin/zsh -lc "openkodo bot suggest --title 'Ship it"'!'"' --why 'a\\\\b'"`, ALLOW],
   [`/bin/zsh -lc "git log; rm x"`, '"rm x" isn\'t a read'],
   [`/bin/zsh -lc 'gh pr list --search '"'"'a'"'"'; rm x'`, '"rm x" isn\'t a read'],
   [`/bin/zsh -lc 'gh pr list --search '"'"'a'"'"' $(id)'`, 'expansion ("$(")'],
-  [`/bin/zsh -lc 'orca bot suggest --title '"'"'a b'`, '"\'a"'],
+  [`/bin/zsh -lc 'openkodo bot suggest --title '"'"'a b'`, '"\'a"'],
   [`/bin/zsh -lc 'git status'"'`, 'double quotes'],
   [`/bin/zsh -lc "gh pr list --search '$(id)'"`, 'double quotes'],
   [`/bin/zsh -lc "gh pr list --search \\"x\\""`, 'double quotes'],
@@ -107,7 +113,7 @@ const BASH: readonly (readonly [string, string])[] = [
   ['gh pr view 12 —web', 'a curly quote or dash ("—"'],
   // Single commands that aren't reads.
   ['gh pr merge 12', '"gh pr merge" isn\'t a read'],
-  ['orca bot item add --title x', '"orca bot item add" isn\'t a read'],
+  ['openkodo bot item add --title x', '"openkodo bot item add" isn\'t a read'],
   ['rm -rf x', '"rm" isn\'t a read'],
   ['FOO=1 gh pr list', '"FOO=1 gh pr list" isn\'t a read'],
   ['./gh pr list', '"./gh pr list" isn\'t a read'],
@@ -118,29 +124,32 @@ const BASH: readonly (readonly [string, string])[] = [
 ]
 
 const POWERSHELL: readonly (readonly [string, string])[] = [
-  ['orca bot list', ALLOW],
+  ['openkodo bot list', ALLOW],
   ['gh pr view 12 --repo o/r', ALLOW],
   ['git log -3; git status', ALLOW],
   ['git status && git log -3', ALLOW],
   ['gh pr checks 12 2>&1', ALLOW],
   ["gh pr list --search 'is:open draft'", ALLOW],
   ['gh pr list --author=@me --json number --json title', ALLOW],
-  ["orca bot suggest --title 'Fix CI' --why 'It is red' --ask 'Fix it'", ALLOW],
+  ["openkodo bot suggest --title 'Fix CI' --why 'It is red' --ask 'Fix it'", ALLOW],
   ["gh pr view 'a\u0000b'", 'a control or invisible character'],
   ['﻿git status', 'a control or invisible character'],
   ['git status\n; git log', 'a second line'],
   // cmd.exe re-parses a `.cmd` launcher's arguments, quotes or not.
-  ["orca bot list 'x&echo.pwned>file'", 'cmd.exe reads & | < > ^ % !'],
+  ["openkodo bot list 'x&echo.pwned>file'", 'cmd.exe reads & | < > ^ % !'],
   ["gh pr list --search 'a|b'", 'cmd.exe reads & | < > ^ % !'],
   ["gh pr list --search 'a^b'", 'cmd.exe reads & | < > ^ % !'],
-  ["orca bot list '%GITHUB_TOKEN%'", 'cmd.exe reads & | < > ^ % !'],
-  ["orca bot suggest --title '%GITHUB_TOKEN%' --why 'x' --ask 'x'", 'cmd.exe reads & | < > ^ % !'],
-  ["orca bot list '%VAR:a=b%'", 'cmd.exe reads & | < > ^ % !'],
+  ["openkodo bot list '%GITHUB_TOKEN%'", 'cmd.exe reads & | < > ^ % !'],
+  [
+    "openkodo bot suggest --title '%GITHUB_TOKEN%' --why 'x' --ask 'x'",
+    'cmd.exe reads & | < > ^ % !'
+  ],
+  ["openkodo bot list '%VAR:a=b%'", 'cmd.exe reads & | < > ^ % !'],
   ["gh pr list --search '%OPENAI_API_KEY%'", 'cmd.exe reads & | < > ^ % !'],
-  ["orca bot list '!GITHUB_TOKEN!'", 'cmd.exe reads & | < > ^ % !'],
-  ["orca bot suggest --title 'Ship it!' --why 'x' --ask 'x'", 'cmd.exe reads & | < > ^ % !'],
-  ["orca slack check 'foo,--join'", 'cmd.exe splits a value at , or ;'],
-  ["orca slack check 'foo;--join'", 'cmd.exe splits a value at , or ;'],
+  ["openkodo bot list '!GITHUB_TOKEN!'", 'cmd.exe reads & | < > ^ % !'],
+  ["openkodo bot suggest --title 'Ship it!' --why 'x' --ask 'x'", 'cmd.exe reads & | < > ^ % !'],
+  ["openkodo slack check 'foo,--join'", 'cmd.exe splits a value at , or ;'],
+  ["openkodo slack check 'foo;--join'", 'cmd.exe splits a value at , or ;'],
   ["gh pr list --json 'number,title'", 'cmd.exe splits a value at , or ;'],
   ["gh pr list --search 'is:open draft' --json 'number, title'", ALLOW],
   // Curly quotes close PowerShell strings; these dashes read as `-`.
@@ -208,16 +217,16 @@ describe('lookAroundToolDecision', () => {
   })
 
   it("refuses cmd.exe operators in Bash's quoted words only on Windows", () => {
-    const command = "orca bot list 'x&echo.pwned>file'"
+    const command = "openkodo bot list 'x&echo.pwned>file'"
     expect(lookAroundToolDecision('Bash', { command })).toEqual({ decision: 'allow' })
     onPlatform('win32')
     const answer = lookAroundToolDecision('Bash', { command })
     expect(answer.decision === 'deny' && answer.reason).toContain('cmd.exe reads & | < > ^ % !')
     for (const value of ["'%GITHUB_TOKEN%'", "'!PATH!'"]) {
-      const expanded = lookAroundToolDecision('Bash', { command: `orca bot list ${value}` })
+      const expanded = lookAroundToolDecision('Bash', { command: `openkodo bot list ${value}` })
       expect(expanded.decision === 'deny' && expanded.reason).toContain('% !')
     }
-    const split = lookAroundToolDecision('Bash', { command: "orca slack check 'foo,--join'" })
+    const split = lookAroundToolDecision('Bash', { command: "openkodo slack check 'foo,--join'" })
     expect(split.decision === 'deny' && split.reason).toContain('splits a value at , or ;')
   })
 

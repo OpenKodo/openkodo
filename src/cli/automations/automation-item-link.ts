@@ -72,7 +72,7 @@ export async function linkAutomationToItem(
     const why = error instanceof Error ? error.message : String(error)
     throw new RuntimeClientError(
       'invalid_argument',
-      `Created automation ${automationId}, but linking it to item ${item} failed: ${why} Link it with \`orca bot item link ${item} ${ref}\`.`
+      `Created automation ${automationId}, but linking it to item ${item} failed: ${why} Link it with \`openkodo bot item link ${item} ${ref}\`.`
     )
   }
 }

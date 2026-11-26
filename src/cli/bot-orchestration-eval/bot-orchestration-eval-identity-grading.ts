@@ -1,5 +1,5 @@
 // Checks for who a bot acts as (design v3): work on GitHub and Linear is done as the owner with `gh`
-// and `orca linear`; where the bot was woken it speaks only through `orca bot reply` or its final
+// and `openkodo linear`; where the bot was woken it speaks only through `openkodo bot reply` or its final
 // answer. bot-orchestration-eval-grading.test.ts runs each against deliberately wrong traces.
 import { isQuietBotResult } from '../../shared/bot-quiet-result'
 import { ConnectorReview } from '../../shared/connector-review-contract'
@@ -7,7 +7,7 @@ import { linearTeam } from '../bot-automation-eval/bot-automation-eval-linear'
 import type { EvalRecordedWrite, EvalTurnOutcome } from './bot-orchestration-eval-conversation'
 import { writes, type TurnCheck } from './bot-orchestration-eval-grading'
 
-/** What `orca bot reply` records: a note, a reaction, or a review's line notes, where the bot was woken. */
+/** What `openkodo bot reply` records: a note, a reaction, or a review's line notes, where the bot was woken. */
 export const BOT_REPLY_METHOD = 'connector.reply'
 
 // gh writes that say something on a thread, as opposed to edits (labels, assignees, state).
@@ -72,8 +72,8 @@ export function ghEdits(
   }
 }
 
-/** Nothing said on the place that woke the bot except through `orca bot reply` and its final
- *  answer: no gh comment or review there, no `orca linear comment add` on that issue. */
+/** Nothing said on the place that woke the bot except through `openkodo bot reply` and its final
+ *  answer: no gh comment or review there, no `openkodo linear comment add` on that issue. */
 export function speaksOnlyAsItselfOn(place: string): TurnCheck {
   return (turn) => [
     ...ghWrites(turn)
@@ -85,12 +85,12 @@ export function speaksOnlyAsItselfOn(place: string): TurnCheck {
         argv[1] === 'comment' &&
         argv.some((arg) => arg.toUpperCase() === place.toUpperCase())
     )
-      ? [`ran \`orca linear comment\` on ${place}, where it was woken`]
+      ? [`ran \`openkodo linear comment\` on ${place}, where it was woken`]
       : [])
   ]
 }
 
-/** Something reached the place that woke the bot: a final answer, or an `orca bot reply`. */
+/** Something reached the place that woke the bot: a final answer, or an `openkodo bot reply`. */
 export const answersWhereWoken: TurnCheck = (turn) =>
   !isQuietBotResult(turn.reply) && turn.reply.trim()
     ? []
@@ -104,12 +104,12 @@ function notesOf(write: EvalRecordedWrite): { path: string }[] {
   return parsed.success ? parsed.data.comments : []
 }
 
-/** The review on the pull request that woke the bot is `orca bot reply` line notes, one on this file. */
+/** The review on the pull request that woke the bot is `openkodo bot reply` line notes, one on this file. */
 export function notesWhereWoken(path: string): TurnCheck {
   return (turn) => {
     const notes = writes(turn, BOT_REPLY_METHOD).flatMap(notesOf)
     if (!notes.length) {
-      return ['left no line notes with `orca bot reply --note`']
+      return ['left no line notes with `openkodo bot reply --note`']
     }
     return notes.some((note) => note.path.endsWith(path)) ? [] : [`no line note on ${path}`]
   }
@@ -135,7 +135,9 @@ export function commentReviews(place: string, ...facts: RegExp[]): TurnCheck {
       ...facts
         .filter((fact) => said.length && !said.some((write) => fact.test(bodyOf(write))))
         .map((fact) => `the review leaves out ${fact}`),
-      ...(writes(turn, BOT_REPLY_METHOD).length ? ['used `orca bot reply` away from the wake'] : [])
+      ...(writes(turn, BOT_REPLY_METHOD).length
+        ? ['used `openkodo bot reply` away from the wake']
+        : [])
     ]
   }
 }
@@ -149,7 +151,7 @@ export function tagsAsker(place: string, asker: string, bot: string): TurnCheck 
   )
 }
 
-// Everything a bot writes in words: gh and orca linear bodies, Slack posts and replies.
+// Everything a bot writes in words: gh and openkodo linear bodies, Slack posts and replies.
 const WORDED = ['gh.issue.comment', 'gh.pr.comment', 'gh.pr.review', 'linear.issueAddComment']
 
 /** No "asked by" line where it doesn't belong: anything the owner asked for, and Slack always. */
@@ -159,16 +161,16 @@ export const tagsNoAsker: TurnCheck = (turn) =>
     .filter((write) => /asked by\b/i.test(JSON.stringify(write.params)))
     .map((write) => `${write.method} carries an "asked by" line`)
 
-/** Linear changes go through `orca linear` as the owner: never a removed connector verb, and never
+/** Linear changes go through `openkodo linear` as the owner: never a removed connector verb, and never
  *  the owner's separate `linear` CLI. */
 export const worksAsOwner: TurnCheck = (turn) => [
   ...(turn.commands.some((argv) => argv[0] === 'connector')
-    ? ['ran a removed `orca connector` verb']
+    ? ['ran a removed `openkodo connector` verb']
     : []),
   ...(turn.ownerTools.includes('linear') ? ["ran the owner's `linear` CLI"] : [])
 ]
 
-/** An `orca linear status set` left the issue in this state. */
+/** An `openkodo linear status set` left the issue in this state. */
 export function linearMovesTo(id: string, state: string): TurnCheck {
   return (turn) => {
     const sets = writes(turn, 'linear.issueSetState').filter(
@@ -185,7 +187,7 @@ export function linearMovesTo(id: string, state: string): TurnCheck {
   }
 }
 
-/** An `orca linear create` filed an issue in the team with this key (named any way the stand-in
+/** An `openkodo linear create` filed an issue in the team with this key (named any way the stand-in
  *  reads it), carrying each fact. */
 export function linearFiles(team: string, ...facts: RegExp[]): TurnCheck {
   return (turn) => {
@@ -206,14 +208,14 @@ export function linearFiles(team: string, ...facts: RegExp[]): TurnCheck {
   }
 }
 
-/** An `orca linear comment add` on the issue, carrying each fact. */
+/** An `openkodo linear comment add` on the issue, carrying each fact. */
 export function linearComments(id: string, ...facts: RegExp[]): TurnCheck {
   return (turn) => {
     const added = writes(turn, 'linear.issueAddComment').filter(
       (write) => String(write.params.input ?? '').toUpperCase() === id.toUpperCase()
     )
     if (!added.length) {
-      return [`no \`orca linear comment add\` on ${id}`]
+      return [`no \`openkodo linear comment add\` on ${id}`]
     }
     return facts
       .filter((fact) => !added.some((write) => fact.test(bodyOf(write))))

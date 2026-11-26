@@ -107,7 +107,7 @@ async function readTerminalTranscript(
   if (isReverseLookupUnavailable(source)) {
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `OpenKodo can't look up agent ${orcaSessionId}'s saved transcript with this identity file in the current version. Open it with the newer OpenKodo version that wrote the file, or read an agent that's open now from \`orca agent list\`.`
+      `OpenKodo can't look up agent ${orcaSessionId}'s saved transcript with this identity file in the current version. Open it with the newer OpenKodo version that wrote the file, or read an agent that's open now from \`openkodo agent list\`.`
     )
   }
   if (source === null || !canReadWorkerTranscript(source.key.agent)) {
@@ -127,7 +127,7 @@ async function readTerminalTranscript(
     // A saved guest path with no distro names no file this host can open.
     throw new AgentConversationRefusal(
       CODES.noTranscript,
-      `OpenKodo can't read ${tuiAgentDisplayName(key.agent) ?? key.agent} agent ${orcaSessionId}'s transcript because its saved location doesn't identify which WSL distro holds it. Run \`orca agent show ${orcaSessionId}\` to find any open terminal for this agent and view it there.`
+      `OpenKodo can't read ${tuiAgentDisplayName(key.agent) ?? key.agent} agent ${orcaSessionId}'s transcript because its saved location doesn't identify which WSL distro holds it. Run \`openkodo agent show ${orcaSessionId}\` to find any open terminal for this agent and view it there.`
     )
   }
   const transcript = await readWorkerTranscript({

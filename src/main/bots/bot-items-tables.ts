@@ -160,7 +160,7 @@ export class BotItemsTables {
     if (actor.kind === 'bot' && item.status === 'canceled' && this.canceledByOwner(item.uid)) {
       throw new BotItemError(
         'item_closed',
-        `Your owner canceled item ${item.number}, so ask them on the item (\`orca bot item comment ${item.number} --text "..."\`) before reopening it.`
+        `Your owner canceled item ${item.number}, so ask them on the item (\`openkodo bot item comment ${item.number} --text "..."\`) before reopening it.`
       )
     }
   }

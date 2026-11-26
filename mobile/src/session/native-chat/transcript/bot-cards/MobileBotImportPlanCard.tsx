@@ -1,4 +1,4 @@
-// The plan a bot shows with `orca bot import plan`, as the desktop's card: what comes over, what changes and
+// The plan a bot shows with `openkodo bot import plan`, as the desktop's card: what comes over, what changes and
 // what stays behind, a tick on each thing that can come. Import tells the bot the desktop's same sentence.
 import { useState } from 'react'
 import { Pressable, Text, View } from 'react-native'

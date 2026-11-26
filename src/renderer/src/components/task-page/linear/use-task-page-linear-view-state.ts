@@ -86,7 +86,7 @@ export function useTaskPageLinearViewStatePrelude(model: TaskPageDetailRoutingMo
     [inOrcaLinkedLinearRefs]
   )
   const inOrcaLinkedLinearRefsRef = useRef(inOrcaLinkedLinearRefs)
-  // Keep latest linked refs for the in-orca loader without re-running it on identity churn.
+  // Keep latest linked refs for the in-openkodo loader without re-running it on identity churn.
   useEffect(() => {
     inOrcaLinkedLinearRefsRef.current = inOrcaLinkedLinearRefs
   }, [inOrcaLinkedLinearRefs])

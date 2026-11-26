@@ -42,7 +42,7 @@ export class AgentIdentityDemand {
   private readonly unresolved = new Set<string>()
   /** Keys a Copy click may send once despite the failure backoff. */
   private readonly bypass = new Set<string>()
-  /** Explicit read-only questions (membership, an `orca agent` read), unsent, in order. */
+  /** Explicit read-only questions (membership, an `openkodo agent` read), unsent, in order. */
   private readonly lookups = new AgentIdentityLookupQueue(CALLER_WAIT_MS)
 
   constructor(

@@ -23,7 +23,7 @@ const EXPORT_HEAD = 'a1b2c3d4e5f60718293a4b5c6d7e8f9012345678'
 const EXPORT_THREAD = { source: 'slack' as const, title: 'export test flaking again' }
 
 export const EXPORT_FIX =
-  'the export retry test in orca keeps flaking on CI, can you get it sorted?'
+  'the export retry test in openkodo keeps flaking on CI, can you get it sorted?'
 export const EXPORT_DONE = workerDone(
   'ctx_w1',
   'Fixed the flaky export retry test: it waited on a 500 ms timer instead of the export finishing. It now awaits the export. 100/100 local runs pass. Opened PR https://github.com/OpenKodo/openkodo/pull/36700; checks are running.'

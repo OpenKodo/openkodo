@@ -29,7 +29,7 @@ async function resolveBrowserProfileFlag(
   if (!profiles.some((profile) => profile.id === value)) {
     throw new RuntimeClientError(
       'invalid_argument',
-      `Browser profile ${value} was not found. Run \`orca tab profile list\` to see profile ids.`
+      `Browser profile ${value} was not found. Run \`openkodo tab profile list\` to see profile ids.`
     )
   }
   return value

@@ -217,7 +217,7 @@ export class CliInstaller extends CliPathRegistration {
       await removeLinuxBareOrcaDispatcher(this.homePath)
     } catch (error) {
       console.warn(
-        '[cli] Could not remove the bare orca dispatcher:',
+        '[cli] Could not remove the bare openkodo dispatcher:',
         error instanceof Error ? error.message : String(error)
       )
     }

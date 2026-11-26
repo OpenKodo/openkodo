@@ -192,7 +192,7 @@ export class RuntimeClientSettingsController {
       this.notifyReposChanged?.()
     }
     if (
-      // An explicit enable while already enabled is a repair request (`orca agent hooks on`), so a wiped hook config reinstalls.
+      // An explicit enable while already enabled is a repair request (`openkodo agent hooks on`), so a wiped hook config reinstalls.
       updates.agentStatusHooksEnabled === true ||
       (typeof updates.agentStatusHooksEnabled === 'boolean' &&
         before !== updates.agentStatusHooksEnabled) ||

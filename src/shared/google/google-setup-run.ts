@@ -1,6 +1,6 @@
 // One bot's Google setup on this computer, as the host records it: which path, where each step
 // stands and who did it, the account, and the owner's card answers. The bot moves it forward with
-// `orca bot google-setup`; the setup cards draw from it, so they show the same on every client and
+// `openkodo bot google-setup`; the setup cards draw from it, so they show the same on every client and
 // after a restart.
 import * as z from 'zod'
 import { GOOGLE_SERVICE_CHOICES } from './google-scopes'

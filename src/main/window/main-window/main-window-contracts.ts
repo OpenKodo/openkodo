@@ -48,7 +48,7 @@ export type CreateMainWindowOptions = {
   deferLoad?: boolean
   /** Reveal after load instead of first paint when startup must show the shell before slower renderer work. */
   revealOnDidFinishLoad?: boolean
-  /** Show without taking the foreground: `orca open` asked, not the user. */
+  /** Show without taking the foreground: `openkodo open` asked, not the user. */
   revealInBackground?: boolean
   title?: string
   getKeybindings?: () => KeybindingOverrides | undefined

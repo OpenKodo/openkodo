@@ -58,8 +58,8 @@ export async function resolveItem(store: BotItemsRemote, ref: string): Promise<B
     throw new BotItemError(
       'not_found',
       /^\d+$/.test(trimmed)
-        ? `No item ${trimmed} on this computer. \`orca bot item list --all\` lists them.`
-        : `Item ${trimmed} was never made: a request named it, but making it failed. If it is still wanted, add it with \`orca bot item add\`.`
+        ? `No item ${trimmed} on this computer. \`openkodo bot item list --all\` lists them.`
+        : `Item ${trimmed} was never made: a request named it, but making it failed. If it is still wanted, add it with \`openkodo bot item add\`.`
     )
   }
   return item

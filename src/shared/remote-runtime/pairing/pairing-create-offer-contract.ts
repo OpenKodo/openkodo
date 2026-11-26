@@ -10,7 +10,7 @@ export const PairingCreateOfferParamsSchema = z
     relay: z.boolean().optional(),
     grantDesktopControl: z.boolean().optional(),
     rotate: z.boolean().optional(),
-    /** The terminal `orca pair` ran in; one a paired client opened tags the offer with that client. */
+    /** The terminal `openkodo pair` ran in; one a paired client opened tags the offer with that client. */
     callerTerminalHandle: z.string().min(1).max(256).optional()
   })
   .strict()

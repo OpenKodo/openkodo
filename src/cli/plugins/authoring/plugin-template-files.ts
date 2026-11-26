@@ -1,4 +1,4 @@
-/** File helpers shared by the `orca plugin create` templates. */
+/** File helpers shared by the `openkodo plugin create` templates. */
 
 import { localPluginPublisher } from '../../../shared/plugins/installation/plugin-publisher-derivation'
 import { PLUGIN_DERIVED_PUBLISHER_SINCE } from '../../../shared/plugins/manifest/plugin-schema-field-docs'
@@ -50,8 +50,8 @@ ${body}
 ## Develop
 
 \`\`\`sh
-orca plugin validate .
-orca plugin dev watch .    # loads this folder into OpenKodo and prints its logs and reloads; Ctrl-C unloads it
+openkodo plugin validate .
+openkodo plugin dev watch .    # loads this folder into OpenKodo and prints its logs and reloads; Ctrl-C unloads it
 \`\`\`
 
 OpenKodo names the publisher after where the plugin is installed from: the GitHub or GitLab owner of
@@ -61,7 +61,7 @@ https://github.com/OpenKodo/openkodo/blob/main/docs/reference/plugin-authoring.m
 }
 
 // Why -text: Git must not rewrite line endings, or the content hash differs per checkout.
-// `.orca/` holds the typings `orca plugin types` writes; they are regenerated, never committed.
+// `.orca/` holds the typings `openkodo plugin types` writes; they are regenerated, never committed.
 export const COMMON_FILES = {
   '.gitattributes': '* -text\n',
   '.gitignore': 'node_modules/\n.orca/\n'

@@ -35,7 +35,7 @@ export const WEBHOOKS: AdoptionFixture = {
         {
           asked:
             "when a bot needs Slack and doesn't have it, show a Connect card instead of telling them where to click",
-          said: 'Added `orca bot connectors --offer`; the card turns to Connected once linked. #379 merged.'
+          said: 'Added `openkodo bot connectors --offer`; the card turns to Connected once linked. #379 merged.'
         }
       ]
     }
@@ -129,7 +129,7 @@ const TRIGGER_COPY: AdoptionFixture = {
       handle: 'term_trigger_copy',
       state: 'done',
       ago: 5 * HOUR,
-      asked: 'rewrite `orca automations trigger-options` so each trigger reads in plain words',
+      asked: 'rewrite `openkodo automations trigger-options` so each trigger reads in plain words',
       said: 'trigger-options now prints lines like "When someone mentions you in #channel". #30415 is green.'
     }
   ]
@@ -296,7 +296,7 @@ export const COORDINATED_FIXTURES = [
   coordinated(
     'mcp-details-panel',
     "show each of a bot's MCP tools with its URL or command and whether it needs a sign-in",
-    'The details panel lists each tool; wiring the Edit button to `orca bot tools add` next.'
+    'The details panel lists each tool; wiring the Edit button to `openkodo bot tools add` next.'
   ),
   coordinated(
     'tool-signin-flow',

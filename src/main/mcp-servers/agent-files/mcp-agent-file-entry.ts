@@ -1,5 +1,5 @@
 // The entry OpenKodo keeps for one of its servers in Grok's, Cursor's or Droid's own MCP file: this
-// app's CLI by absolute path, running `orca mcp connect`, pinned to this OpenKodo's data folder so a dev
+// app's CLI by absolute path, running `openkodo mcp connect`, pinned to this OpenKodo's data folder so a dev
 // build and the installed app each answer for their own list.
 import { createHash } from 'node:crypto'
 import { basename } from 'node:path'

@@ -183,7 +183,7 @@ export abstract class OrcaRuntimeWithAgentTransitions extends OrcaRuntimeWithTer
   readonly pairedDeviceAccount: PairedDeviceAccountLookup = (...args) =>
     this.getPairedDeviceAccountFn(...args)
 
-  /** The desktop's link to the OpenKodo Cloud connector; null in `orca serve` and in builds without cloud auth. */
+  /** The desktop's link to the OpenKodo Cloud connector; null in `openkodo serve` and in builds without cloud auth. */
   getConnectorCloud(): ConnectorCloud | null {
     return this.connectorCloud
   }

@@ -1,4 +1,4 @@
-// `orca google default`: the account Google commands and automation rules use when they name none.
+// `openkodo google default`: the account Google commands and automation rules use when they name none.
 import type { GoogleStatusView } from '../../shared/google/google-connect-types'
 import type { CommandHandler } from '../dispatch/dispatch'
 import { getOptionalStringFlag } from '../arguments/flags'
@@ -8,7 +8,7 @@ import { caller, prepare } from './google'
 
 export const GOOGLE_DEFAULT_HANDLERS: Record<string, CommandHandler> = {
   'google default': async (ctx) => {
-    prepare(ctx, 'orca google default')
+    prepare(ctx, 'openkodo google default')
     const account = getOptionalStringFlag(ctx.flags, 'account')
     if (account) {
       const result = await ctx.client.call<{ defaultAccount: string }>('google.default.set', {
@@ -50,5 +50,5 @@ export function googleDefaultAccountLine(
   if (accounts.length === 0) {
     return 'No Google account is connected on this computer.'
   }
-  return `Couldn't read this computer's default Google account, so commands and automation rules without --account don't run. Pick one with \`orca google default --account <email>\`: ${accounts.join(', ')}.`
+  return `Couldn't read this computer's default Google account, so commands and automation rules without --account don't run. Pick one with \`openkodo google default --account <email>\`: ${accounts.join(', ')}.`
 }

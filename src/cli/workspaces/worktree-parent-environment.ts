@@ -53,8 +53,8 @@ async function savedParentEnvironment(
       environment: value,
       knownEnvironments: saved.map(({ id, name }) => ({ id, name })),
       nextSteps: [
-        'Pass local, or the id or name of a saved environment from `orca environment list`.',
-        'Pair it first with `orca environment add --name <name> --pairing-code <code>`.'
+        'Pass local, or the id or name of a saved environment from `openkodo environment list`.',
+        'Pair it first with `openkodo environment add --name <name> --pairing-code <code>`.'
       ]
     }
   )
@@ -94,7 +94,7 @@ export async function resolveParentEnvironment(
       {
         nextSteps: [
           `Drop --parent-environment, or pass --parent-environment local.`,
-          `For a workspace in ${named.name}, list it with \`orca worktree ps --environment ${quoteCliCommandArgument(named.route)} --json\` and pass its address.worktree as --parent-worktree.`
+          `For a workspace in ${named.name}, list it with \`openkodo worktree ps --environment ${quoteCliCommandArgument(named.route)} --json\` and pass its address.worktree as --parent-worktree.`
         ]
       }
     )
@@ -141,7 +141,9 @@ function unavailableError(error: unknown, environment: ParentEnvironment): unkno
     `${environment.name} didn't answer, so the parent couldn't be checked. Nothing was changed. (${error.message})`,
     {
       environment: environment.route,
-      nextSteps: [`orca status --environment ${quoteCliCommandArgument(environment.route)} --json`]
+      nextSteps: [
+        `openkodo status --environment ${quoteCliCommandArgument(environment.route)} --json`
+      ]
     }
   )
 }
@@ -175,13 +177,13 @@ function searchedEnvironmentData(
   extraSteps: readonly string[] = []
 ): Record<string, unknown> {
   const list = environment.route
-    ? `orca worktree ps --environment ${quoteCliCommandArgument(environment.route)} --json`
+    ? `openkodo worktree ps --environment ${quoteCliCommandArgument(environment.route)} --json`
     : undefined
   const listStep = list
     ? code === 'LINEAGE_PARENT_AMBIGUOUS'
       ? `Compare the choices with \`${list}\`, then pass one as --parent-worktree.`
       : list
-    : 'This one-off connection has no listing route; save it with `orca environment add --name <name> --pairing-code <code>`, then run `orca worktree ps --environment <name> --json`.'
+    : 'This one-off connection has no listing route; save it with `openkodo environment add --name <name> --pairing-code <code>`, then run `openkodo worktree ps --environment <name> --json`.'
   return {
     ...(error.data && typeof error.data === 'object' ? error.data : {}),
     environment: environment.route,
@@ -290,7 +292,7 @@ export async function callNamingParentEnvironment<
         { route: environment.id, name: environmentLabel(environment) },
         code === 'LINEAGE_PARENT_NOT_FOUND'
           ? [
-              `Only ${environmentLabel(environment)} was searched for "${parentSelector}". For a parent in another environment, add --parent-environment <local|environment-id> (a row's address.environment from \`orca worktree ps --environment <id> --json\`).`
+              `Only ${environmentLabel(environment)} was searched for "${parentSelector}". For a parent in another environment, add --parent-environment <local|environment-id> (a row's address.environment from \`openkodo worktree ps --environment <id> --json\`).`
             ]
           : []
       )

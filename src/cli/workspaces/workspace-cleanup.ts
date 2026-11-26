@@ -44,7 +44,7 @@ async function callWorkspaceCleanup<TResult>(
     ) {
       throw new RuntimeClientError(
         'runtime_timeout',
-        'Timed out waiting for the cleanup run. It may still be going on the host; check `orca workspace cleanup report`.'
+        'Timed out waiting for the cleanup run. It may still be going on the host; check `openkodo workspace cleanup report`.'
       )
     }
     throw error

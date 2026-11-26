@@ -119,7 +119,7 @@ function slackThreadOf(asker: ConnectorAsker): { thread: string; reply: boolean 
 function threadReadCommand(source: ConnectorSource, asker: ConnectorAsker): string | null {
   if (source === 'slack') {
     const thread = slackThreadOf(asker)
-    return thread ? `orca slack read ${thread.thread}` : null
+    return thread ? `openkodo slack read ${thread.thread}` : null
   }
   const issue = source === 'github' ? /^([\w.-]+\/[\w.-]+)#(\d+)$/.exec(asker.place.id) : null
   return issue
@@ -169,7 +169,7 @@ function earlierOwnFile(file: EarlierOwnFile, ref: string | null): string {
   }
   const name = shownName(file.name) ?? 'a file'
   const type = file.type && FILE_TYPE.test(file.type) ? `, ${file.type}` : ''
-  return `[OpenKodo: file ${file.id}: ${name}${type}; \`orca slack read ${ref} --download ${file.id}\` saves it]`
+  return `[OpenKodo: file ${file.id}: ${name}${type}; \`openkodo slack read ${ref} --download ${file.id}\` saves it]`
 }
 
 // A bare mention's request: the asker's own messages before it, each fenced under its own OpenKodo line.
@@ -207,7 +207,7 @@ export function connectorThreadNote(source: ConnectorSource, asker: ConnectorAsk
   if (!thread?.reply) {
     return null
   }
-  const read = `\`orca slack read ${thread.thread} --limit ${THREAD_READ_LIMIT}\``
+  const read = `\`openkodo slack read ${thread.thread} --limit ${THREAD_READ_LIMIT}\``
   const bound = `It shows the newest ${THREAD_READ_LIMIT} messages, oldest first. Go further back, with the --before ref it ends with, only if the request needs older posts, and stop at ${THREAD_READS} reads in all; then say which part of the thread you didn't read.`
   if (asker.context.some((item) => item.kind === 'more')) {
     return `For the rest of the thread, add --limit ${THREAD_READ_LIMIT} to the read named above. ${bound}`

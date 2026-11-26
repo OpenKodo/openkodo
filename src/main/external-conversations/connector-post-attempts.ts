@@ -1,4 +1,4 @@
-// When each chat, by its pane key, tried to post into the thread it answers itself (`orca bot
+// When each chat, by its pane key, tried to post into the thread it answers itself (`openkodo bot
 // reply`, or a connector post or attach there), noted before the cloud call: an empty turn that
 // tried is never retried, and its words before its last tool aren't its answer, whether the post
 // landed or may have landed. One the cloud refused outright is taken back. Memory only: after a

@@ -21,5 +21,5 @@ Never remove a workspace with uncommitted or unpushed work unless your owner nam
 
 ## Report
 
-A list: workspace, why it looks done or abandoned, and anything from the checks above. Remove only the ones your owner picks, with \`orca worktree rm\`.
+A list: workspace, why it looks done or abandoned, and anything from the checks above. Remove only the ones your owner picks, with \`openkodo worktree rm\`.
 `

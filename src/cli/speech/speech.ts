@@ -22,7 +22,7 @@ export function readOpenAiKeyFromStdin(
   return readApiKeyFromStdin(
     {
       name: 'an OpenAI key',
-      pipeExample: 'printf %s "$OPENAI_API_KEY" | orca speech openai-key set',
+      pipeExample: 'printf %s "$OPENAI_API_KEY" | openkodo speech openai-key set',
       maxLength: OPENAI_SPEECH_KEY_MAX_LENGTH
     },
     stdin

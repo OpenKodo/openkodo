@@ -115,10 +115,10 @@ it('hands code work to workers and reports back', { timeout: 4 * 60 * 60 * 1000 
     (scenario) => !only || only.includes(scenario.id)
   )
   const scenarios = chosen.filter((scenario) => !scenario.pending)
-  // Without it the orca project has no files: a bot can't dig in, or read before handing off.
+  // Without it the openkodo project has no files: a bot can't dig in, or read before handing off.
   if (!process.env.OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT) {
     throw new Error(
-      'Set OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT to a clean orca checkout the bots may read.'
+      'Set OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT to a clean openkodo checkout the bots may read.'
     )
   }
   const version = await agentVersion(agent)

@@ -23,7 +23,7 @@ export const BOT_CREATE_METHOD = defineMethod({
     // A bot proposes new bots (`bot create --offer`); only its owner creates one, in OpenKodo.
     ownerOnly(
       context,
-      'A bot can’t create a bot. Propose one with `orca bot create --offer`; your owner creates it from the card.'
+      'A bot can’t create a bot. Propose one with `openkodo bot create --offer`; your owner creates it from the card.'
     )
     let bot
     if (fromShare) {

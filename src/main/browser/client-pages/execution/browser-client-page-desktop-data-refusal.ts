@@ -4,7 +4,7 @@ import { isPasteChord } from '../../cdp/input/browser-paste-chord'
 export type BrowserClientPageDesktopDataRefusal = { code: string; message: string }
 
 const SHOWN_ON_DESKTOP = 'is not available for this page because it is shown on the paired desktop'
-const USE_TYPE_OR_FILL = 'Use orca type or orca fill instead.'
+const USE_TYPE_OR_FILL = 'Use openkodo type or openkodo fill instead.'
 
 /** The page's server drives it but never reads the desktop's cookies or clipboard; both the server and the desktop refuse. */
 export function browserClientPageDesktopDataRefusal(

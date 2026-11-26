@@ -1,5 +1,5 @@
 // Grok's, Cursor's and Droid's terminal CLIs read MCP servers only from their own file, so once the
-// user allows it per agent, OpenKodo keeps one `orca mcp connect` entry per server there (on for that
+// user allows it per agent, OpenKodo keeps one `openkodo mcp connect` entry per server there (on for that
 // agent), and takes them back out when the server goes, is turned off for the agent, or the consent
 // is withdrawn. Entries another OpenKodo or the user owns are never touched. With the switch off, nothing
 // is written; entries left from before answer as servers with no tools.

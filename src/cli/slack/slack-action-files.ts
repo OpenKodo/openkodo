@@ -29,7 +29,7 @@ export function refuseForwardedShell(): void {
   if (process.env.OPENKODO_CLI_CWD) {
     throw new RuntimeClientError(
       'invalid_environment',
-      "This shell forwards orca to another machine, whose files this command can't reach. Run it from a shell on the machine that has them."
+      "This shell forwards openkodo to another machine, whose files this command can't reach. Run it from a shell on the machine that has them."
     )
   }
 }
@@ -138,7 +138,7 @@ async function downloadRefusal(response: Response, name: string): Promise<Runtim
   return response.status === 401 || response.status === 403
     ? new RuntimeClientError(
         'download_expired',
-        `The link to ${name} expired; run the same \`orca slack read --download\` again.`
+        `The link to ${name} expired; run the same \`openkodo slack read --download\` again.`
       )
     : new RuntimeClientError(
         'unavailable',

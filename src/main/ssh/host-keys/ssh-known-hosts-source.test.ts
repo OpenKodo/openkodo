@@ -115,7 +115,7 @@ describe('a known_hosts path containing a space', () => {
   let dir: string
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'orca known hosts '))
+    dir = await mkdtemp(join(tmpdir(), 'openkodo known hosts '))
   })
 
   afterEach(async () => {

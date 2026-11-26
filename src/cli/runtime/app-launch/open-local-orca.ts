@@ -8,7 +8,7 @@ type OpenWindowInBackground = (options: {
   timeoutMs: number
 }) => Promise<RuntimeRpcSuccess<{ requested: boolean }>>
 
-// The runtime only queues a window request; a stuck one must not hold `orca open` for a full RPC timeout.
+// The runtime only queues a window request; a stuck one must not hold `openkodo open` for a full RPC timeout.
 const OPEN_WINDOW_RPC_TIMEOUT_MS = 5_000
 
 export async function openLocalOrca(

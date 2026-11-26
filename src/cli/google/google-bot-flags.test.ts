@@ -43,7 +43,7 @@ function run(
   return { done: GOOGLE_HANDLERS['google bot']!(ctx), call }
 }
 
-describe('orca google bot', () => {
+describe('openkodo google bot', () => {
   it('sends --accounts as a list with Google on, and --on/--off without one', async () => {
     vi.spyOn(console, 'log').mockImplementation(() => {})
     const accounts = run({ accounts: ' Me@Work.com,me@gmail.com,me@work.com ' })
@@ -92,7 +92,7 @@ describe('orca google bot', () => {
     expect(widened.call).not.toHaveBeenCalled()
   })
 
-  it('names an agent with no chosen accounts plainly in orca google status', () => {
+  it('names an agent with no chosen accounts plainly in openkodo google status', () => {
     const status = formatGoogleStatus({
       client: null,
       accounts: [],
@@ -104,7 +104,7 @@ describe('orca google bot', () => {
     expect(status).toContain('Scout (no Google accounts chosen), CoS (every account)')
   })
 
-  it('marks the default in orca google status whatever the email case', () => {
+  it('marks the default in openkodo google status whatever the email case', () => {
     const status = formatGoogleStatus({
       client: null,
       accounts: [{ email: 'Me@Gmail.com', status: 'connected', services: [], connectedAt: 0 }],

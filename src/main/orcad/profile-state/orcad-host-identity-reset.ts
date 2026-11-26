@@ -1,4 +1,4 @@
-// CLI entry for `orca serve reset-identity`; plain Node, loaded from the packaged CLI.
+// CLI entry for `openkodo serve reset-identity`; plain Node, loaded from the packaged CLI.
 import { existsSync } from 'node:fs'
 import { acquireOrcadInstanceLock } from '../instance-lock/orcad-instance-lock'
 import { OrcadInstanceLockError } from '../instance-lock/orcad-data-root-privacy'

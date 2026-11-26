@@ -1,4 +1,4 @@
-// The SDK's Server would bundle its JSON Schema validator (ajv) into `orca mcp connect`; a server
+// The SDK's Server would bundle its JSON Schema validator (ajv) into `openkodo mcp connect`; a server
 // with no tools needs only these answers.
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js'
 import {
@@ -8,7 +8,7 @@ import {
   type JSONRPCMessage
 } from '@modelcontextprotocol/sdk/types.js'
 
-/** Answers on `transport` as an MCP server named orca that offers no tools. */
+/** Answers on `transport` as an MCP server named openkodo that offers no tools. */
 export function answerWithNoTools(transport: Transport, version: string): void {
   transport.onmessage = (message: JSONRPCMessage) => {
     if (!('method' in message) || !('id' in message)) {

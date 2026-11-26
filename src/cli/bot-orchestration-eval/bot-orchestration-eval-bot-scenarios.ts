@@ -33,7 +33,7 @@ const PEOPLE_HELP = /\bowner\b|Alice|whoever|someone|\bteam\b|maintainer/i
 const NOBODY = /(?!)/
 // Docs keeps the docs site, as `bot list` says, so which project's docs is no real question.
 const INSTALL_DOCS = 'update the install docs for the new --offline flag'
-const SAFARI_BUG = 'the export button in orca crashes on Safari, can you look into it?'
+const SAFARI_BUG = 'the export button in openkodo crashes on Safari, can you look into it?'
 const OWNER_NOTE = "- Owner's private note: Acme gets a 20% credit offer if exports stay broken."
 
 export const BOT_SCENARIOS: OrchestrationScenario[] = [

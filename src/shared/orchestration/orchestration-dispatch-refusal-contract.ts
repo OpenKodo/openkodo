@@ -18,8 +18,8 @@ export function taskNotFoundRefusal(
     data: {
       ...detail,
       nextSteps: [
-        'Run orca orchestration task-list --json in the bound Run to find the intended Task id.',
-        'If the Task does not exist yet, create it with orca orchestration task-create --spec <text> --json.'
+        'Run openkodo orchestration task-list --json in the bound Run to find the intended Task id.',
+        'If the Task does not exist yet, create it with openkodo orchestration task-create --spec <text> --json.'
       ]
     }
   }
@@ -49,22 +49,22 @@ function taskNotStartableNextSteps(detail: TaskNotStartableDetail): string[] {
   if (detail.retryOf && detail.failureCount !== undefined) {
     return [
       `Do not retry this Task or start a replacement for it: it failed ${detail.failureCount} times. Report the failure to the user.`,
-      `Read what the last attempt showed with orca orchestration worker-read --dispatch ${detail.retryOf} --json. If its terminal is still open, it stays for the user until orca orchestration worker-release --dispatch ${detail.retryOf} --json.`
+      `Read what the last attempt showed with openkodo orchestration worker-read --dispatch ${detail.retryOf} --json. If its terminal is still open, it stays for the user until openkodo orchestration worker-release --dispatch ${detail.retryOf} --json.`
     ]
   }
   if (detail.retryOf) {
     return [
-      `--retry-of must name the latest settled Dispatch of a failed or blocked Task; check orca orchestration dispatch-show --task ${detail.taskId} --json and orca orchestration worker-show --dispatch ${detail.retryOf} --json.`
+      `--retry-of must name the latest settled Dispatch of a failed or blocked Task; check openkodo orchestration dispatch-show --task ${detail.taskId} --json and openkodo orchestration worker-show --dispatch ${detail.retryOf} --json.`
     ]
   }
   if (detail.unmetDependencies.length > 0) {
     return [
-      `Dependencies ${detail.unmetDependencies.join(', ')} are not completed. Wait for running ones with orca orchestration check --wait --json; retry or unblock failed ones before dispatching again.`
+      `Dependencies ${detail.unmetDependencies.join(', ')} are not completed. Wait for running ones with openkodo orchestration check --wait --json; retry or unblock failed ones before dispatching again.`
     ]
   }
   if (detail.status === 'dispatched') {
     return [
-      `The Task already has an active Dispatch; inspect it with orca orchestration dispatch-show --task ${detail.taskId} --json.`
+      `The Task already has an active Dispatch; inspect it with openkodo orchestration dispatch-show --task ${detail.taskId} --json.`
     ]
   }
   return [
@@ -83,8 +83,8 @@ export function buildInjectRejectionMessage(terminal: string): string {
     `Cannot dispatch --inject to terminal ${terminal}: no recognized agent detected. ` +
     `OpenKodo detects these agent CLIs (${RECOGNIZED_AGENT_PROCESS_NAMES.join(', ')}). ` +
     'Start one in the terminal, let it finish launching, then retry; ' +
-    `or have OpenKodo start one in its workspace: take worktreeId from orca terminal show --terminal ${terminal} --json, ` +
-    'then run orca orchestration worker-start --task <task_id> --worktree id:<worktreeId> --agent <agent>.'
+    `or have OpenKodo start one in its workspace: take worktreeId from openkodo terminal show --terminal ${terminal} --json, ` +
+    'then run openkodo orchestration worker-start --task <task_id> --worktree id:<worktreeId> --agent <agent>.'
   )
 }
 
@@ -102,7 +102,7 @@ export function injectRejectedRefusal(
       reason,
       nextSteps: [
         'Start a recognized agent CLI in that terminal and wait for it to finish launching, or pick a terminal that already runs one.',
-        `Or have OpenKodo start one in that terminal's workspace: take worktreeId from orca terminal show --terminal ${terminal} --json, then run orca orchestration worker-start --task <task_id> --worktree id:<worktreeId> --agent <agent> --json. Otherwise tell the user.`
+        `Or have OpenKodo start one in that terminal's workspace: take worktreeId from openkodo terminal show --terminal ${terminal} --json, then run openkodo orchestration worker-start --task <task_id> --worktree id:<worktreeId> --agent <agent> --json. Otherwise tell the user.`
       ]
     }
   }

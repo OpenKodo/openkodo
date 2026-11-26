@@ -44,13 +44,13 @@ export function googleBotAsk(
       ? {
           kind: 'card',
           message:
-            "Google is already on for you. Your owner now sees Google's Connected card in this chat, where they can add another Google account. `orca bot connectors` shows each account and which is the default; pass --account to use another."
+            "Google is already on for you. Your owner now sees Google's Connected card in this chat, where they can add another Google account. `openkodo bot connectors` shows each account and which is the default; pass --account to use another."
         }
       : {
           kind: 'on',
           message: headless
-            ? 'Google is on for you and signed in; no card was shown. Your owner adds another Google account with `orca google connect` in a terminal on this server. `orca bot connectors` shows each account and which is the default.'
-            : 'Google is on for you and signed in; no card was shown. `orca bot connectors` shows each service.'
+            ? 'Google is on for you and signed in; no card was shown. Your owner adds another Google account with `openkodo google connect` in a terminal on this server. `openkodo bot connectors` shows each account and which is the default.'
+            : 'Google is on for you and signed in; no card was shown. `openkodo bot connectors` shows each service.'
         }
   }
   if (headless) {
@@ -68,11 +68,11 @@ export function googleBotAsk(
 function serverLine(state: GoogleBotConnectState, botName: string): string {
   switch (state.host) {
     case 'connected':
-      return `No card was shown. Your owner turns Google on for you with \`orca google bot ${botName} --on\` in a terminal on this server.`
+      return `No card was shown. Your owner turns Google on for you with \`openkodo google bot ${botName} --on\` in a terminal on this server.`
     case 'signed-out':
     case 'reconnect':
       return "No card was shown. A Google app is configured on this server, but its account needs signing in (or reconnecting) here; turning Google on for you alone won't fix it."
     case 'no-app':
-      return 'No card was shown. Google has no app configured on this server; start setup here with `orca bot google-setup start`.'
+      return 'No card was shown. Google has no app configured on this server; start setup here with `openkodo bot google-setup start`.'
   }
 }

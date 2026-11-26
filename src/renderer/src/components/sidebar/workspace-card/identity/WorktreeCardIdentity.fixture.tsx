@@ -46,7 +46,7 @@ const imageRepo = {
   }
 }
 
-const pinnedWorktree = makeWorktree('pinned-classic', 'orca worktree space', {
+const pinnedWorktree = makeWorktree('pinned-classic', 'openkodo worktree space', {
   repoId: imageRepo.id,
   branch: 'nwparker/tracked-source-clone-benchmark',
   isPinned: true

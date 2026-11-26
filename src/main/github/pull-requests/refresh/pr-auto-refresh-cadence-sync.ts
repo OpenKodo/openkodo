@@ -6,7 +6,7 @@ import {
 import { retimePRRefreshesForCadence } from './pr-refresh-coordinator'
 
 /** Apply this host's PR auto-refresh setting to every main-process poller, now and on change.
- *  Runs for desktop and headless `orca serve` alike, so an operator can cap a shared box. */
+ *  Runs for desktop and headless `openkodo serve` alike, so an operator can cap a shared box. */
 export function syncPRAutoRefreshCadence(
   store: Pick<RuntimeStore, 'getSettings' | 'onSettingsChanged'> | null
 ): void {

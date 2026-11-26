@@ -1,6 +1,6 @@
 // Where each Google account's checks left off (Gmail history point, each calendar's sync token), and
 // since when each bot has listened on an account. No secrets. It sits beside this runtime's own data,
-// not with the shared sign-ins: another OpenKodo on this machine (orca serve, a dev build) has its own
+// not with the shared sign-ins: another OpenKodo on this machine (openkodo serve, a dev build) has its own
 // rules and must not prune these.
 import { mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'

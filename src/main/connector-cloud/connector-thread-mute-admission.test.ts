@@ -168,7 +168,7 @@ function connector(
 
 const TURN_ID = 1_800_000_000_300
 
-/** `orca bot reply --leave-thread` from bot1's chat, which answers FIRST, while a member's request
+/** `openkodo bot reply --leave-thread` from bot1's chat, which answers FIRST, while a member's request
  *  in that thread runs. */
 function leaver(
   store: ReturnType<typeof createStore>,

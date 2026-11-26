@@ -92,7 +92,7 @@ export const ConnectorAsker = z.object({
   // readConnectorMessageAsker for the hosts either may name.
   url: z.string().min(1).max(2048).optional().catch(undefined),
   avatarUrl: z.string().min(1).max(2048).optional().catch(undefined),
-  // The message itself as an action ref, which `orca bot reply --react` reacts on.
+  // The message itself as an action ref, which `openkodo bot reply --react` reacts on.
   messageRef: z.string().min(1).max(2048).optional().catch(undefined),
   // A bare mention's request; one this build can't read is dropped alone, and the bot then greets.
   earlierOwn: ConnectorEarlierOwn.optional().catch(undefined),

@@ -73,7 +73,7 @@ export class RuntimeLinearStateCommands extends RuntimeLinearSaveCommands {
           'Linear may have applied the state change, but OpenKodo could not confirm it.',
           {
             nextSteps: [
-              `Run \`orca linear issue ${target.issue.identifier} --workspace ${target.workspaceId} --json\` and check the current state before retrying.`
+              `Run \`openkodo linear issue ${target.issue.identifier} --workspace ${target.workspaceId} --json\` and check the current state before retrying.`
             ],
             ...(cause ? { cause } : {})
           }
@@ -130,7 +130,7 @@ export class RuntimeLinearStateCommands extends RuntimeLinearSaveCommands {
           'Linear may have applied the relation change, but OpenKodo could not confirm it.',
           {
             nextSteps: [
-              `Run \`orca linear issue ${target.issue.identifier} --relations --workspace ${target.workspaceId} --json\` before retrying.`
+              `Run \`openkodo linear issue ${target.issue.identifier} --relations --workspace ${target.workspaceId} --json\` before retrying.`
             ],
             ...(cause ? { cause } : {})
           }

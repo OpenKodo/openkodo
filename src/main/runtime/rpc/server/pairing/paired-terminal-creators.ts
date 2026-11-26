@@ -1,4 +1,4 @@
-// Terminals a paired client opened. `orca pair` run in one tags its offer with that client, so
+// Terminals a paired client opened. `openkodo pair` run in one tags its offer with that client, so
 // revoking the client also revokes the link it minted. The shell can drop the handle, and the map
 // starts empty after a host restart; this catches the honest case, not a determined one.
 import { getActiveRpcCaller, getActiveRpcClientInstanceId } from '../../callers/active-call'

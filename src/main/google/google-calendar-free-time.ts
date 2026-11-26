@@ -1,4 +1,4 @@
-// `orca calendar suggest-time`: free slots for this account and the people named, from Google's
+// `openkodo calendar suggest-time`: free slots for this account and the people named, from Google's
 // free/busy, between set hours on weekdays in this account's zone. A calendar Google won't show is
 // unknown, never free.
 import { z } from 'zod'
@@ -62,7 +62,7 @@ export async function suggestCalendarTime(
   const named = people.find((entry) => !/^[^\s@]+@[^\s@]+$/.test(entry))
   if (named) {
     throw new GoogleToolError(
-      `"${named.slice(0, 80)}" isn't an email address. \`orca contacts find <name>\` looks one up.`
+      `"${named.slice(0, 80)}" isn't an email address. \`openkodo contacts find <name>\` looks one up.`
     )
   }
   if (people.length > MAX_PEOPLE) {

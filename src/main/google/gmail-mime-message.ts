@@ -53,7 +53,7 @@ export function formatAddress(entry: string): string {
   const email = (named?.[2] ?? text).trim()
   if (!EMAIL.test(email)) {
     throw new GoogleToolError(
-      `"${text.slice(0, 80)}" isn't an email address. \`orca contacts find <name>\` looks one up.`
+      `"${text.slice(0, 80)}" isn't an email address. \`openkodo contacts find <name>\` looks one up.`
     )
   }
   const name = named?.[1]?.trim().replace(/^"(.*)"$/, '$1')

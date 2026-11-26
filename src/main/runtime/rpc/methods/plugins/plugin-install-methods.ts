@@ -134,8 +134,8 @@ export const PLUGIN_INSTALL_METHODS = [
           {
             pluginKey: params.pluginKey,
             nextSteps: [
-              'Plugins bundled with OpenKodo cannot be removed; disable them with `orca plugin disable`.',
-              'Remove a development folder with `orca plugin dev unload`.'
+              'Plugins bundled with OpenKodo cannot be removed; disable them with `openkodo plugin disable`.',
+              'Remove a development folder with `openkodo plugin dev unload`.'
             ]
           }
         )

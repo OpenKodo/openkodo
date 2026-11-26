@@ -173,7 +173,7 @@ export function selectEnclosingWorktreeSelectionOnHost(
                 'Run the command in your own live OpenKodo terminal with OPENKODO_TERMINAL_HANDLE preserved.'
               ]
             : [
-                'Inspect a chosen workspace with `orca worktree show --worktree <selector> --json`.',
+                'Inspect a chosen workspace with `openkodo worktree show --worktree <selector> --json`.',
                 purpose === 'current'
                   ? 'Use the intended action’s target flag to select that workspace; current has no replacement target flag.'
                   : `Pass ${flag} <selector> on your original invocation${purpose === 'ports' ? '; native folders require --all for a host-wide scan' : ''}.`,
@@ -223,7 +223,7 @@ export function selectEnclosingRepoOnHost(
       {
         projects,
         nextSteps: [
-          'Run `orca repo list --json` or `orca project list --json`, then pass the intended --repo or --project selector.'
+          'Run `openkodo repo list --json` or `openkodo project list --json`, then pass the intended --repo or --project selector.'
         ]
       }
     )

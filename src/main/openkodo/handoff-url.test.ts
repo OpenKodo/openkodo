@@ -9,7 +9,7 @@ describe('openKodo handoff URLs', () => {
     expect(openKodoHandoffCode(`openkodo://connect?code=${CODE}`)).toBe(CODE)
   })
 
-  it('ignores other orca links and missing codes', () => {
+  it('ignores other openkodo links and missing codes', () => {
     expect(openKodoHandoffCode('openkodo://skill-share/abc')).toBeNull()
     expect(openKodoHandoffCode('openkodo://connect')).toBeNull()
     expect(openKodoHandoffCode('openkodo://connect?code=short')).toBeNull()

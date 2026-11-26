@@ -48,7 +48,7 @@ function searchedWorkspace(key: { source: string; externalId: string } | undefin
   if (!workspace) {
     throw new ConnectorActError(
       'connector_invalid_request',
-      'Name the Slack workspace to search: `orca slack find --search "<words>" --workspace <name>` (`orca bot connectors` lists them).'
+      'Name the Slack workspace to search: `openkodo slack find --search "<words>" --workspace <name>` (`openkodo bot connectors` lists them).'
     )
   }
   return `slack:${workspace}:workspace`
@@ -154,7 +154,7 @@ export async function actAsBot(
   if (verb === 'places' && !features.has('places' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_places',
-      "cloud service can't list the bot's workspaces yet. Update OpenKodo, and find Slack channels with `orca slack find <name|link>`."
+      "cloud service can't list the bot's workspaces yet. Update OpenKodo, and find Slack channels with `openkodo slack find <name|link>`."
     )
   }
   // A titled post is an issue; a canvas or a list is titled too, and needs only Slack's verbs.
@@ -173,7 +173,7 @@ export async function actAsBot(
   if (args.search && !features.has('find.search' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_search',
-      "cloud service can't search yet. Find a channel by its name or link with `orca slack find`."
+      "cloud service can't search yet. Find a channel by its name or link with `openkodo slack find`."
     )
   }
   if (
@@ -287,7 +287,7 @@ export async function actAsBot(
     : answer.value
 }
 
-// `orca slack ...`, `orca bot connectors` and `orca bot reply --react`: the calling chat names its bot; the cloud acts as it.
+// `openkodo slack ...`, `openkodo bot connectors` and `openkodo bot reply --react`: the calling chat names its bot; the cloud acts as it.
 export const CONNECTOR_ACT_METHOD = defineMethod({
   name: 'connector.act',
   permission: 'workspace',

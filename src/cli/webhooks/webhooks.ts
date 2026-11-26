@@ -1,4 +1,4 @@
-// `orca webhooks`: a bot's hooks, their calls, and what their filters match. None prints a key.
+// `openkodo webhooks`: a bot's hooks, their calls, and what their filters match. None prints a key.
 import {
   automationWebhookTrigger,
   isWebhookTrigger,

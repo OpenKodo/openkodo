@@ -14,7 +14,7 @@ export type FocusExistingMainWindowOptions = {
   getWindow: () => BrowserWindow | null
   // Structural: the web project typechecks this file and can't reach main-window-contracts.
   openWindow: (options?: { revealInBackground?: boolean }) => BrowserWindow | Promise<BrowserWindow>
-  /** `orca open` asked: show the window if needed, never take the foreground. */
+  /** `openkodo open` asked: show the window if needed, never take the foreground. */
   background?: boolean
   /** False while some other path must own the first window; the reopen is dropped, not queued. */
   canOpenWindow?: () => boolean

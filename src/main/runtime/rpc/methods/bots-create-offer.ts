@@ -1,4 +1,4 @@
-// `orca bot create --offer`: a bot proposes a new bot, and OpenKodo puts a card in its chat. Nothing is
+// `openkodo bot create --offer`: a bot proposes a new bot, and OpenKodo puts a card in its chat. Nothing is
 // created until the owner presses Create bot on it.
 import { randomUUID } from 'node:crypto'
 import { parseBotAvatar, randomMascotAvatar } from '../../../../shared/bot-avatar'

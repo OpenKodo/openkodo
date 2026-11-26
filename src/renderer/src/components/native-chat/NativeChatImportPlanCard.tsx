@@ -1,4 +1,4 @@
-// The plan a bot shows with `orca bot import plan`: what comes over from the old bot, what changes, and what
+// The plan a bot shows with `openkodo bot import plan`: what comes over from the old bot, what changes, and what
 // stays behind, one checkbox per item that comes. The owner's answer goes back as an ordinary message.
 import { useState } from 'react'
 import { Check, Download } from 'lucide-react'

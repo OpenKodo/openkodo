@@ -1,4 +1,4 @@
-// `orca worktree ps`: every workspace with its agents, or with --since only the recently active ones.
+// `openkodo worktree ps`: every workspace with its agents, or with --since only the recently active ones.
 import type { RuntimeWorktreePsResult } from '../../shared/worktree/catalog/runtime-worktree-contracts'
 import type { BotRosterEntry } from '../../shared/bot-roster'
 import type { CommandHandler } from '../dispatch/dispatch'

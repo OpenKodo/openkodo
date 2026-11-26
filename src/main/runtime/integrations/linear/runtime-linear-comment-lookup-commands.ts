@@ -24,7 +24,9 @@ export class RuntimeLinearCommentLookupCommands extends RuntimeLinearWriteResult
           'linear_invalid_parent',
           'The reply target is not a comment on this issue.',
           {
-            nextSteps: ['Run `orca linear issue <id> --comments --json` to list valid comment ids.']
+            nextSteps: [
+              'Run `openkodo linear issue <id> --comments --json` to list valid comment ids.'
+            ]
           }
         )
       }

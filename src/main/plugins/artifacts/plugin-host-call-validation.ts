@@ -36,7 +36,7 @@ async function readPluginCode(
   return { text: await readFile(real, 'utf8') }
 }
 
-/** The host-call findings `orca plugin validate` and `pnpm validate:plugin` report for a folder. */
+/** The host-call findings `openkodo plugin validate` and `pnpm validate:plugin` report for a folder. */
 export async function validatePluginHostCalls(
   root: string,
   manifest: PluginManifest

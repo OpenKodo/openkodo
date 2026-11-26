@@ -1,5 +1,5 @@
 // Bringing a bot over from another app: the bots other apps keep on this host, and the plan and summary
-// cards the new bot puts in its chat (`orca bot import plan|done`).
+// cards the new bot puts in its chat (`openkodo bot import plan|done`).
 import { randomUUID } from 'node:crypto'
 import { homedir } from 'node:os'
 import { botImportDoneBody, botImportPlanBody } from '../../../../shared/bots/bot-import-cards'

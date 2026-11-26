@@ -1,4 +1,4 @@
-// A bot's work record over RPC: `orca bot work list`, and `forget` when its owner starts fresh.
+// A bot's work record over RPC: `openkodo bot work list`, and `forget` when its owner starts fresh.
 import type { BotWorkListResult } from '../../../../shared/bots/bot-work-list'
 import type { Bot } from '../../../../shared/bot-types'
 import { BotWorkForget, BotWorkList } from '../../../../shared/rpc-contract/bots-work-params'

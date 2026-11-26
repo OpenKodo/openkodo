@@ -66,7 +66,7 @@ export async function getScopedBrowserWorktreeSelector(
       'This browser command names no workspace or page, so it would act on the tab the user is looking at. Nothing was sent.',
       {
         nextSteps: [
-          'Run it from your workspace folder or pass --worktree <selector>; page commands also take --page <browserPageId> from `orca tab list --json`.'
+          'Run it from your workspace folder or pass --worktree <selector>; page commands also take --page <browserPageId> from `openkodo tab list --json`.'
         ]
       }
     )
@@ -81,7 +81,7 @@ export async function getScopedBrowserWorktreeSelector(
       'Remote browser commands need --page <browserPageId> or a server-side --worktree <selector> (not `all`); without one they would act on the tab the user is looking at. Nothing was sent.',
       {
         nextSteps: [
-          `Find the page with \`orca tab list${remote} --json\` and pass its browserPageId as --page.`
+          `Find the page with \`openkodo tab list${remote} --json\` and pass its browserPageId as --page.`
         ]
       }
     )

@@ -138,18 +138,20 @@ function failedWorkerStartReceipt(args: WorkerStartFailureArgs): unknown {
     residualResources: JSON.parse(worker.residual_resources) as unknown[],
     ...(releasable
       ? {
-          recovery: `This start left a worker session open. Close it with: orca orchestration worker-release --dispatch ${args.dispatchId}`
+          recovery: `This start left a worker session open. Close it with: openkodo orchestration worker-release --dispatch ${args.dispatchId}`
         }
       : {}),
     ...(unknown
       ? {
           nextCommands: [
-            `orca orchestration worker-show --dispatch ${args.dispatchId} --json`,
-            `orca orchestration worker-abandon --dispatch ${args.dispatchId} --json`
+            `openkodo orchestration worker-show --dispatch ${args.dispatchId} --json`,
+            `openkodo orchestration worker-abandon --dispatch ${args.dispatchId} --json`
           ]
         }
       : hostCap
-        ? { nextCommands: ['orca orchestration worker-list --terminal-state reclaimable --json'] }
+        ? {
+            nextCommands: ['openkodo orchestration worker-list --terminal-state reclaimable --json']
+          }
         : {})
   }
 }

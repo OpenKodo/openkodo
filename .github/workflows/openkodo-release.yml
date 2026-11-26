@@ -78,6 +78,9 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      - name: Set up MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Install mobile dependencies

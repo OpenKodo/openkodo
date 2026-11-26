@@ -71,7 +71,7 @@ export function pluginManifestWarnings(raw: unknown): string[] {
   }
   return [
     ...warnings,
-    `publisher is deprecated and ignored: OpenKodo derives it from the repository owner, like a Go module path. Remove it once engines.orca is at least >=${PLUGIN_DERIVED_PUBLISHER_SINCE}; until then it must equal the repository owner`
+    `publisher is deprecated and ignored: OpenKodo derives it from the repository owner, like a Go module path. Remove it once engines.openkodo is at least >=${PLUGIN_DERIVED_PUBLISHER_SINCE}; until then it must equal the repository owner`
   ]
 }
 

@@ -29,7 +29,7 @@ function googleRow(
 }
 const googleDetail = (googleAccounts?: string[]) => googleRow(googleAccounts)?.detail
 
-describe('orca bot connectors, Google', () => {
+describe('openkodo bot connectors, Google', () => {
   it('lists only the accounts the bot may use, with its own default', () => {
     expect(googleDetail(['me@gmail.com'])).toBe('me@gmail.com (default): Gmail ready')
     // The host's email case doesn't hide which is the default.

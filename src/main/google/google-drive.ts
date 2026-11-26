@@ -1,4 +1,4 @@
-// `orca drive search|list|upload|mkdir|move|share`: finding files and filing them. Uploads are
+// `openkodo drive search|list|upload|mkdir|move|share`: finding files and filing them. Uploads are
 // capped to what one request carries. No delete: nothing here can lose a file.
 import type { DriveListView, DriveWriteView } from '../../shared/google/google-files-types'
 import { formatMegabytes, TOOL_LIST_PAGE_SIZE } from '../../shared/tool-output-limits'

@@ -20,7 +20,7 @@ import { mustKeepOffscreenPage, OffscreenPageIdleClock } from './offscreen-page-
 import { WEB_CONTENTS_MAX_LISTENERS_PER_EVENT } from '../../window/web-contents-listener-budget'
 import { loadOffscreenPageUrl } from './offscreen-page-load'
 
-// orca serve has no renderer for webviews; hidden offscreen BrowserWindows host its pages.
+// openkodo serve has no renderer for webviews; hidden offscreen BrowserWindows host its pages.
 // Headless Linux requires Xvfb; Electron --headless segfaults.
 
 const DEFAULT_VIEWPORT_WIDTH = 1280

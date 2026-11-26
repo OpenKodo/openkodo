@@ -13,7 +13,7 @@ const STATUS_PROBE_TIMEOUT_MS = 5_000
 function pairingCodeRefused(): RuntimeClientError {
   return new RuntimeClientError(
     'unauthorized',
-    'The host refused this pairing code. It may have expired or already been used by another device. Show a new pairing code on the host (`orca pair`, or Settings → Remote OpenKodo Servers in OpenKodo) and run `orca environment add` again.'
+    'The host refused this pairing code. It may have expired or already been used by another device. Show a new pairing code on the host (`openkodo pair`, or Settings → Remote OpenKodo Servers in OpenKodo) and run `openkodo environment add` again.'
   )
 }
 

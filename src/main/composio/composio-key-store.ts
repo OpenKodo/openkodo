@@ -1,4 +1,4 @@
-// The owner's Composio project key, encrypted in ~/.orca on the host that runs the bots.
+// The owner's Composio project key, encrypted in ~/.openkodo on the host that runs the bots.
 import { createEncryptedApiKeyFileStore } from '../credentials/encrypted-api-key-file-store'
 
 const store = createEncryptedApiKeyFileStore({

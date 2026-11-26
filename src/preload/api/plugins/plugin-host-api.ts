@@ -258,7 +258,7 @@ export type PluginsApi = {
   refresh: () => Promise<PluginHostListEntry[]>
   onChanged: (callback: (event: PluginChangeEvent) => void) => () => void
   takeRequiredPluginFailures?: () => Promise<{ pluginKeys: readonly string[]; notify: boolean }>
-  /** `orca plugin open` / `shot`: main asks this window to show a plugin view. Desktop only. */
+  /** `openkodo plugin open` / `shot`: main asks this window to show a plugin view. Desktop only. */
   onViewRequest?: (callback: (request: PluginViewRequest) => void) => () => void
   answerViewRequest?: (reply: PluginViewReply) => void
   /** What automatic updates last did. Older hosts reject the call; treat that as nothing. */

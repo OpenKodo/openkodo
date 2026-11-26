@@ -1,4 +1,4 @@
-// What `orca bot reply --leave-thread` tells the agent when OpenKodo refuses it; nothing changed in each.
+// What `openkodo bot reply --leave-thread` tells the agent when OpenKodo refuses it; nothing changed in each.
 export const LEAVE_THREAD_REFUSALS = {
   not_a_thread:
     "Nothing changed: this chat doesn't answer a Slack thread you follow (a DM, GitHub or Linear can't be left this way).",

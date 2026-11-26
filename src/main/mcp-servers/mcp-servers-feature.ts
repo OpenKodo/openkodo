@@ -1,5 +1,5 @@
 // The one switch for MCP servers in OpenKodo: off until the feature ships. `OPENKODO_MCP_SERVERS=1` turns it
-// on for a dev build, orcad or `orca serve`; read on every call so the host's own env decides.
+// on for a dev build, orcad or `openkodo serve`; read on every call so the host's own env decides.
 import { McpServersError } from './mcp-servers-error'
 
 export function isMcpServersFeatureEnabled(): boolean {

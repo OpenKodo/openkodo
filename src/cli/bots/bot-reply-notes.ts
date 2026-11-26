@@ -1,4 +1,4 @@
-// `orca bot reply --note path:line:text`: the inline notes a reply carries.
+// `openkodo bot reply --note path:line:text`: the inline notes a reply carries.
 import { ConnectorReview } from '../../shared/connector-review-contract'
 import type { HandlerContext } from '../dispatch/dispatch'
 import { getRepeatedStringFlag } from '../arguments/flags'

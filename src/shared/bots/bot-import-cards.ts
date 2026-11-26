@@ -1,4 +1,4 @@
-// The import plan and summary cards a bot puts in its chat (`orca bot import plan|done`). Older clients and
+// The import plan and summary cards a bot puts in its chat (`openkodo bot import plan|done`). Older clients and
 // the phone paint their `text` as a plain line.
 import * as z from 'zod'
 import type {

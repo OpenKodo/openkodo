@@ -1,4 +1,4 @@
-// `orca sheets create|read|write|append|upsert`: cells by tab and A1 range. Values go in the way a
+// `openkodo sheets create|read|write|append|upsert`: cells by tab and A1 range. Values go in the way a
 // person typing them would (numbers and dates understood), but text that would start a formula is
 // kept as text unless formulas were asked for.
 import { z } from 'zod'
@@ -155,7 +155,7 @@ export async function readSheet(
   }
 }
 
-/** Every tab as a table, for `orca drive read` of a spreadsheet. */
+/** Every tab as a table, for `openkodo drive read` of a spreadsheet. */
 export async function readAllTabs(
   api: GoogleApi,
   ref: string

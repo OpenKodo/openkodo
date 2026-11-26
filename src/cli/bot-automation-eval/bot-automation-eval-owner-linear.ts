@@ -1,4 +1,4 @@
-// The owner's `orca linear` on the stand-in host: reads and writes the shared Linear world
+// The owner's `openkodo linear` on the stand-in host: reads and writes the shared Linear world
 // (bot-automation-eval-linear-world.json) as the owner, each write recorded under its runtime
 // method. With no Linear login or key on the host, every call answers as the runtime does.
 import { RuntimeClientError } from '../runtime/connection/types'
@@ -74,7 +74,7 @@ const LINEAR_WRITES = new Set([
   'linear.commentDelete'
 ])
 
-/** `orca linear`'s runtime methods; undefined for any other method. */
+/** `openkodo linear`'s runtime methods; undefined for any other method. */
 export function serveOwnerLinear(
   state: EvalHostState,
   method: string,

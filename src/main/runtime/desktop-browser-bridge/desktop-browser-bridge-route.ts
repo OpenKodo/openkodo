@@ -186,10 +186,10 @@ function notForwardedReason(method: string): string {
     return "An SSH host can't read the desktop clipboard."
   }
   if (method === 'browser.clipboardWrite') {
-    return "An SSH host can't use the desktop clipboard. Use orca type or orca fill instead."
+    return "An SSH host can't use the desktop clipboard. Use openkodo type or openkodo fill instead."
   }
   if (method === 'browser.exec') {
-    return "An SSH host can't run raw agent-browser commands on the desktop. Use the named orca browser commands instead."
+    return "An SSH host can't run raw agent-browser commands on the desktop. Use the named openkodo browser commands instead."
   }
   if (method === 'browser.certificate.proceed') {
     return 'Only someone at the desktop can accept a certificate warning in its browser.'

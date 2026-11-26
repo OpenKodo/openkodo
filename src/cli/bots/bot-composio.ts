@@ -1,4 +1,4 @@
-// `orca bot composio …`: the bot asks OpenKodo for its next Composio setup card.
+// `openkodo bot composio …`: the bot asks OpenKodo for its next Composio setup card.
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import type { CommandHandler } from '../dispatch/dispatch'
 import { getOptionalStringFlag, getRequiredStringFlag } from '../arguments/flags'

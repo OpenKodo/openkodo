@@ -1,4 +1,4 @@
-// Text for `orca skills install|update` plans and results.
+// Text for `openkodo skills install|update` plans and results.
 import type {
   BundledSkillOp,
   BundledSkillOpOutcome,

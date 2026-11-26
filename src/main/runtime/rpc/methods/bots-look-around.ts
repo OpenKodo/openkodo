@@ -1,4 +1,4 @@
-// Look around over RPC: a look's `orca bot suggest`, the owner's Start and Dismiss, and the bot
+// Look around over RPC: a look's `openkodo bot suggest`, the owner's Start and Dismiss, and the bot
 // changing its own Look around when its owner asks in chat.
 import {
   BotLookAroundSet,

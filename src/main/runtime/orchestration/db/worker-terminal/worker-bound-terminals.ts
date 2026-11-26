@@ -1,5 +1,5 @@
 // Terminals that close with a worker: the setup terminal and startup tabs its start opened, and
-// terminals its agent created with `orca terminal create`.
+// terminals its agent created with `openkodo terminal create`.
 import type { OrchestrationDb } from '../orchestration-db'
 import { isEquivalentPaneKey, paneKeyMatchSuffix } from '../pane-key-match'
 import type { WorkerAutoCloseState } from '../../../../../shared/orchestration/workers/worker-auto-close'

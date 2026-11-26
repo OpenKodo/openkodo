@@ -1,5 +1,5 @@
 // Claude Code takes servers for one run from a 0600 file passed as `--mcp-config=<path>`, as a plain
-// `claude` terminal or an Agent Teams lead started by `orca claude-teams`.
+// `claude` terminal or an Agent Teams lead started by `openkodo claude-teams`.
 import { claudeServerConfig } from '../../bots/bot-tools-claude'
 import {
   claudeRefusesMcpConfig,
@@ -42,11 +42,11 @@ export const claude: TerminalMcpAdapter = {
   }
 }
 
-/** `orca claude-teams` passes its args on to the lead's `claude`, which replays --mcp-config on each
+/** `openkodo claude-teams` passes its args on to the lead's `claude`, which replays --mcp-config on each
  *  teammate's command line; the relay env reaches teammates through the team's env. */
 export const claudeAgentTeams: TerminalMcpAdapter = {
   agent: 'claude',
-  executables: ['orca', 'orca-dev', 'orca-ide'],
+  executables: ['openkodo', 'openkodo-dev'],
   launcher: { subcommand: 'claude-teams', runs: 'claude' },
   // Agent Teams runs in neither WSL nor Windows (tui-agent-config.ts).
   wsl: false,

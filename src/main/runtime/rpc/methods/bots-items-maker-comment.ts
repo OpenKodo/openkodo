@@ -31,7 +31,7 @@ export async function commentAsMaker(
     // Never another chat: the comment is about this one's work.
     throw new BotItemError(
       'item_closed',
-      `The chat item ${item.number} is in was closed, so nothing was sent. Ask ${target?.name ?? 'its bot'} with \`orca orchestration send --to bot:<name>\` instead.`
+      `The chat item ${item.number} is in was closed, so nothing was sent. Ask ${target?.name ?? 'its bot'} with \`openkodo orchestration send --to bot:<name>\` instead.`
     )
   }
   const sent = await sendItemRequest(context, {

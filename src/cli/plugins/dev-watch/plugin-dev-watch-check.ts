@@ -2,7 +2,7 @@ import { validatePluginTarget } from '../authoring/plugin-folder-validation'
 import { checkPluginPanels, type PluginPanelCheck } from '../authoring/plugin-panel-check'
 import { checkPluginEditors, type PluginEditorCheck } from '../authoring/plugin-editor-check'
 
-/** `orca plugin check` for one folder, as data: validation errors, else each panel's render. */
+/** `openkodo plugin check` for one folder, as data: validation errors, else each panel's render. */
 export type PluginDevWatchCheckResult = {
   ok: boolean
   /** Manifest problems; panels are not rendered while there are any. */

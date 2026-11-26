@@ -102,7 +102,7 @@ async function automationTarget(
 
 export const PLUGIN_AUTOMATION_HANDLERS = {
   'automation.list': bind(api['automation.list'], async (_params, ctx) => {
-    // No selector: every automation this OpenKodo stores, the list `orca automations list` prints.
+    // No selector: every automation this OpenKodo stores, the list `openkodo automations list` prints.
     const { automations } = automationListAnswer.parse(
       await rpc(ctx.services)('automation.list', {})
     )

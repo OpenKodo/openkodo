@@ -1,4 +1,4 @@
-// Gmail reads for `orca gmail search|read`: threads found with Gmail's own search syntax, and a
+// Gmail reads for `openkodo gmail search|read`: threads found with Gmail's own search syntax, and a
 // thread or message as text, paged by character offset across its bodies. Mail is someone else's
 // words; the CLI shows it fenced as content.
 import { z } from 'zod'
@@ -192,7 +192,7 @@ export async function downloadGmailAttachment(
   const match = /^gmail:att:([A-Za-z0-9]+):([0-9.]+)$/.exec(ref.trim())
   if (!match?.[1] || !match[2]) {
     throw new GoogleToolError(
-      'Name an attachment as `orca gmail read` lists it: gmail:att:<message>:<part>.'
+      'Name an attachment as `openkodo gmail read` lists it: gmail:att:<message>:<part>.'
     )
   }
   const [, messageId, partId] = match

@@ -7,7 +7,7 @@ export const ORCAD_WSL_HOST_ENV = 'OPENKODO_WSL_ORCAD_HOST'
 /** Desktop-provided registry ID; guests cannot read it themselves. */
 export const ORCAD_WSL_DISTRO_GUID_ENV = 'OPENKODO_WSL_DISTRO_GUID'
 
-/** The AppImage file `orca serve` runs from: orcad's slot has no Electron, so its browser helper launches this. */
+/** The AppImage file `openkodo serve` runs from: orcad's slot has no Electron, so its browser helper launches this. */
 export const OPENKODO_SERVE_APPIMAGE_ENV = 'OPENKODO_SERVE_APPIMAGE'
 
 /**

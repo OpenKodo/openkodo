@@ -12,7 +12,7 @@ const VIEW_TOKEN = new RegExp(`^[${TOKEN_ALPHABET}]{20,200}$`)
 const GMAIL_LINK = 'https://mail.google.com/'
 
 const UNREADABLE_LINK =
-  "OpenKodo can't read the id in that Gmail link. Find the mail with `orca gmail search` by its subject, or with rfc822msgid:<Message-ID>, and use the ref it prints."
+  "OpenKodo can't read the id in that Gmail link. Find the mail with `openkodo gmail search` by its subject, or with rfc822msgid:<Message-ID>, and use the ref it prints."
 
 /** A Gmail view token's API id, or null when it isn't one OpenKodo can map to an API id. */
 export function decodeGmailViewToken(token: string): GmailRef | null {
@@ -59,7 +59,7 @@ export function parseGmailRef(ref: string): GmailRef {
     return { kind: 'thread', id: trimmed }
   }
   throw new GoogleToolError(
-    `"${trimmed.slice(0, 80)}" isn't a Gmail id. Use gmail:thread:… or gmail:msg:… from \`orca gmail search\`.`
+    `"${trimmed.slice(0, 80)}" isn't a Gmail id. Use gmail:thread:… or gmail:msg:… from \`openkodo gmail search\`.`
   )
 }
 

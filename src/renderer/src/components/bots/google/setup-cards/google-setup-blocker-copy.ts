@@ -1,5 +1,5 @@
 // The card's words for where a setup is stuck and its buttons. They match the host's English
-// (google-setup-blocker.ts), which `orca bot google-setup show` prints, so the bot names the same.
+// (google-setup-blocker.ts), which `openkodo bot google-setup show` prints, so the bot names the same.
 import { translate } from '@/i18n/i18n'
 import {
   GOOGLE_SETUP_ALLOW_NAMES_UP_TO,

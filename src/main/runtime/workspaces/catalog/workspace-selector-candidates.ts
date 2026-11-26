@@ -237,7 +237,7 @@ export function selectWorkspaceCandidate(
     {
       selector,
       candidates: choices,
-      nextSteps: ['Run `orca worktree ps --json` to compare the choices.']
+      nextSteps: ['Run `openkodo worktree ps --json` to compare the choices.']
     }
   )
 }

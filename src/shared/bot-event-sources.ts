@@ -70,7 +70,7 @@ export function unheardEventTriggers<Rule extends EventRule>(
 }
 
 const googleOff = (bot: BotConnectors) =>
-  `Google is off for ${bot.name}; its owner can turn it on with \`orca google bot "${bot.name}" --on\``
+  `Google is off for ${bot.name}; its owner can turn it on with \`openkodo google bot "${bot.name}" --on\``
 
 // "Slack", "Slack or GitHub", "Slack, GitHub or Linear".
 function connectorNames(
@@ -103,7 +103,7 @@ function signedOutRefusal(bot: BotConnectors, rules: readonly EventRule[]): stri
   return withServerSignInSteps(
     [
       `${hostNotSignedIn(bot.signInServer)}, and ${cloudEventNames(rules)} reach ${bot.name} through cloud service, so nothing was saved.`,
-      `Run \`orca bot connectors --offer ${offer}\` to show your owner a Sign in line in this chat, then save it again once they say they're signed in.`,
+      `Run \`openkodo bot connectors --offer ${offer}\` to show your owner a Sign in line in this chat, then save it again once they say they're signed in.`,
       unknownHostSignInHint(bot.signInServer)
     ]
       .filter(Boolean)
@@ -118,7 +118,7 @@ function signedOutRefusal(bot: BotConnectors, rules: readonly EventRule[]): stri
 export function signedOutTriggerOptionsNote(bot: BotConnectors): string {
   return withServerSignInSteps(
     [
-      `${hostNotSignedIn(bot.signInServer)}, and Slack, GitHub, Linear and webhook events reach ${bot.name} through cloud service: before saving one, run \`orca bot connectors --offer <source>\` so your owner sees a Sign in line in this chat, and save it once they say they're signed in.`,
+      `${hostNotSignedIn(bot.signInServer)}, and Slack, GitHub, Linear and webhook events reach ${bot.name} through cloud service: before saving one, run \`openkodo bot connectors --offer <source>\` so your owner sees a Sign in line in this chat, and save it once they say they're signed in.`,
       // An older host doesn't say whether it is a headless server: keep its terminal sign-in in view.
       unknownHostSignInHint(bot.signInServer)
     ]
@@ -166,7 +166,7 @@ export function botEventTriggerRefusal(
       'or'
     )} connector, so ${events.join(', ')} would never start it.`,
     heard.length > 0
-      ? `It can start on ${connectorNames(heard, 'and')} events, on a schedule, or once at a time (\`--once --by\`); \`orca automations trigger-options --bot "${bot.name}"\` lists them.`
+      ? `It can start on ${connectorNames(heard, 'and')} events, on a schedule, or once at a time (\`--once --by\`); \`openkodo automations trigger-options --bot "${bot.name}"\` lists them.`
       : 'It has no connectors, so it can start only on a schedule or once at a time (`--once --by`).',
     "Its owner can add a connector in the bot's settings."
   ].join(' ')

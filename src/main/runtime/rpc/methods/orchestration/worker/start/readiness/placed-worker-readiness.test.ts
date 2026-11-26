@@ -124,7 +124,9 @@ describe('a structured worker start behind wait-for-setup', () => {
     expect(await worker.start).toMatchObject({
       state: 'starting',
       stage: 'awaiting_agent',
-      nextCommands: expect.arrayContaining(['orca terminal read --terminal term_setup --screen'])
+      nextCommands: expect.arrayContaining([
+        'openkodo terminal read --terminal term_setup --screen'
+      ])
     })
     expect(await worker.start).not.toHaveProperty('readyBy')
     expect(worker.handOver).not.toHaveBeenCalled()

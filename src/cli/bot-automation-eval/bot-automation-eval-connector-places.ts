@@ -88,7 +88,7 @@ export function resolvePlace(state: EvalHostState, input: string): PlaceView | R
   const notFound: Refusal = {
     ok: false,
     refusal: 'not_found',
-    message: `Nothing the bot can reach matches "${input}". Pass a ref, a link, or run \`orca slack find\`.`
+    message: `Nothing the bot can reach matches "${input}". Pass a ref, a link, or run \`openkodo slack find\`.`
   }
   if (state.places?.some((place) => input.startsWith(`${place.ref}:`))) {
     return { ref: input, label: input }

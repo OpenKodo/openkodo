@@ -6,7 +6,7 @@ import { publishDesktopRelayStatus } from './main-process-relay-status'
 import { mainProcessState as state } from '../main-process-state'
 
 /**
- * The desktop's or Electron `orca serve`'s relay, as this process's own OpenKodo account, so phones
+ * The desktop's or Electron `openkodo serve`'s relay, as this process's own OpenKodo account, so phones
  * reach it without a direct path. Register before proxy readiness; the install waits for it.
  */
 export function startMainProcessRelayService(runtimeRpc: OrcaRuntimeRpcServer): void {

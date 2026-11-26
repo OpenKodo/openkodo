@@ -174,7 +174,7 @@ export const CMD_J_FIXTURE_CASES: readonly CmdJFixtureCase[] = [
   { query: 'sta-4052 reconnect', expected: ['wt-reconnect'] },
   { query: 'reconnect infra', expected: ['wt-reconnect'] },
   { query: 'main 3000', expected: ['wt-main-orca'] },
-  { query: 'acme/orca main', expected: ['wt-main-orca'] },
+  { query: 'acme/openkodo main', expected: ['wt-main-orca'] },
   { query: 'orca/main', expected: ['wt-main-orca'] },
   { query: 'docs terminal', expected: ['wt-docs'] },
   { query: '#4123', expected: ['wt-docs'] },

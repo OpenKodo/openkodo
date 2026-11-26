@@ -1,7 +1,7 @@
 // OpenKodo Cloud's words already say what to do (an Update link among them); a read's typed reason is added, never swapped in.
 const READ_HINTS: Readonly<Record<string, string>> = {
   slack_thread_not_found:
-    "Use the ref of the thread's root message; `orca slack read <channel>` lists current refs.",
+    "Use the ref of the thread's root message; `openkodo slack read <channel>` lists current refs.",
   slack_channel_not_visible: "Check that the channel or link is in this bot's Slack workspace."
 }
 

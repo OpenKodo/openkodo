@@ -124,7 +124,9 @@ function chatsLine(entry: BotRosterEntry): string | null {
   if (chats.count === 0) {
     return '  Chats: none yet'
   }
-  const list = entry.self ? 'orca bot chats' : `orca bot chats --bot ${JSON.stringify(entry.name)}`
+  const list = entry.self
+    ? 'openkodo bot chats'
+    : `openkodo bot chats --bot ${JSON.stringify(entry.name)}`
   const others = chats.count - (chats.home ? 1 : 0)
   const current = chats.current
   const where = entry.self
@@ -152,9 +154,9 @@ export function formatBotRosterEntry(entry: BotRosterEntry): string {
 }
 
 export const BOT_ROSTER_COMMANDS = [
-  'Hand work to a bot (it takes over; its answer appears in its own Chat): orca orchestration send --to bot:<name> --type handoff --subject "<the task>" --body "<what bounds it; what a good result is>"',
-  'Ask a bot for input (its answer comes back to you as mail and wakes you; you finish the job): orca orchestration send --to bot:<name> --type question --subject "<the question>"',
-  'Tell a bot something without giving it a job (nothing comes back): orca orchestration send --to bot:<name> --type status --subject "<the news>" --body "<what it means for its work>"',
+  'Hand work to a bot (it takes over; its answer appears in its own Chat): openkodo orchestration send --to bot:<name> --type handoff --subject "<the task>" --body "<what bounds it; what a good result is>"',
+  'Ask a bot for input (its answer comes back to you as mail and wakes you; you finish the job): openkodo orchestration send --to bot:<name> --type question --subject "<the question>"',
+  'Tell a bot something without giving it a job (nothing comes back): openkodo orchestration send --to bot:<name> --type status --subject "<the news>" --body "<what it means for its work>"',
   'A bot on another computer: put its `--on <server>` before `--to`, as its "On:" line shows.'
 ].join('\n')
 

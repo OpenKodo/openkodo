@@ -10,7 +10,7 @@ import {
 import { spec, WORKER_ONLY } from './plugin-host-method-spec'
 
 /** Terminals of any workspace, by the ids `terminal.read` and `terminal.sendText` take. Each runs
- *  the runtime method `orca terminal list|focus|close` runs, on the host that owns the terminal. */
+ *  the runtime method `openkodo terminal list|focus|close` runs, on the host that owns the terminal. */
 
 const terminalListParams = z.strictObject({ workspaceId: pluginWorkspaceIdSchema })
 const terminalListResult = z.object({

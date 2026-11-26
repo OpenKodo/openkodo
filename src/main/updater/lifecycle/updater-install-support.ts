@@ -134,12 +134,12 @@ export abstract class UpdaterInstallSupport extends UpdaterCheckState {
         { phase, version: version || null },
         {
           level: 'warn',
-          message: 'Update install deferred while hosting orca serve'
+          message: 'Update install deferred while hosting openkodo serve'
         }
       )
     }
     this.sendErrorStatus(
-      'This orca serve process was not started by an update-capable supervisor. Keep it running and update OpenKodo through its service manager.',
+      'This openkodo serve process was not started by an update-capable supervisor. Keep it running and update OpenKodo through its service manager.',
       true
     )
     return true

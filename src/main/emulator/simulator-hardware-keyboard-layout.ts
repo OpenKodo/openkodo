@@ -189,7 +189,7 @@ export class SimulatorHardwareKeyboardSync {
     return entries
   }
 
-  /** Whether US key usages type what they name, which `orca emulator type` needs before sending keys. */
+  /** Whether US key usages type what they name, which `openkodo emulator type` needs before sending keys. */
   isUSHardwareKeyboard(udid: string): Promise<boolean> {
     return this.readKeyboards(udid).then(isUSHardwareKeyboard, () => false)
   }

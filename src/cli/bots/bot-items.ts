@@ -1,4 +1,4 @@
-// `orca bot item …`: a bot's items over `bots.items.*`. Writes run from the bot's own chat, which the
+// `openkodo bot item …`: a bot's items over `bots.items.*`. Writes run from the bot's own chat, which the
 // host checks.
 import type { BotItemStatus } from '../../shared/bots/bot-items'
 import type { RuntimeRpcSuccess } from '../../shared/remote-runtime/rpc/runtime-rpc-envelope'

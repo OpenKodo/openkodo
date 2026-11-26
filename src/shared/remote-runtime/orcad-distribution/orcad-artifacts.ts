@@ -275,9 +275,9 @@ export const ORCAD_ARTIFACTS: readonly OrcadArtifact[] = [
   { filename: 'claude-conversation-fork-worker-entry.js' },
   // Stats & Usage scans this host's agent transcripts in a worker thread, off the event loop.
   { filename: 'usage-scan-worker-entry.js' },
-  // Dictation loads the recognizer named by orca serve (#31174).
+  // Dictation loads the recognizer named by openkodo serve (#31174).
   { filename: 'stt-worker.js' },
-  // Reads a Drive PDF's text off the event loop for `orca drive read`.
+  // Reads a Drive PDF's text off the event loop for `openkodo drive read`.
   { filename: 'google-pdf-text-worker-entry.js' },
   // The forked computer sidecar finds platform runtimes beside itself (#31777).
   { filename: ORCAD_COMPUTER_SIDECAR_ENTRY },

@@ -1,6 +1,6 @@
 import type { AGENT_CONVERSATION_REFUSAL_CODES as CODES } from '../../../shared/agent-conversations/agent-conversation-contracts'
 
-/** A refusal an `orca agent` command shows as is; `code` is for `--json` callers. */
+/** A refusal an `openkodo agent` command shows as is; `code` is for `--json` callers. */
 export class AgentConversationRefusal extends Error {
   constructor(
     readonly code: (typeof CODES)[keyof typeof CODES],

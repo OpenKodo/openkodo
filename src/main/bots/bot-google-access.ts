@@ -1,5 +1,5 @@
 // Whether a bot's run may use the Google accounts on its host: off for every bot until its owner turns
-// it on. Then it acts as the owner like gh and orca linear: chats follow the bot's Who can ask, and
+// it on. Then it acts as the owner like gh and openkodo linear: chats follow the bot's Who can ask, and
 // automation runs use it for their own job (an email-triggered one included). An event's run acts for
 // the automation's creator; what the event says is content, marked so on any request it sends on.
 import type { Bot } from '../../shared/bot-types'
@@ -16,7 +16,7 @@ export function botGoogleRefusal(bot: Pick<Bot, 'name' | 'google'> | null): stri
   if (!bot || bot.google === true) {
     return null
   }
-  return `Google is off for ${bot.name}. Run \`orca bot connectors --offer google\` to ask your owner.`
+  return `Google is off for ${bot.name}. Run \`openkodo bot connectors --offer google\` to ask your owner.`
 }
 
 /** Null when the calling run may use Google; else why not. The run is named by its bot token. */

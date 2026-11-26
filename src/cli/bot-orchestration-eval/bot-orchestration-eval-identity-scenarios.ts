@@ -1,5 +1,5 @@
 // Who a bot acts as (design v3): GitHub and Linear work done as the owner with `gh` and
-// `orca linear`; where the bot was woken it speaks only as itself, through `orca bot reply` or its
+// `openkodo linear`; where the bot was woken it speaks only as itself, through `openkodo bot reply` or its
 // final answer; a signed-out tool gets one line to the owner, never a workaround.
 import { EVAL_BOT } from '../bot-automation-eval/bot-automation-eval-host'
 import { EVAL_OWNER_GH_LOGIN } from '../bot-automation-eval/bot-automation-eval-gh'
@@ -130,7 +130,7 @@ export const IDENTITY_SCENARIOS: OrchestrationScenario[] = [
     ]
   },
   {
-    // A review asked for on the pull request itself: line notes through `orca bot reply`.
+    // A review asked for on the pull request itself: line notes through `openkodo bot reply`.
     id: 'identity-review-waking-pr',
     heldOut: true,
     turns: [{ message: githubWake(API_GH, RETRY_PR, 'can you review this?') }],

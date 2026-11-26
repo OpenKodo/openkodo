@@ -1,4 +1,4 @@
-// The card a bot shows with `orca bot create --offer`: a new bot it proposes. Nothing is created until the
+// The card a bot shows with `openkodo bot create --offer`: a new bot it proposes. Nothing is created until the
 // owner presses Create bot (or creates it from Edit); the card then reads Created, from the bots there are.
 import { useRef, useState } from 'react'
 import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'

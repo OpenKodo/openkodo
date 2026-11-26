@@ -40,7 +40,7 @@ export const ConnectorAct = z.object({
   args: ConnectorActionArgs.default({})
 })
 
-/** `orca bot reply --react`: an emoji on the message that woke the calling bot's run. */
+/** `openkodo bot reply --react`: an emoji on the message that woke the calling bot's run. */
 export const ConnectorReact = z.object({
   sessionId: z.string().min(1, 'Missing session id'),
   emoji: z.string().min(1).max(100)

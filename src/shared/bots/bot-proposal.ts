@@ -1,5 +1,5 @@
 // A new bot, proposed before it exists: by a template or by a bot's
-// `orca bot create --offer` card. The prefilled New bot dialog edits one, and bots.create makes it.
+// `openkodo bot create --offer` card. The prefilled New bot dialog edits one, and bots.create makes it.
 import * as z from 'zod'
 import type {
   AgentJournalItemBody,
@@ -185,7 +185,7 @@ export function proposalSoul(name: string, seed: BotProposalSeed): string {
   ].join('\n\n')}\n`
 }
 
-// ---- The card a bot shows with `orca bot create --offer` ----
+// ---- The card a bot shows with `openkodo bot create --offer` ----
 
 export const BOT_CREATE_OFFER_PRESENTATION = 'bot-create-offer'
 

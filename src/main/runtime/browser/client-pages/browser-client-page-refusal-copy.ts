@@ -1,15 +1,15 @@
 import { BrowserError } from '../../../browser/browser-error'
 
 const STALE_PAGE =
-  'The page was reloaded, closed or moved on the desktop while this command ran. Check it with `orca tab list`, then retry.'
+  'The page was reloaded, closed or moved on the desktop while this command ran. Check it with `openkodo tab list`, then retry.'
 
 // Desktops and this host refuse client-page commands with bare codes; agents read these sentences instead.
 const BROWSER_CLIENT_PAGE_REFUSAL_COPY: Record<string, string> = {
   // Only a desktop older than this host's path-free download refuses it.
   browser_client_download_path_unsupported:
-    'The desktop showing this page runs an older OpenKodo that cannot hand its downloads to this host, so `orca download` cannot save the file here. Update OpenKodo on that desktop. Nothing was downloaded.',
+    'The desktop showing this page runs an older OpenKodo that cannot hand its downloads to this host, so `openkodo download` cannot save the file here. Update OpenKodo on that desktop. Nothing was downloaded.',
   browser_client_file_channel_unsupported:
-    'The desktop showing this page cannot exchange files with this host, so `orca upload` and `orca download` cannot run on it. Update OpenKodo on that desktop and on this host.',
+    'The desktop showing this page cannot exchange files with this host, so `openkodo upload` and `openkodo download` cannot run on it. Update OpenKodo on that desktop and on this host.',
   browser_host_capability_unavailable:
     'The desktop showing this page cannot run agent commands on it. Update OpenKodo on that desktop.',
   browser_client_page_generation_stale: STALE_PAGE,

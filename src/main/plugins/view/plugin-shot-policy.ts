@@ -61,7 +61,7 @@ export function pluginShotReplayRefusal(
         reason: 'window_shown',
         message: PLUGIN_SHOT_REPLAY_WINDOW_SHOWN_MESSAGE,
         nextSteps: [
-          'Minimize or hide OpenKodo, then run this again; `orca plugin check` renders the same scenarios as text.'
+          'Minimize or hide OpenKodo, then run this again; `openkodo plugin check` renders the same scenarios as text.'
         ]
       }
     : null

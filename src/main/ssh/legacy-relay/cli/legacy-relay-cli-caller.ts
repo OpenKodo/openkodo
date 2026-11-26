@@ -21,7 +21,7 @@ const MAX_IDENTITY_LENGTH = 512
 
 export const LEGACY_RELAY_CLI_UNVERIFIED =
   "OpenKodo could not confirm this terminal is one of this host's supervised OpenKodo terminals, so its " +
-  'orca command was refused. Run it in a new terminal on this host.'
+  'openkodo command was refused. Run it in a new terminal on this host.'
 
 export type LegacyRelayCliCaller = {
   handle: string

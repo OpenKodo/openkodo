@@ -1,12 +1,12 @@
 // How a command server's saved env reaches a WSL guest without touching argv or shell history:
-// `orca mcp env` (the Windows CLI, run over interop) prints it as NUL-separated KEY=VALUE pairs and
+// `openkodo mcp env` (the Windows CLI, run over interop) prints it as NUL-separated KEY=VALUE pairs and
 // an end record, and a guest-side bash wrapper reads them into its environment and execs the real
 // command there. Both ends of the format live here.
 
 /** The last record: a wrapper that never reads it got a partial or failed answer and runs nothing. */
 export const MCP_ENV_END = 'OPENKODO_MCP_ENV_END'
 
-/** `env` as `orca mcp env` prints it. Saved values never hold NUL (the host list refuses one). */
+/** `env` as `openkodo mcp env` prints it. Saved values never hold NUL (the host list refuses one). */
 export function encodeMcpEnvPairs(env: Readonly<Record<string, string>>): string {
   return [...Object.entries(env).map(([key, value]) => `${key}=${value}`), MCP_ENV_END]
     .map((record) => `${record}\0`)
@@ -34,7 +34,7 @@ export const MCP_ENV_WRAPPER_SCRIPT = [
   'exec "$@"'
 ].join('; ')
 
-/** The guest command that starts `server` with the env `orca mcp env` reads from this OpenKodo. */
+/** The guest command that starts `server` with the env `openkodo mcp env` reads from this OpenKodo. */
 export function mcpEnvWrapperCommand(
   launch: { launcher: string; id: string; agent: string; workspaceId: string | null },
   server: { command: string; args: readonly string[] }

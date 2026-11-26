@@ -1,4 +1,4 @@
-// What `orca webhooks calls --call` and `orca webhooks check` read of a hook's calls in the cloud.
+// What `openkodo webhooks calls --call` and `openkodo webhooks check` read of a hook's calls in the cloud.
 import {
   matchesWebhookCall,
   type WebhookFilters

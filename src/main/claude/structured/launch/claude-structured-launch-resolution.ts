@@ -317,7 +317,7 @@ export function claudeStructuredLaunchPart(
       },
       env,
       inheritedEnvToDelete: refused.envToDelete,
-      // The agent runtime follows OpenKodo's CLI directory on PATH so another orca cannot shadow it.
+      // The agent runtime follows OpenKodo's CLI directory on PATH so another openkodo cannot shadow it.
       cliRuntimeCommand: command
     }
   }

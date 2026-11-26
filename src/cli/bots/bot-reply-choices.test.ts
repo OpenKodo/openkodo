@@ -10,7 +10,7 @@ const flags = (entries: Record<string, string | string[]>) =>
     ])
   )
 
-describe('orca bot reply --choice', () => {
+describe('openkodo bot reply --choice', () => {
   it('reads each label, trimmed, with the text they answer', () => {
     expect(readReplyChoices(flags({ text: 'Ship it?', choice: [' Yes ', 'Not yet'] }))).toEqual([
       'Yes',

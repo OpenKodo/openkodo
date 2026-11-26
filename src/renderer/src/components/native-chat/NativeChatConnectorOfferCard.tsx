@@ -1,4 +1,4 @@
-// The Connect card a bot asks for with `orca bot connectors --offer`: connects in one click, and reads
+// The Connect card a bot asks for with `openkodo bot connectors --offer`: connects in one click, and reads
 // Connected however the connector got added, with the action that adds access to it.
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'

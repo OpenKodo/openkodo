@@ -36,7 +36,7 @@ export async function checkedWorkerOrigin(
     throw new BotItemError(
       'item_closed',
       item.ownerBotId === writer.bot.id
-        ? `Item ${item.number} is ${closed}; reopen it with \`orca bot item set ${item.number} --status in-progress\`, or add a new one.`
+        ? `Item ${item.number} is ${closed}; reopen it with \`openkodo bot item set ${item.number} --status in-progress\`, or add a new one.`
         : `Item ${item.number} is ${closed}. Ask its bot.`
     )
   }

@@ -90,7 +90,7 @@ export function resolveHostPluginPath(ctx: HandlerContext, value: string): strin
   if (process.env.OPENKODO_CLI_CWD) {
     throw new RuntimeClientError(
       'invalid_environment',
-      'This shell forwards orca to an OpenKodo host on another machine, which cannot read this folder. Run the command on the machine that runs OpenKodo, or pass --environment for an OpenKodo server that has the folder.'
+      'This shell forwards openkodo to an OpenKodo host on another machine, which cannot read this folder. Run the command on the machine that runs OpenKodo, or pass --environment for an OpenKodo server that has the folder.'
     )
   }
   if (isAbsolute(value)) {
@@ -131,7 +131,7 @@ function formatDevLoad(result: DevLoadResult): string {
   return [
     `${result.added ? 'Loaded' : 'Reloaded'} ${result.pluginKey} from ${result.path} (${how}).`,
     result.plugin ? formatPluginRow(result.plugin) : '',
-    'OpenKodo reloads it (and restarts its worker) when its files change; `orca plugin logs` shows what it printed.'
+    'OpenKodo reloads it (and restarts its worker) when its files change; `openkodo plugin logs` shows what it printed.'
   ]
     .filter(Boolean)
     .join('\n')
@@ -171,7 +171,7 @@ export function requirePluginKey(ctx: HandlerContext): string {
   if (!key || !isQualifiedPluginKey(key)) {
     throw new RuntimeClientError(
       'invalid_argument',
-      'Pass a plugin key such as acme.dusk; `orca plugin list` shows them.'
+      'Pass a plugin key such as acme.dusk; `openkodo plugin list` shows them.'
     )
   }
   return key

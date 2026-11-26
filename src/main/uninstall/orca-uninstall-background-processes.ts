@@ -1,4 +1,4 @@
-// The `orca serve` service and the terminal daemon: the processes OpenKodo leaves running.
+// The `openkodo serve` service and the terminal daemon: the processes OpenKodo leaves running.
 import {
   listInstalledServeServiceUnits,
   removeServeServiceUnit,

@@ -1,4 +1,4 @@
-// `orca gmail search|read`, `orca calendar list|get`, `orca contacts find`: Google reads the host runs
+// `openkodo gmail search|read`, `openkodo calendar list|get`, `openkodo contacts find`: Google reads the host runs
 // as a connected account; this prints them.
 import type {
   CalendarEventView,

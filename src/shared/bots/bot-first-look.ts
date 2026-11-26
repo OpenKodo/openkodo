@@ -111,7 +111,7 @@ function lines(output: string): string[] {
     .filter((line) => line.length > 0)
 }
 
-/** `orca repo list` prints `id  name  path` per repo. */
+/** `openkodo repo list` prints `id  name  path` per repo. */
 function repoNamesFromText(output: string): string[] | undefined {
   if (output.startsWith('No repos found.')) {
     return []
@@ -127,7 +127,7 @@ function repoNamesFromText(output: string): string[] | undefined {
   return names
 }
 
-/** `orca linear list-issues` prints one issue per line, then `truncated: showing N` at its limit. */
+/** `openkodo linear list-issues` prints one issue per line, then `truncated: showing N` at its limit. */
 function issueCountFromText(output: string): Partial<FirstLookRow> {
   if (output.startsWith('No Linear issues found.')) {
     return { count: 0 }
@@ -137,7 +137,7 @@ function issueCountFromText(output: string): Partial<FirstLookRow> {
   return rows.length > count ? { count, more: true } : { count }
 }
 
-/** `orca worktree ps` prints a block per workspace; an open agent's line names its `--terminal`. */
+/** `openkodo worktree ps` prints a block per workspace; an open agent's line names its `--terminal`. */
 function agentWorkspacesFromText(output: string): number | undefined {
   if (output.startsWith('No worktrees found.')) {
     return 0

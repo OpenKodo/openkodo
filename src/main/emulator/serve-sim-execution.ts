@@ -209,7 +209,7 @@ export async function execServeSimCommand(
     if (/^no serve-sim server/im.test(message)) {
       throw new EmulatorError(
         'emulator_no_active',
-        'No active emulator for this worktree — use orca emulator devices/attach or open the pane'
+        'No active emulator for this worktree — use openkodo emulator devices/attach or open the pane'
       )
     }
     throw new EmulatorError('emulator_error', message)

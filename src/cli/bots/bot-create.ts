@@ -1,4 +1,4 @@
-// `orca bot create --offer`: shows the owner a card proposing a new bot, which creates nothing until
+// `openkodo bot create --offer`: shows the owner a card proposing a new bot, which creates nothing until
 // they press Create bot. Creating a bot is the owner's, in OpenKodo.
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import { BOT_TEMPLATES, botTemplate } from '../../shared/bots/bot-templates'

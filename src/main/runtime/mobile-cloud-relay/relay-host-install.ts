@@ -1,4 +1,4 @@
-// The cloud relay on any host: the desktop app, Electron `orca serve` and orcad.
+// The cloud relay on any host: the desktop app, Electron `openkodo serve` and orcad.
 import { getOrcaCloudAuthConfig } from '../../orca-profiles/cloud-auth/profile-cloud-auth-config'
 import { onTeamFeatureBlockChanged } from '../../orca-profiles/cloud-auth/active-team-capabilities'
 import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'

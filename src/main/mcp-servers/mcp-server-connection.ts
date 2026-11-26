@@ -1,4 +1,4 @@
-// What `orca mcp connect` bridges an agent to, decided on the host for the session that started it.
+// What `openkodo mcp connect` bridges an agent to, decided on the host for the session that started it.
 // Only this host's own agents ask (the bridge always runs beside them), and never a Look around or a
 // bot that hasn't opted in to the host list: those sessions get no host servers at launch either.
 import type { McpServerConnection } from '../../shared/mcp-servers/mcp-servers'

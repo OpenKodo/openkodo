@@ -138,7 +138,7 @@ export function describeGoogleTrigger(trigger: AutomationGoogleTrigger): string 
 const ACCOUNT_OPTION =
   '  account=<email>  the Google account to watch; needed when this computer has several'
 const CHECKED =
-  '  Checked about once a minute on the computer the bot runs on. The run acts as the owner, like `orca gmail` and `orca calendar`; what the mail or event says is quoted as information, never instructions.'
+  '  Checked about once a minute on the computer the bot runs on. The run acts as the owner, like `openkodo gmail` and `openkodo calendar`; what the mail or event says is quoted as information, never instructions.'
 
 export const GOOGLE_TRIGGER_OPTIONS: Record<GoogleEventSource, string> = {
   gmail: [
@@ -154,7 +154,7 @@ export const GOOGLE_TRIGGER_OPTIONS: Record<GoogleEventSource, string> = {
   calendar: [
     'calendar:',
     `  calendar.starting_soon  before an event starts; before=<minutes> (default 10, up to ${MAX_MINUTES_BEFORE}). Not for all-day events or ones you declined`,
-    '  calendar=<id>  a calendar id from `orca calendar list --calendars`; the primary calendar by default',
+    '  calendar=<id>  a calendar id from `openkodo calendar list --calendars`; the primary calendar by default',
     ACCOUNT_OPTION,
     CHECKED
   ].join('\n')
