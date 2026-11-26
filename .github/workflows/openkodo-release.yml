@@ -9,6 +9,56 @@ permissions:
   contents: read
 
 jobs:
+  # Signed + notarized macOS build. Stays off until the Developer ID
+  # Application certificate and App Store Connect credentials are in the repo
+  # secrets and OPENKODO_MAC_SIGNING=true is set as a repository variable, so a
+  # release never publishes a half-signed artifact.
+  macos:
+    if: vars.OPENKODO_MAC_SIGNING == 'true'
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install mobile dependencies
+        run: pnpm -C mobile install --frozen-lockfile
+      - name: Build JavaScript, CLI and web clients
+        run: pnpm build:release:javascript
+      - name: Ensure Electron runtime
+        run: pnpm run ensure:electron-runtime
+      - name: Package, sign and notarize (Apple silicon)
+        env:
+          ORCA_MAC_RELEASE: '1'
+          OPENKODO_MAC_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          CSC_LINK: ${{ secrets.MAC_CERTS }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CERTS_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: pnpm exec electron-builder --config config/electron-builder.config.cjs --mac dmg zip --arm64 --publish never
+      - name: Verify the signature and the notary ticket
+        run: |
+          dmg="$(ls dist/*.dmg | head -1)"
+          echo "built $dmg"
+          hdiutil attach "$dmg" -nobrowse -mountpoint /tmp/openkodo-dmg
+          codesign --verify --deep --strict --verbose=2 "/tmp/openkodo-dmg/OpenKodo.app"
+          spctl --assess --type execute --verbose=4 "/tmp/openkodo-dmg/OpenKodo.app"
+          xcrun stapler validate "/tmp/openkodo-dmg/OpenKodo.app"
+          hdiutil detach /tmp/openkodo-dmg
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openkodo-macos
+          path: |
+            dist/*.dmg
+            dist/*-mac.zip
+          if-no-files-found: error
+
   build:
     strategy:
       fail-fast: false

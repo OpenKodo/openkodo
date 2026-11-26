@@ -264,8 +264,9 @@ const macUsageDescriptions = {
   ...MACOS_FOLDER_USAGE_DESCRIPTIONS
 }
 // Developer ID team that signs every release-channel mac build.
-// Signing identity for OpenKodo releases. Empty until our Developer ID is provisioned.
-const OPENKODO_MAC_TEAM_ID = ''
+// Set OPENKODO_MAC_TEAM_ID in CI once the Developer ID Application certificate
+// is provisioned; the updater refuses a bundle signed by another team.
+const OPENKODO_MAC_TEAM_ID = process.env.OPENKODO_MAC_TEAM_ID || ''
 
 /** @type {import('electron-builder').Configuration} */
 module.exports = {
