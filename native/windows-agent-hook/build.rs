@@ -7,21 +7,21 @@ use std::env;
 
 fn main() {
     println!("cargo:rerun-if-changed=app.manifest");
-    println!("cargo:rerun-if-env-changed=ORCA_HOOK_BUILD_VERSION");
-    println!("cargo:rerun-if-env-changed=ORCA_HOOK_BUILD_ICON");
+    println!("cargo:rerun-if-env-changed=OPENKODO_HOOK_BUILD_VERSION");
+    println!("cargo:rerun-if-env-changed=OPENKODO_HOOK_BUILD_ICON");
 
     if env::var("CARGO_CFG_TARGET_OS").as_deref() != Ok("windows") {
         return;
     }
 
     // Set by config/scripts/build-windows-agent-hook.mjs from package.json.
-    let version = env::var("ORCA_HOOK_BUILD_VERSION")
-        .expect("ORCA_HOOK_BUILD_VERSION must be set; build through build-windows-agent-hook.mjs");
+    let version = env::var("OPENKODO_HOOK_BUILD_VERSION")
+        .expect("OPENKODO_HOOK_BUILD_VERSION must be set; build through build-windows-agent-hook.mjs");
     let (major, minor, patch) = numeric_version_parts(&version);
 
     let mut resource = winresource::WindowsResource::new();
-    resource.set("ProductName", "Orca");
-    resource.set("FileDescription", "Orca Agent Hook");
+    resource.set("ProductName", "OpenKodo");
+    resource.set("FileDescription", "OpenKodo Agent Hook");
     resource.set("CompanyName", "OpenKodo");
     resource.set(
         "LegalCopyright",
@@ -40,7 +40,7 @@ fn main() {
         (major << 48) | (minor << 32) | (patch << 16),
     );
     resource.set_manifest_file("app.manifest");
-    if let Ok(icon) = env::var("ORCA_HOOK_BUILD_ICON") {
+    if let Ok(icon) = env::var("OPENKODO_HOOK_BUILD_ICON") {
         resource.set_icon(&icon);
     }
     resource
