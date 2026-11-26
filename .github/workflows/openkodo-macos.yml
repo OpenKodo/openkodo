@@ -26,10 +26,39 @@ jobs:
         run: pnpm build:release:javascript
       - name: Ensure Electron runtime
         run: pnpm run ensure:electron-runtime
-      - name: Package (unsigned)
+
+      # Signed + notarized path. Enabled by setting the repository variable
+      # OPENKODO_MAC_SIGNING=true together with the five signing secrets; until
+      # then the unsigned beta step below keeps producing the download artifact.
+      - name: Package, sign and notarize
+        if: vars.OPENKODO_MAC_SIGNING == 'true'
+        env:
+          ORCA_MAC_RELEASE: '1'
+          OPENKODO_MAC_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          CSC_LINK: ${{ secrets.MAC_CERTS }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CERTS_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: pnpm exec electron-builder --config config/electron-builder.config.cjs --mac dmg zip --publish never
+
+      - name: Verify signature, Gatekeeper and notary ticket
+        if: vars.OPENKODO_MAC_SIGNING == 'true'
+        run: |
+          dmg="$(ls dist/*.dmg | head -1)"
+          echo "built $dmg"
+          hdiutil attach "$dmg" -nobrowse -mountpoint /tmp/openkodo-dmg
+          codesign --verify --deep --strict --verbose=2 "/tmp/openkodo-dmg/OpenKodo.app"
+          spctl --assess --type execute --verbose=4 "/tmp/openkodo-dmg/OpenKodo.app"
+          xcrun stapler validate "/tmp/openkodo-dmg/OpenKodo.app"
+          hdiutil detach /tmp/openkodo-dmg
+
+      - name: Package (unsigned beta)
+        if: vars.OPENKODO_MAC_SIGNING != 'true'
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
         run: pnpm exec electron-builder --config config/electron-builder.config.cjs --mac dmg --publish never
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
