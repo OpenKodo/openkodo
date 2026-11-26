@@ -66,7 +66,7 @@ export function OpenKodoAccountsSection(): React.JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (login.status !== 'pending') {
+    if (login.status !== 'pending' && login.status !== 'browser') {
       return
     }
     const timer = window.setInterval(async () => {
@@ -80,10 +80,14 @@ export function OpenKodoAccountsSection(): React.JSX.Element {
     return () => window.clearInterval(timer)
   }, [login.status])
 
-  const connect = async (): Promise<void> => {
+  const connect = async (mode: 'browser' | 'code' = 'browser'): Promise<void> => {
     setBusy(true)
     try {
-      setLogin(await window.api.openkodo.loginStart())
+      setLogin(
+        await (mode === 'browser'
+          ? window.api.openkodo.loginBrowser()
+          : window.api.openkodo.loginStart())
+      )
     } finally {
       setBusy(false)
     }
@@ -142,6 +146,26 @@ export function OpenKodoAccountsSection(): React.JSX.Element {
         </div>
       )
     }
+    if (login.status === 'browser') {
+      return (
+        <div className="space-y-3 py-2">
+          <p className="text-sm text-muted-foreground">
+            {t(
+              'auto.components.settings.OpenKodo.finishInBrowser',
+              'Finish signing in in your browser. This window updates on its own.'
+            )}
+          </p>
+          <div className="flex items-center gap-2">
+            <Button size="sm" onClick={() => void window.api.shell.openUrl(login.verificationUri)}>
+              {t('auto.components.settings.OpenKodo.openBrowser', 'Open browser')}
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => void refresh()}>
+              {t('auto.components.settings.OpenKodo.approved', 'I approved it')}
+            </Button>
+          </div>
+        </div>
+      )
+    }
     if (login.status === 'pending') {
       return (
         <div className="space-y-3 py-2">
@@ -180,11 +204,16 @@ export function OpenKodoAccountsSection(): React.JSX.Element {
             'Sign in with your OpenKodo account. The app creates a key for this device and fills in the model provider for you.'
           )}
         </p>
-        <Button size="sm" disabled={busy} onClick={() => void connect()}>
-          {busy
-            ? t('auto.components.settings.OpenKodo.starting', 'Starting…')
-            : t('auto.components.settings.OpenKodo.connect', 'Connect OpenKodo')}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button size="sm" disabled={busy} onClick={() => void connect('browser')}>
+            {busy
+              ? t('auto.components.settings.OpenKodo.starting', 'Starting…')
+              : t('auto.components.settings.OpenKodo.connectBrowser', 'Continue in browser')}
+          </Button>
+          <Button variant="ghost" size="sm" disabled={busy} onClick={() => void connect('code')}>
+            {t('auto.components.settings.OpenKodo.useCode', 'Use a device code')}
+          </Button>
+        </div>
       </div>
     )
   }

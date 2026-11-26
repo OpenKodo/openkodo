@@ -185,6 +185,7 @@ export type PreloadApi = {
   openkodo: {
     status: () => Promise<{ connected: boolean; login: OpenKodoLoginState }>
     loginStart: () => Promise<OpenKodoLoginState>
+    loginBrowser: () => Promise<OpenKodoLoginState>
     loginState: () => Promise<OpenKodoLoginState>
     logout: () => Promise<void>
     usage: () => Promise<OpenKodoUsage | null>
@@ -223,6 +224,7 @@ declare global {
 export type OpenKodoLoginState =
   | { status: 'idle' }
   | { status: 'pending'; userCode: string; verificationUri: string; expiresAt: number }
+  | { status: 'browser'; verificationUri: string }
   | { status: 'connected'; email: string; plan: string; openCodePath: string }
   | { status: 'expired' | 'error'; message: string }
 

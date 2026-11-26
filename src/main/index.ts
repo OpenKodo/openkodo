@@ -50,6 +50,11 @@ import { configureWslHostsGateFromDisk } from './wsl/host-lifecycle/wsl-host-gat
 import { configureRemoteRuntimeE2EEV2HostLatch } from '../shared/remote-runtime/e2ee/node/remote-runtime-e2ee-v2-host-latch'
 import { ignoreInheritedWslHostsGateState } from '../shared/remote-runtime/wsl-hosts/wsl-host-internal-gate'
 import { registerOrcaProtocolClient } from './startup/open-routing/orca-protocol-registration'
+import {
+  completeOpenKodoProtocol,
+  openKodoHandoffCode,
+  openKodoHandoffFromArgs
+} from './openkodo/handoff'
 import { clearWindowsStdHandleInheritance } from './startup/windows-startup/windows-std-handle-inheritance'
 import { installWindowsIsolatedSpawner } from './startup/windows-startup/windows-isolated-spawner'
 import { dropE2eSpawnLogOutsideE2e } from './startup/testing/e2e-spawn-log-env'
@@ -101,6 +106,16 @@ function publishDeepLink(link: DeepLink): void {
 }
 
 function requestDesktopActivation(argv: readonly string[] = []): void {
+  // Windows and Linux hand protocol URLs to the second instance as plain argv.
+  const openkodoCode = openKodoHandoffFromArgs(argv)
+  if (openkodoCode && !isOrcadSidecarLaunch()) {
+    void completeOpenKodoProtocol(
+      `orca://openkodo/connect?code=${encodeURIComponent(openkodoCode)}`
+    )
+      .then(() => focusExistingWindow())
+      .catch(() => undefined)
+    return
+  }
   state.deepLinks.capture(argv, publishDeepLink)
   state.pluginInstallLinks.capture(argv, (link) => {
     state.mainWindow?.webContents.send('ui:openPluginInstallLink', link)
@@ -181,6 +196,14 @@ if (preflightReady) {
     void readWslInstallation()
   }
   app.on('open-url', (event, url) => {
+    // orca://openkodo/connect — the browser just finished auth for this app.
+    if (openKodoHandoffCode(url)) {
+      event.preventDefault()
+      void completeOpenKodoProtocol(url)
+        .then(() => focusExistingWindow())
+        .catch(() => undefined)
+      return
+    }
     if (!state.deepLinks.accepts(url) && !isRoutedOrcaDeepLink(url)) {
       return
     }

@@ -7,6 +7,7 @@ const BASE = (process.env.OPENKODO_API ?? 'https://openkodo.dev').replace(/\/$/,
 export type OpenKodoLoginState =
   | { status: 'idle' }
   | { status: 'pending'; userCode: string; verificationUri: string; expiresAt: number }
+  | { status: 'browser'; verificationUri: string }
   | { status: 'connected'; email: string; plan: string; openCodePath: string }
   | { status: 'expired' | 'error'; message: string }
 
@@ -32,6 +33,29 @@ function stopPolling(): void {
   }
 }
 
+type SignInBody = {
+  api_key?: string
+  plan?: string
+  models?: { code: string; name: string }[]
+  user?: { email?: string }
+}
+
+// Both the device-code claim and the browser handoff end here: one key, one
+// provider config, one connected state.
+async function applySignIn(body: SignInBody): Promise<OpenKodoLoginState> {
+  if (!body.api_key) {
+    return { status: 'error', message: 'Sign-in did not return a key.' }
+  }
+  await saveOpenKodoKey(body.api_key)
+  const configured = await configureOpenCodeForOpenKodo(body.api_key, body.models ?? [])
+  return {
+    status: 'connected',
+    email: body.user?.email ?? '',
+    plan: body.plan ?? '',
+    openCodePath: configured.ok ? configured.path : ''
+  }
+}
+
 async function exchange(deviceCode: string): Promise<OpenKodoLoginState> {
   const res = await fetch(`${BASE}/api/desktop/token`, {
     method: 'POST',
@@ -48,23 +72,42 @@ async function exchange(deviceCode: string): Promise<OpenKodoLoginState> {
     return { status: 'error', message: 'Could not complete sign-in.' }
   }
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the exchange endpoint is ours; missing fields are handled below
-  const body = (await res.json()) as {
-    api_key?: string
-    plan?: string
-    models?: { code: string; name: string }[]
-    user?: { email?: string }
+  const body = (await res.json()) as SignInBody
+  return applySignIn(body)
+}
+
+// Redeem the one-time code that the website handed back through
+// orca://openkodo/connect. Called from the deep-link router.
+export async function completeOpenKodoHandoff(code: string): Promise<OpenKodoLoginState> {
+  stopPolling()
+  try {
+    const res = await fetch(`${BASE}/api/desktop/handoff/exchange`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
+    })
+    if (!res.ok) {
+      state = { status: 'error', message: 'That sign-in link expired. Try again from the console.' }
+      return state
+    }
+    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: our own endpoint
+    const body = (await res.json()) as SignInBody
+    state = await applySignIn(body)
+    return state
+  } catch {
+    state = { status: 'error', message: 'Could not complete sign-in.' }
+    return state
   }
-  if (!body.api_key) {
-    return { status: 'error', message: 'Sign-in did not return a key.' }
-  }
-  await saveOpenKodoKey(body.api_key)
-  const configured = await configureOpenCodeForOpenKodo(body.api_key, body.models ?? [])
-  return {
-    status: 'connected',
-    email: body.user?.email ?? '',
-    plan: body.plan ?? '',
-    openCodePath: configured.ok ? configured.path : ''
-  }
+}
+
+// App → browser → app. The browser mints the same one-time code and redirects
+// back; nothing has to be typed.
+export async function startOpenKodoBrowserLogin(): Promise<OpenKodoLoginState> {
+  stopPolling()
+  const uri = `${BASE}/activate?redirect=${encodeURIComponent('orca://openkodo/connect')}`
+  state = { status: 'browser', verificationUri: uri }
+  void shell.openExternal(uri)
+  return state
 }
 
 export async function startOpenKodoLogin(): Promise<OpenKodoLoginState> {
