@@ -1,4 +1,4 @@
-// The user's own agent CLI on this host, as a new chat finds it; never Orca's copy.
+// The user's own agent CLI on this host, as a new chat finds it; never OpenKodo's copy.
 
 import { realpath } from 'node:fs/promises'
 import { homedir } from 'node:os'
@@ -59,7 +59,7 @@ export async function findOwnAgentCli(
     return null
   }
   const realPath = await realpath(program).catch(() => null)
-  // Orca's own copies live in its data folder and update without asking.
+  // OpenKodo's own copies live in its data folder and update without asking.
   if (
     !realPath ||
     isPathInsideOrEqual(join(getProfileUserDataPath(), 'agent-runtimes'), realPath)

@@ -191,10 +191,10 @@ async function exerciseChat(
     expect(report.execPath).toMatch(/^\//u)
     // Found on the guest's login PATH, not through a Command setting.
     expect(report.argv[0]).toBe(script)
-    expect(report.env.ORCA_LANE_CLI_WRAPPER).toBe(cli)
+    expect(report.env.OPENKODO_LANE_CLI_WRAPPER).toBe(cli)
     expect(report.env).toMatchObject({
-      ORCA_AGENT_SESSION_ID: sessionId,
-      ORCA_STRUCTURED_SESSION: '1'
+      OPENKODO_AGENT_SESSION_ID: sessionId,
+      OPENKODO_STRUCTURED_SESSION: '1'
     })
     expect(report.controlResponses).toEqual(
       expect.arrayContaining([

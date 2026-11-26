@@ -53,7 +53,7 @@ export function planCodexNoDaemonLaunch(launch: LocalCodexLaunch): Promise<strin
     delete env[key]
   }
   if (
-    env.ORCA_CODEX_ISOLATE === '0' ||
+    env.OPENKODO_CODEX_ISOLATE === '0' ||
     args.some((arg) => NO_DAEMON_SKIP_ARGS.has(arg) || arg.startsWith('--remote='))
   ) {
     return null

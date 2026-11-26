@@ -1,4 +1,4 @@
-// Each host account's GitHub link and installs as Orca Cloud reports them, read on demand and shared
+// Each host account's GitHub link and installs as OpenKodo Cloud reports them, read on demand and shared
 // by every GitHub surface for that host (createConnectorHostState).
 import {
   BOT_GITHUB_OFF,

@@ -40,7 +40,7 @@ export type BotWorkWorkspace = {
 export type BotTurnAddress = {
   botId: string
   address: BotWorkAddress
-  /** The turn was asked in Orca, not through the conversation's connector. */
+  /** The turn was asked in OpenKodo, not through the conversation's connector. */
   askedInApp?: boolean
 }
 

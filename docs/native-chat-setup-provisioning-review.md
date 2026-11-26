@@ -42,7 +42,7 @@ The sole production change replaces both branch-specific decisions with `callerP
 
 The route regression invokes the production renderer payload builder, RPC schema/mapper, runtime creation, and terminal provisioner. The renderer test separately checks the actual execute call's selected agent, absent startup, and absent startup draft. This is composed route evidence, not a rendered end-to-end UI test. The runtime fixture waits for provisioning to observe terminal calls deterministically.
 
-Reviewed the lead's pre-fix log `/tmp/orca-native-chat-before.log`: both agent cases failed on the unexpected `undefined` command preceding Setup, while nine controls passed. Reviewed `/tmp/orca-native-chat-tests.log`: seven files passed, 1,451 tests passed and one skipped. Supplemental validation is attributed below.
+Reviewed the lead's pre-fix log `/tmp/openkodo-native-chat-before.log`: both agent cases failed on the unexpected `undefined` command preceding Setup, while nine controls passed. Reviewed `/tmp/openkodo-native-chat-tests.log`: seven files passed, 1,451 tests passed and one skipped. Supplemental validation is attributed below.
 
 P2 test hardening resolved during final review: the split control now asserts that `ORCA_TAB_ID` is a nonempty string before comparing the two panes' values.
 

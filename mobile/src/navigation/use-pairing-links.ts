@@ -22,7 +22,7 @@ export function usePairingLinks(): void {
       }
       const botLink = parseBotLinkTarget(url)
       if (botLink) {
-        // Leave the unmatched orca://bot route for Home; the bot opens from there once a host claims it.
+        // Leave the unmatched openkodo://bot route for Home; the bot opens from there once a host claims it.
         router.dismissTo('/')
         publishBotLink(botLink)
       }

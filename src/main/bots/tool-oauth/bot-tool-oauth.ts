@@ -1,4 +1,4 @@
-// Orca as the OAuth client of a bot's app: one sign-in per bot and tool, kept on the host, refreshed
+// OpenKodo as the OAuth client of a bot's app: one sign-in per bot and tool, kept on the host, refreshed
 // and revoked here, so the bot's agent (Claude or Codex) never holds a token. OAuth 2.1 with PKCE
 // (RFC 7636), dynamic registration (RFC 7591), resource indicators (RFC 8707), issuer checks
 // (RFC 9207) and revocation (RFC 7009), following the MCP authorization spec. This file holds what
@@ -24,7 +24,7 @@ export class BotToolSignInError extends Error {
   }
 }
 
-/** Test seams; production uses Orca's HTTP client, the system resolver and the clock. */
+/** Test seams; production uses OpenKodo's HTTP client, the system resolver and the clock. */
 export type BotToolOAuthDeps = { fetch?: OAuthFetch; lookup?: AddressLookup; now?: () => number }
 let deps: BotToolOAuthDeps = {}
 export function setBotToolOAuthDeps(next: BotToolOAuthDeps): void {

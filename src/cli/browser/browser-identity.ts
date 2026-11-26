@@ -21,16 +21,16 @@ async function assertBrowserIdentitySupported({ client }: HandlerContext): Promi
   if (capabilities.includes(BROWSER_IDENTITY_RUNTIME_CAPABILITY)) {
     return
   }
-  // Only a host's Orca server serves the desktop bridge, and it has no identity setting of its own.
+  // Only a host's OpenKodo server serves the desktop bridge, and it has no identity setting of its own.
   if (capabilities.includes(DESKTOP_BROWSER_BRIDGE_RUNTIME_CAPABILITY)) {
     throw new RuntimeClientError(
       DESKTOP_BROWSER_BRIDGE_NOT_FORWARDED_CODE,
-      "Browser identity is a setting of the Orca desktop app, and this host's Orca server has none. Change it on your desktop in Settings › Browser."
+      "Browser identity is a setting of the OpenKodo desktop app, and this host's OpenKodo server has none. Change it on your desktop in Settings › Browser."
     )
   }
   throw new RuntimeClientError(
     'incompatible_runtime',
-    'The running Orca runtime does not support browser identity management. Update or restart Orca and try again.'
+    'The running OpenKodo runtime does not support browser identity management. Update or restart OpenKodo and try again.'
   )
 }
 
@@ -70,8 +70,8 @@ export const BROWSER_IDENTITY_HANDLERS: Record<string, CommandHandler> = {
     if (!result.result.ok) {
       throw new RuntimeClientError(result.result.error.code, result.result.error.message)
     }
-    // A remote host's mode applies when that host's Orca restarts, not this machine's.
-    const restart = context.client.isRemote ? 'restart Orca on that host' : 'restart Orca'
+    // A remote host's mode applies when that host's OpenKodo restarts, not this machine's.
+    const restart = context.client.isRemote ? 'restart OpenKodo on that host' : 'restart OpenKodo'
     printResult(result, context.json, (value) =>
       withClientHostedPagesNote(
         value.identity.restartRequired

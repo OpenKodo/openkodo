@@ -13,7 +13,7 @@ import {
   resolvePinnedTabLabel
 } from '../../../store/slices/tabs/closing/pinned-tab-close-guard'
 import { useAppStore } from '../../../store/index'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { RuntimeMobileSessionTabMove } from '../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import {
   dropTabThroughLayoutOwner,
@@ -124,7 +124,7 @@ export function registerSessionTabIpcBridge(unsubs: (() => void)[]): void {
       const { tabId, targetGroupId } = move
       // Main owns moves; whole-order changes use the reorder path that records equivalent main moves.
       if (
-        ORCA_LAYOUT_OWNER_IS_MAIN &&
+        OPENKODO_LAYOUT_OWNER_IS_MAIN &&
         move.kind !== 'reorder' &&
         dropTabThroughLayoutOwner(move.worktreeId, tabDropOf(move))
       ) {

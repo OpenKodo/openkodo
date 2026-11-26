@@ -75,7 +75,7 @@ beforeEach(() => {
   )
   write(
     '.cursor/mcp.json',
-    '{ "mcpServers": { "cur": { "url": "https://cur.dev/mcp" }, "orca-linear": { "command": "/Applications/Orca.app/Contents/Resources/bin/orca", "args": ["mcp", "connect", "linear"] } } }'
+    '{ "mcpServers": { "cur": { "url": "https://cur.dev/mcp" }, "orca-linear": { "command": "/Applications/OpenKodo.app/Contents/Resources/bin/orca", "args": ["mcp", "connect", "linear"] } } }'
   )
   write(
     '.factory/mcp.json',
@@ -89,7 +89,7 @@ afterEach(() => {
 })
 
 describe('agent MCP config discovery and move', () => {
-  it('lists every agent’s own servers, merged by name and URL, without Orca’s own entries', async () => {
+  it('lists every agent’s own servers, merged by name and URL, without OpenKodo’s own entries', async () => {
     const found = await discoverAgentMcpServers(context(), (path) => path.startsWith('/orca-data/'))
     expect(
       found.map((row) => [

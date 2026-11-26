@@ -47,7 +47,7 @@ export const ORCHESTRATION_FEDERATION_CONTROL_MAIL_PROTOCOL_VERSION = 2 as const
 export const ORCHESTRATION_FEDERATION_LIFECYCLE_SETTLEMENT_PROTOCOL_VERSION = 3 as const
 export const ORCHESTRATION_CONTRACT_VERSION = 1 as const
 export const ORCHESTRATION_CONTRACT_RUNTIME_CAPABILITY = 'orchestration.contract.v1' as const
-/** Receives agent mail a paired Orca carries for its agents, and queues replies for it to pull. */
+/** Receives agent mail a paired OpenKodo carries for its agents, and queues replies for it to pull. */
 export const ORCHESTRATION_PEER_MAIL_RUNTIME_CAPABILITY = 'orchestration.peer-mail.v1' as const
 /** Peer mail also carries ordinary questions, dispatch instructions and merge-ready messages. */
 export const ORCHESTRATION_PEER_MAIL_TYPES_RUNTIME_CAPABILITY =
@@ -58,10 +58,10 @@ export const ORCHESTRATION_PEER_BOT_MAIL_RUNTIME_CAPABILITY =
 /** Peer mail about a bot's item also carries files uploaded here for that item's chat. */
 export const ORCHESTRATION_PEER_MAIL_FILES_RUNTIME_CAPABILITY =
   'orchestration.peer-mail-files.v1' as const
-/** Runs the workers a paired Orca places here as its own, coordinated from that Orca (wire v1). */
+/** Runs the workers a paired OpenKodo places here as its own, coordinated from that OpenKodo (wire v1). */
 export const ORCHESTRATION_REMOTE_OWNED_WORKERS_RUNTIME_CAPABILITY =
   'orchestration.remote-owned-workers.v1' as const
-/** A paired Orca's chat-lineage start (`chatLineage`) starts here as a chat, and so do the workers it starts. */
+/** A paired OpenKodo's chat-lineage start (`chatLineage`) starts here as a chat, and so do the workers it starts. */
 export const ORCHESTRATION_CHAT_LINEAGE_RUNTIME_CAPABILITY =
   'orchestration.chat-lineage.v1' as const
 /** Its agents can message agents on a paired computer that pulls with `clientAsks`

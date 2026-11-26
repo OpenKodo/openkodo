@@ -21,11 +21,11 @@ export type DispatchCreator =
       paneKey?: string
       /** Remote attachment matching requires the exact incarnation; local rows do not. */
       processIncarnation?: string
-      /** A structured worker's bare Orca session id, recorded beside its handle. */
+      /** A structured worker's bare OpenKodo session id, recorded beside its handle. */
       orcaSessionId?: OrcaSessionId | null
       turnSource?: DispatchCreatorTurnSource
     }
-  /** A structured session with no terminal handle, identified by its Orca session id alone. */
+  /** A structured session with no terminal handle, identified by its OpenKodo session id alone. */
   | { kind: 'session'; orcaSessionId: OrcaSessionId; turnSource?: DispatchCreatorTurnSource }
 
 /** Creator identity to persist on a new row, so depth can later tell delegation from bookkeeping. */

@@ -128,7 +128,7 @@ function shortPath(path: string): string {
   return path.replace(HOME_PREFIX, '~')
 }
 
-/** A server set up in the host's agents: Move to Orca, or from ⋯, copy it or open its files. */
+/** A server set up in the host's agents: Move to OpenKodo, or from ⋯, copy it or open its files. */
 export function McpDiscoveredRow({
   server,
   busy,
@@ -164,7 +164,7 @@ export function McpDiscoveredRow({
         </span>
         {server.movable ? (
           <Button variant="outline" size="sm" disabled={busy} onClick={onMove}>
-            {t('settings.mcpServers.found.move', 'Move to Orca')}
+            {t('settings.mcpServers.found.move', 'Move to OpenKodo')}
           </Button>
         ) : null}
         {server.movable || (onOpenFile && server.files.length > 0) ? (
@@ -186,7 +186,7 @@ export function McpDiscoveredRow({
                 <>
                   <DropdownMenuItem onSelect={onCopy}>
                     <Copy />
-                    {t('settings.mcpServers.found.copy', 'Copy to Orca')}
+                    {t('settings.mcpServers.found.copy', 'Copy to OpenKodo')}
                   </DropdownMenuItem>
                   {onOpenFile && server.files.length > 0 ? <DropdownMenuSeparator /> : null}
                 </>

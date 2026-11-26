@@ -51,16 +51,16 @@ const COMMANDS: ReadonlySet<string> = new Set(
 )
 
 export const LEGACY_RELAY_CLI_CONTROL_OFF =
-  'This terminal was started by an older version of Orca. Its orca orchestration commands reach ' +
+  'This terminal was started by an older version of OpenKodo. Its orca orchestration commands reach ' +
   `this desktop only when "${DESKTOP_BROWSER_BRIDGE_SETTING_LABEL}" is on for this host in ` +
   'Settings > SSH. Otherwise, run them in a new terminal on this host.'
 
 export const LEGACY_RELAY_CLI_UNSUPPORTED =
-  'This terminal was started by an older version of Orca, so only orca orchestration check, ' +
+  'This terminal was started by an older version of OpenKodo, so only orca orchestration check, ' +
   'inbox, send, ask and reply work in it. Run other orca commands in a new terminal on this host.'
 
 const LEGACY_RELAY_CLI_HELP =
-  'This terminal was started by an older version of Orca. It runs orca orchestration check, ' +
+  'This terminal was started by an older version of OpenKodo. It runs orca orchestration check, ' +
   'inbox, send, ask and reply; open a new terminal on this host for full orca help.'
 
 type LegacyRelayCliServerDeps = {
@@ -178,7 +178,7 @@ function buildCall(
 /** Its own receipt namespace per host terminal: a host can never replay another caller's result. */
 function callerFingerprint(targetId: string, env: Record<string, string>): string {
   return createHash('sha256')
-    .update(['legacy-relay-cli-v1', targetId, env.ORCA_TERMINAL_HANDLE ?? ''].join('\0'))
+    .update(['legacy-relay-cli-v1', targetId, env.OPENKODO_TERMINAL_HANDLE ?? ''].join('\0'))
     .digest('hex')
 }
 
@@ -211,7 +211,7 @@ async function dispatchAsCaller(
     const exactReplay = isExactLegacyRelayCliReplay(runtime, fingerprint, requestId, call)
     const db = runtime.getOrchestrationDb()
     assertLegacyRelayCliScope(db, caller, call, deps.livePane, exactReplay)
-    const launchToken = env.ORCA_AGENT_LAUNCH_TOKEN?.trim()
+    const launchToken = env.OPENKODO_AGENT_LAUNCH_TOKEN?.trim()
     return await dispatcherFor(runtime).dispatch(
       {
         id: `legacy-relay-cli-${requestId}`,

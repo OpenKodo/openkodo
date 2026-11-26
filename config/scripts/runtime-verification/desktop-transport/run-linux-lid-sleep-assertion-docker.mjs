@@ -30,18 +30,18 @@ const suffix = `${process.pid}-${Date.now()}`
 const container = options.get('--container') ?? `orca-inhibitor-oracle-${suffix}`
 const image = `orca-inhibitor-oracle:${suffix}`
 const docker =
-  process.env.ORCA_DOCKER ??
+  process.env.OPENKODO_DOCKER ??
   (existsSync('/Applications/Docker.app/Contents/Resources/bin/docker')
     ? '/Applications/Docker.app/Contents/Resources/bin/docker'
     : 'docker')
 const dockerDir = dirname(docker)
 const env = {
   ...process.env,
-  ORCA_BACKGROUND_LAUNCH: '1',
+  OPENKODO_BACKGROUND_LAUNCH: '1',
   PATH: `${dockerDir}${delimiter}${process.env.PATH ?? ''}`
 }
 const platform =
-  process.env.ORCA_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
+  process.env.OPENKODO_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
 const temp = mkdtempSync(join(tmpdir(), 'orca-inhibitor-oracle-'))
 const remote = `/tmp/orca-inhibitor-oracle-${suffix}`
 
@@ -148,7 +148,7 @@ try {
     const result = runDocker([
       'exec',
       '-e',
-      'ORCA_BACKGROUND_LAUNCH=1',
+      'OPENKODO_BACKGROUND_LAUNCH=1',
       container,
       'node',
       `${remote}/oracle.cjs`,

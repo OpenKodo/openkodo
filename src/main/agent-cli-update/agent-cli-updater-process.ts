@@ -11,7 +11,7 @@ const AFTER_EXIT_MS = 5_000
 const OUTPUT_BYTES = 64 * 1024
 
 export type UpdaterRun = Awaited<ReturnType<typeof runProcess>> & {
-  /** Why Orca stopped it, in the words the failure dialog shows; null when it ended on its own. */
+  /** Why OpenKodo stopped it, in the words the failure dialog shows; null when it ended on its own. */
   stoppedBecause: string | null
 }
 

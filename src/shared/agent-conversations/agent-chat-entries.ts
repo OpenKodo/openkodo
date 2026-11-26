@@ -43,7 +43,7 @@ export function agentChatEntryOf(
     return text.length > 0 ? { kind: 'message', role: body.role, text } : null
   }
   if (body.kind === 'status') {
-    // The divider is Orca's own line, like the history's other host notices.
+    // The divider is OpenKodo's own line, like the history's other host notices.
     return isAgentSessionContextClear(body)
       ? { kind: 'message', role: 'system', text: String(body.text) }
       : { kind: 'error', text: String(body.text) }

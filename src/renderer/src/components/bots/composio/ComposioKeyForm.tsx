@@ -1,4 +1,4 @@
-// The owner's Composio key, pasted in place wherever Orca asks for it (a bot's Tools, its chat's key
+// The owner's Composio key, pasted in place wherever OpenKodo asks for it (a bot's Tools, its chat's key
 // card, Settings), straight to the bots' host; bots never see it. Saving checks it with Composio first.
 import type { ExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import React, { useId, useState } from 'react'

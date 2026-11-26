@@ -89,7 +89,7 @@ describe('the Google account used without --account', () => {
     await connect('a@acme.com', 1_000)
     await connect('b@acme.com', 2_000)
     await saveGoogleDefaultAccount('b@acme.com')
-    const path = join(home.dir, '.orca', 'google', 'default-account.enc')
+    const path = join(home.dir, '.openkodo', 'google', 'default-account.enc')
     writeFileSync(path, bytes)
     await expect(resolveGoogleAccount(undefined)).rejects.toThrow(
       "Couldn't read this computer's default Google account"
@@ -111,7 +111,7 @@ describe('the Google account used without --account', () => {
     await saveGoogleDefaultAccount('b@acme.com')
     const accountFile = join(
       home.dir,
-      '.orca',
+      '.openkodo',
       'google',
       'accounts',
       `${Buffer.from('b@acme.com').toString('base64url')}.enc`

@@ -1,7 +1,7 @@
 import { agentSenderPublicationPatch } from '../../native-chat/agent-senders/agent-sender-publication-patch'
 import { isWebSessionTabsWorktreeRemovalFrame } from '../tracking/session-tabs-inventory-absence'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../../../shared/workspace/identity/floating-workspace-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { RuntimeMobileSessionTabsResult } from '../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { LOCAL_STRUCTURED_SESSION_OWNER } from '../../native-chat/local-sessions/local-structured-session-owner'
 import type {
@@ -52,9 +52,9 @@ export function applyWebSessionTabsSnapshotWithContext(
       )
     : {}
   const worktreeId = rawSnapshot.worktree
-  // Switch point: ORCA_LAYOUT_OWNER_IS_MAIN && — every mirror write (single, batch, operations) passes here.
+  // Switch point: OPENKODO_LAYOUT_OWNER_IS_MAIN && — every mirror write (single, batch, operations) passes here.
   const previousSnapshotTabIds =
-    ORCA_LAYOUT_OWNER_IS_MAIN && options?.contentScope !== 'agent-session'
+    OPENKODO_LAYOUT_OWNER_IS_MAIN && options?.contentScope !== 'agent-session'
       ? indexMirroredTerminalSurfaces(environmentId, rawSnapshot)
       : null
   const frameDrawnPreviousTabIds =

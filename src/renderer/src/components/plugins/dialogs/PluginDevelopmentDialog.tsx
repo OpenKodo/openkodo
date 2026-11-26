@@ -3,7 +3,7 @@ import { Loader2 } from 'lucide-react'
 import { translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
 import { usePluginInstallTrust } from '../state/use-plugin-install-trust'
 import { Button } from '../../ui/button'
 import {
@@ -33,7 +33,7 @@ function saveErrorMessage(cause: unknown): string {
   )
 }
 
-/** Folders Orca loads plugins from while you build them; opened from the Plugins ⋯ menu. */
+/** Folders OpenKodo loads plugins from while you build them; opened from the Plugins ⋯ menu. */
 export function PluginDevelopmentDialog({
   open,
   onOpenChange,

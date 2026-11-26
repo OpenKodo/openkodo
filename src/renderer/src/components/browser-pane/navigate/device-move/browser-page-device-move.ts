@@ -16,10 +16,10 @@ import {
   resolveHostTabDropTarget
 } from '@/runtime/web-session-tabs-sync/actions/web-runtime-session-tab-move'
 import { isDesktopCreatedTabInFrameDrawnServerWorkspace } from '@/store/workspace-layout/frames/frame-drawn-desktop-created-tabs'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import type { Tab } from '../../../../../../shared/workspace-layout/tab-groups/tab-types'
 import { normalizeBrowserNavigationUrl } from '../../../../../../shared/browser/navigation/browser-url'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 
 /** Where the page renders after the move: this desktop ('client') or the paired server ('server'). */
 export type BrowserPageMoveDestination = 'client' | 'server'
@@ -35,7 +35,7 @@ export function resolveBrowserPageMoveUrl(url: string | null | undefined): strin
   } catch {
     return undefined
   }
-  if (!normalized || normalized === ORCA_BROWSER_BLANK_URL || normalized.startsWith('file:')) {
+  if (!normalized || normalized === OPENKODO_BROWSER_BLANK_URL || normalized.startsWith('file:')) {
     return undefined
   }
   return normalized
@@ -47,7 +47,7 @@ function addressSurvivesMove(url: string | null | undefined): boolean {
     return true
   }
   try {
-    return normalizeBrowserNavigationUrl(url) === ORCA_BROWSER_BLANK_URL
+    return normalizeBrowserNavigationUrl(url) === OPENKODO_BROWSER_BLANK_URL
   } catch {
     return false
   }
@@ -251,7 +251,7 @@ async function keepServerTabOrder(
     !tab ||
     !group?.tabOrder.includes(tab.id) ||
     // As a drag does: main's frames place tabs the server never owned.
-    (ORCA_LAYOUT_OWNER_IS_MAIN &&
+    (OPENKODO_LAYOUT_OWNER_IS_MAIN &&
       isDesktopCreatedTabInFrameDrawnServerWorkspace(worktreeId, tab.id))
   ) {
     return

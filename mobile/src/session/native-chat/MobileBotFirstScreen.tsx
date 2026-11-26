@@ -54,7 +54,7 @@ import { MobileNativeChatNoticeContext } from './transcript/notices/mobile-nativ
 import { MobileNativeChatUsageLimitStatus } from './transcript/notices/MobileNativeChatUsageLimitStatus'
 import { agentSessionSignInCommand } from '../../../../src/shared/agent-session/lifecycle/launch/agent-session-setup-commands'
 
-/** A new bot's Home Chat while Orca's kickoff turn runs, or after it failed without a word; null
+/** A new bot's Home Chat while OpenKodo's kickoff turn runs, or after it failed without a word; null
  *  otherwise. Only from a confirmed read of a host that reports its turns (`turnJournal` null until
  *  then), so a stored copy or an older host never hides the chat. */
 export function useMobileBotFirstScreen(

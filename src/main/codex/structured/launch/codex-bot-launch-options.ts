@@ -8,7 +8,7 @@ export type CodexBotLaunchOptions = {
   readOnly?: ReadOnlySessionMode
   /** Read-only sessions' config: MCP servers, plugins and web search off. */
   threadConfig?: Record<string, unknown>
-  /** The bot's linked-skills folder, an extra root Codex rereads as Orca updates it;
+  /** The bot's linked-skills folder, an extra root Codex rereads as OpenKodo updates it;
    *  developerInstructions says how to use its skills. */
   linkedSkillsRoot?: string
   /** Codex turned the roots down, so the bot's turns list the skills, with paths, instead. */

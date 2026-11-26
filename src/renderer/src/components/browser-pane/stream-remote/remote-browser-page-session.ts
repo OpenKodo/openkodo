@@ -2,8 +2,8 @@ import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/h
 import type { BrowserPageLoadingOwner } from '@/lib/browser/browser-page-loading-ownership'
 import type { BrowserPageStateWriter } from '../describe-page/browser-page-types'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { BrowserTabInfo } from '../../../../../shared/browser/runtime/runtime-browser-contracts'
 import { isRemoteBrowserPageMissingError } from './remote-browser-stream-errors'
 import type {
@@ -190,7 +190,7 @@ export class RemoteBrowserPageSession {
     const existingHandle = this.deps.readStoredHandle()
     if (existingHandle?.environmentId !== token.environmentId) {
       // Switch point: a frame-drawn host tab has no handle, but its row id is the host's page id.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         const adopted = await this.adoptHostPage(token)
         if (adopted !== undefined) {
           return adopted
@@ -285,7 +285,7 @@ export class RemoteBrowserPageSession {
     const worktree = this.deps.getWorktreeSelector()
     const currentUrl = this.deps.getCurrentUrl()
     const initialUrl =
-      currentUrl === ORCA_BROWSER_BLANK_URL ? 'about:blank' : currentUrl || 'about:blank'
+      currentUrl === OPENKODO_BROWSER_BLANK_URL ? 'about:blank' : currentUrl || 'about:blank'
     const created = await this.deps.callRpc<{ browserPageId: string }>(
       target,
       'browser.tabCreate',

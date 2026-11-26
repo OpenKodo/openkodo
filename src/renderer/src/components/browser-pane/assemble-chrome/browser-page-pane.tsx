@@ -4,7 +4,7 @@ import { cn } from '@/lib/class-names'
 import '@/lib/workspace/ownership/connection-context'
 import { useAppStore } from '@/store/index'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import { normalizeExternalBrowserUrl } from '../../../../../shared/browser/navigation/browser-url'
 import { getLiveBrowserUrl } from '../describe-page/live-browser-url-registry'
 import { getBrowserViewportPreset } from '../../../../../shared/browser/guest-lifecycle/browser-viewport-presets'
@@ -156,7 +156,8 @@ export function BrowserPagePane({
   })
   const markup = useBrowserPageMarkupCapture(webviewRef)
   // Why: a blank tab reads as 'about:blank' or the resolved data: URL, so match both to keep the "New Browser Tab" overlay visible.
-  const isBlankTab = browserTab.url === 'about:blank' || browserTab.url === ORCA_BROWSER_BLANK_URL
+  const isBlankTab =
+    browserTab.url === 'about:blank' || browserTab.url === OPENKODO_BROWSER_BLANK_URL
   const {
     grab,
     annotationSend,

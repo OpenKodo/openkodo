@@ -134,7 +134,7 @@ export class AgentHookResultRetryScheduler {
     if (source === 'claude') {
       return
     }
-    // Why: a nested CLI of another kind inherits ORCA_PANE_KEY, so clearing here would silently end a live poll.
+    // Why: a nested CLI of another kind inherits OPENKODO_PANE_KEY, so clearing here would silently end a live poll.
     if (source !== 'codex' && source !== 'muse') {
       return
     }

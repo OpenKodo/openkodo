@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Materialize a ref’s patched serialize dist for serialize-grid-transcript-replay.test.ts.
 // Read version/patch from that ref; reverse installed patch or fetch matching pristine npm tarball, checking patch blob hashes.
-// Usage: --ref <ref> --out-dir <dir>; pass printed path as ORCA_OLD_SERIALIZE_ADDON to the replay test.
+// Usage: --ref <ref> --out-dir <dir>; pass printed path as OPENKODO_OLD_SERIALIZE_ADDON to the replay test.
 
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'

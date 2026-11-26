@@ -87,7 +87,7 @@ async function openClaw(input: BotImportSourcesEnv): Promise<BotImportSource | n
         break
       }
     }
-    // An agent without a workspace Orca can see is still listed; its bot finds the folder.
+    // An agent without a workspace OpenKodo can see is still listed; its bot finds the folder.
     const folder = workspace ?? join(root, 'agents', agent)
     bots.push({
       agent,
@@ -162,7 +162,7 @@ async function openBot(input: BotImportSourcesEnv): Promise<BotImportSource | nu
   return { app: 'openbot', home: tilde(data, input.home), bots }
 }
 
-/** The apps found, each with its bots, and the Orca bot an earlier import made from each. */
+/** The apps found, each with its bots, and the OpenKodo bot an earlier import made from each. */
 export async function findBotImportSources(
   input: BotImportSourcesEnv,
   bots: readonly Pick<Bot, 'id' | 'name' | 'importedFrom'>[]

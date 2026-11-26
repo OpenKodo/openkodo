@@ -95,7 +95,7 @@ export type RuntimeConstructionDependencies = {
   dropAgentStatusForRemovedWorktree?: (worktreeId: string, host?: ExecutionHostScope) => void
   canRecoverPersistentLocalPtys?: () => boolean
   getPairedDeviceName?: (pairedDeviceId: string) => string | null
-  /** The Orca account a paired device says it is signed in to (a phone: its desktop's), with its
+  /** The OpenKodo account a paired device says it is signed in to (a phone: its desktop's), with its
    *  computer; a desktop's comes from the sending connection's claim when one is given. */
   getPairedDeviceAccount?: PairedDeviceAccountLookup
   getAdditionalAiVaultCodexHomePaths?: () => readonly string[]
@@ -118,7 +118,7 @@ export type RuntimeConstructionDependencies = {
   applySessionSearchSettings?: SessionSearchSettingsApply
   orchestrationEnvironmentTransport?: OrchestrationEnvironmentTransport
   workspaceSleepPlatform?: WorkspaceSleepPlatform
-  /** The Orca profile whose store this runtime serves; fixed for the process, unlike the active one. */
+  /** The OpenKodo profile whose store this runtime serves; fixed for the process, unlike the active one. */
   servedOrcaProfileId?: string
 }
 

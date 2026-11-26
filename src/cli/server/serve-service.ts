@@ -47,7 +47,7 @@ function requireManager(platform: NodeJS.Platform): void {
   if (!resolveServeServiceManager(platform)) {
     throw new RuntimeClientError(
       'unsupported_platform',
-      '`orca serve service` is not available on Windows yet. Run `orca serve` under a service wrapper of your own.'
+      '`openkodo serve service` is not available on Windows yet. Run `openkodo serve` under a service wrapper of your own.'
     )
   }
 }
@@ -175,7 +175,7 @@ export async function readServeServiceStatus(
   deps: ServeServiceDeps = defaultDeps()
 ): Promise<ServeServiceStatus> {
   requireManager(deps.platform)
-  const spec = serviceSpec(deps, { command: 'orca' })
+  const spec = serviceSpec(deps, { command: 'openkodo' })
   const base = {
     installed: existsSync(spec.unitPath),
     manager: spec.manager,
@@ -234,7 +234,7 @@ export async function uninstallServeService(
   deps: ServeServiceDeps = defaultDeps()
 ): Promise<Record<string, unknown>> {
   requireManager(deps.platform)
-  const spec = serviceSpec(deps, { command: 'orca' })
+  const spec = serviceSpec(deps, { command: 'openkodo' })
   const existed = await removeServeServiceUnit(spec, deps.run, deps.uid)
   return { removed: existed, manager: spec.manager, name: spec.name, unitPath: spec.unitPath }
 }

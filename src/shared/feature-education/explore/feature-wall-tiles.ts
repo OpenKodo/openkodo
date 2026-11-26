@@ -65,7 +65,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-01.poster.jpg',
     recordedAtPath: 'tile-01.recorded-at.json',
     owner: 'worktree-orchestration',
-    docsUrl: 'https://orca.dev/docs/model/worktrees'
+    docsUrl: 'https://openkodo.dev/docs/model/worktrees'
   },
   {
     id: 'tile-02',
@@ -77,7 +77,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-02.poster.jpg',
     recordedAtPath: 'tile-02.recorded-at.json',
     owner: 'terminal',
-    docsUrl: 'https://orca.dev/docs/terminal'
+    docsUrl: 'https://openkodo.dev/docs/terminal'
   },
   {
     id: 'tile-03',
@@ -89,7 +89,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-03.poster.jpg',
     recordedAtPath: 'tile-03.recorded-at.json',
     owner: 'task-integrations',
-    docsUrl: 'https://orca.dev/docs/review/linear'
+    docsUrl: 'https://openkodo.dev/docs/review/linear'
   },
   {
     id: 'tile-04',
@@ -101,7 +101,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-04.poster.jpg',
     recordedAtPath: 'tile-04.recorded-at.json',
     owner: 'agent-integrations',
-    docsUrl: 'https://orca.dev/docs/agents/supported'
+    docsUrl: 'https://openkodo.dev/docs/agents/supported'
   },
   {
     id: 'tile-05',
@@ -113,19 +113,19 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-05.poster.jpg',
     recordedAtPath: 'tile-05.recorded-at.json',
     owner: 'browser-experience',
-    docsUrl: 'https://orca.dev/docs/browser/design-mode'
+    docsUrl: 'https://openkodo.dev/docs/browser/design-mode'
   },
   {
     id: 'tile-06',
     kind: 'media',
     title: 'Remote workspaces',
     caption:
-      'Run agents on a remote machine with the same Orca editing, git, and terminal workflow.',
+      'Run agents on a remote machine with the same OpenKodo editing, git, and terminal workflow.',
     gifPath: 'tile-06.webp',
     posterPath: 'tile-06.poster.jpg',
     recordedAtPath: 'tile-06.recorded-at.json',
     owner: 'ssh-workspaces',
-    docsUrl: 'https://orca.dev/docs/ssh'
+    docsUrl: 'https://openkodo.dev/docs/ssh'
   },
   {
     id: 'tile-07',
@@ -138,7 +138,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-07.poster.jpg',
     recordedAtPath: 'tile-07.recorded-at.json',
     owner: 'editor',
-    docsUrl: 'https://orca.dev/docs/editing/file-explorer'
+    docsUrl: 'https://openkodo.dev/docs/editing/file-explorer'
   },
   {
     id: 'tile-08',
@@ -150,18 +150,18 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-08.poster.jpg',
     recordedAtPath: 'tile-08.recorded-at.json',
     owner: 'diff-review',
-    docsUrl: 'https://orca.dev/docs/review/annotate-ai-diff'
+    docsUrl: 'https://openkodo.dev/docs/review/annotate-ai-diff'
   },
   {
     id: 'tile-09',
     kind: 'media',
-    title: 'Orca CLI',
-    caption: 'Agents can drive Orca too: create workspaces, snapshot screens, click, and fill.',
+    title: 'OpenKodo CLI',
+    caption: 'Agents can drive OpenKodo too: create workspaces, snapshot screens, click, and fill.',
     gifPath: 'tile-09.webp',
     posterPath: 'tile-09.poster.jpg',
     recordedAtPath: 'tile-09.recorded-at.json',
     owner: 'orca-cli',
-    docsUrl: 'https://orca.dev/docs/cli/overview'
+    docsUrl: 'https://openkodo.dev/docs/cli/overview'
   },
   {
     id: 'tile-10',
@@ -173,7 +173,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-10.poster.jpg',
     recordedAtPath: 'tile-10.recorded-at.json',
     owner: 'keyboard-ux',
-    docsUrl: 'https://orca.dev/docs/model/quick-open'
+    docsUrl: 'https://openkodo.dev/docs/model/quick-open'
   },
   {
     id: 'tile-11',
@@ -185,7 +185,7 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-11.poster.jpg',
     recordedAtPath: 'tile-11.recorded-at.json',
     owner: 'usage-rate-limits',
-    docsUrl: 'https://orca.dev/docs/agents/usage-tracking'
+    docsUrl: 'https://openkodo.dev/docs/agents/usage-tracking'
   },
   {
     id: 'tile-12',
@@ -197,6 +197,6 @@ export const FEATURE_WALL_TILES: readonly FeatureWallTile[] = [
     posterPath: 'tile-12.poster.jpg',
     recordedAtPath: 'tile-12.recorded-at.json',
     owner: 'file-preview',
-    docsUrl: 'https://orca.dev/docs/editing/viewers'
+    docsUrl: 'https://openkodo.dev/docs/editing/viewers'
   }
 ] as const

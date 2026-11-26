@@ -26,7 +26,7 @@ export function shouldShowRemoteDownloadAction(
   return (
     !node.isDirectory &&
     Boolean(connectionId || runtimeDownloadContext) &&
-    (globalThis as { __ORCA_WEB_CLIENT__?: boolean }).__ORCA_WEB_CLIENT__ !== true
+    (globalThis as { __OPENKODO_WEB_CLIENT__?: boolean }).__OPENKODO_WEB_CLIENT__ !== true
   )
 }
 
@@ -43,6 +43,6 @@ export function shouldShowCopyFileAction(
   return (
     (!connectionId || !node.isDirectory) &&
     selectionSize === 1 &&
-    (globalThis as { __ORCA_WEB_CLIENT__?: boolean }).__ORCA_WEB_CLIENT__ !== true
+    (globalThis as { __OPENKODO_WEB_CLIENT__?: boolean }).__OPENKODO_WEB_CLIENT__ !== true
   )
 }

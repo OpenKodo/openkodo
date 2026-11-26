@@ -171,7 +171,7 @@ it('closes the questions an answer skips, so the set is finished and its mail na
   expect(view().replyingTo).toBeNull()
   const mail = botItemChangeMail([{ event: lastComment(), item: store.get(uid)! }])
   expect(mail?.body).toContain(
-    `[Orca: they skipped the rest of that set, so these questions are closed unanswered: "${GO}", "${MERGE}". If one still matters, ask it again in a new set.]`
+    `[OpenKodo: they skipped the rest of that set, so these questions are closed unanswered: "${GO}", "${MERGE}". If one still matters, ask it again in a new set.]`
   )
   // A later comment answers none of them.
   comment('Yes')
@@ -240,7 +240,7 @@ it('ends the open set when the item is moved by hand', () => {
   expect(view().replyingTo).toBeNull()
 })
 
-it('works out the waiting ask from the events when none is kept or an older Orca wrote after it', () => {
+it('works out the waiting ask from the events when none is kept or an older OpenKodo wrote after it', () => {
   const dir = mkdtempSync(join(tmpdir(), 'bot-items-'))
   try {
     const path = join(dir, 'items.sqlite')
@@ -258,7 +258,7 @@ it('works out the waiting ask from the events when none is kept or an older Orca
     // Kept by other pairing rules (another build): not trusted, even when no event came since.
     file.prepare("UPDATE item_waiting_asks SET ask = 0, rules = 'another build'").run()
     expect(store.viewRows([uid], true).waitingAsks[uid]).toBe(kept)
-    // An older Orca's move by hand, which ends every ask, knows nothing of the kept one.
+    // An older OpenKodo's move by hand, which ends every ask, knows nothing of the kept one.
     const moved = file
       .prepare(
         `INSERT INTO item_events (item_uid, kind, actor, data, mail, action, created_at)

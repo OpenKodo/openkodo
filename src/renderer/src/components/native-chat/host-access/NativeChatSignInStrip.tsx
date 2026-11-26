@@ -67,7 +67,7 @@ function failedLine(view: AntigravityChatSignInView, t: Translate): string {
 }
 
 /** The install strip's sibling once agy is installed. One main control per state: Sign in with
- *  Google (what else Orca found waits in its menu), or, while this client signs in, the box for
+ *  Google (what else OpenKodo found waits in its menu), or, while this client signs in, the box for
  *  the code Google shows. A refused code returns here with its reason, ready to sign in again. */
 export function NativeChatSignInStrip(props: {
   state: NativeChatSignInStripState

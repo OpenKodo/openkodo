@@ -13,7 +13,7 @@ import {
   finishReconciliationDrafts
 } from './tabs-reconciliation-batch'
 import type { AppState } from '../../types'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { selectFolderWorkspaces } from '../../workspaces/catalog/workspace-record-fields'
 import { markFullResync } from '../../record-transitions/keyed-record-transitions'
 import { markPatchFullResync } from '../../workspace-layout/seam-record-fields'
@@ -67,7 +67,7 @@ export function createTabsSessionActions(
         return
       }
       // Switch point: main's frames draw the tab bar, so reconcile writes no structure of its own.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         return
       }
       const patch = projectWorktreeTabModelReconciliations(get(), worktreeIds)
@@ -79,7 +79,7 @@ export function createTabsSessionActions(
     reconcileWorktreeTabModel: (worktreeId) => {
       const reconciliation = projectWorktreeTabModelReconciliation(get(), worktreeId)
       // Switch point: the counts only; main's frames draw the tab bar.
-      if (!ORCA_LAYOUT_OWNER_IS_MAIN && Object.keys(reconciliation.patch).length > 0) {
+      if (!OPENKODO_LAYOUT_OWNER_IS_MAIN && Object.keys(reconciliation.patch).length > 0) {
         set(reconciliation.patch)
       }
       return {

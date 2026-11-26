@@ -26,7 +26,7 @@ export function useWhoCanAskConnectors(
   t: Translate
 ): WhoCanAskConnector[] {
   const { reads, hostKey } = route
-  // The owner's links are an Orca Cloud call each: read as the page opens, then at most once a minute.
+  // The owner's links are an OpenKodo Cloud call each: read as the page opens, then at most once a minute.
   const again = useReadsAtMostEveryMinute(reads)
   const slack = usePhoneBotSlack(client, hostKey, bot.id, reads, botSlackApps(bot).length > 0)
   const linear = usePhoneLinearAccount(client, hostKey, botLinearWorkspaces(bot).length > 0, again)

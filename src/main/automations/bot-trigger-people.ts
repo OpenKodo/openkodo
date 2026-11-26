@@ -1,5 +1,5 @@
 // A rule's `from` as each source's user ids. What a person or bot wrote (@name, a name, or an id) is
-// looked up among the people the bot's connector sees, through Orca Cloud.
+// looked up among the people the bot's connector sees, through OpenKodo Cloud.
 import {
   isConnectorTrigger,
   withTriggerNames,
@@ -15,7 +15,7 @@ import { botLinearWorkspaces, botSlackApps, type Bot } from '../../shared/bot-ty
 import type { BotsCloudClient } from '../connector-cloud/bots-cloud-client'
 
 type Person = { id: string; name: string }
-/** The people a source lists for the query; null when Orca Cloud can't say now. */
+/** The people a source lists for the query; null when OpenKodo Cloud can't say now. */
 export type TriggerPeopleSearch = (
   source: AutomationConnectorEventTrigger['source'],
   query: string
@@ -28,10 +28,10 @@ const PERSON_ID: Record<AutomationConnectorEventTrigger['source'], RegExp> = {
 }
 
 export const OWN_TRIGGERS_UNSUPPORTED =
-  "This computer's Orca Cloud doesn't take from=me yet: leave it out, or try again after it updates."
+  "This computer's cloud service doesn't take from=me yet: leave it out, or try again after it updates."
 
 /**
- * A new rule that your own pull requests start is refused where Orca Cloud can't take it: an older
+ * A new rule that your own pull requests start is refused where OpenKodo Cloud can't take it: an older
  * cloud drops `fromOwner` and never sends them. One already saved stays, as the people filters do.
  */
 export function assertOwnTriggers(
@@ -51,9 +51,9 @@ export function assertOwnTriggers(
 }
 
 export const GITHUB2_TRIGGERS_UNSUPPORTED =
-  "This computer's Orca Cloud doesn't send that GitHub event (or label=) yet: wait on another event, or try again after it updates."
+  "This computer's cloud service doesn't send that GitHub event (or label=) yet: wait on another event, or try again after it updates."
 
-/** A new rule this host's Orca Cloud can't send is refused (an older cloud keeps it and never fires
+/** A new rule this host's cloud service can't send is refused (an older cloud keeps it and never fires
  *  it); one already saved stays. */
 function refuseNewRules(
   takes: boolean,
@@ -69,12 +69,12 @@ function refuseNewRules(
 }
 
 export const WORKFLOW_TRIGGERS_UNSUPPORTED =
-  "This computer's Orca Cloud doesn't send github.workflow_finished yet: make it a reminder at the time the run should be done (--once --by), or try again after it updates."
+  "This computer's cloud service doesn't send github.workflow_finished yet: make it a reminder at the time the run should be done (--once --by), or try again after it updates."
 
 export const CI_FINISHED_TRIGGERS_UNSUPPORTED =
-  "This computer's Orca Cloud doesn't send github.ci_finished yet: wait on github.ci_passed and github.ci_failed instead, or try again after it updates."
+  "This computer's cloud service doesn't send github.ci_finished yet: wait on github.ci_passed and github.ci_failed instead, or try again after it updates."
 
-/** What this host's Orca Cloud takes: rules on your own pull requests (`triggers.own`), GitHub's
+/** What this host's cloud service takes: rules on your own pull requests (`triggers.own`), GitHub's
  *  newer events and label= (`triggers.github2`), finished workflow runs (`triggers.workflows`) and
  *  finished CI (`triggers.ci_finished`). */
 export type CloudTriggers = {
@@ -84,7 +84,7 @@ export type CloudTriggers = {
   ciFinished: boolean
 }
 
-/** The refusals above, for the rules this host's Orca Cloud takes as `takes` says. */
+/** The refusals above, for the rules this host's OpenKodo Cloud takes as `takes` says. */
 export function assertCloudTakesTriggers(
   takes: CloudTriggers,
   on: readonly AutomationEventTrigger[] | undefined,
@@ -97,11 +97,11 @@ export function assertCloudTakesTriggers(
 }
 
 export const TRIGGER_PEOPLE_UNSUPPORTED =
-  "This computer's Orca Cloud doesn't take from= or on=mine yet: leave them out, or try again after it updates."
+  "This computer's cloud service doesn't take from= or on=mine yet: leave them out, or try again after it updates."
 
 /**
  * Each rule's `from` as ids, with the names they were found by, keeping what was saved; a name that matches no one person exactly is
- * refused with who it could be. Null search: Orca Cloud doesn't take these filters yet, so a new one
+ * refused with who it could be. Null search: OpenKodo Cloud doesn't take these filters yet, so a new one
  * is refused rather than saved for a cloud that would ignore it.
  */
 export async function withTriggerPeople(
@@ -160,7 +160,7 @@ async function person(
   const query = written.replace(/^@/, '').trim()
   const found = await search(source, query)
   if (found === null) {
-    throw new Error(`Orca Cloud couldn't look up "${written}" right now. Try again in a moment.`)
+    throw new Error(`cloud service couldn't look up "${written}" right now. Try again in a moment.`)
   }
   const exact = found.filter((person) => person.name.toLowerCase() === query.toLowerCase())
   const [only] = exact
@@ -178,7 +178,7 @@ async function person(
 }
 
 /**
- * The people each of the bot's connectors lists, through Orca Cloud, in every workspace it is in; one
+ * The people each of the bot's connectors lists, through OpenKodo Cloud, in every workspace it is in; one
  * name in two workspaces is two people. Null only when no workspace could say.
  */
 export function cloudTriggerPeopleSearch(

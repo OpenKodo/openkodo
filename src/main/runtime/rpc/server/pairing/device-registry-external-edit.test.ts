@@ -50,9 +50,11 @@ describe('device registry saves over an externally edited file', () => {
     const registry = new DeviceRegistry(dir)
     const notify = vi.fn()
     registry.setOnPairedDevicesChanged(notify)
-    new DeviceRegistry(dir).addDevice('Remote Orca', 'runtime')
+    new DeviceRegistry(dir).addDevice('Remote OpenKodo', 'runtime')
 
-    expect(registry.listDevices({ fresh: true }).map(({ name }) => name)).toEqual(['Remote Orca'])
+    expect(registry.listDevices({ fresh: true }).map(({ name }) => name)).toEqual([
+      'Remote OpenKodo'
+    ])
     expect(notify).toHaveBeenCalled()
   })
 

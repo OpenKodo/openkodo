@@ -38,7 +38,7 @@ async function reattachedIdleClaude() {
   const harness = await createRuntime(db, { launchAgent: 'claude', foregroundProcess: 'claude' })
   const { runtime } = harness
   await runtime.listTerminals()
-  // A restart reattached this idle process: its composer was drawn before Orca started, and its
+  // A restart reattached this idle process: its composer was drawn before OpenKodo started, and its
   // status comes back from its last hook report.
   vi.spyOn(agentHookServer, 'readRestoredAgentStatus').mockResolvedValue({ state: 'done' })
   runtime.startReattachedOutputClock(PTY_ID)

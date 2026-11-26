@@ -15,7 +15,7 @@ export type BotItemActivityScrollView = {
 /** A centring scroll on its way: the item it belongs to, where it is headed, and the last place it reached. */
 type CentringScroll = { scope: string; target: number; at: number }
 
-/** Orca's centring scroll lands, moves on toward its target, or was overtaken by the reader. */
+/** OpenKodo's centring scroll lands, moves on toward its target, or was overtaken by the reader. */
 function centringStep(centring: CentringScroll, y: number, max: number) {
   const target = Math.min(centring.target, max)
   if (Math.abs(y - target) <= 1) {
@@ -33,7 +33,7 @@ export function useBotItemActivityFollow(args: { scopeKey: string; hasItems: boo
   const offset = useRef(0)
   const viewHeight = useRef(0)
   const contentHeight = useRef(0)
-  // Where a centring scroll is headed: until it lands there, its scroll events are Orca's, not the reader's.
+  // Where a centring scroll is headed: until it lands there, its scroll events are OpenKodo's, not the reader's.
   const centring = useRef<CentringScroll | null>(null)
   const attach = tail.listProps.ref
   const ref = useCallback(
@@ -58,7 +58,7 @@ export function useBotItemActivityFollow(args: { scopeKey: string; hasItems: boo
         record(metrics)
         return
       }
-      // Web sends no drag events; Orca's own scrolls land at the end, so a scroll elsewhere is the reader's.
+      // Web sends no drag events; OpenKodo's own scrolls land at the end, so a scroll elsewhere is the reader's.
       const { contentOffset, contentSize, layoutMeasurement } = metrics
       onEndDistance(contentSize.height - (contentOffset.y + layoutMeasurement.height), byReader)
     },

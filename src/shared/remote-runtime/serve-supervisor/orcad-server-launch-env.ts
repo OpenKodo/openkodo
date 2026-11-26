@@ -2,13 +2,13 @@ import { ORCAD_IDLE_TIMEOUT_ENV } from '../orcad-lifecycle/orcad-idle-exit'
 import { ORCAD_MANAGED_ACTIVATION_ROOT_ENV } from './orcad-managed-launch-env'
 
 /** WSL-host launch marker; SSH guests and WSLg retain their original PATH. */
-export const ORCAD_WSL_HOST_ENV = 'ORCA_WSL_ORCAD_HOST'
+export const ORCAD_WSL_HOST_ENV = 'OPENKODO_WSL_ORCAD_HOST'
 
 /** Desktop-provided registry ID; guests cannot read it themselves. */
-export const ORCAD_WSL_DISTRO_GUID_ENV = 'ORCA_WSL_DISTRO_GUID'
+export const ORCAD_WSL_DISTRO_GUID_ENV = 'OPENKODO_WSL_DISTRO_GUID'
 
 /** The AppImage file `orca serve` runs from: orcad's slot has no Electron, so its browser helper launches this. */
-export const ORCA_SERVE_APPIMAGE_ENV = 'ORCA_SERVE_APPIMAGE'
+export const OPENKODO_SERVE_APPIMAGE_ENV = 'OPENKODO_SERVE_APPIMAGE'
 
 /**
  * What a client puts in a server's launch env. A user's own `orcad` started from one of the
@@ -23,5 +23,5 @@ export const ORCAD_SERVER_LAUNCH_ENV_KEYS = [
   ORCAD_WSL_HOST_ENV,
   ORCAD_WSL_DISTRO_GUID_ENV,
   // A user's own orcad must look up its own installed app.
-  ORCA_SERVE_APPIMAGE_ENV
+  OPENKODO_SERVE_APPIMAGE_ENV
 ] as const

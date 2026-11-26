@@ -1,4 +1,4 @@
-// Move to Orca's second half: take the moved entries out of the agents' own files. Edits are text
+// Move to OpenKodo's second half: take the moved entries out of the agents' own files. Edits are text
 // splices (by the JSON parse tree, by lines for TOML), checked to change nothing else, then
 // published only while the file still holds what the edit was made from, with a rolling `.bak`.
 import { isDeepStrictEqual } from 'node:util'

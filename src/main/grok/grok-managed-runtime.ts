@@ -1,4 +1,4 @@
-// Orca's own Grok is the native build from Grok's npm platform package, verified by npm's published sha512.
+// OpenKodo's own Grok is the native build from Grok's npm platform package, verified by npm's published sha512.
 // Why npm: Grok's own installer downloads a binary that has no published checksum.
 
 import { createReadStream, createWriteStream } from 'node:fs'

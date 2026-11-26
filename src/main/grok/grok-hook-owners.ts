@@ -1,7 +1,7 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { readdir, readFile, rm } from 'node:fs/promises'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 
 const ownerToken = randomUUID()
@@ -10,7 +10,7 @@ const OWNER_FILE_PATTERN = /^owner-([\da-f-]{36})\.json$/i
 type GrokHookOwner = { token: string; pid: number }
 
 function ownerDirectory(): string {
-  return join(homedir(), '.orca', 'agent-hooks', 'grok-owners')
+  return join(openKodoHomePath(), 'agent-hooks', 'grok-owners')
 }
 
 function ownerPath(directory = ownerDirectory()): string {
@@ -86,7 +86,7 @@ export async function hasLivePeer(
         owner = candidate as GrokHookOwner
       }
     } catch {
-      // Invalid Orca-owned records cannot prove a live peer and are pruned below.
+      // Invalid OpenKodo-owned records cannot prove a live peer and are pruned below.
     }
     if (!owner) {
       await rm(path, { force: true })

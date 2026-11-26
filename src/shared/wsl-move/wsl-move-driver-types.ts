@@ -57,7 +57,7 @@ export type WslMoveRefusalCode =
   /** The distro has no connected WSL host. */
   | 'wsl_move_host_unavailable'
   /**
-   * The host's server cannot take this move: it runs an older Orca and must update first, or
+   * The host's server cannot take this move: it runs an older OpenKodo and must update first, or
    * (a `detail`) it runs this version but something other than the WSL host may have started it.
    */
   | 'wsl_move_host_update_required'
@@ -124,7 +124,7 @@ export type WslMoveResult =
        */
       reloadRequired: true
       /**
-       * Automations the host has not turned back on yet; Orca retries until it confirms. The
+       * Automations the host has not turned back on yet; OpenKodo retries until it confirms. The
        * dialog must say they are off on the host for now, never hide it.
        */
       automationsPending?: string[]

@@ -96,6 +96,6 @@ export type SourceControlPrimaryActionDecisionInputs = {
   canPushLinkedReviewWithoutUpstream?: boolean
   isPrIntentInFlight?: boolean
   isHostedReviewCreationLoading?: boolean
-  // Orca rebased this branch: hide Pull/Sync faces; never promotes a force path.
+  // OpenKodo rebased this branch: hide Pull/Sync faces; never promotes a force path.
   suppressPullAfterRebase?: boolean
 }

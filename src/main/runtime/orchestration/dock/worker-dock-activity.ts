@@ -216,7 +216,7 @@ export function refreshWorkerDockActivity(
         expiresAt = Math.min(expiresAt ?? deadline, deadline)
       }
     }
-    // A session the host proved exited (e.g. Orca quit mid-turn) stopped; it is not unavailable.
+    // A session the host proved exited (e.g. OpenKodo quit mid-turn) stopped; it is not unavailable.
     const state = !fresh
       ? session?.status === 'exited'
         ? 'unexpected'

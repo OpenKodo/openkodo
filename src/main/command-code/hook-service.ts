@@ -70,7 +70,7 @@ function buildInstalledConfig(
   const isManagedCommand = createManagedCommandMatcher(scriptFileName)
   const managedEvents = new Set<string>(COMMAND_CODE_EVENTS.map((event) => event.eventName))
 
-  // Remove retired Orca-managed entries while preserving user-authored hooks.
+  // Remove retired OpenKodo-managed entries while preserving user-authored hooks.
   for (const [eventName, definitions] of Object.entries(nextHooks)) {
     if (managedEvents.has(eventName) || !Array.isArray(definitions)) {
       continue
@@ -171,7 +171,7 @@ export class CommandCodeHookService {
   async installRemote(sftp: SFTPWrapper, remoteHome: string): Promise<AgentHookInstallStatus> {
     const home = remoteHome.replace(/\/$/, '')
     const remoteConfigPath = `${home}/.commandcode/settings.json`
-    const remoteScriptPath = `${home}/.orca/agent-hooks/command-code-hook.sh`
+    const remoteScriptPath = `${home}/.openkodo/agent-hooks/command-code-hook.sh`
     try {
       const config = await readHooksJsonRemote(sftp, remoteConfigPath)
       if (!config) {

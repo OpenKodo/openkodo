@@ -626,7 +626,7 @@ describe('reading a bot archive', () => {
 
 describe('the bot transport digest', () => {
   it('is the one the cloud computes for the same files', () => {
-    // What the Orca Cloud connector service computes over these files.
+    // What the OpenKodo Cloud connector service computes over these files.
     expect(
       botPackageDigest([
         {
@@ -681,7 +681,7 @@ describe('the transport manifest', () => {
 
   it('refuses a name or purpose the landing page could not show', () => {
     for (const [displayName, description] of [
-      [`Orca${String.fromCodePoint(0x202e)} help`, ''],
+      [`OpenKodo${String.fromCodePoint(0x202e)} help`, ''],
       [`Release${String.fromCodePoint(0x061c)} notes`, ''],
       ['Release notes', `Drafts${String.fromCodePoint(0x061c)} notes`],
       ['x'.repeat(81), ''],

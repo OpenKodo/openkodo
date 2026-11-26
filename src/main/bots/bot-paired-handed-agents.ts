@@ -49,7 +49,7 @@ function psAnswer(runtime: BotPairedRuntime, environmentId: string, now: number)
   const misses = cached?.retryAt !== null && cached ? cached.misses : 0
   const rows = runtime
     .callOrchestrationWorkerServer(environmentId, 'worktree.ps', {}, PAIRED_READ_TIMEOUT_MS)
-    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: `worktree.ps` answers RuntimeWorktreePsResult on every paired Orca; rows are read field by field below.
+    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: `worktree.ps` answers RuntimeWorktreePsResult on every paired OpenKodo; rows are read field by field below.
     .then((result) => (result as { worktrees?: RuntimeWorktreePsSummary[] }).worktrees ?? [])
   const answer: PsAnswer = { askedAt: now, rows, misses, retryAt: null }
   byEnvironment.set(environmentId, answer)

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import { useAppStore } from '@/store/index'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
 import { isGitRepoKind } from '../../../../shared/repository/repo-kind'
 import { getRepoExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import { checkRuntimeHooks } from '@/runtime/repo-hooks/runtime-hooks-client'
@@ -10,7 +10,7 @@ import { hasEffectiveSetupCommand } from '@/runtime/repo-hooks/setup-script-stat
 import { getProviderRuntimeContextKey } from '@/runtime/hosts/observations/provider-runtime-context'
 import {
   COMPUTER_USE_SKILL_NAME,
-  ORCA_CLI_SKILL_NAME,
+  OPENKODO_CLI_SKILL_NAME,
   ORCHESTRATION_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
 import {
@@ -75,7 +75,7 @@ export function useSetupGuideProgress(
   const [computerUsePermissionStatusChecked, setComputerUsePermissionStatusChecked] =
     useState(false)
   const [computerUseUnavailable, setComputerUseUnavailable] = useState(false)
-  const computerUseBlocked = useOrcaTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.computerUse)
+  const computerUseBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse)
   const skillOptions = {
     enabled: shouldRefreshCoreState && activeSkillRuntime.enabled,
     discoveryTarget: activeSkillRuntime.discoveryTarget,
@@ -84,7 +84,7 @@ export function useSetupGuideProgress(
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
   }
   const { installed: detectedBrowserUseSkillInstalled, loading: detectedBrowserUseSkillLoading } =
-    useInstalledAgentSkill(ORCA_CLI_SKILL_NAME, skillOptions)
+    useInstalledAgentSkill(OPENKODO_CLI_SKILL_NAME, skillOptions)
   const { installed: computerUseSkillInstalled, loading: computerUseSkillLoading } =
     useInstalledAgentSkill(COMPUTER_USE_SKILL_NAME, {
       ...skillOptions,

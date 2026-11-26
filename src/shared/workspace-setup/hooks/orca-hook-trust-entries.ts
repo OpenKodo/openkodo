@@ -5,7 +5,7 @@ import type {
 
 export type OrcaHookTrustKind = Exclude<keyof PersistedTrustedOrcaHookRepo, 'all'>
 
-const ORCA_HOOK_TRUST_KINDS = [
+const OPENKODO_HOOK_TRUST_KINDS = [
   'setup',
   'archive',
   'issueCommand',
@@ -39,7 +39,7 @@ export function isOrcaHookRepoTrusted(
   }
   return (
     !isOrcaHookRepoIdOnSeveralHosts(repos, repoId) &&
-    ORCA_HOOK_TRUST_KINDS.some(
+    OPENKODO_HOOK_TRUST_KINDS.some(
       (kind) => approvedOrcaHookContentHashes(trust, repoId, kind).length > 0
     )
   )
@@ -47,7 +47,7 @@ export function isOrcaHookRepoTrusted(
 
 // Bounded, so a long-lived repo can't accumulate every script it ever had; large enough that
 // switching between branches with different setup scripts rarely re-prompts.
-export const MAX_APPROVED_ORCA_HOOK_HASHES = 20
+export const MAX_APPROVED_OPENKODO_HOOK_HASHES = 20
 
 /** Every content hash approved for this script, newest first. */
 export function approvedOrcaHookContentHashes(
@@ -64,7 +64,7 @@ export function approvedOrcaHookContentHashes(
   const hashes = [latest, ...(Array.isArray(previous) ? previous : [])].filter(
     (hash): hash is string => typeof hash === 'string' && hash.length > 0 && hash.length <= 128
   )
-  return [...new Set(hashes)].slice(0, MAX_APPROVED_ORCA_HOOK_HASHES)
+  return [...new Set(hashes)].slice(0, MAX_APPROVED_OPENKODO_HOOK_HASHES)
 }
 
 export function isOrcaHookContentApproved(
@@ -90,7 +90,7 @@ export function withOrcaHookScriptConfirmed(
   }
   const previousContentHashes = approvedOrcaHookContentHashes(trust, repoId, kind)
     .filter((hash) => hash !== contentHash)
-    .slice(0, MAX_APPROVED_ORCA_HOOK_HASHES - 1)
+    .slice(0, MAX_APPROVED_OPENKODO_HOOK_HASHES - 1)
   return {
     ...trust,
     [repoId]: {

@@ -33,7 +33,7 @@ describe('Cursor ACP sessions in Session History', () => {
     const configDir = join(root, 'cursor-config')
     const owned = '6f1c2a54-0d4e-4c55-9a7e-2b8f0c1d3e4a'
     const storePath = await writeAcpSession(configDir, owned, new Date('2026-11-20T09:30:00.000Z'))
-    // Another ACP client's session, or a chat naming task's: no Orca chat opens it.
+    // Another ACP client's session, or a chat naming task's: no OpenKodo chat opens it.
     await writeAcpSession(
       configDir,
       'aaaaaaaa-0000-4000-8000-000000000000',

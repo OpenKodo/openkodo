@@ -6,7 +6,7 @@ import type { WorkerEffect, WorkerSetupReceipt } from '../placement/worker-place
 
 export type StructuredWorkerSetupGate = {
   satisfied: boolean
-  /** `exited`, `timeout`, or `unobserved` when Orca lost sight of Setup (see `reason`). */
+  /** `exited`, `timeout`, or `unobserved` when OpenKodo lost sight of Setup (see `reason`). */
   status: string
   reason?: string
   /** A setup gate has no agent prompt to block on; declared so the wait union stays property-typed. */

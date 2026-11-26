@@ -49,7 +49,7 @@ import type {
 export type DeviceSelfRpcContext = {
   registerDeviceKey(params: RegisterDeviceKeyParams): RegisterDeviceKeyResult
   exchangePairingTicket(params: ExchangePairingTicketParams): ExchangePairingTicketResult
-  /** A paired desktop's claimed Orca account; ignored for any other device. */
+  /** A paired desktop's claimed OpenKodo account; ignored for any other device. */
   declareOrcaAccount(
     account: DeclareOrcaAccountParams['account'],
     clientInstanceId?: DeclareOrcaAccountParams['clientInstanceId']
@@ -107,7 +107,7 @@ export type RpcRequest = {
   params?: unknown
   orchestrationContractVersion?: number
   orchestrationRequestId?: string
-  // Untrusted wire input; only a paired Orca's runtime pairing admits it (orchestration-peer-caller).
+  // Untrusted wire input; only a paired OpenKodo's runtime pairing admits it (orchestration-peer-caller).
   orchestrationPeerRun?: unknown
   compatibilityInvocationId?: string
   orchestrationCompatibilityEvidence?: OrchestrationCompatibilityEvidence
@@ -173,7 +173,7 @@ export type RpcContext = {
   replayedMutationReceipt?: unknown
   // Compare declared Run handles against request attestation.
   orchestrationCompatibilityEvidence?: OrchestrationCompatibilityEvidence
-  // Resolved once at dispatch from a session's environment or a paired Orca's pairing; it wins.
+  // Resolved once at dispatch from a session's environment or a paired OpenKodo's pairing; it wins.
   orchestrationCaller?: OrchestrationEntryCaller
   // Only the trusted compatibility router sets this; params cannot bypass Run consumer binding.
   legacyCoordinatorRunId?: string

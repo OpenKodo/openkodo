@@ -91,7 +91,7 @@ export function useMobileStructuredPromptResponses(args: {
         if (questionAnswersSupported === null) {
           return send({ answers })
         }
-        onSendError('Update Orca on this host to send answers this long')
+        onSendError('Update OpenKodo on this host to send answers this long')
         return Promise.resolve(null)
       }
       return send({ optionId })

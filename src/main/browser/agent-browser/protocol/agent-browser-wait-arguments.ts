@@ -1,7 +1,7 @@
 import { assertAgentBrowserOperands } from './agent-browser-operands'
 import { BROWSER_WAIT_DEFAULT_TIMEOUT_MS } from '../../../../shared/browser/automation/browser-wait-timeout'
 
-// Lets agent-browser report its own wait timeout before Orca kills the process.
+// Lets agent-browser report its own wait timeout before OpenKodo kills the process.
 const WAIT_PROCESS_TIMEOUT_GRACE_MS = 5_000
 
 export type AgentBrowserWaitOptions = {
@@ -41,7 +41,7 @@ export function agentBrowserWaitArguments(options: AgentBrowserWaitOptions): {
       args.push(flag, value)
     }
   }
-  // Why: without --timeout agent-browser stops at its own default, whatever Orca was asked for.
+  // Why: without --timeout agent-browser stops at its own default, whatever OpenKodo was asked for.
   const conditionTimeoutMs = options.timeout ?? BROWSER_WAIT_DEFAULT_TIMEOUT_MS
   args.push('--timeout', String(conditionTimeoutMs))
   return {

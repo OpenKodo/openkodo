@@ -1,5 +1,5 @@
 // Who each bot conversation acts for, written once when it starts and never changed after: turns end,
-// runs finish and Orca restarts, and the conversation still acts for the same people. Keyed by the
+// runs finish and OpenKodo restarts, and the conversation still acts for the same people. Keyed by the
 // conversation's /clear root, so a cleared chat keeps it.
 import type {
   AutomationTriggeredBy,

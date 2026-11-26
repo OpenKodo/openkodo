@@ -143,7 +143,7 @@ posixOnly('gcRemoteNodeRuntimeStore (real shell)', () => {
     runtime('e')
     let inventories = 0
     mockExec.mockImplementation(async (_conn, command) => {
-      if (command.includes('__ORCA_RUNTIME_STORE__OK') && ++inventories === 2) {
+      if (command.includes('__OPENKODO_RUNTIME_STORE__OK') && ++inventories === 2) {
         writeFileSync(join(versionDir('orcad-0.3.0+ddd'), '.runtime-node'), `${sha('e')}\n`)
       }
       return execFileSync('/bin/sh', ['-c', command], { encoding: 'utf8' })
@@ -163,7 +163,7 @@ posixOnly('gcRemoteNodeRuntimeStore (real shell)', () => {
     const lost = Object.assign(new Error('lost'), { sshChannelCloseConfirmed: false })
     let unconfirmed = true
     mockExec.mockImplementation(async (_conn, command) => {
-      if (unconfirmed && command.includes('__ORCA_RUNTIME_STORE__OK')) {
+      if (unconfirmed && command.includes('__OPENKODO_RUNTIME_STORE__OK')) {
         throw lost
       }
       return execFileSync('/bin/sh', ['-c', command], { encoding: 'utf8' })

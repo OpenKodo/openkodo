@@ -1,4 +1,4 @@
-// Keeps each Google account's access token fresh on this host (Google's last an hour), with no Orca
+// Keeps each Google account's access token fresh on this host (Google's last an hour), with no OpenKodo
 // Cloud involvement, through the same host login refresh Linear uses. Google's refresh needs the
 // client secret, so each saved account keeps its own. A grant Google ended moves the account to
 // Reconnect instead of failing each call.
@@ -83,7 +83,7 @@ export async function refreshGoogleAccount(
   const record = await readGoogleAccount(key)
   if (!record) {
     throw new GoogleAccountUnavailableError(
-      `${email} isn't connected on this computer. Connect it in Orca.`
+      `${email} isn't connected on this computer. Connect it in OpenKodo.`
     )
   }
   if (outcome === 'offline' && (!record.accessToken || record.expiresAt <= deps.now())) {
@@ -102,7 +102,7 @@ export async function googleAccessToken(
   const record = await refreshGoogleAccount(email, deps)
   if (record.status !== 'connected' || !record.accessToken) {
     throw new GoogleAccountUnavailableError(
-      `${record.reason ?? 'Google access ended.'} Reconnect ${record.email} in Orca.`
+      `${record.reason ?? 'Google access ended.'} Reconnect ${record.email} in OpenKodo.`
     )
   }
   return record.accessToken

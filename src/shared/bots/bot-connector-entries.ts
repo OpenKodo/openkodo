@@ -78,7 +78,7 @@ export type BotConnectorFacts<Connection extends ComposioSignIn, Tool extends Ap
   }
   linearNeedsOwner: (workspace: BotLinear) => boolean
   github: {
-    /** The orgs Orca is installed in where the host is linked; none until read. */
+    /** The orgs OpenKodo is installed in where the host is linked; none until read. */
     installations: readonly ConnectorGitHubInstallation[]
     /** GitHub as a whole needs the owner (shown while no org is). */ needsOwner: boolean
   }

@@ -55,12 +55,12 @@ export type TerminalWorkerApprovalHold = {
   refinable: boolean
   /** Its PostToolUse or PostToolUseFailure arrived while an answer was in flight: the tool ran. */
   ranSeen: boolean
-  /** The decision Orca wrote and Claude took; set once answered. */
+  /** The decision OpenKodo wrote and Claude took; set once answered. */
   answeredWith?: 'allow' | 'deny'
   expiresAt?: string
   /** The coordinator was told about it, so it is owed one closing line. */
   reported: boolean
-  /** How Orca closed it, once closed other than by its own answer. */
+  /** How OpenKodo closed it, once closed other than by its own answer. */
   closedAs?: TerminalWorkerApprovalCloseHow | null
   timer: { cancel: () => void } | null
 }
@@ -77,7 +77,7 @@ export function holdIsPersonOnly(hold: Pick<TerminalWorkerApprovalHold, 'summary
 }
 
 /** An allow Claude will not take: its check is one only a person at the terminal may approve, or it
- *  dropped Orca's allow and still asks. */
+ *  dropped OpenKodo's allow and still asks. */
 export function droppedAllowRefusal(
   hold: TerminalWorkerApprovalHold,
   input: { approvalId: string; decision: 'allow' | 'deny' }
@@ -118,7 +118,7 @@ export function holdPayload(
   return outcome ? closedApproval(open, outcome) : open
 }
 
-/** Whether Claude took the answer Orca just wrote to this hook. Claude takes a hook's answer at once,
+/** Whether Claude took the answer OpenKodo just wrote to this hook. Claude takes a hook's answer at once,
  *  so its dialog leaves or its tool runs; it records an allow only with the tool's result, which a
  *  long command delays, so only a record already there can name a person or the auto-block. */
 export async function claudeTookAnswer(

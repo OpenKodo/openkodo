@@ -1,4 +1,4 @@
-// What Orca records about a bot automation run on the message it sends, so a chat draws the run as
+// What OpenKodo records about a bot automation run on the message it sends, so a chat draws the run as
 // the automation's own row, never as the owner's message. Host-written; a client never sends it.
 import * as z from 'zod'
 import type { AutomationRunEvent } from '../automation-event-triggers'
@@ -9,7 +9,7 @@ import type { AutomationRunTrigger } from './history/automation-run'
 /** Who the event's person was to the bot when the run was delivered; never recomputed later. */
 export type AutomationRunEventAsker = 'owner' | 'member' | 'other'
 
-/** Orca's record of the event, from the same event the sent text was composed from. */
+/** OpenKodo's record of the event, from the same event the sent text was composed from. */
 export type AutomationRunMessageEvent = {
   source: AutomationRunEvent['source']
   event: string

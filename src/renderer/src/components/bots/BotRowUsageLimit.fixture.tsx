@@ -50,7 +50,7 @@ const chats: AgentStatusEntry[] = [devOpsOn, devOpsOff].map((owner) => ({
   lastAssistantMessage: 'I removed nothing: none of the 31 qa-*-qg worktrees are stale.'
 }))
 
-/** Its Look around run stopped on the usage limit: the same mark whether Orca continues it or not. */
+/** Its Look around run stopped on the usage limit: the same mark whether OpenKodo continues it or not. */
 export const usageLimitRows = defineFixture({
   width: 640,
   store: {

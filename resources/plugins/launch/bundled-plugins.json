@@ -2,14 +2,14 @@
   "version": 1,
   "plugins": [
     {
-      "pluginKey": "stablyai.orca-github-vscode-theme",
-      "path": "stablyai.orca-github-vscode-theme",
-      "contentHash": "7e17af8557dd0163ee0bc74aca3a6eb227f00bdd4b2ca04a68d78d891a24afb3"
+      "pluginKey": "openkodo.github-vscode-theme",
+      "path": "openkodo.github-vscode-theme",
+      "contentHash": "8a484f50955fa9f0af0d969fa32e6c1aa754deee79f46e7b6bf199e9132e65b3"
     },
     {
-      "pluginKey": "stablyai.orca-vscode-default-themes",
-      "path": "stablyai.orca-vscode-default-themes",
-      "contentHash": "ce11b29f4c21bedeaa3613e7ce9c4a6863f800e6945754ad1e36d04e24991139"
+      "pluginKey": "openkodo.vscode-default-themes",
+      "path": "openkodo.vscode-default-themes",
+      "contentHash": "a9154c33933a2cf28ec34300f5ba1144cb95fb68a804f76a3b47e36b3d4e96a1"
     }
   ]
 }

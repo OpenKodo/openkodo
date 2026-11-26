@@ -2,6 +2,7 @@
 import { mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { basename, dirname, join } from 'node:path'
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { getAppEnvironment } from '../../shared/app-lifecycle/app-environment'
 import { BOT_MEMORY_SEED_INTRO } from '../../shared/bot-memory-lines'
 import type { Bot } from '../../shared/bot-types'
@@ -101,16 +102,19 @@ export function botsRootFolder(paths: BotsRootPaths = currentBotsRootPaths()): s
   const comparable = (path: string) => normalizeRuntimePathForComparison(path).toLowerCase()
   const userData = comparable(paths.userData)
   const standardProfiles = [
+    join(paths.appData, 'openkodo'),
+    join(paths.appData, 'openkodo-dev'),
     join(paths.appData, 'orca'),
     join(paths.appData, 'orca-dev'),
+    join(paths.home, '.openkodo'),
     join(paths.home, '.orca'),
-    ...(paths.xdgDataHome ? [join(paths.xdgDataHome, 'Orca')] : [])
+    ...(paths.xdgDataHome ? [join(paths.xdgDataHome, 'OpenKodo')] : [])
   ].map(comparable)
   const machineDataRoot =
     comparable(dirname(paths.userData)) === comparable(paths.home) &&
     MACHINE_DATA_ROOT.test(basename(userData))
   return standardProfiles.includes(userData) || machineDataRoot
-    ? join(paths.home, '.orca', 'bots')
+    ? join(openKodoHomePath(paths.home), 'bots')
     : join(paths.userData, 'bots')
 }
 
@@ -146,7 +150,7 @@ export function botHomeFolder(
 
 type BotHomeFile = { path: string; text: string }
 
-/** Orca owns these and rewrites them whenever they differ. */
+/** OpenKodo owns these and rewrites them whenever they differ. */
 export function generatedBotHomeFiles(bot: Bot): BotHomeFile[] {
   const clearedLook = bot.avatarRevision ? null : undefined
   return [
@@ -155,13 +159,13 @@ export function generatedBotHomeFiles(bot: Bot): BotHomeFile[] {
       text: [
         `# ${bot.name}`,
         '',
-        `You are ${bot.name}, a bot that runs in Orca. This folder is your home.`,
+        `You are ${bot.name}, a bot that runs in OpenKodo. This folder is your home.`,
         '',
         '- SOUL.md says who you are and how you work. Change it only when your owner asks.',
         '- MEMORY.md is your memory: one line per fact, details in memory/<topic>.md.',
         '- Keep it current: date new lines, never store secrets. Remove or replace a line with `orca bot memory forget --fact "<its words>"`; a line taken out any other way is put back.',
         '',
-        'Orca writes this file, CLAUDE.md and bot.json; edits to them are replaced.',
+        'OpenKodo writes this file, CLAUDE.md and bot.json; edits to them are replaced.',
         ''
       ].join('\n')
     },

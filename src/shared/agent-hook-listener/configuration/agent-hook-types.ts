@@ -50,7 +50,7 @@ export function getAgentHookConfigPaths(status: AgentHookInstallStatus): string[
 }
 
 // Reserve version bumps for wire changes. Endpoint files are additive; no durable pre-rollout v1 fleet needs distinguishing, and Cursor scripts rewrite on install. Mismatches warn about stale scripts.
-export const ORCA_HOOK_PROTOCOL_VERSION = '1' as const
+export const OPENKODO_HOOK_PROTOCOL_VERSION = '1' as const
 
 // Why: absence means the listener predates raw-JSON metadata headers, so managed scripts must keep using form posts.
-export const ORCA_HOOK_RAW_JSON_TRANSPORT = 'raw-json-v1' as const
+export const OPENKODO_HOOK_RAW_JSON_TRANSPORT = 'raw-json-v1' as const

@@ -96,7 +96,7 @@ export const HERMES_ACP_DIALECT: AcpDialect = {
   notification: (method, params) =>
     acpReplyNoticeFailure(method, params, NO_PROVIDER, { notSignedIn: true }),
   compactCommand: '/compress',
-  // Orca's /compact runs /compress, and /reset would empty the session under the chat's transcript.
+  // OpenKodo's /compact runs /compress, and /reset would empty the session under the chat's transcript.
   withheldCommands: ['compress', 'reset'],
   compactionReply,
   request: decisionRequest,

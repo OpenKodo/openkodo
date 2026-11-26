@@ -1,4 +1,4 @@
-/** Every held prompt Orca knows, and how one closes when Orca did not answer it: at once, with one
+/** Every held prompt OpenKodo knows, and how one closes when OpenKodo did not answer it: at once, with one
  *  closing line if it was reported, and a second line once its tool's result names how. */
 import { firstWithin } from './first-within'
 import type { ClaudeToolRecord } from './claude-tool-result-close'
@@ -40,10 +40,10 @@ export class TerminalWorkerApprovalBook {
     hold.timer = this.deps.setTimer(() => this.close(hold, null), CLOSE_EVIDENCE_MS)
   }
 
-  /** Ends a record not answered through Orca; a reported one gets its one closing line. */
+  /** Ends a record not answered through OpenKodo; a reported one gets its one closing line. */
   protected close(hold: Hold, how: CloseHow | null): void {
     if (hold.state === 'answered') {
-      // Orca's answer stands unless its tool's result names the opposite one.
+      // OpenKodo's answer stands unless its tool's result names the opposite one.
       if (
         this.closingByToolUseId.delete(hold.toolUseId) &&
         how?.decision &&

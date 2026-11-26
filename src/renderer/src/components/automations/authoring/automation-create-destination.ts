@@ -56,7 +56,7 @@ export function automationCreateHostEligible(
   )
 }
 
-/** The entry that holds new automations for a host key: a managed SSH host's is its Orca server's. */
+/** The entry that holds new automations for a host key: a managed SSH host's is its OpenKodo server's. */
 export function automationCreateHostFor(
   entries: readonly AutomationHostCatalogEntry[],
   stableKey: string | null | undefined
@@ -68,7 +68,7 @@ export function automationCreateHostFor(
   return server ?? entry ?? null
 }
 
-/** Offer ineligible hosts disabled with reasons so they do not appear gone; hide removed targets, the orphan bucket, and SSH hosts their Orca server stands for. */
+/** Offer ineligible hosts disabled with reasons so they do not appear gone; hide removed targets, the orphan bucket, and SSH hosts their OpenKodo server stands for. */
 export function automationCreateHostOffered(entry: AutomationHostCatalogEntry): boolean {
   return entry.kind !== 'orphan' && entry.catalogState !== 'removed' && entry.servedBy === undefined
 }

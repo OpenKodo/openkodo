@@ -13,7 +13,7 @@ import { McpConfigSection } from './McpConfigSection'
 import { McpRepoServersSection } from './McpRepoServersSection'
 
 export function RepositoryMcpSection({ repo }: { repo: Repo }): React.JSX.Element | null {
-  // A repo on a legacy SSH relay has no Orca runtime to keep a server list. One a server owns
+  // A repo on a legacy SSH relay has no OpenKodo runtime to keep a server list. One a server owns
   // (runtime:<env>, even over its own SSH target) uses that server's list.
   const owner = getRepoExecutionHostId(repo)
   const target =

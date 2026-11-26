@@ -77,14 +77,14 @@ it.skipIf(!isWindows)(
         cwd: root,
         env: {
           ...Object.fromEntries(
-            Object.entries(process.env).filter(([k]) => !k.startsWith('ORCA_'))
+            Object.entries(process.env).filter(([k]) => !k.startsWith('OPENKODO_'))
           ),
-          ORCA_PANE_KEY: 'pane'
+          OPENKODO_PANE_KEY: 'pane'
         }
       })
       expect(result.code, JSON.stringify(result)).toBe(17)
       expect(result.stdout.trim().split(/\r?\n/)).toEqual([
-        "--no-daemon|-c|shell_environment_policy.set.ORCA_PANE_KEY='pane'|arg & value",
+        "--no-daemon|-c|shell_environment_policy.set.OPENKODO_PANE_KEY='pane'|arg & value",
         'from stdin'
       ])
     } finally {

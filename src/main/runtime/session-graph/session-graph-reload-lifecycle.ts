@@ -2,7 +2,7 @@ import type { OrcaRuntimeWithTransitionGraphReloadToTerminalState as TransitionG
 import type { OrcaRuntimeWithBindPtyIncarnationHandle as BindPtyIncarnationHandleMethods } from '../terminal/identity/terminal-handle-bindings'
 import { OrcaRuntimeWithSessionTitleAuthority } from '../session-tabs/publication/session-title-publisher'
 import type { RuntimeRendererReloadFence } from './renderer-reload-fence'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { rendererStatusReplica } from './renderer-status-replica'
 
@@ -195,7 +195,7 @@ export abstract class OrcaRuntimeWithHasTerminalsForWorktree extends OrcaRuntime
     }
     this.graphReloadLifecycle.settleActive('cancelled')
     // Closed windows never republish; serve/main-owned layouts must reclaim the graph (#27292).
-    if (ORCA_LAYOUT_OWNER_IS_MAIN || this.servesHeadlessGraph) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN || this.servesHeadlessGraph) {
       this.headlessGraphFallbackAvailable = true
     }
     if (this.shouldRestoreHeadlessGraph(windowId)) {

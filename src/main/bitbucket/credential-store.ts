@@ -1,6 +1,6 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { inCredentialFileOrder, credentialFileExists } from '../credentials/credential-file-io'
 import { mkdir, readFile, unlink } from 'node:fs/promises'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 import {
   CredentialDecryptionError,
@@ -47,7 +47,7 @@ let cachedSecret: BitbucketStoredSecret | null = null
 let credentialError: string | null = null
 
 function getOrcaDir(): string {
-  return join(homedir(), '.orca')
+  return openKodoHomePath()
 }
 
 function getMetadataPath(): string {

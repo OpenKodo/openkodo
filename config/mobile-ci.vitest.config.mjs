@@ -5,7 +5,7 @@ import original from '../mobile/vitest.config.ts'
 // Keep real process, native, and runtime-specific contracts on Node.
 const nodeFiles = ['src/transport/encryption/mobile-e2ee-v2-client-session.test.ts']
 
-const config = mergeConfig(original, { cacheDir: process.env.ORCA_MOBILE_CI_CACHE_DIR })
+const config = mergeConfig(original, { cacheDir: process.env.OPENKODO_MOBILE_CI_CACHE_DIR })
 
 // Assign include after merging: mergeConfig concatenates arrays.
 export default {

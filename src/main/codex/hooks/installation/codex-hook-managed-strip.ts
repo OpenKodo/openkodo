@@ -11,7 +11,7 @@ import { getCodexManagedScriptFileName } from '../definitions/codex-hook-identit
 import type { CodexHookPassEffects } from './codex-hook-install-effects'
 
 /**
- * Removes Orca's managed hooks and their trust from one home and keeps the user's own hooks.
+ * Removes OpenKodo's managed hooks and their trust from one home and keeps the user's own hooks.
  * Needs no system source, so it still works when ~/.codex/hooks.json is unreadable.
  * Returns false when the home's hooks.json cannot be parsed.
  */

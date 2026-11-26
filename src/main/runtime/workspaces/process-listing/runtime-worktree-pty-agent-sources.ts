@@ -48,7 +48,7 @@ export function collectRuntimeWorktreePtyAgentSources(args: {
   readStructuredSummary?: (sessionId: string) => AgentSessionStatusSummary | undefined
   mirroredWorktreeIdByTabId: ReadonlyMap<string, string>
   connectedPtyEvidence: ConnectedPtyEvidence
-  /** A chat's /clear root: the Orca session ID its row names. Defaults to this host's records. */
+  /** A chat's /clear root: the OpenKodo session ID its row names. Defaults to this host's records. */
   chatOrcaSessionId?: (sessionId: string) => string
 }): RuntimeWorktreeAgentSource[] {
   const rowSources = new Map<

@@ -1,5 +1,5 @@
 // A shown prompt's standing from authoritative journal and generation evidence: an empty actionable
-// list or an owner Orca can't verify right now is never proof that it ended.
+// list or an owner OpenKodo can't verify right now is never proof that it ended.
 import type { AgentJournalRenderItem } from '../../../../shared/agent-session/journal/agent-session-journal-types'
 import type { AgentJournalCursor } from '../../../../shared/agent-session/journal/agent-session-journal-identity'
 import { readAgentJournalTurn } from '../../../../shared/agent-session/lifecycle/records/agent-session-turn-record'

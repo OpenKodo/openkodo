@@ -77,7 +77,7 @@ async function exchange(deviceCode: string): Promise<OpenKodoLoginState> {
 }
 
 // Redeem the one-time code that the website handed back through
-// orca://openkodo/connect. Called from the deep-link router.
+// openkodo://connect. Called from the deep-link router.
 export async function completeOpenKodoHandoff(code: string): Promise<OpenKodoLoginState> {
   stopPolling()
   try {
@@ -104,7 +104,7 @@ export async function completeOpenKodoHandoff(code: string): Promise<OpenKodoLog
 // back; nothing has to be typed.
 export async function startOpenKodoBrowserLogin(): Promise<OpenKodoLoginState> {
   stopPolling()
-  const uri = `${BASE}/activate?redirect=${encodeURIComponent('orca://openkodo/connect')}`
+  const uri = `${BASE}/activate?redirect=${encodeURIComponent('openkodo://connect')}`
   state = { status: 'browser', verificationUri: uri }
   void shell.openExternal(uri)
   return state

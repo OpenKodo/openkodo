@@ -9,7 +9,7 @@ export const BOT_TEMPLATE_METHODS = [
     params: null,
     handler: async () => ({
       ok: false as const,
-      error: 'Bot suggestions were removed. Update Orca on this computer.'
+      error: 'Bot suggestions were removed. Update OpenKodo on this computer.'
     })
   })
 ]

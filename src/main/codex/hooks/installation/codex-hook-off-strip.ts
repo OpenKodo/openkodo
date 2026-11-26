@@ -4,7 +4,7 @@ import type { CodexHookPassEffects } from './codex-hook-install-effects'
 import { stripCodexManagedHookEffects } from './codex-hook-managed-strip'
 import { writeCodexRuntimeUserHookRefreshEffects } from './codex-hook-refresh-effects'
 
-/** Off mid-flight: rebuild first so user approvals leave the slots Orca's group shifted, then strip. */
+/** Off mid-flight: rebuild first so user approvals leave the slots OpenKodo's group shifted, then strip. */
 export function writeCodexOffStripEffects(
   runtimeHomePath: string,
   codexHashes: readonly CodexHookHashes[]

@@ -92,13 +92,13 @@ export type RuntimePtyWorktreeRecord = RuntimeTerminalTailState & {
   }
   /** Terminals on its host as its own spawn left them; absent for reattaches, older and remote hosts. */
   spawnHostTerminalUsage?: HostTerminalUsage
-  /** The ORCA_PANE_KEY the execution host reports this PTY's env exported; absent when unreported. */
+  /** The OPENKODO_PANE_KEY the execution host reports this PTY's env exported; absent when unreported. */
   spawnPaneKey?: string | null
   launchConfig: SleepingAgentLaunchConfig | null
   launchToken: string | null
   launchIncarnationId: PtyIncarnationId | null
   launchAgent: TuiAgent | null
-  /** Whether the process still runs an Orca launch; missing when main can't tell. */
+  /** Whether the process still runs an OpenKodo launch; missing when main can't tell. */
   launchEvidence?: LaunchEvidence
   /** Identify flagged unmanaged --command panes before foreground reads; null for adopted/restored panes. */
   launchCommandAgent: TuiAgent | null

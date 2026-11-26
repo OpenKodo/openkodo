@@ -20,7 +20,7 @@ const CLINE_SESSION_HISTORY: StructuredAgentSessionHistory = {
 export const CLINE_LAUNCH_SPEC: AcpLaunchSpec = {
   agent: 'cline',
   command: 'cline',
-  // Nothing is auto-approved, so Orca answers every permission request.
+  // Nothing is auto-approved, so OpenKodo answers every permission request.
   args: () => ['--acp'],
   // Otherwise sessions move into Cline's background hub, whose tools keep the environment of the
   // process that started it rather than the chat's own (checked on 3.0.75).
@@ -38,7 +38,7 @@ export const CLINE_LAUNCH_SPEC: AcpLaunchSpec = {
     reason: 'Cline lists its models only inside a session it cannot delete'
   },
   // Its ACP server ignores `session/new` mcpServers (3.0.75).
-  botToolsOff: "Cline doesn't load the tools Orca passes to its chats",
+  botToolsOff: "Cline doesn't load the tools OpenKodo passes to its chats",
   instructions: deliverClineInstructions,
   instructionsInWorkspace: true,
   transcriptImport: null,

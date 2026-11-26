@@ -227,7 +227,7 @@ export class MobileSocketWiring {
           if (!device) {
             return null
           }
-          // Outer relay authorization cannot choose Orca identity; E2EE resolves the device before readiness.
+          // Outer relay authorization cannot choose OpenKodo identity; E2EE resolves the device before readiness.
           if (metadata.transport === 'relay' && metadata.relayDeviceId !== device.deviceId) {
             return null
           }

@@ -1,5 +1,5 @@
 // The per-launch MCP config files a terminal agent reads by path (`--mcp-config <file>`): owner-only
-// (0600), named by their content, and kept for this run of Orca only, since any relay token in one
+// (0600), named by their content, and kept for this run of OpenKodo only, since any relay token in one
 // ends with the run.
 import { createHash } from 'node:crypto'
 import { mkdir, readdir, rm } from 'node:fs/promises'
@@ -14,7 +14,7 @@ const swept = new Map<string, Promise<void>>()
 
 async function launchDir(): Promise<string> {
   const dir = join(getAppEnvironment().getPath('userData'), DIR)
-  // Made again each time: removing it while Orca runs mustn't stop later launches.
+  // Made again each time: removing it while OpenKodo runs mustn't stop later launches.
   await mkdir(dir, { recursive: true, mode: 0o700 })
   let sweep = swept.get(dir)
   if (!sweep) {

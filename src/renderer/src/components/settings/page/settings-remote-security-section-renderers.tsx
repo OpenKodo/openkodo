@@ -20,10 +20,13 @@ export function renderServersSettingsSection(
     <RuntimeServersPageProvider>
       <SettingsSection
         id="servers"
-        title={t('auto.components.settings.Settings.022effa46f', 'Remote Orca servers')}
+        title={t('auto.components.settings.Settings.022effa46f', 'Remote OpenKodo servers')}
         description={
           model.isWebClient
-            ? t('auto.components.settings.Settings.7686cb5c36', 'Connect to a saved Orca server.')
+            ? t(
+                'auto.components.settings.Settings.7686cb5c36',
+                'Connect to a saved OpenKodo server.'
+              )
             : t(
                 'auto.components.settings.Settings.remoteServersDescription',
                 'Work on another machine from here.'

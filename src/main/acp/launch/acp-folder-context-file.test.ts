@@ -31,7 +31,7 @@ afterEach(async () => {
 })
 
 describe('Hermes context file', () => {
-  it('keeps a user-written file and refreshes only Orca block on each launch', async () => {
+  it('keeps a user-written file and refreshes only OpenKodo block on each launch', async () => {
     const path = join(dir, HERMES_CONTEXT_FILE)
     await writeFile(path, 'My own rules.\n')
     await writeHermesContextFile(dir, 'first text')
@@ -42,7 +42,7 @@ describe('Hermes context file', () => {
     expect(content).not.toContain('first text')
   })
 
-  it('replaces a file Orca wrote', async () => {
+  it('replaces a file OpenKodo wrote', async () => {
     await writeHermesContextFile(dir, 'first text')
     await writeHermesContextFile(dir, 'second text')
     const content = await readFile(join(dir, HERMES_CONTEXT_FILE), 'utf8')
@@ -53,8 +53,8 @@ describe('Hermes context file', () => {
   it.skipIf(process.platform === 'win32').each([
     ['a user-written file', 'My own rules.\n'],
     [
-      'a file Orca wrote',
-      '<!-- Orca writes this file for Hermes chats in this folder; edits are replaced. -->\n\nold\n'
+      'a file OpenKodo wrote',
+      '<!-- OpenKodo writes this file for Hermes chats in this folder; edits are replaced. -->\n\nold\n'
     ]
   ])('makes %s that others could read private once it carries the text', async (_, content) => {
     const path = join(dir, HERMES_CONTEXT_FILE)
@@ -116,7 +116,7 @@ describe('Hermes context file', () => {
   })
 })
 
-it("takes Orca's text back out of a context file and keeps the user's", async () => {
+it("takes OpenKodo's text back out of a context file and keeps the user's", async () => {
   const orcaOwn = join(dir, 'own')
   await mkdir(orcaOwn)
   await writeFolderContextFile(orcaOwn, 'GEMINI.md', 'Gemini', 'bot preamble')

@@ -36,7 +36,7 @@ function portFor(connects: { count: number }, booted: Promise<void>) {
     }) as unknown as WslHostRuntimeCallPort
 }
 
-describe('waking a WSL host Orca stopped idle', () => {
+describe('waking a WSL host OpenKodo stopped idle', () => {
   it('boots once for concurrent user calls, lets plain calls wait on it, refuses polls', async () => {
     noteWslHostIdleStop(ENVIRONMENT_ID)
     // Liveness saw the old orcad exit, so the wake needn't wait for it.

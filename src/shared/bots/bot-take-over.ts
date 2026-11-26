@@ -1,4 +1,4 @@
-// The owner hands a workspace to a bot (Hand to bot…): what Orca tells the bot, and what its chat shows.
+// The owner hands a workspace to a bot (Hand to bot…): what OpenKodo tells the bot, and what its chat shows.
 import * as z from 'zod'
 import { TOOK_OVER_GOAL_HEADING, TOOK_OVER_TURN_PREFIX } from '../native-chat/took-over-notice'
 
@@ -31,7 +31,7 @@ export function botTakeOverAskLine(takeOver: Pick<BotTakeOver, 'workspace' | 'ag
   return `I've taken over ${takeOver.workspace.name}${agents}. What should I do with it?`
 }
 
-/** Orca's turn to the bot: the hand-over as context, then what to do now. The chat draws it as a
+/** OpenKodo's turn to the bot: the hand-over as context, then what to do now. The chat draws it as a
  *  divider (and the goal as the owner's words), never as this text. */
 export function botTakeOverKickoff(takeOver: BotTakeOver): string {
   const { workspace, agents, goal } = takeOver
@@ -49,7 +49,7 @@ export function botTakeOverKickoff(takeOver: BotTakeOver): string {
       ? 'It has no agents open.'
       : `Its agents keep running and now work for you: ${agents.join(', ')}. \`orca worktree ps --json\` gives each one's handle.`
   const lines = [
-    `${TOOK_OVER_TURN_PREFIX}${workspace.name} (${where}). Orca already moved it under your home, so don't move it. ${team}]`
+    `${TOOK_OVER_TURN_PREFIX}${workspace.name} (${where}). OpenKodo already moved it under your home, so don't move it. ${team}]`
   ]
   if (!goal) {
     lines.push(
@@ -60,7 +60,7 @@ export function botTakeOverKickoff(takeOver: BotTakeOver): string {
   lines.push(
     agents.length === 0
       ? 'With no agent to ask, read its pull request and commits to see where things stand.'
-      : 'Ask each of its agents where things stand, as step 2 of "Take over a workspace" in `orca skills get orca-cli --reference bots` says.',
+      : 'Ask each of its agents where things stand, as step 2 of "Take over a workspace" in `openkodo skills get openkodo-cli --reference bots` says.',
     'Then tell your owner in a few lines where things stand, and start on what they asked.',
     `${TOOK_OVER_GOAL_HEADING}${goal}`
   )

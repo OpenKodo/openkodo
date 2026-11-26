@@ -1,10 +1,10 @@
 /** What a coordinator is told about a worker's permission prompt: who may answer, and how it closed. */
 import type { WorkerApprovalPayload } from '../../../../../shared/orchestration/approvals/worker-approval-payload'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
 
-/** A helper's prompt is held from the worker's terminal: Claude shows it there only after Orca lets go. */
+/** A helper's prompt is held from the worker's terminal: Claude shows it there only after OpenKodo lets go. */
 export function describeHelperHold(chatCoordinator: boolean | undefined): string {
-  return `${chatCoordinator ? 'The user has been shown it in your chat. ' : ''}A helper agent inside the worker asked, so the worker's terminal shows it only if nobody answers in Orca within 2 minutes.`
+  return `${chatCoordinator ? 'The user has been shown it in your chat. ' : ''}A helper agent inside the worker asked, so the worker's terminal shows it only if nobody answers in OpenKodo within 2 minutes.`
 }
 
 /** With the user's setting on: the coordinator may answer too, and the first answer wins. */
@@ -13,7 +13,7 @@ export function describeCoordinatorAnswer(
   { dispatchId, chatCoordinator }: { dispatchId: string; chatCoordinator?: boolean }
 ): string[] {
   const shown = allowedActions.map((action) => (action === 'allow' ? 'Allow' : 'Deny')).join('/')
-  const where = worker.handle.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
+  const where = worker.handle.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
     ? ` in the worker's chat`
     : ` in the worker's terminal`
   const approve = allowedActions.includes('allow') && !personOnly
@@ -34,7 +34,7 @@ export function describeCoordinatorAnswer(
     ? deny
       ? 'You can approve or deny it, with a reason:'
       : 'You can approve it, with a reason:'
-    : `${personOnly ? "The worker's agent lets only a person approve this one." : 'Orca cannot approve this one.'}${deny ? ' You can deny it, with a reason:' : ''}`
+    : `${personOnly ? "The worker's agent lets only a person approve this one." : 'OpenKodo cannot approve this one.'}${deny ? ' You can deny it, with a reason:' : ''}`
   return [
     fromHelper
       ? `${describeHelperHold(chatCoordinator)} ${how}`
@@ -45,14 +45,14 @@ export function describeCoordinatorAnswer(
 }
 
 const CLOSED_BY: Record<NonNullable<WorkerApprovalPayload['outcome']>['by'], string> = {
-  person: 'by a person in Orca',
+  person: 'by a person in OpenKodo',
   coordinator: 'by the coordinator',
   'worker-chat': "in the worker's own chat",
   'worker-terminal': "in the worker's terminal",
   auto: "by the worker's agent on its own (its 2:00 timeout)",
-  'terminal-only': "for Orca; a person must answer it in the worker's terminal",
+  'terminal-only': "for OpenKodo; a person must answer it in the worker's terminal",
   'worker-ended': 'because its worker ended',
-  unknown: 'without an answer Orca can name'
+  unknown: 'without an answer OpenKodo can name'
 }
 
 export function describeApprovalClosed(approval: WorkerApprovalPayload): string {

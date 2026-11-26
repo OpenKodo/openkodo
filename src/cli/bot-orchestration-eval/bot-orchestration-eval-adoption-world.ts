@@ -4,7 +4,7 @@ import type { EvalHostState } from '../bot-automation-eval/bot-automation-eval-h
 import type { EvalGithubThread } from '../bot-automation-eval/bot-automation-eval-gh-world'
 import type { StandInBot } from './bot-orchestration-eval-bots'
 import { GITHUB } from './bot-orchestration-eval-identity-fixtures'
-import { CLOUD_REPO, ORCA_REPO, PROJECTS } from './bot-orchestration-eval-fixtures'
+import { CLOUD_REPO, OPENKODO_REPO, PROJECTS } from './bot-orchestration-eval-fixtures'
 import {
   adoptionRow,
   adoptionTranscripts,
@@ -16,7 +16,7 @@ import { ML_REPO } from './bot-orchestration-eval-adoption-fixtures'
 // Clutter every world has: agents closed, or idle on throwaway questions, or older than a week.
 const CLUTTER: AdoptionFixture[] = [
   {
-    repoId: ORCA_REPO,
+    repoId: OPENKODO_REPO,
     repo: 'orca',
     name: 'mobile-ota',
     ago: 3 * DAY,
@@ -30,7 +30,7 @@ const CLUTTER: AdoptionFixture[] = [
     pr: { number: 612, state: 'merged', title: 'Relay: drain duration metrics', checks: 'success' }
   },
   {
-    repoId: ORCA_REPO,
+    repoId: OPENKODO_REPO,
     repo: 'orca',
     name: 'regex-question',
     ago: 2 * DAY,
@@ -60,7 +60,7 @@ const CLUTTER: AdoptionFixture[] = [
     ]
   },
   ...Array.from({ length: 12 }, (_, index): AdoptionFixture => ({
-    repoId: ORCA_REPO,
+    repoId: OPENKODO_REPO,
     repo: 'orca',
     name: `old-task-${index + 1}`,
     ago: (10 + index * 2) * DAY,
@@ -180,7 +180,7 @@ export const OTHER_BOTS: StandInBot[] = [
 
 export const OTHER_BOT_SOULS: Record<string, string> = {
   'bot-atlas':
-    'I own the Orca bots work: the bot runtime, bot chats, connectors (Slack, GitHub, Linear) and the bots sidebar.\n\n## How I work\nShip small PRs and keep CI green.\n\n## Never\nMerge without a green build.',
+    'I own the OpenKodo bots work: the bot runtime, bot chats, connectors (Slack, GitHub, Linear) and the bots sidebar.\n\n## How I work\nShip small PRs and keep CI green.\n\n## Never\nMerge without a green build.',
   'bot-shipper':
-    'I cut and publish Orca desktop releases: RCs, release notes and the publish step.\n\n## How I work\nOne release at a time.\n\n## Never\nPublish without the owner saying go.'
+    'I cut and publish OpenKodo desktop releases: RCs, release notes and the publish step.\n\n## How I work\nOne release at a time.\n\n## Never\nPublish without the owner saying go.'
 }

@@ -4,7 +4,7 @@ import { parseOrcaYaml } from './orca-yaml'
 
 afterEach(() => vi.restoreAllMocks())
 
-describe('orca.yaml alias expansion', () => {
+describe('openkodo.yaml alias expansion', () => {
   it('keeps reusing one anchor across a realistic tab list', () => {
     const tabs = Array.from(
       { length: 40 },

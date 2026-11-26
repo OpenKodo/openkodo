@@ -46,7 +46,7 @@ export const DEVIN_LAUNCH_SPEC: AcpLaunchSpec = {
   },
   // Session discovery deletes its listing session.
   modelDiscovery: { kind: 'session', listingNamesConfiguredModel: false },
-  botToolsOff: "Devin doesn't load the tools Orca passes to its chats",
+  botToolsOff: "Devin doesn't load the tools OpenKodo passes to its chats",
   instructions: deliverDevinInstructions,
   instructionsInWorkspace: true,
   compaction: true,

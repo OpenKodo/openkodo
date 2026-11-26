@@ -22,7 +22,7 @@ import {
   workspaceRunsOnServer
 } from './server-port-forward-support'
 
-/** How a port's URL opens in the system browser; null when only Orca's browser on its host reaches it.
+/** How a port's URL opens in the system browser; null when only OpenKodo's browser on its host reaches it.
  *  `worktreeId` names the workspace a workspace port belongs to; the server's own listeners have none. */
 export function portSystemBrowserOpener(
   url: string,
@@ -92,7 +92,7 @@ export async function openServerLoopbackInSystemBrowser(
     toast.error(
       translate(
         'auto.lib.workspace.ports.serverPortForward.updateServer',
-        "Couldn't forward port {{port}} from {{host}}. Update Orca on {{host}} and try again.",
+        "Couldn't forward port {{port}} from {{host}}. Update OpenKodo on {{host}} and try again.",
         { port, host }
       )
     )

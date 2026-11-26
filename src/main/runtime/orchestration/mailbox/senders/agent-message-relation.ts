@@ -28,11 +28,11 @@ export type Lineage = {
 
 const UNKNOWN: Lineage = { relation: undefined }
 
-// What Orca mails as a local worker's dispatch that is that worker's result: its failed start, its
+// What OpenKodo mails as a local worker's dispatch that is that worker's result: its failed start, its
 // loss, mail it never got. Its questions and setup status are not (they stay where they were asked).
 const LOCAL_DISPATCH_RESULTS: ReadonlySet<string> = new Set(['escalation', 'worker_done'])
 
-/** A federated worker mails as its dispatch, and so does Orca for a local one: 'worker' only when
+/** A federated worker mails as its dispatch, and so does OpenKodo for a local one: 'worker' only when
  *  that dispatch, in the Run, was created by the recipient, and for a local one only its results;
  *  anything else is unknown. */
 function dispatchWorkerLineage(
@@ -74,7 +74,7 @@ export function agentMessageRelation(args: RelationArgs): AgentMessageSender['re
 }
 
 /** A worker's mail reports to where the turn that started it came from: a turn its coordinator's
- *  connector conversation woke sends it back there; any other stays in Orca. */
+ *  connector conversation woke sends it back there; any other stays in OpenKodo. */
 export function reportsToConversation(lineage: Lineage): boolean {
   return (
     lineage.relation === 'worker' && lineage.workerDispatch?.creator_turn_source === 'connector'

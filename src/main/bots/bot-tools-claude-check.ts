@@ -43,7 +43,7 @@ export async function claudeBotToolProblems(
       signal?.throwIfAborted()
       problems = new Map(servers.map((server) => [server.name, { kind: 'unconfirmed' }]))
       const statuses = await connection.mcpServerStatus()
-      // Claude took --mcp-config and answered: managed settings don't refuse Orca's servers now.
+      // Claude took --mcp-config and answered: managed settings don't refuse OpenKodo's servers now.
       noteClaudeMcpConfigRefused(false)
       for (const server of statuses) {
         if (!problems.has(server.name)) {

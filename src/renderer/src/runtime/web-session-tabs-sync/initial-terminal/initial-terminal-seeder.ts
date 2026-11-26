@@ -1,5 +1,5 @@
 import { useAppStore } from '../../../store/index'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { isFrameDrawnServerWorkspace } from '../frame-drawn/frame-drawn-server-workspace-set'
 import { isWebRuntimeInitialTerminalBootstrapInFlight } from './web-runtime-initial-terminal-bootstrap'
 import { dispatchWebRuntimeInitialTerminalBootstrap } from './web-runtime-initial-terminal-bootstrap-dispatch'
@@ -42,9 +42,9 @@ export function createInitialTerminalSeeder(
   let disposed = false
 
   const decide = (event: SessionTabsStreamEvent, firstHostAnswer: boolean): boolean => {
-    // Switch point: ORCA_LAYOUT_OWNER_IS_MAIN && — a frame-drawn workspace's tabs are not the mirror's to create.
+    // Switch point: OPENKODO_LAYOUT_OWNER_IS_MAIN && — a frame-drawn workspace's tabs are not the mirror's to create.
     // Interim (ledger L240): seeding stays only for servers without `layout.intents.v1`, until Phase 2.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && isFrameDrawnServerWorkspace(environmentId, worktreeId)) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && isFrameDrawnServerWorkspace(environmentId, worktreeId)) {
       return false
     }
     const state = useAppStore.getState()

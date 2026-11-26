@@ -1,4 +1,4 @@
-// A read-only Claude session (a bot's look-around or tidy-up): every tool call is decided by Orca.
+// A read-only Claude session (a bot's look-around or tidy-up): every tool call is decided by OpenKodo.
 import type { HookCallback, Options as ClaudeAgentSdkOptions } from '@anthropic-ai/claude-agent-sdk'
 import {
   LOOK_AROUND_DISALLOWED_TOOLS,

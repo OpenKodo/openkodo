@@ -5,10 +5,12 @@ import { execFileSync } from 'node:child_process'
 import path from 'node:path'
 
 const scriptDir = import.meta.dirname
-const source = path.join(scriptDir, '../launch/orca-dev.mjs')
+const source = path.join(scriptDir, '../launch/openkodo-dev.mjs')
 
 const commandPath =
-  process.platform === 'darwin' || process.platform === 'linux' ? '/usr/local/bin/orca-dev' : null
+  process.platform === 'darwin' || process.platform === 'linux'
+    ? '/usr/local/bin/openkodo-dev'
+    : null
 
 if (!commandPath) {
   console.log('[orca-dev] Skipping global symlink (unsupported platform).')

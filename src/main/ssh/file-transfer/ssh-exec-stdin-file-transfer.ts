@@ -12,7 +12,7 @@ import type { RemoteHostPlatform } from '../remote-host/ssh-remote-platform'
 import { makePosixWriteFileCommand } from '../system-transport/file-transfer/system-ssh-file-binary-transfer'
 import { collectLocalUploadPlan } from '../system-transport/file-transfer/system-ssh-file-transfer'
 
-export const EXEC_STDIN_WRITE_DONE = 'ORCA_EXEC_STDIN_WRITE_DONE'
+export const EXEC_STDIN_WRITE_DONE = 'OPENKODO_EXEC_STDIN_WRITE_DONE'
 
 type ExecStdinOptions = { signal?: AbortSignal }
 

@@ -1,4 +1,4 @@
-// An item's file link opens in Orca's editor, only inside its bot's folder: a bot wrote the path, so
+// An item's file link opens in OpenKodo's editor, only inside its bot's folder: a bot wrote the path, so
 // unlike a chat link a click is no grant to read elsewhere. Never a browser or another app, even for HTML.
 import { toast } from 'sonner'
 import { translate } from '@/i18n/i18n'

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { ORCA_SCRUB_SAFE_PANE_ENV } from '../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
+import { OPENKODO_SCRUB_SAFE_PANE_ENV } from '../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import {
   CONNECTOR_REPLY_MAX_FILES,
@@ -27,7 +27,7 @@ import type { ActionResult } from '../slack/slack-action-format'
 // The host retries an unavailable cloud itself, waiting out Retry-After, so the call can take a while.
 const REPLY_TIMEOUT_MS = 180_000
 
-// notices: why the reply can't wake an Orca bot it mentions.
+// notices: why the reply can't wake an OpenKodo bot it mentions.
 type ConnectorReply = { status: 'posted' | 'queued'; place?: string; notices?: string[] }
 
 // A host that can't post for anyone: connectors off or signed out.
@@ -48,7 +48,7 @@ export function formatReply(reply: ConnectorReply): string {
   return [
     reply.status === 'posted'
       ? `Posted to ${place}.`
-      : `Sent; Orca Cloud will post it to ${place}.`,
+      : `Sent; cloud service will post it to ${place}.`,
     ...(reply.notices ?? [])
   ].join('\n')
 }
@@ -61,11 +61,11 @@ function formatAttached(attached: NonNullable<BotReplyResult['attached']>): stri
       ? `${attached.files} files, one message each,`
       : `${attached.files} files`
   const place = attached.place ?? attached.target?.label ?? 'the thread'
-  const queued = `${what} went to Orca Cloud, which posts ${one ? 'it' : 'them'} to ${place} shortly.`
+  const queued = `${what} went to cloud service, which posts ${one ? 'it' : 'them'} to ${place} shortly.`
   const status = !attached.queued
     ? `${what} posted to ${place}.`
     : attached.unconfirmed
-      ? `${queued} Orca couldn't confirm they posted; read the thread before sending them again.`
+      ? `${queued} OpenKodo couldn't confirm they posted; read the thread before sending them again.`
       : queued
   return [status, ...(attached.notices ?? [])].join('\n')
 }
@@ -74,7 +74,7 @@ type ReplyCaller = { paneKey: string } | { sessionId: string }
 
 function replyCaller(): ReplyCaller {
   // Claude can scrub names containing KEY from its tools' environment; the alias survives.
-  const paneKey = process.env.ORCA_PANE_KEY || process.env[ORCA_SCRUB_SAFE_PANE_ENV]
+  const paneKey = process.env.OPENKODO_PANE_KEY || process.env[OPENKODO_SCRUB_SAFE_PANE_ENV]
   // A native chat's agent has no pane; its session id names the chat.
   const sessionId = readInjectedAgentSessionId()
   if (paneKey) {
@@ -85,7 +85,7 @@ function replyCaller(): ReplyCaller {
   }
   throw new RuntimeClientError(
     'invalid_argument',
-    'Run this from an agent a Slack, GitHub or Linear message woke; this is not an Orca agent pane or chat.'
+    'Run this from an agent a Slack, GitHub or Linear message woke; this is not an OpenKodo agent pane or chat.'
   )
 }
 
@@ -115,7 +115,7 @@ function formatOffered(offered: NonNullable<BotReplyResult['offered']>): string 
   }
   return [
     offered.queued
-      ? `Sent with ${offered.choices} buttons; Orca Cloud will post it to ${place}.${offered.unconfirmed ? " Orca couldn't confirm it posted; read the thread before sending it again." : ''}`
+      ? `Sent with ${offered.choices} buttons; cloud service will post it to ${place}.${offered.unconfirmed ? " OpenKodo couldn't confirm it posted; read the thread before sending it again." : ''}`
       : `Posted to ${place} with ${offered.choices} buttons.`,
     // The agent waits on this, so it should know what a press looks like when it comes.
     "A press comes back to you as that person's next message in this thread, with the button's label as its text.",
@@ -170,7 +170,7 @@ async function replyWithFiles(
     if (!slot.result.upload) {
       throw new RuntimeClientError(
         'cloud_lacks_direct_files',
-        "Orca Cloud didn't say where to send the file; nothing was posted. Update Orca and try again."
+        "cloud service didn't say where to send the file; nothing was posted. Update OpenKodo and try again."
       )
     }
     await uploadFile(slot.result.upload.url, file)
@@ -273,7 +273,7 @@ export const BOT_REPLY_HANDLERS: Record<string, CommandHandler> = {
         ? await client
             .call<ConnectorReply>(
               'connector.reply',
-              // Minted once here, so Orca Cloud posts it once however often the host retries.
+              // Minted once here, so OpenKodo Cloud posts it once however often the host retries.
               {
                 ...caller,
                 replyId: randomUUID(),

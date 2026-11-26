@@ -1,4 +1,4 @@
-export const REQUIRED_TEST_INPUTS_ENV = 'ORCA_REQUIRED_TEST_INPUTS'
+export const REQUIRED_TEST_INPUTS_ENV = 'OPENKODO_REQUIRED_TEST_INPUTS'
 
 export function nodeServerTestPaths() {
   return [

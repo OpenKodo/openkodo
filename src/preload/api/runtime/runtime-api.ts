@@ -164,9 +164,9 @@ export type RuntimeApi = {
       timeoutMs?: number
       expectedEnvironmentPairingRevision?: number
       expectedEnvironmentRuntimeId?: string
-      /** A poll: no use of an idle WSL host, and never wakes one Orca stopped idle. */
+      /** A poll: no use of an idle WSL host, and never wakes one OpenKodo stopped idle. */
       background?: boolean
-      /** The user asked for it: it may wake a WSL host Orca stopped idle. */
+      /** The user asked for it: it may wake a WSL host OpenKodo stopped idle. */
       wake?: boolean
     }) => Promise<RuntimeRpcResponse<unknown>>
     subscribeCrewAttempt?: (

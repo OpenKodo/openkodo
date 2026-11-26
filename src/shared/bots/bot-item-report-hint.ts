@@ -22,7 +22,7 @@ export function slackThreadPostCommand(place: string, cli: string): string | nul
 function postedIn(place: string, cli: string): string {
   const command = slackThreadPostCommand(place, cli)
   return command
-    ? ` (${command}; when Orca's note says your final message goes to that thread, write it there instead)`
+    ? ` (${command}; when OpenKodo's note says your final message goes to that thread, write it there instead)`
     : ''
 }
 

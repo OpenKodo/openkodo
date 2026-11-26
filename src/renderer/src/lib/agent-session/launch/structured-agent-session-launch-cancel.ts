@@ -4,7 +4,7 @@ import {
   LOCAL_EXECUTION_HOST_ID,
   type ExecutionHostId
 } from '../../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { markStructuredAgentLaunchCancellation } from './structured-agent-session-launch-cancellation'
 import { cancelStructuredAgentLaunchOnLocalHost } from './structured-agent-session-local-launch-cancel'
 import { forgetStructuredSessionSelection } from '../options/structured-agent-session-selection-controller'
@@ -38,7 +38,7 @@ function markStructuredAgentSessionLaunchCancelledInternal(
   const target = matchingState?.intent.target ?? structuredAgentSessionTargetForHost(host)
   if (state?.intent.worktreeId === worktreeId) {
     // The launch's own owner outranks the caller's: it is the host the create was sent to.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && state.intent.executionHostId === LOCAL_EXECUTION_HOST_ID) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && state.intent.executionHostId === LOCAL_EXECUTION_HOST_ID) {
       cancelStructuredAgentLaunchOnLocalHost(worktreeId, sessionId)
     } else {
       markStructuredAgentLaunchCancellation(
@@ -54,7 +54,7 @@ function markStructuredAgentSessionLaunchCancelledInternal(
     // Tombstones remain durable authority; drop in-memory dead promises so bulk closes cannot retain them all session.
     deleteStructuredLaunchStateIfCurrent(state)
   } else if (
-    ORCA_LAYOUT_OWNER_IS_MAIN &&
+    OPENKODO_LAYOUT_OWNER_IS_MAIN &&
     !alreadyCancelled &&
     executionHostId === LOCAL_EXECUTION_HOST_ID
   ) {

@@ -1,4 +1,4 @@
-// How each terminal agent's CLI takes servers for one run without Orca editing its own config: a
+// How each terminal agent's CLI takes servers for one run without OpenKodo editing its own config: a
 // config file passed by path, `-c` overrides, an inline config variable, or a Pi extension.
 // Nothing here puts a saved value or the relay token on the command line.
 import type { TuiAgent } from '../../../shared/agent-launch/catalog/tui-agent'
@@ -43,7 +43,7 @@ const copilot: TerminalMcpAdapter = {
       launch,
       executable,
       { help: '--additional-mcp-config' },
-      'Update GitHub Copilot to use Orca’s servers in its terminal'
+      'Update GitHub Copilot to use OpenKodo’s servers in its terminal'
     )
     if (refused) {
       return refused
@@ -82,7 +82,7 @@ const amp: TerminalMcpAdapter = {
       launch,
       executable,
       { help: '--mcp-config' },
-      'Update Amp to use Orca’s servers in its terminal'
+      'Update Amp to use OpenKodo’s servers in its terminal'
     )
     if (refused) {
       return refused
@@ -128,7 +128,7 @@ async function codexWslInterop(
     launch,
     executable,
     { version: CODEX_ENV_VARS_VERSION },
-    `Update Codex in WSL to ${CODEX_ENV_VARS_VERSION} or later to use Orca’s signed-in and saved-value servers there`
+    `Update Codex in WSL to ${CODEX_ENV_VARS_VERSION} or later to use OpenKodo’s signed-in and saved-value servers there`
   )
   if (!tooOld) {
     return { forward: interop, dropped: [] }
@@ -152,7 +152,7 @@ const codex: TerminalMcpAdapter = {
         launch,
         executable,
         { version: CODEX_BEARER_ENV_VERSION },
-        'Update Codex to use Orca’s signed-in servers in its terminal'
+        'Update Codex to use OpenKodo’s signed-in servers in its terminal'
       ))
     if (refused) {
       return refused
@@ -228,10 +228,13 @@ const opencode: TerminalMcpAdapter = {
     // OpenCode 2 reads its config when its background server starts, so a terminal joining a running
     // one would never see this; a private server of its own does.
     const command =
-      launch.env.ORCA_OPENCODE_PLUGIN_API === 'v2'
+      launch.env.OPENKODO_OPENCODE_PLUGIN_API === 'v2'
         ? withOpenCodeStandaloneServer(launch.command, launch.shell)
         : launch.command
-    if (launch.env.ORCA_OPENCODE_PLUGIN_API === 'v2' && !/(^|\s)--standalone(\s|$)/.test(command)) {
+    if (
+      launch.env.OPENKODO_OPENCODE_PLUGIN_API === 'v2' &&
+      !/(^|\s)--standalone(\s|$)/.test(command)
+    ) {
       return skip('its OpenCode 2 command names a server of its own')
     }
     return {
@@ -255,7 +258,7 @@ const ADAPTERS: Partial<Record<TuiAgent, TerminalMcpAdapter>> = {
   pi
 }
 
-/** The adapter for a launched agent; null for one whose terminal takes no servers from Orca here. */
+/** The adapter for a launched agent; null for one whose terminal takes no servers from OpenKodo here. */
 export function terminalMcpAdapterFor(agent: TuiAgent): TerminalMcpAdapter | null {
   return ADAPTERS[agent] ?? null
 }

@@ -105,7 +105,7 @@ function turnArgs(
 // A clean checkout of the real project makes a bot's look-around realistic; each thread reads its own
 // clone of it. Without one the projects' folders don't exist and a bot can only hand off or ask.
 const CHECKOUT_SOURCES: Record<string, string | undefined> = {
-  orca: process.env.ORCA_BOT_EVAL_ORCA_CHECKOUT
+  orca: process.env.OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT
 }
 
 const NOT_RUN = { reply: '', commands: [], writes: [], shell: [], tools: [], ownerTools: [] }

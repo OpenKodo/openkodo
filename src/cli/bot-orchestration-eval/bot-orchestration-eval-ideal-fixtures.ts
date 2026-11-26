@@ -1,11 +1,11 @@
 // The worlds the plan's ideal interactions play out in: a flaky export test whose worker opened a
 // pull request, an empty-state task, and a repository the bot has no GitHub connector for. Work the
-// bot started is in Orca's work record; GitHub's answers about its pull request are fixtures.
+// bot started is in OpenKodo's work record; GitHub's answers about its pull request are fixtures.
 import { EVAL_BOT, type EvalHostState } from '../bot-automation-eval/bot-automation-eval-host'
 import type { CheckStatus } from '../../shared/github/pull-requests/pull-request-types'
 import {
   EMPTY_WORLD,
-  ORCA_REPO,
+  OPENKODO_REPO,
   OWNER_WORKSPACES,
   PROJECTS,
   runningWorker,
@@ -15,7 +15,7 @@ import {
 
 type World = Partial<EvalHostState>
 
-const ORCA_GITHUB = { id: 900001, fullName: 'stablyai/orca' }
+const OPENKODO_GITHUB = { id: 900001, fullName: 'stablyai/orca' }
 const ACME_SITE_REPO = '0b6f2c1e-6d0e-4f5c-9a51-2f7c3b8e9d10'
 const EXPORT_HEAD = 'a1b2c3d4e5f60718293a4b5c6d7e8f9012345678'
 
@@ -26,11 +26,11 @@ export const EXPORT_FIX =
   'the export retry test in orca keeps flaking on CI, can you get it sorted?'
 export const EXPORT_DONE = workerDone(
   'ctx_w1',
-  'Fixed the flaky export retry test: it waited on a 500 ms timer instead of the export finishing. It now awaits the export. 100/100 local runs pass. Opened PR https://github.com/stablyai/orca/pull/36700; checks are running.'
+  'Fixed the flaky export retry test: it waited on a 500 ms timer instead of the export finishing. It now awaits the export. 100/100 local runs pass. Opened PR https://github.com/OpenKodo/openkodo/pull/36700; checks are running.'
 )
 
 const EXPORT_WORKSPACE = workspace({
-  repoId: ORCA_REPO,
+  repoId: OPENKODO_REPO,
   repo: 'orca',
   name: 'fix-flaky-export-test',
   state: 'done',
@@ -44,7 +44,7 @@ const EXPORT_CHECKS: CheckStatus = 'failure'
 
 const EXPORT_PR = {
   number: 36700,
-  url: 'https://github.com/stablyai/orca/pull/36700',
+  url: 'https://github.com/OpenKodo/openkodo/pull/36700',
   state: 'open' as const,
   checks: EXPORT_CHECKS,
   review: null,
@@ -58,7 +58,7 @@ export const THREAD_WORLD: World = { ...EMPTY_WORLD, conversation: EXPORT_THREAD
 export const FINISHED_EXPORT_WORLD: World = {
   ...EMPTY_WORLD,
   conversation: EXPORT_THREAD,
-  githubRepos: { [ORCA_REPO]: ORCA_GITHUB },
+  githubRepos: { [OPENKODO_REPO]: OPENKODO_GITHUB },
   worktrees: [EXPORT_WORKSPACE],
   pulls: { [String(EXPORT_WORKSPACE.worktreeId)]: EXPORT_PR },
   workers: [
@@ -74,7 +74,7 @@ export const FINISHED_EXPORT_WORLD: World = {
 }
 
 const EMPTY_STATE_WORKSPACE = workspace({
-  repoId: ORCA_REPO,
+  repoId: OPENKODO_REPO,
   repo: 'orca',
   name: 'eng-9201-empty-state',
   state: 'working',

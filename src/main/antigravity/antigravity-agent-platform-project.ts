@@ -93,7 +93,7 @@ export async function agentPlatformEnvironment(
   env: Readonly<Record<string, string>>
 ): Promise<Record<string, string>> {
   const { project, location } = await resolveAgentPlatformProject(saved, env)
-  // Google's Go client finds ADC under HOME, not CLOUDSDK_CONFIG, so name the file Orca read.
+  // Google's Go client finds ADC under HOME, not CLOUDSDK_CONFIG, so name the file OpenKodo read.
   const adcFile = env.GOOGLE_APPLICATION_CREDENTIALS
     ? null
     : env.CLOUDSDK_CONFIG

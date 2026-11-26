@@ -63,7 +63,7 @@ export type NewBotPicture = {
   /** createBot's `avatarColor`: set only when a mascot is shown on another color. */
   avatarColor: string | undefined
   /** createBot's `avatarOutfit`: set only when a mascot is shown wearing one, or a shared one this version
-   *  doesn't draw, which the bot keeps for a newer Orca. */
+   *  doesn't draw, which the bot keeps for a newer OpenKodo. */
   avatarOutfit: string | undefined
   /** The upload shown, as base64 PNG; null when a mascot is. */
   shownUpload: string | null

@@ -60,7 +60,7 @@ export async function connectTarget(
   options: { automatic?: boolean; quiet?: boolean } = {}
 ): Promise<SshConnectionState> {
   await awaitSshStartupReady()
-  const e2eProbePath = process.env.ORCA_E2E_FORBID_LOCAL_SSH_CONNECT_PROBE
+  const e2eProbePath = process.env.OPENKODO_E2E_FORBID_LOCAL_SSH_CONNECT_PROBE
   if (e2eProbePath) {
     appendFileSync(e2eProbePath, `${JSON.stringify(targetId)}\n`)
     throw new Error('e2e_forbidden_local_ssh_connect')

@@ -4,7 +4,7 @@ import type {
 } from '../../../shared/agent-launch/permissions/agent-chat-permission-mode'
 import type { AcpLaunchSpec } from './acp-launch-contract'
 
-/** The session modes a launch reports as Orca's: a full-access launch holds only that mode. */
+/** The session modes a launch reports as OpenKodo's: a full-access launch holds only that mode. */
 function acpLaunchPermissionModes(
   spec: Pick<AcpLaunchSpec, 'permissionModeConfig'>,
   fullAccess: boolean
@@ -17,7 +17,7 @@ function acpLaunchPermissionModes(
   return fullAccess ? { 'full-access': fullAccessMode } : others
 }
 
-/** A launch's permission facts: Orca's session modes, the starting choice, and whether the agent's
+/** A launch's permission facts: OpenKodo's session modes, the starting choice, and whether the agent's
  *  own arguments hold full access, which only a restart can take away. */
 export function acpLaunchPermission(
   spec: Pick<AcpLaunchSpec, 'permissionModeConfig' | 'args'>,
@@ -32,7 +32,7 @@ export function acpLaunchPermission(
   }
 }
 
-/** Whether Orca answers the agent's permission requests itself under full access. */
+/** Whether OpenKodo answers the agent's permission requests itself under full access. */
 export function acpAnswersRequests(spec: Pick<AcpLaunchSpec, 'permissionModeConfig'>) {
   return !spec.permissionModeConfig || spec.permissionModeConfig.fullAccessAnswersRequests === true
 }

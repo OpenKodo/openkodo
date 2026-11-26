@@ -169,7 +169,7 @@ export default function SkillsPage(): React.JSX.Element {
     if (!pendingSkillShareId) {
       return
     }
-    setInstallLink(`https://app.orca.dev/skills/share/${pendingSkillShareId}`)
+    setInstallLink(`https://openkodo.dev/skills/share/${pendingSkillShareId}`)
     setInstallOpen(true)
     clearPendingSkillShare()
   }, [clearPendingSkillShare, pendingSkillShareId])

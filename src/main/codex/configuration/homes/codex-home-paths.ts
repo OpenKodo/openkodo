@@ -53,7 +53,7 @@ export function getOrcaManagedCodexHomePath(): string {
   return managedHomePath
 }
 
-/** Config files an Orca-launched local Codex reads trust from, in the hook installer's lock order. */
+/** Config files an OpenKodo-launched local Codex reads trust from, in the hook installer's lock order. */
 export function getLocalCodexTrustConfigFiles(
   agentHome: string,
   launchCodexHome?: string | null
@@ -72,8 +72,8 @@ export function getCodexSessionBackfillStateDirPath(): string {
 }
 
 export function getOrcaUserDataPath(): string {
-  if (process.env.ORCA_USER_DATA_PATH) {
-    return process.env.ORCA_USER_DATA_PATH
+  if (process.env.OPENKODO_USER_DATA_PATH) {
+    return process.env.OPENKODO_USER_DATA_PATH
   }
   // Offline CLI hooks run outside Electron and must resolve the same userData path.
   if (process.platform === 'darwin') {

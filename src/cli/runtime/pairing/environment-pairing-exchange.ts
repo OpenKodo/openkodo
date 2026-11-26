@@ -13,7 +13,7 @@ const STATUS_PROBE_TIMEOUT_MS = 5_000
 function pairingCodeRefused(): RuntimeClientError {
   return new RuntimeClientError(
     'unauthorized',
-    'The host refused this pairing code. It may have expired or already been used by another device. Show a new pairing code on the host (`orca pair`, or Settings → Remote Orca Servers in Orca) and run `orca environment add` again.'
+    'The host refused this pairing code. It may have expired or already been used by another device. Show a new pairing code on the host (`orca pair`, or Settings → Remote OpenKodo Servers in OpenKodo) and run `orca environment add` again.'
   )
 }
 
@@ -31,7 +31,7 @@ export async function exchangeCliPairingCode(
   if (offer.scope === 'mobile') {
     throw new RuntimeClientError(
       'invalid_argument',
-      'This link grants mobile-only access. Generate a link for another Orca client.'
+      'This link grants mobile-only access. Generate a link for another OpenKodo client.'
     )
   }
   let status: RuntimeRpcResponse<RuntimeStatus>

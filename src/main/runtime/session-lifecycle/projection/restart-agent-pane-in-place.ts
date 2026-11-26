@@ -10,7 +10,7 @@ import type { AgentSessionResumeClaim } from './agent-session-resume-claims'
 export type AgentPaneRestartRefusal =
   /** Not a live terminal of this host's own (an SSH relay or another server's pane). */
   | 'not_local'
-  /** A client viewing the pane would be left on a dead pane by an older Orca. */
+  /** A client viewing the pane would be left on a dead pane by an older OpenKodo. */
   | 'viewer_cannot_follow'
   | 'no_resume_command'
   | 'busy'
@@ -110,7 +110,7 @@ export abstract class OrcaRuntimeWithRestartAgentPaneInPlace extends OrcaRuntime
       ) {
         return refuse('busy')
       }
-      // A conversation started outside Orca holds no claim; it may have appeared during that await.
+      // A conversation started outside OpenKodo holds no claim; it may have appeared during that await.
       if (await this.isProviderSessionLiveInAnotherPane(session, ownPaneKey).catch(() => true)) {
         return refuse('busy')
       }

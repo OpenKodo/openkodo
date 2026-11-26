@@ -11,7 +11,7 @@ const icon = (fallback: string) => (
 // This computer's bot, a paired server's (its pill), one on a server that is down (dimmed in place),
 // and a paused one (unpickable).
 const ROWS: NativeChatRoomMention[] = [
-  { name: 'Perf bot', icon: icon('⚡'), detail: 'Owns Orca performance audits and fixes' },
+  { name: 'Perf bot', icon: icon('⚡'), detail: 'Owns OpenKodo performance audits and fixes' },
   {
     name: 'Bot-Release-Manager',
     icon: icon('🚀'),

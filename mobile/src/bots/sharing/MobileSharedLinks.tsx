@@ -1,4 +1,4 @@
-// Shared links: every live bot link the computer's Orca account published, with each link's actions.
+// Shared links: every live bot link the computer's OpenKodo account published, with each link's actions.
 // The desktop's Settings › Shared links (BotSharedLinksList).
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { View, type HostInstance } from 'react-native'
@@ -97,7 +97,7 @@ function SharedLinkRow(props: {
   )
 }
 
-/** The computer's bot links, from its Orca account; `bots` are the bots on that computer. */
+/** The computer's bot links, from its OpenKodo account; `bots` are the bots on that computer. */
 export function MobileSharedLinks(props: {
   client: RpcClient | null
   bots: readonly ListedBot[]

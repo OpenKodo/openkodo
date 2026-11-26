@@ -1,4 +1,4 @@
-// Where an item's linked worker is, by its Dispatch: the host finds it (reopening a terminal Orca closed),
+// Where an item's linked worker is, by its Dispatch: the host finds it (reopening a terminal OpenKodo closed),
 // so a worker opens even when the Chats tree hasn't loaded its page.
 import { structuredAgentSessionPaneKey } from '../../../../src/shared/agent-session/view/structured-agent-session-projection'
 import {

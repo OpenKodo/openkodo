@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
 import { buildSidebarFeedRows } from '../../../../src/shared/sidebar-list/feed/sidebar-feed-rows'
 import { repoIconFeedKey } from '../../../../src/shared/sidebar-list/catalog/repo-icon-data-urls-contract'
 import type { ProjectOrderBy } from '../../../../src/shared/ui-chrome/ui-chrome-types'
@@ -251,7 +251,7 @@ function useFeedHostListSections({
   return { sections, rawSections: sections, uniqueRepos, repoById, collapsedGroups, projectOrderBy }
 }
 
-const useBaseHostListSections = ORCA_SIDEBAR_INPUTS_IS_MAIN
+const useBaseHostListSections = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
   ? useFeedHostListSections
   : useLegacyHostListSections
 

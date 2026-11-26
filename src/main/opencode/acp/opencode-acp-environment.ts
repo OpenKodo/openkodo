@@ -2,7 +2,7 @@ import { restoreOrStripOverlayEnv } from '../../../shared/agent-launch/startup/a
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import { isOpenCodeLegacySharedConfigDir } from '../status-hooks/legacy-shared-config-dir'
 
-const ORCA_ENV_PREFIXES = ['ORCA_OPENCODE_', 'ORCA_DATA_ACCOUNT_']
+const OPENKODO_ENV_PREFIXES = ['OPENKODO_OPENCODE_', 'OPENKODO_DATA_ACCOUNT_']
 const ACCOUNT_ENV_KEYS = ['XDG_DATA_HOME', 'XDG_STATE_HOME', 'OPENCODE_DB', 'OPENCODE_AUTH_CONTENT']
 
 /** Run after account setup: restore user config and remove terminal-hook/account inheritance.
@@ -23,8 +23,8 @@ export function scrubOpenCodeAcpEnvironment(
     view,
     {
       primary: 'OPENCODE_CONFIG_DIR',
-      overlay: 'ORCA_OPENCODE_CONFIG_DIR',
-      source: 'ORCA_OPENCODE_SOURCE_CONFIG_DIR',
+      overlay: 'OPENKODO_OPENCODE_CONFIG_DIR',
+      source: 'OPENKODO_OPENCODE_SOURCE_CONFIG_DIR',
       preserveExplicitPrimary: true
     },
     {}
@@ -47,7 +47,7 @@ export function scrubOpenCodeAcpEnvironment(
     }
   }
   for (const key of new Set([...Object.keys(env), ...Object.keys(inherited)])) {
-    if (ORCA_ENV_PREFIXES.some((prefix) => key.startsWith(prefix))) {
+    if (OPENKODO_ENV_PREFIXES.some((prefix) => key.startsWith(prefix))) {
       delete env[key]
       removed.push(key)
     }

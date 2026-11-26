@@ -1,6 +1,6 @@
 import { isAlias, isMap, isPair, isScalar, isSeq, visit } from 'yaml'
 import type { Alias, Document, Node } from 'yaml'
-import { MAX_ORCA_YAML_CODE_UNITS } from './orca-yaml-file-limit'
+import { MAX_OPENKODO_YAML_CODE_UNITS } from './orca-yaml-file-limit'
 
 type ConversionSize = { entries: number; mappingEntries: number }
 
@@ -23,7 +23,7 @@ export function isOrcaYamlConversionWithinLimit(document: Document): boolean {
   const zero = { entries: 0, mappingEntries: 0 }
   /** Use the source-text cap as a separate collection-work budget. */
   const bound = (value: number): number => {
-    if (value > MAX_ORCA_YAML_CODE_UNITS) {
+    if (value > MAX_OPENKODO_YAML_CODE_UNITS) {
       throw new Error('YAML conversion budget exceeded')
     }
     return value

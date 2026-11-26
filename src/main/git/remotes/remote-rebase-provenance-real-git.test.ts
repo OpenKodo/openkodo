@@ -27,7 +27,7 @@ vi.mock('./orca-rebase-reflog', async (importOriginal) => {
   }
 })
 
-describe('Orca rebase provenance for hiding Pull afterwards', () => {
+describe('OpenKodo rebase provenance for hiding Pull afterwards', () => {
   const tempPaths: string[] = []
 
   afterEach(() => {
@@ -53,7 +53,7 @@ describe('Orca rebase provenance for hiding Pull afterwards', () => {
         stdio: ['ignore', 'pipe', 'pipe']
       })
     const write = (file: string, text: string) => writeFileSync(join(repoPath, file), text)
-    git('config', 'user.name', 'Orca Test')
+    git('config', 'user.name', 'OpenKodo Test')
     git('config', 'user.email', 'orca@example.test')
     git('config', 'commit.gpgSign', 'false')
     git('config', 'core.hooksPath', '.git/no-hooks')
@@ -130,7 +130,7 @@ describe('Orca rebase provenance for hiding Pull afterwards', () => {
   it('gives no proof for a paused run this rebase did not create, even with the same endpoints', async () => {
     const { repoPath, git } = createPublishedFeatureBehindOrigin(true)
     git('fetch', '--quiet', 'origin')
-    // Another tool's run, already there, with exactly the onto and orig-head Orca would write.
+    // Another tool's run, already there, with exactly the onto and orig-head OpenKodo would write.
     const runDir = join(repoPath, '.git', 'rebase-merge')
     mkdirSync(runDir)
     writeFileSync(join(runDir, 'onto'), git('rev-parse', 'origin/main'))

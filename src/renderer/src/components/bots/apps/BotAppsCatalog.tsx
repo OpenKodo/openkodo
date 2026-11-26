@@ -41,7 +41,7 @@ import { botMcpAppUrlTag } from '../../../../../shared/bots/bot-mcp-apps'
 import { botToolApps } from './bot-tool-apps'
 import { botMcpAppLine } from '../../../../../shared/bots/bot-app-lines'
 
-/** Where Add leads when it isn't Orca's own connector setup, which opens in its own dialog. */
+/** Where Add leads when it isn't OpenKodo's own connector setup, which opens in its own dialog. */
 export type BotAppsStep =
   | { kind: 'webhooks' }
   | { kind: 'mcp'; app: Extract<BotDirectApp, { route: 'mcp' }> }

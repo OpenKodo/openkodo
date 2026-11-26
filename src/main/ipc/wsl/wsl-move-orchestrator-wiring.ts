@@ -1,7 +1,7 @@
 /**
  * The move orchestrator's production ports and IPC (D3a). Dark: with the internal WSL hosts gate
  * closed, or without a WSL host service, nothing is constructed and the IPC answers empty.
- * Automatic starts also stop when ORCA_WSL_MOVE_AUTO=0; explicit user actions still run.
+ * Automatic starts also stop when OPENKODO_WSL_MOVE_AUTO=0; explicit user actions still run.
  */
 import { app, ipcMain, type WebContents } from 'electron'
 import {
@@ -55,7 +55,7 @@ import { answerWslMoveSleptPanes, requestSleptPanes } from './wsl-move-orchestra
 import { wslHostRemovalPending } from './wsl-move-host-connect'
 import { wslMoveAutoMovesBridgeProjects } from '../../../shared/wsl-move/wsl-move-rollout-stage'
 
-export const WSL_MOVE_ORCHESTRATOR_AUTO_ENV = 'ORCA_WSL_MOVE_AUTO'
+export const WSL_MOVE_ORCHESTRATOR_AUTO_ENV = 'OPENKODO_WSL_MOVE_AUTO'
 
 export const WSL_MOVE_ORCHESTRATOR_HANDLER_CHANNELS = [
   'wslMoveOrchestrator:list',

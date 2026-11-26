@@ -6,7 +6,7 @@ import {
   revokeBrowserPageLoadingOwner
 } from '@/lib/browser/browser-page-loading-ownership'
 import '../../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import {
   browserWorkspaceMirrorFieldsEqual,
   findPage,
@@ -186,7 +186,7 @@ export function createBrowserPageStateActions(
 
     setBrowserPageUrl: (pageId, url, options) => {
       const nextUrl = normalizeUrl(url)
-      if (nextUrl !== 'about:blank' && nextUrl !== ORCA_BROWSER_BLANK_URL) {
+      if (nextUrl !== 'about:blank' && nextUrl !== OPENKODO_BROWSER_BLANK_URL) {
         const currentPage = findPage(get().browserPagesByWorkspace, pageId)
         if (currentPage) {
           get().recordFeatureInteraction?.('browser')
@@ -202,7 +202,7 @@ export function createBrowserPageStateActions(
           return s
         }
         // Keep document URL blank at navigation sink too; committing grants here leaks to persistence, publication and address bar.
-        const nextPageUrl = page.docLocation ? ORCA_BROWSER_BLANK_URL : nextUrl
+        const nextPageUrl = page.docLocation ? OPENKODO_BROWSER_BLANK_URL : nextUrl
         revokeBrowserPageLoadingOwner(page)
         const nextPages = (s.browserPagesByWorkspace[workspace.id] ?? []).map((entry) =>
           entry.id === pageId

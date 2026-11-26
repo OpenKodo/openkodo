@@ -262,7 +262,7 @@ export async function readBotShareable(
   )
   const soulPath = await ownPath(home, 'SOUL.md')
   if (soulPath === null || soulPath === 'linked') {
-    throw new Error("SOUL.md is missing or is a link; Orca shares only the bot's own files.")
+    throw new Error("SOUL.md is missing or is a link; OpenKodo shares only the bot's own files.")
   }
   const soul = await readFile(soulPath.own, 'utf8')
   const automationParts = readAutomations(input.bot, input.automations, leftOut)

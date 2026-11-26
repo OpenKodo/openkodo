@@ -1,4 +1,4 @@
-// Where an `orca://bot` link opens across every paired host, for the phone and the desktop alike.
+// Where an `openkodo://bot` link opens across every paired host, for the phone and the desktop alike.
 
 /** What a link needs of a listed bot; each client keeps its own fuller bot. */
 export type BotLinkBot = { id: string; name: string; folderWorkspaceId: string }
@@ -30,7 +30,7 @@ export type BotLinkResolution<B extends BotLinkBot = BotLinkBot, H extends strin
   // A silent host may be the one with the bot, so this outranks asking an old host to update.
   | { kind: 'unreachable'; hostIds: H[] }
 
-/** Where `orca://bot/<botId>` opens, from every paired host's answer, in host order. */
+/** Where `openkodo://bot/<botId>` opens, from every paired host's answer, in host order. */
 export function resolveBotLink<B extends BotLinkBot, H extends string>(
   botId: string,
   answers: readonly BotLinkHostAnswer<B, H>[]

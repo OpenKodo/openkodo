@@ -6,7 +6,7 @@ const REMOTE_COMMAND_COMPRESSION_THRESHOLD_BYTES = 8_000
 
 /** The compressed wrapper's exit when the host has no base64 or gzip; nothing ran. */
 export const REMOTE_COMMAND_DECODER_UNAVAILABLE_EXIT = 125
-export const REMOTE_COMMAND_DECODER_UNAVAILABLE = 'ORCA_COMMAND_DECODER_UNAVAILABLE'
+export const REMOTE_COMMAND_DECODER_UNAVAILABLE = 'OPENKODO_COMMAND_DECODER_UNAVAILABLE'
 
 export function wrapRemoteCommandForPosixShell(
   command: string,

@@ -168,8 +168,8 @@ export function promoteRemoteNodeRuntimeCommand(
   const verified = quotePosixShell(joinRemotePath(host, args.runtimeDir, VERIFIED_MARKER))
   return [
     `cd ${stage} || exit 1`,
-    `tar -xzf ${quotePosixShell(joinRemotePath(host, args.stageDir, args.archive))} ${quotePosixShell(member)} || { echo ORCA_NODE_RUNTIME_EXTRACT_FAILED; exit 1; }`,
-    `[ "$(${remoteSha256Command(extracted)})" = ${quotePosixShell(asset.executableSha256)} ] || { echo ORCA_NODE_RUNTIME_HASH_MISMATCH; exit 1; }`,
+    `tar -xzf ${quotePosixShell(joinRemotePath(host, args.stageDir, args.archive))} ${quotePosixShell(member)} || { echo OPENKODO_NODE_RUNTIME_EXTRACT_FAILED; exit 1; }`,
+    `[ "$(${remoteSha256Command(extracted)})" = ${quotePosixShell(asset.executableSha256)} ] || { echo OPENKODO_NODE_RUNTIME_HASH_MISMATCH; exit 1; }`,
     `chmod 755 ${extracted}`,
     // Execution detects noexec/libc failures; exit 0 preserves loader diagnostics for classification.
     `{ orca_rt_out=$(${extracted} --version 2>&1); orca_rt_status=$?; ` +

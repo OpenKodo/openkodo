@@ -5,7 +5,7 @@ import {
 import type { BrowserRouteWebContentsRegistryDependencies } from './browser-route-webcontents-registry-dependencies'
 import { normalizeBrowserNavigationUrl } from '../../../../shared/browser/navigation/browser-url'
 import '../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
 import type { WebContents } from 'electron'
 import {
   browserRoutePageKey,
@@ -89,7 +89,7 @@ export function isBrowserRouteGuestNavigationAllowed(
   try {
     const normalized = normalizeBrowserNavigationUrl(rawUrl)
     return (
-      (allowUnregisteredBlank && normalized === ORCA_BROWSER_BLANK_URL) ||
+      (allowUnregisteredBlank && normalized === OPENKODO_BROWSER_BLANK_URL) ||
       Boolean(
         normalized &&
         !normalized.startsWith('file:') &&

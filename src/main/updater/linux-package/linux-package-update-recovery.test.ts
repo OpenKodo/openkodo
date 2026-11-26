@@ -98,8 +98,8 @@ afterEach(async () => {
 
 describe('captureLinuxPackageArtifact', () => {
   it('matches a percent-encoded relative URL against the decoded basename', () => {
-    const downloadedFile = path.join(downloadDir, 'Orca Setup 1.2.3.deb')
-    capture({ downloadedFile, files: [{ url: 'Orca%20Setup%201.2.3.deb', sha512: SHA512 }] })
+    const downloadedFile = path.join(downloadDir, 'OpenKodo Setup 1.2.3.deb')
+    capture({ downloadedFile, files: [{ url: 'OpenKodo%20Setup%201.2.3.deb', sha512: SHA512 }] })
     expect(recovery.getTrackedLinuxPackageArtifact()?.path).toBe(downloadedFile)
   })
 

@@ -22,7 +22,7 @@ export function firstStructuredAgentSessionPrompt(
       body.role !== 'user' ||
       !isRootAgentJournalItem(item) ||
       isStructuredAgentSessionCommandEntry(body) ||
-      // Orca's own turns (a bot's kickoff, a card click, a takeover) are not what was asked.
+      // OpenKodo's own turns (a bot's kickoff, a card click, a takeover) are not what was asked.
       (body.origin !== undefined && body.origin !== 'connector')
     ) {
       continue

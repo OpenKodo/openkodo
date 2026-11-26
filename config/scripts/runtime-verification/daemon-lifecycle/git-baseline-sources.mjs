@@ -13,7 +13,7 @@ export function readGitBaselineSources(repo, ref, sources) {
       cwd: repo,
       timeoutMs: 10_000,
       maxOutputBytes,
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
     })
     if (result.code !== 0 || result.outputTruncated) {
       throw new Error(`Cannot read pinned Git baseline sources: ${result.stderr}`)

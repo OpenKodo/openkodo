@@ -1,5 +1,5 @@
 // `orca mcp connect`'s stdio side: the agent starts it as an MCP server and it becomes the host's
-// server (its HTTP address, through Orca's relay when Orca holds the sign-in, or its command). A
+// server (its HTTP address, through OpenKodo's relay when OpenKodo holds the sign-in, or its command). A
 // server that's off for the session answers as one with no tools and stays up, so the agent never
 // shows it failing. Each message is forwarded as it arrives: the agent's stdio may cross WSL interop.
 import type { McpServerConnection } from '../../../shared/mcp-servers/mcp-servers'
@@ -76,7 +76,7 @@ async function runCommand(
 }
 
 /**
- * The server never ran the message: nothing listened (Orca restarted, so its relay moved), or it
+ * The server never ran the message: nothing listened (OpenKodo restarted, so its relay moved), or it
  * refused the token or session before running anything.
  */
 function neverReachedServer(error: unknown): boolean {
@@ -98,7 +98,7 @@ const isInitialized = (message: JSONRPCMessage): boolean =>
   'method' in message && !('id' in message) && message.method === 'notifications/initialized'
 
 /**
- * stdio to a Streamable HTTP server. When a send fails (Orca restarted, so its relay moved and its
+ * stdio to a Streamable HTTP server. When a send fails (OpenKodo restarted, so its relay moved and its
  * token changed, or the server dropped the session), it asks the host again, replays the agent's
  * handshake on a fresh session and sends the message once more.
  */
@@ -248,7 +248,7 @@ class HttpBridge {
     const answered = new Promise<JSONRPCMessage>((resolve, reject) => {
       this.replies.set(id, resolve)
       timer = setTimeout(
-        () => reject(new Error('The server didn’t answer after Orca restarted.')),
+        () => reject(new Error('The server didn’t answer after OpenKodo restarted.')),
         HANDSHAKE_TIMEOUT_MS
       )
     })

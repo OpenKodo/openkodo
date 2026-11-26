@@ -15,13 +15,13 @@ function communityListing(
 ): PluginMarketplaceHostListing {
   return {
     marketplaceSourceId: 'community',
-    marketplaceName: 'Orca Community Plugins',
+    marketplaceName: 'OpenKodo Community Plugins',
     marketplaceOwner: 'stablyai',
     marketplaceCommit: 'c',
     pluginKey: `octocat.${id}`,
     source: {
       kind: 'git',
-      url: 'https://github.com/stablyai/orca-community-plugins.git',
+      url: 'https://github.com/OpenKodo/openkodo-community-plugins.git',
       ref: 'main'
     },
     description,
@@ -47,7 +47,7 @@ function entryFor(listing: PluginMarketplaceHostListing): PluginListEntry {
     ...pluginListEntryFromListing(
       listing,
       [listing.marketplaceSourceId],
-      'https://github.com/stablyai/orca-community-plugins.git'
+      'https://github.com/OpenKodo/openkodo-community-plugins.git'
     ),
     installCountEligible: true
   }
@@ -56,7 +56,7 @@ function entryFor(listing: PluginMarketplaceHostListing): PluginListEntry {
 const main = entryFor(
   communityListing(
     'monospace-themes',
-    'Monospace Light and Dark themes for Orca, with app colors, editor syntax highlighting, and matching terminal palettes.',
+    'Monospace Light and Dark themes for OpenKodo, with app colors, editor syntax highlighting, and matching terminal palettes.',
     ['app-theme', 'terminal-theme']
   )
 )
@@ -130,14 +130,14 @@ const installedMirror = pluginListEntryFromInstalled(
     source: {
       kind: 'marketplace',
       reference:
-        'https://github.com/stablyai/orca-community-plugins.git (plugins/monospace-themes)',
-      url: 'https://github.com/stablyai/orca-community-plugins.git',
+        'https://github.com/OpenKodo/openkodo-community-plugins.git (plugins/monospace-themes)',
+      url: 'https://github.com/OpenKodo/openkodo-community-plugins.git',
       path: 'plugins/monospace-themes',
       authorRepository: 'https://github.com/octocat/monospace-themes.git',
       resolvedCommit: 'd'.repeat(40),
       contentHash: 'e'.repeat(64),
       marketplace: {
-        reference: 'https://github.com/stablyai/orca-community-plugins.git',
+        reference: 'https://github.com/OpenKodo/openkodo-community-plugins.git',
         ref: 'main',
         resolvedCommit: 'c'
       }

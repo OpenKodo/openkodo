@@ -1,6 +1,6 @@
 import { BASH_CWD_REPORT_BLOCK } from '../../pty/shell-startup/shell-cwd-report'
 import { getPosixOmpShellWrapper } from '../../pty/shell-startup/omp-shell-wrapper'
-import { ORCA_CLI_POSIX_PATH_RESTORE } from '../../../shared/shell/launch/orca-cli-shell-path'
+import { OPENKODO_CLI_POSIX_PATH_RESTORE } from '../../../shared/shell/launch/orca-cli-shell-path'
 import { MANAGED_DATA_ACCOUNT_POSIX_RESTORE } from '../../../shared/shell/launch/agents/managed-data-account-shell'
 import { getPosixCodexShellLaunchPreflight } from '../../../shared/shell/launch/agents/codex-shell-function'
 import { getPosixClaudeShellFunction } from '../../../shared/shell/launch/agents/claude-shell-function'
@@ -11,7 +11,7 @@ import {
 } from '../../pty/shell-startup/shell-templates'
 
 export function getDaemonBashShellReadyRcfileContent(): string {
-  return `# Orca daemon bash shell-ready wrapper
+  return `# OpenKodo daemon bash shell-ready wrapper
 ${BASH_FEATURE_CHANNEL_BLOCK}
 ${SHELL_STARTUP_IDENTITY_MARKER_BLOCK}
 # Consume the feature channel before profiles so child processes cannot inherit the selection.
@@ -36,21 +36,21 @@ fi
 # Force bracketed paste on older readline so multiline startup prompts remain one literal paste.
 [[ $- == *i* ]] && bind 'set enable-bracketed-paste on' 2>/dev/null
 __orca_restore_agent_teams_path() {
-  [[ -n "\${ORCA_AGENT_TEAMS_SHIM_DIR:-}" ]] || return 0
+  [[ -n "\${OPENKODO_AGENT_TEAMS_SHIM_DIR:-}" ]] || return 0
   case "$PATH" in
-    "\${ORCA_AGENT_TEAMS_SHIM_DIR}"|"\${ORCA_AGENT_TEAMS_SHIM_DIR}:"*) return 0 ;;
+    "\${OPENKODO_AGENT_TEAMS_SHIM_DIR}"|"\${OPENKODO_AGENT_TEAMS_SHIM_DIR}:"*) return 0 ;;
   esac
-  export PATH="\${ORCA_AGENT_TEAMS_SHIM_DIR}:$PATH"
+  export PATH="\${OPENKODO_AGENT_TEAMS_SHIM_DIR}:$PATH"
 }
 __orca_restore_agent_teams_path
-${ORCA_CLI_POSIX_PATH_RESTORE}
+${OPENKODO_CLI_POSIX_PATH_RESTORE}
 # Restore the managed OpenCode config after user profiles may have replaced it.
-[[ -n "\${ORCA_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${ORCA_OPENCODE_CONFIG_DIR}"
+[[ -n "\${OPENKODO_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${OPENKODO_OPENCODE_CONFIG_DIR}"
 ${MANAGED_DATA_ACCOUNT_POSIX_RESTORE}
-[[ -n "\${ORCA_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${ORCA_MIMOCODE_CONFIG_DIR}"
+[[ -n "\${OPENKODO_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${OPENKODO_MIMOCODE_CONFIG_DIR}"
 ${getPosixOmpShellWrapper()}
 # Preserve the managed CODEX_HOME after user profiles.
-[[ -n "\${ORCA_CODEX_HOME:-}" ]] && export CODEX_HOME="\${ORCA_CODEX_HOME}"
+[[ -n "\${OPENKODO_CODEX_HOME:-}" ]] && export CODEX_HOME="\${OPENKODO_CODEX_HOME}"
 ${getPosixCodexShellLaunchPreflight() + getPosixClaudeShellFunction()}
 ${BASH_CWD_REPORT_BLOCK}
 # OSC 133 C/D clears stale agent status when a CLI exits without a stop hook.

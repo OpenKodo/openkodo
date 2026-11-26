@@ -11,7 +11,7 @@ import {
 import type { BotChatRow, BotChatUnreachable } from './bot-chat-row'
 import { isBotGroupMemberSession } from './bot-group'
 
-/** A chat pick's link scheme; an older Orca matches only `bot:`, so it never reads one as the bot alone. */
+/** A chat pick's link scheme; an older OpenKodo matches only `bot:`, so it never reads one as the bot alone. */
 export const BOT_CHAT_MENTION_PREFIX = 'bot-chat:'
 
 // The name is escaped as markdown link text is, so no name can close the token early or carry an
@@ -46,7 +46,7 @@ export function botMentionToken(
 }
 
 /** A bot on a computer paired to the chat's host, named by that computer's installation id; an
- *  older Orca matches no `@client:` token, so it stays plain link text there. */
+ *  older OpenKodo matches no `@client:` token, so it stays plain link text there. */
 export function botClientMentionToken(
   bot: Pick<Bot, 'id' | 'name'>,
   clientInstallationId: string
@@ -204,7 +204,7 @@ export type BotMentionChat =
 const REFUSED: Record<BotMentionChatRefusal, string> = {
   ended: 'it was closed',
   'other-host': 'it runs on another computer',
-  unverifiable: "Orca can't confirm it can take messages",
+  unverifiable: "OpenKodo can't confirm it can take messages",
   'not-its-chat': "it isn't one of this bot's chats",
   self: 'it is this chat'
 }
@@ -249,7 +249,7 @@ export function botMentionContext(
         : `${BOT_ADDRESS_PREFIX}${id}`
     const about = purpose ? inert(purpose) : ''
     const where = server ? ` on their computer ${JSON.stringify(inert(server.name))}` : ''
-    const who = `${shown} is the user's Orca bot${where}${about ? ` (${JSON.stringify(about)})` : ''}.`
+    const who = `${shown} is the user's OpenKodo bot${where}${about ? ` (${JSON.stringify(about)})` : ''}.`
     if (!chat) {
       return `${who} To ask it, run \`orca orchestration send ${botSendTarget(address, server)} --type question|handoff --subject … --body …\`; don't message it unless asked.`
     }

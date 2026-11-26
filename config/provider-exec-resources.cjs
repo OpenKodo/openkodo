@@ -2,7 +2,8 @@ const { spawnSync } = require('node:child_process')
 const { chmodSync, existsSync, lstatSync } = require('node:fs')
 const { join } = require('node:path')
 
-const PROVIDER_EXEC_EXECUTABLE = 'orca-provider-exec'
+const PROVIDER_EXEC_BUILD_EXECUTABLE = 'orca-provider-exec'
+const PROVIDER_EXEC_EXECUTABLE = 'openkodo-provider-exec'
 
 // electron-builder `Arch` enum: x64=1, arm64=3. POSIX provider CLIs cannot launch without it.
 function providerExecTarget(platform, archEnum) {
@@ -32,7 +33,9 @@ function ensureBundledProviderExec(
   if (
     result.error ||
     result.status !== 0 ||
-    !existsSync(join(root, 'native', 'provider-exec', '.build', target, PROVIDER_EXEC_EXECUTABLE))
+    !existsSync(
+      join(root, 'native', 'provider-exec', '.build', target, PROVIDER_EXEC_BUILD_EXECUTABLE)
+    )
   ) {
     throw new Error(`The ${target} package requires a built provider exec helper.`)
   }

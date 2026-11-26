@@ -32,7 +32,7 @@ function runInteractiveBash(
     {
       input,
       encoding: 'utf8',
-      env: { ...process.env, HOME: tempHome, ORCA_SHELL_FEATURES: 'ready', TERM: 'xterm' },
+      env: { ...process.env, HOME: tempHome, OPENKODO_SHELL_FEATURES: 'ready', TERM: 'xterm' },
       timeout: 5000
     }
   )
@@ -118,7 +118,7 @@ PROMPT_COMMAND=(__status_a __status_b)
     expectLifecycle(output)
   })
 
-  itWithBash('keeps a scalar ending in an odd backslash isolated from Orca hooks', () => {
+  itWithBash('keeps a scalar ending in an odd backslash isolated from OpenKodo hooks', () => {
     const profile = String.raw`PROMPT_COMMAND='printf "PROMPT_BACKSLASH:<%s>\n" safe \'
 `
     const output = runInteractiveBash(profile, tempHome)
@@ -231,7 +231,7 @@ PROMPT_COMMAND='printf "PROMPT_REMATCH:<%s>\\n" "\${BASH_REMATCH[1]-unset}"'
     expectLifecycle(output)
   })
 
-  itWithBash('does not recurse when a user trap installs Orca preexec', () => {
+  itWithBash('does not recurse when a user trap installs OpenKodo preexec', () => {
     const profile = [
       `trap 'trap '\\''__orca_osc133_preexec'\\'' DEBUG 2>/dev/null; printf "PRIVATE_TRAP\\n"' DEBUG`,
       'PROMPT_COMMAND=\'printf "HOOK_PRIVATE\\n"\''
@@ -276,17 +276,17 @@ PROMPT_COMMAND='printf "PROMPT_REMATCH:<%s>\\n" "\${BASH_REMATCH[1]-unset}"'
       expect(rcfile).toContain(LEGACY_GATE)
       const legacyRcfile = rcfile.replaceAll(LEGACY_GATE, '0')
       const output = runInteractiveBash(
-        "PS1='ORCA_PS1> '",
+        "PS1='OPENKODO_PS1> '",
         tempHome,
         `${trapChange}\ntrue\nexit 0\n`,
         legacyRcfile,
         bash
       )
       const startBeforePrompt = new RegExp(
-        `${String.fromCharCode(27)}]133;A${String.fromCharCode(7)}(?:(?!ORCA_PS1> )[\\s\\S])*${String.fromCharCode(27)}]133;C`
+        `${String.fromCharCode(27)}]133;A${String.fromCharCode(7)}(?:(?!OPENKODO_PS1> )[\\s\\S])*${String.fromCharCode(27)}]133;C`
       )
 
-      expect(output).toContain('ORCA_PS1> ')
+      expect(output).toContain('OPENKODO_PS1> ')
       expect(output).not.toMatch(startBeforePrompt)
       expectLifecycle(output, 0)
     }

@@ -1,5 +1,5 @@
-// `bots.composio.*`: a bot's Composio apps. Orca reads the app list and the bot's sign-ins with the
-// owner's key on the bot's host; the key itself is set only from the owner's Orca.
+// `bots.composio.*`: a bot's Composio apps. OpenKodo reads the app list and the bot's sign-ins with the
+// owner's key on the bot's host; the key itself is set only from the owner's OpenKodo.
 import { randomUUID } from 'node:crypto'
 import { composioSetupCardBody } from '../../../../shared/composio/composio-setup-card'
 import { composioAppName } from '../../../../shared/composio/composio-curated-apps'
@@ -162,7 +162,7 @@ export const BOT_COMPOSIO_METHODS = [
     params: ComposioSetKey,
     handler: async ({ key, botId, app }, context) => {
       // The key goes from the owner's dialog to this host; a bot never handles it.
-      ownerOnly(context, 'Your owner adds the Composio key in Orca.')
+      ownerOnly(context, 'Your owner adds the Composio key in OpenKodo.')
       const bots = composio(context, botId)
       // In the events lane, so no events setup or upkeep is part way through on the old key.
       await instanceOf(context.runtime).events.exclusive(() => bots.setKey(key))
@@ -186,7 +186,7 @@ export const BOT_COMPOSIO_METHODS = [
     permission: 'workspace',
     params: ComposioRemoveKey,
     handler: async (params, context) => {
-      ownerOnly(context, 'Your owner removes the Composio key in Orca.')
+      ownerOnly(context, 'Your owner removes the Composio key in OpenKodo.')
       const bots = composio(context)
       const { events } = instanceOf(context.runtime)
       await events.exclusive(async () => {
@@ -275,7 +275,7 @@ export const BOT_COMPOSIO_METHODS = [
     permission: 'workspace',
     params: ComposioStartSetup,
     handler: async ({ botId, from, app }, context) => {
-      ownerOnly(context, 'Your owner starts Composio setup from Orca.')
+      ownerOnly(context, 'Your owner starts Composio setup from OpenKodo.')
       composio(context, botId)
       await instanceOf(context.runtime).setup.start(botId, from, app)
       return { started: true }
@@ -300,7 +300,7 @@ export const BOT_COMPOSIO_METHODS = [
     permission: 'workspace',
     params: ComposioKeyDeclined,
     handler: async ({ botId }, context) => {
-      ownerOnly(context, 'Only your owner answers setup cards, in Orca.')
+      ownerOnly(context, 'Only your owner answers setup cards, in OpenKodo.')
       composio(context, botId)
       await instanceOf(context.runtime).setup.keyDeclined(botId)
       return { declined: true }

@@ -44,10 +44,10 @@ import {
 
 /**
  * Deletes the original journal once this store provably holds all of it, read from content: on a
- * later Orca version than the one that copied the profile, after the older-Orca reconcile absorbed
+ * later OpenKodo version than the one that copied the profile, after the older-OpenKodo reconcile absorbed
  * the original as it is now, with every chat held here (converted, or deleted here) and its
  * uploads claimed. Where a chat's record or waiting text differ on the two sides, the original's
- * version is kept here verbatim first. Tabs an older Orca opened or closed are not adopted by
+ * version is kept here verbatim first. Tabs an older OpenKodo opened or closed are not adopted by
  * design. Every failed check keeps the file and retries later.
  */
 export class JournalLegacyRetirement {
@@ -150,7 +150,7 @@ export class JournalLegacyRetirement {
     if ((!present || this.version !== null) && !this.ownsProfile()) {
       return this.launchReport.defer('not_owner', this.deletes)
     }
-    // No other Orca runs this profile while we hold its lock, so an absent original stays absent.
+    // No other OpenKodo runs this profile while we hold its lock, so an absent original stays absent.
     if (!present) {
       const { reported, retirement } = await readRetirementState(this.writer)
       this.reporter.saved(reported)

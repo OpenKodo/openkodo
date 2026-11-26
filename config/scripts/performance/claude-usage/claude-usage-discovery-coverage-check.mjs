@@ -16,7 +16,7 @@ const { values } = parseArgs({
     output: { type: 'string' }
   }
 })
-process.env.ORCA_CLAUDE_USAGE_APPEND_BENCH_BASELINE = values['baseline-ref']
+process.env.OPENKODO_CLAUDE_USAGE_APPEND_BENCH_BASELINE = values['baseline-ref']
 
 function writeReport(report) {
   console.log(JSON.stringify(report))

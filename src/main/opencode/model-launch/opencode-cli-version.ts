@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 import {
-  ORCA_SCRUB_SAFE_LAUNCH_ENV,
-  ORCA_SCRUB_SAFE_PANE_ENV
+  OPENKODO_SCRUB_SAFE_LAUNCH_ENV,
+  OPENKODO_SCRUB_SAFE_PANE_ENV
 } from '../../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
 import { runProcess } from '@orca/process-host'
 import {
@@ -22,13 +22,13 @@ const probes = new Map<string, { expiresAt: number; result: Promise<OpenCodeCliC
 const CACHE_TTL_MS = 60_000
 const MAX_CACHED_PROBES = 128
 const PANE_IDENTITY_ENV_KEYS = new Set([
-  'ORCA_PANE_KEY',
-  'ORCA_TAB_ID',
-  'ORCA_WORKTREE_ID',
-  'ORCA_TERMINAL_HANDLE',
-  'ORCA_AGENT_LAUNCH_TOKEN',
-  ORCA_SCRUB_SAFE_PANE_ENV,
-  ORCA_SCRUB_SAFE_LAUNCH_ENV
+  'OPENKODO_PANE_KEY',
+  'OPENKODO_TAB_ID',
+  'OPENKODO_WORKTREE_ID',
+  'OPENKODO_TERMINAL_HANDLE',
+  'OPENKODO_AGENT_LAUNCH_TOKEN',
+  OPENKODO_SCRUB_SAFE_PANE_ENV,
+  OPENKODO_SCRUB_SAFE_LAUNCH_ENV
 ])
 
 export function probeOpenCodeCliVersion(

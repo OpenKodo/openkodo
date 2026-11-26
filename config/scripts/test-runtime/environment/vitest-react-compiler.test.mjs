@@ -17,7 +17,7 @@ async function compile(id) {
 }
 
 it('reads test markers below the renderer root, not in the checkout directory name', async () => {
-  vi.stubEnv('ORCA_REACT_COMPILER', '1')
+  vi.stubEnv('OPENKODO_REACT_COMPILER', '1')
   // A worktree for a branch like fix/test-run lives in a directory named fix-test-run.
   const shipped = await compile('/work/fix-test-run/src/renderer/src/components/Strip.tsx')
   expect(String(shipped)).toContain('vitest-compiler-runtime-fallback')

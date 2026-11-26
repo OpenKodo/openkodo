@@ -8,12 +8,12 @@ export const THREAD_LOCK_NAME =
 // deleted. Codex takes coordination before opening a thread lock, so nothing can start between the
 // listing and the try, and a Codex that needs coordination meanwhile waits for it instead of failing.
 // Every folder's coordination is taken first; only the first folder's held locks count, and with
-// ORCA_CODEX_THREAD_IDS (comma-separated) only those threads'. In `hold` mode an idle answer is
+// OPENKODO_CODEX_THREAD_IDS (comma-separated) only those threads'. In `hold` mode an idle answer is
 // `ready`, and coordination stays held until stdin closes.
 export const PERL_PROBE = `
 use Fcntl qw(:flock);
 my ($mode, @dirs) = @ARGV;
-my %only = map { lc($_) => 1 } grep { length } split /,/, ($ENV{ORCA_CODEX_THREAD_IDS} // '');
+my %only = map { lc($_) => 1 } grep { length } split /,/, ($ENV{OPENKODO_CODEX_THREAD_IDS} // '');
 $| = 1;
 sub answer { print "$_[0]\\n"; exit 0 }
 my @coordination;
@@ -75,14 +75,14 @@ for dir in "$@"; do
       held)
         # Expansions only: no process per held lock while coordination is locked.
         if [ "$i" -eq 0 ]; then
-          case \${ORCA_CODEX_THREAD_IDS:-} in
+          case \${OPENKODO_CODEX_THREAD_IDS:-} in
             '') held=1 ;;
             -) ;;
             *)
               stem=\${path##*/}
               stem=\${stem%%.*}
               case $stem in *[A-F]*) stem=$(printf '%s' "$stem" | tr 'A-F' 'a-f') ;; esac
-              case ",$ORCA_CODEX_THREAD_IDS," in *",$stem,"*) held=1 ;; esac ;;
+              case ",$OPENKODO_CODEX_THREAD_IDS," in *",$stem,"*) held=1 ;; esac ;;
           esac
         fi ;;
       *) [ -e "$path" ] && answer unknown ;;
@@ -102,13 +102,13 @@ case "$line" in first*) exec 3>&-; echo released; IFS= read -r line ;; esac
 // PowerShell wraps .NET errors, so it's read from the base exception.
 export const POWERSHELL_PROBE = [
   "$ErrorActionPreference = 'Stop'",
-  "$dirs = $env:ORCA_CODEX_THREAD_LOCKS -split '\\|'",
+  "$dirs = $env:OPENKODO_CODEX_THREAD_LOCKS -split '\\|'",
   'function Answer($a) { [Console]::Out.WriteLine($a); exit 0 }',
   '$coordination = @()',
   `foreach ($dir in $dirs) { try { $c = [IO.File]::Open((Join-Path $dir '${COORDINATION_LOCK}'), 'OpenOrCreate', 'ReadWrite', 'ReadWrite, Delete'); $c.Lock(0, 1); $coordination += $c } catch { Answer 'unknown' } }`,
   `$pattern = '${THREAD_LOCK_NAME.source}'`,
   '$held = $false',
-  "$ids = @($env:ORCA_CODEX_THREAD_IDS -split ',' | Where-Object { $_ })",
+  "$ids = @($env:OPENKODO_CODEX_THREAD_IDS -split ',' | Where-Object { $_ })",
   'for ($i = 0; $i -lt $dirs.Count; $i++) {',
   "  try { $paths = [IO.Directory]::GetFiles($dirs[$i]) } catch { Answer 'unknown' }",
   '  foreach ($path in $paths) {',
@@ -121,7 +121,7 @@ export const POWERSHELL_PROBE = [
   '  }',
   '}',
   "if ($held) { Answer 'held' }",
-  "if ($env:ORCA_CODEX_HOLD -ne '1') { Answer 'idle' }",
+  "if ($env:OPENKODO_CODEX_HOLD -ne '1') { Answer 'idle' }",
   "[Console]::Out.WriteLine('ready')",
   // `first`: let go of the first folder's coordination only (it's about to be renamed).
   "if ([Console]::In.ReadLine() -eq 'first') { $coordination[0].Dispose(); [Console]::Out.WriteLine('released'); [void][Console]::In.ReadLine() }"

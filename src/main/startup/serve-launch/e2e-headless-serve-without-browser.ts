@@ -4,7 +4,7 @@ import { app } from 'electron'
 export function e2eHeadlessServeWithoutBrowser(): boolean {
   return (
     !app.isPackaged &&
-    process.env.ORCA_E2E_HEADLESS === '1' &&
-    process.env.ORCA_E2E_HEADLESS_SERVE_WITHOUT_BROWSER === '1'
+    process.env.OPENKODO_E2E_HEADLESS === '1' &&
+    process.env.OPENKODO_E2E_HEADLESS_SERVE_WITHOUT_BROWSER === '1'
   )
 }

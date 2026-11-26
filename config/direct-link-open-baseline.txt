@@ -22,6 +22,7 @@
 1 src/renderer/src/components/onboarding/ThemeLookCarousel.tsx
 1 src/renderer/src/components/onboarding/landing/Landing.tsx
 1 src/renderer/src/components/settings/accounts/codex/CodexLoginLinkNotice.tsx
+2 src/renderer/src/components/settings/accounts/providers/OpenKodoAccountsSection.tsx # why: ccswitch:// and magpie import links are custom schemes, not web pages
 1 src/renderer/src/components/settings/accounts/sign-in/HostAccountSignInPrompt.tsx
 1 src/renderer/src/components/settings/general/GeneralSupportSection.tsx
 1 src/renderer/src/components/settings/updates/ReleaseChannelSection.tsx

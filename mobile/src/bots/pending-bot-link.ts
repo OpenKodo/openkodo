@@ -2,7 +2,7 @@ import type { BotLinkTarget } from './bot-link-target'
 
 export type PendingBotLink = { id: number; target: BotLinkTarget }
 
-// Held outside React: routing an orca:// URL remounts the root layout, which would drop component state.
+// Held outside React: routing an openkodo:// URL remounts the root layout, which would drop component state.
 let pending: PendingBotLink | null = null
 let nextId = 0
 const listeners = new Set<() => void>()

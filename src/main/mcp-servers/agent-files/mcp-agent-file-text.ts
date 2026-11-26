@@ -1,6 +1,6 @@
-// Orca's entries in an agent's own MCP file, edited as text so every other byte stays as written.
-// Grok's TOML holds them in one marker block per Orca; Cursor's and Droid's JSON can't carry a marker,
-// so an entry there is Orca's only while it still holds exactly what Orca wrote (the ledger's copy).
+// OpenKodo's entries in an agent's own MCP file, edited as text so every other byte stays as written.
+// Grok's TOML holds them in one marker block per OpenKodo; Cursor's and Droid's JSON can't carry a marker,
+// so an entry there is OpenKodo's only while it still holds exactly what OpenKodo wrote (the ledger's copy).
 import { isDeepStrictEqual } from 'node:util'
 import type { McpFileAgent } from '../../../shared/mcp-servers/mcp-servers'
 import {
@@ -55,7 +55,7 @@ export function mcpAgentFileServerNames(edit: McpAgentFileEdit, text: string): S
   )
 }
 
-/** The file's names that hold another Orca's bridge entry (one pinned to another data folder). */
+/** The file's names that hold another OpenKodo's bridge entry (one pinned to another data folder). */
 export function otherOrcasServerNames(
   edit: McpAgentFileEdit,
   text: string,
@@ -74,7 +74,7 @@ export function otherOrcasServerNames(
       return server &&
         isOrcaOwnedAgentMcpServer(server) &&
         !('url' in server) &&
-        server.env?.ORCA_USER_DATA_PATH !== userDataPath
+        server.env?.OPENKODO_USER_DATA_PATH !== userDataPath
         ? [name]
         : []
     })
@@ -82,9 +82,9 @@ export function otherOrcasServerNames(
 }
 
 /**
- * `text` without this Orca's entries: its marker block in TOML; in JSON each entry that still holds
- * what the ledger says Orca wrote (`owned`) or what it would write now (`recognized`), then the
- * servers' table when Orca added it (`addedTable`) and nothing else is left in it.
+ * `text` without this OpenKodo's entries: its marker block in TOML; in JSON each entry that still holds
+ * what the ledger says OpenKodo wrote (`owned`) or what it would write now (`recognized`), then the
+ * servers' table when OpenKodo added it (`addedTable`) and nothing else is left in it.
  */
 export function withoutOrcaEntries(
   edit: McpAgentFileEdit,
@@ -168,7 +168,7 @@ export function withOrcaEntries(
   return next
 }
 
-/** Whether the file already has a servers' table (Orca's TOML block never adds one). */
+/** Whether the file already has a servers' table (OpenKodo's TOML block never adds one). */
 export function hasMcpServersTable(edit: McpAgentFileEdit, text: string): boolean {
   const parsed = parseAgentMcpConfigText(text, edit.format)
   return (
@@ -176,7 +176,7 @@ export function hasMcpServersTable(edit: McpAgentFileEdit, text: string): boolea
   )
 }
 
-/** Nothing of the user's is in it: the file Orca made can go. */
+/** Nothing of the user's is in it: the file OpenKodo made can go. */
 export function isEmptyMcpAgentFile(edit: McpAgentFileEdit, text: string): boolean {
   if (edit.format === 'toml') {
     return text.trim() === ''

@@ -9,7 +9,7 @@ import {
 import { focusTerminalTabSurface } from '../../../components/terminal-pane/input/focus/focus-terminal-tab-surface'
 import { insertUnifiedTabAfterAnchor } from '../../workspace/tabs/unified-tab-anchor-insertion'
 import { useAppStore } from '@/store/index'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { sendLayoutCommandToOwner } from '@/runtime/workspace-layout/commands/layout-owner-command'
 import {
   declinedTerminalCanOpen,
@@ -141,7 +141,7 @@ export async function openTerminalForDeclinedChat(
       ? declined()
       : translate(
           'components.native-chat.structuredSessionTerminalNotVisible',
-          "Orca opened {{value0}} in a terminal, but couldn't show it here when the launch finished. Your chat draft was kept.",
+          "OpenKodo opened {{value0}} in a terminal, but couldn't show it here when the launch finished. Your chat draft was kept.",
           { value0: structuredAgentLabel(args.plan.agent) }
         )
   )
@@ -154,7 +154,7 @@ export async function openTerminalForDeclinedChat(
   }
   const replacementEntityId = replacement.entityId
   // Switch point: main places and pins the tab in one step; a pin sent alone would re-sort it.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     await placeReplacementThroughMain(worktreeId, replacement, current)
   } else {
     placeReplacementAfterSource(worktreeId, replacement, current)
@@ -197,7 +197,7 @@ export async function openTerminalForDeclinedChat(
     focusTerminalTabSurface(replacement.id)
   }
   // Switch-on, main's close lands later and shows the group's active tab: make it the terminal.
-  const showsFirst = foreground && ORCA_LAYOUT_OWNER_IS_MAIN
+  const showsFirst = foreground && OPENKODO_LAYOUT_OWNER_IS_MAIN
   if (showsFirst) {
     showReplacement()
   }

@@ -46,7 +46,7 @@ import { nativeChatStatusTurnOutcome } from '../../native-chat/transcript/contin
 /** Anchor truncation markers at the end so body lookalikes remain content. */
 const BOUNDED_TEXT_MARKERS = [
   /\n\u2026 \(\d+ bytes\)$/,
-  /\n\[Orca: output truncated \u2014 \d+ bytes total, digest [0-9a-f]+\]$/
+  /\n\[OpenKodo: output truncated \u2014 \d+ bytes total, digest [0-9a-f]+\]$/
 ]
 
 /** Strip clipping markers and retain truncation state; otherwise file viewers render the marker as a real numbered line and claim completeness. */

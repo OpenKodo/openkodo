@@ -74,7 +74,7 @@ describe('a worker waiting on its own background task', () => {
     vi.useRealTimers()
   })
 
-  // One Orca process: a restart is a new one over the same database.
+  // One OpenKodo process: a restart is a new one over the same database.
   function startOrca(incarnation = 'incarnation_1'): WorkerBackgroundWaits {
     return new WorkerBackgroundWaits({
       getDb: () => db,
@@ -197,7 +197,7 @@ describe('a worker waiting on its own background task', () => {
       phase: 'working',
       at: 0
     })
-    // Orca was down while a finished task woke the worker: the restored row is already a new turn.
+    // OpenKodo was down while a finished task woke the worker: the restored row is already a new turn.
     timers = []
     row = leadWorkingRow(TURN_END + 10 * MINUTE)
     advanceTo(TURN_END + 90 * MINUTE)
@@ -213,7 +213,7 @@ describe('a worker waiting on its own background task', () => {
     expect(notices()).toEqual([])
   })
 
-  it('still tells the coordinator when Orca restarts during the wait', () => {
+  it('still tells the coordinator when OpenKodo restarts during the wait', () => {
     row = heldRow(TURN_END)
     startOrca().observe({
       kind: 'observed',

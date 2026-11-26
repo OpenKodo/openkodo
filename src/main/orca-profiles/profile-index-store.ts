@@ -8,9 +8,9 @@ import {
 } from '../../shared/secure-storage/secure-file'
 import {
   createDefaultLocalOrcaProfile,
-  DEFAULT_LOCAL_ORCA_PROFILE_ID,
-  DEFAULT_LOCAL_ORCA_PROFILE_NAME,
-  ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+  DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
+  DEFAULT_LOCAL_OPENKODO_PROFILE_NAME,
+  OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
   type CreateLocalOrcaProfileArgs,
   type CreateLocalOrcaProfileResult,
   type OrcaProfileIndex,
@@ -82,7 +82,7 @@ function normalizeProfileIndex(raw: unknown): OrcaProfileIndex | null {
     return null
   }
   return {
-    schemaVersion: ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+    schemaVersion: OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
     activeProfileId,
     profiles
   }
@@ -138,7 +138,7 @@ export function writeProfileIndex(indexPath: string, index: OrcaProfileIndex): v
 function createInitialProfileIndex(now = Date.now()): OrcaProfileIndex {
   const profile = createDefaultLocalOrcaProfile(now)
   return {
-    schemaVersion: ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+    schemaVersion: OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
     activeProfileId: profile.id,
     profiles: [profile]
   }
@@ -196,7 +196,7 @@ export function ensureActiveOrcaProfile(
     hasRetainedProfileStateAuthority = true
   }
   if (
-    activeProfile.id === DEFAULT_LOCAL_ORCA_PROFILE_ID &&
+    activeProfile.id === DEFAULT_LOCAL_OPENKODO_PROFILE_ID &&
     !hasOrcaProfileStateDatabase(activeProfile.id, userDataPath) &&
     !hasRetainedProfileStateAuthority
   ) {
@@ -217,7 +217,7 @@ export function ensureActiveOrcaProfile(
 }
 
 export function isDefaultLocalOrcaProfileId(profileId: string): boolean {
-  return profileId === DEFAULT_LOCAL_ORCA_PROFILE_ID
+  return profileId === DEFAULT_LOCAL_OPENKODO_PROFILE_ID
 }
 
 export function getOrcaProfileListState(
@@ -243,7 +243,7 @@ export function createLocalOrcaProfile(
     avatar: {
       kind: 'initials',
       initials: (
-        name.match(/[A-Za-z0-9]/)?.[0] ?? DEFAULT_LOCAL_ORCA_PROFILE_NAME[0]
+        name.match(/[A-Za-z0-9]/)?.[0] ?? DEFAULT_LOCAL_OPENKODO_PROFILE_NAME[0]
       ).toUpperCase(),
       color: 'neutral'
     },

@@ -1,5 +1,5 @@
 // `orca bot create --offer`: shows the owner a card proposing a new bot, which creates nothing until
-// they press Create bot. Creating a bot is the owner's, in Orca.
+// they press Create bot. Creating a bot is the owner's, in OpenKodo.
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import { BOT_TEMPLATES, botTemplate } from '../../shared/bots/bot-templates'
 import type { HandedWorkspace } from '../../shared/bots/bot-made-for-workspaces'
@@ -104,7 +104,7 @@ async function offer({ flags, client, json }: Parameters<CommandHandler>[0]): Pr
 
 export const BOT_CREATE_HANDLERS: Record<string, CommandHandler> = {
   'bot create': async (context) => {
-    // Only the owner creates a bot, in Orca; from the CLI a bot can only propose one.
+    // Only the owner creates a bot, in OpenKodo; from the CLI a bot can only propose one.
     if (!context.flags.has('offer')) {
       throw new RuntimeClientError(
         'invalid_argument',

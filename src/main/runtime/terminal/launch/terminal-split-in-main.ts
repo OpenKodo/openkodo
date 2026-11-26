@@ -2,7 +2,7 @@
 import { OrcaRuntimeWithSplitPtyBackedTerminal } from './terminal-split-surface'
 import type { RuntimeTerminalSplit } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { mainOwnsTabLayout } from './main-owned-tab-layout'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import {
   recordPtySurface,
   spawnSurfaceClaimSequence
@@ -84,7 +84,7 @@ export abstract class OrcaRuntimeWithSplitPaneInMain extends OrcaRuntimeWithSpli
     source: SplitPaneSource,
     opts: SplitPaneInMainOptions
   ): Promise<RuntimeTerminalSplit> {
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || !this.ownsTabLayout(source.worktreeId, source.tabId)) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !this.ownsTabLayout(source.worktreeId, source.tabId)) {
       // The window then splits it as before (a paired server's tab, or the window-owned build).
       throw new Error('host_not_owned')
     }

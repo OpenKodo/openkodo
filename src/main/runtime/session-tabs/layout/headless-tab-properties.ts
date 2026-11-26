@@ -11,7 +11,7 @@ import type {
   TerminalLayoutSnapshot,
   TerminalPaneLayoutNode
 } from '../../../../shared/workspace-layout/terminal-tab-types'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { cloneTerminalLayoutSnapshot } from '../../terminal/surface/mobile-session-layout-projection'
 import {
   sameStringRecord,
@@ -54,7 +54,7 @@ export abstract class RuntimeHeadlessTabProperties extends OrcaRuntimeWithHeadle
     const hostTabId = snapshot
       ? (this.resolveMobileSessionHostTabId(snapshot, args.tabId) ?? args.tabId)
       : args.tabId
-    // Every client, CLI and older Orca reaches this; Home stays pinned and side chats never pin.
+    // Every client, CLI and older OpenKodo reaches this; Home stays pinned and side chats never pin.
     const pinRefusal = botHomePinRefusal(
       snapshot,
       botHomeSessionId(this.store, worktreeId),
@@ -64,7 +64,10 @@ export abstract class RuntimeHeadlessTabProperties extends OrcaRuntimeWithHeadle
     if (pinRefusal) {
       throw Object.assign(new Error(pinRefusal), { code: 'capability_unsupported' })
     }
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && (await this.setMainTabProps(worktreeId, hostTabId, args))) {
+    if (
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
+      (await this.setMainTabProps(worktreeId, hostTabId, args))
+    ) {
       return { updated: true }
     }
     const authoritativeWindow = this.hasAuthoritativeWindow()

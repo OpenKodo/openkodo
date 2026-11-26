@@ -38,7 +38,7 @@ export function getLocalHookFields(
           ),
       placeholder: t(
         'auto.components.settings.RepositoryHooksSection.a3fc966677',
-        '# e.g. pnpm install cp "$ORCA_ROOT_PATH/.env" "$ORCA_WORKTREE_PATH/.env"'
+        '# e.g. pnpm install cp "$OPENKODO_ROOT_PATH/.env" "$OPENKODO_WORKTREE_PATH/.env"'
       )
     },
     {
@@ -55,7 +55,7 @@ export function getLocalHookFields(
           ),
       placeholder: t(
         'auto.components.settings.RepositoryHooksSection.9b821fa19d',
-        '# e.g. echo "Cleaning up $ORCA_WORKSPACE_NAME"'
+        '# e.g. echo "Cleaning up $OPENKODO_WORKSPACE_NAME"'
       )
     }
   ]

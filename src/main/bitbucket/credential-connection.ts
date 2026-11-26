@@ -78,7 +78,7 @@ export async function getBitbucketConnectionStatus(): Promise<BitbucketConnectio
       account: null,
       authMode: env.accessToken ? 'token' : 'basic',
       email: env.email,
-      baseUrl: envValue('ORCA_BITBUCKET_API_BASE_URL')
+      baseUrl: envValue('OPENKODO_BITBUCKET_API_BASE_URL')
     }
   }
   if (await hasStoredBitbucketCredential()) {

@@ -57,7 +57,7 @@ export type OrcaServerSignInDeps = {
 }
 
 /** Runs one sign-in on the host: the PKCE secrets are made and kept here, and only the exchange
- * result leaves. Paste mode waits for a relayed code; approve mode polls Orca Cloud. */
+ * result leaves. Paste mode waits for a relayed code; approve mode polls OpenKodo Cloud. */
 export async function runServerSignIn(
   deps: OrcaServerSignInDeps,
   provider: SignInProvider,
@@ -74,13 +74,13 @@ export async function runServerSignIn(
   const config = configState.config
   const storage = readOrcaAccountStorage()
   if (storage.kind === 'refused') {
-    throw new Error(`Orca can't save your sign-in on this server: ${storage.reason}`)
+    throw new Error(`OpenKodo can't save your sign-in on this server: ${storage.reason}`)
   }
   assertMayStart(deps, intentOf(provider))
-  const clientId = deps.env?.ORCA_CLOUD_SERVER_CLIENT_ID?.trim() || DEFAULT_SERVER_CLIENT_ID
+  const clientId = deps.env?.OPENKODO_CLOUD_SERVER_CLIENT_ID?.trim() || DEFAULT_SERVER_CLIENT_ID
   const probe = deps.probe ?? probeOrcaServerSignIn
   if (!(await probe(config, clientId))) {
-    throw new Error("Orca Cloud doesn't support server sign-in yet.")
+    throw new Error("cloud service doesn't support server sign-in yet.")
   }
   const pkce = createOrcaCloudPkceSecrets()
   const authorizeOrigin = new URL(config.authorizeEndpoint).origin
@@ -140,7 +140,7 @@ export async function runServerSignIn(
   return { account: publish() }
 }
 
-/** Starts an Orca Cloud sign-in request and waits for the person to approve it in a browser. */
+/** Starts an OpenKodo Cloud sign-in request and waits for the person to approve it in a browser. */
 async function awaitApproval(
   deps: OrcaServerSignInDeps,
   config: OrcaCloudAuthConfig,
@@ -155,9 +155,9 @@ async function awaitApproval(
     channel.signal,
     moveContext(deps)
   )
-  // Only show a link on the Orca Cloud this host signs in to.
+  // Only show a link on the OpenKodo Cloud this host signs in to.
   if (!isOnOrigin(request.verificationUrl, new URL(config.authorizeEndpoint).origin)) {
-    throw new Error('Orca Cloud sent a sign-in link for another site. Start again.')
+    throw new Error('cloud service sent a sign-in link for another site. Start again.')
   }
   channel.onPrompt({
     kind: 'approve-in-browser',
@@ -202,7 +202,7 @@ function moveContext(deps: OrcaServerSignInDeps): ServerSignInMoveContext | unde
   }
 }
 
-// Orca Cloud's limits on these fields; the page names five bots at most.
+// OpenKodo Cloud's limits on these fields; the page names five bots at most.
 const MOVE_CONTEXT_MAX_OWNERS = 8
 const MOVE_CONTEXT_MAX_BOT_NAMES = 5
 
@@ -227,7 +227,7 @@ function isOnOrigin(url: string, origin: string): boolean {
 function describeExchangeFailure(error: string): string {
   // The cloud spends the code on first use and expires it after five minutes.
   return /^orca_cloud_request_failed_4\d\d$/.test(error)
-    ? "Orca Cloud didn't accept that code. It may have expired or already been used. Start again."
+    ? "cloud service didn't accept that code. It may have expired or already been used. Start again."
     : error
 }
 

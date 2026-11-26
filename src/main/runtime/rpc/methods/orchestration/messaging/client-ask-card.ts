@@ -1,5 +1,5 @@
 // The card a send to an agent on a paired computer leaves in the asking chat: the same bot-request
-// card bot-to-bot requests leave, naming that computer, its outcome read from this Orca's own record.
+// card bot-to-bot requests leave, naming that computer, its outcome read from this OpenKodo's own record.
 import { writeInChat } from '../../../../../bots/bot-chat-status-line'
 import { isBotRequestPurpose } from '../../../../../bots/bot-request-policy'
 import { isBotAnswer } from '../../../../../bots/bot-group-remote-answers'

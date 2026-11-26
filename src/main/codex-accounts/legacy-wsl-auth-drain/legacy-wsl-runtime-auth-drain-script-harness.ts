@@ -154,7 +154,7 @@ process.exit(result.status ?? 1)
       '/bin/sh',
       [
         '-c',
-        `ORCA_DRAIN_APPLY_PID=$$; export ORCA_DRAIN_APPLY_PID;\n${applyLegacyAuthScript}`,
+        `OPENKODO_DRAIN_APPLY_PID=$$; export OPENKODO_DRAIN_APPLY_PID;\n${applyLegacyAuthScript}`,
         'sh',
         legacyHome,
         join(root, 'absent-active-home'),

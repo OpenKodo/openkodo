@@ -111,7 +111,7 @@ export function PluginUpdateReviewHost(): React.JSX.Element | null {
       entries={loaded.entries}
       orcaVersion={orcaVersion}
       onClose={closePluginUpdateReviewDialog}
-      // Why nothing to reload: main's install events refresh what the rest of Orca shows.
+      // Why nothing to reload: main's install events refresh what the rest of OpenKodo shows.
       onUpdated={async () => undefined}
     />
   )

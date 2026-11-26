@@ -15,7 +15,7 @@ import {
 import type { CustomEditorBinaryDocument } from '../plugin-editors/plugin-custom-editor-host-types'
 import { editorShortcutMatches } from '../commands/editor-shortcuts'
 import {
-  ORCA_EDITOR_REQUEST_CMD_SAVE_EVENT,
+  OPENKODO_EDITOR_REQUEST_CMD_SAVE_EVENT,
   type EditorRequestCmdSaveDetail
 } from '../autosave/editor-autosave'
 
@@ -60,7 +60,7 @@ export function usePdfFormEditing(
       }
       event.preventDefault()
       window.dispatchEvent(
-        new CustomEvent<EditorRequestCmdSaveDetail>(ORCA_EDITOR_REQUEST_CMD_SAVE_EVENT, {
+        new CustomEvent<EditorRequestCmdSaveDetail>(OPENKODO_EDITOR_REQUEST_CMD_SAVE_EVENT, {
           detail: { fileId: editFileId }
         })
       )

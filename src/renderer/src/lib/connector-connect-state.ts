@@ -1,6 +1,6 @@
 // One "Connect Linear" / "Connect GitHub" trip per host and source, as every setup surface sees it.
-// The host runs the trip as its own Orca account; this window opens its page where the host's
-// return reaches (a server's own page in Orca's browser) and waits on the host for its end.
+// The host runs the trip as its own OpenKodo account; this window opens its page where the host's
+// return reaches (a server's own page in OpenKodo's browser) and waits on the host for its end.
 import { useEffect, useSyncExternalStore } from 'react'
 import { useAppStore } from '@/store'
 import { signedInOrcaAccount } from './signed-in-orca-account'
@@ -39,7 +39,7 @@ const IDLE: ConnectorConnectView = { status: 'idle' }
 const EXPIRED: ConnectorConnectError = 'expired'
 // A trip this window ended, or replaced with a newer one: no error to show.
 const CANCELLED = 'cancelled'
-// The cloud's connect session and its "Open Orca" result live this long.
+// The cloud's connect session and its "Open OpenKodo" result live this long.
 const TRIP_MS = 10 * 60_000
 // A dropped connection to the host retries the wait this often; the trip lives there until it expires.
 const RETRY_MS = 2_000
@@ -56,7 +56,7 @@ type Trip = {
 
 const trips = new Map<string, Trip>()
 const listeners = new Set<() => void>()
-// The host of the newest trip per source, which alone redeems an "Open Orca" link.
+// The host of the newest trip per source, which alone redeems an "Open OpenKodo" link.
 const fallbackHost = new Map<ConnectorConnectSource, ExecutionHostId>()
 
 const tripKey = (hostId: ExecutionHostId, source: ConnectorConnectSource) => `${hostId}\0${source}`
@@ -140,7 +140,7 @@ export async function startConnectorConnect(
     bot?: BotRef
     /** The surface starting it, which alone carries on once it links (see useResumeAfterConnect). */
     owner?: string
-    /** Where the page opened, e.g. so a dialog in front of Orca's browser can step aside. */
+    /** Where the page opened, e.g. so a dialog in front of OpenKodo's browser can step aside. */
     onOpened?: (destination: HttpLinkDestination) => void
     /** GitHub: the trip adds access, for `workspace` if named (see ConnectorConnectStartRequest). */
     addAccess?: { workspace?: string }
@@ -187,7 +187,7 @@ export async function startConnectorConnect(
     await settle(hostId, source, request, { ok: true, value: result.value })
     return
   }
-  // No loopback on the host: the trip ends at "Open Orca", which comes back as a deep link, or not.
+  // No loopback on the host: the trip ends at "Open OpenKodo", which comes back as a deep link, or not.
   setTimeout(() => {
     if (request === trip.latest) {
       set(trip, { status: 'failed', error: EXPIRED })
@@ -221,7 +221,7 @@ export async function connectAnotherAccount(
   await startConnectorConnect(hostId, source, { ...options, switchAccount: true })
 }
 
-/** The "Open Orca" fallback's result, redeemed at once on the host whose trip it ended. */
+/** The "Open OpenKodo" fallback's result, redeemed at once on the host whose trip it ended. */
 export async function redeemConnectorLink(
   source: ConnectorConnectSource,
   result: string
@@ -271,7 +271,7 @@ export function takeConnectorResume(
 
 /**
  * A setup surface's sign-in trip: `start` and `anotherAccount` run it as `owner`, `onStepAside` runs
- * when its page opens in Orca's browser (behind the surface), and `onLinked` runs once when that trip,
+ * when its page opens in OpenKodo's browser (behind the surface), and `onLinked` runs once when that trip,
  * and no other, links, so the surface carries on without a second click.
  */
 export function useResumeAfterConnect(
@@ -330,7 +330,7 @@ export function useConnectorConnect(
 let watching = false
 let shownAccount: string | null = null
 
-// A trip on this window's own host belongs to the Orca account that started it; another starts clean.
+// A trip on this window's own host belongs to the OpenKodo account that started it; another starts clean.
 // Starts on first use, not import: state is pristine until then, and importers may mock the store.
 function watchSignedInAccount(): void {
   if (watching) {

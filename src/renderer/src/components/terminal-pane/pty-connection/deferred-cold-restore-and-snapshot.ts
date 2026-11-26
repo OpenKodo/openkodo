@@ -7,7 +7,7 @@ import { executeTerminalStartupCommandPaste } from '../input/paste/terminal-star
 import { resolveTerminalPasteRuntime } from '../input/paste/terminal-paste-runtime'
 import { CLIENT_PLATFORM } from '@/lib/workspace/creation/new-workspace'
 import { recordPaneWakeThroughLayoutOwner } from '@/store/terminals/sleep/terminal-sleep-layout-owner'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 
 import { shouldKeepHiddenStartupRendererQueriesLive } from './output/hidden-startup-renderer-query'
 import { createForegroundImmediateBudget } from './output/foreground-output-budgets'
@@ -61,7 +61,7 @@ export function bindDeferredColdRestoreAndSnapshot(session: ConnectPanePtySessio
       return
     }
     const state = useAppStore.getState()
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       if (!startup.useLiveEntry && startup.sleepingRecordEntry) {
         recordPaneWakeThroughLayoutOwner(state, session.deps.worktreeId, session.cacheKey)
         session.clearSleepingRecordProviderDuplicates(state, startup.sleepingRecordEntry)
@@ -106,8 +106,8 @@ export function bindDeferredColdRestoreAndSnapshot(session: ConnectPanePtySessio
       ? {
           ...env,
           ...session.paneIdentityEnv,
-          ...(env.ORCA_AGENT_LAUNCH_TOKEN
-            ? { ORCA_AGENT_LAUNCH_TOKEN: env.ORCA_AGENT_LAUNCH_TOKEN }
+          ...(env.OPENKODO_AGENT_LAUNCH_TOKEN
+            ? { OPENKODO_AGENT_LAUNCH_TOKEN: env.OPENKODO_AGENT_LAUNCH_TOKEN }
             : {})
         }
       : undefined

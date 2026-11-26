@@ -40,7 +40,7 @@ async function requestConversation(
 
 /** Admits a reserved request into a chat of its own; when it goes nowhere the chat is closed again
  *  and the reservation given back. The chat gets a tab in the bot's home and lists under the bot like
- *  a chat opened from the tab bar, whoever it acts for: the owner's Orca holds it either way. */
+ *  a chat opened from the tab bar, whoever it acts for: the owner's OpenKodo holds it either way. */
 export async function admitInNewChat(
   runtime: OrcaRuntimeService,
   bot: Bot,

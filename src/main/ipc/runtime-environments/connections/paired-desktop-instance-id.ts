@@ -1,4 +1,4 @@
-/** A random id for this Orca installation, kept in its userData folder, that paired hosts use to
+/** A random id for this OpenKodo installation, kept in its userData folder, that paired hosts use to
  *  tell desktops sharing one paired row apart (a path hash would match teammates' same paths). */
 import { randomBytes } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'

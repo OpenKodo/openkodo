@@ -12,7 +12,7 @@ import type { ConversationChatHost } from './external-conversation-chat'
 import { resumeRefusal } from './external-conversation-resume'
 
 // Resume from a thread continues a chat only while its newest turn is the failed one: a stale or
-// repeated press, after the chat was resumed in Orca or ran again, must not send a second continue.
+// repeated press, after the chat was resumed in OpenKodo or ran again, must not send a second continue.
 const OWNED = { probeOwner: async () => ({ outcome: 'pid-absent' as const }) }
 let rig: QueuedMessageTestRig | null = null
 afterEach(async () => {
@@ -48,7 +48,7 @@ async function failedTurn(chat: QueuedMessageTestRig): Promise<void> {
 }
 
 describe('resumeRefusal', () => {
-  it('lets a failed chat resume once, then refuses after Orca resumed it', async () => {
+  it('lets a failed chat resume once, then refuses after OpenKodo resumed it', async () => {
     rig = await createQueuedMessageTestRig(OWNED)
     expect(await resume(rig)).toMatchObject(NOT_FAILED)
     await failedTurn(rig)

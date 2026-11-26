@@ -1,5 +1,5 @@
 // Places as rules and results named them before refs: ids and keys the cloud matches by name. Where
-// the host's Orca Cloud takes refs, the host turns these and any link or #name into refs instead.
+// the host's OpenKodo Cloud takes refs, the host turns these and any link or #name into refs instead.
 import type { AutomationConnectorEventTrigger } from './automation-event-triggers'
 import { LINEAR_ISSUE_KEY_PATTERN } from './connector-bot-linear-contract'
 

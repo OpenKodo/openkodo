@@ -8,7 +8,7 @@ import { useAppStore } from '@/store'
 import { translate } from '@/i18n/i18n'
 import { selectExecutionHostDisplayLabel } from '@/runtime/hosts/display/execution-host-display-label'
 import { folderWorkspaceKey } from '../../../shared/workspace/identity/workspace-scope'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { openContentTabThroughLayoutOwner } from '@/runtime/workspace-layout/intents/layout-owner-content-tab-open'
 import { createNonSecureContextUuid as createBrowserUuid } from '../../../shared/identifiers/non-secure-context-uuid'
 import { activateAndRevealFolderWorkspaceWithOutcome } from './workspace/activation/worktree-activation'
@@ -99,7 +99,7 @@ export async function openBotGroupRoom(
       executionHostId: group.hostId,
       label
     }).id
-  const groupId = ORCA_LAYOUT_OWNER_IS_MAIN
+  const groupId = OPENKODO_LAYOUT_OWNER_IS_MAIN
     ? (state.activeGroupIdByWorktree[workspace] ?? state.ensureWorktreeRootGroup(workspace))
     : undefined
   if (groupId) {

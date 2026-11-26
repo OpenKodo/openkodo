@@ -283,7 +283,7 @@ function hydrateAtoms(scope, values) {
 }
 
 // src/shared/plugins/declarative/runtime/declarative-error-location.ts
-var ORCA_RESERVED_PATH_PREFIX = "/__orca/";
+var OPENKODO_RESERVED_PATH_PREFIX = "/__orca/";
 var STACK_FRAME_URL = /([a-z][a-z0-9+.-]*:\/\/[^\s()]+):(\d+):(\d+)\)?\s*$/i;
 var LOCATED_MESSAGE = /^[^\n:]+\.[a-z]+:\d+:\d+: /i;
 function pageBase() {
@@ -296,7 +296,7 @@ function pluginFrame(stackLine, base) {
     return null;
   }
   const path = `/${url.slice(base.length).split(/[?#]/)[0] ?? ""}`;
-  if (path.startsWith(ORCA_RESERVED_PATH_PREFIX)) {
+  if (path.startsWith(OPENKODO_RESERVED_PATH_PREFIX)) {
     return "orca";
   }
   const generated = { line: Number(match[2]), column: Number(match[3]) };
@@ -549,14 +549,14 @@ function isReservedPluginDeclarativeEvent(name) {
 }
 
 // src/shared/plugins/declarative/runtime/declarative-elements.ts
-var ORCA_ELEMENT = /* @__PURE__ */ Symbol.for("orca.declarative.element");
+var OPENKODO_ELEMENT = /* @__PURE__ */ Symbol.for("orca.declarative.element");
 var Fragment = /* @__PURE__ */ Symbol.for("orca.declarative.fragment");
 function isOrcaElement(value) {
-  return typeof value === "object" && value !== null && "$$typeof" in value && value.$$typeof === ORCA_ELEMENT;
+  return typeof value === "object" && value !== null && "$$typeof" in value && value.$$typeof === OPENKODO_ELEMENT;
 }
 function createElement(type, props, key) {
   return Object.freeze({
-    $$typeof: ORCA_ELEMENT,
+    $$typeof: OPENKODO_ELEMENT,
     type,
     props,
     key: key === void 0 || key === null ? void 0 : String(key)

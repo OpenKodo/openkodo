@@ -55,11 +55,13 @@ function setup(): void {
     ...createCompatibleRuntimeStatusResponse('access-example').result,
     machineName: 'Atlas Server'
   }
-  useAppStore
-    .getState()
-    .setRuntimeEnvironments([
-      publicRuntimeEnvironment({ id: 'access-example', name: 'Orca Server', pairingRevision: 1 })
-    ])
+  useAppStore.getState().setRuntimeEnvironments([
+    publicRuntimeEnvironment({
+      id: 'access-example',
+      name: 'OpenKodo Server',
+      pairingRevision: 1
+    })
+  ])
   useAppStore.getState().applyRuntimeHostStatusSnapshot({
     environmentId: 'access-example',
     pairingRevision: 1,

@@ -133,7 +133,7 @@ export class PluginMarketplaceService {
     }
     const source = (await this.store.listSources()).find((candidate) => candidate.id === sourceId)
     if (source && isOfficialMarketplaceGitSource(source.source.url)) {
-      throw new Error('the official marketplace is managed by Orca and cannot be removed')
+      throw new Error('the official marketplace is managed by OpenKodo and cannot be removed')
     }
     const removed = await this.store.removeSource(sourceId)
     if (removed) {

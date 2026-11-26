@@ -27,7 +27,7 @@ export const pluginContributionSummarySchema = z
           .enum(PLUGIN_CONTRIBUTION_POINTS)
           .meta(pluginFieldDoc('Contribution point.', NEXT, ['themes'])),
         name: safePluginDisplayText(z.string().min(1).max(160)).meta(
-          pluginFieldDoc('What the item is called in Orca.', NEXT, ['Dusk'])
+          pluginFieldDoc('What the item is called in OpenKodo.', NEXT, ['Dusk'])
         ),
         detail: z
           .string()
@@ -36,7 +36,7 @@ export const pluginContributionSummarySchema = z
           .optional()
           .meta(pluginFieldDoc('Extra context, such as file extensions.', NEXT))
       })
-      .meta({ id: 'CatalogContribution', description: 'One thing the release adds to Orca.' })
+      .meta({ id: 'CatalogContribution', description: 'One thing the release adds to OpenKodo.' })
       // Why per item: a newer catalog's unknown kind must drop only that item, not the summary.
       .optional()
       .catch(undefined)

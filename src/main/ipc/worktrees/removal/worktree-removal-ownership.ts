@@ -114,7 +114,7 @@ export function removeWorktreeMetadataAndTransientState(
   return pretrustDrop ?? Promise.resolve()
 }
 
-/** The purge for removals that deleted the checkout; also drops the workspace trust Orca wrote for it. */
+/** The purge for removals that deleted the checkout; also drops the workspace trust OpenKodo wrote for it. */
 export function removeDeletedCheckoutMetadataAndTransientState(
   context: Parameters<typeof removeWorktreeMetadataAndTransientState>[0],
   worktreeId: string,

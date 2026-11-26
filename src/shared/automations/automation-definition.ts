@@ -31,7 +31,7 @@ export type AutomationPrecheck = {
   timeoutSeconds: number
 }
 
-/** Who created an automation, when Orca knows it was not the person. Set by Orca, never by the
+/** Who created an automation, when OpenKodo knows it was not the person. Set by OpenKodo, never by the
  *  creator; `name` is the plugin's name then, so the label survives the plugin's removal. */
 export type AutomationCreator = {
   kind: 'plugin'

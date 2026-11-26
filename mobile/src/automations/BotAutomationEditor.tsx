@@ -61,7 +61,7 @@ export function BotAutomationEditor(props: {
   expectedOwner?: AutomationOwnerPrecondition
   /** The agents it can run as, its own first once found; its own is null when it was deleted. */
   bots: readonly PhoneBot[]
-  /** The agent's computer's Orca Cloud answers events in their own thread. */
+  /** The agent's computer's OpenKodo Cloud answers events in their own thread. */
   threadReplies: boolean
   online: boolean
   onBack: () => void

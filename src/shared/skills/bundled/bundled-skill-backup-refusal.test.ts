@@ -64,7 +64,7 @@ describe('bundled skill backup refusal notices', () => {
     expect(bundledSkillOpBackupPaths(op({}))).toEqual([])
   })
 
-  // Notices say "Orca updated the skill" only from this; a refused or rechecked op published nothing.
+  // Notices say "OpenKodo updated the skill" only from this; a refused or rechecked op published nothing.
   it('counts an op as published only when it put new content at its path', () => {
     expect(
       bundledSkillOpPublished(

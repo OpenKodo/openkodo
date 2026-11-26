@@ -145,7 +145,7 @@ function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-/** Orca ids for provider conversations, which nothing can rebuild: the file is never deleted, and
+/** OpenKodo ids for provider conversations, which nothing can rebuild: the file is never deleted, and
  *  an unreadable one throws so ids stay unavailable. A linked key is never relinked. Runs only in
  *  this worker, off the hook server's thread. */
 export class AgentIdentityStore {
@@ -239,7 +239,7 @@ export class AgentIdentityStore {
       : null
   }
 
-  /** Orca ids linked to a provider's own session id, so a caller can be told which to use. */
+  /** OpenKodo ids linked to a provider's own session id, so a caller can be told which to use. */
   idsOfProviderSession(providerSessionId: string): OrcaSessionId[] | ReverseLookupUnavailable {
     const sql = this.reverse.sqlFor('provider_session_id')
     if (!sql) {

@@ -8,7 +8,7 @@ import { conversationHeardTurn } from './external-conversation-restart-cuts'
 /** Idle with its newest turn failed and not resumed: what a thread's Resume continues. As a person's
  *  message the continue lifts the queue's pause, so what waited there runs after it. An unreadable
  *  chat is taken as not. `conversation`: the thread pressing it, which only continues a restart's
- *  cut of a turn it heard (a shared chat's turn begun in Orca is not its to continue). */
+ *  cut of a turn it heard (a shared chat's turn begun in OpenKodo is not its to continue). */
 export async function chatAwaitsResume(
   chat: ConversationChat | null,
   sessionId: string,
@@ -32,7 +32,7 @@ export async function chatAwaitsResume(
     if (pauses.some((pause) => pause.reason === 'failed')) {
       return true
     }
-    // Or its newest turn an Orca quit, crash or update cut, which its conversation reads as failed.
+    // Or its newest turn an OpenKodo quit, crash or update cut, which its conversation reads as failed.
     const cut = await journal.reads.orcaStopCut()
     if (!cut || !conversation) {
       return cut !== null

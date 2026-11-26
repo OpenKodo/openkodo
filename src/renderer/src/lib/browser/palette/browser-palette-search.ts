@@ -1,5 +1,5 @@
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import type {
   BrowserPage,
   BrowserWorkspace
@@ -94,7 +94,7 @@ function isBrowserPaletteQueryTooLarge(
 }
 
 export function isBlankBrowserUrl(url: string): boolean {
-  return url === 'about:blank' || url === ORCA_BROWSER_BLANK_URL
+  return url === 'about:blank' || url === OPENKODO_BROWSER_BLANK_URL
 }
 
 export function formatBrowserPaletteUrl(url: string): string {

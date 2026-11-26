@@ -51,7 +51,7 @@ export function wslGuestShellPaths(
       const name = `orca_drive_${letter}`
       return (
         `${name}=$(wslpath -u '${letter.toUpperCase()}:\\' 2>/dev/null) && case "$${name}" in /*) ;; *) false ;; esac || ` +
-        `{ echo "Orca could not find drive ${letter.toUpperCase()}: in this WSL distro" >&2; exit ${Math.trunc(failureExitCode)}; }; `
+        `{ echo "OpenKodo could not find drive ${letter.toUpperCase()}: in this WSL distro" >&2; exit ${Math.trunc(failureExitCode)}; }; `
       )
     })
     .join('')
@@ -103,7 +103,7 @@ export async function resolveWslGuestPaths(
     roots.length !== letters.length ||
     roots.some((root) => !root.startsWith('/'))
   ) {
-    throw new Error(`Orca could not find the Windows drive mount in WSL distro ${distro}.`)
+    throw new Error(`OpenKodo could not find the Windows drive mount in WSL distro ${distro}.`)
   }
   const rootFor = new Map(letters.map((letter, index) => [letter, roots[index]]))
   return unc.map((path) => {

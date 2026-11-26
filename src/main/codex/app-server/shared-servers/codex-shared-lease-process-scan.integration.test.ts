@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { scanCodexLeaseProcesses } from './codex-shared-lease-process-scan'
 
-const ENV = 'ORCA_CODEX_SHARED_LEASE'
+const ENV = 'OPENKODO_CODEX_SHARED_LEASE'
 const groups: number[] = []
 const dirs: string[] = []
 

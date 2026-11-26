@@ -71,7 +71,7 @@ export function acpEffortOption(options: readonly SessionConfigOption[]): Select
   return effort
 }
 
-/** The agent's own mode value for Orca's interaction mode, when its mode select offers it. */
+/** The agent's own mode value for OpenKodo's interaction mode, when its mode select offers it. */
 export function acpInteractionModeValue(
   interactionModes: AcpDialect['interactionModes'],
   modeOption: SelectOption | null,

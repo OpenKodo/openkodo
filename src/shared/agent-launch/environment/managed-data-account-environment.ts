@@ -7,7 +7,7 @@ const originalEnvironment = z.object({
   OPENCODE_DB: z.string().nullable(),
   inlineAuthReference: z.uuid().optional()
 })
-const ORIGINAL_ENV = 'ORCA_DATA_ACCOUNT_ORIGINAL_ENV'
+const ORIGINAL_ENV = 'OPENKODO_DATA_ACCOUNT_ORIGINAL_ENV'
 export const MANAGED_DATA_ACCOUNT_BASELINE_ENV_KEYS = [
   'XDG_DATA_HOME',
   'XDG_STATE_HOME',
@@ -33,12 +33,12 @@ export function restoreManagedDataAccountEnvironment(
   restoreOriginal = true,
   resolveInlineAuth?: (reference: string) => string | undefined
 ): void {
-  const provider = environment.ORCA_DATA_ACCOUNT_PROVIDER
-  const dataHome = environment.ORCA_DATA_ACCOUNT_DATA_HOME
+  const provider = environment.OPENKODO_DATA_ACCOUNT_PROVIDER
+  const dataHome = environment.OPENKODO_DATA_ACCOUNT_DATA_HOME
   if (!dataHome) {
     // A System-store resume marks only the provider.
     if (provider === 'opencode') {
-      delete environment.ORCA_DATA_ACCOUNT_PROVIDER
+      delete environment.OPENKODO_DATA_ACCOUNT_PROVIDER
     }
     return
   }
@@ -57,8 +57,8 @@ export function restoreManagedDataAccountEnvironment(
   const ownsOpenCode =
     provider === 'opencode' &&
     environment.XDG_DATA_HOME === dataHome &&
-    environment.ORCA_DATA_ACCOUNT_STATE_HOME !== undefined &&
-    environment.XDG_STATE_HOME === environment.ORCA_DATA_ACCOUNT_STATE_HOME
+    environment.OPENKODO_DATA_ACCOUNT_STATE_HOME !== undefined &&
+    environment.XDG_STATE_HOME === environment.OPENKODO_DATA_ACCOUNT_STATE_HOME
   const inlineAuth =
     ownsOpenCode && environment.OPENCODE_AUTH_CONTENT === '' && original?.inlineAuthReference
       ? resolveInlineAuth?.(original.inlineAuthReference)
@@ -78,13 +78,13 @@ export function restoreManagedDataAccountEnvironment(
     }
   }
   restore('XDG_DATA_HOME', dataHome)
-  restore('XDG_STATE_HOME', environment.ORCA_DATA_ACCOUNT_STATE_HOME)
+  restore('XDG_STATE_HOME', environment.OPENKODO_DATA_ACCOUNT_STATE_HOME)
   if (ownsOpenCode) {
     restore('OPENCODE_AUTH_CONTENT', '')
     restore('OPENCODE_DB', 'opencode.db')
   }
-  delete environment.ORCA_DATA_ACCOUNT_DATA_HOME
-  delete environment.ORCA_DATA_ACCOUNT_STATE_HOME
-  delete environment.ORCA_DATA_ACCOUNT_PROVIDER
+  delete environment.OPENKODO_DATA_ACCOUNT_DATA_HOME
+  delete environment.OPENKODO_DATA_ACCOUNT_STATE_HOME
+  delete environment.OPENKODO_DATA_ACCOUNT_PROVIDER
   delete environment[ORIGINAL_ENV]
 }

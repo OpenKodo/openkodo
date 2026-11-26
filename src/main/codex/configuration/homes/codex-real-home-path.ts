@@ -8,12 +8,12 @@ import { readPowerShellProfileEnvValues } from '../../../pty/shell-startup/power
 
 export function hasCustomCodexHomeOverride(env: NodeJS.ProcessEnv = process.env): boolean {
   const codexHome = env.CODEX_HOME?.trim()
-  const orcaCodexHome = env.ORCA_CODEX_HOME?.trim()
+  const orcaCodexHome = env.OPENKODO_CODEX_HOME?.trim()
   const normalizedCodexHome = codexHome ? normalizePathForComparison(codexHome) : undefined
   const normalizedOrcaCodexHome = orcaCodexHome
     ? normalizePathForComparison(orcaCodexHome)
     : undefined
-  // Custom native homes need ownership tracking before Orca can safely mutate and clean them.
+  // Custom native homes need ownership tracking before OpenKodo can safely mutate and clean them.
   return Boolean(
     normalizedCodexHome &&
     normalizedCodexHome !== normalizedOrcaCodexHome &&
@@ -25,7 +25,7 @@ export function hasCustomCodexHomeOverrideForLaunch(launchEnv?: NodeJS.ProcessEn
   if (
     hasCustomCodexHomeOverride({
       CODEX_HOME: getLaunchEnvValue(launchEnv, 'CODEX_HOME'),
-      ORCA_CODEX_HOME: getLaunchEnvValue(launchEnv, 'ORCA_CODEX_HOME')
+      OPENKODO_CODEX_HOME: getLaunchEnvValue(launchEnv, 'OPENKODO_CODEX_HOME')
     })
   ) {
     return true
@@ -57,7 +57,7 @@ export function hasCustomCodexHomeOverrideForLaunch(launchEnv?: NodeJS.ProcessEn
 
 type LaunchEnvKey =
   | 'CODEX_HOME'
-  | 'ORCA_CODEX_HOME'
+  | 'OPENKODO_CODEX_HOME'
   | 'HOME'
   | 'USERPROFILE'
   | 'SHELL'

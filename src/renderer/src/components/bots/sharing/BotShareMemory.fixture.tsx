@@ -2,7 +2,7 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import type { Bot } from '../../../../../shared/bot-types'
 import type { BotShareCandidateSummary } from '../../../../../shared/bots/bot-package'
-import { ORCA_CONNECTED } from '../orca-sign-in.test-fixture'
+import { OPENKODO_CONNECTED } from '../orca-sign-in.test-fixture'
 import { BotShareFlow } from './BotShareFlow'
 
 const bot: Bot = {
@@ -64,7 +64,7 @@ function candidate(secret: boolean, files = MEMORY): BotShareCandidateSummary {
     bot: {
       schemaVersion: 1,
       name: 'Bot builder',
-      purpose: 'Builds and maintains Orca bots for the team.',
+      purpose: 'Builds and maintains OpenKodo bots for the team.',
       agentHint: 'claude',
       skills: [],
       tools: [],
@@ -135,7 +135,7 @@ async function openPartial(): Promise<void> {
 
 const base = {
   width: 760,
-  store: { orcaProfileAuthStatus: ORCA_CONNECTED },
+  store: { orcaProfileAuthStatus: OPENKODO_CONNECTED },
   setup: stub(true),
   render: () => <BotShareFlow bot={bot} link={null} onClose={() => {}} />
 }

@@ -1,9 +1,9 @@
-// A status line Orca writes into a bot's chat, as the journal shows it: no turn, no notification.
+// A status line OpenKodo writes into a bot's chat, as the journal shows it: no turn, no notification.
 import { randomUUID } from 'node:crypto'
 import type { AgentJournalPlainStatusItem } from '../../shared/agent-session/journal/agent-session-journal-types'
 import { getStructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-registry'
 
-/** An Orca status line in a chat; a failed write is logged, never thrown. */
+/** An OpenKodo status line in a chat; a failed write is logged, never thrown. */
 export function noteInChat(sessionId: string | undefined, text: string): void {
   writeInChat(sessionId, { kind: 'status', text }, 'look-around')
 }

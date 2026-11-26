@@ -1,4 +1,4 @@
-// Orca's own sign-in to a host server: "Finish in your browser" while the host waits for it. On this
+// OpenKodo's own sign-in to a host server: "Finish in your browser" while the host waits for it. On this
 // computer the browser comes back to the host's listener; on a server, its address is pasted back.
 import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'

@@ -35,7 +35,7 @@ export type AcpLaunchSpec = {
   launchesWithModel?: true
   /** Applied after the account and user environment. */
   env: Readonly<Record<string, string>>
-  /** Scrubs inherited Orca plumbing and returns keys to omit entirely; the chat's saved
+  /** Scrubs inherited OpenKodo plumbing and returns keys to omit entirely; the chat's saved
    *  Antigravity account type keeps the credentials it reads. */
   scrubEnvironment?(
     env: Record<string, string>,
@@ -44,7 +44,7 @@ export type AcpLaunchSpec = {
   ): string[]
   dialect: AcpDialect
   /** Initialize's identity for the launched version (null when unknown), for agents that grant
-   *  features by client name; absent sends Orca's. */
+   *  features by client name; absent sends OpenKodo's. */
   clientInfo?(version: string | null): Implementation
   loginCommand: readonly string[]
   /** Selects authentication from the execution host's resolved launch inputs. */
@@ -56,8 +56,8 @@ export type AcpLaunchSpec = {
   authMethodUnavailableMessage?: string
   /** A valid sign-in output line closes the chat signed out. */
   signIn?: Omit<AcpSignInWatch, 'link'>
-  /** Launches read the account type Orca's Chat saves (its key, gcloud project and settings),
-   *  like the managed server's; set for a host program run on Orca's own home for it. */
+  /** Launches read the account type OpenKodo's Chat saves (its key, gcloud project and settings),
+   *  like the managed server's; set for a host program run on OpenKodo's own home for it. */
   readsAntigravityChatAuth?: boolean
   account: AcpAccountBinding
   /** Ascending release-line minimums, checked before creation and at every launch. */
@@ -69,12 +69,12 @@ export type AcpLaunchSpec = {
   /** Installed only on request, then kept at its pin when it `updatesToPin`; takes precedence over
    *  PATH and excludes `minimumVersions`. */
   managedRuntime?: ManagedRuntime
-  /** Agent-enforced modes; Orca does not answer its permission requests. */
+  /** Agent-enforced modes; OpenKodo does not answer its permission requests. */
   permissionModeConfig?: {
     values: { ask: string } & Partial<Record<AgentChatPermissionMode, string>>
     /** `args` grants full access; its session mode can equal another mode's. */
     fullAccessAtLaunch?: true
-    /** The modes govern only some requests; under full access Orca answers the rest itself. */
+    /** The modes govern only some requests; under full access OpenKodo answers the rest itself. */
     fullAccessAnswersRequests?: true
   }
   /** Enables /compact as a prompt command. */
@@ -87,7 +87,7 @@ export type AcpLaunchSpec = {
    *  turns made outside it; absent, the replay is only dropped. */
   historyCatchUp?: AcpHistoryTurnIdentity
   modelDiscovery: AcpModelDiscovery
-  /** Loads Orca's visuals skill and linked projects' skills; absent loads none. */
+  /** Loads OpenKodo's visuals skill and linked projects' skills; absent loads none. */
   skillRoots?: AcpSkillRootsLoader
   /** The agent's own MCP servers, for an agent whose ACP mode connects only the client's; absent,
    *  the agent loads its own. */
@@ -98,13 +98,13 @@ export type AcpLaunchSpec = {
   /** How a session's standing instructions reach the agent's system prompt; absent, a session
    *  with any cannot start. */
   instructions?: AcpInstructionsDelivery
-  /** `instructions` writes into the chat's own folder, so Orca never adds any just for visuals. */
+  /** `instructions` writes into the chat's own folder, so OpenKodo never adds any just for visuals. */
   instructionsInWorkspace?: true
   transcriptImport: StructuredAgentTranscriptImport | null
   sessionHistory: StructuredAgentSessionHistory
   /** Tools run in a process other chats share, which keeps the environment of the chat that
    *  started it, so no chat's process carries caller identity. Each session's tools get theirs from
-   *  `publishSessionEnv`; without it, Orca's CLI there refuses to guess one. */
+   *  `publishSessionEnv`; without it, OpenKodo's CLI there refuses to guess one. */
   sharedToolProcess?: { publishSessionEnv: PublishSharedToolProcessSessionEnv }
   /** Isolate processes whose agent temp files collide. */
   privateTempDirectory?: true
@@ -124,9 +124,9 @@ export type AcpLaunchSpec = {
   keepsEverySession?: true
   /** A program on the host preferred for new chats; chats whose account home it pins keep it. */
   hostBackend?: AcpHostBackend
-  /** Whether Orca's own copy of this program may run (and be kept updated); absent means it may. */
+  /** Whether OpenKodo's own copy of this program may run (and be kept updated); absent means it may. */
   managedCopyAllowed?(settings: ManagedCopySettings): boolean
-  /** Whether Orca may bring an installed `managedRuntime` up to its pin by itself; absent means it may. */
+  /** Whether OpenKodo may bring an installed `managedRuntime` up to its pin by itself; absent means it may. */
   managedRuntimeUpdatesAllowed?(settings: ManagedCopySettings): boolean
 }
 
@@ -148,12 +148,12 @@ export type AcpHostBackendInput = {
   env: Record<string, string>
   envToDelete: string[]
   homePath: string
-  /** Orca's data folder on this host, where the agent's own account lives. */
+  /** OpenKodo's data folder on this host, where the agent's own account lives. */
   stateDirectory: string
   /** The shell environment before the host program's scrub, for a credential that a launch on
    *  another home keeps. */
   shellEnv?: Readonly<Record<string, string>>
-  /** The account type Orca's own Chat signs in with, saved on this host. */
+  /** The account type OpenKodo's own Chat signs in with, saved on this host. */
   settings: AcpHostBackendSettings
   /** The question comes from someone using the agent, so it may start the program to answer;
    *  otherwise only what is already known (files, earlier answers) decides. */
@@ -170,7 +170,7 @@ export type AcpHostBackend = {
    *  chosen before its first turn applies to it. */
   followsSelectionBeforeFirstTurn?: true
   /** The spec a pinned home launches, when the host program runs differently per home (its own
-   *  home, or one Orca owns); absent or null launches `spec`. */
+   *  home, or one OpenKodo owns); absent or null launches `spec`. */
   specFor?(home: AgentSessionAccountHome): AcpLaunchSpec | null
   /** Other specs `specFor` may answer, whose model listings the catalog also weighs. */
   otherSpecs?: readonly AcpLaunchSpec[]
@@ -179,9 +179,9 @@ export type AcpHostBackend = {
   select(input: AcpHostBackendInput): Promise<AgentSessionAccountHome | null>
   /** Changes whenever a sign-in that `select` weighs changes, so remembered answers are retired. */
   selectionRevision?(): number
-  /** Tells when a fact `select` weighs changes apart from settings and Orca's installs. */
+  /** Tells when a fact `select` weighs changes apart from settings and OpenKodo's installs. */
   onSelectionChanged?(listener: () => void): () => void
-  /** Where Orca also keeps its own copy of the host program: whether Install, its status and
+  /** Where OpenKodo also keeps its own copy of the host program: whether Install, its status and
    *  removal act on the outer spec's `managedRuntime` instead of that copy. */
   installsManagedRuntime?(input: AcpHostBackendInput): Promise<boolean>
 }

@@ -108,7 +108,7 @@ export abstract class OrcaRuntimeWithStartTuiIdleVisibleReadProbe extends OrcaRu
       : buildPtyTerminalWaitResult(handle, 'tui-idle', pty)
   }
 
-  /** Whether the setup Orca typed into this terminal is still running: its completion token is known
+  /** Whether the setup OpenKodo typed into this terminal is still running: its completion token is known
    *  (none after a restart) and has not printed. Read-only, so a later completion wait still sees it. */
   isSetupTerminalRunning(handle: string): boolean {
     const ptyId = this.getTerminalPtyIdForHandle(handle)

@@ -1,15 +1,15 @@
 import { parseMissingSharedLibrary } from '../../orcad/native-runtime/native-host-abi'
 import { RelayHostAnsweredError } from '../../ssh/remote-exec/remote-host-answered-failure'
 
-export const REMOTE_NODE_RUNTIME_READY = 'ORCA_NODE_RUNTIME_READY'
-export const REMOTE_NODE_RUNTIME_MISSING = 'ORCA_NODE_RUNTIME_MISSING'
-export const REMOTE_NODE_RUNTIME_SELFTEST_FAILED = 'ORCA_NODE_RUNTIME_SELFTEST_FAILED'
-export const REMOTE_NODE_RUNTIME_NOEXEC = 'ORCA_NODE_RUNTIME_NOEXEC'
-export const REMOTE_NODE_RUNTIME_SECURITY_MODIFIED = 'ORCA_NODE_RUNTIME_SECURITY_MODIFIED'
-export const REMOTE_NODE_RUNTIME_EXIT_PREFIX = 'ORCA_RUNTIME_EXIT='
+export const REMOTE_NODE_RUNTIME_READY = 'OPENKODO_NODE_RUNTIME_READY'
+export const REMOTE_NODE_RUNTIME_MISSING = 'OPENKODO_NODE_RUNTIME_MISSING'
+export const REMOTE_NODE_RUNTIME_SELFTEST_FAILED = 'OPENKODO_NODE_RUNTIME_SELFTEST_FAILED'
+export const REMOTE_NODE_RUNTIME_NOEXEC = 'OPENKODO_NODE_RUNTIME_NOEXEC'
+export const REMOTE_NODE_RUNTIME_SECURITY_MODIFIED = 'OPENKODO_NODE_RUNTIME_SECURITY_MODIFIED'
+export const REMOTE_NODE_RUNTIME_EXIT_PREFIX = 'OPENKODO_RUNTIME_EXIT='
 export const REMOTE_NODE_RUNTIME_VERIFIED_MARKER = '.verified'
-export const REMOTE_WINDOWS_BUILD_UNSUPPORTED = 'ORCA_WINDOWS_BUILD_UNSUPPORTED'
-export const REMOTE_NODE_RUNTIME_NO_EXTRACTOR = 'ORCA_NODE_RUNTIME_NO_EXTRACTOR'
+export const REMOTE_WINDOWS_BUILD_UNSUPPORTED = 'OPENKODO_WINDOWS_BUILD_UNSUPPORTED'
+export const REMOTE_NODE_RUNTIME_NO_EXTRACTOR = 'OPENKODO_NODE_RUNTIME_NO_EXTRACTOR'
 
 /** A failed version self-test is positive host evidence, not an unanswered transport probe. */
 export class RemoteNodeRuntimeSelfTestError extends RelayHostAnsweredError {
@@ -21,7 +21,7 @@ export class RemoteNodeRuntimeSelfTestError extends RelayHostAnsweredError {
     const missing = parseMissingSharedLibrary(output)
     super(
       missing
-        ? `The host is missing ${missing}, which Orca's Node runtime needs. ` +
+        ? `The host is missing ${missing}, which OpenKodo's Node runtime needs. ` +
             `${installHint(missing)} Then reconnect. (${exit}: ${output})`
         : `The pinned Node runtime did not run on the host (${exit}): ${output}`
     )
@@ -32,7 +32,7 @@ export class RemoteNodeRuntimeSelfTestError extends RelayHostAnsweredError {
 export class RemoteNodeRuntimeNoexecError extends RelayHostAnsweredError {
   constructor(
     readonly output: string,
-    storeDir = 'Orca’s runtime folder'
+    storeDir = 'OpenKodo’s runtime folder'
   ) {
     super(`The host does not allow running programs from ${storeDir}: ${output}`)
     this.name = 'RemoteNodeRuntimeNoexecError'
@@ -55,7 +55,7 @@ export function assertRemoteNodeRuntimeStoreExecutable(probe: string, storeDir: 
 export class RemoteWindowsBuildUnsupportedError extends RelayHostAnsweredError {
   constructor(readonly build: string) {
     super(
-      `The host runs Windows build ${build}, older than the Windows 10 / Server 2016 Orca's Node runtime needs.`
+      `The host runs Windows build ${build}, older than the Windows 10 / Server 2016 OpenKodo's Node runtime needs.`
     )
     this.name = 'RemoteWindowsBuildUnsupportedError'
   }
@@ -64,7 +64,7 @@ export class RemoteWindowsBuildUnsupportedError extends RelayHostAnsweredError {
 export class RemoteNodeRuntimeNoExtractorError extends RelayHostAnsweredError {
   constructor() {
     super(
-      "The host has neither System32\\tar.exe nor PowerShell's Expand-Archive to unpack Orca's Node runtime."
+      "The host has neither System32\\tar.exe nor PowerShell's Expand-Archive to unpack OpenKodo's Node runtime."
     )
     this.name = 'RemoteNodeRuntimeNoExtractorError'
   }

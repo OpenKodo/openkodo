@@ -19,19 +19,19 @@ export const GOOGLE_RETURN_PAGES = {
   signedIn: orcaCallbackOutcome({
     ok: true,
     heading: 'Signed in to Google',
-    line: 'You can close this tab and return to Orca.'
+    line: 'You can close this tab and return to OpenKodo.'
   }),
-  /** Says why, in the same words Orca and the CLI show. */
+  /** Says why, in the same words OpenKodo and the CLI show. */
   notSignedIn: (reason: string) =>
     orcaCallbackOutcome({ ok: false, heading: 'Couldn’t sign in to Google', line: reason }),
   // An ended sign-in, so the cross the other ends show; `ok: null` is a page still waiting and has no icon.
   cancelled: orcaCallbackOutcome({
     ok: false,
     heading: 'Google sign-in was cancelled',
-    line: 'Orca stopped waiting for this sign-in. Return to Orca to sign in again.'
+    line: 'OpenKodo stopped waiting for this sign-in. Return to OpenKodo to sign in again.'
   })
 } as const
-/** A tab whose sign-in ended without an account says what Orca and the CLI say: a silent stop wins over the step that failed. */
+/** A tab whose sign-in ended without an account says what OpenKodo and the CLI say: a silent stop wins over the step that failed. */
 export function googleFailedReturnPage(
   stopped: 'cancelled' | 'silent' | null,
   error: unknown
@@ -44,7 +44,7 @@ export function googleFailedReturnPage(
       ? HOST_ACCOUNT_SIGN_IN_FAILURE_COPY.ownerSilent
       : error instanceof Error
         ? error.message
-        : 'Return to Orca and try again.'
+        : 'Return to OpenKodo and try again.'
   )
 }
 
@@ -53,7 +53,7 @@ export const GOOGLE_RETURN_HOLD: LoopbackCallbackHold = {
   pending: orcaCallbackOutcome({
     ok: null,
     heading: 'Finishing sign-in…',
-    line: 'Return to Orca to finish.'
+    line: 'Return to OpenKodo to finish.'
   }),
   ms: 15_000
 }
@@ -71,7 +71,7 @@ export function googlePromptExpectation(prompt: GoogleSignInPrompt): GoogleSignI
 }
 
 const NOT_THIS_SIGN_IN =
-  "That address isn't from the Google sign-in Orca just started on this computer. Start again in Orca."
+  "That address isn't from the Google sign-in OpenKodo just started on this computer. Start again in OpenKodo."
 
 const GOOGLE_REFUSALS: Record<string, string> = {
   access_denied: 'Google sign-in was cancelled, or access was not allowed.',

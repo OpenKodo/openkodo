@@ -1,4 +1,4 @@
-// The journal Orca keeps for a bot: one line in memory/journal/YYYY-MM.md each time one of its items
+// The journal OpenKodo keeps for a bot: one line in memory/journal/YYYY-MM.md each time one of its items
 // closes, with its PRs by number (no cached state, which goes stale), taken from Items. No model writes it and
 // no bot needs to, so finished work stays findable after status leaves MEMORY.md.
 import { join } from 'node:path'
@@ -17,7 +17,7 @@ export type JournalItem = Pick<BotItem, 'number' | 'title' | 'status' | 'links'>
 }
 
 /** The label a close for someone other than the owner carries, so the journal never reads as the
- *  owner's work; null for the owner. `askers` is null when Orca can't tell whom it was for. */
+ *  owner's work; null for the owner. `askers` is null when OpenKodo can't tell whom it was for. */
 function journalCloserLabel(askers: readonly BotRequestAsker[] | null): string | null {
   if (askers && actsForOwner(askers)) {
     return null
@@ -40,7 +40,7 @@ function journalCloserLabel(askers: readonly BotRequestAsker[] | null): string |
 }
 
 /** The label a close carries: none for the owner's own close or a chat that acts for the owner;
- *  a bot's close that saved no askers (from before Orca kept them) is labeled unknown. */
+ *  a bot's close that saved no askers (from before OpenKodo kept them) is labeled unknown. */
 export function journalCloseLabel(close: BotItemClose | undefined): string | undefined {
   if (close?.actor.kind === 'owner') {
     return undefined

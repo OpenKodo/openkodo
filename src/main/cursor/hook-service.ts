@@ -45,14 +45,14 @@ function getManagedScriptPath(): string {
 
 type ManagedEntryScan = { events: CursorEvent[]; outdated: boolean }
 
-// Events whose Orca entries differ from the single entry this build writes; retired events always count.
+// Events whose OpenKodo entries differ from the single entry this build writes; retired events always count.
 async function scanManagedEntries(
   configPath: string,
   scriptPath: string
 ): Promise<ManagedEntryScan> {
   const isManagedCommand = createManagedCommandMatcher(getManagedScriptFileName())
   const scan: ManagedEntryScan = { events: [], outdated: false }
-  // A missing or unreadable file has no Orca entries to repair.
+  // A missing or unreadable file has no OpenKodo entries to repair.
   const raw = await readFile(configPath, 'utf8').catch(() => null)
   const hooks = raw === null ? {} : (parseHooksJsonText(raw)?.hooks ?? {})
   for (const [eventName, definitions] of Object.entries(hooks)) {
@@ -81,7 +81,7 @@ async function scanManagedEntries(
 export class CursorHookService {
   async refreshManagedScripts(): Promise<void> {
     await refreshManagedScriptIfPresent(getManagedScriptPath(), getManagedScript())
-    // Cursor desktop runs these entries without the CLI that gates install(); update only what Orca already owns.
+    // Cursor desktop runs these entries without the CLI that gates install(); update only what OpenKodo already owns.
     const scan = await scanManagedEntries(getConfigPath(), getManagedScriptPath())
     if (scan.outdated) {
       this.install(scan.events, { onlyOwnedEvents: true })
@@ -180,7 +180,7 @@ export class CursorHookService {
     for (const eventName of events) {
       const command = getManagedCommand(scriptPath, eventName)
       const current = Array.isArray(nextHooks[eventName]) ? nextHooks[eventName] : []
-      // The refresh scan read the file earlier; skip events the user has since cleared of Orca entries.
+      // The refresh scan read the file earlier; skip events the user has since cleared of OpenKodo entries.
       if (
         options.onlyOwnedEvents &&
         !current.some((definition) => hookDefinitionHasManagedCommand(definition, isManagedCommand))
@@ -208,7 +208,7 @@ export class CursorHookService {
   // Remote installs must match local hook behavior while using POSIX paths.
   async installRemote(sftp: SFTPWrapper, remoteHome: string): Promise<AgentHookInstallStatus> {
     const remoteConfigPath = `${remoteHome.replace(/\/$/, '')}/.cursor/hooks.json`
-    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.orca/agent-hooks/cursor-hook.sh`
+    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.openkodo/agent-hooks/cursor-hook.sh`
     try {
       const config = await readHooksJsonRemote(sftp, remoteConfigPath)
       if (!config) {

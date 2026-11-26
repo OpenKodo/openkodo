@@ -67,7 +67,7 @@ export function answerPendingView(
   return {}
 }
 
-/** The mod's config folder when Orca can read it at click time: same machine (not a WSL guest)
+/** The mod's config folder when OpenKodo can read it at click time: same machine (not a WSL guest)
  *  and absolute (a relative one names the Claude's cwd, not main's). */
 export function clickReadableConfigDir(
   configDir: string | undefined,

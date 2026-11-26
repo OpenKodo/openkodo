@@ -61,7 +61,7 @@ export async function configureOpenCodeForOpenKodo(
   if (!parsed || typeof parsed.model !== 'string' || parsed.model.length === 0) {
     next = applyEdits(
       next,
-      modify(next, ['model'], DEFAULT_MODEL, {
+      modify(next, ['model'], PREFERRED_DEFAULT, {
         formattingOptions: { insertSpaces: true, tabSize: 2 }
       })
     )

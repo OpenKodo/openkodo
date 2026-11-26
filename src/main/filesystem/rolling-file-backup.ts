@@ -71,7 +71,7 @@ export function stageRollingFileBackup(
 }
 
 /**
- * A read-only Windows backup Orca may make writable before replacing it. A hard-linked one is left
+ * A read-only Windows backup OpenKodo may make writable before replacing it. A hard-linked one is left
  * alone: clearing its attribute would also change the other file.
  */
 export function isReplaceableReadOnlyBackup(backup: Pick<Stats, 'mode' | 'nlink'> | null): boolean {

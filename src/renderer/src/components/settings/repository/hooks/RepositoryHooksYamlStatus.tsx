@@ -33,22 +33,22 @@ function getYamlStateCopy(
       return {
         heading: t(
           'auto.components.settings.RepositoryHooksSection.623e0c9f31',
-          '`orca.yaml` could not be parsed'
+          '`openkodo.yaml` could not be parsed'
         ),
         description: t(
           'auto.components.settings.RepositoryHooksSection.aba825233f',
-          'The file contains configuration keys that this version of Orca does not recognize. You may need to update Orca, or check the file for typos.'
+          'The file contains configuration keys that this version of OpenKodo does not recognize. You may need to update OpenKodo, or check the file for typos.'
         )
       }
     default:
       return {
         heading: t(
           'auto.components.settings.RepositoryHooksSection.623e0c9f31',
-          '`orca.yaml` could not be parsed'
+          '`openkodo.yaml` could not be parsed'
         ),
         description: t(
           'auto.components.settings.RepositoryHooksSection.0cc712b823',
-          'The core configuration file exists in the repo root, but Orca could not parse the supported hook definitions yet.'
+          'The core configuration file exists in the repo root, but OpenKodo could not parse the supported hook definitions yet.'
         )
       }
   }
@@ -96,7 +96,7 @@ function ExampleTemplateCard({
       <p className="text-[10px] tracking-[0.18em] text-muted-foreground">
         {t('auto.components.settings.RepositoryHooksSection.175daba180', 'Example')}{' '}
         <code className="rounded bg-muted px-1 py-0.5">
-          {t('auto.components.settings.RepositoryHooksSection.39da2ae12f', 'orca.yaml')}
+          {t('auto.components.settings.RepositoryHooksSection.39da2ae12f', 'openkodo.yaml')}
         </code>{' '}
         {t('auto.components.settings.RepositoryHooksSection.95a0411b3e', 'template')}
       </p>
@@ -155,11 +155,11 @@ function YamlScriptsDisclosure({
                     loaded
                       ? t(
                           'auto.components.settings.RepositoryHooksSection.yamlDetected',
-                          '<yaml>orca.yaml</yaml> detected'
+                          '<yaml>openkodo.yaml</yaml> detected'
                         )
                       : t(
                           'auto.components.settings.RepositoryHooksSection.yamlNotDetected',
-                          'No <yaml>orca.yaml</yaml> detected'
+                          'No <yaml>openkodo.yaml</yaml> detected'
                         )
                   }
                   components={YAML_CODE_COMPONENTS}
@@ -245,15 +245,15 @@ export function RepositoryHooksYamlStatus({
                   ? presentation.archive
                     ? t(
                         'settings.groupHooks.invalidArchive',
-                        'The file is present, but Orca could not find a valid setup or archive script.'
+                        'The file is present, but OpenKodo could not find a valid setup or archive script.'
                       )
                     : t(
                         'settings.groupHooks.invalidSetup',
-                        'The file is present, but Orca could not find a valid setup script.'
+                        'The file is present, but OpenKodo could not find a valid setup script.'
                       )
                   : t(
                       'auto.components.settings.RepositoryHooksSection.af49e2a19e',
-                      'The file is present, but Orca could not find valid `scripts` or `issueCommand` definitions.'
+                      'The file is present, but OpenKodo could not find valid `scripts` or `issueCommand` definitions.'
                     )}
               </p>
               <ol className="space-y-1.5 pl-4 text-[11.5px]">

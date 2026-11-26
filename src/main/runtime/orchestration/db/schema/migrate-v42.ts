@@ -1,6 +1,6 @@
 import type { OrchestrationDb } from '../orchestration-db'
 
-const ORCA_SESSION_ID_COLUMNS = [
+const OPENKODO_SESSION_ID_COLUMNS = [
   ['runs', 'coordinator_orca_session_id', 'TEXT'],
   ['runs', 'coordinator_orca_session_id_generation', 'INTEGER'],
   ['dispatch_contexts', 'assignee_orca_session_id', 'TEXT'],
@@ -14,7 +14,7 @@ export function migrateV42(this: OrchestrationDb, current: number): void {
     return
   }
   // Fresh databases already got these columns from createTables.
-  for (const [table, column, type] of ORCA_SESSION_ID_COLUMNS) {
+  for (const [table, column, type] of OPENKODO_SESSION_ID_COLUMNS) {
     if (!this.hasColumn(table, column)) {
       this.db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`)
     }

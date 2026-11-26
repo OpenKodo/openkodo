@@ -14,7 +14,7 @@ import {
 import type { GitHubProjectViewError } from '../../../../../shared/github/projects/project-result-types'
 import { openAppHttpLink } from '@/lib/browser/navigation/app-http-link-open'
 
-const ORCA_FEATURE_REQUEST_URL = 'https://github.com/stablyai/orca/issues/new'
+const OPENKODO_FEATURE_REQUEST_URL = 'https://github.com/OpenKodo/openkodo/issues/new'
 
 export function ProjectViewTabStrip({
   views,
@@ -74,8 +74,8 @@ function ProjectViewTab({
           ? view.name
           : t(
               'auto.components.github.project.ProjectViewWrapper.2edf5e7e77',
-              "{{value0}} — Orca doesn't support {{value1}} project views yet. File a feature request at {{value2}}.",
-              { value0: view.name, value1: layoutLabel, value2: ORCA_FEATURE_REQUEST_URL }
+              "{{value0}} — OpenKodo doesn't support {{value1}} project views yet. File a feature request at {{value2}}.",
+              { value0: view.name, value1: layoutLabel, value2: OPENKODO_FEATURE_REQUEST_URL }
             )
       }
       className={cn(
@@ -96,7 +96,7 @@ function ProjectViewTab({
   }
   const message = t(
     'projectViews.unsupported.layoutNotSupported',
-    "Orca doesn't support {{layout}} project views yet.",
+    "OpenKodo doesn't support {{layout}} project views yet.",
     { layout: layoutLabel }
   )
   return (
@@ -107,7 +107,7 @@ function ProjectViewTab({
           aria-label={t(
             'auto.components.github.project.ProjectViewWrapper.55de4fb57a',
             '{{value0}}. {{value1}} File a feature request at {{value2}}.',
-            { value0: view.name, value1: message, value2: ORCA_FEATURE_REQUEST_URL }
+            { value0: view.name, value1: message, value2: OPENKODO_FEATURE_REQUEST_URL }
           )}
           className="inline-flex shrink-0 cursor-not-allowed rounded-t-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
         >
@@ -120,14 +120,14 @@ function ProjectViewTab({
             {message}{' '}
             {t(
               'projectViews.unsupported.switchLayout',
-              'Switch to a Table, Board, or Roadmap view to work with this project in Orca.'
+              'Switch to a Table, Board, or Roadmap view to work with this project in OpenKodo.'
             )}
           </p>
           <Button
             type="button"
             size="xs"
             variant="outline"
-            onClick={(event) => openAppHttpLink(ORCA_FEATURE_REQUEST_URL, { event })}
+            onClick={(event) => openAppHttpLink(OPENKODO_FEATURE_REQUEST_URL, { event })}
           >
             {t(
               'auto.components.github.project.ProjectViewWrapper.4d2a77a119',

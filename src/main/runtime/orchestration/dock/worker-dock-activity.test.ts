@@ -53,7 +53,7 @@ function readyStructuredWorker(handle: string, sessionId: string): string {
   return dispatch.id
 }
 
-// After Orca quits mid-turn, a structured worker's chat has no provider child and no status row.
+// After OpenKodo quits mid-turn, a structured worker's chat has no provider child and no status row.
 const runtime: Parameters<typeof refreshWorkerDockActivity>[2] = {
   readAgentStatusOfPanes: () => [],
   readObservedAgentStatusPaneIdentityFn: () => ({ kind: 'unobserved' }),
@@ -80,7 +80,7 @@ describe('worker dock activity verdict', () => {
       stoppable: true,
       settlement: null
     })
-    // Only a session Orca cannot observe stays unavailable.
+    // Only a session OpenKodo cannot observe stays unavailable.
     expect(rows.find((row) => row.dispatchId === unknown)?.state).toBe('unavailable')
   })
 

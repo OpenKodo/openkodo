@@ -1,4 +1,4 @@
-// Under the owner's Orca-typed message on the phone: its Slack post's Posting or failed line.
+// Under the owner's OpenKodo-typed message on the phone: its Slack post's Posting or failed line.
 import { Pressable, Text, View } from 'react-native'
 import { CircleAlert } from 'lucide-react-native'
 import { MobileConnectorSourceIcon } from '../../../bots/MobileConnectorSourceIcon'
@@ -10,7 +10,7 @@ import { slackMirrorPostLine } from '../../../../../src/shared/connectors/slack-
 import { useMobileSlackMirrorContext } from './use-mobile-slack-mirror'
 import { useMobileSlackMirrorCopy } from './mobile-slack-mirror-copy'
 
-/** Under the owner's Orca-typed message: Posting to Slack…, or Not posted with Retry and Dismiss. */
+/** Under the owner's OpenKodo-typed message: Posting to Slack…, or Not posted with Retry and Dismiss. */
 export function MobileSlackMirrorPostLine({
   messageId
 }: {

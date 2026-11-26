@@ -9,7 +9,7 @@ import { isWebClientLocation } from '@/app-shell/platform/web-client-location'
 import { useTranslate } from '@/i18n/use-translate'
 import { OrcaSignInButton, OrcaSignInWaitNotice } from '../../orca-profiles/OrcaSignInProgress'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
 
 type HowToStep = { key: string; title: string; description: string }
 
@@ -26,7 +26,7 @@ export function ArtifactsSettingsPane({
   const signedIn = authStatus?.state === 'connected'
   // Only the desktop host can grant sharing; web clients mirror it because settings.update excludes this capability.
   const isWebClient = isWebClientLocation()
-  const teamBlocked = useOrcaTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)
+  const teamBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)
   const sharingEnabled = !teamBlocked && settings.artifactSharingEnabled === true
 
   useOrcaProfileAuthStatusRefresh()
@@ -44,7 +44,7 @@ export function ArtifactsSettingsPane({
             description: isWebClient
               ? t(
                   'auto.components.settings.artifacts.enableStepWebDescription',
-                  'Open Settings → Artifacts in the Orca desktop app on the host device and enable publishing.'
+                  'Open Settings → Artifacts in the OpenKodo desktop app on the host device and enable publishing.'
                 )
               : t(
                   'auto.components.settings.artifacts.enableStepDescription',
@@ -70,7 +70,7 @@ export function ArtifactsSettingsPane({
     },
     {
       key: 'manage',
-      title: t('auto.components.settings.artifacts.manageStepTitle', 'Manage it in Orca'),
+      title: t('auto.components.settings.artifacts.manageStepTitle', 'Manage it in OpenKodo'),
       description: t(
         'auto.components.settings.artifacts.manageStepDescription',
         'Open Artifacts from the sidebar to preview or remove links.'
@@ -123,14 +123,14 @@ export function ArtifactsSettingsPane({
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t(
                   'auto.components.settings.artifacts.signInDescription',
-                  'Use your Orca account to upload artifacts and manage their public links.'
+                  'Use your OpenKodo account to upload artifacts and manage their public links.'
                 )}
               </p>
             </div>
             <OrcaSignInButton size="sm" disabled={authStatus?.configured !== true}>
               {authStatus?.state === 'reconnect-required'
                 ? t('auto.components.settings.artifacts.signInAgain', 'Sign in again')
-                : t('auto.components.settings.artifacts.signIn', 'Sign in to Orca')}
+                : t('auto.components.settings.artifacts.signIn', 'Sign in to OpenKodo')}
             </OrcaSignInButton>
             <OrcaSignInWaitNotice className="basis-full" />
           </section>

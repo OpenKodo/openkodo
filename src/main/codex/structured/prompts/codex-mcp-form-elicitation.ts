@@ -3,7 +3,7 @@ import { acpFormElicitationPresentation } from '../../../acp/requests/acp-form-e
 import { readRecord } from '../../app-server/codex-item-field-readers'
 import { isCodexMcpToolApproval } from './codex-mcp-tool-approval'
 
-/** An MCP server's own form, on the question card ACP forms use; null for a tool-call approval or a form Orca can't show. */
+/** An MCP server's own form, on the question card ACP forms use; null for a tool-call approval or a form OpenKodo can't show. */
 export function codexMcpFormPresentation(params: unknown): AcpRequestPresentation | null {
   if (isCodexMcpToolApproval(params)) {
     return null

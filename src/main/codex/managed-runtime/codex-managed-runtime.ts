@@ -1,4 +1,4 @@
-// Orca's own Codex follows Codex's latest GitHub release, installed as the same package Codex's own installer uses.
+// OpenKodo's own Codex follows Codex's latest GitHub release, installed as the same package Codex's own installer uses.
 
 import { join } from 'node:path'
 import type { ManagedRuntime, ManagedRuntimePin } from '../../node-runtime/managed-runtime-release'

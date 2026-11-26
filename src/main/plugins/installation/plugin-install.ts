@@ -1,5 +1,4 @@
 import { mkdtemp, rm } from 'node:fs/promises'
-import { existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import {
@@ -7,6 +6,7 @@ import {
   isQualifiedPluginKey,
   type PluginManifest
 } from '../../../shared/plugins/manifest/plugin-manifest'
+import { findPluginManifestPath, readPluginManifestText } from '../artifacts/plugin-manifest-file'
 import {
   isAllowedPluginGitUrl,
   PLUGIN_COMMIT_PATTERN,
@@ -33,7 +33,6 @@ import {
   isSameGitRepository,
   splitQualifiedPluginKey
 } from '../../../shared/plugins/catalog/plugin-marketplace'
-import { readPluginManifestText } from '../artifacts/plugin-manifest-file'
 import { pluginCatalogTakeoverError } from './plugin-catalog-install-guard'
 
 export type { PluginInstallResult } from './plugin-install-staging'
@@ -55,7 +54,7 @@ export async function installPluginFromLocalPath(input: {
   blockedPluginReason?: (pluginKey: string) => string | null
 }): Promise<PluginInstallResult> {
   return serializePluginMutation(input.pluginsDir, async () => {
-    if (!existsSync(join(input.sourcePath, PLUGIN_MANIFEST_FILENAME))) {
+    if (!(await findPluginManifestPath(input.sourcePath))) {
       return { ok: false, error: `no ${PLUGIN_MANIFEST_FILENAME} found in ${input.sourcePath}` }
     }
     const reinstall = await installedPublisherFor(
@@ -121,7 +120,7 @@ export async function installPluginFromGit(input: {
       input.pluginsDir,
       (source) => source.kind === 'git' && isSameGitRepository(source.url, input.url)
     )
-    const stagingDir = await mkdtemp(join(tmpdir(), 'orca-plugin-install-'))
+    const stagingDir = await mkdtemp(join(tmpdir(), 'openkodo-plugin-install-'))
     try {
       const ref = input.ref.trim()
       const resolvedCommit = await checkoutPluginGitSource({
@@ -209,7 +208,7 @@ export async function installPluginFromMarketplace(input: {
     if (takeoverError) {
       return { ok: false, error: takeoverError }
     }
-    const stagingDir = await mkdtemp(join(tmpdir(), 'orca-plugin-marketplace-install-'))
+    const stagingDir = await mkdtemp(join(tmpdir(), 'openkodo-plugin-marketplace-install-'))
     try {
       const resolvedCommit = await checkoutPluginGitSource({
         url: input.plugin.url,
@@ -252,7 +251,7 @@ export async function rollbackInstalledPlugin(input: {
   }
   const blockedReason = input.blockedPluginReason?.(input.pluginKey)
   if (blockedReason) {
-    return { ok: false, error: `plugin is blocked by Orca's safety list: ${blockedReason}` }
+    return { ok: false, error: `plugin is blocked by OpenKodo's safety list: ${blockedReason}` }
   }
   return serializePluginMutation(input.pluginsDir, async () => {
     const pluginDir = join(input.pluginsDir, input.pluginKey)

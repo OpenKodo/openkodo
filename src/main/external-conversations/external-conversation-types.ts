@@ -73,7 +73,7 @@ export const CONNECTOR_REFUSALS = [
   'unsupported_agent',
   'delivery_id_reused',
   'delivery_backlog_full',
-  // An answer's: the prompt was answered or moved on, only Orca can answer it, or no such option.
+  // An answer's: the prompt was answered or moved on, only OpenKodo can answer it, or no such option.
   'prompt_not_pending',
   'prompt_unsupported',
   'option_not_offered',
@@ -81,7 +81,7 @@ export const CONNECTOR_REFUSALS = [
   'conversation_cancelled',
   // A Stop pressed for a turn that is no longer the conversation's current one.
   'turn_not_running',
-  // A start for a bot this Orca does not have, or one its owner paused.
+  // A start for a bot this OpenKodo does not have, or one its owner paused.
   'bot_not_found',
   'bot_paused',
   // A send whose linked chat was deleted (CHAT_GONE_REFUSAL), to a cloud that then starts anew.
@@ -102,7 +102,7 @@ export type Delivery =
       reason: 'writer_failed' | 'replayed_after_restart'
     }
 
-/** A delivered message: the text as an older Orca reads it, and on a bot's, who asked, where, what
+/** A delivered message: the text as an older OpenKodo reads it, and on a bot's, who asked, where, what
  *  they wrote and what came before, which the agent reads instead. `note` follows either: the bot's
  *  automations the message also matches. `memorySource` labels an event no one asked through. */
 export type ConnectorMessage = {
@@ -120,7 +120,7 @@ export type ConnectorMessage = {
   resume?: true
 }
 
-/** A later message as the turn takes it: its words as an older Orca reads them, and its asker. */
+/** A later message as the turn takes it: its words as an older OpenKodo reads them, and its asker. */
 export type ConnectorLaterText = {
   text: string
   asker?: ConnectorAsker

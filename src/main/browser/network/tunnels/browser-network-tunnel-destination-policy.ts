@@ -4,7 +4,7 @@ import { networkInterfaces, type NetworkInterfaceInfo } from 'node:os'
 
 /** Host-side escape hatch: `1` restores the unrestricted pre-policy behavior. */
 export const BROWSER_TUNNEL_ALLOW_ALL_DESTINATIONS_ENV =
-  'ORCA_BROWSER_TUNNEL_ALLOW_ALL_DESTINATIONS'
+  'OPENKODO_BROWSER_TUNNEL_ALLOW_ALL_DESTINATIONS'
 export const BROWSER_TUNNEL_DESTINATION_BLOCKED = 'destination_blocked'
 
 // not_loopback: a paired port forward named a host off the server's own loopback.
@@ -70,7 +70,7 @@ export function inetAtonIPv4(host: string): string | null {
   return [24, 16, 8, 0].map((shift) => Math.floor(packed / 2 ** shift) % 256).join('.')
 }
 
-// Unspecified addresses dial the host itself, so they count as self for Orca's own listeners.
+// Unspecified addresses dial the host itself, so they count as self for OpenKodo's own listeners.
 const SELF_RULES: readonly BlockRule[] = [
   ['127.0.0.0', 8, 'ipv4'],
   ['::ffff:127.0.0.0', 104, 'ipv6'],
@@ -126,7 +126,7 @@ function ownAddressList(interfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): BlockL
 
 const orcaListenerPorts = new Map<number, number>()
 
-/** Marks a host port as an Orca control/proxy listener that paired browser tunnels must not reach. */
+/** Marks a host port as an OpenKodo control/proxy listener that paired browser tunnels must not reach. */
 export function reserveBrowserTunnelOrcaListenerPort(port: number): () => void {
   orcaListenerPorts.set(port, (orcaListenerPorts.get(port) ?? 0) + 1)
   let released = false

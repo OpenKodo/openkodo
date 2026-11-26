@@ -1,7 +1,7 @@
 /**
  * Windows produces no compositor frame for an idle never-shown window, and main-process
  * webContents.invalidate() does not change that, so CDP Page.captureScreenshot under
- * ORCA_BACKGROUND_LAUNCH=1 waits forever. A one-frame renderer style flip does produce a frame.
+ * OPENKODO_BACKGROUND_LAUNCH=1 waits forever. A one-frame renderer style flip does produce a frame.
  */
 const HIDDEN_WINDOW_FRAME_PUMP_ARGUMENT = '--orca-hidden-window-frame-pump'
 
@@ -12,7 +12,7 @@ export function shouldPumpHiddenWindowFrames(
   env: Readonly<Record<string, string | undefined>>,
   platform: NodeJS.Platform
 ): boolean {
-  return platform === 'win32' && env.ORCA_BACKGROUND_LAUNCH === '1'
+  return platform === 'win32' && env.OPENKODO_BACKGROUND_LAUNCH === '1'
 }
 
 export function formatHiddenWindowFramePumpArgument(): string {

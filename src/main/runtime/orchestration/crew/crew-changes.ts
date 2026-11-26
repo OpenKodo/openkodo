@@ -17,7 +17,7 @@ export type CrewInvalidation = ReadonlySet<CrewFacet> & {
   readonly trafficAddresses?: ReadonlySet<string>
   /** A status or name change about these panes only; panes no crew row shows are skipped. */
   readonly paneKeys?: ReadonlySet<string>
-  /** As `paneKeys`, for chats named by their Orca session. */
+  /** As `paneKeys`, for chats named by their OpenKodo session. */
   readonly sessionIds?: ReadonlySet<string>
   /** A topology or assignments change about these dispatches only; dispatches no crew row shows are skipped. */
   readonly dispatchIds?: ReadonlySet<string>

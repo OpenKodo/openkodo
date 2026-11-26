@@ -1,4 +1,4 @@
-// Each inline place a bot asks for Orca sign-in, signed out and once Sign in carried it on.
+// Each inline place a bot asks for OpenKodo sign-in, signed out and once Sign in carried it on.
 import { defineFixture } from '../../component-fixtures/component-fixture'
 import { ConfirmationDialogProvider } from '../dismiss/confirmation/confirmation-dialog'
 import { TooltipProvider } from '@/components/ui/tooltip'

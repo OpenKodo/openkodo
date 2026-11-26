@@ -9,7 +9,7 @@ function startsFresh(record: BotSessionLaunch): boolean {
   return record.instructionsEachStart || record.providerHandleChain.length === 0
 }
 
-/** Orca's Tools and Rules reach the context only when its prompt is built now: a fork may carry on
+/** OpenKodo's Tools and Rules reach the context only when its prompt is built now: a fork may carry on
  *  its source's thread, so only an agent that rebuilds its prompt counts it as given. */
 function rulesDelivered(record: BotSessionLaunch): boolean {
   return (

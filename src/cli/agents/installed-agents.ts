@@ -51,7 +51,7 @@ async function readInstalledAgents(client: RuntimeClient, worktree?: RuntimeWork
     if (worktree && parseExecutionHostId(worktree.hostId)?.kind !== 'local') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'Update Orca on the connected host and the workspace host to list installed agents for a workspace.'
+        'Update OpenKodo on the connected host and the workspace host to list installed agents for a workspace.'
       )
     }
     const [response, settings] = await Promise.all([

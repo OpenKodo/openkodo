@@ -1,4 +1,4 @@
-// The popular apps Add connector offers before a Composio key, drawn with no Composio call. Apps Orca
+// The popular apps Add connector offers before a Composio key, drawn with no Composio call. Apps OpenKodo
 // connects itself (Slack, GitHub, Google, Linear, Discord) are left out, and so is any app Composio has
 // no sign-in of its own for (checked against Composio's toolkits, 11-04).
 /** `line` is the app's one-line summary in the bot's app list. */
@@ -31,7 +31,7 @@ export const COMPOSIO_CURATED_APPS: readonly ComposioCuratedApp[] = [
   { slug: 'reddit', name: 'Reddit', line: 'Posts, comments and subreddits' }
 ]
 
-/** The name Orca shows for an app: the curated one, else Composio's, else its slug. */
+/** The name OpenKodo shows for an app: the curated one, else Composio's, else its slug. */
 export function composioAppName(slug: string, fallback?: string): string {
   return COMPOSIO_CURATED_APPS.find((app) => app.slug === slug)?.name ?? fallback ?? slug
 }

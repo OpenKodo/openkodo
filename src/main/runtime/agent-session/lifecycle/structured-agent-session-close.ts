@@ -116,10 +116,10 @@ export async function closeStructuredAgentSessionChild(
 }
 
 export const STARTING_AGENT_STOPPED_REASON =
-  'Its agent was still starting; Orca cancelled the start.'
+  'Its agent was still starting; OpenKodo cancelled the start.'
 
 export const STARTING_AGENT_STOPPING_REASON =
-  'Its agent was still starting; Orca will close it as soon as it comes up.'
+  'Its agent was still starting; OpenKodo will close it as soon as it comes up.'
 
 async function settleCancelledStart(
   host: StructuredAgentSessionHost,

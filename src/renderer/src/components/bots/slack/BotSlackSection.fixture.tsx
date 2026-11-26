@@ -1,5 +1,5 @@
 // The Slack connector's section in the Connectors panel (350 and 280 px) and the after-install
-// dialog: Who can ask as one list, and who messages typed in Orca show as.
+// dialog: Who can ask as one list, and who messages typed in OpenKodo show as.
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { ConfirmationDialogProvider } from '../../dismiss/confirmation/confirmation-dialog'
 import { publishBots } from '@/lib/bot-catalog-snapshot'

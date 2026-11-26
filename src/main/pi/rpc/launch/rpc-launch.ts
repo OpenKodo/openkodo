@@ -1,5 +1,5 @@
-import { ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV } from '../../../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
-import { ORCA_AGENT_SESSION_CALLER_ENV_KEYS } from '../../../ipc/pty/host-env/spawn-env-keys'
+import { OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV } from '../../../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
+import { OPENKODO_AGENT_SESSION_CALLER_ENV_KEYS } from '../../../ipc/pty/host-env/spawn-env-keys'
 import { STRUCTURED_CHILD_ENV_TO_DELETE } from '../../../runtime/agent-session/environment/structured-session-child-env'
 import {
   LEGACY_NATIVE_CHAT_VISUALS_DIR_ENV,
@@ -32,16 +32,16 @@ export type PiRpcLaunchOptions = {
   skillDirs?: readonly string[]
   /** Absent: every tool Pi has. */
   tools?: PiToolLimit
-  /** Orca's background-work bridge for this launch; absent when it could not be prepared. */
+  /** OpenKodo's background-work bridge for this launch; absent when it could not be prepared. */
   backgroundWork?: PiBackgroundWorkLaunch
   /** The extension that registers a bot's own tools, and the servers it reads; absent: none. */
   botTools?: { extension: string; servers: string }
 }
 
 const CALLER_ENV_TO_DELETE = [
-  ...ORCA_AGENT_SESSION_CALLER_ENV_KEYS,
-  'ORCA_TERMINAL_HANDLE',
-  ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV
+  ...OPENKODO_AGENT_SESSION_CALLER_ENV_KEYS,
+  'OPENKODO_TERMINAL_HANDLE',
+  OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV
 ]
 
 /** This chat's own scratch folder, if it has one; an inherited one belongs to another chat. */

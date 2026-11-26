@@ -15,7 +15,7 @@ export type ConnectorToken = {
   wakeToken?: { token: string; expiresAt: number } | undefined
 }
 
-/** Asks Orca's auth service for a short-lived connector token as this machine's signed-in account. */
+/** Asks OpenKodo's auth service for a short-lived connector token as this machine's signed-in account. */
 /** A wake token; `none` when the auth service issues none, `failed` when no mint succeeded just now. */
 export type ConnectorWakeTokenResult = { token: string } | 'none' | 'failed'
 

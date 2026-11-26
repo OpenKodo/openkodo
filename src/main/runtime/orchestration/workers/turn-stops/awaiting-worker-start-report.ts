@@ -133,7 +133,7 @@ export function settleRestartCutStart(
     const failed = db.failWorkerStart(
       dispatchId,
       worker.stage,
-      'Orca restarted before this worker had a terminal or chat, so its agent never started.'
+      'OpenKodo restarted before this worker had a terminal or chat, so its agent never started.'
     )
     reportFailedWorkerStart(db, failed, (handle, type) =>
       runtime.notifyMessageArrived(handle, type)
@@ -147,8 +147,8 @@ export function settleRestartCutStart(
     dispatchId,
     'agent_readiness',
     worker.setup_state === 'running'
-      ? 'Orca restarted while its Setup was still running, so it never sent its brief.'
-      : 'Orca restarted while it waited for its agent, so it never typed its brief.'
+      ? 'OpenKodo restarted while its Setup was still running, so it never sent its brief.'
+      : 'OpenKodo restarted while it waited for its agent, so it never typed its brief.'
   )
   closeCutStructuredWorkerSession(worker, runtime)
   reportNeverReadyWorkerStart(db, failed, undefined, (handle, type) =>

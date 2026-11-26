@@ -48,7 +48,7 @@ export function resolveStaleDaemonRecycleVersion(onEveryPlatform = false): strin
 }
 
 export function daemonLogArgs(): string[] {
-  const disabled = (process.env.ORCA_DIAGNOSTICS_DISABLED ?? '').trim().toLowerCase()
+  const disabled = (process.env.OPENKODO_DIAGNOSTICS_DISABLED ?? '').trim().toLowerCase()
   return disabled === '1' || disabled === 'true' ? [] : ['--log-file', getDaemonLogFilePath()]
 }
 

@@ -13,7 +13,7 @@ import { GoogleToolError, parseGoogleJson, type GoogleApi } from './google-api-c
 import { requireDriveId } from './google-drive-files'
 
 const SHEETS = 'https://sheets.googleapis.com/v4/spreadsheets'
-// Room under the output cap for Orca's own lines around the table.
+// Room under the output cap for OpenKodo's own lines around the table.
 const READ_BUDGET_CHARS = TOOL_OUTPUT_MAX_CHARS - 2_000
 
 export type Cell = string | number | boolean | null

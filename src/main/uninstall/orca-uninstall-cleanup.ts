@@ -61,7 +61,7 @@ function isOrcaOwnedCli(status: CliInstallStatus | null): status is CliInstallSt
   return status !== null && (status.state === 'installed' || status.state === 'stale')
 }
 
-/** Read-only: lists what Orca added outside its own folders. */
+/** Read-only: lists what OpenKodo added outside its own folders. */
 export async function buildOrcaUninstallPlan(host: OrcaUninstallHost): Promise<OrcaUninstallPlan> {
   const registryAgents: OrcaUninstallAgentEntry[] = getManagedAgentHookStatuses()
     .filter((status) => status.managedHooksPresent)
@@ -122,7 +122,7 @@ function registryOutcome(
     return { state: 'removed', detail: null }
   }
   if (status.state === 'error' || status.managedHooksPresent) {
-    return { state: 'error', detail: status.detail ?? 'Orca hooks are still in this file.' }
+    return { state: 'error', detail: status.detail ?? 'OpenKodo hooks are still in this file.' }
   }
   return { state: 'removed', detail: null }
 }

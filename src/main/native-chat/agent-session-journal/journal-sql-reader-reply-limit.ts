@@ -5,7 +5,7 @@ import type { JournalSqlReaderReply } from './journal-sql-reader-protocol'
 
 /**
  * Main deserializes every reader reply into the ~3.25 GB V8 heap it shares with all workers; a
- * decoded whole-chat read (647 MB of JSON, ~931 MB retained) exhausted it and aborted Orca.
+ * decoded whole-chat read (647 MB of JSON, ~931 MB retained) exhausted it and aborted OpenKodo.
  * Decoding costs 1.0-1.9x the serialized bytes (journal rows, records), so this keeps one reply
  * under ~120 MB of main heap, far above any paged read.
  */

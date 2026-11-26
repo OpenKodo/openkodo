@@ -241,7 +241,7 @@ export class WslHostService {
     }
     this.parked.delete(record.environmentId)
     // The focused workspace's work is visible even before the window re-reports it.
-    // Switching to it is the user's intent, so it wakes a host Orca stopped idle (#46567).
+    // Switching to it is the user's intent, so it wakes a host OpenKodo stopped idle (#46567).
     this.ensureForRuntimeCall(record.environmentId, () => true, true).catch(() => {
       // Refused (stopped, settling, unconfirmed): the published status tells the panes.
     })

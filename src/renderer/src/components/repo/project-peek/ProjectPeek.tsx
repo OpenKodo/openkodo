@@ -44,7 +44,7 @@ function ExternalLinkLine({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        {/* Reads as a plain link; it opens in the system browser rather than navigating Orca. */}
+        {/* Reads as a plain link; it opens in the system browser rather than navigating OpenKodo. */}
         <a
           href={url}
           onClick={(event) => {

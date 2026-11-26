@@ -60,7 +60,7 @@ export type AccountBoundLinks = {
   holders?: (profileUserId: string | null) => { ownerUserIds: string[]; botNames: string[] }
 }
 
-/** One Orca account per host; Electron-free so desktop and orcad share it. */
+/** One OpenKodo account per host; Electron-free so desktop and orcad share it. */
 export class OrcaAccountService {
   private readonly openBrowser: (url: string) => Promise<void>
   private readonly userDataPath: () => string
@@ -82,7 +82,7 @@ export class OrcaAccountService {
       return null
     }
     if (links.profileId() !== transition.profileId) {
-      return 'The Orca profile changed during sign-in. Try again.'
+      return 'The OpenKodo profile changed during sign-in. Try again.'
     }
     return links.refusal(transition.nextUserId, transition.currentUserId)
   }

@@ -40,7 +40,7 @@ export function retireRemotePlacement(db: OrchestrationDb, taskId: string): void
 }
 
 /**
- * Every send under the reservation's key failed before leaving this Orca. It stays reserved, so a
+ * Every send under the reservation's key failed before leaving this OpenKodo. It stays reserved, so a
  * same-key retry resends, but a cancel of the Task may now retire it.
  */
 export function markRemotePlacementNeverSent(
@@ -58,7 +58,7 @@ export function markRemotePlacementNeverSent(
 
 /**
  * A cancel of the Task retires its reservation when no start for it can have reached the server:
- * no attempt there, and every send failed before leaving this Orca. Any other reservation may
+ * no attempt there, and every send failed before leaving this OpenKodo. Any other reservation may
  * stand for a Dispatch the server created, so it keeps holding the Task.
  */
 export function retireNeverSentReservation(db: OrchestrationDb, taskId: string): void {

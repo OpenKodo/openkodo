@@ -120,7 +120,7 @@ export function askedBy(userId: string, name: string, role: 'owner' | 'member' =
 }
 
 export function caller(sessionId: string): OrchestrationSessionCaller {
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: fixed UUID test ids are Orca session ids.
+  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: fixed UUID test ids are OpenKodo session ids.
   const id = sessionId as OrchestrationSessionCaller['sessionId']
   return {
     address: `orca_session_id:${sessionId}`,

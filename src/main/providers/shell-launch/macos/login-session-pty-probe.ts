@@ -2,14 +2,14 @@ import { runProcess } from '@orca/process-host'
 import { existsSync } from 'node:fs'
 
 const MACOS_EXPECT_PATH = '/usr/bin/expect'
-const LOGIN_PREFLIGHT_MARKER = 'ORCA_LOGIN_PREFLIGHT_OK'
-const LOGIN_PROBE_USERNAME_ENV = 'ORCA_LOGIN_PROBE_USERNAME'
+const LOGIN_PREFLIGHT_MARKER = 'OPENKODO_LOGIN_PREFLIGHT_OK'
+const LOGIN_PROBE_USERNAME_ENV = 'OPENKODO_LOGIN_PROBE_USERNAME'
 // expect owns the probe PTY without leaving a long-lived native handle in the daemon.
 // login(1) ignores a closed PTY's SIGHUP, so expect kills it on runProcess's SIGTERM (#30806).
 // Trap only after spawn: before it, exp_pid is 0 and would signal our whole process group.
 const EXPECT_LOGIN_PROBE_SCRIPT =
   'log_user 1; ' +
-  'spawn -noecho /usr/bin/login -flpq $env(ORCA_LOGIN_PROBE_USERNAME) /usr/bin/printf ORCA_LOGIN_PREFLIGHT_OK; ' +
+  'spawn -noecho /usr/bin/login -flpq $env(OPENKODO_LOGIN_PROBE_USERNAME) /usr/bin/printf OPENKODO_LOGIN_PREFLIGHT_OK; ' +
   'trap {catch {exec /bin/kill -KILL [exp_pid]}; exit 1} SIGTERM; ' +
   'send "\\004"; expect eof; wait; exit 0'
 

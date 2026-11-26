@@ -23,7 +23,7 @@ let i = 1`
 
 it('keeps Swift tokens intact after raw strings that contain quotes', async () => {
   monaco.languages.register({ id: 'swift' })
-  // Mirrors Monaco's own Swift contribution, which registers before Orca's setup runs.
+  // Mirrors Monaco's own Swift contribution, which registers before OpenKodo's setup runs.
   monaco.languages.registerTokensProviderFactory('swift', { create: () => stockSwiftLanguage })
   registerSwiftLanguage(monaco)
 

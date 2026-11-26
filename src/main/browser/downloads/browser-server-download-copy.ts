@@ -147,7 +147,7 @@ export async function copyBrowserServerDownloadHere(
         getRuntimeEnvironmentRegistryRoot(),
         environmentId,
         'browser.downloadCopyStream',
-        // Orca's own window asked, not an agent: no browser-use interaction to record.
+        // OpenKodo's own window asked, not an agent: no browser-use interaction to record.
         withBrowserPaneUiRuntimeRpcSource({ copyId }),
         COPY_START_TIMEOUT_MS,
         {

@@ -7,7 +7,7 @@ import type { BotMascotId } from './bot-avatar'
 export const SLACK_CONFIG_REFRESH_TOKEN_PREFIX = 'xoxe-'
 export const SLACK_CONFIG_REFRESH_TOKEN_MAX_LENGTH = 2048
 
-// Slack shows two tokens side by side; the access token is the one Orca can't keep using.
+// Slack shows two tokens side by side; the access token is the one OpenKodo can't keep using.
 const SLACK_CONFIG_ACCESS_TOKEN_PREFIX = 'xoxe.xoxp-'
 const TOKEN_SHAPE = /^[\w.-]+$/
 
@@ -41,14 +41,14 @@ export const ConnectorBotSlackAppResponse = z.object({
 })
 export type ConnectorBotSlackAppResponse = z.infer<typeof ConnectorBotSlackAppResponse>
 
-// A paired computer's one-time code that lets another signed-in Orca account create its bot's app.
+// A paired computer's one-time code that lets another signed-in OpenKodo account create its bot's app.
 export const ConnectorBotSlackHandOffResponse = z.object({
   code: z.string().min(1),
   expiresAt: z.number().int().positive()
 })
 export type ConnectorBotSlackHandOffResponse = z.infer<typeof ConnectorBotSlackHandOffResponse>
 
-// created: waits for its Install click or an admin's approval. uncertain: Slack may hold an app Orca
+// created: waits for its Install click or an admin's approval. uncertain: Slack may hold an app OpenKodo
 // has no secrets for; setting up again finishes it or makes a new one. grant_expired: as uncertain,
 // with no grant left to continue.
 export const ConnectorBotSlackState = z.discriminatedUnion('state', [
@@ -82,7 +82,7 @@ export const ConnectorBotSlackState = z.discriminatedUnion('state', [
     postAs: z.enum(['person', 'computer']).optional(),
     postAsPending: z.enum(['person', 'computer']).optional(),
     // What each choice shows as: the bot's account's Slack name and picture (left out without its
-    // Slack link) and the computer's name as Orca shows it.
+    // Slack link) and the computer's name as OpenKodo shows it.
     poster: z.object({ name: z.string(), avatarUrl: optionalConnectorAvatarUrl }).optional(),
     computerName: z.string().optional()
   })

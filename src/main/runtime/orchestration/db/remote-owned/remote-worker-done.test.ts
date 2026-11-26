@@ -103,7 +103,7 @@ describe('worker_done from a worker on a paired server', () => {
 
   it("delivers a follow-up's report although its Task exists only on the server", () => {
     startOnServer(TASK, 'term_worker')
-    // A send to the finished worker starts its follow-up there under a new Task; this Orca records its Dispatch.
+    // A send to the finished worker starts its follow-up there under a new Task; this OpenKodo records its Dispatch.
     const followTask = 'task_serveronly01'
     const dispatchId = startOnServer(followTask, 'term_worker_2')
     adoptRemoteAttempt(home, link, { taskId: followTask, dispatchId })
@@ -113,7 +113,7 @@ describe('worker_done from a worker on a paired server', () => {
     expect(message).toMatchObject({ type: 'worker_done', subject: 'done', body: 'report' })
   })
 
-  it('still rejects a report naming a Dispatch or Task this Orca does not know', () => {
+  it('still rejects a report naming a Dispatch or Task this OpenKodo does not know', () => {
     const dispatchId = startOnServer(TASK, 'term_worker')
     recordRemoteStart(home, {
       conversationId: link.conversation_id,

@@ -49,7 +49,7 @@ export function useComposioKey(hostId: ExecutionHostId): ComposioKey | null {
 
 /**
  * When the host's key project sends its events away from it while its automations wait on them:
- * the computer here that takes them, or '' for one Orca can't name. Null when they come here.
+ * the computer here that takes them, or '' for one OpenKodo can't name. Null when they come here.
  * Known for the hosts whose key was read (`useComposioKey`).
  */
 export function useComposioEventsHolder(hostId: ExecutionHostId): ExecutionHostId | '' | null {

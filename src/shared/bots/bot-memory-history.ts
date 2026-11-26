@@ -1,4 +1,4 @@
-// A bot's memory history: one row per change to its MEMORY.md, kept by Orca outside the bot's home.
+// A bot's memory history: one row per change to its MEMORY.md, kept by OpenKodo outside the bot's home.
 import * as z from 'zod'
 
 /** How long a row is kept. */
@@ -9,7 +9,7 @@ const BotMemoryLineSchema = z.object({ line: z.string(), after: z.string().nulla
 export const BotMemoryAuthorSchema = z.discriminatedUnion('kind', [
   /** A chat's turn wrote it; `source` is who outside spoke in that window, null the owner. */
   z.object({ kind: z.literal('chat'), sessionId: z.string(), source: z.string().nullable() }),
-  /** Orca put back what a chat's write dropped. */
+  /** OpenKodo put back what a chat's write dropped. */
   z.object({ kind: z.literal('kept'), sessionId: z.string() }),
   /** The owner, in Settings. */
   z.object({ kind: z.literal('owner') }),

@@ -39,7 +39,7 @@ export function createAgentModelCatalogService(
   const unbindRefresh = onAgentsRefreshedOnHost((userInitiated) =>
     deps.store.refreshInputs(userInitiated)
   )
-  // A listing that failed because the agent was missing must rerun once Orca installs it.
+  // A listing that failed because the agent was missing must rerun once OpenKodo installs it.
   const unbindReleases = onManagedRuntimeReleasesChanged(() => deps.store.refreshInputs(false))
   const tasks = new Set<Promise<unknown>>()
   const lifetime = new AbortController()

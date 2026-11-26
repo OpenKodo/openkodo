@@ -64,10 +64,10 @@ export function buildWslInteractiveLoginShellCommand(): string {
     'fi',
     '_orca_shell_ready_root=""',
     // Use the host-published content-addressed wrapper root, /p-translated by WSLENV. Retain userData fallback for older hosts.
-    'if [ -n "${ORCA_SHELL_READY_ROOT:-}" ]; then',
-    '  _orca_shell_ready_root="${ORCA_SHELL_READY_ROOT%/}"',
-    'elif [ -n "${ORCA_USER_DATA_PATH:-}" ]; then',
-    '  _orca_shell_ready_root="${ORCA_USER_DATA_PATH%/}/shell-ready"',
+    'if [ -n "${OPENKODO_SHELL_READY_ROOT:-}" ]; then',
+    '  _orca_shell_ready_root="${OPENKODO_SHELL_READY_ROOT%/}"',
+    'elif [ -n "${OPENKODO_USER_DATA_PATH:-}" ]; then',
+    '  _orca_shell_ready_root="${OPENKODO_USER_DATA_PATH%/}/shell-ready"',
     'fi',
     '_orca_wsl_shell_name=$(basename "$_orca_wsl_shell" | tr "[:upper:]" "[:lower:]")',
     'case "$_orca_wsl_shell_name" in',
@@ -100,7 +100,7 @@ export function buildWslInteractiveLoginShellCommand(): string {
     '        *)',
     // If ~/.profile replaces ENV, nothing of ours runs after it to unset this; it then holds only the
     // user's own former ENV value.
-    '          if [ -n "${ENV+x}" ]; then export ORCA_WSL_USER_ENV="$ENV"; fi',
+    '          if [ -n "${ENV+x}" ]; then export OPENKODO_WSL_USER_ENV="$ENV"; fi',
     '          export ENV="${_orca_shell_ready_root}/sh/env"',
     '          ;;',
     '      esac',

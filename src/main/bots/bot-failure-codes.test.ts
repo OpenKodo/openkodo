@@ -85,12 +85,12 @@ describe('bot failure codes', () => {
       'Choose a current room member in Room replies.'
     )
     expect(automationRunFailure('botPaused', { bot: 'Ada' })).toEqual({
-      error: 'Ada is paused, so Orca skipped this run.',
+      error: 'Ada is paused, so OpenKodo skipped this run.',
       errorCode: 'botPaused',
       errorParams: { bot: 'Ada' }
     })
     expect(automationRunFailure('botsOff').error).toBe(
-      'Bots are turned off in Settings, so Orca skipped this run.'
+      'Bots are turned off in Settings, so OpenKodo skipped this run.'
     )
   })
 
@@ -117,6 +117,6 @@ describe('bot failure codes', () => {
       code: 'tidyUpAllSkipped' satisfies BotFailureCode,
       params: { detail: 'line 3 is a decision' }
     })
-    expect(botRunFailure('Something a newer Orca wrote.')).toBeUndefined()
+    expect(botRunFailure('Something a newer OpenKodo wrote.')).toBeUndefined()
   })
 })

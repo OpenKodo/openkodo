@@ -1,5 +1,5 @@
 // A server page's Agents: a switch per installed agent. Grok, Cursor and Droid only read their own MCP
-// file, so the first switch turned on for one asks once before Orca keeps servers in that file.
+// file, so the first switch turned on for one asks once before OpenKodo keeps servers in that file.
 import React, { useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -75,7 +75,7 @@ export function McpServerAgentsGroup({
   const isOn = (agent: string): boolean => !server.agentsOff.includes(agent)
   const allOn = agents.every(isOn)
 
-  /** Lets Orca keep servers in the agent's own file first, when it never has. */
+  /** Lets OpenKodo keep servers in the agent's own file first, when it never has. */
   const consented = async (agent: string): Promise<boolean> => {
     if (!isMcpFileAgent(agent) || agentFiles[agent]) {
       return true
@@ -85,12 +85,16 @@ export function McpServerAgentsGroup({
     const ok = await askFileConsent(
       () =>
         confirm({
-          title: t('settings.mcpServers.fileAgent.title', 'Let Orca edit {{agent}}’s MCP file?', {
-            agent: label
-          }),
+          title: t(
+            'settings.mcpServers.fileAgent.title',
+            'Let OpenKodo edit {{agent}}’s MCP file?',
+            {
+              agent: label
+            }
+          ),
           description: t(
             'settings.mcpServers.fileAgent.line',
-            'Orca will keep your MCP servers in {{agent}}’s settings file ({{file}}). Your own entries stay as they are.',
+            'OpenKodo will keep your MCP servers in {{agent}}’s settings file ({{file}}). Your own entries stay as they are.',
             { agent: label, file: AGENT_FILES[agent] }
           ),
           confirmLabel: t('settings.mcpServers.fileAgent.allow', 'Allow'),

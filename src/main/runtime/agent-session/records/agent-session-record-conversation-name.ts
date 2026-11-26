@@ -21,7 +21,7 @@ export function setAgentSessionRecordConversationName(
 }
 
 /** How a user's name write lands: `rename` always wins; `legacy-alias` (a window's tab rename
- *  from before names were saved here) only replaces a name Orca chose, so a late or replayed
+ *  from before names were saved here) only replaces a name OpenKodo chose, so a late or replayed
  *  upload never overwrites a rename the user made since. `release` drops a user name the chat
  *  still bears as `name`, handing it back to automatic naming. */
 export type AgentSessionUserNameWrite = 'rename' | 'legacy-alias' | 'release'

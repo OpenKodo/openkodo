@@ -3,7 +3,7 @@ import type { JournalSqlDatabase } from '../../agent-session-journal/database/jo
 import { journalSqlReads } from '../../agent-session-journal/journal-sql-reads'
 import type { NativeChatUsageLimitCut } from '../../../../shared/native-chat/transcript/continuation/native-chat-usage-limit-cut'
 
-/** Automatic continues a chain may spend before Orca leaves the chat to the person. */
+/** Automatic continues a chain may spend before OpenKodo leaves the chat to the person. */
 export const USAGE_LIMIT_CONTINUE_CHAIN_LIMIT = 5
 
 export const usageLimitContinueIdentity = (

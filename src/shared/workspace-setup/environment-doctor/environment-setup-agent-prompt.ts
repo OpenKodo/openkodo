@@ -10,7 +10,7 @@ export type EnvironmentSetupFailureContext = {
 const MAX_LOG_LINES = 40
 const MAX_LOG_CHARS = 4_000
 const MAX_ERROR_CHARS = 500
-// Recipe ids are orca.yaml keys; anything else would break the inline code span.
+// Recipe ids are openkodo.yaml keys; anything else would break the inline code span.
 const SAFE_RECIPE_ID = /^[A-Za-z0-9._-]{1,128}$/
 // Unquoted secrets common in provisioning output; the shared redactor covers URLs and JSON fields.
 const BEARER_TOKEN = /\b(authorization\s*:\s*(?:bearer|token|basic)\s+)\S+/gi
@@ -29,7 +29,7 @@ export function buildEnvironmentSetupAgentPrompt(args: {
   const lines = [
     'Use the orca-per-workspace-env skill to make this repo run in a per-workspace environment. If the skill is not installed, load it with `orca skills get orca-per-workspace-env`.',
     '',
-    'Goal: write or repair `environmentRecipes` and `scripts.setup` in orca.yaml, plus any scripts they call.',
+    'Goal: write or repair `environmentRecipes` and `scripts.setup` in openkodo.yaml, plus any scripts they call.',
     `- Run ${recipeDoctor} and fix every failing check.`,
     '- Inside the environment, run `orca vm env doctor --run-setup --json` and fix what fails: missing CLIs, agent sign-in, Git access, the setup script, disk space.',
     '- Re-run both doctors after each fix until no check fails, and resolve or explain every warning.',

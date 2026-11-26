@@ -1,13 +1,12 @@
 {
   "name": "openkodo",
-  "version": "1.4.214",
+  "version": "1.4.215",
   "description": "OpenKodo Code — an agent IDE for the OpenKodo subscription",
   "homepage": "https://github.com/OpenKodo/openkodo",
   "author": "OpenKodo",
   "bin": {
-    "orca": "./out/cli/index.js",
-    "orca-dev": "./config/scripts/development/launch/orca-dev.mjs",
-    "openkodo": "./out/cli/index.js"
+    "openkodo": "./out/cli/index.js",
+    "openkodo-dev": "./config/scripts/development/launch/openkodo-dev.mjs"
   },
   "main": "./out/main/index.js",
   "scripts": {

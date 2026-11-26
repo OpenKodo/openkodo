@@ -1,4 +1,4 @@
-// What a bot chat's agent was given, as far as Orca knows: per session, in memory.
+// What a bot chat's agent was given, as far as OpenKodo knows: per session, in memory.
 import type { BotMemoryTopics } from './bot-turn-memory-update'
 import { botMemoryKnown, botTurnFingerprint as fingerprint } from './bot-turn-memory-update'
 import type { BotTurnSkills } from './bot-turn-linked-skills'
@@ -31,7 +31,7 @@ export type BotTurnGiven = BotTurnSkills & {
   receiptAtStart: BotTurnMemorySnapshot | null
   /** The journal read through at the last turn end; null before the first. */
   scannedThrough: number | null
-  /** Orca's Tools and Rules: the host's now, and what the agent holds. */
+  /** OpenKodo's Tools and Rules: the host's now, and what the agent holds. */
   orcaRules: BotTurnRules
 }
 

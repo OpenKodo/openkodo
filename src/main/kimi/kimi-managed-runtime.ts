@@ -1,4 +1,4 @@
-// Orca's own Kimi Code follows the release its own installer downloads, hashed by that release's manifest.
+// OpenKodo's own Kimi Code follows the release its own installer downloads, hashed by that release's manifest.
 
 import { join } from 'node:path'
 import { z } from 'zod'

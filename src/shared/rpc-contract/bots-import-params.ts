@@ -1,4 +1,4 @@
-// Bringing a bot over from another app: what Orca finds on the bot's host, and the bot's plan and summary cards.
+// Bringing a bot over from another app: what OpenKodo finds on the bot's host, and the bot's plan and summary cards.
 import * as z from 'zod'
 import { BotImportDoneInputSchema, BotImportPlanInputSchema } from '../bots/bot-import-cards'
 import { requiredString } from './rpc-param-primitives'

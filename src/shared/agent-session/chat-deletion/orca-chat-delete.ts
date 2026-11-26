@@ -1,4 +1,4 @@
-/** The host deletes an Orca chat for good (agentSession.delete); an older host keeps every chat. */
+/** The host deletes an OpenKodo chat for good (agentSession.delete); an older host keeps every chat. */
 export const AGENT_SESSION_DELETE_RUNTIME_CAPABILITY = 'agentSession.delete.v1' as const
 // Why: hosts before this advertise delete.v1 but refuse agentSession.delete from a phone.
 export const AGENT_SESSION_PHONE_DELETE_RUNTIME_CAPABILITY =

@@ -1,4 +1,4 @@
-// The run Orca records on a bot automation run's message, from the same inputs its text is composed from.
+// The run OpenKodo records on a bot automation run's message, from the same inputs its text is composed from.
 import type { Automation } from '../../shared/automations/automation-definition'
 import type { AutomationRun } from '../../shared/automations/history/automation-run'
 import {

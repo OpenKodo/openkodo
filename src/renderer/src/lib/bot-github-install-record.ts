@@ -107,7 +107,7 @@ function startWait(): void {
 }
 
 /** Only GitHub saving ends the record's waiting (or Close, ✕ and Turn on). A wait that stops for
- *  anything else (a failed read, the Orca account signing in after a restart) is followed again. */
+ *  anything else (a failed read, the OpenKodo account signing in after a restart) is followed again. */
 function onGitHubRead(): void {
   if (!record?.waiting) {
     return
@@ -228,7 +228,7 @@ export function expandGitHubInstall(): void {
   update({ surface: 'dialog' })
 }
 
-/** A trip to GitHub's install page: in Orca's browser the dialog minimizes so the page is free. */
+/** A trip to GitHub's install page: in OpenKodo's browser the dialog minimizes so the page is free. */
 export function tripToGitHubInstall(
   destinationHost: ExecutionHostId,
   destination: HttpLinkDestination,

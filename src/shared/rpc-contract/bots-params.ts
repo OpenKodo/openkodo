@@ -106,7 +106,7 @@ export const BotCreate = z.object({
   }).optional()
 })
 
-/** `orca bot create --offer`: a card in the calling bot's chat proposing a new bot; Orca picks its mascot. */
+/** `orca bot create --offer`: a card in the calling bot's chat proposing a new bot; OpenKodo picks its mascot. */
 export const BotCreateOfferRequest = BotProposalSchema.omit({ mascot: true }).extend({
   callerSessionId: requiredString("Run this from a bot's chat.")
 })
@@ -189,7 +189,7 @@ export const BotAccessDecide = z.object({
   decision: z.enum(['granted', 'declined'])
 })
 
-/** The owner's "Review in Orca" link (orca://bot/<botId>/access-request): its single-use token, and the bot it names. */
+/** The owner's "Review in OpenKodo" link (openkodo://bot/<botId>/access-request): its single-use token, and the bot it names. */
 export const BotAccessRedeem = z.object({
   token: z.string().regex(ACCESS_REQUEST_TOKEN_PATTERN),
   /** Today's links name no bot; a future one may. */
@@ -276,7 +276,7 @@ export const BotRoster = z.object({
 /** A new conversation with the bot; `agent` runs it on another of the agents a bot can be. */
 export const BotSessionStart = BotChat.extend({ agent: z.enum(BOT_AGENTS).optional() })
 
-/** The owner handed the bot a workspace, already moved under its home: Orca tells the bot in its Home
+/** The owner handed the bot a workspace, already moved under its home: OpenKodo tells the bot in its Home
  *  (a bot just made for it) or in a new chat. */
 export const BotTakeOverParams = BotChat.extend({
   chat: z.enum(['home', 'new']),

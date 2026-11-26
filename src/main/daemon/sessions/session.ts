@@ -148,7 +148,7 @@ export class Session extends SessionProcessInspection {
     }
   }
 
-  /** Orca's own startup command: held by the shell-ready barrier until the shell can read it. */
+  /** OpenKodo's own startup command: held by the shell-ready barrier until the shell can read it. */
   writeStartupCommand(data: string): void {
     if (this._state !== 'exited' && !this._disposed && !this.shellReady.tryEnqueue(data)) {
       this.writeInput(data)

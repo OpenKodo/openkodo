@@ -164,7 +164,7 @@ export async function removeOrphanOrFolderWorktree({
       ...(archiveSkipped
         ? {
             warning:
-              'orca.yaml archive hook skipped for this folder workspace; pass --run-hooks to run it.'
+              'openkodo.yaml archive hook skipped for this folder workspace; pass --run-hooks to run it.'
           }
         : {})
     }

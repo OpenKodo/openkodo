@@ -25,7 +25,7 @@ export type MobileStructuredInterruptedContinue = {
   dismissFailure: () => void
 }
 
-// Desktop's Continue on an Orca-stopped turn; the host rechecks the cut before it sends anything.
+// Desktop's Continue on an OpenKodo-stopped turn; the host rechecks the cut before it sends anything.
 export function useMobileStructuredInterruptedContinue(
   input: {
     client: RpcClient | null

@@ -7,7 +7,7 @@ import {
 } from '../../browser/guest-lifecycle/browser-page-memory'
 import { app, session, type BrowserWindow } from 'electron'
 import { join } from 'node:path'
-import { ORCA_BROWSER_GUEST_WEB_PREFERENCES } from '../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
+import { OPENKODO_BROWSER_GUEST_WEB_PREFERENCES } from '../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
 import { normalizeBrowserNavigationUrl } from '../../../shared/browser/navigation/browser-url'
 import { browserManager } from '../../browser/guest-lifecycle/manager/browser-manager'
 import { browserSessionRegistry } from '../../browser/sessions/profiles/browser-session-registry'
@@ -20,7 +20,7 @@ import {
   browserRouteWebContentsRegistry
 } from '../../browser/routing/sessions/browser-route-session-runtime'
 import '../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../shared/browser/browser-blank-page'
 import {
   DOC_PREVIEW_PARTITION,
   parseDocPreviewUrl
@@ -182,7 +182,7 @@ export function installMainWindowWebviewSecurity(mainWindow: BrowserWindow): voi
       !isSidePanelAttach &&
       ((!normalizedSrc && !attachArgument) ||
         (!isProfilePartition && !isRoutePartition && !isLocalSshPartition) ||
-        (isRoutePartition && normalizedSrc !== ORCA_BROWSER_BLANK_URL && !attachArgument))
+        (isRoutePartition && normalizedSrc !== OPENKODO_BROWSER_BLANK_URL && !attachArgument))
     ) {
       event.preventDefault()
       return
@@ -208,7 +208,7 @@ export function installMainWindowWebviewSecurity(mainWindow: BrowserWindow): voi
     webPreferences.contextIsolation = true
     webPreferences.sandbox = true
     // Force hardened guest preferences even if host markup omits/misspells them.
-    Object.assign(webPreferences, ORCA_BROWSER_GUEST_WEB_PREFERENCES)
+    Object.assign(webPreferences, OPENKODO_BROWSER_GUEST_WEB_PREFERENCES)
     // Preserve only the registry-validated partition so isolated profiles keep their storage.
     webPreferences.partition = partition
     // A profile starts its extensions with its first tab, not at launch.
@@ -266,7 +266,7 @@ function hardenPluginFrameGuestPreferences(
   }
   // Why not a typed field: Electron derives it from `allowpopups` before this event.
   Object.assign(webPreferences, { disablePopups: true })
-  Object.assign(webPreferences, ORCA_BROWSER_GUEST_WEB_PREFERENCES, {
+  Object.assign(webPreferences, OPENKODO_BROWSER_GUEST_WEB_PREFERENCES, {
     partition,
     preload,
     additionalArguments: [...PLUGIN_FRAME_GUEST_RENDERER_ARGUMENTS],
@@ -282,7 +282,7 @@ function hardenPluginFrameGuestPreferences(
     plugins: false,
     navigateOnDragDrop: false,
     spellcheck: false,
-    // Plugins have Orca's own UI for prompts; alert/confirm would block the guest silently.
+    // Plugins have OpenKodo's own UI for prompts; alert/confirm would block the guest silently.
     disableDialogs: true,
     enableBlinkFeatures: '',
     disableBlinkFeatures: ''

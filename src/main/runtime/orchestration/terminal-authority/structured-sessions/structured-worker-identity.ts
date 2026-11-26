@@ -91,7 +91,7 @@ function persistedStructuredWorkerPaneKeyIsValid(
   )
 }
 
-/** The Orca session id a `structured:<sessionId>` incarnation names; null for any other. */
+/** The OpenKodo session id a `structured:<sessionId>` incarnation names; null for any other. */
 export function structuredWorkerOrcaSessionIdForIncarnation(
   processIncarnation: string | null | undefined
 ): OrcaSessionId | null {

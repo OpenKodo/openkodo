@@ -176,7 +176,7 @@ it('leaves the fleet alone between five-minute sweeps while the watcher is prima
   await stop()
 })
 
-it('still converges on worktrees added or removed outside Orca with no watcher event', async () => {
+it('still converges on worktrees added or removed outside OpenKodo with no watcher event', async () => {
   const { unsubscribe: stop } = await startReconciliation()
   await vi.advanceTimersByTimeAsync(30_000)
   const added = addWorktreeEntry('outside-add')
@@ -195,7 +195,7 @@ it('still converges on worktrees added or removed outside Orca with no watcher e
   await stop()
 })
 
-it('keeps the five-minute full sweep when the user refocuses Orca every minute', async () => {
+it('keeps the five-minute full sweep when the user refocuses OpenKodo every minute', async () => {
   const { unsubscribe: stop } = await startReconciliation()
   // An in-place rewrite that leaves the entry directory's timestamps alone is only seen by a full sweep.
   fs.nodes.get(join(WORKTREES, 'w3', 'index'))!.mtimeMs = fs.clock++

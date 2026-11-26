@@ -14,7 +14,7 @@ import { CONNECTOR_CLOUD_STATUSES } from '../../../src/shared/bots/connector-clo
 export const phoneBotSchema = z.looseObject({
   id: z.string().min(1),
   name: z.string(),
-  // Its handle, in what people type to ask it: `@Orca <folder>`, `bot:<folder>`.
+  // Its handle, in what people type to ask it: `@OpenKodo <folder>`, `bot:<folder>`.
   folder: z.string(),
   folderWorkspaceId: z.string().min(1),
   avatar: z.string().nullable(),
@@ -96,9 +96,9 @@ export const botsListRead = bindDeferredRpcOperation(
           needsYou: z.unknown().optional(),
           // When those counts next change (an item goes stale or a snoozed one comes back).
           needsYouStaleInMs: z.number().optional().catch(undefined),
-          // The host's Orca Cloud link; absent from an older host, and a newer value reads as absent.
+          // The host's OpenKodo Cloud link; absent from an older host, and a newer value reads as absent.
           connectorStatus: z.enum(CONNECTOR_CLOUD_STATUSES).optional().catch(undefined),
-          // Whether its Orca Cloud answers an event in its own thread; older hosts don't say.
+          // Whether its OpenKodo Cloud answers an event in its own thread; older hosts don't say.
           threadReplies: z.boolean().optional().catch(undefined)
         })
         // Off, the host's own sidebar lists its bot homes as ordinary folders, so the phone does too.

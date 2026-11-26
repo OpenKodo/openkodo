@@ -1,4 +1,4 @@
-// A bot's Composio tool: its Composio user's session MCP server, kept among the bot's own tools; Orca's
+// A bot's Composio tool: its Composio user's session MCP server, kept among the bot's own tools; OpenKodo's
 // relay adds the owner's key to each call, so the bot never holds it.
 import {
   COMPOSIO_HEADER_SOURCE,

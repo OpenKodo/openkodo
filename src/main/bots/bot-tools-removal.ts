@@ -25,8 +25,8 @@ async function signInShared(cli: BotToolsCli, server: BotToolServer | undefined)
 }
 
 async function signOut(home: BotToolsHome, name: string, server: BotToolServer | undefined) {
-  // Relayed (saved values or Orca's own sign-in): the CLI never signed in; removal revokes Orca's.
-  // Another agent has no CLI Orca signed it in through.
+  // Relayed (saved values or OpenKodo's own sign-in): the CLI never signed in; removal revokes OpenKodo's.
+  // Another agent has no CLI OpenKodo signed it in through.
   if ((server && 'url' in server && server.credential) || !hasBotToolsCli(home)) {
     return
   }

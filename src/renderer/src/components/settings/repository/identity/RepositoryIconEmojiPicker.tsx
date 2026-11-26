@@ -20,7 +20,7 @@ export function RepositoryIconEmojiPicker({
   compact = false
 }: RepositoryIconEmojiPickerProps): React.JSX.Element {
   const t = useTranslate()
-  // Theme.AUTO only follows the OS setting, which can disagree with Orca's painted theme.
+  // Theme.AUTO only follows the OS setting, which can disagree with OpenKodo's painted theme.
   const isDarkTheme = useDocumentDarkTheme()
 
   const handleEmojiClick = (emojiData: EmojiClickData): void => {

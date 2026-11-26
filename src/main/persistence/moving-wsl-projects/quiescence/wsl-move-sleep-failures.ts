@@ -1,6 +1,6 @@
 /**
  * The workspaces a move's Sleep left awake. Saved rows can outlive their worktree (a checkout
- * deleted outside Orca), and Sleep cannot find one; it is skipped only when nothing of it is left to
+ * deleted outside OpenKodo), and Sleep cannot find one; it is skipped only when nothing of it is left to
  * pause: Git does not list it, its folder is gone and no terminal of it still runs.
  */
 import { isAbsolute } from 'node:path'

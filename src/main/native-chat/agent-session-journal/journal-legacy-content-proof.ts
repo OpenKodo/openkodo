@@ -29,7 +29,7 @@ export type LegacySessionHold = {
 
 /**
  * `identity` is what a person made in it (a name they set, options, permission mode, waiting text),
- * so bookkeeping an older Orca rewrites on every launch never keeps another copy.
+ * so bookkeeping an older OpenKodo rewrites on every launch never keeps another copy.
  */
 export type LegacyOriginal = { value: string; identity: string }
 
@@ -63,7 +63,7 @@ export function legacySessionHold(
     )
     .get(sessionId)
   const converted = here?.epoch !== null && here?.epoch !== undefined
-  // Converting never replaces a chat already converted here, so text an older Orca queued in it
+  // Converting never replaces a chat already converted here, so text an older OpenKodo queued in it
   // since is kept with the original's version.
   // A converted chat's queue is compared card by card; it is measured in SQL first, so an
   // outsized one keeps the original before any of its rows is read.
@@ -73,7 +73,7 @@ export function legacySessionHold(
     (assertLegacyQueueBounded(source, sessionId), !queueHeld(source, store, sessionId))
   if (!recorded) {
     // The reconcile tracks chats by record (and a journal from before records has none), so history
-    // an older Orca added to a converted chat without one is read by no pass: it keeps the original.
+    // an older OpenKodo added to a converted chat without one is read by no pass: it keeps the original.
     // Conversions before the reconcile left no revision to compare.
     if (converted && shown !== undefined && shown !== revision) {
       throw new JournalLegacyRetentionError(
@@ -89,16 +89,16 @@ export function legacySessionHold(
   }
   if (!here?.recorded && !here?.cataloged) {
     // Deleted here after reading this revision (its revision key stays): the person's choice. No
-    // content says whether an older Orca renamed it or queued text in it since, so the original's
+    // content says whether an older OpenKodo renamed it or queued text in it since, so the original's
     // version is kept.
     if (shown === revision || empty) {
       return { convert: false, original: originalVersion(source, sessionId, true) }
     }
     throw new JournalLegacyRetentionError('an original chat is not in this store yet')
   }
-  // The reconcile hasn't read what an older Orca wrote since; the next launch's pass will.
+  // The reconcile hasn't read what an older OpenKodo wrote since; the next launch's pass will.
   if (shown !== revision) {
-    throw new JournalLegacyRetentionError('older Orca writes to a chat are not absorbed yet')
+    throw new JournalLegacyRetentionError('older OpenKodo writes to a chat are not absorbed yet')
   }
   // A chat not converted yet takes its queue from the original as it is now when it converts.
   return {
@@ -124,7 +124,7 @@ export function legacyRecordOnlyHold(
   const recorded = store
     .prepare('SELECT 1 FROM agent_session_records WHERE session_id=?')
     .get(sessionId)
-  // Deleted here, or a draft an older Orca made that this store never showed: kept as the original's.
+  // Deleted here, or a draft an older OpenKodo made that this store never showed: kept as the original's.
   return {
     convert: false,
     original:

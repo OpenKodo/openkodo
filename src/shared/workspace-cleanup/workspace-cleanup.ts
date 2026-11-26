@@ -302,7 +302,7 @@ export function getWorkspaceCleanupAutomationRunReasons(
     : []
 }
 
-/** Newest activity stamp Orca itself persisted; 0 when it never observed the workspace. */
+/** Newest activity stamp OpenKodo itself persisted; 0 when it never observed the workspace. */
 export function getPersistedWorkspaceCleanupActivityAt(workspace: {
   createdAt?: number
   lastActivityAt: number

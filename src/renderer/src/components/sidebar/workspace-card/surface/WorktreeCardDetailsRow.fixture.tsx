@@ -15,7 +15,7 @@ const workspace: Worktree = {
       provider: 'github',
       type: 'issue',
       number: 123,
-      url: 'https://github.com/stablyai/orca/issues/123'
+      url: 'https://github.com/OpenKodo/openkodo/issues/123'
     }
   ]
 }

@@ -1,5 +1,5 @@
-// Hermes runs every chat's tools in one gateway per profile. Orca's plugin there hands each tool the
-// environment Orca wrote for its session (Hermes' per-session env hook, 0.23.1+), read at each spawn.
+// Hermes runs every chat's tools in one gateway per profile. OpenKodo's plugin there hands each tool the
+// environment OpenKodo wrote for its session (Hermes' per-session env hook, 0.23.1+), read at each spawn.
 import { randomBytes } from 'node:crypto'
 import { access, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
@@ -30,13 +30,15 @@ export const publishHermesSessionToolEnv: PublishSharedToolProcessSessionEnv = a
   agentVersion
 }) => {
   if (!new RegExp(`^${HERMES_SESSION_ID_PATTERN}$`).test(providerSessionId)) {
-    throw new Error('Hermes named its session with characters Orca does not write to a file name')
+    throw new Error(
+      'Hermes named its session with characters OpenKodo does not write to a file name'
+    )
   }
   // The launch pins HERMES_HOME; a chat on the root follows its active profile, as Hermes does.
   const pinned = env.HERMES_HOME?.trim()
   const home = pinned ? await resolveHermesActiveProfileHome(pinned) : null
   const pluginDir = home ? join(home, 'plugins', HERMES_PLUGIN_NAME) : null
-  // Without Orca's plugin loaded in this profile nothing reads the file; its tools keep no identity.
+  // Without OpenKodo's plugin loaded in this profile nothing reads the file; its tools keep no identity.
   const installed = home !== null && pluginDir !== null && (await pluginEnabled(home, pluginDir))
   if (mustReach) {
     assertBotToolsCanBeReached(installed, agentVersion)
@@ -51,7 +53,7 @@ export const publishHermesSessionToolEnv: PublishSharedToolProcessSessionEnv = a
   const gateway = sessionEnvSupported ? await ensureHermesGatewayPluginCurrent(home) : 'stale'
   if (mustReach && gateway !== 'current') {
     throw new AgentSessionAcquisitionRefusal(
-      "Hermes' gateway runs an older Orca plugin and did not reload it.",
+      "Hermes' gateway runs an older OpenKodo plugin and did not reload it.",
       'botToolsGatewayOutdated'
     )
   }
@@ -88,12 +90,12 @@ async function writeStaged(file: string, values: Readonly<Record<string, string 
   await rename(staged, file)
 }
 
-/** A bot's tools carry its limits only through Orca's plugin, on a Hermes with per-session env,
+/** A bot's tools carry its limits only through OpenKodo's plugin, on a Hermes with per-session env,
  *  in a gateway that loaded this build's plugin (reloaded in place when it predates it). */
 function assertBotToolsCanBeReached(installed: boolean, version: string | undefined): void {
   if (!installed) {
     throw new AgentSessionAcquisitionRefusal(
-      "Hermes bots need Orca's agent status hooks for Hermes.",
+      "Hermes bots need OpenKodo's agent status hooks for Hermes.",
       'botToolsNeedStatusHooks'
     )
   }

@@ -10,7 +10,7 @@ import {
 import { RuntimeClientError } from './connection/types'
 
 export function getExecutableAppArgs(executable: string): string[] {
-  const args = process.env.ORCA_APP_EXECUTABLE_NEEDS_APP_ROOT === '1' ? [resolveAppRoot()] : []
+  const args = process.env.OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT === '1' ? [resolveAppRoot()] : []
   if (needsElectronNoSandbox(executable)) {
     args.push('--no-sandbox')
   }
@@ -39,7 +39,7 @@ export function resolveAppChildCwd(userDataPath: string): string {
 }
 
 export function resolveForegroundOrcaExecutable(): string {
-  const overrideExecutable = process.env.ORCA_APP_EXECUTABLE
+  const overrideExecutable = process.env.OPENKODO_APP_EXECUTABLE
   if (typeof overrideExecutable === 'string' && overrideExecutable.trim().length > 0) {
     return overrideExecutable
   }

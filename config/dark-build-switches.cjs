@@ -5,9 +5,9 @@ const { join } = require('node:path')
 // Packaging and release templates also reject enabled switch environment variables.
 const DARK_BUILD_SWITCHES = [
   // src/shared/workspace-layout/layout-owner-switch.ts
-  { variable: 'ORCA_LAYOUT_OWNER', off: 'window' },
+  { variable: 'OPENKODO_LAYOUT_OWNER', off: 'window' },
   // src/shared/sidebar-list/feed/sidebar-inputs-switch.ts
-  { variable: 'ORCA_SIDEBAR_INPUTS', off: 'window' }
+  { variable: 'OPENKODO_SIDEBAR_INPUTS', off: 'window' }
 ]
 
 function markerFileName(darkSwitch) {

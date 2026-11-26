@@ -56,7 +56,7 @@ export async function assertLeftoverIsRecordedCheckout(
   // A record without identity (written before it existed) cannot prove this folder is the one accepted; it stays listed.
   if (!record.gitdir) {
     throw new CheckoutIdentityRefusal(
-      `Orca cannot confirm the folder at ${record.worktreePath} is the checkout you deleted, so it left it in place. Remove the folder yourself.`
+      `OpenKodo cannot confirm the folder at ${record.worktreePath} is the checkout you deleted, so it left it in place. Remove the folder yourself.`
     )
   }
   const current = await readCheckoutMarkerState(record.worktreePath, options)
@@ -76,7 +76,7 @@ export async function assertCheckoutNotReplaced(
   }
   if (!record.gitdir) {
     throw new CheckoutIdentityRefusal(
-      `Orca cannot confirm the checkout at ${record.worktreePath} is the one you deleted, so it left it in place. Remove the folder yourself.`
+      `OpenKodo cannot confirm the checkout at ${record.worktreePath} is the one you deleted, so it left it in place. Remove the folder yourself.`
     )
   }
   if (current.kind !== 'file' || current.identity !== record.gitdir) {

@@ -6,7 +6,7 @@ import { createStructuredMailboxPointerHost } from '../orchestration/mailbox/str
 import { localOrchestrationCliCommand } from '../orchestration/workers/launch/orchestration-cli-command'
 import { RuntimeOrchestrationSenderNames } from '../orchestration/mailbox/senders/runtime-orchestration-sender-names'
 import { isStructuredWorkerHandle } from '../../../shared/orchestration/workers/structured-worker-handle'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/orca-session-address-prefix'
 import { resolveStructuredWorkerAuthority } from '../orchestration/terminal-authority/structured-sessions/structured-worker-authority'
 import { OrcaRuntimeWithAgentOrchestrationDependencies } from '../orchestration/crew/runtime-agent-orchestration-dependencies'
 import { RuntimeTerminalAgentPresence } from '../terminal/query/runtime-terminal-agent-presence'
@@ -44,7 +44,7 @@ import { terminalHistoryLastOutput } from '../terminal/output/tail/terminal-hist
 import type { RuntimeSkillCommands } from '../integrations/skill/runtime-skill-command-surface'
 import { RuntimeTerminalStreamConsumers } from '../terminal/output/runtime-terminal-stream-consumers'
 import type { RecentPtyOutputBuffer } from '../terminal/output/recent-pty-output-buffer'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { mainListsEveryPane } from '../terminal/surface/main-terminal-surfaces'
 import { structuredMailboxCustody } from '../orchestration/mailbox/routing/structured-session-mail-target'
 
@@ -138,7 +138,9 @@ export abstract class OrcaRuntimeWithStopRequestedPtyIds extends OrcaRuntimeWith
     getTopologyRevision: (worktreeId) => this.getTerminalTopologyRevision(worktreeId),
     buildHostScope: (targetWorktreeId, terminals, worktrees, queriedHostIds) =>
       this.buildTerminalListHostScope(targetWorktreeId, terminals, worktrees, queriedHostIds),
-    ...(ORCA_LAYOUT_OWNER_IS_MAIN ? { listsEveryPane: (id) => mainListsEveryPane(this, id) } : {})
+    ...(OPENKODO_LAYOUT_OWNER_IS_MAIN
+      ? { listsEveryPane: (id) => mainListsEveryPane(this, id) }
+      : {})
   })
 
   protected readonly managedWorktreeQueries = new RuntimeManagedWorktreeQueries({
@@ -216,7 +218,7 @@ export abstract class OrcaRuntimeWithStopRequestedPtyIds extends OrcaRuntimeWith
     getTerminalForHandle: (handle) => this.getOrchestrationMailboxTerminalForHandle(handle),
     hasTerminalHandle: (handle) => this.hasMailboxTerminalHandle(handle),
     isStructuredSessionOwner: (handle) =>
-      isStructuredWorkerHandle(handle) || handle.startsWith(ORCA_SESSION_ADDRESS_PREFIX),
+      isStructuredWorkerHandle(handle) || handle.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX),
     canProbePtyLiveness: () => Boolean(this.ptyController?.probePtyLiveness),
     controllerKnowsPtyIsLive: (ptyId) => this.controllerKnowsPtyIsLive(ptyId),
     isLeafPtyProvenAbsent: (ptyId) => this.isLeafPtyProvenAbsent(ptyId)

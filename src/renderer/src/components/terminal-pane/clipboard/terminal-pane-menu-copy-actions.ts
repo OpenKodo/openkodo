@@ -56,7 +56,7 @@ export const copyTerminalPaneMenuPaneId = async (
     return
   }
   await runTerminalIdentityCopy({
-    // ORCA_PANE_KEY survives remounts; numeric PaneManager IDs are local handles.
+    // OPENKODO_PANE_KEY survives remounts; numeric PaneManager IDs are local handles.
     text: makePaneKey(tabId, pane.leafId),
     writeClipboardText: window.api.ui.writeTerminalClipboardText,
     onSuccess: () =>

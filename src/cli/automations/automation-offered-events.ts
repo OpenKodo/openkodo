@@ -1,4 +1,4 @@
-// Which of a source's events this bot's Orca Cloud sends: GitHub's newer events, and finished workflow
+// Which of a source's events this bot's OpenKodo Cloud sends: GitHub's newer events, and finished workflow
 // runs, only where it lists them.
 import {
   CI_FINISHED_EVENT_KINDS,
@@ -11,7 +11,7 @@ import {
 } from '../../shared/automation-event-triggers'
 import type { BotConnectors } from '../../shared/bot-event-sources'
 
-/** A source's events this bot's Orca Cloud sends: GitHub's newer ones only where it lists them. */
+/** A source's events this bot's OpenKodo Cloud sends: GitHub's newer ones only where it lists them. */
 export function offeredEvents(
   source: AutomationEventSource,
   bot?: BotConnectors

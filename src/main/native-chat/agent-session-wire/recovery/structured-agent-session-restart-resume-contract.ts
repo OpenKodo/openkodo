@@ -16,7 +16,7 @@ export type StructuredAgentSessionRestartCut = {
   waitingOnPerson?: true
   /** A crash that did not prove the agent exited: it may still be running. */
   exitUnproven?: true
-  /** Orca handed the cut back to the agent but never saw it taken: it may be running. */
+  /** OpenKodo handed the cut back to the agent but never saw it taken: it may be running. */
   continuationUnconfirmed?: true
   /** The lead's turn had finished; only its background work was cut. */
   leadDone?: true

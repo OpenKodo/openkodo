@@ -93,19 +93,19 @@ export const AGENT_SESSION_FAILURE_COPY = {
   claudeAccountFolderMissing: CLAUDE_PROFILE_MISSING_MESSAGE,
   claudeAccountSetupFailed: CLAUDE_PROFILE_SETUP_FAILED_MESSAGE,
   agentCommandNotRunnable:
-    "{{agent}}'s Command in Settings → Agents must start with a program Orca can find. Variables, pipes and other shell syntax aren't supported; use the Environment setting for variables. Change it or reset it.",
+    "{{agent}}'s Command in Settings → Agents must start with a program OpenKodo can find. Variables, pipes and other shell syntax aren't supported; use the Environment setting for variables. Change it or reset it.",
   agentCommandFailed:
     "{{agent}}'s Command in Settings → Agents didn't start {{agent}}: {{detail}}. Change it or reset it.",
   runtimeNotInstalled:
-    "{{agent}} isn't installed on the computer running this chat. Install it from the chat in a current version of Orca.",
+    "{{agent}} isn't installed on the computer running this chat. Install it from the chat in a current version of OpenKodo.",
   fullAccessAsRoot:
     "{{agent}} won't use Full access while it runs as root. Choose another permission for {{agent}} in Settings → Agents for the computer running this chat, then start a new chat.",
   botToolsNeedStatusHooks:
     "{{agent}} bots need Agent status hooks: they are how a bot's tools act as the bot. Turn them on for {{agent}} in Settings → Agents, then start a new chat.",
   botToolsGatewayOutdated:
-    "{{agent}}'s gateway is still running an older copy of Orca's plugin, so this bot's tools can't act as the bot. Run `hermes gateway stop`, then start a new chat.",
+    "{{agent}}'s gateway is still running an older copy of OpenKodo's plugin, so this bot's tools can't act as the bot. Run `hermes gateway stop`, then start a new chat.",
   launchPreparationFailed:
-    "Orca couldn't prepare {{agent}} to start on the computer running this chat.",
+    "OpenKodo couldn't prepare {{agent}} to start on the computer running this chat.",
   conversationOpenElsewhere:
     'Codex is still holding this conversation open. Try again in a moment, or close other Codex terminals.',
   conversationOpenInTerminal:
@@ -161,10 +161,10 @@ export const AGENT_SESSION_FAILURE_COPY = {
   emptyMessage: 'This message is empty, so it was not sent.',
   commandUnavailable: "This command isn't available in {{agent}} chats, so it was not sent.",
   queueFull: 'Too many messages were waiting for the agent, so this one was not sent.',
-  writeFailed: "Orca couldn't hand this message to the agent, so it was not sent.",
+  writeFailed: "OpenKodo couldn't hand this message to the agent, so it was not sent.",
   cancelled: 'This message was withdrawn before the agent started it.',
   chatClosed: 'The chat closed before this message was sent.',
-  hostRestarted: 'Orca restarted before this message was sent.',
+  hostRestarted: 'OpenKodo restarted before this message was sent.',
   notDelivered: 'This message was not delivered.',
   notDeliveredSendAgain: 'This message was not delivered. Send it again to continue.',
   commandRefused: "This command didn't run.",
@@ -189,9 +189,9 @@ export const AGENT_SESSION_FAILURE_COPY = {
   backgroundTaskNotStopped: "The background task wasn't stopped.",
   backgroundTasksNotStopped: "The background tasks weren't stopped.",
   answerUnconfirmed: 'Your answer was recorded but the agent did not confirm it.',
-  hostFault: "Orca ran into a problem, so this didn't go through.",
-  hostFaultTryAgain: "Orca ran into a problem, so this didn't go through. Try again.",
-  hostStopped: '{{agent}} never finished starting, so Orca stopped it.',
+  hostFault: "OpenKodo ran into a problem, so this didn't go through.",
+  hostFaultTryAgain: "OpenKodo ran into a problem, so this didn't go through. Try again.",
+  hostStopped: '{{agent}} never finished starting, so OpenKodo stopped it.',
   providerRateLimited: '{{agent}} is rate-limited and retrying.',
   providerRetrying: '{{agent}} hit a temporary problem and is retrying.',
   providerRetryingQuoted: '{{agent}} is retrying: {{detail}}.',

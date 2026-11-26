@@ -30,7 +30,7 @@ export type RuntimeFolderWorktreeSetupDeps = {
 type PreparedFolderSetup = Awaited<ReturnType<typeof prepareRuntimeLocalWorktreeSetup>>
 
 /**
- * Only the host whose catalog holds the folder may read its orca.yaml or write runners there.
+ * Only the host whose catalog holds the folder may read its openkodo.yaml or write runners there.
  * The workspace already exists, so a setup problem becomes a warning, never a failed create.
  */
 export async function prepareFolderWorktreeSetup(args: {

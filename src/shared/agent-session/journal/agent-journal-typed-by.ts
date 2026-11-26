@@ -1,6 +1,6 @@
 /** Where a person's sent message was typed, from its transport: at the host's own window, on a
  *  paired device (a phone or another desktop), or by the orca CLI an agent runs. Absent on host-made
- *  messages and ones from before it was kept. A device's `account` is the Orca account name it
+ *  messages and ones from before it was kept. A device's `account` is the OpenKodo account name it
  *  claimed when the message was sent: unverified, shown by name only. `accountId` is that claim's
  *  id; `own` compares it with the host's account at send (absent when either side had none);
  *  `computer` names the computer the claim came from, and `phone` the relayed phone it was typed on. */

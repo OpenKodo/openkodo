@@ -161,7 +161,7 @@ function ignoreMissing(error: unknown): undefined {
 }
 
 /** agy reads user-wide rules from its home's GEMINI.md; a copy (Windows can't link a file without
- *  privileges) brings `~/.gemini/GEMINI.md` to chats on a home Orca owns. Never fails the launch. */
+ *  privileges) brings `~/.gemini/GEMINI.md` to chats on a home OpenKodo owns. Never fails the launch. */
 export async function copyAntigravityUserRules(chatHome: string, userHome: string): Promise<void> {
   const rules = join(chatHome, 'GEMINI.md')
   const source = join(userHome, '.gemini', 'GEMINI.md')

@@ -1,4 +1,4 @@
-// A note Orca writes into a conversation: its clients show it, its agent is never sent it.
+// A note OpenKodo writes into a conversation: its clients show it, its agent is never sent it.
 
 import {
   AGENT_JOURNAL_THREAD_SCOPE,

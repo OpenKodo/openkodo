@@ -1,8 +1,8 @@
-// The line under an Orca-typed message's bubble while its Slack post goes, or once it failed.
+// The line under an OpenKodo-typed message's bubble while its Slack post goes, or once it failed.
 import type { SlackMirrorPost } from './external-conversation-link'
 import type { SlackMirrorCopy } from './slack-mirror-state'
 
-/** The line under an Orca-typed message's bubble, if its post shows one. */
+/** The line under an OpenKodo-typed message's bubble, if its post shows one. */
 export function slackMirrorPostLine(
   post: SlackMirrorPost | undefined
 ): { kind: 'posting' | 'failed'; copy: SlackMirrorCopy } | null {

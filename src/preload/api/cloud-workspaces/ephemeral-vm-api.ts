@@ -29,7 +29,7 @@ export type EphemeralVmApi = {
       diagnostics: NonNullable<OrcaHooks['environmentRecipeDiagnostics']>
     }[]
   >
-  /** Credential-like variable names (never values) recipe scripts would inherit from Orca. */
+  /** Credential-like variable names (never values) recipe scripts would inherit from OpenKodo. */
   listCredentialEnvNames: () => Promise<string[]>
   doctor: (args: { repoId: string; recipeId: string }) => Promise<EphemeralVmRecipeDoctorResult>
   provision: (args: {
@@ -55,7 +55,7 @@ export type EphemeralVmApi = {
         connectionType: 'ssh'
         runtime: EphemeralVmProvisionedRuntimeRecord
         sshTargetId: string
-        /** The managed Orca server the host runs; its workspace lives there. */
+        /** The managed OpenKodo server the host runs; its workspace lives there. */
         environmentId?: string
         expectedRefHead?: string
         stderr: string

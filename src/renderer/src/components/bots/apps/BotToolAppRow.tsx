@@ -1,4 +1,4 @@
-// An app the bot has as a tool, as a row of its connectors. Orca holds the sign-in of an app added
+// An app the bot has as a tool, as a row of its connectors. OpenKodo holds the sign-in of an app added
 // now, whichever agent the bot runs; an older one's is held by the bot's agent's CLI.
 import React, { useState } from 'react'
 import { Wrench } from 'lucide-react'

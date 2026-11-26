@@ -13,9 +13,9 @@ import { refuseMissingWslDistro, WslDistroVersion1Error } from '../discovery/wsl
 import type { WslOrcadHostTarget } from './wsl-orcad-host-target'
 import { createWslOrcadConnectStateReader } from './wsl-orcad-connect-state-snapshot'
 
-const KERNEL_MARKER = '__ORCA_WSL_KERNEL__ '
-const HOME_MARKER = '__ORCA_WSL_HOME__ '
-const LIBC_MARKER = '__ORCA_WSL_LIBC__'
+const KERNEL_MARKER = '__OPENKODO_WSL_KERNEL__ '
+const HOME_MARKER = '__OPENKODO_WSL_HOME__ '
+const LIBC_MARKER = '__OPENKODO_WSL_LIBC__'
 // The libc probe goes last: its output may span lines, so it takes everything after its marker.
 export const WSL_HOST_FACTS_COMMAND = `printf '${KERNEL_MARKER}%s\\n${HOME_MARKER}%s\\n' "$(uname -r)" "$HOME"; ${UNAME_PLATFORM_PROBE_COMMAND}; printf '\\n%s\\n' '${LIBC_MARKER}'; ${LINUX_LIBC_FIRST_PROBE}`
 

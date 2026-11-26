@@ -22,7 +22,7 @@ import { getEventTriggersFlag } from '../automations/automation-event-triggers-c
 import { findBot } from '../bots/bot'
 
 /** What --json shows of a hook: no URL, which alone is half a credential; the owner copies the
- *  whole URL from the automation's card in Orca. */
+ *  whole URL from the automation's card in OpenKodo. */
 function hookJson(hook: WebhookSummary): Omit<WebhookSummary, 'url'> {
   const { url: _url, ...shown } = hook
   return shown
@@ -57,8 +57,8 @@ function formatCheck({ matched, unmatched, unknown, ignored = 0 }: WebhookCheckR
     ...(ignored > 0
       ? [
           ignored === 1
-            ? "1 was ignored by the hook's filters when it came in (Orca keeps no body for an ignored call, so it can't be checked)"
-            : `${ignored} were ignored by the hook's filters when they came in (Orca keeps no body for an ignored call, so they can't be checked)`
+            ? "1 was ignored by the hook's filters when it came in (OpenKodo keeps no body for an ignored call, so it can't be checked)"
+            : `${ignored} were ignored by the hook's filters when they came in (OpenKodo keeps no body for an ignored call, so they can't be checked)`
         ]
       : []),
     ...(unknown > ignored
@@ -73,7 +73,7 @@ function formatCheck({ matched, unmatched, unknown, ignored = 0 }: WebhookCheckR
 // Where the owner gets the URL: never from the bot. The card fills it in once the hook is live, and
 // a save made from a Slack, Linear or GitHub thread also puts the card in the bot's Chat.
 const COPY_FROM_CARD =
-  "Your owner copies its URL with Copy URL on the automation's card in Orca: in this chat, or in your Chat when this conversation is a Slack, Linear or GitHub thread."
+  "Your owner copies its URL with Copy URL on the automation's card in OpenKodo: in this chat, or in your Chat when this conversation is a Slack, Linear or GitHub thread."
 
 /** After a save that made a hook: where the owner copies its URL. */
 function webhookNote(automation: Automation): string | null {

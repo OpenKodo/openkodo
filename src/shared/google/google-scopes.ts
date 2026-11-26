@@ -1,4 +1,4 @@
-// What Orca asks Google for at sign-in. The person picks services (Gmail, Calendar, Files); name
+// What OpenKodo asks Google for at sign-in. The person picks services (Gmail, Calendar, Files); name
 // lookup and the signed-in address are always asked for. Adding a service later asks again for the
 // union, so nothing already allowed is lost.
 
@@ -20,7 +20,7 @@ export type GoogleServiceInfo = {
   api: string
 }
 
-/** Every scope Orca asks for is listed here, once, under the service that needs it. */
+/** Every scope OpenKodo asks for is listed here, once, under the service that needs it. */
 export const GOOGLE_SERVICE_INFO: Record<GoogleService, GoogleServiceInfo> = {
   // gmail.modify covers read, draft, send, labels and archive.
   gmail: { label: 'Gmail', scopes: [`${SCOPE}gmail.modify`], api: 'gmail.googleapis.com' },
@@ -98,7 +98,7 @@ export function googleChoiceServices(choices: readonly GoogleServiceChoice[]): G
   return GOOGLE_SERVICES.filter((service) => services.has(service))
 }
 
-/** The Console page that turns one API on, in the client's project when Orca knows it. */
+/** The Console page that turns one API on, in the client's project when OpenKodo knows it. */
 export function googleApiEnableUrl(service: GoogleService, projectId?: string): string {
   const url = new URL(
     `https://console.cloud.google.com/apis/library/${GOOGLE_SERVICE_INFO[service].api}`

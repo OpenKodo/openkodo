@@ -1,4 +1,4 @@
-// What an automation run's row says, from Orca's own record of the run. The desktop translates each
+// What an automation run's row says, from OpenKodo's own record of the run. The desktop translates each
 // phrase by its key; the phone reads the English.
 import type { AutomationRunMessage, AutomationRunMessageEvent } from './automation-run-message'
 import {
@@ -165,7 +165,7 @@ export function automationRunReason(
   return ranLate(run, ranAt) ? say('due', { time: formatTime(run.scheduledFor) }) : schedule
 }
 
-/** Orca's own line about what happened, where and when. */
+/** OpenKodo's own line about what happened, where and when. */
 export function automationRunFacts(
   run: AutomationRunMessage,
   ranAt: number | null,
@@ -217,7 +217,7 @@ export function automationRunEventLink(
   return { url: url.toString(), label }
 }
 
-/** Who wrote the quoted text: the person, the caller of a webhook, or someone Orca can't name. */
+/** Who wrote the quoted text: the person, the caller of a webhook, or someone OpenKodo can't name. */
 export function automationRunQuoteAuthor(
   event: AutomationRunMessageEvent,
   say: SayAutomationRun
@@ -228,7 +228,7 @@ export function automationRunQuoteAuthor(
   return event.actor ? say('personWrote', { name: event.actor }) : say('someoneWrote')
 }
 
-/** Their access as Orca recorded it when the run was delivered; nothing where it wasn't asked. */
+/** Their access as OpenKodo recorded it when the run was delivered; nothing where it wasn't asked. */
 export function automationRunAccess(
   event: AutomationRunMessageEvent,
   say: SayAutomationRun

@@ -27,9 +27,9 @@ export type ChatTurnsDeps = ConversationWorkersDeps &
     runningTurnReported: (sessionId: string) => boolean
     /** Read once per ended turn of a bot conversation. */
     workLinks: (link: ExternalConversationLink) => Promise<ConnectorWorkLink[]>
-    /** The ended Orca-typed turn's owner posts to its Slack thread (taken once), else null. */
+    /** The ended OpenKodo-typed turn's owner posts to its Slack thread (taken once), else null. */
     mirrorTurn?: (sessionId: string) => SlackMirrorTurn | null
-    /** Whom a chat's conversation acts for, as Orca recorded it (ConnectorActsFor). */
+    /** Whom a chat's conversation acts for, as OpenKodo recorded it (ConnectorActsFor). */
     actsForOf?: (sessionId: string) => string | undefined
     /** Whether the cloud routes or masks a prompt by who raised it (prompts.audience). Without
      *  it a prompt of a turn its conversation didn't ask for goes nowhere, as before. */

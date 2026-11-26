@@ -220,7 +220,7 @@ export type PluginsApi = {
     waitForRefresh?: true
   }) => Promise<PluginMarketplaceHostListing[]>
   /** A catalog plugin that opens this file type, from cached catalogs only; never installs. */
-  /** `editor` for a file Orca already opens as text: only custom editors are suggested. */
+  /** `editor` for a file OpenKodo already opens as text: only custom editors are suggested. */
   suggestForFileType: (
     fileType: string,
     purpose?: 'open' | 'editor'

@@ -1,5 +1,5 @@
 import { replaceRecordEntries } from '@/store/record-transitions/keyed-record-transitions'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { makePaneKey } from '../../../../../shared/workspace-layout/stable-pane-id'
 import { terminalLayoutEqual } from '../../../../../shared/workspace-layout/terminal-topology/terminal-layout-equality'
 import {
@@ -81,7 +81,7 @@ export function createTerminalLayoutActions(
     },
     setTabLayout: (tabId, layout) => {
       let ownershipTransfers: ReturnType<typeof resolveTerminalLayoutPtyOwnershipTransfers> = []
-      const before = ORCA_LAYOUT_OWNER_IS_MAIN ? get().terminalLayoutsByTabId[tabId] : undefined
+      const before = OPENKODO_LAYOUT_OWNER_IS_MAIN ? get().terminalLayoutsByTabId[tabId] : undefined
       set((s) => {
         if (!layout) {
           if (!(tabId in s.terminalLayoutsByTabId)) {
@@ -114,7 +114,7 @@ export function createTerminalLayoutActions(
       })
       transferNormalizedTerminalLayoutPtyOwnership(get(), tabId, ownershipTransfers)
       // Switch point: the chat pane the window picks reaches main as a command, not by its save.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN && layout) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN && layout) {
         recordChatPaneInLayoutOwner(get(), tabId, before, get().terminalLayoutsByTabId[tabId])
       }
     },

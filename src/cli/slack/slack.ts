@@ -1,4 +1,4 @@
-// `orca slack find|check|read|post|react|edit|delete|attach`: a bot's Slack verbs, as its own app, through its host and Orca Cloud.
+// `orca slack find|check|read|post|react|edit|delete|attach`: a bot's Slack verbs, as its own app, through its host and OpenKodo Cloud.
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import type { CommandHandler, HandlerContext } from '../dispatch/dispatch'
 import { getOptionalStringFlag, getRequiredStringFlag } from '../arguments/flags'
@@ -116,7 +116,7 @@ const attach: CommandHandler = async ({ flags, client, json, cwd }) => {
   if (!staged.result.upload) {
     throw new RuntimeClientError(
       'cloud_lacks_direct_files',
-      "Orca Cloud didn't say where to send the file; nothing was posted. Update Orca and try again."
+      "cloud service didn't say where to send the file; nothing was posted. Update OpenKodo and try again."
     )
   }
   await uploadFile(staged.result.upload.url, file)

@@ -29,7 +29,7 @@ export const IDLE_TEARDOWN_MS = 2 * 60_000
 const WORKER_ENTRY_FILENAME = 'worker-thread-child-process-entry.js'
 
 /** Error code for a child whose worker died: its pipes closed with the worker, but no close event will arrive. */
-export const WORKER_CHILD_ABANDONED_CODE = 'ERR_ORCA_WORKER_CHILD_ABANDONED'
+export const WORKER_CHILD_ABANDONED_CODE = 'ERR_OPENKODO_WORKER_CHILD_ABANDONED'
 
 export function isAbandonedWorkerChildError(error: unknown): boolean {
   return typeof error === 'object' && error !== null && 'code' in error
@@ -271,7 +271,7 @@ function defaultWorkerFactory(): Worker {
 let sharedHost: WorkerThreadChildProcessHost | null = null
 const shared = (): WorkerThreadChildProcessHost =>
   (sharedHost ??= new WorkerThreadChildProcessHost(defaultWorkerFactory))
-const workerDisabled = (): boolean => process.env.ORCA_CHILD_PROCESS_WORKER_DISABLED === '1'
+const workerDisabled = (): boolean => process.env.OPENKODO_CHILD_PROCESS_WORKER_DISABLED === '1'
 
 export function spawnProcessOnWorkerThread(spec: WorkerThreadChildSpec): WorkerThreadChildProcess {
   // The worker has its own module state, so only main knows WSL was proven absent.

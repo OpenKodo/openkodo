@@ -198,7 +198,7 @@ export function BitbucketCredentialsDialog({
             <DialogDescription>
               {t(
                 'components.settings.bitbucket.credentials.dialog.environmentManagedLine',
-                'Set by ORCA_BITBUCKET_* environment variables. Unset them to save one here.'
+                'Set by OPENKODO_BITBUCKET_* environment variables. Unset them to save one here.'
               )}
             </DialogDescription>
           ) : remoteRuntime ? (

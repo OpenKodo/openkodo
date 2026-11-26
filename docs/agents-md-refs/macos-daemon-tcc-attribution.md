@@ -2,7 +2,7 @@
 
 Read this before changing how the packaged macOS terminal daemon is launched, copied or cleaned
 up, or before treating a missing executable as a permission denial. Background: issue
-[#13921](https://github.com/stablyai/orca/issues/13921); the signed native evidence is in PR #25848.
+[#13921](https://github.com/OpenKodo/openkodo/issues/13921); the signed native evidence is in PR #25848.
 
 ## Why a signed copy started by launchd
 
@@ -60,7 +60,7 @@ The helper's bundle, executable and display name are `Orca Agents`; its identifi
 and designated requirement still match Orca.app. This names the existing terminal-agent process
 without changing its privacy client. Supported local macOS native chat providers also start
 under the independent host when it supports provider spawning and its executable can be resolved:
-the host starts the app's native provider owner (`orca-provider-exec`) and connects every owner
+the host starts the app's native provider owner (`openkodo-provider-exec`) and connects every owner
 pipe back to the app, so the app owns, stops and recovers the chat exactly as on a direct launch
 and a host restart does not end it. Older or unsupported hosts, an unavailable host executable,
 failed connection or ping checks, fork fallback and remote/server routes keep direct launching. An

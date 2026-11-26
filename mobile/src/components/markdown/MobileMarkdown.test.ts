@@ -5,19 +5,19 @@ describe('normalizeMobileMarkdownPreviewHtml', () => {
   it('normalizes common README HTML into readable Markdown preview text', () => {
     const normalized = normalizeMobileMarkdownPreviewHtml(`
 <h1 align="center">
-  <a href="https://onOrca.dev"><img src="resources/build/icon.png" alt="Orca" width="64" /></a>
-  Orca
+  <a href="https://onOrca.dev"><img src="resources/build/icon.png" alt="OpenKodo" width="64" /></a>
+  OpenKodo
 </h1>
 
 <p align="center">
-  <a href="https://github.com/stablyai/orca/stargazers"><img src="https://badgen.net/github/stars/stablyai/orca" alt="GitHub stars" /></a>
+  <a href="https://github.com/OpenKodo/openkodo/stargazers"><img src="https://badgen.net/github/stars/stablyai/orca" alt="GitHub stars" /></a>
   <strong>The AI Orchestrator</strong><br/>
   Run Codex side-by-side.
 </p>
 `)
 
-    expect(normalized).toContain('# [Orca](https://onOrca.dev)')
-    expect(normalized).toContain('[GitHub stars](https://github.com/stablyai/orca/stargazers)')
+    expect(normalized).toContain('# [OpenKodo](https://onOrca.dev)')
+    expect(normalized).toContain('[GitHub stars](https://github.com/OpenKodo/openkodo/stargazers)')
     expect(normalized).toContain('**The AI Orchestrator**')
     expect(normalized).not.toContain('<h1')
     expect(normalized).not.toContain('<img')
@@ -99,7 +99,7 @@ describe('normalizeMobileMarkdownPreviewHtml', () => {
   })
 
   it('does not replace literal code placeholder text in markdown prose', () => {
-    const literalPlaceholder = '\uE000ORCA_MD_CODE_0\uE000'
+    const literalPlaceholder = '\uE000OPENKODO_MD_CODE_0\uE000'
     expect(normalizeMobileMarkdownPreviewHtml(`${literalPlaceholder} and \`Array<string>\``)).toBe(
       `${literalPlaceholder} and \`Array<string>\``
     )

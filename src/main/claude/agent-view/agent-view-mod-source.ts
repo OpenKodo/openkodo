@@ -18,9 +18,9 @@ let announceAgain = false
 
   async function post($, action, data = {}, session = identity) {
     if (!session) return {}
-    let port = await $.env.get('ORCA_AGENT_HOOK_PORT')
-    let token = await $.env.get('ORCA_AGENT_HOOK_TOKEN')
-    const endpoint = await $.env.get('ORCA_AGENT_HOOK_ENDPOINT')
+    let port = await $.env.get('OPENKODO_AGENT_HOOK_PORT')
+    let token = await $.env.get('OPENKODO_AGENT_HOOK_TOKEN')
+    const endpoint = await $.env.get('OPENKODO_AGENT_HOOK_ENDPOINT')
     if (endpoint) {
       try {
         const file = parseEndpoint(await $.fs.read(endpoint))
@@ -31,10 +31,10 @@ let announceAgain = false
     if (!token || !/^[0-9]+$/.test(String(port)) || Number(port) < 1 || Number(port) > 65535) return undefined
     const response = await $.http.fetch('http://127.0.0.1:' + port + ${JSON.stringify(CLAUDE_AGENT_VIEW_PATH)}, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-orca-agent-hook-token': token },
+      headers: { 'content-type': 'application/json', 'x-openkodo-agent-hook-token': token },
       body: JSON.stringify({ ...session, action, ...data })
     })
-    // 204 (Orca not current) is not delivered.
+    // 204 (OpenKodo not current) is not delivered.
     if (!response.ok || !response.text) return undefined
     try {
       const data = JSON.parse(response.text)
@@ -50,8 +50,8 @@ let announceAgain = false
     } catch {}
   }
 
-  // Undelivered (Orca restarting, quit or unreachable): back off 1 s doubling to 60 s, so a
-  // returning Orca hears a missed view change within a minute.
+  // Undelivered (OpenKodo restarting, quit or unreachable): back off 1 s doubling to 60 s, so a
+  // returning OpenKodo hears a missed view change within a minute.
   function retry($) {
     retryDelay = Math.min(retryDelay ? retryDelay * 2 : 1000, 60000)
     schedule($, retryDelay)
@@ -84,7 +84,7 @@ let announceAgain = false
         identity = { paneKey, sessionId, instanceId: String(await $.clock.now()) + '-' + String(Math.random()) }
       }
       const session = identity
-      // Unreadable (gone or mid-edit) registers no binding; Orca reads the file itself on a click.
+      // Unreadable (gone or mid-edit) registers no binding; OpenKodo reads the file itself on a click.
       let keybindings = ''
       try { keybindings = await $.fs.read(configDir + '/keybindings.json') } catch {}
       if (identity !== session || endedSessionId === sessionId) return {}
@@ -100,7 +100,7 @@ let announceAgain = false
         await retry($)
         return {}
       }
-      // Delivered but not taken ({}: Orca not ready for this pane yet, an older Orca without a
+      // Delivered but not taken ({}: OpenKodo not ready for this pane yet, an older OpenKodo without a
       // binding, a relay that could not forward): keep the 5 s check-in.
       if (!result.registered && !result.unbound) {
         retryDelay = 0
@@ -108,7 +108,7 @@ let announceAgain = false
         return {}
       }
       retryDelay = 0
-      // An older Orca forgets a pane after 15 s of quiet; keep its 5 s heartbeat.
+      // An older OpenKodo forgets a pane after 15 s of quiet; keep its 5 s heartbeat.
       if (!result.durable) schedule($, 5000)
       else timerToken++
       // A /clear during the post: announce the session that replaced this one.
@@ -143,18 +143,18 @@ export function register(on) {
 
   on('session.start', async ($, event, next) => {
     const result = await next(event)
-    const targetPane = await $.env.get('ORCA_PANE_KEY')
+    const targetPane = await $.env.get('OPENKODO_PANE_KEY')
     if (!event.isInteractive || event.surface !== 'terminal' || !targetPane) return result
     paneKey = targetPane
-    configDir = await $.env.get('CLAUDE_CONFIG_DIR') || await $.env.get('ORCA_CLAUDE_CONFIG_DIR')
+    configDir = await $.env.get('CLAUDE_CONFIG_DIR') || await $.env.get('OPENKODO_CLAUDE_CONFIG_DIR')
     if (!configDir) return result
     endedSessionId = undefined
-    await $.command.register({ name: 'orca-agent-view', description: 'Open the agent selected in Orca', immediate: true })
+    await $.command.register({ name: 'orca-agent-view', description: 'Open the agent selected in OpenKodo', immediate: true })
     void announce($)
     return result
   })
 
-  // Re-announces after Orca dropped the pane (or missed a post); at most one post per 30 s of turns.
+  // Re-announces after OpenKodo dropped the pane (or missed a post); at most one post per 30 s of turns.
   try {
     on('turn.start', async ($, event, next) => {
       const result = await next(event)

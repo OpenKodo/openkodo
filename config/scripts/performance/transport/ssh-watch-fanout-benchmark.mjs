@@ -8,12 +8,12 @@ import { fileURLToPath } from 'node:url'
 import { createJiti } from 'jiti'
 
 const REPO_ROOT = fileURLToPath(new URL('../../../..', import.meta.url))
-const ITERATIONS = Number(process.env.ORCA_SSH_WATCH_BENCH_ITERATIONS ?? '200')
-const WARMUP = Number(process.env.ORCA_SSH_WATCH_BENCH_WARMUP ?? '30')
+const ITERATIONS = Number(process.env.OPENKODO_SSH_WATCH_BENCH_ITERATIONS ?? '200')
+const WARMUP = Number(process.env.OPENKODO_SSH_WATCH_BENCH_WARMUP ?? '30')
 
 for (const [name, value] of [
-  ['ORCA_SSH_WATCH_BENCH_ITERATIONS', ITERATIONS],
-  ['ORCA_SSH_WATCH_BENCH_WARMUP', WARMUP]
+  ['OPENKODO_SSH_WATCH_BENCH_ITERATIONS', ITERATIONS],
+  ['OPENKODO_SSH_WATCH_BENCH_WARMUP', WARMUP]
 ]) {
   if (!Number.isSafeInteger(value) || value <= 0) {
     throw new Error(`${name} must be a positive integer, received ${value}`)

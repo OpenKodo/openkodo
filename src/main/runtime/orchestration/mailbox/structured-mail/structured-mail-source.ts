@@ -68,7 +68,7 @@ export function structuredMailSource(input: {
     const saved = readAnswerSenderSnapshot(group[0]!.message.answer_sender_snapshot)
     const accepted = saved?.party.address === address ? saved : undefined
     const reported = group.find(({ report }) => report.kind === 'valid')?.report
-    // Orca's record of the sending Dispatch proves lineage whatever that Dispatch's state at delivery.
+    // OpenKodo's record of the sending Dispatch proves lineage whatever that Dispatch's state at delivery.
     const recordedDispatchId = group[0]!.recorded?.dispatchId
     const guardedAnswer = accepted
       ? undefined
@@ -217,7 +217,7 @@ export function structuredMailMessage(input: {
 }
 
 /** In a chat bound to a conversation, mail says where the bot's answer lands: there for its own
- *  workers' reports and other bots' answers to its asks, else Orca. */
+ *  workers' reports and other bots' answers to its asks, else OpenKodo. */
 function withConversationNote(
   text: string,
   from: ReturnType<typeof structuredMailSource>,
@@ -233,8 +233,8 @@ function withConversationNote(
   const note = !bound
     ? null
     : bound.answersThere
-      ? `[Orca: your final message and \`${cliCommand} bot reply\` (with any files) go to ${bound.place}.]`
-      : `[Orca: this mail did not come from ${bound.place}, so your final message stays in Orca.]`
+      ? `[OpenKodo: your final message and \`${cliCommand} bot reply\` (with any files) go to ${bound.place}.]`
+      : `[OpenKodo: this mail did not come from ${bound.place}, so your final message stays in OpenKodo.]`
   return [{ type: 'text', text: note ? `${text}\n\n${note}` : text }]
 }
 

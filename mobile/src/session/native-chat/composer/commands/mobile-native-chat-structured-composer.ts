@@ -20,6 +20,6 @@ export type MobileNativeChatStructuredComposer = {
   mcpPanel?: MobileStructuredMcpPanel | null
   /** Null unless the host shows this chat's account usage; `/usage` opens it. */
   accountUsage?: MobileStructuredAccountUsage | null
-  /** Why an Orca command (`/fork`, `/resume`) did not run, shown beside the composer. */
+  /** Why an OpenKodo command (`/fork`, `/resume`) did not run, shown beside the composer. */
   onCommandNotice?: (message: string) => void
 }

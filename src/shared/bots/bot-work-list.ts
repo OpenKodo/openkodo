@@ -20,7 +20,7 @@ export type BotWorkerSummary = {
   server: string | null
   pr: BotWorkPullRequest | null
   startedAt: number | null
-  /** Where the turn that started it was asked: Orca itself (titled when it was one of the bot's
+  /** Where the turn that started it was asked: OpenKodo itself (titled when it was one of the bot's
    *  chats), or a connector's conversation. */
   source: { source: ConnectorSource | 'app'; title: string | null }
 }
@@ -61,7 +61,7 @@ export function formatBotWorkerSummary(item: BotWorkerSummary, now: number): str
   const titled = item.source.title ? ` "${item.source.title}"` : ''
   const from =
     item.source.source === 'app'
-      ? `from Orca${titled}`
+      ? `from OpenKodo${titled}`
       : `from ${CONNECTOR_SOURCE_NAMES[item.source.source]}${titled}`
   return [
     `${item.id} ${who}`,

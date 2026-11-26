@@ -21,7 +21,7 @@ type AntigravityOwnedSignIn = Omit<AntigravityChatSignInState, 'flowId'> & {
   owner: string
 }
 
-/** agy's sign-in as Orca last saw it, and the one in-app sign-in running on this host; its
+/** agy's sign-in as OpenKodo last saw it, and the one in-app sign-in running on this host; its
  *  revision tells every surface to read again. */
 export const antigravityChatSignIn = new RevisionedState<{
   auth: AntigravityChatAuth
@@ -78,7 +78,7 @@ export async function writeAntigravityChatSettings(
   } catch (cause) {
     assertCurrent?.()
     throw new AntigravitySignInSentence(
-      'Antigravity account settings could not be prepared. Check that Orca can write its data folder and try again.',
+      'Antigravity account settings could not be prepared. Check that OpenKodo can write its data folder and try again.',
       { cause }
     )
   }

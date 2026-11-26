@@ -31,7 +31,7 @@ import { legacyCopyLocks } from '../bridges/codex-legacy-session-copy-lock-holde
 import { ManagedCodexHomeTemporarilyUnavailableError } from '../../../codex-accounts/managed-homes/host-codex-managed-home-ownership'
 
 const RETRYABLE_RESUME_ERROR =
-  'Orca could not safely move this legacy Codex session into your system Codex home. Retry resume; if it still fails, check that both Codex session folders are readable and writable.'
+  'OpenKodo could not safely move this legacy Codex session into your system Codex home. Retry resume; if it still fails, check that both Codex session folders are readable and writable.'
 
 const materializations = new Map<string, Promise<void>>()
 

@@ -7,20 +7,20 @@ import { useAppStore } from '@/store/index'
 import { translate } from '@/i18n/i18n'
 
 export const TWIN_FILE_BROWSER_UNSUPPORTED_MESSAGE =
-  'This project is on more than one host, so Orca cannot tell which copy to open.'
+  'This project is on more than one host, so OpenKodo cannot tell which copy to open.'
 
 /** Localized lazily: a module constant would freeze the language at import time. */
 export function remoteFileBrowserUnsupportedMessage(): string {
   return translate(
     'renderer.lib.filePreview.remoteFileUnsupported',
-    'Open in Orca Browser is only available for local files.'
+    'Open in OpenKodo Browser is only available for local files.'
   )
 }
 
 export function twinFileBrowserUnsupportedMessage(): string {
   return translate(
     'renderer.lib.filePreview.twinFileUnsupported',
-    'This project is on more than one host, so Orca cannot tell which copy to open.'
+    'This project is on more than one host, so OpenKodo cannot tell which copy to open.'
   )
 }
 
@@ -54,7 +54,7 @@ export function getWorkspaceFileBrowserOpenTarget(params: {
     getConnectionIdForFile(params.worktreeId, params.filePath) !== null ||
     runtimeEnvironmentIdOrLocalUnlessTwin(state, params.worktreeId)
   ) {
-    // file:// always resolves locally; serve remote files through Orca before browser rendering.
+    // file:// always resolves locally; serve remote files through OpenKodo before browser rendering.
     return {
       status: 'unsupported',
       reason: 'remote-worktree',

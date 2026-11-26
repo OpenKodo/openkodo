@@ -28,7 +28,7 @@ type CallerRuntime = Pick<
 >
 
 const ONLY_BOT_CHATS =
-  "Only a bot writes items, from one of its own chats. Run this from the bot's chat; your owner changes items in Orca."
+  "Only a bot writes items, from one of its own chats. Run this from the bot's chat; your owner changes items in OpenKodo."
 const BACKGROUND_READ_ONLY =
   'Look around and Tidy-up runs read items but never change them. Suggest the change instead.'
 

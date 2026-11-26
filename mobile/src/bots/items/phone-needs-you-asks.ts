@@ -1,4 +1,4 @@
-// Orca's asks as the phone lists them in Needs you: the chats waiting on the owner and their workers,
+// OpenKodo's asks as the phone lists them in Needs you: the chats waiting on the owner and their workers,
 // read from the chats tree it already has, the access requests waiting on the bot, paired servers'
 // agents waiting to message it, and the connectors that need a sign-in or fix, as one ask.
 import { useMemo } from 'react'

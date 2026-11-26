@@ -179,17 +179,17 @@ describe('a structured worker start behind wait-for-setup', () => {
     expect(worker.handOver).not.toHaveBeenCalled()
   })
 
-  it('fails the start, sending nothing, when Orca loses sight of Setup within the budget', async () => {
+  it('fails the start, sending nothing, when OpenKodo loses sight of Setup within the budget', async () => {
     vi.useFakeTimers()
     const worker = structuredStart()
     worker.loseSetup(new Error('terminal_handle_stale'))
     await expect(worker.start).rejects.toThrow(
-      'Orca lost sight of Setup (terminal_handle_stale), so it never sent the brief; Setup may still be running.'
+      'OpenKodo lost sight of Setup (terminal_handle_stale), so it never sent the brief; Setup may still be running.'
     )
     expect(worker.handOver).not.toHaveBeenCalled()
   })
 
-  it('fails the start, sending nothing, when Orca loses sight of Setup after the budget', async () => {
+  it('fails the start, sending nothing, when OpenKodo loses sight of Setup after the budget', async () => {
     vi.useFakeTimers()
     const worker = structuredStart()
     await vi.advanceTimersByTimeAsync(BUDGET_MS)
@@ -199,7 +199,7 @@ describe('a structured worker start behind wait-for-setup', () => {
     await vi.waitFor(() =>
       expect(worker.onHandedOver).toHaveBeenCalledWith({
         failed:
-          'Orca lost sight of Setup (terminal_handle_stale), so it never sent the brief; Setup may still be running.'
+          'OpenKodo lost sight of Setup (terminal_handle_stale), so it never sent the brief; Setup may still be running.'
       })
     )
     expect(worker.handOver).not.toHaveBeenCalled()

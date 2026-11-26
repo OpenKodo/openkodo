@@ -26,7 +26,7 @@ async function normalizedStart(
 ): Promise<AgentHookEventPayload> {
   const harness = createAgentStatusExtensionHarness({
     kind: 'pi',
-    env: { ORCA_PANE_KEY: PANE_KEY }
+    env: { OPENKODO_PANE_KEY: PANE_KEY }
   })
   emit(harness)
   await vi.waitFor(() => expect(harness.fetchMock).toHaveBeenCalledTimes(1))

@@ -52,7 +52,7 @@ export function forgetBrowserExtensionCleanStartNeed(profileId: string, extensio
 }
 
 /**
- * Offscreen documents write storage without Orca's relay, so their use can't be seen; an extension
+ * Offscreen documents write storage without OpenKodo's relay, so their use can't be seen; an extension
  * that may open one is treated as a session storage user.
  */
 function needsCleanStart(profileId: string, extensionId: string): boolean {
@@ -69,7 +69,7 @@ function needsCleanStart(profileId: string, extensionId: string): boolean {
  */
 export function beginIdleUnload(profileId: string, sess: Electron.Session): void {
   idleUnloadedProfileIds.add(profileId)
-  // Why Electron's list: Orca's own worker handles can miss a stop and look running.
+  // Why Electron's list: OpenKodo's own worker handles can miss a stop and look running.
   const runningScopes = new Set(
     Object.values(sess.serviceWorkers.getAllRunning()).map((worker) => worker.scope)
   )

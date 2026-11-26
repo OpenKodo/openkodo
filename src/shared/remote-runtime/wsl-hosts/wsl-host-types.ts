@@ -22,7 +22,7 @@ export type WslHostAddProgress = {
 
 export type WslHostDistro = {
   name: string
-  /** 'unverifiable': WSL's running list couldn't be read, so Orca can't say. */
+  /** 'unverifiable': WSL's running list couldn't be read, so OpenKodo can't say. */
   state: 'running' | 'stopped' | 'unverifiable'
   /** WSL 1 runs no Linux kernel, so it cannot host orcad; null when the registry did not say. */
   version: 1 | 2 | null
@@ -70,7 +70,7 @@ export const ORCAD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE = 'orcad_not_started_as_wsl
 /** Update anyway over an uncounted census: Update's admission, pinned to the build the user confirmed. */
 export type WslHostPastUncountedTerminals = { incumbentVersion: string | null }
 
-/** A host a newer Orca runs refused this build: only Force (or updating Orca) changes that. */
+/** A host a newer OpenKodo runs refused this build: only Force (or updating OpenKodo) changes that. */
 export const ORCAD_HOST_NEWER_DEFERRAL_CODE = 'orcad_host_newer'
 
 /** A project move to the host runs on this desktop; the update waits for it to finish. */
@@ -96,11 +96,11 @@ export type WslHostCapability = {
 
 /**
  * What removing a host left behind in its distro, in the census vocabulary: `live` when something
- * is proven still running, `unverifiable` when Orca could not tell. `kept` (E11): the host stays
+ * is proven still running, `unverifiable` when OpenKodo could not tell. `kept` (E11): the host stays
  * listed with its stop pending, so Remove can retry; older mains removed it anyway.
  */
 export type WslHostServerStop =
-  /** `keptForOtherDesktops`: another Orca shares the server, so only this desktop let go of it. */
+  /** `keptForOtherDesktops`: another OpenKodo shares the server, so only this desktop let go of it. */
   | { stopped: true; keptForOtherDesktops?: string[] }
   | {
       stopped: false
@@ -114,7 +114,7 @@ export type WslHostServerStop =
 
 export type WslHostAddFailureKind =
   | 'unsupported-wsl1'
-  /** Its platform, libc or loader can't run Orca's server (e.g. NixOS, musl without libstdc++). */
+  /** Its platform, libc or loader can't run OpenKodo's server (e.g. NixOS, musl without libstdc++). */
   | 'unsupported-distro'
   | 'distro-stopped'
   | 'already-added'

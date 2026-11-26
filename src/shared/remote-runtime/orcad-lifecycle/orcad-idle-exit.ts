@@ -2,7 +2,7 @@
 import { z } from 'zod'
 
 /** Test-only quiet period; a client forwards it to the servers it launches. */
-export const ORCAD_E2E_IDLE_TIMEOUT_ENV = 'ORCA_E2E_ORCAD_IDLE_TIMEOUT_MS'
+export const ORCAD_E2E_IDLE_TIMEOUT_ENV = 'OPENKODO_E2E_ORCAD_IDLE_TIMEOUT_MS'
 export const ORCAD_IDLE_EXIT_TIMEOUT_MS = 15 * 60_000
 const ORCAD_E2E_IDLE_TIMEOUT_MAX_MS = 60 * 60_000
 
@@ -15,7 +15,7 @@ export function readOrcadE2EIdleTimeoutMs(env: NodeJS.ProcessEnv): number | null
 }
 
 /** Client-chosen quiet period for the hosts it launches; older orcads ignore it and keep the default. */
-export const ORCAD_IDLE_TIMEOUT_ENV = 'ORCA_ORCAD_IDLE_TIMEOUT_MS'
+export const ORCAD_IDLE_TIMEOUT_ENV = 'OPENKODO_ORCAD_IDLE_TIMEOUT_MS'
 const ORCAD_IDLE_TIMEOUT_MIN_MS = 60_000
 /** WSL hosts: an idle orcad holds the distro's VM (about 1.2 GB); a cold reopen costs about 4 s. */
 export const WSL_ORCAD_IDLE_EXIT_TIMEOUT_MS = 5 * 60_000

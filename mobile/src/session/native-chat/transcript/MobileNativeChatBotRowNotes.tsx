@@ -8,7 +8,7 @@ import { styles } from './messages/mobile-native-chat-message-styles'
 import { MobileNativeChatDivider } from './MobileNativeChatDivider'
 import { nativeChatNoticeCopy } from './notices/native-chat-notice-copy'
 
-/** Orca's first turn to a bot it just created, which the owner never typed. */
+/** OpenKodo's first turn to a bot it just created, which the owner never typed. */
 export function MobileNativeChatBotCreatedRow({ rowId }: { rowId: string }): React.JSX.Element {
   const t = useMobileTranslation()
   return (
@@ -18,7 +18,7 @@ export function MobileNativeChatBotCreatedRow({ rowId }: { rowId: string }): Rea
   )
 }
 
-/** Orca's turn handing the bot a workspace: a divider naming it; any goal follows as the owner's words. */
+/** OpenKodo's turn handing the bot a workspace: a divider naming it; any goal follows as the owner's words. */
 export function MobileNativeChatTookOverRow({
   rowId,
   workspace

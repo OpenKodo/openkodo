@@ -34,7 +34,7 @@ async function callWorkspaceCleanup<TResult>(
     if (error instanceof RuntimeClientError && error.code === 'method_not_found') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This Orca host does not support workspace cleanup commands yet. Update Orca on that host.'
+        'This OpenKodo host does not support workspace cleanup commands yet. Update OpenKodo on that host.'
       )
     }
     if (

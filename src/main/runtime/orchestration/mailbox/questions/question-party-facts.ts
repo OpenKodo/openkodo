@@ -9,7 +9,7 @@ import {
   resolveLineageRunningSession
 } from '../../addressing/session-lineage/structured-session-lineage'
 import { isOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
 
 export type QuestionPartyReads = {
   /** The chat running this lineage root's conversation now. */
@@ -64,7 +64,7 @@ export async function readQuestionPartyFacts(
           : []
       )
       const all = [
-        ...ids.map((id) => `${ORCA_SESSION_ADDRESS_PREFIX}${id}`),
+        ...ids.map((id) => `${OPENKODO_SESSION_ADDRESS_PREFIX}${id}`),
         ...runs,
         ...openDispatchMailboxes(db, 'assignee_orca_session_id', ids)
       ]

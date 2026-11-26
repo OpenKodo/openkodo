@@ -46,7 +46,7 @@ export function resolveWslHookRelayBundle(): WslHookRelayBundle | null {
   return null
 }
 
-// Versioned directories keep parallel Orca builds from overwriting each other.
+// Versioned directories keep parallel OpenKodo builds from overwriting each other.
 function guestRelayDirExpr(version: string): string {
   return `$HOME/${WSL_HOOK_RELAY_DIR}/${version}`
 }
@@ -83,13 +83,13 @@ export function buildGuestInstallScript(bundleJs: Buffer, version: string): stri
     'umask 077',
     `d="${guestRelayDirExpr(version)}"`,
     'mkdir -p "$d"',
-    `base64 -d > "$d/bundle.$$.tmp" << 'ORCA_EOF_BUNDLE'`,
+    `base64 -d > "$d/bundle.$$.tmp" << 'OPENKODO_EOF_BUNDLE'`,
     b64.trimEnd(),
-    'ORCA_EOF_BUNDLE',
+    'OPENKODO_EOF_BUNDLE',
     `mv "$d/bundle.$$.tmp" "$d/${WSL_HOOK_RELAY_BUNDLE_NAME}"`,
-    `cat > "$d/launch.$$.tmp" << 'ORCA_EOF_LAUNCH'`,
+    `cat > "$d/launch.$$.tmp" << 'OPENKODO_EOF_LAUNCH'`,
     buildGuestLaunchScript(version).trimEnd(),
-    'ORCA_EOF_LAUNCH',
+    'OPENKODO_EOF_LAUNCH',
     'mv "$d/launch.$$.tmp" "$d/launch.sh"',
     'chmod 700 "$d/launch.sh"',
     // Publish the version marker after the bundle and launcher are ready.
@@ -224,15 +224,15 @@ export function buildWslRelaySpawnEnv(
   const env: NodeJS.ProcessEnv = {
     ...process.env,
     WSL_UTF8: '1',
-    ORCA_AGENT_HOOK_PORT: coords.ORCA_AGENT_HOOK_PORT,
-    ORCA_AGENT_HOOK_TOKEN: coords.ORCA_AGENT_HOOK_TOKEN,
-    ORCA_AGENT_HOOK_ENV: coords.ORCA_AGENT_HOOK_ENV,
-    ORCA_AGENT_HOOK_VERSION: coords.ORCA_AGENT_HOOK_VERSION,
+    OPENKODO_AGENT_HOOK_PORT: coords.OPENKODO_AGENT_HOOK_PORT,
+    OPENKODO_AGENT_HOOK_TOKEN: coords.OPENKODO_AGENT_HOOK_TOKEN,
+    OPENKODO_AGENT_HOOK_ENV: coords.OPENKODO_AGENT_HOOK_ENV,
+    OPENKODO_AGENT_HOOK_VERSION: coords.OPENKODO_AGENT_HOOK_VERSION,
     [WSL_HOOK_RELAY_VERSION_ENV]: bundleVersion,
     [WSL_HOOK_RELAY_INSTANCE_ENV]: instanceKey
   }
   // The guest derives its endpoint path; do not translate the Windows endpoint through WSLENV.
-  delete env.ORCA_AGENT_HOOK_ENDPOINT
+  delete env.OPENKODO_AGENT_HOOK_ENDPOINT
   addOrcaWslInteropEnv(env as Record<string, string>)
   return env
 }

@@ -1,4 +1,4 @@
-// The Items tab's list part: the bot's items grouped, Orca's own asks leading Needs you whatever the item
+// The Items tab's list part: the bot's items grouped, OpenKodo's own asks leading Needs you whatever the item
 // read says, then what it says of items: all clear above them; loading, failed, a new bot or nothing matching below.
 import { ListChecks } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -56,7 +56,7 @@ export function BotItemsSection({
   onOpen: (item: BotItem) => void
   /** The bot's own item read. */
   botRead: { state: BotHostReadState; retry: () => void }
-  /** Orca's asks; they lead Needs you whatever the item read says. */
+  /** OpenKodo's asks; they lead Needs you whatever the item read says. */
   asks: BotNeedsYouAsks
   offline: boolean
   focusFallback: React.RefObject<HTMLElement | null>

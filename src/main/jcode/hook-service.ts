@@ -40,18 +40,18 @@ import {
 function getManagedScript(target: 'local' | 'posix' = 'local'): string {
   if (target === 'local' && process.platform === 'win32') {
     // Windows stdin is drained or null; post JCODE_HOOK_PAYLOAD through a temp file instead.
-    const payloadFile = '%ORCA_JCODE_PAYLOAD_FILE%'
+    const payloadFile = '%OPENKODO_JCODE_PAYLOAD_FILE%'
     return [
       '@echo off',
       // Delayed expansion keeps JSON quotes and & out of cmd parsing.
       'setlocal EnableDelayedExpansion',
-      // Refresh endpoint credentials for PTYs surviving an Orca restart.
-      'if defined ORCA_AGENT_HOOK_ENDPOINT if exist "%ORCA_AGENT_HOOK_ENDPOINT%" call "%ORCA_AGENT_HOOK_ENDPOINT%" 2>nul',
-      // Guard before reading: abandoned Windows stdin can hang forever outside Orca (#11549).
+      // Refresh endpoint credentials for PTYs surviving an OpenKodo restart.
+      'if defined OPENKODO_AGENT_HOOK_ENDPOINT if exist "%OPENKODO_AGENT_HOOK_ENDPOINT%" call "%OPENKODO_AGENT_HOOK_ENDPOINT%" 2>nul',
+      // Guard before reading: abandoned Windows stdin can hang forever outside OpenKodo (#11549).
       ...buildWindowsHookEnvironmentGuardLines(),
       // Drain pre_tool input before POST so jcode cannot block writing a payload larger than the pipe.
       `if "%JCODE_HOOK_EVENT%"=="pre_tool" ${WINDOWS_HOOK_STDIN_DRAIN_COMMAND}`,
-      `set "ORCA_JCODE_PAYLOAD_FILE=%TEMP%\\orca-jcode-hook-%RANDOM%%RANDOM%.json"`,
+      `set "OPENKODO_JCODE_PAYLOAD_FILE=%TEMP%\\orca-jcode-hook-%RANDOM%%RANDOM%.json"`,
       `>"${payloadFile}" echo(!JCODE_HOOK_PAYLOAD!`,
       // Input redirection avoids spawning cmd's extra pipeline shells on every event.
       `<"${payloadFile}" ${buildWindowsAgentHookPostCommand('jcode', [
@@ -68,14 +68,14 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
   return [
     '#!/bin/sh',
     // Refresh surviving PTYs; silence sourcing failures from endpoint races or CRLF damage.
-    'if [ -n "$ORCA_AGENT_HOOK_ENDPOINT" ] && [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ]; then',
-    '  . "$ORCA_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
+    'if [ -n "$OPENKODO_AGENT_HOOK_ENDPOINT" ] && [ -r "$OPENKODO_AGENT_HOOK_ENDPOINT" ]; then',
+    '  . "$OPENKODO_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
     'fi',
     // Drain gated input before every exit path so jcode cannot block mid-write.
     'if [ "$JCODE_HOOK_EVENT" = pre_tool ]; then',
     `  ${POSIX_HOOK_STDIN_DRAIN_COMMAND}`,
     'fi',
-    'if [ -z "$ORCA_AGENT_HOOK_PORT" ] || [ -z "$ORCA_AGENT_HOOK_TOKEN" ] || [ -z "$ORCA_PANE_KEY" ]; then',
+    'if [ -z "$OPENKODO_AGENT_HOOK_PORT" ] || [ -z "$OPENKODO_AGENT_HOOK_TOKEN" ] || [ -z "$OPENKODO_PANE_KEY" ]; then',
     '  exit 0',
     'fi',
     // Forward jcode's JSON payload verbatim; rebuilding arbitrary text in shell is unsafe.
@@ -126,7 +126,7 @@ export class JcodeHookService {
       } else if (typeof value === 'string') {
         userOwned.push(event)
       } else {
-        // Install appends Orca to user arrays, so they count as missing rather than user-owned.
+        // Install appends OpenKodo to user arrays, so they count as missing rather than user-owned.
         missing.push(event)
       }
     }
@@ -194,7 +194,7 @@ export class JcodeHookService {
     // Remote hook execution assumes POSIX; Windows remotes are unsupported.
     const remoteConfigPath = getJcodeRemoteConfigPath(remoteHome)
     const remoteScriptFileName = getJcodePosixManagedScriptFileName()
-    const remoteScriptPath = `${remoteHome.replace(/\/+$/, '')}/.orca/agent-hooks/${remoteScriptFileName}`
+    const remoteScriptPath = `${remoteHome.replace(/\/+$/, '')}/.openkodo/agent-hooks/${remoteScriptFileName}`
     try {
       const body = await readTextFileRemote(sftp, remoteConfigPath)
       const content = body === null ? '' : body

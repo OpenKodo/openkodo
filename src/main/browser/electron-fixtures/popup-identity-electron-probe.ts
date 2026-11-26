@@ -25,8 +25,8 @@ export async function buildPopupIdentityProbe(
     oxc: { jsx: { development: false } },
     resolve: { alias: { '@': join(process.cwd(), 'src/renderer/src') } },
     define: {
-      ORCA_FEATURE_WALL_ENABLED: 'true',
-      ORCA_BUILD_COMMIT: JSON.stringify('0'.repeat(40)),
+      OPENKODO_FEATURE_WALL_ENABLED: 'true',
+      OPENKODO_BUILD_COMMIT: JSON.stringify('0'.repeat(40)),
       'import.meta.env.DEV': 'false',
       'process.env.NODE_ENV': JSON.stringify('production')
     },
@@ -76,7 +76,7 @@ export async function launchPopupIdentityProbe(root: string, electronArgs: reado
   const child = spawnProcess({
     program: executable,
     args,
-    env: { ...env, ORCA_BACKGROUND_LAUNCH: '1', ORCA_POPUP_IDENTITY_ROOT: root },
+    env: { ...env, OPENKODO_BACKGROUND_LAUNCH: '1', OPENKODO_POPUP_IDENTITY_ROOT: root },
     stdio: ['ignore', 'pipe', 'pipe']
   })
   const diagnostics: string[] = []

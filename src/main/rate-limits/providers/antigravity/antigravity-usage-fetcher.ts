@@ -57,7 +57,7 @@ const FAILURE_REASONS: Partial<Record<UsageRateLimitFailureKind, string>> = {
 }
 
 const UNSUPPORTED_USAGE_COMMAND_REASON =
-  'Antigravity usage is not available. This version of the Antigravity CLI answers `/usage` as a prompt instead of a command, so Orca stopped asking rather than spend quota on it. Update `agy` and restart Orca.'
+  'Antigravity usage is not available. This version of the Antigravity CLI answers `/usage` as a prompt instead of a command, so OpenKodo stopped asking rather than spend quota on it. Update `agy` and restart OpenKodo.'
 
 // Unsupported /usage spends quota; latch each runtime for the process lifetime.
 const unsupportedUsageRuntimes = new Set<string>()
@@ -215,7 +215,7 @@ async function readAntigravityUsage(
       })
   }
 
-  // Recheck each read: the CLI can be replaced while Orca runs; unsupported reads spend quota.
+  // Recheck each read: the CLI can be replaced while OpenKodo runs; unsupported reads spend quota.
   const versionRun = await run(ANTIGRAVITY_VERSION_ARGS, ANTIGRAVITY_VERSION_TIMEOUT_MS)
   // Exit 127 proves absence only after the guest login PATH was resolved.
   if (wsl && versionRun.code === 127) {

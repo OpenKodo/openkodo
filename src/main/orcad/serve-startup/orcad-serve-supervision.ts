@@ -1,6 +1,6 @@
 // `orca serve --supervise` runs orcad under a service manager, which restarts it routinely.
 import process from 'node:process'
-import { ORCA_SERVE_SUPERVISED_ENV } from '../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
+import { OPENKODO_SERVE_SUPERVISED_ENV } from '../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
 
 /** A supervised service must not hand out terminals that its next restart would kill. */
 export class OrcadTerminalsNotDurableError extends Error {
@@ -16,7 +16,7 @@ export class OrcadTerminalsNotDurableError extends Error {
 
 /** Read once and drop it, so nothing orcad starts inherits it. */
 export function takeOrcadServeSupervision(env: NodeJS.ProcessEnv = process.env): boolean {
-  const supervised = env[ORCA_SERVE_SUPERVISED_ENV] === '1'
-  delete env[ORCA_SERVE_SUPERVISED_ENV]
+  const supervised = env[OPENKODO_SERVE_SUPERVISED_ENV] === '1'
+  delete env[OPENKODO_SERVE_SUPERVISED_ENV]
   return supervised
 }

@@ -41,6 +41,6 @@ export const runLinearConnect: CommandHandler = async ({ client, flags, json }) 
       return ''
     }
     const account = result.workspace ?? result.viewer
-    return `Connected Linear workspace ${account.organizationName} as ${account.email ?? account.displayName} on the Orca host this command reached.${unsealed}`
+    return `Connected Linear workspace ${account.organizationName} as ${account.email ?? account.displayName} on the OpenKodo host this command reached.${unsealed}`
   })
 }

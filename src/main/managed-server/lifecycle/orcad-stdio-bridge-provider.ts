@@ -65,7 +65,7 @@ export async function startOrcadStdioBridge(
       throw error
     }
     // Lost contact does not prove bridge absence; let new sockets resolve it again.
-    console.warn('[ssh] Orca stdio bridge check was unverifiable:', error)
+    console.warn('[ssh] OpenKodo stdio bridge check was unverifiable:', error)
   }
   return listenOrcadStdioBridge(
     options,

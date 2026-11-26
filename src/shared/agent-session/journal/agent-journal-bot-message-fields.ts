@@ -24,12 +24,12 @@ export type AgentJournalConnectorClaim = {
   origin: AgentJournalConnectorDelivery[]
 }
 
-/** What Orca writes on a message it delivers to a bot. */
+/** What OpenKodo writes on a message it delivers to a bot. */
 export type AgentJournalBotMessageFields = {
-  /** Present on a message Orca delivered to a bot from Slack, GitHub or Linear: only then does the
-   *  chat read its labelled form. `bot-created` is Orca's own first turn to a new bot, drawn as a
+  /** Present on a message OpenKodo delivered to a bot from Slack, GitHub or Linear: only then does the
+   *  chat read its labelled form. `bot-created` is OpenKodo's own first turn to a new bot, drawn as a
    *  notice row. `card-answer` is an owner's click on a setup card: the card's receipt is its only
-   *  visible part. `took-over` is Orca's turn handing the bot a workspace, drawn from `tookOver`.
+   *  visible part. `took-over` is OpenKodo's turn handing the bot a workspace, drawn from `tookOver`.
    *  `automation-run` is a bot automation's run, drawn from `automationRun` as the automation's row.
    *  Host-written, like `from`. */
   origin?: 'connector' | 'bot-created' | 'card-answer' | 'took-over' | 'automation-run'
@@ -55,13 +55,13 @@ export type AgentJournalBotMessageFields = {
    *  turn, by the content they had when read: its admission settles them, or refuses if any changed.
    *  Host-written, never sent to the agent. */
   carriedCards?: AgentJournalCarriedCard[]
-  /** Who asked each message carried in, its own carried ones included; null for one Orca can't
+  /** Who asked each message carried in, its own carried ones included; null for one OpenKodo can't
    *  name. The turn acts for the least trusted of them. Host-written, never sent to the agent. */
   carriedAskers?: (ConnectorMessageAsker | null)[]
-  /** On a continuation Orca sends after a cut: the requests it answers in the cut's place.
+  /** On a continuation OpenKodo sends after a cut: the requests it answers in the cut's place.
    *  Host-written, never sent to the agent. */
   connectorClaim?: AgentJournalConnectorClaim
-  /** Present on a message Orca sent for a bot's automation run: where what the bot learns in its
+  /** Present on a message OpenKodo sent for a bot's automation run: where what the bot learns in its
    *  turn came from, as its memory says it ("Webhook deploys"). Host-written, like `from`. */
   memorySource?: string
   /** Beside `memorySource`: who did the event that started the run, for the record. Host-written. */

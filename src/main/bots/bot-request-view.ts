@@ -1,4 +1,4 @@
-// What each side of a bot request reads, worked out from Orca's record of it: who sent it and for whom,
+// What each side of a bot request reads, worked out from OpenKodo's record of it: who sent it and for whom,
 // how to answer and where the answer appears, and what the sender does when an answer comes back.
 import { CONNECTOR_SOURCE_NAMES } from '../../shared/connectors/external-conversation-link'
 import { BOT_QUIET_MARKER } from '../../shared/bot-quiet-result'
@@ -14,7 +14,7 @@ import {
 } from '../../shared/orchestration/mailbox/paired-sender-name'
 import { AUTOMATION_EVENT_SOURCE_NAMES } from '../automations/automation-event-prompt'
 
-/** What Orca keeps beside the mail: never written from the sender's own fields. */
+/** What OpenKodo keeps beside the mail: never written from the sender's own fields. */
 export type BotRequestRecord = {
   group?: BotGroupPeerScope
   fromBotId: string | null
@@ -81,7 +81,7 @@ export function botRequestAskerLabel(asker: BotRequestAsker): string {
   }
   return asker.kind === 'person'
     ? `${asker.name ?? 'someone'} on ${CONNECTOR_SOURCE_NAMES[asker.source]}`
-    : 'someone Orca cannot name'
+    : 'someone OpenKodo cannot name'
 }
 
 const askersOf = (record: BotRequestRecord): string =>
@@ -145,7 +145,7 @@ function originLine(record: BotRequestRecord): Record<string, string> {
   }
 }
 
-/** Asked in a chat read in Orca, not on a connector conversation's turn, so Orca shows the answer
+/** Asked in a chat read in OpenKodo, not on a connector conversation's turn, so OpenKodo shows the answer
  *  there on its own card, whoever asked. A worker's request has no card: its answer goes to the
  *  worker. */
 export function answeredOnCard(
@@ -316,7 +316,7 @@ export function botRequestUnansweredText(
 ): string {
   const bot = record.toBotName
   const failedTurn = `${bot}'s turn failed${failure ? `: ${failure}` : ' with an error.'}`
-  // Orca continues the turn itself after the reset: redoing it now would do the work twice.
+  // OpenKodo continues the turn itself after the reset: redoing it now would do the work twice.
   if (why === 'failed-continues') {
     return `${failedTurn} Your ${record.purpose} hasn't been handled yet; ${bot} continues on its own when the limit resets, so don't redo it.`
   }

@@ -67,7 +67,7 @@ function copyFor(notice: PerfNotice): Copy {
           'Find workspaces you no longer need in Settings > Workspace Cleanup.'
         ),
         action: {
-          // Why: the arrow marks a button that opens another page, as Orca's other "go to" buttons do.
+          // Why: the arrow marks a button that opens another page, as OpenKodo's other "go to" buttons do.
           label: (
             <span className="inline-flex items-center gap-1.5">
               {translate('perfNotices.disk.reviewOld', 'Review old workspaces')}

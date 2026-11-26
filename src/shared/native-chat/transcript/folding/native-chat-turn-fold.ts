@@ -6,7 +6,7 @@ import { AGENT_SESSION_COMPACTION_SKIPPED_PRESENTATION } from '../../../agent-se
 import { AGENT_SESSION_HOOK_SENT_BACK_PRESENTATION } from '../../../agent-session/journal/agent-session-hook-outcome'
 import { AGENT_SESSION_GOAL_CHECK_PRESENTATION } from '../../../agent-session/thread-goals/agent-session-goal-check-display'
 import { NATIVE_CHAT_GOAL_CHECK_SUMMARY } from '../turns/native-chat-thread-goal-rows'
-import { AGENT_SESSION_ORCA_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-orca-stop'
+import { AGENT_SESSION_OPENKODO_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-orca-stop'
 import { AGENT_SESSION_TURN_NOTICE_PRESENTATION } from '../../../agent-session/journal/agent-session-turn-notice'
 import { NATIVE_CHAT_ADVISOR_PRESENTATION } from '../notices/native-chat-notice'
 import {
@@ -107,12 +107,12 @@ function deriveTurnFoldRow(
           isBackgroundTaskBlock(block) ||
           isStoppedBeforeStartBlock(block)
       ),
-    // A row about Orca's own stop is stored red for clients that predate it; it reports no failure.
+    // A row about OpenKodo's own stop is stored red for clients that predate it; it reports no failure.
     reportsFailure: message.blocks.some(
       (block) =>
         block.type === 'text' &&
         (block.tone === 'error' || block.failure?.kind === 'usageLimitReached') &&
-        block.presentation !== AGENT_SESSION_ORCA_STOP_PRESENTATION &&
+        block.presentation !== AGENT_SESSION_OPENKODO_STOP_PRESENTATION &&
         !isFailedHookBlock(block)
     ),
     explainsTurn:
@@ -122,7 +122,7 @@ function deriveTurnFoldRow(
           (block.presentation === 'plan-document' ||
             block.presentation === 'compaction' ||
             block.presentation === AGENT_SESSION_COMPACTION_SKIPPED_PRESENTATION ||
-            block.presentation === AGENT_SESSION_ORCA_STOP_PRESENTATION ||
+            block.presentation === AGENT_SESSION_OPENKODO_STOP_PRESENTATION ||
             block.presentation === AGENT_SESSION_TURN_NOTICE_PRESENTATION ||
             block.presentation === AGENT_SESSION_HOOK_SENT_BACK_PRESENTATION ||
             block.presentation === AGENT_SESSION_GOAL_CHECK_PRESENTATION ||

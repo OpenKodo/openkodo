@@ -1,6 +1,6 @@
 import type { PreloadApi } from '../../../../../preload/api-types'
 import {
-  DEFAULT_LOCAL_ORCA_PROFILE_ID,
+  DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
   createDefaultLocalOrcaProfile
 } from '../../../../../shared/orca-profiles/orca-profiles'
 import { noopUnsubscribe } from '../web-storage'
@@ -8,17 +8,17 @@ import { noopUnsubscribe } from '../web-storage'
 export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
   const webOrcaProfileAuthStatus = () =>
     Promise.resolve({
-      activeProfileId: DEFAULT_LOCAL_ORCA_PROFILE_ID,
+      activeProfileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
       configured: false,
       state: 'unconfigured' as const,
       persistence: 'none' as const,
-      setupMessage: 'Orca Cloud sign-in is not available in the browser fallback.'
+      setupMessage: 'cloud service sign-in is not available in the browser fallback.'
     })
   return {
     orcaProfiles: {
       list: () =>
         Promise.resolve({
-          activeProfileId: DEFAULT_LOCAL_ORCA_PROFILE_ID,
+          activeProfileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
           profiles: [createDefaultLocalOrcaProfile(0)],
           multiProfileUi: false
         }),
@@ -27,7 +27,7 @@ export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
       onSignInProgressChanged: () => noopUnsubscribe,
       createLocal: () =>
         Promise.resolve({
-          activeProfileId: DEFAULT_LOCAL_ORCA_PROFILE_ID,
+          activeProfileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
           profiles: [createDefaultLocalOrcaProfile(0)],
           profile: createDefaultLocalOrcaProfile(0)
         }),
@@ -58,7 +58,7 @@ export function createWebOrcaProfilesApi(): Partial<PreloadApi> {
       signOutCurrent: async () => ({
         status: 'signed-out',
         auth: await webOrcaProfileAuthStatus(),
-        activeProfileId: DEFAULT_LOCAL_ORCA_PROFILE_ID,
+        activeProfileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
         profiles: [createDefaultLocalOrcaProfile(0)]
       }),
       selectOrg: async () => ({

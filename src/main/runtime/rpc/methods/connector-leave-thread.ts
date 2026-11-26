@@ -1,6 +1,6 @@
 // `orca bot reply --leave-thread`: the calling bot stops being woken in the Slack thread its chat
-// answers, until someone @mentions it. Orca decides which bot, which thread and whether this turn
-// may, from its own records; the agent names nothing. The thread is then owed Orca's own
+// answers, until someone @mentions it. OpenKodo decides which bot, which thread and whether this turn
+// may, from its own records; the agent names nothing. The thread is then owed OpenKodo's own
 // confirmation, saved with the mute, which the turn's end posts.
 import type { ConnectorConversation } from '../../../../shared/connectors/connector-cloud-contract'
 import { ConnectorLeaveThread } from '../../../../shared/rpc-contract/connectors/connector-params'
@@ -41,7 +41,7 @@ export const CONNECTOR_LEAVE_THREAD_METHOD = defineMethod({
   handler: async ({ sessionId }, context) => {
     const { runtime } = context
     const bot = runtime.bots.enabled() ? botOfSession(runtime.bots, sessionId) : null
-    // Only the chat itself, as Orca verified the caller: never one chat leaving for another.
+    // Only the chat itself, as OpenKodo verified the caller: never one chat leaving for another.
     const caller = sessionCallerOf(context.orchestrationCaller)?.sessionId
     if (!bot || caller === undefined || !sameSession(caller, sessionId)) {
       throw new ConnectorActError(

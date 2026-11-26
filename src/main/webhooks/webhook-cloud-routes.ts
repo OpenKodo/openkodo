@@ -1,4 +1,4 @@
-// The machine's webhook routes in Orca Cloud, as calls; the paths and answers are the shared mirror's.
+// The machine's webhook routes in cloud service, as calls; the paths and answers are the shared mirror's.
 import { z } from 'zod'
 import {
   WEBHOOK_OPERATIONS,

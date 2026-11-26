@@ -23,9 +23,9 @@ const longProposal: BotProposal = {
   name: 'Eng-Bot-Builder',
   mascot: 'B1',
   purpose:
-    'I build Orca bots for Carol, and every bot I recruit follows ~/.orca/bots/company_guide.md.',
+    'I build OpenKodo bots for Carol, and every bot I recruit follows ~/.orca/bots/company_guide.md.',
   watches:
-    'Requests to create, revise, or retire an Orca bot, plus the roster in ~/.orca/bots so a new bot never duplicates one that already exists, and any change to ~/.orca/bots/company_guide.md.',
+    'Requests to create, revise, or retire an OpenKodo bot, plus the roster in ~/.orca/bots so a new bot never duplicates one that already exists, and any change to ~/.orca/bots/company_guide.md.',
   does: "Checks the roster so it does not duplicate a bot, drafts the new bot's purpose and SOUL.md, and proposes it as a card. Every bot it recruits has to follow ~/.orca/bots/company_guide.md: GitHub comments and pull requests only as carol-gh, and community pull requests get credit to their original author in the description.",
   reports:
     'A Create-bot card for Carol to accept, then which bot was made, what it watches, and anything in the company guide it could not follow.'
@@ -96,7 +96,7 @@ export const proposalLongPurpose = defineFixture({
     {
       ...longProposal,
       purpose:
-        'I build Orca bots for Carol, and every bot I recruit follows ~/.orca/bots/company_guide.md, checks the roster first, and never duplicates a bot that already exists here.'
+        'I build OpenKodo bots for Carol, and every bot I recruit follows ~/.orca/bots/company_guide.md, checks the roster first, and never duplicates a bot that already exists here.'
     },
     'Proposed by CoS'
   )

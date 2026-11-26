@@ -176,7 +176,7 @@ async function settleReadinessWait(
     wait.blockedReason
       ? await agentStartupBlockedMessage(runtime, setupStage.terminalHandle, wait.blockedReason)
       : unobserved
-        ? `Orca lost sight of Setup (${wait.reason}), so it never sent the brief; Setup may still be running.`
+        ? `OpenKodo lost sight of Setup (${wait.reason}), so it never sent the brief; Setup may still be running.`
         : structuredSession
           ? `Setup did not finish before the structured worker started (${wait.status}).`
           : `Agent did not become ready (${wait.status}).`

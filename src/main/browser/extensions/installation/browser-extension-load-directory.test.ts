@@ -135,7 +135,7 @@ describe('extension load directories', () => {
     expect(readFileSync(join(directory, 'js', 'orca-original-worker.js'), 'utf8')).toBe(WORKER)
   })
 
-  it('loads an unpacked folder from a stable Orca copy and never touches the folder', async () => {
+  it('loads an unpacked folder from a stable OpenKodo copy and never touches the folder', async () => {
     const source = join(mocks.userData, 'dev', 'my-extension')
     writeExtension(source, {
       manifest_version: 3,
@@ -200,7 +200,7 @@ describe('extension load directories', () => {
     writeFileSync(join(source, 'orca-background.js'), WORKER)
     await expect(
       prepareBrowserExtensionDirectory({ source: 'unpacked', path: source })
-    ).rejects.toThrow('uses a name Orca reserves')
+    ).rejects.toThrow("can't load this extension")
   })
 
   it('never lists the worker token as web-accessible, in any spelling', async () => {

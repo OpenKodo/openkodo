@@ -55,14 +55,14 @@ export function SettingsMenuSections({
             label: t('settings.menuScreen.privacyPolicy', 'Privacy Policy'),
             icon: Shield,
             external: true,
-            onPress: () => void openExternal('https://orca.dev/privacy')
+            onPress: () => void openExternal('https://openkodo.dev/privacy')
           },
           {
             id: 'support',
             label: t('settings.menuScreen.support', 'Support'),
             icon: LifeBuoy,
             external: true,
-            onPress: () => void openExternal('https://github.com/stablyai/orca/issues')
+            onPress: () => void openExternal('https://github.com/OpenKodo/openkodo/issues')
           }
         ]}
       />

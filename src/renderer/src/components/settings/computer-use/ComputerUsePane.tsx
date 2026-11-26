@@ -6,7 +6,7 @@ import type {
   ComputerUsePermissionState,
   ComputerUsePermissionStatus
 } from '../../../../../shared/computer/computer-use-permissions-types'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
 import { useAppStore } from '@/store/index'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
 import { Button } from '../../ui/button'
@@ -70,7 +70,7 @@ function statusClass(status: ComputerUsePermissionStatus | undefined): string {
 
 export function ComputerUsePane(): React.JSX.Element {
   const t = useTranslate()
-  const blocked = useOrcaTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.computerUse)
+  const blocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse)
   if (blocked) {
     return (
       <SettingsGroup id={COMPUTER_USE_SETTINGS_TARGET_ID}>
@@ -129,7 +129,7 @@ function ComputerUseSetup(): React.JSX.Element {
   const summaryDescription = checking
     ? t(
         'auto.components.settings.computerUseSummary.checkingDescription',
-        'Orca is checking macOS privacy permissions for the Computer Use helper.'
+        'OpenKodo is checking macOS privacy permissions for the Computer Use helper.'
       )
     : setupUnavailable
       ? t(

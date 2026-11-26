@@ -21,7 +21,7 @@ import {
 // The row already says these in its own words.
 const ROW_SAYS_IT: ReadonlySet<AntigravityAuthFailureReason> = new Set(['signedOut', 'usageLimit'])
 
-/** A transcript notice's offer: Orca's own stop rows never offer one. */
+/** A transcript notice's offer: OpenKodo's own stop rows never offer one. */
 export function NativeChatNoticeAuthRecovery({
   block,
   agentName

@@ -1,4 +1,4 @@
-// Mail one bot (or something acting for one) sent another, with the record Orca wrote for it: who asked,
+// Mail one bot (or something acting for one) sent another, with the record OpenKodo wrote for it: who asked,
 // where, and for which original message. Its own table, made on every open like the removed-work
 // record; changes to it are numbered migrations (migrate-v48).
 import type { MessageRow } from '../orchestration-records'

@@ -39,17 +39,17 @@ export function cliServeProfile(parent: string): { userDataDir: string; env: Nod
   // The lock flag makes e2e builds take the profile lock this test reads, as the host helper does.
   const isolation = isolatedServeProfile(userDataDir, {
     NODE_ENV: 'development',
-    ORCA_E2E_ENFORCE_SINGLE_INSTANCE_LOCK: '1',
-    ORCA_E2E_HEADLESS: '1'
+    OPENKODO_E2E_ENFORCE_SINGLE_INSTANCE_LOCK: '1',
+    OPENKODO_E2E_HEADLESS: '1'
   })
   return {
     userDataDir,
     env: {
       ...isolation.env,
       // How `orca serve` from a dev checkout finds its app (config/scripts/orca-dev.mjs).
-      ORCA_APP_EXECUTABLE: resolveElectronExecutable(process.cwd()),
-      ORCA_APP_EXECUTABLE_NEEDS_APP_ROOT: '1',
-      ORCA_USER_DATA_PATH: userDataDir
+      OPENKODO_APP_EXECUTABLE: resolveElectronExecutable(process.cwd()),
+      OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT: '1',
+      OPENKODO_USER_DATA_PATH: userDataDir
     }
   }
 }

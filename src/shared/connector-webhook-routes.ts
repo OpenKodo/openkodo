@@ -20,7 +20,7 @@ export const WebhookView = z.object({
   botId: z.string().min(1),
   state: z.enum(['pending', 'live', 'paused', 'orphaned']),
   epoch: z.number().int().nonnegative(),
-  // Always 1; sent for older Orca, unread here.
+  // Always 1; sent for older OpenKodo, unread here.
   hostGen: z.number().int().nonnegative().optional(),
   keyGeneration: z.number().int().nonnegative(),
   /** Without the key. */
@@ -51,7 +51,7 @@ export const WebhookCallRow = z.discriminatedUnion('kind', [
 export const WebhookCalls = z.object({ calls: z.array(WebhookCallRow) })
 export const WebhookRevealed = z.object({ key: z.string().min(1) })
 export const WebhookRotated = z.object({ cancelledCalls: z.number().int().nonnegative() })
-// Only a secret Orca generates comes back, for the owner to paste into the sender.
+// Only a secret OpenKodo generates comes back, for the owner to paste into the sender.
 export const WebhookSecretSet = z.object({ secret: z.string().min(1).optional() })
 export const WebhookSampleSent = z.object({ callId: CallId })
 

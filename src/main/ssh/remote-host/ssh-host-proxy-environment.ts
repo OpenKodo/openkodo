@@ -11,7 +11,7 @@ import { isSshSessionLimitError } from '../connection/ssh-session-limit-error'
 type ProxyEnvironmentTransport = Parameters<typeof execCommand>[0]
 
 const PROBE_TIMEOUT_MS = 8_000
-const MARKER = '__ORCA_HOST_PROXY_ENV__'
+const MARKER = '__OPENKODO_HOST_PROXY_ENV__'
 
 // Values travel as hex of their UTF-8 bytes, so newlines and console code pages cannot alter them.
 const POSIX_PROBE = PROXY_ENVIRONMENT_KEYS.map(

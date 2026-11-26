@@ -37,8 +37,8 @@ export function buildNotificationOptions(
 
   if (args.source === 'test') {
     return {
-      title: translate('notifications.test.title', 'Orca notifications are on'),
-      body: translate('notifications.test.body', 'This is a test notification from Orca.')
+      title: translate('notifications.test.title', 'OpenKodo notifications are on'),
+      body: translate('notifications.test.body', 'This is a test notification from OpenKodo.')
     }
   }
 

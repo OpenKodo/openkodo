@@ -178,7 +178,7 @@ export async function setClaudeAllowedPermissionMode(
       continue
     }
     const fallbackAuto = step === 'auto' && mode === 'bypassPermissions'
-    // An answer Orca doesn't know refuses the fallback's auto for now; no answer leaves the mode
+    // An answer OpenKodo doesn't know refuses the fallback's auto for now; no answer leaves the mode
     // unknown, so the caller records no fallback and auto is asked again shortly.
     const unanswered = claudeLeftUnanswered(write.reason)
     const refusal: ClaudeRefusal | null = unanswered

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
 import type { SidebarFeedDomains } from '../../../../src/shared/sidebar-list/feed/sidebar-feed-domains'
 import type {
   SidebarFeedNotice,
@@ -120,4 +120,6 @@ export function useHostSidebarFeed(
 export const useSwitchedHostSidebarFeed: (
   client: RpcClient | null,
   hostId: string | undefined
-) => HostSidebarFeedControls | null = ORCA_SIDEBAR_INPUTS_IS_MAIN ? useHostSidebarFeed : () => null
+) => HostSidebarFeedControls | null = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
+  ? useHostSidebarFeed
+  : () => null

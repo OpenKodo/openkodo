@@ -118,7 +118,7 @@ let stagedPublisher: Promise<string> | undefined
 
 function publisherPath(): string | Promise<string> {
   const source = app.isPackaged
-    ? join(process.resourcesPath, 'bin', 'orca-wayland-clipboard')
+    ? join(process.resourcesPath, 'bin', 'openkodo-wayland-clipboard')
     : join(
         app.getAppPath(),
         'native',
@@ -138,7 +138,7 @@ function publisherPath(): string | Promise<string> {
   ) {
     return source
   }
-  // A detached owner must not execute pages from an AppImage mount after Orca exits.
+  // A detached owner must not execute pages from an AppImage mount after OpenKodo exits.
   stagedPublisher ??= stageClipboardPublisher(source, app.getPath('userData')).catch(
     (error: unknown) => {
       stagedPublisher = undefined

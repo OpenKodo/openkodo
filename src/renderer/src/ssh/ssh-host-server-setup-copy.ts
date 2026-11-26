@@ -2,11 +2,11 @@ import type { SSH_MANAGED_SERVER_PHASES } from '../../../shared/remote-runtime/s
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 
-/** Users read "server" as someone else's machine; this says where Orca runs and what moves. */
+/** Users read "server" as someone else's machine; this says where OpenKodo runs and what moves. */
 export function sshHostServerReassurance(host: string, t: Translate = translate): string {
   return t(
     'auto.components.settings.sshHostServer.reassurance',
-    'Runs on {{host}}, reached over your own SSH connection. Your code and files stay where they are. Only Orca’s list of projects, tabs and terminals moves to {{host}}.',
+    'Runs on {{host}}, reached over your own SSH connection. Your code and files stay where they are. Only OpenKodo’s list of projects, tabs and terminals moves to {{host}}.',
     { host }
   )
 }
@@ -18,26 +18,42 @@ export function settingUpLabel(
 ): string {
   switch (phase) {
     case 'deploying':
-      return t('auto.components.settings.sshHostServer.deploying', 'Setting up Orca on {{host}}…', {
-        host
-      })
+      return t(
+        'auto.components.settings.sshHostServer.deploying',
+        'Setting up OpenKodo on {{host}}…',
+        {
+          host
+        }
+      )
     case 'converting':
-      return t('auto.components.settings.sshHostServer.converting', 'Moving to Orca on {{host}}…', {
-        host
-      })
+      return t(
+        'auto.components.settings.sshHostServer.converting',
+        'Moving to OpenKodo on {{host}}…',
+        {
+          host
+        }
+      )
     case 'connecting':
       return t(
         'auto.components.settings.sshHostServer.connecting',
-        'Connecting to Orca on {{host}}…',
+        'Connecting to OpenKodo on {{host}}…',
         { host }
       )
     case 'updating':
-      return t('auto.components.settings.sshHostServer.updating', 'Updating Orca on {{host}}…', {
-        host
-      })
+      return t(
+        'auto.components.settings.sshHostServer.updating',
+        'Updating OpenKodo on {{host}}…',
+        {
+          host
+        }
+      )
     case 'starting':
-      return t('auto.components.settings.sshHostServer.starting', 'Starting Orca on {{host}}…', {
-        host
-      })
+      return t(
+        'auto.components.settings.sshHostServer.starting',
+        'Starting OpenKodo on {{host}}…',
+        {
+          host
+        }
+      )
   }
 }

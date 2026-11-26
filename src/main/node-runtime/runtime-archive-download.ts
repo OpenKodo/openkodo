@@ -44,7 +44,7 @@ export async function extractRuntimeArchive(
   } catch (error) {
     if (isDefinitiveAbsence(error)) {
       const override = archivePath.endsWith('.zip')
-        ? ', or set ORCA_UNZIP_BIN to an unzip-compatible extractor.'
+        ? ', or set OPENKODO_UNZIP_BIN to an unzip-compatible extractor.'
         : '.'
       throw new Error(
         `${label} archive extraction could not run ${command.file}: install ${command.label}${override}`,
@@ -61,7 +61,7 @@ export class ReleaseMismatchError extends Error {}
 /** Blame the release only for proven mismatch; transport failures remain network errors. */
 export function downloadFailureMessage(label: string, error: unknown): string {
   return error instanceof ReleaseMismatchError
-    ? `The ${label} download didn't match the release Orca expects, so nothing was installed. Updating Orca may fix this.`
+    ? `The ${label} download didn't match the release OpenKodo expects, so nothing was installed. Updating OpenKodo may fix this.`
     : `Couldn't download ${label}. Check your network connection or proxy, then try again.`
 }
 

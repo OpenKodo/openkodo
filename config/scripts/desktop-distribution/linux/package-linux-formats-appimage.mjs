@@ -55,11 +55,11 @@ export async function preparePrAppImageTools({
   symlinkSync(dirname(tools.runtimeLibraries), join(directory, 'lib'))
   writeFileSync(
     join(directory, 'mksquashfs'),
-    '#!/usr/bin/env bash\nset -euo pipefail\nexec "$ORCA_PR_APPIMAGE_MKSQUASHFS" "$@" -Xcompression-level 3\n',
+    '#!/usr/bin/env bash\nset -euo pipefail\nexec "$OPENKODO_PR_APPIMAGE_MKSQUASHFS" "$@" -Xcompression-level 3\n',
     { mode: 0o755 }
   )
   return {
     APPIMAGE_TOOLS_PATH: directory,
-    ORCA_PR_APPIMAGE_MKSQUASHFS: tools.mksquashfs
+    OPENKODO_PR_APPIMAGE_MKSQUASHFS: tools.mksquashfs
   }
 }

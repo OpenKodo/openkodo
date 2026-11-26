@@ -212,7 +212,7 @@ describe('session cookie snapshot after a cookie clear', () => {
     const { target, clear } = await signedIn()
     await clear.clearBrowserCookieJar(target)
 
-    // Orca dies here, before the 30 s save.
+    // OpenKodo dies here, before the 30 s save.
     expect((await launch()).jar.names()).toEqual([])
   })
 

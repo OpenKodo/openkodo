@@ -14,7 +14,7 @@ export function brandTileClass(tile: string | undefined): string {
     : 'bg-brand-mark text-brand-mark-foreground outline-1 -outline-offset-1 outline-black/8 dark:outline-0'
 }
 
-/** A Composio app's logo (Orca's bundled icon first) and, for a full-square one, the colour of the tile it fills. */
+/** A Composio app's logo (OpenKodo's bundled icon first) and, for a full-square one, the colour of the tile it fills. */
 export function composioLogo(
   slug: string | undefined,
   logo?: string | null
@@ -75,7 +75,7 @@ export function BotAppLogo({
   /** A Composio app's logo, by its slug or Composio's own URL. */
   slug?: string
   logo?: string | null
-  /** An Orca connector's own icon. */
+  /** An OpenKodo connector's own icon. */
   icon?: React.ReactNode
   /** A muted tile for a generic icon (Add by URL). */
   plain?: boolean

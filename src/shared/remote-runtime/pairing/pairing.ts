@@ -16,7 +16,7 @@ export function encodePairingOffer(offer: PairingOffer): string {
     throw new Error('Pairing offer exceeds safe size')
   }
   // Android camera intents and Expo Router retain custom-scheme query parameters more reliably than fragments.
-  return `orca://pair?code=${base64url}`
+  return `openkodo://pair?code=${base64url}`
 }
 
 export function decodePairingOffer(url: string): PairingOffer {
@@ -25,7 +25,9 @@ export function decodePairingOffer(url: string): PairingOffer {
   }
   const code = extractPairingCodeFromUrl(url)
   if (!code) {
-    throw new Error('Invalid pairing URL: must start with orca://pair and include a pairing code')
+    throw new Error(
+      'Invalid pairing URL: must start with openkodo://pair and include a pairing code'
+    )
   }
   return decodePairingBase64(code)
 }
@@ -37,8 +39,8 @@ function extractPairingCodeFromUrl(url: string): string | null {
   } catch {
     return null
   }
-  // Exact pairing host prevents prefix matches such as orca://pairing from carrying runtime credentials.
-  if (parsed.protocol !== 'orca:' || parsed.hostname !== 'pair') {
+  // Exact pairing host prevents prefix matches such as openkodo://pairing from carrying runtime credentials.
+  if (parsed.protocol !== 'openkodo:' || parsed.hostname !== 'pair') {
     return null
   }
   if (parsed.pathname !== '' && parsed.pathname !== '/') {
@@ -61,7 +63,7 @@ export function parsePairingCode(input: string): PairingOffer | null {
     return null
   }
   try {
-    if (trimmed.toLowerCase().startsWith('orca://')) {
+    if (trimmed.toLowerCase().startsWith('openkodo://')) {
       return decodePairingOffer(trimmed)
     }
     return decodePairingBase64(trimmed)

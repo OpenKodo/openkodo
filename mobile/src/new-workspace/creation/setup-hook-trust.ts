@@ -7,7 +7,7 @@ import {
   withOrcaHookRepoAlwaysTrusted,
   withOrcaHookScriptConfirmed
 } from '../../../../src/shared/workspace-setup/hooks/orca-hook-trust-entries'
-import { EMPTY_ORCA_HOOK_CONTENT_HASH } from '../../../../src/shared/hashing/orca-hook-content-hash'
+import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../../src/shared/hashing/orca-hook-content-hash'
 import type { SetupHooksCreateSource } from '../../../../src/shared/worktree/setup-hooks-create-source'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'
 import type { OrcaHookTrustPrompt } from '../../components/hook-trust/OrcaHookTrustDrawer'
@@ -93,7 +93,9 @@ export async function resolveCreateSetupApproval(args: {
     // Hosts that didn't read hooks here (SSH, another host's folder) omit setupConfig and can't recover it.
     return {
       approved:
-        reply.setupConfig === undefined ? {} : { approvedSetupHash: EMPTY_ORCA_HOOK_CONTENT_HASH }
+        reply.setupConfig === undefined
+          ? {}
+          : { approvedSetupHash: EMPTY_OPENKODO_HOOK_CONTENT_HASH }
     }
   }
   if (isOrcaHookContentApproved(args.trust, repoId, 'setup', setupTrust.contentHash)) {
@@ -166,7 +168,7 @@ export function normalizeSetupHookTrust(
   return { ...setupTrust, contentHash, scriptContent }
 }
 
-// New hosts send setupConfig (orca.yaml setup plus defaultTabs commands); older ones only the effective setup script.
+// New hosts send setupConfig (openkodo.yaml setup plus defaultTabs commands); older ones only the effective setup script.
 export function readRepoHooksSetupCommand(reply: {
   hooks?: { scripts?: { setup?: string } } | null
   setupConfig?: { command: string } | null

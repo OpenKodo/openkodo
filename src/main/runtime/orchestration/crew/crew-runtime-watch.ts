@@ -1,5 +1,5 @@
 import type { OrchestrationCompatibilityTerminalAuthority } from '../terminal-authority/orchestration-compatibility-authority'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { mainTerminalSourceInputs } from '../../terminal/surface/pty-pane-query'
 import { runtimeLayoutLoadContext } from '../../terminal/surface/workspace-layout-projection'
 import type {
@@ -94,11 +94,11 @@ export function watchCrewRuntimeSources(
     }
   }
   const topologyByHost = new Map(
-    ORCA_LAYOUT_OWNER_IS_MAIN ? hostIds().map((id) => [id, topology(id)]) : []
+    OPENKODO_LAYOUT_OWNER_IS_MAIN ? hostIds().map((id) => [id, topology(id)]) : []
   )
   const written = new Set<HostId>()
   const compareSession = (id: HostId) => {
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       const previous = topologyByHost.get(id)
       const next = topology(id)
       topologyByHost.set(id, next)

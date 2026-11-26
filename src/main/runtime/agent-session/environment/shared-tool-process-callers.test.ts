@@ -3,13 +3,13 @@ import { SharedToolProcessSession, sharedToolProcessCaller } from './shared-tool
 
 const SEALED = {
   PATH: '/usr/bin',
-  ORCA_AGENT_SESSION_ID: 'chat-a',
-  ORCA_TERMINAL_HANDLE: 'structworker_a',
-  ORCA_BOT_TOOLS_TOKEN: 'bot-a-secret',
-  ORCA_STRUCTURED_SESSION: '1',
-  ORCA_USER_DATA_PATH: '/orca-data',
-  ORCA_CLI_COMMAND: '/orca-data/cli/bin/orca',
-  ORCA_ENVIRONMENT: ''
+  OPENKODO_AGENT_SESSION_ID: 'chat-a',
+  OPENKODO_TERMINAL_HANDLE: 'structworker_a',
+  OPENKODO_BOT_TOOLS_TOKEN: 'bot-a-secret',
+  OPENKODO_STRUCTURED_SESSION: '1',
+  OPENKODO_USER_DATA_PATH: '/orca-data',
+  OPENKODO_CLI_COMMAND: '/orca-data/cli/bin/orca',
+  OPENKODO_ENVIRONMENT: ''
 }
 
 function launched() {
@@ -38,21 +38,21 @@ describe('SharedToolProcessSession', () => {
     const tools = writes[0]
     // The shared process's own copy of any chat's identity is unset, and none reaches it.
     expect(tools).toMatchObject({
-      ORCA_AGENT_SESSION_ID: null,
-      ORCA_TERMINAL_HANDLE: null,
-      ORCA_BOT_TOOLS_TOKEN: null,
-      ORCA_STRUCTURED_SESSION: '1',
-      ORCA_USER_DATA_PATH: '/orca-data',
-      ORCA_CLI_COMMAND: '/orca-data/cli/bin/orca',
-      ORCA_ENVIRONMENT: ''
+      OPENKODO_AGENT_SESSION_ID: null,
+      OPENKODO_TERMINAL_HANDLE: null,
+      OPENKODO_BOT_TOOLS_TOKEN: null,
+      OPENKODO_STRUCTURED_SESSION: '1',
+      OPENKODO_USER_DATA_PATH: '/orca-data',
+      OPENKODO_CLI_COMMAND: '/orca-data/cli/bin/orca',
+      OPENKODO_ENVIRONMENT: ''
     })
     expect(Object.values(tools)).not.toContain('bot-a-secret')
     expect(tools.PATH).toBeUndefined()
-    const token = tools.ORCA_AGENT_SESSION_TOOL_TOKEN!
+    const token = tools.OPENKODO_AGENT_SESSION_TOOL_TOKEN!
     expect(sharedToolProcessCaller(token)).toEqual({
-      ORCA_AGENT_SESSION_ID: 'chat-a',
-      ORCA_TERMINAL_HANDLE: 'structworker_a',
-      ORCA_BOT_TOOLS_TOKEN: 'bot-a-secret'
+      OPENKODO_AGENT_SESSION_ID: 'chat-a',
+      OPENKODO_TERMINAL_HANDLE: 'structworker_a',
+      OPENKODO_BOT_TOOLS_TOKEN: 'bot-a-secret'
     })
     expect(sharedToolProcessCaller(`${token}x`)).toBeNull()
 

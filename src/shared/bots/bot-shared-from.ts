@@ -16,7 +16,7 @@ export type BotSharedFrom = z.infer<typeof BotSharedFromSchema>
 /** In a bot made from a link: what its sharer used that its owner hasn't set up yet. */
 export const BOT_SHARED_SETUP_FILE = 'import/shared-setup.json'
 
-/** Orca's first turn to a bot made from a link: where it came from, and where its open setup is. Its
+/** OpenKodo's first turn to a bot made from a link: where it came from, and where its open setup is. Its
  *  greeting and offers follow the first-run rules. */
 export function botShareKickoff(from: Pick<BotSharedFrom, 'sharedBy'>): string {
   const who = from.sharedBy ? `${JSON.stringify(from.sharedBy)}'s` : "someone's"

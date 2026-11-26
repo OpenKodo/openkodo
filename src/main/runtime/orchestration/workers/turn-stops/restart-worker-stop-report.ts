@@ -1,4 +1,4 @@
-// A worker whose turn ended while Orca was down, or whose chat the run that just ended cut and Orca did
+// A worker whose turn ended while OpenKodo was down, or whose chat the run that just ended cut and OpenKodo did
 // not continue, raised no live edge. One pass at startup observes each as a live edge would: a terminal
 // as its live stop, so a rest already reported is not reported again, and a chat as the restart left it.
 // Other chats are not opened.
@@ -44,9 +44,9 @@ export type RestartWorkerStopReportDeps = {
 }
 
 const CUT_BY: Record<StructuredAgentSessionRestartCut['cause'], string> = {
-  crash: 'Orca crashed during its turn',
-  quit: 'Orca quit during its turn',
-  update: 'Orca restarted to update during its turn'
+  crash: 'OpenKodo crashed during its turn',
+  quit: 'OpenKodo quit during its turn',
+  update: 'OpenKodo restarted to update during its turn'
 }
 
 function openDispatchIds(db: OrchestrationDb): string[] {
@@ -56,7 +56,7 @@ function openDispatchIds(db: OrchestrationDb): string[] {
     .flatMap((row) => (typeof row.id === 'string' ? [row.id] : []))
 }
 
-/** A chat worker Orca did not continue: reported as the restart left it, never as an idle finish. */
+/** A chat worker OpenKodo did not continue: reported as the restart left it, never as an idle finish. */
 async function reportCutChat(
   deps: RestartWorkerStopReportDeps,
   chats: NonNullable<RestartWorkerStopReportDeps['chats']>,
@@ -145,7 +145,7 @@ export function reportDismissedCutWorkers(
       observeCutWorkerGone(deps, { kind: 'local', dispatch: worker.dispatch }, sessionId, cut, {
         from: worker.from,
         cause: cut.continuationUnconfirmed
-          ? `${CUT_BY[cut.cause]}; Orca asked its agent to continue but never saw it start, and its restart offer was dismissed`
+          ? `${CUT_BY[cut.cause]}; OpenKodo asked its agent to continue but never saw it start, and its restart offer was dismissed`
           : `${CUT_BY[cut.cause]}, and its restart offer was dismissed`,
         lastOutput: deps.lastOutput(sessionId)
       })

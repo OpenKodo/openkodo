@@ -78,7 +78,7 @@ function publishEdit(
     }
     current = replan()
   }
-  throw new Error(`${configPath} kept changing while Orca updated its project trust`)
+  throw new Error(`${configPath} kept changing while OpenKodo updated its project trust`)
 }
 
 /** The records the ledger added, or null when it could not be published. */
@@ -173,12 +173,12 @@ export function listCodexProjectTrustOwnedConfigs(
   return openLedger(ledgerPath).listConfigFiles(projectPath)
 }
 
-// Why: the separator below a table belongs to what follows it, not to the table Orca wrote.
+// Why: the separator below a table belongs to what follows it, not to the table OpenKodo wrote.
 function withoutTrailingSeparator(bytes: string): string {
   return bytes.replace(/[\r\n]+$/, '')
 }
 
-/** Removes the table only while it still holds exactly what Orca wrote; throws to keep the record for a retry. */
+/** Removes the table only while it still holds exactly what OpenKodo wrote; throws to keep the record for a retry. */
 export function removeOrcaCreatedProjectTrust(
   configPath: string,
   projectPath: string,
@@ -199,7 +199,7 @@ export function removeOrcaCreatedProjectTrust(
       currentTable === null ||
       withoutTrailingSeparator(currentTable) !== withoutTrailingSeparator(ownedTable)
     ) {
-      // Why: the bytes at the path are no longer what Orca wrote, so the record no longer vouches
+      // Why: the bytes at the path are no longer what OpenKodo wrote, so the record no longer vouches
       // for the table — dropping it keeps a later pass from deleting someone else's replacement.
       ledger.forget(configPath, projectPath)
       return
@@ -210,5 +210,5 @@ export function removeOrcaCreatedProjectTrust(
       return
     }
   }
-  throw new Error(`${configPath} kept changing while Orca removed its project trust`)
+  throw new Error(`${configPath} kept changing while OpenKodo removed its project trust`)
 }

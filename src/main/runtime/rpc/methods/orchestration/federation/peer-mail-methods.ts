@@ -28,7 +28,7 @@ const NOTHING_DELIVERED = { effectsApplied: false } as const
 const MAX_PULL_WAIT_MS = 25_000
 const PULL_PAGE_SIZE = 50
 
-/** Mail between servers comes only from a paired computer's Orca, never a phone or this Orca's own clients. */
+/** Mail between servers comes only from a paired computer's OpenKodo, never a phone or this OpenKodo's own clients. */
 export function requireRuntimePairing(
   ctx: Pick<RpcContext, 'clientKind' | 'pairedDeviceId' | 'authenticatedCallerFingerprint'>
 ): string {
@@ -39,7 +39,7 @@ export function requireRuntimePairing(
   ) {
     throw new OrchestrationError(
       'mail_requires_server_pairing',
-      'Agent mail between Orca servers comes only from a paired computer. Nothing was delivered.',
+      'Agent mail between OpenKodo servers comes only from a paired computer. Nothing was delivered.',
       NOTHING_DELIVERED
     )
   }
@@ -49,7 +49,7 @@ export function requireRuntimePairing(
 // Where each pairing's next page starts, per database, when more conversations are pending than a page holds.
 const pullRotations = new WeakMap<object, Map<string, number>>()
 
-/** Every conversation with pending items gets an equal share of the page, so an item the paired Orca
+/** Every conversation with pending items gets an equal share of the page, so an item the paired OpenKodo
  *  cannot import yet, which stays at its conversation's head, never starves another conversation. */
 function pendingReplies(
   db: OrchestrationDb,
@@ -71,7 +71,7 @@ function pendingReplies(
     .slice(0, PULL_PAGE_SIZE)
 }
 
-/** A conversation this Orca opened with a paired computer carries asks to it; any other, replies home. */
+/** A conversation this OpenKodo opened with a paired computer carries asks to it; any other, replies home. */
 function relayDirectionOf(db: OrchestrationDb, conversationId: string): 'to_home' | 'to_worker' {
   return db.getPeerMailConversation(conversationId)?.role === 'home' ? 'to_worker' : 'to_home'
 }
@@ -97,7 +97,7 @@ export const ORCHESTRATION_PEER_MAIL_METHODS = [
       if (!isGeneratedId(params.messageId, 'msg')) {
         throw new OrchestrationError('invalid_argument', 'Mail between servers needs a message ID.')
       }
-      // Replies wait in the relay keyed by conversation; any other id could name another Orca's dispatch there.
+      // Replies wait in the relay keyed by conversation; any other id could name another OpenKodo's dispatch there.
       if (!isGeneratedId(params.conversationId, 'peerconv')) {
         throw new OrchestrationError(
           'invalid_argument',
@@ -151,7 +151,7 @@ export const ORCHESTRATION_PEER_MAIL_METHODS = [
         runtime,
         { ...params, to, body, peerFingerprint, senderSnapshot },
         delivered,
-        // An older sending Orca ignores the warnings; the sender learns the mail waits unread.
+        // An older sending OpenKodo ignores the warnings; the sender learns the mail waits unread.
         (stored, takenByWaiter) =>
           withDeliveryHoldWarning(
             { message: { id: params.messageId, to: params.to } },
@@ -206,7 +206,7 @@ export const ORCHESTRATION_PEER_MAIL_METHODS = [
         let items = pendingReplies(db, peerFingerprint, holdBack, clientEnvironment)
         const waitMs = Math.min(Math.max(params.waitMs ?? 0, 0), MAX_PULL_WAIT_MS)
         const deadline = Date.now() + waitMs
-        // A wake is any queued change on this Orca, so one that queued nothing for this peer waits on.
+        // A wake is any queued change on this OpenKodo, so one that queued nothing for this peer waits on.
         while (items.length === 0 && Date.now() < deadline && !ctx.signal?.aborted) {
           await waitForPeerMail(db.db, deadline - Date.now(), ctx.signal)
           items = pendingReplies(
@@ -250,7 +250,7 @@ export const ORCHESTRATION_PEER_MAIL_METHODS = [
         if (!conversation || conversation.peer_fingerprint !== peerFingerprint) {
           continue
         }
-        // Asks it took from this Orca's conversation with it, or replies it took home.
+        // Asks it took from this OpenKodo's conversation with it, or replies it took home.
         const asks =
           conversation.role === 'home' && isClientEnvironment(conversation.environment_id)
         if (conversation.role !== 'peer' && !asks) {

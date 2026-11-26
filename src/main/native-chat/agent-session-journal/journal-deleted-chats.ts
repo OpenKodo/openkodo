@@ -1,4 +1,4 @@
-// A deleted chat's tombstone, written in the commit that forgets its records and kept for good: Orca
+// A deleted chat's tombstone, written in the commit that forgets its records and kept for good: OpenKodo
 // never lists, resumes or adopts its agent conversations again. The transcripts stay the CLI's own.
 import type Database from '../../sqlite/sync-database'
 import type { DeletedChat } from '../chat-deletion/deleted-chats'

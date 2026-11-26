@@ -13,7 +13,7 @@ function requiredString(value: unknown, label: string): string {
   return value
 }
 
-/** Save to this computer, on a streamed page's download toast: only Orca's own window starts one. */
+/** Save to this computer, on a streamed page's download toast: only OpenKodo's own window starts one. */
 export function registerBrowserServerDownloadCopyHandlers(): void {
   ipcMain.removeHandler('browser:copyServerDownload')
   ipcMain.removeHandler('browser:cancelServerDownloadCopy')

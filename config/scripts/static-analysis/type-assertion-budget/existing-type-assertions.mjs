@@ -1,5 +1,9 @@
 import ts from 'typescript-api'
 
+function normalizeBrandTokens(text) {
+  return text.replace(/OPENKODO_|ORCA_/g, 'BRAND_')
+}
+
 function assertionTokens(source) {
   const scanner = ts.createScanner(
     ts.ScriptTarget.Latest,
@@ -9,7 +13,7 @@ function assertionTokens(source) {
   )
   const tokens = []
   while (scanner.scan() !== ts.SyntaxKind.EndOfFileToken) {
-    tokens.push([scanner.getToken(), scanner.getTokenText()])
+    tokens.push([scanner.getToken(), normalizeBrandTokens(scanner.getTokenText())])
   }
   return JSON.stringify(tokens)
 }

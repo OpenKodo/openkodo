@@ -11,7 +11,7 @@ import { useAppStore } from '@/store/index'
 import {
   consumeBrowserFocusRequest,
   queueBrowserFocusRequest,
-  ORCA_BROWSER_FOCUS_REQUEST_EVENT,
+  OPENKODO_BROWSER_FOCUS_REQUEST_EVENT,
   type BrowserFocusRequestDetail
 } from '../../host-guest/input/browser-focus'
 import type { BrowserChromeShortcutScope } from '../../describe-page/browser-page-types'
@@ -273,9 +273,9 @@ export function useBrowserPageChromeFocus({
     }
     let cancelGuestFocus: ReturnType<typeof startGuestFocusRetry> | null = null
     // Why: an already-active page never remounts, so listen for the event to consume the durable focus request immediately.
-    window.addEventListener(ORCA_BROWSER_FOCUS_REQUEST_EVENT, handleBrowserFocusRequest)
+    window.addEventListener(OPENKODO_BROWSER_FOCUS_REQUEST_EVENT, handleBrowserFocusRequest)
     return () => {
-      window.removeEventListener(ORCA_BROWSER_FOCUS_REQUEST_EVENT, handleBrowserFocusRequest)
+      window.removeEventListener(OPENKODO_BROWSER_FOCUS_REQUEST_EVENT, handleBrowserFocusRequest)
       cancelAddressBarFocusGrab()
       cancelGuestFocus?.()
     }

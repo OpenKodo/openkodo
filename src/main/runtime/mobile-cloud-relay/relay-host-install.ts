@@ -1,7 +1,7 @@
 // The cloud relay on any host: the desktop app, Electron `orca serve` and orcad.
 import { getOrcaCloudAuthConfig } from '../../orca-profiles/cloud-auth/profile-cloud-auth-config'
 import { onTeamFeatureBlockChanged } from '../../orca-profiles/cloud-auth/active-team-capabilities'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import type { OrcaRuntimeRpcServer } from '../rpc/server/runtime-rpc'
 import { RELAY_HOST_CLOSE_REASON } from '../../../shared/remote-runtime/relay/relay-host-close-reason'
 import type { MobileRelayStatusPublisher } from '../../../shared/remote-runtime/relay/mobile-relay-status'
@@ -10,7 +10,7 @@ import { createDesktopRelayServiceInstaller } from './desktop-relay-service-inst
 
 export type RelayHostOptions = {
   runtimeRpc: OrcaRuntimeRpcServer
-  /** This host's own data folder, so the relay serves its own Orca account and keys. */
+  /** This host's own data folder, so the relay serves its own OpenKodo account and keys. */
   userDataPath: string
   appVersion: string
   // App-owned fetchers must not run ahead of the persisted proxy.
@@ -58,7 +58,7 @@ export function installRelayHost(options: RelayHostOptions): RelayHost {
     }
   })
   const stopWatchingPolicy = onTeamFeatureBlockChanged(
-    ORCA_CLOUD_TEAM_POLICY_FLAGS.mobileRelay,
+    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.mobileRelay,
     (blocked) => {
       if (signingOut || options.isFenced()) {
         return

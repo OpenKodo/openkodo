@@ -43,7 +43,7 @@ export type QueuedMessageEditResult =
 /** The text an in-place edit starts from, or null when the card is not editable: a command is
  *  not a draft, and a block this edit cannot carry over unchanged refuses rather than drops. */
 export function queuedMessageEditableText(body: AgentJournalMessageItem): string | null {
-  // An automation's run is its saved prompt and Orca's record of the event, not the person's words.
+  // An automation's run is its saved prompt and OpenKodo's record of the event, not the person's words.
   if (
     body.command ||
     body.origin === 'automation-run' ||
@@ -218,7 +218,7 @@ export function queuedMessageWithEdit(
     return { ok: true, body }
   }
   // Plain-text edits cannot retain which occurrence owned a picked file. Edited text is the
-  // person's own, no longer the labelled message Orca delivered.
+  // person's own, no longer the labelled message OpenKodo delivered.
   const {
     skills: _pickedSkills,
     origin: _delivered,

@@ -26,7 +26,7 @@ const OVERFLOW: Readonly<Record<string, string>> = {
   clip: 'overflow-x-clip',
   visible: 'overflow-visible'
 }
-// Markers Orca's own code and tests select on; a template may only reuse these.
+// Markers OpenKodo's own code and tests select on; a template may only reuse these.
 const MARKERS: Readonly<Record<string, string>> = {
   'parent-content': 'data-worktree-card-parent-content',
   'meta-row': 'data-worktree-card-meta-row',

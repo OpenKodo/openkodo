@@ -6,7 +6,7 @@ import type { SessionHostMcpServers } from './session-mcp-tools'
 
 /**
  * The host list a bot's token may reach while it opts in and the switch is on, with none of its
- * servers: Orca's own checks of the bot's tools grant its token again and must keep that access.
+ * servers: OpenKodo's own checks of the bot's tools grant its token again and must keep that access.
  */
 export function botHostMcpAccess(
   hostMcpServers: boolean,

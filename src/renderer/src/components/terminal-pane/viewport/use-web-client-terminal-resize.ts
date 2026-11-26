@@ -20,7 +20,7 @@ export function useWebClientTerminalResize({
 }): void {
   useEffect(() => {
     if (
-      !(globalThis as { __ORCA_WEB_CLIENT__?: boolean }).__ORCA_WEB_CLIENT__ ||
+      !(globalThis as { __OPENKODO_WEB_CLIENT__?: boolean }).__OPENKODO_WEB_CLIENT__ ||
       !terminalManager ||
       !isVisible ||
       !isActive

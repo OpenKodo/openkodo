@@ -3,7 +3,7 @@ import { soulDescription } from '../../../../shared/bot-soul'
 import { botTemplateText } from '../../../../shared/bots/bot-template-text'
 import { useTranslate } from '@/i18n/use-translate'
 import { normalizeRuntimePathForComparison } from '../../../../shared/file-access/cross-platform-path'
-import { ORCA_EDITOR_FILE_SAVED_EVENT } from '@/components/editor/autosave/editor-autosave'
+import { OPENKODO_EDITOR_FILE_SAVED_EVENT } from '@/components/editor/autosave/editor-autosave'
 import { editorSavedEventView } from '@/components/editor/save/commands/editor-saved-event-view'
 import { botTarget } from '@/lib/bot-hosts'
 import { useBotHostOffline } from '@/lib/bot-host-views'
@@ -62,7 +62,7 @@ function newestTicket(): {
 }
 
 /** The bot's description: the first paragraph of its SOUL.md, read on its host. It follows every
- *  save made here (Settings' Soul field or SOUL.md's editor tab), reads again when Orca regains
+ *  save made here (Settings' Soul field or SOUL.md's editor tab), reads again when OpenKodo regains
  *  focus (the bot or another app may have changed it), and when the host comes back. */
 export function useBotSoulDescription(listedHome: BotHome | null): string | null {
   const t = useTranslate()
@@ -100,13 +100,13 @@ export function useBotSoulDescription(listedHome: BotHome | null): string | null
         show(content)
       }
     }
-    window.addEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, onEditorSaved)
+    window.addEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, onEditorSaved)
     window.addEventListener('focus', read)
     read()
     return () => {
       tickets.close()
       stopSaves()
-      window.removeEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, onEditorSaved)
+      window.removeEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, onEditorSaved)
       window.removeEventListener('focus', read)
     }
   }, [home, offline])

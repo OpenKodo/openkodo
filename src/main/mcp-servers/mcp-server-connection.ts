@@ -60,7 +60,7 @@ function callerWorkspace(
   }
   const byToken = botOfToken(runtime, caller.botToken, undefined)
   if (byToken.kind === 'ended') {
-    throw notForCaller('This bot run’s Orca token has ended.')
+    throw notForCaller('This bot run’s OpenKodo token has ended.')
   }
   // An agent that starts its MCP servers with a bare environment drops the token and session id;
   // its working folder still names the bot's home.
@@ -122,7 +122,7 @@ export async function mcpServerConnection(
     }
   }
   if (!('url' in server)) {
-    // A command Orca runs once for every agent is reached through the relay, as chats reach it.
+    // A command OpenKodo runs once for every agent is reached through the relay, as chats reach it.
     return (await sharedMcpProcessServer(caller.id, folder))?.name === server.name
       ? viaRelay((origin) => relayProcessUrl(origin, caller.id))
       : { on: true, command: server.command, args: server.args, env: server.env ?? {} }

@@ -1,4 +1,5 @@
 // Return real Node-host paths or throw: plausible catch-all directories can be forked as executables.
+import { openKodoHomePath } from '../../../shared/home/openkodo-home'
 import { realpathSync } from 'node:fs'
 import { homedir, tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
@@ -12,12 +13,12 @@ function env(name: string): string | null {
 }
 
 export function resolveUserDataPath(): string {
-  const explicit = env('ORCA_USER_DATA')
+  const explicit = env('OPENKODO_USER_DATA')
   if (explicit) {
     return explicit
   }
   const xdg = env('XDG_DATA_HOME')
-  return xdg ? join(xdg, 'Orca') : join(homedir(), '.orca')
+  return xdg ? join(xdg, 'OpenKodo') : openKodoHomePath()
 }
 
 function resolveAppDataPath(): string {

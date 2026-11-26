@@ -1,6 +1,6 @@
 import { translate } from '@/i18n/i18n'
 import {
-  NATIVE_CHAT_ORCA_STOP_COPY as COPY,
+  NATIVE_CHAT_OPENKODO_STOP_COPY as COPY,
   type NativeChatOrcaStopCopyId,
   type NativeChatOrcaStopSay
 } from '../../../../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-words'

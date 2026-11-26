@@ -35,7 +35,7 @@ export function botSlackIconFile(look: string): string {
   return `${look}.png`
 }
 
-/** A drawn icon's file name, as Orca writes them; anything else in the folder is left alone. */
+/** A drawn icon's file name, as OpenKodo writes them; anything else in the folder is left alone. */
 export function isBotSlackIconFile(name: string): boolean {
   return SLACK_ICON_FILE.test(name)
 }

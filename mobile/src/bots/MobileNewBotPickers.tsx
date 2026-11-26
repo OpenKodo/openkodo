@@ -64,7 +64,7 @@ export function useNewBotAgentChoices(client: RpcClient | null): NewBotAgentChoi
   return answer && answer.client === client ? answer.choices : null
 }
 
-/** A server signed in to another Orca account than the paired computer's: that account's email. */
+/** A server signed in to another OpenKodo account than the paired computer's: that account's email. */
 export function useOtherOrcaAccount(
   server: RpcClient | null,
   paired: RpcClient | null
@@ -149,7 +149,7 @@ export function newBotComputerNote(
   return facts.otherAccount
     ? t(
         'bots.new.otherAccount',
-        '{{host}} uses its own Orca account ({{email}}). Its bots post and connect as that account.',
+        '{{host}} uses its own OpenKodo account ({{email}}). Its bots post and connect as that account.',
         { host: facts.host, email: facts.otherAccount }
       )
     : null

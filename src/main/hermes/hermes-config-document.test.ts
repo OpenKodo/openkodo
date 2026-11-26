@@ -98,7 +98,7 @@ describe('Hermes YAML document edits', () => {
       terminal: { docker_env: { A: '1' }, backend: 'local' },
       shared_env: { A: '1' }
     })
-    expect(parse(output).terminal.client_env_passthrough).toContain('ORCA_AGENT_PANE')
+    expect(parse(output).terminal.client_env_passthrough).toContain('OPENKODO_AGENT_PANE')
     expect(output).toContain('docker_env: &env {A: "1"}')
     expect(output).toContain('shared_env: *env')
   })

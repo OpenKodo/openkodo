@@ -1,4 +1,4 @@
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import type { Worktree } from '../../../../shared/worktree/types'
 import { DEFAULT_WORKSPACE_STATUS_ID } from '../../../../shared/workspace/status/workspace-statuses'
 import {
@@ -254,7 +254,7 @@ function setPsSummary(
 function sortStampSummaryFields(
   worktree: Pick<Worktree, 'smartTier' | 'smartAt'>
 ): Pick<RuntimeWorktreePsSummary, 'smartTier' | 'smartAt' | 'sortedByStamps'> {
-  if (!ORCA_SIDEBAR_INPUTS_IS_MAIN) {
+  if (!OPENKODO_SIDEBAR_INPUTS_IS_MAIN) {
     return {}
   }
   return {

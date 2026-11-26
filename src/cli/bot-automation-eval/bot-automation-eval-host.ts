@@ -27,7 +27,7 @@ export type EvalHostState = {
   > &
     Partial<Pick<Bot, 'paused' | 'members'>>)[]
   automations: Automation[]
-  /** Whether the host's Orca Cloud takes webhooks, as bots.list says. */
+  /** Whether the host's OpenKodo Cloud takes webhooks, as bots.list says. */
   webhooks?: boolean
   /** What `orca slack find` and automations' place lookups match: Slack channels, Linear teams and issues, GitHub repos. */
   places?: {
@@ -59,7 +59,7 @@ export type EvalHostState = {
   /** A host where a worker stop closes the terminal but cannot prove the agent exited. */
   stopUnconfirmed?: boolean
   /** The connector conversation a thread is (a Slack thread, a Linear issue); absent, the owner's
-   *  own Chat, where Orca keeps no work record. */
+   *  own Chat, where OpenKodo keeps no work record. */
   conversation?: {
     source: 'slack' | 'linear' | 'github'
     title: string
@@ -67,7 +67,7 @@ export type EvalHostState = {
     placeId?: string
     /** The Slack person whose message the thread answers; the owner when absent. */
     asker?: string
-    /** Their name, as Orca Cloud stamps it. */
+    /** Their name, as OpenKodo Cloud stamps it. */
     askerName?: string
     /** Its Slack channel and thread (the channel, for a DM); the Slack world's #exports thread when
      *  absent. */
@@ -94,13 +94,13 @@ export type EvalHostState = {
   pulls?: Record<string, BotWorkPullRequest>
   /** Each bot's SOUL.md, by bot id, for what `bot list` says it is for. */
   souls?: Record<string, string>
-  /** The bot request this turn was woken by: its hop and whom Orca recorded it for, which the turn inherits. */
+  /** The bot request this turn was woken by: its hop and whom OpenKodo recorded it for, which the turn inherits. */
   actingOnRequest?: { depth: number; askers: BotRequestAsker[] }
   /** The bot requests the bot sent in this request (bot-orchestration-eval-bots). */
   botRequests?: { toBotId: string; purpose: string; message: StandInMessage }[]
   /** Slack channels the bot's app is not in, so a post there is refused. */
   notInChannels?: string[]
-  /** Whether Orca publishing is on (`artifacts share` gives a link) or off (refused); absent, the
+  /** Whether OpenKodo publishing is on (`artifacts share` gives a link) or off (refused); absent, the
    *  host answers neither. */
   artifactSharing?: 'on' | 'off'
   /** The answer surface refuses files, so no attachment posts. */
@@ -196,13 +196,13 @@ export async function prepareStandIn(): Promise<{ dir: string; dispose: () => Pr
   return { dir, dispose: () => rm(dir, { recursive: true, force: true }) }
 }
 
-// The parent may be an Orca agent: its pane and hook variables would reach the live app.
+// The parent may be an OpenKodo agent: its pane and hook variables would reach the live app.
 export function childEnv(standIn: string, home: string): Record<string, string> {
   const env: Record<string, string> = {}
   for (const [key, value] of Object.entries(process.env)) {
     if (
       value !== undefined &&
-      !/^(ORCA_|CLAUDECODE$|CLAUDE_CODE_|CODEX_THREAD|VITEST|GIT_CONFIG|GH_|GITHUB_)/.test(key)
+      !/^(OPENKODO_|CLAUDECODE$|CLAUDE_CODE_|CODEX_THREAD|VITEST|GIT_CONFIG|GH_|GITHUB_)/.test(key)
     ) {
       env[key] = value
     }
@@ -211,16 +211,16 @@ export function childEnv(standIn: string, home: string): Record<string, string> 
     ...env,
     PATH: `${join(standIn, 'bin')}${delimiter}${env.PATH ?? ''}`,
     ZDOTDIR: join(standIn, 'zdot'),
-    ORCA_CLI_COMMAND: join(standIn, 'bin', 'orca'),
-    ORCA_EVAL_STATE: join(evalFolder(home), 'state.json'),
-    ORCA_EVAL_LOG: join(evalFolder(home), 'log.jsonl'),
+    OPENKODO_CLI_COMMAND: join(standIn, 'bin', 'orca'),
+    OPENKODO_EVAL_STATE: join(evalFolder(home), 'state.json'),
+    OPENKODO_EVAL_LOG: join(evalFolder(home), 'log.jsonl'),
     // A real gh reached past the stand-in (by absolute path) finds no login of the owner's.
     GH_CONFIG_DIR: join(evalFolder(home), 'no-gh'),
     // `orca status` reads the app's metadata directly, past the stand-in; point it at nothing.
-    ORCA_USER_DATA_PATH: join(evalFolder(home), 'no-orca'),
+    OPENKODO_USER_DATA_PATH: join(evalFolder(home), 'no-orca'),
     // A bot is a native chat; without these, chat-only commands refuse before the stand-in.
-    ORCA_AGENT_SESSION_ID: randomUUID(),
-    ORCA_STRUCTURED_SESSION: '1',
+    OPENKODO_AGENT_SESSION_ID: randomUUID(),
+    OPENKODO_STRUCTURED_SESSION: '1',
     // No real publication: Claude's Artifact tool would post to the owner's account.
     CLAUDE_CODE_DISABLE_ARTIFACT: '1',
     // Blocks accidental and casual network use by git, however git is invoked (an absolute path, an
@@ -241,7 +241,7 @@ export function childEnv(standIn: string, home: string): Record<string, string> 
 }
 
 // Pinned for a comparable run; absent, the agent CLI's own default (which the report names).
-const MODEL = process.env.ORCA_BOT_EVAL_MODEL
+const MODEL = process.env.OPENKODO_BOT_EVAL_MODEL
 
 export function agentArgs(agent: EvalAgent, preamble: string, message: string, home: string) {
   return agent === 'claude'

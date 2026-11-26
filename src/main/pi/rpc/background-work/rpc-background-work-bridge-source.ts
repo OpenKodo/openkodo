@@ -4,7 +4,7 @@
 // the answer leaves as a status line.
 
 export const PI_BACKGROUND_WORK_STATUS_KEY = 'orca-background-work'
-export const PI_BACKGROUND_WORK_DIR_ENV = 'ORCA_PI_BACKGROUND_WORK_DIR'
+export const PI_BACKGROUND_WORK_DIR_ENV = 'OPENKODO_PI_BACKGROUND_WORK_DIR'
 export const PI_BACKGROUND_WORK_BRIDGE_FILE = 'orca-background-work.ts'
 export const PI_BACKGROUND_WORK_REQUEST_SUFFIX = '.probe'
 const SESSION_LIVENESS_REGISTRY_KEY = '@agegr/pi-web/session-liveness/v1'

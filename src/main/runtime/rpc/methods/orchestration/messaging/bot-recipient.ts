@@ -1,5 +1,5 @@
 /** Mail that reaches a bot from outside it: by `bot:<name|id>`, its session's address, or the Run its
- * chat coordinates. Orca resolves the receiving bot first, then reads who the sending turn is for from
+ * chat coordinates. OpenKodo resolves the receiving bot first, then reads who the sending turn is for from
  * its own record, never the model's. */
 
 import type { AutomationRunMessage } from '../../../../../../shared/automations/automation-run-message'
@@ -219,7 +219,7 @@ export async function readActingSender(
         worker: creator.dispatchId
       }
     }
-    // The owner's own orchestration; a worker whose starter Orca can't name is no one's.
+    // The owner's own orchestration; a worker whose starter OpenKodo can't name is no one's.
     const known = creator.sessionId !== null || creator.terminalCreated
     return {
       sessionId: null,
@@ -273,7 +273,7 @@ export async function readBotTurn(
   const root = isOrcaSessionId(sessionId) ? canonicalOrcaSessionId(sessionId) : sessionId
   let recorded = readBotConversationActsFor(runtime, root)
   if (!recorded) {
-    // Conversations from before Orca recorded this, and ones a person opened: their first message
+    // Conversations from before OpenKodo recorded this, and ones a person opened: their first message
     // says, and is kept as the record.
     const first = await readFirstMessageActsFor(db, host.journalReads(root), workspaceId)
     if (first) {

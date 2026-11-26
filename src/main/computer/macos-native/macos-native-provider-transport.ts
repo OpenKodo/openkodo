@@ -20,7 +20,7 @@ export type StartedMacOSProviderSocket = {
   socketToken: string
 }
 
-// Darwin 22 is macOS 13; Orca.app's own 13.4 minimum already rules out 13.0-13.3.
+// Darwin 22 is macOS 13; OpenKodo.app's own 13.4 minimum already rules out 13.0-13.3.
 export function isMacOS13OrNewer(): boolean {
   const darwinMajor = Number.parseInt(release().split('.')[0] ?? '', 10)
   return Number.isFinite(darwinMajor) && darwinMajor >= 22
@@ -103,7 +103,7 @@ export async function startMacOSNativeProviderSocket({
   const socketToken = randomUUID()
   const socketTokenPath = join(socketDirectory, 'provider.token')
   writeFileSync(socketTokenPath, socketToken, { encoding: 'utf8', mode: 0o600 })
-  // Spawn the signed helper directly so TCC does not charge LaunchServices activity to Orca.app.
+  // Spawn the signed helper directly so TCC does not charge LaunchServices activity to OpenKodo.app.
   const provider = spawnProvider(helperExecutablePath, socketPath, socketTokenPath)
   // Own the helper before connecting so shutdown during startup cannot strand it.
   providerProcess.adopt(provider)

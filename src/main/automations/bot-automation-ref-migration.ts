@@ -1,4 +1,4 @@
-// Once this host's Orca Cloud takes refs, the places bot automations named before them become refs.
+// Once this host's OpenKodo Cloud takes refs, the places bot automations named before them become refs.
 // Idempotent: a ref is left alone, and a name the cloud can't place stays as it was, still matched
 // by name, for the next pass to try again.
 import type {

@@ -174,7 +174,7 @@ export abstract class OrcaRuntimeWithCreateAgentSession extends OrcaRuntimeWithG
       const operationLeafId =
         request.placement?.leafId ?? deterministicAgentSessionUuid(`${executionOperationId}:leaf`)
       const operationHandle = `term_${deterministicAgentSessionUuid(`${executionOperationId}:handle`)}`
-      // Record before dispatch: ORCA_TERMINAL_HANDLE is the only identity recoverable after a lost spawn.
+      // Record before dispatch: OPENKODO_TERMINAL_HANDLE is the only identity recoverable after a lost spawn.
       reclaim.identity = {
         worktreeId: workspace.id,
         connectionId: workspace.connectionId ?? null,

@@ -101,8 +101,8 @@ export function orcadLaunchCommand(
   // Capture in the launching shell; detached subshell variables do not return here.
   const recordSession = detach === 'nohup' && recordsOrcadLaunchSshSession(host)
   const launchEnv = [
-    `ORCA_VERSION=${quotePosixShell(spec.fullVersion)}`,
-    `ORCA_USER_DATA=${quotePosixShell(spec.userDataDir)}`,
+    `OPENKODO_VERSION=${quotePosixShell(spec.fullVersion)}`,
+    `OPENKODO_USER_DATA=${quotePosixShell(spec.userDataDir)}`,
     ...orcadManagedLaunchEnv(spec).map(([name, value]) => `${name}=${quotePosixShell(value)}`)
   ]
   return [

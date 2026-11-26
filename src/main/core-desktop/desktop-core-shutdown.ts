@@ -98,7 +98,7 @@ function stopPluginsAndSessions(
 }
 
 function cleanUpGrokHooksOnWindows(): Promise<void> {
-  // Windows bare hook paths lack POSIX ORCA_PANE_KEY guards, so remove Grok hooks on quit; bound cleanup because GROK_HOME can be a stalled network mount.
+  // Windows bare hook paths lack POSIX OPENKODO_PANE_KEY guards, so remove Grok hooks on quit; bound cleanup because GROK_HOME can be a stalled network mount.
   if (process.platform !== 'win32') {
     return Promise.resolve()
   }

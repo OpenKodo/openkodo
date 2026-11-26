@@ -83,7 +83,7 @@ export async function restartFromNewAppImage(
   watch: AppImageBuildWatch,
   deps: AppImageRestartDeps
 ): Promise<string> {
-  deps.log(`[serve] ${watch.appImagePath} holds a new Orca build; restarting from it.`)
+  deps.log(`[serve] ${watch.appImagePath} holds a new OpenKodo build; restarting from it.`)
   const env = appImageEnv(deps.env)
   // Probe FUSE support first to keep mount failures from causing a service restart loop.
   const refusal = await (deps.probe ?? probeAppImage)(watch.appImagePath, env)
@@ -135,16 +135,16 @@ function appImageEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
     'APPDIR',
     'ARGV0',
     'OWD',
-    'ORCA_CLI_LAUNCH_REDIRECTED'
+    'OPENKODO_CLI_LAUNCH_REDIRECTED'
   ]) {
     delete next[name]
   }
   // Restore NODE_OPTIONS before the new launcher moves it aside again.
-  if (env.ORCA_NODE_OPTIONS) {
-    next.NODE_OPTIONS = env.ORCA_NODE_OPTIONS
+  if (env.OPENKODO_NODE_OPTIONS) {
+    next.NODE_OPTIONS = env.OPENKODO_NODE_OPTIONS
   }
-  if (env.ORCA_NODE_REPL_EXTERNAL_MODULE) {
-    next.NODE_REPL_EXTERNAL_MODULE = env.ORCA_NODE_REPL_EXTERNAL_MODULE
+  if (env.OPENKODO_NODE_REPL_EXTERNAL_MODULE) {
+    next.NODE_REPL_EXTERNAL_MODULE = env.OPENKODO_NODE_REPL_EXTERNAL_MODULE
   }
   return next
 }

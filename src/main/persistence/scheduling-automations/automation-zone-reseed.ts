@@ -8,7 +8,7 @@ import {
 
 /**
  * An automation read in a saved zone (a server's, or one its owner named) whose next run an older
- * Orca saved on the host clock: that run is not one of its occurrences. Re-seed it on the zone
+ * OpenKodo saved on the host clock: that run is not one of its occurrences. Re-seed it on the zone
  * instead of letting catch-up read it as a miss or a late run; no run is recorded.
  */
 export function reseedOffZoneNextRuns(

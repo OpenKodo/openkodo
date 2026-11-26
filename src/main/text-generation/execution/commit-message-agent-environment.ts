@@ -33,13 +33,13 @@ function cloneProcessEnv(): Record<string, string> {
   return env
 }
 
-// System-default routing strips only Orca-marked inherited CODEX_HOME overlays; preserve user overrides.
+// System-default routing strips only OpenKodo-marked inherited CODEX_HOME overlays; preserve user overrides.
 function withoutOrcaCodexHomeOverride(base: Record<string, string>): Record<string, string> {
   const env = { ...base }
-  if (env.ORCA_CODEX_HOME && env.CODEX_HOME === env.ORCA_CODEX_HOME) {
+  if (env.OPENKODO_CODEX_HOME && env.CODEX_HOME === env.OPENKODO_CODEX_HOME) {
     delete env.CODEX_HOME
   }
-  delete env.ORCA_CODEX_HOME
+  delete env.OPENKODO_CODEX_HOME
   return env
 }
 
@@ -48,7 +48,7 @@ function readInheritedOrShellEnvVar(
   sourceName: string | undefined,
   base: Record<string, string> | undefined
 ): string | undefined {
-  // Prefer saved overlay source, then chat login-shell base, over inherited Orca values.
+  // Prefer saved overlay source, then chat login-shell base, over inherited OpenKodo values.
   return (
     (sourceName ? process.env[sourceName] : undefined) ??
     base?.[name] ??
@@ -75,11 +75,11 @@ function prepareShellConfigDirEnv(
   // Pi/OMP share a binary config var but need distinct source shadows or nested legacy overlays restore the wrong agent directory.
   const sourceVar =
     agentId === 'opencode' || agentId === 'opencode2'
-      ? 'ORCA_OPENCODE_SOURCE_CONFIG_DIR'
+      ? 'OPENKODO_OPENCODE_SOURCE_CONFIG_DIR'
       : agentId === 'pi'
-        ? 'ORCA_PI_SOURCE_AGENT_DIR'
+        ? 'OPENKODO_PI_SOURCE_AGENT_DIR'
         : agentId === 'omp'
-          ? 'ORCA_OMP_SOURCE_AGENT_DIR'
+          ? 'OPENKODO_OMP_SOURCE_AGENT_DIR'
           : undefined
 
   const value = readInheritedOrShellEnvVar(configVar, sourceVar, base)
@@ -133,7 +133,7 @@ export async function prepareLocalCommitMessageAgentEnv(
       const wslCodexHome = codexHomePath ? parseWslUncPath(codexHomePath) : null
       if (target?.runtime === 'wsl') {
         const codexHomeForTarget = wslCodexHome?.linuxPath ?? null
-        // Fallback still strips Orca overlays so system-default WSL cannot inherit managed CODEX_HOME.
+        // Fallback still strips OpenKodo overlays so system-default WSL cannot inherit managed CODEX_HOME.
         return {
           ok: true,
           env: codexHomeForTarget

@@ -52,7 +52,7 @@ function makeHost(kind: HostKind, state: OrcaUninstallEntryState): OrcaUninstall
 function makePlan(
   state: (part: string) => OrcaUninstallEntryState,
   installKind: OrcaUninstallInstallKind = 'mac-app',
-  otherOrcaBuildName: string | null = 'Orca RC',
+  otherOrcaBuildName: string | null = 'OpenKodo RC',
   hosts: readonly HostKind[] = ['connected']
 ): OrcaUninstallPlan {
   return {
@@ -71,12 +71,12 @@ function makePlan(
       detail: null
     },
     backgroundService: {
-      location: 'launchd · com.stablyai.orca.serve',
+      location: 'launchd · dev.openkodo.serve',
       state: state('service'),
       detail: null
     },
     hookScripts: {
-      location: '~/.orca/agent-hooks',
+      location: '~/.openkodo/agent-hooks',
       state: state('scripts'),
       detail: state('scripts') === 'kept-shared' ? 'Still used by codex.' : null
     },
@@ -87,7 +87,7 @@ function makePlan(
       detail: state('daemon') === 'error' ? 'Timed out waiting for daemon self-shutdown' : null
     },
     otherOrcaBuildName,
-    appPath: '/Applications/Orca.app',
+    appPath: '/Applications/OpenKodo.app',
     removeAppCommand: installKind === 'mac-homebrew' ? 'brew uninstall --cask orca' : null
   }
 }
@@ -151,7 +151,7 @@ export const expandedHostNotConnected = defineFixture({
   render: () => (
     <Frame
       value={model(
-        makePlan(() => 'present', 'mac-app', 'Orca RC', ['offline']),
+        makePlan(() => 'present', 'mac-app', 'OpenKodo RC', ['offline']),
         'idle'
       )}
     />

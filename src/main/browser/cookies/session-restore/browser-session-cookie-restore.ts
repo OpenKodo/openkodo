@@ -1,7 +1,7 @@
 /**
  * Electron never writes session cookies (no expiry) to a partition's cookie database, so sites
  * that sign in with one sign out on every restart. Chrome keeps them when it restores the last
- * session, and Orca always restores its tabs, so Orca saves them itself and puts them back.
+ * session, and OpenKodo always restores its tabs, so OpenKodo saves them itself and puts them back.
  */
 import { session, type Session } from 'electron'
 import type { BrowserSessionProfile } from '../../../../shared/browser/workspaces/browser-workspace-types'

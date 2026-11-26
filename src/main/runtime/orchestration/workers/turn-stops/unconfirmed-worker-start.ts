@@ -37,7 +37,7 @@ export type UnconfirmedWorkerStart =
     }
   | { surface: 'chat' }
 
-/** A start Orca could not see begin is told to its coordinator once; a turn seen later supersedes it. */
+/** A start OpenKodo could not see begin is told to its coordinator once; a turn seen later supersedes it. */
 export function observeUnconfirmedWorkerStart(
   db: OrchestrationDb,
   dispatchId: string,
@@ -92,7 +92,7 @@ export function observeUnconfirmedWorkerStart(
   )
 }
 
-/** A resumed terminal worker whose continue prompt Orca left unsent is told to its coordinator
+/** A resumed terminal worker whose continue prompt OpenKodo left unsent is told to its coordinator
  *  once, with the same advice as a start's; a turn seen later supersedes it. */
 export function observeWithheldRestartContinue(
   db: OrchestrationDb,

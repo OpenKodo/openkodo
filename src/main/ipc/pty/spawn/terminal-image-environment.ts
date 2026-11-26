@@ -1,8 +1,8 @@
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
 import {
-  ORCA_IMAGE_PROTOCOL_ENV,
-  ORCA_IMAGE_PROTOCOL_VALUE,
-  ORCA_TERMINAL_IMAGE_VIEWER_ENV
+  OPENKODO_IMAGE_PROTOCOL_ENV,
+  OPENKODO_IMAGE_PROTOCOL_VALUE,
+  OPENKODO_TERMINAL_IMAGE_VIEWER_ENV
 } from '../../../../shared/terminal/images/terminal-image-protocol'
 import { resolveTerminalInlineImagesEnabled } from '../../../../shared/terminal/images/terminal-inline-images-settings'
 
@@ -13,19 +13,19 @@ export function applyTerminalImageEnvironment(
   inlineImages: boolean | undefined,
   headlessHost: boolean | undefined
 ): boolean {
-  const viewer = env[ORCA_TERMINAL_IMAGE_VIEWER_ENV]
-  delete env[ORCA_TERMINAL_IMAGE_VIEWER_ENV]
+  const viewer = env[OPENKODO_TERMINAL_IMAGE_VIEWER_ENV]
+  delete env[OPENKODO_TERMINAL_IMAGE_VIEWER_ENV]
   const enabled =
     (viewer === undefined ? !headlessHost : viewer === '1') &&
     resolveTerminalInlineImagesEnabled(inlineImages) &&
-    !envToDelete.includes(ORCA_IMAGE_PROTOCOL_ENV)
+    !envToDelete.includes(OPENKODO_IMAGE_PROTOCOL_ENV)
   if (enabled) {
-    env[ORCA_IMAGE_PROTOCOL_ENV] = ORCA_IMAGE_PROTOCOL_VALUE
+    env[OPENKODO_IMAGE_PROTOCOL_ENV] = OPENKODO_IMAGE_PROTOCOL_VALUE
   } else {
-    delete env[ORCA_IMAGE_PROTOCOL_ENV]
+    delete env[OPENKODO_IMAGE_PROTOCOL_ENV]
     // Older PTY daemons unconditionally stamp the hint.
-    if (!envToDelete.includes(ORCA_IMAGE_PROTOCOL_ENV)) {
-      envToDelete.push(ORCA_IMAGE_PROTOCOL_ENV)
+    if (!envToDelete.includes(OPENKODO_IMAGE_PROTOCOL_ENV)) {
+      envToDelete.push(OPENKODO_IMAGE_PROTOCOL_ENV)
     }
   }
 

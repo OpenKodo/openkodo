@@ -4,7 +4,7 @@ import type { SetupScriptImportCandidate } from '../../../shared/workspace-setup
 import type { SetupHooksCreateSource } from '../../../shared/worktree/setup-hooks-create-source'
 
 export type HooksApi = {
-  /** `background`: a render-driven probe, refused (status 'error') rather than booting a stopped WSL distro. `createSource`: read orca.yaml at the ref a create checks out. */
+  /** `background`: a render-driven probe, refused (status 'error') rather than booting a stopped WSL distro. `createSource`: read openkodo.yaml at the ref a create checks out. */
   check: (args: {
     repoId: string
     hostId?: ExecutionHostId

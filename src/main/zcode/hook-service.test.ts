@@ -48,7 +48,7 @@ describe('ZCode managed hooks', () => {
     rmSync(home, { recursive: true, force: true })
   })
 
-  // npm zcode-app-cli reads only setting.json and creates it on first launch, so Orca must never create it.
+  // npm zcode-app-cli reads only setting.json and creates it on first launch, so OpenKodo must never create it.
   it('installs into an existing setting.json, locally and remotely, without creating one', async () => {
     const configPath = join(cliDir, 'config.json')
     const settingsPath = join(cliDir, 'setting.json')

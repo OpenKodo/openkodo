@@ -1,5 +1,5 @@
 // Simulate installed-app --serve: read --user-data-dir, listen locally and publish orca-runtime.json.
-// Test controls: ORCA_FAKE_SIDECAR_LOG records requests; _CONTROL supplies capabilities/errors;
+// Test controls: OPENKODO_FAKE_SIDECAR_LOG records requests; _CONTROL supplies capabilities/errors;
 // _MODE=exit-before-ready exits without publishing metadata.
 'use strict'
 
@@ -11,14 +11,14 @@ const USER_DATA_FLAG = '--user-data-dir='
 const userDataDir = (
   process.argv.slice(2).find((arg) => arg.startsWith(USER_DATA_FLAG)) ?? ''
 ).slice(USER_DATA_FLAG.length)
-const logPath = process.env.ORCA_FAKE_SIDECAR_LOG
-const controlPath = process.env.ORCA_FAKE_SIDECAR_CONTROL
+const logPath = process.env.OPENKODO_FAKE_SIDECAR_LOG
+const controlPath = process.env.OPENKODO_FAKE_SIDECAR_CONTROL
 
 if (!userDataDir) {
   process.stderr.write('fake sidecar: missing --user-data-dir\n')
   process.exit(2)
 }
-if (process.env.ORCA_FAKE_SIDECAR_MODE === 'exit-before-ready') {
+if (process.env.OPENKODO_FAKE_SIDECAR_MODE === 'exit-before-ready') {
   process.exit(3)
 }
 

@@ -43,7 +43,7 @@ export function NewWorkspaceSetupScriptField({
         <Text style={styles.setupLabel}>
           {t('components.newWorkspaceSetupScriptField.label', 'Setup script')}
         </Text>
-        {source === 'orca.yaml' ? <Text style={styles.setupSource}>orca.yaml</Text> : null}
+        {source === 'openkodo.yaml' ? <Text style={styles.setupSource}>openkodo.yaml</Text> : null}
       </View>
       <ListGroup>
         {runPolicy === 'ask' ? (

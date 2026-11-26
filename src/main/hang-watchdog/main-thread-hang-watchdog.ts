@@ -38,7 +38,7 @@ export function installMainThreadHangWatchdog(options: {
     return null
   }
   // Debugger pauses are normal in development; enable only when packaged or explicitly forced.
-  if (!app.isPackaged && process.env.ORCA_HANG_WATCHDOG_FORCE !== '1') {
+  if (!app.isPackaged && process.env.OPENKODO_HANG_WATCHDOG_FORCE !== '1') {
     return null
   }
   const workerPath = resolveHangWatchdogWorkerPath(app.getAppPath(), app.isPackaged)
@@ -55,10 +55,13 @@ export function installMainThreadHangWatchdog(options: {
       osRelease: os.release(),
       osVersion: os.version()
     },
-    timeoutMs: positiveTiming(process.env.ORCA_HANG_WATCHDOG_TIMEOUT_MS, HANG_WATCHDOG_TIMEOUT_MS),
-    stallMs: positiveTiming(process.env.ORCA_HANG_WATCHDOG_STALL_MS, HANG_WATCHDOG_STALL_MS),
+    timeoutMs: positiveTiming(
+      process.env.OPENKODO_HANG_WATCHDOG_TIMEOUT_MS,
+      HANG_WATCHDOG_TIMEOUT_MS
+    ),
+    stallMs: positiveTiming(process.env.OPENKODO_HANG_WATCHDOG_STALL_MS, HANG_WATCHDOG_STALL_MS),
     checkIntervalMs: positiveTiming(
-      process.env.ORCA_HANG_WATCHDOG_CHECK_INTERVAL_MS,
+      process.env.OPENKODO_HANG_WATCHDOG_CHECK_INTERVAL_MS,
       HANG_WATCHDOG_CHECK_INTERVAL_MS
     )
   }

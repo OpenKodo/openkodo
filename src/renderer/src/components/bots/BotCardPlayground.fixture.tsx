@@ -60,7 +60,7 @@ const localBot: Bot = {
 
 const SOULS = {
   [releaseBot.id]:
-    '# Bot-Release-Manager\n\nHelp Orca ship daily releases by identifying blockers, coordinating release cuts, scanning for regressions.\n'
+    '# Bot-Release-Manager\n\nHelp OpenKodo ship daily releases by identifying blockers, coordinating release cuts, scanning for regressions.\n'
 }
 
 // The bot's home lists locally here, so its workers nest under it the simple way; the bot itself is m4's.
@@ -133,7 +133,7 @@ const homeChat: AgentStatusEntry = {
   stateHistory: [],
   toolName: 'Bash',
   toolInput:
-    'cd ~/.orca/bots/bot-release-manager; "${ORCA_CLI_COMMAND:-orca}" orchestration dispatch --task "Cut RC 1.4.232" --worktree new --agent claude'
+    'cd ~/.orca/bots/bot-release-manager; "${OPENKODO_CLI_COMMAND:-orca}" orchestration dispatch --task "Cut RC 1.4.232" --worktree new --agent claude'
 }
 
 function treeChat(

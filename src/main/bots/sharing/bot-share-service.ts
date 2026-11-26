@@ -104,7 +104,7 @@ export class BotShareService {
   /** A link's version, unpacked: the one it serves now, or `versionId` exactly. */
   fetch(shareId: string, versionId?: string): Promise<FetchedSharedBot | BotShareMoved | null> {
     if (!this.deps.download) {
-      throw new Error('Receiving a bot needs the Orca desktop app.')
+      throw new Error('Receiving a bot needs the OpenKodo desktop app.')
     }
     return fetchSharedBot(this.deps.client, this.deps.download, shareId, versionId)
   }

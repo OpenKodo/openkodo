@@ -1,7 +1,7 @@
 import type { BrowserWorkspace } from '../../../../../shared/browser/workspaces/browser-workspace-types'
 import type { TabGroup } from '../../../../../shared/workspace-layout/tab-groups/tab-types'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
+import { OPENKODO_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
 import type { WorkspaceSessionState } from '../../../../../shared/workspace-session/workspace-session-state-types'
 import { ownedEditorFileId } from '../../../../../shared/workspace-session/workspace-session-pane-ownership'
 import { isOrcadSourceTabHost } from './orcad-source-workspace-session-eligibility'
@@ -181,7 +181,7 @@ function withoutTabs(group: TabGroup, tabIds: ReadonlySet<string>): TabGroup {
 
 export function isOrcaProfileBrowserDefaultPartition(partition: string): boolean {
   return (
-    partition === ORCA_BROWSER_PARTITION ||
+    partition === OPENKODO_BROWSER_PARTITION ||
     (partition.startsWith('persist:orca-profile-') &&
       partition.endsWith('-browser-default') &&
       !partition.includes('-browser-session-'))

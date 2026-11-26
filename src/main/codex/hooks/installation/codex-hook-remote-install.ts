@@ -40,8 +40,8 @@ export async function installCodexHooksRemote(
   // WSL must match runtime script paths/commands to avoid trust-key races; SSH uses guest-home scripts.
   const redirectedCodexHome = options?.codexHomeDir?.replace(/\/$/, '')
   const remoteScriptPath = redirectedCodexHome
-    ? `${redirectedCodexHome}/.orca/agent-hooks/codex-hook.sh`
-    : `${remoteHome.replace(/\/$/, '')}/.orca/agent-hooks/codex-hook.sh`
+    ? `${redirectedCodexHome}/.openkodo/agent-hooks/codex-hook.sh`
+    : `${remoteHome.replace(/\/$/, '')}/.openkodo/agent-hooks/codex-hook.sh`
   try {
     const config = await readHooksJsonRemote(sftp, remoteConfigPath)
     if (!config) {
@@ -90,7 +90,7 @@ export async function installCodexHooksRemote(
         command,
         timeoutSec: hook.timeout,
         statusMessage: hook.statusMessage,
-        // Orca's setting overrides Codex's /hooks off switch for this hook, as local installs do.
+        // OpenKodo's setting overrides Codex's /hooks off switch for this hook, as local installs do.
         enabled: true
       })
     }
@@ -128,7 +128,7 @@ export async function installCodexHooksRemote(
           break
         }
         if (attempt === 2) {
-          throw new Error(`${remoteTomlPath} kept changing while Orca updated it`)
+          throw new Error(`${remoteTomlPath} kept changing while OpenKodo updated it`)
         }
       }
     } catch (error) {

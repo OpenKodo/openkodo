@@ -61,12 +61,12 @@ export function connectorStop(failure: ConnectorFailure): string | null {
     : null
 }
 
-/** Whether only signing in to Orca again on this computer lifts the stop. */
+/** Whether only signing in to OpenKodo again on this computer lifts the stop. */
 export function connectorStopNeedsSignIn(stop: string | null): boolean {
   return stop !== null && SIGN_IN_STOPS.has(stop)
 }
 
-/** No account to call as: signed out, switched away, or Orca quitting. */
+/** No account to call as: signed out, switched away, or OpenKodo quitting. */
 export const SIGNED_OUT: ConnectorFailure = {
   ok: false,
   status: 401,

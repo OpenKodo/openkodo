@@ -5,7 +5,7 @@ import {
   isOrcaSessionId,
   parseOrcaSessionAddress
 } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
 
 import type { OrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -113,7 +113,7 @@ export function structuredMailboxCustody(
       ? workerMailCustody(run.coordinator_handle, db, null)
       : 'elsewhere'
   }
-  if (mailboxHandle.startsWith(ORCA_SESSION_ADDRESS_PREFIX)) {
+  if (mailboxHandle.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)) {
     const sessionId = parseOrcaSessionAddress(mailboxHandle)
     return sessionId ? structuredSessionMailCustody(sessionId, db) : 'elsewhere'
   }

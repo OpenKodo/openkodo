@@ -177,9 +177,9 @@ export function buildLinearCurrentContext(
   return {
     remote,
     ...(remote ? {} : { cwd }),
-    ...(process.env.ORCA_WORKTREE_ID ? { worktreeId: process.env.ORCA_WORKTREE_ID } : {}),
-    ...(process.env.ORCA_TERMINAL_HANDLE
-      ? { terminalHandle: process.env.ORCA_TERMINAL_HANDLE }
+    ...(process.env.OPENKODO_WORKTREE_ID ? { worktreeId: process.env.OPENKODO_WORKTREE_ID } : {}),
+    ...(process.env.OPENKODO_TERMINAL_HANDLE
+      ? { terminalHandle: process.env.OPENKODO_TERMINAL_HANDLE }
       : {})
   }
 }

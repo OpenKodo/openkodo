@@ -5,7 +5,7 @@ export type AgentConversationKind = 'chat' | 'terminal'
 
 /** One open agent, chat or terminal, as `orca agent list` shows it. */
 export type AgentConversationRow = {
-  /** The conversation's Orca session ID (a chat's /clear root); null for a terminal agent the
+  /** The conversation's OpenKodo session ID (a chat's /clear root); null for a terminal agent the
    *  host has not named yet, which no command can address by ID. */
   orcaSessionId: string | null
   kind: AgentConversationKind

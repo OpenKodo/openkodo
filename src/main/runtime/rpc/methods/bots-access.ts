@@ -11,7 +11,7 @@ import { ownerOnly } from './bots-caller-gates'
 
 // Requests to be let onto a bot's Who can ask list.
 export const BOT_ACCESS_METHODS = [
-  // Answered as this host's Orca account; any paired client may, behind its own confirm (decision D3).
+  // Answered as this host's OpenKodo account; any paired client may, behind its own confirm (decision D3).
   defineMethod({
     name: 'bots.access.list',
     permission: 'workspace',
@@ -25,7 +25,7 @@ export const BOT_ACCESS_METHODS = [
     permission: 'workspace',
     params: BotAccessDecide,
     handler: async (params, context) => {
-      ownerOnly(context, 'Only your owner answers access requests, in Orca.')
+      ownerOnly(context, 'Only your owner answers access requests, in OpenKodo.')
       const { runtime, pairedDeviceId } = context
       const result = await decideHostAccessRequest(
         accessHost(runtime),

@@ -22,7 +22,7 @@ async function loadNodePty(): Promise<typeof pty> {
 }
 
 function daemonEnvironmentDiagSuffix(): string {
-  const orca = process.env.ORCA_APP_VERSION?.trim() || '0.0.0-dev'
+  const orca = process.env.OPENKODO_APP_VERSION?.trim() || '0.0.0-dev'
   const systemVersion =
     (process as NodeJS.Process & { getSystemVersion?: () => string }).getSystemVersion?.() ||
     release()
@@ -34,7 +34,7 @@ function formatMissingDaemonPathError(kind: 'helper' | 'cwd', path: string): Dae
   const step = kind === 'helper' ? 'posix_spawn' : 'daemon_cwd'
   const missingTarget = kind === 'helper' ? 'node-pty install' : 'working directory'
   return new DaemonProtocolError(
-    `Daemon's ${missingTarget} is gone (worktree deleted?). Restart Orca. node-pty: ${step} failed: ENOENT (errno 2, No such file or directory) - ${detailName}='${path}'${daemonEnvironmentDiagSuffix()}`
+    `Daemon's ${missingTarget} is gone (worktree deleted?). Restart OpenKodo. node-pty: ${step} failed: ENOENT (errno 2, No such file or directory) - ${detailName}='${path}'${daemonEnvironmentDiagSuffix()}`
   )
 }
 
@@ -50,7 +50,7 @@ function isExistingDirectory(path: string | undefined): path is string {
 }
 
 function repairDaemonCwd(): string | null {
-  const candidates = [process.env.ORCA_USER_DATA_PATH]
+  const candidates = [process.env.OPENKODO_USER_DATA_PATH]
   try {
     candidates.push(resolveSafePtyDefaultCwd())
   } catch {
@@ -173,8 +173,8 @@ export async function runPtySpawnHealthProbe(
       'Terminal daemon asynchronous I/O is stalled; restart the terminal daemon.'
     )
   }
-  const cwd = isExistingDirectory(process.env.ORCA_USER_DATA_PATH)
-    ? process.env.ORCA_USER_DATA_PATH
+  const cwd = isExistingDirectory(process.env.OPENKODO_USER_DATA_PATH)
+    ? process.env.OPENKODO_USER_DATA_PATH
     : resolveSafePtyDefaultCwd()
   const command =
     process.platform === 'win32'

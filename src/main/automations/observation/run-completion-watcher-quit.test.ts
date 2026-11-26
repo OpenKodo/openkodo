@@ -42,7 +42,7 @@ function freshHistory(): RunHistory {
   return { run: dispatchedRun(), results: [] }
 }
 
-/** One Orca process: its window graph, its view of the agent's status, and the run history it writes. */
+/** One OpenKodo process: its window graph, its view of the agent's status, and the run history it writes. */
 function startOrca(history: RunHistory) {
   let graphAvailable = true
   let quitting = false
@@ -105,7 +105,7 @@ function startOrca(history: RunHistory) {
 
 const settle = () => vi.runAllTimersAsync()
 
-describe('AutomationRunCompletionWatcher across an Orca quit', () => {
+describe('AutomationRunCompletionWatcher across an OpenKodo quit', () => {
   beforeEach(() => {
     vi.useFakeTimers()
   })

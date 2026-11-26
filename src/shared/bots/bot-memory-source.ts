@@ -1,4 +1,4 @@
-// Where a bot's new memories came from, as Orca saw it: the messages that started its turns, never
+// Where a bot's new memories came from, as OpenKodo saw it: the messages that started its turns, never
 // the bot's say-so. A label is what MEMORY.md and Settings show after "from"; null is the owner.
 import type { AgentJournalItemBody } from '../agent-session/journal/agent-session-journal-types'
 import type { ConnectorMessageAsker } from '../connector-message-asker'
@@ -17,7 +17,7 @@ export type BotMemorySources = {
   urls: string[]
 }
 
-/** One line, nothing that reads as Orca's own marks. */
+/** One line, nothing that reads as OpenKodo's own marks. */
 export function cleanBotMemoryLabel(text: string): string {
   return text.replace(SEPARATORS, ' ').trim().slice(0, MAX_LABEL_LENGTH)
 }

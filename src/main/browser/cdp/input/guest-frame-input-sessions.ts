@@ -1,7 +1,7 @@
 import type { WebContents } from 'electron'
 import { withTimeout } from '../../../../shared/concurrency/promise-timeout-fallback'
 
-// Orca owns these frame-input sessions; hide their traffic from the agent's CDP client.
+// OpenKodo owns these frame-input sessions; hide their traffic from the agent's CDP client.
 
 export type GuestSessionCdpSender = (
   method: string,
@@ -81,7 +81,7 @@ export async function settleWithin<T>(request: Promise<T>, fallback: T): Promise
   return settled.outcome === 'ok' ? settled.value : fallback
 }
 
-/** Hide Orca-owned session traffic that the agent's client did not request. */
+/** Hide OpenKodo-owned session traffic that the agent's client did not request. */
 export function isOrcaFrameSessionTraffic(
   webContents: WebContents,
   method: string,

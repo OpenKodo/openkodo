@@ -100,7 +100,7 @@ export function observeClaudeReportedPermissionMode(
   return true
 }
 
-/** Initialize answers before Orca's first message can switch the mode; older CLIs omit it. */
+/** Initialize answers before OpenKodo's first message can switch the mode; older CLIs omit it. */
 export function readClaudeOpenedPermissionMode(initialization: unknown): string | null {
   return isRecord(initialization)
     ? readClaudeFrameString(initialization, 'current_permission_mode')

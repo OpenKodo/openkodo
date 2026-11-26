@@ -2,7 +2,7 @@ import { expect, it, vi } from 'vitest'
 import { createDefaultLocalOrcaProfile } from '../../../shared/orca-profiles/orca-profiles'
 import {
   isOrcaCloudTeamFeatureBlocked,
-  ORCA_CLOUD_TEAM_POLICY_FLAGS as flags
+  OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags
 } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import {
   initializeActiveTeamProfile,

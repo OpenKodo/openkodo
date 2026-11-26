@@ -8,7 +8,7 @@ import { setupCompletionMarkerPrefix } from '../../../../../shared/agent-launch/
 
 // Room for the prefix, a token and the status.
 const SETUP_COMPLETION_CARRY_LENGTH = setupCompletionMarkerPrefix('').length + 96
-const WINDOWS_SETUP_RUNNER_ENV = 'ORCA_SETUP_RUNNER_PATH'
+const WINDOWS_SETUP_RUNNER_ENV = 'OPENKODO_SETUP_RUNNER_PATH'
 
 export function buildObservedSetupCommand(
   runnerScriptPath: string,

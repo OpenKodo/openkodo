@@ -60,7 +60,7 @@ function isCodexArchivedThreadError(
   )
 }
 
-/** Set keys merge after Codex's inheritance filter, preserving Orca identity under inherit = core. */
+/** Set keys merge after Codex's inheritance filter, preserving OpenKodo identity under inherit = core. */
 function shellEnvironmentSetConfig(
   env: Record<string, string> | undefined
 ): Record<string, string> {
@@ -215,7 +215,7 @@ export async function openCodexThread(
   }
 }
 
-/** Unrecognized policies remain the agent's settings rather than a guessed Orca mode. */
+/** Unrecognized policies remain the agent's settings rather than a guessed OpenKodo mode. */
 export function reportedCodexPermissionMode(reply: Record<string, unknown>): string | null {
   const approval = reply.approvalPolicy ?? reply.approval_policy
   const reviewer = reply.approvalsReviewer ?? reply.approvals_reviewer
@@ -240,6 +240,6 @@ export function reportedCodexPermissionMode(reply: Record<string, unknown>): str
   if (full && approval === 'never') {
     return 'full-access'
   }
-  // Orca's Ask is read-only, so a writable workspace is never named Ask: it edits without asking.
+  // OpenKodo's Ask is read-only, so a writable workspace is never named Ask: it edits without asking.
   return null
 }

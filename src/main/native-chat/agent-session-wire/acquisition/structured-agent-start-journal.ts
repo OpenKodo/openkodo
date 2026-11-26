@@ -12,7 +12,7 @@ import type {
   StructuredAgentSessionHostSession
 } from '../host/structured-agent-session-host-types'
 
-/** A status line Orca writes into a chat, named so a retry writes it once. */
+/** A status line OpenKodo writes into a chat, named so a retry writes it once. */
 export type OrcaStatusLine = { body: AgentJournalPlainStatusItem; messageId: string }
 
 // One card per started worker or agent launch, per saved version of an automation, and per added tool.

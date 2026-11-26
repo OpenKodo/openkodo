@@ -4,7 +4,7 @@ import {
   type ExecutionHostId
 } from '../../../shared/execution-host/execution-host'
 
-/** The Orca account this window is signed in as; null signed out. */
+/** The OpenKodo account this window is signed in as; null signed out. */
 export function signedInOrcaAccount(): string | null {
   return useAppStore.getState().orcaProfileAuthStatus?.cloud?.userId ?? null
 }

@@ -28,7 +28,7 @@ describe('gitPullRebaseFromBase with rebase.autoStash', () => {
         stdio: ['ignore', 'pipe', 'pipe']
       })
     const write = (file: string, text: string) => writeFileSync(join(repoPath, file), text)
-    git('config', 'user.name', 'Orca Test')
+    git('config', 'user.name', 'OpenKodo Test')
     git('config', 'user.email', 'orca@example.test')
     git('config', 'commit.gpgSign', 'false')
     git('config', 'core.hooksPath', '.git/no-hooks')

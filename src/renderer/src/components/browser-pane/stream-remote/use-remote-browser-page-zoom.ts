@@ -58,7 +58,7 @@ export function useRemoteBrowserPageZoom({
   isCurrentRemoteOperationToken: (token: RemoteBrowserOperationToken) => boolean
   setPaneNotice: (notice: RemoteBrowserPaneNotice | null) => void
 }): {
-  /** Null on hosts without browser.zoom, whose panes keep scrolling and Orca's own zoom. */
+  /** Null on hosts without browser.zoom, whose panes keep scrolling and OpenKodo's own zoom. */
   requestZoom: ((direction: BrowserPageZoomDirection, gesture?: 'key' | 'wheel') => void) | null
   feedbackBadgeRef: RefObject<BrowserPageFeedbackBadgeHandle | null>
   /** The ⋯ menu's Zoom and Appearance and the address field's zoom chip; null on hosts that can't report them. */
@@ -142,7 +142,7 @@ export function useRemoteBrowserPageZoom({
     if (!supported) {
       return
     }
-    // Zoom chords reach Orca's window, which routes them to the page whose pane holds focus.
+    // Zoom chords reach OpenKodo's window, which routes them to the page whose pane holds focus.
     return addBrowserPageZoomEventListener((command) => {
       if (command.browserPageId === browserPageId) {
         requestZoom(command.direction)

@@ -32,7 +32,7 @@ it.skipIf(process.platform === 'win32')(
     // Stands in for `zsh -ilc`: the "rc file" prepends rcBin, then the command runs.
     writeFileSync(shell, `#!/bin/sh\nexport PATH="${rcBin}:$PATH"\nexec /bin/sh -c "$2"\n`)
     chmodSync(shell, 0o755)
-    // Startup hydration already merged the profile's entries and Orca's seeded dirs into process.env.
+    // Startup hydration already merged the profile's entries and OpenKodo's seeded dirs into process.env.
     process.env.PATH = [rcBin, launchPath, orcaSeeded].join(delimiter)
 
     const capture = await captureLoginShellEnvironment({ shellOverride: shell })

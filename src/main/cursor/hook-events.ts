@@ -12,7 +12,7 @@ export const CURSOR_EVENTS = [
 
 export type CursorEvent = (typeof CURSOR_EVENTS)[number]
 
-// Orca only observes: permission hooks answer `{}` (no decision) so Cursor's own approval still applies.
+// OpenKodo only observes: permission hooks answer `{}` (no decision) so Cursor's own approval still applies.
 const CURSOR_HOOK_RESPONSES = {
   beforeSubmitPrompt: '{"continue":true}',
   stop: '{}',

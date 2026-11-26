@@ -26,7 +26,7 @@ export function getEphemeralVmRecipeTimeoutSeconds(
 
 /** Runtime records keep a recipe snapshot under a strict schema that current and older builds
  * share, so the snapshot never carries timeoutSeconds or passEnv; lifecycle calls re-read them
- * from the repo's orca.yaml instead (see getRuntimeRecipeContext). */
+ * from the repo's openkodo.yaml instead (see getRuntimeRecipeContext). */
 export function toEphemeralVmRuntimeRecipeSnapshot(
   recipe: OrcaVmRecipe
 ): Omit<OrcaVmRecipe, 'timeoutSeconds' | 'passEnv'> {

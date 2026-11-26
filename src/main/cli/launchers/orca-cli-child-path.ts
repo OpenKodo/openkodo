@@ -21,7 +21,7 @@ export function prependOrcaCliDirToChildPath(
   opts: OrcaCliChildPathOptions
 ): string | null {
   const platform = opts.platform ?? process.platform
-  delete env.ORCA_CLI_BIN_DIR
+  delete env.OPENKODO_CLI_BIN_DIR
   // Honor injected Windows platforms when tests run on another host.
   const pathDelimiter = platform === 'win32' ? ';' : delimiter
   const hostLauncher = hasAppEnvironment() ? getAppEnvironment().getCliLauncherPath?.() : null
@@ -32,17 +32,17 @@ export function prependOrcaCliDirToChildPath(
       .filter((entry) => entry.length > 0 && entry !== binDir)
     env[resolvePathEnvKey(env, platform)] = [binDir, ...inheritedEntries].join(pathDelimiter)
     if (platform !== 'win32') {
-      env.ORCA_CLI_BIN_DIR = binDir
+      env.OPENKODO_CLI_BIN_DIR = binDir
     }
-    env.ORCA_USER_DATA_PATH = opts.userDataPath
-    env.ORCA_CLI_COMMAND = hostLauncher
+    env.OPENKODO_USER_DATA_PATH = opts.userDataPath
+    env.OPENKODO_CLI_COMMAND = hostLauncher
     return hostLauncher
   }
   // Development children must reach their build rather than a globally installed release.
   if (!opts.isPackaged) {
     const devCliBin = join(opts.userDataPath, 'cli', 'bin')
     if (platform !== 'win32') {
-      env.ORCA_CLI_BIN_DIR = devCliBin
+      env.OPENKODO_CLI_BIN_DIR = devCliBin
     }
     const inheritedPath = readInheritedPath(env, platform)
     // Empty PATH segments can execute commands from cwd; avoid a trailing delimiter.
@@ -54,20 +54,20 @@ export function prependOrcaCliDirToChildPath(
     // Managed children need bare `orca` to reach the CLI instead of GNOME's screen reader.
     const shimDir = ensureLinuxTerminalOrcaCliShimDir({ userDataPath: opts.userDataPath })
     if (shimDir) {
-      env.ORCA_CLI_BIN_DIR = shimDir
+      env.OPENKODO_CLI_BIN_DIR = shimDir
       const inheritedEntries = readInheritedPath(env, platform)
         .split(pathDelimiter)
         .filter((entry) => entry.length > 0 && entry !== shimDir)
       env.PATH = [shimDir, ...inheritedEntries].join(pathDelimiter)
       const launcher = join(shimDir, 'orca')
-      env.ORCA_CLI_COMMAND = launcher
-      env.ORCA_USER_DATA_PATH = opts.userDataPath
+      env.OPENKODO_CLI_COMMAND = launcher
+      env.OPENKODO_USER_DATA_PATH = opts.userDataPath
       return launcher
     }
   } else if (opts.resourcesPath && (platform === 'darwin' || platform === 'win32')) {
     const bundledCliBin = join(opts.resourcesPath, 'bin')
     if (platform === 'darwin') {
-      env.ORCA_CLI_BIN_DIR = bundledCliBin
+      env.OPENKODO_CLI_BIN_DIR = bundledCliBin
     }
     const inheritedPath = readInheritedPath(env, platform)
     env[resolvePathEnvKey(env, platform)] = inheritedPath

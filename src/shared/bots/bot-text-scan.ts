@@ -216,7 +216,7 @@ function sendsFile(words: readonly string[]): boolean {
   return false
 }
 
-// The characters shared bot text may never carry, the same set as Orca Cloud's unsafe-share-text:
+// The characters shared bot text may never carry, the same set as OpenKodo Cloud's unsafe-share-text:
 // C0 and C1 controls with DEL, the Bidi_Control set (U+061C, U+200E-U+200F, U+202A-U+202E,
 // U+2066-U+2069) and zero-width characters (U+200B-U+200D, U+FEFF). Escaped, since they are invisible.
 const UNSAFE_TEXT_SOURCE =

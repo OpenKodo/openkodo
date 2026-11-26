@@ -30,9 +30,9 @@ export function loadOldSerializer(path: string): NamedSerializer {
   return loadSerializerBuild('old', path)
 }
 
-// ORCA_NEW_SERIALIZE_ADDON compares two arbitrary refs without reinstalling node_modules.
-export const NEW_SERIALIZER: NamedSerializer = process.env.ORCA_NEW_SERIALIZE_ADDON
-  ? loadSerializerBuild('new', process.env.ORCA_NEW_SERIALIZE_ADDON)
+// OPENKODO_NEW_SERIALIZE_ADDON compares two arbitrary refs without reinstalling node_modules.
+export const NEW_SERIALIZER: NamedSerializer = process.env.OPENKODO_NEW_SERIALIZE_ADDON
+  ? loadSerializerBuild('new', process.env.OPENKODO_NEW_SERIALIZE_ADDON)
   : { name: 'new', create: () => new SerializeAddon() }
 
 export type SerializeCheckResult = {

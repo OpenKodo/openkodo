@@ -292,7 +292,7 @@ export class StructuredAgentSessionHost {
 
   readonly continuationContext: ReturnType<typeof contextReader>
 
-  /** Opens the conversation at rest, starting no agent; Orca's own notes write through it. */
+  /** Opens the conversation at rest, starting no agent; OpenKodo's own notes write through it. */
   conversation = (sessionId: string) => this.lifetime.conversation(sessionId)
   observeConversationPublications = this.sessions.observeConversationPublications
   forkBoundary: Background['forkBoundary'] = (...a) => this.background.forkBoundary(...a)

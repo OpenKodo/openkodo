@@ -205,8 +205,8 @@ export function injectHistoryEnv(
   cwd: string,
   options: { wslDistro?: string | null } = {}
 ): HistoryInjectionResult {
-  // Nested Orca launches inherit this value; clear it before any early return to prevent history leaks.
-  delete spawnEnv.ORCA_HISTFILE
+  // Nested OpenKodo launches inherit this value; clear it before any early return to prevent history leaks.
+  delete spawnEnv.OPENKODO_HISTFILE
   dropInheritedOrcaFishHistory(spawnEnv)
   dropInheritedOrcaHistFile(spawnEnv)
 
@@ -223,7 +223,7 @@ export function injectHistoryEnv(
     return result
   }
 
-  // Preserve caller-provided history settings after dropping inherited Orca values.
+  // Preserve caller-provided history settings after dropping inherited OpenKodo values.
   if (shell === 'fish' ? spawnEnv.fish_history : spawnEnv.HISTFILE) {
     return result
   }
@@ -254,7 +254,7 @@ export function injectHistoryEnv(
 
   spawnEnv.HISTFILE = wslDistro ? toLinuxPath(histFilePath) : histFilePath
   // Preserve the injected path across system zshrc's unconditional HISTFILE assignment.
-  spawnEnv.ORCA_HISTFILE = spawnEnv.HISTFILE
+  spawnEnv.OPENKODO_HISTFILE = spawnEnv.HISTFILE
 
   result.histFile = spawnEnv.HISTFILE
   result.historyDir = spawnEnv.HISTFILE.replace(/[/\\][^/\\]+$/, '')
@@ -267,7 +267,7 @@ export function injectWslFishHistoryEnv(
   worktreeId: string,
   wslDistro: string
 ): string | null {
-  // Drop inherited Orca sessions even when the caller did not run injectHistoryEnv first.
+  // Drop inherited OpenKodo sessions even when the caller did not run injectHistoryEnv first.
   dropInheritedOrcaFishHistory(spawnEnv)
   if (spawnEnv.fish_history) {
     return null
@@ -299,11 +299,11 @@ export function updateHistoryEnvForFallback(
   const newFilename = historyFilename(resolveShellKind(fallbackShellPath))
   if (!newFilename) {
     delete spawnEnv.HISTFILE
-    delete spawnEnv.ORCA_HISTFILE
+    delete spawnEnv.OPENKODO_HISTFILE
     return
   }
   spawnEnv.HISTFILE = `${injected.historyDir}/${newFilename}`
-  spawnEnv.ORCA_HISTFILE = spawnEnv.HISTFILE
+  spawnEnv.OPENKODO_HISTFILE = spawnEnv.HISTFILE
 }
 
 export function logHistoryInjection(worktreeId: string, result: HistoryInjectionResult): void {

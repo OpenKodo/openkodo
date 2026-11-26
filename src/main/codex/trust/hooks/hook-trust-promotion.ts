@@ -89,7 +89,7 @@ function readHookTrustProvenance(runtimeHomePath: string): HookTrustProvenance |
   }
 }
 
-/** Preserve unreadable provenance so later snapshots cannot misclassify user approvals as Orca writes. */
+/** Preserve unreadable provenance so later snapshots cannot misclassify user approvals as OpenKodo writes. */
 function provenanceIsUnreadable(provenancePath: string): boolean {
   try {
     readFileSync(provenancePath, 'utf-8')
@@ -99,7 +99,7 @@ function provenanceIsUnreadable(provenancePath: string): boolean {
   }
 }
 
-/** Snapshot after all trust writes to distinguish Orca changes from later user approvals. */
+/** Snapshot after all trust writes to distinguish OpenKodo changes from later user approvals. */
 export function snapshotCodexRuntimeHookTrustProvenance(
   runtimeHomePath: string = getOrcaManagedCodexHomePath()
 ): boolean {
@@ -107,7 +107,7 @@ export function snapshotCodexRuntimeHookTrustProvenance(
     return false
   }
   try {
-    // Why: a snapshot of another writer's edit would later pass for Orca's own output.
+    // Why: a snapshot of another writer's edit would later pass for OpenKodo's own output.
     assertGuardedFileCurrent(join(runtimeHomePath, 'config.toml'))
     const runtimeHooksPath = join(runtimeHomePath, 'hooks.json')
     const canonicalRuntimeHooksPath = getCodexExplicitHomeHookSourcePath(runtimeHooksPath)
@@ -203,7 +203,7 @@ function promoteCodexRuntimeHookApprovalsToSystemUnsafe(runtimeHomePath: string)
       previous.trustedHash === state.trustedHash &&
       (previous.enabled ?? true) === (state.enabled ?? true)
     ) {
-      // Unchanged Orca-written entries are not new user approvals.
+      // Unchanged OpenKodo-written entries are not new user approvals.
       continue
     }
     const eventName = CODEX_EVENT_NAME_BY_LABEL[parsed.eventLabel]

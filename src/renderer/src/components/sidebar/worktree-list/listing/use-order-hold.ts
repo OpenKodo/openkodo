@@ -1,5 +1,5 @@
 import { useMemo, useState, useSyncExternalStore } from 'react'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import {
   withHeldProjectRecency,
   type SidebarFeedIndex
@@ -95,7 +95,7 @@ const ENGAGED_BY_LIST: Record<OrderHoldList, () => boolean> = {
 
 // The legacy projects list settles on its own; the bots list has only this hold, in every build.
 function holdsInThisBuild(list: OrderHoldList): boolean {
-  return list === 'bots' || ORCA_SIDEBAR_INPUTS_IS_MAIN
+  return list === 'bots' || OPENKODO_SIDEBAR_INPUTS_IS_MAIN
 }
 
 function useListEngaged(list: OrderHoldList): boolean {

@@ -73,7 +73,7 @@ const reattachRequestedProfileIds = new Set<string>()
 const PRELOAD_FILE_NAME = 'browser-extension-preload.js'
 const PRELOAD_ID = 'orca-browser-extension-frame'
 
-// Workers load Orca's API shim from their own script instead.
+// Workers load OpenKodo's API shim from their own script instead.
 function registerExtensionPreload(sess: Electron.Session): void {
   if (!registerBrowserSessionFramePreload(sess, PRELOAD_ID, PRELOAD_FILE_NAME)) {
     console.warn(
@@ -162,7 +162,7 @@ export function attachBrowserExtensionsToProfileSession(
   profileIdByPartition.set(profile.partition, profile.id)
 }
 
-/** Unloads a profile session's extensions and Orca's wiring; its saved extension data stays. */
+/** Unloads a profile session's extensions and OpenKodo's wiring; its saved extension data stays. */
 async function unloadProfileSession(state: ProfileSessionState): Promise<void> {
   forgetBrowserExtensionLoadFailures({ profileId: state.profile.id })
   await Promise.all([state.loading.catch(() => {}), state.loads.close()])
@@ -301,7 +301,7 @@ export async function loadBrowserExtensionIntoProfile(
 }
 
 /**
- * Developer "Load unpacked": loads Orca's copy of the folder, whose key gives it `extensionId`.
+ * Developer "Load unpacked": loads OpenKodo's copy of the folder, whose key gives it `extensionId`.
  * `refresh` copies the folder again, so pass it only when no profile can be running the copy.
  */
 export async function loadBrowserExtensionFolderIntoProfile(

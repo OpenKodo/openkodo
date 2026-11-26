@@ -12,13 +12,13 @@ export class CheckoutIdentityRefusal extends Error {}
 
 export function differentCheckoutAtPathError(worktreePath: string): Error {
   return new CheckoutIdentityRefusal(
-    `A different checkout is now at ${worktreePath}; Orca left it in place. Delete it again to remove it.`
+    `A different checkout is now at ${worktreePath}; OpenKodo left it in place. Delete it again to remove it.`
   )
 }
 
 export function unconfirmedCheckoutAtPathError(worktreePath: string): Error {
   return new CheckoutIdentityRefusal(
-    `Orca cannot confirm the checkout at ${worktreePath}, so it left the folder in place. Inspect the folder before removing it.`
+    `OpenKodo cannot confirm the checkout at ${worktreePath}, so it left the folder in place. Inspect the folder before removing it.`
   )
 }
 
@@ -37,7 +37,7 @@ export type WorktreeForceDeleteReason =
   | 'running-agent-session'
   | 'submodules'
 
-// Only text after this boundary is Orca’s verdict; the worktree ID is a user-chosen path.
+// Only text after this boundary is OpenKodo’s verdict; the worktree ID is a user-chosen path.
 export const UNSTOPPED_PTY_DETAIL_SEPARATOR = ' — '
 
 // Keep proven-live and unverifiable stops distinct in delete toasts. Both PTY and structured-session sweeps re-observe after stopping.
@@ -48,7 +48,7 @@ export const WORKTREE_TEARDOWN_TIMEOUT_PREFIX = 'Timed out waiting for physical 
 
 // Removing a folder workspace purges its session, the only copy of its unsaved editor text.
 export const UNSAVED_DRAFTS_REMOVAL_REFUSAL =
-  'Unsaved editor changes. Save or close them in Orca, then delete again.'
+  'Unsaved editor changes. Save or close them in OpenKodo, then delete again.'
 
 // Running agent sessions also block removal; classify this prefix to expose the force waiver (#11960).
 export const RUNNING_AGENT_SESSION_REMOVAL_PREFIX =

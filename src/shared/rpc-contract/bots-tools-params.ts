@@ -40,8 +40,8 @@ export const BotToolFinishSignIn = z.object({
   address: z.string().trim().min(1, 'Paste the address the sign-in page ended on').max(8192)
 })
 
-// Orca's own sign-in run on the bot's host for the calling device. `routed`: the device opens the
-// page in Orca's browser routed to the host, whose own listener takes the return; `paste`: the device
+// OpenKodo's own sign-in run on the bot's host for the calling device. `routed`: the device opens the
+// page in OpenKodo's browser routed to the host, whose own listener takes the return; `paste`: the device
 // sends back the query of the address its browser ended on.
 export const BotToolSignInStart = z.object({
   ...Target,

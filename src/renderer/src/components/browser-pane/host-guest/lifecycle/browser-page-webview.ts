@@ -1,6 +1,6 @@
 import '../../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
-import { ORCA_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE } from '../../../../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE } from '../../../../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
 import { registerPersistentWebview, webviewRegistry } from '../webview-registry'
 import { replacePersistentWebview } from '../browser-webview-disposal'
 import { handleGuestWindowCloseMessage } from './browser-page-window-close'
@@ -52,8 +52,8 @@ export function ensureBrowserPageWebview({
   webview = document.createElement('webview') as Electron.WebviewTag
   webview.setAttribute('partition', webviewPartition)
   webview.setAttribute('allowpopups', '')
-  // Electron spreads webpreferences verbatim; retain camelCase for fullscreen containment and keep the page canvas opaque over Orca’s themed host.
-  webview.setAttribute('webpreferences', ORCA_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE)
+  // Electron spreads webpreferences verbatim; retain camelCase for fullscreen containment and keep the page canvas opaque over OpenKodo’s themed host.
+  webview.setAttribute('webpreferences', OPENKODO_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE)
   webview.style.display = 'flex'
   webview.style.flex = '1'
   webview.style.width = '100%'
@@ -66,7 +66,9 @@ export function ensureBrowserPageWebview({
   guest.addEventListener('load-commit', (event) => {
     if (event.isMainFrame) {
       guest.style.visibility =
-        event.url === 'about:blank' || event.url === ORCA_BROWSER_BLANK_URL ? 'hidden' : 'visible'
+        event.url === 'about:blank' || event.url === OPENKODO_BROWSER_BLANK_URL
+          ? 'hidden'
+          : 'visible'
     }
   })
   guest.addEventListener('render-process-gone', () => {

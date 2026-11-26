@@ -2,7 +2,7 @@
 // chat line) read from drawn rows.
 
 /** A one-line row and its gap, and one that names its chat on a second line. Until a drawn row is
- *  read, their heights at the default font size; a larger font (Orca Web) makes them taller. */
+ *  read, their heights at the default font size; a larger font (OpenKodo Web) makes them taller. */
 export type RowSizes = { row: number; placed: number }
 export const DEFAULT_ROW_SIZES: RowSizes = { row: 30, placed: 46 }
 

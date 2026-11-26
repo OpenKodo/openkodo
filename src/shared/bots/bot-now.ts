@@ -97,7 +97,7 @@ export function botNow<Connector = never, Request = never>({
 
 /**
  * The one Needs you count: the Items tab badge, the panel toggle, the bot line's count and the phone
- * tab read it unfiltered; the group heading reads it for the rows a filter shows. Orca's asks (never
+ * tab read it unfiltered; the group heading reads it for the rows a filter shows. OpenKodo's asks (never
  * runs a sign-in stopped, which are listed beside them as context) plus Needs you items that aren't stale.
  */
 export function botNeedsYouCount(asks: number, items: number): number {

@@ -81,7 +81,7 @@ export function livePluginActivationState(
   return installedPluginActivationState(plugin, snapshotPluginConsentLists(source))
 }
 
-/** Why the plugin may not run despite consent: Orca's safety list. Full access needs only consent. */
+/** Why the plugin may not run despite consent: OpenKodo's safety list. Full access needs only consent. */
 export function pluginPolicyBlockError(
   source: PluginPolicySource,
   pluginKey: string
@@ -90,5 +90,7 @@ export function pluginPolicyBlockError(
   if (!blocked) {
     return null
   }
-  return blocked.team ? blocked.reason : `Blocked by Orca's plugin safety list: ${blocked.reason}`
+  return blocked.team
+    ? blocked.reason
+    : `Blocked by OpenKodo's plugin safety list: ${blocked.reason}`
 }

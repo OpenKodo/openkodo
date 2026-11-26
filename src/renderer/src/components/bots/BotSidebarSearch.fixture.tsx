@@ -326,7 +326,7 @@ function capped(
           className="flex flex-col overflow-hidden bg-worktree-sidebar text-worktree-sidebar-foreground"
           style={{ height: options.windowHeight ?? 700 }}
         >
-          <div className="h-9 shrink-0 px-4 py-2 text-xs">Orca</div>
+          <div className="h-9 shrink-0 px-4 py-2 text-xs">OpenKodo</div>
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
             <SidebarContentViewport>
               <SidebarNav />

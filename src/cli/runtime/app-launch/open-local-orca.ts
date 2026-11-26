@@ -27,7 +27,7 @@ export async function openLocalOrca(
         throwDesktopActivationBlocked()
       }
       if (!requested) {
-        // Relaunching a running Orca would hand it the foreground, so ask it to show its own window.
+        // Relaunching a running OpenKodo would hand it the foreground, so ask it to show its own window.
         const asked =
           status?.result.runtime.reachable === true &&
           (await askToOpenWindow(openWindowInBackground))
@@ -45,7 +45,7 @@ export async function openLocalOrca(
 
   throw new RuntimeClientError(
     'runtime_open_timeout',
-    'Timed out waiting for an Orca desktop window. The runtime may still be running headlessly.'
+    'Timed out waiting for an OpenKodo desktop window. The runtime may still be running headlessly.'
   )
 }
 
@@ -81,7 +81,7 @@ async function askToOpenWindow(openWindowInBackground: OpenWindowInBackground): 
 function throwDesktopActivationBlocked(): never {
   throw new RuntimeClientError(
     'desktop_activation_blocked',
-    'Orca is running headlessly, but it cannot open a desktop window safely because the persistent terminal provider is unavailable. Quit Orca normally and start the app again; do not use open -n.'
+    'OpenKodo is running headlessly, but it cannot open a desktop window safely because the persistent terminal provider is unavailable. Quit OpenKodo normally and start the app again; do not use open -n.'
   )
 }
 

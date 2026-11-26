@@ -44,7 +44,7 @@ const AGENT_FILES: Record<McpFileAgent, string> = {
 const isFileAgent = (agent: string): agent is McpFileAgent =>
   MCP_FILE_AGENTS.some((fileAgent) => fileAgent === agent)
 
-// Gemini CLI isn't an agent Orca launches, but its settings can still hold servers.
+// Gemini CLI isn't an agent OpenKodo launches, but its settings can still hold servers.
 const AGENT_NAMES: Partial<Record<string, string>> = { claude: 'Claude Code', gemini: 'Gemini CLI' }
 
 /** An agent as the bots and the mocks name it: "Claude Code", "GitHub Copilot". */
@@ -131,7 +131,7 @@ export function useMcpServerActions(args: {
     [change]
   )
 
-  /** Turns agents on or off; a file-based agent Orca hasn't been let into asks first. */
+  /** Turns agents on or off; a file-based agent OpenKodo hasn't been let into asks first. */
   const setAgents = useCallback(
     (server: PhoneMcpServer, agents: readonly string[], enabled: boolean) => {
       const asking = enabled
@@ -151,12 +151,12 @@ export function useMcpServerActions(args: {
         message: one
           ? t(
               'mcpServers.agentFileMessage',
-              'Orca will keep your MCP servers in {{agent}}’s settings file ({{file}}). Your own entries stay as they are.',
+              'OpenKodo will keep your MCP servers in {{agent}}’s settings file ({{file}}). Your own entries stay as they are.',
               { agent: names[0], file: AGENT_FILES[asking[0]] }
             )
           : t(
               'mcpServers.agentFilesMessage',
-              'Orca will keep your MCP servers in their settings files. Your own entries stay as they are.'
+              'OpenKodo will keep your MCP servers in their settings files. Your own entries stay as they are.'
             ),
         confirmLabel: t('mcpServers.allow', 'Allow'),
         onConfirm: () =>
@@ -247,10 +247,10 @@ export function useMcpServerActions(args: {
   const move = useCallback(
     (entry: PhoneDiscoveredMcpServer) =>
       setConfirm({
-        title: t('mcpServers.moveTitle', 'Move {{name}} to Orca?', { name: entry.name }),
+        title: t('mcpServers.moveTitle', 'Move {{name}} to OpenKodo?', { name: entry.name }),
         message: t(
           'mcpServers.moveMessage',
-          'Orca removes it from {{agents}} settings and keeps a backup.',
+          'OpenKodo removes it from {{agents}} settings and keeps a backup.',
           {
             agents: new Intl.ListFormat(getUiIntlLocale(), { type: 'conjunction' }).format(
               entry.agents.map(mcpAgentName)

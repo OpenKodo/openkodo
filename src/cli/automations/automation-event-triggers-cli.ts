@@ -63,7 +63,7 @@ export function getEventTriggersFlag(flags: Flags): AutomationEventTrigger[] | u
   return [...triggers.values()]
 }
 
-/** With --on, the schedule is optional; without one the automation keeps a schedule no Orca reaches. */
+/** With --on, the schedule is optional; without one the automation keeps a schedule no OpenKodo reaches. */
 export function getCreateScheduleFlag(
   flags: Flags,
   on: AutomationEventTrigger[] | undefined,

@@ -3,9 +3,9 @@ import { useAppStore } from '@/store/index'
 import { getConnectionIdForFile } from '@/lib/workspace/ownership/connection-context'
 import type { OpenFile } from '@/store/slices/editor/types/open-file'
 import {
-  ORCA_EDITOR_EXTERNAL_FILE_CHANGE_EVENT,
-  ORCA_EDITOR_FILE_CACHE_STALE_EVENT,
-  ORCA_EDITOR_FILE_SAVED_EVENT,
+  OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT,
+  OPENKODO_EDITOR_FILE_CACHE_STALE_EVENT,
+  OPENKODO_EDITOR_FILE_SAVED_EVENT,
   type EditorFileSavedDetail,
   type EditorPathMutationTarget
 } from '../autosave/editor-autosave'
@@ -158,10 +158,13 @@ export function useEditorPanelExternalContentEvents({
         invalidateDiffContent(invalidatedDiffFileIds)
       }
     }
-    window.addEventListener(ORCA_EDITOR_EXTERNAL_FILE_CHANGE_EVENT, handler as EventListener)
+    window.addEventListener(OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT, handler as EventListener)
     return () => {
       reloads.dispose()
-      window.removeEventListener(ORCA_EDITOR_EXTERNAL_FILE_CHANGE_EVENT, handler as EventListener)
+      window.removeEventListener(
+        OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT,
+        handler as EventListener
+      )
     }
   }, [
     activeContentFileIdRef,
@@ -228,11 +231,11 @@ export function useEditorPanelExternalContentEvents({
         }
       }
     }
-    window.addEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, handler)
-    window.addEventListener(ORCA_EDITOR_FILE_CACHE_STALE_EVENT, onCacheStale)
+    window.addEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, handler)
+    window.addEventListener(OPENKODO_EDITOR_FILE_CACHE_STALE_EVENT, onCacheStale)
     return () => {
-      window.removeEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, handler)
-      window.removeEventListener(ORCA_EDITOR_FILE_CACHE_STALE_EVENT, onCacheStale)
+      window.removeEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, handler)
+      window.removeEventListener(OPENKODO_EDITOR_FILE_CACHE_STALE_EVENT, onCacheStale)
     }
   }, [
     activeContentFileIdRef,

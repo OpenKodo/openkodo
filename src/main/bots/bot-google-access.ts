@@ -33,7 +33,7 @@ export function readGoogleRefusal(
 
 /** Owner-only changes to this host's Google setup are refused from a bot's chat and agents' CLI. */
 export const GOOGLE_OWNER_ONLY =
-  'Only your owner can change Google on this computer; ask them in Orca.'
+  'Only your owner can change Google on this computer; ask them in OpenKodo.'
 
 /** This host's Google, read for one bot: only the accounts it may use. A host without Google has no app. */
 export async function hostGoogleBotState(

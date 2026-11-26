@@ -33,7 +33,7 @@ export const cleanup: (() => void)[] = []
 export const companions = (filename: string) =>
   [filename, `${filename}-wal`, `${filename}-shm`].filter((name) => existsSync(name))
 
-/** A message an older Orca left waiting in the original's queue. */
+/** A message an older OpenKodo left waiting in the original's queue. */
 export function queue(filename: string, sessionId: string, text: string) {
   const db = new Database(filename)
   db.prepare(
@@ -63,7 +63,7 @@ afterEach(() => {
   }
 })
 
-const native = process.env.ORCA_JOURNAL_NATIVE_LOCK_TEST === '1'
+const native = process.env.OPENKODO_JOURNAL_NATIVE_LOCK_TEST === '1'
 
 /** Without the built helper, the same removal the helper performs once it holds the lock. */
 export async function fakeLease(filename: string) {
@@ -81,7 +81,7 @@ export async function fakeLease(filename: string) {
   }
 }
 
-/** An older Orca's writable open of the original, adding one chat with saved history. */
+/** An older OpenKodo's writable open of the original, adding one chat with saved history. */
 export function olderOrcaChat(filename: string, sessionId: string): void {
   const { db } = openJournalDatabase(filename)
   runJournalTransaction(db, () => {
@@ -97,7 +97,7 @@ export function olderOrcaChat(filename: string, sessionId: string): void {
   db.close()
 }
 
-/** An older Orca's later turns in a chat, as a new epoch replacing the old (as its /clear does). */
+/** An older OpenKodo's later turns in a chat, as a new epoch replacing the old (as its /clear does). */
 export function continueInOlderOrca(filename: string, sessionId: string): void {
   const { db } = openJournalDatabase(filename)
   runJournalTransaction(db, () => {
@@ -110,11 +110,11 @@ export function continueInOlderOrca(filename: string, sessionId: string): void {
   db.close()
 }
 
-/** A profile an Orca at `copiedBy` copied, holding one unconverted chat with history. */
+/** A profile an OpenKodo at `copiedBy` copied, holding one unconverted chat with history. */
 export async function profile(
   options: {
     copiedBy?: string
-    /** Writes the original's chat, as an older Orca did; by default one unconverted chat. */
+    /** Writes the original's chat, as an older OpenKodo did; by default one unconverted chat. */
     original?: (filename: string) => void
     seed?: (db: Database.Database) => void
     /** Converting this chat fails with this error, as a reader would. */
@@ -136,7 +136,7 @@ export async function profile(
     options.seed(legacy)
     legacy.close()
   }
-  vi.stubEnv('ORCA_APP_VERSION', options.copiedBy ?? '1.0.0')
+  vi.stubEnv('OPENKODO_APP_VERSION', options.copiedBy ?? '1.0.0')
   const domainFile = await initializeJournalDomainDatabase(root)
   const { db } = openJournalDomainDatabase(domainFile)
   cleanup.push(() => db.close())
@@ -252,7 +252,7 @@ export async function profile(
     }
   }
   const errors: unknown[] = []
-  /** A launch of the Orca at `version`, owning the profile unless told otherwise. */
+  /** A launch of the OpenKodo at `version`, owning the profile unless told otherwise. */
   const launch = (
     version: string | null = '1.0.1',
     owns = true,

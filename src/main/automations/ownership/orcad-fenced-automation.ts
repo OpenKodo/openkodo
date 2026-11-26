@@ -6,7 +6,7 @@ import { isManagedOrcadSshTarget } from '../../ssh/targets/ssh-target-runtime-ow
 import { moveProjectToManagedHostFirst } from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
 import { listOrcadMigrationCutoverChainForTarget } from '../../persistence/migrating-orcad-catalog/cutover-journals/orcad-migration-cutover-journal'
 
-export const ORCAD_FENCED_AUTOMATION = "This automation now runs on its SSH host's Orca server."
+export const ORCAD_FENCED_AUTOMATION = "This automation now runs on its SSH host's OpenKodo server."
 
 /** While a move is in flight, or once it took this row, any desktop write would break or duplicate it. Rows Move anyway left behind stay listed, skipped by managedOrcadHostOf. */
 export function isOrcadFencedAutomation(
@@ -37,7 +37,7 @@ export function isOrcadFencedAutomation(
   )
 }
 
-/** A desktop row on a host its managed Orca server now serves: it can never run here (#27499). */
+/** A desktop row on a host its managed OpenKodo server now serves: it can never run here (#27499). */
 export function managedOrcadHostOf(
   store: Pick<Store, 'getSshTarget' | 'automationOwnerPrecondition'>,
   automation: Pick<Automation, 'id' | 'executionTargetType' | 'executionTargetId'>

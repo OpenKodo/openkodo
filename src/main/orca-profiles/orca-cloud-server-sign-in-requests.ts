@@ -38,7 +38,7 @@ export type ServerSignInRequest = {
 
 export type ServerSignInPollResult =
   | { status: 'pending' | 'denied' | 'expired' }
-  /** `intervalSeconds` is the slower pace Orca Cloud asks for, when it says. */
+  /** `intervalSeconds` is the slower pace OpenKodo Cloud asks for, when it says. */
   | { status: 'slow_down'; intervalSeconds?: number }
   /** `redirectUri` is passed to the exchange verbatim; the host never builds it. */
   | { status: 'approved'; code: string; redirectUri: string }
@@ -48,7 +48,7 @@ export class ServerSignInRequestRetryableError extends Error {}
 
 export class ServerSignInRequestUnsupportedError extends Error {
   constructor() {
-    super("Orca Cloud doesn't support server sign-in yet.")
+    super("cloud service doesn't support server sign-in yet.")
   }
 }
 
@@ -64,7 +64,7 @@ export async function startServerSignInRequest(
     move ? { ...body, ...move } : body,
     signal
   )
-  // An older Orca Cloud refuses fields it doesn't know; its page then shows no move warning.
+  // An older OpenKodo Cloud refuses fields it doesn't know; its page then shows no move warning.
   if (status === 400 && move) {
     ;({ status, json } = await post(config, '/v1/server-sign-in/requests', body, signal))
   }
@@ -72,7 +72,7 @@ export async function startServerSignInRequest(
     throw new ServerSignInRequestUnsupportedError()
   }
   if (status !== 200 && status !== 201) {
-    throw new Error(`Orca Cloud didn't start the sign-in (${status}). Try again.`)
+    throw new Error(`cloud service didn't start the sign-in (${status}). Try again.`)
   }
   return parseRequest(json)
 }
@@ -90,17 +90,17 @@ export async function pollServerSignInRequest(
   )
   if (status === 404) {
     // A wrong claim token or a request the cloud no longer has; asking again cannot fix either.
-    throw new Error('Orca Cloud no longer knows this sign-in. Start again.')
+    throw new Error('cloud service no longer knows this sign-in. Start again.')
   }
   const parsed = status === 200 ? parsePoll(json) : null
   if (parsed) {
     return parsed
   }
-  throw new Error(`Orca Cloud answered ${status} while waiting for approval. Start again.`)
+  throw new Error(`cloud service answered ${status} while waiting for approval. Start again.`)
 }
 
 /**
- * Tells Orca Cloud a request is over (cancelled here, or replaced by a newer one), so its page says
+ * Tells OpenKodo Cloud a request is over (cancelled here, or replaced by a newer one), so its page says
  * so. Best effort: an older cloud without the route, or no network, leaves the request to expire.
  */
 export async function closeServerSignInRequest(
@@ -136,15 +136,15 @@ async function post(
       throw error
     }
     // The cause can carry request details; only a fixed message leaves this function.
-    throw new ServerSignInRequestRetryableError("Couldn't reach Orca Cloud.")
+    throw new ServerSignInRequestRetryableError("Couldn't reach cloud service.")
   }
   if (response.status >= 300 && response.status < 400) {
     await response.body?.cancel().catch(() => {})
-    throw new Error('Orca Cloud redirected the sign-in request. Start again.')
+    throw new Error('cloud service redirected the sign-in request. Start again.')
   }
   if (response.status >= 500) {
     await response.body?.cancel().catch(() => {})
-    throw new ServerSignInRequestRetryableError(`Orca Cloud answered ${response.status}.`)
+    throw new ServerSignInRequestRetryableError(`cloud service answered ${response.status}.`)
   }
   const json: unknown = await response.json().catch(() => null)
   return { status: response.status, json }
@@ -155,21 +155,21 @@ function parseRequest(value: unknown): ServerSignInRequest {
   const text = (key: string): string => {
     const field = record[key]
     if (typeof field !== 'string' || field.length === 0) {
-      throw new Error(`Orca Cloud sent a sign-in request without ${key}.`)
+      throw new Error(`cloud service sent a sign-in request without ${key}.`)
     }
     return field
   }
   const seconds = (key: string): number => {
     const field = record[key]
     if (typeof field !== 'number' || !Number.isFinite(field) || field <= 0) {
-      throw new Error(`Orca Cloud sent a sign-in request without ${key}.`)
+      throw new Error(`cloud service sent a sign-in request without ${key}.`)
     }
     return field
   }
   const userCode = text('userCode')
   // Printed in a terminal, so only the expected printable shape is accepted.
   if (!USER_CODE_PATTERN.test(userCode)) {
-    throw new Error('Orca Cloud sent a sign-in code in an unexpected format. Start again.')
+    throw new Error('cloud service sent a sign-in code in an unexpected format. Start again.')
   }
   return {
     requestId: text('requestId'),
@@ -190,7 +190,7 @@ function canonicalLink(raw: string): string {
     url = null
   }
   if (!url || (url.protocol !== 'https:' && url.protocol !== 'http:')) {
-    throw new Error('Orca Cloud sent a sign-in link Orca cannot show. Start again.')
+    throw new Error('cloud service sent a sign-in link OpenKodo cannot show. Start again.')
   }
   return url.href
 }

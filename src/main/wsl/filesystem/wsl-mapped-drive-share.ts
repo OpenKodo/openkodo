@@ -1,6 +1,6 @@
 /**
  * A drive letter mapped to a distro share (`net use W: \\wsl.localhost\Ubuntu`) names a WSL path
- * Orca only recognises in its UNC spelling. Windows resolves a mapped drive's root to its share.
+ * OpenKodo only recognises in its UNC spelling. Windows resolves a mapped drive's root to its share.
  */
 import { realpath } from 'node:fs'
 import { win32 } from 'node:path'

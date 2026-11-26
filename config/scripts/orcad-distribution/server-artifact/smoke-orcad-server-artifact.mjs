@@ -28,8 +28,8 @@ const install = join(work, 'install')
 const projectRoot = join(work, 'project')
 const serverProfile = join(work, 'server-profile')
 const clientProfile = join(work, 'client-profile')
-// Linux names the CLI orca-ide, like the desktop package.
-const orca = join(install, 'bin', 'orca-ide')
+// The CLI is openkodo, like the desktop package.
+const orca = join(install, 'bin', 'openkodo')
 
 try {
   verifyChecksum()
@@ -101,7 +101,7 @@ function run(command, profile, { timeout = 30_000 } = {}) {
       encoding: 'utf8',
       timeout,
       stdio: ['ignore', 'pipe', fd],
-      env: { ...process.env, ORCA_USER_DATA_PATH: profile, ORCA_BACKGROUND_LAUNCH: '1' }
+      env: { ...process.env, OPENKODO_USER_DATA_PATH: profile, OPENKODO_BACKGROUND_LAUNCH: '1' }
     })
     return { ...result, stderr: readFileSync(log, 'utf8').slice(-4000) }
   } finally {

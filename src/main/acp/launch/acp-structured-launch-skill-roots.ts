@@ -35,7 +35,7 @@ export async function loadAcpSkillRoots(
   input: {
     sessionId: string
     roots: readonly NativeChatSkillRoot[]
-    /** Orca's visuals skill, when it is one of the roots. */
+    /** OpenKodo's visuals skill, when it is one of the roots. */
     visualsRoot: NativeChatSkillRoot | null
     version: string | null
     env: Readonly<Record<string, string>>

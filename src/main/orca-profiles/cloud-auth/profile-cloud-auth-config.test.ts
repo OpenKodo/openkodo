@@ -9,13 +9,13 @@ import {
 } from './profile-cloud-auth-config'
 
 const DEV_OVERRIDES = {
-  ORCA_CLOUD_API_URL: 'http://127.0.0.1:8787',
-  ORCA_CLOUD_CLIENT_ID: 'local-client',
-  ORCA_CLOUD_DEV_AUTH: '1',
-  ORCA_CLOUD_ALLOW_PLAINTEXT_SESSION: '1'
+  OPENKODO_CLOUD_API_URL: 'http://127.0.0.1:8787',
+  OPENKODO_CLOUD_CLIENT_ID: 'local-client',
+  OPENKODO_CLOUD_DEV_AUTH: '1',
+  OPENKODO_CLOUD_ALLOW_PLAINTEXT_SESSION: '1'
 }
 
-describe('Orca cloud auth config read from the installed app environment', () => {
+describe('OpenKodo cloud auth config read from the installed app environment', () => {
   afterEach(() => installFakeAppEnvironment())
 
   it('refuses dev auth, plaintext sessions and HTTP endpoints in a packaged host', () => {
@@ -25,14 +25,12 @@ describe('Orca cloud auth config read from the installed app environment', () =>
     expect(allowsPlaintextOrcaCloudSession(DEV_OVERRIDES)).toBe(false)
     expect(getOrcaCloudAuthConfig(DEV_OVERRIDES)).toEqual({
       configured: false,
-      setupMessage: 'Orca Cloud sign-in is not configured for this build.'
+      setupMessage: 'Cloud accounts are not available in this build.'
     })
-    expect(getOrcaPushGatewayUrl({ ORCA_PUSH_GATEWAY_URL: 'http://127.0.0.1:9000' })).toBe(
-      'https://push.onorca.dev'
-    )
-    expect(getOrcaCloudAuthConfig({})).toMatchObject({
-      configured: true,
-      config: { apiBaseUrl: 'https://login.onorca.dev', clientId: 'orca-desktop' }
+    expect(getOrcaPushGatewayUrl({ OPENKODO_PUSH_GATEWAY_URL: 'http://127.0.0.1:9000' })).toBe('')
+    expect(getOrcaCloudAuthConfig({})).toEqual({
+      configured: false,
+      setupMessage: 'Cloud accounts are not available in this build.'
     })
   })
 

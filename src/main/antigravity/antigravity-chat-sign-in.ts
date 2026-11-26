@@ -1,4 +1,4 @@
-// Signs agy itself in from Orca: `agy acp --login` on this host prints Google's link, which only the
+// Signs agy itself in from OpenKodo: `agy acp --login` on this host prints Google's link, which only the
 // starting client sees, and reads back the code that client pastes. One flow per host. Its login is
 // agy's own, the one terminal agy and every Antigravity chat use.
 

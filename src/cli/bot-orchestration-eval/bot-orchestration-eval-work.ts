@@ -1,4 +1,4 @@
-// The stand-in host's work record: Orca's own BotWorkRecord over a store file beside the stand-in's
+// The stand-in host's work record: OpenKodo's own BotWorkRecord over a store file beside the stand-in's
 // state, reading workers and workspaces from that state. The `orca` stand-in records starts and
 // answers `bot work`; the thread runner reads the turn note.
 import { join } from 'node:path'
@@ -65,7 +65,7 @@ function evalWorker(state: EvalHostState, dispatchId: string): BotWorkWorker | n
   }
 }
 
-/** Orca's own work record, reading the stand-in's state as it is on each call; `dispose` releases
+/** OpenKodo's own work record, reading the stand-in's state as it is on each call; `dispose` releases
  *  its store file. */
 export function evalWorkRecord(
   read: () => EvalHostState,

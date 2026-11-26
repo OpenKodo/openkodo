@@ -85,7 +85,7 @@ export function useStatusBarController(floatingTerminalOpen: boolean) {
     }
     setIsRefreshing(true)
     try {
-      // Why: re-run PATH detection so a freshly-installed/removed CLI's bar appears/hides without restarting Orca.
+      // Why: re-run PATH detection so a freshly-installed/removed CLI's bar appears/hides without restarting OpenKodo.
       await Promise.all([
         (refreshRemote ?? refreshRateLimits)(),
         refreshDetectedAgents(undefined, { wakeWslDistro: true, userInitiated: true })

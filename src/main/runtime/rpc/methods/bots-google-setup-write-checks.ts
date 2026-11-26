@@ -1,4 +1,4 @@
-// The checks a Google setup write passes before it applies: the key is in Orca, Google answers for
+// The checks a Google setup write passes before it applies: the key is in OpenKodo, Google answers for
 // every chosen service, and the run is still the one the checks read.
 import {
   googleSetupRunActive,
@@ -53,7 +53,7 @@ export async function hostGoogle(): Promise<Pick<
   }
 }
 
-/** Whether the setup's key isn't in Orca; no Google here means no key. */
+/** Whether the setup's key isn't in OpenKodo; no Google here means no key. */
 export function keyMissing(
   run: GoogleSetupRun,
   google: Awaited<ReturnType<typeof hostGoogle>>
@@ -61,7 +61,7 @@ export function keyMissing(
   return !google || googleSetupKeyBlocker(run, google) !== null
 }
 
-/** The bot marks client done only once the key reached Orca, so a missed download shows at once. */
+/** The bot marks client done only once the key reached OpenKodo, so a missed download shows at once. */
 export async function refuseClientDoneWithoutKey(
   botId: string,
   run: GoogleSetupRun | null,
@@ -83,7 +83,7 @@ export async function refuseClientDoneWithoutKey(
       applied(botId, 'owner', { action: 'key-missed' })
     }
     throw new InvalidArgumentError(
-      "Orca doesn't have this setup's key, so client isn't done. Your owner's card shows: Make a new key · Import a key file."
+      "OpenKodo doesn't have this setup's key, so client isn't done. Your owner's card shows: Make a new key · Import a key file."
     )
   }
 }
@@ -92,7 +92,7 @@ export async function refuseClientDoneWithoutKey(
 export function requireUnchangedRun(botId: string, checked: GoogleSetupRun | null): void {
   if (checked && googleSetupRuns().get(botId)?.id !== checked.id) {
     throw new InvalidArgumentError(
-      'This Google setup changed while Orca checked it. Run `orca bot google-setup show` and carry on from there.'
+      'This Google setup changed while OpenKodo checked it. Run `orca bot google-setup show` and carry on from there.'
     )
   }
 }

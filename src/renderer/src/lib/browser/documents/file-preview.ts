@@ -20,7 +20,7 @@ import { useAppStore } from '@/store/index'
 import { sshHostWithoutServerMessage } from '../../../../../shared/project/host-setup/project-host-setup-target'
 import { findSiblingGroupId } from '../../../../../shared/workspace-layout/tab-groups/tab-group-layout-tree'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import {
   selectFolderWorkspaces,
   selectWorktreesByRepo
@@ -88,7 +88,7 @@ export function getWorkspaceFilePreviewPlan(
     return webClientDocPreviewRefusal() ?? { status: 'doc-preview' }
   }
   if (connectionId !== null) {
-    // Only an SSH host's Orca server reads its files; a host without one has nothing to preview from.
+    // Only an SSH host's OpenKodo server reads its files; a host without one has nothing to preview from.
     return {
       status: 'unsupported',
       message: sshHostWithoutServerMessage(state.sshTargetLabels.get(connectionId) || connectionId),
@@ -181,7 +181,7 @@ function openDocPreviewTab(
     }
     return
   }
-  state.createBrowserTab(placementWorkspaceId, ORCA_BROWSER_BLANK_URL, {
+  state.createBrowserTab(placementWorkspaceId, OPENKODO_BROWSER_BLANK_URL, {
     docLocation,
     title: basename(params.filePath) || params.filePath,
     ...placement,

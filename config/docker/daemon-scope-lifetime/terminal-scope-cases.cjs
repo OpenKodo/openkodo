@@ -38,7 +38,7 @@ async function startDaemon(bundlePath, nonce, terminals, env = {}, mode = 'candi
     [fixture, 'runtime', resultPath, bundlePath, nonce, 'terminals'],
     {
       stdio: 'inherit',
-      env: { ...process.env, ...env, ORCA_FIXTURE_TERMINALS: JSON.stringify(terminals) }
+      env: { ...process.env, ...env, OPENKODO_FIXTURE_TERMINALS: JSON.stringify(terminals) }
     }
   )
   await new Promise((resolve) => runtime.on('exit', resolve))
@@ -151,7 +151,7 @@ async function ceilingCase(bundlePath, prefix) {
       `while [ ! -f ${r}.go ]; do sleep 0.05; done; for i in 1 2 3 4 5; do sleep 600 & done; ` +
         `echo ok > ${r}.forked; wait`
     ],
-    { ORCA_TERMINAL_PROCESS_CEILING: '64' }
+    { OPENKODO_TERMINAL_PROCESS_CEILING: '64' }
   )
   assert.equal(daemon.ceiling.state, 'on', JSON.stringify(daemon.ceiling))
   const [forkBomb, neighbour] = daemon.scopes

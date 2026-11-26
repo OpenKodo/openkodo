@@ -136,7 +136,7 @@ function lazyWaitText(readWaitText: () => string): () => string {
 
 /** The agent whose paint corroborates a name-only idle: launch authority first, else the title's
  *  agent, the same fallback `nameOnlyIdleNeedsCorroboration` uses. Why: an adopted pane, or a Claude
- *  run through a command Orca does not recognize, is identified by its title alone; without this the
+ *  run through a command OpenKodo does not recognize, is identified by its title alone; without this the
  *  title required corroboration while the paint check fell back to any visible byte, so a printing
  *  preexec hook could still settle it before the composer existed (STA-14925).
  *

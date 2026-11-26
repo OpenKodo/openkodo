@@ -56,13 +56,13 @@ try {
   server.listen(0, '127.0.0.1')
   await once(server, 'listening')
   Object.assign(process.env, {
-    ORCA_BACKGROUND_LAUNCH: '1',
-    ORCA_PANE_KEY: 'completion-proof',
-    ORCA_TAB_ID: 'proof-tab',
-    ORCA_AGENT_HOOK_PORT: String(server.address().port),
-    ORCA_AGENT_HOOK_TOKEN: 'isolated-proof-token',
-    ORCA_AGENT_HOOK_ENDPOINT: '',
-    ORCA_PI_STATUS_OWNED: '',
+    OPENKODO_BACKGROUND_LAUNCH: '1',
+    OPENKODO_PANE_KEY: 'completion-proof',
+    OPENKODO_TAB_ID: 'proof-tab',
+    OPENKODO_AGENT_HOOK_PORT: String(server.address().port),
+    OPENKODO_AGENT_HOOK_TOKEN: 'isolated-proof-token',
+    OPENKODO_AGENT_HOOK_ENDPOINT: '',
+    OPENKODO_PI_STATUS_OWNED: '',
     WSL_DISTRO_NAME: ''
   })
   const handlers = new Map()

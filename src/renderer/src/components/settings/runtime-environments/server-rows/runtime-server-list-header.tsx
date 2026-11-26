@@ -38,7 +38,7 @@ export function RuntimeServerListHeader(): React.JSX.Element {
             aria-haspopup="dialog"
             aria-label={t(
               'auto.components.status.bar.RemoteServerUpdateStatusSegment.updatingTooltip',
-              'Remote Orca Server updates are in progress'
+              'Remote OpenKodo Server updates are in progress'
             )}
             onClick={() => setRemoteServerUpdateDialogOpen(true)}
           >

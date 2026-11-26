@@ -1,5 +1,5 @@
 // A new bot speaks first. When that first turn ends before it says anything (stopped, a crash, a
-// restart), Orca sends it once more the next time the bot's page opens, so a new bot never sits silent.
+// restart), OpenKodo sends it once more the next time the bot's page opens, so a new bot never sits silent.
 import type { AgentJournalSnapshot } from '../../shared/agent-session/journal/agent-session-journal-types'
 import { BOT_CREATED_KICKOFF } from '../../shared/bot-created-kickoff'
 import { botFirstKickoff } from '../../shared/bots/bot-import'
@@ -14,8 +14,8 @@ export function botKickoffFingerprint(sessionId: string, kickoff = BOT_CREATED_K
   })
 }
 
-/** True when the Chat holds Orca's kickoff and nothing that reached the agent from its owner, its turn
- *  has ended (or it was refused), and the bot said nothing. On its own Orca resends it once, only when
+/** True when the Chat holds OpenKodo's kickoff and nothing that reached the agent from its owner, its turn
+ *  has ended (or it was refused), and the bot said nothing. On its own OpenKodo resends it once, only when
  *  the kickoff is all the Chat holds; the owner's Try again (`asked`) resends it whenever that holds. */
 export function kickoffNeedsRetry(
   sessionId: string,

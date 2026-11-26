@@ -7,7 +7,7 @@ import type {
 import type { AgentLaunchPlacementReceipt } from '../../../../shared/agent-launch/contracts/agent-launch-intent'
 import type { AgentLaunchPaneAddress } from '../../../../shared/agent-launch/contracts/agent-launch-pane-verdict'
 import { parseExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { RuntimePtyWorktreeRecord } from '../../terminal/records/runtime-terminal-state-records'
 import type { TerminalIdentityReadContext } from '../../terminal/query/terminal-identity-read-context'
 
@@ -33,7 +33,7 @@ export abstract class OrcaRuntimeWithMainLayoutAgentLaunchTabs extends OrcaRunti
   hasLiveTerminalForPaneKey(paneKey: string, context?: TerminalIdentityReadContext): boolean {
     const pty = this.getPtyRecordForPaneKey(paneKey, context)
     // Main's bound terminal may survive listing gaps; only certified exit frees its pane.
-    return ORCA_LAYOUT_OWNER_IS_MAIN
+    return OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? !!pty && this.getPtyLivenessVerdict(pty.ptyId)?.status !== 'exited'
       : pty?.connected === true
   }

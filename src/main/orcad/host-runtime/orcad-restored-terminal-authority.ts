@@ -1,4 +1,4 @@
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
 import type { OrcadFeatureReadiness } from '../../runtime/rpc/startup/orcad-readiness'
 import { placeUnshownLiveTerminalsBestEffort } from '../../runtime/terminal/adoption/unshown-live-terminal-placement'
@@ -16,7 +16,7 @@ export async function restoreOrcadTerminalAuthority(
   await timed('reconcile-terminals', () => runtime.reconcileLegacyWorkerTerminals())
   // Off the critical path: it waits for chat continuations and reports what they left.
   void runtime.reportWorkerStopsAcrossRestartOnce()
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     await placeUnshownLiveTerminalsBestEffort(runtime)
   }
   readiness.open('unshownPlacement')

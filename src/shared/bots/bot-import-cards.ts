@@ -24,7 +24,7 @@ export const BotImportPlanItemSchema = z.object({
   why: line(240)
 })
 
-/** What the bot writes for `bot import plan`; Orca adds the bot. */
+/** What the bot writes for `bot import plan`; OpenKodo adds the bot. */
 export const BotImportPlanInputSchema = z.object({
   /** The old app, as the owner knows it: "OpenClaw". */
   app: line(60),

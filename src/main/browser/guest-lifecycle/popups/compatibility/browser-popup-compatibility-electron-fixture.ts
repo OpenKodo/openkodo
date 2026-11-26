@@ -22,9 +22,9 @@ import type {
   BrowserRoutePageGuestIdentity
 } from '../../../routing/guest-authority/browser-route-page-authority'
 
-const origin = process.env.ORCA_POPUP_FIXTURE_ORIGIN
-const statusPath = process.env.ORCA_POPUP_FIXTURE_STATUS
-if (!origin || !statusPath || process.env.ORCA_BACKGROUND_LAUNCH !== '1') {
+const origin = process.env.OPENKODO_POPUP_FIXTURE_ORIGIN
+const statusPath = process.env.OPENKODO_POPUP_FIXTURE_STATUS
+if (!origin || !statusPath || process.env.OPENKODO_BACKGROUND_LAUNCH !== '1') {
   throw new Error('Popup fixture requires synthetic origin, status path and background launch')
 }
 const fixtureOrigin = origin
@@ -251,7 +251,7 @@ async function run(): Promise<void> {
   phase = 'local'
   writeStatus()
   await createHost('route', routePartition)
-  if (process.env.ORCA_POPUP_FIXTURE_NATIVE_CONTROLS === '1') {
+  if (process.env.OPENKODO_POPUP_FIXTURE_NATIVE_CONTROLS === '1') {
     await createHost('local-control', localPartition, true)
     await createHost('route-control', routePartition, true)
   }

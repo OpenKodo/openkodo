@@ -97,7 +97,7 @@ export function resolveStructuredAgentCommand(
     // WSL PATH may contain drive-mounted Windows shims after native entries.
     const command = stock.command ?? agent
     const resolved = resolveGuestNativeProgram(command, options, stock.resolve)
-    // The user's own install wins; Orca's copy serves hosts that have none, where it may run.
+    // The user's own install wins; OpenKodo's copy serves hosts that have none, where it may run.
     const managed =
       stock.managedCopy !== false && (resolved === null || !isAbsolute(resolved))
         ? managedAgentCommandFor(agent, command)
@@ -105,7 +105,7 @@ export function resolveStructuredAgentCommand(
     if (managed) {
       return { command: managed, prefixArgs: [] }
     }
-    // Orca's copy, reached through a PATH an Orca terminal passed on, may not run either.
+    // OpenKodo's copy, reached through a PATH an OpenKodo terminal passed on, may not run either.
     if (
       stock.managedCopy === false &&
       resolved !== null &&
@@ -136,7 +136,7 @@ export function resolveStructuredAgentCommand(
     throw plan
       ? withProviderDiagnostic(
           refusal,
-          providerDiagnostic(`'${plan.program}' isn't a program Orca can find`, 'person')
+          providerDiagnostic(`'${plan.program}' isn't a program OpenKodo can find`, 'person')
         )
       : refusal
   }

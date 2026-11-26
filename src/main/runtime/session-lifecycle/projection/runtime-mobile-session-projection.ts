@@ -28,7 +28,7 @@ import {
   getPtyDisplayRecord,
   terminalTitleBlocksExplicitAgentStatus
 } from '../../workspaces/process-listing/runtime-worktree-status-projection'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { projectRuntimeMobileSessionTitle } from './runtime-mobile-session-title-projection'
 
 export function projectRuntimeMobileSessionTabs(
@@ -74,7 +74,7 @@ export function projectRuntimeMobileSessionTabs(
         ...tab,
         title: liveTab?.title || tab.title,
         url: liveTab?.url || tab.url,
-        // Bridge active means BrowserView/webContents, not Orca tab; retain renderer session focus.
+        // Bridge active means BrowserView/webContents, not OpenKodo tab; retain renderer session focus.
         isActive: tab.isActive
       })
       continue
@@ -260,7 +260,7 @@ export function projectRuntimeMobileSessionTabs(
       resolvedHostProjection ??
       host.buildPtyStatus(
         // Main layout supplies the live pane leaf whose terminal owns status.
-        ORCA_LAYOUT_OWNER_IS_MAIN ? (liveLeafPty ?? mobileStatusPty) : mobileStatusPty,
+        OPENKODO_LAYOUT_OWNER_IS_MAIN ? (liveLeafPty ?? mobileStatusPty) : mobileStatusPty,
         tab,
         terminalHandle,
         retainedAgentStatus,

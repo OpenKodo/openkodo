@@ -1,5 +1,5 @@
 // Tidy-up as operations: the run sees MEMORY.md as numbered, hashed lines and replies with what to do
-// to them, which Orca checks one by one against that snapshot. A bad op is skipped, never the run.
+// to them, which OpenKodo checks one by one against that snapshot. A bad op is skipped, never the run.
 import { createHash } from 'node:crypto'
 import * as z from 'zod'
 import {
@@ -168,7 +168,7 @@ export function checkTidyUpOps(
     if (op.op === 'demote') {
       const topic = op.topic.trim()
       if (topic === TIDY_UP_ARCHIVE || !TIDY_UP_TOPIC_NAME.test(topic)) {
-        return 'names a topic Orca can\u2019t write'
+        return 'names a topic OpenKodo can\u2019t write'
       }
       let lines: MemorySnapshotLine[]
       if (op.range) {
@@ -242,7 +242,7 @@ export function checkTidyUpOps(
   }
   ops.forEach((raw, index) => {
     const parsed = OpSchema.safeParse(raw)
-    const why = parsed.success ? apply(parsed.data) : 'is not an op Orca knows'
+    const why = parsed.success ? apply(parsed.data) : 'is not an op OpenKodo knows'
     if (why) {
       const name = parsed.success ? parsed.data.op : 'op'
       skipped.push(`${name} ${index + 1}: ${why}`)

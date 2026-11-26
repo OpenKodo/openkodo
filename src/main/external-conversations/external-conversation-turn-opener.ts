@@ -54,11 +54,11 @@ export async function readEndedChatTurnOpener(
   return rows ? endedChatTurnOpener(rows, turnId) : undefined
 }
 
-/** Mail a turn opens as its conversation's own ask, as Orca proved when it delivered it: reports to
+/** Mail a turn opens as its conversation's own ask, as OpenKodo proved when it delivered it: reports to
  *  the Run the chat coordinates from workers its conversation's turns started, and answers to requests
  *  those turns sent other bots, the owner's answers to item questions those turns asked, and the runs
  *  of waits those turns made. Any other mail (another bot's own mail, other item mail, a worker an
- *  Orca-raised turn started) answers in Orca. */
+ *  OpenKodo-raised turn started) answers in OpenKodo. */
 export function isConversationReport(body: AgentJournalRenderItem['body']): boolean {
   if (body.kind !== 'message') {
     return false
@@ -72,7 +72,7 @@ export function isConversationReport(body: AgentJournalRenderItem['body']): bool
   }
   const notice = orchestrationMailNotice(body.from)
   const senders = body.from?.senders ?? []
-  // Only senders Orca proved; unknown lineage is any other chat's mail.
+  // Only senders OpenKodo proved; unknown lineage is any other chat's mail.
   return Boolean(
     notice &&
     senders.length > 0 &&

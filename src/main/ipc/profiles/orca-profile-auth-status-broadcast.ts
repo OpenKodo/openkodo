@@ -1,7 +1,7 @@
 import { BrowserWindow } from 'electron'
 import {
-  ORCA_PROFILE_AUTH_STATUS_CHANGED_CHANNEL,
-  ORCA_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL,
+  OPENKODO_PROFILE_AUTH_STATUS_CHANGED_CHANNEL,
+  OPENKODO_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL,
   type OrcaCloudSignInProgress
 } from '../../../shared/orca-profiles/orca-profiles'
 import {
@@ -23,7 +23,7 @@ function broadcast(channel: string, ...args: unknown[]): void {
 }
 
 export function broadcastOrcaProfileAuthStatusChanged(): void {
-  broadcast(ORCA_PROFILE_AUTH_STATUS_CHANGED_CHANNEL)
+  broadcast(OPENKODO_PROFILE_AUTH_STATUS_CHANGED_CHANNEL)
 }
 
 export function broadcastTeamPolicyChanges(): void {
@@ -44,5 +44,5 @@ export function broadcastTeamPolicyChanges(): void {
 export function broadcastOrcaProfileSignInProgressChanged(
   progress: OrcaCloudSignInProgress | null
 ): void {
-  broadcast(ORCA_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL, progress)
+  broadcast(OPENKODO_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL, progress)
 }

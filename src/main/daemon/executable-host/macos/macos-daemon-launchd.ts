@@ -63,8 +63,8 @@ function buildMacDaemonLaunchJob(
 ): Record<string, unknown> {
   const env: NodeJS.ProcessEnv = {
     ...process.env,
-    ORCA_USER_DATA_PATH: options.userDataPath,
-    ORCA_PROVIDER_HOST: '1'
+    OPENKODO_USER_DATA_PATH: options.userDataPath,
+    OPENKODO_PROVIDER_HOST: '1'
   }
   // Plain Node does not use Electron’s Node-mode switch or inherited IPC descriptors.
   delete env.ELECTRON_RUN_AS_NODE
@@ -84,7 +84,7 @@ function buildMacDaemonLaunchJob(
     RunAtLoad: true,
     KeepAlive: false,
     AbandonProcessGroup: true,
-    // Associate plist-launched jobs with Orca for Local Network access.
+    // Associate plist-launched jobs with OpenKodo for Local Network access.
     AssociatedBundleIdentifiers: [LOCAL_BUILD_COMPATIBILITY_CONTRACT.appId],
     ProcessType: 'Interactive',
     // launchd disables cloud-file downloads for jobs unless asked; shells need them like Terminal.app.

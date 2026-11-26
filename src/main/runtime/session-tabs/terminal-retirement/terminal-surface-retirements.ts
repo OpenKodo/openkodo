@@ -6,7 +6,7 @@ import {
   LOCAL_EXECUTION_HOST_ID,
   parseExecutionHostId
 } from '../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { keepsExitedPane } from '../../terminal/lifecycle/exited-split-pane-layout-close'
 import type { ExitedSplitPaneFacts } from '../../terminal/lifecycle/exited-split-pane-rule'
 import {
@@ -46,7 +46,7 @@ export abstract class OrcaRuntimeWithPersistTerminalSurfaceRetirements extends O
       }
       // Main retains exited panes matching window retention rules; retire all others normally.
       if (
-        ORCA_LAYOUT_OWNER_IS_MAIN &&
+        OPENKODO_LAYOUT_OWNER_IS_MAIN &&
         exit &&
         parseExecutionHostId(hostId)?.kind !== 'runtime' &&
         keepsExitedPane(current, surface, exit)

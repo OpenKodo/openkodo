@@ -103,8 +103,8 @@ async function waitFor(description, probe, timeoutMs = 30_000) {
 }
 
 function parseEndpoint(contents) {
-  const port = Number(/ORCA_AGENT_HOOK_PORT=['"]?(\d+)/.exec(contents)?.[1])
-  const token = /ORCA_AGENT_HOOK_TOKEN=['"]?([^'"\r\n]+)/.exec(contents)?.[1]
+  const port = Number(/OPENKODO_AGENT_HOOK_PORT=['"]?(\d+)/.exec(contents)?.[1])
+  const token = /OPENKODO_AGENT_HOOK_TOKEN=['"]?([^'"\r\n]+)/.exec(contents)?.[1]
   return Number.isInteger(port) && port > 0 && token ? { port, token } : null
 }
 
@@ -169,10 +169,10 @@ async function startStallingGuestServer(distro) {
 
 async function writeEndpoint(distro, path, endpoint) {
   const contents = [
-    `ORCA_AGENT_HOOK_PORT=${endpoint.port}`,
-    `ORCA_AGENT_HOOK_TOKEN=${endpoint.token}`,
-    'ORCA_AGENT_HOOK_ENV=benchmark',
-    'ORCA_AGENT_HOOK_VERSION=1',
+    `OPENKODO_AGENT_HOOK_PORT=${endpoint.port}`,
+    `OPENKODO_AGENT_HOOK_TOKEN=${endpoint.token}`,
+    'OPENKODO_AGENT_HOOK_ENV=benchmark',
+    'OPENKODO_AGENT_HOOK_VERSION=1',
     ''
   ].join('\n')
   await run(
@@ -195,10 +195,10 @@ async function invokeHook(distro, scriptPath, endpointPath) {
     wslArgs(distro, [
       '/usr/bin/env',
       `PATH=${WSL_PATH}`,
-      `ORCA_AGENT_HOOK_ENDPOINT=${endpointPath}`,
-      `ORCA_PANE_KEY=${PANE_KEY}`,
-      'ORCA_TAB_ID=wsl-relay-bench',
-      'ORCA_WORKTREE_ID=wsl-relay-bench',
+      `OPENKODO_AGENT_HOOK_ENDPOINT=${endpointPath}`,
+      `OPENKODO_PANE_KEY=${PANE_KEY}`,
+      'OPENKODO_TAB_ID=wsl-relay-bench',
+      'OPENKODO_WORKTREE_ID=wsl-relay-bench',
       '/bin/sh',
       scriptPath
     ]),
@@ -296,7 +296,7 @@ async function main() {
   let staller = null
   try {
     userDataDir = mkdtempSync(join(tmpdir(), 'orca-wsl-relay-bench-'))
-    process.env.ORCA_USER_DATA_PATH = userDataDir
+    process.env.OPENKODO_USER_DATA_PATH = userDataDir
     const jiti = createJiti(import.meta.url, {
       alias: {
         electron: fileURLToPath(
@@ -402,10 +402,10 @@ async function main() {
         platform: () => 'win32',
         remoteHooksEnabled: () => true,
         hookCoordsEnv: () => ({
-          ORCA_AGENT_HOOK_PORT: String(preferredPort),
-          ORCA_AGENT_HOOK_TOKEN: token,
-          ORCA_AGENT_HOOK_ENV: 'benchmark',
-          ORCA_AGENT_HOOK_VERSION: '1'
+          OPENKODO_AGENT_HOOK_PORT: String(preferredPort),
+          OPENKODO_AGENT_HOOK_TOKEN: token,
+          OPENKODO_AGENT_HOOK_ENV: 'benchmark',
+          OPENKODO_AGENT_HOOK_VERSION: '1'
         }),
         instanceKey: () => instanceKey,
         resolveBundle: () => ({ jsPath: bundlePath, version: bundleVersion }),

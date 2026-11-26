@@ -197,7 +197,7 @@ async function waitUntil(timeoutMs: number, done: () => Promise<boolean>): Promi
   return false
 }
 
-// Claude hands BROWSER the page; this writes it where Orca reads it and opens nothing.
+// Claude hands BROWSER the page; this writes it where OpenKodo reads it and opens nothing.
 const LINK_HELPER = `#!/bin/sh\nprintf '%s' "$1" > "$0.tmp" && mv "$0.tmp" "$0.link"\n`
 
 /** `claude mcp login` needs a terminal; it waits on its own localhost callback until the browser returns. */

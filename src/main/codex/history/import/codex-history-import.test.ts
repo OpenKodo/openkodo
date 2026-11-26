@@ -104,7 +104,7 @@ describe('importCodexHistory', () => {
     expect(statSync(copy).ino).not.toBe(statSync(imported).ino)
     expect(readFileSync(copy, 'utf8')).toBe('new\n')
     expect(statSync(copy).mtimeMs).toBe(sourceTime.getTime())
-    appendFileSync(copy, 'continued in Orca\n')
+    appendFileSync(copy, 'continued in OpenKodo\n')
     expect(readFileSync(imported, 'utf8')).toBe('new\n')
     expect(readFileSync(join(storeHome, 'archived_sessions', ARCHIVED), 'utf8')).toBe('archived\n')
     expect(readFileSync(join(storeHome, DAY, TAKEN), 'utf8')).toBe('store copy\n')
@@ -120,7 +120,7 @@ describe('importCodexHistory', () => {
     expect(await run()).toBe(1)
 
     rmSync(join(storeHome, DAY, NEW))
-    // Codex outside Orca archives it in the import folder, then compresses it.
+    // Codex outside OpenKodo archives it in the import folder, then compresses it.
     renameSync(join(importHome, DAY, NEW), join(importHome, 'archived_sessions', `${NEW}.zst`))
     writeFileSync(join(importHome, DAY, LATER), 'later\n')
     // Any mtime other than the one recorded marks the folders changed.

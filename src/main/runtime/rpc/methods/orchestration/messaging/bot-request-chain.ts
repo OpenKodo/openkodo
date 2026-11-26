@@ -13,7 +13,7 @@ export type BotRequestChain = {
   turnKey: string | null
 }
 
-/** Read from Orca's records of the waking requests, never from the sender's text. */
+/** Read from OpenKodo's records of the waking requests, never from the sender's text. */
 export function botRequestChain(
   db: OrchestrationDb,
   sessionId: string | null,

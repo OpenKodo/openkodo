@@ -83,7 +83,7 @@ export function beginOrcaCloudPkceFlow(
       failed: 'orca_cloud_auth_callback_failed'
     },
     read: (url) => {
-      const invalid = { kind: 'stray', message: 'Invalid Orca sign-in response.' } as const
+      const invalid = { kind: 'stray', message: 'Invalid OpenKodo sign-in response.' } as const
       // Stray loopback probes must not cancel the user’s login.
       if (url.searchParams.get('state') !== state) {
         return invalid
@@ -93,8 +93,8 @@ export function beginOrcaCloudPkceFlow(
         return {
           kind: 'reject',
           message: cancelled
-            ? 'Orca sign-in was cancelled.'
-            : 'Orca sign-in failed. Return to Orca and try again.',
+            ? 'OpenKodo sign-in was cancelled.'
+            : 'OpenKodo sign-in failed. Return to OpenKodo and try again.',
           error: new Error(cancelled ? 'orca_cloud_auth_denied' : 'orca_cloud_auth_callback_failed')
         }
       }

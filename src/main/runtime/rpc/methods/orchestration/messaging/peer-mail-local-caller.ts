@@ -5,7 +5,7 @@ import { OrchestrationError } from '../../../../orchestration/orchestration-erro
 
 const NOTHING_SENT = { effectsApplied: false } as const
 
-/** The agent on this Orca that mail sent elsewhere answers to: a chat by its session, a terminal by its live pane. */
+/** The agent on this OpenKodo that mail sent elsewhere answers to: a chat by its session, a terminal by its live pane. */
 export function peerMailLocalCaller(args: {
   runtime: OrcaRuntimeService
   from: string | undefined
@@ -22,14 +22,14 @@ export function peerMailLocalCaller(args: {
   if (!args.from || !paneKey) {
     throw new OrchestrationError(
       'invalid_argument',
-      'Mail to another computer needs a terminal or chat agent on this Orca to receive the replies. Run it from that agent. Nothing was sent.',
+      'Mail to another computer needs a terminal or chat agent on this OpenKodo to receive the replies. Run it from that agent. Nothing was sent.',
       NOTHING_SENT
     )
   }
   if (args.runtime.getOrchestrationDb().findActiveRemoteAttachmentForPane(paneKey)) {
     throw new OrchestrationError(
       'invalid_argument',
-      "This terminal is a worker for another Orca's Run; its mail goes to that Run's coordinator, not to other servers. Nothing was sent.",
+      "This terminal is a worker for another OpenKodo's Run; its mail goes to that Run's coordinator, not to other servers. Nothing was sent.",
       NOTHING_SENT
     )
   }

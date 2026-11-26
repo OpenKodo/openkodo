@@ -1,4 +1,4 @@
-// Orca's own installed copies of agent CLIs count as installed agents on this host. The runtime
+// OpenKodo's own installed copies of agent CLIs count as installed agents on this host. The runtime
 // that installs them says which, so detection stays free of the installers' dependencies.
 
 let installedManagedAgents: () => Promise<readonly string[]> = async () => []
@@ -7,7 +7,7 @@ export function provideInstalledManagedAgents(read: () => Promise<readonly strin
   installedManagedAgents = read
 }
 
-/** The agents whose Orca copy is installed here and may run; never blocks on the disk. */
+/** The agents whose OpenKodo copy is installed here and may run; never blocks on the disk. */
 export function readInstalledManagedAgents(): Promise<readonly string[]> {
   return installedManagedAgents()
 }

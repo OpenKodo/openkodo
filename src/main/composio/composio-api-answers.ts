@@ -1,4 +1,4 @@
-// Composio's answers as Orca reads them: the shapes it checks, and how each becomes Orca's own type.
+// Composio's answers as OpenKodo reads them: the shapes it checks, and how each becomes OpenKodo's own type.
 import { z } from 'zod'
 import type {
   ComposioApp,
@@ -10,7 +10,7 @@ import { composioAppLine } from '../../shared/composio/composio-curated-apps'
 
 export const TRIGGER_EVENT = 'composio.trigger.message'
 export const EXPIRED_EVENT = 'composio.connected_account.expired'
-/** What the project sends Orca: trigger events, and sign-ins that expired so the bot's owner can
+/** What the project sends OpenKodo: trigger events, and sign-ins that expired so the bot's owner can
  *  reconnect them. */
 export const COMPOSIO_EVENTS = [TRIGGER_EVENT, EXPIRED_EVENT]
 

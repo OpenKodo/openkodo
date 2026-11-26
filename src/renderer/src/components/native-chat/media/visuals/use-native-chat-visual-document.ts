@@ -1,6 +1,6 @@
 import { useNativeChatPaneLifetimeEffect } from '../../pane/ownership/native-chat-pane-lifetime'
 import { useCallback, useState } from 'react'
-import { ORCA_EDITOR_FILE_SAVED_EVENT } from '@/components/editor/autosave/editor-autosave'
+import { OPENKODO_EDITOR_FILE_SAVED_EVENT } from '@/components/editor/autosave/editor-autosave'
 import { editorSavedEventView } from '@/components/editor/save/commands/editor-saved-event-view'
 import { getRuntimeTargetForFileOwner } from '@/lib/files/access/file-owner-runtime-target'
 import { useAppStore } from '@/store'
@@ -99,8 +99,8 @@ function useEditorSavesOf(target: RuntimeClientTarget, path: string | null): num
           setSaves((count) => count + 1)
         }
       }
-      window.addEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, onSaved)
-      return () => window.removeEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, onSaved)
+      window.addEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, onSaved)
+      return () => window.removeEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, onSaved)
     }, [environmentId, path])
   )
   return saves

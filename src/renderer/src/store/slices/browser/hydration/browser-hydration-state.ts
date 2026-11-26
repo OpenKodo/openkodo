@@ -3,9 +3,9 @@ import type {
   BrowserWorkspace
 } from '../../../../../../shared/browser/workspaces/browser-workspace-types'
 import { createNonSecureContextUuid as createBrowserUuid } from '../../../../../../shared/identifiers/non-secure-context-uuid'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import '../../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import type {
   PersistedBrowserPage,
   WorkspaceSessionState
@@ -57,8 +57,9 @@ export function projectHydratedBrowserSession(
             {
               // Switch point: a frame names the page before its record lands; keep that id stable.
               id:
-                (ORCA_LAYOUT_OWNER_IS_MAIN ? (tab.activePageId ?? tab.pageIds?.[0]) : undefined) ??
-                createBrowserUuid(),
+                (OPENKODO_LAYOUT_OWNER_IS_MAIN
+                  ? (tab.activePageId ?? tab.pageIds?.[0])
+                  : undefined) ?? createBrowserUuid(),
               workspaceId: tab.id,
               worktreeId,
               url: normalizeUrl(tab.url),
@@ -88,7 +89,7 @@ export function projectHydratedBrowserSession(
           workspaceId: tab.id,
           worktreeId,
           // Reassert creation’s URL fence for old/handwritten sessions; persisted grants died with their originating process.
-          url: page.docLocation ? ORCA_BROWSER_BLANK_URL : normalizeUrl(page.url),
+          url: page.docLocation ? OPENKODO_BROWSER_BLANK_URL : normalizeUrl(page.url),
           loading: false,
           loadError: page.loadError ?? null
         }

@@ -12,7 +12,7 @@ import { requestPluginInstallCounts } from '@/store/plugins/installation/plugin-
 import { useAppStore } from '@/store/index'
 import {
   getOrcaCloudTeamCapabilities,
-  ORCA_CLOUD_TEAM_POLICY_FLAGS as flags
+  OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags
 } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
 
 /** A plugin page's manifest read; a failure means nothing is known, not "nothing needed". */

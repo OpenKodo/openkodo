@@ -60,7 +60,7 @@ export async function startWatcherDeliveryCanary(
   getActivity: () => WatcherCanaryActivity,
   onHealthChange: (health: WatcherDeliveryHealth) => void = () => undefined
 ): Promise<void> {
-  const configuredCanaryDir = process.env.ORCA_WATCHER_CANARY_DIR
+  const configuredCanaryDir = process.env.OPENKODO_WATCHER_CANARY_DIR
   let canaryDir: string
   let lastEventAt = 0
   try {

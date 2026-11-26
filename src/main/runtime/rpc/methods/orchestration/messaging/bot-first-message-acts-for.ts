@@ -5,7 +5,7 @@ import type { JournalSqlReads } from '../../../../../native-chat/agent-session-j
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import { botRequestRecord } from './bot-request-record'
 
-/** Whom a conversation Orca has no record for acts for, by its first message; null before any.
+/** Whom a conversation OpenKodo has no record for acts for, by its first message; null before any.
  *  `reads` are its /clear root's: a cleared chat reads its root's. Reads only. */
 export async function readFirstMessageActsFor(
   db: OrchestrationDb,

@@ -1,7 +1,7 @@
-// Orca's own sign-in to a bot's app, as a client sees it: state only, never a token or a URL query.
+// OpenKodo's own sign-in to a bot's app, as a client sees it: state only, never a token or a URL query.
 import { englishTranslate, type CopyTranslate } from './i18n/english-translate'
 
-/** A tool row's sign-in. Present only on tools Orca signs in to; any other tool has none. */
+/** A tool row's sign-in. Present only on tools OpenKodo signs in to; any other tool has none. */
 export type BotToolSignInStatus =
   /** `limited`: the app gave no refresh token, so it works until its token expires. */
   | { state: 'signed-in'; limited: boolean }
@@ -16,9 +16,9 @@ export type BotToolSignInProblem = 'unsupported' | 'unreachable'
 export type BotToolAuthKind =
   /** It answered MCP without a sign-in and names no authorization server. */
   | 'none'
-  /** Orca signs in to it. */
+  /** OpenKodo signs in to it. */
   | 'oauth'
-  /** It needs a sign-in Orca can't make yet (no dynamic registration). */
+  /** It needs a sign-in OpenKodo can't make yet (no dynamic registration). */
   | 'unsupported'
   /** No answer to decide on; try again. */
   | 'unavailable'
@@ -33,7 +33,7 @@ export type BotToolSignInFailure =
   | 'issuer-mismatch'
   | 'refused'
   | 'superseded'
-  /** Started from a phone or the web: v1 signs in only from Orca on the bot's computer. */
+  /** Started from a phone or the web: v1 signs in only from OpenKodo on the bot's computer. */
   | 'desktop-only'
 
 /** A Connect in progress, as `bots.tools.signInStatus` reports it. */
@@ -78,7 +78,9 @@ export function botToolSignInFailureWords(
     case 'no-tool':
       return t('bots.tools.signInFailure.noTool', 'This bot no longer has that tool.')
     case 'desktop-only':
-      return t('bots.tools.signInFailure.desktopOnly', 'Sign in from Orca on {{host}}.', { host })
+      return t('bots.tools.signInFailure.desktopOnly', 'Sign in from OpenKodo on {{host}}.', {
+        host
+      })
     case 'denied':
       return t('bots.tools.signInFailure.denied', 'Access wasn’t allowed.')
     case 'expired':

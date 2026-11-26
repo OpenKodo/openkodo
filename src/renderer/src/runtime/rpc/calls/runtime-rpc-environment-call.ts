@@ -15,9 +15,9 @@ async function callRuntimeEnvironmentOnce(args: {
   signal?: AbortSignal
   expectedEnvironmentPairingRevision?: number
   expectedEnvironmentRuntimeId?: string
-  /** A poll, not the user: no use of an idle WSL host, never a wake of one Orca stopped idle. */
+  /** A poll, not the user: no use of an idle WSL host, never a wake of one OpenKodo stopped idle. */
   background?: boolean
-  /** The user asked for it: it may wake a WSL host Orca stopped idle. */
+  /** The user asked for it: it may wake a WSL host OpenKodo stopped idle. */
   wake?: boolean
 }): Promise<unknown> {
   if (args.signal) {

@@ -215,7 +215,7 @@ export const googleNoAccount = defineFixture({
   render: () => <GoogleOffer bot={inbox} />
 })
 
-// A computer on an Orca too old to keep a default: today's one button, nothing to add.
+// A computer on an OpenKodo too old to keep a default: today's one button, nothing to add.
 export const googleOldHost = defineFixture({
   width: 640,
   setup: () => stubGoogle(inbox, { ...signedIn, defaultAccount: undefined }),

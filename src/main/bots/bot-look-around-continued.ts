@@ -1,4 +1,4 @@
-// A look its usage limit stopped finishes when its session is continued (by Orca at the reset, or
+// A look its usage limit stopped finishes when its session is continued (by OpenKodo at the reset, or
 // by the owner): the turn that succeeds there records the look as done, with what it suggested.
 import type { AgentSessionTurnCompletionEvent } from '../../shared/agent-session/view/agent-session-turn-completion-wire'
 import type { BotLookAroundStore } from './bot-look-around-store'

@@ -83,7 +83,7 @@ async function runRedeploy(
     deps.publish(target, environmentId, 'settled', note)
     return reason === 'updated'
   } catch (error) {
-    console.warn('[ssh] Could not redeploy a stopped managed Orca server:', error)
+    console.warn('[ssh] Could not redeploy a stopped managed OpenKodo server:', error)
     return false
   }
 }

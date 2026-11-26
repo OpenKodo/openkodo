@@ -3,7 +3,7 @@ import type { PendingPrompt } from './agent-status/contracts/agent-pending-promp
 
 /** Who raised a bot link's prompt, sent only to a cloud that lists prompts.audience. 'conversation':
  *  the turn its conversation asked for; 'orca': anything else, which that cloud masks in a shared
- *  place. wokenBy: with 'orca', who woke the turn. open: the chat, and its item, an Orca link opens. */
+ *  place. wokenBy: with 'orca', who woke the turn. open: the chat, and its item, an OpenKodo link opens. */
 export type ConnectorPromptAudience = {
   raisedBy?: 'conversation' | 'orca'
   wokenBy?: string

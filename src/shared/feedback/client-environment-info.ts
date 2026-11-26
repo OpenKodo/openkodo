@@ -9,7 +9,7 @@ export type ClientEnvironmentInfo = {
 }
 
 const FOOTER_MARKER = '---'
-const ORCA_LINE_PREFIX = 'Orca:'
+const OPENKODO_LINE_PREFIX = 'OpenKodo:'
 
 // Strip the whole prefilled footer including optional Shell while retaining user-authored text above and below it.
 const CLIENT_ENVIRONMENT_FOOTER_BLOCK =
@@ -25,7 +25,7 @@ export function formatClientEnvironmentInfo(info: ClientEnvironmentInfo): string
   const osRelease = normalizeEnvironmentValue(info.osRelease)
   const arch = normalizeEnvironmentValue(info.arch)
   const osParts = [platform, osRelease, arch ? `(${arch})` : ''].filter(Boolean)
-  const lines = [`${ORCA_LINE_PREFIX} ${version}`, `OS: ${osParts.join(' ')}`]
+  const lines = [`${OPENKODO_LINE_PREFIX} ${version}`, `OS: ${osParts.join(' ')}`]
   const shell = info.shell ? normalizeEnvironmentValue(info.shell) : ''
   if (shell) {
     lines.push(`Shell: ${shell}`)

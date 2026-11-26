@@ -105,7 +105,7 @@ export const needsFixing = defineFixture({
   render: () => <Settings />
 })
 
-// A server on an Orca too old to keep a default: no add, no Set as default.
+// A server on an OpenKodo too old to keep a default: no add, no Set as default.
 export const oldHost = defineFixture({
   width: 720,
   setup: () => stubGoogle({ ...host, accounts: [work], defaultAccount: undefined }),

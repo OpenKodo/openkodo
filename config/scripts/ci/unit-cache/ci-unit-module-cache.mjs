@@ -201,15 +201,15 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     try {
       const identity = await resolveModuleCacheIdentity({
         shard: {
-          index: Number(process.env.ORCA_UNIT_SHARD_INDEX),
-          count: Number(process.env.ORCA_UNIT_SHARD_COUNT)
+          index: Number(process.env.OPENKODO_UNIT_SHARD_INDEX),
+          count: Number(process.env.OPENKODO_UNIT_SHARD_COUNT)
         },
-        namespace: process.env.ORCA_UNIT_CACHE_NAMESPACE ?? ''
+        namespace: process.env.OPENKODO_UNIT_CACHE_NAMESPACE ?? ''
       })
       writeAssignment(IDENTITY_REPORT, identity)
       output({ key: identity.key, path: identity.path })
       if (process.env.GITHUB_ENV) {
-        appendFileSync(process.env.GITHUB_ENV, `ORCA_UNIT_MODULE_CACHE_PATH=${identity.path}\n`)
+        appendFileSync(process.env.GITHUB_ENV, `OPENKODO_UNIT_MODULE_CACHE_PATH=${identity.path}\n`)
       }
     } catch (error) {
       console.warn(`Unit module cache unavailable: ${String(error)}`)
@@ -218,26 +218,26 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const identity = JSON.parse(readFileSync(IDENTITY_REPORT, 'utf8'))
     if (phase === 'prepare') {
       const result = await prepareModuleCache(identity, {
-        restoreHit: process.env.ORCA_UNIT_CACHE_RESTORE_HIT === 'true'
+        restoreHit: process.env.OPENKODO_UNIT_CACHE_RESTORE_HIT === 'true'
       })
       if (
         !result.available &&
-        process.env.ORCA_UNIT_CACHE_MODE === 'warm' &&
+        process.env.OPENKODO_UNIT_CACHE_MODE === 'warm' &&
         process.env.GITHUB_ENV
       ) {
-        appendFileSync(process.env.GITHUB_ENV, 'ORCA_UNIT_MODULE_CACHE_PATH=\n')
+        appendFileSync(process.env.GITHUB_ENV, 'OPENKODO_UNIT_MODULE_CACHE_PATH=\n')
       }
       writeAssignment(CACHE_REPORT, { key: identity.key, mode: 'restore', ...result })
       console.log(JSON.stringify(result))
     } else if (phase === 'seal') {
       try {
         const result = await finishModuleCache(identity, {
-          sourceSha: process.env.ORCA_SHARD_SOURCE_SHA ?? process.env.GITHUB_SHA
+          sourceSha: process.env.OPENKODO_SHARD_SOURCE_SHA ?? process.env.GITHUB_SHA
         })
         const previous = JSON.parse(readFileSync(CACHE_REPORT, 'utf8'))
         writeAssignment(CACHE_REPORT, { ...previous, produced: result })
         // The repository shares one 10 GB cache; a runaway shard must not evict dependency caches.
-        const maxBytes = Number(process.env.ORCA_UNIT_CACHE_MAX_BYTES ?? 250e6)
+        const maxBytes = Number(process.env.OPENKODO_UNIT_CACHE_MAX_BYTES ?? 250e6)
         if (result.bytes > maxBytes) {
           throw new Error(`${result.bytes} bytes exceeds the ${maxBytes}-byte shard cap`)
         }

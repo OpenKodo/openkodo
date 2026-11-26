@@ -1,7 +1,7 @@
 // Whether a bot's running turn may leave its Slack thread (`orca bot reply --leave-thread`): read
-// from Orca's own record of that turn, never the model's say-so. Only the turn now running counts,
+// from OpenKodo's own record of that turn, never the model's say-so. Only the turn now running counts,
 // never an earlier one a worker's report would read back to, and every message it took must be a
-// person who can ask the bot in this thread, or the owner typing in Orca.
+// person who can ask the bot in this thread, or the owner typing in OpenKodo.
 import type {
   AgentJournalRenderItem,
   AgentJournalSubmission
@@ -12,7 +12,7 @@ import { isRootTurnRecord, turnMessages } from './bot-turn-messages'
 import { askedInThread } from '../external-conversations/external-conversation-leave-eligibility'
 
 /** stale: no turn is running, or it took no message. mixed: it took a message that isn't from a
- *  person who can ask the bot here (another app, a bot, an automation, agent mail, someone Orca
+ *  person who can ask the bot here (another app, a bot, an automation, agent mail, someone OpenKodo
  *  can't name, or a batch with any of these). */
 export type LeaveThreadRefusal = 'leave_refused_stale' | 'leave_refused_mixed'
 
@@ -41,7 +41,7 @@ function eligible(
     askedInThread(body.asker, conversation.externalId) &&
     body.connectorConversation?.source === conversation.source &&
     body.connectorConversation.externalId === conversation.externalId &&
-    // Every message of its batch was such a person's too, as Orca found when it delivered it.
+    // Every message of its batch was such a person's too, as OpenKodo found when it delivered it.
     body.leaveEligible === true
   )
 }

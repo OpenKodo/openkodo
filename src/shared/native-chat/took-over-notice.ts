@@ -1,4 +1,4 @@
-// Orca's turn handing an agent a workspace: the chat draws it as a divider naming the workspace, and the
+// OpenKodo's turn handing an agent a workspace: the chat draws it as a divider naming the workspace, and the
 // owner's goal (if any) as their own words, never as the turn's text, which is the agent's context.
 import type { AgentJournalItemBody } from '../agent-session/journal/agent-session-journal-types'
 import type { NativeChatBlock } from './native-chat-types'
@@ -8,7 +8,7 @@ import type { NativeChatBlock } from './native-chat-types'
 export type TookOverNotice = { workspace: string; goal?: string; home?: true }
 
 /** How the turn's text starts and where the owner's words begin in it, so status can name it. */
-export const TOOK_OVER_TURN_PREFIX = '[Orca: your owner just handed you the workspace '
+export const TOOK_OVER_TURN_PREFIX = '[OpenKodo: your owner just handed you the workspace '
 export const TOOK_OVER_GOAL_HEADING = "Your owner's words:\n\n"
 
 export function readTookOverNotice(value: unknown): TookOverNotice | null {

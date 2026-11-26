@@ -75,7 +75,7 @@ describe('BotWorkStore', () => {
     expect(store.live('bot-1', THREAD)?.rowId).toBe(next?.rowId)
   })
 
-  it('leaves the old row live when Orca dies between the close and the new row', () => {
+  it('leaves the old row live when OpenKodo dies between the close and the new row', () => {
     const store = BotWorkStore.open(':memory:')
     const first = store.bind(bind())!
     store.bind = () => {

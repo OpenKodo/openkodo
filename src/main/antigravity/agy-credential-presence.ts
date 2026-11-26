@@ -1,4 +1,4 @@
-// Whether agy may hold a login here, read without a prompt, so Orca never starts agy where its
+// Whether agy may hold a login here, read without a prompt, so OpenKodo never starts agy where its
 // keyring lookup could raise an unlock dialog.
 
 import { stat } from 'node:fs/promises'
@@ -12,7 +12,7 @@ import {
 } from './native-linux-credentials'
 import { hasAntigravityWindowsCredential } from './native-windows-credentials'
 
-/** `locked`: the keyring can't be read without unlocking it, or Orca can't tell, so asking agy
+/** `locked`: the keyring can't be read without unlocking it, or OpenKodo can't tell, so asking agy
  *  could prompt. */
 export type AgyCredentialPresence = 'present' | 'absent' | 'locked'
 
@@ -58,7 +58,7 @@ export async function agyCredentialPresence(homePath: string): Promise<AgyCreden
     const file = found === 'present' ? 'present' : await tokenFile()
     return file === 'present' ? 'present' : found === 'unread' ? 'locked' : 'absent'
   }
-  // The read refuses a locked collection rather than unlocking it. Without gdbus Orca can't tell
+  // The read refuses a locked collection rather than unlocking it. Without gdbus OpenKodo can't tell
   // whether it is locked, so it stays `locked`; secret-tool is only needed after gdbus found the
   // collection unlocked, where asking agy can't prompt.
   const keyring = await readAntigravityLinuxCredential().then(

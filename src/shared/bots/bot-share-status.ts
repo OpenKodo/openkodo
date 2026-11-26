@@ -5,7 +5,7 @@ export function botPackageName(botId: string): string {
   return `bot-${botId.replace(/-/g, '').toLowerCase()}`
 }
 
-/** A live bot link the owner made, as Orca Cloud lists it. */
+/** A live bot link the owner made, as OpenKodo Cloud lists it. */
 export type BotOwnedShare = {
   id: string
   url: string
@@ -18,7 +18,7 @@ export type BotOwnedShare = {
   /** For a link whose bot isn't on this computer: the bot's name as the link serves it. */
   displayName?: string
   /** For a bot on this computer: when the version the link serves was published, and its digest.
-   *  Absent when the link couldn't be read, or from an older Orca. */
+   *  Absent when the link couldn't be read, or from an older OpenKodo. */
   pinnedPublishedAt?: string
   pinnedDigest?: string
 }

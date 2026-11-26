@@ -81,8 +81,8 @@ async function runRole(role, program, runtimeArgs) {
         TMPDIR: owned,
         TMP: owned,
         TEMP: owned,
-        ORCA_BACKGROUND_LAUNCH: '1',
-        ORCA_MOBILE_CI_CACHE_DIR: join(owned, 'cache')
+        OPENKODO_BACKGROUND_LAUNCH: '1',
+        OPENKODO_MOBILE_CI_CACHE_DIR: join(owned, 'cache')
       },
       stdio: 'inherit',
       timeoutMs: null,

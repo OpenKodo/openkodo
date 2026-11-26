@@ -25,7 +25,7 @@ export function printableAgentLabel(label: string): string {
 }
 
 // Every printed reference carries this; a draft without it holds no agent reference.
-const AGENT_REFERENCE_MARK = ' (Orca agent '
+const AGENT_REFERENCE_MARK = ' (OpenKodo agent '
 
 export function mayHoldAgentReferences(text: string): boolean {
   return text.includes(AGENT_REFERENCE_MARK)
@@ -37,7 +37,7 @@ export function agentReferenceToken(reference: OrchestrationAgentReference): str
 
 /** The routing line a sent message ends with, one per mentioned agent. */
 export function agentReferenceNote(label: string, address: string): string {
-  return `[Orca agent "${label}": ${address} — message it with orca orchestration send --to ${address} --subject "<topic>" --body "<message>"]`
+  return `[OpenKodo agent "${label}": ${address} — message it with orca orchestration send --to ${address} --subject "<topic>" --body "<message>"]`
 }
 
 export function terminalAgentReference(reference: OrchestrationAgentReference): string | null {

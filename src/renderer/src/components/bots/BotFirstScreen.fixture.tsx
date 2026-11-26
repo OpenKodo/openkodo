@@ -28,7 +28,7 @@ const builder: Bot = {
   updatedAt: 1
 }
 
-const CLI = '"${ORCA_CLI_COMMAND:-orca}"'
+const CLI = '"${OPENKODO_CLI_COMMAND:-orca}"'
 
 const bash = (callId: string, command: string): NativeChatBlock => ({
   type: 'tool-call',

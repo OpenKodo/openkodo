@@ -1,4 +1,4 @@
-// What a bot host's Orca can do, read from the host statuses alone so store slices can ask too.
+// What a bot host's OpenKodo can do, read from the host statuses alone so store slices can ask too.
 import type { RuntimeStatuses } from '@/store/slices/runtime-status/views/runtime-status-subscriptions'
 import {
   parseRoutableExecutionHostId,
@@ -20,7 +20,7 @@ export function pairedBotHostStatus(
   return lastVerifiedRuntimeStatus(statuses.get(parsed.environmentId)) ?? null
 }
 
-/** Whether the host's Orca has `capability`; this app's own runtime is this build, so it does. */
+/** Whether the host's OpenKodo has `capability`; this app's own runtime is this build, so it does. */
 export function botHostHasCapability(
   hostId: ExecutionHostId,
   capability: string,

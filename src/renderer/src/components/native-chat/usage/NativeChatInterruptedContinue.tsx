@@ -240,7 +240,7 @@ export function NativeChatInterruptedContinueButton({
   onContinue: (hadFocus?: boolean) => void
   disabled?: boolean
   label?: string
-  /** What Continue does here, when it is not picking up a reply Orca's stop cut off. */
+  /** What Continue does here, when it is not picking up a reply OpenKodo's stop cut off. */
   explanation?: string
 }): React.JSX.Element {
   const t = useTranslate()

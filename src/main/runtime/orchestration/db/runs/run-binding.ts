@@ -18,7 +18,7 @@ export function bindRun(
     runId: string
     coordinatorHandle: string | null
     coordinatorPaneKey: string | null
-    /** The coordinator's bare Orca session id when it is a structured session; see orca-session-address. */
+    /** The coordinator's bare OpenKodo session id when it is a structured session; see orca-session-address. */
     coordinatorOrcaSessionId?: OrcaSessionId | null
     takeoverLegacy?: boolean
     legacyCoordinatorAuthority?: {
@@ -49,7 +49,7 @@ export function bindRun(
     const sameBinding = runBoundToCoordinator(run, coordinator)
     const peerRun = this.getPeerRun(params.runId)
     if (peerRun && !sameBinding) {
-      // A paired Orca's Run has that Orca as its only consumer; it never binds anything here.
+      // A paired OpenKodo's Run has that OpenKodo as its only consumer; it never binds anything here.
       throw new OrchestrationError(
         'consumer_fenced',
         `Run ${params.runId} is coordinated from ${peerRun.home_label}, which stays its only coordinator. No effects were applied.`,

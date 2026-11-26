@@ -8,7 +8,7 @@ import { commitTerminalSurfaceClose } from '@/store/terminals/retirement/termina
 import type { PaneCwdEntry } from '../split/resolve-split-cwd'
 import { detachTerminalLayoutLeaf } from './terminal-layout-leaf-detach'
 import { moveLeafThroughLayoutOwner } from './terminal-pane-detach-layout-owner'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import {
   isWebTerminalSurfaceTabId,
   toWebTerminalSurfaceTabId
@@ -150,7 +150,9 @@ async function moveLeafToNewTab(
 
   const livePtyId = args.livePtyId ?? persistedPtyId ?? null
   const paneMoveHost =
-    !ORCA_LAYOUT_OWNER_IS_MAIN && livePtyId !== null && isWebTerminalSurfaceTabId(args.sourceTabId)
+    !OPENKODO_LAYOUT_OWNER_IS_MAIN &&
+    livePtyId !== null &&
+    isWebTerminalSurfaceTabId(args.sourceTabId)
       ? await resolvePaneMoveHost(args.worktreeId)
       : null
   args.persistLayoutSnapshot()
@@ -183,7 +185,7 @@ async function moveLeafToNewTab(
   }
   // Switch point: main moves the pane and names the new tab.
   const answer = await (
-    ORCA_LAYOUT_OWNER_IS_MAIN
+    OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? moveLeafThroughLayoutOwner(
           request,
           { groupId: args.targetGroupId, index: args.targetIndex },
@@ -196,7 +198,7 @@ async function moveLeafToNewTab(
   })
   if (answer?.status === 'moved') {
     const moved =
-      ORCA_LAYOUT_OWNER_IS_MAIN && answer.tabId
+      OPENKODO_LAYOUT_OWNER_IS_MAIN && answer.tabId
         ? { ...request, targetTabId: answer.tabId }
         : request
     return applyMove(args, moved, true, answer.ptyId)
@@ -252,7 +254,7 @@ function applyMove(
   )?.shellOverride
   // Switch point: the reply runs after the frame with main's new tab, which may have drawn it.
   const frameDrawn =
-    ORCA_LAYOUT_OWNER_IS_MAIN && mainMoved
+    OPENKODO_LAYOUT_OWNER_IS_MAIN && mainMoved
       ? latestStore.tabsByWorktree[worktreeId]?.find((candidate) => candidate.id === targetTabId)
       : undefined
   const tab =

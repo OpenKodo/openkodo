@@ -20,7 +20,7 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
     // Why: a trailing `--disallowedTools Agent` or `--debug` default arg would take the prompt as its value (#48072).
     argvPromptSeparator: '--',
     pasteNeedsTypedRequest: true,
-    // Native --prefill avoids paste-after-ready races (https://github.com/stablyai/orca/pull/926).
+    // Native --prefill avoids paste-after-ready races (https://github.com/OpenKodo/openkodo/pull/926).
     draftPromptFlag: '--prefill',
     preflightTrust: 'claude',
     // Why: CLAUDE_CODE_DISABLE_TERMINAL_TITLE drops the `✳` title tui-idle waits on (#22655).
@@ -30,10 +30,10 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
     ctrlEnterEncoding: 'csi-u'
   },
   'claude-agent-teams': {
-    // This launch mode uses Orca’s CLI wrapper rather than a separate agent binary.
+    // This launch mode uses OpenKodo’s CLI wrapper rather than a separate agent binary.
     detectCmd: 'orca',
     detectCmdAliases: ['orca-dev', 'orca-ide'],
-    // Orca’s always-present shim alone must not report installed Agent Teams without Claude.
+    // OpenKodo’s always-present shim alone must not report installed Agent Teams without Claude.
     detectRequiredCommands: ['claude'],
     // Windows/WSL use Claude’s in-process fallback, not this native-pane/tmux wrapper.
     detectUnsupportedRuntimes: ['win32', 'wsl'],
@@ -131,14 +131,14 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
     detectCmd: 'pi',
     promptInjectionMode: 'argv',
     // Pi has no prefill flag; the managed extension seeds env to avoid its long startup paste race.
-    draftPromptEnvVar: 'ORCA_PI_PREFILL',
+    draftPromptEnvVar: 'OPENKODO_PI_PREFILL',
     // Why: Pi decodes CSI-u; Esc+CR submits after tool subprocesses reset live KKP state (#9703).
     windowsShiftEnterEncoding: 'csi-u'
   },
   omp: {
     detectCmd: 'omp',
     promptInjectionMode: 'argv',
-    draftPromptEnvVar: 'ORCA_OMP_PREFILL',
+    draftPromptEnvVar: 'OPENKODO_OMP_PREFILL',
     // OMP embeds Pi’s CSI-u reader; preserve newline encoding after live Kitty state resets.
     windowsShiftEnterEncoding: 'csi-u'
   },

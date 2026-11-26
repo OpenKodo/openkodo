@@ -9,7 +9,7 @@ import { SettingsSectionStack } from '../section-layout/SettingsSectionStack'
 import { BotSkillsSection } from './BotSkillsSection'
 import { BotToolsSection } from './BotToolsSection'
 
-const ORCA_SKILLS = [
+const OPENKODO_SKILLS = [
   ['electron', 'Launch and validate Electron apps over CDP'],
   ['perf', 'Audit slow UI, input lag, high CPU, leaks'],
   ['ref-oss', 'Look at local open-source reference repos'],
@@ -64,14 +64,14 @@ const VIEWS: Record<string, BotSkillProjectView> = {
     name: 'orca',
     status: 'local',
     skillsDir: '/Users/owner/globex/orca/.agents/skills',
-    skills: ORCA_SKILLS
+    skills: OPENKODO_SKILLS
   },
   'notes-app': {
     repoId: 'notes-app',
     name: 'notes-app',
     status: 'local',
     skillsDir: '/Users/owner/globex/notes-app/.agents/skills',
-    skills: ORCA_SKILLS.slice(0, 12)
+    skills: OPENKODO_SKILLS.slice(0, 12)
   },
   website: { repoId: 'website', name: 'website', status: 'local', skillsDir: null, skills: [] },
   api: {

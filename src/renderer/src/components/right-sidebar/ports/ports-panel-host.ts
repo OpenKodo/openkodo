@@ -86,7 +86,7 @@ export function portsPanelForwardTargetId(
   return (environment && getOrcadSshDeployment(environment)?.sshTargetId) || null
 }
 
-/** Any other paired server forwards over the connection Orca already keeps to it. */
+/** Any other paired server forwards over the connection OpenKodo already keeps to it. */
 export function portsPanelForwardEnvironmentId(
   host: PortsPanelHost,
   sshForwardTargetId: string | null

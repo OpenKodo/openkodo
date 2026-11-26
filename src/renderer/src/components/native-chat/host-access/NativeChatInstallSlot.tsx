@@ -54,7 +54,7 @@ export function useNativeChatInstallSlot(
   const t = useTranslate()
   const hostProgram = useStructuredAgentSessionHostProgram(props.sessionId, props.target)
   const ownLogin = useStructuredAgentSessionOwnLogin(props.sessionId, props.target)
-  // Chats on the host program follow it too: Orca's agy may be what they need installed.
+  // Chats on the host program follow it too: OpenKodo's agy may be what they need installed.
   const observation = useManagedRuntimeInstall(props.target, props.agent, props.isVisible)
   const slot = nativeChatInstallSlotState(observation, layout, hostProgram)
   const antigravity = props.agent === 'antigravity' && props.isVisible
@@ -94,7 +94,7 @@ function antigravityAgy(
     : { agy: 'yours', managedVersion: null }
 }
 
-/** A chat on the host's own program needs an install only when that program is Orca's missing
+/** A chat on the host's own program needs an install only when that program is OpenKodo's missing
  *  copy; an unanswered status never holds its sends. */
 export function nativeChatInstallSlotState(
   observation: ManagedRuntimeInstallObservation,

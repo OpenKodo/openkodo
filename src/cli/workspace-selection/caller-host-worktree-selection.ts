@@ -21,11 +21,11 @@ function isFolderRow(row: CatalogRow): boolean {
   return parseWorkspaceKey(row.id)?.type === 'folder'
 }
 
-/** The workspace this Orca terminal belongs to: a repo-backed id or a folder key. */
+/** The workspace this OpenKodo terminal belongs to: a repo-backed id or a folder key. */
 export function getCallerWorkspaceIds(
   env: Readonly<Record<string, string | undefined>> = process.env
 ): string[] {
-  return [env.ORCA_WORKTREE_ID, env.ORCA_WORKSPACE_ID].flatMap((id) => id?.trim() || [])
+  return [env.OPENKODO_WORKTREE_ID, env.OPENKODO_WORKSPACE_ID].flatMap((id) => id?.trim() || [])
 }
 
 type CallerWorkspace = string | readonly string[] | undefined
@@ -156,7 +156,7 @@ export function selectEnclosingWorktreeSelectionOnHost(
           : '--worktree'
     throw new RuntimeClientError(
       'selector_ambiguous',
-      `${action}More than one Orca workspace matched the current directory. Choose an exact ${purpose === 'parent' ? 'parent workspace' : 'workspace'}.`,
+      `${action}More than one OpenKodo workspace matched the current directory. Choose an exact ${purpose === 'parent' ? 'parent workspace' : 'workspace'}.`,
       {
         workspaces: owners.map((row, index) => ({
           kind: isFolderRow(row) ? 'folder workspace' : 'worktree',
@@ -170,7 +170,7 @@ export function selectEnclosingWorktreeSelectionOnHost(
           purpose === 'orchestration-caller'
             ? [
                 'This command needs your own caller identity; selecting a target workspace cannot supply it.',
-                'Run the command in your own live Orca terminal with ORCA_TERMINAL_HANDLE preserved.'
+                'Run the command in your own live OpenKodo terminal with OPENKODO_TERMINAL_HANDLE preserved.'
               ]
             : [
                 'Inspect a chosen workspace with `orca worktree show --worktree <selector> --json`.',
@@ -219,7 +219,7 @@ export function selectEnclosingRepoOnHost(
       .sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)))
     throw new RuntimeClientError(
       'selector_ambiguous',
-      `More than one Orca project contains the current directory: ${currentPath}. Choose the project with --repo or --project.`,
+      `More than one OpenKodo project contains the current directory: ${currentPath}. Choose the project with --repo or --project.`,
       {
         projects,
         nextSteps: [
@@ -239,7 +239,7 @@ export function selectWorktreeCreateCwdContext(
 ): { parentWorktree?: HostScopedWorktreeSelection; parentAmbiguous?: true; repoId?: string } {
   const hostId = getCallerExecutionHostId()
   const repoId = inferRepo
-    ? selectEnclosingRepoOnHost(catalog, cwd, hostId, process.env.ORCA_WORKTREE_ID)
+    ? selectEnclosingRepoOnHost(catalog, cwd, hostId, process.env.OPENKODO_WORKTREE_ID)
     : undefined
   const owners = inferParent
     ? enclosingWorkspaceOwners(catalog, cwd, hostId, getCallerWorkspaceIds())
@@ -270,12 +270,12 @@ export function selectWorktreeIdOnHost(
   return match ? worktreeSelections([match], catalog)[0]!.selector : undefined
 }
 
-/** The workspace this Orca terminal names; native folders and the floating terminal have no catalog row. */
+/** The workspace this OpenKodo terminal names; native folders and the floating terminal have no catalog row. */
 export function selectCallerTerminalWorkspace(
   catalog: readonly CatalogRow[],
   hostId: ExecutionHostId
 ): string | undefined {
-  const worktreeId = process.env.ORCA_WORKTREE_ID
+  const worktreeId = process.env.OPENKODO_WORKTREE_ID
   const trimmed = worktreeId?.trim()
   if (isFloatingWorkspaceId(worktreeId)) {
     return undefined
@@ -285,12 +285,14 @@ export function selectCallerTerminalWorkspace(
     if (!scoped) {
       throw new RuntimeClientError(
         'selector_not_found',
-        `This terminal's workspace ${worktreeId} is not listed by Orca on this host. Run the command from a workspace directory or pass --worktree <selector> (or all) where the command accepts it.`
+        `This terminal's workspace ${worktreeId} is not listed by OpenKodo on this host. Run the command from a workspace directory or pass --worktree <selector> (or all) where the command accepts it.`
       )
     }
     return scoped
   }
-  return [trimmed, process.env.ORCA_WORKSPACE_ID?.trim()].find((id) => id?.startsWith('folder:'))
+  return [trimmed, process.env.OPENKODO_WORKSPACE_ID?.trim()].find((id) =>
+    id?.startsWith('folder:')
+  )
 }
 
 export async function resolveCallerPaneWorktreeSelector(

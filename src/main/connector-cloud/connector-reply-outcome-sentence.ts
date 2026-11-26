@@ -23,9 +23,9 @@ export function outcomeSentence(
     case 'withdrawn':
       return `Stopped on ${hostName}.`
     case 'cleared':
-      return 'The chat was cleared in Orca before this was answered. Ask again.'
+      return 'The chat was cleared in OpenKodo before this was answered. Ask again.'
     case 'not_found':
-      return `Orca on ${hostName} no longer has this request. Ask again.`
+      return `OpenKodo on ${hostName} no longer has this request. Ask again.`
     case 'unattributed':
       return `Done on ${hostName}, answered together with the earlier messages.`
   }

@@ -1,15 +1,16 @@
 import './constants'
-import { ORCA_BROWSER_PARTITION } from '../browser/browser-session-partition'
+import { OPENKODO_BROWSER_PARTITION } from '../browser/browser-session-partition'
 import type { ExecutionHostId } from '../execution-host/execution-host'
 import type { OrcaCloudCapabilities } from './orca-cloud-capabilities'
 
-export const ORCA_PROFILE_INDEX_SCHEMA_VERSION = 1
-export const DEFAULT_LOCAL_ORCA_PROFILE_ID = 'local-default'
-export const DEFAULT_LOCAL_ORCA_PROFILE_NAME = 'Personal'
+export const OPENKODO_PROFILE_INDEX_SCHEMA_VERSION = 1
+export const DEFAULT_LOCAL_OPENKODO_PROFILE_ID = 'local-default'
+export const DEFAULT_LOCAL_OPENKODO_PROFILE_NAME = 'Personal'
 /** Main -> renderer push when the stored auth status changed without the renderer asking. */
-export const ORCA_PROFILE_AUTH_STATUS_CHANGED_CHANNEL = 'orcaProfiles:authStatusChanged'
-export const ORCA_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL = 'orcaProfiles:signInProgressChanged'
-const LEGACY_ORCA_BROWSER_SESSION_PARTITION_PREFIX = 'persist:orca-browser-session-'
+export const OPENKODO_PROFILE_AUTH_STATUS_CHANGED_CHANNEL = 'orcaProfiles:authStatusChanged'
+export const OPENKODO_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL =
+  'orcaProfiles:signInProgressChanged'
+const LEGACY_OPENKODO_BROWSER_SESSION_PARTITION_PREFIX = 'persist:orca-browser-session-'
 
 export type OrcaProfileAvatar = {
   kind: 'initials'
@@ -306,8 +307,8 @@ export type OrcaProfileOrgMemberMutationResult =
 
 export function createDefaultLocalOrcaProfile(now: number): OrcaProfileSummary {
   return {
-    id: DEFAULT_LOCAL_ORCA_PROFILE_ID,
-    name: DEFAULT_LOCAL_ORCA_PROFILE_NAME,
+    id: DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
+    name: DEFAULT_LOCAL_OPENKODO_PROFILE_NAME,
     avatar: { kind: 'initials', initials: 'P', color: 'neutral' },
     kind: 'local',
     createdAt: now,
@@ -331,8 +332,8 @@ export function getOrcaProfileBrowserPartitionSegment(profileId: string): string
 }
 
 export function getOrcaProfileBrowserDefaultPartition(profileId: string): string {
-  if (profileId === DEFAULT_LOCAL_ORCA_PROFILE_ID) {
-    return ORCA_BROWSER_PARTITION
+  if (profileId === DEFAULT_LOCAL_OPENKODO_PROFILE_ID) {
+    return OPENKODO_BROWSER_PARTITION
   }
   return `persist:orca-profile-${getOrcaProfileBrowserPartitionSegment(profileId)}-browser-default`
 }
@@ -341,8 +342,8 @@ export function getOrcaProfileBrowserSessionPartition(
   profileId: string,
   browserSessionProfileId: string
 ): string {
-  if (profileId === DEFAULT_LOCAL_ORCA_PROFILE_ID) {
-    return `${LEGACY_ORCA_BROWSER_SESSION_PARTITION_PREFIX}${browserSessionProfileId}`
+  if (profileId === DEFAULT_LOCAL_OPENKODO_PROFILE_ID) {
+    return `${LEGACY_OPENKODO_BROWSER_SESSION_PARTITION_PREFIX}${browserSessionProfileId}`
   }
   return `persist:orca-profile-${getOrcaProfileBrowserPartitionSegment(
     profileId

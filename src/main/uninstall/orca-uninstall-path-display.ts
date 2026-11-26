@@ -3,7 +3,7 @@ import type { OrcaUninstallPath } from '../../shared/uninstall/orca-uninstall-ty
 
 const CODEX_ACCOUNT_HOME = /^codex-accounts[\\/][^\\/]+[\\/]home[\\/](.+)$/u
 
-/** Paths inside Orca's data folder (a managed Codex account home) read as a label, not a long path. */
+/** Paths inside OpenKodo's data folder (a managed Codex account home) read as a label, not a long path. */
 export function describeOrcaUninstallPath(
   path: string,
   roots: { homeDir: string; userDataPath: string }

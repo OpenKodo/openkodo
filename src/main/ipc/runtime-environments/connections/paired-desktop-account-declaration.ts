@@ -1,7 +1,7 @@
-/** Tells a paired host which Orca account this desktop is signed in to and this computer's name, so
+/** Tells a paired host which OpenKodo account this desktop is signed in to and this computer's name, so
  *  its typed messages name that person and computer. A plain claim; the host keeps it per socket. */
 import { getAppEnvironment } from '../../../../shared/app-lifecycle/app-environment'
-import { DECLARE_ORCA_ACCOUNT_METHOD } from '../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
+import { DECLARE_OPENKODO_ACCOUNT_METHOD } from '../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
 import type { RuntimeRpcResponse } from '../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 import { pairedDesktopInstanceId } from './paired-desktop-instance-id'
 import { sanitizeDeviceLabel } from '../../../../shared/remote-runtime/pairing/device-key-proof'
@@ -59,12 +59,12 @@ export async function sendPairedDesktopAccount(
   clientInstanceId: string
 ): Promise<void> {
   const answer = await request(
-    DECLARE_ORCA_ACCOUNT_METHOD,
+    DECLARE_OPENKODO_ACCOUNT_METHOD,
     { account, clientInstanceId },
     DECLARE_TIMEOUT_MS
   )
   if (!answer.ok && answer.error.code === 'invalid_argument') {
     const legacy = account ? { id: account.id, name: account.name } : null
-    await request(DECLARE_ORCA_ACCOUNT_METHOD, { account: legacy }, DECLARE_TIMEOUT_MS)
+    await request(DECLARE_OPENKODO_ACCOUNT_METHOD, { account: legacy }, DECLARE_TIMEOUT_MS)
   }
 }

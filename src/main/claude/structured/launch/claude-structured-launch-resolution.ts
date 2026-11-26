@@ -82,7 +82,7 @@ export const CLAUDE_STRUCTURED_BASE_OPTIONS: ClaudeStructuredSdkOptions = {
 }
 
 export type ClaudeStructuredLaunch = {
-  /** Always Orca's resolved user CLI: the SDK's bundled binaries are excluded from the install. */
+  /** Always OpenKodo's resolved user CLI: the SDK's bundled binaries are excluded from the install. */
   pathToClaudeCodeExecutable: string
   prefixArgs?: readonly string[]
   account?: ClaudeStructuredInvocation['account']
@@ -207,7 +207,7 @@ export function claudeStructuredLaunchPart(
     const launchArgs = await deps.resolveLaunchArgs()
     const { thinkingDisplayArgs, visuals, promptSuggestions, refused } = await launchFlags
     noteClaudeMcpConfigRefused(refused.mcpConfig)
-    // Refused, Orca's servers go nowhere this launch, so no list edit is this chat's.
+    // Refused, OpenKodo's servers go nowhere this launch, so no list edit is this chat's.
     noteSessionIgnoresHostMcp(basis.record.sessionId, refused.mcpConfig)
     const linked = await basis.linkedSkills()
     const discovery = claudeDiscoveryOptions({
@@ -298,7 +298,7 @@ export function claudeStructuredLaunchPart(
             ...thinkingDisplayArgs,
             ...chromeArgs
           },
-          // Claude owns where a resumed conversation continues; the stored leaf is Orca's bookkeeping.
+          // Claude owns where a resumed conversation continues; the stored leaf is OpenKodo's bookkeeping.
           ...(resumesTranscript
             ? { resume: providerSessionId }
             : { sessionId: providerSessionId, ...(fork ? claudeRewindForkOptions(fork) : {}) })
@@ -317,7 +317,7 @@ export function claudeStructuredLaunchPart(
       },
       env,
       inheritedEnvToDelete: refused.envToDelete,
-      // The agent runtime follows Orca's CLI directory on PATH so another orca cannot shadow it.
+      // The agent runtime follows OpenKodo's CLI directory on PATH so another orca cannot shadow it.
       cliRuntimeCommand: command
     }
   }

@@ -3,7 +3,7 @@
 
 import { randomUUID } from 'node:crypto'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LoadedWorkspaceLayoutRead } from '../../../../shared/workspace-layout/persistence/workspace-layout-load-types'
 import type { PublishedWorkspaceLayout } from '../../../../shared/workspace-layout/published-layout/workspace-layout-published'
 import {
@@ -70,7 +70,7 @@ export class WorkspaceLayoutStream {
   /** Never reset: replies can retain positions across resubscriptions. */
   private seq = 0
   /** A different epoch tells readers they missed this process's frames. */
-  private readonly epoch = ORCA_LAYOUT_OWNER_IS_MAIN ? randomUUID() : undefined
+  private readonly epoch = OPENKODO_LAYOUT_OWNER_IS_MAIN ? randomUUID() : undefined
 
   constructor(
     private readonly deps: PaneStartStatuses.PaneFactSources & {
@@ -160,7 +160,7 @@ export class WorkspaceLayoutStream {
         this.markDirty(hostId, workspaces, refs)
       )
       // Switch point: a window-owned build publishes when the writes' task ends, as before.
-      const stopOperations = ORCA_LAYOUT_OWNER_IS_MAIN
+      const stopOperations = OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? store?.onWorkspaceSessionOperationEnded?.(() => this.flush())
         : undefined
       this.stopWatching =
@@ -249,7 +249,7 @@ export class WorkspaceLayoutStream {
       recheckAll
     })
     // Switch point: a window-owned build sends each workspace whole, one frame each.
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || !this.epoch) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !this.epoch) {
       this.deliverEach([
         ...removed.map((key): WorkspaceLayoutEvent => ({ type: 'removed', key })),
         ...[...changed].map(([key, { current }]): WorkspaceLayoutEvent => ({

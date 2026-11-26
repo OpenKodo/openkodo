@@ -111,7 +111,7 @@ export function useMobileWorkerApprovals({
       } else if (frame.type === 'approval') {
         pending?.push(frame.entry)
       } else if (frame.type === 'complete' && pending) {
-        // A prompt Orca can't answer would hold the card and hide the ones behind it.
+        // A prompt OpenKodo can't answer would hold the card and hide the ones behind it.
         const next = pending.filter(
           ({ approval }) => approval.state === 'open' && approval.allowedActions.length > 0
         )

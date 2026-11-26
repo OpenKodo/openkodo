@@ -1,5 +1,5 @@
-// Asks and replies this Orca's agents send agents on a paired computer wait in the relay queue
-// (`to_worker` on this Orca's home conversation) until that computer pulls them; it acknowledges
+// Asks and replies this OpenKodo's agents send agents on a paired computer wait in the relay queue
+// (`to_worker` on this OpenKodo's home conversation) until that computer pulls them; it acknowledges
 // what it took. When the pairing they were sent under ends, their askers are told once.
 import type { OrcaRuntimeService } from '../../../orca-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -124,7 +124,7 @@ function settleRemovedClientDevice(
     runtime,
     environmentIds,
     device.name,
-    `${device.name} was removed from this Orca's paired computers.`
+    `${device.name} was removed from this OpenKodo's paired computers.`
   )
 }
 

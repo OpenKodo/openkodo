@@ -1,4 +1,4 @@
-// Signing the bot's computer in to Orca from the phone: the computer starts an approve-in-browser
+// Signing the bot's computer in to OpenKodo from the phone: the computer starts an approve-in-browser
 // sign-in, the phone opens its page, and the computer finishes once it is approved there. The
 // desktop's startBotHostSignIn.
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -57,7 +57,7 @@ export type HostOrcaSignIn =
   | { phase: 'waiting' }
   | { phase: 'failed'; error: string }
 
-/** "Sign in to publish": the computer's own Orca sign-in, approved in the phone's browser. */
+/** "Sign in to publish": the computer's own OpenKodo sign-in, approved in the phone's browser. */
 export function useHostOrcaSignIn(
   client: RpcClient | null,
   onSignedIn: () => void
@@ -105,7 +105,7 @@ export function useHostOrcaSignIn(
         return
       }
       if (url && !isOrcaCloudSignInPage(url)) {
-        // Only Orca Cloud's own page: anything else the computer sends is never opened here.
+        // Only OpenKodo Cloud's own page: anything else the computer sends is never opened here.
         flowRef.current = null
         void signInCancel.request(host, { flowId: flow.flowId }).catch(() => undefined)
         setView({ phase: 'failed', error: otherSite.current })

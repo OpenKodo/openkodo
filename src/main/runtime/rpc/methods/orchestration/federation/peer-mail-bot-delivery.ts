@@ -7,17 +7,17 @@ import { botAddressReach } from '../messaging/bot-recipient'
 import { pairedLabelComputer } from '../../../../../../shared/orchestration/mailbox/paired-sender-name'
 import { agentMessageSenderName } from '../../../../../../shared/agent-session/journal/agent-session-message-source'
 
-// Deliveries being admitted on this Orca, by message id.
+// Deliveries being admitted on this OpenKodo, by message id.
 const admitting = new Set<string>()
 
-/** Peer mail that reaches a bot is admitted as this Orca's own bot mail is, for the owner: a paired
+/** Peer mail that reaches a bot is admitted as this OpenKodo's own bot mail is, for the owner: a paired
  *  computer has full access here. `{ to }` is mail for an agent that is no bot, stored as peer mail. */
 export async function deliverPeerMailToBot(
   runtime: OrcaRuntimeService,
   params: z.infer<typeof PeerMailDeliverParams>,
   peerFingerprint: string,
   senderSnapshot: string | undefined,
-  /** Mail a server this Orca dials queued for it: its conversation names that server, and
+  /** Mail a server this OpenKodo dials queued for it: its conversation names that server, and
    *  `alsoOnAdmitted` commits with the request's admission. */
   pulled?: { environmentId: string; serverName: string; alsoOnAdmitted: () => void }
 ): Promise<'delivered' | { to: string; body?: string }> {
@@ -85,7 +85,7 @@ export async function deliverPeerMailToBot(
         messageId: params.messageId,
         senderSnapshot,
         // Who it is from, either side of the pairing: a server this computer pulls from by this
-        // computer's catalog name for it, a client by its Orca's name for itself. It grants nothing here.
+        // computer's catalog name for it, a client by its OpenKodo's name for itself. It grants nothing here.
         pairedSender: {
           computer: pulled
             ? pulled.serverName

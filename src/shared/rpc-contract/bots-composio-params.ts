@@ -1,4 +1,4 @@
-// `bots.composio.*`: a bot's Composio apps, read and connected by Orca with the owner's key.
+// `bots.composio.*`: a bot's Composio apps, read and connected by OpenKodo with the owner's key.
 import * as z from 'zod'
 import { ComposioSetupAppSchema } from '../composio/composio-setup-card'
 

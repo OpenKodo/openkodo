@@ -1,7 +1,7 @@
 // Reproject dirty Store partitions (only the workspaces a write reported, when it did) and publish each workspace only from its owning partition.
 
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { loadWorkspaceLayoutWithoutReport } from '../../../../shared/workspace-layout/persistence/workspace-layout-load'
 import { stableJson } from '../../../../shared/workspace-layout/persistence/workspace-layout-load-report'
 import type {
@@ -42,7 +42,7 @@ export function runtimeLayoutLoadContext(
   hostId: ExecutionHostId
 ): WorkspaceLayoutLoadContext {
   // Window-owned builds retain name-based loading without views or generations.
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN || !store) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !store) {
     return nameBasedLoadContext()
   }
   const generationOf = store.getPtyBindingGeneration
@@ -134,7 +134,7 @@ export class WorkspaceLayoutProjection {
     const pending = this.stale.get(hostId)
     const written = workspaces && this.withHolders(hostId, workspaces, refs)
     // Window-owned builds always reload whole partitions.
-    if (!written || !ORCA_LAYOUT_OWNER_IS_MAIN || pending === 'whole') {
+    if (!written || !OPENKODO_LAYOUT_OWNER_IS_MAIN || pending === 'whole') {
       this.stale.set(hostId, 'whole')
     } else {
       this.stale.set(hostId, new Set([...(pending ?? []), ...written]))
@@ -263,7 +263,7 @@ export class WorkspaceLayoutProjection {
       return this.deps.homeHostId(key)
     } catch (error) {
       // Window-owned builds retain whole-projection failure.
-      if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         throw error
       }
       unroutable.add(key)

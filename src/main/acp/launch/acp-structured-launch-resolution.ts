@@ -160,7 +160,7 @@ async function readAcpLaunchInvocation(
     overlayEnvironmentVariables(base, deps.resolveLaunchEnv?.(spec.agent), process.platform)
   )
   const commandSettings = deps.resolveCommandSettings?.()
-  // Orca's account-type setting reaches only agy run on a home Orca owns.
+  // OpenKodo's account-type setting reaches only agy run on a home OpenKodo owns.
   const antigravityChatAuth = launchAntigravityChatAuth(spec, commandSettings?.antigravityChatAuth)
   const envToDelete =
     spec.scrubEnvironment?.(env, deps.inheritedEnv ?? process.env, antigravityChatAuth) ?? []

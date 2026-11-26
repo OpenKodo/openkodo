@@ -27,7 +27,7 @@ import {
 } from '../../shared/ai-vault/search/ai-vault-search-settings'
 import { adoptWslHostLoginEnvironmentLogged } from '../orcad/host-runtime/orcad-wsl-host-login-environment'
 import { createOrcadStartupTiming } from '../orcad/diagnostics/orcad-startup-timing'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import { restoreOrcadTerminalAuthority } from '../orcad/host-runtime/orcad-restored-terminal-authority'
 import { installOrcadFeatureReadiness } from '../runtime/rpc/startup/orcad-readiness'
 import { isAgentStatusHooksEnabled } from '../../shared/agent-hook-listener/configuration/agent-status-hooks-setting'
@@ -197,7 +197,7 @@ export async function activateBackendRuntime(
   profileShutdown.paneGrids = runtime
   profileShutdown.paintLedger = runtime
   runtime.beginStructuredAgentSessionStartupOpen(chatJournal.maintenanceAfter, chatJournal.open)
-  // Agent detection answers RPC before release reclaim below, and must count Orca's copies then too.
+  // Agent detection answers RPC before release reclaim below, and must count OpenKodo's copies then too.
   const { provideManagedAgentDetection } =
     await import('../runtime/rpc/methods/host-management/managed-copy-detection')
   provideManagedAgentDetection(runtime)
@@ -251,7 +251,7 @@ export async function activateBackendRuntime(
   // Paired phones dictate through this host; keep its model loaded the same way the desktop does.
   const { startSpeechModelWarmup } = await import('../speech/speech-model-warmup')
   startSpeechModelWarmup(profileStore)
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     const { repairDuplicatePtyPanesOnStart } =
       await import('../runtime/terminal/identity/moved-pane-owner-rekey')
     // Wait behind earlier writes and persist repair before reconciliation/RPC admission.

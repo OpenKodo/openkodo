@@ -95,7 +95,7 @@ export type StructuredPointerDeliveryDependencies<TWaiter extends OrchestrationM
   reportItem?: StructuredMailReportItem
   /** The chat's bound conversation and whether its answer to this mail lands there; null if unbound. */
   conversationPlace?: (sessionId: string, from: AgentMessageSource) => ChatMailPlace | null
-  /** What Orca calls a sender now, snapshotted onto the message; null when it has no name. */
+  /** What OpenKodo calls a sender now, snapshotted onto the message; null when it has no name. */
   senderSnapshotReader?: () => SenderSnapshotResolver
   senderSnapshot: SenderSnapshotResolver
   host: StructuredMailboxPointerHost

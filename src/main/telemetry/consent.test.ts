@@ -5,7 +5,7 @@ import { telemetryAtLaunch, telemetryWithOptIn } from './consent'
 
 const ENV = [
   'DO_NOT_TRACK',
-  'ORCA_TELEMETRY_DISABLED',
+  'OPENKODO_TELEMETRY_DISABLED',
   'CI',
   'GITHUB_ACTIONS',
   'GITLAB_CI',

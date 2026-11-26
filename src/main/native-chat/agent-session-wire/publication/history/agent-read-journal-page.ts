@@ -114,7 +114,7 @@ function journalTurnState(
 }
 
 /** The entry a history item reads as. One no page could carry reads as the history's own
- *  too-large marker, said by Orca rather than the agent. */
+ *  too-large marker, said by OpenKodo rather than the agent. */
 function entryOf(
   item: AgentJournalRenderItem,
   waiting: (itemId: string) => boolean

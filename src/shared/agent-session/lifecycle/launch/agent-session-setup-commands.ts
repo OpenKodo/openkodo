@@ -120,7 +120,7 @@ export const AGENT_SESSION_SETUP_COMMANDS = [
     slashCommand: '/login',
     installCommand: 'npm install -g @tencent-ai/codebuddy-code'
   },
-  // An `agy` login signs in only chats on agy (`system`); chats on Orca's server keep their own.
+  // An `agy` login signs in only chats on agy (`system`); chats on OpenKodo's server keep their own.
   {
     agent: 'antigravity',
     loginCommand: [],
@@ -166,16 +166,16 @@ export function agentSessionSignInEnv(
   return entry && 'loginEnv' in entry ? { ...entry.loginEnv } : undefined
 }
 
-/** Bypass the selected-profile function and restore the config Orca replaced for this login. */
+/** Bypass the selected-profile function and restore the config OpenKodo replaced for this login. */
 function claudeSystemSignInCommand(shell: AgentStartupShell): string {
   if (shell === 'powershell') {
     return [
-      "& { $names = @('CLAUDE_CONFIG_DIR', 'ORCA_CLAUDE_INJECTED_CONFIG_DIR', 'ORCA_CLAUDE_PROFILE_POINTER'); $saved = @{};",
+      "& { $names = @('CLAUDE_CONFIG_DIR', 'OPENKODO_CLAUDE_INJECTED_CONFIG_DIR', 'OPENKODO_CLAUDE_PROFILE_POINTER'); $saved = @{};",
       "foreach ($name in $names) { $saved[$name] = [Environment]::GetEnvironmentVariable($name, 'Process') };",
-      'try { if ($env:ORCA_CLAUDE_INJECTED_CONFIG_DIR -and $env:CLAUDE_CONFIG_DIR -eq $env:ORCA_CLAUDE_INJECTED_CONFIG_DIR) {',
-      'if ($env:ORCA_CLAUDE_USER_CONFIG_DIR) { $env:CLAUDE_CONFIG_DIR = $env:ORCA_CLAUDE_USER_CONFIG_DIR }',
+      'try { if ($env:OPENKODO_CLAUDE_INJECTED_CONFIG_DIR -and $env:CLAUDE_CONFIG_DIR -eq $env:OPENKODO_CLAUDE_INJECTED_CONFIG_DIR) {',
+      'if ($env:OPENKODO_CLAUDE_USER_CONFIG_DIR) { $env:CLAUDE_CONFIG_DIR = $env:OPENKODO_CLAUDE_USER_CONFIG_DIR }',
       'else { Remove-Item Env:CLAUDE_CONFIG_DIR -ErrorAction SilentlyContinue } };',
-      'Remove-Item Env:ORCA_CLAUDE_INJECTED_CONFIG_DIR, Env:ORCA_CLAUDE_PROFILE_POINTER -ErrorAction SilentlyContinue;',
+      'Remove-Item Env:OPENKODO_CLAUDE_INJECTED_CONFIG_DIR, Env:OPENKODO_CLAUDE_PROFILE_POINTER -ErrorAction SilentlyContinue;',
       '& (Get-Command claude -CommandType Application,ExternalScript -ErrorAction Stop | Select-Object -First 1).Source auth login',
       '} finally { foreach ($name in $names) { if ($null -eq $saved[$name]) {',
       'Remove-Item -LiteralPath "Env:$name" -ErrorAction SilentlyContinue',
@@ -183,12 +183,12 @@ function claudeSystemSignInCommand(shell: AgentStartupShell): string {
     ].join(' ')
   }
   if (shell === 'cmd') {
-    return 'if defined ORCA_CLAUDE_INJECTED_CONFIG_DIR if "%CLAUDE_CONFIG_DIR%"=="%ORCA_CLAUDE_INJECTED_CONFIG_DIR%" set "CLAUDE_CONFIG_DIR=%ORCA_CLAUDE_USER_CONFIG_DIR%" & set "ORCA_CLAUDE_INJECTED_CONFIG_DIR=" & set "ORCA_CLAUDE_PROFILE_POINTER=" & claude auth login'
+    return 'if defined OPENKODO_CLAUDE_INJECTED_CONFIG_DIR if "%CLAUDE_CONFIG_DIR%"=="%OPENKODO_CLAUDE_INJECTED_CONFIG_DIR%" set "CLAUDE_CONFIG_DIR=%OPENKODO_CLAUDE_USER_CONFIG_DIR%" & set "OPENKODO_CLAUDE_INJECTED_CONFIG_DIR=" & set "OPENKODO_CLAUDE_PROFILE_POINTER=" & claude auth login'
   }
   const script =
-    'if [ -n "${ORCA_CLAUDE_INJECTED_CONFIG_DIR:-}" ] && [ "${CLAUDE_CONFIG_DIR:-}" = "$ORCA_CLAUDE_INJECTED_CONFIG_DIR" ]; then ' +
-    'if [ -n "${ORCA_CLAUDE_USER_CONFIG_DIR:-}" ]; then export CLAUDE_CONFIG_DIR="$ORCA_CLAUDE_USER_CONFIG_DIR"; else unset CLAUDE_CONFIG_DIR; fi; fi; ' +
-    'unset ORCA_CLAUDE_INJECTED_CONFIG_DIR ORCA_CLAUDE_PROFILE_POINTER; exec claude auth login'
+    'if [ -n "${OPENKODO_CLAUDE_INJECTED_CONFIG_DIR:-}" ] && [ "${CLAUDE_CONFIG_DIR:-}" = "$OPENKODO_CLAUDE_INJECTED_CONFIG_DIR" ]; then ' +
+    'if [ -n "${OPENKODO_CLAUDE_USER_CONFIG_DIR:-}" ]; then export CLAUDE_CONFIG_DIR="$OPENKODO_CLAUDE_USER_CONFIG_DIR"; else unset CLAUDE_CONFIG_DIR; fi; fi; ' +
+    'unset OPENKODO_CLAUDE_INJECTED_CONFIG_DIR OPENKODO_CLAUDE_PROFILE_POINTER; exec claude auth login'
   return `sh -c ${quoteStartupArg(script, shell)}`
 }
 

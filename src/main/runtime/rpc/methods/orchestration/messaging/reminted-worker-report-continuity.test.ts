@@ -118,7 +118,7 @@ describe('restart-reissued worker handle across finished and federated Dispatche
       workerEnv()
     )
 
-  /** The plain `orchestration check` an Orca wake types: the env handle and pane, nothing else. */
+  /** The plain `orchestration check` an OpenKodo wake types: the env handle and pane, nothing else. */
   const check = (from: string = STALE_HANDLE, env: RpcContext = workerEnv()) =>
     harness.call('orchestration.check', { terminal: from, terminalPaneKey: WORKER_PANE }, env)
 

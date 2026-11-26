@@ -54,6 +54,6 @@ export async function readRuntimeRpcStagedReply<TResult>(
 function invalidStagedReply(): RemoteRuntimeClientError {
   return new RemoteRuntimeClientError(
     'invalid_runtime_response',
-    'Remote Orca runtime returned an invalid staged reply.'
+    'Remote OpenKodo runtime returned an invalid staged reply.'
   )
 }

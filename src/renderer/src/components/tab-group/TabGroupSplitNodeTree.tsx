@@ -3,7 +3,7 @@ import type { TabGroupLayoutNode } from '../../../../shared/workspace-layout/tab
 import { useAppStore } from '../../store/index'
 import TabGroupPanel, { type TabGroupPanelTabStrip } from './TabGroupPanel'
 import type { HoveredTabInsertion } from './drag/tab-insertion'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { setGroupRatioThroughLayoutOwner } from '../../runtime/workspace-layout/commands/tab-group-layout-owner-commands'
 import '../browser-pane/host-guest/drag/webview-drag-passthrough'
 
@@ -113,7 +113,7 @@ function SplitNode({
         layoutKey={node.second}
         onResizeStart={() => recordFeatureInteraction('terminal-panes')}
         onRatioChange={(nextRatio) =>
-          ORCA_LAYOUT_OWNER_IS_MAIN
+          OPENKODO_LAYOUT_OWNER_IS_MAIN
             ? setGroupRatioThroughLayoutOwner(worktreeId, nodePath, nextRatio)
             : setTabGroupSplitRatio(worktreeId, nodePath, nextRatio)
         }

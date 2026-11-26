@@ -232,7 +232,7 @@ describe('parseMinidumpCrashSignature', () => {
     const modules = Array.from({ length: 1042 }, (_, index) => ({
       base: 0x1_0000_0000n + BigInt(index) * 0x1_0000n,
       size: 0x1000,
-      name: `/Applications/Orca.app/Contents/Frameworks/lib${index}.dylib`
+      name: `/Applications/OpenKodo.app/Contents/Frameworks/lib${index}.dylib`
     }))
     const { dump } = buildDump({
       exception: { code: 11, address: 0x1_0000_0000n + 1030n * 0x1_0000n + 0x24n },

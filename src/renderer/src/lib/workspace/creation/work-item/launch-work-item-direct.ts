@@ -89,7 +89,7 @@ export async function launchWorkItemDirect(
       }
     }
     const resolvedBaseBranch = prStart?.baseBranch ?? baseBranch
-    // Approve the orca.yaml at the start point the create checks out, so a PR's own setup is what's reviewed.
+    // Approve the openkodo.yaml at the start point the create checks out, so a PR's own setup is what's reviewed.
     const confirmedSetup = await confirmDirectWorkItemSetup(
       repo,
       context.executionHostId,

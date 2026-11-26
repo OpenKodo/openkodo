@@ -2,8 +2,8 @@
 import * as z from 'zod'
 import { optionalConnectorAvatarUrl } from './connector-message-asker'
 
-// GET `${linear}/state`: the Linear workspaces this Orca account is linked in, as which Linear user,
-// and whether Orca's Linear app is installed there.
+// GET `${linear}/state`: the Linear workspaces this OpenKodo account is linked in, as which Linear user,
+// and whether OpenKodo's Linear app is installed there.
 export const ConnectorLinearState = z.object({
   /** Opens Linear's install for a workspace admin; anyone may pass it on. */
   installUrl: z.string().url(),

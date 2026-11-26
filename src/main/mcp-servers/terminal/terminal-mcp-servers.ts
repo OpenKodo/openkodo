@@ -1,6 +1,6 @@
 // The servers a terminal pane of an agent gets from the host list, shaped for its CLI before relay
 // addresses are filled in: saved env behind `orca mcp exec` on this host, and in WSL everything that
-// needs Orca behind the guest's `orca`.
+// needs OpenKodo behind the guest's `orca`.
 import { access } from 'node:fs/promises'
 import type { BotToolServer } from '../../../shared/bot-tools'
 import { mcpServerWorkspaceKeyOf } from '../../../shared/mcp-servers/mcp-servers'
@@ -16,7 +16,7 @@ import {
   wslSavedEnvServer
 } from './terminal-mcp-wsl-servers'
 
-/** The `orca` launcher this host's terminals run, and the user data it names its Orca by; null when
+/** The `orca` launcher this host's terminals run, and the user data it names its OpenKodo by; null when
  *  this host has none to run (a dev serve never installs one). */
 async function orcaCliLauncher(): Promise<{ launcher: string; userDataPath: string } | null> {
   if (!hasAppEnvironment()) {
@@ -35,8 +35,8 @@ async function orcaCliLauncher(): Promise<{ launcher: string; userDataPath: stri
 
 /**
  * A command server with saved env as `orca mcp exec <id>`: the CLI fetches the env from the running
- * Orca and execs the real command, so no saved value sits in the agent's config, argv or env.
- * `ORCA_USER_DATA_PATH` is named outright since agents start servers with a trimmed environment.
+ * OpenKodo and execs the real command, so no saved value sits in the agent's config, argv or env.
+ * `OPENKODO_USER_DATA_PATH` is named outright since agents start servers with a trimmed environment.
  */
 function throughOrcaExec(
   entry: McpLaunchEntry,
@@ -64,16 +64,16 @@ function throughOrcaExec(
     name: server.name,
     command: viaCmd ? 'cmd' : cli.launcher,
     args: viaCmd ? ['/c', cli.launcher, ...args.map(cmdShimArgument)] : args,
-    env: { ORCA_USER_DATA_PATH: cli.userDataPath }
+    env: { OPENKODO_USER_DATA_PATH: cli.userDataPath }
   }
 }
 
 export type WslLaunch = { distro: string | null } | null
 
 /**
- * The servers a pane of `agent` gets, shaped for a terminal. A command server Orca runs once for
+ * The servers a pane of `agent` gets, shaped for a terminal. A command server OpenKodo runs once for
  * every session stays as it is here: SessionMcpTools points the agent at it through the relay. In
- * WSL, every server that needs Orca goes through the guest's `orca` (terminal-mcp-wsl-servers.ts).
+ * WSL, every server that needs OpenKodo goes through the guest's `orca` (terminal-mcp-wsl-servers.ts).
  */
 export async function terminalServers(
   agent: string,

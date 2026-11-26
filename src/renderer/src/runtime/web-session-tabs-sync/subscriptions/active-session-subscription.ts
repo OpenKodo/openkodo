@@ -2,7 +2,7 @@ import type { RuntimeRpcResponse } from '../../../../../shared/remote-runtime/rp
 import type { RuntimeMobileSessionTabsResult } from '../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { isRuntimeSubscriptionReplayResponse } from '../../../../../shared/remote-runtime/rpc/runtime-subscription-replay'
 import { useAppStore } from '../../../store/index'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { isFrameDrawnServerWorkspace } from '../frame-drawn/frame-drawn-server-workspace-set'
 import { mirroredRuntimeEnvironmentIdForWorkspace } from '../workspace-selection/mirrored-workspace-owner'
 import { getRuntimeEnvironmentRevision } from '../../rpc/environment-revisions/runtime-environment-revision'
@@ -151,9 +151,10 @@ export function installActiveSessionTabsSubscription({
       hasLiveLocalPty,
       skipWakeRespawn:
         shouldSkipWebRuntimeWakeTerminalRespawn(activeWorktreeId) ||
-        // Switch point: ORCA_LAYOUT_OWNER_IS_MAIN && — a frame-drawn workspace's terminals are not the mirror's to respawn.
+        // Switch point: OPENKODO_LAYOUT_OWNER_IS_MAIN && — a frame-drawn workspace's terminals are not the mirror's to respawn.
         // Interim (ledger L240): respawn stays only for servers without `layout.intents.v1`, until Phase 2.
-        (ORCA_LAYOUT_OWNER_IS_MAIN && isFrameDrawnServerWorkspace(environmentId, activeWorktreeId))
+        (OPENKODO_LAYOUT_OWNER_IS_MAIN &&
+          isFrameDrawnServerWorkspace(environmentId, activeWorktreeId))
     })
     let settle: HostSessionMirrorSettle | null = decision.apply
       ? null

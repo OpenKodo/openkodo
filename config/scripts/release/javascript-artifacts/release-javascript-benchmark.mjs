@@ -27,7 +27,7 @@ function runBuild(script) {
     cwd: root,
     timeoutMs: 1_200_000,
     maxOutputBytes: 64 * 1024 * 1024,
-    env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+    env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
   })
   const milliseconds = performance.now() - started
   process.stdout.write(result.stdout)

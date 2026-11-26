@@ -3,9 +3,9 @@
 set -uo pipefail
 
 case_name=${1:?launch case is required}
-extracted_root=${ORCA_TEST_EXTRACTED_ROOT:-/artifacts/squashfs-root}
-launcher="$extracted_root/resources/bin/orca-ide"
-command_timeout_seconds=${ORCA_TEST_COMMAND_TIMEOUT_SECONDS:-60}
+extracted_root=${OPENKODO_TEST_EXTRACTED_ROOT:-/artifacts/squashfs-root}
+launcher="$extracted_root/resources/bin/openkodo"
+command_timeout_seconds=${OPENKODO_TEST_COMMAND_TIMEOUT_SECONDS:-60}
 
 if ((EUID == 0)); then
   # Reproduce extracted AppImage sandbox ownership as an unprivileged user.
@@ -34,17 +34,17 @@ case "$case_name" in
   # The bundled launcher must stay in Electron's node mode.
   nofuse-userns-bundled-status)
     # The unprivileged runner inherits HOME=/root; an unreadable profile does not prove absence.
-    ORCA_USER_DATA_PATH=$(mktemp -d) || exit 91
-    export ORCA_USER_DATA_PATH
-    trap 'rmdir -- "$ORCA_USER_DATA_PATH"' EXIT
+    OPENKODO_USER_DATA_PATH=$(mktemp -d) || exit 91
+    export OPENKODO_USER_DATA_PATH
+    trap 'rmdir -- "$OPENKODO_USER_DATA_PATH"' EXIT
     command=("$launcher" status)
     ;;
   # Direct binaries must hand off before Ozone initializes.
   nofuse-nosandbox-direct-binary-skills)
-    command=("$extracted_root/orca-ide" --no-sandbox skills --help)
+    command=("$extracted_root/openkodo" --no-sandbox skills --help)
     ;;
   stale-display-nosandbox-direct-binary-gui)
-    command=("$extracted_root/orca-ide" --no-sandbox)
+    command=("$extracted_root/openkodo" --no-sandbox)
     ;;
   *)
     echo "UNKNOWN_CASE $case_name"

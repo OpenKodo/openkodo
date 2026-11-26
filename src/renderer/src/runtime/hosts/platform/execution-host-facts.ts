@@ -53,17 +53,17 @@ const sshPlatformWithheld = (): string =>
 const runtimePlatformWithheld = (): string =>
   translate(
     'auto.lib.executionHostFacts.runtimePlatformWithheld',
-    'The Orca server has not reported its operating system yet. Reconnect to it and try again.'
+    'The OpenKodo server has not reported its operating system yet. Reconnect to it and try again.'
   )
 const runtimePlatformUpdate = (): string =>
   translate(
     'auto.lib.executionHostFacts.runtimePlatformUpdate',
-    'This Orca server does not report its operating system. Update the server to launch agents on it.'
+    'This OpenKodo server does not report its operating system. Update the server to launch agents on it.'
   )
 const hostUnresolvedWithheld = (): string =>
   translate(
     'auto.lib.executionHostFacts.hostUnresolvedWithheld',
-    'Orca cannot tell which host owns this workspace yet.'
+    'OpenKodo cannot tell which host owns this workspace yet.'
   )
 
 function resolveLocalPlatform(

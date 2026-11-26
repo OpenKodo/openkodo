@@ -4,9 +4,9 @@ import type { BotAgentSetup } from './bots/bot-agent-setup'
  *  chat the target names. */
 export type AutomationBotRunsIn = 'new' | 'chat'
 /**
- * A channel goes through the bot's Slack app; a Linear issue through Orca's Linear app. channel and
+ * A channel goes through the bot's Slack app; a Linear issue through OpenKodo's Linear app. channel and
  * linearIssue keep the id or key (C0123ABCD, ENG-123) older clients read and save back; where the
- * host's Orca Cloud takes refs, ref (slack:T1:C1, linear:<org>:<issueId>) is where it posts, and label
+ * host's OpenKodo Cloud takes refs, ref (slack:T1:C1, linear:<org>:<issueId>) is where it posts, and label
  * what people see. 'thread' answers in the Slack thread, pull request or issue the event happened on.
  */
 type ResultPlace = { ref?: string; label?: string }
@@ -28,7 +28,7 @@ export type AutomationBotTarget = {
   runsIn: AutomationBotRunsIn
   /** With runsIn 'chat': the one of the bot's chats runs continue instead of its Home Chat, and its
    *  title when saved. A run whose chat is gone fails rather than going to the Home Chat, unless
-   *  homeIfGone: set when Orca chose the chat (a wait runs in the chat that made it), not a person.
+   *  homeIfGone: set when OpenKodo chose the chat (a wait runs in the chat that made it), not a person.
    *  toConversation: that wait was made by a turn its chat's thread owns, so its run answers there. */
   chat?: { sessionId: string; title?: string; homeIfGone?: true; toConversation?: true }
   resultsTo: AutomationBotResultsTo

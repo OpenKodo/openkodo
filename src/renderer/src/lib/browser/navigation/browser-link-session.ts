@@ -6,7 +6,7 @@ import {
   parseExecutionHostId
 } from '../../../../../shared/execution-host/execution-host'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
+import { OPENKODO_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
 import { getOrcaProfileBrowserDefaultPartition } from '../../../../../shared/orca-profiles/orca-profiles'
 import { resolveNewBrowserTabProfile } from '@/store/slices/browser/profiles/browser-new-tab-profile'
 
@@ -22,7 +22,7 @@ function createPartitionResolver(
     (hostId === LOCAL_EXECUTION_HOST_ID
       ? ((state.activeOrcaProfileId
           ? getOrcaProfileBrowserDefaultPartition(state.activeOrcaProfileId)
-          : null) ?? ORCA_BROWSER_PARTITION)
+          : null) ?? OPENKODO_BROWSER_PARTITION)
       : null)
   return (id, explicit) => {
     if (explicit) {

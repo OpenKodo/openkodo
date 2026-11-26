@@ -1,5 +1,5 @@
 // A chat whose tools run in a process other chats share gets a token in place of its identity. Tokens
-// live only in this run's memory, so a token from a closed chat or an earlier run of Orca names no one.
+// live only in this run's memory, so a token from a closed chat or an earlier run of OpenKodo names no one.
 import { createHash, randomBytes } from 'node:crypto'
 import { BOT_TOOLS_TOKEN_ENV } from '../../../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import {

@@ -1,4 +1,4 @@
-// Orca's own Claude Code follows the user's Claude update channel; chats prefer the user's own install.
+// OpenKodo's own Claude Code follows the user's Claude update channel; chats prefer the user's own install.
 
 import { readFile } from 'node:fs/promises'
 import { homedir } from 'node:os'

@@ -4,7 +4,7 @@ import { dropBrowserExtensionIdleState } from '../profile-sessions/browser-exten
 import { getBrowserExtensionProfileStateStore } from './browser-extension-profile-state-store'
 import { getBrowserExtensionSyncStorageStore } from './browser-extension-sync-storage-store'
 
-/** What Orca keeps for one extension profile outside its session: kept and action state, grants, sync storage, dynamic rules. */
+/** What OpenKodo keeps for one extension profile outside its session: kept and action state, grants, sync storage, dynamic rules. */
 export async function forgetBrowserExtensionProfileData(profileId: string): Promise<void> {
   dropBrowserExtensionIdleState({ profileId, forgetProfile: true })
   forgetBrowserExtensionActionProfile(profileId)

@@ -92,7 +92,7 @@ function linkLine(row: RuntimeWorktreePsSummary): string | null {
 }
 
 function agentLines(agent: RuntimeWorktreePsSummary['agents'][number], now: number): string[] {
-  // A live terminal Orca has no handle for (a row restored after a restart) can't be messaged yet.
+  // A live terminal OpenKodo has no handle for (a row restored after a restart) can't be messaged yet.
   const state =
     !agent.address && agent.hasLivePty
       ? 'open, no handle yet'

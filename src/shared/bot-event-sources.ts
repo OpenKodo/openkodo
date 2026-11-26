@@ -17,28 +17,28 @@ import {
   withServerSignInSteps
 } from './bots/host-orca-sign-in'
 
-// An older host's bots omit the connectors it doesn't have. webhooks: whether the Orca Cloud of the
+// An older host's bots omit the connectors it doesn't have. webhooks: whether the OpenKodo Cloud of the
 // bot's host takes webhooks; a webhook needs no account, so the cloud alone decides.
-// cloudSignedOut: the bot's host isn't signed in to Orca Cloud (orcaCloudNeedsSignIn), so nothing
-// reaches it through Orca Cloud.
+// cloudSignedOut: the bot's host isn't signed in to OpenKodo Cloud (orcaCloudNeedsSignIn), so nothing
+// reaches it through OpenKodo Cloud.
 export type BotConnectors = Pick<Bot, 'name'> &
   Partial<Pick<Bot, 'slack' | 'github' | 'linear' | 'google'>> & {
     webhooks?: boolean
     cloudSignedOut?: boolean
-    /** Its host is a headless Orca server by this name, whose signed-out copy names it; null on a
-     *  computer with Orca's window; absent from an older host, which didn't say. */
+    /** Its host is a headless OpenKodo server by this name, whose signed-out copy names it; null on a
+     *  computer with OpenKodo's window; absent from an older host, which didn't say. */
     signInServer?: string | null
-    /** Its host's Orca Cloud sends GitHub's newer events and label= (`triggers.github2`). */
+    /** Its host's cloud service sends GitHub's newer events and label= (`triggers.github2`). */
     githubEvents2?: boolean
-    /** Its host's Orca Cloud sends github.workflow_finished (`triggers.workflows`). */
+    /** Its host's OpenKodo Cloud sends github.workflow_finished (`triggers.workflows`). */
     githubWorkflows?: boolean
-    /** Its host's Orca Cloud sends github.ci_finished (`triggers.ci_finished`). */
+    /** Its host's OpenKodo Cloud sends github.ci_finished (`triggers.ci_finished`). */
     githubCiFinished?: boolean
   }
 
 type EventRule = Pick<AutomationEventTrigger, 'source' | 'event'>
 
-const WEBHOOKS_OFF = "Orca Cloud doesn't support webhooks yet"
+const WEBHOOKS_OFF = "cloud service doesn't support webhooks yet"
 
 /** The sources whose events can start this bot's automations. */
 export function botEventSources(bot: BotConnectors): AutomationEventSource[] {
@@ -83,7 +83,7 @@ function connectorNames(
     : (names[0] ?? '')
 }
 
-/** The rules whose events come through Orca Cloud: Slack, GitHub, Linear and webhooks. */
+/** The rules whose events come through OpenKodo Cloud: Slack, GitHub, Linear and webhooks. */
 export function cloudEventRules<Rule extends EventRule>(triggers: readonly Rule[]): Rule[] {
   return triggers.filter(({ source }) => isConnectorSource(source) || source === 'webhook')
 }
@@ -102,7 +102,7 @@ function signedOutRefusal(bot: BotConnectors, rules: readonly EventRule[]): stri
   const offer = rules[0].source === 'webhook' ? 'webhook' : rules[0].source
   return withServerSignInSteps(
     [
-      `${hostNotSignedIn(bot.signInServer)}, and ${cloudEventNames(rules)} reach ${bot.name} through Orca Cloud, so nothing was saved.`,
+      `${hostNotSignedIn(bot.signInServer)}, and ${cloudEventNames(rules)} reach ${bot.name} through cloud service, so nothing was saved.`,
       `Run \`orca bot connectors --offer ${offer}\` to show your owner a Sign in line in this chat, then save it again once they say they're signed in.`,
       unknownHostSignInHint(bot.signInServer)
     ]
@@ -114,11 +114,11 @@ function signedOutRefusal(bot: BotConnectors, rules: readonly EventRule[]): stri
   )
 }
 
-/** `trigger-options`' line for a bot whose host isn't signed in to Orca Cloud. */
+/** `trigger-options`' line for a bot whose host isn't signed in to OpenKodo Cloud. */
 export function signedOutTriggerOptionsNote(bot: BotConnectors): string {
   return withServerSignInSteps(
     [
-      `${hostNotSignedIn(bot.signInServer)}, and Slack, GitHub, Linear and webhook events reach ${bot.name} through Orca Cloud: before saving one, run \`orca bot connectors --offer <source>\` so your owner sees a Sign in line in this chat, and save it once they say they're signed in.`,
+      `${hostNotSignedIn(bot.signInServer)}, and Slack, GitHub, Linear and webhook events reach ${bot.name} through cloud service: before saving one, run \`orca bot connectors --offer <source>\` so your owner sees a Sign in line in this chat, and save it once they say they're signed in.`,
       // An older host doesn't say whether it is a headless server: keep its terminal sign-in in view.
       unknownHostSignInHint(bot.signInServer)
     ]
@@ -176,7 +176,7 @@ export function botEventTriggerRefusal(
 export function wontFireNote(bot: BotConnectors, triggers: readonly EventRule[]): string | null {
   const cloud = bot.cloudSignedOut ? cloudEventRules(triggers) : []
   if (cloud.length > 0) {
-    return `won't fire until ${bot.signInServer ?? 'this computer'} signs in to Orca Cloud (${cloud.map(({ source, event }) => `${source}.${event}`).join(', ')})`
+    return `won't fire until ${bot.signInServer ?? 'this computer'} signs in to cloud service (${cloud.map(({ source, event }) => `${source}.${event}`).join(', ')})`
   }
   // Only a host that says its cloud stopped taking webhooks; an older one doesn't say.
   const unheard = unheardEventTriggers({ ...bot, webhooks: bot.webhooks ?? true }, triggers)

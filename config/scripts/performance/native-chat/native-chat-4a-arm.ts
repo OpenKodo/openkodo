@@ -173,9 +173,9 @@ export async function launchArm(
     env: {
       ...isolation.env,
       NODE_ENV: 'development',
-      ORCA_E2E_HEADLESS: '1',
-      ORCA_BACKGROUND_LAUNCH: '1',
-      ORCA_EVENT_LOOP_DELAY_PROBE: '1'
+      OPENKODO_E2E_HEADLESS: '1',
+      OPENKODO_BACKGROUND_LAUNCH: '1',
+      OPENKODO_EVENT_LOOP_DELAY_PROBE: '1'
     }
   })
   const pid = app.process().pid

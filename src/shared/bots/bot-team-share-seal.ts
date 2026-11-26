@@ -12,7 +12,7 @@ import {
   SessionId
 } from '../rpc-contract/structured-agent-session/structured-agent-session-identifiers'
 
-// What Orca Cloud carries between a shared bot's host and a teammate's device, sealed with a fresh
+// What OpenKodo Cloud carries between a shared bot's host and a teammate's device, sealed with a fresh
 // key so the cloud can't read it: the host's relay offer, and a held message. Platform crypto is
 // injected (desktop: Node, phone: Hermes), as the pairing handshake's is.
 

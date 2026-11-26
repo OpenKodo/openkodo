@@ -30,7 +30,7 @@ import {
   followRemoteSessionAfterPaneDetach
 } from '../pane-moves/pane-remote-session-follow'
 import { pruneClosedTerminalTabTombstones } from '../../../../shared/workspace-layout/terminal-surfaces/closed-terminal-tab-tombstones'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import {
   editorViewsOfModel,
   type PartitionEditorViews
@@ -90,7 +90,9 @@ function touchedRecordsWrite(
   session: WorkspaceSessionState,
   loaded: LoadedWorkspaceLayout
 ): ((after: WorkspaceSessionState) => WorkspaceSessionState | null) | undefined {
-  return ORCA_LAYOUT_OWNER_IS_MAIN ? (after) => touchedRecords(session, loaded, after) : undefined
+  return OPENKODO_LAYOUT_OWNER_IS_MAIN
+    ? (after) => touchedRecords(session, loaded, after)
+    : undefined
 }
 
 function touchedRecords(
@@ -278,7 +280,7 @@ function takenTabId(
 
 /** Closed tab IDs cannot be reused; pane creates may still lift closed-pane fences. */
 function closedCreate(layout: WorkspaceLayoutModel, tabId: string): LayoutApplyOutcome | null {
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     return null
   }
   const closed = Object.values(layout.workspaces).some((entry) => entry.closedTerminalTabs?.[tabId])

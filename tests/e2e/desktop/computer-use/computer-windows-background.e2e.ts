@@ -12,7 +12,7 @@ import {
 } from './windows-semantic-controls-fixture'
 
 const isWindows = process.platform === 'win32'
-const e2eOptIn = process.env.ORCA_COMPUTER_E2E === '1'
+const e2eOptIn = process.env.OPENKODO_COMPUTER_E2E === '1'
 
 let fixture: WindowsSemanticFixture | null = null
 

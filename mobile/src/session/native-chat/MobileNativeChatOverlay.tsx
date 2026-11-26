@@ -56,11 +56,11 @@ type Props = {
   sessionId: string | null
   getSendCompletionGeneration: () => number
   keyboardInset: number
-  /** The Orca host that runs this chat, named for notices; null when unnamed. */
+  /** The OpenKodo host that runs this chat, named for notices; null when unnamed. */
   hostName: string | null
   /** Opens the accounts of the host that runs this chat; absent when the phone can't reach them. */
   onOpenAccounts?: () => void
-  /** Opens tapped links in Orca's browser; absent where the host can't open a browser tab. */
+  /** Opens tapped links in OpenKodo's browser; absent where the host can't open a browser tab. */
   onOpenUrlInOrca?: (url: string) => void
   linkOpenMode: MobileLinkOpenMode
   /** Opens a host terminal tab in this chat's workspace running `command`. */

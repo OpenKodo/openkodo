@@ -31,12 +31,12 @@ import { runExclusivelyForCodexTrustConfig } from '../../trust/toml/codex-trust-
 import { getRealHomeHookKeySourcePaths } from './codex-real-home-hooks-json'
 import { mutateRealHomeHooksPreservingUserTrust } from '../../trust/hooks/codex-user-hook-trust-moves'
 
-const LEGACY_ORCA_PROFILE_NAME = 'orca-agent-status'
-const LEGACY_ORCA_PROFILE_BLOCK_START = '# BEGIN ORCA AGENT STATUS HOOKS'
-const LEGACY_ORCA_PROFILE_BLOCK_END = '# END ORCA AGENT STATUS HOOKS'
+const LEGACY_OPENKODO_PROFILE_NAME = 'orca-agent-status'
+const LEGACY_OPENKODO_PROFILE_BLOCK_START = '# BEGIN ORCA AGENT STATUS HOOKS'
+const LEGACY_OPENKODO_PROFILE_BLOCK_END = '# END ORCA AGENT STATUS HOOKS'
 
 export function getLegacyCodexProfileTomlPath(): string {
-  return join(getSystemCodexHomePath(), `${LEGACY_ORCA_PROFILE_NAME}.config.toml`)
+  return join(getSystemCodexHomePath(), `${LEGACY_OPENKODO_PROFILE_NAME}.config.toml`)
 }
 
 export function cleanupLegacySystemManagedHooks(): Promise<void> {
@@ -106,7 +106,7 @@ async function sweepLegacySystemManagedHooks(): Promise<void> {
           resolveHooksJsonWritePath(legacyConfigPath) !== hooksWritePath
         ) {
           // Refuse to overwrite a concurrent save with this stale parse.
-          throw new Error('System Codex hooks changed since Orca read them')
+          throw new Error('System Codex hooks changed since OpenKodo read them')
         }
         writeHooksJson(hooksWritePath, { ...config, hooks: nextHooks }, { preserveMode: true })
       }
@@ -117,8 +117,8 @@ async function sweepLegacySystemManagedHooks(): Promise<void> {
 
 export function stripLegacyManagedProfileBlock(content: string): string {
   const regions = findManagedTomlBlocks(content, {
-    startMarker: LEGACY_ORCA_PROFILE_BLOCK_START,
-    endMarker: LEGACY_ORCA_PROFILE_BLOCK_END
+    startMarker: LEGACY_OPENKODO_PROFILE_BLOCK_START,
+    endMarker: LEGACY_OPENKODO_PROFILE_BLOCK_END
   })
   // Orphan markers must not hide complete blocks or consume surrounding user text.
   const region = regions.find((candidate) => candidate.terminated) ?? regions[0]

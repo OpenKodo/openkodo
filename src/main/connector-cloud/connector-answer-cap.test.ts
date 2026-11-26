@@ -3,7 +3,7 @@ import type { ConnectorEvent } from '../../shared/connectors/connector-cloud-con
 import { answerFor } from './connector-event-wire'
 import { capAnswer } from './connector-snapshot'
 
-const NOTE = '_… cut short here. The full answer is in Orca._'
+const NOTE = '_… cut short here. The full answer is in OpenKodo._'
 
 describe('capAnswer', () => {
   it('says an answer was cut, within the limit, never splitting a character', () => {
@@ -28,12 +28,12 @@ describe('capAnswer closing an open code block', () => {
   })
 
   it('opens no block for a line of inline code that starts with backticks', () => {
-    const capped = capAnswer(`\`\`\`code\`\`\` text\n${'word '.repeat(400)}`, 600)
+    const capped = capAnswer(`\`\`\`code\`\`\` text\n${'word\n'.repeat(400)}`, 600)
     expect(capped.endsWith(`word\n\n${NOTE}`)).toBe(true)
   })
 
   it('adds no fence after a block that already closed', () => {
-    const capped = capAnswer(`\`\`\`\nx\n\`\`\`\n${'word '.repeat(400)}`, 600)
+    const capped = capAnswer(`\`\`\`\nx\n\`\`\`\n${'word\n'.repeat(400)}`, 600)
     expect(capped.endsWith(`word\n\n${NOTE}`)).toBe(true)
   })
 })
@@ -53,7 +53,7 @@ describe('answerFor', () => {
     const cut = answerFor(reply, new Set())
     expect(cut).toMatchObject({ kind: 'reply', answerDeliveryId: 'd1' })
     expect(cut.kind === 'reply' && cut.prose).toBe(
-      `${'a'.repeat(8_137)}\n\n_… cut short here. The full answer is in Orca._`
+      `${'a'.repeat(8_133)}\n\n_… cut short here. The full answer is in OpenKodo._`
     )
   })
 })

@@ -61,7 +61,7 @@ export function pastesAtMost(lines: readonly string[], max: number, what: string
   }
 }
 
-/** Nothing new reaches the thread: no post, and the turn ends quiet, since Orca posts a final answer. */
+/** Nothing new reaches the thread: no post, and the turn ends quiet, since OpenKodo posts a final answer. */
 export const postsNothing: TurnCheck = (turn) => [
   ...([...writes(turn, 'connector.post'), ...writes(turn, 'connector.reply')].length
     ? ['posted a new message']

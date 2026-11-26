@@ -117,7 +117,7 @@ export abstract class RuntimePtyExitWorkerObservation extends RuntimePtyExitSurf
     const errorContext = describeTerminalExitCause(cause)
     // A person closing the pane leaves the task unowned; any other end is the agent's exit.
     const gone = isDeliberateTerminalExit(cause)
-      ? { reason: 'lost' as const, cause: 'it was closed in Orca', lastOutput }
+      ? { reason: 'lost' as const, cause: 'it was closed in OpenKodo', lastOutput }
       : { reason: 'exited' as const, cause: errorContext, lastOutput }
     const settledLocally = observeTerminalWorkerExit(
       db,

@@ -7,7 +7,7 @@ data with each worktree's independent import directory.
 
 ## How it works
 
-Seeds live under `<git-common-dir>/orca-cache/release-source/format-8/<commit>`.
+Seeds live under `<git-common-dir>/openkodo-cache/release-source/format-8/<commit>`.
 The resolved commit and extraction format identify the source, including its rewritten imports.
 The common Git directory lets sibling worktrees reuse the same seed without scanning them.
 Existing local checkouts remain in place; the new format creates fresh import directories.
@@ -101,8 +101,8 @@ removed in the test-suite reduction; no automated coverage of this cache remains
 
 ## P3 remains an experiment
 
-P3 shares the tracked source of new Orca worktrees. It requires independent writable files,
+P3 shares the tracked source of new OpenKodo worktrees. It requires independent writable files,
 Git indexes, and matching checkout settings, and has more compatibility risk than P2's
 immutable test source. The APFS experiment demonstrated substantial storage savings but
 variable creation time and stays out of this change. Its code, measurements, and design notes
-are preserved on `nwparker/tracked-source-sharing-experiment`; [the draft PR is closed](https://github.com/stablyai/orca/pull/27618).
+are preserved on `nwparker/tracked-source-sharing-experiment`; [the draft PR is closed](https://github.com/OpenKodo/openkodo/pull/27618).

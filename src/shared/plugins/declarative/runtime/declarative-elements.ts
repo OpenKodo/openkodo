@@ -1,6 +1,6 @@
 /** JSX element factory for the guest `orca` module. Elements are plain data until rendered. */
 
-export const ORCA_ELEMENT = Symbol.for('orca.declarative.element')
+export const OPENKODO_ELEMENT = Symbol.for('orca.declarative.element')
 export const Fragment = Symbol.for('orca.declarative.fragment')
 
 export type OrcaProps = Record<string, unknown>
@@ -9,7 +9,7 @@ export type OrcaComponent = (props: OrcaProps) => unknown
 export type OrcaElementType = string | typeof Fragment | OrcaComponent
 
 export type OrcaElement = {
-  readonly $$typeof: typeof ORCA_ELEMENT
+  readonly $$typeof: typeof OPENKODO_ELEMENT
   readonly type: OrcaElementType
   readonly props: OrcaProps
   readonly key: string | undefined
@@ -20,13 +20,13 @@ export function isOrcaElement(value: unknown): value is OrcaElement {
     typeof value === 'object' &&
     value !== null &&
     '$$typeof' in value &&
-    value.$$typeof === ORCA_ELEMENT
+    value.$$typeof === OPENKODO_ELEMENT
   )
 }
 
 function createElement(type: OrcaElementType, props: OrcaProps, key: unknown): OrcaElement {
   return Object.freeze({
-    $$typeof: ORCA_ELEMENT,
+    $$typeof: OPENKODO_ELEMENT,
     type,
     props,
     key: key === undefined || key === null ? undefined : String(key)

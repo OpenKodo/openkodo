@@ -1,5 +1,5 @@
 // One installed Slack workspace's body, the same in the connector panel and the after-install dialog:
-// how to ask, Who can ask, and who messages typed in Orca show as.
+// how to ask, Who can ask, and who messages typed in OpenKodo show as.
 import React from 'react'
 import { useTranslate } from '@/i18n/use-translate'
 import type { Bot } from '../../../../../shared/bot-types'

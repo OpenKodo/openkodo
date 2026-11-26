@@ -35,7 +35,7 @@ function wording(say: SayAutomationRun): AutomationRunWording {
 
 describe('a reused event', () => {
   it('lowercases only the event word, keeping acronyms', () => {
-    const ci = reused({ source: 'github', event: 'ci_failed', place: 'Stablyai/Orca#41979' })
+    const ci = reused({ source: 'github', event: 'ci_failed', place: 'Stablyai/OpenKodo#41979' })
     expect(automationRunReason(ci, 'ran', 0, wording(sayAutomationRunEnglish))).toBe(
       'Reused CI failed · #41979'
     )
@@ -49,7 +49,7 @@ describe('a reused event', () => {
           ? 'Issue 作成'
           : sayAutomationRunEnglish(key, params)
     const mention = reused({ source: 'linear', event: 'mentioned', place: 'ENG-123' })
-    const issue = reused({ source: 'github', event: 'issue_opened', place: 'Stablyai/Orca#1' })
+    const issue = reused({ source: 'github', event: 'issue_opened', place: 'Stablyai/OpenKodo#1' })
     expect(automationRunFacts(mention, 0, wording(placeFirst))).toBe(
       'Reused event: ENG-123 の mention · from 10:30'
     )

@@ -20,7 +20,7 @@ import {
 } from '../../../../shared/execution-host/execution-host'
 import type { WorktreePtyHostFence } from '../../workspaces/removal/worktree-pty-host-fence'
 import { collectWorktreePtyIds } from './worktree-pty-collection'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { withMainBoundLeaves } from '../surface/main-terminal-surfaces'
 import { mainHoldsTerminal } from '../surface/main-pane-verdict'
 import { summarizeWorktreePtyStopVerdict } from '../../workspaces/removal/worktree-pty-stop-verdict'
@@ -61,7 +61,7 @@ export abstract class OrcaRuntimeWithStopTerminalsForWorktree extends OrcaRuntim
       })
       const targetPtyIds = collectWorktreePtyIds(
         // Switch point: main's bound terminals too, registered or not.
-        ORCA_LAYOUT_OWNER_IS_MAIN
+        OPENKODO_LAYOUT_OWNER_IS_MAIN
           ? withMainBoundLeaves(this, this.leaves.values())
           : this.leaves.values(),
         this.ptysById,
@@ -72,7 +72,7 @@ export abstract class OrcaRuntimeWithStopTerminalsForWorktree extends OrcaRuntim
       // Main-bound terminals can survive inventory gaps; only certified exits count them stopped.
       const mainBound = new Set(
         [...targetPtyIds].filter(
-          (ptyId) => ORCA_LAYOUT_OWNER_IS_MAIN && mainHoldsTerminal(this, ptyId)
+          (ptyId) => OPENKODO_LAYOUT_OWNER_IS_MAIN && mainHoldsTerminal(this, ptyId)
         )
       )
       const parentTabIds = [
@@ -181,7 +181,7 @@ export abstract class OrcaRuntimeWithStopTerminalsForWorktree extends OrcaRuntim
         : this.getWorktreeHostFence(worktree)
     const ptyIds = collectWorktreePtyIds(
       // Switch point: main's bound terminals too, registered or not.
-      ORCA_LAYOUT_OWNER_IS_MAIN
+      OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? withMainBoundLeaves(this, this.leaves.values())
         : this.leaves.values(),
       this.ptysById,

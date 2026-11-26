@@ -4,7 +4,7 @@ import { isPathInsideOrEqual } from '../../../../shared/file-access/cross-platfo
 import { isDefinitiveAbsence } from '../../../../shared/errors/definitive-filesystem-absence'
 import { wslDistroForPath } from '../../../wsl/filesystem/wsl-unc-access-gate'
 
-/** Orca's homes to delete in, and roots (the user's import folder) no deletion may reach. */
+/** OpenKodo's homes to delete in, and roots (the user's import folder) no deletion may reach. */
 export type RolloutHomes = { homes: readonly string[]; protectedRoots: readonly string[] }
 
 /**
@@ -55,7 +55,7 @@ async function isHomeRealPath(homes: readonly string[], realPath: string): Promi
 
 /**
  * Each protected root for the rollout at `stem` (`YYYY/MM/DD/<name>`), unless it is the very folder
- * of a home Orca deletes from. A root that can't be read for a reason other than being gone throws.
+ * of a home OpenKodo deletes from. A root that can't be read for a reason other than being gone throws.
  */
 export async function resolveProtectedRoots(
   { homes, protectedRoots }: RolloutHomes,

@@ -115,7 +115,7 @@ export function ForgetSshWorkspaceDialog(): React.JSX.Element | null {
     }
   }
 
-  // Forget only Orca’s records; remote files, worktrees and branches survive.
+  // Forget only OpenKodo’s records; remote files, worktrees and branches survive.
   const handleForget = async (): Promise<void> => {
     if (!isSelectedWorkspaceCurrent()) {
       refuseReplacedSelection()
@@ -150,7 +150,7 @@ export function ForgetSshWorkspaceDialog(): React.JSX.Element | null {
           <DialogTitle>
             {t(
               'components.sidebar.ForgetSshWorkspaceDialog.removeFromOrcaTitle',
-              'Remove {{name}} from Orca?',
+              'Remove {{name}} from OpenKodo?',
               { name: displayName }
             )}
           </DialogTitle>
@@ -187,7 +187,10 @@ export function ForgetSshWorkspaceDialog(): React.JSX.Element | null {
           <Button size="sm" onClick={() => void handleForget()} disabled={busy}>
             {busy
               ? t('components.sidebar.ForgetSshWorkspaceDialog.removing', 'Removing…')
-              : t('auto.components.sidebar.ForgetSshWorkspaceDialog.forget', 'Remove from Orca')}
+              : t(
+                  'auto.components.sidebar.ForgetSshWorkspaceDialog.forget',
+                  'Remove from OpenKodo'
+                )}
           </Button>
         </DialogFooter>
       </DialogContent>

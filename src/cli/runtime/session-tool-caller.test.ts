@@ -6,21 +6,21 @@ import { adoptSessionToolCaller } from './session-tool-caller'
 
 // A shared tool process keeps the identity of whichever chat started it.
 const inherited = () => ({
-  ORCA_AGENT_SESSION_TOOL_TOKEN: 'token-b',
-  ORCA_AGENT_SESSION_ID: 'chat-a',
-  ORCA_TERMINAL_HANDLE: 'term_a',
-  ORCA_BOT_TOOLS_TOKEN: 'bot-a-secret'
+  OPENKODO_AGENT_SESSION_TOOL_TOKEN: 'token-b',
+  OPENKODO_AGENT_SESSION_ID: 'chat-a',
+  OPENKODO_TERMINAL_HANDLE: 'term_a',
+  OPENKODO_BOT_TOOLS_TOKEN: 'bot-a-secret'
 })
 
 describe('adoptSessionToolCaller', () => {
   it("takes the host's identity for the token, never the inherited one", async () => {
     const env: NodeJS.ProcessEnv = inherited()
     await adoptSessionToolCaller(env, async (token) =>
-      token === 'token-b' ? { env: { ORCA_AGENT_SESSION_ID: 'chat-b' } } : { env: null }
+      token === 'token-b' ? { env: { OPENKODO_AGENT_SESSION_ID: 'chat-b' } } : { env: null }
     )
     expect(env).toEqual({
-      ORCA_AGENT_SESSION_TOOL_TOKEN: 'token-b',
-      ORCA_AGENT_SESSION_ID: 'chat-b'
+      OPENKODO_AGENT_SESSION_TOOL_TOKEN: 'token-b',
+      OPENKODO_AGENT_SESSION_ID: 'chat-b'
     })
   })
 
@@ -33,7 +33,7 @@ describe('adoptSessionToolCaller', () => {
     ]) {
       const env: NodeJS.ProcessEnv = inherited()
       await expect(adoptSessionToolCaller(env, answer)).rejects.toThrow(/ran nothing/)
-      expect(env).toEqual({ ORCA_AGENT_SESSION_TOOL_TOKEN: 'token-b' })
+      expect(env).toEqual({ OPENKODO_AGENT_SESSION_TOOL_TOKEN: 'token-b' })
     }
   })
 

@@ -14,7 +14,7 @@ import type { ConnectorWakeSocketFactory } from './connector-wake-socket'
 
 export type ConnectorRuntimeKind = 'desktop' | 'serve'
 
-/** What the connector needs from this Orca. */
+/** What the connector needs from this OpenKodo. */
 export type ConnectorMachine = {
   /** The desktop app, or a server: Electron `orca serve` or orcad. */
   runtime: ConnectorRuntimeKind

@@ -124,7 +124,7 @@ export class StructuredAgentSessionUsageLimitContinue {
     read: HostUsageLimitCut | null
   ): AgentSessionStatusSummary['usageLimitContinue'] => {
     const cut = read && this.holds.withSwitchReset(id, read, this.deps.now())
-    // A cut Orca can never continue shows only the manual actions, whatever the setting.
+    // A cut OpenKodo can never continue shows only the manual actions, whatever the setting.
     if (!cut || !this.holds.schedulable(id, cut, this.deps.now())) {
       return undefined
     }

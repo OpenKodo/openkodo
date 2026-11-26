@@ -1,6 +1,6 @@
 // Which version of a bot's tools a chat launched with, so a chat whose tools changed starts again at
 // its next turn. A revision is an opaque digest; the epoch counts this host's own tool writes and
-// finished sign-ins per bot folder (a login outside this Orca shows only through the file).
+// finished sign-ins per bot folder (a login outside this OpenKodo shows only through the file).
 import { createHash } from 'node:crypto'
 import { resolve } from 'node:path'
 

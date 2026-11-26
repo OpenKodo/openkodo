@@ -30,7 +30,7 @@ function ensureBundledWaylandClipboard(archEnum, root = join(__dirname, '..'), r
 
 function finalizePackagedWaylandClipboard(resourcesDir) {
   const binDir = join(resourcesDir, 'bin')
-  const helper = join(binDir, 'orca-wayland-clipboard')
+  const helper = join(binDir, 'openkodo-wayland-clipboard')
   if (!existsSync(helper) || !collectNativeBinaries(binDir).includes(helper)) {
     throw new Error('The Linux package is missing its Wayland clipboard executable.')
   }

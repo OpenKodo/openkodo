@@ -10,7 +10,7 @@ import {
   type TabGroupPanelGeometrySnapshot
 } from './tab-group-panel-split-target'
 import { isPaneDropData, isTabDragData, type TabDragItemData } from './tab-drag-data'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import {
   dropTabThroughLayoutOwner,
   reorderTabInGroup
@@ -59,7 +59,7 @@ export function commitTabDragDrop({
   if (paneColumnSplit) {
     // End the drag now; main’s answer draws the requested pane placement.
     if (
-      ORCA_LAYOUT_OWNER_IS_MAIN &&
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
       dropTabThroughLayoutOwner(worktreeId, {
         kind: 'split',
         tabId: activeData.unifiedTabId,

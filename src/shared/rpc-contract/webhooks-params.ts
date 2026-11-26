@@ -12,7 +12,7 @@ import {
 import { requiredString } from './rpc-param-primitives'
 
 // The chat card and the Webhooks row read hooks through these, from the bot's execution host. Only
-// Orca's UI calls webhooks.reveal: no CLI command or agent tool prints a key.
+// OpenKodo's UI calls webhooks.reveal: no CLI command or agent tool prints a key.
 
 /** Why a webhooks.* call refused. */
 export const WEBHOOK_ERROR_CODES = [
@@ -76,7 +76,7 @@ export const WebhookRotate = z.object({
   operationId: OperationId,
   stopNow: z.boolean()
 })
-/** webhooks.secret → { secret? }: a pasted provider secret, or one Orca generates and shows once here. */
+/** webhooks.secret → { secret? }: a pasted provider secret, or one OpenKodo generates and shows once here. */
 export const WebhookSecret = z.object({
   hookId: HookId,
   operationId: OperationId,

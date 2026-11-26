@@ -17,7 +17,7 @@ export function resolveFallbackForegroundProcess(
   processName: string | null | undefined,
   shellPath: string
 ): string | null {
-  // node-pty can report Orca’s scope wrapper during exec or after the foreground leader exits.
+  // node-pty can report OpenKodo’s scope wrapper during exec or after the foreground leader exits.
   const normalized = normalizeForegroundProcessName(
     processName && isTerminalScopeWrapper(processName.trim()) ? shellPath : processName
   )

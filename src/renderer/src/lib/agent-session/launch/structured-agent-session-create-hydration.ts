@@ -1,6 +1,6 @@
 import { hasStructuredAgentLaunchCancellationTombstonePersisted } from './structured-agent-session-launch-persistence'
 import { wasStructuredAgentLaunchClosedByLocalCancel } from './structured-agent-session-local-launch-cancel'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { getStructuredAgentSessionReadOwner } from '@/components/native-chat/session/structured/read/structured-agent-session-read-owner'
 import { noteStructuredAgentSessionFence } from '@/components/native-chat/session/structured/delivery/structured-agent-session-send-attempt'
 import type { AgentSessionHistoryPage } from '../../../../../shared/agent-session/agent-session-wire'
@@ -15,7 +15,7 @@ export function publishStructuredAgentSessionCreateHydration(
   if (
     hasStructuredAgentLaunchCancellationTombstonePersisted(intent.sessionId) ||
     // Switch point: only a layout-owner build's local cancel closes the chat without a tombstone.
-    (ORCA_LAYOUT_OWNER_IS_MAIN && wasStructuredAgentLaunchClosedByLocalCancel(intent.sessionId))
+    (OPENKODO_LAYOUT_OWNER_IS_MAIN && wasStructuredAgentLaunchClosedByLocalCancel(intent.sessionId))
   ) {
     return
   }

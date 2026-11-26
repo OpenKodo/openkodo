@@ -64,7 +64,7 @@ export const HERMES_LAUNCH_SPEC: AcpLaunchSpec = {
   ],
   // 0.23.0 restored ACP after the gateway rewrite broke it.
   minimumVersions: ['0.23.0'],
-  // Its modes only gate edits; command approvals follow the profile, so Orca answers them in full access.
+  // Its modes only gate edits; command approvals follow the profile, so OpenKodo answers them in full access.
   permissionModeConfig: {
     values: { ask: 'ask', 'accept-edits': 'workspace_session', 'full-access': 'session' },
     fullAccessAnswersRequests: true

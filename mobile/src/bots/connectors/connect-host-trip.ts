@@ -1,5 +1,5 @@
 // One trip's side on the host, for the phone's connect trips (use-phone-connect-trip): Linear's and GitHub's
-// through Orca Cloud (bots.connect.*), and Google's own sign-in (google.signIn.*), which the host keeps.
+// through OpenKodo Cloud (bots.connect.*), and Google's own sign-in (google.signIn.*), which the host keeps.
 import { isHostNotConnectedError } from '../../query/host-query-errors'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'
 import { HOST_OFFLINE, slackCall } from './bot-slack-operations'
@@ -14,7 +14,7 @@ import {
 } from './bot-connector-account-operations'
 import type { GoogleSignInAsk } from './connector-pages'
 
-/** The trip's page in Orca's browser on the host. */
+/** The trip's page in OpenKodo's browser on the host. */
 export type ConnectSignInPage = { url: string; browserPageId: string | null }
 
 export type PhoneConnectTrip =
@@ -24,7 +24,7 @@ export type PhoneConnectTrip =
   | { status: 'linked'; link: PhoneConnectLink }
   | { status: 'failed'; error: string }
 
-/** The host couldn't wait for the return, so the sign-in finishes in Orca there. */
+/** The host couldn't wait for the return, so the sign-in finishes in OpenKodo there. */
 export const CONNECT_ON_HOST = 'loopback_unavailable'
 export const CANCELLED = 'cancelled'
 export const EXPIRED = 'expired'
@@ -78,7 +78,7 @@ export async function beginConnect(
         }
         const { result } = waited
         return result.ok
-          ? // Null: the host had no loopback and the trip ends at "Open Orca", which only it redeems.
+          ? // Null: the host had no loopback and the trip ends at "Open OpenKodo", which only it redeems.
             result.value
             ? { status: 'linked', link: result.value }
             : { status: 'failed', error: CONNECT_ON_HOST }
@@ -106,7 +106,7 @@ function googleEnd(status: GoogleStatus): PhoneConnectTrip | null {
 }
 
 /** Google's sign-in as the desktop runs it for a paired server: the host keeps the flow and its loopback,
- *  and its page opens in Orca's browser there. `started` gets the flow's cancel as soon as there is one, and
+ *  and its page opens in OpenKodo's browser there. `started` gets the flow's cancel as soon as there is one, and
  *  only that cancels it: a later start for the same account resumes the same flow, so a stale wait never does. */
 export async function beginGoogle(
   client: RpcClient,

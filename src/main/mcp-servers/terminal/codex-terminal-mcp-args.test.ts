@@ -9,7 +9,7 @@ describe('a Codex terminal’s -c overrides for the host list', () => {
         {
           name: 'linear',
           url: 'http://127.0.0.1:4100/mcp-servers/cred-1/mcp',
-          headers: { authorization: 'Bearer ${ORCA_MCP_TOKEN}' }
+          headers: { authorization: 'Bearer ${OPENKODO_MCP_TOKEN}' }
         },
         { name: 'pg', command: 'C:\\Tools\\pg mcp.exe', args: ['--db', 'C:\\data dir'] }
       ],
@@ -20,7 +20,7 @@ describe('a Codex terminal’s -c overrides for the host list', () => {
       '-c',
       "mcp_servers.linear.url='http://127.0.0.1:4100/mcp-servers/cred-1/mcp'",
       '-c',
-      "mcp_servers.linear.bearer_token_env_var='ORCA_MCP_TOKEN'",
+      "mcp_servers.linear.bearer_token_env_var='OPENKODO_MCP_TOKEN'",
       '-c',
       "mcp_servers.pg.command='C:\\Tools\\pg mcp.exe'",
       '-c',

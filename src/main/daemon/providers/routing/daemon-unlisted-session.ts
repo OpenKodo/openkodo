@@ -15,7 +15,7 @@ export type SessionListingDaemon = {
 }
 
 /**
- * Whether any daemon sharing the history dir may still run the session. A daemon Orca holds no
+ * Whether any daemon sharing the history dir may still run the session. A daemon OpenKodo holds no
  * adapter for (held for a newer protocol, or an older one whose socket failed) cannot answer, and
  * silence is never absence.
  */
@@ -41,7 +41,7 @@ export async function mayAnyDaemonRunSession(
 
 /**
  * Whether a daemon outside `asked` may still run sessions: one held for a newer protocol, or an older one
- * whose process may be alive. Their sessions are in no inventory Orca can read, so absence proves nothing.
+ * whose process may be alive. Their sessions are in no inventory OpenKodo can read, so absence proves nothing.
  */
 export async function mayUnaskedDaemonRunSessions(
   runtimeDir: string | null,

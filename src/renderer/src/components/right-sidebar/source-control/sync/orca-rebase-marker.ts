@@ -8,7 +8,7 @@ import type { OrcaRebaseMarker } from '../panel/worktree-operation-store'
 
 type OperationStore = SourceControlWorktreeOperationState['operationStore']
 
-/** Main reports the upstream tip only when Orca's own rebase integrated it; nothing else arms the marker. */
+/** Main reports the upstream tip only when OpenKodo's own rebase integrated it; nothing else arms the marker. */
 export function orcaRebaseMarkerFromResult(
   branch: string,
   result: RebaseFromBaseResult | ContinueRebaseResult
@@ -18,7 +18,7 @@ export function orcaRebaseMarkerFromResult(
     : null
 }
 
-/** Store the stop a Continue/inspect reported, and arm the marker when it finished Orca's rebase. */
+/** Store the stop a Continue/inspect reported, and arm the marker when it finished OpenKodo's rebase. */
 export function recordRebaseStopReading(
   operationStore: OperationStore,
   result: ContinueRebaseResult

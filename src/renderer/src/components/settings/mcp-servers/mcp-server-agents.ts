@@ -1,4 +1,4 @@
-// Which of the host's agents a server can be turned on for: the installed ones Orca gives servers to.
+// Which of the host's agents a server can be turned on for: the installed ones OpenKodo gives servers to.
 import { useMemo } from 'react'
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
@@ -11,7 +11,7 @@ import { useDetectedAgents } from '@/lib/agent-session/launch/inventory/useDetec
 import { useRuntimeHostStatusViewSelector } from '@/store/slices/runtime-status/views/use-runtime-status-view'
 import { isMacUserAgent, isWindowsUserAgent } from '@/app-shell/platform/user-agent-platform'
 
-/** The agents Orca delivers servers to, in the order the server page lists them. */
+/** The agents OpenKodo delivers servers to, in the order the server page lists them. */
 const MCP_SERVER_AGENTS: readonly TuiAgent[] = [
   'claude',
   'codex',

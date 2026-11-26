@@ -16,8 +16,8 @@ const modeWrites = new WeakMap<LivePermissionSession, Promise<void>>()
 // Agents with an unanswered mode write: it may still land, so their mode stays unknown until a restart.
 const unansweredModes = new WeakSet<object>()
 
-/** The choice the agent runs under now: Orca's own for requests it answers, else the agent's
- *  reported session mode; null when that mode is none of Orca's. */
+/** The choice the agent runs under now: OpenKodo's own for requests it answers, else the agent's
+ *  reported session mode; null when that mode is none of OpenKodo's. */
 export function acpRunningPermission(
   session: Pick<LivePermissionSession, 'spec' | 'options' | 'permissionModes' | 'permission'>
 ): AgentChatPermissionChoice | null {
@@ -46,7 +46,7 @@ export function applyAcpLivePermissionMode(
   bound: Pick<AcpOptionWriteBound, 'timeoutMs'>
 ): Promise<void> {
   if (!session.spec.permissionModeConfig) {
-    // Orca answers this agent's permission requests, reading the mode at each request.
+    // OpenKodo answers this agent's permission requests, reading the mode at each request.
     if (!session.launchArgsGrantFullAccess) {
       session.permission = mode
       session.options.applied.set('permissionMode', mode === 'full-access' ? 'full-access' : 'ask')

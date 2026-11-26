@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { DEFAULT_LOCAL_ORCA_PROFILE_ID } from '../../../shared/orca-profiles/orca-profiles'
+import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../../shared/orca-profiles/orca-profiles'
 import { PROFILE_STATE_DATABASE_FILE_NAME } from '../../../shared/orca-profiles/profile-state-storage-paths'
 import { getActiveProfileStateLocation } from '../../persistence/profile-state/offline-access/profile-state-active-location'
 import { readProfileStateDomain } from '../../persistence/profile-state/documents/profile-state-domain-reader'
@@ -12,7 +12,7 @@ export function serveProfileHasSshTargets(userDataPath: string): boolean {
   const location = getActiveProfileStateLocation(userDataPath) ?? {
     dataFile: join(userDataPath, 'orca-data.json'),
     databaseFile: join(userDataPath, PROFILE_STATE_DATABASE_FILE_NAME),
-    profileId: DEFAULT_LOCAL_ORCA_PROFILE_ID
+    profileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID
   }
   const storage = classifyProfileStateStorage(location.dataFile, location.databaseFile)
   if (storage === 'neither') {

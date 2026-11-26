@@ -34,7 +34,7 @@ const CASES = [
   {
     name: 'nofuse-nosandbox-direct-binary-skills',
     expectStatus: 0,
-    expectOutput: 'Usage: orca-ide skills',
+    expectOutput: 'Usage: openkodo skills',
     why: 'A direct binary launch that reaches JavaScript must run the command, not boot a GUI (#14229).'
   },
   {
@@ -142,8 +142,8 @@ function buildImage() {
   const buildArgs = [
     'build',
     ...dockerPlatformArgs,
-    ...(process.env.ORCA_CLI_FIXTURE_CACHE_IMAGE
-      ? ['--cache-from', process.env.ORCA_CLI_FIXTURE_CACHE_IMAGE]
+    ...(process.env.OPENKODO_CLI_FIXTURE_CACHE_IMAGE
+      ? ['--cache-from', process.env.OPENKODO_CLI_FIXTURE_CACHE_IMAGE]
       : []),
     '-f',
     'config/docker/cli-launch-contract/Dockerfile',
@@ -189,7 +189,7 @@ function stageArtifacts() {
         'chown -R orca:orca /artifacts',
         // Use the AppImage runtime's no-FUSE extraction path.
         'cd /artifacts && runuser --user orca -- ./orca-linux.AppImage --appimage-extract >/dev/null',
-        'test -x /artifacts/squashfs-root/resources/bin/orca-ide'
+        'test -x /artifacts/squashfs-root/resources/bin/openkodo'
       ].join(' && ')
     ],
     { timeoutMs: STAGING_TIMEOUT_MS }

@@ -24,7 +24,7 @@ export const failingBesideOpenedCard = defineFixture({
         pullRequests={[
           {
             provider: 'github',
-            url: 'https://github.com/stablyai/orca/pull/3',
+            url: 'https://github.com/OpenKodo/openkodo/pull/3',
             slug: { owner: 'stablyai', repo: 'orca' },
             number: 3
           }

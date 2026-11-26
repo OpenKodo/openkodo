@@ -1,5 +1,5 @@
 // L80: emulate the PTY host's binding commit before registration in layout-owner builds; switch-off writes nothing.
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { RuntimePtyController } from '../lifecycle/runtime-pty-controller-contract'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import { getConnectionExecutionHostId } from '../../../../shared/execution-host/execution-host'
@@ -87,7 +87,7 @@ export function bindPaneFirst(
   pane: BoundPane,
   hostId = 'local'
 ): void {
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     return
   }
   const store = storeOf(runtime)
@@ -105,7 +105,7 @@ export function movePaneFirst(
   pane: BoundPane,
   hostId = 'local'
 ): void {
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     return
   }
   const store = storeOf(runtime)
@@ -156,7 +156,7 @@ export function registerLivePty(
   connectionId: string | null,
   binding: { tabId: string; leafId: string } & Record<string, unknown>
 ): void {
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     registerBoundPty(runtime, ptyId, worktreeId, connectionId, binding)
   }
 }
@@ -278,7 +278,7 @@ export async function dropFromHostInventory(
   runtime: OrcaRuntimeService,
   ptyId: string
 ): Promise<void> {
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     runtime.onPtyExit(ptyId, 0)
     return
   }

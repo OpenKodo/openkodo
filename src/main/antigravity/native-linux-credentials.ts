@@ -20,7 +20,7 @@ function requireLinux(): void {
   }
 }
 
-/** gdbus or secret-tool, which Orca reads the keyring with, isn't installed; agy talks to the
+/** gdbus or secret-tool, which OpenKodo reads the keyring with, isn't installed; agy talks to the
  *  Secret Service itself, so this says nothing about agy's own store. */
 export class AntigravityKeyringToolMissingError extends Error {
   constructor(
@@ -104,7 +104,7 @@ async function resolveAgyCollection(): Promise<string | null> {
   }
   if (locked.value.includes('<true>')) {
     throw new Error(
-      'Your Linux keyring is locked, so Orca cannot read or switch the Antigravity account. Unlock the keyring (for example in Passwords and Keys) and try again.'
+      'Your Linux keyring is locked, so OpenKodo cannot read or switch the Antigravity account. Unlock the keyring (for example in Passwords and Keys) and try again.'
     )
   }
   if (!locked.value.includes('<false>')) {

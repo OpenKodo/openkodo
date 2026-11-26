@@ -12,16 +12,16 @@ const CLOUD: OrcaProfileCloudSummary = {
 
 describe('appRailAccount', () => {
   it('prefers the display name, then the email, then the fallback', () => {
-    expect(appRailAccount(CLOUD, 'Orca account')).toEqual({
+    expect(appRailAccount(CLOUD, 'OpenKodo account')).toEqual({
       name: 'Alex Chen',
       email: 'alex@example.com',
       initial: 'A'
     })
-    expect(appRailAccount({ ...CLOUD, displayName: '  ' }, 'Orca account').name).toBe(
+    expect(appRailAccount({ ...CLOUD, displayName: '  ' }, 'OpenKodo account').name).toBe(
       'alex@example.com'
     )
-    expect(appRailAccount(undefined, 'Orca account')).toEqual({
-      name: 'Orca account',
+    expect(appRailAccount(undefined, 'OpenKodo account')).toEqual({
+      name: 'OpenKodo account',
       email: undefined,
       initial: 'O'
     })

@@ -148,7 +148,7 @@ export const readFailed = fixture({ result: { status: 'failed', message: null } 
 
 export const underGoal = fixture({ servers: SIGN_IN_SERVERS }, { underGoal: true })
 
-// A host with MCP servers on: Orca's group first, and the link to its settings.
+// A host with MCP servers on: OpenKodo's group first, and the link to its settings.
 export const orcaServers = fixture(
   {
     servers: [

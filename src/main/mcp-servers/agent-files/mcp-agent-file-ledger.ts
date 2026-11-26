@@ -1,4 +1,4 @@
-// What this Orca last wrote into each agent's MCP file, and the file as it was before: enough to take
+// What this OpenKodo last wrote into each agent's MCP file, and the file as it was before: enough to take
 // exactly its own entries back out. Like the trust ledger, an unreadable one records nothing, so it
 // can only ever leave an entry behind, never take a user's.
 import { randomUUID } from 'node:crypto'
@@ -11,13 +11,13 @@ import { renameFileWithWindowsRetryAsync } from '../../../shared/file-write/wind
 
 const FileRecordSchema = z.object({
   agent: z.enum(MCP_FILE_AGENTS),
-  /** No file was there before Orca's first entry. */
+  /** No file was there before OpenKodo's first entry. */
   created: z.boolean(),
-  /** The JSON file had no servers' table before Orca added one. */
+  /** The JSON file had no servers' table before OpenKodo added one. */
   addedTable: z.boolean(),
-  /** The file without Orca's entries (null: no file), as of Orca's last write. */
+  /** The file without OpenKodo's entries (null: no file), as of OpenKodo's last write. */
   before: z.string().nullable(),
-  /** The whole file as Orca last wrote it; while it still reads so, `before` is exact. */
+  /** The whole file as OpenKodo last wrote it; while it still reads so, `before` is exact. */
   written: z.string(),
   /** Each entry's value as written, by name (JSON files, which have no markers). */
   entries: z.record(z.string(), z.unknown())

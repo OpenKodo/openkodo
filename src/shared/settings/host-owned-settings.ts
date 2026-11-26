@@ -18,7 +18,7 @@ const HostOwnedSettingsSchema = z.object({
   nativeChatShellEnvironmentVariables: z.array(z.string()),
   // Launches the host starts itself (CLI, orchestration workers); desktop launches send their own.
   agentDefaultSurface: z.enum(['chat', 'terminal']),
-  // Retired with Orca's Antigravity server; still accepted so older clients' updates don't fail.
+  // Retired with OpenKodo's Antigravity server; still accepted so older clients' updates don't fail.
   antigravityGoogleSignIn: z.enum(['auto', 'agy', 'orca']),
   antigravityServerAutoUpdateEnabled: z.boolean()
 } satisfies { [K in keyof GlobalSettings]?: z.ZodType<NonNullable<GlobalSettings[K]>> })

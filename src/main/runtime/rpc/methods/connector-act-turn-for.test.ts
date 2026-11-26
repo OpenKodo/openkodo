@@ -11,7 +11,7 @@ const { postConnectorAction, journal } = vi.hoisted(() => {
 vi.mock('../../../bots/bot-session-tabs', () => ({
   botOfSession: () => ({ id: 'bot-1', name: 'Scout' })
 }))
-// The chat's journal as Orca stored it; whom the turn acts for is read from it by the real reader.
+// The chat's journal as OpenKodo stored it; whom the turn acts for is read from it by the real reader.
 vi.mock('../../../bots/bot-chat-session', () => ({
   requireStructuredHost: async () => ({
     journalReads: async () => ({
@@ -141,7 +141,7 @@ describe('connector.act read on a chat a teammate started', () => {
     postConnectorAction.mockResolvedValue({ ok: true, value: { ok: true, result: {} } })
   })
 
-  it('reads as the owner on a turn the owner typed in Orca', async () => {
+  it('reads as the owner on a turn the owner typed in OpenKodo', async () => {
     runningTurn(typed, true)
     expect(await readSends()).toBe('owner')
     expect(await readSends(CHAT)).toBe('owner')

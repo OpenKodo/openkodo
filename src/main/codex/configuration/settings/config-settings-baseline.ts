@@ -34,9 +34,9 @@ export type CodexSettingsBaseline = {
   /** MCP server names the last mirror copied from the canonical source. */
   mcpServers: ReadonlySet<string>
   mcpServerRoot: boolean
-  /** False for baselines from before Orca recorded which plugin tables it mirrored. */
+  /** False for baselines from before OpenKodo recorded which plugin tables it mirrored. */
   tracksRegistrations?: boolean
-  /** Set once a WSL distro config regenerated this home; absent on homes an older Orca mirrored. */
+  /** Set once a WSL distro config regenerated this home; absent on homes an older OpenKodo mirrored. */
   guestCarryForward?: CodexGuestCarryForward
   /** Set once a pass found ~/.codex outside any WSL distro, so clean passes need not resolve it again. */
   nativeSource?: boolean

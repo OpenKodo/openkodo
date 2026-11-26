@@ -7,7 +7,7 @@ import type { Bot } from '../../../../../shared/bot-types'
 import { botErrorMessage } from '../bot-presentation'
 import { BotAppRowButton } from '../apps/BotAppRow'
 
-/** Orgs taken off the bot that still have Orca installed: Add back puts the bot there again, no GitHub trip.
+/** Orgs taken off the bot that still have OpenKodo installed: Add back puts the bot there again, no GitHub trip.
  *  Each spans Add apps' grid, under GitHub's name. */
 export function RemovedGitHubOrgs({ bot }: { bot: Bot }): React.JSX.Element | null {
   const t = useTranslate()

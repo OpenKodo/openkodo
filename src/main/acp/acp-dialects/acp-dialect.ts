@@ -141,7 +141,7 @@ export type AcpTurnEnding = {
   /** Structured error data shows the model provider failed; runtime only. */
   providerFailure?: boolean
   hookBlock?: AcpHookBlock
-  /** Orca asked the agent to stop this prompt, whatever reason it then gave. */
+  /** OpenKodo asked the agent to stop this prompt, whatever reason it then gave. */
   cancelRequested?: boolean
 }
 
@@ -243,7 +243,7 @@ export type AcpDialect = {
   compactionUpdate?(update: SessionUpdate): CompactionUpdate | undefined
   /** The agent's own command for /compact. */
   compactCommand?: string
-  /** Orca's catalog ids (the agent CLI's) its chat server names differently, as the server's ids. */
+  /** OpenKodo's catalog ids (the agent CLI's) its chat server names differently, as the server's ids. */
   chatModelIds?: ReadonlyMap<string, string>
   /** Resolves a CLI model id the chat server does not list to a listed model plus its effort,
    *  thinking and Fast; null if none. */
@@ -273,11 +273,11 @@ export type AcpDialect = {
   skillDescription?(command: AvailableCommand): string | null
   /** Which session rows are the agent's own built-ins, as this process's initialize response proves. */
   builtinCommands?(initialized: InitializeResponse): (command: AvailableCommand) => boolean
-  /** This agent's fast parameter, mapped to Orca's fast mode toggle. */
+  /** This agent's fast parameter, mapped to OpenKodo's fast mode toggle. */
   fastConfigId?: string
   /** This agent's on/off thinking parameter, written only for a CLI model id that names it. */
   thinkingConfigId?: string
-  /** This agent's mode values, mapped to Orca's Build/Plan interaction mode. */
+  /** This agent's mode values, mapped to OpenKodo's Build/Plan interaction mode. */
   interactionModes?: Readonly<Record<AgentSessionInteractionMode, string>>
 }
 

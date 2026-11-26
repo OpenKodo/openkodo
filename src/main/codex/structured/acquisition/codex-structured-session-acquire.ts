@@ -181,7 +181,7 @@ export async function acquireCodexStructuredSession(input: {
           attempt.historyCatchUp?.abort()
           acquisition.appliedSettings.end()
           try {
-            // Orca's own close or cancel ends no start; Codex ending on its own does, from the
+            // OpenKodo's own close or cancel ends no start; Codex ending on its own does, from the
             // moment its process is seen, before spawn bookkeeping finishes.
             if (!exit?.expected && !attempt.cancelled) {
               exitedOnItsOwn ??= error
@@ -220,7 +220,7 @@ export async function acquireCodexStructuredSession(input: {
               sessionId,
               connection: acquisition.connection,
               error,
-              // A previously unproven Orca close still owns this exit.
+              // A previously unproven OpenKodo close still owns this exit.
               ...(exit?.expected ? { closedByOrca: true as const } : {}),
               ...(deps.logger ? { logger: deps.logger } : {}),
               prompts: acquisition.prompts,

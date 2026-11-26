@@ -88,14 +88,14 @@ async function runStartupPreflightChild(directory: string, identity: string): Pr
     program: process.execPath,
     args: [join(directory, ORCAD_SERVER_ENTRY_FILENAME), ORCAD_STARTUP_PREFLIGHT_FLAG, nonce],
     // Reuse the serving runtime code cache for this identical bundle.
-    env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1', ...orcadCompileCacheEnv(directory) },
+    env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1', ...orcadCompileCacheEnv(directory) },
     timeoutMs: ORCAD_PROFILE_PREFLIGHT_TIMEOUT_MS,
     maxOutputBytes: 64 * 1024,
     terminationBarrier: true
   })
   if (result.code !== 0 || result.timedOut || result.outputTruncated) {
     const Failure = result.code === ORCAD_EXIT_CONFIGURATION ? OrcadBundledRuntimeError : Error
-    throw new Failure(`The bundled Orca runtime failed readiness: ${result.stderr}`)
+    throw new Failure(`The bundled OpenKodo runtime failed readiness: ${result.stderr}`)
   }
   try {
     parseOrcadProfilePreflight(result.stdout, nonce, ORCAD_NODE_RUNTIME_IDENTITY, identity)
@@ -126,7 +126,7 @@ export async function runOrcadProfilePreflight(
   try {
     artifactVersion = await readOrcadArtifactIdentity(directory)
   } catch (cause) {
-    throw new OrcadBundledRuntimeError('The bundled Orca artifacts are incomplete or altered', {
+    throw new OrcadBundledRuntimeError('The bundled OpenKodo artifacts are incomplete or altered', {
       cause
     })
   }
@@ -175,7 +175,7 @@ async function readInstalledVersion(directory: string): Promise<string> {
     )
   } catch (cause) {
     throw new OrcadBundledRuntimeError(
-      'The installed Orca artifact version is missing or invalid',
+      'The installed OpenKodo artifact version is missing or invalid',
       {
         cause
       }

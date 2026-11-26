@@ -1,7 +1,7 @@
 import { isAgentChatPermissionMode } from '../../../../../../../shared/agent-launch/permissions/agent-chat-permission-mode'
 
 /** What an Own pill's hint can truthfully add when it names no mode: that the agent reported a mode
- *  by a name Orca has no label for, or just whose settings apply. Null once a mode is named. A missing report never
+ *  by a name OpenKodo has no label for, or just whose settings apply. Null once a mode is named. A missing report never
  *  promises one is coming: neither the host nor the agent version guarantees a nameable report. */
 export type NativeChatPermissionSettingsHint = 'unnamed-report' | 'settings'
 

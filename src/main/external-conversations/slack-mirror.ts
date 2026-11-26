@@ -1,4 +1,4 @@
-// Posts the owner's Orca-typed messages into their bot chat's Slack thread, and holds the turn's
+// Posts the owner's OpenKodo-typed messages into their bot chat's Slack thread, and holds the turn's
 // reply until those posts settled, so Slack never shows an answer before its question.
 import type { AgentJournalMessageItem } from '../../shared/agent-session/journal/agent-session-journal-types'
 import {
@@ -43,9 +43,9 @@ function clientMessageIdOf(itemId: string): string | null {
 
 export type SlackMirrorDeps = SlackMirrorLinkDeps & {
   cloud: () => SlackMirrorCloud | null
-  /** The Orca account's name, posted beside the words. */
+  /** The OpenKodo account's name, posted beside the words. */
   orcaName: () => string
-  /** A bot's "Post my Orca messages to Slack threads I start"; undefined reads as on. */
+  /** A bot's "Post my OpenKodo messages to Slack threads I start"; undefined reads as on. */
   botSetting: (botId: string) => boolean | undefined
   /** A message of the chat, read back for Retry. */
   readMessage: (sessionId: string, itemId: string) => Promise<AgentJournalMessageItem | null>
@@ -128,7 +128,7 @@ export class SlackMirror extends SlackMirrorLinks {
   }
 
   /** Whether the thread saw the chat's running turn: one of its messages is posted or posting, not
-   *  failed or dismissed. A restart ends the turn (its continuation is Orca's), so memory suffices. */
+   *  failed or dismissed. A restart ends the turn (its continuation is OpenKodo's), so memory suffices. */
   turnPosted(sessionId: string): boolean {
     const posts = this.linkOfSession(sessionId)?.link.mirrorPosts ?? {}
     return [...(this.turnPosts.get(sessionId) ?? [])].some((itemId) => {
@@ -137,7 +137,7 @@ export class SlackMirror extends SlackMirrorLinks {
     })
   }
 
-  /** The chat's turn ended: null when none of its messages posted, so its reply stays in Orca. */
+  /** The chat's turn ended: null when none of its messages posted, so its reply stays in OpenKodo. */
   turnEnded(sessionId: string): SlackMirrorTurn | null {
     const posts = [...(this.turnPosts.get(sessionId) ?? [])]
     this.turnPosts.delete(sessionId)
@@ -255,7 +255,7 @@ export class SlackMirror extends SlackMirrorLinks {
   }
 
   /** A default-on chat reads its thread before posting: a Slack Connect thread the owner never
-   *  turned on stays in Orca, and an unread one fails with Retry rather than post (Q3). */
+   *  turned on stays in OpenKodo, and an unread one fails with Retry rather than post (Q3). */
   private async postOnce(
     sessionId: string,
     itemId: string,

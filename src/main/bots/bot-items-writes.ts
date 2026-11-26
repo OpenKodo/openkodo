@@ -1,6 +1,6 @@
 // A bot commenting, closing and linking its own items (comments go on closed items too, and from the
 // bot that made one with `--for`; the rest only on open ones), any agent linking its own work to any
-// open item, and Orca linking a worker started for an item.
+// open item, and OpenKodo linking a worker started for an item.
 import {
   isOpenBotItemStatus,
   type BotItemActor,
@@ -22,7 +22,7 @@ import {
 import { eventRecordOf } from './bot-items-rows'
 import type { BotItemRecord } from './bot-items-schema'
 
-/** Orca's own wait: every worker on the item stopped on its agent's usage limit. */
+/** OpenKodo's own wait: every worker on the item stopped on its agent's usage limit. */
 export const BOT_ITEM_USAGE_LIMIT_WAIT = 'usage-limit'
 
 export class BotItemsWrites extends BotItemsEdits {
@@ -122,7 +122,7 @@ export class BotItemsWrites extends BotItemsEdits {
   /** A worker started for an item (`worker-start --item`): linked once, and when the item's own agent
    *  started it, Planned, Waiting or Needs you with no open question moves to In progress; anyone else's never moves it. A
    *  closed item takes no link (a retry keeps its first start's item). `starter`: the starting agent and chat, whose write it is, as
-   *  `item link` would be; Orca's own catch-up when that chat is unknown. */
+   *  `item link` would be; OpenKodo's own catch-up when that chat is unknown. */
   linkStartedWorker(
     uid: string,
     dispatchId: string,
@@ -158,8 +158,8 @@ export class BotItemsWrites extends BotItemsEdits {
     })
   }
 
-  /** Orca's usage-limit wait: `text` (when it resets) moves an In progress item to Waiting; null moves
-   *  one Orca set Waiting this way back to In progress. Anyone else's status is left alone. */
+  /** OpenKodo's usage-limit wait: `text` (when it resets) moves an In progress item to Waiting; null moves
+   *  one OpenKodo set Waiting this way back to In progress. Anyone else's status is left alone. */
   usageLimitWait(uid: string, text: string | null, now = Date.now()): number | null {
     return this.transaction(() => {
       const item = this.get(uid)
@@ -182,7 +182,7 @@ export class BotItemsWrites extends BotItemsEdits {
     })
   }
 
-  /** Items Orca set Waiting for a usage limit, linked to a worker or not. */
+  /** Items OpenKodo set Waiting for a usage limit, linked to a worker or not. */
   usageLimitWaitUids(): string[] {
     return this.db
       .prepare(
@@ -200,7 +200,7 @@ export class BotItemsWrites extends BotItemsEdits {
     return this.appendEvent(item.uid, 'status', actor, moved, mail, now)
   }
 
-  /** Orca's own line on an item, such as why a worker started for it had to start in a terminal.
+  /** OpenKodo's own line on an item, such as why a worker started for it had to start in a terminal.
    *  It mails no chat: the starter already read the same reason in its receipt. */
   orcaComment(uid: string, text: string, why: string, now = Date.now()): BotItemWriteOutcome {
     assertBotItemText('text', text)

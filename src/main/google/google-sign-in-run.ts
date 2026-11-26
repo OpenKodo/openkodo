@@ -47,7 +47,7 @@ import {
 export const GOOGLE_SIGN_IN_TTL_MS = 5 * 60_000
 
 export const NO_GOOGLE_CLIENT =
-  'Add your team’s Google client first, in Orca, from its Desktop app client file.'
+  'Add your team’s Google client first, in OpenKodo, from its Desktop app client file.'
 
 export type GoogleSignInDeps = {
   http: GoogleHttp
@@ -189,8 +189,8 @@ export async function runGoogleSignIn(
         errors: {
           timeout: GOOGLE_SIGN_IN_EXPIRED,
           cancelled: 'The Google sign-in was cancelled.',
-          unavailable: "Orca couldn't open a local port for Google to return to.",
-          failed: 'The Google sign-in failed. Start again in Orca.'
+          unavailable: "OpenKodo couldn't open a local port for Google to return to.",
+          failed: 'The Google sign-in failed. Start again in OpenKodo.'
         },
         // Probes and stale tabs leave the sign-in waiting; only this state's return counts.
         read: (url) => {
@@ -198,7 +198,7 @@ export async function runGoogleSignIn(
           if (!current || !isGoogleReturnFor(url, state)) {
             return {
               kind: 'stray',
-              message: 'This sign-in isn’t for this Orca. Return to Orca and try again.'
+              message: 'This sign-in isn’t for this OpenKodo. Return to OpenKodo and try again.'
             }
           }
           try {

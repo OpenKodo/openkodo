@@ -6,10 +6,10 @@ import { isValidAppVersion } from '../app-lifecycle/identity/app-version'
 import type { OrcaCloudCapabilities } from './orca-cloud-capabilities'
 import type { OrcaProfileAuthStatus } from './orca-profiles'
 
-export const ORCA_CLOUD_TEAM_SETTINGS = 'team_settings'
-export const ORCA_CLOUD_DESKTOP_REPORTING = 'desktop.deviceReporting'
+export const OPENKODO_CLOUD_TEAM_SETTINGS = 'team_settings'
+export const OPENKODO_CLOUD_DESKTOP_REPORTING = 'desktop.deviceReporting'
 
-export const ORCA_CLOUD_TEAM_POLICY_FLAGS = {
+export const OPENKODO_CLOUD_TEAM_POLICY_FLAGS = {
   mobileRelay: 'relay.use',
   bots: 'desktop.bots',
   computerUse: 'desktop.computerUse',
@@ -21,12 +21,12 @@ export const ORCA_CLOUD_TEAM_POLICY_FLAGS = {
 } as const
 
 export type OrcaCloudTeamFeatureFlag =
-  (typeof ORCA_CLOUD_TEAM_POLICY_FLAGS)[keyof typeof ORCA_CLOUD_TEAM_POLICY_FLAGS]
+  (typeof OPENKODO_CLOUD_TEAM_POLICY_FLAGS)[keyof typeof OPENKODO_CLOUD_TEAM_POLICY_FLAGS]
 
 export function getGoverningTeamCapabilities(
   capabilities: OrcaCloudCapabilities | undefined
 ): OrcaCloudCapabilities | undefined {
-  return capabilities?.flags[ORCA_CLOUD_TEAM_SETTINGS] === true &&
+  return capabilities?.flags[OPENKODO_CLOUD_TEAM_SETTINGS] === true &&
     capabilities.teamPolicy?.orgIds?.length
     ? capabilities
     : undefined
@@ -35,7 +35,7 @@ export function getGoverningTeamCapabilities(
 export function getDesktopReportingOrgIds(
   capabilities: OrcaCloudCapabilities | undefined
 ): string[] {
-  if (capabilities?.flags[ORCA_CLOUD_DESKTOP_REPORTING] !== true) {
+  if (capabilities?.flags[OPENKODO_CLOUD_DESKTOP_REPORTING] !== true) {
     return []
   }
   const policy = getGoverningTeamCapabilities(capabilities)?.teamPolicy

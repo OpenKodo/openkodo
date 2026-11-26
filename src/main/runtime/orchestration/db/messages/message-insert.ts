@@ -33,7 +33,7 @@ export type MessageInsert = {
   deliveryContract?: MessageDeliveryContract
   /** The Dispatch whose worker sent this, as the sender's own check found it; names it on every card. */
   senderDispatchId?: string
-  /** Orca wrote this mail itself, so its payload (and for item mail its sender) stands. */
+  /** OpenKodo wrote this mail itself, so its payload (and for item mail its sender) stands. */
   orcaAuthored?: OrcaAuthoredMail
 }
 

@@ -8,7 +8,7 @@ import { useAppStore } from '../../../../store/index'
 
 export type ResourceOwnerUsage = { memory: number }
 
-/** Orca's tracked memory by who started it, so no single total reads as Orca's own usage. */
+/** OpenKodo's tracked memory by who started it, so no single total reads as OpenKodo's own usage. */
 export type ResourceOwnerSplit = {
   orca: ResourceOwnerUsage
   agents: ResourceOwnerUsage

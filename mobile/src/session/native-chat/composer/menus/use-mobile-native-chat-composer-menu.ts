@@ -62,7 +62,7 @@ export function useMobileNativeChatComposerMenu(input: {
   onSlashMenuDemand?: (open: boolean) => void
   /** A picked skill; a send carries its file while its token stays, and treats a leading one as chat. */
   onPickSkill?: (skill: Extract<ComposerMenuRow, { kind: 'skill' }>) => void
-  /** An Orca command row was picked; it outranks an earlier skill pick of the same token. */
+  /** An OpenKodo command row was picked; it outranks an earlier skill pick of the same token. */
   onPickOrcaCommand?: (token: string) => void
   editing?: boolean
   interactionModeSupported?: boolean

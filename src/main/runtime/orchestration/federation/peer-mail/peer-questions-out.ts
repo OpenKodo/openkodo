@@ -1,4 +1,4 @@
-// The questions this Orca's agents asked agents on paired computers, kept until an answer or notice
+// The questions this OpenKodo's agents asked agents on paired computers, kept until an answer or notice
 // for each comes back, so an unpair or re-pair tells the askers still waiting that none will come.
 import type { OrcaRuntimeService } from '../../../orca-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -41,7 +41,7 @@ export function forgetPeerQuestionOut(db: OrchestrationDb, messageId: string): v
 }
 
 /** A reply came back on this conversation: the question it answers, or is a notice for, is settled.
- *  An older paired Orca names no request, so its reply settles the questions of its thread. Runs
+ *  An older paired OpenKodo names no request, so its reply settles the questions of its thread. Runs
  *  before the reply is stored: a crash between leaves it unacknowledged, so it is pulled again. */
 export function settlePeerQuestionsOut(
   db: OrchestrationDb,

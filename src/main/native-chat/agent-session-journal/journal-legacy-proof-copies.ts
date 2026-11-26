@@ -22,7 +22,7 @@ const COPY_SOURCE = journalLegacyCopySourceKey('')
 export function assertLegacyChatSettled(store: Database.Database, sessionId: string): void {
   if (meta(store, journalLegacyFailureKey(sessionId)) !== undefined) {
     throw new JournalLegacyRetentionError(
-      'an older Orca chat could not be kept in this store',
+      'an older OpenKodo chat could not be kept in this store',
       'source-failed'
     )
   }
@@ -30,7 +30,7 @@ export function assertLegacyChatSettled(store: Database.Database, sessionId: str
     meta(store, `${JOURNAL_LEGACY_COMPARE}${sessionId}`) !== undefined ||
     meta(store, `${JOURNAL_LEGACY_COPY_DUE}${sessionId}`) !== undefined
   ) {
-    throw new JournalLegacyRetentionError('an older Orca chat is still being compared')
+    throw new JournalLegacyRetentionError('an older OpenKodo chat is still being compared')
   }
 }
 
@@ -65,7 +65,7 @@ function assertNoLegacyFailures(source: Database.Database, store: Database.Datab
     const id = String(row.key).slice(prefix.length)
     if (held.get(id)?.held || readJournalLegacyFailure(store, id)?.claims) {
       throw new JournalLegacyRetentionError(
-        'an older Orca chat could not be kept in this store',
+        'an older OpenKodo chat could not be kept in this store',
         'source-failed'
       )
     }
@@ -85,7 +85,7 @@ export function assertNoLegacyComparesDue(
   for (const prefix of [JOURNAL_LEGACY_COMPARE, JOURNAL_LEGACY_COPY_DUE]) {
     for (const row of due.iterate(prefix, prefixEnd(prefix))) {
       if (held.get(String(row.key).slice(prefix.length))?.held) {
-        throw new JournalLegacyRetentionError('an older Orca chat is still being compared')
+        throw new JournalLegacyRetentionError('an older OpenKodo chat is still being compared')
       }
     }
   }
@@ -105,7 +105,7 @@ function hasRecords(source: Database.Database): boolean {
 }
 
 /**
- * Copies the reconcile kept for chats an older Orca continued take their history from the
+ * Copies the reconcile kept for chats an older OpenKodo continued take their history from the
  * original when they convert, which clears their mapping. Pages of those still mapped at `copies`,
  * then a check at `copies + 1` that none remain: a copy another build readied empty keeps the
  * original. A copy whose chat the original no longer holds has nothing left to take from it.
@@ -120,7 +120,9 @@ export function readLegacyCopiesProofPage(
     for (let after: string | null = null; ;) {
       const page = readPendingCopies(source, store, after)
       if (page.copies.length > 0) {
-        throw new JournalLegacyRetentionError('a copy of an older Orca chat has not converted yet')
+        throw new JournalLegacyRetentionError(
+          'a copy of an older OpenKodo chat has not converted yet'
+        )
       }
       if (page.last === null) {
         return { next: null, sessions: [] }
@@ -156,7 +158,7 @@ function readPendingCopies(
     // A copy whose conversion failed is retried only when opened, never by this proof.
     if (meta(store, journalLegacyFailureKey(copy)) !== undefined) {
       throw new JournalLegacyRetentionError(
-        'a copy of an older Orca chat could not be converted',
+        'a copy of an older OpenKodo chat could not be converted',
         'source-failed'
       )
     }

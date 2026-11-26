@@ -49,7 +49,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-describe('orca plugin update --all', () => {
+describe('openkodo plugin update --all', () => {
   it('fails with every outcome row and the failed plugins when an update failed', async () => {
     const result = { updates: [UPDATED, UP_TO_DATE, PINNED], approvals: [], failed: [FAILED] }
     const error = await updateAll(async () => ({ result }))
@@ -74,7 +74,9 @@ describe('orca plugin update --all', () => {
         data: {
           updates: result.updates,
           failed: [FAILED],
-          nextSteps: ['To retry acme.bad and see how to fix it, run: orca plugin update acme.bad']
+          nextSteps: [
+            'To retry acme.bad and see how to fix it, run: openkodo plugin update acme.bad'
+          ]
         }
       }
     })
@@ -110,9 +112,9 @@ describe('orca plugin update --all', () => {
       approvals,
       failed: [FAILED],
       nextSteps: [
-        'To retry acme.bad and see how to fix it, run: orca plugin update acme.bad',
+        'To retry acme.bad and see how to fix it, run: openkodo plugin update acme.bad',
         'Confirm with your user first.',
-        'To approve acme.wants, run: orca plugin update acme.wants --approve ap1-x'
+        'To approve acme.wants, run: openkodo plugin update acme.wants --approve ap1-x'
       ]
     })
   })

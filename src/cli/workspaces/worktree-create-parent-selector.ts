@@ -73,11 +73,11 @@ export async function resolveCreateParentSelector(
 }
 
 export function getEnvParentWorkspace(): string | undefined {
-  const workspaceId = process.env.ORCA_WORKSPACE_ID
+  const workspaceId = process.env.OPENKODO_WORKSPACE_ID
   if (typeof workspaceId === 'string' && isWorkspaceKey(workspaceId)) {
     return workspaceId
   }
-  const worktreeId = process.env.ORCA_WORKTREE_ID
+  const worktreeId = process.env.OPENKODO_WORKTREE_ID
   if (typeof worktreeId === 'string' && worktreeId.length > 0) {
     return isWorkspaceKey(worktreeId) ? worktreeId : worktreeWorkspaceKey(worktreeId)
   }

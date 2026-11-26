@@ -13,7 +13,7 @@ export type WorkerIdentity = Readonly<{
   taskId: string
   title: string | null
   agent: AgentType | null
-  /** The paired server's name; null for a worker on this Orca. */
+  /** The paired server's name; null for a worker on this OpenKodo. */
   hostLabel: string | null
 }>
 
@@ -32,7 +32,7 @@ export function workerTaskTitle(
   return display.taskTitle || display.displayName || null
 }
 
-/** Local, server-owned and legacy relayed Dispatches all answer here; null when this Orca has none. */
+/** Local, server-owned and legacy relayed Dispatches all answer here; null when this OpenKodo has none. */
 export function workerIdentity(db: OrchestrationDb, dispatchId: string): WorkerIdentity | null {
   const remote = getRemoteDispatch(db, dispatchId)
   if (remote) {

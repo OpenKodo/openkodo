@@ -7,7 +7,7 @@ import { getBrowserDisplayTitle } from '../../../../../../shared/browser/browser
 import { publishNativeChatVisualGuestTheme } from '@/components/native-chat/media/visuals/NativeChatVisualGuestThemePublisher'
 import { normalizeBrowserGuestSrc } from '../../../../../../shared/browser/extensions/browser-extension-url'
 import '../../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import { parkBrowserPageViewport } from '../viewport/browser-page-viewport'
 import { subscribeBrowserSystemResume } from '../recovery/browser-system-resume'
 import {
@@ -224,7 +224,7 @@ export function bindBrowserPageWebviewListeners({
     publishNativeChatVisualGuestTheme()
     // Why: set src only after listeners attach so a fast localhost failure isn't missed.
     const initialUrl =
-      normalizeBrowserGuestSrc(initialBrowserUrlRef.current) ?? ORCA_BROWSER_BLANK_URL
+      normalizeBrowserGuestSrc(initialBrowserUrlRef.current) ?? OPENKODO_BROWSER_BLANK_URL
     lastKnownWebviewUrlRef.current = initialUrl
     webview.dataset.orcaAttachPending = 'true'
     startBrowserPageDeferredAttach({

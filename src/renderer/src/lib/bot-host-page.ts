@@ -1,5 +1,5 @@
 // Where a sign-in page for a host's bots opens. This app's own bots: as before. A paired server's
-// bots: always in that server's own page in Orca's browser, whatever the link setting says, so the
+// bots: always in that server's own page in OpenKodo's browser, whatever the link setting says, so the
 // page has the server's own logins and its traffic, a 127.0.0.1 return included, goes through the
 // server. The link setting still picks foreground or background there.
 import { toast } from 'sonner'
@@ -32,7 +32,7 @@ export type BotHostPageOptions = {
   /** The bot the page is for, whose workspace it must open in; without one, any bot of the host
    *  lends its workspace. */
   bot?: BotRef
-  /** This app's own bots: `system` opens the system browser, `link-setting` follows "Open links in Orca". */
+  /** This app's own bots: `system` opens the system browser, `link-setting` follows "Open links in OpenKodo". */
   local: 'system' | 'link-setting'
 }
 
@@ -75,7 +75,7 @@ export function openBotHostPageOrSay(
   return opened
 }
 
-/** Why a server's page opened nowhere: Orca's browser for it isn't reachable now. */
+/** Why a server's page opened nowhere: OpenKodo's browser for it isn't reachable now. */
 export function botHostUnroutedMessage(hostId: ExecutionHostId): string {
   const host = selectExecutionHostDisplayLabel(useAppStore.getState(), hostId)
   return translate(
@@ -100,7 +100,7 @@ export function openOnServer(hostId: ExecutionHostId, url: string, ref?: BotRef)
     return false
   }
   const worktreeId = folderWorkspaceKey(bot.folderWorkspaceId)
-  // An Orca-browser page is owned as resolved here; routed only when that owner is another computer.
+  // An OpenKodo-browser page is owned as resolved here; routed only when that owner is another computer.
   const state = useAppStore.getState()
   const owner = resolveNativeChatHttpLinkSourceOwner(state, worktreeId)
   // Decided before opening: a link the workspace's browser can't host would go to the system browser.

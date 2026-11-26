@@ -15,7 +15,7 @@ const IDLE_MINUTES = 10
 // setTimeout fires at once past 2^31-1 ms, so longer periods mean "never stop".
 const MAX_IDLE_MS = 2 ** 31 - 1
 
-export function resolveIdleMs(value = process.env.ORCA_TYPESCRIPT_LSP_IDLE_MINUTES) {
+export function resolveIdleMs(value = process.env.OPENKODO_TYPESCRIPT_LSP_IDLE_MINUTES) {
   const minutes = value === undefined ? IDLE_MINUTES : Number(value)
   const ms = minutes * 60_000
   return Number.isFinite(ms) && ms > 0 && ms <= MAX_IDLE_MS ? ms : Infinity
@@ -27,9 +27,9 @@ export function resolveTypescriptLanguageServer({
   platform = process.platform,
   arch = process.arch
 }) {
-  const requested = env.ORCA_TYPESCRIPT_LSP ?? 'auto'
+  const requested = env.OPENKODO_TYPESCRIPT_LSP ?? 'auto'
   if (!['auto', 'tsrs', 'tsc'].includes(requested)) {
-    throw new Error('ORCA_TYPESCRIPT_LSP must be auto, tsrs, or tsc')
+    throw new Error('OPENKODO_TYPESCRIPT_LSP must be auto, tsrs, or tsc')
   }
   // tsrs answers first diagnostics in about a third of the time and memory on supported hosts.
   const server = requested === 'auto' ? (supportsTsrs(platform, arch) ? 'tsrs' : 'tsc') : requested

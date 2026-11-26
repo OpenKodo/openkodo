@@ -120,7 +120,7 @@ function relayPastedAddresses(
 }
 
 /**
- * Signs a paired server's bot in to an app Orca signs in to: the server runs it, this terminal shows
+ * Signs a paired server's bot in to an app OpenKodo signs in to: the server runs it, this terminal shows
  * the page, and the address the browser lands on is pasted back here.
  */
 export async function runRemoteBotToolSignIn(
@@ -135,7 +135,7 @@ export async function runRemoteBotToolSignIn(
   await assertHostCapability(
     ctx,
     BOTS_TOOLS_OWNED_SIGN_IN_RUNTIME_CAPABILITY,
-    `Update Orca on ${host} to sign in to apps.`
+    `Update OpenKodo on ${host} to sign in to apps.`
   )
   const started = await ctx.client.call<BotToolSignInAttemptView>('bots.tools.signIn.start', {
     ...target,
@@ -178,7 +178,7 @@ export async function runRemoteBotToolSignIn(
   printResult({ ...started, result: { signedIn: name } }, ctx.json, () => `Signed in to ${name}.`)
 }
 
-/** Whether Orca signs the bot in to the tool itself, as the host lists it. */
+/** Whether OpenKodo signs the bot in to the tool itself, as the host lists it. */
 async function signsInItself(
   ctx: HandlerContext,
   target: { botId?: string },

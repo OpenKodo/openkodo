@@ -117,7 +117,7 @@ export function projectQueuedMessageCards(
   )
   const ordered = [...(queuedMessages ?? [])]
     .filter((message) => !session.steersInTranscript || !queuedMessageSteersIn(message, session))
-    // Orca's own sends draw nothing in the chat, so they wait unseen; one on hold needs the person, so it shows.
+    // OpenKodo's own sends draw nothing in the chat, so they wait unseen; one on hold needs the person, so it shows.
     .filter(
       (message) =>
         message.state === 'returned' ||

@@ -1,5 +1,5 @@
-// Each bot host's own Orca sign-in as that host reports it (`orcaAccount.*`), and the one
-// "Sign <server> in to Orca" per host: the host starts an approve-in-browser sign-in, this window
+// Each bot host's own OpenKodo sign-in as that host reports it (`orcaAccount.*`), and the one
+// "Sign <server> in to OpenKodo" per host: the host starts an approve-in-browser sign-in, this window
 // opens its page where that host's own pages open, and the host finishes on its own.
 import { useEffect, useSyncExternalStore } from 'react'
 import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
@@ -67,7 +67,7 @@ function subscribe(listener: () => void): () => void {
   return () => listeners.delete(listener)
 }
 
-/** Reads the host's sign-in again; an older Orca without `orcaAccount.status` reads as unknown. */
+/** Reads the host's sign-in again; an older OpenKodo without `orcaAccount.status` reads as unknown. */
 export function refreshBotHostOrcaAccount(hostId: ExecutionHostId): Promise<void> {
   const entry = entryOf(hostId)
   if (entry.reading) {
@@ -117,7 +117,7 @@ onBotHostCameBack((hostId) => {
   notify()
 })
 
-/** The host's Orca sign-in, read when shown and again when its bots change (a sign-in change re-lists them). */
+/** The host's OpenKodo sign-in, read when shown and again when its bots change (a sign-in change re-lists them). */
 export function useBotHostOrcaAccount(hostId: ExecutionHostId): OrcaAccountServerStatus | null {
   const status = useSyncExternalStore(subscribe, () => hosts.get(hostId)?.status ?? null)
   useEffect(() => {
@@ -139,7 +139,7 @@ export function useBotHostOrcaAccountSettled(hostId: ExecutionHostId): boolean {
   return useSyncExternalStore(subscribe, () => hosts.get(hostId)?.settled ?? false)
 }
 
-/** Whether the host runs as this window's own Orca account; this app's own bots always do. */
+/** Whether the host runs as this window's own OpenKodo account; this app's own bots always do. */
 export function useBotHostOnOwnAccount(hostId: ExecutionHostId): boolean {
   const account = useBotHostOrcaAccount(hostId)
   const ownEmail = useAppStore((state) => state.orcaProfileAuthStatus?.cloud?.email ?? null)
@@ -167,7 +167,7 @@ function setSignIn(hostId: ExecutionHostId, view: BotHostSignInView): void {
 }
 
 /**
- * "Sign <server> in to Orca" / "Sign <server> in again": any account; Orca Cloud's page warns
+ * "Sign <server> in to OpenKodo" / "Sign <server> in again": any account; OpenKodo Cloud's page warns
  * before it moves the host to another one. `bot` lends its workspace for the host's page.
  * A host that is still signed in locally is re-authenticated with switch. A plain start is
  * refused while one is signed in.

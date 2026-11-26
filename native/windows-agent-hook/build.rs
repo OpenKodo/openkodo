@@ -22,10 +22,10 @@ fn main() {
     let mut resource = winresource::WindowsResource::new();
     resource.set("ProductName", "Orca");
     resource.set("FileDescription", "Orca Agent Hook");
-    resource.set("CompanyName", "Stably AI");
+    resource.set("CompanyName", "OpenKodo");
     resource.set(
         "LegalCopyright",
-        "Copyright (C) Stably AI. All rights reserved.",
+        "Copyright (C) OpenKodo. All rights reserved.",
     );
     resource.set("InternalName", "orca-agent-hook.exe");
     resource.set("OriginalFilename", "orca-agent-hook.exe");

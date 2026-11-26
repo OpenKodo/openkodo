@@ -1,6 +1,6 @@
-const PREFIX = 'orca://openkodo/connect'
+const PREFIX = 'openkodo://connect'
 
-/** Extract the handoff code from an orca://openkodo/connect?code=... URL. */
+/** Extract the handoff code from an openkodo://connect?code=... URL. */
 export function openKodoHandoffCode(value: string): string | null {
   if (!value.startsWith(PREFIX)) {
     return null

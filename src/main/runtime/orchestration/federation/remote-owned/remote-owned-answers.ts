@@ -18,7 +18,7 @@ const BEFORE_AUTHENTICATED: ReadonlySet<RemoteRuntimePairingStage> = new Set([
   'access-grant'
 ])
 
-/** Only the handshake leaves before the server authenticates this Orca, so a call that failed sooner never reached it. */
+/** Only the handshake leaves before the server authenticates this OpenKodo, so a call that failed sooner never reached it. */
 export function failedBeforeSending(error: unknown): boolean {
   return (
     error instanceof UnsentRequestError ||
@@ -36,11 +36,11 @@ export function errorData(error: unknown): Record<string, unknown> | undefined {
     : undefined
 }
 
-/** What the server's answer says that this Orca says otherwise. */
+/** What the server's answer says that this OpenKodo says otherwise. */
 export type ServerTerms = {
   server: string
   forward?: RemoteForwardKey
-  /** The link the call went under: the server's Run for it is this Orca's Run here. */
+  /** The link the call went under: the server's Run for it is this OpenKodo's Run here. */
   link?: { peer_run_id: string | null; run_id: string }
 }
 

@@ -1,4 +1,4 @@
-// Whether Orca's copies of agent CLIs may run here, and which are installed, for agent detection.
+// Whether OpenKodo's copies of agent CLIs may run here, and which are installed, for agent detection.
 
 import { acpLaunchSpecFor } from '../../../../acp/launch/acp-launch-registry'
 import type { ManagedCopySettings } from '../../../../acp/launch/acp-launch-contract'
@@ -25,7 +25,7 @@ export function standInSpec(agent: ManagedAgentCliId) {
   )
 }
 
-/** The settings whether Orca's copies may run comes from. */
+/** The settings whether OpenKodo's copies may run comes from. */
 export type ManagedCopySettingsSource = { requireStore(): { getSettings(): ManagedCopySettings } }
 
 export function managedCopyMayRun(
@@ -47,7 +47,7 @@ function rememberedManagedAgents(runtime: ManagedCopySettingsSource): ManagedAge
 }
 
 /** An installed copy that may run is an installed agent to menus and Settings. Until launch reclaim
- *  has read Orca's releases, detection looks for them itself, so no reader waits for that read. */
+ *  has read OpenKodo's releases, detection looks for them itself, so no reader waits for that read. */
 export function provideManagedAgentDetection(runtime: ManagedCopySettingsSource): void {
   detectionSettings = runtime
   provideInstalledManagedAgents(async () => {
@@ -67,14 +67,14 @@ export function provideManagedAgentDetection(runtime: ManagedCopySettingsSource)
       countedOnDisk = MANAGED_AGENT_CLI_IDS.filter((_, index) => present[index])
       return countedOnDisk
     } catch (error) {
-      // Without settings Orca can't tell which copies may run; detection goes on without them.
-      console.warn('[managed-runtime] Orca-installed agents left out of detection:', error)
+      // Without settings OpenKodo can't tell which copies may run; detection goes on without them.
+      console.warn('[managed-runtime] OpenKodo-installed agents left out of detection:', error)
       return []
     }
   })
 }
 
-/** Launch reclaim has read Orca's releases: detection answers from them from now on, and a copy the
+/** Launch reclaim has read OpenKodo's releases: detection answers from them from now on, and a copy the
  *  disk check counted that the read found unusable (damaged, another platform's) is announced. */
 export function noteManagedReleasesRead(): void {
   noteLaunchReleasesRecorded()
@@ -90,6 +90,6 @@ export function noteManagedReleasesRead(): void {
     }
   } catch (error) {
     // Startup goes on; at worst a list keeps a copy until it is next read.
-    console.warn('[managed-runtime] could not compare Orca-installed agents:', error)
+    console.warn('[managed-runtime] could not compare OpenKodo-installed agents:', error)
   }
 }

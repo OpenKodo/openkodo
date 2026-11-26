@@ -128,7 +128,7 @@ describe('webhook deliveries on this machine', () => {
     expect(ran).toHaveLength(0)
   })
 
-  it("keeps a poll whose unsettled list names a conversation this Orca can't read", () => {
+  it("keeps a poll whose unsettled list names a conversation this OpenKodo can't read", () => {
     const kept = { deliveryId: 'd1', conversation: { source: 'slack', externalId: 'T:C:1' } }
     const response = ConnectorPollResponse.parse({
       serverNow: 1,

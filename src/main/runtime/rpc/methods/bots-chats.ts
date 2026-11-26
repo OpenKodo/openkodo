@@ -132,7 +132,7 @@ export function botChatRecordEmpty(record: AgentSessionConversationView): boolea
 }
 
 /** A record's row as the bot's chat list shows it, listed by its lineage's root; null for a record
- *  that is not an Orca chat or was cleared into a successor. Whether it takes mail is the caller's. */
+ *  that is not an OpenKodo chat or was cleared into a successor. Whether it takes mail is the caller's. */
 export function botChatRecordRow(
   record: AgentSessionConversationView,
   rootOf: (id: string) => string,

@@ -6,7 +6,7 @@ import { resolveEditorOpenTargetGroupId } from './editor-open-target-group'
 import { areEditorPreviewTabsEnabled } from './editor-preview-tab-setting'
 import { isEditorTabContentType, type EditorTabContentType } from './editor-tab-content-type'
 import { getOpenFileExecutionHostId } from '@/lib/workspace/ownership/unified-tab-host-ownership'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import type { Tab } from '../../../../../../shared/workspace-layout/tab-groups/tab-types'
 import {
   openEditorTabThroughLayoutOwner,
@@ -44,7 +44,7 @@ export function openWorkspaceEditorItem(
     )
     if (existing) {
       // Switch point: an open that rewrote the tab's file record or view reaches main.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         sendReusedEditorTabToLayoutOwner(state, existing)
       }
       if (selection !== 'none') {
@@ -76,7 +76,7 @@ export function openWorkspaceEditorItem(
     })
   }
   // Switch point: main opens the tab under the window's proposed id and its frame draws it.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     const sent = openEditorTabThroughLayoutOwner(state, {
       fileId,
       fixedTabId,

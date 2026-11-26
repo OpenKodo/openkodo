@@ -200,7 +200,7 @@ export async function submitFeedback(
     if (res.ok) {
       return { ok: true }
     }
-    // Retry the owning endpoint; api.onorca.dev serves a different product.
+    // Retry the owning endpoint; api.onopenkodo.dev serves a different product.
     if (res.status >= 500) {
       return await retryFeedbackOnPrimary(body, new Error(`status ${res.status}`))
     }

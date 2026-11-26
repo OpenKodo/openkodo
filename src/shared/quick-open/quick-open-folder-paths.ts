@@ -1,7 +1,7 @@
 const withFolders = new WeakMap<readonly string[], readonly string[]>()
 
 // Every folder is one more candidate per keystroke. Real listings hold about one folder per eight files
-// (13% in Orca's repo, 3% in node_modules), so a deep, sparse listing is held to that share.
+// (13% in OpenKodo's repo, 3% in node_modules), so a deep, sparse listing is held to that share.
 const FILES_PER_FOLDER = 8
 const MIN_FOLDER_LIMIT = 256
 // Past this many, walking every folder is itself the cost to avoid.

@@ -2,7 +2,7 @@ import { REMOTE_VIEWER_CLIPBOARD_ENV } from '../../../shared/clipboard/remote-vi
 
 // Wrappers consume the feature env before user config so children cannot inherit the selection.
 
-export const SHELL_STARTUP_FEATURE_ENV = 'ORCA_SHELL_FEATURES'
+export const SHELL_STARTUP_FEATURE_ENV = 'OPENKODO_SHELL_FEATURES'
 
 export const SHELL_STARTUP_FEATURES = [
   'overlay',
@@ -17,13 +17,13 @@ export type ShellStartupFeature = (typeof SHELL_STARTUP_FEATURES)[number]
 
 const OVERLAY_ENV_KEYS = [
   REMOTE_VIEWER_CLIPBOARD_ENV,
-  'ORCA_DATA_ACCOUNT_DATA_HOME',
-  'ORCA_OPENCODE_CONFIG_DIR',
-  'ORCA_MIMOCODE_CONFIG_DIR',
-  'ORCA_OMP_STATUS_EXTENSION',
-  'ORCA_CODEX_HOME',
-  'ORCA_AGENT_TEAMS_SHIM_DIR',
-  'ORCA_REMOTE_CLI_BIN_DIR'
+  'OPENKODO_DATA_ACCOUNT_DATA_HOME',
+  'OPENKODO_OPENCODE_CONFIG_DIR',
+  'OPENKODO_MIMOCODE_CONFIG_DIR',
+  'OPENKODO_OMP_STATUS_EXTENSION',
+  'OPENKODO_CODEX_HOME',
+  'OPENKODO_AGENT_TEAMS_SHIM_DIR',
+  'OPENKODO_REMOTE_CLI_BIN_DIR'
 ] as const
 
 export type ShellStartupFeatureInput = {
@@ -47,7 +47,7 @@ export function selectShellStartupFeatures(input: ShellStartupFeatureInput): She
   const ready = input.waitsForShellReady
   // System zshrc overwrites HISTFILE; bash needs no wrapper for history alone.
   const history =
-    shellName(input.shellPath) === 'zsh' && (Boolean(input.env.ORCA_HISTFILE) || wrappedBefore)
+    shellName(input.shellPath) === 'zsh' && (Boolean(input.env.OPENKODO_HISTFILE) || wrappedBefore)
 
   const features: ShellStartupFeature[] = []
   if (overlay) {

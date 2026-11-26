@@ -45,7 +45,7 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
       '@echo off',
       'setlocal',
       // Refresh port/token from the endpoint file so retained PTYs reach the restarted server.
-      'if defined ORCA_AGENT_HOOK_ENDPOINT if exist "%ORCA_AGENT_HOOK_ENDPOINT%" call "%ORCA_AGENT_HOOK_ENDPOINT%" 2>nul',
+      'if defined OPENKODO_AGENT_HOOK_ENDPOINT if exist "%OPENKODO_AGENT_HOOK_ENDPOINT%" call "%OPENKODO_AGENT_HOOK_ENDPOINT%" 2>nul',
       ...buildWindowsHookEnvironmentGuardLines(),
       buildWindowsAgentHookCurlPostCommand('zcode'),
       'exit /b 0',
@@ -58,10 +58,10 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     ...buildPosixHookPayloadCapture(),
     ...buildPosixHookSpoolLines('zcode'),
     // Refresh retained PTY endpoints at invocation; silence source races/parse errors so hooks fail open without polluting transcripts.
-    'if [ -n "$ORCA_AGENT_HOOK_ENDPOINT" ] && [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ]; then',
-    '  . "$ORCA_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
+    'if [ -n "$OPENKODO_AGENT_HOOK_ENDPOINT" ] && [ -r "$OPENKODO_AGENT_HOOK_ENDPOINT" ]; then',
+    '  . "$OPENKODO_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
     'fi',
-    'if [ -z "$ORCA_AGENT_HOOK_PORT" ] || [ -z "$ORCA_AGENT_HOOK_TOKEN" ] || [ -z "$ORCA_PANE_KEY" ]; then',
+    'if [ -z "$OPENKODO_AGENT_HOOK_PORT" ] || [ -z "$OPENKODO_AGENT_HOOK_TOKEN" ] || [ -z "$OPENKODO_PANE_KEY" ]; then',
     '  spool_hook_event',
     '  exit 0',
     'fi',
@@ -144,11 +144,11 @@ function combineHookFilePair(
     ...incomplete,
     state: 'partial',
     managedHooksPresent: true,
-    detail: incomplete.detail ?? 'Orca hooks are missing from this file'
+    detail: incomplete.detail ?? 'OpenKodo hooks are missing from this file'
   }
 }
 
-// Lists every file Orca edits so status and the uninstall plan disclose setting.json too.
+// Lists every file OpenKodo edits so status and the uninstall plan disclose setting.json too.
 function combineHookFileStatuses(statuses: AgentHookInstallStatus[]): AgentHookInstallStatus {
   const combined = statuses.reduce(combineHookFilePair)
   const additionalConfigPaths = statuses
@@ -195,7 +195,7 @@ export class ZCodeHookService {
     const remoteConfigPath = getZCodeRemoteConfigPath(remoteHome)
     // Remote Windows is unsupported here; local process.platform cannot describe an SSH host.
     const remoteScriptFileName = getZCodePosixManagedScriptFileName()
-    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.orca/agent-hooks/${remoteScriptFileName}`
+    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.openkodo/agent-hooks/${remoteScriptFileName}`
     // Per-file so an unreadable setting.json still lets config.json install, matching local install().
     const readRemote = async (path: string): Promise<ZCodeHookFile> => {
       try {

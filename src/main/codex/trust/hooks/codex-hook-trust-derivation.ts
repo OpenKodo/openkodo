@@ -37,7 +37,7 @@ const VERSION_TIMEOUT_MS = 30_000
 const DERIVE_TIMEOUT_MS = 30_000
 // Shift a copy to verify that Codex hashes do not depend on position.
 const SCRATCH_DUMMY_HOOK = { type: 'command', command: 'exit 0' }
-const SCRATCH_ORCA_GROUP_INDEXES = [0, 2] as const
+const SCRATCH_OPENKODO_GROUP_INDEXES = [0, 2] as const
 const SCRATCH_DUMMY_GROUP_INDEX = 1
 const SCRATCH_PREFIXES = ['orca-codex-hook-trust-', 'orca-codex-version-'] as const
 // An hour exceeds any probe's lifetime; older scratch homes were abandoned.
@@ -70,24 +70,26 @@ export async function deriveCodexHookHashes(
     }
     if (hashes === 'inconsistent') {
       return refused(
-        `${describeCodexVersion(codexVersion)} hashes Orca's status hook differently by its file or position, so Orca does not approve it`
+        `${describeCodexVersion(codexVersion)} hashes OpenKodo's status hook differently by its file or position, so OpenKodo does not approve it`
       )
     }
     if (hashes === 'unloaded') {
       // An unloaded scratch home cannot establish version incompatibility.
       return {
         kind: 'pending',
-        failure: `${describeCodexVersion(codexVersion)} listed no hooks from Orca's test home`
+        failure: `${describeCodexVersion(codexVersion)} listed no hooks from OpenKodo's test home`
       }
     }
     if (!hashes) {
-      return refused(`${describeCodexVersion(codexVersion)} did not recognize Orca's status hook`)
+      return refused(
+        `${describeCodexVersion(codexVersion)} did not recognize OpenKodo's status hook`
+      )
     }
     return { kind: 'hashes', codexVersion, hashes }
   } catch (error) {
     if (isCodexAppServerUnsupportedError(error)) {
       return refused(
-        `${describeCodexVersion(codexVersion)} is too old for Orca status; update Codex`
+        `${describeCodexVersion(codexVersion)} is too old for OpenKodo status; update Codex`
       )
     }
     console.warn('[codex-hook-trust] could not derive Codex hook hashes:', error)
@@ -159,7 +161,7 @@ async function listScratchHomeHooks(
 }
 
 /**
- * 'inconsistent': copies hash differently; null: dummy listed without Orca; 'unloaded': neither listed.
+ * 'inconsistent': copies hash differently; null: dummy listed without OpenKodo; 'unloaded': neither listed.
  * Only scratch files count; absent events stay absent.
  */
 export function readCodexHookHashes(
@@ -185,12 +187,12 @@ export function readCodexHookHashes(
   const hashes: Partial<Record<CodexEventLabel, string | null>> = {}
   for (const eventName of CODEX_EVENTS) {
     const label = CODEX_EVENT_LABEL[eventName]
-    const primary = listed(scratch.homeHooksPath, label, SCRATCH_ORCA_GROUP_INDEXES[0])
+    const primary = listed(scratch.homeHooksPath, label, SCRATCH_OPENKODO_GROUP_INDEXES[0])
     if (!primary) {
       continue
     }
     const copies = [
-      listed(scratch.homeHooksPath, label, SCRATCH_ORCA_GROUP_INDEXES[1]),
+      listed(scratch.homeHooksPath, label, SCRATCH_OPENKODO_GROUP_INDEXES[1]),
       listed(scratch.projectHooksPath, label, 0)
     ]
     if (copies.some((copy) => copy && copy.currentHash !== primary.currentHash)) {

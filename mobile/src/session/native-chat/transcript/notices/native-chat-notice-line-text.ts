@@ -9,7 +9,7 @@ import { nativeChatUsageLimitText } from './native-chat-usage-limit-copy'
 import { sayMobileAgentSessionFailure } from '../../agent-session/agent-session-failure-copy'
 import type { Translate } from '../../../../i18n/mobile-i18n'
 
-// The phone always reads its Orca host as remote.
+// The phone always reads its OpenKodo host as remote.
 export function noticeLineText(
   notice: NativeChatTextBlock,
   names: MobileNativeChatNoticeView,

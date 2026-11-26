@@ -1,6 +1,6 @@
 import type { CodexAppServerConnection } from '../codex-app-server-connection-types'
 
-/** Frames all paused chats on one server may hold in Orca before the server itself waits. */
+/** Frames all paused chats on one server may hold in OpenKodo before the server itself waits. */
 export const CODEX_SHARED_SERVER_BACKLOG_BYTES = 32 * 1024 * 1024
 /** How long a waiting chat gives the chats holding the backlog to make progress before they're
  *  dropped; well inside a Stop's 5 s interrupt timeout. */

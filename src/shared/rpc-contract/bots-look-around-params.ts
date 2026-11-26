@@ -49,7 +49,7 @@ export const BotLookAroundSet = z.object({
 export type BotSuggestParams = z.infer<typeof BotSuggest>
 export type BotLookAroundSetParams = z.infer<typeof BotLookAroundSet>
 
-/** `orca bot connectors --offer`: the bot asks Orca to show its owner a Connect card in this chat. */
+/** `orca bot connectors --offer`: the bot asks OpenKodo to show its owner a Connect card in this chat. */
 export const BotConnectorOffer = z
   .object({
     callerSessionId: requiredString('Run this from your chat.'),

@@ -33,7 +33,7 @@ import { DIAGNOSTICS_METHODS } from './host-management/diagnostics'
 import { TERMINAL_DAEMON_METHODS } from './terminal/terminal-daemon'
 import { ACCOUNT_METHODS } from './accounts/accounts'
 import { ANTIGRAVITY_ACCOUNT_METHODS } from './accounts/antigravity-accounts'
-import { ORCA_ACCOUNT_METHODS } from './orca-account'
+import { OPENKODO_ACCOUNT_METHODS } from './orca-account'
 import { GOOGLE_METHODS } from './google'
 import { GOOGLE_READ_METHODS } from './google-read'
 import { GOOGLE_FILES_METHODS } from './google-files'
@@ -128,8 +128,8 @@ import {
   LAYOUT_VIEW_REPORT_METHODS,
   WORKSPACE_LAYOUT_METHODS
 } from './workspace-layout/workspace-layout'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 
 // Keep registration order and the full RPC/security surface visible in one manifest.
 const CORE_RPC_METHODS = [
@@ -219,7 +219,7 @@ const SERVICE_RPC_METHODS = [
   ...TERMINAL_DAEMON_METHODS,
   ...ACCOUNT_METHODS,
   ...ANTIGRAVITY_ACCOUNT_METHODS,
-  ...ORCA_ACCOUNT_METHODS,
+  ...OPENKODO_ACCOUNT_METHODS,
   ...GOOGLE_METHODS,
   ...GOOGLE_READ_METHODS,
   ...GOOGLE_FILES_METHODS,
@@ -230,7 +230,9 @@ const SERVICE_RPC_METHODS = [
   ...SESSION_TAB_METHODS,
   ...WORKSPACE_LAYOUT_METHODS,
   // Switch point: a window-owned build registers no layout command.
-  ...(ORCA_LAYOUT_OWNER_IS_MAIN ? [...LAYOUT_APPLY_METHODS, ...LAYOUT_VIEW_REPORT_METHODS] : []),
+  ...(OPENKODO_LAYOUT_OWNER_IS_MAIN
+    ? [...LAYOUT_APPLY_METHODS, ...LAYOUT_VIEW_REPORT_METHODS]
+    : []),
   ...NATIVE_CHAT_METHODS,
   ...FILE_METHODS,
   ...GIT_METHODS,
@@ -264,7 +266,7 @@ const SERVICE_RPC_METHODS = [
   ...MOBILE_RELAY_HOSTS_METHODS,
   ...MOBILE_PROJECT_SECTIONS_METHODS,
   // Switch point: a window-fed build publishes no sidebar input.
-  ...(ORCA_SIDEBAR_INPUTS_IS_MAIN ? SIDEBAR_INPUT_METHODS : []),
+  ...(OPENKODO_SIDEBAR_INPUTS_IS_MAIN ? SIDEBAR_INPUT_METHODS : []),
   ...SIDEBAR_REPO_ICON_METHODS,
   ...UPDATER_METHODS,
   ...AUTOMATIC_WORK_METHODS

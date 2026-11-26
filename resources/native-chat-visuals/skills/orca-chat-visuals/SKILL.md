@@ -2,7 +2,7 @@
 name: orca-chat-visuals
 description: Show a chart, diagram, table, report or mockup inline in this Orca chat as an HTML
   page. Use when a visual would help the user understand your answer. Only available when the
-  ORCA_CHAT_SCRATCH_DIR environment variable is set.
+  OPENKODO_CHAT_SCRATCH_DIR environment variable is set.
 user-invocable: false
 ---
 
@@ -13,8 +13,8 @@ clearer.
 
 ## Writing the page
 
-- Save it in the folder named by `ORCA_CHAT_SCRATCH_DIR` (`printenv ORCA_CHAT_SCRATCH_DIR`; in
-  PowerShell `$env:ORCA_CHAT_SCRATCH_DIR`). If it's unset or you can't write there, skip the visual.
+- Save it in the folder named by `OPENKODO_CHAT_SCRATCH_DIR` (`printenv OPENKODO_CHAT_SCRATCH_DIR`; in
+  PowerShell `$env:OPENKODO_CHAT_SCRATCH_DIR`). If it's unset or you can't write there, skip the visual.
   This folder belongs to this chat and is kept as long as the chat. Save files meant for the
   project in the workspace.
 - One complete HTML file per visual, directly in that folder, under 512 KB, with a new file name
@@ -23,7 +23,7 @@ clearer.
   unpkg.com, cdnjs.cloudflare.com, esm.sh, fonts.googleapis.com and fonts.gstatic.com. The page
   can't make network requests; use inline SVG or `data:` URLs for images.
 - `<audio>` and `<video>` elements can't load media here, even from `data:` URLs. To share a
-  recording, save it as its own file in the `ORCA_CHAT_SCRATCH_DIR` folder (in the workspace only
+  recording, save it as its own file in the `OPENKODO_CHAT_SCRATCH_DIR` folder (in the workspace only
   if the user wants it in the project) and give its path in your reply instead.
 - Don't size anything to the viewport height (`100vh`); Orca fits the frame to your content.
 - Use Orca's theme variables for surfaces, text, and controls; pair hover `--accent` with

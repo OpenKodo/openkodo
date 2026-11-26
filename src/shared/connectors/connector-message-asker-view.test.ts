@@ -38,7 +38,7 @@ describe("another Slack app's request", () => {
 
   it('tells the agent an app asked, not a person', () => {
     expect(connectorAskerHeader('slack', appAsker)).toBe(
-      '[Orca: Slack · <#C0GENERAL> (public channel) · from <@U0CIAPP|CI (bot)>, another app your owner lets ask you (not a person, not your owner)]'
+      '[OpenKodo: Slack · <#C0GENERAL> (public channel) · from <@U0CIAPP|CI (bot)>, another app your owner lets ask you (not a person, not your owner)]'
     )
   })
 

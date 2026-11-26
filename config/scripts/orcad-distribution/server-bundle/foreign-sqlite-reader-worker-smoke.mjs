@@ -65,7 +65,7 @@ export function smokeForeignSqliteReaderWorker(outDir, { runtimePath, timeoutMs 
         join(directory, 'opencode.db'),
         join(directory, 'missing.vscdb')
       ],
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' },
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' },
       timeoutMs,
       maxOutputBytes: 64 * 1024
     })

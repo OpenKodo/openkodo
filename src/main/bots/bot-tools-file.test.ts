@@ -67,7 +67,7 @@ describe("a bot's tools file", () => {
       { relay }
     )
     expect(tools.servers).toEqual([notion])
-    expect(tools.env).toEqual({ ORCA_BOT_TOOLS_TOKEN: 'bot-token' })
+    expect(tools.env).toEqual({ OPENKODO_BOT_TOOLS_TOKEN: 'bot-token' })
   })
 
   it('keeps header values out of the file, sealed in the host store bound to the address', async () => {
@@ -87,7 +87,7 @@ describe("a bot's tools file", () => {
     })
   })
 
-  it('moves values an older Orca left inline the first time the file is read', async () => {
+  it('moves values an older OpenKodo left inline the first time the file is read', async () => {
     const folder = tempDir('bot-tools-file-')
     mkdirSync(join(folder, '.orca'), { recursive: true })
     writeFileSync(
@@ -160,7 +160,7 @@ describe('an edited tool', () => {
     expect(readBotToolCredential(folder, id)?.headers).toEqual({ authorization: 'rotated' })
   })
 
-  it('keeps its Orca sign-in when the editor saves it unchanged', async () => {
+  it('keeps its OpenKodo sign-in when the editor saves it unchanged', async () => {
     const { folder, home, id, tokens } = await signedInNotion()
     const { version, server } = await readBotToolDetails(folder, 'notion')
 
@@ -171,7 +171,7 @@ describe('an edited tool', () => {
     expect(readBotToolOAuth(folder, id)?.record.tokens).toEqual(tokens)
   })
 
-  it('keeps its Orca sign-in when a save adding a header row is refused', async () => {
+  it('keeps its OpenKodo sign-in when a save adding a header row is refused', async () => {
     const { folder, home, id, tokens } = await signedInNotion()
     const { version } = await readBotToolDetails(folder, 'notion')
 
@@ -182,7 +182,7 @@ describe('an edited tool', () => {
         transport: 'http',
         headers: [{ key: 'x-extra', value: 'one' }]
       })
-    ).rejects.toThrow('Orca signs in to this tool')
+    ).rejects.toThrow('OpenKodo signs in to this tool')
 
     const [after] = await readBotToolServers(folder)
     expect(after && 'credential' in after ? after.credential : null).toBe(id)
@@ -285,7 +285,7 @@ describe('the tools a chat launched with', () => {
     expect(await currentBotToolsRevision(folder)).not.toBe(configured?.revision)
   })
 
-  it('counts a finished sign-in, and an edit made outside Orca, as a change', async () => {
+  it('counts a finished sign-in, and an edit made outside OpenKodo, as a change', async () => {
     const folder = tempDir('bot-tools-revision-')
     await writeBotToolServers(folder, [notion])
     const { launched } = await launch(folder)

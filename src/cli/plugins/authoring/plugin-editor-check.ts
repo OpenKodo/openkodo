@@ -1,11 +1,11 @@
 import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import type {
   PluginEditorCheckIssue,
   PluginEditorStaticCheck
 } from '../../../main/plugins/testing/plugin-editor-static-check'
 import { parsePluginManifest } from '../../../shared/plugins/manifest/plugin-manifest'
+import { findPluginManifestFile } from './plugin-manifest-file'
 import { pluginTestingFiles } from './plugin-test-runner'
 
 export type PluginEditorCheck = {
@@ -27,9 +27,11 @@ export async function checkPluginEditors(
   dir: string,
   appRoot?: string
 ): Promise<PluginEditorCheck[]> {
-  const parsed = parsePluginManifest(
-    JSON.parse(await readFile(join(dir, 'orca-plugin.json'), 'utf8'))
-  )
+  const manifestPath = findPluginManifestFile(dir)
+  if (!manifestPath) {
+    throw new Error(`no plugin manifest found in ${dir}`)
+  }
+  const parsed = parsePluginManifest(JSON.parse(await readFile(manifestPath, 'utf8')))
   const editors = parsed.ok ? parsed.manifest.contributes.customEditors : []
   if (editors.length === 0) {
     return []
@@ -40,7 +42,7 @@ export async function checkPluginEditors(
   )
   const check = loaded.checkPluginEditorEntry
   if (!check) {
-    throw new Error('this Orca build has no custom editor check')
+    throw new Error('this OpenKodo build has no custom editor check')
   }
   const checks: PluginEditorCheck[] = []
   for (const editor of editors) {

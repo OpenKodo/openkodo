@@ -16,7 +16,7 @@ const HOLD_ATTEMPTS = 5
 const AFTER_FAILED_HOLD_MS = 1000
 
 /**
- * The one hold of Codex's coordination this Orca process shares across a background pass and any
+ * The one hold of Codex's coordination this OpenKodo process shares across a background pass and any
  * resume, so a pass starts a helper per window rather than per copy, and a resume joins or waits
  * for the window instead of being refused. A window takes no new caller after MAX_HOLD_MS and lets
  * go as soon as the callers inside it are done.

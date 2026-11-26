@@ -1,5 +1,5 @@
-/** Orca's turn to a bot it just created; the chat shows a notice row in its place. */
-export const BOT_CREATED_KICKOFF = 'Orca: you were just created. Start your first-run setup.'
+/** OpenKodo's turn to a bot it just created; the chat shows a notice row in its place. */
+export const BOT_CREATED_KICKOFF = 'OpenKodo: you were just created. Start your first-run setup.'
 
 /** What status shows as the kickoff turn's prompt, since the owner never typed it. */
 export const BOT_CREATED_STATUS_LABEL = 'Getting set up'

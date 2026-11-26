@@ -56,7 +56,7 @@ export async function wslHostChatRecovery(
   return {
     wslDistro: distro,
     nextSteps: [
-      `Chat works when the project runs on the ${distro} WSL host. In Orca, ${[...setup, move].join(', then ')}`,
+      `Chat works when the project runs on the ${distro} WSL host. In OpenKodo, ${[...setup, move].join(', then ')}`,
       'Or run the same command with --surface terminal to start the agent in a terminal.'
     ]
   }

@@ -100,7 +100,7 @@ export const medium = editorFixture(600)
 export const narrowLongName = editorFixture(360, {
   ...DRAFT,
   name: 'Weekday dependency audit across every repository',
-  scheduleWarning: 'This schedule was edited outside Orca and will be replaced on save.'
+  scheduleWarning: 'This schedule was edited outside OpenKodo and will be replaced on save.'
 })
 
 /** The default 1080px dialog keeps its two columns. */

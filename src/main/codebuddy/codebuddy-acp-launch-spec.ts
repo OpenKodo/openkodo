@@ -43,7 +43,7 @@ export const CODEBUDDY_LAUNCH_SPEC: AcpLaunchSpec = {
   account: CODEBUDDY_ACCOUNT,
   // The native installer's default location.
   installDirectories: ({ homePath }) => [join(homePath, '.local', 'bin')],
-  // 2.121.0 added the Full Access mode Orca's full access selects.
+  // 2.121.0 added the Full Access mode OpenKodo's full access selects.
   minimumVersions: ['2.121.0'],
   // Its Bypass Permissions mode still asks before risky commands; Full Access asks nothing.
   permissionModeConfig: {

@@ -36,7 +36,7 @@ export type ConnectorCloudStore = ConnectorPlacesStore &
 export type ConnectorCloudHost = {
   runtime: OrcaRuntimeService
   store: ConnectorCloudStore
-  /** This host's own data folder: its Orca account and install id, never another computer's. */
+  /** This host's own data folder: its OpenKodo account and install id, never another computer's. */
   userDataPath: string
   kind: ConnectorRuntimeKind
   isFenced: () => boolean
@@ -47,7 +47,7 @@ export type ConnectorCloudHost = {
   >
 }
 
-/** The connector acts as this host's own signed-in Orca account; null without Orca Cloud auth config. */
+/** The connector acts as this host's own signed-in OpenKodo account; null without OpenKodo Cloud auth config. */
 export function createConnectorCloud({
   runtime,
   store,
@@ -101,7 +101,7 @@ export function createConnectorCloud({
       }
     }
   })
-  // Batches held when Orca last quit go out when due.
+  // Batches held when OpenKodo last quit go out when due.
   prWaker.resume()
   const muteDeps = threadMuteDeps(runtime, store)
   return new ConnectorCloud({

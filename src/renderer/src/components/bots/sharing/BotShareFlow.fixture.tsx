@@ -3,7 +3,7 @@ import { defineFixture } from '../../../component-fixtures/component-fixture'
 import type { Bot } from '../../../../../shared/bot-types'
 import type { BotShareCandidateSummary } from '../../../../../shared/bots/bot-package'
 import { BOT_SHARE_ERRORS } from '../../../../../shared/bots/bot-share-errors'
-import { ORCA_CONNECTED } from '../orca-sign-in.test-fixture'
+import { OPENKODO_CONNECTED } from '../orca-sign-in.test-fixture'
 import { signedOutStore } from '../orca-cloud-sign-in-host-fixture'
 import { BotShareFlow } from './BotShareFlow'
 import type { BotShareLink } from './use-bot-share-link'
@@ -48,7 +48,7 @@ function candidate(change: Partial<BotShareCandidateSummary> = {}): BotShareCand
     bot: {
       schemaVersion: 1,
       name: 'Bot builder',
-      purpose: 'Builds and maintains Orca bots for the team.',
+      purpose: 'Builds and maintains OpenKodo bots for the team.',
       agentHint: 'claude',
       skills: [{ name: 'orca' }, { name: 'website' }],
       tools: [],
@@ -66,7 +66,7 @@ function candidate(change: Partial<BotShareCandidateSummary> = {}): BotShareCand
       skills: [
         {
           name: 'orca',
-          description: 'Drive Orca worktrees, terminals and the browser',
+          description: 'Drive OpenKodo worktrees, terminals and the browser',
           homePath: 'skills/orca'
         },
         {
@@ -163,7 +163,7 @@ async function click(name: string): Promise<void> {
 }
 const settle = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 300))
 
-const base = { width: 760, store: { orcaProfileAuthStatus: ORCA_CONNECTED } }
+const base = { width: 760, store: { orcaProfileAuthStatus: OPENKODO_CONNECTED } }
 const flow = (bot: Bot, link?: BotShareLink | null) => () => (
   <BotShareFlow bot={bot} link={link} onClose={() => {}} />
 )
@@ -259,13 +259,13 @@ export const linkMoved = defineFixture({
     await settle()
   }
 })
-/** (d) Orca Cloud unreachable. */
+/** (d) OpenKodo Cloud unreachable. */
 export const offline = defineFixture({
   ...base,
   setup: () => stub({ status: async () => refused('fetch failed') }),
   render: flow(builder)
 })
-/** Signed out of Orca. */
+/** Signed out of OpenKodo. */
 export const signedOut = defineFixture({
   ...base,
   store: signedOutStore(),

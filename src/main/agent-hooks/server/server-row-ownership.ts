@@ -55,7 +55,7 @@ export abstract class AgentHookServerRowOwnership extends AgentHookServerListene
   /** Set only for the direct applyNormalizedStatus call of applyRestatedStatus. */
   protected restatingStatus = false
 
-  /** Orca's own restatement of a row (an inferred settle, a timer or poll republish) carries the
+  /** OpenKodo's own restatement of a row (an inferred settle, a timer or poll republish) carries the
    *  row's evidence; only the agent's own events may name or replace the pane's owner. */
   protected applyRestatedStatus(
     incoming: AgentHookEventPayload
@@ -142,7 +142,7 @@ export abstract class AgentHookServerRowOwnership extends AgentHookServerListene
   }
 
   /** A Codex question, or a wait over one, keeps its row identical across hooks, so their arrival renews its freshness.
-   *  Orca's own restatements, polls and replays are no evidence that the agent still runs. */
+   *  OpenKodo's own restatements, polls and replays are no evidence that the agent still runs. */
   protected commitAppliedStatusRow(
     before: EnrichedAgentHookEventPayload | null | undefined,
     row: EnrichedAgentHookEventPayload,

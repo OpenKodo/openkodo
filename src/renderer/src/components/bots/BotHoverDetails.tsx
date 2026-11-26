@@ -141,7 +141,7 @@ function BotHoverHostIcon({
   showOnFocus: boolean
 }): React.JSX.Element {
   const t = useTranslate()
-  // A paired browser's local runtime is the server running Orca.
+  // A paired browser's local runtime is the server running OpenKodo.
   const paired = hostId === LOCAL_EXECUTION_HOST_ID && isPairedWebClientWindow()
   const Icon = hostId === LOCAL_EXECUTION_HOST_ID && !paired ? Laptop : Server
   const label = useAppStore((state) => {

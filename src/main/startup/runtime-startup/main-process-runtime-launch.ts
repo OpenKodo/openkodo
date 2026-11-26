@@ -1,6 +1,6 @@
 import { settleDesktopActivation } from './runtime-launch-activation'
 import { app, type BrowserWindow } from 'electron'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { placeUnshownLiveTerminalsBestEffort } from '../../runtime/terminal/adoption/unshown-live-terminal-placement'
 import {
   getCanonicalUserDataPath,
@@ -71,13 +71,13 @@ function installRuntimeRpc(
   // Migrate pairing credentials from late-resolved userData before switching to the canonical path.
   migrateMobilePairingDataToCanonicalUserDataPath(app.getPath('userData'))
   // Use OS-assigned ports for concurrent E2E Electron instances to avoid EADDRINUSE.
-  const isE2E = Boolean(process.env.ORCA_E2E_USER_DATA_DIR)
-  const requestedE2EWsPort = process.env.ORCA_E2E_RUNTIME_WS_PORT
+  const isE2E = Boolean(process.env.OPENKODO_E2E_USER_DATA_DIR)
+  const requestedE2EWsPort = process.env.OPENKODO_E2E_RUNTIME_WS_PORT
   const e2eWsPort = requestedE2EWsPort === undefined ? 0 : Number(requestedE2EWsPort)
   if (isE2E && (!Number.isInteger(e2eWsPort) || e2eWsPort < 0 || e2eWsPort > 65_535)) {
-    throw new Error(`Invalid ORCA_E2E_RUNTIME_WS_PORT value: ${requestedE2EWsPort}`)
+    throw new Error(`Invalid OPENKODO_E2E_RUNTIME_WS_PORT value: ${requestedE2EWsPort}`)
   }
-  // STA-1511: separate dev port from packaged Orca so pairing/repro URLs do not fall back unpredictably.
+  // STA-1511: separate dev port from packaged OpenKodo so pairing/repro URLs do not fall back unpredictably.
   const devWsPort = !app.isPackaged && !isE2E ? 6769 : undefined
   const pinnedBindHost = resolveServePinnedBindHost({
     orcadSidecar: isOrcadSidecarLaunch(),
@@ -178,7 +178,7 @@ async function launchServeMode(
   runtime.startupWorkerAuthority.finish()
   void runtime.reportWorkerStopsAcrossRestartOnce()
   // Main places unshown live terminals before any client attaches.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     await placeUnshownLiveTerminalsBestEffort(runtime)
   }
   // Headless hosts need display-backed offscreen WebContents; advertise browser capability only when usable.

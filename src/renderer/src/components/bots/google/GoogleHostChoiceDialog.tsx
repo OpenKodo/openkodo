@@ -55,7 +55,7 @@ function HostOption({
   )
 }
 
-/** Before Google setup starts in chat: Orca hosted is on its way, so for now the owner makes their own app. */
+/** Before Google setup starts in chat: OpenKodo hosted is on its way, so for now the owner makes their own app. */
 export function GoogleHostChoiceDialog({
   bot,
   open,
@@ -94,7 +94,7 @@ export function GoogleHostChoiceDialog({
           <HostOption
             value="orca"
             disabled
-            title={t('bots.google.hostChoice.orca', 'Orca hosted')}
+            title={t('bots.google.hostChoice.orca', 'OpenKodo hosted')}
             badge={<Badge variant="comingSoon">{t('bots.google.hostChoice.soon', 'Soon')}</Badge>}
             note={t('bots.google.hostChoice.orcaNote', 'Sign in with Google.')}
           />

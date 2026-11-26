@@ -32,7 +32,7 @@ const PULL_TIMEOUT_MS = PULL_WAIT_MS + 15_000
 
 const PulledPeerMail = z.object({ items: z.array(PeerMailItem) })
 
-/** What this Orca's pull loop last heard from a paired server; nothing until its first pull settles. */
+/** What this OpenKodo's pull loop last heard from a paired server; nothing until its first pull settles. */
 export type PeerServerAnswerStatus = {
   /** When the server last answered a pull (an idle pull answers after its wait). */
   answeredAt?: number
@@ -47,9 +47,9 @@ type Loop = asksLoop.PairedServerAsksHolder & {
   held: HeldPeerConversations
 }
 
-/** One pull loop per paired server this Orca opened conversations with or coordinates Runs on. The
+/** One pull loop per paired server this OpenKodo opened conversations with or coordinates Runs on. The
  *  server never dials back: each pull waits there for queued items, imports them, then acknowledges
- *  them. Stops and cancels this Orca owes the server go out on the same loop. */
+ *  them. Stops and cancels this OpenKodo owes the server go out on the same loop. */
 export class PeerMailRelay {
   private readonly loops = new Map<string, Loop>()
   private readonly answers = new Map<string, PeerServerAnswerStatus>()
@@ -129,7 +129,7 @@ export class PeerMailRelay {
         asksLoop.afterPairedServerPull(this.runtime, loop.asks)
         retryRemoteAskNotices(environmentId)
         if (failures > 0) {
-          // The server answers again: what this Orca owes it goes out now, not after its backoff.
+          // The server answers again: what this OpenKodo owes it goes out now, not after its backoff.
           dueRemoteResendsNow(loop.db, environmentId)
           this.resendOwed(environmentId, loop)
           loop.asksStale = true
@@ -284,7 +284,7 @@ export class PeerMailRelay {
       })
   }
 
-  /** A Run this Orca coordinates there owns its conversation's items; any other is a peer-mail reply. */
+  /** A Run this OpenKodo coordinates there owns its conversation's items; any other is a peer-mail reply. */
   private async importItem(
     db: OrchestrationDb,
     environmentId: string,

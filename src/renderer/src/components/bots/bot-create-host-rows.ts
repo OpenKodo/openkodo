@@ -11,7 +11,7 @@ export type BotCreateHostAction = 'reconnect' | 'reconnecting' | 'update'
 export type BotCreateHostRow = {
   host: BotCreateHost
   group: 'ready' | 'unavailable'
-  /** OS and other Orca account, or a setup requirement for an SSH-only host. */
+  /** OS and other OpenKodo account, or a setup requirement for an SSH-only host. */
   meta: string | null
   /** Not-available rows: the fix, when there is one. */
   action: BotCreateHostAction | null
@@ -59,7 +59,7 @@ export function botCreateHostRows(
         group: ready ? 'ready' : 'unavailable',
         meta:
           host.blocked === 'needs-server'
-            ? t('bots.new.hostNeedsServer', 'Needs Orca server')
+            ? t('bots.new.hostNeedsServer', 'Needs OpenKodo server')
             : null,
         action: hostAction(host, input),
         hint: botCreateHostBlockedHint(host, updatable, t)

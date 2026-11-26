@@ -5,13 +5,13 @@ import {
 import type { PluginThemeRegistration } from '../../../../shared/plugins/artifacts/plugin-theme-artifact'
 import type { PluginTerminalThemeRegistration } from '../../../../shared/plugins/artifacts/plugin-terminal-theme-artifact'
 
-// Why real artifacts: the gallery should be judged against the themes Orca actually bundles.
+// Why real artifacts: the gallery should be judged against the themes OpenKodo actually bundles.
 const appThemeFiles = import.meta.glob<{ base: 'dark' | 'light'; tokens: Record<string, string> }>(
-  '../../../../../resources/plugins/launch/stablyai.orca-{github-vscode-theme,vscode-default-themes}/themes/*.json',
+  '../../../../../resources/plugins/launch/openkodo.{github-vscode-theme,vscode-default-themes}/themes/*.json',
   { eager: true, import: 'default' }
 )
 const terminalThemeFiles = import.meta.glob<PluginTerminalThemeRegistration['terminal']>(
-  '../../../../../resources/plugins/launch/stablyai.orca-github-vscode-theme/terminal/*.json',
+  '../../../../../resources/plugins/launch/openkodo.github-vscode-theme/terminal/*.json',
   { eager: true, import: 'terminal' }
 )
 
@@ -22,7 +22,7 @@ const fileId = (path: string): string =>
     .replace(/\.json$/, '')
 const pluginKey = (path: string): string => path.match(/launch\/([^/]+)\//)![1]
 const manifests = import.meta.glob<{ contributes: { themes: { id: string; title: string }[] } }>(
-  '../../../../../resources/plugins/launch/stablyai.orca-{github-vscode-theme,vscode-default-themes}/orca-plugin.json',
+  '../../../../../resources/plugins/launch/openkodo.{github-vscode-theme,vscode-default-themes}/openkodo-plugin.json',
   { eager: true, import: 'default' }
 )
 const titles = new Map(

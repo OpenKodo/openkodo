@@ -5,7 +5,7 @@ import type {
 } from './automation-event-triggers'
 import type { Automation } from './automations/automation-definition'
 
-/** GitHub events only an Orca Cloud listing `triggers.github2` sends; an older one never would. */
+/** GitHub events only an OpenKodo Cloud listing `triggers.github2` sends; an older one never would. */
 export const GITHUB2_EVENT_KINDS: readonly string[] = [
   'ci_passed',
   'pr_conflicted',
@@ -17,27 +17,27 @@ export const GITHUB2_EVENT_KINDS: readonly string[] = [
   'security_alert'
 ]
 
-/** A pull request's state, which Orca Cloud reads only for one it is told to follow: subject= names
+/** A pull request's state, which OpenKodo Cloud reads only for one it is told to follow: subject= names
  *  it, and nobody "does" it, so from= has nothing to match. */
 export const PR_STATE_EVENT_KINDS: readonly string[] = ['ci_passed', 'ci_finished', 'pr_conflicted']
 
-/** GitHub events only an Orca Cloud listing `triggers.workflows` sends. */
+/** GitHub events only an OpenKodo Cloud listing `triggers.workflows` sends. */
 export const WORKFLOW_EVENT_KINDS: readonly string[] = ['workflow_finished']
 
-/** GitHub events only an Orca Cloud listing `triggers.ci_finished` sends. */
+/** GitHub events only an OpenKodo Cloud listing `triggers.ci_finished` sends. */
 export const CI_FINISHED_EVENT_KINDS: readonly string[] = ['ci_finished']
 
-/** Whether a rule needs an Orca Cloud that lists `triggers.ci_finished`. */
+/** Whether a rule needs an OpenKodo Cloud that lists `triggers.ci_finished`. */
 export function needsCiFinished(trigger: AutomationEventTrigger): boolean {
   return trigger.source === 'github' && CI_FINISHED_EVENT_KINDS.includes(trigger.event)
 }
 
-/** Whether a rule needs an Orca Cloud that lists `triggers.workflows`. */
+/** Whether a rule needs an OpenKodo Cloud that lists `triggers.workflows`. */
 export function needsWorkflows(trigger: AutomationEventTrigger): boolean {
   return trigger.source === 'github' && WORKFLOW_EVENT_KINDS.includes(trigger.event)
 }
 
-/** Whether a rule needs an Orca Cloud that lists `triggers.github2`. */
+/** Whether a rule needs an OpenKodo Cloud that lists `triggers.github2`. */
 export function needsGitHub2(trigger: AutomationEventTrigger): boolean {
   return (
     trigger.source === 'github' &&

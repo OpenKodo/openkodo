@@ -37,9 +37,9 @@ const SidebarFeedbackDialog = lazyWithRetry(
   { reloadKey: 'sidebar-feedback-dialog' }
 )
 
-const DOCS_URL = 'https://orca.dev/docs'
-const CHANGELOG_URL = 'https://orca.dev/changelog'
-const GITHUB_URL = 'https://github.com/stablyai/orca'
+const DOCS_URL = 'https://openkodo.dev/docs'
+const CHANGELOG_URL = 'https://openkodo.dev/changelog'
+const GITHUB_URL = 'https://github.com/OpenKodo/openkodo'
 const DISCORD_URL = 'https://discord.gg/fzjDKHxv8Q'
 const X_URL = 'https://x.com/orca_build'
 const NO_UPDATE_CHECK_MODIFIERS = {
@@ -169,12 +169,17 @@ export function useHelpMenuController(
       return
     }
     setIsRestartingOrca(true)
-    toast.info(t('auto.components.sidebar.SidebarSettingsHelpMenu.5161eef55d', 'Restarting Orca…'))
+    toast.info(
+      t('auto.components.sidebar.SidebarSettingsHelpMenu.5161eef55d', 'Restarting OpenKodo…')
+    )
     void window.api.app.restart().catch((error) => {
       if (mountedRef.current) {
         setIsRestartingOrca(false)
         toast.error(
-          t('auto.components.sidebar.SidebarSettingsHelpMenu.4e8f5710d3', "Couldn't restart Orca."),
+          t(
+            'auto.components.sidebar.SidebarSettingsHelpMenu.4e8f5710d3',
+            "Couldn't restart OpenKodo."
+          ),
           {
             description: error instanceof Error ? error.message : undefined
           }
@@ -270,7 +275,7 @@ export function useHelpMenuController(
         {innerSeparator}
         <DropdownMenuItem onSelect={handleRestartOrca} disabled={isRestartingOrca}>
           <RotateCw className="size-3.5" />
-          {t('auto.components.sidebar.SidebarSettingsHelpMenu.ad3d3ed7f1', 'Restart Orca')}
+          {t('auto.components.sidebar.SidebarSettingsHelpMenu.ad3d3ed7f1', 'Restart OpenKodo')}
         </DropdownMenuItem>
       </>
     ),

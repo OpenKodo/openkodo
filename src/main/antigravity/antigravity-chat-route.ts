@@ -13,7 +13,7 @@ import { antigravityChatSignIn } from './antigravity-chat-account'
 export type AntigravityAgySignIn = 'signedIn' | 'signedOut' | 'unknown' | 'notInstalled'
 
 /** Whether new chats run on agy's own home and login: only the Google account method. Every other
- *  choice, a malformed one, or one still being saved runs on Orca's home, whose settings.json
+ *  choice, a malformed one, or one still being saved runs on OpenKodo's home, whose settings.json
  *  names the method agy then uses. */
 function savedChatAuthMethod(value: unknown): string | null {
   try {
@@ -47,13 +47,13 @@ export function noteAgyLoginChanged(): void {
 }
 let lastRunsInOrcaHome = false
 
-/** Whether the latest new-chat answer runs chats in a home Orca owns, which loads skill folders but
+/** Whether the latest new-chat answer runs chats in a home OpenKodo owns, which loads skill folders but
  *  not `~/.gemini`'s plugins; false before any. */
 export function lastAntigravityChatRunsInOrcaHome(): boolean {
   return lastRunsInOrcaHome
 }
 
-/** Where new chats run on this host for the saved method: agy's own home (true) or Orca's. */
+/** Where new chats run on this host for the saved method: agy's own home (true) or OpenKodo's. */
 export function antigravityChatRunsOnAgyHome(savedAuth: unknown): boolean {
   const personal = savedChatAuthIsPersonal(savedAuth)
   lastRunsInOrcaHome = !personal

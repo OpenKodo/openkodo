@@ -44,7 +44,7 @@ export type StructuredAgentSessionDeliveryLoopDeps = {
   immediatePermission?: (sessionId: string) => AgentChatPermissionChoice | null
   stopPermissionTransitionChild?: (sessionId: string) => Promise<void>
   retainedWork?: (sessionId: string, continuingId: string) => Promise<boolean>
-  /** Orca changed this chat's tools since its child launched and it owes no work (see
+  /** OpenKodo changed this chat's tools since its child launched and it owes no work (see
    *  `launchToolsRefreshDue`): the input needs a child that has them. */
   launchToolsRefreshDue?: (sessionId: string, continuingId: string) => Promise<boolean>
   readiness: (
@@ -78,7 +78,7 @@ export type StructuredAgentSessionDeliveryLoopDeps = {
 }
 
 /**
- * `launchTools.outdated` (no I/O) says Orca wrote some tools a chat may use since its child launched;
+ * `launchTools.outdated` (no I/O) says OpenKodo wrote some tools a chat may use since its child launched;
  * only `changed` says they are this chat's, so an edit to tools it doesn't get never restarts it.
  */
 export function launchToolsRefreshDue(

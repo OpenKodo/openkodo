@@ -208,7 +208,7 @@ export function MobileNativeChatComposer({
     if (
       !canSend ||
       sendingRef.current ||
-      // Before goal mode too, so an Orca command never becomes an objective.
+      // Before goal mode too, so an OpenKodo command never becomes an objective.
       orca.consume(value) ||
       goal.consumeBareGoal(value, () => onChangeText(''))
     ) {

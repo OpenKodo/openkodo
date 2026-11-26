@@ -1,4 +1,4 @@
-// Who asked a bot, as Orca Cloud resolved them: the machine side's mirror of
+// Who asked a bot, as OpenKodo Cloud resolved them: the machine side's mirror of
 // cloud/packages/connector-contract's asker (see connector-cloud-contract.ts).
 import * as z from 'zod'
 
@@ -42,7 +42,7 @@ const MAX_EARLIER_OWN_FILES = 10
 const MAX_EPOCH_MS = 8_640_000_000_000_000
 
 /** One of the asker's own messages before a bare mention. Empty text with files or a share is still
- *  theirs; `cut`, `shared` and `filesMore` mark a part Orca doesn't carry. */
+ *  theirs; `cut`, `shared` and `filesMore` mark a part OpenKodo doesn't carry. */
 const ConnectorEarlierOwnMessage = z.object({
   text: z.string().max(MAX_EARLIER_OWN_TEXT),
   at: z.number().int().nonnegative().max(MAX_EPOCH_MS),
@@ -72,10 +72,10 @@ export const ConnectorEarlierOwn = z.object({
 })
 export type ConnectorEarlierOwn = z.infer<typeof ConnectorEarlierOwn>
 
-/** Who asked a bot, where, what they wrote and what came before it, as Orca Cloud resolved them.
+/** Who asked a bot, where, what they wrote and what came before it, as OpenKodo Cloud resolved them.
  *  `role` was decided on `userId` (owner, or a member the owner added), never on `name`.
  *  `place.id`: a Slack channel id, a GitHub `owner/repo#number`, a Linear issue key. */
-// The Orca bot that wrote a message on its person's behalf (its words, not theirs); dropped alone
+// The OpenKodo bot that wrote a message on its person's behalf (its words, not theirs); dropped alone
 // when unreadable. Its kind ('bot') is left unread: it has no other.
 export const ConnectorAskerVia = z
   .object({ userId: z.string().min(1).max(128), name: z.string().min(1).max(200) })
@@ -99,7 +99,7 @@ export const ConnectorAsker = z.object({
   via: ConnectorAskerVia,
   // Another Slack app on the bot's Who can ask wrote it, not a person: userId is its bot user.
   app: z.literal(true).optional().catch(undefined),
-  // Orca's own lines on where it was asked (GitHub: the branch, how to post there): the agent reads
+  // OpenKodo's own lines on where it was asked (GitHub: the branch, how to post there): the agent reads
   // them after the message, and the chat doesn't show them.
   note: z.string().min(1).max(4000).optional().catch(undefined)
 })

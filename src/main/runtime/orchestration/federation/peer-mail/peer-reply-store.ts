@@ -9,8 +9,8 @@ import { presentImportedPeerItem } from '../../mailbox/formatting/imported-peer-
 import { peerMailLocalRecipient } from './peer-mail-delivery'
 import { settlePeerQuestionsOut } from './peer-questions-out'
 
-/** Stores a reply on a conversation this Orca opened, once; a replay finds the stored row. Pulled
- *  from a paired server, or returned by a paired computer whose agents this Orca's agents asked. */
+/** Stores a reply on a conversation this OpenKodo opened, once; a replay finds the stored row. Pulled
+ *  from a paired server, or returned by a paired computer whose agents this OpenKodo's agents asked. */
 export function storePeerReply(
   runtime: OrcaRuntimeService,
   db: OrchestrationDb,
@@ -19,7 +19,7 @@ export function storePeerReply(
   payload: z.infer<typeof PeerMailRelayPayload>
 ): MessageRow | undefined {
   const handle = peerMailLocalRecipient(runtime, conversation)
-  // Peer-mail replies come home to this Orca's own sender handle, never a terminal agent's id.
+  // Peer-mail replies come home to this OpenKodo's own sender handle, never a terminal agent's id.
   const recipient = resolveBareOrchestrationRecipient({ runtime, db, handle })
   const { from, body, ...carried } = presentImportedPeerItem({ kind: 'peer_mail', ...payload })
   settlePeerQuestionsOut(db, conversation.conversation_id, payload)

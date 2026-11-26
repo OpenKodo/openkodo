@@ -1,5 +1,5 @@
 /** Startup phase timing for the real-distro lane; inert unless its launch env sets the variable. */
-export const ORCAD_STARTUP_TIMING_ENV = 'ORCA_E2E_ORCAD_STARTUP_TIMING'
+export const ORCAD_STARTUP_TIMING_ENV = 'OPENKODO_E2E_ORCAD_STARTUP_TIMING'
 
 export const ORCAD_STARTUP_TIMING_PREFIX = '[orcad] startup timing '
 

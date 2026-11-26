@@ -11,19 +11,19 @@ export function runtimeAccessDeniedError(
   }
   const codexSandbox = Boolean(process.env.CODEX_SANDBOX)
   const [blocked, target] = metadataPath
-    ? [`reading Orca runtime metadata at ${metadataPath}`, 'read']
-    : ['connecting to Orca', 'connection']
+    ? [`reading OpenKodo runtime metadata at ${metadataPath}`, 'read']
+    : ['connecting to OpenKodo', 'connection']
   const message = codexSandbox
-    ? `The Codex sandbox blocked this command from ${blocked} (${systemCode}). Orca may be running normally.`
-    : `Permission denied ${blocked} (${systemCode}). Orca may be running normally; this command's sandbox or OS permissions block the ${target}.`
+    ? `The Codex sandbox blocked this command from ${blocked} (${systemCode}). OpenKodo may be running normally.`
+    : `Permission denied ${blocked} (${systemCode}). OpenKodo may be running normally; this command's sandbox or OS permissions block the ${target}.`
   const retryStep = codexSandbox
     ? "Retry through Codex's existing escalation when the session permits it; otherwise run the same command from a terminal outside the sandbox."
-    : 'Re-run this command outside its sandbox, or as a user allowed to reach the Orca runtime.'
+    : 'Re-run this command outside its sandbox, or as a user allowed to reach the OpenKodo runtime.'
   return new RuntimeClientError('runtime_access_denied', message, {
     systemCode,
     nextSteps: [
       retryStep,
-      "Do not restart Orca or run 'orca open'; a restart cannot grant this command access."
+      "Do not restart OpenKodo or run 'orca open'; a restart cannot grant this command access."
     ]
   })
 }

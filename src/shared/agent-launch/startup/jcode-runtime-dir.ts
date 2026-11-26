@@ -1,4 +1,4 @@
-// jcode shares a daemon per runtime directory, including sockets/lock. Isolate per pane so daemon hooks inherit that pane’s ORCA_PANE_KEY;
+// jcode shares a daemon per runtime directory, including sockets/lock. Isolate per pane so daemon hooks inherit that pane’s OPENKODO_PANE_KEY;
 // otherwise later panes connect to the first daemon and report status to its tab.
 import { createHash } from 'node:crypto'
 import { mkdir } from 'node:fs/promises'

@@ -69,7 +69,7 @@ export type UtilityWorkerPortEvent =
 export const UTILITY_WORKER_MESSAGE_CHUNK_BYTES = 32 * 2 ** 20
 
 /** The error code a capped host throws from spawn; queues show its message as written. */
-export const UTILITY_WORKER_HOST_PAUSED = 'ORCA_UTILITY_WORKER_HOST_PAUSED'
+export const UTILITY_WORKER_HOST_PAUSED = 'OPENKODO_UTILITY_WORKER_HOST_PAUSED'
 
 export class UtilityWorkerHostPausedError extends Error {
   readonly code = UTILITY_WORKER_HOST_PAUSED

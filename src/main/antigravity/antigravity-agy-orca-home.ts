@@ -1,4 +1,4 @@
-// Chats on any method but a Google account run agy in a home Orca owns (`--gemini-dir`), whose
+// Chats on any method but a Google account run agy in a home OpenKodo owns (`--gemini-dir`), whose
 // settings.json picks the method, so the person's own ~/.gemini login and settings stay untouched.
 
 import { join } from 'node:path'
@@ -28,23 +28,23 @@ import {
   linkAntigravityUserSkills
 } from './antigravity-chat-user-skills'
 
-/** Under Orca's data folder: new chats on any method but a Google account run here. */
+/** Under OpenKodo's data folder: new chats on any method but a Google account run here. */
 export const ANTIGRAVITY_AGY_CHAT_HOME_FOLDER = 'antigravity-agy-chat'
 const VARIABLE = 'GEMINI_HOME'
-const ORCA_HOME_FOLDERS = [ANTIGRAVITY_AGY_CHAT_HOME_FOLDER, ANTIGRAVITY_CHAT_HOME_FOLDER]
+const OPENKODO_HOME_FOLDERS = [ANTIGRAVITY_AGY_CHAT_HOME_FOLDER, ANTIGRAVITY_CHAT_HOME_FOLDER]
 
 export function antigravityAgyOrcaAccountHome(stateDirectory: string): AgentSessionAccountHome {
   return { variable: VARIABLE, path: join(stateDirectory, ANTIGRAVITY_AGY_CHAT_HOME_FOLDER) }
 }
 
-/** The Orca home `home` is: this one, or the one Orca's retired server kept its chats in, which
+/** The OpenKodo home `home` is: this one, or the one OpenKodo's retired server kept its chats in, which
  *  agy reads in place. */
 export function antigravityOrcaHomeFolder(home: AgentSessionAccountHome): string | null {
   if (!isLegacyAgentSessionAccountHome(home) || home.variable !== VARIABLE) {
     return null
   }
   const name = home.path.split(/[\\/]+/).findLast(Boolean)
-  return name && ORCA_HOME_FOLDERS.includes(name) ? name : null
+  return name && OPENKODO_HOME_FOLDERS.includes(name) ? name : null
 }
 
 export function isAntigravityAgyOrcaAccountHome(home: AgentSessionAccountHome): boolean {
@@ -77,7 +77,7 @@ async function missingKey(): Promise<string> {
 const isGoogle = (method: AntigravityChatAuthConfig['method']): boolean =>
   method === 'oauth-personal' || method === 'oauth-business'
 
-/** An Orca home's binding: before every start or listing, settings.json for the saved method and
+/** An OpenKodo home's binding: before every start or listing, settings.json for the saved method and
  *  that method's credential. A key chat without a key is refused: agy would fall back to its own
  *  saved login. A Google method uses agy's login; gcloud's ADC is agy's to find. */
 function orcaHomeAccount(folderName: string): AcpAccountBinding {
@@ -107,5 +107,5 @@ function orcaHomeAccount(folderName: string): AcpAccountBinding {
 
 export const antigravityAgyOrcaAccount = orcaHomeAccount(ANTIGRAVITY_AGY_CHAT_HOME_FOLDER)
 
-/** Chats Orca's retired server started; agy resumes them in place. */
+/** Chats OpenKodo's retired server started; agy resumes them in place. */
 export const antigravityLegacyOrcaAccount = orcaHomeAccount(ANTIGRAVITY_CHAT_HOME_FOLDER)

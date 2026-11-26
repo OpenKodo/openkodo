@@ -42,7 +42,7 @@ const linkedPeer = (row: MessageRow): MessageFormattingOptions => ({
 })
 
 describe('the mail header', () => {
-  it("names this Orca's own sender by its handle, as before", () => {
+  it("names this OpenKodo's own sender by its handle, as before", () => {
     expect(header(message())).toBe('──── From: TERM_ABC (term_abc) (handoff) ────')
   })
 
@@ -70,7 +70,7 @@ describe('the mail header', () => {
     )
   })
 
-  it('names an older paired Orca that sent no sender by the computer its label gives', () => {
+  it('names an older paired OpenKodo that sent no sender by the computer its label gives', () => {
     const older = message({ from_handle: PAIRED_LABEL })
     expect(header(older, linkedPeer(older))).toBe(
       '──── From: an agent on MacBook Pro (7) (handoff) ────'

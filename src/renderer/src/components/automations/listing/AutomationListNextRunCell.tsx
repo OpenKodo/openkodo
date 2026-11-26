@@ -21,7 +21,7 @@ export function AutomationListNextRunCell({
   nextRunTitle?: string
   /** A moved project's local copy: the host runs it, never this computer. */
   movedToDistro?: string | null
-  /** A copy its host's Orca server now serves: it runs only once migrated. */
+  /** A copy its host's OpenKodo server now serves: it runs only once migrated. */
   needsMigration?: boolean
   /** The last run skipped setup whose commands changed and still need approval. */
   setupSkipped?: boolean
@@ -67,7 +67,7 @@ export function AutomationListNextRunCell({
         className={cn(CELL_CLASS, 'inline-flex items-center gap-1 text-status-warning-text')}
         title={t(
           'automations.setupTrust.listSkippedTitle',
-          "The last run skipped setup because its branch's orca.yaml setup commands changed. Review them from the actions menu."
+          "The last run skipped setup because its branch's openkodo.yaml setup commands changed. Review them from the actions menu."
         )}
       >
         <TriangleAlert className="size-3.5 shrink-0" />

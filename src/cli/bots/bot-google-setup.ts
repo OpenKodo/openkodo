@@ -1,4 +1,4 @@
-// `orca bot google-setup …`: the bot moves its Google setup run; Orca draws the cards from it.
+// `orca bot google-setup …`: the bot moves its Google setup run; OpenKodo draws the cards from it.
 import {
   readInjectedAgentSessionId,
   readInjectedBotToken
@@ -84,7 +84,7 @@ export function formatGoogleSetupRun({
     ...(answers.length ? ['Answers:', ...answers] : []),
     ...(run.lastError ? [`Last error: ${run.lastError}`] : []),
     ...(keyMissing
-      ? ["Key: Orca doesn't have the app's key yet. Client is done only once it does."]
+      ? ["Key: OpenKodo doesn't have the app's key yet. Client is done only once it does."]
       : []),
     // The owner's buttons, in the card's own words, so the bot never names one that isn't there.
     ...ownerLines(run, blocker)
@@ -99,7 +99,7 @@ function list(raw: string | undefined): string[] | undefined {
   return values?.length ? values : undefined
 }
 
-/** A start Orca answered with a Connect card or a line instead of a setup, since Google's app is here. */
+/** A start OpenKodo answered with a Connect card or a line instead of a setup, since Google's app is here. */
 type StartRouted = { routed: 'offer' | 'on' | 'server'; message: string }
 
 export function formatGoogleSetupWrite(result: SetupRead | StartRouted): string {

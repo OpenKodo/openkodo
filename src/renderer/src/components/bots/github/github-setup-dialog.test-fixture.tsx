@@ -52,7 +52,7 @@ export const stablyai: ConnectorGitHubInstallation = {
 
 let installations: ConnectorGitHubInstallation[] = [stablyai]
 let account: { userId: string; login: string } | null = { userId: '42', login: 'carol-gh' }
-/** Several GitHub users linked to this Orca account; unset means only `account`. */
+/** Several GitHub users linked to this OpenKodo account; unset means only `account`. */
 let accounts: ConnectorGitHubLinkedAccount[] | undefined
 /** GitHub's state read fails, e.g. a dropped connection while an install is followed. */
 let stateFails = false
@@ -144,7 +144,7 @@ export function stubGitHub(
 }
 
 const WORKSPACE = makeWorktree({ id: 'repo-1::/marketing', repoId: 'repo-1', path: '/marketing' })
-// Link setting = open in Orca, in the bot's workspace.
+// Link setting = open in OpenKodo, in the bot's workspace.
 export const inOrcaStore = {
   settings: { ...getDefaultSettings('/home/fixture'), openLinksInApp: true },
   activeWorktreeId: WORKSPACE.id,
@@ -209,7 +209,7 @@ export function failGitHubReads(error = 'fixture_unreachable'): void {
   stateError = error
 }
 
-/** This computer's Orca sign-in lapses: setups that need Orca Cloud ask to sign in again. */
+/** This computer's OpenKodo sign-in lapses: setups that need OpenKodo Cloud ask to sign in again. */
 export function signOutOfOrcaCloud(): void {
   useAppStore.setState({
     orcaProfileAuthStatus: {

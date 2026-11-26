@@ -1,5 +1,5 @@
 // Sharing a bot by link from the phone: the desktop's bots.share.* calls, on the bot's own computer,
-// whose Orca account publishes and lists its links.
+// whose OpenKodo account publishes and lists its links.
 import * as z from 'zod'
 import { BotShareOutsidePickSchema } from '../../../../src/shared/bots/bot-share-skill-picks'
 import {
@@ -132,7 +132,7 @@ export const botShareView = bindDeferredRpcOperation(
   })
 )
 
-/** Orca Cloud's answer: a value, or why the computer's account can't give one. */
+/** OpenKodo Cloud's answer: a value, or why the computer's account can't give one. */
 function cloudOperation<Schema extends z.ZodType>(value: Schema) {
   return z.union([
     z.looseObject({ status: z.literal('ok'), value }),

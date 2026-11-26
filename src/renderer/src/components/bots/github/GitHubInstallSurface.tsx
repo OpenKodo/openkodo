@@ -18,7 +18,7 @@ export function GitHubInstallSurface({
 }: {
   record: GitHubInstallRecord
 }): React.JSX.Element | null {
-  // Minimized still counts: an "Open Orca" return lands here instead of sending the owner to Settings.
+  // Minimized still counts: an "Open OpenKodo" return lands here instead of sending the owner to Settings.
   useConnectorSetupOpen(true)
   const bot = useBots().find(
     (candidate) => candidate.id === record.bot.id && candidate.hostId === record.bot.hostId

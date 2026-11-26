@@ -1,6 +1,6 @@
-// How each bot request ended, as Orca saw it: answered by mail, posted where the asker asked, ended
+// How each bot request ended, as OpenKodo saw it: answered by mail, posted where the asker asked, ended
 // with no answer, or dropped unread. The first outcome stands, but for an answer, which may follow
-// any; Orca tells the sender at most once, and passes on one answer.
+// any; OpenKodo tells the sender at most once, and passes on one answer.
 import type { MessageRow } from '../orchestration-records'
 import type { OrchestrationDb } from '../orchestration-db'
 import type { BotRequestRow } from './bot-request-store'
@@ -38,7 +38,7 @@ function settleAwaitedQuestion(db: OrchestrationDb, messageId: string): void {
 }
 
 /** Records a bot's answer by mail: the first, or the one after its post in the thread (`posted`);
- *  a late one after Orca said it couldn't still stands. Null for a second answer. */
+ *  a late one after OpenKodo said it couldn't still stands. Null for a second answer. */
 export function recordBotAnswer(
   this: OrchestrationDb,
   messageId: string

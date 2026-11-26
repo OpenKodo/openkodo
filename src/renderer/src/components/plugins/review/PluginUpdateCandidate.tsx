@@ -25,7 +25,7 @@ export type UpdateCandidate = {
   entry: PluginListEntry
   preview: PluginMarketplaceHostInstallPreview | null
   error: boolean
-  /** Oldest Orca the update runs on, when this Orca is older. */
+  /** Oldest OpenKodo the update runs on, when this OpenKodo is older. */
   needsOrca: string | null
   /** Read with the preview, so a review's lines are complete before it can be approved. */
   installedManifest: PluginManifest | null
@@ -61,7 +61,7 @@ const contributionGrowthLabel = (point: PluginContributionPoint, t: Translate): 
   if (point === 'events') {
     return t(
       'auto.components.settings.PluginUpdateAllDialog.newEvents',
-      'Reacts to more Orca events'
+      'Reacts to more OpenKodo events'
     )
   }
   if (point === 'vmRecipes') {
@@ -79,7 +79,7 @@ const contributionGrowthLabel = (point: PluginContributionPoint, t: Translate): 
   if (point === 'hooks') {
     return t(
       'auto.components.settings.PluginUpdateAllDialog.newHooks',
-      'Can change or stop what Orca and your agents do'
+      'Can change or stop what OpenKodo and your agents do'
     )
   }
   if (point === 'settings') {
@@ -131,7 +131,7 @@ function editorGrowthLines(
 const replacementLine = (command: string, action: string, t: Translate): string =>
   t(
     'auto.components.settings.PluginUpdateAllDialog.replacesAction',
-    '{{value0}} runs instead of Orca’s {{value1}}',
+    '{{value0}} runs instead of OpenKodo’s {{value1}}',
     { value0: command, value1: builtInActionTitle(action) }
   )
 
@@ -163,7 +163,7 @@ export function updateChanges(
       ? editorGrowthLines(installedManifest, preview.manifest, t)
       : [contributionGrowthLabel(point, t)]
   )
-  // Why named: "Commands" alone would hide that one takes over an Orca action.
+  // Why named: "Commands" alone would hide that one takes over an OpenKodo action.
   const replacements = growth?.contributions.includes('commands')
     ? preview.manifest.contributes.commands.flatMap((command) =>
         command.replaces ? [replacementLine(command.title, command.replaces, t)] : []
@@ -289,7 +289,7 @@ export function CandidateRow({
       <p className="text-xs text-status-warning-text">
         {t(
           'auto.components.settings.PluginUpdateAllDialog.needsOrca',
-          'Needs Orca {{value0}} or later',
+          'Needs OpenKodo {{value0}} or later',
           { value0: needsOrca }
         )}
       </p>

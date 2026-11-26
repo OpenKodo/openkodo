@@ -29,7 +29,7 @@ function pendingItem(
   return chat?.publishedWork(link.sessionId)?.actionablePrompts[0] ?? null
 }
 
-/** One question picked from its options, as buttons can ask it; free text and multi-select stay in Orca. */
+/** One question picked from its options, as buttons can ask it; free text and multi-select stay in OpenKodo. */
 function buttonQuestion(item: AgentJournalRenderItem): AgentJournalQuestion | null {
   if (item.body.kind !== 'question') {
     return null
@@ -83,7 +83,7 @@ function questionText(item: AgentJournalRenderItem): string | undefined {
 // Options travel by position: a journal option id can be longer than the wire's ids allow.
 const optionWireId = (index: number): string => String(index + 1)
 
-/** Approvals and one-pick questions are answerable here; anything else only Orca's chat view can answer. */
+/** Approvals and one-pick questions are answerable here; anything else only OpenKodo's chat view can answer. */
 export function pendingChatPrompt(
   chat: ConversationChat | null,
   link: ExternalConversationLink
@@ -132,7 +132,7 @@ export function pendingChatPrompt(
   }
 }
 
-/** The host fields of an answer, as a click in Orca would send them; null when not offered. */
+/** The host fields of an answer, as a click in OpenKodo would send them; null when not offered. */
 function answerFields(item: AgentJournalRenderItem, answer: ConnectorAnswer) {
   const target = { itemId: item.itemId, expectedRevision: item.revision }
   if (answer.text !== undefined) {

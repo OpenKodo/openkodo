@@ -9,12 +9,12 @@ import { ORCAD_SERVER_LAUNCH_ENV_KEYS } from '../../../shared/remote-runtime/ser
 import { isLocalCounterPtyId } from '../../../shared/terminal/pty/lifecycle/pty-session-id-format'
 
 const PANE_IDENTITY_ENV_KEYS = [
-  'ORCA_PANE_KEY',
-  'ORCA_TAB_ID',
-  'ORCA_WORKTREE_ID',
-  'ORCA_AGENT_LAUNCH_TOKEN',
+  'OPENKODO_PANE_KEY',
+  'OPENKODO_TAB_ID',
+  'OPENKODO_WORKTREE_ID',
+  'OPENKODO_AGENT_LAUNCH_TOKEN',
   'JCODE_RUNTIME_DIR',
-  // Per-viewer: an Orca started from a remote viewer's pane must not mark its own local panes.
+  // Per-viewer: an OpenKodo started from a remote viewer's pane must not mark its own local panes.
   REMOTE_VIEWER_CLIPBOARD_ENV,
   // A server's own launch env; a user's `orcad` in this shell is not that server.
   ...ORCAD_SERVER_LAUNCH_ENV_KEYS
@@ -39,7 +39,7 @@ export function promoteAgentTeamsShimPath(
   env: Record<string, string>,
   requestedPath: string | undefined
 ): void {
-  if (!env.ORCA_AGENT_TEAMS_TEAM_ID || !requestedPath) {
+  if (!env.OPENKODO_AGENT_TEAMS_TEAM_ID || !requestedPath) {
     return
   }
   const normalizedRequestedPath =

@@ -11,7 +11,7 @@ import { resolveCurrentWorktreeSelector } from '../workspace-selection/workspace
 export type EmulatorCliTarget = {
   worktree?: string
   device?: string
-  emulator?: string // Orca id from list
+  emulator?: string // OpenKodo id from list
 }
 
 async function optionalCurrentWorktreeSelector(
@@ -48,14 +48,14 @@ export async function getEmulatorWorktreeSelector(
   if (client.isRemote) {
     return undefined
   }
-  const terminalWorktreeId = process.env.ORCA_WORKTREE_ID
+  const terminalWorktreeId = process.env.OPENKODO_WORKTREE_ID
   if (terminalWorktreeId?.trim()) {
     const scoped = await resolveCallerPaneWorktreeSelector(terminalWorktreeId, client)
     if (scoped) {
       return scoped
     }
   }
-  const folderWorkspaceId = process.env.ORCA_WORKSPACE_ID?.trim()
+  const folderWorkspaceId = process.env.OPENKODO_WORKSPACE_ID?.trim()
   if (folderWorkspaceId?.startsWith('folder:')) {
     return folderWorkspaceId
   }

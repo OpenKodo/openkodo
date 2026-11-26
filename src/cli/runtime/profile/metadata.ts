@@ -16,7 +16,7 @@ export function readMetadata(userDataPath: string): RuntimeMetadata {
     if (!metadata || !findTransport(metadata, 'unix', 'named-pipe') || !metadata.authToken) {
       throw new RuntimeClientError(
         'runtime_unavailable',
-        `Orca runtime metadata is incomplete at ${metadataPath}`
+        `OpenKodo runtime metadata is incomplete at ${metadataPath}`
       )
     }
     return metadata
@@ -29,7 +29,7 @@ export function readMetadata(userDataPath: string): RuntimeMetadata {
       denied ??
       new RuntimeClientError(
         'runtime_unavailable',
-        `Could not read Orca runtime metadata at ${metadataPath}. Start the Orca app first.`
+        `Could not read OpenKodo runtime metadata at ${metadataPath}. Start the OpenKodo app first.`
       )
     )
   }
@@ -73,8 +73,8 @@ export function getDefaultUserDataPath(
   platform: NodeJS.Platform = process.platform,
   homeDir = homedir()
 ): string {
-  if (process.env.ORCA_USER_DATA_PATH) {
-    return process.env.ORCA_USER_DATA_PATH
+  if (process.env.OPENKODO_USER_DATA_PATH) {
+    return process.env.OPENKODO_USER_DATA_PATH
   }
   return getPlatformUserDataPath(platform, homeDir)
 }
@@ -92,7 +92,7 @@ export function getPlatformUserDataPath(
     if (!appData) {
       throw new RuntimeClientError(
         'runtime_unavailable',
-        'APPDATA is not set, so the Orca runtime metadata path cannot be resolved.'
+        'APPDATA is not set, so the OpenKodo runtime metadata path cannot be resolved.'
       )
     }
     return join(appData, 'orca')

@@ -5,10 +5,10 @@ import { resolve } from 'node:path'
 import type { EvalHostState } from './bot-automation-eval-host'
 import { runGh } from './bot-automation-eval-gh'
 
-const state: EvalHostState = JSON.parse(readFileSync(process.env.ORCA_EVAL_STATE ?? '', 'utf8'))
+const state: EvalHostState = JSON.parse(readFileSync(process.env.OPENKODO_EVAL_STATE ?? '', 'utf8'))
 const argv = process.argv.slice(2)
 const log = (entry: Record<string, unknown>) =>
-  appendFileSync(process.env.ORCA_EVAL_LOG ?? '', `${JSON.stringify(entry)}\n`)
+  appendFileSync(process.env.OPENKODO_EVAL_LOG ?? '', `${JSON.stringify(entry)}\n`)
 const result = runGh(state.github, argv, {
   stdin: () => readFileSync(0, 'utf8'),
   files: (path) => readFileSync(resolve(path), 'utf8')

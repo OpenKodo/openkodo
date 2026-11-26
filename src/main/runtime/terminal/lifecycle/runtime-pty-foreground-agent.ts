@@ -230,7 +230,7 @@ export class RuntimePtyForegroundAgent {
     }
     const epoch = this.foregroundEpochs.get(ptyId) ?? {}
     this.foregroundEpochs.set(ptyId, epoch)
-    // A surviving session's attach restores the agent Orca launched in it, which then needs no scan.
+    // A surviving session's attach restores the agent OpenKodo launched in it, which then needs no scan.
     const attach = this.deps.pendingAttach(ptyId)
     if (attach) {
       await withTimeoutResult(attach, PENDING_ATTACH_WAIT_MS)

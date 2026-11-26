@@ -1,7 +1,7 @@
 // Keep desktop-created simulator/browser tabs absent from paired-server frames in this desktop’s localStorage, keyed by server/workspace; published tabs follow server frames. Never serialize or send this record.
 
 import type { Tab } from '../../../../../shared/workspace-layout/tab-groups/tab-types'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { AppState } from '@/store/types'
 import type { HeldDrawnTabs } from '@/store/workspace-layout/frames/workspace-layout-frame-held-tabs'
 
@@ -14,7 +14,7 @@ let records: Map<string, Entry> | undefined
 
 function recordMap(): Map<string, Entry> {
   // Only layout-owner builds consume these server-frame exceptions.
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     return new Map()
   }
   if (records) {
@@ -50,7 +50,7 @@ function save(map: Map<string, Entry>): void {
       map.delete(key)
     }
   }
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     return
   }
   try {

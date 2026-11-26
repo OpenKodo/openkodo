@@ -1,5 +1,5 @@
 // Import from another app: pick a bot OpenClaw, Hermes or OpenBot keeps on this computer, or an export the
-// old bot made, and create the Orca bot whose first turn brings it over. Laid out like New group.
+// old bot made, and create the OpenKodo bot whose first turn brings it over. Laid out like New group.
 import React, { useId, useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'

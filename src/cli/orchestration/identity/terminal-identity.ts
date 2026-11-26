@@ -29,7 +29,7 @@ export async function resolveOrchestrationTerminalHandle(
   if (explicit) {
     return explicit
   }
-  const envHandle = process.env.ORCA_TERMINAL_HANDLE
+  const envHandle = process.env.OPENKODO_TERMINAL_HANDLE
   if (envHandle && envHandle.length > 0) {
     if (flagName === 'from' && options.validateEnvHandle) {
       // Shells can retain stale handles after remint; validate before embedding them in coordinator preambles.
@@ -106,7 +106,7 @@ async function resolveOrchestrationPaneTerminalHandle(
   client: RuntimeClient,
   options: { optional?: boolean } = {}
 ): Promise<string | undefined> {
-  const paneKey = process.env.ORCA_PANE_KEY
+  const paneKey = process.env.OPENKODO_PANE_KEY
   if (!paneKey || paneKey.length === 0) {
     return undefined
   }
@@ -203,23 +203,23 @@ function structuredSessionRefusal(flagName: 'from' | 'terminal'): RuntimeClientE
       `and no terminal handle names it — every live handle belongs to a different pane, and passing one ` +
       `would consume that pane's mailbox. To start other work, put its task in --prompt on ` +
       `agent launch or worktree create --agent and follow it with agent read; otherwise tell the ` +
-      `user this chat cannot send Orca mail.`
+      `user this chat cannot send OpenKodo mail.`
   )
 }
 
 export function throwNoActiveSenderTerminal(flagName: 'from' | 'terminal' = 'from'): never {
   // Lifecycle sends can refuse before the structured guard; distinguish missing identity from stale handles.
-  if (hasStructuredSessionMarker() && !process.env.ORCA_TERMINAL_HANDLE) {
+  if (hasStructuredSessionMarker() && !process.env.OPENKODO_TERMINAL_HANDLE) {
     throw structuredSessionRefusal(flagName)
   }
-  // Codex sets CODEX_THREAD_ID after the env filter that can drop Orca identity (#25775).
-  if (process.env.CODEX_THREAD_ID && !process.env.ORCA_TERMINAL_HANDLE) {
+  // Codex sets CODEX_THREAD_ID after the env filter that can drop OpenKodo identity (#25775).
+  if (process.env.CODEX_THREAD_ID && !process.env.OPENKODO_TERMINAL_HANDLE) {
     throw new RuntimeClientError(
       'no_active_sender_terminal',
-      'Codex ran this orchestration command without ORCA_TERMINAL_HANDLE. If Codex was started in ' +
-        'an Orca terminal, its shell_environment_policy removed it, and relaunching the same way ' +
-        'will not restore it. Start Codex by typing `codex` in an Orca terminal, or set ' +
-        'inherit = "all" with include_only listing the variables to keep plus "ORCA_*". ' +
+      'Codex ran this orchestration command without OPENKODO_TERMINAL_HANDLE. If Codex was started in ' +
+        'an OpenKodo terminal, its shell_environment_policy removed it, and relaunching the same way ' +
+        'will not restore it. Start Codex by typing `codex` in an OpenKodo terminal, or set ' +
+        'inherit = "all" with include_only listing the variables to keep plus "OPENKODO_*". ' +
         `Pass --${flagName} only with your own terminal's handle — another pane's handle would act on ` +
         'its mailbox.'
     )
@@ -228,6 +228,6 @@ export function throwNoActiveSenderTerminal(flagName: 'from' | 'terminal' = 'fro
     'no_active_sender_terminal',
     'Could not determine the calling terminal for this orchestration command. ' +
       `Pass --${flagName} with your own terminal's handle — another pane's handle would act on its mailbox — ` +
-      'or run the command inside a live Orca terminal with ORCA_TERMINAL_HANDLE set.'
+      'or run the command inside a live OpenKodo terminal with OPENKODO_TERMINAL_HANDLE set.'
   )
 }

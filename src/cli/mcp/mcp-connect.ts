@@ -1,6 +1,6 @@
-// `orca mcp connect <id> --agent <agent>`: the entry Orca keeps in Grok's, Cursor's and Droid's own
-// MCP file. It asks the Orca its entry pins (ORCA_USER_DATA_PATH) which server that is for this
-// session and bridges the agent's stdio to it. It never opens Orca, and never writes to stdout
+// `orca mcp connect <id> --agent <agent>`: the entry OpenKodo keeps in Grok's, Cursor's and Droid's own
+// MCP file. It asks the OpenKodo its entry pins (OPENKODO_USER_DATA_PATH) which server that is for this
+// session and bridges the agent's stdio to it. It never opens OpenKodo, and never writes to stdout
 // anything but the protocol: a failure is one line on stderr.
 import type { McpServerConnection } from '../../shared/mcp-servers/mcp-servers'
 import {
@@ -27,8 +27,8 @@ async function readConnection(
   }
 ): Promise<McpServerConnection> {
   if (isLaunchedByAnotherRuntime(process.env, client.userDataPath)) {
-    // Another Orca's session (its pane, chat or bot) also loads this Orca's entries from the shared
-    // file; its workspace and caller ids mean nothing here, so it gets that Orca's servers only.
+    // Another OpenKodo's session (its pane, chat or bot) also loads this OpenKodo's entries from the shared
+    // file; its workspace and caller ids mean nothing here, so it gets that OpenKodo's servers only.
     return { on: false }
   }
   const botToken = readInjectedBotToken()
@@ -69,7 +69,7 @@ const connect: CommandHandler = async ({ flags, client, cwd }) => {
       readOrcaCliVersion() ?? '0.0.0'
     )
   } catch (error) {
-    // Orca isn't running (or can't be reached): the agent shows this server as failed to start.
+    // OpenKodo isn't running (or can't be reached): the agent shows this server as failed to start.
     const reason = error instanceof Error ? error.message : String(error)
     process.stderr.write(`orca mcp connect: ${reason}\n`)
     process.exitCode = 1

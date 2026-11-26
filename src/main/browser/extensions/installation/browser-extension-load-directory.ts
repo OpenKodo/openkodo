@@ -33,7 +33,7 @@ import {
 } from '../api-runtime/browser-extension-worker-shim-source'
 
 /**
- * Orca loads every extension from a folder it owns, so it can add its worker's shim loading, API shim
+ * OpenKodo loads every extension from a folder it owns, so it can add its worker's shim loading, API shim
  * and token without touching the original: store installs in place, unpacked folders from a copy.
  */
 
@@ -89,8 +89,8 @@ async function writeIfChanged(path: string, content: string): Promise<void> {
 }
 
 /**
- * Runs Orca's shim before the extension's worker, which keeps its declared path. A package missing
- * its worker file still loads; the worker fails as it would without Orca.
+ * Runs OpenKodo's shim before the extension's worker, which keeps its declared path. A package missing
+ * its worker file still loads; the worker fails as it would without OpenKodo.
  */
 async function injectWorkerShim(
   directory: string,
@@ -165,24 +165,24 @@ export async function browserExtensionIdForUnpackedFolder(directory: string): Pr
   return chromeExtensionIdFromKey(manifestKey(original, { source: 'unpacked', path: directory }))
 }
 
-// Why: Orca writes these into the package; none of them is meant for web pages.
-const ORCA_PRIVATE_FILES = [
+// Why: OpenKodo writes these into the package; none of them is meant for web pages.
+const OPENKODO_PRIVATE_FILES = [
   BROWSER_EXTENSION_WORKER_TOKEN_FILE,
   BROWSER_EXTENSION_ORIGINAL_MANIFEST_FILE
 ]
-const ORCA_ROOT_FILES = [
-  ...ORCA_PRIVATE_FILES,
+const OPENKODO_ROOT_FILES = [
+  ...OPENKODO_PRIVATE_FILES,
   BROWSER_EXTENSION_WORKER_SHIM_FILE,
   BROWSER_EXTENSION_CONTENT_SCRIPT_FILE
 ]
-const ORCA_GENERATED_FILE_NAMES = new Set([
-  ...ORCA_ROOT_FILES,
+const OPENKODO_GENERATED_FILE_NAMES = new Set([
+  ...OPENKODO_ROOT_FILES,
   BROWSER_EXTENSION_ORIGINAL_WORKER_FILE,
   BROWSER_EXTENSION_LEGACY_WORKER_WRAPPER_FILE
 ])
 
 /**
- * Refuses a package that already has a file where Orca writes its own, which would overwrite it.
+ * Refuses a package that already has a file where OpenKodo writes its own, which would overwrite it.
  * Asks the file system rather than comparing names, so every spelling that aliases one counts.
  */
 export async function refuseOrcaFileCollisions(
@@ -201,10 +201,10 @@ export async function refuseOrcaFileCollisions(
         ...(injection.type === 'classic' ? [injection.movedWorkerPath] : [])
       ]
     : []
-  for (const path of [...ORCA_ROOT_FILES, ...workerFiles]) {
+  for (const path of [...OPENKODO_ROOT_FILES, ...workerFiles]) {
     const target = resolveInsideExtensionDirectory(directory, path)
     if (target && (await stat(target).catch(() => null))) {
-      throw new Error(`Orca can't load this extension: its file ${path} uses a name Orca reserves`)
+      throw new Error(`OpenKodo can't load this extension: ${path} uses a reserved name`)
     }
   }
 }
@@ -218,9 +218,11 @@ function fileIdentity(path: string): string | null {
   }
 }
 
-/** True for a resource that is one of Orca's private files on disk, whatever its spelling. */
+/** True for a resource that is one of OpenKodo's private files on disk, whatever its spelling. */
 function isPrivateFileOnDisk(directory: string): (resource: string) => boolean {
-  const privateIds = new Set(ORCA_PRIVATE_FILES.map((file) => fileIdentity(join(directory, file))))
+  const privateIds = new Set(
+    OPENKODO_PRIVATE_FILES.map((file) => fileIdentity(join(directory, file)))
+  )
   privateIds.delete(null)
   return (resource) => {
     const target = resolveInsideExtensionDirectory(directory, resource)
@@ -228,12 +230,12 @@ function isPrivateFileOnDisk(directory: string): (resource: string) => boolean {
   }
 }
 
-// Why skip Orca's own files: they appear only after the first load, and listing them would change
+// Why skip OpenKodo's own files: they appear only after the first load, and listing them would change
 // the manifest on the next launch and needlessly re-register the worker.
 async function listPackageFiles(directory: string): Promise<string[]> {
   const entries = await readdir(directory, { recursive: true, withFileTypes: true })
   return entries
-    .filter((entry) => entry.isFile() && !ORCA_GENERATED_FILE_NAMES.has(entry.name))
+    .filter((entry) => entry.isFile() && !OPENKODO_GENERATED_FILE_NAMES.has(entry.name))
     .map((entry) => relative(directory, join(entry.parentPath, entry.name)).split(sep).join('/'))
 }
 
@@ -282,7 +284,6 @@ async function prepare(
       readBrowserExtensionContentScript()
     )
   }
-  // Why after writing them: privacy is decided by the private files' identity on disk.
   const manifestText = JSON.stringify(
     withPrivateFilesHiddenFromWebAccessibleResources(
       withContentScript ?? injection?.manifest ?? staticResources,
@@ -307,7 +308,7 @@ const pending = new Map<string, Promise<PreparedBrowserExtensionDirectory>>()
 const preparedThisRun = new Map<string, PreparedBrowserExtensionDirectory>()
 
 /**
- * A folder is prepared once per run (an Orca update, which brings a new shim, is a new run), so a
+ * A folder is prepared once per run (an OpenKodo update, which brings a new shim, is a new run), so a
  * profile reopening later, or a second profile, reuses it. An unpacked copy is never rewritten
  * under a profile running it; `refresh` (Settings › Reload) prepares it again.
  */

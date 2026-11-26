@@ -4,7 +4,7 @@ import type { OrcaRuntimeWithApplyMobileSessionTabNavigation as MobileSessionNav
 import type { OrcaRuntimeWithAgentSessionResumeOwnership as AgentSessionResume } from './agent-session-resume-ownership'
 import type { OrcaRuntimeWithStopTerminalsForWorktree as WorktreeTerminalStop } from '../../terminal/stop/worktree-terminal-stop'
 import { OrcaRuntimeWithRestoredPaneStart } from './restored-pane-materialize'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { PtyControllerInventory } from '../../terminal/lifecycle/runtime-pty-controller-contract'
 import { isAgentLaunchRunningIn } from '../../../agent-launch/agent-launch-pane-attachment'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../../shared/workspace/identity/floating-workspace-id'
@@ -199,7 +199,7 @@ export abstract class OrcaRuntimeWithPerformMobileSessionPtyRecordsRefresh exten
         }
         let startupCwdFallback: RuntimeMobileSessionTabActivationResult['startupCwdFallback']
         try {
-          if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+          if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
             const started = await this.ensureRestoredPaneStarted(
               { worktreeId, tabId: tab.parentTabId, leafId: tab.leafId },
               trigger

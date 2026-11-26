@@ -1,4 +1,4 @@
-// What a bot-request card shows, from the card and Orca's reading of it: its heading, its line, its
+// What a bot-request card shows, from the card and OpenKodo's reading of it: its heading, its line, its
 // avatar dot and whether it opens the answer. Each platform draws it and passes its translations.
 import type { AgentMessageSource } from '../agent-session/journal/agent-session-message-source'
 import type { BotCardSay } from '../native-chat/bot-cards/bot-card-copy'
@@ -19,7 +19,7 @@ export type BotRequestCardDot = 'done' | 'interrupted' | 'permission' | 'working
 
 export type BotRequestCardView = {
   heading: string
-  /** The subject when sent, else why Orca didn't send it. */
+  /** The subject when sent, else why OpenKodo didn't send it. */
   line: string
   /** Sent: the bot's name opens the chat it went to. */
   sent: boolean
@@ -31,7 +31,7 @@ export type BotRequestCardView = {
   copyText: string
 }
 
-// Why Orca didn't send it, for the owner, by refusal code; the bot reads its own sentence.
+// Why OpenKodo didn't send it, for the owner, by refusal code; the bot reads its own sentence.
 const REFUSAL_COPY: Record<string, keyof typeof BOT_REQUEST_CARD_COPY> = {
   bot_paused: 'paused',
   bots_disabled: 'botsOff'

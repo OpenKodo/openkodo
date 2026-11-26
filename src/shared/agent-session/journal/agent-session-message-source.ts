@@ -16,9 +16,9 @@ import {
 /** Resolve senders through the storing host's orchestration mailbox address (dispatch:<id> for federation), never a pane key. */
 export type AgentMessageSender = Readonly<{
   party: Omit<OrchestrationPartyIdentity, 'paneKey'>
-  /** What Orca called the sender when it wrote, kept for when it is gone; null when it had none. */
+  /** What OpenKodo called the sender when it wrote, kept for when it is gone; null when it had none. */
   name: string | null
-  /** Its agent when Orca wrote, so the card keeps its icon once the agent is gone; absent when unknown. */
+  /** Its agent when OpenKodo wrote, so the card keeps its icon once the agent is gone; absent when unknown. */
   agent?: AgentType
   relation?: 'worker' | 'coordinator' | 'none'
   /** Mail finishing a connector conversation's ask (a report from a worker its turn started, or another
@@ -26,9 +26,9 @@ export type AgentMessageSender = Readonly<{
   toConversation?: true
   /** `name` is the bot whose home the sender's chat is in; it outranks the chat's own live name. */
   bot?: true
-  /** The paired computer the mail came from, by the name it gave; absent for this Orca's own senders. */
+  /** The paired computer the mail came from, by the name it gave; absent for this OpenKodo's own senders. */
   host?: string
-  /** That bot's avatar as its own Orca stores it, for a bot this Orca's catalog doesn't hold. */
+  /** That bot's avatar as its own OpenKodo stores it, for a bot this OpenKodo's catalog doesn't hold. */
   botAvatar?: string
 }>
 
@@ -64,7 +64,7 @@ export type OrchestrationTaskMessage = Readonly<{
   dispatchId: string
 }>
 
-/** What Orca delivers for other agents, one shape per message kind. */
+/** What OpenKodo delivers for other agents, one shape per message kind. */
 export type OrchestrationAgentMessage = OrchestrationMailNotice | OrchestrationTaskMessage
 
 export type AgentMessageSource = Readonly<{

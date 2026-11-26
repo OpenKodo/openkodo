@@ -18,7 +18,7 @@ import type { AgentCliUpdateToastItem } from './AgentCliUpdateToastList'
 import { openAgentCliUpdateFailure } from './agent-cli-update-failure-modal'
 import { useAgentCliUpdateGroups } from './use-agent-cli-update-groups'
 
-// Same pause as Orca's "you're up to date" card before it leaves on its own.
+// Same pause as OpenKodo's "you're up to date" card before it leaves on its own.
 const DONE_HIDE_MS = 3000
 const EXIT_MS = 150
 
@@ -174,7 +174,7 @@ export function AgentCliUpdateCard(): React.JSX.Element | null {
           onOpenFailure: failure(target.hostKey, target.agent, () => retry(target))
         }))
   const closeShown = (): void => close(session?.shownKeys ?? offerKeys)
-  // Scoped to the card like Orca's update card: a global Escape would also fire for terminals and chats.
+  // Scoped to the card like OpenKodo's update card: a global Escape would also fire for terminals and chats.
   const onKeyDown = (event: React.KeyboardEvent): void => {
     if (event.key !== 'Escape') {
       return

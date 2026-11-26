@@ -35,7 +35,7 @@ export async function runRecipeCommand(args: {
   resultSchemaVersion: 1 | 2
   stdin?: string
   env?: NodeJS.ProcessEnv
-  /** When set, only these (plus a safe base set) of Orca's own variables reach the script. */
+  /** When set, only these (plus a safe base set) of OpenKodo's own variables reach the script. */
   passEnv?: readonly string[]
   maxCaptureBytes?: number
   signal?: AbortSignal
@@ -265,18 +265,18 @@ function buildRecipeEnv(
     // Why: without passEnv recipes keep inheriting everything; provider CLIs and git auth rely on it.
     ...buildRecipeInheritedEnv(process.env, passEnv),
     ...env,
-    ORCA_VM_MODE: mode,
-    ORCA_VM_INSTANCE_ID: context.instanceId ?? '',
-    ORCA_RECIPE_ID: context.recipeId,
-    ORCA_PROJECT_ID: context.projectId ?? '',
-    ORCA_WORKSPACE_ID: context.workspaceId ?? '',
-    ORCA_WORKSPACE_NAME: context.workspaceName ?? '',
-    ORCA_REPO_PATH: context.repoPath,
-    ORCA_REPO_URL: context.repoUrl ?? '',
-    ORCA_REPO_BRANCH: context.branch ?? '',
-    ORCA_REPO_REF: context.ref ?? '',
-    ORCA_REPO_REF_HEAD: context.expectedRefHead ?? '',
-    ORCA_RECIPE_RESULT_SCHEMA_VERSION: String(resultSchemaVersion),
-    ORCA_VERSION: context.orcaVersion ?? ''
+    OPENKODO_VM_MODE: mode,
+    OPENKODO_VM_INSTANCE_ID: context.instanceId ?? '',
+    OPENKODO_RECIPE_ID: context.recipeId,
+    OPENKODO_PROJECT_ID: context.projectId ?? '',
+    OPENKODO_WORKSPACE_ID: context.workspaceId ?? '',
+    OPENKODO_WORKSPACE_NAME: context.workspaceName ?? '',
+    OPENKODO_REPO_PATH: context.repoPath,
+    OPENKODO_REPO_URL: context.repoUrl ?? '',
+    OPENKODO_REPO_BRANCH: context.branch ?? '',
+    OPENKODO_REPO_REF: context.ref ?? '',
+    OPENKODO_REPO_REF_HEAD: context.expectedRefHead ?? '',
+    OPENKODO_RECIPE_RESULT_SCHEMA_VERSION: String(resultSchemaVersion),
+    OPENKODO_VERSION: context.orcaVersion ?? ''
   }
 }

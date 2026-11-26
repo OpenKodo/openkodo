@@ -6,7 +6,7 @@ import {
   legacyRelayAdoptionBatch,
   type LegacyRelayBaseline
 } from '../persistence/desktop-relay-legacy-adoption'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import {
   LOCAL_EXECUTION_HOST_ID,
   normalizeExecutionHostId,
@@ -103,7 +103,7 @@ export function registerDesktopRelayHandlers(
   isFenced: (hostId: string) => boolean
 ): (hostIds: readonly ExecutionHostId[]) => DesktopRelayHostApply {
   // Main-owned layout never applies the window's relay ids by ownership, so nothing is adopted there.
-  const legacyBaseline: LegacyRelayBaseline = ORCA_LAYOUT_OWNER_IS_MAIN
+  const legacyBaseline: LegacyRelayBaseline = OPENKODO_LAYOUT_OWNER_IS_MAIN
     ? new Map()
     : captureLegacyRelayBaseline(store)
   // One apply batch: legacy adoption indexes rows at most once.

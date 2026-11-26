@@ -37,7 +37,7 @@ export async function routeBotMail(
   context: Parameters<typeof sendToBot>[0],
   input: Omit<Parameters<typeof sendToBot>[1], 'newChat'> & {
     params: { chat?: string; item?: string; files?: string[] }
-    /** From a paired Orca: files it uploaded to this Orca's store for the item's chat. */
+    /** From a paired OpenKodo: files it uploaded to this OpenKodo's store for the item's chat. */
     attachments?: readonly string[]
   }
 ): Promise<{ to: string; body?: string } | { receipt: unknown }> {

@@ -47,7 +47,7 @@ export function BundledSkillInstallStatus(props: {
             )
           : t(
               'auto.components.settings.BundledSkillInstallStatus.updateServer',
-              'Update Orca on the server to install its skills.'
+              'Update OpenKodo on the server to install its skills.'
             )}
       </p>
     )

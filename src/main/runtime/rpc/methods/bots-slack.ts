@@ -1,4 +1,4 @@
-// `bots.slack.*`: a bot's Slack app and the account's Slack config grants, as this host's own Orca
+// `bots.slack.*`: a bot's Slack app and the account's Slack config grants, as this host's own OpenKodo
 // account, for whichever of its clients asks (its own window, a paired desktop or the web client).
 import {
   BOT_SLACK_DESKTOP_ERRORS,
@@ -36,7 +36,7 @@ export function nextSlackApps(
     : [...apps, set]
 }
 
-/** Runs `run` with this host's cloud client, as the host's own Orca account. */
+/** Runs `run` with this host's cloud client, as the host's own OpenKodo account. */
 export function withHostCloudClient<T>(
   context: RpcContext,
   run: (client: BotsCloudClient) => Promise<BotSlackResult<T>>
@@ -105,7 +105,7 @@ export const BOT_SLACK_METHODS = [
       return cloud ? cloud.withConnection(setUp) : setUp()
     }
   }),
-  // Another signed-in Orca account (a paired desktop's own) creates the app with its grant; the code
+  // Another signed-in OpenKodo account (a paired desktop's own) creates the app with its grant; the code
   // is spent only by that desktop's own cloud session, never through any runtime's RPC.
   defineMethod({
     name: 'bots.slack.handOff',

@@ -222,7 +222,8 @@ async function main() {
   const repoRoot = path.resolve(import.meta.dirname, '../../../..')
   const targetDir = path.resolve(
     options.to ??
-      resolveDevProfile({ repoRoot, instanceKey: process.env.ORCA_DEV_INSTANCE_KEY }).userDataPath
+      resolveDevProfile({ repoRoot, instanceKey: process.env.OPENKODO_DEV_INSTANCE_KEY })
+        .userDataPath
   )
   const sourceDir = path.resolve(options.from ?? getDefaultSeedSource())
   if (options.reset && existsSync(targetDir)) {

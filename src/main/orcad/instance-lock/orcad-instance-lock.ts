@@ -127,7 +127,7 @@ export function acquireOrcadInstanceLock(
     startedAtMs: readStartedAt(process.pid),
     ...readIncarnation(process.pid),
     identity,
-    version: (hooks.version ?? (() => process.env.ORCA_VERSION ?? 'unknown'))(),
+    version: (hooks.version ?? (() => process.env.OPENKODO_VERSION ?? 'unknown'))(),
     acquiredAt: (hooks.now ?? (() => new Date()))().toISOString(),
     nonce: randomUUID(),
     role: hooks.role ?? 'orcad',
@@ -229,7 +229,7 @@ export function acquireOrcadInstanceLock(
       'orcad_instance_lock_foreign_identity',
       `The orcad data root ${dataRoot} is locked by identity ${existing.identity} (pid ` +
         `${existing.pid}); this process runs as ${identity}. Two identities sharing one data ` +
-        'root corrupts it. Give each its own ORCA_USER_DATA.'
+        'root corrupts it. Give each its own OPENKODO_USER_DATA.'
     )
   }
   const holder = orcadLockPeer(existing, lockPath)
@@ -262,7 +262,7 @@ export function acquireOrcadInstanceLock(
       'orcad_instance_lock_held',
       `${describeLockHolder(existing)} (pid ${existing.pid}, started ` +
         `${existing.acquiredAt || 'unknown'}) already owns the data root ${dataRoot}. Stop it ` +
-        'before starting another, or use a different ORCA_USER_DATA.'
+        'before starting another, or use a different OPENKODO_USER_DATA.'
     )
   }
   reclaimAndPublish(lockPath, dataRoot, existingContents, publish, recoveryOwner)
@@ -275,15 +275,15 @@ function possiblyReusedPidError(
   processName: (pid: number) => string | null
 ): OrcadInstanceLockError {
   const name = processName(existing.pid)
-  const holder = existing.role === 'desktop' ? 'the Orca desktop app' : 'orcad'
+  const holder = existing.role === 'desktop' ? 'the OpenKodo desktop app' : 'orcad'
   return new OrcadInstanceLockError(
     'orcad_instance_lock_held',
     `The orcad instance lock at ${lockPath} names pid ${existing.pid}, which is still running ` +
       `(as ${name ? `"${name}"` : 'an unknown program'}). This lock, written by ${holder} at ` +
-      `${existing.acquiredAt}, does not record which boot it came from, so Orca cannot tell ` +
+      `${existing.acquiredAt}, does not record which boot it came from, so OpenKodo cannot tell ` +
       `whether that process is still ${holder} or an unrelated program that reused the PID. ` +
       `If you are sure ${holder} is not running for this data root, delete ${lockPath} and ` +
-      'try again, or use a different ORCA_USER_DATA.'
+      'try again, or use a different OPENKODO_USER_DATA.'
   )
 }
 

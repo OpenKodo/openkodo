@@ -13,7 +13,7 @@ import { isConversationReport } from './external-conversation-turn-opener'
 /**
  * 'conversation' only when the turn's opening message is this conversation's own delivery, as it was
  * stamped when delivered; for a bot's thread chat, also mail finishing its ask. Anything else (mail
- * from another bot or an item, a turn typed in Orca, a message from before the stamp, a delivery from
+ * from another bot or an item, a turn typed in OpenKodo, a message from before the stamp, a delivery from
  * the conversation the bot's Chat answered before it was linked here) is 'orca', the most restrictive.
  */
 export function promptRaisedBy(

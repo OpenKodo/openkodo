@@ -1,5 +1,5 @@
 /**
- * A structured agent session as a mail address: `orca_session_id:<id>`, the Orca-minted id every agent is
+ * A structured agent session as a mail address: `orca_session_id:<id>`, the OpenKodo-minted id every agent is
  * told is its public address. Recipient routing and pointer delivery both read these rules off the
  * durable session record, so the two can never disagree about which sessions mail can reach.
  *
@@ -32,7 +32,7 @@ import {
 
 export type OrcaAgentSessionLookup =
   | { kind: 'found'; record: AgentSessionConversationView }
-  /** The id is a provider's own session id, which rotates on `/clear`; this names the Orca id. */
+  /** The id is a provider's own session id, which rotates on `/clear`; this names the OpenKodo id. */
   | { kind: 'provider-id'; orcaSessionId: string }
   | { kind: 'unknown' }
 

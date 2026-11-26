@@ -53,7 +53,7 @@ const EDGE_KINDS: Record<string, QuestionEdge['kind'] | undefined> = {
   E12: 'mail'
 }
 const STOPPED: readonly PartyState[] = ['closed', 'paused', 'deleted']
-/** The receivers' chats, by Orca session id. */
+/** The receivers' chats, by OpenKodo session id. */
 const SESSIONS = Array.from(
   { length: RECEIVERS },
   (_, i) => `00000000-0000-4000-8000-00000000000${i}`

@@ -195,7 +195,7 @@ await stageParcelWatcher(BUILD_TARGET)
 stageOrcadWindowsProcessTree(ROOT, OUT_DIR, BUILD_TARGET)
 stageOrcadWindowsCliLauncher(ROOT, OUT_DIR, BUILD_TARGET)
 stageOrcadWindowsSecurity(ROOT, OUT_DIR, BUILD_TARGET, undefined, undefined, {
-  enabled: process.env.ORCA_REUSE_PREPARED_WINDOWS_SECURITY === 'true',
+  enabled: process.env.OPENKODO_REUSE_PREPARED_WINDOWS_SECURITY === 'true',
   runtimePath: nodeRuntimePath
 })
 const emojiDatasetOutput = join(OUT_DIR, ORCAD_EMOJI_SHORTCODE_DATASET)
@@ -382,7 +382,7 @@ if (graphErrors.length > 0) {
     {
       encoding: 'utf8',
       timeout: 60_000,
-      env: { ...process.env, ORCA_DAEMON_ENTRY_LOAD_CHECK: '1' }
+      env: { ...process.env, OPENKODO_DAEMON_ENTRY_LOAD_CHECK: '1' }
     }
   )
   const daemonSmokeOutput = `${daemonSmoke.stdout ?? ''}${daemonSmoke.stderr ?? ''}`

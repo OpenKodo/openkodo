@@ -45,7 +45,7 @@ export type CodexPendingAsyncQuestion = { toolName: string; prompt: string; titl
  * Codex asks a non-blocking question mid-turn: its status stays working, and each answer arrives
  * as a UserPromptSubmit reply. Only the hooks show it, so track it here. PreToolUse runs before
  * Codex validates the input; only an accepted call gets PostToolUse. A skip (Ctrl+]) sends no
- * hook; Orca infers it from the keystroke.
+ * hook; OpenKodo infers it from the keystroke.
  */
 export function trackCodexAsyncQuestions(
   state: HookListenerState,

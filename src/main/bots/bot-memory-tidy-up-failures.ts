@@ -15,7 +15,7 @@ export function tidyUpRunsSinceOn(state: BotTidyUpState, bot: Pick<Bot, 'tidyUp'
   return { ...state, runs: state.runs.filter((run) => run.startedAt >= since) }
 }
 
-/** Whether Orca, not the owner, turned it off: the error it stopped on, else null. */
+/** Whether OpenKodo, not the owner, turned it off: the error it stopped on, else null. */
 export function tidyUpTurnedOff(state: BotTidyUpState, bot: Pick<Bot, 'tidyUp'>): string | null {
   return !botTidyUp(bot).on &&
     failedLooksInARow(tidyUpRunsSinceOn(state, bot)) >= LOOK_FAILURES_TO_TURN_OFF

@@ -3,7 +3,7 @@ import { dirname, join } from 'node:path'
 import { runProcess } from '@orca/process-host'
 
 // Bundled helper reads phys_footprint via proc_pid_rusage in a few ms, so every 2 s resource poll can use it.
-const HELPER_EXECUTABLE = 'orca-process-footprint'
+const HELPER_EXECUTABLE = 'openkodo-process-footprint'
 // One `top` sample costs ~0.3-0.6 s of CPU, so without the helper the 2 s resource poll reuses it for this long.
 export const DARWIN_FOOTPRINT_REFRESH_MS = 10_000
 const SAMPLE_TIMEOUT_MS = 5_000

@@ -2,7 +2,7 @@ import { ACCESS_REQUEST_TOKEN_PATTERN } from './connector-bot-access-contract'
 import type { ConnectorConnectSource } from './connectors/connector-cloud-contract'
 import { CONNECTOR_SOURCES, type ConnectorSource } from './connectors/external-conversation-link'
 
-/** `orca://bot/<botId>?conversation=<source>:<externalId>`, the "Open in Orca" link on bot thread posts; bare `orca://bot/<botId>` opens the bot's Home. */
+/** `openkodo://bot/<botId>?conversation=<source>:<externalId>`, the "Open in OpenKodo" link on bot thread posts; bare `openkodo://bot/<botId>` opens the bot's Home. */
 export type BotDeepLink = {
   botId: string
   conversation?: { source: ConnectorSource; externalId: string }
@@ -13,12 +13,12 @@ export type BotDeepLink = {
 export type ConnectorLinkSource = ConnectorConnectSource
 
 /**
- * `orca://<source>/link?t=<result>` from a connect trip's "Open Orca", when this computer had no
+ * `openkodo://<source>/link?t=<result>` from a connect trip's "Open OpenKodo", when this computer had no
  * loopback port: the trip's one-time result, redeemed as is.
  */
 export type ConnectorLinkDeepLink = { source: ConnectorLinkSource; token: string }
 
-/** `orca://bot/access-request?t=<token>`, the owner's "Review in Orca" on a request for access to a bot. */
+/** `openkodo://bot/access-request?t=<token>`, the owner's "Review in OpenKodo" on a request for access to a bot. */
 export type BotAccessRequestDeepLink = { token: string }
 
 /** A pulled bot link: main focused its terminal, the renderer opens its chat, or it is gone. */
@@ -48,7 +48,7 @@ export function parseBotDeepLink(value: string): BotDeepLink | null {
   } catch {
     return null
   }
-  if (url.protocol !== 'orca:' || url.host !== 'bot') {
+  if (url.protocol !== 'openkodo:' || url.host !== 'bot') {
     return null
   }
   const botId = url.pathname.match(/^\/([^/]+)\/?$/)?.[1]
@@ -82,7 +82,7 @@ export function parseBotDeepLink(value: string): BotDeepLink | null {
 }
 
 export function formatBotDeepLink({ botId, conversation, sessionId, itemId }: BotDeepLink): string {
-  const url = new URL(`orca://bot/${botId}`)
+  const url = new URL(`openkodo://bot/${botId}`)
   if (conversation) {
     url.searchParams.set('conversation', `${conversation.source}:${conversation.externalId}`)
     if (sessionId) {
@@ -103,7 +103,7 @@ export function parseBotAccessRequestDeepLink(value: string): BotAccessRequestDe
     return null
   }
   if (
-    url.protocol !== 'orca:' ||
+    url.protocol !== 'openkodo:' ||
     url.host !== 'bot' ||
     url.pathname !== `/${ACCESS_REQUEST_PATH}`
   ) {
@@ -114,5 +114,5 @@ export function parseBotAccessRequestDeepLink(value: string): BotAccessRequestDe
 }
 
 export function formatBotAccessRequestDeepLink({ token }: BotAccessRequestDeepLink): string {
-  return `orca://bot/${ACCESS_REQUEST_PATH}?t=${encodeURIComponent(token)}`
+  return `openkodo://bot/${ACCESS_REQUEST_PATH}?t=${encodeURIComponent(token)}`
 }

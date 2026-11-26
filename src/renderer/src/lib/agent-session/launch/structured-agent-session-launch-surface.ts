@@ -30,7 +30,7 @@ import {
   structuredAgentSessionTargetForHost
 } from '@/runtime/native-chat/session-ownership/structured-agent-session-owner'
 import { holdFrameDrawnProvisionalChatTab } from '../../../store/workspace-layout/frames/frame-drawn-chat-tab-placement'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import {
   openAgentSessionTabThroughLayoutOwner,
   type OpenedAgentSessionTab
@@ -206,7 +206,7 @@ export function openStructuredAgentSessionProvisionalTab(args: {
     return tab
   }
   // Switch point: main opens the chat's tab and its frame draws it.
-  const sent = ORCA_LAYOUT_OWNER_IS_MAIN
+  const sent = OPENKODO_LAYOUT_OWNER_IS_MAIN
     ? openAgentSessionTabThroughLayoutOwner({
         worktreeId: args.worktreeId,
         executionHostId: args.executionHostId,

@@ -52,7 +52,7 @@ import { prepareRecipeVm } from './runtime-environment-recipe-vm-wake'
 /** `wslStart: 'never'` serves a WSL host only while it runs: a paired phone never boots a distro.
  *  `recipeVmHoldMs` bounds how long an open of a sleeping recipe VM workspace is held.
  *  `background`: a poll, no use of an idle host. `wake`: the user's call, which may boot a WSL
- *  host Orca stopped idle (nothing else does). */
+ *  host OpenKodo stopped idle (nothing else does). */
 export type ManagedRuntimeCallPreparation = {
   wslStart?: 'never'
   recipeVmHoldMs?: number

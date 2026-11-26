@@ -117,10 +117,10 @@ export function installMainWindowCloseLifecycle(args: {
     if (nativeSettings.getUI().trayMinimizeNoticeShown !== true) {
       try {
         new Notification({
-          title: 'Orca',
+          title: 'OpenKodo',
           body: translateMain(
             'tray.minimizeNotice.body',
-            'Orca is still running in the system tray'
+            'OpenKodo is still running in the system tray'
           )
         }).show()
       } catch {

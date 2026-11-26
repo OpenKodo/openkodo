@@ -1,7 +1,7 @@
 import type { OrchestrationCliCommand } from './orchestration-cli-command'
 import type { RuntimeAgentPromptWriteOptions } from '../../../terminal/input/agent-prompt-write-options'
-import { ORCA_DISPATCH_PROMPT_LEAD_LINE } from '../../../../../shared/orchestration/workers/orca-dispatch-status-prompt'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_DISPATCH_PROMPT_LEAD_LINE } from '../../../../../shared/orchestration/workers/orca-dispatch-status-prompt'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
 
 export type PreambleParams = {
   taskId: string
@@ -10,7 +10,7 @@ export type PreambleParams = {
   taskSpec: string
   /** A terminal handle, or a session's `orca_session_id:<id>`; a terminal handle is not printed. */
   coordinatorHandle: string
-  /** The paired Orca's name when it coordinates this worker's Run from another computer. */
+  /** The paired OpenKodo's name when it coordinates this worker's Run from another computer. */
   coordinatedFrom?: string
   workerHandle: string
   devMode?: boolean
@@ -34,7 +34,7 @@ export type PreambleParams = {
 
 /** A session address names a chat worker; any other handle is a terminal. */
 function isSessionHandle(handle: string): boolean {
-  return handle.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
+  return handle.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
 }
 
 /** A terminal coordinator's handle is not printed: workers splice a second term_ UUID into their own --from (#14570). */
@@ -43,11 +43,11 @@ function dispatchIdentityLines(params: PreambleParams): string {
     params.coordinatedFrom
       ? `You are coordinated from ${params.coordinatedFrom}. Your coordinator's address here is: ${params.coordinatorHandle}`
       : isSessionHandle(params.coordinatorHandle)
-        ? `Your coordinator's Orca session ID is: ${params.coordinatorHandle}`
+        ? `Your coordinator's OpenKodo session ID is: ${params.coordinatorHandle}`
         : 'Your coordinator receives mail you send with no recipient.',
     `Your task ID is: ${params.taskId}`,
     ...(isSessionHandle(params.workerHandle)
-      ? [`Your Orca session ID is: ${params.workerHandle}`]
+      ? [`Your OpenKodo session ID is: ${params.workerHandle}`]
       : [])
   ].join('\n')
 }
@@ -73,7 +73,7 @@ function checkLines({
   }
   const comment = unreadMail
     ? 'Messages for this task are waiting; read them'
-    : 'When Orca says you have messages, read them'
+    : 'When OpenKodo says you have messages, read them'
   return `  # ${comment}:
   ${cli} orchestration check --terminal ${workerHandle}
 
@@ -93,7 +93,7 @@ export function buildDispatchPreamble(params: PreambleParams): string {
   })
 
   // Use one-line recipes across POSIX/PowerShell/cmd; fence comments and use plain reasons to avoid misleading Chat rendering (STA-8200).
-  const header = `You are working inside Orca, a multi-agent IDE. You are a dispatched worker.
+  const header = `You are working inside OpenKodo, a multi-agent IDE. You are a dispatched worker.
 ${dispatchIdentityLines(params)}
 
 The coordinator cannot see this ${surface}. Reach it with the \`${cli} orchestration\` commands
@@ -105,7 +105,7 @@ Terminals you open with \`${cli} terminal create\` or \`split\` close with this 
 === CLI COMMANDS ===
 
 \`\`\`sh
-${checkLines({ chat, unreadMail: params.unreadMail, cli, workerHandle: params.workerHandle })}  # Ask the coordinator, then end your turn; Orca wakes you with the answer.
+${checkLines({ chat, unreadMail: params.unreadMail, cli, workerHandle: params.workerHandle })}  # Ask the coordinator, then end your turn; OpenKodo wakes you with the answer.
   # Never use a local question prompt such as AskUserQuestion; the
   # coordinator cannot see or answer it.
   ${cli} orchestration ask --from ${params.workerHandle} --question "<your question>"
@@ -148,7 +148,7 @@ export function dispatchPreambleSendOptions(requestId: string): DispatchPreamble
   // Why: a delayed provider hook must not revoke an accepted Dispatch.
   return {
     inputKind: 'orchestration',
-    leadLine: ORCA_DISPATCH_PROMPT_LEAD_LINE,
+    leadLine: OPENKODO_DISPATCH_PROMPT_LEAD_LINE,
     acceptQueued: true,
     observationTimeoutMs: 0,
     requestId
@@ -179,7 +179,7 @@ do NOT run a sleep/poll loop, and do NOT keep calling
 \`${cli} orchestration check\`.
 
 Exit the shell after completion. Bare-shell workers have no idle agent prompt
-for Orca to reuse.`
+for OpenKodo to reuse.`
   }
 
   return `=== AFTER YOU SEND worker_done ===

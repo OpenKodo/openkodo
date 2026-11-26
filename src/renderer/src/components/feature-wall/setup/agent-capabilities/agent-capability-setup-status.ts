@@ -5,7 +5,7 @@ import type {
 } from '../../../onboarding/onboarding-feature-setup'
 import {
   COMPUTER_USE_SKILL_NAME,
-  ORCA_CLI_SKILL_NAME,
+  OPENKODO_CLI_SKILL_NAME,
   ORCHESTRATION_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
 import {
@@ -59,7 +59,7 @@ export function useAgentCapabilitySetupStatus(
     agent: activeSkillRuntime.agent,
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
   }
-  const browserUseSkill = useInstalledAgentSkill(ORCA_CLI_SKILL_NAME, skillOptions)
+  const browserUseSkill = useInstalledAgentSkill(OPENKODO_CLI_SKILL_NAME, skillOptions)
   const computerUseSkill = useInstalledAgentSkill(COMPUTER_USE_SKILL_NAME, {
     ...skillOptions,
     enabled: skillOptions.enabled && !computerUseBlocked
@@ -235,7 +235,7 @@ function getComputerUseInstallStatus(
         permissions.unavailableReason === 'web_client'
           ? t(
               'auto.components.feature.wall.agent.capability.setup.status.requiresOrcaDesktop',
-              'Requires Orca Desktop'
+              'Requires OpenKodo Desktop'
             )
           : t(
               'auto.components.feature.wall.agent.capability.setup.status.6d2b0a84e1',

@@ -16,7 +16,7 @@ export const GOOGLE_BOT_ACCOUNTS_RUNTIME_CAPABILITY = 'google.botAccounts.v1' as
 export const GOOGLE_SETUP_CARDS_CLIENT_CAPABILITY = 'google.setupCards.v1' as const
 
 /** Google never sent the person back in time; often its own Access blocked page stopped them. */
-export const GOOGLE_SIGN_IN_EXPIRED = 'The Google sign-in expired. Start again in Orca.'
+export const GOOGLE_SIGN_IN_EXPIRED = 'The Google sign-in expired. Start again in OpenKodo.'
 
 /** What one harmless read per API found. */
 export type GoogleServiceState =

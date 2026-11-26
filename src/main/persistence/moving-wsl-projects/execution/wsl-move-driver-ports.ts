@@ -51,7 +51,7 @@ export type WslMoveHost = {
    * no update and offers no restart. Absent when the host is not ready.
    */
   serverState?: WslMoveHostServerState
-  /** Read after the connect re-saved the deployment link; absent when no Orca profile is active. */
+  /** Read after the connect re-saved the deployment link; absent when no OpenKodo profile is active. */
   browserLoginsNotCarried?: WslMoveBrowserCookieFreshPartitionReason
   catalog: OrcadMigrationDestinationCatalog
   /** Commit naming every blob sent, so the host refuses a commit missing one. */

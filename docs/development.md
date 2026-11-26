@@ -24,11 +24,11 @@ Re-run `pnpm -C mobile install --frozen-lockfile` whenever `mobile/pnpm-lock.yam
 
 ## Dev Profiles and Parallel Instances
 
-`pnpm dev` in a linked Git worktree uses its own profile, renderer port (from 15200), and CDP port (from 9333), so worktrees run side by side. The main checkout uses the shared `orca-dev` profile. The chosen profile and ports are printed on an `ORCA_DEV_INSTANCE` line and written to `out/dev-instance.json`.
+`pnpm dev` in a linked Git worktree uses its own profile, renderer port (from 15200), and CDP port (from 9333), so worktrees run side by side. The main checkout uses the shared `openkodo-dev` profile. The chosen profile and ports are printed on an `ORCA_DEV_INSTANCE` line and written to `out/dev-instance.json`.
 
 | Option                                                                  | Effect                                                     |
 | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `pnpm dev --shared-profile` or `ORCA_DEV_PROFILE=shared`                | Use the shared `orca-dev` profile                          |
+| `pnpm dev --shared-profile` or `ORCA_DEV_PROFILE=shared`                | Use the shared `openkodo-dev` profile                      |
 | `pnpm dev --worktree-profile` or `ORCA_DEV_PROFILE=worktree`            | Use a per-worktree profile, including in the main checkout |
 | `ORCA_DEV_USER_DATA_PATH=<dir>`                                         | Use an explicit profile directory                          |
 | `REMOTE_DEBUGGING_PORT=<port>`, `ORCA_DEV_RENDERER_PORT=<port>`         | Pin a port                                                 |
@@ -36,7 +36,7 @@ Re-run `pnpm -C mobile install --frozen-lockfile` whenever `mobile/pnpm-lock.yam
 
 After a worktree is removed and no process still uses its profile, a later `pnpm dev` can automatically delete that profile and its saved state. Back up any state you need before removing the worktree; the `userData` field in `ORCA_DEV_INSTANCE` or `out/dev-instance.json` gives the profile directory.
 
-Seeding copies projects, workspaces, settings, SSH targets, and the Orca account session from another profile (default `orca-dev`, else the installed app's). Seed from `orca-dev` if you need to stay signed in: dev builds cannot decrypt secrets the installed app encrypted.
+Seeding copies projects, workspaces, settings, SSH targets, and the Orca account session from another profile (default `openkodo-dev`, else the installed app's). Seed from `openkodo-dev` if you need to stay signed in: dev builds cannot decrypt secrets the installed app encrypted.
 
 ```bash
 pnpm dev:seed-profile [--from=<profile dir>] [--to=<profile dir>] [--reset]
@@ -53,5 +53,5 @@ pnpm dev:fresh [--keep] [--seed-from[=<profile dir>]]   # temporary profile, rem
 
 - Slow main-process rebuilds: set `ORCA_DEV_MAIN_SOURCEMAPS=0` before `pnpm dev` when you don't need main-process source maps.
 - Renderer misbehaving in dev: set `ORCA_DEV_BUNDLED=0` to turn off bundled dev mode, and report it.
-- Test passes alone but fails after others: add `// @orca-isolated-worker` to the file; `ORCA_VITEST_ISOLATE_EVERY_FILE=1` isolates every file to confirm a leak. Windows always isolates every file, because native addons kept across files corrupt the heap.
+- Test passes alone but fails after others: add `// @openkodo-isolated-worker` to the file; `ORCA_VITEST_ISOLATE_EVERY_FILE=1` isolates every file to confirm a leak. Windows always isolates every file, because native addons kept across files corrupt the heap.
 - Slow typechecks: where supported, `pnpm tc` keeps incremental caches in `.cache/typecheck/`; delete it to force a fresh check.

@@ -1,4 +1,4 @@
-// Orca's own copy of an ACP agent whose official build is an archive listed in the ACP Registry.
+// OpenKodo's own copy of an ACP agent whose official build is an archive listed in the ACP Registry.
 
 import { copyFile, link } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
@@ -21,7 +21,7 @@ import {
 
 export type AcpRegistryManagedAgent = {
   label: string
-  /** The folder under Orca's agent runtimes. */
+  /** The folder under OpenKodo's agent runtimes. */
   agent: string
   registryId: string
   /** Where the registry's `cmd` sits in the release, so launches find it without reading the disk. */
@@ -82,14 +82,14 @@ async function fetchRegistryPin(
   const minimum = agentCliMinimumVersion(version, managed.minimumVersions)
   const member = releaseMember(target.cmd)
   const format = archiveFormat(target.archive)
-  // Launches find Orca's copy at a fixed path, so a moved command waits for an Orca update.
+  // Launches find OpenKodo's copy at a fixed path, so a moved command waits for an OpenKodo update.
   if (
     (minimum !== null && compareAppVersions(version, minimum) < 0) ||
     !member ||
     member !== managed.command(process.platform) ||
     !format
   ) {
-    console.warn(`[acp-registry] ${label} ${version} for ${key} is not one Orca can run`)
+    console.warn(`[acp-registry] ${label} ${version} for ${key} is not one OpenKodo can run`)
     return null
   }
   const [sha256, bytes] = await Promise.all([
@@ -134,7 +134,7 @@ export function acpRegistryManagedRuntime(managed: AcpRegistryManagedAgent): Man
           signal
         ),
       ...(alias && {
-        // Beside the command, so the folder on Orca's PATH answers to the alias too.
+        // Beside the command, so the folder on OpenKodo's PATH answers to the alias too.
         prepare: async (folder: string) => {
           const command = executable(folder)
           const named = join(dirname(command), alias(process.platform))

@@ -40,7 +40,7 @@ export function linkWorkerToQuestion(
 ): WorkerQuestionLink {
   const unlinked = (why: string): WorkerQuestionLink => ({ question, linked: false, why })
   if (!caller) {
-    return unlinked("Orca can't tell which agent is starting this worker")
+    return unlinked("OpenKodo can't tell which agent is starting this worker")
   }
   if (paired) {
     return unlinked("a worker on a paired computer can't be linked to a question")
@@ -52,7 +52,7 @@ export function linkWorkerToQuestion(
       db.getQuestionRaw(question) !== undefined ||
       getRemoteOwnedQuestion(db, question) !== undefined)
   if (!message || !asked) {
-    return unlinked(`${question} is not a question this Orca holds`)
+    return unlinked(`${question} is not a question this OpenKodo holds`)
   }
   const taker = callerMailTaker(caller)
   const own = ownTakerKeys(caller)
@@ -64,7 +64,7 @@ export function linkWorkerToQuestion(
       : unlinked(`${question} was taken by someone else`)
   }
   if (message.read === 1) {
-    return unlinked(`${question} was read before Orca recorded who took it`)
+    return unlinked(`${question} was read before OpenKodo recorded who took it`)
   }
   const ownDispatch = caller.terminalHandle
     ? db.getActiveDispatchForIdentity(caller.terminalHandle, caller.paneKey ?? undefined)

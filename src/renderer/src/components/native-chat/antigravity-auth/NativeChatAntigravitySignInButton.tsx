@@ -19,7 +19,7 @@ const ICONS = {
   'oauth-personal': LogIn
 } as const
 
-/** Sign in with Google, the one main action; what Orca found and Settings wait in its menu. */
+/** Sign in with Google, the one main action; what OpenKodo found and Settings wait in its menu. */
 export function NativeChatAntigravitySignInButton({
   auth,
   alternatives,

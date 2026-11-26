@@ -27,7 +27,7 @@ const corpus = z
     )
   )
 
-it('reads each Slack thread link Orca writes as the ref of that thread', () => {
+it('reads each Slack thread link OpenKodo writes as the ref of that thread', () => {
   for (const thread of corpus.threads) {
     expect(slackThreadUrl(`${thread.workspaceId}:${thread.containerId}:${thread.threadId}`)).toBe(
       thread.link

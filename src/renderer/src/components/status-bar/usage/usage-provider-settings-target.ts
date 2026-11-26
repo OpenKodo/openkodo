@@ -20,7 +20,7 @@ export function getUsageProviderAccountsSectionId(
     case 'antigravity':
     case 'kimi':
     case 'muse':
-      // These CLIs keep their own credentials; Orca has no account settings for them.
+      // These CLIs keep their own credentials; OpenKodo has no account settings for them.
       return null
     case 'zcode':
       return 'accounts-zcode'

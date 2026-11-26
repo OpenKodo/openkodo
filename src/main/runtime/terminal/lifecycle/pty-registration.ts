@@ -19,7 +19,7 @@ import type {
 } from '../records/runtime-terminal-state-records'
 import type { OrchestrationCompatibilityTerminalAuthority } from '../../orchestration/terminal-authority/orchestration-compatibility-authority'
 import type { RuntimeMobileSessionCreateTerminalResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { mainTerminalRegistered } from '../surface/main-terminal-surfaces'
 import { assertPaneBoundAtRegistration, isRuntimeHostedWorkspace } from './bind-first-registration'
 
@@ -133,7 +133,7 @@ export abstract class OrcaRuntimeWithRegisterPty extends OrcaRuntimeWithDaemonLa
     })
     // Bind-first applies to main-owned layouts; paired-server workspaces and storeless test runtimes have no local binding to assert (L80).
     if (
-      ORCA_LAYOUT_OWNER_IS_MAIN &&
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
       paneKey &&
       this.store?.getWorkspaceSession &&
       !isRuntimeHostedWorkspace(this.tryGetWorkspaceSessionHostIdForWorktree(worktreeId))
@@ -208,7 +208,7 @@ export abstract class OrcaRuntimeWithRegisterPty extends OrcaRuntimeWithDaemonLa
       }
     }
     // Switch point: a pane main binds lists its terminal now, in the same push as the flip below.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       mainTerminalRegistered(this, ptyId)
     }
     // Why: a listed surface's pending-handle → ready flip must not wait on a later renderer graph change.

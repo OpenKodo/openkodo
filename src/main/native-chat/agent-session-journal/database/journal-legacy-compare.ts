@@ -93,7 +93,7 @@ export function settleJournalLegacyCompare(
   }
   deleteMeta(db, key)
   if ('error' in compare) {
-    console.warn('[agent-session-journal] keeping an older Orca chat failed', compare.error)
+    console.warn('[agent-session-journal] keeping an older OpenKodo chat failed', compare.error)
     recordJournalLegacyFailure(db, {
       sessionId: compare.sessionId,
       revision: compare.revision,
@@ -132,7 +132,7 @@ function heldCards(db: Database.Database, id: string): Set<string> {
   )
 }
 
-/** A message the older Orca queued and never sent has no item, only its card. */
+/** A message the older OpenKodo queued and never sent has no item, only its card. */
 function heldEveryItem(
   held: { items: Map<string, number>; cards: Set<string> },
   pages: Iterable<JournalDomainImportPage>
@@ -155,7 +155,7 @@ function heldEveryItem(
 }
 
 /**
- * A forgotten chat takes the revision its compare or copy waited on, so an older Orca's unchanged
+ * A forgotten chat takes the revision its compare or copy waited on, so an older OpenKodo's unchanged
  * copy never brings it back; a forgotten copy drops its mapping, so no key outlives it.
  */
 export function absorbForgottenJournalLegacyChat(db: Database.Database, sessionId: string): void {

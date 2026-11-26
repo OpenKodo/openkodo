@@ -1,6 +1,6 @@
 // Starts each bot's looks: on its Look around hours, and on Look now (Settings, or a bot's onboarding).
 // A look is a new conversation in the bot's home whose session the store records before it starts,
-// which is how its launch, its tool calls and Orca's own commands know it may only read.
+// which is how its launch, its tool calls and OpenKodo's own commands know it may only read.
 import { botFailure, botFailureEnglishTable } from '../../shared/bots/bot-failure-copy'
 import { OWNER_ACTS_FOR } from '../../shared/bots/bot-acts-for'
 import { randomUUID } from 'node:crypto'

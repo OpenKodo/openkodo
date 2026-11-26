@@ -1,4 +1,4 @@
-// What a bot host says of itself: its computer name and the capabilities its Orca has.
+// What a bot host says of itself: its computer name and the capabilities its OpenKodo has.
 import { useRuntimeHostStatusSelector } from '@/store/slices/runtime-status/views/use-runtime-status-view'
 import {
   readRuntimeStatuses,
@@ -59,7 +59,7 @@ export async function readBotHostStatus(
     : pairedStatus(hostId)
 }
 
-/** Whether the host's Orca has `capability`; this app's own runtime is this build, so it does. */
+/** Whether the host's OpenKodo has `capability`; this app's own runtime is this build, so it does. */
 export function botHostHas(
   hostId: ExecutionHostId,
   capability: string,

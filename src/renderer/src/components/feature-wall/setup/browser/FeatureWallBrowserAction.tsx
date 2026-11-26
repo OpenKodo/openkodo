@@ -1,7 +1,7 @@
 import { useAppStoreWithHostStatuses } from '@/store/slices/runtime-status/views/use-runtime-status-view'
 import { useBundledSkillInstallAction } from '@/hooks/skills/installation/use-bundled-skill-install-action'
 import { bundledSkillSetupActionLabel } from '../../../skills/setup/bundled-skill-setup-copy'
-import { ORCA_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
+import { OPENKODO_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
 import { useOnboardingSkillRuntime } from '@/hooks/skills/runtime/use-onboarding-skill-runtime'
 import { FeatureSetupInlineTerminal } from '../../../onboarding/FeatureSetupInlineTerminal'
 import { buildAgentFeatureSkillInstallCommand } from '@/lib/skills/installation/agent-feature-install-commands'
@@ -120,7 +120,7 @@ function BrowserSkillInstallForRuntime({
   const legacyWsl = activeRuntime.agentRuntime?.runtime === 'wsl'
   const skillInstall = useBundledSkillInstall({ target: activeRuntime.bundledSkillTarget })
   const installSkills = skillInstall.install
-  const installAction = useBundledSkillInstallAction([ORCA_CLI_SKILL_NAME], {
+  const installAction = useBundledSkillInstallAction([OPENKODO_CLI_SKILL_NAME], {
     enabled: !legacyWsl,
     target: activeRuntime.bundledSkillTarget,
     refreshKey: skillInstall.state.kind
@@ -259,7 +259,7 @@ function BrowserSkillInstallForRuntime({
             : installAction.kind === 'replace'
               ? t(
                   'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
-                  'Replace with Orca’s'
+                  'Replace with OpenKodo’s'
                 )
               : installAction.kind === 'run' && installAction.changes
                 ? bundledSkillSetupActionLabel(installAction.changes, t)

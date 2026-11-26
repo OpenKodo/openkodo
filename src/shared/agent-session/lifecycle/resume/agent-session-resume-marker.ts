@@ -47,7 +47,7 @@ export type AgentSessionResumeMarker = {
   trigger: AgentSessionResumeMarkerTrigger
   /** Compare provider identity roots: Claude close advances the leaf after teardown, so full-key checks would refuse every resume. A changed root is a fork. */
   providerHandleRoot: string
-  /** A crash cut whose agent was not proven to have exited: a person continues it, never Orca alone. */
+  /** A crash cut whose agent was not proven to have exited: a person continues it, never OpenKodo alone. */
   exitUnproven?: true
   /** Stable teardown identity for continuation deduplication, not launch ancestry. */
   teardownId: string
@@ -122,7 +122,8 @@ export function parseAgentSessionResumeMarker(value: unknown): AgentSessionResum
 
 /** Builds that predate `exitUnproven` drop it, then continue a quit offer on their own unless it is
  *  blocked on a person. The stored copy carries one such prompt, so a rollback keeps it manual. */
-const MANUAL_ONLY_GUARD_LABEL = 'Orca could not confirm this chat stopped. Continue it yourself.'
+const MANUAL_ONLY_GUARD_LABEL =
+  'OpenKodo could not confirm this chat stopped. Continue it yourself.'
 
 function withManualOnlyGuard(
   activity: AgentSessionRestartActivity | undefined

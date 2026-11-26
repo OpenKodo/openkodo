@@ -52,7 +52,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-describe("Orca's tool relay", () => {
+describe("OpenKodo's tool relay", () => {
   it("adds the tool's saved headers and drops the bot's token on the way to its server", async () => {
     const tool = await upstream((_seen, res) => {
       res.writeHead(200, { 'content-type': 'application/json', 'mcp-session-id': 's1' })
@@ -114,7 +114,7 @@ describe("Orca's tool relay", () => {
     expect(tool.seen).toHaveLength(0)
   })
 
-  it('refuses a token from before Orca restarted', async () => {
+  it('refuses a token from before OpenKodo restarted', async () => {
     const tool = await upstream((_seen, res) => res.end('{}'))
     const bot = await botWith(tool.url)
     relay.close()

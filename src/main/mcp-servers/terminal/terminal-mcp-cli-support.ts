@@ -1,6 +1,6 @@
-// Whether a terminal agent's installed CLI takes the route Orca would hand it its servers by, learned
+// Whether a terminal agent's installed CLI takes the route OpenKodo would hand it its servers by, learned
 // once per binary (its real path and modification time) from `--help` or `--version`, so a CLI too
-// old for the route starts as it would without Orca rather than failing on an option it doesn't know.
+// old for the route starts as it would without OpenKodo rather than failing on an option it doesn't know.
 import { realpath, stat } from 'node:fs/promises'
 import { runProcess } from '@orca/process-host'
 import { BoundedMap } from '../../../shared/collections/bounded-map'

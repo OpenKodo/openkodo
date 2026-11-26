@@ -15,7 +15,7 @@ const scopeA: ArtifactShareScope = {
   cloudUserId: 'user-a',
   cloudProfileId: 'cloud-a',
   cloudOrganizationId: 'org-a',
-  apiOrigin: 'https://share.onorca.dev'
+  apiOrigin: 'https://openkodo.dev/share'
 }
 
 async function userDataPath(): Promise<string> {
@@ -46,7 +46,7 @@ describe('artifact share record store', () => {
           ...scopeA,
           slug: 'new-artifact',
           editToken: 'new-secret',
-          shareUrl: 'https://share.onorca.dev/a/new-artifact',
+          shareUrl: 'https://openkodo.dev/share/a/new-artifact',
           expiresAt: '2099-01-01T00:00:00.000Z'
         },
         () => {}

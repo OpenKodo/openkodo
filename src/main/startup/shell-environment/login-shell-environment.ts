@@ -10,8 +10,8 @@ import {
 import { shellProbeDetached } from './shell-path-probe'
 import { bindShellProbeLifetime } from './shell-probe-lifetime'
 
-const START_MARKER = '__ORCA_LOGIN_SHELL_ENV_START__'
-const END_MARKER = '__ORCA_LOGIN_SHELL_ENV_END__'
+const START_MARKER = '__OPENKODO_LOGIN_SHELL_ENV_START__'
+const END_MARKER = '__OPENKODO_LOGIN_SHELL_ENV_END__'
 const SPAWN_TIMEOUT_MS = 5000
 
 export type LoginShellEnvironmentCapture = {
@@ -172,7 +172,7 @@ function spawnShellAndReadEnvironment(
   })
 }
 
-/** Shell PATH order first, then Orca's own entries the shell lacks, so nothing reachable before goes missing. */
+/** Shell PATH order first, then OpenKodo's own entries the shell lacks, so nothing reachable before goes missing. */
 function keepOrcaPathEntries(
   captured: NodeJS.ProcessEnv,
   orcaEnv: NodeJS.ProcessEnv

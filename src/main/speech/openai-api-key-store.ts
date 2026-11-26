@@ -1,3 +1,4 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import {
   inCredentialFileOrder,
   credentialFileExists,
@@ -10,7 +11,6 @@ import {
   type SecretAtRestProtection
 } from '../../shared/secure-storage/secret-at-rest-protection'
 import { mkdir, readFile, rm } from 'node:fs/promises'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 
 type StoredOpenAiKey = {
@@ -21,7 +21,7 @@ const OPENAI_SPEECH_TOKEN_FILE = 'openai-speech-token.enc'
 let cachedOpenAiSpeechApiKey: string | null = null
 
 function getOrcaDir(): string {
-  return join(homedir(), '.orca')
+  return openKodoHomePath()
 }
 
 async function ensureOrcaDir(): Promise<void> {

@@ -8,7 +8,7 @@ export function botToolTitle(name: string): string {
 
 /** A row's short line: a remote server's host, or the package or program a command runs. */
 export function botToolSubtitle(tool: Pick<BotOwnTool, 'detail' | 'remote'>): string {
-  // A URL tool with saved values or Orca's own sign-in isn't `remote`, but still has an address.
+  // A URL tool with saved values or OpenKodo's own sign-in isn't `remote`, but still has an address.
   if (tool.remote || /^https?:\/\//i.test(tool.detail)) {
     try {
       return new URL(tool.detail).host

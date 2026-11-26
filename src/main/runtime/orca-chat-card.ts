@@ -1,7 +1,7 @@
 import type { AgentJournalOrcaCardItem } from '../../shared/agent-journal-orca-card-items'
 import { getStructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-registry'
 
-/** Writes one of Orca's cards into a chat this host runs; never fails what it reports. */
+/** Writes one of OpenKodo's cards into a chat this host runs; never fails what it reports. */
 export function appendOrcaChatCard(
   sessionId: string,
   body: AgentJournalOrcaCardItem,

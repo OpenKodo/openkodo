@@ -17,7 +17,7 @@ export type ServerSignInApprovalDeps = {
   now?: () => number
 }
 
-/** Asks Orca Cloud whether the person approved, at the pace it sets, until a code, a refusal,
+/** Asks OpenKodo Cloud whether the person approved, at the pace it sets, until a code, a refusal,
  * expiry, or `signal`. Network trouble and 5xx answers back off and keep asking. */
 export async function awaitServerSignInApproval(args: {
   config: Pick<OrcaCloudAuthConfig, 'apiBaseUrl'>

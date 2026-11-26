@@ -8,7 +8,7 @@ import { withSelectedTabs } from './headless-tab-group-selection'
 import type { RuntimeMobileSessionTabGroup } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { makePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import { isValidHostTerminalTabId } from '../../../../shared/workspace-layout/terminal-surfaces/terminal-tab-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import {
   isTerminalLeafMoveRequest,
   type TerminalLeafMoveRequest,
@@ -37,7 +37,7 @@ export abstract class OrcaRuntimeWithHeadlessPaneMoveToNewTab extends OrcaRuntim
     if (this.hasAuthoritativeWindow()) {
       // Switch point: the relay hands the move to a window that owns the layout. Where main owns
       // it, the window's move goes back through main and cannot keep the client's tab id.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN || !this.notifier?.movePaneToNewTab) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN || !this.notifier?.movePaneToNewTab) {
         return { status: 'not_held' }
       }
       if (!isValidHostTerminalTabId(args.targetTabId)) {

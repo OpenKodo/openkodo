@@ -1,7 +1,7 @@
 /** How a chat is printed and named in `--chat`; `--chat` takes it with or without the prefix. */
 export const BOT_CHAT_ID_PREFIX = 'chat:'
 
-/** One of a bot's chats, as `orca bot chats` lists it; `id` is its Orca session id, for `--chat`. */
+/** One of a bot's chats, as `orca bot chats` lists it; `id` is its OpenKodo session id, for `--chat`. */
 export type BotChatRow = {
   id: string
   title: string | null

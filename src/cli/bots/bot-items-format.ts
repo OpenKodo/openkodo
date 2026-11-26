@@ -173,7 +173,8 @@ function shownLinkLines(links: readonly BotItemLinkView[]): string[] {
 }
 
 function eventLine(event: BotItemEvent): string {
-  const who = event.actor.kind === 'bot' ? '' : event.actor.kind === 'owner' ? 'Owner: ' : 'Orca: '
+  const who =
+    event.actor.kind === 'bot' ? '' : event.actor.kind === 'owner' ? 'Owner: ' : 'OpenKodo: '
   const data = event.data
   const words = (() => {
     switch (event.kind) {

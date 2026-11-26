@@ -20,7 +20,7 @@ const run: GoogleSetupRun = {
 
 const chatter = (
   <div className="my-3 space-y-2 text-sm text-muted-foreground">
-    <p>The key is in Orca. Your sign-in is the last step.</p>
+    <p>The key is in OpenKodo. Your sign-in is the last step.</p>
     <p>…the conversation carries on here…</p>
   </div>
 )
@@ -40,7 +40,7 @@ export const writtenOnce = defineFixture({
   )
 })
 
-/** After: when sign-in waits, Orca writes it again at the bottom; the older copy points down. */
+/** After: when sign-in waits, OpenKodo writes it again at the bottom; the older copy points down. */
 export const writtenAgain = defineFixture({
   width: 420,
   render: () => (

@@ -7,7 +7,7 @@ import type { ConnectorGitHubInstallation } from '../../../../../shared/connecto
 
 const ROW = 'flex h-8 min-w-0 items-center gap-2 rounded-md px-2 text-sm'
 
-/** One row per account or organization the Orca app is on, with its repositories folded under it. */
+/** One row per account or organization the OpenKodo app is on, with its repositories folded under it. */
 export function GitHubRepositoryGroups({
   installations,
   newInstalls

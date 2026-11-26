@@ -1,4 +1,4 @@
-// What a chat draws for a message Orca delivered from a connector, on desktop and phone alike: the
+// What a chat draws for a message OpenKodo delivered from a connector, on desktop and phone alike: the
 // "Sam Lee · Slack" tag over it and the folded lines from people without access that came with it.
 import type { ConnectorMessageAsker, ConnectorNoAccessLine } from '../connector-message-asker'
 import { CONNECTOR_SOURCE_NAMES, type ConnectorSource } from './external-conversation-link'
@@ -68,7 +68,7 @@ export function connectorAskerTagView(
   const person = own
     ? t('components.native-chat.connectorAsker.you', 'You')
     : (asker.name ?? unnamed)
-  // Another Orca bot wrote it on their behalf: "Sam Lee via Scout".
+  // Another OpenKodo bot wrote it on their behalf: "Sam Lee via Scout".
   const name = asker.via
     ? t('components.native-chat.connectorAsker.via', '{{name}} via {{bot}}', {
         name: person,

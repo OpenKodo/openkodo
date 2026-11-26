@@ -1,4 +1,4 @@
-// The Orca profile this orcad opened at startup, which it serves for the process's life.
+// The OpenKodo profile this orcad opened at startup, which it serves for the process's life.
 
 let served: string | null = null
 

@@ -175,7 +175,7 @@ export class PluginMarketplaceInstaller {
         ok: false,
         error: listing.blockedByKillList?.team
           ? blockedReason
-          : `plugin is blocked by Orca's safety list: ${blockedReason}`
+          : `plugin is blocked by OpenKodo's safety list: ${blockedReason}`
       }
     }
     const incompatible = this.releaseCompatibilityError(listing)

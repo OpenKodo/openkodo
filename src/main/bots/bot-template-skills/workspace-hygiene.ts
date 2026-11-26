@@ -1,6 +1,6 @@
 export const SKILL = `---
 name: workspace-hygiene
-description: When an Orca workspace is done or abandoned, and what to check before removing it.
+description: When an OpenKodo workspace is done or abandoned, and what to check before removing it.
 ---
 
 # Workspace hygiene

@@ -77,7 +77,7 @@ function revealWorkspaceOfGoneTerminal(worker: OpenableWorker, target: RuntimeCl
   }
 }
 
-/** Opens the worker's chat tab, else the worker through its Dispatch, so a terminal Orca closed reopens;
+/** Opens the worker's chat tab, else the worker through its Dispatch, so a terminal OpenKodo closed reopens;
  *  a terminal that is gone for good (its workspace removed, say) shows the conversation's log instead,
  *  and with no log to show, the worker's workspace. */
 export function openOrchestrationWorker(worker: OpenableWorker, target: RuntimeClientTarget): void {

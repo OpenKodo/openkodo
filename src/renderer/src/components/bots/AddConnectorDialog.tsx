@@ -1,6 +1,6 @@
 // Add apps to <bot>: every app the bot can be given, in one wide dialog filtered by chips. Each app is
 // listed once under its direct route; Composio's apps have a section of their own. Add opens the app's
-// setup: Orca's own connector dialogs, the Composio account and sign-in, Webhooks, or an app by URL.
+// setup: OpenKodo's own connector dialogs, the Composio account and sign-in, Webhooks, or an app by URL.
 import React, { useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { translate } from '@/i18n/i18n'

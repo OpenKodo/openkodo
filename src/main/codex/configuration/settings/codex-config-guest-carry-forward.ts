@@ -18,8 +18,8 @@ import { readPromotedSettingValuesFromContent } from '../toml/config-toml-promot
 export const CODEX_GUEST_CARRY_FORWARD_MARKER = '# orca: tab edit kept from before the update'
 
 /**
- * Tab edits an older Orca had not yet written to a WSL distro's config. Orca no longer writes
- * that file, so each value stays an Orca line in the managed copy until the distro file changes it.
+ * Tab edits an older OpenKodo had not yet written to a WSL distro's config. OpenKodo no longer writes
+ * that file, so each value stays an OpenKodo line in the managed copy until the distro file changes it.
  */
 export type CodexGuestCarryForward = {
   /** Structured key -> runtime raw, plus the distro raw it overrides. */
@@ -198,7 +198,7 @@ function readNormalizedField(
   return value ? normalizeCodexRegistrationValue(value.raw) : null
 }
 
-/** An older Orca promoted tab edits on its next pass; keep the ones still pending at the update. */
+/** An older OpenKodo promoted tab edits on its next pass; keep the ones still pending at the update. */
 function planGuestRegenerationCarryForward(
   { baseline }: CodexGuestRegeneration,
   runtimeConfig: string,

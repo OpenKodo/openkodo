@@ -1,4 +1,4 @@
-// What an Orca Cloud takes beyond the contract version, from its hello answer; this Orca sends those
+// What an OpenKodo Cloud takes beyond the contract version, from its hello answer; this OpenKodo sends those
 // only to a cloud that lists them.
 export const CONNECTOR_CLOUD_FEATURES = [
   'review',
@@ -36,23 +36,23 @@ export const CONNECTOR_CLOUD_FEATURES = [
   // github.ci_finished (CI_FINISHED_EVENT_KINDS in automation-github-triggers.ts).
   'triggers.ci_finished',
   // A file's bytes go straight between the CLI and the source: reply and attach stage an `upload`
-  // and post its `files`; read's `stream` answers a link to the bytes. No Orca size cap.
+  // and post its `files`; read's `stream` answers a link to the bytes. No OpenKodo size cap.
   'files.direct',
-  // The owner's Orca-typed messages post into the chat's Slack thread (connector-slack-mirror-contract.ts).
+  // The owner's OpenKodo-typed messages post into the chat's Slack thread (connector-slack-mirror-contract.ts).
   'slack.mirror'
 ] as const
 export type ConnectorCloudFeature = (typeof CONNECTOR_CLOUD_FEATURES)[number]
 
 /** The cloud reads a prompt's `raisedBy` and routes or masks it by it, so a bot link's prompts from
  *  turns its conversation didn't ask for may go to it. Its own constant, as the cloud's contract
- *  keeps it: without it this Orca sends those prompts nowhere. */
+ *  keeps it: without it this OpenKodo sends those prompts nowhere. */
 export const CONNECTOR_CLOUD_PROMPTS_AUDIENCE_FEATURE = 'prompts.audience'
 
 /** The cloud marks a thread reply that @mentions the bot (`mentioned`), which is what brings back a
  *  bot that left the thread; without it no bot leaves a thread on that cloud. */
 export const CONNECTOR_CLOUD_MENTIONED_FEATURE = 'sends.mentioned'
 
-/** The cloud takes a turn's answer up to maxLongAnswerBytes; without it this Orca keeps to
+/** The cloud takes a turn's answer up to maxLongAnswerBytes; without it this OpenKodo keeps to
  *  maxLastAssistantMessageBytes. Its own constant, as the cloud's contract keeps it. */
 export const CONNECTOR_CLOUD_LONG_ANSWERS_FEATURE = 'answers.long'
 
@@ -73,18 +73,18 @@ export const CONNECTOR_CLOUD_REPLY_CHOICES_FEATURE = 'reply.choices'
 export const CONNECTOR_CLOUD_TURN_ACTIVITY_FEATURE = 'turn.activity'
 
 /** The cloud keeps a bot's sharedWith, serves the shares routes and sends the share deliveries
- *  (cloud/packages/connector-contract/src/share-messages.ts); this Orca lists it once it takes them.
+ *  (cloud/packages/connector-contract/src/share-messages.ts); this OpenKodo lists it once it takes them.
  *  Its own constant, as the cloud's contract keeps it. */
 export const CONNECTOR_CLOUD_BOT_SHARES_FEATURE = 'bots.shares'
 
-/** Listed by this Orca, which keeps a reply outbox, and by a cloud that takes its `reply` events
+/** Listed by this OpenKodo, which keeps a reply outbox, and by a cloud that takes its `reply` events
  *  (design item 125). Its own constant, as the cloud's contract keeps it. */
 export const CONNECTOR_REPLIES_OUTBOX_FEATURE = 'replies.outbox'
 
-/** The cloud shows a usage-limit pause this Orca will resume (turn-ended `resumes`) as paused. Its
+/** The cloud shows a usage-limit pause this OpenKodo will resume (turn-ended `resumes`) as paused. Its
  *  own constant, as the cloud's contract keeps it. */
 export const CONNECTOR_REPLIES_PAUSED_FEATURE = 'replies.paused'
 
-/** This Orca takes a send's `resume` (Resume on a failed turn's status). Its own constant, as the
+/** This OpenKodo takes a send's `resume` (Resume on a failed turn's status). Its own constant, as the
  *  cloud's contract keeps it. */
 export const CONNECTOR_RESUME_FEATURE = 'resume'

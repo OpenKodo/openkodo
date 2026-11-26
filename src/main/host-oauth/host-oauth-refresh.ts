@@ -1,4 +1,4 @@
-// A person's own OAuth login kept on this host (Linear's, Google's) stays usable without Orca Cloud:
+// A person's own OAuth login kept on this host (Linear's, Google's) stays usable without OpenKodo Cloud:
 // refreshed here when due or refused, one refresh per login at a time, and handed back to its owner
 // to save, or to forget when the provider says the grant is gone.
 import { z } from 'zod'

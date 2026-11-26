@@ -26,12 +26,12 @@ export function botLinearErrorMessage(code: string, hostName: string | null): st
     case 'wrong_account':
       return translate(
         'bots.linear.errors.wrongAccount',
-        'This sign-in was started from another Orca account. Connect Linear again from this one.'
+        'This sign-in was started from another OpenKodo account. Connect Linear again from this one.'
       )
     case 'already_linked':
       return translate(
         'bots.linear.errors.alreadyLinked',
-        'This Orca account is linked to another Linear user in that workspace. Unlink it in Settings › Bots › Linear first.'
+        'This OpenKodo account is linked to another Linear user in that workspace. Unlink it in Settings › Bots › Linear first.'
       )
     case 'not_a_member':
       return translate(
@@ -46,11 +46,14 @@ export function botLinearErrorMessage(code: string, hostName: string | null): st
     case 'linear_unavailable':
       return translate('bots.linear.errors.unavailable', 'Linear did not answer. Try again.')
     case 'signed_out':
-      return translate('bots.linear.errors.signedOut', 'Sign in to Orca Cloud to connect Linear.')
+      return translate(
+        'bots.linear.errors.signedOut',
+        'Sign in to cloud service to connect Linear.'
+      )
     case 'cloud_unreachable':
       return translate(
         'bots.linear.errors.unreachable',
-        'Orca Cloud could not be reached. Check your connection and try again.'
+        'cloud service could not be reached. Check your connection and try again.'
       )
     default:
       return translate('bots.errors.generic', 'Something went wrong. Try again.')
@@ -61,7 +64,7 @@ export function botLinearErrorMessage(code: string, hostName: string | null): st
 export function linearHowToAsk(bot: Bot): string {
   return translate(
     'bots.linear.howToAsk',
-    'Mention <code>@Orca {{handle}}</code> on an issue, or add the label <code>bot:{{handle}}</code>.',
+    'Mention <code>@OpenKodo {{handle}}</code> on an issue, or add the label <code>bot:{{handle}}</code>.',
     { handle: bot.folder, ...HOW_TO_ASK_ESCAPED }
   )
 }
@@ -76,18 +79,22 @@ export function linearWorkspaceLabel(name: string, urlKey: string | undefined): 
   return urlKey ? `${name} (linear.app/${urlKey})` : name
 }
 
-/** Who Orca acts as in Linear, and from where. */
+/** Who OpenKodo acts as in Linear, and from where. */
 export function linearActsAs(hostName: string | null): string {
   return hostName
-    ? translate('bots.linear.setup.actsOnHost', 'Orca acts as that Linear user from {{host}}.', {
-        host: hostName
-      })
-    : translate('bots.linear.setup.actsAsYou', 'Orca acts as you in Linear from this computer.')
+    ? translate(
+        'bots.linear.setup.actsOnHost',
+        'OpenKodo acts as that Linear user from {{host}}.',
+        {
+          host: hostName
+        }
+      )
+    : translate('bots.linear.setup.actsAsYou', 'OpenKodo acts as you in Linear from this computer.')
 }
 
 /** What to type on a Linear issue to ask the bot. */
 export function linearMention(bot: Pick<Bot, 'folder'>): string {
-  return `@Orca ${bot.folder}`
+  return `@OpenKodo ${bot.folder}`
 }
 
 /** The label that asks the bot when added to a Linear issue. */

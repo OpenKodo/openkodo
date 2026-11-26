@@ -62,7 +62,7 @@ export async function reconcileWorkerStartTimeout(
   ]
   const connection = client.isRemote && !client.environmentSelector ? ' using the same pairing' : ''
   const step = `Run ${renderCommand(queryCommand)}${connection} to check this worker's launch.`
-  const message = `Orca accepted worker ${dispatchId}. Its launch outcome is still unconfirmed. ${step}`
+  const message = `OpenKodo accepted worker ${dispatchId}. Its launch outcome is still unconfirmed. ${step}`
   const originalRecovery = 'recovery' in data ? data.recovery : undefined
   const recoveredData = {
     ...data,

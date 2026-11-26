@@ -1,19 +1,19 @@
 // Images cloned with one /etc/machine-id look like one machine to every PID check (#32918).
 import { statSync } from 'node:fs'
 import process from 'node:process'
-import { ORCA_MACHINE_NAME_ENV } from '../../../shared/remote-runtime/serve-supervisor/orcad-managed-launch-env'
+import { OPENKODO_MACHINE_NAME_ENV } from '../../../shared/remote-runtime/serve-supervisor/orcad-managed-launch-env'
 import type { OrcadPeerMachine } from './orcad-lock-holder-locality'
 import { currentLinuxBootStartedAtMs } from '../../persistence/profile-state/access/profile-state-access-identity'
 
 const CLONE_MACHINE_ID_HINT =
-  'Machines cloned from one image share /etc/machine-id, so Orca cannot tell them apart. If the Orca ' +
+  'Machines cloned from one image share /etc/machine-id, so OpenKodo cannot tell them apart. If the OpenKodo ' +
   'on the clone crashed, a normal start takes over once its lock goes 5 minutes without a heartbeat. ' +
   'On the clone, run `sudo rm /etc/machine-id && sudo systemd-machine-id-setup` and reboot it.'
 const CLONE_OWN_DATA_HINT =
-  'Or, on that machine only, give Orca its own data: for Orca-managed SSH servers set ' +
-  `${ORCA_MACHINE_NAME_ENV} where its non-interactive SSH logins read it (~/.zshenv, or above the ` +
+  'Or, on that machine only, give OpenKodo its own data: for OpenKodo-managed SSH servers set ' +
+  `${OPENKODO_MACHINE_NAME_ENV} where its non-interactive SSH logins read it (~/.zshenv, or above the ` +
   'interactive check in ~/.bashrc), guarded by a test that matches only that machine, since a ' +
-  'shared home applies it everywhere; for `orca serve` set ORCA_USER_DATA.'
+  'shared home applies it everywhere; for `orca serve` set OPENKODO_USER_DATA.'
 
 /** Lock heartbeats refresh the record's mtime well inside this window. */
 export const ORCAD_LOCK_HEARTBEAT_MS = 60_000

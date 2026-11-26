@@ -35,7 +35,7 @@ function openBotLink(outcome: BotDeepLinkOutcome): void {
   } else if (outcome.kind === 'access-request') {
     void openAccessRequestLink(outcome.token)
   } else if (outcome.kind === 'connector-link') {
-    // The "Open Orca" fallback of a connect trip: redeemed at once; an open setup dialog carries on.
+    // The "Open OpenKodo" fallback of a connect trip: redeemed at once; an open setup dialog carries on.
     const { source, token } = outcome
     void redeemConnectorLink(source, token).then((result) => {
       if (isConnectorSetupOpen()) {
@@ -74,7 +74,7 @@ function pullBotLink(): void {
     .catch((error: unknown) => console.error('Failed to open the bot link:', error))
 }
 
-/** "Open in Orca" on a bot's thread: main holds the link until this window can show its tab. */
+/** "Open in OpenKodo" on a bot's thread: main holds the link until this window can show its tab. */
 export function registerBotDeepLinkIpcBridge(unsubs: (() => void)[]): void {
   // Startup restoration replaces tabs; keep the link in main until it finishes.
   if (!useAppStore.getState().workspaceSessionReady) {

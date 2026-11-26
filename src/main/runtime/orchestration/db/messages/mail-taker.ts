@@ -13,7 +13,7 @@ export type MailTaker =
   | { kind: 'shell' }
   /** Read by answering it. */
   | { kind: 'reply' }
-  /** Read by Orca itself: answer mail, rejections, the Run scheduler. */
+  /** Read by OpenKodo itself: answer mail, rejections, the Run scheduler. */
   | { kind: 'orca' }
   /** Never read by its receiver: a person withdrew it, or it was dropped. */
   | { kind: 'dropped'; why: string }

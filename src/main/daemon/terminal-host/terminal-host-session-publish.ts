@@ -111,7 +111,7 @@ export async function spawnAndPublishSession(
     sessionId: opts.sessionId,
     cols: size.cols,
     rows: size.rows,
-    terminalHandle: opts.env?.ORCA_TERMINAL_HANDLE,
+    terminalHandle: opts.env?.OPENKODO_TERMINAL_HANDLE,
     launchAgent: opts.launchAgent,
     subprocess,
     ownerBackend: resolvePtyOwnerBackend({
@@ -153,7 +153,7 @@ export async function spawnAndPublishSession(
     session.dispose()
     throw error
   }
-  recordSessionSpawnPaneKey(session, opts.env?.ORCA_PANE_KEY)
+  recordSessionSpawnPaneKey(session, opts.env?.OPENKODO_PANE_KEY)
 
   try {
     trackSessionInput(session, subprocess, deps.reportReadinessEvent)
@@ -216,7 +216,7 @@ export async function spawnAndPublishSession(
         // Diagnostics must never turn a live PTY into a failed create.
       }
     }
-    // Why: only Orca-wrapped shells advertise the paste-safe startup barrier.
+    // Why: only OpenKodo-wrapped shells advertise the paste-safe startup barrier.
     session.writeStartupCommand(
       buildStartupCommandSubmission(staging.current.command, {
         bracketedPasteSafe: shellReadySupported

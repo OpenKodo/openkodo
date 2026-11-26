@@ -1,5 +1,5 @@
 // Starts each bot's nightly Tidy-up, after Look around's runner: a tool-free conversation in the
-// bot's home whose reply is a draft, which Orca checks and writes through the memory record, so the
+// bot's home whose reply is a draft, which OpenKodo checks and writes through the memory record, so the
 // run is one History row whose Undo puts MEMORY.md back. Files in memory/ are written first.
 import { OWNER_ACTS_FOR } from '../../shared/bots/bot-acts-for'
 import { randomUUID } from 'node:crypto'

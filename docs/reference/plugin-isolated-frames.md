@@ -13,12 +13,12 @@ network, and the opaque origin forces authors to inline every asset and shim wor
 
 Every plugin frame on desktop is an Electron `<webview>`:
 
-- **Partition**: `persist:orca-plugin-<key>`, `<key>` = first 16 hex chars of `sha256(publisher.id)`. One
+- **Partition**: `persist:openkodo-plugin-<key>`, `<key>` = first 16 hex chars of `sha256(publisher.id)`. One
   session, one renderer process and one storage area per plugin.
-- **Origin**: `orca-plugin-frame://<key>/<path>`, a privileged scheme (`standard`, `secure`,
+- **Origin**: `openkodo-plugin-frame://<key>/<path>`, a privileged scheme (`standard`, `secure`,
   `supportFetchAPI`, `stream`) handled on that partition's session. Paths resolve inside the plugin root with
   the same containment and content-integrity checks as `readPanelEntry`; anything else is 404.
-  `orca-plugin-frame://<key>/__orca/*` is reserved for files Orca ships.
+  `openkodo-plugin-frame://<key>/__orca/*` is reserved for files Orca ships.
 - **CSP** (response header on every HTML document):
   `default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self' data: blob:;
@@ -27,7 +27,7 @@ Every plugin frame on desktop is an Electron `<webview>`:
   connections, requests or DNS lookups. The one way data leaves is a URL the person agrees to open:
   `orca.shell.openExternal` needs a click or key press, and Orca asks before opening a host this plugin
   was not allowed before (see Host APIs below).
-  - `webRequest.onBeforeRequest` cancels every URL that is not `orca-plugin-frame://<key>/`, `data:`, `blob:`
+  - `webRequest.onBeforeRequest` cancels every URL that is not `openkodo-plugin-frame://<key>/`, `data:`, `blob:`
     or `devtools:`.
   - `setProxy` pins a loopback proxy that drops every connection, with `<-loopback>` so loopback
     targets are proxied too, so traffic webRequest never sees (preconnect, WebRTC TURN-over-TCP) has
@@ -44,7 +44,7 @@ Every plugin frame on desktop is an Electron `<webview>`:
     HID, serial, USB and Bluetooth choosers are cancelled.
   - `will-download` is cancelled; `setWindowOpenHandler` denies; navigation away from the plugin origin is
     cancelled.
-- **Admission**: `will-attach-webview` only admits an `orca-plugin-` partition whose `src` origin matches its
+- **Admission**: `will-attach-webview` only admits an `openkodo-plugin-` partition whose `src` origin matches its
   key, whose plugin is installed, enabled and consented, and whose session main has already configured
   (main configures it, proxy included, before `readPanelEntry` returns the guest URL). It force-sets the
   guest preload, `sandbox`, `contextIsolation`, `nodeIntegration: false`, `webSecurity`, no popups, and
@@ -54,14 +54,14 @@ Every plugin frame on desktop is an Electron `<webview>`:
   cannot diverge. The guest preload only hands that script a one-shot transport (deleted before plugin code
   runs; offered only to `text/html` top documents, so an SVG or XML page Orca does not wrap never gets one)
   that caps bytes and rate in the isolated world and relays the `{orca:1, kind, …}` envelopes with
-  `ipcRenderer.sendToHost('orca-plugin-frame', msg, userActivation)` / `ipcRenderer.on('orca-plugin-frame')`;
+  `ipcRenderer.sendToHost('openkodo-plugin-frame', msg, userActivation)` / `ipcRenderer.on('openkodo-plugin-frame')`;
   `userActivation` is read in the isolated world, so page script cannot forge it. Why not
   `contextBridge.exposeInMainWorld('orca', …)`: it drops `error.code`/`retryable` on rejected calls and
   freezes getters such as `orca.api`, and a sandboxed preload cannot share code chunks with main. The host
   renderer uses `webview.send` and the `ipc-message` event. Envelope validation, budgets, sessions and
   capability gating are unchanged. A custom editor's declared `entry` gets the editor API; every other
   document gets the panel API.
-- **Theme**: main bakes the host's current `--orca-*` tokens and `light`/`dark` class into every document it
+- **Theme**: main bakes the host's current `--openkodo-*` tokens and `light`/`dark` class into every document it
   serves (the renderer sends its theme with each entry read), so the first paint and boot-time token reads
   match; `hello` and the `theme` event keep it current without a reload.
 - **Reloads**: the guest URL carries `rev=`: the installed content hash, or for a dev folder a per-run
@@ -98,7 +98,7 @@ Every plugin frame on desktop is an Electron `<webview>`:
   crash is retried on a later load after 1 s, doubling while it repeats up to 60 s, and loads of the
   same file at once share one transform
   (`plugin-frame-module-transform.ts`, `plugin-source-transpile-client.ts`). A declared `.ts`/`.tsx` frame entry is served as a generated
-  page whose only script is that file with `?orca-module`, which gets the JavaScript.
+  page whose only script is that file with `?openkodo-module`, which gets the JavaScript.
 - **Diagnostics**: each guest's `console-message` errors and warnings (uncaught exceptions included) go to
   its plugin's log buffer with URLs reduced to plugin-relative paths, capped at 20 lines per plugin per
   10 s and 2000 characters a line (`plugin-frame-guest-diagnostics.ts`). `plugins.devInspect` (CLI

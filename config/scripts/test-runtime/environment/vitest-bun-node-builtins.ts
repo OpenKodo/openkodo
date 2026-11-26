@@ -40,7 +40,7 @@ if (process.versions.bun) {
   }
 
   // Child fixtures exercise the application's Node runtime, independently of Vitest's runtime.
-  const nodeExecutable = process.env.ORCA_TEST_NODE_EXECUTABLE ?? process.env.npm_node_execpath
+  const nodeExecutable = process.env.OPENKODO_TEST_NODE_EXECUTABLE ?? process.env.npm_node_execpath
   if (nodeExecutable) {
     process.execPath = nodeExecutable
   }

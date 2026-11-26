@@ -173,7 +173,7 @@ export function getCoordinatedRun(
   return run ? exposeRunTimestamps(run) : undefined
 }
 
-/** Runs bound to this caller by pane or by Orca session id, newest (current) first; a caller without one matches as before. */
+/** Runs bound to this caller by pane or by OpenKodo session id, newest (current) first; a caller without one matches as before. */
 export function runsBoundToCoordinator(
   this: OrchestrationDb,
   caller: OrchestrationCoordinatorKey

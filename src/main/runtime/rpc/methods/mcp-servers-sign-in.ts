@@ -1,4 +1,4 @@
-// mcpServers.signIn.* and signOut: Orca's own sign-in to a server in the host's list, run on the
+// mcpServers.signIn.* and signOut: OpenKodo's own sign-in to a server in the host's list, run on the
 // host for the device that asks; only that device may wait on, finish or cancel it.
 import type { BotToolSignInAttemptView } from '../../../../shared/bot-tool-sign-in'
 import {

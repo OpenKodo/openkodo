@@ -68,7 +68,7 @@ export type AutomationRunNotStartedRow = Omit<AgentJournalAutomationRunNotStarte
   sentAgain?: true
 }
 
-/** A card Orca writes into a chat's transcript when the chat's agent does something through Orca. */
+/** A card OpenKodo writes into a chat's transcript when the chat's agent does something through OpenKodo. */
 export type AgentJournalOrcaCardItem =
   | AgentJournalAgentStartItem
   | AgentJournalAgentHandoffItem

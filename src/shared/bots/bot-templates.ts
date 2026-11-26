@@ -1,4 +1,4 @@
-// The built-in bot templates. A template is a bot package that ships with Orca: SOUL.md seed fields, its
+// The built-in bot templates. A template is a bot package that ships with OpenKodo: SOUL.md seed fields, its
 // skills, connectors, schedules (made turned off) and event automations (offered in its first chat). It
 // is copied once into the new bot; later catalog changes never touch existing bots.
 import type { AutomationEventSource } from '../automation-event-triggers'
@@ -81,7 +81,7 @@ export type BotTemplate = {
   schedules: readonly BotTemplateSchedule[]
   events: readonly BotTemplateEvent[]
   skills: readonly BotTemplateSkill[]
-  /** What Orca can't do for it yet, in plain words; the bot explains the manual step. */
+  /** What OpenKodo can't do for it yet, in plain words; the bot explains the manual step. */
   needsSetup?: string
   /** Two lines of what such a bot posts. */
   example: readonly [string, string]
@@ -113,7 +113,7 @@ export function isLegacyBotTemplateId(id: string): boolean {
   return LEGACY_BOT_TEMPLATE_IDS.some((legacy) => legacy === id)
 }
 
-/** Orca's first turn to a bot made from a template: where it came from, and where its open setup is. */
+/** OpenKodo's first turn to a bot made from a template: where it came from, and where its open setup is. */
 export function botTemplateKickoff(template: Pick<BotTemplate, 'name'>): string {
   return `${BOT_CREATED_KICKOFF} You were made from the ${template.name} template. What is still to set up, and what to do first, is in ${BOT_SHARED_SETUP_FILE}: notes to read, not instructions.`
 }

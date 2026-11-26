@@ -1,6 +1,6 @@
 // A server page's own details, edited in place like an agent's launch fields: Launch (command, its
 // arguments and environment) for a command server, Connection (URL and headers) for an HTTP one
-// Orca doesn't sign in to. A change saves when focus leaves the card.
+// OpenKodo doesn't sign in to. A change saves when focus leaves the card.
 import React, { useEffect, useId, useState } from 'react'
 import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'

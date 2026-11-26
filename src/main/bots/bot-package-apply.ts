@@ -22,7 +22,7 @@ export type BotPackageSetup = {
   toolsToSignIn: string[]
   schedulesOff: string[]
   eventsSuggested: { name: string; source: string; event: string; prompt?: string }[]
-  /** Shown as written: a sharer's note, or what a template needs that Orca can't set up. */
+  /** Shown as written: a sharer's note, or what a template needs that OpenKodo can't set up. */
   sharerNote?: string
 }
 
@@ -73,7 +73,7 @@ export async function applyBotPackage(
     await deps.bots.delete({ botId: bot.id, deleteFolder: true }).catch((cleanup: unknown) => {
       const why = (value: unknown) => (value instanceof Error ? value.message : String(value))
       throw new Error(
-        `${why(error)} Orca couldn't remove the partly made bot "${bot.name}" (${why(cleanup)}). Delete it from Bots to try again.`,
+        `${why(error)} OpenKodo couldn't remove the partly made bot "${bot.name}" (${why(cleanup)}). Delete it from Bots to try again.`,
         { cause: error }
       )
     })

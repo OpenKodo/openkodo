@@ -111,7 +111,7 @@ export async function detectInstalledAgents(
   ]
   const found = await detectAgentCommandsOnHost(probeCommands, { context })
   const detected = resolveDetectedTuiAgentIds(commands, found, runtime)
-  // Orca's own copies live on this host, not in a WSL guest; terminals get their folders on PATH.
+  // OpenKodo's own copies live on this host, not in a WSL guest; terminals get their folders on PATH.
   if (runtime !== 'wsl') {
     const enabled = new Set(commands.map((command) => command.id))
     for (const id of await readInstalledManagedAgents()) {

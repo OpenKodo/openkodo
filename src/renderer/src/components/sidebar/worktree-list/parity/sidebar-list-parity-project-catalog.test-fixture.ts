@@ -16,13 +16,13 @@ import type { SidebarInputsFeedDomain } from '../../../../../../main/runtime/sid
 
 const ENVIRONMENT_ID = 'env-1'
 const SERVER_HOST_ID = toRuntimeExecutionHostId(ENVIRONMENT_ID)
-const ORCA_UPSTREAM = { owner: 'stablyai', repo: 'orca' }
+const OPENKODO_UPSTREAM = { owner: 'stablyai', repo: 'orca' }
 
 const isServerHost = (hostId: string | null | undefined): boolean =>
   parseExecutionHostId(hostId)?.kind === 'runtime'
 
-// Model unstamped server catalog responses, including an ungrouped copy of the grouped Orca project.
-const SERVER_ORCA = repo('orca-srv', 'orca', { path: '/srv/orca', upstream: ORCA_UPSTREAM })
+// Model unstamped server catalog responses, including an ungrouped copy of the grouped OpenKodo project.
+const SERVER_ORCA = repo('orca-srv', 'orca', { path: '/srv/orca', upstream: OPENKODO_UPSTREAM })
 const SERVER_ANSWERS = {
   'repo.list': { repos: [repo('api', 'api'), SERVER_ORCA] },
   'projectGroup.list': {
@@ -47,7 +47,7 @@ export function windowCatalogFromServerAnswers(base: Partial<AppState>): Partial
   const target = { kind: 'environment', environmentId: ENVIRONMENT_ID } as const
   const local = (base.repos ?? [])
     .filter((entry) => !isServerHost(entry.executionHostId))
-    .map((entry) => (entry.id === 'orca' ? { ...entry, upstream: ORCA_UPSTREAM } : entry))
+    .map((entry) => (entry.id === 'orca' ? { ...entry, upstream: OPENKODO_UPSTREAM } : entry))
   const fetched = SERVER_ANSWERS['repo.list'].repos.map((entry) => adoptEndpointRepo(target, entry))
   const repos = applyManualRepoOrder(
     mergeFetchedReposForHost(local, fetched, SERVER_HOST_ID),

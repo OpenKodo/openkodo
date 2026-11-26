@@ -173,7 +173,7 @@ export abstract class AgentHookServerAgentIdentities extends AgentHookServerStat
     const places: { paneKey: string; worktreeId?: string }[] = []
     for (const place of this.agentIdentities.placesOf(id)) {
       // Canonical rows are never hydrated; a legacy row counts only once this runtime observed it,
-      // since a saved status (even Done) cannot prove its process survived Orca being closed.
+      // since a saved status (even Done) cannot prove its process survived OpenKodo being closed.
       // A sleeping row needs no such proof: it claims only a finished agent in a placed pane.
       const subject = place.canonical
         ? this.canonicalSubjectsByPane.get(place.paneKey)?.get(place.key)
@@ -204,7 +204,7 @@ export abstract class AgentHookServerAgentIdentities extends AgentHookServerStat
     return this.agentIdentities.isTerminalIdentity(id)
   }
 
-  /** Orca ids this host linked to a provider's own session id; unavailable when this identity
+  /** OpenKodo ids this host linked to a provider's own session id; unavailable when this identity
    *  file can't answer that by index; undefined when the store cannot answer now. */
   async terminalAgentIdsOfProviderSession(
     providerSessionId: string

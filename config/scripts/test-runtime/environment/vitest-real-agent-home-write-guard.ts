@@ -22,19 +22,19 @@ const AGENT_HOME_ENTRIES = [
 const AGENT_HOME_FILE_PREFIXES = ['.claude.json']
 // Capture live Orca/agent roots from terminal env before clearing inherited values.
 const INHERITED_STATE_ENV = [
-  'ORCA_USER_DATA_PATH',
+  'OPENKODO_USER_DATA_PATH',
   'CODEX_HOME',
-  'ORCA_CODEX_HOME',
+  'OPENKODO_CODEX_HOME',
   'CLAUDE_CONFIG_DIR'
 ]
 // Why: an Orca terminal points this at the live app's CLI, which a test's child shell would run.
-const INHERITED_LIVE_CLI_ENV = ['ORCA_CODEX_LAUNCH_PREFLIGHT']
+const INHERITED_LIVE_CLI_ENV = ['OPENKODO_CODEX_LAUNCH_PREFLIGHT']
 // Real-agent opt-in suites intentionally use their own home and explicit switch.
 const REAL_AGENT_SUITE_SWITCHES = [
-  'ORCA_REAL_CLAUDE_SUPERVISED_STOP',
-  'ORCA_CODEX_CONTRACT_BINARY',
-  'ORCA_CODEX_TRUST_CONTRACT_BINARY',
-  'ORCA_REPRO_CODEX_BINARY'
+  'OPENKODO_REAL_CLAUDE_SUPERVISED_STOP',
+  'OPENKODO_CODEX_CONTRACT_BINARY',
+  'OPENKODO_CODEX_TRUST_CONTRACT_BINARY',
+  'OPENKODO_REPRO_CODEX_BINARY'
 ]
 const realAgentSuiteOptedIn = () => REAL_AGENT_SUITE_SWITCHES.some((name) => process.env[name])
 const foldCase = process.platform === 'darwin' || process.platform === 'win32'
@@ -100,7 +100,7 @@ function targetPath(target: unknown): string | null {
 }
 
 function realClaudeTranscriptWriteOptedIn(path: string): boolean {
-  if (process.env.ORCA_REAL_CLAUDE_CLI_TEST !== '1') {
+  if (process.env.OPENKODO_REAL_CLAUDE_CLI_TEST !== '1') {
     return false
   }
   const homes = [
@@ -214,7 +214,7 @@ export function clearInheritedAgentStateEnv(): void {
     ? []
     : [...INHERITED_STATE_ENV, ...INHERITED_LIVE_CLI_ENV]
   for (const name of inheritedEnvToUnset) {
-    if (name === 'CLAUDE_CONFIG_DIR' && process.env.ORCA_REAL_CLAUDE_CLI_TEST === '1') {
+    if (name === 'CLAUDE_CONFIG_DIR' && process.env.OPENKODO_REAL_CLAUDE_CLI_TEST === '1') {
       continue
     }
     delete process.env[name]

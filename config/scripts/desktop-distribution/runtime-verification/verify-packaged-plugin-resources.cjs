@@ -74,7 +74,7 @@ function verifyPackagedPluginResources(resourcesDir) {
     throw new Error(`[verify-packaged-plugin-resources] missing launch directory at ${launchRoot}`)
   }
   const index = readJsonFile(join(launchRoot, 'bundled-plugins.json'), 'bundled plugin index')
-  readJsonFile(join(launchRoot, 'orca-marketplace.json'), 'marketplace index')
+  readJsonFile(join(launchRoot, 'openkodo-marketplace.json'), 'marketplace index')
   // An empty index is valid: a release may ship no bundled plugins.
   if (index?.version !== 1 || !Array.isArray(index.plugins)) {
     throw new Error('[verify-packaged-plugin-resources] bundled plugin index is invalid')
@@ -93,7 +93,15 @@ function verifyPackagedPluginResources(resourcesDir) {
     if (!fromRoot || fromRoot === '..' || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot)) {
       throw new Error('[verify-packaged-plugin-resources] bundled plugin path escapes launch root')
     }
-    const manifest = readJsonFile(join(pluginRoot, 'orca-plugin.json'), 'plugin manifest')
+    const manifestName = ['openkodo-plugin.json', 'orca-plugin.json'].find((name) =>
+      existsSync(join(pluginRoot, name))
+    )
+    if (!manifestName) {
+      throw new Error(
+        `[verify-packaged-plugin-resources] missing plugin manifest under ${pluginRoot}`
+      )
+    }
+    const manifest = readJsonFile(join(pluginRoot, manifestName), 'plugin manifest')
     if (`${manifest.publisher}.${manifest.id}` !== entry.pluginKey) {
       throw new Error(
         `[verify-packaged-plugin-resources] manifest identity does not match ${entry.pluginKey}`

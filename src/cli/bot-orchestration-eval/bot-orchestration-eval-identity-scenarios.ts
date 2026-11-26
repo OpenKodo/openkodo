@@ -12,7 +12,7 @@ import {
   GITHUB_WORLD,
   githubWake,
   ISSUE_12971,
-  ORCA_GH,
+  OPENKODO_GH,
   PRIVATE_GH,
   RETRY_ISSUE,
   RETRY_PR,
@@ -33,7 +33,7 @@ import {
 } from './bot-orchestration-eval-identity-grading'
 import type { OrchestrationScenario } from './bot-orchestration-eval-scenarios'
 
-const ISSUE_12971_PLACE = `${ORCA_GH}#${ISSUE_12971.number}`
+const ISSUE_12971_PLACE = `${OPENKODO_GH}#${ISSUE_12971.number}`
 const RETRY_ISSUE_PLACE = `${API_GH}#${RETRY_ISSUE.number}`
 const RETRY_PR_PLACE = `${API_GH}#${RETRY_PR.number}`
 
@@ -41,7 +41,7 @@ export const IDENTITY_SCENARIOS: OrchestrationScenario[] = [
   {
     // A bot refused this before, for want of a GitHub connector; it is the owner's own gh work.
     id: 'identity-12971-label-assign',
-    turns: [{ message: `label ${ORCA_GH}#12971 as a bug and assign it to me` }],
+    turns: [{ message: `label ${OPENKODO_GH}#12971 as a bug and assign it to me` }],
     state: GITHUB_WORLD,
     checks: [
       [
@@ -61,10 +61,10 @@ export const IDENTITY_SCENARIOS: OrchestrationScenario[] = [
     heldOut: true,
     turns: [
       {
-        message: githubWake(ORCA_GH, ISSUE_12971, 'label this bug and assign it to me')
+        message: githubWake(OPENKODO_GH, ISSUE_12971, 'label this bug and assign it to me')
       }
     ],
-    state: wokenOn(ORCA_GH, ISSUE_12971),
+    state: wokenOn(OPENKODO_GH, ISSUE_12971),
     checks: [
       [
         tagsNoAsker,

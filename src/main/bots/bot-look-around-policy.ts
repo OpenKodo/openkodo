@@ -1,4 +1,4 @@
-// What a look-around run may do: read. Enforced where tools are called and where Orca's own
+// What a look-around run may do: read. Enforced where tools are called and where OpenKodo's own
 // commands are answered, never by asking the model. Anything not listed is refused.
 import type { ConnectorActionArgs } from '../../shared/connector-action-contract'
 import {
@@ -21,7 +21,7 @@ export const LOOK_AROUND_REFUSAL =
   'Looking around can only read. Suggest this as a next step instead.'
 
 /** How a read-only session is held: a look reads through the allow-list below; a reply-only run
- *  (a tidy-up, whose inputs are all in its prompt) gets no tools, hooks or Orca commands at all. */
+ *  (a tidy-up, whose inputs are all in its prompt) gets no tools, hooks or OpenKodo commands at all. */
 export type ReadOnlySessionMode = 'look-around' | 'reply-only'
 
 export const REPLY_ONLY_REFUSAL = 'A tidy-up only replies: everything it needs is in its prompt.'

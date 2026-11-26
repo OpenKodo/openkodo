@@ -23,8 +23,8 @@ import { daemonSocketDirIsTrusted } from '../../../main/daemon/endpoint/publicat
 
 // Agents read these; a blip must not send them to `orca open`, which raises the window.
 const TRANSIENT_DISCONNECT_NEXT_STEPS = [
-  'Orca is usually busy or restarting: wait a few seconds, then retry. If the command changes something, first check whether it already took effect, and retry with the request ID this error names, if any.',
-  "Do not run 'orca open' to recover. Run it only if the user asks, or if 'orca status --json' reports Orca is not running or still cannot connect after about 30 seconds of retries."
+  'OpenKodo is usually busy or restarting: wait a few seconds, then retry. If the command changes something, first check whether it already took effect, and retry with the request ID this error names, if any.',
+  "Do not run 'orca open' to recover. Run it only if the user asks, or if 'orca status --json' reports OpenKodo is not running or still cannot connect after about 30 seconds of retries."
 ]
 
 export async function sendRequest<TResult>(
@@ -53,7 +53,7 @@ export async function sendRequest<TResult>(
       reject(
         new RuntimeClientError(
           'runtime_unavailable',
-          'No compatible transport found in Orca runtime metadata.'
+          'No compatible transport found in OpenKodo runtime metadata.'
         )
       )
       return
@@ -63,7 +63,7 @@ export async function sendRequest<TResult>(
       reject(
         new RuntimeClientError(
           'runtime_unavailable',
-          'Orca runtime socket directory is not private to this user.'
+          'OpenKodo runtime socket directory is not private to this user.'
         )
       )
       return
@@ -86,7 +86,7 @@ export async function sendRequest<TResult>(
       reject(
         new RuntimeClientError(
           'runtime_timeout',
-          'Timed out waiting for the Orca runtime to respond.'
+          'Timed out waiting for the OpenKodo runtime to respond.'
         )
       )
     }, timeoutMs)
@@ -117,7 +117,7 @@ export async function sendRequest<TResult>(
           classifySocketError(error) ??
           new RuntimeClientError(
             'runtime_unavailable',
-            'This terminal could not connect to Orca.',
+            'This terminal could not connect to OpenKodo.',
             { nextSteps: TRANSIENT_DISCONNECT_NEXT_STEPS }
           )
       })
@@ -128,7 +128,7 @@ export async function sendRequest<TResult>(
         ok: false,
         error: new RuntimeClientError(
           'runtime_unavailable',
-          'Orca closed the connection before responding.',
+          'OpenKodo closed the connection before responding.',
           { nextSteps: TRANSIENT_DISCONNECT_NEXT_STEPS }
         )
       })
@@ -161,7 +161,7 @@ export async function sendRequest<TResult>(
             ok: false,
             error: new RuntimeClientError(
               'invalid_runtime_response',
-              'The Orca runtime returned an invalid response frame.'
+              'The OpenKodo runtime returned an invalid response frame.'
             )
           })
           return
@@ -180,7 +180,7 @@ export async function sendRequest<TResult>(
             ok: false,
             error: new RuntimeClientError(
               'invalid_runtime_response',
-              'The Orca runtime returned an invalid response frame.'
+              'The OpenKodo runtime returned an invalid response frame.'
             )
           })
           return
@@ -198,7 +198,7 @@ export async function sendRequest<TResult>(
             ok: false,
             error: new RuntimeClientError(
               'invalid_runtime_response',
-              'The Orca runtime returned a mismatched response id.'
+              'The OpenKodo runtime returned a mismatched response id.'
             )
           })
           return
@@ -208,7 +208,7 @@ export async function sendRequest<TResult>(
             ok: false,
             error: new RuntimeClientError(
               'runtime_unavailable',
-              'The Orca runtime changed while the request was in flight.',
+              'The OpenKodo runtime changed while the request was in flight.',
               { nextSteps: ['Retry the command.'] }
             )
           })

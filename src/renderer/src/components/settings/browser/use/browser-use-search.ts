@@ -14,7 +14,7 @@ export const getBrowserUsePaneSearchEntries = createLocalizedCatalog(() => [
     ),
     description: translate(
       'auto.components.settings.browser.use.search.a7e82445fa',
-      "Install the Browser Use skill so agents can operate Orca's browser."
+      "Install the Browser Use skill so agents can operate OpenKodo's browser."
     ),
     keywords: [
       ...translateSearchKeyword(
@@ -29,7 +29,7 @@ export const getBrowserUsePaneSearchEntries = createLocalizedCatalog(() => [
       ),
       ...translateSearchKeyword(
         'auto.components.settings.browser.use.search.f5b8fdddf5',
-        'orca-cli'
+        'openkodo-cli'
       ),
       ...translateSearchKeyword(
         'auto.components.settings.browser.use.search.a57c2172dc',

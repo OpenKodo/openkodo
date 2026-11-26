@@ -10,7 +10,7 @@ function fromOtherAgent(message: NativeChatMessage): boolean {
 }
 
 /** A row that opened the turn for the agent rather than a person typing to it: a hidden card answer,
- *  Orca's own notice, another agent's message (item, worker or chat mail) or an automation's run. */
+ *  OpenKodo's own notice, another agent's message (item, worker or chat mail) or an automation's run. */
 function opensWithoutAsking(message: NativeChatMessage): boolean {
   return (
     message.orcaNotice === 'card-answer' ||
@@ -20,7 +20,7 @@ function opensWithoutAsking(message: NativeChatMessage): boolean {
   )
 }
 
-/** A row a quiet turn still draws: Orca's cards, another agent's message and the automation run. */
+/** A row a quiet turn still draws: OpenKodo's cards, another agent's message and the automation run. */
 function staysInQuietTurn(message: NativeChatMessage): boolean {
   return (
     (isNativeChatOrcaCard(message) && message.orcaNotice !== 'card-answer') ||
@@ -38,7 +38,7 @@ function settledQuietly(status: NativeChatTurnStatus | undefined): boolean {
 
 /** Settled turns that ended with only the quiet marker and that no person typed into. Their rows,
  *  "Worked for" bar and "Nothing to report" don't draw; what opened them (mail, an automation run)
- *  and the cards Orca drew during them (item changes, started workers) still do. A turn that ran a
+ *  and the cards OpenKodo drew during them (item changes, started workers) still do. A turn that ran a
  *  PR create command draws, as does one `keepsTurn` keeps for what else it left, such as a diff. A
  *  failed, interrupted or unconfirmed turn, and one holding someone's message (typed, steered in, or a connector
  *  delivery), draw. */

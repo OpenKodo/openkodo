@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, type RefObject } from 'react'
 import { registerPendingEditorFlush } from '../../save/flush/editor-pending-flush'
-import { ORCA_EDITOR_FILE_SAVED_EVENT } from '../../autosave/editor-autosave'
+import { OPENKODO_EDITOR_FILE_SAVED_EVENT } from '../../autosave/editor-autosave'
 import { isEditorSavedEventFor } from '../../save/commands/editor-saved-event-view'
 import type { CsvTextDocument } from '../document/csv-text-document'
 import { editCsvTextCells } from '../document/csv-text-cell-edits'
@@ -64,10 +64,10 @@ export function useCsvPendingCell({
         latest.current.onSessionChange({ ...draft, wasDirty: false })
       }
     }
-    window.addEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, saved)
+    window.addEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, saved)
     return () => {
       unregister()
-      window.removeEventListener(ORCA_EDITOR_FILE_SAVED_EVENT, saved)
+      window.removeEventListener(OPENKODO_EDITOR_FILE_SAVED_EVENT, saved)
     }
   }, [fileId, editingRef])
   return useCallback(

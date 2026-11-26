@@ -33,10 +33,10 @@ public struct PermissionWindowCopy: Equatable, Sendable {
     }
 
     private static let english = PermissionWindowCopy(
-        windowTitle: "Enable Orca Computer Use",
+        windowTitle: "Enable OpenKodo Computer Use",
         checkingTitle: "Checking Computer Use",
         readyTitle: "Computer Use is Ready",
-        enableTitle: "Enable Orca Computer Use",
+        enableTitle: "Enable OpenKodo Computer Use",
         checkingSubtitle: "Checking Accessibility and Screenshots.",
         readySubtitle: "Orca can use local apps when you ask.",
         permissionSubtitle: "Grant permissions so Orca can use apps when you ask.",
@@ -47,9 +47,9 @@ public struct PermissionWindowCopy: Equatable, Sendable {
         screenRecordingDescription: "Screen Recording",
         allowButton: "Allow",
         doneButton: "Done",
-        dragWindowTitle: "Drag Orca Computer Use",
-        dragAccessibilityInstruction: "Drag Orca Computer Use into the list above to allow Accessibility.",
-        dragScreenshotsInstruction: "Drag Orca Computer Use into the list above to allow Screenshots.",
+        dragWindowTitle: "Drag OpenKodo Computer Use",
+        dragAccessibilityInstruction: "Drag OpenKodo Computer Use into the list above to allow Accessibility.",
+        dragScreenshotsInstruction: "Drag OpenKodo Computer Use into the list above to allow Screenshots.",
         closeButtonDescription: "Close"
     )
 
@@ -68,9 +68,9 @@ public struct PermissionWindowCopy: Equatable, Sendable {
         screenRecordingDescription: "屏幕录制",
         allowButton: "允许",
         doneButton: "完成",
-        dragWindowTitle: "拖入 Orca Computer Use",
-        dragAccessibilityInstruction: "将 Orca Computer Use 拖入上方列表以允许辅助功能。",
-        dragScreenshotsInstruction: "将 Orca Computer Use 拖入上方列表以允许屏幕截图。",
+        dragWindowTitle: "拖入 OpenKodo Computer Use",
+        dragAccessibilityInstruction: "将 OpenKodo Computer Use 拖入上方列表以允许辅助功能。",
+        dragScreenshotsInstruction: "将 OpenKodo Computer Use 拖入上方列表以允许屏幕截图。",
         closeButtonDescription: "关闭"
     )
 

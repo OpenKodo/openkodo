@@ -1,4 +1,4 @@
-// Settings › Orca Account with a server picked: the account that server runs as, and its sign-in.
+// Settings › OpenKodo Account with a server picked: the account that server runs as, and its sign-in.
 import { useTranslate } from '@/i18n/use-translate'
 import { useBotHostOrcaAccount, useBotHostOrcaAccountSettled } from '@/lib/bot-host-orca-account'
 import { useHostBots } from '@/lib/bot-catalog'
@@ -37,12 +37,12 @@ export function ServerOrcaAccountPane({
     ? settled
       ? t(
           'components.settings.orcaAccount.server.unread',
-          'Can’t read {{host}}’s Orca account. Update or reconnect {{host}}.',
+          'Can’t read {{host}}’s OpenKodo account. Update or reconnect {{host}}.',
           { host }
         )
       : accountStatusCopy(undefined, undefined, t)
     : cantSave !== null
-      ? t('bots.host.notice.cantSave', '{{host}} can’t save an Orca sign-in: {{reason}}', {
+      ? t('bots.host.notice.cantSave', '{{host}} can’t save an OpenKodo sign-in: {{reason}}', {
           host,
           reason: cantSave
         })
@@ -72,7 +72,7 @@ export function ServerOrcaAccountPane({
         <p className="basis-full text-xs text-muted-foreground">
           {t(
             'components.settings.orcaAccount.server.signInThere',
-            'Run `orca auth login` on {{host}} to sign it in.',
+            'Run `openkodo auth login` on {{host}} to sign it in.',
             { host }
           )}
         </p>

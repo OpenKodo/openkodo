@@ -73,7 +73,7 @@ export const ORCHESTRATION_INBOX_HANDLERS: Record<string, CommandHandler> = {
     if (run && result.result.messages.some((message) => message.run_id !== run)) {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This server ignores --run. Update Orca on it, or use --terminal run:<run_id>.'
+        'This server ignores --run. Update OpenKodo on it, or use --terminal run:<run_id>.'
       )
     }
     if (!full) {

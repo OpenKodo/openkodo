@@ -1,4 +1,4 @@
-// Connector tokens for the desktop's signed-in Orca account, fetched the way relay tokens are.
+// Connector tokens for the desktop's signed-in OpenKodo account, fetched the way relay tokens are.
 import { z } from 'zod'
 import type { OrcaCloudAuthConfig } from '../orca-profiles/cloud-auth/profile-cloud-auth-config'
 import type { OrcaCloudSession } from '../orca-profiles/cloud-session/profile-cloud-session-store'
@@ -113,7 +113,7 @@ export function connectorAccountName(userDataPath: string): string {
 
 /**
  * Mints only for `account`; after a switch or sign-out the old client gets no token for the new one.
- * No answer from the connector-token route ever clears the Orca session: a refusal comes back as is.
+ * No answer from the connector-token route ever clears the OpenKodo session: a refusal comes back as is.
  */
 export function desktopConnectorTokenMint(
   authConfig: OrcaCloudAuthConfig,
@@ -127,7 +127,7 @@ export function desktopConnectorTokenMint(
     }
     const active = ensureActiveOrcaProfile(userDataPath)
     try {
-      // Only a refresh the auth service itself refuses can sign out here, as for any Orca Cloud call.
+      // Only a refresh the auth service itself refuses can sign out here, as for any OpenKodo Cloud call.
       const fresh = await readFreshOrcaCloudSession(authConfig, active, userDataPath)
       if (fresh.status !== 'found') {
         return SIGNED_OUT

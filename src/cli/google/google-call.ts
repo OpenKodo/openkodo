@@ -31,7 +31,7 @@ export async function callGoogle<T>(
   if (size > PAIRED_REQUEST_PARAMS_MAX_BYTES) {
     throw new RuntimeClientError(
       'invalid_argument',
-      `That is ${Math.ceil(size / 1024)} KB to send; Orca sends up to ${Math.floor(PAIRED_REQUEST_PARAMS_MAX_BYTES / 1024)} KB at once. Split it into smaller parts.`
+      `That is ${Math.ceil(size / 1024)} KB to send; OpenKodo sends up to ${Math.floor(PAIRED_REQUEST_PARAMS_MAX_BYTES / 1024)} KB at once. Split it into smaller parts.`
     )
   }
   return client.call<T>(method, params)

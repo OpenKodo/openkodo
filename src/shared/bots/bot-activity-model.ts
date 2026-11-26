@@ -335,7 +335,7 @@ export function buildBotActivity(input: BotActivityInput): BotActivity {
     const row: BotThreadRow = {
       kind: 'thread',
       key: `thread:${link.sessionId}`,
-      // The link's title outlives the chat's status row; an older Orca's link has none.
+      // The link's title outlives the chat's status row; an older OpenKodo's link has none.
       title: clipActivityTitle(
         link.title ?? (entry?.prompt ? externalConversationTitle(link.source, entry.prompt) : '')
       ),

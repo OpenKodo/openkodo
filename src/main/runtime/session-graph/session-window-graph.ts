@@ -8,7 +8,7 @@ import { assertUniqueRuntimeGraphTabIds } from './runtime-graph-tab-ids'
 import { isTerminalLeafId, makePaneKey } from '../../../shared/workspace-layout/stable-pane-id'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { RuntimeLeafRecord } from '../terminal/records/runtime-terminal-state-records'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { AgentOrchestrationGraphRevision } from '../orchestration/crew/agent-orchestration-graph-revision'
 import { assertBrowserPageInventoryFrames } from '../session-tabs/inventory/mobile-session-inventory-base'
 
@@ -47,7 +47,7 @@ export abstract class OrcaRuntimeWithSyncWindowGraph extends OrcaRuntimeWithAdmi
       this.servesHeadlessGraph = true
       this.rendererGeneration = null
     }
-    graph = ORCA_LAYOUT_OWNER_IS_MAIN ? this.withMainSurfaces(windowId, graph) : graph
+    graph = OPENKODO_LAYOUT_OWNER_IS_MAIN ? this.withMainSurfaces(windowId, graph) : graph
 
     if (graph.terminalGroupGridSizes) {
       // Merged, not replaced: a group in a worktree the window is not showing keeps its last size.

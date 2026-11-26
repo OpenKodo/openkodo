@@ -52,7 +52,7 @@ describe('ConnectorPollClient', () => {
     poll([
       { ...start, deliveryId: 'd1', asker },
       { ...base, deliveryId: 'd2', kind: 'send', text: 'more', asker },
-      // From a newer cloud: a role this Orca can't name.
+      // From a newer cloud: a role this OpenKodo can't name.
       { ...base, deliveryId: 'd3', kind: 'send', text: 'again', asker: { ...asker, role: 'admin' } }
     ])
     await settle()
@@ -599,7 +599,7 @@ describe('ConnectorPollClient', () => {
     client.stop()
   })
 
-  it('posts a reply to Orca Cloud with its turn, and a resend with the same id posts once', async () => {
+  it('posts a reply to cloud service with its turn, and a resend with the same id posts once', async () => {
     const { client } = startClient()
     await settle()
     const body = { replyId: 'r1', conversation, turnId: 7, text: 'done' }

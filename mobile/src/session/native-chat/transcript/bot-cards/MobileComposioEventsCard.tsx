@@ -104,7 +104,7 @@ function ByHandSteps({
       <MobileGoogleSetupMuted
         text={t(
           'chat.botCards.composio.byHandDoneNote',
-          'Orca then turns on {{trigger}} and saves Composio’s signing secret.',
+          'OpenKodo then turns on {{trigger}} and saves Composio’s signing secret.',
           { trigger: triggerName }
         )}
         fontScale={fontScale}
@@ -219,7 +219,7 @@ export function MobileComposioEventsCard({
             )
           : t(
               'chat.botCards.composio.eventsOneAddressNote',
-              'Orca turns on {{trigger}} for your sign-in. Your Composio project’s events come to Orca at one address, and each goes to the bot it’s for.',
+              'OpenKodo turns on {{trigger}} for your sign-in. Your Composio project’s events come to OpenKodo at one address, and each goes to the bot it’s for.',
               { trigger: trigger.name }
             )
       }

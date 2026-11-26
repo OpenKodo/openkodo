@@ -73,7 +73,7 @@ export function McpRepoServersSection({
   const fileServers = files.visibleConfigs.flatMap((config) =>
     config.status === 'valid' ? config.servers.map((server) => ({ server, config })) : []
   )
-  // Each file that gives servers gets its Open; one Orca can't read says why, as MCP configs does.
+  // Each file that gives servers gets its Open; one OpenKodo can't read says why, as MCP configs does.
   const contributing = files.visibleConfigs.filter(
     (config) => config.status === 'valid' && config.servers.length > 0
   )

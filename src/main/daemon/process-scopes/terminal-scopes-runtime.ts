@@ -38,7 +38,7 @@ export function initializeTerminalScopes(
   return resolved.ceiling
 }
 
-/** Match Orca’s exact wrapper paths so an unrelated user systemd-run is not hidden. */
+/** Match OpenKodo’s exact wrapper paths so an unrelated user systemd-run is not hidden. */
 export function isTerminalScopeWrapper(processName: string): boolean {
   return (
     active !== null &&

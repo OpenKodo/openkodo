@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, unlinkSync } from 'node:fs'
 import type { SFTPWrapper } from 'ssh2'
 
-// Muse allowlists hook environment variables; persist Orca coordinates to preserve attribution.
+// Muse allowlists hook environment variables; persist OpenKodo coordinates to preserve attribution.
 import type {
   AgentHookInstallState,
   AgentHookInstallStatus
@@ -48,7 +48,7 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     return [
       '@echo off',
       'setlocal',
-      'if defined ORCA_AGENT_HOOK_ENDPOINT if exist "%ORCA_AGENT_HOOK_ENDPOINT%" call "%ORCA_AGENT_HOOK_ENDPOINT%" 2>nul',
+      'if defined OPENKODO_AGENT_HOOK_ENDPOINT if exist "%OPENKODO_AGENT_HOOK_ENDPOINT%" call "%OPENKODO_AGENT_HOOK_ENDPOINT%" 2>nul',
       ...buildWindowsHookEnvironmentGuardLines(),
       buildWindowsAgentHookCurlPostCommand('muse'),
       'exit /b 0',
@@ -61,10 +61,10 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     ...buildPosixHookPayloadCapture(),
     ...buildPosixHookSpoolLines('muse'),
     // Reload live coordinates for PTYs surviving restarts; silence source-file races to keep hooks fail-open.
-    'if [ -n "$ORCA_AGENT_HOOK_ENDPOINT" ] && [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ]; then',
-    '  . "$ORCA_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
+    'if [ -n "$OPENKODO_AGENT_HOOK_ENDPOINT" ] && [ -r "$OPENKODO_AGENT_HOOK_ENDPOINT" ]; then',
+    '  . "$OPENKODO_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
     'fi',
-    'if [ -z "$ORCA_AGENT_HOOK_PORT" ] || [ -z "$ORCA_AGENT_HOOK_TOKEN" ] || [ -z "$ORCA_PANE_KEY" ]; then',
+    'if [ -z "$OPENKODO_AGENT_HOOK_PORT" ] || [ -z "$OPENKODO_AGENT_HOOK_TOKEN" ] || [ -z "$OPENKODO_PANE_KEY" ]; then',
     '  spool_hook_event',
     '  exit 0',
     'fi',
@@ -101,7 +101,7 @@ function buildStatus(
       ...base,
       state: 'error',
       managedHooksPresent: false,
-      detail: 'Could not read Orca managed hooks file'
+      detail: 'Could not read OpenKodo managed hooks file'
     }
   }
   if (pointer !== managedHooksPath) {
@@ -112,10 +112,10 @@ function buildStatus(
       detail:
         pointer === undefined
           ? null
-          : `managed_hooks_path points at ${pointer}, not the Orca managed hooks file`
+          : `managed_hooks_path points at ${pointer}, not the OpenKodo managed hooks file`
     }
   }
-  const parsed = parseMuseSettingsText(managedText, 'Orca managed Muse hooks')
+  const parsed = parseMuseSettingsText(managedText, 'OpenKodo managed Muse hooks')
   const present = readManagedMuseHookEvents(parsed, getMuseManagedCommandMatcher())
   const missing = MUSE_HOOK_EVENTS.filter((event) => !present.has(event))
   const configuredEnv = Array.isArray(config.managed_hooks_env_vars)
@@ -225,7 +225,7 @@ export class MuseHookService {
 
   async installRemote(sftp: SFTPWrapper, remoteHome: string): Promise<AgentHookInstallStatus> {
     const remoteConfigPath = getMuseRemoteConfigPath(remoteHome)
-    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.orca/agent-hooks/muse-hook.sh`
+    const remoteScriptPath = `${remoteHome.replace(/\/$/, '')}/.openkodo/agent-hooks/muse-hook.sh`
     const remoteManagedHooksPath = getMuseRemoteManagedHooksPath(remoteHome)
     try {
       const body = await readTextFileRemote(sftp, remoteConfigPath)

@@ -7,7 +7,7 @@ import { isClientEnvironment } from '../../../../orchestration/federation/client
 import { storePeerReply } from '../../../../orchestration/federation/peer-mail/peer-reply-store'
 import { requireRuntimePairing } from './peer-mail-methods'
 
-/** A paired computer hands back the replies and notices its agents owe asks from this Orca's agents,
+/** A paired computer hands back the replies and notices its agents owe asks from this OpenKodo's agents,
  *  in the pull's item shape; it acknowledges on its side exactly what this answers as taken. */
 export const ORCHESTRATION_PEER_MAIL_RETURN_METHOD = defineOrchestrationMethod({
   name: 'orchestration.peerMailReturn',
@@ -23,7 +23,7 @@ export const ORCHESTRATION_PEER_MAIL_RETURN_METHOD = defineOrchestrationMethod({
     let returned = false
     for (const item of params.items) {
       const conversation = db.getPeerMailConversation(item.conversationId)
-      // Only this Orca's conversation with that computer, under the pairing it calls with now.
+      // Only this OpenKodo's conversation with that computer, under the pairing it calls with now.
       if (
         conversation?.role !== 'home' ||
         !isClientEnvironment(conversation.environment_id) ||

@@ -4,9 +4,9 @@ import type {
   BundledSkillPlanRequest
 } from '../../../../../shared/skills/bundled/bundled-skill-plan'
 import {
-  BUNDLED_ORCA_SKILL_AUTO_UPDATE_CAPABILITY,
-  BUNDLED_ORCA_SKILL_CAPABILITY,
-  BUNDLED_ORCA_SKILL_RENAMES_CAPABILITY
+  BUNDLED_OPENKODO_SKILL_AUTO_UPDATE_CAPABILITY,
+  BUNDLED_OPENKODO_SKILL_CAPABILITY,
+  BUNDLED_OPENKODO_SKILL_RENAMES_CAPABILITY
 } from '../../../../../shared/skills/capabilities/skill-install-capability'
 import { bundledSkillNames } from '../../../../../shared/skills/bundled/bundled-skill-names'
 import type { BundledSkillTarget } from '@/lib/skills/runtime/bundled-skill-target'
@@ -25,15 +25,15 @@ async function supportsSelectedNames(
 ): Promise<boolean> {
   return (
     !names?.some((name) => bundledSkillNames(name).length > 1) ||
-    runtimeEnvironmentSupportsCapability(environmentId, BUNDLED_ORCA_SKILL_RENAMES_CAPABILITY)
+    runtimeEnvironmentSupportsCapability(environmentId, BUNDLED_OPENKODO_SKILL_RENAMES_CAPABILITY)
   )
 }
 
-/** `unsupported`: the host answered its status and predates the capability ("Update Orca on
+/** `unsupported`: the host answered its status and predates the capability ("Update OpenKodo on
  *  the server"). A failed probe is not this; it rejects like any other error. */
 export type BundledSkillPlanResult =
   | { kind: 'plan'; plan: BundledSkillPlan }
-  /** `connect-host`: an SSH host no Orca server serves yet; never planned on this machine. */
+  /** `connect-host`: an SSH host no OpenKodo server serves yet; never planned on this machine. */
   | { kind: 'unsupported'; reason: BundledSkillUnsupportedReason }
 
 export type BundledSkillUnsupportedReason = 'update-server' | 'connect-host'
@@ -56,7 +56,7 @@ export async function planBundledSkillsOnTarget(
   if (
     !(await runtimeEnvironmentSupportsCapability(
       target.environmentId,
-      BUNDLED_ORCA_SKILL_CAPABILITY
+      BUNDLED_OPENKODO_SKILL_CAPABILITY
     )) ||
     !(await supportsSelectedNames(target.environmentId, request.names))
   ) {
@@ -87,7 +87,7 @@ export async function executeBundledSkillsOnTarget(
     })
   }
   if (!(await supportsSelectedNames(target.environmentId, request.names))) {
-    throw new Error('Update Orca on the server to install renamed Orca skills.')
+    throw new Error('Update OpenKodo on the server to install renamed OpenKodo skills.')
   }
   return callRuntimeRpc<BundledSkillInstallResult>(
     { kind: 'environment', environmentId: target.environmentId },
@@ -116,7 +116,7 @@ export async function autoUpdateBundledSkillsOnTarget(
   // Why pinned: a re-pair while these probes await must not send this write to a different host.
   const proof = await runtimeEnvironmentCapabilityProof(
     target.environmentId,
-    BUNDLED_ORCA_SKILL_AUTO_UPDATE_CAPABILITY
+    BUNDLED_OPENKODO_SKILL_AUTO_UPDATE_CAPABILITY
   )
   if (!proof.supported || !(await supportsSelectedNames(target.environmentId, names))) {
     return null

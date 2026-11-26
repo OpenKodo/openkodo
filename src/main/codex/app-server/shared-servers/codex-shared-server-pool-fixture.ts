@@ -18,9 +18,9 @@ export type FakeServer = {
   requests: { method: string; params?: Record<string, unknown> }[]
   /** Background terminals per thread, as Codex lists them. */
   terminals: Map<string, Set<string>>
-  /** Whether Orca stopped reading this server's output. */
+  /** Whether OpenKodo stopped reading this server's output. */
   readingPaused: boolean
-  /** Server requests Orca answered with an error. */
+  /** Server requests OpenKodo answered with an error. */
   refused: (number | string)[]
   /** Answers the thread/start held by `holdOpen`. */
   releaseOpen: () => void
@@ -213,7 +213,7 @@ export const launch = (home = '/home/a/.codex') => ({
   command: '/usr/local/bin/codex',
   args: ['app-server'],
   cwd: '/work',
-  env: { CODEX_HOME: home, ORCA_AGENT_SESSION_ID: `chat-${Math.random()}` }
+  env: { CODEX_HOME: home, OPENKODO_AGENT_SESSION_ID: `chat-${Math.random()}` }
 })
 
 export async function startThread(connection: CodexAppServerConnection): Promise<string> {

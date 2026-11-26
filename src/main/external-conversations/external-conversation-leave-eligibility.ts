@@ -1,4 +1,4 @@
-// Who may make a bot leave its Slack thread, as Orca marks each delivery: a person who can ask the
+// Who may make a bot leave its Slack thread, as OpenKodo marks each delivery: a person who can ask the
 // bot, writing in that very thread.
 
 /** The Slack thread a message ref (`slack:T:C:thread:ts`) is in, as its conversation id starts
@@ -11,7 +11,7 @@ export function slackThreadOfRef(messageRef: string | undefined): string | null 
 type Asker = Parameters<typeof askedInThread>[0]
 
 /** Whether a person who can ask the bot wrote it, in the Slack thread `externalId` (`T:C:thread:UBOT`)
- *  names: never another app, nor an Orca bot writing for someone. */
+ *  names: never another app, nor an OpenKodo bot writing for someone. */
 export function askedInThread(
   asker: {
     role: string
@@ -31,7 +31,7 @@ export function askedInThread(
 }
 
 /** A delivery's mark that its turn may leave the bot's Slack thread: only when a person who can ask
- *  the bot there wrote every message of its batch, as Orca found when it delivered it. */
+ *  the bot there wrote every message of its batch, as OpenKodo found when it delivered it. */
 export function leaveEligibleBatch(
   link: { bot?: unknown; source: string; externalId: string },
   head: Asker | undefined,

@@ -100,7 +100,7 @@ const QUESTIONS: AskPrompt['questions'] = [
     multiSelect: false,
     options: [
       { label: "Post to the owner's DM (Recommended)", description: 'The owner gets the card.' },
-      { label: 'Stay in Orca only', description: 'No Slack card at all.' }
+      { label: 'Stay in OpenKodo only', description: 'No Slack card at all.' }
     ]
   },
   {
@@ -115,10 +115,10 @@ const QUESTIONS: AskPrompt['questions'] = [
   },
   {
     header: 'Queued answer',
-    question: 'If the person already answered in Orca, what does the Slack card show?',
+    question: 'If the person already answered in OpenKodo, what does the Slack card show?',
     multiSelect: false,
     options: [
-      { label: 'Answered in Orca', description: 'The card updates in place.' },
+      { label: 'Answered in OpenKodo', description: 'The card updates in place.' },
       { label: 'Leave it as is', description: 'It keeps its buttons until it expires.' }
     ]
   }

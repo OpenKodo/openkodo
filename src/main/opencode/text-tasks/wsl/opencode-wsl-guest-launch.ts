@@ -5,7 +5,7 @@ import {
 } from '../../../../shared/shell/wsl/wsl-login-shell-command'
 import type { SourceControlAgentSpawnInput } from '../../../text-generation/source-control-text-generation-types'
 
-const TASK_ENV_PREFIX = 'ORCA_OPENCODE_TASK_ENV_'
+const TASK_ENV_PREFIX = 'OPENKODO_OPENCODE_TASK_ENV_'
 const ENV_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/
 
 /**

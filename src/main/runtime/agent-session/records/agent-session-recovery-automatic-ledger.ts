@@ -1,4 +1,4 @@
-// What Orca continued on its own, and which cuts a person dismissed, kept beside the offers and
+// What OpenKodo continued on its own, and which cuts a person dismissed, kept beside the offers and
 // written under the capsule's lock. A ledger, not journal counts: a continuation's send looks like
 // a person's, and a run can die before its note.
 
@@ -121,7 +121,7 @@ export function writeAutomaticRestartLedger(
   )
 }
 
-/** Orca continues on its own only a cut from the run that just ended, whose agent was proven to
+/** OpenKodo continues on its own only a cut from the run that just ended, whose agent was proven to
  *  have exited, that no person is being asked about, that it has not continued before, and while it
  *  took fewer than three in five minutes. */
 export function automaticallyContinuable(
@@ -167,7 +167,7 @@ export function dismissedOffer(
 }
 
 /** Call under the capsule's lock. An unreadable ledger is left as it is: replacing it would forget
- *  what Orca already continued on its own. */
+ *  what OpenKodo already continued on its own. */
 export async function recordDismissedOffers(
   capsulePath: string,
   markers: readonly AgentSessionResumeMarker[]

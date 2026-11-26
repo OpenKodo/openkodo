@@ -1,4 +1,4 @@
-// Agent-wide reasons Orca's servers don't reach an agent's sessions, as this host's launches last
+// Agent-wide reasons OpenKodo's servers don't reach an agent's sessions, as this host's launches last
 // learned them, for the settings page's agent rows.
 import type { McpAgentProblem, McpHostList } from '../../shared/mcp-servers/mcp-servers'
 

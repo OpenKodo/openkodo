@@ -75,7 +75,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   appIcon: AppIconId
   appFontFamily: string
   editorAutoSave: boolean
-  /** Days a release must be public before Orca offers it; absent/0 offers releases immediately. */
+  /** Days a release must be public before OpenKodo offers it; absent/0 offers releases immediately. */
   updateDelayDays?: number
   automaticUpdates?: boolean
   editorAutoSaveDelayMs: number
@@ -128,7 +128,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   terminalUseSeparateLightTheme: boolean
   terminalThemeLight: string
   terminalDividerColorLight: string
-  /** Mirror the terminal palette into Claude Code's theme; off restores the theme Orca replaced. */
+  /** Mirror the terminal palette into Claude Code's theme; off restores the theme OpenKodo replaced. */
   claudeCodeThemeSync: boolean
   /** `pending` until the offer toast shows at the next Claude launch, then `settled`. */
   claudeCodeThemeSyncOffer?: 'pending' | 'settled'
@@ -187,7 +187,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   httpProxyUrl?: string
   /** Optional semicolon/comma/newline-separated bypass rules for httpProxyUrl. */
   httpProxyBypassRules?: string
-  /** Optional mirror of nodejs.org/dist for the Node runtime Orca installs on SSH and WSL servers. */
+  /** Optional mirror of nodejs.org/dist for the Node runtime OpenKodo installs on SSH and WSL servers. */
   nodeDistMirrorUrl?: string
   /** Why: corporate TLS-intercepting proxies can break HTTP/2 downloads; opt-in Chromium process-wide HTTP/1.1 switch. */
   electronHttp1CompatibilityMode?: boolean
@@ -237,7 +237,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   sourceControlGroupOrder: SourceControlGroupOrder
   /** Compare base defaults to the branch upstream instead of the repo default; affects only the compare/diff view, not the PR/rebase target. Per-user. */
   sourceControlCompareAgainstUpstream: boolean
-  /** Whether to show the Orca app name in the titlebar. */
+  /** Whether to show the OpenKodo app name in the titlebar. */
   showTitlebarAppName: boolean
   /** Hides the Tasks sidebar button (also removes it from keyboard navigation). */
   showTasksButton: boolean
@@ -258,7 +258,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   showArtifactsButton?: boolean
   /** Only toggles the sidebar shortcut; Skills stay reachable from Settings. */
   showSkillsButton?: boolean
-  /** Only toggles the sidebar shortcut; Orca Mobile stays reachable from Settings. */
+  /** Only toggles the sidebar shortcut; OpenKodo Mobile stays reachable from Settings. */
   showMobileButton?: boolean
   /** Pinned workspaces show in one sidebar location by default; opt in to also show them in their natural groups. */
   showPinnedWorktreesInGroups?: boolean
@@ -268,10 +268,10 @@ export type GlobalSettings = GlobalSettingsBase & {
   floatingTerminalEnabled: boolean
   /** Main-side new-page kill switch for paired Electron client-hosted browser placement. */
   browserClientHostedRemoteEnabled?: boolean
-  /** Main-side kill switch for Orca's copy of agy. Off, it runs no chat and isn't updated: chats
+  /** Main-side kill switch for OpenKodo's copy of agy. Off, it runs no chat and isn't updated: chats
    *  run the user's own agy or, where there is none, refuse as agy not found. Absent means on. */
   antigravityManagedAgyEnabled?: boolean
-  /** No longer read: Orca's Antigravity ACP server is retired. Kept so older clients' updates of
+  /** No longer read: OpenKodo's Antigravity ACP server is retired. Kept so older clients' updates of
    *  this host-owned key are still accepted. */
   antigravityServerAutoUpdateEnabled?: boolean
   /** No longer read: Google-account chats always use agy's own login. Kept so older clients'
@@ -310,7 +310,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   promptCacheTimerEnabled: boolean
   /** Prompt-cache TTL (ms); only 300000 (5 min standard) or 3600000 (1 hr, extended-TTL plans). */
   promptCacheTtlMs: number
-  /** Why: durable main-owned pref so Orca can prepare shared ~/.codex before the renderer hydrates. */
+  /** Why: durable main-owned pref so OpenKodo can prepare shared ~/.codex before the renderer hydrates. */
   codexManagedAccounts: CodexManagedAccount[]
   activeCodexManagedAccountId: string | null
   activeCodexManagedAccountIdsByRuntime?: CodexManagedAccountRuntimeSelection
@@ -378,13 +378,13 @@ export type GlobalSettings = GlobalSettingsBase & {
   claudeOAuthUsageEnabled: boolean
   /** Per-agent CLI command overrides. A missing key means use the catalog default binary name. */
   agentCmdOverrides: Partial<Record<TuiAgent, string>>
-  /** Off keeps each Codex home's history to itself: Orca links no sessions between accounts or
+  /** Off keeps each Codex home's history to itself: OpenKodo links no sessions between accounts or
    *  into ~/.codex, and removes nothing already linked (#24511). Absent means on (#10770). */
   codexShareHistoryAcrossAccounts?: boolean
-  /** Workspace cleanup also deletes agent chat history whose Orca workspace folder is gone. Absent means off. */
+  /** Workspace cleanup also deletes agent chat history whose OpenKodo workspace folder is gone. Absent means off. */
   deleteChatHistoryWithWorkspace?: boolean
   /** Custom CODEX_HOME for Codex session-history discovery (defaults to ~/.codex).
-   *  History-only: does not change which account/config/hooks Orca uses. */
+   *  History-only: does not change which account/config/hooks OpenKodo uses. */
   codexSessionSourceHome?: {
     /** Absolute host path; empty/undefined falls back to ~/.codex. */
     host?: string
@@ -416,7 +416,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   confirmClosePinnedTab: boolean
   /** Why: preview tabs reuse one slot per group, so browsing replaces the open file; off makes every open its own tab. Defaults on. */
   editorPreviewTabsEnabled: boolean
-  /** When true, Orca requests local awake assertions while hook-reported agents are working. */
+  /** When true, OpenKodo requests local awake assertions while hook-reported agents are working. */
   keepComputerAwakeWhileAgentsRun: boolean
   /** Optional for mixed-version compatibility; the legacy boolean maps true to Auto. */
   computerAwakeMode?: ComputerAwakeMode
@@ -454,7 +454,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   experimentalAgentDashboardPopout?: boolean
   /** Experimental: panel beside chats and terminals listing the agents each agent works with; off mounts nothing. */
   experimentalOrchestrationPanel?: boolean
-  /** Experimental: icon-only app rail left of the workspace list for switching between Orca destinations; on for new profiles, off for profiles saved before this default. */
+  /** Experimental: icon-only app rail left of the workspace list for switching between OpenKodo destinations; on for new profiles, off for profiles saved before this default. */
   experimentalAppRail?: boolean
   /** Set after the one-time legacy Agents tab introduction has been acknowledged. */
   agentsSidebarIntroShown?: boolean
@@ -478,7 +478,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   experimentalPluginIsolatedFrames?: boolean
   /** Experimental: per-workspace on-demand environment recipes and setup surface. */
   experimentalEphemeralVms?: boolean
-  /** Experimental (Windows): add WSL distros as hosts, each running its own Orca server. */
+  /** Experimental (Windows): add WSL distros as hosts, each running its own OpenKodo server. */
   experimentalWslHosts?: boolean
   /** Declined the add-project offer to run a `\\wsl.localhost` project's distro as a host. */
   wslHostOfferDismissed?: boolean

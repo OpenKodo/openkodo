@@ -71,7 +71,7 @@ export async function runZshPty(options: ZshPtyOptions): Promise<ZshPtyRun> {
     env: {
       ...options.env,
       // Keep the sentinel in env so it survives the user's prompt replacement.
-      ORCA_PTY_SENTINEL: sentinel
+      OPENKODO_PTY_SENTINEL: sentinel
     }
   })
 
@@ -129,7 +129,7 @@ export async function runZshPty(options: ZshPtyOptions): Promise<ZshPtyRun> {
       return { output, values: parseValues(resultPath), exitedBeforePrompt: true }
     }
     // Replace the second prompt, after deferred init; PS1 works in both zsh and sh emulation.
-    proc.write(`PS1="$ORCA_PTY_SENTINEL"\r`)
+    proc.write(`PS1="$OPENKODO_PTY_SENTINEL"\r`)
     // A .zshenv exit is an observable outcome, not a prompt timeout.
     await Promise.race([ready, exited, timedOut])
     if (hasExited) {

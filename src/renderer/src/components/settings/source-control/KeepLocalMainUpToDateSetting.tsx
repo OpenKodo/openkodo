@@ -18,7 +18,7 @@ import { i18n } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 
 export const KEEP_LOCAL_MAIN_UP_TO_DATE_DESCRIPTION =
-  'When you create a workspace, Orca refreshes the remote base and safely fast-forwards your matching local branch, such as main or master. This keeps commands like git diff main...HEAD from comparing against stale history. Orca skips the update if that branch has uncommitted changes or local-only commits.'
+  'When you create a workspace, OpenKodo refreshes the remote base and safely fast-forwards your matching local branch, such as main or master. This keeps commands like git diff main...HEAD from comparing against stale history. OpenKodo skips the update if that branch has uncommitted changes or local-only commits.'
 export const KEEP_LOCAL_MAIN_UP_TO_DATE_KEYWORDS = [
   'main',
   'master',
@@ -72,7 +72,7 @@ export function KeepLocalMainUpToDateSetting({
               i18n={i18n}
               defaults={t(
                 'auto.components.settings.GitPane.refreshLocalBaseDescription',
-                'When you create a workspace, Orca refreshes the remote base and safely fast-forwards your matching local branch, such as <mainBranch>main</mainBranch> or <masterBranch>master</masterBranch>. This keeps commands like <diffCommand>git diff main...HEAD</diffCommand> from comparing against stale history. Orca skips the update if that branch has uncommitted changes or local-only commits.'
+                'When you create a workspace, OpenKodo refreshes the remote base and safely fast-forwards your matching local branch, such as <mainBranch>main</mainBranch> or <masterBranch>master</masterBranch>. This keeps commands like <diffCommand>git diff main...HEAD</diffCommand> from comparing against stale history. OpenKodo skips the update if that branch has uncommitted changes or local-only commits.'
               )}
               components={{
                 mainBranch: <code />,

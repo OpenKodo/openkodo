@@ -42,7 +42,7 @@ export const AUTOMATION_EVENT_KINDS = {
   linear: ['assigned', 'mentioned', 'issue_created', 'issue_moved'],
   // The automation's own URL; whoever holds its key or signature can call it.
   webhook: ['call'],
-  // Checked on the host that holds the Google sign-in; never sent to Orca Cloud.
+  // Checked on the host that holds the Google sign-in; never sent to OpenKodo Cloud.
   gmail: ['new_email'],
   calendar: ['starting_soon']
 } as const
@@ -82,7 +82,7 @@ export function automationEventKind(source: string, event: string): AutomationEv
   return { source, event } as AutomationEventKind
 }
 
-/** The sources Orca Cloud delivers: a connector app's events. */
+/** The sources OpenKodo Cloud delivers: a connector app's events. */
 export type ConnectorEventSource = Exclude<AutomationEventSource, 'webhook' | GoogleEventSource>
 
 /** One rule that starts the automation; the filters narrow where it listens. */
@@ -95,7 +95,7 @@ export function isConnectorSource(source: AutomationEventSource): source is Conn
   return source !== 'webhook' && !isGoogleTrigger({ source })
 }
 
-/** A Slack, GitHub or Linear rule: the ones Orca Cloud matches. */
+/** A Slack, GitHub or Linear rule: the ones OpenKodo Cloud matches. */
 export function isConnectorTrigger(
   trigger: AutomationEventTrigger
 ): trigger is AutomationConnectorEventTrigger {
@@ -133,7 +133,7 @@ export type AutomationConnectorEventTrigger = {
 
 /**
  * The automation's webhook, id webhookRuleId(hookId); at most one per automation. A new one is sent
- * with id '' and rev 0, and the host fills both in when Orca Cloud makes the hook.
+ * with id '' and rev 0, and the host fills both in when OpenKodo Cloud makes the hook.
  */
 export type AutomationWebhookTrigger = WebhookFilters & {
   id: string
@@ -186,7 +186,7 @@ export function automationHookId(automation: {
   return rule ? hookIdOfRule(rule.id) : null
 }
 
-/** What Orca alone knows about a webhook call, shown outside the quote. */
+/** What OpenKodo alone knows about a webhook call, shown outside the quote. */
 export type AutomationRunWebhookCall = {
   hookId: string
   callId: string
@@ -217,7 +217,7 @@ export type AutomationRunEvent = {
   url?: string
   text?: string
   webhook?: AutomationRunWebhookCall
-  /** A Gmail or Calendar event: the account it came on and Orca's ref for the mail or event. */
+  /** A Gmail or Calendar event: the account it came on and OpenKodo's ref for the mail or event. */
   google?: { account: string; ref: string }
   /** The cloud conversation the event came in; a run that answers in the thread links to it. */
   conversation?: { source: AutomationConnectorEventTrigger['source']; externalId: string }
@@ -229,9 +229,9 @@ export type AutomationRunEvent = {
   }
 }
 
-// Said where --results-to thread is refused because the host's Orca Cloud can't bind the thread.
+// Said where --results-to thread is refused because the host's cloud service can't bind the thread.
 export const THREAD_REPLIES_UNSUPPORTED =
-  "Orca Cloud doesn't support this yet: results can't go to the event's thread. Send them to the Chat or a channel instead."
+  "cloud service doesn't support this yet: results can't go to the event's thread. Send them to the Chat or a channel instead."
 
 export const MAX_AUTOMATION_EVENT_TRIGGERS = 20
 // The cloud's caps on a rule; it drops a rule over them, which would then never fire.
@@ -242,7 +242,7 @@ const MAX_TRIGGER_FILTER_LENGTH = 200
 const MAX_RUN_EVENT_KEYS = 50
 export const MAX_AUTOMATION_EVENT_TEXT_LENGTH = 4096
 
-/** An automation that starts only on events keeps a schedule no Orca reaches, so an older Orca never runs it. */
+/** An automation that starts only on events keeps a schedule no OpenKodo reaches, so an older OpenKodo never runs it. */
 export const EVENT_ONLY_SCHEDULE = {
   rrule: 'FREQ=DAILY;BYHOUR=0;BYMINUTE=0',
   dtstart: Date.UTC(9999, 0, 1)

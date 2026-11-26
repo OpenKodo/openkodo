@@ -6,7 +6,7 @@ import { useLinkRoutingPreferenceDialog } from './link-routing-preference-dialog
 function AskOnMount({ openLinksInAppDefault }: { openLinksInAppDefault: boolean }): null {
   const requestPreference = useLinkRoutingPreferenceDialog()
   useEffect(() => {
-    void requestPreference({ url: 'https://github.com/stablyai/orca', openLinksInAppDefault })
+    void requestPreference({ url: 'https://github.com/OpenKodo/openkodo', openLinksInAppDefault })
   }, [openLinksInAppDefault, requestPreference])
   return null
 }

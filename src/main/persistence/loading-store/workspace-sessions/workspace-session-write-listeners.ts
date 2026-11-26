@@ -1,5 +1,5 @@
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { StoreRuntimeState } from '../store-runtime-state'
 import { refileEditorViews } from './layout-editor-views'
 import { WORKSPACE_SESSION_DOMAINS } from '../../workspace-session-domains'
@@ -98,7 +98,7 @@ export function notifyWorkspaceSessionOperationEnded(
   hostIds: readonly ExecutionHostId[] | null,
   workspaces?: ReadonlyMap<ExecutionHostId, ReadonlySet<string>>
 ): void {
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     notifyWorkspaceSessionWritten(runtime)
     return
   }

@@ -6,7 +6,7 @@ import { AntigravityChatAuthForm } from './AntigravityChatAuthForm'
  *  login, which a Google method uses, is in the account rows below them. */
 export function AntigravityChatAuthRows(props: {
   owner: RuntimeClientTarget
-  /** After the sign-in method saves, which moves new chats between agy's home and Orca's. */
+  /** After the sign-in method saves, which moves new chats between agy's home and OpenKodo's. */
   onSaved?: () => void
 }): React.JSX.Element {
   return (

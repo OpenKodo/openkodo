@@ -176,7 +176,7 @@ export function useMobileNativeChatTailFollow(args: {
     followTail()
   }, [followTail])
 
-  // Before Orca scrolls to a row the reader asked for, so new rows cannot pull it away.
+  // Before OpenKodo scrolls to a row the reader asked for, so new rows cannot pull it away.
   const releaseFollow = useCallback(() => {
     clearUserScrollSettle()
     userScrollActiveRef.current = false

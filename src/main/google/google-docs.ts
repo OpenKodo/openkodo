@@ -1,4 +1,4 @@
-// `orca docs read|create|append|replace|comment`. Edits name exact text, never positions: Orca
+// `orca docs read|create|append|replace|comment`. Edits name exact text, never positions: OpenKodo
 // finds the text in a fresh read and refuses an edit whose text isn't there exactly once (unless
 // --all). With --suggest, edits land as suggestions the doc's owner accepts or rejects in Docs.
 import { z } from 'zod'

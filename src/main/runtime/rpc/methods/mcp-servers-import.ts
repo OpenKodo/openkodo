@@ -55,11 +55,11 @@ export async function agentMcpImportHost(runtime: OrcaRuntimeService): Promise<A
 function editFailure(error: AgentMcpConfigEditError): string {
   switch (error.reason) {
     case 'changed':
-      return `${error.path} changed after Orca listed it, so the server stays there too. Refresh and move it again.`
+      return `${error.path} changed after OpenKodo listed it, so the server stays there too. Refresh and move it again.`
     case 'unparseable':
-      return `Orca couldn’t read ${error.path}, so the server stays there too.`
+      return `OpenKodo couldn’t read ${error.path}, so the server stays there too.`
     case 'not-editable':
-      return `Orca couldn’t take the server out of ${error.path} safely, so it stays there too.`
+      return `OpenKodo couldn’t take the server out of ${error.path} safely, so it stays there too.`
     case 'locked':
       return `Claude Code was saving ${error.path}, so the server stays there too. Try again in a moment.`
   }
@@ -104,7 +104,7 @@ export async function importAgentMcpServer(
     if (!added) {
       throw error
     }
-    // It's in Orca's list now even though an agent file kept its copy: every client re-reads.
+    // It's in OpenKodo's list now even though an agent file kept its copy: every client re-reads.
     context.runtime.notifyMcpServersChanged()
     throw error instanceof AgentMcpConfigEditError ? new Error(editFailure(error)) : error
   }

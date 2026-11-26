@@ -75,7 +75,7 @@ export function structuredAgentSessionPermissionDescriptor(state: {
   }
   const current = state.permissionMode ?? undefined
   // Own delegates to the agent, so show the mode it reports running in; the saved choice stays Own.
-  // null reads as no report: it can't tell a policy Orca has no name for from no mode at all.
+  // null reads as no report: it can't tell a policy OpenKodo has no name for from no mode at all.
   const reportedValue = own ? (state.reportedPermissionMode ?? undefined) : undefined
   const shown = reportedValue ?? current
   const known = support.modes.find((mode) => mode === shown)
@@ -134,7 +134,7 @@ export function legacyHostPermissionDescriptor(): SessionOptionDescriptor {
           value: LEGACY_HOST_PERMISSION_VALUE,
           label: "Host's Agent Permissions",
           description:
-            "This host runs an older Orca that applies its Agent Permissions to every chat and can't ask per chat. Update Orca on the host to choose a mode here."
+            "This host runs an older OpenKodo that applies its Agent Permissions to every chat and can't ask per chat. Update OpenKodo on the host to choose a mode here."
         }
       ]
     },

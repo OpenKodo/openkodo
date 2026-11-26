@@ -45,7 +45,7 @@ function attributionName(publisher: string | null): string {
 }
 
 /** Prepares a canonical package for one recipient, once: its notes say who shared them, and MEMORY.md
- *  lists them. `droppedKeys` are bot.json fields the package carried that Orca doesn't use. */
+ *  lists them. `droppedKeys` are bot.json fields the package carried that OpenKodo doesn't use. */
 export function prepareRecipientContent(
   content: BotPackageContent,
   source: BotShareSource,

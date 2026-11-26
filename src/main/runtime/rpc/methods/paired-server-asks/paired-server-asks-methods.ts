@@ -44,7 +44,7 @@ async function serverKey(ctx: RpcContext, environmentId: string): Promise<string
   if (!asks) {
     throw new OrchestrationError(
       'remote_runtime_unavailable',
-      "Can't reach that server yet, or its Orca can't send messages to agents here. Nothing was changed.",
+      "Can't reach that server yet, or its OpenKodo can't send messages to agents here. Nothing was changed.",
       { effectsApplied: false }
     )
   }

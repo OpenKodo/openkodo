@@ -1,5 +1,5 @@
 // Signing a bot's tool in from the phone: its page opens in the phone's browser, which ends on the
-// computer's 127.0.0.1 return address, and the address is pasted back. Orca's own sign-ins run on the
+// computer's 127.0.0.1 return address, and the address is pasted back. OpenKodo's own sign-ins run on the
 // bot's host for this phone (bots.tools.signIn.*); a tool its agent's CLI signs in to finishes there.
 import { botFailureMessage } from '../bot-failure-message'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -55,7 +55,7 @@ export function useBotToolPhoneSignIn(args: {
 }): BotToolPhoneSignIn {
   const { botId } = args
   const name = args.tool.name
-  // A tool its agent's CLI signs in to has no Orca-owned attempt.
+  // A tool its agent's CLI signs in to has no OpenKodo-owned attempt.
   const signsIn = args.tool.signIn !== undefined
   const owned = useMemo(
     () => (signsIn ? botOwnedSignInOps(botId, name) : null),
@@ -64,7 +64,7 @@ export function useBotToolPhoneSignIn(args: {
   return usePhoneToolSignIn({ ...args, owned, held: { botId, name } })
 }
 
-/** Signs in from the phone: by `owned` when Orca signs in, else through the bot tool's `held` CLI. */
+/** Signs in from the phone: by `owned` when OpenKodo signs in, else through the bot tool's `held` CLI. */
 export function usePhoneToolSignIn(args: {
   client: RpcClient | null
   owned: PhoneOwnedSignInOps | null

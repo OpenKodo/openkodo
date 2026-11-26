@@ -35,7 +35,7 @@ export const RUNTIME_LAUNCHER_PATHS = [
   'src/main/daemon/executable-host/windows/daemon-host-manifest.ts'
 ]
 
-export const RUNTIME_PROTOCOL_OVERRIDE_ENV = 'ORCA_ALLOW_RUNTIME_LAUNCHER_PROTOCOL_BUMP'
+export const RUNTIME_PROTOCOL_OVERRIDE_ENV = 'OPENKODO_ALLOW_RUNTIME_LAUNCHER_PROTOCOL_BUMP'
 export const RUNTIME_PROTOCOL_OVERRIDE_LABEL = 'allow-runtime-launcher-protocol-bump'
 
 function git(repoRoot, args) {

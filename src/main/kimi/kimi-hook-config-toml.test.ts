@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { applyManagedKimiHooks, removeManagedKimiHooks } from './kimi-hook-config-toml'
 
 const COMMAND =
-  "if [ -x '/home/u/.orca/agent-hooks/kimi-hook.sh' ]; then /bin/sh '/home/u/.orca/agent-hooks/kimi-hook.sh'; fi"
+  "if [ -x '/home/u/.openkodo/agent-hooks/kimi-hook.sh' ]; then /bin/sh '/home/u/.openkodo/agent-hooks/kimi-hook.sh'; fi"
 const isManaged = (command: string | undefined): boolean =>
   typeof command === 'string' && command.includes('agent-hooks/kimi-hook.sh')
-const START_MARKER = '# >>> orca-managed-kimi-hooks (managed by Orca; do not edit) >>>'
+const START_MARKER = '# >>> orca-managed-kimi-hooks (managed by OpenKodo; do not edit) >>>'
 
 /** Drops only the `# <<< ... <<<` line, the hand-edit that orphans the block. */
 function deleteEndMarker(text: string): string {

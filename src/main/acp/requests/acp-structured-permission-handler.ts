@@ -5,7 +5,7 @@ import type { AcpLaunchSpec } from '../launch/acp-launch-contract'
 import * as childState from '../session/children/acp-structured-child'
 import type { AcpStructuredPrompts } from './acp-structured-prompts'
 
-/** A chat's permission answers: none while nobody can answer, Orca's own in full access, else the person's. */
+/** A chat's permission answers: none while nobody can answer, OpenKodo's own in full access, else the person's. */
 export function acpStructuredPermissionHandler(
   session: () => childState.AcpStructuredChild | null,
   spec: AcpLaunchSpec,

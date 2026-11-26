@@ -65,7 +65,7 @@ export type SavedBrowserScreenshot = Omit<BrowserScreenshotResult, 'data'> & {
 }
 
 const BROWSER_SCREENSHOT_TEMP_DIR = {
-  envVar: 'ORCA_BROWSER_SCREENSHOT_TMPDIR',
+  envVar: 'OPENKODO_BROWSER_SCREENSHOT_TMPDIR',
   dirName: 'orca-browser-screenshots'
 }
 
@@ -204,7 +204,7 @@ export function formatBrowserActionEffects(result: unknown): string {
   }
   if (effects.blockedPrint) {
     lines.push(
-      `${effects.blockedPrint.origin} tried to open the system print dialog, which Orca blocked so it wouldn't take over the user's screen. To save the page as a PDF, run \`pdf\`.`
+      `${effects.blockedPrint.origin} tried to open the system print dialog, which OpenKodo blocked so it wouldn't take over the user's screen. To save the page as a PDF, run \`pdf\`.`
     )
   }
   if (effects.loading) {

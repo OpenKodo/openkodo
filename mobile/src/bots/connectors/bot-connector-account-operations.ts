@@ -40,7 +40,7 @@ function operation<
   )
 }
 
-/** What a finished trip linked; null when it ended at "Open Orca", which the phone can't redeem. */
+/** What a finished trip linked; null when it ended at "Open OpenKodo", which the phone can't redeem. */
 const ConnectLink = z
   .looseObject({
     workspace: z.looseObject({ id: z.string() }).optional(),

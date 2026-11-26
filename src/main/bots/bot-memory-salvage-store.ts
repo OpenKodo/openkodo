@@ -1,5 +1,5 @@
 // Each bot's salvage record on its host: every line the status move took out of MEMORY.md, by its
-// hash, with where it stands. Kept beside the profile, not in the bot's home, so only a line Orca
+// hash, with where it stands. Kept beside the profile, not in the bot's home, so only a line OpenKodo
 // itself moved is ever offered back: a line written into a journal file by hand never is.
 import { randomUUID } from 'node:crypto'
 import { readFile, rename, rm, writeFile } from 'node:fs/promises'

@@ -118,7 +118,7 @@ export function useSettingsRepoScrollEffects(
             if (stale || requestSeq !== repoHooksRequestSeqRef.current) {
               return
             }
-            // Unread is not "no orca.yaml": leave the pane checking rather than offer local-only commands.
+            // Unread is not "no openkodo.yaml": leave the pane checking rather than offer local-only commands.
             if (result.unavailable) {
               unread.add(repoHostIdentity)
               return

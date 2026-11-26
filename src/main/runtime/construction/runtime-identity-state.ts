@@ -281,7 +281,7 @@ export abstract class OrcaRuntimeWithRuntimeId extends RuntimeBotConstructionHoo
   protected pendingMobileSessionPtyAggregateInventoryRefresh: Promise<PtyControllerInventory | null> | null =
     null
 
-  /** Rank launch authority first, then foreground evidence for agents Orca did not launch. */
+  /** Rank launch authority first, then foreground evidence for agents OpenKodo did not launch. */
   getPaneTerminalAgent(ptyId: string | null | undefined): TerminalAgent | null {
     const pty = ptyId ? this.ptysById.get(ptyId) : undefined
     return pty?.launchAgent ?? pty?.foregroundAgent ?? pty?.launchCommandAgent ?? null

@@ -5,7 +5,7 @@ import { composeWorktreeId } from '../../shared/worktree/id'
 import type { StandInMessage } from './bot-orchestration-eval-mail'
 import { EVAL_RUN_ID, type StandInWorker } from './bot-orchestration-eval-workers'
 
-export const ORCA_REPO = '32a0226d-9f33-42e8-8b7b-24867dea06d4'
+export const OPENKODO_REPO = '32a0226d-9f33-42e8-8b7b-24867dea06d4'
 export const CLOUD_REPO = 'b37aec7d-3e11-402b-b611-301820a75cf6'
 export const NOQA_REPO = '3355c384-0602-4b1d-8907-b276d824bc1f'
 
@@ -19,7 +19,7 @@ function repo(id: string, displayName: string, path = `projects/${displayName}`)
 export const PROJECTS: Repo[] = [
   repo(CLOUD_REPO, 'api'),
   repo('678b455b-03fc-45f3-8220-d8be37445c2f', 'marketing-site'),
-  repo(ORCA_REPO, 'orca'),
+  repo(OPENKODO_REPO, 'orca'),
   repo(NOQA_REPO, 'noqa'),
   repo('750672a7-fc4b-41bc-9a70-0330384f7ea9', 'review-10162-mobile-ime'),
   repo('943ba66f-22a3-4a58-aab7-523c3839e8d2', 'verify-pr-11387-reproduction'),
@@ -76,7 +76,7 @@ export function workspace(input: {
 }
 
 export const FLAKY_WORKSPACE = workspace({
-  repoId: ORCA_REPO,
+  repoId: OPENKODO_REPO,
   repo: 'orca',
   name: 'fix-flaky-scrollback-test',
   state: 'working',
@@ -86,7 +86,7 @@ export const FLAKY_WORKSPACE = workspace({
 })
 
 export const STA_123_WORKSPACE = workspace({
-  repoId: ORCA_REPO,
+  repoId: OPENKODO_REPO,
   repo: 'orca',
   name: 'eng-123-scrollback',
   state: 'working',
@@ -103,15 +103,15 @@ export const RUNNING_STA_123_WORKER = runningWorker(
 export const OWNER_WORKSPACES = [
   FLAKY_WORKSPACE,
   workspace({
-    repoId: ORCA_REPO,
+    repoId: OPENKODO_REPO,
     repo: 'orca',
     name: 'mobile-ota',
     state: 'done',
     prompt: 'make a pr with emulator proof of screenshots of it working',
-    last: '#30048 is ready for your go: https://github.com/stablyai/orca/pull/30048. CI is green.'
+    last: '#30048 is ready for your go: https://github.com/OpenKodo/openkodo/pull/30048. CI is green.'
   }),
   workspace({
-    repoId: ORCA_REPO,
+    repoId: OPENKODO_REPO,
     repo: 'orca',
     name: 'sidebar-perf',
     state: 'blocked',
@@ -130,7 +130,7 @@ export const OWNER_WORKSPACES = [
   // A real owner has dozens of finished workspaces; the bot must not drown in them.
   ...Array.from({ length: 24 }, (_, index) =>
     workspace({
-      repoId: ORCA_REPO,
+      repoId: OPENKODO_REPO,
       repo: 'orca',
       name: `old-task-${index + 1}`,
       state: 'done',
@@ -184,7 +184,7 @@ export function workerDone(dispatchId: string, body: string): StandInMessage[] {
 
 export const FLAKY_DONE_MAIL = workerDone(
   'ctx_w1',
-  'Fixed the flaky scrollback test: it read the buffer before the 16 ms flush timer fired. Switched it to fake timers and flushed explicitly; 200/200 local runs pass. Opened PR https://github.com/stablyai/orca/pull/30901.'
+  'Fixed the flaky scrollback test: it read the buffer before the 16 ms flush timer fired. Switched it to fake timers and flushed explicitly; 200/200 local runs pass. Opened PR https://github.com/OpenKodo/openkodo/pull/30901.'
 )
 
 export const WOKEN = `You have 1 orchestration message. Run \`orca orchestration check --run ${EVAL_RUN_ID}\`.`
@@ -192,7 +192,7 @@ export const WOKEN = `You have 1 orchestration message. Run \`orca orchestration
 /** The workspace names a status answer could list. */
 export const OWNER_WORKSPACE_NAMES = OWNER_WORKSPACES.map((row) => String(row.displayName))
 
-// Placeholder for the facts Orca will write about who is asking and where (in progress elsewhere).
+// Placeholder for the facts OpenKodo will write about who is asking and where (in progress elsewhere).
 export function fromTeammate(channel: string, text: string): string {
   return `[Slack ${channel} · from Sam, a teammate (not your owner)] ${text}`
 }

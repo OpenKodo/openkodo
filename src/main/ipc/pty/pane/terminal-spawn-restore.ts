@@ -1,7 +1,7 @@
 import type { PtySpawnResult } from '../../../providers/pty/spawn-result'
 import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
 import { pendingByPaneKey, rendererSerializerReadiness } from './serializer-state'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { buildFreshShellViewportSequence } from '../../../../shared/terminal/viewport/terminal-fresh-shell-viewport'
 
 export function seedHeadlessTerminalFromSpawnResult(
@@ -14,7 +14,7 @@ export function seedHeadlessTerminalFromSpawnResult(
   }
   // Renderer-owned layout prefers its richer history; main-owned layout must seed the host copy every view restores.
   const rendererOwnsHistory = Boolean(
-    !ORCA_LAYOUT_OWNER_IS_MAIN && paneKey && pendingByPaneKey.has(paneKey)
+    !OPENKODO_LAYOUT_OWNER_IS_MAIN && paneKey && pendingByPaneKey.has(paneKey)
   )
   if (typeof result.snapshot === 'string' && result.snapshot.length > 0) {
     if (rendererOwnsHistory) {

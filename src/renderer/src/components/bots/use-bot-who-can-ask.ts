@@ -203,7 +203,7 @@ export function useBotWhoCanAsk(bot: Bot, service: BotWhoCanAskService) {
     )
   }
 
-  // The owner's "Review in Orca" link opens straight onto its confirmation.
+  // The owner's "Review in OpenKodo" link opens straight onto its confirmation.
   const linked = useAccessReview()
   const reviewLinked = useEffectEvent(() => {
     const request = takeAccessReview(forThisList)

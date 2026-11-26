@@ -47,7 +47,7 @@ describe('WSL CLI PowerShell boundary', () => {
         await writeFile(bridgePath, buildWslBridgeScript(), 'utf8')
         await writeFile(
           targetPath,
-          'process.stdout.write(JSON.stringify({ argv: process.argv.slice(2), cwd: process.env.ORCA_CLI_CWD ?? null, distro: process.env.ORCA_CLI_WSL_DISTRO ?? null }))\n',
+          'process.stdout.write(JSON.stringify({ argv: process.argv.slice(2), cwd: process.env.OPENKODO_CLI_CWD ?? null, distro: process.env.OPENKODO_CLI_WSL_DISTRO ?? null }))\n',
           'utf8'
         )
         const invocations = [
@@ -93,8 +93,8 @@ describe('WSL CLI PowerShell boundary', () => {
               windowsHide: true,
               env: {
                 ...process.env,
-                ORCA_CLI_CWD: 'stale',
-                ORCA_CLI_WSL_DISTRO: 'stale-distro',
+                OPENKODO_CLI_CWD: 'stale',
+                OPENKODO_CLI_WSL_DISTRO: 'stale-distro',
                 WSL_DISTRO_NAME: 'wrong-distro'
               }
             }
@@ -133,14 +133,14 @@ describe('WSL CLI PowerShell boundary', () => {
     'pins a non-ASCII app identity and the dev launcher env through Windows PowerShell 5.1',
     async () => {
       const root = await mkdtemp(join(tmpdir(), 'orca-wsl-managed-bridge-'))
-      const userDataPath = join(root, "张三's O\u2019Brien Orca")
+      const userDataPath = join(root, "张三's O\u2019Brien OpenKodo")
       const cliEntryPath = join(root, 'cli \u2018entry\u2019.cjs')
       const bridgePath = join(root, 'orca-wsl-bridge.ps1')
       try {
         await writeFile(bridgePath, buildWslBridgeScript({ userDataPath, cliEntryPath }), 'utf8')
         await writeFile(
           cliEntryPath,
-          'console.error("to stderr"); const e = process.env; console.log(JSON.stringify({ argv: process.argv.slice(2), owner: e.ORCA_USER_DATA_PATH, app: e.ORCA_APP_EXECUTABLE, nodeOptions: e.NODE_OPTIONS ?? null, stashed: e.ORCA_NODE_OPTIONS, cliDir: e.ORCA_WSL_CLI_DIR ?? null }))\n',
+          'console.error("to stderr"); const e = process.env; console.log(JSON.stringify({ argv: process.argv.slice(2), owner: e.OPENKODO_USER_DATA_PATH, app: e.OPENKODO_APP_EXECUTABLE, nodeOptions: e.NODE_OPTIONS ?? null, stashed: e.OPENKODO_NODE_OPTIONS, cliDir: e.OPENKODO_WSL_CLI_DIR ?? null }))\n',
           'utf8'
         )
         const result = spawnSync(
@@ -162,9 +162,9 @@ describe('WSL CLI PowerShell boundary', () => {
             windowsHide: true,
             env: {
               ...process.env,
-              ORCA_APP_EXECUTABLE: '',
+              OPENKODO_APP_EXECUTABLE: '',
               NODE_OPTIONS: '--max-old-space-size=4096',
-              ORCA_WSL_CLI_DIR: 'C:\\guest-only'
+              OPENKODO_WSL_CLI_DIR: 'C:\\guest-only'
             }
           }
         )

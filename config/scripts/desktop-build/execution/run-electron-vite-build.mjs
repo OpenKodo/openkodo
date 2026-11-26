@@ -37,7 +37,7 @@ child.on('exit', async (code, signal) => {
   }
 
   // Check boot graph only after renderer target completes; parallel main/preload targets must not read half-written renderer output.
-  const target = process.env.ORCA_ELECTRON_VITE_TARGET
+  const target = process.env.OPENKODO_ELECTRON_VITE_TARGET
   const builtRenderer =
     (!target || target === 'renderer') && fs.existsSync(path.join(RENDERER_BUILD_DIR, 'index.html'))
   if (!target || target === 'preload') {

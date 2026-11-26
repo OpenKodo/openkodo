@@ -41,7 +41,7 @@ export function isUnobservedTurnStart(value: WorkerStartAgentReceipt): boolean {
   )
 }
 
-/** Its agent wasn't ready at the budget; Orca still waits on it and types the task in once it is. */
+/** Its agent wasn't ready at the budget; OpenKodo still waits on it and types the task in once it is. */
 export function isAwaitingAgent(value: Pick<WorkerStartAgentReceipt, 'state'>): boolean {
   return value.state === 'starting'
 }
@@ -119,7 +119,7 @@ export const WORKER_START_VIEW: OrchestrationAgentView<WorkerStartAgentReceipt, 
         reminder: value.openQuestion,
         terminals: value.terminals,
         next: unobserved
-          ? `Task typed in but the worker hasn't been seen starting; don't resend or abandon it. End your turn; Orca wakes you when it reports. If nothing arrives, run ${renderOrchestrationArgv(['orca', 'orchestration', 'worker-show', '--dispatch', value.dispatchId])}.`
+          ? `Task typed in but the worker hasn't been seen starting; don't resend or abandon it. End your turn; OpenKodo wakes you when it reports. If nothing arrives, run ${renderOrchestrationArgv(['openkodo', 'orchestration', 'worker-show', '--dispatch', value.dispatchId])}.`
           : value.recovery
             ? value.recovery
             : value.next

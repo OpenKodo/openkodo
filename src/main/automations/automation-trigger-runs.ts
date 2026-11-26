@@ -11,7 +11,7 @@ import { onceClaimed } from '../../shared/automation-once'
 /** What a wait does beyond a run, whose run row is how its chat shows it ended: its expiry with no
  *  run, and its deletion after the run. */
 export type AutomationOnceEffects = {
-  /** No deadline, and nothing came: Orca says so and deletes it, starting no agent. */
+  /** No deadline, and nothing came: OpenKodo says so and deletes it, starting no agent. */
   expire(automation: Automation): Promise<void>
   /** Its one run has finished. */
   remove(automationId: string): Promise<unknown>

@@ -57,7 +57,7 @@ it('retires the converted original and clears leftover WAL and SHM on a later la
     db.prepare('SELECT COUNT(*) AS n FROM journal_items WHERE session_id=?').get('unopened')!.n
   ).toBeGreaterThan(0)
   const before = tabsAndRecords(db)
-  // The next launch's older-Orca pass sees no original: no rescan, no tab or record change.
+  // The next launch's older-OpenKodo pass sees no original: no rescan, no tab or record change.
   await initializeJournalDomainDatabase(root)
   expect(tabsAndRecords(db)).toEqual(before)
   writeFileSync(`${filename}-wal`, '')
@@ -104,7 +104,7 @@ it('keeps the original whenever the store cannot prove it holds all of it', asyn
     )
   ).toMatchObject({ phase: 'refused', reason: 'source-orphan' })
 
-  // History an older Orca added to a converted chat without a record (as every chat in a journal
+  // History an older OpenKodo added to a converted chat without a record (as every chat in a journal
   // from before records is): no pass absorbs it.
   const unrecorded = await profile()
   await unrecorded.convert('unopened')
@@ -119,13 +119,13 @@ it('keeps the original whenever the store cannot prove it holds all of it', asyn
   expect(String(unrecorded.errors.at(-1))).toContain('history this store lacks')
 })
 
-it('after a downgrade to an older Orca, the re-upgrade takes its new chat and then retires that journal too', async () => {
+it('after a downgrade to an older OpenKodo, the re-upgrade takes its new chat and then retires that journal too', async () => {
   const { root, filename, db, launch } = await profile()
   await launch().run()
   expect(existsSync(filename)).toBe(false)
   const before = tabsAndRecords(db).records.length
 
-  // The older Orca finds no journal, starts a new one and saves one chat in it.
+  // The older OpenKodo finds no journal, starts a new one and saves one chat in it.
   olderOrcaChat(filename, 'made-after-downgrade')
   await initializeJournalDomainDatabase(root)
   expect(tabsAndRecords(db).records.length).toBe(before + 1)
@@ -198,30 +198,30 @@ it('reopens the source to conversions when the lock helper fails', async () => {
 })
 
 it('keeps the original version of what both sides changed, then retires, with no file times', async () => {
-  // An older Orca renamed a chat after the copy, with no new turn, and then the profile was
+  // An older OpenKodo renamed a chat after the copy, with no new turn, and then the profile was
   // restored with the journal written first: no file time can say which side is newer.
   const renamed = await profile()
   const before = statSync(renamed.filename)
-  rename(renamed.filename, 'unopened', 'Renamed in the older Orca')
+  rename(renamed.filename, 'unopened', 'Renamed in the older OpenKodo')
   utimesSync(renamed.filename, before.atime, before.mtime)
   await initializeJournalDomainDatabase(renamed.root)
   await renamed.launch().run()
   expect(renamed.errors).toEqual([])
   expect(companions(renamed.filename)).toEqual([])
-  expect(original(renamed.db, 'unopened').record).toContain('Renamed in the older Orca')
+  expect(original(renamed.db, 'unopened').record).toContain('Renamed in the older OpenKodo')
 
-  // Text an older Orca queued after the copy, on a converted chat this store doesn't hold.
+  // Text an older OpenKodo queued after the copy, on a converted chat this store doesn't hold.
   const queued = await profile()
   await queued.convert('unopened')
-  queue(queued.filename, 'unopened', 'queued in the older Orca')
+  queue(queued.filename, 'unopened', 'queued in the older OpenKodo')
   await initializeJournalDomainDatabase(queued.root)
   await queued.launch().run()
   expect(companions(queued.filename)).toEqual([])
   expect(JSON.stringify(original(queued.db, 'unopened').queued)).toContain(
-    'queued in the older Orca'
+    'queued in the older OpenKodo'
   )
 
-  // Text an older Orca queued in a chat deleted here moves no revision; it is kept all the same.
+  // Text an older OpenKodo queued in a chat deleted here moves no revision; it is kept all the same.
   const deletedQueued = await profile()
   await deletedQueued.convert('unopened')
   await initializeJournalDomainDatabase(deletedQueued.root)
@@ -239,7 +239,7 @@ it('keeps the original version of what both sides changed, then retires, with no
     'Renamed after the chat was deleted here'
   )
 
-  // An older Orca rewrites lease bookkeeping in every record each launch; until the original goes,
+  // An older OpenKodo rewrites lease bookkeeping in every record each launch; until the original goes,
   // that keeps no further copy of a chat deleted here.
   const churn = await profile()
   churn.db.exec("DELETE FROM agent_session_records WHERE session_id='unopened'")
@@ -255,7 +255,7 @@ it('keeps the original version of what both sides changed, then retires, with no
   expect(after.value).not.toBe(kept.value)
   expect(after.identity).toBe(kept.identity)
 
-  // Text an older Orca queued in a converted chat it no longer records is kept the same way.
+  // Text an older OpenKodo queued in a converted chat it no longer records is kept the same way.
   const unrecordedQueued = await profile()
   await unrecordedQueued.convert('unopened')
   const legacy = new Database(unrecordedQueued.filename)
@@ -276,7 +276,7 @@ it('keeps the original version of what both sides changed, then retires, with no
   await queued.launch('1.0.2').run()
   expect(companions(queued.filename)).toEqual([])
   expect(JSON.stringify(originals(queued.db, 'unopened').map((kept) => kept.queued))).toMatch(
-    /queued in the older Orca.*queued in a restored original|queued in a restored original.*queued in the older Orca/
+    /queued in the older OpenKodo.*queued in a restored original|queued in a restored original.*queued in the older OpenKodo/
   )
 
   // Where both sides already agree, nothing extra is kept.
@@ -380,18 +380,18 @@ it('weighs drafts and queued text from content, keeping only what only the origi
   await unopened.launch().run()
   expect(companions(unopened.filename)).toEqual([])
 
-  // A draft (record, no history) an older Orca renamed after the copy is kept the same way.
+  // A draft (record, no history) an older OpenKodo renamed after the copy is kept the same way.
   const draft = await profile({
     seed: (legacy) =>
       legacy
         .prepare('INSERT INTO agent_session_records VALUES(?,?)')
         .run('draft', JSON.stringify({ sessionId: 'draft', lease: { sessionId: 'draft' } }))
   })
-  rename(draft.filename, 'draft', 'Draft renamed in the older Orca')
+  rename(draft.filename, 'draft', 'Draft renamed in the older OpenKodo')
   await initializeJournalDomainDatabase(draft.root)
   await draft.launch().run()
   expect(companions(draft.filename)).toEqual([])
-  expect(original(draft.db, 'draft').record).toContain('Draft renamed in the older Orca')
+  expect(original(draft.db, 'draft').record).toContain('Draft renamed in the older OpenKodo')
 })
 
 it('finds queue cards by key, never by reading every card a chat has', async () => {
@@ -423,7 +423,7 @@ it('finds queue cards by key, never by reading every card a chat has', async () 
 })
 
 it('converts the copies the reconcile keeps, and keeps the original while a chat is unsettled', async () => {
-  // An older Orca continued a converted chat: the reconcile keeps its version as a copy whose
+  // An older OpenKodo continued a converted chat: the reconcile keeps its version as a copy whose
   // history still lives only in the original, so the copy converts before the original goes.
   const continued = await profile()
   await continued.convert('unopened')
@@ -491,7 +491,7 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
   expect(failedCopy.ensured).not.toContain(failedCopyId)
   expect(String(failedCopy.errors.at(-1))).toContain('could not be converted')
 
-  // A copy whose chat an older Orca then deleted from the original has nothing left to take.
+  // A copy whose chat an older OpenKodo then deleted from the original has nothing left to take.
   const goneCopy = await profile()
   await goneCopy.convert('unopened')
   continueInOlderOrca(goneCopy.filename, 'unopened')
@@ -594,7 +594,7 @@ it('resumes the proof where an earlier launch stopped, not from the first chat',
   many.readers.legacyProof = async (cursor) => {
     cursors.push(cursor)
     if (cursors.length > stopAfter) {
-      throw new Error('Orca quit')
+      throw new Error('OpenKodo quit')
     }
     return read(cursor)
   }
@@ -606,11 +606,11 @@ it('resumes the proof where an earlier launch stopped, not from the first chat',
   await many.launch().run()
   expect(cursors[0]).toMatchObject({ table: 0, check: true })
   expect(cursors[0]!.after).not.toBeNull()
-  expect(many.errors.at(-1)).toMatchObject({ message: 'Orca quit' })
+  expect(many.errors.at(-1)).toMatchObject({ message: 'OpenKodo quit' })
   expect(companions(many.filename)).toEqual([])
 })
 
-it('resumes after a deletion that did not go through, and checks what an older Orca pass added since', async () => {
+it('resumes after a deletion that did not go through, and checks what an older OpenKodo pass added since', async () => {
   // The proof finished and saved 'retiring', but the delete failed: the next launch starts at the
   // copies, not the first chat.
   const retried = await profile()
@@ -677,7 +677,7 @@ it('converts nothing for the proof or its copies below the disk floor, and both 
   const room = async () => ({ freeBytes: 60 * GB, totalBytes: 100 * GB, remainingBytes: 20 * GB })
   async function copied(storage: typeof low) {
     const continued = await profile({ storage })
-    // An open converts below the floor; the older Orca's later turns then need a copy.
+    // An open converts below the floor; the older OpenKodo's later turns then need a copy.
     await continued.convert('unopened')
     continueInOlderOrca(continued.filename, 'unopened')
     await initializeJournalDomainDatabase(continued.root)

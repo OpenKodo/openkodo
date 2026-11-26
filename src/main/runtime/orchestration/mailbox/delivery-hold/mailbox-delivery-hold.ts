@@ -15,7 +15,7 @@ export type MailboxDeliveryHold =
   | { kind: 'restoring' }
   /** The worker's own status says it is blocked (for example on a permission it asked for). */
   | { kind: 'blocked'; reason: string }
-  /** A program Orca does not recognize is running; typed mail would reach it as input. */
+  /** A program OpenKodo does not recognize is running; typed mail would reach it as input. */
   | { kind: 'busy-program' }
   /** Something on the worker's screen refuses typed input (a menu, a picker, a dialog). */
   | { kind: 'overlay' }
@@ -34,10 +34,10 @@ export type MailboxDeliveryHold =
   /** The chat refuses new messages for now. */
   | { kind: 'refused'; reason: string }
   /** The chat's last turn failed; agent mail waits for its next turn. `usageLimit` is set when that
-   *  turn stopped at a usage limit, with Orca's automatic continue as the host publishes it. */
+   *  turn stopped at a usage limit, with OpenKodo's automatic continue as the host publishes it. */
   | { kind: 'failed-turn'; usageLimit?: UsageLimitHold }
 
-/** A usage-limited chat's automatic continue; `state: 'none'` when Orca has none to promise.
+/** A usage-limited chat's automatic continue; `state: 'none'` when OpenKodo has none to promise.
  *  `off` names why: the setting, a sleeping workspace (which continues once it wakes), or neither. */
 export type UsageLimitHold =
   | (Pick<AgentSessionUsageLimitContinue, 'state' | 'resetsAt' | 'continueAt'> & {
@@ -106,23 +106,23 @@ export function describeMailboxDeliveryHold(
     case 'draft':
       return `Queued. ${recipient}'s terminal has typed text that is not sent yet; delivery is held until it is sent or cleared.`
     case 'restoring':
-      return `Queued. ${recipient}'s terminal is still restoring; delivery waits until Orca can read it.`
+      return `Queued. ${recipient}'s terminal is still restoring; delivery waits until OpenKodo can read it.`
     case 'blocked':
       return `Queued. ${recipient} is blocked (${hold.reason}); delivery is held until that clears.`
     case 'busy-program':
-      return `Queued. ${recipient}'s terminal is running a program Orca does not type into; delivery waits until the agent is back at its prompt.`
+      return `Queued. ${recipient}'s terminal is running a program OpenKodo does not type into; delivery waits until the agent is back at its prompt.`
     case 'overlay':
       return `Queued. ${recipient}'s screen shows something that refuses typed input; delivery waits until it closes.`
     case 'unsettled':
       return `Queued. ${recipient} has not settled at its prompt (an open request or question, or output still arriving); delivery waits until it does.`
     case 'unverified':
-      return `Queued. Orca can't notify the agent in ${hold.terminal} right now with the evidence it has. The agent in ${hold.terminal} can read it by running \`${receiverCli} orchestration check${orchestrationCheckRunFlag(recipient)} --terminal ${hold.terminal}\` in its own terminal; don't run this yourself or type into its terminal. Orca will notify it once it can verify the agent accepts input; if it needs the message sooner, tell the user.`
+      return `Queued. OpenKodo can't notify the agent in ${hold.terminal} right now with the evidence it has. The agent in ${hold.terminal} can read it by running \`${receiverCli} orchestration check${orchestrationCheckRunFlag(recipient)} --terminal ${hold.terminal}\` in its own terminal; don't run this yourself or type into its terminal. OpenKodo will notify it once it can verify the agent accepts input; if it needs the message sooner, tell the user.`
     case 'unreachable':
       return `Queued for ${hold.terminal}, but it can't be read in that terminal: it only reads its Task's mail. Message its coordinator instead.`
     case 'not-read':
       return hold.reads
-        ? `Queued for ${recipient}, but the agent in ${hold.terminal} reads ${mailboxOwnerRole(hold.reads)}, so Orca won't notify it of this message and its own check won't read it. Message ${hold.terminal} directly instead.`
-        : `Queued for ${recipient}, but the agent in ${hold.terminal} can't read this mailbox there, so Orca won't notify it of this message. Tell the user instead.`
+        ? `Queued for ${recipient}, but the agent in ${hold.terminal} reads ${mailboxOwnerRole(hold.reads)}, so OpenKodo won't notify it of this message and its own check won't read it. Message ${hold.terminal} directly instead.`
+        : `Queued for ${recipient}, but the agent in ${hold.terminal} can't read this mailbox there, so OpenKodo won't notify it of this message. Tell the user instead.`
     case 'behind-prompt':
       return `Queued behind an open prompt; ${recipient} sees it after the prompt is answered.`
     case 'detached':
@@ -148,21 +148,21 @@ function describeFailedTurnHold(recipient: string, limit: UsageLimitHold | undef
   }
   if (limit.state === 'scheduled') {
     const at = formatUsageLimitResetClock(limit.continueAt ?? limit.resetsAt)
-    return `Queued. ${recipient} stopped at its usage limit; Orca continues it at ${at}, then delivers this.`
+    return `Queued. ${recipient} stopped at its usage limit; OpenKodo continues it at ${at}, then delivers this.`
   }
   if (limit.state === 'none') {
-    return `Queued. ${recipient} stopped at its usage limit and Orca has no reset time to promise; delivery waits until the chat continues.`
+    return `Queued. ${recipient} stopped at its usage limit and OpenKodo has no reset time to promise; delivery waits until the chat continues.`
   }
   if (limit.state === 'off' && limit.off === 'asleep') {
-    return `Queued. ${recipient} stopped at its usage limit while its workspace sleeps; Orca can continue it once the workspace wakes, then delivers this.`
+    return `Queued. ${recipient} stopped at its usage limit while its workspace sleeps; OpenKodo can continue it once the workspace wakes, then delivers this.`
   }
   if (limit.state === 'off' && limit.off !== 'setting') {
-    return `Queued. ${recipient} stopped at its usage limit and Orca has not scheduled a continue for it; delivery waits until the chat continues.`
+    return `Queued. ${recipient} stopped at its usage limit and OpenKodo has not scheduled a continue for it; delivery waits until the chat continues.`
   }
   const why = {
     off: 'automatic continue is off in Settings',
     cancelled: 'automatic continue was cancelled for this chat',
     failed: 'automatic continue gave up on this chat'
   }[limit.state]
-  return `Queued. ${recipient} stopped at its usage limit and Orca will not continue it on its own (${why}); delivery waits until a person continues the chat.`
+  return `Queued. ${recipient} stopped at its usage limit and OpenKodo will not continue it on its own (${why}); delivery waits until a person continues the chat.`
 }

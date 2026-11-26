@@ -4,7 +4,7 @@ import { hasAutomationSchedule } from '../../../../../shared/automation-event-tr
 import type { Automation } from '../../../../../shared/automations/automation-definition'
 import { formatAutomationNextRun } from '../automation-page-parts'
 
-/** An events-only automation has no next run, only the schedule no Orca reaches. */
+/** An events-only automation has no next run, only the schedule no OpenKodo reaches. */
 export function automationNextRunLabel(
   automation: Automation,
   now: number,

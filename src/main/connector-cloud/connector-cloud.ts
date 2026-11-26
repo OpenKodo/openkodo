@@ -1,4 +1,4 @@
-// This host's link to the Orca Cloud connector, as whichever Orca account it is signed in to.
+// This host's link to the OpenKodo Cloud connector, as whichever OpenKodo account it is signed in to.
 import { connectorAccountName } from './connector-token-mint'
 import type { z } from 'zod'
 import type { ConnectorCloudStatus } from '../../shared/bots/connector-cloud-status'
@@ -31,7 +31,7 @@ export type ConnectorCloudOptions = {
   userDataPath: string
   origin: string
   machine: ConnectorMachine
-  /** The signed-in Orca account, or null while signed out. */
+  /** The signed-in OpenKodo account, or null while signed out. */
   account: () => string | null
   /** Quitting or relaunching into another profile: nothing new starts, as for the relay. */
   isFenced: () => boolean
@@ -70,7 +70,7 @@ export class ConnectorCloud {
     this.lastAccount = options.account()
   }
 
-  /** The signed-in Orca account the connector acts as, or null. */
+  /** The signed-in OpenKodo account the connector acts as, or null. */
   signedInAccount(): string | null {
     return this.activeAccount()
   }
@@ -95,7 +95,7 @@ export class ConnectorCloud {
   /** The poll answered (after its own outage or not), or a sign-in: a bot picture owed may go again. */
   readonly onBack: ConnectorReach['onBack'] = (listener) => this.reach.onBack(listener)
 
-  /** From now on, hold the poll whenever an Orca account is signed in and the machine wants the connection. */
+  /** From now on, hold the poll whenever an OpenKodo account is signed in and the machine wants the connection. */
   connect(): void {
     if (this.connected) {
       return
@@ -143,7 +143,7 @@ export class ConnectorCloud {
     this.options.onStatusChanged?.()
   }
 
-  /** Whether the cloud stopped the connection until this computer signs in to Orca again. */
+  /** Whether the cloud stopped the connection until this computer signs in to OpenKodo again. */
   needsSignIn(): boolean {
     return connectorStopNeedsSignIn(this.clientStop)
   }
@@ -180,7 +180,7 @@ export class ConnectorCloud {
   }
 
   /**
-   * Signed out (or refused until it signs in again), a running poll that can't reach Orca Cloud, one
+   * Signed out (or refused until it signs in again), a running poll that can't reach OpenKodo Cloud, one
    * the cloud refuses with a reason for the owner, or fine.
    */
   status(): ConnectorCloudStatus {
@@ -329,7 +329,7 @@ export class ConnectorCloud {
     return this.client?.cloudFeatures ?? null
   }
 
-  /** The signed-in Orca account's name, as a mirrored Slack post names its author. */
+  /** The signed-in OpenKodo account's name, as a mirrored Slack post names its author. */
   orcaAccountName(): string {
     return connectorAccountName(this.options.userDataPath)
   }
@@ -362,14 +362,14 @@ export class ConnectorCloud {
     return this.events?.turnEndPending(conversation, turnId) ?? false
   }
 
-  /** Null while no client runs: signed out, no bot the cloud can reach, or Orca quitting. */
+  /** Null while no client runs: signed out, no bot the cloud can reach, or OpenKodo quitting. */
   reply(
     ...args: Parameters<ConnectorPollClient['reply']>
   ): ReturnType<ConnectorPollClient['reply']> | null {
     return this.client?.reply(...args) ?? null
   }
 
-  /** Null while no client runs: signed out, no bot the cloud can reach, or Orca quitting. */
+  /** Null while no client runs: signed out, no bot the cloud can reach, or OpenKodo quitting. */
   postAsBot(
     ...args: Parameters<ConnectorPollClient['postAsBot']>
   ): ReturnType<ConnectorPollClient['postAsBot']> | null {

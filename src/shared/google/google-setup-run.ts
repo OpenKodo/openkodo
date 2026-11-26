@@ -24,8 +24,8 @@ export const GOOGLE_SETUP_STEPS = [
 export type GoogleSetupStep = (typeof GOOGLE_SETUP_STEPS)[number]
 
 /**
- * - `do-it-for-me`: the bot clicks through Google Cloud in Orca's browser.
- * - `guide-here`: Orca's browser, the person clicks, the bot only reads the page.
+ * - `do-it-for-me`: the bot clicks through Google Cloud in OpenKodo's browser.
+ * - `guide-here`: OpenKodo's browser, the person clicks, the bot only reads the page.
  * - `guide-browser`: the person's own browser, one step card at a time; the bot never clicks.
  */
 export const GOOGLE_SETUP_MODES = ['do-it-for-me', 'guide-here', 'guide-browser'] as const
@@ -94,10 +94,10 @@ export const GoogleSetupRunSchema = z.object({
   browserPageId: Text(200).optional(),
   answers: z.partialRecord(z.enum(GOOGLE_SETUP_CARDS), GoogleSetupAnswerSchema).default({}),
   lastError: Text(500).optional(),
-  /** Orca saw the key fail to arrive (a refused download, or done refused for want of it); the
+  /** OpenKodo saw the key fail to arrive (a refused download, or done refused for want of it); the
    *  owner's card then offers Make a new key and Import a key file. */
   keyMissed: z.object({ at: z.number(), reason: Text(500).optional() }).optional(),
-  /** The newest copy Orca wrote of each card (by `googleSetupCardKey`), so only it acts. */
+  /** The newest copy OpenKodo wrote of each card (by `googleSetupCardKey`), so only it acts. */
   cardCopies: z.record(z.string(), z.number().int().nonnegative()).optional(),
   startedAt: z.number(),
   updatedAt: z.number(),
@@ -124,7 +124,7 @@ export function currentGoogleSetupStep(run: Pick<GoogleSetupRun, 'steps'>): Goog
 }
 
 /** Whether a key could still arrive: the client isn't made yet. A step left open before it (the
- *  policy box, say) mustn't stop Orca from saving a key made meanwhile. */
+ *  policy box, say) mustn't stop OpenKodo from saving a key made meanwhile. */
 export function googleSetupAwaitsKey(run: Pick<GoogleSetupRun, 'state' | 'steps'>): boolean {
   const client = run.steps.client?.status
   return googleSetupRunActive(run) && client !== 'done' && client !== 'skipped'

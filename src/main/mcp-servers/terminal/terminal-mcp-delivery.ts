@@ -67,7 +67,7 @@ export type TerminalMcpDelivery =
       command?: string
       /** Set in the spawn's env. */
       env?: Record<string, string>
-      /** The CLI reads the token from `ORCA_MCP_TOKEN` in its env. */
+      /** The CLI reads the token from `OPENKODO_MCP_TOKEN` in its env. */
       tokenInEnv: boolean
       /** Why some of its servers didn't make it, for every launch of this CLI (too old for them). */
       problem?: string

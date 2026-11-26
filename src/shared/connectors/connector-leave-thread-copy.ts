@@ -1,4 +1,4 @@
-// What `orca bot reply --leave-thread` tells the agent when Orca refuses it; nothing changed in each.
+// What `orca bot reply --leave-thread` tells the agent when OpenKodo refuses it; nothing changed in each.
 export const LEAVE_THREAD_REFUSALS = {
   not_a_thread:
     "Nothing changed: this chat doesn't answer a Slack thread you follow (a DM, GitHub or Linear can't be left this way).",
@@ -7,13 +7,13 @@ export const LEAVE_THREAD_REFUSALS = {
   leave_refused_mixed:
     "Nothing changed: this turn includes a message that isn't from a person who can ask you, so it can't be used to leave. Ask them to say it again on its own.",
   leave_unavailable:
-    "Nothing changed: this Orca connection can't tell when someone @mentions you yet, so you couldn't be brought back. Tell them you're still in the thread.",
+    "Nothing changed: this OpenKodo connection can't tell when someone @mentions you yet, so you couldn't be brought back. Tell them you're still in the thread.",
   thread_mute_not_saved:
-    "Nothing changed: Orca couldn't save that you left, so replies here still wake you. Say it didn't work."
+    "Nothing changed: OpenKodo couldn't save that you left, so replies here still wake you. Say it didn't work."
 } as const
 
 /** The leave may or may not have taken: a wait ran out, or its save's outcome is unknown. */
 export const LEAVE_THREAD_UNCONFIRMED =
-  "Orca couldn't confirm whether you left, so don't say you left or that you're still here: Orca posts a confirmation in the thread if you did."
+  "OpenKodo couldn't confirm whether you left, so don't say you left or that you're still here: OpenKodo posts a confirmation in the thread if you did."
 
 export type LeaveThreadRefusalCode = keyof typeof LEAVE_THREAD_REFUSALS

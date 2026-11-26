@@ -1,4 +1,4 @@
-// Release-line floors the launch gate checks and Orca's own copies must reach; kept apart so both can import them.
+// Release-line floors the launch gate checks and OpenKodo's own copies must reach; kept apart so both can import them.
 
 // Verified release lines: 1.18.31 recordings and 2.0.14 private-child startup.
 export const OPENCODE_MINIMUM_VERSIONS = ['1.18.31', '2.0.14'] as const

@@ -6,7 +6,7 @@ import { resolveClaudeGlobalConfigFile } from '../../claude/configuration/claude
 import { readUserClaudeConfigDir } from '../../claude-accounts/profiles/claude-profile-paths'
 import { hasCustomCodexHomeOverride } from '../../codex/configuration/homes/codex-real-home-path'
 
-/** The agents whose own MCP config Orca reads, in the order merged rows name them. */
+/** The agents whose own MCP config OpenKodo reads, in the order merged rows name them. */
 export const MCP_CONFIG_AGENTS = [
   'claude',
   'codex',
@@ -25,7 +25,7 @@ export type AgentMcpConfigLocation = {
   agent: McpConfigAgent
   path: string
   format: 'json' | 'toml'
-  /** A repo's own file is shared with the team, so Orca never moves servers out of it. */
+  /** A repo's own file is shared with the team, so OpenKodo never moves servers out of it. */
   scope: 'user' | 'project'
 }
 
@@ -38,7 +38,7 @@ export type AgentMcpConfigContext = {
 const envDir = (env: NodeJS.ProcessEnv, name: string): string | undefined =>
   env[name]?.trim() || undefined
 
-/** Codex's own home: a CODEX_HOME the user set, never one Orca launched this process with. */
+/** Codex's own home: a CODEX_HOME the user set, never one OpenKodo launched this process with. */
 export function codexSourceHome(context: AgentMcpConfigContext): string {
   return hasCustomCodexHomeOverride(context.env) && context.env.CODEX_HOME
     ? context.env.CODEX_HOME.trim()
@@ -74,7 +74,7 @@ async function userFiles(agent: McpConfigAgent, context: AgentMcpConfigContext):
   const { homeDir, env } = context
   switch (agent) {
     case 'claude':
-      // A config dir Orca injected for a managed account is not the user's own.
+      // A config dir OpenKodo injected for a managed account is not the user's own.
       return [await claudeGlobalConfigFile(context, readUserClaudeConfigDir(env))]
     case 'codex':
       return [join(codexSourceHome(context), 'config.toml')]

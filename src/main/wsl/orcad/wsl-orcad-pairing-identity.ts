@@ -63,7 +63,7 @@ async function verifyWslOrcadPairing(
   }
   if (identity.verdict === 'unreachable') {
     console.warn(
-      `[wsl] Orca server in ${launch.distro} did not answer its bridge: ${identity.detail}`
+      `[wsl] OpenKodo server in ${launch.distro} did not answer its bridge: ${identity.detail}`
     )
   }
   return pairingOffer
@@ -79,5 +79,8 @@ export async function verifyWslOrcadIdentity(
     ? verifyOrcadPairingIdentity(pairedRuntimeConnectionFromOffer(offer), {
         runtimeId: readiness.runtimeId || null
       })
-    : { verdict: 'foreign', detail: 'The Orca server in WSL published an invalid pairing offer.' }
+    : {
+        verdict: 'foreign',
+        detail: 'The OpenKodo server in WSL published an invalid pairing offer.'
+      }
 }

@@ -11,7 +11,7 @@ import type {
   FederatedDispatchRow,
   WorkerDispatchRow
 } from '../../../../../orchestration/db/orchestration-records'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../../shared/workspace-layout/layout-owner-switch'
 import { exposeDispatchContext } from './dispatch-context-exposure'
 import { resolvePinnedFederatedServer } from '../../../../../orchestration/legacy-remote-home/pinned-federated-server'
 
@@ -106,7 +106,7 @@ export async function inspectWorkerTerminal(
       }
     }
     // Switch point: main's rows carry the host's verdict; `connected` alone is the old word.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && terminal.verdict === 'unverifiable') {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && terminal.verdict === 'unverifiable') {
       return {
         terminal,
         exact,
@@ -120,7 +120,7 @@ export async function inspectWorkerTerminal(
       terminal,
       exact,
       status:
-        ORCA_LAYOUT_OWNER_IS_MAIN && terminal.verdict
+        OPENKODO_LAYOUT_OWNER_IS_MAIN && terminal.verdict
           ? terminal.verdict
           : terminal.connected === false
             ? 'exited'

@@ -1,4 +1,4 @@
-// An MCP transport over a child Orca started itself, so the SDK's client speaks to it without the
+// An MCP transport over a child OpenKodo started itself, so the SDK's client speaks to it without the
 // SDK spawning anything: the child comes from @orca/process-host, which owns Windows quoting and hiding.
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { ReadBuffer, serializeMessage } from '@modelcontextprotocol/sdk/shared/stdio.js'

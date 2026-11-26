@@ -81,7 +81,7 @@ type NativeChatInstall = {
 export type NativeChatHostSetup = {
   signIn: NativeChatSignIn | null
   install: NativeChatInstall | null
-  /** The user's own CLI update on the chat's host; null for agents Orca can't update. */
+  /** The user's own CLI update on the chat's host; null for agents OpenKodo can't update. */
   update?: AgentCliUpdateView | null
   /** The chat's host, so setup links open Settings on it. */
   host?: RuntimeClientTarget
@@ -218,7 +218,7 @@ function useNativeChatSignIn(
       }) ?? (platform === 'win32' ? null : 'posix')
     )
   })
-  // agy signs in from Orca, so its terminal command (`system`) never runs from here.
+  // agy signs in from OpenKodo, so its terminal command (`system`) never runs from here.
   const antigravity = useNativeChatAgySignIn(input.agent, input.account, input.target)
   const command = agentSessionSignInCommand(input.agent, {
     account: input.account,

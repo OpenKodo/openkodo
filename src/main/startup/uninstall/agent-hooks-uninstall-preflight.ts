@@ -4,7 +4,7 @@ import { setAppEnvironment } from '../../../shared/app-lifecycle/app-environment
 import { ElectronAppEnvironment } from '../../host/electron-app-environment'
 import { ensureWindowsAppDataPath } from '../windows-startup/windows-app-data-path'
 
-/** The NSIS uninstaller's flag (config/nsis/orca-installer-hooks.nsh); keep the two in sync. */
+/** The NSIS uninstaller's flag (config/nsis/openkodo-installer-hooks.nsh); keep the two in sync. */
 export const AGENT_HOOKS_UNINSTALL_FLAG = '--orca-uninstall-remove-agent-hooks'
 
 // Uninstall must finish even if an agent's config never answers.
@@ -12,7 +12,7 @@ const UNINSTALL_HOOK_REMOVAL_TIMEOUT_MS = 30_000
 
 type UninstallRemovalStatus = Pick<AgentHookInstallStatus, 'state' | 'detail'> & { agent: string }
 
-// OpenCode and Pi load Orca's plugin files, outside the hook registry.
+// OpenCode and Pi load OpenKodo's plugin files, outside the hook registry.
 function pluginRemovalStatuses(
   removals: readonly { agent: string; error: string | null }[]
 ): UninstallRemovalStatus[] {
@@ -54,7 +54,7 @@ export function runAgentHooksUninstallPreflight(argv: readonly string[] = proces
   // Armed first: nothing below may leave the uninstaller waiting on an error box.
   const timeout = setTimeout(() => app.exit(1), UNINSTALL_HOOK_REMOVAL_TIMEOUT_MS)
   try {
-    process.env.ORCA_BACKGROUND_LAUNCH = '1'
+    process.env.OPENKODO_BACKGROUND_LAUNCH = '1'
     // The same userData the app's managed runtime homes live under.
     ensureWindowsAppDataPath(app)
     // Removers read userData through this port (Claude's profile homes); the app's own preflight is skipped.

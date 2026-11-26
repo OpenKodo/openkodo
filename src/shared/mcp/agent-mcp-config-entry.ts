@@ -1,5 +1,5 @@
-// One MCP server entry as an agent's own config (or a pasted config) spells it, read into Orca's
-// server shape. An entry Orca can't carry faithfully reads as null, so it stays in the agent.
+// One MCP server entry as an agent's own config (or a pasted config) spells it, read into OpenKodo's
+// server shape. An entry OpenKodo can't carry faithfully reads as null, so it stays in the agent.
 import {
   BOT_TOOL_NAME_PATTERN,
   BotToolServerSchema,
@@ -61,7 +61,7 @@ function stringList(value: unknown): string[] | null {
   return Array.isArray(value) && value.every((item) => typeof item === 'string') ? value : null
 }
 
-/** Orca's server names are narrower than agents' keys (`my.server`, `My Server`). */
+/** OpenKodo's server names are narrower than agents' keys (`my.server`, `My Server`). */
 export function mcpServerNameFromConfigName(configName: string, fallbackDetail: string): string {
   if (BOT_TOOL_NAME_PATTERN.test(configName)) {
     return configName
@@ -95,7 +95,7 @@ function commandFields(command: unknown, args: unknown, env: unknown): ServerFie
   return { command, args: argList, ...(envMap ? { env: envMap } : {}) }
 }
 
-// Keys each dialect may hold beside the ones read into Orca's shape. Anything else (tool filters,
+// Keys each dialect may hold beside the ones read into OpenKodo's shape. Anything else (tool filters,
 // OAuth clients, token files, working folders, exposure) changes what the server does, so the
 // entry stays in its agent rather than being moved without it.
 const HARMLESS_KEYS: Record<AgentMcpConfigDialect, ReadonlySet<string>> = {
@@ -169,7 +169,7 @@ function mcpJsonFields(entry: Record<string, unknown>, dialect: AgentMcpConfigDi
   if (entry.httpUrl !== undefined) {
     return type === undefined ? remoteFields(entry.httpUrl, entry.headers) : null
   }
-  // Gemini reads a bare `url` as SSE; Orca's servers speak streamable HTTP only.
+  // Gemini reads a bare `url` as SSE; OpenKodo's servers speak streamable HTTP only.
   if (dialect === 'gemini' && type !== 'http') {
     return null
   }
@@ -223,7 +223,7 @@ function entryDisabled(entry: Record<string, unknown>, dialect: AgentMcpConfigDi
 }
 
 /**
- * Null when Orca can't run the entry exactly as its agent does: SSE, a key Orca would drop (tool
+ * Null when OpenKodo can't run the entry exactly as its agent does: SSE, a key OpenKodo would drop (tool
  * filters, OAuth client, token file, working folder), a value the agent substitutes, a bad value.
  */
 export function agentMcpConfigEntry(
@@ -262,23 +262,23 @@ export function agentMcpServerMergeKey(configName: string, server: BotToolServer
   )
 }
 
-const ORCA_LAUNCHER = /(^|[\\/])orca(-[a-z]+)?(\.(cmd|exe))?$/i
+const OPENKODO_LAUNCHER = /(^|[\\/])orca(-[a-z]+)?(\.(cmd|exe))?$/i
 
 /**
- * An entry Orca keeps in an agent's file itself: the `orca mcp connect` / `orca mcp exec` bridge,
- * possibly behind `cmd /c`, which pins Orca's data folder. Never listed as the agent's own.
+ * An entry OpenKodo keeps in an agent's file itself: the `orca mcp connect` / `orca mcp exec` bridge,
+ * possibly behind `cmd /c`, which pins OpenKodo's data folder. Never listed as the agent's own.
  */
 export function isOrcaOwnedAgentMcpServer(server: BotToolServer): boolean {
   if ('url' in server) {
     return false
   }
-  if (server.env?.ORCA_USER_DATA_PATH !== undefined) {
+  if (server.env?.OPENKODO_USER_DATA_PATH !== undefined) {
     return true
   }
   const words = [server.command, ...server.args]
   return words.some(
     (word, index) =>
-      ORCA_LAUNCHER.test(word) &&
+      OPENKODO_LAUNCHER.test(word) &&
       words[index + 1] === 'mcp' &&
       (words[index + 2] === 'connect' || words[index + 2] === 'exec')
   )

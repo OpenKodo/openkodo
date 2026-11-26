@@ -29,7 +29,7 @@ const LAUNCH_HOME_WAIT_MS = 1_000
 async function hostChatRoute(runtime: OrcaRuntimeService) {
   const settings = runtime.requireStore().getSettings()
   const orcaHome = !savedChatAuthIsPersonal(settings.antigravityChatAuth)
-  // Enterprise runs on Orca's home but with agy's login, so its sign-in is read too.
+  // Enterprise runs on OpenKodo's home but with agy's login, so its sign-in is read too.
   if (orcaHome && !savedChatAuthUsesAgyLogin(settings.antigravityChatAuth)) {
     return { agy: false as const, orcaHome }
   }
@@ -54,7 +54,7 @@ export function readAgySignInInBackground(runtime: OrcaRuntimeService): void {
 }
 
 /** The HOME new host agy chats launch with, when it shares the login an account switch changes;
- *  a login shell or the agent's settings can set one other than Orca's own. Unknown after
+ *  a login shell or the agent's settings can set one other than OpenKodo's own. Unknown after
  *  LAUNCH_HOME_WAIT_MS, or when unreadable. */
 export function sharedAgyLaunchHome(runtime: OrcaRuntimeService): Promise<string | undefined> {
   const read = async (): Promise<string | undefined> => {
@@ -64,7 +64,7 @@ export function sharedAgyLaunchHome(runtime: OrcaRuntimeService): Promise<string
     }
     const settings = runtime.requireStore().getSettings()
     const env = await resolveHostStructuredAgentLaunchEnvironment('antigravity', settings)
-    // The launch environment can keep a file per HOME even where Orca's own uses the keyring.
+    // The launch environment can keep a file per HOME even where OpenKodo's own uses the keyring.
     return (await antigravityUsesFileStoreAsync(env)) ? undefined : (env.HOME ?? env.USERPROFILE)
   }
   return withTimeout(
@@ -119,7 +119,7 @@ export function restartIdleAgyChats(target: AntigravityAccountTarget): void {
   for (const id of host.loadedSessionIds()) {
     const home =
       host.sessionAgent(id) === 'antigravity' ? host.childAccountHome(id, true) : undefined
-    // Orca's homes use agy's Google login too (Enterprise, the retired server's chats).
+    // OpenKodo's homes use agy's Google login too (Enterprise, the retired server's chats).
     if (home && (isAntigravityHostAccountHome(home) || isAntigravityAgyOrcaAccountHome(home))) {
       void host.releaseIdleSession(id, true).catch((error: unknown) => {
         console.warn('[antigravity] an idle chat kept the previous account:', error)

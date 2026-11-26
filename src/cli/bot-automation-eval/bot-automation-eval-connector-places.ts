@@ -1,4 +1,4 @@
-// Where the stand-in's connector actions land: places a bot names, resolved as Orca Cloud resolves
+// Where the stand-in's connector actions land: places a bot names, resolved as OpenKodo Cloud resolves
 // them (a ref, a channel's id or link, a whole name or key), with the shared Linear world's issues
 // and teams first.
 import type { EvalHostState } from './bot-automation-eval-host'
@@ -83,7 +83,7 @@ function worldMessageRef(input: string): string | null {
   return ts !== undefined && SLACK_PLACES.some((place) => place.ref === inChannel) ? ref : null
 }
 
-/** The one place, or message in one, an action's input names, worded as Orca Cloud refuses. */
+/** The one place, or message in one, an action's input names, worded as OpenKodo Cloud refuses. */
 export function resolvePlace(state: EvalHostState, input: string): PlaceView | Refusal {
   const notFound: Refusal = {
     ok: false,

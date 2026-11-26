@@ -38,9 +38,9 @@ export type OrcaVmRecipe = {
   resume?: string
   destroy?: string
   destroyDisabled?: boolean
-  // Per-mode wall-clock limits; orca.yaml accepts one number for every mode or a per-mode map.
+  // Per-mode wall-clock limits; openkodo.yaml accepts one number for every mode or a per-mode map.
   timeoutSeconds?: OrcaVmRecipeTimeoutSeconds
-  // Opt-in allowlist of Orca's environment variables the scripts receive (plus a safe base set).
+  // Opt-in allowlist of OpenKodo's environment variables the scripts receive (plus a safe base set).
   // Omitted means scripts inherit the full environment.
   passEnv?: string[]
 }

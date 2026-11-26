@@ -234,7 +234,7 @@ describe('commitExchangedCloudSession', () => {
       commit(exchangeFor('user-b', 'b-token'), { requireSealedStorage: true })
     ).resolves.toEqual({
       status: 'refused',
-      error: "Orca can't save your sign-in on this host: the keyring uses basic_text."
+      error: "OpenKodo can't save your sign-in on this host: the keyring uses basic_text."
     })
     expect(await revokedTokens()).toEqual(['b-token'])
     expect(linkedUserId()).toBe('user-a')

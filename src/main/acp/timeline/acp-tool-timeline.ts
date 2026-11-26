@@ -53,7 +53,7 @@ export class AcpToolTimeline {
   private readonly tools = new Map<string, ToolSnapshot>()
   // Closing updates may omit fields; only their running journal copies are previews.
   private readonly whole = new Map<string, { input?: unknown; output?: string }>()
-  // Kept after the task settles: its row is still Orca's inference, and settled reports latch.
+  // Kept after the task settles: its row is still OpenKodo's inference, and settled reports latch.
   private readonly backgrounded = new BoundedMap<string, AcpBackgroundTaskUpdate | true>({
     maxEntries: 128
   })
@@ -110,7 +110,7 @@ export class AcpToolTimeline {
     return input === undefined ? body : { ...body, input }
   }
 
-  /** Orca inferred this task from a call still running at its turn's end. */
+  /** OpenKodo inferred this task from a call still running at its turn's end. */
   backgrounds(toolCallId: string): boolean {
     return this.backgrounded.has(toolCallId)
   }

@@ -89,7 +89,7 @@ export function useBotSkillScan(
   return scan
 }
 
-/** How many sources the Skills row counts, as the desktop's: its own skills, then each project still in Orca. */
+/** How many sources the Skills row counts, as the desktop's: its own skills, then each project still in OpenKodo. */
 export function botSkillSourceCount(scan: PhoneSkillScan | null): number | null {
   if (!scan) {
     return null
@@ -128,7 +128,7 @@ function ProjectRow(props: {
         project.status === 'remote'
           ? t('bots.skills.remoteShort', 'On another host')
           : project.status === 'missing'
-            ? t('bots.skills.missingShort', 'No longer in Orca')
+            ? t('bots.skills.missingShort', 'No longer in OpenKodo')
             : count > 0
               ? skillCount(t, count)
               : t('bots.skills.none', 'No skills in this project yet')

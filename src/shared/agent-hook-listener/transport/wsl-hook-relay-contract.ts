@@ -6,10 +6,10 @@ export const WSL_HOOK_RELAY_BUNDLE_NAME = 'wsl-agent-hook-relay.js'
 export const WSL_HOOK_RELAY_VERSION_FILE = '.version'
 
 /** Pass the expected bundle version through WSLENV. Namespace guest installs by version so concurrent dev/prod apps cannot overwrite each other. */
-export const WSL_HOOK_RELAY_VERSION_ENV = 'ORCA_WSL_HOOK_RELAY_VERSION'
+export const WSL_HOOK_RELAY_VERSION_ENV = 'OPENKODO_WSL_HOOK_RELAY_VERSION'
 
 /** Pass an instance key derived from the Windows endpoint path, not its changing port. Restart-surviving agents must keep sourcing the same endpoint file. */
-export const WSL_HOOK_RELAY_INSTANCE_ENV = 'ORCA_WSL_HOOK_INSTANCE'
+export const WSL_HOOK_RELAY_INSTANCE_ENV = 'OPENKODO_WSL_HOOK_INSTANCE'
 
 /** 42 requests one reinstall/relaunch, matching SSH handshake mismatch. */
 export const WSL_HOOK_RELAY_STALE_EXIT_CODE = 42

@@ -114,7 +114,7 @@ export function stopBotShare(shareId: string, botId?: string): Promise<boolean> 
   )
 }
 
-/** Every live bot link the owner has, read from Orca Cloud; with `botId`, that bot's link also
+/** Every live bot link the owner has, read from OpenKodo Cloud; with `botId`, that bot's link also
  *  carries its version's publish time and digest. */
 export function listBotShares(botId?: string): Promise<BotOwnedShare[]> {
   return value(

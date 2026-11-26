@@ -165,7 +165,7 @@ export function seedWorkspaces(seeds: readonly WorkspaceSeed[], now: number): vo
         number: seed.pr.number,
         title: seed.name,
         state: seed.pr.state,
-        url: `https://github.com/stablyai/orca/pull/${seed.pr.number}`,
+        url: `https://github.com/OpenKodo/openkodo/pull/${seed.pr.number}`,
         status: 'success',
         updatedAt: new Date(now).toISOString(),
         mergeable: 'MERGEABLE'

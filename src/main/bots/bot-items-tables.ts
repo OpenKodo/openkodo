@@ -21,7 +21,7 @@ export class BotItemsTables {
 
   constructor(
     protected readonly db: SyncDatabase,
-    /** A newer Orca changed this file: reads only. */
+    /** A newer OpenKodo changed this file: reads only. */
     readonly readOnly: boolean
   ) {}
 
@@ -33,7 +33,7 @@ export class BotItemsTables {
     if (this.readOnly) {
       throw new BotItemError(
         'items_read_only',
-        'Items were updated by a newer Orca; update Orca to change them.'
+        'Items were updated by a newer OpenKodo; update OpenKodo to change them.'
       )
     }
     this.db.exec('BEGIN IMMEDIATE')

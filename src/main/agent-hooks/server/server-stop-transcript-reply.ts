@@ -161,7 +161,7 @@ export abstract class AgentHookServerStopTranscriptReply extends AgentHookServer
   }
 
   /** The pane's row while it is still this claim's Stop. The claim ends with any later hook, even
-   *  one in the same millisecond; the receipt check rejects rows Orca rebuilt meanwhile (a pane
+   *  one in the same millisecond; the receipt check rejects rows OpenKodo rebuilt meanwhile (a pane
    *  sleeping, an exited agent's resume row) while an identity settling keeps it. */
   private currentStopRow(claim: StopReplyClaim): AgentHookEventPayload | undefined {
     const row = this.state.lastStatusByPaneKey.get(claim.paneKey)

@@ -14,8 +14,8 @@ export type MutationReplayNudge =
   | { kind: 'messages'; targets: { to: string; type: string }[] }
   | { kind: 'federation'; runId?: string; environmentId?: string }
 
-const CALLER_ORCA_SESSION_ID_KEY = '__orcaCallerOrcaSessionId'
-// A paired Orca's address names its conversation, so one Run's receipt never answers another's.
+const CALLER_OPENKODO_SESSION_ID_KEY = '__orcaCallerOrcaSessionId'
+// A paired OpenKodo's address names its conversation, so one Run's receipt never answers another's.
 const PEER_CALLER_KEY = '__orcaPeerCaller'
 
 export function replayStableCallerParams(
@@ -33,7 +33,7 @@ export function replayStableCallerParams(
     caller?.kind === 'peer'
       ? { ...source, [PEER_CALLER_KEY]: caller.address }
       : caller?.orcaSessionId
-        ? { ...source, [CALLER_ORCA_SESSION_ID_KEY]: caller.orcaSessionId }
+        ? { ...source, [CALLER_OPENKODO_SESSION_ID_KEY]: caller.orcaSessionId }
         : { ...source }
   if (method === 'orchestration.federationImport' && Array.isArray(result.items)) {
     result.items = result.items.map((item: Record<string, unknown>) => {

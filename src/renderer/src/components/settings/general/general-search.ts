@@ -33,7 +33,7 @@ export const getGeneralWorkspaceSearchDescriptors = createLocalizedCatalog(() =>
     ),
     description: translate(
       'auto.components.settings.general.search.externalWorktreesDescription',
-      'Choose whether worktrees created outside Orca appear by default.'
+      'Choose whether worktrees created outside OpenKodo appear by default.'
     ),
     keywords: [
       ...translateSearchKeyword('settings.general.search.keywords.source', 'source'),
@@ -142,14 +142,14 @@ export const getGeneralNavigationSearchEntries = createLocalizedCatalog(() => [
 export const getGeneralCliSearchEntries = createLocalizedCatalog(() => [
   {
     title: translate('settings.general.cli.otherTerminals', '{{command}} in other terminals', {
-      command: 'orca'
+      command: 'openkodo'
     }),
     description: translate(
       'auto.components.settings.general.search.ca529079bf',
-      'Register or remove the Orca CLI command.'
+      'Register or remove the OpenKodo CLI command.'
     ),
     keywords: [
-      translate('auto.components.settings.general.search.327e3fa70d', 'Orca CLI'),
+      translate('auto.components.settings.general.search.327e3fa70d', 'OpenKodo CLI'),
       ...translateSearchKeyword('settings.general.search.keywords.command_line', 'command line'),
       ...translateSearchKeyword('auto.components.settings.general.search.924a660a78', 'cli'),
       ...translateSearchKeyword('auto.components.settings.general.search.fb4f338a3d', 'path'),
@@ -170,10 +170,10 @@ export const getGeneralCliSearchEntries = createLocalizedCatalog(() => [
   },
   {
     targetSectionId: GENERAL_SETTING_ANCHORS.cliSkill,
-    title: translate('settings.general.cli.skillTitle', 'Orca skill for agents'),
+    title: translate('settings.general.cli.skillTitle', 'OpenKodo skill for agents'),
     description: translate(
       'auto.components.settings.general.search.244e3fb4c8',
-      'Install the Orca skill so agents know to use the Orca CLI.'
+      'Install the OpenKodo skill so agents know to use the OpenKodo CLI.'
     ),
     keywords: [
       translate('auto.components.settings.general.search.2d9f7b42df', 'Agent skill'),
@@ -189,7 +189,7 @@ export const getGeneralUpdateSearchEntries = createLocalizedCatalog(() => [
     title: translate('auto.components.settings.general.search.0504f69ba0', 'Check for updates'),
     description: translate(
       'auto.components.settings.general.search.79ff46776e',
-      'Check for app updates and install a newer Orca version.'
+      'Check for app updates and install a newer OpenKodo version.'
     ),
     keywords: [
       ...translateSearchKeyword('settings.general.search.keywords.about', 'about'),

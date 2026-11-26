@@ -8,7 +8,7 @@ import {
   encodeWindowsPowerShellHookCommand,
   WINDOWS_POWERSHELL_HOOK_SWITCHES
 } from './windows-powershell-hook-launcher'
-import { POSIX_ORCA_PANE_GUARD } from './posix-hook-command'
+import { POSIX_OPENKODO_PANE_GUARD } from './posix-hook-command'
 
 const MANAGED_SCRIPT_BASE_NAME = /^[A-Za-z0-9_-]+$/
 const WINDOWS_GIT_BASH_RUNTIME_HOME_UNSAFE = '*\\&*|*\\^*|*\\(*|*\\)*|*\\;*|*,*|*=*|*%*|*\\!*'
@@ -24,9 +24,9 @@ function buildPosixBranch(
   missingScriptFallback: string,
   options: { requireHome?: boolean; requirePane?: boolean } = {}
 ): string {
-  const posixScript = `"\${HOME-}/.orca/agent-hooks/${scriptBaseName}.sh"`
+  const posixScript = `"\${HOME-}/.openkodo/agent-hooks/${scriptBaseName}.sh"`
   const homeGuard = options.requireHome ? '[ -n "${HOME-}" ] && ' : ''
-  const paneGuard = options.requirePane ? `${POSIX_ORCA_PANE_GUARD} && ` : ''
+  const paneGuard = options.requirePane ? `${POSIX_OPENKODO_PANE_GUARD} && ` : ''
   const parentCapture =
     scriptBaseName === 'claude-hook' || scriptBaseName === 'openclaude-hook'
       ? HOOK_PARENT_CAPTURE
@@ -46,10 +46,10 @@ export function wrapRuntimeHomeHookCommand(
 ): string {
   assertManagedScriptBaseName(scriptBaseName)
   // Grok rejects unresolved bare variables even in untaken platform branches.
-  const windowsScript = `"\${HOME-}/.orca/agent-hooks/${scriptBaseName}.cmd"`
+  const windowsScript = `"\${HOME-}/.openkodo/agent-hooks/${scriptBaseName}.cmd"`
   const drain = POSIX_HOOK_STDIN_DRAIN_COMMAND
   const neutralJson = options.neutralJsonWhenMissing ? `printf '{}\\n'` : ''
-  // POSIX drains before answering; Windows answers and checks Orca context before reading abandoned stdin.
+  // POSIX drains before answering; Windows answers and checks OpenKodo context before reading abandoned stdin.
   const posixMissingScriptFallback = neutralJson ? `${drain}; ${neutralJson}` : drain
   const windowsMissingScriptFallback = [
     ...(neutralJson ? [neutralJson] : []),

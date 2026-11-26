@@ -28,9 +28,9 @@ export async function fillMonorepoReleaseImages(
   if (!newest || newest.images || !prefix || !isSameGitRepository(entry.source.url, catalogUrl)) {
     return { entry, readBlob }
   }
-  const manifestBytes = await readBlob(`${prefix}/orca-plugin.json`, MANIFEST_MAX_BYTES).catch(
-    () => null
-  )
+  const manifestBytes =
+    (await readBlob(`${prefix}/openkodo-plugin.json`, MANIFEST_MAX_BYTES).catch(() => null)) ??
+    (await readBlob(`${prefix}/orca-plugin.json`, MANIFEST_MAX_BYTES).catch(() => null))
   const manifest = manifestBytes ? parseManifest(manifestBytes, memo?.manifests) : null
   const read = new Map<string, Buffer>()
   const images = await catalogImagesFromManifest({

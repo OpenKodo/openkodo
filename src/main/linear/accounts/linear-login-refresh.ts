@@ -31,7 +31,7 @@ const refresher = createHostOAuthRefresher<LinearLogin>({
       },
       login.refreshToken
     ),
-  // Revoked or expired for good: forget it, so Orca says to connect again instead of failing.
+  // Revoked or expired for good: forget it, so OpenKodo says to connect again instead of failing.
   // Offline needs nothing: the next read or wake tries again; Linear replays a refresh for 30 minutes.
   ended: (workspaceId, login) => clearWorkspaceLogin(workspaceId, login.refreshToken)
 })

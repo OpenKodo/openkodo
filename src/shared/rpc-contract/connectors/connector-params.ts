@@ -52,10 +52,10 @@ export const ConnectorLeaveThread = z.object({
 
 const MirrorChat = { sessionId: z.string().min(1, 'Missing session id') }
 
-/** A bot's Slack thread chat: post the owner's next messages there too, or keep them in Orca. */
+/** A bot's Slack thread chat: post the owner's next messages there too, or keep them in OpenKodo. */
 export const ConnectorSlackMirrorSet = z.object({ ...MirrorChat, on: z.boolean() })
 
-/** One Orca-typed message's post to the thread: Retry, Dismiss or Delete from Slack. */
+/** One OpenKodo-typed message's post to the thread: Retry, Dismiss or Delete from Slack. */
 export const ConnectorSlackMirrorPost = z.object({
   ...MirrorChat,
   itemId: z.string().min(1, 'Missing item id'),

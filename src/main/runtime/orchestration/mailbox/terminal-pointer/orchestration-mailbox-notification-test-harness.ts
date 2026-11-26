@@ -9,7 +9,7 @@ import type Database from '../../../../sqlite/sync-database'
 import { OrcaRuntimeService } from '../../../orca-runtime'
 import { OrchestrationDb } from '../../db/orchestration-db'
 import type { RuntimeStore } from '../../../construction/runtime-store-contract'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import {
   bindPaneFirst,
   registerBoundPty
@@ -124,7 +124,7 @@ export async function createRuntime(
   } = {}
 ): Promise<MailboxNotificationHarness> {
   const runtime = new MailboxRuntime(
-    ORCA_LAYOUT_OWNER_IS_MAIN ? mailboxLayoutStore() : null,
+    OPENKODO_LAYOUT_OWNER_IS_MAIN ? mailboxLayoutStore() : null,
     undefined,
     {
       getAgentStatusSnapshot: options.getAgentStatusSnapshot,

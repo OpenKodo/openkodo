@@ -18,7 +18,7 @@ function noCopyText(): null {
 }
 
 /** Native chat's follow policy on an unwindowed bot list (a room's transcript, an item's activity):
- * every scroll write is marked as Orca's own. */
+ * every scroll write is marked as OpenKodo's own. */
 export function useBotTranscriptFollow({
   messageCopyText,
   preserveReaderOnViewportResize = false,

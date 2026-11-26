@@ -37,15 +37,15 @@ export function applyManagedDataAccountEnvironment(
   if (!selected.XDG_DATA_HOME) {
     if (provider === 'opencode' && requestedAccountId === SYSTEM_DATA_ACCOUNT_RESUME_ID) {
       // Later launch checks can't see the consumed request; a bare marker means the System store.
-      environment.ORCA_DATA_ACCOUNT_PROVIDER = provider
+      environment.OPENKODO_DATA_ACCOUNT_PROVIDER = provider
     }
     return
   }
   service.captureOriginalEnvironment(environment, selected)
   Object.assign(environment, selected)
-  environment.ORCA_DATA_ACCOUNT_DATA_HOME = selected.XDG_DATA_HOME
-  environment.ORCA_DATA_ACCOUNT_STATE_HOME = selected.XDG_STATE_HOME
-  environment.ORCA_DATA_ACCOUNT_PROVIDER = provider
+  environment.OPENKODO_DATA_ACCOUNT_DATA_HOME = selected.XDG_DATA_HOME
+  environment.OPENKODO_DATA_ACCOUNT_STATE_HOME = selected.XDG_STATE_HOME
+  environment.OPENKODO_DATA_ACCOUNT_PROVIDER = provider
   if (provider === 'opencode') {
     // Clear overrides that could bypass the selected profile's credentials.
     environment.OPENCODE_AUTH_CONTENT = ''

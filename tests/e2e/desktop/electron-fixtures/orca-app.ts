@@ -52,15 +52,15 @@ type OrcaWorkerFixtures = {
 }
 
 // Warn about invalid slowMo once per worker rather than once per test.
-const ORCA_E2E_SLOWMO_MS_RAW = process.env.ORCA_E2E_SLOWMO_MS
-const ORCA_E2E_SLOWMO_MS = ((): number => {
-  if (ORCA_E2E_SLOWMO_MS_RAW === undefined) {
+const OPENKODO_E2E_SLOWMO_MS_RAW = process.env.OPENKODO_E2E_SLOWMO_MS
+const OPENKODO_E2E_SLOWMO_MS = ((): number => {
+  if (OPENKODO_E2E_SLOWMO_MS_RAW === undefined) {
     return 0
   }
-  const parsed = Number(ORCA_E2E_SLOWMO_MS_RAW)
+  const parsed = Number(OPENKODO_E2E_SLOWMO_MS_RAW)
   if (!Number.isFinite(parsed)) {
     console.warn(
-      `[orca-e2e] ORCA_E2E_SLOWMO_MS="${ORCA_E2E_SLOWMO_MS_RAW}" is not a number; ignoring (using 0).`
+      `[orca-e2e] OPENKODO_E2E_SLOWMO_MS="${OPENKODO_E2E_SLOWMO_MS_RAW}" is not a number; ignoring (using 0).`
     )
     return 0
   }
@@ -86,7 +86,7 @@ async function removeUserDataDirAfterShutdown(userDataDir: string): Promise<void
 
 function shouldLaunchHeadful(testInfo: TestInfo): boolean {
   // Allow isolated manual observation without retagging every spec.
-  if (process.env.ORCA_E2E_FORCE_HEADFUL === '1') {
+  if (process.env.OPENKODO_E2E_FORCE_HEADFUL === '1') {
     return true
   }
   return testInfo.project.metadata.orcaHeadful === true
@@ -94,7 +94,7 @@ function shouldLaunchHeadful(testInfo: TestInfo): boolean {
 
 // Expose gated log forwarding to specs that own their own app lifecycle.
 export function forwardElectronProcessLogs(app: ElectronApplication, testInfo: TestInfo): void {
-  if (process.env.ORCA_E2E_FORWARD_APP_LOGS !== '1') {
+  if (process.env.OPENKODO_E2E_FORWARD_APP_LOGS !== '1') {
     return
   }
 
@@ -169,9 +169,9 @@ export const test = base.extend<OrcaTestFixtures, OrcaWorkerFixtures>({
       userDataDir
     })
     // Use slowMo only for deliberate observation on an isolated display.
-    const slowMo = ORCA_E2E_SLOWMO_MS
+    const slowMo = OPENKODO_E2E_SLOWMO_MS
     // Record video for Electron replay; create outputDir up front or Windows may silently drop recordings.
-    const recordVideoDir = process.env.ORCA_E2E_RECORD_VIDEO === '1' ? testInfo.outputDir : null
+    const recordVideoDir = process.env.OPENKODO_E2E_RECORD_VIDEO === '1' ? testInfo.outputDir : null
     if (recordVideoDir) {
       mkdirSync(recordVideoDir, { recursive: true })
     }
@@ -183,7 +183,7 @@ export const test = base.extend<OrcaTestFixtures, OrcaWorkerFixtures>({
       env: {
         ...homeIsolation.env,
         NODE_ENV: 'development',
-        ...(headful ? { ORCA_E2E_HEADFUL: '1' } : { ORCA_E2E_HEADLESS: '1' })
+        ...(headful ? { OPENKODO_E2E_HEADFUL: '1' } : { OPENKODO_E2E_HEADLESS: '1' })
       }
     })
     forwardElectronProcessLogs(app, testInfo)

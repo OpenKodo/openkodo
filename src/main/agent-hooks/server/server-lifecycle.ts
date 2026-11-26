@@ -70,7 +70,7 @@ export abstract class AgentHookServerLifecycle extends AgentHookServerClaudeStat
         res.end()
         return
       }
-      if (req.headers['x-orca-agent-hook-token'] !== this.token) {
+      if (req.headers['x-openkodo-agent-hook-token'] !== this.token) {
         res.writeHead(403)
         res.end()
         return
@@ -285,7 +285,7 @@ export abstract class AgentHookServerLifecycle extends AgentHookServerClaudeStat
     this.legacyPaneKeyAliases.clear()
     this.paneKeyAliasPersistenceListener = null
     this.ownerStateInitialized = false
-    // Leave the endpoint: stale files fail open, and unlinking can race another Orca instance.
+    // Leave the endpoint: stale files fail open, and unlinking can race another OpenKodo instance.
     this.providerRowsByTab = null
     clearAllListenerCaches(this.state)
     if (!options?.keepStatus) {

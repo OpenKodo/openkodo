@@ -15,12 +15,12 @@ function entry(
   categories: string[],
   extra: Partial<PluginMarketplaceHostListing> = {}
 ): PluginListEntry {
-  const official = pluginKey.startsWith('stablyai.')
+  const official = pluginKey.startsWith('openkodo.')
   return {
     ...pluginListEntryFromListing({
       marketplaceSourceId: official ? 'official' : 'community',
-      marketplaceName: official ? 'Orca Official Plugins' : 'Orca Community Plugins',
-      marketplaceOwner: 'stablyai',
+      marketplaceName: official ? 'OpenKodo Official Plugins' : 'OpenKodo Community Plugins',
+      marketplaceOwner: 'openkodo',
       marketplaceCommit: 'c'.repeat(40),
       pluginKey,
       source: { kind: 'git', url: `https://github.com/${pluginKey}.git`, ref: 'main' },
@@ -40,26 +40,26 @@ const addedHoursAgo = (hours: number): string =>
 
 const entries = [
   entry(
-    'stablyai.orca-ayu-theme',
-    'Ayu for Orca',
+    'openkodo.ayu-theme',
+    'Ayu for OpenKodo',
     'Simple, bright and elegant: Ayu Light, Mirage and Dark app themes with matching code and terminal colors.',
     ['themes']
   ),
   entry(
-    'stablyai.orca-catppuccin-theme',
-    'Catppuccin for Orca',
-    'Soothing pastel app themes for Orca: Mocha for dark mode and Latte for light mode.',
+    'openkodo.catppuccin-theme',
+    'Catppuccin for OpenKodo',
+    'Soothing pastel app themes for OpenKodo: Mocha for dark mode and Latte for light mode.',
     ['themes']
   ),
   entry(
-    'stablyai.orca-excalidraw',
+    'openkodo.excalidraw',
     'Excalidraw',
-    'Draw and edit .excalidraw diagrams, and .excalidraw.svg and .excalidraw.png images, right in Orca.',
+    'Draw and edit .excalidraw diagrams, and .excalidraw.svg and .excalidraw.png images, right in OpenKodo.',
     ['editors']
   ),
   entry(
-    'stablyai.orca-material-icons',
-    'Material Icon Theme for Orca',
+    'openkodo.material-icons',
+    'Material Icon Theme for OpenKodo',
     'Colorful Material file icons for about 470 file types and names, with a variant for light themes.',
     ['icons']
   ),
@@ -86,21 +86,21 @@ const entries = [
   entry(
     'hilbana.hilbana',
     'Hilbana',
-    'Your Hilbana issues inside Orca: list, filters, search, detail, state changes and comments.',
+    'Your Hilbana issues inside OpenKodo: list, filters, search, detail, state changes and comments.',
     ['panels'],
     { addedAt: addedHoursAgo(2.5) }
   ),
   entry(
     'ebbop.italiano',
     'Italiano',
-    'Traduzione italiana dell’interfaccia di Orca.',
+    'Traduzione italiana dell’interfaccia di OpenKodo.',
     ['language-packs'],
     { addedAt: addedHoursAgo(30) }
   ),
   entry(
     'gongxliang.claude-paper',
     'Claude Paper',
-    'Warm paper light and charcoal dark for Orca: chat, code, diffs and terminal.',
+    'Warm paper light and charcoal dark for OpenKodo: chat, code, diffs and terminal.',
     ['themes'],
     { addedAt: addedHoursAgo(80) }
   ),
@@ -128,7 +128,7 @@ const entries = [
   entry(
     'kodama.deutsch',
     'Deutsch',
-    'Deutsche Übersetzung der Orca-Oberfläche.',
+    'Deutsche Übersetzung der OpenKodo-Oberfläche.',
     ['language-packs'],
     { addedAt: addedHoursAgo(24 * 17) }
   ),
@@ -163,10 +163,10 @@ const handlers: CatalogCardHandlers = {
 function setup(): void {
   usePluginInstallCountsStore.setState({
     counts: {
-      'stablyai.orca-ayu-theme': 2467,
-      'stablyai.orca-catppuccin-theme': 2134,
-      'stablyai.orca-excalidraw': 2384,
-      'stablyai.orca-material-icons': 1576,
+      'openkodo.ayu-theme': 2467,
+      'openkodo.catppuccin-theme': 2134,
+      'openkodo.excalidraw': 2384,
+      'openkodo.material-icons': 1576,
       'thailoc-dev.dev-toolbox': 422
     }
   })
@@ -200,10 +200,10 @@ const fiveNew = (() => {
 /** Highlights over the catalog groups, as the plugins page lays them out. */
 function renderPage(pageEntries: readonly PluginListEntry[]): () => React.JSX.Element {
   const groups = [
-    { id: 'official', title: 'Orca Official Plugins', detail: 'verified · stablyai' },
+    { id: 'official', title: 'OpenKodo Official Plugins', detail: 'verified · openkodo' },
     {
       id: 'community',
-      title: 'Orca Community Plugins',
+      title: 'OpenKodo Community Plugins',
       // Why unverified with the URL: community sources are not official, so the app names the repo.
       detail: 'unverified · https://github.com/stablyai/orca-community-plugins.git'
     }

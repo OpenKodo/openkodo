@@ -47,7 +47,7 @@ export function orcadProfilePreflightCommand(
     joinRemotePath(host, directory, ORCAD_NODE_RUNTIME_MARKER_FILENAME)
   )
   const launch = [
-    'ORCA_BACKGROUND_LAUNCH=1',
+    'OPENKODO_BACKGROUND_LAUNCH=1',
     '"$orcad_runtime"',
     '"$orcad_entry"',
     ORCAD_PROFILE_PREFLIGHT_FLAG,

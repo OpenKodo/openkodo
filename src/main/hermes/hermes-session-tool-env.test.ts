@@ -11,7 +11,7 @@ const publish = (token: string, live: () => boolean, bot?: { agentVersion?: stri
   publishHermesSessionToolEnv({
     env: { HERMES_HOME: home },
     providerSessionId: 'local-abc',
-    values: { ORCA_AGENT_SESSION_TOOL_TOKEN: token },
+    values: { OPENKODO_AGENT_SESSION_TOOL_TOKEN: token },
     live,
     mustReach: bot !== undefined,
     ...(bot?.agentVersion ? { agentVersion: bot.agentVersion } : {})
@@ -45,7 +45,7 @@ describe('publishHermesSessionToolEnv', () => {
     await publish('late-old', () => oldLive)
     await withdrawOld()
     expect(JSON.parse(await readFile(file(), 'utf-8'))).toEqual({
-      ORCA_AGENT_SESSION_TOOL_TOKEN: 'new'
+      OPENKODO_AGENT_SESSION_TOOL_TOKEN: 'new'
     })
 
     await withdrawNew()

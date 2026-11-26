@@ -35,7 +35,7 @@ describe('a send to a bot thread', () => {
     expect(threadMuteStep(true, { asker: {}, mentioned: true })).toBe('unmute_and_send')
     expect(threadMuteStep(true, { asker: {}, bareMention: true })).toBe('unmute_and_send')
     expect(threadMuteStep(true, { asker: {} })).toBe('silence')
-    // An agent's words (another app's, or an Orca bot's for someone) never unmute it.
+    // An agent's words (another app's, or an OpenKodo bot's for someone) never unmute it.
     expect(threadMuteStep(true, { asker: { app: true }, mentioned: true })).toBe('silence')
     expect(threadMuteStep(true, { asker: { via: { userId: 'U0OTHER' } }, bareMention: true })).toBe(
       'silence'

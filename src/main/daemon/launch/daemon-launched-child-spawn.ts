@@ -99,7 +99,7 @@ export function spawnDaemonChildProcess(
     ELECTRON_RUN_AS_NODE: '1',
     ...hostMallocTunablesDaemonEnv(),
     // The detached daemon lacks AppEnvironment; rcfiles must stay outside swept temporary directories.
-    ORCA_USER_DATA_PATH: userDataPath
+    OPENKODO_USER_DATA_PATH: userDataPath
   }
   // Every PTY inherits this environment (#21119).
   removeChromiumDisabledSessionBus(daemonEnv)
@@ -116,7 +116,7 @@ export function spawnDaemonChildProcess(
       ...childOptions,
       modulePath: forkEntryPath,
       args: scriptArgs,
-      // Keep the byte-identical Orca.exe outside the updater's kill zone.
+      // Keep the byte-identical OpenKodo.exe outside the updater's kill zone.
       ...(relocatedExecPath ? { execPath: relocatedExecPath } : {}),
       execArgv: [...process.execArgv, ...DAEMON_V8_FLAGS],
       env: daemonEnv

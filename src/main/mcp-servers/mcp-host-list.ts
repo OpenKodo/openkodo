@@ -52,7 +52,7 @@ function viewOf(entry: HostEntry, folder: string): McpServer {
   }
 }
 
-/** Every entry with a unique id; one missing or repeated (an edit outside Orca) gets a new one. */
+/** Every entry with a unique id; one missing or repeated (an edit outside OpenKodo) gets a new one. */
 function withIds(entries: readonly BotToolEntry[]): { entries: HostEntry[]; assigned: boolean } {
   const seen = new Set<string>()
   let assigned = false
@@ -91,7 +91,7 @@ export async function readHostEntries(folder: string): Promise<HostList> {
   return { entries: withIds(botToolEntries(saved)).entries, file: saved.file }
 }
 
-/** The file's `agentFiles`: which agents' own MCP file the user let Orca keep its servers in. */
+/** The file's `agentFiles`: which agents' own MCP file the user let OpenKodo keep its servers in. */
 function agentFilesOf(file: Readonly<Record<string, unknown>>): McpAgentFiles {
   const stored = AgentFilesSchema.safeParse(file.agentFiles).data ?? {}
   const allowed = (agent: McpFileAgent): boolean => stored[agent] === true
@@ -124,7 +124,7 @@ export async function listMcpServers(folder = mcpHostListFolder()): Promise<McpS
   return (await readMcpHostList(folder)).servers
 }
 
-/** What mcpServers.list answers: the servers, and the agents whose own file Orca may keep them in. */
+/** What mcpServers.list answers: the servers, and the agents whose own file OpenKodo may keep them in. */
 export async function readMcpHostList(
   folder = mcpHostListFolder()
 ): Promise<{ servers: McpServer[]; agentFiles: McpAgentFiles }> {
@@ -132,7 +132,7 @@ export async function readMcpHostList(
   return { servers: entries.map((entry) => viewOf(entry, folder)), agentFiles: agentFilesOf(file) }
 }
 
-/** The user's consent, or its withdrawal, for Orca to keep its servers in `agent`'s own MCP file. */
+/** The user's consent, or its withdrawal, for OpenKodo to keep its servers in `agent`'s own MCP file. */
 export async function setMcpAgentFileAllowed(
   agent: McpFileAgent,
   allowed: boolean,
@@ -145,7 +145,7 @@ export async function setMcpAgentFileAllowed(
 }
 
 /**
- * Adds `given`, as a server Orca signs in to when its address asks for a sign-in. A name from a
+ * Adds `given`, as a server OpenKodo signs in to when its address asks for a sign-in. A name from a
  * paste that's taken gets a free one (`linear-2`); a name the user gave is refused instead.
  */
 export async function addMcpServer(
@@ -190,7 +190,7 @@ export async function updateMcpServer(
   const before = await entryById(folder, id)
   assertNotFromPlugin(before.extras)
   const resolved = resolveBotToolInput(input, withSavedBotToolHeaders(folder, before.server))
-  // A new address with no saved values is sorted as add sorts one: it may need Orca's sign-in.
+  // A new address with no saved values is sorted as add sorts one: it may need OpenKodo's sign-in.
   const newAddress =
     'url' in resolved &&
     !resolved.credential &&
@@ -226,7 +226,7 @@ export async function updateMcpServer(
   return storedView(folder, id)
 }
 
-/** Removing a server Orca signs in to revokes that sign-in with it (bot-tools-file's write). A
+/** Removing a server OpenKodo signs in to revokes that sign-in with it (bot-tools-file's write). A
  *  plugin's server goes only with the plugin, or the next sync would bring it back. */
 export async function removeMcpServer(id: string, folder = mcpHostListFolder()): Promise<void> {
   await changeHostEntries(folder, (entries) => {
@@ -291,7 +291,7 @@ export function setMcpServerSharedProcess(
       if ('url' in entry.server) {
         throw new McpServersError(
           'mcp_server_not_command',
-          'Only a server Orca starts with a command can share one process.'
+          'Only a server OpenKodo starts with a command can share one process.'
         )
       }
       return { ...entry.extras, sharedProcess: enabled }

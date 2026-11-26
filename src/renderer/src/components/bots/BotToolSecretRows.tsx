@@ -93,7 +93,7 @@ export function BotToolSecretRows({
           {locked ? (
             <span className="relative min-w-0 flex-1">
               {valueInput(row, index)}
-              {/* Every value is a secret: stored by Orca, never written into an agent's file. */}
+              {/* Every value is a secret: stored by OpenKodo, never written into an agent's file. */}
               <Lock
                 aria-hidden
                 className="pointer-events-none absolute top-1/2 right-2.5 size-3.5 -translate-y-1/2 text-muted-foreground"

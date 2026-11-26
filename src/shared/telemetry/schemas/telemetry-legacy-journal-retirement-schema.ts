@@ -45,7 +45,7 @@ export const LEGACY_JOURNAL_RETIREMENT_ERRORS = [
   'conversion',
   // The store or the file could not be read or written.
   'storage',
-  // A check that waits on something to settle, such as a chat an older Orca wrote.
+  // A check that waits on something to settle, such as a chat an older OpenKodo wrote.
   'pending',
   'other'
 ] as const
@@ -54,11 +54,11 @@ export const LEGACY_JOURNAL_RETIREMENT_DEFERS = [
   'none',
   // This process does not hold the profile lock, so it cannot check the store.
   'not_owner',
-  // Without a running version, retirement cannot establish that Orca was updated.
+  // Without a running version, retirement cannot establish that OpenKodo was updated.
   'no_version',
   // This version copied the chats, or is older: deletion waits for an update.
   'same_version',
-  // An older Orca wrote the file since; the next launch takes that in first.
+  // An older OpenKodo wrote the file since; the next launch takes that in first.
   'not_reconciled',
   // The file's storage can't be locked safely, so it is never deleted there.
   'unsupported_storage',

@@ -80,7 +80,7 @@ export abstract class LegacyWorkerRuntimeRecovery extends RuntimeWorkspaceSessio
   private readonly dismissalWatched = new WeakSet<object>()
 
   /** Once per start, after restored terminal authority: tell coordinators about workers that
-   *  stopped while Orca was down, or that this start did not continue. */
+   *  stopped while OpenKodo was down, or that this start did not continue. */
   reportWorkerStopsAcrossRestartOnce(): Promise<void> {
     // Restored terminals are placed: workers held for a restart resume reopen now.
     this.terminalWorkerRestartResume.settleStartup()
@@ -163,7 +163,7 @@ export abstract class LegacyWorkerRuntimeRecovery extends RuntimeWorkspaceSessio
     }
   }
 
-  /** Tells the coordinator once about a start whose turn Orca never saw begin, live or after a
+  /** Tells the coordinator once about a start whose turn OpenKodo never saw begin, live or after a
    *  restart; a terminal's screen shows whether its brief still waits in the prompt. */
   async reportUnconfirmedWorkerStart(
     dispatchId: string,

@@ -58,7 +58,7 @@ export function buildUnixCliLauncher(
   if (runtime === 'node') {
     return `#!/usr/bin/env sh
 set -eu
-export ORCA_USER_DATA_PATH=${quotePosixShellDoubleQuotedApostrophe(userDataPath)}
+export OPENKODO_USER_DATA_PATH=${quotePosixShellDoubleQuotedApostrophe(userDataPath)}
 unset NODE_OPTIONS NODE_REPL_EXTERNAL_MODULE ELECTRON_RUN_AS_NODE
 exec ${quotePosixShellDoubleQuotedApostrophe(execPathValue)} ${quotePosixShellDoubleQuotedApostrophe(cliEntryPath)} "$@"
 `
@@ -67,13 +67,13 @@ exec ${quotePosixShellDoubleQuotedApostrophe(execPathValue)} ${quotePosixShellDo
 set -euo pipefail
 ELECTRON=${quotePosixShellDoubleQuotedApostrophe(execPathValue)}
 CLI=${quotePosixShellDoubleQuotedApostrophe(cliEntryPath)}
-export ORCA_USER_DATA_PATH=${quotePosixShellDoubleQuotedApostrophe(userDataPath)}
-if [ -z "\${ORCA_APP_EXECUTABLE:-}" ]; then
-  export ORCA_APP_EXECUTABLE="$ELECTRON"
-  export ORCA_APP_EXECUTABLE_NEEDS_APP_ROOT=1
+export OPENKODO_USER_DATA_PATH=${quotePosixShellDoubleQuotedApostrophe(userDataPath)}
+if [ -z "\${OPENKODO_APP_EXECUTABLE:-}" ]; then
+  export OPENKODO_APP_EXECUTABLE="$ELECTRON"
+  export OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT=1
 fi
-export ORCA_NODE_OPTIONS="\${NODE_OPTIONS-}"
-export ORCA_NODE_REPL_EXTERNAL_MODULE="\${NODE_REPL_EXTERNAL_MODULE-}"
+export OPENKODO_NODE_OPTIONS="\${NODE_OPTIONS-}"
+export OPENKODO_NODE_REPL_EXTERNAL_MODULE="\${NODE_REPL_EXTERNAL_MODULE-}"
 unset NODE_OPTIONS
 unset NODE_REPL_EXTERNAL_MODULE
 ELECTRON_RUN_AS_NODE=1 exec "$ELECTRON" "$CLI" "$@"
@@ -89,13 +89,13 @@ export function buildWindowsDevLauncher(
 setlocal
 set "ELECTRON=${escapeWindowsBatchValue(execPathValue)}"
 set "CLI=${escapeWindowsBatchValue(cliEntryPath)}"
-set "ORCA_USER_DATA_PATH=${escapeWindowsBatchValue(userDataPath)}"
-if not defined ORCA_APP_EXECUTABLE (
-  set "ORCA_APP_EXECUTABLE=%ELECTRON%"
-  set "ORCA_APP_EXECUTABLE_NEEDS_APP_ROOT=1"
+set "OPENKODO_USER_DATA_PATH=${escapeWindowsBatchValue(userDataPath)}"
+if not defined OPENKODO_APP_EXECUTABLE (
+  set "OPENKODO_APP_EXECUTABLE=%ELECTRON%"
+  set "OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT=1"
 )
-set "ORCA_NODE_OPTIONS=%NODE_OPTIONS%"
-set "ORCA_NODE_REPL_EXTERNAL_MODULE=%NODE_REPL_EXTERNAL_MODULE%"
+set "OPENKODO_NODE_OPTIONS=%NODE_OPTIONS%"
+set "OPENKODO_NODE_REPL_EXTERNAL_MODULE=%NODE_REPL_EXTERNAL_MODULE%"
 set NODE_OPTIONS=
 set NODE_REPL_EXTERNAL_MODULE=
 set ELECTRON_RUN_AS_NODE=1
@@ -106,15 +106,15 @@ set ELECTRON_RUN_AS_NODE=1
 export function buildWindowsForwarder(launcherPath: string): string {
   return `@echo off
 setlocal
-set "ORCA_LAUNCHER=${escapeWindowsBatchValue(launcherPath)}"
-"%ORCA_LAUNCHER%" %*
+set "OPENKODO_LAUNCHER=${escapeWindowsBatchValue(launcherPath)}"
+"%OPENKODO_LAUNCHER%" %*
 `
 }
 
 export function extractManagedUnixLauncherTarget(content: string): string | null {
   if (
     !content.includes('ELECTRON_RUN_AS_NODE=1') ||
-    !content.includes('ORCA_NODE_OPTIONS') ||
+    !content.includes('OPENKODO_NODE_OPTIONS') ||
     !content.includes('NODE_REPL_EXTERNAL_MODULE')
   ) {
     return null
@@ -125,7 +125,7 @@ export function extractManagedUnixLauncherTarget(content: string): string | null
     return null
   }
 
-  // Why: only Orca's compiled CLI entrypoints count as managed; arbitrary Electron-launching scripts stay conflicts.
+  // Why: only OpenKodo's compiled CLI entrypoints count as managed; arbitrary Electron-launching scripts stay conflicts.
   return /(?:^|[/\\])(?:out|app\.asar\.unpacked[/\\]out)[/\\]cli[/\\]index\.js$/.test(cliPath)
     ? cliPath
     : null

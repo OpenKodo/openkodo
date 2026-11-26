@@ -17,7 +17,7 @@ import {
   type PhoneOwnedSignInOps
 } from '../bots/tools/bot-tool-operations'
 
-// An entry Orca can't read is on nowhere, never everywhere, as the host reads it.
+// An entry OpenKodo can't read is on nowhere, never everywhere, as the host reads it.
 const NOWHERE = { later: false, on: [], off: [] }
 
 export const McpServerSchema = z.looseObject({
@@ -39,7 +39,7 @@ export const McpServerSchema = z.looseObject({
 export type PhoneMcpServer = z.output<typeof McpServerSchema>
 export type PhoneMcpWorkspaces = PhoneMcpServer['workspaces']
 
-// Whether the user let Orca keep its servers in each file-based agent's own settings file.
+// Whether the user let OpenKodo keep its servers in each file-based agent's own settings file.
 const AgentFilesSchema = z
   .looseObject({
     grok: z.boolean().catch(false),

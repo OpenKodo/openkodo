@@ -16,7 +16,7 @@ export function mobileUsageLimitClock(at: number, now: number): string {
   return new Intl.DateTimeFormat(getUiIntlLocale(), options).format(at)
 }
 
-/** "Continues 1:40 AM", or "Hit limit · resets 1:40 AM" when Orca won't continue it. */
+/** "Continues 1:40 AM", or "Hit limit · resets 1:40 AM" when OpenKodo won't continue it. */
 export function mobileUsageLimitStopText(stop: UsageLimitStop, now: number): string {
   const time = mobileUsageLimitClock(stop.at, now)
   return stop.auto

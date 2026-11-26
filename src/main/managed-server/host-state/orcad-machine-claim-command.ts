@@ -9,7 +9,7 @@ import {
 import { dfAvailableKb } from './remote-filesystem-space'
 import { joinRemotePath, type RemoteHostPlatform } from '../../ssh/remote-host/ssh-remote-platform'
 
-/** Claim arbiter under ~/.orca-remote when hard links cannot elect an owner. */
+/** Claim arbiter under ~/.openkodo-remote when hard links cannot elect an owner. */
 export const ORCAD_MACHINE_CLAIM_ARBITER_DIRNAME = 'orcad-machine.arbiter'
 
 export const ORCAD_MACHINE_CLAIM_FAILED = 'CLAIM_FAILED'

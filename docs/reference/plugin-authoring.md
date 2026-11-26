@@ -8,17 +8,17 @@ live in the generated references: [manifest](plugin-manifest.md), [catalog](plug
 
 ## 1. Write
 
-A plugin is a folder (in practice its own Git repository) with `orca-plugin.json` at the root.
+A plugin is a folder (in practice its own Git repository) with `openkodo-plugin.json` at the root.
 Start from one of these, or scaffold one with `orca plugin create` (see [Validate](#3-validate)).
-Add the `$schema` line from `orca-gleam-syntax` to your manifest for editor completion.
+Add the `$schema` line from `openkodo-gleam-syntax` to your manifest for editor completion.
 
-| Example                               | Execution        | Shows                                                                                                                     |
-| ------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `examples/plugins/orca-gleam-syntax`  | `data`           | A syntax, no code                                                                                                         |
-| `examples/plugins/hello-tsx`          | `sandboxed-ui`   | A [components](plugin-declarative-ui.md) TSX panel with no build step                                                     |
-| `examples/plugins/hello-worker-panel` | `trusted-worker` | A TSX panel with its own worker, storage atom, settings and events ([Panels, workers and data](#panels-workers-and-data)) |
-| `examples/plugins/hello-components`   | `sandboxed-ui`   | The same kind of [components](plugin-declarative-ui.md) panel, bundled first                                              |
-| `examples/plugins/hello-orca`         | `trusted-worker` | A panel, a worker command and events                                                                                      |
+| Example                                  | Execution        | Shows                                                                                                                     |
+| ---------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `examples/plugins/openkodo-gleam-syntax` | `data`           | A syntax, no code                                                                                                         |
+| `examples/plugins/hello-tsx`             | `sandboxed-ui`   | A [components](plugin-declarative-ui.md) TSX panel with no build step                                                     |
+| `examples/plugins/hello-worker-panel`    | `trusted-worker` | A TSX panel with its own worker, storage atom, settings and events ([Panels, workers and data](#panels-workers-and-data)) |
+| `examples/plugins/hello-components`      | `sandboxed-ui`   | The same kind of [components](plugin-declarative-ui.md) panel, bundled first                                              |
+| `examples/plugins/hello-orca`            | `trusted-worker` | A panel, a worker command and events                                                                                      |
 
 Leave `publisher` out. Orca names the publisher after where the plugin comes from, the way a
 [Go module path](https://go.dev/ref/mod#module-path) is its repository path: the owner of the
@@ -39,7 +39,7 @@ to the repository owner; `validate:plugin` warns about it either way. An install
 1.4.246 keeps its key, approvals and data. A local or development folder that still declares
 `publisher` keeps using it until you remove it.
 
-When copying the Gleam example, also drop its `stablyai` publisher and `orca-` id prefix: both are
+When copying the Gleam example, also drop its `stablyai` publisher and `openkodo-` id prefix: both are
 reserved for Orca's own plugins, as are owners named `official`, `anthropic`, `openai`, `github`
 or starting with `orca`.
 
@@ -52,7 +52,7 @@ asked to approve:
 - `sandboxed-ui`: panels and custom editors, in a sandboxed frame that talks to Orca only
   through `window.orca` (see [Frames](#frames-windoworca)) and can call only the host methods
   whose surfaces list `panel` or `editor`.
-  Orca's colors reach frame CSS as `--orca-background`, `--orca-foreground`, `--orca-primary`
+  Orca's colors reach frame CSS as `--openkodo-background`, `--openkodo-foreground`, `--openkodo-primary`
   and the rest of its [frame variables](plugin-theme-tokens.md#frame-css-variables), so they never
   collide with a frame's own variables.
 - `trusted-worker`: `main` runs in a separate Node process and can call every host method its
@@ -112,7 +112,7 @@ Aborting the `signal` rejects the call with `cancelled`. Treat an error `code` y
 #### Files and assets
 
 In the desktop app each plugin's frames run in their own isolated process, storage and origin,
-`orca-plugin-frame://<key>/`, served from your plugin folder. Load scripts, styles, images, fonts,
+`openkodo-plugin-frame://<key>/`, served from your plugin folder. Load scripts, styles, images, fonts,
 WASM and workers by relative URL (`<script src="lib/app.js">`, `new Worker('worker.js')`,
 `WebAssembly.instantiateStreaming(fetch('lib/mod.wasm'))`), and `localStorage` and IndexedDB
 persist per plugin. The network is closed: anything not in your plugin folder, `data:` or
@@ -392,7 +392,7 @@ hosts): a larger file shows "too large to open", and a larger edit is rejected w
 Past 16 MiB the tab notes that the file may take a moment. Orca saves on its own save shortcut pressed
 inside the frame, never on a call alone.
 
-Theme changes do not reload the frame: the shell updates the `--orca-*` variables and the
+Theme changes do not reload the frame: the shell updates the `--openkodo-*` variables and the
 `light`/`dark` class on `<html>` in place and emits `theme`. Restyle from the variables, or
 listen with `orca.on('theme', …)`, to follow it.
 
@@ -479,7 +479,7 @@ Ctrl-C unloads it.
 
 `orca plugin shot <plugin-key>` saves a PNG of a panel exactly as Orca draws it, cropped to the
 panel, to `.orca/shots/<plugin-key>-<panel>.png` (or `--out <file>`): in the plugin folder when
-you run it inside one (the nearest `orca-plugin.json`, up to the repository root), else in the
+you run it inside one (the nearest `openkodo-plugin.json`, up to the repository root), else in the
 current folder. It opens the panel in the
 right sidebar, waits until the current code has drawn (a components panel's first tree, an HTML
 panel's page loaded; up to 15 seconds) and, for a components panel, until its host calls such as
@@ -677,14 +677,14 @@ invalid (`plugin_invalid`), and `3` approval is needed.
 
 1. `orca plugin validate .` passes, and the plugin is committed and pushed to the GitHub
    repository whose owner matches `publisher`.
-2. Commit the new `version` in `orca-plugin.json`, then tag that commit and push the tag:
+2. Commit the new `version` in `openkodo-plugin.json`, then tag that commit and push the tag:
    `git tag -a v1.2.0 -m v1.2.0 && git push origin v1.2.0`.
-3. Add the `orca-plugin` topic to the repository: `gh repo edit <owner>/<repo> --add-topic orca-plugin`.
+3. Add the `openkodo-plugin` topic to the repository: `gh repo edit <owner>/<repo> --add-topic openkodo-plugin`.
 4. Check its listing at `https://orca.dev/plugins/<owner>/<repo>`.
 
 ## 5. Publish to a catalog
 
-A catalog is a Git repository with `orca-catalog.json` at its root that lists plugins and pins
+A catalog is a Git repository with `openkodo-catalog.json` at its root that lists plugins and pins
 each release to an exact commit and file hash, so Orca refuses bytes the catalog did not vouch
 for. Plugins in Orca's official and community catalogs must follow the
 [plugin listing policy](plugin-listing-policy.md), starting with being free to install and use.
@@ -696,14 +696,14 @@ for. Plugins in Orca's official and community catalogs must follow the
    is a subdirectory of its repository. Every field must match
    what Orca finds at install, so paste it rather than writing it by hand. Uncommitted changes are
    not part of the entry.
-2. Add or update the plugin's entry in the catalog's `orca-catalog.json`, newest release first:
+2. Add or update the plugin's entry in the catalog's `openkodo-catalog.json`, newest release first:
 
    ```json
    {
      "id": "acme.gleam-syntax",
      "source": {
        "kind": "git",
-       "url": "https://github.com/acme/orca-gleam-syntax.git",
+       "url": "https://github.com/acme/openkodo-gleam-syntax.git",
        "ref": "main"
      },
      "categories": ["languages"],
@@ -719,13 +719,13 @@ for. Plugins in Orca's official and community catalogs must follow the
    Orca still has something to install.
 
    **One repository can hold many plugins.** Put each in its own directory, such as
-   `plugins/gleam-syntax/orca-plugin.json`, and add `"path": "plugins/gleam-syntax"` to its
+   `plugins/gleam-syntax/openkodo-plugin.json`, and add `"path": "plugins/gleam-syntax"` to its
    `source`; validating that directory prints the `path` to use. Orca installs only that
    directory, and its `contentHash` covers only its files, so commits to sibling plugins never
    change it. Moving a plugin to another directory counts as a different repository.
 
 3. Run `pnpm validate:plugin path/to/catalog` and regenerate the older
-   `orca-marketplace.json` as described in the [catalog reference](plugin-catalog.md#clients-before-format-2).
+   `openkodo-marketplace.json` as described in the [catalog reference](plugin-catalog.md#clients-before-format-2).
 4. Users add the catalog under Settings → Plugins → ⋯ → **Catalog sources…** with its Git URL and ref.
 
 Users approve a plugin once per level of access. An update from the same repository that asks
@@ -771,7 +771,7 @@ listed as experimental may change. These parts are stable and change only additi
 - the frame API `window.orca` (`api`, `host.call`, `host.has`, `on`, `shell.openExternal`,
   `files.saveAs`, and `document` in custom editors) and the document `version`/`content` shape;
 - theme token names, and theme ids once published (users' settings store them);
-- catalog format 2 (`orca-catalog.json`).
+- catalog format 2 (`openkodo-catalog.json`).
 
 Experimental; these may still change without a new format:
 
@@ -788,5 +788,5 @@ Experimental; these may still change without a new format:
 - `settings:own`, which stores untyped values until plugins can declare settings;
 - manifest format 1, which is deprecated. Catalogs need format 2.
 
-Data folders, `orca-plugin-image://` URLs, tab keys and the `pluginRoot` a worker receives are
+Data folders, `openkodo-plugin-image://` URLs, tab keys and the `pluginRoot` a worker receives are
 internal.

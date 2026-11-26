@@ -25,7 +25,7 @@ function makePayload(files) {
 // Answers like the PowerShell script, reading the file list it was handed.
 function fakePowerShell(signerFor) {
   return vi.fn((_command, _args, options) => {
-    const paths = readFileSync(options.env.ORCA_WINDOWS_SIGNATURE_LIST, 'utf8').split('\n')
+    const paths = readFileSync(options.env.OPENKODO_WINDOWS_SIGNATURE_LIST, 'utf8').split('\n')
     const rows = paths.map((path) => {
       const subject = signerFor(path)
       return { path, status: subject ? 'Valid' : 'NotSigned', signerSubject: subject }

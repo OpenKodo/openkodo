@@ -1,5 +1,5 @@
 // Window-only help for Settings › Google: read the team's app file (picked, or spotted landing in
-// Downloads; Orca's own browser hands its download to main directly). Tokens never pass through here.
+// Downloads; OpenKodo's own browser hands its download to main directly). Tokens never pass through here.
 import { readFile, stat, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { app, BrowserWindow, dialog, ipcMain } from 'electron'

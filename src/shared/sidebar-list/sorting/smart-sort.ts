@@ -20,7 +20,7 @@ import {
 } from './smart-attention'
 import { buildAttentionByWorktree } from './smart-attention-scan'
 import { smartSortPhase } from './smart-sort-phase'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../feed/sidebar-inputs-switch'
 import { compareSmartStamps, recentStamp } from './stamp-order'
 
 /** Recent-sort rank: `lastActivityAt`, floored at `createdAt + CREATE_GRACE_MS` while that window is open. */
@@ -111,7 +111,7 @@ export function buildWorktreeComparator(
   labels?: WorktreeSortLabels
 ): (a: Worktree, b: Worktree) => number {
   // Switch point: Recent and Smart read the owning host's stamps, with no clock.
-  if (ORCA_SIDEBAR_INPUTS_IS_MAIN) {
+  if (OPENKODO_SIDEBAR_INPUTS_IS_MAIN) {
     return buildStampComparator(sortBy, repoMap, labels)
   }
   return buildWorkspaceRowComparator<Worktree>(sortBy, {
@@ -204,7 +204,7 @@ export function rankWorktreesForSort<W extends Worktree>(args: {
   // Why precompute: the label tiebreaker runs on every comparison in every mode.
   const labels = buildWorktreeSortLabels(worktrees)
   // Switch point: stamps need no cold phase, latch or attention map.
-  if (ORCA_SIDEBAR_INPUTS_IS_MAIN) {
+  if (OPENKODO_SIDEBAR_INPUTS_IS_MAIN) {
     worktrees.sort(buildStampComparator(sortBy, args.repoMap, labels))
     return { sorted: worktrees, detectedLiveSmartSignal: false }
   }

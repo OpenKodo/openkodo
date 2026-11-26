@@ -56,7 +56,7 @@ export function renderResourceUsageStatusTrigger(
                 aria-hidden="true"
               />
             ) : null}
-            {/* Why no memory total: it read as Orca's own usage; the tooltip names each owner. */}
+            {/* Why no memory total: it read as OpenKodo's own usage; the tooltip names each owner. */}
             <MemoryStick className={cn('size-3', commitToneClass ?? 'text-muted-foreground')} />
             <Terminal className="size-3 text-muted-foreground" />
             <span className="text-[11px] tabular-nums text-muted-foreground">

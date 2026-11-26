@@ -8,7 +8,7 @@ import { ARTIFACT_SHARING_DISABLED_CODE } from '../../shared/artifacts/artifact-
 
 const REPORT_REQUEST =
   "Make a short HTML report of last week's error rates by region (us-east 0.4%, eu-west 1.1%, ap-south 2.3%) and send it to me."
-const PUBLIC_REQUEST = `${REPORT_REQUEST} Publish it as a public Orca artifact link.`
+const PUBLIC_REQUEST = `${REPORT_REQUEST} Publish it as a public OpenKodo artifact link.`
 const SLACK_THREAD = { source: 'slack' as const, title: 'error rates' }
 const THREAD = wakingThreadRef({ conversation: SLACK_THREAD })
 const ITEM = 42

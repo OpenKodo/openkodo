@@ -1,6 +1,6 @@
-// Orca's loopback relay for bots' HTTP tools: a bot's agent sends each call to 127.0.0.1 with its own
-// token, and Orca adds the tool's saved headers or its own sign-in's token and streams it to the
-// real server and back. A host list command server Orca runs once is reached through it too.
+// OpenKodo's loopback relay for bots' HTTP tools: a bot's agent sends each call to 127.0.0.1 with its own
+// token, and OpenKodo adds the tool's saved headers or its own sign-in's token and streams it to the
+// real server and back. A host list command server OpenKodo runs once is reached through it too.
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http'
 import { resolve } from 'node:path'
 import { BoundedMap } from '../../../shared/collections/bounded-map'
@@ -66,7 +66,7 @@ export class BotToolRelay {
   ) {}
 
   /**
-   * The relay's address and the owner's token for this run of Orca; starts listening on first use.
+   * The relay's address and the owner's token for this run of OpenKodo; starts listening on first use.
    * The token reaches only `folders`, as the owner's latest launch named them.
    */
   async grant(owner: string, folders: RelayFolders): Promise<{ origin: string; token: string }> {
@@ -74,7 +74,7 @@ export class BotToolRelay {
     return { origin: `http://127.0.0.1:${port}`, token: this.grants.grant(owner, folders) }
   }
 
-  /** The bot a token was granted to in this run of Orca; null once revoked or from another run. */
+  /** The bot a token was granted to in this run of OpenKodo; null once revoked or from another run. */
   botOf(token: string): string | null {
     const owner = this.grants.of(token)?.owner ?? null
     return owner === MCP_HOST_LIST_RELAY_OWNER ? null : owner
@@ -149,7 +149,7 @@ export class BotToolRelay {
     try {
       const port = this.port
       const host = req.headers.host
-      // A browser page can reach loopback too; Orca's agents send no Origin and name this address.
+      // A browser page can reach loopback too; OpenKodo's agents send no Origin and name this address.
       if (
         req.headers.origin !== undefined ||
         (host !== `127.0.0.1:${port}` && host !== `localhost:${port}`)
@@ -167,7 +167,7 @@ export class BotToolRelay {
       const auth = /^Bearer (\S+)$/.exec(req.headers.authorization ?? '')
       const grant = auth?.[1] ? this.grants.of(auth[1]) : undefined
       if (!grant) {
-        throw new RelayRefusal(401, 'This tool needs the bot’s Orca token.')
+        throw new RelayRefusal(401, 'This tool needs the bot’s OpenKodo token.')
       }
       const folder = grant.folders[match.scope]
       if (!folder) {
@@ -194,7 +194,7 @@ export class BotToolRelay {
         await this.forward(req, res, { owner: grant.owner, folder, credentialId }, abort.signal)
         return
       }
-      // A host list command server Orca runs once: its child answers, not an upstream address.
+      // A host list command server OpenKodo runs once: its child answers, not an upstream address.
       const processes = this.processes()
       if (!processes) {
         throw new RelayRefusal(404, 'This token has no such tool.')
@@ -227,7 +227,7 @@ export class BotToolRelay {
         ? new RelayRefusal(404, SESSION_ENDED)
         : error instanceof RelayRefusal
           ? error
-          : new RelayRefusal(502, 'Orca couldn’t reach this tool’s server.')
+          : new RelayRefusal(502, 'OpenKodo couldn’t reach this tool’s server.')
     if (refusal.status >= 500 && label) {
       console.warn(`[bot-tool-relay] ${label} failed: ${refusal.message}`)
     }
@@ -260,7 +260,7 @@ export class BotToolRelay {
       }
       this.checkSession(req, key, answer)
       upstream = await sendUpstream(this.fetchUpstream, req, answer, body, signal)
-      // Only Orca's own sign-in can renew a refused token; saved headers are passed on as refused.
+      // Only OpenKodo's own sign-in can renew a refused token; saved headers are passed on as refused.
       if (upstream.status !== 401 || answer.bearer === undefined) {
         break
       }
@@ -319,7 +319,7 @@ export class BotToolRelay {
       await upstream.body?.cancel()
       throw new RelayRefusal(
         502,
-        'The tool’s server redirected; Orca won’t send its saved values elsewhere.'
+        'The tool’s server redirected; OpenKodo won’t send its saved values elsewhere.'
       )
     }
     if (upstream.status === 401 || upstream.status === 403) {
@@ -340,7 +340,7 @@ export class BotToolRelay {
   }
 }
 
-/** The relay for this process; upstream calls follow Orca's proxy settings. */
+/** The relay for this process; upstream calls follow OpenKodo's proxy settings. */
 export const botToolRelay = new BotToolRelay(
   (url, init) => getMainHttpClient().fetch(url, init),
   botToolCredentialSource({ [COMPOSIO_HEADER_SOURCE]: composioHeaderSource(readComposioKey) }),

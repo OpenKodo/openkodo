@@ -19,7 +19,7 @@ export type StagedImport = {
   indexPendingDir: string
   /** The deletion epoch when staging began. */
   deletionEpoch: number
-  /** The import setting is unchanged and Orca isn't quitting. */
+  /** The import setting is unchanged and OpenKodo isn't quitting. */
   isCurrent: () => boolean
   isHandled: () => boolean
 }

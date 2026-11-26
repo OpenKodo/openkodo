@@ -90,7 +90,7 @@ export function admitBackendPortRequest(
   const { sender, senderFrame } = event
   const role = senderFrame && senderFrame === sender.mainFrame && backendDocumentRole(sender)
   if (!senderFrame || !role) {
-    throw new Error('This document cannot connect to Orca.')
+    throw new Error('This document cannot connect to OpenKodo.')
   }
   return { sender, senderFrame, role, token, purpose }
 }

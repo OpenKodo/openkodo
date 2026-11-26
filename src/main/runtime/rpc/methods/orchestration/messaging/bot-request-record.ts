@@ -76,8 +76,8 @@ export function answersRequest(
   return id ? { answersRequest: id } : {}
 }
 
-/** Who sent a request: this Orca's own bot, or a sender on a paired computer (either side of the
- *  pairing). That bot is no bot of this Orca's, so only its name is kept, beside its computer. */
+/** Who sent a request: this OpenKodo's own bot, or a sender on a paired computer (either side of the
+ *  pairing). That bot is no bot of this OpenKodo's, so only its name is kept, beside its computer. */
 export function botRequestSender(
   bot: Pick<Bot, 'id' | 'name'> | null,
   paired: PairedSender | undefined

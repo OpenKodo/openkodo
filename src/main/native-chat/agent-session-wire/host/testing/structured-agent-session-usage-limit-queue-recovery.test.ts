@@ -295,7 +295,7 @@ it('continues a cut with no known reset once the relaunched account shows room',
   expect(await pass(40_000, reading(0, NOW + 40_000))).toHaveLength(1)
 })
 
-it('continues a cut with no known reset after Orca restarts while the relaunched chat waits', async () => {
+it('continues a cut with no known reset after OpenKodo restarts while the relaunched chat waits', async () => {
   const { current, pass } = await relaunchedChat(null)
   expect(await pass(5_000, reading(100, NOW + 5_000))).toEqual([])
   current.crashRestartHostProcess()

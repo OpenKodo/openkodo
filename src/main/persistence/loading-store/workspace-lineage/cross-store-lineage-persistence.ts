@@ -21,7 +21,7 @@ type CrossStoreLineagePersistenceContext = {
   scheduling: WriteSchedulingOperations
 }
 
-/** Parents saved in another Orca store, keyed and maintained by the child only. */
+/** Parents saved in another OpenKodo store, keyed and maintained by the child only. */
 export class CrossStoreLineagePersistence {
   readonly [crossStoreLineagePersistenceContext]: CrossStoreLineagePersistenceContext
 

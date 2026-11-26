@@ -1,4 +1,4 @@
-import { ORCA_CLI_POSIX_PATH_RESTORE } from '../../../shared/shell/launch/orca-cli-shell-path'
+import { OPENKODO_CLI_POSIX_PATH_RESTORE } from '../../../shared/shell/launch/orca-cli-shell-path'
 import { MANAGED_DATA_ACCOUNT_POSIX_RESTORE } from '../../../shared/shell/launch/agents/managed-data-account-shell'
 /** Restore ZDOTDIR before user startup; define functions first so .zshenv emulation cannot change their parsing. */
 import { getPosixOmpShellWrapper } from './omp-shell-wrapper'
@@ -41,19 +41,19 @@ export type ZshStartupHookSpec = {
 }
 
 const AGENT_TEAMS_PATH_RESTORE_BLOCK = `__orca_restore_agent_teams_path() {
-  [[ -n "\${ORCA_AGENT_TEAMS_SHIM_DIR:-}" ]] || return 0
+  [[ -n "\${OPENKODO_AGENT_TEAMS_SHIM_DIR:-}" ]] || return 0
   case "$PATH" in
-    "\${ORCA_AGENT_TEAMS_SHIM_DIR}"|"\${ORCA_AGENT_TEAMS_SHIM_DIR}:"*) return 0 ;;
+    "\${OPENKODO_AGENT_TEAMS_SHIM_DIR}"|"\${OPENKODO_AGENT_TEAMS_SHIM_DIR}:"*) return 0 ;;
   esac
-  export PATH="\${ORCA_AGENT_TEAMS_SHIM_DIR}:$PATH"
+  export PATH="\${OPENKODO_AGENT_TEAMS_SHIM_DIR}:$PATH"
 }
 __orca_restore_agent_teams_path`
 
-const OPENCODE_CONFIG_DIR_RESTORE = `[[ -n "\${ORCA_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${ORCA_OPENCODE_CONFIG_DIR}"`
-const MIMOCODE_CONFIG_DIR_RESTORE = `[[ -n "\${ORCA_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${ORCA_MIMOCODE_CONFIG_DIR}"`
-const REMOTE_CLI_BIN_DIR_RESTORE = `[[ -n "\${ORCA_REMOTE_CLI_BIN_DIR:-}" ]] && case ":$PATH:" in *:"\${ORCA_REMOTE_CLI_BIN_DIR}":*) ;; *) export PATH="\${ORCA_REMOTE_CLI_BIN_DIR}:$PATH" ;; esac`
+const OPENCODE_CONFIG_DIR_RESTORE = `[[ -n "\${OPENKODO_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${OPENKODO_OPENCODE_CONFIG_DIR}"`
+const MIMOCODE_CONFIG_DIR_RESTORE = `[[ -n "\${OPENKODO_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${OPENKODO_MIMOCODE_CONFIG_DIR}"`
+const REMOTE_CLI_BIN_DIR_RESTORE = `[[ -n "\${OPENKODO_REMOTE_CLI_BIN_DIR:-}" ]] && case ":$PATH:" in *:"\${OPENKODO_REMOTE_CLI_BIN_DIR}":*) ;; *) export PATH="\${OPENKODO_REMOTE_CLI_BIN_DIR}:$PATH" ;; esac`
 const CODEX_HOME_RESTORE = `# Restore the runtime CODEX_HOME after user rc files.
-[[ -n "\${ORCA_CODEX_HOME:-}" ]] && export CODEX_HOME="\${ORCA_CODEX_HOME}"`
+[[ -n "\${OPENKODO_CODEX_HOME:-}" ]] && export CODEX_HOME="\${OPENKODO_CODEX_HOME}"`
 
 const ZSH_OSC133_FUNCTION_BLOCK = `__orca_osc133_precmd() {
   local exit_code=$?
@@ -139,7 +139,7 @@ ${permanentPrecmd}
   fi
 ${joinBlocks([
   spec.restores.managedWslCli ? indentBlock(WSL_MANAGED_CLI_PATH_RESTORE, '  ') : null,
-  indentBlock(ORCA_CLI_POSIX_PATH_RESTORE, '  ').replace(/\n$/, ''),
+  indentBlock(OPENKODO_CLI_POSIX_PATH_RESTORE, '  ').replace(/\n$/, ''),
   featureGuard('overlay', getOverlayRestoreBlocks(spec)),
   // A system-default Codex home has no overlay key, but still needs the launch preflight.
   indentBlock(getPosixCodexShellLaunchPreflight() + getPosixClaudeShellFunction(), '  ').replace(

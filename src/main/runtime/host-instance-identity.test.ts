@@ -19,8 +19,8 @@ import {
 } from './host-instance-identity'
 import { DEVICE_REGISTRY_FILENAME } from './rpc/server/pairing/mobile-pairing-files'
 
-const vmA = hostInstanceIdFromEnv({ ORCA_INSTANCE_ID: 'vm-a' })
-const vmB = hostInstanceIdFromEnv({ ORCA_INSTANCE_ID: 'vm-b' })
+const vmA = hostInstanceIdFromEnv({ OPENKODO_INSTANCE_ID: 'vm-a' })
+const vmB = hostInstanceIdFromEnv({ OPENKODO_INSTANCE_ID: 'vm-b' })
 
 /** What pairing serves after one startup. */
 async function identity(dir: string) {
@@ -53,7 +53,7 @@ describe('ensureHostInstanceIdentity', () => {
     dir = mkdtempSync(join(tmpdir(), 'orca-host-instance-'))
   })
 
-  it('rotates the identity and clears pairings when ORCA_INSTANCE_ID changes', async () => {
+  it('rotates the identity and clears pairings when OPENKODO_INSTANCE_ID changes', async () => {
     ensureHostInstanceIdentity(dir, vmA)
     const source = await pairedHost(dir)
     const clone = mkdtempSync(join(tmpdir(), 'orca-host-instance-clone-'))

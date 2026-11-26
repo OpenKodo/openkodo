@@ -115,7 +115,7 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
           }
           description={t(
             'settings.terminal.windows.administratorScope',
-            'Permissions for the Orca app. Existing terminals may differ.'
+            'Permissions for the OpenKodo app. Existing terminals may differ.'
           )}
           control={
             <DialogTrigger asChild>
@@ -135,7 +135,7 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
               {showConfirmation
                 ? t(
                     'settings.terminal.windows.confirmOrcaAdministratorRestart',
-                    'Restart Orca as administrator?'
+                    'Restart OpenKodo as administrator?'
                   )
                 : helpLabel}
             </DialogTitle>
@@ -157,18 +157,18 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
                 <li>
                   {t(
                     'settings.terminal.windows.closeLocalSessions',
-                    'Save your work, close all local terminal sessions, then exit Orca.'
+                    'Save your work, close all local terminal sessions, then exit OpenKodo.'
                   )}
                 </li>
                 <li>
                   {administrator
                     ? t(
                         'settings.terminal.windows.launchStandard',
-                        'Open Orca normally from the Windows Start menu.'
+                        'Open OpenKodo normally from the Windows Start menu.'
                       )
                     : t(
                         'settings.terminal.windows.launchAdministrator',
-                        'In the Windows Start menu, right-click Orca and choose Run as administrator. Approve the Windows prompt using your usual account.'
+                        'In the Windows Start menu, right-click OpenKodo and choose Run as administrator. Approve the Windows prompt using your usual account.'
                       )}
                 </li>
               </ol>
@@ -182,7 +182,7 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
           )}
           {restartError ? (
             <DialogError onRetry={() => void restartAsAdministrator()}>
-              {t('settings.terminal.windows.orcaCouldNotRestart', 'Orca couldn’t restart.')}
+              {t('settings.terminal.windows.orcaCouldNotRestart', 'OpenKodo couldn’t restart.')}
             </DialogError>
           ) : null}
           <DialogFooter
@@ -204,9 +204,12 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
                   variant="link-muted"
                   size="inline"
                   onClick={(event) =>
-                    openAppHttpLink('https://orca.dev/docs/terminal#windows-administrator-mode', {
-                      event
-                    })
+                    openAppHttpLink(
+                      'https://openkodo.dev/docs/terminal#windows-administrator-mode',
+                      {
+                        event
+                      }
+                    )
                   }
                 >
                   {t('settings.terminal.windows.administratorDocumentation', 'Read the guide')}

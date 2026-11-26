@@ -266,7 +266,7 @@ export class LegacyJournalRetirementReporter {
 /**
  * What a failed attempt reports, by kind only: an error's text can name paths or chats. A refusal
  * reports at once; anything else is tried again, and a check still waiting to settle (a compare,
- * an older Orca's writes) reads as pending.
+ * an older OpenKodo's writes) reads as pending.
  */
 export function legacyProofFailureOutcome(
   error: unknown,

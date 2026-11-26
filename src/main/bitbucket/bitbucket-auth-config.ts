@@ -16,10 +16,10 @@ export function envValue(name: string): string | null {
 
 export function getEnvAuthConfig(): BitbucketAuthConfig {
   return {
-    baseUrl: envValue('ORCA_BITBUCKET_API_BASE_URL') ?? DEFAULT_API_BASE_URL,
-    accessToken: envValue('ORCA_BITBUCKET_ACCESS_TOKEN'),
-    email: envValue('ORCA_BITBUCKET_EMAIL'),
-    apiToken: envValue('ORCA_BITBUCKET_API_TOKEN')
+    baseUrl: envValue('OPENKODO_BITBUCKET_API_BASE_URL') ?? DEFAULT_API_BASE_URL,
+    accessToken: envValue('OPENKODO_BITBUCKET_ACCESS_TOKEN'),
+    email: envValue('OPENKODO_BITBUCKET_EMAIL'),
+    apiToken: envValue('OPENKODO_BITBUCKET_API_TOKEN')
   }
 }
 

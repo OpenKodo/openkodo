@@ -68,7 +68,7 @@ export function MobileGoogleSetupCard({
     blocker: setup.blocker,
     fontScale
   }
-  // Ordered by the copy number Orca wrote, so scrolling older history in never moves the buttons.
+  // Ordered by the copy number OpenKodo wrote, so scrolling older history in never moves the buttons.
   const newest = isNewestGoogleSetupCard(run, card)
   switch (card.card) {
     case 'path':

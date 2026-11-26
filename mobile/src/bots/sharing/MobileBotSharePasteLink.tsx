@@ -40,7 +40,7 @@ export function MobileBotSharePasteLink(props: {
       <TextField
         value={value}
         onChangeText={setValue}
-        placeholder={t('bots.share.receive.linkPlaceholder', 'https://app.orca.dev/bots/share/…')}
+        placeholder={t('bots.share.receive.linkPlaceholder', 'https://openkodo.dev/bots/share/…')}
         accessibilityLabel={t('bots.share.receive.link', 'Link')}
         monospace
         autoFocus

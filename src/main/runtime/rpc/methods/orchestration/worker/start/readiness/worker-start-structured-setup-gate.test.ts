@@ -54,7 +54,7 @@ it('waits for setup on a terminal the window adopted before the wait began', asy
     await vi.advanceTimersByTimeAsync(2_999)
     expect(settled).toBe(false)
 
-    runtime.onPtyData(ptyId, '\n__ORCA_SETUP_COMPLETE__:token-1:0\n', 1)
+    runtime.onPtyData(ptyId, '\n__OPENKODO_SETUP_COMPLETE__:token-1:0\n', 1)
     expect(await gate).toEqual({ satisfied: true, status: 'exited' })
     expect(effects.some((effect) => effect.action === 'wait_unevaluated')).toBe(false)
   } finally {

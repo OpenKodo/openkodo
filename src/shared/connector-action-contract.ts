@@ -48,7 +48,7 @@ export const CONNECTOR_REPLY_MAX_CHOICES = 10
 export const CONNECTOR_REPLY_CHOICE_MAX_CHARS = 75
 
 // A file the CLI uploads itself: its name and exact size, which the source's upload slot is cut for.
-// No Orca cap; the source's own limits apply.
+// No OpenKodo cap; the source's own limits apply.
 export const ConnectorUpload = z
   .object({
     name: z.string().min(1).max(255),

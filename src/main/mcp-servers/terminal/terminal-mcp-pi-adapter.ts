@@ -1,10 +1,10 @@
-// Pi's terminal: an extension Orca loads with it registers the host list's servers for that run.
+// Pi's terminal: an extension OpenKodo loads with it registers the host list's servers for that run.
 import { mkdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { piMcpServersConfig, piMcpServersExtensionSource } from '../../bots/bot-tools-pi'
 import {
   getDefaultPiAgentDir,
-  ORCA_MANAGED_EXTENSION_MARKER,
+  OPENKODO_MANAGED_EXTENSION_MARKER,
   withOrcaManagedExtensionMarker
 } from '../../pi/managed-extensions/titlebar-extension-service'
 import { writePluginFileAtomically } from '../../plugins/installation/plugin-atomic-file-write'
@@ -20,10 +20,10 @@ import {
   type TerminalMcpDelivery
 } from './terminal-mcp-delivery'
 
-export const PI_TERMINAL_MCP_SERVERS_ENV = 'ORCA_PI_MCP_SERVERS'
+export const PI_TERMINAL_MCP_SERVERS_ENV = 'OPENKODO_PI_MCP_SERVERS'
 const PI_TERMINAL_MCP_EXTENSION_FILE = 'orca-mcp-servers.ts'
 
-/** Writes Orca's marked extension into the Pi agent dir; a user's own file of that name stays. */
+/** Writes OpenKodo's marked extension into the Pi agent dir; a user's own file of that name stays. */
 async function installPiMcpExtension(agentDir: string): Promise<boolean> {
   const dir = join(agentDir, 'extensions')
   const path = join(dir, PI_TERMINAL_MCP_EXTENSION_FILE)
@@ -35,7 +35,7 @@ async function installPiMcpExtension(agentDir: string): Promise<boolean> {
     if (installed === source) {
       return true
     }
-    if (installed !== undefined && !installed.includes(ORCA_MANAGED_EXTENSION_MARKER)) {
+    if (installed !== undefined && !installed.includes(OPENKODO_MANAGED_EXTENSION_MARKER)) {
       return false
     }
     await mkdir(dir, { recursive: true })
@@ -46,7 +46,7 @@ async function installPiMcpExtension(agentDir: string): Promise<boolean> {
   }
 }
 
-/** Pi loads Orca's marked extension from its agent dir; it adds the servers only for a run that
+/** Pi loads OpenKodo's marked extension from its agent dir; it adds the servers only for a run that
  *  sets its variable. A WSL guest's agent dir is the guest's own, so there Pi is handed the
  *  extension by path (`--extension`), at a launch file it reads through its drive mount. */
 // `pi.registerMcpServer`, which the extension needs (as Pi bot tools do).
@@ -74,7 +74,7 @@ export const pi: TerminalMcpAdapter = {
       launch,
       executable,
       { version: PI_REGISTERS_MCP_SERVERS_VERSION },
-      `Update Pi${launch.wsl ? ' in WSL' : ''} to ${PI_REGISTERS_MCP_SERVERS_VERSION} or later to use Orca’s servers in its terminal`
+      `Update Pi${launch.wsl ? ' in WSL' : ''} to ${PI_REGISTERS_MCP_SERVERS_VERSION} or later to use OpenKodo’s servers in its terminal`
     )
     if (refused && !refused.delivered && refused.agentWide) {
       return refused
@@ -90,7 +90,7 @@ export const pi: TerminalMcpAdapter = {
       return command ? delivered(command) : skip(NOT_PLAIN)
     }
     const agentDir =
-      launch.env.ORCA_PI_SOURCE_AGENT_DIR ??
+      launch.env.OPENKODO_PI_SOURCE_AGENT_DIR ??
       launch.env.PI_CODING_AGENT_DIR ??
       process.env.PI_CODING_AGENT_DIR ??
       getDefaultPiAgentDir('pi', undefined)

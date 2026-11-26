@@ -1,5 +1,5 @@
 // Composio's trigger events for the owner's bots. A Composio project sends every event to one
-// address, so Orca keeps one "Composio events" hook per project (composio-events-ingress.ts) and
+// address, so OpenKodo keeps one "Composio events" hook per project (composio-events-ingress.ts) and
 // hands each call to the bot it's for. Only the owner's Set it up or by-hand choice makes that hook,
 // and Set it up points the project at it; the upkeep pass keeps it working and removes what deleted
 // bots and automations left.
@@ -20,8 +20,8 @@ import {
 } from './composio-events-ingress'
 
 /**
- * - `none`: the project sends its events nowhere yet, or to Orca's hook before its secret is on it.
- * - `ours`: they already come to Orca's Composio events hook, signed.
+ * - `none`: the project sends its events nowhere yet, or to OpenKodo's hook before its secret is on it.
+ * - `ours`: they already come to OpenKodo's Composio events hook, signed.
  * - `other`: they go somewhere else, which setting this up replaces.
  */
 export type ComposioEventsTarget = 'none' | 'ours' | 'other'
@@ -156,7 +156,7 @@ export class ComposioEvents {
   /**
    * The by-hand steps' Done, for the events hook the steps showed: the project must already send
    * its events there. Turns the bot's trigger on and saves Composio's own secret on the hook, so
-   * Orca checks what Composio signs with whatever upkeep or an earlier paste left there.
+   * OpenKodo checks what Composio signs with whatever upkeep or an earlier paste left there.
    */
   finishByHand(
     botId: string,
@@ -177,7 +177,7 @@ export class ComposioEvents {
         }
         if (!current || !(await this.pointsAt(live, current.url))) {
           throw new Error(
-            'Composio doesn’t send its events to Orca yet. Paste the URL into your project’s Webhooks in Composio, then choose Done.'
+            'Composio doesn’t send its events to OpenKodo yet. Paste the URL into your project’s Webhooks in Composio, then choose Done.'
           )
         }
         await api.turnOnTrigger(composioUserOfBot(botId), trigger, config)
@@ -186,7 +186,7 @@ export class ComposioEvents {
     )
   }
 
-  /** The owner's Set it up: the bot's trigger on, and the project pointed at Orca's events hook,
+  /** The owner's Set it up: the bot's trigger on, and the project pointed at OpenKodo's events hook,
    *  signed, if it isn't yet; `replace` is their yes to taking the events from another address. */
   setUp(
     botId: string,

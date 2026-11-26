@@ -1,6 +1,6 @@
 // A step of a bot's Google setup that the person finished outside its card: one handed to them
 // (publishing the app, say), or signing in from Settings rather than the Connect card. Once Google
-// already works for the setup, Orca records it from what it reads, so the run doesn't wait on a Done
+// already works for the setup, OpenKodo records it from what it reads, so the run doesn't wait on a Done
 // the person may never see; the bot still can't claim it.
 import type { GoogleStatusView } from '../../shared/google/google-connect-types'
 import { GOOGLE_CHOICE_SERVICES } from '../../shared/google/google-scopes'

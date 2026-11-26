@@ -9,8 +9,8 @@ export type ChatPreference = 'requested' | 'default' | 'lineage'
 export const LINEAGE_CHATS =
   "Workers started from a persistent agent's home, and their workers, run as structured chat sessions"
 
-/** Agents whose chats can't run Orca commands as themselves, so a chat worker could never report. */
-export const CHATS_WITHOUT_ORCA_IDENTITY: readonly string[] = ['hermes']
+/** Agents whose chats can't run OpenKodo commands as themselves, so a chat worker could never report. */
+export const CHATS_WITHOUT_OPENKODO_IDENTITY: readonly string[] = ['hermes']
 
 export function chatPreferenceOf(receipt: AgentLaunchModeReceipt): ChatPreference {
   return receipt.reason === 'requested'
@@ -52,9 +52,9 @@ export const DOWNGRADE_DETAIL: Record<AgentLaunchDowngradeReason, string> = {
     "on Windows this agent's chat runs on agy, which is missing, outdated, or not signed in with a personal Google account",
   structured_unsupported_on_host: 'the execution host cannot create one here',
   chat_runtime_not_installed:
-    "its chat runtime isn't installed on this host (install it from a new chat tab in Orca)",
+    "its chat runtime isn't installed on this host (install it from a new chat tab in OpenKodo)",
   chat_cannot_run_orca_commands:
-    "this agent's chats can't run Orca commands as themselves yet, so a chat worker couldn't report"
+    "this agent's chats can't run OpenKodo commands as themselves yet, so a chat worker couldn't report"
 }
 
 export function downgraded(

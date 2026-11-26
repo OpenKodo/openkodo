@@ -233,7 +233,7 @@ describe('--on trigger specs', () => {
     expect(older).not.toContain('github.ci_passed  when')
     expect(older).not.toContain('label=<name>')
     expect(older).toContain('github.ci_failed  when')
-    expect(older).toContain("Scout's Orca Cloud doesn't send github.ci_passed")
+    expect(older).toContain("Scout's cloud service doesn't send github.ci_passed")
     expect(offeredEvents('github', bot)).not.toContain('ci_passed')
     expect(offeredEvents('github', bot)).toContain('ci_failed')
     const newer = { ...bot, githubEvents2: true }
@@ -250,28 +250,30 @@ describe('--on trigger specs', () => {
     )
   })
 
-  it('says which host is not signed in to Orca Cloud, and on a headless server how it signs in', () => {
+  it('says which host is not signed in to cloud service, and on a headless server how it signs in', () => {
     const desktop = formatAutomationTriggerOptions(undefined, {
       name: 'Scout',
       cloudSignedOut: true,
       signInServer: null
     })
     expect(desktop).toContain(
-      "This computer isn't signed in to Orca Cloud, and Slack, GitHub, Linear and webhook events reach Scout through Orca Cloud"
+      "This computer isn't signed in to cloud service, and Slack, GitHub, Linear and webhook events reach Scout through cloud service"
     )
-    expect(desktop).not.toContain('orca auth login')
+    expect(desktop).not.toContain('openkodo auth login')
     // An older host doesn't say whether it has a window: its terminal sign-in stays in view.
     const older = formatAutomationTriggerOptions(undefined, { name: 'Scout', cloudSignedOut: true })
     expect(older).toContain(
-      "This computer isn't signed in to Orca Cloud, and Slack, GitHub, Linear and webhook events reach Scout through Orca Cloud"
+      "This computer isn't signed in to cloud service, and Slack, GitHub, Linear and webhook events reach Scout through cloud service"
     )
-    expect(older).toContain('On a server with no Orca window, `orca auth login` on it signs it in.')
+    expect(older).toContain(
+      'On a server with no OpenKodo window, `openkodo auth login` on it signs it in.'
+    )
     const server = formatAutomationTriggerOptions(undefined, {
       name: 'Scout',
       cloudSignedOut: true,
       signInServer: 'box1'
     })
-    expect(server).toContain("This Orca server (box1) isn't signed in to Orca Cloud")
-    expect(server).toContain('`orca auth login` in a terminal on box1')
+    expect(server).toContain("This OpenKodo server (box1) isn't signed in to cloud service")
+    expect(server).toContain('`openkodo auth login` in a terminal on box1')
   })
 })

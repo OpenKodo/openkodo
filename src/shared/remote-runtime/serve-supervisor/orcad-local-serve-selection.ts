@@ -1,13 +1,13 @@
 /** The CLI runs the packaged selection entry under ELECTRON_RUN_AS_NODE and reads one line, avoiding app-side imports. */
-export const SERVE_RUNTIME_ENV = 'ORCA_SERVE_RUNTIME'
-/** `ORCA_SERVE_RUNTIME=electron` keeps `orca serve` on Electron; orcad is the default. */
+export const SERVE_RUNTIME_ENV = 'OPENKODO_SERVE_RUNTIME'
+/** `OPENKODO_SERVE_RUNTIME=electron` keeps `orca serve` on Electron; orcad is the default. */
 export const SERVE_RUNTIME_ELECTRON = 'electron'
 export const ORCAD_LOCAL_SERVE_SELECTION_ENTRY = 'orcad/orcad-local-serve-selection-entry'
 export const ORCAD_LOCAL_SERVE_SELECTION_FLAGS = {
   userData: '--user-data',
   appRoot: '--app-root'
 } as const
-const RESULT_MARKER = 'ORCA_SERVE_RUNTIME'
+const RESULT_MARKER = 'OPENKODO_SERVE_RUNTIME'
 
 export type ServeRuntimeSelection =
   | { kind: 'orcad'; runtime: string; entry: string; version: string }

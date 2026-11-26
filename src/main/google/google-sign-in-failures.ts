@@ -5,14 +5,15 @@ import { GoogleTokenError } from './google-token-endpoint'
 
 const GOOGLE_SIGN_IN_FAILURES = {
   network:
-    'Orca couldn’t reach Google from this computer. Check your VPN, proxy or HTTPS inspection, then try again.',
+    'OpenKodo couldn’t reach Google from this computer. Check your VPN, proxy or HTTPS inspection, then try again.',
   invalid_client:
-    'Google rejected this app’s client secret. Download the client file again and import it in Orca.',
-  invalid_grant: 'Google says this sign-in was already used or has expired. Start again in Orca.',
-  refused: 'Google didn’t finish the sign-in. Start again in Orca.',
+    'Google rejected this app’s client secret. Download the client file again and import it in OpenKodo.',
+  invalid_grant:
+    'Google says this sign-in was already used or has expired. Start again in OpenKodo.',
+  refused: 'Google didn’t finish the sign-in. Start again in OpenKodo.',
   no_account: 'Google didn’t say which account signed in. Try again.',
   no_refresh_token: 'Google didn’t return a lasting sign-in. Try again.',
-  save_failed: 'Orca couldn’t save the Google account on this computer. Try again.',
+  save_failed: 'OpenKodo couldn’t save the Google account on this computer. Try again.',
   owner_silent: HOST_ACCOUNT_SIGN_IN_FAILURE_COPY.ownerSilent
 } as const
 

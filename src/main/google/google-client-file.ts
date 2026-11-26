@@ -46,7 +46,7 @@ export function parseGoogleClientFile(text: string): ParsedGoogleClient {
   }
   if (type === 'authorized_user' || 'refresh_token' in json || 'access_token' in json) {
     return refuse(
-      `This is a saved Google sign-in, not a client file. Don't share it; Orca signs you in itself. ${DESKTOP_CLIENT_STEPS}`
+      `This is a saved Google sign-in, not a client file. Don't share it; OpenKodo signs you in itself. ${DESKTOP_CLIENT_STEPS}`
     )
   }
   if ('web' in json) {

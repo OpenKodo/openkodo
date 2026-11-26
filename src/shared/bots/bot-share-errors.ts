@@ -6,15 +6,15 @@ export const BOT_SHARE_ERRORS = {
   prepareAgain: 'bot_share_prepare_again',
   stopped: 'bot_share_link_stopped',
   moved: 'bot_share_link_moved',
-  /** The Orca Cloud this app talks to has bot sharing turned off. */
+  /** The OpenKodo Cloud this app talks to has bot sharing turned off. */
   unavailable: 'bot_share_unavailable',
-  /** Orca Cloud refused the bot's picture. */
+  /** OpenKodo Cloud refused the bot's picture. */
   avatarRefused: 'bot_share_avatar_refused',
-  /** Over Orca Cloud's package size limits or the account's storage. */
+  /** Over OpenKodo Cloud's package size limits or the account's storage. */
   tooLarge: 'bot_share_too_large',
-  /** Signed out of Orca. */
+  /** Signed out of OpenKodo. */
   signIn: 'bot_share_sign_in',
-  /** The Orca sign-in needs renewing. */
+  /** The OpenKodo sign-in needs renewing. */
   reconnect: 'bot_share_reconnect'
 } as const
 

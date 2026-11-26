@@ -67,7 +67,7 @@ async function readChat(
   if (running.kind === 'unverifiable') {
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `Orca can't verify agent ${orcaSessionId}'s current conversation after /clear. Open the agent in Orca and try reading it again.`
+      `OpenKodo can't verify agent ${orcaSessionId}'s current conversation after /clear. Open the agent in OpenKodo and try reading it again.`
     )
   }
   const sessionId = running.sessionId
@@ -101,21 +101,21 @@ async function readTerminalTranscript(
   if (source === undefined) {
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `Orca can't look up where agent ${orcaSessionId}'s transcript is right now. Try again in a moment.`
+      `OpenKodo can't look up where agent ${orcaSessionId}'s transcript is right now. Try again in a moment.`
     )
   }
   if (isReverseLookupUnavailable(source)) {
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `Orca can't look up agent ${orcaSessionId}'s saved transcript with this identity file in the current version. Open it with the newer Orca version that wrote the file, or read an agent that's open now from \`orca agent list\`.`
+      `OpenKodo can't look up agent ${orcaSessionId}'s saved transcript with this identity file in the current version. Open it with the newer OpenKodo version that wrote the file, or read an agent that's open now from \`orca agent list\`.`
     )
   }
   if (source === null || !canReadWorkerTranscript(source.key.agent)) {
     throw new AgentConversationRefusal(
       CODES.noTranscript,
       source === null
-        ? `Orca has no transcript location for agent ${orcaSessionId} right now.`
-        : `Orca can't read ${source.key.agent} transcripts, so agent ${orcaSessionId} has nothing to read here.`
+        ? `OpenKodo has no transcript location for agent ${orcaSessionId} right now.`
+        : `OpenKodo can't read ${source.key.agent} transcripts, so agent ${orcaSessionId} has nothing to read here.`
     )
   }
   const { key, providerSession } = source
@@ -127,7 +127,7 @@ async function readTerminalTranscript(
     // A saved guest path with no distro names no file this host can open.
     throw new AgentConversationRefusal(
       CODES.noTranscript,
-      `Orca can't read ${tuiAgentDisplayName(key.agent) ?? key.agent} agent ${orcaSessionId}'s transcript because its saved location doesn't identify which WSL distro holds it. Run \`orca agent show ${orcaSessionId}\` to find any open terminal for this agent and view it there.`
+      `OpenKodo can't read ${tuiAgentDisplayName(key.agent) ?? key.agent} agent ${orcaSessionId}'s transcript because its saved location doesn't identify which WSL distro holds it. Run \`orca agent show ${orcaSessionId}\` to find any open terminal for this agent and view it there.`
     )
   }
   const transcript = await readWorkerTranscript({
@@ -141,7 +141,7 @@ async function readTerminalTranscript(
   if (!transcript.ok) {
     throw new AgentConversationRefusal(
       CODES.noTranscript,
-      `Orca couldn't read agent ${orcaSessionId}'s transcript (${transcript.reason.replaceAll('_', ' ')}).`
+      `OpenKodo couldn't read agent ${orcaSessionId}'s transcript (${transcript.reason.replaceAll('_', ' ')}).`
     )
   }
   // What vouched for the file may have ended, or the conversation moved to another file, meanwhile.
@@ -155,7 +155,7 @@ async function readTerminalTranscript(
   ) {
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `Agent ${orcaSessionId}'s transcript changed while Orca was reading it. Read it again.`
+      `Agent ${orcaSessionId}'s transcript changed while OpenKodo was reading it. Read it again.`
     )
   }
   const entries = transcriptEntries(transcript.messages)

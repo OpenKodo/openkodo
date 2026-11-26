@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useAppStore } from '../../store/index'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { createSessionWriteSubscriber } from '../../lib/workspace/persistence/session-write-subscriber'
 import { buildActiveViewUnloadPatch } from '../startup/active-view-persist'
 import {
@@ -35,13 +35,13 @@ import {
   isWindowCloseCheckpointInProgress
 } from '../shutdown/window-close-request-coordinator'
 import {
-  ORCA_APP_RESTART_ABORTED_EVENT,
-  ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT
+  OPENKODO_APP_RESTART_ABORTED_EVENT,
+  OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT
 } from '../../../../shared/updater/updater-renderer-events'
 import {
-  ORCA_NATIVE_UNLOAD_FAILED_EVENT,
-  ORCA_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
-  ORCA_RENDERER_UNLOAD_PREVENTED_EVENT
+  OPENKODO_NATIVE_UNLOAD_FAILED_EVENT,
+  OPENKODO_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
+  OPENKODO_RENDERER_UNLOAD_PREVENTED_EVENT
 } from '../../../../shared/app-lifecycle/shutdown/renderer-shutdown-events'
 
 // Capture unchanged-skipping resume records each minute to bound hard-kill loss.
@@ -88,7 +88,7 @@ export function useAppSessionPersistence(): void {
         }
       },
       // Persist in-memory provider session IDs for cold resume after daemon death (#5232); layout-owner main captures its own panes during quit staging.
-      captureSleepingAgentSessions: ORCA_LAYOUT_OWNER_IS_MAIN
+      captureSleepingAgentSessions: OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? () => {}
         : () => useAppStore.getState().captureAllSleepingAgentSessions('quit'),
       // Reread after capture setters populate scrollback; the earlier gating snapshot lacks it.
@@ -124,32 +124,38 @@ export function useAppSessionPersistence(): void {
       isPairedWebClientWindow() ? undefined : () => showShutdownCheckpointFailureToast('reload')
     )
     const reportNativeUnloadFailure = (): void => showShutdownCheckpointFailureToast('reload')
-    window.addEventListener(ORCA_NATIVE_UNLOAD_FAILED_EVENT, reportNativeUnloadFailure)
+    window.addEventListener(OPENKODO_NATIVE_UNLOAD_FAILED_EVENT, reportNativeUnloadFailure)
     window.addEventListener('beforeunload', persistBeforeUnload)
     window.addEventListener(
-      ORCA_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
+      OPENKODO_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
       shutdownCheckpoint.abortAfterCheckpointFailure
     )
-    window.addEventListener(ORCA_APP_RESTART_ABORTED_EVENT, shutdownCheckpoint.abandonAttempt)
+    window.addEventListener(OPENKODO_APP_RESTART_ABORTED_EVENT, shutdownCheckpoint.abandonAttempt)
     window.addEventListener(
-      ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
+      OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
       shutdownCheckpoint.abandonAttempt
     )
-    window.addEventListener(ORCA_RENDERER_UNLOAD_PREVENTED_EVENT, shutdownCheckpoint.abandonAttempt)
+    window.addEventListener(
+      OPENKODO_RENDERER_UNLOAD_PREVENTED_EVENT,
+      shutdownCheckpoint.abandonAttempt
+    )
     return () => {
-      window.removeEventListener(ORCA_NATIVE_UNLOAD_FAILED_EVENT, reportNativeUnloadFailure)
+      window.removeEventListener(OPENKODO_NATIVE_UNLOAD_FAILED_EVENT, reportNativeUnloadFailure)
       window.removeEventListener('beforeunload', persistBeforeUnload)
       window.removeEventListener(
-        ORCA_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
+        OPENKODO_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
         shutdownCheckpoint.abortAfterCheckpointFailure
       )
-      window.removeEventListener(ORCA_APP_RESTART_ABORTED_EVENT, shutdownCheckpoint.abandonAttempt)
       window.removeEventListener(
-        ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
+        OPENKODO_APP_RESTART_ABORTED_EVENT,
         shutdownCheckpoint.abandonAttempt
       )
       window.removeEventListener(
-        ORCA_RENDERER_UNLOAD_PREVENTED_EVENT,
+        OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
+        shutdownCheckpoint.abandonAttempt
+      )
+      window.removeEventListener(
+        OPENKODO_RENDERER_UNLOAD_PREVENTED_EVENT,
         shutdownCheckpoint.abandonAttempt
       )
     }

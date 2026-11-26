@@ -187,7 +187,7 @@ export abstract class AgentHookServerStatusHookLifecycle extends AgentHookServer
         if (this.token !== token || this.statusHookGeneration !== statusHookGeneration) {
           return
         }
-        // Replayed owners may have died while Orca was down; probe each pane once.
+        // Replayed owners may have died while OpenKodo was down; probe each pane once.
         this.restoredOwnersChecked = Promise.allSettled(
           [...replayedPaneKeys].map((paneKey) => this.checkAgentPresence(paneKey))
         ).then(() => undefined)

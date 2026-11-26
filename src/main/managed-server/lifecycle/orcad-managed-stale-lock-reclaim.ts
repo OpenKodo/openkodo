@@ -46,8 +46,8 @@ const ReclaimAnswerSchema = z.object({
     .optional()
 })
 
-const RECLAIM_UNSUPPORTED_SENTINEL = 'ORCA_STALE_LOCK_RECLAIM_UNSUPPORTED'
-const RECLAIM_UNPINNED_SENTINEL = 'ORCA_STALE_LOCK_RECLAIM_UNPINNED'
+const RECLAIM_UNSUPPORTED_SENTINEL = 'OPENKODO_STALE_LOCK_RECLAIM_UNSUPPORTED'
+const RECLAIM_UNPINNED_SENTINEL = 'OPENKODO_STALE_LOCK_RECLAIM_UNPINNED'
 
 type ReclaimAnswer = Omit<z.infer<typeof ReclaimAnswerSchema>, 'status'> & {
   status: z.infer<typeof ReclaimStatusSchema>
@@ -69,7 +69,7 @@ export async function runManagedOrcadStaleLockReclaim(
     async ({ environment, deployment }) => {
       const context = await resolveLinkedOrcadContext(environment, deployment)
       if (context.host.os !== 'linux') {
-        return unsupported('This host’s Orca server has no stale-lock recovery.')
+        return unsupported('This host’s OpenKodo server has no stale-lock recovery.')
       }
       const slot = managedOrcadSlot(context, deployment.remotePort)
       // Serialize reclamation with launch so wake cannot race lock removal.
@@ -119,13 +119,13 @@ async function restartAfterReclaim(
     if (wake.outcome !== 'started' && wake.outcome !== 'serving') {
       return wake.outcome === 'recovery-refused'
         ? wake.reason
-        : `The lock was cleared, but this host’s Orca server did not start (${wake.outcome}); reconnect to start it.`
+        : `The lock was cleared, but this host’s OpenKodo server did not start (${wake.outcome}); reconnect to start it.`
     }
     await followLaunchedServerPort(userDataPath, environmentId)
     return null
   } catch (error) {
     // Still return a result so callers can reconnect and clear stale notes.
-    return `The lock was cleared, but this host’s Orca server did not start: ${errorMessage(error)}`
+    return `The lock was cleared, but this host’s OpenKodo server did not start: ${errorMessage(error)}`
   }
 }
 
@@ -136,7 +136,7 @@ async function runOnActiveSlot(
   // Another client may change the active slot while this one waits for the lock.
   const active = (await readOrcadActivationRecord(slot)).active
   if (!active) {
-    return { status: 'unsupported', message: 'This host has no activated Orca server.' }
+    return { status: 'unsupported', message: 'This host has no activated OpenKodo server.' }
   }
   const slotDir = orcadSlotDir(slot, active)
   const entry = joinRemotePath(slot.host, slotDir, ORCAD_LAUNCHER_FILENAME)
@@ -164,12 +164,12 @@ async function runOnActiveSlot(
   }
   const lines = output.split('\n').map((line) => line.trim())
   if (lines.includes(RECLAIM_UNSUPPORTED_SENTINEL)) {
-    return unsupported('This host’s Orca server predates the stale-lock recovery.')
+    return unsupported('This host’s OpenKodo server predates the stale-lock recovery.')
   }
   if (lines.includes(RECLAIM_UNPINNED_SENTINEL)) {
     return {
       status: 'unpinned',
-      message: 'This host’s Orca server is too old for Orca to clear the lock from here.'
+      message: 'This host’s OpenKodo server is too old for OpenKodo to clear the lock from here.'
     }
   }
   const answer = parseReclaimAnswer(output)
@@ -177,7 +177,8 @@ async function runOnActiveSlot(
     ? { status: 'answered', answer }
     : {
         status: 'no-answer',
-        message: 'This host’s Orca server gave no answer Orca understands to the stale-lock check.'
+        message:
+          'This host’s OpenKodo server gave no answer OpenKodo understands to the stale-lock check.'
       }
 }
 

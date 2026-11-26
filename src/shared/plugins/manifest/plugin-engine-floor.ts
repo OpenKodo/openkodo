@@ -89,7 +89,7 @@ export function pluginEngineFloor(
   return floor ? { version: floor.version, field: formatPluginSchemaPath(floor.path) } : null
 }
 
-/** Why enforced: an older Orca reports "requires Orca >=X" only when engines.orca covers every
+/** Why enforced: an older OpenKodo reports "requires OpenKodo >=X" only when engines.orca covers every
  *  field the plugin uses, so authors may not under-declare it. */
 export function validatePluginEngineFloor(
   schema: z.core.$ZodType,
@@ -106,7 +106,7 @@ export function validatePluginEngineFloor(
     ctx.addIssue({
       code: 'custom',
       path: ['engines', 'orca'],
-      message: `must be at least >=${floor.version}, because ${floor.field} needs Orca ${floor.version}`
+      message: `must be at least >=${floor.version}, because ${floor.field} needs OpenKodo ${floor.version}`
     })
   }
 }

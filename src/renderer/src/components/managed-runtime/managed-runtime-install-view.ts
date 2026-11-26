@@ -18,7 +18,7 @@ export type ManagedRuntimeInstallView = {
   menuAction: ManagedRuntimeInstallAction | null
   /** Settings draws this action as a button instead of inline text. */
   prominent: boolean
-  /** Settings may offer to delete the copy Orca installed: one is there and nothing runs. */
+  /** Settings may offer to delete the copy OpenKodo installed: one is there and nothing runs. */
   removable: boolean
   removing: boolean
   /** The status explains a problem (unavailable, damaged, outdated), so it wraps whole instead of truncating. */
@@ -127,9 +127,9 @@ function settledView(
     note
   })
   const install = t('components.managed-runtime.installShort', 'Install')
-  // The host's own copy always runs while it exists, so installing Orca's would change nothing.
+  // The host's own copy always runs while it exists, so installing OpenKodo's would change nothing.
   // If that copy goes away, the row falls through to Not installed · Install. For the same reason
-  // a failed install of Orca's copy isn't shown here (the chat card keeps its own Retry); a failed
+  // a failed install of OpenKodo's copy isn't shown here (the chat card keeps its own Retry); a failed
   // Remove is, since the user asked for it from this row.
   if (state.source === 'external') {
     return {
@@ -148,7 +148,7 @@ function settledView(
           })
         : t('components.managed-runtime.reinstall', 'Reinstall {{agent}}', { agent })
     return view(
-      t('components.managed-runtime.installedByOrca', 'Installed by Orca · {{version}}', {
+      t('components.managed-runtime.installedByOrca', 'Installed by OpenKodo · {{version}}', {
         version: state.installedVersion
       }),
       null,
@@ -168,7 +168,7 @@ function settledView(
         : null
     const status = t(
       'components.managed-runtime.installedByOrca',
-      'Installed by Orca · {{version}}',
+      'Installed by OpenKodo · {{version}}',
       {
         version: state.installedVersion
       }
@@ -244,7 +244,7 @@ export function managedRuntimeInstallView(
   )
 }
 
-/** Whether Orca's copy still needs the user: missing, outdated, damaged, failed, installing, or unreadable. */
+/** Whether OpenKodo's copy still needs the user: missing, outdated, damaged, failed, installing, or unreadable. */
 export function managedRuntimeInstallPending(snapshot: ManagedRuntimeInstallSnapshot): boolean {
   if (snapshot.kind === 'readFailed') {
     return true
@@ -253,7 +253,7 @@ export function managedRuntimeInstallPending(snapshot: ManagedRuntimeInstallSnap
     return false
   }
   const view = managedRuntimeInstallView(snapshot, '')
-  // A working external copy needs nothing unless Orca's own install is running, or a Remove is
+  // A working external copy needs nothing unless OpenKodo's own install is running, or a Remove is
   // running or failed. A failed install isn't shown here (see settledView), so it doesn't count.
   if (snapshot.state.source === 'external') {
     return view.action?.kind === 'cancel' || view.removing || view.error !== null

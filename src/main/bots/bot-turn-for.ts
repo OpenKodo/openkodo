@@ -1,4 +1,4 @@
-// Whom a bot's running turn acts for, as its Slack actions tell Orca Cloud (item 167): another Orca bot
+// Whom a bot's running turn acts for, as its Slack actions tell OpenKodo Cloud (item 167): another OpenKodo bot
 // hears a post as that person, and a read by the owner's turn reads as the owner. Only the owner's own
 // turn says owner. A session other than the verified caller says none, so its post counts as no one,
 // not even the person its turn started for.
@@ -14,7 +14,7 @@ export const sameSession = (a: string, b: string): boolean =>
   (isOrcaSessionId(a) ? canonicalOrcaSessionId(a) : a) ===
   (isOrcaSessionId(b) ? canonicalOrcaSessionId(b) : b)
 
-/** `callerSessionId`: the session the request came from, when Orca knows it. `known`: the running
+/** `callerSessionId`: the session the request came from, when OpenKodo knows it. `known`: the running
  *  turn, when the caller already read it. */
 export async function botTurnFor(
   runtime: OrcaRuntimeService,

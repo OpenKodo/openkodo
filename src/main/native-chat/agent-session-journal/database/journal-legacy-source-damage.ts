@@ -42,7 +42,9 @@ export function openReconcilableJournalLegacySource(
   } finally {
     source.close()
   }
-  console.warn(`[agent-session-journal] skipping chats in a damaged older Orca journal: ${error}`)
+  console.warn(
+    `[agent-session-journal] skipping chats in a damaged older OpenKodo journal: ${error}`
+  )
   const value = JSON.stringify({ receipt: captured, check: JOURNAL_LEGACY_DAMAGE_CHECK, error })
   // An original without a certifiable identity is checked each launch but recorded once.
   if (value !== damaged) {

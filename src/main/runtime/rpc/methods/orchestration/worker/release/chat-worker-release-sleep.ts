@@ -53,7 +53,7 @@ export function workspaceMadeForWorker(
 export type ChatWorkerReleaseSleep = 'slept' | 'refused' | 'unproven' | 'not_applicable'
 
 /** Whether the workspace provably holds nothing but this worker's chat: Sleep stops and hides
- *  everything in it, so anything Orca cannot see for certain counts as something else. */
+ *  everything in it, so anything OpenKodo cannot see for certain counts as something else. */
 async function workspaceHoldsOnlyWorkerChat(
   runtime: Pick<WorkerTerminalReleaseRuntime, 'listMobileSessionTabs' | 'savedTabsForWorktree'>,
   worktreeId: string,

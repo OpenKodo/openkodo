@@ -1,6 +1,6 @@
 import type { RuntimeCapability } from '../../../shared/remote-runtime/protocol/protocol-version'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import {
   LAYOUT_INTENTS_RUNTIME_CAPABILITY,
   LAYOUT_REOPEN_HELD_PANES_CAPABILITY
@@ -12,11 +12,11 @@ import { isMcpServersFeatureEnabled } from '../../mcp-servers/mcp-servers-featur
 export function darkSwitchRuntimeCapabilities(): RuntimeCapability[] {
   const capabilities: RuntimeCapability[] = []
   // Switch point: e2e simulates older unread hosts without retaining an old binary.
-  if (ORCA_SIDEBAR_INPUTS_IS_MAIN && process.env.ORCA_E2E_OLDER_UNREAD_HOST !== '1') {
+  if (OPENKODO_SIDEBAR_INPUTS_IS_MAIN && process.env.OPENKODO_E2E_OLDER_UNREAD_HOST !== '1') {
     capabilities.push(WORKSPACE_UNREAD_HOST_RAISES_CAPABILITY)
   }
   // Switch point: paired desktops may submit layout intents (layout-intents-capability.ts).
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     capabilities.push(LAYOUT_INTENTS_RUNTIME_CAPABILITY, LAYOUT_REOPEN_HELD_PANES_CAPABILITY)
   }
   // Switch point: mcpServers.* answer only while the host's switch is on (mcp-servers-feature.ts).

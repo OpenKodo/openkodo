@@ -73,7 +73,7 @@ export function createAcpModelCatalogProbe(
     operation?: StructuredAgentResolutionOperation
   ) => {
     assertStructuredAgentResolutionCurrent(operation)
-    // A host install can list differently from Orca's managed one, so the account picks the spec.
+    // A host install can list differently from OpenKodo's managed one, so the account picks the spec.
     const spec = acpLaunchSpecForAccount(agentSpec, accountHome)
     const discovery = spec.modelDiscovery
     if (discovery.kind === 'unavailable') {

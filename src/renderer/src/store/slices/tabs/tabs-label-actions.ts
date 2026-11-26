@@ -18,7 +18,7 @@ import { sendTabChangeToLayoutOwner } from '../../terminals/tabs/presentation/ta
 import { recordTabOrderInLayoutOwner } from './tab-order-layout-owner'
 import { withPreviewEnded } from './tab-preview-flag'
 import { endsPreviewHere, promotePreviewTabsThroughLayoutOwner } from './preview-tab-promotion'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 // oxfmt-ignore
 import { replaceRecordEntries, replaceTabBuckets } from '../../record-transitions/keyed-record-transitions'
 
@@ -198,7 +198,7 @@ export function createTabsLabelActions(
         return state
       })
       // Switch point: main takes the window's new order unless the caller already asked it.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN && !opts?.layoutOwnerHandled) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN && !opts?.layoutOwnerHandled) {
         for (const change of changes) {
           recordTabOrderInLayoutOwner(get(), groupId, change)
         }
@@ -215,14 +215,14 @@ export function createTabsLabelActions(
     setTabViewMode: (tabId, mode) => {
       const local = (): void => setTabViewModeHere(tabId, mode)
       // Switch point: main switches its copy first, then the window shows the same mode.
-      if (!ORCA_LAYOUT_OWNER_IS_MAIN || !sendViewMode(tabId, mode, local)) {
+      if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !sendViewMode(tabId, mode, local)) {
         local()
       }
     },
 
     toggleTabViewMode: (tabId) => {
       // Switch point: as setTabViewMode, with the mode chosen before main is asked.
-      if (!ORCA_LAYOUT_OWNER_IS_MAIN || !sendViewModeToggle(tabId)) {
+      if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !sendViewModeToggle(tabId)) {
         toggleTabViewModeHere(tabId)
       }
     },
@@ -282,7 +282,7 @@ export function createTabsLabelActions(
         }
       })
       mirrorTabPinnedToHost(get(), tabId, true)
-      if (ORCA_LAYOUT_OWNER_IS_MAIN && before?.isPreview) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN && before?.isPreview) {
         promotePreviewTabsThroughLayoutOwner(get(), set, [before])
       }
       if (exists && opts?.recordInteraction !== false) {

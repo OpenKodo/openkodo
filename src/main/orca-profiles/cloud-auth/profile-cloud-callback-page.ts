@@ -1,6 +1,6 @@
 import type { ConnectCurrentOrcaProfileResult } from '../../../shared/orca-profiles/orca-profiles'
 
-export const ORCA_CLOUD_CALLBACK_RESPONSE_HEADERS = {
+export const OPENKODO_CLOUD_CALLBACK_RESPONSE_HEADERS = {
   'cache-control': 'no-store',
   'content-security-policy':
     "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
@@ -124,9 +124,9 @@ export function orcaCallbackSuccessPage(
  * once the work it waits on is done, which hides the first part (no script runs on these pages).
  */
 export const orcaCallbackReceivedPage = (): string =>
-  `${pageStart('Orca')}${pageMain('Finishing sign-in…', null, 'waiting', 'received')}`
+  `${pageStart('OpenKodo')}${pageMain('Finishing sign-in…', null, 'waiting', 'received')}`
 
-/** `ok: null` is no outcome yet, e.g. the tab stopped waiting while Orca still finishes. */
+/** `ok: null` is no outcome yet, e.g. the tab stopped waiting while OpenKodo still finishes. */
 export function orcaCallbackOutcome(outcome: {
   ok: boolean | null
   heading: string
@@ -152,25 +152,25 @@ export function orcaCloudCallbackOutcomeOf(
   return { status: result.auth.state === 'connected' ? 'connected' : 'cancelled' }
 }
 
-/** How an Orca sign-in tab ends once the app has exchanged (or failed to exchange) its code. */
+/** How an OpenKodo sign-in tab ends once the app has exchanged (or failed to exchange) its code. */
 export function orcaCloudCallbackOutcome(outcome: OrcaCloudCallbackOutcome): string {
   if (outcome.status === 'connected') {
     return orcaCallbackOutcome({
       ok: true,
-      heading: 'Signed in to Orca',
+      heading: 'Signed in to OpenKodo',
       line: 'You can close this tab and return to the app.'
     })
   }
   if (outcome.status === 'cancelled') {
     return orcaCallbackOutcome({
       ok: null,
-      heading: 'Orca sign-in was cancelled',
-      line: 'Orca stopped waiting for this sign-in. Return to Orca to sign in again.'
+      heading: 'OpenKodo sign-in was cancelled',
+      line: 'OpenKodo stopped waiting for this sign-in. Return to OpenKodo to sign in again.'
     })
   }
   return orcaCallbackOutcome({
     ok: false,
-    heading: 'Orca could not finish signing in',
-    line: `Return to Orca and try again. (${outcome.error})`
+    heading: 'OpenKodo could not finish signing in',
+    line: `Return to OpenKodo and try again. (${outcome.error})`
   })
 }

@@ -1,4 +1,4 @@
-// A bot's sessions are native chats in its home folder; its Chat is the one ongoing one, shared by the owner in Orca and by its direct messages.
+// A bot's sessions are native chats in its home folder; its Chat is the one ongoing one, shared by the owner in OpenKodo and by its direct messages.
 import { OWNER_ACTS_FOR, type AutomationTriggeredBy } from '../../shared/bots/bot-acts-for'
 import type { BotConversationActsFor } from '../runtime/orchestration/db/bot-requests/bot-conversation-acts-for-store'
 import { randomUUID } from 'node:crypto'
@@ -59,7 +59,7 @@ export type BotChatDependencies = {
   dropUnreadMail: (bot: Bot, replacedSessionId: string | null) => Promise<void>
 }
 
-/** What Orca writes on an automation run's message: where what the bot learns came from, who did
+/** What OpenKodo writes on an automation run's message: where what the bot learns came from, who did
  *  the event, and the run itself for the chat's row. */
 export type BotRunFields = {
   memorySource?: string
@@ -84,7 +84,7 @@ export function botMessageBody(
   }
 }
 
-/** Who a bot chat's message is from: absent, a person; else another agent, or one of Orca's own turns. */
+/** Who a bot chat's message is from: absent, a person; else another agent, or one of OpenKodo's own turns. */
 export type BotChatSender =
   | AgentMessageSource
   | 'bot-created'
@@ -207,9 +207,9 @@ export function botChatSessions(deps: BotChatDependencies) {
   }
 
   /** Held through admission, so a reset cannot retire the Chat between choosing and sending. Queues
-   *  behind a running turn. `from` is absent for a person; `bot-created` is Orca's own first turn;
+   *  behind a running turn. `from` is absent for a person; `bot-created` is OpenKodo's own first turn;
    *  `card-answer` is an owner's click on a card, which the chat draws as nothing; `took-over` is
-   *  Orca's turn handing the bot a workspace.
+   *  OpenKodo's turn handing the bot a workspace.
    *  Returns the Chat it went to, and the fingerprint of the body it sent, which a queued card keeps
    *  until it is edited. */
   const send = (

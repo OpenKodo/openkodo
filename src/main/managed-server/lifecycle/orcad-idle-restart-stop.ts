@@ -86,7 +86,7 @@ async function stopRetiringIdleDaemon(
   // Other clients may change the active slot; reread under the fence.
   const active = (await readOrcadActivationRecord(slot)).active
   if (!active) {
-    return { state: 'kept', reason: 'This host has no activated Orca server.' }
+    return { state: 'kept', reason: 'This host has no activated OpenKodo server.' }
   }
   const target = await readRemoteOrcadManagedStopTarget(slot, active)
   if (target.state === 'refused') {
@@ -105,7 +105,7 @@ async function stopRetiringIdleDaemon(
         state: 'daemon-kept',
         version: active,
         reason:
-          'This host’s Orca server restarted, but its terminal daemon kept running because a terminal ' +
+          'This host’s OpenKodo server restarted, but its terminal daemon kept running because a terminal ' +
           'was open at the stop, so terminals may still lack local network access.'
       }
     case 'unsettled':

@@ -25,7 +25,7 @@ function readJsoncObject(path: string): JsoncObjectFile | null {
 
 /**
  * Trust a workspace for Qwen Code 1.0 (permissions.trustDirectories).
- * Synchronous like the Qoder writer, so concurrent launches and Orca's Qwen hook install cannot interleave a read-modify-write.
+ * Synchronous like the Qoder writer, so concurrent launches and OpenKodo's Qwen hook install cannot interleave a read-modify-write.
  */
 export function markQwenWorkspaceTrusted(
   workspacePath: string,

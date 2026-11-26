@@ -13,7 +13,7 @@ export function parseArgs(argv) {
   const options = {
     old: null,
     new: 'HEAD',
-    seed: process.env.ORCA_FLEET_SEED_DIR ?? null,
+    seed: process.env.OPENKODO_FLEET_SEED_DIR ?? null,
     runs: 2,
     settleMs: 120_000,
     windowMs: 30_000,

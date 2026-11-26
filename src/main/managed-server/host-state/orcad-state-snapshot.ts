@@ -103,8 +103,8 @@ export function serializedStateMutationCommand(
     // Superseded holders must refuse before acquiring the mutation lock.
     ...(owned ? [posixOrcadFenceGuard(owned)] : []),
     // Own the workload process group so teardown can account for every spawned mutation process.
-    'orca_state_group() { if command -v setsid >/dev/null 2>&1; then ORCA_STATE_MUTATION_GROUP=1 setsid "$@";',
-    `elif command -v perl >/dev/null 2>&1; then ORCA_STATE_MUTATION_GROUP=1 perl -e ${quotePosixShell('setpgrp(0, 0); exec { $ARGV[0] } @ARGV or exit 127')} "$@";`,
+    'orca_state_group() { if command -v setsid >/dev/null 2>&1; then OPENKODO_STATE_MUTATION_GROUP=1 setsid "$@";',
+    `elif command -v perl >/dev/null 2>&1; then OPENKODO_STATE_MUTATION_GROUP=1 perl -e ${quotePosixShell('setpgrp(0, 0); exec { $ARGV[0] } @ARGV or exit 127')} "$@";`,
     'else "$@"; fi; };',
     // Run timeout inside the group so KILL reaches tar/rm; use word lists once and retain old BusyBox -t support.
     `orca_deadline=; if timeout 1 true 2>/dev/null; then orca_deadline="timeout -s KILL ${ORCAD_STATE_MUTATION_DEADLINE_SECONDS}";`,
@@ -147,7 +147,7 @@ export function captureOrcadStateSnapshotCommand(
       `members=; for m in ${plainMemberWords()}; do`,
       'if [ -e "$root/$m" ] || [ -L "$root/$m" ]; then',
       'links=$(find "$root/$m" -type l -print 2>&1) && [ -z "$links" ] ||',
-      'snapshot_fail "$m holds a symbolic link or an entry Orca cannot read: $links";',
+      'snapshot_fail "$m holds a symbolic link or an entry OpenKodo cannot read: $links";',
       'members="$members $m"; fi; done;',
       // Set umask before directory creation so the whole snapshot is owner-only.
       'if [ -z "$members" ]; then echo EMPTY; else umask 077;',

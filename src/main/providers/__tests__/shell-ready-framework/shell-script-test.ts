@@ -56,14 +56,14 @@ export async function shellScriptTest(
     const env: Record<string, string> = {
       ...config.env,
       // Startup-discovery examples must not emit PTY-owner identity/marker protocol.
-      ORCA_SHELL_FEATURES: (config.env.ORCA_SHELL_FEATURES ?? '')
+      OPENKODO_SHELL_FEATURES: (config.env.OPENKODO_SHELL_FEATURES ?? '')
         .split(',')
         .filter((feature) => feature !== 'identity' && feature !== 'markers')
         .join(','),
       // User startup files live in testHome; route wrapper discovery there.
       HOME: testHome,
-      ORCA_ORIG_ZDOTDIR: testHome,
-      ORCA_ZSHENV_SOURCE_DIR: testHome
+      OPENKODO_ORIG_ZDOTDIR: testHome,
+      OPENKODO_ZSHENV_SOURCE_DIR: testHome
     }
 
     const spawnOptions = {

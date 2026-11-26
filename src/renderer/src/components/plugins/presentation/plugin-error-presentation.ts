@@ -7,22 +7,22 @@ function errorText(cause: unknown): string {
 
 export function pluginInstallErrorMessage(cause: unknown): string {
   const detail = errorText(cause)
-  if (detail.includes('orca-plugin.json') && /(missing|unreadable|no )/.test(detail)) {
+  if (detail.includes('openkodo-plugin.json') && /(missing|unreadable|no )/.test(detail)) {
     return translate(
       'auto.components.settings.pluginError.installManifestMissing',
-      "No readable orca-plugin.json was found. Choose the plugin's root folder."
+      "No readable openkodo-plugin.json was found. Choose the plugin's root folder."
     )
   }
   if (detail.includes('invalid manifest')) {
     return translate(
       'auto.components.settings.pluginError.installManifestInvalid',
-      'orca-plugin.json is invalid. Ask the plugin author to fix the manifest.'
+      'openkodo-plugin.json is invalid. Ask the plugin author to fix the manifest.'
     )
   }
   if (detail.includes('requires orca')) {
     return translate(
       'auto.components.settings.pluginError.incompatible',
-      'This plugin requires a different Orca version.'
+      'This plugin requires a different OpenKodo version.'
     )
   }
   if (/(symlink|outside|absolute|path traversal|drive prefix)/.test(detail)) {
@@ -34,13 +34,13 @@ export function pluginInstallErrorMessage(cause: unknown): string {
   if (/(exceeds|too many)/.test(detail)) {
     return translate(
       'auto.components.settings.pluginError.installLimit',
-      "The plugin exceeds Orca's install size or file-count limits."
+      "The plugin exceeds OpenKodo's install size or file-count limits."
     )
   }
   if (detail.includes('moved after it was checked')) {
     return translate(
       'auto.components.settings.pluginError.installGitMoved',
-      'The repository changed after Orca checked it. Try again.'
+      'The repository changed after OpenKodo checked it. Try again.'
     )
   }
   // Why: a fork of an official template keeps its reserved id/publisher, and this refusal used to
@@ -49,7 +49,7 @@ export function pluginInstallErrorMessage(cause: unknown): string {
   if (detail.includes('reserved for official orca plugins')) {
     return translate(
       'auto.components.settings.pluginError.installReservedIdentity',
-      'This plugin uses a name reserved for official Orca plugins, which install only from Orca’s catalog. For your own copy or fork, change "id" in orca-plugin.json so it doesn’t start with "orca-", and set "publisher" to your own name.'
+      'This plugin uses a name reserved for official OpenKodo plugins, which install only from OpenKodo’s catalog. For your own copy or fork, change "id" in openkodo-plugin.json so it doesn’t start with "openkodo-", and set "publisher" to your own name.'
     )
   }
   if (/(git|repository|fetch|clone|checkout|remote)/.test(detail)) {
@@ -64,7 +64,7 @@ export function pluginInstallErrorMessage(cause: unknown): string {
   )
 }
 
-/** `installed`: a copy Orca installed, so its user can't edit the manifest; dev folders can. */
+/** `installed`: a copy OpenKodo installed, so its user can't edit the manifest; dev folders can. */
 export function invalidPluginErrorMessage(
   detailValue: string,
   installed = false,
@@ -75,19 +75,19 @@ export function invalidPluginErrorMessage(
   if (installed && !detail.includes('requires orca')) {
     return t(
       'auto.components.settings.pluginError.installedManifestUnloadable',
-      "This version can't load in this Orca. Update or reinstall it."
+      "This version can't load in this OpenKodo. Update or reinstall it."
     )
   }
-  if (detail.includes('missing orca-plugin.json')) {
+  if (detail.includes('missing openkodo-plugin.json')) {
     return t(
       'auto.components.settings.pluginError.invalidManifestMissing',
-      'The plugin root is missing orca-plugin.json. Add it, then refresh plugins.'
+      'The plugin root is missing openkodo-plugin.json. Add it, then refresh plugins.'
     )
   }
   if (detail.includes('invalid manifest')) {
     return t(
       'auto.components.settings.pluginError.invalidManifest',
-      'orca-plugin.json is invalid. Fix it, then refresh plugins.'
+      'openkodo-plugin.json is invalid. Fix it, then refresh plugins.'
     )
   }
   if (detail.includes('artifact')) {
@@ -99,7 +99,7 @@ export function invalidPluginErrorMessage(
   if (detail.includes('requires orca')) {
     return t(
       'auto.components.settings.pluginError.incompatible',
-      'This plugin requires a different Orca version.'
+      'This plugin requires a different OpenKodo version.'
     )
   }
   return t(

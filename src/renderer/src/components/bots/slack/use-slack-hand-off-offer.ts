@@ -1,4 +1,4 @@
-// Whether a paired computer's bot may take its Slack app from this desktop's own Orca account: the
+// Whether a paired computer's bot may take its Slack app from this desktop's own OpenKodo account: the
 // account signed in here, and the workspaces its token is offered for.
 import { isPairedWebClientWindow } from '@/app-shell/chrome/desktop-window-chrome'
 import { useHostBots } from '@/lib/bot-catalog'
@@ -27,7 +27,7 @@ export function slackHandOffTeams(
 }
 
 /**
- * Offered only on a paired computer whose own Orca account has no token for the workspace (its
+ * Offered only on a paired computer whose own OpenKodo account has no token for the workspace (its
  * token form shows), signed in to an account other than this desktop's, while this desktop is
  * signed in. Null otherwise: today's dialog, unchanged.
  */
@@ -40,7 +40,7 @@ export function useSlackHandOffOffer(bot: Bot, step: BotSlackSetupStep): SlackHa
       ? (state.orcaProfileAuthStatus.cloud?.email ?? null)
       : null
   )
-  // Only Orca's own desktop window spends this account's token; a paired web client has no redeem.
+  // Only OpenKodo's own desktop window spends this account's token; a paired web client has no redeem.
   if (!paired || isPairedWebClientWindow() || step.kind !== 'token' || step.mine || !own) {
     return null
   }

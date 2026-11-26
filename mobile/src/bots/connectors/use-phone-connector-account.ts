@@ -1,4 +1,4 @@
-// The host's Linear or GitHub link as its Orca Cloud answers it, like the desktop's bot-linear-state and
+// The host's Linear or GitHub link as its cloud service answers it, like the desktop's bot-linear-state and
 // bot-github-state: read on the route's reads and on refresh; a host the phone can't reach keeps the last.
 // `failed` carries the host's code, linear_off and github_off included.
 import { useCallback, useEffect } from 'react'

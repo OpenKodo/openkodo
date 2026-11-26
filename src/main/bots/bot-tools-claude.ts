@@ -61,7 +61,7 @@ export async function readClaudeInheritedTools(
 
 /**
  * The names of the servers Claude already loads in `cwd` for the account in `configDir`: its user
- * servers, its local ones for that folder and the folder's `.mcp.json`. A server from Orca of the
+ * servers, its local ones for that folder and the folder's `.mcp.json`. A server from OpenKodo of the
  * same name would shadow or be shadowed by one of them.
  */
 export async function claudeOwnServerNames(

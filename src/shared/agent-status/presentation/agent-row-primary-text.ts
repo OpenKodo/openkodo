@@ -3,23 +3,23 @@ import { getRuntimePathBasename } from '../../file-access/cross-platform-path'
 import {
   findOrcaDispatchPreambleStart,
   findOrcaDispatchTaskMarkerIndex,
-  ORCA_DISPATCH_STATUS_TASK_MARKER
+  OPENKODO_DISPATCH_STATUS_TASK_MARKER
 } from '../../orchestration/workers/orca-dispatch-status-prompt'
 
-const ORCA_DISPATCH_TASK_MARKER = ORCA_DISPATCH_STATUS_TASK_MARKER
-const ORCA_DISPATCH_TASK_ID_MARKER = 'Your task ID is:'
+const OPENKODO_DISPATCH_TASK_MARKER = OPENKODO_DISPATCH_STATUS_TASK_MARKER
+const OPENKODO_DISPATCH_TASK_ID_MARKER = 'Your task ID is:'
 // Match the generated-title scan budget; previews need only the first nonempty task line.
-const ORCA_DISPATCH_TASK_PREVIEW_SCAN_LIMIT = 512
-const ORCA_DISPATCH_TASK_ID_SCAN_LIMIT = 1024
+const OPENKODO_DISPATCH_TASK_PREVIEW_SCAN_LIMIT = 512
+const OPENKODO_DISPATCH_TASK_ID_SCAN_LIMIT = 1024
 // Bound searches past multi-KB CLI preambles so malformed large prompts cannot force a full scan.
-const ORCA_DISPATCH_TASK_MARKER_SCAN_LIMIT = 32_768
+const OPENKODO_DISPATCH_TASK_MARKER_SCAN_LIMIT = 32_768
 // Pi and OMP put CLI-attached files first, as `<file name="/abs/path">…</file>`, before the typed words.
 const ATTACHED_FILE_LEAD = /^<file name="([^"]+)/
 const ATTACHED_FILE_CLOSER = '</file>'
 // Openers people don't type: a keyed object, an array of objects or strings, an XML or HTML document.
 const PASTED_DATA_LEAD = /^(?:\{\s*"[^"]*"\s*:|\[\s*\{\s*"|\[\s*"[^"]*"\s*,|<\?xml\s|<!doctype\s)/i
 
-/** True when the live prompt is still an Orca dispatch turn (not sticky metadata alone). */
+/** True when the live prompt is still an OpenKodo dispatch turn (not sticky metadata alone). */
 export function isOrcaDispatchPrompt(prompt: string): boolean {
   return findOrcaDispatchPreambleStart(prompt) !== -1
 }
@@ -86,13 +86,13 @@ export function getOrcaDispatchTaskId(prompt: string): string | null {
   if (start === -1) {
     return null
   }
-  const scan = prompt.slice(start, start + ORCA_DISPATCH_TASK_ID_SCAN_LIMIT)
-  const markerIndex = scan.indexOf(ORCA_DISPATCH_TASK_ID_MARKER)
+  const scan = prompt.slice(start, start + OPENKODO_DISPATCH_TASK_ID_SCAN_LIMIT)
+  const markerIndex = scan.indexOf(OPENKODO_DISPATCH_TASK_ID_MARKER)
   if (markerIndex === -1) {
     return null
   }
   // Status normalization folds newlines to spaces; delimit task IDs on any whitespace.
-  const afterMarker = scan.slice(markerIndex + ORCA_DISPATCH_TASK_ID_MARKER.length).trimStart()
+  const afterMarker = scan.slice(markerIndex + OPENKODO_DISPATCH_TASK_ID_MARKER.length).trimStart()
   const idEnd = afterMarker.search(/\s/)
   const idLine = idEnd === -1 ? afterMarker : afterMarker.slice(0, idEnd)
   return idLine || null
@@ -106,15 +106,18 @@ function getOrcaDispatchTaskPreview(prompt: string): string {
   }
   const scan = prompt.slice(
     start,
-    start + ORCA_DISPATCH_TASK_MARKER_SCAN_LIMIT + ORCA_DISPATCH_TASK_PREVIEW_SCAN_LIMIT
+    start + OPENKODO_DISPATCH_TASK_MARKER_SCAN_LIMIT + OPENKODO_DISPATCH_TASK_PREVIEW_SCAN_LIMIT
   )
   // Share standalone-marker rules so base-drift subjects cannot impersonate the real task separator.
   const taskMarkerIndex = findOrcaDispatchTaskMarkerIndex(scan)
   if (taskMarkerIndex === -1) {
     return ''
   }
-  const taskBodyStart = taskMarkerIndex + ORCA_DISPATCH_TASK_MARKER.length
-  const taskBody = scan.slice(taskBodyStart, taskBodyStart + ORCA_DISPATCH_TASK_PREVIEW_SCAN_LIMIT)
+  const taskBodyStart = taskMarkerIndex + OPENKODO_DISPATCH_TASK_MARKER.length
+  const taskBody = scan.slice(
+    taskBodyStart,
+    taskBodyStart + OPENKODO_DISPATCH_TASK_PREVIEW_SCAN_LIMIT
+  )
   for (const line of taskBody.split(/\r?\n/)) {
     const preview = line.trim().replace(/\s+/g, ' ')
     if (preview) {

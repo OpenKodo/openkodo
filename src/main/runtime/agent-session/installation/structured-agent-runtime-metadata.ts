@@ -44,7 +44,7 @@ export type StructuredAgentRuntimeCatalogEntry =
   | { kind: 'pi' | 'codex' | 'claude'; metadata: StructuredAgentRuntimeMetadata }
   | { kind: 'acp'; metadata: StructuredAgentRuntimeMetadata; spec: AcpLaunchSpec }
 
-// Why the host's data folder: a start runs Orca's installed release before PATH.
+// Why the host's data folder: a start runs OpenKodo's installed release before PATH.
 function acpChatProgram(spec: AcpLaunchSpec): StructuredAgentChatProgram {
   const { agent, managedRuntime } = spec
   return {
@@ -54,7 +54,7 @@ function acpChatProgram(spec: AcpLaunchSpec): StructuredAgentChatProgram {
       return { ...resolveAcpLaunchCommand(spec, env, options), env }
     },
     ...(managedRuntime ? { installable: () => managedRuntime.pin() !== null } : {}),
-    // Hosts without the user's own install can install Orca's copy.
+    // Hosts without the user's own install can install OpenKodo's copy.
     ...(isManagedAgentCli(agent) ? { installable: () => managedAgentCli(agent).available() } : {}),
     ...(spec.hostBackend
       ? {
@@ -74,7 +74,7 @@ function cliChatProgram(agent: 'claude' | 'codex'): StructuredAgentChatProgram {
       const options = { pathEnv, ...(homePath ? { homePath } : {}) }
       return { ...resolveStructuredAgentCommand(agent, commandSettings, options), env }
     },
-    // Hosts without the user's own install can install Orca's copy.
+    // Hosts without the user's own install can install OpenKodo's copy.
     installable: () => managedAgentCli(agent).available()
   }
 }
@@ -105,7 +105,7 @@ function acpMetadata(spec: AcpLaunchSpec): StructuredAgentRuntimeMetadata {
         }
       : {}),
     // New chats and their model catalog prefer a compatible host program, which a chat's account
-    // home then pins; reads such as Orca's own sign-in keep the agent's account.
+    // home then pins; reads such as OpenKodo's own sign-in keep the agent's account.
     resolveAccountHome: async (
       { launchEnv, purpose, permissionMode },
       { stateDirectory, hostLaunchEnvironment, hostSettings }

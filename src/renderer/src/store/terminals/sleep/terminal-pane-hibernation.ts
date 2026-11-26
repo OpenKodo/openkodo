@@ -19,7 +19,7 @@ import { equalStringSets, sortedUniquePtyIds } from '../pty/terminal-pty-identit
 import { resolveTerminalPtyOwner } from '@/lib/workspace/ownership/terminal-worktree-route'
 import { resolveTerminalTeardownOwner } from './terminal-teardown-owner'
 import { settleAttentionRemovedBy } from '../../slices/workspace-attention/attention-removal-follow-up'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { recordPaneSleepThroughLayoutOwner } from './terminal-sleep-layout-owner'
 
 export function createTerminalPaneHibernationActions(
@@ -184,7 +184,7 @@ export function createTerminalPaneHibernationActions(
         }
       }
       // Switch point: main records the sleep this window decided, once the stop settled.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         recordPaneSleepThroughLayoutOwner(get(), worktreeId, sleepingAgentSessionRecords)
       }
       settleAttentionRemovedBy(set, get, () =>

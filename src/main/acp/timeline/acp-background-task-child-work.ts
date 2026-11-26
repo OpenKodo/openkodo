@@ -32,7 +32,7 @@ export function acpBackgroundTaskChildWork(
   event: ProviderTimelineEvent,
   observedAt: number,
   stoppable: boolean,
-  /** Tasks Orca inferred and cannot stop must not hold the session busy. */
+  /** Tasks OpenKodo inferred and cannot stop must not hold the session busy. */
   inferred: (taskId: string) => boolean = () => false
 ): AgentChildWorkEvidence[] {
   return backgroundTaskBlocks(event).flatMap((block): AgentChildWorkEvidence[] => {

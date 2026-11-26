@@ -9,7 +9,7 @@ import { OrcaRuntimeWithGetStructuredAgentSessionCreateSupport } from './structu
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
 import { restoredChatTabChanges } from './restored-chat-tab-changes'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { RuntimeRepoSearchRefs } from '../../../../shared/worktree/catalog/runtime-worktree-contracts'
 import type { RepoSearchRefSelectorForm } from '../../../git/refs/resolution/legacy-ref-selectors'
 import { REPO_SEARCH_REFS_DEFAULT_LIMIT as DEFAULT_REPO_SEARCH_REFS_LIMIT } from '../../../../shared/git/refs/repo-search-limits'
@@ -86,7 +86,7 @@ export abstract class OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce exten
         if (!savedOrders.has(session.workspaceId)) {
           savedOrders.set(
             session.workspaceId,
-            ORCA_LAYOUT_OWNER_IS_MAIN || !this.hasAuthoritativeWindow()
+            OPENKODO_LAYOUT_OWNER_IS_MAIN || !this.hasAuthoritativeWindow()
               ? this.savedStructuredSessionTabOrder(session.workspaceId)
               : undefined
           )
@@ -124,8 +124,8 @@ export abstract class OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce exten
     let savedOrder: MainSessionTabRows | undefined
     // Window creates retain the window's own placement decision.
     if (
-      (ORCA_LAYOUT_OWNER_IS_MAIN || !this.hasAuthoritativeWindow()) &&
-      !(ORCA_LAYOUT_OWNER_IS_MAIN && input.placedByWindow)
+      (OPENKODO_LAYOUT_OWNER_IS_MAIN || !this.hasAuthoritativeWindow()) &&
+      !(OPENKODO_LAYOUT_OWNER_IS_MAIN && input.placedByWindow)
     ) {
       const saving = this.saveWindowlessAgentSessionTab(input.workspaceId, {
         ...input,
@@ -159,7 +159,7 @@ export abstract class OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce exten
       presentation: {
         raw: this.currentLocalStructuredSessionPresentation(input.sessionId),
         saved:
-          ORCA_LAYOUT_OWNER_IS_MAIN && input.placedByWindow
+          OPENKODO_LAYOUT_OWNER_IS_MAIN && input.placedByWindow
             ? []
             : [{ worktreeId: input.workspaceId, tabId }]
       }
@@ -172,8 +172,8 @@ export abstract class OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce exten
     const savedOrder =
       'savedOrder' in input
         ? input.savedOrder
-        : (ORCA_LAYOUT_OWNER_IS_MAIN || !this.hasAuthoritativeWindow()) &&
-            !(ORCA_LAYOUT_OWNER_IS_MAIN && input.placedByWindow)
+        : (OPENKODO_LAYOUT_OWNER_IS_MAIN || !this.hasAuthoritativeWindow()) &&
+            !(OPENKODO_LAYOUT_OWNER_IS_MAIN && input.placedByWindow)
           ? this.savedStructuredSessionTabOrder(input.workspaceId)
           : undefined
     projectStructuredSessionTab(this, { ...input, savedOrder }, (snapshot) =>

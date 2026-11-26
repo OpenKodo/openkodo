@@ -30,10 +30,10 @@ import {
 export type RebaseAutoStashSetting = boolean | 'unsupported' | null
 
 /**
- * Orca's own rebase of this branch integrated this upstream tip, so the remote only holds old
+ * OpenKodo's own rebase of this branch integrated this upstream tip, so the remote only holds old
  * copies. done: just finished; active: a diverged reading has matched it. Mismatches retire it.
  * behind is pinned at the first match: the old copies never change count at the same upstream tip,
- * so a different count means the local history was reset or rewritten outside Orca.
+ * so a different count means the local history was reset or rewritten outside OpenKodo.
  */
 export type OrcaRebaseMarker = {
   branch: string
@@ -71,7 +71,7 @@ export type WorktreeOperationRecord = {
   rebaseAutoStash: RebaseAutoStashSetting
   rebaseStop: RebaseStopReading | null
   rebaseStopInspectFailure: RebaseStopInspectFailure | null
-  // Orca started this rebase; once done it hides Pull/Sync/Fast-forward, never enables a force path.
+  // OpenKodo started this rebase; once done it hides Pull/Sync/Fast-forward, never enables a force path.
   orcaRebase: OrcaRebaseMarker | null
   remoteActionError: SourceControlActionError | null
   remoteActionSequence: number

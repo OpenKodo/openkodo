@@ -46,7 +46,7 @@ export type LinuxBareOrcaDispatcherResult = {
   target: string | null
 }
 
-// Team launchers invoke bare `orca`, and a login shell can drop Orca's PATH entry ahead of it.
+// Team launchers invoke bare `orca`, and a login shell can drop OpenKodo's PATH entry ahead of it.
 // A regular file avoids the installer's legacy-symlink cleanup.
 export async function installLinuxBareOrcaDispatcher(
   options: LinuxBareOrcaDispatcherOptions
@@ -75,7 +75,7 @@ export function buildBareOrcaCliScript(launcherPath: string): string {
 }
 
 /**
- * Orca's own children reach this app's CLI, or a clear error once it is gone, never another `orca`
+ * OpenKodo's own children reach this app's CLI, or a clear error once it is gone, never another `orca`
  * (GNOME's screen reader shares the name). Anyone else gets the next real `orca` on PATH first.
  */
 export function buildBareOrcaDispatcherScript(launcherPath: string): string {
@@ -83,15 +83,15 @@ export function buildBareOrcaDispatcherScript(launcherPath: string): string {
     '#!/usr/bin/env bash',
     `launcher=${quotePosixShellDoubleQuotedApostrophe(launcherPath)}`,
     'gone() {',
-    `  printf 'orca: Orca is no longer installed at %s. Remove %s to stop this message.\\n' "$launcher" "\${BASH_SOURCE[0]}" >&2`,
+    `  printf 'orca: OpenKodo is no longer installed at %s. Remove %s to stop this message.\\n' "$launcher" "\${BASH_SOURCE[0]}" >&2`,
     '  exit 127',
     '}',
-    // An agent's `orca …` must never start a talking screen reader, even once Orca is gone.
-    'if [ -n "${ORCA_CLI_BIN_DIR-}${ORCA_PANE_KEY-}${ORCA_USER_DATA_PATH-}" ]; then',
+    // An agent's `orca …` must never start a talking screen reader, even once OpenKodo is gone.
+    'if [ -n "${OPENKODO_CLI_BIN_DIR-}${OPENKODO_PANE_KEY-}${OPENKODO_USER_DATA_PATH-}" ]; then',
     '  [ -x "$launcher" ] && exec "$launcher" "$@"',
     '  gone',
     'fi',
-    // Skip every Orca dispatcher, not just this one, so none can hand the call back to Orca;
+    // Skip every OpenKodo dispatcher, not just this one, so none can hand the call back to OpenKodo;
     // the real target runs with nothing added to its environment. Relative entries depend on the
     // caller's folder, so only absolute ones count.
     'IFS=: read -r -a path_dirs <<< "${PATH-}"',
@@ -112,7 +112,7 @@ export function buildBareOrcaDispatcherScript(launcherPath: string): string {
   ].join('\n')
 }
 
-/** Removes only Orca's own dispatcher; a user's `orca` at that path is left alone. */
+/** Removes only OpenKodo's own dispatcher; a user's `orca` at that path is left alone. */
 export async function removeLinuxBareOrcaDispatcher(homePath = homedir()): Promise<boolean> {
   const dispatcherPath = join(homePath, '.local', 'bin', 'orca')
   if (!(await isOwnedDispatcher(dispatcherPath))) {

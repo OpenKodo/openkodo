@@ -5,7 +5,7 @@ import { buildPosixCommandPathLookupScript } from '../../../shared/shell/command
 import { runWslProcess } from '../../wsl/execution/wsl-runner'
 
 const WSL_AGENT_DETECTION_TIMEOUT_MS = 10000
-const WSL_AGENT_DETECTION_PREFIX = '__ORCA_AGENT_PATH__'
+const WSL_AGENT_DETECTION_PREFIX = '__OPENKODO_AGENT_PATH__'
 
 export type WslPreflightTarget = {
   distro?: string

@@ -156,7 +156,7 @@ export function missedBeyondGrace(input: {
   return lateMs > graceMs + LATE_START_TOLERANCE_MS
 }
 
-/** A missed event folds into the previous missed row, so events missed while Orca was off read as one. */
+/** A missed event folds into the previous missed row, so events missed while OpenKodo was off read as one. */
 export async function recordMissedRun(input: {
   runs: AutomationRunWriter
   automation: Automation

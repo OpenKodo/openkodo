@@ -46,7 +46,7 @@ export function driveIdOf(ref: string): string | null {
       }
     }
     throw new GoogleToolError(
-      'That Google link has no file id Orca can use. Use the id `orca drive search` prints.'
+      'That Google link has no file id OpenKodo can use. Use the id `orca drive search` prints.'
     )
   }
   return ID.test(trimmed) ? trimmed : null

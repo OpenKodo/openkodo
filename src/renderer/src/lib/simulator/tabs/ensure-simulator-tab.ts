@@ -14,7 +14,7 @@ import {
 } from '../../workspace/ownership/unified-tab-host-ownership'
 import { isExecutionHostAliasForWorktree } from '../../workspace/ownership/worktree-execution-host-alias'
 import { folderWorkspaceToWorktree } from '../../../../../shared/folder-workspaces/folder-workspace-worktree'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import {
   frameDrawnServerOfSimulatorTab,
   noteSimulatorTabCreatedHere,
@@ -110,7 +110,7 @@ export function ensureSimulatorTab(
     store.activeGroupIdByWorktree[worktreeId] ??
     store.groupsByWorktree[worktreeId]?.[0]?.id ??
     // Main's frames draw no empty group: a layout-owner build opens into the workspace's root one.
-    (ORCA_LAYOUT_OWNER_IS_MAIN ? store.ensureWorktreeRootGroup(worktreeId) : undefined)
+    (OPENKODO_LAYOUT_OWNER_IS_MAIN ? store.ensureWorktreeRootGroup(worktreeId) : undefined)
   if (!sourceGroupId) {
     return null
   }
@@ -138,7 +138,7 @@ export function ensureSimulatorTab(
       ? findReusableRightSplitGroupId(store.layoutByWorktree[worktreeId], sourceGroupId)
       : null
   // Paired-server frame groups belong to another host; use the group beside which this desktop would split.
-  const serverEnvironmentId = ORCA_LAYOUT_OWNER_IS_MAIN
+  const serverEnvironmentId = OPENKODO_LAYOUT_OWNER_IS_MAIN
     ? frameDrawnServerOfSimulatorTab(store, worktreeId)
     : null
   const rightSplit =
@@ -173,7 +173,7 @@ export function ensureSimulatorTab(
     }
     return id
   }
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     const opening = openingSimulatorTabId(worktreeId)
     if (opening) {
       return opening

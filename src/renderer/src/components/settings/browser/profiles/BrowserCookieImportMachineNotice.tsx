@@ -108,7 +108,7 @@ function RoutedPageCookieImportNotice({
   )
 }
 
-/** The per-host "control Orca browser tabs" switch decides whether that host's agents drive these pages. */
+/** The per-host "control OpenKodo browser tabs" switch decides whether that host's agents drive these pages. */
 function useSshHostAgentsCanBrowse(sshTargetId: string): boolean {
   const [allowed, setAllowed] = useState(false)
   useEffect(() => {

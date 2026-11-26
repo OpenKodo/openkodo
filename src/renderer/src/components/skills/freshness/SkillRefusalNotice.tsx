@@ -7,7 +7,7 @@ import { cn } from '@/lib/class-names'
 import { skillRefusalLines } from './skill-backup-refusal-copy'
 
 /**
- * A copy Orca left on another drive instead of backing it up: why, the full host path with a
+ * A copy OpenKodo left on another drive instead of backing it up: why, the full host path with a
  * keyboard-reachable Copy path, then what to do next.
  */
 export function SkillRefusalNotice({

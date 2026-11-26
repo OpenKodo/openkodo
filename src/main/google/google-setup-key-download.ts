@@ -1,4 +1,4 @@
-// The Google app key, taken as Orca's browser downloads it from an agent's setup page. The claim is
+// The Google app key, taken as OpenKodo's browser downloads it from an agent's setup page. The claim is
 // made when the download starts, for the one run waiting on that page in that agent's workspace, and
 // the bytes go to host-private staging (never the workspace) until they are imported or dropped.
 import { randomUUID } from 'node:crypto'
@@ -26,11 +26,11 @@ export type GoogleSetupKeyDownloadDeps = {
 }
 
 /** Where the person is told a claimed key download went, on every kind of page. */
-const GOOGLE_SETUP_DOWNLOAD_LABEL = 'Google setup in Orca'
+const GOOGLE_SETUP_DOWNLOAD_LABEL = 'Google setup in OpenKodo'
 
-/** The bot's line when a download from its setup page isn't a key Orca can use. */
+/** The bot's line when a download from its setup page isn't a key OpenKodo can use. */
 export function googleSetupKeyRefusedLine(reason: string): string {
-  return `The key download didn't reach Orca: ${reason}`
+  return `The key download didn't reach OpenKodo: ${reason}`
 }
 
 /** Whether a click's effects must leave out this page's text: Google Cloud's client page in a setup's
@@ -81,7 +81,7 @@ type KeyFile = {
   remove: () => Promise<void>
 }
 
-/** This host's own browser: Chromium saves the key into Orca's private `stagingDir`. */
+/** This host's own browser: Chromium saves the key into OpenKodo's private `stagingDir`. */
 export function googleSetupKeyDownloadClaim(
   deps: GoogleSetupKeyDownloadDeps,
   host: { stagingDir: string; workspaceOfPage: (browserPageId: string) => string | null }

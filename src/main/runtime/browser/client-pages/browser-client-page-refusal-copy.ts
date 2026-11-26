@@ -7,11 +7,11 @@ const STALE_PAGE =
 const BROWSER_CLIENT_PAGE_REFUSAL_COPY: Record<string, string> = {
   // Only a desktop older than this host's path-free download refuses it.
   browser_client_download_path_unsupported:
-    'The desktop showing this page runs an older Orca that cannot hand its downloads to this host, so `orca download` cannot save the file here. Update Orca on that desktop. Nothing was downloaded.',
+    'The desktop showing this page runs an older OpenKodo that cannot hand its downloads to this host, so `orca download` cannot save the file here. Update OpenKodo on that desktop. Nothing was downloaded.',
   browser_client_file_channel_unsupported:
-    'The desktop showing this page cannot exchange files with this host, so `orca upload` and `orca download` cannot run on it. Update Orca on that desktop and on this host.',
+    'The desktop showing this page cannot exchange files with this host, so `orca upload` and `orca download` cannot run on it. Update OpenKodo on that desktop and on this host.',
   browser_host_capability_unavailable:
-    'The desktop showing this page cannot run agent commands on it. Update Orca on that desktop.',
+    'The desktop showing this page cannot run agent commands on it. Update OpenKodo on that desktop.',
   browser_client_page_generation_stale: STALE_PAGE,
   browser_client_page_automation_registration_stale: STALE_PAGE,
   browser_client_page_renderer_stale: STALE_PAGE,
@@ -40,6 +40,8 @@ export function readableBrowserClientPageRefusal(error: unknown): unknown {
 }
 
 export function unresponsiveHostMessage(deviceName: string | null | undefined): string {
-  const desktop = deviceName ? `The Orca desktop "${deviceName}"` : 'The paired Orca desktop'
+  const desktop = deviceName
+    ? `The OpenKodo desktop "${deviceName}"`
+    : 'The paired OpenKodo desktop'
   return `${desktop} didn't respond when this server asked it to host browser pages; it may be asleep or disconnected. Wake it and retry, or open a browser tab in one of this server's workspaces on the desktop you want to use.`
 }

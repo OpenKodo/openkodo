@@ -19,7 +19,7 @@ export function nativeChatRowEndsInOwnBubbleMeta(message: NativeChatMessage): bo
   ) {
     return false
   }
-  // Of the Orca notices, only a takeover with a goal goes on to draw the bubble.
+  // Of the OpenKodo notices, only a takeover with a goal goes on to draw the bubble.
   if (message.orcaNotice && !(message.orcaNotice === 'took-over' && message.tookOver?.goal)) {
     return false
   }

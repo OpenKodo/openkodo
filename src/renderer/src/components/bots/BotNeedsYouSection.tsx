@@ -1,6 +1,6 @@
-// The rows of a bot's Needs you group: Orca's asks (approvals, then the rest, in botNow's order), then
+// The rows of a bot's Needs you group: OpenKodo's asks (approvals, then the rest, in botNow's order), then
 // the items the bot set to Needs you. Five rows, then Show N more; approvals never fold. Rows leave as
-// soon as their need clears where Orca reads it, and only focus that leaves with a row moves.
+// soon as their need clears where OpenKodo reads it, and only focus that leaves with a row moves.
 import { memo, useContext, useLayoutEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { botTarget, type BotOnHost } from '@/lib/bot-hosts'
@@ -35,7 +35,7 @@ import { botItemGroupName } from '../../../../shared/bots/bot-item-status-name'
 
 type ReportApproval = (key: string, approval: boolean) => void
 
-/** Orca's asks as the group lists them, beside the items. */
+/** OpenKodo's asks as the group lists them, beside the items. */
 export type BotNeedsYouAsks = {
   /** What needs the owner, as `botNow` reads it and the filter keeps. */
   needs: readonly BotNeedView[]

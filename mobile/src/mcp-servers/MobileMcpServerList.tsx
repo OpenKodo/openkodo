@@ -202,14 +202,14 @@ function DiscoveredRow(props: {
                 [
                   {
                     id: 'move',
-                    label: t('mcpServers.moveToOrca', 'Move to Orca'),
+                    label: t('mcpServers.moveToOrca', 'Move to OpenKodo'),
                     icon: ArrowDownToLine,
                     closeBeforePress: true,
                     onPress: props.onMove
                   },
                   {
                     id: 'copy',
-                    label: t('mcpServers.copyToOrca', 'Copy to Orca'),
+                    label: t('mcpServers.copyToOrca', 'Copy to OpenKodo'),
                     icon: Copy,
                     closeBeforePress: true,
                     onPress: props.onCopy

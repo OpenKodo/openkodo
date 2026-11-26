@@ -20,7 +20,7 @@ import {
 } from './network-compatibility/http1-compatibility-profile-state'
 
 const DEV_PARENT_SHUTDOWN_GRACE_MS = 3000
-const HTTP1_COMPATIBILITY_ENV_VAR = 'ORCA_DISABLE_HTTP2'
+const HTTP1_COMPATIBILITY_ENV_VAR = 'OPENKODO_DISABLE_HTTP2'
 const TRUE_ENV_VALUES = new Set(['1', 'true', 'yes', 'on'])
 const FALSE_ENV_VALUES = new Set(['0', 'false', 'no', 'off'])
 let devParentShutdownRequested = false
@@ -204,7 +204,7 @@ export function configureDevUserDataPath(isDev: boolean): void {
   const e2eConfig = getMainE2EConfig()
   if (e2eConfig.userDataDir) {
     // Isolate each E2E launch from persisted profiles while leaving the real packaged profile untouched.
-    const e2eHomeDir = process.env.ORCA_E2E_HOME_DIR ?? join(e2eConfig.userDataDir, 'home')
+    const e2eHomeDir = process.env.OPENKODO_E2E_HOME_DIR ?? join(e2eConfig.userDataDir, 'home')
     // Imports can resolve homedir before Electron readiness; reject launches outside disposable Node home.
     if (!areSameE2EHomePath(homedir(), e2eHomeDir)) {
       throw new Error('Refusing to start E2E outside its disposable home boundary')
@@ -220,7 +220,7 @@ export function configureDevUserDataPath(isDev: boolean): void {
   if (!isDev) {
     return
   }
-  const overrideUserDataPath = process.env.ORCA_DEV_USER_DATA_PATH
+  const overrideUserDataPath = process.env.OPENKODO_DEV_USER_DATA_PATH
   if (overrideUserDataPath) {
     // Why: run-electron-vite-dev.mjs resolves a per-worktree (or shared orca-dev) profile here; repros also pass isolated ones.
     app.setPath('userData', overrideUserDataPath)
@@ -249,14 +249,14 @@ export function configureOrcaUserDataPathEnv(): void {
     throw new Error(serveProfileRefusal)
   }
   // Canonicalize stale inherited profile overrides before CLI modules derive runtime-home paths.
-  process.env.ORCA_USER_DATA_PATH = userDataPath
-  // An Orca launched from another Orca terminal must own its CLI children.
+  process.env.OPENKODO_USER_DATA_PATH = userDataPath
+  // An OpenKodo launched from another OpenKodo terminal must own its CLI children.
   stampRuntimeSourceEnv(process.env, null)
 }
 
 export function shouldInstallManagedHooks(isDev: boolean): boolean {
   void isDev
-  // Codex hooks now target Orca-owned homes; retain installation until every agent has its own seam.
+  // Codex hooks now target OpenKodo-owned homes; retain installation until every agent has its own seam.
   return true
 }
 

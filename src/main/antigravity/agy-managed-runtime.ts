@@ -1,4 +1,4 @@
-// Orca's own agy is the build Google's own installer downloads, verified by the sha512 its manifest
+// OpenKodo's own agy is the build Google's own installer downloads, verified by the sha512 its manifest
 // publishes. Why not that installer: it is unpinned and `agy install` edits shell profiles and PATH.
 
 import { rename } from 'node:fs/promises'
@@ -15,7 +15,7 @@ import { parseCliVersion } from '../../shared/app-lifecycle/identity/app-version
 const LABEL = 'Antigravity'
 const MANIFESTS = 'https://antigravity-cli-auto-updater-974169037036.us-central1.run.app/manifests'
 const BUILDS = 'https://storage.googleapis.com/antigravity-public/antigravity-cli/'
-// Orca updates its copy itself; agy's own updater would replace it unverified.
+// OpenKodo updates its copy itself; agy's own updater would replace it unverified.
 const AGY_ENV = { AGY_CLI_DISABLE_AUTO_UPDATE: 'true' }
 
 const manifestSchema = z.object({
@@ -70,7 +70,7 @@ async function fetchLatestPin(signal?: AbortSignal): Promise<ManagedRuntimePin |
       : 'tar.gz'
     : null
   if (!format) {
-    throw new Error(`${LABEL} ${version} is published in a form Orca can't install: ${url}`)
+    throw new Error(`${LABEL} ${version} is published in a form OpenKodo can't install: ${url}`)
   }
   return {
     version,
@@ -84,7 +84,7 @@ async function fetchLatestPin(signal?: AbortSignal): Promise<ManagedRuntimePin |
 
 const executable = (folder: string): string => join(folder, agyCommand())
 
-// The archive names its binary `antigravity`; terminals given Orca's folder on PATH run `agy`.
+// The archive names its binary `antigravity`; terminals given OpenKodo's folder on PATH run `agy`.
 async function nameAgy(folder: string): Promise<void> {
   if (process.platform !== 'win32') {
     await rename(join(folder, 'antigravity'), executable(folder)).catch((error: unknown) => {

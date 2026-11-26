@@ -4,8 +4,8 @@ import { POSIX_SHELL_STARTUP_COMMAND_ENV } from './posix-shell-startup-command'
 
 export const ZSH_WRAPPER_DIR_MARKER_FILE = '.orca-shell-wrapper'
 
-export const ZSH_WRAPPER_DIR_MARKER_CONTENT = `# Orca-generated zsh startup wrapper directory.
-# Its presence is how Orca recognises its own wrapper dir instead of treating it
+export const ZSH_WRAPPER_DIR_MARKER_CONTENT = `# OpenKodo-generated zsh startup wrapper directory.
+# Its presence is how OpenKodo recognises its own wrapper dir instead of treating it
 # as the user's ZDOTDIR. Do not edit; the whole directory is regenerated.
 `
 
@@ -14,8 +14,8 @@ export const ZSH_FEATURE_CHANNEL_BLOCK = `builtin typeset -ga _orca_shell_featur
 _orca_shell_features=(\${(s:,:)\${${SHELL_STARTUP_FEATURE_ENV}:-}})
 builtin unset ${SHELL_STARTUP_FEATURE_ENV}
 # Consume now: user config can drop the deferred hook, leaving exported history state to leak into children.
-builtin typeset -g _orca_histfile="\${ORCA_HISTFILE:-}"
-builtin unset ORCA_HISTFILE
+builtin typeset -g _orca_histfile="\${OPENKODO_HISTFILE:-}"
+builtin unset OPENKODO_HISTFILE
 __orca_has_feature() { (( \${_orca_shell_features[(Ie)$1]} )) }`
 
 export const BASH_FEATURE_CHANNEL_BLOCK = `_orca_shell_features=",\${${SHELL_STARTUP_FEATURE_ENV}:-},"
@@ -24,7 +24,7 @@ __orca_has_feature() { [[ "$_orca_shell_features" == *",$1,"* ]]; }`
 
 export const SHELL_STARTUP_IDENTITY_MARKER_BLOCK = `__orca_has_feature identity && printf "\\033]777;orca-shell-start:%s\\007" "$$"`
 
-// Restore and consume ZDOTDIR before user startup files; reject stale Orca wrapper paths.
+// Restore and consume ZDOTDIR before user startup files; reject stale OpenKodo wrapper paths.
 export const ZSH_ZDOTDIR_HANDBACK_BLOCK = `__orca_usable_zdotdir() {
   [[ -n "\${1:-}" ]] || return 1
   [[ "$1" != */shell-ready/zsh ]] || return 1
@@ -36,12 +36,12 @@ export const ZSH_ZDOTDIR_HANDBACK_BLOCK = `__orca_usable_zdotdir() {
   done
   return 1
 }
-if __orca_usable_zdotdir "\${ORCA_ORIG_ZDOTDIR:-}"; then
-  builtin export ZDOTDIR="$ORCA_ORIG_ZDOTDIR"
+if __orca_usable_zdotdir "\${OPENKODO_ORIG_ZDOTDIR:-}"; then
+  builtin export ZDOTDIR="$OPENKODO_ORIG_ZDOTDIR"
 else
   builtin unset ZDOTDIR
 fi
-builtin unset ORCA_ORIG_ZDOTDIR ORCA_ZSHENV_SOURCE_DIR
+builtin unset OPENKODO_ORIG_ZDOTDIR OPENKODO_ZSHENV_SOURCE_DIR
 builtin unfunction __orca_usable_zdotdir`
 
 // Parse registration before user code can switch emulation; source at top level to preserve scope.

@@ -21,7 +21,7 @@ export function reportedDispatch(
 }
 
 /** A paired server's worker, named only by a Dispatch the import recorded for this sender's own mail,
- *  or by its own `dispatch:` address, which this Orca writes on mail it files about that Dispatch. */
+ *  or by its own `dispatch:` address, which this OpenKodo writes on mail it files about that Dispatch. */
 export function reportedRemoteDispatch(
   db: OrchestrationDb,
   dispatchId: string | undefined,

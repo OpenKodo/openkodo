@@ -1,6 +1,6 @@
 import { agentSessionFailureFact } from '../../../../shared/agent-session/failures/agent-session-failure'
 import {
-  AGENT_SESSION_ORCA_STOP_PRESENTATION,
+  AGENT_SESSION_OPENKODO_STOP_PRESENTATION,
   isAgentSessionOrcaStopCause
 } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-orca-stop'
 import type { AgentSessionResumeTrigger } from '../../../../shared/agent-session/lifecycle/resume/agent-session-resume-marker'
@@ -30,7 +30,7 @@ export function orcaStopRowBody(
     }),
     tone: 'error',
     ...(isAgentSessionOrcaStopCause(orcaEnd)
-      ? { presentation: AGENT_SESSION_ORCA_STOP_PRESENTATION, orcaStop: { cause: orcaEnd } }
+      ? { presentation: AGENT_SESSION_OPENKODO_STOP_PRESENTATION, orcaStop: { cause: orcaEnd } }
       : {})
   }
 }

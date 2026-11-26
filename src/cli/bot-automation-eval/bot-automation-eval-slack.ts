@@ -1,5 +1,5 @@
 // The stand-in's Slack people and messages: one world every scenario shares
-// (bot-automation-eval-slack-world.json). Each member is as Orca Cloud read their profile, a lookup
+// (bot-automation-eval-slack-world.json). Each member is as OpenKodo Cloud read their profile, a lookup
 // finds whom its own does, and a read shows a world channel (its search is
 // bot-automation-eval-slack-search.ts); the connector service records them from its real code, and bot-automation-eval-slack.test.ts holds these files to the recordings.
 import { z } from 'zod'

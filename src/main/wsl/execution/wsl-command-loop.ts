@@ -50,7 +50,7 @@ export type WslCommandLoop = {
 }
 
 export function wslCommandLoopMarker(): string {
-  return `__ORCA_WSL_EXEC_${randomUUID().replaceAll('-', '')}__`
+  return `__OPENKODO_WSL_EXEC_${randomUUID().replaceAll('-', '')}__`
 }
 
 export function startWslCommandLoop(

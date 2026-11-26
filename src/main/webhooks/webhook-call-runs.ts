@@ -342,7 +342,7 @@ export class WebhookCallRuns {
         continue
       }
       const run = this.deps.runs(call.automationId).find((entry) => entry.id === call.runId)
-      // History keeps 100 runs; one gone before Orca saw it end can't be vouched for.
+      // History keeps 100 runs; one gone before OpenKodo saw it end can't be vouched for.
       const outcome = run ? settledRunOutcome(run) : { state: 'unverifiable' as const }
       if (outcome) {
         this.deps.ledger.update(call.callId, { ...outcome, runId: call.runId }, this.now())

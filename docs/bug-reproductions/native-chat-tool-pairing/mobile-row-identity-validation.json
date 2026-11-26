@@ -63,28 +63,28 @@
       "arm": "before",
       "scenario": "unique",
       "expectedBehaviorVerified": true,
-      "screenshot": "/tmp/orca-perf-2-pr-proof/mobile-tool-identity/before-unique.png",
+      "screenshot": "/tmp/openkodo-perf-2-pr-proof/mobile-tool-identity/before-unique.png",
       "sha256": "2df2e972df1ab85efc95f4401fe72f8884b3c9fe96e9c02397eb561142bec839"
     },
     {
       "arm": "before",
       "scenario": "duplicates",
       "expectedBehaviorVerified": true,
-      "screenshot": "/tmp/orca-perf-2-pr-proof/mobile-tool-identity/before-duplicates.png",
+      "screenshot": "/tmp/openkodo-perf-2-pr-proof/mobile-tool-identity/before-duplicates.png",
       "sha256": "2df2e972df1ab85efc95f4401fe72f8884b3c9fe96e9c02397eb561142bec839"
     },
     {
       "arm": "after",
       "scenario": "unique",
       "expectedBehaviorVerified": true,
-      "screenshot": "/tmp/orca-perf-2-pr-proof/mobile-tool-identity/after-unique.png",
+      "screenshot": "/tmp/openkodo-perf-2-pr-proof/mobile-tool-identity/after-unique.png",
       "sha256": "38835af78fbece545bf396d2cb42bc4cfa0ea577720c1c6bef4fc00d8a7a07d2"
     },
     {
       "arm": "after",
       "scenario": "duplicates",
       "expectedBehaviorVerified": true,
-      "screenshot": "/tmp/orca-perf-2-pr-proof/mobile-tool-identity/after-duplicates.png",
+      "screenshot": "/tmp/openkodo-perf-2-pr-proof/mobile-tool-identity/after-duplicates.png",
       "sha256": "38835af78fbece545bf396d2cb42bc4cfa0ea577720c1c6bef4fc00d8a7a07d2"
     }
   ],

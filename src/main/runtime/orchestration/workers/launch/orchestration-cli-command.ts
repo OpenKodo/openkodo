@@ -9,16 +9,22 @@ import {
   hasAppEnvironment
 } from '../../../../../shared/app-lifecycle/app-environment'
 
-export type OrchestrationCliCommand = 'orca' | 'orca-dev' | 'orca-ide'
+export type OrchestrationCliCommand =
+  | 'openkodo'
+  | 'openkodo-dev'
+  // Legacy names a paired older host may still send.
+  | 'orca'
+  | 'orca-dev'
+  | 'orca-ide'
 
 /** Dev builds run the CLI as `orca-dev`; a packaged app, or a process with no app, must not advertise it. */
 export function runtimeOrchestrationCliCommand(): OrchestrationCliCommand | undefined {
-  return hasAppEnvironment() && !getAppEnvironment().isPackaged() ? 'orca-dev' : undefined
+  return hasAppEnvironment() && !getAppEnvironment().isPackaged() ? 'openkodo-dev' : undefined
 }
 
 /** What a local, non-WSL terminal is told to run; a structured session is always one. */
 export function localOrchestrationCliCommand(): OrchestrationCliCommand {
-  return runtimeOrchestrationCliCommand() ?? 'orca'
+  return runtimeOrchestrationCliCommand() ?? 'openkodo'
 }
 
 export function resolveTerminalOrchestrationCliCommand(args: {
@@ -30,21 +36,21 @@ export function resolveTerminalOrchestrationCliCommand(args: {
   runtimeCliCommand?: OrchestrationCliCommand
 }): OrchestrationCliCommand {
   if (args.connectionId) {
-    return 'orca'
+    return 'openkodo'
   }
   if (args.runtimeCliCommand) {
     return args.runtimeCliCommand
   }
   if (args.isWsl !== null && args.isWsl !== undefined) {
-    return args.isWsl ? 'orca-ide' : 'orca'
+    return args.isWsl ? 'openkodo' : 'openkodo'
   }
   const projectRuntime = args.getProjectRuntime?.()
   if (projectRuntime?.status === 'resolved' && projectRuntime.runtime.kind === 'wsl') {
-    return 'orca-ide'
+    return 'openkodo'
   }
 
   const worktreePath = splitWorktreeIdForFilesystem(args.worktreeId)?.worktreePath
-  return worktreePath && isWslUncPath(worktreePath) ? 'orca-ide' : 'orca'
+  return worktreePath && isWslUncPath(worktreePath) ? 'openkodo' : 'openkodo'
 }
 
 export function resolveRuntimeTerminalOrchestrationCliCommand(
@@ -66,10 +72,10 @@ export function resolveRuntimeTerminalOrchestrationCliCommand(
     const ptyId = source.resolvePtyId(handle)
     pty = ptyId ? (source.getPty(ptyId) ?? null) : null
   } catch {
-    return 'orca'
+    return 'openkodo'
   }
   if (!pty) {
-    return 'orca'
+    return 'openkodo'
   }
   return resolveTerminalOrchestrationCliCommand({
     connectionId: pty.connectionId,

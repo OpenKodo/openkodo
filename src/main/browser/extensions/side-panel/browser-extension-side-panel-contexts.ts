@@ -45,7 +45,7 @@ function matches<Value>(allowed: readonly Value[] | undefined, value: Value): bo
 }
 
 /**
- * Electron's runtime.getContexts never sees a side panel (Orca hosts it), so Orca adds one
+ * Electron's runtime.getContexts never sees a side panel (OpenKodo hosts it), so OpenKodo adds one
  * SIDE_PANEL context per open panel document. As in Chrome, the panel is not a tab and its own
  * WebContents names no window, so both ids are -1.
  */

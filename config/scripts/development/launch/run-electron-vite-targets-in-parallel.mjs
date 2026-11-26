@@ -19,7 +19,7 @@ function buildTarget(target) {
         stdio: 'inherit',
         env: {
           ...process.env,
-          ORCA_ELECTRON_VITE_TARGET: target
+          OPENKODO_ELECTRON_VITE_TARGET: target
         }
       }
     )

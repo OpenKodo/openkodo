@@ -38,7 +38,7 @@ const targetSchema = z
   .object({ tabId: tabIdSchema.optional(), windowId: z.number().int().optional() })
   .loose()
 
-/** Orca's browser tabs all sit in its one main window; popouts have no side panel. */
+/** OpenKodo's browser tabs all sit in its one main window; popouts have no side panel. */
 function requireMainWindowId(windowId: number): number {
   const mainWindow = getBrowserExtensionMainWindow()
   const resolved = windowId === WINDOW_ID_CURRENT ? mainWindow?.id : windowId
@@ -78,7 +78,7 @@ function open(caller: BrowserExtensionCaller, target: z.infer<typeof targetSchem
     )
     return
   }
-  // Why the active tab: Orca's window holds every workspace; the panel opens in the one in view.
+  // Why the active tab: OpenKodo's window holds every workspace; the panel opens in the one in view.
   const activeTabId = getActiveBrowserTabId()
   const activeTab = activeTabId === null ? null : webContents.fromId(activeTabId)
   if (activeTabId === null || activeTab?.session !== caller.session) {
@@ -185,7 +185,7 @@ export function registerSidePanelNamespace(): void {
       })),
       open: defineBrowserExtensionMethod(z.tuple([targetSchema]), open),
       close: defineBrowserExtensionMethod(z.tuple([targetSchema]), close),
-      // Why always right: Orca docks the panel on the right and has no setting to move it.
+      // Why always right: OpenKodo docks the panel on the right and has no setting to move it.
       getLayout: defineBrowserExtensionMethod(z.tuple([]), () => ({ side: 'right' }))
     },
     events: ['onOpened', 'onClosed']

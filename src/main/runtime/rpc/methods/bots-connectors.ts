@@ -1,4 +1,4 @@
-// `orca bot connectors`: what a bot can use where, read live on this computer and from Orca Cloud.
+// `orca bot connectors`: what a bot can use where, read live on this computer and from OpenKodo Cloud.
 import { z } from 'zod'
 import {
   botConnectorServices,
@@ -62,7 +62,7 @@ export const BOT_CONNECTORS_METHOD = defineMethod({
               ? places.message
               : places && !places.ok
                 ? places.message
-                : 'Orca Cloud could not list them.'
+                : 'cloud service could not list them.'
         }
     return {
       bot: bot.name,

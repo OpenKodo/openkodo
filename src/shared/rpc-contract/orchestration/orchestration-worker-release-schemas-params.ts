@@ -26,5 +26,5 @@ export const WorkerListParams = z.object({
   on: z.string().min(1).optional()
 })
 
-/** A native chat's own Orca session id: the workers it started. */
+/** A native chat's own OpenKodo session id: the workers it started. */
 export const SessionWorkersParams = z.object({ session: requiredString('Missing --session') })

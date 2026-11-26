@@ -208,7 +208,7 @@ export function AntigravityAccountsSection({
       </ManagedRuntimeInstallRow>
     ) : null
 
-  // A pick moves new chats between agy's own home and Orca's, which the description follows.
+  // A pick moves new chats between agy's own home and OpenKodo's, which the description follows.
   const reread = () => void run('List', undefined, true)
   // Installing or removing agy changes what its account rows can read.
   const installKey =

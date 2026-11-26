@@ -8,13 +8,13 @@ import { fullUnitMatrix } from './ci-unit-matrix.mjs'
 import { readTimingBaseline, writeAssignment } from '../sharding/ci-shard-assignment.mjs'
 
 export function prepareUnitPlan(env = process.env) {
-  const shards = fullUnitMatrix(env.ORCA_UNIT_FULL_SHARD_COUNT)
+  const shards = fullUnitMatrix(env.OPENKODO_UNIT_FULL_SHARD_COUNT)
   const fullShardCount = shards.length
   const files = discoverUnitFiles()
   let plan
   try {
     // From the workflow, not the payload file: background steps can read it mid-rewrite.
-    const event = { pull_request: { draft: env.ORCA_PULL_REQUEST_DRAFT === 'true' } }
+    const event = { pull_request: { draft: env.OPENKODO_PULL_REQUEST_DRAFT === 'true' } }
     if (env.GITHUB_EVENT_NAME !== 'pull_request') {
       throw new Error('Full reference run')
     }
@@ -32,7 +32,7 @@ export function prepareUnitPlan(env = process.env) {
       graph: collectUnitDependencyGraph,
       timings: readTimingBaseline('unit').timings,
       event,
-      mode: env.ORCA_UNIT_SELECTION_MODE,
+      mode: env.OPENKODO_UNIT_SELECTION_MODE,
       fullShardCount
     })
   } catch (error) {

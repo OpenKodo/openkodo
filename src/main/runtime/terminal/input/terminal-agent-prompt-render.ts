@@ -4,7 +4,7 @@ import type {
   RuntimeTerminalWaitCondition
 } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import type { RuntimeTerminalPromptSubmit } from '../../../../shared/terminal/runtime/runtime-terminal-send-contract'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { isCompleteAgentPromptDraft } from '../../../../shared/agent-launch/startup/agent-prompt-injection'
 import { readTerminalComposerTypedText } from '../../../../shared/terminal/input/terminal-composer-draft'
 const CLAUDE_AGENT_PROMPT_RENDER_TIMEOUT_MS = 8000
@@ -200,7 +200,7 @@ export abstract class OrcaRuntimeWithCreateAgentPromptRenderGate extends OrcaRun
     }
   ): Promise<RuntimeTerminalWait> {
     // Switch point: a saved pane main holds with no terminal yet starts first (once, shared).
-    const starting = ORCA_LAYOUT_OWNER_IS_MAIN
+    const starting = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? this.startRestoredHandlePane(handle, options ?? {})
       : null
     if (starting) {

@@ -1,5 +1,5 @@
 // What the MCP servers screens read from the host: its list, the servers in its agents' own settings,
-// its installed agents and workspaces, and the CLI's check of servers Orca doesn't sign in to. The
+// its installed agents and workspaces, and the CLI's check of servers OpenKodo doesn't sign in to. The
 // list re-reads on the host's notice, on focus and after every change, since a relayed host's
 // notice may not reach the phone.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -43,7 +43,7 @@ const mcpServersQuery = defineHostQuery<typeof NO_HOST_LIST_INPUT, PhoneMcpServe
   signal: { events: ['mcpServersChanged'] }
 })
 
-// Null: the host can't list them yet (a later Orca adds it), so the section stays hidden.
+// Null: the host can't list them yet (a later OpenKodo adds it), so the section stays hidden.
 const discoveredQuery = defineHostQuery({
   family: 'mcpServers.discover',
   fetch: async (client) => {

@@ -138,8 +138,8 @@ export function proposalCreateParams(
 
 const oneLine = (text: string): string => text.replace(/\s+/g, ' ').trim()
 
-// Names that keep their capital mid-sentence ("Watches Linear projects", "Watches your Orca workspaces").
-const PROPER_NAMES = new Set([...Object.values(BOT_CONNECTOR_NAMES), 'Orca'])
+// Names that keep their capital mid-sentence ("Watches Linear projects", "Watches your OpenKodo workspaces").
+const PROPER_NAMES = new Set([...Object.values(BOT_CONNECTOR_NAMES), 'OpenKodo'])
 const midSentence = (text: string): string =>
   PROPER_NAMES.has(text.split(' ', 1)[0] ?? '')
     ? text
@@ -206,7 +206,7 @@ export function botCreateOfferText(offer: BotCreateOffer, botName: string): stri
   const takes = worktrees?.length
     ? ` It would take over ${worktrees.map((entry) => entry.name).join(', ')}.`
     : ''
-  return `${botName} suggests a new bot, ${name}: ${purpose}${takes} Create it from New bot in Orca.`
+  return `${botName} suggests a new bot, ${name}: ${purpose}${takes} Create it from New bot in OpenKodo.`
 }
 
 export function botCreateOfferBody(

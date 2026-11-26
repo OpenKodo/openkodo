@@ -1,11 +1,11 @@
 import { agentMessageSenderName } from '../../agent-session/journal/agent-session-message-source'
 
 /** Who sent mail from a computer paired with this one, either side of the pairing. `computer` is
- *  this computer's name for a server it pulls from, or a client's Orca's name for itself; '' when
- *  none was named. `botName` is the sender's bot as its own Orca named it. */
+ *  this computer's name for a server it pulls from, or a client's OpenKodo's name for itself; '' when
+ *  none was named. `botName` is the sender's bot as its own OpenKodo named it. */
 export type PairedSender = { computer: string; botName: string | null }
 
-/** A saved bot request's paired sender, from any shape Orca has written: `fromPairedComputer`, or
+/** A saved bot request's paired sender, from any shape OpenKodo has written: `fromPairedComputer`, or
  *  the older `fromPairedServer` (a server's agent, never named by bot) and `fromComputer` (null when
  *  unnamed). An empty or null computer is still paired, just unnamed; null when not paired. */
 export function savedPairedSender(record: {
@@ -33,8 +33,8 @@ export function pairedSenderName(sender: PairedSender): string {
   return sender.botName ? `${sender.botName} on ${computer}` : `an agent on ${computer}`
 }
 
-/** The computer a paired Orca's mail label names. Every Orca labels its mail `<address> on <computer>`,
- *  and an address has no spaces, so an Orca from before it sent a sender still says where it is from. */
+/** The computer a paired OpenKodo's mail label names. Every OpenKodo labels its mail `<address> on <computer>`,
+ *  and an address has no spaces, so an OpenKodo from before it sent a sender still says where it is from. */
 export function pairedLabelComputer(label: string): string | null {
   const at = label.indexOf(' on ')
   if (at <= 0 || label.slice(0, at).includes(' ')) {

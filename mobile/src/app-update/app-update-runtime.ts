@@ -20,7 +20,7 @@ import {
 // expoConfig is embedded binary manifest because app does not use expo-updates; SDK 55 removed nativeAppVersion. Revisit version source if adopting OTA updates.
 export const installedAppVersion: string | null = Constants.expoConfig?.version ?? null
 
-/** The GitHub APK's package. Orca moved to Google Play as dev.orca.app, so this app gets no more updates. */
+/** The GitHub APK's package. OpenKodo moved to Google Play as dev.orca.app, so this app gets no more updates. */
 export const isRetiredGithubAndroidApp =
   Platform.OS === 'android' && Constants.expoConfig?.android?.package === 'com.stably.orca.mobile'
 

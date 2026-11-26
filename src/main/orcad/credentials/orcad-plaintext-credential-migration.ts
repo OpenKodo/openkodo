@@ -1,6 +1,6 @@
 // Seal legacy integration credentials after key loading; gh/glab own their tokens separately.
+import { openKodoHomePath } from '../../../shared/home/openkodo-home'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 import type { SecretStore } from '../../../shared/secure-storage/secret-store'
 import { classifyUnenvelopedCredential } from '../../../shared/secure-storage/secret-at-rest-protection'
@@ -46,9 +46,9 @@ function encFilesIn(dir: string): string[] {
   }
 }
 
-/** Keep credentials outside disposable ORCA_USER_DATA roots. */
+/** Keep credentials outside disposable OPENKODO_USER_DATA roots. */
 export function orcadCredentialRoot(): string {
-  return join(homedir(), '.orca')
+  return openKodoHomePath()
 }
 
 function listPlaintextCredentialTargets(): PlaintextCredentialTarget[] {

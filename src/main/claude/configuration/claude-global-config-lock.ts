@@ -7,7 +7,7 @@ const LOCK_RETRIES = { retries: 4, factor: 2, minTimeout: 50, maxTimeout: 250 }
 // Serialize local updates to avoid exhausting file-lock retries during launch bursts.
 const updateQueueByConfigFile = new Map<string, Promise<void>>()
 
-/** Orca's own writers of one Claude config file, one at a time. */
+/** OpenKodo's own writers of one Claude config file, one at a time. */
 export function runSerializedForClaudeConfig<T>(
   configFile: string,
   run: () => Promise<T>
@@ -28,7 +28,7 @@ export function lockClaudeConfig(configFile: string): Promise<() => Promise<void
 }
 
 /**
- * Runs `edit` (read through publish) under Claude's lock and Orca's queue for the file, for writers
+ * Runs `edit` (read through publish) under Claude's lock and OpenKodo's queue for the file, for writers
  * that splice the text instead of rewriting the whole object.
  */
 export function withClaudeGlobalConfigLock<T>(

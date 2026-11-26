@@ -4,7 +4,7 @@ import type { McpServer } from '../../shared/mcp-servers/mcp-servers'
 import { McpServersError } from './mcp-servers-error'
 
 /** Which plugin added an entry, under which of its server names; `unsorted` asks the next sync to
- *  learn again whether Orca signs in to it, after a check that couldn't reach the address. */
+ *  learn again whether OpenKodo signs in to it, after a check that couldn't reach the address. */
 const PluginMarkSchema = z.object({
   key: z.string(),
   server: z.string(),

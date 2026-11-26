@@ -1,6 +1,6 @@
 // The files a bot's connector verbs carry, moved here, straight between this machine and the source:
-// one it attaches goes from disk to the source's upload URL, and one it downloads comes from Orca
-// Cloud's stream to disk. Neither passes through the host as bytes, and Orca sets no size cap.
+// one it attaches goes from disk to the source's upload URL, and one it downloads comes from OpenKodo
+// Cloud's stream to disk. Neither passes through the host as bytes, and OpenKodo sets no size cap.
 import { randomUUID } from 'node:crypto'
 import { openAsBlob } from 'node:fs'
 import { open, stat, unlink, type FileHandle } from 'node:fs/promises'
@@ -26,7 +26,7 @@ type Fetch = typeof fetch
 
 // A forwarded shell's files are on another machine, out of this process's reach.
 export function refuseForwardedShell(): void {
-  if (process.env.ORCA_CLI_CWD) {
+  if (process.env.OPENKODO_CLI_CWD) {
     throw new RuntimeClientError(
       'invalid_environment',
       "This shell forwards orca to another machine, whose files this command can't reach. Run it from a shell on the machine that has them."
@@ -121,7 +121,7 @@ async function openDownload(
   }
 }
 
-// Orca Cloud's own answers when it can't stream the file, as `{ error, message }`.
+// OpenKodo Cloud's own answers when it can't stream the file, as `{ error, message }`.
 const DownloadErrorSchema = (body: unknown): { error: string; message?: string } | null =>
   body && typeof body === 'object' && 'error' in body && typeof body.error === 'string'
     ? {
@@ -146,8 +146,8 @@ async function downloadRefusal(response: Response, name: string): Promise<Runtim
       )
 }
 
-/** A downloaded file, streamed from Orca Cloud to where the bot asked or beside it under its own
- *  name; never over a file, and never left half-written. Orca Cloud passes Slack's bytes through as
+/** A downloaded file, streamed from OpenKodo Cloud to where the bot asked or beside it under its own
+ *  name; never over a file, and never left half-written. OpenKodo Cloud passes Slack's bytes through as
  *  they come; when the stream breaks off (a long download outlives one request), the rest is asked
  *  for from where it stopped, for as long as each try brings more. */
 export async function saveDownload(
@@ -160,7 +160,7 @@ export async function saveDownload(
   if (file.data === undefined && !link) {
     throw new RuntimeClientError(
       'cloud_lacks_direct_files',
-      "Orca Cloud didn't send a link to the file; update Orca and try again."
+      "cloud service didn't send a link to the file; update OpenKodo and try again."
     )
   }
   const { path, handle } = await openDownload(cwd, out, file)
@@ -202,7 +202,7 @@ async function streamDownload(
       }
       throw new RuntimeClientError(
         'unavailable',
-        "Orca Cloud didn't answer; nothing was saved. Try again in a moment."
+        "cloud service didn't answer; nothing was saved. Try again in a moment."
       )
     }
     if (!response.ok || !response.body) {

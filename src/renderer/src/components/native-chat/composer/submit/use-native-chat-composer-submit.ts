@@ -62,7 +62,7 @@ export function useNativeChatComposerSubmit(args: {
   submitEmpty?: () => void
   sendPty: () => void
   sendStructured: NativeChatStructuredComposerSend
-  /** Commands Orca owns, like `/resume`; `consume` true means the draft never reaches the agent. */
+  /** Commands OpenKodo owns, like `/resume`; `consume` true means the draft never reaches the agent. */
   orcaCommands?: Pick<NativeChatResumeCommand, 'consume' | 'matchesDraft'>
   setDraft: (value: string) => void
   setCaret: (caret: number) => void

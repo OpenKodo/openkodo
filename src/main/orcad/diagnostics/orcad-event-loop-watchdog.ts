@@ -4,7 +4,7 @@ import inspector from 'node:inspector'
 import type { Worker } from 'node:worker_threads'
 import { spawnWorkerThread } from '../../worker-threads/worker-thread-spawn'
 
-export const ORCAD_EVENT_LOOP_WATCHDOG_ENV = 'ORCA_ORCAD_EVENT_LOOP_WATCHDOG'
+export const ORCAD_EVENT_LOOP_WATCHDOG_ENV = 'OPENKODO_ORCAD_EVENT_LOOP_WATCHDOG'
 const BEAT_INTERVAL_MS = 1_000
 const CHECK_INTERVAL_MS = 5_000
 /** Logged so a support bundle shows the stall even when nothing else is written. */

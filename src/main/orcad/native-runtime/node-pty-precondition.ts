@@ -16,9 +16,9 @@ import { classifyNodePtyLoaderMessage, firstErrorLine } from './node-pty-loader-
 import { installPrebuiltSlot, type PrebuiltSlotOutcome } from './node-pty-prebuilt-slot'
 
 // Parse stdout verdicts only; Node may echo the script’s own token strings into stderr.
-const PROBE_OK_TOKEN = 'ORCA_NODE_PTY_LOAD_OK'
-const NO_BINARY_TOKEN = 'ORCA_NODE_PTY_NO_BINARY'
-const LOAD_ERROR_TOKEN = 'ORCA_NODE_PTY_LOAD_ERROR'
+const PROBE_OK_TOKEN = 'OPENKODO_NODE_PTY_LOAD_OK'
+const NO_BINARY_TOKEN = 'OPENKODO_NODE_PTY_NO_BINARY'
+const LOAD_ERROR_TOKEN = 'OPENKODO_NODE_PTY_LOAD_ERROR'
 const PROBE_TIMEOUT_MS = 20_000
 
 /** Degraded allows other services; blocked proves unloadable; unverifiable proves nothing about the addon. */

@@ -9,8 +9,8 @@ export type BrowserPermissionDeniedEvent = {
 }
 
 /**
- * The last main-frame request step Orca saw for an uncommitted load: none (`no-request-seen`),
- * inside Orca's own request checks (`held`), or handed on to the network (`sent`), where it waits
+ * The last main-frame request step OpenKodo saw for an uncommitted load: none (`no-request-seen`),
+ * inside OpenKodo's own request checks (`held`), or handed on to the network (`sent`), where it waits
  * for a socket, a connection or the server's response. Without a header listener, `held` can't
  * tell whether the request already went on. `unobserved`: the session had no page-request listener
  * when the load started, so no step could be seen.
@@ -37,7 +37,7 @@ export type BrowserPopupEvent = {
   browserPageId: string
   /** Sanitized to origin/host so auth query params never leak into UI state. */
   origin: string
-  /** Whether Orca opened the target in Orca, opened it externally, or blocked it as unsafe. */
+  /** Whether OpenKodo opened the target in OpenKodo, opened it externally, or blocked it as unsafe. */
   action: 'opened-in-orca' | 'opened-external' | 'blocked'
 }
 
@@ -50,7 +50,7 @@ export type BrowserDownloadRequestedEvent = {
   totalBytes: number | null
   mimeType: string | null
   savePath: string
-  /** Set when a feature in Orca took the download (e.g. "Google setup in Orca"): shown as where it
+  /** Set when a feature in OpenKodo took the download (e.g. "Google setup in OpenKodo"): shown as where it
    *  went instead of savePath, a private file the feature deletes, so there is nothing to open or copy. */
   claimLabel?: string
   status: 'downloading'

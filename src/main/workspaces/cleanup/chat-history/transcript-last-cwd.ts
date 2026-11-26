@@ -61,7 +61,7 @@ export async function readLastRecordedCwd(
 }
 
 /**
- * Re-read right before deletion: still idle, and not resumed elsewhere since. Orca resumes a chat
+ * Re-read right before deletion: still idle, and not resumed elsewhere since. OpenKodo resumes a chat
  * whose folder is gone at a live workspace's root (#17745), and the transcript keeps its first cwd.
  */
 export async function isStillIdleInGoneFolder(

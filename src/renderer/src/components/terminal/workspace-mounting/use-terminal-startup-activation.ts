@@ -8,7 +8,7 @@ import { createWorkspaceTerminalHostAuthoritySelector } from '@/lib/workspace/ow
 import { hasStructuredAgentLaunchInWorktree } from '@/lib/agent-session/launch/structured-agent-session-launch-status'
 import { isBotPage } from '../../bots/bot-workspace'
 import { isEmptyWorkspaceDefaultSurfacePending } from '@/lib/workspace/activation/initial-surface/empty-workspace-default-surface-claims'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { createInitialTerminalThroughLayoutOwner } from '@/store/terminals/tabs/creation/terminal-tab-create-through-layout-owner'
 import type { TerminalColdActivationController } from './terminal-cold-activation'
 
@@ -90,7 +90,7 @@ export function useTerminalStartupActivation(controller: TerminalStartupControll
       )
       if (shouldSeedDefaultSurface(activeWorktreeId, renderableTabCount, emptiedOnPurpose)) {
         if (
-          ORCA_LAYOUT_OWNER_IS_MAIN &&
+          OPENKODO_LAYOUT_OWNER_IS_MAIN &&
           createInitialTerminalThroughLayoutOwner(useAppStore.getState, activeWorktreeId, () =>
             createTab(activeWorktreeId, undefined, undefined, { pendingActivationSpawn: true })
           )

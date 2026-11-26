@@ -152,7 +152,7 @@ export function promoteCodexRuntimeSettingsToSystem(
 
 const PUBLISH_ATTEMPTS = 3
 
-/** Null when the user saved the source config after Orca read it; the caller redoes the pass. */
+/** Null when the user saved the source config after OpenKodo read it; the caller redoes the pass. */
 function promoteCodexRuntimeSettingsToSystemUnsafe(
   homes: CodexSettingsPromotionHomes
 ): CodexSettingsPromotionPlan | null {
@@ -306,7 +306,7 @@ function promoteCodexRuntimeSettingsToSystemUnsafe(
 type HostSource = { writeTarget: { path: string } | { error: unknown }; guest: boolean }
 
 /**
- * Orca never writes a WSL distro's own config, so nothing in the managed copy is kept back:
+ * OpenKodo never writes a WSL distro's own config, so nothing in the managed copy is kept back:
  * the mirror regenerates it from the distro file plus the lines the managed home owns.
  */
 function regenerateFromGuestPlan(

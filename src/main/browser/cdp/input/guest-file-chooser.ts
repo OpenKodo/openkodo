@@ -87,7 +87,7 @@ export async function interceptFileChooser(
     await rejectAfterTimeout(
       enableIn(sessionId),
       PAGE_REPLY_TIMEOUT_MS,
-      'The page is not responding, so Orca did not send the input.'
+      'The page is not responding, so OpenKodo did not send the input.'
     )
   })
   const release = async (): Promise<void> => {
@@ -126,7 +126,7 @@ export async function interceptFileChooser(
     await rejectAfterTimeout(
       Promise.all(sessionIds.map(enableIn)),
       PAGE_REPLY_TIMEOUT_MS,
-      'The page is not responding, so Orca did not send the input.'
+      'The page is not responding, so OpenKodo did not send the input.'
     )
   } catch (error) {
     abandoned = true
@@ -142,7 +142,7 @@ export async function interceptFileChooser(
   }
 }
 
-/** Agent or remote input must not raise the OS file dialog, which activates Orca over the user's work. */
+/** Agent or remote input must not raise the OS file dialog, which activates OpenKodo over the user's work. */
 export async function withFileChooserBlocked<T>(
   wc: WebContents,
   run: () => Promise<T>,
@@ -179,7 +179,7 @@ export async function withFileChooserBlocked<T>(
     throw new BrowserError(
       'browser_file_chooser_opened',
       agent
-        ? 'The action opened a file picker, which Orca closed so the system dialog would not take over the screen. To choose files, run `upload --element <ref> --files <paths>` on the file input or the button that opens it.'
+        ? 'The action opened a file picker, which OpenKodo closed so the system dialog would not take over the screen. To choose files, run `upload --element <ref> --files <paths>` on the file input or the button that opens it.'
         : "This page's file picker can't open from a remote view."
     )
   } finally {

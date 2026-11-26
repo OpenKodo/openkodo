@@ -12,7 +12,7 @@ import type { AutomationWebhooks } from './webhook-host-service'
 import type { OrcaSignInServer } from '../../shared/bots/host-orca-sign-in'
 
 export class AutomationWebhookSaves {
-  // Only a desktop signed in to Orca Cloud hosts the connector, so only it makes webhooks.
+  // Only a desktop signed in to OpenKodo Cloud hosts the connector, so only it makes webhooks.
   private webhooks: AutomationWebhooks | null = null
 
   /** This host's name when it is a headless server, whose signed-out refusal names it; set with the runtime. */
@@ -22,7 +22,7 @@ export class AutomationWebhookSaves {
     this.webhooks = webhooks
   }
 
-  /** The bot, with whether its host's Orca Cloud takes webhooks and whether the host is signed out
+  /** The bot, with whether its host's OpenKodo Cloud takes webhooks and whether the host is signed out
    *  of it, for the event rule check. */
   hearing(
     bot: Bot

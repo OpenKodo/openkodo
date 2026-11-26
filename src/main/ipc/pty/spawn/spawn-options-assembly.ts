@@ -109,7 +109,7 @@ export async function assemblePtySpawnLaunchOptions(input: PtySpawnLaunchOptions
     shell,
     connectionId
   })
-  const pluginDir = !connectionId ? env.ORCA_CLAUDE_AGENT_VIEW_PLUGIN_DIR : undefined
+  const pluginDir = !connectionId ? env.OPENKODO_CLAUDE_AGENT_VIEW_PLUGIN_DIR : undefined
   const launchCommand =
     pluginDir && mcp.command
       ? withClaudeAgentViewPlugin(mcp.command, pluginDir, shell)

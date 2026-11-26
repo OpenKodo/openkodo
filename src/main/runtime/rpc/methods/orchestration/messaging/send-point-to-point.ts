@@ -84,7 +84,7 @@ export function sendPointToPointMessage(args: {
         ? {
             code: 'stale_task_id',
             recipient: to,
-            message: `Task ${staleTaskId} is an earlier task of this worker; Orca read it as task ${dispatch.task_id} of Dispatch ${dispatch.id}. Use task ${dispatch.task_id} from now on.`
+            message: `Task ${staleTaskId} is an earlier task of this worker; OpenKodo read it as task ${dispatch.task_id} of Dispatch ${dispatch.id}. Use task ${dispatch.task_id} from now on.`
           }
         : undefined
     const withReportWarnings: SendReceipt = (receipt) => {

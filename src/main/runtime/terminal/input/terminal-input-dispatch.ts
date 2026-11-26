@@ -20,7 +20,7 @@ import {
   agentPromptTakesLeadLine,
   buildAgentPromptPasteBytes
 } from '../../../../shared/agent-launch/startup/agent-prompt-injection'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 
 export abstract class OrcaRuntimeWithControllerKnowsPtyIsLive extends OrcaRuntimeWithResolveTerminalPane {
   protected abstract writeTerminalAction(
@@ -141,7 +141,7 @@ export abstract class OrcaRuntimeWithControllerKnowsPtyIsLive extends OrcaRuntim
     options: RuntimeTerminalWriteOptions
   ): Promise<RuntimeTerminalSend> {
     // Switch point: a saved pane main holds with no terminal yet starts first (once, shared).
-    const starting = ORCA_LAYOUT_OWNER_IS_MAIN
+    const starting = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? this.startRestoredHandlePane(handle, { signal: options.signal })
       : null
     if (starting) {
@@ -248,7 +248,7 @@ export abstract class OrcaRuntimeWithControllerKnowsPtyIsLive extends OrcaRuntim
       )
     }
     // Switch point: a saved pane main holds with no terminal yet starts first (once, shared).
-    const starting = ORCA_LAYOUT_OWNER_IS_MAIN
+    const starting = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? this.startRestoredHandlePane(handle, { signal: agentPromptObservationSignal(options) })
       : null
     if (starting) {

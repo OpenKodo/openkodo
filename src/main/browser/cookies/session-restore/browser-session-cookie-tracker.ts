@@ -39,7 +39,7 @@ export type SessionCookieTracker = {
   onChanged: (event: Electron.Event, cookie: Cookie, cause: string, removed: boolean) => void
 }
 
-// Why keyed by file path: the same browser profile id ('default') exists in every Orca profile.
+// Why keyed by file path: the same browser profile id ('default') exists in every OpenKodo profile.
 export const sessionCookieTrackers = new Map<string, SessionCookieTracker>()
 
 // The tracker last retired for each file, until a new tracker takes the file: a clear admitted to

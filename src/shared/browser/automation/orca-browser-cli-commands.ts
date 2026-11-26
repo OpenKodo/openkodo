@@ -2,7 +2,7 @@ import { orcaCliInvocations } from '../../cli/orca-cli-invocations'
 
 /** The browser CLI's command keys per handler group. Kept apart from the CLI's
  *  lazy handler imports so the renderer and mobile can read them too. */
-export const ORCA_BROWSER_CLI_COMMAND_KEYS = {
+export const OPENKODO_BROWSER_CLI_COMMAND_KEYS = {
   'browser-extension': ['extension list', 'extension reload'],
   'browser-identity': ['browser identity get', 'browser identity set'],
   'browser-nav': [
@@ -99,7 +99,7 @@ export const ORCA_BROWSER_CLI_COMMAND_KEYS = {
 } as const satisfies Record<string, readonly string[]>
 
 const BROWSER_COMMAND_WORDS = new Set<string>(
-  Object.values(ORCA_BROWSER_CLI_COMMAND_KEYS).flatMap((keys) =>
+  Object.values(OPENKODO_BROWSER_CLI_COMMAND_KEYS).flatMap((keys) =>
     keys.map((key) => key.split(' ')[0])
   )
 )

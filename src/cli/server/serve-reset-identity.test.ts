@@ -33,7 +33,10 @@ describe('resetServeHostIdentity', () => {
     expect(ensureHostInstanceIdentity(before.dir, null)).toEqual({ kind: 'unchanged' })
     // A variable adopted after the reset is only recorded.
     expect(
-      ensureHostInstanceIdentity(before.dir, hostInstanceIdFromEnv({ ORCA_INSTANCE_ID: 'vm-a' }))
+      ensureHostInstanceIdentity(
+        before.dir,
+        hostInstanceIdFromEnv({ OPENKODO_INSTANCE_ID: 'vm-a' })
+      )
     ).toEqual({ kind: 'recorded' })
     expect(loadOrCreateE2EEKeypair(before.dir).publicKeyB64).toBe(publicKeyB64)
   })
@@ -58,11 +61,11 @@ describe('resetServeHostIdentity', () => {
     }
   })
 
-  it('refuses while an Orca holds the profile lock and changes nothing', async () => {
+  it('refuses while an OpenKodo holds the profile lock and changes nothing', async () => {
     const before = pairedProfile()
     const lock = acquireOrcadInstanceLock(before.dir)
     try {
-      await expect(resetServeHostIdentity(before.dir)).rejects.toThrow(/Stop Orca/)
+      await expect(resetServeHostIdentity(before.dir)).rejects.toThrow(/Stop OpenKodo/)
     } finally {
       lock.release()
     }
@@ -77,7 +80,7 @@ describe('resetServeHostIdentity', () => {
       chmodSync(before.dir, 0o755)
       const lock = acquireOrcadInstanceLock(before.dir, { role: 'desktop' })
       try {
-        await expect(resetServeHostIdentity(before.dir)).rejects.toThrow(/Stop Orca/)
+        await expect(resetServeHostIdentity(before.dir)).rejects.toThrow(/Stop OpenKodo/)
       } finally {
         lock.release()
       }

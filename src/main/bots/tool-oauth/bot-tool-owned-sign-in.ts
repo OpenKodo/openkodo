@@ -1,5 +1,5 @@
-// Which of a bot's tools Orca signs in to: a new address is sorted by what it answers, and a tool
-// that has Orca's sign-in is found by name for Connect and its status.
+// Which of a bot's tools OpenKodo signs in to: a new address is sorted by what it answers, and a tool
+// that has OpenKodo's sign-in is found by name for Connect and its status.
 import { hostname } from 'node:os'
 import type { BotOwnTool, BotToolServer } from '../../../shared/bot-tools'
 import {
@@ -16,7 +16,7 @@ import { BotToolSignInError, discoveryOptions, type BotToolOAuthKey } from './bo
 import { botToolSignInProgress, connectBotToolSignIn } from './bot-tool-sign-in-flows'
 
 /**
- * A new tool as it should be added: an address that needs a sign-in gets a credential id Orca signs
+ * A new tool as it should be added: an address that needs a sign-in gets a credential id OpenKodo signs
  * in under (`signIn`, the credential to add with it). One with saved values, or that answers without a sign-in, is added as given.
  * Throws, in the host's words, when the address can't be used.
  */
@@ -57,7 +57,7 @@ export async function sortAddedBotTool(
   return { failure: need.kind }
 }
 
-/** Adds `given` to the bot, as Orca's own sign-in tool when its address needs a sign-in. */
+/** Adds `given` to the bot, as OpenKodo's own sign-in tool when its address needs a sign-in. */
 export async function addSortedBotTool(
   cli: BotToolsHome,
   given: BotToolServer,
@@ -68,7 +68,7 @@ export async function addSortedBotTool(
   return botOwnTool(server, cli.folder)
 }
 
-/** The tool's sign-in, when Orca signs in to it; null for any other tool. */
+/** The tool's sign-in, when OpenKodo signs in to it; null for any other tool. */
 export async function ownedSignInKey(
   folder: string,
   name: string
@@ -87,13 +87,14 @@ export function botToolSignInMessage(code: BotToolSignInFailure): string {
   return botToolSignInFailureWords(code, hostname())
 }
 
-/** What an Orca from before `bots.tools.signIn.*` is told for a tool Orca signs in to: no CLI sign-in instead. */
-export const BOT_TOOL_SIGN_IN_NEEDS_UPDATE = 'Update Orca on this device to sign in to this app.'
+/** What an OpenKodo from before `bots.tools.signIn.*` is told for a tool OpenKodo signs in to: no CLI sign-in instead. */
+export const BOT_TOOL_SIGN_IN_NEEDS_UPDATE =
+  'Update OpenKodo on this device to sign in to this app.'
 
 /**
- * Connect for a tool Orca signs in to; null for any other tool. The browser opens on this computer,
+ * Connect for a tool OpenKodo signs in to; null for any other tool. The browser opens on this computer,
  * so only a caller here (its desktop window or CLI) can use it; another device signs in through
- * `bots.tools.signIn.*`, so one calling this is an older Orca.
+ * `bots.tools.signIn.*`, so one calling this is an older OpenKodo.
  */
 export async function connectOwnedBotTool(
   folder: string,
@@ -114,10 +115,10 @@ export async function connectOwnedBotTool(
   }
 }
 
-// The legacy watch's words for a Connect Orca runs itself, so either kind of tool reads the same.
+// The legacy watch's words for a Connect OpenKodo runs itself, so either kind of tool reads the same.
 const LEGACY_STATUS = { idle: 'none', waiting: 'pending', done: 'done', failed: 'failed' } as const
 
-/** How a tool Orca signs in to stands, in the legacy words and in full; null for any other tool. */
+/** How a tool OpenKodo signs in to stands, in the legacy words and in full; null for any other tool. */
 export async function ownedBotToolSignInStatus(
   folder: string,
   name: string

@@ -1,4 +1,4 @@
-// The bot half of Orca Cloud's package routes (/v1/bot-packages, /v1/bot-shares), over the skill
+// The bot half of OpenKodo Cloud's package routes (/v1/bot-packages, /v1/bot-shares), over the skill
 // request, auth and direct-upload modules. Bot responses are parsed as bot types, never skill ones.
 import { createHash } from 'node:crypto'
 import * as z from 'zod'
@@ -106,7 +106,7 @@ export class BotShareClient {
     private readonly options: { auth: BotCloudAuth; apiUrl?: string; fetcher?: typeof fetch }
   ) {}
 
-  /** Signed in through the active Orca profile, as skill sharing is. */
+  /** Signed in through the active OpenKodo profile, as skill sharing is. */
   static forProfile(userDataPath: string, options: SkillCloudOptions = {}): BotShareClient {
     return new BotShareClient({
       apiUrl: options.apiUrl,

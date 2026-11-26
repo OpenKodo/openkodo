@@ -1,5 +1,5 @@
 // The bot items file: forward-only migrations by `user_version`, each one transaction, and its rows'
-// shapes. A newer Orca's file opens read-only.
+// shapes. A newer OpenKodo's file opens read-only.
 import type SyncDatabase from '../sqlite/sync-database'
 import type {
   BotItemActor,
@@ -129,7 +129,7 @@ export const BOT_ITEMS_MIGRATIONS: readonly string[] = [
   `
 ]
 
-/** Runs the steps a file lacks; false when a newer Orca wrote it, so it must stay read-only. */
+/** Runs the steps a file lacks; false when a newer OpenKodo wrote it, so it must stay read-only. */
 export function migrateBotItems(db: SyncDatabase): boolean {
   const version = Number(db.pragma('user_version', { simple: true }) ?? 0)
   if (version > BOT_ITEMS_MIGRATIONS.length) {

@@ -1,5 +1,5 @@
 // What a paired server's removal or re-pair ends here: the Run work it held, and the questions this
-// Orca's agents asked agents there.
+// OpenKodo's agents asked agents there.
 import type { OrcaRuntimeService } from '../../../orca-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { OrchestrationWorkerServer } from '../environment-transport'
@@ -19,7 +19,7 @@ export function settleRemovedPairedServer(
   environmentId: string,
   serverName: string
 ): void {
-  const reason = `${serverName} was removed from this Orca's paired servers.`
+  const reason = `${serverName} was removed from this OpenKodo's paired servers.`
   closeRemoteRunLinksOfRemovedServer(db, environmentId, reason, (handle, type) =>
     runtime.notifyMessageArrived(handle, type)
   )

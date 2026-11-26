@@ -8,13 +8,13 @@ const SESSION_PREFIX = 'orca_'
 const RELAY_SESSION_PREFIX = 'orca_relay_'
 const SAFE_SESSION_NAME = /^orca_(?:relay_)?[0-9a-f]{1,64}$/
 /** Exclude relay names: desktop live-workspace sets do not describe remote clients’ history. */
-const ORCA_HISTORY_FILE = /^orca_([0-9a-f]{1,64})_history$/
+const OPENKODO_HISTORY_FILE = /^orca_([0-9a-f]{1,64})_history$/
 
 export function isSafeFishHistorySession(session: unknown): session is string {
   return typeof session === 'string' && SAFE_SESSION_NAME.test(session)
 }
 
-/** Clear inherited Orca session names so nested apps cannot write into the launching workspace’s history. */
+/** Clear inherited OpenKodo session names so nested apps cannot write into the launching workspace’s history. */
 export function dropInheritedOrcaFishHistory(env: Record<string, string | undefined>): void {
   if (isSafeFishHistorySession(env.fish_history)) {
     delete env.fish_history
@@ -30,7 +30,7 @@ export function relayFishHistorySessionName(worktreeHash: string): string {
   return `${RELAY_SESSION_PREFIX}${worktreeHash}`
 }
 
-/** Use the PTY spawn environment; its HOME/XDG_DATA_HOME may differ from Orca’s. */
+/** Use the PTY spawn environment; its HOME/XDG_DATA_HOME may differ from OpenKodo’s. */
 export function resolveFishHistoryDir(env: NodeJS.ProcessEnv = process.env): string {
   const xdg = env.XDG_DATA_HOME?.trim()
   const dataHome =
@@ -81,7 +81,7 @@ export function sweepOrphanedFishHistoryFiles(
       continue
     }
     for (const entry of entries) {
-      const hash = ORCA_HISTORY_FILE.exec(entry)?.[1]
+      const hash = OPENKODO_HISTORY_FILE.exec(entry)?.[1]
       if (!hash || liveWorktreeHashes.has(hash)) {
         continue
       }

@@ -11,17 +11,17 @@ export const PeerMailMessageType = z.enum([
 
 const LINE = z.string().max(500)
 
-/** Who sent peer mail, from the sending Orca's own records; the receiver shows it beside `senderLabel`. */
+/** Who sent peer mail, from the sending OpenKodo's own records; the receiver shows it beside `senderLabel`. */
 export const PeerMailSender = z.object({
   name: LINE.nullable(),
   agent: z.string().min(1).max(64).optional(),
-  /** The sending Orca's computer name. */
+  /** The sending OpenKodo's computer name. */
   computer: LINE,
   bot: z.object({ id: LINE, name: LINE, avatar: LINE.nullable() }).optional()
 })
 export type PeerMailSender = z.infer<typeof PeerMailSender>
 
-/** Agent mail one Orca carries to an agent on a paired Orca, inside a conversation the sender's Orca opened. */
+/** Agent mail one OpenKodo carries to an agent on a paired OpenKodo, inside a conversation the sender's OpenKodo opened. */
 export const PeerMailDeliverParams = z.object({
   conversationId: requiredString('Missing conversation ID'),
   messageId: requiredString('Missing message ID'),
@@ -32,29 +32,29 @@ export const PeerMailDeliverParams = z.object({
   type: PeerMailMessageType.optional(),
   priority: z.enum(['normal', 'high', 'urgent']).optional(),
   threadId: OptionalString,
-  /** With a `bot:` address: one of that bot's chats, or `new`; resolved by the receiving Orca. */
+  /** With a `bot:` address: one of that bot's chats, or `new`; resolved by the receiving OpenKodo. */
   chat: OptionalString,
   /** With a `bot:` address: an item number of that bot's. */
   item: OptionalString,
-  /** With `item`: files the sender uploaded to this Orca's attachment store for the item's chat. */
+  /** With `item`: files the sender uploaded to this OpenKodo's attachment store for the item's chat. */
   attachments: z.array(z.string().min(1).max(4096)).max(30).optional(),
   sender: PeerMailSender.optional()
 })
 
-/** A paired computer that takes asks from this Orca's agents, named on each of its pulls. Its
+/** A paired computer that takes asks from this OpenKodo's agents, named on each of its pulls. Its
  *  pulls in one `session` keep it listening until a pull's caller goes away or it leaves. */
 export const PeerMailClientAsksPull = z.object({
   session: z.string().min(1).max(100),
   /** Its persisted host installation id: what `--on-client` and a mention token name it by. */
   installationId: z.string().min(1).max(100),
   name: LINE,
-  /** The fingerprint this Orca saw for it under its last pairing, when that pairing was replaced. */
+  /** The fingerprint this OpenKodo saw for it under its last pairing, when that pairing was replaced. */
   previousPairing: z.string().min(1).max(200).optional(),
   /** Ends the session now; the pull answers at once. */
   leave: z.boolean().optional()
 })
 
-/** The opening Orca pulls replies queued for its conversations; waits up to waitMs for one. */
+/** The opening OpenKodo pulls replies queued for its conversations; waits up to waitMs for one. */
 export const PeerMailPullParams = z.object({
   waitMs: OptionalFiniteNumber,
   /** Conversations it could not read and is waiting to retry: their items neither return nor end the wait. */
@@ -62,7 +62,7 @@ export const PeerMailPullParams = z.object({
   clientAsks: PeerMailClientAsksPull.optional()
 })
 
-/** One queued item on the wire, pulled from or returned to a paired Orca. */
+/** One queued item on the wire, pulled from or returned to a paired OpenKodo. */
 export const PeerMailItem = z.object({
   conversationId: z.string(),
   sequence: z.number().int().positive(),
@@ -71,7 +71,7 @@ export const PeerMailItem = z.object({
   payload: z.string()
 })
 
-/** Replies and notices a paired computer owes asks from this Orca's agents, in the pull's item shape. */
+/** Replies and notices a paired computer owes asks from this OpenKodo's agents, in the pull's item shape. */
 export const PeerMailReturnParams = z.object({
   items: z.array(PeerMailItem).max(50)
 })
@@ -87,18 +87,18 @@ export const PeerMailAckParams = z.object({
     .max(50)
 })
 
-/** One reply on the wire: the fields the opening Orca stores as mail for its agent. */
+/** One reply on the wire: the fields the opening OpenKodo stores as mail for its agent. */
 export const PeerMailRelayPayload = z.object({
   senderLabel: z.string().min(1),
-  /** The replier on the paired Orca, where a reply to this one goes. */
+  /** The replier on the paired OpenKodo, where a reply to this one goes. */
   fromAddress: z.string().min(1),
   subject: z.string(),
   body: z.string(),
   threadId: z.string().nullable(),
   sender: PeerMailSender.optional(),
-  /** A bot's answer to a request the opening Orca sent, and what the asker does with it. */
+  /** A bot's answer to a request the opening OpenKodo sent, and what the asker does with it. */
   botAnswer: z.object({ requestId: LINE, view: z.record(z.string(), LINE) }).optional(),
-  /** A notice that a request the opening Orca sent went unanswered; an older Orca ignores it. */
+  /** A notice that a request the opening OpenKodo sent went unanswered; an older OpenKodo ignores it. */
   notice: z.object({ requestId: LINE }).optional()
 })
 

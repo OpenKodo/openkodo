@@ -1,4 +1,4 @@
-// `bots.connect.*`: "Connect Linear" / "Connect GitHub" in one trip, run on this host as its own Orca
+// `bots.connect.*`: "Connect Linear" / "Connect GitHub" in one trip, run on this host as its own OpenKodo
 // account. The client opens the page this answers (for a server, in the server's own browser session,
 // so the return reaches this host's loopback), then waits here for the trip's end.
 import {
@@ -60,7 +60,7 @@ export const BOT_CONNECT_METHODS = [
     params: ConnectorConnectRedeemParams,
     handler: async ({ source, result }, context) => {
       if (!CONNECTOR_CONNECT_CODE_PATTERN.test(result)) {
-        throw new InvalidArgumentError('That is not an Orca connect link.')
+        throw new InvalidArgumentError('That is not an OpenKodo connect link.')
       }
       return withHostCloudClient(context, (client) =>
         redeemConnectorFallback(source, client, result, keepLogin(source))

@@ -53,7 +53,7 @@ function serverOverrides(
   if ('url' in server) {
     const url = str(server.url)
     const headers = Object.entries(server.headers ?? {})
-    // Only the relay's header can be here: a server's saved headers stay with Orca's relay.
+    // Only the relay's header can be here: a server's saved headers stay with OpenKodo's relay.
     if (
       !url ||
       headers.some(([name, value]) => name !== 'authorization' || value !== RELAY_AUTHORIZATION)

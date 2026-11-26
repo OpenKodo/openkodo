@@ -81,7 +81,7 @@ export function ManagedRuntimeInstallRow(props: {
     const status = said(view.status, !trailing)
     // The row sits under its agent, so short copy leaves the name out; a screen reader still hears it.
     const spoken = view.spokenStatus === null ? null : said(view.spokenStatus, !trailing)
-    // A status like "Installed by Orca · 1.5.0" splits into parts, so it wraps at its dot like the rest.
+    // A status like "Installed by OpenKodo · 1.5.0" splits into parts, so it wraps at its dot like the rest.
     const [first, ...rest] = spoken === null ? status.split(' · ') : [status]
     const statusClass = cn('min-w-0', view.count && 'wrap-anywhere', !wraps && 'truncate')
     parts.push({

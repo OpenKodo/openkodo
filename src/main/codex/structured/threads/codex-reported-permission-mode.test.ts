@@ -4,7 +4,7 @@ import { codexStructuredPermissionPolicy } from '../../../../shared/agent-launch
 import { reportedCodexPermissionMode } from './codex-structured-thread-open'
 
 describe('reportedCodexPermissionMode', () => {
-  // Orca's Ask is read-only, so naming a writable workspace Ask would promise prompts that never come.
+  // OpenKodo's Ask is read-only, so naming a writable workspace Ask would promise prompts that never come.
   it.each([{ type: 'workspaceWrite', writableRoots: ['/configured'] }, 'workspace-write'])(
     'names no mode for a writable workspace that asks on request: %o',
     (sandbox) => {

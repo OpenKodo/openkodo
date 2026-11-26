@@ -25,12 +25,12 @@ try {
       }
       const env: NodeJS.ProcessEnv = {
         ...process.env,
-        ORCA_BACKGROUND_LAUNCH: '1',
-        ORCA_OMP_FRESH_CONFIG: config,
+        OPENKODO_BACKGROUND_LAUNCH: '1',
+        OPENKODO_OMP_FRESH_CONFIG: config,
         CAPTURE: capture
       }
       if (state === 'unset') {
-        delete env.ORCA_OMP_FRESH_CONFIG
+        delete env.OPENKODO_OMP_FRESH_CONFIG
       }
       const command = withFreshOmpLaunch('omp', shell, ' "task with spaces"')
       // Typed like a pane: a batch file would need the guard's `%!` written as `%%!`.

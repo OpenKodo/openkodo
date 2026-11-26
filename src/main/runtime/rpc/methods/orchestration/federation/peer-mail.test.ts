@@ -49,7 +49,7 @@ const CHAT_ON_B = 'orca_session_id:22222222-2222-4222-8222-222222222222'
 
 type Side = { db: OrchestrationDb; runtime: OrcaRuntimeService; dispatcher: RpcDispatcher }
 
-describe('agent mail between paired Orca servers', () => {
+describe('agent mail between paired OpenKodo servers', () => {
   let dir: string
   let a: Side
   let b: Side
@@ -69,13 +69,13 @@ describe('agent mail between paired Orca servers', () => {
       'ENVIRONMENT',
       'AGENT_LAUNCH_TOKEN'
     ]) {
-      vi.stubEnv(`ORCA_${name}`, '')
+      vi.stubEnv(`OPENKODO_${name}`, '')
     }
     for (const name of ['ID', 'INCARNATION', 'PROFILE_PATH']) {
-      vi.stubEnv(`ORCA_RUNTIME_SOURCE_${name}`, '')
+      vi.stubEnv(`OPENKODO_RUNTIME_SOURCE_${name}`, '')
     }
     const userDataPath = join(dir, side === a ? 'cli-a' : 'cli-b')
-    vi.stubEnv('ORCA_USER_DATA_PATH', userDataPath)
+    vi.stubEnv('OPENKODO_USER_DATA_PATH', userDataPath)
     if (!cliServers.has(side)) {
       mkdirSync(userDataPath, { recursive: true })
       const server = new OrcaRuntimeRpcServer({
@@ -602,7 +602,7 @@ describe('agent mail between paired Orca servers', () => {
     expect(b.db.getInbox(10).filter((message) => message.subject === 'Once')).toHaveLength(1)
   })
 
-  it('refuses mail to a worker another Orca coordinates', async () => {
+  it('refuses mail to a worker another OpenKodo coordinates', async () => {
     vi.spyOn(b.db, 'findActiveRemoteAttachmentForPane').mockImplementation((paneKey) =>
       // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a test double carrying only the fields the code under test reads.
       paneKey === B_PANE ? ({ dispatch_id: 'ctx_remote' } as never) : undefined
@@ -649,7 +649,7 @@ describe('agent mail between paired Orca servers', () => {
     expect(mailFor(b, 'term_b').map((message) => message.subject)).toEqual(['Second', 'Re: First'])
   })
 
-  it('acknowledges a reply replayed after this Orca reset its mail', async () => {
+  it('acknowledges a reply replayed after this OpenKodo reset its mail', async () => {
     await mutation(a, 'orchestration.send', {
       from: 'term_a',
       on: 'devB',

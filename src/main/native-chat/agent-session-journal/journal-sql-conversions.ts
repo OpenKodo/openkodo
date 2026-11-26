@@ -38,7 +38,7 @@ type Conversion = { promotion: AbortController; result: Promise<string | null> }
 
 function warnLegacy(step: string, sessionId: string, error: unknown): void {
   console.warn(
-    `[agent-session-journal] ${step} a chat an older Orca saved failed`,
+    `[agent-session-journal] ${step} a chat an older OpenKodo saved failed`,
     sessionId,
     error
   )
@@ -67,7 +67,7 @@ export class JournalSqlConversions {
     private readonly waitForIdle: (promotion: AbortSignal) => Promise<void>
   ) {}
 
-  /** Converted chats an older Orca may have continued, compared before idle conversion. */
+  /** Converted chats an older OpenKodo may have continued, compared before idle conversion. */
   compareLegacyChats(boundary: () => Promise<boolean>): Promise<void> {
     return compareJournalLegacyChatsWhenIdle(
       this.writer,
@@ -76,7 +76,7 @@ export class JournalSqlConversions {
       () => this.closed,
       (error, sessionId) => warnLegacy('comparing', sessionId, error)
     ).catch((error: unknown) =>
-      console.warn('[agent-session-journal] comparing chats an older Orca saved stopped', error)
+      console.warn('[agent-session-journal] comparing chats an older OpenKodo saved stopped', error)
     )
   }
 

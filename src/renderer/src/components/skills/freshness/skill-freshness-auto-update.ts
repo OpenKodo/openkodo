@@ -73,7 +73,7 @@ export function reportPreservedEdits(result: BundledSkillInstallResult | null): 
         warnAboutEdits(
           translate(
             'auto.components.skills.skillFreshnessAutoUpdate.strandedTitle',
-            "Orca couldn't back up your edits to {{value0}}",
+            "OpenKodo couldn't back up your edits to {{value0}}",
             { value0: skill.name }
           ),
           translate(
@@ -95,12 +95,12 @@ export function reportPreservedEdits(result: BundledSkillInstallResult | null): 
           published
             ? translate(
                 'auto.components.skills.skillFreshnessAutoUpdate.preservedDescription',
-                'Orca updated the skill and saved your edits to {{value0}}.',
+                'OpenKodo updated the skill and saved your edits to {{value0}}.',
                 { value0: backupPath }
               )
             : translate(
                 'auto.components.skills.skillFreshnessAutoUpdate.preservedBackupOnly',
-                'Orca saved your edits to {{value0}}.',
+                'OpenKodo saved your edits to {{value0}}.',
                 { value0: backupPath }
               )
         )
@@ -117,20 +117,20 @@ export function reportUncertainOutcome(
   warnAboutEdits(
     translate(
       'auto.components.skills.skillFreshnessAutoUpdate.uncertainTitle',
-      "Orca couldn't confirm the skill update on {{value0}}",
+      "OpenKodo couldn't confirm the skill update on {{value0}}",
       { value0: skillHostLabel(target) }
     ),
     // A backup refused across drives leaves the edited copy in the skills folder instead.
     translate(
       'auto.components.skills.skillFreshnessAutoUpdate.uncertainDescriptionKept',
-      "Orca may have updated skills on {{value0}} but couldn't confirm the result. If you edited a skill during the update, your copy is in {{value1}} or still in the skills folder.",
+      "OpenKodo may have updated skills on {{value0}} but couldn't confirm the result. If you edited a skill during the update, your copy is in {{value1}} or still in the skills folder.",
       { value0: skillHostLabel(target), value1: skillBackupDirectory(plan.homeDirectory) }
     )
   )
 }
 
 /**
- * Silently updates each skill's hash-verified Orca copies, at most once per observed state.
+ * Silently updates each skill's hash-verified OpenKodo copies, at most once per observed state.
  * Returns the skills a running update owns, so the nudge asks only about the rest.
  */
 export function autoUpdateUnmodifiedSkills(

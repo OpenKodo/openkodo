@@ -1,4 +1,4 @@
-// The person-side messages each of a chat's turns took, from Orca's own journal: the one that opened
+// The person-side messages each of a chat's turns took, from OpenKodo's own journal: the one that opened
 // it and those steered into it. Who a turn acts for and whether it may leave its thread both read this.
 import type {
   AgentJournalRenderItem,

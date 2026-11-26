@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-/** Marks a prompt Orca answered from a coordinator's chat, so the chat's own closer leaves it alone.
+/** Marks a prompt OpenKodo answered from a coordinator's chat, so the chat's own closer leaves it alone.
  *  Builds before the answerer was named wrote it bare, for the coordinator and a person alike. */
 export const ORCHESTRATION_APPROVAL_CALLER_PREFIX = 'trusted-local:orchestration:approval:'
 /** Answered by the coordinator agent. */
@@ -13,8 +13,8 @@ export const ORCHESTRATION_PERSON_APPROVAL_CALLER_PREFIX = `${ORCHESTRATION_APPR
 export const WorkerApprovalDecisionSchema = z.enum(['allow', 'deny'])
 export type WorkerApprovalDecision = z.infer<typeof WorkerApprovalDecisionSchema>
 
-/** Who settled it: a person (in Orca), the coordinator agent, someone in the worker's own chat or
- *  terminal, the agent's own timeout, or no one Orca can name. `terminal-only`: closed for Orca while
+/** Who settled it: a person (in OpenKodo), the coordinator agent, someone in the worker's own chat or
+ *  terminal, the agent's own timeout, or no one OpenKodo can name. `terminal-only`: closed for OpenKodo while
  *  the prompt is still up; only a person at the worker's terminal can answer it. `worker-ended`: its
  *  Dispatch stopped running, so nothing is left to answer. */
 export const WorkerApprovalAnswererSchema = z.enum([
@@ -52,12 +52,12 @@ export const WorkerApprovalPayloadSchema = z.object({
     detail: z.string().nullable(),
     reason: z.string().nullable()
   }),
-  /** The decisions Orca can apply to this prompt now; empty once it is closed. */
+  /** The decisions OpenKodo can apply to this prompt now; empty once it is closed. */
   allowedActions: z.array(WorkerApprovalDecisionSchema),
-  /** A helper agent inside the worker asked: Claude shows it in the worker's terminal only once Orca
+  /** A helper agent inside the worker asked: Claude shows it in the worker's terminal only once OpenKodo
    *  stops holding it unanswered, about 2 minutes on. */
   fromHelper: z.literal(true).optional(),
-  /** The worker's agent lets only a person allow it: Orca refuses an agent's allow. */
+  /** The worker's agent lets only a person allow it: OpenKodo refuses an agent's allow. */
   personOnly: z.literal(true).optional(),
   /** When the agent decides on its own, read from its screen; only while that countdown is shown. */
   expiresAt: z.string().optional(),

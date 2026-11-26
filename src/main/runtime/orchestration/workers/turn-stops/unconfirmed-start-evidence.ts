@@ -29,35 +29,35 @@ const REPORT_WORDS: Record<AgentStatusReport['status'], string> = {
 /** What a start-unconfirmed alert says of how the brief went in; a withheld Enter changes its advice. */
 export type UnconfirmedStartEvidence = {
   lines: string[]
-  /** Orca left the brief unsent because a dialog was on screen; Enter would answer the dialog. */
+  /** OpenKodo left the brief unsent because a dialog was on screen; Enter would answer the dialog. */
   withheld?: true
   /** It was the continue prompt a restart resume typed, not the start's brief. */
   continuePrompt?: true
 }
 
-/** A resumed worker's continue prompt Orca left unsent, as its alert says it. */
+/** A resumed worker's continue prompt OpenKodo left unsent, as its alert says it. */
 export function describeWithheldContinue(
   hold: RuntimeTerminalPromptSubmitHold
 ): UnconfirmedStartEvidence {
   return {
-    lines: [`Orca held the Enter: ${describeHold(hold)}.`],
+    lines: [`OpenKodo held the Enter: ${describeHold(hold)}.`],
     withheld: true,
     continuePrompt: true
   }
 }
 
-/** The stage of a start whose Enter Orca withheld, so a restart's report still knows it. */
+/** The stage of a start whose Enter OpenKodo withheld, so a restart's report still knows it. */
 export const SUBMIT_WITHHELD_STAGE = 'submit_withheld'
 
 /** A withheld start reported after a restart: its delivery record is gone, its stage is not. */
 export const WITHHELD_AFTER_RESTART_EVIDENCE: UnconfirmedStartEvidence = {
   lines: [
-    'Orca typed the brief but did not press Enter: a dialog showed on its screen, or someone typed into its terminal.'
+    'OpenKodo typed the brief but did not press Enter: a dialog showed on its screen, or someone typed into its terminal.'
   ],
   withheld: true
 }
 
-/** What tells a lost Enter, a dialog that took it, and a turn Orca missed apart. */
+/** What tells a lost Enter, a dialog that took it, and a turn OpenKodo missed apart. */
 export function describeUnconfirmedStartEvidence(
   delivery: UnconfirmedStartDelivery,
   aftermath: AgentPromptAftermath | null
@@ -66,7 +66,7 @@ export function describeUnconfirmedStartEvidence(
   if (!submit) {
     return undefined
   }
-  const typed = `Orca typed the brief ${seconds(submit.pastedAt - delivery.readyAt)} after the agent was ready`
+  const typed = `OpenKodo typed the brief ${seconds(submit.pastedAt - delivery.readyAt)} after the agent was ready`
   if ('withheldFor' in submit) {
     if (aftermath?.processReplaced) {
       // The dialog was the old process's; the new one's screen decides what Enter does now.
@@ -103,7 +103,7 @@ function describeAftermath(aftermath: AgentPromptAftermath, enteredAt: number): 
   const report = aftermath.lastReport
   const last = report
     ? `its last status report was ${REPORT_WORDS[report.status]}, ${seconds(Math.abs(report.at - enteredAt))} ${report.at < enteredAt ? 'before' : 'after'} the Enter`
-    : 'Orca has seen no status report from it'
+    : 'OpenKodo has seen no status report from it'
   return `Since the Enter, ${seen}; ${last}.`
 }
 

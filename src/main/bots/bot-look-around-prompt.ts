@@ -1,7 +1,7 @@
 // What a look-around run is asked: find what waits on the owner and suggest next steps, reading only.
 import { BOT_QUIET_MARKER } from '../../shared/bot-quiet-result'
 import { SUGGESTION_LIMITS } from '../../shared/bots/bot-look-around'
-import { BOT_ORCA_CLI } from './bot-preamble'
+import { BOT_OPENKODO_CLI } from './bot-preamble'
 import type { lookHistory } from './bot-look-around-state'
 
 const DEFAULT_FOCUS =
@@ -18,7 +18,7 @@ export function lookAroundPrompt(input: {
   focus: string
   history: ReturnType<typeof lookHistory>
 }): string {
-  const cli = BOT_ORCA_CLI
+  const cli = BOT_OPENKODO_CLI
   return [
     `${LOOK_AROUND_PROMPT_OPENING} and suggest up to ${SUGGESTION_LIMITS.perRun} next steps for their Suggestions list.`,
     '',

@@ -18,11 +18,11 @@ import {
 } from './bot-orchestration-eval-scenarios'
 import { agentVersion, wilson } from './bot-orchestration-eval-report'
 
-const agent: EvalAgent = process.env.ORCA_BOT_EVAL_AGENT === 'codex' ? 'codex' : 'claude'
-const runs = Number(process.env.ORCA_BOT_EVAL_RUNS ?? 2)
-const concurrency = Number(process.env.ORCA_BOT_EVAL_CONCURRENCY ?? 6)
-const only = process.env.ORCA_BOT_EVAL_ONLY?.split(',').filter(Boolean)
-const minPassRate = Number(process.env.ORCA_BOT_EVAL_MIN_PASS_RATE ?? 0)
+const agent: EvalAgent = process.env.OPENKODO_BOT_EVAL_AGENT === 'codex' ? 'codex' : 'claude'
+const runs = Number(process.env.OPENKODO_BOT_EVAL_RUNS ?? 2)
+const concurrency = Number(process.env.OPENKODO_BOT_EVAL_CONCURRENCY ?? 6)
+const only = process.env.OPENKODO_BOT_EVAL_ONLY?.split(',').filter(Boolean)
+const minPassRate = Number(process.env.OPENKODO_BOT_EVAL_MIN_PASS_RATE ?? 0)
 
 type Result = {
   scenario: OrchestrationScenario
@@ -92,7 +92,7 @@ function report(results: Result[], version: string, pending: OrchestrationScenar
     .filter((result) => result.infrastructure)
     .map((result) => `- ${result.scenario.id} #${result.run}: ${result.infrastructure}`)
   return [
-    `bot orchestration eval (${agent} ${version}, model ${process.env.ORCA_BOT_EVAL_MODEL ?? 'CLI default'}, TZ ${process.env.TZ}, ${runs} runs each)`,
+    `bot orchestration eval (${agent} ${version}, model ${process.env.OPENKODO_BOT_EVAL_MODEL ?? 'CLI default'}, TZ ${process.env.TZ}, ${runs} runs each)`,
     ...rows,
     `${'total'.padEnd(34)} pass ${rate(results).padEnd(24)} ${style(results)}`,
     `${'held out'.padEnd(34)} pass ${rate(results.filter((result) => result.scenario.heldOut))}`,
@@ -116,8 +116,10 @@ it('hands code work to workers and reports back', { timeout: 4 * 60 * 60 * 1000 
   )
   const scenarios = chosen.filter((scenario) => !scenario.pending)
   // Without it the orca project has no files: a bot can't dig in, or read before handing off.
-  if (!process.env.ORCA_BOT_EVAL_ORCA_CHECKOUT) {
-    throw new Error('Set ORCA_BOT_EVAL_ORCA_CHECKOUT to a clean orca checkout the bots may read.')
+  if (!process.env.OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT) {
+    throw new Error(
+      'Set OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT to a clean orca checkout the bots may read.'
+    )
   }
   const version = await agentVersion(agent)
   const standIn = await prepareStandIn()
@@ -152,7 +154,7 @@ it('hands code work to workers and reports back', { timeout: 4 * 60 * 60 * 1000 
       chosen.filter((scenario) => scenario.pending)
     )
     process.stdout.write(`${text}\n`)
-    const out = process.env.ORCA_BOT_EVAL_OUT
+    const out = process.env.OPENKODO_BOT_EVAL_OUT
     if (out) {
       await writeFile(out, `${text}\n`)
       await mkdir(`${out}.transcripts`, { recursive: true })

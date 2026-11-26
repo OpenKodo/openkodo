@@ -59,8 +59,8 @@ function systemSftpCandidates(sshPath: string | null, platform: NodeJS.Platform)
 }
 
 function findSystemSftp(): string | null {
-  if (process.env.ORCA_SYSTEM_SFTP_PATH) {
-    return process.env.ORCA_SYSTEM_SFTP_PATH
+  if (process.env.OPENKODO_SYSTEM_SFTP_PATH) {
+    return process.env.OPENKODO_SYSTEM_SFTP_PATH
   }
   const sshPath = findSystemSsh()
   for (const candidate of systemSftpCandidates(sshPath, process.platform)) {

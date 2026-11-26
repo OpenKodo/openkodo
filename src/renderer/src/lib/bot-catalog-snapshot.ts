@@ -10,7 +10,7 @@ import { reuseEqualJson } from '../../../shared/reuse-equal-json'
 import type { BotNeedsYouCounts } from '../../../shared/bots/bot-change-scope'
 import type { ConnectorCloudStatus } from '../../../shared/bots/connector-cloud-status'
 
-/** What a host's bots.list says of its link to Orca Cloud. */
+/** What a host's bots.list says of its link to OpenKodo Cloud. */
 export type BotHostConnectorStatus = ConnectorCloudStatus
 
 /** A listed host is read while connected; a disconnected one keeps its last read, shown dimmed. */
@@ -22,13 +22,13 @@ type BotHostEntry = {
   // Until the first full read, an empty list says nothing about whether the host has a bot. A list kept
   // from an earlier launch shows, but only this session's read says a bot missing from it is gone.
   listed: 'pending' | 'kept' | 'read' | 'failed'
-  // Whether the host's Orca Cloud binds an event's run to its thread, from the last full read.
+  // Whether the host's cloud service binds an event's run to its thread, from the last full read.
   threadReplies: boolean
-  // Whether the host's Orca Cloud takes webhooks; undefined from an older host, which doesn't say.
+  // Whether the host's cloud service takes webhooks; undefined from an older host, which doesn't say.
   webhooks: boolean | undefined
-  // Whether Orca Cloud refused the host's sign-in, so nothing reaches its bots until it signs in again.
+  // Whether OpenKodo Cloud refused the host's sign-in, so nothing reaches its bots until it signs in again.
   connectorNeedsSignIn: boolean
-  // The host's link to Orca Cloud as its bots.list says it; undefined from an older host, or without Orca Cloud.
+  // The host's link to OpenKodo Cloud as its bots.list says it; undefined from an older host, or without OpenKodo Cloud.
   connectorStatus: BotHostConnectorStatus | undefined
   // Each bot's waits from the last full read; an older host sends none.
   waits: BotListWaits
@@ -67,7 +67,7 @@ const hosts = new Map<ExecutionHostId, BotHostEntry>([
 let hostIds: readonly ExecutionHostId[] = [...hosts.keys()]
 let liveHostIds: readonly ExecutionHostId[] = hostIds
 let flattened: readonly Bot[] = []
-// Paired servers whose Orca is too old to list bots, for the sidebar's update line.
+// Paired servers whose OpenKodo is too old to list bots, for the sidebar's update line.
 let updateNeeded: readonly ExecutionHostId[] = []
 
 /** A paired server first listed this session starts from its kept last read, if any. */
@@ -307,7 +307,7 @@ export function readBotHostState(hostId: ExecutionHostId): BotHostState | null {
   return entryOf(hostId)?.state ?? null
 }
 
-/** Paired servers whose Orca is too old to list bots. */
+/** Paired servers whose OpenKodo is too old to list bots. */
 export function readUpdateNeededBotHosts(): readonly ExecutionHostId[] {
   return updateNeeded
 }

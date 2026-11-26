@@ -32,7 +32,7 @@ const triage: Bot = {
   folder: 'github-issue-triage'
 }
 
-/** Stand-ins for the bot's chat and Orca's browser pane beside it, under the pill. */
+/** Stand-ins for the bot's chat and OpenKodo's browser pane beside it, under the pill. */
 function Scene({ chatWidth = 300 }: { chatWidth?: number }): React.JSX.Element {
   return (
     <div className="fixed inset-0 flex flex-col bg-background">
@@ -65,7 +65,7 @@ function Scene({ chatWidth = 300 }: { chatWidth?: number }): React.JSX.Element {
             github.com/organizations/stablyai/settings/installations
           </div>
           <div className="grid flex-1 place-items-center text-sm text-muted-foreground">
-            GitHub&apos;s install page (Orca browser pane)
+            GitHub&apos;s install page (OpenKodo browser pane)
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@ export const done = defineFixture({
   render: () => <Scene />
 })
 
-// GitHub's page opened in Orca's browser: setup minimized to the pill by itself.
+// GitHub's page opened in OpenKodo's browser: setup minimized to the pill by itself.
 export const inOrcaMinimized = defineFixture({
   width: 1100,
   store: inOrcaStore,

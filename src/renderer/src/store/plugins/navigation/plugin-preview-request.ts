@@ -41,7 +41,7 @@ export function requestPluginPreview(request: PluginPreviewRequest): void {
   usePluginPreviewRequestStore.setState({ request })
 }
 
-/** An `orca://plugins/...` link: opens Settings → Plugins at that plugin; never installs. */
+/** An `openkodo://plugins/...` link: opens Settings → Plugins at that plugin; never installs. */
 export function openPluginInstallLink(raw: string): void {
   const link = parsePluginInstallLink(raw)
   if (!link) {

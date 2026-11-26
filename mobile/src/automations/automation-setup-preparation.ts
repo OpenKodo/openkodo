@@ -1,4 +1,4 @@
-import { EMPTY_ORCA_HOOK_CONTENT_HASH } from '../../../src/shared/hashing/orca-hook-content-hash'
+import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../src/shared/hashing/orca-hook-content-hash'
 import { isOrcaHookRepoTrusted } from '../../../src/shared/workspace-setup/hooks/orca-hook-trust-entries'
 import {
   parseExecutionHostId,
@@ -129,7 +129,7 @@ export async function prepareAutomationSetup(args: {
         ? { ...draft, setupDecision: 'run', setupTrustHash: undefined }
         : { ...draft, setupDecision: 'inherit', setupTrustHash: undefined }
     }
-    return { ...draft, setupDecision: 'run', setupTrustHash: EMPTY_ORCA_HOOK_CONTENT_HASH }
+    return { ...draft, setupDecision: 'run', setupTrustHash: EMPTY_OPENKODO_HOOK_CONTENT_HASH }
   }
   if (isOrcaHookTrusted(trust, repos, setup.repoId, 'setup', setupTrust.contentHash)) {
     return { ...draft, setupDecision: 'run', setupTrustHash: undefined }

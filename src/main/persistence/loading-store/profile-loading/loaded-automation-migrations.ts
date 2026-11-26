@@ -6,7 +6,7 @@ import type { StoreRuntimeState } from '../store-runtime-state'
 
 /**
  * A loaded profile's automations: legacy run contexts backfilled, owners migrated, and next runs an
- * older Orca saved on the host clock re-seeded on their zone. Any change marks the load for saving.
+ * older OpenKodo saved on the host clock re-seeded on their zone. Any change marks the load for saving.
  */
 export function migrateLoadedAutomations<T extends PersistedState>(
   loaded: T,

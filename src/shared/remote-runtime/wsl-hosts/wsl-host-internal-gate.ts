@@ -1,5 +1,5 @@
 /** WSL hosts are on by default; `0`, `false`, `off` or `no` closes the gate for a launch. Main/preload agree through the same launch environment. */
-export const WSL_HOSTS_INTERNAL_GATE_ENV = 'ORCA_INTERNAL_WSL_HOSTS'
+export const WSL_HOSTS_INTERNAL_GATE_ENV = 'OPENKODO_INTERNAL_WSL_HOSTS'
 
 const GATE_OFF_VALUES = new Set(['0', 'false', 'off', 'no'])
 
@@ -53,7 +53,7 @@ export function noteWslHostsPolicyBlocked(blocked: boolean): void {
  * Main publishes its resolved state here so the processes it spawns (CLI, servers, terminals) read
  * the gate as main does: they inherit the internal gate env var but neither note above.
  */
-export const WSL_HOSTS_GATE_STATE_ENV = 'ORCA_WSL_HOSTS_GATE_STATE'
+export const WSL_HOSTS_GATE_STATE_ENV = 'OPENKODO_WSL_HOSTS_GATE_STATE'
 // True once this process resolved the gate itself; an inherited value is then a parent's, so stale.
 let resolvedHere = false
 

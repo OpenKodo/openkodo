@@ -145,7 +145,7 @@ export abstract class BrowserManagerGuestPopupPolicy extends BrowserManagerNavig
   }
 
   /**
-   * Answers a new-tab request as an Orca tab; false leaves opener-dependent requests to a child window.
+   * Answers a new-tab request as an OpenKodo tab; false leaves opener-dependent requests to a child window.
    * Once Chromium has created the child, pass its `childOpener`: only a child without one becomes a tab.
    */
   openNewTabPopup(

@@ -56,7 +56,7 @@ export async function registerSshHandlers(
     register: (channel, operation) =>
       ipcMain.handle(channel, (_event, args: unknown) => operation(args)),
     beforeReady: () => {
-      // COMPAT(legacy-relay-bridge): terminals an older Orca's relay still runs.
+      // COMPAT(legacy-relay-bridge): terminals an older OpenKodo's relay still runs.
       installLegacyRelayBridgeApplication({
         store,
         connection: (targetId) => connectionManager?.getConnection(targetId) ?? null,
@@ -82,7 +82,7 @@ export async function registerSshHandlers(
       return listener(...args)
     })
   )
-  // COMPAT(legacy-relay-bridge): terminals an older Orca's relay still runs.
+  // COMPAT(legacy-relay-bridge): terminals an older OpenKodo's relay still runs.
   registerLegacyRelayBridgeIpc({ runtime: () => runtime ?? null })
 
   const result = await started

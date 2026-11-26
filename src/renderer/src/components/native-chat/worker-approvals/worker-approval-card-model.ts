@@ -13,7 +13,7 @@ import {
   type NativeChatApprovalRecordLine
 } from '../prompts/native-chat-approval-record'
 
-/** The card a worker's open approval shows: its own words, and only the answers Orca can give. */
+/** The card a worker's open approval shows: its own words, and only the answers OpenKodo can give. */
 export function workerApprovalCard(approval: WorkerApprovalPayload, t: Translate): ChatApproval {
   const { title, detail, reason } = approval.summary
   return {

@@ -1,6 +1,6 @@
 // The host list's servers for an agent in a WSL distro. The guest can't reach Windows loopback, and
-// its `orca` is a bridge to the Windows CLI, so a server that needs Orca goes through that CLI:
-// - one through the relay (saved headers, Orca's sign-in, or a shared process) runs as
+// its `orca` is a bridge to the Windows CLI, so a server that needs OpenKodo goes through that CLI:
+// - one through the relay (saved headers, OpenKodo's sign-in, or a shared process) runs as
 //   `orca mcp connect`, which bridges its stdio to the relay on Windows;
 // - a command server with saved env runs in the guest, under a wrapper that reads the env from
 //   `orca mcp env` over a pipe and execs the command, so no value sits on argv or in history.
@@ -14,7 +14,7 @@ import { settleWslAutomountRoot } from '../../wsl/filesystem/wsl-automount-root'
 import { wslGuestDrivePath } from './terminal-mcp-launch-files'
 
 /** Each data folder's managed WSL launcher (a Windows path), resolved once per run: its files are
- *  named by their content, so they don't move while Orca runs. */
+ *  named by their content, so they don't move while OpenKodo runs. */
 const launchers = new Map<string, string | null>()
 
 function managedWslLauncher(): string | null {
@@ -45,7 +45,7 @@ export async function settleWslMountRoot(distro: string | null): Promise<void> {
   })
 }
 
-/** The guest path of this Orca's `orca` launcher for `distro`; null when it has none there. */
+/** The guest path of this OpenKodo's `orca` launcher for `distro`; null when it has none there. */
 export function wslGuestOrcaLauncher(distro: string | null): string | null {
   const launcher = managedWslLauncher()
   return launcher ? wslGuestDrivePath(distro, launcher) : null
@@ -54,7 +54,7 @@ export function wslGuestOrcaLauncher(distro: string | null): string | null {
 export type WslServerLaunch = {
   agent: string
   workspaceId: string | null
-  /** The guest launcher (`wslGuestOrcaLauncher`); null leaves out every server that needs Orca. */
+  /** The guest launcher (`wslGuestOrcaLauncher`); null leaves out every server that needs OpenKodo. */
   launcher: string | null
 }
 
@@ -85,7 +85,7 @@ export function wslConnectServer(
  *  `orca` to reach Windows: the interop socket, and the distro its bridge names. */
 export const WSL_INTEROP_ENV = ['WSL_INTEROP', 'WSL_DISTRO_NAME'] as const
 
-/** The command server in the guest, its saved env read from this Orca by the wrapper. */
+/** The command server in the guest, its saved env read from this OpenKodo by the wrapper. */
 export function wslSavedEnvServer(
   entry: McpLaunchEntry,
   launch: WslServerLaunch

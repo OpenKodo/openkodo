@@ -112,7 +112,7 @@ export class HostTerminalPolicy {
     private readonly system = new SystemPtyLimit(),
     private readonly readSaved: (path: string) => Promise<number | null> = readSavedMaximum
   ) {
-    const raw = env.ORCA_DAEMON_MAX_HOST_TERMINALS?.trim()
+    const raw = env.OPENKODO_DAEMON_MAX_HOST_TERMINALS?.trim()
     this.environment =
       raw && /^\d+$/.test(raw) && isConfiguredTerminalLimit(Number(raw))
         ? resolveMaxHostTerminals(env)

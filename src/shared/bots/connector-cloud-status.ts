@@ -1,5 +1,5 @@
 /**
- * What a host's bot list says of its link to Orca Cloud; `refused` comes with the cloud's words, and
+ * What a host's bot list says of its link to cloud service; `refused` comes with the cloud's words, and
  * `needs-sign-in` is a connector that keeps refusing this sign-in while the app stays signed in.
  */
 export const CONNECTOR_CLOUD_STATUSES = [

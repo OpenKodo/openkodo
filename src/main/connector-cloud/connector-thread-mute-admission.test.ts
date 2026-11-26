@@ -240,7 +240,7 @@ function leaver(
       })
     }
   } as unknown as Parameters<typeof CONNECTOR_LEAVE_THREAD_METHOD.handler>[1]
-  // As Orca verified the caller: the bot's own chat, unless a test names another.
+  // As OpenKodo verified the caller: the bot's own chat, unless a test names another.
   const leave = (caller = 'session-bot1') =>
     CONNECTOR_LEAVE_THREAD_METHOD.handler(
       { sessionId: 'session-bot1' },
@@ -319,7 +319,7 @@ describe('a bot that leaves its thread', () => {
     expect(await leave()).toEqual({ ok: true, already: true })
     expect(readThreadMute(store, FIRST)).toEqual({ botId: 'bot1', muted: true, leaveLine: TURN_ID })
 
-    // Orca quit before the turn ended: the line owed is posted once it watches again, then no more.
+    // OpenKodo quit before the turn ended: the line owed is posted once it watches again, then no more.
     await closeTestStores()
     const reopened = createStore()
     expect(readThreadMute(reopened, FIRST)).toEqual({

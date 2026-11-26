@@ -13,10 +13,10 @@ export function getUpdateInstallBlockGuidance(
 } {
   if (block.reason === 'busy') {
     return {
-      title: t('updates.installBlock.busyTitle', 'Another Orca is updating'),
+      title: t('updates.installBlock.busyTitle', 'Another OpenKodo is updating'),
       summary: t(
         'updates.installBlock.busySummary',
-        'An update is already being installed by another Orca instance.'
+        'An update is already being installed by another OpenKodo instance.'
       ),
       explainer: t(
         'updates.installBlock.busyGuidance',
@@ -29,7 +29,7 @@ export function getUpdateInstallBlockGuidance(
       title: t('updates.installBlock.unresponsiveTitle', 'Waiting for background servers'),
       summary: t(
         'updates.installBlock.unresponsiveSummary',
-        'Orca could not finish pausing its background servers for the update.'
+        'OpenKodo could not finish pausing its background servers for the update.'
       ),
       explainer: t(
         'updates.installBlock.unresponsiveGuidance',
@@ -43,11 +43,11 @@ export function getUpdateInstallBlockGuidance(
       title: t('updates.installBlock.readyTitle', 'Your update is ready'),
       summary: t(
         'updates.installBlock.browserSummary',
-        "A background Orca server's browser is still using this app."
+        "A background OpenKodo server's browser is still using this app."
       ),
       explainer: t(
         'updates.installBlock.browserGuidance',
-        'End the process below, then retry: its server keeps running without a browser. If another computer uses this Mac as an SSH host, updating Orca there lets the browser pause for updates on its own.'
+        'End the process below, then retry: its server keeps running without a browser. If another computer uses this Mac as an SSH host, updating OpenKodo there lets the browser pause for updates on its own.'
       )
     }
   }
@@ -58,8 +58,14 @@ export function getUpdateInstallBlockGuidance(
   return {
     title: t('updates.installBlock.readyTitle', 'Your update is ready'),
     summary: onlyServers
-      ? t('updates.installBlock.serverSummary', 'A background Orca server is still using this app.')
-      : t('updates.installBlock.instanceSummary', 'Another Orca instance is still using this app.'),
+      ? t(
+          'updates.installBlock.serverSummary',
+          'A background OpenKodo server is still using this app.'
+        )
+      : t(
+          'updates.installBlock.instanceSummary',
+          'Another OpenKodo instance is still using this app.'
+        ),
     explainer: onlyServers
       ? t(
           'updates.installBlock.serverGuidance',
@@ -68,11 +74,11 @@ export function getUpdateInstallBlockGuidance(
       : hasServers
         ? t(
             'updates.installBlock.mixedGuidance',
-            'Close any other Orca windows and stop the server from the terminal or service that started it. Connected devices will disconnect. Then retry.'
+            'Close any other OpenKodo windows and stop the server from the terminal or service that started it. Connected devices will disconnect. Then retry.'
           )
         : t(
             'updates.installBlock.instanceGuidance',
-            'Quit other Orca instances, then retry. Your downloaded update will be kept ready.'
+            'Quit other OpenKodo instances, then retry. Your downloaded update will be kept ready.'
           )
   }
 }

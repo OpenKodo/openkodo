@@ -142,7 +142,7 @@ export function resolveSourceControlPrimaryActionDecision(
     return unpublishedAction
   }
 
-  // After an Orca rebase the remote holds old copies; Sync or Pull would merge them back.
+  // After an OpenKodo rebase the remote holds old copies; Sync or Pull would merge them back.
   const pullSuppressed = inputs.suppressPullAfterRebase === true
   if (upstreamStatus.ahead > 0 && upstreamStatus.behind > 0) {
     if (shouldForcePushWithLeaseForUpstream(upstreamStatus)) {

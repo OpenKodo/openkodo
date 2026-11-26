@@ -1,6 +1,6 @@
 import { ConnectorAnswerFields } from '../connector-prompt-contract'
 import type { ConnectorTurnActivity } from './connector-turn-activity-contract'
-// Mirror of cloud/packages/connector-contract/src for the machine side of the Orca Cloud connector.
+// Mirror of cloud/packages/connector-contract/src for the machine side of the OpenKodo Cloud connector.
 // Copies, not imports: the CLI compiles src/shared with rootDir src, so it can't reach cloud files.
 import * as z from 'zod'
 import type { ConnectorPrompt } from '../connector-prompt-contract'
@@ -79,7 +79,7 @@ export const CONNECTOR_CLIENT_LIMITS = {
   maxHelloTriggers: 100
 } as const
 
-// Machine-side readers: they keep what this Orca uses and ignore fields a newer cloud adds.
+// Machine-side readers: they keep what this OpenKodo uses and ignore fields a newer cloud adds.
 export const ConnectorErrorResponse = z.object({ error: z.string().min(1) })
 
 // Each hello gets a revision above every earlier one for this machine; polls, acks and events carry it.
@@ -97,7 +97,7 @@ export const ConnectorHelloResponse = z.object({
   webhookTombstones: z.array(z.string()).optional().catch(undefined)
 })
 
-/** Where an Orca Cloud conversation comes from. */
+/** Where an OpenKodo Cloud conversation comes from. */
 export const CONNECTOR_CLOUD_SOURCES = ['slack', 'discord', 'linear', 'github', 'webhook'] as const
 
 /** A thread; a webhook has none, only its calls' trigger deliveries. */
@@ -128,7 +128,7 @@ export const CHAT_GONE_REFUSAL = 'chat_gone'
 /** A resume whose chat's newest turn no longer failed (resumed, answered or replaced since). */
 export const NOT_FAILED_REFUSAL = 'not_failed'
 
-/** The conversation as Orca Cloud names it; null for one the cloud's contract can't name. */
+/** The conversation as OpenKodo Cloud names it; null for one the cloud's contract can't name. */
 export function cloudConversation(key: {
   source: string
   externalId: string
@@ -229,12 +229,12 @@ export const ConnectorDelivery = z.discriminatedUnion('kind', [
 ])
 export type ConnectorDelivery = z.infer<typeof ConnectorDelivery>
 
-/** Enough of a delivery this Orca cannot read to settle it as unsupported. */
+/** Enough of a delivery this OpenKodo cannot read to settle it as unsupported. */
 export const ConnectorDeliveryId = z.object({ deliveryId: z.string().min(1) })
 
 const Unsettled = z.object({ deliveryId: z.string().min(1), conversation: ConnectorConversation })
 
-// Each delivery, unsettled entry and the control are read one by one, so one this Orca cannot read
+// Each delivery, unsettled entry and the control are read one by one, so one this OpenKodo cannot read
 // never drops the rest.
 export const ConnectorPollResponse = z.object({
   serverNow: z.number().int().positive(),
@@ -247,7 +247,7 @@ export const ConnectorPollResponse = z.object({
   control: z.unknown().optional()
 })
 
-// notices: why the reply can't wake an Orca bot it mentions.
+// notices: why the reply can't wake an OpenKodo bot it mentions.
 const PostNotices = z.array(z.string()).optional().catch(undefined)
 export const ConnectorReplyResponse = z.discriminatedUnion('status', [
   z.object({ status: z.literal('posted'), messageId: z.string().min(1), notices: PostNotices }),
@@ -261,7 +261,7 @@ export type ConnectorTurnFor = 'owner' | 'someone_else' | 'none'
 export type ConnectorReplyResponse = z.infer<typeof ConnectorReplyResponse>
 
 // A bot post answers 204 with no body, or, to a machine that says whom it acts for, why it can't
-// wake the Orca bots it mentions.
+// wake the OpenKodo bots it mentions.
 export const ConnectorBotPostResponse = z.union([
   z.undefined(),
   z.object({ notices: z.array(z.string()).optional() })
@@ -283,7 +283,7 @@ export type ConnectorBot = {
   /** The Slack user ids the owner lets ask the bot. */
   members: string[]
   paused: boolean
-  /** How people name it where bots share one app: "@Orca reviewer", label `bot:reviewer`. */
+  /** How people name it where bots share one app: "@OpenKodo reviewer", label `bot:reviewer`. */
   handle?: string
   /** Workspaces of a shared-app source (Linear, GitHub installations) it answers in, with who may ask there. */
   sharedAppWorkspaces?: ConnectorBotWorkspace[]
@@ -325,7 +325,7 @@ export type ConnectorAck =
 
 type PaneEvent = { conversation: ConnectorConversation; paneKey: string }
 
-/** A chat turn's cause: a connector delivery, or someone typing in Orca (not mirrored back). */
+/** A chat turn's cause: a connector delivery, or someone typing in OpenKodo (not mirrored back). */
 export const CONNECTOR_TURN_ORIGINS = ['delivery', 'local'] as const
 export type ConnectorTurnOrigin = (typeof CONNECTOR_TURN_ORIGINS)[number]
 
@@ -337,7 +337,7 @@ export type ConnectorEvent =
   | (PaneEvent & {
       kind: 'prompt'
       prompt: ConnectorPrompt
-      /** Answered in Orca; a connector that predates it reads the prompt as still shown, as before. */
+      /** Answered in OpenKodo; a connector that predates it reads the prompt as still shown, as before. */
       answered?: true
       answeredWith?: string
     })
@@ -355,7 +355,7 @@ export type ConnectorEvent =
       failure?: ConnectorFailure
       /** Its conversation's bot work's pull requests; a cloud that doesn't read them drops them. */
       links?: ConnectorWorkLink[]
-      /** An Orca-typed turn of a chat posting to Slack: its reply posts too (`slack.mirror`). */
+      /** An OpenKodo-typed turn of a chat posting to Slack: its reply posts too (`slack.mirror`). */
       mirror?: true
       /** Whom the turn acts for when no delivery started it; an older cloud ignores it. */
       turnFor?: ConnectorTurnFor
@@ -391,7 +391,7 @@ export type ConnectorEvent =
         prompt: ConnectorPrompt | null
         // The pane's latest turn; a turn end older than it changes nothing.
         turnId?: number
-        /** Absent while this Orca hasn't read them yet. */
+        /** Absent while this OpenKodo hasn't read them yet. */
         workersRunning?: boolean
       })[]
     }

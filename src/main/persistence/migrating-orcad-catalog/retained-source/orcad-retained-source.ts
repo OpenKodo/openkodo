@@ -128,7 +128,7 @@ export async function reconcileManagedOrcadSshTargets(
     await restoreFencesFromManagedServers(userDataPath, store)
     markChangedRetainedSources(userDataPath, store, now)
   } catch (error) {
-    console.warn('[ssh] Could not reconcile managed Orca server hosts:', error)
+    console.warn('[ssh] Could not reconcile managed OpenKodo server hosts:', error)
   }
 }
 

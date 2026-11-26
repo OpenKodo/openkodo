@@ -19,7 +19,7 @@ import {
 } from './desktop-relay-acknowledged-hosts'
 import { routedSessionHostIds } from './workspace-session-host-entries-write'
 import type { HostPersistenceState } from './workspace-session-host-persistence'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 
 export type DesktopRelayApi = {
   desktopRelaysVersion?: () => Promise<number>
@@ -57,7 +57,7 @@ export function probeDesktopRelays(api: DesktopRelayApi): Promise<boolean> {
   acknowledgedRelays.forget()
   // Main-owned layout recomputes relay ids from live terminals on each save that carries them.
   const askVersion =
-    api.applyDesktopRelays && !ORCA_LAYOUT_OWNER_IS_MAIN ? api.desktopRelaysVersion : undefined
+    api.applyDesktopRelays && !OPENKODO_LAYOUT_OWNER_IS_MAIN ? api.desktopRelaysVersion : undefined
   settled = askVersion ? null : false
   probe = askVersion
     ? askVersion().then(

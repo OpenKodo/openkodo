@@ -23,7 +23,7 @@ vi.mock('@/lib/source-control/graph/git-graph-tab', () => ({
     mocks.probes += 1
     return mocks.support
   },
-  gitGraphUpdateMessage: () => 'Update Orca on build-box to open the Git Graph',
+  gitGraphUpdateMessage: () => 'Update OpenKodo on build-box to open the Git Graph',
   openGitGraph: mocks.openGitGraph
 }))
 

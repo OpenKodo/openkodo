@@ -13,7 +13,7 @@ export function pluginInstallTrustError(
   if (source.kind === 'bundled') {
     return source.bundleId === pluginKey && hasOfficialPluginPublisher(pluginKey)
       ? null
-      : 'bundled plugins must use the official stablyai publisher'
+      : 'bundled plugins must use the official openkodo publisher'
   }
   if (!isReservedPluginIdentity(pluginKey)) {
     return null
@@ -24,5 +24,5 @@ export function pluginInstallTrustError(
     isOfficialMarketplaceGitSource(source.marketplace.url) &&
     isOfficialOrganizationGitSource(source.plugin.url)
     ? null
-    : `${pluginKey} uses a name reserved for official Orca plugins; Orca installs it only from its official catalog`
+    : `${pluginKey} uses a name reserved for official OpenKodo plugins; OpenKodo installs it only from its official catalog`
 }

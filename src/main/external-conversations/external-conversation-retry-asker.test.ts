@@ -19,7 +19,7 @@ const place = { kind: 'channel', id: 'C1' } as const
 const asker = { source: 'slack', userId: 'U1', role: 'member', place } as const
 
 // A retry runs only for a turn one request opened and no other joined; it never carries that person's
-// name, so Orca's own ask isn't shown as theirs.
+// name, so OpenKodo's own ask isn't shown as theirs.
 describe('retryAskerOf', () => {
   it('retries, naming no one, only when the opener carried every request', () => {
     const opener = message({ connectorDelivery: stamp('d1'), asker, origin: 'connector' })

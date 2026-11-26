@@ -94,7 +94,7 @@ function callerBaseUrl(caller: BrowserExtensionCaller, origin: string): string {
 }
 
 // Why: Chrome resolves icon paths against the calling script (Vimium passes ../icons/...) and
-// accepts the extension's own URLs (Tampermonkey); Orca reads them root-relative from the package.
+// accepts the extension's own URLs (Tampermonkey); OpenKodo reads them root-relative from the package.
 function normalizeIconPaths(
   caller: BrowserExtensionCaller,
   path: string | Record<string, string> | undefined

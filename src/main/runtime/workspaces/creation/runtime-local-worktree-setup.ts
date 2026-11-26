@@ -79,7 +79,7 @@ export async function prepareRuntimeLocalWorktreeSetup(args: {
   }
   if (lacksFolderApproval) {
     const skipped =
-      'orca.yaml setup skipped for this folder workspace because it was not approved; pass --setup run to run it.'
+      'openkodo.yaml setup skipped for this folder workspace because it was not approved; pass --setup run to run it.'
     warning = warning ? `${warning} Also ${skipped}` : skipped
   }
   let defaultTabs: CreateWorktreeResult['defaultTabs']
@@ -117,7 +117,7 @@ export async function prepareRuntimeLocalWorktreeSetup(args: {
       } catch (error) {
         console.error(`[hooks] Failed to prepare setup runner for ${worktreePath}:`, error)
         if (isFolderRepo(repo)) {
-          const failed = `Setup did not run: Orca could not write its setup file in ${worktreePath}.`
+          const failed = `Setup did not run: OpenKodo could not write its setup file in ${worktreePath}.`
           warning = warning ? `${warning} Also ${failed}` : failed
         }
       }
@@ -132,7 +132,7 @@ export async function prepareRuntimeLocalWorktreeSetup(args: {
       })
     }
   } else if (hooks?.scripts.setup && runDecision !== 'skip') {
-    const skipped = `orca.yaml setup hook skipped for ${worktreePath}; pass --setup run to run it.`
+    const skipped = `openkodo.yaml setup hook skipped for ${worktreePath}; pass --setup run to run it.`
     warning = warning ? `${warning} Also ${skipped}` : skipped
     console.warn(`[hooks] ${skipped}`)
   }

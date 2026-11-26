@@ -12,71 +12,71 @@ import { TERMINAL_SET_PANE_TITLE_COMMAND_SPEC } from './terminal-set-pane-title'
 export const CORE_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['open'],
-    summary: 'Launch Orca and wait for the runtime to be reachable',
-    usage: 'orca open [--json]',
+    summary: 'Launch OpenKodo and wait for the runtime to be reachable',
+    usage: 'openkodo open [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      'Starts Orca without taking the foreground and does nothing when an Orca window is already open. Agents should run it only when the user asks or `orca status --json` reports Orca is not running or still cannot connect after about 30 seconds of retries, never to retry a failed command.'
+      'Starts OpenKodo without taking the foreground and does nothing when an OpenKodo window is already open. Agents should run it only when the user asks or `openkodo status --json` reports OpenKodo is not running or still cannot connect after about 30 seconds of retries, never to retry a failed command.'
     ],
-    examples: ['orca open', 'orca open --json']
+    examples: ['openkodo open', 'openkodo open --json']
   },
   ...SERVE_COMMAND_SPECS,
   {
     path: ['status'],
     summary: 'Show app/runtime/graph readiness',
-    usage: 'orca status [--json]',
+    usage: 'openkodo status [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      "caller.orcaSessionId is this agent's Orca session ID, as Orca resolved it, when the agent runs as an Orca session; otherwise caller is omitted."
+      "caller.orcaSessionId is this agent's OpenKodo session ID, as OpenKodo resolved it, when the agent runs as an OpenKodo session; otherwise caller is omitted."
     ],
-    examples: ['orca status', 'orca status --json']
+    examples: ['openkodo status', 'openkodo status --json']
   },
   {
     path: ['claude-teams'],
     argumentMode: 'passthrough',
-    summary: 'Start Claude Code Agent Teams in the current Orca terminal',
-    usage: 'orca claude-teams [claude args...]',
+    summary: 'Start Claude Code Agent Teams in the current OpenKodo terminal',
+    usage: 'openkodo claude-teams [claude args...]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Passes all following arguments through to Claude Code after enabling Agent Teams native panes.',
-      'Must be run from inside an Orca terminal. Starts Claude Code Agent Teams in the current pane and opens teammates as native Orca splits.'
+      'Must be run from inside an OpenKodo terminal. Starts Claude Code Agent Teams in the current pane and opens teammates as native OpenKodo splits.'
     ],
-    examples: ['orca claude-teams', 'orca claude-teams --resume <session-id>']
+    examples: ['openkodo claude-teams', 'openkodo claude-teams --resume <session-id>']
   },
   ...REPO_COMMAND_SPECS,
   {
     path: ['worktree', 'list'],
-    summary: 'List Orca-managed worktrees',
-    usage: 'orca worktree list [--repo <selector>] [--limit <n>] [--json]',
+    summary: 'List OpenKodo-managed worktrees',
+    usage: 'openkodo worktree list [--repo <selector>] [--limit <n>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'repo', 'limit'],
     notes: [...WORKTREE_LISTING_SCOPE_NOTES]
   },
   {
     path: ['worktree', 'show'],
     summary: 'Show one worktree',
-    usage: 'orca worktree show --worktree <selector> [--json]',
+    usage: 'openkodo worktree show --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree']
   },
   {
     path: ['worktree', 'activate'],
     summary: 'Open a worktree on its host, waking a sleeping recipe VM behind it',
-    usage: 'orca worktree activate --worktree <selector> [--json]',
+    usage: 'openkodo worktree activate --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree'],
     notes: [
-      'With --environment naming a recipe VM that is asleep, Orca on this computer wakes the VM first and waits for it.',
-      'Folder workspaces cannot be activated from the CLI yet; open them from the Orca sidebar.'
+      'With --environment naming a recipe VM that is asleep, OpenKodo on this computer wakes the VM first and waits for it.',
+      'Folder workspaces cannot be activated from the CLI yet; open them from the OpenKodo sidebar.'
     ],
-    examples: ['orca worktree activate --worktree branch:fix-login --environment sandbox']
+    examples: ['openkodo worktree activate --worktree branch:fix-login --environment sandbox']
   },
   {
     path: ['worktree', 'current'],
-    summary: 'Show the Orca-managed worktree for the current directory',
-    usage: 'orca worktree current [--json]',
+    summary: 'Show the OpenKodo-managed worktree for the current directory',
+    usage: 'openkodo worktree current [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      'Resolves the current shell directory to a path: selector so agents can target the enclosing Orca worktree without spelling out $PWD.'
+      'Resolves the current shell directory to a path: selector so agents can target the enclosing OpenKodo worktree without spelling out $PWD.'
     ],
-    examples: ['orca worktree current', 'orca worktree current --json']
+    examples: ['openkodo worktree current', 'openkodo worktree current --json']
   },
   WORKTREE_CREATE_COMMAND_SPEC,
   WORKTREE_SET_COMMAND_SPEC,
@@ -87,9 +87,9 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       ['worktree', 'delete']
     ],
     destructive: true,
-    summary: 'Remove a Git worktree or a folder workspace entry from Orca',
+    summary: 'Remove a Git worktree or a folder workspace entry from OpenKodo',
     usage:
-      'orca worktree rm --worktree <selector> [--force] [--delete-branch] [--run-hooks] [--allow-failed-archive-hook] [--json]',
+      'openkodo worktree rm --worktree <selector> [--force] [--delete-branch] [--run-hooks] [--allow-failed-archive-hook] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'worktree',
@@ -99,30 +99,30 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'allow-failed-archive-hook'
     ],
     notes: [
-      'Needs an explicit workspace: --worktree current and active are refused, and the error names the selector they resolve to right now, as `git worktree remove` needs a path. For a non-root folder workspace, removes its Orca entry and stops its sessions without deleting the folder or touching Git. The folder project root cannot be removed with this command. For a group folder workspace (folder:<id>, or a path:/name: selector that matches one), Orca forgets it and the folder stays on disk; --delete-branch is refused; --run-hooks runs its group Archive script on supported hosts.',
-      'Use --worktree "id:<full-instance-id>" with the full id from orca worktree list --json to select one folder workspace; several entries can share the same path.',
-      'Repo-defined orca.yaml archive hooks are skipped unless --run-hooks is passed.',
+      'Needs an explicit workspace: --worktree current and active are refused, and the error names the selector they resolve to right now, as `git worktree remove` needs a path. For a non-root folder workspace, removes its OpenKodo entry and stops its sessions without deleting the folder or touching Git. The folder project root cannot be removed with this command. For a group folder workspace (folder:<id>, or a path:/name: selector that matches one), OpenKodo forgets it and the folder stays on disk; --delete-branch is refused; --run-hooks runs its group Archive script on supported hosts.',
+      'Use --worktree "id:<full-instance-id>" with the full id from openkodo worktree list --json to select one folder workspace; several entries can share the same path.',
+      'Repo-defined openkodo.yaml archive hooks are skipped unless --run-hooks is passed.',
       'With --run-hooks, a failed archive hook blocks the removal: nothing is stopped, deleted or deregistered, and the command exits non-zero with error code worktree_archive_hook_failed. --force does not waive this.',
       'Pass --allow-failed-archive-hook to delete anyway after the hook has run and failed; the waived failure is reported back on result.archiveHookOverride. It requires --run-hooks and is rejected without it, because with no hook running there is no failure to waive.',
-      'On newer hosts with branch-choice support, Git worktree removal keeps the local branch, including with --force. Pass --delete-branch to attempt safe branch deletion, including branches that predated the worktree. Branches whose changes Orca cannot prove are already merged are retained. Older hosts keep their existing branch policy and print a warning; keep-by-default and --delete-branch do not apply there. A removal result without branch evidence does not confirm branch deletion.'
+      'On newer hosts with branch-choice support, Git worktree removal keeps the local branch, including with --force. Pass --delete-branch to attempt safe branch deletion, including branches that predated the worktree. Branches whose changes OpenKodo cannot prove are already merged are retained. Older hosts keep their existing branch policy and print a warning; keep-by-default and --delete-branch do not apply there. A removal result without branch evidence does not confirm branch deletion.'
     ]
   },
   {
     path: ['worktree', 'ps'],
     summary: 'Show a compact orchestration summary across worktrees',
-    usage: 'orca worktree ps [--since <age>] [--limit <n>] [--agent-wait] [--json]',
+    usage: 'openkodo worktree ps [--since <age>] [--limit <n>] [--agent-wait] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'since', 'limit', 'agent-wait'],
     notes: [
       ...WORKTREE_LISTING_SCOPE_NOTES,
-      'Each workspace shows its project, the bot it is under (if any), its PR and issue, and each open agent with what it was last asked and last said. An idle agent is open at its prompt; `--terminal` messages it. "open, no handle yet" is a live agent with no handle; `orca terminal list --worktree <id>` gives its terminal one. --since 7d (or 30m, 12h, 2w) lists only workspaces active in that time, most recent first.',
+      'Each workspace shows its project, the bot it is under (if any), its PR and issue, and each open agent with what it was last asked and last said. An idle agent is open at its prompt; `--terminal` messages it. "open, no handle yet" is a live agent with no handle; `openkodo terminal list --worktree <id>` gives its terminal one. --since 7d (or 30m, 12h, 2w) lists only workspaces active in that time, most recent first.',
       'JSON omits agentWait by default; pass --agent-wait to add the `terminal show` wait verdict to each terminal-backed agent row on the returned page.'
     ]
   },
   {
     path: ['terminal', 'list'],
-    summary: 'List live Orca-managed terminals',
+    summary: 'List live OpenKodo-managed terminals',
     usage:
-      'orca terminal list [--worktree <selector>] [--limit <n>] [--include-visual-layouts] [--json]',
+      'openkodo terminal list [--worktree <selector>] [--limit <n>] [--include-visual-layouts] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'limit', 'include-visual-layouts'],
     notes: [
       'JSON omits visualLayouts by default; pass --include-visual-layouts when machine-readable tab and pane topology is required.'
@@ -131,14 +131,14 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['terminal', 'show'],
     summary: 'Show terminal metadata and preview',
-    usage: 'orca terminal show [--terminal <handle>] [--json]',
+    usage: 'openkodo terminal show [--terminal <handle>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal']
   },
   {
     path: ['terminal', 'read'],
     summary: 'Read bounded terminal output',
     usage:
-      'orca terminal read [--terminal <handle>] [--cursor <n>] [--limit <n>] [--screen] [--json]',
+      'openkodo terminal read [--terminal <handle>] [--cursor <n>] [--limit <n>] [--screen] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'cursor', 'limit', 'screen'],
     notes: [
       'Omit --terminal to target the active terminal in the current worktree.',
@@ -155,9 +155,9 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'Useful for capturing the response to a command: read before sending, then read --cursor <prev> after waiting.'
     ],
     examples: [
-      'orca terminal read --json',
-      'orca terminal read --terminal term_abc123 --cursor 42 --limit 1000 --json',
-      'orca terminal read --terminal term_abc123 --screen --json'
+      'openkodo terminal read --json',
+      'openkodo terminal read --terminal term_abc123 --cursor 42 --limit 1000 --json',
+      'openkodo terminal read --terminal term_abc123 --screen --json'
     ]
   },
   TERMINAL_SEND_COMMAND_SPEC,
@@ -165,14 +165,14 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'wait'],
     summary: 'Wait for a terminal condition',
     usage:
-      'orca terminal wait [--terminal <handle>] --for exit|tui-idle [--timeout-ms <ms>] [--json]',
+      'openkodo terminal wait [--terminal <handle>] --for exit|tui-idle [--timeout-ms <ms>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'for', 'timeout-ms']
   },
   {
     path: ['terminal', 'stop'],
     hidden: true,
     summary: 'Deprecated compatibility command for stopping terminal processes',
-    usage: 'orca terminal stop --worktree <selector> [--json]',
+    usage: 'openkodo terminal stop --worktree <selector> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree'],
     notes: [
       'Deprecated: use terminal close --worktree <selector> --all to stop the processes and durably remove their terminal surfaces.'
@@ -182,21 +182,21 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'create'],
     summary: 'Create a terminal session in the current worktree',
     usage:
-      'orca terminal create [--worktree <selector>] [--title <name>] [--command <text>] [--shell <shell>] [--focus] [--keep-open] [--json]',
+      'openkodo terminal create [--worktree <selector>] [--title <name>] [--command <text>] [--shell <shell>] [--focus] [--keep-open] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'command', 'shell', 'title', 'focus', 'keep-open'],
     notes: [
       'Creates a visible terminal tab without switching focus when possible; falls back to a background handle if the UI cannot adopt it. Pass --focus to switch to it.',
-      'This creates a terminal and runs --command in it. To start an agent, use `orca agent launch` (or `orca worktree create --agent` for a new checkout), which follows your Chat | CLI choice.',
+      'This creates a terminal and runs --command in it. To start an agent, use `openkodo agent launch` (or `openkodo worktree create --agent` for a new checkout), which follows your Chat | CLI choice.',
       'Run from an orchestration worker, the terminal closes when that worker closes; pass --keep-open to keep it.',
       '--shell picks the shell the terminal IS on a Windows host (cmd.exe, powershell.exe, pwsh.exe, wsl.exe, bash.exe, git-bash); --command is typed into whatever shell the host started, so `--command cmd.exe` leaves a cmd running INSIDE the default shell and exiting it drops back to that shell.',
-      'A host that cannot apply --shell refuses the create rather than quietly spawning its default shell: macOS and Linux execution hosts spawn the login shell, terminals routed over SSH resolve their shell on the SSH host, a --shell that contradicts the project execution runtime (WSL vs Windows host) is refused, and an Orca host older than --shell is refused by the CLI.'
+      'A host that cannot apply --shell refuses the create rather than quietly spawning its default shell: macOS and Linux execution hosts spawn the login shell, terminals routed over SSH resolve their shell on the SSH host, a --shell that contradicts the project execution runtime (WSL vs Windows host) is refused, and an OpenKodo host older than --shell is refused by the CLI.'
     ],
     examples: [
-      'orca terminal create --json',
-      'orca terminal create --worktree active --command "pnpm dev" --json',
-      'orca terminal create --worktree path:/projects/myapp --title "RUNNER" --command "npm test"',
-      'orca terminal create --worktree path:/projects/myapp --command "pnpm dev" --focus',
-      'orca terminal create --worktree path:C:/src/app --shell cmd.exe --json'
+      'openkodo terminal create --json',
+      'openkodo terminal create --worktree active --command "pnpm dev" --json',
+      'openkodo terminal create --worktree path:/projects/myapp --title "RUNNER" --command "npm test"',
+      'openkodo terminal create --worktree path:/projects/myapp --command "pnpm dev" --focus',
+      'openkodo terminal create --worktree path:C:/src/app --shell cmd.exe --json'
     ]
   },
   {
@@ -204,24 +204,24 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     // Preserve the legacy focus verb.
     aliases: [['terminal', 'focus']],
     summary: 'Switch to a terminal tab in the UI',
-    usage: 'orca terminal switch [--terminal <handle>] [--json]',
+    usage: 'openkodo terminal switch [--terminal <handle>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal'],
     notes: [
       'It changes the terminal the user is looking at; agents should run it only when the user asked to switch.',
       "With --environment, the desktop app on this machine switches to that server's terminal; a server has no window of its own."
     ],
-    examples: ['orca terminal switch --terminal term_abc123']
+    examples: ['openkodo terminal switch --terminal term_abc123']
   },
   TERMINAL_CLOSE_COMMAND_SPEC,
   {
     path: ['terminal', 'rename'],
     summary: 'Set or clear the title of a terminal tab',
-    usage: 'orca terminal rename [--terminal <handle>] [--title <text>] [--json]',
+    usage: 'openkodo terminal rename [--terminal <handle>] [--title <text>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'title'],
     notes: ['Omit --title or pass an empty string to reset to the auto-generated title.'],
     examples: [
-      'orca terminal rename --terminal term_abc123 --title "RUNNER"',
-      'orca terminal rename --terminal term_abc123 --json'
+      'openkodo terminal rename --terminal term_abc123 --title "RUNNER"',
+      'openkodo terminal rename --terminal term_abc123 --json'
     ]
   },
   TERMINAL_SET_PANE_TITLE_COMMAND_SPEC,
@@ -229,15 +229,15 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     path: ['terminal', 'split'],
     summary: 'Split an existing terminal pane',
     usage:
-      'orca terminal split [--terminal <handle>] [--direction horizontal|vertical] [--command <text>] [--retry-split <leafId>] [--keep-open] [--json]',
+      'openkodo terminal split [--terminal <handle>] [--direction horizontal|vertical] [--command <text>] [--retry-split <leafId>] [--keep-open] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'terminal', 'direction', 'command', 'retry-split', 'keep-open'],
     notes: [
       'Run from an orchestration worker, the new pane closes when that worker closes; pass --keep-open to keep it.',
       'A timeout does not mean the split failed: the pane may still open and run --command. Re-run the same command with --retry-split <leafId> from the error to wait for that pane instead of splitting again.'
     ],
     examples: [
-      'orca terminal split --terminal term_abc123 --direction horizontal --json',
-      'orca terminal split --terminal term_abc123 --command "codex"'
+      'openkodo terminal split --terminal term_abc123 --direction horizontal --json',
+      'openkodo terminal split --terminal term_abc123 --command "codex"'
     ]
   }
 ]

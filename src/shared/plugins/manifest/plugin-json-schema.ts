@@ -16,7 +16,7 @@ export const PLUGIN_MANIFEST_SCHEMA_FILE = 'orca-plugin.v2.schema.json'
 export const PLUGIN_CATALOG_SCHEMA_FILE = 'orca-catalog.v2.schema.json'
 /** Git ref for published schemas; switch to the first v2 release tag when it ships. */
 export const PLUGIN_SCHEMA_GIT_REF = 'main'
-export const PLUGIN_SCHEMA_BASE_URL = `https://raw.githubusercontent.com/stablyai/orca/${PLUGIN_SCHEMA_GIT_REF}/${PLUGIN_SCHEMA_DIRECTORY}/`
+export const PLUGIN_SCHEMA_BASE_URL = `https://raw.githubusercontent.com/OpenKodo/openkodo/${PLUGIN_SCHEMA_GIT_REF}/${PLUGIN_SCHEMA_DIRECTORY}/`
 
 export type PluginJsonSchema = z.core.JSONSchema.BaseSchema
 
@@ -26,7 +26,7 @@ function toPublishedSchema(
   title: string,
   description: string
 ): PluginJsonSchema {
-  // Why input side: authors write what Orca reads, before defaults and transforms apply.
+  // Why input side: authors write what OpenKodo reads, before defaults and transforms apply.
   const generated = z.toJSONSchema(schema, {
     io: 'input',
     target: 'draft-2020-12',
@@ -40,8 +40,8 @@ export function pluginManifestJsonSchema(): PluginJsonSchema {
   return toPublishedSchema(
     pluginManifestV2Object,
     PLUGIN_MANIFEST_SCHEMA_FILE,
-    'Orca plugin manifest',
-    'The orca-plugin.json file at the root of an Orca plugin (manifest format 2).'
+    'OpenKodo plugin manifest',
+    'The openkodo-plugin.json file at the root of an OpenKodo plugin (manifest format 2).'
   )
 }
 
@@ -49,7 +49,7 @@ export function pluginCatalogJsonSchema(): PluginJsonSchema {
   return toPublishedSchema(
     pluginCatalogDocumentSchema,
     PLUGIN_CATALOG_SCHEMA_FILE,
-    'Orca plugin catalog',
+    'OpenKodo plugin catalog',
     `The ${PLUGIN_CATALOG_FILENAME} file that lists installable plugins and their releases.`
   )
 }
@@ -63,17 +63,17 @@ export function pluginSchemaGeneratedFiles(): Record<string, string> {
     [`${PLUGIN_SCHEMA_DIRECTORY}/${PLUGIN_MANIFEST_SCHEMA_FILE}`]: manifestJson,
     [`${PLUGIN_SCHEMA_DIRECTORY}/${PLUGIN_CATALOG_SCHEMA_FILE}`]: `${JSON.stringify(catalog, null, 2)}\n`,
     'docs/reference/plugin-manifest.md': renderPluginSchemaReference(manifest, {
-      file: 'orca-plugin.json',
+      file: 'openkodo-plugin.json',
       schemaFile: PLUGIN_MANIFEST_SCHEMA_FILE,
       sinceNote:
-        '`Since` is the first Orca release that reads the field; raise `engines.orca` when you use a newer one.',
+        '`Since` is the first OpenKodo release that reads the field; raise `engines.orca` when you use a newer one.',
       appendix: PLUGIN_MANIFEST_POLICY_NOTES
     }),
     'docs/reference/plugin-catalog.md': renderPluginSchemaReference(catalog, {
       file: PLUGIN_CATALOG_FILENAME,
       schemaFile: PLUGIN_CATALOG_SCHEMA_FILE,
       sinceNote:
-        '`Since` is the first Orca release that reads the field. Older releases ignore fields they do not know.',
+        '`Since` is the first OpenKodo release that reads the field. Older releases ignore fields they do not know.',
       appendix: PLUGIN_CATALOG_POLICY_NOTES
     }),
     'docs/reference/plugin-host-api.md': renderPluginHostApiReference(),

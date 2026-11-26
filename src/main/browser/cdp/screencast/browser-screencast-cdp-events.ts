@@ -28,7 +28,7 @@ type BrowserScreencastPageEventHandlerDeps = {
   isStopping: () => boolean
   /** Every lane's: static pages may finish navigation without emitting a live frame. */
   scheduleNavigationFrameCapture: () => void
-  /** The page's dialog Orca still holds; a CDP close can be a second frame's turned-away one. */
+  /** The page's dialog OpenKodo still holds; a CDP close can be a second frame's turned-away one. */
   openDialog: () => BrowserJavaScriptDialogPrompt | null
 }
 
@@ -42,7 +42,7 @@ export function createBrowserScreencastPageEventHandler(
     if (isClosed() || isStopping()) {
       return
     }
-    // Openings come from Orca's dialog owner (see startBrowserScreencast), which knows the asking frame.
+    // Openings come from OpenKodo's dialog owner (see startBrowserScreencast), which knows the asking frame.
     if (method === 'Page.javascriptDialogClosed') {
       const open = openDialog()
       options.onEvent?.(open ? browserScreencastDialogEvent(open) : { type: 'dialogClosed' })

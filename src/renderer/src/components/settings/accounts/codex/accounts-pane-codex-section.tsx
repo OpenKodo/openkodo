@@ -55,7 +55,7 @@ export function renderCodexAccountsSection(
             <span className="block">
               {t(
                 'auto.components.settings.AccountsPane.cedfab35ab',
-                'Optional. Orca can use your normal Codex login; add accounts only if you want quick switching in Orca.'
+                'Optional. OpenKodo can use your normal Codex login; add accounts only if you want quick switching in OpenKodo.'
               )}
             </span>
             <span className="block">
@@ -67,7 +67,7 @@ export function renderCodexAccountsSection(
                   )
                 : t(
                     'auto.components.settings.AccountsPane.340d6f7a85',
-                    'Each account keeps its own local sign-in context in Orca. Account auth stays on this device.'
+                    'Each account keeps its own local sign-in context in OpenKodo. Account auth stays on this device.'
                   )}
             </span>
           </>
@@ -77,7 +77,7 @@ export function renderCodexAccountsSection(
           title={t('auto.components.settings.AccountsPane.bd16d363ed', 'Codex accounts')}
           description={t(
             'auto.components.settings.AccountsPane.d0d53b7eb0',
-            'Manage which Codex account Orca uses for live rate limit fetching.'
+            'Manage which Codex account OpenKodo uses for live rate limit fetching.'
           )}
           // Index every nested Codex control here so searches cannot render a matching header with an empty body.
           keywords={getAccountsCodexSearchEntries().flatMap((entry) => [
@@ -118,7 +118,7 @@ export function renderCodexAccountsSection(
                 {codexConfigSyncWarning === 'managed-home-unavailable'
                   ? t(
                       'auto.components.settings.AccountsPane.codexConfigSyncManagedHomeUnavailable',
-                      'Orca could not read this account’s Codex files just now, so settings may not be syncing. This usually clears on its own — antivirus or a backup tool briefly locks them.'
+                      'OpenKodo could not read this account’s Codex files just now, so settings may not be syncing. This usually clears on its own — antivirus or a backup tool briefly locks them.'
                     )
                   : codexConfigSyncWarning === 'missing-source'
                     ? t(
@@ -228,7 +228,7 @@ export function renderCodexAccountsSection(
                     )
                   : t(
                       'auto.components.settings.AccountsPane.b4c9450319',
-                      "No managed Codex accounts for {{value0}}. Orca will use that environment's system default Codex login until you add one here.",
+                      "No managed Codex accounts for {{value0}}. OpenKodo will use that environment's system default Codex login until you add one here.",
                       { value0: accountRuntimeSentenceLabel }
                     )}
               </div>

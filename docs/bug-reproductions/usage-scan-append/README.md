@@ -160,7 +160,7 @@ The final [validation record](./validation.json) captures the frozen source hash
 8,278 passing integrated tests across 839 files, 118 performance contracts,
 full typechecking, changed-code quality, formatting and artifact hash checks.
 The contract workflow is configured for Linux, macOS and Windows; this local run
-used macOS. [Rendered Electron evidence](https://github.com/stablyai/orca/blob/nwparker/perf-native-chat-tool-pairing/docs/bug-reproductions/native-chat-tool-pairing/rendered-validation.json)
+used macOS. [Rendered Electron evidence](https://github.com/OpenKodo/openkodo/blob/nwparker/perf-native-chat-tool-pairing/docs/bug-reproductions/native-chat-tool-pairing/rendered-validation.json)
 records the rebuilt hidden app, output/task ownership and process cleanup.
 
 Focused suites cover UTF-8 byte offsets, CRLF and tiny chunks; duplicate maxima and first metadata; keyless rows; malformed and parseable partial tails; restart after JSON persistence; location and session ties; worktree/folder attribution; owner deletion and key loss; truncation while opening; replacement and rewrite races; appends after the pinned stat; old-cache upgrade; malformed resume state; and stable short reads with single-handle cleanup and no partial ownership publication. An independent actual-source differential check ran 24 seeded append phases with 512 assistant rows, five sessions, three locations, three models, duplicate maxima, shifting metadata, invalid first dates and a JSON round trip before each resume. Sessions, daily aggregates and line counts matched cold scans after every phase.

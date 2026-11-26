@@ -11,10 +11,10 @@ import {
 } from '@/hooks/skills/discovery/useInstalledAgentSkills'
 import {
   LINEAR_AGENT_SKILL_NAMES,
-  ORCA_LINEAR_SKILL_NAME
+  OPENKODO_LINEAR_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
 import {
-  ORCA_LINEAR_SKILL_INSTALL_COMMAND,
+  OPENKODO_LINEAR_SKILL_INSTALL_COMMAND,
   buildAgentFeatureSkillInstallCommand
 } from '@/lib/skills/installation/agent-feature-install-commands'
 import { getLinearAgentSkillUpdateTarget } from '@/lib/skills/installation/linear-agent-skill-update-target'
@@ -61,7 +61,7 @@ export function WslLinearAgentSkillInstallCta({
           ? buildAgentFeatureSkillInstallCommand([
               getLinearAgentSkillUpdateTarget(skill.skills, skill.installed).skillName
             ])
-          : ORCA_LINEAR_SKILL_INSTALL_COMMAND,
+          : OPENKODO_LINEAR_SKILL_INSTALL_COMMAND,
         agentRuntime
       ),
     [agentRuntime, skill.installed, skill.skills]
@@ -95,7 +95,7 @@ export function WslLinearAgentSkillInstallCta({
       <div className="flex flex-wrap items-center gap-2">
         <p className="text-xs font-medium text-foreground">
           {t('auto.components.settings.linear.agent.skill.install.cta.skillLabel', 'Agent skill:')}{' '}
-          <span className="font-mono text-[11px]">{ORCA_LINEAR_SKILL_NAME}</span>
+          <span className="font-mono text-[11px]">{OPENKODO_LINEAR_SKILL_NAME}</span>
         </p>
         {skill.loading ? (
           <IntegrationStatusPill tone="neutral">

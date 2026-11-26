@@ -1,6 +1,6 @@
 // The stand-in's Linear workspace: one world every scenario shares (bot-automation-eval-linear-world.json),
 // as a run's sets and creates left it (bot-automation-eval-linear-writes.ts). Reads and searches
-// answer as Orca Cloud's own;
+// answer as OpenKodo Cloud's own;
 // the connector service records those answers from its real verb code,
 // and bot-automation-eval-linear.test.ts holds this file to them.
 import WORLD from './bot-automation-eval-linear-world.json'

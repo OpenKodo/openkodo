@@ -1,4 +1,4 @@
-// What "Add to <bot>" lists: each app once, under the route that reaches it directly (Orca's own
+// What "Add to <bot>" lists: each app once, under the route that reaches it directly (OpenKodo's own
 // connector, later an official server), in its natural category; Composio's apps in a section of
 // their own. A new MCP app is one BOT_MCP_APPS entry and its logo in BotAppBrandLogo.
 import { translate } from '@/i18n/i18n'
@@ -40,7 +40,7 @@ export function botAppCategoryName(category: BotAppCategory): string {
 /** An app the bot reaches directly. `composio` names the same app in Composio's catalog. */
 export type BotDirectApp = { category: BotAppCategory; composio?: readonly string[] } & (
   | {
-      /** One of Orca's own connectors, set up by its own dialogs. */
+      /** One of OpenKodo's own connectors, set up by its own dialogs. */
       route: 'connector'
       connector: Exclude<BotConnector['id'], 'webhooks' | 'discord'>
     }

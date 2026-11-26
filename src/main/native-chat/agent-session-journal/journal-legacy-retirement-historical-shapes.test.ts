@@ -182,7 +182,7 @@ it('saves progress and deletion of a journal with a historical shape under a lay
   many.readers.legacyProof = async (cursor) => {
     cursors.push(cursor)
     if (cursors.length > stopAfter) {
-      throw new Error('Orca quit')
+      throw new Error('OpenKodo quit')
     }
     return read(cursor)
   }

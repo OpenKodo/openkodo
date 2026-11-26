@@ -23,7 +23,7 @@ import type { WorkspaceSessionSetResult } from '../../shared/workspace-session/d
 import type { DesktopRelayHostWrite } from '../../shared/workspace-session/desktop-relay-ownership'
 import { isNoopWindowSessionPatch } from '../persistence/window-session-patch-noop'
 import { noteWindowSessionSaveUnchanged } from '../browser/extensions/tabs-and-windows/browser-extension-discarded-tabs'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import {
   LOCAL_EXECUTION_HOST_ID,
   normalizeExecutionHostId
@@ -96,11 +96,11 @@ export function registerSessionHandlers(store: Store, runtime: OrcaRuntimeServic
       }
       const stored = store.getWorkspaceSession(hostId)
       const save = windowSaveKeepingRelayOwnership(stored, args, 'set', options)
-      const next = ORCA_LAYOUT_OWNER_IS_MAIN
+      const next = OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? sessionForMain(save, hostId)
         : windowSaveKeepingMainSleepRecords(stored, save, 'set')
       // Main-owned layout recomputes relay ids itself; the window never sends them separately there.
-      const relays = ORCA_LAYOUT_OWNER_IS_MAIN
+      const relays = OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? null
         : parseCarriedDesktopRelays(options?.carried, hostId)
       const relayHostId = normalizeExecutionHostId(hostId) ?? LOCAL_EXECUTION_HOST_ID
@@ -125,18 +125,18 @@ export function registerSessionHandlers(store: Store, runtime: OrcaRuntimeServic
     }
     const stored = store.getWorkspaceSession(hostId)
     const args = windowSaveKeepingRelayOwnership(stored, toPatch(stored), 'patch')
-    const { save, written } = ORCA_LAYOUT_OWNER_IS_MAIN
+    const { save, written } = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? patchForMain(args, hostId, entries)
       : { save: windowSaveKeepingMainSleepRecords(stored, args, 'patch'), written: undefined }
     // Main-owned layout recomputes relay ids itself; the window never sends them separately there.
     const relayHostId = normalizeExecutionHostId(hostId) ?? LOCAL_EXECUTION_HOST_ID
     const applied =
-      relays && !ORCA_LAYOUT_OWNER_IS_MAIN
+      relays && !OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? relayApplier([relayHostId])(relayHostId, relays, { ...stored, ...save })
         : null
     const relayStatus = carriedRelayStatus(applied)
     const withRelays = relayStatus ? { relays: relayStatus } : {}
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN && isNoopWindowSessionPatch(stored, save)) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN && isNoopWindowSessionPatch(stored, save)) {
       if (applied?.patch) {
         store.patchWorkspaceSessionRelays(applied.patch, hostId, applied.changedTabIds)
         applied.stored()

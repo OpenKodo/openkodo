@@ -43,12 +43,12 @@ import { WorktreeIdRequiresFullPathError } from '../../workspaces/lineage/worktr
 import { triggerTerminalSpawnPushTargetMaterialization } from './runtime-terminal-spawn-push-target-materialization'
 import { resolveCreatedWorktreeTerminalTarget } from './runtime-created-worktree-terminal-target'
 const AGENT_HOOK_RUNTIME_ENV_KEYS = [
-  'ORCA_AGENT_HOOK_PORT',
-  'ORCA_AGENT_HOOK_TOKEN',
-  'ORCA_AGENT_HOOK_ENV',
-  'ORCA_AGENT_HOOK_VERSION',
-  'ORCA_AGENT_HOOK_TRANSPORT',
-  'ORCA_AGENT_HOOK_ENDPOINT'
+  'OPENKODO_AGENT_HOOK_PORT',
+  'OPENKODO_AGENT_HOOK_TOKEN',
+  'OPENKODO_AGENT_HOOK_ENV',
+  'OPENKODO_AGENT_HOOK_VERSION',
+  'OPENKODO_AGENT_HOOK_TRANSPORT',
+  'OPENKODO_AGENT_HOOK_ENDPOINT'
 ] as const
 
 export type TerminalWorkspaceCreationEvidence = [
@@ -230,20 +230,20 @@ export abstract class OrcaRuntimeWithResolveBrowserNetworkExecutionHostForWorktr
     for (const key of AGENT_HOOK_RUNTIME_ENV_KEYS) {
       delete cleanBaseEnv[key]
     }
-    // Spawn stamps pane ids and jcode dir; match the window's ORCA_WORKSPACE_ID for every workspace kind.
+    // Spawn stamps pane ids and jcode dir; match the window's OPENKODO_WORKSPACE_ID for every workspace kind.
     const env = {
       ...cleanBaseEnv,
       ...agentTeamsEnv,
       ...this.buildAgentHookPtyEnv?.(),
-      ORCA_WORKSPACE_ID: scope.id
+      OPENKODO_WORKSPACE_ID: scope.id
     }
     if (!scope.folderWorkspace) {
       return env
     }
     return {
       ...env,
-      ORCA_PROJECT_GROUP_ID: scope.folderWorkspace.projectGroupId,
-      ORCA_WORKSPACE_ROOT: scope.folderWorkspace.folderPath
+      OPENKODO_PROJECT_GROUP_ID: scope.folderWorkspace.projectGroupId,
+      OPENKODO_WORKSPACE_ROOT: scope.folderWorkspace.folderPath
     }
   }
 

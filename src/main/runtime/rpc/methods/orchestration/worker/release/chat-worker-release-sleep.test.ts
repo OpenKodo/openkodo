@@ -412,7 +412,7 @@ describe('reopening a released worker chat', () => {
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the identity read that takes it is mocked.
   const db = {} as OrchestrationDb
 
-  it("keeps custody Orca's when its release left the chat asleep", async () => {
+  it("keeps custody OpenKodo's when its release left the chat asleep", async () => {
     hostWith(true, Date.now())
     expect((await reopenWorkerChat(runtime, db, 'swk_1')).userOpened).toBe(false)
   })

@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from 'node:util'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import { marketplaceSourceId } from './plugin-marketplace-store'
 import type { PluginMarketplaceInstaller } from './plugin-marketplace-installer'
 import type { PluginMarketplaceService } from './plugin-marketplace-service'

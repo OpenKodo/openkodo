@@ -65,10 +65,10 @@ export const getAdvancedSearchEntry = createLocalizedCatalog(
         ]
       },
       uninstall: {
-        title: translate('settings.uninstall.title', 'Uninstall Orca'),
+        title: translate('settings.uninstall.title', 'Uninstall OpenKodo'),
         description: translate(
           'settings.uninstall.searchDescription',
-          'Remove agent hooks, the orca command, the orca serve server and hooks on SSH hosts.'
+          'Remove agent hooks, the openkodo command, the openkodo serve server and hooks on SSH hosts.'
         ),
         keywords: [
           ...translateSearchKeyword('settings.uninstall.keywords.uninstall', 'uninstall'),

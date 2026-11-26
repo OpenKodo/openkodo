@@ -19,7 +19,7 @@ class NodeRuntimeWorker implements PoolWorker {
       return
     }
     const executable =
-      this.options.env.ORCA_TEST_NODE_EXECUTABLE ?? this.options.env.npm_node_execpath
+      this.options.env.OPENKODO_TEST_NODE_EXECUTABLE ?? this.options.env.npm_node_execpath
     if (!executable || !isAbsolute(executable)) {
       throw new Error('Node runtime contracts require pnpm test or run-vitest.mjs')
     }

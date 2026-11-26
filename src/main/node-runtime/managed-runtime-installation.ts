@@ -29,7 +29,7 @@ export type ManagedRuntimeInstallationDeps = {
   hostHasBuild?: () => boolean
   /** Told the release launches resolve to each time this reads the disk; null when none is whole. */
   onRelease?: (folder: string | null) => void
-  /** False while Orca shouldn't keep this copy current; absent means it should. */
+  /** False while OpenKodo shouldn't keep this copy current; absent means it should. */
   updatesEnabled?: () => boolean
   /** Reject unless no host workload uses this runtime. */
   fence: (work: () => Promise<void>) => Promise<void>
@@ -43,7 +43,7 @@ export type ManagedRuntimeInstallationDeps = {
 type Run = { id: string; controller: AbortController; committed: boolean } & AutomaticRunFlags
 
 let releasesRevision = 0
-/** Rises whenever an install or removal settles, so answers that read Orca's copies retire. */
+/** Rises whenever an install or removal settles, so answers that read OpenKodo's copies retire. */
 export function managedRuntimeReleasesRevision(): number {
   return releasesRevision
 }
@@ -149,7 +149,7 @@ export class ManagedRuntimeInstallation {
       ...(pin && !release?.current && broken.includes(pin.version) && { damaged: true }),
       canRemove: release !== null || broken.length > 0,
       source,
-      // A copy Orca isn't keeping current offers its own Update.
+      // A copy OpenKodo isn't keeping current offers its own Update.
       ...(((this.runtime.refreshPin && this.deps.updatesEnabled?.() !== false) || pinPending) && {
         updatesAutomatically: true as const
       })

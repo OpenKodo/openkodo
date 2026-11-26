@@ -14,7 +14,7 @@ type ParsedParams<TSchema extends ZodType | null> = TSchema extends ZodType
   ? TSchema['_output']
   : void
 
-/** `localOnly` methods act on this Orca as a whole (reset, Run binding, the federation wire). */
+/** `localOnly` methods act on this OpenKodo as a whole (reset, Run binding, the federation wire). */
 export type OrchestrationAccessKind = 'reads' | 'writes' | 'localOnly'
 
 /** What a target field names; a terminal, pane or session field naming a worker is `worker`,
@@ -73,8 +73,8 @@ export type OrchestrationMethodAccessDeclaration = {
   readonly rule?: OrchestrationAccessRule<never, unknown>
 }
 
-/** The one access check: every caller on this Orca is held to the method's own rule, and a paired
- *  Orca also to the Run it coordinates here. Returns the params the method runs with and its grant. */
+/** The one access check: every caller on this OpenKodo is held to the method's own rule, and a paired
+ *  OpenKodo also to the Run it coordinates here. Returns the params the method runs with and its grant. */
 export function checkOrchestrationAccess<P, G>(
   access: OrchestrationMethodAccess<P, G>,
   params: P,
@@ -102,7 +102,7 @@ export function checkOrchestrationAccess<P, G>(
   }
 }
 
-/** The same check for a call this Orca sends on to a paired server instead of running it here. */
+/** The same check for a call this OpenKodo sends on to a paired server instead of running it here. */
 export function checkDeclaredOrchestrationAccess(
   access: OrchestrationMethodAccessDeclaration,
   params: unknown,

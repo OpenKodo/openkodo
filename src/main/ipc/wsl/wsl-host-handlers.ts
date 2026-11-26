@@ -126,7 +126,7 @@ async function createService(args: WslHostHandlerArgs): Promise<WslHostService |
       statuses: () => created.getStatuses(),
       records: async () => await readWslHostRecordsQuietly(args.getUserDataPath()),
       connector,
-      // A phone may wake a host Orca itself stopped idle, never one the user stopped.
+      // A phone may wake a host OpenKodo itself stopped idle, never one the user stopped.
       wakeIdleStopped: async (environmentId) => {
         if (!isWslHostIdleStopped(environmentId)) {
           return false
@@ -185,7 +185,7 @@ let gatedOffHoldersReleased = false
 
 /**
  * With the gate closed, a launch still releases orphans (no host record, or a pending Remove)
- * but keeps every host's holder: a tester reopening Orca without the gate must not end a live
+ * but keeps every host's holder: a tester reopening OpenKodo without the gate must not end a live
  * host's sessions. With no holder recorded it touches nothing beyond one folder check.
  */
 function releaseHoldersWhileGatedOff(userDataPath: string): void {

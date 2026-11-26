@@ -24,7 +24,7 @@ import {
 import { isTurnScopedProgramStatusKind } from './protocol'
 import { ProgramStatusRecordSet, type ProgramStatusRecord } from './records'
 
-/** OSC 7501 `app` ids whose Orca agent id differs. Other apps pass through verbatim. */
+/** OSC 7501 `app` ids whose OpenKodo agent id differs. Other apps pass through verbatim. */
 const APP_TO_AGENT_TYPE: Readonly<Record<string, string>> = {
   'claude-code': 'claude',
   'grok-build': 'grok',
@@ -54,7 +54,7 @@ function boundedChildId(id: string): string {
 }
 
 function blockedState(record: ProgramStatusRecord): 'waiting' | 'blocked' {
-  // Why: Orca's hooks report approvals and questions as `waiting`.
+  // Why: OpenKodo's hooks report approvals and questions as `waiting`.
   return isTurnScopedProgramStatusKind(record.kind) ? 'waiting' : 'blocked'
 }
 

@@ -1,4 +1,4 @@
-// Orca's Tools and Rules a running bot chat should have, with the bot's name, against what its
+// OpenKodo's Tools and Rules a running bot chat should have, with the bot's name, against what its
 // provider context holds. The block is the host's own: a newer build's reaches a chat on its first
 // turn under that build, and a rename on the next turn of each chat.
 
@@ -18,7 +18,7 @@ export const botRulesKey = (rules: { block: string; name: string }): string =>
   fingerprint(`${KEY_VERSION}\n${rulesText(rules)}`)
 
 const COPY =
-  '[Orca rules update: your name and the Tools and Rules below replace the earlier ones in your instructions; nothing else changes.]'
+  '[OpenKodo rules update: your name and the Tools and Rules below replace the earlier ones in your instructions; nothing else changes.]'
 
 /** What a launch knows of the block. */
 export type BotLaunchedRules = {
@@ -38,7 +38,7 @@ export type BotTurnRules = {
   block: string
   /** The bot's name as of the latest turn, or the launch's. */
   name: string
-  /** The key the agent holds, as far as Orca knows; null: unknown, so the next turn sends it. */
+  /** The key the agent holds, as far as OpenKodo knows; null: unknown, so the next turn sends it. */
   held: string | null
   /** The session's receipt as this host last knew it. */
   recorded: string | null

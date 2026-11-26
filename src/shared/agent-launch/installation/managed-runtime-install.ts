@@ -20,8 +20,8 @@ export type ManagedRuntimeOperation = {
   error?: string
 }
 
-/** `cli`: Orca's copy of the agent's own CLI, which signs itself in. `server`: an ACP server that
- *  Orca signs in. */
+/** `cli`: OpenKodo's copy of the agent's own CLI, which signs itself in. `server`: an ACP server that
+ *  OpenKodo signs in. */
 export type ManagedRuntimeProgram = 'cli' | 'server'
 
 export type ManagedRuntimeInstallState = {
@@ -38,13 +38,13 @@ export type ManagedRuntimeInstallState = {
   installedVersion: string | null
   /** False with an installed version: an update is available. */
   installedCurrent: boolean
-  /** Orca keeps its copy on the latest release by itself, so clients never prompt to update it. */
+  /** OpenKodo keeps its copy on the latest release by itself, so clients never prompt to update it. */
   updatesAutomatically?: true
   /** The pinned release's folder is there but not whole; Install repairs it. */
   damaged?: boolean
-  /** Orca's copy is there to remove, whole or damaged; absent from a host without Remove. */
+  /** OpenKodo's copy is there to remove, whole or damaged; absent from a host without Remove. */
   canRemove?: boolean
-  /** What a chat start runs now: Orca's release, a copy found outside it, or nothing. */
+  /** What a chat start runs now: OpenKodo's release, a copy found outside it, or nothing. */
   source: 'managed' | 'external' | null
   /** The latest operation; an ended one stays readable until the next starts. */
   operation: ManagedRuntimeOperation | null

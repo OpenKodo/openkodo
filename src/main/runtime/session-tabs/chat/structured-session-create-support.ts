@@ -41,7 +41,7 @@ export abstract class OrcaRuntimeWithGetStructuredAgentSessionCreateSupport exte
     RestoreStructuredAgentSessionTabsOnceMethods['restoreStructuredAgentSessionTabsOnce']
   >
 
-  /** `requireInstalledChatProgram` is for launches with no chat tab to offer Orca's install. */
+  /** `requireInstalledChatProgram` is for launches with no chat tab to offer OpenKodo's install. */
   async getStructuredAgentSessionCreateSupport(
     worktreeSelector: string,
     agent: StructuredAgentId,

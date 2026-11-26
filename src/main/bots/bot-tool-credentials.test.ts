@@ -137,7 +137,7 @@ describe("a bot's sealed tool credentials", () => {
         record: { resource: LINEAR, tokens: { access_token: 'a', token_type: 'Bearer' } }
       }))
     ).toThrow('no system keyring')
-    // A hub entry holds no value of its own; Orca adds the key per call.
+    // A hub entry holds no value of its own; OpenKodo adds the key per call.
     changeBotToolCredentials(
       folder,
       new Map([['cred-3', { url: LINEAR, headers: {}, source: 'composio' }]])

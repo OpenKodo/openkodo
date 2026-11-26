@@ -81,7 +81,7 @@ export function BotAutomationTargetRows(props: {
   botRow: ReactNode
   /** Only Slack, GitHub or Linear events start it, so each run has a thread to answer in. */
   hasEventThread: boolean
-  /** The agent's computer's Orca Cloud binds an event's run to its thread. */
+  /** The agent's computer's OpenKodo Cloud binds an event's run to its thread. */
   threadReplies: boolean
   /** The agents its host can start; null until read. */
   agents: readonly BotAgent[] | null

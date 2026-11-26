@@ -1,4 +1,4 @@
-// Settings › Bots below the switches: each Orca account's Slack, Linear and GitHub once, then each
+// Settings › Bots below the switches: each OpenKodo account's Slack, Linear and GitHub once, then each
 // computer's own group (its Enable switch, connectors, Google and Composio key).
 import React, { useState } from 'react'
 import { ChevronDown, ChevronRight, Laptop, Server, UserRound } from 'lucide-react'
@@ -86,14 +86,14 @@ function SettingsGroup({
   )
 }
 
-/** An Orca account's Slack workspaces, Linear and GitHub, answered by one computer on it. */
+/** An OpenKodo account's Slack workspaces, Linear and GitHub, answered by one computer on it. */
 export function BotAccountGroup({ account }: { account: BotSettingsAccount }): React.JSX.Element {
   const t = useTranslate()
   const computers = account.computers.join(', ')
   return (
     <SettingsGroup
       icon={UserRound}
-      title={account.email ?? t('settings.bots.group.noAccount', 'Orca account')}
+      title={account.email ?? t('settings.bots.group.noAccount', 'OpenKodo account')}
       detail={
         !account.email
           ? t('settings.bots.group.notSignedIn', 'Not signed in · {{computers}}', { computers })
@@ -247,8 +247,8 @@ function useServerAccountLine(computer: BotSettingsComputer): string | null {
     return account.email ?? null
   }
   return account.state === 'signed-out'
-    ? t('settings.bots.group.signedOut', 'Signed out of Orca')
-    : t('settings.bots.group.signInChanged', 'Orca sign-in changed')
+    ? t('settings.bots.group.signedOut', 'Signed out of OpenKodo')
+    : t('settings.bots.group.signInChanged', 'OpenKodo sign-in changed')
 }
 
 function ServerGroup({ computer }: { computer: BotSettingsComputer }): React.JSX.Element {
@@ -261,7 +261,7 @@ function ServerGroup({ computer }: { computer: BotSettingsComputer }): React.JSX
         title={host}
         detail={t(
           'settings.bots.group.updateNeeded',
-          'Update Orca on {{host}} to manage its bots here',
+          'Update OpenKodo on {{host}} to manage its bots here',
           {
             host
           }

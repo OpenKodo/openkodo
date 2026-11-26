@@ -3,8 +3,8 @@ import { printResult } from '../output/command-result-output'
 import { RuntimeClientError } from '../runtime/connection/types'
 import { rejectRemoteSelectionFlags } from '../dispatch/remote-selection-flag-rejection'
 import {
-  ORCA_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY,
-  ORCA_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
+  OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY,
+  OPENKODO_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
 } from '../../shared/orca-account-runtime-capabilities'
 import {
   isOrcaAccountApprovalPrompt,
@@ -16,12 +16,12 @@ import { assertHostCapability, driveHostSignIn } from './host-sign-in-driver'
 
 function assertHostSupportsSignIn(
   ctx: HandlerContext,
-  capability: string = ORCA_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
+  capability: string = OPENKODO_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
 ): Promise<void> {
   return assertHostCapability(
     ctx,
     capability,
-    'The running Orca on this host is too old to sign in from the terminal. Update Orca on this host and try again.'
+    'The running OpenKodo on this host is too old to sign in from the terminal. Update OpenKodo on this host and try again.'
   )
 }
 
@@ -43,11 +43,11 @@ function formatStatus(status: OrcaAccountServerStatus): string {
     lines.push(`Signed in as ${status.email ?? 'unknown'}${org}`)
     if (status.lastConfirmedAt) {
       lines.push(
-        `Last confirmed by Orca Cloud: ${new Date(status.lastConfirmedAt).toLocaleString()}`
+        `Last confirmed by cloud service: ${new Date(status.lastConfirmedAt).toLocaleString()}`
       )
     }
   } else if (status.state === 'unconfigured') {
-    lines.push('Orca account sign-in is not configured for this build.')
+    lines.push('OpenKodo account sign-in is not configured for this build.')
   } else {
     lines.push(
       status.state === 'reconnect-required' ? 'Signed out: sign in again.' : 'Not signed in.'
@@ -60,7 +60,7 @@ function formatStatus(status: OrcaAccountServerStatus): string {
   if (warning) {
     lines.push(warning)
   } else if (status.storage.kind === 'refused') {
-    lines.push(`Orca can't save a sign-in on this host: ${status.storage.reason}`)
+    lines.push(`OpenKodo can't save a sign-in on this host: ${status.storage.reason}`)
   }
   return lines.join('\n')
 }
@@ -91,7 +91,7 @@ export async function runAuthLogin(
     throw new RuntimeClientError('invalid_argument', 'Missing a value for --org.')
   }
   // Hosts from before approve-in-browser would show a paste prompt this command no longer reads.
-  await assertHostSupportsSignIn(ctx, ORCA_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY)
+  await assertHostSupportsSignIn(ctx, OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY)
   const started = await ctx.client.call<OrcaAccountSignInStatus>('orcaAccount.signIn.start', {
     switchAccount: ctx.flags.get('switch') === true,
     approveInBrowser: true
@@ -110,7 +110,7 @@ export async function runAuthLogin(
       const warning = describeStorageWarning(before)
       process.stderr.write(
         [
-          `Sign in Orca on ${prompt.machineLabel}:`,
+          `Sign in OpenKodo on ${prompt.machineLabel}:`,
           '',
           `  ${prompt.verificationUrl}`,
           '',

@@ -74,5 +74,5 @@ export function describeTerminalHostCapRefusal(
     refusal.inUse !== undefined && refusal.limit !== undefined
       ? ` (${refusal.inUse} of ${refusal.limit} terminals in use)`
       : ''
-  return `Orca refused ${subject} ${DESCRIBED_CAP}${counts}. Free terminals, then try again: release finished workers (list them with your Orca CLI's \`orchestration worker-list --terminal-state reclaimable\`, release each with \`orchestration worker-release --dispatch <dispatch_id>\`), or close terminals you no longer need.`
+  return `OpenKodo refused ${subject} ${DESCRIBED_CAP}${counts}. Free terminals, then try again: release finished workers (list them with your OpenKodo CLI's \`orchestration worker-list --terminal-state reclaimable\`, release each with \`orchestration worker-release --dispatch <dispatch_id>\`), or close terminals you no longer need.`
 }

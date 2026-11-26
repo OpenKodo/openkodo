@@ -47,11 +47,11 @@ describe('wsl login shell command helpers', () => {
       const loginShell = join(loginBin, 'bash')
       writeFileSync(
         join(tools, 'getent'),
-        `#!/bin/sh\nprintf '%s\\n' "user:x:1000:1000::/home/user:$ORCA_TEST_LOGIN_SHELL"\n`
+        `#!/bin/sh\nprintf '%s\\n' "user:x:1000:1000::/home/user:$OPENKODO_TEST_LOGIN_SHELL"\n`
       )
       writeFileSync(
         loginShell,
-        '#!/bin/sh\nexport PATH="$ORCA_TEST_CODEX_BIN:/usr/bin:/bin"\nexec /bin/sh -c "$2"\n'
+        '#!/bin/sh\nexport PATH="$OPENKODO_TEST_CODEX_BIN:/usr/bin:/bin"\nexec /bin/sh -c "$2"\n'
       )
       for (const [bin, label] of [
         [v1Bin, 'v1'],
@@ -72,8 +72,8 @@ describe('wsl login shell command helpers', () => {
           env: {
             ...process.env,
             PATH: `${tools}:/usr/bin:/bin`,
-            ORCA_TEST_LOGIN_SHELL: loginShell,
-            ORCA_TEST_CODEX_BIN: codexBin
+            OPENKODO_TEST_LOGIN_SHELL: loginShell,
+            OPENKODO_TEST_CODEX_BIN: codexBin
           }
         })
 
@@ -160,9 +160,9 @@ describe('in-guest wrapper root resolution', () => {
     const script = buildWslInteractiveLoginShellCommand()
     const prologue = script.split('_orca_wsl_shell_name=')[0] as string
     const probe = [
-      'ORCA_SHELL_READY_ROOT=/mnt/c/ud/shell-wrappers/deadbeefdeadbeef/shell-ready',
-      'ORCA_USER_DATA_PATH=/mnt/c/ud',
-      'export ORCA_SHELL_READY_ROOT ORCA_USER_DATA_PATH',
+      'OPENKODO_SHELL_READY_ROOT=/mnt/c/ud/shell-wrappers/deadbeefdeadbeef/shell-ready',
+      'OPENKODO_USER_DATA_PATH=/mnt/c/ud',
+      'export OPENKODO_SHELL_READY_ROOT OPENKODO_USER_DATA_PATH',
       prologue,
       'printf "%s" "$_orca_shell_ready_root"'
     ].join('\n')

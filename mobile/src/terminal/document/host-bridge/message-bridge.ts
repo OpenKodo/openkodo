@@ -60,7 +60,7 @@ export function startMessageBridge(scope: TerminalDocumentScope) {
 const FONT_READY_TIMEOUT_MS = 2000
 // One glyph per bundled face, so check and load cover both.
 const TERMINAL_FONT_PROBE = [
-  '13px "Orca Nerd Font Symbols", "Orca Terminal Symbols"',
+  '13px "OpenKodo Nerd Font Symbols", "OpenKodo Terminal Symbols"',
   '\ue0b0\u23f5'
 ] as const
 

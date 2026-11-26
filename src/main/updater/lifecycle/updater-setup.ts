@@ -176,7 +176,7 @@ export class UpdaterSetup extends UpdaterDownloadInstall {
 
     const autoUpdater = this.getAutoUpdater()
     configureMacShipItScheduling()
-    // Start automatic downloads after Orca publishes the offer and finishes release checks.
+    // Start automatic downloads after OpenKodo publishes the offer and finishes release checks.
     autoUpdater.autoDownload = false
     if (this.activeUpdateSource === 'release') {
       autoUpdater.allowDowngrade = false
@@ -204,7 +204,7 @@ export class UpdaterSetup extends UpdaterDownloadInstall {
     if (this.activeUpdateSource === 'release') {
       autoUpdater.setFeedURL({
         provider: 'generic',
-        url: 'https://github.com/stablyai/orca/releases/latest/download'
+        url: 'https://github.com/OpenKodo/openkodo/releases/latest/download'
       })
     }
     if (this.autoUpdaterInitialized) {

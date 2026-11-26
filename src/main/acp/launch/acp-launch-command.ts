@@ -1,4 +1,4 @@
-// Which program an ACP chat runs: its Command setting, Orca's managed release, PATH, or a host backend.
+// Which program an ACP chat runs: its Command setting, OpenKodo's managed release, PATH, or a host backend.
 
 import { delimiter, isAbsolute } from 'node:path'
 import { resolveCliCommandAsync } from '../../../shared/shell/command-resolution/node-cli-command-async-resolution'
@@ -158,8 +158,8 @@ export async function acpHostBackendInput(
     env,
     backend.spec.installDirectories({ env, homePath })
   )
-  // The user's own program wins; Orca's copy serves hosts that have none, where it may run. A copy
-  // found on PATH (inherited from an Orca terminal) is Orca's, never the user's own.
+  // The user's own program wins; OpenKodo's copy serves hosts that have none, where it may run. A copy
+  // found on PATH (inherited from an OpenKodo terminal) is OpenKodo's, never the user's own.
   const managedCopy = managedAgentCommandFor(spec.agent, command, { use: false })
   const allowed = backend.spec.managedCopyAllowed?.(settings) !== false
   const own = found !== null && !isManagedAgentCopyPath(spec.agent, found) ? found : null

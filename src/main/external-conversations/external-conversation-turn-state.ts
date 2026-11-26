@@ -19,7 +19,7 @@ export function leadOf(row: AgentStatusIpcPayload): {
 /**
  * The one owner of whether a chat's running turn is its conversation's: a delivery started or joined
  * it, or mail finishing its ask (isConversationReport) opened it. A bot's Chat is also its
- * owner's, so what wakes it stays in Orca. Any other turn, begun in Orca, reaches the thread in no way.
+ * owner's, so what wakes it stays in OpenKodo. Any other turn, begun in OpenKodo, reaches the thread in no way.
  */
 export function conversationOwnsTurn(
   link: Pick<ExternalConversationLink, 'sessionId' | 'bot'>,
@@ -39,10 +39,10 @@ export function conversationWorking(row: AgentStatusIpcPayload | null): boolean 
   return row ? leadOf(row).state === 'working' : false
 }
 
-/** Whom an ended chat turn acts for, as its final post tells Orca Cloud: none for a delivery's turn,
- *  whose person the cloud reads from its own record; else the owner only when Orca recorded that the
+/** Whom an ended chat turn acts for, as its final post tells OpenKodo Cloud: none for a delivery's turn,
+ *  whose person the cloud reads from its own record; else the owner only when OpenKodo recorded that the
  *  conversation acts for them (bot-turn-for.ts says why). A delivery is remembered only until a
- *  restart, so the journal must also prove Orca began the turn; unproven, it is someone else's, as a
+ *  restart, so the journal must also prove OpenKodo began the turn; unproven, it is someone else's, as a
  *  failed read in bot-turn-for.ts is, never the owner's. */
 export function chatTurnFor(
   origin: ConnectorTurnOrigin,
@@ -58,7 +58,7 @@ export function chatTurnFor(
 }
 
 /** What the turn's journal proves began it: a delivery (a connector's message opened it or it
- *  answered one), Orca (any other message opened it and it answered none), or nothing it can read. */
+ *  answered one), OpenKodo (any other message opened it and it answered none), or nothing it can read. */
 function journalTurnOpening({
   opener,
   stamps

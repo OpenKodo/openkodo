@@ -15,7 +15,7 @@ const MIN_OVERLAY_FIT_HEIGHT_PX = 24
 function shouldUseCssAnchorPositioning(): boolean {
   return (
     HAS_CSS_ANCHOR_POSITIONING &&
-    (globalThis as { __ORCA_WEB_CLIENT__?: boolean }).__ORCA_WEB_CLIENT__ !== true
+    (globalThis as { __OPENKODO_WEB_CLIENT__?: boolean }).__OPENKODO_WEB_CLIENT__ !== true
   )
 }
 

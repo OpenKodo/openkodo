@@ -38,7 +38,7 @@ export type WorkerTurnStop = {
   lastOutput: string | undefined
   /** For `needs-input`: the turn ended asking for a reply, which a message answers; else a prompt does. */
   awaitsReply?: boolean
-  /** A permission prompt Orca can answer; its id keys the report. */
+  /** A permission prompt OpenKodo can answer; its id keys the report. */
   approval?: WorkerApprovalPayload
   /** When the stopping turn began, on this host's clock; absent when unknown, which mutes nothing. */
   turnStartedAt?: number

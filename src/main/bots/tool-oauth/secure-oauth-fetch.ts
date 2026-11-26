@@ -1,4 +1,4 @@
-// The only way Orca's sign-in code reaches an authorization server. Metadata names the endpoints the
+// The only way OpenKodo's sign-in code reaches an authorization server. Metadata names the endpoints the
 // code, verifier and refresh token are posted to, so every hop is checked here, not just the first.
 import { getMainHttpClient } from '../../network/http-client'
 import {
@@ -50,7 +50,7 @@ export type SecureOAuthFetchOptions = {
   resource: string
   signal?: AbortSignal
   lookup?: AddressLookup
-  /** The transport underneath; Orca's own HTTP client (and its proxy settings) by default. */
+  /** The transport underneath; OpenKodo's own HTTP client (and its proxy settings) by default. */
   fetch?: OAuthFetch
   deadlineMs?: number
 }

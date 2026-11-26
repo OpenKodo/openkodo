@@ -1,7 +1,7 @@
 /**
  * Node module hooks for running a plugin's own tests in plain Node: `orca` and `orca/testing`
- * resolve to the files Orca ships beside this one, and plugin sources (.ts, .tsx, .mts, .jsx) are
- * transpiled and resolved exactly as Orca's build-less loader does, so a test runs the code Orca
+ * resolve to the files OpenKodo ships beside this one, and plugin sources (.ts, .tsx, .mts, .jsx) are
+ * transpiled and resolved exactly as OpenKodo's build-less loader does, so a test runs the code OpenKodo
  * runs. Bundled to resources/plugins/declarative/orca-test-hooks.mjs (see orca-test-register.mjs).
  */
 import { existsSync, readFileSync, realpathSync, statSync } from 'node:fs'
@@ -14,6 +14,7 @@ import { resolvePluginModuleSpecifier } from '../panels/frame-serving/plugin-fra
 import { formatPluginTranspileFailure } from '../panels/source-transpilation/plugin-source-transpile-failure'
 import { transpilePluginSource } from '../panels/source-transpilation/plugin-source-transpiler'
 import { pluginModuleCandidatePaths } from '../source-loading/plugin-module-candidate-paths'
+import { findPluginManifestPath } from '../artifacts/plugin-manifest-file'
 import { transformPluginSource } from '../source-loading/plugin-source-sucrase-transform'
 import {
   isOrcaSpecifier,
@@ -30,7 +31,7 @@ type LoadResult = {
 }
 type NextLoad = (url: string, context: unknown) => Promise<LoadResult>
 
-const ORCA_FILES: Record<string, string> = {
+const OPENKODO_FILES: Record<string, string> = {
   orca: './orca-runtime.mjs',
   'orca/jsx-runtime': './orca-runtime.mjs',
   'orca/jsx-dev-runtime': './orca-runtime.mjs',
@@ -42,7 +43,7 @@ const SCRIPT_FILE = /\.[cm]?[jt]sx?$/i
 
 /** The plugin folder under test; files outside it (and node_modules) load as Node loads them.
  *  Real path, because Node's module URLs are (macOS /var is /private/var). */
-const pluginRoot = realpathSync(process.env.ORCA_PLUGIN_TEST_ROOT ?? process.cwd())
+const pluginRoot = realpathSync(process.env.OPENKODO_PLUGIN_TEST_ROOT ?? process.cwd())
 
 function pluginRelativePath(url: string): string | null {
   if (!url.startsWith('file:')) {
@@ -58,11 +59,11 @@ function pluginRelativePath(url: string): string | null {
 const isFile = (path: string): boolean => existsSync(path) && statSync(path).isFile()
 
 /** The manifest's worker `main`, as a file URL; null when the plugin has none. */
-function workerEntryUrl(): string | null {
+async function workerEntryUrl(): Promise<string | null> {
   try {
-    const manifest: unknown = JSON.parse(
-      readFileSync(`${pluginRoot}${sep}orca-plugin.json`, 'utf8')
-    )
+    const manifestPath =
+      (await findPluginManifestPath(pluginRoot)) ?? `${pluginRoot}${sep}openkodo-plugin.json`
+    const manifest: unknown = JSON.parse(readFileSync(manifestPath, 'utf8'))
     const main =
       typeof manifest === 'object' && manifest !== null && 'main' in manifest ? manifest.main : null
     return typeof main === 'string'
@@ -73,10 +74,10 @@ function workerEntryUrl(): string | null {
   }
 }
 
-/** The worker's module graph: its files load and resolve as Orca's worker host does, not as
+/** The worker's module graph: its files load and resolve as OpenKodo's worker host does, not as
  *  frame modules (Node resolution, packages allowed, `.ts`/`.mts` only, no `orca` at run time). */
 const workerModules = new Set<string>()
-const workerEntry = workerEntryUrl()
+const workerEntry = await workerEntryUrl()
 if (workerEntry) {
   workerModules.add(workerEntry)
 }
@@ -116,7 +117,7 @@ export async function resolve(
   context: ResolveContext,
   nextResolve: NextResolve
 ): Promise<ResolveResult> {
-  const orcaFile = ORCA_FILES[specifier]
+  const orcaFile = OPENKODO_FILES[specifier]
   if (orcaFile) {
     return { url: new URL(orcaFile, import.meta.url).href, shortCircuit: true }
   }
@@ -124,11 +125,11 @@ export async function resolve(
     return resolveWorkerImport(specifier, context, nextResolve)
   }
   const parent = context.parentURL ? pluginRelativePath(context.parentURL) : null
-  // Only a plugin's own module imports by Orca's rules; the entry point's parent is a folder.
+  // Only a plugin's own module imports by OpenKodo's rules; the entry point's parent is a folder.
   const from = parent !== null && SCRIPT_FILE.test(parent) ? parent : null
   const relativeImport = specifier.startsWith('.') || specifier.startsWith('/')
-  // Tests may import any package Node can; plugin sources get Orca's rules, so a test fails where
-  // Orca would refuse the import.
+  // Tests may import any package Node can; plugin sources get OpenKodo's rules, so a test fails where
+  // OpenKodo would refuse the import.
   if (from === null || specifier.startsWith('node:') || (TEST_FILE.test(from) && !relativeImport)) {
     return nextResolve(specifier, context)
   }
@@ -151,7 +152,7 @@ export async function resolve(
 export async function load(url: string, context: unknown, nextLoad: NextLoad): Promise<LoadResult> {
   const path = pluginRelativePath(url)
   if (path !== null && workerModules.has(url)) {
-    // Why ESM: Orca's worker host loads `.ts` as a module whatever package.json says.
+    // Why ESM: OpenKodo's worker host loads `.ts` as a module whatever package.json says.
     return isPluginWorkerSourcePath(path)
       ? {
           format: 'module',

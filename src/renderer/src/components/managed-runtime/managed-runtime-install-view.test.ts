@@ -54,7 +54,7 @@ const viewOf = (state: ManagedRuntimeInstallState) =>
   managedRuntimeInstallView({ kind: 'known', state }, 'Antigravity')
 
 describe('managedRuntimeInstallView with a host copy that runs', () => {
-  it('offers no Install while Orca has no copy', () => {
+  it('offers no Install while OpenKodo has no copy', () => {
     const view = viewOf(external(null))
     expect(view.status).not.toBeNull()
     expect(view.action).toBeNull()
@@ -62,7 +62,7 @@ describe('managedRuntimeInstallView with a host copy that runs', () => {
     expect(view.removable).toBe(false)
   })
 
-  it('keeps Remove once Orca has its copy, which the host copy still outranks', () => {
+  it('keeps Remove once OpenKodo has its copy, which the host copy still outranks', () => {
     const view = viewOf(external('1.5.0'))
     expect(view.action).toBeNull()
     expect(view.menuAction).toBeNull()
@@ -75,7 +75,7 @@ describe('managedRuntimeInstallView with a host copy that runs', () => {
     expect(view.spokenStatus).toContain('Antigravity')
   })
 
-  it("hides a failed install of Orca's copy, which wouldn't run anyway", () => {
+  it("hides a failed install of OpenKodo's copy, which wouldn't run anyway", () => {
     const view = viewOf({
       ...external(null),
       operation: {
@@ -174,11 +174,11 @@ describe('managedRuntimeInstallView reasons', () => {
   })
 })
 
-describe("managedRuntimeInstallView with Orca's copy", () => {
+describe("managedRuntimeInstallView with OpenKodo's copy", () => {
   it('leaves Update out while an automatic update is pending, and names the update in the menu', () => {
     const pending = managedView({ updatesAutomatically: true })
     expect(pending.action).toBeNull()
-    expect(pending.status).toBe('Installed by Orca · 1.5.0')
+    expect(pending.status).toBe('Installed by OpenKodo · 1.5.0')
     expect(pending.menuAction).toMatchObject({ kind: 'install', label: 'Update to 1.5.2' })
   })
 

@@ -41,7 +41,7 @@ const fromThread = (asker: unknown, extra: Record<string, unknown> = {}) => ({
 const typedInOrca = { kind: 'message', role: 'user', text: 'leave this thread' }
 
 type Sent = Pick<AgentJournalSubmission, 'origin' | 'source' | 'queuedMessageId'>
-// The owner's send from Orca, and Orca's own continue after a restart or a usage limit.
+// The owner's send from OpenKodo, and OpenKodo's own continue after a restart or a usage limit.
 const PERSON: Sent = { origin: 'client', source: { kind: 'user' } }
 const ORCA: Sent = { origin: 'host' }
 
@@ -65,11 +65,11 @@ function running(opener: unknown, steered: unknown[] = [], sent?: Sent) {
   return { items, submissions }
 }
 
-// Hardcoded: who may make a bot leave its thread, from Orca's own record of the running turn.
+// Hardcoded: who may make a bot leave its thread, from OpenKodo's own record of the running turn.
 const cases: [string, ReturnType<typeof running>, ReturnType<typeof leaveThreadRefusal>][] = [
   ['a member asking in this thread', running(fromThread(person())), null],
   ['the owner asking in this thread', running(fromThread(person('owner'))), null],
-  ['the owner typing in Orca', running(typedInOrca, [], PERSON), null],
+  ['the owner typing in OpenKodo', running(typedInOrca, [], PERSON), null],
   // Handed over from the queue: its card, not the send, says who queued it, so it fails safe.
   [
     'a queued message handed over',
@@ -81,9 +81,9 @@ const cases: [string, ReturnType<typeof running>, ReturnType<typeof leaveThreadR
     running(typedInOrca, [], { origin: 'client', queuedMessageId: 'q1' }),
     'leave_refused_mixed'
   ],
-  // Orca's continue opens the next turn: it never inherits the cut turn's request, or its refusal.
-  ['Orca continuing a cut-short turn', running(typedInOrca, [], ORCA), 'leave_refused_mixed'],
-  ['a message Orca has no send for', running(typedInOrca), 'leave_refused_mixed'],
+  // OpenKodo's continue opens the next turn: it never inherits the cut turn's request, or its refusal.
+  ['OpenKodo continuing a cut-short turn', running(typedInOrca, [], ORCA), 'leave_refused_mixed'],
+  ['a message OpenKodo has no send for', running(typedInOrca), 'leave_refused_mixed'],
   ['two people in this thread', running(fromThread(person()), [fromThread(person('owner'))]), null],
   [
     'another Slack app',
@@ -91,11 +91,11 @@ const cases: [string, ReturnType<typeof running>, ReturnType<typeof leaveThreadR
     'leave_refused_mixed'
   ],
   [
-    'an Orca bot writing for someone',
+    'an OpenKodo bot writing for someone',
     running(fromThread(person('member', { via: { userId: 'U0TWO' } }))),
     'leave_refused_mixed'
   ],
-  ['someone Orca can’t name', running(fromThread(person('unknown'))), 'leave_refused_mixed'],
+  ['someone OpenKodo can’t name', running(fromThread(person('unknown'))), 'leave_refused_mixed'],
   [
     'a message from another thread',
     running(
@@ -120,9 +120,9 @@ const cases: [string, ReturnType<typeof running>, ReturnType<typeof leaveThreadR
     running({ ...typedInOrca, from: { sessionId: 'worker-1' } }, [], PERSON),
     'leave_refused_mixed'
   ],
-  // Another agent's send through Orca's CLI reads as a user send; its stamp says it was an agent.
+  // Another agent's send through OpenKodo's CLI reads as a user send; its stamp says it was an agent.
   [
-    'an agent’s send through Orca',
+    'an agent’s send through OpenKodo',
     running({ ...typedInOrca, typedBy: { by: 'agent' } }, [], PERSON),
     'leave_refused_mixed'
   ],

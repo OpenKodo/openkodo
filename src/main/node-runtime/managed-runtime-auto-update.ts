@@ -1,4 +1,4 @@
-// When Orca brings its own copy of a pinned runtime up to date without a click, and how often it
+// When OpenKodo brings its own copy of a pinned runtime up to date without a click, and how often it
 // tries. The record outlives the host process: a host that restarts often (orcad idle-exits) must
 // not download a release again on every start after it failed or was cancelled.
 
@@ -64,7 +64,7 @@ export function pinnedReleaseAhead(
 
 /** At most three automatic attempts per pinned release, an hour then two apart, kept on disk across
  *  starts; a failure that will recur ends them at once, and a Cancel of any install of that release
- *  declines it until Orca pins another. */
+ *  declines it until OpenKodo pins another. */
 export class PinnedRuntimeAutoUpdate {
   /** undefined until read; then the record in memory, which disk follows. */
   private record: AutoUpdateRecord | null | undefined = undefined

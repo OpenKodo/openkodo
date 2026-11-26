@@ -12,7 +12,7 @@ import {
 } from '../../runtime/browser/client-pages/browser-client-page-opening'
 
 const HEADLESS_HINT =
-  "Nothing was opened. To use this host's own headless browser, which no Orca desktop or phone shows, rerun tab create with --headless."
+  "Nothing was opened. To use this host's own headless browser, which no OpenKodo desktop or phone shows, rerun tab create with --headless."
 
 function noVisibleBrowserMessage(): string {
   return isDesktopBrowserBridgeHostEnabled()

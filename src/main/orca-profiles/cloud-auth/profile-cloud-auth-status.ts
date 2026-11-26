@@ -44,7 +44,7 @@ export function getOrcaProfileAuthStatusFromProfile(
       state: 'reconnect-required',
       persistence: 'none',
       cloud,
-      credentialError: 'The saved sign-in belongs to a different Orca account. Sign in again.'
+      credentialError: 'The saved sign-in belongs to a different OpenKodo account. Sign in again.'
     }
   }
   if (session.status === 'found') {

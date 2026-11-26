@@ -51,7 +51,7 @@ export function browserExtensionRouteSessionProfile(
 }
 
 /**
- * Before a remote page's storage is wiped: stop its extensions and forget the state Orca keeps for
+ * Before a remote page's storage is wiped: stop its extensions and forget the state OpenKodo keeps for
  * them outside the partition, also when they didn't run this launch. Never opens the session.
  */
 export async function retireBrowserExtensionRouteProfile(partition: string): Promise<void> {

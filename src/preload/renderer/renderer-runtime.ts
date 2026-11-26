@@ -8,13 +8,13 @@ import {
 import { createUpdaterQuitAbortRelay } from '../../shared/app-lifecycle/shutdown/renderer-restart-preparation'
 import {
   formatShutdownCheckpointFailureReason,
-  ORCA_NATIVE_UNLOAD_FAILED_EVENT,
+  OPENKODO_NATIVE_UNLOAD_FAILED_EVENT,
   publishShutdownCheckpointFailureReason
 } from '../../shared/app-lifecycle/shutdown/renderer-shutdown-events'
 import {
-  ORCA_APP_RESTART_ABORTED_EVENT,
-  ORCA_AUTOMATIC_UPDATE_PREPARE_EVENT,
-  ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT
+  OPENKODO_APP_RESTART_ABORTED_EVENT,
+  OPENKODO_AUTOMATIC_UPDATE_PREPARE_EVENT,
+  OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT
 } from '../../shared/updater/updater-renderer-events'
 export async function awaitBeforeUnloadCheckpoint(): Promise<void> {
   const result = (await ipcRenderer.invoke('app:await-before-unload-checkpoint')) as {
@@ -25,7 +25,7 @@ export async function awaitBeforeUnloadCheckpoint(): Promise<void> {
   }
 }
 
-export const startupDiagnosticsEnabled = process.env.ORCA_STARTUP_DIAGNOSTICS === '1'
+export const startupDiagnosticsEnabled = process.env.OPENKODO_STARTUP_DIAGNOSTICS === '1'
 
 export function getLinuxDisplayServer(): 'wayland' | 'x11' | null {
   if (process.platform !== 'linux') {
@@ -60,7 +60,7 @@ export function installBrowserFindListener(): void {
 
 export const updaterQuitAbortRelay = createUpdaterQuitAbortRelay(
   window,
-  ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT
+  OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT
 )
 
 registerRendererRestartIpcRelays(ipcRenderer, window, updaterQuitAbortRelay)
@@ -104,7 +104,9 @@ ipcRenderer.on('app:prepare-native-unload', (_event, requestId: unknown, purpose
   ipcRenderer.send('app:native-unload-received', requestId)
   if (purpose === 'update') {
     if (
-      !window.dispatchEvent(new Event(ORCA_AUTOMATIC_UPDATE_PREPARE_EVENT, { cancelable: true }))
+      !window.dispatchEvent(
+        new Event(OPENKODO_AUTOMATIC_UPDATE_PREPARE_EVENT, { cancelable: true })
+      )
     ) {
       ipcRenderer.send('app:native-unload-prepared', { requestId, ok: false })
       return
@@ -132,7 +134,7 @@ ipcRenderer.on('app:prepare-native-unload', (_event, requestId: unknown, purpose
     // Preparation consumed the staging reason; republish so the toast names why the reload stopped.
     if (purpose !== 'update') {
       publishShutdownCheckpointFailureReason(formatShutdownCheckpointFailureReason(error))
-      window.dispatchEvent(new Event(ORCA_NATIVE_UNLOAD_FAILED_EVENT))
+      window.dispatchEvent(new Event(OPENKODO_NATIVE_UNLOAD_FAILED_EVENT))
     }
     ipcRenderer.send('app:native-unload-prepared', { requestId, ok: false })
   })
@@ -147,6 +149,6 @@ ipcRenderer.on('app:native-unload-canceled', (_event, requestId: unknown) => {
   const pending = nativeUnloadRequests.delete(requestId)
   if (pending || preparedNativeUnload === requestId) {
     preparedNativeUnload = undefined
-    window.dispatchEvent(new Event(ORCA_APP_RESTART_ABORTED_EVENT))
+    window.dispatchEvent(new Event(OPENKODO_APP_RESTART_ABORTED_EVENT))
   }
 })

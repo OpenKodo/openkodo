@@ -147,7 +147,7 @@ export function getDispatchContextById(
   return row
 }
 
-/** The newest Dispatches a chat created, by the Orca session id it is addressed by. */
+/** The newest Dispatches a chat created, by the OpenKodo session id it is addressed by. */
 export function listDispatchIdsCreatedBySession(
   this: OrchestrationDb,
   orcaSessionId: string,

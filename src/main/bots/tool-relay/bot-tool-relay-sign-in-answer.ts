@@ -5,7 +5,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 
 /** The JSON-RPC error code MCP clients read as "this server needs authorization". */
 const SIGN_IN_NEEDED_CODE = -32001
-const SIGN_IN_NEEDED = 'Sign in to this app in Orca to use it.'
+const SIGN_IN_NEEDED = 'Sign in to this app in OpenKodo to use it.'
 /** A JSON-RPC server error: the call didn't reach the tool, and may work if tried again. */
 const UNAVAILABLE_CODE = -32000
 const UNAVAILABLE = 'This tool can’t be used from this computer right now. Try again later.'

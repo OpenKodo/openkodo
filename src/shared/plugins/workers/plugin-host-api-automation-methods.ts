@@ -11,8 +11,8 @@ import {
 } from './plugin-host-api-workspace-methods'
 import { spec, WORKER_ONLY } from './plugin-host-method-spec'
 
-/** Host API 1.8: the person's automations on this Orca, as `orca automations` reads and writes
- *  them. Plugin-created ones record the plugin, which Orca's Automations page shows. */
+/** Host API 1.8: the person's automations on this OpenKodo, as `orca automations` reads and writes
+ *  them. Plugin-created ones record the plugin, which OpenKodo's Automations page shows. */
 
 export const PLUGIN_AUTOMATION_LIST_LIMIT = 200
 export const PLUGIN_AUTOMATION_PROMPT_MAX = 16_384
@@ -38,7 +38,7 @@ const schedule = z
       ctx.addIssue({ code: 'custom', message })
     }
   })
-/** An IANA time zone such as `Europe/Berlin`; Orca's own when absent. */
+/** An IANA time zone such as `Europe/Berlin`; OpenKodo's own when absent. */
 const timezone = z.string().min(1).max(64).refine(isKnownTimeZone, 'unknown time zone')
 
 const automationListParams = z.strictObject({}).optional()
@@ -57,7 +57,7 @@ const automationRow = z.object({
   workspaceId: z.string().max(ID_MAX).nullable(),
   /** `new-per-run`: each run creates a workspace in the project. */
   workspaceMode: z.enum(['existing', 'new-per-run']),
-  /** Whole, as Orca runs it; null for a stored schedule longer than any Orca accepts now. */
+  /** Whole, as OpenKodo runs it; null for a stored schedule longer than any OpenKodo accepts now. */
   schedule: z.string().max(PLUGIN_AUTOMATION_SCHEDULE_MAX).nullable(),
   timezone: z.string().max(64),
   enabled: z.boolean(),
@@ -109,7 +109,7 @@ const automationCreateParams = z
 const automationCreateResult = z.object({ automationId })
 
 /** Why nothing changed: `cancelled`, the person said no; `consent-unavailable`, nobody could be
- *  asked (Orca's window is hidden, or headless); `changed`, the automation changed while they
+ *  asked (OpenKodo's window is hidden, or headless); `changed`, the automation changed while they
  *  were asked, so their answer was about something else. Absent when it changed. */
 const refusal = z.enum(['cancelled', 'consent-unavailable', 'changed']).optional()
 const automationUpdateParams = z
@@ -131,12 +131,12 @@ const automationDeleteParams = z.strictObject({ automationId })
 const automationDeleteResult = z.object({ deleted: z.boolean(), reason: refusal })
 
 const CONFIRMS =
-  'Orca first asks the person about an automation this plugin did not create (or created before it was removed or disabled); if they decline or cannot be asked, or it changes while they are asked, nothing changes and `reason` says why.'
+  'OpenKodo first asks the person about an automation this plugin did not create (or created before it was removed or disabled); if they decline or cannot be asked, or it changes while they are asked, nothing changes and `reason` says why.'
 
 export const PLUGIN_AUTOMATION_API = {
   'automation.list': spec({
     summary:
-      "Lists the automations this Orca schedules, at most 200, with each one's prompt cut to 4096 characters.",
+      "Lists the automations this OpenKodo schedules, at most 200, with each one's prompt cut to 4096 characters.",
     since: 8,
     scope: 'any-workspace',
     capability: 'automation:read',
@@ -147,7 +147,7 @@ export const PLUGIN_AUTOMATION_API = {
   }),
   'automation.create': spec({
     summary:
-      "Creates an automation that starts `agent` with `prompt` on `schedule`, even when the plugin is not running, with the person's settings for that agent; Orca's Automations page shows it as created by the plugin.",
+      "Creates an automation that starts `agent` with `prompt` on `schedule`, even when the plugin is not running, with the person's settings for that agent; OpenKodo's Automations page shows it as created by the plugin.",
     since: 8,
     scope: 'any-workspace',
     capability: 'automation:write',
@@ -157,7 +157,7 @@ export const PLUGIN_AUTOMATION_API = {
     result: automationCreateResult
   }),
   'automation.update': spec({
-    summary: `Changes an automation's name, prompt, schedule, time zone or whether it is enabled. ${CONFIRMS} Orca also asks before a new prompt or schedule, or resuming, for any automation whose runs use extra agent settings the person chose.`,
+    summary: `Changes an automation's name, prompt, schedule, time zone or whether it is enabled. ${CONFIRMS} OpenKodo also asks before a new prompt or schedule, or resuming, for any automation whose runs use extra agent settings the person chose.`,
     since: 8,
     scope: 'any-workspace',
     capability: 'automation:write',

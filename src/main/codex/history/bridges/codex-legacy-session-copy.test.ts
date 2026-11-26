@@ -126,7 +126,7 @@ function bridgePass(): Promise<unknown> {
 
 beforeEach(() => {
   root = mkdtempSync(join(tmpdir(), 'orca-legacy-session-copy-'))
-  vi.stubEnv('ORCA_USER_DATA_PATH', join(root, 'user-data'))
+  vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
   systemHome = join(root, 'real-codex-home')
   sourcePath = join(systemHome, 'sessions', RELATIVE_PATH)
   copyPath = join(runtimeHome(), 'sessions', RELATIVE_PATH)
@@ -396,7 +396,7 @@ describe('legacy session copy swap', () => {
       markerPath,
       JSON.stringify({ ...JSON.parse(readFileSync(markerPath, 'utf-8')), aside: basename(aside) })
     )
-    // A Codex wrote a turn just before the move, then Orca quit before finishing the swap.
+    // A Codex wrote a turn just before the move, then OpenKodo quit before finishing the swap.
     writeFileSync(copyPath, `${OLD_TURNS}{"late":true}\n`)
     renameSync(copyPath, aside)
 

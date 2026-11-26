@@ -60,7 +60,7 @@ export const WSL_DRIVE_UNC_STATE_DISPOSITIONS = {
   featureInteractionTelemetryBuckets: 'keep',
   codexResetCreditAttemptLedger: 'keep',
   chatUiLaunchTipAudience: 'keep',
-  // A bot's home is an Orca-owned folder, never a converted project.
+  // A bot's home is an OpenKodo-owned folder, never a converted project.
   bots: 'keep',
   botsNewerAgents: 'keep',
   botOrder: 'keep',

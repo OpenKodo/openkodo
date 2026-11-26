@@ -200,7 +200,7 @@ export async function launchPairedElectronClient(
     userDataDir
   })
   const mainPath = path.join(process.cwd(), 'out', 'main', 'index.js')
-  const recordVideoDir = process.env.ORCA_E2E_RECORD_VIDEO === '1' ? testInfo.outputDir : null
+  const recordVideoDir = process.env.OPENKODO_E2E_RECORD_VIDEO === '1' ? testInfo.outputDir : null
   if (recordVideoDir) {
     mkdirSync(recordVideoDir, { recursive: true })
   }
@@ -212,8 +212,8 @@ export async function launchPairedElectronClient(
     env: {
       ...homeIsolation.env,
       NODE_ENV: 'development',
-      ORCA_E2E_HEADLESS: '1',
-      ORCA_E2E_FORBID_LOCAL_SSH_CONNECT_PROBE: directSshProbePath
+      OPENKODO_E2E_HEADLESS: '1',
+      OPENKODO_E2E_FORBID_LOCAL_SSH_CONNECT_PROBE: directSshProbePath
     }
   })
 

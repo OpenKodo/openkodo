@@ -77,7 +77,7 @@ export function installFakeSealingStore(): void {
   })
 }
 
-/** The bot's tools file naming each credential at its address, as Orca writes it. */
+/** The bot's tools file naming each credential at its address, as OpenKodo writes it. */
 export function writeToolsFile(folder: string, tools: Record<string, string>): void {
   mkdirSync(dirname(botToolsPath(folder)), { recursive: true })
   const servers = Object.entries(tools).map(([credential, url], index) => ({

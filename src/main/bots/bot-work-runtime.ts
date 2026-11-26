@@ -135,7 +135,7 @@ async function readLocalWorkspace(
 
 /** The bot conversation a session's turn came from. A bot's Chat is its owner's too, so there only
  *  a connector's message names one; its link then names the conversation that wrote last. A thread's
- *  chat keeps its thread for an owner's message typed in Orca, which is marked asked in the app. */
+ *  chat keeps its thread for an owner's message typed in OpenKodo, which is marked asked in the app. */
 async function readTurnAddress(
   runtime: BotWorkRuntime,
   sessionId: string,

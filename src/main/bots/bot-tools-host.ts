@@ -48,7 +48,7 @@ export type BotToolsFolder = {
   /** The relay grant's owner: the bot, or the host list's reserved owner. */
   botId: string
   folder: string
-  /** Claude: a folder of Orca's own where the CLI keeps the bot's servers to sign them in. */
+  /** Claude: a folder of OpenKodo's own where the CLI keeps the bot's servers to sign them in. */
   signInFolder: string
   /** The home folders of this host's other bots on the same agent, which may share a sign-in. */
   otherBotFolders: readonly string[]
@@ -66,7 +66,7 @@ export type BotToolsCli = BotToolsFolder & {
   accountHome: string | null
 }
 
-/** A bot's tools on this host. Only Claude Code and Codex have a CLI Orca checks and signs them in
+/** A bot's tools on this host. Only Claude Code and Codex have a CLI OpenKodo checks and signs them in
  *  through; another agent's tools are its folder's file, delivered at launch. */
 export type BotToolsHome =
   | BotToolsCli
@@ -217,10 +217,10 @@ export async function botToolProblems(
     )
   }
   const scoped = own.filter((server) => !remote || 'url' in server)
-  // Codex runs the owner's stdio server of a taken name instead, even for a tool Orca signs in to.
+  // Codex runs the owner's stdio server of a taken name instead, even for a tool OpenKodo signs in to.
   const ownerStdioNames = cli.agent === 'codex' ? await codexStdioToolNames(cli) : []
   const taken = codexTakenToolProblems(scoped, ownerStdioNames)
-  // A tool Orca signs in to has its state from Orca's own store; checking it would start it.
+  // A tool OpenKodo signs in to has its state from OpenKodo's own store; checking it would start it.
   const servers = scoped.filter(
     (server) =>
       !Object.hasOwn(taken, server.name) &&

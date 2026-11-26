@@ -69,7 +69,7 @@ export function sendClientAsk(args: {
   if (params.payload !== undefined || params.chat !== undefined || params.item !== undefined) {
     throw new OrchestrationError(
       'invalid_argument',
-      '--on-client carries a subject and body; --chat, --item and payload fields name work on this Orca only. Nothing was sent.',
+      '--on-client carries a subject and body; --chat, --item and payload fields name work on this OpenKodo only. Nothing was sent.',
       NOTHING_SENT
     )
   }
@@ -145,7 +145,7 @@ export function sendClientAsk(args: {
         {
           code: 'files_not_sent',
           recipient: to,
-          message: `${client.name} can't receive files from this Orca, so the message went without them.`
+          message: `${client.name} can't receive files from this OpenKodo, so the message went without them.`
         }
       ]
     : []

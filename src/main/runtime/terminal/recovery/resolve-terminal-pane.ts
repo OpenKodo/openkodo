@@ -23,7 +23,7 @@ import {
 } from '../output/tail/terminal-tail-read'
 import { getTerminalState } from '../wait/terminal-wait-results'
 import { readStructuredWorkerTerminal } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-terminal-read'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { workspaceSessionListsTerminalTab } from '../../../../shared/workspace-session/workspace-session-terminal-tab-close'
 
 export abstract class OrcaRuntimeWithResolveTerminalPane extends OrcaRuntimeWithRestoredHandlePaneStart {
@@ -113,7 +113,7 @@ export abstract class OrcaRuntimeWithResolveTerminalPane extends OrcaRuntimeWith
     if (handlePaneKey === paneKey) {
       return true
     }
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || handlePaneKey !== null) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || handlePaneKey !== null) {
       return false
     }
     // A pane-resolved handle may learn its connected replacement only after its own terminal ended; never spawn here.
@@ -257,7 +257,7 @@ export abstract class OrcaRuntimeWithResolveTerminalPane extends OrcaRuntimeWith
       return { ...structured, source: opts.screen ? 'screen-unavailable' : 'stream' }
     }
     // Switch point: a saved pane main holds with no terminal yet starts first (once, shared).
-    const starting = ORCA_LAYOUT_OWNER_IS_MAIN ? this.startRestoredHandlePane(handle) : null
+    const starting = OPENKODO_LAYOUT_OWNER_IS_MAIN ? this.startRestoredHandlePane(handle) : null
     if (starting) {
       const target = await starting
       return { ...(await this.readTerminal(target, opts, providerSnapshot)), handle }

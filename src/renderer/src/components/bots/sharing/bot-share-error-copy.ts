@@ -40,11 +40,14 @@ function copyFor(code: BotShareErrorCode): string {
         'This link was updated somewhere else. Open Share bot again to see it.'
       )
     case BOT_SHARE_ERRORS.unavailable:
-      return translate('bots.share.error.unavailable', "Orca Cloud doesn't accept bot shares yet.")
+      return translate(
+        'bots.share.error.unavailable',
+        "cloud service doesn't accept bot shares yet."
+      )
     case BOT_SHARE_ERRORS.avatarRefused:
       return translate(
         'bots.share.error.avatarRefused',
-        "Orca Cloud refused the bot's picture. Pick another picture, then try again."
+        "cloud service refused the bot's picture. Pick another picture, then try again."
       )
     case BOT_SHARE_ERRORS.tooLarge:
       return translate(
@@ -52,9 +55,9 @@ function copyFor(code: BotShareErrorCode): string {
         'This bot is too large to share. Leave out some memory or skills, then try again.'
       )
     case BOT_SHARE_ERRORS.signIn:
-      return translate('bots.share.signIn', 'Sign in to Orca to share.')
+      return translate('bots.share.signIn', 'Sign in to OpenKodo to share.')
     case BOT_SHARE_ERRORS.reconnect:
-      return translate('bots.share.reconnect', 'Sign in to Orca again to share.')
+      return translate('bots.share.reconnect', 'Sign in to OpenKodo again to share.')
   }
 }
 

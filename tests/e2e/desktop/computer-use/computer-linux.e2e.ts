@@ -8,7 +8,7 @@ import { ensureGeditLaunched, findRoleIndex, killGedit, openGeditWindow } from '
 import { ensureOrcaRuntimeLaunched, parseJsonOutput, runOrcaCli } from './computer-cli-driver'
 
 const isLinux = process.platform === 'linux'
-const e2eOptIn = process.env.ORCA_COMPUTER_E2E === '1'
+const e2eOptIn = process.env.OPENKODO_COMPUTER_E2E === '1'
 
 // Why: gedit's first text node is its hidden, read-only overview map; the editor sits in a scroll pane.
 const GEDIT_TEXT_ROLE =

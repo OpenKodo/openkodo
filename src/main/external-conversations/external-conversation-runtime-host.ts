@@ -9,7 +9,7 @@ export function runtimeConversationHost(runtime: OrcaRuntimeService): ExternalCo
   return {
     chat: runtimeChatHost(runtime),
     bots: runtimeBotConversations(runtime),
-    // Only workers a turn its thread woke started show there; others stay in Orca.
+    // Only workers a turn its thread woke started show there; others stay in OpenKodo.
     workers: {
       read: (sessionIds) => readConnectorWorkerActivity(runtime, sessionIds)
     }

@@ -69,7 +69,7 @@ export function valueAtKeyPath(root: unknown, path: readonly string[]): unknown 
   return value
 }
 
-/** Every server in one file's text that Orca can carry; null when the file doesn't parse. */
+/** Every server in one file's text that OpenKodo can carry; null when the file doesn't parse. */
 export function agentMcpConfigServersIn(
   location: AgentMcpConfigLocation,
   text: string,
@@ -124,7 +124,7 @@ async function readLocation(
 
 /**
  * The servers one agent loads from its own config: its user files, and with `projectPath` that
- * repo's files too. Orca's own bridge entries are left out unless `withOrcaOwned`.
+ * repo's files too. OpenKodo's own bridge entries are left out unless `withOrcaOwned`.
  */
 export async function readAgentMcpServers(
   agent: McpConfigAgent,
@@ -143,8 +143,8 @@ export async function readAgentMcpServers(
 }
 
 /**
- * Every server name one agent's config holds, whether or not Orca could carry the entry: a name the
- * agent already uses is taken even when its entry has fields Orca can't read.
+ * Every server name one agent's config holds, whether or not OpenKodo could carry the entry: a name the
+ * agent already uses is taken even when its entry has fields OpenKodo can't read.
  */
 export async function readAgentMcpServerNames(
   agent: McpConfigAgent,
@@ -182,7 +182,7 @@ const discoveryKey = (mergeKey: string): string =>
 
 /**
  * "In your agents": every agent's user-level servers (Claude's per-project ones included), one row
- * per name and URL or command. The first agent in Orca's order names the row's config.
+ * per name and URL or command. The first agent in OpenKodo's order names the row's config.
  */
 export async function discoverAgentMcpServers(
   context: AgentMcpConfigContext,

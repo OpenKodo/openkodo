@@ -11,7 +11,7 @@ export function parseGitStageWorktreeScope(value: unknown): GitStageWorktreeScop
 }
 
 export const GIT_STAGE_WORKTREE_SCOPE_UNSUPPORTED_MESSAGE =
-  'The Orca version running this workspace cannot stage changes beyond the ones listed, so nothing was staged. Update Orca on that host, or stage from a terminal.'
+  'The OpenKodo version running this workspace cannot stage changes beyond the ones listed, so nothing was staged. Update OpenKodo on that host, or stage from a terminal.'
 
 /** Older hosts strip scope and stage the empty filePaths list; require a receipt before reporting stage-all success. */
 export function requireGitStageWorktreeScopeReceipt(
@@ -32,7 +32,7 @@ export function requireGitStageWorktreeScopeReceipt(
 type GitStageRunner = (args: string[], stdin?: string) => Promise<{ stdout: string }>
 
 export type StageGitWorktreeScopeOptions = {
-  /** Untracked paths `all` must skip: verified Orca shared symlinks that Git does not ignore. */
+  /** Untracked paths `all` must skip: verified OpenKodo shared symlinks that Git does not ignore. */
   excludedUntrackedPaths?: readonly string[]
 }
 

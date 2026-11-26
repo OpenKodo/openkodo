@@ -4,7 +4,7 @@ import {
 } from '../../agent-hooks/installation/configuration/hook-config-schema'
 
 // Read by the hook script: this entry runs async, so Claude ignores its output and nothing waits on it.
-const ASYNC_FLAG = 'export ORCA_HOOK_ASYNC=1; '
+const ASYNC_FLAG = 'export OPENKODO_HOOK_ASYNC=1; '
 
 /** A managed PermissionRequest entry the user made async prints `{}` first, never waits for an
  *  answer, and keeps the shared timeout. Only POSIX commands can carry the flag. */

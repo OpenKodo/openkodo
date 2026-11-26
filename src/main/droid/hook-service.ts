@@ -62,7 +62,7 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     return [
       '@echo off',
       'setlocal',
-      'if defined ORCA_AGENT_HOOK_ENDPOINT if exist "%ORCA_AGENT_HOOK_ENDPOINT%" call "%ORCA_AGENT_HOOK_ENDPOINT%" 2>nul',
+      'if defined OPENKODO_AGENT_HOOK_ENDPOINT if exist "%OPENKODO_AGENT_HOOK_ENDPOINT%" call "%OPENKODO_AGENT_HOOK_ENDPOINT%" 2>nul',
       ...buildWindowsHookEnvironmentGuardLines(),
       buildWindowsAgentHookPostCommand('droid'),
       'exit /b 0',
@@ -74,24 +74,24 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     '#!/bin/sh',
     ...buildPosixHookPayloadCapture(),
     ...buildPosixHookSpoolLines('droid'),
-    'if [ -n "$ORCA_AGENT_HOOK_ENDPOINT" ] && [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ]; then',
-    '  . "$ORCA_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
+    'if [ -n "$OPENKODO_AGENT_HOOK_ENDPOINT" ] && [ -r "$OPENKODO_AGENT_HOOK_ENDPOINT" ]; then',
+    '  . "$OPENKODO_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
     'fi',
-    'if [ -z "$ORCA_AGENT_HOOK_PORT" ] || [ -z "$ORCA_AGENT_HOOK_TOKEN" ] || [ -z "$ORCA_PANE_KEY" ]; then',
+    'if [ -z "$OPENKODO_AGENT_HOOK_PORT" ] || [ -z "$OPENKODO_AGENT_HOOK_TOKEN" ] || [ -z "$OPENKODO_PANE_KEY" ]; then',
     '  spool_hook_event',
     '  exit 0',
     'fi',
     // Bound stalled posts and keep large payloads on stdin to avoid EDR command-line alerts.
-    `printf '%s' "$payload" | ${posixCurlCommand()} -sS -X POST "http://127.0.0.1:\${ORCA_AGENT_HOOK_PORT}/hook/droid" \\`,
+    `printf '%s' "$payload" | ${posixCurlCommand()} -sS -X POST "http://127.0.0.1:\${OPENKODO_AGENT_HOOK_PORT}/hook/droid" \\`,
     '  --connect-timeout 0.5 --max-time 1.5 \\',
     '  -H "Content-Type: application/x-www-form-urlencoded" \\',
-    '  -H "X-Orca-Agent-Hook-Token: ${ORCA_AGENT_HOOK_TOKEN}" \\',
-    '  --data-urlencode "paneKey=${ORCA_PANE_KEY}" \\',
-    '  --data-urlencode "tabId=${ORCA_TAB_ID}" \\',
-    '  --data-urlencode "launchToken=${ORCA_AGENT_LAUNCH_TOKEN}" \\',
-    '  --data-urlencode "worktreeId=${ORCA_WORKTREE_ID}" \\',
-    '  --data-urlencode "env=${ORCA_AGENT_HOOK_ENV}" \\',
-    '  --data-urlencode "version=${ORCA_AGENT_HOOK_VERSION}" \\',
+    '  -H "X-OpenKodo-Agent-Hook-Token: ${OPENKODO_AGENT_HOOK_TOKEN}" \\',
+    '  --data-urlencode "paneKey=${OPENKODO_PANE_KEY}" \\',
+    '  --data-urlencode "tabId=${OPENKODO_TAB_ID}" \\',
+    '  --data-urlencode "launchToken=${OPENKODO_AGENT_LAUNCH_TOKEN}" \\',
+    '  --data-urlencode "worktreeId=${OPENKODO_WORKTREE_ID}" \\',
+    '  --data-urlencode "env=${OPENKODO_AGENT_HOOK_ENV}" \\',
+    '  --data-urlencode "version=${OPENKODO_AGENT_HOOK_VERSION}" \\',
     '  --data-urlencode "payload@-" >/dev/null 2>&1 || spool_hook_event',
     'exit 0',
     ''
@@ -161,11 +161,11 @@ function writeDroidConfigFiles(files: DroidConfigFiles, command: string | null):
   return next
 }
 
-// Names the hooks file when it hides an event Orca cannot add itself to.
+// Names the hooks file when it hides an event OpenKodo cannot add itself to.
 function describeUneditableHooksFile(hooksFile: DroidHooksFile, missing: string[]): string | null {
   return !hooksFile.editable &&
     missing.some((eventName) => Object.hasOwn(hooksFile.events, eventName))
-    ? `${hooksFile.path} has comments; Orca cannot edit it`
+    ? `${hooksFile.path} has comments; OpenKodo cannot edit it`
     : null
 }
 
@@ -245,7 +245,7 @@ export class DroidHookService {
   async installRemote(sftp: SFTPWrapper, remoteHome: string): Promise<AgentHookInstallStatus> {
     const home = remoteHome.replace(/\/$/, '')
     const remoteSettingsPath = `${home}/.factory/settings.json`
-    const remoteScriptPath = `${home}/.orca/agent-hooks/droid-hook.sh`
+    const remoteScriptPath = `${home}/.openkodo/agent-hooks/droid-hook.sh`
     try {
       const hooksFile = await readDroidHooksFileRemote(sftp, `${home}/.factory`)
       const settings = await readHooksJsonRemote(sftp, remoteSettingsPath)

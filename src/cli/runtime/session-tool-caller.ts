@@ -3,7 +3,7 @@ import { homedir } from 'node:os'
 import { join } from 'node:path'
 import {
   CALLER_IDENTITY_ENV,
-  ORCA_AGENT_SESSION_TOOL_TOKEN_ENV,
+  OPENKODO_AGENT_SESSION_TOOL_TOKEN_ENV,
   SHARED_TOOL_PROCESS_BOT_FIELD,
   SHARED_TOOL_PROCESS_SESSION_FILES,
   SHARED_TOOL_PROCESS_SESSION_ID_PATTERN
@@ -20,11 +20,11 @@ export async function tradeSessionToolToken(
   return (await client.call('agentSession.toolCaller', { token }, { timeoutMs: 10_000 })).result
 }
 
-/** A bot's session Orca published for the tool's own session, whose token didn't reach the tool. */
+/** A bot's session OpenKodo published for the tool's own session, whose token didn't reach the tool. */
 async function publishedBotSession(env: NodeJS.ProcessEnv): Promise<boolean> {
   for (const place of SHARED_TOOL_PROCESS_SESSION_FILES) {
     const given = env[place.homeEnv]?.trim() || join(homedir(), place.defaultHome)
-    // A root home runs its active profile, where Orca published the session.
+    // A root home runs its active profile, where OpenKodo published the session.
     const homes = [...new Set([given, await resolveHermesActiveProfileHome(given)])]
     for (const name of place.sessionIdEnvs) {
       const sessionId = env[name]?.trim()
@@ -67,12 +67,12 @@ export async function adoptSessionToolCaller(
   env: NodeJS.ProcessEnv,
   trade: (token: string) => Promise<unknown>
 ): Promise<void> {
-  const token = env[ORCA_AGENT_SESSION_TOOL_TOKEN_ENV]?.trim()
+  const token = env[OPENKODO_AGENT_SESSION_TOOL_TOKEN_ENV]?.trim()
   if (!token) {
     if (await publishedBotSession(env)) {
       throw new RuntimeClientError(
         'session_tool_caller_missing',
-        "This bot's tool ran without its Orca identity (its chat closed, or Orca's plugin stopped serving it), so it ran nothing. Start a new chat with the bot."
+        "This bot's tool ran without its OpenKodo identity (its chat closed, or OpenKodo's plugin stopped serving it), so it ran nothing. Start a new chat with the bot."
       )
     }
     return
@@ -85,14 +85,14 @@ export async function adoptSessionToolCaller(
   const answer = await trade(token).catch((error: unknown) => {
     throw new RuntimeClientError(
       'session_tool_caller_unavailable',
-      `Orca could not confirm which chat ran this command, so it ran nothing: ${error instanceof Error ? error.message : String(error)}`
+      `OpenKodo could not confirm which chat ran this command, so it ran nothing: ${error instanceof Error ? error.message : String(error)}`
     )
   })
   const caller = isRecord(answer) && isRecord(answer.env) ? answer.env : null
   if (!caller) {
     throw new RuntimeClientError(
       'session_tool_caller_ended',
-      "This command's chat process has ended in Orca (the chat closed or restarted, or Orca did), so it ran nothing. Run it again from the chat."
+      "This command's chat process has ended in OpenKodo (the chat closed or restarted, or OpenKodo did), so it ran nothing. Run it again from the chat."
     )
   }
   for (const key of CALLER_IDENTITY_ENV) {

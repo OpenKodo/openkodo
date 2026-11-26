@@ -77,10 +77,10 @@ async function runVitest() {
         ...process.env,
         ...runTemp?.env,
         ...moduleCacheEnv,
-        ORCA_BACKGROUND_LAUNCH: '1',
-        ORCA_TEST_NODE_EXECUTABLE: process.execPath,
-        ORCA_TEST_NODE_VERSION: process.versions.node,
-        ORCA_UNIT_ZOD_BUNDLE: zodBundle.path,
+        OPENKODO_BACKGROUND_LAUNCH: '1',
+        OPENKODO_TEST_NODE_EXECUTABLE: process.execPath,
+        OPENKODO_TEST_NODE_VERSION: process.versions.node,
+        OPENKODO_UNIT_ZOD_BUNDLE: zodBundle.path,
         [RUN_ARGS_ENV]: JSON.stringify(vitestArgs),
         // The config's TypeScript and CommonJS package scope are intended; the notice is noise.
         VITE_CONFIG_NATIVE_IGNORE_WARNING: 'true'

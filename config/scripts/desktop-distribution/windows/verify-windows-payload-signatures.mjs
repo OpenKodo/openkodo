@@ -33,8 +33,8 @@ const VENDOR_HINT =
 const POWERSHELL_PAYLOAD_SIGNATURE_SCRIPT = String.raw`
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
-$root = $env:ORCA_WINDOWS_SIGNATURE_ROOT
-$rows = Get-Content -LiteralPath $env:ORCA_WINDOWS_SIGNATURE_LIST -Encoding utf8 |
+$root = $env:OPENKODO_WINDOWS_SIGNATURE_ROOT
+$rows = Get-Content -LiteralPath $env:OPENKODO_WINDOWS_SIGNATURE_LIST -Encoding utf8 |
   Where-Object { $_ -ne '' } |
   ForEach-Object {
     $signature = Get-AuthenticodeSignature -LiteralPath (Join-Path $root $_)
@@ -149,8 +149,8 @@ export function readPayloadSignatures(root, relativePaths, spawnSyncImpl = spawn
         timeout: POWERSHELL_TIMEOUT_MS,
         env: {
           ...process.env,
-          ORCA_WINDOWS_SIGNATURE_ROOT: root,
-          ORCA_WINDOWS_SIGNATURE_LIST: listPath
+          OPENKODO_WINDOWS_SIGNATURE_ROOT: root,
+          OPENKODO_WINDOWS_SIGNATURE_LIST: listPath
         }
       }
     )

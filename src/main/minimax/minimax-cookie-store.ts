@@ -1,3 +1,4 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import {
   inCredentialFileOrder,
   credentialFileExists,
@@ -6,7 +7,6 @@ import {
 } from '../credentials/credential-file-io'
 import { getSecretStore } from '../../shared/secure-storage/secret-store'
 import { readFile, rm } from 'node:fs/promises'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 import type { SecretAtRestProtection } from '../../shared/secure-storage/secret-at-rest-protection'
 
@@ -21,7 +21,7 @@ type MiniMaxCookieEnvelope = {
 }
 
 function getOrcaDir(): string {
-  return join(homedir(), '.orca')
+  return openKodoHomePath()
 }
 
 export function getMiniMaxCookiePath(): string {

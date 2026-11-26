@@ -4,7 +4,7 @@ import {
   type StructuredAgentSessionLogger
 } from '../../../native-chat/agent-session-wire/host/structured-agent-session-logger'
 
-/** A rename made with Claude's own command names the chat as an Orca rename would. Takes the
+/** A rename made with Claude's own command names the chat as an OpenKodo rename would. Takes the
  *  unwrapped naming: Claude already holds the name, so nothing is pushed back to echo again. */
 export function nameChatFromClaudeRename(deps: {
   naming: StructuredAgentSessionConversationNaming | undefined

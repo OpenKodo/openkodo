@@ -1,5 +1,5 @@
 // Each bot's Composio apps on its host. A bot's sign-ins belong to its own Composio user, and its
-// Composio tool is that user's session MCP server, reached through Orca's relay, which adds the key.
+// Composio tool is that user's session MCP server, reached through OpenKodo's relay, which adds the key.
 import {
   composioUserOfBot,
   type ComposioApp,
@@ -117,7 +117,7 @@ export class ComposioBots extends ComposioKeyAccess {
     if (failed.length > 0) {
       const names = failed.map((botId) => this.deps.nameOf?.(botId) ?? botId).join(', ')
       throw new Error(
-        `Orca couldn’t take the Composio tool off ${names}, so the key is kept. Try again.`
+        `OpenKodo couldn’t take the Composio tool off ${names}, so the key is kept. Try again.`
       )
     }
     await this.deps.keys.clear()

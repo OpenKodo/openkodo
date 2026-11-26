@@ -67,7 +67,7 @@ async function downloadPairedHostFile(
   }
   if (!(await hostStreamsGrantedFiles(target.environmentId))) {
     throw new Error(
-      'Downloading this file requires a newer Orca server. Update the server and try again.'
+      'Downloading this file requires a newer OpenKodo server. Update the server and try again.'
     )
   }
   const grant = { target, worktreeId, absolutePath: remote.absolutePath }

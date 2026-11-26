@@ -1,11 +1,12 @@
 /**
  * `orca/testing`: mount a components panel in plain Node (node:test, vitest, bun) against a
- * stand-in Orca, with the real runtime and the real tree validator. Bundled to
+ * stand-in OpenKodo, with the real runtime and the real tree validator. Bundled to
  * resources/plugins/declarative/orca-testing.mjs, which imports the runtime from its own folder so
  * the panel and the kit share one `orca` module.
  */
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
+import { PLUGIN_MANIFEST_FILENAMES } from '../../manifest/plugin-manifest'
 import { createMockHost, type MockHost, type MockHostOptions } from './testing-host'
 import { mountPanel, type MountOptions } from './testing-panel'
 import {
@@ -32,16 +33,19 @@ export type { HookDecision, TestWorker, WorkerModule } from './testing-worker'
 export type { TestPanel, PanelIssue, PersistedState } from './testing-panel'
 export type { TestElement, TestQuery, TreeSnapshot } from './testing-tree'
 
-/** The nearest orca-plugin.json, from the working directory up; null when there is none. */
+/** The nearest plugin manifest, from the working directory up; null when there is none. */
 function nearestManifest(): Record<string, unknown> | null {
   for (let dir = process.cwd(); ; dir = dirname(dir)) {
-    try {
-      const manifest: unknown = JSON.parse(readFileSync(join(dir, 'orca-plugin.json'), 'utf8'))
-      return isRecord(manifest) ? manifest : null
-    } catch {
-      if (dirname(dir) === dir) {
-        return null
+    for (const name of PLUGIN_MANIFEST_FILENAMES) {
+      try {
+        const manifest: unknown = JSON.parse(readFileSync(join(dir, name), 'utf8'))
+        return isRecord(manifest) ? manifest : null
+      } catch {
+        // Try the next name, then walk up.
       }
+    }
+    if (dirname(dir) === dir) {
+      return null
     }
   }
 }
@@ -79,7 +83,7 @@ function contributes(manifest: Record<string, unknown> | null): Record<string, u
   return manifest && isRecord(manifest.contributes) ? manifest.contributes : {}
 }
 
-/** A stand-in Orca host; capabilities default to the plugin manifest's. */
+/** A stand-in OpenKodo host; capabilities default to the plugin manifest's. */
 export function mockHost(options: MockHostOptions = {}): MockHost {
   return createMockHost(options, fieldsOf(nearestManifest()?.capabilities, 'kind'))
 }

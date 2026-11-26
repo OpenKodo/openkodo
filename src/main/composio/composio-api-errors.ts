@@ -1,4 +1,4 @@
-// What Composio's answers can mean to Orca, each as its own error so callers can tell them apart.
+// What Composio's answers can mean to OpenKodo, each as its own error so callers can tell them apart.
 import { z } from 'zod'
 
 /** Composio refused the key: deleted, regenerated, or not a project key. */
@@ -38,7 +38,7 @@ export class ComposioLimitError extends ComposioUnavailableError {
   }
 }
 
-// Longest Retry-After Orca waits out in place before calling once more.
+// Longest Retry-After OpenKodo waits out in place before calling once more.
 export const COMPOSIO_RETRY_WAIT_MAX_MS = 10_000
 
 /** Milliseconds from a Retry-After header (seconds or an HTTP date), or null. */

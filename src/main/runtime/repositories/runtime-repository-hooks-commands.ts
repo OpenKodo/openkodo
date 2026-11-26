@@ -52,7 +52,7 @@ export class RuntimeRepositoryHooksCommands<TRepo extends WorkspaceHookOwner = R
     }
     const hasFile = hasHooksFile(repo.path)
     const hooks = getEffectiveHooks(repo)
-    // A create's setup prompt shows the orca.yaml of the ref it checks out; unreadable falls back to the checkout.
+    // A create's setup prompt shows the openkodo.yaml of the ref it checks out; unreadable falls back to the checkout.
     const created = options.createSource
       ? await this.deps.readCreateSourceHooks(repo, options.createSource)
       : undefined
@@ -64,15 +64,15 @@ export class RuntimeRepositoryHooksCommands<TRepo extends WorkspaceHookOwner = R
       hasHooksFile: hasFile,
       hooks,
       setupRunPolicy: getEffectiveSetupRunPolicy(repo),
-      source: hasFile ? ('orca.yaml' as const) : hooks ? ('legacy' as const) : null,
+      source: hasFile ? ('openkodo.yaml' as const) : hooks ? ('legacy' as const) : null,
       // Why: `hooks` drops defaultTabs, so clients gate the setup choice on this instead.
       setupConfig,
-      // Local-only setup runs the user's own script, which needs no orca.yaml trust.
+      // Local-only setup runs the user's own script, which needs no openkodo.yaml trust.
       setupTrust:
         setupConfig && setupConfig.source !== 'local'
           ? hookTrust(getSetupTrustContent(sharedHooks))
           : undefined,
-      // As desktop's archive prompt: only a shared orca.yaml script needs trust. null tells clients none is needed; older hosts omit it.
+      // As desktop's archive prompt: only a shared openkodo.yaml script needs trust. null tells clients none is needed; older hosts omit it.
       archiveTrust: archiveTrust(repo, sharedHooks)
     }
   }

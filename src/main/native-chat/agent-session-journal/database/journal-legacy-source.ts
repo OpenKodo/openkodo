@@ -91,7 +91,7 @@ function tableNames(db: Database.Database): string[] {
 
 /**
  * Where an original chat's history stands: its epoch, input tip and outcome coverage. Every turn an
- * older Orca saves moves one of them, so an unchanged value means nothing new was written.
+ * older OpenKodo saves moves one of them, so an unchanged value means nothing new was written.
  */
 export function journalLegacyChatRevision(
   source: Database.Database,
@@ -187,7 +187,7 @@ function clearJournalLegacyHistoryFailure(db: Database.Database, sessionId: stri
   }
 }
 
-/** A copy kept for an original chat an older Orca continued converts its history from that chat. */
+/** A copy kept for an original chat an older OpenKodo continued converts its history from that chat. */
 export function journalLegacyCopySourceKey(copyId: string): string {
   return `journal.legacy-copy-source:${copyId}`
 }

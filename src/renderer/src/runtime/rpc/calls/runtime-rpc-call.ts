@@ -25,7 +25,7 @@ type RuntimeRpcCallOptions = {
   paramsForStatus?: (status: RuntimeStatus | null) => unknown
   /** A poll or refresh the user didn't ask for: no use of an idle WSL host (#46567). */
   background?: boolean
-  /** The user asked for it: it may wake a WSL host Orca stopped idle. Defaults to a recent gesture. */
+  /** The user asked for it: it may wake a WSL host OpenKodo stopped idle. Defaults to a recent gesture. */
   wake?: boolean
 }
 

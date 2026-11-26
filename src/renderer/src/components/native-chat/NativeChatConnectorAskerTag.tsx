@@ -14,14 +14,14 @@ export const CONNECTOR_SOURCE_ICONS: Partial<
   Record<ConnectorMessageAsker['source'], ComponentType<{ className?: string }>>
 > = { slack: SlackIcon, github: GitHubIcon, linear: LinearIcon, discord: DiscordIcon }
 
-/** "Sam Lee · Slack" over a message Orca delivered from a connector; opens where it was written. */
+/** "Sam Lee · Slack" over a message OpenKodo delivered from a connector; opens where it was written. */
 export function NativeChatConnectorAskerTag({
   asker,
   postedFrom,
   nameless = false
 }: {
   asker: ConnectorMessageAsker
-  /** Typed in Orca and posted to this place ("#eng thread"), which the tooltip says. */
+  /** Typed in OpenKodo and posted to this place ("#eng thread"), which the tooltip says. */
   postedFrom?: string
   /** Only the place: a sender tag beside it already names who typed it. */
   nameless?: boolean
@@ -30,7 +30,7 @@ export function NativeChatConnectorAskerTag({
   const view = connectorAskerTagView(asker, t)
   const { own, name, place, open } = view
   const label = postedFrom
-    ? t('components.native-chat.slackMirror.postedFrom', 'Posted to {{place}} from Orca', {
+    ? t('components.native-chat.slackMirror.postedFrom', 'Posted to {{place}} from OpenKodo', {
         place: postedFrom
       })
     : view.label

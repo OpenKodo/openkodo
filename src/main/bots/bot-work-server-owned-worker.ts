@@ -1,4 +1,4 @@
-// A worker a paired server runs as its own (worker-start --on): known here only by this Orca's
+// A worker a paired server runs as its own (worker-start --on): known here only by this OpenKodo's
 // record of it, as worker-show reads it, never by a call there.
 import { buildOrchestrationTaskDisplayMetadata } from '../../shared/orchestration/orchestration-task-display'
 import type { OrchestrationSessionWorkerState } from '../../shared/orchestration-session-workers'
@@ -41,7 +41,7 @@ function epochMs(timestamp: string): number | null {
   return Number.isFinite(parsed) ? parsed : null
 }
 
-/** The worker a server runs for this Orca's Dispatch, or null when no server runs it. */
+/** The worker a server runs for this OpenKodo's Dispatch, or null when no server runs it. */
 export async function readServerOwnedWorker(
   runtime: ServerOwnedRuntime,
   dispatchId: string
@@ -70,7 +70,7 @@ export async function readServerOwnedWorker(
     startFailed: record.worker_state === null && record.status === 'failed',
     host: record.environment_id,
     hostName: await remoteServerName(runtime, record.environment_id, link?.server_name),
-    // The workspace is the server's; this Orca's record doesn't name it.
+    // The workspace is the server's; this OpenKodo's record doesn't name it.
     worktreeId: null,
     startedAt: epochMs(record.created_at) ?? Date.now(),
     settledAt: state === 'working' || state === 'unverifiable' ? null : epochMs(record.updated_at)

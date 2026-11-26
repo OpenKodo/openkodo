@@ -1,6 +1,6 @@
 import { readSessionWorkers } from '../runtime/rpc/methods/orchestration/worker/session-workers-method'
 import { ipcMain } from 'electron'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import { placeUnshownLiveTerminalsBestEffort } from '../runtime/terminal/adoption/unshown-live-terminal-placement'
 import { recoverLegacyWorkerTerminalsForRendererStartup } from './pty-startup/legacy-worker-renderer-recovery'
 import { logStartupMilestone } from './diagnostics/startup-diagnostics'
@@ -64,7 +64,7 @@ export function registerMainProcessIpcHandlers(): void {
           })
         } finally {
           // Main adopts unshown terminals after worker recovery attempts, even failures; the window no longer does.
-          if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+          if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
             await placeUnshownLiveTerminalsBestEffort(state.core.runtime)
           }
         }
@@ -86,7 +86,7 @@ export function registerMainProcessIpcHandlers(): void {
   )
   ipcMain.handle('ui:consumePendingSkillShare', () => state.deepLinks.consumeSkillShare())
   ipcMain.handle('ui:consumePendingBotLink', () => {
-    // Bots off: the link only brings Orca forward.
+    // Bots off: the link only brings OpenKodo forward.
     if (!areHostBotsEnabled(state.store?.getSettings())) {
       state.deepLinks.discardConnectorLinks()
       state.deepLinks.consumeBotLink()

@@ -14,7 +14,7 @@ import { requestEditorSaveQuiesce } from '../autosave/editor-autosave'
 import type { RestoredEditorOwnerResult as RestoredEditorOwnerMigrationResult } from '@/store/slices/editor/types/restored-editor-owner'
 import { contentRekeyOutcome } from '@/runtime/workspace-layout/intents/layout-owner-content-rekeys'
 import { afterPendingEntityTabs } from '@/runtime/workspace-layout/intents/layout-owner-pending-tabs'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 
 export function restoredOwnerMigrationErrorMessage(
   reason: Extract<RestoredEditorOwnerMigrationResult, { ok: false }>['reason']
@@ -65,7 +65,7 @@ export async function migrateRestoredEditorFileOwner(
     throw error
   }
   // Wait for pending opens so main rekeys every tab instead of leaving undrawn tabs on the old ID.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     await pendingTabsOfFileAnswered(source.worktreeId, fileId)
   }
   const currentState = useAppStore.getState()
@@ -95,7 +95,7 @@ export async function migrateRestoredEditorFileOwner(
     targetOperationProvenance
   })
   // A successful main-owned move must arrive in its frame before callers use the rekeyed file.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN && result.ok && !(await contentRekeyOutcome([result.fileId]))) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN && result.ok && !(await contentRekeyOutcome([result.fileId]))) {
     return { ok: false, reason: 'owner-changed' }
   }
   return result

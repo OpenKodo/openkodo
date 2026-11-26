@@ -1,4 +1,4 @@
-// Whether one bot (or anything acting for one) may mail another: the rules Orca applies at the
+// Whether one bot (or anything acting for one) may mail another: the rules OpenKodo applies at the
 // receiving bot, whatever address named it. Each refusal is one sentence that says what to do instead.
 // Whom the request is for travels with it as information and never refuses it: every bot runs as the owner.
 import type { Bot } from '../../shared/bot-types'
@@ -9,7 +9,7 @@ import type { CachedPairedBotRoster } from './paired-bot-rosters'
 export const BOT_REQUEST_PURPOSES = ['status', 'handoff', 'question'] as const
 export type BotRequestPurpose = (typeof BOT_REQUEST_PURPOSES)[number]
 
-/** Status informs: nothing comes back, so Orca never waits on it or tells its sender how it ended. */
+/** Status informs: nothing comes back, so OpenKodo never waits on it or tells its sender how it ended. */
 export function awaitsAnswer(purpose: BotRequestPurpose): boolean {
   return purpose !== 'status'
 }

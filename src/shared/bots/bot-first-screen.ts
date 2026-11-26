@@ -1,4 +1,4 @@
-// A new bot's first screen, read from its Home Chat: Orca's kickoff turn until the bot speaks, and why
+// A new bot's first screen, read from its Home Chat: OpenKodo's kickoff turn until the bot speaks, and why
 // that turn failed. The desktop and the phone draw it from the same transcript.
 import type { NativeChatMessage } from '../native-chat/native-chat-types'
 import type { AgentSessionLatestTurn } from '../agent-session/agent-session-wire'
@@ -19,7 +19,7 @@ export type NativeChatFirstScreen = {
   refused: BotSetupRefusal | null
 }
 
-/** Orca's kickoff turn until the bot speaks, or the owner writes; null for any other chat. */
+/** OpenKodo's kickoff turn until the bot speaks, or the owner writes; null for any other chat. */
 export function nativeChatFirstScreen(
   messages: readonly NativeChatMessage[],
   turnEnded: boolean,

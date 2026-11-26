@@ -32,7 +32,7 @@ type NativeChatModelComboboxProps = {
   busy: boolean
   /** Called for a model other than the current one; the list stays as it is. */
   onSelect: (value: string) => void
-  /** The chat host's own CLI, too old for models on Orca's list. */
+  /** The chat host's own CLI, too old for models on OpenKodo's list. */
   cliUpdate?: SessionOptionsCliUpdate
 }
 

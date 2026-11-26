@@ -104,7 +104,7 @@ async function main() {
 
   // Always teardown owned app/marker/watch/install and restore isolated shared state; capture driving diagnostics before surfacing FATAL.
   const ctx = { session: null }
-  const diagDir = process.env.ORCA_E2E_DIAG_DIR || path.join(runDir, 'diag')
+  const diagDir = process.env.OPENKODO_E2E_DIAG_DIR || path.join(runDir, 'diag')
   let passed = false
   try {
     passed = await runProof(ctx, runArgs)

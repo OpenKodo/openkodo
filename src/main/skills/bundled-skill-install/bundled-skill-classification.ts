@@ -9,13 +9,13 @@ import type { BundledSkillSource } from './bundled-skill-sources'
 import { bundledSkillTreeSignature } from './bundled-skill-tree-signature'
 import type { BundledSkillFilesystem } from './bundled-skill-filesystem'
 
-/** `current`/`released`: the folder holds only Orca's SKILL.md, so it is safe to replace or delete. */
+/** `current`/`released`: the folder holds only OpenKodo's SKILL.md, so it is safe to replace or delete. */
 export type BundledSkillFolderClass = 'absent' | 'current' | 'released' | 'edited' | 'other'
 
-/** Planning also tells another Orca build's copy apart from a user edit. */
+/** Planning also tells another OpenKodo build's copy apart from a user edit. */
 export type PlannedFolderClass = BundledSkillFolderClass | 'other-build'
 
-export const ORCA_COPY_CLASSES = new Set<PlannedFolderClass>([
+export const OPENKODO_COPY_CLASSES = new Set<PlannedFolderClass>([
   'current',
   'released',
   'edited',
@@ -136,7 +136,7 @@ export async function classifyBundledSkillPath(
   }
 }
 
-/** Freshness judges only the SKILL.md Orca ships: this build's exact text beside an agent's files is current. */
+/** Freshness judges only the SKILL.md OpenKodo ships: this build's exact text beside an agent's files is current. */
 export function bundledSkillFreshnessClass(
   classified: ClassifiedBundledSkillPath,
   currentDigest: string

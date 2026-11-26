@@ -75,7 +75,7 @@ export type CodexStructuredInvocationDeps = Pick<
   resolveEnvironment?: () => Promise<NodeJS.ProcessEnv>
   /** Refresh after a missing binary; absence disables retry. */
   refreshEnvironmentAfterMiss?: (askedAt: number) => Promise<void>
-  /** Resolve relative PATH entries from the spawn directory; defaults to Orca's cwd. */
+  /** Resolve relative PATH entries from the spawn directory; defaults to OpenKodo's cwd. */
   resolveWorkingDirectory?: () => Promise<string> | string
 }
 
@@ -177,7 +177,7 @@ export function codexStructuredLaunchPart(
       linkedSkillsSection(linkedSkills.projects, [])
     )
     const codexHome = accountHome.path || environment?.CODEX_HOME || getSystemCodexHomePath()
-    // Codex merges a same-named server from Orca into one of its own, so that one runs alone.
+    // Codex merges a same-named server from OpenKodo into one of its own, so that one runs alone.
     const tools = await deliverHostMcpServers(
       record.sessionId,
       'Codex',

@@ -18,12 +18,12 @@ function contextFor(caller: RpcContext['caller']) {
 }
 
 afterEach(() => {
-  delete process.env.ORCA_MCP_SERVERS
+  delete process.env.OPENKODO_MCP_SERVERS
 })
 
 describe('bots.tools.setHostMcpServers', () => {
   it('refuses any agent’s CLI, so a bot never grants itself the host’s servers', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     for (const caller of [
       { kind: 'local-cli' as const },
       { kind: 'paired-device' as const, deviceId: 'd', agent: true as const },
@@ -32,7 +32,7 @@ describe('bots.tools.setHostMcpServers', () => {
       const { context, update } = contextFor(caller)
       await expect(
         setHostMcpServers!.handler({ botId: BOT.id, enabled: true }, context)
-      ).rejects.toThrow('Change which servers a bot gets in Orca.')
+      ).rejects.toThrow('Change which servers a bot gets in OpenKodo.')
       expect(update).not.toHaveBeenCalled()
     }
     const { context, update } = contextFor({ kind: 'desktop' })

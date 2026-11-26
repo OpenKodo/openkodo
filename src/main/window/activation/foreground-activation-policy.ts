@@ -11,11 +11,11 @@ type PolicyEnv = Readonly<Record<string, string | undefined>>
 
 /** orcad's headless browser provider: a serve process on a throwaway profile that no user drives. */
 export function isOrcadSidecarLaunch(env: PolicyEnv = process.env): boolean {
-  return env.ORCA_ORCAD_SIDECAR === '1'
+  return env.OPENKODO_ORCAD_SIDECAR === '1'
 }
 
 function isExplicitBackgroundLaunch(env: PolicyEnv): boolean {
-  return env.ORCA_BACKGROUND_LAUNCH === '1' || isOrcadSidecarLaunch(env)
+  return env.OPENKODO_BACKGROUND_LAUNCH === '1' || isOrcadSidecarLaunch(env)
 }
 
 /** True when this process must not steal focus, raise windows, or activate the app. */
@@ -23,17 +23,19 @@ export function isBackgroundLaunch(env: PolicyEnv = process.env): boolean {
   if (isExplicitBackgroundLaunch(env)) {
     return true
   }
-  if (env.ORCA_E2E_FOREGROUND === '1') {
+  if (env.OPENKODO_E2E_FOREGROUND === '1') {
     return false
   }
-  return env.ORCA_E2E_HEADLESS === '1' || env.ORCA_E2E_HEADFUL === '1'
+  return env.OPENKODO_E2E_HEADLESS === '1' || env.OPENKODO_E2E_HEADFUL === '1'
 }
 
 /** Suppresses automatic presentation on launch; this is not a query of current window visibility. */
 export function isWindowlessLaunch(env: PolicyEnv = process.env): boolean {
   return (
     isExplicitBackgroundLaunch(env) ||
-    (isBackgroundLaunch(env) && env.ORCA_E2E_HEADLESS === '1' && env.ORCA_E2E_HEADFUL !== '1')
+    (isBackgroundLaunch(env) &&
+      env.OPENKODO_E2E_HEADLESS === '1' &&
+      env.OPENKODO_E2E_HEADFUL !== '1')
   )
 }
 
@@ -122,7 +124,7 @@ function stopAwaitingAppActive(): void {
   electronApp.off('did-become-active', revealWindowsAwaitingAppActive)
 }
 
-/** The user is back in Orca. Origin-bar popups (plain BaseWindows) call this on focus, since only BrowserWindows raise `browser-window-focus`. */
+/** The user is back in OpenKodo. Origin-bar popups (plain BaseWindows) call this on focus, since only BrowserWindows raise `browser-window-focus`. */
 export function revealWindowsAwaitingAppActive(): void {
   if (windowsAwaitingAppActive.size === 0) {
     return
@@ -136,12 +138,12 @@ export function revealWindowsAwaitingAppActive(): void {
   windowsAwaitingAppActive.clear()
 }
 
-/** Shows a window an agent opened without activating Orca: now if Orca is in front, else once the user returns to it. */
+/** Shows a window an agent opened without activating OpenKodo: now if OpenKodo is in front, else once the user returns to it. */
 export function showWhenAppActive(window: BaseWindow, env: PolicyEnv = process.env): void {
   if (window.isDestroyed() || isWindowlessLaunch(env)) {
     return
   }
-  // Any Orca window counts, including origin-bar popups (plain BaseWindows).
+  // Any OpenKodo window counts, including origin-bar popups (plain BaseWindows).
   if (BaseWindow.getFocusedWindow()) {
     window.showInactive()
     return

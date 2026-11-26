@@ -79,7 +79,7 @@ function replaceButtonFixture(host: SkillBackupHost) {
         >
           <Button type="button" variant="outline" size="sm">
             <Download className="size-3.5" />
-            Replace with Orca’s
+            Replace with OpenKodo’s
           </Button>
         </BundledSkillReplaceHint>
       </div>
@@ -186,7 +186,7 @@ function attentionLineFixture(language: BuiltInUiLanguage = 'en') {
   })
 }
 
-/** Settings' line for a copy Orca won't replace (a former skill name). */
+/** Settings' line for a copy OpenKodo won't replace (a former skill name). */
 export const attentionLine = attentionLineFixture()
 /** The longest locales beside Retry at the Settings row width. */
 export const attentionLineGerman = attentionLineFixture('de')

@@ -90,7 +90,7 @@ async function validateCurrentBranchCanCreateReview(
       return {
         ok: false,
         code: 'validation',
-        error: `Create ${copy.shortLabel} failed: Orca could not confirm whether this branch already has a ${copy.reviewLabel}. Retry once the ${copy.providerName} lookup succeeds.`,
+        error: `Create ${copy.shortLabel} failed: OpenKodo could not confirm whether this branch already has a ${copy.reviewLabel}. Retry once the ${copy.providerName} lookup succeeds.`,
         reason: 'review_lookup_unavailable'
       }
     }
@@ -294,7 +294,7 @@ export async function createHostedReview(
       ? await provider.createReview(repoPath, input, executionHostId, options)
       : await provider.createReview(repoPath, input, executionHostId)
   if (result.ok) {
-    // Retire long-lived negative answers immediately after Orca creates a review (#11532).
+    // Retire long-lived negative answers immediately after OpenKodo creates a review (#11532).
     invalidateHostedReviewBranchCache(repoPath, executionHostId)
   }
   return result

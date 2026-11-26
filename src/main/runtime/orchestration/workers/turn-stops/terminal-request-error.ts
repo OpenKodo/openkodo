@@ -6,7 +6,7 @@ import { failureRequestError } from './chat-worker-error-words'
 import { redactFailure } from './worker-turn-stop-wording'
 import type { WorkerRequestError } from './worker-turn-stop-report'
 
-/** The typed failure a terminal agent's turn ended on; null when it named none Orca words. */
+/** The typed failure a terminal agent's turn ended on; null when it named none OpenKodo words. */
 export function terminalRequestError(row: AgentStatusIpcPayload): WorkerRequestError | null {
   // A time-only reset is read against when the turn stopped: a pane restored later keeps that day.
   const fact =

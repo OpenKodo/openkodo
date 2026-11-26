@@ -72,7 +72,7 @@ function observeClaudeModelFallback(
   ) {
     return false
   }
-  // The input Orca sends, which may be an alias of the resolved id Claude names.
+  // The input OpenKodo sends, which may be an alias of the resolved id Claude names.
   const replaced = session.appliedInputOptions.get('model') ?? swap.replaced
   session.modelFallback = { model: swap.model, replaced }
   return true

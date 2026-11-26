@@ -1,4 +1,4 @@
-// bots.tools.signIn.*: Orca's own sign-in to a bot's app, run on the bot's host for the device that
+// bots.tools.signIn.*: OpenKodo's own sign-in to a bot's app, run on the bot's host for the device that
 // asks. The app returns to this host's listener (a routed page) or the device pastes the returned
 // query; only that device may wait on, finish or cancel it, and the bot itself never signs in.
 import type { BotToolSignInAttemptView } from '../../../../shared/bot-tool-sign-in'
@@ -29,7 +29,7 @@ import { targetBot } from './bots-tools-target'
 function signInOwner(callerSessionId: string | undefined, context: RpcContext): string {
   context.runtime.bots.assertEnabled()
   if (botOfCaller(context.runtime, callerSessionId, context.pairedDeviceId)) {
-    throw new InvalidArgumentError('A bot can’t sign itself in to apps. Sign in from Orca.')
+    throw new InvalidArgumentError('A bot can’t sign itself in to apps. Sign in from OpenKodo.')
   }
   if (!context.caller) {
     throw new Error('This client can’t sign in to apps on this computer.')
@@ -56,7 +56,7 @@ export const BOT_TOOLS_OWNED_SIGN_IN_METHODS = [
       const folder = botHomeFolder(targetBot(params, context))
       const key = await ownedSignInKey(folder, params.name)
       if (!key) {
-        throw new InvalidArgumentError('Orca doesn’t sign in to this tool.')
+        throw new InvalidArgumentError('OpenKodo doesn’t sign in to this tool.')
       }
       return inHostWords(() => startBotToolSignInAttempt(owner, key, params.mode))
     }

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { buildFontFamily } from './monospace-font-family'
 
 const FALLBACKS =
-  '"SF Mono", "Menlo", "Monaco", "Cascadia Mono", "Consolas", "DejaVu Sans Mono", "Liberation Mono", "Orca Nerd Font Symbols", "Symbols Nerd Font Mono", "MesloLGS Nerd Font", "JetBrainsMono Nerd Font", "Hack Nerd Font", monospace'
+  '"SF Mono", "Menlo", "Monaco", "Cascadia Mono", "Consolas", "DejaVu Sans Mono", "Liberation Mono", "OpenKodo Nerd Font Symbols", "Symbols Nerd Font Mono", "MesloLGS Nerd Font", "JetBrainsMono Nerd Font", "Hack Nerd Font", monospace'
 
 describe('buildFontFamily', () => {
   it('quotes a single family ahead of the fallbacks, leaving out the one it names', () => {

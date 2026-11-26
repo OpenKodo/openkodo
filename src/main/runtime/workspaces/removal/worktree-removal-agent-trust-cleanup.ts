@@ -8,7 +8,7 @@ import {
 } from '../../../codex/trust/project-trust/codex-project-trust-worker-client'
 
 /**
- * Drops the workspace trust entries Orca's preflight wrote for a removed
+ * Drops the workspace trust entries OpenKodo's preflight wrote for a removed
  * worktree's path (Codex `[projects."<path>"]`, Antigravity `trustedWorkspaces`).
  *
  * Why: worktree IDs are path-derived and can be recreated, so a stale entry would
@@ -28,7 +28,7 @@ export function dropOrcaCreatedAgentTrustForRemovedWorktree(worktreeId: string):
   return Promise.all([
     removeOrcaCreatedAntigravityTrustOffMain(worktreePath),
     removeOrcaCreatedProjectTrustEntries(worktreePath).catch((error) => {
-      console.warn('[codex-config] Failed to drop an Orca-created project trust entry:', error)
+      console.warn('[codex-config] Failed to drop an OpenKodo-created project trust entry:', error)
     })
   ]).then(() => undefined)
 }

@@ -4,7 +4,7 @@ import type { Store } from '../persistence/loading-store/store'
 import type { OrcaRuntimeService } from '../runtime/orca-runtime'
 import type { BackendServiceCleanup } from '../backend/service-composition'
 
-/** orcad's connector, as its own Orca account and install id; installed before RPC admits a sign-in. */
+/** orcad's connector, as its own OpenKodo account and install id; installed before RPC admits a sign-in. */
 export function installOrcadConnector(
   runtime: OrcaRuntimeService,
   store: Store,

@@ -324,7 +324,7 @@ export class CodexSharedServer implements CodexSharedLeaseHost {
       this.physical?.respondWithError(
         frame.request.id,
         NO_OWNER_ERROR_CODE,
-        'no Orca chat holds this thread'
+        'no OpenKodo chat holds this thread'
       )
     }
   }

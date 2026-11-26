@@ -7,7 +7,7 @@ import type {
 } from '../../terminal/launch/mobile-terminal-startup'
 import { OrcaRuntimeWithBuildHeadlessMobileSessionBrowserTabs } from './build-headless-mobile-session-browser-tabs'
 import { parseAppSshPtyId } from '../../../../shared/remote-runtime/ssh/ssh-pty-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { isUnclaimedRunningSleepRecord, markResumedRecordLive } from './sleep-record-pane-claim'
 import { isWorktreeTerminalsSleepingError } from '../../../../shared/workspace/lifecycle/workspace-sleep'
 import type { TerminalWorkspaceLaunchScope } from '../../orchestration/terminal-authority/structured-sessions/runtime-legacy-worker-terminal-recovery-types'
@@ -216,7 +216,7 @@ export abstract class OrcaRuntimeWithRestoredPaneStart extends OrcaRuntimeWithBu
     // After a claimed-record resume starts, mark that record live.
     const paneKey = `${tab.parentTabId}:${tab.leafId}`
     const resumedRecord =
-      ORCA_LAYOUT_OWNER_IS_MAIN && resumeStartup && 'resumeProviderSession' in resumeStartup
+      OPENKODO_LAYOUT_OWNER_IS_MAIN && resumeStartup && 'resumeProviderSession' in resumeStartup
         ? this.getWorkspaceSessionForWorktree(worktreeId)?.sleepingAgentSessionsByPaneKey?.[paneKey]
         : undefined
     let agentStartup: MobileTerminalCommand | MobileTerminalResumeCommand = resumeStartup ?? {}

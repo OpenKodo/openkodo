@@ -24,7 +24,10 @@ const getFeatureTipCopyById = createLocalizedCatalog(
       ctaLabel: translate('featureTips.sessionSearch.cta', 'Enable session search')
     },
     'orca-cli': {
-      title: translate('featureTips.orcaCli.title', 'Let agents drive Orca with the Orca CLI'),
+      title: translate(
+        'featureTips.orcaCli.title',
+        'Let agents drive OpenKodo with the OpenKodo CLI'
+      ),
       description: translate(
         'featureTips.orcaCli.description',
         'Enable agents to coordinate child worktrees and communicate between worktrees.'

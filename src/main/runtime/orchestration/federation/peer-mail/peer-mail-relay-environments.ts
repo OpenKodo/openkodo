@@ -6,7 +6,7 @@ import {
   PAIRED_SERVER_ASK_WANTS_SQL
 } from '../../db/federation/paired-server-asks-store'
 
-/** Servers this Orca opened conversations with, has a link to that still needs reading or a cancel,
+/** Servers this OpenKodo opened conversations with, has a link to that still needs reading or a cancel,
  *  or takes its agents' asks from. */
 export function peerMailRelayEnvironments(db: OrchestrationDb): Set<string> {
   return new Set([

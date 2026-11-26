@@ -21,11 +21,11 @@ export async function buildCli({
   outDir = 'out',
   check = runTypecheckProjects,
   execute = runProcess,
-  compiler = process.env.ORCA_CLI_BUILD_COMPILER ?? 'bun',
+  compiler = process.env.OPENKODO_CLI_BUILD_COMPILER ?? 'bun',
   resolveBunExecutable = resolveTypecheckBunExecutable
 } = {}) {
   if (compiler !== 'bun' && compiler !== 'tsrs') {
-    throw new Error(`Invalid ORCA_CLI_BUILD_COMPILER: ${compiler}`)
+    throw new Error(`Invalid OPENKODO_CLI_BUILD_COMPILER: ${compiler}`)
   }
   const emitArguments = [
     '-p',
@@ -54,7 +54,7 @@ export async function buildCli({
   const selection = selectTypecheckCompiler('bun', {
     root,
     resolveBunExecutable,
-    fallbackHint: supportsTsrs() ? 'set ORCA_CLI_BUILD_COMPILER=tsrs' : null
+    fallbackHint: supportsTsrs() ? 'set OPENKODO_CLI_BUILD_COMPILER=tsrs' : null
   })
   const failures = await check({
     ...selection,

@@ -44,7 +44,7 @@ function statusLaunchConfig(
     : (statement ?? undefined)
 }
 
-/** A sleep's snapshot of this session waits for its wake; a status from no Orca launch neither
+/** A sleep's snapshot of this session waits for its wake; a status from no OpenKodo launch neither
  *  replaces it nor inherits its recipe. */
 function keepsSleepSnapshot(
   statement: SleepingAgentLaunchConfig | null | undefined,

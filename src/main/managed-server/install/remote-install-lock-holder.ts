@@ -19,7 +19,7 @@ const UNMARK_ATTEMPTS = 2
 export class InstallLockUnmarkError extends Error {
   constructor(cause: unknown) {
     super(
-      'Orca couldn’t set up its install in this distro because the distro stopped answering, so it stopped. Try connecting again.',
+      'OpenKodo couldn’t set up its install in this distro because the distro stopped answering, so it stopped. Try connecting again.',
       { cause }
     )
     this.name = 'InstallLockUnmarkError'

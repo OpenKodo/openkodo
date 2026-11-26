@@ -86,7 +86,7 @@ export type RuntimeManagedWorktreeCreateArgs = {
   startupAgentArgs?: string | null
   /** Main-internal: an automation's saved extras, merged over the startup agent's arguments. */
   startupExtraAgentArgs?: string
-  /** Main-internal: Orca, not a user, types into the startup agent once it starts. */
+  /** Main-internal: OpenKodo, not a user, types into the startup agent once it starts. */
   startupSuppressUpdatePrompt?: boolean
   /** Main-internal: the startup terminal's tab title, such as an automation run's. */
   startupTitle?: string
@@ -121,7 +121,7 @@ export type RuntimeManagedWorktreeCreateArgs = {
     cwdParentAmbiguous?: true
     noParent?: boolean
     callerTerminalHandle?: string
-    /** The creating agent session's Orca id; only the host that runs it can resolve it. */
+    /** The creating agent session's OpenKodo id; only the host that runs it can resolve it. */
     callerAgentSessionId?: string
     comment?: string
     orchestrationContext?: {

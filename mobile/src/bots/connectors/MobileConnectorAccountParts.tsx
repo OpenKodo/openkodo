@@ -155,7 +155,7 @@ export function useFollowHost(on: boolean, refresh: () => Promise<void>): void {
   }, [on, refresh])
 }
 
-/** Linear's or GitHub's sign-in, open in Orca's browser on the host: the phone waits until it ends. */
+/** Linear's or GitHub's sign-in, open in OpenKodo's browser on the host: the phone waits until it ends. */
 export function ConnectorHandoff(props: {
   hostName: string
   /** What to do there, e.g. pick the workspace and choose Authorize. */

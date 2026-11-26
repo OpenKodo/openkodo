@@ -25,7 +25,7 @@ import type { NativeChatStructuredComposerTransport } from '@/components/native-
 const FORK_DRAFT = /^\/fork(?:\s+([\s\S]*))?$/i
 const MCP_DRAFT = /^\/mcp\s*$/i
 
-/** Orca’s /resume, /usage and /fork rows in this app’s words. */
+/** OpenKodo’s /resume, /usage and /fork rows in this app’s words. */
 export function withNativeChatResumeCommand(
   commands: readonly SlashCommandSuggestion[],
   accountUsage = false,
@@ -65,9 +65,9 @@ export function parseNativeChatResumeDraft(draft: string): string | null {
 
 export type NativeChatResumeCommand = {
   matchesDraft: (draft: string) => boolean
-  /** Opens Session History for a `/resume` draft; false means the draft is not Orca's. */
+  /** Opens Session History for a `/resume` draft; false means the draft is not OpenKodo's. */
   consume: (draft: string) => boolean
-  /** Choosing the draft-leading Orca row runs it; mid-prompt it stays an ordinary completion. */
+  /** Choosing the draft-leading OpenKodo row runs it; mid-prompt it stays an ordinary completion. */
   interceptPick: <TItem extends NativeChatPickerItem>(
     pick: (item: TItem) => void
   ) => (item: TItem) => void
@@ -237,7 +237,7 @@ export function useNativeChatResumeCommand(args: {
     <TItem extends NativeChatPickerItem>(pick: (item: TItem) => void) =>
       (item: TItem) => {
         const leading = autocomplete.mode === 'slash' && autocomplete.dispatchable
-        // An explicit Orca command pick overrides an earlier same-named skill pick.
+        // An explicit OpenKodo command pick overrides an earlier same-named skill pick.
         if (leading && item.kind === 'command' && item.orcaOwned) {
           if (
             item.name !== 'resume' &&

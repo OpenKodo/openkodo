@@ -11,7 +11,7 @@ import {
   getAgentHookConfigPaths,
   type AgentHookInstallStatus
 } from '../../shared/agent-hook-listener/configuration/agent-hook-types'
-import { DEFAULT_LOCAL_ORCA_PROFILE_ID } from '../../shared/orca-profiles/orca-profiles'
+import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../shared/orca-profiles/orca-profiles'
 import type { GlobalSettings } from '../../shared/settings/global-settings-types'
 import type { ProfileStateOfflineLocation } from '../../main/persistence/profile-state/offline-access/profile-state-offline-settings'
 
@@ -43,7 +43,7 @@ function legacyProfileStateLocation(): ProfileStateOfflineLocation {
   return {
     dataFile: join(userDataPath, 'orca-data.json'),
     databaseFile: join(userDataPath, 'profile-state.db'),
-    profileId: DEFAULT_LOCAL_ORCA_PROFILE_ID
+    profileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID
   }
 }
 
@@ -123,7 +123,7 @@ async function updateRunningRuntime(client: RuntimeClient, enabled: boolean): Pr
     if (status.legacyPidRunning) {
       throw new RuntimeClientError(
         'runtime_error',
-        'Orca is running but unavailable. Retry when it responds, or stop Orca before changing agent hooks offline.'
+        'OpenKodo is running but unavailable. Retry when it responds, or stop OpenKodo before changing agent hooks offline.'
       )
     }
     return false
@@ -206,7 +206,7 @@ export const AGENT_HOOK_HANDLERS: Record<string, CommandHandler> = {
         'agentHooks.prepareCodexForWslPane',
         {
           codexHome: process.env.CODEX_HOME ?? '',
-          orcaCodexHome: process.env.ORCA_CODEX_HOME ?? '',
+          orcaCodexHome: process.env.OPENKODO_CODEX_HOME ?? '',
           wslDistro: process.env.WSL_DISTRO_NAME
         },
         { timeoutMs: WSL_CODEX_PREPARE_TIMEOUT_MS }

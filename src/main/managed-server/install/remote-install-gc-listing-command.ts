@@ -16,7 +16,7 @@ export function listRemoteInstallBaseDirsCommand(
 ): string {
   const namePattern = remoteInstallListingRegexSource(model)
   if (!isWindowsRemoteHost(host)) {
-    const statusPrefix = '__ORCA_RELAY_GC_FIND_STATUS__'
+    const statusPrefix = '__OPENKODO_RELAY_GC_FIND_STATUS__'
     return [
       `base=${quotePosixShell(baseDir)}; [ -d "$base" ] || exit 0;`,
       `{ find "$base" -mindepth 1 -maxdepth 1 -type d -name '${model.dirPrefix}-*' -print; status=$?; printf '\n${statusPrefix}%s\n' "$status"; } |`,

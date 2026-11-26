@@ -44,7 +44,7 @@ export type CreateSourceSetupHooksRuntime = {
 class DeadlinePassed extends Error {}
 
 /**
- * The orca.yaml hooks at the ref a create will check out. Undefined when that ref can't be read in
+ * The openkodo.yaml hooks at the ref a create will check out. Undefined when that ref can't be read in
  * time; callers then read the project checkout, as before, and the host's created-worktree check stays the backstop.
  */
 export async function readCreateSourceSetupHooks(args: {
@@ -147,20 +147,23 @@ async function readOrcaYamlAtRef(
   ref: string,
   gitOptions: LocalGitExecOptions
 ): Promise<{ hooks: OrcaHooks | null } | undefined> {
-  const { stdout: entry } = await gitExecFileAsync(['ls-tree', ref, '--', 'orca.yaml'], {
-    cwd: repo.path,
-    ...gitOptions
-  })
-  if (!entry.trim()) {
-    return { hooks: null }
+  for (const name of ['openkodo.yaml', 'openkodo.yaml']) {
+    const { stdout: entry } = await gitExecFileAsync(['ls-tree', ref, '--', name], {
+      cwd: repo.path,
+      ...gitOptions
+    })
+    if (!entry.trim()) {
+      continue
+    }
+    // A symlink's blob is its target path; the checkout follows it, so read the checkout instead.
+    if (!entry.startsWith('100')) {
+      return undefined
+    }
+    const { stdout } = await gitExecFileAsync(['show', `${ref}:${name}`], {
+      cwd: repo.path,
+      ...gitOptions
+    })
+    return { hooks: scopeHooksToRepoKind(repo, parseOrcaYaml(stdout)) }
   }
-  // A symlink's blob is its target path; the checkout follows it, so read the checkout instead.
-  if (!entry.startsWith('100')) {
-    return undefined
-  }
-  const { stdout } = await gitExecFileAsync(['show', `${ref}:orca.yaml`], {
-    cwd: repo.path,
-    ...gitOptions
-  })
-  return { hooks: scopeHooksToRepoKind(repo, parseOrcaYaml(stdout)) }
+  return { hooks: null }
 }

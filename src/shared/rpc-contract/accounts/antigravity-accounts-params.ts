@@ -39,7 +39,7 @@ export type AntigravityChatApiKeyStatus = { saved: boolean; inEnvironment: boole
 export type AntigravityChatAuthDetection = {
   /** The saved sign-in method; null while it is malformed or being saved. */
   method: AntigravityChatAuthConfig['method'] | null
-  /** Saved Google sign-ins of Orca's managed server, one per Google method. */
+  /** Saved Google sign-ins of OpenKodo's managed server, one per Google method. */
   googleSignIn: { personal: boolean; business: boolean }
   /** A pasted key wins over GEMINI_API_KEY, as the chat's launch does. */
   apiKey: { available: boolean; source: 'saved' | 'environment' | null }
@@ -47,7 +47,7 @@ export type AntigravityChatAuthDetection = {
   adc: { available: boolean; project: string | null }
   /** Antigravity chats with a running child, which switching methods restarts. */
   liveChats: number
-  /** The version of the host's agy that last passed Orca's check, else null. Absent from older hosts. */
+  /** The version of the host's agy that last passed OpenKodo's check, else null. Absent from older hosts. */
   agyVersion?: string | null
   /** New chats here run on agy, which is definitely not signed in. Absent from older hosts. */
   agySignedOut?: boolean

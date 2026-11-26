@@ -122,7 +122,7 @@ describe('a worker start cut before its agent ran', () => {
       state: 'failed',
       blockedReason: 'terminal_host_cap',
       lastError: expect.stringContaining(
-        "Orca refused the worker's terminal because this host is at its terminal limit (256 of 256 terminals in use)."
+        "OpenKodo refused the worker's terminal because this host is at its terminal limit (256 of 256 terminals in use)."
       ),
       nextCommands: ['orca orchestration worker-list --terminal-state reclaimable --json']
     })
@@ -132,7 +132,7 @@ describe('a worker start cut before its agent ran', () => {
       .find((message) => message.payload?.includes(dispatch.id))
     expect(told?.subject).toBe("Worker couldn't start")
     expect(told?.body).toContain(
-      `couldn't start task "work" (${dispatch.task_id}): Orca refused the worker's terminal because this host is at its terminal limit (256 of 256 terminals in use).`
+      `couldn't start task "work" (${dispatch.task_id}): OpenKodo refused the worker's terminal because this host is at its terminal limit (256 of 256 terminals in use).`
     )
     expect(told?.body).toContain('`orchestration worker-release --dispatch <dispatch_id>`')
     expect(told?.body).not.toMatch(/lost|gone/)
@@ -201,7 +201,7 @@ describe('a worker start cut before its agent ran', () => {
     const failed = settleRestartCutStart(db, dispatch.id, runtime as never)
     expect(failed?.state).toBe('failed')
     expect(failed?.last_error).toBe(
-      'Orca restarted while its Setup was still running, so it never sent its brief.'
+      'OpenKodo restarted while its Setup was still running, so it never sent its brief.'
     )
     await vi.waitFor(() => expect(closedChats).toEqual(['chat-session-1']))
   })

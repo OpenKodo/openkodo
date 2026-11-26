@@ -15,7 +15,7 @@ import {
   mergeMobileSessionTabGroups
 } from '../../session-lifecycle/projection/mobile-session-tab-merge'
 import { terminalLayoutContainsLeaf } from '../../../../shared/workspace-session/workspace-session-pane-ownership'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { terminalIsOfTab } from '../../session-lifecycle/close/closed-tab-terminal'
 import { getHeadlessMobileSessionGroupId } from '../../terminal/surface/mobile-session-layout-projection'
 import {
@@ -186,7 +186,7 @@ export abstract class OrcaRuntimeWithMergePreservedHeadlessMobileSessionTabs ext
     tab: RuntimeMobileSessionTerminalTab
   ): boolean {
     return (
-      ORCA_LAYOUT_OWNER_IS_MAIN &&
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
       getMobileTerminalLeafPtyIds(tab).some((ptyId) => {
         const pty = this.ptysById.get(ptyId)
         return (

@@ -1,5 +1,5 @@
 import type { BrowserSessionProfile } from '../../../../../shared/browser/workspaces/browser-workspace-types'
-import { ORCA_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
+import { OPENKODO_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
 import { getOrcaProfileBrowserDefaultPartition } from '../../../../../shared/orca-profiles/orca-profiles'
 import { unadmittedBrowserPartition } from '../../../../../shared/browser/profiles/browser-profile-scope'
 
@@ -35,6 +35,6 @@ export function resolveBrowserPagePartition({
     sessionProfile?.partition ??
     defaultSessionProfile?.partition ??
     fallbackBrowserPartition ??
-    ORCA_BROWSER_PARTITION
+    OPENKODO_BROWSER_PARTITION
   )
 }

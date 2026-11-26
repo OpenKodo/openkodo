@@ -65,7 +65,7 @@ const issue = {
   title:
     '[Bug]: Renderer compositor thread spins at ~100% of one core for hours, producing no frames - recovered by minimize/restore',
   state: 'open' as const,
-  url: 'https://github.com/stablyai/orca/issues/14882',
+  url: 'https://github.com/OpenKodo/openkodo/issues/14882',
   labels: ['bug', 'os:Windows']
 }
 
@@ -75,7 +75,7 @@ const review = {
   title: 'perf(renderer): pause long-lived status animations offscreen and honor reduced motion',
   state: 'merged' as const,
   status: 'success' as const,
-  url: 'https://github.com/stablyai/orca/pull/37162'
+  url: 'https://github.com/OpenKodo/openkodo/pull/37162'
 }
 
 const linearIssue = {

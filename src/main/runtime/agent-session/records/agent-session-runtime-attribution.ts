@@ -36,7 +36,7 @@ export function attributeAgentSessionRuntimeRecord(
     deathEvidence.runtimeEnd !== undefined ||
     !heldBy ||
     heldBy === runtime ||
-    // Terminal-owned agents never depended on Orca's pipes.
+    // Terminal-owned agents never depended on OpenKodo's pipes.
     before?.lease.claimStatus === 'conflicted' ||
     !runtimeEnds
   ) {

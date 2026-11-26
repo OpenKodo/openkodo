@@ -12,12 +12,12 @@ afterEach(() => {
 })
 
 describe('the server names an agent already uses', () => {
-  it('counts an entry Orca can’t carry, so a same-named server from Orca never merges into it', async () => {
+  it('counts an entry OpenKodo can’t carry, so a same-named server from OpenKodo never merges into it', async () => {
     const home = mkdtempSync(join(tmpdir(), 'agent-names-'))
     dirs.push(home)
     const codexHome = join(home, '.codex')
     mkdirSync(codexHome)
-    // `env_vars` is a Codex field Orca doesn't import; a url merged into this stdio entry stops Codex.
+    // `env_vars` is a Codex field OpenKodo doesn't import; a url merged into this stdio entry stops Codex.
     writeFileSync(
       join(codexHome, 'config.toml'),
       '[mcp_servers.pg]\ncommand = "pg-mcp"\nenv_vars = ["DATABASE_URL"]\n'

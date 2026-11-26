@@ -2,14 +2,14 @@ import type { z } from 'zod'
 import type { PeerMailRelayPayload } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 import { peerMailSenderSnapshot } from '../../federation/peer-mail/peer-mail-sender-snapshot'
 
-/** Mail a paired Orca sent here, by the queue item kind it arrived as. */
+/** Mail a paired OpenKodo sent here, by the queue item kind it arrived as. */
 export type ImportedPeerItem =
-  /** A reply in a peer-mail conversation this Orca opened. */
+  /** A reply in a peer-mail conversation this OpenKodo opened. */
   | ({ kind: 'peer_mail' } & Pick<
       z.infer<typeof PeerMailRelayPayload>,
       'senderLabel' | 'body' | 'sender' | 'botAnswer'
     >)
-  /** A message filed in the mailbox of a Run this Orca coordinates on that server. */
+  /** A message filed in the mailbox of a Run this OpenKodo coordinates on that server. */
   | { kind: 'worker_mail'; from: string; body: string }
 
 /** The one place that decides how an imported peer item is stored: its sender and body. */

@@ -135,7 +135,7 @@ async function readWslHostDistros(userDataPath: string): Promise<Map<string, str
 
 /**
  * Reuse a confirmed running list; otherwise one shared probe, and none when no user distro exists
- * or no Orca project uses WSL: telemetry alone shouldn't run `wsl.exe` (#28167). Null: not probed.
+ * or no OpenKodo project uses WSL: telemetry alone shouldn't run `wsl.exe` (#28167). Null: not probed.
  */
 export async function listRunningDistrosForSnapshot(
   registrations: readonly { distro: string }[] | null,

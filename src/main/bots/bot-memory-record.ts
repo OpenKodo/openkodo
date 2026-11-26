@@ -1,4 +1,4 @@
-// MEMORY.md as Orca last recorded it, per bot. A chat's turn end puts back what a write lost against
+// MEMORY.md as OpenKodo last recorded it, per bot. A chat's turn end puts back what a write lost against
 // it; a change through here (Settings, Forget, Undo) is the one way a fact leaves it. Every change to
 // the record runs as one step on the bot's queue, and lands in the bot's memory history.
 import { join } from 'node:path'
@@ -256,7 +256,7 @@ export async function tagBotMemoryFile(
   return null
 }
 
-/** The host's record, with history in Orca's data folder. */
+/** The host's record, with history in OpenKodo's data folder. */
 export function hostBotMemoryRecord(
   fs: Pick<BotHomeFilesystem, 'readText' | 'replaceText' | 'writeText'>
 ): BotMemoryRecord {

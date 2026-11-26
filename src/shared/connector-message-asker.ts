@@ -9,7 +9,7 @@ import { CONNECTOR_SOURCES, type ConnectorSource } from './connectors/external-c
 /** A message someone without access wrote in the thread, held until this one carried it. */
 export type ConnectorNoAccessLine = { name?: string; text: string }
 
-/** Who asked a bot and where, as stored on the journal message Orca delivered for them: the cloud's
+/** Who asked a bot and where, as stored on the journal message OpenKodo delivered for them: the cloud's
  *  facts without the asker's words (the message has those), the source they came through, and the
  *  lines from people without access that arrived with it. */
 export type ConnectorMessageAsker = Pick<

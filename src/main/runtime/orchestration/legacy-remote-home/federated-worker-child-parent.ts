@@ -65,7 +65,7 @@ export async function resolveFederatedChildParent(args: {
     return { warning: `Not nested under ${name}: ${why}, so the worktree was created top-level.` }
   }
   if (!supportsCrossStoreLineage(args.serverCapabilities)) {
-    return notNested(`${args.serverName} needs an Orca update to nest across machines`)
+    return notNested(`${args.serverName} needs an OpenKodo update to nest across machines`)
   }
   const resolved = await runtime.resolveCallerParentForAnotherStore(
     { envParentWorkspace: `id:${callerId}` },

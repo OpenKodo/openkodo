@@ -64,7 +64,7 @@ describe('desktop commit-area primary action', () => {
     })
   })
 
-  it('drops Sync after an Orca rebase without promoting Force Push', () => {
+  it('drops Sync after an OpenKodo rebase without promoting Force Push', () => {
     const diverged = inputs({
       hostedReviewCreation: null,
       upstreamStatus: { hasUpstream: true, ahead: 3, behind: 2 },

@@ -6,7 +6,7 @@ import { useAppStore } from '../../../store/index'
 import { useOrcaProfileAuthStatusRefresh } from '@/components/orca-profiles/use-orca-profile-auth-status-refresh'
 import { cn } from '@/lib/class-names'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
 import type { MobileRelayStatus } from '../../../../../shared/remote-runtime/relay/mobile-relay-status'
 import type { MobilePairingConnectionMode } from '../../../../../shared/remote-runtime/pairing/mobile-pairing-connection-mode'
 import { MobilePairingPathOption } from './MobilePairingPathOption'
@@ -55,7 +55,7 @@ export function MobilePairingConnectionOptions({
 }): React.JSX.Element {
   const t = useTranslate()
   const authStatus = useAppStore((state) => state.orcaProfileAuthStatus)
-  const relayBlocked = useOrcaTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.mobileRelay)
+  const relayBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.mobileRelay)
   const relayStatus = useMobileRelayStatus()
   const signedIn = authStatus?.state === 'connected'
   const reconnectRequired = authStatus?.state === 'reconnect-required'
@@ -91,11 +91,11 @@ export function MobilePairingConnectionOptions({
 
   const relayCell = relayStatus.cellUrl ? relayCellLabel(relayStatus.cellUrl) : null
   const relayDescription = relayBlocked
-    ? t('settings.mobile.teamDisabledRelay', 'Orca Relay is turned off by your team. Use LAN.')
+    ? t('settings.mobile.teamDisabledRelay', 'relay is turned off by your team. Use LAN.')
     : relayUnavailable
       ? t(
           'auto.components.settings.MobilePairingConnectionOptions.relayUnavailable',
-          'Orca Relay isn’t available in this build. Use LAN.'
+          'relay isn’t available in this build. Use LAN.'
         )
       : t(
           'auto.components.settings.MobilePairingConnectionOptions.anywhereDescription',
@@ -127,7 +127,7 @@ export function MobilePairingConnectionOptions({
           onSelect={() => onChange('automatic')}
           title={t(
             'auto.components.settings.MobilePairingConnectionOptions.anywhereTitle',
-            'Orca Relay'
+            'relay'
           )}
           description={relayDescription}
           trailing={

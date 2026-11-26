@@ -1,5 +1,5 @@
 // Why: agent listings read every page, so they skip the heavy fields they never return.
-const ORCA_PROJECT_SUMMARY_FIELDS = `
+const OPENKODO_PROJECT_SUMMARY_FIELDS = `
   id
   slugId
   name
@@ -22,7 +22,7 @@ const ORCA_PROJECT_SUMMARY_FIELDS = `
   }
 `
 
-const ORCA_PROJECT_EXTRA_FIELDS = `
+const OPENKODO_PROJECT_EXTRA_FIELDS = `
   description
   content
   health
@@ -59,20 +59,20 @@ const ORCA_PROJECT_EXTRA_FIELDS = `
   }
 `
 
-export const ORCA_PROJECT_FIELDS = `
-  ${ORCA_PROJECT_SUMMARY_FIELDS}
-  ${ORCA_PROJECT_EXTRA_FIELDS}
+export const OPENKODO_PROJECT_FIELDS = `
+  ${OPENKODO_PROJECT_SUMMARY_FIELDS}
+  ${OPENKODO_PROJECT_EXTRA_FIELDS}
 `
 
-const ORCA_PROJECT_LIST_FIELDS = `
-  ${ORCA_PROJECT_SUMMARY_FIELDS}
+const OPENKODO_PROJECT_LIST_FIELDS = `
+  ${OPENKODO_PROJECT_SUMMARY_FIELDS}
   ... @include(if: $detail) {
-    ${ORCA_PROJECT_EXTRA_FIELDS}
+    ${OPENKODO_PROJECT_EXTRA_FIELDS}
   }
 `
 
-export const ORCA_PROJECT_DETAIL_FIELDS = `
-  ${ORCA_PROJECT_FIELDS}
+export const OPENKODO_PROJECT_DETAIL_FIELDS = `
+  ${OPENKODO_PROJECT_FIELDS}
   projectMilestones(first: 20) {
     nodes {
       id
@@ -104,7 +104,7 @@ export const ORCA_PROJECT_DETAIL_FIELDS = `
   }
 `
 
-export const ORCA_ISSUE_FIELDS = `
+export const OPENKODO_ISSUE_FIELDS = `
   id
   identifier
   title
@@ -148,7 +148,7 @@ export const PROJECTS_QUERY = `
   ) {
     projects(first: $first, after: $after, filter: $filter, orderBy: $orderBy) {
       nodes {
-        ${ORCA_PROJECT_LIST_FIELDS}
+        ${OPENKODO_PROJECT_LIST_FIELDS}
       }
       pageInfo {
         hasNextPage
@@ -167,7 +167,7 @@ export const SEARCH_PROJECTS_QUERY = `
   ) {
     searchProjects(term: $term, first: $first, after: $after) {
       nodes {
-        ${ORCA_PROJECT_LIST_FIELDS}
+        ${OPENKODO_PROJECT_LIST_FIELDS}
       }
       pageInfo {
         hasNextPage
@@ -180,7 +180,7 @@ export const SEARCH_PROJECTS_QUERY = `
 export const PROJECT_QUERY = `
   query OrcaLinearProject($id: String!) {
     project(id: $id) {
-      ${ORCA_PROJECT_DETAIL_FIELDS}
+      ${OPENKODO_PROJECT_DETAIL_FIELDS}
     }
   }
 `
@@ -190,7 +190,7 @@ export const CREATE_PROJECT_MUTATION = `
     projectCreate(input: $input) {
       success
       project {
-        ${ORCA_PROJECT_DETAIL_FIELDS}
+        ${OPENKODO_PROJECT_DETAIL_FIELDS}
       }
     }
   }
@@ -206,7 +206,7 @@ export const PROJECT_ISSUES_QUERY = `
     project(id: $id) {
       issues(first: $first, after: $after, orderBy: $orderBy) {
         nodes {
-          ${ORCA_ISSUE_FIELDS}
+          ${OPENKODO_ISSUE_FIELDS}
         }
         pageInfo {
           hasNextPage

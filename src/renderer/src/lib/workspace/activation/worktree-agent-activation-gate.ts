@@ -209,7 +209,7 @@ export async function runWorktreeAgentActivationGate(
     return 'blocked'
   }
 
-  // Union relay worktreeId and minted-prefix evidence: host ORCA_WORKTREE_ID can be foreign, and preferring it would omit live sessions then fork writers.
+  // Union relay worktreeId and minted-prefix evidence: host OPENKODO_WORKTREE_ID can be foreign, and preferring it would omit live sessions then fork writers.
   const liveWorkspaceSessions = sessions.filter(
     (session) =>
       (session.worktreeId !== undefined && worktreeIdsEqual(session.worktreeId, worktreeId)) ||

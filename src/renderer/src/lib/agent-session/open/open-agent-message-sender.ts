@@ -173,7 +173,7 @@ export function terminalEnvironmentId(
   return host.kind === 'environment' ? host.environmentId : (result.environmentId ?? null)
 }
 
-/** Opens an orchestration party by address on its host; a terminal worker Orca closed reopens there. */
+/** Opens an orchestration party by address on its host; a terminal worker OpenKodo closed reopens there. */
 export async function openOrchestrationDispatch(
   address: string,
   label: string,

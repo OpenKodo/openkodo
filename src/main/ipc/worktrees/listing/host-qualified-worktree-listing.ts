@@ -20,7 +20,7 @@ import {
   isCapturedRepoCurrent,
   resolveRepoOwnershipEvidence
 } from './worktree-host-ownership'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { dropWorkspacesTheListingInvalidates } from '../../../persistence/restoring-sessions/invalid-workspace-layout-purge'
 
 export async function listHostQualifiedDetectedWorktrees(
@@ -91,7 +91,7 @@ export async function listHostQualifiedDetectedWorktrees(
     return capturedAuthority !== null && isCurrentSshProviderAuthority(capturedAuthority)
   }
   const result = await listDetectedWorktreesForCapturedRepo(store, repo, isCurrent, providerAbort)
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     dropWorkspacesTheListingInvalidates(store, result)
   }
   if (!result) {

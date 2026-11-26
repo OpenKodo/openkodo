@@ -71,7 +71,7 @@ const SidebarNav = React.memo(function SidebarNav() {
   const showArtifactsButton = useAppStore((s) => shouldShowArtifactsButton(s.settings))
   const showSkillsButton = useAppStore((s) => shouldShowSkillsButton(s.settings))
   const automationsActive = activeView === 'automations'
-  // With the experimental rail on, Tasks, Automations, Artifacts, Skills and Orca Mobile live on the rail instead.
+  // With the experimental rail on, Tasks, Automations, Artifacts, Skills and OpenKodo Mobile live on the rail instead.
   const appRailVisible = useAppStore(selectAppRailVisible)
   const mobileActive = activeView === 'mobile'
   const artifactsActive = activeView === 'artifacts'
@@ -251,7 +251,7 @@ const SidebarNav = React.memo(function SidebarNav() {
                   strokeWidth={mobileActive ? 2.25 : 1.75}
                 />
                 <span className="min-w-0 flex-1 truncate">
-                  {t('auto.components.sidebar.SidebarNav.1b5c41caee', 'Orca Mobile')}
+                  {t('auto.components.sidebar.SidebarNav.1b5c41caee', 'OpenKodo Mobile')}
                 </span>
                 {mobileOnboardingBadge.visible ? (
                   <span className="shrink-0 rounded-full bg-primary px-1.5 py-px text-[10px] font-semibold text-primary-foreground">

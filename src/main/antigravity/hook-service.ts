@@ -57,7 +57,7 @@ function getWindowsWrapperScriptPath(event: AntigravityEvent): string {
 function getPosixManagedCommand(scriptPath: string, event: AntigravityEvent): string {
   const command = wrapPosixHookCommand(
     scriptPath,
-    { ORCA_ANTIGRAVITY_EVENT: event.eventName },
+    { OPENKODO_ANTIGRAVITY_EVENT: event.eventName },
     { fallbackStdout: getAntigravityNoOpStdout(event.eventName), stdinMayStayOpen: true }
   )
   // ACP hosts tokenize the command into argv; the shell must be the executable, not `if`.
@@ -207,7 +207,7 @@ export class AntigravityHookService {
   async installRemote(sftp: SFTPWrapper, remoteHome: string): Promise<AgentHookInstallStatus> {
     const home = remoteHome.replace(/\/$/, '')
     const remoteConfigPath = `${home}/.gemini/config/hooks.json`
-    const remoteScriptPath = `${home}/.orca/agent-hooks/antigravity-hook.sh`
+    const remoteScriptPath = `${home}/.openkodo/agent-hooks/antigravity-hook.sh`
     try {
       const config = await readHooksJsonRemote(sftp, remoteConfigPath)
       if (!config) {

@@ -99,7 +99,7 @@ function withMark(marks: AdfMark[], mark: AdfMark): AdfMark[] {
 
 function textNodes(text: string, marks: AdfMark[]): AdfNode[] {
   const nodes: AdfNode[] = []
-  // Why: Orca renders Jira bodies with remark-breaks, so a single newline is a
+  // Why: OpenKodo renders Jira bodies with remark-breaks, so a single newline is a
   // visible line break there; send it as hardBreak instead of a new paragraph.
   text.split('\n').forEach((line, index) => {
     if (index > 0) {
@@ -285,7 +285,7 @@ function blockNode(node: MdNode, context: ConversionContext): AdfNode[] {
   }
 }
 
-/** Converts Markdown typed in Orca into the ADF document Jira Cloud (REST v3) stores. */
+/** Converts Markdown typed in OpenKodo into the ADF document Jira Cloud (REST v3) stores. */
 export async function markdownToAdf(markdown: string): Promise<AdfNode> {
   const parse = await loadMarkdownParser()
   const root = parse(markdown)

@@ -12,7 +12,7 @@ import {
   FIRST_WORKER,
   fromTeammate,
   NOQA_REPO,
-  ORCA_REPO,
+  OPENKODO_REPO,
   OWNER_WORKSPACE_NAMES,
   RUNNING_FLAKY_WORKER,
   RUNNING_STA_123_WORKER,
@@ -76,7 +76,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     id: 'linear-issue',
     turns: [{ message: 'look into ENG-123' }],
     state: EMPTY_WORLD,
-    checks: [[startsIn([ORCA_REPO]), handsOffFirst]]
+    checks: [[startsIn([OPENKODO_REPO]), handsOffFirst]]
   },
   {
     id: 'linear-existing',
@@ -107,7 +107,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     ],
     state: EMPTY_WORLD,
     // Decided: the project is clear (the app), so the default hands off to an investigating worker.
-    checks: [[startsIn([ORCA_REPO]), handsOffFirst]]
+    checks: [[startsIn([OPENKODO_REPO]), handsOffFirst]]
   },
   {
     id: 'cloud-and-desktop',
@@ -119,12 +119,12 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     ],
     state: EMPTY_WORLD,
     // Both sides live in the orca project; one worker or two, all in orca.
-    checks: [[startsInOneOf([[ORCA_REPO], [ORCA_REPO, ORCA_REPO]]), handsOffFirst]]
+    checks: [[startsInOneOf([[OPENKODO_REPO], [OPENKODO_REPO, OPENKODO_REPO]]), handsOffFirst]]
   },
   {
     id: 'question',
     turns: [
-      { message: "what's the difference between a worktree and a folder workspace in Orca?" }
+      { message: "what's the difference between a worktree and a folder workspace in OpenKodo?" }
     ],
     state: EMPTY_WORLD,
     checks: [[noStart]]
@@ -149,7 +149,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
       { message: 'oh, and make sure it passes on Windows too' }
     ],
     state: EMPTY_WORLD,
-    checks: [[startsIn([ORCA_REPO]), handsOffFirst], [deliversTo(FIRST_WORKER)]]
+    checks: [[startsIn([OPENKODO_REPO]), handsOffFirst], [deliversTo(FIRST_WORKER)]]
   },
   {
     id: 'follow-up-new-thread',
@@ -163,7 +163,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     id: 'result-pickup',
     turns: [{ message: 'fix the flaky test in orca' }, { message: WOKEN, mail: FLAKY_DONE_MAIL }],
     state: EMPTY_WORLD,
-    checks: [[startsIn([ORCA_REPO]), handsOffFirst], readsResult]
+    checks: [[startsIn([OPENKODO_REPO]), handsOffFirst], readsResult]
   },
   {
     id: 'agent-choice',
@@ -181,7 +181,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     checks: [
       [
         (turn) => {
-          const failures = startsIn([ORCA_REPO])(turn)
+          const failures = startsIn([OPENKODO_REPO])(turn)
           return turn.writes.some((write) => write.method === 'orchestration.workerStart')
             ? failures
             : []
@@ -201,21 +201,21 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     soul: 'Before handing anything off, dig into the code yourself and find the likely cause, then hand off with a precise brief.',
     turns: [{ message: 'look into ENG-123' }],
     state: EMPTY_WORLD,
-    checks: [[startsIn([ORCA_REPO]), digsInFirst]]
+    checks: [[startsIn([OPENKODO_REPO]), digsInFirst]]
   },
   {
     id: 'soul-terse',
     soul: 'Reply in one short sentence, never more.',
     turns: [{ message: 'fix the flaky test in orca' }],
     state: EMPTY_WORLD,
-    checks: [[startsIn([ORCA_REPO]), wordsWithin(1, 30, 'one short sentence')]]
+    checks: [[startsIn([OPENKODO_REPO]), wordsWithin(1, 30, 'one short sentence')]]
   },
   {
     id: 'soul-detailed',
     soul: 'Always explain in detail: what you are doing, why, who is on it, and what happens next.',
     turns: [{ message: 'fix the flaky test in orca' }],
     state: EMPTY_WORLD,
-    checks: [[startsIn([ORCA_REPO]), wordsWithin(80, 2000, 'detail')]]
+    checks: [[startsIn([OPENKODO_REPO]), wordsWithin(80, 2000, 'detail')]]
   },
   {
     id: 'coworker-status',
@@ -246,7 +246,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
 const PR_READS = [
   /^gh\s+pr\s+(?:view|list|diff|checks|status)\b/,
   /^gh\s+search\s+prs\b/,
-  /^(?:"\$\{ORCA_CLI_COMMAND:-orca\}"|orca)\s+(?:bot\s+connectors|repo\s+list)(?:\s+--json)?$/,
+  /^(?:"\$\{OPENKODO_CLI_COMMAND:-orca\}"|orca)\s+(?:bot\s+connectors|repo\s+list)(?:\s+--json)?$/,
   /^(?:jq|head|sort|wc)\b/
 ]
 
@@ -257,7 +257,7 @@ const GREETS_ONLY = [
   asksOneQuestion
 ]
 
-// Orca's kickoff gets a greeting and one question, nothing read; the owner's answer gets a look at only
+// OpenKodo's kickoff gets a greeting and one question, nothing read; the owner's answer gets a look at only
 // what it needs, never a worker started on the owner's projects.
 const FIRST_RUN_SCENARIOS: OrchestrationScenario[] = [
   {

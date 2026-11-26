@@ -8,12 +8,12 @@ import { createInterface } from 'node:readline'
 
 const scriptDir = import.meta.dirname
 const repoRoot = path.resolve(scriptDir, '../../..', '..')
-const orcaDevScript = path.join(scriptDir, '../launch/orca-dev.mjs')
+const orcaDevScript = path.join(scriptDir, '../launch/openkodo-dev.mjs')
 const ensureNativeRuntimeScript = path.join(
   scriptDir,
   '../../native-build/node-addons/ensure-native-runtime.mjs'
 )
-const fixedProfileDir = process.env.ORCA_HEADLESS_PAIRING_PROFILE_DIR
+const fixedProfileDir = process.env.OPENKODO_HEADLESS_PAIRING_PROFILE_DIR
 const parsed = parseArgs(process.argv.slice(2))
 
 if (parsed.help) {
@@ -50,10 +50,10 @@ let stopAttempts = 0
 // Local headless worktrees lack root-owned chrome-sandbox; this exception is not packaged-production policy.
 const childEnv = { ...process.env }
 delete childEnv.CODEX_HOME
-delete childEnv.ORCA_CODEX_HOME
+delete childEnv.OPENKODO_CODEX_HOME
 Object.assign(childEnv, {
   // Prevent disposable pairing smoke from reading/mutating developer’s default Codex profile.
-  ORCA_DEV_USER_DATA_PATH: profileDir,
+  OPENKODO_DEV_USER_DATA_PATH: profileDir,
   HOME: isolatedHome,
   USERPROFILE: isolatedHome,
   ...(process.platform === 'linux'
@@ -120,7 +120,7 @@ function parseArgs(args) {
 
 function printHelp() {
   console.log(
-    `Usage: node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs [--keep] [orca serve flags]\n\nStarts orca-dev serve --json with a fresh isolated userData profile, ensures Electron's dev runtime is usable, and prints the pairing URL.\n\nWrapper flags:\n  --keep        Keep the fresh profile after the server exits.\n  -h, --help    Show this help.\n\nForwarded examples:\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --port 6768\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --pairing-address 100.64.1.20\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --mobile-pairing\n\nEnvironment:\n  ORCA_HEADLESS_PAIRING_ADDRESS=<host|host:port|ws://...>  Override the auto pairing address.\n  ORCA_HEADLESS_PAIRING_PROFILE_DIR=/path/to/profile       Use a fixed profile directory.\n`
+    `Usage: node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs [--keep] [orca serve flags]\n\nStarts orca-dev serve --json with a fresh isolated userData profile, ensures Electron's dev runtime is usable, and prints the pairing URL.\n\nWrapper flags:\n  --keep        Keep the fresh profile after the server exits.\n  -h, --help    Show this help.\n\nForwarded examples:\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --port 6768\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --pairing-address 100.64.1.20\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --mobile-pairing\n\nEnvironment:\n  OPENKODO_HEADLESS_PAIRING_ADDRESS=<host|host:port|ws://...>  Override the auto pairing address.\n  OPENKODO_HEADLESS_PAIRING_PROFILE_DIR=/path/to/profile       Use a fixed profile directory.\n`
   )
 }
 
@@ -147,7 +147,7 @@ function hasForwardedServeFlag(args, name) {
 
 // Prefer override/Tailscale/hostname: loopback is unreachable from pairing phone.
 function resolveDefaultPairingAddress() {
-  const configured = process.env.ORCA_HEADLESS_PAIRING_ADDRESS?.trim()
+  const configured = process.env.OPENKODO_HEADLESS_PAIRING_ADDRESS?.trim()
   if (configured) {
     return configured
   }

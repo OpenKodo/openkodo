@@ -133,7 +133,7 @@ if (workerFixture) {
             ['--expose-gc', import.meta.filename, bundleDirectory, file, arm],
             {
               encoding: 'utf8',
-              env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' },
+              env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' },
               windowsHide: true
             }
           )

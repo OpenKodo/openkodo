@@ -1,5 +1,5 @@
 // The `orca` a benchmarked bot runs: the real CLI (help, parsing, validation, output) against a
-// recorded stand-in host, so nothing reaches a real Orca.
+// recorded stand-in host, so nothing reaches a real OpenKodo.
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 import type { Automation } from '../../shared/automations/automation-definition'
 import { randomBytes, randomUUID } from 'node:crypto'
@@ -39,8 +39,8 @@ import {
 } from '../../shared/bots/bot-connector-offer'
 import { googleBotConnectState } from '../../shared/google/google-bot-connect-state'
 
-const statePath = process.env.ORCA_EVAL_STATE ?? ''
-const logPath = process.env.ORCA_EVAL_LOG ?? ''
+const statePath = process.env.OPENKODO_EVAL_STATE ?? ''
+const logPath = process.env.OPENKODO_EVAL_LOG ?? ''
 const invocation = { id: randomUUID(), argv: process.argv.slice(2) }
 
 function readState(): EvalHostState {

@@ -33,7 +33,7 @@ export type MobileNativeChatFork = {
   subscribe: (listener: () => void) => () => void
   offerFor: (message: NativeChatMessage) => MobileNativeChatForkOffer
   fork: (message: NativeChatMessage) => void
-  /** Whether `/fork` is Orca's here: the host and agent confirmed they can fork, as on desktop. */
+  /** Whether `/fork` is OpenKodo's here: the host and agent confirmed they can fork, as on desktop. */
   commandOffered: () => boolean
   /** `/fork`: copies through the newest response that offers a fork, as desktop's command does. */
   forkLatest: () => MobileNativeChatForkLatestOutcome

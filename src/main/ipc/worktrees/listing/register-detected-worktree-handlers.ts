@@ -22,7 +22,7 @@ import {
 import { listHostQualifiedDetectedWorktrees } from './host-qualified-worktree-listing'
 import { findExactRepoOwner, isCapturedRepoCurrent } from './worktree-host-ownership'
 import type { WorktreeIpcContext } from '../worktree-ipc-context'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { dropWorkspacesTheListingInvalidates } from '../../../persistence/restoring-sessions/invalid-workspace-layout-purge'
 import { notifyWatchedWorktreeCatalogChanged } from './watched-worktree-catalog-notification'
 import { setWslStoppedWorktreeRescanNotifier } from './wsl-stopped-worktree-listing'
@@ -120,7 +120,7 @@ export function registerDetectedWorktreeHandlers(context: WorktreeIpcContext): v
           isCapturedRepoCurrent(store, repo) &&
           (!connectionId || (authority !== undefined && isCurrentSshProviderAuthority(authority)))
       )
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         dropWorkspacesTheListingInvalidates(store, result)
       }
       return result && !('providerAbortStatus' in result)

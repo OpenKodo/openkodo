@@ -1,4 +1,4 @@
-// One account connector's state per host as Orca Cloud reports it (GitHub's link and installs, Linear's
+// One account connector's state per host as cloud service reports it (GitHub's link and installs, Linear's
 // workspaces): read on demand, shared by every surface for that host, and followed while the owner is
 // away on the provider's page. Each connector supplies only how to read it and what a change is.
 import { useEffect, useSyncExternalStore } from 'react'
@@ -43,7 +43,7 @@ export function createConnectorHostState<View>({
   shape,
   returnUrl
 }: {
-  /** Before any answer, and after this window's Orca account changes. */
+  /** Before any answer, and after this window's OpenKodo account changes. */
   loading: View
   /** One read of the host's state; never rejects. */
   ask: (hostId: ExecutionHostId) => Promise<View>
@@ -217,7 +217,7 @@ export function createConnectorHostState<View>({
 
   let watching = false
   let shownAccount: string | null = null
-  // Another Orca account's state must never show as this window's own host's: it reads as loading and
+  // Another OpenKodo account's state must never show as this window's own host's: it reads as loading and
   // is asked again at once. Starts on first use, not import: importers may mock the store.
   function watchSignedInAccount(): void {
     if (watching) {

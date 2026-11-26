@@ -58,8 +58,8 @@ async function recipeFile(
     const result = await runWslProcess({
       distro,
       loginPath: 'preferred',
-      ...(home !== undefined ? { env: { ORCA_TEXT_TASK_HOME: home } } : {}),
-      script: `${prelude}cd ${words[0]} || exit 1; set -- ${words[1]}; if [ "\${ORCA_TEXT_TASK_HOME+x}" ]; then HOME=$ORCA_TEXT_TASK_HOME; fi; case "$1" in "~/"*) file=$HOME/\${1#??} ;; *) file=$1 ;; esac; cat -- "$file"`,
+      ...(home !== undefined ? { env: { OPENKODO_TEXT_TASK_HOME: home } } : {}),
+      script: `${prelude}cd ${words[0]} || exit 1; set -- ${words[1]}; if [ "\${OPENKODO_TEXT_TASK_HOME+x}" ]; then HOME=$OPENKODO_TEXT_TASK_HOME; fi; case "$1" in "~/"*) file=$HOME/\${1#??} ;; *) file=$1 ;; esac; cat -- "$file"`,
       timeoutMs: 10_000,
       maxOutputBytes: 1024 * 1024
     })

@@ -4,7 +4,7 @@ import { botTarget, type BotRef } from '@/lib/bot-hosts'
 import { translate } from '@/i18n/i18n'
 import { useBotWebhooks } from './use-webhook-data'
 
-/** Null until the host answers, and while the cloud or this Orca has no webhooks: nothing to offer then. */
+/** Null until the host answers, and while the cloud or this OpenKodo has no webhooks: nothing to offer then. */
 export function useWebhooksConnector(bot: BotRef): 'added' | 'available' | null {
   const read = useBotWebhooks(botTarget(bot), bot.id)
   if (read.status !== 'ready') {

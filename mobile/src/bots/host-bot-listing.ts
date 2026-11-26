@@ -58,7 +58,7 @@ export type ListedHostBots = {
   /** Each bot home's thread links, by folder workspace id, for its row's line. */
   links?: Readonly<Record<string, readonly BotRowLineLink[]>>
   /** The host's waiting access requests, every bot's, for each row's Needs you line; absent while
-   *  their read fails or the host is signed out of Orca. */
+   *  their read fails or the host is signed out of OpenKodo. */
   accessRequests?: readonly ConnectorAccessRequest[]
   /** Each bot's own side chats, by bot id, for its row's line; absent from an older host. */
   ownChats?: Readonly<Record<string, readonly BotRowLineChat[]>>

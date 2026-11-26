@@ -1,7 +1,7 @@
 import { CliSkillSetupTerminal } from './CliSkillSetupTerminal'
 import { AgentSkillSetupPanel } from '@/components/skills/setup/AgentSkillSetupPanel'
 import {
-  ORCA_CLI_SKILL_NAME,
+  OPENKODO_CLI_SKILL_NAME,
   ORCHESTRATION_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
 import { useActiveProjectSkillRuntime } from '@/hooks/skills/runtime/useActiveProjectSkillRuntime'
@@ -12,7 +12,7 @@ import {
 } from '@/hooks/skills/discovery/useInstalledAgentSkills'
 import { useTranslate } from '@/i18n/use-translate'
 
-const CLI_TIP_SKILL_NAMES = [ORCA_CLI_SKILL_NAME, ORCHESTRATION_SKILL_NAME] as const
+const CLI_TIP_SKILL_NAMES = [OPENKODO_CLI_SKILL_NAME, ORCHESTRATION_SKILL_NAME] as const
 
 function BundledCliSkillSetupPanel(): React.JSX.Element {
   const t = useTranslate()
@@ -37,7 +37,7 @@ function BundledCliSkillSetupPanel(): React.JSX.Element {
       title={t('auto.components.feature.tips.CliSkillSetupPanel.title', 'Skill setup')}
       description={t(
         'auto.components.feature.tips.CliSkillSetupPanel.description',
-        'Install the Orca CLI and orchestration skills for your agents.'
+        'Install the OpenKodo CLI and orchestration skills for your agents.'
       )}
       skillNames={CLI_TIP_SKILL_NAMES}
       installed={installed}

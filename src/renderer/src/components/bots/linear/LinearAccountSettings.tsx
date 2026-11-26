@@ -79,7 +79,7 @@ function DefaultBotPicker({
 }
 
 /**
- * Settings › Bots › Linear: the Linear accounts a host's Orca account is linked as, and each one's
+ * Settings › Bots › Linear: the Linear accounts a host's OpenKodo account is linked as, and each one's
  * default bot. `hostName` names a paired server; null is this computer.
  */
 export function LinearAccountSettings({
@@ -187,12 +187,12 @@ export function LinearAccountSettings({
         {isPairedWebClientWindow()
           ? t(
               'bots.linear.account.linkFromApp',
-              'Link Linear from Orca on a computer paired to {{host}}.',
+              'Link Linear from OpenKodo on a computer paired to {{host}}.',
               { host: hostName ?? '' }
             )
           : t(
               'bots.linear.account.linkHelp',
-              'To link your Linear account, or move it here from another Orca account, connect Linear from a bot’s Connectors.'
+              'To link your Linear account, or move it here from another OpenKodo account, connect Linear from a bot’s Connectors.'
             )}
       </p>
     </section>

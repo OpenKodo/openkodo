@@ -138,7 +138,7 @@ function linearStatus(
       ? t('settings.bots.linearStatus.unlinked', 'Not linked')
       : linked.installed
         ? undefined
-        : t('settings.bots.linearStatus.notInstalled', 'Orca not installed')
+        : t('settings.bots.linearStatus.notInstalled', 'OpenKodo not installed')
 }
 
 function githubStatus(
@@ -149,7 +149,7 @@ function githubStatus(
   return !state || orgs.length > 0
     ? undefined
     : state.account
-      ? t('settings.bots.githubStatus.notInstalled', 'Orca not installed')
+      ? t('settings.bots.githubStatus.notInstalled', 'OpenKodo not installed')
       : t('settings.bots.githubStatus.unlinked', 'Not linked')
 }
 
@@ -236,7 +236,7 @@ export function connectorRows(input: ConnectorRowsInput): ReactNode[] {
             onPress={() => setPage({ kind: 'github', installationId: org?.installationId ?? null })}
           />
         )
-        // Orgs taken off the bot that still have Orca installed (RemovedGitHubOrgs), after its last org.
+        // Orgs taken off the bot that still have OpenKodo installed (RemovedGitHubOrgs), after its last org.
         if (!org || org.installationId === githubOrgs.at(-1)?.installationId) {
           rows.push(...removedGitHubRows(input))
         }
@@ -337,7 +337,7 @@ function composioProblemLine(problem: 'key' | 'unread', t: Translate): string {
     : t('bots.composio.signInsUnreadShort', 'Couldn’t read sign-ins')
 }
 
-/** Orgs taken off the bot that still have Orca installed, each with Add back. */
+/** Orgs taken off the bot that still have OpenKodo installed, each with Add back. */
 function removedGitHubRows(input: ConnectorRowsInput): ReactNode[] {
   const { bot, githubState, t } = input
   const removed = bot.github?.removedInstallationIds ?? []

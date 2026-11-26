@@ -1,4 +1,4 @@
-// The Gemini API key a person pasted for Orca's Antigravity chat, sealed by the host's OS keyring.
+// The Gemini API key a person pasted for OpenKodo's Antigravity chat, sealed by the host's OS keyring.
 
 import { mkdir, readFile, rm, stat } from 'node:fs/promises'
 import { dirname, join } from 'node:path'

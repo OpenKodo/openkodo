@@ -105,9 +105,9 @@ type AutomationEditorDialogProps = {
   settings: GlobalSettings | null
   draft: AutomationDraft
   bots: readonly Bot[]
-  /** Present only while creating an Orca automation. */
+  /** Present only while creating an OpenKodo automation. */
   createDestination?: AutomationCreateDestinationControl
-  /** Present only while editing an Orca automation; selecting another host moves the record. */
+  /** Present only while editing an OpenKodo automation; selecting another host moves the record. */
   editDestination?: AutomationCreateDestinationControl
   /** Why a save was refused. Belongs here rather than on the page: this dialog covers it. */
   notice?: AutomationActionNotice | null

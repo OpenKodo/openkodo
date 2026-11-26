@@ -18,7 +18,7 @@ export function archiveWorkerOutputBeforeStop(args: {
   attachedAt: string
   /**
    * Set only once the worker's exact process is proven gone: its pane may be too, so when the pane names no
-   * session, fall back to the newest one Orca saved while it ran, as an exit-proven release does.
+   * session, fall back to the newest one OpenKodo saved while it ran, as an exit-proven release does.
    */
   exitProven?: boolean
 }): void {

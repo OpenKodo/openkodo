@@ -1,4 +1,4 @@
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import { allowsTeamCatalogSource } from '../catalog/plugin-marketplace-team-policy'
 import type {
   PluginBlockNotice,

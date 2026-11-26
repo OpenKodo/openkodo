@@ -1,7 +1,7 @@
 import { BASH_CWD_REPORT_BLOCK } from '../../pty/shell-startup/shell-cwd-report'
 /** Bash has one --rcfile wrapper, so login startup, OSC hooks and readiness share this file. */
 import { BASH_PROMPT_COMMAND_COMPOSITION_BLOCK } from '../../pty/shell-startup/bash-prompt-command-composition'
-import { ORCA_CLI_POSIX_PATH_RESTORE } from '../../../shared/shell/launch/orca-cli-shell-path'
+import { OPENKODO_CLI_POSIX_PATH_RESTORE } from '../../../shared/shell/launch/orca-cli-shell-path'
 import { MANAGED_DATA_ACCOUNT_POSIX_RESTORE } from '../../../shared/shell/launch/agents/managed-data-account-shell'
 import { WSL_MANAGED_CLI_PATH_RESTORE } from '../../wsl/execution/wsl-managed-cli-path-restore'
 import { getPosixOmpShellWrapper } from '../../pty/shell-startup/omp-shell-wrapper'
@@ -15,7 +15,7 @@ import {
 import { SHELL_READY_MARKER_ESCAPED } from './local-pty-shell-ready-marker'
 
 export function getBashShellReadyRcfileContent(): string {
-  return `# Orca bash shell-ready wrapper
+  return `# OpenKodo bash shell-ready wrapper
 ${BASH_FEATURE_CHANNEL_BLOCK}
 ${SHELL_STARTUP_IDENTITY_MARKER_BLOCK}
 # Consume feature selection before startup files can inherit it into children.
@@ -35,22 +35,22 @@ fi
 [[ $- == *i* ]] && bind 'set enable-bracketed-paste on' 2>/dev/null
 # Login profiles may already source .bashrc; sourcing it again would duplicate PATH, hooks and prompt setup.
 __orca_restore_agent_teams_path() {
-  [[ -n "\${ORCA_AGENT_TEAMS_SHIM_DIR:-}" ]] || return 0
+  [[ -n "\${OPENKODO_AGENT_TEAMS_SHIM_DIR:-}" ]] || return 0
   case "$PATH" in
-    "\${ORCA_AGENT_TEAMS_SHIM_DIR}"|"\${ORCA_AGENT_TEAMS_SHIM_DIR}:"*) return 0 ;;
+    "\${OPENKODO_AGENT_TEAMS_SHIM_DIR}"|"\${OPENKODO_AGENT_TEAMS_SHIM_DIR}:"*) return 0 ;;
   esac
-  export PATH="\${ORCA_AGENT_TEAMS_SHIM_DIR}:$PATH"
+  export PATH="\${OPENKODO_AGENT_TEAMS_SHIM_DIR}:$PATH"
 }
 __orca_restore_agent_teams_path
-${ORCA_CLI_POSIX_PATH_RESTORE}
+${OPENKODO_CLI_POSIX_PATH_RESTORE}
 ${WSL_MANAGED_CLI_PATH_RESTORE}
-# Restore Orca-managed config after user startup files may override it.
-[[ -n "\${ORCA_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${ORCA_OPENCODE_CONFIG_DIR}"
+# Restore OpenKodo-managed config after user startup files may override it.
+[[ -n "\${OPENKODO_OPENCODE_CONFIG_DIR:-}" ]] && export OPENCODE_CONFIG_DIR="\${OPENKODO_OPENCODE_CONFIG_DIR}"
 ${MANAGED_DATA_ACCOUNT_POSIX_RESTORE}
-[[ -n "\${ORCA_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${ORCA_MIMOCODE_CONFIG_DIR}"
+[[ -n "\${OPENKODO_MIMOCODE_CONFIG_DIR:-}" ]] && export MIMOCODE_CONFIG_DIR="\${OPENKODO_MIMOCODE_CONFIG_DIR}"
 ${getPosixOmpShellWrapper()}
-# Profile scripts must not replace Orca's runtime CODEX_HOME.
-[[ -n "\${ORCA_CODEX_HOME:-}" ]] && export CODEX_HOME="\${ORCA_CODEX_HOME}"
+# Profile scripts must not replace OpenKodo's runtime CODEX_HOME.
+[[ -n "\${OPENKODO_CODEX_HOME:-}" ]] && export CODEX_HOME="\${OPENKODO_CODEX_HOME}"
 ${getPosixCodexShellLaunchPreflight() + getPosixClaudeShellFunction()}
 ${BASH_CWD_REPORT_BLOCK}
 # OSC 133 C/D clears agent status after interrupted CLIs exit without sending Stop/SessionEnd hooks.

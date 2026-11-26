@@ -197,7 +197,7 @@ export function botPackageResults(
   return 'channel' in resultsTo ? 'slack-channel' : 'linear-issue'
 }
 
-/** A bot's own skills, in its home, for every agent: Orca links each into the agents' skills folders. */
+/** A bot's own skills, in its home, for every agent: OpenKodo links each into the agents' skills folders. */
 export const BOT_OWN_SKILLS_FOLDER = 'skills'
 
 /** Where each agent loads skills from in a bot's home: Claude, then the folder every other agent reads. */

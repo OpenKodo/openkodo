@@ -46,7 +46,7 @@ describe.skipIf(process.platform === 'win32')('spawn reply host terminal usage',
       spawnSubprocess: () => createMockSubprocess(),
       // Its own ledger, so no other daemon on this machine is counted.
       hostTerminalLedgerDir: join(dir, 'terminals'),
-      terminalLimitPolicy: new HostTerminalPolicy(null, { ORCA_DAEMON_MAX_HOST_TERMINALS: '5' })
+      terminalLimitPolicy: new HostTerminalPolicy(null, { OPENKODO_DAEMON_MAX_HOST_TERMINALS: '5' })
     })
     await server.start()
     client = new DaemonClient({ socketPath, tokenPath })

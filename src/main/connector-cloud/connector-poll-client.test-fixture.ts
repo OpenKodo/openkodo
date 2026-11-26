@@ -1,4 +1,4 @@
-// One poll client against a fake Orca Cloud, with a fresh profile folder and fake timers per test.
+// One poll client against a fake OpenKodo Cloud, with a fresh profile folder and fake timers per test.
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

@@ -14,7 +14,7 @@ const server = {
   sharedProcess: false
 }
 
-/** An organization's Claude settings refuse Orca's servers: the Claude row says so (d10). */
+/** An organization's Claude settings refuse OpenKodo's servers: the Claude row says so (d10). */
 export const blockedForClaude = defineFixture({
   width: 720,
   render: () => (

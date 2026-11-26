@@ -7,7 +7,7 @@ import path from 'node:path'
 import os from 'node:os'
 import { prepareDockerSshHostImage } from './remote/managed-ssh/host-lifecycle/docker-ssh-host-image'
 
-export const E2E_TEST_REPO_PATH_FILE_ENV = 'ORCA_E2E_TEST_REPO_PATH_FILE'
+export const E2E_TEST_REPO_PATH_FILE_ENV = 'OPENKODO_E2E_TEST_REPO_PATH_FILE'
 const RUN_TEST_REPO_PATH_FILE =
   process.env[E2E_TEST_REPO_PATH_FILE_ENV] ??
   path.join(os.tmpdir(), `orca-e2e-test-repo-path-${randomUUID()}.txt`)
@@ -70,7 +70,7 @@ export default function globalSetup(): void {
     })
     console.error('[e2e] CLI build complete.')
   }
-  if (process.env.ORCA_E2E_WEB_CLIENT === '1') {
+  if (process.env.OPENKODO_E2E_WEB_CLIENT === '1') {
     if (process.env.SKIP_BUILD && existsSync(outWeb)) {
       console.error('[e2e] SKIP_BUILD set and web client exists — skipping web build')
     } else {
@@ -85,7 +85,7 @@ export default function globalSetup(): void {
       console.error('[e2e] Web client build complete.')
     }
   }
-  if (process.env.ORCA_E2E_SSH_DOCKER === '1') {
+  if (process.env.OPENKODO_E2E_SSH_DOCKER === '1') {
     console.error('[e2e] Preparing Docker OpenSSH fixture image...')
     prepareDockerSshHostImage(root)
   }

@@ -7,7 +7,7 @@ import { assertLocalCwdWorktreeSelector } from '../hosts/local-environment-selec
 import { isLaunchedByAnotherRuntime } from '../runtime/connection/runtime-source-fence'
 import { getOptionalStringFlag, getRequiredStringFlag } from '../arguments/flags'
 import { readEnclosingWorkspaceCatalog } from './enclosing-workspace-catalog'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/orca-session-address-prefix'
 import { createChatCallerEvidence } from '../orchestration/identity/orchestration-compatibility-envelope'
 import type { OrchestrationPartyLocationResult } from '../../shared/orchestration/orchestration-caller-status'
 import type { ExecutionHostId } from '../../shared/execution-host/execution-host'
@@ -77,7 +77,7 @@ export async function resolveCurrentWorktreeSelection(
   if (!selection) {
     throw new RuntimeClientError(
       'selector_not_found',
-      `No Orca workspace contains the current directory: ${resolvePath(cwd)}`
+      `No OpenKodo workspace contains the current directory: ${resolvePath(cwd)}`
     )
   }
   return selection
@@ -160,7 +160,7 @@ export async function getBrowserWorktreeSelector(
   if (enclosing || isLaunchedByAnotherRuntime(process.env, client.userDataPath)) {
     return enclosing?.selector
   }
-  // An Orca terminal or chat knows its workspace; without this an unmanaged cwd lands in the focused one.
+  // An OpenKodo terminal or chat knows its workspace; without this an unmanaged cwd lands in the focused one.
   return callerWorkspaceIds.length > 0
     ? selectCallerTerminalWorkspace(catalog, hostId)
     : await selectCallerChatWorkspace(catalog, hostId, client)
@@ -178,7 +178,7 @@ async function selectCallerChatWorkspace(
   }
   const found = await client
     .call<OrchestrationPartyLocationResult>('orchestration.partyLocation', {
-      address: `${ORCA_SESSION_ADDRESS_PREFIX}${sessionId}`
+      address: `${OPENKODO_SESSION_ADDRESS_PREFIX}${sessionId}`
     })
     .catch(() => null)
   const location = found?.result.location

@@ -101,27 +101,28 @@ const {
 } = require('./scripts/desktop-distribution/macos/build-macos-native-addon.cjs')
 
 // Dev channels need release bundle ID/signature/notarization so Squirrel.Mac accepts updates and macOS retains app identity.
-const isMacHourly = process.env.ORCA_MAC_HOURLY === '1'
-const isMacDaily = process.env.ORCA_MAC_DAILY === '1'
-const isMacAdhoc = process.env.ORCA_MAC_ADHOC === '1'
+const isMacHourly = process.env.OPENKODO_MAC_HOURLY === '1'
+const isMacDaily = process.env.OPENKODO_MAC_DAILY === '1'
+const isMacAdhoc = process.env.OPENKODO_MAC_ADHOC === '1'
 // Keep Windows dev flags separate: mac flags enable hardened runtime/notarization/global signing, which would demand an unavailable Windows cert.
-const isWinHourly = process.env.ORCA_WIN_HOURLY === '1'
-const isWinDaily = process.env.ORCA_WIN_DAILY === '1'
-const isWinAdhoc = process.env.ORCA_WIN_ADHOC === '1'
+const isWinHourly = process.env.OPENKODO_WIN_HOURLY === '1'
+const isWinDaily = process.env.OPENKODO_WIN_DAILY === '1'
+const isWinAdhoc = process.env.OPENKODO_WIN_ADHOC === '1'
 const isWinDevChannel = isWinHourly || isWinDaily || isWinAdhoc
-const isMacRelease = process.env.ORCA_MAC_RELEASE === '1' || isMacHourly || isMacDaily || isMacAdhoc
-const isLinuxArm64Release = process.env.ORCA_LINUX_ARM64_RELEASE === '1'
+const isMacRelease =
+  process.env.OPENKODO_MAC_RELEASE === '1' || isMacHourly || isMacDaily || isMacAdhoc
+const isLinuxArm64Release = process.env.OPENKODO_LINUX_ARM64_RELEASE === '1'
 const localBuildVersion =
-  isMacRelease || isWinDevChannel ? undefined : process.env.ORCA_LOCAL_BUILD_VERSION
+  isMacRelease || isWinDevChannel ? undefined : process.env.OPENKODO_LOCAL_BUILD_VERSION
 const isHourlyChannel = isMacHourly || isWinHourly
 const isDailyChannel = isMacDaily || isWinDaily
 const isAdhocChannel = isMacAdhoc || isWinAdhoc
 const devChannelBuildVersion = isHourlyChannel
-  ? process.env.ORCA_HOURLY_BUILD_VERSION
+  ? process.env.OPENKODO_HOURLY_BUILD_VERSION
   : isDailyChannel
-    ? process.env.ORCA_DAILY_BUILD_VERSION
+    ? process.env.OPENKODO_DAILY_BUILD_VERSION
     : isAdhocChannel
-      ? process.env.ORCA_ADHOC_BUILD_VERSION
+      ? process.env.OPENKODO_ADHOC_BUILD_VERSION
       : undefined
 // Separate dev-channel repos: 24 hourly tags/day would evict stable/RC from the ten-entry release feed; isolate adhoc/daily from hourly subscribers too.
 const devChannelRepo = isHourlyChannel
@@ -237,29 +238,29 @@ const windowsRuntimeResources = existsSync(
 // Shared with the terminal host helper so its purpose strings cannot drift from the app's.
 const macUsageDescriptions = {
   NSAppleEventsUsageDescription:
-    'Orca allows terminal-launched developer tools to automate local apps when you request it.',
+    'OpenKodo allows terminal-launched developer tools to automate local apps when you request it.',
   NSBluetoothAlwaysUsageDescription:
-    'Orca allows terminal-launched developer tools to access Bluetooth devices when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access Bluetooth devices when you request it.',
   NSBluetoothPeripheralUsageDescription:
-    'Orca allows terminal-launched developer tools to access Bluetooth devices when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access Bluetooth devices when you request it.',
   NSCalendarsUsageDescription:
-    'Orca allows terminal-launched developer tools to access your calendars when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access your calendars when you request it.',
   NSCalendarsFullAccessUsageDescription:
-    'Orca allows terminal-launched developer tools to access your calendars when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access your calendars when you request it.',
   NSCameraUsageDescription: "Application requests access to the device's camera.",
   NSContactsUsageDescription:
-    'Orca allows terminal-launched developer tools to access your contacts when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access your contacts when you request it.',
   NSLocationUsageDescription:
-    'Orca allows terminal-launched developer tools to access location when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access location when you request it.',
   NSLocalNetworkUsageDescription:
-    'Orca allows terminal-launched developer tools to discover and connect to local development servers when you request it.',
+    'OpenKodo allows terminal-launched developer tools to discover and connect to local development servers when you request it.',
   NSMicrophoneUsageDescription: "Application requests access to the device's microphone.",
   NSRemindersUsageDescription:
-    'Orca allows terminal-launched developer tools to access your reminders when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access your reminders when you request it.',
   NSRemindersFullAccessUsageDescription:
-    'Orca allows terminal-launched developer tools to access your reminders when you request it.',
+    'OpenKodo allows terminal-launched developer tools to access your reminders when you request it.',
   NSAudioCaptureUsageDescription:
-    'Orca allows terminal-launched developer tools to capture desktop audio when you request it.',
+    'OpenKodo allows terminal-launched developer tools to capture desktop audio when you request it.',
   NSBonjourServices: ['_http._tcp', '_https._tcp'],
   ...MACOS_FOLDER_USAGE_DESCRIPTIONS
 }
@@ -272,7 +273,7 @@ const OPENKODO_MAC_TEAM_ID = process.env.OPENKODO_MAC_TEAM_ID || ''
 module.exports = {
   appId,
   productName: 'OpenKodo',
-  protocols: [{ name: 'OpenKodo', schemes: ['openkodo', 'orca'] }],
+  protocols: [{ name: 'OpenKodo', schemes: ['openkodo'] }],
   toolsets: { appimage: '1.0.3' },
   ...(devChannelBuildVersion
     ? { extraMetadata: { version: devChannelBuildVersion } }
@@ -493,7 +494,7 @@ module.exports = {
       )
       await signMacStandaloneHelper(menuDeadKeyAddon, 'Menu dead-key guard', context.packager)
       const version = context.packager.appInfo.version
-      let commit = process.env.ORCA_BUILD_COMMIT || process.env.GITHUB_SHA || 'unknown'
+      let commit = process.env.OPENKODO_BUILD_COMMIT || process.env.GITHUB_SHA || 'unknown'
       if (commit === 'unknown') {
         try {
           commit = execFileSync('git', ['rev-parse', '--short=12', 'HEAD'], {
@@ -596,25 +597,28 @@ module.exports = {
         'journal file lock',
         context.packager
       )
-      await signMacComputerUseHelper(join(resourcesDir, 'Orca Computer Use.app'), context.packager)
-      await signMacStandaloneHelper(
-        join(resourcesDir, '..', 'MacOS', 'orca-notification-status'),
-        'orca-notification-status',
+      await signMacComputerUseHelper(
+        join(resourcesDir, 'OpenKodo Computer Use.app'),
         context.packager
       )
       await signMacStandaloneHelper(
-        join(resourcesDir, '..', 'MacOS', 'orca-keyboard-layout'),
-        'orca-keyboard-layout',
+        join(resourcesDir, '..', 'MacOS', 'openkodo-notification-status'),
+        'openkodo-notification-status',
         context.packager
       )
       await signMacStandaloneHelper(
-        join(resourcesDir, '..', 'MacOS', 'orca-process-footprint'),
-        'orca-process-footprint',
+        join(resourcesDir, '..', 'MacOS', 'openkodo-keyboard-layout'),
+        'openkodo-keyboard-layout',
+        context.packager
+      )
+      await signMacStandaloneHelper(
+        join(resourcesDir, '..', 'MacOS', 'openkodo-process-footprint'),
+        'openkodo-process-footprint',
         context.packager
       )
       await signMacStandaloneHelper(
         finalizePackagedProviderExec(resourcesDir, 'darwin'),
-        'orca-provider-exec',
+        'openkodo-provider-exec',
         context.packager
       )
       await packageMacTerminalHost(join(resourcesDir, '..', '..'), context)
@@ -634,22 +638,22 @@ module.exports = {
       ...commonExtraResources,
       ...windowsRuntimeResources,
       {
-        from: 'resources/win32/bin/orca.cmd',
-        to: 'bin/orca.cmd'
+        from: 'resources/win32/bin/openkodo.cmd',
+        to: 'bin/openkodo.cmd'
       },
       {
         from: 'native/windows-cli-launcher/.build/orca.exe',
-        to: 'bin/orca.exe'
+        to: 'bin/openkodo.exe'
       },
       {
         from: 'native/windows-cli-launcher/.build/orca-administrator-restart.exe',
-        to: 'bin/orca-administrator-restart.exe'
+        to: 'bin/openkodo-administrator-restart.exe'
       },
       // Why resources/bin: SignPath signs every unsigned PE under win-unpacked, and the hook
-      // installer copies this signed file into ~/.orca/agent-hooks (#20913).
+      // installer copies this signed file into ~/.openkodo/agent-hooks (#20913).
       {
         from: 'native/windows-agent-hook/.build/orca-agent-hook.exe',
-        to: 'bin/orca-agent-hook.exe'
+        to: 'bin/openkodo-agent-hook.exe'
       },
       {
         from: 'node_modules/@agent-browser/cli-win32-x64-msvc/bin/agent-browser.exe',
@@ -669,7 +673,7 @@ module.exports = {
     createDesktopShortcut: 'always',
     // One NSIS include hosts update-guarded daemon cleanup and additive markdown Open With registration.
     // Avoid fileAssociations: it would steal default .md ownership; see the include’s header.
-    include: resolve(__dirname, 'nsis', 'orca-installer-hooks.nsh')
+    include: resolve(__dirname, 'nsis', 'openkodo-installer-hooks.nsh')
   },
   mac: {
     // Alternate rank preserves Finder’s default; one entry per extension because app-builder globs the value as a string.
@@ -714,16 +718,16 @@ module.exports = {
       ...commonExtraResources,
       ...createPackagedRuntimeNodeModuleResources('darwin'),
       {
-        from: 'resources/darwin/bin/orca',
-        to: 'bin/orca'
+        from: 'resources/darwin/bin/openkodo',
+        to: 'bin/openkodo'
       },
       {
         from: 'node_modules/@agent-browser/cli-darwin-${arch}/bin/agent-browser',
         to: 'agent-browser-darwin-${arch}'
       },
       {
-        from: 'native/computer-use-macos/.build/release/Orca Computer Use.app',
-        to: 'Orca Computer Use.app'
+        from: 'native/computer-use-macos/.build/release/OpenKodo Computer Use.app',
+        to: 'OpenKodo Computer Use.app'
       },
       featureWallResources
     ],
@@ -731,20 +735,20 @@ module.exports = {
     extraFiles: [
       {
         from: 'native/notification-status-macos/.build/release/orca-notification-status',
-        to: 'MacOS/orca-notification-status'
+        to: 'MacOS/openkodo-notification-status'
       },
       {
         from: 'native/keyboard-layout-macos/.build/release/orca-keyboard-layout',
-        to: 'MacOS/orca-keyboard-layout'
+        to: 'MacOS/openkodo-keyboard-layout'
       },
       {
         from: 'native/process-footprint-macos/.build/release/orca-process-footprint',
-        to: 'MacOS/orca-process-footprint'
+        to: 'MacOS/openkodo-process-footprint'
       },
       // Nested executables belong in Contents/MacOS, where afterPack signs them before the app.
       {
         from: 'native/provider-exec/.build/darwin-${arch}/orca-provider-exec',
-        to: 'MacOS/orca-provider-exec'
+        to: 'MacOS/openkodo-provider-exec'
       }
     ],
     target: [
@@ -768,15 +772,15 @@ module.exports = {
     // shared-mime-info already maps md/markdown: advertise handler only, leaving mimeapps.list defaults intact.
     // Omit mdx because Ubuntu 24.04 maps it to application/x-genesis-32x-rom; claiming it would need a glob override.
     mimeTypes: ['text/markdown', 'text/csv', 'text/tab-separated-values'],
-    // Avoid GNOME Orca’s orca package and /usr/bin/orca names.
+    // Keep the executable name unambiguous on PATH.
     executableName: 'openkodo',
     // Use icns to generate hicolor sizes; some Linux docks ignore a lone 1024px PNG.
     icon: 'resources/build/icon.icns',
     desktop: {
       entry: {
-        // Why: Electron reports WM_CLASS=orca for the visible Linux window;
-        // GNOME docks need an exact match to group it with orca-ide.desktop.
-        StartupWMClass: 'orca'
+        // Why: Electron reports the packaged product name as WM_CLASS; desktop docks group
+        // windows by an exact match with the .desktop entry.
+        StartupWMClass: 'openkodo'
       }
     },
     extraResources: [
@@ -784,15 +788,15 @@ module.exports = {
       ...createPackagedRuntimeNodeModuleResources('linux'),
       {
         from: 'native/wayland-clipboard/.build/${arch}/orca-wayland-clipboard',
-        to: 'bin/orca-wayland-clipboard'
+        to: 'bin/openkodo-wayland-clipboard'
       },
       {
         from: 'native/provider-exec/.build/linux-${arch}/orca-provider-exec',
-        to: 'bin/orca-provider-exec'
+        to: 'bin/openkodo-provider-exec'
       },
       {
-        from: 'resources/linux/bin/orca-ide',
-        to: 'bin/orca-ide'
+        from: 'resources/linux/bin/openkodo',
+        to: 'bin/openkodo'
       },
       {
         from: 'node_modules/@agent-browser/cli-linux-${arch}-gnu/bin/agent-browser',
@@ -813,8 +817,8 @@ module.exports = {
     artifactName: isLinuxArm64Release ? 'openkodo-linux-arm64.${ext}' : 'openkodo-linux.${ext}'
   },
   deb: {
-    packageName: 'orca-ide',
-    artifactName: 'openkodo-ide_${version}_${arch}.${ext}',
+    packageName: 'openkodo',
+    artifactName: 'openkodo_${version}_${arch}.${ext}',
     // Headless Chromium still needs display service; orca serve starts packaged Xvfb when available (ensure-virtual-display.ts).
     depends: [
       ...debElectronRuntimeDependencies,
@@ -833,8 +837,8 @@ module.exports = {
     fpm: appImageNodeRuntimeFpmArgs
   },
   rpm: {
-    packageName: 'orca-ide',
-    artifactName: 'openkodo-ide-${version}.${arch}.${ext}',
+    packageName: 'openkodo',
+    artifactName: 'openkodo-${version}.${arch}.${ext}',
     // Why: see deb depends. RPM distros ship Xvfb as xorg-x11-server-Xvfb (there
     // is no `xvfb` package), so the name differs from the deb here.
     depends: [
@@ -878,7 +882,7 @@ function chmodUnixCliLaunchers(resourcesDir, electronPlatformName) {
   if (electronPlatformName === 'win32') {
     return
   }
-  for (const launcherName of ['orca', 'orca-ide']) {
+  for (const launcherName of ['openkodo']) {
     const launcherPath = join(resourcesDir, 'bin', launcherName)
     if (!existsSync(launcherPath)) {
       continue
@@ -891,7 +895,7 @@ function chmodUnixCliLaunchers(resourcesDir, electronPlatformName) {
 async function signMacComputerUseHelper(helperAppPath, packager) {
   if (!existsSync(helperAppPath)) {
     if (isMacRelease) {
-      throw new Error(`Missing Orca Computer Use helper app at ${helperAppPath}`)
+      throw new Error(`Missing OpenKodo Computer Use helper app at ${helperAppPath}`)
     }
     return
   }
@@ -900,7 +904,7 @@ async function signMacComputerUseHelper(helperAppPath, packager) {
       ? await packager.codeSigningInfo.value
       : null
   const identity =
-    process.env.ORCA_COMPUTER_MACOS_SIGN_IDENTITY ??
+    process.env.OPENKODO_COMPUTER_MACOS_SIGN_IDENTITY ??
     process.env.CSC_NAME ??
     findInstalledMacSigningIdentity(codeSigningInfo?.keychainFile) ??
     (isMacRelease ? null : '-')

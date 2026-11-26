@@ -1,15 +1,15 @@
 import type { IpcRenderer } from 'electron'
-import { ORCA_RENDERER_UNLOAD_PREVENTED_EVENT } from '../../../shared/app-lifecycle/shutdown/renderer-shutdown-events'
+import { OPENKODO_RENDERER_UNLOAD_PREVENTED_EVENT } from '../../../shared/app-lifecycle/shutdown/renderer-shutdown-events'
 import {
   prepareRendererForAppRestart,
   type UpdaterQuitAbortRelay
 } from '../../../shared/app-lifecycle/shutdown/renderer-restart-preparation'
 import type { UpdateStatus } from '../../../shared/updater/update-status-types'
 import {
-  ORCA_APP_RESTART_ABORTED_EVENT,
-  ORCA_APP_RESTART_STARTED_EVENT,
-  ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
-  ORCA_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT
+  OPENKODO_APP_RESTART_ABORTED_EVENT,
+  OPENKODO_APP_RESTART_STARTED_EVENT,
+  OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
+  OPENKODO_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT
 } from '../../../shared/updater/updater-renderer-events'
 
 type AppRestartState = { committed: boolean; pending: boolean }
@@ -44,8 +44,8 @@ export function registerRendererRestartIpcRelays(
     if (appRestartState(eventTarget).committed) {
       return
     }
-    eventTarget.dispatchEvent(new Event(ORCA_RENDERER_UNLOAD_PREVENTED_EVENT))
-    eventTarget.dispatchEvent(new Event(ORCA_APP_RESTART_ABORTED_EVENT))
+    eventTarget.dispatchEvent(new Event(OPENKODO_RENDERER_UNLOAD_PREVENTED_EVENT))
+    eventTarget.dispatchEvent(new Event(OPENKODO_APP_RESTART_ABORTED_EVENT))
   })
 }
 
@@ -56,8 +56,8 @@ export async function prepareAndInvokeUpdaterInstall(
   awaitCheckpoint: () => Promise<void>
 ): Promise<void> {
   await prepareRendererForAppRestart(eventTarget, {
-    startedEventName: ORCA_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT,
-    abortedEventName: ORCA_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
+    startedEventName: OPENKODO_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT,
+    abortedEventName: OPENKODO_UPDATER_QUIT_AND_INSTALL_ABORTED_EVENT,
     awaitCheckpoint
   })
   relay.markPrepared()
@@ -84,8 +84,8 @@ export async function prepareAndInvokeAppRestart<T>(
   try {
     if (!state.committed) {
       await prepareRendererForAppRestart(eventTarget, {
-        startedEventName: ORCA_APP_RESTART_STARTED_EVENT,
-        abortedEventName: ORCA_APP_RESTART_ABORTED_EVENT,
+        startedEventName: OPENKODO_APP_RESTART_STARTED_EVENT,
+        abortedEventName: OPENKODO_APP_RESTART_ABORTED_EVENT,
         awaitCheckpoint,
         isCanceled
       })
@@ -93,13 +93,13 @@ export async function prepareAndInvokeAppRestart<T>(
     try {
       const result = await invoke()
       if (!state.committed && !willRestart(result)) {
-        eventTarget.dispatchEvent(new Event(ORCA_APP_RESTART_ABORTED_EVENT))
+        eventTarget.dispatchEvent(new Event(OPENKODO_APP_RESTART_ABORTED_EVENT))
       }
       return result
     } catch (error) {
       // A failed profile move can require recovery after its writer has already closed.
       if (!state.committed) {
-        eventTarget.dispatchEvent(new Event(ORCA_APP_RESTART_ABORTED_EVENT))
+        eventTarget.dispatchEvent(new Event(OPENKODO_APP_RESTART_ABORTED_EVENT))
       }
       throw error
     }

@@ -4,7 +4,7 @@ import net from 'node:net'
 import path from 'node:path'
 
 export const SHARED_DEV_PROFILE_DIR_NAME = 'orca-dev'
-// Why the "orca-dev" prefix: CLI/orchestration dev-mode checks match "orca-dev" in ORCA_USER_DATA_PATH.
+// Why the "orca-dev" prefix: CLI/orchestration dev-mode checks match "orca-dev" in OPENKODO_USER_DATA_PATH.
 // Why short: runtime sockets live in userData and macOS caps socket paths at 104 bytes.
 export const WORKTREE_DEV_PROFILES_DIR_NAME = 'orca-dev-wt'
 export const WORKTREE_PROFILE_MARKER_FILE = 'orca-dev-worktree.json'
@@ -19,13 +19,13 @@ const PORT_SWEEP = 64
 
 // Values the runner derives per worktree; a dev Orca exports them to every terminal it spawns.
 const RUNNER_DERIVED_ENV_KEYS = [
-  'ORCA_DEV_REPO_ROOT',
-  'ORCA_DEV_INSTANCE_KEY',
-  'ORCA_DEV_BRANCH',
-  'ORCA_DEV_WORKTREE_NAME',
-  'ORCA_DEV_INSTANCE_LABEL',
-  'ORCA_DEV_DOCK_TITLE',
-  'ORCA_DEV_RENDERER_PORT'
+  'OPENKODO_DEV_REPO_ROOT',
+  'OPENKODO_DEV_INSTANCE_KEY',
+  'OPENKODO_DEV_BRANCH',
+  'OPENKODO_DEV_WORKTREE_NAME',
+  'OPENKODO_DEV_INSTANCE_LABEL',
+  'OPENKODO_DEV_DOCK_TITLE',
+  'OPENKODO_DEV_RENDERER_PORT'
 ]
 
 export function getAppDataDir(env = process.env, platform = process.platform) {
@@ -72,20 +72,23 @@ function isLinkedWorktree(repoRoot) {
 
 // Nested dev launches must derive their own worktree identity instead of inheriting the parent's.
 export function dropInheritedDevInstanceEnv(env, repoRoot) {
-  const inheritedRoot = env.ORCA_DEV_REPO_ROOT
+  const inheritedRoot = env.OPENKODO_DEV_REPO_ROOT
   if (!inheritedRoot || sameFilesystemPath(inheritedRoot, repoRoot)) {
     return
   }
   // An explicit override differs from the parent app's own userData; an inherited one matches it.
-  if (env.ORCA_DEV_USER_DATA_PATH && env.ORCA_DEV_USER_DATA_PATH === env.ORCA_USER_DATA_PATH) {
-    delete env.ORCA_DEV_USER_DATA_PATH
+  if (
+    env.OPENKODO_DEV_USER_DATA_PATH &&
+    env.OPENKODO_DEV_USER_DATA_PATH === env.OPENKODO_USER_DATA_PATH
+  ) {
+    delete env.OPENKODO_DEV_USER_DATA_PATH
   }
   for (const key of RUNNER_DERIVED_ENV_KEYS) {
     delete env[key]
   }
 }
 
-/** Precedence: ORCA_DEV_USER_DATA_PATH, then --shared/--worktree-profile or ORCA_DEV_PROFILE, then checkout type. */
+/** Precedence: OPENKODO_DEV_USER_DATA_PATH, then --shared/--worktree-profile or OPENKODO_DEV_PROFILE, then checkout type. */
 export function resolveDevProfile({
   repoRoot,
   instanceKey = repoRoot,
@@ -93,13 +96,13 @@ export function resolveDevProfile({
   env = process.env,
   platform = process.platform
 }) {
-  if (env.ORCA_DEV_USER_DATA_PATH) {
-    return { kind: 'custom', userDataPath: path.resolve(env.ORCA_DEV_USER_DATA_PATH) }
+  if (env.OPENKODO_DEV_USER_DATA_PATH) {
+    return { kind: 'custom', userDataPath: path.resolve(env.OPENKODO_DEV_USER_DATA_PATH) }
   }
-  const requested = mode ?? (env.ORCA_DEV_PROFILE || undefined)
+  const requested = mode ?? (env.OPENKODO_DEV_PROFILE || undefined)
   if (requested !== undefined && !DEV_PROFILE_MODES.includes(requested)) {
     throw new Error(
-      `ORCA_DEV_PROFILE must be one of ${DEV_PROFILE_MODES.join(', ')} (got ${JSON.stringify(requested)})`
+      `OPENKODO_DEV_PROFILE must be one of ${DEV_PROFILE_MODES.join(', ')} (got ${JSON.stringify(requested)})`
     )
   }
   // Why the main checkout keeps orca-dev: it is the long-lived profile developers already use.
@@ -159,16 +162,20 @@ export function resolveDevCliUserDataPath({
   platform = process.platform
 }) {
   dropInheritedDevInstanceEnv(env, repoRoot)
-  if (env.ORCA_DEV_USER_DATA_PATH || env.ORCA_DEV_PROFILE) {
-    return resolveDevProfile({ repoRoot, instanceKey: env.ORCA_DEV_INSTANCE_KEY, env, platform })
-      .userDataPath
+  if (env.OPENKODO_DEV_USER_DATA_PATH || env.OPENKODO_DEV_PROFILE) {
+    return resolveDevProfile({
+      repoRoot,
+      instanceKey: env.OPENKODO_DEV_INSTANCE_KEY,
+      env,
+      platform
+    }).userDataPath
   }
   const record = readDevInstanceRecord(repoRoot)
-  // Custom profiles are often temporary; they keep requiring an explicit ORCA_DEV_USER_DATA_PATH.
+  // Custom profiles are often temporary; they keep requiring an explicit OPENKODO_DEV_USER_DATA_PATH.
   if (record && record.profile !== 'custom' && existsSync(record.userData)) {
     return record.userData
   }
-  return resolveDevProfile({ repoRoot, instanceKey: env.ORCA_DEV_INSTANCE_KEY, env, platform })
+  return resolveDevProfile({ repoRoot, instanceKey: env.OPENKODO_DEV_INSTANCE_KEY, env, platform })
     .userDataPath
 }
 
@@ -239,7 +246,7 @@ function readUserPassedDebugPort(forwardedArgs) {
   return null
 }
 
-// Allocate discoverable dev ports for browser agents; Electron Vite reads ORCA_DEV_RENDERER_PORT.
+// Allocate discoverable dev ports for browser agents; Electron Vite reads OPENKODO_DEV_RENDERER_PORT.
 export async function resolveDevInstancePorts({ forwardedArgs, instanceKey, env = process.env }) {
   // Why: exact match (or `=` form) avoids false positives on `--remote-debugging-port-*` flags;
   // `--remote-debugging-pipe` opts into pipe-based debugging, so no port is injected.
@@ -268,19 +275,19 @@ export async function resolveDevInstancePorts({ forwardedArgs, instanceKey, env 
   }
   const rendererPort = await resolveEnvOrPickedPort(
     env,
-    'ORCA_DEV_RENDERER_PORT',
+    'OPENKODO_DEV_RENDERER_PORT',
     `renderer:${instanceKey}`,
     RENDERER_PORT_RANGE
   )
   if (rendererPort !== null) {
-    env.ORCA_DEV_RENDERER_PORT = String(rendererPort)
+    env.OPENKODO_DEV_RENDERER_PORT = String(rendererPort)
   } else {
-    delete env.ORCA_DEV_RENDERER_PORT
+    delete env.OPENKODO_DEV_RENDERER_PORT
   }
   return { cdpPort, rendererPort, forwardedExtras }
 }
 
-/** Prints one `ORCA_DEV_INSTANCE {json}` stdout line and mirrors it to out/dev-instance.json. */
+/** Prints one `OPENKODO_DEV_INSTANCE {json}` stdout line and mirrors it to out/dev-instance.json. */
 export function announceDevInstance({ repoRoot, profile, cdpPort, rendererPort }) {
   // Why 127.0.0.1: matches the interface probed (localhost may resolve to ::1 on IPv6-first hosts).
   const instance = {
@@ -298,7 +305,7 @@ export function announceDevInstance({ repoRoot, profile, cdpPort, rendererPort }
   }
   console.error(`[orca-dev] Profile (${profile.kind}): ${profile.userDataPath}`)
   writeDevInstanceRecord(repoRoot, instance)
-  // Why stdout: agents grep `ORCA_DEV_INSTANCE ` to find the profile and CDP endpoint.
-  console.log(`ORCA_DEV_INSTANCE ${JSON.stringify(instance)}`)
+  // Why stdout: agents grep `OPENKODO_DEV_INSTANCE ` to find the profile and CDP endpoint.
+  console.log(`OPENKODO_DEV_INSTANCE ${JSON.stringify(instance)}`)
   return instance
 }

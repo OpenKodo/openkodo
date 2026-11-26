@@ -1,4 +1,4 @@
-// The bot's one live link as the phone reads it from the computer's Orca account; the desktop's
+// The bot's one live link as the phone reads it from the computer's OpenKodo account; the desktop's
 // useBotShareLink.
 import { useCallback, useEffect, useState } from 'react'
 import { botShareStatusOf, type BotOwnedShare } from '../../../../src/shared/bots/bot-share-status'

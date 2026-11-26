@@ -19,8 +19,8 @@ import {
   ustarPaddingBytes
 } from '../../archive/ustar-entry-header'
 
-export const WSL_GUEST_SOURCE_UNAVAILABLE = 'ORCA_WSL_GUEST_SOURCE_UNAVAILABLE'
-export const WSL_UPLOAD_PROMOTED = 'ORCA_WSL_UPLOAD_PROMOTED'
+export const WSL_GUEST_SOURCE_UNAVAILABLE = 'OPENKODO_WSL_GUEST_SOURCE_UNAVAILABLE'
+export const WSL_UPLOAD_PROMOTED = 'OPENKODO_WSL_UPLOAD_PROMOTED'
 
 type UploadOptions = { signal?: AbortSignal }
 

@@ -25,7 +25,7 @@ export type AgentSessionStoreState = {
   >
   /** Chat tab id → the conversation it shows; null until this store first records a tab. */
   sessionTabs: AgentSessionTabTable | null
-  /** Prior runtime endings, read at load; missing/null evidence attributes no death to Orca. */
+  /** Prior runtime endings, read at load; missing/null evidence attributes no death to OpenKodo. */
   runtimeEnds?: ReadonlyMap<string, AgentSessionOrcaStopCause> | null
 }
 

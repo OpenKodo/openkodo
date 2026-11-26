@@ -7,7 +7,7 @@ import { prepareSessionRecipient } from '../messaging/session-recipient'
 
 const NOTHING_DELIVERED = { effectsApplied: false } as const
 
-/** Stores peer mail for an agent that is no bot (or a reply to one) as this Orca's own mail, once.
+/** Stores peer mail for an agent that is no bot (or a reply to one) as this OpenKodo's own mail, once.
  *  `landedAgain` reads whether a copy landed while the recipient was being prepared; `received`
  *  makes the answer for a stored copy from its mailbox and whether a waiter takes it. */
 export async function storePeerMailForAgent<R>(
@@ -19,7 +19,7 @@ export async function storePeerMailForAgent<R>(
     to: string
     body: string | undefined
     peerFingerprint: string
-    /** The server this Orca dials that opened the conversation, for mail it pulled. */
+    /** The server this OpenKodo dials that opened the conversation, for mail it pulled. */
     environmentId?: string
     senderSnapshot: string | undefined
     /** Whether the resolved recipient may take it; otherwise it is dropped with a warning. */
@@ -60,7 +60,7 @@ export async function storePeerMailForAgent<R>(
     // Its mailbox is its Dispatch, which only its Run home writes to.
     throw new OrchestrationError(
       'invalid_argument',
-      `${to} is a worker for another Orca's Run; message it through that Run's coordinator. Nothing was delivered.`,
+      `${to} is a worker for another OpenKodo's Run; message it through that Run's coordinator. Nothing was delivered.`,
       NOTHING_DELIVERED
     )
   }

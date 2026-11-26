@@ -110,7 +110,7 @@ export async function toolsHomeFor(
 const scrubs = new WeakMap<OrcaRuntimeService, ClaudeMirrorScrubs>()
 
 /**
- * Moves saved values an older Orca left in the bot's tools file, and in the Claude config of the
+ * Moves saved values an older OpenKodo left in the bot's tools file, and in the Claude config of the
  * account its CLI runs on now, to the credential store; throws when that can't be done.
  */
 export async function scrubBotToolSecrets(runtime: OrcaRuntimeService, bot: Bot): Promise<void> {

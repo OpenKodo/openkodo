@@ -1,4 +1,4 @@
-// The setup cards Orca writes into a bot's chat as its Google setup run moves. Each is written once,
+// The setup cards OpenKodo writes into a bot's chat as its Google setup run moves. Each is written once,
 // on the change that calls for it; the card then draws from the run, so it locks and updates itself.
 import { googleSetupCardBody, type GoogleSetupCardRef } from '../../shared/google/google-setup-card'
 import {

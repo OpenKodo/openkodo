@@ -54,17 +54,17 @@ export function PageRouteUnavailableScreen({
       ) : (
         <MobileStateView
           icon={CircleAlert}
-          title={t('webShell.pageRouteUnavailable.updateTitle', 'Update Orca')}
+          title={t('webShell.pageRouteUnavailable.updateTitle', 'Update OpenKodo')}
           message={
             host
               ? t(
                   'webShell.pageRouteUnavailable.updateMessage',
-                  'This screen needs a newer Orca on your phone or on {{host}}.',
+                  'This screen needs a newer OpenKodo on your phone or on {{host}}.',
                   { host }
                 )
               : t(
                   'webShell.pageRouteUnavailable.updateMessageNoHost',
-                  'This screen needs a newer Orca.'
+                  'This screen needs a newer OpenKodo.'
                 )
           }
           // A page can't tell which store installed the app (Play forbids the others), so only the

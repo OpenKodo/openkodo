@@ -38,7 +38,7 @@ beforeEach(() => {
   })
 })
 afterEach(() => {
-  delete process.env.ORCA_MCP_SERVERS
+  delete process.env.OPENKODO_MCP_SERVERS
   for (const dir of dirs.splice(0)) {
     rmSync(dir, { recursive: true, force: true })
   }
@@ -129,11 +129,11 @@ describe('the host list in an agent terminal', () => {
       expect(result).toEqual({ command, pane: null })
       expect({ env: input.env, envToDelete: input.envToDelete }).toEqual(before)
     }
-    expect(teammateEnv({ ORCA_MCP_TOKEN: TOKEN })).not.toHaveProperty('ORCA_MCP_TOKEN')
+    expect(teammateEnv({ OPENKODO_MCP_TOKEN: TOKEN })).not.toHaveProperty('OPENKODO_MCP_TOKEN')
   })
 
   it('gives an Agent Teams lead the config after its claude-teams subcommand, which forwards it to claude', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     const hostFolder = await hostList()
     const input = launch('claude-agent-teams', 'orca claude-teams --foo')
     const { command, pane } = await withTerminalMcpServers(input, { relay, hostFolder })
@@ -147,7 +147,7 @@ describe('the host list in an agent terminal', () => {
     expect(pane?.agent).toBe('claude')
     // Teammates start with the team's env, so the relay env they need is taken from the lead's.
     expect(teammateEnv(input.env)).toMatchObject({
-      ORCA_MCP_TOKEN: TOKEN,
+      OPENKODO_MCP_TOKEN: TOKEN,
       NO_PROXY: expect.stringContaining('127.0.0.1'),
       no_proxy: expect.stringContaining('127.0.0.1')
     })
@@ -156,7 +156,7 @@ describe('the host list in an agent terminal', () => {
   it('gives a team made before its lead’s spawn the lead’s relay env, only with the switch on and the team’s token', async () => {
     const hostFolder = await hostList()
     for (const enabled of [false, true]) {
-      process.env.ORCA_MCP_SERVERS = enabled ? '1' : '0'
+      process.env.OPENKODO_MCP_SERVERS = enabled ? '1' : '0'
       const service = new ClaudeAgentTeamsService()
       const team = service.createLaunchEnv({
         leaderHandle: 'term_lead',
@@ -170,15 +170,19 @@ describe('the host list in an agent terminal', () => {
       if (enabled) {
         service.shareLeadMcpRelayEnv(input.env)
         expect(await teammateSplitEnv(service, team)).toMatchObject({
-          ORCA_MCP_TOKEN: TOKEN,
+          OPENKODO_MCP_TOKEN: TOKEN,
           NO_PROXY: expect.any(String)
         })
       } else {
-        expect(input.env).not.toHaveProperty('ORCA_MCP_TOKEN')
+        expect(input.env).not.toHaveProperty('OPENKODO_MCP_TOKEN')
         // Even a lead env that holds a token shares nothing while the switch is off.
-        service.shareLeadMcpRelayEnv({ ...input.env, ORCA_MCP_TOKEN: TOKEN, NO_PROXY: '127.0.0.1' })
+        service.shareLeadMcpRelayEnv({
+          ...input.env,
+          OPENKODO_MCP_TOKEN: TOKEN,
+          NO_PROXY: '127.0.0.1'
+        })
         const env = await teammateSplitEnv(service, team)
-        expect(env).not.toHaveProperty('ORCA_MCP_TOKEN')
+        expect(env).not.toHaveProperty('OPENKODO_MCP_TOKEN')
         expect(env).not.toHaveProperty('NO_PROXY')
       }
     }
@@ -191,15 +195,15 @@ describe('the host list in an agent terminal', () => {
       shimBin: null
     })
     service.shareLeadMcpRelayEnv({
-      ORCA_AGENT_TEAMS_TEAM_ID: team.teamId,
-      ORCA_AGENT_TEAMS_TOKEN: 'not-the-team-token',
-      ORCA_MCP_TOKEN: TOKEN
+      OPENKODO_AGENT_TEAMS_TEAM_ID: team.teamId,
+      OPENKODO_AGENT_TEAMS_TOKEN: 'not-the-team-token',
+      OPENKODO_MCP_TOKEN: TOKEN
     })
-    expect(await teammateSplitEnv(service, team)).not.toHaveProperty('ORCA_MCP_TOKEN')
+    expect(await teammateSplitEnv(service, team)).not.toHaveProperty('OPENKODO_MCP_TOKEN')
   })
 
   it('never puts a saved value or the relay token on the command line or in the launch file', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     const hostFolder = await hostList()
     const input = launch('claude', 'claude --foo')
     const { command } = await withTerminalMcpServers(input, { relay, hostFolder })
@@ -218,23 +222,23 @@ describe('the host list in an agent terminal', () => {
       keyed: {
         type: 'http',
         url: 'http://127.0.0.1:4100/mcp-servers/cred-keyed-1/mcp',
-        headers: { authorization: 'Bearer ${ORCA_MCP_TOKEN}' }
+        headers: { authorization: 'Bearer ${OPENKODO_MCP_TOKEN}' }
       },
       pg: {
         type: 'stdio',
         command: launcher,
         args: ['mcp', 'exec', 'id-pg-000001', '--agent', 'claude', '--workspace', 'repo-1::/r'],
-        env: { ORCA_USER_DATA_PATH: expect.any(String) }
+        env: { OPENKODO_USER_DATA_PATH: expect.any(String) }
       },
       plain: { type: 'http', url: 'https://plain.example.test/mcp' }
     })
     // The token rides only in the CLI's env, which neither history nor its config files keep.
-    expect(input.env.ORCA_MCP_TOKEN).toBe(TOKEN)
+    expect(input.env.OPENKODO_MCP_TOKEN).toBe(TOKEN)
     expect(JSON.stringify(input.env)).not.toContain('hunter2')
   })
 
   it('gives a Codex terminal the secret-env server through orca mcp exec, never its value', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     const folder = tempDir('mcp-host-list-')
     await changeBotToolEntries(folder, () => [
       {
@@ -255,7 +259,7 @@ describe('the host list in an agent terminal', () => {
   })
 
   it('reaches a shared command server through the relay instead of starting its own copy', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     const folder = tempDir('mcp-host-list-')
     await changeBotToolEntries(folder, () => [
       {
@@ -271,7 +275,7 @@ describe('the host list in an agent terminal', () => {
       pg: {
         type: 'http',
         url: 'http://127.0.0.1:4100/mcp-processes/id-pg-000001/mcp',
-        headers: { authorization: 'Bearer ${ORCA_MCP_TOKEN}' }
+        headers: { authorization: 'Bearer ${OPENKODO_MCP_TOKEN}' }
       }
     })
     expect(config).not.toContain('hunter2')

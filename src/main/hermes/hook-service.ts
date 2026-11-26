@@ -75,7 +75,7 @@ function buildStatus(configPath: string, config: HermesConfig): AgentHookInstall
   }
 }
 
-// Why: each named profile loads plugins and client_env_passthrough from its own home, so a copy there must track Orca's.
+// Why: each named profile loads plugins and client_env_passthrough from its own home, so a copy there must track OpenKodo's.
 function updateManagedProfiles(
   update: (content: string | null) => { content: string | null },
   onUpdated: (pluginDir: string) => void
@@ -104,7 +104,7 @@ function reloadStaleGateway(home: string): void {
   void ensureHermesGatewayPluginCurrent(home).then(
     (state) => {
       if (state === 'stale') {
-        console.warn(`[hermes] the gateway for ${home} still runs an older Orca plugin`)
+        console.warn(`[hermes] the gateway for ${home} still runs an older OpenKodo plugin`)
       }
     },
     (error: unknown) => console.warn(`[hermes] could not check the gateway for ${home}:`, error)

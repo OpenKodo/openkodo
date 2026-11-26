@@ -16,7 +16,7 @@ import {
   classifyBundledSkillPath,
   bundledSkillFreshnessClass,
   keptBesideAgentFiles,
-  ORCA_COPY_CLASSES
+  OPENKODO_COPY_CLASSES
 } from './bundled-skill-classification'
 import type { BundledSkillFilesystem } from './bundled-skill-filesystem'
 import { recoverySiblings } from './bundled-skill-swap-recovery'
@@ -37,7 +37,7 @@ export type BundledSkillPlanInput = BundledSkillTargetRequest & {
   names?: readonly string[]
   /** Target paths the user chose to Replace; `all` is `--force`, every replaceable one. */
   force?: readonly string[] | 'all'
-  /** Update existing locations only; never spread the skill to another agent. Skip skills with no Orca copy. */
+  /** Update existing locations only; never spread the skill to another agent. Skip skills with no OpenKodo copy. */
   installedOnly?: boolean
   /** `<userData>/skill-installs`, where cloud installs keep receipts and journals. */
   stateDirectory: string
@@ -59,7 +59,7 @@ type SkillContext = {
   sharedRoot?: BundledSkillTargetRoot
 }
 
-// `otherBuild`: the shared folder holds another Orca build's copy, so links to it are already right.
+// `otherBuild`: the shared folder holds another OpenKodo build's copy, so links to it are already right.
 // `besideAgentFiles`: it was kept although an agent's files sit beside its SKILL.md.
 type SharedTarget = {
   path: string
@@ -197,9 +197,9 @@ async function planTarget(
   }
 
   const holdsOrcaCopy =
-    former.installed || Boolean(restoreFrom) || ORCA_COPY_CLASSES.has(folderClass)
+    former.installed || Boolean(restoreFrom) || OPENKODO_COPY_CLASSES.has(folderClass)
   const decision = await decide()
-  // Only a folder holding just Orca's SKILL.md; a swap would move an agent's files to backups.
+  // Only a folder holding just OpenKodo's SKILL.md; a swap would move an agent's files to backups.
   const decided =
     decision.kind === 'keep' && classified.folderClass === 'current' && retiresFormer
       ? files('update')

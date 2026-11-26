@@ -17,7 +17,7 @@ const CHECK_FETCHES_AT_ONCE = 4
 // An older cloud records no reason.
 function ignoredCallText(reason: string | undefined): string {
   const why = reason ? `. ${reason}` : " by the hook's filters when it came in"
-  return `This call was ignored${why}. Orca keeps no body for an ignored call.`
+  return `This call was ignored${why}. OpenKodo keeps no body for an ignored call.`
 }
 
 export async function webhookCallText(

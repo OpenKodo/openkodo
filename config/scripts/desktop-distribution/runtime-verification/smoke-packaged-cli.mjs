@@ -28,7 +28,7 @@ function getPackagedCliPath(appDir) {
   if (process.platform === 'win32') {
     return join(appDir, 'resources', 'bin', 'orca.exe')
   }
-  return join(appDir, 'resources', 'bin', 'orca-ide')
+  return join(appDir, 'resources', 'bin', 'openkodo')
 }
 
 const appDir = resolve(readAppDirArg(process.argv.slice(2)))
@@ -40,7 +40,7 @@ try {
   await cp(appDir, copiedAppDir, { recursive: true, verbatimSymlinks: true })
   const cliPath = getPackagedCliPath(copiedAppDir)
   const env = { ...process.env, NODE_PATH: '' }
-  delete env.ORCA_CLI_CWD
+  delete env.OPENKODO_CLI_CWD
   const run = (args) =>
     execFileAsync(cliPath, args, {
       env,
@@ -60,14 +60,23 @@ try {
   ] = await Promise.all([
     run(['--help']),
     run(['skills', 'list', '--json']),
-    run(['skills', 'get', 'orca-cli']),
+    run(['skills', 'get', 'openkodo-cli']),
     run(['skills', 'get', 'orca-computer-use']),
     run(['skills', 'get', 'computer-use']),
-    run(['skills', 'install', '--skill', 'orca-cli', '--agent', 'codex', '--dry-run', '--json']),
-    run(['skills', 'update', '--skill', 'orca-cli', '--dry-run', '--json'])
+    run([
+      'skills',
+      'install',
+      '--skill',
+      'openkodo-cli',
+      '--agent',
+      'codex',
+      '--dry-run',
+      '--json'
+    ]),
+    run(['skills', 'update', '--skill', 'openkodo-cli', '--dry-run', '--json'])
   ])
   const list = JSON.parse(listResult.stdout)
-  assert(list.topics.some((topic) => topic.name === 'orca-cli'))
+  assert(list.topics.some((topic) => topic.name === 'openkodo-cli'))
   assert.match(orcaCliResult.stdout, /name: orca-cli/)
   assert.match(orcaComputerUseResult.stdout, /name: orca-computer-use/)
   assert.match(computerUseResult.stdout, /name: orca-computer-use/)

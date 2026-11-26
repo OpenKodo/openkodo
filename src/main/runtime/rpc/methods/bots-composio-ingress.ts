@@ -1,4 +1,4 @@
-// The project's "Composio events" automation: Orca's one address for a Composio project's events.
+// The project's "Composio events" automation: OpenKodo's one address for a Composio project's events.
 // It runs nothing itself; the host hands each call to the automation of the bot it's for.
 import {
   automationWebhookTrigger,
@@ -18,7 +18,7 @@ export async function createComposioIngress(
   const automation = await runtime.createAutomation({
     name: COMPOSIO_INGRESS_NAME,
     prompt:
-      'Orca hands each Composio event to the automation of the bot it is for. This one only receives them; there is nothing to do.',
+      'OpenKodo hands each Composio event to the automation of the bot it is for. This one only receives them; there is nothing to do.',
     agentId: bot.agent,
     bot: { botId: bot.id, runsIn: 'new', resultsTo: 'none' },
     ...EVENT_ONLY_SCHEDULE,
@@ -27,7 +27,7 @@ export async function createComposioIngress(
   const rule = automationWebhookTrigger(automation)
   const hookId = rule ? hookIdOfRule(rule.id) : null
   if (!hookId) {
-    throw new Error('Orca couldn’t make the Composio events hook. Try again.')
+    throw new Error('OpenKodo couldn’t make the Composio events hook. Try again.')
   }
   return { automationId: automation.id, hookId }
 }

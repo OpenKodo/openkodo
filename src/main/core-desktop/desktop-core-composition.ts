@@ -47,7 +47,7 @@ import { logStartupMilestone } from '../startup/diagnostics/startup-diagnostics'
 import { refreshInstalledOpenCodeStatusPlugins } from '../opencode/status-hooks/opencode-status-plugin-startup-refresh'
 import { pruneDesktopOrcadArtifactCache } from '../orcad/artifact-slots/orcad-artifact-cache-retention'
 import { runGatedWslMoveDesktopRewritePass } from '../persistence/moving-wsl-projects/desktop-state/wsl-move-desktop-rewrite'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import { reapLeftoverMacOSPermissionStatusHelpers } from '../computer/macos-permissions/macos-permission-status-leftover-reap'
 import { repairDuplicatePtyPanesOnStart } from '../runtime/terminal/identity/moved-pane-owner-rekey'
 import { WslUsageReporter } from '../telemetry/wsl-usage-reporter'
@@ -180,7 +180,7 @@ function startBrowserAutomation(
     }
     return response.result
   })
-  // Only Orca-managed emulator helpers belong to workspaces; external serve-sim stays independent. macOS capability gates live in CLI/runtime.
+  // Only OpenKodo-managed emulator helpers belong to workspaces; external serve-sim stays independent. macOS capability gates live in CLI/runtime.
   core.emulatorBridge = new EmulatorBridge()
   runtime.setEmulatorBridge(core.emulatorBridge)
 }
@@ -255,7 +255,7 @@ export async function composeDesktopCore(
   core.rendererCheckpoint = createRendererShutdownCheckpointService(
     store,
     (session) => runtime.quitResumeRecordsFor(session),
-    ORCA_LAYOUT_OWNER_IS_MAIN
+    OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? (session, partition) => runtime.shutdownReconnectFactsFor(session, partition)
       : undefined
   )
@@ -315,7 +315,7 @@ export async function composeDesktopCore(
   }
   native.startCrashObservers()
   // Await duplicate-pane repair behind queued writes; all later phases must read the repaired tree.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     await repairDuplicatePtyPanesOnStart(store, runtime)
   }
   logStartupMilestone('services-initialized')

@@ -21,7 +21,9 @@ let keptBy: string | null = null
 
 function keptByThisBuild(): string {
   keptBy ??= `${WAITING_ASK_RULES}:${
-    typeof ORCA_BUILD_COMMIT === 'string' ? ORCA_BUILD_COMMIT : (process.env.ORCA_APP_VERSION ?? '')
+    typeof OPENKODO_BUILD_COMMIT === 'string'
+      ? OPENKODO_BUILD_COMMIT
+      : (process.env.OPENKODO_APP_VERSION ?? '')
   }`
   return keptBy
 }

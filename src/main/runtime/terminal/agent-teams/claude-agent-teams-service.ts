@@ -42,19 +42,19 @@ export class ClaudeAgentTeamsService {
       TMUX_PANE: leaderPane,
       TERM: 'screen-256color',
       COLORTERM: args.baseEnv.COLORTERM || 'truecolor',
-      ORCA_AGENT_TEAMS_TEAM_ID: teamId,
-      ORCA_AGENT_TEAMS_TOKEN: token,
-      ORCA_AGENT_TEAMS_LEADER_PANE: leaderPane,
-      ORCA_AGENT_TEAMS_SHIM_DIR: args.shimDir
+      OPENKODO_AGENT_TEAMS_TEAM_ID: teamId,
+      OPENKODO_AGENT_TEAMS_TOKEN: token,
+      OPENKODO_AGENT_TEAMS_LEADER_PANE: leaderPane,
+      OPENKODO_AGENT_TEAMS_SHIM_DIR: args.shimDir
     }
     if (args.shimBin) {
-      env.ORCA_AGENT_TEAMS_SHIM_BIN = args.shimBin
+      env.OPENKODO_AGENT_TEAMS_SHIM_BIN = args.shimBin
     }
-    if (args.baseEnv.ORCA_PAIRING_CODE) {
-      env.ORCA_PAIRING_CODE = args.baseEnv.ORCA_PAIRING_CODE
+    if (args.baseEnv.OPENKODO_PAIRING_CODE) {
+      env.OPENKODO_PAIRING_CODE = args.baseEnv.OPENKODO_PAIRING_CODE
     }
-    if (args.baseEnv.ORCA_ENVIRONMENT) {
-      env.ORCA_ENVIRONMENT = args.baseEnv.ORCA_ENVIRONMENT
+    if (args.baseEnv.OPENKODO_ENVIRONMENT) {
+      env.OPENKODO_ENVIRONMENT = args.baseEnv.OPENKODO_ENVIRONMENT
     }
     Object.assign(env, teammateMcpRelayEnv(args.baseEnv))
 
@@ -81,8 +81,8 @@ export class ClaudeAgentTeamsService {
   /** A lead's spawn gave its terminal the host's MCP servers after its team was made (a plain
    *  `claude --teammate-mode auto`): its teammates get the relay env they need from it too. */
   shareLeadMcpRelayEnv(leadEnv: Readonly<Record<string, string | undefined>>): void {
-    const team = this.teams.get(leadEnv.ORCA_AGENT_TEAMS_TEAM_ID ?? '')
-    if (team && team.token === leadEnv.ORCA_AGENT_TEAMS_TOKEN) {
+    const team = this.teams.get(leadEnv.OPENKODO_AGENT_TEAMS_TEAM_ID ?? '')
+    if (team && team.token === leadEnv.OPENKODO_AGENT_TEAMS_TOKEN) {
       Object.assign(team.baseEnv, teammateMcpRelayEnv(leadEnv))
     }
   }

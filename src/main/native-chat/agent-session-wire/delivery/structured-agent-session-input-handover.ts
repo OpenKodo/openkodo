@@ -93,7 +93,7 @@ export async function beginStructuredAgentSessionInputHandover(
           ) {
             return { kind: 'acquire' as const, reason: 'permission' as const }
           }
-          // A new turn after Orca changed the bot's tools starts a child that has them; a send that
+          // A new turn after OpenKodo changed the bot's tools starts a child that has them; a send that
           // joins work still owed goes to this child with the tools it has.
           if (await toolsDue()) {
             return { kind: 'acquire' as const, reason: 'tools' as const }

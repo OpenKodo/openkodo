@@ -48,7 +48,7 @@ export type ChatHistorySweepDeps = {
     shouldDelete: (target: ChatHistoryTarget) => Promise<boolean>,
     stillGone: () => Promise<boolean>
   ) => Promise<ChatHistorySweepResult>
-  /** Orca's own chats on this host; absent sweeps none. */
+  /** OpenKodo's own chats on this host; absent sweeps none. */
   listNativeChats?: () => readonly AgentSessionRecord[]
   /** `shouldForget` runs right before each chat's deletion. */
   forgetNativeChats?: (
@@ -94,7 +94,7 @@ async function listInScope(
   return [...sessions.values()]
 }
 
-/** Deletes transcripts and Orca chats whose Orca workspace folder is gone, however the workspace was deleted. */
+/** Deletes transcripts and OpenKodo chats whose OpenKodo workspace folder is gone, however the workspace was deleted. */
 export async function sweepDeletedWorkspaceChatHistory(
   deps: ChatHistorySweepDeps
 ): Promise<ChatHistorySweepResult> {

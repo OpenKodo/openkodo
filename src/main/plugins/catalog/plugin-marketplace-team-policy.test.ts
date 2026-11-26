@@ -67,7 +67,7 @@ it('protects managed catalogs from both governing teams and blocks excluded sour
 
     capabilities = undefined
     expect((await marketplace.listSources()).map(({ source }) => source.url)).toEqual([
-      'https://github.com/stablyai/orca-plugins.git',
+      'https://github.com/OpenKodo/openkodo-plugins.git',
       community.url,
       member.url
     ])

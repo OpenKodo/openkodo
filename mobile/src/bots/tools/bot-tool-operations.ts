@@ -176,7 +176,7 @@ const FAILURES = [
   'desktop-only'
 ] as const
 
-// BotToolSignInAttemptView: an Orca-owned sign-in the host runs for this phone.
+// BotToolSignInAttemptView: an OpenKodo-owned sign-in the host runs for this phone.
 export const AttemptSchema = z.union([
   z.looseObject({
     flowId: z.string(),
@@ -233,13 +233,13 @@ export const botToolSignInCancel = bindDeferredRpcOperation(
   })
 )
 
-/** The host's side of an Orca-owned sign-in, bound to one bot tool or MCP server. */
+/** The host's side of an OpenKodo-owned sign-in, bound to one bot tool or MCP server. */
 export type PhoneOwnedSignInOps = {
   start: (client: RpcClient) => Promise<PhoneSignInAttempt>
   wait: (client: RpcClient, flowId: string, afterRevision: number) => Promise<PhoneSignInAttempt>
   finish: (client: RpcClient, flowId: string, query: string) => Promise<PhoneSignInAttempt>
   cancel: (client: RpcClient, flowId: string) => Promise<unknown>
-  /** A host without it answers Update Orca instead of starting. */
+  /** A host without it answers Update OpenKodo instead of starting. */
   capability?: string
 }
 

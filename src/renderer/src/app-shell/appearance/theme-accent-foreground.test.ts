@@ -137,7 +137,7 @@ describe('themeAccentButtonTokens: the accent button', () => {
   })
 })
 
-// Every theme Orca ships: the accent button's fill and label must read at 4.5:1.
+// Every theme OpenKodo ships: the accent button's fill and label must read at 4.5:1.
 const launchDir = fileURLToPath(
   new URL('../../../../../resources/plugins/launch/', import.meta.url)
 )

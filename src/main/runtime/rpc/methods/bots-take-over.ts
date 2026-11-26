@@ -1,5 +1,5 @@
-// `bots.takeOver`: the owner handed a bot a workspace (Hand to bot…), which Orca already moved under
-// the bot's home. Orca tells the bot in its Home when the bot was just made for it, else in a new chat.
+// `bots.takeOver`: the owner handed a bot a workspace (Hand to bot…), which OpenKodo already moved under
+// the bot's home. OpenKodo tells the bot in its Home when the bot was just made for it, else in a new chat.
 // A turn the chat refuses is an error, so the owner's client puts the workspace back and can retry.
 import { OWNER_ACTS_FOR } from '../../../../shared/bots/bot-acts-for'
 import { botTakeOverKickoff, type BotTakeOver } from '../../../../shared/bots/bot-take-over'
@@ -25,7 +25,7 @@ export const BOT_TAKE_OVER_METHOD = defineMethod({
   handler: async ({ botId, chat, takeOver }, context) => {
     const { runtime } = context
     runtime.bots.assertEnabled()
-    ownerOnly(context, 'Only your owner hands you a workspace, in Orca.')
+    ownerOnly(context, 'Only your owner hands you a workspace, in OpenKodo.')
     const bot = runtime.bots.list().find((entry) => entry.id === botId)
     if (!bot) {
       throw new InvalidArgumentError('bot_not_found')
@@ -56,7 +56,7 @@ export const BOT_TAKE_OVER_METHOD = defineMethod({
         actsFor: { actsFor: [...OWNER_ACTS_FOR] }
       })
       try {
-        // Named for the hand-over, not from Orca's turn, which is the bot's context.
+        // Named for the hand-over, not from OpenKodo's turn, which is the bot's context.
         await (
           await requireStructuredHost(runtime)
         )

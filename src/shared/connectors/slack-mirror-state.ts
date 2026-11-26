@@ -1,4 +1,4 @@
-// A bot's Slack thread chat posting the owner's Orca messages back to the thread: who it starts on
+// A bot's Slack thread chat posting the owner's OpenKodo messages back to the thread: who it starts on
 // for, what each message's post came to, and what the chat shows of it, on desktop and phone alike.
 import type { ConnectorAsker } from './connector-cloud-contract'
 import type { ConnectorMessageAsker } from '../connector-message-asker'
@@ -121,7 +121,7 @@ export function slackThreadUrl(externalId: string): string | null {
   return place.threadTs ? `${base}/thread/${place.channelId}-${place.threadTs}` : base
 }
 
-// The thread link slackThreadUrl writes, the same one Orca Cloud puts on a Slack message it delivers.
+// The thread link slackThreadUrl writes, the same one OpenKodo Cloud puts on a Slack message it delivers.
 const SLACK_THREAD_LINK =
   /^https:\/\/app\.slack\.com\/client\/([A-Z0-9]+)\/([CG][A-Z0-9]+)\/thread\/\2-(\d+\.\d+)$/
 
@@ -131,7 +131,7 @@ export function slackThreadRefOfLink(link: string): string | null {
   return match ? `slack:${match[1]}:${match[2]}:${match[3]}` : null
 }
 
-/** The "You · Slack" tag's facts for the owner's message posted to the thread from Orca. */
+/** The "You · Slack" tag's facts for the owner's message posted to the thread from OpenKodo. */
 export function slackMirrorPostedAsker(
   link: Pick<ExternalConversationLink, 'externalId' | 'opener'>
 ): ConnectorMessageAsker {
@@ -236,14 +236,14 @@ export function slackMirrorView(
     blocked === 'thread_unavailable'
       ? {
           key: 'components.native-chat.slackMirror.offUnavailable',
-          text: 'Only in Orca · thread unavailable'
+          text: 'Only in OpenKodo · thread unavailable'
         }
       : blocked === 'not_in_channel'
         ? {
             key: 'components.native-chat.slackMirror.offNotInChannel',
-            text: 'Only in Orca · not in channel'
+            text: 'Only in OpenKodo · not in channel'
           }
-        : { key: 'components.native-chat.slackMirror.off', text: 'Only in Orca' }
+        : { key: 'components.native-chat.slackMirror.off', text: 'Only in OpenKodo' }
   const short: SlackMirrorCopy = dm
     ? { key: 'components.native-chat.slackMirror.shortDm', text: 'Slack DM' }
     : channel
@@ -316,7 +316,7 @@ function mirrorDetail(
   if (at.ownDm) {
     return {
       key: 'components.native-chat.slackMirror.detailOwnDm',
-      text: "Your messages and {{bot}}'s replies. Only you see this DM. Tool calls and workers stay in Orca.",
+      text: "Your messages and {{bot}}'s replies. Only you see this DM. Tool calls and workers stay in OpenKodo.",
       values
     }
   }
@@ -324,31 +324,31 @@ function mirrorDetail(
     return at.starter
       ? {
           key: 'components.native-chat.slackMirror.detailTheirDm',
-          text: "Your messages and {{bot}}'s replies. {{name}} sees them in their DM. Tool calls and workers stay in Orca.",
+          text: "Your messages and {{bot}}'s replies. {{name}} sees them in their DM. Tool calls and workers stay in OpenKodo.",
           values: { ...values, name: at.starter }
         }
       : {
           key: 'components.native-chat.slackMirror.detailSomeonesDm',
-          text: "Your messages and {{bot}}'s replies. The person in this DM sees them. Tool calls and workers stay in Orca.",
+          text: "Your messages and {{bot}}'s replies. The person in this DM sees them. Tool calls and workers stay in OpenKodo.",
           values
         }
   }
   if (!at.channel) {
     return {
       key: 'components.native-chat.slackMirror.detailThread',
-      text: "Your messages and {{bot}}'s replies. Everyone in the channel can see them. Tool calls and workers stay in Orca.",
+      text: "Your messages and {{bot}}'s replies. Everyone in the channel can see them. Tool calls and workers stay in OpenKodo.",
       values
     }
   }
   return at.facts?.external
     ? {
         key: 'components.native-chat.slackMirror.detailExternal',
-        text: "Your messages and {{bot}}'s replies. Everyone in {{channel}} can see them, including people outside your workspace. Tool calls and workers stay in Orca.",
+        text: "Your messages and {{bot}}'s replies. Everyone in {{channel}} can see them, including people outside your workspace. Tool calls and workers stay in OpenKodo.",
         values
       }
     : {
         key: 'components.native-chat.slackMirror.detailChannel',
-        text: "Your messages and {{bot}}'s replies. Everyone in {{channel}} can see them. Tool calls and workers stay in Orca.",
+        text: "Your messages and {{bot}}'s replies. Everyone in {{channel}} can see them. Tool calls and workers stay in OpenKodo.",
         values
       }
 }

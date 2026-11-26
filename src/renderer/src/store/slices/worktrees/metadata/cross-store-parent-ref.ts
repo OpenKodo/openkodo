@@ -18,7 +18,7 @@ import { readBotGroups } from '@/lib/bot-group-catalog-snapshot'
 import { findFolderWorkspaceRecord } from '../../../folder-workspaces/folder-workspace-record-index'
 import { selectFolderWorkspaces } from '../../../workspaces/catalog/workspace-record-fields'
 
-/** Whether a parent lives in another Orca store than the child, so the link needs a cross-store ref. */
+/** Whether a parent lives in another OpenKodo store than the child, so the link needs a cross-store ref. */
 export function isCrossStoreParent(child: Worktree, parent: Worktree): boolean {
   const childStore = lineageStoreKeyOfRow(child)
   const parentStore = lineageStoreKeyOfRow(parent)

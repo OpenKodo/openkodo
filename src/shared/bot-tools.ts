@@ -60,7 +60,7 @@ export const BotToolServerSchema = z.union([
         Text.refine((value) => !/[\r\n]/.test(value))
       )
       .optional(),
-    /** Its headers, kept by the host outside the bot's folder; the agent reaches it through Orca's relay. */
+    /** Its headers, kept by the host outside the bot's folder; the agent reaches it through OpenKodo's relay. */
     credential: z
       .string()
       .regex(/^[A-Za-z0-9_-]{8,64}$/)
@@ -158,7 +158,7 @@ export type BotOwnTool = {
   detail: string
   /** Signs in in a browser through its agent's CLI (a remote server); a command never does. */
   remote: boolean
-  /** Present only on a tool Orca signs in to itself, whichever agent the bot runs. */
+  /** Present only on a tool OpenKodo signs in to itself, whichever agent the bot runs. */
   signIn?: BotToolSignInStatus
 }
 

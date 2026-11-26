@@ -1,4 +1,4 @@
-// The messages a stand-in place holds, as Orca Cloud reads them, and what a bot does to one: edit or
+// The messages a stand-in place holds, as OpenKodo Cloud reads them, and what a bot does to one: edit or
 // delete its own, or download a file on one.
 import type { EvalHostState } from './bot-automation-eval-host'
 import type { PlaceView } from './bot-automation-eval-connector-places'
@@ -32,7 +32,7 @@ export function messagesAt(state: EvalHostState, place: PlaceView) {
   const written: PlaceMessage[] =
     (state.places ?? []).find((entry) => entry.ref === place.ref)?.messages ??
     pullAt(state, `${place.ref} ${place.label}`)
-  // A channel's message leaves the thread slot empty (slack:T:C::ts), as Orca Cloud writes it.
+  // A channel's message leaves the thread slot empty (slack:T:C::ts), as OpenKodo Cloud writes it.
   const prefix = place.ref.split(':').length === 3 ? `${place.ref}::` : `${place.ref}:`
   return written.map(({ files, ...message }, index) => ({
     ref: `${prefix}m${index + 1}`,
@@ -53,7 +53,7 @@ export function messagesAt(state: EvalHostState, place: PlaceView) {
   }))
 }
 
-// Worded as Orca Cloud's refusal (connector-actions.ts NOT_OWN).
+// Worded as OpenKodo Cloud's refusal (connector-actions.ts NOT_OWN).
 const NOT_OWN = {
   ok: false,
   refusal: 'not_own',
@@ -101,7 +101,7 @@ export function change(
 }
 
 /** A file on a message, as the cloud's read --download answers: a link its bytes stream from (here
- *  a data: URL the CLI fetches as it would Orca Cloud's), whatever its size. */
+ *  a data: URL the CLI fetches as it would OpenKodo Cloud's), whatever its size. */
 export function downloadFile(state: EvalHostState, ref: string, fileId: string): unknown {
   const found = messageAt(state, ref)
   if (!found) {

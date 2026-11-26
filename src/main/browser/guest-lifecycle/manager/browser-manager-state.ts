@@ -29,7 +29,7 @@ export type BrowserManagerSettings = {
   mobileEmulatorEnabled?: boolean
 }
 
-/** A link a headless serve page asked to open as an Orca tab beside it. */
+/** A link a headless serve page asked to open as an OpenKodo tab beside it. */
 export type OffscreenBrowserTabOpenRequest = {
   worktreeId: string
   profileId: string | null
@@ -243,7 +243,7 @@ export abstract class BrowserManagerState extends BrowserManagerViewportScrollSt
     this.certificateTrustController?.removeSessionRequestGuard(session)
   }
 
-  /** Orca's shortcut overrides; extension commands yield to every Orca shortcut. */
+  /** OpenKodo's shortcut overrides; extension commands yield to every OpenKodo shortcut. */
   getKeybindingOverrides(): KeybindingOverrides | undefined {
     return this.settingsResolver?.().keybindings
   }

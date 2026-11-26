@@ -1,7 +1,7 @@
 // A workspace as the layout stream last sent it: its projection with live titles and start facts laid over.
 
 import { ReverseIndexedMap } from '../../../../shared/collections/reverse-indexed-map'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { PublishedWorkspaceLayout } from '../../../../shared/workspace-layout/published-layout/workspace-layout-published'
 import {
   indexPublishedLayout,
@@ -47,7 +47,7 @@ function liveFactsOf(layout: PublishedWorkspaceLayout, sources: LiveFactSources)
     (tab.terminal?.panes ?? []).map((pane) => (pane.ptyId ? sources.liveTitle(pane.ptyId) : null))
   )
   // Switch point: a pane's start facts are live state, laid over as its title is.
-  const starts = ORCA_LAYOUT_OWNER_IS_MAIN ? paneStartFactsOf(layout, sources) : null
+  const starts = OPENKODO_LAYOUT_OWNER_IS_MAIN ? paneStartFactsOf(layout, sources) : null
   return { titles, starts }
 }
 

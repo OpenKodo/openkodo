@@ -67,7 +67,7 @@ export function BotLinearSetupFlow({
   /** The dialog's title while setting up; done says the bot is on Linear. */
   title: string
   onClose: () => void
-  /** Steps aside while Linear's page is open in Orca's browser, behind the dialog. */
+  /** Steps aside while Linear's page is open in OpenKodo's browser, behind the dialog. */
   aside: ReturnType<typeof useSetupStepAside>
 }): React.JSX.Element {
   const t = useTranslate()
@@ -79,7 +79,7 @@ export function BotLinearSetupFlow({
   const [picked, setPicked] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const view = useBotLinear(bot.hostId)
-  // The sign-in this setup starts was for turning the bot on: once it links one workspace where Orca is
+  // The sign-in this setup starts was for turning the bot on: once it links one workspace where OpenKodo is
   // installed, the bot turns on there with no second click.
   const signIn = useResumeAfterConnect(bot.hostId, 'linear', {
     owner: linearSetupOwner(bot),
@@ -289,10 +289,10 @@ export function BotLinearSetupFlow({
           <ConnectWaiting
             label={t('bots.linear.connect.waiting', 'Finish signing in to Linear in your browser…')}
             onCancel={() => cancelConnectorConnect(bot.hostId, 'linear')}
-            // Linear never returns from its own error page, so Orca can only say what it likely is.
+            // Linear never returns from its own error page, so OpenKodo can only say what it likely is.
             help={t(
               'bots.linear.connect.stuck',
-              'Stuck on a Linear page that says “Could not find OAuth client”? Orca’s Linear app isn’t open to this workspace yet. An admin of the workspace that owns the app must make it public.'
+              'Stuck on a Linear page that says “Could not find OAuth client”? OpenKodo’s Linear app isn’t open to this workspace yet. An admin of the workspace that owns the app must make it public.'
             )}
           />
         )
@@ -303,7 +303,7 @@ export function BotLinearSetupFlow({
             <p className="break-words text-sm text-muted-foreground">
               {t(
                 'bots.linear.setup.install',
-                'Orca is not installed in {{workspace}} yet. A Linear admin installs it once for everyone.',
+                'OpenKodo is not installed in {{workspace}} yet. A Linear admin installs it once for everyone.',
                 { workspace: linearWorkspaceLabel(step.workspace.name, step.workspace.urlKey) }
               )}
             </p>
@@ -314,7 +314,7 @@ export function BotLinearSetupFlow({
               </p>
             ) : linearAwait === 'unchanged' ? (
               <p role="status" className="text-sm text-muted-foreground">
-                {t('bots.linear.setup.noInstallYet', 'Orca isn’t installed there yet.')}
+                {t('bots.linear.setup.noInstallYet', 'OpenKodo isn’t installed there yet.')}
               </p>
             ) : null}
             {/* The label lives in the text above: inside a button, a long one pushed this off the dialog. */}

@@ -1,4 +1,4 @@
-// The connector's routes on Orca Cloud (mirror of cloud/packages/connector-contract).
+// The connector's routes on OpenKodo Cloud (mirror of cloud/packages/connector-contract).
 // Every route is POST except hello (PUT), a bot's Slack state and members (GET) and the DELETEs, and
 // takes `Authorization: Bearer <connector token>`.
 export const CONNECTOR_PATHS = {
@@ -25,7 +25,7 @@ export const CONNECTOR_PATHS = {
   // POST `${slack}/connect` and `…/connect/redeem`: Sign in with Slack links the person there.
   slack: '/v1/connector/slack',
   // GET lists pending access requests; POST `…/redeem` {v:1, token} opens one from
-  // orca://bot/access-request?t=<token>; POST `…/<request id>/decision` {v:1, decision} closes one.
+  // openkodo://bot/access-request?t=<token>; POST `…/<request id>/decision` {v:1, decision} closes one.
   accessRequests: '/v1/connector/access-requests',
   // GET lists the account's linked Slack, GitHub and Linear people; DELETE `…/<source>/<workspace id>/<user id>`.
   links: '/v1/connector/links',

@@ -44,7 +44,7 @@ export const PAGE_STORAGE_EXACT_KEYS = [
   'orca:mobileStructuredSendOperations:v1',
   'orca:terminalTextScale',
   'orca:terminalAutocompleteEnabled',
-  /** Whether a terminal link opens in Orca's browser or the phone's. */
+  /** Whether a terminal link opens in OpenKodo's browser or the phone's. */
   'orca:terminalLinkOpenMode',
   /** The split terminal's chosen direction. */
   'orca:terminalSplitLayout',

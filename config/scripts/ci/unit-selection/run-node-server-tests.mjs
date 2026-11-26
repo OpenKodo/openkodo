@@ -39,8 +39,8 @@ const runtimePath = artifact
 // Require lane-declared packaged runtime inputs; their tests must fail on absence instead of silently skipping.
 const env = {
   ...process.env,
-  ORCA_BACKGROUND_LAUNCH: '1',
-  ORCA_PINNED_NODE: runtimePath,
+  OPENKODO_BACKGROUND_LAUNCH: '1',
+  OPENKODO_PINNED_NODE: runtimePath,
   [REQUIRED_TEST_INPUTS_ENV]: [artifact && 'artifact', crossRuntime && 'cross-runtime']
     .filter(Boolean)
     .join(',')
@@ -104,7 +104,7 @@ function defaultTestArgs() {
 function assertBundledCliPlansSkillInstall() {
   // Why the real path: the planner reports real paths, and macOS tmpdir is a /var symlink.
   const home = realpathSync(mkdtempSync(join(tmpdir(), 'orcad-skills-home-')))
-  const { ORCA_CLI_CWD: _forwarded, ...hostEnv } = env
+  const { OPENKODO_CLI_CWD: _forwarded, ...hostEnv } = env
   try {
     const cli = runProcessSync({
       program: runtimePath,

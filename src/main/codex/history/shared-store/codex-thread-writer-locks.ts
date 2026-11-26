@@ -51,7 +51,7 @@ async function startProbe(
   hold: boolean,
   threadIds: readonly string[] = []
 ): Promise<LockHold | null> {
-  const env = { ...process.env, ORCA_CODEX_THREAD_IDS: threadIds.join(',').toLowerCase() }
+  const env = { ...process.env, OPENKODO_CODEX_THREAD_IDS: threadIds.join(',').toLowerCase() }
   if (process.platform === 'win32') {
     return runProbe(
       {
@@ -59,8 +59,8 @@ async function startProbe(
         args: ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', POWERSHELL_PROBE],
         env: {
           ...env,
-          ORCA_CODEX_THREAD_LOCKS: dirs.join('|'),
-          ORCA_CODEX_HOLD: hold ? '1' : '0'
+          OPENKODO_CODEX_THREAD_LOCKS: dirs.join('|'),
+          OPENKODO_CODEX_HOLD: hold ? '1' : '0'
         }
       },
       hold

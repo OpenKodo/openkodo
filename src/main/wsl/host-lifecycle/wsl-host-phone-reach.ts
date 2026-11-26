@@ -11,7 +11,7 @@ import { focusReachability } from './wsl-host-focus-reachability'
 import type { WslHostDeploymentRecord } from '../../../shared/remote-runtime/host-store/wsl-host-deployment-store'
 import type { WslHostStatus } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 
-/** A phone's call may wake a host Orca stopped idle; its status read only rarely (below). */
+/** A phone's call may wake a host OpenKodo stopped idle; its status read only rarely (below). */
 export type PhoneWake = 'never' | 'status' | 'call'
 // Longer than the 5 min idle timeout, so a phone's status probes cannot keep a host awake.
 const PHONE_STATUS_WAKE_INTERVAL_MS = 15 * 60_000
@@ -65,7 +65,7 @@ export class WslHostPhoneGate {
       connector: Pick<WslHostConnector, 'get' | 'reachability'>
       isEnabled: () => boolean
       hasServerFiles: () => boolean
-      /** Wakes the host if Orca stopped it idle; false when it did not. */
+      /** Wakes the host if OpenKodo stopped it idle; false when it did not. */
       wakeIdleStopped?: (environmentId: string) => Promise<boolean>
     }
   ) {}
@@ -146,7 +146,7 @@ export class WslHostPhoneGate {
         record.environmentId,
         wslHostPhoneReach({
           mayRun: mayRun && !record.pendingStop,
-          // Orca's own idle stop is wakeable by a phone's call, so it lists as ready.
+          // OpenKodo's own idle stop is wakeable by a phone's call, so it lists as ready.
           state: isWslHostIdleStopped(record.environmentId) ? 'ready' : status?.state,
           confirmedStopped: this.isConfirmedStop(record.environmentId, status)
         })

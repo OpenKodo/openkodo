@@ -20,7 +20,7 @@ const BASH: readonly (readonly [string, string])[] = [
   ['gh pr view 12 || gh pr list', ALLOW],
   ['gh pr checks 12 2>&1 && gh run list --limit 5 2>/dev/null', ALLOW],
   ["gh pr list --search 'a;b && c || d'", ALLOW],
-  ['"${ORCA_CLI_COMMAND:-orca}" bot list && "${ORCA_CLI_COMMAND:-orca}" bot chats', ALLOW],
+  ['"${OPENKODO_CLI_COMMAND:-orca}" bot list && "${OPENKODO_CLI_COMMAND:-orca}" bot chats', ALLOW],
   ["/bin/zsh -lc 'git status && git log -3 2>&1'", ALLOW],
   ["/bin/sh -c 'git status'", ALLOW],
   ["/opt/homebrew/bin/bash -lc 'git log -3'", ALLOW],
@@ -37,11 +37,14 @@ const BASH: readonly (readonly [string, string])[] = [
   ["/usr/bin/zsh -lc 'git status; rm x'", '"rm x" isn\'t a read'],
   // Codex joins argv with shlex: a script with a ' is double-quoted, or split into runs.
   [`/bin/zsh -lc "orca bot suggest --title 'Follow up' --why 'Needs review' --ask 'Do it'"`, ALLOW],
-  [`/bin/zsh -lc '"\${ORCA_CLI_COMMAND:-orca}" bot suggest --title '"'A b' --why 'c d'"`, ALLOW],
+  [
+    `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-orca}" bot suggest --title '"'A b' --why 'c d'"`,
+    ALLOW
+  ],
   [`/bin/zsh -lc 'gh pr list --search '"'"'a b'"'"''`, ALLOW],
   [`/bin/zsh -lc 'gh pr list --search '\\''a b'"'"' --json '"'"'c, d'\\'`, ALLOW],
   [
-    `/bin/zsh -lc '"\${ORCA_CLI_COMMAND:-orca}" bot suggest --title '"'A b' && \\""'\${ORCA_CLI_COMMAND:-orca}" bot list'`,
+    `/bin/zsh -lc '"\${OPENKODO_CLI_COMMAND:-orca}" bot suggest --title '"'A b' && \\""'\${OPENKODO_CLI_COMMAND:-orca}" bot list'`,
     ALLOW
   ],
   [`/bin/zsh -lc "orca bot suggest --title 'Ship it"'!'"' --why 'a\\\\b'"`, ALLOW],

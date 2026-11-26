@@ -21,14 +21,14 @@ import { ensureActiveOrcaProfile, type ActiveOrcaProfileState } from '../profile
 export const CLOUD_CONSOLE_TICKET_PATH = '/v1/desktop/console/ticket'
 const CLOUD_CONSOLE_TICKET_TIMEOUT_MS = 8_000
 
-/** ORCA_CLOUD_CONSOLE_URL when set (staging, local dev), else the auth origin, which redirects. */
+/** OPENKODO_CLOUD_CONSOLE_URL when set (staging, local dev), else the auth origin, which redirects. */
 export function cloudConsoleOrigin(
   config: Pick<OrcaCloudAuthConfig, 'apiBaseUrl'>,
   env: NodeJS.ProcessEnv,
   allowLoopbackHttp: boolean
 ): string {
   return (
-    cleanCloudServiceOrigin(env.ORCA_CLOUD_CONSOLE_URL, allowLoopbackHttp) ??
+    cleanCloudServiceOrigin(env.OPENKODO_CLOUD_CONSOLE_URL, allowLoopbackHttp) ??
     new URL(config.apiBaseUrl).origin
   )
 }

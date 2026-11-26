@@ -156,7 +156,7 @@ function ReconnectDialog({
       setError(
         t(
           'bots.slack.workspaces.otherTeam',
-          'That token is for another workspace. Orca keeps it for that workspace.'
+          'That token is for another workspace. OpenKodo keeps it for that workspace.'
         )
       )
       return
@@ -190,7 +190,7 @@ function ReconnectDialog({
 
 /**
  * Settings › Bots › Slack workspaces: the host account's grant per workspace, renewed or forgotten
- * here. `account` names the Orca account the grants belong to; `hostId` answers for it, and
+ * here. `account` names the OpenKodo account the grants belong to; `hostId` answers for it, and
  * `botHostIds` are every computer on it, whose bots share its grants.
  */
 export function SlackWorkspacesSettings({
@@ -233,12 +233,12 @@ export function SlackWorkspacesSettings({
           account
             ? t(
                 'bots.slack.workspaces.descriptionFor',
-                'Orca Cloud keeps one encrypted token per workspace for {{account}}. The Slack user who connected it owns the bots it installs.',
+                'cloud service keeps one encrypted token per workspace for {{account}}. The Slack user who connected it owns the bots it installs.',
                 { account }
               )
             : t(
                 'bots.slack.workspaces.description',
-                'For Slack, Orca Cloud keeps one encrypted token per workspace to create each bot’s app.'
+                'For Slack, cloud service keeps one encrypted token per workspace to create each bot’s app.'
               )
         }
       />

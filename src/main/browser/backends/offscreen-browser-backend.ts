@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
 import { BrowserWindow } from 'electron'
 import '../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_GUEST_WEB_PREFERENCES } from '../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
+import { OPENKODO_BROWSER_GUEST_WEB_PREFERENCES } from '../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
 import { mapSettledWithConcurrency } from '../../../shared/concurrency/map-with-concurrency'
 import type { BrowserBackend, BrowserBackendCreateTab } from '../browser-backend'
 import type { BrowserManager } from '../guest-lifecycle/manager/browser-manager'
@@ -87,7 +87,7 @@ export class OffscreenBrowserBackend implements BrowserBackend {
       width: DEFAULT_VIEWPORT_WIDTH,
       height: DEFAULT_VIEWPORT_HEIGHT,
       webPreferences: {
-        ...ORCA_BROWSER_GUEST_WEB_PREFERENCES,
+        ...OPENKODO_BROWSER_GUEST_WEB_PREFERENCES,
         partition,
         // Reports typed form input, so Memory Saver keeps these pages as it keeps desktop ones.
         preload: join(__dirname, 'browser-offscreen-page-preload.js'),

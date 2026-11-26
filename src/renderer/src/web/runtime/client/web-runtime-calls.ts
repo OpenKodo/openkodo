@@ -73,7 +73,7 @@ export function assertEnvironmentPairing(selector: string, expectedRevision?: nu
     (current.pairingRevision ?? current.createdAt) !== expectedRevision
   ) {
     throw new RuntimeConnectionChangedBeforeSendError(
-      'The paired Orca server changed while the request was in progress.'
+      'The paired OpenKodo server changed while the request was in progress.'
     )
   }
 }

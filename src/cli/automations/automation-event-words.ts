@@ -63,19 +63,19 @@ export const SOURCE_NOTES: Partial<Record<AutomationEventSource, string>> = {
   slack:
     "slack.message counts only top-level posts, unless subject= names a thread: then each reply in that thread counts too. A reaction's text is its emoji, as :eyes:. A message from Slack writes a channel as <#C0123ABCD|name>; in= takes that id or the #name. A message that @-mentions the bot, or a DM to it, asks the bot directly; that needs no automation.",
   github:
-    "Only repos where the Orca GitHub app is installed. Your own pushes, comments, reviews and labels start nothing (the bot works as you), except CI results, a pull request's merge, close or conflicts, deployments, security alerts and finished workflow runs, and a pull request you open when from= names me, your agents' workers' included. A comment that @-mentions the bot asks it directly instead. ci_passed, ci_finished and pr_conflicted follow one pull request, so they need subject=. ci_passed and ci_finished never fire on a repo with no CI checks. A conflict from a direct push to the base branch is noticed at the next merge or CI run on it.",
+    "Only repos where the OpenKodo GitHub app is installed. Your own pushes, comments, reviews and labels start nothing (the bot works as you), except CI results, a pull request's merge, close or conflicts, deployments, security alerts and finished workflow runs, and a pull request you open when from= names me, your agents' workers' included. A comment that @-mentions the bot asks it directly instead. ci_passed, ci_finished and pr_conflicted follow one pull request, so they need subject=. ci_passed and ci_finished never fire on a repo with no CI checks. A conflict from a direct push to the base branch is noticed at the next merge or CI run on it.",
   linear:
-    'Only workspaces where the Orca Linear app is installed. Your own changes and comments start nothing (the bot can work as you); a comment that @-mentions Orca asks the bot directly instead.'
+    'Only workspaces where the OpenKodo Linear app is installed. Your own changes and comments start nothing (the bot can work as you); a comment that @-mentions OpenKodo asks the bot directly instead.'
 }
 
-/** How a bot waits on a GitHub Actions run it started, where its Orca Cloud sends workflow_finished. */
-export const WORKFLOW_WAIT_RECIPE = workflowWaitRecipe('orca')
+/** How a bot waits on a GitHub Actions run it started, where its OpenKodo Cloud sends workflow_finished. */
+export const WORKFLOW_WAIT_RECIPE = workflowWaitRecipe('openkodo')
 
 export const PLACE_WORDS: Record<ConnectorEventSource, string> = {
   slack: 'Slack channels: a #name, a pasted channel link, a channel id (C0123ABCD) or a ref',
   github: 'repos: owner/name, a link or a ref',
   linear:
-    'Linear teams or whole workspaces: a team key (ENG), a team or workspace name, or a ref from `orca bot connectors`'
+    'Linear teams or whole workspaces: a team key (ENG), a team or workspace name, or a ref from `openkodo bot connectors`'
 }
 
 export const SUBJECT_WORDS: Record<ConnectorEventSource, string> = {

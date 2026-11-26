@@ -1,4 +1,4 @@
-// The signed `com.stablyai.orca` helper that runs the terminal daemon on the pinned Node.
+// The signed `dev.openkodo.app` helper that runs the terminal daemon on the pinned Node.
 const { spawnSync } = require('node:child_process')
 const {
   chmodSync,
@@ -19,8 +19,8 @@ const {
   giveMacExecutableUniqueUuid
 } = require('../../desktop-distribution/macos/macos-executable-uuid.cjs')
 
-const MAC_TERMINAL_HOST_NAME = 'Orca Agents'
-const MAC_TERMINAL_HOST_EXECUTABLE = 'Orca Agents'
+const MAC_TERMINAL_HOST_NAME = 'OpenKodo Agents'
+const MAC_TERMINAL_HOST_EXECUTABLE = 'OpenKodo Agents'
 const macTerminalHostSignIgnore = [`/Contents/Helpers/${MAC_TERMINAL_HOST_NAME}\\.app(/|$)`]
 const NODE_PTY_FILES = [
   'package.json',
@@ -28,7 +28,7 @@ const NODE_PTY_FILES = [
   join('build', 'Release', 'pty.node'),
   join('build', 'Release', 'spawn-helper')
 ]
-// A helper that claimed any of these could take `orca:` links or documents from Orca.app.
+// A helper that claimed any of these could take `openkodo:` links or documents from OpenKodo.app.
 const FORBIDDEN_INFO_KEYS = [
   'CFBundleURLTypes',
   'CFBundleDocumentTypes',

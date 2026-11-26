@@ -1,4 +1,4 @@
-// A shared bot link to receive: from `orca://bots/share/<id>`, or pasted in New bot → From a link.
+// A shared bot link to receive: from `openkodo://bots/share/<id>`, or pasted in New bot → From a link.
 import { useSyncExternalStore } from 'react'
 
 /** A link to review, or `paste` to ask for one; `key` remounts the flow when the same link opens again. */

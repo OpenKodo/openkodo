@@ -37,7 +37,7 @@ export const BROWSER_EXPECT_URL_RUNTIME_CAPABILITY = 'browser.expect-url.v1' as 
 // Older hosts publish server tabs with canGoBack/canGoForward hardcoded false, so clients keep both arrows enabled without this.
 export const BROWSER_TAB_HISTORY_STATE_RUNTIME_CAPABILITY = 'browser.tab-history-state.v1' as const
 
-// Older hosts have no browser.zoom, so streamed panes keep zoom chords on Orca's own zoom.
+// Older hosts have no browser.zoom, so streamed panes keep zoom chords on OpenKodo's own zoom.
 export const BROWSER_PAGE_ZOOM_RUNTIME_CAPABILITY = 'browser.page-zoom.v1' as const
 
 // Older hosts have no browser.siteDisplay or browser.setSiteColorScheme, so streamed panes hide the zoom row, zoom chip and Appearance.

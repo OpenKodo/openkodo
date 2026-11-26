@@ -1,4 +1,4 @@
-// Shared so Orca's CLI finds a chat's published files where its host wrote them.
+// Shared so OpenKodo's CLI finds a chat's published files where its host wrote them.
 import { readFile, stat } from 'node:fs/promises'
 import { basename, dirname, join } from 'node:path'
 

@@ -37,7 +37,7 @@ import {
 
 // The record stores' own caps; a larger file reads as unreadable, as theirs does.
 const RECORD_MAX_BYTES = 64 * 1024
-const SECTION_END = '__ORCA_WSL_CONNECT_STATE_END__'
+const SECTION_END = '__OPENKODO_WSL_CONNECT_STATE_END__'
 
 /** The guest's identity read for the pid the lock named, so liveness needs no second exec. */
 export type WslOrcadLockHolderIdentity = { pid: number; guest: WslGuestIdentity }

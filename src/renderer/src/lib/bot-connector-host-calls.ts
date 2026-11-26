@@ -1,5 +1,5 @@
 // A host's Slack, Linear and GitHub setup (`bots.slack/linear/github/connect.*`), run on that host as
-// its own Orca account: this app's runtime for its own bots, a paired server's for the server's.
+// its own OpenKodo account: this app's runtime for its own bots, a paired server's for the server's.
 import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
 import type { ExecutionHostId } from '../../../shared/execution-host/execution-host'
 import {
@@ -24,7 +24,7 @@ import type { ConnectorConnectSource } from '../../../shared/connectors/connecto
 import type { ConnectorConnectRedeem } from '../../../../cloud/packages/connector-contract/src/connect-messages'
 import { botHostTarget } from './bot-hosts'
 
-/** A trip's end: the linked account, or null when it ends at "Open Orca" and its deep link redeems. */
+/** A trip's end: the linked account, or null when it ends at "Open OpenKodo" and its deep link redeems. */
 export type ConnectorTripResult = BotSlackResult<ConnectorConnectRedeem | null>
 export type ConnectorTripWait =
   | { state: 'waiting' }
@@ -57,7 +57,7 @@ export function botSlackCalls(hostId: ExecutionHostId) {
       call<ConnectorBotSlackStateResponse>(hostId, 'bots.slack.state', args),
     setUpApp: (args: { botId: string; teamId: string }) =>
       call<ConnectorBotSlackAppResponse>(hostId, 'bots.slack.setUpApp', args),
-    /** A one-time code this desktop's own Orca account redeems to create the bot's app. */
+    /** A one-time code this desktop's own OpenKodo account redeems to create the bot's app. */
     handOff: (args: { botId: string; teamId: string }) =>
       call<ConnectorBotSlackHandOffResponse>(hostId, 'bots.slack.handOff', args),
     /** After a hand-off: the host records the app as its cloud reads it. */

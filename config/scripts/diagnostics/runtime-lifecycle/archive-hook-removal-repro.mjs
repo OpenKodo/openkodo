@@ -194,7 +194,7 @@ async function main() {
     {
       cwd: projectDir,
       stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
     }
   )
   const created = []

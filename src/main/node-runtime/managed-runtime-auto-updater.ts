@@ -36,7 +36,7 @@ export type AutomaticRunFlags = {
 export type AutoUpdateHost = {
   enabled(): boolean
   busy(): boolean
-  /** Fresh status; `source` says whether new chats run Orca's copy. */
+  /** Fresh status; `source` says whether new chats run OpenKodo's copy. */
   status(): Promise<ManagedRuntimeInstallState>
   install(options?: { automatic: true }): ManagedRuntimeOperation
   /** Told when automatic updates are turned off; returns an unsubscribe. */
@@ -64,7 +64,7 @@ export class ManagedRuntimeAutoUpdater {
       : null
   }
 
-  /** Bring Orca's own copy to the latest or pinned release; never installs one nobody asked for,
+  /** Bring OpenKodo's own copy to the latest or pinned release; never installs one nobody asked for,
    *  touches a user's own, or updates a copy new chats don't run (another program, a signed-in agy). */
   async updateIfBehind(publishedRelease: () => Promise<boolean>): Promise<void> {
     const { reportedPending } = this

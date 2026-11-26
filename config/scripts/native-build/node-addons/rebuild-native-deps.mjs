@@ -77,7 +77,7 @@ const sharedNativeBuild = sharedModules.size > 0 ? await import('./shared-native
 /** Whether this rebuild targets something other than the machine running it. */
 const isCrossHostRebuild = rebuildPlatform !== osPlatform() || rebuildArch !== process.arch
 const forceRebuild =
-  process.env.ORCA_FORCE_NATIVE_REBUILD === '1' || cliOptions.force || isCrossHostRebuild
+  process.env.OPENKODO_FORCE_NATIVE_REBUILD === '1' || cliOptions.force || isCrossHostRebuild
 let modulesToRebuild = onlyModules
 
 warnAboutNodeModulesAboveSharedStore(projectDir)
@@ -175,7 +175,7 @@ try {
         'Close running Orca/Electron/dev processes for this worktree, then rerun `pnpm install` ' +
         'or `pnpm run rebuild:electron`.'
     )
-    if (isPostinstall() && process.env.ORCA_STRICT_NATIVE_REBUILD !== '1') {
+    if (isPostinstall() && process.env.OPENKODO_STRICT_NATIVE_REBUILD !== '1') {
       console.error(
         '[rebuild] Continuing postinstall because the failure is a Windows file lock. ' +
           'The next dev/start command will re-check native modules.'
@@ -379,7 +379,7 @@ function runElectronPackageBinaryInstall() {
 }
 
 function continuePostinstallWithoutElectron() {
-  if (!isPostinstall() || process.env.ORCA_STRICT_ELECTRON_INSTALL === '1') {
+  if (!isPostinstall() || process.env.OPENKODO_STRICT_ELECTRON_INSTALL === '1') {
     return false
   }
   console.error(

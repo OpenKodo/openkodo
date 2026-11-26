@@ -6,7 +6,7 @@ import { rekeyFileIdRecord } from './open-file-path-rekey'
 import { rekeyEditorBuffers } from '../buffers/editor-buffer-record'
 import { migrateHydratedEditorTabsAndGroups } from './hydrated-editor-file-ids'
 import { renameEditorFilesThroughLayoutOwner } from '../tabs/editor-file-rename-through-layout-owner'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import { rekeyEditorBytesDocuments } from '@/components/editor/save/bytes/editor-bytes-document-boxes'
 import { handOffRenamedEditorModels } from '@/components/editor/model-lifetime/identity/editor-model-rename-handoff'
 
@@ -154,7 +154,7 @@ export function createRekeyOpenFilesAction(
         return { ok: true }
       }
       // Switch point: main renames the tabs, and its frame rekeys the content.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         return renameEditorFilesThroughLayoutOwner(
           set,
           get,

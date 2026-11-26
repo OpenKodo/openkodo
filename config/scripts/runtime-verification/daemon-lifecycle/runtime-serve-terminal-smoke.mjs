@@ -22,7 +22,7 @@ const READY_TIMEOUT_MS = 120_000
 const OUTPUT_TIMEOUT_MS = 30_000
 const SHUTDOWN_TIMEOUT_MS = 15_000
 // Offset the port when a developer's own `orca serve` is already using it.
-const PORT = 6800 + Math.floor(Number(process.env.ORCA_SMOKE_PORT_OFFSET ?? '0'))
+const PORT = 6800 + Math.floor(Number(process.env.OPENKODO_SMOKE_PORT_OFFSET ?? '0'))
 
 function log(message) {
   process.stdout.write(`[serve-terminal-smoke] ${message}\n`)
@@ -160,7 +160,7 @@ function smokeTarget() {
   const flagIndex = process.argv.indexOf('--target')
   return flagIndex !== -1
     ? process.argv[flagIndex + 1]
-    : (process.env.ORCA_SMOKE_TARGET ?? 'electron')
+    : (process.env.OPENKODO_SMOKE_TARGET ?? 'electron')
 }
 
 function resolveLaunch(userDataDir) {
@@ -170,12 +170,12 @@ function resolveLaunch(userDataDir) {
       label: `orcad (${ORCAD_ENTRY})`,
       command: packagedNodeRuntimePath(ORCAD_DIR, currentTarget()),
       args: [ORCAD_ENTRY, '--port', String(PORT), '--json'],
-      env: { ORCA_USER_DATA: userDataDir }
+      env: { OPENKODO_USER_DATA: userDataDir }
     }
   }
   if (target !== 'electron') {
     throw new Error(
-      `--target (or ORCA_SMOKE_TARGET) must be 'electron' or 'orcad', got '${target}'`
+      `--target (or OPENKODO_SMOKE_TARGET) must be 'electron' or 'orcad', got '${target}'`
     )
   }
   const serveArgs = [
@@ -186,12 +186,12 @@ function resolveLaunch(userDataDir) {
     '--serve-json',
     `--user-data-dir=${userDataDir}`
   ]
-  const override = process.env.ORCA_SMOKE_ELECTRON
+  const override = process.env.OPENKODO_SMOKE_ELECTRON
   return {
     label: `electron (${serveEntry})`,
     command: override ?? 'npx',
     args: override ? serveArgs : ['electron', ...serveArgs],
-    env: { ORCA_DEV_USER_DATA_PATH: userDataDir }
+    env: { OPENKODO_DEV_USER_DATA_PATH: userDataDir }
   }
 }
 
@@ -323,18 +323,18 @@ async function main() {
       '--terminal',
       terminal.handle,
       '--text',
-      `"${process.execPath}" -e "console.log('ORCA_SMOKE_' + '${nonce}')"`,
+      `"${process.execPath}" -e "console.log('OPENKODO_SMOKE_' + '${nonce}')"`,
       '--enter'
     ])
 
-    if (!(await waitForNonce(pairingCode, terminal.handle, `ORCA_SMOKE_${nonce}`))) {
+    if (!(await waitForNonce(pairingCode, terminal.handle, `OPENKODO_SMOKE_${nonce}`))) {
       throw new Error(
         `terminal produced no output containing ${nonce} within ${OUTPUT_TIMEOUT_MS}ms — ` +
           `the server started and answered RPC, but its PTY path is dead`
       )
     }
     log('terminal round trip OK')
-    if (launch.env.ORCA_USER_DATA && process.platform !== 'win32') {
+    if (launch.env.OPENKODO_USER_DATA && process.platform !== 'win32') {
       const cliNonce = randomBytes(8).toString('hex')
       orca(pairingCode, [
         'terminal',
@@ -342,10 +342,10 @@ async function main() {
         '--terminal',
         terminal.handle,
         '--text',
-        `orca status && orca worktree ps --json && printf 'ORCA_CLI_%s\\n' '${cliNonce}'`,
+        `orca status && orca worktree ps --json && printf 'OPENKODO_CLI_%s\\n' '${cliNonce}'`,
         '--enter'
       ])
-      if (!(await waitForNonce(pairingCode, terminal.handle, `ORCA_CLI_${cliNonce}`))) {
+      if (!(await waitForNonce(pairingCode, terminal.handle, `OPENKODO_CLI_${cliNonce}`))) {
         throw new Error('The managed terminal could not run the execution host CLI')
       }
       log('execution host CLI round trip OK')

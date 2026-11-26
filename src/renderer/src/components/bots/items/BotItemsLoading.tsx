@@ -14,7 +14,7 @@ const TITLE_WIDTHS = ['w-[78%]', 'w-[62%]', 'w-[85%]', 'w-[54%]', 'w-[70%]'] as 
 export function BotItemsLoading({
   afterAsks = false
 }: {
-  /** Orca's asks already show Needs you above: the bars sit a section's gap below it, as their own group. */
+  /** OpenKodo's asks already show Needs you above: the bars sit a section's gap below it, as their own group. */
   afterAsks?: boolean
 }): React.JSX.Element {
   const t = useTranslate()

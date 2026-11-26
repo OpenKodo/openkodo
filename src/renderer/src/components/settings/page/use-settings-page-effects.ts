@@ -2,7 +2,7 @@ import { cancelSettingsListReveal } from '../section-layout/settings-list-scroll
 import { resolveGeneralSubPage } from '../general/general-sub-pages'
 import { runtimeTargetEnvironmentId } from '@/runtime/rpc/targets/runtime-client-target'
 import { useEffect } from 'react'
-import { ORCA_AUTOMATIC_UPDATE_PREPARE_EVENT } from '../../../../../shared/updater/updater-renderer-events'
+import { OPENKODO_AUTOMATIC_UPDATE_PREPARE_EVENT } from '../../../../../shared/updater/updater-renderer-events'
 import { toast } from 'sonner'
 import { useAppStore } from '../../../store/index'
 import { keybindingMatchesAction } from '../../../../../shared/keybindings/matching'
@@ -157,7 +157,7 @@ export function useSettingsPageEffects(
         event.preventDefault()
       }
     }
-    window.addEventListener(ORCA_AUTOMATIC_UPDATE_PREPARE_EVENT, protectDraft)
+    window.addEventListener(OPENKODO_AUTOMATIC_UPDATE_PREPARE_EVENT, protectDraft)
     const unregisterCloseGuard = registerWindowCloseGuard(() => {
       if (isIntentionalAppRestartInProgress()) {
         return true
@@ -169,7 +169,7 @@ export function useSettingsPageEffects(
     })
     return () => {
       unregisterCloseGuard()
-      window.removeEventListener(ORCA_AUTOMATIC_UPDATE_PREPARE_EVENT, protectDraft)
+      window.removeEventListener(OPENKODO_AUTOMATIC_UPDATE_PREPARE_EVENT, protectDraft)
     }
   }, [hasUnsavedSourceControlAiPromptChangesRef, promptDiscardSourceControlAiPromptChanges])
 

@@ -47,7 +47,7 @@ function homebrewUpgradeCommand(keg: string, realPath: string): string | null {
 const packageManagerPlan = (command: string | null): AgentCliUpdatePlan | null =>
   command ? { runnable: false, command } : null
 
-// The `claude-code` cask follows Claude's stable channel rather than the one Orca compares
+// The `claude-code` cask follows Claude's stable channel rather than the one OpenKodo compares
 // against, so it keeps `claude update`, which names the brew command or the `@latest` cask.
 function claudeUpdatePlan(_installed: string, realPath: string): AgentCliUpdatePlan {
   const command = /Microsoft[/\\]WinGet[/\\]Packages[/\\]Anthropic\.ClaudeCode_/i.test(realPath)

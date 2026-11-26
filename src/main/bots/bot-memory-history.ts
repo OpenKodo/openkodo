@@ -1,4 +1,4 @@
-// Each bot's memory history, one file per bot in Orca's data folder: outside the bot's home, so the
+// Each bot's memory history, one file per bot in OpenKodo's data folder: outside the bot's home, so the
 // bot's own tools can't rewrite the record of what it changed.
 import { randomUUID } from 'node:crypto'
 import { readdir, readFile, rm } from 'node:fs/promises'

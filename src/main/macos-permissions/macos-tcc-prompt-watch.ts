@@ -2,19 +2,19 @@ import { spawn, type ChildProcessByStdio } from 'node:child_process'
 import { createInterface, type Interface } from 'node:readline'
 import type { Readable, Writable } from 'node:stream'
 
-/** Stdin EOF tells the wrapper that Orca died. */
+/** Stdin EOF tells the wrapper that OpenKodo died. */
 export type LogStreamChild = ChildProcessByStdio<Writable, Readable, Readable>
 
-// AUTHREQ_PROMPTING identifies actual dialogs, including access attributed to Orca’s terminal children (#9756).
+// AUTHREQ_PROMPTING identifies actual dialogs, including access attributed to OpenKodo’s terminal children (#9756).
 
 // TCC can attribute terminal access to the detached helper independently of the main app.
-const ORCA_RESPONSIBLE_IDENTIFIERS = new Set([
-  'com.stablyai.orca',
-  'com.stablyai.orca.helper',
-  'com.stablyai.orca.dev',
-  'com.stablyai.orca.dev.helper',
-  'com.stablyai.orca.local',
-  'com.stablyai.orca.local.helper'
+const OPENKODO_RESPONSIBLE_IDENTIFIERS = new Set([
+  'dev.openkodo.app',
+  'dev.openkodo.app.helper',
+  'dev.openkodo.app.dev',
+  'dev.openkodo.app.dev.helper',
+  'dev.openkodo.app.local',
+  'dev.openkodo.app.local.helper'
 ])
 
 const WATCHED_SERVICES = new Set([
@@ -58,7 +58,7 @@ export function parseTccPromptEvent(line: string): TccPromptEvent | null {
 
 export function isOrcaAttributedPrompt(event: TccPromptEvent): boolean {
   return (
-    ORCA_RESPONSIBLE_IDENTIFIERS.has(event.responsibleIdentifier) &&
+    OPENKODO_RESPONSIBLE_IDENTIFIERS.has(event.responsibleIdentifier) &&
     WATCHED_SERVICES.has(event.service)
   )
 }

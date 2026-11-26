@@ -1,6 +1,6 @@
 // An item's links, one row layout for all: workers as the Chats tab draws them, then PRs and issues with
 // live state, other links, files. Every link opens on click or Enter: web links as the workspace card's
-// linked PR does (the link setting's popover or browser), files in Orca's editor, only from the bot's folder.
+// linked PR does (the link setting's popover or browser), files in OpenKodo's editor, only from the bot's folder.
 import {
   Check,
   CircleCheck,
@@ -137,7 +137,7 @@ function linearTitles(cache: AppState['linearIssueCache']): ReadonlyMap<string, 
   return titles
 }
 
-/** A Linear issue's title, when Orca's Linear cache has read it; never a fetch of its own. */
+/** A Linear issue's title, when OpenKodo's Linear cache has read it; never a fetch of its own. */
 export function useLinearTitle(identifier: string | null): string | null {
   return useAppStore((state) =>
     identifier ? (linearTitles(state.linearIssueCache).get(identifier) ?? null) : null

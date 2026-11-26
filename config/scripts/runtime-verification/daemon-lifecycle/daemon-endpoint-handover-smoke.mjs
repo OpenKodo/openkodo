@@ -56,7 +56,7 @@ function bootDaemon(tag, dir, socketPath) {
     ],
     {
       stdio: ['ignore', 'ignore', 'pipe', 'ipc'],
-      env: { ...process.env, ORCA_USER_DATA_PATH: dir }
+      env: { ...process.env, OPENKODO_USER_DATA_PATH: dir }
     }
   )
   let stderr = ''

@@ -190,7 +190,7 @@ async function resolveSearchPath(
   if (platform !== 'win32') {
     return process.env.PATH ?? ''
   }
-  // Why: terminals launch with the registry PATH, so a CLI installed after Orca started runs in a pane but stays invisible to the inherited PATH (#17672).
+  // Why: terminals launch with the registry PATH, so a CLI installed after OpenKodo started runs in a pane but stays invisible to the inherited PATH (#17672).
   const env = { ...process.env }
   try {
     await mergePersistedWindowsPathAsync(env)

@@ -1,5 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ORCA_EDITOR_EXTERNAL_FILE_CHANGE_EVENT, requestEditorFileSave } from './editor-autosave'
+import {
+  OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT,
+  requestEditorFileSave
+} from './editor-autosave'
 import { attachEditorAutosaveController } from './editor-autosave-controller'
 import {
   __clearSelfWriteRegistryForTests,
@@ -36,7 +39,7 @@ function openDirtyFile(store: ReturnType<typeof createEditorStore>, draft = 'uns
 
 function dispatchExternalChange(): void {
   window.dispatchEvent(
-    new CustomEvent(ORCA_EDITOR_EXTERNAL_FILE_CHANGE_EVENT, {
+    new CustomEvent(OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT, {
       detail: { worktreeId: 'wt-1', worktreePath: '/repo', relativePath: 'file.ts' }
     })
   )

@@ -10,8 +10,8 @@ import { joinRemotePath, type RemoteHostPlatform } from '../../ssh/remote-host/s
 /** Empty per-version reference files protect runtimes from GC. */
 export const RUNTIME_REF_NODE_PREFIX = '.runtime-ref-node-'
 export const RUNTIME_STORE_TOMBSTONE_PREFIX = '.gc-tombstone-'
-export const INVENTORY_OK = '__ORCA_RUNTIME_STORE__OK'
-export const REFS_ERR = '__ORCA_RUNTIME_STORE__REFS_ERR'
+export const INVENTORY_OK = '__OPENKODO_RUNTIME_STORE__OK'
+export const REFS_ERR = '__OPENKODO_RUNTIME_STORE__REFS_ERR'
 export const MAX_DIRS = 512
 const SHA256 = /^[0-9a-f]{64}$/
 export const RUNTIME_STORE_ENTRY_NAME = new RegExp(

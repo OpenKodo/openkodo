@@ -12,7 +12,7 @@ type Snapshot = Extract<ConnectorEvent, { kind: 'snapshot' }>
 
 export const jsonBytes = (value: unknown): number => Buffer.byteLength(JSON.stringify(value))
 
-/** A prompt too large to carry, offered as one only Orca can answer. Who raised it stays: without it
+/** A prompt too large to carry, offered as one only OpenKodo can answer. Who raised it stays: without it
  *  the cloud would read it as its conversation's. */
 export const unsupported = ({
   promptId,
@@ -111,7 +111,7 @@ export function capUtf8(text: string, maxBytes: number): string {
   return bytes.subarray(0, end).toString('utf8')
 }
 
-export const ANSWER_CUT_NOTE = '_… cut short here. The full answer is in Orca._'
+export const ANSWER_CUT_NOTE = '_… cut short here. The full answer is in OpenKodo._'
 
 // The longest fence a cut answer is given room to close; a longer opener is rare enough to share it.
 const CLOSING_FENCE_ROOM = '\n```'

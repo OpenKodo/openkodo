@@ -1,4 +1,4 @@
-// The bot's one quiet line about Orca sign-in, atop its connectors: signed out, or a sign-in the cloud refused.
+// The bot's one quiet line about OpenKodo sign-in, atop its connectors: signed out, or a sign-in the cloud refused.
 import React from 'react'
 import { useTranslate } from '@/i18n/use-translate'
 import { useConnectorNeedsSignIn } from '@/lib/bot-catalog'
@@ -23,7 +23,7 @@ export async function refreshBotCloudReads(bot: Pick<Bot, 'id' | 'hostId'>): Pro
   ])
 }
 
-/** Whether the bot has something that only works through Orca Cloud. */
+/** Whether the bot has something that only works through OpenKodo Cloud. */
 function usesOrcaCloud(bot: Bot, webhooks: boolean): boolean {
   return (
     webhooks ||
@@ -52,7 +52,7 @@ export function BotCloudSignInNotice({
       <OrcaCloudSignInLine
         link
         className="px-2 py-1.5"
-        text={t('bots.cloudSignIn.botOff', 'Signed out of Orca · Slack, events, sharing off')}
+        text={t('bots.cloudSignIn.botOff', 'Signed out of OpenKodo · Slack, events, sharing off')}
         onSignedIn={resume}
       />
     )
@@ -63,7 +63,7 @@ export function BotCloudSignInNotice({
         className="px-2 py-1.5"
         text={t(
           'bots.connectors.signInChanged',
-          'This computer’s Orca sign-in changed. Sign in again to reconnect.'
+          'This computer’s OpenKodo sign-in changed. Sign in again to reconnect.'
         )}
         onSignedIn={resume}
       />

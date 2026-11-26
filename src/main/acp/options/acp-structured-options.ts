@@ -63,9 +63,9 @@ export class AcpStructuredOptions {
   // A control without refreshed options leaves the prior current values unproven.
   private readonly unobservedCurrent = new Set<'model' | 'effort'>()
   writeRevision = 0
-  /** Orca's own writes in flight; config changes outside them are the agent's own. */
+  /** OpenKodo's own writes in flight; config changes outside them are the agent's own. */
   writing = 0
-  /** While Orca's hidden model command runs, its reply belongs to it, never to the chat. */
+  /** While OpenKodo's hidden model command runs, its reply belongs to it, never to the chat. */
   commandReply: string | null = null
   // What a launch-line or model-command selection resolved to. The agent never echoes the raw
   // selector, so a concrete change away from this retires it; ordinary control proof never does.
@@ -249,7 +249,7 @@ export class AcpStructuredOptions {
     return null
   }
 
-  /** Unrunnable Plan is refused, unrunnable Build skipped; only Orca's confirmed write proves the mode. */
+  /** Unrunnable Plan is refused, unrunnable Build skipped; only OpenKodo's confirmed write proves the mode. */
   needsInteractionMode(value: string): boolean {
     const write = this.write('interactionMode', value)
     return write?.method === 'config'

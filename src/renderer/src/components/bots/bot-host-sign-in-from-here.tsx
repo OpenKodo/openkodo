@@ -10,7 +10,7 @@ import {
 } from '@/lib/bot-host-orca-account'
 import { useBotHostHas, useBotHostVerified } from '@/lib/bot-host-status'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { ORCA_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY } from '../../../../shared/orca-account-runtime-capabilities'
+import { OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY } from '../../../../shared/orca-account-runtime-capabilities'
 
 /**
  * Whether Sign in on <server> can start here: 'start' only for a verified server that takes an
@@ -27,7 +27,7 @@ export type BotHostSignInFromHere =
 
 export function useBotHostSignInFromHere(hostId: ExecutionHostId): BotHostSignInFromHere {
   const verified = useBotHostVerified(hostId)
-  const approves = useBotHostHas(hostId, ORCA_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY)
+  const approves = useBotHostHas(hostId, OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY)
   const account = useBotHostOrcaAccount(hostId)
   const settled = useBotHostOrcaAccountSettled(hostId)
   if (!verified) {
@@ -69,7 +69,7 @@ export function BotHostSignInBlocked({
       <p>
         {t(
           'bots.host.signIn.unconfigured',
-          'Orca on {{host}} was built without Orca Cloud sign-in. Install Orca’s release build there to sign it in.',
+          'OpenKodo on {{host}} was built without cloud service sign-in. Install OpenKodo’s release build there to sign it in.',
           { host }
         )}
       </p>
@@ -78,7 +78,9 @@ export function BotHostSignInBlocked({
   if (why === 'unread') {
     return (
       <div className="flex flex-col gap-1">
-        <p>{t('bots.host.signIn.unread', 'Couldn’t read {{host}}’s Orca sign-in.', { host })}</p>
+        <p>
+          {t('bots.host.signIn.unread', 'Couldn’t read {{host}}’s OpenKodo sign-in.', { host })}
+        </p>
         <Button
           variant="outline"
           size="xs"
@@ -93,7 +95,7 @@ export function BotHostSignInBlocked({
   return (
     <>
       <p>
-        {t('bots.host.notice.cantSave', '{{host}} can’t save an Orca sign-in: {{reason}}', {
+        {t('bots.host.notice.cantSave', '{{host}} can’t save an OpenKodo sign-in: {{reason}}', {
           host,
           reason: why.cantSave
         })}
@@ -101,7 +103,7 @@ export function BotHostSignInBlocked({
       <p>
         {t(
           'bots.host.notice.cantSaveNext',
-          'Unlock or set up a keychain on {{host}} and restart Orca there, then sign it in here.',
+          'Unlock or set up a keychain on {{host}} and restart OpenKodo there, then sign it in here.',
           { host }
         )}
       </p>
@@ -113,7 +115,7 @@ export function BotHostSignInBlocked({
 export function signInUpdateFirst(host: string): string {
   return translate(
     'bots.host.signIn.updateFirst',
-    'Update Orca on {{host}}, then sign it in from here.',
+    'Update OpenKodo on {{host}}, then sign it in from here.',
     { host }
   )
 }

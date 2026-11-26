@@ -1,6 +1,7 @@
 import { writeSecureFileAsync } from '../../shared/secure-storage/secure-file-async-write'
 
-const ACCOUNT_CHANGED = 'The signed-in Orca account changed while the artifact request was running.'
+const ACCOUNT_CHANGED =
+  'The signed-in OpenKodo account changed while the artifact request was running.'
 
 /** Write a secure file only while `assertCurrent` passes: before the rename, after a durable write
  *  has waited for the disk, and once more when the write resolves, so a caller acting on the write

@@ -3,7 +3,7 @@ import type { RuntimeTerminalClose } from '../../../../shared/terminal/runtime/r
 import type { RuntimePtyTabCloseAuthority } from '../../terminal/records/runtime-terminal-state-records'
 import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree-path-identity'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LayoutApplyReply } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 import type { WindowLayoutCommand } from '../../terminal/layout/runtime-layout-apply'
 import { closeMainOwnedPaneByHandle } from '../layout/main-handle-close'
@@ -56,7 +56,7 @@ export abstract class OrcaRuntimeWithStopExplicitlyClosedTabPtys extends OrcaRun
   }
 
   async closeTerminal(handle: string): Promise<RuntimeTerminalClose> {
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       const mainClose = await closeMainOwnedPaneByHandle(
         {
           runtime: this,
@@ -255,7 +255,7 @@ export abstract class OrcaRuntimeWithStopExplicitlyClosedTabPtys extends OrcaRun
   }
 
   async closeTerminalTab(handle: string): Promise<RuntimeTerminalClose> {
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       const mainClose = await closeMainOwnedPaneByHandle(
         {
           runtime: this,

@@ -26,7 +26,7 @@ function manifest(version: string, extra: Record<string, unknown> = {}): PluginM
   return pluginManifestSchema.parse({
     manifestVersion: 2,
     id: 'orca-excalidraw',
-    publisher: 'stablyai',
+    publisher: 'openkodo',
     name: 'Excalidraw',
     version,
     execution: 'sandboxed-ui',
@@ -42,9 +42,9 @@ function manifest(version: string, extra: Record<string, unknown> = {}): PluginM
 const installedManifest = manifest('2.1.0')
 
 const installedExcalidraw: PluginHostListEntry = {
-  pluginKey: 'stablyai.orca-excalidraw',
+  pluginKey: 'openkodo.excalidraw',
   name: 'Excalidraw',
-  publisher: 'stablyai',
+  publisher: 'openkodo',
   version: '2.1.0',
   status: 'idle',
   execution: 'sandboxed-ui',
@@ -92,8 +92,8 @@ function preview(
 ): PluginMarketplaceHostInstallPreview {
   return {
     marketplaceSourceId: 'official',
-    marketplaceName: 'Orca Plugins',
-    marketplaceOwner: 'stablyai',
+    marketplaceName: 'OpenKodo Plugins',
+    marketplaceOwner: 'openkodo',
     marketplaceCommit: 'c',
     pluginKey: official ? entry.pluginKey : mermaidEntry.pluginKey,
     source: { kind: 'git', url: 'https://github.com/stablyai/orca-excalidraw.git', ref: 'v2.3.1' },

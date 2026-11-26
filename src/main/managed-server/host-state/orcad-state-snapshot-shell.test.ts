@@ -24,7 +24,7 @@ import { getRemoteHostPlatform } from '../../ssh/remote-host/ssh-remote-platform
 const posix = getRemoteHostPlatform('linux-x64')
 
 // Use /bin/sh to catch dash/BusyBox builtin differences from bash.
-const SHELL = process.env.ORCA_TEST_POSIX_SHELL ?? '/bin/sh'
+const SHELL = process.env.OPENKODO_TEST_POSIX_SHELL ?? '/bin/sh'
 
 async function sh(command: string, env?: NodeJS.ProcessEnv): Promise<string> {
   const result = await runProcess({

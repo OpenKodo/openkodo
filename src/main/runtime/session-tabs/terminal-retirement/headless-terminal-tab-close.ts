@@ -2,7 +2,7 @@ import type { RuntimeHeadlessTabProperties as HeadlessTabPropertiesMethods } fro
 import type { RuntimeHeadlessTabGroups as HeadlessTabGroupsMethods } from '../layout/headless-tab-group-moves'
 import type { RuntimeHeadlessTerminalTabTitles as PersistHeadlessTerminalTitleMethods } from '../publication/headless-terminal-tab-titles'
 import { OrcaRuntimeWithMainLayoutTabMoves } from '../layout/main-layout-session-tab-move'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type {
   RuntimeMobileSessionTabMove,
   RuntimeMobileSessionTabMoveResult,
@@ -214,7 +214,7 @@ export abstract class OrcaRuntimeWithCloseHeadlessMobileTerminalTab extends Orca
       ? (this.resolveMobileSessionHostTabId(snapshot, args.tabId) ?? args.tabId)
       : args.tabId
     // Main owns pane renames; pass only geometry onward.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       args = await this.nameMainPanes(worktreeId, hostTabId, args)
     }
     // Attached renderers own geometry; forward only explicitly renamed panes so stale resent maps cannot overwrite host names.

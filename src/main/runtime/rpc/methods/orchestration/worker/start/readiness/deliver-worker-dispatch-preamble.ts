@@ -50,7 +50,7 @@ export async function deliverWorkerDispatchPreamble(args: {
   structuredTurnStart?: WorkerTurnStartObservation
 }> {
   const { runtime, structuredSession, terminalHandle } = args
-  // A reused structured worker is a chat too, though its handle is not an Orca session ID.
+  // A reused structured worker is a chat too, though its handle is not an OpenKodo session ID.
   const chat = structuredSession
     ? null
     : chatAssigneeOf(resolveDispatchAssigneeParty(terminalHandle, args.db))
@@ -62,7 +62,7 @@ export async function deliverWorkerDispatchPreamble(args: {
     taskSpec: args.taskSpec,
     coordinatorHandle: orcaSessionIdOrHandle(args.coordinatorHandle, args.db),
     coordinatedFrom: args.db.getPeerRun(args.runId)?.home_label,
-    // Its mailbox stays keyed by the handle; its commands name its Orca session ID, which binds to it.
+    // Its mailbox stays keyed by the handle; its commands name its OpenKodo session ID, which binds to it.
     workerHandle:
       structuredSession && isOrcaSessionId(structuredSession.identity.sessionId)
         ? formatOrcaSessionAddress(canonicalOrcaSessionId(structuredSession.identity.sessionId))
@@ -107,9 +107,9 @@ export async function deliverWorkerDispatchPreamble(args: {
                 verdict: 'unobserved',
                 agentStarting: true,
                 reason:
-                  "The worker's agent hasn't finished starting. Orca holds the task and hands it " +
+                  "The worker's agent hasn't finished starting. OpenKodo holds the task and hands it " +
                   `over once the agent is up. If the start fails, or the agent isn't up within ${agentStartCeilingText()}, ` +
-                  'Orca sends an error report.'
+                  'OpenKodo sends an error report.'
               }
             : {
                 verdict: 'unobserved',
@@ -150,7 +150,7 @@ export async function deliverWorkerDispatchPreamble(args: {
   }
 }
 
-/** The startup ceiling after which Orca fails a structured agent's start, as a person reads it. */
+/** The startup ceiling after which OpenKodo fails a structured agent's start, as a person reads it. */
 export function agentStartCeilingText(): string {
   const minutes = STRUCTURED_AGENT_SESSION_STARTUP_CEILING_MS / 60_000
   return Number.isInteger(minutes)

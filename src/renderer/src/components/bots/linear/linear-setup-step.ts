@@ -13,7 +13,7 @@ export type BotLinearSetupStep =
   /** Linked in several workspaces the bot is not in: the owner picks one, or adds another. */
   | { kind: 'pick'; workspaces: ConnectorLinearWorkspace[] }
   | { kind: 'waiting' }
-  /** Linked, but no admin has installed Orca in the workspace yet. */
+  /** Linked, but no admin has installed OpenKodo in the workspace yet. */
   | { kind: 'needs-admin'; workspace: ConnectorLinearWorkspace; installUrl: string }
   | { kind: 'turn-on'; workspace: ConnectorLinearWorkspace }
   | { kind: 'done' }

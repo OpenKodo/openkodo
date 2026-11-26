@@ -52,7 +52,7 @@ const builder = bot('builder', 'Builder bot 1')
 const paused = bot('paused', 'Disk Space', { paused: true })
 const docs = bot('docs', 'Docs bot')
 const linear = bot('linear', 'Triage bot')
-const replying = bot('replying', 'Orca bot')
+const replying = bot('replying', 'OpenKodo bot')
 const cos = bot('cos', 'CoS')
 const quiet = bot('quiet', 'Quarterly planning and investor update assistant')
 
@@ -245,7 +245,7 @@ const CASES: [string, number, React.ReactNode][] = [
   ['Working in its Chat', 280, row(triage, { isActive: true })],
   ['3 threads, one unread', 280, releaseRow],
   [
-    'Slack thread, latest turn typed in Orca',
+    'Slack thread, latest turn typed in OpenKodo',
     280,
     row(release, {
       home: home(release, {

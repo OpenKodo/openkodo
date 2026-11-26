@@ -1,11 +1,11 @@
 import zoomLogo from '@/assets/connector-brands/zoom.png'
 
 // The tile each logo is drawn on, where it isn't the plain white one: the colour the brand itself sits on.
-// `brand`: Orca's bundled marks, by connector or BOT_MCP_APPS id, drawn mark-sized on the tile.
+// `brand`: OpenKodo's bundled marks, by connector or BOT_MCP_APPS id, drawn mark-sized on the tile.
 // `composio`: logos Composio serves that are a full square of one colour (Composio's own is black),
 // drawn edge to edge so the square is the tile rather than a small square on white. A square with see-through
 // holes (Trello's columns) gets the colour the holes should show: white.
-// `filled`: full-square app icons Orca bundles in place of the logo Composio serves (Zoom's is a small round mark).
+// `filled`: full-square app icons OpenKodo bundles in place of the logo Composio serves (Zoom's is a small round mark).
 // Ids appear in both because the two images differ: Composio's Stripe is a purple square, ours a purple mark.
 
 /** The near-black tile a white monochrome mark is drawn on. */

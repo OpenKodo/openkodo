@@ -169,7 +169,7 @@ overrides:
 
 packageExtensionsChecksum: sha256-TrarseUCmMKP0lVjkfyLP2TAvkGZMZzvzPxjKY48nrY=
 
-pnpmfileChecksum: sha256-6l6qdgUHKyTLYIQLx/UGfGRnEiFXxIaSlGMgK4mttEw=
+pnpmfileChecksum: sha256-aYXQvPh7w6SEE3e818jit/Sx1PICUUP9PDRfgDJo6Cg=
 
 patchedDependencies:
   '@radix-ui/react-collapsible@1.1.20': 0a7d7ed8025eb36c149a62238cb71a4eff052e8f159b60414d5946776e134f62

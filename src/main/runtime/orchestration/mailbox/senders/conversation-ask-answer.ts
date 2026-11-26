@@ -36,7 +36,7 @@ const sameSession = (a: string, b: string): boolean =>
     isOrcaSessionId(b) &&
     canonicalOrcaSessionId(a) === canonicalOrcaSessionId(b))
 
-/** Whether Orca's item mail carries the owner's answer to a question the reading chat asked; item
+/** Whether OpenKodo's item mail carries the owner's answer to a question the reading chat asked; item
  *  mail answers no request, so this is its whole check. */
 function answersItemAsk(payloadText: string | null, readerSessionId: string): boolean {
   if (!payloadText) {

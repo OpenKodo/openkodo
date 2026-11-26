@@ -127,7 +127,7 @@ function normalizeToolUpdate(update: ToolCallUpdate): ToolCallUpdate {
 const compactionMarkerSchema = z.object({
   status: z.enum(['started', 'completed', 'failed']),
   messageId: z.string(),
-  // Only the /compact Orca sent; an auto-compaction from a queued prompt reports in the same drain.
+  // Only the /compact OpenKodo sent; an auto-compaction from a queued prompt reports in the same drain.
   reason: z.literal('manual'),
   error: z.looseObject({ type: z.string(), message: z.string() }).optional().catch(undefined)
 })

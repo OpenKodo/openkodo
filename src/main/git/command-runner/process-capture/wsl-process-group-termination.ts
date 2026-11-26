@@ -20,7 +20,7 @@ export type WslProcessGroupTermination = ProcessTerminationBarrier & {
 }
 
 export function createWslProcessGroupTermination(distro: string): WslProcessGroupTermination {
-  const marker = `__ORCA_WSL_PROCESS_GROUP_${randomUUID()}__=`
+  const marker = `__OPENKODO_WSL_PROCESS_GROUP_${randomUUID()}__=`
   let processGroupId: number | null = null
   // When the guest proved it ran; a 'stopped' read probed before then cannot prove the group ended.
   let groupObservedAt = -Infinity

@@ -56,7 +56,7 @@ function readStore(mode, commit) {
     cwd: ROOT,
     timeoutMs: 10_000,
     maxOutputBytes: 1024 * 1024,
-    env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+    env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
   })
   assert.equal(result.code, 0, `${mode}: ${result.stderr}`)
   return result.stdout

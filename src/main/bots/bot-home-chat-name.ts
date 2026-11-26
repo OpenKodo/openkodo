@@ -8,7 +8,7 @@ import { createCanonicalOrcaSessionResolver } from '../runtime/orchestration/add
 /** The Chat's tab name. */
 export const BOT_CHAT_NAME = 'Home'
 
-/** A chat Orca named Home: the bot's Chat, or one replaced before replaced Homes were renamed. */
+/** A chat OpenKodo named Home: the bot's Chat, or one replaced before replaced Homes were renamed. */
 export function bearsBotHomeName(conversation: {
   conversationName?: string
   conversationNameSource?: 'user'

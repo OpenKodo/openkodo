@@ -1,4 +1,4 @@
-// One Orca address per Composio project: the "Composio events" hook. Composio sends every bot's
+// One OpenKodo address per Composio project: the "Composio events" hook. Composio sends every bot's
 // events there, and the host hands each call to the bot automation it's for, by the Composio user it
 // names (orca-bot-<id>) and that automation's own filter. Adding a bot never takes another's events.
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -145,7 +145,7 @@ export function routeComposioCall(
   return target ? { kind: 'automation', automationId: target.id } : { kind: 'none' }
 }
 
-/** `<base>/hooks/<hook id>/<key>`: the hook id, when the address is one of Orca's hooks. */
+/** `<base>/hooks/<hook id>/<key>`: the hook id, when the address is one of OpenKodo's hooks. */
 export function composioHookIdOf(url: string): string | null {
   const parts = url.split('/')
   return parts.at(-3) === 'hooks' ? (parts.at(-2) ?? null) : null

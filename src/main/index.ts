@@ -1,3 +1,4 @@
+import '../shared/env/legacy-brand-env-auto'
 import { app, clipboard, dialog, type BrowserWindow } from 'electron'
 import { isRoutedOrcaDeepLink } from './startup/open-routing/orca-deep-link-url'
 import { createMacAppActivationHandler } from './window/activation/macos-app-activation'
@@ -50,6 +51,7 @@ import { configureWslHostsGateFromDisk } from './wsl/host-lifecycle/wsl-host-gat
 import { configureRemoteRuntimeE2EEV2HostLatch } from '../shared/remote-runtime/e2ee/node/remote-runtime-e2ee-v2-host-latch'
 import { ignoreInheritedWslHostsGateState } from '../shared/remote-runtime/wsl-hosts/wsl-host-internal-gate'
 import { registerOrcaProtocolClient } from './startup/open-routing/orca-protocol-registration'
+import { resolveOpenKodoHome } from '../shared/home/openkodo-home'
 import {
   completeOpenKodoProtocol,
   openKodoHandoffCode,
@@ -110,7 +112,7 @@ function requestDesktopActivation(argv: readonly string[] = []): void {
   const openkodoCode = openKodoHandoffFromArgs(argv)
   if (openkodoCode && !isOrcadSidecarLaunch()) {
     void completeOpenKodoProtocol(
-      `orca://openkodo/connect?code=${encodeURIComponent(openkodoCode)}`
+      `openkodo://openkodo/connect?code=${encodeURIComponent(openkodoCode)}`
     )
       .then(() => focusExistingWindow())
       .catch(() => undefined)
@@ -167,7 +169,7 @@ const handleMacAppActivation = createMacAppActivationHandler({
   requestActivation: requestDesktopActivation
 })
 
-// Before anything spawns: no child may inherit Orca's std handles.
+// Before anything spawns: no child may inherit OpenKodo's std handles.
 clearWindowsStdHandleInheritance()
 installWindowsIsolatedSpawner()
 // A relaunch or installer inherits the parent's published WSL gate state; this process recomputes.
@@ -196,7 +198,7 @@ if (preflightReady) {
     void readWslInstallation()
   }
   app.on('open-url', (event, url) => {
-    // orca://openkodo/connect — the browser just finished auth for this app.
+    // openkodo://openkodo/connect — the browser just finished auth for this app.
     if (openKodoHandoffCode(url)) {
       event.preventDefault()
       void completeOpenKodoProtocol(url)
@@ -233,6 +235,7 @@ if (preflightReady) {
   installMainProcessQuitHandlers()
   void app.whenReady().then(async () => {
     try {
+      await resolveOpenKodoHome()
       await wslHostsGateReady
       await initializeMainProcessReady({
         openMainWindow,
@@ -241,7 +244,7 @@ if (preflightReady) {
     } catch (error) {
       const detail = error instanceof Error ? error.message : String(error)
       const message =
-        formatProfileStateStartupFailure(error) ?? `Orca could not finish starting: ${detail}`
+        formatProfileStateStartupFailure(error) ?? `OpenKodo could not finish starting: ${detail}`
       const failureClass = profileStateStartupFailureClass(error)
       if (failureClass !== undefined) {
         recordDurableCrashBreadcrumb('profile_state_startup_failed', {
@@ -302,7 +305,7 @@ if (preflightReady) {
               formatProfileStateStartupFailure(error, translateMain) ??
               translateMain(
                 'startupFailure.finishFailed',
-                'Orca could not finish starting: {{detail}}',
+                'OpenKodo could not finish starting: {{detail}}',
                 { detail }
               ),
             ...(failureClass === 'recovery-required' || failureClass === 'ambiguous-authority'

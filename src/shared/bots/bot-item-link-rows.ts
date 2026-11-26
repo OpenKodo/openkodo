@@ -31,7 +31,7 @@ export type BotItemLinkRow =
       title: string
       /** The hover tooltip: the domain. */
       tip: string
-      /** A Linear issue's identifier: listed with the PRs and issues, titled when Orca has read it. */
+      /** A Linear issue's identifier: listed with the PRs and issues, titled when OpenKodo has read it. */
       linear: string | null
     }
   | { kind: 'file'; key: string; path: string; name: string }

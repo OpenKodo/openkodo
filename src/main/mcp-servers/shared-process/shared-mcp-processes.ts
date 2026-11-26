@@ -184,7 +184,7 @@ export class SharedMcpProcesses {
     )
   }
 
-  /** Orca is quitting: every child is killed now. */
+  /** OpenKodo is quitting: every child is killed now. */
   close(): void {
     for (const process of this.running.values()) {
       process.stop(true)

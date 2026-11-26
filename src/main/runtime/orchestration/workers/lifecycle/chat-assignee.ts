@@ -1,7 +1,7 @@
 import type { SessionPartyReader } from '../../addressing/session-party-reader'
 import type { AgentSessionConversationView } from '../../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
 import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
 
 import type { OrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -74,11 +74,11 @@ export function observeChatAssignee(
   }
 }
 
-/** A worker whose chat closed: its mailbox handle and, for a worker Orca started, its pane. */
+/** A worker whose chat closed: its mailbox handle and, for a worker OpenKodo started, its pane. */
 export type ClosedChatWorker = { handle: string; paneKey: string | null }
 
 /** Workers whose chat is this hidden session, once its exit is proven: chat assignees with an unsettled
- *  Dispatch, and the worker Orca started in it. Other closes may roll back; a /clear successor keeps the work. */
+ *  Dispatch, and the worker OpenKodo started in it. Other closes may roll back; a /clear successor keeps the work. */
 export function closedChatWorkersForSession(
   hiddenSessionId: string,
   db: OrchestrationDb,
@@ -92,7 +92,7 @@ export function closedChatWorkersForSession(
       `SELECT ${DISPATCH_CONTEXT_COLUMN_LIST} FROM dispatch_contexts
         WHERE status IN ('pending', 'dispatched') AND substr(assignee_handle, 1, ?) = ?`
     )
-    .all(ORCA_SESSION_ADDRESS_PREFIX.length, ORCA_SESSION_ADDRESS_PREFIX)
+    .all(OPENKODO_SESSION_ADDRESS_PREFIX.length, OPENKODO_SESSION_ADDRESS_PREFIX)
   const closed: ClosedChatWorker[] = []
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: The schema-pinned complete Dispatch projection returns Dispatch rows; the adapter exposes unknown.
   for (const dispatch of rows as DispatchContextRow[]) {

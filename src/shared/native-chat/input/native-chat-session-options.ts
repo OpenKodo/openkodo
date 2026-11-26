@@ -128,7 +128,7 @@ export type NativeChatSessionOptionSettingsMutation =
     }
   | { type: 'clear-model-if-missing'; agent: AgentType; availableModelIds: readonly string[] }
 
-/** The user's own CLI on the chat's host, too old for models on Orca's list. */
+/** The user's own CLI on the chat's host, too old for models on OpenKodo's list. */
 export type SessionOptionsCliUpdate = {
   agent: AgentCliUpdateAgent
   /** Newest first. */
@@ -143,7 +143,7 @@ export type SessionOptionsCliUpdate = {
 
 export type SessionOptionsSurface = {
   demandModelCatalog?: () => void
-  /** Absent for Orca's own CLI copy and a Command override, and while no listed model needs an update. */
+  /** Absent for OpenKodo's own CLI copy and a Command override, and while no listed model needs an update. */
   cliUpdate?: SessionOptionsCliUpdate
   /** Live local admission for a structured action, before consuming its composer trigger. */
   admits?: (id: string, value: SessionOptionValue) => boolean

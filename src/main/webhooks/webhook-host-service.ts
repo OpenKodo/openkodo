@@ -138,12 +138,12 @@ export class WebhookHostService {
     this.sweep.stop()
   }
 
-  /** Signed out of Orca, so no event or webhook call reaches this host's bots. */
+  /** Signed out of OpenKodo, so no event or webhook call reaches this host's bots. */
   signedOut(): boolean {
     return orcaCloudNeedsSignIn(this.deps.cloud()?.status?.())
   }
 
-  /** Whether this host's Orca Cloud takes webhooks; until a hello says, assume it does and let the mint decide. */
+  /** Whether this host's OpenKodo Cloud takes webhooks; until a hello says, assume it does and let the mint decide. */
   advertised(): boolean {
     return this.deps.cloud()?.cloudFeatures()?.has(CLOUD_WEBHOOKS_FEATURE) ?? true
   }
@@ -291,7 +291,7 @@ export class WebhookHostService {
     })
   }
 
-  /** The key, for Orca's UI alone. */
+  /** The key, for OpenKodo's UI alone. */
   async reveal(hookId: string): Promise<WebhookKey> {
     this.automationOf(hookId)
     const hook = webhookReadValue(await this.routes.get(hookId))

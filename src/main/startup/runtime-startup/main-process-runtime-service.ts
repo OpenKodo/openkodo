@@ -52,7 +52,7 @@ import {
 import { bindTerminalPaneStatusLifecycle } from '../../ipc/pty/pane/terminal-pane-status-lifecycle'
 import { startAgentStateRulesLiveUpdates } from '../../runtime/agent-state-rules/agent-state-rules-live-update'
 import { recordDurableCrashBreadcrumb } from '../../crash-reporting/breadcrumbs/durable-crash-breadcrumb'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { installLegacyJournalRetirementReporting } from '../../native-chat/agent-session-journal/journal-legacy-retirement-reporting'
 import { providePairedDesktopComputerName } from '../../ipc/runtime-environments/connections/paired-desktop-account-declaration'
 
@@ -152,7 +152,7 @@ export function initializeMainProcessRuntime(
   agentHookServer.setCliWriterExecutionMatcher(observedPaneIdentities, runtime)
   agentHookServer.setClaudePermissionHolds(runtime.terminalWorkerApprovals)
   // Main records pane resume state from accepted status.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     agentHookServer.subscribeEnrichedStatus((enriched) =>
       runtime.recordHookStatusResume(toAgentStatusIpcPayload(enriched))
     )

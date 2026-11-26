@@ -48,7 +48,7 @@ import type { NotificationSettings } from '../../../../shared/notifications/noti
 import { projectSourceControlLaunchRecipes } from './runtime-client-source-control-ai-projection'
 import { projectHostOwnedSettings } from '../../../../shared/settings/host-owned-settings'
 
-/** Which Orca cloud services this host registered; headless hosts register none. */
+/** Which OpenKodo cloud services this host registered; headless hosts register none. */
 export type RuntimeSharingServicePresence = {
   artifacts(): boolean
   skills(): boolean

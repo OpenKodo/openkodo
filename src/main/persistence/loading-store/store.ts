@@ -17,7 +17,7 @@ import {
   type StoreDomainOperations
 } from './store-domain-composition'
 import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { dropInvalidWorkspaceLayoutsAtLoad } from '../restoring-sessions/invalid-workspace-layout-purge'
 import {
   bindPersistedTabTerminalPanes,
@@ -143,7 +143,7 @@ export class Store {
     this.domains.adaptation.hydrateFolderWorkspaceDiffComments()
     // Removal paths require registration; load must sweep residue whose owning repo is already gone.
     const sweptRepoIds = this.domains.repos.sweepDeregisteredRepoResidue()
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       dropInvalidWorkspaceLayoutsAtLoad(this, this.state)
       this.state = bindPersistedTabTerminalPanes(sweepPersistedUnattachedTerminalRows(this.state))
       this.runtime.state = this.state

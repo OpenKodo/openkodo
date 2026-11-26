@@ -11,12 +11,12 @@ import {
 import type { ProjectExecutionRuntimeResolution } from '../../../../../shared/execution-host/project-execution-runtime'
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 
-/** The host whose Orca skills the Update dialog, badge and nudge plan and update. */
+/** The host whose OpenKodo skills the Update dialog, badge and nudge plan and update. */
 export type BundledSkillTarget =
   | { kind: 'local'; agent?: SkillInstallProviderId }
   /** A paired server or the managed server on an SSH host; it plans its own disk. */
   | { kind: 'environment'; environmentId: string }
-  /** An SSH host no Orca server serves yet: nothing can plan it until it connects. */
+  /** An SSH host no OpenKodo server serves yet: nothing can plan it until it connects. */
   | { kind: 'ssh'; targetId: string }
 
 /** Keys runs and nudge dismissals, so one host's result never reads as another's. */

@@ -1,4 +1,4 @@
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { TerminalIdentityReadContext } from '../../../terminal/query/terminal-identity-read-context'
 import { ptyRecordForPaneKey } from '../../../terminal/query/pty-pane-record'
 import type { RuntimeTerminalAgentPresenceOptions } from '../../../terminal/query/runtime-terminal-agent-presence'
@@ -54,7 +54,7 @@ export abstract class OrcaRuntimeWithGetPtyRecordForPaneKey extends OrcaRuntimeW
         ptys: this.ptysById,
         leafKey: (tab, leaf) => this.getLeafKey(tab, leaf),
         capturePaneOf: () => this.captureTerminalPaneReader(),
-        ...(!ORCA_LAYOUT_OWNER_IS_MAIN
+        ...(!OPENKODO_LAYOUT_OWNER_IS_MAIN
           ? {
               paneOf: (pty: Parameters<typeof this.paneOfPty>[0]) => this.paneOfPty(pty),
               leavesForId: (id: string) => this.terminalIdentity.paneCandidates.leavesForId(id),

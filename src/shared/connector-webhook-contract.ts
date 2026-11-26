@@ -104,7 +104,7 @@ export const WebhookCallFields = z.object({
   callId: z.string().regex(WEBHOOK_CALL_ID_PATTERN),
   /** The hook's lifecycle generation at admission; this machine refuses one below its own. */
   epoch: z.number().int().nonnegative(),
-  // Always 1; sent for older Orca, unread here.
+  // Always 1; sent for older OpenKodo, unread here.
   hostGen: z.number().int().nonnegative().optional(),
   sample: z.literal(true).optional()
 })

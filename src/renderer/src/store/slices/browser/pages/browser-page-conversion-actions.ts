@@ -6,7 +6,7 @@ import { runtimeEnvironmentIdOrLocalUnlessTwin } from '@/lib/workspace/ownership
 import { closeRemoteBrowserPageInOwningEnvironment } from '../hosts/browser-remote-close'
 import { releaseDocPreviewGrant } from '@/lib/browser/documents/doc-preview-grants'
 import { isLocalBrowserPageOwner } from '../hosts/browser-host-state'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import { sendBrowserLayoutCommand } from '../tabs/browser-layout-owner-commands'
 import type {
   BrowserSlice,
@@ -132,7 +132,7 @@ export function createBrowserPageConversionActions(
         return newPage
       }
       // Switch point: main puts the new page in the old one's place; the page shows once it did.
-      const sentPlan = ORCA_LAYOUT_OWNER_IS_MAIN
+      const sentPlan = OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? planBrowserPageConversion(get(), pageId, target, options)
         : null
       if (

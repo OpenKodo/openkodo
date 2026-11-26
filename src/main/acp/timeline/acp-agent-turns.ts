@@ -58,7 +58,7 @@ export class AcpAgentTurns {
     return this.tools.running(this.open) ? 'running' : 'none'
   }
 
-  /** A normal end with calls still running means the agent backgrounded them; after Orca's own
+  /** A normal end with calls still running means the agent backgrounded them; after OpenKodo's own
    *  cancel they were stopped, not backgrounded. */
   background(turn: string, ending: AcpTurnEnding, thread: string): ProviderTimelineEvent[] {
     if (

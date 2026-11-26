@@ -36,7 +36,7 @@ export async function writeOwnerToolShims(dir: string): Promise<void> {
       : `echo "${tool} is not available here." >&2\nexit 127`
     await writeFile(
       shim,
-      `#!/bin/sh\necho '{"kind":"owner-tool","tool":"${tool}"}' >> "$ORCA_EVAL_LOG"\n${answer}\n`
+      `#!/bin/sh\necho '{"kind":"owner-tool","tool":"${tool}"}' >> "$OPENKODO_EVAL_LOG"\n${answer}\n`
     )
     await chmod(shim, 0o755)
   }

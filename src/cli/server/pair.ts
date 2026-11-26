@@ -15,7 +15,7 @@ import {
 async function callerTerminal(
   client: RuntimeClient
 ): Promise<Pick<PairingCreateOfferParams, 'callerTerminalHandle'>> {
-  const handle = process.env.ORCA_TERMINAL_HANDLE
+  const handle = process.env.OPENKODO_TERMINAL_HANDLE
   if (!handle) {
     return {}
   }
@@ -34,10 +34,10 @@ export function formatPairingOffer(offer: PairingCreateOfferResult): string {
     if (offer.qr) {
       lines.push(offer.qr.trimEnd(), '')
     }
-    lines.push('Scan with Orca Mobile (Pair), or paste this link:', offer.pairingUrl)
+    lines.push('Scan with OpenKodo Mobile (Pair), or paste this link:', offer.pairingUrl)
   } else {
     lines.push(
-      'Paste this link in Orca: Settings → Remote Orca Servers → Add Server.',
+      'Paste this link in OpenKodo: Settings → Remote OpenKodo Servers → Add Server.',
       offer.pairingUrl
     )
     if (offer.webClientUrl) {
@@ -47,7 +47,7 @@ export function formatPairingOffer(offer: PairingCreateOfferResult): string {
   if (offer.endpoint) {
     lines.push('', `The client will connect to ${offer.endpoint}.`)
   }
-  lines.push('Treat the link like a password: it grants access to this Orca.')
+  lines.push('Treat the link like a password: it grants access to this OpenKodo.')
   return lines.join('\n')
 }
 

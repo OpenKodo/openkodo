@@ -11,9 +11,9 @@ type HostBotsEntry = {
   statusByBotId: ReadonlyMap<string, BotRowStatus>
   /** Each bot's Needs you items that aren't stale, by bot id; empty from an older host. */
   needsYou: Readonly<Record<string, number>>
-  /** This host's Orca Cloud link. A list that omits it clears a status kept from an older read. */
+  /** This host's OpenKodo Cloud link. A list that omits it clears a status kept from an older read. */
   connectorStatus?: ConnectorCloudStatus
-  /** Its Orca Cloud answers an event in that event's thread; false from an older host. */
+  /** Its OpenKodo Cloud answers an event in that event's thread; false from an older host. */
   threadReplies: boolean
 }
 

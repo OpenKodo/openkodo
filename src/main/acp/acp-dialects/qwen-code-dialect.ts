@@ -42,7 +42,7 @@ function normalizeToolUpdate(update: ToolCallUpdate): ToolCallUpdate {
   }
 }
 
-// After each tool Qwen asks for prompts queued mid-turn; Orca queues follow-ups until the turn ends.
+// After each tool Qwen asks for prompts queued mid-turn; OpenKodo queues follow-ups until the turn ends.
 // A finished background task asks to start the turn that reports it.
 function settleRequest(method: string): AcpRequestSettlement | undefined {
   return method === 'craft/drainMidTurnQueue'
@@ -60,7 +60,7 @@ export const QWEN_CODE_ACP_DIALECT: AcpDialect = {
   request: qwenCodeQuestionRequest,
   reactiveWakeups: true,
   compactCommand: '/compress',
-  // Orca's /compact runs /compress, and /clear (also /reset, /new) would empty the session under
+  // OpenKodo's /compact runs /compress, and /clear (also /reset, /new) would empty the session under
   // the chat's transcript.
   withheldCommands: ['compress', 'clear', 'reset', 'new']
 }

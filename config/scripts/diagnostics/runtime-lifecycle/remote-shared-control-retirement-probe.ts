@@ -10,17 +10,17 @@ import type { MemorySnapshot } from '../../../../src/shared/diagnostics/process-
 import type { RuntimeStatus } from '../../../../src/shared/remote-runtime/session-graph/runtime-session-contracts'
 
 async function main(): Promise<void> {
-  const environmentName = process.env.ORCA_PROBE_ENVIRONMENT_NAME
+  const environmentName = process.env.OPENKODO_PROBE_ENVIRONMENT_NAME
   if (!environmentName) {
-    throw new Error('ORCA_PROBE_ENVIRONMENT_NAME is required')
+    throw new Error('OPENKODO_PROBE_ENVIRONMENT_NAME is required')
   }
   const userDataPath = getDefaultUserDataPath()
   const environment = await resolveEnvironment(userDataPath, environmentName)
   const pairing = await resolveEnvironmentPairingOffer(userDataPath, environment.id)
-  const cycles = readProbeInteger('ORCA_PROBE_CYCLES', 10, 100)
-  const concurrency = readProbeInteger('ORCA_PROBE_CONCURRENCY', 25, 200)
-  const settleMs = readProbeInteger('ORCA_PROBE_SETTLE_MS', 250, 5_000)
-  const cleanupTimeoutMs = readProbeInteger('ORCA_PROBE_CLEANUP_TIMEOUT_MS', 10_000, 30_000)
+  const cycles = readProbeInteger('OPENKODO_PROBE_CYCLES', 10, 100)
+  const concurrency = readProbeInteger('OPENKODO_PROBE_CONCURRENCY', 25, 200)
+  const settleMs = readProbeInteger('OPENKODO_PROBE_SETTLE_MS', 250, 5_000)
+  const cleanupTimeoutMs = readProbeInteger('OPENKODO_PROBE_CLEANUP_TIMEOUT_MS', 10_000, 30_000)
   const unknownResponses = new Map<string, number>()
   const originalWarn = console.warn
   console.warn = (message?: unknown, details?: unknown): void => {

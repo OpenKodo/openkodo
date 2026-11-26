@@ -81,7 +81,7 @@ async function stillRunning(
       return running
     }
   }
-  throw new Error('codex app-server listed more background terminals than Orca reads')
+  throw new Error('codex app-server listed more background terminals than OpenKodo reads')
 }
 
 /** Every background terminal a thread still runs; none once the thread is unloaded (which ends

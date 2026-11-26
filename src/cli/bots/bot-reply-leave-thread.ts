@@ -1,5 +1,5 @@
 // `orca bot reply --leave-thread`: the bot stops being woken in its Slack thread until someone
-// @mentions it. Orca checks who asked and posts the confirmation; this only says how it went.
+// @mentions it. OpenKodo checks who asked and posts the confirmation; this only says how it went.
 import { readInjectedAgentSessionId } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import type { HandlerContext } from '../dispatch/dispatch'
 import { printResult } from '../output/command-result-output'
@@ -40,6 +40,6 @@ export async function leaveThread({
   printResult(left, json, (value) =>
     value.already
       ? "You'd already left this thread."
-      : "Left this thread. Orca will post the confirmation; don't repeat it."
+      : "Left this thread. OpenKodo will post the confirmation; don't repeat it."
   )
 }

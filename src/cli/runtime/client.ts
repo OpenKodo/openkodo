@@ -73,8 +73,10 @@ export class RuntimeClient {
   constructor(
     userDataPath = getDefaultUserDataPath(),
     private readonly requestTimeoutMs = 60_000,
-    remotePairingCode = process.env.ORCA_PAIRING_CODE ?? process.env.ORCA_REMOTE_PAIRING ?? null,
-    environmentSelector = process.env.ORCA_ENVIRONMENT ?? null,
+    remotePairingCode = process.env.OPENKODO_PAIRING_CODE ??
+      process.env.OPENKODO_REMOTE_PAIRING ??
+      null,
+    environmentSelector = process.env.OPENKODO_ENVIRONMENT ?? null,
     private readonly cliExecutable = resolveOrchestrationCliExecutable(),
     originalArgs?: readonly string[]
   ) {
@@ -300,7 +302,7 @@ export class RuntimeClient {
     if (!response.result.capabilities?.includes(ORCHESTRATION_CONTRACT_RUNTIME_CAPABILITY)) {
       throw new RuntimeClientError(
         'orchestration_migration_required',
-        'The connected Orca runtime does not support the current orchestration contract. No effects were applied.',
+        'The connected OpenKodo runtime does not support the current orchestration contract. No effects were applied.',
         orchestrationMigrationData('runtime_capability_missing')
       )
     }

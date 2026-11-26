@@ -7,9 +7,9 @@ import type { ConnectorTransport } from './connector-machine'
  *  count, so the events outbox and other calls never make one. */
 export type ConnectorBack = 'recovered' | 'answered' | 'signedIn'
 
-/** Whether the running poll's calls reach Orca Cloud, and what the cloud says when it refuses them. */
+/** Whether the running poll's calls reach OpenKodo Cloud, and what the cloud says when it refuses them. */
 export class ConnectorReach {
-  // The running poll's last call got no answer from Orca Cloud, or a 5xx.
+  // The running poll's last call got no answer from OpenKodo Cloud, or a 5xx.
   unreachable = false
   // The cloud's words on the running poll's last refused call, e.g. too many machines on the account.
   refusal: string | null = null
@@ -53,7 +53,7 @@ export class ConnectorReach {
     }
   }
 
-  /** The poll's calls say whether Orca Cloud answers; a call cut short by a stop says nothing. */
+  /** The poll's calls say whether OpenKodo Cloud answers; a call cut short by a stop says nothing. */
   tracked(transport: ConnectorTransport): ConnectorTransport {
     return {
       call: async (path, body, schema, options) => {

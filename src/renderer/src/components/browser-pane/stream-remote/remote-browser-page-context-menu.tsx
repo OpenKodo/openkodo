@@ -45,7 +45,7 @@ export function useRemoteBrowserPageContextMenu({
   setPaneNotice
 }: {
   busy: boolean
-  /** The forwarded right press is the page tool's; Orca's menu would cover what it picks. */
+  /** The forwarded right press is the page tool's; OpenKodo's menu would cover what it picks. */
   pagePointerOwned: boolean
   hostContextMenus: RemoteBrowserHostContextMenus
   browserTabUrl: string

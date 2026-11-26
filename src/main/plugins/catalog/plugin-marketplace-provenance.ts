@@ -41,7 +41,7 @@ export function validateMarketplaceProvenance(
     }
     if (!official) {
       throw new Error(
-        `${entry.id} uses a name reserved for official Orca plugins; only Orca's official catalog may list it`
+        `${entry.id} uses a name reserved for official OpenKodo plugins; only OpenKodo's official catalog may list it`
       )
     }
     if (!isOfficialOrganizationGitSource(entry.source.url)) {

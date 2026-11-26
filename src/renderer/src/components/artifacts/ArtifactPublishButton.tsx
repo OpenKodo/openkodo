@@ -8,7 +8,7 @@ import { useTranslate } from '@/i18n/use-translate'
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '@/store/index'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
 import { ArtifactPublishedLinkPanel } from './ArtifactPublishedLinkPanel'
 import { getPublishedArtifactLink } from './artifact-published-link-client'
 import { publishArtifactFromSurface } from './artifact-publish-flow'
@@ -61,7 +61,7 @@ export function ArtifactPublishButton({
   const openSettingsTarget = useAppStore((state) => state.openSettingsTarget)
   const settings = useAppStore((state) => state.settings)
   const signedIn = authStatus?.state === 'connected'
-  const teamBlocked = useOrcaTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)
+  const teamBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)
   const sharingEnabled = !teamBlocked && settings?.artifactSharingEnabled === true
   const accountKey =
     authStatus?.state === 'connected'
@@ -234,7 +234,7 @@ export function ArtifactPublishButton({
                 <p className="text-xs font-medium">
                   {t(
                     'auto.components.artifacts.ArtifactPublishButton.accountTitle',
-                    'Orca account'
+                    'OpenKodo account'
                   )}
                 </p>
                 <p className="text-[11px] leading-4 text-muted-foreground">

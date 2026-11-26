@@ -38,7 +38,7 @@ export type ClaudeTurnOrder = {
 }
 
 /**
- * Claude does not wait for Orca's UserPromptSubmit hook, so its post can land after later events of its turn.
+ * Claude does not wait for OpenKodo's UserPromptSubmit hook, so its post can land after later events of its turn.
  * The turn is Claude's prompt_id instead: the first admitted main-agent event with an unseen one opens the turn, and
  * that turn's prompt event, late or typed mid-turn, is renamed so nothing treats it as a turn start. Returns null for a
  * prompt event from a session the pane already left. Call only for admitted events.
@@ -127,7 +127,7 @@ function orderClaudeTurn(
   }
   turns.turnIds = [...turns.turnIds, promptId].slice(-TURN_IDS_PER_SESSION)
   turns.promptArrived = isPrompt
-  // Spool replay before live events restates recorded turns in order; the pane's first observed event (Orca started
+  // Spool replay before live events restates recorded turns in order; the pane's first observed event (OpenKodo started
   // mid-turn) cannot tell a new turn from a running one. Neither opens a turn.
   return { eventName, opensTurn: known !== undefined && !isReplay, turnKey: promptId }
 }

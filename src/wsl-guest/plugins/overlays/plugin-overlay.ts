@@ -36,8 +36,8 @@ const PI_OVERLAY_SUBDIR_BY_KIND: Record<LegacyOverlayAgentKind, string> = {
 }
 const OPENCODE_PLUGIN_FILE = 'orca-opencode-status.js'
 const OPENCODE2_PLUGIN_FILE = 'orca-opencode2-status.js'
-// Orca's own entries (either major, file and TUI copy) are never mirrored from user config.
-const ORCA_OPENCODE_PLUGIN_ENTRIES = new Set([
+// OpenKodo's own entries (either major, file and TUI copy) are never mirrored from user config.
+const OPENKODO_OPENCODE_PLUGIN_ENTRIES = new Set([
   OPENCODE_STARTUP_PROMPT_PLUGIN_DIRECTORY,
   ...[OPENCODE_PLUGIN_FILE, OPENCODE2_PLUGIN_FILE].flatMap((f) => [f, openCodeTuiPluginDirName(f)])
 ])
@@ -45,11 +45,11 @@ const PI_EXTENSION_FILE = 'orca-agent-status.ts'
 const PI_AGENT_SUBDIR = 'agent'
 const OMP_MANAGED_STATUS_EXTENSION_DIR = 'omp-managed-status-extension'
 // Bare OMP uses relay-managed status without creating ~/.omp; match the local installer.
-const ORCA_MANAGED_EXTENSION_MARKER = '@orca-managed-pi-extension'
+const OPENKODO_MANAGED_EXTENSION_MARKER = '@orca-managed-pi-extension'
 function withOrcaManagedPiExtensionMarker(source: string): string {
-  return source.includes(ORCA_MANAGED_EXTENSION_MARKER)
+  return source.includes(OPENKODO_MANAGED_EXTENSION_MARKER)
     ? source
-    : `// ${ORCA_MANAGED_EXTENSION_MARKER}\n${source}`
+    : `// ${OPENKODO_MANAGED_EXTENSION_MARKER}\n${source}`
 }
 // Select source by launching agent, never disk presence; Pi and OMP share an env key but use different homes.
 const PI_AGENT_HOME_DIR_NAME: Record<PiAgentKind, string> = {
@@ -165,8 +165,8 @@ export class PluginOverlayManager {
         if (!existsSync(existingConfigDir)) {
           return null
         }
-        // Mirror the remote user config before adding Orca: replacing OpenCode’s single config root must not hide auth/models/keybinds/plugins.
-        mirrorOpenCodeConfig(existingConfigDir, dir, ORCA_OPENCODE_PLUGIN_ENTRIES)
+        // Mirror the remote user config before adding OpenKodo: replacing OpenCode’s single config root must not hide auth/models/keybinds/plugins.
+        mirrorOpenCodeConfig(existingConfigDir, dir, OPENKODO_OPENCODE_PLUGIN_ENTRIES)
       }
       if (source) {
         this.writeOpenCodePlugin(dir, pluginFileName, source)
@@ -237,7 +237,7 @@ export class PluginOverlayManager {
 
   private canOverwritePiExtension(path: string): boolean {
     try {
-      return readFileSync(path, 'utf8').includes(ORCA_MANAGED_EXTENSION_MARKER)
+      return readFileSync(path, 'utf8').includes(OPENKODO_MANAGED_EXTENSION_MARKER)
     } catch {
       return true
     }

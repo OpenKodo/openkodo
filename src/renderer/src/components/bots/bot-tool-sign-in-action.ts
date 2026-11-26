@@ -1,5 +1,5 @@
 // A tool's sign-in as every surface shows it (the Connectors row, Settings › Tools, the chat's
-// tool-added card): one status, one line and one action, whether Orca signs in or the agent's CLI.
+// tool-added card): one status, one line and one action, whether OpenKodo signs in or the agent's CLI.
 import type { BotRef } from '@/lib/bot-hosts'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -26,7 +26,7 @@ export function botToolSignInWords(
   face: BotToolSignInFace | null,
   t: Translate,
   name: string,
-  /** The computer the bot runs on, for "Update Orca on …". */
+  /** The computer the bot runs on, for "Update OpenKodo on …". */
   hostName: string | null = null
 ): { line: string | null; need: string | null } {
   switch (face) {
@@ -119,16 +119,16 @@ export function useBotToolSignInAction(
   }
 }
 
-/** A row's short "Update Orca on <host>". */
+/** A row's short "Update OpenKodo on <host>". */
 function updateRowLine(t: Translate, host: string | null): string {
   return host
-    ? t('bots.toolApp.updateHostShort', 'Update Orca on {{host}}', { host })
-    : t('bots.toolApp.updateServerShort', 'Update Orca on the server')
+    ? t('bots.toolApp.updateHostShort', 'Update OpenKodo on {{host}}', { host })
+    : t('bots.toolApp.updateServerShort', 'Update OpenKodo on the server')
 }
 
-/** "Update Orca on <host> to sign in to apps", for a host whose Orca can't sign in for this device. */
+/** "Update OpenKodo on <host> to sign in to apps", for a host whose OpenKodo can't sign in for this device. */
 export function updateLine(t: Translate, host: string | null): string {
   return host
-    ? t('bots.toolApp.updateHost', 'Update Orca on {{host}} to sign in to apps', { host })
-    : t('bots.toolApp.updateServer', 'Update Orca on the server to sign in to apps')
+    ? t('bots.toolApp.updateHost', 'Update OpenKodo on {{host}} to sign in to apps', { host })
+    : t('bots.toolApp.updateServer', 'Update OpenKodo on the server to sign in to apps')
 }

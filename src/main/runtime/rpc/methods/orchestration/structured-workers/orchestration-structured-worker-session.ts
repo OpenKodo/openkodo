@@ -141,7 +141,7 @@ export async function createStructuredWorkerSession(args: {
   options?: Readonly<Record<string, string>>
 }> {
   const sessionId = randomUUID()
-  // Register before attach builds child env or missing ORCA_TERMINAL_HANDLE can misroute orchestration to the coordinator.
+  // Register before attach builds child env or missing OPENKODO_TERMINAL_HANDLE can misroute orchestration to the coordinator.
   // Assert the provisional local scope against the created record; discard non-local sessions.
   const identity = structuredWorkerIdentities.register({
     handle: mintStructuredWorkerHandle(),

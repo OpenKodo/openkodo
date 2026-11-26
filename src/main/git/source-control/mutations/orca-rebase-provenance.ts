@@ -1,5 +1,5 @@
 /**
- * What Orca's own locked rebase proved before Git ran: the branch's upstream tip was already part
+ * What OpenKodo's own locked rebase proved before Git ran: the branch's upstream tip was already part
  * of the pre-rebase branch, so after the rebase the remote only holds old copies of our commits.
  * Kept in memory per worktree and bound to the paused run's incarnation; a restart forgets it,
  * which fails closed (Pull and Sync stay offered).

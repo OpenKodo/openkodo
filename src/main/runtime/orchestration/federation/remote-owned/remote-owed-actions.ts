@@ -31,7 +31,7 @@ const CANCEL_TIMEOUT_MS = 120_000
 // Enough to keep one slow server from holding every other owed action back.
 const RESEND_CONCURRENCY = 4
 
-/** Codes that mean the server never answered, or this Orca never sent: a resend keeps its key. */
+/** Codes that mean the server never answered, or this OpenKodo never sent: a resend keeps its key. */
 const NO_ANSWER_CODES = new Set([
   ...REMOTE_SERVER_UNREACHABLE_CODES,
   'invalid_runtime_response',
@@ -42,7 +42,7 @@ const NO_ANSWER_CODES = new Set([
   'remote_link_closed'
 ])
 
-/** Whether the server got the call and answered it, rather than this Orca never reaching it. */
+/** Whether the server got the call and answered it, rather than this OpenKodo never reaching it. */
 export function serverAnswered(error: unknown): boolean {
   return error instanceof OrchestrationError && !NO_ANSWER_CODES.has(error.code)
 }
@@ -196,7 +196,7 @@ export async function sendOwedRemoteRunCancel(
   }
 }
 
-/** Everything this Orca owes one server, resent from its pull loop until the server answers for it. */
+/** Everything this OpenKodo owes one server, resent from its pull loop until the server answers for it. */
 export async function resendOwedRemoteActions(
   runtime: RemoteOwnedRuntime,
   db: OrchestrationDb,

@@ -48,7 +48,7 @@ export function reserveThreadMuteSave(key: ConnectorConversation): () => void {
 }
 
 /** The mute's write: settles once on disk, and rejects with the previous value kept when not.
- *  `leaveLine`: a leave's turn, whose confirmation Orca then owes; an unmute drops any owed. */
+ *  `leaveLine`: a leave's turn, whose confirmation OpenKodo then owes; an unmute drops any owed. */
 export function threadMuteSaves(
   store: MuteSaveStore
 ): (key: ConnectorConversation, muted: boolean, leaveLine?: number) => Promise<void> {

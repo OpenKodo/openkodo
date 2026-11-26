@@ -1,6 +1,6 @@
 import { CdpWsProxy } from '../../cdp/transport/cdp-ws-proxy'
 import { BrowserError } from '../../browser-error'
-import { ORCA_TAB_SESSION_PREFIX } from './agent-browser-session-name'
+import { OPENKODO_TAB_SESSION_PREFIX } from './agent-browser-session-name'
 import { AgentBrowserBridgeRawProcess } from '../helper-process/agent-browser-bridge-raw-process'
 import type { AgentBrowserCleanupOptions } from './agent-browser-cleanup-options'
 import { AGENT_BROWSER_CLEANUP_TIMEOUT_MS } from './agent-browser-cleanup-options'
@@ -30,14 +30,14 @@ export abstract class AgentBrowserBridgeLifecycle extends AgentBrowserBridgeRawP
   async onPageClosed(browserPageId: string): Promise<void> {
     // Routes outlive a freed guest but not a closed page.
     this.retargetRouting(browserPageId, null)
-    const sessionName = `${ORCA_TAB_SESSION_PREFIX}${browserPageId}`
+    const sessionName = `${OPENKODO_TAB_SESSION_PREFIX}${browserPageId}`
     await this.destroySession(sessionName)
     this.pendingInterceptRestore.delete(sessionName)
   }
 
   /** The agent routed requests or is capturing HAR on this page; freeing the page would drop both. */
   holdsPageNetworkState(browserPageId: string): boolean {
-    const sessionName = `${ORCA_TAB_SESSION_PREFIX}${browserPageId}`
+    const sessionName = `${OPENKODO_TAB_SESSION_PREFIX}${browserPageId}`
     const session = this.sessions.get(sessionName)
     return (
       session?.activeCapture === true ||
@@ -52,7 +52,7 @@ export abstract class AgentBrowserBridgeLifecycle extends AgentBrowserBridgeRawP
     _previousWebContentsId?: number
   ): Promise<void> {
     // Process swaps preserve page IDs, and so routes, but replace the guest and its session.
-    const sessionName = `${ORCA_TAB_SESSION_PREFIX}${browserPageId}`
+    const sessionName = `${OPENKODO_TAB_SESSION_PREFIX}${browserPageId}`
     const session = this.sessions.get(sessionName)
     const owningWorktreeId = this.browserManager.getWorktreeIdForTab(browserPageId)
     if (session && session.activeInterceptPatterns.length > 0) {
@@ -84,7 +84,7 @@ export abstract class AgentBrowserBridgeLifecycle extends AgentBrowserBridgeRawP
       const closeSession = (): void => void this.onPageClosed(popup.browserPageId)
       // The click that makes a popup close itself reports its own result, not a kill.
       const running = this.sessions.get(
-        `${ORCA_TAB_SESSION_PREFIX}${popup.browserPageId}`
+        `${OPENKODO_TAB_SESSION_PREFIX}${popup.browserPageId}`
       )?.activeProcess
       if (running) {
         running.once('close', closeSession)
@@ -135,7 +135,7 @@ export abstract class AgentBrowserBridgeLifecycle extends AgentBrowserBridgeRawP
         )
       }
 
-      // Reset daemon sessions that may retain a CDP port from an earlier Orca process.
+      // Reset daemon sessions that may retain a CDP port from an earlier OpenKodo process.
       await this.closeStaleAgentBrowserSession(sessionName)
 
       const proxy = new CdpWsProxy(

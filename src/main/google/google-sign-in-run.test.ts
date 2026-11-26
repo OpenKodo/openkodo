@@ -137,7 +137,7 @@ describe('the Google app a sign-in goes through', () => {
   })
 
   it('is this computer’s app when the saved account can’t be read', async () => {
-    const accounts = join(home.dir, '.orca', 'google', 'accounts')
+    const accounts = join(home.dir, '.openkodo', 'google', 'accounts')
     mkdirSync(accounts, { recursive: true })
     writeFileSync(join(accounts, `${Buffer.from('me@gmail.com').toString('base64url')}.enc`), 'x')
     const { used } = await signIn('me@gmail.com', 'me@gmail.com')
@@ -212,7 +212,7 @@ const tokens = (overrides: Record<string, unknown> = {}) =>
   )
 
 describe('a Google sign-in that fails after Google returned', () => {
-  it('says Orca couldn’t reach Google, in the tab and the app log too, when the exchange can’t connect', async () => {
+  it('says OpenKodo couldn’t reach Google, in the tab and the app log too, when the exchange can’t connect', async () => {
     const traced: unknown[] = []
     setActiveSink({ push: (record) => traced.push(record), flush: () => {}, close: () => {} })
     const { error, page, logged } = await failedSignIn(() =>
@@ -226,9 +226,9 @@ describe('a Google sign-in that fails after Google returned', () => {
       })
     ])
     expect(error).toBe(
-      'Orca couldn’t reach Google from this computer. Check your VPN, proxy or HTTPS inspection, then try again.'
+      'OpenKodo couldn’t reach Google from this computer. Check your VPN, proxy or HTTPS inspection, then try again.'
     )
-    expect(page).toContain('Orca couldn’t reach Google from this computer.')
+    expect(page).toContain('OpenKodo couldn’t reach Google from this computer.')
     expect(logged).toEqual(['[google] sign-in failed at token exchange: network'])
   })
 
@@ -237,7 +237,7 @@ describe('a Google sign-in that fails after Google returned', () => {
       Promise.resolve(Response.json({ error: 'invalid_client' }, { status: 401 }))
     )
     expect(error).toBe(
-      'Google rejected this app’s client secret. Download the client file again and import it in Orca.'
+      'Google rejected this app’s client secret. Download the client file again and import it in OpenKodo.'
     )
     expect(logged).toEqual(['[google] sign-in failed at token exchange: invalid_client'])
   })
@@ -247,7 +247,7 @@ describe('a Google sign-in that fails after Google returned', () => {
       Promise.resolve(Response.json({ error: 'invalid_grant' }, { status: 400 }))
     )
     expect(error).toBe(
-      'Google says this sign-in was already used or has expired. Start again in Orca.'
+      'Google says this sign-in was already used or has expired. Start again in OpenKodo.'
     )
     expect(logged).toEqual(['[google] sign-in failed at token exchange: invalid_grant'])
   })
@@ -268,7 +268,7 @@ describe('a Google sign-in that fails after Google returned', () => {
     const { error, logged } = await failedSignIn(() =>
       Promise.resolve(Response.json({ error: 'unauthorized_client' }, { status: 400 }))
     )
-    expect(error).toBe('Google didn’t finish the sign-in. Start again in Orca.')
+    expect(error).toBe('Google didn’t finish the sign-in. Start again in OpenKodo.')
     expect(logged).toEqual(['[google] sign-in failed at token exchange: refused'])
   })
 
@@ -296,7 +296,7 @@ describe('a Google sign-in that fails after Google returned', () => {
   it('says the device stopped answering when it went quiet before a save that failed', async () => {
     const file = join(
       home.dir,
-      '.orca',
+      '.openkodo',
       'google',
       'accounts',
       `${Buffer.from('me@gmail.com').toString('base64url')}.enc`
@@ -308,14 +308,14 @@ describe('a Google sign-in that fails after Google returned', () => {
       return tokens()
     })
     expect(page).toContain('The device that started this sign-in stopped answering.')
-    expect(page).not.toContain('Orca couldn’t save the Google account')
+    expect(page).not.toContain('OpenKodo couldn’t save the Google account')
   })
 
   it('says the account couldn’t be saved when writing it fails', async () => {
     // A folder where the account's file goes: reading it finds nothing, writing it fails.
     const file = join(
       home.dir,
-      '.orca',
+      '.openkodo',
       'google',
       'accounts',
       `${Buffer.from('me@gmail.com').toString('base64url')}.enc`
@@ -323,7 +323,7 @@ describe('a Google sign-in that fails after Google returned', () => {
     mkdirSync(file, { recursive: true })
     writeFileSync(join(file, 'keep'), 'x')
     const { error, logged } = await failedSignIn(() => tokens())
-    expect(error).toBe('Orca couldn’t save the Google account on this computer. Try again.')
+    expect(error).toBe('OpenKodo couldn’t save the Google account on this computer. Try again.')
     expect(logged).toEqual(['[google] sign-in failed at save: save_failed'])
   })
 })

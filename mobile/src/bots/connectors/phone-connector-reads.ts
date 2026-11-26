@@ -42,7 +42,7 @@ export const connectorReadKey = (hostKey: string, read: string, botId = ''): str
 
 const READ_EVERY_MS = 60_000
 
-/** The route's read count, moved on at most once a minute: each read is an Orca Cloud call on the
+/** The route's read count, moved on at most once a minute: each read is an OpenKodo Cloud call on the
  *  host, and the route reads on every change of the bot's work. */
 export function useReadsAtMostEveryMinute(reads: number): number {
   const [passed, setPassed] = useState({ reads, at: 0 })

@@ -21,7 +21,7 @@ import {
 } from '../lifecycle/workspace-lifecycle-commands'
 import { getRuntimeWorktreeRemovalOptionsKey } from '../catalog/runtime-worktree-selection'
 import { parseExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import type {
   RecipeWorkspaceRemoval,
   RecipeWorkspaceRemoveParams
@@ -36,7 +36,9 @@ export type RecipeWorkspaceRemovalHooks = {
 
 export abstract class RuntimeWorkspaceSleepOperations extends OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce {
   // Switch point: only a build where main produces the sidebar's inputs queues lifecycle commands.
-  readonly workspaceLifecycle = ORCA_SIDEBAR_INPUTS_IS_MAIN ? new WorkspaceLifecycleQueue() : null
+  readonly workspaceLifecycle = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
+    ? new WorkspaceLifecycleQueue()
+    : null
   private recipeWorkspaceRemoval: RecipeWorkspaceRemovalHooks | null = null
 
   setRecipeWorkspaceRemoval(hooks: RecipeWorkspaceRemovalHooks): void {
@@ -50,7 +52,7 @@ export abstract class RuntimeWorkspaceSleepOperations extends OrcaRuntimeWithRes
 
   removeRecipeWorkspace(params: RecipeWorkspaceRemoveParams): Promise<RecipeWorkspaceRemoval> {
     if (!this.recipeWorkspaceRemoval) {
-      throw new Error('This Orca host cannot remove recipe workspaces.')
+      throw new Error('This OpenKodo host cannot remove recipe workspaces.')
     }
     return this.recipeWorkspaceRemoval.remove(params)
   }

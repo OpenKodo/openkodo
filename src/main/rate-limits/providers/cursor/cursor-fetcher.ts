@@ -197,7 +197,7 @@ function credentialFailure(readResult: CursorAuthReadResult): ProviderRateLimits
       usageMetadata: { failureKind: 'missing-credentials' }
     })
   }
-  // Orca reads tokens only; report expiry and let cursor-agent refresh on next use.
+  // OpenKodo reads tokens only; report expiry and let cursor-agent refresh on next use.
   if (isCursorSessionTokenExpired(readResult.session.token)) {
     return result('error', EXPIRED_MESSAGE, {
       usageMetadata: {

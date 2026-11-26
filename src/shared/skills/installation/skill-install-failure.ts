@@ -88,7 +88,7 @@ export function classifySkillInstallFailureCode(code: string): SkillInstallFailu
     code.includes('environment') ||
     code.includes('home-') ||
     code.includes('ingress') ||
-    // No Orca version installs over plain SSH, so updating can't fix this refusal.
+    // No OpenKodo version installs over plain SSH, so updating can't fix this refusal.
     code.includes('ssh-relay-unavailable') ||
     code.includes('name-invalid') ||
     code.includes('wsl-unavailable')

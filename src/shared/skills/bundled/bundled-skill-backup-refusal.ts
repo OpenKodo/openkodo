@@ -6,7 +6,7 @@ import type {
 } from './bundled-skill-plan'
 
 /**
- * A copy Orca left where it was because backing it up would have crossed drives.
+ * A copy OpenKodo left where it was because backing it up would have crossed drives.
  * `path` is on the host that ran the update; nothing there was copied, moved or deleted by the
  * refused step.
  */

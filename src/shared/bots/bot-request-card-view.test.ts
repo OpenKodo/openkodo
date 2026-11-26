@@ -21,7 +21,7 @@ function badge(
 }
 
 describe('botRequestCardView badge', () => {
-  it('marks a request Orca did not send as failed, whatever the reading says', () => {
+  it('marks a request OpenKodo did not send as failed, whatever the reading says', () => {
     expect(badge({ messageId: undefined, refusal: 'bot_paused' }, null)).toBe('failed')
     expect(badge({ messageId: undefined }, 'answered', 'working')).toBe('failed')
   })

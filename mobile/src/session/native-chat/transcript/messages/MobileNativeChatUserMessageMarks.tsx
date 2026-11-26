@@ -1,4 +1,4 @@
-// The desktop's marks on a person's message: for one Orca delivered from Slack, GitHub, Linear or
+// The desktop's marks on a person's message: for one OpenKodo delivered from Slack, GitHub, Linear or
 // Discord, the "Sam Lee · Slack" tag and the folded lines from people without access; for one another
 // person typed on their paired computer, "Sam Lee · Sam's MacBook Pro"; "Sent as goal".
 import { useState } from 'react'
@@ -106,7 +106,7 @@ function MobileNativeChatTypedByTag({ typist }: { typist: OtherPersonTypist }): 
   )
 }
 
-/** A person's own Orca-typed message: who typed it when another person did, and once it is in the
+/** A person's own OpenKodo-typed message: who typed it when another person did, and once it is in the
  *  chat's Slack thread the "You · Slack" tag (just "Slack" beside another person's name). */
 function MobileTypedMessageTags({
   message

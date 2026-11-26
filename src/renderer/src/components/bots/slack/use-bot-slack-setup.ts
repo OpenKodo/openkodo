@@ -29,14 +29,14 @@ type SetupMount = { readonly openedAt: number; started: boolean }
 export function useBotSlackSetup(
   bot: Bot,
   teamId: string | undefined,
-  /** Slack's page opened in Orca's browser, behind the dialog. */
+  /** Slack's page opened in OpenKodo's browser, behind the dialog. */
   onStepAside?: () => void
 ): {
   step: BotSlackSetupStep
   /** Setup again, on the owner's Try again. */
   retry: (teamId?: string, handOff?: boolean) => Promise<void>
   setUp: (teamId: string, mount?: SetupMount | null) => Promise<void>
-  /** This desktop's own Orca account creates the app with its token for `teamId`. */
+  /** This desktop's own OpenKodo account creates the app with its token for `teamId`. */
   handOff: (teamId: string) => Promise<void>
   submitToken: (token: string) => Promise<void>
   /** The token form; `teamId`: the workspace whose saved token Slack refused. */
@@ -162,7 +162,7 @@ export function useBotSlackSetup(
       setStep({ kind: 'setting-up', handOff: true })
       const host = botSlackCalls(bot.hostId)
       const code = await host.handOff({ botId: bot.id, teamId })
-      // Spent by this desktop's own Orca account, from this window only.
+      // Spent by this desktop's own OpenKodo account, from this window only.
       // A rejected bridge call is a plain failure, so the spinner always ends.
       const app = code.ok
         ? await window.api.slackHandOff

@@ -38,7 +38,7 @@ export async function callAntigravityAccounts(
     await assertRuntimeEnvironmentCapability(
       owner.environmentId,
       ANTIGRAVITY_ACCOUNTS_RUNTIME_CAPABILITY,
-      'This execution host does not support native Antigravity Accounts yet. Update Orca on that host.'
+      'This execution host does not support native Antigravity Accounts yet. Update OpenKodo on that host.'
     )
   }
   return callRuntimeRpc(
@@ -54,7 +54,7 @@ async function assertChatSignInHost(owner: RuntimeClientTarget): Promise<void> {
     await assertRuntimeEnvironmentCapability(
       owner.environmentId,
       ANTIGRAVITY_CHAT_SIGN_IN_RUNTIME_CAPABILITY,
-      'This execution host does not support Antigravity chat sign-in yet. Update Orca on that host.'
+      'This execution host does not support Antigravity chat sign-in yet. Update OpenKodo on that host.'
     )
   }
 }
@@ -99,7 +99,7 @@ export async function callAntigravityChatAuthConfig(
     await assertRuntimeEnvironmentCapability(
       owner.environmentId,
       ANTIGRAVITY_CHAT_AUTH_CONFIG_RUNTIME_CAPABILITY,
-      'Update Orca on this host to configure Gemini Enterprise for Antigravity chats.'
+      'Update OpenKodo on this host to configure Gemini Enterprise for Antigravity chats.'
     )
   }
   return callRuntimeRpc(
@@ -119,7 +119,7 @@ export async function callAntigravityChatApiKey(
     await assertRuntimeEnvironmentCapability(
       owner.environmentId,
       ANTIGRAVITY_CHAT_KEY_AND_ADC_AUTH_RUNTIME_CAPABILITY,
-      'Update Orca on this host to sign Antigravity chats in with a Gemini API key.'
+      'Update OpenKodo on this host to sign Antigravity chats in with a Gemini API key.'
     )
   }
   return action.kind === 'save'

@@ -6,7 +6,7 @@ import { useEffect, useLayoutEffect, type MutableRefObject, type RefObject } fro
 import { useAppStore } from '@/store/index'
 import { normalizeBrowserNavigationUrl } from '../../../../../shared/browser/navigation/browser-url'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import { normalizeBrowserGuestSrc } from '../../../../../shared/browser/extensions/browser-extension-url'
 import {
   applyBrowserPageViewportLayout,
@@ -94,7 +94,7 @@ export function useBrowserPageWebviewUrlSync({
       issueBrowserGuestNavigation(webview, () => {
         webview.src = normalizedUrl
       })
-      if (normalizedUrl !== ORCA_BROWSER_BLANK_URL) {
+      if (normalizedUrl !== OPENKODO_BROWSER_BLANK_URL) {
         keepAddressBarFocusRef.current = false
         if (document.activeElement === addressBarInputRef.current) {
           focusWebviewNow()

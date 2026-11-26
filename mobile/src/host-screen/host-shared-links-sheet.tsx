@@ -1,4 +1,4 @@
-// Host ⋯ › Shared links: the paired computer's bot links, from its Orca account, each opening its
+// Host ⋯ › Shared links: the paired computer's bot links, from its OpenKodo account, each opening its
 // bot's Share bot in the same sheet.
 import { useState } from 'react'
 import { View } from 'react-native'

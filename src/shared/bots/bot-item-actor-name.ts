@@ -1,4 +1,4 @@
-// Who made an item event, as Activity names them: You, Orca, the bot, the maker, or another agent.
+// Who made an item event, as Activity names them: You, OpenKodo, the bot, the maker, or another agent.
 import type { BotItem, BotItemEvent } from './bot-items'
 
 type Translate = (key: string, fallback: string, values?: Record<string, unknown>) => string
@@ -8,7 +8,7 @@ export function botItemActorName(event: BotItemEvent, item: BotItem, t: Translat
     case 'owner':
       return t('bots.items.activity.you', 'You')
     case 'orca':
-      return 'Orca'
+      return 'OpenKodo'
     case 'bot':
       if (event.actor.botId === item.owner.botId) {
         return item.owner.name ?? ''

@@ -4,14 +4,14 @@ import { isDefinitiveAbsence } from '../../shared/errors/definitive-filesystem-a
 import { readNodeFileWithinLimit } from '../../shared/file-content/node-bounded-file-reader'
 import { scopeHooksToRepoKind } from '../../shared/folder-workspaces/folder-workspace-hooks'
 import { parseOrcaYaml } from '../../shared/workspace-setup/orca-yaml'
-import { MAX_ORCA_YAML_BYTES } from '../../shared/workspace-setup/orca-yaml-file-limit'
+import { MAX_OPENKODO_YAML_BYTES } from '../../shared/workspace-setup/orca-yaml-file-limit'
 import type { WorkspaceHookOwner } from '../../shared/workspace-setup/hooks/workspace-hook-owner'
 import { blockedWslDistroForPath } from '../wsl/filesystem/wsl-unc-access-gate'
 import { orcaYamlPath } from './hooks'
 import { iterateLfScriptLines } from './setup-runner-script-text'
 
 // Unknown keys suggest a newer config format; let the UI offer an update.
-const RECOGNIZED_ORCA_YAML_KEYS = new Set([
+const RECOGNIZED_OPENKODO_YAML_KEYS = new Set([
   'scripts',
   'setupAgentStartupPolicy',
   'issueCommand',
@@ -24,7 +24,7 @@ function hasUnrecognizedOrcaYamlKeys(content: string): boolean {
   for (const line of iterateLfScriptLines(content)) {
     // A bare key: is valid YAML when its block value follows on the next line.
     const match = line.match(/^([A-Za-z][A-Za-z0-9_-]*):(\s|$)/)
-    if (match != null && !RECOGNIZED_ORCA_YAML_KEYS.has(match[1])) {
+    if (match != null && !RECOGNIZED_OPENKODO_YAML_KEYS.has(match[1])) {
       return true
     }
   }
@@ -64,7 +64,7 @@ async function readWorkspaceHookConfig(repo: Pick<WorkspaceHookOwner, 'path' | '
   const yamlPath = orcaYamlPath(repo.path)
   let content: string
   try {
-    const { buffer } = await readNodeFileWithinLimit(yamlPath, MAX_ORCA_YAML_BYTES, {
+    const { buffer } = await readNodeFileWithinLimit(yamlPath, MAX_OPENKODO_YAML_BYTES, {
       regularFileOnly: true
     })
     content = buffer.toString('utf-8')

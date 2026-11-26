@@ -21,7 +21,7 @@ export const openUsageLimitChats = (store: OpenChats): string[] => [
 export const isUsageLimitChatOpen = (store: OpenChats, id: string): boolean =>
   store.isSessionTabVisible(id) || store.isSessionInBackground(id)
 
-/** Everything but a reset to wait for: Orca would continue this cut once it has one. */
+/** Everything but a reset to wait for: OpenKodo would continue this cut once it has one. */
 export function usageLimitCutContinuable(
   host: Pick<UsageLimitContinueDeps['host'], 'store' | 'usageLimitAutoContinue'>,
   id: string,

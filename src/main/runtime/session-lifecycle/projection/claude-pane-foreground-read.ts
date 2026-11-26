@@ -25,7 +25,7 @@ export async function readClaudeForeground(
   if (fresh === null && (name === null || isAgentForegroundWrapperProcess(name))) {
     return 'unchecked'
   }
-  // An Agent Teams lead shows as `Orca`; restarting it would orphan its teammates.
+  // An Agent Teams lead shows as `OpenKodo`; restarting it would orphan its teammates.
   const agent = recognizeAgentProcess(fresh)?.agent
   return agent === 'claude-agent-teams' ? 'team' : agent === 'claude'
 }

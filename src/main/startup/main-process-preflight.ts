@@ -170,7 +170,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
   // #9441: log background rejections so restore failure cannot silently kill main.
   installUnhandledRejectionLogging()
   // Expose version without Electron imports for main/daemon TERM_PROGRAM_VERSION.
-  process.env.ORCA_APP_VERSION = app.getVersion()
+  process.env.OPENKODO_APP_VERSION = app.getVersion()
   configureRemoteServerUpdater({
     getSnapshot: getRemoteServerUpdaterSnapshot,
     check: checkForRemoteServerUpdate,
@@ -216,7 +216,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
       platform: process.platform,
       osRelease: os.release(),
       userData: app.getPath('userData'),
-      e2eUserData: Boolean(process.env.ORCA_E2E_USER_DATA_DIR)
+      e2eUserData: Boolean(process.env.OPENKODO_E2E_USER_DATA_DIR)
     })
     startEventLoopStallProbe()
   }
@@ -226,7 +226,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
     setSpawnObserver(recordSubprocessSpawn)
   }
   // posix_spawn blocks its caller; under memory/disk pressure a launch on main froze the window for minutes.
-  if (process.platform !== 'win32' && process.env.ORCA_CHILD_PROCESS_WORKER_DISABLED !== '1') {
+  if (process.platform !== 'win32' && process.env.OPENKODO_CHILD_PROCESS_WORKER_DISABLED !== '1') {
     setDefaultProcessLauncher(launchPlainProcessSpecOnPosixWorker)
   }
   startMainThreadChurnProbe({ extraStats: () => ({ diffCache: settledDiffCache.stats() }) })

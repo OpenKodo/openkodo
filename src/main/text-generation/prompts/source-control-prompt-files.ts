@@ -10,7 +10,7 @@ import type { CommitMessagePlan } from '../../../shared/source-control/ai/genera
 
 // Reserve the transport signature under the native text attachment cap.
 const PAYLOAD_BYTES = 5 * 1024 * 1024 - 3
-export const TEXT_TASK_DIRECTORY = '__ORCA_TEXT_TASK_DIRECTORY__'
+export const TEXT_TASK_DIRECTORY = '__OPENKODO_TEXT_TASK_DIRECTORY__'
 
 function generationFiles(plan: CommitMessagePlan<GenerationArgument>) {
   const files: {
@@ -110,7 +110,7 @@ old_umask=$(umask)
 umask 077
 mkdir "$dir" || exit 1
 trap 'rmdir "$dir" 2>/dev/null' EXIT
-printf '\\nORCA_GENERATION_READY:%s\\n' "$nonce" >&2 || exit 1
+printf '\\nOPENKODO_GENERATION_READY:%s\\n' "$nonce" >&2 || exit 1
 IFS= read -r record && [ "$record" = "A$nonce" ] || exit 1
 trap - EXIT
 index=1
@@ -138,7 +138,7 @@ export function prepareWslPrompt<T extends GenerationArgument>(
   const nonce = randomUUID()
   const directory = `/tmp/orca-generation-${nonce}`
   const files = generationFiles(plan)
-  const proof = `ORCA_GENERATION_READY:${nonce}`
+  const proof = `OPENKODO_GENERATION_READY:${nonce}`
   let partial = ''
   let oversized = false
   let proved = false

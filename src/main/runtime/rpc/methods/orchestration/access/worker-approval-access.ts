@@ -7,7 +7,7 @@ import type { OrchestrationAccessRuleInput } from './orchestration-method-access
 import type { RpcContext } from '../../../core'
 
 /** A person, proven by the transport: the desktop app's own IPC, a phone's pairing, or a paired
- *  window that says so; never the orca CLI, an agent session, or a paired Orca's forwarded call. */
+ *  window that says so; never the orca CLI, an agent session, or a paired OpenKodo's forwarded call. */
 export function isPersonCaller(
   ctx: Pick<RpcContext, 'caller' | 'orchestrationCaller' | 'clientKind' | 'clientCapabilities'>
 ): boolean {
@@ -28,7 +28,7 @@ export type WorkerApprovalAccess = { answeredBy: 'person' | 'coordinator'; reaso
 /** Approve requires a person, or an agent caller when the user's setting is on; deny allows an agent
  *  or a person. A person is proven by the transport: the desktop app's own IPC, a phone's pairing, or
  *  a paired window that says so; the orca CLI never does, so an older CLI fails closed. An agent session and a
- *  paired Orca's forwarded call are agents. The setting read is this machine's, which runs the worker. */
+ *  paired OpenKodo's forwarded call are agents. The setting read is this machine's, which runs the worker. */
 export function workerApprovalAccess({
   params,
   ctx
@@ -43,7 +43,7 @@ export function workerApprovalAccess({
   ) {
     throw new OrchestrationError(
       'approval_requires_person',
-      `Only a person can allow ${params.prompt}, from Orca or the worker itself. You can deny it with a reason, or leave it for the person.`,
+      `Only a person can allow ${params.prompt}, from OpenKodo or the worker itself. You can deny it with a reason, or leave it for the person.`,
       { effectsApplied: false }
     )
   }

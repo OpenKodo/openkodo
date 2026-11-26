@@ -1,5 +1,5 @@
 // @protected-copy: drawn inside the security-surface setup dialog
-// The paired-computer pieces of Slack setup: the offer of this desktop's Orca account's Slack
+// The paired-computer pieces of Slack setup: the offer of this desktop's OpenKodo account's Slack
 // sign-in, and the install link to copy for approving in another browser.
 import React from 'react'
 import { isMac } from '@/app-shell/chrome/app-window-chrome'
@@ -129,12 +129,12 @@ function SlackHandOffLine({
       {isMac
         ? t(
             'bots.slack.handOff.offerMac',
-            'This Mac is signed in to Orca as {{email}}, which already has a token for {{workspace}}.',
+            'This Mac is signed in to OpenKodo as {{email}}, which already has a token for {{workspace}}.',
             { email, workspace }
           )
         : t(
             'bots.slack.handOff.offer',
-            'This computer is signed in to Orca as {{email}}, which already has a token for {{workspace}}.',
+            'This computer is signed in to OpenKodo as {{email}}, which already has a token for {{workspace}}.',
             { email, workspace }
           )}{' '}
       <Button type="button" variant="link" size="inlineText" onClick={() => onUse(teamId)}>
@@ -158,12 +158,12 @@ export function SlackHandOffConfirm({
       {isMac
         ? t(
             'bots.slack.handOff.confirmMac',
-            'Orca on this Mac creates the Slack app with {{email}}’s token. {{host}} gets only this bot’s app.',
+            'OpenKodo on this Mac creates the Slack app with {{email}}’s token. {{host}} gets only this bot’s app.',
             { email, host }
           )
         : t(
             'bots.slack.handOff.confirm',
-            'Orca on this computer creates the Slack app with {{email}}’s token. {{host}} gets only this bot’s app.',
+            'OpenKodo on this computer creates the Slack app with {{email}}’s token. {{host}} gets only this bot’s app.',
             { email, host }
           )}
     </p>

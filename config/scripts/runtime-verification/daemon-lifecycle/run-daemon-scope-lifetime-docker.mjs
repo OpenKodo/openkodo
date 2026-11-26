@@ -8,14 +8,14 @@ import { build } from 'esbuild'
 
 const repo = resolve(fileURLToPath(new URL('../../../..', import.meta.url)))
 const docker =
-  process.env.ORCA_DOCKER ??
+  process.env.OPENKODO_DOCKER ??
   (existsSync('/Applications/Docker.app/Contents/Resources/bin/docker')
     ? '/Applications/Docker.app/Contents/Resources/bin/docker'
     : 'docker')
 const dockerDirectory = dirname(docker)
 const dockerEnv = {
   ...process.env,
-  ORCA_BACKGROUND_LAUNCH: '1',
+  OPENKODO_BACKGROUND_LAUNCH: '1',
   ...(dockerDirectory !== '.'
     ? { PATH: `${dockerDirectory}${delimiter}${process.env.PATH ?? ''}` }
     : {})
@@ -31,7 +31,7 @@ const suffix = `${process.pid}-${Date.now()}`
 const image = `orca-daemon-scope-lifetime:${suffix}`
 const container = `orca-daemon-scope-lifetime-${suffix}`
 const platform =
-  process.env.ORCA_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
+  process.env.OPENKODO_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
 
 function runDocker(command, allowFailure = false) {
   const result = spawnSync(docker, command, {
@@ -122,7 +122,7 @@ async function bundle(mode) {
 
 // Cover OOMPolicy rejected by systemd 249, Debian-backported 252 support and native 253+ (Debian 13 uses 257).
 const baseImages = (
-  process.env.ORCA_DAEMON_SCOPE_BASE_IMAGES ??
+  process.env.OPENKODO_DAEMON_SCOPE_BASE_IMAGES ??
   'ubuntu:22.04,debian:bookworm-slim,debian:trixie-slim'
 ).split(',')
 
@@ -155,7 +155,7 @@ function runCases(baseImage) {
     '-v',
     '/sys/fs/cgroup:/sys/fs/cgroup:rw',
     '-e',
-    'ORCA_BACKGROUND_LAUNCH=1',
+    'OPENKODO_BACKGROUND_LAUNCH=1',
     image
   ])
   runDocker(['cp', `${temp}/.`, `${container}:/opt/daemon-scope-lifetime/`])
@@ -185,7 +185,7 @@ function runCases(baseImage) {
         '--',
         'env',
         'XDG_RUNTIME_DIR=/run/user/1100',
-        'ORCA_BACKGROUND_LAUNCH=1',
+        'OPENKODO_BACKGROUND_LAUNCH=1',
         'node',
         '/opt/daemon-scope-lifetime/run-cases.cjs',
         `/opt/daemon-scope-lifetime/${mode}.cjs`,

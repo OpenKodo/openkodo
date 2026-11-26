@@ -77,7 +77,12 @@ function gitShow(root, spec) {
 }
 
 function resolveMergeBase(root, requested) {
-  for (const candidate of [requested, process.env.ORCA_CODE_QUALITY_BASE, 'origin/main', 'main']) {
+  for (const candidate of [
+    requested,
+    process.env.OPENKODO_CODE_QUALITY_BASE,
+    'origin/main',
+    'main'
+  ]) {
     if (!candidate) {
       continue
     }
@@ -444,9 +449,9 @@ async function runChangedChecks(root, options, signal) {
   })
   const env = {
     ...process.env,
-    ORCA_BACKGROUND_LAUNCH: '1',
+    OPENKODO_BACKGROUND_LAUNCH: '1',
     // Why: spawned gates that read the base themselves (flaky-test ratchet) must use --base too.
-    ORCA_CODE_QUALITY_BASE: mergeBase,
+    OPENKODO_CODE_QUALITY_BASE: mergeBase,
     ...(process.stdout.isTTY ? { FORCE_COLOR: '1' } : {})
   }
   if (process.stdout.isTTY) {

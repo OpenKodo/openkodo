@@ -326,7 +326,7 @@ export function RemoteBrowserPagePane({
     // Scope E2E controls per pane; a workspace may have several address bars.
     <div
       data-testid="remote-browser-pane"
-      // Zoom chords follow this attribute to the page; hosts without browser.zoom keep Orca's zoom.
+      // Zoom chords follow this attribute to the page; hosts without browser.zoom keep OpenKodo's zoom.
       data-browser-page-pane-id={zoom.requestZoom ? browserTab.id : undefined}
       className="relative flex h-full min-h-0 flex-1 flex-col bg-background"
     >

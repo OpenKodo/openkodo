@@ -1,7 +1,7 @@
 import { quotePosixShell } from '../../../shared/shell/launch/shell-argument-quoting'
 import type { RemoveLocalWorktreeMarkerOptions } from './local-worktree-filesystem'
 
-const PARSE_ORCA_GITDIR_LINE = [
+const PARSE_OPENKODO_GITDIR_LINE = [
   'orca_line=$(LC_ALL=C head -n 1 ./.git)',
   'orca_line="${orca_line%"${orca_line##*[![:space:]]}"}"',
   'case "$orca_line" in [Gg][Ii][Tt][Dd][Ii][Rr]:*) orca_gitdir=${orca_line#*:}; orca_gitdir="${orca_gitdir#"${orca_gitdir%%[![:space:]]*}"}" ;; *) orca_gitdir="" ;; esac'
@@ -77,7 +77,7 @@ export function buildWslMarkerLastScript(
     'if [ "$orca_has_git" = 1 ]; then',
     "case \"$orca_meta\" in 'regular file#'*|'regular empty file#'*) ;; *) exit 4 ;; esac &&",
     'orca_rest=${orca_meta#*#} && orca_marker_id=${orca_rest%#*} && orca_marker_ino=${orca_rest#*#} &&',
-    `${PARSE_ORCA_GITDIR_LINE} &&`,
+    `${PARSE_OPENKODO_GITDIR_LINE} &&`,
     `if [ -z "$orca_gitdir" ]${expectedClause}; then exit 4; fi &&`,
     'orca_saved_gitdir=$orca_gitdir &&',
     `orca_find_status=0; if [ -n "$(LC_ALL=C find -P . -mindepth 1 -maxdepth 1 -name .git -print)" ]; then LC_ALL=C find -P . -mindepth 1 -maxdepth 1 ! -name .git -exec sh -c ${VERIFY_MARKER_BATCH_AND_RM} sh "$orca_target" "$orca_root_meta" "$orca_marker_id" "$orca_saved_gitdir" {} + || orca_find_status=$?; else LC_ALL=C find -P . -mindepth 1 -maxdepth 1 \\( ! -iname .git -o ! -samefile ./.git \\) -exec sh -c ${VERIFY_MARKER_BATCH_AND_RM} sh "$orca_target" "$orca_root_meta" "$orca_marker_id" "$orca_saved_gitdir" {} + || orca_find_status=$?; fi;`,
@@ -87,7 +87,7 @@ export function buildWslMarkerLastScript(
     "if orca_after=$(LC_ALL=C stat -c '%F#%d:%i' -- ./.git 2>&1); then",
     "case \"$orca_after\" in 'regular file#'*|'regular empty file#'*) ;; *) exit 4 ;; esac &&",
     'if [ "${orca_after#*#}" != "$orca_marker_id" ]; then exit 4; fi &&',
-    `${PARSE_ORCA_GITDIR_LINE} &&`,
+    `${PARSE_OPENKODO_GITDIR_LINE} &&`,
     'if [ "$orca_gitdir" != "$orca_saved_gitdir" ]; then exit 4; fi &&',
     'if [ "$orca_find_status" -ne 0 ]; then exit "$orca_find_status"; fi &&',
     'LC_ALL=C rm -f -- ./.git;',

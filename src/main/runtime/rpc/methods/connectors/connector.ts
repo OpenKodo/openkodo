@@ -28,7 +28,7 @@ export function requireSeam(
 }
 
 export const CONNECTOR_METHODS = [
-  // `orca bot reply`: the calling pane names its cloud conversation and turn; Orca Cloud posts it.
+  // `orca bot reply`: the calling pane names its cloud conversation and turn; OpenKodo Cloud posts it.
   defineMethod({
     name: 'connector.reply',
     permission: 'workspace',
@@ -62,7 +62,7 @@ export const CONNECTOR_METHODS = [
               params.sessionId,
               sessionCallerOf(context.orchestrationCaller)?.sessionId
             )
-          : // A terminal pane's reply names no chat whose turn Orca can read.
+          : // A terminal pane's reply names no chat whose turn OpenKodo can read.
             'someone_else'
       const cloud = context.runtime.getConnectorCloud()
       // Under replies.outbox a reply naming its turn's request takes that request's answer key.

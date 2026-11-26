@@ -274,7 +274,7 @@ function getSharedControlConnection(
         // Ws pongs can come from a relay hop or a runtime whose request path is stuck (#39785).
         appHeartbeat: {},
         // R39: every ready socket, including after a reconnect, re-declares this installation, and
-        // the Orca account it is signed in to.
+        // the OpenKodo account it is signed in to.
         onReady: async () => {
           const request = (method: string, params: unknown, timeoutMs: number) =>
             connection.request(method, params, timeoutMs)

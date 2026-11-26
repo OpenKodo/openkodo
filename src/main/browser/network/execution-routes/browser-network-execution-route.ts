@@ -47,7 +47,7 @@ const nativeDialer: BrowserNetworkTunnelDialer = {
   openTransport: openConnectedSocket
 }
 
-// Paired clients choose these destinations, so the host refuses metadata and its own Orca listeners.
+// Paired clients choose these destinations, so the host refuses metadata and its own OpenKodo listeners.
 const guardedNativeDialer: BrowserNetworkTunnelDialer = {
   connect: (target) =>
     connect({
@@ -103,7 +103,7 @@ function loopbackOnlyLookup(
 }
 
 /** Dials this host's own loopback directly: a proxy would carry it to another machine's localhost.
- *  Orca's own listeners stay refused unless the host opts out of the destination policy. */
+ *  OpenKodo's own listeners stay refused unless the host opts out of the destination policy. */
 export function connectNativeLoopbackTarget(
   target: BrowserNetworkTunnelOpen,
   env: Record<string, string | undefined> = process.env

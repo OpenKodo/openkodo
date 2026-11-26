@@ -160,7 +160,7 @@ async function main() {
     {
       // Use Node directly, without ELECTRON_RUN_AS_NODE, to expose leaked Electron dependencies at startup.
       stdio: ['ignore', 'ignore', 'pipe', 'ipc'],
-      env: { ...process.env, ORCA_USER_DATA_PATH: userDataDir }
+      env: { ...process.env, OPENKODO_USER_DATA_PATH: userDataDir }
     }
   )
 

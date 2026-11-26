@@ -171,11 +171,11 @@ export function BotWhoCanAskList({
       {requests.length > 0 ? (
         <AccessRequestRows requests={requests} onReview={review} onDecline={decline} />
       ) : null}
-      {/* Requests come through Orca Cloud: signed out, nobody's shows, so say why. */}
+      {/* Requests come through OpenKodo Cloud: signed out, nobody's shows, so say why. */}
       {requestsWaitOnSignIn ? (
         <OrcaCloudSignInLine
           className="mb-3"
-          text={t('bots.cloudSignIn.accessRequests', 'Access requests need Orca sign-in.')}
+          text={t('bots.cloudSignIn.accessRequests', 'Access requests need OpenKodo sign-in.')}
           onSignedIn={refreshAccessRequests}
         />
       ) : null}

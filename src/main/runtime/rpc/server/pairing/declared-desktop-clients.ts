@@ -2,8 +2,8 @@ import type { OrcadPeerDesktopsResult } from '../../../../../shared/remote-runti
 import { sanitizeDeviceLabel } from '../../../../../shared/remote-runtime/pairing/device-key-proof'
 import type { DeviceEntry, DeviceOrcaAccount } from './device-entry'
 
-const UNNAMED_DESKTOP = 'another Orca'
-// Lost contact isn't proof an Orca left: a closed control socket still counts while it reconnects.
+const UNNAMED_DESKTOP = 'another OpenKodo'
+// Lost contact isn't proof an OpenKodo left: a closed control socket still counts while it reconnects.
 export const DECLARED_CLIENT_RECONNECT_GRACE_MS = 60_000
 
 type Declaration = { clientInstanceId: string; deviceId: string }
@@ -20,7 +20,7 @@ type AccountDeclaration = {
  */
 export class DeclaredDesktopClients {
   private readonly byConnection = new Map<string, Declaration>()
-  // The Orca account each desktop socket last declared (null: none), with its row and installation.
+  // The OpenKodo account each desktop socket last declared (null: none), with its row and installation.
   private readonly accounts = new Map<string, AccountDeclaration>()
   // Installations whose last declared socket closed recently, by id, until their grace ends.
   private readonly reconnecting = new Map<string, { deviceId: string; until: number }>()

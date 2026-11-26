@@ -56,7 +56,7 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     return [
       '@echo off',
       'setlocal',
-      'if defined ORCA_AGENT_HOOK_ENDPOINT if exist "%ORCA_AGENT_HOOK_ENDPOINT%" call "%ORCA_AGENT_HOOK_ENDPOINT%" 2>nul',
+      'if defined OPENKODO_AGENT_HOOK_ENDPOINT if exist "%OPENKODO_AGENT_HOOK_ENDPOINT%" call "%OPENKODO_AGENT_HOOK_ENDPOINT%" 2>nul',
       ...buildWindowsHookEnvironmentGuardLines(),
       buildWindowsAgentHookCurlPostCommand('kiro'),
       'exit /b 0',
@@ -68,11 +68,11 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     '#!/bin/sh',
     ...buildPosixHookPayloadCapture(),
     ...buildPosixHookSpoolLines('kiro'),
-    // Refresh endpoint credentials for PTYs surviving an Orca restart.
-    'if [ -n "$ORCA_AGENT_HOOK_ENDPOINT" ] && [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ]; then',
-    '  . "$ORCA_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
+    // Refresh endpoint credentials for PTYs surviving an OpenKodo restart.
+    'if [ -n "$OPENKODO_AGENT_HOOK_ENDPOINT" ] && [ -r "$OPENKODO_AGENT_HOOK_ENDPOINT" ]; then',
+    '  . "$OPENKODO_AGENT_HOOK_ENDPOINT" 2>/dev/null || :',
     'fi',
-    'if [ -z "$ORCA_AGENT_HOOK_PORT" ] || [ -z "$ORCA_AGENT_HOOK_TOKEN" ] || [ -z "$ORCA_PANE_KEY" ]; then',
+    'if [ -z "$OPENKODO_AGENT_HOOK_PORT" ] || [ -z "$OPENKODO_AGENT_HOOK_TOKEN" ] || [ -z "$OPENKODO_PANE_KEY" ]; then',
     '  spool_hook_event',
     '  exit 0',
     'fi',
@@ -85,7 +85,7 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
 }
 
 function noAgentsDetail(agentsDir: string): string {
-  return `No custom Kiro agents in ${agentsDir}. On Kiro's V2 engine the built-in default agent cannot carry hooks; create one with \`kiro-cli agent create\` and make it the default so Orca can track Kiro's status`
+  return `No custom Kiro agents in ${agentsDir}. On Kiro's V2 engine the built-in default agent cannot carry hooks; create one with \`kiro-cli agent create\` and make it the default so OpenKodo can track Kiro's status`
 }
 
 type AgentFileRead =
@@ -154,7 +154,7 @@ function buildStatus(agentsDir: string, files: AgentFileRead[]): AgentHookInstal
     } else if (present.size > 0) {
       problems.push(`${file.fileName} is missing managed hooks for: ${missing.join(', ')}`)
     } else {
-      problems.push(`${file.fileName} has no Orca hooks`)
+      problems.push(`${file.fileName} has no OpenKodo hooks`)
     }
   }
   if (problems.length === 0) {
@@ -224,7 +224,7 @@ export class KiroHookService {
     kiroHomeDir?: string
   ): Promise<AgentHookInstallStatus> {
     const agentsDir = getKiroRemoteAgentsDir(remoteHome, kiroHomeDir)
-    const scriptPath = `${remoteHome.replace(/\/$/, '')}/.orca/agent-hooks/kiro-hook.sh`
+    const scriptPath = `${remoteHome.replace(/\/$/, '')}/.openkodo/agent-hooks/kiro-hook.sh`
     try {
       // Write the script first so no hooks file ever points at a missing file.
       await writeManagedScriptRemote(sftp, scriptPath, getManagedScript('posix'))

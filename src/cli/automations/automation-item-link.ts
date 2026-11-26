@@ -37,7 +37,7 @@ export async function automationItemFlag(
   if (!status.result.capabilities?.includes(BOTS_ITEM_WAITING_CAPABILITY)) {
     throw new RuntimeClientError(
       'incompatible_runtime',
-      'This Orca host cannot link automations to items. Update Orca on that host.'
+      'This OpenKodo host cannot link automations to items. Update OpenKodo on that host.'
     )
   }
   const shown = await client.call<{ item: BotItem }>('bots.items.show', {

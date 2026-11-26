@@ -37,7 +37,7 @@ export function bindTerminalToCallingWorker(
   const workerHandle = evidence.agentSessionId
     ? resolveStructuredWorkerIdentityForSession(evidence.agentSessionId, db)?.handle
     : evidence.terminalHandle
-  // A shell that outlived an Orca restart keeps its old handle; its pane still names the worker.
+  // A shell that outlived an OpenKodo restart keeps its old handle; its pane still names the worker.
   const resource =
     (workerHandle ? db.getWorkerTerminalResourceByHandle(workerHandle) : undefined) ??
     (evidence.agentSessionId || !evidence.paneKey

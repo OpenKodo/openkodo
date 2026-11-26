@@ -1,4 +1,4 @@
-// "When you reply to a Slack thread from Orca, it posts as <Name> ⌄": who a message typed at the bot's computer
+// "When you reply to a Slack thread from OpenKodo, it posts as <Name> ⌄": who a message typed at the bot's computer
 // posts as in its Slack threads. The picker shows each choice as the Slack post it makes. Right after
 // install the pick applies at once; later, a change waits on whoever set the bot's Slack up approving
 // it in Slack, and the line keeps the old choice until then.
@@ -27,7 +27,7 @@ import { SlackPersonPlaceholder } from './SlackPersonPlaceholder'
 
 type Installed = Extract<ConnectorBotSlackState, { state: 'installed' }>
 
-// Slack's own message look, small: its fixed colours, not Orca's, so the preview reads as Slack.
+// Slack's own message look, small: its fixed colours, not OpenKodo's, so the preview reads as Slack.
 const SLACK_POST =
   'bg-white text-[#1d1c1d] dark:bg-[#1a1d21] dark:text-[#d1d2d3] [--slack-muted:#616061] dark:[--slack-muted:#ababad]'
 const SAMPLE_TIME = new Date(2026, 0, 1, 9, 41)
@@ -73,7 +73,7 @@ export function BotSlackPostAs({
       slack.poster?.name ||
       hostAccount?.displayName ||
       hostAccount?.email?.split('@')[0] ||
-      t('bots.slack.postAs.orcaUser', 'Orca user'),
+      t('bots.slack.postAs.orcaUser', 'OpenKodo user'),
     avatar: (
       <ConnectorAvatar
         avatarUrl={slack.poster?.avatarUrl}
@@ -158,7 +158,7 @@ export function BotSlackPostAs({
         <Trans
           i18n={i18n}
           i18nKey="bots.slack.postAs.line"
-          defaults="When you reply to a Slack thread from Orca, it posts as <picker>{{name}}</picker>"
+          defaults="When you reply to a Slack thread from OpenKodo, it posts as <picker>{{name}}</picker>"
           values={{ name: posters[current].name }}
           shouldUnescape
           components={{ picker: <PickerName /> }}
@@ -254,7 +254,7 @@ function SlackPostPreview({
       <span className="min-w-0 flex-1 pr-5">
         <span className="flex min-w-0 items-baseline gap-1">
           <span className="truncate text-[13px] leading-[18px] font-black">
-            {t('bots.slack.postAs.viaOrca', '{{name}} (via Orca)', { name: poster.name })}
+            {t('bots.slack.postAs.viaOrca', '{{name}} (via OpenKodo)', { name: poster.name })}
           </span>
           <span className="shrink-0 rounded-sm bg-[var(--slack-muted)]/15 px-0.5 text-[9px] leading-3 font-bold text-[var(--slack-muted)]">
             {t('bots.slack.postAs.app', 'APP')}

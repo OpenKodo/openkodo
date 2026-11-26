@@ -10,7 +10,7 @@ export function getOrcaCliCommandNameForPlatform(platform: NodeJS.Platform): str
   return 'orca'
 }
 
-/** The GNOME-conflict `orca-ide` rename is desktop-only: SSH relays and headless Orca servers put plain `orca` on PATH. */
+/** The GNOME-conflict `orca-ide` rename is desktop-only: SSH relays and headless OpenKodo servers put plain `orca` on PATH. */
 export function skipsLinuxOrcaCliRename(isRemote: boolean | undefined): boolean {
   if (isRemote) {
     return true

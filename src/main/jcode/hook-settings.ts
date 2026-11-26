@@ -1,4 +1,5 @@
 // Honor JCODE_HOME so hooks land in the config jcode actually reads.
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 
@@ -37,7 +38,7 @@ export function getJcodeManagedScriptPath(): string {
 }
 
 export function getSharedJcodeScriptPath(scriptFileName: string): string {
-  return join(homedir(), '.orca', 'agent-hooks', scriptFileName)
+  return join(openKodoHomePath(), 'agent-hooks', scriptFileName)
 }
 
 // jcode tokenizes commands before direct execution; quote paths to preserve Windows separators and spaces.

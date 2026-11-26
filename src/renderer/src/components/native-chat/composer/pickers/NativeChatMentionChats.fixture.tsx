@@ -23,7 +23,7 @@ const BOTS = [
     name: 'Perf bot',
     id: 'perf',
     icon: avatar('🐙'),
-    detail: 'Owns Orca performance audits and fixes'
+    detail: 'Owns OpenKodo performance audits and fixes'
   },
   {
     name: 'Release bot',

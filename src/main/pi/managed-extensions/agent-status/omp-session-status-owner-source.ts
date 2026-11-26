@@ -28,7 +28,7 @@ export function getOmpSessionOwnerHandlerSourceLines(kind: PiAgentKind): string[
     '      owners = new Map()',
     '      Reflect.set(globalThis, key, owners)',
     '    }',
-    '    const pane = JSON.stringify([process.env.ORCA_PANE_KEY, process.env.ORCA_AGENT_LAUNCH_TOKEN])',
+    '    const pane = JSON.stringify([process.env.OPENKODO_PANE_KEY, process.env.OPENKODO_AGENT_LAUNCH_TOKEN])',
     '    const owner = owners.get(pane)',
     '    if (owner && owner.manager !== current.manager) {',
     '      if (omp) return false',

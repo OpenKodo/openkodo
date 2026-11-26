@@ -42,12 +42,12 @@ export async function resolveGoogleAccount(wanted: string | undefined): Promise<
   const fallback = await readGoogleDefaultAccount()
   if ('unreadable' in fallback) {
     throw new GoogleToolError(
-      `Couldn't read this computer's default Google account. ${fallback.unreadable} Pick the default in Orca Settings, or name one with --account: ${fallback.accounts.join(', ')}.`
+      `Couldn't read this computer's default Google account. ${fallback.unreadable} Pick the default in OpenKodo Settings, or name one with --account: ${fallback.accounts.join(', ')}.`
     )
   }
   if (!fallback.email) {
     throw new GoogleToolError(
-      'No Google account is connected on this computer. Ask your owner to connect one in Orca.'
+      'No Google account is connected on this computer. Ask your owner to connect one in OpenKodo.'
     )
   }
   return fallback.email
@@ -121,7 +121,7 @@ export async function googleApi(
     const record = await refreshGoogleAccount(email, deps, true)
     if (record.status !== 'connected' || !record.accessToken) {
       throw new GoogleToolError(
-        `${record.reason ?? 'Google access ended.'} Ask your owner to reconnect ${email} in Orca.`
+        `${record.reason ?? 'Google access ended.'} Ask your owner to reconnect ${email} in OpenKodo.`
       )
     }
     return record.accessToken
@@ -171,7 +171,7 @@ export async function googleApi(
     }
     const value = read(parseBody(await response.text()))
     if (value === null) {
-      throw new GoogleToolError('Google answered in a shape Orca does not understand.')
+      throw new GoogleToolError('Google answered in a shape OpenKodo does not understand.')
     }
     return value
   }
@@ -203,7 +203,7 @@ export async function googleApi(
         false
       )
       if (value === null) {
-        throw new GoogleToolError('Google answered in a shape Orca does not understand.')
+        throw new GoogleToolError('Google answered in a shape OpenKodo does not understand.')
       }
       return value
     },
@@ -214,7 +214,7 @@ export async function googleApi(
       }
       const tooLarge = () =>
         new GoogleToolError(
-          `That file is larger than ${formatMegabytes(maxBytes)}, more than Orca hands an agent at once. Open it in Google instead.`
+          `That file is larger than ${formatMegabytes(maxBytes)}, more than OpenKodo hands an agent at once. Open it in Google instead.`
         )
       if (Number(response.headers.get('content-length') ?? 0) > maxBytes) {
         await response.body?.cancel().catch(() => undefined)
@@ -251,13 +251,13 @@ function failureSentence(
     case 'api-disabled':
       return `${readiness.detail ?? 'This Google API is turned off.'} Ask your owner to turn it on: ${readiness.enableUrl ?? googleApiEnableUrl(service, projectId)}`
     case 'needs-permission':
-      return 'Google access for this was not allowed. Ask your owner to reconnect it in Orca and allow it.'
+      return 'Google access for this was not allowed. Ask your owner to reconnect it in OpenKodo and allow it.'
     case 'blocked-by-admin':
       return `Your owner's company Google admin blocked this: ${readiness.detail ?? ''}`.trim()
     case 'ready':
     case 'error':
       return status === 401
-        ? 'Google refused the sign-in. Ask your owner to reconnect it in Orca.'
+        ? 'Google refused the sign-in. Ask your owner to reconnect it in OpenKodo.'
         : status === 429
           ? 'Google says too many requests right now. Wait a minute and try again.'
           : `Google refused: ${readiness.detail ?? `HTTP ${status}`}`

@@ -116,7 +116,7 @@ export async function grantCodexProjectTrustOffMain(
 }
 
 /**
- * Removes every Orca-created project trust entry for `projectPath`, wherever
+ * Removes every OpenKodo-created project trust entry for `projectPath`, wherever
  * recorded. Never throws: removal rides the worktree-removal path, which must
  * not fail over a config file it cannot read — the record is kept so a later
  * pass retries. Resolves once every touched file has been written.
@@ -132,7 +132,7 @@ export async function removeOrcaCreatedProjectTrustEntries(projectPath: string):
     }))
     configFiles = listed.configFiles ?? []
   } catch (error) {
-    console.warn('[codex-config] Failed to read Orca-created project trust ownership:', error)
+    console.warn('[codex-config] Failed to read OpenKodo-created project trust ownership:', error)
     return
   }
   // Why: one lock at a time; nesting in ledger order could deadlock against installer order.
@@ -147,14 +147,17 @@ export async function removeOrcaCreatedProjectTrustEntries(projectPath: string):
           ledgerPath
         }))
       } catch (error) {
-        console.warn('[codex-config] Failed to remove an Orca-created project trust entry:', error)
+        console.warn(
+          '[codex-config] Failed to remove an OpenKodo-created project trust entry:',
+          error
+        )
       }
     })
   }
 }
 
 /**
- * Removes the Antigravity `trustedWorkspaces` entries Orca created for `workspacePath`, on the
+ * Removes the Antigravity `trustedWorkspaces` entries OpenKodo created for `workspacePath`, on the
  * worker and inside the queue Antigravity grants use, so neither overwrites the other. Never throws.
  */
 export function removeOrcaCreatedAntigravityTrustOffMain(workspacePath: string): Promise<void> {
@@ -163,7 +166,7 @@ export function removeOrcaCreatedAntigravityTrustOffMain(workspacePath: string):
     try {
       await request((id) => ({ id, kind: 'removeAntigravityOwned', workspacePath, ledgerPath }))
     } catch (error) {
-      console.warn('[antigravity-trust] Failed to remove an Orca-created trust entry:', error)
+      console.warn('[antigravity-trust] Failed to remove an OpenKodo-created trust entry:', error)
     }
   })
 }

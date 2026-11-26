@@ -5,7 +5,7 @@ import {
 } from '../app-update/github-release-update-source'
 
 export const NEW_APP_PLAY_URL = 'https://play.google.com/store/apps/details?id=dev.orca.app'
-const RELEASES_PAGE_URL = 'https://github.com/stablyai/orca/releases'
+const RELEASES_PAGE_URL = 'https://github.com/OpenKodo/openkodo/releases'
 const LOOKUP_TIMEOUT_MS = 10_000
 
 async function newAppDownloadUrl(): Promise<string> {

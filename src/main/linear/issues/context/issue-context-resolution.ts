@@ -184,7 +184,7 @@ export async function withLinearRead<T>(
     if (isAuthError(error)) {
       await clearToken(entry.workspace.id)
       throw linearError('linear_auth_expired', 'Linear authentication expired.', {
-        nextSteps: ['Reconnect Linear from Orca settings.']
+        nextSteps: ['Reconnect Linear from OpenKodo settings.']
       })
     }
     throw toLinearAccessError(error)

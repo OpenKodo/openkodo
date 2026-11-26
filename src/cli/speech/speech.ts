@@ -42,7 +42,7 @@ export async function callOpenAiKeyMethod(
     if (error instanceof RuntimeClientError && error.code === 'method_not_found') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This Orca server cannot store a voice dictation key yet. Update Orca on the server and try again.'
+        'This OpenKodo server cannot store a voice dictation key yet. Update OpenKodo on the server and try again.'
       )
     }
     throw error

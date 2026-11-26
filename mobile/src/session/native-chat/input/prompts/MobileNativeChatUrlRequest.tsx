@@ -20,7 +20,7 @@ export function canOpenUrlRequestPage(url: string): boolean {
   return target !== null && canOpenExternalLink(target.href)
 }
 
-/** Opens only in the system browser, outside anything Orca or an agent can read. */
+/** Opens only in the system browser, outside anything OpenKodo or an agent can read. */
 export function openUrlRequestPage(url: string): void {
   const target = readApprovalUrl(url)
   if (target) {

@@ -136,7 +136,7 @@ export const BotNotificationsSchema = z.object({
 /** The bot's own Slack app, once created; its install state is read from the cloud. */
 export const BotSlackAppSchema = z.object({ appId: z.string().min(1), teamId: z.string().min(1) })
 
-/** The Linear workspace the bot takes requests in, through Orca's one shared Linear app. */
+/** The Linear workspace the bot takes requests in, through OpenKodo's one shared Linear app. */
 export const BotLinearSchema = z.object({
   workspaceId: z.string().min(1),
   workspaceName: z.string(),
@@ -144,7 +144,7 @@ export const BotLinearSchema = z.object({
   urlKey: z.string().optional()
 })
 
-/** The bot answers on GitHub, in every installation of Orca's one shared GitHub app the owner's link can see but the removed ones. */
+/** The bot answers on GitHub, in every installation of OpenKodo's one shared GitHub app the owner's link can see but the removed ones. */
 export const BotGitHubSchema = z.object({
   removedInstallationIds: z.array(z.string().min(1)).max(100).optional()
 })
@@ -210,7 +210,7 @@ export const BotSchema = z.object({
   linear: BotLinearLinkSchema.nullable().default(null),
   linearWorkspaces: z.array(BotLinearLinkSchema).max(BOT_MAX_CONNECTOR_WORKSPACES).optional(),
   github: BotGitHubSchema.extend(BotLinkOwner).nullable().default(null),
-  /** Whether a new Slack thread the owner starts posts the owner's Orca messages back to it; absent is on.
+  /** Whether a new Slack thread the owner starts posts the owner's OpenKodo messages back to it; absent is on.
    *  Threads others start, and the owner's teammates' DMs, start off whatever this says. */
   slackMirror: z.boolean().optional().catch(undefined),
   /** The bot may use the Google accounts signed in on its host, for its owner's own requests. Absent is off. */

@@ -27,7 +27,7 @@ import {
 
 const NOTHING_SENT = { effectsApplied: false } as const
 
-/** `send --on <server>`: this Orca carries the mail and keeps the conversation the replies come back on. */
+/** `send --on <server>`: this OpenKodo carries the mail and keeps the conversation the replies come back on. */
 export async function sendPeerMail(args: {
   params: z.infer<typeof SendParams> & { on: string }
   runtime: OrcaRuntimeService
@@ -57,7 +57,7 @@ export async function sendPeerMail(args: {
   if (params.payload !== undefined) {
     throw new OrchestrationError(
       'invalid_argument',
-      '--on carries a subject and body; payload fields such as --task-id or --report-path name work on this Orca only. Nothing was sent.',
+      '--on carries a subject and body; payload fields such as --task-id or --report-path name work on this OpenKodo only. Nothing was sent.',
       NOTHING_SENT
     )
   }
@@ -72,7 +72,7 @@ export async function sendPeerMail(args: {
     localPaneKey: caller.paneKey
   })
   const id = peerMailMessageId(args.orchestrationMutation)
-  // An Orca from before files keeps the words and drops the files, so they go only where they're taken.
+  // An OpenKodo from before files keeps the words and drops the files, so they go only where they're taken.
   const files = server.takesFiles ? params.files : undefined
   const attachments = await uploadPeerMailFiles(runtime, server, { ...params, files })
   const warnings: SendRecipientWarning[] =
@@ -81,7 +81,7 @@ export async function sendPeerMail(args: {
           {
             code: 'files_not_sent',
             recipient: to,
-            message: `${server.name}'s Orca needs an update to receive files, so the message went without them.`
+            message: `${server.name}'s OpenKodo needs an update to receive files, so the message went without them.`
           }
         ]
       : []

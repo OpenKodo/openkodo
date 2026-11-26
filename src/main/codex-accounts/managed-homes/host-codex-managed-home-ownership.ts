@@ -160,7 +160,10 @@ function evaluate({
   } catch (error) {
     // A missing ownership marker disproves trust; an unreadable one leaves it unknown.
     if (isDefinitiveAbsence(error)) {
-      return { kind: 'untrusted', reason: 'Managed Codex home is missing Orca ownership marker.' }
+      return {
+        kind: 'untrusted',
+        reason: 'Managed Codex home is missing OpenKodo ownership marker.'
+      }
     }
     return { kind: 'indeterminate', error }
   }
@@ -200,5 +203,5 @@ export function assertOwnedHostCodexManagedHomePath(
   throw new ManagedCodexHomeTemporarilyUnavailableError(undefined, { cause: verdict.error })
 }
 
-/** An account folder whose home may be Orca's, before ownership is checked. */
+/** An account folder whose home may be OpenKodo's, before ownership is checked. */
 export type CodexAccountHomeCandidate = { accountsRoot: string; accountId: string }

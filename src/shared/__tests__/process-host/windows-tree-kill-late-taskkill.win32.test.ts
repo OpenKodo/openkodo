@@ -8,9 +8,9 @@ import { runProcess, spawnProcess } from '@orca/process-host'
 import { _setWindowsTaskkillLauncherForTests } from '@orca/process-host/windows-tree-kill'
 import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
 
-/** Loaded taskkill can outlast its caller; killing root first orphans grandchildren before tree enumeration. ORCA_WINDOWS_TREE_KILL_LOAD adds CPU burners only in isolated CI steps. */
+/** Loaded taskkill can outlast its caller; killing root first orphans grandchildren before tree enumeration. OPENKODO_WINDOWS_TREE_KILL_LOAD adds CPU burners only in isolated CI steps. */
 const describeOnWindows = process.platform === 'win32' ? describe : describe.skip
-const underLoad = process.env.ORCA_WINDOWS_TREE_KILL_LOAD === '1'
+const underLoad = process.env.OPENKODO_WINDOWS_TREE_KILL_LOAD === '1'
 // Longer than the caller's 5 s wait, well inside the 30 s deadline.
 const TASKKILL_START_DELAY_MS = 8_000
 

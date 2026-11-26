@@ -19,7 +19,7 @@ const VERSION = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/
 
 const npmLatestSchema = z.object({ version: z.string().regex(VERSION) })
 const githubReleaseSchema = z.object({ tag_name: z.string() })
-// Other entries may change shape; only the agents Orca reads must parse.
+// Other entries may change shape; only the agents OpenKodo reads must parse.
 const acpRegistrySchema = z.object({
   agents: z.array(z.object({ id: z.string(), version: z.unknown() }))
 })
@@ -102,7 +102,7 @@ async function acpRegistryVersions(): Promise<Map<string, string>> {
 const acpRegistryLookup = hourly('ACP registry', acpRegistryVersions)
 
 async function refreshClaudeLatest(): Promise<string | null> {
-  // Shares Orca's own Claude lookup, which follows the user's update channel.
+  // Shares OpenKodo's own Claude lookup, which follows the user's update channel.
   await CLAUDE_MANAGED_RUNTIME.refreshPin?.(AbortSignal.timeout(RELEASE_LOOKUP_TIMEOUT_MS)).catch(
     (error: unknown) => {
       console.warn('[agent-cli-update] Claude release lookup failed:', error)

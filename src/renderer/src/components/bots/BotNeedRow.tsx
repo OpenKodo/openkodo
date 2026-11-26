@@ -1,4 +1,4 @@
-// One of Orca's asks in a bot's Needs you group, in an item row's anatomy: a glyph for its kind and its
+// One of OpenKodo's asks in a bot's Needs you group, in an item row's anatomy: a glyph for its kind and its
 // title on one line; what it asks in the hover card. The row body opens where it was asked; hover or focus shows the same action
 // named. Asks have no checkbox, age or status menu: answering happens where they were asked.
 import { createContext, memo, useContext, useId } from 'react'

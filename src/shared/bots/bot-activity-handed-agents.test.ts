@@ -13,8 +13,9 @@ const agent = (
 })
 
 describe('an agent handed to the bot', () => {
-  it('is never titled by a prompt Orca wrote', () => {
-    const mail = '──── From: ORCA_SESSION_ID:abc (orca_session_id:abc) (handoff) ────\nSubject: x'
+  it('is never titled by a prompt OpenKodo wrote', () => {
+    const mail =
+      '──── From: OPENKODO_SESSION_ID:abc (orca_session_id:abc) (handoff) ────\nSubject: x'
     const [titled, restarted] = handedAgentRows([
       agent({ prompt: mail }, { title: 'Fix the login redirect' }),
       agent({ prompt: AGENT_SESSION_RESTART_WORK_CONTINUATION_MESSAGE })

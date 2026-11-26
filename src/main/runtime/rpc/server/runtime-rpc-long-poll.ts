@@ -1,6 +1,6 @@
 import type { RpcRequest } from '../core'
 import '../../../../shared/agent-session/identity/orca-session-address'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../shared/agent-session/identity/orca-session-address-prefix'
 
 export const KEEPALIVE_INTERVAL_MS = 10_000
 
@@ -57,7 +57,7 @@ export function classifyRuntimeLongPoll(request: RpcRequest): RuntimeLongPollCla
     request.params.inject === true &&
     'to' in request.params &&
     typeof request.params.to === 'string' &&
-    request.params.to.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
+    request.params.to.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
   ) {
     return 'wait'
   }

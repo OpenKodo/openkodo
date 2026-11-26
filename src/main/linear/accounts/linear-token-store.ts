@@ -52,7 +52,7 @@ export async function loadToken(
   return workspaceTokenFileCache.read(workspaceId, options.force === true)
 }
 
-// How Orca calls Linear for a workspace: its API key, else the login Connect Linear saved.
+// How OpenKodo calls Linear for a workspace: its API key, else the login Connect Linear saved.
 // A login also carries how to swap in a fresh token when Linear refuses the one it holds.
 export type LinearCredential =
   | { apiKey: string }

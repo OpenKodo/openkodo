@@ -42,7 +42,7 @@ export function googleSetupAnswerLine(card: GoogleSetupCard, values: readonly st
   return `Card google-setup/${card} answered: ${values.join(', ')}`
 }
 
-/** The line the bot reads when its owner starts a setup from Orca. */
+/** The line the bot reads when its owner starts a setup from OpenKodo. */
 export function googleSetupStartLine(from: string, newApp?: true): string {
   const what = newApp ? 'Setup of a new Google app' : 'Google setup'
   return `${what} started by your owner (from ${from}). Run \`orca bot google-setup show\` and carry on from there.`
@@ -122,7 +122,7 @@ export async function withBlocker(context: RpcContext, botId: string, read: Goog
   return { run, blocker, keyMissing: open && keyMissing(run, google) }
 }
 
-/** Orca's reading that the key didn't arrive: the owner's card offers recovery, and the bot hears why. */
+/** OpenKodo's reading that the key didn't arrive: the owner's card offers recovery, and the bot hears why. */
 export async function recordGoogleSetupKeyMissed(
   runtime: OrcaRuntimeService,
   botId: string,
@@ -219,9 +219,9 @@ export const GOOGLE_SETUP_METHODS = [
     permission: 'workspace',
     params: GoogleSetupAnswer,
     handler: async ({ botId, card, values }, context) => {
-      // Card buttons run in the owner's Orca; an agent's CLI never answers for them.
+      // Card buttons run in the owner's OpenKodo; an agent's CLI never answers for them.
       if (isAgentRpcCaller(context.caller)) {
-        throw new InvalidArgumentError('Only your owner answers setup cards, in Orca.')
+        throw new InvalidArgumentError('Only your owner answers setup cards, in OpenKodo.')
       }
       const { actor } = whose({ botId }, context)
       const run = await answerGoogleSetupCard(context.runtime, botId, actor, card, values)
@@ -234,9 +234,9 @@ export const GOOGLE_SETUP_METHODS = [
     permission: 'workspace',
     params: GoogleSetupStart,
     handler: async ({ botId, from, newApp }, context) => {
-      // Set up Google is a button in the owner's Orca; a bot starts its own run with the CLI.
+      // Set up Google is a button in the owner's OpenKodo; a bot starts its own run with the CLI.
       if (isAgentRpcCaller(context.caller)) {
-        throw new InvalidArgumentError('Only your owner starts Google setup from Orca.')
+        throw new InvalidArgumentError('Only your owner starts Google setup from OpenKodo.')
       }
       const { actor } = whose({ botId }, context)
       const current = googleSetupRuns().get(botId)

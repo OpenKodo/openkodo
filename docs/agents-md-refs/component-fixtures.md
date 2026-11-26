@@ -51,7 +51,7 @@ Chromium resolution order: `ORCA_FIXTURES_BROWSER` (an executable path), then th
 
 ## MCP
 
-`.mcp.json` registers `orca-component-fixtures`, a stdio server at `config/scripts/component-fixtures/fixtures-mcp-server.mjs`. It has two tools:
+`.mcp.json` registers `openkodo-component-fixtures`, a stdio server at `config/scripts/component-fixtures/fixtures-mcp-server.mjs`. It has two tools:
 
 - `list_fixtures({ filter? })`
 - `screenshot_fixture({ id, theme?, scale? })`: returns the PNGs inline (up to 6) along with their paths.

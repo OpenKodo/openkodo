@@ -20,7 +20,7 @@ const WATCH_PR_EVENTS = [
   'comment'
 ] as const
 
-/** CI's result: one ci_finished where the host's Orca Cloud sends it, else passed and failed (the
+/** CI's result: one ci_finished where the host's OpenKodo Cloud sends it, else passed and failed (the
  *  deadline still catches what neither hears, such as a cancelled check on an older cloud). */
 function ciEvents(ciFinished: boolean): readonly string[] {
   return ciFinished ? ['ci_finished'] : ['ci_passed', 'ci_failed']
@@ -28,7 +28,7 @@ function ciEvents(ciFinished: boolean): readonly string[] {
 
 /** Named here too, since a caller's prompt may not say which pull request it is. */
 const deadlineLine = (pr: string) =>
-  `If Orca says the deadline came first, no event came in time: read ${pr} fresh with gh (state, mergeable, checks) before acting.`
+  `If OpenKodo says the deadline came first, no event came in time: read ${pr} fresh with gh (state, mergeable, checks) before acting.`
 
 /** owner/repo#n, from that or a link to the pull request or one of its tabs. */
 export function parseWatchedPr(raw: string): string {
@@ -76,7 +76,7 @@ function watchDeadline(flags: Flags, now: number): string {
 }
 
 /** The create flags a watch stands for: a --once wait with a deadline on each of its events.
- *  ciFinished: the bot's Orca Cloud sends github.ci_finished. */
+ *  ciFinished: the bot's OpenKodo Cloud sends github.ci_finished. */
 export function watchPrCreateFlags(flags: Flags, now: number, ciFinished: boolean): Flags {
   const pr = parseWatchedPr(getRequiredStringFlag(flags, 'pr'))
   const asked = getPresentStringFlag(flags, 'prompt')

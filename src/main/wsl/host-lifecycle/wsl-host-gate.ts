@@ -15,7 +15,7 @@ import type {
   WslHostsPolicyState
 } from '../../../shared/remote-runtime/wsl-hosts/wsl-hosts-policy'
 
-export const WSL_HOSTS_GATED_OFF_MESSAGE = 'WSL hosts are turned off for this launch of Orca.'
+export const WSL_HOSTS_GATED_OFF_MESSAGE = 'WSL hosts are turned off for this launch of OpenKodo.'
 
 // Fixed for the run once main reads the disk; nothing can create a host or a move while not open.
 let promoted: { hasSavedWslHost: boolean; hasWslMoveCutover: boolean } | null = null
@@ -84,7 +84,7 @@ export async function configureWslHostsGate(facts: {
       }
   const state = wslHostsGateState()
   noteWslHostsServeOnly(state === 'serve-only')
-  // Children inherit ORCA_INTERNAL_WSL_HOSTS even when a block closed it; this tells them the truth.
+  // Children inherit OPENKODO_INTERNAL_WSL_HOSTS even when a block closed it; this tells them the truth.
   publishWslHostsGateState(process.env, state)
 }
 

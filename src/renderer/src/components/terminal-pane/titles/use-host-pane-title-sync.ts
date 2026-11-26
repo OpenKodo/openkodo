@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { isRemoteRuntimePtyId } from '../../../../../shared/remote-runtime/remote-runtime-pty-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { TerminalLayoutSnapshot } from '../../../../../shared/workspace-layout/terminal-tab-types'
 import '../layout/terminal-layout-leaf-traversal'
 import { collectLayoutLeafIdsInOrder } from '../../../../../shared/workspace-layout/terminal-topology/terminal-pane-tree'
@@ -15,7 +15,7 @@ export function hostPaneTitleUpdates(args: {
   const updates = new Map<number, string | null>()
   const ptyIds = Object.values(args.layout.ptyIdsByLeafId ?? {})
   // Switch point: main publishes every layout; otherwise local tabs are the window's own.
-  if (!ORCA_LAYOUT_OWNER_IS_MAIN && !ptyIds.some((ptyId) => isRemoteRuntimePtyId(ptyId))) {
+  if (!OPENKODO_LAYOUT_OWNER_IS_MAIN && !ptyIds.some((ptyId) => isRemoteRuntimePtyId(ptyId))) {
     return updates
   }
   const hostLeafIds = new Set(collectLayoutLeafIdsInOrder(args.layout.root))

@@ -16,7 +16,7 @@ import { removeWorkspaceSessionOwnerEverywhere } from './session-owner-removal'
 import { findRepoRowForHostScopedWrite } from '../tracking-repos/repo-update-operations'
 import type { WorkspaceAttachmentMutation } from '../../../shared/workspace-attachments/workspace-attachment-mutation'
 import { normalizeWorkspaceAttachmentUpdate } from '../../../shared/workspace-attachments/workspace-attachments'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import { folderWorkspaceWriteOptions } from './folder-workspace-write-options'
 import type { StateWriteOptions } from '../loading-store/profile-writing/write-scheduling'
 import { findFolderWorkspace } from './folder-workspace-index'
@@ -107,7 +107,7 @@ export class FolderWorkspacePersistenceOperations {
         ? { pendingFirstAgentMessageRename: true }
         : {}),
       // Workspace creation establishes its first Recent stamp.
-      lastActivityAt: ORCA_SIDEBAR_INPUTS_IS_MAIN ? now : 0,
+      lastActivityAt: OPENKODO_SIDEBAR_INPUTS_IS_MAIN ? now : 0,
       createdAt: now,
       updatedAt: now
     }

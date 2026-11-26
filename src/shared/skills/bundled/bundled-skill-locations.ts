@@ -21,7 +21,7 @@ export type BundledSkillLocation = {
   place: { kind: 'shared' } | { kind: 'agents'; names: string[] }
   state: BundledSkillLocationState
   reason: BundledSkillLeaveReason | null
-  /** Replace/--force may back up this location and install Orca’s copy. */
+  /** Replace/--force may back up this location and install OpenKodo’s copy. */
   replaceable: boolean
   /** What the host saw at `path`; Replace moves this whole object, so copy may only promise what it holds. */
   observedKind: BundledSkillOp['observed']['kind']

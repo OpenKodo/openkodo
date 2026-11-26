@@ -49,7 +49,7 @@ export async function callRuntimeEnvironment(
     responseTimeoutMs?: number
     /** A poll, not the user: it is no use of an idle host. */
     background?: boolean
-    /** The user asked for it: it may wake a WSL host Orca stopped idle (#46567). */
+    /** The user asked for it: it may wake a WSL host OpenKodo stopped idle (#46567). */
     wake?: boolean
   }
 ): Promise<Rpc.RuntimeRpcResponse<unknown>> {

@@ -50,7 +50,7 @@ async function updateBot(params: BotUpdateParams, context: RpcContext) {
   }
   const { members, addMembers: added, permissionMode } = params.updates
   if (members !== undefined || added !== undefined || permissionMode !== undefined) {
-    ownerOnly(context, 'Only your owner changes your Who can ask or permissions, in Orca.')
+    ownerOnly(context, 'Only your owner changes your Who can ask or permissions, in OpenKodo.')
   }
   const bot = await context.runtime.bots.update(params.botId, params.updates)
   if (params.updates.skillProjects !== undefined) {
@@ -85,7 +85,7 @@ async function updateBot(params: BotUpdateParams, context: RpcContext) {
   return { bot }
 }
 
-/** New Home Chat: from Orca, a script, or the bot's own Home Chat, whatever started its turn. */
+/** New Home Chat: from OpenKodo, a script, or the bot's own Home Chat, whatever started its turn. */
 async function newHomeChat(params: BotChatResetParams, context: RpcContext) {
   const { runtime } = context
   runtime.bots.assertEnabled()
@@ -105,15 +105,15 @@ export const BOT_METHODS = [
     name: 'bots.list',
     permission: 'workspace',
     params: null,
-    // webhooks: whether this host's Orca Cloud takes them, so a bot can be offered webhook.call;
+    // webhooks: whether this host's OpenKodo Cloud takes them, so a bot can be offered webhook.call;
     // threadReplies: whether it binds an event's run to its thread, for --results-to thread.
     // githubEvents2: whether it sends GitHub's newer events and label=, for trigger-options.
     // githubWorkflows: whether it sends github.workflow_finished, for trigger-options.
     // githubCiFinished: whether it sends github.ci_finished, for trigger-options and watch-pr.
     // waits: each bot's waits still waiting, for its row; needsYou: its unstale Needs you items, for phones.
-    // connectorNeedsSignIn: Orca Cloud refused this host's sign-in, so nothing reaches its bots.
+    // connectorNeedsSignIn: OpenKodo Cloud refused this host's sign-in, so nothing reaches its bots.
     // connectorStatus: signed out, needs sign-in (the app is signed in but the connector refuses it),
-    // can't reach Orca Cloud, refused (connectorMessage says why), or ok; absent without Orca Cloud.
+    // can't reach OpenKodo Cloud, refused (connectorMessage says why), or ok; absent without OpenKodo Cloud.
     // signInServer: this host's name when it is a headless server, whose signed-out copy names it;
     // null with a window (an older host omits it, so the CLI can't tell which).
     handler: async (_params, { runtime }) => {

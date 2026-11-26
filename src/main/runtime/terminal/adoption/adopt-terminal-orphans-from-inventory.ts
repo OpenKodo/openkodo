@@ -196,7 +196,7 @@ export abstract class OrcaRuntimeWithAdoptTerminalOrphansFromInventory extends O
     }
 
     // An arbitrary identity guess can attribute worker_done to a sibling and settle its tokenless dispatch.
-    // Worker children carry ORCA_TERMINAL_HANDLE; ordinary structured chats instead use ORCA_STRUCTURED_SESSION so the CLI refuses guesses even with one pane.
+    // Worker children carry OPENKODO_TERMINAL_HANDLE; ordinary structured chats instead use OPENKODO_STRUCTURED_SESSION so the CLI refuses guesses even with one pane.
     const candidates: RuntimeLeafRecord[] = []
     for (const leaf of this.leaves.values()) {
       if (targetWorktreeId && leaf.worktreeId !== targetWorktreeId) {

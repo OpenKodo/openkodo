@@ -115,7 +115,7 @@ export function MobileNativeChatConnectorOfferRow({
   const answer = useMobileBotOfferAnswer(offer.botId, cardId)
   const name = CONNECTOR_OFFER_NAMES[offer.source]
   const connected = connectorOfferConnected(bot, offer)
-  // The offer is in the bot's own chat, so the chat's host runs it. Google events don't go through Orca Cloud.
+  // The offer is in the bot's own chat, so the chat's host runs it. Google events don't go through OpenKodo Cloud.
   const host = useMobileBotCardHost()
   const cloudStatus = useHostBotsEntry(host?.hostKey ?? null)?.connectorStatus
   const paused = connected && offer.source !== 'google' && cloudStatus === 'signed-out'
@@ -145,7 +145,7 @@ export function MobileNativeChatConnectorOfferRow({
     >
       {paused ? (
         meta(
-          t('bots.connectorOffer.paused', 'Paused until {{host}} signs in to Orca.', {
+          t('bots.connectorOffer.paused', 'Paused until {{host}} signs in to OpenKodo.', {
             host: host?.hostLabel
           })
         )
@@ -175,11 +175,11 @@ export function MobileNativeChatConnectorOfferRow({
                 offer.source === 'github'
                   ? t(
                       'bots.connectorOffer.addGitHubAccess',
-                      'Add repositories or organizations in Orca on your computer, from the card in this chat.'
+                      'Add repositories or organizations in OpenKodo on your computer, from the card in this chat.'
                     )
                   : t(
                       'bots.connectorOffer.addWorkspace',
-                      'Add another workspace in Orca on your computer, from the card in this chat.'
+                      'Add another workspace in OpenKodo on your computer, from the card in this chat.'
                     )
               )
             )
@@ -192,7 +192,7 @@ export function MobileNativeChatConnectorOfferRow({
             : meta(
                 t(
                   'bots.connectorOffer.onComputer',
-                  'Connect it in Orca on your computer, from the card in this chat.'
+                  'Connect it in OpenKodo on your computer, from the card in this chat.'
                 )
               )}
           {answer.error ? (

@@ -1,4 +1,4 @@
-// Linear's, GitHub's or Google's sign-in on the phone: the page open in Orca's browser on the computer, with
+// Linear's, GitHub's or Google's sign-in on the phone: the page open in OpenKodo's browser on the computer, with
 // only typing under it. The setup reopens once the sign-in ends.
 import type { ComponentProps } from 'react'
 import { View } from 'react-native'

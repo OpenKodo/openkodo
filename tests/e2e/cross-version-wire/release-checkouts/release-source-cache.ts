@@ -142,7 +142,7 @@ export async function resolveSharedReleaseCacheRoot(
   if (
     isolatedCacheRoot ||
     process.env.CI ||
-    process.env.ORCA_DISABLE_SHARED_RELEASE_CACHE === '1'
+    process.env.OPENKODO_DISABLE_SHARED_RELEASE_CACHE === '1'
   ) {
     return undefined
   }

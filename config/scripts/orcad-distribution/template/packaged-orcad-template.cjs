@@ -40,7 +40,7 @@ const MACH_O_MAGICS = new Set(['feedface', 'feedfacf', 'cefaedfe', 'cffaedfe', '
 
 /** Release packaging sets it; dev and local builds may ship without the template. */
 function isOrcadTemplateRequired(env = process.env) {
-  return env.ORCA_REQUIRE_ORCAD_TEMPLATE === '1'
+  return env.OPENKODO_REQUIRE_ORCAD_TEMPLATE === '1'
 }
 
 // Why: electron-builder only warns on a missing extraResources source.
@@ -55,7 +55,7 @@ function assertOrcadTemplateBuilt(
   )
   if (isOrcadTemplateRequired(env) && !existsSync(manifest)) {
     throw new Error(
-      `ORCA_REQUIRE_ORCAD_TEMPLATE=1 but ${manifest} is missing; download the merged template ` +
+      `OPENKODO_REQUIRE_ORCAD_TEMPLATE=1 but ${manifest} is missing; download the merged template ` +
         'from the release template job, or build it with `pnpm build:orcad-template`.'
     )
   }

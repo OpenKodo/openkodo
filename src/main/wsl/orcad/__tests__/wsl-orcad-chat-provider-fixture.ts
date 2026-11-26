@@ -58,10 +58,10 @@ async function installGuestCli(
     lane,
     cli,
     `#!/bin/sh
-export ORCA_LANE_CLI_WRAPPER="$0"
+export OPENKODO_LANE_CLI_WRAPPER="$0"
 ${
   agent === 'claude'
-    ? `export ORCA_LANE_CLAUDE_WRAPPER="$0"
+    ? `export OPENKODO_LANE_CLAUDE_WRAPPER="$0"
 previous=
 for argument in "$@"; do
   if [ "$previous" = --output-format ] && [ "$argument" = text ]; then
@@ -124,26 +124,26 @@ export async function installWslChatFixture(lane: WslChatHost) {
     nativeChatResumeWorkOnRestart: false,
     agentDefaultEnv: {
       claude: {
-        ORCA_SDK_CONTRACT_SCENARIO_PATH: `${root}/scenario.json`,
-        ORCA_SDK_CONTRACT_REPORT_PATH: `${root}/report.json`,
-        ORCA_SDK_CONTRACT_REPORT_LOG_PATH: `${root}/report-log.jsonl`,
-        ORCA_SDK_CONTRACT_TIMEOUT_MS: '120000'
+        OPENKODO_SDK_CONTRACT_SCENARIO_PATH: `${root}/scenario.json`,
+        OPENKODO_SDK_CONTRACT_REPORT_PATH: `${root}/report.json`,
+        OPENKODO_SDK_CONTRACT_REPORT_LOG_PATH: `${root}/report-log.jsonl`,
+        OPENKODO_SDK_CONTRACT_TIMEOUT_MS: '120000'
       },
       codex: {
         CODEX_HOME: codex.accountHome,
-        ORCA_CODEX_CONTRACT_REPORT_PATH: codex.reportPath,
-        ORCA_CODEX_CONTRACT_ACK_PATH: codex.ackPath
+        OPENKODO_CODEX_CONTRACT_REPORT_PATH: codex.reportPath,
+        OPENKODO_CODEX_CONTRACT_ACK_PATH: codex.ackPath
       },
       grok: {
         GROK_HOME: grok.accountHome,
-        ORCA_ACP_CONTRACT_REPORT_PATH: grok.reportPath,
-        ORCA_ACP_CONTRACT_ACK_PATH: grok.ackPath
+        OPENKODO_ACP_CONTRACT_REPORT_PATH: grok.reportPath,
+        OPENKODO_ACP_CONTRACT_ACK_PATH: grok.ackPath
       },
       // An unmanaged OpenCode account keeps the user's own data dir, set here like a user's env.
       opencode: {
         XDG_DATA_HOME: opencode.accountHome,
-        ORCA_ACP_CONTRACT_REPORT_PATH: opencode.reportPath,
-        ORCA_ACP_CONTRACT_ACK_PATH: opencode.ackPath
+        OPENKODO_ACP_CONTRACT_REPORT_PATH: opencode.reportPath,
+        OPENKODO_ACP_CONTRACT_ACK_PATH: opencode.ackPath
       }
     }
   })

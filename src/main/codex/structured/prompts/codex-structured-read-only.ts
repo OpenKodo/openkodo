@@ -1,5 +1,5 @@
 // A read-only Codex session (a bot's look-around or tidy-up): no MCP servers, plugins or web search, and every
-// approval answered by the host from Orca's allow-list instead of asking a person nobody is watching.
+// approval answered by the host from OpenKodo's allow-list instead of asking a person nobody is watching.
 import { isPlainObject } from '../../../agent-hooks/installation/configuration/hooks-json-read'
 import {
   codexCommandShells,
@@ -48,7 +48,7 @@ export function codexReadOnlyThreadConfig(
 }
 
 const MCP_NOT_OFF =
-  "Orca couldn't turn off this Codex's MCP servers, so it won't start a read-only run with them."
+  "OpenKodo couldn't turn off this Codex's MCP servers, so it won't start a read-only run with them."
 /** Layers Codex loads over a thread's own config, so a server they turn on stays on. */
 const LAYERS_OVER_THREAD = new Set([
   'legacyManagedConfigTomlFromFile',

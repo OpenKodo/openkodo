@@ -1,5 +1,5 @@
 // Where a bot's running turn's work started, read as cheaply as an optional answer allows: the newest
-// turn by index alone and Orca's request records by id, so a person's thread or a handed-over
+// turn by index alone and OpenKodo's request records by id, so a person's thread or a handed-over
 // request's place. Nothing reads the chat's history, its automation runs or its earlier record; an
 // automation's prompt names no place here (its record can't say which thread its results answer).
 import type { OrcaRuntimeService } from '../../../../orca-runtime'

@@ -203,7 +203,7 @@ export async function registerCoreHandlers(
     }
     registerTelemetryHandlers(store)
     if (!lifecycleOptions.orcaAccount) {
-      throw new Error('Orca account service must be initialized before core handlers')
+      throw new Error('OpenKodo account service must be initialized before core handlers')
     }
     registerOrcaProfileHandlers(store, lifecycleOptions.orcaAccount, {
       onBeforeRelaunch: lifecycleOptions.onBeforeRelaunch

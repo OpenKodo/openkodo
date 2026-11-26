@@ -43,7 +43,7 @@ async function getEnforceableExpectUrl(
   if (!status.result.capabilities?.includes(BROWSER_EXPECT_URL_RUNTIME_CAPABILITY)) {
     throw new RuntimeClientError(
       'incompatible_runtime',
-      'This Orca runtime cannot check --expect-url yet. Update Orca on it or drop the flag.'
+      'This OpenKodo runtime cannot check --expect-url yet. Update OpenKodo on it or drop the flag.'
     )
   }
   return expectUrl

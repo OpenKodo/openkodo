@@ -33,7 +33,7 @@ jobs:
       - name: Package, sign and notarize
         if: vars.OPENKODO_MAC_SIGNING == 'true'
         env:
-          ORCA_MAC_RELEASE: '1'
+          OPENKODO_MAC_RELEASE: '1'
           OPENKODO_MAC_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           CSC_LINK: ${{ secrets.MAC_CERTS }}
           CSC_KEY_PASSWORD: ${{ secrets.MAC_CERTS_PASSWORD }}

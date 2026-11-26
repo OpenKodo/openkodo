@@ -5,7 +5,7 @@ import { BROWSER_PROFILE_METHODS } from './browser-profile-rpc-methods'
 
 const CLEARS = ['browser.profileClearCookies', 'browser.profileClearDefaultCookies']
 
-it("clears a profile's cookies for the person's Orca, never for an agent's CLI", async () => {
+it("clears a profile's cookies for the person's OpenKodo, never for an agent's CLI", async () => {
   const cases: [RpcCallerIdentity, boolean][] = [
     [{ kind: 'local-cli' }, false],
     [{ kind: 'paired-device', deviceId: 'server-agent', agent: true }, false],

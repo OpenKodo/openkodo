@@ -12,7 +12,7 @@ import { isFrozenOrcadSourceSessionPartition } from '../persistence/migrating-or
 import { isWslMoveWindowWriteHeld } from '../persistence/moving-wsl-projects/quiescence/wsl-move-window-write-hold'
 import { windowViewSaveForMain, type ReconnectFactsFor } from '../persistence/window-save-view'
 import { reportWindowSaveDrift } from '../persistence/window-save-divergence'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import { formatShutdownCheckpointFailureReason } from '../../shared/app-lifecycle/shutdown/renderer-shutdown-events'
 import type { DesktopRelayWrite } from '../../shared/workspace-session/desktop-relay-write'
 import { windowSaveKeepingRelayOwnership } from '../persistence/window-save-relay-ownership'
@@ -160,7 +160,7 @@ export function createRendererShutdownCheckpointService(
         for (const { state, hostId } of sessions) {
           if (!isFrozenOrcadSourceSessionPartition(store, hostId)) {
             store.stageWorkspaceSessionBeforeUnload(
-              ORCA_LAYOUT_OWNER_IS_MAIN
+              OPENKODO_LAYOUT_OWNER_IS_MAIN
                 ? stagedSessionForMain(
                     store,
                     state,

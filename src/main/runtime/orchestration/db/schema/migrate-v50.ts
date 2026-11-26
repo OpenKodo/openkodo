@@ -18,7 +18,7 @@ const COLUMNS = [
 ] as const
 
 /** Who took each agent question and whether its asker is still owed a notice, the question a worker
- *  was started for, and the questions this Orca asked a paired one. Each part is skipped when present. */
+ *  was started for, and the questions this OpenKodo asked a paired one. Each part is skipped when present. */
 export function migrateV50(this: OrchestrationDb, current: number): void {
   if (current >= 50) {
     return

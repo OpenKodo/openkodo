@@ -1,4 +1,4 @@
-import { ORCA_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
+import { OPENKODO_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
 import { AgentSkillSetupPanel } from '../../../skills/setup/AgentSkillSetupPanel'
 import { StepBadge } from '../../setup-guide/SetupStepBadge'
 import { useTranslate } from '@/i18n/use-translate'
@@ -38,9 +38,9 @@ export function BrowserUseSkillStep({
       title={t('auto.components.settings.BrowserUseSkillStep.459e24eebc', 'Browser Use skill')}
       description={t(
         'auto.components.settings.BrowserUseSkillStep.0871b6998d',
-        "Enables agents to navigate and verify pages in Orca's browser."
+        "Enables agents to navigate and verify pages in OpenKodo's browser."
       )}
-      skillNames={[ORCA_CLI_SKILL_NAME]}
+      skillNames={[OPENKODO_CLI_SKILL_NAME]}
       target={target}
       terminalRuntime={terminalRuntime}
       installed={skillDetected}

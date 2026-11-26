@@ -107,7 +107,7 @@ function isolatedEnv(runDir, userDataDir) {
   const env = Object.fromEntries(
     Object.entries(process.env).filter(
       ([key]) =>
-        !key.startsWith('ORCA_') &&
+        !key.startsWith('OPENKODO_') &&
         ![
           'ELECTRON_RUN_AS_NODE',
           'NODE_OPTIONS',
@@ -125,13 +125,13 @@ function isolatedEnv(runDir, userDataDir) {
   return {
     ...env,
     ...(virtualDisplay
-      ? { DISPLAY: virtualDisplay.display, ORCA_E2E_HEADFUL: '1' }
-      : { ORCA_E2E_HEADLESS: '1' }),
+      ? { DISPLAY: virtualDisplay.display, OPENKODO_E2E_HEADFUL: '1' }
+      : { OPENKODO_E2E_HEADLESS: '1' }),
     NODE_ENV: 'development',
-    ORCA_BACKGROUND_LAUNCH: '1',
-    ORCA_E2E_USER_DATA_DIR: userDataDir,
-    ORCA_E2E_HOME_DIR: home,
-    ORCA_DISABLE_MACOS_LOGIN_SHELL: '1',
+    OPENKODO_BACKGROUND_LAUNCH: '1',
+    OPENKODO_E2E_USER_DATA_DIR: userDataDir,
+    OPENKODO_E2E_HOME_DIR: home,
+    OPENKODO_DISABLE_MACOS_LOGIN_SHELL: '1',
     HOME: home,
     USERPROFILE: home,
     TMPDIR: tmp,

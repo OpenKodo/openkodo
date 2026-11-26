@@ -34,12 +34,12 @@ function forkNotice(outcome: 'pending' | 'working' | 'none', agent: string | nul
   }
 }
 
-/** A structured chat's Orca commands, run by the composer before a send as desktop's are:
+/** A structured chat's OpenKodo commands, run by the composer before a send as desktop's are:
  *  `/fork` and `/usage` run here, `/resume`, `/side` and `/btw` are refused, never sent as text. */
 export function useMobileNativeChatOrcaCommands(input: {
   structured: MobileNativeChatStructuredComposer | null
   agent: string | null
-  /** Where a picked skill's origin is recorded, so a skill named like an Orca command still reaches the agent. */
+  /** Where a picked skill's origin is recorded, so a skill named like an OpenKodo command still reaches the agent. */
   sendSurfaceId: string
   /** A queued message's edit runs no commands. */
   editing: boolean
@@ -70,7 +70,7 @@ export function useMobileNativeChatOrcaCommands(input: {
   const isPickedSkill = (token: string): boolean =>
     readMobileNativeChatSkillOrigin(sendSurfaceId) === token
 
-  /** True when the draft was an Orca command; the draft clears only when it ran. */
+  /** True when the draft was an OpenKodo command; the draft clears only when it ran. */
   const consume = (draft: string): boolean => {
     const match = /^(\/\S+)(?:\s+([\s\S]*))?$/.exec(draft.trim())
     if (!match || editing || !catalog || isPickedSkill(match[1]!)) {

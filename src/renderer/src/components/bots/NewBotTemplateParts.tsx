@@ -1,5 +1,5 @@
 // New bot from a template: one row of chips, one per kind of part it comes with. A chip opens the parts
-// of that kind; skills switch off there. A host on an older Orca takes the instructions only, said in one line.
+// of that kind; skills switch off there. A host on an older OpenKodo takes the instructions only, said in one line.
 import { useState } from 'react'
 import { BookOpen, Clock, Plug, Zap } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -125,7 +125,7 @@ export function NewBotTemplateParts({
     }
     const note = t(
       'bots.new.parts.olderHost',
-      '{{host}} needs an Orca update to add skills and schedules',
+      '{{host}} needs an OpenKodo update to add skills and schedules',
       { host: hostLabel }
     )
     return (

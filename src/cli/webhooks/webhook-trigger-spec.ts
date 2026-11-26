@@ -105,5 +105,5 @@ export const WEBHOOK_TRIGGER_OPTIONS = [
   "  pick=<path>,<path>  quote only these fields to the run; the full body is in a file in the bot's folder",
   "  subject-from=<path>  calls with the same value here fold into that subject's unfinished run",
   '  subject=<value>  only calls whose subject-from value is this',
-  "  Your owner copies the URL with Copy URL on the automation's card in Orca. Never write a webhook URL yourself, and never ask for, repeat or accept a webhook key."
+  "  Your owner copies the URL with Copy URL on the automation's card in OpenKodo. Never write a webhook URL yourself, and never ask for, repeat or accept a webhook key."
 ].join('\n')

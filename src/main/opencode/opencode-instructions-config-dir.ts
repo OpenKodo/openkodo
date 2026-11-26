@@ -20,7 +20,7 @@ export function openCodeTakesConfigDirInstructions(version: string | null): bool
   )
 }
 
-/** The config folder the child would read without Orca: its own OPENCODE_CONFIG_DIR, else the XDG one. */
+/** The config folder the child would read without OpenKodo: its own OPENCODE_CONFIG_DIR, else the XDG one. */
 export function openCodeSourceConfigDirectory(env: Readonly<Record<string, string>>): string {
   return env.OPENCODE_CONFIG_DIR?.trim() || resolveOpenCodeConfigDirectory(env)
 }

@@ -9,7 +9,7 @@ export type FixtureUsageLimitStop = {
   workspaceId: string
   name?: string
   resetsAt: number
-  /** Orca continues it at the reset. */
+  /** OpenKodo continues it at the reset. */
   auto: boolean
 }
 

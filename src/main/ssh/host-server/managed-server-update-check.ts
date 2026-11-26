@@ -44,7 +44,7 @@ export async function checkManagedServerUpdate(
       onUpdating
     })
   } catch (error) {
-    console.warn('[ssh] Could not check the managed Orca server for an update:', error)
+    console.warn('[ssh] Could not check the managed OpenKodo server for an update:', error)
     return {
       note: {
         state: 'check-failed',

@@ -16,23 +16,23 @@ workspace.
 
 ```text
 # Child of the current worktree.
-ORCA orchestration worker-start --environment local --task <task_id> --worktree new-child --agent <agent> --setup run
+openkodo orchestration worker-start --environment local --task <task_id> --worktree new-child --agent <agent> --setup run
 
 # On a connected server, nested under your workspace; the Run stays on yours.
-ORCA orchestration worker-start --task <task_id> --on <server> --worktree new-child --repo id:<repoId> --name <name> --agent <agent> --setup run
+openkodo orchestration worker-start --task <task_id> --on <server> --worktree new-child --repo id:<repoId> --name <name> --agent <agent> --setup run
 
 # On a connected server, with no parent.
-ORCA orchestration worker-start --task <task_id> --on <server> --worktree new-top-level --repo id:<repoId> --name <name> --agent <agent> --setup run
+openkodo orchestration worker-start --task <task_id> --on <server> --worktree new-top-level --repo id:<repoId> --name <name> --agent <agent> --setup run
 ```
 
 With `--on`, both `new-child` and `new-top-level` need `--repo` naming a
 project on that server: `id:<repoId>` from that server's `project setups` row
 (see "Which machine" below). `new-child` nests the server's worktree under your
-workspace on this machine. A server whose Orca is too old to nest across
+workspace on this machine. A server whose OpenKodo is too old to nest across
 machines still starts the worker, top-level, and the receipt's `warning` says
 so; the worker is fine to use. `current` is not valid with `--on`.
 
-`--name` is optional: without it Orca picks a name as it does for an unnamed
+`--name` is optional: without it OpenKodo picks a name as it does for an unnamed
 workspace, and the start output names the workspace it created.
 
 After start, address a remote worker only by Dispatch ID, never by a terminal
@@ -55,25 +55,25 @@ machine, stop and tell the user. Then record it (step 5).
 Only a coordinator places work on another machine. If you are a dispatched
 worker, do not pass `--on`: ask your coordinator to place it.
 
-1. Hosts. `ORCA host list --json`: `kind: local` is the machine your CLI runs
+1. Hosts. `openkodo host list --json`: `kind: local` is the machine your CLI runs
    on, `kind: environment` is a paired server (`--on <name>`, or its id when
    two servers share a name). A name the user gave that matches more than one
    row, such as an SSH target and a server, is not resolved: ask which.
 
-2. Where the project is. A listing covers only the Orca that answers it, so ask
+2. Where the project is. A listing covers only the OpenKodo that answers it, so ask
    each one, the servers together in one shell command:
 
    ```text
-   ORCA project setups --environment local --json      # this machine
-   ORCA project setups --environment <id> --json       # once per paired server
+   openkodo project setups --environment local --json      # this machine
+   openkodo project setups --environment <id> --json       # once per paired server
    ```
 
    `--environment local` pins a command to this machine whatever
-   `ORCA_ENVIRONMENT` or a pairing code in your shell selects; without it, that
+   `OPENKODO_ENVIRONMENT` or a pairing code in your shell selects; without it, that
    read can be answered by a server and look like this machine's. `<id>` is the
    `id` of that server's `kind: environment` row. Do not add
-   `--host runtime:<id>`: it drops the server's SSH rows. If `ORCA_PAIRING_CODE`
-   or `ORCA_REMOTE_PAIRING` is set in your shell, unset it for the server reads.
+   `--host runtime:<id>`: it drops the server's SSH rows. If `OPENKODO_PAIRING_CODE`
+   or `OPENKODO_REMOTE_PAIRING` is set in your shell, unset it for the server reads.
 
    Match the project by `projectId` (such as `github:owner/repo`); a name must
    match one project id across every answer, or you ask. A `repo:<…>` id exists
@@ -161,7 +161,7 @@ To message an agent that already runs on a paired server, send with `--on`,
 using the same server names as `worker-start --on`:
 
 ```bash
-ORCA orchestration send --on <server> --to <term_…|orca_session_id:…|bot:<name>> --type status|handoff|question|dispatch|merge_ready --subject "<text>" --body "<text>"
+openkodo orchestration send --on <server> --to <term_…|orca_session_id:…|bot:<name>> --type status|handoff|question|dispatch|merge_ready --subject "<text>" --body "<text>"
 ```
 
 `--on` carries ordinary mail only. `escalation`, `decision_gate`, `worker_done`
@@ -172,14 +172,14 @@ A bot there takes only `status`, `handoff` or `question`, plus
 `--chat <id|new>` and `--item <n>` as it does on its own computer, and treats
 the request as its owner's.
 
-Your own Orca carries the mail and keeps the conversation. Replies come back to
+Your own OpenKodo carries the mail and keeps the conversation. Replies come back to
 your own mailbox and wake you like local mail. The other agent answers
 with a plain `reply --id <msg_id> --body <text>`; no flag is needed on either
 side. Mail from another server names its sender as `<sender> on <server name>`.
 
 `--environment <server>` runs one command on that server and delivers nothing back
-to you, so an agent never mails with it. Your mailbox stays on your own Orca:
+to you, so an agent never mails with it. Your mailbox stays on your own OpenKodo:
 `check` takes no `--environment`. Read-only commands such as `inbox` or
-`worker-list` with `--environment` show that server's records. A server whose Orca
+`worker-list` with `--environment` show that server's records. A server whose OpenKodo
 is too old answers `server_mail_unsupported` and nothing is sent. Pair servers
-with `orca pair` or in Settings.
+with `openkodo pair` or in Settings.

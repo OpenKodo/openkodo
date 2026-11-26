@@ -52,7 +52,7 @@ function issueOf(index: number, value: unknown): string {
   return `${where} (${verb})${path}: ${first?.message ?? 'invalid'}`
 }
 
-/** `--act`'s JSON for an editor shot, checked here so a typo fails before Orca opens anything. */
+/** `--act`'s JSON for an editor shot, checked here so a typo fails before OpenKodo opens anything. */
 export function parsePluginEditorShotActs(
   json: string
 ): { ok: true; acts: PluginEditorShotAct[] } | { ok: false; error: string } {

@@ -18,7 +18,7 @@ type MuteFacts = Pick<SendDelivery, 'bareMention' | 'mentioned' | 'resume'> & {
   asker?: { app?: true; via?: unknown }
 }
 
-/** Whether a person wrote it: another Slack app's message, or an Orca bot's on someone's behalf,
+/** Whether a person wrote it: another Slack app's message, or an OpenKodo bot's on someone's behalf,
  *  never unmutes a bot, so no agent relaying a mention moves it. */
 function byPerson(delivery: MuteFacts): boolean {
   return delivery.asker !== undefined && !delivery.asker.app && !delivery.asker.via

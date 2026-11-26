@@ -22,7 +22,7 @@ export type PeerMailMessageRow = {
   remote_party: string | null
 }
 
-/** The conversation this Orca opened for one local agent with one paired server's current pairing; reused for every send. */
+/** The conversation this OpenKodo opened for one local agent with one paired server's current pairing; reused for every send. */
 export function openHomePeerMailConversation(
   this: OrchestrationDb,
   params: {
@@ -76,8 +76,8 @@ export function listHomePeerMailEnvironments(this: OrchestrationDb): string[] {
   return rows.map((row) => row.environment_id)
 }
 
-/** Conversations a paired Orca opened here that hold replies it has not acknowledged yet, and, for a
- *  paired computer that takes asks (`clientEnvironmentId`), this Orca's conversations holding asks for it. */
+/** Conversations a paired OpenKodo opened here that hold replies it has not acknowledged yet, and, for a
+ *  paired computer that takes asks (`clientEnvironmentId`), this OpenKodo's conversations holding asks for it. */
 export function listPeerConversationIdsWithPendingReplies(
   this: OrchestrationDb,
   peerFingerprint: string,
@@ -114,12 +114,12 @@ export function isPeerMailSenderLabel(this: OrchestrationDb, label: string): boo
   )
 }
 
-/** The 'peer' conversation a paired Orca opened, created on its first mail; refused for another server's. */
+/** The 'peer' conversation a paired OpenKodo opened, created on its first mail; refused for another server's. */
 function openPeerConversation(
   db: OrchestrationDb,
   conversationId: string,
   peerFingerprint: string,
-  // Set when the far side is a server this Orca dials: the server opened it for its agents' asks.
+  // Set when the far side is a server this OpenKodo dials: the server opened it for its agents' asks.
   environmentId: string | null = null
 ): void {
   const conversation = db.getPeerMailConversation(conversationId)
@@ -189,14 +189,14 @@ export function linkPeerMailMessage(
     .run(params.messageId, params.conversationId, params.senderLabel)
 }
 
-/** Stores mail that crossed from a paired Orca once; a replayed id is a duplicate, even after a reset removed its row. */
+/** Stores mail that crossed from a paired OpenKodo once; a replayed id is a duplicate, even after a reset removed its row. */
 export function insertPeerMailMessage(
   this: OrchestrationDb,
   params: {
     conversationId: string
-    /** Only a 'peer' conversation is created here, by the paired Orca that opened it. */
+    /** Only a 'peer' conversation is created here, by the paired OpenKodo that opened it. */
     peerFingerprint?: string
-    /** With `peerFingerprint`: the server this Orca dials that opened it. */
+    /** With `peerFingerprint`: the server this OpenKodo dials that opened it. */
     environmentId?: string
     remoteParty: string | null
     message: MessageInsert & { id: string; from: string }

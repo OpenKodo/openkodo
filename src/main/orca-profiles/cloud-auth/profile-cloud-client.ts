@@ -6,7 +6,7 @@ import type {
   OrcaProfileCloudSummary
 } from '../../../shared/orca-profiles/orca-profiles'
 import {
-  ORCA_CLOUD_TEAM_SETTINGS,
+  OPENKODO_CLOUD_TEAM_SETTINGS,
   orcaCloudTeamPolicySchema
 } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import type { OrcaCloudAuthConfig } from './profile-cloud-auth-config'
@@ -96,7 +96,7 @@ function normalizeCapabilities(value: unknown): OrcaCloudCapabilities {
       ? cleanCloudServiceOrigin(record.consoleOrigin, false)
       : null
   const teamPolicy =
-    flags[ORCA_CLOUD_TEAM_SETTINGS] === true
+    flags[OPENKODO_CLOUD_TEAM_SETTINGS] === true
       ? orcaCloudTeamPolicySchema.safeParse(record.teamPolicy)
       : undefined
   return {

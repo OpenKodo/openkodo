@@ -40,7 +40,7 @@ export type TerminalWorkerTurnStopsDeps = WorkerTurnStopReportDeps & {
   getHandle: (paneKey: string) => string | null
   getProcessIncarnation: (handle: string) => string | null
   readScreen: (handle: string) => Promise<RuntimeTerminalRead>
-  /** The pane's open approval Orca can answer. */
+  /** The pane's open approval OpenKodo can answer. */
   takeOpenApproval: (paneKey: string, dispatchId: string) => Promise<WorkerApprovalPayload | null>
   /** Called only once the approval's escalation went out. */
   markApprovalReported: (approvalId: string) => void
@@ -99,7 +99,7 @@ export class TerminalWorkerTurnStops {
     }
   }
 
-  /** A pane restored at rest: its stop came while Orca was down, so no live edge announced it. A turn
+  /** A pane restored at rest: its stop came while OpenKodo was down, so no live edge announced it. A turn
    *  its user stopped, or a session boundary, is no news here either, as it is live. */
   async reportRestingPane(paneKey: string): Promise<void> {
     const row = this.deps.readHookRow(paneKey)

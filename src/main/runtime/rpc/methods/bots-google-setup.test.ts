@@ -157,7 +157,7 @@ describe('bots.googleSetup.write start with an app already here', () => {
   })
 })
 
-describe('bots.googleSetup.start from Orca with newApp', () => {
+describe('bots.googleSetup.start from OpenKodo with newApp', () => {
   it('starts a new-app run in the bot chat, and the old key is not its key', async () => {
     const { run } = await start.handler({ botId: BOT.id, from: 'settings', newApp: true }, context)
     expect(run).toMatchObject({ state: 'running', mode: 'unchosen', newApp: true })
@@ -378,7 +378,7 @@ describe('a step handed to the owner that they finished outside its card', () =>
     expect(runs.get(BOT.id)?.steps.connect).toBeUndefined()
   })
 
-  it("takes the bot's done and a late Done card answer once Orca finished the run", async () => {
+  it("takes the bot's done and a late Done card answer once OpenKodo finished the run", async () => {
     saveStuckRun()
     state.accounts = [account('ready')]
     await read.handler({ botId: BOT.id }, context)

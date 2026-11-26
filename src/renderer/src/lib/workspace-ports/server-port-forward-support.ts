@@ -20,7 +20,7 @@ export function registerServerPortForwardStateAccessor(fn: () => ServerPortForwa
   readOwnerState = fn
 }
 
-/** A server Orca deployed over SSH forwards through that SSH connection, as its Ports panel does. */
+/** A server OpenKodo deployed over SSH forwards through that SSH connection, as its Ports panel does. */
 export function serverSshForwardTargetId(environmentId: string): string | null {
   const environment = readOwnerState?.()?.runtimeEnvironments?.find(
     (candidate) => candidate.id === environmentId

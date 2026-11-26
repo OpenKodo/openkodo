@@ -64,7 +64,7 @@ export type BotControllerDependencies = {
   /** App-owned folder for the bots' drawn Slack icons, outside their homes. */
   slackIconsRoot: () => string
   filesystem: BotHomeFilesystem
-  /** The Orca account signed in now, recorded on the links a bot gets. */
+  /** The OpenKodo account signed in now, recorded on the links a bot gets. */
   accountUserId?: () => string | null
   /** Drops what this host keeps for a bot outside its record (its Look around), once it is deleted. */
   forgetBot?: (botId: string) => void
@@ -74,9 +74,9 @@ export class BotController {
   // One change at a time: two creates must never write the same home folder.
   private tail: Promise<unknown> = Promise.resolve()
 
-  /** Each bot's MEMORY.md as Orca last recorded it: turn ends restore against it, Forget edits it. */
+  /** Each bot's MEMORY.md as OpenKodo last recorded it: turn ends restore against it, Forget edits it. */
   readonly memory: BotMemoryRecord
-  /** The drawn Slack icons of colored or dressed mascots, kept in Orca's app data. */
+  /** The drawn Slack icons of colored or dressed mascots, kept in OpenKodo's app data. */
   readonly slackIcons: BotSlackIcons
 
   constructor(private readonly deps: BotControllerDependencies) {

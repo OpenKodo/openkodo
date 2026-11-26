@@ -62,7 +62,7 @@ export async function forgetStagedImport(recordPath: string, staged: string): Pr
 }
 
 /**
- * Removes the staged copies an earlier import left (Orca quit mid-copy, or a removal failed). One
+ * Removes the staged copies an earlier import left (OpenKodo quit mid-copy, or a removal failed). One
  * import runs per profile, so none is live; this works whether or not its folder is listed again.
  */
 export async function removeAbandonedStagedImports(recordPath: string): Promise<void> {

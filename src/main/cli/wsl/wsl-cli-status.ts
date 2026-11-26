@@ -49,21 +49,21 @@ export async function readWslCliCommandFile(
     distro,
     [
       `if [ -L ${quotePosixShellDoubleQuotedApostrophe(commandPath)} ]; then`,
-      '  printf __ORCA_NOT_FILE__',
+      '  printf __OPENKODO_NOT_FILE__',
       `elif [ ! -e ${quotePosixShellDoubleQuotedApostrophe(commandPath)} ]; then`,
-      '  printf __ORCA_MISSING__',
+      '  printf __OPENKODO_MISSING__',
       `elif [ ! -f ${quotePosixShellDoubleQuotedApostrophe(commandPath)} ]; then`,
-      '  printf __ORCA_NOT_FILE__',
+      '  printf __OPENKODO_NOT_FILE__',
       'else',
       `  cat ${quotePosixShellDoubleQuotedApostrophe(commandPath)}`,
       'fi'
     ].join('\n'),
     { loginPath: 'none' }
   )
-  if (output === '__ORCA_MISSING__') {
+  if (output === '__OPENKODO_MISSING__') {
     return null
   }
-  if (output === '__ORCA_NOT_FILE__') {
+  if (output === '__OPENKODO_NOT_FILE__') {
     return 'not_file'
   }
   return output
@@ -119,7 +119,7 @@ export function unsupportedWslCliStatus(
   }
 }
 
-/** The distro was deleted (`wsl --unregister`), so nothing of Orca's is left in it. */
+/** The distro was deleted (`wsl --unregister`), so nothing of OpenKodo's is left in it. */
 export function deletedDistroWslCliStatus(distro: string): CliInstallStatus {
   return {
     platform: 'linux',
@@ -183,7 +183,7 @@ export async function resolveReadyWslCliState(args: {
     return {
       status: unsupportedWslCliStatus(
         hostStatus.unsupportedReason ?? 'launcher_missing',
-        hostStatus.detail ?? 'The Windows Orca CLI launcher is missing.'
+        hostStatus.detail ?? 'The Windows OpenKodo CLI launcher is missing.'
       )
     }
   }
@@ -212,7 +212,7 @@ export async function resolveReadyWslCliState(args: {
     return {
       status: unsupportedWslCliStatus(
         'launcher_missing',
-        'WSL Windows interop is unavailable; Orca cannot launch the Windows CLI from WSL.'
+        'WSL Windows interop is unavailable; OpenKodo cannot launch the Windows CLI from WSL.'
       )
     }
   }

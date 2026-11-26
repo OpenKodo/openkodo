@@ -1,5 +1,5 @@
 // A tidy-up's draft: the new MEMORY.md, lines to file into memory/<topic>.md, and the lines a newer
-// one replaced. Orca checks it against the file the run read, then writes it onto the files as they
+// one replaced. OpenKodo checks it against the file the run read, then writes it onto the files as they
 // are now, so a chat's newer change wins.
 import {
   applyBotMemoryChange,
@@ -101,7 +101,7 @@ const keysOf = (lines: readonly string[]): Set<string> =>
   new Set(lines.flatMap((line) => keyOf(line) ?? []))
 
 /**
- * Orca's checks on a draft against the MEMORY.md the run read: what it will do, or why nothing
+ * OpenKodo's checks on a draft against the MEMORY.md the run read: what it will do, or why nothing
  * will. Secret-looking new lines are dropped, and lines without a date are never taken out.
  */
 export function checkTidyUpDraft(

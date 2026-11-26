@@ -11,7 +11,7 @@ import type {
   RuntimeSyncedLeaf
 } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { retireTerminalSurfacesFromSnapshot } from '../../terminal/surface/mobile-session-terminal-retirement'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { startedMainTerminalSurfaces } from '../../terminal/surface/main-terminal-surfaces'
 
 export abstract class OrcaRuntimeWithTouchMobileSessionTabsForWorktree extends OrcaRuntimeWithPublishPtyBackedMobileSessionTerminal {
@@ -174,7 +174,7 @@ export abstract class OrcaRuntimeWithTouchMobileSessionTabsForWorktree extends O
   protected reconcileMobileSessionRetirementFences(
     leaves: readonly RuntimeSyncedLeaf[]
   ): RuntimeSyncedLeaf[] {
-    const mainOwns = ORCA_LAYOUT_OWNER_IS_MAIN
+    const mainOwns = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? startedMainTerminalSurfaces(this)?.ownedWorkspaces()
       : null
     return leaves.filter(

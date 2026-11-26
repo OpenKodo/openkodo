@@ -93,7 +93,7 @@ function rowFixture(
   })
 }
 
-/** An older Orca release whose folder also holds agents/: the case that used to read "edited". */
+/** An older OpenKodo release whose folder also holds agents/: the case that used to read "edited". */
 export const olderReleaseWithExtras = rowFixture([leave(SHARED, WITH_EXTRAS, {})])
 
 export const olderReleaseNarrow = rowFixture([leave(SHARED, WITH_EXTRAS, {})], false, 400)
@@ -131,7 +131,7 @@ export const replacedResultRemote = rowFixture(
   REPLACED
 )
 
-/** A real edit to SKILL.md: the same neutral reason, because Orca can't tell the cases apart. */
+/** A real edit to SKILL.md: the same neutral reason, because OpenKodo can't tell the cases apart. */
 export const realEdit = rowFixture([leave(SHARED, SKILL_ONLY, {})])
 
 /** A link that Replace would move by itself: no whole-folder line. */

@@ -219,7 +219,7 @@ export function MobileMcpServerPage(props: {
   )
 }
 
-/** How a server Orca doesn't sign in to runs: its command or address, with secrets as names only. */
+/** How a server OpenKodo doesn't sign in to runs: its command or address, with secrets as names only. */
 function detailRows(details: BotToolDetails, t: ReturnType<typeof useMobileTranslation>) {
   const { server } = details
   if ('url' in server) {

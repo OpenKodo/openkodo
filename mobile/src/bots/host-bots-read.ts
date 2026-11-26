@@ -51,9 +51,9 @@ export type HostBotsRead =
       needsYou: Readonly<Record<string, number>>
       /** When those counts next change, as one goes stale or a snoozed one comes back. */
       needsYouChangeInMs?: number
-      /** The host's Orca Cloud link; absent from an older host, which keeps today's card line. */
+      /** The host's cloud service link; absent from an older host, which keeps today's card line. */
       connectorStatus?: ConnectorCloudStatus
-      /** Its Orca Cloud answers an event in that event's thread, for an automation's results. */
+      /** Its OpenKodo Cloud answers an event in that event's thread, for an automation's results. */
       threadReplies?: boolean
     }
   | { kind: 'no-capability' }

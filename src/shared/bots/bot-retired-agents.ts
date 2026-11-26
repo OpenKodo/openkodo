@@ -1,6 +1,6 @@
 import type { BotAgent } from '../bot-types'
 
-/** Agents a saved or shared bot can still name after Orca dropped them. */
+/** Agents a saved or shared bot can still name after OpenKodo dropped them. */
 export const BOT_RETIRED_AGENTS = ['gemini'] as const
 export type BotRetiredAgent = (typeof BOT_RETIRED_AGENTS)[number]
 

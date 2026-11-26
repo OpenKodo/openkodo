@@ -100,11 +100,11 @@ export abstract class OrcaRuntimeWithGetStatus extends RuntimeWorkspaceChangeEve
           hasHeadlessCommands ||
           canHostClientPages) &&
         // Nested-runtime E2E exercises legacy transport without maintaining an old binary.
-        (process.env.ORCA_E2E_DISABLE_RUNTIME_SHARED_CONTROL !== '1' ||
+        (process.env.OPENKODO_E2E_DISABLE_RUNTIME_SHARED_CONTROL !== '1' ||
           capability !== REMOTE_RUNTIME_SHARED_CONTROL_CAPABILITY) &&
-        (process.env.ORCA_E2E_DISABLE_PAIRED_TERMINAL_PARKING !== '1' ||
+        (process.env.OPENKODO_E2E_DISABLE_PAIRED_TERMINAL_PARKING !== '1' ||
           capability !== TERMINAL_PAIRED_PARKING_RUNTIME_CAPABILITY) &&
-        (process.env.ORCA_E2E_DISABLE_AUTHORITATIVE_SESSION_TABS_INVENTORY !== '1' ||
+        (process.env.OPENKODO_E2E_DISABLE_AUTHORITATIVE_SESSION_TABS_INVENTORY !== '1' ||
           capability !== SESSION_TABS_AUTHORITATIVE_INVENTORY_RUNTIME_CAPABILITY) &&
         (capability !== TERMINAL_PROMPT_DELIVERY_RUNTIME_CAPABILITY ||
           supportsDurableTerminalPromptDelivery()) &&

@@ -15,7 +15,7 @@ import {
 import { AgentBrowserBridgeTabs } from '../session-routing/agent-browser-bridge-tabs'
 import { assertRemoteCliBrowserAccess } from '../../../runtime/desktop-browser-bridge/remote-cli-browser-scope'
 import { assertExpectedPageUrlForStep } from '../../cdp/input/browser-expected-page-url'
-import { ORCA_TAB_SESSION_PREFIX } from '../session-lifecycle/agent-browser-session-name'
+import { OPENKODO_TAB_SESSION_PREFIX } from '../session-lifecycle/agent-browser-session-name'
 import {
   canSkipAgentBrowserSessionReset,
   waitForAgentBrowserSessionExit
@@ -46,7 +46,7 @@ export abstract class AgentBrowserBridgeExecution extends AgentBrowserBridgeTabs
   protected requireTargetWebContents(target: ResolvedBrowserCommandTarget): WebContents {
     const wc = this.getWebContents(target.webContentsId)
     if (!wc || wc.isDestroyed()) {
-      throw this.createPageUnavailableError(`${ORCA_TAB_SESSION_PREFIX}${target.browserPageId}`)
+      throw this.createPageUnavailableError(`${OPENKODO_TAB_SESSION_PREFIX}${target.browserPageId}`)
     }
     return wc
   }
@@ -283,7 +283,7 @@ export abstract class AgentBrowserBridgeExecution extends AgentBrowserBridgeTabs
       })
       return new BrowserError(
         'browser_error',
-        `The agent-browser helper was refused by Orca's browser proxy (${message}). The helper session was reset; retry the command.`
+        `The agent-browser helper was refused by OpenKodo's browser proxy (${message}). The helper session was reset; retry the command.`
       )
     }
     return new BrowserError(fallbackCode, message)

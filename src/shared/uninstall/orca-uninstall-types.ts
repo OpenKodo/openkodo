@@ -1,4 +1,4 @@
-/** How this copy of Orca was installed; decides the last step the user takes to delete the app. */
+/** How this copy of OpenKodo was installed; decides the last step the user takes to delete the app. */
 export type OrcaUninstallInstallKind =
   | 'mac-app'
   | 'mac-homebrew'
@@ -16,7 +16,7 @@ export type OrcaUninstallStep =
   | 'ssh-hosts'
   | 'terminal-daemon'
 
-export const ORCA_UNINSTALL_STEPS: readonly OrcaUninstallStep[] = [
+export const OPENKODO_UNINSTALL_STEPS: readonly OrcaUninstallStep[] = [
   'agent-hooks',
   'cli-command',
   'background-service',
@@ -27,12 +27,12 @@ export const ORCA_UNINSTALL_STEPS: readonly OrcaUninstallStep[] = [
 ]
 
 /**
- * `kept-shared`: another Orca build still uses it, so it stays.
- * `needs-user`: Orca can't do it from here (an offline SSH host); the entry names what to run.
+ * `kept-shared`: another OpenKodo build still uses it, so it stays.
+ * `needs-user`: OpenKodo can't do it from here (an offline SSH host); the entry names what to run.
  */
 export type OrcaUninstallEntryState = 'present' | 'removed' | 'kept-shared' | 'needs-user' | 'error'
 
-/** A file Orca changes; `orcaData` is set when it sits in Orca's own data folder. */
+/** A file OpenKodo changes; `orcaData` is set when it sits in OpenKodo's own data folder. */
 export type OrcaUninstallPath = {
   /** The full path, with the home folder shown as `~`. */
   path: string
@@ -42,7 +42,7 @@ export type OrcaUninstallPath = {
 
 export type OrcaUninstallAgentEntry = {
   agent: string
-  /** Every file Orca changes or deletes for this agent. */
+  /** Every file OpenKodo changes or deletes for this agent. */
   paths: OrcaUninstallPath[]
   state: OrcaUninstallEntryState
   /** One short line, e.g. "Permission denied". */
@@ -74,7 +74,7 @@ export type OrcaUninstallPlan = {
   hosts: OrcaUninstallHostEntry[]
   /** This machine's terminal daemon, present only while one is running; stopping it ends open terminals. */
   terminalDaemon: OrcaUninstallSimpleEntry | null
-  /** Set when another Orca build (stable, RC or dev) still uses the shared hooks. */
+  /** Set when another OpenKodo build (stable, RC or dev) still uses the shared hooks. */
   otherOrcaBuildName: string | null
   /** The app bundle, AppImage or install folder to reveal, when there is one. */
   appPath: string | null

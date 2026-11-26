@@ -43,7 +43,7 @@ export function envVarNameForReason(reason: EnvBlockedReason): string {
     return 'DO_NOT_TRACK'
   }
   if (reason === 'orca_disabled') {
-    return 'ORCA_TELEMETRY_DISABLED'
+    return 'OPENKODO_TELEMETRY_DISABLED'
   }
   return 'CI'
 }
@@ -109,7 +109,7 @@ export function PrivacyPane({ settings }: PrivacyPaneProps): React.JSX.Element {
           <p className="text-xs text-muted-foreground">
             {t(
               'auto.components.settings.PrivacyPane.8bfdd23a88',
-              'Help us figure out what to build next. Orca sends anonymous counts of which features you use and where things break.'
+              'Help us figure out what to build next. OpenKodo sends anonymous counts of which features you use and where things break.'
             )}{' '}
             <button
               type="button"

@@ -19,7 +19,7 @@ export type WindowsBreakawayLaunchContract = {
 
 export const ORCAD_WINDOWS_BREAKAWAY_CONTRACT: WindowsBreakawayLaunchContract = {
   argsFlag: '--orcad-args',
-  reportMarker: 'ORCA_ORCAD_LAUNCH'
+  reportMarker: 'OPENKODO_ORCAD_LAUNCH'
 }
 
 /** Unavailable means missing/old addon or denied breakaway; legacy relay scripts may fall back to WMI, while orcad refuses. */

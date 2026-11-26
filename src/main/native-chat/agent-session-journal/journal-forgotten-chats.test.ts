@@ -156,7 +156,7 @@ it('deletes an idle chat with its tab, then every journal row in background page
   expect(count(db, "journal_chat_state WHERE session_id='kept-chat'")).toBe(1)
 })
 
-it('takes the revision a chat awaiting its older-Orca compare waited on, so no copy brings it back', () => {
+it('takes the revision a chat awaiting its older-OpenKodo compare waited on, so no copy brings it back', () => {
   const db = journal()
   db.prepare(
     `DELETE FROM agent_session_store_meta WHERE key='journal.legacy-revision:gone-chat'`
@@ -204,7 +204,7 @@ const refusals: {
     gone: { lease: { ...RELEASED_LEASE, claimStatus: 'reserved', reservedSpawnToken: 'spawn' } }
   },
   {
-    name: 'Orca has not reconciled it since launch',
+    name: 'OpenKodo has not reconciled it since launch',
     gone: { lease: { ...RELEASED_LEASE, unreconciled: true } }
   },
   { name: 'it was created since the cutoff', gone: { createdAt: 20_000 } },

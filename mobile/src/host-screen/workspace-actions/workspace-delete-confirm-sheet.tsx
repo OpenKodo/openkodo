@@ -64,7 +64,7 @@ function lossDetail(loss: WorkspaceDeleteLoss, t: Translate): string | null {
     : names
 }
 
-/** The delete confirm: a folder row only leaves Orca; a worktree first says what it loses, as desktop does. */
+/** The delete confirm: a folder row only leaves OpenKodo; a worktree first says what it loses, as desktop does. */
 export function WorkspaceDeleteConfirmSheet(props: {
   row: Worktree
   hostId: string
@@ -92,7 +92,7 @@ export function WorkspaceDeleteConfirmSheet(props: {
           {isFolder
             ? t(
                 'hostScreen.deleteConfirm.removeFolderMessage',
-                'Remove "{{name}}" from Orca? The folder on disk is kept.',
+                'Remove "{{name}}" from OpenKodo? The folder on disk is kept.',
                 { name }
               )
             : t(
@@ -109,12 +109,12 @@ export function WorkspaceDeleteConfirmSheet(props: {
             {row.recipeEnvironment.destroys === false
               ? t(
                   'hostScreen.hostScreenOverlays.deleteKeepsEnvironment',
-                  'The environment "{{environment}}" that Orca created for it keeps running: its recipe has no destroy step.',
+                  'The environment "{{environment}}" that OpenKodo created for it keeps running: its recipe has no destroy step.',
                   { environment: row.recipeEnvironment.name }
                 )
               : t(
                   'hostScreen.hostScreenOverlays.deleteDestroysEnvironment',
-                  'This also destroys the environment "{{environment}}" that Orca created for it, with any uncommitted work and running terminals on it.',
+                  'This also destroys the environment "{{environment}}" that OpenKodo created for it, with any uncommitted work and running terminals on it.',
                   { environment: row.recipeEnvironment.name }
                 )}
           </Text>

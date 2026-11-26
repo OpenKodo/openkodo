@@ -177,7 +177,7 @@ export class RuntimeRpcMobilePairing extends RuntimeRpcPairing {
         available: false,
         reason: 'relay_mint_failed',
         guidance:
-          'Orca Relay could not create a pairing invite. Use LAN (Tailscale or same Wi‑Fi) or retry Relay.',
+          'relay could not create a pairing invite. Use LAN (Tailscale or same Wi‑Fi) or retry Relay.',
         relayFailure
       }
     }
@@ -194,7 +194,7 @@ export class RuntimeRpcMobilePairing extends RuntimeRpcPairing {
       return refuseAutomaticWithoutRelay({
         code: 'relay_provider_unavailable',
         stage: 'provider_missing',
-        message: 'Orca Relay is not available on this host'
+        message: 'relay is not available on this host'
       })
     }
     const device = this.deviceRegistry?.getDevice(direct.deviceId)

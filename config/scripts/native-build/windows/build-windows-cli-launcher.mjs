@@ -30,9 +30,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       arch: readArg('--arch'),
       outputPath: binName === 'orca' ? output : join(dirname(output), `${binName}.exe`),
       buildEnv: (version) => ({
-        ORCA_LAUNCHER_VERSION: version,
-        ORCA_LAUNCHER_ICON: iconPath,
-        ORCA_LAUNCHER_FILENAME: `${binName}.exe`
+        OPENKODO_LAUNCHER_VERSION: version,
+        OPENKODO_LAUNCHER_ICON: iconPath,
+        OPENKODO_LAUNCHER_FILENAME: `${binName}.exe`
       })
     })
   }

@@ -20,7 +20,7 @@ export const ORCAD_MACHINE_CLAIM_FILENAME = 'orcad-machine.json'
 export const ORCAD_MACHINE_HOMES_DIRNAME = 'hosts'
 export const ORCAD_MACHINE_CLAIM_SCHEMA_VERSION = 1
 
-const SECTION = '__ORCA_MACHINE_HOME_SECTION__'
+const SECTION = '__OPENKODO_MACHINE_HOME_SECTION__'
 const CLAIM_ABSENT = 'ABSENT'
 const CLAIM_PRESENT = 'PRESENT'
 const RECORD_MAX_BYTES = 4096
@@ -74,7 +74,7 @@ export type OrcadMachineHomeProbe = {
   loginHomeInstalled: boolean
   /** Local disks cannot belong to another machine's live server. */
   homeOnLocalDisk: boolean
-  /** Raw ORCA_MACHINE_NAME; invalid names refuse rather than fall back silently. */
+  /** Raw OPENKODO_MACHINE_NAME; invalid names refuse rather than fall back silently. */
   machineName: string | null
 }
 
@@ -138,7 +138,7 @@ export function parseOrcadMachineHomeProbe(
     identity: orcadMachineIdentity(
       host,
       machineRaw.trim(),
-      hostnameLines.find((line) => line && !line.startsWith('ORCA_')) ?? ''
+      hostnameLines.find((line) => line && !line.startsWith('OPENKODO_')) ?? ''
     ),
     claim: parseClaimSection(claimRaw.trim()),
     dataRootOwners: ownersRaw
@@ -299,9 +299,9 @@ export function orcadMachineOwnershipUnresolvedMessage(
   const why =
     cause === 'stopped-install'
       ? 'that stopped server left no record of its own'
-      : 'the older Orca server there recorded only a hostname, which does not identify its machine'
+      : 'the older OpenKodo server there recorded only a hostname, which does not identify its machine'
   return (
-    `Orca can't tell which machine set up the Orca server in ~/${RELAY_REMOTE_DIR}: ` +
+    `OpenKodo can't tell which machine set up the OpenKodo server in ~/${RELAY_REMOTE_DIR}: ` +
     `this home may be shared by several machines, and ${why}. ` +
     'If another machine set it up, connect to that one and run the command shown there. ' +
     `If ${hostname ?? 'this machine'} set it up, run this on it, then reconnect: ` +

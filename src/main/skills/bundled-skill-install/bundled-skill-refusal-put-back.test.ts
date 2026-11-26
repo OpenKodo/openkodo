@@ -64,7 +64,7 @@ describe('cross-drive refusal put-back', () => {
       for (const later of [input, { ...input, installedOnly: true }]) {
         const next = await previewBundledSkillInstall(later)
         expect(next.skills[0].ops.some((op) => op.kind === 'restore')).toBe(false)
-        // No later plan lists the put-back copy, so "Orca won't remind you" stays true.
+        // No later plan lists the put-back copy, so "OpenKodo won't remind you" stays true.
         expect(JSON.stringify(next.skills[0])).not.toContain(former)
         await installBundledSkills(later, next.planDigest)
         expect(await snapshot(former)).toBe(edited)

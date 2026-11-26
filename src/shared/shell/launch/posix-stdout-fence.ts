@@ -54,8 +54,8 @@ type FenceMarkers = Omit<PosixStdoutFence, 'command'> & {
 }
 
 function fenceMarkers(label: string, nonce: string): FenceMarkers {
-  const beginPrefix = `__ORCA_${label}_CAPTURE_BEGIN_`
-  const endPrefix = `__ORCA_${label}_CAPTURE_END_`
+  const beginPrefix = `__OPENKODO_${label}_CAPTURE_BEGIN_`
+  const endPrefix = `__OPENKODO_${label}_CAPTURE_END_`
   const begin = `${beginPrefix}${nonce}__`
   const end = `${endPrefix}${nonce}__`
   return {

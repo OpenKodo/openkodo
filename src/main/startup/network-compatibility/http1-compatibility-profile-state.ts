@@ -5,7 +5,7 @@ import { hasProfileStateAuthorityMarker } from '../../persistence/profile-state/
 import { profileStateDatabaseBackups } from '../../persistence/profile-state/backup/profile-state-backup-path'
 import { hasProfileStateDatabaseFiles } from '../../persistence/profile-state/database/profile-state-storage-classification'
 
-// Keep the pre-ready graph small; this stable ID mirrors DEFAULT_LOCAL_ORCA_PROFILE_ID.
+// Keep the pre-ready graph small; this stable ID mirrors DEFAULT_LOCAL_OPENKODO_PROFILE_ID.
 const DEFAULT_LOCAL_PROFILE_ID = 'local-default'
 
 /** `null` means malformed index; `undefined` means a pre-profile legacy install. */

@@ -7,7 +7,7 @@ import { areLocalWindowsWslPathAliases } from '../../../../../../shared/file-acc
 import { getConnectionIdForFileFromState } from '@/lib/workspace/ownership/connection-owner-resolution'
 import { isLocalWindowsDesktopClient } from '@/app-shell/chrome/desktop-window-chrome'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../../../../shared/workspace/identity/floating-workspace-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 
 export function runtimeOwnerKey(runtimeEnvironmentId: string | null | undefined): string | null {
   return runtimeEnvironmentId?.trim() || null
@@ -150,7 +150,7 @@ export function resolveEditorFileIdForOwner(
     return buildOwnedEditorFileId(filePath, worktreeId, runtimeEnvironmentId)
   }
   // Why: every frame restores floating files under their owned id; minting it here keeps main's tab on the same id.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN && worktreeId === FLOATING_TERMINAL_WORKTREE_ID) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN && worktreeId === FLOATING_TERMINAL_WORKTREE_ID) {
     return buildOwnedEditorFileId(filePath, worktreeId, runtimeEnvironmentId)
   }
   // Why: preview-only markdown tabs reserve their source id too; treat it like an open editor id so same-path owners don't collapse.

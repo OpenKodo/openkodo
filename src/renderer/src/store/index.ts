@@ -73,7 +73,7 @@ import { registerAppHttpLinkStateAccessor } from '@/lib/browser/navigation/app-h
 import { registerServerPortForwardStateAccessor } from '@/lib/workspace-ports/server-port-forward-support'
 import { installStoreListenerCensus } from './diagnostics/store-listener-census'
 import { installSettledSortEpoch } from './slices/ui/settled-sort-epoch'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import { withReactCommitCascadeWriteProbe } from './diagnostics/react-commit-cascade-write-probe'
 import { withStoreIdentityChurnProbe } from './diagnostics/store-identity-churn-probe'
 import { withEditorBufferRecords } from './slices/editor/buffers/editor-buffer-record-lifecycle'
@@ -106,7 +106,7 @@ export const useAppStore = create<AppState>()(
           withReactCommitCascadeWriteProbe((...a) => {
             // Why first: settling inside the bump's own notify means hook subscribers never see it unsettled.
             // Switch point: the stamp-sorted list reads no settled epoch.
-            if (!ORCA_SIDEBAR_INPUTS_IS_MAIN) {
+            if (!OPENKODO_SIDEBAR_INPUTS_IS_MAIN) {
               installSettledSortEpoch(a[2])
             }
             // Why: the inner api is only reachable here, before create() copies subscribe onto the hook.

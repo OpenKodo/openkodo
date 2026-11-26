@@ -60,7 +60,7 @@ export function getRepositoryGitHooksSearchEntries(
         ),
         ...translateSearchKeyword(
           'auto.components.settings.repository.search.9cad92fe77',
-          'orca.yaml hooks'
+          'openkodo.yaml hooks'
         ),
         ...translateSearchKeyword('auto.components.settings.repository.search.bf460fded8', 'yaml')
       ]
@@ -95,7 +95,7 @@ export function getRepositoryGitHooksSearchEntries(
               ),
               ...translateSearchKeyword(
                 'auto.components.settings.repository.search.9cad92fe77',
-                'orca.yaml hooks'
+                'openkodo.yaml hooks'
               ),
               ...translateSearchKeyword(
                 'auto.components.settings.repository.search.bf460fded8',
@@ -108,7 +108,7 @@ export function getRepositoryGitHooksSearchEntries(
       title: t('auto.components.settings.repository.search.cc11699c3d', 'Advanced'),
       description: t(
         'auto.components.settings.repository.search.d141897c90',
-        'Command source and orca.yaml details.'
+        'Command source and openkodo.yaml details.'
       ),
       keywords: [
         repo.displayName,
@@ -123,7 +123,7 @@ export function getRepositoryGitHooksSearchEntries(
         ...translateSearchKeyword('auto.components.settings.repository.search.0432d2fb7c', 'local'),
         ...translateSearchKeyword(
           'auto.components.settings.repository.search.603c68b68c',
-          'orca.yaml'
+          'openkodo.yaml'
         ),
         ...translateSearchKeyword(
           'auto.components.settings.repository.search.fcb8fa8144',
@@ -181,7 +181,7 @@ export function getRepositoryGitHooksSearchEntries(
             ),
             description: t(
               'auto.components.settings.repository.search.d42d1e49c0',
-              'File-based linked-issue command configured via orca.yaml and optional local override.'
+              'File-based linked-issue command configured via openkodo.yaml and optional local override.'
             ),
             keywords: [
               repo.displayName,
@@ -203,11 +203,11 @@ export function getRepositoryGitHooksSearchEntries(
               ),
               ...translateSearchKeyword(
                 'auto.components.settings.repository.search.603c68b68c',
-                'orca.yaml'
+                'openkodo.yaml'
               ),
               ...translateSearchKeyword(
                 'auto.components.settings.repository.search.bc7e504b8e',
-                '.orca/issue-command'
+                '.openkodo/issue-command'
               )
             ]
           }

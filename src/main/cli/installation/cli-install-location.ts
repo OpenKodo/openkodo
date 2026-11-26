@@ -87,12 +87,12 @@ export abstract class CliInstallLocation {
       join(this.homePath, 'AppData', 'Local')
     this.processPathEnv = options.processPathEnv ?? process.env.PATH ?? process.env.Path ?? null
     this.commandPathOverride =
-      options.commandPathOverride ?? process.env.ORCA_CLI_INSTALL_PATH ?? null
+      options.commandPathOverride ?? process.env.OPENKODO_CLI_INSTALL_PATH ?? null
     // Resolve once for hot status reads; Apple Silicon Macs may lack /usr/local/bin.
     const candidateMacPath = options.defaultMacCommandPath ?? DEFAULT_MAC_COMMAND_PATH
     this.macCommandPath = existsSync(dirname(candidateMacPath))
       ? candidateMacPath
-      : join(this.homePath, '.local', 'bin', 'orca')
+      : join(this.homePath, '.local', 'bin', 'openkodo')
     this.privilegedRunner = options.privilegedRunner ?? runMacPrivilegedCommand
     this.userPathReader = options.userPathReader ?? readWindowsUserPathRegistry
     this.userPathMutationReader =
@@ -184,7 +184,7 @@ export abstract class CliInstallLocation {
       if (!(await isExecutableFile(commandPath))) {
         continue
       }
-      // Orca terminals put the launcher's own dir first on PATH.
+      // OpenKodo terminals put the launcher's own dir first on PATH.
       if (await isSameDirectoryEntry(commandPath, launcherPath)) {
         continue
       }
@@ -195,7 +195,7 @@ export abstract class CliInstallLocation {
           // Installing in the empty default slot can shadow this command without replacing it.
           continue
         }
-        // Match shell PATH precedence, including conflicts that shadow Orca.
+        // Match shell PATH precedence, including conflicts that shadow OpenKodo.
         return commandPath
       }
     }
@@ -223,7 +223,13 @@ export abstract class CliInstallLocation {
         return join(this.homePath, '.local', 'bin', DEV_COMMAND_NAME)
       }
       if (this.platform === 'win32') {
-        return join(this.localAppDataPath, 'Programs', 'Orca Dev', 'bin', `${DEV_COMMAND_NAME}.cmd`)
+        return join(
+          this.localAppDataPath,
+          'Programs',
+          'OpenKodo Dev',
+          'bin',
+          `${DEV_COMMAND_NAME}.cmd`
+        )
       }
     }
 

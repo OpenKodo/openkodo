@@ -48,7 +48,7 @@ export function webhookAdapterName(adapter: WebhookAdapterId): string {
   }
 }
 
-/** Orca can make these secrets; for the others the owner pastes the sender's own. */
+/** OpenKodo can make these secrets; for the others the owner pastes the sender's own. */
 export function webhookAdapterGeneratesSecret(adapter: WebhookAdapterId): boolean {
   return adapter === 'standard' || adapter === 'github'
 }

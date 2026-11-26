@@ -6,7 +6,7 @@ import { existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { WEB_CLIENT_INDEX_FILENAME } from '../../../shared/web-client/bundled-web-client-root'
 
-export const ORCAD_USAGE = `orcad — the Orca runtime served without Electron.
+export const ORCAD_USAGE = `orcad — the OpenKodo runtime served without Electron.
 
 Usage: orcad [options]
 
@@ -38,7 +38,7 @@ Options:
                            an earlier boot, nothing answering) and, with --yes, clear it.
 
 Environment:
-  ORCA_USER_DATA           Data directory for this instance's profile and state.
+  OPENKODO_USER_DATA           Data directory for this instance's profile and state.
 `
 
 type OrcadCommandArguments = OrcadOptions & { help?: boolean }

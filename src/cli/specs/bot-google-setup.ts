@@ -11,7 +11,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'google-setup', 'show'],
     summary:
       "Show this bot's Google setup: path, each step and who did it, and the owner's answers",
-    usage: 'orca bot google-setup show [--json]',
+    usage: 'openkodo bot google-setup show [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       FROM_CHAT,
@@ -22,7 +22,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'google-setup', 'start'],
     summary: 'Start Google setup for this bot, or pick up the one already running',
     usage:
-      'orca bot google-setup start [--mode do-it-for-me|guide-here|guide-browser] [--page <browser page id>] [--new-app] [--json]',
+      'openkodo bot google-setup start [--mode do-it-for-me|guide-here|guide-browser] [--page <browser page id>] [--new-app] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'mode', 'page', 'new-app'],
     booleanFlags: ['new-app'],
     notes: [
@@ -35,7 +35,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'google-setup', 'step'],
     summary: 'Mark a setup step active, done, skipped or failed',
     usage:
-      'orca bot google-setup step <account|project|apis|branding|links|publish|client|connect> --status <active|done|skipped|failed|pending> [--note <text>] [--json]',
+      'openkodo bot google-setup step <account|project|apis|branding|links|publish|client|connect> --status <active|done|skipped|failed|pending> [--note <text>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'step', 'status', 'note'],
     positionalArgs: ['step'],
     notes: [
@@ -47,7 +47,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['bot', 'google-setup', 'need-user'],
     summary: 'Hand a step to the person, with what they need to do',
-    usage: 'orca bot google-setup need-user <step> --note <what to do> [--json]',
+    usage: 'openkodo bot google-setup need-user <step> --note <what to do> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'step', 'note'],
     positionalArgs: ['step'],
     notes: [
@@ -59,7 +59,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'google-setup', 'set'],
     summary: 'Record the account, work or personal, the project id, the services, or the page',
     usage:
-      'orca bot google-setup set [--account <email>] [--accounts <a,b>] [--kind work|personal] [--project <id>] [--services gmail,calendar,files] [--page <browser page id>] [--json]',
+      'openkodo bot google-setup set [--account <email>] [--accounts <a,b>] [--kind work|personal] [--project <id>] [--services gmail,calendar,files] [--page <browser page id>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'account', 'accounts', 'kind', 'project', 'services', 'page'],
     notes: [
       'With one Google account signed in on the page, set --account to it. With two or more, set --accounts and the owner picks on a card.'
@@ -69,7 +69,8 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'google-setup', 'answer'],
     summary:
       'Record what the person typed as their answer to a setup card, so the card locks to it',
-    usage: 'orca bot google-setup answer <path|account|kind|services|step> --values <a,b> [--json]',
+    usage:
+      'openkodo bot google-setup answer <path|account|kind|services|step> --values <a,b> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'card', 'values'],
     positionalArgs: ['card'],
     notes: [
@@ -80,7 +81,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['bot', 'google-setup', 'done'],
     summary: 'Finish Google setup once the owner has signed in with the new app',
-    usage: 'orca bot google-setup done [--json]',
+    usage: 'openkodo bot google-setup done [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
       'Refused until your owner has signed in and Google answers for every chosen service; the refusal says what is left and which button on their card fixes it.'
@@ -89,7 +90,7 @@ export const BOT_GOOGLE_SETUP_COMMAND_SPECS: CommandSpec[] = [
   {
     path: ['bot', 'google-setup', 'fail'],
     summary: "End Google setup when it can't go on, with why",
-    usage: 'orca bot google-setup fail --error <text> [--json]',
+    usage: 'openkodo bot google-setup fail --error <text> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'error']
   }
 ]

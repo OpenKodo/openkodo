@@ -1,4 +1,4 @@
-// Which of the host list's command servers Orca runs once on the host for every session, read
+// Which of the host list's command servers OpenKodo runs once on the host for every session, read
 // without writing: a launch points its agent at them, the relay starts them.
 import type { BotToolServer } from '../../shared/bot-tools'
 import { botToolEntries, readBotToolsSnapshot } from '../bots/bot-tools-file'
@@ -11,7 +11,7 @@ export const ID_PATTERN = /^[A-Za-z0-9_-]{8,64}$/
 /** A command server, as the host list keeps it. */
 export type McpCommandServer = Extract<BotToolServer, { command: string }>
 
-/** A launch's servers, and which of them are command servers Orca runs once, by name to their id. */
+/** A launch's servers, and which of them are command servers OpenKodo runs once, by name to their id. */
 export type McpLaunchServers = {
   servers: BotToolServer[]
   sharedProcesses: ReadonlyMap<string, string>
@@ -30,7 +30,7 @@ const entriesOf = async (folder: string): Promise<BotToolEntry[]> =>
 
 /**
  * The shared command servers in the whole list `entries`, by name to their id. An id two entries
- * hold (an edit outside Orca) names neither, so no lookup can run one entry's command for the other.
+ * hold (an edit outside OpenKodo) names neither, so no lookup can run one entry's command for the other.
  */
 export function sharedIds(entries: readonly BotToolEntry[]): Map<string, string> {
   const holders = new Map<unknown, number>()

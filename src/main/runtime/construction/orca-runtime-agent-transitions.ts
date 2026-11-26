@@ -44,7 +44,7 @@ import {
   terminalPhaseInTurn
 } from '../orchestration/terminal-authority/release/worker-auto-release-activity'
 import { getStructuredAgentSessionHost } from '../../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import { WorktreeRowsChanges } from '../client/events/worktree-rows-change-events'
 import {
   TerminalAgentPhonePush,
@@ -122,7 +122,7 @@ export abstract class OrcaRuntimeWithAgentTransitions extends OrcaRuntimeWithTer
   private readonly externalConversations = installExternalConversations(this.store, this)
 
   // The sidebar feed's activity facts already announce row changes when it is on.
-  private readonly worktreeRowsChanges = ORCA_SIDEBAR_INPUTS_IS_MAIN
+  private readonly worktreeRowsChanges = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
     ? null
     : new WorktreeRowsChanges((event) => this.emitClientEvent(event))
 
@@ -165,7 +165,7 @@ export abstract class OrcaRuntimeWithAgentTransitions extends OrcaRuntimeWithTer
     this.externalConversations.slackMirror()?.admitted(message)
   }
 
-  /** Posts the owner's Orca-typed messages to their bot chats' Slack threads; null without a store. */
+  /** Posts the owner's OpenKodo-typed messages to their bot chats' Slack threads; null without a store. */
   getSlackMirror(): SlackMirror | null {
     return this.externalConversations.slackMirror()
   }
@@ -179,11 +179,11 @@ export abstract class OrcaRuntimeWithAgentTransitions extends OrcaRuntimeWithTer
 
   declare protected readonly getPairedDeviceAccountFn: PairedDeviceAccountLookup
 
-  /** The Orca account a paired device says it is signed in to; null when it named none. */
+  /** The OpenKodo account a paired device says it is signed in to; null when it named none. */
   readonly pairedDeviceAccount: PairedDeviceAccountLookup = (...args) =>
     this.getPairedDeviceAccountFn(...args)
 
-  /** The desktop's link to the Orca Cloud connector; null in `orca serve` and in builds without cloud auth. */
+  /** The desktop's link to the OpenKodo Cloud connector; null in `orca serve` and in builds without cloud auth. */
   getConnectorCloud(): ConnectorCloud | null {
     return this.connectorCloud
   }

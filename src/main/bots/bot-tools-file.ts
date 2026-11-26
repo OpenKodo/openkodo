@@ -1,4 +1,4 @@
-// A bot's own tools: a file in its home folder that Orca hands each of the bot's chats at launch (Claude
+// A bot's own tools: a file in its home folder that OpenKodo hands each of the bot's chats at launch (Claude
 // as extra MCP config, Codex as thread config), so nothing is written to the owner's own agent config.
 import { mkdir, readFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
@@ -30,7 +30,7 @@ import {
   type BotToolCredential
 } from './bot-tool-credentials'
 
-/** A credential saved with a tools change: saved or sourced headers, or a new Orca sign-in. */
+/** A credential saved with a tools change: saved or sourced headers, or a new OpenKodo sign-in. */
 export type BotToolNewCredential = BotToolCredential | { url: string; signIn: true }
 import { revokeBotToolSignIns } from './tool-oauth/bot-tool-oauth-revoke'
 import { botToolSignInState } from './tool-oauth/bot-tool-oauth-tokens'
@@ -182,7 +182,7 @@ function writeServers(
         current ? undefined : { url, grant: 0, record: { resource: url } }
       )
       if (!entry) {
-        throw new Error('The bot’s tool credentials changed in another Orca. Try again.')
+        throw new Error('The bot’s tool credentials changed in another OpenKodo. Try again.')
       }
       created.push(id)
     }
@@ -204,7 +204,7 @@ function writeServers(
   revokeBotToolSignIns(changeBotToolCredentials(folder, new Map(), removed))
 }
 
-/** The file as it stands; header values an older Orca left inline move to the credential store first. */
+/** The file as it stands; header values an older OpenKodo left inline move to the credential store first. */
 async function readMigratedSnapshot(folder: string): Promise<BotToolsSnapshot> {
   const snapshot = await readRawSnapshot(folder)
   if (!snapshot.servers.some(hasInlineHeaders)) {
@@ -225,7 +225,7 @@ export async function readBotToolServers(folder: string): Promise<BotToolServer[
 
 /**
  * `credentials` are saved with the change, for servers that name them: headers from a source, or a
- * new signed-out sign-in (`{ url, signIn: true }`) for a tool Orca signs in to.
+ * new signed-out sign-in (`{ url, signIn: true }`) for a tool OpenKodo signs in to.
  */
 export function changeBotToolServers(
   folder: string,
@@ -294,7 +294,7 @@ export async function writeBotToolServers(
   await changeBotToolServers(folder, () => [...servers])
 }
 
-/** `folder` is the bot's home, where a tool Orca signs in to has its sign-in. */
+/** `folder` is the bot's home, where a tool OpenKodo signs in to has its sign-in. */
 export function botOwnTool(server: BotToolServer, folder: string): BotOwnTool {
   const signIn =
     'url' in server && server.credential
@@ -303,7 +303,7 @@ export function botOwnTool(server: BotToolServer, folder: string): BotOwnTool {
   return {
     name: server.name,
     detail: botToolDetail(server),
-    // A tool with saved values or Orca's own sign-in goes through Orca's relay; its CLI never signs in.
+    // A tool with saved values or OpenKodo's own sign-in goes through OpenKodo's relay; its CLI never signs in.
     remote: 'url' in server && !server.credential,
     ...(signIn ? { signIn } : {})
   }

@@ -64,12 +64,12 @@ describe('structured mail conversation routing', () => {
     }
   )
 
-  it('keeps mail from an Orca-started Dispatch in Orca', () => {
+  it('keeps mail from an OpenKodo-started Dispatch in OpenKodo', () => {
     expect(deliveredAfter('failed')).toBe(false)
   })
 })
 
-it("sends the owner's answer to an item question a thread asked back to that thread, and only Orca's item mail", () => {
+it("sends the owner's answer to an item question a thread asked back to that thread, and only OpenKodo's item mail", () => {
   const db = new OrchestrationDb(':memory:')
   const asker = 'orca_session_id:11111111-1111-4111-8111-111111111111'
   const other = 'orca_session_id:22222222-2222-4222-8222-222222222222'
@@ -102,7 +102,7 @@ it("sends the owner's answer to an item question a thread asked back to that thr
     }
 
     expect(answersThere('orca:items', asker)).toBe(true)
-    // Another chat reading it, item mail no thread asked, and anyone else's payload stay in Orca.
+    // Another chat reading it, item mail no thread asked, and anyone else's payload stay in OpenKodo.
     expect(answersThere('orca:items', asker, other)).toBe(false)
     expect(answersThere('orca:items', undefined)).toBe(false)
     expect(answersThere(other, asker)).toBe(false)

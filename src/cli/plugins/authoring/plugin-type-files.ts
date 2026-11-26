@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { basename, dirname, join } from 'node:path'
 import { isPluginSourceModulePath } from '../../../shared/plugins/frames/plugin-frame-source-modules'
 import { parsePluginManifest } from '../../../shared/plugins/manifest/plugin-manifest'
+import { findPluginManifestFile } from './plugin-manifest-file'
 
 /** Plugin-relative folder `orca plugin types` owns; dev hashing and loading skip it. */
 export const PLUGIN_TYPES_DIR = '.orca/types'
@@ -17,7 +18,7 @@ const PLUGIN_SURFACE_TYPINGS = [
   { dir: 'orca-testing', file: 'orca-testing.d.ts' }
 ] as const
 
-// Why one tsconfig the plugin extends: the typings and JSX settings then track the Orca that wrote
+// Why one tsconfig the plugin extends: the typings and JSX settings then track the OpenKodo that wrote
 // them, and a plugin's own `include` cannot drop them (typeRoots resolve against this file).
 const TYPES_TSCONFIG = {
   compilerOptions: {
@@ -40,7 +41,7 @@ const TYPES_TSCONFIG = {
 }
 
 /** The `orca` module's typings, split by size; written as one `orca/index.d.ts`. */
-export const ORCA_MODULE_TYPINGS = [
+export const OPENKODO_MODULE_TYPINGS = [
   'orca.d.ts',
   'orca-components.d.ts',
   'orca-components-layout.d.ts',
@@ -60,7 +61,7 @@ function defaultTypingsRoot(): string {
 
 async function readOrcaPluginTypings(typingsRoot: string): Promise<string> {
   const parts = await Promise.all(
-    ORCA_MODULE_TYPINGS.map((file) => readFile(join(typingsRoot, 'declarative', file), 'utf8'))
+    OPENKODO_MODULE_TYPINGS.map((file) => readFile(join(typingsRoot, 'declarative', file), 'utf8'))
   )
   return parts.join('\n')
 }
@@ -101,7 +102,8 @@ export async function pluginFolderWantsTypes(pluginDir: string): Promise<boolean
   if (tsconfig.includes(PLUGIN_TYPES_DIR)) {
     return true
   }
-  const raw = await readFile(join(pluginDir, 'orca-plugin.json'), 'utf8').catch(() => null)
+  const manifestPath = findPluginManifestFile(pluginDir) ?? join(pluginDir, 'openkodo-plugin.json')
+  const raw = await readFile(manifestPath, 'utf8').catch(() => null)
   let parsed: unknown = null
   try {
     parsed = raw === null ? null : JSON.parse(raw)

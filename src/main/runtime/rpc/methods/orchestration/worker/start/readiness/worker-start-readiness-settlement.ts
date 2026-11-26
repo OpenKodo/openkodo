@@ -111,7 +111,7 @@ export async function deliverAndSettleWorkerStartReadiness(args: {
   // A worker report can settle the dispatch while turn observation is outstanding.
   const currentWorker = db.getWorkerDispatch(args.dispatchId)
   const alreadySettled = currentWorker && currentWorker.state !== 'starting'
-  // Only Orca's own worker chat queues behind its own turn, so its card is sure to run; a user's chat may drop it.
+  // Only OpenKodo's own worker chat queues behind its own turn, so its card is sure to run; a user's chat may drop it.
   const queuedOnOwnWorker =
     turnStart.queued === true &&
     db.getWorkerTerminalResourceByOwner(args.dispatchId)?.ownership_state === 'owned'
@@ -136,7 +136,7 @@ export async function deliverAndSettleWorkerStartReadiness(args: {
       effects,
       residualResources: [],
       nextCommands: [`orca orchestration worker-show --dispatch ${args.dispatchId} --json`],
-      next: `Worker ${terminalHandle} (Dispatch ${args.dispatchId}) is live, but its agent hasn't finished starting. Orca holds the task and hands it over once the agent is up; the worker then runs it and reports as usual. If the start fails, or the agent isn't up within ${agentStartCeilingText()}, Orca sends you an error report. Sending the task again would run it twice once the agent is up.`,
+      next: `Worker ${terminalHandle} (Dispatch ${args.dispatchId}) is live, but its agent hasn't finished starting. OpenKodo holds the task and hands it over once the agent is up; the worker then runs it and reports as usual. If the start fails, or the agent isn't up within ${agentStartCeilingText()}, OpenKodo sends you an error report. Sending the task again would run it twice once the agent is up.`,
       ...(args.terminalRevealWarning ? { warning: args.terminalRevealWarning } : {})
     }
   }

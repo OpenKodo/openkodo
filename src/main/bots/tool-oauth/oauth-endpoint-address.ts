@@ -1,5 +1,5 @@
 // Whether an OAuth endpoint's address is on the public internet, so an app on the public internet
-// can't point Orca's token requests into the user's own network.
+// can't point OpenKodo's token requests into the user's own network.
 import { lookup } from 'node:dns/promises'
 import { BlockList, isIP } from 'node:net'
 

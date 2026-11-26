@@ -197,7 +197,7 @@ export class DeviceRegistry extends DeviceRegistrySightings {
     )
   }
 
-  /** A paired desktop's claimed Orca account; null forgets it (signed out). */
+  /** A paired desktop's claimed OpenKodo account; null forgets it (signed out). */
   setOrcaAccount(deviceId: string, account: DeviceOrcaAccount | null): boolean {
     const current = this.getDevice(deviceId)
     if (current?.scope !== 'runtime') {

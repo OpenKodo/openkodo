@@ -17,7 +17,7 @@ import { watchOrcadBrowserInstallPark } from './orcad-browser-install-park'
 import { openServeBundlePark } from '../../../shared/remote-runtime/serve-supervisor/serve-bundle-park'
 import { ORCAD_BROWSER_PARK_LABEL } from '../../../shared/remote-runtime/serve-supervisor/serve-bundle-coordination'
 import { errorMessage } from '../../../shared/errors/error-message'
-import { ORCA_SERVE_APPIMAGE_ENV } from '../../../shared/remote-runtime/serve-supervisor/orcad-server-launch-env'
+import { OPENKODO_SERVE_APPIMAGE_ENV } from '../../../shared/remote-runtime/serve-supervisor/orcad-server-launch-env'
 
 export type OrcadBrowserProvider = {
   kind: 'electron' | 'chromium'
@@ -83,24 +83,26 @@ export function installedElectronCandidates(
   const joinPath = platform === 'win32' ? win32.join : posix.join
   if (platform === 'darwin') {
     return [
-      '/Applications/Orca.app/Contents/MacOS/Orca',
-      joinPath(homePath, 'Applications', 'Orca.app', 'Contents', 'MacOS', 'Orca')
+      '/Applications/OpenKodo.app/Contents/MacOS/OpenKodo',
+      joinPath(homePath, 'Applications', 'OpenKodo.app', 'Contents', 'MacOS', 'OpenKodo')
     ]
   }
   if (platform === 'win32') {
     return [
       ...(environment.LOCALAPPDATA
-        ? [joinPath(environment.LOCALAPPDATA, 'Programs', 'Orca', 'Orca.exe')]
+        ? [joinPath(environment.LOCALAPPDATA, 'Programs', 'OpenKodo', 'OpenKodo.exe')]
         : []),
-      ...(environment.ProgramFiles ? [joinPath(environment.ProgramFiles, 'Orca', 'Orca.exe')] : [])
+      ...(environment.ProgramFiles
+        ? [joinPath(environment.ProgramFiles, 'OpenKodo', 'OpenKodo.exe')]
+        : [])
     ]
   }
-  const servedAppImage = environment[ORCA_SERVE_APPIMAGE_ENV]
+  const servedAppImage = environment[OPENKODO_SERVE_APPIMAGE_ENV]
   return [
     joinPath(homePath, '.local', 'bin', 'orca-ide'),
     '/usr/local/bin/orca-ide',
     '/usr/bin/orca-ide',
-    '/opt/Orca/orca-ide',
+    '/opt/OpenKodo/orca-ide',
     // Last: hosts where an installer copy already works keep it.
     ...(servedAppImage && posix.isAbsolute(servedAppImage) ? [servedAppImage] : [])
   ]
@@ -239,7 +241,7 @@ export async function resolveOrcadBrowserProvider(
   }
 
   // Read configuration before probing drivers so missing drivers cannot look like missing configuration.
-  const chromiumExecutable = environment.ORCA_BROWSER_EXECUTABLE?.trim()
+  const chromiumExecutable = environment.OPENKODO_BROWSER_EXECUTABLE?.trim()
   if (!chromiumExecutable) {
     return declined(electronFailure ?? { reason: 'unconfigured' })
   }

@@ -3,7 +3,7 @@ import type { JournalSqlReaderPool } from './journal-sql-reader-pool'
 import { isSqliteCorruption, isSqliteStorageFailure } from '../../sqlite/sqlite-read-failure'
 
 /**
- * Converted chats an older Orca may have continued, with no revision to compare, are compared one
+ * Converted chats an older OpenKodo may have continued, with no revision to compare, are compared one
  * per idle step on a reader. Each settles durably, so an interrupted run resumes next launch.
  */
 export async function compareJournalLegacyChatsWhenIdle(

@@ -19,7 +19,7 @@ type SetupReviewSaveContext = {
   list: Pick<AutomationSaveContext['list'], 'visibleRows'>
 }
 
-/** Runs create from the automation's base, so approve the orca.yaml there, not the project checkout's. */
+/** Runs create from the automation's base, so approve the openkodo.yaml there, not the project checkout's. */
 export function approveAutomationSetup(
   repoId: string,
   hostId: ExecutionHostId | undefined,

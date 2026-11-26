@@ -35,7 +35,7 @@ export type TerminalWorkerRestartResumeDeps = {
   paneSessions: (paneKey: string) => readonly string[]
   /** Resolves once the resumed agent's composer takes input; false when it never does. */
   waitForAgentReady: (handle: string, agent: TuiAgent) => Promise<boolean>
-  /** False when the agent provably did not start the turn; the hold when Orca left it unsubmitted. */
+  /** False when the agent provably did not start the turn; the hold when OpenKodo left it unsubmitted. */
   sendPrompt: (
     handle: string,
     prompt: string,

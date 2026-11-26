@@ -57,13 +57,13 @@ export class RuntimeAutomationController {
   /** Set once this host can make webhooks. */
   readonly webhooks = new AutomationWebhookSaves()
 
-  /** Whether this host's Orca Cloud binds an event run to its thread; set with the connector. */
+  /** Whether this host's OpenKodo Cloud binds an event run to its thread; set with the connector. */
   takesThreadReplies: () => boolean = () => false
-  /** Looks places up as refs where this host's Orca Cloud takes them; set with the connector. */
+  /** Looks places up as refs where this host's OpenKodo Cloud takes them; set with the connector. */
   placeRefs: () => ConnectorRefResolver | null = () => null
-  /** Who a rule's from= names, where this host's Orca Cloud takes it; set with the connector. */
+  /** Who a rule's from= names, where this host's OpenKodo Cloud takes it; set with the connector. */
   triggerPeople: (bot: Bot) => TriggerPeopleSearch | null = () => null
-  /** Which rules this host's Orca Cloud takes (CloudTriggers); set with the connector. */
+  /** Which rules this host's OpenKodo Cloud takes (CloudTriggers); set with the connector. */
   cloudTriggers = () => ({ own: false, github2: false, workflows: false, ciFinished: false })
   /** A bot's chat a run may continue; set with the runtime, which reads its chats. */
   botChat: BotChatLookup = async () => null

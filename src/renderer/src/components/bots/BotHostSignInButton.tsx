@@ -9,7 +9,7 @@ import { BotHostSignInBlocked, useBotHostSignInFromHere } from './bot-host-sign-
 import type { Bot } from '../../../../shared/bot-types'
 
 /**
- * A setup dialog's way out of "signed out of Orca": the sign-in of the computer the bot runs on.
+ * A setup dialog's way out of "signed out of OpenKodo": the sign-in of the computer the bot runs on.
  * A server's continues on the bot's Connectors notice, which shows its code to check; only a verified
  * server whose sign-in can work offers one, and any other says what stands in the way.
  */

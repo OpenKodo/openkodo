@@ -115,7 +115,7 @@ export abstract class OrcaRuntimeWithMcpStaleTerminals extends OrcaRuntimeWithCl
   }
 
   /** mcpServers.sessions.stale: how many terminals still use an older list, and how many of
-   *  those Orca can restart in place. */
+   *  those OpenKodo can restart in place. */
   async countMcpStaleTerminals(): Promise<{ count: number; restartable: number }> {
     const stale = await this.staleMcpTerminals()
     return { count: stale.length, restartable: stale.filter((entry) => entry.session).length }

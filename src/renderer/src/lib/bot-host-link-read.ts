@@ -1,4 +1,4 @@
-// Whether each host's link to Orca Cloud (its bots.list connectorStatus) was read lately, and whether that
+// Whether each host's link to OpenKodo Cloud (its bots.list connectorStatus) was read lately, and whether that
 // read landed, so a surface that must not act on a kept status can wait for one read sent after it opened.
 // Also each host's comings-back: a read sent before a host went away answers for a host that may have
 // changed since, so it says nothing once the host is back.
@@ -83,7 +83,7 @@ export function botHostLinkReadSince(hostId: ExecutionHostId, mark: number): boo
 }
 
 /**
- * Whether the host's link to Orca Cloud has been read since this view opened, or since `since` last
+ * Whether the host's link to OpenKodo Cloud has been read since this view opened, or since `since` last
  * changed (this computer's sign-in, say), and that read and every later one landed. Each start reads
  * again through `refresh` (bot-host-refresh.ts's, passed in to keep this module free of the catalog).
  * `mark` is where that count starts, for an action that must use the same threshold.

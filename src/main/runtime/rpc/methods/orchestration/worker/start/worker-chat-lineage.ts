@@ -24,7 +24,7 @@ export function startsInChatLineage(
   if (isInBotHome(runtime.bots, sessionCallerOf(caller))) {
     return true
   }
-  // A paired Orca's start continues its lineage here; nobody else can claim one.
+  // A paired OpenKodo's start continues its lineage here; nobody else can claim one.
   if (params.chatLineage === true && caller?.kind === 'peer') {
     return true
   }

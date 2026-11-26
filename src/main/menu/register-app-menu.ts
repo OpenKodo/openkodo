@@ -112,12 +112,12 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
   }
 
   const featureTourItem: Electron.MenuItemConstructorOptions = {
-    label: translateMain('menu.exploreOrca', 'Explore Orca'),
+    label: translateMain('menu.exploreOrca', 'Explore OpenKodo'),
     click: (_menuItem, window) => onOpenFeatureTour(window)
   }
 
   const setupGuideItem: Electron.MenuItemConstructorOptions = {
-    label: translateMain('menu.gettingStarted', 'Getting Started with Orca'),
+    label: translateMain('menu.gettingStarted', 'Getting Started'),
     click: (_menuItem, window) => onOpenSetupGuide(window)
   }
 
@@ -129,13 +129,13 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
   const macAppMenu: Electron.MenuItemConstructorOptions = {
     label: options.appMenuLabel ?? app.name,
     submenu: [
-      labeledAppMenuRole('about', 'menu.about', 'About Orca'),
+      labeledAppMenuRole('about', 'menu.about', 'About OpenKodo'),
       checkForUpdatesItem,
       settingsItem,
       { type: 'separator' },
       labeledAppMenuRole('services', 'menu.services', 'Services'),
       { type: 'separator' },
-      labeledAppMenuRole('hide', 'menu.hide', 'Hide Orca'),
+      labeledAppMenuRole('hide', 'menu.hide', 'Hide OpenKodo'),
       labeledAppMenuRole('hideOthers', 'menu.hideOthers', 'Hide Others'),
       labeledAppMenuRole('unhide', 'menu.unhide', 'Show All'),
       { type: 'separator' },
@@ -168,7 +168,7 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
         label: translateMain('menu.paste', 'Paste'),
         accelerator: 'CmdOrCtrl+V',
         click: () => {
-          // Electron paste cannot resolve ownership among Orca terminal/chat surfaces.
+          // Electron paste cannot resolve ownership among OpenKodo terminal/chat surfaces.
           const focusedWindow = BrowserWindow.getFocusedWindow()
           if (focusedWindow) {
             // Focused DevTools must own paste over the renderer's last-focused terminal (#16285).
@@ -227,7 +227,7 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
         click: () => onToggleAppearance('showAutomationsButton')
       },
       {
-        label: translateMain('menu.showMobileButton', 'Show Orca Mobile Button'),
+        label: translateMain('menu.showMobileButton', 'Show Mobile Button'),
         type: 'checkbox',
         checked: appearance.showMobileButton,
         click: () => onToggleAppearance('showMobileButton')
@@ -288,7 +288,7 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
         ? []
         : ([
             { type: 'separator' },
-            labeledAppMenuRole('about', 'menu.about', 'About Orca'),
+            labeledAppMenuRole('about', 'menu.about', 'About OpenKodo'),
             checkForUpdatesItem
           ] satisfies Electron.MenuItemConstructorOptions[]))
     ]

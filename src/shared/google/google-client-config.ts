@@ -1,14 +1,14 @@
-// The Google OAuth client a team creates once (type "Desktop app") and drops into Orca. Google
+// The Google OAuth client a team creates once (type "Desktop app") and drops into OpenKodo. Google
 // treats a Desktop client's id and secret as public; what each person grants stays on their host.
 
 import * as z from 'zod'
 
-/** The largest client file Orca reads; Google's are well under 1 KB. */
+/** The largest client file OpenKodo reads; Google's are well under 1 KB. */
 export const GOOGLE_CLIENT_FILE_MAX_BYTES = 64 * 1024
 
 export const GOOGLE_CREDENTIALS_PAGE = 'https://console.cloud.google.com/apis/credentials'
 
-/** Where the client came from: a file imported on this host; `team` is kept for a client Orca Cloud may serve later. */
+/** Where the client came from: a file imported on this host; `team` is kept for a client OpenKodo Cloud may serve later. */
 export const GOOGLE_CLIENT_SOURCES = ['imported', 'team'] as const
 
 export const GoogleClientConfigSchema = z.object({

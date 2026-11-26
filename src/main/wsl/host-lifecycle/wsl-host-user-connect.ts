@@ -65,11 +65,11 @@ async function stopServerForRestart(
   if (!stop.stopped) {
     throw new Error(stop.reason)
   }
-  // Another Orca still uses it: this desktop only let go, and the same server would come back.
+  // Another OpenKodo still uses it: this desktop only let go, and the same server would come back.
   if (stop.keptForOtherDesktops?.length) {
     throw new Error(
-      `Another Orca uses this server (${stop.keptForOtherDesktops.join(', ')}), so it kept ` +
-        'running. Close Orca there, then restart it as a WSL host again.'
+      `Another OpenKodo uses this server (${stop.keptForOtherDesktops.join(', ')}), so it kept ` +
+        'running. Close OpenKodo there, then restart it as a WSL host again.'
     )
   }
 }

@@ -6,7 +6,7 @@ workflows. It does not install cua-driver in Orca.
 
 Run the `Computer-use task benchmark` GitHub Actions workflow on a branch. Native
 input runs only on its disposable Windows runner or Linux Xvfb desktop. The runner
-refuses to run on the developer's desktop. Keep `ORCA_BACKGROUND_LAUNCH=1`.
+refuses to run on the developer's desktop. Keep `OPENKODO_BACKGROUND_LAUNCH=1`.
 
 The first matrix covers GTK/WinForms and Electron fixtures. Editor applications,
 Wayland, macOS and additional Windows control frameworks need separate coverage.

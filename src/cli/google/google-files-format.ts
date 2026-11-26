@@ -1,4 +1,4 @@
-// How `orca drive|docs|sheets` print their answers: Orca's own lines plain, every file name and
+// How `orca drive|docs|sheets` print their answers: OpenKodo's own lines plain, every file name and
 // every text someone else wrote fenced as content, and the whole answer capped.
 import type {
   DocsComment,
@@ -40,7 +40,7 @@ function fileLine(file: DriveFileSummary): string {
   ].join(' · ')
 }
 
-/** Orca's line for a file: only what Orca made (its id, kind, link), never its name. */
+/** OpenKodo's line for a file: only what OpenKodo made (its id, kind, link), never its name. */
 const orcaFileLine = (file: DriveFileSummary) =>
   [file.id, kind(file.mimeType), ...(file.link ? [file.link] : [])].join(' · ')
 
@@ -64,7 +64,7 @@ export function formatDriveList(view: DriveListView, more: string): string {
 }
 
 const partLine = (part: { from: number; to: number; of: number } | undefined) =>
-  part ? [`[Orca: characters ${part.from}–${part.to} of ${part.of}]`] : []
+  part ? [`[OpenKodo: characters ${part.from}–${part.to} of ${part.of}]`] : []
 
 export function formatDriveRead(view: DriveReadView): string {
   const about = [
@@ -113,11 +113,11 @@ export function formatDocsRead(view: DocsReadView): string {
     view.part && view.part.from > 0
       ? []
       : view.openComments === 0
-        ? ['[Orca: no open comments]']
+        ? ['[OpenKodo: no open comments]']
         : [
-            `[Orca: ${view.openComments} open comment${view.openComments === 1 ? '' : 's'}]`,
+            `[OpenKodo: ${view.openComments} open comment${view.openComments === 1 ? '' : 's'}]`,
             ...view.comments.map(commentBlock),
-            ...(hidden > 0 ? [`[Orca: ${hidden} more not shown; they are in the doc]`] : [])
+            ...(hidden > 0 ? [`[OpenKodo: ${hidden} more not shown; they are in the doc]`] : [])
           ]
   return [
     capToolOutput(
@@ -128,8 +128,8 @@ export function formatDocsRead(view: DocsReadView): string {
           [`Title: ${view.title}`, '', view.text || '(empty)'].join('\n')
         ),
         view.suggestions
-          ? `[Orca: ${view.suggestions} pending suggestion${view.suggestions === 1 ? '' : 's'}, shown as [+added+] and [-removed-]]`
-          : '[Orca: no pending suggestions]',
+          ? `[OpenKodo: ${view.suggestions} pending suggestion${view.suggestions === 1 ? '' : 's'}, shown as [+added+] and [-removed-]]`
+          : '[OpenKodo: no pending suggestions]',
         ...commentLines
       ].join('\n'),
       'Read on with --offset.'

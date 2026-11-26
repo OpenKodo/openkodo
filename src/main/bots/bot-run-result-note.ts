@@ -15,7 +15,7 @@ import type { Bot } from '../../shared/bot-types'
 import type { BotRunResult } from './bot-run-results'
 
 export type BotRunNoteDependencies = {
-  /** An Orca note in the bot's Chat: the agent reads it only with the person's next message. */
+  /** An OpenKodo note in the bot's Chat: the agent reads it only with the person's next message. */
   noteToChat(bot: Bot, note: AutomationResultNote): Promise<unknown>
 }
 

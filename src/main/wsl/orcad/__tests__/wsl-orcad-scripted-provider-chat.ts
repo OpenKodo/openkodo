@@ -196,9 +196,9 @@ export async function exerciseScriptedProviderChat(
     expect(report.argv).toEqual(expect.arrayContaining([...provider.argv]))
     expect(report.env).toMatchObject({
       ...('env' in provider ? provider.env : {}),
-      ORCA_LANE_CLI_WRAPPER: install.cli,
-      ORCA_AGENT_SESSION_ID: sessionId,
-      ORCA_STRUCTURED_SESSION: '1',
+      OPENKODO_LANE_CLI_WRAPPER: install.cli,
+      OPENKODO_AGENT_SESSION_ID: sessionId,
+      OPENKODO_STRUCTURED_SESSION: '1',
       [provider.accountVar]: install.accountHome
     })
     return { sessionId, cwd, argv: report.argv, methods: report.methods }

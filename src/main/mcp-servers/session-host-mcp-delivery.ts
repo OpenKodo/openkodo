@@ -1,8 +1,8 @@
 // The host list's servers each chat actually got, after its agent's own same-named servers won, so
-// its `/mcp` tray can show them as Orca's and an edit to one it didn't get never restarts it.
+// its `/mcp` tray can show them as OpenKodo's and an edit to one it didn't get never restarts it.
 import type { AgentSessionMcpResult } from '../../shared/agent-session/options/protocol/agent-session-mcp'
 import { BoundedMap } from '../../shared/collections/bounded-map'
-import { ORCA_MCP_SOURCE } from '../../shared/agent-session/view/agent-session-mcp-server-presentation'
+import { OPENKODO_MCP_SOURCE } from '../../shared/agent-session/view/agent-session-mcp-server-presentation'
 import type { SessionMcpTools } from './session-mcp-tools'
 import { agentOwnMcpServerNames } from './agent-own-mcp-server-names'
 
@@ -50,14 +50,14 @@ export async function deliverHostMcpServers(
   const { tools: kept, skipped } = tools.beside(await ownNames())
   if (skipped.length > 0) {
     console.warn(
-      `[mcp-servers] ${agent}'s own settings already have ${skipped.join(', ')}; this session uses those instead of Orca's`
+      `[mcp-servers] ${agent}'s own settings already have ${skipped.join(', ')}; this session uses those instead of OpenKodo's`
     )
   }
   delivered.set(sessionId, kept.hostNames)
   return kept
 }
 
-/** The agent's answer with the servers this session got from the host's list under Orca's group. */
+/** The agent's answer with the servers this session got from the host's list under OpenKodo's group. */
 export function withOrcaMcpSource(
   sessionId: string,
   result: AgentSessionMcpResult
@@ -69,7 +69,7 @@ export function withOrcaMcpSource(
   return {
     ...result,
     servers: result.servers.map((server) =>
-      names.has(server.name) ? { ...server, source: ORCA_MCP_SOURCE } : server
+      names.has(server.name) ? { ...server, source: OPENKODO_MCP_SOURCE } : server
     )
   }
 }

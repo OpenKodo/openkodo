@@ -14,7 +14,7 @@ import {
   botMentionToken,
   botMentionTokens
 } from '../../../../shared/bots/bot-mention-context'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../shared/agent-session/identity/orca-session-address-prefix'
 import { toast } from 'sonner'
 import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
 import { usePairedServerClientInstallation } from './use-paired-server-client-mentions'
@@ -160,7 +160,7 @@ const isOnThisComputer = (bot: Bot): boolean => bot.hostId === LOCAL_EXECUTION_H
 function introduceToServerChat(environmentId: string, sessionId: string, botId: string): void {
   callRuntimeRpc(ownBotHost().target, 'pairedServerAsks.introduce', {
     environmentId,
-    rootSession: `${ORCA_SESSION_ADDRESS_PREFIX}${sessionId}`,
+    rootSession: `${OPENKODO_SESSION_ADDRESS_PREFIX}${sessionId}`,
     botId
   }).catch((error: unknown) => toast.error(error instanceof Error ? error.message : String(error)))
 }

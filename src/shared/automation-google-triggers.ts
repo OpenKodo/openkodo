@@ -1,5 +1,5 @@
 // Gmail and Calendar automation rules: matched on the host that holds the Google sign-in, so they
-// are never sent to Orca Cloud and an older cloud never sees them.
+// are never sent to OpenKodo Cloud and an older cloud never sees them.
 
 export const GOOGLE_EVENT_SOURCES = ['gmail', 'calendar'] as const
 export type GoogleEventSource = (typeof GOOGLE_EVENT_SOURCES)[number]

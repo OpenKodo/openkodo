@@ -1,6 +1,6 @@
 import { OrcaRuntimeWithWslMoveTerminalFacts } from '../../workspaces/metadata/runtime-wsl-move-terminal-facts'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import { isRemoteRuntimePtyId } from '../../../../shared/remote-runtime/remote-runtime-pty-id'
 import type { RuntimeTerminalSplit } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { parseExecutionHostId } from '../../../../shared/execution-host/execution-host'
@@ -87,7 +87,9 @@ export abstract class OrcaRuntimeWithWindowlessTerminalActivity extends OrcaRunt
   // Switch point: main's sort stamps own Recent. Only a headless host (serve, orcad) stamps here: a
   // window stamps its own, and a desktop between windows (null) stays unstamped, as before.
   private stampsTerminalActivity(): boolean {
-    return !ORCA_SIDEBAR_INPUTS_IS_MAIN && this.authoritativeWindowId === HEADLESS_RUNTIME_WINDOW_ID
+    return (
+      !OPENKODO_SIDEBAR_INPUTS_IS_MAIN && this.authoritativeWindowId === HEADLESS_RUNTIME_WINDOW_ID
+    )
   }
 
   private stampSplit(split: RuntimeTerminalSplit): RuntimeTerminalSplit {

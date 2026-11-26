@@ -8,7 +8,7 @@ import type { RpcResponse } from '../../transport/rpc/rpc-wire-types'
 import type { UnvalidatedRpcRequestPort } from '../../transport/rpc/unvalidated-rpc-request-port'
 import { hostReplyErrorTextOrFallback } from '../../transport/rpc/rpc-refusal-message'
 
-// Only ORCA_SIDEBAR_INPUTS=main pages read this feed; method_not_found or an older allowlist’s forbidden means the page is newer than the host.
+// Only OPENKODO_SIDEBAR_INPUTS=main pages read this feed; method_not_found or an older allowlist’s forbidden means the page is newer than the host.
 
 export const sidebarInputsRead = bindDeferredRpcOperation(
   defineRpcOperation({

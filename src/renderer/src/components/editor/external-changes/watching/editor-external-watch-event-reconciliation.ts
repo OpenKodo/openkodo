@@ -11,7 +11,7 @@ import {
 import { normalizeRuntimePathForComparison } from '../../../../../../shared/file-access/cross-platform-path'
 import type { FsChangedPayload } from '../../../../../../shared/file-watch/filesystem-change-event'
 import {
-  ORCA_WORKTREE_FILE_CHANGE_EVENT,
+  OPENKODO_WORKTREE_FILE_CHANGE_EVENT,
   type WorktreeFileChangeEventDetail
 } from '../../../../runtime/files/watching/worktree-file-change-event'
 import {
@@ -83,7 +83,7 @@ export function buildEditorExternalWatchEventHandler(
     // Why: this app-level hook owns watcher subscriptions; other consumers listen here so they don't fight over watch/unwatch ownership.
     if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
       window.dispatchEvent(
-        new CustomEvent<WorktreeFileChangeEventDetail>(ORCA_WORKTREE_FILE_CHANGE_EVENT, {
+        new CustomEvent<WorktreeFileChangeEventDetail>(OPENKODO_WORKTREE_FILE_CHANGE_EVENT, {
           detail: { payload, runtimeEnvironmentId: targets[0].runtimeEnvironmentId }
         })
       )

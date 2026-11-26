@@ -9,7 +9,7 @@ import { agentCliUpdateHostTarget } from '@/store/slices/runtime-host-updates/ag
 import { useAgentCliUpdate } from './use-agent-cli-update'
 import { AgentCliUpdateFailedChip } from './AgentCliUpdateFailedChip'
 
-// WSL distros and direct SSH hosts aren't checked; Orca's own server there would run the update.
+// WSL distros and direct SSH hosts aren't checked; OpenKodo's own server there would run the update.
 function updateHostKey(target: AgentDetectionTarget): string | null {
   return target.kind === 'runtime'
     ? target.environmentId

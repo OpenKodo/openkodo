@@ -1,4 +1,4 @@
-// orca://<linear|github>/link?t=<result>: a connect trip's "Open Orca", read in main. Kept out of
+// openkodo://<linear|github>/link?t=<result>: a connect trip's "Open OpenKodo", read in main. Kept out of
 // src/shared because it checks the result against the cloud contract, which the CLI build cannot reach.
 import { CONNECTOR_CONNECT_CODE_PATTERN } from '../../../cloud/packages/connector-contract/src/connect-messages'
 import type { ConnectorLinkDeepLink, ConnectorLinkSource } from '../../shared/bot-deep-link'
@@ -17,7 +17,7 @@ export function parseConnectorLinkDeepLink(value: string): ConnectorLinkDeepLink
   }
   const source = url.host
   if (
-    url.protocol !== 'orca:' ||
+    url.protocol !== 'openkodo:' ||
     !isConnectorLinkSource(source) ||
     !/^\/link\/?$/.test(url.pathname)
   ) {
@@ -28,5 +28,5 @@ export function parseConnectorLinkDeepLink(value: string): ConnectorLinkDeepLink
 }
 
 export function formatConnectorLinkDeepLink({ source, token }: ConnectorLinkDeepLink): string {
-  return `orca://${source}/link?t=${encodeURIComponent(token)}`
+  return `openkodo://${source}/link?t=${encodeURIComponent(token)}`
 }

@@ -3,7 +3,7 @@ import { homedir } from 'node:os'
 import { app, ipcMain, shell } from 'electron'
 import { spawnDetachedWithoutInheritance } from '@orca/process-host/isolated-detached-spawn'
 import {
-  ORCA_UNINSTALL_STEPS,
+  OPENKODO_UNINSTALL_STEPS,
   type OrcaUninstallFinishAction,
   type OrcaUninstallPlan,
   type OrcaUninstallRunStepArgs
@@ -64,7 +64,7 @@ async function openWindowsUninstaller(appPath: string | null): Promise<void> {
   const uninstaller =
     process.platform === 'win32' && appPath ? await findWindowsUninstaller(appPath) : null
   if (!appPath || !uninstaller) {
-    throw new Error('The Orca uninstaller was not found.')
+    throw new Error('The OpenKodo uninstaller was not found.')
   }
   const child = spawnDetachedWithoutInheritance({ program: uninstaller, args: [], cwd: appPath })
   child.unref()
@@ -84,7 +84,7 @@ export function registerOrcaUninstallHandlers(store: Store): void {
   ipcMain.handle(
     'orcaUninstall:runStep',
     async (_event, args: OrcaUninstallRunStepArgs): Promise<OrcaUninstallPlan> => {
-      if (!ORCA_UNINSTALL_STEPS.includes(args?.step)) {
+      if (!OPENKODO_UNINSTALL_STEPS.includes(args?.step)) {
         throw new Error(`Unknown uninstall step: ${String(args?.step)}`)
       }
       const only = Array.isArray(args.only)

@@ -25,7 +25,7 @@ import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-sc
 const SKILL_FOLDERS = ['.agents', '.claude'] as const
 const MAX_SKILL_FILE_BYTES = 256 * 1024
 
-/** An admitted skill, with the real folder its link in Orca's folder points to. */
+/** An admitted skill, with the real folder its link in OpenKodo's folder points to. */
 export type ScannedSkill = LinkedProjectSkill & { folder: string }
 
 type ScannedProject = { skillsDir: string; skills: ScannedSkill[] }
@@ -147,7 +147,7 @@ async function syncLinks(skillsDir: string, links: ReadonlyMap<string, string>):
     const path = join(skillsDir, link)
     await symlink(target, path, process.platform === 'win32' ? 'junction' : 'dir').catch(
       async (error: NodeJS.ErrnoException) => {
-        // Taken counts only when it is this link (another Orca process made it); anything else
+        // Taken counts only when it is this link (another OpenKodo process made it); anything else
         // there is left alone, and the sync fails so the chat gets the list instead.
         if (error.code !== 'EEXIST' || (await realpath(path).catch(() => null)) !== target) {
           throw error

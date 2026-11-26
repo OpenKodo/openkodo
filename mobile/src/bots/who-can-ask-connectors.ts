@@ -76,7 +76,7 @@ function searchError(code: string, service: string, hostName: string, t: Transla
     case 'signed_out':
       return t(
         'bots.host.errors.signedOut',
-        'Sign {{host}} in to Orca Cloud to connect {{service}}.',
+        'Sign {{host}} in to cloud service to connect {{service}}.',
         { host: hostName, service }
       )
     case 'rate_limited':
@@ -276,7 +276,7 @@ export function whoCanAskConnectors({
       })
     }
   }
-  // Someone no list shows (their workspace or org left outside Orca) can still be removed.
+  // Someone no list shows (their workspace or org left outside OpenKodo) can still be removed.
   const shown = new Set(connectors.flatMap((connector) => connector.listed))
   for (const kind of ['slack', 'linear', 'github'] as const) {
     const left = botMembersFrom(bot.members, kind).filter((member) => !shown.has(member))

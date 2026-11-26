@@ -1,5 +1,5 @@
 // An In progress item whose every live worker stopped on its agent's usage limit is Waiting on the
-// soonest continue, said in the text; once a worker isn't stopped, Orca's own wait goes back to In
+// soonest continue, said in the text; once a worker isn't stopped, OpenKodo's own wait goes back to In
 // progress. Driven by the chat host's status feed (the same stops the sidebar shows), worker and item
 // changes, and the automation scheduler's existing minute tick for a reset that passes unannounced.
 import type { AgentSessionStatusSummary } from '../../shared/agent-session/agent-session-wire'
@@ -14,7 +14,7 @@ import {
   onStructuredAgentSessionHostChanged
 } from '../native-chat/agent-session-wire/host/structured-agent-session-registry'
 
-/** A session's stop: its agent, when it ends (Orca's continue, else the reset) and whether Orca
+/** A session's stop: its agent, when it ends (OpenKodo's continue, else the reset) and whether OpenKodo
  *  continues it. */
 export type BotUsageLimitCut = { agent: string; at: number; auto: boolean }
 
@@ -54,7 +54,7 @@ export type BotItemUsageLimitDeps = {
   sessionOf: (dispatchId: string) => string | null
   /** A chat session's lineage root, which `sessionOf` answers in. */
   root: (sessionId: string) => string
-  /** Items Orca moved. */
+  /** Items OpenKodo moved. */
   changed: (items: readonly BotItemRecord[]) => void
 }
 

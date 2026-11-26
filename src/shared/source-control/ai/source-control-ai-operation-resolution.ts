@@ -41,7 +41,7 @@ import type {
 export type ResolvedSourceControlAiGenerationParams = {
   agentId: TuiAgent | 'custom'
   model: string
-  /** Orca passed its own default (spec.defaultModelId) because no available model was picked. */
+  /** OpenKodo passed its own default (spec.defaultModelId) because no available model was picked. */
   usesOrcaDefaultModel?: boolean
   thinkingLevel?: string
   customPrompt?: string

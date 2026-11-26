@@ -153,7 +153,7 @@ it('keeps a send a person’s Stop took back as stopped, even after a later Stop
   expect(outcomeOf('d1')).toBe('withdrawn')
 })
 
-it('leaves a send Orca’s own stop rejected to be reported as it failed', () => {
+it('leaves a send OpenKodo’s own stop rejected to be reported as it failed', () => {
   send('d1')
   handOver('d1')
   stop('host-stop', NOW + 1)

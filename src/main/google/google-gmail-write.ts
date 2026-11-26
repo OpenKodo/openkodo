@@ -108,7 +108,7 @@ export async function saveGmailDraft(
   const bytes = attachments.reduce((sum, file) => sum + file.data.length, 0)
   if (bytes > TOOL_DOWNLOAD_MAX_BYTES) {
     throw new GoogleToolError(
-      `Attachments come to ${formatMegabytes(bytes)}; a draft from Orca takes up to ${formatMegabytes(TOOL_DOWNLOAD_MAX_BYTES)}. Share a Drive link instead.`
+      `Attachments come to ${formatMegabytes(bytes)}; a draft from OpenKodo takes up to ${formatMegabytes(TOOL_DOWNLOAD_MAX_BYTES)}. Share a Drive link instead.`
     )
   }
   const mime = { ...composed.mime, attachments }
@@ -193,7 +193,7 @@ async function labelIds(
   create: boolean
 ): Promise<{ ids: string[]; created: string[] }> {
   if (names.some((name) => ['trash', 'spam'].includes(name.trim().toLowerCase()))) {
-    throw new GoogleToolError("Orca doesn't move mail to Trash or Spam; archive it instead.")
+    throw new GoogleToolError("OpenKodo doesn't move mail to Trash or Spam; archive it instead.")
   }
   const needUser = names.some((name) => !SYSTEM_LABELS[name.trim().toLowerCase()])
   const existing = needUser

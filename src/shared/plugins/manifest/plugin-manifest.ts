@@ -71,7 +71,7 @@ const authorDoc = pluginFieldDoc('Who maintains the plugin.', V1)
 const enginesFields = {
   orca: orcaEngineRangeSchema.meta(
     pluginFieldDoc(
-      `Oldest Orca release this plugin runs on, as \`>=x.y.z\`. Raise it to the newest "Since" of any field you use; a format 2 manifest needs at least \`>=${NEXT}\`, because older Orca cannot read format 2.`,
+      `Oldest OpenKodo release this plugin runs on, as \`>=x.y.z\`. Raise it to the newest "Since" of any field you use; a format 2 manifest needs at least \`>=${NEXT}\`, because older OpenKodo cannot read format 2.`,
       V1,
       [`>=${NEXT}`]
     )
@@ -86,7 +86,7 @@ const enginesDoc = pluginFieldDoc(
 const pluginManifestFields = {
   id: pluginIdSchema.meta(
     pluginFieldDoc(
-      'Plugin id, kebab-case. The install identity is `<publisher>.<id>`, where Orca derives the publisher from the repository owner. The reserved names `constructor` and `prototype` are refused.',
+      'Plugin id, kebab-case. The install identity is `<publisher>.<id>`, where OpenKodo derives the publisher from the repository owner. The reserved names `constructor` and `prototype` are refused.',
       V1,
       ['gleam-syntax']
     )
@@ -94,7 +94,7 @@ const pluginManifestFields = {
   // Why both ids: bare-id global uniqueness is unverifiable without a registry.
   publisher: pluginIdSchema.meta(
     pluginFieldDoc(
-      "Publisher slug, kebab-case. Must be the GitHub or GitLab user or organization that owns the repository (`acme` for `github.com/acme/gleam-syntax`), or the official and community catalogs reject the listing. The reserved names `constructor` and `prototype` are refused. The publishers `stablyai`, `official`, `anthropic`, `openai`, `github` and any starting `orca` (any case), and ids starting `orca-`, install only from Orca's official catalog.",
+      "Publisher slug, kebab-case. Must be the GitHub or GitLab user or organization that owns the repository (`acme` for `github.com/acme/gleam-syntax`), or the official and community catalogs reject the listing. The reserved names `constructor` and `prototype` are refused. The publishers `stablyai`, `official`, `anthropic`, `openai`, `github` and any starting `orca` (any case), and ids starting `orca-`, install only from OpenKodo's official catalog.",
       V1,
       ['acme']
     )
@@ -132,7 +132,7 @@ const pluginManifestFields = {
     .optional()
     .meta(
       pluginPathFieldDoc(
-        `Node entry run in an out-of-process plugin worker: a \`.js\`/\`.mjs\` module, or a \`.ts\`/\`.mts\` module that Orca transpiles when it loads (needs \`engines.orca\` \`>=${PLUGIN_SOURCE_MODULES_SINCE}\`). Requires the \`trusted-worker\` execution profile, and is required by it, by \`contributes.events\`, by \`contributes.hooks\` and by any command without an \`action\`.`,
+        `Node entry run in an out-of-process plugin worker: a \`.js\`/\`.mjs\` module, or a \`.ts\`/\`.mts\` module that OpenKodo transpiles when it loads (needs \`engines.orca\` \`>=${PLUGIN_SOURCE_MODULES_SINCE}\`). Requires the \`trusted-worker\` execution profile, and is required by it, by \`contributes.events\`, by \`contributes.hooks\` and by any command without an \`action\`.`,
         V1,
         ['dist/main.mjs']
       )
@@ -142,7 +142,7 @@ const pluginManifestFields = {
     .strict()
     // Why prefault: runs `{}` through the schema, so every family's own default applies.
     .prefault({})
-    .meta(pluginFieldDoc('What the plugin adds to Orca. Every point defaults to empty.', V1)),
+    .meta(pluginFieldDoc('What the plugin adds to OpenKodo. Every point defaults to empty.', V1)),
   capabilities: z
     .array(pluginCapabilitySchema)
     .max(32)
@@ -165,7 +165,7 @@ export const pluginManifestV2Object = z
       .string()
       .max(2048)
       .optional()
-      .meta(pluginFieldDoc('JSON Schema URL for editor completion. Ignored by Orca.', NEXT)),
+      .meta(pluginFieldDoc('JSON Schema URL for editor completion. Ignored by OpenKodo.', NEXT)),
     manifestVersion: z
       .literal(2)
       .meta(pluginFieldDoc('Manifest format. Use 2 for new plugins.', NEXT)),
@@ -177,11 +177,11 @@ export const pluginManifestV2Object = z
       )
     ),
     ...pluginManifestFields,
-    // Why optional: Orca derives the publisher (plugin-publisher-derivation.ts), so a value is ignored.
+    // Why optional: OpenKodo derives the publisher (plugin-publisher-derivation.ts), so a value is ignored.
     publisher: pluginIdSchema.optional().meta({
       deprecated: true,
       ...pluginFieldDoc(
-        `Deprecated: leave it out. Orca derives the publisher from where the plugin comes from, the way a Go module is named by its repository path: the repository owner for the official and community catalogs and for Git URL installs (\`acme\` for \`github.com/acme/gleam-syntax\`), and \`local\` for a folder. A value here is ignored for catalog and Git installs. Leaving it out needs \`engines.orca\` of at least \`>=${PLUGIN_DERIVED_PUBLISHER_SINCE}\`, because older Orca requires it; if you keep it for older Orca, it must equal the repository owner. Reserved owners (\`stablyai\`, \`official\`, \`anthropic\`, \`openai\`, \`github\` and any starting \`orca\`) and ids starting \`orca-\` install only from Orca's official catalog.`,
+        `Deprecated: leave it out. OpenKodo derives the publisher from where the plugin comes from, the way a Go module is named by its repository path: the repository owner for the official and community catalogs and for Git URL installs (\`acme\` for \`github.com/acme/gleam-syntax\`), and \`local\` for a folder. A value here is ignored for catalog and Git installs. Leaving it out needs \`engines.orca\` of at least \`>=${PLUGIN_DERIVED_PUBLISHER_SINCE}\`, because older OpenKodo requires it; if you keep it for older OpenKodo, it must equal the repository owner. Reserved owners (\`stablyai\`, \`official\`, \`anthropic\`, \`openai\`, \`github\` and any starting \`orca\`) and ids starting \`orca-\` install only from OpenKodo's official catalog.`,
         V1,
         ['acme']
       )
@@ -223,13 +223,13 @@ function buildPluginManifestSchema(enforceEngineFloor: boolean) {
 
 /** Authoring schema: also refuses an engines.orca below the newest field it uses. */
 export const pluginManifestSchema = buildPluginManifestSchema(true)
-// Why no floor at runtime: the floor only lets older hosts say "requires Orca X"; a host that
+// Why no floor at runtime: the floor only lets older hosts say "requires OpenKodo X"; a host that
 // parses every field and meets engines.orca runs the plugin fine, so refusing it strands installs.
 const hostPluginManifestSchema = buildPluginManifestSchema(false)
 
 /** The manifest file as written; format 2 may leave `publisher` out. */
 export type PluginManifest = z.infer<typeof pluginManifestSchema>
-/** A manifest whose `publisher` Orca derived from its source (withPluginPublisher). */
+/** A manifest whose `publisher` OpenKodo derived from its source (withPluginPublisher). */
 export type PluginManifestWithPublisher = PluginManifest & { publisher: string }
 export {
   PLUGIN_PANEL_LIMIT,
@@ -252,7 +252,13 @@ export {
   pluginCommandIdSchema
 } from './plugin-manifest-fields'
 
-export const PLUGIN_MANIFEST_FILENAME = 'orca-plugin.json'
+export const PLUGIN_MANIFEST_FILENAME = 'openkodo-plugin.json'
+/** Name used before the OpenKodo rebrand. Only read, never written, so installed plugins keep loading. */
+export const LEGACY_PLUGIN_MANIFEST_FILENAME = 'orca-plugin.json'
+export const PLUGIN_MANIFEST_FILENAMES = [
+  PLUGIN_MANIFEST_FILENAME,
+  LEGACY_PLUGIN_MANIFEST_FILENAME
+] as const
 
 /** Canonical install identity: `<publisher>.<id>` (also the install dir name). The publisher
  *  must be the derived one, never the file's own. */

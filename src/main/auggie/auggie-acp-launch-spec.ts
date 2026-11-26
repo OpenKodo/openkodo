@@ -37,7 +37,7 @@ export const AUGGIE_LAUNCH_SPEC: AcpLaunchSpec = {
   },
   skillRoots: loadAuggieSkillRoots,
   // Its ACP server ignores `session/new` mcpServers (1.2.2).
-  botToolsOff: "Auggie doesn't load the tools Orca passes to its chats",
+  botToolsOff: "Auggie doesn't load the tools OpenKodo passes to its chats",
   instructions: deliverAppendSystemPromptInstructions,
   transcriptImport: null,
   sessionHistory: AUGGIE_SESSION_HISTORY,

@@ -67,7 +67,7 @@ describe('orca google bot', () => {
 
   it('never sends --accounts to a host that would drop the list', async () => {
     const older = run({ accounts: 'me@work.com' }, { capabilities: [], older: true })
-    await expect(older.done).rejects.toThrow('Update Orca on old-mac to choose accounts.')
+    await expect(older.done).rejects.toThrow('Update OpenKodo on old-mac to choose accounts.')
     expect(older.call).not.toHaveBeenCalledWith('google.bot.set', expect.anything())
     // On/off still works there.
     await run({ on: true }, { capabilities: [], older: true }).done

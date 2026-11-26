@@ -20,13 +20,13 @@ function serverSelector(
   if (typeof explicit === 'string') {
     return { name: explicit, route: `--environment ${explicit}` }
   }
-  const inherited = process.env.ORCA_ENVIRONMENT?.trim()
-  return inherited ? { name: inherited, route: `ORCA_ENVIRONMENT=${inherited}` } : undefined
+  const inherited = process.env.OPENKODO_ENVIRONMENT?.trim()
+  return inherited ? { name: inherited, route: `OPENKODO_ENVIRONMENT=${inherited}` } : undefined
 }
 
-/** Only an agent its own Orca verifies counts; a person's shell keeps --environment = run it there. */
+/** Only an agent its own OpenKodo verifies counts; a person's shell keeps --environment = run it there. */
 async function isOrcaVerifiedAgent(): Promise<boolean> {
-  if (!readInjectedAgentSessionId() && !process.env.ORCA_AGENT_LAUNCH_TOKEN?.trim()) {
+  if (!readInjectedAgentSessionId() && !process.env.OPENKODO_AGENT_LAUNCH_TOKEN?.trim()) {
     return false
   }
   try {
@@ -58,7 +58,7 @@ function withOn(rawArgs: readonly string[] | undefined, server: string): string 
   return renderOrchestrationArgv(kept) ?? ''
 }
 
-/** An agent's mail and workers live on its own Orca; pointing them at another server reaches nobody. */
+/** An agent's mail and workers live on its own OpenKodo; pointing them at another server reaches nobody. */
 export async function refuseAgentServerRoute(
   command: AgentServerRoutedCommand,
   ctx: HandlerContext
@@ -74,7 +74,7 @@ export async function refuseAgentServerRoute(
   if (command === 'check') {
     throw new RuntimeClientError(
       'mailbox_is_local',
-      `Your mailbox is on this Orca; replies from ${name} arrive here. Drop ${route}.`
+      `Your mailbox is on this OpenKodo; replies from ${name} arrive here. Drop ${route}.`
     )
   }
   const verb = command === 'send' ? 'message an agent' : 'start a worker'
@@ -84,7 +84,7 @@ export async function refuseAgentServerRoute(
   )
 }
 
-/** An older Orca would drop --on and send the mail to an agent here, so it must carry mail between servers first. */
+/** An older OpenKodo would drop --on and send the mail to an agent here, so it must carry mail between servers first. */
 export async function requirePeerMailCarrier(ctx: HandlerContext): Promise<void> {
   const onClient = ctx.flags.has('on-client')
   if (!ctx.flags.has('on') && !onClient) {
@@ -94,17 +94,17 @@ export async function requirePeerMailCarrier(ctx: HandlerContext): Promise<void>
   if (!result.capabilities?.includes(ORCHESTRATION_PEER_MAIL_RUNTIME_CAPABILITY)) {
     throw new RuntimeClientError(
       'server_mail_unsupported',
-      'The Orca running here is too old to carry mail to another server. Update or restart Orca here, then send again. Nothing was sent.'
+      'The OpenKodo running here is too old to carry mail to another server. Update or restart OpenKodo here, then send again. Nothing was sent.'
     )
   }
-  // An Orca without it would drop the unknown field and deliver the mail here instead.
+  // An OpenKodo without it would drop the unknown field and deliver the mail here instead.
   if (
     onClient &&
     !result.capabilities?.includes(ORCHESTRATION_CLIENT_AGENT_ASKS_RUNTIME_CAPABILITY)
   ) {
     throw new RuntimeClientError(
       'client_mail_unsupported',
-      "The Orca running here can't message agents on a paired computer yet. Nothing was sent."
+      "The OpenKodo running here can't message agents on a paired computer yet. Nothing was sent."
     )
   }
 }

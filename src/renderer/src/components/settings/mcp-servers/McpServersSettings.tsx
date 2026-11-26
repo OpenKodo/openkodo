@@ -1,5 +1,5 @@
 // Settings › MCP servers on the picked host: its list, or one server's page. A host that doesn't serve
-// MCP servers (an older Orca, or one with them off) says so instead.
+// MCP servers (an older OpenKodo, or one with them off) says so instead.
 import React, { useCallback } from 'react'
 import { useTranslate } from '@/i18n/use-translate'
 import { useStructuredAgentSessionHostCapabilityState } from '@/runtime/native-chat/host-capabilities/structured-agent-session-host-capability'

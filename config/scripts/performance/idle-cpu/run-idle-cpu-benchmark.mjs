@@ -321,7 +321,7 @@ async function main() {
   const {
     ELECTRON_RUN_AS_NODE,
     CODEX_HOME: _codexHome,
-    ORCA_CODEX_HOME: _orcaCodexHome,
+    OPENKODO_CODEX_HOME: _orcaCodexHome,
     ...cleanEnv
   } = process.env
   void ELECTRON_RUN_AS_NODE
@@ -335,11 +335,11 @@ async function main() {
     env: {
       ...cleanEnv,
       NODE_ENV: 'development',
-      ORCA_E2E_USER_DATA_DIR: userDataDir,
+      OPENKODO_E2E_USER_DATA_DIR: userDataDir,
       HOME: isolatedHome,
       USERPROFILE: isolatedHome,
-      ORCA_E2E_HOME_DIR: isolatedHome,
-      ...(options.headful ? { ORCA_E2E_HEADFUL: '1' } : { ORCA_E2E_HEADLESS: '1' })
+      OPENKODO_E2E_HOME_DIR: isolatedHome,
+      ...(options.headful ? { OPENKODO_E2E_HEADFUL: '1' } : { OPENKODO_E2E_HEADLESS: '1' })
     }
   })
   const rootPid = app.process().pid

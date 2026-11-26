@@ -1,4 +1,4 @@
-// A bot's page opens with its panel showing until the owner closes it there; Orca then remembers, per bot.
+// A bot's page opens with its panel showing until the owner closes it there; OpenKodo then remembers, per bot.
 // Leaving bots puts back how the panel was before, so other workspaces keep their own choice.
 import { useEffect, useRef } from 'react'
 import { useAppStore } from '@/store'

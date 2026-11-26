@@ -25,7 +25,7 @@ describe('a new bot from a shared mascot', () => {
     expect(result.current.avatarOutfit).toBeUndefined()
   })
 
-  it("keeps an outfit this version doesn't draw, for a newer Orca", () => {
+  it("keeps an outfit this version doesn't draw, for a newer OpenKodo", () => {
     const { result } = renderHook(() =>
       useNewBotPicture({ colors: true, outfits: true }, 'H1', undefined, { outfit: 'aviator' })
     )

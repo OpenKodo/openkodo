@@ -1,10 +1,10 @@
 // How much one tool answer may hand an agent: lists are pages, long text is paged by offset, and
-// content still too long is cut with a marker that says so, never silently. Orca's own paging lines
+// content still too long is cut with a marker that says so, never silently. OpenKodo's own paging lines
 // go after the capped content, so they always survive.
 
 export const TOOL_LIST_PAGE_SIZE = 20
 export const TOOL_OUTPUT_MAX_CHARS = 20_000
-/** A text page leaves room under the cap for Orca's lines and fences around it. */
+/** A text page leaves room under the cap for OpenKodo's lines and fences around it. */
 export const TOOL_TEXT_PAGE_CHARS = 16_000
 /** The most bytes one answer carries (a download, an attachment): base64 of this fits a paired
  *  server's 4 MiB reply with room to spare. */
@@ -25,9 +25,9 @@ export function pageOfText(
   }
 }
 
-/** Orca's line saying content was cut, and how to see less at once. */
+/** OpenKodo's line saying content was cut, and how to see less at once. */
 export function truncationNote(length: number, hint: string, max = TOOL_OUTPUT_MAX_CHARS): string {
-  return `[Orca: truncated at ${max} of ${length} characters. ${hint}]`
+  return `[OpenKodo: truncated at ${max} of ${length} characters. ${hint}]`
 }
 
 /** Content cut at the limit with a marker naming how to see less at once; add paging lines after. */

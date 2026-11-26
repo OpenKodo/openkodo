@@ -16,7 +16,7 @@ export function missingJournalLegacyClaims(
   return claims.filter((claim) => !held.get(claim.upload_id!, sessionId))
 }
 
-/** Uploads the older Orca attached stay claimed, so the sweeper never removes them. */
+/** Uploads the older OpenKodo attached stay claimed, so the sweeper never removes them. */
 export function insertJournalLegacyClaims(
   db: Database.Database,
   sessionId: string,

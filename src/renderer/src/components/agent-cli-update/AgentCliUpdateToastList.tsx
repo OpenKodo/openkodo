@@ -20,7 +20,7 @@ export type AgentCliUpdateToastItem = {
   from: string
   to: string
   status: 'idle' | 'queued' | 'running' | 'failed' | 'done'
-  /** Set for a CLI Orca can't update: the command the user runs in a terminal. */
+  /** Set for a CLI OpenKodo can't update: the command the user runs in a terminal. */
   manualCommand: string | null
   onOpenFailure?: () => void
 }

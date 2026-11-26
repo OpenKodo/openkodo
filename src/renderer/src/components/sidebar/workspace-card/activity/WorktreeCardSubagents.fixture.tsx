@@ -49,7 +49,7 @@ type ParentRow = Pick<AgentStatusEntry, 'prompt'> &
   Partial<Pick<AgentStatusEntry, 'model' | 'lastAssistantMessage' | 'children'>>
 
 const PLUGIN_REVIEW: ParentRow = {
-  prompt: 'Orca plugin architecture review',
+  prompt: 'OpenKodo plugin architecture review',
   children: [
     child('a', 'plugin-dx', 'idle', 4 * HOUR),
     child('b', 'declarative-ui', 'idle', 3 * HOUR),

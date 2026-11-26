@@ -1,6 +1,6 @@
 import { getRuntimeDesktopSurface } from '../../construction/runtime-desktop-surface'
 
-/** Asks the renderer, which owns Orca's tab model, to make one browser page the active tab. */
+/** Asks the renderer, which owns OpenKodo's tab model, to make one browser page the active tab. */
 export async function activateBrowserTabInRenderer(
   windowId: number,
   browserPageId: string

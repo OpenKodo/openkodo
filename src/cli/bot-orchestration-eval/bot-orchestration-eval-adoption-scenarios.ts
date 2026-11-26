@@ -32,7 +32,7 @@ const SELF = { ...EVAL_BOT, agent: 'claude' as const }
 
 const AUTOMATION_DOCS = named(FIXTURES.AUTOMATION_DOCS)
 
-/** A new bot's first turn (Orca's kickoff), which only greets, then its owner saying what it is for, in a
+/** A new bot's first turn (OpenKodo's kickoff), which only greets, then its owner saying what it is for, in a
  *  world of these workspaces and bots. */
 function firstLook(
   id: string,
@@ -59,8 +59,8 @@ function firstLook(
   }
 }
 
-const BOTS_PURPOSE = 'You’re for the Orca bots work: the bot runtime, bot chats and connectors.'
-const AUTOMATIONS_PURPOSE = 'You’re for the automations work in Orca. Keep it moving.'
+const BOTS_PURPOSE = 'You’re for the OpenKodo bots work: the bot runtime, bot chats and connectors.'
+const AUTOMATIONS_PURPOSE = 'You’re for the automations work in OpenKodo. Keep it moving.'
 
 export const ADOPTION_SCENARIOS: OrchestrationScenario[] = [
   // Named for its first task; its agent has done bots work since.
@@ -86,7 +86,7 @@ export const ADOPTION_SCENARIOS: OrchestrationScenario[] = [
   firstLook(
     'adopt-merged-pr-active',
     [FIXTURES.SIDEBAR_PERF],
-    'You’re for Orca’s terminal: search, find and scrollback.',
+    'You’re for OpenKodo’s terminal: search, find and scrollback.',
     [offersArea({ topic: /scrollback|search|find|terminal/i, include: [SIDEBAR_PERF] })]
   ),
   // Release work is Shipper's already; only the unowned bots work is the new bot's to offer.
@@ -102,7 +102,7 @@ export const ADOPTION_SCENARIOS: OrchestrationScenario[] = [
   firstLook(
     'adopt-other-bots-area',
     [FIXTURES.SLACK_THREADS],
-    'You’re for my work on the Orca app.',
+    'You’re for my work on the OpenKodo app.',
     [neverOffers(SLACK_THREADS), replyCites(/\bAtlas\b/, 'that Atlas owns this area')],
     { otherBots: OTHER_BOTS }
   ),
@@ -110,7 +110,7 @@ export const ADOPTION_SCENARIOS: OrchestrationScenario[] = [
   firstLook(
     'adopt-other-bots-area-given',
     [FIXTURES.SLACK_THREADS],
-    'You’re for Orca’s Slack side: how bots answer in Slack.',
+    'You’re for OpenKodo’s Slack side: how bots answer in Slack.',
     [
       offersArea({ topic: /slack/i, include: [SLACK_THREADS] }),
       replyCites(/\bAtlas\b/, 'that Atlas covers similar ground')
@@ -129,7 +129,7 @@ export const ADOPTION_SCENARIOS: OrchestrationScenario[] = [
   firstLook(
     'adopt-coordinator-children',
     COORDINATED_FIXTURES,
-    'You’re for bot tools in Orca: MCP tools, their templates and sign-in.',
+    'You’re for bot tools in OpenKodo: MCP tools, their templates and sign-in.',
     [offersArea({ topic: /tool|mcp/i, include: COORDINATED_FIXTURES.map(named) })]
   ),
   // Agents closed, or idle on finished questions: nothing to offer.

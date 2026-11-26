@@ -2,7 +2,7 @@
 
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import { ReverseIndexedMap } from '../../../../shared/collections/reverse-indexed-map'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import {
   loadWorkspaceLayoutParts,
   workspaceKeys
@@ -58,7 +58,7 @@ export function loadWholePartition(
   const { loaded, subsumedByKey } = loadWorkspaceLayoutParts(hostId, session, context)
   // Window-owned builds, legacy surface tombstones and rows saved before pane layouts keep whole loads.
   if (
-    !ORCA_LAYOUT_OWNER_IS_MAIN ||
+    !OPENKODO_LAYOUT_OWNER_IS_MAIN ||
     hasEntries(session.terminalSurfaceTombstonesByPaneKey) ||
     hasRowWithoutLayout(session)
   ) {

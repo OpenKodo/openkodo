@@ -75,7 +75,7 @@ export function claudeStructuredSpawnOptions(input: {
   return { sdkOptions, options, fastModeAtStart }
 }
 
-/** Orca passes this flag only for a Full access chat; the agent's own arguments cannot carry it. */
+/** OpenKodo passes this flag only for a Full access chat; the agent's own arguments cannot carry it. */
 export function claudeLaunchSkipsPermissions(
   options: Pick<ClaudeStructuredSdkOptions, 'extraArgs'>
 ): boolean {

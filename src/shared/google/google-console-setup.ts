@@ -1,4 +1,4 @@
-// The Google Cloud steps an admin clicks through to make the team's Google app. Orca links each page
+// The Google Cloud steps an admin clicks through to make the team's Google app. OpenKodo links each page
 // already pointed at the project and reads only the page address to tick steps off; it never clicks.
 import {
   GOOGLE_CHOICE_SERVICES,
@@ -14,9 +14,9 @@ export type GoogleConsoleStep = 'project' | 'apis' | 'branding' | 'links' | 'pub
 
 /** What a personal app's Branding page gets so Publish unlocks; Google doesn't check them before verification. */
 export const GOOGLE_PERSONAL_APP_LINKS = {
-  homePage: 'https://www.onorca.dev',
-  privacyPolicy: 'https://www.onorca.dev/privacy',
-  authorizedDomain: 'onorca.dev'
+  homePage: 'https://openkodo.dev',
+  privacyPolicy: 'https://openkodo.dev/legal/privacy',
+  authorizedDomain: 'openkodo.dev'
 } as const
 
 /** The APIs to turn on for these choices; the People API (name lookup) always comes first. */
@@ -39,7 +39,7 @@ function consoleUrl(path: string, params: Record<string, string | undefined>): s
   return url.toString()
 }
 
-/** Where a console link points: the project once Orca has read its id. */
+/** Where a console link points: the project once OpenKodo has read its id. */
 export type GoogleConsoleTarget = {
   projectId?: string
 }
@@ -54,7 +54,7 @@ export function withGoogleAccount(url: string, account: string | undefined): str
   return withAccount.toString()
 }
 
-/** One link that turns on only these APIs, in the project when Orca knows it. */
+/** One link that turns on only these APIs, in the project when OpenKodo knows it. */
 export function googleEnableApisUrl(
   choices: readonly GoogleServiceChoice[],
   target: GoogleConsoleTarget = {}
@@ -65,7 +65,7 @@ export function googleEnableApisUrl(
   })
 }
 
-/** The page each step opens, pointed at the project once Orca has read its id. */
+/** The page each step opens, pointed at the project once OpenKodo has read its id. */
 export function googleConsoleStepUrl(
   step: GoogleConsoleStep,
   options: { choices: readonly GoogleServiceChoice[] } & GoogleConsoleTarget

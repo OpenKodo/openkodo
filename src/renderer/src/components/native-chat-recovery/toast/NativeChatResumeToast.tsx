@@ -99,18 +99,18 @@ function headline(view: ResumeToastView, t: Translate, machineName?: string): st
   return view.interruptedByUpdate
     ? t(
         'auto.components.NativeChatResumeToast.stoppedUpdate',
-        '{{count}} agents stopped when Orca updated.',
+        '{{count}} agents stopped when OpenKodo updated.',
         {
           count: counts.total,
-          defaultValue_one: '{{count}} agent stopped when Orca updated.'
+          defaultValue_one: '{{count}} agent stopped when OpenKodo updated.'
         }
       )
     : t(
         'auto.components.NativeChatResumeToast.stoppedRestart',
-        '{{count}} agents stopped when Orca closed.',
+        '{{count}} agents stopped when OpenKodo closed.',
         {
           count: counts.total,
-          defaultValue_one: '{{count}} agent stopped when Orca closed.'
+          defaultValue_one: '{{count}} agent stopped when OpenKodo closed.'
         }
       )
 }
@@ -256,11 +256,11 @@ export function NativeChatResumeToast({
             {offering
               ? t(
                   'auto.components.NativeChatResumeToast.willAsk',
-                  'Orca asks agents to continue. Queued messages may be sent.'
+                  'OpenKodo asks agents to continue. Queued messages may be sent.'
                 )
               : t(
                   'auto.components.NativeChatResumeToast.asked',
-                  'Orca asked agents to continue. Queued messages may be sent.'
+                  'OpenKodo asked agents to continue. Queued messages may be sent.'
                 )}
           </p>
           {(showDismissAll || view.startedBy === 'launch') && (

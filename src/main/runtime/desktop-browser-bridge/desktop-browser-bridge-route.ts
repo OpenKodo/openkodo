@@ -70,7 +70,7 @@ export async function routeDesktopBrowserBridgeRpc(options: {
   if (forwardedMethod === 'browser.tabCreate' && params.placement !== undefined) {
     throw new BrowserError(
       'invalid_argument',
-      'tab create --headless is not available while an Orca desktop shares its browser with this host; browser commands go to that desktop. Drop --headless.'
+      'tab create --headless is not available while an OpenKodo desktop shares its browser with this host; browser commands go to that desktop. Drop --headless.'
     )
   }
   if (method === 'browser.openUrl') {
@@ -89,7 +89,7 @@ export async function routeDesktopBrowserBridgeRpc(options: {
   if (params.expectUrl !== undefined && !options.registry.newestAttachmentEnforcesExpectUrl()) {
     throw new BrowserError(
       BROWSER_EXPECT_URL_UNSUPPORTED_CODE,
-      'The Orca desktop sharing its browser cannot check --expect-url. Update Orca on that desktop or drop the flag.'
+      'The OpenKodo desktop sharing its browser cannot check --expect-url. Update OpenKodo on that desktop or drop the flag.'
     )
   }
   // Refused, not dropped: an older desktop would open the tab behind the visible one.
@@ -100,13 +100,13 @@ export async function routeDesktopBrowserBridgeRpc(options: {
   ) {
     throw new BrowserError(
       DESKTOP_BROWSER_BRIDGE_NOT_FORWARDED_CODE,
-      'The Orca desktop sharing its browser is too old to bring a new tab to the front. Update Orca on that desktop or drop --focus.'
+      'The OpenKodo desktop sharing its browser is too old to bring a new tab to the front. Update OpenKodo on that desktop or drop --focus.'
     )
   }
   if (!options.registry.newestAttachmentServes(forwardedMethod)) {
     throw new BrowserError(
       DESKTOP_BROWSER_BRIDGE_NOT_FORWARDED_CODE,
-      `The Orca desktop sharing its browser is too old to run ${method} for this host. Update Orca on that desktop.`
+      `The OpenKodo desktop sharing its browser is too old to run ${method} for this host. Update OpenKodo on that desktop.`
     )
   }
   const result = await options.registry.forward(
@@ -195,13 +195,13 @@ function notForwardedReason(method: string): string {
     return 'Only someone at the desktop can accept a certificate warning in its browser.'
   }
   if (method.startsWith('browser.identity.')) {
-    return 'Browser identity is a setting of the Orca desktop that shares its browser with this host. Change it there in Settings › Browser.'
+    return 'Browser identity is a setting of the OpenKodo desktop that shares its browser with this host. Change it there in Settings › Browser.'
   }
   if (/^browser\.(profile|tabProfile|tabSetProfile)/.test(method)) {
-    return 'Browser profiles belong to the Orca desktop that shares its browser with this host. Pick or change them there.'
+    return 'Browser profiles belong to the OpenKodo desktop that shares its browser with this host. Pick or change them there.'
   }
   if (method.startsWith('browser.extension')) {
-    return 'Browser extensions belong to the Orca desktop that shares its browser with this host. Manage them there.'
+    return 'Browser extensions belong to the OpenKodo desktop that shares its browser with this host. Manage them there.'
   }
   return `${method} is not available from an SSH host.`
 }

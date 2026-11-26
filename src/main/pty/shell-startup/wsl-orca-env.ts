@@ -1,6 +1,6 @@
 import {
-  ORCA_SCRUB_SAFE_PANE_ENV,
-  ORCA_SCRUB_SAFE_LAUNCH_ENV
+  OPENKODO_SCRUB_SAFE_PANE_ENV,
+  OPENKODO_SCRUB_SAFE_LAUNCH_ENV
 } from '../../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
 import {
   ORCHESTRATION_COMPATIBILITY_ATTACHMENT_ENV,
@@ -15,7 +15,7 @@ import {
 } from '../../../shared/agent-launch/startup/setup-agent-sequencing'
 import { SETUP_RUNNER_PATH_ENV_KEYS } from '../../workspace-hooks/setup-hook-env-vars'
 import { getShellReadyWrapperRoot } from '../../providers/local-pty/local-pty-shell-ready-wrapper-root'
-import { ORCA_IMAGE_PROTOCOL_ENV } from '../../../shared/terminal/images/terminal-image-protocol'
+import { OPENKODO_IMAGE_PROTOCOL_ENV } from '../../../shared/terminal/images/terminal-image-protocol'
 import {
   REMOTE_VIEWER_CLIPBOARD_ENV,
   CODEX_REMOTE_VIEWER_SSH_CONNECTION
@@ -64,7 +64,7 @@ function worktreeSetupWslenvEntries(env: Record<string, string | undefined>): st
       (name) => `${name}/${env[name]?.startsWith('/') ? 'u' : 'p'}`
     ),
     // Display names, never paths.
-    'ORCA_WORKSPACE_NAME/u',
+    'OPENKODO_WORKSPACE_NAME/u',
     'CONDUCTOR_WORKSPACE_NAME/u'
   ]
 }
@@ -72,66 +72,68 @@ function worktreeSetupWslenvEntries(env: Record<string, string | undefined>): st
 /** Adds the host environment values required by a WSL PTY and its guest relay. */
 export function addOrcaWslInteropEnv(env: Record<string, string>): void {
   // Local and daemon WSL spawns resolve the same content-addressed host wrapper tree.
-  env.ORCA_SHELL_READY_ROOT = getShellReadyWrapperRoot()
+  env.OPENKODO_SHELL_READY_ROOT = getShellReadyWrapperRoot()
   // The hook endpoint starts as a host path; guest relay discovery can replace it with an already-Linux path.
-  const endpointFlag = env.ORCA_AGENT_HOOK_ENDPOINT?.startsWith('/') ? 'u' : 'p'
+  const endpointFlag = env.OPENKODO_AGENT_HOOK_ENDPOINT?.startsWith('/') ? 'u' : 'p'
   // Only guest overlays may cross; translating inherited Windows overlays would make OpenCode adopt host config.
-  const opencodeOverlayEntries = (['OPENCODE_CONFIG_DIR', 'ORCA_OPENCODE_CONFIG_DIR'] as const)
+  const opencodeOverlayEntries = (['OPENCODE_CONFIG_DIR', 'OPENKODO_OPENCODE_CONFIG_DIR'] as const)
     .filter((name) => env[name]?.startsWith('/'))
     .map((name) => `${name}/u`)
   // wsl.exe imports only selected variables; publish pane identity and hook/wrapper coordinates.
   const passthroughEntries = [
-    'ORCA_TERMINAL_HANDLE/u',
-    'ORCA_USER_DATA_PATH/p',
+    'OPENKODO_TERMINAL_HANDLE/u',
+    'OPENKODO_USER_DATA_PATH/p',
     // Guests cannot derive the content hash; translate the resolved host wrapper root.
-    'ORCA_SHELL_READY_ROOT/p',
-    'ORCA_CLI_COMMAND/u',
+    'OPENKODO_SHELL_READY_ROOT/p',
+    'OPENKODO_CLI_COMMAND/u',
     // Managed launcher lives in host userData.
-    'ORCA_WSL_CLI_DIR/p',
-    'ORCA_CODEX_LAUNCH_PREFLIGHT/p',
-    'ORCA_CODEX_ISOLATE/u',
-    'ORCA_PANE_KEY/u',
-    `${ORCA_SCRUB_SAFE_PANE_ENV}/u`,
-    'ORCA_TAB_ID/u',
-    'ORCA_WORKTREE_ID/u',
+    'OPENKODO_WSL_CLI_DIR/p',
+    'OPENKODO_CODEX_LAUNCH_PREFLIGHT/p',
+    'OPENKODO_CODEX_ISOLATE/u',
+    'OPENKODO_PANE_KEY/u',
+    `${OPENKODO_SCRUB_SAFE_PANE_ENV}/u`,
+    'OPENKODO_TAB_ID/u',
+    'OPENKODO_WORKTREE_ID/u',
     // Workspace identity must remain untranslated.
-    'ORCA_WORKSPACE_ID/u',
-    'ORCA_AGENT_LAUNCH_TOKEN/u',
-    `${ORCA_SCRUB_SAFE_LAUNCH_ENV}/u`,
+    'OPENKODO_WORKSPACE_ID/u',
+    'OPENKODO_AGENT_LAUNCH_TOKEN/u',
+    `${OPENKODO_SCRUB_SAFE_LAUNCH_ENV}/u`,
     // Select the pane-owning OpenCode variant when native and WSL installs coexist.
-    'ORCA_OPENCODE_AGENT/u',
+    'OPENKODO_OPENCODE_AGENT/u',
     `${SETUP_AGENT_SEQUENCE_STARTUP_COMMAND_ENV}/u`,
     `${SETUP_AGENT_SEQUENCE_STARTUP_SCRIPT_ENV}/u`,
     `${SETUP_AGENT_SEQUENCE_SETUP_SCRIPT_ENV}/u`,
-    'ORCA_ORCHESTRATION_COMPATIBILITY_HOST_KIND/u',
-    'ORCA_ORCHESTRATION_COMPATIBILITY_HOST_ID/u',
-    'ORCA_ORCHESTRATION_COMPATIBILITY_HOST_INCARNATION/u',
+    'OPENKODO_ORCHESTRATION_COMPATIBILITY_HOST_KIND/u',
+    'OPENKODO_ORCHESTRATION_COMPATIBILITY_HOST_ID/u',
+    'OPENKODO_ORCHESTRATION_COMPATIBILITY_HOST_INCARNATION/u',
     `${RUNTIME_SOURCE_ID_ENV}/u`,
     `${RUNTIME_SOURCE_INCARNATION_ENV}/u`,
     // Compare with the host CLI's userData path, never a translated guest path.
     `${RUNTIME_SOURCE_PROFILE_PATH_ENV}/u`,
-    'ORCA_AGENT_HOOK_PORT/u',
-    'ORCA_AGENT_HOOK_TOKEN/u',
-    'ORCA_AGENT_HOOK_ENV/u',
-    'ORCA_AGENT_HOOK_VERSION/u',
-    'ORCA_AGENT_HOOK_TRANSPORT/u',
-    `ORCA_AGENT_HOOK_ENDPOINT/${endpointFlag}`,
+    'OPENKODO_AGENT_HOOK_PORT/u',
+    'OPENKODO_AGENT_HOOK_TOKEN/u',
+    'OPENKODO_AGENT_HOOK_ENV/u',
+    'OPENKODO_AGENT_HOOK_VERSION/u',
+    'OPENKODO_AGENT_HOOK_TRANSPORT/u',
+    `OPENKODO_AGENT_HOOK_ENDPOINT/${endpointFlag}`,
     ...opencodeOverlayEntries,
-    'ORCA_WSL_HOOK_RELAY_VERSION/u',
-    'ORCA_WSL_HOOK_INSTANCE/u',
-    'ORCA_OMP_SOURCE_AGENT_DIR/p',
-    `ORCA_OMP_STATUS_EXTENSION/${env.ORCA_OMP_STATUS_EXTENSION?.startsWith('/') ? 'u' : 'p'}`,
-    ...(env.ORCA_PI_SOURCE_AGENT_DIR?.startsWith('/') ? ['ORCA_PI_SOURCE_AGENT_DIR/u'] : []),
-    `${ORCA_IMAGE_PROTOCOL_ENV}/u`,
-    'CLAUDE_CODE_FORCE_TERMINAL_IMAGES/u',
-    ...(env.ORCA_CLAUDE_AGENT_VIEW_PLUGIN_DIR?.startsWith('/')
-      ? ['ORCA_CLAUDE_AGENT_VIEW_PLUGIN_DIR/u', 'ORCA_CLAUDE_CONFIG_DIR/u']
+    'OPENKODO_WSL_HOOK_RELAY_VERSION/u',
+    'OPENKODO_WSL_HOOK_INSTANCE/u',
+    'OPENKODO_OMP_SOURCE_AGENT_DIR/p',
+    `OPENKODO_OMP_STATUS_EXTENSION/${env.OPENKODO_OMP_STATUS_EXTENSION?.startsWith('/') ? 'u' : 'p'}`,
+    ...(env.OPENKODO_PI_SOURCE_AGENT_DIR?.startsWith('/')
+      ? ['OPENKODO_PI_SOURCE_AGENT_DIR/u']
       : []),
-    // Forward only Orca's clipboard marker; a host SSH session must not leak into bare guest shells.
+    `${OPENKODO_IMAGE_PROTOCOL_ENV}/u`,
+    'CLAUDE_CODE_FORCE_TERMINAL_IMAGES/u',
+    ...(env.OPENKODO_CLAUDE_AGENT_VIEW_PLUGIN_DIR?.startsWith('/')
+      ? ['OPENKODO_CLAUDE_AGENT_VIEW_PLUGIN_DIR/u', 'OPENKODO_CLAUDE_CONFIG_DIR/u']
+      : []),
+    // Forward only OpenKodo's clipboard marker; a host SSH session must not leak into bare guest shells.
     ...(env.SSH_CONNECTION === CODEX_REMOTE_VIEWER_SSH_CONNECTION ? ['SSH_CONNECTION/u'] : []),
     `${PI_CLIPBOARD_OSC52_ENV}/u`,
     `${REMOTE_VIEWER_CLIPBOARD_ENV}/u`,
-    'ORCA_OMP_FRESH_CONFIG/p',
+    'OPENKODO_OMP_FRESH_CONFIG/p',
     ...worktreeSetupWslenvEntries(env)
   ]
   applyWslenvPassthrough(env, passthroughEntries)

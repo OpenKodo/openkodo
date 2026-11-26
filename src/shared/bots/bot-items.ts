@@ -30,7 +30,7 @@ export function isOpenBotItemStatus(status: BotItemStatus): boolean {
 }
 
 /** Refused writes, by code: an item that isn't there, a closed item's fields, a field write from a bot
- *  that doesn't own it, a file a newer Orca changed, and a snooze from a view the bot has since changed. */
+ *  that doesn't own it, a file a newer OpenKodo changed, and a snooze from a view the bot has since changed. */
 export const BOT_ITEM_ERROR_CODES = [
   'not_found',
   'item_closed',

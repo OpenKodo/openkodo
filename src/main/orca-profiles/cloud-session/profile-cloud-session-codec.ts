@@ -90,8 +90,8 @@ export function decodeStoredOrcaCloudSession(contents: string): OrcaCloudSession
         persistence: 'none',
         error:
           parsed.format === 'orcad-host-key-v1'
-            ? "This Orca account sign-in was saved by Orca's headless server. Sign in again here."
-            : 'This Orca account sign-in was saved by the Orca app. Sign in again on this server.'
+            ? "This OpenKodo account sign-in was saved by OpenKodo's headless server. Sign in again here."
+            : 'This OpenKodo account sign-in was saved by the OpenKodo app. Sign in again on this server.'
       }
     }
     if (!secrets.isEncryptionAvailable()) {

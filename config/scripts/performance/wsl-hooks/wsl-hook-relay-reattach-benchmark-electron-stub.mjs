@@ -3,7 +3,7 @@ import { homedir, tmpdir } from 'node:os'
 import { join } from 'node:path'
 import process from 'node:process'
 
-const userDataPath = process.env.ORCA_USER_DATA_PATH ?? tmpdir()
+const userDataPath = process.env.OPENKODO_USER_DATA_PATH ?? tmpdir()
 
 export const BrowserWindow = undefined
 

@@ -65,7 +65,7 @@ export const EventSchema = z.object({
           organizer: z.boolean().optional(),
           self: z.boolean().optional()
         })
-        // A write sends attendees back whole; fields Orca doesn't show (optional, comment) stay.
+        // A write sends attendees back whole; fields OpenKodo doesn't show (optional, comment) stay.
         .passthrough()
     )
     .default([]),

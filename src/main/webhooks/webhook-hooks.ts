@@ -26,9 +26,9 @@ type HookChange = NonNullable<LedgerHook['change']>
 const STALE_INTENT_MS = 10 * 60 * 1000
 const MINT_ATTEMPTS = 3
 
-export const WEBHOOKS_UNSUPPORTED = "Orca Cloud doesn't support webhooks yet."
+export const WEBHOOKS_UNSUPPORTED = "cloud service doesn't support webhooks yet."
 export const WEBHOOKS_NOT_CONNECTED =
-  "This Orca isn't connected to Orca Cloud, so it can't make a webhook. Sign in to Orca and try again."
+  "This OpenKodo isn't connected to cloud service, so it can't make a webhook. Sign in to OpenKodo and try again."
 
 // The cloud's refusals at mint, in words the bot relays.
 const MINT_REFUSALS: Record<string, string> = {
@@ -36,10 +36,10 @@ const MINT_REFUSALS: Record<string, string> = {
   host_webhook_cap: 'This computer has 50 webhooks; delete one first.',
   webhook_mint_rate: 'Too many webhooks were made in the last hour; try again later.',
   automation_has_webhook:
-    'This automation already has a webhook in Orca Cloud; edit its filters instead of making another.',
+    'This automation already has a webhook in cloud service; edit its filters instead of making another.',
   // The cloud hears of a bot's host from the hello, which may not have gone out yet.
   bot_not_on_host:
-    "Orca Cloud doesn't yet know this bot is on this computer. Check that this Orca is signed in, wait a moment, and try again."
+    "cloud service doesn't yet know this bot is on this computer. Check that this OpenKodo is signed in, wait a moment, and try again."
 }
 
 function mintRefusal(failure: ConnectorFailure): string {
@@ -48,7 +48,7 @@ function mintRefusal(failure: ConnectorFailure): string {
   }
   return (
     (failure.error && MINT_REFUSALS[failure.error]) ??
-    `Orca Cloud couldn't make the webhook (${failure.error ?? failure.status ?? 'unreachable'}).`
+    `cloud service couldn't make the webhook (${failure.error ?? failure.status ?? 'unreachable'}).`
   )
 }
 
@@ -117,7 +117,7 @@ export class WebhookHooks {
     }
     const kept = input.current && automationWebhookTrigger(input.current)
     if (wanted.id && wanted.id !== kept?.id) {
-      throw new Error("A webhook's id comes from Orca Cloud; leave it out to make a new one.")
+      throw new Error("A webhook's id comes from cloud service; leave it out to make a new one.")
     }
     const others = input.next.filter((trigger) => trigger !== wanted)
     if (kept) {

@@ -2,7 +2,7 @@ import { join, resolve } from 'node:path'
 import { createAgentTrustOwnershipLedger } from './agent-trust-ownership-ledger'
 import { getOrcaUserDataPath } from '../../codex/configuration/homes/codex-home-paths'
 
-/** Orca's record of the Antigravity entries it created; also the key serializing their edits. */
+/** OpenKodo's record of the Antigravity entries it created; also the key serializing their edits. */
 export function getAntigravityTrustLedgerPath(): string {
   return join(getOrcaUserDataPath(), 'antigravity-workspace-trust-created.json')
 }
@@ -13,7 +13,7 @@ const antigravityTrustOwnership = createAgentTrustOwnershipLedger(
   (projectPath) => resolve(projectPath)
 )
 
-/** Records the `trustedWorkspaces` entry Orca appended for `workspacePath`. */
+/** Records the `trustedWorkspaces` entry OpenKodo appended for `workspacePath`. */
 export function recordOrcaCreatedAntigravityTrust(
   settingsPath: string,
   workspacePath: string,

@@ -13,7 +13,7 @@ type RunRecord = {
 }
 
 /** A run the store knows; or a run from before the store kept every run's session, known by the
- *  name Orca gave it and the prompt it opens with. */
+ *  name OpenKodo gave it and the prompt it opens with. */
 export function isBotBackgroundRun(runs: BotBackgroundRuns, record: RunRecord): boolean {
   if (runs.botOfLook(record.sessionId) !== null || runs.botOfTidyUp(record.sessionId) !== null) {
     return true

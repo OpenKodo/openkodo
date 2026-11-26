@@ -35,7 +35,7 @@ type OrchestrationDisplay = {
   parentPaneKey?: string | null
 }
 
-/** A terminal agent by its handle; a chat by its Orca session address. */
+/** A terminal agent by its handle; a chat by its OpenKodo session address. */
 function agentAddress(source: RuntimeWorktreeAgentSource): string | undefined {
   if (source.terminalHandle) {
     return source.terminalHandle

@@ -1,5 +1,5 @@
 import '../../orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../browser-blank-page'
 import { getCurrentLocalPlatform } from '../../execution-host/execution-host'
 import { encodeWellFormedURIComponent } from '../../text/well-formed-uri-component'
 
@@ -273,8 +273,8 @@ export function normalizeBrowserNavigationUrl(
   options: SearchUrlOptions = {}
 ): string | null {
   const trimmed = rawUrl.trim()
-  if (trimmed.length === 0 || trimmed === 'about:blank' || trimmed === ORCA_BROWSER_BLANK_URL) {
-    return ORCA_BROWSER_BLANK_URL
+  if (trimmed.length === 0 || trimmed === 'about:blank' || trimmed === OPENKODO_BROWSER_BLANK_URL) {
+    return OPENKODO_BROWSER_BLANK_URL
   }
 
   const localDevAddress = classifySchemeLessLocalDevAddress(trimmed)
@@ -324,7 +324,7 @@ export function normalizeBrowserNavigationUrl(
 
 export function normalizeExternalBrowserUrl(rawUrl: string): string | null {
   const normalized = normalizeBrowserNavigationUrl(rawUrl)
-  if (normalized === null || normalized === ORCA_BROWSER_BLANK_URL) {
+  if (normalized === null || normalized === OPENKODO_BROWSER_BLANK_URL) {
     return null
   }
   // OS handoff accepts HTTP(S) only; file URLs stay in sandboxed previews so remote pages cannot open arbitrary Finder/Explorer paths.

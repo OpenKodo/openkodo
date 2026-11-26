@@ -11,7 +11,7 @@ import {
   botMemorySourcesOf
 } from '../../shared/bots/bot-memory-source'
 
-/** The ended turn was opened by the owner's words or card click: not Orca's kickoff, a connector's
+/** The ended turn was opened by the owner's words or card click: not OpenKodo's kickoff, a connector's
  *  message, an automation run's prompt or another agent's mail. A turn id can repeat; the last is it. */
 export function ownerOpened(journal: AgentJournalTurnOpenerRows, turnId: string): boolean {
   const turn = journal.items.findLast(
@@ -52,7 +52,7 @@ export function turnRows(
 /** A bot's conversations as a turn end reads them, never more of a chat than the end needs. */
 export type BotChatJournal = {
   /** Where the chat's person messages after `after` came from; all of them when null (a chat's
-   *  first end since Orca started can't tell where its last end read through). Never its rows. */
+   *  first end since OpenKodo started can't tell where its last end read through). Never its rows. */
   sourcesAfter: (sessionId: string, after: number | null) => Promise<BotMemorySources>
   /** Whether any of the chat's turns ran at some point since `opened` (any, when that is unknown). */
   turnRanSince: (sessionId: string, opened: number | null) => Promise<boolean>

@@ -58,7 +58,7 @@ import { captureJournalLegacySourceReceipt } from './journal-legacy-source-captu
 /** Set after a pass absorbed every original chat, so each chat here carries its revision. */
 export const JOURNAL_LEGACY_REVISIONS_KEPT = 'journal.legacy-revisions-kept.v1'
 /**
- * An older Orca keeps writing the original journal after a downgrade. When the original changed,
+ * An older OpenKodo keeps writing the original journal after a downgrade. When the original changed,
  * each original chat's revision is compared with the one this file shows: a chat it started, or
  * one not converted here yet, joins as itself; a converted chat it continued is kept as a second
  * chat beside it, so no turn it saved goes missing. Nothing here deletes a chat or its turns.
@@ -201,7 +201,7 @@ function absorbChats(
         db.isTransaction
       ) {
         retainEnumeratedClaims(db, adoption)
-        console.warn('[agent-session-journal] keeping chats an older Orca saved paused', error)
+        console.warn('[agent-session-journal] keeping chats an older OpenKodo saved paused', error)
         return false
       }
       const failure: JournalLegacyFailure = {
@@ -226,12 +226,12 @@ function absorbChats(
       } catch (failureError) {
         retainEnumeratedClaims(db, adoption)
         console.warn(
-          '[agent-session-journal] keeping chats an older Orca saved paused',
+          '[agent-session-journal] keeping chats an older OpenKodo saved paused',
           failureError
         )
         return false
       }
-      console.warn('[agent-session-journal] keeping an older Orca chat failed', error)
+      console.warn('[agent-session-journal] keeping an older OpenKodo chat failed', error)
       // The failed chat's transaction rolled back, and with it any tab it added.
       for (const [sessionId, tab] of adoption.added.splice(added)) {
         adoption.tabbed.delete(sessionId)

@@ -43,7 +43,8 @@ export function useHostTerminalLayoutReconciliation({
     if (
       hostRetiredLeafIdsRef.current.size === 0 &&
       !isHostAuthoritativeLayout({
-        isWebClient: !!(globalThis as { __ORCA_WEB_CLIENT__?: boolean }).__ORCA_WEB_CLIENT__,
+        isWebClient: !!(globalThis as { __OPENKODO_WEB_CLIENT__?: boolean })
+          .__OPENKODO_WEB_CLIENT__,
         ptyIdsByLeafId: restoredLayout.ptyIdsByLeafId
       })
     ) {

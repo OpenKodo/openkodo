@@ -70,7 +70,7 @@ function readParsedHookTrust(content: string): [string, CodexHookTrustState][] {
   )
 }
 
-// Orca writes Windows keys in both separator forms; Codex reads and rewrites only the backslash one.
+// OpenKodo writes Windows keys in both separator forms; Codex reads and rewrites only the backslash one.
 function readHookTrustTables(content: string): CodexHookTrustEntryMap {
   const codexSpelling = new HookTrustSpellingStates()
   const otherSpellings = new HookTrustSpellingStates()

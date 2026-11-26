@@ -34,7 +34,7 @@ export type DeviceEntry = {
   pushRegistration?: MobilePushRegistration
   // Relayed phones lose access with their parent desktop grant.
   parentDeviceId?: string
-  // The Orca account a paired desktop says it is signed in to (a plain claim, set on each connect);
+  // The OpenKodo account a paired desktop says it is signed in to (a plain claim, set on each connect);
   // names who typed its messages in a bot's Slack thread. A relayed phone reads its parent's.
   orcaAccount?: DeviceOrcaAccount
   phoneKey?: string

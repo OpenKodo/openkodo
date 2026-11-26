@@ -135,7 +135,7 @@ function withNextLast(fields: AgentViewFields): AgentViewFields {
 
 function resolveOrcaCommandsInText(text: string): string {
   const executable = resolveOrchestrationCliExecutable()
-  if (executable === 'orca') {
+  if (executable === 'openkodo') {
     return text
   }
   const rendered = renderCommand([executable])
@@ -147,7 +147,7 @@ export function renderOrchestrationArgv(argv: readonly string[]): string | undef
     return undefined
   }
   // Fleet next actions are subcommand argv (`orchestration ...`); older hosts named `orca`.
-  const subcommand = argv[0] === 'orca' ? argv.slice(1) : argv
+  const subcommand = argv[0] === 'openkodo' ? argv.slice(1) : argv
   return renderCommand([resolveOrchestrationCliExecutable(), ...subcommand])
 }
 

@@ -146,7 +146,7 @@ export function renewRuntimeMobileAgentStatusFromPtyTitle(
 
 export type RuntimeHookAgentRowLookup = {
   providerSession: AgentProviderSessionMetadata | null
-  /** The host's Orca id for that provider session's conversation (see `AgentStatusEntry`). */
+  /** The host's OpenKodo id for that provider session's conversation (see `AgentStatusEntry`). */
   orcaSessionId: string | null | undefined
   providerSessionAgentType: string | null
   providerSessionReceivedAt: number | null

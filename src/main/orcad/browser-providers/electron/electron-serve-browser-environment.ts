@@ -2,9 +2,9 @@
 export function electronServeEnvironment(userDataPath: string): NodeJS.ProcessEnv {
   const environment = { ...process.env }
   for (const key of [
-    'ORCA_E2E_USER_DATA_DIR',
-    'ORCA_USER_DATA',
-    'ORCA_USER_DATA_PATH',
+    'OPENKODO_E2E_USER_DATA_DIR',
+    'OPENKODO_USER_DATA',
+    'OPENKODO_USER_DATA_PATH',
     'AGENT_BROWSER_ARGS',
     'AGENT_BROWSER_AUTO_CONNECT',
     'AGENT_BROWSER_CDP',
@@ -20,10 +20,10 @@ export function electronServeEnvironment(userDataPath: string): NodeJS.ProcessEn
     delete environment[key]
   }
   // Keep Electron's native home override active in isolated sidecars.
-  if (process.env.ORCA_E2E_USER_DATA_DIR || process.env.ORCA_E2E_HOME_DIR) {
-    environment.ORCA_E2E_USER_DATA_DIR = userDataPath
+  if (process.env.OPENKODO_E2E_USER_DATA_DIR || process.env.OPENKODO_E2E_HOME_DIR) {
+    environment.OPENKODO_E2E_USER_DATA_DIR = userDataPath
   }
-  // Older installed apps hide without forwarding opens if given ORCA_BACKGROUND_LAUNCH.
-  environment.ORCA_ORCAD_SIDECAR = '1'
+  // Older installed apps hide without forwarding opens if given OPENKODO_BACKGROUND_LAUNCH.
+  environment.OPENKODO_ORCAD_SIDECAR = '1'
   return environment
 }

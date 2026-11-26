@@ -113,7 +113,7 @@ function getComputerSidecar(): ComputerSidecarProcess {
 }
 
 export function computerSidecarMissingMessage(entryPath: string): string {
-  return `Computer use isn't available on this host: its Orca install has no computer-use sidecar (${entryPath}). On an Orca server installed before computer use shipped with it, update or reprovision the server.`
+  return `Computer use isn't available on this host: its OpenKodo install has no computer-use sidecar (${entryPath}). On an OpenKodo server installed before computer use shipped with it, update or reprovision the server.`
 }
 
 class ComputerSidecarProcess {
@@ -220,7 +220,7 @@ class ComputerSidecarProcess {
       env: {
         ...process.env,
         ELECTRON_RUN_AS_NODE: '1',
-        ORCA_COMPUTER_SIDECAR: '1'
+        OPENKODO_COMPUTER_SIDECAR: '1'
       },
       ...(process.platform === 'win32' ? { windowsHide: true } : {})
     })

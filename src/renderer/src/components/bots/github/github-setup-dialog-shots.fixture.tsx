@@ -89,10 +89,10 @@ function dialogShot(options: {
   expand?: string
   /** Then click "+ Add ↗": GitHub opens in the system browser and setup waits on it. */
   addRepositories?: boolean
-  /** GitHub opens in Orca's browser, then a read fails (`read`), this computer's sign-in lapses as GitHub
-   *  reads it (`signedOut`) or for Orca Cloud (`cloud`), and the dialog opens again. */
+  /** GitHub opens in OpenKodo's browser, then a read fails (`read`), this computer's sign-in lapses as GitHub
+   *  reads it (`signedOut`) or for OpenKodo Cloud (`cloud`), and the dialog opens again. */
   failedWhilePending?: 'read' | 'signedOut' | 'cloud'
-  /** Orca Cloud is signed out from the start, with nothing followed. */
+  /** OpenKodo Cloud is signed out from the start, with nothing followed. */
   cloudSignedOut?: boolean
   /** GitHub's state never answers (Checking) or fails with nothing pending (failed). */
   state?: 'hangs' | 'fails'
@@ -176,13 +176,13 @@ export const shotConnect = dialogShot({ width: 340, repos: 'one', signedIn: fals
 // Three linked GitHub logins, one 48 characters long: one header line, ellipsized, × stays put.
 const THREE_LOGINS = ['carol-gh', LONG_LOGIN, 'carol-work'] as const
 export const shotLogins = dialogShot({ width: 440, repos: 'twoOrgs', logins: [...THREE_LOGINS] })
-// An install trip in Orca's browser is still followed when a read fails: the corner stays Minimize.
+// An install trip in OpenKodo's browser is still followed when a read fails: the corner stays Minimize.
 export const shotFailedPendingNarrow = dialogShot({
   width: 340,
   repos: 'twoOrgs',
   failedWhilePending: 'read'
 })
-// The same, when the read says this computer's sign-in lapsed, or Orca Cloud signs out: still Minimize.
+// The same, when the read says this computer's sign-in lapsed, or OpenKodo Cloud signs out: still Minimize.
 export const shotSignedOutPendingNarrow = dialogShot({
   width: 340,
   repos: 'twoOrgs',

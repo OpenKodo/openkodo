@@ -1,6 +1,6 @@
-// `send --on <server> --to bot:<name> --item <n> --file`: each file is copied to the paired Orca's
+// `send --on <server> --to bot:<name> --item <n> --file`: each file is copied to the paired OpenKodo's
 // attachment store first, with the upload calls a desktop uses to paste into a server's chat; the mail
-// then names the stored paths, and that Orca admits them into the item's chat.
+// then names the stored paths, and that OpenKodo admits them into the item's chat.
 import { readFile, stat } from 'node:fs/promises'
 import { basename } from 'node:path'
 import { z } from 'zod'
@@ -28,7 +28,7 @@ function refused(message: string): OrchestrationError {
   })
 }
 
-/** The paired Orca's store paths for `files`, in order; undefined when there are none. */
+/** The paired OpenKodo's store paths for `files`, in order; undefined when there are none. */
 export async function uploadPeerMailFiles(
   runtime: Pick<OrcaRuntimeService, 'callOrchestrationWorkerServer'>,
   server: OrchestrationWorkerServer,
@@ -42,7 +42,7 @@ export async function uploadPeerMailFiles(
     throw refused("--file goes with --to bot:<name> --item <n>: the files go to that item's chat.")
   }
   // The limits a local `send --item --file` has, checked before anything is uploaded.
-  // The paired Orca classifies by the name it stores, so classify by that name too.
+  // The paired OpenKodo classifies by the name it stores, so classify by that name too.
   const isImage = files.map((path) =>
     isAgentInlineImagePath(sanitizeAgentSessionAttachmentName(basename(path)))
   )

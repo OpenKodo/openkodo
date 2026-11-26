@@ -1,4 +1,4 @@
-// A linked chat deleted in Orca: its conversation's link goes, and a cloud that frees threads
+// A linked chat deleted in OpenKodo: its conversation's link goes, and a cloud that frees threads
 // (threads.owner) is told, so the thread's next message starts a new chat.
 import { CHAT_GONE_REFUSAL } from '../../shared/connectors/connector-cloud-contract'
 import { linkedChat, type LinkableChat } from './external-conversation-chat-delivery'

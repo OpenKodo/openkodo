@@ -1,4 +1,4 @@
-// Whether a bot's Orca Cloud features wait on this window's Orca sign-in.
+// Whether a bot's cloud service features wait on this window's OpenKodo sign-in.
 import { useAppStore } from '@/store'
 import { useBotHostConnectorStatus } from '@/lib/bot-catalog'
 import { orcaCloudNeedsSignIn } from '../../../../shared/bots/host-orca-sign-in'
@@ -20,7 +20,7 @@ export function readOrcaCloudSignedOut(hostId: ExecutionHostId = LOCAL_EXECUTION
 }
 
 /**
- * Whether Orca Cloud features of `hostId`'s bots wait on this window's sign-in. Only this computer's:
+ * Whether OpenKodo Cloud features of `hostId`'s bots wait on this window's sign-in. Only this computer's:
  * Sign in here signs in this desktop, never a paired server.
  */
 export function useOrcaCloudSignedOut(hostId: ExecutionHostId = LOCAL_EXECUTION_HOST_ID): boolean {
@@ -30,7 +30,7 @@ export function useOrcaCloudSignedOut(hostId: ExecutionHostId = LOCAL_EXECUTION_
 }
 
 /**
- * Whether this computer's bots wait on its Orca sign-in: signed out, or signed in with a sign-in Orca
+ * Whether this computer's bots wait on its OpenKodo sign-in: signed out, or signed in with a sign-in OpenKodo
  * Cloud refuses (its bots.list connector status), which only signing in again fixes.
  */
 export function useOrcaCloudNeedsSignIn(): boolean {

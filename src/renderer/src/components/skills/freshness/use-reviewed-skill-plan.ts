@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { BundledSkillPlan } from '../../../../../shared/skills/bundled/bundled-skill-plan'
-import { BUNDLED_ORCA_SKILL_UPDATE_REQUIRED_MESSAGE } from '../../../../../shared/skills/capabilities/skill-install-capability'
+import { BUNDLED_OPENKODO_SKILL_UPDATE_REQUIRED_MESSAGE } from '../../../../../shared/skills/capabilities/skill-install-capability'
 import {
   bundledSkillTargetKey,
   type BundledSkillTarget
@@ -36,7 +36,7 @@ export function useReviewedSkillPlan(
           setResult(
             result.kind === 'plan'
               ? { request, plan: result.plan, error: null }
-              : { request, plan: null, error: BUNDLED_ORCA_SKILL_UPDATE_REQUIRED_MESSAGE }
+              : { request, plan: null, error: BUNDLED_OPENKODO_SKILL_UPDATE_REQUIRED_MESSAGE }
           )
         }
       },

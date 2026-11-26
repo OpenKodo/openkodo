@@ -1,5 +1,5 @@
 // A shared bot's transport manifest: package identity and every file with its role and hashes. These
-// are the rules the Orca Cloud connector service checks bot envelopes by, kept the same here.
+// are the rules the OpenKodo Cloud connector service checks bot envelopes by, kept the same here.
 import { createHash } from 'node:crypto'
 import * as z from 'zod'
 import { MAX_BOT_AVATAR_BYTES } from '../../../shared/bot-avatar'

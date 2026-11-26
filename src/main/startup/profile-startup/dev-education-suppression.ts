@@ -9,7 +9,7 @@ import { FEATURE_TIP_SEEN_IDS } from '../../../shared/feature-education/feature-
 import type { PersistedUIState } from '../../../shared/orca-profiles/persisted-ui-state-types'
 import type { Store } from '../../persistence/loading-store/store'
 
-export const DEV_SHOW_FIRST_RUN_EDUCATION_ENV = 'ORCA_DEV_SHOW_FIRST_RUN_EDUCATION'
+export const DEV_SHOW_FIRST_RUN_EDUCATION_ENV = 'OPENKODO_DEV_SHOW_FIRST_RUN_EDUCATION'
 
 type DevEducationStore = Pick<Store, 'getOnboarding' | 'updateOnboarding' | 'getUI' | 'updateUI'>
 
@@ -20,7 +20,7 @@ export function shouldSuppressDevEducation(args: {
   const env = args.env ?? process.env
   return (
     args.isDev &&
-    env.ORCA_E2E_USER_DATA_DIR === undefined &&
+    env.OPENKODO_E2E_USER_DATA_DIR === undefined &&
     env[DEV_SHOW_FIRST_RUN_EDUCATION_ENV] !== '1'
   )
 }

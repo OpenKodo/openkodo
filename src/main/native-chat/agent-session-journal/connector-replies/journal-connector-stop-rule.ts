@@ -8,7 +8,7 @@ import type { AgentJournalSubmission } from '../../../../shared/agent-session/jo
 import type { JournalStopEvent } from '../durable-rows/journal-row-schema'
 import { stopIsAPersons } from '../context-epochs/journal-stop-turn-end'
 
-// Kinds a Stop or close rejects unsent sends with. Orca's own stops use them too, so only a
+// Kinds a Stop or close rejects unsent sends with. OpenKodo's own stops use them too, so only a
 // person's saved Stop between the send and its rejection makes one read as stopped.
 const STOP_REJECTIONS: ReadonlySet<AgentSessionFailureKind> = new Set(['cancelled', 'chatClosed'])
 

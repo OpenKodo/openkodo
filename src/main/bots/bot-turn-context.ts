@@ -59,7 +59,7 @@ export function createBotTurnContext(
     sessionId: string,
     message: AgentJournalMessageItem
   ) => Promise<string | null> = async () => null,
-  /** Each bot's MEMORY.md as Orca last recorded it, which Forget also updates. */
+  /** Each bot's MEMORY.md as OpenKodo last recorded it, which Forget also updates. */
   record: Pick<
     BotMemoryRecord,
     'started' | 'version' | 'changedBesides' | 'after' | 'noted' | 'history'
@@ -93,7 +93,7 @@ export function createBotTurnContext(
     }
     return given.get(sessionId) ?? entry
   }
-  /** Orca's Tools and Rules, under the bot's current name, go first, where they outrank memory. */
+  /** OpenKodo's Tools and Rules, under the bot's current name, go first, where they outrank memory. */
   const withOrcaRules = (sessionId: string, entry: Given, held: Held, plan: TurnPlan | null) => {
     const known = { ...entry.orcaRules, name: currentBotName(entry.botId) ?? entry.orcaRules.name }
     return withBotRulesUpdate(known, held, plan, (orcaRules) => update(sessionId, { orcaRules }))
@@ -222,7 +222,7 @@ export function createBotTurnContext(
       update(sessionId, { memoryAtStart: null, topicsAtStart: null, receiptAtStart: null }),
     // The bot's own SOUL.md or MEMORY.md edit is what its next turn already knows; any other change
     // stays unrecorded so the next turn sends it. A MEMORY.md change made during the turn is the
-    // bot's own, however it wrote it, unless Orca saw another writer: a record change (another
+    // bot's own, however it wrote it, unless OpenKodo saw another writer: a record change (another
     // chat's turn end, Settings, Forget, Undo, tidy-up) or a turn of another chat running beside it.
     // One made before the turn started is never its own. SOUL.md, which has no record, counts only
     // the turn's edit rows.

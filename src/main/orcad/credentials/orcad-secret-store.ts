@@ -41,7 +41,7 @@ export function createOrcadSecretStore(
         case 'plaintext':
           return state.reason
         case 'pending':
-          return "Orca's headless server has not loaded its credential key yet."
+          return "OpenKodo's headless server has not loaded its credential key yet."
       }
     },
     describeSealing: () => {
@@ -55,7 +55,7 @@ export function createOrcadSecretStore(
         case 'pending':
           return {
             kind: 'none',
-            reason: "Orca's headless server has not loaded its credential key yet."
+            reason: "OpenKodo's headless server has not loaded its credential key yet."
           }
       }
     },

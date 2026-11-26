@@ -16,7 +16,7 @@ export function createConflictingRebaseRepo(tempPaths: string[]) {
     })
   const write = (file: string, text: string) => writeFileSync(join(repoPath, file), text)
   git('init', '--quiet', '-b', 'main')
-  git('config', 'user.name', 'Orca Test')
+  git('config', 'user.name', 'OpenKodo Test')
   git('config', 'user.email', 'orca@example.test')
   git('config', 'commit.gpgSign', 'false')
   git('config', 'core.hooksPath', '.git/no-hooks')

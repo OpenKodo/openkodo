@@ -135,7 +135,10 @@ export const WorktreeCardMetaBadges = React.forwardRef<
       {/* A bot's worker makes its workspaces through the CLI, so the bot is the origin worth showing. */}
       {cliProvenance && !bot && (
         <MetaIconBadge
-          label={t('auto.components.sidebar.WorktreeCardMeta.cliCreated', 'Created by Orca CLI')}
+          label={t(
+            'auto.components.sidebar.WorktreeCardMeta.cliCreated',
+            'Created by OpenKodo CLI'
+          )}
         >
           <SquareTerminal className="text-muted-foreground" />
         </MetaIconBadge>

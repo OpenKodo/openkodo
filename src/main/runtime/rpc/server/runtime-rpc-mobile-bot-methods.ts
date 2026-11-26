@@ -127,7 +127,7 @@ export const MOBILE_BOT_RPC_METHODS = [
   'google.client.import',
   'google.default.set',
   'google.disconnect',
-  // Its page opens in Orca's browser on the host, whose own loopback takes the return; no paste-back.
+  // Its page opens in OpenKodo's browser on the host, whose own loopback takes the return; no paste-back.
   'google.signIn.cancel',
   'google.signIn.start',
   'google.signIn.wait',

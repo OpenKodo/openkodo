@@ -33,7 +33,7 @@ function hasLaunchedTab(state: AppState, agent: NoticeAgent, previous?: AppState
   return Object.values(state.tabsByWorktree).some((tabs) => launchedIn(tabs, agent))
 }
 
-// Why three sources: Orca-launched tabs, hook-reported agents (SSH too), and an agent typed in a local pane.
+// Why three sources: OpenKodo-launched tabs, hook-reported agents (SSH too), and an agent typed in a local pane.
 function hasAgentTerminal(state: AppState, agent: NoticeAgent, previous?: AppState): boolean {
   return (
     hasLaunchedTab(state, agent, previous) ||

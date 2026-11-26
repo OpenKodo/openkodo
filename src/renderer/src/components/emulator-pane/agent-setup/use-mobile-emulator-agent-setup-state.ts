@@ -1,7 +1,7 @@
 import { useActiveProjectSkillRuntime } from '@/hooks/skills/runtime/useActiveProjectSkillRuntime'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { ORCA_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
+import { OPENKODO_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
 import {
   GLOBAL_AGENT_SKILL_SOURCE_KINDS,
   useInstalledAgentSkill
@@ -10,7 +10,7 @@ import { useMountedRef } from '@/hooks/useMountedRef'
 import { translate } from '@/i18n/i18n'
 import { formatCliUserFacingDetail } from '@/lib/cli/cli-user-facing-detail'
 
-// Why: Orca terminals already provide the `orca` command, so agent control only needs the skill.
+// Why: OpenKodo terminals already provide the `orca` command, so agent control only needs the skill.
 export function useMobileEmulatorAgentSetupState(enabled = true): {
   skillRuntime: ReturnType<typeof useActiveProjectSkillRuntime>
   cliSkillError: string | null
@@ -30,7 +30,7 @@ export function useMobileEmulatorAgentSetupState(enabled = true): {
     loading: cliSkillLoading,
     error: cliSkillError,
     refresh: refreshCliSkill
-  } = useInstalledAgentSkill(ORCA_CLI_SKILL_NAME, {
+  } = useInstalledAgentSkill(OPENKODO_CLI_SKILL_NAME, {
     enabled,
     runtimeTarget: skillRuntime.discoveryRuntimeTarget,
     discoveryTarget: skillRuntime.discoveryTarget,
@@ -71,7 +71,7 @@ export function useMobileEmulatorAgentSetupState(enabled = true): {
       toast.message(
         translate(
           'auto.components.emulator.pane.use.mobile.emulator.agent.setup.state.skillNotInstalled',
-          'The Orca CLI skill is not installed yet.'
+          'The OpenKodo CLI skill is not installed yet.'
         )
       )
     } catch (error) {

@@ -2,13 +2,13 @@ import type {
   RuntimeTerminalRename,
   RuntimeTerminalSetPaneTitle
 } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { RuntimeWorkspaceArchive } from '../../workspaces/archive/runtime-workspace-archive'
 
 export abstract class RuntimeTerminalNames extends RuntimeWorkspaceArchive {
   async renameTerminal(handle: string, title: string | null): Promise<RuntimeTerminalRename> {
     // Switch point: a terminal main owns is renamed in main's layout, with or without a window.
-    const mainRename = ORCA_LAYOUT_OWNER_IS_MAIN
+    const mainRename = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? await this.renameTerminalInMainLayout(handle, title)
       : null
     if (mainRename) {
@@ -62,7 +62,7 @@ export abstract class RuntimeTerminalNames extends RuntimeWorkspaceArchive {
   /** Names one pane of a split; the tab's own name is untouched. */
   async setPaneTitle(handle: string, title: string | null): Promise<RuntimeTerminalSetPaneTitle> {
     // Switch point: a pane main owns is named in main's layout, with or without a window.
-    const mainTitle = ORCA_LAYOUT_OWNER_IS_MAIN
+    const mainTitle = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? await this.setPaneTitleInMainLayout(handle, title)
       : null
     if (mainTitle) {
@@ -70,7 +70,7 @@ export abstract class RuntimeTerminalNames extends RuntimeWorkspaceArchive {
     }
     const { leaf } = this.getLiveLeafForHandle(handle)
     if (!this.hasAuthoritativeWindow() || !this.notifier?.setPaneTitle) {
-      throw new Error('Pane titles require a running Orca desktop with set-pane-title support')
+      throw new Error('Pane titles require a running OpenKodo desktop with set-pane-title support')
     }
     const normalizedTitle = title?.trim() || null
     if (!this.notifier.setPaneTitle(leaf.tabId, leaf.leafId, normalizedTitle)) {

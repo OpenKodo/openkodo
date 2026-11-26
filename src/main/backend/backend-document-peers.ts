@@ -48,7 +48,7 @@ export class BackendDocumentPeers {
       this.incarnation,
       async (method, params, signal) => {
         if (!isBackendDocumentMethod(method)) {
-          throw new Error('This operation is not available to Orca windows.')
+          throw new Error('This operation is not available to OpenKodo windows.')
         }
         return this.serve(binding, method, params, signal)
       },

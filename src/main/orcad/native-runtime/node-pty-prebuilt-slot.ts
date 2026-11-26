@@ -58,7 +58,7 @@ export type PrebuiltSlotOutcome =
 
 /** Resolve beside the running bundle, independent of install location. */
 export function resolveOrcadPrebuildsDir(entryScript = process.argv[1]): string | null {
-  const override = process.env.ORCA_ORCAD_PREBUILDS_DIR
+  const override = process.env.OPENKODO_ORCAD_PREBUILDS_DIR
   if (override) {
     return override
   }

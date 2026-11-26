@@ -13,10 +13,14 @@ export function antigravityProgramLabel(
 ): string {
   if (orcas) {
     return version
-      ? t('components.native-chat.antigravityAuth.orcasAgyVersion', "Orca's agy · v{{version}}", {
-          version
-        })
-      : t('components.native-chat.antigravityAuth.orcasAgy', "Orca's agy")
+      ? t(
+          'components.native-chat.antigravityAuth.orcasAgyVersion',
+          "OpenKodo's agy · v{{version}}",
+          {
+            version
+          }
+        )
+      : t('components.native-chat.antigravityAuth.orcasAgy', "OpenKodo's agy")
   }
   return version
     ? t('components.native-chat.antigravityAuth.yourAgyVersion', 'Your agy · v{{version}}', {
@@ -39,7 +43,7 @@ export function antigravityAlternativeLabel(
   }
 }
 
-/** Where Orca found the credentials, so the person knows which ones it will use. */
+/** Where OpenKodo found the credentials, so the person knows which ones it will use. */
 export function antigravityAlternativeHint(
   option: AntigravityChatAuthAlternative,
   t: Translate = translate
@@ -48,7 +52,7 @@ export function antigravityAlternativeHint(
     case 'gemini-api-key':
       return option.source === 'environment'
         ? t('components.native-chat.antigravityAuth.apiKeyEnvironment', 'From your environment')
-        : t('components.native-chat.antigravityAuth.apiKeySaved', 'Saved in Orca')
+        : t('components.native-chat.antigravityAuth.apiKeySaved', 'Saved in OpenKodo')
     case 'agent-platform':
       return t('components.native-chat.antigravityAuth.gcloudProject', 'Project {{project}}', {
         project: option.project
@@ -61,7 +65,7 @@ export function antigravityAlternativeHint(
   }
 }
 
-/** The question a failure notice ends with, naming what Orca found. */
+/** The question a failure notice ends with, naming what OpenKodo found. */
 export function antigravityAlternativeQuestion(
   option: AntigravityChatAuthAlternative,
   t: Translate = translate
@@ -75,7 +79,7 @@ export function antigravityAlternativeQuestion(
           )
         : t(
             'components.native-chat.antigravityAuth.askApiKeySaved',
-            'Use the Gemini API key saved in Orca instead?'
+            'Use the Gemini API key saved in OpenKodo instead?'
           )
     case 'agent-platform':
       return t(
@@ -122,7 +126,7 @@ export function antigravityAuthFailureLead(
   }
 }
 
-/** The one line under the strip's title naming what else Orca found; null when nothing. */
+/** The one line under the strip's title naming what else OpenKodo found; null when nothing. */
 export function antigravityFoundLine(
   alternatives: readonly AntigravityChatAuthAlternative[],
   t: Translate = translate

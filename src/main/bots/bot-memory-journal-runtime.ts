@@ -14,7 +14,7 @@ import {
   journalLines
 } from './bot-memory-journal'
 
-/** How far back a pass looks the first time after a start, so closes while Orca was down count. */
+/** How far back a pass looks the first time after a start, so closes while OpenKodo was down count. */
 const FIRST_LOOKBACK_MS = 24 * 60 * 60 * 1000
 /** Closed items read per page, by latest activity; a pass reads pages until the window is covered. */
 const CLOSED_READ = 100
@@ -190,7 +190,7 @@ export function journaledItemsNotice(
       journal.itemsChanged(scope.botIds ?? [])
     }
   }
-  // After a restart no notice comes for closes made while Orca was off: one pass catches up.
+  // After a restart no notice comes for closes made while OpenKodo was off: one pass catches up.
   return Object.assign(notice, {
     catchUp: () => journal.itemsChanged(runtime.bots.list().map(({ id }) => id))
   })

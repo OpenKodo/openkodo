@@ -38,7 +38,7 @@ export type JournalWriterStep =
       kind: 'creation-fact'
       epoch: string
       reservedBytes: number
-      /** Orca's own cards and status lines; each named once by its identity. */
+      /** OpenKodo's own cards and status lines; each named once by its identity. */
       body: AgentJournalOrcaCardItem | AgentJournalPlainStatusItem
     })
   | {

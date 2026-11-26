@@ -9,7 +9,7 @@ import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
 import { useAppStore } from '@/store'
 import { useTranslate } from '@/i18n/use-translate'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
 import { ArtifactCollection } from './ArtifactCollection'
 import { ArtifactDetailDrawer } from './ArtifactDetailDrawer'
 import { ArtifactsPageSkeleton } from './ArtifactsPageSkeleton'
@@ -34,7 +34,7 @@ export default function ArtifactsPage(): React.JSX.Element {
   const confirm = useConfirmationDialog()
   // Claim publishing is blocked only after settings load; sharing requires explicit capability opt-in.
   const publishingBlockedByTeam = useOrcaTeamFeatureBlocked(
-    ORCA_CLOUD_TEAM_POLICY_FLAGS.artifactSharing
+    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing
   )
   const publishingBlocked = settings ? settings.artifactSharingEnabled !== true : false
   const [deleting, setDeleting] = useState<{ identity: string; slug: string } | null>(null)

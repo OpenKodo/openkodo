@@ -138,8 +138,8 @@ let previousUserDataPath: string | undefined
 beforeEach(() => {
   tmpHome = mkdtempSync(join(tmpdir(), 'orca-codex-wsl-regen-home-'))
   userDataDir = mkdtempSync(join(tmpdir(), 'orca-codex-wsl-regen-user-data-'))
-  previousUserDataPath = process.env.ORCA_USER_DATA_PATH
-  process.env.ORCA_USER_DATA_PATH = userDataDir
+  previousUserDataPath = process.env.OPENKODO_USER_DATA_PATH
+  process.env.OPENKODO_USER_DATA_PATH = userDataDir
   homedirMock.mockReturnValue(tmpHome)
   wslTestState.wslPath = null
   wslTestState.daemonGuard = false
@@ -156,9 +156,9 @@ afterEach(() => {
   rmSync(tmpHome, { recursive: true, force: true })
   rmSync(userDataDir, { recursive: true, force: true })
   if (previousUserDataPath === undefined) {
-    delete process.env.ORCA_USER_DATA_PATH
+    delete process.env.OPENKODO_USER_DATA_PATH
   } else {
-    process.env.ORCA_USER_DATA_PATH = previousUserDataPath
+    process.env.OPENKODO_USER_DATA_PATH = previousUserDataPath
   }
   vi.clearAllMocks()
 })
@@ -213,7 +213,7 @@ describe('managed Codex config for a WSL distro config', () => {
     expect(readRuntimeConfig()).toMatch(/^daemon_auto_start = false # orca:/m)
   })
 
-  it('keeps edits pending in a managed copy from before the update as Orca lines', () => {
+  it('keeps edits pending in a managed copy from before the update as OpenKodo lines', () => {
     const original =
       'model = "gpt-5"\n\n[plugins."docs@market"]\nenabled = true\n\n[mcp_servers.docs]\nurl = "https://docs.example"\n'
     writeSystemConfig(original)

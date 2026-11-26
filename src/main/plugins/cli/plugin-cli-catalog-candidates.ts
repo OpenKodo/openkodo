@@ -68,7 +68,7 @@ export function matchesCatalogSelector(
 
 function catalogNextSteps(): string[] {
   return [
-    '`orca plugin catalog list` shows the catalogs on this Orca host.',
+    '`orca plugin catalog list` shows the catalogs on this OpenKodo host.',
     'Install straight from the repository instead: `orca plugin install <owner>/<repo>`.'
   ]
 }
@@ -85,7 +85,7 @@ async function findListing(
   if (selector && allowed.length === 0) {
     throw new PluginCliError(
       PLUGIN_NOT_FOUND_CODE,
-      `No catalog on this Orca host matches ${selector}.`,
+      `No catalog on this OpenKodo host matches ${selector}.`,
       {
         catalog: selector,
         nextSteps: [
@@ -127,7 +127,7 @@ async function findListing(
   if (!listing || !state) {
     throw new PluginCliError(
       PLUGIN_NOT_FOUND_CODE,
-      `No catalog on this Orca host lists ${pluginKey}.`,
+      `No catalog on this OpenKodo host lists ${pluginKey}.`,
       { pluginKey, nextSteps: catalogNextSteps() }
     )
   }
@@ -146,7 +146,7 @@ function candidateFromPreview(
       PLUGIN_BLOCKED_CODE,
       preview.blockedByKillList.team
         ? preview.blockedByKillList.reason
-        : `${preview.pluginKey} is blocked by Orca's safety list: ${preview.blockedByKillList.reason}`,
+        : `${preview.pluginKey} is blocked by OpenKodo's safety list: ${preview.blockedByKillList.reason}`,
       {
         pluginKey: preview.pluginKey,
         nextSteps: ['Do not try to install this plugin another way.']
@@ -224,11 +224,11 @@ export async function catalogUpdateCandidate(
     if (settleDropped) {
       return {
         status: 'pinned',
-        reason: 'Its catalog was removed from this Orca host, so it no longer updates.'
+        reason: 'Its catalog was removed from this OpenKodo host, so it no longer updates.'
       }
     }
     throw installFailed(
-      `${entry.pluginKey} was installed from a catalog that is no longer on this Orca host.`,
+      `${entry.pluginKey} was installed from a catalog that is no longer on this OpenKodo host.`,
       { pluginKey: entry.pluginKey }
     )
   }

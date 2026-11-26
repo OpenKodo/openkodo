@@ -1,4 +1,4 @@
-/** A start whose agent wasn't ready at its caller's budget: Orca watches on in this runtime, with no
+/** A start whose agent wasn't ready at its caller's budget: OpenKodo watches on in this runtime, with no
  *  brief typed, so a stop may end it and a restart fails it. */
 export const WORKER_AWAITING_AGENT_STAGE = 'awaiting_agent'
 

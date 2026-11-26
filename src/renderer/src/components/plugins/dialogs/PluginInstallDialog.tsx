@@ -200,7 +200,7 @@ export function PluginInstallDialog({
               <p className="text-xs leading-5 text-muted-foreground">
                 {t(
                   'auto.components.settings.PluginInstallDialog.localHelp',
-                  'The folder with orca-plugin.json'
+                  'The folder with openkodo-plugin.json'
                 )}
               </p>
             </TabsContent>
@@ -220,7 +220,7 @@ export function PluginInstallDialog({
                 }}
                 placeholder={t(
                   'auto.components.settings.PluginInstallDialog.gitPlaceholder',
-                  'https://github.com/acme/orca-notes'
+                  'https://github.com/acme/openkodo-notes'
                 )}
                 spellCheck={false}
                 aria-invalid={kind === 'git' && Boolean(error)}
@@ -235,7 +235,7 @@ export function PluginInstallDialog({
                 <p className="text-xs leading-5 text-muted-foreground">
                   {t(
                     'auto.components.settings.PluginInstallDialog.gitHelp',
-                    'Paste a repository, release, or tag link. Without #tag or #commit, Orca uses the latest version tag.'
+                    'Paste a repository, release, or tag link. Without #tag or #commit, OpenKodo uses the latest version tag.'
                   )}
                 </p>
               )}

@@ -3,7 +3,7 @@ import type { agentPickerLaunchInputs } from '../../../../../../shared/agent-lau
 import { toAgentLaunchPreferences } from '../../../../../../shared/agent-launch/choices/agent-launch-preferences'
 import { pickApprovedSetupHashes } from '../../../../../../shared/worktree/creation/approved-setup-hashes'
 import type { TuiAgent } from '../../../../../../shared/agent-launch/catalog/tui-agent'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import type {
   CreateWorktreeArgs,
   CreateWorktreeResult
@@ -175,7 +175,7 @@ export function buildRuntimeWorktreeCreateParams(
         ? { parentWorkspaceOrigin: 'manual' }
         : {}),
     // Switch point: a host lists the window's creation under its id only on the dark path.
-    ...(ORCA_SIDEBAR_INPUTS_IS_MAIN && request.creationId
+    ...(OPENKODO_SIDEBAR_INPUTS_IS_MAIN && request.creationId
       ? { creationId: request.creationId }
       : {}),
     ...(options?.startupDraft ? { startupDraft: options.startupDraft } : {}),

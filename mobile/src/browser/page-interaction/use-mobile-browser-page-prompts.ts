@@ -31,7 +31,7 @@ function phoneCanOpen(url: string | undefined): url is string {
 }
 
 function downloadNotice(event: PageEvent): string | null {
-  // A feature in Orca took it (e.g. Google setup): name that, never its private file.
+  // A feature in OpenKodo took it (e.g. Google setup): name that, never its private file.
   const claimed = event.download?.claimLabel
   const saved = event.download?.savePath
   const path = typeof claimed === 'string' ? claimed : typeof saved === 'string' ? saved : ''

@@ -3,7 +3,7 @@ import { BOT_ITEM_MAIL_SENDER } from '../../../../../shared/bots/bot-item-note-r
 
 export type OrcaAuthoredMail = 'item-mail' | 'bot-request'
 
-/** The sender and payload of mail some caller wrote: it may not pose as Orca's own item mail or
+/** The sender and payload of mail some caller wrote: it may not pose as OpenKodo's own item mail or
  *  carry a bot request's field, which make a receiver admit the payload's image paths. */
 export function callerMailProvenance(msg: {
   from: string
@@ -17,7 +17,7 @@ export function callerMailProvenance(msg: {
   if (from === BOT_ITEM_MAIL_SENDER) {
     throw new OrchestrationError(
       'invalid_argument',
-      `${BOT_ITEM_MAIL_SENDER} is Orca's own sender.`
+      `${BOT_ITEM_MAIL_SENDER} is OpenKodo's own sender.`
     )
   }
   if (orcaAuthored === 'bot-request' || !payload) {

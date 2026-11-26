@@ -106,7 +106,7 @@ export async function structuredAgentHostAlternativeReady(
 }
 
 /** Admission's answer in the workspace `cwd` names: only a too-old or unstartable binary keeps the
- *  terminal, or, where Orca installs no release, a host program that cannot serve the chat. A too-old
+ *  terminal, or, where OpenKodo installs no release, a host program that cannot serve the chat. A too-old
  *  release names itself, so a refusal can say which version chats need. */
 export async function structuredAgentLaunchAdmission(
   agent: string,

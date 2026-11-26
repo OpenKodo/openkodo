@@ -27,7 +27,7 @@ import { artifactRequest, artifactWriteBody } from './artifact-cloud-request'
 import { ArtifactPublisher } from './artifact-publisher'
 import { OrcaCloudRequestError } from '../orca-profiles/cloud-auth/profile-cloud-client'
 import { isTeamFeatureBlocked } from '../orca-profiles/cloud-auth/active-team-capabilities'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
 
 import {
   type ArtifactAuthContext,
@@ -124,7 +124,7 @@ export class ArtifactCloudService {
           auth.scope
         )
         if (!record) {
-          throw new Error('This file has not been shared from the active Orca profile.')
+          throw new Error('This file has not been shared from the active OpenKodo profile.')
         }
         return this.publisher.runForSlug(record.slug, auth, async () => {
           auth.assertCanSend()
@@ -167,7 +167,7 @@ export class ArtifactCloudService {
           auth.scope
         )
         if (!record) {
-          throw new Error('This file has not been shared from the active Orca profile.')
+          throw new Error('This file has not been shared from the active OpenKodo profile.')
         }
         return this.publisher.runForSlug(record.slug, auth, async () => {
           auth.assertCanSend()
@@ -205,7 +205,7 @@ export class ArtifactCloudService {
     operation: (token: string, apiUrl: string, auth: ArtifactAuthContext) => Promise<T>
   ): Promise<ArtifactCloudOperation<T>> {
     const assertAllowed = (): void => {
-      if (isTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)) {
+      if (isTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)) {
         throw new Error('Artifact sharing is turned off by your team.')
       }
       assertArtifactSharingAllowed(this.isSharingEnabled)

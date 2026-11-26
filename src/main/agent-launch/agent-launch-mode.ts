@@ -21,7 +21,7 @@ import type { AgentLaunchSurface } from '../../shared/agent-launch/contracts/age
 import { formatAgentTypeLabel } from '../../shared/agent-status/presentation/agent-type-label'
 import { AgentLaunchSurfaceUnavailableError } from './agent-launch-surface-refusal'
 import {
-  CHATS_WITHOUT_ORCA_IDENTITY,
+  CHATS_WITHOUT_OPENKODO_IDENTITY,
   DOWNGRADE_DETAIL,
   LINEAGE_CHATS,
   chatPreferenceOf,
@@ -146,7 +146,7 @@ export function decideAgentLaunchMode(args: {
   if (placement.callerRendersStructured === false) {
     return blocked(BLOCKER_REASON['client-capability'])
   }
-  if (preference === 'lineage' && CHATS_WITHOUT_ORCA_IDENTITY.includes(agent)) {
+  if (preference === 'lineage' && CHATS_WITHOUT_OPENKODO_IDENTITY.includes(agent)) {
     return blocked('chat_cannot_run_orca_commands')
   }
   if (preference === 'lineage') {

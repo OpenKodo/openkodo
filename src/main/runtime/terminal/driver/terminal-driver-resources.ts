@@ -45,7 +45,7 @@ import {
 } from '../../browser/tabs/browser-host-workspaces'
 import { readSavedBrowserPageAnnotations } from '../../browser/tabs/browser-tab-annotations'
 import type { ServeBrowserPageState } from '../../browser/headless/serve-browser-tab-layout'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LayoutCommand } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 
 export abstract class OrcaRuntimeWithTerminalDrivers extends OrcaRuntimeWithFitOverrideListeners {
@@ -160,7 +160,7 @@ export abstract class OrcaRuntimeWithTerminalDrivers extends OrcaRuntimeWithFitO
     hostId: (worktreeId) => this.getWorkspaceSessionHostIdForWorktree(worktreeId),
     save: (worktreeId, session) => this.setWorkspaceSessionForWorktree(worktreeId, session),
     // Switch point: a layout-owner build writes served tabs through `layout.apply`.
-    ...(ORCA_LAYOUT_OWNER_IS_MAIN
+    ...(OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? {
           applyLayout: async (command: LayoutCommand, hostId: ExecutionHostId) => {
             const store = this.requireStore()

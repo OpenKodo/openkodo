@@ -62,7 +62,7 @@ export type EphemeralVmProvisionIpcResult =
       connectionType: 'ssh'
       runtime: EphemeralVmProvisionedRuntimeRecord
       sshTargetId: string
-      /** The managed Orca server the host runs; its workspace lives there. */
+      /** The managed OpenKodo server the host runs; its workspace lives there. */
       environmentId?: string
       expectedRefHead?: string
       stderr: string

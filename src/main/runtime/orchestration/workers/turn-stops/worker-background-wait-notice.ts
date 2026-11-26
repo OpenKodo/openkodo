@@ -1,9 +1,9 @@
 /** How long a worker may wait on its own background task, its turn over, before its coordinator hears. */
 const WORKER_BACKGROUND_WAIT_NOTICE_MS = 20 * 60_000
 
-/** The notice bound; a test rig shortens it with ORCA_WORKER_BACKGROUND_WAIT_NOTICE_MS. */
+/** The notice bound; a test rig shortens it with OPENKODO_WORKER_BACKGROUND_WAIT_NOTICE_MS. */
 export function workerBackgroundWaitNoticeMs(): number {
-  const override = Number(process.env.ORCA_WORKER_BACKGROUND_WAIT_NOTICE_MS)
+  const override = Number(process.env.OPENKODO_WORKER_BACKGROUND_WAIT_NOTICE_MS)
   return Number.isFinite(override) && override > 0 ? override : WORKER_BACKGROUND_WAIT_NOTICE_MS
 }
 

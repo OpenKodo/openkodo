@@ -47,7 +47,7 @@ export type WiredBot = Bot
 export function botStructuredSessionWiring(deps: {
   /** The host's bots, and its projects, which bots link for skills. */
   store: () => { getBots?: () => readonly Bot[]; getRepos: () => readonly Repo[] }
-  /** First-run setup's end, and each bot's MEMORY.md as Orca last recorded it. */
+  /** First-run setup's end, and each bot's MEMORY.md as OpenKodo last recorded it. */
   bots: Pick<BotController, 'endFirstRun' | 'memory'>
   /** The bot's chats as a turn end reads them. */
   chats: BotChatJournal
@@ -68,7 +68,7 @@ export function botStructuredSessionWiring(deps: {
   pairedBotRosters?: (servers: ReadonlySet<string>) => Promise<readonly KnownPairedBotRoster[]>
   /** A paired computer's name while it is connected; null otherwise. */
   clientName?: (installationId: string) => string | null
-  /** Moves saved values an older Orca left behind out of reach; a launch waits for it. */
+  /** Moves saved values an older OpenKodo left behind out of reach; a launch waits for it. */
   scrubToolSecrets?: (bot: Bot) => Promise<void>
 }): Required<
   Pick<

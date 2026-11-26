@@ -32,7 +32,7 @@ import type { StandInMessage } from './bot-orchestration-eval-mail'
 /** Another bot as the stand-in keeps it. */
 export type StandInBot = EvalHostState['bots'][number]
 
-/** Who this turn is for, as Orca recorded the message that started it: the owner in their own Chat,
+/** Who this turn is for, as OpenKodo recorded the message that started it: the owner in their own Chat,
  *  else the person (the owner too) the cloud stamped on the thread's message, or whom the waking
  *  request was for. */
 export function evalAskers(state: EvalHostState): BotRequestAsker[] {
@@ -158,7 +158,7 @@ export function sendToBot(
   }
 }
 
-/** A bot request in the bot's own mail, as Orca writes it for the receiving bot. */
+/** A bot request in the bot's own mail, as OpenKodo writes it for the receiving bot. */
 export function botRequestMail(input: {
   id: string
   from: StandInBot
@@ -183,7 +183,7 @@ export function botRequestMail(input: {
   }
 }
 
-/** Another bot's answer to a request this bot sent it, as Orca writes it for the sender. */
+/** Another bot's answer to a request this bot sent it, as OpenKodo writes it for the sender. */
 export function botAnswerMail(input: {
   id: string
   from: StandInBot
@@ -207,7 +207,7 @@ export function botAnswerMail(input: {
   }
 }
 
-/** Orca's word that a request ended with no answer, as the sender reads it. */
+/** OpenKodo's word that a request ended with no answer, as the sender reads it. */
 export function botUnansweredMail(input: {
   id: string
   from: StandInBot

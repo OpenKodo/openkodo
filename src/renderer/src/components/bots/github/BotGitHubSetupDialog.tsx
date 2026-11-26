@@ -75,7 +75,7 @@ function BotGitHubSetupFlow({
 }): React.JSX.Element {
   const t = useTranslate()
   const view = useBotGitHub(bot.hostId)
-  // The sign-in this setup starts was for turning the bot on: once it links where Orca is installed,
+  // The sign-in this setup starts was for turning the bot on: once it links where OpenKodo is installed,
   // the bot turns on with no second click. A link from any other surface or setup doesn't count.
   const signIn = useResumeAfterConnect(bot.hostId, 'github', {
     owner: gitHubSetupOwner(record.bot),
@@ -201,7 +201,7 @@ function BotGitHubSetupFlow({
             step.kind === 'connect' ||
             step.kind === 'waiting' ||
             step.kind === 'install' ||
-            // Still following a trip to GitHub (Orca's browser or the system one): × must not drop it.
+            // Still following a trip to GitHub (OpenKodo's browser or the system one): × must not drop it.
             record.waiting ||
             awaiting
           }
@@ -257,7 +257,7 @@ function BotGitHubSetupFlow({
               </p>
               <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Lock className="size-3.5 shrink-0" />
-                {t('bots.github.connect.readsOnly', 'Orca only reads your GitHub username and id.')}
+                {t('bots.github.connect.readsOnly', 'OpenKodo only reads your username and id.')}
               </p>
             </div>
             {step.error ? (
@@ -288,11 +288,11 @@ function BotGitHubSetupFlow({
               {step.requested
                 ? t(
                     'bots.github.connect.requested',
-                    'An owner of the organization has been asked to approve the Orca app.'
+                    'An owner of the organization has been asked to approve the OpenKodo app.'
                   )
                 : t(
                     'bots.github.connect.notInstalled',
-                    'The Orca app is not on any of your repositories yet.'
+                    'The OpenKodo app is not on any of your repositories yet.'
                   )}
             </p>
             {trip.inSystemBrowser ? (
@@ -367,7 +367,7 @@ function BotGitHubSetupFlow({
   )
 }
 
-/** "Add connector → GitHub": one browser trip signs in and installs the Orca app, then the bot is turned on.
+/** "Add connector → GitHub": one browser trip signs in and installs the OpenKodo app, then the bot is turned on.
  *  Rendered from the saved record: minimizing closes it, overlay and all, and Expand builds it again. */
 export function BotGitHubSetupDialog({
   bot,

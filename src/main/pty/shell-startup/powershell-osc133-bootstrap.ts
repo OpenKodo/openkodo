@@ -4,13 +4,13 @@ import { getPowerShellAgentWrappers } from '../../../shared/shell/launch/agents/
 
 // Inline scripts work under Restricted/AllSigned policies that block dot-sourced files.
 // EncodedCommand preserves quoting for appended cwd/startup commands; AMSI and script logging still decode it.
-const POWERSHELL_OSC133_BOOTSTRAP = `# Orca OSC 133 shell integration for PowerShell.
+const POWERSHELL_OSC133_BOOTSTRAP = `# OpenKodo OSC 133 shell integration for PowerShell.
 # Profiles have already loaded normally by the time -EncodedCommand runs.
 # Restore managed ownership before the shell-integration compatibility guard.
-if ($env:ORCA_OPENCODE_CONFIG_DIR) { $env:OPENCODE_CONFIG_DIR = $env:ORCA_OPENCODE_CONFIG_DIR }
+if ($env:OPENKODO_OPENCODE_CONFIG_DIR) { $env:OPENCODE_CONFIG_DIR = $env:OPENKODO_OPENCODE_CONFIG_DIR }
 ${MANAGED_DATA_ACCOUNT_POWERSHELL_RESTORE}
-if ($env:ORCA_MIMOCODE_CONFIG_DIR) { $env:MIMOCODE_CONFIG_DIR = $env:ORCA_MIMOCODE_CONFIG_DIR }
-if ($env:ORCA_CODEX_HOME) { $env:CODEX_HOME = $env:ORCA_CODEX_HOME }
+if ($env:OPENKODO_MIMOCODE_CONFIG_DIR) { $env:MIMOCODE_CONFIG_DIR = $env:OPENKODO_MIMOCODE_CONFIG_DIR }
+if ($env:OPENKODO_CODEX_HOME) { $env:CODEX_HOME = $env:OPENKODO_CODEX_HOME }
 
 if ($ExecutionContext.SessionState.LanguageMode -eq "FullLanguage" -and
     ((-not (Test-Path variable:global:__OrcaOsc133State)) -or

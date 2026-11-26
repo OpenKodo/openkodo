@@ -9,7 +9,7 @@ import {
   recordPtySurface,
   SURFACE_CLAIM_WITHOUT_STANDING
 } from '../../terminal/surface/pty-recorded-surface-topology'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { WindowLayoutCommand } from '../../terminal/layout/runtime-layout-apply'
 import {
   placeUnshownLiveTerminals,
@@ -80,7 +80,7 @@ export abstract class OrcaRuntimeWithRestoredTerminalPlacement extends LegacyWor
   /** Place this workspace's unshown terminals before the window sweep reads its listing. */
   async placeUnshownLiveTerminalsOf(worktreeSelector: string): Promise<void> {
     const worktreeId = getExplicitWorktreeIdSelector(worktreeSelector)
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || !worktreeId) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !worktreeId) {
       return
     }
     try {
@@ -93,7 +93,7 @@ export abstract class OrcaRuntimeWithRestoredTerminalPlacement extends LegacyWor
   /** First-surface creation waits for the current applicable pass, excluding queued passes. Cap at FIRST_SURFACE_PLACEMENT_WAIT_MS; slower placement may leave an extra tab. */
   protected livePlacementSettledFor(command: WindowLayoutCommand): Promise<unknown> | null {
     const pass = this.placementPass
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || !('initial' in command) || !command.initial || !pass) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !('initial' in command) || !command.initial || !pass) {
       return null
     }
     // A sweep's pass places only its own workspace's terminals: another workspace waits for none.

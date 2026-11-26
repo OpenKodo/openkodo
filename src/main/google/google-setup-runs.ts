@@ -54,9 +54,9 @@ export type GoogleSetupChange =
     }
   | { action: 'answer'; card: GoogleSetupCard; values: string[] }
   | { action: 'done' }
-  /** Orca's own reading that the key didn't arrive; never sent by a bot. */
+  /** OpenKodo's own reading that the key didn't arrive; never sent by a bot. */
   | { action: 'key-missed'; reason?: string }
-  /** Orca's own reading that a working sign-in shows these steps finished; never sent by a bot. */
+  /** OpenKodo's own reading that a working sign-in shows these steps finished; never sent by a bot. */
   | { action: 'finished-outside'; steps: GoogleSetupStep[] }
   | { action: 'fail'; error: string }
   | { action: 'cancel'; runId?: string }

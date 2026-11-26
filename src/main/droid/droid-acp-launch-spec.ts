@@ -33,7 +33,7 @@ export const DROID_LAUNCH_SPEC: AcpLaunchSpec = {
   account: directoryAccountBinding('FACTORY_HOME_OVERRIDE', (homePath) => homePath),
   // The install script's default prefix.
   installDirectories: ({ homePath }) => [join(homePath, '.local', 'bin')],
-  // 0.236.0 first reports its autonomy level as a config option Orca can set and confirm.
+  // 0.236.0 first reports its autonomy level as a config option OpenKodo can set and confirm.
   minimumVersions: ['0.236.0'],
   // Droid enforces its autonomy levels and starts on its own default (Auto (Medium)) until one is set.
   permissionModeConfig: {

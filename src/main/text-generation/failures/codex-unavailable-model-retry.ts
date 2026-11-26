@@ -57,7 +57,7 @@ function userArgsPassModel(params: RetryParams, spec: CommitMessageAgentSpec): b
   })
 }
 
-/** Orca's built-in Codex default can be missing from a custom provider; rerun once on Codex's configured model. */
+/** OpenKodo's built-in Codex default can be missing from a custom provider; rerun once on Codex's configured model. */
 export function codexUnavailableModelRetryPlan<T extends GenerationArgument>(
   plan: CommitMessagePlan<T>,
   params: RetryParams,
@@ -78,7 +78,7 @@ export function codexUnavailableModelRetryPlan<T extends GenerationArgument>(
   if (!model || model.value !== params.model) {
     return null
   }
-  // Codex's buildArgs puts Orca's effort right after its --model; recipe or override effort is kept.
+  // Codex's buildArgs puts OpenKodo's effort right after its --model; recipe or override effort is kept.
   const modelEnd = model.index + model.consumed
   const orcaEffort =
     params.thinkingLevel !== undefined &&

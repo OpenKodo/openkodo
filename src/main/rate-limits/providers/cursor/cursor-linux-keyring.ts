@@ -11,7 +11,7 @@ export type CursorLinuxKeyringRead =
 
 const READ_ERROR = 'Unable to read the Cursor login from the Linux keyring'
 const LOCKED_ERROR =
-  "Orca couldn't read the Cursor login from your Linux keyring (locked or access not granted)."
+  "OpenKodo couldn't read the Cursor login from your Linux keyring (locked or access not granted)."
 
 /** Returns cursor-agent's stored credentials JSON without asking the keyring to unlock. */
 export async function readCursorLinuxKeyringSecret(): Promise<CursorLinuxKeyringRead> {

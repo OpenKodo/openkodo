@@ -1,6 +1,6 @@
 import type { FsChangedPayload } from '../../../../../shared/file-watch/filesystem-change-event'
 
-export const ORCA_WORKTREE_FILE_CHANGE_EVENT = 'orca:worktree-file-change'
+export const OPENKODO_WORKTREE_FILE_CHANGE_EVENT = 'orca:worktree-file-change'
 
 export type WorktreeFileChangeEventDetail = {
   payload: FsChangedPayload

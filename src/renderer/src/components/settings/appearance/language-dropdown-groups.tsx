@@ -14,7 +14,7 @@ import type {
   SettingsSearchableSelectOption
 } from '../form-controls/SettingsSearchableSelect'
 
-const COMMUNITY_TRANSLATIONS_URL = 'https://orca.dev/plugins?kind=translations'
+const COMMUNITY_TRANSLATIONS_URL = 'https://openkodo.dev/plugins?kind=translations'
 
 /** Prefix for a catalog pack's dropdown value: choosing it installs, not switches. */
 export const INSTALL_LANGUAGE_VALUE_PREFIX = 'install-language:'
@@ -92,7 +92,7 @@ export function languageDropdownGroups({
               label: t('languages.browseOnline', 'Browse'),
               ariaLabel: t(
                 'languages.browseOnlineLabel',
-                'Browse community translations on orca.dev (opens in your browser)'
+                'Browse community translations on openkodo.dev (opens in your browser)'
               ),
               icon: <ExternalLink className="size-3" />,
               onSelect: () => openAppHttpLink(COMMUNITY_TRANSLATIONS_URL, { destination: 'system' })

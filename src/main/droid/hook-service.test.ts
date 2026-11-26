@@ -67,7 +67,7 @@ describe('Droid managed hooks', () => {
     'adds %s managed hooks to hooks.json only for events it defines',
     async (target) => {
       const staleOrca = {
-        hooks: [{ type: 'command', command: '/old/.orca/agent-hooks/droid-hook.sh' }]
+        hooks: [{ type: 'command', command: '/old/.openkodo/agent-hooks/droid-hook.sh' }]
       }
       const settingsHooks = { Stop: [...USER_STOP, staleOrca], PreToolUse: USER_GUARD }
       writeFileSync(settingsPath, JSON.stringify({ model: 'x', hooks: settingsHooks }))
@@ -88,7 +88,7 @@ describe('Droid managed hooks', () => {
         Stop: [USER_STOP[0], {}],
         PreToolUse: [USER_GUARD[0], {}]
       })
-      // Uninstall must disclose hooks.json while it carries Orca's entries.
+      // Uninstall must disclose hooks.json while it carries OpenKodo's entries.
       expect(droidHookService.getStatus()).toMatchObject({
         state: 'installed',
         additionalConfigPaths: [hooksPath]
@@ -130,7 +130,7 @@ describe('Droid managed hooks', () => {
       text: '{ // audit\n "Stop": [] }',
       state: 'partial',
       detail: (path: string): string | null =>
-        `Managed hook missing for events: Stop; ${path} has comments; Orca cannot edit it`
+        `Managed hook missing for events: Stop; ${path} has comments; OpenKodo cannot edit it`
     },
     { name: 'malformed', text: '{ "Stop": [', state: 'installed', detail: () => null }
   ])('installs settings.json hooks beside a $name hooks.json', async ({ text, state, detail }) => {
@@ -147,7 +147,7 @@ describe('Droid managed hooks', () => {
     expect(readJson(settingsPath)).toEqual({ hooks: { Stop: USER_STOP } })
   })
 
-  // Droid rejects a hooks.json whose event is not an array, so Orca must not repair it into use.
+  // Droid rejects a hooks.json whose event is not an array, so OpenKodo must not repair it into use.
   it('leaves a non-array hooks.json event alone', () => {
     writeFileSync(settingsPath, '{}')
     writeFileSync(hooksPath, JSON.stringify({ Stop: null }))

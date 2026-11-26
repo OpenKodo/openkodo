@@ -150,7 +150,7 @@ export function BotShareUpdatedLine({
   )
 }
 
-/** Orca Cloud didn't answer, so whether the bot has a link is unknown; Publish waits on Retry. */
+/** OpenKodo Cloud didn't answer, so whether the bot has a link is unknown; Publish waits on Retry. */
 export function BotShareOfflineRow({
   error,
   onRetry

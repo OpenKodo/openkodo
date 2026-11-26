@@ -93,7 +93,7 @@ export function prepareComputerCliJsonResult<TResult>(
 }
 
 const COMPUTER_SCREENSHOT_TEMP_DIR = {
-  envVar: 'ORCA_COMPUTER_SCREENSHOT_TMPDIR',
+  envVar: 'OPENKODO_COMPUTER_SCREENSHOT_TMPDIR',
   dirName: 'orca-computer-use'
 }
 
@@ -170,7 +170,7 @@ function formatComputerFollowUpCommand(
   target: ComputerActionFollowUpTarget
 ): string {
   const args = [
-    'orca',
+    'openkodo',
     'computer',
     'get-app-state',
     '--app',

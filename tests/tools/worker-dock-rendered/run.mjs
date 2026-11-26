@@ -19,7 +19,7 @@ import path from 'node:path'
 
 const base = process.argv[2] ?? 'http://127.0.0.1:5600'
 const shots = process.argv[3]
-const filter = process.env.ORCA_WORKER_DOCK_TEST_FILTER
+const filter = process.env.OPENKODO_WORKER_DOCK_TEST_FILTER
 const FIXTURE = 'native-chat/tools/tasks/dock/WorkerDockHarness'
 
 const { browser, results, warmPage, open, check, assert, scene } = await createFixtureSession({
@@ -626,6 +626,6 @@ await browser.close()
 const failed = results.filter((result) => !result.ok).length
 console.log(`${results.length - failed} passed, ${failed} failed`)
 if (!results.length) {
-  console.error(`No check matches ORCA_WORKER_DOCK_TEST_FILTER=${filter}`)
+  console.error(`No check matches OPENKODO_WORKER_DOCK_TEST_FILTER=${filter}`)
 }
 process.exitCode = failed || !results.length ? 1 : 0

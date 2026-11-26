@@ -85,7 +85,7 @@ export async function readStructuredMailAdmitFacts(
   }
 }
 
-/** Send admission queues agent mail behind a usage-limited last turn; say whether Orca will lift it. */
+/** Send admission queues agent mail behind a usage-limited last turn; say whether OpenKodo will lift it. */
 async function readFailedTurnHold(
   host: NonNullable<ReturnType<typeof getStructuredAgentSessionHost>>,
   sessionId: string

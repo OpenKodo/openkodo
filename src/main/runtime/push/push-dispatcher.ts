@@ -182,7 +182,7 @@ export class PushDispatcher {
           notificationEpoch: target.notificationEpoch,
           source: 'agent-task-complete',
           agentState: null,
-          title: 'Orca',
+          title: 'OpenKodo',
           body: '',
           sound: false
         }

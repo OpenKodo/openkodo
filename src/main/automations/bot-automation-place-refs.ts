@@ -1,5 +1,5 @@
 // A bot automation's places (each rule's in= and subject, and where its results post) as refs, where
-// the host's Orca Cloud takes them; else as the ids and keys an older cloud matches by name.
+// the host's OpenKodo Cloud takes them; else as the ids and keys an older cloud matches by name.
 import {
   isConnectorTrigger,
   withTriggerNames,
@@ -29,9 +29,9 @@ import {
 export type BotPlaces = { on?: AutomationEventTrigger[]; resultsTo?: AutomationBotResultsTo }
 type ResultPlace = Extract<AutomationBotResultsTo, object>
 
-const NO_LOOKUP = "this computer's Orca Cloud can't look up names and links yet"
+const NO_LOOKUP = "this computer's cloud service can't look up names and links yet"
 const RUN_REPO_LOOKUP =
-  "github.workflow_finished needs this computer's Orca Cloud to look up the run's repo, and it can't now: try again once it's connected."
+  "github.workflow_finished needs this computer's cloud service to look up the run's repo, and it can't now: try again once it's connected."
 
 /**
  * One value as a ref, through the cloud. Where it can't say (no cloud that takes refs, a bot it

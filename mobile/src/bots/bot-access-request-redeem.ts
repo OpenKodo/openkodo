@@ -23,7 +23,7 @@ const accessRequestRedeem = bindDeferredRpcOperation(
   })
 )
 
-/** Asks one host to open an owner's "Review in Orca" link; the host spends the token only for a bot it has. */
+/** Asks one host to open an owner's "Review in OpenKodo" link; the host spends the token only for a bot it has. */
 export async function redeemBotAccessRequest(
   client: RpcClient,
   token: string

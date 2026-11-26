@@ -6,7 +6,7 @@ if (process.type === 'renderer') {
     set: (level) => webFrame.setZoomLevel(level)
   })
 } else {
-  if (process.env.ORCA_BACKGROUND_LAUNCH !== '1') {
+  if (process.env.OPENKODO_BACKGROUND_LAUNCH !== '1') {
     throw new Error('Native proof requires background launch')
   }
   if (process.platform === 'darwin') {

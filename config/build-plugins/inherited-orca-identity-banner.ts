@@ -3,8 +3,8 @@
 import type { Plugin } from 'vite'
 import {
   AGENT_TEAMS_TEAM_ID_ENV,
-  INHERITED_ORCA_IDENTITY_ENV_KEYS,
-  INHERITED_ORCA_TEAM_ENV_KEYS
+  INHERITED_OPENKODO_IDENTITY_ENV_KEYS,
+  INHERITED_OPENKODO_TEAM_ENV_KEYS
 } from '../../src/main/ipc/pty/host-env/inherited-orca-identity-env'
 
 /** Built entries that start children: the desktop/serve main and the terminal daemon. */
@@ -18,9 +18,12 @@ export function createInheritedOrcaIdentityDropBanner(): string {
 ;(() => {
   const env = process.env
   if (env[${JSON.stringify(AGENT_TEAMS_TEAM_ID_ENV)}]) {
-    for (const key of ${JSON.stringify(INHERITED_ORCA_TEAM_ENV_KEYS)}) delete env[key]
+    for (const key of ${JSON.stringify(INHERITED_OPENKODO_TEAM_ENV_KEYS)}) delete env[key]
   }
-  for (const key of ${JSON.stringify(INHERITED_ORCA_IDENTITY_ENV_KEYS)}) delete env[key]
+  for (const key of ${JSON.stringify(INHERITED_OPENKODO_IDENTITY_ENV_KEYS)}) delete env[key]
+  // A host started by an older build may carry the same identity under the legacy prefix;
+  // the startup alias would otherwise copy it back in.
+  for (const key of Object.keys(env)) if (key.startsWith('OPENKODO_')) delete env[key]
 })();
 `
 }

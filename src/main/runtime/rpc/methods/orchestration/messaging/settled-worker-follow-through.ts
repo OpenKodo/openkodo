@@ -78,7 +78,7 @@ async function continueUnreadMail(
   }
   const worker = db.getWorkerDispatch(dispatchId)
   if (worker?.state === 'stopped') {
-    // Orca does not restart a stopped worker on its own; the next send carries its mail.
+    // OpenKodo does not restart a stopped worker on its own; the next send carries its mail.
     return
   }
   if (
@@ -92,12 +92,16 @@ async function continueUnreadMail(
         runtime,
         db,
         dispatchId,
-        'Orca restarted while its follow-up was starting'
+        'OpenKodo restarted while its follow-up was starting'
       )
       return
     }
     // Interrupted before it placed an agent, so nothing runs and the start can be retried.
-    db.failWorkerStart(dispatchId, worker.stage, 'Orca restarted before this follow-up started.')
+    db.failWorkerStart(
+      dispatchId,
+      worker.stage,
+      'OpenKodo restarted before this follow-up started.'
+    )
   }
   if (custodyOf(db, dispatchId) === 'reported' && !hasNewUnreadFollowUpMail(db, dispatchId)) {
     // Kept marked, so the coordinator's next send carries it; another short Task would only repeat this one.
@@ -261,7 +265,7 @@ function noticeUnreadMailNotContinued(
       mailbox: () => dispatchReportMailbox(db, dispatch),
       describe: (task) => ({
         subject: 'Mail did not reach the finished worker',
-        body: `Orca could not continue the worker of ${task} with the mail it had not read before reporting: ${reason}. The mail is kept for your next send to dispatch:${dispatchId}.`
+        body: `OpenKodo could not continue the worker of ${task} with the mail it had not read before reporting: ${reason}. The mail is kept for your next send to dispatch:${dispatchId}.`
       }),
       payload: { dispatchId, reason }
     },
@@ -311,7 +315,7 @@ export function continueAllUnreadWorkerMail(
   }
 }
 
-/** The sender continues as itself: a session as its session, a paired Orca as the coordinator of its Run. */
+/** The sender continues as itself: a session as its session, a paired OpenKodo as the coordinator of its Run. */
 function senderCaller(
   db: OrchestrationDb,
   message: { from_handle: string; run_id: string }

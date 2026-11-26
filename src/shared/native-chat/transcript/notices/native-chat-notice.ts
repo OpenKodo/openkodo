@@ -6,7 +6,7 @@ import {
   isAgentSessionHostStatusPresentation,
   type AgentSessionHostStatusPresentation
 } from '../../../agent-session/view/agent-session-host-status-rows'
-import { AGENT_SESSION_ORCA_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-orca-stop'
+import { AGENT_SESSION_OPENKODO_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-orca-stop'
 import { NATIVE_CHAT_STOPPED_BEFORE_START_PRESENTATION } from '../pending-sends/native-chat-stopped-before-start'
 import { AGENT_SESSION_FORKED_FROM_PRESENTATION } from '../../../agent-session/lifecycle/records/agent-session-fork'
 import type { NativeChatBlock, NativeChatTextBlock } from '../../native-chat-types'
@@ -102,8 +102,8 @@ export function nativeChatNoticeLook(block: NativeChatTextBlock): NativeChatNoti
   if (presentation === NATIVE_CHAT_STOPPED_BEFORE_START_PRESENTATION) {
     return { kind: 'aside' }
   }
-  // Orca stopped the reply, not the agent: stored red for clients that predate it, read as a notice.
-  if (presentation === AGENT_SESSION_ORCA_STOP_PRESENTATION) {
+  // OpenKodo stopped the reply, not the agent: stored red for clients that predate it, read as a notice.
+  if (presentation === AGENT_SESSION_OPENKODO_STOP_PRESENTATION) {
     return { kind: 'line', tone: 'notice' }
   }
   const modelFallback =

@@ -7,7 +7,7 @@ import type { RolloutName } from './codex-rollout-names'
 
 /**
  * An old session copy's own bytes, kept beside the name once its source was linked in. Only
- * Orca's runtime home ever held legacy copies, so no other home is searched.
+ * OpenKodo's runtime home ever held legacy copies, so no other home is searched.
  */
 export function legacyCopyAsideNames(managedHome: string, stem: string): RolloutName[] {
   const sessions = join(managedHome, 'sessions')

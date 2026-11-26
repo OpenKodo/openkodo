@@ -36,8 +36,8 @@ export async function launchProfileStateRecovery(
     cwd: resolveAppChildCwd(userDataPath),
     env: {
       ...stripElectronRunAsNode(process.env),
-      ORCA_BACKGROUND_LAUNCH: '1',
-      ORCA_USER_DATA_PATH: userDataPath
+      OPENKODO_BACKGROUND_LAUNCH: '1',
+      OPENKODO_USER_DATA_PATH: userDataPath
     },
     // Recovery may copy large backups; the lock owner must finish or be explicitly terminated.
     timeoutMs: null
@@ -52,7 +52,7 @@ export async function launchProfileStateRecovery(
     } catch {
       throw new RuntimeClientError(
         'runtime_error',
-        'Orca recovery returned an invalid response. Inspect retained recovery artifacts before retrying.'
+        'OpenKodo recovery returned an invalid response. Inspect retained recovery artifacts before retrying.'
       )
     }
     const result = profileStateRecoveryResponseSchema.safeParse(parsed)
@@ -67,7 +67,7 @@ export async function launchProfileStateRecovery(
   }
   throw new RuntimeClientError(
     'runtime_error',
-    'Orca recovery did not complete successfully. Inspect retained recovery artifacts before retrying.',
+    'OpenKodo recovery did not complete successfully. Inspect retained recovery artifacts before retrying.',
     {
       exitCode: response.code,
       signal: response.signal,

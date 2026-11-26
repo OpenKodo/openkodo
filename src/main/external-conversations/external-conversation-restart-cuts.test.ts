@@ -78,7 +78,7 @@ describe('restartCutTurnEnds', () => {
     expect(await ends({ cutByLastRun: new Set(['chat-2']) })).toEqual([])
   })
 
-  it('ends a turn the owner typed in Orca only once the Slack mirror posted it', async () => {
+  it('ends a turn the owner typed in OpenKodo only once the Slack mirror posted it', async () => {
     const typed: AgentJournalRenderItem = {
       ...delivered,
       body: { kind: 'message', role: 'user', blocks: [] }

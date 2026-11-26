@@ -1,4 +1,4 @@
-// The Slack mirror routes (`slack.mirror`): the owner's Orca-typed messages posted into the chat's
+// The Slack mirror routes (`slack.mirror`): the owner's OpenKodo-typed messages posted into the chat's
 // Slack thread under their name. Mirror of cloud/packages/connector-contract's slack-mirror messages.
 import * as z from 'zod'
 import { CONNECTOR_PATHS, type ConnectorConversation } from './connector-cloud-contract'
@@ -26,7 +26,7 @@ export type SlackMirrorPostBody = {
   /** fileIds staged under this clientMessageId by `…/mirror/files`. */
   files?: string[]
   /** Who typed it. host: at the bot's computer (the cloud posts as its account's person, or the
-   *  computer as the install says). account: a paired device on that Orca account. computer: a
+   *  computer as the install says). account: a paired device on that OpenKodo account. computer: a
    *  device that named none. An agent's posts as the bot. slackUserId is ignored. */
   author: {
     orcaName: string

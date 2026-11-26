@@ -9,7 +9,7 @@ import type { PublicKnownRuntimeEnvironment } from '../../../../../shared/remote
 import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
 import { BotSlackSetupDialog } from './BotSlackSetupDialog'
 
-// A bot on build-box (its own Orca account), set up from a desktop signed in as alex@example.com,
+// A bot on build-box (its own OpenKodo account), set up from a desktop signed in as alex@example.com,
 // whose own Release bot is already in Acme.
 const base: Bot = {
   id: 'bot-release',
@@ -54,7 +54,7 @@ type Scene = {
   server: ConnectorBotSlackState
   /** setUpApp's link lives this long from now; negative is already past. */
   expiresInMs?: number
-  /** The server's Orca account; the hand-off line shows only for another one. */
+  /** The server's OpenKodo account; the hand-off line shows only for another one. */
   serverEmail?: string
   mineInLabs?: boolean
   handOffPending?: boolean
@@ -62,7 +62,7 @@ type Scene = {
   long?: boolean
   /** This desktop's own account is read only after the step shows, so its offer arrives late. */
   signedInLate?: boolean
-  /** The server's hand-off refusal, from its Orca Cloud. */
+  /** The server's hand-off refusal, from its OpenKodo Cloud. */
   handOffError?: string
   /** The server dropped: every call to it fails, and its status says it is reconnecting, or gave up. */
   reconnecting?: 'retrying' | 'stopped'

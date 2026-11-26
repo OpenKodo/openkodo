@@ -45,7 +45,7 @@ export type JournalOperationWindowAnchors = {
   afterSequence?: number
   /** Every row observed at or after this time, with the turns that hold them. */
   observedSince?: number
-  /** A send still unanswered from before the anchors (one Orca died handing over) neither widens
+  /** A send still unanswered from before the anchors (one OpenKodo died handing over) neither widens
    *  the window nor comes along; later ones, and ones with no rows yet, still do. */
   anchorsOnly?: boolean
   /** With `latestTurns` alone: a read that would take the whole conversation's sends throws

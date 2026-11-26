@@ -18,7 +18,7 @@ const CHANNELS = [
   'browserExtensions:sidePanelShown'
 ] as const
 
-/** The renderer lays out the panels main opened; only the trusted Orca renderer may ask. */
+/** The renderer lays out the panels main opened; only the trusted OpenKodo renderer may ask. */
 export function registerBrowserExtensionSidePanelHandlers(): void {
   for (const channel of CHANNELS) {
     ipcMain.removeHandler(channel)

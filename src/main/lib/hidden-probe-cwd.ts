@@ -10,7 +10,7 @@ const WSL_HIDDEN_PROBE_CWD_DIR = 'orca-rate-limit-pty-cwd'
 
 // Never let hidden Claude discovery start at a filesystem root; bound cwd to userData or tmpdir (runaway-cpu-hidden-usage-pty-design.md).
 function resolveUserDataRoot(userDataPath?: string | null): string {
-  const root = userDataPath?.trim() || process.env.ORCA_USER_DATA_PATH?.trim()
+  const root = userDataPath?.trim() || process.env.OPENKODO_USER_DATA_PATH?.trim()
   if (root && !isRootLikePath(root)) {
     return root
   }

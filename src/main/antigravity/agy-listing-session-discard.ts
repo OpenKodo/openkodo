@@ -8,7 +8,7 @@ import { ANTIGRAVITY_CHAT_HOME_FOLDER } from './antigravity-chat-home'
 const SESSION_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const CONVERSATION_FILES = ['.db', '.db-wal', '.db-shm', '.db-journal']
 
-/** Where agy keeps sessions for each home a listing runs in: agy's own, Orca's, or the retired
+/** Where agy keeps sessions for each home a listing runs in: agy's own, OpenKodo's, or the retired
  *  server's, whose old chats agy runs in place. */
 const APP_DATA_FOLDERS: Record<string, string> = {
   '.gemini': 'antigravity-cli',

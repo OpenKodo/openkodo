@@ -19,7 +19,7 @@ import {
   mergeGitConfigEnvProtocol
 } from '../../../shared/git/commands/git-credential-prompt-env'
 import { TERMINAL_GIT_CREDENTIAL_GUARD_POLICY_ENV } from '../../../shared/shell/launch/terminal-git-credential-guard'
-import { ORCA_IMAGE_PROTOCOL_ENV } from '../../../shared/terminal/images/terminal-image-protocol'
+import { OPENKODO_IMAGE_PROTOCOL_ENV } from '../../../shared/terminal/images/terminal-image-protocol'
 import {
   expandWindowsEnvironmentVariables,
   expandWindowsPathEnvironmentVariables
@@ -32,14 +32,14 @@ import { ORCAD_SERVER_LAUNCH_ENV_KEYS } from '../../../shared/remote-runtime/ser
 import { stripInheritedAgentSessionEnv } from '../../../shared/agent-launch/startup/parent-agent-session-env'
 
 const PANE_IDENTITY_ENV_KEYS = [
-  'ORCA_PANE_KEY',
-  'ORCA_TAB_ID',
-  'ORCA_WORKTREE_ID',
-  'ORCA_AGENT_LAUNCH_TOKEN',
+  'OPENKODO_PANE_KEY',
+  'OPENKODO_TAB_ID',
+  'OPENKODO_WORKTREE_ID',
+  'OPENKODO_AGENT_LAUNCH_TOKEN',
   // Not identity but equally per-spawn: an inherited copy names another launch's CLI.
-  'ORCA_WSL_CLI_DIR',
+  'OPENKODO_WSL_CLI_DIR',
   'JCODE_RUNTIME_DIR',
-  // Per-viewer: an Orca started from a remote viewer's pane must not mark its own local panes.
+  // Per-viewer: an OpenKodo started from a remote viewer's pane must not mark its own local panes.
   REMOTE_VIEWER_CLIPBOARD_ENV,
   // A server's own launch env; a user's `orcad` in this shell is not that server.
   ...ORCAD_SERVER_LAUNCH_ENV_KEYS
@@ -64,29 +64,29 @@ function deleteRequestedDaemonEnvKeys(
   env: Record<string, string>,
   keys: readonly string[] | undefined
 ): void {
-  const userDataPath = process.env.ORCA_USER_DATA_PATH
+  const userDataPath = process.env.OPENKODO_USER_DATA_PATH
   if (userDataPath) {
     for (const key of getLegacyOpenCodeEnvKeysToDelete(env, userDataPath, {})) {
       delete env[key]
     }
   }
-  // Persistent daemon state may differ from Electron; remove CODEX_HOME only if its Orca overlay owns it.
+  // Persistent daemon state may differ from Electron; remove CODEX_HOME only if its OpenKodo overlay owns it.
   const deleteOrcaOwnedCodexHome =
-    keys?.includes('ORCA_CODEX_HOME') === true &&
-    env.ORCA_CODEX_HOME !== undefined &&
-    env.CODEX_HOME === env.ORCA_CODEX_HOME
+    keys?.includes('OPENKODO_CODEX_HOME') === true &&
+    env.OPENKODO_CODEX_HOME !== undefined &&
+    env.CODEX_HOME === env.OPENKODO_CODEX_HOME
   // A merged caller config can supersede the daemon's recorded overlay source.
   if (
-    keys?.includes('ORCA_OPENCODE_CONFIG_DIR') &&
+    keys?.includes('OPENKODO_OPENCODE_CONFIG_DIR') &&
     (env.OPENCODE_CONFIG_DIR === undefined ||
-      env.OPENCODE_CONFIG_DIR === env.ORCA_OPENCODE_CONFIG_DIR)
+      env.OPENCODE_CONFIG_DIR === env.OPENKODO_OPENCODE_CONFIG_DIR)
   ) {
     restoreOrStripOverlayEnv(
       env,
       {
         primary: 'OPENCODE_CONFIG_DIR',
-        overlay: 'ORCA_OPENCODE_CONFIG_DIR',
-        source: 'ORCA_OPENCODE_SOURCE_CONFIG_DIR'
+        overlay: 'OPENKODO_OPENCODE_CONFIG_DIR',
+        source: 'OPENKODO_OPENCODE_SOURCE_CONFIG_DIR'
       },
       {}
     )
@@ -144,7 +144,7 @@ function promoteAgentTeamsShimPath(
   env: Record<string, string>,
   requestedPath: string | undefined
 ): void {
-  if (!env.ORCA_AGENT_TEAMS_TEAM_ID || !requestedPath) {
+  if (!env.OPENKODO_AGENT_TEAMS_TEAM_ID || !requestedPath) {
     return
   }
   const normalizedRequestedPath =
@@ -166,9 +166,12 @@ function removeInheritedDevAgentHookEndpoint(
   env: Record<string, string>,
   explicitEnv: Record<string, string> | undefined
 ): void {
-  if (explicitEnv?.ORCA_AGENT_HOOK_ENV === 'development' && !explicitEnv.ORCA_AGENT_HOOK_ENDPOINT) {
+  if (
+    explicitEnv?.OPENKODO_AGENT_HOOK_ENV === 'development' &&
+    !explicitEnv.OPENKODO_AGENT_HOOK_ENDPOINT
+  ) {
     // Preserve explicit endpoints used by hooks that scrub token-like environment variables.
-    delete env.ORCA_AGENT_HOOK_ENDPOINT
+    delete env.OPENKODO_AGENT_HOOK_ENDPOINT
   }
 }
 
@@ -181,12 +184,12 @@ export function createDaemonPtyEnvironment(opts: PtySubprocessOptions): Record<s
     ...mergeGitConfigEnvProtocol(inheritedEnv, opts.env),
     TERM: 'xterm-256color',
     COLORTERM: 'truecolor',
-    TERM_PROGRAM: 'Orca',
-    TERM_PROGRAM_VERSION: process.env.ORCA_APP_VERSION ?? '0.0.0-dev',
+    TERM_PROGRAM: 'OpenKodo',
+    TERM_PROGRAM_VERSION: process.env.OPENKODO_APP_VERSION ?? '0.0.0-dev',
     FORCE_HYPERLINK: '1'
   } satisfies Record<string, string>
-  if (opts.env?.[ORCA_IMAGE_PROTOCOL_ENV] === undefined) {
-    delete env[ORCA_IMAGE_PROTOCOL_ENV]
+  if (opts.env?.[OPENKODO_IMAGE_PROTOCOL_ENV] === undefined) {
+    delete env[OPENKODO_IMAGE_PROTOCOL_ENV]
   }
   stripLegacyTerminalShimEnv(env, process.platform)
   stripInheritedAgentSessionEnv(env, { launchEnv: opts.env, envToDelete: opts.envToDelete })
@@ -204,8 +207,8 @@ export function createDaemonPtyEnvironment(opts: PtySubprocessOptions): Record<s
   if (opts.env?.HISTFILE === undefined) {
     dropInheritedOrcaHistFile(env)
   }
-  if (opts.env?.ORCA_HISTFILE === undefined) {
-    delete env.ORCA_HISTFILE
+  if (opts.env?.OPENKODO_HISTFILE === undefined) {
+    delete env.OPENKODO_HISTFILE
   }
   removeInheritedDevAgentHookEndpoint(env, opts.env)
   delete env.ELECTRON_RUN_AS_NODE
@@ -247,11 +250,11 @@ export function finalizeDaemonPtyEnvironment(
   stripPiProcessOwnerEnv(env)
   // A live daemon pins this runtime across app updates; callers cannot name the host executable.
   for (const key of Object.keys(env)) {
-    if (key.toUpperCase() === 'ORCA_AGENT_HOOK_NODE') {
+    if (key.toUpperCase() === 'OPENKODO_AGENT_HOOK_NODE') {
       delete env[key]
     }
   }
   if (process.platform === 'win32') {
-    env.ORCA_AGENT_HOOK_NODE = process.execPath
+    env.OPENKODO_AGENT_HOOK_NODE = process.execPath
   }
 }

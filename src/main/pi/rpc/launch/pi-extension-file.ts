@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto'
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-/** Writes an extension Orca loads into Pi once per content change and returns its path. */
+/** Writes an extension OpenKodo loads into Pi once per content change and returns its path. */
 export async function writePiExtensionFile(
   directory: string,
   file: string,

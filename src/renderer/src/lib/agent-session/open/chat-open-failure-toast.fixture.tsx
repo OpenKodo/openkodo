@@ -72,7 +72,7 @@ async function raise(language: UiLanguage, starting: boolean): Promise<void> {
 
 function chatOpenToast(language: UiLanguage, starting: boolean, expanded = false) {
   return defineFixture({
-    // Orca's narrowest window; the toaster is min(26rem, 100vw - 2rem) wide.
+    // OpenKodo's narrowest window; the toaster is min(26rem, 100vw - 2rem) wide.
     width: 600,
     setup: () => {
       useAppStore.setState((state) => ({

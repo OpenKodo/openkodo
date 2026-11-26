@@ -13,7 +13,7 @@ import {
 
 const SEND_MESSAGE_TYPE_ERROR = [
   `Invalid --type. Expected one of: ${MESSAGE_TYPES.join(', ')}.`,
-  'To answer a worker question, use the same Orca CLI executable with orchestration reply --id <msg_id> --body <text>.'
+  'To answer a worker question, use the same OpenKodo CLI executable with orchestration reply --id <msg_id> --body <text>.'
 ].join(' ')
 
 export const SendParams = z
@@ -41,7 +41,7 @@ export const SendParams = z
     item: OptionalString,
     /** With `item`: files on this computer, sent with the mail into the item's chat. */
     files: z.array(z.string().min(1).max(4096)).max(30).optional(),
-    // A paired server: this Orca carries the mail there and the replies back (`send --on`).
+    // A paired server: this OpenKodo carries the mail there and the replies back (`send --on`).
     on: OptionalString,
     // A paired computer's agent: it pulls the mail while connected and decides there (`send --on-client`).
     // Supplied but empty is refused, never read as a local send.

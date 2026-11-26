@@ -89,7 +89,7 @@ export function prepareWorkerStartCard(
   runtime: OrcaRuntimeService,
   caller: OrchestrationEntryCaller | undefined
 ): (args: WorkerStarted) => void {
-  // A paired Orca has no chat here to show the card in, and is no bot here.
+  // A paired OpenKodo has no chat here to show the card in, and is no bot here.
   const callerSession = sessionCallerOf(caller)
   const publish = prepareAgentCreationCard(callerSession?.sessionId)
   const groupWork =

@@ -79,7 +79,7 @@ export async function googleCallerAccount(
   const account = fallback.email
   if (!account) {
     throw new InvalidArgumentError(
-      `No Google account is chosen for ${caller.bot.name}. Ask your owner to choose one in Orca.`
+      `No Google account is chosen for ${caller.bot.name}. Ask your owner to choose one in OpenKodo.`
     )
   }
   return account

@@ -22,7 +22,7 @@ export type NativeChatAutomationRunRowProps = {
   messageId: string
   run: AutomationRunMessage
   state: AutomationRunRowState
-  /** What was sent, or would have been: the saved prompt, then Orca's record of the event. */
+  /** What was sent, or would have been: the saved prompt, then OpenKodo's record of the event. */
   text: string
   timestamp: number | null
   /** A run that couldn't start: the send's own error. */

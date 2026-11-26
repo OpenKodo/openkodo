@@ -1,4 +1,4 @@
-// A new bot's Chat from Orca's kickoff: its first screen, Stop's hold, and sends on the owner's behalf.
+// A new bot's Chat from OpenKodo's kickoff: its first screen, Stop's hold, and sends on the owner's behalf.
 import { createContext, useLayoutEffect, useMemo, useRef } from 'react'
 import type { Bot } from '../../../../shared/bot-types'
 import type { NativeChatMessage } from '../../../../shared/native-chat/native-chat-types'
@@ -25,7 +25,7 @@ export type NativeChatBotKickoffView = {
   sessionId: string | null
   /** A new bot's first turn until it has spoken, which its Home shows as its first screen. */
   firstScreen: NativeChatFirstScreen | null
-  /** Orca's first kickoff, where the bot's header sits; a Try again sends later ones. */
+  /** OpenKodo's first kickoff, where the bot's header sits; a Try again sends later ones. */
   firstKickoffId: string | null
 }
 

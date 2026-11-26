@@ -9,7 +9,7 @@ import { chatWorkspaceByTabId as findTerminalTabWorktreeId } from '@/lib/agent-s
 import { sendLayoutCommandToOwner } from '@/runtime/workspace-layout/commands/layout-owner-command'
 import { useAppStore } from '../../../store/index'
 import { isTerminalLeafId } from '../../../../../shared/workspace-layout/stable-pane-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import type { TerminalLayoutSnapshot } from '../../../../../shared/workspace-layout/terminal-tab-types'
 
 function showRuntimePaneTitle(tabId: string, leafId: string, title: string | null): void {
@@ -52,7 +52,7 @@ export function applyRuntimePaneTitle({ tabId, leafId, title }: SetTerminalPaneT
   const show = (): void => showRuntimePaneTitle(tabId, leafId, normalizedTitle)
   const worktreeId = findTerminalTabWorktreeId(store.tabsByWorktree, tabId)
   if (
-    ORCA_LAYOUT_OWNER_IS_MAIN &&
+    OPENKODO_LAYOUT_OWNER_IS_MAIN &&
     worktreeId &&
     sendLayoutCommandToOwner(
       worktreeId,

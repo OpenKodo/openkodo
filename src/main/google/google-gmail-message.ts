@@ -1,4 +1,4 @@
-// The Gmail message shape Orca reads, and what it takes from one: headers, text and attachments.
+// The Gmail message shape OpenKodo reads, and what it takes from one: headers, text and attachments.
 import { z } from 'zod'
 import type { GmailAttachment } from '../../shared/google/google-read-types'
 import { htmlToText } from './google-html-text'

@@ -81,7 +81,7 @@ export class CodexManagedHomePath {
       !wslInfo.linuxPath.includes('/.local/share/orca/codex-accounts/') ||
       !wslInfo.linuxPath.endsWith('/home')
     ) {
-      throw new Error('Managed WSL Codex home is outside Orca account storage.')
+      throw new Error('Managed WSL Codex home is outside OpenKodo account storage.')
     }
     if (
       expectedAccountId !== undefined &&
@@ -103,7 +103,7 @@ export class CodexManagedHomePath {
     if (!this.pathsEqual(account.managedHomePath, expectedPath)) {
       throw originalError
     }
-    // Recreate missing homes only at this account's exact persisted Orca path.
+    // Recreate missing homes only at this account's exact persisted OpenKodo path.
     mkdirSync(expectedPath, { recursive: true })
     writeFileSync(join(expectedPath, '.orca-managed-home'), `${account.id}\n`, 'utf-8')
     return this.assert(expectedPath, account.id)
@@ -178,7 +178,7 @@ export class CodexManagedHomePath {
       }
       return toWindowsWslPath(canonicalLinuxPath, wslInfo.distro)
     } catch (error) {
-      throw new Error('Managed WSL Codex home is outside Orca account storage.', {
+      throw new Error('Managed WSL Codex home is outside OpenKodo account storage.', {
         cause: error
       })
     }
@@ -190,14 +190,14 @@ export class CodexManagedHomePath {
     expectedAccountId?: string
   ): string {
     if (linuxPath.split('/').includes('..')) {
-      throw new Error('Managed WSL Codex home is outside Orca account storage.')
+      throw new Error('Managed WSL Codex home is outside OpenKodo account storage.')
     }
     if (!existsSync(candidatePath)) {
       throw new Error('Managed Codex home directory does not exist on disk.')
     }
     const markerPath = join(candidatePath, '.orca-managed-home')
     if (!existsSync(markerPath)) {
-      throw new Error('Managed Codex home is missing Orca ownership marker.')
+      throw new Error('Managed Codex home is missing OpenKodo ownership marker.')
     }
     if (
       expectedAccountId !== undefined &&

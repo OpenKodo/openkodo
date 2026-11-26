@@ -1,4 +1,4 @@
-// Which MCP servers a new chat session gets from Orca, decided on the host that runs it: a bot's own
+// Which MCP servers a new chat session gets from OpenKodo, decided on the host that runs it: a bot's own
 // tools in its home folder, and the host's list for every session (a bot only when it opts in),
 // filtered by the session's agent and workspace. With the host's switch off, only a bot's own.
 import { mcpServerWorkspaceKeyOf } from '../../shared/mcp-servers/mcp-servers'
@@ -17,7 +17,7 @@ import { botHostMcpAccess } from './bot-host-mcp-access'
 import { isMcpServersFeatureEnabled } from './mcp-servers-feature'
 import { SessionMcpTools, type SessionHostMcpServers } from './session-mcp-tools'
 
-// An Orca sign-in to a host-list server is a list change its chats compare: only one whose server
+// An OpenKodo sign-in to a host-list server is a list change its chats compare: only one whose server
 // it is restarts (its digest names the grant, never a token refresh or a lost sign-in).
 onMcpHostListSignInChanged(() => advanceBotToolsEpoch(mcpHostListFolder()))
 
@@ -31,7 +31,7 @@ export type HostLaunchedTools = {
   workspace: HostWorkspace
   /** Each resolved server's digest, by name (`mcpServersForLaunch`). */
   digests: Readonly<Record<string, string>>
-  /** The list's epoch read before it: Orca's own writes and sign-ins since then advance it. */
+  /** The list's epoch read before it: OpenKodo's own writes and sign-ins since then advance it. */
   epoch: number
 }
 
@@ -76,7 +76,7 @@ async function hostServersFor(
 /**
  * The session's servers. `bot` is the bot whose home the session runs in, or null. `launched` is
  * what the session's next turns compare against to pick up a change to the servers it got; null
- * when it got none from Orca (a chat with the switch off, or no server on for it).
+ * when it got none from OpenKodo (a chat with the switch off, or no server on for it).
  */
 export async function sessionMcpLaunchTools(
   bot: Pick<Bot, 'id' | 'hostMcpServers'> | null,
@@ -114,7 +114,7 @@ export async function sessionMcpLaunchTools(
 }
 
 /**
- * No I/O: whether Orca itself wrote or signed in to the bot's tools or the host list since launch.
+ * No I/O: whether OpenKodo itself wrote or signed in to the bot's tools or the host list since launch.
  * A host-list write may not touch this session's servers; `sessionLaunchToolsChanged` decides.
  */
 export function sessionLaunchToolsOutdated(launched: SessionLaunchedTools): boolean {
@@ -125,10 +125,10 @@ export function sessionLaunchToolsOutdated(launched: SessionLaunchedTools): bool
 }
 
 /**
- * Whether the bot's tools changed (reread, so edits made outside Orca count too), or a host-list
+ * Whether the bot's tools changed (reread, so edits made outside OpenKodo count too), or a host-list
  * server this session got, or would get now, did. `delivered` is what the session's agent took of
  * the list at launch: a server it left out (its own of the name won) or an agent that takes none
- * makes an edit not this session's. The list is Orca's own file, so it's reread only after Orca
+ * makes an edit not this session's. The list is OpenKodo's own file, so it's reread only after OpenKodo
  * wrote or signed in to it; an edit that isn't this session's moves the recorded epoch on instead.
  */
 export async function sessionLaunchToolsChanged(

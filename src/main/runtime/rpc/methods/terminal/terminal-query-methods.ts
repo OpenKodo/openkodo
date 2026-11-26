@@ -1,5 +1,5 @@
 import { defineMethod } from '../../core'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { remoteFileContentBudget } from '../files/files-remote-content-budget'
 import { remoteRpcResultExceedsContentBudget } from '../../../../../shared/remote-runtime/rpc/remote-rpc-content-budget'
 import { agentHookServer } from '../../../../agent-hooks/server/agent-hook-server'
@@ -29,7 +29,7 @@ export const TERMINAL_QUERY_METHODS = [
     handler: async (params, { runtime }) => {
       // Switch point: main places the swept workspace's live terminals itself, so this listing
       // names their panes and the window's sweep only reads it.
-      if (ORCA_LAYOUT_OWNER_IS_MAIN && params.placeUnshownLiveTerminals && params.worktree) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN && params.placeUnshownLiveTerminals && params.worktree) {
         await runtime.placeUnshownLiveTerminalsOf(params.worktree)
       }
       const result = await runtime.listTerminals(params.worktree, params.limit, {

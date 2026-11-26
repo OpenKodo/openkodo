@@ -25,13 +25,13 @@ import { OrchestrationError } from '../../../orchestration/orchestration-error'
 import { isPersonCaller } from './access/worker-approval-access'
 import type { RpcContext } from '../../core'
 
-/** Clear and Stop are the person's: this computer's Orca window, or a paired window or phone that
- *  says it is one. The orca CLI, agents and a paired Orca's forwarded calls are refused. */
+/** Clear and Stop are the person's: this computer's OpenKodo window, or a paired window or phone that
+ *  says it is one. The orca CLI, agents and a paired OpenKodo's forwarded calls are refused. */
 function requireOwner({ ctx }: { ctx: RpcContext }): void {
   if (!isPersonCaller(ctx)) {
     throw new OrchestrationError(
       'owner_required',
-      'Use Orca to clear or stop workers in this dock.'
+      'Use OpenKodo to clear or stop workers in this dock.'
     )
   }
 }

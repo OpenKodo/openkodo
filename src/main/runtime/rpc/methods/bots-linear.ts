@@ -1,4 +1,4 @@
-// `bots.linear.*`: the host account's Linear links, as this host's own Orca account.
+// `bots.linear.*`: the host account's Linear links, as this host's own OpenKodo account.
 import {
   BotLinearDefaultBot,
   BotLinearMembers,

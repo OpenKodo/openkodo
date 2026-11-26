@@ -317,12 +317,12 @@ function DiagnosticsDisabledStateNote({
       : reason === 'orca_telemetry_disabled'
         ? t(
             'auto.components.settings.PrivacyDiagnosticsRows.63d03261d1',
-            'ORCA_TELEMETRY_DISABLED=1 is set — creating and sending diagnostic files is disabled.'
+            'OPENKODO_TELEMETRY_DISABLED=1 is set — creating and sending diagnostic files is disabled.'
           )
         : reason === 'orca_diagnostics_disabled'
           ? t(
               'auto.components.settings.PrivacyDiagnosticsRows.d37e92a06b',
-              'ORCA_DIAGNOSTICS_DISABLED=1 is set — app diagnostics are off.'
+              'OPENKODO_DIAGNOSTICS_DISABLED=1 is set — app diagnostics are off.'
             )
           : reason === 'ci'
             ? t(

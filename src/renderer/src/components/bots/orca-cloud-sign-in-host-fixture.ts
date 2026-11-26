@@ -1,11 +1,11 @@
-// The host the Orca sign-in fixtures share: a bot catalog, the cloud's answers signed in and out, and Sign in.
+// The host the OpenKodo sign-in fixtures share: a bot catalog, the cloud's answers signed in and out, and Sign in.
 import { useAppStore } from '@/store'
 import type { AppState } from '@/store/types'
 import { publishBots } from '@/lib/bot-catalog-snapshot'
 import { cancelConnectorConnect } from '@/lib/connector-connect-state'
 import type { Bot } from '../../../../shared/bot-types'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
-import { ORCA_CONNECTED, ORCA_SIGNED_OUT, orcaSignIn } from './orca-sign-in.test-fixture'
+import { OPENKODO_CONNECTED, OPENKODO_SIGNED_OUT, orcaSignIn } from './orca-sign-in.test-fixture'
 import { webhookSummaryFixture } from './webhooks/webhook-summary.test-fixture'
 
 export const cos: Bot = {
@@ -29,8 +29,8 @@ export const cos: Bot = {
 // In Slack, with a webhook: what a signed-out owner finds paused.
 export const inSlack: Bot = { ...cos, slack: { appId: 'A1', teamId: 'T1' } }
 
-export const connected = ORCA_CONNECTED
-export const signedOut = ORCA_SIGNED_OUT
+export const connected = OPENKODO_CONNECTED
+export const signedOut = OPENKODO_SIGNED_OUT
 
 export const settle = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms))

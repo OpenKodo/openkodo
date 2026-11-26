@@ -1,4 +1,4 @@
-// The bot's Slack as its host's Orca Cloud answers it, like the desktop's bot-slack-state: read again on the
+// The bot's Slack as its host's OpenKodo Cloud answers it, like the desktop's bot-slack-state: read again on the
 // route's reads and on refresh, one answer for every surface; a failed re-read keeps the last unless signed out.
 import { useCallback, useEffect, useRef } from 'react'
 import {

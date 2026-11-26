@@ -57,7 +57,7 @@ export const finishing = defineFixture({
   interact: signIn
 })
 
-/** The server runs an Orca from before it could sign in for another device. */
+/** The server runs an OpenKodo from before it could sign in for another device. */
 export const updateNeeded = defineFixture({
   width: 372,
   setup: () =>

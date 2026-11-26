@@ -6,7 +6,7 @@ import {
   type ExecutionHostId
 } from '../../../../../shared/execution-host/execution-host'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import type { WorkspaceFilePreviewPlan } from './file-preview'
 import type {
   BrowserLinkOpenContext,
@@ -87,7 +87,7 @@ export async function openPlannedFileBrowserLink(
           ? { kind: 'document', docLocation }
           : { kind: 'local-file', url: plan.url }
     },
-    url: plan.status === 'doc-preview' ? ORCA_BROWSER_BLANK_URL : plan.url,
+    url: plan.status === 'doc-preview' ? OPENKODO_BROWSER_BLANK_URL : plan.url,
     options: plan.status === 'doc-preview' ? { docLocation } : { title: plan.title },
     reveal: () => {
       activateAndRevealWorkspace(placementWorkspaceId, {

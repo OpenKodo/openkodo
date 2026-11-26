@@ -245,7 +245,7 @@ export async function benchmarkWindowsSecurityReuse(
   }
   const save = () =>
     writeFileSync(join(output, 'receipt.json'), `${JSON.stringify(report, null, 2)}\n`)
-  let environment = { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+  let environment = { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
   const command = async (label, program, args) => {
     report.stage = label
     const start = performance.now()

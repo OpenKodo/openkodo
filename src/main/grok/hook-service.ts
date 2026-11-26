@@ -148,7 +148,7 @@ export class GrokHookService {
       }
     }
 
-    // Empty configs mean user opt-out unless explicitly re-enabled or matched to Orca's own symlink-cleanup marker.
+    // Empty configs mean user opt-out unless explicitly re-enabled or matched to OpenKodo's own symlink-cleanup marker.
     const configIsSymlink = isSymbolicLinkSync(configPath)
     const reinstallsOwnSymlinkCleanup =
       configIsSymlink &&

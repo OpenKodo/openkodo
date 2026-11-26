@@ -51,7 +51,7 @@ function isCdpCookie(value: unknown): value is CdpCookie {
 }
 
 /**
- * A missing file reads as no saved cookies, and so does one that isn't JSON: no key or later Orca
+ * A missing file reads as no saved cookies, and so does one that isn't JSON: no key or later OpenKodo
  * can read those bytes, so live cookies may replace them. null means a file that might read on a
  * later launch (an I/O error, a newer format, a refused decrypt): it must be kept.
  */

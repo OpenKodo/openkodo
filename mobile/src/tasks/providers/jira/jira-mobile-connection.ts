@@ -25,7 +25,7 @@ export function extractJiraConnection(result: unknown): MobileJiraConnection {
   if (!decoded.success) {
     return {
       ...DISCONNECTED,
-      unavailableReason: 'Update Orca on this host to browse Jira on mobile.'
+      unavailableReason: 'Update OpenKodo on this host to browse Jira on mobile.'
     }
   }
   const status = decoded.data

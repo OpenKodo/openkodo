@@ -121,7 +121,7 @@ function dialogFixture(
     batch?: boolean
     unsaved?: boolean
     incomplete?: boolean
-    /** Git status resolves with readError, as a worktree folder removed outside Orca does. */
+    /** Git status resolves with readError, as a worktree folder removed outside OpenKodo does. */
     statusReadFailed?: boolean
     statusPending?: boolean
     ignored?: boolean

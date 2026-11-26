@@ -24,7 +24,7 @@ function createNodeAppEnvironment(): AppEnvironment {
   const host = createNodeServiceEnvironment({
     getPath: resolveOrcadPath,
     getAppPath: () => resolveOrcadInstallRoot(),
-    getVersion: () => process.env.ORCA_VERSION ?? '0.0.0-orcad',
+    getVersion: () => process.env.OPENKODO_VERSION ?? '0.0.0-orcad',
     isPackaged: () => true,
     getCliLauncherPath: getOrcadCliLauncherPath
   })
@@ -55,7 +55,7 @@ export function stampOrcadAppVersion(installRoot: () => string = resolveOrcadIns
     return
   }
   if (typeof version === 'string' && version.length > 0) {
-    process.env.ORCA_APP_VERSION = version
+    process.env.OPENKODO_APP_VERSION = version
   }
 }
 

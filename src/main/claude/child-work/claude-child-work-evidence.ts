@@ -1,4 +1,4 @@
-import { ORCA_ORCHESTRATION_WAIT_COMMAND } from '../../../shared/cli/orca-cli-invocations'
+import { OPENKODO_ORCHESTRATION_WAIT_COMMAND } from '../../../shared/cli/orca-cli-invocations'
 import type {
   AgentChildWorkKind,
   AgentChildWorkOperation,
@@ -51,7 +51,7 @@ export function claudeChildWorkObservation(
     : task.awaitsAgents
       ? {
           toolName: 'Bash',
-          input: ORCA_ORCHESTRATION_WAIT_COMMAND,
+          input: OPENKODO_ORCHESTRATION_WAIT_COMMAND,
           basis: 'reported',
           observedAt
         }

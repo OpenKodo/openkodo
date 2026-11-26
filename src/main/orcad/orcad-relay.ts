@@ -9,7 +9,7 @@ export type OrcadRelay = Pick<RelayHost, 'accountChanged' | 'signOutStarted'> & 
 }
 
 /**
- * orcad's relay, as its own Orca account and keys, so phones reach it without a direct path.
+ * orcad's relay, as its own OpenKodo account and keys, so phones reach it without a direct path.
  * Created before the account so its sign-in and sign-out hooks always find it.
  */
 export function createOrcadRelay(

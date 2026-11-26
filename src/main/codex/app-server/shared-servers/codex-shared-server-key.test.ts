@@ -11,7 +11,7 @@ const launch = (cwd: string, args: string[]) => ({
 })
 
 describe('shared Codex server key', () => {
-  it("shares across folders with Orca's own hooks-off override", async () => {
+  it("shares across folders with OpenKodo's own hooks-off override", async () => {
     const hooksOff = [
       '-c',
       'hooks.state={"/home/a/.codex/hooks.json:stop:0:0"={enabled=false},"/home/a/.codex/hooks.json:pre_tool_use:0:1"={enabled=false}}'

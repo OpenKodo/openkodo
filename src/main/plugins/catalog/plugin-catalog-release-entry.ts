@@ -21,7 +21,7 @@ import {
   type PluginGitBytesRunner
 } from '../installation/plugin-git-tree'
 import { hashPluginTree } from '../artifacts/plugin-content-hash'
-import { readPluginManifestText } from '../artifacts/plugin-manifest-file'
+import { findPluginManifestPath, readPluginManifestText } from '../artifacts/plugin-manifest-file'
 import { formatPluginSchemaIssues } from '../../../shared/plugins/manifest/plugin-schema-issues'
 
 const GIT_QUERY_TIMEOUT_MS = 30_000
@@ -36,7 +36,7 @@ export type PluginCatalogReleaseReport = {
   sourcePath?: string
   /** Why there is no entry, or that uncommitted changes are left out of it. */
   note?: string
-  /** The `origin` owner Orca lists the plugin under differs from the declared publisher. */
+  /** The `origin` owner OpenKodo lists the plugin under differs from the declared publisher. */
   ownerWarning?: string
 }
 
@@ -164,11 +164,13 @@ async function committedReleaseEntry(
   }
 }
 
-// Why a warning: Orca derives the publisher from the owner; older Orca refuses a declared one that differs.
+// Why a warning: OpenKodo derives the publisher from the owner; older OpenKodo refuses a declared one that differs.
 async function publisherOwnerWarning(pluginDir: string): Promise<string | undefined> {
   const remote = await gitText(pluginDir, ['remote', 'get-url', 'origin']).catch(() => '')
   const owner = parseGitRepositoryIdentity(remote)?.owner?.toLowerCase()
-  const manifest: unknown = await readFile(join(pluginDir, PLUGIN_MANIFEST_FILENAME), 'utf8')
+  const manifestPath =
+    (await findPluginManifestPath(pluginDir)) ?? join(pluginDir, PLUGIN_MANIFEST_FILENAME)
+  const manifest: unknown = await readFile(manifestPath, 'utf8')
     .then((text) => JSON.parse(text))
     .catch(() => null)
   const publisher =
@@ -176,7 +178,7 @@ async function publisherOwnerWarning(pluginDir: string): Promise<string | undefi
       ? manifest.publisher
       : undefined
   return owner && typeof publisher === 'string' && owner !== publisher.toLowerCase()
-    ? `Orca lists this plugin under the repository owner "${owner}", and older Orca refuses it because publisher is "${publisher}"; remove publisher or set it to "${owner}"`
+    ? `OpenKodo lists this plugin under the repository owner "${owner}", and older OpenKodo refuses it because publisher is "${publisher}"; remove publisher or set it to "${owner}"`
     : undefined
 }
 

@@ -97,7 +97,7 @@ export function composerCreateRepoId(
     : selectedRepoId
 }
 
-/** The ref the create checks out, so its setup prompt shows that ref's orca.yaml. */
+/** The ref the create checks out, so its setup prompt shows that ref's openkodo.yaml. */
 export function composerSetupHooksCreateSource(
   selection: MobileComposerCreateSelection
 ): SetupHooksCreateSource {

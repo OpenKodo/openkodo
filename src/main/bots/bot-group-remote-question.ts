@@ -39,7 +39,7 @@ export function remoteAsksFor(
 }
 
 /** What a remote member is sent: the post and the room history since it was last asked, as quoted
- *  data. Posts an older build of Orca made here, which never asked it, are left out, and so are
+ *  data. Posts an older build of OpenKodo made here, which never asked it, are left out, and so are
  *  images and this computer's file paths. */
 function remoteQuestionBody(
   groupName: string,

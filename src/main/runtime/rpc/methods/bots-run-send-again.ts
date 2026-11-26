@@ -1,4 +1,4 @@
-// `bots.sendRunAgain`: the owner's Send again on a run that couldn't start. Orca sends the text its
+// `bots.sendRunAgain`: the owner's Send again on a run that couldn't start. OpenKodo sends the text its
 // card kept, with the same run, to the chat the card is in, once ever: the first attempt spends the run
 // in the orchestration database before it sends, and any later one, from any client or after a
 // restart, is refused.
@@ -103,7 +103,7 @@ export const BOT_RUN_SEND_AGAIN_METHOD = defineMethod({
   handler: async ({ botId, sessionId, runId }, context) => {
     const { runtime } = context
     runtime.bots.assertEnabled()
-    ownerOnly(context, 'Only your owner sends a run again, in Orca.')
+    ownerOnly(context, 'Only your owner sends a run again, in OpenKodo.')
     const bot = runtime.bots.list().find((entry) => entry.id === botId)
     if (!bot) {
       throw new InvalidArgumentError('bot_not_found')

@@ -167,8 +167,8 @@ function ghReads(args: readonly string[]): boolean {
   return group === 'search' || (sub !== undefined && GH_READS.has(sub))
 }
 
-/** Orca's own commands that only read, by their leading words. */
-const ORCA_READS: readonly (readonly string[])[] = [
+/** OpenKodo's own commands that only read, by their leading words. */
+const OPENKODO_READS: readonly (readonly string[])[] = [
   ['slack', 'find'],
   ['slack', 'read'],
   ['slack', 'check'],
@@ -198,7 +198,7 @@ const ORCA_READS: readonly (readonly string[])[] = [
 function orcaReads(args: readonly string[]): boolean {
   return (
     !args.some((word) => /^--(join|download|out|offer)/.test(word)) &&
-    ORCA_READS.some((path) => path.every((word, index) => args[index] === word))
+    OPENKODO_READS.some((path) => path.every((word, index) => args[index] === word))
   )
 }
 
@@ -223,7 +223,7 @@ function unwrapShell(command: string): string {
 /** Whether every command in a shell line only reads. Anything this can't read plainly acts. */
 export function shellCommandOnlyReads(command: string): boolean {
   const line = unwrapShell(command)
-    .replaceAll('"${ORCA_CLI_COMMAND:-orca}"', 'orca')
+    .replaceAll('"${OPENKODO_CLI_COMMAND:-orca}"', 'orca')
     .replace(/\s2>&1(?=\s|$)/g, ' ')
     .replace(/\s2?>\s*\/dev\/null(?=\s|$)/g, ' ')
   // Redirection, substitution, background jobs and here-docs can write or run anything.

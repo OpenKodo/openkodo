@@ -25,7 +25,7 @@ function askUserQuestionPresentation(params: unknown): AcpRequestPresentation {
   return acpFormElicitationPresentation(params, { writeIns: true })
 }
 
-// Its mode commands would switch modes behind the permission picker; sign-in belongs to Orca's setup.
+// Its mode commands would switch modes behind the permission picker; sign-in belongs to OpenKodo's setup.
 export const DEVIN_ACP_DIALECT: AcpDialect = {
   // Devin's ask_user_question rides standard ACP elicitation; without the form cap it asks in text.
   clientCapabilities: { elicitation: { form: {} } },

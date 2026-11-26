@@ -82,7 +82,7 @@ export function claudeStartedUnechoedSend(session: ClaudeSession): ClaudeStarted
     : null
 }
 
-/** Claude also announces resume replays, hook titles and Orca's own renames; only a title inside the
+/** Claude also announces resume replays, hook titles and OpenKodo's own renames; only a title inside the
  *  user's started rename send is the user's. */
 function claudeUserRenamedSession(
   session: ClaudeSession | null,

@@ -12,7 +12,7 @@ export type BotToolSignInFace =
   | 'finishing'
   | 'unreachable'
   | 'unsupported'
-  /** The bot's host runs an Orca that can't sign in for this device. */
+  /** The bot's host runs an OpenKodo that can't sign in for this device. */
   | 'update-needed'
 
 /** The face of a tool's sign-in; null when it has none to show (a command, a public server). */

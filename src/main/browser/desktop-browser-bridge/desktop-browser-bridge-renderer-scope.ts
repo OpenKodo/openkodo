@@ -16,7 +16,7 @@ export function rendererResolveRemoteCliWorkspace(
     return Promise.reject(
       new BrowserError(
         DESKTOP_BROWSER_BRIDGE_UNAVAILABLE_CODE,
-        'The Orca desktop has no open window to check which workspaces this host may use. Open Orca on the desktop and try again.'
+        'The OpenKodo desktop has no open window to check which workspaces this host may use. Open OpenKodo on the desktop and try again.'
       )
     )
   }
@@ -54,7 +54,7 @@ export function rendererResolveRemoteCliWorkspace(
         finish({
           error: new BrowserError(
             'browser_timeout',
-            `The Orca desktop window did not answer within ${SCOPE_REPLY_TIMEOUT_MS / 1000} seconds, so nothing ran. Try again.`
+            `The OpenKodo desktop window did not answer within ${SCOPE_REPLY_TIMEOUT_MS / 1000} seconds, so nothing ran. Try again.`
           )
         }),
       SCOPE_REPLY_TIMEOUT_MS

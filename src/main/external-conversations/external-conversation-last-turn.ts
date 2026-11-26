@@ -1,4 +1,4 @@
-// Which side began a linked chat's latest turn: its conversation, or someone in Orca.
+// Which side began a linked chat's latest turn: its conversation, or someone in OpenKodo.
 import type { ExternalConversationTurnSource } from '../../shared/connectors/external-conversation-link'
 import type { AgentPaneWorkspace } from '../agent-hooks/observations/agent-transition-detector'
 import type { AdmittedMessage } from '../native-chat/agent-session-wire/host/structured-agent-session-host-types'
@@ -24,7 +24,7 @@ export function recordLastTurn(
 
 /**
  * A message a chat took, as its host admitted it: the turn it opens is its conversation's when the
- * message is a delivery or mail finishing its ask, else Orca's (typed, other mail, an automation). One
+ * message is a delivery or mail finishing its ask, else OpenKodo's (typed, other mail, an automation). One
  * joining a running turn only ever makes it the conversation's. Recovery sends are not triggers.
  */
 export function recordAdmittedTurn(

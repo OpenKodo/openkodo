@@ -4,7 +4,7 @@ import { readWorktreeFirstPage } from '../../worktree/catalog/worktree-catalog-f
 import type { Worktree } from '../../worktree/workspace-list/workspace-list-types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AppState } from 'react-native'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
 import { useFocusEffect } from 'expo-router'
 import { useQueryClient } from '@tanstack/react-query'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'
@@ -177,7 +177,7 @@ export function useHostWorktreeCatalog(args: {
     // Clear optimistic sleep overrides once the server confirms inactive (liveTerminalCount === 0).
     setSleptIds((prev) => retainLiveSleptWorktreeIdentities(prev, confirmed, false))
     // Sync server pins only without the feed; feed-built lists keep no local pin cache.
-    if (!ORCA_SIDEBAR_INPUTS_IS_MAIN) {
+    if (!OPENKODO_SIDEBAR_INPUTS_IS_MAIN) {
       const serverPinned = new Set(confirmed.filter((w) => w.isPinned).map((w) => w.worktreeId))
       setPinnedIds((prev) => {
         if (serverPinned.size === prev.size && [...serverPinned].every((id) => prev.has(id))) {

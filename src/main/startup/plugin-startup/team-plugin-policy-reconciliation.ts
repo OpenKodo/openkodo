@@ -11,7 +11,7 @@ import { BrowserWindow } from 'electron'
 import { recordRequiredPluginFailures } from '../../plugins/catalog/required-plugin-failures'
 import { applyPluginConsent } from '../../plugins/activation/plugin-enablement'
 import type { Store } from '../../persistence/loading-store/store'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import {
   createStaleMarketplaceRefresh,
   MISSING_SNAPSHOT_RETRY_MS

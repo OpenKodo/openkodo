@@ -68,7 +68,7 @@ it("launches a key chat on agy with the saved key and none of agy's own sign-in 
   ]) {
     expect(env).not.toHaveProperty(name)
   }
-  // Orca's own process environment is dropped from the child too.
+  // OpenKodo's own process environment is dropped from the child too.
   expect(envToDelete).toEqual(expect.arrayContaining(['AGY_ADC_AUTH', 'AGY_LLM_GATEWAY_API_KEY']))
   expect(invocation.spec.args({ fullAccess: false, pluginDirs: [] })).toEqual(
     expect.arrayContaining(['--gemini-dir', join(dataDirectory, 'antigravity-agy-chat')])

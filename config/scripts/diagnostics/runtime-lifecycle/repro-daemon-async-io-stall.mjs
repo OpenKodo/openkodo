@@ -11,7 +11,7 @@ import { spawn } from 'node-pty'
 // Fault injection validates the failure boundary; the incident's workers were idle, not saturated.
 if (process.platform === 'win32' || process.env.UV_THREADPOOL_SIZE !== '1') {
   throw new Error(
-    'Run on macOS/Linux with ORCA_BACKGROUND_LAUNCH=1 UV_THREADPOOL_SIZE=1 node config/scripts/diagnostics/runtime-lifecycle/repro-daemon-async-io-stall.mjs'
+    'Run on macOS/Linux with OPENKODO_BACKGROUND_LAUNCH=1 UV_THREADPOOL_SIZE=1 node config/scripts/diagnostics/runtime-lifecycle/repro-daemon-async-io-stall.mjs'
   )
 }
 

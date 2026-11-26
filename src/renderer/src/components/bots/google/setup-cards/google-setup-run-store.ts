@@ -201,7 +201,7 @@ export type HostKeyImport =
   | { found: true }
   | { found: false; candidates: GoogleSetupKeyCandidate[] }
 
-/** Import file for a bot on another host: that host imports the key its Orca browser saved in the
+/** Import file for a bot on another host: that host imports the key its OpenKodo browser saved in the
  *  bot's home, or lists the files to pick from (`file` is the pick). Null for a local bot, or a host
  *  that predates it, so this computer picks. */
 export async function importGoogleSetupKeyOnHost(

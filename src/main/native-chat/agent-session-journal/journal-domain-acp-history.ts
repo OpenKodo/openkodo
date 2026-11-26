@@ -55,7 +55,7 @@ export type JournalAcpHistoryItems = {
   consumed: number
 }
 
-/** The kinds ACP catch-up reads; every kind but Orca cards. */
+/** The kinds ACP catch-up reads; every kind but OpenKodo cards. */
 const KINDS = `('message','tool-call','diff','approval','question','status','turn')`
 
 /** Turns scanned per page; each answers a few short strings. */

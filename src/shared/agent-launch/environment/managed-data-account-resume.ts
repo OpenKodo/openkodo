@@ -1,5 +1,5 @@
 /** Spawn-env request for one managed account; the host validates it and falls back to the active one. */
-export const MANAGED_DATA_ACCOUNT_RESUME_ENV = 'ORCA_DATA_ACCOUNT_ID'
+export const MANAGED_DATA_ACCOUNT_RESUME_ENV = 'OPENKODO_DATA_ACCOUNT_ID'
 /** Requests the user's own store; older hosts reject it as an unknown account and fall back. */
 export const SYSTEM_DATA_ACCOUNT_RESUME_ID = 'system'
 

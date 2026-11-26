@@ -38,7 +38,7 @@ export type CarriedMessages = {
   deliveryIds: string[]
   /** For the leave mark: each card's asker, only when its own batch could leave the thread. */
   askers: (ConnectorMessageAsker | undefined)[]
-  /** Everyone who asked a carried message, nested carries included; null for one Orca can't name. */
+  /** Everyone who asked a carried message, nested carries included; null for one OpenKodo can't name. */
   askedBy: (ConnectorMessageAsker | null)[]
 }
 
@@ -80,7 +80,7 @@ export function carriedMessages(
   ownImages = 0
 ): CarriedMessages {
   // Oldest first: a failed start's card goes ahead of the queue, so queue order is newest first. A
-  // card whose send time is gone came from an earlier Orca, so it is the older.
+  // card whose send time is gone came from an earlier OpenKodo, so it is the older.
   const sentAt = (each: JournalReturnedCard) => each.submittedAt ?? Number.NEGATIVE_INFINITY
   const eligible = returned
     .filter((each) => carriesReturnedCard(link, each))

@@ -78,7 +78,7 @@ export function SshForwardedPortsSection({
                 owner={owner}
                 entry={entry}
                 onEdit={() => onOpenDialog({ mode: 'edit', owner, entry })}
-                // Use the system browser: this forward listens locally, while Orca’s browser may run on another host.
+                // Use the system browser: this forward listens locally, while OpenKodo’s browser may run on another host.
                 onOpenInBrowser={() =>
                   void openForwardedUrlInSystemBrowser(
                     browserUrlForPortForwardEntry(entry),

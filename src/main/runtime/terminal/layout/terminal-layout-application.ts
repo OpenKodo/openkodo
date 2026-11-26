@@ -1,6 +1,6 @@
 import { OrcaRuntimeWithPickMostRecentActor } from './terminal-layout-queue'
 import type { ApplyLayoutResult, PtyLayoutState, PtyLayoutTarget } from './terminal-layout-state'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LayoutApplyReply } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 import type { WindowLayoutCommand } from './runtime-layout-apply'
 import { PaneGridRecorder } from './pane-grid-recording'
@@ -12,7 +12,7 @@ export abstract class OrcaRuntimeWithApplyLayout extends OrcaRuntimeWithPickMost
 
   /** Layout-owner build: remembers a resized terminal's grid on the pane showing it. */
   protected notePaneGrid(ptyId: string, cols: number, rows: number): void {
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       return
     }
     this.paneGrids ??= new PaneGridRecorder({

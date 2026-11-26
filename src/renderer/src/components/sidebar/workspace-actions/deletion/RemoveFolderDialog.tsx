@@ -82,7 +82,7 @@ const RemoveFolderDialog = React.memo(function RemoveFolderDialog() {
     [detectedWorktreesByRepo, hostId, repoId, worktreesByRepo]
   )
 
-  // The main checkout is the project itself; every other row on this host leaves Orca with it (#17645).
+  // The main checkout is the project itself; every other row on this host leaves OpenKodo with it (#17645).
   const linkedWorkspaceCount = useMemo(
     () =>
       hostId
@@ -97,10 +97,11 @@ const RemoveFolderDialog = React.memo(function RemoveFolderDialog() {
       ? null
       : t(
           'auto.components.sidebar.RemoveFolderDialog.linkedWorkspaceWarning',
-          '{{count}} workspaces in this project will also be removed from Orca.',
+          '{{count}} workspaces in this project will also be removed from OpenKodo.',
           {
             count: linkedWorkspaceCount,
-            defaultValue_one: '{{count}} workspace in this project will also be removed from Orca.'
+            defaultValue_one:
+              '{{count}} workspace in this project will also be removed from OpenKodo.'
           }
         )
 
@@ -124,18 +125,18 @@ const RemoveFolderDialog = React.memo(function RemoveFolderDialog() {
     onRecipeVmServer || isRuntimeOwnedSshTargetId(sshConnectionId)
       ? t(
           'auto.components.sidebar.RemoveFolderDialog.removeDescriptionVmRecipe',
-          'This removes {{name}} from Orca. Its VM recipe determines whether the environment and its files are permanently deleted.',
+          'This removes {{name}} from OpenKodo. Its VM recipe determines whether the environment and its files are permanently deleted.',
           { name: NAME_TOKEN }
         )
       : sshHostLabel
         ? t(
             'auto.components.sidebar.RemoveFolderDialog.removeDescriptionSsh',
-            'This only removes {{name}} from Orca. Its files stay on {{host}} — re-add that SSH host to recover it.',
+            'This only removes {{name}} from OpenKodo. Its files stay on {{host}} — re-add that SSH host to recover it.',
             { name: NAME_TOKEN, host: sshHostLabel }
           )
         : t(
             'auto.components.sidebar.RemoveFolderDialog.removeDescriptionLocal',
-            'This only removes {{name}} from Orca. It is still on your disk.',
+            'This only removes {{name}} from OpenKodo. It is still on your disk.',
             { name: NAME_TOKEN }
           )
   const [descriptionBeforeName, descriptionAfterName] = description.split(NAME_TOKEN)

@@ -365,12 +365,12 @@ async function startServer(port) {
   const env = {
     ...process.env,
     [pathKey]: `${binPath}${pathDelimiter}${process.env[pathKey] ?? ''}`,
-    ORCA_DEV_USER_DATA_PATH: profilePath,
-    ORCA_USER_DATA_PATH: profilePath,
-    ORCA_REPRO_SPAWN_MARKER: spawnMarkerPath,
-    ORCA_REPRO_EXIT_TRIGGER: exitTriggerPath,
-    ORCA_REPRO_INPUT_MARKER: inputMarkerPath,
-    ORCA_REPRO_AGENT_SESSION_TOKEN: agentSessionToken,
+    OPENKODO_DEV_USER_DATA_PATH: profilePath,
+    OPENKODO_USER_DATA_PATH: profilePath,
+    OPENKODO_REPRO_SPAWN_MARKER: spawnMarkerPath,
+    OPENKODO_REPRO_EXIT_TRIGGER: exitTriggerPath,
+    OPENKODO_REPRO_INPUT_MARKER: inputMarkerPath,
+    OPENKODO_REPRO_AGENT_SESSION_TOKEN: agentSessionToken,
     ...(process.platform === 'linux' ? { ELECTRON_DISABLE_SANDBOX: '1' } : {})
   }
   server = spawn(

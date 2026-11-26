@@ -13,7 +13,7 @@ From the repository root:
 ```sh
 pnpm build:packages
 pnpm --filter @orca/process-host typecheck
-ORCA_BACKGROUND_LAUNCH=1 pnpm --filter @orca/process-host test
+OPENKODO_BACKGROUND_LAUNCH=1 pnpm --filter @orca/process-host test
 ```
 
 Which copy a caller loads:

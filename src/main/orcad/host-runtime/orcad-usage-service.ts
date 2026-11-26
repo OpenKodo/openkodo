@@ -20,7 +20,7 @@ export function installOrcadUsageService(
   userDataPath: string,
   registerCleanup: (cleanup: BackendServiceCleanup) => void
 ): OrcadUsageClients {
-  // Built now so worktrees removed before the first usage read stay in the Orca scope.
+  // Built now so worktrees removed before the first usage read stay in the OpenKodo scope.
   const worktrees = new UsageWorktreeHistory(
     store,
     join(userDataPath, 'orca-usage-worktree-history.json')
@@ -30,7 +30,7 @@ export function installOrcadUsageService(
   const start = (): Promise<ReturnType<typeof createUsageService>> => {
     if (abort.signal.aborted) {
       return Promise.reject(
-        new Error('Usage service is stopping. Try again after Orca reconnects.')
+        new Error('Usage service is stopping. Try again after OpenKodo reconnects.')
       )
     }
     if (service) {

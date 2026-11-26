@@ -6,11 +6,11 @@ export const PLUGIN_GIT_CLONE_TEMP_PREFIX = 'orca-plugin-git-'
 export const PLUGIN_GIT_LS_REMOTE_TEMP_PREFIX = 'orca-plugin-ls-remote-'
 // Why: mkdtemp appends exactly six [A-Za-z0-9] characters, so nothing else in tmpdir() matches.
 const PLUGIN_GIT_TEMP_NAME = /^orca-plugin-(?:git|ls-remote)-[A-Za-z0-9]{6}$/
-// Why an hour: far past any live run (120 s per git call), so another Orca's fetch is never touched.
+// Why an hour: far past any live run (120 s per git call), so another OpenKodo's fetch is never touched.
 const PLUGIN_GIT_TEMP_MAX_AGE_MS = 60 * 60 * 1000
 const SWEEP_STARTUP_DELAY_MS = 30_000
 
-/** Removes plugin Git temp folders a killed or quit Orca left behind; best effort. */
+/** Removes plugin Git temp folders a killed or quit OpenKodo left behind; best effort. */
 export async function sweepStalePluginGitTempDirs(
   root = tmpdir(),
   now = Date.now()

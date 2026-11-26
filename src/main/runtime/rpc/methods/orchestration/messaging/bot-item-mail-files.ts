@@ -1,6 +1,6 @@
 // `send --to bot:<name> --item <n> --file`: files sent with mail about an item, admitted into that
 // item's chat as its comments' are. Images go with the mail as the chat's image blocks; other files
-// join the body as `@path`. A paired Orca's files arrive already uploaded to this store.
+// join the body as `@path`. A paired OpenKodo's files arrive already uploaded to this store.
 import { isAgentInlineImagePath } from '../../../../../../shared/native-chat/input/composer/agent-inline-image-types'
 import { formatNativeChatFileReference } from '../../../../../../shared/native-chat/input/composer/agent-image-paste'
 import { parseBotAddress, botOfAddress } from '../../../../../../shared/bot-roster'

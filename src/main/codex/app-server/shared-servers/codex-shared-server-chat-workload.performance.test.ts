@@ -45,7 +45,7 @@ async function fileReadsForCloses(others: number, launcher: boolean, closes = 1)
   host.rows = [
     ...(launcher ? [{ pid: LAUNCHER_PID, parent: 1, name: 'orca-provider-e', env: '' }] : []),
     { pid: SERVER_PID, parent: launcher ? LAUNCHER_PID : 1, name: 'codex', env: '' },
-    { pid: TAGGED_PID, parent: SERVER_PID, name: 'sleep', env: 'ORCA_CODEX_SHARED_LEASE=a\0' },
+    { pid: TAGGED_PID, parent: SERVER_PID, name: 'sleep', env: 'OPENKODO_CODEX_SHARED_LEASE=a\0' },
     ...Array.from({ length: others }, (_, index) => ({
       pid: BASE_PID + 10 + index,
       parent: 1,

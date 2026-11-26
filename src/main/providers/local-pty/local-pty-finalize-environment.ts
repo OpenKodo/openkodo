@@ -77,8 +77,8 @@ export function finalizeLocalPtySpawnEnvironment(args: {
     }
     logHistoryInjection(worktreeId, historyResult)
   } else {
-    // History-off bypasses injectHistoryEnv, so clear inherited Orca history explicitly (#11146).
-    delete env.ORCA_HISTFILE
+    // History-off bypasses injectHistoryEnv, so clear inherited OpenKodo history explicitly (#11146).
+    delete env.OPENKODO_HISTFILE
     // Exported fish_history must not select the launching workspace history when isolation is off.
     dropInheritedOrcaFishHistory(env)
     // Exported HISTFILE must not select the launching workspace history when isolation is off.
@@ -95,8 +95,8 @@ export function finalizeLocalPtySpawnEnvironment(args: {
         command: codexStartupCommand,
         startupCommandDelivery: spawn.startupCommandDelivery
       })
-    // Only this shell launch config may choose Orca-owned features.
-    delete env.ORCA_SHELL_FEATURES
+    // Only this shell launch config may choose OpenKodo-owned features.
+    delete env.OPENKODO_SHELL_FEATURES
     delete env[POSIX_SHELL_STARTUP_COMMAND_ENV]
     const userShellArgs = !spawn.command && !spawn.launchAgent ? spawn.terminalShellArgs : undefined
     // Capture before launch config prefixes XDG_DATA_DIRS.

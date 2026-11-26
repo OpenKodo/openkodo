@@ -1,5 +1,5 @@
-// Orca's own sign-in to a bot's app, run on the bot's host for the device that asked. A paired
-// desktop opens the page in Orca's browser routed to this host, so the app returns to this host's own
+// OpenKodo's own sign-in to a bot's app, run on the bot's host for the device that asked. A paired
+// desktop opens the page in OpenKodo's browser routed to this host, so the app returns to this host's own
 // listener; a phone, the web or the CLI pastes the address its browser ended on and sends only its
 // query. Tokens and the PKCE verifier never leave this host.
 import { randomInt, randomUUID } from 'node:crypto'
@@ -49,7 +49,7 @@ const attempts = new Map<string, Pending>()
 
 /**
  * A paste's return address: the loopback address the tool's registration was made for, so a paste
- * doesn't register Orca with the app again (nobody listens there), else a random port.
+ * doesn't register OpenKodo with the app again (nobody listens there), else a random port.
  */
 function pasteRedirect(stored: string | undefined): string {
   let reused: URL | null = null

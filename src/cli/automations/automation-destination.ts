@@ -88,7 +88,7 @@ export async function resolveAutomationDestination(
   return (await resolveAutomationWriteTarget(client, target)).destination
 }
 
-/** A local CLI creates a managed SSH host's automation on its Orca server (#24863), by the ids both share. */
+/** A local CLI creates a managed SSH host's automation on its OpenKodo server (#24863), by the ids both share. */
 export async function routeAutomationCreate<
   TCreate extends { repo?: string; workspace?: string; runContext?: unknown }
 >(

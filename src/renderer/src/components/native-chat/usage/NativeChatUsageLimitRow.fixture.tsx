@@ -22,7 +22,7 @@ type State = {
   window?: AgentSessionUsageLimitWindow
   /** Minutes until the provider's reset; undefined for an unknown reset. */
   resetIn?: number
-  /** Minutes until Orca's own continue, when it differs from the reset. */
+  /** Minutes until OpenKodo's own continue, when it differs from the reset. */
   autoIn?: number
   auto?: 'off' | 'scheduled' | 'cancelled'
   account?: 'switch' | 'loading'

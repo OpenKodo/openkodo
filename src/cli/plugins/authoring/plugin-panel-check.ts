@@ -9,6 +9,7 @@ import type { PluginDeclarativeNode } from '../../../shared/plugins/declarative/
 import { parsePluginDeclarativeTree } from '../../../shared/plugins/declarative/plugin-declarative-tree'
 import { parsePluginManifest } from '../../../shared/plugins/manifest/plugin-manifest'
 import { PLUGIN_PANEL_CHECK_SCRIPT } from './plugin-panel-check-script'
+import { findPluginManifestFile } from './plugin-manifest-file'
 import { selectPluginTestNode } from './plugin-test-node'
 import { pluginTestingFiles } from './plugin-test-runner'
 
@@ -29,7 +30,7 @@ export type PluginPanelCheck = {
   summary: string[]
   /** The drawn tree as plain data (handlers as `[handler]`); `orca plugin check --json` only. */
   tree?: unknown
-  /** With `drawnTree`: the validated tree exactly as Orca draws it, handlers as `{ $callback }`. */
+  /** With `drawnTree`: the validated tree exactly as OpenKodo draws it, handlers as `{ $callback }`. */
   drawnTree?: PluginDeclarativeNode | null
   issues: PluginPanelCheckIssue[]
   warnings: string[]
@@ -70,7 +71,7 @@ export function pluginStackLocation(dir: string, stack: string | undefined): str
   return undefined
 }
 
-// `src/panel.tsx:4:7: Unexpected token`, as Orca's loaders word transpile and import errors.
+// `src/panel.tsx:4:7: Unexpected token`, as OpenKodo's loaders word transpile and import errors.
 const LOCATED_MESSAGE = /^([^\n:]+\.[a-z]+:\d+:\d+): ([\s\S]*)$/i
 
 /** One issue per distinct problem, located from its message or else its first plugin frame. */
@@ -109,7 +110,7 @@ export type CheckPluginPanelsOptions = {
   panel?: string
   /** Only this scenario of its `.check` file; an unknown name is reported as an issue. */
   scenario?: string
-  /** Also return each render's validated tree as Orca draws it (`drawnTree`), for replay. */
+  /** Also return each render's validated tree as OpenKodo draws it (`drawnTree`), for replay. */
   drawnTree?: boolean
 }
 
@@ -126,7 +127,9 @@ async function checkTargets(
   panelId?: string
 ): Promise<{ panels: CheckTarget[]; main: { path: string; url: string } | null }> {
   const parsed = parsePluginManifest(
-    JSON.parse(await readFile(join(dir, 'orca-plugin.json'), 'utf8'))
+    JSON.parse(
+      await readFile(findPluginManifestFile(dir) ?? join(dir, 'openkodo-plugin.json'), 'utf8')
+    )
   )
   if (!parsed.ok) {
     return { panels: [], main: null }
@@ -176,8 +179,8 @@ async function runCheckChild(dir: string, input: CheckChildInput, appRoot?: stri
     env: {
       ...process.env,
       ...node.env,
-      ORCA_PLUGIN_TEST_ROOT: dir,
-      ORCA_PLUGIN_CHECK_PANELS: JSON.stringify(input)
+      OPENKODO_PLUGIN_TEST_ROOT: dir,
+      OPENKODO_PLUGIN_CHECK_PANELS: JSON.stringify(input)
     },
     timeoutMs: 60_000
   })
@@ -201,9 +204,9 @@ export async function readPluginCheckScenarioNames(
     { panel: entry, entry, url: url(entry), fixture: { path: fixture, url: url(fixture) } }
   ]
   const result = await runCheckChild(dir, { panels, main: null, listOnly: true }, appRoot)
-  const marker = result.stdout.lastIndexOf('__ORCA_CHECK__')
+  const marker = result.stdout.lastIndexOf('__OPENKODO_CHECK__')
   const listed = scenarioListSchema.safeParse(
-    marker === -1 ? null : JSON.parse(result.stdout.slice(marker + '__ORCA_CHECK__'.length))
+    marker === -1 ? null : JSON.parse(result.stdout.slice(marker + '__OPENKODO_CHECK__'.length))
   )
   if (!listed.success || !listed.data[0]) {
     throw new Error(
@@ -244,7 +247,7 @@ export async function checkPluginPanels(
     },
     options.appRoot
   )
-  const marker = result.stdout.lastIndexOf('__ORCA_CHECK__')
+  const marker = result.stdout.lastIndexOf('__OPENKODO_CHECK__')
   if (marker === -1) {
     // The process died before reporting (a syntax error in a module, say): report what it said.
     const message = (result.stderr || result.stdout).trim().split('\n').slice(0, 20).join('\n')
@@ -258,7 +261,7 @@ export async function checkPluginPanels(
     }))
   }
   const reported = checkReportSchema.parse(
-    JSON.parse(result.stdout.slice(marker + '__ORCA_CHECK__'.length))
+    JSON.parse(result.stdout.slice(marker + '__OPENKODO_CHECK__'.length))
   )
   // Stacks name real paths (macOS /var is /private/var).
   const realDir = realpathSync(dir)
@@ -287,7 +290,7 @@ export function formatPluginPanelCheck(check: PluginPanelCheck): string[] {
     `${head}failed`,
     ...check.issues.map(
       (issue) =>
-        `  ${issue.location ?? check.entry}: ${issue.kind === 'refused' ? 'Orca would refuse this render: ' : ''}${issue.message}`
+        `  ${issue.location ?? check.entry}: ${issue.kind === 'refused' ? 'OpenKodo would refuse this render: ' : ''}${issue.message}`
     ),
     ...check.warnings.map((warning) => `  warning: ${warning}`)
   ]

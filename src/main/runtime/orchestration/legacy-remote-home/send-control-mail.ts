@@ -64,7 +64,7 @@ export function sendFederatedControlMail(args: {
     )
   }
   revalidateLegacyCoordinator?.()
-  // Refused here, not on the paired Orca's import, where a refusal would stall its relay.
+  // Refused here, not on the paired OpenKodo's import, where a refusal would stall its relay.
   const callerPayload = callerMailProvenance({ from, payload: params.payload })
   const relay = db.enqueueFederationRelay({
     dispatchId,
@@ -105,7 +105,7 @@ export function federatedControlMailRefusal(
   if (protocolVersion < ORCHESTRATION_FEDERATION_CONTROL_MAIL_PROTOCOL_VERSION) {
     return {
       code: 'capability_unsupported',
-      message: `Federated Dispatch ${dispatchId} does not support coordinator control mail; start a fresh worker after updating its Orca server.`
+      message: `Federated Dispatch ${dispatchId} does not support coordinator control mail; start a fresh worker after updating its OpenKodo server.`
     }
   }
   if (workerState() !== 'ready') {

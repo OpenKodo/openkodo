@@ -37,7 +37,7 @@ import {
   mobileSessionWorkspaceSourcesUnchanged,
   readMobileSessionWorkspaceSources
 } from './mobile-session-dirty-workspaces'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { AppState } from '@/store/types'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { RuntimeMobileSessionSnapshotTab } from '../../../../shared/remote-runtime/session-graph/runtime-mobile-session-tab-contracts'
@@ -208,7 +208,7 @@ export function buildMobileSessionTabSnapshots(
         emittedEditorTabIds.add(unifiedTab.id)
       }
       // Switch point: a row goes out under its tab id only, the id main's layout resolves (L280).
-      const tablessFiles = ORCA_LAYOUT_OWNER_IS_MAIN ? [] : openFilesForWorktree.values()
+      const tablessFiles = OPENKODO_LAYOUT_OWNER_IS_MAIN ? [] : openFilesForWorktree.values()
       for (const file of tablessFiles) {
         if (!isMobilePublishableOpenFile(file) || emittedEditorFileIds.has(file.id)) {
           continue

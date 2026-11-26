@@ -1,12 +1,12 @@
 # Automated workspace setup: dedicated Setup tab
 
-Status: design converged; implementation, local validation, and independent source review complete. Exact-head CI and merge authorization are tracked by [PR #29819](https://github.com/stablyai/orca/pull/29819).
+Status: design converged; implementation, local validation, and independent source review complete. Exact-head CI and merge authorization are tracked by [PR #29819](https://github.com/OpenKodo/openkodo/pull/29819).
 
 ## Decision and boundary
 
 Run terminal-backed automated workspace setup in its own **Setup** tab using the existing new-tab path. Remove automated setup split placement, its preference/control, and its one-shot split/geometry state. Keep manual splits, issue-command splits, generic startup consumption, saved layouts, default-tab policy, and setup-to-agent sequencing.
 
-This is PR 2. [PR 1 (#29810)](https://github.com/stablyai/orca/pull/29810) separately fixed background native-chat setup provisioning and merged first as `7f9b51cf5cc1de8769baa646b40c0c93af76be81`. This branch was rebased onto that exact merge before final review and relevant checks. Parent chat-publication and sibling-reattachment fixes, broad terminal ownership, corrupt saved-binding repair, and retries are outside this PR.
+This is PR 2. [PR 1 (#29810)](https://github.com/OpenKodo/openkodo/pull/29810) separately fixed background native-chat setup provisioning and merged first as `7f9b51cf5cc1de8769baa646b40c0c93af76be81`. This branch was rebased onto that exact merge before final review and relevant checks. Parent chat-publication and sibling-reattachment fixes, broad terminal ownership, corrupt saved-binding repair, and retries are outside this PR.
 
 ## Evidence and severity
 

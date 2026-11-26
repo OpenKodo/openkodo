@@ -37,7 +37,7 @@ export function recountLostInProcessCount(
         code: 'orcad_update_terminal_census_unavailable',
         reason:
           'The server could not count the terminals it runs itself right before the stop, so ' +
-          'nothing was stopped. Orca will try the update again.'
+          'nothing was stopped. OpenKodo will try the update again.'
       }
     : null
 }

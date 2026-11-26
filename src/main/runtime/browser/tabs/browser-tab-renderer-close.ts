@@ -1,7 +1,7 @@
 import { BrowserError } from '../../../browser/browser-error'
 import { getRuntimeDesktopSurface } from '../../construction/runtime-desktop-surface'
 
-/** Asks the renderer, which owns Orca's tab model, to close one browser page. */
+/** Asks the renderer, which owns OpenKodo's tab model, to close one browser page. */
 export async function closeBrowserTabInRenderer(
   windowId: number,
   tabId: string | null,

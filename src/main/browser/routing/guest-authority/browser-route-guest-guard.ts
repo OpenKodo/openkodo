@@ -2,7 +2,7 @@ import { hasPendingBrowserPageAttach } from '../../guest-lifecycle/browser-page-
 import type { Session, WebContents } from 'electron'
 import { normalizeBrowserNavigationUrl } from '../../../../shared/browser/navigation/browser-url'
 import '../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
 import {
   isValidBrowserRoutePageOwnerIdentity,
   type BrowserRoutePageAuthorityRetirement,
@@ -25,7 +25,7 @@ export function isValidBlankRouteGuest(guest: WebContents): boolean {
 export function isBlankRouteGuest(guest: WebContents): boolean {
   try {
     return (
-      normalizeBrowserNavigationUrl(guest.getURL()) === ORCA_BROWSER_BLANK_URL ||
+      normalizeBrowserNavigationUrl(guest.getURL()) === OPENKODO_BROWSER_BLANK_URL ||
       (guest.getURL() === '' && hasPendingBrowserPageAttach(guest))
     )
   } catch {

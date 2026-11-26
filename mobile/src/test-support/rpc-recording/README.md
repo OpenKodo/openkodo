@@ -240,7 +240,7 @@ Caches are observed through follow-up requests, without reading private cache ma
 ## Commands
 
 ```sh
-ORCA_BACKGROUND_LAUNCH=1 pnpm --dir mobile test src/test-support/rpc-recording  # replay and compare
+OPENKODO_BACKGROUND_LAUNCH=1 pnpm --dir mobile test src/test-support/rpc-recording  # replay and compare
 pnpm --dir mobile rpc:record                    # re-record every golden from the current tree
 pnpm --dir mobile rpc:record <golden-id> ...    # re-record only these (ids as the failure prints)
 pnpm --dir mobile rpc:record --prune            # also delete goldens the manifest no longer derives

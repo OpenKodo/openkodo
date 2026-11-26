@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { translate } from '../../i18n/mobile-i18n'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../src/shared/sidebar-list/feed/sidebar-inputs-switch'
 import { loadPinnedIds } from '../../storage/preferences'
 import { loadHosts, peekHosts } from '../../host-catalog/host-store'
 import { updateLastConnected } from '../../host-catalog/host-connection-history'
@@ -49,7 +49,7 @@ export function useHostScreenIdentity(args: {
 
   // Cache pins locally only without the feed; view settings come from ui.get.
   useEffect(() => {
-    if (!hostId || ORCA_SIDEBAR_INPUTS_IS_MAIN) {
+    if (!hostId || OPENKODO_SIDEBAR_INPUTS_IS_MAIN) {
       return
     }
     let stale = false

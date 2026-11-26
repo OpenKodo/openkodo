@@ -117,7 +117,7 @@ export function ToolSignIn({
   logo: React.ReactNode
   title: string
   onPaste: (paste: boolean) => void
-  /** Orca's own sign-in: a fresh one, since its page can't be opened twice. */
+  /** OpenKodo's own sign-in: a fresh one, since its page can't be opened twice. */
   onOpenAgain?: () => void
   onEnded: (outcome: string | undefined) => void
   onClose: () => void

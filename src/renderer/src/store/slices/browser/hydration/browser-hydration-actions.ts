@@ -8,7 +8,7 @@ import { destroyWorkspaceWebviews } from '../cleanup/browser-webview-cleanup'
 import { projectHydratedBrowserSession } from './browser-hydration-state'
 import { ensureBrowserClientHostsForRestoredPages } from '@/runtime/browser/client-hosting/restored-client-hosted-browser-host-attach'
 
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 
 import { selectFolderWorkspaces } from '../../../workspaces/catalog/workspace-record-fields'
 import { runtimeEnvironmentIdUnlessTwin } from '@/lib/workspace/ownership/resolve-owner'
@@ -66,7 +66,7 @@ export function createBrowserHydrationActions(
       void ensureBrowserClientHostsForRestoredPages(state)
       for (const [worktreeId, browserTabs] of Object.entries(state.browserTabsByWorktree)) {
         // Switch point: main's layout load gives a tabless record its tab; its frame draws it.
-        if (ORCA_LAYOUT_OWNER_IS_MAIN && !runtimeEnvironmentIdUnlessTwin(state, worktreeId)) {
+        if (OPENKODO_LAYOUT_OWNER_IS_MAIN && !runtimeEnvironmentIdUnlessTwin(state, worktreeId)) {
           continue
         }
         for (const bt of browserTabs) {

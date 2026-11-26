@@ -1,6 +1,6 @@
 import {
-  ORCA_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY,
-  ORCA_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
+  OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY,
+  OPENKODO_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
 } from '../../shared/orca-account-runtime-capabilities'
 import {
   isOrcaAccountApprovalPrompt,
@@ -26,7 +26,7 @@ export type { OrcaServerSignInDeps } from './orca-server-sign-in-run'
 const DAILY_REFRESH_MS = 24 * 60 * 60 * 1000
 const MAX_ERROR_CHARS = 600
 
-/** Lets a client that can run commands on this host sign its Orca account in or out.
+/** Lets a client that can run commands on this host sign its OpenKodo account in or out.
  * The host makes and keeps the PKCE verifier; the client only relays the one-time code. */
 export class OrcaServerSignIn {
   private readonly flows: CallerOwnedSignInFlows<
@@ -44,7 +44,7 @@ export class OrcaServerSignIn {
       (provider, channel) => runServerSignIn(this.deps, provider, channel, () => this.publish()),
       {
         acceptsPrompt: () => true,
-        // An approve-in-browser flow finishes from Orca Cloud; nothing is pasted into it.
+        // An approve-in-browser flow finishes from OpenKodo Cloud; nothing is pasted into it.
         acceptsCode: (prompt) => prompt !== undefined && !isOrcaAccountApprovalPrompt(prompt),
         describeFailure: (message) => ({
           error:
@@ -192,8 +192,8 @@ export function getOrcaServerSignIn(): OrcaServerSignIn | null {
 export function orcaAccountRuntimeCapabilities(): string[] {
   return installed
     ? [
-        ORCA_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY,
-        ORCA_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY
+        OPENKODO_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY,
+        OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY
       ]
     : []
 }

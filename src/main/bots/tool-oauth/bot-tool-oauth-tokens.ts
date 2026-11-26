@@ -213,7 +213,7 @@ export async function refreshBotToolAccessToken(
 // ---------------------------------------------------------------------------------------------
 // State, sign-out, removal
 
-/** The row's state, from the store alone; null when the tool isn't one Orca signs in to. */
+/** The row's state, from the store alone; null when the tool isn't one OpenKodo signs in to. */
 export function botToolSignInState(key: BotToolOAuthKey): BotToolSignInStatus | null {
   const entry = readBotToolOAuth(key.folder, key.credentialId)
   if (!entry) {

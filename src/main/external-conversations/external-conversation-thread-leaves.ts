@@ -1,4 +1,4 @@
-// A bot that left its Slack thread during a turn: Orca's own confirmation, posted once that turn
+// A bot that left its Slack thread during a turn: OpenKodo's own confirmation, posted once that turn
 // ends, right after its answer, and only while the thread is still left.
 import type { ExternalConversationLink } from '../../shared/connectors/external-conversation-link'
 import { installedLeaveLines, type LeaveLines } from './external-conversation-leave-lines'

@@ -1,5 +1,5 @@
 // The servers "Add an MCP server" lists on desktop and phone: the vendors' MCP apps bots use, plus
-// the two that bots reach through Orca's own connectors instead (GitHub, Linear).
+// the two that bots reach through OpenKodo's own connectors instead (GitHub, Linear).
 import { BOT_MCP_APPS, type BotMcpApp } from '../bots/bot-mcp-apps'
 
 export type McpServerCatalogCategory = 'coding' | 'chat' | 'monitoring' | 'docs' | 'more'

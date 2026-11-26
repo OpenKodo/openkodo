@@ -6,14 +6,14 @@ export type OrcaInstallIdentity = {
   installKind: OrcaUninstallInstallKind
   appPath: string | null
   removeAppCommand: string | null
-  /** Another Orca build that runs the same ~/.orca hook scripts. */
+  /** Another OpenKodo build that runs the same ~/.orca hook scripts. */
   otherOrcaBuildName: string | null
 }
 
 export type OrcaInstallIdentityInput = {
   platform: NodeJS.Platform
   isPackaged: boolean
-  /** The running Orca executable (Electron's `exe` path). */
+  /** The running OpenKodo executable (Electron's `exe` path). */
   exePath: string
   homeDir: string
   env: NodeJS.ProcessEnv
@@ -24,12 +24,12 @@ export type OrcaInstallIdentityInput = {
 }
 
 // Every channel (stable, RC, dev builds) ships this bundle id; see config/electron-builder.config.cjs.
-const ORCA_BUNDLE_ID = 'com.stablyai.orca'
+const OPENKODO_BUNDLE_ID = 'dev.openkodo.app'
 // Cask tokens from Casks/orca.rb and Casks/orca@rc.rb.
-const ORCA_CASKS = ['orca', 'orca@rc']
+const OPENKODO_CASKS = ['orca', 'orca@rc']
 const CASKROOMS = ['/opt/homebrew/Caskroom', '/usr/local/Caskroom']
 const LINUX_PACKAGE_NAME = 'orca-ide'
-const LINUX_PACKAGE_EXECUTABLE = '/opt/Orca/orca-ide'
+const LINUX_PACKAGE_EXECUTABLE = '/opt/OpenKodo/orca-ide'
 
 function pathExists(path: string): Promise<boolean> {
   return access(path).then(
@@ -62,7 +62,7 @@ async function otherMacBuild(
         continue
       }
       const plist = await input.readText(posix.join(bundle, 'Contents', 'Info.plist'))
-      if (plist?.includes(`<string>${ORCA_BUNDLE_ID}</string>`)) {
+      if (plist?.includes(`<string>${OPENKODO_BUNDLE_ID}</string>`)) {
         return basename(name, '.app')
       }
     }
@@ -72,8 +72,8 @@ async function otherMacBuild(
 
 function windowsInstallDirs(env: NodeJS.ProcessEnv): string[] {
   return [
-    env.LOCALAPPDATA ? win32.join(env.LOCALAPPDATA, 'Programs', 'Orca') : null,
-    env.ProgramFiles ? win32.join(env.ProgramFiles, 'Orca') : null
+    env.LOCALAPPDATA ? win32.join(env.LOCALAPPDATA, 'Programs', 'OpenKodo') : null,
+    env.ProgramFiles ? win32.join(env.ProgramFiles, 'OpenKodo') : null
   ].filter((dir): dir is string => dir !== null)
 }
 
@@ -85,16 +85,16 @@ async function otherWindowsBuild(
   for (const dir of windowsInstallDirs(input.env)) {
     if (
       dir.toLowerCase() !== own?.toLowerCase() &&
-      (await input.exists(win32.join(dir, 'Orca.exe')))
+      (await input.exists(win32.join(dir, 'OpenKodo.exe')))
     ) {
-      return `Orca in ${dir}`
+      return `OpenKodo in ${dir}`
     }
   }
   return null
 }
 
 async function homebrewCask(input: Required<OrcaInstallIdentityInput>): Promise<string | null> {
-  for (const cask of ORCA_CASKS) {
+  for (const cask of OPENKODO_CASKS) {
     for (const root of CASKROOMS) {
       if (await input.exists(posix.join(root, cask))) {
         return cask
@@ -105,7 +105,7 @@ async function homebrewCask(input: Required<OrcaInstallIdentityInput>): Promise<
 }
 
 async function hasLinuxPackage(input: Required<OrcaInstallIdentityInput>): Promise<string | null> {
-  return (await input.exists(LINUX_PACKAGE_EXECUTABLE)) ? 'Orca (system package)' : null
+  return (await input.exists(LINUX_PACKAGE_EXECUTABLE)) ? 'OpenKodo (system package)' : null
 }
 
 export async function resolveOrcaInstallIdentity(

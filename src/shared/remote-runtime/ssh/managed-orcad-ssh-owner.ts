@@ -3,7 +3,7 @@ import type { SshTarget, SshTargetOwner } from './ssh-types'
 /** The runtime id phase-3 builds wrote into `owner` before the fence moved to `orcadFence`. */
 const LEGACY_MANAGED_ORCAD_RUNTIME_ID_PREFIX = 'managed-orcad:'
 
-/** The managed Orca server this host serves, or null for a direct SSH host. */
+/** The managed OpenKodo server this host serves, or null for a direct SSH host. */
 export function getManagedOrcadFenceEnvironmentId(
   target: Pick<SshTarget, 'orcadFence'> | undefined
 ): string | null {
@@ -32,7 +32,7 @@ export function managedOrcadServerName(target: Pick<SshTarget, 'label' | 'owner'
   return runtimeId ? `${target.label} VM ${runtimeId.slice(-8)}` : target.label
 }
 
-/** Refusal for a new desktop automation on a host whose managed Orca server owns its automations. */
+/** Refusal for a new desktop automation on a host whose managed OpenKodo server owns its automations. */
 export function moveProjectToManagedHostFirst(host: string): string {
   return `Move this project to ${host} first.`
 }

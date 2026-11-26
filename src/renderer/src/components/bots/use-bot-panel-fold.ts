@@ -97,7 +97,7 @@ function rememberFold(botId: string, id: BotPanelFoldId, open: boolean): void {
   const cards = unsaved.get(botId) ?? new Map<BotPanelFoldId, boolean>()
   cards.set(id, !open)
   unsaved.set(botId, cards)
-  // Another window of this Orca may have saved its own folds since this one last read: change only
+  // Another window of this OpenKodo may have saved its own folds since this one last read: change only
   // this card over what storage holds now. That narrows the race but doesn't close it; writes from
   // two windows aren't atomic.
   const next = withUnsaved(readStorage() ?? currentFolds())

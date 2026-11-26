@@ -200,7 +200,7 @@ it('carries the failed root with its image ahead of the next message, once', () 
   expect(next.body.blocks).toEqual([
     {
       type: 'text',
-      text: '[Orca: sent 2027-01-15T08:00:00.000Z, 2 minutes before it reached you]\nwhat is in this screenshot?'
+      text: '[OpenKodo: sent 2027-01-15T08:00:00.000Z, 2 minutes before it reached you]\nwhat is in this screenshot?'
     },
     { type: 'image-ref', path: '/a/shot.png' },
     { type: 'text', text: 'it is signed in now' }
@@ -321,7 +321,7 @@ function insertOldCard(): void {
   )
 }
 
-it('reads a returned card an earlier Orca saved', () => {
+it('reads a returned card an earlier OpenKodo saved', () => {
   insertOldCard()
   const next = sendNext('next', 'ping')
   expect(next.body.blocks).toEqual([
@@ -333,7 +333,7 @@ it('reads a returned card an earlier Orca saved', () => {
   expect(returnedIds()).toEqual([])
 })
 
-it('carries an earlier Orca’s card ahead of a newer one', () => {
+it('carries an earlier OpenKodo’s card ahead of a newer one', () => {
   insertOldCard()
   failedStart('new', asked('d-new', 'newer'), 'notSignedIn', NOW + 60_000)
   // The newer failure sits ahead of it in the queue.
@@ -356,11 +356,11 @@ it('a message that carried others and failed again keeps each sent line on its o
   expect(third.body.blocks).toEqual([
     {
       type: 'text',
-      text: '[Orca: sent 2027-01-15T08:00:00.000Z, 1 minute before it reached you]\none'
+      text: '[OpenKodo: sent 2027-01-15T08:00:00.000Z, 1 minute before it reached you]\none'
     },
     {
       type: 'text',
-      text: '[Orca: sent 2027-01-15T08:01:00.000Z, 2 minutes before it reached you]\ntwo'
+      text: '[OpenKodo: sent 2027-01-15T08:01:00.000Z, 2 minutes before it reached you]\ntwo'
     },
     { type: 'text', text: 'three' }
   ])
@@ -401,7 +401,7 @@ it('a member’s request the owner’s message carries never acts for the owner,
   expect(turnActsForOwner(again.body)).toBe(false)
 })
 
-it('a carrying message an earlier Orca saved, with no carried askers, reads as before', () => {
+it('a carrying message an earlier OpenKodo saved, with no carried askers, reads as before', () => {
   const owners = asked('d-o', 'me too', THREAD, [], OWNER)
   expect(
     turnActsForOwner({ ...owners, carriedCards: [{ messageId: 'm', fingerprint: 'f' }] })
@@ -447,7 +447,7 @@ it('a chain of failed starts from two senders keeps one stamp each, newest first
   expect(stamps.every((each) => each.length <= 2)).toBe(true)
 })
 
-it('a card an earlier Orca saved with repeated stamps carries each sender once', () => {
+it('a card an earlier OpenKodo saved with repeated stamps carries each sender once', () => {
   const dana = person('U_DANA', 'member')
   failedStart('old', {
     ...asked('d-old', 'old', THREAD, [], OWNER),

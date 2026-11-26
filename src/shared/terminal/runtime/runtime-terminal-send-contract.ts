@@ -24,7 +24,7 @@ export type RuntimeTerminalPromptDelivery = {
   baselineExplicitWorkingStartedAt?: number | null
   /** Permission observations seen before this prompt was accepted. */
   baselinePermissionSequence?: number
-  /** When the paste and its Enter were written (epoch ms), for a start Orca never saw begin. */
+  /** When the paste and its Enter were written (epoch ms), for a start OpenKodo never saw begin. */
   submit?: RuntimeTerminalPromptSubmit
 }
 
@@ -34,7 +34,7 @@ export type RuntimeTerminalPromptSubmit = {
   renderWait?: 'quiet' | 'draft' | 'cap'
 } & (
   | { enteredAt: number }
-  /** What Enter would have answered or submitted after the paste, so Orca did not press it. */
+  /** What Enter would have answered or submitted after the paste, so OpenKodo did not press it. */
   | { withheldFor: RuntimeTerminalPromptSubmitHold }
 )
 

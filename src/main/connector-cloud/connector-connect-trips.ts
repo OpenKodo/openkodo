@@ -1,6 +1,6 @@
 // A Linear or GitHub connect run on this host for whichever client asks: the client opens the page
 // (for a server, in that server's own browser session, whose loopback is the server's), and the host
-// waits for the return and redeems it as its own Orca account.
+// waits for the return and redeems it as its own OpenKodo account.
 import { randomUUID } from 'node:crypto'
 import {
   BOT_SLACK_DESKTOP_ERRORS,
@@ -10,7 +10,7 @@ import type { ConnectorConnectSource } from '../../shared/connectors/connector-c
 import type { ConnectorConnectRedeem } from '../../../cloud/packages/connector-contract/src/connect-messages'
 import { type ConnectAddAccess, connectConnector, type KeepConnectLogin } from './connector-connect'
 
-/** A trip's end: the linked account, or null when it ends at "Open Orca" and its deep link redeems. */
+/** A trip's end: the linked account, or null when it ends at "Open OpenKodo" and its deep link redeems. */
 export type ConnectorTripResult = BotSlackResult<ConnectorConnectRedeem | null>
 
 export type ConnectorTripWait =

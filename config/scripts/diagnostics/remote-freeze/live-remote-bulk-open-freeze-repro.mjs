@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Amplify remote bulk-open freezes against running desktop/paired runtime using multi-worktree concurrent switches.
-// Run: ORCA_FREEZE_ENV=paired-remote ORCA_FREEZE_CREATE=12 ORCA_FREEZE_SWITCH_PASSES=5 ORCA_FREEZE_PARALLEL=8 node config/scripts/diagnostics/remote-freeze/live-remote-bulk-open-freeze-repro.mjs
+// Run: OPENKODO_FREEZE_ENV=paired-remote OPENKODO_FREEZE_CREATE=12 OPENKODO_FREEZE_SWITCH_PASSES=5 OPENKODO_FREEZE_PARALLEL=8 node config/scripts/diagnostics/remote-freeze/live-remote-bulk-open-freeze-repro.mjs
 import { spawnSync } from 'node:child_process'
 import { mkdirSync, writeFileSync, copyFileSync } from 'node:fs'
 import path from 'node:path'
@@ -19,17 +19,17 @@ import { createOrcaRpc } from './live-remote-freeze-rpc.mjs'
 
 const root = path.resolve(import.meta.dirname, '../../../..')
 const reportDir = path.join(root, 'test-results', 'freeze-repro')
-const envName = process.env.ORCA_FREEZE_ENV || 'paired-remote'
-const createCount = Math.max(0, readFreezeNumberEnv('ORCA_FREEZE_CREATE', 0))
-const switchPasses = Math.max(1, readFreezeNumberEnv('ORCA_FREEZE_SWITCH_PASSES', 3))
-const parallel = Math.max(1, readFreezeNumberEnv('ORCA_FREEZE_PARALLEL', 1))
+const envName = process.env.OPENKODO_FREEZE_ENV || 'paired-remote'
+const createCount = Math.max(0, readFreezeNumberEnv('OPENKODO_FREEZE_CREATE', 0))
+const switchPasses = Math.max(1, readFreezeNumberEnv('OPENKODO_FREEZE_SWITCH_PASSES', 3))
+const parallel = Math.max(1, readFreezeNumberEnv('OPENKODO_FREEZE_PARALLEL', 1))
 // 0 = no cap (use all live terminals). Only positive env values limit targets.
-const maxSwitchTargets = Math.max(0, readFreezeNumberEnv('ORCA_FREEZE_MAX_SWITCH_TARGETS', 0))
-const softMs = readFreezeNumberEnv('ORCA_FREEZE_SOFT_MS', DEFAULT_SOFT_MS)
-const hardMs = readFreezeNumberEnv('ORCA_FREEZE_HARD_MS', DEFAULT_HARD_MS)
-const createWorktreeSpan = Math.max(1, readFreezeNumberEnv('ORCA_FREEZE_CREATE_WT_SPAN', 16))
-const preFloodMs = Math.max(0, readFreezeNumberEnv('ORCA_FREEZE_PRE_FLOOD_MS', 3000))
-const scratchDir = process.env.ORCA_FREEZE_SCRATCH || ''
+const maxSwitchTargets = Math.max(0, readFreezeNumberEnv('OPENKODO_FREEZE_MAX_SWITCH_TARGETS', 0))
+const softMs = readFreezeNumberEnv('OPENKODO_FREEZE_SOFT_MS', DEFAULT_SOFT_MS)
+const hardMs = readFreezeNumberEnv('OPENKODO_FREEZE_HARD_MS', DEFAULT_HARD_MS)
+const createWorktreeSpan = Math.max(1, readFreezeNumberEnv('OPENKODO_FREEZE_CREATE_WT_SPAN', 16))
+const preFloodMs = Math.max(0, readFreezeNumberEnv('OPENKODO_FREEZE_PRE_FLOOD_MS', 3000))
+const scratchDir = process.env.OPENKODO_FREEZE_SCRATCH || ''
 
 const { orcaJsonSync, orcaJsonAsync } = createOrcaRpc({ envName })
 

@@ -4,7 +4,7 @@ import type { BrowserBackend } from '../../../browser/browser-backend'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import type { BrowserTabInfo } from '../../../../shared/browser/runtime/runtime-browser-contracts'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type {
   LayoutApplyOutcome,
   LayoutCommand
@@ -56,7 +56,7 @@ export class ServeBrowserTabs {
 
   opened(page: ServeBrowserPageState & { profileId?: string; groupId?: string }): void {
     // Main commits the tab layout before its page address is saved.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && this.deps.applyLayout) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && this.deps.applyLayout) {
       this.openThroughLayout(page, this.deps.applyLayout)
       return
     }
@@ -68,7 +68,7 @@ export class ServeBrowserTabs {
   /** A saved tab follows its page; a page whose tab was closed is not saved again. */
   navigated(page: ServeBrowserPageState): void {
     // While layout open is pending, retain the latest page address for its eventual save.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && this.pendingOpens.has(page.pageId)) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && this.pendingOpens.has(page.pageId)) {
       this.pendingOpens.set(page.pageId, page)
       return
     }
@@ -77,7 +77,7 @@ export class ServeBrowserTabs {
 
   /** A saved tab follows its page into another profile, so the page wakes in it. */
   profileChanged(page: ServeBrowserPageProfile): void {
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && this.deps.applyLayout) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && this.deps.applyLayout) {
       const session = this.deps.backend() ? this.deps.session(page.worktreeId) : null
       const command = session ? serveBrowserTabProfileCommand(session, page) : null
       if (command) {
@@ -93,7 +93,7 @@ export class ServeBrowserTabs {
   /** A closed page's tab, true when one was saved; a page destroyed with the process is not a close. */
   closed(worktreeId: string, pageId: string): boolean {
     // Drop page facts before main closes the tab layout.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && this.deps.applyLayout) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && this.deps.applyLayout) {
       return this.closeThroughLayout(worktreeId, pageId, this.deps.applyLayout)
     }
     return this.write(worktreeId, (hostId, session) =>

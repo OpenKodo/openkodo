@@ -22,7 +22,7 @@ type WorktreeRemoveRequest =
       timeoutMs: number
     }
 
-/** The phone's delete: a folder row leaves Orca as desktop's Remove Workspace does (git cannot select it); a row
+/** The phone's delete: a folder row leaves OpenKodo as desktop's Remove Workspace does (git cannot select it); a row
  *  the desktop tagged with its recipe environment also asks for that environment's destroy, which the delete sheet named. */
 function buildWorktreeRemoveRequest(
   item: Pick<Worktree, 'worktreeId' | 'recipeEnvironment'>,

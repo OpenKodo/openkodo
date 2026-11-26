@@ -34,7 +34,7 @@ export type CodexHistoryImportArgs = {
   indexPendingDir: string
   /** Names this run's staged copies, so a sweep leaves them alone. */
   runId: string
-  /** The import setting is unchanged and Orca isn't quitting. */
+  /** The import setting is unchanged and OpenKodo isn't quitting. */
   isCurrent: () => boolean
   /** Resolves once no launch waits for the history queue. */
   waitForLaunches: () => Promise<void>

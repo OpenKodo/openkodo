@@ -1,6 +1,6 @@
-// Who may use Orca's relay in this run, and where each tool sits on it. A bot's token reaches its
+// Who may use OpenKodo's relay in this run, and where each tool sits on it. A bot's token reaches its
 // home's tools under /bot-tools; the host's token, shared by every non-bot session, reaches the host
-// MCP list's under /mcp-servers, and its command servers Orca runs once under /mcp-processes. A bot
+// MCP list's under /mcp-servers, and its command servers OpenKodo runs once under /mcp-processes. A bot
 // that takes the host list reaches all of them with its own token.
 import { createHash, randomBytes } from 'node:crypto'
 import { resolve } from 'node:path'
@@ -27,16 +27,16 @@ export function relayToolUrl(
   return `${origin}/${scope === 'bot' ? 'bot-tools' : 'mcp-servers'}/${credentialId}/mcp`
 }
 
-/** A host list command server's address: Orca runs it once on the host for every session. */
+/** A host list command server's address: OpenKodo runs it once on the host for every session. */
 export function relayProcessUrl(origin: string, serverId: string): string {
   return `${origin}/mcp-processes/${serverId}/mcp`
 }
 
 /** What a request path names; null for any other path. */
 export type RelayToolPath =
-  /** A tool whose saved values Orca adds, by its credential id, in its grant's folder. */
+  /** A tool whose saved values OpenKodo adds, by its credential id, in its grant's folder. */
   | { scope: keyof RelayFolders; credentialId: string; process?: undefined }
-  /** A command server in the host's list that Orca runs once, by its id. */
+  /** A command server in the host's list that OpenKodo runs once, by its id. */
   | { scope: 'host'; process: string; credentialId?: undefined }
 
 export function relayToolPath(path: string): RelayToolPath | null {
@@ -50,7 +50,7 @@ export function relayToolPath(path: string): RelayToolPath | null {
   return { scope: match[1] === 'mcp-servers' ? 'host' : 'bot', credentialId: match[2]! }
 }
 
-/** One token per owner for this run of Orca; only a hash of it is kept as the grant's key. */
+/** One token per owner for this run of OpenKodo; only a hash of it is kept as the grant's key. */
 export class RelayGrants {
   private readonly grants = new Map<string, RelayGrant>()
   private readonly tokens = new Map<string, string>()

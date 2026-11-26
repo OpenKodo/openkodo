@@ -125,7 +125,7 @@ export abstract class OrcaRuntimeWithBots extends OrcaRuntimeWithLinearCommands 
   private botShareClient: { client: BotShareClient; download: BotShareDownloadPolicy } | null = null
   private botShareService: BotShareService | null = null
 
-  /** The desktop app hands in its Orca Cloud client and where shared bots download; the headless
+  /** The desktop app hands in its OpenKodo Cloud client and where shared bots download; the headless
    *  runtime has none. */
   setBotShareClient(client: BotShareClient, download: BotShareDownloadPolicy): void {
     this.botShareClient = { client, download }
@@ -135,7 +135,7 @@ export abstract class OrcaRuntimeWithBots extends OrcaRuntimeWithLinearCommands 
   /** Sharing bots by link, made on first use (it needs the app's data folder). */
   botShares(): BotShareService {
     if (!this.botShareClient) {
-      throw new Error('Sharing a bot needs the Orca desktop app.')
+      throw new Error('Sharing a bot needs the OpenKodo desktop app.')
     }
     this.botShareService ??= new BotShareService({
       ...this.botShareClient,

@@ -80,7 +80,7 @@ export function adoptionRow(
           number: input.pr.number,
           state: input.pr.state,
           title: input.pr.title,
-          url: `https://github.com/stablyai/orca/pull/${input.pr.number}`,
+          url: `https://github.com/OpenKodo/openkodo/pull/${input.pr.number}`,
           ...(input.pr.checks ? { checksStatus: input.pr.checks } : {})
         }
       : null,

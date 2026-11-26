@@ -24,7 +24,7 @@ function joinSetupTrustContent(yamlSetup: string | undefined, defaultTabEntries:
   return [yamlSetup, ...defaultTabEntries].filter(Boolean).join('\n\n')
 }
 
-/** The orca.yaml commands a setup trust approval covers: setup plus every defaultTabs command. */
+/** The openkodo.yaml commands a setup trust approval covers: setup plus every defaultTabs command. */
 export function getSetupTrustContent(yamlHooks: OrcaHooks | null): string {
   return joinSetupTrustContent(
     yamlHooks?.scripts?.setup?.trim(),

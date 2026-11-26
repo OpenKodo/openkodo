@@ -29,14 +29,14 @@ export const PLUGIN_PANEL_CSP =
   "style-src 'unsafe-inline'; img-src data:; font-src data:; base-uri 'none'; form-action 'none'"
 
 /** Renderer fills theme/tokens before mounting srcdoc; main cannot know the active presentation values. */
-export const PANEL_SHELL_TOKENS_PLACEHOLDER = '/*__ORCA_PANEL_TOKENS__*/'
-export const PANEL_SHELL_COLOR_SCHEME_PLACEHOLDER = '__ORCA_COLOR_SCHEME__'
+export const PANEL_SHELL_TOKENS_PLACEHOLDER = '/*__OPENKODO_PANEL_TOKENS__*/'
+export const PANEL_SHELL_COLOR_SCHEME_PLACEHOLDER = '__OPENKODO_COLOR_SCHEME__'
 const PANEL_SHELL_TOKENS_STYLE_ID = 'orca-design-tokens'
 
 export type PluginFrameSurface = 'panel' | 'editor'
 
 /** How the frame script reaches the host: `window.parent` (srcdoc iframe) or the guest preload;
- *  a declarative host page also gets Orca's boot script a way to post `ui.*` events. */
+ *  a declarative host page also gets OpenKodo's boot script a way to post `ui.*` events. */
 type FrameTransport = 'parent' | 'guest' | 'declarative-guest'
 
 /** The frozen `window.orca` every frame gets before plugin code runs: the public frame API.
@@ -52,7 +52,7 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
     codes: PLUGIN_ERROR_CODES,
     events: FRAME_EVENTS,
     editor: EDITOR_METHODS,
-    // Iframes get no user-gesture API at all: Orca cannot verify their gestures. A components
+    // Iframes get no user-gesture API at all: OpenKodo cannot verify their gestures. A components
     // panel's hidden guest never has activation; its `orca` module routes these through the
     // press grant with host.call instead.
     user: transport === 'guest' ? PLUGIN_FRAME_USER_METHODS : null,
@@ -234,7 +234,7 @@ ${PLUGIN_FRAME_DOCUMENT_SCRIPT}  if (C.surface === 'editor') {
   }
   Object.defineProperty(window, 'orca', { value: Object.freeze(orca), writable: false, configurable: false })
   if (C.declarativePost) {
-    // One-shot for Orca's boot script, which deletes it before importing the plugin module.
+    // One-shot for OpenKodo's boot script, which deletes it before importing the plugin module.
     Object.defineProperty(window, C.declarativePost, { configurable: true, value: function (event, payload) {
       post({ kind: 'evt', event: String(event), payload: payload })
     } })

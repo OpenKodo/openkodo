@@ -26,7 +26,7 @@ export type LocalhostLinkWorktree = {
   projectId?: string
 }
 
-// Why: a remote process's loopback URL names its own host; only that host's Orca browser reaches it,
+// Why: a remote process's loopback URL names its own host; only that host's OpenKodo browser reaches it,
 // unless its SSH host or paired server forwards its ports here, where the system browser opens the forward.
 export function isRemoteLoopbackHttpLink(
   url: string | undefined,

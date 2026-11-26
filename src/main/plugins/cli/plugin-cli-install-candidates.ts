@@ -84,7 +84,7 @@ export function gitFailure(
   }
   return new PluginCliError(
     GIT_AUTH_FAILED_CODE,
-    `Git on ${access.executionHost} could not read ${url}: the repository does not exist, or that machine's Git credentials cannot access it. Orca runs Git without prompts, so a private repository needs credentials that already work there.`,
+    `Git on ${access.executionHost} could not read ${url}: the repository does not exist, or that machine's Git credentials cannot access it. OpenKodo runs Git without prompts, so a private repository needs credentials that already work there.`,
     { ...access }
   )
 }
@@ -97,7 +97,7 @@ export function assertInstallAllowed(
 ): void {
   const blocked = host.blockedPluginReason(pluginKey)
   const reason = blocked
-    ? `${pluginKey} is blocked by Orca's safety list: ${blocked}`
+    ? `${pluginKey} is blocked by OpenKodo's safety list: ${blocked}`
     : (findTeamPluginBlock(pluginKey)?.reason ?? pluginInstallTrustError(pluginKey, lockSource))
   if (reason) {
     throw new PluginCliError(PLUGIN_BLOCKED_CODE, reason, {

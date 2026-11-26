@@ -2,7 +2,8 @@ const DEFAULT_KEEPALIVE_INTERVAL_MS = 15_000
 
 // Tests override the interval to avoid the full 15-second wait.
 function resolveKeepaliveIntervalMs(): number {
-  const raw = process.env.ORCA_KEEPALIVE_INTERVAL_MS ?? process.env.ORCA_HEARTBEAT_INTERVAL_MS
+  const raw =
+    process.env.OPENKODO_KEEPALIVE_INTERVAL_MS ?? process.env.OPENKODO_HEARTBEAT_INTERVAL_MS
   if (!raw) {
     return DEFAULT_KEEPALIVE_INTERVAL_MS
   }

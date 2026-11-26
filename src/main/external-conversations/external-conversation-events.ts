@@ -38,7 +38,7 @@ import {
 } from './external-conversation-types'
 
 export type ConversationEvent =
-  // actsFor: whom the linked chat acts for, once Orca recorded it.
+  // actsFor: whom the linked chat acts for, once OpenKodo recorded it.
   | (ConversationPane & {
       kind: 'linked'
       agent: ExternalConversationLink['agent']
@@ -46,7 +46,7 @@ export type ConversationEvent =
     })
   // The linked chat was deleted, so its thread is free.
   | (ConversationPane & { kind: 'unlinked' })
-  // answered: the agent worked past this prompt, so someone answered it in Orca.
+  // answered: the agent worked past this prompt, so someone answered it in OpenKodo.
   | (ConversationPane & {
       kind: 'prompt'
       prompt: ConnectorPrompt
@@ -64,13 +64,13 @@ export type ConversationEvent =
       stopReason: AgentTurnOutcome | null
       lastAssistantMessage?: string
       at: number
-      /** Whether a connector delivery or someone in Orca asked for the turn. */
+      /** Whether a connector delivery or someone in OpenKodo asked for the turn. */
       origin?: ConnectorTurnOrigin
       /** Why a failed turn failed. */
       failure?: ConnectorFailure
       /** Pull requests the conversation's bot work opened. */
       links?: ConnectorWorkLink[]
-      /** An Orca-typed turn whose owner's words posted to the Slack thread: its reply posts too. */
+      /** An OpenKodo-typed turn whose owner's words posted to the Slack thread: its reply posts too. */
       mirror?: true
       /** Whom a turn no delivery started acts for, so its final post counts as them on Slack. */
       turnFor?: ConnectorTurnFor
@@ -135,7 +135,7 @@ export type ConversationEventsDeps = {
   promptsAudience: () => boolean
   /** The ended turn's owner posts to its Slack thread, taken once; null when none posted. */
   mirrorTurn?: (sessionId: string) => SlackMirrorTurn | null
-  /** Whom a chat's conversation acts for, as Orca recorded it. */
+  /** Whom a chat's conversation acts for, as OpenKodo recorded it. */
   actsForOf?: (sessionId: string) => ConnectorActsFor | undefined
   replyFill?: () => ConversationReplyFill | null
   /** The message that opened the chat's running turn; null when none runs. */

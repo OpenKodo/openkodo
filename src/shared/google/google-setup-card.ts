@@ -1,4 +1,4 @@
-// A Google setup card in a bot's chat. Orca writes it when the bot asks for one; the card itself
+// A Google setup card in a bot's chat. OpenKodo writes it when the bot asks for one; the card itself
 // draws from the bot's setup run, so it locks and updates on every client. Older clients paint its
 // `text` as a plain line.
 import * as z from 'zod'
@@ -35,7 +35,7 @@ export const GoogleSetupCardRefSchema = z.object({
   card: z.enum(GOOGLE_SETUP_CARD_KINDS),
   /** The step a `step` card is about. */
   step: z.enum(GOOGLE_SETUP_STEPS).optional(),
-  /** Which copy this is, when Orca writes the card more than once; the run names the newest. */
+  /** Which copy this is, when OpenKodo writes the card more than once; the run names the newest. */
   copy: z.number().int().nonnegative().optional()
 })
 export type GoogleSetupCardRef = z.infer<typeof GoogleSetupCardRefSchema>
@@ -54,12 +54,12 @@ export function isNewestGoogleSetupCard(
 }
 
 const FALLBACK: Record<GoogleSetupCardKind, string> = {
-  path: 'Google setup: choose how to set it up in Orca on your computer.',
-  account: 'Google setup: choose the Google account in Orca on your computer.',
-  services: 'Google setup: choose the Google services in Orca on your computer.',
-  progress: 'Google setup is in progress. Follow it in Orca on your computer.',
-  step: 'Google setup needs you. Continue in Orca on your computer.',
-  connect: 'Google setup: sign in to connect in Orca on your computer.',
+  path: 'Google setup: choose how to set it up in OpenKodo on your computer.',
+  account: 'Google setup: choose the Google account in OpenKodo on your computer.',
+  services: 'Google setup: choose the Google services in OpenKodo on your computer.',
+  progress: 'Google setup is in progress. Follow it in OpenKodo on your computer.',
+  step: 'Google setup needs you. Continue in OpenKodo on your computer.',
+  connect: 'Google setup: sign in to connect in OpenKodo on your computer.',
   connected: 'Google is connected.'
 }
 

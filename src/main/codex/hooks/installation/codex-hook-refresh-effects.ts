@@ -22,7 +22,7 @@ export function writeCodexRuntimeUserHookRefreshEffects(
   runtimeHomePath: string
 ): CodexHookPassEffects {
   const configPath = getConfigPath(runtimeHomePath)
-  // Save in-Orca approvals before rewriting the runtime positions they are keyed against.
+  // Save in-OpenKodo approvals before rewriting the runtime positions they are keyed against.
   let complete = promoteCodexRuntimeHookApprovalsToSystem(runtimeHomePath)
   const config = readHooksJson(configPath)
   if (!config) {

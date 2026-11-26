@@ -1,12 +1,12 @@
+import { openKodoHomePath } from '../../../shared/home/openkodo-home'
 import { credentialFileExists } from '../../credentials/credential-file-io'
 import { mkdir } from 'node:fs/promises'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 
 export const LEGACY_WORKSPACE_ID = 'legacy'
 
 function getOrcaDir(): string {
-  return join(homedir(), '.orca')
+  return openKodoHomePath()
 }
 
 function getLegacyTokenPath(): string {

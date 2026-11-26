@@ -40,8 +40,13 @@ export const VM_HANDLERS: Record<string, CommandHandler> = {
   }
 }
 
+function setupYamlPath(repoPath: string): string {
+  const next = join(repoPath, 'openkodo.yaml')
+  return existsSync(next) ? next : join(repoPath, 'openkodo.yaml')
+}
+
 function doctorRecipe(repoPath: string, recipeId: string): DoctorResult {
-  const yamlPath = join(repoPath, 'orca.yaml')
+  const yamlPath = setupYamlPath(repoPath)
   if (!existsSync(yamlPath)) {
     return {
       recipeId,
@@ -51,8 +56,8 @@ function doctorRecipe(repoPath: string, recipeId: string): DoctorResult {
         {
           id: 'orca_yaml.exists',
           status: 'fail',
-          message: `No orca.yaml found at ${yamlPath}`,
-          remediation: 'Add environmentRecipes to the repo orca.yaml.'
+          message: `No openkodo.yaml found at ${yamlPath}`,
+          remediation: 'Add environmentRecipes to the repo openkodo.yaml.'
         }
       ]
     }
@@ -62,8 +67,10 @@ function doctorRecipe(repoPath: string, recipeId: string): DoctorResult {
   const parseCheck: EphemeralVmRecipeDoctorCheck = {
     id: 'orca_yaml.parse',
     status: hooks ? 'pass' : 'fail',
-    message: hooks ? 'orca.yaml parsed successfully.' : 'orca.yaml has no supported Orca config.',
-    ...(hooks ? {} : { remediation: 'Add an environmentRecipes entry to orca.yaml.' })
+    message: hooks
+      ? 'openkodo.yaml parsed successfully.'
+      : 'openkodo.yaml has no supported OpenKodo config.',
+    ...(hooks ? {} : { remediation: 'Add an environmentRecipes entry to openkodo.yaml.' })
   }
   const result = doctorEphemeralVmRecipe({
     repoPath,
@@ -251,7 +258,7 @@ function buildProvisionFailureRemediation(stderr: string, stdout: string): strin
 }
 
 function loadRecipe(repoPath: string, recipeId: string): OrcaVmRecipe | null {
-  const hooks = parseOrcaYaml(readTextFile(join(repoPath, 'orca.yaml')))
+  const hooks = parseOrcaYaml(readTextFile(setupYamlPath(repoPath)))
   return hooks?.environmentRecipes?.find((entry) => entry.id === recipeId) ?? null
 }
 

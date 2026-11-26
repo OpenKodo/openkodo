@@ -15,7 +15,7 @@ import {
 
 /** Prefer provider error details over generic messages such as Internal error. */
 export function acpPromptErrorDetail(dialect: AcpDialect, error: AcpAgentError): string {
-  // Orca's sign-in guidance already explains what to do.
+  // OpenKodo's sign-in guidance already explains what to do.
   if (error instanceof AcpSignInPromptError) {
     return ''
   }

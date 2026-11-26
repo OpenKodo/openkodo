@@ -36,7 +36,7 @@ export function queueHeld(
   // Unordered, so the first waiting row is read without SQLite sorting the whole queue first.
   let rows = 0
   for (const row of source.prepare(UNSETTLED_QUEUE_ANY_ORDER_SQL).iterate(sessionId)) {
-    // Measured before; bounded again in case an older Orca queued more since.
+    // Measured before; bounded again in case an older OpenKodo queued more since.
     if (++rows > LEGACY_QUEUE_MAX_ROWS) {
       throw oversizedQueue()
     }
@@ -107,7 +107,7 @@ export function originalVersion(
     .get(sessionId)
   const recordBytes = Number(record?.bytes ?? 0)
   const queue = withQueue && hasTable(source, 'queued_messages')
-  // Measured before anything is read, and bounded again while reading: an older Orca may write
+  // Measured before anything is read, and bounded again while reading: an older OpenKodo may write
   // between the two.
   assertLegacyQueueBounded(source, sessionId, recordBytes, queue)
   const row = source

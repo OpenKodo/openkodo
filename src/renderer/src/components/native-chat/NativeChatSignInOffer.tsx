@@ -39,11 +39,11 @@ function signInReason(offer: ConnectorOffer, t: Translate): string {
   return offer.source === 'webhook'
     ? t(
         'bots.cloudSignIn.webhooksChat',
-        'Webhooks need Orca Cloud sign-in. I’ll make it once you’re in.'
+        'Webhooks need cloud service sign-in. I’ll make it once you’re in.'
       )
     : t(
         'bots.cloudSignIn.eventsChat',
-        '{{source}} events need Orca Cloud sign-in. I’ll save this rule once you’re in.',
+        '{{source}} events need cloud service sign-in. I’ll save this rule once you’re in.',
         { source: CONNECTOR_OFFER_NAMES[offer.source] }
       )
 }
@@ -59,7 +59,7 @@ function SignedInRow({
     <div className="flex items-center gap-2 text-xs text-muted-foreground">
       <p className="flex min-w-0 flex-1 items-center gap-1">
         <Check className="size-3" aria-hidden />
-        {t('bots.cloudSignIn.signedIn', 'Signed in to Orca')}
+        {t('bots.cloudSignIn.signedIn', 'Signed in to OpenKodo')}
       </p>
       {answering.sent ? null : (
         <Button type="button" variant="outline" size="xs" onClick={() => tellBot(answering)}>
@@ -71,7 +71,7 @@ function SignedInRow({
 }
 
 function tellBot(answering: ReturnType<typeof useNativeChatOffer>): void {
-  answering.send(translate('bots.cloudSignIn.toldBot', 'I’m signed in to Orca Cloud now.'), [])
+  answering.send(translate('bots.cloudSignIn.toldBot', 'I’m signed in to cloud service now.'), [])
 }
 
 // This computer's sign-in as far as its link goes: who, and whether signed in. A change starts the
@@ -112,14 +112,14 @@ async function tellOnceLinked(
 }
 
 /**
- * This computer's Sign in card. Signed out of Orca Cloud: one line with Sign in, which tells the bot once
+ * This computer's Sign in card. Signed out of OpenKodo Cloud: one line with Sign in, which tells the bot once
  * this computer's link reads ok. Continue shows only once a read since the card opened, and since this
  * computer's sign-in last changed, says the link is ok; the automatic reply needs the same.
  */
 export function SignInOffer({ bot, offer, messageId }: SignInOfferProps): React.JSX.Element {
   const t = useTranslate()
   const answering = useNativeChatOffer(bot.id, messageId)
-  // Signed in only while Orca Cloud takes this computer's sign-in, not merely while it has one.
+  // Signed in only while OpenKodo Cloud takes this computer's sign-in, not merely while it has one.
   const needsSignIn = useOrcaCloudNeedsSignIn()
   const link = useBotHostLinkReadSinceOpen(
     LOCAL_EXECUTION_HOST_ID,
@@ -138,14 +138,14 @@ export function SignInOffer({ bot, offer, messageId }: SignInOfferProps): React.
   if (link.fresh && connector === 'ok') {
     return <SignedInRow answering={answering} />
   }
-  // Signed in, but the link is down (refused, or can't reach Orca Cloud): nothing to tell the bot yet.
+  // Signed in, but the link is down (refused, or can't reach OpenKodo Cloud): nothing to tell the bot yet.
   if (link.fresh && (connector === 'refused' || connector === 'unreachable')) {
     return (
       <p className="text-xs text-muted-foreground">
         {offer.source === 'webhook'
           ? t(
               'bots.cloudSignIn.webhooksNotReaching',
-              'Orca Cloud isn’t reaching {{name}}, so it can’t make webhooks yet.',
+              'cloud service isn’t reaching {{name}}, so it can’t make webhooks yet.',
               { name: bot.name }
             )
           : notReaching(bot.name, t)}
@@ -167,19 +167,19 @@ function serverSignInReason(offer: ConnectorOffer, host: string, t: Translate): 
   return offer.source === 'webhook'
     ? t(
         'bots.cloudSignIn.webhooksHostChat',
-        'Webhooks need {{host}} signed in to Orca Cloud. I’ll make it once it is.',
+        'Webhooks need {{host}} signed in to cloud service. I’ll make it once it is.',
         { host }
       )
     : t(
         'bots.cloudSignIn.eventsHostChat',
-        '{{source}} events need {{host}} signed in to Orca Cloud. I’ll save this rule once it is.',
+        '{{source}} events need {{host}} signed in to cloud service. I’ll save this rule once it is.',
         { source: CONNECTOR_OFFER_NAMES[offer.source], host }
       )
 }
 
 /**
  * A server bot's Sign in card: the server's own sign-in, never this desktop's. Signed in only once the
- * verified server says so and its link to Orca Cloud takes it; a server whose state isn't known yet
+ * verified server says so and its link to OpenKodo Cloud takes it; a server whose state isn't known yet
  * keeps its own line.
  */
 export function ServerSignInOffer({
@@ -197,7 +197,7 @@ export function ServerSignInOffer({
   const offline = useBotHostOffline(bot.hostId)
   const reading = useBotHostOrcaAccountReading(bot.hostId)
   const linkRead = useBotHostLinkReadSinceOpen(bot.hostId, refreshBotHost).fresh
-  // Only positive proof, read now: a live, verified server signed in, and its link to Orca Cloud read
+  // Only positive proof, read now: a live, verified server signed in, and its link to OpenKodo Cloud read
   // since this card opened and saying ok. Having told the bot once proves nothing about it since.
   const ready =
     verified &&

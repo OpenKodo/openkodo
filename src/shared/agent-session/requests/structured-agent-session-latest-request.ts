@@ -197,7 +197,7 @@ export function latestStructuredAgentSessionPrompt(
   if (body?.kind !== 'message') {
     return ''
   }
-  // Orca's kickoff to a new bot is not the owner's words; a hand-over's goal is.
+  // OpenKodo's kickoff to a new bot is not the owner's words; a hand-over's goal is.
   return body.origin === 'bot-created'
     ? BOT_CREATED_STATUS_LABEL
     : (tookOverPrompt(body) ?? messageProse(connectorMessageShownBlocks(body)))

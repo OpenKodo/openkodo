@@ -8,7 +8,7 @@ const notConnected = new RuntimeRpcFailureError({
   ok: false,
   error: {
     code: 'linear_not_connected',
-    message: 'Linear is not connected on this Orca host.',
+    message: 'Linear is not connected on this OpenKodo host.',
     data: { nextSteps: ['Connect Linear on this host, then retry the search.'] }
   }
 })
@@ -34,28 +34,30 @@ describe('linear_not_connected recovery', () => {
     )
   })
 
-  it('names an inherited ORCA_ENVIRONMENT without repeating a flag', () => {
-    const text = format([], { ORCA_ENVIRONMENT: 'build-vm' })
-    expect(text).toContain('selected by ORCA_ENVIRONMENT=build-vm')
+  it('names an inherited OPENKODO_ENVIRONMENT without repeating a flag', () => {
+    const text = format([], { OPENKODO_ENVIRONMENT: 'build-vm' })
+    expect(text).toContain('selected by OPENKODO_ENVIRONMENT=build-vm')
     expect(text).toMatch(/\| \S+ linear connect\n/)
   })
 
   it('follows an explicit runtime host over an ambient pairing code', () => {
-    const text = format([['host', 'runtime:env-2']], { ORCA_PAIRING_CODE: 'orca://pair?code=x' })
+    const text = format([['host', 'runtime:env-2']], {
+      OPENKODO_PAIRING_CODE: 'openkodo://pair?code=x'
+    })
     expect(text).toContain('selected by --host runtime:env-2')
     expect(text).toMatch(/linear connect --environment env-2\n/)
   })
 
   it('never echoes a pairing code', () => {
-    const text = format([['pairing-code', 'orca://pair?code=secret']])
+    const text = format([['pairing-code', 'openkodo://pair?code=secret']])
     expect(text).not.toContain('secret')
     expect(text).toContain('linear connect --pairing-code <same code>')
   })
 
   it('adds nothing for the local host or an explicit local route', () => {
     const expected =
-      'Linear is not connected on this Orca host.\nNext step: Connect Linear on this host, then retry the search.'
+      'Linear is not connected on this OpenKodo host.\nNext step: Connect Linear on this host, then retry the search.'
     expect(format([])).toBe(expected)
-    expect(format([['environment', 'local']], { ORCA_ENVIRONMENT: 'build-vm' })).toBe(expected)
+    expect(format([['environment', 'local']], { OPENKODO_ENVIRONMENT: 'build-vm' })).toBe(expected)
   })
 })

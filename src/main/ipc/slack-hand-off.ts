@@ -1,4 +1,4 @@
-// Window-only: this desktop's own Orca account creates a paired computer's bot app with its Slack
+// Window-only: this desktop's own OpenKodo account creates a paired computer's bot app with its Slack
 // grant, from a click in this app's window. No runtime RPC reaches this, so no paired client can.
 import { ipcMain } from 'electron'
 import { z } from 'zod'

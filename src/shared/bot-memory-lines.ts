@@ -1,5 +1,5 @@
 // MEMORY.md as the owner sees it: one fact per list line, optionally dated, everything else kept byte for byte.
-// Orca, not the bot, writes where a fact came from after " · from: "; plain text, so any reader shows it.
+// OpenKodo, not the bot, writes where a fact came from after " · from: "; plain text, so any reader shows it.
 
 /** Lines of MEMORY.md a session loads at start; the rest stays on disk for the bot to read. */
 export const BOT_MEMORY_INDEX_LINE_CAP = 200
@@ -10,7 +10,7 @@ export type BotMemoryFact = {
   /** `YYYY-MM-DD`, when the line starts with one. */
   date: string | null
   text: string
-  /** Where Orca saw it come from; null for the owner's own and the owner's chat. */
+  /** Where OpenKodo saw it come from; null for the owner's own and the owner's chat. */
   source: string | null
 }
 
@@ -105,7 +105,7 @@ function factParts(raw: string): FactParts | null {
 }
 
 /**
- * Orca's marks on the lines `after` has that `before` didn't. A fact `before` already had, however
+ * OpenKodo's marks on the lines `after` has that `before` didn't. A fact `before` already had, however
  * the line was rewritten, keeps its old mark or none; a new one gets `label` (null: the owner's).
  * Whatever source a changed line claims is dropped either way.
  */
@@ -258,13 +258,13 @@ export function applyBotMemoryChange(text: string, change: BotMemoryChange): str
   return kept.join(eol)
 }
 
-/** A source's words and its link, as Orca writes them: "Slack, Dana <https://…>". */
+/** A source's words and its link, as OpenKodo writes them: "Slack, Dana <https://…>". */
 export function botMemorySourceLink(source: string): { text: string; url: string | null } {
   const linked = /^(.*?)\s*<(https:\/\/[^\s<>]+)>$/.exec(source)
   return linked ? { text: linked[1], url: linked[2] } : { text: source, url: null }
 }
 
-/** A fact's identity: its text without Orca's mark, spacing aside. */
+/** A fact's identity: its text without OpenKodo's mark, spacing aside. */
 function factKey(text: string): string {
   return oneLine(text)
 }

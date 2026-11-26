@@ -1,4 +1,4 @@
-// The bot's one live link as the Share dialog reads it: from the caller, or read from Orca Cloud.
+// The bot's one live link as the Share dialog reads it: from the caller, or read from OpenKodo Cloud.
 import { useCallback, useEffect, useState } from 'react'
 import { translate } from '@/i18n/i18n'
 import {
@@ -50,7 +50,7 @@ export type LinkRead =
   | { kind: 'offline'; error: string | null }
   | { kind: 'signIn' }
 
-/** The bot's live link, read from Orca Cloud when the caller doesn't know it. */
+/** The bot's live link, read from cloud service when the caller doesn't know it. */
 export function useBotShareLink(
   botId: string,
   known: BotShareLink | null | undefined,

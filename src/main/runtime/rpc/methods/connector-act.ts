@@ -54,14 +54,14 @@ function searchedWorkspace(key: { source: string; externalId: string } | undefin
   return `slack:${workspace}:workspace`
 }
 
-/** The host signed out of Orca, for the bot to relay: a headless server names itself and how it signs in. */
+/** The host signed out of OpenKodo, for the bot to relay: a headless server names itself and how it signs in. */
 function signedOutError(host: { server: OrcaSignInServer; botName: string }): ConnectorActError {
   const steps = serverSignInSteps(host.server, host.botName, 'bot')
   return new ConnectorActError(
     'connector_not_connected',
     steps
-      ? `${hostNotSignedIn(host.server)}, so it can't reach Orca Cloud. ${steps} Then try again.`
-      : `${hostNotSignedIn(host.server)}: sign in to Orca Cloud on this computer, then try again.`
+      ? `${hostNotSignedIn(host.server)}, so it can't reach cloud service. ${steps} Then try again.`
+      : `${hostNotSignedIn(host.server)}: sign in to cloud service on this computer, then try again.`
   )
 }
 
@@ -80,36 +80,36 @@ export function actFailure(
     if (verb === 'set') {
       return new ConnectorActError(
         'connector_set_unknown',
-        `Orca Cloud didn't answer, so the change may have been made. Read ${ref ?? 'the issue'} before trying again.`
+        `cloud service didn't answer, so the change may have been made. Read ${ref ?? 'the issue'} before trying again.`
       )
     }
     // A reply's files may have been queued too: a retry under new ids would post them twice.
     if (verb === 'post' || verb === 'attach' || verb === 'reply') {
       return new ConnectorActError(
         'connector_post_unknown',
-        `Orca Cloud didn't answer, so the ${verb === 'post' ? 'post' : 'file'} may have gone. Read ${ref ?? (verb === 'reply' ? 'the thread that woke you' : 'the place')} before trying again.`
+        `cloud service didn't answer, so the ${verb === 'post' ? 'post' : 'file'} may have gone. Read ${ref ?? (verb === 'reply' ? 'the thread that woke you' : 'the place')} before trying again.`
       )
     }
     return new ConnectorActError(
       'connector_unavailable',
       verb === 'edit' || verb === 'delete'
-        ? `Orca Cloud didn't answer, so the ${verb} may have gone through. Read ${ref ?? 'the message'} before trying again.`
-        : "Orca Cloud didn't answer; nothing was done. Try again in a moment."
+        ? `cloud service didn't answer, so the ${verb} may have gone through. Read ${ref ?? 'the message'} before trying again.`
+        : "cloud service didn't answer; nothing was done. Try again in a moment."
     )
   }
   if (failure.status === 404 && failure.error === 'unknown_bot') {
     return new ConnectorActError(
       'bot_not_in_cloud',
-      "This bot isn't on Orca Cloud from this machine yet: connect it to Slack, Linear or GitHub, or wait a moment after connecting it."
+      "This bot isn't on cloud service from this machine yet: connect it to Slack, Linear or GitHub, or wait a moment after connecting it."
     )
   }
   const reason = failure.error ?? `HTTP ${failure.status}`
   return failure.status === 400
     ? new ConnectorActError(
         'connector_invalid_request',
-        `Orca Cloud refused the request (${reason}).`
+        `cloud service refused the request (${reason}).`
       )
-    : new ConnectorActError('connector_refused', `Orca Cloud refused it (${reason}).`)
+    : new ConnectorActError('connector_refused', `cloud service refused it (${reason}).`)
 }
 
 /** `turn`: the chat's running turn when the caller already read it, so it is not read again. */
@@ -134,7 +134,7 @@ export async function actAsBot(
   }
   const cloud = runtime.getConnectorCloud()
   const features = cloud?.cloudFeatures()
-  // Signed out, or a sign-in Orca Cloud refused after its hello (features stay cached): say so, and
+  // Signed out, or a sign-in OpenKodo Cloud refused after its hello (features stay cached): say so, and
   // on a headless server how it signs in, before calling a cloud that would refuse it.
   if (cloud && orcaCloudNeedsSignIn(cloud.status())) {
     throw signedOutError({ server: orcaSignInServer(runtime), botName: bot.name })
@@ -142,38 +142,38 @@ export async function actAsBot(
   if (!cloud || !features) {
     throw new ConnectorActError(
       'connector_not_connected',
-      "Orca isn't connected to Orca Cloud: sign in to Orca Cloud and connect a bot to Slack, Linear or GitHub, then try again."
+      "OpenKodo isn't connected to cloud service: sign in to cloud service and connect a bot to Slack, Linear or GitHub, then try again."
     )
   }
   if (!features.has('actions' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_actions',
-      "Orca Cloud doesn't take connector actions yet. Update Orca and try again later."
+      "cloud service doesn't take connector actions yet. Update OpenKodo and try again later."
     )
   }
   if (verb === 'places' && !features.has('places' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_places',
-      "Orca Cloud can't list the bot's workspaces yet. Update Orca, and find Slack channels with `orca slack find <name|link>`."
+      "cloud service can't list the bot's workspaces yet. Update OpenKodo, and find Slack channels with `orca slack find <name|link>`."
     )
   }
   // A titled post is an issue; a canvas or a list is titled too, and needs only Slack's verbs.
   if (verb === 'post' && args.title && !features.has('create' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_create',
-      "Orca Cloud can't make issues yet. Say what the issue should be instead, and try again after Orca Cloud updates."
+      "cloud service can't make issues yet. Say what the issue should be instead, and try again after cloud service updates."
     )
   }
   if (verb === 'set' && !features.has('set' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_set',
-      "Orca Cloud can't change issues yet. Say what should change instead, and try again after Orca Cloud updates."
+      "cloud service can't change issues yet. Say what should change instead, and try again after cloud service updates."
     )
   }
   if (args.search && !features.has('find.search' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_search',
-      "Orca Cloud can't search yet. Find a channel by its name or link with `orca slack find`."
+      "cloud service can't search yet. Find a channel by its name or link with `orca slack find`."
     )
   }
   if (
@@ -182,26 +182,26 @@ export async function actAsBot(
   ) {
     throw new ConnectorActError(
       'cloud_lacks_slack_tools',
-      "Orca Cloud can't do that in Slack yet; nothing was changed. Try again after Orca Cloud updates."
+      "cloud service can't do that in Slack yet; nothing was changed. Try again after cloud service updates."
     )
   }
   if (args.postAt && !features.has(CONNECTOR_CLOUD_POST_SCHEDULE_FEATURE)) {
     throw new ConnectorActError(
       'cloud_lacks_schedule',
-      "Orca Cloud can't post later yet; nothing was scheduled. Post it now, or try again after Orca Cloud updates."
+      "cloud service can't post later yet; nothing was scheduled. Post it now, or try again after cloud service updates."
     )
   }
   if ((args.stage || args.files) && !features.has('reply.files' satisfies ConnectorCloudFeature)) {
     throw new ConnectorActError(
       'cloud_lacks_reply_files',
-      "Orca Cloud can't post several files in one reply yet; each file goes as its own message."
+      "cloud service can't post several files in one reply yet; each file goes as its own message."
     )
   }
   // An older cloud refuses the field outright; this says what to do instead.
   if (args.choices && !features.has(CONNECTOR_CLOUD_REPLY_CHOICES_FEATURE)) {
     throw new ConnectorActError(
       'cloud_lacks_reply_choices',
-      "Orca Cloud can't put buttons on a reply yet; nothing was posted. List the options in --text and ask them to answer in words."
+      "cloud service can't put buttons on a reply yet; nothing was posted. List the options in --text and ask them to answer in words."
     )
   }
   // A file's bytes go straight between the CLI and the source; an older cloud took them inline.
@@ -211,7 +211,7 @@ export async function actAsBot(
   ) {
     throw new ConnectorActError(
       'cloud_lacks_direct_files',
-      "Orca Cloud can't take files from this version of Orca yet; nothing was sent. Try again after Orca Cloud updates."
+      "cloud service can't take files from this version of OpenKodo yet; nothing was sent. Try again after cloud service updates."
     )
   }
   const signal = context.signal ?? new AbortController().signal
@@ -224,7 +224,7 @@ export async function actAsBot(
     sessionCallerOf(context.orchestrationCaller)?.sessionId,
     turn
   )
-  // A post (its words, or a file and its comment) shows another Orca bot whom its turn acts for.
+  // A post (its words, or a file and its comment) shows another OpenKodo bot whom its turn acts for.
   // Any other verb says only owner: the cloud believes a host's other answer over its own record.
   const turnFor =
     verb === 'post' || verb === 'reply' || verb === 'attach' || actsFor === 'owner'
@@ -235,7 +235,7 @@ export async function actAsBot(
   if (args.postAt && !cloud.cloudFeatures()?.has(CONNECTOR_CLOUD_POST_SCHEDULE_FEATURE)) {
     throw new ConnectorActError(
       'cloud_lacks_schedule',
-      "Orca Cloud can't post later yet; nothing was scheduled. Post it now, or try again after Orca Cloud updates."
+      "cloud service can't post later yet; nothing was scheduled. Post it now, or try again after cloud service updates."
     )
   }
   const toSlack = actionGoesToSlack({ verb, ref, title: args.title, conversation })
@@ -281,7 +281,7 @@ export async function actAsBot(
       console.warn('[bots] could not note a post for a bot request', error)
     )
   }
-  // A reply lands in the conversation that woke the run, which the bot names as Orca does.
+  // A reply lands in the conversation that woke the run, which the bot names as OpenKodo does.
   return verb === 'reply' && answer.value.ok && target
     ? { ...answer.value, result: { ...answer.value.result, place: target.place } }
     : answer.value

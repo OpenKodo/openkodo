@@ -12,14 +12,14 @@ const DIRECT_SHELL_TRAMPOLINE = 'export SHELL="$1"; shift; exec -- "$@"'
 const LOGIN_PREFLIGHT_TIMEOUT_MS = 500
 // Off the spawn path, the death watch can outwait a slow PAM stack without delaying terminal creation.
 const LOGIN_SESSION_WATCH_PROBE_TIMEOUT_MS = 4_000
-const LOGIN_PREFLIGHT_MARKER = 'ORCA_LOGIN_PREFLIGHT_OK'
+const LOGIN_PREFLIGHT_MARKER = 'OPENKODO_LOGIN_PREFLIGHT_OK'
 const LOGIN_PREFLIGHT_MAX_BUFFER_BYTES = 1024
 const LOGIN_PREFLIGHT_RETRY_BASE_MS = 5_000
 const LOGIN_PREFLIGHT_RETRY_MAX_MS = 5 * 60_000
 // Long-lived daemons must recheck rejected PAM capability rather than disable attribution forever (#9756).
 const LOGIN_PREFLIGHT_REJECTED_REVALIDATE_MS = 30 * 60_000
 
-const DISABLE_ENV_VAR = 'ORCA_DISABLE_MACOS_LOGIN_SHELL'
+const DISABLE_ENV_VAR = 'OPENKODO_DISABLE_MACOS_LOGIN_SHELL'
 
 // Cache only actual PAM verdicts; timeout, output-cap and spawn failures remain retryable.
 let cachedLoginPreflightResult: boolean | null = null
@@ -279,7 +279,7 @@ export function wrapShellSpawnForMacosTccAttribution(
   }
 
   const shellEnvValue = env?.SHELL || file
-  // Login argv[0] disables Bash --rcfile; the Orca rcfile already implements login startup.
+  // Login argv[0] disables Bash --rcfile; the OpenKodo rcfile already implements login startup.
   const trampoline =
     basename(file).toLowerCase() === 'bash' && args.includes('--rcfile')
       ? DIRECT_SHELL_TRAMPOLINE

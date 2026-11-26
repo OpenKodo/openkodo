@@ -1,4 +1,4 @@
-// The skill folders a chat loads beside the agent's own: Orca's visuals skill, then each linked project's.
+// The skill folders a chat loads beside the agent's own: OpenKodo's visuals skill, then each linked project's.
 
 /** One skills folder, in the shapes the agents take it. */
 export type NativeChatSkillRoot = {
@@ -26,7 +26,7 @@ export type LinkedSkillProject = {
 
 /** A bot chat's linked skills: the bot's one folder of links to every linked project's admitted
  *  skills (skills/ for plugin-folder agents and Codex, .claude/skills for Claude as an added
- *  directory), which Orca keeps current so a running Claude or Codex picks changes up; null for a
+ *  directory), which OpenKodo keeps current so a running Claude or Codex picks changes up; null for a
  *  chat that isn't a bot's. */
 export type LinkedSkills = {
   root: (NativeChatSkillRoot & { linksOut: true }) | null

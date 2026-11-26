@@ -22,7 +22,7 @@ export function formatUsageReading(usage: ProviderRateLimits, t: Translate = tra
 }
 
 /** agy's Google logins, which agy in the terminal and Google-account chats share: the current
- *  login, then saved accounts. With `signIn`, signing in and adding an account run in Orca. */
+ *  login, then saved accounts. With `signIn`, signing in and adding an account run in OpenKodo. */
 export function AntigravityAgyAccountRows({
   state,
   usage,
@@ -38,7 +38,7 @@ export function AntigravityAgyAccountRows({
   busy: boolean
   windowsHost: boolean
   run: (action: AntigravityAccountAction, accountId?: string) => void
-  /** This host's in-app agy sign-in; absent where Orca can't run it (a WSL distro). */
+  /** This host's in-app agy sign-in; absent where OpenKodo can't run it (a WSL distro). */
   signIn?: AntigravityChatSignInControls
 }): React.JSX.Element {
   const t = useTranslate()

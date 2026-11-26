@@ -7,7 +7,7 @@ import {
   tellUnpairedPeerQuestions
 } from './peer-questions-out'
 
-const REMOVED = "Build Box was removed from this Orca's paired servers."
+const REMOVED = "Build Box was removed from this OpenKodo's paired servers."
 
 describe('questions asked of an agent on a paired computer', () => {
   let db: OrchestrationDb
@@ -80,7 +80,7 @@ describe('questions asked of an agent on a paired computer', () => {
       notice: { requestId: 'msg_answered' },
       threadId: null
     })
-    // An older paired Orca names no request: its reply settles the question's thread.
+    // An older paired OpenKodo names no request: its reply settles the question's thread.
     settlePeerQuestionsOut(db, conversation, { threadId: 'thread_1' })
     unpair()
 

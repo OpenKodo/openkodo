@@ -58,7 +58,7 @@ describe('sweepDeletedWorkspaceChatHistory with Codex rollouts', () => {
     'deletes every name a rollout has across Codex homes unless any copy ran elsewhere',
     async () => {
       root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
-      vi.stubEnv('ORCA_USER_DATA_PATH', join(root, 'user-data'))
+      vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
       const appWorkspaces = join(root, 'workspaces', 'app')
       mkdirSync(join(appWorkspaces, 'live'), { recursive: true })
       mkdirSync(join(root, 'repos', 'app'), { recursive: true })
@@ -103,7 +103,7 @@ describe('sweepDeletedWorkspaceChatHistory with Codex rollouts', () => {
         zstdCompressSync(rollout(gone, [gone, live]))
       )
 
-      // Archived by Codex before it ever ran a turn, and hardlinked into a backup Orca doesn't know.
+      // Archived by Codex before it ever ran a turn, and hardlinked into a backup OpenKodo doesn't know.
       const packedOnly = write(
         join(system, ...DATED, `${NAME('3')}.zst`),
         zstdCompressSync(rollout(gone))
@@ -222,7 +222,7 @@ describe('sweepDeletedWorkspaceChatHistory with Codex rollouts', () => {
 describe('deleteCodexRolloutsPermanently with forked chats', () => {
   it('keeps a rollout while a surviving fork reads its history, and deletes it after its forks', async () => {
     root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
-    vi.stubEnv('ORCA_USER_DATA_PATH', join(root, 'user-data'))
+    vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
     const home = join(root, 'codex')
     mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })
     const fork = (cwd: string, parentId: string): string =>
@@ -284,7 +284,7 @@ describe('deleteCodexRolloutsPermanently with forked chats', () => {
 describe('deleteCodexRolloutsPermanently with a fork archived during the sweep', () => {
   it('keeps the parent of a fork created and archived between two deletions', async () => {
     root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
-    vi.stubEnv('ORCA_USER_DATA_PATH', join(root, 'user-data'))
+    vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
     const home = join(root, 'codex')
     mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })
     mkdirSync(join(home, 'archived_sessions'), { recursive: true })
@@ -339,7 +339,7 @@ describe('deleteCodexRolloutsPermanently with a fork restored during the sweep',
     'keeps the parent when its deleted fork comes back (%o)',
     async ({ mode, packed }) => {
       root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
-      vi.stubEnv('ORCA_USER_DATA_PATH', join(root, 'user-data'))
+      vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
       const home = join(root, 'codex')
       mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })
       vi.useFakeTimers({ toFake: ['Date'] })
@@ -384,7 +384,7 @@ describe('deleteCodexRolloutsPermanently with a fork restored during the sweep',
 describe('deleteCodexRolloutsPermanently across many Codex homes', () => {
   it('deletes an unreferenced rollout when more homes have archives than one sweep re-lists', async () => {
     root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
-    vi.stubEnv('ORCA_USER_DATA_PATH', join(root, 'user-data'))
+    vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
     const homes = Array.from({ length: 30 }, (_, index) => join(root, `home-${index}`))
     for (const home of homes) {
       mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })

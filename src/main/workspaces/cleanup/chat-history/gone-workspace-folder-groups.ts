@@ -24,8 +24,8 @@ export type GoneFolderSweepScope = {
 }
 
 /**
- * Groups chats by the deleted Orca workspace folder their path is in, then removes each group after
- * re-checking the folder and Orca's rows. `remove` asks `stillGone` right before each chat's
+ * Groups chats by the deleted OpenKodo workspace folder their path is in, then removes each group after
+ * re-checking the folder and OpenKodo's rows. `remove` asks `stillGone` right before each chat's
  * removal, after its own slower checks.
  */
 export async function sweepGoneWorkspaceFolderGroups<T>(
@@ -50,7 +50,7 @@ export async function sweepGoneWorkspaceFolderGroups<T>(
       goneByPath.set(path, pending)
     }
     const folder = await pending
-    // Deleted means: the first missing folder sits directly in an Orca workspace parent, and Orca no
+    // Deleted means: the first missing folder sits directly in an OpenKodo workspace parent, and OpenKodo no
     // longer lists it or anything inside it. A missing parent (unmounted volume) never qualifies.
     if (!folder || !scope.parentIds.has(folder.ancestorId)) {
       continue
@@ -64,7 +64,7 @@ export async function sweepGoneWorkspaceFolderGroups<T>(
     byFolder.set(key, group)
   }
 
-  // Re-read Orca's rows after each folder was seen gone, but stat them again only when they changed.
+  // Re-read OpenKodo's rows after each folder was seen gone, but stat them again only when they changed.
   type CurrentRows = { fingerprint: string; listed: ListedFolders; parentIds: Set<string> }
   let current: CurrentRows | null = null
   const readCurrent = async (): Promise<CurrentRows> => {

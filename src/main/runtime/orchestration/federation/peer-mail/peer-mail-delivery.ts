@@ -35,7 +35,7 @@ export type PeerMailRuntime = Pick<
 const NOTHING_SENT = { effectsApplied: false } as const
 const RuntimeStatusCapabilities = z.object({ capabilities: z.array(z.string()).optional() })
 const DELIVER_TIMEOUT_MS = 15_000
-// An older server returns none; one this Orca cannot read is dropped, since the mail is already stored.
+// An older server returns none; one this OpenKodo cannot read is dropped, since the mail is already stored.
 const PeerMailDeliverResult = z.object({ warnings: z.array(z.unknown()).max(8).optional() })
 const PeerMailDeliveryHeld = z.object({
   code: z.literal('recipient_delivery_held'),
@@ -43,12 +43,12 @@ const PeerMailDeliveryHeld = z.object({
   message: z.string().max(2000)
 })
 
-/** "term_9f3c on Jinwoo's Mac": who sent it, and the Orca server it came from. */
+/** "term_9f3c on Jinwoo's Mac": who sent it, and the OpenKodo server it came from. */
 export function peerMailSenderLabel(runtime: PeerMailRuntime, sender: string): string {
   return `${sender} on ${runtime.readMachineName()}`
 }
 
-/** Who is sending, from this Orca's own records, for the receiving card; it grants nothing there. */
+/** Who is sending, from this OpenKodo's own records, for the receiving card; it grants nothing there. */
 export function peerMailSender(runtime: PeerMailRuntime, address: string): PeerMailSender {
   const named = runtime.orchestrationSenderNames.sender(address)
   const sessionId = named.party.orcaSessionId ?? parseOrcaSessionAddress(address)
@@ -74,7 +74,7 @@ export function peerMailMessageId(
   return `msg_${digest.slice(0, 12)}`
 }
 
-/** Refuses before any effect when the server's Orca cannot receive mail or queue its replies. */
+/** Refuses before any effect when the server's OpenKodo cannot receive mail or queue its replies. */
 export async function requirePeerMailServer(
   runtime: PeerMailRuntime,
   selector: string,
@@ -98,7 +98,7 @@ export async function requirePeerMailServer(
   ) {
     throw new OrchestrationError(
       'server_mail_unsupported',
-      `Server ${server.name} runs an older Orca that cannot receive agent mail from another server. Update Orca on ${server.name}, then send again. Nothing was sent.`,
+      `Server ${server.name} runs an older OpenKodo that cannot receive agent mail from another server. Update OpenKodo on ${server.name}, then send again. Nothing was sent.`,
       { ...NOTHING_SENT, server: server.name }
     )
   }
@@ -108,7 +108,7 @@ export async function requirePeerMailServer(
   ) {
     throw new OrchestrationError(
       'server_mail_unsupported',
-      `Server ${server.name} runs an older Orca that cannot take questions or mail for its bots from another server. Update Orca on ${server.name}, then send again. Nothing was sent.`,
+      `Server ${server.name} runs an older OpenKodo that cannot take questions or mail for its bots from another server. Update OpenKodo on ${server.name}, then send again. Nothing was sent.`,
       { ...NOTHING_SENT, server: server.name }
     )
   }
@@ -124,7 +124,7 @@ export async function requirePeerMailServer(
   ) {
     throw new OrchestrationError(
       'server_mail_unsupported',
-      `Server ${server.name} runs an older Orca that cannot receive --type ${type} agent mail. Nothing was sent. Update Orca on ${server.name}, or send it again as --type status, which it accepts.`,
+      `Server ${server.name} runs an older OpenKodo that cannot receive --type ${type} agent mail. Nothing was sent. Update OpenKodo on ${server.name}, or send it again as --type status, which it accepts.`,
       { ...NOTHING_SENT, server: server.name }
     )
   }
@@ -133,7 +133,7 @@ export async function requirePeerMailServer(
   return { ...server, takesFiles }
 }
 
-/** The pairing credential the server knows this Orca by; a re-pair starts new conversations under it. */
+/** The pairing credential the server knows this OpenKodo by; a re-pair starts new conversations under it. */
 export function peerMailPairing(server: OrchestrationWorkerServer): string {
   return server.homePeerFingerprint ?? server.peerFingerprint
 }
@@ -185,7 +185,7 @@ export async function deliverPeerMail(
   return warnings.flatMap((warning) => PeerMailDeliveryHeld.safeParse(warning).data ?? [])
 }
 
-/** Queues one reply on a conversation a paired Orca opened here, for it to pull. */
+/** Queues one reply on a conversation a paired OpenKodo opened here, for it to pull. */
 export function queuePeerMailReply(
   db: OrchestrationDb,
   conversationId: string,

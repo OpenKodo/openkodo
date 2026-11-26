@@ -49,12 +49,12 @@ export async function readClaudeUsageBenchmarkBaselineSources() {
       cwd: ROOT,
       timeoutMs: 10_000,
       maxOutputBytes: MIB,
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
     })
     assert.equal(result.code, 0, `Git baseline read failed: ${result.stderr}`)
     return result.stdout
   }
-  const baselineRef = process.env.ORCA_CLAUDE_USAGE_APPEND_BENCH_BASELINE ?? 'HEAD'
+  const baselineRef = process.env.OPENKODO_CLAUDE_USAGE_APPEND_BENCH_BASELINE ?? 'HEAD'
   const baselineCommit = readGit(['rev-parse', '--verify', `${baselineRef}^{commit}`]).trim()
   const sources = new Map(
     BASELINE_MODULES.map((modulePath) => [
@@ -120,7 +120,7 @@ export async function loadClaudeUsageBenchmarkScanner(
                 cwd: ROOT,
                 timeoutMs: 10_000,
                 maxOutputBytes: MIB,
-                env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+                env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
               })
               assert.equal(pinned.code, 0, `Pinned source read failed: ${pinned.stderr}`)
               assert.equal(pinned.outputTruncated, false, `Pinned source truncated: ${modulePath}`)

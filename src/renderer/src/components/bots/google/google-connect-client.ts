@@ -28,7 +28,7 @@ import { googleReachAreas, type GoogleReachArea } from '../../../../../shared/bo
 
 export type GoogleHostView =
   | { status: 'loading' }
-  /** A paired server on an Orca without Google. */
+  /** A paired server on an OpenKodo without Google. */
   | { status: 'update-server' }
   | { status: 'failed'; error: string }
   | { status: 'ready'; google: GoogleStatusView }
@@ -291,9 +291,9 @@ export async function connectGoogle(
     if (waiting.phase !== 'waiting' || !waiting.prompt) {
       return await untilSettled(run, waiting)
     }
-    // A paired server's return lands on its own loopback: its own page in Orca's browser reaches it
+    // A paired server's return lands on its own loopback: its own page in OpenKodo's browser reaches it
     // through the server, and a desktop never opens it anywhere else, whose logins aren't the
-    // server's. The web and the phone have no Orca browser and finish by paste.
+    // server's. The web and the phone have no OpenKodo browser and finish by paste.
     const serverHost =
       target.kind === 'environment' && !isPairedWebClientWindow()
         ? toRuntimeExecutionHostId(target.environmentId)

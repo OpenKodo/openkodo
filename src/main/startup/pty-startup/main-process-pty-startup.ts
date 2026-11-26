@@ -161,7 +161,7 @@ export function startTerminalRuntimeStartupServices(): WindowsDesktopStartupServ
       state.core.codexRuntimeHome?.reconcileLegacySharedHomeForRetainedPanes()
       logStartupMilestone('startup-service-done', { service: 'daemon-pty-provider' })
     },
-    // Restored PTYs need live ORCA_AGENT_HOOK_* endpoint state before reconnecting.
+    // Restored PTYs need live OPENKODO_AGENT_HOOK_* endpoint state before reconnecting.
     startAgentHookServer: async () => {
       const settings = state.store?.getSettings()
       logStartupMilestone('startup-service-start', { service: 'agent-hook-server' })

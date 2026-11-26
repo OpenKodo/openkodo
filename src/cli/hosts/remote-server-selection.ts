@@ -11,7 +11,7 @@ export function describeRemoteServerSelection(
   const environment = flags.get('environment')
   if (typeof environment === 'string') {
     const selector: unknown = environment
-    // An explicit local route suppresses ambient ORCA_ENVIRONMENT and pairing codes.
+    // An explicit local route suppresses ambient OPENKODO_ENVIRONMENT and pairing codes.
     return isLocalEnvironmentSelector(selector)
       ? undefined
       : {
@@ -23,10 +23,10 @@ export function describeRemoteServerSelection(
     // Never echo a pairing code into output an agent may log.
     return { label: '--pairing-code', flag: '--pairing-code <same code>' }
   }
-  // Checked before --host: the CLI rewrites an ORCA_ENVIRONMENT selection into --host runtime:<id>.
-  const ambientEnvironment = env.ORCA_ENVIRONMENT?.trim()
+  // Checked before --host: the CLI rewrites an OPENKODO_ENVIRONMENT selection into --host runtime:<id>.
+  const ambientEnvironment = env.OPENKODO_ENVIRONMENT?.trim()
   if (ambientEnvironment) {
-    return { label: `ORCA_ENVIRONMENT=${ambientEnvironment}` }
+    return { label: `OPENKODO_ENVIRONMENT=${ambientEnvironment}` }
   }
   // An explicit runtime host suppresses ambient pairing codes; its id is also an --environment selector.
   const host = flags.get('host')
@@ -37,8 +37,8 @@ export function describeRemoteServerSelection(
       flag: `--environment ${quoteCliCommandArgument(environmentId)}`
     }
   }
-  // Same precedence as RuntimeClient: an empty ORCA_PAIRING_CODE still wins and means local.
+  // Same precedence as RuntimeClient: an empty OPENKODO_PAIRING_CODE still wins and means local.
   const ambientPairing =
-    env.ORCA_PAIRING_CODE !== undefined ? 'ORCA_PAIRING_CODE' : 'ORCA_REMOTE_PAIRING'
+    env.OPENKODO_PAIRING_CODE !== undefined ? 'OPENKODO_PAIRING_CODE' : 'OPENKODO_REMOTE_PAIRING'
   return env[ambientPairing]?.trim() ? { label: ambientPairing } : undefined
 }

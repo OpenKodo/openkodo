@@ -1,4 +1,4 @@
-// Each setup dialog a bot asks for Orca sign-in in, signed out and once Sign in carried it on.
+// Each setup dialog a bot asks for OpenKodo sign-in in, signed out and once Sign in carried it on.
 import { defineFixture } from '../../component-fixtures/component-fixture'
 import { ConfirmationDialogProvider } from '../dismiss/confirmation/confirmation-dialog'
 import {

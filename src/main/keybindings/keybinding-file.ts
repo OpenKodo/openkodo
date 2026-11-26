@@ -1,3 +1,4 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { findKeybindingConflicts, formatKeybindingList } from '../../shared/keybindings/formatting'
@@ -26,7 +27,7 @@ import {
 } from './keybinding-file-parser'
 
 export function getUserKeybindingsPath(homePath: string): string {
-  return join(homePath, '.orca', 'keybindings.json')
+  return join(openKodoHomePath(homePath), 'keybindings.json')
 }
 
 export function readKeybindingFile(

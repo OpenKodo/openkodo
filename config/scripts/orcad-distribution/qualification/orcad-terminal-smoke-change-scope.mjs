@@ -22,7 +22,7 @@ const ENTRY_POINTS = [
   'config/scripts/native-build/node-addons/rebuild-native-deps.mjs',
   'config/scripts/cli-build/verify-cli-bin.mjs',
   'config/scripts/development/setup/install-dev-cli.mjs',
-  'config/scripts/development/launch/orca-dev.mjs',
+  'config/scripts/development/launch/openkodo-dev.mjs',
   'config/scripts/runtime-verification/daemon-lifecycle/runtime-serve-terminal-smoke.mjs',
   'config/scripts/orcad-distribution/qualification/orcad-terminal-smoke-change-scope.mjs'
 ]

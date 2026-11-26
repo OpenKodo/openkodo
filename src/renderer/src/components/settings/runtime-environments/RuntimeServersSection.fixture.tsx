@@ -141,8 +141,10 @@ function Section({
     <SettingsSection
       id="servers"
       forceVisible
-      title="Remote Orca servers"
-      description={web ? 'Connect to a saved Orca server.' : 'Work on another machine from here.'}
+      title="Remote OpenKodo servers"
+      description={
+        web ? 'Connect to a saved OpenKodo server.' : 'Work on another machine from here.'
+      }
       headerAction={<RuntimeServersHeaderActions />}
       fullWidthDescriptionOnNarrow
     >

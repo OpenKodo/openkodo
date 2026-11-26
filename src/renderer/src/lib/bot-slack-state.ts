@@ -1,4 +1,4 @@
-// Each bot's Slack app as Orca Cloud reports it, read on demand and shared by every Slack surface.
+// Each bot's Slack app as OpenKodo Cloud reports it, read on demand and shared by every Slack surface.
 import { useEffect, useMemo, useSyncExternalStore } from 'react'
 import {
   BOT_SLACK_DESKTOP_ERRORS,
@@ -23,7 +23,7 @@ const awaitsInstall = (slack: ConnectorBotSlackState): boolean =>
 
 const LOADING: BotSlackView = { status: 'loading' }
 // How often a shown bot whose app waits for its install asks whether Slack finished it, and for how
-// long; after that, and for every other shown bot, a return to Orca's window reads again at most
+// long; after that, and for every other shown bot, a return to OpenKodo's window reads again at most
 // every ON_FOCUS_MS.
 const INSTALL_POLL_MS = 3_000
 const INSTALL_POLL_FOR_MS = 10 * 60_000
@@ -180,7 +180,7 @@ function readOnFocus(bot: BotRef): void {
   }
 }
 
-/** The bot's Slack state, read fresh when shown and on returns to Orca, never followed: for names. */
+/** The bot's Slack state, read fresh when shown and on returns to OpenKodo, never followed: for names. */
 export function useBotSlackSnapshot(bot: BotRef | null): BotSlackView {
   return useShownBotSlack(useStableBotRefOrNull(bot))
 }
@@ -207,7 +207,7 @@ function useStableBotRefOrNull(bot: BotRef | null): BotRef | null {
 }
 
 /**
- * The bot's Slack state, read fresh when shown and on returns to Orca, and followed for a while
+ * The bot's Slack state, read fresh when shown and on returns to OpenKodo, and followed for a while
  * when its app waits for an install, or while the caller waits on one it started (a first install
  * or an update's reinstall), through failed reads too.
  */

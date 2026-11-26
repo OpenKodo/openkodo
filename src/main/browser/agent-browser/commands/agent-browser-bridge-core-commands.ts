@@ -8,7 +8,7 @@ import type {
 import { assertClipboardTextWriteWithinLimitWithYield } from '../../../../shared/clipboard/clipboard-text'
 import { normalizeBrowserNavigationUrl } from '../../../../shared/browser/navigation/browser-url'
 import { BrowserError } from '../../browser-error'
-import { ORCA_TAB_SESSION_PREFIX } from '../session-lifecycle/agent-browser-session-name'
+import { OPENKODO_TAB_SESSION_PREFIX } from '../session-lifecycle/agent-browser-session-name'
 import { FILL_ELEMENT_FUNCTION } from '../../cdp/input/browser-element-functions'
 import {
   EMBEDDED_NAVIGATION_TIMEOUT_MS,
@@ -149,7 +149,7 @@ export abstract class AgentBrowserBridgeCoreCommands extends AgentBrowserBridgeQ
           }
           if (!this.getWebContents(target.webContentsId)) {
             throw this.createPageUnavailableError(
-              `${ORCA_TAB_SESSION_PREFIX}${target.browserPageId}`
+              `${OPENKODO_TAB_SESSION_PREFIX}${target.browserPageId}`
             )
           }
           // ERR_ABORTED can also mean the page vetoed unloading.

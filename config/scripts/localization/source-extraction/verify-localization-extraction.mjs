@@ -177,7 +177,7 @@ async function extractToTemporaryCatalog(root, tempDir) {
     cwd: root,
     env: {
       ...process.env,
-      ORCA_I18N_EXTRACTION_OUTPUT: outputPattern.split(path.sep).join('/')
+      OPENKODO_I18N_EXTRACTION_OUTPUT: outputPattern.split(path.sep).join('/')
     },
     timeoutMs: null,
     maxOutputBytes: 1024 * 1024

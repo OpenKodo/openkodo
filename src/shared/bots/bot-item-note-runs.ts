@@ -12,7 +12,7 @@ import type { BotItemNoteItem, BotItemNoteView } from './bot-item-note'
 /** The sender item mail names. */
 export const BOT_ITEM_MAIL_SENDER = 'orca:items'
 
-/** Item mail ids: only Orca's item code mints one, as no send, ask or reply takes a caller's message id. */
+/** Item mail ids: only OpenKodo's item code mints one, as no send, ask or reply takes a caller's message id. */
 export const BOT_ITEM_MAIL_ID_PREFIX = 'msg_item_'
 
 export function isBotItemMail(message: NativeChatMessage): boolean {

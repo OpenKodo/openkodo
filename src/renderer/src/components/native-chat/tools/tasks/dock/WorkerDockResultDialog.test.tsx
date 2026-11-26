@@ -11,7 +11,7 @@ afterEach(cleanup)
 
 const PROMPT = 'Audit the release checklist for the billing service and list gaps, changing no...'
 const ERROR =
-  'Creating the worktree took longer than 180 seconds, so Orca stopped Git. Set `SOME_TIMEOUT_MS` and restart. Abandoned by orca_session_id:00000000-0000-4000-8000-000000000000.'
+  'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git. Set `SOME_TIMEOUT_MS` and restart. Abandoned by orca_session_id:00000000-0000-4000-8000-000000000000.'
 const result: WorkerDockResult = {
   id: 'result-1',
   dispatchId: 'ctx-1',
@@ -44,7 +44,7 @@ function card(value: WorkerDockResult, error: string | null = null) {
 
 it('takes the first sentence of an error as plain text', () => {
   expect(workerDockReasonLine(ERROR)).toBe(
-    'Creating the worktree took longer than 180 seconds, so Orca stopped Git.'
+    'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git.'
   )
   expect(workerDockReasonLine('no stop at the end')).toBe('no stop at the end')
 })
@@ -60,7 +60,7 @@ it('shows the prompt once, the state on its own line, one reason and the raw err
     'Stopped unexpectedly'
   )
   expect(document.querySelector('[data-worker-dock-card-reason]')).toHaveTextContent(
-    'Creating the worktree took longer than 180 seconds, so Orca stopped Git.'
+    'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git.'
   )
   expect(screen.queryByText(/orca_session_id/)).toBeNull()
   const details = screen.getByRole('button', { name: 'Show details' })
@@ -93,7 +93,7 @@ it('keeps one long error sentence reachable behind Show details', () => {
 it('keeps a short error of wide glyphs reachable behind Show details', () => {
   // One sentence well under 120 characters that still overflows two lines in a narrow card.
   const wide =
-    'ワークツリーの作成が三分を超えたため、Gitを停止しました。環境変数を設定してからOrcaを再起動し、もう一度このワーカーを実行してください。'
+    'ワークツリーの作成が三分を超えたため、Gitを停止しました。環境変数を設定してからOpenKodoを再起動し、もう一度このワーカーを実行してください。'
   card({ ...result, body: wide })
   fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
   expect(document.querySelector('pre')).toHaveTextContent(wide)

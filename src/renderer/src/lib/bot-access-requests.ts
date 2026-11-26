@@ -1,4 +1,4 @@
-// People asking the account's bots for access, as Orca Cloud lists them. The owner reviews a request
+// People asking the account's bots for access, as OpenKodo Cloud lists them. The owner reviews a request
 // in the bot's People with access, which confirms first; the host's bots.access.decide adds the person.
 import { useSyncExternalStore } from 'react'
 import { toast } from 'sonner'

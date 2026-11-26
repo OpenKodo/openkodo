@@ -91,7 +91,7 @@ describe('parseMcpServersPaste', () => {
     ])
   })
 
-  it('refuses what Orca cannot carry instead of guessing', () => {
+  it('refuses what OpenKodo cannot carry instead of guessing', () => {
     expect(() => paste('claude mcp add --transport sse linear https://mcp.linear.app/sse')).toThrow(
       /SSE/
     )

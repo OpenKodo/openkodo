@@ -1,4 +1,4 @@
-// Copies of a tool's saved values an older Orca mirrored into the owner's Claude config, for signing
+// Copies of a tool's saved values an older OpenKodo mirrored into the owner's Claude config, for signing
 // tools in; a relayed tool never signs in, so its mirror entry only holds a secret.
 import { existsSync } from 'node:fs'
 import { claudeUnmirrorArgs, readClaudeMirror } from './bot-tools-claude'

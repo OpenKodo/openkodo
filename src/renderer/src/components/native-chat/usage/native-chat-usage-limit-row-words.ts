@@ -19,7 +19,7 @@ export type UsageLimitRowWordsInput = {
   auto: NativeChatUsageLimitAutoContinueState | null
   /** When Continue applies, in the reader's clock. */
   manualTime: string | null
-  /** When Orca continues by itself, when scheduled. */
+  /** When OpenKodo continues by itself, when scheduled. */
   autoTime: string | null
   /** The schedule is exactly when Continue applies. */
   sameTime: boolean
@@ -74,7 +74,7 @@ function accessibleStatus(input: UsageLimitRowWordsInput, t: Translate): string 
     return autoTime
       ? t(
           'components.native-chat.usageLimitActions.statusHasUsageAuto',
-          '{{agent}} has usage again. Orca will continue this chat at {{time}}.',
+          '{{agent}} has usage again. OpenKodo will continue this chat at {{time}}.',
           { agent, time: autoTime }
         )
       : t('components.native-chat.usageLimitActions.statusHasUsage', '{{agent}} has usage again.', {
@@ -85,7 +85,7 @@ function accessibleStatus(input: UsageLimitRowWordsInput, t: Translate): string 
     return autoTime
       ? t(
           'components.native-chat.usageLimitActions.statusCanContinueNowAuto',
-          '{{agent}} can continue now. Orca will continue this chat at {{time}}.',
+          '{{agent}} can continue now. OpenKodo will continue this chat at {{time}}.',
           { agent, time: autoTime }
         )
       : t(
@@ -97,21 +97,21 @@ function accessibleStatus(input: UsageLimitRowWordsInput, t: Translate): string 
   if (autoTime && sameTime) {
     return t(
       'components.native-chat.usageLimitAutoContinue.scheduled',
-      'Orca will continue this chat at {{time}}.',
+      'OpenKodo will continue this chat at {{time}}.',
       { time: autoTime }
     )
   }
   if (autoTime) {
     return t(
       'components.native-chat.usageLimitActions.statusCanContinueAtAuto',
-      'You can continue at {{time}}. Orca will continue this chat at {{autoTime}}.',
+      'You can continue at {{time}}. OpenKodo will continue this chat at {{autoTime}}.',
       { time: manualTime, autoTime }
     )
   }
   return auto?.kind === 'cancelled'
     ? t(
         'components.native-chat.usageLimitActions.statusCanContinueAtNoAuto',
-        "You can continue at {{time}}. Orca won't continue this chat automatically.",
+        "You can continue at {{time}}. OpenKodo won't continue this chat automatically.",
         { time: manualTime }
       )
     : t(

@@ -1,4 +1,4 @@
-// Connect for a tool Orca signs in to: Orca's own page on 127.0.0.1 waits for the browser, one
+// Connect for a tool OpenKodo signs in to: OpenKodo's own page on 127.0.0.1 waits for the browser, one
 // attempt per bot and tool at a time, and says "Signed in" only once the tokens are stored.
 import { resolve } from 'node:path'
 import type {
@@ -82,7 +82,7 @@ export const failureOf = (error: unknown): BotToolSignInFailure => {
 
 const FAILED_LINES: Partial<Record<BotToolSignInFailure, string>> = {
   denied: 'Access wasn’t allowed. You can close this tab.',
-  expired: 'This sign-in expired. Start again in Orca.'
+  expired: 'This sign-in expired. Start again in OpenKodo.'
 }
 
 /**
@@ -115,12 +115,12 @@ function outcomePage(failure: BotToolSignInFailure | null): string {
     ? orcaCallbackOutcome({
         ok: false,
         heading: 'Couldn’t sign in',
-        line: FAILED_LINES[failure] ?? 'Return to Orca and try again.'
+        line: FAILED_LINES[failure] ?? 'Return to OpenKodo and try again.'
       })
     : orcaCallbackOutcome({
         ok: true,
         heading: 'Signed in',
-        line: 'You can close this tab and return to Orca.'
+        line: 'You can close this tab and return to OpenKodo.'
       })
 }
 
@@ -202,7 +202,7 @@ export const endedBy = (signal: AbortSignal): BotToolSignInFailure =>
 /**
  * Serves `flow`'s return on this host's 127.0.0.1 and begins its attempt for that address; answers
  * once the page is ready to open. The listener holds its page until `finish` settles, closes at the
- * deadline or when the flow ends, and never reserves its port as Orca's, so a page Orca's browser
+ * deadline or when the flow ends, and never reserves its port as OpenKodo's, so a page OpenKodo's browser
  * routes to this host from another device reaches it. Throws `BotToolSignInError`.
  */
 export async function serveFlowSignIn(
@@ -227,7 +227,7 @@ export async function serveFlowSignIn(
     read: (url) =>
       attempt?.owns(url.searchParams)
         ? { kind: 'accept', value: url.searchParams }
-        : { kind: 'stray', message: 'Nothing to finish here. Return to Orca.' },
+        : { kind: 'stray', message: 'Nothing to finish here. Return to OpenKodo.' },
     successPage: {
       received: orcaCallbackReceivedPage(),
       finish: async (query) => outcomePage(await finish(attempt!, query))
@@ -281,7 +281,7 @@ export async function connectBotToolSignIn(
   return { attemptId: attempt.id, authorizationOrigin: new URL(attempt.authorizationUrl).origin }
 }
 
-/** How the tool's latest Connect stands; idle when none ran since Orca started. */
+/** How the tool's latest Connect stands; idle when none ran since OpenKodo started. */
 export function botToolSignInProgress(key: BotToolOAuthKey): BotToolSignInProgress {
   return flows.get(flowKey(key))?.progress ?? { state: 'idle' }
 }

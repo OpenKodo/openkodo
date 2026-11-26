@@ -1,4 +1,4 @@
-// App-side CLI probe under ELECTRON_RUN_AS_NODE: print one ORCA_SERVE_RUNTIME selection; diagnostics use stderr.
+// App-side CLI probe under ELECTRON_RUN_AS_NODE: print one OPENKODO_SERVE_RUNTIME selection; diagnostics use stderr.
 import { join } from 'node:path'
 import process from 'node:process'
 import {

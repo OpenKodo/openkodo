@@ -1,4 +1,4 @@
-// The card a bot's request leaves in the chat that sent it: Orca's line of what was sent and to whom,
+// The card a bot's request leaves in the chat that sent it: OpenKodo's line of what was sent and to whom,
 // or why it wasn't, never the bot's. Connector conversations' turns, workers' requests, group rooms
 // and status mail get none.
 import { writeInChat } from '../../../../../bots/bot-chat-status-line'

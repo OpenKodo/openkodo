@@ -54,7 +54,10 @@ export function RuntimeServerRowDetails({
   const rawError = [problem, updateError].filter(Boolean).join('\n')
   const kind = unreachable ? endpointKind(endpoint) : null
   const lead = unreachable
-    ? t('auto.components.settings.serverList.unreachableLead', 'Orca couldn’t reach this server.')
+    ? t(
+        'auto.components.settings.serverList.unreachableLead',
+        'OpenKodo couldn’t reach this server.'
+      )
     : updateError
       ? t('auto.components.settings.serverList.updateFailedLead', 'The last update didn’t finish.')
       : null
@@ -65,7 +68,7 @@ export function RuntimeServerRowDetails({
         <p className="text-muted-foreground">
           {t(
             'auto.components.settings.serverList.unreachableHint',
-            'Check that Orca is running on the server and that this computer can reach its address.'
+            'Check that OpenKodo is running on the server and that this computer can reach its address.'
           )}
           {kind === 'tailscale'
             ? ` ${t(

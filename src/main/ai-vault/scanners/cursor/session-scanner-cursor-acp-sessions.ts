@@ -36,7 +36,7 @@ const NATIVE_STAT_CONCURRENCY = 8
 // WSL stats cross the 9P bridge through shared gate slots.
 const WSL_STAT_CONCURRENCY = 4
 
-/** Only sessions an Orca chat owns, by path: no directory walk. */
+/** Only sessions an OpenKodo chat owns, by path: no directory walk. */
 export function cursorAcpDiscoveries(
   options: AiVaultScanOptions,
   wslHomeDirs: readonly string[],

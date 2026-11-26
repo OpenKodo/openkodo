@@ -31,9 +31,9 @@ export type LookStep = { position: number } & (
     }
 )
 
-/** A bot's commands name Orca's CLI through a shell default; the owner knows it as `orca`. */
+/** A bot's commands name OpenKodo's CLI through a shell default; the owner knows it as `orca`. */
 export function withPlainOrcaCli(text: string): string {
-  return text.replaceAll('"${ORCA_CLI_COMMAND:-orca}"', 'orca')
+  return text.replaceAll('"${OPENKODO_CLI_COMMAND:-orca}"', 'orca')
 }
 
 /** Shown while a look runs; older steps scroll off. */

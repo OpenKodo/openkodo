@@ -48,8 +48,8 @@ test('seeded project terminal runs a typed shell command @golden', async ({ orca
       const pwshAvailable = await orcaPage.evaluate(() => window.api.pwsh.isAvailable())
       expect(pwshAvailable, 'cmd.exe must not replace an available PowerShell default').toBe(false)
     }
-    const begin = 'ORCA_E2E_PATH_BEGIN'
-    const end = 'ORCA_E2E_PATH_END'
+    const begin = 'OPENKODO_E2E_PATH_BEGIN'
+    const end = 'OPENKODO_E2E_PATH_END'
     const pathCommand =
       shell === 'pwsh' || shell === 'powershell'
         ? `Write-Output ${begin}; Write-Output $env:LOCALAPPDATA; Write-Output ${end}`

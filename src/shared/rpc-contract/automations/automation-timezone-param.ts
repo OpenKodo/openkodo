@@ -4,7 +4,7 @@ import {
   unknownTimeZoneMessage
 } from '../../automations/scheduling/automation-schedule-calendar'
 
-// Only a named zone is judged: a client's default or a stored one an older Orca accepted still saves.
+// Only a named zone is judged: a client's default or a stored one an older OpenKodo accepted still saves.
 export function refuseUnknownNamedZone(
   value: { timezone?: string; timezoneExplicit?: boolean },
   ctx: RefinementCtx

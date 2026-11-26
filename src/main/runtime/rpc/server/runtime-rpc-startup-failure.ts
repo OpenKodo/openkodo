@@ -1,4 +1,4 @@
-// @protected-copy: this copy fills the native "Orca CLI unavailable" message box.
+// @protected-copy: this copy fills the native "OpenKodo CLI unavailable" message box.
 import type { RuntimeRpcStartErrorClass } from '../../../../shared/telemetry/schemas/telemetry-daemon-event-schemas'
 import { translateMain } from '../../../i18n/main-i18n'
 import { track } from '../../../telemetry/client'
@@ -68,24 +68,24 @@ const GUIDANCE_BY_ERROR_CLASS: Readonly<
   permission_denied: {
     key: 'runtimeRpc.startupFailure.guidance.permissionDenied',
     fallback:
-      "Orca couldn't write its runtime file. Check permissions on Orca's data folder, then restart."
+      "OpenKodo couldn't write its runtime file. Check permissions on OpenKodo's data folder, then restart."
   },
   storage_unavailable: {
     key: 'runtimeRpc.startupFailure.guidance.storageUnavailable',
-    fallback: 'Your disk may be full or read-only. Free up space, then restart Orca.'
+    fallback: 'Your disk may be full or read-only. Free up space, then restart OpenKodo.'
   },
   invalid_path: {
     key: 'runtimeRpc.startupFailure.guidance.invalidPath',
     fallback:
-      "Orca's data folder may be missing, moved, or at a path that is too long. Restore it or use a shorter path, then restart Orca."
+      "OpenKodo's data folder may be missing, moved, or at a path that is too long. Restore it or use a shorter path, then restart OpenKodo."
   },
   address_in_use: {
     key: 'runtimeRpc.startupFailure.guidance.addressInUse',
-    fallback: 'Another process may be holding the port. Restart Orca to try again.'
+    fallback: 'Another process may be holding the port. Restart OpenKodo to try again.'
   },
   unknown: {
     key: 'runtimeRpc.startupFailure.guidance.unknown',
-    fallback: 'Restart Orca to try again.'
+    fallback: 'Restart OpenKodo to try again.'
   }
 }
 
@@ -111,14 +111,14 @@ export function createRuntimeRpcStartupFailureDialogOptions(
     defaultId: 0,
     cancelId: 0,
     noLink: true,
-    title: translateMain('runtimeRpc.startupFailure.title', 'Orca CLI unavailable'),
+    title: translateMain('runtimeRpc.startupFailure.title', 'OpenKodo CLI unavailable'),
     message: translateMain(
       'runtimeRpc.startupFailure.message',
-      "Orca couldn't start its local command transport."
+      "OpenKodo couldn't start its local command transport."
     ),
     detail: translateMain(
       'runtimeRpc.startupFailure.detail',
-      'Orca will continue to work, but commands such as orca status, orca terminal, and orchestration are unavailable for this session.\n\n{{guidance}}\n\nCause: {{cause}}',
+      'OpenKodo will continue to work, but commands such as openkodo status, openkodo terminal, and orchestration are unavailable for this session.\n\n{{guidance}}\n\nCause: {{cause}}',
       { cause, guidance: translateMain(key, fallback) }
     )
   }

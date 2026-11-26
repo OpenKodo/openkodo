@@ -21,7 +21,7 @@ export type ProviderOwnershipLaunchRows = {
   watcher: ProviderProcessRow
 }
 
-/** Proves Orca, the launch leader and its watcher before the CLI runs; the error names each failed check. */
+/** Proves OpenKodo, the launch leader and its watcher before the CLI runs; the error names each failed check. */
 export async function proveProviderOwnershipBeforeLaunch(
   leaderPid: number,
   watcherPid: number,

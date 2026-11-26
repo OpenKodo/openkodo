@@ -1,10 +1,10 @@
-// A bot's tool credentials: each HTTP tool's real address with its saved headers, a source Orca fills
-// per call, or Orca's own sign-in to the app. Each entry is sealed whole on the host, bound to its bot
-// folder and id, so the bot's agent only ever gets Orca's relay address and its own token.
+// A bot's tool credentials: each HTTP tool's real address with its saved headers, a source OpenKodo fills
+// per call, or OpenKodo's own sign-in to the app. Each entry is sealed whole on the host, bound to its bot
+// folder and id, so the bot's agent only ever gets OpenKodo's relay address and its own token.
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { BotFailureError } from '../../shared/bots/bot-failure-copy'
 import { createHash, randomBytes } from 'node:crypto'
 import { readFileSync, rmSync } from 'node:fs'
-import { homedir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { z } from 'zod'
 import { writeSecureFile } from '../../shared/secure-storage/secure-file'
@@ -27,7 +27,7 @@ import {
 
 export type { BotToolOAuthRecord }
 
-/** Where the headers come from: saved values, or a source Orca fills per request (a hub's key). */
+/** Where the headers come from: saved values, or a source OpenKodo fills per request (a hub's key). */
 export type BotToolCredential = {
   url: string
   headers: Record<string, string>
@@ -35,7 +35,7 @@ export type BotToolCredential = {
 }
 
 /**
- * Orca's own sign-in to an app. `grant` names the sign-in: it changes when the account is replaced or
+ * OpenKodo's own sign-in to an app. `grant` names the sign-in: it changes when the account is replaced or
  * signed out, never when a token is refreshed. `revision` changes on every commit, tokens included.
  */
 export type BotToolOAuthEntry = {
@@ -55,7 +55,7 @@ export function useBotToolCredentialsRoot(root: string | null): void {
 }
 
 const credentialsRoot = (): string =>
-  rootOverride ?? join(homedir(), '.orca', 'bot-tool-credentials')
+  rootOverride ?? join(openKodoHomePath(), 'bot-tool-credentials')
 
 export const botToolCredentialsPath = (folder: string): string =>
   join(
@@ -115,7 +115,7 @@ const readSealed = (folder: string): Stored =>
 const entryOf = (stored: Stored, id: string): Entry | null => stored[id]?.entry ?? null
 
 /**
- * Publishes `next` only while the file still holds `expected`, so a write from another Orca on the
+ * Publishes `next` only while the file still holds `expected`, so a write from another OpenKodo on the
  * same home folder is never overwritten with what this one read before it. Answers whether it did.
  */
 function publish(folder: string, expected: string | null, next: Stored): boolean {
@@ -192,7 +192,7 @@ function oauthOf(entry: Entry | null): BotToolOAuthEntry | null {
 
 /**
  * Changes for an editor's stale check and the tools revision: saved values for headers, but only the
- * address and sign-in for an app Orca signs in to, so a refreshed token restarts no chat.
+ * address and sign-in for an app OpenKodo signs in to, so a refreshed token restarts no chat.
  */
 export function botToolCredentialsFingerprint(folder: string, ids: ReadonlySet<string>): string {
   return JSON.stringify([...botToolCredentialFingerprints(folder, ids)])
@@ -343,20 +343,20 @@ export function forgetBotToolCredentials(folder: string): BotToolOAuthEntry[] {
 
 /**
  * A stored tool as an edit starts from: its saved values and the address they're bound to, and a
- * credential id only for Orca's own sign-in, which the edit keeps.
+ * credential id only for OpenKodo's own sign-in, which the edit keeps.
  */
 export function withSavedBotToolHeaders(folder: string, server: BotToolServer): BotToolServer {
   if (!('url' in server) || !server.credential) {
     return server
   }
   if (readBotToolOAuth(folder, server.credential)) {
-    // Its tokens are Orca's own sign-in; a generic edit keeps the id and changes no values.
+    // Its tokens are OpenKodo's own sign-in; a generic edit keeps the id and changes no values.
     return server
   }
   const { credential, ...rest } = server
   const saved = readBotToolCredential(folder, credential)
   if (saved?.source) {
-    // Its headers come from a source Orca fills per call; a generic edit would drop them.
+    // Its headers come from a source OpenKodo fills per call; a generic edit would drop them.
     throw new BotFailureError('toolSourceManaged')
   }
   return saved ? { ...rest, url: saved.url, headers: saved.headers } : rest

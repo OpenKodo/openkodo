@@ -4,7 +4,7 @@ import { asRecord } from '../../../ai-vault/parsing/session-record-fields'
 
 const CACHE_CHECKPOINT_MS = 30_000
 
-/** Each rollout's settled history base, kept across sweeps in Orca's data folder. */
+/** Each rollout's settled history base, kept across sweeps in OpenKodo's data folder. */
 export type CodexRolloutHistoryBaseCache = {
   get(rolloutId: string): string | null | undefined
   set(rolloutId: string, base: string | null): Promise<void>

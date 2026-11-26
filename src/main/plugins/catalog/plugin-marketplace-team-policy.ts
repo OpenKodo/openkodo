@@ -1,6 +1,6 @@
 import type { OrcaCloudCapabilities } from '../../../shared/orca-profiles/orca-cloud-capabilities'
 import {
-  ORCA_CLOUD_TEAM_POLICY_FLAGS as flags,
+  OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags,
   type RequiredPluginRule
 } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import {

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Capture one-shot macOS launch diagnostics for a published Orca release.
+# Capture one-shot macOS launch diagnostics for a published OpenKodo release.
 #
 # Usage:
-#   ORCA_DIAGNOSTIC_TAG=v1.4.42-rc.1 bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh
+#   OPENKODO_DIAGNOSTIC_TAG=v1.4.42-rc.1 bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh
 #   bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh --tag v1.4.42-rc.1
 set -euo pipefail
 
-REPO="${ORCA_DIAGNOSTIC_REPO:-stablyai/orca}"
-TAG="${ORCA_DIAGNOSTIC_TAG:-}"
+REPO="${OPENKODO_DIAGNOSTIC_REPO:-stablyai/orca}"
+TAG="${OPENKODO_DIAGNOSTIC_TAG:-}"
 KEEP=0
 
 while [[ $# -gt 0 ]]; do
@@ -26,10 +26,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     -h|--help)
       cat <<'EOF'
-Capture one-shot macOS launch diagnostics for a published Orca release.
+Capture one-shot macOS launch diagnostics for a published OpenKodo release.
 
 Usage:
-  ORCA_DIAGNOSTIC_TAG=v1.4.42-rc.1 bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh
+  OPENKODO_DIAGNOSTIC_TAG=v1.4.42-rc.1 bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh
   bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh --tag v1.4.42-rc.1
 EOF
       exit 0
@@ -48,7 +48,7 @@ if [[ "$(uname -s)" != "Darwin" ]]; then
 fi
 
 if [[ -z "$TAG" ]]; then
-  echo "Set ORCA_DIAGNOSTIC_TAG or pass --tag vX.Y.Z-rc.N." >&2
+  echo "Set OPENKODO_DIAGNOSTIC_TAG or pass --tag vX.Y.Z-rc.N." >&2
   exit 2
 fi
 
@@ -66,7 +66,7 @@ TIMESTAMP="$(date -u '+%Y%m%dT%H%M%SZ')"
 WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/orca-launch-diagnostics.XXXXXXXX")"
 OUT_DIR="$WORK_DIR/output"
 MOUNT_DIR="$WORK_DIR/mount"
-APP_DIR="$WORK_DIR/Orca.app"
+APP_DIR="$WORK_DIR/OpenKodo.app"
 DMG_PATH="$WORK_DIR/$ASSET"
 mkdir -p "$OUT_DIR" "$MOUNT_DIR"
 
@@ -121,20 +121,20 @@ write_environment_report() {
     echo "## shell"
     echo "$SHELL"
     echo
-    echo "## current Orca processes before diagnostics"
-    pgrep -fl 'Orca|orca' || true
+    echo "## current OpenKodo processes before diagnostics"
+    pgrep -fl 'OpenKodo|orca' || true
   } >"$OUT_DIR/environment.txt"
 }
 
 ensure_no_existing_orca() {
   local existing
-  existing="$(pgrep -x Orca || true)"
+  existing="$(pgrep -x OpenKodo || true)"
   if [[ -z "$existing" ]]; then
     return 0
   fi
 
   {
-    echo "An Orca process is already running. Close Orca and run this script again."
+    echo "An OpenKodo process is already running. Close OpenKodo and run this script again."
     echo
     ps -p "$(printf '%s' "$existing" | paste -sd, -)" -o pid=,ppid=,command= || true
   } | tee "$OUT_DIR/existing-orca-process.txt" >&2
@@ -187,7 +187,7 @@ write_app_report() {
 
 start_log_stream() {
   local file="$1"
-  local predicate='process == "Orca" OR eventMessage CONTAINS[c] "Orca" OR eventMessage CONTAINS[c] "com.stablyai.orca"'
+  local predicate='process == "OpenKodo" OR eventMessage CONTAINS[c] "OpenKodo" OR eventMessage CONTAINS[c] "dev.openkodo.app"'
   if command -v log >/dev/null 2>&1; then
     command log stream --style compact --predicate "$predicate" >"$file" 2>&1 &
     echo "$!"
@@ -205,7 +205,7 @@ stop_log_stream() {
 }
 
 latest_orca_pid_for_app() {
-  pgrep -nf "$APP_DIR/Contents/MacOS/Orca" || true
+  pgrep -nf "$APP_DIR/Contents/MacOS/OpenKodo" || true
 }
 
 sample_process_once() {
@@ -284,9 +284,9 @@ run_launchservices_probe() {
       --stdout "$stdout_file" \
       --stderr "$stderr_file" \
       --env ELECTRON_ENABLE_LOGGING=1 \
-      --env ORCA_STARTUP_DIAGNOSTICS=trace \
-      --env ORCA_STARTUP_DIAGNOSTICS_TRACE_LIMIT=30000 \
-      --env ORCA_STARTUP_DIAGNOSTICS_FILE="$bootstrap_file" \
+      --env OPENKODO_STARTUP_DIAGNOSTICS=trace \
+      --env OPENKODO_STARTUP_DIAGNOSTICS_TRACE_LIMIT=30000 \
+      --env OPENKODO_STARTUP_DIAGNOSTICS_FILE="$bootstrap_file" \
       --env "$extra_env_name=$extra_env_value" \
       "$APP_DIR" &
   else
@@ -294,9 +294,9 @@ run_launchservices_probe() {
       --stdout "$stdout_file" \
       --stderr "$stderr_file" \
       --env ELECTRON_ENABLE_LOGGING=1 \
-      --env ORCA_STARTUP_DIAGNOSTICS=trace \
-      --env ORCA_STARTUP_DIAGNOSTICS_TRACE_LIMIT=30000 \
-      --env ORCA_STARTUP_DIAGNOSTICS_FILE="$bootstrap_file" \
+      --env OPENKODO_STARTUP_DIAGNOSTICS=trace \
+      --env OPENKODO_STARTUP_DIAGNOSTICS_TRACE_LIMIT=30000 \
+      --env OPENKODO_STARTUP_DIAGNOSTICS_FILE="$bootstrap_file" \
       "$APP_DIR" &
   fi
   local runner_pid="$!"
@@ -322,10 +322,10 @@ run_direct_exec_probe() {
   } >"$OUT_DIR/$label.meta"
 
   ELECTRON_ENABLE_LOGGING=1 \
-    ORCA_STARTUP_DIAGNOSTICS=trace \
-    ORCA_STARTUP_DIAGNOSTICS_TRACE_LIMIT=30000 \
-    ORCA_STARTUP_DIAGNOSTICS_FILE="$bootstrap_file" \
-    "$APP_DIR/Contents/MacOS/Orca" >"$stdout_file" 2>"$stderr_file" &
+    OPENKODO_STARTUP_DIAGNOSTICS=trace \
+    OPENKODO_STARTUP_DIAGNOSTICS_TRACE_LIMIT=30000 \
+    OPENKODO_STARTUP_DIAGNOSTICS_FILE="$bootstrap_file" \
+    "$APP_DIR/Contents/MacOS/OpenKodo" >"$stdout_file" 2>"$stderr_file" &
   local runner_pid="$!"
   wait_for_probe "$runner_pid" "$label"
   echo "ended_utc=$(date -u '+%Y-%m-%dT%H:%M:%SZ')" >>"$OUT_DIR/$label.meta"
@@ -333,7 +333,7 @@ run_direct_exec_probe() {
 }
 
 write_system_log_snapshot() {
-  local predicate='process == "Orca" OR eventMessage CONTAINS[c] "Orca" OR eventMessage CONTAINS[c] "com.stablyai.orca"'
+  local predicate='process == "OpenKodo" OR eventMessage CONTAINS[c] "OpenKodo" OR eventMessage CONTAINS[c] "dev.openkodo.app"'
   if command -v log >/dev/null 2>&1; then
     diag_log "capturing recent unified log snapshot"
     command log show --style syslog --last 10m --predicate "$predicate" >"$OUT_DIR/system-log-last-10m.log" 2>&1 || true
@@ -360,7 +360,7 @@ ensure_no_existing_orca
 download_and_copy_app
 write_app_report
 run_launchservices_probe "launchservices-trace"
-run_launchservices_probe "launchservices-bypass-lock" "ORCA_BYPASS_SINGLE_INSTANCE_LOCK" "1"
+run_launchservices_probe "launchservices-bypass-lock" "OPENKODO_BYPASS_SINGLE_INSTANCE_LOCK" "1"
 run_direct_exec_probe
 write_system_log_snapshot
 package_results

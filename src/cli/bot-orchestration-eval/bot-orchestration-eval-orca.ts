@@ -1,5 +1,5 @@
 // The orchestration half of the benchmark's stand-in host: projects, workspaces, workers, mail and
-// Linear, answered in the runtime's shapes and recorded, so a bot's hand-offs never reach a real Orca.
+// Linear, answered in the runtime's shapes and recorded, so a bot's hand-offs never reach a real OpenKodo.
 // bot-eval-stand-in-contract.test.ts (beside the runtime's worker methods) holds it to their lifecycle.
 import { RuntimeClientError } from '../runtime/connection/types'
 import type { EvalHostState } from '../bot-automation-eval/bot-automation-eval-host'

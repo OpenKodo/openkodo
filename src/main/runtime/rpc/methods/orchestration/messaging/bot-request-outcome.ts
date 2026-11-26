@@ -209,7 +209,7 @@ async function settleBotRequests(
   }
 }
 
-/** Orca sends the chat "continue" once the limit resets, which runs the failed turn's work again.
+/** OpenKodo sends the chat "continue" once the limit resets, which runs the failed turn's work again.
  *  Nothing else reruns a failed turn on its own: Resume releases only the mail queued behind it. */
 async function continuesAfterUsageLimit(sessionId: string): Promise<boolean> {
   const host = getStructuredAgentSessionHost()

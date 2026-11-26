@@ -77,7 +77,7 @@ function selectorFlag(ctx: HandlerContext, name: string): string | undefined {
   return value
 }
 
-/** Sorts what the caller typed into a catalog id, a Git source or a folder on the Orca host. */
+/** Sorts what the caller typed into a catalog id, a Git source or a folder on the OpenKodo host. */
 export function classifyPluginInstallSource(ctx: HandlerContext, value: string): InstallSpec {
   const ref = selectorFlag(ctx, 'ref')
   const catalog = selectorFlag(ctx, 'catalog')
@@ -88,7 +88,7 @@ export function classifyPluginInstallSource(ctx: HandlerContext, value: string):
     if (ref || catalog) {
       throw new RuntimeClientError(
         'invalid_argument',
-        `--${ref ? 'ref' : 'catalog'} does not apply to the plugin folder ${path}; Orca installs the folder as it is.`
+        `--${ref ? 'ref' : 'catalog'} does not apply to the plugin folder ${path}; OpenKodo installs the folder as it is.`
       )
     }
     return { kind: 'local-path', path }

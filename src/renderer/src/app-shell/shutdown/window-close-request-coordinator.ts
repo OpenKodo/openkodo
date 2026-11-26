@@ -3,7 +3,7 @@
 import { showShutdownCheckpointFailureToast } from '@/app-shell/shutdown/shutdown-checkpoint-failure-toast'
 import {
   formatShutdownCheckpointFailureReason,
-  ORCA_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
+  OPENKODO_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT,
   publishShutdownCheckpointFailureReason
 } from '../../../../shared/app-lifecycle/shutdown/renderer-shutdown-events'
 
@@ -62,7 +62,7 @@ async function stageWindowCloseCheckpoint(): Promise<boolean> {
     durableCloseCheckpointFailed = true
     publishShutdownCheckpointFailureReason(formatShutdownCheckpointFailureReason(error))
     // Re-stage on the next close attempt instead of trusting the failed checkpoint.
-    window.dispatchEvent(new Event(ORCA_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT))
+    window.dispatchEvent(new Event(OPENKODO_RENDERER_SHUTDOWN_CHECKPOINT_ABORTED_EVENT))
     return false
   }
 }

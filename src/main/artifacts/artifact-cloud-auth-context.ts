@@ -73,7 +73,9 @@ function authContext(
       !cloudCurrent ||
       !isArtifactShareLifecycleCurrent(active.profile.id, userDataPath, lifecycleGeneration)
     ) {
-      throw new Error('The signed-in Orca account changed while the artifact request was running.')
+      throw new Error(
+        'The signed-in OpenKodo account changed while the artifact request was running.'
+      )
     }
   }
   // Sign-out fences the session generation before awaiting remote logout, and a revoked
@@ -90,7 +92,7 @@ function authContext(
       assertCurrent()
       if (sessionEnded()) {
         throw new Error(
-          'The signed-in Orca account changed while the artifact request was running.'
+          'The signed-in OpenKodo account changed while the artifact request was running.'
         )
       }
     },
@@ -100,7 +102,7 @@ function authContext(
         assertCurrent()
         if (sessionEnded()) {
           throw new Error(
-            'Signed out of Orca while waiting to retry the artifact request. Sign in and try again.'
+            'Signed out of OpenKodo while waiting to retry the artifact request. Sign in and try again.'
           )
         }
       }
@@ -115,7 +117,7 @@ export function storedSessionAuthContext(
   allowance: ArtifactRateLimitAllowance
 ): ArtifactAuthContext {
   if (!active.profile.cloud) {
-    throw new Error('The active Orca profile is not linked to a cloud account.')
+    throw new Error('The active OpenKodo profile is not linked to a cloud account.')
   }
   return authContext(
     active,

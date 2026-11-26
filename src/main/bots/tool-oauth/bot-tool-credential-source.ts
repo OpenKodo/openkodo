@@ -1,5 +1,5 @@
 // What the relay asks for each call: the real address and headers for one bot credential, from saved
-// headers, a source Orca fills (a hub's key), or Orca's own sign-in, which it refreshes here.
+// headers, a source OpenKodo fills (a hub's key), or OpenKodo's own sign-in, which it refreshes here.
 import { createHash } from 'node:crypto'
 import {
   readBotToolCredential,
@@ -38,10 +38,10 @@ export type BotToolCredentialAnswer =
        * refreshes and changes when it's replaced or signed out; saved headers change it on any edit.
        */
       session: string
-      /** Orca's sign-in only: the token in `headers`, to pass back as `rejected` after a 401. */
+      /** OpenKodo's sign-in only: the token in `headers`, to pass back as `rejected` after a 401. */
       bearer?: string
     }
-  /** A tool Orca signs in to with no sign-in a call can use: answer "sign in", never a 401. */
+  /** A tool OpenKodo signs in to with no sign-in a call can use: answer "sign in", never a 401. */
   | { kind: 'sign-in-needed' }
   /** Its key isn't set up here, or the app's token server didn't answer: try again later. */
   | { kind: 'unavailable' }

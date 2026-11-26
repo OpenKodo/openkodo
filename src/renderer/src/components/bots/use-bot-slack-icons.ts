@@ -158,7 +158,7 @@ async function publish(bot: Bot, look: string, attempt: number): Promise<void> {
 /** Asks the bot's host for its Slack icon if this look is new here; a no-op for any other bot. */
 export function publishBotSlackIcon(bot: Bot): void {
   const look = botSlackIconLook(bot)
-  // An outfit from a newer Orca is left to a window that can draw it.
+  // An outfit from a newer OpenKodo is left to a window that can draw it.
   const drawable = !bot.avatarOutfit || wornBotOutfit(bot.avatarOutfit) !== null
   if (!look || !drawable || !(bot.slack || bot.github)) {
     return

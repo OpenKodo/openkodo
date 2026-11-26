@@ -28,7 +28,7 @@ async function pinnedServerCall(
   }
   const server = await resolvePinnedFederatedServer(runtime, federated)
   const call: RemoteCall = async <T>(method: string, params: unknown): Promise<T> =>
-    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: each call names a paired Orca method whose reply is that shape, as federationShow's reader trusts it.
+    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: each call names a paired OpenKodo method whose reply is that shape, as federationShow's reader trusts it.
     (await runtime.callOrchestrationWorkerServer(
       server.environmentId,
       method,

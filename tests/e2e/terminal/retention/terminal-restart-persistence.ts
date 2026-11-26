@@ -16,7 +16,7 @@ import {
 } from '../../desktop/renderer-probes/store'
 
 const REQUIRE_WINDOWS_TERMINAL_RESTART_E2E =
-  process.env.ORCA_REQUIRE_WINDOWS_TERMINAL_RESTART_E2E === '1'
+  process.env.OPENKODO_REQUIRE_WINDOWS_TERMINAL_RESTART_E2E === '1'
 const MISSING_SEEDED_REPO_MESSAGE = 'Global setup did not produce a seeded test repo'
 
 export function seededRepoPathOrSkip(): string {

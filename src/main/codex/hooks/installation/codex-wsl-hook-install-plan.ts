@@ -47,7 +47,7 @@ function toDefaultWslLinuxPath(windowsPath: string): string {
 }
 
 const WSL_CANONICALIZE_TIMEOUT_MS = 5000
-const WSL_PATH_MISSING_OUTPUT = '__ORCA_WSL_PATH_MISSING__'
+const WSL_PATH_MISSING_OUTPUT = '__OPENKODO_WSL_PATH_MISSING__'
 export const MAX_WSL_CANONICAL_PATH_CACHE_ENTRIES = 512
 
 // Canonicalize asynchronously and cache results so cold WSL startup cannot block the main thread.

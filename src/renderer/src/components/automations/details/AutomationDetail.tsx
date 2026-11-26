@@ -46,7 +46,7 @@ type AutomationDetailProps = {
   onRecoverHistory?: (action: AutomationHostRecoveryAction) => void
   onOpenRun: (run: AutomationRun) => void
   onShowAllRuns: () => void
-  /** Moves a row its host's Orca server now serves onto that server. */
+  /** Moves a row its host's OpenKodo server now serves onto that server. */
   onMigrate?: (automation: Automation) => void
   isMigrating?: boolean
 }
@@ -345,7 +345,7 @@ export function AutomationDetail({
         <DetailNotice>
           {t(
             'auto.components.automations.AutomationDetail.dbef8dc110',
-            'This SSH automation runs only while Orca can reach the SSH host. If reconnect needs interactive credentials or the host is unavailable, the run is recorded as skipped.'
+            'This SSH automation runs only while OpenKodo can reach the SSH host. If reconnect needs interactive credentials or the host is unavailable, the run is recorded as skipped.'
           )}
         </DetailNotice>
       ) : null}

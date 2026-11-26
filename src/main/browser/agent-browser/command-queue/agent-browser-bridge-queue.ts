@@ -1,7 +1,7 @@
 import type { BrowserTabSwitchResult } from '../../../../shared/browser/runtime/runtime-browser-contracts'
 import { BrowserError } from '../../browser-error'
 import { AgentBrowserBridgeActionEffects } from './agent-browser-bridge-action-effects'
-import { ORCA_TAB_SESSION_PREFIX } from '../session-lifecycle/agent-browser-session-name'
+import { OPENKODO_TAB_SESSION_PREFIX } from '../session-lifecycle/agent-browser-session-name'
 import type { EnqueueTargetedCommandOptions } from './agent-browser-queued-command'
 import type { ResolvedBrowserCommandTarget } from '../session-routing/agent-browser-command-target'
 import { runWithRemoteCliPageAdmission } from '../../routing/input-ownership/remote-cli-page-admission'
@@ -110,7 +110,7 @@ export abstract class AgentBrowserBridgeQueue extends AgentBrowserBridgeActionEf
     }
     // Fail before queueing: the turn ahead may be a command waiting on this very dialog.
     assertNoJavaScriptDialog(webContentsId, pageId, assertNotRevoked)
-    const sessionName = `${ORCA_TAB_SESSION_PREFIX}${pageId}`
+    const sessionName = `${OPENKODO_TAB_SESSION_PREFIX}${pageId}`
     const agentCommand = this.browserManager.beginAgentCommand(pageId)
     // Queued commands run under the caller ahead of them, so read this one's caller now
     // and re-enter its call, or what it marks would count as that other chat's.
@@ -118,7 +118,7 @@ export abstract class AgentBrowserBridgeQueue extends AgentBrowserBridgeActionEf
     const inThisCall = captureActiveRpcCall()
     // Decided at enqueue: a queued command runs under the caller of the command ahead of it.
     const reportEffects = options.reportEffects === true && agentCommand.agent
-    // A desktop picker would activate Orca over the user's work.
+    // A desktop picker would activate OpenKodo over the user's work.
     const blockFileChooser = options.blockFileChooser === true
     const expectedUrl = getRequestedPageUrl()
 
@@ -246,7 +246,7 @@ export abstract class AgentBrowserBridgeQueue extends AgentBrowserBridgeActionEf
     options: EnqueueTargetedCommandOptions
   ): Promise<T> {
     this.assertCommandAdmission()
-    const sessionName = `${ORCA_TAB_SESSION_PREFIX}${browserPageId}`
+    const sessionName = `${OPENKODO_TAB_SESSION_PREFIX}${browserPageId}`
     // A queued page may acquire a replacement guest before execution.
     const target = this.resolveCommandTarget(worktreeId, browserPageId)
     const releaseGuest = this.browserManager.holdGuestActive(target.webContentsId)

@@ -1,5 +1,5 @@
-// The row Orca leaves in the owner's chat when its bot asks or hands work to another bot: who it went
-// to, which kind, and its answer or why it wasn't sent, read from Orca's record as that bot's chat changes.
+// The row OpenKodo leaves in the owner's chat when its bot asks or hands work to another bot: who it went
+// to, which kind, and its answer or why it wasn't sent, read from OpenKodo's record as that bot's chat changes.
 import { cn } from '@/lib/class-names'
 import { callBotRpc } from '@/lib/bot-hosts'
 import { useEffect, useState } from 'react'
@@ -41,7 +41,7 @@ const PIECES: Record<keyof typeof COPY, (values?: BotCardCopyValues) => string> 
 }
 const say: BotRequestCardSay = (id, values) => PIECES[id](values)
 
-/** Nothing to read for a request Orca refused to send. */
+/** Nothing to read for a request OpenKodo refused to send. */
 function useOutcome(
   bot: Bot,
   messageId: string | undefined,

@@ -2,22 +2,22 @@
 
 ## Endpoints
 
-| Protocol | Base URL |
-| --- | --- |
-| OpenAI Chat Completions | `https://api.openkodo.dev/v1` |
+| Protocol                 | Base URL                      |
+| ------------------------ | ----------------------------- |
+| OpenAI Chat Completions  | `https://api.openkodo.dev/v1` |
 | OpenAI Responses (Codex) | `https://api.openkodo.dev/v1` |
-| Anthropic Messages | `https://api.openkodo.dev` |
+| Anthropic Messages       | `https://api.openkodo.dev`    |
 
 All three use the same key, created in **Console → API keys**. Keys start with
 `ok_live_`.
 
 ## Plan limits
 
-| Plan | 5h | 7d | Monthly |
-| --- | --- | --- | --- |
-| Go | $25 | $50 | $100 |
-| Pro | $50 | $100 | $200 |
-| No plan | $2 welcome-credit throttle per 5h | — | $10 total |
+| Plan    | 5h                                | 7d   | Monthly   |
+| ------- | --------------------------------- | ---- | --------- |
+| Go      | $25                               | $50  | $100      |
+| Pro     | $50                               | $100 | $200      |
+| No plan | $2 welcome-credit throttle per 5h | —    | $10 total |
 
 The windows are rolling and enforced by the gateway. The 5h and 7d numbers are
 the same values the console and the Magpie plugin show.

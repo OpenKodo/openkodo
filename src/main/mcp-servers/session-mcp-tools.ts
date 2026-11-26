@@ -1,6 +1,6 @@
 // A session's MCP servers as its agent CLI gets them: a bot's own tools and the host list's servers.
-// A server with saved headers or Orca's own sign-in becomes Orca's relay address plus a token, so no
-// saved value reaches the CLI's argv, env or config, and so does a command server Orca runs once for
+// A server with saved headers or OpenKodo's own sign-in becomes OpenKodo's relay address plus a token, so no
+// saved value reaches the CLI's argv, env or config, and so does a command server OpenKodo runs once for
 // every session. A bot's token also names the bot to the runtime.
 import { BotFailureError } from '../../shared/bots/bot-failure-copy'
 import type { BotToolServer } from '../../shared/bot-tools'
@@ -25,7 +25,7 @@ export type SessionMcpBot = { botId: string; folder: string } | null
 export type SessionHostMcpServers = {
   folder: string
   servers: readonly BotToolServer[]
-  /** The command servers among them Orca runs once on the host, by name to their id. */
+  /** The command servers among them OpenKodo runs once on the host, by name to their id. */
   sharedProcesses?: ReadonlyMap<string, string>
 }
 
@@ -46,7 +46,7 @@ export class SessionMcpTools {
     readonly commandEnv: Readonly<Record<string, string>>,
     /** Some server goes through the relay, so the CLI must reach loopback directly. */
     readonly relayed: boolean,
-    /** Which of `servers` came from the host's list, which the `/mcp` tray shows as Orca's. */
+    /** Which of `servers` came from the host's list, which the `/mcp` tray shows as OpenKodo's. */
     readonly hostNames: ReadonlySet<string>
   ) {}
 

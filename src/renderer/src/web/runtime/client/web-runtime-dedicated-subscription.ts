@@ -147,7 +147,7 @@ export async function enrollWebRuntimeSubscription({
     })
   ) {
     subscriptions.delete(id)
-    throw new Error('Remote Orca runtime is not connected.')
+    throw new Error('Remote OpenKodo runtime is not connected.')
   }
   return {
     unsubscribe: () => {

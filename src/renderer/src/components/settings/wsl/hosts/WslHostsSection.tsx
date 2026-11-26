@@ -90,7 +90,7 @@ function getWslHostRowStatus(
   }
 }
 
-/** Settings → Orca servers: the WSL distros added as hosts (Windows, experimental). */
+/** Settings → OpenKodo servers: the WSL distros added as hosts (Windows, experimental). */
 export function WslHostsSection({
   onChanged
 }: {
@@ -165,7 +165,7 @@ export function WslHostsSection({
                 ? getWslHostsPausedLabel(t)
                 : t(
                     'auto.components.settings.wslHosts.description',
-                    'Orca runs a server inside each distro. To start a stopped distro, click Start, open a terminal, or connect it here.'
+                    'OpenKodo runs a server inside each distro. To start a stopped distro, click Start, open a terminal, or connect it here.'
                   ))}
           </p>
         </div>
@@ -277,7 +277,7 @@ export function WslHostsSection({
                         'Restart as WSL host'
                       )}
                     </Button>
-                  ) : // A newer Orca's host refuses Update; Force stays in the menu.
+                  ) : // A newer OpenKodo's host refuses Update; Force stays in the menu.
                   deferred && deferred.code !== ORCAD_HOST_NEWER_DEFERRAL_CODE ? (
                     <Button
                       type="button"

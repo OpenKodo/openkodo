@@ -96,7 +96,7 @@ it('carries the failed message into the next one through send admission, once', 
   ).toEqual({ outcome: 'accepted' })
   const next = await lastSent()
   expect(next.body.blocks.map((block) => (block.type === 'text' ? block.text : block))).toEqual([
-    expect.stringMatching(/^\[Orca: sent .*\]\nroot$/),
+    expect.stringMatching(/^\[OpenKodo: sent .*\]\nroot$/),
     'next'
   ])
   expect(await (await journal()).queuedMessages.get(root)).toMatchObject({

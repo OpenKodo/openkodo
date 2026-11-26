@@ -19,8 +19,9 @@ const MAX_MESSAGE_CHARS = 8_000
 const MAX_TOOL_INPUT_CHARS = 1_000
 const MAX_TOOL_OUTPUT_CHARS = 2_000
 const MIN_ENTRY_CHARS = 256
-const OMISSION_MARKER = '[Orca: some saved chat messages or tool details omitted from this excerpt]'
-const SHORTENING_MARKER = '\n[Orca: middle omitted]\n'
+const OMISSION_MARKER =
+  '[OpenKodo: some saved chat messages or tool details omitted from this excerpt]'
+const SHORTENING_MARKER = '\n[OpenKodo: middle omitted]\n'
 
 type ToolEvidencePart = { block: NativeChatToolCallBlock | NativeChatToolResultBlock; text: string }
 type ContextEntry = { messageIndex: number; blockIndex: number; text: string }

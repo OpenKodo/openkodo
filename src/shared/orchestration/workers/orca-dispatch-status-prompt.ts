@@ -1,14 +1,14 @@
 // Compact multi-KB dispatch boilerplate so preamble identity, task id and task-body fallback all fit AGENT_STATUS_MAX_FIELD_LENGTH.
 
-export const ORCA_DISPATCH_STATUS_PREAMBLE_PREFIX =
-  'You are working inside Orca, a multi-agent IDE.'
-export const ORCA_DISPATCH_STATUS_TASK_MARKER = '=== TASK ==='
+export const OPENKODO_DISPATCH_STATUS_PREAMBLE_PREFIX =
+  'You are working inside OpenKodo, a multi-agent IDE.'
+export const OPENKODO_DISPATCH_STATUS_TASK_MARKER = '=== TASK ==='
 // Type this lead: Claude follows pasted briefs only when user prose explicitly asks; bare pasted_content was refused (STA-8200).
-export const ORCA_DISPATCH_PROMPT_LEAD_LINE =
-  'Please carry out this task from my Orca coordinator by following the brief I pasted below.'
-const ORCA_DISPATCH_STATUS_TASK_ID_MARKER = 'Your task ID is:'
+export const OPENKODO_DISPATCH_PROMPT_LEAD_LINE =
+  'Please carry out this task from my OpenKodo coordinator by following the brief I pasted below.'
+const OPENKODO_DISPATCH_STATUS_TASK_ID_MARKER = 'Your task ID is:'
 // Real task markers follow 4KB+ preambles; scan beyond the one-line preview budget to reach the body.
-const ORCA_DISPATCH_STATUS_SOURCE_SCAN_LIMIT = 24_576
+const OPENKODO_DISPATCH_STATUS_SOURCE_SCAN_LIMIT = 24_576
 const PASTED_CONTENT_OPEN_TAG = '<pasted_content'
 // Why: Claude Code's tag carries only a short id; bound the search for `>`.
 const PASTED_CONTENT_OPEN_TAG_MAX_LENGTH = 64
@@ -16,10 +16,10 @@ const PASTED_CONTENT_OPEN_TAG_MAX_LENGTH = 64
 /** Find preamble start or -1 through optional typed lead/pasted_content wrappers, including older hosts’ bare preambles. */
 export function findOrcaDispatchPreambleStart(value: string): number {
   // Bound trusted-shape detection too: arbitrary leading whitespace must not bypass the status normalizer’s scan cap.
-  const scanEnd = Math.min(value.length, ORCA_DISPATCH_STATUS_SOURCE_SCAN_LIMIT)
+  const scanEnd = Math.min(value.length, OPENKODO_DISPATCH_STATUS_SOURCE_SCAN_LIMIT)
   let start = skipTrimWhitespace(value, 0, scanEnd)
-  if (value.startsWith(ORCA_DISPATCH_PROMPT_LEAD_LINE, start)) {
-    start = skipTrimWhitespace(value, start + ORCA_DISPATCH_PROMPT_LEAD_LINE.length, scanEnd)
+  if (value.startsWith(OPENKODO_DISPATCH_PROMPT_LEAD_LINE, start)) {
+    start = skipTrimWhitespace(value, start + OPENKODO_DISPATCH_PROMPT_LEAD_LINE.length, scanEnd)
   }
   if (value.startsWith(PASTED_CONTENT_OPEN_TAG, start)) {
     const tagLength = value.slice(start, start + PASTED_CONTENT_OPEN_TAG_MAX_LENGTH).indexOf('>')
@@ -28,8 +28,8 @@ export function findOrcaDispatchPreambleStart(value: string): number {
     }
     start = skipTrimWhitespace(value, start + tagLength + 1, scanEnd)
   }
-  return start + ORCA_DISPATCH_STATUS_PREAMBLE_PREFIX.length <= scanEnd &&
-    value.startsWith(ORCA_DISPATCH_STATUS_PREAMBLE_PREFIX, start)
+  return start + OPENKODO_DISPATCH_STATUS_PREAMBLE_PREFIX.length <= scanEnd &&
+    value.startsWith(OPENKODO_DISPATCH_STATUS_PREAMBLE_PREFIX, start)
     ? start
     : -1
 }
@@ -52,12 +52,15 @@ export function compactDispatchPromptForStatus(
   if (start === -1) {
     return null
   }
-  const scan = value.slice(start, Math.min(value.length, ORCA_DISPATCH_STATUS_SOURCE_SCAN_LIMIT))
+  const scan = value.slice(
+    start,
+    Math.min(value.length, OPENKODO_DISPATCH_STATUS_SOURCE_SCAN_LIMIT)
+  )
 
   let taskId = ''
-  const idMarkerIndex = scan.indexOf(ORCA_DISPATCH_STATUS_TASK_ID_MARKER)
+  const idMarkerIndex = scan.indexOf(OPENKODO_DISPATCH_STATUS_TASK_ID_MARKER)
   if (idMarkerIndex !== -1) {
-    const afterId = scan.slice(idMarkerIndex + ORCA_DISPATCH_STATUS_TASK_ID_MARKER.length)
+    const afterId = scan.slice(idMarkerIndex + OPENKODO_DISPATCH_STATUS_TASK_ID_MARKER.length)
     let idStart = 0
     while (idStart < afterId.length && isEcmaTrimWhitespace(afterId.charCodeAt(idStart))) {
       idStart++
@@ -70,7 +73,7 @@ export function compactDispatchPromptForStatus(
   let taskBody = ''
   const taskMarkerIndex = findOrcaDispatchTaskMarkerIndex(scan)
   if (taskMarkerIndex !== -1) {
-    const body = scan.slice(taskMarkerIndex + ORCA_DISPATCH_STATUS_TASK_MARKER.length)
+    const body = scan.slice(taskMarkerIndex + OPENKODO_DISPATCH_STATUS_TASK_MARKER.length)
     for (const line of body.split(/\r?\n/)) {
       const preview = line.trim().replace(/\s+/g, ' ')
       if (preview.startsWith('</pasted_content')) {
@@ -84,12 +87,12 @@ export function compactDispatchPromptForStatus(
   }
 
   // Retain preamble identity, task-label id and fallback body inside the 200-character status field.
-  let compact = ORCA_DISPATCH_STATUS_PREAMBLE_PREFIX
+  let compact = OPENKODO_DISPATCH_STATUS_PREAMBLE_PREFIX
   if (taskId) {
-    compact += ` ${ORCA_DISPATCH_STATUS_TASK_ID_MARKER} ${taskId}`
+    compact += ` ${OPENKODO_DISPATCH_STATUS_TASK_ID_MARKER} ${taskId}`
   }
   if (taskBody) {
-    compact += ` ${ORCA_DISPATCH_STATUS_TASK_MARKER} ${taskBody}`
+    compact += ` ${OPENKODO_DISPATCH_STATUS_TASK_MARKER} ${taskBody}`
   }
   return normalizeSingleLine(compact, maxLength)
 }
@@ -99,11 +102,11 @@ export function compactDispatchPromptForStatus(
 export function findOrcaDispatchTaskMarkerIndex(value: string): number {
   let searchFrom = 0
   while (searchFrom < value.length) {
-    const markerIndex = value.indexOf(ORCA_DISPATCH_STATUS_TASK_MARKER, searchFrom)
+    const markerIndex = value.indexOf(OPENKODO_DISPATCH_STATUS_TASK_MARKER, searchFrom)
     if (markerIndex === -1) {
       break
     }
-    const markerEnd = markerIndex + ORCA_DISPATCH_STATUS_TASK_MARKER.length
+    const markerEnd = markerIndex + OPENKODO_DISPATCH_STATUS_TASK_MARKER.length
     const startsLine = markerIndex === 0 || isLineBreak(value.charCodeAt(markerIndex - 1))
     const endsLine = markerEnd === value.length || isLineBreak(value.charCodeAt(markerEnd))
     if (startsLine && endsLine) {
@@ -116,7 +119,7 @@ export function findOrcaDispatchTaskMarkerIndex(value: string): number {
   // carry the marker inline; normalization must stay idempotent across hops.
   return value.includes('\n') || value.includes('\r')
     ? -1
-    : value.indexOf(ORCA_DISPATCH_STATUS_TASK_MARKER)
+    : value.indexOf(OPENKODO_DISPATCH_STATUS_TASK_MARKER)
 }
 
 /** Offset into the original task input; detection is bounded, the authored suffix is not. */
@@ -125,13 +128,13 @@ export function orcaDispatchTaskBodyOffset(value: string): number | undefined {
   if (start === -1) {
     return undefined
   }
-  const scanEnd = Math.min(value.length, ORCA_DISPATCH_STATUS_SOURCE_SCAN_LIMIT)
+  const scanEnd = Math.min(value.length, OPENKODO_DISPATCH_STATUS_SOURCE_SCAN_LIMIT)
   const scan = value.slice(start, scanEnd)
   const marker = findOrcaDispatchTaskMarkerIndex(scan)
   if (marker === -1) {
     return undefined
   }
-  let offset = start + marker + ORCA_DISPATCH_STATUS_TASK_MARKER.length
+  let offset = start + marker + OPENKODO_DISPATCH_STATUS_TASK_MARKER.length
   // A marker at the scan bound must still end its original delimiter line.
   if (
     offset < value.length &&

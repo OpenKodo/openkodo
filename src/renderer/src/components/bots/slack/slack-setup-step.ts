@@ -6,7 +6,7 @@ export type BotSlackSetupStep =
   /** Another workspace for a bot already in Slack: one this computer's bots are in, or a new one. */
   | { kind: 'pick'; teamIds: string[] }
   /**
-   * `teamId`: the workspace whose token lapsed. `mine`: that token is this desktop's own Orca
+   * `teamId`: the workspace whose token lapsed. `mine`: that token is this desktop's own OpenKodo
    * account's, from a hand-off; the new one is saved there and the hand-off runs again.
    * `unsure`: Slack refused, yet this account may never have saved a token there.
    */
@@ -18,7 +18,7 @@ export type BotSlackSetupStep =
       mine?: boolean
       unsure?: true
     }
-  /** `handOff`: this desktop's own Orca account creates the app. */
+  /** `handOff`: this desktop's own OpenKodo account creates the app. */
   | { kind: 'setting-up'; handOff?: boolean }
   /** A paired computer's bot: its app is made; Slack's page opens only on Approve in Slack. */
   | { kind: 'ready'; teamId: string; link: SlackInstallLink }

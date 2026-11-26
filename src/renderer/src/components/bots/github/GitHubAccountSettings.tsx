@@ -97,7 +97,7 @@ function GitHubLoginRow({
   login: ConnectorGitHubLinkedAccount
   /** Sent to the cloud only when it links several users; an older one has just this one. */
   userId: string | undefined
-  /** Set when this user sees no installation of the Orca app. */
+  /** Set when this user sees no installation of the OpenKodo app. */
   installUrl: string | null
 }): React.JSX.Element {
   const t = useTranslate()
@@ -123,15 +123,15 @@ function GitHubLoginRow({
         {installUrl ? (
           <p className="flex items-center gap-1.5 truncate text-xs text-muted-foreground">
             <span className={STATUS_DOT_CLASSES.attention} aria-hidden />
-            {t('settings.bots.githubStatus.notInstalled', 'Orca not installed')}
+            {t('settings.bots.githubStatus.notInstalled', 'OpenKodo not installed')}
           </p>
         ) : (
           <p className="truncate text-xs text-muted-foreground">
             {hostName
-              ? t('bots.github.account.linkedOnHost', 'Linked to {{host}}’s Orca account', {
+              ? t('bots.github.account.linkedOnHost', 'Linked to {{host}}’s OpenKodo account', {
                   host: hostName
                 })
-              : t('bots.github.account.linked', 'Linked to this Orca account')}
+              : t('bots.github.account.linked', 'Linked to this OpenKodo account')}
           </p>
         )}
       </div>
@@ -169,7 +169,7 @@ function GitHubLoginRow({
 }
 
 /**
- * Settings › GitHub: the GitHub users a host's Orca account is linked as, each with its default
+ * Settings › GitHub: the GitHub users a host's OpenKodo account is linked as, each with its default
  * agent. `hostName` names a paired server; null is this computer.
  */
 export function GitHubAccountSettings({
@@ -254,7 +254,7 @@ export function GitHubAccountSettings({
           {isPairedWebClientWindow()
             ? t(
                 'bots.github.account.linkFromApp',
-                'Link GitHub from Orca on a computer paired to {{host}}.',
+                'Link GitHub from OpenKodo on a computer paired to {{host}}.',
                 { host: hostName ?? '' }
               )
             : t(

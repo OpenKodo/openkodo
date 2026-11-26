@@ -57,11 +57,11 @@ export const CORE_HANDLERS: Record<string, CommandHandler> = {
         'Claude Agent Teams native panes are not supported on Windows.'
       )
     }
-    const paneKey = process.env.ORCA_PANE_KEY
+    const paneKey = process.env.OPENKODO_PANE_KEY
     if (!paneKey) {
       throw new RuntimeClientError(
         'invalid_environment',
-        'orca claude-teams must be run inside an Orca terminal.'
+        'orca claude-teams must be run inside an OpenKodo terminal.'
       )
     }
     const inheritedEnv = envRecord()

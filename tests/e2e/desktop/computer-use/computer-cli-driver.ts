@@ -42,9 +42,9 @@ export async function runOrcaCli(
 
 async function runOrcaCliOnce(args: string[]): Promise<CliResult> {
   const devCli = join(process.cwd(), 'config/scripts/development/launch/orca-dev.mjs')
-  const command = process.env.ORCA_COMPUTER_CLI ?? process.execPath
-  const cliArgs = process.env.ORCA_COMPUTER_CLI ? args : [devCli, ...args]
-  const env = process.env.ORCA_COMPUTER_CLI
+  const command = process.env.OPENKODO_COMPUTER_CLI ?? process.execPath
+  const cliArgs = process.env.OPENKODO_COMPUTER_CLI ? args : [devCli, ...args]
+  const env = process.env.OPENKODO_COMPUTER_CLI
     ? { ...process.env }
     : await createComputerE2ERuntimeEnv()
   try {
@@ -63,7 +63,7 @@ async function runOrcaCliOnce(args: string[]): Promise<CliResult> {
 }
 
 export async function ensureOrcaRuntimeLaunched(): Promise<void> {
-  if (!process.env.ORCA_COMPUTER_CLI && process.platform === 'win32') {
+  if (!process.env.OPENKODO_COMPUTER_CLI && process.platform === 'win32') {
     await ensureOrcaRuntimeServed()
     return
   }
@@ -163,7 +163,7 @@ async function ensureOrcaRuntimeServed(): Promise<void> {
 
 async function createComputerE2ERuntimeEnv(): Promise<NodeJS.ProcessEnv> {
   const userDataDir =
-    process.env.ORCA_DEV_USER_DATA_PATH ?? (await getComputerE2eOrcaDevUserDataPath())
+    process.env.OPENKODO_DEV_USER_DATA_PATH ?? (await getComputerE2eOrcaDevUserDataPath())
   // Strip ELECTRON_RUN_AS_NODE or the Electron child runs as plain Node.
   const { ELECTRON_RUN_AS_NODE: _electronRunAsNode, ...inheritedEnv } = process.env
   void _electronRunAsNode
@@ -176,7 +176,7 @@ async function createComputerE2ERuntimeEnv(): Promise<NodeJS.ProcessEnv> {
   return {
     ...isolation.env,
     // Keep CLI and Electron on the same runtime metadata while fixture HOME/Codex isolation remains in force.
-    ORCA_DEV_USER_DATA_PATH: userDataDir
+    OPENKODO_DEV_USER_DATA_PATH: userDataDir
   }
 }
 

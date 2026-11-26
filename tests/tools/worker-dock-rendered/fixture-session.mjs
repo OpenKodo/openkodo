@@ -34,7 +34,7 @@ export async function createFixtureSession({ base, filter, fixture: FIXTURE }) {
   const results = []
   const browser = await chromium.launch({
     headless: true,
-    executablePath: process.env.ORCA_FIXTURES_BROWSER
+    executablePath: process.env.OPENKODO_FIXTURES_BROWSER
   })
 
   const pages = new Map()

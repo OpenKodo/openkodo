@@ -165,7 +165,7 @@ export class PushBadgeSync {
           notificationSeq: this.seq++,
           source: 'agent-task-complete',
           agentState: null,
-          title: 'Orca',
+          title: 'OpenKodo',
           body: ''
         }
       })

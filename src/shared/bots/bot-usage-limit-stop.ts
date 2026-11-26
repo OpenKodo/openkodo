@@ -5,10 +5,10 @@ import { formatUsageLimitResetClock } from '../agent-session/failures/agent-sess
 import type { BotChatTranslate as Translate } from './bot-chat-tree'
 import type { BotRowLine } from './bot-row-line'
 
-/** `at`: when Orca continues it (`auto`), else when the limit resets. */
+/** `at`: when OpenKodo continues it (`auto`), else when the limit resets. */
 export type UsageLimitStop = { at: number; auto: boolean }
 
-/** How long a stop Orca continues keeps showing past its time, while its send waits on a fresh
+/** How long a stop OpenKodo continues keeps showing past its time, while its send waits on a fresh
  *  usage reading or a retry; a chat it has continued drops its cut sooner. */
 export const AUTO_CONTINUE_GRACE_MS = 10 * 60_000
 
@@ -56,7 +56,7 @@ export function usageLimitStops(
   return stops.sort((a, b) => a.at - b.at || a.sessionId.localeCompare(b.sessionId))
 }
 
-/** "Continues at 9:50 PM", or "Hit limit · resets 9:50 PM" when Orca won't continue it. */
+/** "Continues at 9:50 PM", or "Hit limit · resets 9:50 PM" when OpenKodo won't continue it. */
 export function usageLimitStopText(t: Translate, stop: UsageLimitStop): string {
   const time = formatUsageLimitResetClock(stop.at)
   return stop.auto

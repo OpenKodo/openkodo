@@ -20,7 +20,7 @@ async function tempRoot(prefix: string): Promise<string> {
 
 async function writePlugin(root: string, publisher: string, id: string): Promise<void> {
   await writeFile(
-    join(root, 'orca-plugin.json'),
+    join(root, 'openkodo-plugin.json'),
     JSON.stringify({
       manifestVersion: 1,
       id,
@@ -39,38 +39,38 @@ afterEach(async () => {
 })
 
 describe('plugin install trust', () => {
-  const official = 'https://github.com/stablyai/orca-plugins.git'
+  const official = 'https://github.com/OpenKodo/openkodo-plugins.git'
   const marketplace = (url: string, plugin: string): PluginInstallSource => ({
     kind: 'marketplace',
     marketplace: { url, ref: 'main', resolvedCommit: 'a'.repeat(40) },
     plugin: { url: plugin, ref: 'main' }
   })
   const refused = (key: string): string =>
-    `${key} uses a name reserved for official Orca plugins; Orca installs it only from its official catalog`
+    `${key} uses a name reserved for official OpenKodo plugins; OpenKodo installs it only from its official catalog`
 
   it.each<[string, PluginInstallSource, boolean]>([
     [
-      'stablyai.orca-secrets',
-      marketplace(official, 'git@github.com:stablyai/orca-secrets.git'),
+      'openkodo.secrets',
+      marketplace(official, 'git@github.com:OpenKodo/openkodo-secrets.git'),
       true
     ],
-    ['openai.tools', marketplace(official, 'https://github.com/stablyai/tools.git'), true],
-    ['stablyai.orca-secrets', marketplace(official, 'https://github.com/attacker/x.git'), false],
+    ['openai.tools', marketplace(official, 'https://github.com/OpenKodo/tools.git'), true],
+    ['openkodo.secrets', marketplace(official, 'https://github.com/attacker/x.git'), false],
     [
-      'stablyai.orca-secrets',
+      'openkodo.secrets',
       marketplace(
         'https://github.com/acme/plugins.git',
-        'https://github.com/stablyai/orca-secrets.git'
+        'https://github.com/OpenKodo/openkodo-secrets.git'
       ),
       false
     ],
     [
-      'stablyai.tools',
-      { kind: 'git', url: 'https://github.com/stablyai/tools.git', ref: '' },
+      'openkodo.tools',
+      { kind: 'git', url: 'https://github.com/OpenKodo/tools.git', ref: '' },
       false
     ],
     [
-      'orca-team.tools',
+      'openkodo-team.tools',
       marketplace('https://gitlab.com/acme/plugins.git', 'https://gitlab.com/acme/t.git'),
       false
     ],
@@ -83,13 +83,13 @@ describe('plugin install trust', () => {
   it('rejects locally installed reserved identities before publication', async () => {
     const sourcePath = await tempRoot('orca-reserved-plugin-')
     const pluginsDir = await tempRoot('orca-plugin-installs-')
-    await writePlugin(sourcePath, 'stablyai', 'orca-skills')
+    await writePlugin(sourcePath, 'openkodo', 'openkodo-skills')
 
     await expect(
       installPluginFromLocalPath({ pluginsDir, sourcePath, hostVersion: '1.4.0' })
     ).resolves.toEqual({
       ok: false,
-      error: refused('stablyai.orca-skills')
+      error: refused('openkodo.openkodo-skills')
     })
     await expect(readPluginLockfile(pluginsDir)).resolves.toEqual({ version: 1, plugins: {} })
   })
@@ -97,20 +97,20 @@ describe('plugin install trust', () => {
   it('allows the app-bundled path only for the complete official identity', async () => {
     const sourcePath = await tempRoot('orca-bundled-plugin-')
     const pluginsDir = await tempRoot('orca-plugin-installs-')
-    await writePlugin(sourcePath, 'stablyai', 'orca-skills')
+    await writePlugin(sourcePath, 'openkodo', 'openkodo-skills')
 
     const result = await installBundledPlugin({
       pluginsDir,
       sourcePath,
       hostVersion: '1.4.0',
-      expectedPluginKey: 'stablyai.orca-skills'
+      expectedPluginKey: 'openkodo.openkodo-skills'
     })
 
-    expect(result).toMatchObject({ ok: true, pluginKey: 'stablyai.orca-skills' })
+    expect(result).toMatchObject({ ok: true, pluginKey: 'openkodo.openkodo-skills' })
     const lock = await readPluginLockfile(pluginsDir)
-    expect(lock.plugins['stablyai.orca-skills']?.source).toEqual({
+    expect(lock.plugins['openkodo.openkodo-skills']?.source).toEqual({
       kind: 'bundled',
-      bundleId: 'stablyai.orca-skills'
+      bundleId: 'openkodo.openkodo-skills'
     })
   })
 
@@ -129,7 +129,7 @@ describe('plugin install trust', () => {
       })
     ).resolves.toEqual({
       ok: false,
-      error: "plugin is blocked by Orca's safety list: Security incident"
+      error: "plugin is blocked by OpenKodo's safety list: Security incident"
     })
   })
 })

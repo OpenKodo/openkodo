@@ -79,7 +79,7 @@ function rememberInstallation(found: WslInstallation): WslInstallation {
   } else {
     unknownUntilMs = Date.now() + UNKNOWN_INSTALLATION_TTL_MS
   }
-  // Confirmed absence lasts for the session: installing WSL while Orca runs needs a restart.
+  // Confirmed absence lasts for the session: installing WSL while OpenKodo runs needs a restart.
   if (found === 'absent') {
     latchWslNotInstalled()
   }

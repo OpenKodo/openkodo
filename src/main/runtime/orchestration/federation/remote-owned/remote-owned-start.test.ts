@@ -51,7 +51,7 @@ describe('a chat-lineage start on a paired server', () => {
     expect(serverStartOptions(params)).toMatchObject({ spec: 'work' })
   })
 
-  it('is honoured on the server only from the paired Orca coordinating the Run', () => {
+  it('is honoured on the server only from the paired OpenKodo coordinating the Run', () => {
     const runtime = runtimeWith([])
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: only the caller kind is read for a paired claim.
     const peer = { kind: 'peer' } as Caller

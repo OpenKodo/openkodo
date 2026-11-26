@@ -17,7 +17,7 @@ export async function registerCliForHeadlessServe(): Promise<void> {
     // Share one bounded AppImage extraction across CLI install/dispatcher and report progress.
     const preparation = await prepareAppImageCopyForServe({ appImagePath })
     if (preparation.status === 'unavailable') {
-      console.warn(`[serve] orca CLI install skipped: ${preparation.reason}`)
+      console.warn(`[serve] openkodo CLI install skipped: ${preparation.reason}`)
       return
     }
     appImageDeadlineAt = preparation.deadlineAt
@@ -31,11 +31,11 @@ export async function registerCliForHeadlessServe(): Promise<void> {
       ...(appImageDeadlineAt === undefined ? {} : { appImageDeadlineAt })
     }).install()
     console.log(
-      `[serve] orca CLI install: ${cliStatus.state}${cliStatus.commandPath ? ` (${cliStatus.commandPath})` : ''}`
+      `[serve] openkodo CLI install: ${cliStatus.state}${cliStatus.commandPath ? ` (${cliStatus.commandPath})` : ''}`
     )
   } catch (error) {
     console.warn(
-      '[serve] orca CLI install skipped:',
+      '[serve] openkodo CLI install skipped:',
       error instanceof Error ? error.message : String(error)
     )
   }

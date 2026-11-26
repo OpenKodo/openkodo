@@ -108,7 +108,7 @@ it('refuses an install that would leave less than its margin free', async () => 
       commit: () => undefined
     })
   ).rejects.toThrow(
-    /^Orca updates Server by itself only with \d+ MB free, and this host has \d+ MB\. Update needs \d+ MB\.$/
+    /^OpenKodo updates Server by itself only with \d+ MB free, and this host has \d+ MB\. Update needs \d+ MB\.$/
   )
 })
 

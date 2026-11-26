@@ -1,4 +1,4 @@
-// How a bot request a card in the owner's chat names has ended, and its answer, from Orca's record.
+// How a bot request a card in the owner's chat names has ended, and its answer, from OpenKodo's record.
 import { BotRequestOutcomeParams } from '../../../../shared/rpc-contract/bots-look-around-params'
 import type { BotRequestCardReading } from '../../../../shared/bots/bot-request-card'
 import { parseOrcaSessionAddress } from '../../../../shared/agent-session/identity/orca-session-address'

@@ -33,7 +33,7 @@ export function useBotSetupInstall(
 ): { install: NativeChatInstallSlotInstall | null; signIn: NativeChatSignInStripState | null } {
   const target = botTarget(bot)
   const hostProgram = useStructuredAgentSessionHostProgram(bot.chatSessionId ?? '', target)
-  // A bot on the host program follows it too: Orca's agy may be what it needs installed.
+  // A bot on the host program follows it too: OpenKodo's agy may be what it needs installed.
   const observation = useManagedRuntimeInstall(target, bot.agent, shown)
   const slot = nativeChatInstallSlotState(observation, 'strip', hostProgram)
   const install = shown && slot.kind === 'install' ? slot : null
@@ -42,7 +42,7 @@ export function useBotSetupInstall(
       ? observation.snapshot.state
       : null
   const installed = state !== null && state.source !== null
-  // An update of Orca's agy isn't settled until it ends, so nothing is ready meanwhile.
+  // An update of OpenKodo's agy isn't settled until it ends, so nothing is ready meanwhile.
   const changing = state?.operation ? CHANGING_PHASES.has(state.operation.phase) : false
   // Same rule as the chat's own strip.
   const signsIn = bot.agent === 'antigravity' && installed

@@ -185,7 +185,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /**
- * The original as the last older-Orca reconcile absorbed it, so the content proof reads what this
+ * The original as the last older-OpenKodo reconcile absorbed it, so the content proof reads what this
  * store has already taken in; null keeps the original for this attempt.
  */
 export async function observeLegacySource(

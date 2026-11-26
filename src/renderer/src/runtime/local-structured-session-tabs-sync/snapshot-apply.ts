@@ -40,7 +40,7 @@ import {
 import { suppressCancelledStructuredSessionTabs } from '../native-chat/tab-retirement/structured-agent-session-tab-retirement'
 import { LOCAL_STRUCTURED_SESSION_OWNER } from '../native-chat/local-sessions/local-structured-session-owner'
 import { closeStructuredAgentSession } from '../native-chat/requests/structured-agent-session-close'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { useAppStore } from '../../store'
 import { framesDrawWorkspace } from '../workspace-layout/frames/workspace-layout-frame-drawn-workspaces'
 import { drawnChatLabelChanges, type DrawnChatLabel } from './frame-drawn-chat-tabs'
@@ -104,7 +104,7 @@ export function applyStructuredSessionTabSnapshots(
             options.onAcceptedAgentSession?.(worktreeId, sessionId)
           },
           // Switch point: main places the listed chats' tabs; its frames draw them.
-          framesDraw: ORCA_LAYOUT_OWNER_IS_MAIN ? framesDrawWorkspace(state) : undefined,
+          framesDraw: OPENKODO_LAYOUT_OWNER_IS_MAIN ? framesDrawWorkspace(state) : undefined,
           onDrawnChatLabel: (change) => drawnChatLabels.push(change)
         },
         changedAgentPaneKeys

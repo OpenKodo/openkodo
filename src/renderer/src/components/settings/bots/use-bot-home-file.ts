@@ -58,7 +58,7 @@ export function useBotHome(bot: Pick<Bot, 'hostId' | 'folderWorkspaceId'> | null
   return useStableBotHome(bot && folderPath ? { bot, folderPath } : null)
 }
 
-/** One file in a bot's home, read on the bot's host and again whenever Orca regains focus. */
+/** One file in a bot's home, read on the bot's host and again whenever OpenKodo regains focus. */
 export function useBotHomeFile(listedHome: BotHome, relativePath: string): BotHomeFile {
   const home = useStableBotHome(listedHome)
   const [disk, setDisk] = useState<string | null>(null)

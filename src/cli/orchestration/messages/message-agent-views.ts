@@ -26,7 +26,7 @@ export type MessageView = {
   followUp?: string
   /** The open item a finished worker was started for, and how to update it. */
   forItem?: string
-  // Kept nested so sender-written payload can never stand in for Orca's own fields.
+  // Kept nested so sender-written payload can never stand in for OpenKodo's own fields.
   payload?: Record<string, unknown> | string
 }
 

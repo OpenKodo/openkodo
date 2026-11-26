@@ -63,8 +63,8 @@ try {
     'build',
     '--platform',
     platform,
-    ...(process.env.ORCA_SHUTDOWN_FIXTURE_CACHE_IMAGE
-      ? ['--cache-from', process.env.ORCA_SHUTDOWN_FIXTURE_CACHE_IMAGE]
+    ...(process.env.OPENKODO_SHUTDOWN_FIXTURE_CACHE_IMAGE
+      ? ['--cache-from', process.env.OPENKODO_SHUTDOWN_FIXTURE_CACHE_IMAGE]
       : []),
     '-f',
     shutdownDockerfile,
@@ -110,7 +110,7 @@ try {
       'timeout --kill-after=10s 120s /input/orca.AppImage --appimage-extract > /artifacts/appimage-extract.log 2>&1',
       'mv squashfs-root root',
       launcherExecOverlay
-        ? "sed -i 's/^ELECTRON_RUN_AS_NODE=1 /export ELECTRON_RUN_AS_NODE=1\\nexec /' /artifacts/root/resources/bin/orca-ide"
+        ? "sed -i 's/^ELECTRON_RUN_AS_NODE=1 /export ELECTRON_RUN_AS_NODE=1\\nexec /' /artifacts/root/resources/bin/openkodo"
         : ':',
       'chmod -R a+rX /artifacts/root',
       'rm /artifacts/appimage-help.log /artifacts/appimage-extract.log'
@@ -144,11 +144,11 @@ try {
         '--name',
         `orca-headless-serve-shutdown-${entrypoint}-${signal.toLowerCase()}-${suffix}`,
         '-e',
-        `ORCA_SIGNAL_TARGET=${signalTarget}`,
+        `OPENKODO_SIGNAL_TARGET=${signalTarget}`,
         '-e',
-        `ORCA_TEST_ENTRYPOINT=${entrypoint}`,
+        `OPENKODO_TEST_ENTRYPOINT=${entrypoint}`,
         '-e',
-        `ORCA_INT_DELIVERY=${intDelivery}`,
+        `OPENKODO_INT_DELIVERY=${intDelivery}`,
         '-v',
         `${appImage}:/input/orca.AppImage:ro`,
         '-v',
@@ -216,7 +216,7 @@ function runDesktopStartupOracle({ image, appImage, platform }) {
     '--entrypoint',
     '/usr/local/bin/run-appimage-desktop-startup-case',
     '-e',
-    'ORCA_STARTUP_DIAGNOSTICS=1',
+    'OPENKODO_STARTUP_DIAGNOSTICS=1',
     '-v',
     `${appImage}:/input/orca.AppImage:ro`
   ]
@@ -242,7 +242,7 @@ function runDesktopStartupOracle({ image, appImage, platform }) {
     console.log(
       'FUSE mount unavailable (permission denied); trying original AppImage --appimage-extract-and-run in a fresh container.'
     )
-    result = launch(['-e', 'ORCA_STARTUP_APPIMAGE_EXTRACT_AND_RUN=1'])
+    result = launch(['-e', 'OPENKODO_STARTUP_APPIMAGE_EXTRACT_AND_RUN=1'])
     process.stdout.write(result.stdout)
     process.stderr.write(result.stderr)
   }

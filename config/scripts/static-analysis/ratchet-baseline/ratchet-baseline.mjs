@@ -155,11 +155,11 @@ export function totalCount(counts) {
   return [...counts.values()].reduce((sum, count) => sum + count, 0)
 }
 
-/** Files renamed since the change's base (ORCA_CODE_QUALITY_BASE, else the merge base with origin/main). */
+/** Files renamed since the change's base (OPENKODO_CODE_QUALITY_BASE, else the merge base with origin/main). */
 function renamedSinceBase(root) {
   try {
     const base =
-      process.env.ORCA_CODE_QUALITY_BASE ||
+      process.env.OPENKODO_CODE_QUALITY_BASE ||
       execFileSync('git', ['merge-base', 'HEAD', 'origin/main'], {
         cwd: root,
         encoding: 'utf8'

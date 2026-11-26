@@ -96,7 +96,7 @@ function createRestartLaunchIsolation(
     launchEnv: {
       NODE_ENV: 'development',
       ...extraEnv,
-      ...(headful ? { ORCA_E2E_HEADFUL: '1' } : { ORCA_E2E_HEADLESS: '1' })
+      ...(headful ? { OPENKODO_E2E_HEADFUL: '1' } : { OPENKODO_E2E_HEADLESS: '1' })
     },
     extraEnv: {},
     userDataDir
@@ -149,7 +149,7 @@ export function createRestartSession(
       env: {
         ...homeIsolation.env,
         ...options?.extraEnv,
-        ORCA_E2E_RUNTIME_WS_PORT: String(runtimeWsPort)
+        OPENKODO_E2E_RUNTIME_WS_PORT: String(runtimeWsPort)
       }
     })
     // Attach before firstWindow or daemon-guard/plugin startup logs may already be gone.
@@ -189,9 +189,9 @@ export function createRestartSession(
       args: getOrcaElectronLaunchArgs(mainPath, false),
       env: {
         ...homeIsolation.env,
-        ORCA_BACKGROUND_LAUNCH: '1',
-        ORCA_E2E_HEADLESS: '1',
-        ORCA_E2E_RUNTIME_WS_PORT: String(runtimeWsPort)
+        OPENKODO_BACKGROUND_LAUNCH: '1',
+        OPENKODO_E2E_HEADLESS: '1',
+        OPENKODO_E2E_RUNTIME_WS_PORT: String(runtimeWsPort)
       },
       timeoutMs: 30_000,
       detached: process.platform !== 'win32',
@@ -203,7 +203,7 @@ export function createRestartSession(
     await (app
       ? closeElectronAppForE2E(app, { cleanupDaemonsForUserDataDir: userDataDir })
       : cleanupE2EDaemons(userDataDir))
-    if (process.env.ORCA_E2E_PRESERVE_RESTART_PROFILE === '1') {
+    if (process.env.OPENKODO_E2E_PRESERVE_RESTART_PROFILE === '1') {
       console.log(`[e2e] Preserved restart profile at ${userDataDir}`)
       return
     }

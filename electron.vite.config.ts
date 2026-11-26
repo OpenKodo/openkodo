@@ -27,20 +27,20 @@ import { reactPluginOptions } from './config/build-plugins/react-compiler'
 import { BUNDLED_MAIN_DEPENDENCIES } from './config/build-plugins/bundled-main-dependencies'
 import { resolveBuildSourceCommit } from './config/scripts/build-identity/build-source-commit.mjs'
 
-// Official CI alone injects ORCA_BUILD_IDENTITY (stable|rc) and ORCA_POSTHOG_WRITE_KEY secrets; other builds substitute literal null.
+// Official CI alone injects OPENKODO_BUILD_IDENTITY (stable|rc) and OPENKODO_POSTHOG_WRITE_KEY secrets; other builds substitute literal null.
 // Compile-time substitution gates telemetry at module load without runtime env fallback; declarations live in src/types/build-constants.d.ts.
-const orcaBuildIdentity = process.env.ORCA_BUILD_IDENTITY
-const ORCA_BUILD_IDENTITY_LITERAL =
+const orcaBuildIdentity = process.env.OPENKODO_BUILD_IDENTITY
+const OPENKODO_BUILD_IDENTITY_LITERAL =
   orcaBuildIdentity === 'stable' || orcaBuildIdentity === 'rc'
     ? JSON.stringify(orcaBuildIdentity)
     : 'null'
-const orcaPostHogWriteKey = process.env.ORCA_POSTHOG_WRITE_KEY
-const ORCA_POSTHOG_WRITE_KEY_LITERAL =
+const orcaPostHogWriteKey = process.env.OPENKODO_POSTHOG_WRITE_KEY
+const OPENKODO_POSTHOG_WRITE_KEY_LITERAL =
   typeof orcaPostHogWriteKey === 'string' && orcaPostHogWriteKey.length > 0
     ? JSON.stringify(orcaPostHogWriteKey)
     : 'null'
-const orcaDiagnosticsTokenUrl = process.env.ORCA_DIAGNOSTICS_TOKEN_URL
-const ORCA_DIAGNOSTICS_TOKEN_URL_LITERAL =
+const orcaDiagnosticsTokenUrl = process.env.OPENKODO_DIAGNOSTICS_TOKEN_URL
+const OPENKODO_DIAGNOSTICS_TOKEN_URL_LITERAL =
   typeof orcaDiagnosticsTokenUrl === 'string' && orcaDiagnosticsTokenUrl.length > 0
     ? JSON.stringify(orcaDiagnosticsTokenUrl)
     : 'null'
@@ -64,13 +64,13 @@ function createDarkBuildMarkerPlugin(): Plugin {
 }
 
 // Pin official skill installs to the bundled commit on every channel; main installs, renderer prints the command.
-const ORCA_BUILD_COMMIT_LITERAL = JSON.stringify(resolveBuildSourceCommit())
+const OPENKODO_BUILD_COMMIT_LITERAL = JSON.stringify(resolveBuildSourceCommit())
 
 function createStartupDiagnosticsBanner(chunkName: string): string {
   return `
 ;(() => {
   const env = typeof process !== 'undefined' ? process.env : undefined
-  const mode = env?.ORCA_STARTUP_DIAGNOSTICS
+  const mode = env?.OPENKODO_STARTUP_DIAGNOSTICS
   if (mode !== '1' && mode !== 'trace') {
     return
   }
@@ -93,7 +93,7 @@ function createStartupDiagnosticsBanner(chunkName: string): string {
     openSync = undefined
     writeSync = undefined
   }
-  const diagnosticFile = env?.ORCA_STARTUP_DIAGNOSTICS_FILE
+  const diagnosticFile = env?.OPENKODO_STARTUP_DIAGNOSTICS_FILE
   if (typeof diagnosticFile === 'string' && diagnosticFile.length > 0 && typeof openSync === 'function') {
     try {
       diagnosticFileDescriptor = openSync(diagnosticFile, 'a', 0o600)
@@ -116,8 +116,8 @@ function createStartupDiagnosticsBanner(chunkName: string): string {
   }
   const chunkName = ${JSON.stringify(chunkName)}
   writeLine('[bootstrap] bundle-enter chunk=' + safeJson(chunkName) + ' pid=' + process.pid + ' ppid=' + process.ppid + ' execPath=' + safeJson(process.execPath) + ' argv=' + safeJson(process.argv) + ' electronRunAsNode=' + safeJson(env?.ELECTRON_RUN_AS_NODE ?? null))
-  if (!globalThis.__ORCA_BOOTSTRAP_EXIT_LOG_INSTALLED__) {
-    globalThis.__ORCA_BOOTSTRAP_EXIT_LOG_INSTALLED__ = true
+  if (!globalThis.__OPENKODO_BOOTSTRAP_EXIT_LOG_INSTALLED__) {
+    globalThis.__OPENKODO_BOOTSTRAP_EXIT_LOG_INSTALLED__ = true
     process.once('exit', (code) => {
       writeLine('[bootstrap] process-exit code=' + code)
       if (typeof closeSync === 'function' && typeof diagnosticFileDescriptor === 'number') {
@@ -137,12 +137,12 @@ function createStartupDiagnosticsBanner(chunkName: string): string {
       writeLine('[bootstrap] unhandled-rejection error=' + safeJson(String(message)))
     })
   }
-  if (mode === 'trace' && !globalThis.__ORCA_BOOTSTRAP_REQUIRE_TRACE_INSTALLED__) {
-    globalThis.__ORCA_BOOTSTRAP_REQUIRE_TRACE_INSTALLED__ = true
+  if (mode === 'trace' && !globalThis.__OPENKODO_BOOTSTRAP_REQUIRE_TRACE_INSTALLED__) {
+    globalThis.__OPENKODO_BOOTSTRAP_REQUIRE_TRACE_INSTALLED__ = true
     try {
       const Module = require('node:module')
       const originalLoad = Module._load
-      const parsedTraceLimit = Number(env?.ORCA_STARTUP_DIAGNOSTICS_TRACE_LIMIT ?? 20000)
+      const parsedTraceLimit = Number(env?.OPENKODO_STARTUP_DIAGNOSTICS_TRACE_LIMIT ?? 20000)
       const traceLimit = Number.isFinite(parsedTraceLimit) && parsedTraceLimit > 0 ? parsedTraceLimit : 20000
       let traceLineCount = 0
       let traceLimitReported = false
@@ -179,7 +179,7 @@ function createStartupDiagnosticsBanner(chunkName: string): string {
 }
 
 // Dev-only unminified main bundle exposes function names in V8 profiles; releases and pnpm build never read this flag.
-const MAIN_MINIFY: 'oxc' | false = process.env.ORCA_UNMINIFIED_MAIN === '1' ? false : 'oxc'
+const MAIN_MINIFY: 'oxc' | false = process.env.OPENKODO_UNMINIFIED_MAIN === '1' ? false : 'oxc'
 
 export const electronViteConfig: UserConfig = {
   main: {
@@ -191,7 +191,7 @@ export const electronViteConfig: UserConfig = {
       // Hidden maps omit sourceMappingURL because packaging strips them; release CI uploads maps for crash decoding.
       sourcemap: 'hidden',
       // PR fixtures discard maps; official releases must always retain them.
-      ...(process.env.ORCA_CI_MAIN_SOURCEMAPS === '0' &&
+      ...(process.env.OPENKODO_CI_MAIN_SOURCEMAPS === '0' &&
       orcaBuildIdentity !== 'stable' &&
       orcaBuildIdentity !== 'rc'
         ? { sourcemap: false }
@@ -225,10 +225,10 @@ export const electronViteConfig: UserConfig = {
       }
     },
     define: {
-      ORCA_BUILD_IDENTITY: ORCA_BUILD_IDENTITY_LITERAL,
-      ORCA_POSTHOG_WRITE_KEY: ORCA_POSTHOG_WRITE_KEY_LITERAL,
-      ORCA_DIAGNOSTICS_TOKEN_URL: ORCA_DIAGNOSTICS_TOKEN_URL_LITERAL,
-      ORCA_BUILD_COMMIT: ORCA_BUILD_COMMIT_LITERAL,
+      OPENKODO_BUILD_IDENTITY: OPENKODO_BUILD_IDENTITY_LITERAL,
+      OPENKODO_POSTHOG_WRITE_KEY: OPENKODO_POSTHOG_WRITE_KEY_LITERAL,
+      OPENKODO_DIAGNOSTICS_TOKEN_URL: OPENKODO_DIAGNOSTICS_TOKEN_URL_LITERAL,
+      OPENKODO_BUILD_COMMIT: OPENKODO_BUILD_COMMIT_LITERAL,
       ...DARK_BUILD_DEFINES
     },
     // @xterm/headless declares exports:null; point Vite directly at its published CJS main to permit inlining.
@@ -251,7 +251,7 @@ export const electronViteConfig: UserConfig = {
     // Shared node_modules installs must not share dependency optimization state across worktrees.
     cacheDir: resolve('.cache/vite/renderer'),
     define: {
-      ORCA_BUILD_COMMIT: ORCA_BUILD_COMMIT_LITERAL,
+      OPENKODO_BUILD_COMMIT: OPENKODO_BUILD_COMMIT_LITERAL,
       ...DARK_BUILD_DEFINES
     },
     resolve: {

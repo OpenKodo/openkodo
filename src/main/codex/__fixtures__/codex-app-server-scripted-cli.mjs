@@ -12,8 +12,8 @@ if (!process.argv.includes('app-server')) {
   process.exit(2)
 }
 
-const reportPath = process.env.ORCA_CODEX_CONTRACT_REPORT_PATH
-const ackPath = process.env.ORCA_CODEX_CONTRACT_ACK_PATH
+const reportPath = process.env.OPENKODO_CODEX_CONTRACT_REPORT_PATH
+const ackPath = process.env.OPENKODO_CODEX_CONTRACT_ACK_PATH
 const threadId = 'wsl-lane-codex-thread'
 const turnId = 'wsl-lane-codex-turn'
 const report = {
@@ -21,7 +21,9 @@ const report = {
   execPath: process.execPath,
   cwd: process.cwd(),
   env: Object.fromEntries(
-    Object.entries(process.env).filter(([key]) => key.startsWith('ORCA_') || key === 'CODEX_HOME')
+    Object.entries(process.env).filter(
+      ([key]) => key.startsWith('OPENKODO_') || key === 'CODEX_HOME'
+    )
   ),
   methods: [],
   turnInputs: [],
@@ -29,7 +31,7 @@ const report = {
 }
 // Model and skills probes run without a chat session; only the chat's child owns the report.
 const writeReport = () => {
-  if (reportPath && process.env.ORCA_AGENT_SESSION_ID) {
+  if (reportPath && process.env.OPENKODO_AGENT_SESSION_ID) {
     writeFileSync(reportPath, JSON.stringify(report))
   }
 }
@@ -143,5 +145,5 @@ createInterface({ input: process.stdin }).on('line', (line) => {
 process.stdin.on('end', () => process.exit(0))
 setTimeout(
   () => process.exit(3),
-  Number(process.env.ORCA_CODEX_CONTRACT_TIMEOUT_MS ?? 120_000)
+  Number(process.env.OPENKODO_CODEX_CONTRACT_TIMEOUT_MS ?? 120_000)
 ).unref()

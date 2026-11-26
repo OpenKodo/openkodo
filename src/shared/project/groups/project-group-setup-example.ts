@@ -8,8 +8,8 @@ export function projectGroupSetupExample(
   const windows = platform === 'win32'
   const comment = windows ? 'REM' : '#'
   const shell = windows ? 'cmd' : 'posix'
-  const command = windows ? 'orca' : '"${ORCA_CLI_COMMAND:-orca}"'
-  const workspaceName = windows ? '"%ORCA_WORKSPACE_NAME%"' : '"$ORCA_WORKSPACE_NAME"'
+  const command = windows ? 'orca' : '"${OPENKODO_CLI_COMMAND:-orca}"'
+  const workspaceName = windows ? '"%OPENKODO_WORKSPACE_NAME%"' : '"$OPENKODO_WORKSPACE_NAME"'
   return [
     `${comment} Repo IDs are local to this machine; review them before sharing this script.`,
     ...repos.flatMap((repo) => [

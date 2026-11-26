@@ -73,7 +73,7 @@ function withoutHardwareLayout(entry: string): string {
 }
 
 /**
- * Puts back the hardware layout each keyboard had before Orca, keeping keyboards the user added
+ * Puts back the hardware layout each keyboard had before OpenKodo, keeping keyboards the user added
  * since (those return to Automatic). Null means AppleKeyboards should be unset again.
  */
 export function withOriginalHardwareLayouts(
@@ -146,7 +146,7 @@ async function parseIosKeyboardLayouts(runtimeRoot: string): Promise<IosKeyboard
 }
 
 type DeviceSyncState = {
-  /** AppleKeyboards before Orca first looked at it; null when it was unset. */
+  /** AppleKeyboards before OpenKodo first looked at it; null when it was unset. */
   original: string[] | null
   macLayoutId: string
   synced: boolean
@@ -212,7 +212,7 @@ export class SimulatorHardwareKeyboardSync {
     if (known?.macLayoutId === macLayoutId && !known.synced) {
       return false
     }
-    // A re-sync reads fresh: the user may have added keyboards since Orca last wrote.
+    // A re-sync reads fresh: the user may have added keyboards since OpenKodo last wrote.
     this.keyboards.delete(udid)
     const [iosLayouts, current] = await Promise.all([
       this.readIosKeyboardLayouts(udid),
@@ -228,7 +228,7 @@ export class SimulatorHardwareKeyboardSync {
       pasteKeyCode: 'KeyV'
     }
     this.devices.set(udid, state)
-    // While Orca holds no rewrite, what the guest has now is the user's own setting.
+    // While OpenKodo holds no rewrite, what the guest has now is the user's own setting.
     if (!state.rewritten) {
       state.original = current
     }
@@ -244,7 +244,7 @@ export class SimulatorHardwareKeyboardSync {
       await writeSimulatorKeyboards(udid, next)
       this.keyboards.set(udid, next)
     }
-    // Back on the user's own layouts, so a later change of theirs is no longer Orca's to undo.
+    // Back on the user's own layouts, so a later change of theirs is no longer OpenKodo's to undo.
     state.rewritten = state.rewritten && hardwareLayout !== null
     state.synced = hardwareLayout !== null
     state.pasteKeyCode = state.synced ? await macKeyCodeTypingV(macLayoutId) : 'KeyV'

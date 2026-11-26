@@ -103,8 +103,8 @@ export function unwrapShell(command: string): string {
     : trimmed
 }
 
-/** How a bot's preamble names this session's own CLI on POSIX; Orca seals the variable. */
-export const BOT_CLI_PREFIX = '"${ORCA_CLI_COMMAND:-orca}" '
+/** How a bot's preamble names this session's own CLI on POSIX; OpenKodo seals the variable. */
+export const BOT_CLI_PREFIX = '"${OPENKODO_CLI_COMMAND:-orca}" '
 
 /** Shell syntax a look-around command may not use, named for the refusal, with the matched text or not. */
 const SHELL_SYNTAX: readonly (readonly [RegExp, string, boolean])[] = [

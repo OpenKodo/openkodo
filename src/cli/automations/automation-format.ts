@@ -79,7 +79,7 @@ function formatBotAgent(target: NonNullable<Automation['bot']>): string {
   return `agent: ${[setup.agent, ...choices].join(' · ')} (own)`
 }
 
-// An event-only automation keeps a schedule no Orca reaches; show what starts it instead.
+// An event-only automation keeps a schedule no OpenKodo reaches; show what starts it instead.
 function formatWhen(automation: Automation): string {
   const events = (automation.on ?? []).map(describeAutomationEventTrigger)
   if (automation.once) {
@@ -92,7 +92,7 @@ function formatWhen(automation: Automation): string {
   return events.length > 0 ? `${schedule}  also on ${events.length} event(s)` : schedule
 }
 
-// A wait: one run, then Orca deletes it.
+// A wait: one run, then OpenKodo deletes it.
 function formatOnce(automation: Automation): string {
   const by = automation.once?.by
   if (by === undefined) {
@@ -195,7 +195,7 @@ export function formatAutomationShow(result: AutomationShowPayload): string {
       : []),
     ...projectLines,
     `workspaceMode: ${automation.workspaceMode}`,
-    // The saved choice only: what an unset choice does depends on the host's Orca version.
+    // The saved choice only: what an unset choice does depends on the host's OpenKodo version.
     ...(automation.workspaceMode === 'new_per_run'
       ? [`setup: ${automation.setupDecision ?? 'not set'}`]
       : []),
@@ -245,7 +245,7 @@ function formatAutomationRunFollowUp(
   automationId: string,
   target: AutomationRunFollowUpTarget
 ): string {
-  const command = ['orca', 'automations', 'runs', '--id', quoteCliCommandArgument(automationId)]
+  const command = ['openkodo', 'automations', 'runs', '--id', quoteCliCommandArgument(automationId)]
   // Windows shells can expand a label even inside double quotes.
   const safeEnvironment =
     target.environment &&

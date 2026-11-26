@@ -1,4 +1,4 @@
-// What one of Orca's own sign-ins keeps, sealed whole in the bot's credential file.
+// What one of OpenKodo's own sign-ins keeps, sealed whole in the bot's credential file.
 import { z } from 'zod'
 
 /** Everything a sign-in keeps; sealed whole, and never sent to a renderer, an agent or a log. */
@@ -9,7 +9,7 @@ export const BotToolOAuthRecordSchema = z.object({
   issuer: z.string().optional(),
   resourceMetadataUrl: z.string().optional(),
   scope: z.string().optional(),
-  /** The registration Orca got from the authorization server, for `redirectUri` only. */
+  /** The registration OpenKodo got from the authorization server, for `redirectUri` only. */
   client: z
     .looseObject({
       client_id: z.string(),

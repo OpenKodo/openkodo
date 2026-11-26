@@ -65,11 +65,14 @@ export function renderServeService(input: ServeServiceInput): ServeServiceSpec {
   }
   const suffix = profileSuffix(input)
   // The manager’s environment may resolve a different default profile.
-  const env: Record<string, string> = { PATH: input.path, ORCA_USER_DATA_PATH: input.userDataPath }
+  const env: Record<string, string> = {
+    PATH: input.path,
+    OPENKODO_USER_DATA_PATH: input.userDataPath
+  }
   const argv = [input.command, ...serveServiceArgs(input)]
   if (manager === 'launchd') {
     const name = suffix ? `${SERVE_LAUNCHD_LABEL_PREFIX}.${suffix}` : SERVE_LAUNCHD_LABEL_PREFIX
-    const logPath = join(input.homeDir, 'Library', 'Logs', 'Orca', `${name}.log`)
+    const logPath = join(input.homeDir, 'Library', 'Logs', 'OpenKodo', `${name}.log`)
     return {
       manager,
       name,
@@ -156,7 +159,7 @@ function renderSystemdUnit(argv: string[], env: Record<string, string>): string 
     .join('\n')
   // Kill only the supervisor: it stops its server while the terminal daemon survives.
   return `[Unit]
-Description=Orca server (orca serve --supervise)
+Description=OpenKodo server (openkodo serve --supervise)
 StartLimitIntervalSec=900
 StartLimitBurst=5
 

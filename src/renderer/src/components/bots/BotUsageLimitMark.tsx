@@ -1,5 +1,5 @@
 // A bot chat, worker or run stopped on its usage limit: the usage-limit row's amber gauge, the
-// same whether Orca continues it at the reset or not; only the words and the tooltip differ.
+// same whether OpenKodo continues it at the reset or not; only the words and the tooltip differ.
 import { Gauge } from 'lucide-react'
 import { StateIndicatorTooltip } from '@/components/agent/status/StateIndicatorTooltip'
 import { getAgentLabel } from '@/lib/agent-catalog/agent-catalog'
@@ -22,7 +22,7 @@ export function usageLimitStopMeta(t: Translate, stop: UsageLimitStop): string {
     : t('bots.usageLimit.hitShort', 'Hit limit')
 }
 
-/** One line: the reassurance while Orca continues it, else whose limit stopped it. */
+/** One line: the reassurance while OpenKodo continues it, else whose limit stopped it. */
 export function usageLimitStopTip(
   t: Translate,
   stop: Pick<NamedUsageLimitStop, 'at' | 'auto' | 'agent'>

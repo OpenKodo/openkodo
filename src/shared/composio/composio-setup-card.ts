@@ -1,4 +1,4 @@
-// A Composio setup card in a bot's chat. Orca writes it; the card draws from the host's Composio
+// A Composio setup card in a bot's chat. OpenKodo writes it; the card draws from the host's Composio
 // state (the key and the bot's sign-ins), so it updates on every client. Older clients and the phone
 // paint its `text` as a plain line.
 import * as z from 'zod'
@@ -38,7 +38,7 @@ export const ComposioSetupCardRefSchema = z.object({
       config: z.string().max(2000).optional()
     })
     .optional(),
-  /** `expired`: a `connect` card Orca put up because a sign-in expired, not because the bot asked;
+  /** `expired`: a `connect` card OpenKodo put up because a sign-in expired, not because the bot asked;
    *  reconnecting from it tells only the owner. */
   reason: z.literal('expired').optional(),
   /** "Step 1 of 2"; absent when the card is the only step. */
@@ -50,13 +50,13 @@ function fallbackText(ref: ComposioSetupCardRef): string {
   const app = ref.app?.name
   switch (ref.card) {
     case 'key':
-      return 'Composio setup: add your Composio key in Orca on your computer.'
+      return 'Composio setup: add your Composio key in OpenKodo on your computer.'
     case 'connect':
-      return `Composio setup: connect ${app ?? 'the app'} in Orca on your computer.`
+      return `Composio setup: connect ${app ?? 'the app'} in OpenKodo on your computer.`
     case 'ready':
       return app ? `${app} is connected through Composio.` : 'Composio is set up.'
     case 'events':
-      return `Composio events: set up ${ref.trigger?.name ?? 'the trigger'} in Orca on your computer.`
+      return `Composio events: set up ${ref.trigger?.name ?? 'the trigger'} in OpenKodo on your computer.`
   }
 }
 

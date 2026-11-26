@@ -35,7 +35,7 @@ export type ExactWorkerProviderSession = {
   wslDistro?: string
   agent: AgentType
   providerSession: AgentProviderSessionMetadata
-  /** The recipe Orca launched this worker's agent with; a reopen replays it. */
+  /** The recipe OpenKodo launched this worker's agent with; a reopen replays it. */
   launchConfig?: SleepingAgentLaunchConfig
   observedAt: number
 }

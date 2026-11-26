@@ -77,7 +77,7 @@ export function acpModelCatalogDiscovery(
   spec: AcpLaunchSpec,
   { deps, environment }: StructuredAgentModelCatalogContext
 ): AgentModelCatalogDiscovery {
-  // The probe lists through whichever install, Orca's or the host's, the account launches.
+  // The probe lists through whichever install, OpenKodo's or the host's, the account launches.
   const listings = [
     spec,
     ...(spec.hostBackend ? [spec.hostBackend.spec, ...(spec.hostBackend.otherSpecs ?? [])] : [])

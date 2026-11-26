@@ -47,7 +47,7 @@ import { defaultGoogleHttp, revokeGoogleToken } from './google-token-endpoint'
 // One flow per route and services, so a start asking for something else is told one is running.
 type Route = `${string}:${string}`
 
-const NO_SIGN_IN_WAITING = 'No Google sign-in is waiting on this computer. Start one in Orca.'
+const NO_SIGN_IN_WAITING = 'No Google sign-in is waiting on this computer. Start one in OpenKodo.'
 
 export function googleAccountView(record: GoogleAccountRecord): GoogleAccountView {
   return {

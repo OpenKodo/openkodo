@@ -1,4 +1,4 @@
-// The row Orca leaves in the owner's chat when its bot asks or hands work to another bot: who it went
+// The row OpenKodo leaves in the owner's chat when its bot asks or hands work to another bot: who it went
 // to, how it stands and its answer, read from the host as that bot's row changes. One sent to an agent
 // on a computer paired to the chat's host names that computer and rereads with the host's changes.
 import { useEffect, useState } from 'react'

@@ -21,16 +21,20 @@ export function slackErrorMessage(code: string, hostName: string, t: Translate):
     case 'signed_out':
       return t(
         'bots.host.errors.signedOut',
-        'Sign {{host}} in to Orca Cloud to connect {{service}}.',
+        'Sign {{host}} in to cloud service to connect {{service}}.',
         {
           host: hostName,
           service: 'Slack'
         }
       )
     case 'account_changed':
-      return t('bots.host.errors.accountChanged', '{{host}}’s Orca sign-in changed. Start again.', {
-        host: hostName
-      })
+      return t(
+        'bots.host.errors.accountChanged',
+        '{{host}}’s OpenKodo sign-in changed. Start again.',
+        {
+          host: hostName
+        }
+      )
     case 'invalid_request':
       return t(
         'bots.slack.errors.notAToken',
@@ -50,7 +54,7 @@ export function slackErrorMessage(code: string, hostName: string, t: Translate):
     case 'unknown_bot':
       return t(
         'bots.slack.errors.unknownBot',
-        'Orca Cloud has not seen this bot yet. Try again in a minute.'
+        'cloud service has not seen this bot yet. Try again in a minute.'
       )
     case 'wrong_workspace':
       return t(
@@ -62,7 +66,7 @@ export function slackErrorMessage(code: string, hostName: string, t: Translate):
     case 'cloud_unreachable':
       return t(
         'bots.slack.errors.unreachable',
-        'Orca Cloud could not be reached. Check your connection and try again.'
+        'cloud service could not be reached. Check your connection and try again.'
       )
     default:
       return t('bots.errors.generic', 'Something went wrong. Try again.')

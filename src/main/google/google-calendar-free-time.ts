@@ -28,7 +28,7 @@ const FreeBusySchema = z.object({
 })
 
 const REASONS: Record<string, string> = {
-  notFound: "Orca can't see their calendar",
+  notFound: "OpenKodo can't see their calendar",
   groupTooBig: 'that group is too big to check',
   tooManyCalendarsRequested: 'too many people at once'
 }

@@ -69,7 +69,7 @@ function settledRowIdentity(sessionId: string, uuid: string): AgentJournalItemId
   return claudeMessageIdentity({ sessionId, uuid: `${uuid}${SETTLED_ROW_SUFFIX}` })
 }
 
-/** Orca's own completion row, which later reopens and completions revise in place. */
+/** OpenKodo's own completion row, which later reopens and completions revise in place. */
 function isSettledRow(row: GoalRowRef | null): row is GoalRowRef {
   return row?.identity.provider === 'claude' && row.identity.uuid.endsWith(SETTLED_ROW_SUFFIX)
 }

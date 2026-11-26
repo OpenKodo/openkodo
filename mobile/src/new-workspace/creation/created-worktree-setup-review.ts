@@ -60,7 +60,7 @@ export async function runReviewedCreatedSetup(
 ): Promise<string | undefined> {
   const unsupported = translate(
     'newWorkspace.createdSetupReview.hostUnsupported',
-    'Approved. Update Orca on the workspace host to run setup for an existing workspace.'
+    'Approved. Update OpenKodo on the workspace host to run setup for an existing workspace.'
   )
   try {
     const status = worktreeCreateCapabilityRead.interpret(
@@ -83,7 +83,7 @@ export async function runReviewedCreatedSetup(
     return worktreeRunApprovedSetupRun.interpret(reply).status === 'mismatch'
       ? translate(
           'newWorkspace.createdSetupReview.changedAgain',
-          "Setup didn't run: this workspace's orca.yaml changed again since you reviewed it."
+          "Setup didn't run: this workspace's openkodo.yaml changed again since you reviewed it."
         )
       : undefined
   } catch {

@@ -1,4 +1,4 @@
-// `orca bot create --offer`: a bot proposes a new bot, and Orca puts a card in its chat. Nothing is
+// `orca bot create --offer`: a bot proposes a new bot, and OpenKodo puts a card in its chat. Nothing is
 // created until the owner presses Create bot on it.
 import { randomUUID } from 'node:crypto'
 import { parseBotAvatar, randomMascotAvatar } from '../../../../shared/bot-avatar'
@@ -36,7 +36,7 @@ export const BOT_CREATE_OFFER_METHOD = defineMethod({
     // Null for a session this host doesn't run.
     const destination = await host?.captureAgentStartDestination(callerSessionId)
     if (!host || !destination) {
-      throw new InvalidArgumentError('Run this from your chat in Orca.')
+      throw new InvalidArgumentError('Run this from your chat in OpenKodo.')
     }
     const mascot = parseBotAvatar(randomMascotAvatar(null))
     const offeredAt = Date.now()

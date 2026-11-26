@@ -6,7 +6,7 @@ import type {
   RuntimePtyWorktreeRecord
 } from '../records/runtime-terminal-state-records'
 import { randomUUID } from 'node:crypto'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { TerminalHandleAccess } from '../../agent-senders/runtime-agent-sender-associations'
 import { readIssuedTerminalHandles } from './terminal-issued-handle-reader'
 
@@ -130,7 +130,7 @@ export abstract class OrcaRuntimeWithBindPtyIncarnationHandle extends OrcaRuntim
   ): string {
     const handle = this.issuePtyHandleRecord(pty, context)
     // An unbound terminal retains its issued pane stamp for recovery, including after replacement.
-    const record = ORCA_LAYOUT_OWNER_IS_MAIN ? this.handles.get(handle) : undefined
+    const record = OPENKODO_LAYOUT_OWNER_IS_MAIN ? this.handles.get(handle) : undefined
     const issuedForPaneKey = record && (context ? context.paneOf(pty) : this.paneOfPty(pty)).paneKey
     if (record && issuedForPaneKey && record.issuedForPaneKey !== issuedForPaneKey) {
       this.terminalIdentity.setHandle(handle, { ...record, issuedForPaneKey })
@@ -250,7 +250,7 @@ export abstract class OrcaRuntimeWithBindPtyIncarnationHandle extends OrcaRuntim
   protected rememberDetachedPreAllocatedLeaves(): void {
     for (const leaf of this.leaves.values()) {
       if (leaf.ptyId && this.handleByPtyId.has(leaf.ptyId)) {
-        // Agent identity via ORCA_TERMINAL_HANDLE must survive renderer graph loss while the PTY lives.
+        // Agent identity via OPENKODO_TERMINAL_HANDLE must survive renderer graph loss while the PTY lives.
         this.detachedPreAllocatedLeaves.set(leaf.ptyId, leaf)
       }
     }

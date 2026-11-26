@@ -7,7 +7,7 @@ function usageLimitResetClock(resetsAt: number): string {
   return mobileUsageLimitClock(resetsAt, Date.now())
 }
 
-/** The card's headline; the reset time and what Orca will do sit on its status line. */
+/** The card's headline; the reset time and what OpenKodo will do sit on its status line. */
 export function nativeChatUsageLimitText(
   limit: AgentSessionUsageLimit | undefined,
   agentName: string | null | undefined,
@@ -28,7 +28,7 @@ export function nativeChatUsageLimitText(
     : t('chat.usageLimit.reached', '{{agent}} hit its usage limit.', { agent })
 }
 
-/** One status line: when the limit resets, then what Orca will do about it. */
+/** One status line: when the limit resets, then what OpenKodo will do about it. */
 export function nativeChatUsageLimitStatusText(
   status: {
     resetsAt: number | undefined
@@ -50,10 +50,10 @@ export function nativeChatUsageLimitStatusText(
           }),
     autoContinue === 'scheduled'
       ? resetPassed
-        ? t('chat.usageLimit.statusContinuesShortly', 'Orca continues shortly')
-        : t('chat.usageLimit.statusContinuesThen', 'Orca continues then')
+        ? t('chat.usageLimit.statusContinuesShortly', 'OpenKodo continues shortly')
+        : t('chat.usageLimit.statusContinuesThen', 'OpenKodo continues then')
       : autoContinue === 'cancelled'
-        ? t('chat.usageLimit.statusWontContinue', "Orca won't continue automatically")
+        ? t('chat.usageLimit.statusWontContinue', "OpenKodo won't continue automatically")
         : null
   ]
   return parts.filter((part) => part !== null).join(' · ')

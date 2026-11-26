@@ -14,7 +14,7 @@ await mkdir(out, { recursive: true })
 const profile = await mkdtemp(path.join(out, 'profile-'))
 const { url } = await ensureFixtureServer()
 const require = createRequire(import.meta.url)
-const env = { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+const env = { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
 delete env.ELECTRON_RUN_AS_NODE
 const app = await electron.launch({
   executablePath: require('electron'),

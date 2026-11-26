@@ -47,7 +47,7 @@ describe('browser tunnel destination policy', () => {
     expect(browserTunnelTargetBlockReason(host, port)).toBe('link_local')
   })
 
-  it("blocks only the host's own reserved Orca listener ports, and only while reserved", () => {
+  it("blocks only the host's own reserved OpenKodo listener ports, and only while reserved", () => {
     const release = reserveBrowserTunnelOrcaListenerPort(6768)
     cleanups.push(release)
 
@@ -93,7 +93,7 @@ describe('browser tunnel destination policy', () => {
 })
 
 describe('remote (SSH/WSL) browser tunnel routes', () => {
-  it("refuse the remote machine's metadata but keep its loopback and Orca-port-numbered servers", () => {
+  it("refuse the remote machine's metadata but keep its loopback and OpenKodo-port-numbered servers", () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {})
     cleanups.push(reserveBrowserTunnelOrcaListenerPort(6768))
     const dialed: string[] = []
@@ -171,7 +171,7 @@ describe('native browser tunnel dial', () => {
       outcome(
         connectNativeBrowserNetworkTarget(
           { host: '127.0.0.1', port },
-          { ORCA_BROWSER_TUNNEL_ALLOW_ALL_DESTINATIONS: '1' }
+          { OPENKODO_BROWSER_TUNNEL_ALLOW_ALL_DESTINATIONS: '1' }
         )
       )
     ).resolves.toBe('connected')

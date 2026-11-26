@@ -61,7 +61,7 @@ export function BotWebhooksCard({
   const read = useBotWebhooks(botTarget(bot), bot.id)
   const now = useNow(WEBHOOK_AGO_TICK_MS)
   const signedOut = useOrcaCloudSignedOut(bot.hostId)
-  // Without webhooks on the cloud or this Orca, or with none made yet, there is no row.
+  // Without webhooks on the cloud or this OpenKodo, or with none made yet, there is no row.
   if (read.status !== 'ready' || read.value.length === 0) {
     return null
   }

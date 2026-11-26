@@ -1,5 +1,5 @@
-// What an app's MCP address needs before a bot can use it: nothing, Orca's own sign-in, a sign-in
-// Orca can't make yet, or no answer worth deciding on. MCP authorization (2025-06-18) over RFC 9728
+// What an app's MCP address needs before a bot can use it: nothing, OpenKodo's own sign-in, a sign-in
+// OpenKodo can't make yet, or no answer worth deciding on. MCP authorization (2025-06-18) over RFC 9728
 // protected-resource metadata and RFC 8414 / OIDC authorization-server metadata.
 import {
   discoverAuthorizationServerMetadata,
@@ -20,7 +20,7 @@ import { getMainHttpClient } from '../../network/http-client'
 import { isSecureOAuthEndpoint, secureOAuthFetch, type OAuthFetch } from './secure-oauth-fetch'
 import type { AddressLookup } from './oauth-endpoint-address'
 
-/** Where an app signs Orca in, as discovery found it. */
+/** Where an app signs OpenKodo in, as discovery found it. */
 export type BotToolAuthServer = {
   issuer: string
   metadata: AuthorizationServerMetadata
@@ -34,7 +34,7 @@ export type BotToolAuthNeed =
   /** The app answered an MCP request without a sign-in and names no authorization server. */
   | { kind: 'none' }
   | ({ kind: 'oauth' } & BotToolAuthServer)
-  /** It needs a sign-in Orca can't make yet: no dynamic registration. */
+  /** It needs a sign-in OpenKodo can't make yet: no dynamic registration. */
   | { kind: 'unsupported' }
   /** No answer to decide on: unreachable, a server error, or not an MCP server. Try again later. */
   | { kind: 'unavailable' }
@@ -78,7 +78,7 @@ async function probe(url: string, options: BotToolDiscoveryOptions) {
         params: {
           protocolVersion: PROTOCOL_VERSION,
           capabilities: {},
-          clientInfo: { name: 'Orca', version: '1' }
+          clientInfo: { name: 'OpenKodo', version: '1' }
         }
       })
     })

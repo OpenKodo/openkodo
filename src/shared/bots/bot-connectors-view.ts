@@ -1,5 +1,5 @@
 // `orca bot connectors`: per service, the tool a bot uses, who it acts as, whether it is signed in on
-// this computer, and whether Orca Cloud wakes it there; with the workspaces it is in, as refs.
+// this computer, and whether OpenKodo Cloud wakes it there; with the workspaces it is in, as refs.
 import { botLinearWorkspaces, botSlackApps, type Bot } from '../bot-types'
 import { CONNECTOR_OFFER_NAMES, type ConnectorOfferSource } from './bot-connector-offer'
 import type { GoogleAccountView, GoogleServiceReadiness } from '../google/google-connect-types'
@@ -21,7 +21,7 @@ export type BotConnectorService = {
   signedIn: boolean
   /** The one line to tell the owner when it isn't signed in. */
   gap?: string
-  /** Connected to Orca Cloud, which wakes the bot there. */
+  /** Connected to OpenKodo Cloud, which wakes the bot there. */
   wakes: boolean
   /** A link the owner opens to approve what the bot's app newly needs. */
   approveUrl?: string
@@ -131,13 +131,13 @@ function googleService(
 
 const SLACK_NO_APP = 'Run `orca bot connectors --offer slack` to show your owner a Connect card.'
 const SLACK_NOT_INSTALLED =
-  "Your Slack app isn't installed. Ask your owner to finish its setup, or remove it, under Slack on your page in Orca."
+  "Your Slack app isn't installed. Ask your owner to finish its setup, or remove it, under Slack on your page in OpenKodo."
 
-/** What Orca Cloud says a bot can act through; Slack is listed once its app is installed. */
+/** What OpenKodo Cloud says a bot can act through; Slack is listed once its app is installed. */
 export type CloudSource = { source: string; approveUrl?: string }
 
 /**
- * Each service's row, from the bot's links and what this computer is signed in to. `cloud`: Orca
+ * Each service's row, from the bot's links and what this computer is signed in to. `cloud`: OpenKodo
  * Cloud's sources, when it answered; without them, the Slack app this computer set up stands.
  */
 export function botConnectorServices(
@@ -205,7 +205,7 @@ function serviceLines(service: BotConnectorService, botName: string): string[] {
     service.source === 'slack' || service.source === 'google'
       ? null
       : service.wakes
-        ? `  Connected: Orca wakes ${botName} on @mentions and watched events here.`
+        ? `  Connected: OpenKodo wakes ${botName} on @mentions and watched events here.`
         : `  Not connected for wakes: \`orca bot connectors --offer ${service.source}\` to be @mentioned or to watch.`
   return [
     `${name}: \`${service.tool}\`, ${as}. ${state}`,

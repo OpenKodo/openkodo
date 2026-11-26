@@ -111,7 +111,7 @@ export function selectBotRowLine<R>(
       // First, so Home Chat wins a tie.
       candidates.unshift({ row, place: null })
     } else if (link) {
-      // A turn begun in Orca (typed, another chat's mail, an automation) is not the thread's, as Slack agrees.
+      // A turn begun in OpenKodo (typed, another chat's mail, an automation) is not the thread's, as Slack agrees.
       candidates.push({ row, place: link.lastTurn === 'conversation' ? threadPlace(link) : null })
     } else if (sideChat) {
       candidates.push({ row, place: { source: null, label: sideChat.title } })

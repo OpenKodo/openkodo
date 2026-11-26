@@ -15,7 +15,7 @@ import type {
   PtyProcessCeilingState
 } from '../../../shared/terminal/pty/native-process/pty-process-ceiling-state'
 
-export const PTY_PROCESS_CEILING_ENV = 'ORCA_TERMINAL_PROCESS_CEILING'
+export const PTY_PROCESS_CEILING_ENV = 'OPENKODO_TERMINAL_PROCESS_CEILING'
 /** Reserve tasks for shell hooks and a build step before accepting an opt-in ceiling. */
 const MIN_CEILING = 64
 const CGROUP_ROOT = '/sys/fs/cgroup'

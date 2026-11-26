@@ -1,13 +1,13 @@
 // The host records quit/update/crash on the cut-turn row for Continue. Unknown wire causes retain the row's words without a named cause.
 
-export const AGENT_SESSION_ORCA_STOP_CAUSES = ['update', 'quit', 'crash'] as const
+export const AGENT_SESSION_OPENKODO_STOP_CAUSES = ['update', 'quit', 'crash'] as const
 /** The row's presentation, so a client that re-words host rows it can't name passes it through. */
-export const AGENT_SESSION_ORCA_STOP_PRESENTATION = 'orca-stop'
-export type AgentSessionOrcaStopCause = (typeof AGENT_SESSION_ORCA_STOP_CAUSES)[number]
+export const AGENT_SESSION_OPENKODO_STOP_PRESENTATION = 'orca-stop'
+export type AgentSessionOrcaStopCause = (typeof AGENT_SESSION_OPENKODO_STOP_CAUSES)[number]
 export type AgentSessionOrcaStop = { cause: AgentSessionOrcaStopCause }
 
 export function isAgentSessionOrcaStopCause(value: unknown): value is AgentSessionOrcaStopCause {
-  return AGENT_SESSION_ORCA_STOP_CAUSES.some((cause) => cause === value)
+  return AGENT_SESSION_OPENKODO_STOP_CAUSES.some((cause) => cause === value)
 }
 
 /** The stop a row states, when this build knows its cause. */

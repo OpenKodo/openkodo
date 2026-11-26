@@ -83,7 +83,7 @@ export function getKiroRemoteManagedCommand(scriptPath: string): string {
 }
 
 /** V3 runs hook files through Node's shell (cmd.exe on Windows) and ignores unread stdin, so chats and
- *  other non-pane sessions exit in that shell without starting Orca's script or a stdin drain. */
+ *  other non-pane sessions exit in that shell without starting OpenKodo's script or a stdin drain. */
 export function getKiroStandaloneManagedCommand(scriptPath: string): string {
   if (process.platform !== 'win32') {
     return getKiroRemoteStandaloneManagedCommand(scriptPath)
@@ -91,7 +91,7 @@ export function getKiroStandaloneManagedCommand(scriptPath: string): string {
   // cmd.exe runs a bare .cmd path in-process, and the script exits on its own pane guard.
   return (
     wrapWindowsDirectCmdHookCommand(scriptPath) ??
-    `if defined ORCA_PANE_KEY ${wrapWindowsBatchHookCommand(scriptPath)}`
+    `if defined OPENKODO_PANE_KEY ${wrapWindowsBatchHookCommand(scriptPath)}`
   )
 }
 
@@ -160,7 +160,7 @@ function applyManagedKiroListHooks(
     if (event === null) {
       return [entry]
     }
-    // Refresh the first Orca entry per event where it sits; drop duplicates.
+    // Refresh the first OpenKodo entry per event where it sits; drop duplicates.
     return missing.delete(event) ? [buildKiroListHook(event, command)] : []
   })
   return [...kept, ...[...missing].map((event) => buildKiroListHook(event, command))]
@@ -194,7 +194,7 @@ function hasManagedDefinition(
   )
 }
 
-/** Preserve user hooks while converging to one Orca hook per event. */
+/** Preserve user hooks while converging to one OpenKodo hook per event. */
 export function applyManagedKiroHooks(
   config: Record<string, unknown>,
   command: string,

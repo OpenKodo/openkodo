@@ -59,7 +59,7 @@ type NewBotSheetProps = {
   onOpenBot?: (bot: ListedBot, computer: NewBotComputer, homeDraft?: string) => void
   /** The route to a computer's bots.create; null once it can't be reached. */
   clientFor: (computerId: string) => RpcClient | null
-  /** The route to the paired computer that reaches it, whose Orca account a server's is compared with. */
+  /** The route to the paired computer that reaches it, whose OpenKodo account a server's is compared with. */
   pairedClientFor: (computerId: string) => RpcClient | null
   onClose: () => void
   /** The form's drawer finished closing, when a picker hasn't replaced it. */
@@ -192,7 +192,7 @@ function NewBotForm(props: NewBotSheetProps) {
           refusedForOlderHostPurposeLimit(error.code, error.message, made.purpose)
           ? t(
               'bots.new.purposeTooLongForHost',
-              "Orca on {{host}} takes up to 200 characters for what it's for. Shorten it, or update Orca on {{host}}.",
+              "OpenKodo on {{host}} takes up to 200 characters for what it's for. Shorten it, or update OpenKodo on {{host}}.",
               { host: computer.label }
             )
           : error instanceof Error

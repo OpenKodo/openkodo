@@ -7,7 +7,7 @@ import { LoadedStateParsingOperations } from './profile-loading/loaded-state-par
 import { StateSerializationSecretHandlingOperations } from './profile-writing/state-serialization-secret-handling'
 import { PrimaryStateWriteOperations } from './profile-writing/primary-state-writes'
 import { scheduleSave, WriteSchedulingOperations } from './profile-writing/write-scheduling'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { WriteFlushBarrierOperations } from './profile-writing/write-flush-barriers'
 import { ProfilePreferences } from './profile-preferences/profile-preferences'
 import { RepoLifecycleOperations } from './project-catalog/repo-lifecycle-operations'
@@ -199,7 +199,7 @@ export function createStoreDomains(runtime: StoreRuntimeState): StoreDomains {
       runtime,
       sessions,
       // Retry persistence for terminal closes retained after failed writes; a close edits sessions only.
-      ORCA_LAYOUT_OWNER_IS_MAIN
+      OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? () => scheduleSave(scheduling, WORKSPACE_SESSION_DOMAINS)
         : undefined
     ),

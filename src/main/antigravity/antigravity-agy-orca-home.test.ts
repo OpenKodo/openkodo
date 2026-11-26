@@ -16,7 +16,7 @@ import {
 } from '../../shared/agent-accounts/antigravity/antigravity-chat-auth-config'
 import type { AgentSessionAccountHome } from '../../shared/agent-session/lifecycle/accounts/agent-session-account-home'
 
-// No key is saved in Orca's store.
+// No key is saved in OpenKodo's store.
 vi.mock('./antigravity-chat-api-key-store', () => ({ hasAntigravityChatApiKey: async () => false }))
 
 const { ANTIGRAVITY_LAUNCH_SPEC } = await import('./antigravity-acp-launch-spec')
@@ -72,7 +72,7 @@ it.each([
   )
 })
 
-it("resumes chats Orca's retired server started on agy, where they are", () => {
+it("resumes chats OpenKodo's retired server started on agy, where they are", () => {
   const server = { variable: 'GEMINI_HOME', path: '/data/antigravity-chat' }
   expect(args(server)).toEqual([
     'acp',

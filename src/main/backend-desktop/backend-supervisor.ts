@@ -60,7 +60,7 @@ export class BackendSupervisor {
           (id) => this.child?.postMessage({ type: 'retire', document: id })
         )
         if (!this.desiredRunning) {
-          throw new Error('Orca is shutting down.')
+          throw new Error('OpenKodo is shutting down.')
         }
         const ready = admitted.purpose === 'recovery' ? this.ready : this.ensureReady(true)
         const child = this.child
@@ -78,7 +78,7 @@ export class BackendSupervisor {
           sender.isDestroyed() ||
           sender.mainFrame !== senderFrame
         ) {
-          throw new Error('The document was replaced before Orca connected.')
+          throw new Error('The document was replaced before OpenKodo connected.')
         }
         deliverBackendDocumentPort(child, document, incarnation)
         return document.token
@@ -145,7 +145,7 @@ export class BackendSupervisor {
 
   private async ensureReady(explicit: boolean): Promise<void> {
     if (!this.desiredRunning) {
-      throw new Error('Orca is shutting down.')
+      throw new Error('OpenKodo is shutting down.')
     }
     if (explicit) {
       this.disposeFailedStartup?.()

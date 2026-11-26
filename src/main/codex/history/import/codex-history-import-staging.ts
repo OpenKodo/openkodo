@@ -40,7 +40,7 @@ export function stagedImportPath(folder: string, runId: string): string {
   return join(folder, `.orca-import-${runId}-${randomUUID()}.tmp`)
 }
 
-// Store folders a probe found without hard links; tried again once the setting changes or Orca restarts.
+// Store folders a probe found without hard links; tried again once the setting changes or OpenKodo restarts.
 const foldersWithoutHardLinks = new Set<string>()
 
 export function forgetStoreFoldersWithoutHardLinks(): void {

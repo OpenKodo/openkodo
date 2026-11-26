@@ -41,7 +41,7 @@ export function NativeChatPairedServerAskStack({
   const [submitting, setSubmitting] = useState<ReadonlyMap<string, Decision>>(new Map())
   const decide = (card: PairedServerAskCard, decision: Decision): void => {
     setSubmitting((current) => new Map(current).set(card.messageId, decision))
-    // On this computer's own Orca, which holds the card; the list drops it once answered anywhere.
+    // On this computer's own OpenKodo, which holds the card; the list drops it once answered anywhere.
     callRuntimeRpc(ownBotHost().target, 'pairedServerAsks.decide', {
       messageId: card.messageId,
       decision

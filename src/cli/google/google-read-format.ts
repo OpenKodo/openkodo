@@ -1,4 +1,4 @@
-// How `orca gmail|calendar|contacts` print their answers: Orca's own lines plain, everything a
+// How `orca gmail|calendar|contacts` print their answers: OpenKodo's own lines plain, everything a
 // sender, organizer or author wrote fenced as content, the content capped, and paging lines after it.
 import type {
   CalendarEventSummary,
@@ -91,7 +91,7 @@ export function eventLine(event: CalendarEventSummary, timeZone: string): string
   ].join(' · ')
 }
 
-/** Fenced content, cut at the cap with Orca's note outside the fence. */
+/** Fenced content, cut at the cap with OpenKodo's note outside the fence. */
 function cappedUntrusted(label: string, text: string, hint: string): string {
   return text.length <= TOOL_OUTPUT_MAX_CHARS
     ? untrustedContent(label, text)
@@ -139,7 +139,7 @@ export function formatGmailRead(view: GmailReadView, ref: string): string {
     ]
     const part = message.part
       ? [
-          `[Orca: characters ${message.part.from}–${message.part.to} of ${message.part.of} in this message]`
+          `[OpenKodo: characters ${message.part.from}–${message.part.to} of ${message.part.of} in this message]`
         ]
       : []
     return [
@@ -147,7 +147,7 @@ export function formatGmailRead(view: GmailReadView, ref: string): string {
       ...part,
       ...message.attachments.map(
         (file) =>
-          `[Orca: attachment ${file.ref}: ${inlineUntrusted(file.name, 120)}${file.type ? `, ${file.type}` : ''}${file.size === undefined ? '' : `, ${Math.ceil(file.size / 1024)} KB`}; --download ${file.ref} saves it]`
+          `[OpenKodo: attachment ${file.ref}: ${inlineUntrusted(file.name, 120)}${file.type ? `, ${file.type}` : ''}${file.size === undefined ? '' : `, ${Math.ceil(file.size / 1024)} KB`}; --download ${file.ref} saves it]`
       )
     ].join('\n')
   })
@@ -234,7 +234,7 @@ export function formatCalendars(view: CalendarsView): string {
 export function formatContacts(view: ContactsFindView): string {
   const skipped = view.skipped.map(
     (entry) =>
-      `[Orca: ${SOURCE_NAMES[entry.source]} not searched: ${inlineUntrusted(entry.reason)}]`
+      `[OpenKodo: ${SOURCE_NAMES[entry.source]} not searched: ${inlineUntrusted(entry.reason)}]`
   )
   if (view.people.length === 0) {
     return [`Nobody named ${JSON.stringify(view.query)} for ${view.account}.`, ...skipped].join(

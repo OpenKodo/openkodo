@@ -55,7 +55,7 @@ export function tmuxCliWriterEvent<T extends AgentHookEventPayload>(row: T): T {
 
 /** A hook that ran inside a tmux pane reaches this pane through a client; its server outlives the
  *  pane even after the client detaches, when the pane's foreground no longer shows tmux. A pane
- *  that only inherited Orca's own tmux environment hosts nothing. */
+ *  that only inherited OpenKodo's own tmux environment hosts nothing. */
 export function retainTmuxHookWriterTopology(
   event: AgentHookEventPayload | null,
   body: unknown,

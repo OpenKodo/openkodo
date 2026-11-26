@@ -71,7 +71,7 @@ export function useNativeChatStructuredPaneNotices({
   const details = provisionalLaunch.failure?.details
   const { demandModelCatalog } = controller.optionSurface
   const installing = install.slot.kind === 'install'
-  // A listing read before Orca installed the agent said it was missing; read again once installed.
+  // A listing read before OpenKodo installed the agent said it was missing; read again once installed.
   const wasInstalling = useRef(installing)
   useEffect(() => {
     if (wasInstalling.current && !installing) {

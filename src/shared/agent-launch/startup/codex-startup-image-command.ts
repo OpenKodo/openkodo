@@ -1,7 +1,7 @@
 import {
   CODEX_KITTY_WINDOW_ID,
-  ORCA_IMAGE_PROTOCOL_ENV,
-  ORCA_IMAGE_PROTOCOL_VALUE
+  OPENKODO_IMAGE_PROTOCOL_ENV,
+  OPENKODO_IMAGE_PROTOCOL_VALUE
 } from '../../terminal/images/terminal-image-protocol'
 import { extractLeadingEnvAssignments } from '../../shell/launch/command-environment'
 import {
@@ -13,11 +13,11 @@ import {
 export const CODEX_EXECUTABLE = /^codex(\.(exe|cmd|bat|ps1))?$/i
 
 const POSIX_PREFIX = `/bin/sh -c ${quoteStartupArg(
-  `if [ "$${ORCA_IMAGE_PROTOCOL_ENV}" = ${ORCA_IMAGE_PROTOCOL_VALUE} ] && [ -z "\${KITTY_WINDOW_ID+x}" ]; then export KITTY_WINDOW_ID=${CODEX_KITTY_WINDOW_ID}; fi; exec "$@"`,
+  `if [ "$${OPENKODO_IMAGE_PROTOCOL_ENV}" = ${OPENKODO_IMAGE_PROTOCOL_VALUE} ] && [ -z "\${KITTY_WINDOW_ID+x}" ]; then export KITTY_WINDOW_ID=${CODEX_KITTY_WINDOW_ID}; fi; exec "$@"`,
   'posix'
 )} orca-codex `
 const POWERSHELL_PREFIX =
-  `& { $orcaKitty = $env:${ORCA_IMAGE_PROTOCOL_ENV} -ceq '${ORCA_IMAGE_PROTOCOL_VALUE}' -and -not (Test-Path Env:KITTY_WINDOW_ID); ` +
+  `& { $orcaKitty = $env:${OPENKODO_IMAGE_PROTOCOL_ENV} -ceq '${OPENKODO_IMAGE_PROTOCOL_VALUE}' -and -not (Test-Path Env:KITTY_WINDOW_ID); ` +
   `if ($orcaKitty) { $env:KITTY_WINDOW_ID = '${CODEX_KITTY_WINDOW_ID}' }; try { `
 const POWERSHELL_SUFFIX = ' } finally { if ($orcaKitty) { Remove-Item Env:KITTY_WINDOW_ID } } }'
 

@@ -70,7 +70,7 @@ export async function abortRebase(
   options: GitRuntimeOptions = {}
 ): Promise<void> {
   const lifetime = trackGitOperationWriters(options, true)
-  // Queued Abort runs once in this worktree after any Orca operation already holding the lane.
+  // Queued Abort runs once in this worktree after any OpenKodo operation already holding the lane.
   await runWithGitWorktreeOperationLock(
     worktreePath,
     options.signal,

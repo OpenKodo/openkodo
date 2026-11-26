@@ -69,7 +69,7 @@ describe('bot home', () => {
     })
   })
 
-  it('keeps the user’s soul and memory and rewrites only what Orca owns', async () => {
+  it('keeps the user’s soul and memory and rewrites only what OpenKodo owns', async () => {
     const folder = join(root, 'reviewer')
     await writeBotHome(fs, folder, makeBot())
     await writeFile(join(folder, 'SOUL.md'), 'Terse and kind.\n')
@@ -133,25 +133,25 @@ describe('bot folder names', () => {
     expect(folder).toBe('a'.repeat(39))
   })
 
-  it.each(['Orca', 'orca-dev'])('keeps the %s profile on ~/.orca/bots', (profile) => {
+  it.each(['OpenKodo', 'orca-dev'])('keeps the %s profile on ~/.openkodo/bots', (profile) => {
     const appData = join('home', 'me', 'Library', 'Application Support')
     const home = join('home', 'me')
     expect(botsRootFolder({ userData: join(appData, profile), appData, home })).toBe(
-      join('home', 'me', '.orca', 'bots')
+      join('home', 'me', '.openkodo', 'bots')
     )
   })
 
   it.each([
-    ['orcad under XDG_DATA_HOME', join('home', 'me', '.local', 'share', 'Orca')],
+    ['orcad under XDG_DATA_HOME', join('home', 'me', '.local', 'share', 'OpenKodo')],
     ['a shared-home server', join('home', 'me', '.orca-0a1b2c3d')]
-  ])('keeps %s on ~/.orca/bots', (_label, userData) => {
+  ])('keeps %s on ~/.openkodo/bots', (_label, userData) => {
     const paths = {
       userData,
       appData: join('home', 'me', '.config'),
       home: join('home', 'me'),
       xdgDataHome: join('home', 'me', '.local', 'share')
     }
-    expect(botsRootFolder(paths)).toBe(join('home', 'me', '.orca', 'bots'))
+    expect(botsRootFolder(paths)).toBe(join('home', 'me', '.openkodo', 'bots'))
   })
 
   it('keeps an isolated data folder out of ~/.orca', () => {
@@ -164,7 +164,7 @@ describe('bot folder names', () => {
   })
 
   it('names only the local bots root group as the Bots group', () => {
-    const root = join('home', 'me', '.orca', 'bots')
+    const root = join('home', 'me', '.openkodo', 'bots')
     expect(isBotsProjectGroup({ parentPath: root, connectionId: null }, root)).toBe(true)
     expect(isBotsProjectGroup({ parentPath: root, connectionId: 'ssh-1' }, root)).toBe(false)
     expect(isBotsProjectGroup({ parentPath: join('home', 'me'), connectionId: null }, root)).toBe(

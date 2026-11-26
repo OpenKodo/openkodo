@@ -33,7 +33,7 @@ export type AgentCliUpdateRun =
       phase: 'failed'
       /** Capped by the host, so the failure dialog can show all of it. */
       output: string
-      /** What Orca ran; absent when nothing ran. */
+      /** What OpenKodo ran; absent when nothing ran. */
       command?: string
       finishedAt: number
     }

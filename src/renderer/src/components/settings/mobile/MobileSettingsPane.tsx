@@ -11,8 +11,8 @@ import { useAppStore } from '@/store/index'
 import { MobileRelayBetaNotice } from '../../mobile/pairing/MobileRelayBetaNotice'
 import { openAppHttpLink } from '@/lib/browser/navigation/app-http-link-open'
 
-const ORCA_IOS_APP_STORE_URL = 'https://apps.apple.com/app/orca-ide/id6766130217'
-const ORCA_ANDROID_APK_URL = 'https://orca.dev/download/android'
+const OPENKODO_IOS_APP_STORE_URL = 'https://apps.apple.com/app/orca-ide/id6766130217'
+const OPENKODO_ANDROID_APK_URL = 'https://openkodo.dev/download/android'
 
 export function MobileSettingsPane(): React.JSX.Element {
   const t = useTranslate()
@@ -35,11 +35,11 @@ export function MobileSettingsPane(): React.JSX.Element {
             <p>
               {t(
                 'auto.components.settings.MobileSettingsPane.installIntro',
-                'Install Orca Mobile from the'
+                'Install OpenKodo Mobile from the'
               )}{' '}
               <button
                 type="button"
-                onClick={(event) => openAppHttpLink(ORCA_IOS_APP_STORE_URL, { event })}
+                onClick={(event) => openAppHttpLink(OPENKODO_IOS_APP_STORE_URL, { event })}
                 className="cursor-pointer underline underline-offset-2 hover:text-foreground"
               >
                 {t('auto.components.settings.MobileSettingsPane.b5a2ed83ff', 'App Store')}
@@ -48,7 +48,7 @@ export function MobileSettingsPane(): React.JSX.Element {
               <button
                 type="button"
                 // Link the pinned release APK until Android distribution moves to Google Play.
-                onClick={(event) => openAppHttpLink(ORCA_ANDROID_APK_URL, { event })}
+                onClick={(event) => openAppHttpLink(OPENKODO_ANDROID_APK_URL, { event })}
                 className="cursor-pointer underline underline-offset-2 hover:text-foreground"
               >
                 {t('auto.components.settings.MobileSettingsPane.androidApkLabel', 'Android APK')}
@@ -60,13 +60,10 @@ export function MobileSettingsPane(): React.JSX.Element {
         </SearchableSetting>
 
         <SearchableSetting
-          title={t(
-            'auto.components.settings.MobileSettingsPane.49089c92b3',
-            'Show Orca Mobile button'
-          )}
+          title={t('auto.components.settings.MobileSettingsPane.49089c92b3', 'Show Mobile Button')}
           description={t(
             'auto.components.settings.MobileSettingsPane.682293cadf',
-            'Show the Orca Mobile button at the top of the left sidebar.'
+            'Show the OpenKodo Mobile button at the top of the left sidebar.'
           )}
           keywords={getMobileSidebarShortcutSearchEntry().keywords}
         >
@@ -74,11 +71,11 @@ export function MobileSettingsPane(): React.JSX.Element {
           <SettingsSwitchRow
             label={t(
               'auto.components.settings.MobileSettingsPane.49089c92b3',
-              'Show Orca Mobile button'
+              'Show Mobile Button'
             )}
             description={t(
               'auto.components.settings.MobileSettingsPane.d4f2b65f30',
-              'Show the Orca Mobile shortcut in the sidebar.'
+              'Show the OpenKodo Mobile shortcut in the sidebar.'
             )}
             checked={showMobileButton}
             onChange={() => updateSettings({ showMobileButton: !showMobileButton })}

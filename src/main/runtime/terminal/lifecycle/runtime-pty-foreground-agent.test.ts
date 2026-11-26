@@ -50,7 +50,7 @@ describe.skipIf(process.platform === 'win32')('RuntimePtyForegroundAgent', () =>
     expect(pty.foregroundAgent).toBe('claude')
   })
 
-  it('does not scan a pane whose attach restores the Claude Orca launched', async () => {
+  it('does not scan a pane whose attach restores the Claude OpenKodo launched', async () => {
     const attach = deferred<boolean>()
     const { pty, foreground, scan } = pane({
       foregroundNames: ['2.1.330'],

@@ -33,7 +33,7 @@ function SlackIconRow({ look }: { look: Look }): React.JSX.Element {
           size="large"
           className="size-32 rounded-2xl"
         />
-        <figcaption className="text-xs text-muted-foreground">In Orca</figcaption>
+        <figcaption className="text-xs text-muted-foreground">In OpenKodo</figcaption>
       </figure>
       <figure className="flex flex-col items-center gap-1">
         {png ? <img src={`data:image/png;base64,${png}`} alt="" className="size-64" /> : null}

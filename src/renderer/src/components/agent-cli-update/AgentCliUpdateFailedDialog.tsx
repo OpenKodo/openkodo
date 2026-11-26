@@ -14,7 +14,7 @@ import {
 } from './agent-cli-update-failure-modal'
 import { useAgentCliUpdate } from './use-agent-cli-update'
 
-/** A failed update of the user's own CLI: the command Orca ran, where, and its output. */
+/** A failed update of the user's own CLI: the command OpenKodo ran, where, and its output. */
 export default function AgentCliUpdateFailedDialog(): React.JSX.Element | null {
   const modalData = useAppStore((s) => s.modalData)
   const [request] = useState(() => readAgentCliUpdateFailureRequest(modalData))
@@ -48,7 +48,7 @@ function FailedDialog({ request }: { request: AgentCliUpdateFailureRequest }): R
             i18n={i18n}
             defaults={t(
               'agentCliUpdate.failedDescription',
-              'Orca ran <code>{{command}}</code> on <strong>{{host}}</strong> to update your {{product}} from <strong>{{installedVersion}}</strong> to <strong>{{latestVersion}}</strong>, and it failed.'
+              'OpenKodo ran <code>{{command}}</code> on <strong>{{host}}</strong> to update your {{product}} from <strong>{{installedVersion}}</strong> to <strong>{{latestVersion}}</strong>, and it failed.'
             )}
             values={{
               command: failed.command,
@@ -65,7 +65,7 @@ function FailedDialog({ request }: { request: AgentCliUpdateFailureRequest }): R
             i18n={i18n}
             defaults={t(
               'agentCliUpdate.failedDescriptionNoCommand',
-              "Orca couldn't update your {{product}} on <strong>{{host}}</strong>."
+              "OpenKodo couldn't update your {{product}} on <strong>{{host}}</strong>."
             )}
             values={{ product, host }}
             components={{ strong }}

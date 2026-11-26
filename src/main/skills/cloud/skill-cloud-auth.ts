@@ -31,10 +31,10 @@ export async function runSkillCloudOperation<T>(input: {
       current.profile.cloud?.cloudProfileId !== stamp.cloudProfileId ||
       (current.profile.cloud?.activeOrgId ?? '') !== stamp.organizationId
     ) {
-      throw new Error('The signed-in Orca account changed during the skill request.')
+      throw new Error('The signed-in OpenKodo account changed during the skill request.')
     }
   }
-  const override = input.options.authToken?.trim() || process.env.ORCA_CLOUD_AUTH_TOKEN?.trim()
+  const override = input.options.authToken?.trim() || process.env.OPENKODO_CLOUD_AUTH_TOKEN?.trim()
   if (override) {
     if (!allowsArtifactCloudAuthOverride()) {
       throw new Error('Skill authentication overrides are available only in development builds.')

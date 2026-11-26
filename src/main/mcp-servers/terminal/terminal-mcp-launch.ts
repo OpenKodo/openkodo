@@ -179,7 +179,7 @@ export async function withTerminalMcpServers(
   ])
   if (skipped.length > 0) {
     console.warn(
-      `[mcp-servers] ${adapter.agent}'s own settings already have ${skipped.join(', ')}; this terminal uses those instead of Orca's`
+      `[mcp-servers] ${adapter.agent}'s own settings already have ${skipped.join(', ')}; this terminal uses those instead of OpenKodo's`
     )
   }
   if (tools.servers.length === 0) {
@@ -226,7 +226,7 @@ export async function withTerminalMcpServers(
   )
   if (!delivery.delivered) {
     console.warn(
-      `[mcp-servers] ${adapter.agent}'s terminal starts without Orca's servers: ${delivery.reason}`
+      `[mcp-servers] ${adapter.agent}'s terminal starts without OpenKodo's servers: ${delivery.reason}`
     )
     return { command: input.command, pane: pane(null) }
   }
@@ -246,7 +246,7 @@ export async function withTerminalMcpServers(
 
 /**
  * What the relay needs in the CLI's env: loopback past any proxy (both spellings, the user's own
- * entries kept), and the token for a CLI that reads it from `ORCA_MCP_TOKEN`.
+ * entries kept), and the token for a CLI that reads it from `OPENKODO_MCP_TOKEN`.
  */
 function relayEnv(
   env: Readonly<Record<string, string>>,

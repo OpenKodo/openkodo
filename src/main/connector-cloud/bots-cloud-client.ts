@@ -1,5 +1,5 @@
 // A bot's Slack app, the account's Slack config grants and its Linear and GitHub links, as the
-// signed-in account sees them in Orca Cloud.
+// signed-in account sees them in OpenKodo Cloud.
 import { z } from 'zod'
 import {
   BOT_SLACK_DESKTOP_ERRORS,
@@ -143,7 +143,7 @@ export function botsCloudClient(cloud: Pick<ConnectorCloud, 'call'>) {
               { timeoutMs: APP_SETUP_TIMEOUT_MS }
             )
       ),
-    /** A one-time code another signed-in Orca account redeems to create this bot's app with its own grant. */
+    /** A one-time code another signed-in OpenKodo account redeems to create this bot's app with its own grant. */
     handOffSlackApp: async (botId: string, teamId: string) =>
       answer(
         await cloud.call(
@@ -226,7 +226,7 @@ export function botsCloudClient(cloud: Pick<ConnectorCloud, 'call'>) {
           { method: 'PUT' }
         )
       ),
-    /** Starts the one-trip sign-in; it returns to `loopback` or, without one, to orca://<source>/link. */
+    /** Starts the one-trip sign-in; it returns to `loopback` or, without one, to openkodo://<source>/link. */
     startConnect: async (
       source: ConnectorConnectSource,
       options: {

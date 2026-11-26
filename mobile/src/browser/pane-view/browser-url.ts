@@ -1,4 +1,4 @@
-import { ORCA_BROWSER_BLANK_URL } from '../../../../src/shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../src/shared/browser/browser-blank-page'
 import {
   DEFAULT_SEARCH_ENGINE,
   normalizeBrowserNavigationUrl
@@ -8,7 +8,7 @@ import {
 export function normalizeBrowserUrl(value: string): string | null {
   const url = normalizeBrowserNavigationUrl(value, DEFAULT_SEARCH_ENGINE)
   // Keep sending the blank address the phone always sent, which every host accepts.
-  return url === ORCA_BROWSER_BLANK_URL ? 'about:blank' : url
+  return url === OPENKODO_BROWSER_BLANK_URL ? 'about:blank' : url
 }
 
 export function displayBrowserUrl(value: string | null | undefined): string {

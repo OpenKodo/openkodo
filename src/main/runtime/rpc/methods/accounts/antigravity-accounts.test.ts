@@ -24,7 +24,7 @@ vi.mock('../../../agent-session/launch/structured-agent-launch-support', async (
 }))
 vi.mock('../../../../antigravity/native-file-credentials', async (original) => ({
   ...(await original<object>()),
-  // Orca's own environment by `login.shared`; a launch environment by agy's own SSH rule.
+  // OpenKodo's own environment by `login.shared`; a launch environment by agy's own SSH rule.
   antigravityUsesFileStoreAsync: async (env: NodeJS.ProcessEnv) =>
     env === process.env ? !login.shared : (login.launchStore ?? Boolean(env.SSH_TTY))
 }))
@@ -53,7 +53,7 @@ async function accounts() {
   return { ...native, a: id('a'), b: id('b') }
 }
 
-it("selecting another host account lists the host agy catalog again and leaves Orca's homes fresh", async () => {
+it("selecting another host account lists the host agy catalog again and leaves OpenKodo's homes fresh", async () => {
   const host = await accounts()
   agy.set('host', host.service)
   const [hostAgy] = antigravityHostCatalogFingerprints()

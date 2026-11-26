@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs'
 import type { EvalHostState } from './bot-automation-eval-host'
 import { searchSlackAsOwner } from './bot-automation-eval-slack-search'
 
-const state: EvalHostState = JSON.parse(readFileSync(process.env.ORCA_EVAL_STATE ?? '', 'utf8'))
+const state: EvalHostState = JSON.parse(readFileSync(process.env.OPENKODO_EVAL_STATE ?? '', 'utf8'))
 const args = process.argv.slice(2)
 if (!state.ownerSlack) {
   process.stderr.write('agent-slack is not available here.\n')

@@ -1,4 +1,4 @@
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { hasClosedTerminalTabRecord } from '../../../../../shared/workspace-layout/terminal-surfaces/closed-terminal-tab-tombstones'
 import { parsePaneKey } from '../../../../../shared/workspace-layout/stable-pane-id'
 import { worktreeIdsEqual } from '../../../../../shared/worktree/id'
@@ -123,7 +123,7 @@ function adoptHostOwnedSurface(
   const known = tabExists(store, owner.tabId)
   // Switch point, a paired server's workspace (the gate blocks those before any sweep today; a
   // local one returns before this): frames draw the server's pane; the window makes none.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN && !known) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN && !known) {
     return framesShowRecordedPane(worktreeId, owner)
   }
   if (bindLivePtyToExactSurface(store, worktreeId, owner)) {
@@ -218,7 +218,8 @@ export async function adoptLiveWorkspacePtySurfaces(
       continue
     }
     const mainPlaces =
-      ORCA_LAYOUT_OWNER_IS_MAIN && runtimeEnvironmentIdUnlessTwin(getState(), worktreeId) === null
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
+      runtimeEnvironmentIdUnlessTwin(getState(), worktreeId) === null
     // Main places unshown terminals before answering, so its named pane/frame owns presentation. Window writes nothing; paired servers retain their existing path.
     if (mainPlaces && !('unowned' in owner)) {
       surfaced = true

@@ -1,5 +1,5 @@
-// Settings › Bots lists computers and Orca accounts rather than one picked host: this app's own
-// computer, then each paired server that lists bots, and each Orca account those computers run as,
+// Settings › Bots lists computers and OpenKodo accounts rather than one picked host: this app's own
+// computer, then each paired server that lists bots, and each OpenKodo account those computers run as,
 // once, since Slack, Linear and GitHub belong to an account rather than a computer.
 import { useSyncExternalStore } from 'react'
 import { selectExecutionHostDisplayLabel } from '@/runtime/hosts/display/execution-host-display-label'
@@ -27,12 +27,12 @@ export type BotSettingsComputer = {
   /** The computer's name: this one's local label, or the paired server's name in Settings. */
   name: string
   local: boolean
-  /** `update-needed`: its Orca can't list bots, or can't set up their connectors from here. */
+  /** `update-needed`: its OpenKodo can't list bots, or can't set up their connectors from here. */
   state: 'live' | 'offline' | 'update-needed'
 }
 
 export type BotSettingsAccount = {
-  /** Null only for this computer when it isn't signed in to Orca. */
+  /** Null only for this computer when it isn't signed in to OpenKodo. */
   email: string | null
   /** The computer whose runtime answers for the account's Slack, Linear and GitHub here. */
   hostId: ExecutionHostId
@@ -87,7 +87,7 @@ export function useBotSettingsComputers(): BotSettingsComputer[] {
 }
 
 /**
- * The Orca accounts the computers run as, each once, this computer's first, signed in or not. A
+ * The OpenKodo accounts the computers run as, each once, this computer's first, signed in or not. A
  * server still being read, signed out or lapsed has none: its own group says so and offers the
  * sign-in.
  */

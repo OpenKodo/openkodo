@@ -42,7 +42,7 @@ export function initializeBrowserProcessUserAgent(
   if (app.isReady()) {
     throw new Error('Browser process user agent must be initialized before Electron readiness')
   }
-  // WhatsApp Web's server rejects any UA carrying the `Orca/x` token; Cloudflare only needs Electron's.
+  // WhatsApp Web's server rejects any UA carrying the `OpenKodo/x` token; Cloudflare only needs Electron's.
   const electronUserAgent = stripAppToken(app.userAgentFallback)
   app.userAgentFallback =
     mode === 'clean' ? cleanElectronUserAgent(electronUserAgent) : electronUserAgent

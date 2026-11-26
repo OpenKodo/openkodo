@@ -19,7 +19,7 @@ import { carriedAskersOf, stampedPerson } from './bot-stamped-askers'
 import { typedInOrcaByOwner } from './bot-typed-in-orca'
 import { isRootTurnRecord, isRootUserMessage, turnMessages } from './bot-turn-messages'
 
-/** The conversation a request came in, as Orca Cloud names it. */
+/** The conversation a request came in, as OpenKodo Cloud names it. */
 export type BotRequestConversation = { source: ConnectorSource; externalId: string }
 
 /** Where the turn's message was asked: an issue key, owner/repo#N or Slack channel id, with a link
@@ -40,7 +40,7 @@ export type BotActingTurn = {
   /** The message this turn answers: the person's, or the bot request it was woken by. */
   rootItemId: string | null
   askers: BotRequestAsker[]
-  /** Who asked this turn: its stamped people, or the owner for a message typed in Orca. Labels and
+  /** Who asked this turn: its stamped people, or the owner for a message typed in OpenKodo. Labels and
    *  answer routes read this; every check reads askers. */
   askedBy: BotRequestAsker[]
   /** The text of the person's message, for the record. */
@@ -51,7 +51,7 @@ export type BotActingTurn = {
   requestIds: string[]
   /** Where the message that opened the turn was asked; null for the owner's own or a bot request. */
   wokenAt: BotWakingPlace | null
-  /** The owner typed every message this turn took, in Orca: it acts for the owner, whomever its
+  /** The owner typed every message this turn took, in OpenKodo: it acts for the owner, whomever its
    *  conversation acts for. */
   typedByOwner?: true
   /** Who did the event behind the automation prompt that opened the turn, for the record only. */
@@ -65,11 +65,11 @@ export type BotActingTurn = {
 }
 
 export type BotActingTurnLookups = {
-  /** Whether a message is a bot request Orca admitted. */
+  /** Whether a message is a bot request OpenKodo admitted. */
   isBotRequest: (messageId: string) => boolean
-  /** Whom an admitted bot request acts for, from Orca's record of it; null when unreadable. */
+  /** Whom an admitted bot request acts for, from OpenKodo's record of it; null when unreadable. */
   botRequestActsFor: (messageId: string) => BotRequestActsFor | null
-  /** Whom the conversation acts for, as Orca recorded it when the conversation started. */
+  /** Whom the conversation acts for, as OpenKodo recorded it when the conversation started. */
   conversationActsFor: readonly BotRequestAsker[]
   /** The thread, issue or pull request an automation run's event happened on: the run the prompt
    *  records, when it records one. */
@@ -78,7 +78,7 @@ export type BotActingTurnLookups = {
   conversationWorkspaceId: string | null
 }
 
-/** The people Orca recorded on a bot request: whom the chain acts for, who asked at its start, and
+/** The people OpenKodo recorded on a bot request: whom the chain acts for, who asked at its start, and
  *  the event that started the chain when one did. */
 export type BotRequestActsFor = {
   askers: BotRequestAsker[]
@@ -141,7 +141,7 @@ function readItem(body: AgentJournalItemBody, lookups: BotActingTurnLookups): It
   const wokenAt = body.memorySource
     ? (lookups.automationPlace?.(body.automationRun) ?? null)
     : undefined
-  // A person's connector message whose asker didn't parse is someone Orca can't name, never the owner;
+  // A person's connector message whose asker didn't parse is someone OpenKodo can't name, never the owner;
   // an event no one asked through acts for its conversation, like an automation's prompt.
   if (body.origin === 'connector' && !body.memorySource) {
     return { kind: 'asker', asker: { kind: 'unknown' }, ...(wokenAt ? { wokenAt } : {}) }
@@ -150,7 +150,7 @@ function readItem(body: AgentJournalItemBody, lookups: BotActingTurnLookups): It
     kind: 'conversation',
     ...(wokenAt !== undefined ? { wokenAt } : {}),
     ...(body.memorySource && body.triggeredBy ? { triggeredBy: body.triggeredBy } : {}),
-    // Only Orca writes a run's record on a message; no client can send one.
+    // Only OpenKodo writes a run's record on a message; no client can send one.
     ...(body.automationRun ? { run: true as const } : {})
   }
 }
@@ -171,9 +171,9 @@ function stampedAsker(
 }
 
 /**
- * Whom a conversation Orca has no record for acts for, read from its first message: the person the
+ * Whom a conversation OpenKodo has no record for acts for, read from its first message: the person the
  * cloud stamped, the people a bot request was for, or the owner for the owner's own message, an event
- * no one asked through and an automation's prompt (from automations made before Orca recorded who made
+ * no one asked through and an automation's prompt (from automations made before OpenKodo recorded who made
  * them). Null before any message.
  */
 export function firstMessageActsFor(
@@ -261,7 +261,7 @@ export function readBotActingTurnWithin(
     )
     const first = readings.find((entry) => entry.reading.kind === 'request')
     if (first) {
-      // The people each request was for, from Orca's records, never the sending bot's text; with the
+      // The people each request was for, from OpenKodo's records, never the sending bot's text; with the
       // conversation's and anyone stamped in the same turn, so a mixed turn is held to the least trusted.
       const records = requestIds.map((messageId) => lookups.botRequestActsFor(messageId))
       const origin = records.find((record) => record?.origin)?.origin
@@ -369,7 +369,7 @@ export function readBotActingTurnWithin(
   }
 }
 
-/** Whether the turn acts for the owner: the owner typed it in Orca, or everyone it acts for is the
+/** Whether the turn acts for the owner: the owner typed it in OpenKodo, or everyone it acts for is the
  *  owner. Every Slack action's turnFor and the "asked by" line on owner writes read this. */
 export function turnActsForOwner(turn: Pick<BotActingTurn, 'askers' | 'typedByOwner'>): boolean {
   return turn.typedByOwner === true || actsForOwner(turn.askers)

@@ -7,7 +7,6 @@ import { getIntegrationsPaneSearchEntries } from '@/components/settings/integrat
 import { getLinearAgentSkillPaneSearchEntries } from '@/components/settings/skills/linear/linear-agent-skill-search'
 import { getMcpServersPaneSearchEntries } from '@/components/settings/mcp-servers/mcp-servers-search'
 import { getMobileSettingsPaneSearchEntries } from '@/components/settings/mobile/mobile-settings-search'
-import { getOrcaAccountSettingsSearchEntries } from '@/components/settings/accounts/orca/orca-account-settings-search'
 import { OrcaLogoSettingsIcon } from '@/components/settings/page/orca-logo-settings-icon'
 import { getOrchestrationPaneSearchEntries } from '@/components/settings/orchestration/orchestration-search'
 import { getVoicePaneSearchEntries } from '@/components/settings/voice/voice-pane-search'
@@ -19,7 +18,6 @@ import {
   Blocks,
   Bot,
   BrushCleaning,
-  CircleUserRound,
   Mic,
   MousePointerClick,
   Network,
@@ -91,7 +89,7 @@ export function buildCapabilitySettingsSections(
       title: t('auto.hooks.useSettingsNavigationMetadata.58a868e8e4', 'Orchestration'),
       description: t(
         'auto.hooks.useSettingsNavigationMetadata.cd50cec5d7',
-        'Coordinate multiple coding agents through Orca.'
+        'Coordinate multiple coding agents through OpenKodo.'
       ),
       icon: Network,
       searchEntries: getOrchestrationPaneSearchEntries({
@@ -107,7 +105,7 @@ export function buildCapabilitySettingsSections(
             title: t('auto.hooks.useSettingsNavigationMetadata.linearTitle', 'Linear'),
             description: t(
               'auto.hooks.useSettingsNavigationMetadata.linearDescription',
-              'How Linear works in Orca, setup checklist, agent skill, and example prompts.'
+              'How Linear works in OpenKodo, setup checklist, agent skill, and example prompts.'
             ),
             icon: LinearIcon,
             searchEntries: getLinearAgentSkillPaneSearchEntries(),
@@ -150,27 +148,12 @@ export function buildSetupSettingsSections(
 ): SettingsNavSection[] {
   const showDesktopOnlySettings = !isWebClient
   return [
-    ...(showDesktopOnlySettings
-      ? [
-          {
-            id: 'orca-account',
-            title: t('auto.components.settings.orcaAccount.title', 'Orca Account'),
-            description: t(
-              'auto.components.settings.orcaAccount.description',
-              'Share work instantly and reach your desktop from Orca Mobile wherever you are.'
-            ),
-            icon: CircleUserRound,
-            searchEntries: getOrcaAccountSettingsSearchEntries(),
-            group: 'setup'
-          }
-        ]
-      : []),
     {
       id: 'setup-guide',
       title: t('auto.hooks.useSettingsNavigationMetadata.ded9e9032f', 'Onboarding checklist'),
       description: t(
         'auto.hooks.useSettingsNavigationMetadata.5f32ac08f3',
-        'Finish the onboarding checklist for core Orca workflows.'
+        'Finish the onboarding checklist for core OpenKodo workflows.'
       ),
       icon: OrcaLogoSettingsIcon,
       searchEntries: [
@@ -182,7 +165,7 @@ export function buildSetupSettingsSections(
           ),
           keywords: [
             t('auto.hooks.useSettingsNavigationMetadata.ea0b1bc7b8', 'setup guide'),
-            t('auto.hooks.useSettingsNavigationMetadata.0505d0df29', 'get started with Orca'),
+            t('auto.hooks.useSettingsNavigationMetadata.0505d0df29', 'get started with OpenKodo'),
             t('auto.hooks.useSettingsNavigationMetadata.724c440e72', 'getting started')
           ]
         }
@@ -207,7 +190,7 @@ export function buildSetupSettingsSections(
             title: t('components.settings.workspaceCleanup.title', 'Workspace Cleanup'),
             description: t(
               'components.settings.workspaceCleanup.description',
-              "Remove workspaces you're done with. Before removing anything, Orca checks again for unsaved work."
+              "Remove workspaces you're done with. Before removing anything, OpenKodo checks again for unsaved work."
             ),
             icon: BrushCleaning,
             searchEntries: getWorkspaceCleanupSettingsSearchEntries(),

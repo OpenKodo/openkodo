@@ -66,7 +66,7 @@ function startProcessCrashObservers(): void {
 }
 
 function startThemeAndSpeech(store: Store, fallbackMs: number): void {
-  // Load the dictation model after first paint; coming back to Orca re-warms one the idle timer unloaded.
+  // Load the dictation model after first paint; coming back to OpenKodo re-warms one the idle timer unloaded.
   runAfterFirstWindowShown(() => {
     app.on('browser-window-focus', startSpeechModelWarmup(store))
   }, fallbackMs)

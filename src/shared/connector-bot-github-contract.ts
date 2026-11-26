@@ -1,5 +1,5 @@
 // The desktop's reads of the GitHub routes; the cloud's side lands with them (plan G3).
-// Every route acts as the caller's Orca account: confirm and set-default touch only that account's
+// Every route acts as the caller's OpenKodo account: confirm and set-default touch only that account's
 // own link and default, and a link token is single use.
 import * as z from 'zod'
 
@@ -20,7 +20,7 @@ const GitHubUser = z.object({
   login: GitHubLogin
 })
 
-/** One GitHub user the Orca account is linked as; each counts as the owner. */
+/** One GitHub user the OpenKodo account is linked as; each counts as the owner. */
 const GitHubLinkedAccount = GitHubUser.extend({
   /** The ids of the installations this user can see. */
   installations: z.array(GitHubId),
@@ -29,12 +29,12 @@ const GitHubLinkedAccount = GitHubUser.extend({
 })
 export type ConnectorGitHubLinkedAccount = z.infer<typeof GitHubLinkedAccount>
 
-// GET `${github}/state`: the GitHub users this Orca account is linked as, and the Orca app's
+// GET `${github}/state`: the GitHub users this OpenKodo account is linked as, and the OpenKodo app's
 // installations they can see.
 export const ConnectorGitHubState = z.object({
-  /** GitHub's install page for the Orca app, signed for this account. */
+  /** GitHub's install page for the OpenKodo app, signed for this account. */
   installUrl: z.string().url(),
-  /** The first linked user; null until the owner connects GitHub from Orca. */
+  /** The first linked user; null until the owner connects GitHub from OpenKodo. */
   account: GitHubUser.nullable(),
   /** Every linked user, oldest first; missing from an older cloud, which links one (`account`).
    *  Read entry by entry: an entry this build can't read is left out, never the whole list, since a

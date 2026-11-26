@@ -36,7 +36,7 @@ import {
 import type { AutomationSaveContext } from './automation-save-context'
 import { completeAutomationSave } from './automation-save-completion'
 
-/** Saves an Orca automation, including destination validation and host moves. */
+/** Saves an OpenKodo automation, including destination validation and host moves. */
 export async function saveOrcaAutomation(
   context: AutomationSaveContext,
   time: { hour: number; minute: number; now: number; surface: 'chat' | 'terminal' }

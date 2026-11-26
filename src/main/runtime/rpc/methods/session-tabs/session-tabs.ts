@@ -27,7 +27,7 @@ import {
   SESSION_TABS_UNSUBSCRIBE_METHOD,
   SESSION_TABS_UNSUBSCRIBE_ALL_METHOD
 } from './session-tabs-unsubscribe'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 
 export const SESSION_TAB_METHODS = [
   defineMethod({
@@ -107,7 +107,7 @@ export const SESSION_TAB_METHODS = [
         subscriptionId = requestId ? `${cleanupPrefix}:${requestId}` : cleanupPrefix
         // Switch point: a phone holding the workspace's session open is looking at it.
         const closePhoneSession =
-          ORCA_SIDEBAR_INPUTS_IS_MAIN && clientKind === 'mobile'
+          OPENKODO_SIDEBAR_INPUTS_IS_MAIN && clientKind === 'mobile'
             ? runtime.sidebarFacts?.readAndHoldPhoneSession(worktreeId)
             : undefined
         runtime.registerSubscriptionCleanup(

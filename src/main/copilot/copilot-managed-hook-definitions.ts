@@ -26,7 +26,7 @@ export const COPILOT_EVENTS = [
 export function getPosixManagedCommand(scriptPath: string, eventName: string): string {
   return wrapPosixHookCommand(
     scriptPath,
-    { ORCA_COPILOT_HOOK_EVENT: eventName },
+    { OPENKODO_COPILOT_HOOK_EVENT: eventName },
     { fallbackStdout: '{}' }
   )
 }
@@ -40,7 +40,7 @@ export function getManagedCommand(scriptPath: string, eventName: string): string
   // /d suppresses cmd AutoRun output that would corrupt the {} response Copilot parses.
   return direct
     ? `${getWindowsSystem32Path('cmd.exe')} /d /c ${direct} ${eventName}`
-    : wrapWindowsHookCommand(scriptPath, { ORCA_COPILOT_HOOK_EVENT: eventName })
+    : wrapWindowsHookCommand(scriptPath, { OPENKODO_COPILOT_HOOK_EVENT: eventName })
 }
 
 export function getManagedHookDefinition(command: string): HookDefinition {

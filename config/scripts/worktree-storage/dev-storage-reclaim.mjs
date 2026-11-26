@@ -7,7 +7,7 @@ export function startDevStorageReclaim({
   spawn = spawnProcess,
   report = console.error
 }) {
-  if (env.ORCA_SKIP_DEV_STORAGE_RECLAIM === '1') {
+  if (env.OPENKODO_SKIP_DEV_STORAGE_RECLAIM === '1') {
     return
   }
   try {

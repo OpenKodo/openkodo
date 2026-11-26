@@ -7,8 +7,8 @@ export function createTerminalRevealWarning(handle: string, error?: unknown): st
       : ''
   const status =
     error === undefined
-      ? 'no Orca window was available to focus it.'
-      : `Orca could not make it discoverable.${reason}`
+      ? 'no OpenKodo window was available to focus it.'
+      : `OpenKodo could not make it discoverable.${reason}`
   return [
     `Terminal ${handle} is running, but ${status}`,
     `Run \`orca terminal focus --terminal ${handle}\` to reveal and focus it.`

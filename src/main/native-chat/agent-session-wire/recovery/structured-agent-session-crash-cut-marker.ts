@@ -38,7 +38,7 @@ function inTurn(item: AgentJournalRenderItem, turnItemId: string): boolean {
   return item.turnScope?.kind === 'turn' && item.turnScope.turnItemId === turnItemId
 }
 
-/** Prompts the settlement cancelled: the person was being asked when Orca went away. */
+/** Prompts the settlement cancelled: the person was being asked when OpenKodo went away. */
 function cancelledPrompts(
   items: readonly AgentJournalRenderItem[],
   turnItemId: string

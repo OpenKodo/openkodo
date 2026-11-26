@@ -65,7 +65,7 @@ describe.skipIf(process.platform !== 'darwin' && process.platform !== 'linux')(
         binary
       ])
       // The tool shell takes its own session and exits, orphaning a tagged tool and an untagged one.
-      const tool = `echo $$ > ${dir}/s; '${process.execPath}' -e 'setTimeout(() => {}, 30000)' & echo $! > ${dir}/a; env -u ORCA_PROVIDER_TREE sleep 30 & echo $! > ${dir}/b`
+      const tool = `echo $$ > ${dir}/s; '${process.execPath}' -e 'setTimeout(() => {}, 30000)' & echo $! > ${dir}/a; env -u OPENKODO_PROVIDER_TREE sleep 30 & echo $! > ${dir}/b`
       const cli = `require('child_process').spawn('/bin/sh', ['-c', ${JSON.stringify(tool)}], { detached: true, stdio: 'ignore' }).unref(); setTimeout(() => {}, 30000)`
       exec = spawn(
         binary,

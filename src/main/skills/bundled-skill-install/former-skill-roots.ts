@@ -15,9 +15,9 @@ import {
   type BundledSkillTargetRoot
 } from './bundled-skill-targets'
 
-/** Global roots Orca once installed into for agents that also read ~/.agents/skills. */
+/** Global roots OpenKodo once installed into for agents that also read ~/.agents/skills. */
 const FORMER_GLOBAL_SKILL_ROOTS: readonly (readonly string[])[] = [
-  // Orca once linked skills here for Gemini CLI; its copies still need retiring.
+  // OpenKodo once linked skills here for Gemini CLI; its copies still need retiring.
   ['.gemini', 'skills']
 ]
 
@@ -30,7 +30,7 @@ export function formerSkillRootPaths(
     : []
 }
 
-/** Orca only made a plain folder here; a linked one, or one a target links to, is another root. */
+/** OpenKodo only made a plain folder here; a linked one, or one a target links to, is another root. */
 async function plainFormerRootRealPath(
   input: BundledSkillPlanInput,
   roots: readonly BundledSkillTargetRoot[],
@@ -70,7 +70,7 @@ async function linkedFromTarget(
   return false
 }
 
-/** Orca's copies or links under any of the skill's names, retired once the shared copy is in place. */
+/** OpenKodo's copies or links under any of the skill's names, retired once the shared copy is in place. */
 export async function planFormerRootPlacements(
   context: {
     input: BundledSkillPlanInput

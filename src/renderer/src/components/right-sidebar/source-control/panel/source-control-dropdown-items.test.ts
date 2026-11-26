@@ -106,11 +106,11 @@ describe('resolveDropdownItems owner-approved differences from main', () => {
     expect(menuRows(STATES.dirty)).toContain('rebase_base ↓299')
   })
 
-  it('hides Pull, Sync, Fast-forward and Push after Orca rebased, keeping Force Push', () => {
+  it('hides Pull, Sync, Fast-forward and Push after OpenKodo rebased, keeping Force Push', () => {
     expect(menuRows(CHANGED_STATES.orcaRebased)).toEqual(['force_push Replaces ↓2', 'fetch'])
   })
 
-  it('hides Commit & Sync after Orca rebased, even with staged changes', () => {
+  it('hides Commit & Sync after OpenKodo rebased, even with staged changes', () => {
     const staged = { ...CHANGED_STATES.orcaRebased, stagedCount: 3, hasMessage: true }
     expect(menuRows(staged)).toContain('commit_push')
     expect(menuRows(staged)).not.toContain('commit_sync')

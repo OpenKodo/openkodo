@@ -52,6 +52,6 @@ export const pickedPalette = defineFixture({
 export const pickedPluginLight = defineFixture({
   width: 1036,
   setup: seedPluginThemes,
-  interact: pickLook('plugin:stablyai.orca-github-vscode-theme/github-light-default'),
+  interact: pickLook('plugin:openkodo.github-vscode-theme/github-light-default'),
   render: () => <ThemeStepHarness initialTheme="light" />
 })

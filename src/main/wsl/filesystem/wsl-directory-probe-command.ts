@@ -1,8 +1,8 @@
 import type { WslUncPathInfo } from '../../../shared/file-access/wsl-paths'
 
 // Exit codes conflate host failures with guest results; only stdout markers prove the guest answered.
-const WSL_DIRECTORY_EXISTS_MARKER = '__ORCA_DIRECTORY_EXISTS__'
-const WSL_DIRECTORY_MISSING_MARKER = '__ORCA_DIRECTORY_MISSING__'
+const WSL_DIRECTORY_EXISTS_MARKER = '__OPENKODO_DIRECTORY_EXISTS__'
+const WSL_DIRECTORY_MISSING_MARKER = '__OPENKODO_DIRECTORY_MISSING__'
 
 export function getWslDirectoryProbeArgs(info: WslUncPathInfo): string[] {
   return [

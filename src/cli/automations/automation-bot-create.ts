@@ -177,7 +177,7 @@ function parseResultsTo(raw: string | undefined): AutomationBotResultsTo | undef
 }
 
 // A run started only by Slack, GitHub or Linear events answers in that event's thread unless told
-// otherwise, where the host's Orca Cloud can bind the thread.
+// otherwise, where the host's OpenKodo Cloud can bind the thread.
 function defaultResultsTo(
   runsIn: AutomationBotRunsIn,
   on: readonly AutomationEventTrigger[] | undefined,

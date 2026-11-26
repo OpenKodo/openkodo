@@ -32,7 +32,7 @@ import { useWslOwnerUsage } from './use-wsl-owner-usage'
 const REMOTE_USAGE_REFRESH_TIMEOUT_MS = 30_000
 const LOCAL_TARGET: RuntimeClientTarget = { kind: 'local' }
 
-/** A remote host (SSH-managed server or paired Orca) that owns the shown usage. */
+/** A remote host (SSH-managed server or paired OpenKodo) that owns the shown usage. */
 export type RemoteUsageOwner = {
   environmentId: string | null
   /** Set when this desktop stands in for a WSL host's distro, whose accounts it manages. */

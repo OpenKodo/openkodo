@@ -70,7 +70,7 @@ import {
 const STARTUP_ABORT_MS = 30_000
 
 export function launchOrcaApp(): void {
-  const overrideCommand = process.env.ORCA_OPEN_COMMAND
+  const overrideCommand = process.env.OPENKODO_OPEN_COMMAND
   if (typeof overrideCommand === 'string' && overrideCommand.trim().length > 0) {
     spawnDetached(overrideCommand, [], { shell: true })
     return
@@ -78,7 +78,7 @@ export function launchOrcaApp(): void {
 
   // Launch on the same profile whose metadata openOrca awaits.
   const userDataPath = resolveLaunchUserDataPath()
-  const overrideExecutable = process.env.ORCA_APP_EXECUTABLE
+  const overrideExecutable = process.env.OPENKODO_APP_EXECUTABLE
   if (typeof overrideExecutable === 'string' && overrideExecutable.trim().length > 0) {
     const pinned = pinLaunchUserDataPath(
       [...getExecutableAppArgs(overrideExecutable), BACKGROUND_OPEN_ARG],
@@ -115,7 +115,7 @@ export function launchOrcaApp(): void {
 
   throw new RuntimeClientError(
     'runtime_open_failed',
-    'Could not determine how to launch Orca. Start Orca manually and try again.'
+    'Could not determine how to launch OpenKodo. Start OpenKodo manually and try again.'
   )
 }
 

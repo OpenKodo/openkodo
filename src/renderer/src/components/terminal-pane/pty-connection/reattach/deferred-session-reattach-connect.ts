@@ -16,7 +16,7 @@ import { holdForStoppedWslDistro, wslRestoreStartArgs } from '../spawn/wsl-distr
 import { parseWslDistroHold } from '../../../../../../shared/remote-runtime/wsl-hosts/wsl-distro-stopped-hold'
 import { NEWER_DAEMON_HOLD_ERROR } from '../../../../../../shared/terminal/daemon/newer-daemon-hold'
 import { PANE_NOT_LIVE_ERROR } from '../../../../../../shared/terminal/pty/lifecycle/pane-attach-only-view'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import { holdInPlaceResumeUntilSettled } from '../startup/in-place-resume-hold'
 import { mainStartsPane, startMainPaneOnFirstView } from '../spawn/main-starts-pane'
 import { attachResumeCheck } from '../spawn/main-pane-resume-banner'
@@ -311,7 +311,7 @@ function connectDeferredSessionReattach(
     }
   })
   // Switch point: main clears the gone terminal's binding before this reattach's fresh start.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
     holdInPlaceResumeUntilSettled(session, coldRestoreStartup, outcome)
   }
   return outcome

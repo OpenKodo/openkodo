@@ -195,7 +195,7 @@ export function openDetectedFilePath(
         : downloadRemoteTerminalFile(fileContext, mappedFilePath, hostGrant))
       return
     }
-    // Remote hints promise Orca before resolution; explicit group requests must reach HTML branch to be refused.
+    // Remote hints promise OpenKodo before resolution; explicit group requests must reach HTML branch to be refused.
     const pageDestination =
       canOpenWithSystemDefault &&
       !clientLocal &&
@@ -246,7 +246,7 @@ export function openDetectedFilePath(
       }
     }
 
-    // Route local HTML to Orca browser, including system-browser opens OS could not launch.
+    // Route local HTML to OpenKodo browser, including system-browser opens OS could not launch.
     // Why: a read-only grant comes from a host that re-grants only to the printing terminal, so preview reads would fail.
     if (isHtmlFilePath(mappedFilePath) && !hostGrant?.readOnly) {
       if (deps.openInSourceGroup) {

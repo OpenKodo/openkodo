@@ -24,7 +24,7 @@ export type GoogleSetupHostBrowser = {
   /** This host's own browser (a desktop window or an offscreen one) saves its downloads here. */
   setStandingDownloadClaim(resolver: StandingDownloadClaimResolver | null): void
   getWorktreeIdForTab(browserPageId: string): string | undefined
-  /** Orca's own folder for a key while it's imported; never a workspace. */
+  /** OpenKodo's own folder for a key while it's imported; never a workspace. */
   keyStagingDir: string
 }
 

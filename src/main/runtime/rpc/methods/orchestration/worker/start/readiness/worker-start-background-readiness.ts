@@ -29,7 +29,7 @@ const QUIET_READ_MARGIN_MS = 500
 
 /** How long after launch (after Setup) an agent may take to become ready before its start fails. */
 export function workerStartReadyDeadlineMs(): number {
-  const override = Number(process.env.ORCA_WORKER_START_READY_DEADLINE_MS)
+  const override = Number(process.env.OPENKODO_WORKER_START_READY_DEADLINE_MS)
   return Number.isFinite(override) && override > 0 ? override : READY_DEADLINE_MS
 }
 
@@ -306,7 +306,7 @@ async function failNeverReady(start: AwaitingWorkerStart): Promise<void> {
   const failed = db.failWorkerStart(
     dispatchId,
     'agent_readiness',
-    `Its agent wasn't ready within ${deadlineText()}, so Orca never typed its brief.`
+    `Its agent wasn't ready within ${deadlineText()}, so OpenKodo never typed its brief.`
   )
   reportNeverReadyWorkerStart(db, failed, screen, (handle, type) =>
     runtime.notifyMessageArrived(handle, type)

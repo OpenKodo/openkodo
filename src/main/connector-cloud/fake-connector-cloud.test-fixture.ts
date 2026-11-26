@@ -1,4 +1,4 @@
-// An in-process Orca Cloud connector speaking the real wire shapes, with tokens minted per account.
+// An in-process OpenKodo Cloud connector speaking the real wire shapes, with tokens minted per account.
 import { randomBytes } from 'node:crypto'
 import {
   CONNECTOR_CLIENT_LIMITS,

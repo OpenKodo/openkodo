@@ -17,7 +17,7 @@ import {
 } from '@/hooks/skills/installation/use-bundled-skill-install'
 import {
   LINEAR_AGENT_SKILL_NAMES,
-  ORCA_LINEAR_SKILL_NAME
+  OPENKODO_LINEAR_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
 import { getLinearAgentSkillUpdateTarget } from '@/lib/skills/installation/linear-agent-skill-update-target'
 import { cn } from '@/lib/class-names'
@@ -84,7 +84,7 @@ function BundledLinearAgentSkillInstallCta({
       <div className="flex flex-wrap items-center gap-2">
         <p className="text-xs font-medium text-foreground">
           {t('auto.components.settings.linear.agent.skill.install.cta.skillLabel', 'Agent skill:')}{' '}
-          <span className="font-mono text-[11px]">{ORCA_LINEAR_SKILL_NAME}</span>
+          <span className="font-mono text-[11px]">{OPENKODO_LINEAR_SKILL_NAME}</span>
         </p>
         {unsupported ? (
           <SkillUnsupportedStatusPill reason={unsupported} />
@@ -156,7 +156,7 @@ function BundledLinearAgentSkillInstallCta({
                   : replacePaths
                     ? t(
                         'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
-                        'Replace with Orca’s'
+                        'Replace with OpenKodo’s'
                       )
                     : action.kind === 'run' && action.changes
                       ? bundledSkillSetupActionLabel(action.changes, t)

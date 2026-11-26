@@ -133,7 +133,7 @@ async function measure(
 
 const reader = createCodexHistoryDiskUsageReader(REUSE_MS)
 
-/** Orca deleted rollouts: the next read walks again. */
+/** OpenKodo deleted rollouts: the next read walks again. */
 export function forgetCodexHistoryDiskUsage(): void {
   reader.forget()
 }

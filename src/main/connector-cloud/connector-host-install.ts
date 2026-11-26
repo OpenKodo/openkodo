@@ -14,7 +14,7 @@ import { refreshDueLinearLogins } from '../linear/accounts/linear-login-refresh'
 import type { OrcaRuntimeService } from '../runtime/orca-runtime'
 import type { Store } from '../persistence/loading-store/store'
 import { splitBotsByOlderBuildSupport, withGitHubMembersTagged } from '../../shared/bot-types'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
 import { onTeamFeatureBlockChanged } from '../orca-profiles/cloud-auth/active-team-capabilities'
 
 const LINEAR_LOGIN_REFRESH_DELAY_MS = 30_000
@@ -40,7 +40,7 @@ export type ConnectorHost = {
 
 /**
  * Sets the runtime's connector before any account hook can fire. Install even while signed out:
- * the connector is null only without Orca Cloud auth config, so a later sign-in needs no reinstall.
+ * the connector is null only without OpenKodo Cloud auth config, so a later sign-in needs no reinstall.
  */
 export function installConnectorHost({
   runtime,
@@ -103,7 +103,7 @@ export function installConnectorHost({
     })
   )
   const stops: (() => void)[] = []
-  // Only a host with Orca Cloud makes webhooks, as it alone hosts the connector.
+  // Only a host with OpenKodo Cloud makes webhooks, as it alone hosts the connector.
   const connector = runtime.getConnectorCloud()
   if (connector) {
     runtime.setWebhooks(webhooks)
@@ -111,7 +111,7 @@ export function installConnectorHost({
     stops.push(
       () => webhooks.stop(),
       () => composio.stop(),
-      onTeamFeatureBlockChanged(ORCA_CLOUD_TEAM_POLICY_FLAGS.bots, () => {
+      onTeamFeatureBlockChanged(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots, () => {
         connector.helloInputsChanged()
         runtime.notifyBotsChanged({ kinds: ['settings', 'bot'] })
       })
@@ -159,9 +159,11 @@ export function installConnectorHost({
       }
     })
   )
-  // A team turning bots on or off, Orca Cloud answering again, or a sign-in: each is a real step for the
+  // A team turning bots on or off, OpenKodo Cloud answering again, or a sign-in: each is a real step for the
   // pictures, so one that failed to send goes then.
-  stops.push(onTeamFeatureBlockChanged(ORCA_CLOUD_TEAM_POLICY_FLAGS.bots, () => avatars.changed()))
+  stops.push(
+    onTeamFeatureBlockChanged(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots, () => avatars.changed())
+  )
   if (connector) {
     stops.push(connector.onBack((why) => avatars.retryOwed(why)))
   }

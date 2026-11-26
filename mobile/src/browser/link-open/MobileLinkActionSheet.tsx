@@ -6,12 +6,12 @@ import { useClipboardWriter } from '../../platform/clipboard/clipboard'
 import { triggerError, triggerSuccess } from '../../platform/haptics/haptics'
 import { useMobileTranslation } from '../../i18n/use-mobile-translation'
 
-// Choices for a tapped web link: Orca's browser on the host, the phone's browser, or the clipboard.
+// Choices for a tapped web link: OpenKodo's browser on the host, the phone's browser, or the clipboard.
 export function MobileLinkActionSheet(props: {
   url: string
   // Called once the sheet has slid away; the URL stays on screen until then.
   onClose: () => void
-  // Absent where an Orca browser tab cannot open (floating workspace, or a host without streaming).
+  // Absent where an OpenKodo browser tab cannot open (floating workspace, or a host without streaming).
   openInOrca?: (url: string) => void
 }): React.JSX.Element {
   const { url, onClose, openInOrca } = props
@@ -23,7 +23,7 @@ export function MobileLinkActionSheet(props: {
   if (openInOrca) {
     actions.push({
       id: 'openInOrca',
-      label: t('session.linkActionSheet.openInOrca', 'Open in Orca browser'),
+      label: t('session.linkActionSheet.openInOrca', 'Open in OpenKodo browser'),
       icon: Globe,
       closeBeforePress: true,
       onPress: () => openInOrca(url)

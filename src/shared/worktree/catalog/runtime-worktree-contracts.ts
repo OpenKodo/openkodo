@@ -39,7 +39,7 @@ export type RuntimeWorktreeAgentRow = {
   paneKey: string
   /** What `worker-start --terminal` takes for this agent: its terminal handle, or a chat's session address. Old hosts omit it. */
   address?: string
-  /** The host's Orca id for this agent's conversation (a chat's /clear root); old hosts omit it. */
+  /** The host's OpenKodo id for this agent's conversation (a chat's /clear root); old hosts omit it. */
   orcaSessionId?: string
   parentPaneKey: string | null
   state: AgentStatusState
@@ -98,7 +98,7 @@ export type RuntimeWorktreePsSummary = {
   parentWorktreeInstanceId?: string
   parentWorktreeId: string | null
   childWorktreeIds: string[]
-  /** This row's parent in another Orca store; lineage fields above stay null for it, so older readers show it standalone. */
+  /** This row's parent in another OpenKodo store; lineage fields above stay null for it, so older readers show it standalone. */
   crossStoreParent?: CrossStoreWorkspaceLineage
   /** Its folder workspace parent; null for none, absent from older hosts. Lineage fields above stay null for it. */
   workspaceLineage?: WorkspaceLineageEdge | null
@@ -217,7 +217,7 @@ export type RuntimeWorktreeRecord = Worktree & {
   childWorktreeIds: string[]
   lineage: WorktreeLineage | null
   workspaceLineage?: WorkspaceLineage | null
-  /** A parent in another Orca store (worktree.show); older hosts omit it. */
+  /** A parent in another OpenKodo store (worktree.show); older hosts omit it. */
   crossStoreLineage?: CrossStoreWorkspaceLineage | null
   git: GitWorktreeInfo
 }

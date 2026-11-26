@@ -148,7 +148,7 @@ async function runComparison() {
       program,
       args: commandArgs,
       cwd: root,
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' },
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' },
       timeoutMs: 120000,
       maxOutputBytes: 16 * 1024 * 1024
     })

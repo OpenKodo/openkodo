@@ -215,13 +215,13 @@ function assertFreeSpace(
   }
   if (available === null) {
     throw new Error(
-      `Orca couldn't read this host's free disk space, so it didn't update ${label} by itself. Update installs it.`
+      `OpenKodo couldn't read this host's free disk space, so it didn't update ${label} by itself. Update installs it.`
     )
   }
   const automatic = needed + automaticMargin
   if (available < automatic) {
     throw new Error(
-      `Orca updates ${label} by itself only with ${megabytes(automatic)} MB free, and this host has ${megabytes(available)} MB. Update needs ${megabytes(manual)} MB.`
+      `OpenKodo updates ${label} by itself only with ${megabytes(automatic)} MB free, and this host has ${megabytes(available)} MB. Update needs ${megabytes(manual)} MB.`
     )
   }
 }

@@ -238,7 +238,7 @@ export function takeFollowUpMail(
   markUnreadFollowUpMail(db, toDispatchId)
 }
 
-/** A chat worker, assigned by session or started by Orca, gets mail whole rather than a pointer at `check`. */
+/** A chat worker, assigned by session or started by OpenKodo, gets mail whole rather than a pointer at `check`. */
 export function receivesMailWhole(assigneeHandle: string | null | undefined): boolean {
   return (
     parseOrcaSessionAddress(assigneeHandle) !== null || isStructuredWorkerHandle(assigneeHandle)
@@ -272,7 +272,7 @@ export function listDispatchesWithFollowUpMail(db: OrchestrationDb): string[] {
   return rows.map((row) => row.id)
 }
 
-/** The worker resource Orca still holds for a pane, whose conversation a provider-session change moves. */
+/** The worker resource OpenKodo still holds for a pane, whose conversation a provider-session change moves. */
 export function findHeldWorkerResourceForPane(
   db: OrchestrationDb,
   paneKey: string

@@ -1,5 +1,5 @@
 // `bots.slack.*`, `bots.linear.*`, `bots.github.*` and `bots.connect.*`: a host's Slack, Linear and
-// GitHub setup, run as that host's own Orca account for whichever client asks.
+// GitHub setup, run as that host's own OpenKodo account for whichever client asks.
 import * as z from 'zod'
 import {
   SLACK_CONFIG_REFRESH_TOKEN_MAX_LENGTH,
@@ -54,7 +54,7 @@ export const ConnectorConnectStart = z.object({
 })
 export const ConnectorConnectWait = z.object({ tripId: z.uuid() })
 export const ConnectorConnectCancel = z.object({ source: Source })
-/** The "Open Orca" fallback's result, from orca://<source>/link; the host checks its shape. */
+/** The "Open OpenKodo" fallback's result, from openkodo://<source>/link; the host checks its shape. */
 export const ConnectorConnectRedeemParams = z.object({
   source: Source,
   result: z.string().max(512)

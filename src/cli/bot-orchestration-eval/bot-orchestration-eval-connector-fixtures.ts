@@ -1,6 +1,6 @@
 // The worlds the connector-verb scenarios play out in: a thread holding the bot's own earlier reply,
 // and a worker's report carrying a long log; the Linear issues and Slack people they ask about are
-// the shared worlds' (bot-automation-eval-linear-world.json, bot-automation-eval-slack-world.json). Messages reach the bot as Orca writes them
+// the shared worlds' (bot-automation-eval-linear-world.json, bot-automation-eval-slack-world.json). Messages reach the bot as OpenKodo writes them
 // (connectorAskerPrompt).
 import { connectorAskerPrompt } from '../../shared/connector-asker-prompt'
 import type { ConnectorAsker } from '../../shared/connectors/connector-cloud-contract'
@@ -8,7 +8,7 @@ import { EVAL_BOT, type EvalHostState } from '../bot-automation-eval/bot-automat
 import { OWNER_SLACK_ID } from '../bot-automation-eval/bot-automation-eval-slack'
 import {
   EMPTY_WORLD,
-  ORCA_REPO,
+  OPENKODO_REPO,
   runningWorker,
   workerDone,
   workspace
@@ -31,7 +31,7 @@ export const NORA: Pick<ConnectorAsker, 'userId' | 'name' | 'role'> = {
   role: 'member'
 }
 
-/** A message as Orca hands it to the bot: who asked (the owner unless named), where, and their words. */
+/** A message as OpenKodo hands it to the bot: who asked (the owner unless named), where, and their words. */
 export function asked(
   source: 'slack' | 'linear',
   place: ConnectorAsker['place'],
@@ -83,7 +83,7 @@ export const LOG_DONE = workerDone(
 )
 
 const STALL_WORKSPACE = workspace({
-  repoId: ORCA_REPO,
+  repoId: OPENKODO_REPO,
   repo: 'orca',
   name: 'eng-9310-export-stall',
   state: 'working',

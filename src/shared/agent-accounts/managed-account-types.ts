@@ -99,7 +99,7 @@ export type ClaudeManagedAccountSummary = {
   createdAt: number
   updatedAt: number
   lastAuthenticatedAt: number
-  /** Its folder holds no login yet, e.g. an account saved by an older Orca; it needs a sign-in. */
+  /** Its folder holds no login yet, e.g. an account saved by an older OpenKodo; it needs a sign-in. */
   needsSignIn?: true
   /** Its folder holds no login, so its launches run on System default, signed in to it. */
   runsOnSystemDefault?: true
@@ -131,7 +131,7 @@ export type ClaudeRateLimitAccountsState = {
   systemDefaultOrganizationUuid?: string
   /** The host folder System default launches use, when accounts exist. */
   systemDefaultHome?: string
-  /** An older Orca's copy-based switching once wrote an account's login into System default. */
+  /** An older OpenKodo's copy-based switching once wrote an account's login into System default. */
   systemDefaultMayBeCopied?: boolean
 }
 

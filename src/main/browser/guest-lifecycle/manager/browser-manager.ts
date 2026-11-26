@@ -1,7 +1,7 @@
 import { webContents } from 'electron'
 import { BrowserCertificateTrustController } from '../../certificate-trust/browser-certificate-trust-controller'
 import '../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
 import { normalizeBrowserNavigationUrl } from '../../../../shared/browser/navigation/browser-url'
 // oxlint-disable-next-line import/no-cycle -- browser subsystem singleton hub (browserManager); breaking it needs DI and test-mock updates, left for a human
 import { BrowserManagerEventForwarding } from './browser-manager-event-forwarding'
@@ -18,7 +18,7 @@ export class BrowserManager extends BrowserManagerEventForwarding {
   ): boolean {
     const renderer = this.resolveRendererForBrowserTab(browserTabId)
     const open: OpenLinkInTab | null = renderer
-      ? // The renderer owns Orca's tab model; forward the validated URL for materialization.
+      ? // The renderer owns OpenKodo's tab model; forward the validated URL for materialization.
         (url, activateTab) =>
           renderer.send('browser:open-link-in-orca-tab', {
             browserPageId: browserTabId,
@@ -31,7 +31,7 @@ export class BrowserManager extends BrowserManagerEventForwarding {
       return false
     }
     const normalizedUrl = normalizeBrowserNavigationUrl(rawUrl)
-    if (!normalizedUrl || normalizedUrl === ORCA_BROWSER_BLANK_URL) {
+    if (!normalizedUrl || normalizedUrl === OPENKODO_BROWSER_BLANK_URL) {
       return false
     }
     open(normalizedUrl, activate !== false)

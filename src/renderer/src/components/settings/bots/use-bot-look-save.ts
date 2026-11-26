@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { BotUpdateParams } from '../../../../../shared/rpc-contract/bots-params'
 import {
-  ORCA_APP_RESTART_STARTED_EVENT,
-  ORCA_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT
+  OPENKODO_APP_RESTART_STARTED_EVENT,
+  OPENKODO_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT
 } from '../../../../../shared/updater/updater-renderer-events'
 import { registerWindowCloseGuard } from '../../../app-shell/shutdown/window-close-request-coordinator'
 import { beginBotPictureOp, noteBotPictureChoice } from '@/components/bots/bot-picture-ops'
@@ -68,8 +68,8 @@ function sendOnLeave(): void {
     listening = true
     window.addEventListener('pagehide', sendPicksOnLeave)
     // A restart or update install skips the close guards; its checkpoint comes after these start.
-    window.addEventListener(ORCA_APP_RESTART_STARTED_EVENT, sendPicksOnLeave)
-    window.addEventListener(ORCA_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT, sendPicksOnLeave)
+    window.addEventListener(OPENKODO_APP_RESTART_STARTED_EVENT, sendPicksOnLeave)
+    window.addEventListener(OPENKODO_UPDATER_QUIT_AND_INSTALL_STARTED_EVENT, sendPicksOnLeave)
     registerWindowCloseGuard(savePicksBeforeClose)
   }
 }

@@ -160,7 +160,7 @@ export type ClaudeSession = {
   confirmedOptions: Set<string>
   /** Inputs carried by launch or accepted controls, independent of provider reports. */
   appliedInputOptions: Map<string, string>
-  /** What Orca put on this process's command line, and the mode it opened in; this process only. */
+  /** What OpenKodo put on this process's command line, and the mode it opened in; this process only. */
   launchIntent?: { permissionMode?: string; model?: string }
   firstRootInit?: { permissionMode: string | null }
   /** Claude's own effective settings turn bypass off for this process (startup `get_settings`). */
@@ -375,7 +375,7 @@ export type ClaudeAcquireCallbacks = {
     event: ClaudeStructuredSessionEvent
   ) => void
   handleExit: (sessionId: string, attempt: ClaudeAcquisitionAttempt, error: Error) => void
-  /** The root exited during a close Orca began: finishes that close for this exact child. */
+  /** The root exited during a close OpenKodo began: finishes that close for this exact child. */
   finishClose: (sessionId: string, attempt: ClaudeAcquisitionAttempt) => void
   settleExit: (sessionId: string, exit: ClaudeSessionExit) => Promise<void>
 }

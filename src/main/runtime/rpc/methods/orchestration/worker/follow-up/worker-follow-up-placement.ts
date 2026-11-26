@@ -33,7 +33,7 @@ export type WorkerFollowUp = {
   earlierWork?: string
 }
 
-/** `userOpened`: the user's own tab, which stays theirs and is never closed by Orca. */
+/** `userOpened`: the user's own tab, which stays theirs and is never closed by OpenKodo. */
 export type ReopenedWorker = {
   handle: string
   chat: boolean
@@ -74,7 +74,7 @@ export async function reopenWorkerTerminal(
     case 'held_elsewhere':
       throw new OrchestrationError(
         'worker_unreachable',
-        "The worker's conversation is open somewhere Orca cannot reach; nothing was sent."
+        "The worker's conversation is open somewhere OpenKodo cannot reach; nothing was sent."
       )
     case 'no_resume_command':
       // Refused before anything spawned, so a fresh agent cannot duplicate it.
@@ -83,7 +83,7 @@ export async function reopenWorkerTerminal(
     case 'create_failed':
       throw new OrchestrationError(
         'worker_reopen_failed',
-        `Orca could not reopen the worker's ${session.agent} conversation (${resumed.reason}).`
+        `OpenKodo could not reopen the worker's ${session.agent} conversation (${resumed.reason}).`
       )
   }
 }
@@ -129,13 +129,13 @@ export async function reopenWorkerChat(
   if (!identity || !host) {
     throw new OrchestrationError(
       'worker_not_restartable',
-      `Worker ${handle} has no chat Orca can reopen; start a new worker with worker-start.`
+      `Worker ${handle} has no chat OpenKodo can reopen; start a new worker with worker-start.`
     )
   }
   // A `/clear` moved the conversation on; reopen the session that runs it now.
   const running = structuredWorkerSession(identity)
   const sessionId = running.kind === 'here' ? running.sessionId : identity.sessionId
-  // A chat Orca's release left asleep stays Orca's; a tab the user brought back or woke is theirs.
+  // A chat OpenKodo's release left asleep stays OpenKodo's; a tab the user brought back or woke is theirs.
   const userOpened =
     host.isSessionTabVisible(sessionId) &&
     host.deps.store.getRecord(sessionId)?.sleptAt === undefined

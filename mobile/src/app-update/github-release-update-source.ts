@@ -3,7 +3,7 @@ import { compareAppVersions } from '../../../src/shared/app-lifecycle/identity/a
 import type { AppUpdateCheckResult, AppUpdateSource } from './app-update-source'
 import { isNewerReleaseVersion } from './app-update-source'
 
-const REPO_API = 'https://api.github.com/repos/stablyai/orca'
+const REPO_API = 'https://api.github.com/repos/OpenKodo/openkodo'
 // Use tag refs: newest-first release/Atom windows can fill with desktop releases and hide mobile updates; Android releases all carry prerelease flag.
 /** dev.orca.app releases: Google's Play-signed universal APK. */
 export const ANDROID_RELEASE_TAG_PREFIX = 'android-v'

@@ -1,3 +1,4 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { getSecretStore } from '../../shared/secure-storage/secret-store'
 import { readFile, rm } from 'node:fs/promises'
 import {
@@ -6,7 +7,6 @@ import {
   inCredentialFileOrder,
   stageCredentialFile
 } from './credential-file-io'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { isUnreadableError } from '../../shared/secure-storage/secure-file'
 import type { SecretAtRestProtection } from '../../shared/secure-storage/secret-at-rest-protection'
@@ -42,7 +42,7 @@ export function createEncryptedApiKeyFileStore({
   }
 
   function getOrcaDir(): string {
-    return join(homedir(), '.orca')
+    return openKodoHomePath()
   }
 
   function getApiKeyPath(): string {

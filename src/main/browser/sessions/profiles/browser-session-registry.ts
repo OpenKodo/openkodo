@@ -2,9 +2,9 @@ import { app, session } from 'electron'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
 import '../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_PARTITION } from '../../../../shared/browser/browser-session-partition'
+import { OPENKODO_BROWSER_PARTITION } from '../../../../shared/browser/browser-session-partition'
 import {
-  DEFAULT_LOCAL_ORCA_PROFILE_ID,
+  DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
   getOrcaProfileBrowserDefaultPartition,
   getOrcaProfileBrowserSessionPartition
 } from '../../../../shared/orca-profiles/orca-profiles'
@@ -67,9 +67,9 @@ export type BrowserSessionRegistryProfileOptions = {
 
 class BrowserSessionRegistry {
   private readonly profiles = new BrowserSessionProfileMap()
-  private activeOrcaProfileId = DEFAULT_LOCAL_ORCA_PROFILE_ID
+  private activeOrcaProfileId = DEFAULT_LOCAL_OPENKODO_PROFILE_ID
   private metadataPathOverride: string | null = null
-  private defaultPartition = ORCA_BROWSER_PARTITION
+  private defaultPartition = OPENKODO_BROWSER_PARTITION
   // Why: profiles change from IPC, the CLI and managed-profile owners; open windows and paired clients only learn of it here.
   onProfilesChanged: (() => void) | null = null
   onProfileDeleted: ((profileId: string) => Promise<void>) | null = null

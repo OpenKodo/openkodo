@@ -179,7 +179,7 @@ export async function runHostMeasurement(context) {
         })
       ],
       cwd: context.root,
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' },
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' },
       timeoutMs: 20_000,
       maxOutputBytes: 32 * 1024
     })
@@ -208,8 +208,8 @@ if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === imp
   const context = await prepareHostMeasurement()
   try {
     const report = await runHostMeasurement(context)
-    if (process.env.ORCA_CHECK_LOG_HOST_REPORT) {
-      await writeFile(process.env.ORCA_CHECK_LOG_HOST_REPORT, JSON.stringify(report, null, 2))
+    if (process.env.OPENKODO_CHECK_LOG_HOST_REPORT) {
+      await writeFile(process.env.OPENKODO_CHECK_LOG_HOST_REPORT, JSON.stringify(report, null, 2))
     }
     process.stdout.write(`${JSON.stringify(report)}\n`)
   } finally {

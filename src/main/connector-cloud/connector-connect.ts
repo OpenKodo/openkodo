@@ -48,14 +48,14 @@ export type KeepConnectLogin = (
 ) => void | Promise<void>
 
 const running = new Map<ConnectorConnectSource, AbortController>()
-// When a trip that ended at "Open Orca" stops accepting its deep link, and the key its login is
+// When a trip that ended at "Open OpenKodo" stops accepting its deep link, and the key its login is
 // sealed to; only such a trip redeems one.
 const fallbacks = new Map<ConnectorConnectSource, { until: number; loginKey: LoginKey | null }>()
 
-/** A trip the host's Orca account changed under: its redeem would be refused, so it ends now. */
+/** A trip the host's OpenKodo account changed under: its redeem would be refused, so it ends now. */
 export const CONNECT_ACCOUNT_CHANGED = 'account_changed'
 
-/** Stops a trip still waiting on the browser; its listener closes and its "Open Orca" link is refused. */
+/** Stops a trip still waiting on the browser; its listener closes and its "Open OpenKodo" link is refused. */
 export function cancelConnectorConnect(source: ConnectorConnectSource): void {
   running.get(source)?.abort()
   fallbacks.delete(source)
@@ -92,7 +92,7 @@ async function keptLogin(
   return { ok: true, value: linked }
 }
 
-/** Redeems an "Open Orca" deep link, but only for a trip this app started without a loopback. */
+/** Redeems an "Open OpenKodo" deep link, but only for a trip this app started without a loopback. */
 export async function redeemConnectorFallback(
   source: ConnectorConnectSource,
   client: Pick<ConnectClient, 'redeemConnect'>,
@@ -123,7 +123,7 @@ function errorCode(error: unknown): string {
 
 /**
  * One trip: resolves with the linked account, or with null when no port could be opened and the trip
- * ends at "Open Orca" instead (that link is redeemed by `redeemConnect`). A newer trip cancels this one.
+ * ends at "Open OpenKodo" instead (that link is redeemed by `redeemConnect`). A newer trip cancels this one.
  */
 export async function connectConnector(
   source: ConnectorConnectSource,
@@ -180,7 +180,7 @@ export async function connectConnector(
           ? { kind: 'accept', value: code }
           : {
               kind: 'stray',
-              message: 'This sign-in is not for this Orca. Return to Orca and try again.'
+              message: 'This sign-in is not for this OpenKodo. Return to OpenKodo and try again.'
             }
       },
       onListening: (port) => {
@@ -194,7 +194,7 @@ export async function connectConnector(
       return { ok: false, error: CONNECT_ACCOUNT_CHANGED }
     }
     if (!listening && !controller.signal.aborted) {
-      // No port on this computer: the trip ends at "Open Orca", whose link comes back as a deep link.
+      // No port on this computer: the trip ends at "Open OpenKodo", whose link comes back as a deep link.
       try {
         await start(null)
         return { ok: true, value: null }

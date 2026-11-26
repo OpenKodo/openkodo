@@ -16,6 +16,7 @@ type PluginFile = { path: string; size: number }
 // .git, so nothing they run escapes the content hash.
 export const DEV_FOLDER_SKIPPED_DIRECTORIES: ReadonlySet<string> = new Set([
   '.git',
+  '.openkodo',
   '.orca',
   'node_modules'
 ])

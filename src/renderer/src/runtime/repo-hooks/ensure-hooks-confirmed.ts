@@ -172,7 +172,7 @@ export async function ensureHooksApproved(
   runtimeOwnerEnvironmentId?: string | null,
   isCancelled: () => boolean = NEVER_CANCEL_TRUST_CHECK,
   signal?: AbortSignal,
-  /** Setup for a create: read orca.yaml at the ref it checks out, not the project checkout. */
+  /** Setup for a create: read openkodo.yaml at the ref it checks out, not the project checkout. */
   createSource?: SetupHooksCreateSource,
   context: HookTrustContext = 'workspace'
 ): Promise<HookTrustApproval> {

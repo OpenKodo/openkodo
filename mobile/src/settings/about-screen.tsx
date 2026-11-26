@@ -49,7 +49,7 @@ export default function AboutScreen({
     <SettingsScreen title={t('settings.aboutScreen.title', 'About')} onBack={onBack}>
       <View style={styles.brand}>
         <OrcaLogo size={28} />
-        <Text style={styles.brandName}>Orca</Text>
+        <Text style={styles.brandName}>OpenKodo</Text>
         <Text style={styles.brandSub}>
           {t('settings.aboutScreen.tagline', 'Open-source agent IDE for 100x builders')}
         </Text>
@@ -58,23 +58,23 @@ export default function AboutScreen({
       <SettingsSection first separatorInset={LIST_LEADING_INSET}>
         <ListRow
           key="website"
-          title="orca.dev"
+          title="openkodo.dev"
           leading={<Globe size={18} color={colors.textSecondary} />}
-          accessibilityLabel={t('settings.aboutScreen.website', 'Orca website')}
-          onPress={() => openLink('https://orca.dev')}
+          accessibilityLabel={t('settings.aboutScreen.website', 'OpenKodo website')}
+          onPress={() => openLink('https://openkodo.dev')}
         />
         <ListRow
           key="source"
-          title="stablyai/orca"
+          title="OpenKodo/openkodo"
           leading={<GithubIcon size={18} />}
-          accessibilityLabel={t('settings.aboutScreen.sourceCode', 'Orca source code')}
-          onPress={() => openLink('https://github.com/stablyai/orca')}
+          accessibilityLabel={t('settings.aboutScreen.sourceCode', 'OpenKodo source code')}
+          onPress={() => openLink('https://github.com/OpenKodo/openkodo')}
         />
         <ListRow
           key="social"
           title="@orca_build"
           leading={<XIcon size={18} />}
-          accessibilityLabel={t('settings.aboutScreen.socialProfile', 'Orca on X')}
+          accessibilityLabel={t('settings.aboutScreen.socialProfile', 'OpenKodo on X')}
           onPress={() => openLink('https://x.com/orca_build')}
         />
       </SettingsSection>

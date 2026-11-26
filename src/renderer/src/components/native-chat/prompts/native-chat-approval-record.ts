@@ -31,7 +31,7 @@ export function approvalRecordDetail(detail: string | null): string | null {
   return command?.trim() ? command : detail
 }
 
-/** The chat's own prompt, answered here, on another device, or by its coordinator through Orca. */
+/** The chat's own prompt, answered here, on another device, or by its coordinator through OpenKodo. */
 export function ownApprovalRecordLine(
   body: AgentJournalApprovalItem,
   t: Translate

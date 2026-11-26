@@ -155,7 +155,7 @@ export async function completeJournalLegacyProof(
           // Rows too large for one reply fail the same way at every retry.
           if (isJournalReaderReplyLimitFailure(error)) {
             throw new JournalLegacyRetentionError(
-              'an older Orca chat is too large to convert in one reply',
+              'an older OpenKodo chat is too large to convert in one reply',
               'source-oversize'
             )
           }

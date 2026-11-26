@@ -246,7 +246,7 @@ function sentences(reply: string): string[] {
   return reply.split(/(?<=[.!?])\s+|\n+/)
 }
 
-/** A stop Orca could not prove: a sentence of the reply hedges about the stop itself. */
+/** A stop OpenKodo could not prove: a sentence of the reply hedges about the stop itself. */
 export const reportsUnconfirmedStop: TurnCheck = (turn) =>
   sentences(turn.reply).some((sentence) => HEDGES.test(sentence) && ABOUT_THE_STOP.test(sentence))
     ? []
@@ -295,9 +295,9 @@ export function oneOf(...checks: TurnCheck[]): TurnCheck {
   }
 }
 
-// A shell command that reads the orca project's files, as opposed to Orca's own commands. Codex can
+// A shell command that reads the orca project's files, as opposed to OpenKodo's own commands. Codex can
 // run a command inside the checkout without naming it, so a read of a source path counts too.
-const READS_ORCA_CHECKOUT =
+const READS_OPENKODO_CHECKOUT =
   /projects\/orca(?![\w-])|\b(rg|grep|sed|cat|git (log|show|grep|blame))\b.*\b(src|cloud)\//
 
 function shellBeforeFirstStart(turn: EvalTurnOutcome): string[] {
@@ -307,13 +307,13 @@ function shellBeforeFirstStart(turn: EvalTurnOutcome): string[] {
 
 /** The default: hand off before reading or running the project's code. */
 export const handsOffFirst: TurnCheck = (turn) =>
-  shellBeforeFirstStart(turn).some((command) => READS_ORCA_CHECKOUT.test(command))
+  shellBeforeFirstStart(turn).some((command) => READS_OPENKODO_CHECKOUT.test(command))
     ? ['read the project itself before handing off']
     : []
 
 /** A soul that asks the bot to dig in first: it reads the project before its worker starts. */
 export const digsInFirst: TurnCheck = (turn) =>
-  shellBeforeFirstStart(turn).some((command) => READS_ORCA_CHECKOUT.test(command))
+  shellBeforeFirstStart(turn).some((command) => READS_OPENKODO_CHECKOUT.test(command))
     ? []
     : ['handed off without digging in first, against its soul']
 

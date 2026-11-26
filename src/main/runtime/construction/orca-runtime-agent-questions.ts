@@ -2,7 +2,7 @@
 // answering: it reads each party's chat, terminal and deliveries for the question reconciler.
 import { OrcaRuntimeWithAgentTransitions } from './orca-runtime-agent-transitions'
 import { OrcaRuntimeWithSidebarTemporal } from '../sidebar-inputs/orca-runtime-sidebar-temporal'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import type { OrchestrationDb } from '../orchestration/db/orchestration-db'
 import {
   installQuestionReconciler,
@@ -16,9 +16,8 @@ import {
 import { mailTakerKey, sessionMailTaker } from '../orchestration/db/messages/mail-taker'
 import { isMailboxTerminalTakingInput } from '../orchestration/mailbox/routing/mailbox-owner'
 
-const OrcaRuntimeSidebarBase: typeof OrcaRuntimeWithAgentTransitions = ORCA_SIDEBAR_INPUTS_IS_MAIN
-  ? OrcaRuntimeWithSidebarTemporal
-  : OrcaRuntimeWithAgentTransitions
+const OrcaRuntimeSidebarBase: typeof OrcaRuntimeWithAgentTransitions =
+  OPENKODO_SIDEBAR_INPUTS_IS_MAIN ? OrcaRuntimeWithSidebarTemporal : OrcaRuntimeWithAgentTransitions
 
 export abstract class OrcaRuntimeWithAgentQuestions extends OrcaRuntimeSidebarBase {
   /** Decides when an agent question's asker is told its taker stopped without answering. */

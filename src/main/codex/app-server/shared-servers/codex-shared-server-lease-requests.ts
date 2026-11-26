@@ -12,7 +12,7 @@ const OPENS_THREAD = new Set(['thread/start', 'thread/resume', 'thread/fork'])
 const CARRIES_HISTORY = new Set(['thread/resume', 'thread/read', 'thread/turns/list'])
 
 /** Codex sets this on every command a chat's threads run, so its leftovers are found by lease. */
-export const CODEX_SHARED_LEASE_ENV = 'ORCA_CODEX_SHARED_LEASE'
+export const CODEX_SHARED_LEASE_ENV = 'OPENKODO_CODEX_SHARED_LEASE'
 
 type RequestOptions = { timeoutMs?: number | null; onReply?: (result?: unknown) => void }
 

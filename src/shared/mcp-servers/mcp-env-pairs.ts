@@ -4,7 +4,7 @@
 // command there. Both ends of the format live here.
 
 /** The last record: a wrapper that never reads it got a partial or failed answer and runs nothing. */
-export const MCP_ENV_END = 'ORCA_MCP_ENV_END'
+export const MCP_ENV_END = 'OPENKODO_MCP_ENV_END'
 
 /** `env` as `orca mcp env` prints it. Saved values never hold NUL (the host list refuses one). */
 export function encodeMcpEnvPairs(env: Readonly<Record<string, string>>): string {
@@ -29,12 +29,12 @@ export const MCP_ENV_WRAPPER_SCRIPT = [
   '__orca_e=0 __orca_pairs=() __orca_ws=(--outside-workspace)',
   '[ -z "$__orca_w" ] || __orca_ws=(--workspace "$__orca_w")',
   `while IFS= read -r -d "" __orca_p; do if [ "$__orca_p" = ${MCP_ENV_END} ]; then __orca_e=1; else __orca_pairs+=("$__orca_p"); fi; done < <("$__orca_l" mcp env "$__orca_i" --agent "$__orca_a" "\${__orca_ws[@]}" </dev/null)`,
-  '[ "$__orca_e" = 1 ] || { echo "Orca could not read this MCP server environment." >&2; exit 1; }',
+  '[ "$__orca_e" = 1 ] || { echo "OpenKodo could not read this MCP server environment." >&2; exit 1; }',
   '[ "${#__orca_pairs[@]}" = 0 ] || export "${__orca_pairs[@]}"',
   'exec "$@"'
 ].join('; ')
 
-/** The guest command that starts `server` with the env `orca mcp env` reads from this Orca. */
+/** The guest command that starts `server` with the env `orca mcp env` reads from this OpenKodo. */
 export function mcpEnvWrapperCommand(
   launch: { launcher: string; id: string; agent: string; workspaceId: string | null },
   server: { command: string; args: readonly string[] }

@@ -1,4 +1,4 @@
-// `bots.create`: the owner's New bot, in Orca (desktop or phone). A bot only proposes one
+// `bots.create`: the owner's New bot, in OpenKodo (desktop or phone). A bot only proposes one
 // (`bots.createOffer`); creating from its card records the new bot against that card.
 import { BotCreate } from '../../../../shared/rpc-contract/bots-params'
 import { botFirstKickoff } from '../../../../shared/bots/bot-import'
@@ -20,7 +20,7 @@ export const BOT_CREATE_METHOD = defineMethod({
   ) => {
     const { runtime } = context
     runtime.bots.assertEnabled()
-    // A bot proposes new bots (`bot create --offer`); only its owner creates one, in Orca.
+    // A bot proposes new bots (`bot create --offer`); only its owner creates one, in OpenKodo.
     ownerOnly(
       context,
       'A bot can’t create a bot. Propose one with `orca bot create --offer`; your owner creates it from the card.'

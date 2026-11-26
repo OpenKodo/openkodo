@@ -169,7 +169,7 @@ export function McpServersAddDialog({
     onOpenChange(false)
     setStep(null)
   }
-  /** After an add: on to its sign-in when Orca signs in to it, else done. */
+  /** After an add: on to its sign-in when OpenKodo signs in to it, else done. */
   const added = (server: McpServerView): void => {
     close()
     if (mcpServerNeedsSignIn(server)) {

@@ -9,7 +9,7 @@ describe('claude update plan', () => {
       '/opt/homebrew/Caskroom/claude-code@latest/2.1.330/claude',
       { runnable: false, command: 'brew upgrade --cask claude-code@latest' }
     ],
-    // The stable cask lags the latest channel Orca compares against.
+    // The stable cask lags the latest channel OpenKodo compares against.
     ['/opt/homebrew/Caskroom/claude-code/2.1.323/claude', SELF_UPDATE],
     // A mise shim on PATH resolves into mise's own keg.
     ['/opt/homebrew/Cellar/mise/2026.11.0/bin/mise', SELF_UPDATE],

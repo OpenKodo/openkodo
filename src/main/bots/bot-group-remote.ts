@@ -151,7 +151,7 @@ export async function resolveNewGroupRemoteMembers(
   return resolveRemoteMembers(groups, localBots, input, undefined, computers)
 }
 
-/** The paired computer, refused with the group's own words when its Orca can't take bot questions. */
+/** The paired computer, refused with the group's own words when its OpenKodo can't take bot questions. */
 async function requireRemoteComputer(groups: BotGroupRuntime, environmentId: string) {
   let name = environmentId
   try {

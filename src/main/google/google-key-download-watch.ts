@@ -16,7 +16,7 @@ import { watchedDirectoryDeletionCheck } from '../../shared/file-watch/windows-d
 export const GOOGLE_KEY_FILE_NAME = /^client_secret_.+\.json$/
 // A file older than the watch is a key from an earlier setup, not this one.
 const CLOCK_SLACK_MS = 2_000
-const UNWATCHABLE = "Orca can't watch your Downloads folder. Add the file instead."
+const UNWATCHABLE = "OpenKodo can't watch your Downloads folder. Add the file instead."
 
 /** Resolves with the first new key file's text, or why not; `signal` stops the watch. */
 export function watchFolderForGoogleKey(

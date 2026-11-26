@@ -9,7 +9,7 @@ import type { FolderWorkspace } from '../../../../shared/folder-workspaces/folde
 import type { Repo } from '../../../../shared/repository/repo-types'
 import '../../../../shared/folder-workspaces/folder-workspace-execution-host'
 import { getFolderWorkspaceHostId } from '../../../../shared/folder-workspaces/folder-workspace-host-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import { getRepoIdFromWorktreeId, splitWorktreeId } from '../../../../shared/worktree/id'
 import { workspaceSessionPartitionHostId } from '../../../../shared/workspace-session/workspace-session-partition-owner'
@@ -44,7 +44,7 @@ export class RuntimeWorkspaceSessionController {
       if (!workspace) {
         return null
       }
-      if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+      if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
         return layoutOwnerFolderHostId(workspace, store)
       }
       // Explicit folder host wins; connectionId is the fallback for records predating host ids.
@@ -76,7 +76,7 @@ export class RuntimeWorkspaceSessionController {
     worktreeId: string,
     repos?: readonly Repo[]
   ): ExecutionHostId | null {
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || !splitWorktreeId(worktreeId)) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !splitWorktreeId(worktreeId)) {
       return null
     }
     // Only registered repos can have twins; avoid hydrating the inventory on every routing lookup.
@@ -207,7 +207,7 @@ export class RuntimeWorkspaceSessionController {
     )
     const folderHostIdByWorkspaceId = new Map(
       (store?.getFolderWorkspaces?.() ?? []).map((workspace) => {
-        if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+        if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
           return [workspace.id, layoutOwnerFolderHostId(workspace, store)] as const
         }
         const explicitHostId =

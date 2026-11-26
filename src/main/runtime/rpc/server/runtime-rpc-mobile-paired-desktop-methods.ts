@@ -1,4 +1,4 @@
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 
 /** Phone methods the relaying Mac always answers itself, even when the call names a server. */
 export const PAIRED_DESKTOP_METHODS = [
@@ -77,6 +77,6 @@ export const PAIRED_DESKTOP_METHODS = [
   'terminal.setAutoRestoreFit',
   // The desktop's own repo icons, as small data URLs.
   'sidebarInputs.repoIcons',
-  // Per-section collapse and the sidebar feed exist only with ORCA_SIDEBAR_INPUTS=main.
-  ...(ORCA_SIDEBAR_INPUTS_IS_MAIN ? (['ui.setCollapsed', 'sidebarInputs.read'] as const) : [])
+  // Per-section collapse and the sidebar feed exist only with OPENKODO_SIDEBAR_INPUTS=main.
+  ...(OPENKODO_SIDEBAR_INPUTS_IS_MAIN ? (['ui.setCollapsed', 'sidebarInputs.read'] as const) : [])
 ] as const

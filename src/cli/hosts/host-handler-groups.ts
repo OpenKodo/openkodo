@@ -1,6 +1,6 @@
 import type { HandlerGroup } from '../dispatch/handler-group-manifest'
 
-// The machines Orca reaches: saved hosts and paired environments, the Orca servers it manages on
+// The machines OpenKodo reaches: saved hosts and paired environments, the OpenKodo servers it manages on
 // them, and recipe VMs.
 export const HOST_HANDLER_GROUPS: readonly HandlerGroup[] = [
   {

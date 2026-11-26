@@ -1,4 +1,4 @@
-// Saving the setup's app key, and importing it by hand when Orca didn't pick it up.
+// Saving the setup's app key, and importing it by hand when OpenKodo didn't pick it up.
 import React, { useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -19,7 +19,7 @@ export async function saveGoogleSetupKey(bot: BotRef, text: string): Promise<voi
   await answerGoogleSetup(bot, 'step', ['done', 'client'])
 }
 
-/** For a key Orca didn't pick up (saved elsewhere, or the download went missed): import it by hand. */
+/** For a key OpenKodo didn't pick up (saved elsewhere, or the download went missed): import it by hand. */
 export function GoogleSetupKeyImport({ bot }: { bot: BotRef }): React.JSX.Element {
   const t = useTranslate()
   // Files on the bot's host that it can't tell apart: the owner picks one.
@@ -38,7 +38,7 @@ export function GoogleSetupKeyImport({ bot }: { bot: BotRef }): React.JSX.Elemen
   })
   return (
     <div className="mt-2 text-xs text-muted-foreground">
-      {t('bots.googleSetup.keyMissed', 'Downloaded the key and Orca didn’t pick it up?')}{' '}
+      {t('bots.googleSetup.keyMissed', 'Downloaded the key and OpenKodo didn’t pick it up?')}{' '}
       <Button
         variant="link"
         size="inlineText"

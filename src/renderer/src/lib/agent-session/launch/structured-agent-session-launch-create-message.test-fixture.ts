@@ -61,7 +61,7 @@ const mocks: CreateMessageFixtureMocks = vi.hoisted(() => {
 })
 const layoutOwner = vi.hoisted(() => ({ isMain: false }))
 vi.mock('../../../../../shared/workspace-layout/layout-owner-switch', () => ({
-  get ORCA_LAYOUT_OWNER_IS_MAIN() {
+  get OPENKODO_LAYOUT_OWNER_IS_MAIN() {
     return layoutOwner.isMain
   }
 }))

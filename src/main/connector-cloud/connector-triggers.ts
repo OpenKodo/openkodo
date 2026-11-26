@@ -77,7 +77,7 @@ function fromPeople(
 }
 
 /**
- * Source and kind come from this Orca's own rule, never from the delivery. Null once the rule is gone,
+ * Source and kind come from this OpenKodo's own rule, never from the delivery. Null once the rule is gone,
  * the automation runs as another bot, or the event isn't one the rule's own `from` or onOwnerMessage
  * takes; Who can ask gates only asking the bot, not its triggers. A webhook call is no person's: the
  * cloud checked the caller held the hook's key, so only its own hook may act.

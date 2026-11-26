@@ -116,7 +116,7 @@ export function useRemoteBrowserPageInput(input: RemoteBrowserPageInputParams): 
     controlClickRef.current = isMacControlClick(event)
     const button = controlClickRef.current ? 'right' : getRemoteBrowserMouseButton(event.button)
     const pageMenuPress = button === 'right' && !pagePointerOwned
-    // Older hosts open no page menus, so their right presses only open Orca's probed menu.
+    // Older hosts open no page menus, so their right presses only open OpenKodo's probed menu.
     if (pageMenuPress && !hostContextMenus.supported) {
       return
     }

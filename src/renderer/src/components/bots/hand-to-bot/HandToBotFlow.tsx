@@ -351,7 +351,7 @@ export function HandToBotFlow({
   )
 }
 
-/** What Orca tells the bot about the workspace: where it is and who works there. */
+/** What OpenKodo tells the bot about the workspace: where it is and who works there. */
 function useTakeOver(worktree: Worktree, agentTypes: readonly string[]): BotTakeOver {
   const project = useAppStore(
     (s) => s.repos.find((repo) => repo.id === worktree.repoId)?.displayName

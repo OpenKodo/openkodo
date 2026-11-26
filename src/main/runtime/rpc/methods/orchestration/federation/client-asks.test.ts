@@ -239,7 +239,7 @@ describe('agents here messaging agents on a paired computer', () => {
 
     expect(told()).toHaveLength(1)
     expect(told()[0]).toMatch(
-      /^Client A was removed from this Orca's paired computers\. Your question msg_/
+      /^Client A was removed from this OpenKodo's paired computers\. Your question msg_/
     )
     expect(await ask()).toMatchObject({ ok: false, error: { code: 'remote_runtime_unavailable' } })
   })

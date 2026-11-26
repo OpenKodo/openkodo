@@ -1,4 +1,4 @@
-// Agents that cannot load Orca's visuals skill learn of it from their standing instructions.
+// Agents that cannot load OpenKodo's visuals skill learn of it from their standing instructions.
 
 import type { StructuredAgentSessionLogger } from '../../native-chat/agent-session-wire/host/structured-agent-session-logger'
 import { nativeChatVisualsSection } from '../../native-chat/conversation-files/native-chat-visuals-delivery'

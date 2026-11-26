@@ -4,7 +4,7 @@ import { readBotSlack, slackTeamState } from '@/lib/bot-slack-state'
 import type { Bot } from '../../../../../shared/bot-types'
 import { otherSlackTeams } from '../../../../../shared/bots/bot-slack-setup-teams'
 
-/** The bots on the bot's own host: Slack grants belong to that host's Orca account. */
+/** The bots on the bot's own host: Slack grants belong to that host's OpenKodo account. */
 export function hostBots(bot: Bot): Bot[] {
   return readBots().filter((entry) => entry.hostId === bot.hostId)
 }

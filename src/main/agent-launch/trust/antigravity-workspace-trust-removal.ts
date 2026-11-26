@@ -4,7 +4,7 @@ import { writeFileAtomically } from '../../filesystem/atomic-file-publication'
 import { createAgentTrustOwnershipLedger } from './agent-trust-ownership-ledger'
 
 /**
- * Worker-only: removes the `trustedWorkspaces` entries Orca appended for `workspacePath`, keeping
+ * Worker-only: removes the `trustedWorkspaces` entries OpenKodo appended for `workspacePath`, keeping
  * any the user had or changed. Runs on the Codex project trust worker so its reads and Windows
  * rename retries stay off Electron main. Never throws.
  */
@@ -23,7 +23,7 @@ export function removeOrcaCreatedAntigravityTrust(ledgerPath: string, workspaceP
       ownership.forget(settingsPath, workspacePath)
     } catch (error) {
       // Why: keep the record so a later removal can retry an unreadable settings file.
-      console.warn('[antigravity-trust] Failed to remove an Orca-created trust entry:', error)
+      console.warn('[antigravity-trust] Failed to remove an OpenKodo-created trust entry:', error)
     }
   }
 }

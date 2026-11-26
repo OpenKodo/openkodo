@@ -28,7 +28,7 @@ import {
 } from './composio-api-answers'
 
 const API = 'https://backend.composio.dev/api/v3.1'
-// The bot connects apps only through Orca's Connect card, so Composio never hands it a raw link.
+// The bot connects apps only through OpenKodo's Connect card, so Composio never hands it a raw link.
 // The remote workbench is a second place code runs with the owner's sign-ins; the bot has a shell.
 const SESSION_SETTINGS = { manage_connections: { enable: false }, workbench: { enable: false } }
 const TIMEOUT_MS = 15_000
@@ -110,7 +110,7 @@ export class ComposioApi {
     }
     const parsed = schema.safeParse(json)
     if (!parsed.success) {
-      throw new ComposioUnavailableError('Composio sent an answer Orca couldn’t read.')
+      throw new ComposioUnavailableError('Composio sent an answer OpenKodo couldn’t read.')
     }
     return parsed.data
   }
@@ -152,7 +152,7 @@ export class ComposioApi {
     return { id: session.session_id, mcpUrl: session.mcp.url }
   }
 
-  /** Brings a session made earlier to Orca's settings, in place; false when Composio no longer has it. */
+  /** Brings a session made earlier to OpenKodo's settings, in place; false when Composio no longer has it. */
   async refreshSession(sessionId: string): Promise<boolean> {
     try {
       await this.call(`/tool_router/session/${encodeURIComponent(sessionId)}`, z.unknown(), {

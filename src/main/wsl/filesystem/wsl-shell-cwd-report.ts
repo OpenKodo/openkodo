@@ -6,22 +6,22 @@
  * ash (fancy prompt, on in Alpine's and Debian's builds) get it inside \\[ \\] so the invisible bytes
  * do not count toward the prompt's width; dash has no line editor to miscount, and would print \\[.
  */
-export const SH_WSL_ENV_FILE = `# Orca WSL bridge sh ENV: restore the user's ENV, then report the folder (OSC 7) at each prompt.
-if [ -n "\${ORCA_WSL_USER_ENV:-}" ]; then
-  ENV=$ORCA_WSL_USER_ENV
-  unset ORCA_WSL_USER_ENV
+export const SH_WSL_ENV_FILE = `# OpenKodo WSL bridge sh ENV: restore the user's ENV, then report the folder (OSC 7) at each prompt.
+if [ -n "\${OPENKODO_WSL_USER_ENV:-}" ]; then
+  ENV=$OPENKODO_WSL_USER_ENV
+  unset OPENKODO_WSL_USER_ENV
   # The shell expands ENV's value before reading it; a here-document does the same without
   # parsing the user's quotes as shell syntax.
-  eval "IFS= read -r __orca_user_env <<__ORCA_USER_ENV_EOF
+  eval "IFS= read -r __orca_user_env <<__OPENKODO_USER_ENV_EOF
 $ENV
-__ORCA_USER_ENV_EOF
+__OPENKODO_USER_ENV_EOF
 "
   if [ -r "$__orca_user_env" ]; then
     . "$__orca_user_env"
   fi
   unset __orca_user_env
 else
-  unset ENV ORCA_WSL_USER_ENV
+  unset ENV OPENKODO_WSL_USER_ENV
 fi
 if [ -n "\${WSL_DISTRO_NAME:-}" ]; then
   __orca_wsl_cwd_report() {

@@ -11,7 +11,7 @@ const repo = {
   hookSettings: {
     mode: 'auto' as const,
     scripts: {
-      setup: 'installer="$HOME/install-skills.sh"\n"$installer" "$ORCA_WORKTREE_PATH"',
+      setup: 'installer="$HOME/install-skills.sh"\n"$installer" "$OPENKODO_WORKTREE_PATH"',
       archive: ''
     }
   }

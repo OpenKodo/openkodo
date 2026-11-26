@@ -4,7 +4,7 @@ import type {
   BrowserWorkspace
 } from '../../../../../../shared/browser/workspaces/browser-workspace-types'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../../../../shared/workspace/identity/floating-workspace-id'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import type { AppState } from '../../../types'
 import { ownsGlobalSelection } from '../../../workspaces/selection/global-selection-owner'
 import { workspaceEditorFiles } from '../../editor/tabs/workspace-editor-files'
@@ -45,7 +45,7 @@ export function browserTabOpenView(
     // the blank url is exactly what marks a New Tab as wanting the address bar it does not have.
     !page.docLocation &&
     (options?.focusAddressBar ??
-      (page.url === 'about:blank' || page.url === ORCA_BROWSER_BLANK_URL))
+      (page.url === 'about:blank' || page.url === OPENKODO_BROWSER_BLANK_URL))
 
   return {
     tabBarOrderByWorktree: {

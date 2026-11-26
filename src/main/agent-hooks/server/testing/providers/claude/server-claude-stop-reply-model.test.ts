@@ -72,22 +72,25 @@ async function hook(payload: Record<string, unknown>): Promise<void> {
 
 async function statusLine(modelId: string): Promise<void> {
   const env = server.buildPtyEnv()
-  const response = await fetch(`http://127.0.0.1:${env.ORCA_AGENT_HOOK_PORT}/statusline/claude`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Connection: 'close',
-      'X-Orca-Agent-Hook-Token': env.ORCA_AGENT_HOOK_TOKEN
-    },
-    body: new URLSearchParams({
-      paneKey: PANE,
-      payload: JSON.stringify({
-        session_id: SESSION,
-        model: { id: modelId, display_name: 'Model' },
-        rate_limits: { five_hour: { used_percentage: 1 } }
+  const response = await fetch(
+    `http://127.0.0.1:${env.OPENKODO_AGENT_HOOK_PORT}/statusline/claude`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Connection: 'close',
+        'X-OpenKodo-Agent-Hook-Token': env.OPENKODO_AGENT_HOOK_TOKEN
+      },
+      body: new URLSearchParams({
+        paneKey: PANE,
+        payload: JSON.stringify({
+          session_id: SESSION,
+          model: { id: modelId, display_name: 'Model' },
+          rate_limits: { five_hour: { used_percentage: 1 } }
+        })
       })
-    })
-  })
+    }
+  )
   expect(response.status).toBe(204)
 }
 

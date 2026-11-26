@@ -12,7 +12,7 @@ export function webhookSummaryFixture(overrides: Partial<WebhookSummary> = {}): 
     botId: 'bot-1',
     automationId: 'auto-1',
     state: 'live',
-    url: `https://connector.orca.dev/hooks/${FIXTURE_HOOK_ID}`,
+    url: `https://connector.openkodo.dev/hooks/${FIXTURE_HOOK_ID}`,
     adapter: null,
     lastCall: null,
     host: 'online',

@@ -152,7 +152,7 @@ export async function readCodexLocalHistory(input: {
 const COMPACTED_RECORD_HEAD =
   /^\{"timestamp":"[^"\\]*",(?:"ordinal":\d+,)?"type":"compacted","payload":\{/
 
-/** Codex does not bound compaction checkpoints and Orca shows none of their content. */
+/** Codex does not bound compaction checkpoints and OpenKodo shows none of their content. */
 function lines(path: string, end?: HistoryPosition) {
   return splitTranscriptStreamLines(
     readCodexRolloutBytes(path, end?.end_byte_offset),

@@ -1,9 +1,9 @@
+import { openKodoHomePath } from '../../shared/home/openkodo-home'
 import { inCredentialFileOrder, credentialFileExists } from '../credentials/credential-file-io'
-// This host's Google client and each Google account signed in on it, in Orca's encrypted credential
-// files (an owner-only file where the OS keyring is missing, as for Linear). Never sent to Orca Cloud,
+// This host's Google client and each Google account signed in on it, in OpenKodo's encrypted credential
+// files (an owner-only file where the OS keyring is missing, as for Linear). Never sent to OpenKodo Cloud,
 // a paired phone or an SSH target.
 import { mkdir, readFile, readdir, unlink } from 'node:fs/promises'
-import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { z } from 'zod'
 import {
@@ -48,7 +48,7 @@ export const GoogleAccountRecordSchema = z.object({
 
 export type GoogleAccountRecord = z.infer<typeof GoogleAccountRecordSchema>
 
-const googleDir = () => join(homedir(), '.orca', 'google')
+const googleDir = () => join(openKodoHomePath(), 'google')
 const clientPath = () => join(googleDir(), 'client.enc')
 const accountsDir = () => join(googleDir(), 'accounts')
 const defaultAccountPath = () => join(googleDir(), 'default-account.enc')

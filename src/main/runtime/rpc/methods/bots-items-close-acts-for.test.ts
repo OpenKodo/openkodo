@@ -1,5 +1,5 @@
 // Security invariant: a close keeps whom its chat acts for, read without opening a conversation,
-// and never the owner when Orca can't tell.
+// and never the owner when OpenKodo can't tell.
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { AgentJournalRenderItem } from '../../../../shared/agent-session/journal/agent-session-journal-types'
 import type { BotRequestAsker } from '../../../../shared/bots/bot-acts-for'

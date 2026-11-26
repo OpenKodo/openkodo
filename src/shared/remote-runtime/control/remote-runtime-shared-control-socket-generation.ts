@@ -16,7 +16,7 @@ export class SharedControlSocketGeneration {
     const generation = this.peek()
     return () => {
       if (!this.isCurrent(generation) || !ready()) {
-        throw new Error('Remote Orca runtime changed before sending')
+        throw new Error('Remote OpenKodo runtime changed before sending')
       }
     }
   }

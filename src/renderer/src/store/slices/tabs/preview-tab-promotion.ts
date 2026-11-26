@@ -1,7 +1,7 @@
 // Main-owned previews end in main’s frame; paired-server layouts and host_not_owned twins promote in the window copy.
 
 import type { Tab } from '../../../../../shared/workspace-layout/tab-groups/tab-types'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { runtimeEnvironmentIdUnlessTwin } from '@/lib/workspace/ownership/resolve-owner'
 import { sendLayoutApply } from '@/runtime/workspace-layout/commands/layout-apply-send'
 import type { AppState } from '../../types'
@@ -18,7 +18,9 @@ function endPreviewHere(set: SetTabs, tabId: string): void {
 
 /** Whether the window ends a preview in its own copy: always with the switch off. */
 export function endsPreviewHere(state: OwnerState, worktreeId: string): boolean {
-  return !ORCA_LAYOUT_OWNER_IS_MAIN || runtimeEnvironmentIdUnlessTwin(state, worktreeId) !== null
+  return (
+    !OPENKODO_LAYOUT_OWNER_IS_MAIN || runtimeEnvironmentIdUnlessTwin(state, worktreeId) !== null
+  )
 }
 
 /** Tabs whose promotion main has yet to answer: a second ask (a pin after its keep) is dropped. */

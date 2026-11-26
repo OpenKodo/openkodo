@@ -1,4 +1,4 @@
-// Where the bot runs, read-only: its computer, the Orca account that computer runs as, and its folder.
+// Where the bot runs, read-only: its computer, the OpenKodo account that computer runs as, and its folder.
 import { useEffect, useState, type ReactNode } from 'react'
 import { Pressable } from 'react-native'
 import { CircleUserRound, Copy, Folder, Laptop } from 'lucide-react-native'
@@ -44,7 +44,7 @@ export function MobileBotComputerPage(props: {
       live = false
     }
   }, [client, online])
-  // The desktop's line for a server's account: nothing when Orca Cloud isn't set up or can't be read.
+  // The desktop's line for a server's account: nothing when OpenKodo Cloud isn't set up or can't be read.
   const accountLine =
     account === undefined
       ? online
@@ -55,8 +55,8 @@ export function MobileBotComputerPage(props: {
         : account.state === 'signed-in'
           ? account.email
           : account.state === 'signed-out'
-            ? t('bots.settings.signedOut', 'Signed out of Orca')
-            : t('bots.settings.signInChanged', 'Orca sign-in changed')
+            ? t('bots.settings.signedOut', 'Signed out of OpenKodo')
+            : t('bots.settings.signInChanged', 'OpenKodo sign-in changed')
   const icon = (Icon: typeof Laptop) => <Icon size={18} color={colors.textSecondary} />
   return (
     <>
@@ -82,7 +82,7 @@ export function MobileBotComputerPage(props: {
         />
         <ListRow
           leading={icon(CircleUserRound)}
-          title={t('bots.settings.orcaAccount', 'Orca account')}
+          title={t('bots.settings.orcaAccount', 'OpenKodo account')}
           value={accountLine}
         />
         {folderPath ? (

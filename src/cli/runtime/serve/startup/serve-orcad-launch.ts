@@ -17,9 +17,9 @@ import {
   orcadServeArgs,
   type ServeOrcaAppArgs
 } from '../../../../shared/remote-runtime/serve-supervisor/orcad-serve-argv'
-import { ORCA_SERVE_APPIMAGE_ENV } from '../../../../shared/remote-runtime/serve-supervisor/orcad-server-launch-env'
+import { OPENKODO_SERVE_APPIMAGE_ENV } from '../../../../shared/remote-runtime/serve-supervisor/orcad-server-launch-env'
 import { SPEECH_RECOGNIZER_DIR_ENV } from '../../../../shared/speech/native-recognizer/speech-recognizer-package'
-import { ORCA_SERVE_SUPERVISED_ENV } from '../../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
+import { OPENKODO_SERVE_SUPERVISED_ENV } from '../../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
 
 /** A first run may download and verify the pinned Node; bound it well past that. */
 const SELECTION_TIMEOUT_MS = 10 * 60_000
@@ -89,13 +89,13 @@ export function serveWithOrcad(
     env: {
       ...baseEnv,
       // The desktop's profile: its instance lock makes the two refuse each other.
-      ORCA_USER_DATA: userDataPath,
-      ORCA_VERSION: selection.version,
-      // Always set: a value inherited from an Orca terminal would name another install's copy.
+      OPENKODO_USER_DATA: userDataPath,
+      OPENKODO_VERSION: selection.version,
+      // Always set: a value inherited from an OpenKodo terminal would name another install's copy.
       [SPEECH_RECOGNIZER_DIR_ENV]: speechRecognizerDir ?? '',
-      [ORCA_SERVE_APPIMAGE_ENV]: appImagePath ?? '',
+      [OPENKODO_SERVE_APPIMAGE_ENV]: appImagePath ?? '',
       // A service manager restarts this server, so it must not run terminals that die with it.
-      [ORCA_SERVE_SUPERVISED_ENV]: args.supervise === true ? '1' : ''
+      [OPENKODO_SERVE_SUPERVISED_ENV]: args.supervise === true ? '1' : ''
     }
   }
   const spawnChild = shouldRedactSupervisedStdout(args.supervise === true)

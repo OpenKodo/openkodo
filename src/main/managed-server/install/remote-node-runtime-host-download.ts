@@ -21,9 +21,9 @@ import { configuredNodeDistMirror } from '../../node-runtime/node-dist-mirror-se
 import { DesktopDownloadUnreachableError } from '../../node-runtime/pinned-runtime-materializer'
 import { remoteSha256Command } from './remote-sha256-command'
 
-export const HOST_NODE_DOWNLOAD_OK = 'ORCA_NODE_HOST_DOWNLOAD_OK'
-export const HOST_NODE_DOWNLOAD_FAILED = 'ORCA_NODE_HOST_DOWNLOAD_FAILED'
-export const HOST_NODE_DOWNLOAD_NO_TOOL = 'ORCA_NODE_HOST_DOWNLOAD_NO_TOOL'
+export const HOST_NODE_DOWNLOAD_OK = 'OPENKODO_NODE_HOST_DOWNLOAD_OK'
+export const HOST_NODE_DOWNLOAD_FAILED = 'OPENKODO_NODE_HOST_DOWNLOAD_FAILED'
+export const HOST_NODE_DOWNLOAD_NO_TOOL = 'OPENKODO_NODE_HOST_DOWNLOAD_NO_TOOL'
 // One shared budget permits ~70 KB/s downloads without multiplying timeouts per source.
 const HOST_DOWNLOAD_BUDGET_SECONDS = 840
 const HOST_DOWNLOAD_MIN_ATTEMPT_SECONDS = 30

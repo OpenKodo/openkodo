@@ -1,4 +1,4 @@
-// Mail a bot-request card already shows (its answer, or Orca's word that none came): the chat folds
+// Mail a bot-request card already shows (its answer, or OpenKodo's word that none came): the chat folds
 // the "Message from" notice for it into the card rather than drawing the mailbox pointer.
 import { useSyncExternalStore } from 'react'
 import type { AgentMessageSource } from '../../../../shared/agent-session/journal/agent-session-message-source'

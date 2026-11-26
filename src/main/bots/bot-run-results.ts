@@ -56,19 +56,19 @@ export type BotRunCompletion = Awaited<NonNullable<AutomationLaunch['completion'
 export type BotRunDeliveryDependencies = BotOwnerNoticeDeps &
   resultNote.BotRunNoteDependencies & {
     sendToChat(bot: Bot, text: string, from: AgentMessageSource): Promise<unknown>
-    /** Null when Orca Cloud is not connected. */
+    /** Null when OpenKodo Cloud is not connected. */
     postAsBot(
       bot: Bot,
       body: ConnectorBotPostBody
     ): Promise<ConnectorResult<ConnectorBotPostAnswer>> | null
-    /** This host is signed out of Orca, so nothing posts through Orca Cloud. */
+    /** This host is signed out of OpenKodo, so nothing posts through OpenKodo Cloud. */
     cloudSignedOut(): boolean
     /** This host's name when it is a headless server, whose signed-out note says how it signs in. */
     signInServer?(): OrcaSignInServer
-    /** An Orca note in the run's own conversation, where its result shows. */
+    /** An OpenKodo note in the run's own conversation, where its result shows. */
     noteToRun(sessionId: string, noteId: string, text: string): Promise<unknown>
     /** The bot's words in an event's thread through the run's own cloud conversation, linking no
-     *  chat; null when Orca Cloud is not connected. */
+     *  chat; null when OpenKodo Cloud is not connected. */
     replyInThread(
       conversation: ConversationKey,
       replyId: string,
@@ -115,25 +115,25 @@ function runSender(sessionId: string, name: string): AgentMessageSource {
 const COPY = {
   failed: (outcome: string) => `The bot's turn ended without finishing (${outcome}).`,
   chatResult: (automation: string, message: string) => `Result of "${automation}":\n\n${message}`,
-  cloudOff: "Orca Cloud isn't connected, so the result wasn't posted.",
+  cloudOff: "cloud service isn't connected, so the result wasn't posted.",
   signedOut: (place: string, server: OrcaSignInServer, botName: string) => {
     const steps = serverSignInSteps(server, botName, 'owner')
     return steps
       ? `Not posted to ${place}. ${hostNotSignedIn(server)}. ${steps}`
-      : `Not posted to ${place}: this computer isn't signed in to Orca Cloud.`
+      : `Not posted to ${place}: this computer isn't signed in to cloud service.`
   },
   postFailed: "The result couldn't be posted.",
   chatFailed: "The result couldn't be sent to the bot's Chat.",
   notInThread:
-    "Orca Cloud didn't link this event to a thread, so the result stayed in this run's conversation.",
+    "cloud service didn't link this event to a thread, so the result stayed in this run's conversation.",
   unavailable: {
     removed:
       "This run's message was removed from the Chat before it was sent, so no result was sent.",
     edited: "This run's message was edited in the Chat before it was sent, so no result was sent.",
     shared: ANSWERED_TOGETHER_NOTICE,
     unattributed:
-      "Orca couldn't tell which reply in the Chat was this run's, so no result was sent.",
-    unread: "Orca couldn't read how this run's turn ended, so no result was sent."
+      "OpenKodo couldn't tell which reply in the Chat was this run's, so no result was sent.",
+    unread: "OpenKodo couldn't read how this run's turn ended, so no result was sent."
   } satisfies Record<BotRunUnavailable, string>
 }
 
@@ -255,7 +255,7 @@ export async function deliverBotRunResult(
   return completed
 }
 
-// Why the result can't wake an Orca bot it mentions, said in the run where it shows.
+// Why the result can't wake an OpenKodo bot it mentions, said in the run where it shows.
 async function noteNotices(
   deps: BotRunDeliveryDependencies,
   result: BotRunResult,

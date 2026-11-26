@@ -20,7 +20,7 @@ export function resolveClaudeBenchmarkCommit(ref) {
     cwd: ROOT,
     timeoutMs: 10_000,
     maxOutputBytes: MIB,
-    env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+    env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
   })
   assert.equal(result.code, 0, result.stderr)
   return result.stdout.trim()
@@ -50,7 +50,7 @@ function listClaudeBenchmarkModulePaths(commit, modulePaths) {
     cwd: ROOT,
     timeoutMs: 10_000,
     maxOutputBytes: MIB,
-    env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+    env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
   })
   assert.equal(listed.code, 0, listed.stderr)
   assert.equal(listed.outputTruncated, false)
@@ -190,7 +190,7 @@ export async function loadClaudeUsageBenchmarkPersistence(mode, commit = null, f
                   cwd: ROOT,
                   timeoutMs: 10_000,
                   maxOutputBytes: MIB,
-                  env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+                  env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
                 })
                 assert.equal(pinned.code, 0, pinned.stderr)
                 assert.equal(pinned.outputTruncated, false, modulePath)

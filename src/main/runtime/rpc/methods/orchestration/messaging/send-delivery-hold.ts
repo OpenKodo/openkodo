@@ -93,7 +93,7 @@ function isLifecycleRejection(sent: unknown): boolean {
   )
 }
 
-/** A paired server's worker: this Orca sees only that the relay took the mail. */
+/** A paired server's worker: this OpenKodo sees only that the relay took the mail. */
 export function relayedDeliveryUnknownWarning(recipient: string): SendRecipientWarning {
   return {
     code: 'recipient_delivery_unknown',

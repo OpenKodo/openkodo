@@ -10,9 +10,9 @@ import {
 import type { OrcaRuntimeService } from '../../orca-runtime'
 import { defineMethod, InvalidArgumentError, type RpcContext } from '../core'
 
-export const BOT_SHARE_UNKNOWN_CALLER = 'Share a bot from Orca or its `orca` CLI.'
+export const BOT_SHARE_UNKNOWN_CALLER = 'Share a bot from OpenKodo or its `orca` CLI.'
 
-/** Anyone who can reach the bot through Orca (a window, a paired device, or an agent's `orca` CLI,
+/** Anyone who can reach the bot through OpenKodo (a window, a paired device, or an agent's `orca` CLI,
  *  here or over a pairing) can already read and paste its files, so all of them may share; only a
  *  client with no proven identity is refused. */
 export function assertTrustedCaller(context: RpcContext): void {

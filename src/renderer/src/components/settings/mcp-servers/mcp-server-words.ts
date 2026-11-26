@@ -34,7 +34,7 @@ export type McpRowStatus = {
   replacesLine: boolean
 }
 
-/** Orca's own sign-in that the user must (re)do: the row offers Sign in. */
+/** OpenKodo's own sign-in that the user must (re)do: the row offers Sign in. */
 export function mcpServerNeedsSignIn(server: McpServer): boolean {
   return server.signIn !== undefined && server.signIn.state !== 'signed-in'
 }
@@ -118,7 +118,7 @@ export function mcpWorkspacesSummaryText(summary: McpWorkspacesSummary, t: Trans
   }
 }
 
-/** An agent as the host names it: Orca's label for one it knows, else the host's id. */
+/** An agent as the host names it: OpenKodo's label for one it knows, else the host's id. */
 export function mcpAgentLabel(agent: string): string {
   return isTuiAgent(agent) ? getAgentLabel(agent) : agent
 }

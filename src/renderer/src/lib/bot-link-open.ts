@@ -1,4 +1,4 @@
-// "Open in Orca" and "Review in Orca" across this computer and every paired server, as the phone resolves them.
+// "Open in OpenKodo" and "Review in OpenKodo" across this computer and every paired server, as the phone resolves them.
 import { toast } from 'sonner'
 import { translate } from '@/i18n/i18n'
 import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
@@ -142,9 +142,13 @@ export async function openBotLinkHome(
       return
     case 'update-needed':
       toast.info(
-        translate('bots.deepLink.updateNeeded', 'Update Orca on {{hosts}} to open this bot here.', {
-          hosts: hostNames(resolution.hostIds)
-        })
+        translate(
+          'bots.deepLink.updateNeeded',
+          'Update OpenKodo on {{hosts}} to open this bot here.',
+          {
+            hosts: hostNames(resolution.hostIds)
+          }
+        )
       )
       return
     case 'missing':
@@ -155,7 +159,7 @@ export async function openBotLinkHome(
   }
 }
 
-/** The owner's "Review in Orca": each connected computer in turn, until the one with the request's bot takes it. */
+/** The owner's "Review in OpenKodo": each connected computer in turn, until the one with the request's bot takes it. */
 export async function openAccessRequestLink(token: string): Promise<void> {
   const outcome = await redeemOnFirstHost(readLiveBotHostIds(), (hostId) =>
     callRuntimeRpc<BotAccessRedeemOutcome>(botHostTarget(hostId), 'bots.access.redeem', {

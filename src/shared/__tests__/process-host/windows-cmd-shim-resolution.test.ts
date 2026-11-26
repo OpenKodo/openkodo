@@ -173,7 +173,7 @@ describeOnWindows('resolveWindowsCmdShim', () => {
     expect(
       resolveWindowsCmdShim(shim, {
         ...env,
-        ORCA_DISABLE_CMD_SHIM_RESOLUTION: '1'
+        OPENKODO_DISABLE_CMD_SHIM_RESOLUTION: '1'
       })
     ).toBeNull()
   })

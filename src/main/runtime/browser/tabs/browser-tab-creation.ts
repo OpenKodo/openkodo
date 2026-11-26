@@ -97,7 +97,7 @@ export class RuntimeBrowserTabCreation {
     if (params.split && params.placement?.kind === 'client') {
       throw new BrowserError(
         'invalid_argument',
-        'Opening a browser tab in a split pane needs an Orca desktop window on this host.'
+        'Opening a browser tab in a split pane needs an OpenKodo desktop window on this host.'
       )
     }
     if (params.placement?.kind === 'client') {

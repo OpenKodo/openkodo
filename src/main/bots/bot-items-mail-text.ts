@@ -1,5 +1,5 @@
-// What item mail tells the bot (Orca's voice, workflow only). The owner's and other chats' words are
-// fenced, so a comment can't pose as Orca's instructions; each mail names its event for `show --after`.
+// What item mail tells the bot (OpenKodo's voice, workflow only). The owner's and other chats' words are
+// fenced, so a comment can't pose as OpenKodo's instructions; each mail names its event for `show --after`.
 import { fenceQuotedText, inlineUntrusted } from '../../shared/quoted-text-fence'
 import { BOT_QUIET_MARKER } from '../../shared/bot-quiet-result'
 import {
@@ -146,7 +146,7 @@ function skippedNote(skipped: unknown): string {
     questions.length === 1
       ? `this question is closed unanswered: ${named}. If it still matters`
       : `these questions are closed unanswered: ${named}. If one still matters`
-  return `\n  [Orca: they skipped the rest of that set, so ${closed}, ask it again in a new set.]`
+  return `\n  [OpenKodo: they skipped the rest of that set, so ${closed}, ask it again in a new set.]`
 }
 
 const quoted = (text: string): string => text.replaceAll('"', '\\"')
@@ -161,7 +161,7 @@ function skillsNote(skills: readonly BotItemCommentSkill[]): string {
     .map(({ name, path }) => `${inlineUntrusted(name)} "${quoted(inlineUntrusted(path, 4096))}"`)
     .join(', ')
   const which = skills.length === 1 ? 'a skill' : `${skills.length} skills`
-  return `\n  [Orca: they picked ${which} for this; load each from its file and follow it: ${named}]`
+  return `\n  [OpenKodo: they picked ${which} for this; load each from its file and follow it: ${named}]`
 }
 
 /** `sent`: the images go with the mail as image-refs; otherwise only their paths do. */
@@ -177,7 +177,7 @@ function imagesNote(images: readonly BotItemCommentImage[], imagesBefore = 0, se
   const count = images.length === 1 ? 'an image' : `${images.length} images`
   const them = images.length === 1 ? 'it' : 'them'
   const see = sent ? `, sent with this message. If you can't see ${them}, open` : `; open ${them}`
-  return `\n  [Orca: they attached ${count}${see} with your image tool: ${paths}]`
+  return `\n  [OpenKodo: they attached ${count}${see} with your image tool: ${paths}]`
 }
 
 /** Every image the owner's comments in this mail attached, oldest first. */

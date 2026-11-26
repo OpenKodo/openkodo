@@ -12,7 +12,7 @@ import { translate } from '@/i18n/i18n'
 import { isPositiveHostedReviewNumber } from '../../../../../../shared/source-control/hosted-review/hosted-review-contracts'
 import { displayNameUpdatePinsLabel } from '../../../../../../shared/worktree/metadata/display-name-provenance'
 import { parseWorkspaceKey } from '../../../../../../shared/workspace/identity/workspace-scope'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../../../../../shared/sidebar-list/feed/sidebar-inputs-switch'
 import { getRepoIdFromWorktreeId } from '../../../../../../shared/worktree/id'
 import {
   findKnownWorktreeById,
@@ -167,7 +167,7 @@ export function createUpdateWorktreeMeta(
         : targetEnriched
     // Switch point: a comment edit is not a Recent event once the host owns the stamps.
     const enriched =
-      'comment' in renameCleared && !ORCA_SIDEBAR_INPUTS_IS_MAIN
+      'comment' in renameCleared && !OPENKODO_SIDEBAR_INPUTS_IS_MAIN
         ? { ...renameCleared, lastActivityAt: Date.now() }
         : renameCleared
 

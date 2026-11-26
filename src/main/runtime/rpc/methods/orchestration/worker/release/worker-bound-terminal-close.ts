@@ -75,7 +75,7 @@ async function closeBound(
   })
 }
 
-// Handles are reminted when Orca restarts, so a recorded one that no longer resolves is found by its
+// Handles are reminted when OpenKodo restarts, so a recorded one that no longer resolves is found by its
 // pane. Either way the handle must still name the bound pane, or it is someone else's terminal now.
 function liveHandle(
   runtime: BoundTerminalCloseRuntime,

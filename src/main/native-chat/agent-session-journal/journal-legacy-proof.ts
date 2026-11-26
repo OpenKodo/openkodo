@@ -76,7 +76,7 @@ export class JournalLegacyProof {
    * Picks up where an earlier launch's proof of this same original into this same store stopped,
    * or, after a deletion that didn't go through, at the copies it ends with. Pages already proven
    * stay proven: the original is unchanged, the store keeps what it converted and kept, and a
-   * person's own edits here since supersede what it showed. What an older-Orca pass can add
+   * person's own edits here since supersede what it showed. What an older-OpenKodo pass can add
    * since (compares due, failures) is checked again first, and copies are walked from the start.
    */
   resume(saved: string | null, observation: LegacyProofObservation): void {

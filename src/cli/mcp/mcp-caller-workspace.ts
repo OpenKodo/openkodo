@@ -1,5 +1,5 @@
 // Which workspace an `orca mcp` bridge's session is in, one rule for `connect`, `exec` and `env`:
-// what its launch named (`--workspace`, or `--outside-workspace` for a pane in none), else the Orca
+// what its launch named (`--workspace`, or `--outside-workspace` for a pane in none), else the OpenKodo
 // pane's own (WSL forwards it), else the one holding cwd (an agent's own MCP file names neither).
 import type { RuntimeClient } from '../runtime/client'
 import { RuntimeClientError } from '../runtime/connection/types'
@@ -16,7 +16,7 @@ export async function mcpCallerWorkspace(
   if (given.outside) {
     return null
   }
-  const named = given.workspace?.trim() || process.env.ORCA_WORKSPACE_ID?.trim()
+  const named = given.workspace?.trim() || process.env.OPENKODO_WORKSPACE_ID?.trim()
   if (named) {
     return named
   }

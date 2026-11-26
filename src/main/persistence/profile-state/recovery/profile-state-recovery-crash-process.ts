@@ -121,7 +121,7 @@ export async function killRecoveryAt(
   writeFileSync(childScript, CHILD_SOURCE, 'utf8')
   writeFileSync(payloadPath, payload, 'utf8')
   const childEnv = {
-    ORCA_BACKGROUND_LAUNCH: '1',
+    OPENKODO_BACKGROUND_LAUNCH: '1',
     ...(process.env.PATH ? { PATH: process.env.PATH } : {}),
     ...(process.env.SystemRoot ? { SystemRoot: process.env.SystemRoot } : {}),
     ...(process.env.TEMP ? { TEMP: process.env.TEMP } : {}),

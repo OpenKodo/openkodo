@@ -191,7 +191,7 @@ const newThread = chat('new-slack', 'Can bots read Slack canvases?', {
   preview: 'Yes, with the canvases:read scope. Want me to add it?'
 })
 // A terminal-only automation run: a chat row of its own, with the automation's icon.
-const triageRun = chat('run:r1', 'Triage new Orca issues', {
+const triageRun = chat('run:r1', 'Triage new OpenKodo issues', {
   origin: 'automation',
   live: 'needs-you',
   lastActiveAt: now - 6 * min,

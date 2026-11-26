@@ -87,7 +87,7 @@ function legacyPanelIconWarnings(raw: unknown): string[] {
   })
 }
 
-/** Drops format 2 panel icons Orca cannot draw, so the panel shows `puzzle` instead of the
+/** Drops format 2 panel icons OpenKodo cannot draw, so the panel shows `puzzle` instead of the
  *  whole plugin failing to load, and warns about format 1 icons it drops on its own. */
 export function withDrawablePluginPanelIcons(raw: unknown): { raw: unknown; warnings: string[] } {
   if (!isPluginJsonObject(raw) || raw.manifestVersion !== 2) {
@@ -121,7 +121,7 @@ export function withDrawablePluginPanelIcons(raw: unknown): { raw: unknown; warn
     : { raw, warnings }
 }
 
-/** Why from the raw manifest: a dropped icon never reaches the engine-floor walk, yet Orca
+/** Why from the raw manifest: a dropped icon never reaches the engine-floor walk, yet OpenKodo
  *  before the path icon release refuses any object or `.svg` icon, failing the whole plugin. */
 export function pluginPanelIconEngineFloorError(raw: unknown): string | null {
   if (!isPluginJsonObject(raw) || raw.manifestVersion !== 2 || !isPluginJsonObject(raw.engines)) {
@@ -139,5 +139,5 @@ export function pluginPanelIconEngineFloorError(raw: unknown): string | null {
   )
   return index === -1
     ? null
-    : `engines.orca: must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[${index}].icon needs Orca ${PLUGIN_PANEL_PATH_ICON_SINCE}`
+    : `engines.orca: must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[${index}].icon needs OpenKodo ${PLUGIN_PANEL_PATH_ICON_SINCE}`
 }

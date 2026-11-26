@@ -17,7 +17,7 @@ export function refuseAgentCookieClear(context: Pick<RpcContext, 'caller'>): voi
   // An orcad's browser engine hears only from that orcad, which refused agents before forwarding.
   if (isAgentRpcCaller(context.caller) && !isBrowserEngineSidecarLaunch()) {
     throw new InvalidArgumentError(
-      "Agents can't clear a browser profile's cookies. Clear them from Settings › Browser in Orca."
+      "Agents can't clear a browser profile's cookies. Clear them from Settings › Browser in OpenKodo."
     )
   }
 }

@@ -15,8 +15,8 @@ import { tmpdir } from 'node:os'
 import { openProfileStateDatabase } from '../persistence/profile-state/database/profile-state-database'
 import {
   createDefaultLocalOrcaProfile,
-  DEFAULT_LOCAL_ORCA_PROFILE_ID,
-  ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+  DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
+  OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
   type OrcaProfileIndex
 } from '../../shared/orca-profiles/orca-profiles'
 
@@ -57,7 +57,7 @@ describe('profile index store', () => {
       'utf-8'
     )
     const index: OrcaProfileIndex = {
-      schemaVersion: ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+      schemaVersion: OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
       activeProfileId: profileId,
       profiles: [
         {
@@ -88,11 +88,11 @@ describe('profile index store', () => {
       JSON.stringify({ settings: { theme: 'legacy' } }),
       'utf-8'
     )
-    const profileDirectory = join(testState.dir, 'profiles', DEFAULT_LOCAL_ORCA_PROFILE_ID)
+    const profileDirectory = join(testState.dir, 'profiles', DEFAULT_LOCAL_OPENKODO_PROFILE_ID)
     mkdirSync(profileDirectory, { recursive: true })
     const database = openProfileStateDatabase(
       join(profileDirectory, 'profile-state.db'),
-      DEFAULT_LOCAL_ORCA_PROFILE_ID
+      DEFAULT_LOCAL_OPENKODO_PROFILE_ID
     )
     database.db.close()
 
@@ -117,7 +117,7 @@ describe('profile index store', () => {
       JSON.stringify({ settings: { theme: 'legacy' } }),
       'utf-8'
     )
-    const profileDirectory = join(testState.dir, 'profiles', DEFAULT_LOCAL_ORCA_PROFILE_ID)
+    const profileDirectory = join(testState.dir, 'profiles', DEFAULT_LOCAL_OPENKODO_PROFILE_ID)
     mkdirSync(profileDirectory, { recursive: true })
     writeFileSync(
       join(profileDirectory, artifact),
@@ -149,7 +149,7 @@ describe('profile index store', () => {
     const indexPath = (await import('./profile-storage-paths')).getOrcaProfileIndexPath()
     const profile = createDefaultLocalOrcaProfile(1)
     const index: OrcaProfileIndex = {
-      schemaVersion: ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+      schemaVersion: OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
       activeProfileId: profile.id,
       profiles: [profile]
     }
@@ -181,7 +181,7 @@ describe('profile index store', () => {
     const store = await loadProfileIndexStore()
     const indexPath = (await import('./profile-storage-paths')).getOrcaProfileIndexPath()
     const index: OrcaProfileIndex = {
-      schemaVersion: ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+      schemaVersion: OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
       activeProfileId: '../../escape',
       profiles: [
         {
@@ -207,7 +207,7 @@ describe('profile index store', () => {
     const indexPath = (await import('./profile-storage-paths')).getOrcaProfileIndexPath()
     const first = createDefaultLocalOrcaProfile(1)
     const firstIndex: OrcaProfileIndex = {
-      schemaVersion: ORCA_PROFILE_INDEX_SCHEMA_VERSION,
+      schemaVersion: OPENKODO_PROFILE_INDEX_SCHEMA_VERSION,
       activeProfileId: first.id,
       profiles: [first]
     }

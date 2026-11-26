@@ -1,4 +1,4 @@
-// Which paired computers are taking asks from this Orca's agents right now. A computer listens from
+// Which paired computers are taking asks from this OpenKodo's agents right now. A computer listens from
 // its first pull in a session until a pull's caller goes away or it leaves; an answered pull keeps it,
 // since it pulls again at once. Nothing is timed, and a server restart starts with none.
 import type { z } from 'zod'
@@ -10,7 +10,7 @@ export type ClientAskListener = {
   deviceId: string
   installationId: string
   name: string
-  /** The pairing fingerprint this Orca keys the computer's conversations by. */
+  /** The pairing fingerprint this OpenKodo keys the computer's conversations by. */
   fingerprint: string
   session: string
 }
@@ -112,7 +112,7 @@ export function listeningClients(
   )
 }
 
-/** The name a computer last pulled with since this Orca started; null for one it hasn't seen. */
+/** The name a computer last pulled with since this OpenKodo started; null for one it hasn't seen. */
 export function lastClientAskName(
   owner: ClientAskListenerOwner,
   installationId: string
@@ -147,7 +147,7 @@ export function requireListeningClient(
   if (!client) {
     throw new OrchestrationError(
       'remote_runtime_unavailable',
-      `${selector} is offline: it isn't connected to this Orca right now. ${nothingDone}`,
+      `${selector} is offline: it isn't connected to this OpenKodo right now. ${nothingDone}`,
       { effectsApplied: false }
     )
   }

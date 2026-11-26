@@ -19,13 +19,13 @@ import { antigravityTakesSystemPrompt } from '../acp/launch/acp-instructions'
 
 /** The oldest agy shown to run a chat on a home it is given (`--gemini-dir`) and to ignore an
  *  inherited GEMINI_API_KEY unless its own settings pick a key provider (checked on 1.5.5, 1.5.13
- *  and 1.5.16), so Orca passes the key through untouched. */
+ *  and 1.5.16), so OpenKodo passes the key through untouched. */
 export const ANTIGRAVITY_HOST_ACP_MINIMUM_VERSION = '1.5.5'
 /** agy keeps its sign-in and conversations here and ignores GEMINI_HOME, so this only pins the chat. */
 const AGY_HOME_FOLDER = '.gemini'
 /** Approves tools, not plans; the check launches with it, so a build without it stays managed. */
 export const AGY_SKIP_PERMISSIONS_FLAG = '--dangerously-skip-permissions'
-// agy.exe took 6-7s to list sessions while Orca started, and Windows has no managed fallback.
+// agy.exe took 6-7s to list sessions while OpenKodo started, and Windows has no managed fallback.
 const PROBE_TIMEOUT_MS = process.platform === 'win32' ? 15_000 : 5_000
 const RECHECK_MS = 5 * 60_000
 // ACP's "authentication required" error.
@@ -43,7 +43,7 @@ export function isCompatibleAntigravityHostAcp(initialized: InitializeResponse):
     Boolean(capabilities.sessionCapabilities?.resume) &&
     // Readiness is checked by listing sessions.
     Boolean(capabilities.sessionCapabilities?.list) &&
-    // A managed agent's identity rides the system prompt; without it Orca's own server runs.
+    // A managed agent's identity rides the system prompt; without it OpenKodo's own server runs.
     antigravityTakesSystemPrompt(initialized)
   )
 }
@@ -53,7 +53,7 @@ export function antigravityHostAccountHome(homePath: string): AgentSessionAccoun
   return { variable: 'GEMINI_HOME', path: join(homePath, AGY_HOME_FOLDER) }
 }
 
-/** The catalogs listed with the host's agy login: under `launchHome`, or each home Orca itself
+/** The catalogs listed with the host's agy login: under `launchHome`, or each home OpenKodo itself
  *  resolves it from. */
 export function antigravityHostCatalogFingerprints(launchHome?: string): string[] {
   const homes = new Set(
@@ -80,7 +80,7 @@ export function isAntigravityHostAccountHome(home: AgentSessionAccountHome): boo
 }
 
 /** What `agy acp` answered: serving sessions, a compatible server asking to sign in, a binary
- *  that can't serve Orca's chats, or no answer (hung or crashed). */
+ *  that can't serve OpenKodo's chats, or no answer (hung or crashed). */
 export type AntigravityHostAcpAnswer = 'ready' | 'signedOut' | 'incompatible' | 'unanswered'
 // Keyed by the binary's identity so an upgrade or reinstall is checked again.
 type HostCheck = {

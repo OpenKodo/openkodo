@@ -108,7 +108,7 @@ const NATIVE_CHAT_AGENT_PROFILES: Record<NativeChatAgent, NativeChatAgentProfile
   kiro: null,
   // Goose reports its skills as commands, at rest too.
   goose: null,
-  // Orca knows no skill folders of theirs; their sessions report what they load as commands.
+  // OpenKodo knows no skill folders of theirs; their sessions report what they load as commands.
   kilo: null,
   'mimo-code': null,
   omp: null,
@@ -117,7 +117,7 @@ const NATIVE_CHAT_AGENT_PROFILES: Record<NativeChatAgent, NativeChatAgentProfile
     skillPrefix: '/',
     skillSourceOwner: 'droid'
   },
-  // Qwen lists its skills as commands once a session runs; Orca knows none of its skill folders.
+  // Qwen lists its skills as commands once a session runs; OpenKodo knows none of its skill folders.
   'qwen-code': null,
   // Cline's ACP reports no commands and sends a `/word` to the model as text.
   cline: null,

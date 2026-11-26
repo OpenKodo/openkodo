@@ -14,7 +14,7 @@ export function theme(input: PluginTemplateInput): PluginTemplate {
   return {
     description: 'App color theme (data only, no approval needed)',
     files: {
-      'orca-plugin.json': manifest(input, description, {
+      'openkodo-plugin.json': manifest(input, description, {
         execution: 'data',
         contributes: {
           themes: [{ id: `${input.id}-dark`, title: input.name, path: 'themes/dark.json' }]
@@ -37,7 +37,7 @@ export function theme(input: PluginTemplateInput): PluginTemplate {
       }),
       'README.md': readme(
         input,
-        'An Orca app theme. Edit `themes/dark.json`; omitted tokens are derived from `--background` and `--foreground`.'
+        'An OpenKodo app theme. Edit `themes/dark.json`; omitted tokens are derived from `--background` and `--foreground`.'
       ),
       ...COMMON_FILES
     }
@@ -48,7 +48,7 @@ export function terminalTheme(input: PluginTemplateInput): PluginTemplate {
   return {
     description: 'Terminal ANSI palette (data only, no approval needed)',
     files: {
-      'orca-plugin.json': manifest(input, 'A dark terminal palette.', {
+      'openkodo-plugin.json': manifest(input, 'A dark terminal palette.', {
         execution: 'data',
         contributes: {
           terminalThemes: [{ id: input.id, title: input.name, path: 'terminal/dark.json' }]
@@ -70,7 +70,7 @@ export function terminalTheme(input: PluginTemplateInput): PluginTemplate {
           white: '#e8e0ff'
         }
       }),
-      'README.md': readme(input, 'An Orca terminal palette. Edit `terminal/dark.json`.'),
+      'README.md': readme(input, 'An OpenKodo terminal palette. Edit `terminal/dark.json`.'),
       ...COMMON_FILES
     }
   }
@@ -84,7 +84,7 @@ export function iconTheme(input: PluginTemplateInput): PluginTemplate {
   return {
     description: 'File and folder icon theme (data only, no approval needed)',
     files: {
-      'orca-plugin.json': manifest(input, 'File and folder icons.', {
+      'openkodo-plugin.json': manifest(input, 'File and folder icons.', {
         execution: 'data',
         contributes: {
           iconThemes: [{ id: input.id, title: input.name, path: 'icons/theme.json' }]
@@ -105,7 +105,7 @@ export function iconTheme(input: PluginTemplateInput): PluginTemplate {
       'icons/markdown.svg': MARKDOWN_ICON,
       'README.md': readme(
         input,
-        'An Orca icon theme. `icons/theme.json` maps slots, file names, extensions and folder names (`folderNames`, `folderNamesExpanded`) to SVG files (paths from the plugin root).'
+        'An OpenKodo icon theme. `icons/theme.json` maps slots, file names, extensions and folder names (`folderNames`, `folderNamesExpanded`) to SVG files (paths from the plugin root).'
       ),
       ...COMMON_FILES
     }
@@ -118,7 +118,7 @@ export function syntax(input: PluginTemplateInput): PluginTemplate {
   return {
     description: 'TextMate syntax highlighting for a file type (data only, no approval needed)',
     files: {
-      'orca-plugin.json': manifest(input, `Syntax highlighting for ${extension} files.`, {
+      'openkodo-plugin.json': manifest(input, `Syntax highlighting for ${extension} files.`, {
         execution: 'data',
         contributes: {
           syntaxes: [
@@ -169,7 +169,7 @@ export function languagePack(input: PluginTemplateInput): PluginTemplate {
   return {
     description: 'Interface translation (data only, no approval needed)',
     files: {
-      'orca-plugin.json': manifest(input, 'Translates Orca into Brazilian Portuguese.', {
+      'openkodo-plugin.json': manifest(input, 'Translates OpenKodo into Brazilian Portuguese.', {
         execution: 'data',
         contributes: {
           languagePacks: [
@@ -180,7 +180,7 @@ export function languagePack(input: PluginTemplateInput): PluginTemplate {
       'locales/pt-BR.json': json({ common: { cancel: 'Cancelar', retry: 'Tentar novamente' } }),
       'README.md': readme(
         input,
-        'An Orca language pack. Keys mirror the English catalog of Orca; add translated strings to `locales/pt-BR.json`, or change the locale in `orca-plugin.json`.'
+        'An OpenKodo language pack. Keys mirror the English catalog of OpenKodo; add translated strings to `locales/pt-BR.json`, or change the locale in `openkodo-plugin.json`.'
       ),
       ...COMMON_FILES
     }

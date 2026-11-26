@@ -1,11 +1,11 @@
-// A provider's page (GitHub's install, Linear's admin install, Slack's OAuth) ends at Orca Cloud's
-// return URL, which saves the result before it answers. A page in Orca's browser landing there, or the
-// owner coming back to Orca, means something may have changed: the setup reads now and a little faster
+// A provider's page (GitHub's install, Linear's admin install, Slack's OAuth) ends at OpenKodo Cloud's
+// return URL, which saves the result before it answers. A page in OpenKodo's browser landing there, or the
+// owner coming back to OpenKodo, means something may have changed: the setup reads now and a little faster
 // for a while, instead of waiting for its next slow tick.
 import { useAppStore } from '@/store'
 import type { AppState } from '@/store/types'
 
-// Each source's return path on the connector, as Orca Cloud serves it.
+// Each source's return path on the connector, as OpenKodo Cloud serves it.
 const RETURN_PATHS = {
   github: '/github/install/callback',
   linear: '/linear/oauth/callback',
@@ -36,7 +36,7 @@ function landedPages(state: AppState, returnUrl: string): Set<string> {
   return ids
 }
 
-/** Calls `onReturn` whenever a page in Orca's browser arrives at `returnUrl`; returns the stop. */
+/** Calls `onReturn` whenever a page in OpenKodo's browser arrives at `returnUrl`; returns the stop. */
 export function watchBrowserReturn(returnUrl: string, onReturn: () => void): () => void {
   // Pages already there (an old tab) are not a return.
   let landed = landedPages(useAppStore.getState(), returnUrl)
@@ -59,8 +59,8 @@ const RETURNED_FOR_MS = 30_000
 const SETTLED_MS = 3_000
 
 /**
- * Follows one wait on a provider: `check` runs at once when Orca's browser lands on `returnUrl` or the
- * owner comes back to Orca's window (or a chat in it), and `delay()` is the next tick's wait: short for
+ * Follows one wait on a provider: `check` runs at once when OpenKodo's browser lands on `returnUrl` or the
+ * owner comes back to OpenKodo's window (or a chat in it), and `delay()` is the next tick's wait: short for
  * a while after either, else `settledMs`. `stop` removes every listener.
  */
 export function followProviderReturn({
@@ -77,7 +77,7 @@ export function followProviderReturn({
     fastUntil = now() + RETURNED_FOR_MS
     check()
   }
-  // The window's focus misses going back to a chat beside Orca's browser.
+  // The window's focus misses going back to a chat beside OpenKodo's browser.
   const onFocusIn = (event: FocusEvent): void => {
     if (event.target instanceof Element && event.target.closest('[data-native-chat-root]')) {
       returned()

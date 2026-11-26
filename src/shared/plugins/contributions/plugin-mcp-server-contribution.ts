@@ -64,12 +64,12 @@ export const pluginMcpServerContributionSchema = z
   })
   .meta({
     id: 'McpServerContribution',
-    description: 'An MCP server Orca offers to the agents it launches, beside the user’s own.'
+    description: 'An MCP server OpenKodo offers to the agents it launches, beside the user’s own.'
   })
 
 export type PluginMcpServerContribution = z.infer<typeof pluginMcpServerContributionSchema>
 
-/** The server as Orca's tools file holds it; the contribution's rules are the file's, or stricter. */
+/** The server as OpenKodo's tools file holds it; the contribution's rules are the file's, or stricter. */
 export function pluginMcpServerTool(contribution: PluginMcpServerContribution): BotToolServer {
   const { name, url, command, args, env } = contribution
   if (url !== undefined) {

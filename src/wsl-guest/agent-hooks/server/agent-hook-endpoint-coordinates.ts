@@ -3,8 +3,8 @@ import { basename, dirname, join } from 'node:path'
 import { homedir } from 'node:os'
 
 import {
-  ORCA_HOOK_PROTOCOL_VERSION,
-  ORCA_HOOK_RAW_JSON_TRANSPORT
+  OPENKODO_HOOK_PROTOCOL_VERSION,
+  OPENKODO_HOOK_RAW_JSON_TRANSPORT
 } from '../../../shared/agent-hook-listener/configuration/agent-hook-types'
 
 // Use a per-user relay directory so shared hosts isolate endpoint files with mode 0700.
@@ -47,15 +47,15 @@ export function buildRelayHookPtyEnv(coordinates: {
     return {}
   }
   const env: Record<string, string> = {
-    ORCA_AGENT_HOOK_PORT: String(coordinates.port),
-    ORCA_AGENT_HOOK_TOKEN: coordinates.token,
-    ORCA_AGENT_HOOK_ENV: coordinates.env,
-    ORCA_AGENT_HOOK_VERSION: ORCA_HOOK_PROTOCOL_VERSION,
-    ORCA_AGENT_HOOK_OPENCODE_TUI: '1',
-    ORCA_AGENT_HOOK_TRANSPORT: ORCA_HOOK_RAW_JSON_TRANSPORT
+    OPENKODO_AGENT_HOOK_PORT: String(coordinates.port),
+    OPENKODO_AGENT_HOOK_TOKEN: coordinates.token,
+    OPENKODO_AGENT_HOOK_ENV: coordinates.env,
+    OPENKODO_AGENT_HOOK_VERSION: OPENKODO_HOOK_PROTOCOL_VERSION,
+    OPENKODO_AGENT_HOOK_OPENCODE_TUI: '1',
+    OPENKODO_AGENT_HOOK_TRANSPORT: OPENKODO_HOOK_RAW_JSON_TRANSPORT
   }
   if (coordinates.endpointFileWritten) {
-    env.ORCA_AGENT_HOOK_ENDPOINT = coordinates.endpointFilePath
+    env.OPENKODO_AGENT_HOOK_ENDPOINT = coordinates.endpointFilePath
   }
   return env
 }

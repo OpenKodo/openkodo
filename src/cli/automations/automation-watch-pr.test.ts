@@ -6,7 +6,7 @@ import type { RuntimeClient } from '../runtime/client'
 import { AUTOMATION_HANDLERS } from './automations'
 
 const NOW = Date.parse('2030-01-01T12:00:00.000Z')
-const PR = 'stablyai/orca#482'
+const PR = 'OpenKodo/openkodo#482'
 const OTHER_RULES = [
   'pr_conflicted',
   'pr_merged',
@@ -17,7 +17,7 @@ const OTHER_RULES = [
 ]
 
 const rules = (events: string[]) =>
-  events.map((event) => ({ source: 'github', event, subject: PR }))
+  events.map((event) => ({ source: 'github', event, subject: PR.toLowerCase() }))
 
 afterEach(() => {
   vi.useRealTimers()
@@ -27,7 +27,7 @@ afterEach(() => {
 type Host = { github?: unknown; ciFinished?: boolean }
 
 /** The `automation.create` params `orca automations watch-pr <argv>` sends a host whose bot has
- *  GitHub, on an Orca Cloud that sends github.ci_finished unless the host says otherwise. */
+ *  GitHub, on an OpenKodo Cloud that sends github.ci_finished unless the host says otherwise. */
 async function watchPr(argv: string[], host: Host = {}): Promise<Record<string, unknown>> {
   vi.useFakeTimers({ now: NOW, toFake: ['Date'] })
   const paths = COMMAND_SPECS.flatMap((spec) => specPaths(spec))
@@ -63,7 +63,11 @@ async function watchPr(argv: string[], host: Host = {}): Promise<Record<string, 
 
 describe('automations watch-pr', () => {
   it('creates one wait on ci_finished and every other next-step event, due in 2 hours', async () => {
-    const params = await watchPr(['https://github.com/stablyai/orca/pull/482', '--bot', 'ranger'])
+    const params = await watchPr([
+      'https://github.com/OpenKodo/openkodo/pull/482',
+      '--bot',
+      'ranger'
+    ])
     expect(params.on).toMatchObject(rules(['ci_finished', ...OTHER_RULES]))
     expect(params.on).toHaveLength(7)
     expect(params.once).toEqual({ by: Date.parse('2030-01-01T14:00:00.000Z') })
@@ -73,7 +77,7 @@ describe('automations watch-pr', () => {
     expect(params.bot).toMatchObject({ botId: 'bot-1', resultsTo: 'chat' })
   })
 
-  it('waits on ci_passed and ci_failed where the Orca Cloud does not send ci_finished', async () => {
+  it('waits on ci_passed and ci_failed where the cloud service does not send ci_finished', async () => {
     const params = await watchPr([PR, '--bot', 'ranger'], { ciFinished: false })
     expect(params.on).toMatchObject(rules(['ci_passed', 'ci_failed', ...OTHER_RULES]))
     expect(params.on).toHaveLength(8)
@@ -81,7 +85,7 @@ describe('automations watch-pr', () => {
 
   it('takes a pull request tab link, --for or --by, and the caller name and prompt', async () => {
     const forty = await watchPr([
-      'http://www.github.com/stablyai/orca/pull/482/checks?x=1',
+      'http://www.github.com/OpenKodo/openkodo/pull/482/checks?x=1',
       '--bot',
       'ranger',
       '--for',
@@ -95,7 +99,7 @@ describe('automations watch-pr', () => {
     expect(forty.once).toEqual({ by: Date.parse('2030-01-01T13:30:00.000Z') })
     expect(forty.name).toBe('Watch')
     expect(forty.prompt).toMatch(
-      /^Fix attempt 1 of 2\n\n.*deadline came first.*read stablyai\/orca#482 fresh/
+      /^Fix attempt 1 of 2\n\n.*deadline came first.*read OpenKodo\/openkodo#482 fresh/
     )
     const by = await watchPr([PR, '--bot', 'ranger', '--by', '2030-01-02T00:00:00Z'])
     expect(by.once).toEqual({ by: Date.parse('2030-01-02T00:00:00Z') })
@@ -107,7 +111,7 @@ describe('automations watch-pr', () => {
     )
     await expect(watchPr([PR])).rejects.toThrow(/^watch-pr needs --bot <name>$/)
     const refused = (argv: string[]) => watchPr(['--bot', 'ranger', ...argv])
-    for (const pr of ['stablyai/orca', 'a/b#0', 'https://github.com/a/b/issues/1']) {
+    for (const pr of ['OpenKodo/openkodo', 'a/b#0', 'https://github.com/a/b/issues/1']) {
       await expect(refused([pr])).rejects.toThrow(/one pull request/)
     }
     for (const length of ['2d', '0m', '9000h', `${'9'.repeat(400)}h`]) {

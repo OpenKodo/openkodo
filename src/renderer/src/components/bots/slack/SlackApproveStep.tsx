@@ -1,6 +1,6 @@
 // @protected-copy: drawn inside the security-surface setup dialog
 // A paired computer's app is made: open Slack's approval page on that computer, or copy its link
-// for another device. Slack returns to Orca Cloud, never to a computer, so either way finishes it.
+// for another device. Slack returns to OpenKodo Cloud, never to a computer, so either way finishes it.
 import React, { useId, useState } from 'react'
 import { Check, ChevronRight, Copy, ExternalLink, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -42,12 +42,12 @@ export function SlackApproveStep({
     ? until
       ? t(
           'bots.slack.approve.noteUntil',
-          'Works once, until {{time}}. Sign in to Slack as yourself there; Orca Cloud passes the approval back to {{host}}.',
+          'Works once, until {{time}}. Sign in to Slack as yourself there; cloud service passes the approval back to {{host}}.',
           { time: until, host: hostName }
         )
       : t(
           'bots.slack.approve.note',
-          'Works once. Sign in to Slack as yourself there; Orca Cloud passes the approval back to {{host}}.',
+          'Works once. Sign in to Slack as yourself there; cloud service passes the approval back to {{host}}.',
           { host: hostName }
         )
     : until

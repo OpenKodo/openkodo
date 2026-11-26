@@ -1,6 +1,6 @@
 import type { LocalNetworkConnectionTestResult } from '../../../../../shared/app-lifecycle/permissions/developer-permissions-types'
 
-const STORAGE_KEY = 'orca.developer-permissions.local-network-last-success.v1'
+const STORAGE_KEY = 'openkodo.developer-permissions.local-network-last-success.v1'
 
 export type LocalNetworkConnectionSuccess = Pick<
   LocalNetworkConnectionTestResult,

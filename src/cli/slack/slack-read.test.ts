@@ -15,7 +15,7 @@ afterEach(() => {
 })
 
 async function runRead(flags: Record<string, string>, result: unknown, cwd = tmpdir()) {
-  vi.stubEnv('ORCA_AGENT_SESSION_ID', 'session-1')
+  vi.stubEnv('OPENKODO_AGENT_SESSION_ID', 'session-1')
   const printed: string[] = []
   vi.spyOn(console, 'log').mockImplementation((line: string) => printed.push(line))
   const calls: unknown[] = []
@@ -133,7 +133,7 @@ const readRefusal = (result: Record<string, string>, ref = SLACK_REF) =>
 
 describe('Slack read refusals', () => {
   const UPDATE =
-    "This needs re-approval: open the bot in Orca and click Update in its Slack settings, then approve the app's new permissions. https://app.test/bots/b1/update"
+    "This needs re-approval: open the bot in OpenKodo and click Update in its Slack settings, then approve the app's new permissions. https://app.test/bots/b1/update"
 
   it.each([
     ['needs_reapproval', 'slack_history_scope_missing', UPDATE],

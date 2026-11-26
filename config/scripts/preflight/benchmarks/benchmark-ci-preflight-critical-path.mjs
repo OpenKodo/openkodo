@@ -15,7 +15,7 @@ if (!['smoke', 'sync-spawn', 'typecheck'].includes(comparison) || process.argv.l
 const root = fileURLToPath(new URL('../../../..', import.meta.url))
 const output = path.join(root, '.build/preflight-benchmark')
 mkdirSync(output, { recursive: true })
-const env = { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' }
+const env = { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' }
 const report = {
   sourceSha: process.env.GITHUB_SHA ?? null,
   comparison,

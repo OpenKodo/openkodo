@@ -9,7 +9,7 @@ import { SearchableSetting } from '../section-layout/SearchableSetting'
 import { useTranslate } from '@/i18n/use-translate'
 
 // Do not deep-link to /stargazers: GitHub 404s that page for users without repo write access.
-const ORCA_GITHUB_URL = 'https://github.com/stablyai/orca'
+const OPENKODO_GITHUB_URL = 'https://github.com/OpenKodo/openkodo'
 
 type SupportState =
   | 'loading'
@@ -53,7 +53,7 @@ export function GeneralSupportSection({
   const handleStarClick = async (): Promise<void> => {
     if (starState === 'web-fallback') {
       setStarState('opening-github')
-      await window.api.shell.openUrl(ORCA_GITHUB_URL)
+      await window.api.shell.openUrl(OPENKODO_GITHUB_URL)
       if (mountedRef.current) {
         setStarState('web-fallback')
       }
@@ -124,7 +124,10 @@ function SupportSection({
       <div className="min-h-0 overflow-hidden">
         <div className={hasPrecedingSections ? 'pt-2' : undefined}>
           <SettingsGroup
-            title={t('auto.components.settings.GeneralSupportSection.55a87e5fd1', 'Support Orca')}
+            title={t(
+              'auto.components.settings.GeneralSupportSection.55a87e5fd1',
+              'Support OpenKodo'
+            )}
           >
             {state === 'loading' ? <SupportRowSkeleton /> : null}
             {state !== 'loading' && state !== 'hidden' ? (
@@ -157,7 +160,10 @@ function SupportRow({
   // Keep the setting label stable; only its action changes to confirmation after starring.
   return (
     <SearchableSetting
-      title={t('auto.components.settings.GeneralSupportSection.6922c1fa2b', 'Star Orca on GitHub')}
+      title={t(
+        'auto.components.settings.GeneralSupportSection.6922c1fa2b',
+        'Star OpenKodo on GitHub'
+      )}
       description={t(
         'auto.components.settings.GeneralSupportSection.511782265b',
         'Support the project with a GitHub star.'
@@ -166,7 +172,7 @@ function SupportRow({
       className="flex items-center justify-between gap-4 py-2"
     >
       <Label>
-        {t('auto.components.settings.GeneralSupportSection.6922c1fa2b', 'Star Orca on GitHub')}
+        {t('auto.components.settings.GeneralSupportSection.6922c1fa2b', 'Star OpenKodo on GitHub')}
       </Label>
       {state === 'starred' ? (
         <SupportRowThanks />

@@ -8,11 +8,11 @@ import {
 
 export const PLUGIN_INSTALL_LINK_MAX_LENGTH = 2048
 const CATALOG_URL_MAX_LENGTH = 512
-const PLUGIN_INSTALL_LINK_PREFIX = 'orca://plugins'
+const PLUGIN_INSTALL_LINK_PREFIX = 'openkodo://plugins'
 
 export const COMMUNITY_MARKETPLACE_GIT_SOURCE: PluginMarketplaceGitSource = {
   kind: 'git',
-  url: 'https://github.com/stablyai/orca-community-plugins.git',
+  url: 'https://github.com/OpenKodo/openkodo-community-plugins.git',
   ref: 'main'
 }
 
@@ -52,7 +52,7 @@ function parseCatalog(value: string | null): PluginInstallLinkCatalog | null {
   return isOfficialMarketplaceGitSource(source.url) ? { kind: 'official' } : { kind: 'url', source }
 }
 
-/** `orca://plugins/<publisher.id>?catalog=<official|community|https or ssh URL>`; null when malformed. */
+/** `openkodo://plugins/<publisher.id>?catalog=<official|community|https or ssh URL>`; null when malformed. */
 export function parsePluginInstallLink(value: string): PluginInstallLink | null {
   if (value.length > PLUGIN_INSTALL_LINK_MAX_LENGTH || !isPluginInstallLinkArgument(value)) {
     return null

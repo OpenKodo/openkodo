@@ -20,8 +20,8 @@ import {
 import { syncPRAutoRefreshCadence } from '../github/pull-requests/refresh/pr-auto-refresh-cadence-sync'
 import { sidebarFactsRuntime } from './sidebar-inputs/orca-runtime-sidebar-temporal'
 import { OrcaRuntimeWithAgentQuestions } from './construction/orca-runtime-agent-questions'
-import { ORCA_SIDEBAR_INPUTS_IS_MAIN } from '../../shared/sidebar-list/feed/sidebar-inputs-switch'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_SIDEBAR_INPUTS_IS_MAIN } from '../../shared/sidebar-list/feed/sidebar-inputs-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import type { RuntimeCommandSurfaceHost } from './construction/runtime-installed-command-surfaces'
 import type {
   AgentLaunchTabPublished,
@@ -129,12 +129,12 @@ class OrcaRuntimeService extends OrcaRuntimeWithAgentQuestions {
     this.peerMailRelay?.stop()
   }
 
-  /** Sidebar facts are absent unless ORCA_SIDEBAR_INPUTS=main. */
+  /** Sidebar facts are absent unless OPENKODO_SIDEBAR_INPUTS=main. */
   get sidebarFacts() {
     return sidebarFactsRuntime(this)
   }
   // Idle without relay hosts; refresh only while a window or phone consumes sidebar state.
-  readonly pairedServerRows = ORCA_SIDEBAR_INPUTS_IS_MAIN
+  readonly pairedServerRows = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
     ? new PairedServerRowsProducer({
         hasDemand: () =>
           this.sidebarInputsFeed?.subscribed === true ||
@@ -150,8 +150,8 @@ class OrcaRuntimeService extends OrcaRuntimeWithAgentQuestions {
     fetch: runtimeIconFetch,
     encoder: () => getRuntimeDesktopSurface().encodeRepoIconPng
   })
-  readonly collapseWriteOrder = ORCA_SIDEBAR_INPUTS_IS_MAIN ? new CollapseWriteOrder() : null
-  readonly workspaceRows = ORCA_SIDEBAR_INPUTS_IS_MAIN
+  readonly collapseWriteOrder = OPENKODO_SIDEBAR_INPUTS_IS_MAIN ? new CollapseWriteOrder() : null
+  readonly workspaceRows = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
     ? new WorkspaceRowsProducer({
         store: this.store,
         // Join metadata at read time so writes do not wait on Git scans.
@@ -162,7 +162,7 @@ class OrcaRuntimeService extends OrcaRuntimeWithAgentQuestions {
         onClientEvent: (listener, options) => this.onClientEvent(listener, options)
       })
     : null
-  readonly sidebarInputsFeed = ORCA_SIDEBAR_INPUTS_IS_MAIN
+  readonly sidebarInputsFeed = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
     ? new SidebarInputsFeed(
         () =>
           sidebarInputsFeedDomains({
@@ -338,7 +338,7 @@ class OrcaRuntimeService extends OrcaRuntimeWithAgentQuestions {
         { ...this.layoutCommandRun(command), ...run }
       )
     // Order sleep/wake after previously accepted hook statuses.
-    const reply = await (ORCA_LAYOUT_OWNER_IS_MAIN && ['sleep', 'wake'].includes(command.type)
+    const reply = await (OPENKODO_LAYOUT_OWNER_IS_MAIN && ['sleep', 'wake'].includes(command.type)
       ? this.inResumeRecordOrder(apply)
       : (placing?.then(apply) ?? apply()))
     // The frame precedes the reply so the window can wait for its visible change.

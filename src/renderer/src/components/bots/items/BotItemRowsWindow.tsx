@@ -232,7 +232,7 @@ export function BotItemRowsWindow({
   }, [carried, drifted, measure, rebase])
 
   // Focus inside a row keeps it drawn and makes it the group's Tab stop until focus moves elsewhere on the
-  // page. A window losing focus (Orca in the background) keeps both, so the row is there when Orca comes back.
+  // page. A window losing focus (OpenKodo in the background) keeps both, so the row is there when OpenKodo comes back.
   const [focused, setFocused] = useState<RowPick | null>(null)
   // Until a row is focused, the Tab stop is the group's first row, whichever that is now.
   const [stop, setStop] = useState<RowPick | null>(null)

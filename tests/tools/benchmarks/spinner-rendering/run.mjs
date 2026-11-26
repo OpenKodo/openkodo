@@ -58,7 +58,7 @@ const scaleArgs =
   scaleFactor === undefined ? [] : [`--force-device-scale-factor=${Number(scaleFactor)}`]
 const app = await electron.launch({
   args: [...scaleArgs, main],
-  env: { ...env, ORCA_BACKGROUND_LAUNCH: '1' }
+  env: { ...env, OPENKODO_BACKGROUND_LAUNCH: '1' }
 })
 const report = { samples: [], frames: {}, failures: [] }
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms))

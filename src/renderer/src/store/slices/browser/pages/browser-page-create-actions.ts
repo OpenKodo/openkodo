@@ -12,11 +12,11 @@ import {
   mirrorWorkspaceFromActivePage
 } from './browser-page-records'
 import '../../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import { closeRemoteBrowserPageInOwningEnvironment } from '../hosts/browser-remote-close'
 import { releaseDocPreviewGrant } from '@/lib/browser/documents/doc-preview-grants'
 import { admitBrowserPageMount } from '@/components/browser-pane/host-guest/retention/browser-page-mount-admission'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import { sendBrowserLayoutCommand } from '../tabs/browser-layout-owner-commands'
 
 export function createBrowserPageCreateActions(
@@ -66,7 +66,7 @@ export function createBrowserPageCreateActions(
           const shouldFocusAddressBar =
             shouldUpdateGlobalActiveSurface &&
             !page.docLocation &&
-            (page.url === 'about:blank' || page.url === ORCA_BROWSER_BLANK_URL)
+            (page.url === 'about:blank' || page.url === OPENKODO_BROWSER_BLANK_URL)
 
           return {
             browserPagesByWorkspace: {
@@ -106,7 +106,7 @@ export function createBrowserPageCreateActions(
       }
       // Switch point: main adds the page to the tab first; the window shows it once main did.
       if (
-        ORCA_LAYOUT_OWNER_IS_MAIN &&
+        OPENKODO_LAYOUT_OWNER_IS_MAIN &&
         sendBrowserLayoutCommand(
           get,
           workspace.worktreeId,
@@ -230,7 +230,7 @@ export function createBrowserPageCreateActions(
           get().setTabLabel(item.id, workspace.title)
         }
       }
-      const page = ORCA_LAYOUT_OWNER_IS_MAIN
+      const page = OPENKODO_LAYOUT_OWNER_IS_MAIN
         ? findPage(get().browserPagesByWorkspace, pageId)
         : null
       const owner = page ? findWorkspace(get().browserTabsByWorktree, page.workspaceId) : null

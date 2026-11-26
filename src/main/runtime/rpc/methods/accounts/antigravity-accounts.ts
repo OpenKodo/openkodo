@@ -105,7 +105,7 @@ function antigravityOrcaHomeCatalogFingerprints(): string[] {
 function forgetAgyLogin(runtime: OrcaRuntimeService): void {
   noteAgyLoginChanged()
   const launchHome = sharedAgyLaunchHome(runtime)
-  // Orca's homes list with agy's Google login too (Enterprise, the retired server's chats).
+  // OpenKodo's homes list with agy's Google login too (Enterprise, the retired server's chats).
   const own = [...antigravityHostCatalogFingerprints(), ...antigravityOrcaHomeCatalogFingerprints()]
   agentModelCatalogStore.forgetSeenRows(own)
   // A listing started after the change, such as a Refresh, is already the new login's.

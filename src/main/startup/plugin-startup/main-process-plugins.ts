@@ -47,7 +47,7 @@ import { bindPluginEditorTypography } from '../../plugins/appearance/plugin-edit
 import { bindDesktopPluginNotices } from './desktop-plugin-notices'
 import { ALL_RPC_METHODS } from '../../runtime/rpc/methods/rpc-method-registry'
 import { getActiveTeamCapabilities } from '../../orca-profiles/cloud-auth/active-team-capabilities'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import { watchTeamPluginPolicy } from './team-plugin-policy-reconciliation'
 import {
   findTeamPluginBlock,
@@ -74,7 +74,7 @@ export async function initializeMainProcessPlugins(core: DesktopCore, store: Sto
     // Why packaged only (like the safety list): dev and e2e runs must not reach the network unasked.
     isFetchAllowed: () =>
       store.getSettings().pluginSystemEnabled === true &&
-      (app.isPackaged || process.env.ORCA_PLUGIN_INSTALL_STATS === '1')
+      (app.isPackaged || process.env.OPENKODO_PLUGIN_INSTALL_STATS === '1')
   })
   core.pluginInstallStatsService.onChanged(() => {
     for (const window of BrowserWindow.getAllWindows()) {
@@ -121,7 +121,7 @@ export async function initializeMainProcessPlugins(core: DesktopCore, store: Sto
     // plugin code path runs at all.
     isPluginSystemEnabled: () =>
       store.getSettings().pluginSystemEnabled === true &&
-      getActiveTeamCapabilities()?.flags[ORCA_CLOUD_TEAM_POLICY_FLAGS.plugins] !== false,
+      getActiveTeamCapabilities()?.flags[OPENKODO_CLOUD_TEAM_POLICY_FLAGS.plugins] !== false,
     getDisabledPlugins: () => normalizePluginIdList(store.getSettings().disabledPlugins),
     getRequiredPlugins: getRequiredTeamPlugins,
     getCatalogManagingTeams: (source) =>
@@ -185,7 +185,7 @@ export async function initializeMainProcessPlugins(core: DesktopCore, store: Sto
     isKillListed: (pluginKey) => Boolean(getPluginBlock(pluginKey))
   })
   // Why packaged only (like the safety list): dev and e2e runs must not update fixtures unasked.
-  const autoUpdateScheduled = app.isPackaged || process.env.ORCA_PLUGIN_AUTO_UPDATE === '1'
+  const autoUpdateScheduled = app.isPackaged || process.env.OPENKODO_PLUGIN_AUTO_UPDATE === '1'
   const syncPluginAutoUpdate = (runNow: boolean): void => {
     if (!autoUpdateScheduled) {
       return

@@ -14,47 +14,47 @@ const SCRIPT_DIR = import.meta.dirname
 const REPO_ROOT = path.resolve(SCRIPT_DIR, '../../..', '..')
 
 const CANONICAL_GUIDE_NAMES = [
-  'orca-computer-use',
+  'openkodo-computer-use',
   'jira-tickets',
   'linear-tickets',
-  'orca-cli',
-  'orca-emulator',
-  'orca-emulator-android',
-  'orca-jira',
-  'orca-linear',
-  'orca-per-workspace-env',
-  'orca-plugin-authoring',
+  'openkodo-cli',
+  'openkodo-emulator',
+  'openkodo-emulator-android',
+  'openkodo-jira',
+  'openkodo-linear',
+  'openkodo-per-workspace-env',
+  'openkodo-plugin-authoring',
   'orchestration'
 ]
 
 // Aliases preserve renamed discovery stubs; append ledger entries, never remove them.
 const GUIDE_ALIASES = {
-  'orca-computer-use': skillRenames['orca-computer-use'],
+  'openkodo-computer-use': skillRenames['openkodo-computer-use'],
   'jira-tickets': [],
   'linear-tickets': [],
-  'orca-cli': [],
-  'orca-emulator': [],
-  'orca-emulator-android': [],
-  'orca-jira': [],
-  'orca-linear': [],
-  'orca-per-workspace-env': [],
-  'orca-plugin-authoring': [],
+  'openkodo-cli': [],
+  'openkodo-emulator': [],
+  'openkodo-emulator-android': [],
+  'openkodo-jira': [],
+  'openkodo-linear': [],
+  'openkodo-per-workspace-env': [],
+  'openkodo-plugin-authoring': [],
   orchestration: []
 }
 
 // Stubbed topics install thin projections but skills get serves full version-matched guides.
 // Migration is one-way: old fat installs need new stubs to converge, so only add STUB_TOPICS; bodies live in skill-stubs/<topic>.md.
 const STUB_TOPICS = [
-  'orca-computer-use',
+  'openkodo-computer-use',
   'jira-tickets',
   'linear-tickets',
-  'orca-cli',
-  'orca-emulator',
-  'orca-emulator-android',
-  'orca-jira',
-  'orca-linear',
-  'orca-per-workspace-env',
-  'orca-plugin-authoring',
+  'openkodo-cli',
+  'openkodo-emulator',
+  'openkodo-emulator-android',
+  'openkodo-jira',
+  'openkodo-linear',
+  'openkodo-per-workspace-env',
+  'openkodo-plugin-authoring',
   'orchestration'
 ]
 

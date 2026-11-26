@@ -249,7 +249,7 @@ export function expandHomeArgs(args: readonly string[], homePath?: string): stri
   )
 }
 
-// Extensionless commands cannot spawn on Windows; .cmd/.bat use Orca's shim handling.
+// Extensionless commands cannot spawn on Windows; .cmd/.bat use OpenKodo's shim handling.
 export function isSpawnableCommand(platform: NodeJS.Platform, command: string): boolean {
   return platform !== 'win32' || /\.(exe|com|cmd|bat)$/i.test(command)
 }
@@ -316,7 +316,7 @@ export function* cliRuntimePathPairing<T extends NodeJS.ProcessEnv>(
   }
   const pathKey = platform === 'win32' ? firstWindowsPathEnvKey(env) : 'PATH'
   const pathDelimiter = platform === 'win32' ? ';' : delimiter
-  // Missing child PATH inherits Orca’s; pair over that inherited value.
+  // Missing child PATH inherits OpenKodo’s; pair over that inherited value.
   const segments = splitPath(env[pathKey] ?? process.env[pathKey], platform, pathDelimiter)
   const alternateCasePathKeys =
     platform === 'win32'

@@ -88,26 +88,26 @@ export const AGENT_SESSION_REFUSAL_REASONS = {
     'claudeAccountSetupFailed',
     /** Settings → Agents → Command names no program this host can run. */
     'agentCommandNotRunnable',
-    /** The runtime Orca installs for the agent is not installed on this host. */
+    /** The runtime OpenKodo installs for the agent is not installed on this host. */
     'runtimeNotInstalled',
     /** The agent refuses Full access while it runs as root. */
     'fullAccessAsRoot',
-    /** A bot's tools would run without its limits: Orca's plugin for the agent is off. */
+    /** A bot's tools would run without its limits: OpenKodo's plugin for the agent is off. */
     'botToolsNeedStatusHooks',
     /** A bot's tools would run without its limits: the agent's shared process kept an older plugin. */
     'botToolsGatewayOutdated',
-    /** Orca's launch preparation on the host failed before any agent process was spawned. */
+    /** OpenKodo's launch preparation on the host failed before any agent process was spawned. */
     'launchPreparationFailed',
     /** A terminal may still be writing the chat's conversation, so its agent did not start. */
     'conversationOpenInTerminal',
     'conversationOpenElsewhere',
-    /** The agent started, then Orca could not open the chat's conversation for it. */
+    /** The agent started, then OpenKodo could not open the chat's conversation for it. */
     'attachFailed'
   ],
   agent_session_ownership_unknown: [
     'sessionNotAttached',
     'noLiveOwner',
-    /** Orca cannot prove an agent process it recorded or started has exited. */
+    /** OpenKodo cannot prove an agent process it recorded or started has exited. */
     'ownerUnproven',
     'claimConflicted',
     'recordMissing',
@@ -133,7 +133,7 @@ export const AGENT_SESSION_REFUSAL_REASONS = {
   execution_owner_reconciling: [
     'hostReconciling',
     'recordUnreadable',
-    /** A queued mail card whose mailbox Orca cannot yet confirm still owes it to this chat. */
+    /** A queued mail card whose mailbox OpenKodo cannot yet confirm still owes it to this chat. */
     'mailOwnerUnconfirmed'
   ],
   agent_session_checkpoint_stale: ['fenceStale', 'leaseMoved', 'recordMissing'],
@@ -156,7 +156,7 @@ export const AGENT_SESSION_REFUSAL_REASONS = {
     'journalUnavailable',
     /** The disk refused the chat's write; it opens once space is freed. */
     'journalStorageFull',
-    /** A newer Orca wrote the journal, or this chat's rows; only an update writes past it. */
+    /** A newer OpenKodo wrote the journal, or this chat's rows; only an update writes past it. */
     'journalWrittenByNewerOrca'
   ],
   structured_agent_session_unsupported: [

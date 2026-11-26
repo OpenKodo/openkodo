@@ -13,7 +13,7 @@ const ASKER: ConnectorAsker = {
   role: 'member',
   place: { kind: 'public_channel', id: 'C0ORCA' },
   text:
-    '<@U0ANN|Ann Park> and <@U0BOB> can you check <https://github.com/stablyai/orca/pull/1|the release PR> ' +
+    '<@U0ANN|Ann Park> and <@U0BOB> can you check <https://github.com/OpenKodo/openkodo/pull/1|the release PR> ' +
     'before Friday? Posting in <#C0ORCA|p-orca> for <!subteam^S0QA|@qa-team>, <!here>. ' +
     'Due <!date^1763500000^{date_short}|Nov 18>. Typed: &lt;@U0X|not a mention&gt;',
   context: []
@@ -27,7 +27,7 @@ const EARLIER: ConnectorAsker = {
       kind: 'no_access',
       userId: 'U0ZED',
       name: 'Zed Ray',
-      text: '<@U0ANN|Ann Park> the fix is in <#C0ORCA|p-orca>, see <https://github.com/stablyai/orca/pull/1|the release PR>'
+      text: '<@U0ANN|Ann Park> the fix is in <#C0ORCA|p-orca>, see <https://github.com/OpenKodo/openkodo/pull/1|the release PR>'
     }
   ]
 }

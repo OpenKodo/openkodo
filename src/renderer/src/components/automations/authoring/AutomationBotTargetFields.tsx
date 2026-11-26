@@ -27,7 +27,7 @@ type AutomationBotTargetFieldsProps = {
   bot: Pick<Bot, 'name' | 'slack' | 'linear'> | null
   /** Only Slack, GitHub or Linear events start it, so each run has a thread to answer in. */
   hasEventThread: boolean
-  /** This computer's Orca Cloud binds an event's run to its thread. */
+  /** This computer's cloud service binds an event's run to its thread. */
   threadReplies: boolean
   /** Shown after Runs in, which decides whether a run can pick its own agent. */
   agentField?: React.ReactNode
@@ -118,7 +118,7 @@ export function AutomationBotTargetFields({
                     )
                   : t(
                       'automations.botTarget.resultsToThreadUnsupported',
-                      "The event's thread (Orca Cloud doesn't support this yet)"
+                      "The event's thread (cloud service doesn't support this yet)"
                     )}
             </SelectItem>
             {/* A channel post goes through the bot's Slack app, so it needs one. */}
@@ -130,7 +130,7 @@ export function AutomationBotTargetFields({
                     'A channel (connect Slack first)'
                   )}
             </SelectItem>
-            {/* A comment goes through Orca's Linear app, so the bot must be on Linear. */}
+            {/* A comment goes through OpenKodo's Linear app, so the bot must be on Linear. */}
             <SelectItem value="linear" disabled={!bot?.linear && choice !== 'linear'}>
               {bot?.linear
                 ? t('automations.botTarget.resultsToLinear', 'A Linear issue')

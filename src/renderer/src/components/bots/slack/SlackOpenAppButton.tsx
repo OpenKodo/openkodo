@@ -18,7 +18,7 @@ export function SlackOpenAppButton({
 }: {
   bot: Pick<Bot, 'id' | 'name' | 'hostId'>
   slack: ConnectorBotSlackState | null | undefined
-  /** The page opened in Orca's own browser, behind whatever shows this button. */
+  /** The page opened in OpenKodo's own browser, behind whatever shows this button. */
   onOpenedInOrca?: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()

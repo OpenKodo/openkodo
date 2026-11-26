@@ -5,7 +5,7 @@ import { findLink, type ExternalConversationLinkStore } from './external-convers
 import { writeLinkFact } from './external-conversation-link-writes'
 import type { ConversationKey } from './external-conversation-types'
 
-/** A Slack channel's name through Orca Cloud's find ("#orca"); null when it can't say. */
+/** A Slack channel's name through cloud service's find ("#orca"); null when it can't say. */
 export type ConversationPlaceNamer = (botId: string, channelId: string) => Promise<string | null>
 
 const GITHUB_REPO_THREAD = /^[^/]+\/([^/#]+#\d+)$/

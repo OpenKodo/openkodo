@@ -1,4 +1,4 @@
-// Each host account's Linear links as Orca Cloud reports them, read on demand and shared by every
+// Each host account's Linear links as OpenKodo Cloud reports them, read on demand and shared by every
 // Linear surface for that host (createConnectorHostState).
 import {
   BOT_LINEAR_OFF,

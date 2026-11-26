@@ -1,5 +1,5 @@
 import '../../orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../browser-blank-page'
 import { normalizeBrowserNavigationUrl } from '../navigation/browser-url'
 
 const CHROME_EXTENSION_ID_PATTERN = /^[a-p]{32}$/
@@ -45,15 +45,15 @@ export type BrowserExtensionRequestedUrl =
   | { kind: 'web'; url: string }
 
 /**
- * Every URL an extension asks Orca to open goes through here. Relative URLs resolve against the
- * caller's own origin (Chrome semantics); everything else must pass Orca's typed-URL rules.
+ * Every URL an extension asks OpenKodo to open goes through here. Relative URLs resolve against the
+ * caller's own origin (Chrome semantics); everything else must pass OpenKodo's typed-URL rules.
  */
 export function resolveBrowserExtensionRequestedUrl(
   rawUrl: string | undefined,
   callerExtensionId: string
 ): BrowserExtensionRequestedUrl | null {
   if (rawUrl === undefined || rawUrl.trim() === '' || rawUrl === 'about:blank') {
-    return { kind: 'blank', url: ORCA_BROWSER_BLANK_URL }
+    return { kind: 'blank', url: OPENKODO_BROWSER_BLANK_URL }
   }
   let absolute: URL
   try {
@@ -65,7 +65,7 @@ export function resolveBrowserExtensionRequestedUrl(
     const extensionUrl = parseChromeExtensionUrl(absolute.toString())
     return extensionUrl ? { kind: 'extension', ...extensionUrl } : null
   }
-  // Why: file: is a user-initiated preview scheme in Orca; extensions never get to open local files.
+  // Why: file: is a user-initiated preview scheme in OpenKodo; extensions never get to open local files.
   if (absolute.protocol !== 'http:' && absolute.protocol !== 'https:') {
     return null
   }

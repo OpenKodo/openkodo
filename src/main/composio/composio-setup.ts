@@ -1,5 +1,5 @@
 // Composio setup in a bot's chat. The owner starts it from Add connector; the bot explains and asks
-// Orca for the card it needs; the owner's clicks reach the bot as hidden card answers, never bubbles.
+// OpenKodo for the card it needs; the owner's clicks reach the bot as hidden card answers, never bubbles.
 import {
   composioUserOfBot,
   type ComposioAppSignIn,
@@ -25,7 +25,7 @@ export type ComposioSetupChat = {
   tellBot: (botId: string, line: string) => Promise<{ sessionId: string }>
   /** The bot's chat, if it has one. */
   chatOf: (botId: string) => string | undefined
-  /** An Orca status line, or a setup card, in a chat. */
+  /** An OpenKodo status line, or a setup card, in a chat. */
   write: (sessionId: string | undefined, item: ComposioSetupCardRef | string) => void
 }
 
@@ -164,7 +164,7 @@ export class ComposioSetup {
       botId,
       composioSetupAnswerLine(
         'key',
-        `added; Orca shows the ${next.card?.card ?? 'connect'} ${app.slug} card. ${next.message}`
+        `added; OpenKodo shows the ${next.card?.card ?? 'connect'} ${app.slug} card. ${next.message}`
       )
     )
   }
@@ -207,11 +207,11 @@ export class ComposioSetup {
     botId: string,
     hookId: string,
     trigger: NonNullable<ComposioSetupCardRef['trigger']>,
-    /** The where= Orca just added to the hook's automation, so it takes only this bot's events. */
+    /** The where= OpenKodo just added to the hook's automation, so it takes only this bot's events. */
     addedFilter?: string
   ): { message: string } {
     const added = addedFilter
-      ? ` Orca added ${addedFilter} to the automation's filter, so it takes only your events, not your owner's other bots'.`
+      ? ` OpenKodo added ${addedFilter} to the automation's filter, so it takes only your events, not your owner's other bots'.`
       : ''
     const shown = this.writeCard(this.chat.chatOf(botId), {
       botId,

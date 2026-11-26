@@ -26,14 +26,14 @@ const GROK_BEFORE = 'model = "grok-4"\r\n\r\n[mcp_servers.github]\r\ncommand = "
 
 let previousSwitch: string | undefined
 beforeEach(() => {
-  previousSwitch = process.env.ORCA_MCP_SERVERS
-  process.env.ORCA_MCP_SERVERS = '1'
+  previousSwitch = process.env.OPENKODO_MCP_SERVERS
+  process.env.OPENKODO_MCP_SERVERS = '1'
 })
 afterEach(() => {
   if (previousSwitch === undefined) {
-    delete process.env.ORCA_MCP_SERVERS
+    delete process.env.OPENKODO_MCP_SERVERS
   } else {
-    process.env.ORCA_MCP_SERVERS = previousSwitch
+    process.env.OPENKODO_MCP_SERVERS = previousSwitch
   }
   for (const dir of dirs.splice(0)) {
     rmSync(dir, { recursive: true, force: true })
@@ -51,7 +51,7 @@ function instance(folder: string, homeDir: string, userDataPath: string): McpAge
   }
 }
 
-/** The keys of Orca's entries for `server` (named `<server>-<folder>-<hash>`). */
+/** The keys of OpenKodo's entries for `server` (named `<server>-<folder>-<hash>`). */
 const serverKeys = (file: { mcpServers: Record<string, unknown> }, server: string): string[] =>
   Object.keys(file.mcpServers).filter((name) => name.startsWith(`${server}-orca-`))
 
@@ -74,7 +74,7 @@ async function setUp() {
   return { homeDir, folder, paths }
 }
 
-describe("Orca's servers in Grok's, Cursor's and Droid's own MCP files", () => {
+describe("OpenKodo's servers in Grok's, Cursor's and Droid's own MCP files", () => {
   it('withdrawing consent leaves each file as it was plus only the user’s own edits', async () => {
     const { homeDir, folder, paths } = await setUp()
     const app = instance(folder, homeDir, join(homeDir, 'one', 'orca'))
@@ -106,7 +106,7 @@ describe("Orca's servers in Grok's, Cursor's and Droid's own MCP files", () => {
     await syncMcpAgentFiles(other)
     expect(serverKeys(parse(read(paths.cursor)), 'postgres')).toHaveLength(2)
 
-    // The user adds a setting of their own after Orca's entries.
+    // The user adds a setting of their own after OpenKodo's entries.
     const edited = read(paths.cursor).replace(
       '"theme": "dark"',
       '"theme": "light",\n  "editor": "vim"'
@@ -123,7 +123,9 @@ describe("Orca's servers in Grok's, Cursor's and Droid's own MCP files", () => {
     const after = parse(read(paths.cursor))
     const left = serverKeys(after, 'postgres')
     expect(left).toHaveLength(1)
-    expect(after.mcpServers[left[0]!].env.ORCA_USER_DATA_PATH).toBe(join(homeDir, 'two', 'orca'))
+    expect(after.mcpServers[left[0]!].env.OPENKODO_USER_DATA_PATH).toBe(
+      join(homeDir, 'two', 'orca')
+    )
     expect(after.editor).toBe('vim')
 
     await setMcpAgentFileAllowed('cursor', false, other.folder)
@@ -133,7 +135,7 @@ describe("Orca's servers in Grok's, Cursor's and Droid's own MCP files", () => {
     )
   })
 
-  it('renames entries an earlier Orca wrote under the plain server name on the next sync', async () => {
+  it('renames entries an earlier OpenKodo wrote under the plain server name on the next sync', async () => {
     const { homeDir, folder, paths } = await setUp()
     const app = instance(folder, homeDir, join(homeDir, 'orca'))
     await setMcpAgentFileAllowed('cursor', true, folder)
@@ -160,7 +162,7 @@ describe("Orca's servers in Grok's, Cursor's and Droid's own MCP files", () => {
     const { homeDir, folder, paths } = await setUp()
     await setMcpAgentFileAllowed('cursor', true, folder)
     await setMcpAgentFileAllowed('droid', true, folder)
-    delete process.env.ORCA_MCP_SERVERS
+    delete process.env.OPENKODO_MCP_SERVERS
     await syncMcpAgentFiles(instance(folder, homeDir, join(homeDir, 'orca')))
     expect(read(paths.cursor)).toBe(CURSOR_BEFORE)
     expect(read(paths.grok)).toBe(GROK_BEFORE)

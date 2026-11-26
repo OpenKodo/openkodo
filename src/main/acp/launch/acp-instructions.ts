@@ -102,10 +102,10 @@ export function antigravityTakesSystemPrompt(initialized: InitializeResponse): b
   return AntigravitySystemPromptCapability.safeParse(initialized.agentCapabilities?._meta).success
 }
 
-// Orca's managed server forgets it when it restarts, and a re-sent text replaces the old one.
+// OpenKodo's managed server forgets it when it restarts, and a re-sent text replaces the old one.
 export const deliverAntigravityInstructions = givenEachStart(async ({ text, cwd }) => {
   // agy also reads the folder's GEMINI.md, where Gemini CLI chats (bots now on Antigravity) left
-  // Orca's old copy of these instructions.
+  // OpenKodo's old copy of these instructions.
   await removeFolderContextFile(cwd, 'GEMINI.md', 'Gemini').catch(() => undefined)
   return {
     sessionMeta: { antigravity: { systemPrompt: { append: text } } },

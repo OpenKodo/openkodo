@@ -42,7 +42,7 @@ describe.skipIf(process.platform !== 'win32')('Codex hook delivery through Power
         const chunks: Buffer[] = []
         req.on('data', (chunk) => chunks.push(chunk))
         req.on('end', () => {
-          tokens.push(req.headers['x-orca-agent-hook-token'])
+          tokens.push(req.headers['x-openkodo-agent-hook-token'])
           posts.push(new URLSearchParams(Buffer.concat(chunks).toString('utf8')))
           res.writeHead(204).end()
         })
@@ -54,13 +54,13 @@ describe.skipIf(process.platform !== 'win32')('Codex hook delivery through Power
       }
       const env = {
         ...Object.fromEntries(
-          Object.entries(process.env).filter(([key]) => !key.startsWith('ORCA_'))
+          Object.entries(process.env).filter(([key]) => !key.startsWith('OPENKODO_'))
         ),
-        ORCA_BACKGROUND_LAUNCH: '1',
-        ORCA_AGENT_HOOK_PORT: String(address.port),
-        ORCA_AGENT_HOOK_TOKEN: 'unicode-test-token',
-        ORCA_PANE_KEY: 'unicode-tab:unicode-leaf',
-        ORCA_WORKTREE_ID: 'C:\\folder workspace\\测试 & repo'
+        OPENKODO_BACKGROUND_LAUNCH: '1',
+        OPENKODO_AGENT_HOOK_PORT: String(address.port),
+        OPENKODO_AGENT_HOOK_TOKEN: 'unicode-test-token',
+        OPENKODO_PANE_KEY: 'unicode-tab:unicode-leaf',
+        OPENKODO_WORKTREE_ID: 'C:\\folder workspace\\测试 & repo'
       }
       const payloads = CODEX_EVENTS.map((hook_event_name) =>
         JSON.stringify({
@@ -92,8 +92,8 @@ describe.skipIf(process.platform !== 'win32')('Codex hook delivery through Power
         expect(tokens).toEqual(CODEX_EVENTS.map(() => 'unicode-test-token'))
         expect(posts.map((post) => post.get('payload')).sort()).toEqual([...payloads].sort())
         for (const post of posts) {
-          expect(post.get('paneKey')).toBe(env.ORCA_PANE_KEY)
-          expect(post.get('worktreeId')).toBe(env.ORCA_WORKTREE_ID)
+          expect(post.get('paneKey')).toBe(env.OPENKODO_PANE_KEY)
+          expect(post.get('worktreeId')).toBe(env.OPENKODO_WORKTREE_ID)
         }
         await new Promise<void>((resolve) => server.close(() => resolve()))
         expect(await invoke(getManagedCommand(scriptPath), payloads[0])).toMatchObject({

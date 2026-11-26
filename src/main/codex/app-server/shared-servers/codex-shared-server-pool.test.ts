@@ -117,7 +117,7 @@ describe('shared Codex app-servers', () => {
     expect(askedB).toEqual(['account/chatgptAuthTokens/refresh'])
   })
 
-  it("gives each chat's threads that chat's own Orca identity, not the server's", async () => {
+  it("gives each chat's threads that chat's own OpenKodo identity, not the server's", async () => {
     const { servers, pool } = fakeCodex()
     const launchA = launch()
     const launchB = launch()
@@ -127,10 +127,12 @@ describe('shared Codex app-servers', () => {
     await startThread(connB)
     const sessionIds = servers[0]!.requests
       .filter((r) => r.method === 'thread/start')
-      .map((r) => field(r.params, 'config', 'shell_environment_policy.set.ORCA_AGENT_SESSION_ID'))
+      .map((r) =>
+        field(r.params, 'config', 'shell_environment_policy.set.OPENKODO_AGENT_SESSION_ID')
+      )
     expect(sessionIds).toEqual([
-      launchA.env.ORCA_AGENT_SESSION_ID,
-      launchB.env.ORCA_AGENT_SESSION_ID
+      launchA.env.OPENKODO_AGENT_SESSION_ID,
+      launchB.env.OPENKODO_AGENT_SESSION_ID
     ])
   })
 

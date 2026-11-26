@@ -51,7 +51,7 @@ async function readTokensUnlessUnparseable(
   }
 }
 
-/** One HTTP read that never spawns Codex, so a login Orca has not selected never has its tokens rotated. */
+/** One HTTP read that never spawns Codex, so a login OpenKodo has not selected never has its tokens rotated. */
 export async function readCodexBackendOnlyUsage(
   request: CodexBackendRequest,
   options: CodexRateLimitFetchOptions | undefined

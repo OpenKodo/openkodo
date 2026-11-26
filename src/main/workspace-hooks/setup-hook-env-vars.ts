@@ -13,8 +13,8 @@ export type HookWorkspaceIdentity = {
 
 // Path-valued keys only, so WSL and posix-shell launches translate them; names are not paths.
 export const SETUP_RUNNER_PATH_ENV_KEYS = [
-  'ORCA_ROOT_PATH',
-  'ORCA_WORKTREE_PATH',
+  'OPENKODO_ROOT_PATH',
+  'OPENKODO_WORKTREE_PATH',
   'CONDUCTOR_ROOT_PATH',
   'CONDUCTOR_WORKSPACE_PATH',
   'GHOSTX_ROOT_PATH'
@@ -31,12 +31,12 @@ export function getSetupEnvVars(
       ? identity.displayName
       : getRuntimePathBasename(worktreePath)
   return {
-    ORCA_ROOT_PATH: repo.path,
-    ORCA_WORKTREE_PATH: worktreePath,
-    ORCA_WORKSPACE_NAME: workspaceName,
-    // Same values a pane sets, so `orca worktree create` in the hook attaches to this workspace.
+    OPENKODO_ROOT_PATH: repo.path,
+    OPENKODO_WORKTREE_PATH: worktreePath,
+    OPENKODO_WORKSPACE_NAME: workspaceName,
+    // Same values a pane sets, so `openkodo worktree create` in the hook attaches to this workspace.
     ...(identity
-      ? { ORCA_WORKSPACE_ID: identity.worktreeId, ORCA_WORKTREE_ID: identity.worktreeId }
+      ? { OPENKODO_WORKSPACE_ID: identity.worktreeId, OPENKODO_WORKTREE_ID: identity.worktreeId }
       : {}),
     // Imported Conductor scripts read these names.
     CONDUCTOR_ROOT_PATH: repo.path,

@@ -107,7 +107,7 @@ export function buildPosixHookSpoolLines(source: string, eventNameVar?: string):
     eventFormat,
     '"paneKey":"%s","tabId":"%s","worktreeId":"%s","env":"%s","version":"%s","launchToken":"%s","source":"%s","receivedAt":%s,"agentProcess":"%s","tmuxPane":"%s","payload":%s}\\n\'',
     eventArg,
-    ' "$(spool_json_escape "${ORCA_PANE_KEY:-}")" "$(spool_json_escape "${ORCA_TAB_ID:-}")" "$(spool_json_escape "${ORCA_WORKTREE_ID:-}")" "$(spool_json_escape "${ORCA_AGENT_HOOK_ENV:-}")" "$(spool_json_escape "${ORCA_AGENT_HOOK_VERSION:-}")" "$(spool_json_escape "${ORCA_AGENT_LAUNCH_TOKEN:-}")" "$(spool_json_escape "',
+    ' "$(spool_json_escape "${OPENKODO_PANE_KEY:-}")" "$(spool_json_escape "${OPENKODO_TAB_ID:-}")" "$(spool_json_escape "${OPENKODO_WORKTREE_ID:-}")" "$(spool_json_escape "${OPENKODO_AGENT_HOOK_ENV:-}")" "$(spool_json_escape "${OPENKODO_AGENT_HOOK_VERSION:-}")" "$(spool_json_escape "${OPENKODO_AGENT_LAUNCH_TOKEN:-}")" "$(spool_json_escape "',
     source,
     '")" "$spool_now" "$(spool_json_escape "${orca_agent_process:-}")" "$(spool_json_escape "${orca_tmux_pane:-}")" "$payload"; } >> "$spool_file" 2>/dev/null || :'
   )
@@ -116,16 +116,16 @@ export function buildPosixHookSpoolLines(source: string, eventNameVar?: string):
     eventNameVar
       ? `  case "\${${eventNameVar}:-}" in PreToolUse|PostToolUse|PostToolUseFailure|PostToolBatch) return 0 ;; esac`
       : '  case "$payload" in *\'"PreToolUse"\'*|*\'"PostToolUse"\'*|*\'"PostToolUseFailure"\'*|*\'"hook_event_name":"PostToolBatch"\'*|*\'"hook_event_name": "PostToolBatch"\'*) return 0 ;; esac',
-    '  [ -n "${ORCA_AGENT_HOOK_ENDPOINT:-}" ] || return 0',
-    // Stale endpoint variables outside Orca must not accumulate unattributed spool records.
-    '  [ -n "${ORCA_PANE_KEY:-}" ] || return 0',
-    // A stale variable must not create spool state for an absent Orca installation.
-    '  [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ] || return 0',
-    '  spool_base=${ORCA_AGENT_HOOK_ENDPOINT%/*}',
+    '  [ -n "${OPENKODO_AGENT_HOOK_ENDPOINT:-}" ] || return 0',
+    // Stale endpoint variables outside OpenKodo must not accumulate unattributed spool records.
+    '  [ -n "${OPENKODO_PANE_KEY:-}" ] || return 0',
+    // A stale variable must not create spool state for an absent OpenKodo installation.
+    '  [ -r "$OPENKODO_AGENT_HOOK_ENDPOINT" ] || return 0',
+    '  spool_base=${OPENKODO_AGENT_HOOK_ENDPOINT%/*}',
     '  spool_dir="$spool_base/spool"',
     '  mkdir -p "$spool_dir" 2>/dev/null || return 0',
     '  chmod 700 "$spool_dir" 2>/dev/null || :',
-    "  spool_id=$(printf %s \"${ORCA_PANE_KEY:-unknown}\" | tail -c 36 | tr '/:' '__')",
+    "  spool_id=$(printf %s \"${OPENKODO_PANE_KEY:-unknown}\" | tail -c 36 | tr '/:' '__')",
     '  spool_file="$spool_dir/pane-$spool_id.jsonl"',
     '  if [ -f "$spool_file" ] && find "$spool_file" -mtime +7 -print -quit 2>/dev/null | grep -q .; then : > "$spool_file"; fi',
     '  [ -f "$spool_file" ] || : > "$spool_file"',
@@ -145,12 +145,12 @@ export const WINDOWS_HOOK_STDIN_READER = '"%SystemRoot%\\System32\\more.com"'
 export const WINDOWS_HOOK_STDIN_DRAIN_COMMAND = `${WINDOWS_HOOK_STDIN_READER} >nul 2>nul`
 
 const WINDOWS_HOOK_ENVIRONMENT_VARS = [
-  'ORCA_AGENT_HOOK_PORT',
-  'ORCA_AGENT_HOOK_TOKEN',
-  'ORCA_PANE_KEY'
+  'OPENKODO_AGENT_HOOK_PORT',
+  'OPENKODO_AGENT_HOOK_TOKEN',
+  'OPENKODO_PANE_KEY'
 ] as const
 
-// Windows callers may leave stdin open outside Orca: guard first; POSIX must capture first to avoid EPIPE.
+// Windows callers may leave stdin open outside OpenKodo: guard first; POSIX must capture first to avoid EPIPE.
 export function buildWindowsHookEnvironmentGuardLines(): string[] {
   return WINDOWS_HOOK_ENVIRONMENT_VARS.map((name) => `if "%${name}%"=="" exit /b 0`)
 }
@@ -160,7 +160,7 @@ export const WINDOWS_GIT_BASH_HOOK_ENVIRONMENT_GUARD = `if ${WINDOWS_HOOK_ENVIRO
   (name) => `[ -z "\${${name}-}" ]`
 ).join(' || ')}; then exit 0; fi`
 
-/** Check Orca context before any PowerShell ReadToEnd to avoid hanging on abandoned stdin. */
+/** Check OpenKodo context before any PowerShell ReadToEnd to avoid hanging on abandoned stdin. */
 export const WINDOWS_POWERSHELL_HOOK_ENVIRONMENT_GUARD = `if (${WINDOWS_HOOK_ENVIRONMENT_VARS.map(
   (name) => `-not $env:${name}`
 ).join(' -or ')}) { exit 0 }`

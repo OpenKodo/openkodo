@@ -6,7 +6,7 @@ import {
 
 export class OrcaCloudSessionStorageRefusedError extends Error {
   constructor(reason: string) {
-    super(`Orca can't save your sign-in on this host: ${reason}`)
+    super(`OpenKodo can't save your sign-in on this host: ${reason}`)
     this.name = 'OrcaCloudSessionStorageRefusedError'
   }
 }

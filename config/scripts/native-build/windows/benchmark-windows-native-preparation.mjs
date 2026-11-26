@@ -192,7 +192,7 @@ export async function benchmarkWindowsNativePreparation(
   const pnpm = resolvePnpmCliInvocation()
   const environment = {
     ...process.env,
-    ORCA_BACKGROUND_LAUNCH: '1',
+    OPENKODO_BACKGROUND_LAUNCH: '1',
     npm_config_devdir: headers,
     npm_package_config_node_gyp_devdir: headers
   }
@@ -418,7 +418,7 @@ export async function benchmarkWindowsNativePreparation(
         ]
         const result = await command(stage, process.execPath, args, snapshot, {
           ...environment,
-          ORCA_NATIVE_BENCHMARK_TRACE: traceFile
+          OPENKODO_NATIVE_BENCHMARK_TRACE: traceFile
         })
         assertNoHeaderDownloads(result)
         const receipt = JSON.parse(readFileSync(traceFile, 'utf8'))

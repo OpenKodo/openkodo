@@ -1,4 +1,4 @@
-// Request access asks for this host's bots, answered on the host as the desktop's Orca account, for any paired client.
+// Request access asks for this host's bots, answered on the host as the desktop's OpenKodo account, for any paired client.
 import type { Bot } from '../../shared/bot-types'
 import { botTakesAccessRequest, grantAccessRequest } from '../../shared/bots/bot-access-request'
 import type {
@@ -16,7 +16,7 @@ import type { ConnectorCloud } from '../connector-cloud/connector-cloud'
 
 export type BotAccessHostDeps = {
   bots: () => readonly Bot[]
-  /** Null when this host has no signed-in Orca account (orca serve today). */
+  /** Null when this host has no signed-in OpenKodo account (orca serve today). */
   cloud: () => Pick<ConnectorCloud, 'call'> | null
   updateBot: (botId: string, edit: (bot: Bot) => BotUpdateParams['updates']) => Promise<Bot>
 }

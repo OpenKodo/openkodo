@@ -255,7 +255,7 @@ export abstract class BrowserManagerGuestPolicy extends BrowserManagerGuestClean
       },
       hasActiveGrabOp: (browserPageId) => this.hasActiveGrabOp(browserPageId)
     })
-    // Why: a focused preview swallows keys, so Orca's window shortcuts (Ctrl+Tab, close tab) are
+    // Why: a focused preview swallows keys, so OpenKodo's window shortcuts (Ctrl+Tab, close tab) are
     // forwarded to its own host as for plugin frames; browser-page chords stay with the document.
     const disposeShortcutForwarding = setupGuestShortcutForwarding({
       browserTabId: `workspace-doc:${guest.id}`,

@@ -2,7 +2,7 @@ import { OrcaRuntimeWithGetPtyRecordForPaneKey } from './terminal-pane-mail-rout
 import type { OrchestrationMailboxTerminal } from './mailbox-owner'
 import type { RuntimePtyWorktreeRecord } from '../../../terminal/records/runtime-terminal-state-records'
 import { parsePaneKey } from '../../../../../shared/workspace-layout/stable-pane-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 
 /** Which live terminal orchestration types mail into, and the handle it is known by. */
 export abstract class OrcaRuntimeWithMailboxTerminalIdentity extends OrcaRuntimeWithGetPtyRecordForPaneKey {
@@ -75,7 +75,7 @@ export abstract class OrcaRuntimeWithMailboxTerminalIdentity extends OrcaRuntime
     }
     // A retained predecessor and its replacement can both claim a pane no window shows.
     // Main-owned layout binds panes outside the record index, so only that build scans every PTY.
-    const candidates = ORCA_LAYOUT_OWNER_IS_MAIN
+    const candidates = OPENKODO_LAYOUT_OWNER_IS_MAIN
       ? this.ptysById.keys()
       : this.terminalIdentity.paneCandidates.ptysForPane(paneKey)
     for (const otherId of candidates) {

@@ -81,7 +81,7 @@ export async function ensureWslHostForRuntimeCall(
   await connector.connect(record.distro, { noBoot: true }).catch(rethrowRetryable(record.distro))
 }
 
-/** Orca stopped this host idle (#46567): only a user's call wakes it, booting the distro if needed. */
+/** OpenKodo stopped this host idle (#46567): only a user's call wakes it, booting the distro if needed. */
 async function wakeIdleStoppedHost(
   record: WslHostDeploymentRecord,
   port: WslHostRuntimeCallPort

@@ -54,12 +54,12 @@ export type ManagedAgentCli = {
 }
 
 const serverUseListeners = new Set<(agent: string) => void>()
-/** Told each time a chat starts on Orca's installed server, so an update that failed is retried on use. */
+/** Told each time a chat starts on OpenKodo's installed server, so an update that failed is retried on use. */
 export function onManagedServerUse(listener: (agent: string) => void): () => void {
   serverUseListeners.add(listener)
   return () => serverUseListeners.delete(listener)
 }
-/** A launch resolved to `version` of Orca's `runtime`; only runtimes that follow their pin listen. */
+/** A launch resolved to `version` of OpenKodo's `runtime`; only runtimes that follow their pin listen. */
 export function noteManagedServerUse(
   agent: string,
   runtime: ManagedRuntime | undefined,

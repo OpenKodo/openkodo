@@ -44,7 +44,7 @@ export function assemblePtySpawnEnvDeletions(input: {
       // Persistent daemons and older SSH hosts must not resurrect a parent Pi's ownership.
       PI_PROCESS_OWNER_ENV_KEYS,
       input.agentTeamsEnvToDelete,
-      // Disable legacy hooks on old hosts while preserving ORCA_REAL pointers needed by Windows shims.
+      // Disable legacy hooks on old hosts while preserving OPENKODO_REAL pointers needed by Windows shims.
       input.isDaemonHostSpawn || input.connectionId ? LEGACY_TERMINAL_SHIM_REMOTE_ENV_KEYS : [],
       input.isDaemonHostSpawn ? getInheritedAgentHookEnvKeysToDelete(env) : [],
       // The daemon must judge its own inherited value; main may have a different config.
@@ -55,7 +55,7 @@ export function assemblePtySpawnEnvDeletions(input: {
       getInheritedAgentSessionStampEnvKeysToDelete(env),
       input.skipCodexHomeEnv ? CODEX_HOME_ENV_KEYS : [],
       // Persistent daemons must compare their own merged Codex home markers.
-      input.stripInheritedOrcaCodexHome ? ['ORCA_CODEX_HOME'] : []
+      input.stripInheritedOrcaCodexHome ? ['OPENKODO_CODEX_HOME'] : []
     ) ?? []
   if (input.codexResumeHomeSelected) {
     envToDelete = removeCodexHomeDeletionRequests(envToDelete) ?? []

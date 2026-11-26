@@ -1,6 +1,6 @@
 // Move main-owned tabs through layout commands so every view follows main without a window relay.
 import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type {
   RuntimeMobileSessionTabMove,
   RuntimeMobileSessionTabMoveResult,
@@ -55,7 +55,7 @@ export abstract class OrcaRuntimeWithMainLayoutTabMoves extends OrcaRuntimeWithM
     move: RuntimeMobileSessionTabMove
   ): Promise<RuntimeMobileSessionTabMoveResult | null> {
     if (
-      !ORCA_LAYOUT_OWNER_IS_MAIN ||
+      !OPENKODO_LAYOUT_OWNER_IS_MAIN ||
       !startedMainTerminalSurfaces(this)?.ownsWorkspace(worktreeId)
     ) {
       return null

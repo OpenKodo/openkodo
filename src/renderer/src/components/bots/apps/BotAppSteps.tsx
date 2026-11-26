@@ -1,4 +1,4 @@
-// The steps after Add that are neither Orca's own connector setups nor an app by URL: Webhooks (set up
+// The steps after Add that are neither OpenKodo's own connector setups nor an app by URL: Webhooks (set up
 // in chat) and the one-time Composio account.
 import type { BotOnHost } from '@/lib/bot-hosts'
 import React, { useId, useState } from 'react'

@@ -102,14 +102,14 @@ async function callOrca(cli, args, options = {}) {
 function buildLongSpec(sizeKb, marker) {
   const targetBytes = sizeKb * 1024
   const header = [
-    `ORCA_LONG_PROMPT_REPRO_START ${marker}`,
+    `OPENKODO_LONG_PROMPT_REPRO_START ${marker}`,
     'This task is intentionally long so orchestration dispatch crosses terminal input chunks.',
     'The receiver expects the end marker to arrive before the submit byte.'
   ].join('\n')
   const lines = [header]
   let index = 0
   while (
-    Buffer.byteLength(`${lines.join('\n')}\nORCA_LONG_PROMPT_REPRO_END ${marker}`, 'utf8') <
+    Buffer.byteLength(`${lines.join('\n')}\nOPENKODO_LONG_PROMPT_REPRO_END ${marker}`, 'utf8') <
     targetBytes
   ) {
     lines.push(
@@ -117,7 +117,7 @@ function buildLongSpec(sizeKb, marker) {
     )
     index += 1
   }
-  lines.push(`ORCA_LONG_PROMPT_REPRO_END ${marker}`)
+  lines.push(`OPENKODO_LONG_PROMPT_REPRO_END ${marker}`)
   return lines.join('\n')
 }
 
@@ -157,7 +157,7 @@ async function tryCloseTerminal(cli, handle, cwd) {
 }
 
 async function parentMain() {
-  const cli = argValue('cli', process.env.ORCA_REPRO_CLI ?? 'orca')
+  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'orca')
   const mode = argValue('mode', DEFAULT_MODE)
   if (!new Set(['wire', 'codex-like']).has(mode)) {
     throw new Error('--mode must be wire or codex-like')
@@ -370,7 +370,7 @@ function parseInjectedIds(text) {
 }
 
 async function fakeWorkerMain() {
-  const cli = argValue('cli', process.env.ORCA_REPRO_CLI ?? 'orca')
+  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'orca')
   const mode = argValue('mode', DEFAULT_MODE)
   const reportPath = argValue('report')
   const marker = argValue('marker')
@@ -441,7 +441,7 @@ async function fakeWorkerMain() {
     report.workerDone = await sendWorkerDone(ids, report)
     await writeFile(reportPath, JSON.stringify(report, null, 2))
     process.stdout.write(
-      `\nORCA_REPRO_REPORT ${report.contractOk ? 'ok' : 'failed'} ${reportPath}\n`
+      `\nOPENKODO_REPRO_REPORT ${report.contractOk ? 'ok' : 'failed'} ${reportPath}\n`
     )
     process.exit(report.contractOk ? 0 : 7)
   }
@@ -474,7 +474,7 @@ terminals. The fake worker records whether orchestration dispatch delivered a
 long prompt in a safe agent-input contract.
 
 Options:
-  --cli <path>         Orca CLI command (default: ORCA_REPRO_CLI or orca)
+  --cli <path>         Orca CLI command (default: OPENKODO_REPRO_CLI or orca)
   --worktree <path>   Worktree path for temporary terminals (default: cwd)
   --timeout-ms <n>    Wait budget for terminal/report operations
   --keep-terminals    Leave temporary terminals open for inspection

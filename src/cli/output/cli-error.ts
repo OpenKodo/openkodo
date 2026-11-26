@@ -19,7 +19,7 @@ import { linearNotConnectedRecovery } from '../linear/linear-not-connected-recov
 type ContextRecovery = { nextSteps: readonly string[] } & Record<string, unknown>
 
 function staleHandleServerHint(): string {
-  return `Terminal handles belong to the Orca server that issued them. If this handle came from a paired server (for example \`${resolveInvokedCliCommand()} terminal list --environment <server>\`), pass the same --environment <server> to this command.`
+  return `Terminal handles belong to the OpenKodo server that issued them. If this handle came from a paired server (for example \`${resolveInvokedCliCommand()} terminal list --environment <server>\`), pass the same --environment <server> to this command.`
 }
 
 function contextRecovery(error: unknown, context: CliErrorContext): ContextRecovery | undefined {
@@ -138,7 +138,7 @@ function formatRuntimeUnavailableError(message: string, error: RuntimeClientErro
   }
   const command = resolveInvokedCliCommand()
   if (error instanceof RuntimeRpcFailureError) {
-    return `${message}\nOrca is running but not ready for this yet. Wait a few seconds and retry; do not run '${command} open'. If it keeps failing and '${command} status --json' shows app.desktopWindowStatus "openable", Orca's window is closed: ask the user to reopen it.`
+    return `${message}\nOrca is running but not ready for this yet. Wait a few seconds and retry; do not run '${command} open'. If it keeps failing and '${command} status --json' shows app.desktopWindowStatus "openable", OpenKodo's window is closed: ask the user to reopen it.`
   }
   return `${message}\nOrca is not running. Run '${command} open' first.`
 }

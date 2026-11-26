@@ -14,7 +14,7 @@ import { isRepoHidden } from '../../../../../shared/project/catalog/hidden-proje
 
 type RuntimeEnvironmentSource = Pick<PublicKnownRuntimeEnvironment, 'id' | 'source'>
 
-/** Per-workspace runtimes come in two kinds: runtime-owned SSH targets and ephemeral-VM Orca servers. */
+/** Per-workspace runtimes come in two kinds: runtime-owned SSH targets and ephemeral-VM OpenKodo servers. */
 function isPerWorkspaceRuntimeRepo(
   repo: Repo,
   runtimeEnvironments: readonly RuntimeEnvironmentSource[]

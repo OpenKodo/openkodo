@@ -13,7 +13,7 @@ function deliveredToBot(turn: EvalTurnOutcome): boolean {
   )
 }
 
-/** What the bot did that moves the asker's request on: work started or done through Orca, a
+/** What the bot did that moves the asker's request on: work started or done through OpenKodo, a
  *  connector offered, or another bot handed or asked. */
 function movesItOn(turn: EvalTurnOutcome): boolean {
   const took = (method: string) =>

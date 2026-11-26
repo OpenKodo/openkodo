@@ -31,7 +31,7 @@ export const EVAL_RUN_ID = 'run_eval_1'
 const FINISHED = ['succeeded', 'failed'] as const
 export const EVAL_RUN = { id: EVAL_RUN_ID, objective: 'Bot hand-offs', created: false }
 // The runtime's receipt `next` line.
-const AWAIT_WAKE = "Orca wakes you when workers report; end your turn when you're done."
+const AWAIT_WAKE = "OpenKodo wakes you when workers report; end your turn when you're done."
 
 // The runtime's resolveRepoSelector: exact id, path or display name, with an optional prefix.
 export function resolveRepo(

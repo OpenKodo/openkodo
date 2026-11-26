@@ -15,13 +15,13 @@ import {
   type WorktreeProofAccess
 } from './worktree-orphan-gitdir-proof'
 
-const ORCA_CREATION_SOURCES = new Set<NonNullable<WorktreeMeta['orcaCreationSource']>>([
+const OPENKODO_CREATION_SOURCES = new Set<NonNullable<WorktreeMeta['orcaCreationSource']>>([
   'desktop',
   'runtime',
   'cli',
   'ssh'
 ])
-const ORCA_OWNED_PROVENANCE_META_KEYS = [
+const OPENKODO_OWNED_PROVENANCE_META_KEYS = [
   'orcaCreatedAt',
   'orcaCreationSource',
   'orcaCreationWorkspaceLayout',
@@ -167,7 +167,7 @@ export function canCleanupUnregisteredOrcaWorktreeDirectory(args: {
     return true
   }
 
-  // Users can create ordinary Git worktrees under Orca's root; path shape alone does not prove ownership.
+  // Users can create ordinary Git worktrees under OpenKodo's root; path shape alone does not prove ownership.
   return false
 }
 
@@ -177,7 +177,7 @@ function hasCurrentOrcaCreationProvenance(
   return (
     typeof meta?.orcaCreatedAt === 'number' &&
     !!meta.orcaCreationSource &&
-    ORCA_CREATION_SOURCES.has(meta.orcaCreationSource)
+    OPENKODO_CREATION_SOURCES.has(meta.orcaCreationSource)
   )
 }
 
@@ -198,7 +198,7 @@ export function stripOrcaProvenanceMetaUpdates(
   updates: Partial<WorktreeMeta> | null | undefined
 ): Partial<WorktreeMeta> {
   const sanitized = { ...updates }
-  for (const key of ORCA_OWNED_PROVENANCE_META_KEYS) {
+  for (const key of OPENKODO_OWNED_PROVENANCE_META_KEYS) {
     delete sanitized[key]
   }
   return sanitized

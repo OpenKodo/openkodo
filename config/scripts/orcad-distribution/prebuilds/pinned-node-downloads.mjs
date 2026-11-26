@@ -19,7 +19,7 @@ import {
 const ROOT = resolve(import.meta.dirname, '../../..', '..')
 
 export function pinnedNodeCacheDir(env = process.env) {
-  return env.ORCA_NODE_RUNTIME_CACHE_DIR || join(ROOT, 'out', 'node-runtime-cache')
+  return env.OPENKODO_NODE_RUNTIME_CACHE_DIR || join(ROOT, 'out', 'node-runtime-cache')
 }
 
 export async function copyPinnedNodeExecutable(source, destination, sha256) {

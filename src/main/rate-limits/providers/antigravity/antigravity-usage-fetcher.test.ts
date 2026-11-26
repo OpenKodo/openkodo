@@ -31,7 +31,7 @@ function installManagedAgy(): string {
   noteLaunchReleasesRecorded()
   const managed = installedManagedAgentCommand('antigravity')
   if (!managed) {
-    throw new Error("Orca's agy should be installed")
+    throw new Error("OpenKodo's agy should be installed")
   }
   return managed
 }
@@ -41,7 +41,7 @@ afterEach(() => {
   provideInstalledManagedAgents(async () => [])
 })
 
-it("finds Orca's agy on the first read after launch, before launch reclaim records it", async () => {
+it("finds OpenKodo's agy on the first read after launch, before launch reclaim records it", async () => {
   provideInstalledManagedAgents(async () => ['antigravity'])
   const spawned: string[] = []
   const firstRead = fetchAntigravityRateLimits({
@@ -81,7 +81,7 @@ it('hands the Settings proxy to the host agy usage probe', async () => {
   expect(usageEnv?.AGY_CLI_DISABLE_AUTO_UPDATE).toBe('true')
 })
 
-it("reads usage through Orca's agy when none is on PATH and agy holds a login", async () => {
+it("reads usage through OpenKodo's agy when none is on PATH and agy holds a login", async () => {
   const managed = installManagedAgy()
   const homes: string[] = []
   const spawned: string[] = []
@@ -98,7 +98,7 @@ it("reads usage through Orca's agy when none is on PATH and agy holds a login", 
   expect(spawned).toEqual([managed, managed])
 })
 
-it("reads the user's own agy before Orca's copy", async () => {
+it("reads the user's own agy before OpenKodo's copy", async () => {
   installManagedAgy()
   const spawned: string[] = []
   await fetchAntigravityRateLimits({
@@ -109,7 +109,7 @@ it("reads the user's own agy before Orca's copy", async () => {
   expect(spawned).toEqual(['/usr/local/bin/agy', '/usr/local/bin/agy'])
 })
 
-it("asks for sign-in instead of asking Orca's agy where agy holds no readable login", async () => {
+it("asks for sign-in instead of asking OpenKodo's agy where agy holds no readable login", async () => {
   const managed = installManagedAgy()
   for (const [presence, failureKind] of [
     ['absent', 'missing-credentials'],
@@ -120,7 +120,7 @@ it("asks for sign-in instead of asking Orca's agy where agy holds no readable lo
       ...hostProbe,
       credentialPresence: async () => presence,
       runCommand: recordingRun(spawned),
-      // Orca's copy on a PATH an Orca terminal passed on is not the user's own agy either.
+      // OpenKodo's copy on a PATH an OpenKodo terminal passed on is not the user's own agy either.
       resolveCommand: async () => managed
     })
     expect(spawned).toEqual([])
@@ -129,7 +129,7 @@ it("asks for sign-in instead of asking Orca's agy where agy holds no readable lo
   }
 })
 
-it("spawns nothing when agy is missing and Orca's copy is absent or switched off", async () => {
+it("spawns nothing when agy is missing and OpenKodo's copy is absent or switched off", async () => {
   const spawned: string[] = []
   const missing = await fetchAntigravityRateLimits({
     ...hostProbe,

@@ -1,4 +1,4 @@
-// Brand marks for Orca's own connectors, the MCP apps Add to <bot> lists and well-known tools, on the tile each brand
+// Brand marks for OpenKodo's own connectors, the MCP apps Add to <bot> lists and well-known tools, on the tile each brand
 // is drawn on (LOGO_TILES.brand; white otherwise). GitHub keeps its monochrome mark: the connector's own icon.
 import React, { useContext, type ComponentType } from 'react'
 import airtableLogo from '@/assets/connector-brands/airtable.svg'

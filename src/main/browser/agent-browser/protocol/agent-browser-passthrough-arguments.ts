@@ -49,7 +49,7 @@ export function splitAgentBrowserCommandLine(
 }
 
 // agent-browser's global options (0.39 through 0.43). It reads them anywhere in argv, even after
-// a command, and they choose the browser, session and launch, which Orca owns.
+// a command, and they choose the browser, session and launch, which OpenKodo owns.
 const GLOBAL_OPTIONS = new Set([
   '--action-policy',
   '--allow-file-access',
@@ -121,10 +121,10 @@ const GLOBAL_OPTIONS = new Set([
 
 const TAB_HINT = 'Use the typed tab commands (tab list, tab create, tab switch, tab close).'
 const VIEWPORT_HINT = 'Use the typed viewport or set device command.'
-const NOT_THE_PAGE = 'It acts outside the selected Orca page.'
+const NOT_THE_PAGE = 'It acts outside the selected OpenKodo page.'
 
-// Commands that leave Orca's page: connect/tab/window/close retarget or create targets behind
-// Orca's tab model; inspect opens the system browser; stream serves an unguarded command relay;
+// Commands that leave OpenKodo's page: connect/tab/window/close retarget or create targets behind
+// OpenKodo's tab model; inspect opens the system browser; stream serves an unguarded command relay;
 // auth types agent-browser's saved logins into any URL; the rest act on the machine.
 const REFUSED_COMMANDS = new Map<string, string>([
   ['connect', NOT_THE_PAGE],
@@ -153,12 +153,12 @@ function refuse(what: string, hint: string): never {
   throw new BrowserError('invalid_argument', `exec does not run ${what}. ${hint}`)
 }
 
-/** Refuses raw agent-browser lines that would move the helper off Orca's selected page. */
+/** Refuses raw agent-browser lines that would move the helper off OpenKodo's selected page. */
 export function assertAgentBrowserPassthroughStaysOnPage(args: readonly string[]): void {
   for (const arg of args) {
     const option = arg.split('=')[0]
     if (GLOBAL_OPTIONS.has(option)) {
-      refuse(`agent-browser's global option ${option}`, 'Orca sets global options itself.')
+      refuse(`agent-browser's global option ${option}`, 'OpenKodo sets global options itself.')
     }
   }
   if (args.length === 0) {

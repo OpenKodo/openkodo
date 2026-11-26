@@ -1,9 +1,9 @@
-// Who a bot's conversation acts for, as Orca recorded it when the conversation started: the owner, or
+// Who a bot's conversation acts for, as OpenKodo recorded it when the conversation started: the owner, or
 // the people a teammate's request or automation came from. Every check on whom a bot may ask reads it.
 import type { ConnectorSource } from '../connectors/external-conversation-link'
 import type { ConnectorAskerPlaceKind } from '../connectors/connector-cloud-contract'
 
-/** A person a request is for; `workspaceId` is null when Orca doesn't know which workspace they asked in. */
+/** A person a request is for; `workspaceId` is null when OpenKodo doesn't know which workspace they asked in. */
 export type BotRequestPerson = {
   kind: 'person'
   source: ConnectorSource
@@ -20,7 +20,7 @@ export type BotRequestAsker = { kind: 'owner' } | BotRequestPerson | { kind: 'un
 
 export const OWNER_ACTS_FOR: readonly BotRequestAsker[] = [{ kind: 'owner' }]
 
-/** Whether every person named is the bots' owner, by Orca's record or the cloud's verdict. */
+/** Whether every person named is the bots' owner, by OpenKodo's record or the cloud's verdict. */
 export function actsForOwner(askers: readonly BotRequestAsker[]): boolean {
   return (
     askers.length > 0 &&

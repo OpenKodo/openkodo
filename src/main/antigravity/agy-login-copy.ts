@@ -1,7 +1,7 @@
 // Where agy keeps its login in a file (SSH, WSL, containers, Linux without a session bus), it reads
 // it from the app data folder it runs with: `<home>/antigravity-acp/antigravity-oauth-token` on an
-// Orca home, never agy's own `~/.gemini/antigravity-cli/…`. A copy, refreshed at each chat start,
-// lets the login agy signs in with serve Orca's homes too. Not a link: agy rewrites the file in
+// OpenKodo home, never agy's own `~/.gemini/antigravity-cli/…`. A copy, refreshed at each chat start,
+// lets the login agy signs in with serve OpenKodo's homes too. Not a link: agy rewrites the file in
 // place on refresh, and through a link a running chat would write its login back into `~/.gemini`,
 // undoing a logout or an account switch.
 
@@ -35,9 +35,9 @@ async function sweepTemps(folder: string): Promise<void> {
   )
 }
 
-/** Keeps an Orca home holding a private copy of agy's own login file for a Google method, and none
- *  for a key or gcloud, which mustn't find one, nor once agy has no login (signed out). Orca's
- *  server never wrote this file, so whatever is there is Orca's copy. Keyring hosts have no login
+/** Keeps an OpenKodo home holding a private copy of agy's own login file for a Google method, and none
+ *  for a key or gcloud, which mustn't find one, nor once agy has no login (signed out). OpenKodo's
+ *  server never wrote this file, so whatever is there is OpenKodo's copy. Keyring hosts have no login
  *  file and share the OS login. Never fails the launch. */
 export async function copyAgyLoginIntoOrcaHome(
   chatHome: string,

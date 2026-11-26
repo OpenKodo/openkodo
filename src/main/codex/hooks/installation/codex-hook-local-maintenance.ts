@@ -28,7 +28,7 @@ export async function removeCodexHooksExclusively(
 ): Promise<AgentHookInstallStatus> {
   const configPath = getConfigPath()
   if (existsSync(configPath)) {
-    // Rebuild first to move user approvals back from slots shifted by Orca's group.
+    // Rebuild first to move user approvals back from slots shifted by OpenKodo's group.
     await refreshCodexRuntimeUserHooksExclusively(getOrcaManagedCodexHomePath(), getStatus)
   }
   // Rebuild leaves runtime hooks untouched when system hooks are unreadable, so strip them here too.

@@ -156,7 +156,7 @@ export type MobileWebShellSessionEvent =
   | {
       readonly type: 'shell-failed'
       readonly reason: MobileWebShellReportedFailure
-      // The OS took the renderer while Orca was off screen or for memory; the page is not at fault.
+      // The OS took the renderer while OpenKodo was off screen or for memory; the page is not at fault.
       readonly reclaimed?: boolean
     }
   | { readonly type: 'retry-pressed' }

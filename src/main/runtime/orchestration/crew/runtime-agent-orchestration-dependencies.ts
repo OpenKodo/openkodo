@@ -1,4 +1,4 @@
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { captureOrchestrationTerminalCandidates } from './orchestration-terminal-candidates'
 import {
   mintAgentStatusFleetEvidence,
@@ -27,7 +27,7 @@ export abstract class OrcaRuntimeWithAgentOrchestrationDependencies extends Orca
           leafKey: (tab, leaf) => this.getLeafKey(tab, leaf),
           leavesForId: (id) => this.terminalIdentity.paneCandidates.leavesForId(id),
           capturePaneOf: () => this.captureTerminalPaneReader(),
-          ...(!ORCA_LAYOUT_OWNER_IS_MAIN
+          ...(!OPENKODO_LAYOUT_OWNER_IS_MAIN
             ? {
                 ptysForPane: (pane: string) =>
                   this.terminalIdentity.paneCandidates.ptysForPane(pane),

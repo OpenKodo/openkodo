@@ -21,9 +21,9 @@ import { join } from 'node:path'
 export const CURSOR_OPENING_RULE_FILE = 'orca-standing-instructions.mdc'
 
 // Each launch writes its own file named after a hash of its bytes, so a crashed launch's rule is
-// provably Orca's only while its bytes are untouched; an edited one is the user's.
+// provably OpenKodo's only while its bytes are untouched; an edited one is the user's.
 const OWN_RULE_NAME = /^orca-standing-instructions-([0-9a-f]{32})-[0-9a-f-]{36}\.mdc$/
-// Another Orca process may be mid-open in this folder; only a rule older than any open is a leftover.
+// Another OpenKodo process may be mid-open in this folder; only a rule older than any open is a leftover.
 const LEFTOVER_AGE_MS = 10 * 60_000
 
 /** Opens in one folder wait for each other, so a session never reads another's rule. */
@@ -40,7 +40,7 @@ function bytesHash(bytes: Buffer | string): string {
   return createHash('sha256').update(bytes).digest('hex').slice(0, 32)
 }
 
-/** Removes `file` only while it is a plain file holding exactly the bytes Orca wrote. */
+/** Removes `file` only while it is a plain file holding exactly the bytes OpenKodo wrote. */
 async function removeIfUnchanged(file: string, isUnchanged: (bytes: Buffer) => boolean) {
   const info = await lstat(file).catch(() => undefined)
   if (!info?.isFile()) {
@@ -85,7 +85,7 @@ export async function placeCursorOpeningRule(
   }
   const cursorDir = join(cwd, '.cursor')
   const rulesDir = join(cursorDir, 'rules')
-  const bytes = `---\ndescription: Orca's standing instructions for this chat\nalwaysApply: true\n---\n${text}\n`
+  const bytes = `---\ndescription: OpenKodo's standing instructions for this chat\nalwaysApply: true\n---\n${text}\n`
   const path = join(rulesDir, `orca-standing-instructions-${bytesHash(bytes)}-${randomUUID()}.mdc`)
   try {
     const made = [

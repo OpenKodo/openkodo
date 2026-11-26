@@ -1,5 +1,5 @@
-// Settings › MCP servers: the picked host's servers by where they come from. Yours (added in Orca),
-// From plugins, and In your agents (set up inside an agent, with Move to Orca).
+// Settings › MCP servers: the picked host's servers by where they come from. Yours (added in OpenKodo),
+// From plugins, and In your agents (set up inside an agent, with Move to OpenKodo).
 import React, { useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -98,7 +98,7 @@ export function McpServersPane({
       .then(() => {
         if (mode === 'copy') {
           toast.success(
-            t('settings.mcpServers.found.copied', 'Copied {{name}} to Orca', {
+            t('settings.mcpServers.found.copied', 'Copied {{name}} to OpenKodo', {
               name: mcpServerTitle(servers[0]?.name ?? '')
             })
           )
@@ -117,21 +117,21 @@ export function McpServersPane({
     )
     const ok = await confirm({
       title: one
-        ? t('settings.mcpServers.move.title', 'Move {{name}} to Orca?', {
+        ? t('settings.mcpServers.move.title', 'Move {{name}} to OpenKodo?', {
             name: mcpServerTitle(one.name)
           })
-        : t('settings.mcpServers.move.allTitle', 'Move {{count}} servers to Orca?', {
+        : t('settings.mcpServers.move.allTitle', 'Move {{count}} servers to OpenKodo?', {
             count: servers.length
           }),
       description: one
         ? t(
             'settings.mcpServers.move.line',
-            'Orca removes it from {{agents}} settings and keeps a backup.',
+            'OpenKodo removes it from {{agents}} settings and keeps a backup.',
             { agents: agentNames }
           )
         : t(
             'settings.mcpServers.move.allLine',
-            'Orca removes them from {{agents}} settings and keeps a backup.',
+            'OpenKodo removes them from {{agents}} settings and keeps a backup.',
             { agents: agentNames }
           ),
       confirmLabel: t('settings.mcpServers.move.confirm', 'Move')
@@ -162,7 +162,7 @@ export function McpServersPane({
         action={
           firstRun && movable.length > 1 ? (
             <Button variant="outline" size="sm" onClick={() => void move(movable)}>
-              {t('settings.mcpServers.found.moveAll', 'Move all to Orca')}
+              {t('settings.mcpServers.found.moveAll', 'Move all to OpenKodo')}
             </Button>
           ) : undefined
         }

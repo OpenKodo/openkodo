@@ -9,7 +9,7 @@ import type { OrcadLaunchEnvEntry } from '../managed-server/install/orcad-host-t
 export const HOST_MALLOC_TUNABLES = 'glibc.malloc.mmap_threshold=16384'
 const GLIBC_TUNABLES = 'GLIBC_TUNABLES'
 /** Says the launch, not the user, set GLIBC_TUNABLES; nothing else may be removed. */
-const HOST_MALLOC_TUNABLES_ENV = 'ORCA_HOST_MALLOC_TUNABLES'
+const HOST_MALLOC_TUNABLES_ENV = 'OPENKODO_HOST_MALLOC_TUNABLES'
 
 let claimed: string | null = null
 

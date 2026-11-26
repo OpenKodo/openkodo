@@ -2,7 +2,7 @@ import type { CommandSpec } from '../discovery/command-spec'
 import { CLI_GLOBAL_FLAGS as GLOBAL_FLAGS } from '../../shared/cli/cli-argument-boundary'
 
 const ON_THIS_COMPUTER =
-  'Google sign-ins are kept by the Orca running on this computer (your Mac or an `orca serve` server) and never leave it.'
+  'Google sign-ins are kept by the OpenKodo running on this computer (your Mac or an `openkodo serve` server) and never leave it.'
 const OWNER_ONLY = "Owner only: refused from a bot's chat."
 
 export const GOOGLE_COMMAND_SPECS: CommandSpec[] = [
@@ -10,19 +10,19 @@ export const GOOGLE_COMMAND_SPECS: CommandSpec[] = [
     path: ['google', 'status'],
     summary:
       'Show the Google client and accounts on this computer, which services work, and which bots may use them',
-    usage: 'orca google status [--check] [--json]',
+    usage: 'openkodo google status [--check] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'check'],
     notes: [
       ON_THIS_COMPUTER,
       'Each service reads Ready, Needs permission (reconnect and allow it), API off (with the Google Cloud page that turns it on), or Blocked by your company admin.',
       '--check reads each service again now instead of showing the last check.'
     ],
-    examples: ['orca google status', 'orca google status --check']
+    examples: ['openkodo google status', 'openkodo google status --check']
   },
   {
     path: ['google', 'client', 'import'],
     summary: "Add your team's Google client (a Desktop app client file) to this computer",
-    usage: 'orca google client import <file> [--json]',
+    usage: 'openkodo google client import <file> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'file'],
     positionalArgs: ['file'],
     notes: [
@@ -30,54 +30,57 @@ export const GOOGLE_COMMAND_SPECS: CommandSpec[] = [
       'Web app clients, service-account keys and saved sign-ins are refused, with what to download instead.',
       OWNER_ONLY
     ],
-    examples: ['orca google client import ~/Downloads/client_secret_123.json']
+    examples: ['openkodo google client import ~/Downloads/client_secret_123.json']
   },
   {
     path: ['google', 'client', 'export'],
     summary: "Save this computer's Google client as a file to hand to teammates",
-    usage: 'orca google client export --out <file> [--json]',
+    usage: 'openkodo google client export --out <file> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'out'],
     notes: [
-      'Writes the Desktop app client file back out, for a teammate to `orca google client import`. Google treats this kind of client as public; each person still signs in to their own account.',
+      'Writes the Desktop app client file back out, for a teammate to `openkodo google client import`. Google treats this kind of client as public; each person still signs in to their own account.',
       'Never contains anyone’s sign-in.',
       OWNER_ONLY
     ],
-    examples: ['orca google client export --out ~/Desktop/acme-google-client.json']
+    examples: ['openkodo google client export --out ~/Desktop/acme-google-client.json']
   },
   {
     path: ['google', 'connect'],
     summary: 'Sign a Google account in on this computer',
-    usage: 'orca google connect [--services gmail,calendar,files] [--account <email>] [--json]',
+    usage: 'openkodo google connect [--services gmail,calendar,files] [--account <email>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'account', 'services'],
     notes: [
       ON_THIS_COMPUTER,
-      "Opens your browser when Orca here has one. Otherwise it prints a link: sign in on any device, then paste the address of the page that couldn't load back here. Only a sign-in this computer just started is accepted, for 5 minutes.",
+      "Opens your browser when OpenKodo here has one. Otherwise it prints a link: sign in on any device, then paste the address of the page that couldn't load back here. Only a sign-in this computer just started is accepted, for 5 minutes.",
       '--services picks what Google is asked for: gmail, calendar, files (Drive, Docs and Sheets). Without it: what the account already has, else all three. Looking people up by name is always included. Adding a service later keeps the ones already allowed.',
       '--account picks the account on Google’s page, e.g. to reconnect it or add a service. Connecting another account adds it.',
       OWNER_ONLY
     ],
     examples: [
-      'orca google connect',
-      'orca google connect --services gmail,calendar',
-      'orca google connect --account me@example.com --services files'
+      'openkodo google connect',
+      'openkodo google connect --services gmail,calendar',
+      'openkodo google connect --account me@example.com --services files'
     ]
   },
   {
     path: ['google', 'disconnect'],
     summary: 'Remove a Google account from this computer, and optionally revoke it at Google',
-    usage: 'orca google disconnect [--account <email>] [--revoke] [--json]',
+    usage: 'openkodo google disconnect [--account <email>] [--revoke] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'account', 'revoke'],
     notes: [
       'Without --revoke the sign-in is deleted here only; Google still lists the app under your account’s third-party access. --revoke cancels it at Google too.',
       '--account is needed when more than one account is connected. Removing the default makes the oldest account left the default.',
       OWNER_ONLY
     ],
-    examples: ['orca google disconnect', 'orca google disconnect --account me@example.com --revoke']
+    examples: [
+      'openkodo google disconnect',
+      'openkodo google disconnect --account me@example.com --revoke'
+    ]
   },
   {
     path: ['google', 'default'],
     summary: 'Show or set the Google account used when a command or automation names none',
-    usage: 'orca google default [<email>] [--json]',
+    usage: 'openkodo google default [<email>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'account'],
     positionalArgs: ['account'],
     notes: [
@@ -85,23 +88,23 @@ export const GOOGLE_COMMAND_SPECS: CommandSpec[] = [
       'With no email, prints the default.',
       "From a bot's chat, works once Google is on for that bot; a bot with chosen accounts sees and picks only among them."
     ],
-    examples: ['orca google default', 'orca google default me@example.com']
+    examples: ['openkodo google default', 'openkodo google default me@example.com']
   },
   {
     path: ['google', 'bot'],
     summary: "Turn a bot's use of Google on or off, or choose its accounts",
-    usage: 'orca google bot <bot> --on|--off|--accounts <emails> [--json]',
+    usage: 'openkodo google bot <bot> --on|--off|--accounts <emails> [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'bot', 'on', 'off', 'accounts'],
     positionalArgs: ['bot'],
     notes: [
-      'Off for every bot until you turn it on. A bot then uses Google as you, like gh and orca linear: for whoever its Who can ask lets ask it, and in its automations. Turning it on says who else can ask that bot.',
+      'Off for every bot until you turn it on. A bot then uses Google as you, like gh and openkodo linear: for whoever its Who can ask lets ask it, and in its automations. Turning it on says who else can ask that bot.',
       '--on gives it every Google account on this computer, now and later; --accounts gives it only those (comma-separated). Without --account, its calls use the computer default if it has it, else the first account given.',
       OWNER_ONLY
     ],
     examples: [
-      'orca google bot Scout --on',
-      'orca google bot Scout --accounts me@work.com,me@gmail.com',
-      'orca google bot Scout --off'
+      'openkodo google bot Scout --on',
+      'openkodo google bot Scout --accounts me@work.com,me@gmail.com',
+      'openkodo google bot Scout --off'
     ]
   }
 ]

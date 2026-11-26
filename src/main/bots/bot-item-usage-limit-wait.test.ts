@@ -145,7 +145,7 @@ describe('usage-limit Waiting', () => {
     expect(note()).toMatch(/^Claude usage resets /)
   })
 
-  it('says when Orca really continues, its continueAt', async () => {
+  it('says when OpenKodo really continues, its continueAt', async () => {
     const { waits, note } = setup({ ctx_a: { session: 'a', state: 'working' } })
     const continueAt = NOW + 3 * HOUR
     waits.saw(

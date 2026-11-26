@@ -1,5 +1,5 @@
 // This install's connector host key: proves to the auth service that a mint comes from the machine
-// that owns the install id, so a leaked id alone can't act as this host. The Orca Cloud connector
+// that owns the install id, so a leaked id alone can't act as this host. The OpenKodo Cloud connector
 // service verifies it.
 import {
   createHash,

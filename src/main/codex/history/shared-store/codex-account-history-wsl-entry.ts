@@ -6,7 +6,7 @@ import {
   unshareCodexAccountHistory
 } from './codex-account-history-links'
 
-// Runs inside a WSL distro on Orca's pinned Node: `<share|unshare> <account home> <store home>`.
+// Runs inside a WSL distro on OpenKodo's pinned Node: `<share|unshare> <account home> <store home>`.
 // Prints each rollout still owed an index row, then `{"result":…,"pendingDir":…}` last.
 async function main(): Promise<void> {
   const [mode, accountHome = '', storeHome = ''] = process.argv.slice(2)

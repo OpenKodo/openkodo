@@ -54,7 +54,7 @@ export function getZCodeRemoteConfigPath(remoteHome: string): string {
 
 /** npm zcode-app-cli reads this file instead of config.json. */
 export function getZCodeAppCliSettingsPath(): string {
-  // Relative overrides resolve against the zcode process cwd, which Orca cannot know.
+  // Relative overrides resolve against the zcode process cwd, which OpenKodo cannot know.
   const override = process.env.ZCODE_CLI_SETTINGS_FILE?.trim()
   return override && isAbsolute(override)
     ? override
@@ -146,7 +146,7 @@ export function removeZCodeManagedHooks(
   let changed = false
 
   for (const [eventName, value] of Object.entries(nextEvents)) {
-    // Preserve malformed/non-array values Orca never owned.
+    // Preserve malformed/non-array values OpenKodo never owned.
     if (!Array.isArray(value)) {
       continue
     }

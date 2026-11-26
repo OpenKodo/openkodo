@@ -1,4 +1,4 @@
-// An automation run's result in its bot's Home Chat: an Orca note the agent never receives on its own.
+// An automation run's result in its bot's Home Chat: an OpenKodo note the agent never receives on its own.
 // It rides along with the person's next message, once; older clients paint its `text` as a plain line.
 import { sliceAtCodeUnitLimit } from '../text/surrogate-safe-text-slice'
 import type {

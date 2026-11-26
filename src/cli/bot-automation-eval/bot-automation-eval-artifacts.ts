@@ -18,7 +18,7 @@ import {
 } from '../arguments/args'
 import { ARTIFACT_COMMAND_SPECS } from '../specs/artifacts'
 
-export const EVAL_SHARE_URL = 'https://share.onorca.dev/a/eval-report'
+export const EVAL_SHARE_URL = 'https://openkodo.dev/share/a/eval-report'
 export const EVAL_UPLOAD_PREFIX = 'data:application/x-orca-eval-upload,'
 
 export type EvalArtifactInvocation = { id: string; argv: string[] }

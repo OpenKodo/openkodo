@@ -1,6 +1,6 @@
 // One run of Connect Slack on the phone, the desktop's use-bot-slack-setup for a paired computer's bot: its
 // steps from the cloud's state, the token form, and Slack's install page in the phone's browser. Slack returns
-// to Orca Cloud, not the computer, so the phone finishes it and watches the bot's state for the install.
+// to OpenKodo Cloud, not the computer, so the phone finishes it and watches the bot's state for the install.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AppState } from 'react-native'
 import type { ConnectorBotSlackAppResponse } from '../../../../src/shared/connector-bot-slack-contract'
@@ -87,7 +87,7 @@ export function usePhoneSlackSetup(props: {
   teamId: string | undefined
   /** The bot is already in a Slack workspace, so none means another. */
   inSlack: boolean
-  /** Workspaces other bots on this host are in (most recent first), whose tokens Orca Cloud keeps. */
+  /** Workspaces other bots on this host are in (most recent first), whose tokens OpenKodo Cloud keeps. */
   knownTeams: readonly string[]
   slack: { view: PhoneSlackView; refresh: () => Promise<PhoneSlackView> }
   hostName: string

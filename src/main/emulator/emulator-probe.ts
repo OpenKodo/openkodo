@@ -4,7 +4,7 @@ import { join } from 'node:path'
 
 // Opt in because probe data can include typed text and local paths.
 export const EMULATOR_PROBE_LOG = join(tmpdir(), 'orca-android-emu-probe.log')
-const EMULATOR_PROBE_ENABLED = process.env.ORCA_EMULATOR_PROBE === '1'
+const EMULATOR_PROBE_ENABLED = process.env.OPENKODO_EMULATOR_PROBE === '1'
 
 function errorMessage(error: unknown): string {
   if (error instanceof Error) {

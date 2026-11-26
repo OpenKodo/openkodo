@@ -1,4 +1,4 @@
-// A bot's tools as its agent CLI gets them for Orca's own checks and sign-ins, and the words a bot
+// A bot's tools as its agent CLI gets them for OpenKodo's own checks and sign-ins, and the words a bot
 // session hears when its tools are off. The launch shape itself is `SessionMcpTools`.
 import type { BotToolProblem, BotToolServer } from '../../shared/bot-tools'
 import type { BotToolsCli } from './bot-tools-host'

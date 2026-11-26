@@ -29,13 +29,13 @@ const UP_NEXT: BotUpNext = {
       's1',
       'Decide on stale e2e autofix PR 38365 before it rots',
       'PR 38365 has conflicted with main since Nov 2 and nobody has touched it.',
-      'https://github.com/stablyai/orca/pull/38365'
+      'https://github.com/OpenKodo/openkodo/pull/38365'
     ),
     suggestion(
       's2',
       'Rescue PR 39794 (quick note on the relay retry)',
       'PR 39794 has conflicts and has not moved since last week.',
-      'https://github.com/stablyai/orca/pull/39794'
+      'https://github.com/OpenKodo/openkodo/pull/39794'
     ),
     suggestion('s3', 'Triage', 'Short.', 'https://linear.app/globex/issue/ENG-1'),
     // No source: no logo, its title still on the others' edge.

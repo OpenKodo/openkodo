@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '@/store/index'
 import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { ORCA_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../../shared/orca-profiles/orca-cloud-team-policy'
 import { AgentCapabilityStatusNote, AgentCapabilityStatusPill } from './AgentCapabilityStatusBadges'
 import {
   bundledSkillInstallNeedsAttention,
@@ -64,7 +64,7 @@ function AgentCapabilitiesSetupForRuntime(
   }
 ): React.JSX.Element {
   const { onBrowserUseSkillInstalledChange, onOrchestrationSkillInstalledChange } = props
-  const computerUseBlocked = useOrcaTeamFeatureBlocked(ORCA_CLOUD_TEAM_POLICY_FLAGS.computerUse)
+  const computerUseBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse)
   const { readiness, installStatus } = useAgentCapabilitySetupStatus(computerUseBlocked)
   const featureSetupDefaultsAppliedRef = useRef(false)
   const featureSetupChangedByUserRef = useRef(false)
@@ -288,7 +288,7 @@ function AgentCapabilitySetupControls(props: {
                 (props.installAction?.kind === 'replace'
                   ? t(
                       'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
-                      'Replace with Orca’s'
+                      'Replace with OpenKodo’s'
                     )
                   : props.installAction?.kind === 'run' && props.installAction.changes
                     ? bundledSkillSetupActionLabel(props.installAction.changes, t)

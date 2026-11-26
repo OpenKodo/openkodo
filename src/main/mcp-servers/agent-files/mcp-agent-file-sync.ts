@@ -1,7 +1,7 @@
 // Grok's, Cursor's and Droid's terminal CLIs read MCP servers only from their own file, so once the
-// user allows it per agent, Orca keeps one `orca mcp connect` entry per server there (on for that
+// user allows it per agent, OpenKodo keeps one `orca mcp connect` entry per server there (on for that
 // agent), and takes them back out when the server goes, is turned off for the agent, or the consent
-// is withdrawn. Entries another Orca or the user owns are never touched. With the switch off, nothing
+// is withdrawn. Entries another OpenKodo or the user owns are never touched. With the switch off, nothing
 // is written; entries left from before answer as servers with no tools.
 import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
@@ -62,7 +62,7 @@ export async function syncMcpAgentFiles(deps: McpAgentFileSyncDeps): Promise<voi
   const { servers, agentFiles } = await readMcpHostList(deps.folder)
   for (const agent of MCP_FILE_AGENTS) {
     if (agentFiles[agent] && deps.launcher === null) {
-      deps.log(`[mcp-servers] Orca's CLI wasn't found, so ${agent}'s MCP file is left as it is`)
+      deps.log(`[mcp-servers] OpenKodo's CLI wasn't found, so ${agent}'s MCP file is left as it is`)
       continue
     }
     const launcher = deps.launcher
@@ -103,7 +103,7 @@ async function syncAgentFile(
     format: location.format,
     markers: mcpAgentFileMarkers(deps.userDataPath)
   }
-  // A file Orca wrote where GROK_HOME (or the others) used to point loses its entries too.
+  // A file OpenKodo wrote where GROK_HOME (or the others) used to point loses its entries too.
   const retired = Object.entries((await deps.ledger.read()).files)
     .filter(([path, record]) => record.agent === agent && path !== location.path)
     .map(([path]) => path)
@@ -145,14 +145,14 @@ async function syncFileOnce(
     return true
   }
   if (current !== null && mcpAgentFileServerNames(edit, current) === null) {
-    deps.log(`[mcp-servers] ${path} doesn't parse, so Orca leaves it as it is`)
+    deps.log(`[mcp-servers] ${path} doesn't parse, so OpenKodo leaves it as it is`)
     return true
   }
   const recognized = new Map(
     [...wanted].map(([name, entry]) => [name, mcpAgentFileValue(edit.agent, entry)] as const)
   )
-  // Untouched since Orca's last write, the file goes back to exactly what it was; edited since,
-  // only Orca's own entries come out and the user's edits stay.
+  // Untouched since OpenKodo's last write, the file goes back to exactly what it was; edited since,
+  // only OpenKodo's own entries come out and the user's edits stay.
   const before =
     record && current === record.written
       ? record.before
@@ -167,9 +167,9 @@ async function syncFileOnce(
           )
   const created = current === null || (record?.created ?? false)
   const taken = before === null ? new Set<string>() : mcpAgentFileServerNames(edit, before)
-  // A name the user (or another Orca) already uses stays theirs, and so does a server name the user
-  // keeps in the agent itself: that server runs from there, not twice. Another Orca's bridge entry
-  // under the bare name (an older build) doesn't count as the user's; a copy of this Orca's own entry
+  // A name the user (or another OpenKodo) already uses stays theirs, and so does a server name the user
+  // keeps in the agent itself: that server runs from there, not twice. Another OpenKodo's bridge entry
+  // under the bare name (an older build) doesn't count as the user's; a copy of this OpenKodo's own entry
   // the user renamed does.
   const orcaNames =
     before === null ? new Set<string>() : otherOrcasServerNames(edit, before, deps.userDataPath)
@@ -181,14 +181,16 @@ async function syncFileOnce(
   )
   const added = adding.size > 0 ? withOrcaEntries(edit, before, adding) : before
   if (taken === null || (added !== null && mcpAgentFileServerNames(edit, added) === null)) {
-    deps.log(`[mcp-servers] Orca's entries wouldn't fit ${path}, so it's left as it is`)
+    deps.log(`[mcp-servers] OpenKodo's entries wouldn't fit ${path}, so it's left as it is`)
     return true
   }
   if (adding.size > 0 && added === null) {
-    deps.log(`[mcp-servers] ${path} has no object to hold Orca's entries, so it's left as it is`)
+    deps.log(
+      `[mcp-servers] ${path} has no object to hold OpenKodo's entries, so it's left as it is`
+    )
     return true
   }
-  // A file Orca made goes once nothing of the user's is in it.
+  // A file OpenKodo made goes once nothing of the user's is in it.
   const next =
     added !== null && adding.size === 0 && created && isEmptyMcpAgentFile(edit, added)
       ? null
@@ -249,7 +251,7 @@ async function publish(
 export function startMcpAgentFileSync(): () => void {
   const folder = mcpHostListFolder()
   const userDataPath = getAppEnvironment().getPath('userData')
-  // Once: this run of Orca's launcher doesn't move.
+  // Once: this run of OpenKodo's launcher doesn't move.
   const launcher = thisAppOrcaCliLauncher(userDataPath)
   const deps = (): McpAgentFileSyncDeps => ({
     folder,

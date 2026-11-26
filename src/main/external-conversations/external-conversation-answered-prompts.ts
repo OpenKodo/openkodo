@@ -36,7 +36,7 @@ function answeredWith(item: AgentJournalRenderItem | null): string | undefined {
   return labels.join(', ').slice(0, 80) || undefined
 }
 
-/** Prompts told to the cloud, by pane, until the agent works past one: someone answered it in Orca. */
+/** Prompts told to the cloud, by pane, until the agent works past one: someone answered it in OpenKodo. */
 export class AnsweredPrompts {
   private readonly shown = new Map<string, ShownPrompt>()
   private generation = 0
@@ -70,7 +70,7 @@ export class AnsweredPrompts {
   }
 
   /** A connector's own answer, which the cloud already knows of, so it is never told as answered in
-   *  Orca. Returns how to keep it again if the answer didn't land. */
+   *  OpenKodo. Returns how to keep it again if the answer didn't land. */
   answering(paneKey: string, promptId: string): () => void {
     const shown = this.shown.get(paneKey)
     if (shown?.prompt.promptId !== promptId) {

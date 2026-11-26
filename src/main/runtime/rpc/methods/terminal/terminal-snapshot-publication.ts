@@ -22,7 +22,7 @@ const REQUESTED_SNAPSHOT_BYTE_BUDGET = 2 * 1024 * 1024
 
 /** E2E-only: simulate unavailable retained state, which a parked client cannot distinguish from slow hydration. */
 export function isTerminalSnapshotForcedUnavailable(): boolean {
-  return process.env.ORCA_E2E_FORCE_REMOTE_TERMINAL_SNAPSHOT_UNAVAILABLE === '1'
+  return process.env.OPENKODO_E2E_FORCE_REMOTE_TERMINAL_SNAPSHOT_UNAVAILABLE === '1'
 }
 
 export async function serializeBudgetedRequestedSnapshot(

@@ -112,7 +112,7 @@ export function useBotToolsPage(
   const runCheck = useCallback(
     (own: readonly PhoneOwnTool[]) => {
       stopCheck()
-      // An app Orca signs in to has its own state, so only the CLI's URL servers are checked.
+      // An app OpenKodo signs in to has its own state, so only the CLI's URL servers are checked.
       const checked =
         scope === 'all' ? own : own.filter((tool) => isBotAppTool(tool) && tool.remote)
       if (!client || checked.length === 0) {
@@ -132,7 +132,7 @@ export function useBotToolsPage(
         )
         .then((response) => botToolProblemsRead.interpret(response).problems)
         .catch(() =>
-          // Orca's own sign-ins aren't checked, so they never read as unconfirmed.
+          // OpenKodo's own sign-ins aren't checked, so they never read as unconfirmed.
           Object.fromEntries(
             checked
               .filter((tool) => !tool.signIn)

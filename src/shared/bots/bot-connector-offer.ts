@@ -1,4 +1,4 @@
-// The Connect card a bot asks Orca to put in its chat (`orca bot connectors --offer`). Older clients and
+// The Connect card a bot asks OpenKodo to put in its chat (`orca bot connectors --offer`). Older clients and
 // the phone paint its `text` as a plain line.
 import * as z from 'zod'
 import type {
@@ -39,7 +39,7 @@ export const ConnectorOfferSchema = z.object({
   /** Already connected: the card adds access (GitHub repositories or organizations, or another
    *  Slack or Linear workspace). */
   addAccess: z.literal(true).optional(),
-  /** The host is signed out of Orca: the card is a Sign in line for the source's events. */
+  /** The host is signed out of OpenKodo: the card is a Sign in line for the source's events. */
   signIn: z.literal(true).optional()
 })
 
@@ -66,15 +66,15 @@ export function connectorOfferText(
   if (offer.signIn || offer.source === 'webhook') {
     const steps = serverSignInSteps(server, botName, 'owner')
     return steps
-      ? `${signInWhat(offer.source)} need Orca Cloud sign-in on ${server}. ${steps} Then tell ${botName}.`
-      : `${signInWhat(offer.source)} need Orca Cloud sign-in. Sign in to Orca Cloud on your computer, then tell ${botName}.`
+      ? `${signInWhat(offer.source)} need cloud service sign-in on ${server}. ${steps} Then tell ${botName}.`
+      : `${signInWhat(offer.source)} need cloud service sign-in. Sign in to cloud service on your computer, then tell ${botName}.`
   }
   const name = CONNECTOR_OFFER_NAMES[offer.source]
   if (offer.addAccess && offer.source !== 'google') {
-    return `${botName} asks to add ${addAccessWhat(offer.source)}. Add them from ${name} on ${botName}'s page in Orca on your computer.`
+    return `${botName} asks to add ${addAccessWhat(offer.source)}. Add them from ${name} on ${botName}'s page in OpenKodo on your computer.`
   }
   const what = offer.workspace ? `${name} (${offer.workspace})` : name
-  return `${botName} asks to connect ${what}. Connect it from Add connector on ${botName}'s page in Orca on your computer.`
+  return `${botName} asks to connect ${what}. Connect it from Add connector on ${botName}'s page in OpenKodo on your computer.`
 }
 
 export function connectorOfferBody(
@@ -119,14 +119,14 @@ function inNamedLinearWorkspace(bot: OfferingBot, workspace: string): boolean {
 }
 
 /**
- * A host signed out of Orca offers Sign in for what reaches the bot through Orca Cloud: webhooks, or a
+ * A host signed out of OpenKodo offers Sign in for what reaches the bot through OpenKodo Cloud: webhooks, or a
  * connector it already has (one it lacks gets the Connect card, whose setup asks for sign-in first).
  * Null when the offer isn't a sign-in one.
  */
 export function signInOfferReply(
   bot: OfferingBot,
   source: OfferSource,
-  /** The host's link to Orca Cloud (ConnectorCloudStatus); undefined without Orca Cloud. */
+  /** The host's link to OpenKodo Cloud (ConnectorCloudStatus); undefined without OpenKodo Cloud. */
   status: string | undefined,
   server?: OrcaSignInServer
 ): { offered: boolean; message: string } | null {
@@ -134,11 +134,11 @@ export function signInOfferReply(
   if (source === 'google' || (source !== 'webhook' && !(signedOut && connected(bot, source)))) {
     return null
   }
-  // Only a known link says signed in: no Orca Cloud at all is no proof of it.
+  // Only a known link says signed in: no OpenKodo Cloud at all is no proof of it.
   if (status === undefined) {
     return {
       offered: false,
-      message: `${thisHost(server)} has no Orca Cloud connection, so it can't make webhooks; no card was shown.`
+      message: `${thisHost(server)} has no cloud service connection, so it can't make webhooks; no card was shown.`
     }
   }
   if (!signedOut) {
@@ -147,11 +147,11 @@ export function signInOfferReply(
       status === 'ok'
         ? 'Set up the webhook again.'
         : status === 'unreachable'
-          ? "It can't reach Orca Cloud right now; set up the webhook again once it can."
-          : 'Orca Cloud refuses its link right now; tell your owner instead of trying again.'
+          ? "It can't reach cloud service right now; set up the webhook again once it can."
+          : 'cloud service refuses its link right now; tell your owner instead of trying again.'
     return {
       offered: false,
-      message: `${thisHost(server)} is signed in to Orca Cloud, so webhooks need no card; no card was shown. ${why}`
+      message: `${thisHost(server)} is signed in to cloud service, so webhooks need no card; no card was shown. ${why}`
     }
   }
   return {

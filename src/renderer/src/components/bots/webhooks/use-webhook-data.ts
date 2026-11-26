@@ -1,4 +1,4 @@
-// Hook state read from the execution host while shown and Orca is visible; after an owner action, or
+// Hook state read from the execution host while shown and OpenKodo is visible; after an owner action, or
 // the host's botsChanged (a call's run started or ended), every reader reads again.
 import { useCallback, useSyncExternalStore } from 'react'
 import { BOTS_CHANGED_EVENT } from '@/lib/bots-changed-window-event'
@@ -27,7 +27,7 @@ export type WebhookRead<T> =
 
 const LOADING: WebhookRead<never> = { status: 'loading' }
 
-// One read per key, shared by every card and row showing it, polled only while Orca is visible.
+// One read per key, shared by every card and row showing it, polled only while OpenKodo is visible.
 type Entry<T> = {
   read: WebhookRead<T>
   load: () => Promise<T>
@@ -161,7 +161,7 @@ export function useWebhookSummary(
   )
 }
 
-/** One hook, read again only while Orca Cloud hasn't taken it yet (or on a change); for a card
+/** One hook, read again only while OpenKodo Cloud hasn't taken it yet (or on a change); for a card
  *  that waits for the URL. */
 export function usePendingWebhookSummary(
   target: RuntimeClientTarget,

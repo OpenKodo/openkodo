@@ -13,11 +13,11 @@ import { EVAL_SCENARIOS } from './bot-automation-eval-scenarios'
 import { runBotThread } from '../bot-orchestration-eval/bot-orchestration-eval-conversation'
 import { agentVersion } from '../bot-orchestration-eval/bot-orchestration-eval-report'
 
-const agent: EvalAgent = process.env.ORCA_BOT_EVAL_AGENT === 'codex' ? 'codex' : 'claude'
-const runs = Number(process.env.ORCA_BOT_EVAL_RUNS ?? 3)
-const concurrency = Number(process.env.ORCA_BOT_EVAL_CONCURRENCY ?? 6)
-const only = process.env.ORCA_BOT_EVAL_ONLY?.split(',').filter(Boolean)
-const minPassRate = Number(process.env.ORCA_BOT_EVAL_MIN_PASS_RATE ?? 0)
+const agent: EvalAgent = process.env.OPENKODO_BOT_EVAL_AGENT === 'codex' ? 'codex' : 'claude'
+const runs = Number(process.env.OPENKODO_BOT_EVAL_RUNS ?? 3)
+const concurrency = Number(process.env.OPENKODO_BOT_EVAL_CONCURRENCY ?? 6)
+const only = process.env.OPENKODO_BOT_EVAL_ONLY?.split(',').filter(Boolean)
+const minPassRate = Number(process.env.OPENKODO_BOT_EVAL_MIN_PASS_RATE ?? 0)
 
 /** The graded turn of a Chat that had earlier turns. */
 async function runInThread(
@@ -76,7 +76,7 @@ function report(results: Result[], version: string): string {
         `- ${result.scenario.id} #${result.run}: ${result.failures.join('; ')}\n    reply: ${result.outcome.reply.replace(/\s+/g, ' ').slice(0, 300)}`
     )
   return [
-    `bot automation eval (${agent} ${version}, model ${process.env.ORCA_BOT_EVAL_MODEL ?? 'CLI default'}, TZ ${process.env.TZ}, ${runs} runs each)`,
+    `bot automation eval (${agent} ${version}, model ${process.env.OPENKODO_BOT_EVAL_MODEL ?? 'CLI default'}, TZ ${process.env.TZ}, ${runs} runs each)`,
     ...categories.map((category) =>
       line(
         category,
@@ -114,15 +114,15 @@ it('turns requests into the right automations', { timeout: 4 * 60 * 60 * 1000 },
     const results = await pool(jobs, concurrency)
     const text = report(results, await agentVersion(agent))
     process.stdout.write(`${text}\n`)
-    if (process.env.ORCA_BOT_EVAL_OUT) {
-      await writeFile(process.env.ORCA_BOT_EVAL_OUT, `${text}\n`)
+    if (process.env.OPENKODO_BOT_EVAL_OUT) {
+      await writeFile(process.env.OPENKODO_BOT_EVAL_OUT, `${text}\n`)
       const detail = results.map(({ scenario, run, failures, outcome }) => ({
         id: scenario.id,
         run,
         failures,
         ...outcome
       }))
-      await writeFile(`${process.env.ORCA_BOT_EVAL_OUT}.json`, JSON.stringify(detail, null, 2))
+      await writeFile(`${process.env.OPENKODO_BOT_EVAL_OUT}.json`, JSON.stringify(detail, null, 2))
     }
     const passed = results.filter((result) => result.failures.length === 0).length
     expect(passed / results.length).toBeGreaterThanOrEqual(minPassRate)

@@ -1,4 +1,4 @@
-// The bot panel's Items tab: Orca's asks leading Needs you whatever the item read says, then the bot's
+// The bot panel's Items tab: OpenKodo's asks leading Needs you whatever the item read says, then the bot's
 // items grouped as the desktop groups them (Needs you, In progress and
 // Closed open; Planned, Snoozed and Stale folded; a group with no rows not shown), five rows then Show N more. Long-press opens a row's actions;
 // Select there starts multi-select, where taps check rows and a floating bar moves them all at once.
@@ -83,7 +83,7 @@ export function MobileBotItemsTab({
   setSheet: (sheet: BotItemSheet) => void
   /** Automations and Up next, below the groups as on the desktop; hidden while filtered. */
   after: ReactNode
-  /** Orca's asks the phone reads; they lead Needs you whatever the items say. */
+  /** OpenKodo's asks the phone reads; they lead Needs you whatever the items say. */
   asks: readonly PhoneAsk[]
   askOpeners: PhoneAskOpeners
   client: RpcClient | null

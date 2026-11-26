@@ -4,7 +4,7 @@ import { FolderOpen, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
 import type { CliInstallStatus } from '../../../../../../shared/cli/cli-install-types'
 import type { GlobalSettings } from '../../../../../../shared/settings/global-settings-types'
-import { ORCA_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
+import { OPENKODO_CLI_SKILL_NAME } from '@/lib/skills/installation/agent-feature-skill-names'
 import {
   GLOBAL_AGENT_SKILL_SOURCE_KINDS,
   useInstalledAgentSkill
@@ -43,7 +43,7 @@ function getInstallDescription(platform: string): string {
     return 'Register `orca` in /usr/local/bin.'
   }
   if (platform === 'linux') {
-    return 'Register `orca-ide` in ~/.local/bin.'
+    return 'Register `openkodo` in ~/.local/bin.'
   }
   if (platform === 'win32') {
     return 'Register `orca` in your user PATH.'
@@ -51,8 +51,8 @@ function getInstallDescription(platform: string): string {
   return 'CLI registration is not yet available on this platform.'
 }
 
-function getFallbackCommandName(platform: string): string {
-  return platform === 'linux' ? 'orca-ide' : 'orca'
+function getFallbackCommandName(_platform: string): string {
+  return 'openkodo'
 }
 
 export function CliSection({
@@ -86,7 +86,7 @@ export function CliSection({
     loading: cliSkillLoading,
     error: cliSkillError,
     refresh: refreshCliSkill
-  } = useInstalledAgentSkill(ORCA_CLI_SKILL_NAME, {
+  } = useInstalledAgentSkill(OPENKODO_CLI_SKILL_NAME, {
     discoveryTarget: skillRuntime.discoveryTarget,
     runtimeTarget: skillRuntime.discoveryRuntimeTarget,
     sourceKinds: GLOBAL_AGENT_SKILL_SOURCE_KINDS
@@ -179,7 +179,7 @@ export function CliSection({
                       getInstallDescription(currentPlatform)
                     : t(
                         'settings.general.cli.description',
-                        'Orca’s own terminals already have it.'
+                        'OpenKodo’s own terminals already have it.'
                       )}
               </p>
             </div>
@@ -298,12 +298,12 @@ export function CliSection({
           <div id={GENERAL_SETTING_ANCHORS.cliSkill}>
             <AgentSkillSetupPanel
               variant="row"
-              title={t('settings.general.cli.skillTitle', 'Orca skill for agents')}
+              title={t('settings.general.cli.skillTitle', 'OpenKodo skill for agents')}
               description={t(
                 'auto.components.settings.CliSection.e8012c03a1',
-                'Enables agents to use Orca workspace, terminal, and progress commands.'
+                'Enables agents to use OpenKodo workspace, terminal, and progress commands.'
               )}
-              skillNames={[ORCA_CLI_SKILL_NAME]}
+              skillNames={[OPENKODO_CLI_SKILL_NAME]}
               target={skillRuntime.bundledSkillTarget}
               // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
               terminalRuntime={agentRuntime}

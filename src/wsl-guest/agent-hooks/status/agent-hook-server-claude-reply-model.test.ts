@@ -23,7 +23,7 @@ it('forwards the model a remote Claude reply names after /model', async () => {
     const { port, token } = relay.getCoordinates()
     const response = await fetch(`http://127.0.0.1:${port}/hook/claude`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Orca-Agent-Hook-Token': token },
+      headers: { 'Content-Type': 'application/json', 'X-OpenKodo-Agent-Hook-Token': token },
       body: JSON.stringify({
         paneKey: PANE,
         tabId: 'tab-1',

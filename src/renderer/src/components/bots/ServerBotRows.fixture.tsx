@@ -320,7 +320,7 @@ function Sidebar({ width, m4Down = false, expanded = NONE, active }: Scene) {
   )
 }
 
-/** `linuxOld`: linux 1 runs an Orca without bot listing, so its bots aren't read. */
+/** `linuxOld`: linux 1 runs an OpenKodo without bot listing, so its bots aren't read. */
 function scene(scenes: Scene[], options: { m4Down?: boolean; linuxOld?: boolean } = {}) {
   const { m4Down = false, linuxOld = false } = options
   return defineFixture({
@@ -424,5 +424,5 @@ export const expanded = scene([
   { width: 220, expanded: ['triage', 'release'], active: 'triage' }
 ])
 
-/** 5 · linux 1 runs an older Orca: its bots aren't listed; New bot's computer picker asks for the update. */
+/** 5 · linux 1 runs an older OpenKodo: its bots aren't listed; New bot's computer picker asks for the update. */
 export const olderServer = scene([{ width: 280 }, { width: 220 }], { linuxOld: true })

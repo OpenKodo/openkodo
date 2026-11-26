@@ -169,7 +169,7 @@ export function TerminalErrorToast({
               'If this persists, please'
             )}{' '}
             <a
-              href="https://github.com/stablyai/orca/issues"
+              href="https://github.com/OpenKodo/openkodo/issues"
               className="underline underline-offset-2"
             >
               {t('auto.components.terminal.pane.TerminalErrorToast.a7e2fd2699', 'file an issue')}

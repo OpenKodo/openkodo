@@ -45,7 +45,7 @@ function readHookEndpoint(userDataDir) {
         return [key, rest.join('=')]
       })
   )
-  return values.ORCA_AGENT_HOOK_PORT ? values : null
+  return values.OPENKODO_AGENT_HOOK_PORT ? values : null
 }
 
 // One agent turn as Claude's hook script reports it.
@@ -81,21 +81,24 @@ async function terminalPanes(page, count, onePerWorkspace = false) {
 
 async function postHook(endpoint, pane, payload) {
   try {
-    const response = await fetch(`http://127.0.0.1:${endpoint.ORCA_AGENT_HOOK_PORT}/hook/claude`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Orca-Agent-Hook-Token': endpoint.ORCA_AGENT_HOOK_TOKEN
-      },
-      body: JSON.stringify({
-        paneKey: pane.paneKey,
-        tabId: pane.paneKey.split(':')[0],
-        worktreeId: pane.worktreeId,
-        env: endpoint.ORCA_AGENT_HOOK_ENV,
-        version: endpoint.ORCA_AGENT_HOOK_VERSION,
-        payload: { session_id: `fleet-gate-${pane.paneKey}`, ...payload }
-      })
-    })
+    const response = await fetch(
+      `http://127.0.0.1:${endpoint.OPENKODO_AGENT_HOOK_PORT}/hook/claude`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Orca-Agent-Hook-Token': endpoint.OPENKODO_AGENT_HOOK_TOKEN
+        },
+        body: JSON.stringify({
+          paneKey: pane.paneKey,
+          tabId: pane.paneKey.split(':')[0],
+          worktreeId: pane.worktreeId,
+          env: endpoint.OPENKODO_AGENT_HOOK_ENV,
+          version: endpoint.OPENKODO_AGENT_HOOK_VERSION,
+          payload: { session_id: `fleet-gate-${pane.paneKey}`, ...payload }
+        })
+      }
+    )
     return response.status === 204
   } catch {
     return false

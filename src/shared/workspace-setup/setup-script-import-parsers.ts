@@ -1,7 +1,7 @@
 import { parse as parseJsonc, type ParseError } from 'jsonc-parser'
 import { parse as parseToml } from 'smol-toml'
 import { parseDocument } from 'yaml'
-import { MAX_ORCA_YAML_ALIAS_COUNT } from './orca-yaml-file-limit'
+import { MAX_OPENKODO_YAML_ALIAS_COUNT } from './orca-yaml-file-limit'
 import { isOrcaYamlConversionWithinLimit } from './orca-yaml-merge-expansion'
 
 // Data-only parsers: imports never evaluate repo content, they only read values out of it.
@@ -71,7 +71,7 @@ export function parseYamlObject(content: string | null): Record<string, unknown>
     if (document.errors.length > 0 || !isOrcaYamlConversionWithinLimit(document)) {
       return null
     }
-    return asRecord(document.toJS({ maxAliasCount: MAX_ORCA_YAML_ALIAS_COUNT }))
+    return asRecord(document.toJS({ maxAliasCount: MAX_OPENKODO_YAML_ALIAS_COUNT }))
   } catch {
     return null
   }

@@ -20,7 +20,7 @@ const guards = new AsyncLocalStorage<Guard>()
 
 export class ConcurrentFileEditError extends Error {
   constructor(filePath: string) {
-    super(`${filePath} changed while Orca was updating it`)
+    super(`${filePath} changed while OpenKodo was updating it`)
     this.name = 'ConcurrentFileEditError'
   }
 }

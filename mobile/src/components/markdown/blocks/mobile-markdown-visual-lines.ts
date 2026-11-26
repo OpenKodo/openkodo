@@ -12,10 +12,10 @@ import {
 } from '../../../../../src/shared/native-chat/bot-cards/native-chat-bot-card-kind'
 import { mobileMarkdownCodeLines } from '../parsing/mobile-markdown-tree'
 // Private-use delimiters, as the preview normalizer's own code placeholders use.
-const PLACEHOLDER_PREFIX = '\uE000ORCA_VISUAL_'
-const PLACEHOLDER = /^\uE000ORCA_VISUAL_(\d+)\uE000$/
-const CARD_PREFIX = '\uE000ORCA_CARD_'
-const CARD_PLACEHOLDER = /^\uE000ORCA_CARD_(\d+)\uE000$/
+const PLACEHOLDER_PREFIX = '\uE000OPENKODO_VISUAL_'
+const PLACEHOLDER = /^\uE000OPENKODO_VISUAL_(\d+)\uE000$/
+const CARD_PREFIX = '\uE000OPENKODO_CARD_'
+const CARD_PLACEHOLDER = /^\uE000OPENKODO_CARD_(\d+)\uE000$/
 
 export type MobileMarkdownVisualLines = {
   /** The content with each recognized directive line replaced by a placeholder line. */

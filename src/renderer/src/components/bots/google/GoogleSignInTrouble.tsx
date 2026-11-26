@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslate } from '@/i18n/use-translate'
 import { GOOGLE_SIGN_IN_EXPIRED } from '../../../../../shared/google/google-connect-types'
 
-/** Google's Access blocked page never returns to Orca, so the way out is offered up front. */
+/** Google's Access blocked page never returns to OpenKodo, so the way out is offered up front. */
 export function GoogleAccessBlockedLine({ onNewApp }: { onNewApp: () => void }): React.JSX.Element {
   const t = useTranslate()
   return (

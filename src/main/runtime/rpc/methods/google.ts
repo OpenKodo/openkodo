@@ -41,7 +41,7 @@ import { botOfSession } from '../../../bots/bot-session-tabs'
 function google(): GoogleConnect {
   const installed = getGoogleConnect()
   if (!installed) {
-    throw new Error('Google is not available on this computer. Update Orca on it.')
+    throw new Error('Google is not available on this computer. Update OpenKodo on it.')
   }
   return installed
 }
@@ -285,7 +285,7 @@ export const GOOGLE_METHODS = [
     params: GoogleBotConnectedParams,
     handler: async ({ botToken, botId, account, sessionId }, ctx) => {
       refuseFromBot(botToken, ctx)
-      // The card runs in the owner's Orca; an agent's CLI never answers for it.
+      // The card runs in the owner's OpenKodo; an agent's CLI never answers for it.
       if (isAgentRpcCaller(ctx.caller)) {
         throw new InvalidArgumentError(GOOGLE_OWNER_ONLY)
       }

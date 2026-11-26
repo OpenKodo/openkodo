@@ -6,9 +6,9 @@ import { holdBrowserSessionWebRequest } from './browser-session-web-request-owne
 
 /**
  * Electron allows one session.webRequest listener per event, so request decisions owned by other
- * layers (extension content blocking) run inside Orca's own handlers: the request gate's
+ * layers (extension content blocking) run inside OpenKodo's own handlers: the request gate's
  * onBeforeRequest, the user agent policy's onBeforeSendHeaders and the onHeadersReceived installed
- * here. Each hook is called only after Orca's own policy for that event has run.
+ * here. Each hook is called only after OpenKodo's own policy for that event has run.
  */
 export type BrowserSessionRequestDecider = {
   /** Null lets the request through; a promise holds it until the decision is known. */
@@ -88,7 +88,7 @@ export function blockedMainFrameRequestBeingReported(): number | null {
   return reportingBlockedRequestId
 }
 
-/** Answers an onBeforeRequest that Orca's own policy let through. */
+/** Answers an onBeforeRequest that OpenKodo's own policy let through. */
 export function answerBrowserSessionBeforeRequest(
   session: Electron.Session,
   details: Electron.OnBeforeRequestListenerDetails,

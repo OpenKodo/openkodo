@@ -107,7 +107,7 @@ export function activeAgentNotesSendFailureMessage(
     case 'host-update-required':
       message = translate(
         'components.agentNotes.hostUpdateRequired',
-        "Update Orca on the {{target}} agent's host to send it notes.",
+        "Update OpenKodo on the {{target}} agent's host to send it notes.",
         { target }
       )
       break
@@ -143,11 +143,11 @@ export function activeAgentNotesSendFailureMessage(
       message = options.explicitTarget
         ? translate(
             'components.agentNotes.selectedSubmitFailed',
-            'The notes may already be pasted in the selected terminal, but Orca could not submit them.'
+            'The notes may already be pasted in the selected terminal, but OpenKodo could not submit them.'
           )
         : translate(
             'components.agentNotes.activeSubmitFailed',
-            'The notes may already be pasted in the active terminal, but Orca could not submit them.'
+            'The notes may already be pasted in the active terminal, but OpenKodo could not submit them.'
           )
       break
     case 'unconfirmed':

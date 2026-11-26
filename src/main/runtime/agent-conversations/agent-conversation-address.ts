@@ -1,4 +1,4 @@
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/orca-session-address-prefix'
 import {
   isOrcaSessionId,
   parseOrcaSessionAddress,
@@ -22,14 +22,14 @@ import { isReverseLookupUnavailable } from '../../agent-hooks/identity/agent-ide
 export type ResolvedAgentConversation =
   | {
       kind: 'chat'
-      /** The conversation's /clear root, the ID Copy Orca Session ID copies. */
+      /** The conversation's /clear root, the ID Copy OpenKodo Session ID copies. */
       orcaSessionId: OrcaSessionId
       record: AgentSessionConversationView
       store: AgentSessionRecordReader
     }
   | { kind: 'terminal'; orcaSessionId: OrcaSessionId }
 
-/** One Orca session ID to the conversation it names on this host: chats first, from the chat
+/** One OpenKodo session ID to the conversation it names on this host: chats first, from the chat
  *  store alone, then this host's terminal agent ids. Resolution reads records only; it never
  *  needs, starts or wakes a running agent. */
 export async function resolveAgentConversation(
@@ -50,7 +50,7 @@ export async function resolveAgentConversation(
       .openAgentSessionRecordStore()
       .then(conversationRecordReader)
       .catch(() => null))
-  // A provider's own id is matched as typed; only Orca IDs are respelled.
+  // A provider's own id is matched as typed; only OpenKodo IDs are respelled.
   const asTyped = store ? lookupOrcaAgentSession(store, text) : null
   if (asTyped?.kind === 'provider-id') {
     throw providerIdRefusal(text, [asTyped.orcaSessionId], store)
@@ -72,16 +72,16 @@ export async function resolveAgentConversation(
     if (known === undefined) {
       throw new AgentConversationRefusal(
         CODES.unavailable,
-        `Orca can't look up terminal agent IDs right now, so it can't tell whether agent ${id} runs here. Try again in a moment.`
+        `OpenKodo can't look up terminal agent IDs right now, so it can't tell whether agent ${id} runs here. Try again in a moment.`
       )
     }
   }
-  // A provider's own id (a bare UUID can also pass as an Orca ID) gets the ID to use instead.
+  // A provider's own id (a bare UUID can also pass as an OpenKodo ID) gets the ID to use instead.
   const linked = text ? await agentHookServer.terminalAgentIdsOfProviderSession(text) : []
   if (linked === undefined) {
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `Orca can't look up agent IDs right now, so it can't tell whether ${text} names an agent here. Try again in a moment.`
+      `OpenKodo can't look up agent IDs right now, so it can't tell whether ${text} names an agent here. Try again in a moment.`
     )
   }
   if (isReverseLookupUnavailable(linked)) {
@@ -89,7 +89,7 @@ export async function resolveAgentConversation(
     // says nothing about whether the agent exists or where.
     throw new AgentConversationRefusal(
       CODES.unavailable,
-      `Orca can't tell what ${text} names: no agent here has that ID, and this identity file can't look up provider conversation ids in the current version. Copy the agent's ID with Copy Orca Session ID, or find it with \`orca agent list\`.`
+      `OpenKodo can't tell what ${text} names: no agent here has that ID, and this identity file can't look up provider conversation ids in the current version. Copy the agent's ID with Copy OpenKodo Session ID, or find it with \`orca agent list\`.`
     )
   }
   if (Array.isArray(linked) && linked.length > 0) {
@@ -98,27 +98,27 @@ export async function resolveAgentConversation(
   throw id
     ? new AgentConversationRefusal(
         CODES.unknown,
-        `No agent ${text} on this Orca. If it runs on another host, run this there or add \`--environment <host>\`.`
+        `No agent ${text} on this OpenKodo. If it runs on another host, run this there or add \`--environment <host>\`.`
       )
     : new AgentConversationRefusal(
         CODES.invalidId,
-        `${text || 'That'} is not an Orca session ID. Find agents' IDs with \`orca agent list\`, or copy one with Copy Orca Session ID.`
+        `${text || 'That'} is not an OpenKodo session ID. Find agents' IDs with \`orca agent list\`, or copy one with Copy OpenKodo Session ID.`
       )
 }
 
-/** The Orca ID `text` spells: an `orca_session_id:` address or a bare ID. Older IDs spell their
+/** The OpenKodo ID `text` spells: an `orca_session_id:` address or a bare ID. Older IDs spell their
  *  UUID with underscores, so a hyphenated legacy `<agent>_<uuid>` is respelled to match. */
 function orcaSessionIdOf(text: string): OrcaSessionId | null {
   const bare = (
-    text.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
-      ? text.slice(ORCA_SESSION_ADDRESS_PREFIX.length)
+    text.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
+      ? text.slice(OPENKODO_SESSION_ADDRESS_PREFIX.length)
       : text
   ).replace(
     /_([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})$/i,
     '_$1_$2_$3_$4_$5'
   )
-  return text.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
-    ? parseOrcaSessionAddress(`${ORCA_SESSION_ADDRESS_PREFIX}${bare}`)
+  return text.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
+    ? parseOrcaSessionAddress(`${OPENKODO_SESSION_ADDRESS_PREFIX}${bare}`)
     : isOrcaSessionId(bare)
       ? bare
       : null
@@ -131,10 +131,10 @@ function providerIdRefusal(
 ): AgentConversationRefusal {
   const addresses = orcaSessionIds.map(
     (id) =>
-      `${ORCA_SESSION_ADDRESS_PREFIX}${isOrcaSessionId(id) ? canonicalOrcaSessionId(id, store) : id}`
+      `${OPENKODO_SESSION_ADDRESS_PREFIX}${isOrcaSessionId(id) ? canonicalOrcaSessionId(id, store) : id}`
   )
   return new AgentConversationRefusal(
     CODES.providerId,
-    `${given} is the agent's own conversation id, not its Orca session ID. Address it as ${addresses.join(' or ')}.`
+    `${given} is the agent's own conversation id, not its OpenKodo session ID. Address it as ${addresses.join(' or ')}.`
   )
 }

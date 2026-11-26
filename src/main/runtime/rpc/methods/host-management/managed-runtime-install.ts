@@ -47,7 +47,7 @@ import { hasExplicitTuiLaunchCommand } from '../../../../../shared/agent-launch/
 const installations = new Map<string, ManagedRuntimeInstallation>()
 const revisionClocks = new Map<string, RevisionClock>()
 
-/** What Orca keeps for `agent`: its ACP launch's own server, its copy of the CLI, or both. */
+/** What OpenKodo keeps for `agent`: its ACP launch's own server, its copy of the CLI, or both. */
 function installationPrograms(agent: string): ManagedRuntimeProgram[] {
   const kinds: ManagedRuntimeProgram[] = []
   if (acpLaunchSpecFor(agent)?.managedRuntime || !isManagedAgentCli(agent)) {
@@ -115,7 +115,7 @@ function acpInstallation(
 ): ManagedRuntimeInstallation {
   const spec = acpLaunchSpecFor(agent)
   if (!spec?.managedRuntime) {
-    throw new Error(`Orca installs no runtime for ${agent}.`)
+    throw new Error(`OpenKodo installs no runtime for ${agent}.`)
   }
   const dataDirectory = getProfileUserDataPath()
   const releases = spec.managedRuntime.root(dataDirectory)
@@ -172,7 +172,7 @@ function acpInstallation(
   })
 }
 
-/** These chats run the user's own install when the host has one, so Orca's copy is the fallback. */
+/** These chats run the user's own install when the host has one, so OpenKodo's copy is the fallback. */
 function agentCliInstallation(
   agent: ManagedAgentCliId,
   runtime: OrcaRuntimeService,
@@ -247,7 +247,7 @@ function checkForUpdate(key: string): void {
     })
 }
 
-/** Keep Orca's own copies current without a client ever prompting: once after launch, then as they're used.
+/** Keep OpenKodo's own copies current without a client ever prompting: once after launch, then as they're used.
  *  Installs only add a release folder, so chats on the older one keep running it. */
 export function startManagedRuntimeAutoUpdates(): void {
   if (autoUpdatesStarted) {

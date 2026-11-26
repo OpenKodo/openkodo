@@ -2,7 +2,7 @@ import { defineFixture } from '../../component-fixtures/component-fixture'
 import type { BotOwnTool } from '../../../../shared/bot-tools'
 import { base, clickWhenShown, named, Panel, settle, stub } from './bot-connectors-host-fixture'
 
-// Apps Orca signs in to itself, in the Connectors list and Add to <bot>.
+// Apps OpenKodo signs in to itself, in the Connectors list and Add to <bot>.
 /** The Add button in the dialog row of `app`. */
 const addFor = (app: string) => (button: HTMLElement) =>
   button.textContent?.trim() === 'Add' &&
@@ -29,7 +29,7 @@ const docsOwned = (signIn: BotOwnTool['signIn']): BotOwnTool => ({
   signIn
 })
 
-/** Apps Orca signs in to: Vercel signed in, an app by URL whose sign-in the app ended. */
+/** Apps OpenKodo signs in to: Vercel signed in, an app by URL whose sign-in the app ended. */
 export const ownedAppsRows = defineFixture({
   width: 372,
   setup: () =>
@@ -41,7 +41,7 @@ export const ownedAppsRows = defineFixture({
   render: () => <Panel bot={base} />
 })
 
-/** Vercel signed in, opened: Orca holds the sign-in, so any agent the bot runs uses it. */
+/** Vercel signed in, opened: OpenKodo holds the sign-in, so any agent the bot runs uses it. */
 export const ownedAppSignedInOpen = defineFixture({
   width: 372,
   setup: () =>
@@ -54,7 +54,7 @@ export const ownedAppSignedInOpen = defineFixture({
   interact: () => clickWhenShown(named('Vercel'))
 })
 
-/** The host kept that the app won't let Orca register: any window shows it, no Sign in needed. */
+/** The host kept that the app won't let OpenKodo register: any window shows it, no Sign in needed. */
 export const ownedAppUnsupported = defineFixture({
   width: 372,
   setup: () =>
@@ -78,7 +78,7 @@ export const ownedAppUnreachable = defineFixture({
   render: () => <Panel bot={base} />
 })
 
-/** Adding Vercel: Orca opened the browser and waits for its own page to come back. */
+/** Adding Vercel: OpenKodo opened the browser and waits for its own page to come back. */
 export const addDialogOwnedConnecting = defineFixture({
   width: 900,
   setup: () => stub({ linearLinked: true, composio: false, connect: 'waiting', owned: [] }),
@@ -90,7 +90,7 @@ export const addDialogOwnedConnecting = defineFixture({
   }
 })
 
-/** An app by URL refused Orca's registration while adding: not supported yet, with Remove. */
+/** An app by URL refused OpenKodo's registration while adding: not supported yet, with Remove. */
 export const addDialogOwnedUnsupported = defineFixture({
   width: 900,
   setup: () =>
@@ -125,7 +125,7 @@ async function addByUrl(address: string): Promise<void> {
   await settle(400)
 }
 
-/** Add by URL, an address whose sign-in Orca can't make yet: not added, and it says why. */
+/** Add by URL, an address whose sign-in OpenKodo can't make yet: not added, and it says why. */
 export const addByUrlUnsupported = defineFixture({
   width: 900,
   setup: () =>
@@ -153,7 +153,7 @@ export const addByUrlUnreachable = defineFixture({
   interact: () => addByUrl('https://mcp.example.com/mcp')
 })
 
-/** Add by URL, an address that needs a sign-in: Orca signs in to it, in the browser. */
+/** Add by URL, an address that needs a sign-in: OpenKodo signs in to it, in the browser. */
 export const addByUrlNeedsSignIn = defineFixture({
   width: 900,
   setup: () => stub({ linearLinked: true, composio: false, connect: 'waiting', owned: [] }),

@@ -6,7 +6,7 @@ import path from 'node:path'
 import { lockCacheEntry, tryLockCacheEntry } from './fleet-gate-cache-lock.mjs'
 
 export const CACHE_ROOT =
-  process.env.ORCA_FLEET_GATE_CACHE ?? path.join(os.homedir(), '.cache', 'orca-fleet-gate')
+  process.env.OPENKODO_FLEET_GATE_CACHE ?? path.join(os.homedir(), '.cache', 'orca-fleet-gate')
 const KEEP_BUILDS = 4
 
 export const git = (cwd, args) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim()

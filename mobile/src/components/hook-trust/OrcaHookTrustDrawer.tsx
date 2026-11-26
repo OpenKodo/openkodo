@@ -34,7 +34,7 @@ type Props = {
   onClose: () => void
 }
 
-// Prompt before untrusted repo-owned orca.yaml setup or archive runs; caller retains async persistence and the action.
+// Prompt before untrusted repo-owned openkodo.yaml setup or archive runs; caller retains async persistence and the action.
 export function OrcaHookTrustDrawer({
   visible,
   prompt,
@@ -70,7 +70,7 @@ export function OrcaHookTrustDrawer({
             <Text style={styles.trustScope}>
               {t(
                 'components.setupHookTrustDrawer.alwaysTrustScope',
-                'Always trust runs future orca.yaml changes in {{repoName}} without asking.',
+                'Always trust runs future openkodo.yaml changes in {{repoName}} without asking.',
                 { repoName: prompt.repoName }
               )}
             </Text>
@@ -153,7 +153,7 @@ function hookTrustCopy(
       ),
       description: t(
         'components.setupHookTrustDrawer.branchDiffersDescription',
-        "The workspace was created, but its setup didn't run: its branch's orca.yaml differs from what you approved. Run it in this workspace only if you trust this repository."
+        "The workspace was created, but its setup didn't run: its branch's openkodo.yaml differs from what you approved. Run it in this workspace only if you trust this repository."
       ),
       scriptLabel: t('components.setupHookTrustDrawer.branchSetupLabel', "Branch's setup script")
     }
@@ -173,7 +173,7 @@ function hookTrustCopy(
           ),
       description: t(
         'components.setupHookTrustDrawer.archiveDescription',
-        "This repository's orca.yaml runs before the workspace is deleted. Only run it if you trust this repository."
+        "This repository's openkodo.yaml runs before the workspace is deleted. Only run it if you trust this repository."
       ),
       scriptLabel: changed
         ? t('components.setupHookTrustDrawer.newArchiveScriptLabel', 'New archive script')
@@ -194,7 +194,7 @@ function hookTrustCopy(
         ),
     description: t(
       'components.setupHookTrustDrawer.description',
-      "This repository's orca.yaml runs before the workspace starts. Only run it if you trust this repository."
+      "This repository's openkodo.yaml runs before the workspace starts. Only run it if you trust this repository."
     ),
     scriptLabel: changed
       ? t('components.setupHookTrustDrawer.newScriptLabel', 'New setup script')

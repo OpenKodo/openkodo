@@ -52,7 +52,7 @@ export function handedAgentRows(agents: readonly BotHandedAgentObservation[]): B
   })
 }
 
-/** Orca writes these prompts itself (mail, restart notes), so they never name the agent's work. */
+/** OpenKodo writes these prompts itself (mail, restart notes), so they never name the agent's work. */
 function isOrcaWrittenPrompt(prompt: string): boolean {
   return (
     prompt.startsWith('──── From: ') ||

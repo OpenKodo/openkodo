@@ -46,8 +46,8 @@ function launchDesktopInstance(args: readonly string[], executablePath: string |
 
 function isAutomatedLaunch(env: Readonly<Record<string, string | undefined>>): boolean {
   return (
-    env.ORCA_BACKGROUND_LAUNCH === '1' ||
-    Object.keys(env).some((key) => key.startsWith('ORCA_E2E_') && Boolean(env[key]))
+    env.OPENKODO_BACKGROUND_LAUNCH === '1' ||
+    Object.keys(env).some((key) => key.startsWith('OPENKODO_E2E_') && Boolean(env[key]))
   )
 }
 

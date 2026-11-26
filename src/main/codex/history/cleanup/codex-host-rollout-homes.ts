@@ -41,7 +41,7 @@ async function listAccountHomeCandidates(
   )
 }
 
-/** The candidates' homes Orca owns; one that can't be read throws, since its copy may be in use. */
+/** The candidates' homes OpenKodo owns; one that can't be read throws, since its copy may be in use. */
 function ownedAccountHomes(candidates: readonly CodexAccountHomeCandidate[]): string[] {
   const homes: string[] = []
   for (const { accountsRoot, accountId } of candidates) {
@@ -54,7 +54,7 @@ function ownedAccountHomes(candidates: readonly CodexAccountHomeCandidate[]): st
         expectedAccountId: accountId
       })
     } catch (error) {
-      // Not Orca's (redirected or never set up): Orca neither launches nor links into it.
+      // Not OpenKodo's (redirected or never set up): OpenKodo neither launches nor links into it.
       if (error instanceof UntrustedManagedCodexHomeError) {
         continue
       }
@@ -82,7 +82,7 @@ function uniqueHostHomes(candidates: readonly (string | undefined)[]): string[] 
 }
 
 /**
- * The host Codex homes besides Orca's account homes, plus those account folders unchecked, so a
+ * The host Codex homes besides OpenKodo's account homes, plus those account folders unchecked, so a
  * caller can verify their ownership (sync reads) where blocking is fine. Leaves out the extra homes
  * session discovery adds: they are these same homes, found through a sync ownership check.
  */
@@ -105,7 +105,7 @@ export async function listHostCodexRolloutHomeSources(
 }
 
 /**
- * The host Codex homes Orca may delete rollouts from: the user's, Orca's shared home and each
+ * The host Codex homes OpenKodo may delete rollouts from: the user's, OpenKodo's shared home and each
  * account's, plus the import folder as a root no deletion may reach. A WSL distro keeps its own
  * homes, and reading them can boot it.
  */
@@ -115,7 +115,7 @@ export async function listHostCodexRolloutHomes(
   const { accounts } = await listHostCodexRolloutHomeSources(settings)
   const importFolder = resolveHostCodexSessionSourceHome(settings)
   return {
-    // Only Orca's own homes: the import folder is the user's, even when it holds the same chats.
+    // Only OpenKodo's own homes: the import folder is the user's, even when it holds the same chats.
     homes: uniqueHostHomes([
       dirname(codexHomeSessionsDir()),
       getSystemCodexHomePath(),

@@ -152,7 +152,7 @@ export function PluginMarketplaceSourceDialog({
             <p className="text-xs text-muted-foreground">
               {t(
                 'auto.components.settings.PluginMarketplaceSourceDialog.urlDescription',
-                'HTTPS or SSH, with an orca-catalog.json'
+                'HTTPS or SSH, with an openkodo-catalog.json'
               )}
             </p>
           </div>

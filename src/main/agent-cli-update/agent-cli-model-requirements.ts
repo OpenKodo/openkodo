@@ -1,4 +1,4 @@
-// The CLI version each model on Orca's list needs, read from Orca's repo at most hourly.
+// The CLI version each model on OpenKodo's list needs, read from OpenKodo's repo at most hourly.
 
 import { z } from 'zod'
 import { getMainHttpClient } from '../network/http-client'

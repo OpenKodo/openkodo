@@ -12,7 +12,7 @@ import { ADDED_COLUMNS, BOT_WORK_SCHEMA, rowOf, type BotWorkCloseReason } from '
 /** A connector conversation the work came from: a Slack thread, a Linear issue, a GitHub thread. */
 export type BotConversationAddress = { source: ConnectorSource; externalId: string }
 
-/** One of the bot's own chats in Orca, by its session id: it has no reply address. */
+/** One of the bot's own chats in OpenKodo, by its session id: it has no reply address. */
 export type BotChatAddress = { source: 'chat'; externalId: string }
 
 /** Where the work came from: a connector conversation, or one of the bot's chats. */
@@ -35,7 +35,7 @@ export type BotWorkRow = BotWorkRef & {
   host: BotWorkHost
   /** The thread's default for follow-ups; a superseded row stays live for its work's links. */
   current: boolean
-  /** The turn that started it was asked in Orca, not through the conversation's connector. */
+  /** The turn that started it was asked in OpenKodo, not through the conversation's connector. */
   askedInApp: boolean
   createdAt: number
   closedAt: number | null

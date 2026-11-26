@@ -57,7 +57,7 @@ export function createWslHostConnector(options: {
   runtime: WslHostRuntimeAccess
 }): WslHostConnector {
   const refuseUnknown = (distro: string): Error =>
-    new Error(`${distro} is no longer a WSL host; Orca will not start anything for it.`)
+    new Error(`${distro} is no longer a WSL host; OpenKodo will not start anything for it.`)
   // Assigned below; a holder exit cannot arrive before the first ensure.
   let supervisor: WslOrcadLivenessSupervisor | null = null
   const unguardedHolder = createWslDistroHolder({

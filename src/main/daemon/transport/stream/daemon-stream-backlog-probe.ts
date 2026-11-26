@@ -1,7 +1,7 @@
 import type { DaemonClientConnections } from '../../server/daemon-client-connections'
 import type { DaemonStreamDataBatcher } from './daemon-stream-data-batcher'
 import type { BackgroundTransientFactRelay } from './daemon-background-transient-facts'
-/** Set ORCA_DAEMON_STREAM_BACKLOG_FILE to append queue and socket diagnostics as JSONL. */
+/** Set OPENKODO_DAEMON_STREAM_BACKLOG_FILE to append queue and socket diagnostics as JSONL. */
 import { appendFileSync } from 'node:fs'
 
 export type StreamBacklogClientSample = {
@@ -22,7 +22,7 @@ export function recordDaemonStreamBacklogEvent(
   event: string,
   detail: Record<string, unknown>
 ): void {
-  const filePath = process.env.ORCA_DAEMON_STREAM_BACKLOG_FILE
+  const filePath = process.env.OPENKODO_DAEMON_STREAM_BACKLOG_FILE
   if (!filePath) {
     return
   }
@@ -34,7 +34,7 @@ export function recordDaemonStreamBacklogEvent(
 }
 
 export function startDaemonStreamBacklogProbe(sample: () => StreamBacklogSample): () => void {
-  const filePath = process.env.ORCA_DAEMON_STREAM_BACKLOG_FILE
+  const filePath = process.env.OPENKODO_DAEMON_STREAM_BACKLOG_FILE
   if (!filePath) {
     return () => {}
   }

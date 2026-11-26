@@ -50,7 +50,8 @@ export function getPiAgentStatusHandlerSourceLines(kind: PiAgentKind): string[] 
           '  if (!process.env.PRIME_AGENT_INTERNAL_DAEMON_WORKER) return'
         ]
       : []
-  const ownerEnv = kind === 'prime-agent' ? 'ORCA_PRIME_AGENT_STATUS_OWNED' : 'ORCA_PI_STATUS_OWNED'
+  const ownerEnv =
+    kind === 'prime-agent' ? 'OPENKODO_PRIME_AGENT_STATUS_OWNED' : 'OPENKODO_PI_STATUS_OWNED'
 
   // OMP emits permission-wait lifecycle only with listeners; Prime has no such runtime.
   const approvalHandlers =

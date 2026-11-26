@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import { useAppStore } from '../../../store/index'
 import { focusTerminalTabSurface } from '../../../components/terminal-pane/input/focus/focus-terminal-tab-surface'
 import {
-  ORCA_BROWSER_FOCUS_REQUEST_EVENT,
+  OPENKODO_BROWSER_FOCUS_REQUEST_EVENT,
   queueBrowserFocusRequest,
   type BrowserFocusRequestDetail
 } from '../../../components/browser-pane/host-guest/input/browser-focus'
@@ -107,7 +107,7 @@ export function useModalReturnFocus(
 
   const requestBrowserFocus = useCallback((detail: BrowserFocusRequestDetail): void => {
     queueBrowserFocusRequest(detail)
-    window.dispatchEvent(new CustomEvent(ORCA_BROWSER_FOCUS_REQUEST_EVENT, { detail }))
+    window.dispatchEvent(new CustomEvent(OPENKODO_BROWSER_FOCUS_REQUEST_EVENT, { detail }))
   }, [])
 
   const captureReturnFocus = useCallback((): void => {

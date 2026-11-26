@@ -8,7 +8,7 @@ import { WORKER_AGENT_STARTING_STAGE } from '../../db/worker-dispatch/worker-awa
 import { readWorkerPresence } from '../../db/worker-presence/worker-presence-store'
 import { observeUnconfirmedWorkerStart } from './unconfirmed-worker-start'
 
-describe('a start whose agent was still starting when Orca restarted', () => {
+describe('a start whose agent was still starting when OpenKodo restarted', () => {
   let db: OrchestrationDb
 
   afterEach(() => db?.close())

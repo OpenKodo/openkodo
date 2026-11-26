@@ -1,7 +1,7 @@
 import { OrcaRuntimeWithOnClientDisconnected } from '../layout/terminal-client-disconnect'
 import type { PtyIncarnationId } from '../../../../shared/terminal/pty/lifecycle/pty-incarnation'
 
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 
 import { closedPaneOfExitedPty, type ClosedPaneOfExit } from './closed-pane-of-exited-pty'
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
@@ -41,7 +41,7 @@ export abstract class RuntimePtyExitSurfaceReads extends OrcaRuntimeWithOnClient
     pty: RuntimePtyWorktreeRecord | undefined,
     exitIncarnationId: PtyIncarnationId | undefined
   ): ClosedPaneOfExit | null {
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN || !pty || this.paneOfPty(pty).paneKey) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN || !pty || this.paneOfPty(pty).paneKey) {
       return null
     }
     return closedPaneOfExitedPty(

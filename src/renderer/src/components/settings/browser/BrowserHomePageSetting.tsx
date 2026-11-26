@@ -1,6 +1,6 @@
 import { toast } from 'sonner'
 import '../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import { normalizeBrowserNavigationUrl } from '../../../../../shared/browser/navigation/browser-url'
 import { Button } from '../../ui/button'
 import { Input } from '../../ui/input'
@@ -51,7 +51,7 @@ export function BrowserHomePageSetting({
             return
           }
           const normalized = normalizeBrowserNavigationUrl(trimmed)
-          if (normalized && normalized !== ORCA_BROWSER_BLANK_URL) {
+          if (normalized && normalized !== OPENKODO_BROWSER_BLANK_URL) {
             onSave(normalized)
             toast.success(
               t('auto.components.settings.BrowserHomePageSetting.c6cbd1c105', 'Home page saved.')

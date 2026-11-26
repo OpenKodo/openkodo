@@ -77,7 +77,7 @@ export async function listInstalledWorkspaceAgents(
         if (error instanceof OrchestrationError && error.code === 'method_not_found') {
           throw new OrchestrationError(
             'incompatible_runtime',
-            'Update Orca on the workspace host to list its installed agents.'
+            'Update OpenKodo on the workspace host to list its installed agents.'
           )
         }
         if (

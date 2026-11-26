@@ -19,7 +19,7 @@ describe('assertCloudTakesTriggers: github.ci_finished', () => {
     subject
   }
 
-  it('takes a new rule only from an Orca Cloud that sends it, and keeps one already saved', () => {
+  it('takes a new rule only from an cloud service that sends it, and keeps one already saved', () => {
     expect(() => assertCloudTakesTriggers(ALL, [ciFinished])).not.toThrow()
     expect(() => assertCloudTakesTriggers({ ...ALL, ciFinished: false }, [ciFinished])).toThrow(
       CI_FINISHED_TRIGGERS_UNSUPPORTED

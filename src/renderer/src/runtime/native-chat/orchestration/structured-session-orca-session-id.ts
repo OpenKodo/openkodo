@@ -8,8 +8,8 @@ import { RuntimeRpcCallError } from '../../rpc/calls/runtime-rpc-result'
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 
 /**
- * A chat's Orca session ID: its `/clear` root's, which the host derives from the session records.
- * Null for an id that is not an Orca session id.
+ * A chat's OpenKodo session ID: its `/clear` root's, which the host derives from the session records.
+ * Null for an id that is not an OpenKodo session id.
  */
 export async function resolveStructuredSessionOrcaSessionId(
   target: RuntimeClientTarget,

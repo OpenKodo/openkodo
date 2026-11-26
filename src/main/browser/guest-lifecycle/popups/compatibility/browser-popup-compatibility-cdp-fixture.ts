@@ -44,7 +44,7 @@ let stderr = ''
 const pages = new Map<string, Page>()
 const stopFrameCaptures = new Map<Page, () => Promise<void>>()
 const statusPath = join(root, 'status.json')
-export const artifactDir = process.env.ORCA_POPUP_FIXTURE_ARTIFACT_DIR
+export const artifactDir = process.env.OPENKODO_POPUP_FIXTURE_ARTIFACT_DIR
 export const snapshots: ReturnType<typeof status>[] = []
 export const expectedSecurity = { sandbox: true, contextIsolation: true, nodeIntegration: false }
 
@@ -163,10 +163,10 @@ beforeAll(async () => {
     args,
     env: {
       ...env,
-      ORCA_BACKGROUND_LAUNCH: '1',
-      ORCA_POPUP_FIXTURE_ORIGIN: origin,
-      ORCA_POPUP_FIXTURE_STATUS: statusPath,
-      ORCA_POPUP_FIXTURE_NATIVE_CONTROLS: nativeControls ? '1' : '0'
+      OPENKODO_BACKGROUND_LAUNCH: '1',
+      OPENKODO_POPUP_FIXTURE_ORIGIN: origin,
+      OPENKODO_POPUP_FIXTURE_STATUS: statusPath,
+      OPENKODO_POPUP_FIXTURE_NATIVE_CONTROLS: nativeControls ? '1' : '0'
     },
     stdio: ['ignore', 'pipe', 'pipe']
   })

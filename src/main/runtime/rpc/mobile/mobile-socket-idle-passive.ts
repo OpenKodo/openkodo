@@ -4,7 +4,7 @@ import {
   IDLE_PASSIVE_CONTROL_CLIENT_CAPABILITY
 } from '../../../../shared/remote-runtime/protocol/orcad-runtime-capabilities'
 import { ORCAD_DECLARE_CLIENT_METHOD } from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
-import { DECLARE_ORCA_ACCOUNT_METHOD } from '../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
+import { DECLARE_OPENKODO_ACCOUNT_METHOD } from '../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
 
 type CapabilityHolder = Pick<AuthenticatedMobileSocket, 'clientCapabilities'>
 
@@ -38,7 +38,7 @@ export function countIdleBlockingConnections<Socket>(
 const DESKTOP_BOOKKEEPING_METHODS: ReadonlySet<string> = new Set([
   'status.get',
   ORCAD_DECLARE_CLIENT_METHOD,
-  DECLARE_ORCA_ACCOUNT_METHOD,
+  DECLARE_OPENKODO_ACCOUNT_METHOD,
   'notifications.reportDesktopPresence'
 ])
 // Exempt messages are small; a bigger one is treated as use rather than parsed twice.

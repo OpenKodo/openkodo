@@ -25,8 +25,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     arch: readArg('--arch') ?? process.arch,
     outputPath: readArg('--output') ?? join(crateRoot, '.build', 'orca-agent-hook.exe'),
     buildEnv: (version) => ({
-      ORCA_HOOK_BUILD_VERSION: version,
-      ORCA_HOOK_BUILD_ICON: iconPath
+      OPENKODO_HOOK_BUILD_VERSION: version,
+      OPENKODO_HOOK_BUILD_ICON: iconPath
     })
   })
 }

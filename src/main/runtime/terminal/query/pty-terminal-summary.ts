@@ -31,7 +31,7 @@ import type {
 
 import { readTerminalTail } from '../output/tail/terminal-tail-read'
 import { structuredWorkerTerminalRefusal } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-terminal-refusal'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 
 export abstract class OrcaRuntimeWithBuildPtyTerminalSummary extends OrcaRuntimeWithMailboxTerminalIdentity {
   protected abstract bindPtyIncarnationHandle(
@@ -246,7 +246,7 @@ export abstract class OrcaRuntimeWithBuildPtyTerminalSummary extends OrcaRuntime
     context?: TerminalIdentityReadContext
   ): boolean {
     if (
-      !ORCA_LAYOUT_OWNER_IS_MAIN ||
+      !OPENKODO_LAYOUT_OWNER_IS_MAIN ||
       !record.ptyId ||
       !isTerminalLeafId(record.leafId) ||
       !isValidTerminalTabId(record.tabId) ||

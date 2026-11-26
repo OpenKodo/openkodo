@@ -74,7 +74,7 @@ export type NativeChatTextBlock = {
   }
   /** On a status line that reports a failure: what failed, typed. */
   failure?: AgentSessionFailureFact
-  /** On the line about a reply Orca's own stop cut off: why, and the turn it cut. */
+  /** On the line about a reply OpenKodo's own stop cut off: why, and the turn it cut. */
   orcaStop?: AgentSessionOrcaStop & { turnItemId?: string }
   /** On the "Forked from" divider: the source chat it links to. */
   forkedFrom?: AgentSessionForkedFromMark
@@ -274,17 +274,17 @@ export type NativeChatMessage = AgentJournalProducerLinkage & {
   completedAt?: number
   /** On a conversation command the user sent, such as `/compact`: the command it names. */
   command?: { name: string }
-  /** On a user-role message another agent sent through Orca: who, as the journal recorded it. */
+  /** On a user-role message another agent sent through OpenKodo: who, as the journal recorded it. */
   from?: AgentMessageSource
-  /** On a user-role message Orca delivered from a connector: who asked and where, for its tag. */
+  /** On a user-role message OpenKodo delivered from a connector: who asked and where, for its tag. */
   asker?: ConnectorMessageAsker
   /** On a person's message typed by someone other than the host's owner, on their paired computer. */
   typedByOther?: OtherPersonTypist
   /** What the chat draws in place of its text, which stays the readable form copy and titles use:
    *  a Slack message's markup as Slack shows it (see `slackMarkupShownText`). Display only. */
   drawnMarkdown?: string
-  /** On Orca's own turn to a bot it just created: a notice row, never the person's bubble. On an
-   *  owner's card answer: nothing, since the card shows its receipt. On Orca's turn handing the bot a
+  /** On OpenKodo's own turn to a bot it just created: a notice row, never the person's bubble. On an
+   *  owner's card answer: nothing, since the card shows its receipt. On OpenKodo's turn handing the bot a
    *  workspace: a divider, and the owner's goal as their words. */
   orcaNotice?: 'bot-created' | 'card-answer' | 'took-over'
   /** Beside `took-over`: what its divider and goal show. */

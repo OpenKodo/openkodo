@@ -1,6 +1,6 @@
+import { openKodoHomePath } from '../../../../shared/home/openkodo-home'
 import { chmod, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { accessSync, constants, existsSync } from 'node:fs'
-import { homedir } from 'node:os'
 import { delimiter, dirname, isAbsolute, join } from 'node:path'
 import {
   addClaudeTeammateModeAuto,
@@ -69,7 +69,7 @@ export function resolveClaudeAgentTeamsShimBin(
 ): string | null {
   // Windows environments may spell this key Path.
   const pathValue = env[resolvePathEnvKey(env, process.platform)]
-  const rawOverride = env.ORCA_AGENT_TEAMS_SHIM_BIN
+  const rawOverride = env.OPENKODO_AGENT_TEAMS_SHIM_BIN
   // Qualify bare overrides before the shim shell can resolve them against its cwd.
   const override = rawOverride
     ? isAbsolute(rawOverride)
@@ -77,7 +77,7 @@ export function resolveClaudeAgentTeamsShimBin(
       : findExecutableOnPath(rawOverride, pathValue)
     : null
   // Inherited team overrides may point at an older leader’s stale GUI binary.
-  const inheritedFromTeam = Boolean(env.ORCA_AGENT_TEAMS_TEAM_ID)
+  const inheritedFromTeam = Boolean(env.OPENKODO_AGENT_TEAMS_TEAM_ID)
   if (override && !inheritedFromTeam) {
     return override
   }
@@ -102,7 +102,7 @@ export function resolveClaudeAgentTeamsShimBin(
 }
 
 function defaultShimRoot(): string {
-  return join(homedir(), '.orca', 'claude-agent-teams-bin')
+  return join(openKodoHomePath(), 'claude-agent-teams-bin')
 }
 
 function findExecutableOnPath(command: string, pathValue: string | undefined): string | null {
@@ -136,11 +136,11 @@ function unixShimScript(): string {
   return [
     '#!/usr/bin/env sh',
     'set -eu',
-    'orca_bin=${ORCA_AGENT_TEAMS_SHIM_BIN:-}',
+    'orca_bin=${OPENKODO_AGENT_TEAMS_SHIM_BIN:-}',
     'case $orca_bin in',
     '  /*|[A-Za-z]:[\\\\/]*) ;;',
     '  *)',
-    '    echo "orca agent-teams tmux shim: ORCA_AGENT_TEAMS_SHIM_BIN must be an absolute path" >&2',
+    '    echo "orca agent-teams tmux shim: OPENKODO_AGENT_TEAMS_SHIM_BIN must be an absolute path" >&2',
     '    exit 127',
     '    ;;',
     'esac',
@@ -153,17 +153,17 @@ export function windowsClaudeAgentTeamsShimScript(): string {
   return [
     '@echo off',
     'setlocal',
-    'set "ORCA_SHIM_BIN=%ORCA_AGENT_TEAMS_SHIM_BIN%"',
-    'if not defined ORCA_SHIM_BIN goto :unqualified',
-    'if "%ORCA_SHIM_BIN:~1,1%"==":" goto :run',
-    'if "%ORCA_SHIM_BIN:~0,2%"=="\\\\" goto :run',
+    'set "OPENKODO_SHIM_BIN=%OPENKODO_AGENT_TEAMS_SHIM_BIN%"',
+    'if not defined OPENKODO_SHIM_BIN goto :unqualified',
+    'if "%OPENKODO_SHIM_BIN:~1,1%"==":" goto :run',
+    'if "%OPENKODO_SHIM_BIN:~0,2%"=="\\\\" goto :run',
     'goto :unqualified',
     ':run',
     // call would percent-expand tmux pane ids such as %2 again.
-    '"%ORCA_SHIM_BIN%" agent-teams-tmux %*',
+    '"%OPENKODO_SHIM_BIN%" agent-teams-tmux %*',
     'exit /b %ERRORLEVEL%',
     ':unqualified',
-    'echo orca agent-teams tmux shim: ORCA_AGENT_TEAMS_SHIM_BIN must be an absolute path 1>&2',
+    'echo orca agent-teams tmux shim: OPENKODO_AGENT_TEAMS_SHIM_BIN must be an absolute path 1>&2',
     'exit /b 127',
     ''
   ].join('\r\n')

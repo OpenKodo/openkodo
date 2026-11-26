@@ -44,7 +44,7 @@ const UNSERVABLE_ASSET_PREVIEW_MESSAGE = 'This workspace cannot send this file t
 const TRUNCATED_PREVIEW_MESSAGE = 'This document is too large for the server to send in full.'
 
 const RUNTIME_DOC_PREVIEW_UPDATE_REQUIRED_MESSAGE =
-  'Secure document previews require a newer Orca on the paired machine. Update it and try again.'
+  'Secure document previews require a newer OpenKodo on the paired machine. Update it and try again.'
 
 function isTooLargeReadError(error: unknown): boolean {
   return error instanceof Error && error.message === RUNTIME_TOO_LARGE_ERROR

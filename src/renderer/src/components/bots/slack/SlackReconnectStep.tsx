@@ -15,7 +15,7 @@ import { SlackConfigTokenForm } from './SlackConfigTokenForm'
 import { useDeviceSignInLabel } from './slack-hand-off-parts'
 import type { SlackHandOffOffer } from './use-slack-hand-off-offer'
 
-/** This desktop's own Orca account, offered for the one workspace whose token lapsed on the host. */
+/** This desktop's own OpenKodo account, offered for the one workspace whose token lapsed on the host. */
 export type SlackReconnectOffer = { email: string; teamId: string }
 
 /** Offered only for the one workspace whose token lapsed, on a named computer. */
@@ -78,11 +78,11 @@ export function SlackReconnectStep({
   hostName: string | null
   /** Set only with `hostName`: whose token lapsed is named in the line. */
   offer: SlackReconnectOffer | null
-  /** The lapsed token is this desktop's own Orca account's, from a hand-off. */
+  /** The lapsed token is this desktop's own OpenKodo account's, from a hand-off. */
   mine: boolean
   /** Slack refused, yet no token may ever have been saved for this workspace. */
   unsure?: boolean
-  /** This desktop's own Orca account. */
+  /** This desktop's own OpenKodo account. */
   ownEmail: string | null
   error: string | null
   onUse: (teamId: string) => void
@@ -100,7 +100,10 @@ export function SlackReconnectStep({
           { email: ownEmail }
         )
       : unsure
-        ? t('bots.slack.reconnect.whyNeeded', 'Orca has no working Slack token for this workspace.')
+        ? t(
+            'bots.slack.reconnect.whyNeeded',
+            'OpenKodo has no working Slack token for this workspace.'
+          )
         : hostName
           ? t(
               'bots.slack.reconnect.whyHost',
@@ -181,7 +184,7 @@ export function SlackReconnectStep({
   }, [offered, pasting])
   const kept = t(
     'bots.slack.reconnect.kept',
-    'Orca Cloud keeps the new token encrypted, so your next bots here need one click.'
+    'cloud service keeps the new token encrypted, so your next bots here need one click.'
   )
 
   // One form at one place in the tree for both versions: an offer that arrives or goes while the

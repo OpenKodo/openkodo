@@ -7,7 +7,7 @@ import { resolveExecutableCommand } from '../../shell/command-resolution/node-cl
 import { loadGitHistoryFromExecutor } from './git-history-execution'
 
 it('lists the commits ahead of the base without push status, statistics or range counts', async () => {
-  const executable = resolveExecutableCommand(process.env.ORCA_TEST_GIT_BINARY ?? 'git')
+  const executable = resolveExecutableCommand(process.env.OPENKODO_TEST_GIT_BINARY ?? 'git')
   if (!executable) {
     throw new Error('Git is required for the branch history regression')
   }

@@ -70,7 +70,7 @@ export type GitHubInstallTrip = {
   before: ConnectorGitHubInstallation[] | null
 }
 
-/** The setup's trips to GitHub's install page, kept in its saved record; Orca's browser minimizes it. */
+/** The setup's trips to GitHub's install page, kept in its saved record; OpenKodo's browser minimizes it. */
 export function useGitHubInstallTrip(record: GitHubInstallRecord): GitHubInstallTrip {
   return {
     hostId: record.bot.hostId,

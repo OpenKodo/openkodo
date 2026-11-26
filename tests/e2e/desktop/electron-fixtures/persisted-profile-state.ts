@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { DEFAULT_LOCAL_ORCA_PROFILE_ID } from '../../../../src/shared/orca-profiles/orca-profiles'
+import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../../../src/shared/orca-profiles/orca-profiles'
 import {
   acquireProfileStateMaintenance,
   acquireProfileStateRuntimeAdmission
@@ -12,7 +12,7 @@ import { ProfileStateSqliteAuthority } from '../../../../src/main/persistence/pr
 /** Read committed storage without consulting a retained migration JSON snapshot. */
 export function readPersistedProfileState(
   userDataDir: string,
-  profileId = DEFAULT_LOCAL_ORCA_PROFILE_ID
+  profileId = DEFAULT_LOCAL_OPENKODO_PROFILE_ID
 ): Record<string, unknown> {
   const admission = acquireProfileStateRuntimeAdmission(userDataDir)
   try {
@@ -34,7 +34,7 @@ export function readPersistedProfileState(
 export function mutateStoppedProfileState<T>(
   userDataDir: string,
   mutate: (state: Record<string, unknown>) => T,
-  profileId = DEFAULT_LOCAL_ORCA_PROFILE_ID
+  profileId = DEFAULT_LOCAL_OPENKODO_PROFILE_ID
 ): T {
   const maintenance = acquireProfileStateMaintenance(userDataDir)
   const authority = new ProfileStateSqliteAuthority(

@@ -9,12 +9,12 @@ import {
 type Manifest = Record<string, unknown>
 
 /**
- * How Orca's API shim runs before the extension's worker, which keeps its declared path. A classic
+ * How OpenKodo's API shim runs before the extension's worker, which keeps its declared path. A classic
  * worker's script moves aside for a wrapper that loads the shim, then it; a module worker imports
  * the shim from its own first line.
  */
 export type BrowserExtensionWorkerShimInjection = {
-  /** The manifest Orca loads: the worker keeps its own path; connect-src allows the API. */
+  /** The manifest OpenKodo loads: the worker keeps its own path; connect-src allows the API. */
   manifest: Manifest
   /** The declared worker script, relative to the extension root. */
   workerPath: string
@@ -28,7 +28,7 @@ function asRecord(value: unknown): Manifest | null {
 
 const API_SOURCES = ["'self'", `${BROWSER_EXTENSION_API_SCHEME}:`]
 
-/** Lets the worker reach Orca's API (and read its token) under a policy that limits connect-src. */
+/** Lets the worker reach OpenKodo's API (and read its token) under a policy that limits connect-src. */
 function withBrowserExtensionApiConnectSource(policy: string): string {
   const directives = policy
     .split(';')
@@ -66,7 +66,7 @@ const SHIM_URL = JSON.stringify(`/${BROWSER_EXTENSION_WORKER_SHIM_FILE}`)
 const MODULE_SHIM_IMPORT = `import ${SHIM_URL};`
 const LEGACY_WRAPPER_PATTERN = `/\\/${BROWSER_EXTENSION_LEGACY_WORKER_WRAPPER_FILE.replaceAll('.', '\\.')}$/`
 /** Starts every classic wrapper, and tells a later run it from the extension's script: never change it. */
-const WRAPPER_HEADER = '// Written by Orca:'
+const WRAPPER_HEADER = '// Written by OpenKodo:'
 
 /**
  * Returns null when there is no worker. Why the declared path: extensions read their worker's URL
@@ -79,7 +79,7 @@ export function buildBrowserExtensionWorkerShimInjection(
   manifest: Manifest
 ): BrowserExtensionWorkerShimInjection | null {
   if (manifest.manifest_version !== 3) {
-    throw new Error('Orca supports Manifest V3 extensions only')
+    throw new Error('OpenKodo supports Manifest V3 extensions only')
   }
   const background = asRecord(manifest.background)
   const worker = background?.service_worker
@@ -128,7 +128,7 @@ export function buildBrowserExtensionWorkerShimInjection(
   }
 }
 
-/** Whether a worker file is Orca's classic wrapper rather than the extension's own script. */
+/** Whether a worker file is OpenKodo's classic wrapper rather than the extension's own script. */
 export function isBrowserExtensionWorkerWrapper(source: Buffer): boolean {
   return source.subarray(0, WRAPPER_HEADER.length).toString('latin1') === WRAPPER_HEADER
 }

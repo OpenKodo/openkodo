@@ -41,7 +41,7 @@ export type MobileComposerStructuredCatalog = {
   compactInstructions?: boolean
   /** `/mcp` opens the chat's MCP tray. */
   mcpPanel?: boolean
-  /** `/fork` forks the chat, and `/side` and `/btw` are Orca's, as on desktop. */
+  /** `/fork` forks the chat, and `/side` and `/btw` are OpenKodo's, as on desktop. */
   fork?: boolean
   /** `/usage` opens the chat's Codex account usage. */
   accountUsage?: boolean
@@ -94,7 +94,7 @@ export function mobileComposerCatalog({
   }
 }
 
-/** Desktop's Orca rows: `/fork` and `/usage` run here; `/resume`, `/side` and `/btw` say they are desktop-only. */
+/** Desktop's OpenKodo rows: `/fork` and `/usage` run here; `/resume`, `/side` and `/btw` say they are desktop-only. */
 function withMobileOrcaCommands(
   commands: readonly SlashCommandSuggestion[],
   structured: MobileComposerStructuredCatalog
@@ -137,7 +137,7 @@ export function mobileDesktopOnlyCommandNotice(): string {
   return translate('session.orcaCommands.desktopOnly', 'Available in the desktop app')
 }
 
-/** Orca commands the phone lists but leaves to the desktop app, never sending them as text. */
+/** OpenKodo commands the phone lists but leaves to the desktop app, never sending them as text. */
 export function isMobileDesktopOnlyCommand(
   name: string,
   structured: MobileComposerStructuredCatalog | undefined

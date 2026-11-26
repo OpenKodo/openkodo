@@ -161,7 +161,7 @@ export class TerminalWorkerApprovalHolds
     }
   }
 
-  /** Whether Orca still holds this prompt's hook, answering or not. */
+  /** Whether OpenKodo still holds this prompt's hook, answering or not. */
   isHeld(approvalId: string): boolean {
     return this.byApprovalId.has(approvalId)
   }
@@ -217,7 +217,7 @@ export class TerminalWorkerApprovalHolds
     if (!hold || hold.dispatch.id !== input.dispatchId || !this.stillBound(hold)) {
       return notOpen
     }
-    // A helper's dialog is never drawn while Orca holds its hook: only a lead's screen is read first.
+    // A helper's dialog is never drawn while OpenKodo holds its hook: only a lead's screen is read first.
     const before =
       hold.helper === undefined
         ? await firstWithin(this.deps.setTimer, () => this.deps.readScreen(hold.paneKey))
@@ -282,7 +282,7 @@ export class TerminalWorkerApprovalHolds
   /** A hang-up is not an answer: a killed or crashed hook leaves the dialog up (probes F6, F11). */
   private async ended(hold: Hold, why: ClaudePermissionHoldEnd): Promise<void> {
     if (why === 'budget' && hold.helper !== undefined && hold.state === 'open') {
-      // Unanswered in Orca: Claude now shows it in the worker's terminal, unless its record already closed it.
+      // Unanswered in OpenKodo: Claude now shows it in the worker's terminal, unless its record already closed it.
       const record = await this.toolRecord(hold)
       if (hold.state === 'open') {
         this.close(hold, claudeToolCloseHow(record?.result ?? null) ?? TERMINAL_ONLY)
@@ -317,7 +317,7 @@ export class TerminalWorkerApprovalHolds
       // Stopped, exited or handed on: no terminal is left to answer it in.
       this.close(hold, { by: 'worker-ended', decision: null })
     } else if (hold.helper === undefined && (!lines || showsClaudeDialog(lines))) {
-      // The dialog is up but Orca can no longer answer it: a person must, in the terminal.
+      // The dialog is up but OpenKodo can no longer answer it: a person must, in the terminal.
       this.close(hold, TERMINAL_ONLY)
     } else {
       this.closeAwaitingEvidence(hold)

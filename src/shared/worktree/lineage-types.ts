@@ -69,7 +69,7 @@ export type WorkspaceLineageEdge = Pick<
   'parentWorkspaceKey' | 'parentInstanceId' | 'childInstanceId'
 >
 
-/** A parent saved in another Orca store; `instanceId` is identity, `workspaceKey` only a hint. */
+/** A parent saved in another OpenKodo store; `instanceId` is identity, `workspaceKey` only a hint. */
 export type CrossStoreParentRef = {
   /** The parent store's installationId (host-installation.json). */
   installationId: string

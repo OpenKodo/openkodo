@@ -43,7 +43,7 @@ async function createInstalledPlugin(options: { worker: boolean }): Promise<{
     },
     capabilities: []
   })
-  await writeFile(join(stagingDir, 'orca-plugin.json'), JSON.stringify(manifest))
+  await writeFile(join(stagingDir, 'openkodo-plugin.json'), JSON.stringify(manifest))
   await writeFile(join(stagingDir, 'panel.html'), '<h1>Panel</h1>')
   await writeFile(join(stagingDir, 'payload.txt'), 'original')
   if (options.worker) {

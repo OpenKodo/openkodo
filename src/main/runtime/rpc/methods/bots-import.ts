@@ -40,7 +40,7 @@ async function writeCard(sessionId: string, body: AgentJournalPlainStatusItem, k
   // Null for a session this host doesn't run.
   const destination = await host?.captureAgentStartDestination(sessionId)
   if (!host || !destination) {
-    throw new InvalidArgumentError('Run this from your chat in Orca.')
+    throw new InvalidArgumentError('Run this from your chat in OpenKodo.')
   }
   await host.appendAgentStart(
     destination,

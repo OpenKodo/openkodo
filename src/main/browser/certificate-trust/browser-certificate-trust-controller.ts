@@ -33,7 +33,7 @@ export class BrowserCertificateTrustController {
   private readonly navigationSequenceByGuestId = new Map<number, number>()
   private readonly expiryTimerByGuestId = new Map<number, ReturnType<typeof setTimeout>>()
   private readonly decisions = new BrowserSessionCertificateDecisions()
-  // Sessions whose certificate exceptions Orca answers; others keep Chromium's default denial.
+  // Sessions whose certificate exceptions OpenKodo answers; others keep Chromium's default denial.
   private readonly sessions = new Set<Electron.Session>()
 
   constructor(private readonly dependencies: BrowserCertificateTrustControllerDependencies) {}

@@ -77,7 +77,7 @@ export type FirstWorkBranchRenameDeps = FirstWorkAttemptDeps & {
   getFolderWorkspacePath?: (worktreeId: string) => string | undefined
   isFolderWorkspaceWslMoveBlocked?: (worktreeId: string) => boolean
   isPendingFirstAgentMessageRename?: (worktreeId: string) => boolean
-  /** Require Orca creation provenance before renaming a branch. */
+  /** Require OpenKodo creation provenance before renaming a branch. */
   canRenameOrcaCreatedBranch: (worktreeId: string) => boolean
   setDisplayName: (worktreeId: string, displayName: string) => void
   /** Best-effort local folder alignment after the branch rename. */

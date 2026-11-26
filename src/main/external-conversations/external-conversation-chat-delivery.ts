@@ -39,7 +39,7 @@ export function linkedChat(worktreeId: string, link: ExternalConversationLink): 
 }
 
 export class ChatDeliveries {
-  // Chats sent a delivery since their last turn ended; that turn is the delivery's, not Orca-typed.
+  // Chats sent a delivery since their last turn ended; that turn is the delivery's, not OpenKodo-typed.
   private readonly delivered = new Set<string>()
   // Chats a delivery is being sent to; their turn may start before the send returns.
   private readonly sending = new Map<string, Set<object>>()

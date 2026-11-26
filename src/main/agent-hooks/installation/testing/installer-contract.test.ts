@@ -102,7 +102,7 @@ describe('writeHooksJson', () => {
   })
 })
 
-const paneEnv = { ...process.env, ORCA_PANE_KEY: 'tab-1:leaf-1' }
+const paneEnv = { ...process.env, OPENKODO_PANE_KEY: 'tab-1:leaf-1' }
 
 describe('wrapPosixHookCommand', () => {
   it.skipIf(process.platform === 'win32')(
@@ -128,14 +128,14 @@ describe('wrapPosixHookCommand', () => {
     () => {
       const scriptPath = join(tmpDir, 'env-hook.sh')
       const event = "UserPromptSubmit ' $HOME ;"
-      writeFileSync(scriptPath, '#!/bin/sh\nprintf "%s" "$ORCA_COPILOT_HOOK_EVENT"\n', {
+      writeFileSync(scriptPath, '#!/bin/sh\nprintf "%s" "$OPENKODO_COPILOT_HOOK_EVENT"\n', {
         mode: 0o755
       })
-      const command = wrapPosixHookCommand(scriptPath, { ORCA_COPILOT_HOOK_EVENT: event })
+      const command = wrapPosixHookCommand(scriptPath, { OPENKODO_COPILOT_HOOK_EVENT: event })
       const result = runProcessSync({
         program: '/bin/sh',
-        args: ['-c', `${command}; printf '\n%s' "$ORCA_COPILOT_HOOK_EVENT"`],
-        env: { ...paneEnv, ORCA_COPILOT_HOOK_EVENT: 'parent-value' },
+        args: ['-c', `${command}; printf '\n%s' "$OPENKODO_COPILOT_HOOK_EVENT"`],
+        env: { ...paneEnv, OPENKODO_COPILOT_HOOK_EVENT: 'parent-value' },
         timeoutMs: 5000
       })
       expect(result.code).toBe(0)
@@ -174,7 +174,7 @@ describe('wrapWindowsHookCommand', () => {
       const result = runProcessSync({
         program: 'cmd.exe',
         args: ['/d', '/c', wrapWindowsHookCommand(scriptPath)],
-        env: { ...process.env, ORCA_WRAP_TEST: 'expanded' },
+        env: { ...process.env, OPENKODO_WRAP_TEST: 'expanded' },
         timeoutMs: 5000
       })
 
@@ -195,7 +195,7 @@ describe('wrapRuntimeHomeHookCommand', () => {
     const sourceHome = join(tmpDir, 'source profile')
     const destinationHome = join(tmpDir, "destination $HOME ' & profile")
     const sourceScriptDir = join(sourceHome, '.orca', 'agent-hooks')
-    const destinationScriptDir = join(destinationHome, '.orca', 'agent-hooks')
+    const destinationScriptDir = join(destinationHome, '.openkodo', 'agent-hooks')
     mkdirSync(sourceScriptDir, { recursive: true })
     mkdirSync(destinationScriptDir, { recursive: true })
     const windowsExitCode = process.platform === 'win32' ? 7 : 9

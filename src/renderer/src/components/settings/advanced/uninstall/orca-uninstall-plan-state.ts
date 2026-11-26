@@ -1,5 +1,5 @@
 import {
-  ORCA_UNINSTALL_STEPS,
+  OPENKODO_UNINSTALL_STEPS,
   type OrcaUninstallAgentEntry,
   type OrcaUninstallEntryState,
   type OrcaUninstallHostEntry,
@@ -33,17 +33,17 @@ export function getOrcaUninstallStepStates(
 }
 
 export function countOrcaUninstallProblems(plan: OrcaUninstallPlan): number {
-  return ORCA_UNINSTALL_STEPS.flatMap((step) => getOrcaUninstallStepStates(plan, step)).filter(
+  return OPENKODO_UNINSTALL_STEPS.flatMap((step) => getOrcaUninstallStepStates(plan, step)).filter(
     isOrcaUninstallProblem
   ).length
 }
 
-/** Kept for a reason that can still clear (an agent that failed), not because another Orca build uses it. */
+/** Kept for a reason that can still clear (an agent that failed), not because another OpenKodo build uses it. */
 export function countOrcaUninstallPendingKept(plan: OrcaUninstallPlan): number {
   if (plan.otherOrcaBuildName) {
     return 0
   }
-  return ORCA_UNINSTALL_STEPS.flatMap((step) => getOrcaUninstallStepStates(plan, step)).filter(
+  return OPENKODO_UNINSTALL_STEPS.flatMap((step) => getOrcaUninstallStepStates(plan, step)).filter(
     (state) => state === 'kept-shared'
   ).length
 }
@@ -167,7 +167,7 @@ export async function runOrcaUninstallSteps(
   onProgress: (plan: OrcaUninstallPlan, runningStep: OrcaUninstallStep | null) => void
 ): Promise<OrcaUninstallPlan> {
   let plan = initial
-  for (const step of ORCA_UNINSTALL_STEPS) {
+  for (const step of OPENKODO_UNINSTALL_STEPS) {
     if (getOrcaUninstallStepStates(plan, step).length === 0) {
       continue
     }

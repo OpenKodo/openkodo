@@ -1,6 +1,6 @@
 import { answersThroughOutbox } from '../../shared/agent-session/journal/journal-connector-reply'
 // The ends of chat turns their conversation didn't ask for: one adopted for its prompt tells how it
-// went and never what it said; an Orca-typed turn of a chat posting to Slack posts its reply too.
+// went and never what it said; an OpenKodo-typed turn of a chat posting to Slack posts its reply too.
 import type { NativeChatAgent } from '../../shared/agent-launch/permissions/agent-chat-permission-support'
 import { isQuietBotResult } from '../../shared/bot-quiet-result'
 import type { ChatNews } from './external-conversation-chat'
@@ -292,8 +292,8 @@ export function retryAskerOf(
   ) {
     return {}
   }
-  // Orca's own ask, like its continuations: no person's name on it, so the chat never shows it as
-  // theirs, and it acts for someone Orca can't name, never the owner.
+  // OpenKodo's own ask, like its continuations: no person's name on it, so the chat never shows it as
+  // theirs, and it acts for someone OpenKodo can't name, never the owner.
   const { connectorConversation } = opener
   return {
     askedBy: { origin: 'connector', ...(connectorConversation ? { connectorConversation } : {}) }

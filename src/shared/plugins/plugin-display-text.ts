@@ -1,4 +1,4 @@
-// Orca's own plugins' names and descriptions in the UI language. Keys hash the English, so a manifest
+// OpenKodo's own plugins' names and descriptions in the UI language. Keys hash the English, so a manifest
 // edit shows its new English until it is translated again; other plugins show as written.
 import { englishTextHash } from '../text/english-text-hash'
 

@@ -4,7 +4,7 @@ import {
   type BotDeepLink
 } from '../../../src/shared/bot-deep-link'
 
-/** A bot link the phone opens: a bot's chat, or the owner's "Review in Orca" on a request for access. */
+/** A bot link the phone opens: a bot's chat, or the owner's "Review in OpenKodo" on a request for access. */
 // Without `sessionId` (a plain thread link) it opens the conversation's own chat, or else the bot.
 export type BotSessionLinkTarget = BotDeepLink & {
   kind: 'session'

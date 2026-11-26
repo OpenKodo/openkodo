@@ -23,7 +23,7 @@ function toastWakeFailed(environmentId: string): void {
   toast.error(
     translate(
       'components.native-chat.hostOutage.startFailed',
-      'Couldn’t start {{distro}}. Check it in Settings → Remote Orca Servers.',
+      'Couldn’t start {{distro}}. Check it in Settings → Remote OpenKodo Servers.',
       { distro }
     )
   )

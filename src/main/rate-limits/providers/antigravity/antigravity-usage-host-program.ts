@@ -1,4 +1,4 @@
-// Which agy the host usage probe runs: the user's own, else Orca's copy where agy holds a login.
+// Which agy the host usage probe runs: the user's own, else OpenKodo's copy where agy holds a login.
 
 import { homedir } from 'node:os'
 import { agyCredentialPresence } from '../../../antigravity/agy-credential-presence'
@@ -19,7 +19,7 @@ export type AntigravityHostProgramOptions = {
   credentialPresence?: typeof agyCredentialPresence
 }
 
-/** Reporting agy as missing where Orca's copy is installed but agy holds no readable login would
+/** Reporting agy as missing where OpenKodo's copy is installed but agy holds no readable login would
  *  hide the sign-in step. */
 export type AntigravityHostProgram =
   | { kind: 'found'; program: string }
@@ -45,7 +45,7 @@ const MANAGED_LOGIN_UNREADABLE = {
 const LAUNCH_RELEASES_WAIT_MS = 15_000
 let launchReleasesWait: Promise<void> | null = null
 
-/** Orca's installed agy where it may run. A read before launch reclaim records it waits for that
+/** OpenKodo's installed agy where it may run. A read before launch reclaim records it waits for that
  *  read when the disk check agent detection uses finds a copy, so the first read never reports agy
  *  as missing. */
 async function installedManagedAgy(command: string): Promise<string | null> {
@@ -70,7 +70,7 @@ export async function resolveAntigravityHostProgram(
     platform,
     env
   })
-  // A PATH an Orca terminal passed on can hold Orca's copy, which is never the user's own agy.
+  // A PATH an OpenKodo terminal passed on can hold OpenKodo's copy, which is never the user's own agy.
   if (found && !isManagedAgentCopyPath('antigravity', found)) {
     return { kind: 'found', program: found }
   }

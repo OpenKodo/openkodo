@@ -18,9 +18,9 @@ import {
 type ListedBot = BotConnectors & Pick<Bot, 'id'> & { hostId?: ExecutionHostId }
 
 /** "Won't run: needs the Slack connector" when the bot lacks a connector its events come through,
- *  or its host's Orca Cloud doesn't take webhooks. `webhooks` is the host's word; an older host
+ *  or its host's cloud service doesn't take webhooks. `webhooks` is the host's word; an older host
  *  says nothing, and then its webhooks are taken to fire. `signedOut`: this computer is signed out
- *  of Orca, so its bots hear nothing through Orca Cloud. */
+ *  of OpenKodo, so its bots hear nothing through OpenKodo Cloud. */
 export function automationWontFire<B extends ListedBot>(
   automation: Parameters<typeof automationUnheardSources>[0],
   bots: readonly B[],
@@ -38,9 +38,9 @@ export function automationWontFire<B extends ListedBot>(
     const label = hasAutomationSchedule(automation)
       ? translate(
           'bots.cloudSignIn.automationScheduledOnly',
-          'Runs on its schedule only: its events are paused while signed out of Orca'
+          'Runs on its schedule only: its events are paused while signed out of OpenKodo'
         )
-      : translate('bots.cloudSignIn.automationPaused', 'Paused while signed out of Orca')
+      : translate('bots.cloudSignIn.automationPaused', 'Paused while signed out of OpenKodo')
     return { bot: owner, label, needsConnector: false }
   }
   const unheard = automationUnheardSources(
@@ -69,9 +69,12 @@ export function automationWontFire<B extends ListedBot>(
     const label = scheduled
       ? translate(
           'automations.webhooksOffScheduled',
-          'Runs on its schedule only: Orca Cloud doesn’t support webhooks yet'
+          'Runs on its schedule only: cloud service doesn’t support webhooks yet'
         )
-      : translate('automations.webhooksOff', 'Won’t run: Orca Cloud doesn’t support webhooks yet')
+      : translate(
+          'automations.webhooksOff',
+          'Won’t run: cloud service doesn’t support webhooks yet'
+        )
     return { bot, label, needsConnector: false }
   }
   const connectors = new Intl.ListFormat(getIntlLocale(), { type: 'disjunction' }).format(names)

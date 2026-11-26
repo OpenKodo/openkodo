@@ -46,7 +46,7 @@ import { isDirectInvocation } from '../../tool-invocation/script-entry-detection
 
 const root = resolve(import.meta.dirname, '../../../..')
 const SLOT_DIR = 'orcad'
-const LAUNCHER = 'bin/orca-ide'
+const LAUNCHER = 'bin/openkodo'
 
 /** Published name without the libc suffix: only glibc slots are published. */
 export function orcaServerArtifactName(target) {
@@ -132,7 +132,7 @@ if command -v readlink >/dev/null 2>&1 && resolved=$(readlink -f -- "$self" 2>/d
 fi
 root=$(CDPATH= cd -- "$(dirname -- "$self")/.." && pwd -P)
 node="$root/${nodeRelativePath}"
-unset ORCA_APP_EXECUTABLE ORCA_SERVE_RUNTIME
+unset OPENKODO_APP_EXECUTABLE OPENKODO_SERVE_RUNTIME
 ELECTRON_RUN_AS_NODE=1
 export ELECTRON_RUN_AS_NODE
 exec "$node" "$root/${SLOT_DIR}/${ORCAD_CLI_ENTRY_FILENAME}" "$@"
@@ -156,7 +156,7 @@ try {
   process.stderr.write('This Orca server install is incomplete; extract the release archive again.\\n')
   process.exit(1)
 }
-process.stdout.write('ORCA_SERVE_RUNTIME ' + JSON.stringify(selection) + '\\n')
+process.stdout.write('OPENKODO_SERVE_RUNTIME ' + JSON.stringify(selection) + '\\n')
 `
 }
 

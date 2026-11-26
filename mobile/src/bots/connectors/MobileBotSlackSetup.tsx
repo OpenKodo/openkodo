@@ -1,5 +1,5 @@
 // Connect Slack as a page inside the bot's settings: the desktop's BotSlackSetupDialog and SlackConfigTokenForm,
-// for a phone. No hand-off (it needs the desktop's own Orca account) and no clipboard read on return: Paste
+// for a phone. No hand-off (it needs the desktop's own OpenKodo account) and no clipboard read on return: Paste
 // stands in for it.
 import { useState, type ReactNode } from 'react'
 import { ActivityIndicator } from 'react-native'
@@ -185,7 +185,7 @@ export function MobileBotSlackSetup(props: {
                   ? step.unsure
                     ? t(
                         'bots.slack.reconnect.whyNeeded',
-                        'Orca has no working Slack token for this workspace.'
+                        'OpenKodo has no working Slack token for this workspace.'
                       )
                     : t(
                         'bots.slack.reconnect.stopped',
@@ -194,7 +194,7 @@ export function MobileBotSlackSetup(props: {
                       )
                   : t(
                       'bots.slack.token.kept',
-                      'Orca Cloud keeps this token encrypted, so your next bots in this workspace need one click.'
+                      'cloud service keeps this token encrypted, so your next bots in this workspace need one click.'
                     )
               }
             >
@@ -317,7 +317,7 @@ export function MobileBotSlackSetup(props: {
             <SettingsNote>
               {t(
                 'bots.slack.setup.uncertain',
-                'Slack may have created an app named {{name}} that Orca cannot use. Delete it in Slack app settings if it is there, then set up again.',
+                'Slack may have created an app named {{name}} that OpenKodo cannot use. Delete it in Slack app settings if it is there, then set up again.',
                 { name: props.botName }
               )}
             </SettingsNote>

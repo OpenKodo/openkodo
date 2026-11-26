@@ -26,10 +26,10 @@ fn main() {
     let mut resource = winresource::WindowsResource::new();
     resource.set("ProductName", "Orca");
     resource.set("FileDescription", "Orca CLI Launcher");
-    resource.set("CompanyName", "Stably AI");
+    resource.set("CompanyName", "OpenKodo");
     resource.set(
         "LegalCopyright",
-        "Copyright (C) Stably AI. All rights reserved.",
+        "Copyright (C) OpenKodo. All rights reserved.",
     );
     let filename = env::var("ORCA_LAUNCHER_FILENAME").unwrap_or_else(|_| "orca.exe".into());
     resource.set("InternalName", &filename);

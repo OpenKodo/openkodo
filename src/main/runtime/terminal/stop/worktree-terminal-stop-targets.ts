@@ -7,7 +7,7 @@ import {
   worktreePtyBelongsToHost,
   type WorktreePtyHostFence
 } from '../../workspaces/removal/worktree-pty-host-fence'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { mainHoldsTerminal } from '../surface/main-pane-verdict'
 import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree-path-identity'
 import { PTY_CONTROLLER_LIST_TIMEOUT_MS } from '../lifecycle/pty-controller-inventory-budget'
@@ -158,7 +158,7 @@ export abstract class OrcaRuntimeWithStopExactTerminalsForWorktree extends OrcaR
       }
     }
     // Main-bound terminals can survive listing gaps; only certified exits or fresh inventory remove them.
-    for (const pty of ORCA_LAYOUT_OWNER_IS_MAIN ? this.ptysById.values() : []) {
+    for (const pty of OPENKODO_LAYOUT_OWNER_IS_MAIN ? this.ptysById.values() : []) {
       if (
         worktreeIdsEqual(pty.worktreeId, worktreeId) &&
         mainHoldsTerminal(this, pty.ptyId) &&

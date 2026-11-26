@@ -32,7 +32,7 @@ export type CustomPhase =
   /** Another site or host of the app is on the bot already; one tool per name. */
   /** `place`: the site or host it is at, when the app's template makes its URL. */
   | { kind: 'elsewhere'; app: string; place: string | null }
-  /** owned: Orca signs in (pasted back only when its host runs it); else the tool's agent CLI does. */
+  /** owned: OpenKodo signs in (pasted back only when its host runs it); else the tool's agent CLI does. */
   | {
       kind: 'signing'
       name: string
@@ -113,7 +113,7 @@ export function CustomAppStep({
     },
     [hostId, botId]
   )
-  // A new address that needs a sign-in is one Orca signs in to; any other is ready as added.
+  // A new address that needs a sign-in is one OpenKodo signs in to; any other is ready as added.
   const added = useCallback(
     (tool: BotOwnTool) =>
       tool.signIn ? signIn(tool.name, true) : setPhase({ kind: 'done', name: tool.name }),

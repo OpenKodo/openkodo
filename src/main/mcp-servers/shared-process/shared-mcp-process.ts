@@ -1,4 +1,4 @@
-// One command server Orca runs once on the host for every agent session that uses it. Orca is the
+// One command server OpenKodo runs once on the host for every agent session that uses it. OpenKodo is the
 // child's only MCP client; each agent's MCP session over the relay gets its own server end that
 // answers initialize from the child's own and passes every other request and notification through.
 import { once } from 'node:events'
@@ -72,7 +72,7 @@ export class SharedMcpProcess {
   /** Settles once the child answered initialize; rejects when it couldn't start. */
   readonly ready: Promise<void>
   private readonly client = new McpPeer()
-  /** The child's answer to Orca's initialize, which every agent session is introduced with. */
+  /** The child's answer to OpenKodo's initialize, which every agent session is introduced with. */
   private child: InitializeResult | null = null
   private readonly sessions = new Map<string, AgentSession>()
   private readonly subscriptions = new SharedMcpResourceSubscriptions()
@@ -158,7 +158,7 @@ export class SharedMcpProcess {
     }
   }
 
-  /** Ends every agent's session and the child; `now` kills it at once (Orca is quitting). */
+  /** Ends every agent's session and the child; `now` kills it at once (OpenKodo is quitting). */
   stop(now = false): void {
     if (this.stopped) {
       if (now && this.process) {
@@ -244,7 +244,7 @@ export class SharedMcpProcess {
     body: unknown
   ): Promise<void> {
     if (cut(res)) {
-      // Its agent hung up, or its token was revoked, before Orca got to it.
+      // Its agent hung up, or its token was revoked, before OpenKodo got to it.
       this.expireWhenIdle(session)
       return
     }
@@ -286,7 +286,7 @@ export class SharedMcpProcess {
     return this.subscriptions.forward(request, session.transport.sessionId ?? '', send) ?? send()
   }
 
-  /** An agent's request, sent on to the child as Orca's own; its progress and cancel go along. */
+  /** An agent's request, sent on to the child as OpenKodo's own; its progress and cancel go along. */
   private send(
     session: AgentSession,
     { method, params }: JSONRPCRequest,

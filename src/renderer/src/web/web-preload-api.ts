@@ -63,8 +63,8 @@ import { readStoredWebRuntimeEnvironment } from './pairing/web-runtime-environme
 
 export function installWebPreloadApi(): void {
   webRuntimeState.activeEnvironment = readStoredWebRuntimeEnvironment()
-  const webWindow = window as unknown as { __ORCA_WEB_CLIENT__?: boolean }
-  webWindow.__ORCA_WEB_CLIENT__ = true
+  const webWindow = window as unknown as { __OPENKODO_WEB_CLIENT__?: boolean }
+  webWindow.__OPENKODO_WEB_CLIENT__ = true
   window.api = withFallback(createWebPreloadApi(), []) as PreloadApi
 }
 

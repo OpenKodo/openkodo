@@ -1,6 +1,6 @@
 // Keep diagnostics isolated from product telemetry, including duplicated CI detection.
-// DNT/ORCA_TELEMETRY_DISABLED disable uploads but retain local logs;
-// ORCA_DIAGNOSTICS_DISABLED and CI disable both.
+// DNT/OPENKODO_TELEMETRY_DISABLED disable uploads but retain local logs;
+// OPENKODO_DIAGNOSTICS_DISABLED and CI disable both.
 
 import {
   createLocalFileSink,
@@ -62,8 +62,8 @@ function inCI(): boolean {
 
 export function resolveObservabilityConsent(): ObservabilityConsent {
   const dnt = envOn('DO_NOT_TRACK')
-  const orcaDisabled = envOn('ORCA_TELEMETRY_DISABLED')
-  const diagnosticsDisabled = envOn('ORCA_DIAGNOSTICS_DISABLED')
+  const orcaDisabled = envOn('OPENKODO_TELEMETRY_DISABLED')
+  const diagnosticsDisabled = envOn('OPENKODO_DIAGNOSTICS_DISABLED')
   const ci = inCI()
 
   if (ci) {

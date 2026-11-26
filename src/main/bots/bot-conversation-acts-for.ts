@@ -1,4 +1,4 @@
-// Whom a bot conversation acts for, as every check reads it: Orca's record, less the unknown causer an
+// Whom a bot conversation acts for, as every check reads it: OpenKodo's record, less the unknown causer an
 // event run recorded before runs acted for their creator alone, when its automation proves that safe.
 import type { Automation } from '../../shared/automations/automation-definition'
 import type { AutomationRun } from '../../shared/automations/history/automation-run'

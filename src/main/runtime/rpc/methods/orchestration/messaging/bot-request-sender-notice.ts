@@ -1,5 +1,5 @@
 /** Telling a bot request's sender how it ended: the outcome and its notice commit together, by the
- *  route the request came on, and only to a sender Orca can verify. */
+ *  route the request came on, and only to a sender OpenKodo can verify. */
 
 import type { MessageRow } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
@@ -22,7 +22,7 @@ import {
   readAgentSessionRecordStore,
   resolveLineageRunningSession
 } from '../../../../orchestration/addressing/session-lineage/structured-session-lineage'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../../shared/agent-session/identity/orca-session-address-prefix'
 import {
   isOrcaSessionId,
   parseOrcaSessionAddress
@@ -155,7 +155,7 @@ function reachableSender(
 
 /** A known session whose /clear successor has no readable record yet: not proof that it ended. */
 function senderLineageUnproven(from: string): boolean {
-  const sessionId = from.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
+  const sessionId = from.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
     ? parseOrcaSessionAddress(from)
     : isOrcaSessionId(from)
       ? from

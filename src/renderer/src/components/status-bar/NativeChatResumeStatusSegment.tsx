@@ -88,7 +88,7 @@ function failedText(count: number, t: Translate = translate): SegmentText {
     ),
     tooltip: t(
       'auto.components.status.bar.NativeChatResumeStatusSegment.failedTooltip',
-      'Agents Orca could not resume after the restart. Click for details.'
+      'Agents OpenKodo could not resume after the restart. Click for details.'
     )
   }
 }
@@ -107,7 +107,7 @@ function resumedText(count: number, t: Translate = translate): SegmentText {
     ),
     tooltip: t(
       'auto.components.status.bar.NativeChatResumeStatusSegment.resumedTooltip',
-      'Agents Orca resumed after the restart. Click to see them.'
+      'Agents OpenKodo resumed after the restart. Click to see them.'
     )
   }
 }
@@ -126,7 +126,7 @@ function checkText(count: number, t: Translate = translate): SegmentText {
     ),
     tooltip: t(
       'auto.components.status.bar.NativeChatResumeStatusSegment.checkTooltip',
-      'Agents Orca couldn’t resume, or couldn’t confirm it resumed, after the restart. Click for details.'
+      'Agents OpenKodo couldn’t resume, or couldn’t confirm it resumed, after the restart. Click for details.'
     )
   }
 }

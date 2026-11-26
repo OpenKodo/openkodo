@@ -1,4 +1,4 @@
-// `orca google …`: the Google client and accounts kept by the Orca on this computer, and which bots
+// `orca google …`: the Google client and accounts kept by the OpenKodo on this computer, and which bots
 // may use them. The host runs the sign-in; this command shows its link and relays a pasted address.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
@@ -44,7 +44,7 @@ async function assertGoogleBotAccounts(ctx: HandlerContext): Promise<void> {
   if (!status.result.capabilities?.includes(GOOGLE_BOT_ACCOUNTS_RUNTIME_CAPABILITY)) {
     throw new RuntimeClientError(
       'incompatible_runtime',
-      `Update Orca on ${status.result.machineName?.trim() || 'this computer'} to choose accounts.`
+      `Update OpenKodo on ${status.result.machineName?.trim() || 'this computer'} to choose accounts.`
     )
   }
 }
@@ -240,7 +240,7 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
           ? `Removed ${removed} from this computer. It is still allowed at Google; add --revoke to cancel it there too.`
           : revoked
             ? `Removed ${removed} from this computer and revoked it at Google.`
-            : `Removed ${removed} from this computer, but Google didn't confirm the revoke. Remove Orca at https://myaccount.google.com/permissions.`,
+            : `Removed ${removed} from this computer, but Google didn't confirm the revoke. Remove OpenKodo at https://myaccount.google.com/permissions.`,
         ...(defaultAccount ? [`Default account: ${defaultAccount}.`] : [])
       ].join(' ')
     )
@@ -275,7 +275,7 @@ export const GOOGLE_HANDLERS: Record<string, CommandHandler> = {
     if (accounts && result.result.bot.google && !result.result.bot.accounts) {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        `This Orca didn't keep the account list: ${result.result.bot.name} now has every Google account. Run \`orca google bot --bot ${bot.id} --off\`, update Orca, then try again.`
+        `This OpenKodo didn't keep the account list: ${result.result.bot.name} now has every Google account. Run \`orca google bot --bot ${bot.id} --off\`, update OpenKodo, then try again.`
       )
     }
     printResult(result, ctx.json, ({ bot: saved, warning }) =>

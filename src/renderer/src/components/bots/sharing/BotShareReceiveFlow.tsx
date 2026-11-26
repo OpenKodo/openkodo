@@ -63,7 +63,7 @@ function PasteLink({ onLink }: { onLink: (shareId: string) => void }): React.JSX
             value={value}
             placeholder={t(
               'bots.share.receive.linkPlaceholder',
-              'https://app.orca.dev/bots/share/…'
+              'https://openkodo.dev/bots/share/…'
             )}
             aria-label={t('bots.share.receive.link', 'Link')}
             onChange={(event) => setValue(event.target.value)}

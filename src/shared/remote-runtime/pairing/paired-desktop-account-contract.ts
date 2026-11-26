@@ -1,9 +1,9 @@
 import { z } from 'zod'
 
-// A paired desktop says which Orca account it is signed in to (null: none), on each ready control
+// A paired desktop says which OpenKodo account it is signed in to (null: none), on each ready control
 // socket and when it switches, with its computer's name. The host keeps it on the device's row and
 // that socket; a plain claim, not proof.
-export const DECLARE_ORCA_ACCOUNT_METHOD = 'host.declareAccount'
+export const DECLARE_OPENKODO_ACCOUNT_METHOD = 'host.declareAccount'
 
 export const DeclareOrcaAccountParamsSchema = z
   .object({

@@ -112,7 +112,7 @@ export function AutomationDetailHealth({
         ? `${lastRunRelative} · ${lastRunWhen}`
         : lastRunWhen
 
-  // An events-only automation has no next run, only the schedule no Orca reaches.
+  // An events-only automation has no next run, only the schedule no OpenKodo reaches.
   const scheduled = hasAutomationSchedule(automation)
   const nextRunRelative =
     automation.enabled && scheduled

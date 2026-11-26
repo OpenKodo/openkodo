@@ -26,11 +26,11 @@ export async function agentOwnMcpServerNames(
   const context = { homeDir: homedir(), env, platform: process.platform }
   const inFolder = ({ projectPath }: { projectPath?: string }): boolean =>
     !projectPath || resolve(projectPath) === resolve(cwd)
-  // Every name the agent's files hold is taken, even one whose entry Orca can't read: Codex would
+  // Every name the agent's files hold is taken, even one whose entry OpenKodo can't read: Codex would
   // merge a same-named server into it.
   const [names, servers] = await Promise.all([
     readAgentMcpServerNames(configAgent, context, { projectPath: cwd }),
-    // The agent loads Orca's own bridge entries too: one this Orca keeps for a server (Grok's,
+    // The agent loads OpenKodo's own bridge entries too: one this OpenKodo keeps for a server (Grok's,
     // Cursor's and Droid's files) already serves it, so the session isn't given it a second time.
     readAgentMcpServers(configAgent, context, { projectPath: cwd, withOrcaOwned: true })
   ])

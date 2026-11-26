@@ -344,7 +344,7 @@ function useSecondClock(active: boolean): number {
   return now
 }
 
-/** The chat's address its workers report to, when it can coordinate: an Orca session on its host. */
+/** The chat's address its workers report to, when it can coordinate: an OpenKodo session on its host. */
 export function nativeChatWorkerApprovalParty(pane: { sessionId: string }): string | null {
   return isOrcaSessionId(pane.sessionId) ? formatOrcaSessionAddress(pane.sessionId) : null
 }

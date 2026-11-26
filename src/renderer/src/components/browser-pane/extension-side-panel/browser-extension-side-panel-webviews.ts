@@ -1,6 +1,6 @@
 import type { BrowserExtensionSidePanel } from '../../../../../shared/browser/extensions/browser-extension-side-panel-types'
 import { BROWSER_GUEST_WINDOW_CLOSE_CHANNEL } from '../../../../../shared/browser/guest-lifecycle/browser-guest-window-close'
-import { ORCA_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE } from '../../../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
+import { OPENKODO_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE } from '../../../../../shared/browser/guest-lifecycle/browser-guest-web-preferences'
 import { BROWSER_SIDE_PANEL_WIDTH_VARIABLE } from '../host-guest/viewport/browser-page-viewport'
 import {
   isWebviewDragPassthroughActive,
@@ -61,14 +61,14 @@ function createPanelWebview(panel: BrowserExtensionSidePanel, host: HTMLDivEleme
   webview.setAttribute('partition', panel.partition)
   // Why popups on: main routes the panel's window.open/target=_blank links to new tabs.
   webview.setAttribute('allowpopups', '')
-  webview.setAttribute('webpreferences', ORCA_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE)
+  webview.setAttribute('webpreferences', OPENKODO_BROWSER_PAGE_GUEST_WEB_PREFERENCES_ATTRIBUTE)
   webview.className = 'absolute inset-0 flex h-full w-full border-none'
   webview.style.background = 'var(--background)'
   setPointerPassthrough(webview, isWebviewDragPassthroughActive())
   const stopPassthrough = registerWebviewDragPassthroughSurface((passthrough) =>
     setPointerPassthrough(webview, passthrough)
   )
-  // Why handled here: Orca's guest preload turns window.close() into this message (a native close
+  // Why handled here: OpenKodo's guest preload turns window.close() into this message (a native close
   // would destroy the guest under the live <webview>); Chrome closes the panel.
   webview.addEventListener('ipc-message', (event) => {
     if (event.channel === BROWSER_GUEST_WINDOW_CLOSE_CHANNEL) {

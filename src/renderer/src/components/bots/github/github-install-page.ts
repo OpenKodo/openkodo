@@ -3,8 +3,8 @@ import { awaitGitHubChange, type AwaitGitHubOptions, type GitHubWait } from '@/l
 import { openBotHostPageOrSay } from '@/lib/bot-host-page'
 import type { BotRef } from '@/lib/bot-hosts'
 
-/** GitHub's App install page, from every surface: this computer's per Orca's link setting, a
- *  server's in its own page in Orca's browser; then followed until the host's installs change.
+/** GitHub's App install page, from every surface: this computer's per OpenKodo's link setting, a
+ *  server's in its own page in OpenKodo's browser; then followed until the host's installs change.
  *  Returns where it opened, so a dialog in the way can minimize, and the wait; null when a server's
  *  page couldn't open in its own session, which was said. */
 export function openGitHubInstallPage(

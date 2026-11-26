@@ -8,7 +8,7 @@ const base: HostHeaderRow = {
   hostId: 'runtime:vm',
   kind: 'runtime',
   label: 'feature-login VM',
-  detail: 'Orca server',
+  detail: 'OpenKodo server',
   health: 'available',
   collapsed: false,
   count: 1

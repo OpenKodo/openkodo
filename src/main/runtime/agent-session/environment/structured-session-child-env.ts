@@ -1,6 +1,6 @@
-/** Name children by stable Orca session id; provider ids rotate on clear. Reject cross-host claims; retain worker handles for non-orchestration surfaces.
+/** Name children by stable OpenKodo session id; provider ids rotate on clear. Reject cross-host claims; retain worker handles for non-orchestration surfaces.
  * Pin the CLI by absolute launcher and user-data path because login shells can reorder PATH; older CLIs refuse the structured marker.
- * Reuse the PTY CLI-path rule: Linux installs as orca-ide to avoid GNOME Orca (#7904). Never fall back to bare or inherited launchers.
+ * Reuse the PTY CLI-path rule: Linux installs as orca-ide to avoid GNOME OpenKodo (#7904). Never fall back to bare or inherited launchers.
  * Empty remote selectors to mask the parent env; explicit flags still work, and login profiles can re-export selectors.
  * Omit pane identity: hooks and mobile status assume a live PTY leaf. Resolve worker identity at every spawn, including recovery and clear. */
 
@@ -10,14 +10,14 @@ import {
 } from '../../../../shared/app-lifecycle/app-environment'
 import {
   CALLER_IDENTITY_ENV,
-  ORCA_AGENT_SESSION_ID_ENV,
-  ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV
+  OPENKODO_AGENT_SESSION_ID_ENV,
+  OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV
 } from '../../../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import {
-  ORCA_SCRUB_SAFE_LAUNCH_ENV,
-  ORCA_SCRUB_SAFE_PANE_ENV
+  OPENKODO_SCRUB_SAFE_LAUNCH_ENV,
+  OPENKODO_SCRUB_SAFE_PANE_ENV
 } from '../../../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
-import { ORCA_STRUCTURED_SESSION_ENV } from '../../../../shared/agent-launch/environment/structured-session-marker'
+import { OPENKODO_STRUCTURED_SESSION_ENV } from '../../../../shared/agent-launch/environment/structured-session-marker'
 import { withCliRuntimeOnPath } from '../../../../shared/shell/command-resolution/node-cli-command-resolution'
 import { prependOrcaCliDirToChildPath } from '../../../cli/launchers/orca-cli-child-path'
 import { AGENT_HOOK_RUNTIME_ENV_KEYS } from '../../../ipc/pty/host-env/spawn-env-keys'
@@ -26,14 +26,14 @@ import { resolveStructuredWorkerIdentityForSession } from '../../orchestration/t
 
 /** Remove inherited pane identity so hooks and the CLI cannot attribute the chat to the host's launching pane; the seal keeps a worker's own handle. */
 export const STRUCTURED_CHILD_ENV_TO_DELETE: readonly string[] = [
-  'ORCA_PANE_KEY',
-  'ORCA_TAB_ID',
-  'ORCA_WORKTREE_ID',
-  'ORCA_WORKSPACE_ID',
-  'ORCA_TERMINAL_HANDLE',
-  'ORCA_AGENT_LAUNCH_TOKEN',
-  ORCA_SCRUB_SAFE_PANE_ENV,
-  ORCA_SCRUB_SAFE_LAUNCH_ENV,
+  'OPENKODO_PANE_KEY',
+  'OPENKODO_TAB_ID',
+  'OPENKODO_WORKTREE_ID',
+  'OPENKODO_WORKSPACE_ID',
+  'OPENKODO_TERMINAL_HANDLE',
+  'OPENKODO_AGENT_LAUNCH_TOKEN',
+  OPENKODO_SCRUB_SAFE_PANE_ENV,
+  OPENKODO_SCRUB_SAFE_LAUNCH_ENV,
   ...AGENT_HOOK_RUNTIME_ENV_KEYS
 ]
 
@@ -58,9 +58,12 @@ export function sealStructuredSessionChild(input: {
     ? withCliRuntimeOnPath(input.cliRuntimeCommand, input.env, { platform: process.platform })
     : input.env
   const identity = childIdentity(input.sessionId, paired)
-  const named = new Set([...Object.keys(identity.commandEnv), ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV])
+  const named = new Set([
+    ...Object.keys(identity.commandEnv),
+    OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV
+  ])
   return {
-    env: { ...identity.env, [ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV]: input.spawnToken },
+    env: { ...identity.env, [OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV]: input.spawnToken },
     envToDelete: input.inheritedEnvToDelete.filter((key) => !named.has(key)),
     commandEnv: identity.commandEnv
   }
@@ -72,9 +75,9 @@ function childIdentity(
 ): { env: Record<string, string>; commandEnv: Record<string, string> } {
   const identity = resolveStructuredWorkerIdentityForSession(sessionId, null)
   const named: Record<string, string> = {
-    ...(identity ? { ORCA_TERMINAL_HANDLE: identity.handle } : {}),
-    [ORCA_AGENT_SESSION_ID_ENV]: sessionId,
-    [ORCA_STRUCTURED_SESSION_ENV]: '1'
+    ...(identity ? { OPENKODO_TERMINAL_HANDLE: identity.handle } : {}),
+    [OPENKODO_AGENT_SESSION_ID_ENV]: sessionId,
+    [OPENKODO_STRUCTURED_SESSION_ENV]: '1'
   }
   const env = { ...childEnv, ...named }
   return { env, commandEnv: { ...named, ...applyThisAppCli(env) } }
@@ -82,14 +85,14 @@ function childIdentity(
 
 /** Without an installed app environment, no user-data root is known; inventing one would write the CLI shim into the wrong directory. */
 function applyThisAppCli(env: Record<string, string>): Record<string, string> {
-  delete env.ORCA_CLI_COMMAND
+  delete env.OPENKODO_CLI_COMMAND
   if (!hasAppEnvironment()) {
     return {}
   }
   const app = getAppEnvironment()
   const userDataPath = app.getPath('userData')
   const isPackaged = app.isPackaged()
-  const set: Record<string, string> = { ORCA_USER_DATA_PATH: userDataPath }
+  const set: Record<string, string> = { OPENKODO_USER_DATA_PATH: userDataPath }
   for (const key of REMOTE_RUNTIME_SELECTOR_ENV_KEYS) {
     set[key] = ''
   }
@@ -100,18 +103,18 @@ function applyThisAppCli(env: Record<string, string>): Record<string, string> {
     resourcesPath: process.resourcesPath ?? null
   })
   if (launcher) {
-    set.ORCA_CLI_COMMAND = launcher
-    env.ORCA_CLI_COMMAND = launcher
+    set.OPENKODO_CLI_COMMAND = launcher
+    env.OPENKODO_CLI_COMMAND = launcher
   } else {
     console.warn(
-      "[structured-session] This app's CLI launcher did not resolve; the session's child has no ORCA_CLI_COMMAND."
+      "[structured-session] This app's CLI launcher did not resolve; the session's child has no OPENKODO_CLI_COMMAND."
     )
   }
   return set
 }
 
 /** A sealed child's environment without its caller identity; the structured marker stays, so
- *  Orca's CLI refuses to guess a caller rather than name another chat. */
+ *  OpenKodo's CLI refuses to guess a caller rather than name another chat. */
 export function withoutCallerIdentity(
   env: Readonly<Record<string, string>>,
   envToDelete: readonly string[]
@@ -128,7 +131,7 @@ export function sealSharedToolProcessChild(
   env: Readonly<Record<string, string>>,
   envToDelete: readonly string[]
 ): { env: Record<string, string>; envToDelete: string[] } {
-  const sealed: Record<string, string> = { ...env, [ORCA_STRUCTURED_SESSION_ENV]: '1' }
+  const sealed: Record<string, string> = { ...env, [OPENKODO_STRUCTURED_SESSION_ENV]: '1' }
   applyThisAppCli(sealed)
   return withoutCallerIdentity(sealed, [...envToDelete, ...STRUCTURED_CHILD_ENV_TO_DELETE])
 }

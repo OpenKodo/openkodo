@@ -61,7 +61,7 @@ export const BOT_COMPOSIO_EVENTS_METHODS = [
     permission: 'workspace',
     params: ComposioEventsSetUp,
     handler: async ({ botId, hookId, trigger, config, replace, byHand }, context) => {
-      ownerOnly(context, 'Only your owner answers setup cards, in Orca.')
+      ownerOnly(context, 'Only your owner answers setup cards, in OpenKodo.')
       composio(context, botId)
       const { bots, events, setup } = instanceOf(context.runtime)
       const settings = parseConfig(config) ?? {}
@@ -84,7 +84,7 @@ export const BOT_COMPOSIO_EVENTS_METHODS = [
     permission: 'workspace',
     params: ComposioEventsByHand,
     handler: async ({ botId, hookId }, context) => {
-      ownerOnly(context, 'Only your owner answers setup cards, in Orca.')
+      ownerOnly(context, 'Only your owner answers setup cards, in OpenKodo.')
       composio(context, botId)
       const { events, setup } = instanceOf(context.runtime)
       const ingress = await events.byHand(botId, hookId)
@@ -96,7 +96,7 @@ export const BOT_COMPOSIO_EVENTS_METHODS = [
 ]
 
 /**
- * Orca's own filter on the hook: only the bot's Composio user's events start it, whatever the
+ * OpenKodo's own filter on the hook: only the bot's Composio user's events start it, whatever the
  * bot's --on said, since every bot's events in the project reach one address. The clause added,
  * or undefined when it was there.
  */

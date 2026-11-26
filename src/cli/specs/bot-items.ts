@@ -17,7 +17,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     hidden: true,
     summary: 'Track a deliverable or a decision for your owner as an item',
     usage:
-      'orca bot item add --title <text> [--description <markdown>] [--done-means <text>] [--status planned|in-progress] [--link <ref>]... [--for bot:<name>] [--chat <id>] [--json]',
+      'openkodo bot item add --title <text> [--description <markdown>] [--done-means <text>] [--status planned|in-progress] [--link <ref>]... [--for bot:<name>] [--chat <id>] [--json]',
     allowedFlags: [
       ...WRITE_FLAGS,
       'title',
@@ -33,7 +33,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     repeatableFlags: ['link'],
     notes: [
       ...ITEM_NOTES,
-      'Before adding an item about a PR, issue or thread, run `orca bot item list --link <it>`; if one already covers it, update that item.',
+      'Before adding an item about a PR, issue or thread, run `openkodo bot item list --link <it>`; if one already covers it, update that item.',
       'For work already underway, --link its workers (dispatch:<ctx_id>) and its PR by full URL when known; workers started later with `worker-start --item <n>` link themselves.',
       '--for bot:<name> makes the item for another bot, in its Home Chat or --chat; --chat alone makes it in another of your own chats. Either is sent as a request, carrying whom your turn is for, and a refused request makes no item.'
     ]
@@ -43,7 +43,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     hidden: true,
     summary: "Change an item's title, description, done-means or status",
     usage:
-      'orca bot item set <id> [--title <text>] [--description <markdown>] [--done-means <text>] [--status planned|in-progress|waiting|needs-you|done|canceled] [--comment <text> [--file <path>]...] [--ask <question> [--option <label>[ | <detail>]]... [--recommended <n>] [--multi]]... [--note <why>] [--reason <why>] [--json]',
+      'openkodo bot item set <id> [--title <text>] [--description <markdown>] [--done-means <text>] [--status planned|in-progress|waiting|needs-you|done|canceled] [--comment <text> [--file <path>]...] [--ask <question> [--option <label>[ | <detail>]]... [--recommended <n>] [--multi]]... [--note <why>] [--reason <why>] [--json]',
     repeatableFlags: ['ask', 'option', 'recommended', 'file'],
     booleanFlags: [...BOT_ITEM_ASK_BOOLEAN_FLAGS],
     allowedFlags: [
@@ -81,7 +81,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'item', 'comment'],
     hidden: true,
     summary: 'Add what your owner would want to read later to an item',
-    usage: 'orca bot item comment <id> --text <text> [--file <path>]... [--json]',
+    usage: 'openkodo bot item comment <id> --text <text> [--file <path>]... [--json]',
     allowedFlags: [...WRITE_FLAGS, 'id', 'text', 'text-file', 'file'],
     repeatableFlags: ['file'],
     positionalArgs: ['id'],
@@ -95,7 +95,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'item', 'done'],
     hidden: true,
     summary: 'Close an item whose done-means is met',
-    usage: 'orca bot item done <id> [--note <text>] [--json]',
+    usage: 'openkodo bot item done <id> [--note <text>] [--json]',
     allowedFlags: [...WRITE_FLAGS, 'id', 'note', 'note-file'],
     positionalArgs: ['id'],
     notes: ITEM_NOTES
@@ -104,7 +104,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'item', 'cancel'],
     hidden: true,
     summary: 'Close an item that was dropped, with the reason',
-    usage: 'orca bot item cancel <id> --reason <text> [--json]',
+    usage: 'openkodo bot item cancel <id> --reason <text> [--json]',
     allowedFlags: [...WRITE_FLAGS, 'id', 'reason', 'reason-file'],
     positionalArgs: ['id'],
     notes: ITEM_NOTES
@@ -113,7 +113,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'item', 'link'],
     hidden: true,
     summary: 'Link workers, PRs, URLs or files to an item',
-    usage: 'orca bot item link <id> <ref>... [--json]',
+    usage: 'openkodo bot item link <id> <ref>... [--json]',
     allowedFlags: [...WRITE_FLAGS, 'id', 'ref'],
     repeatableFlags: ['ref'],
     positionalArgs: ['id', 'ref'],
@@ -128,7 +128,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     hidden: true,
     summary: "List a bot's items, newest change first",
     usage:
-      'orca bot item list [--bot <name>] [--status <s>[,<s>]] [--all] [--chat <id>|--here] [--link <ref>] [--limit <n>] [--cursor <c>] [--json]',
+      'openkodo bot item list [--bot <name>] [--status <s>[,<s>]] [--all] [--chat <id>|--here] [--link <ref>] [--limit <n>] [--cursor <c>] [--json]',
     allowedFlags: [
       ...GLOBAL_FLAGS,
       'bot',
@@ -150,7 +150,7 @@ export const BOT_ITEM_COMMAND_SPECS: CommandSpec[] = [
     path: ['bot', 'item', 'show'],
     hidden: true,
     summary: 'Show one item and its activity',
-    usage: 'orca bot item show <id> [--after <eventId>] [--json]',
+    usage: 'openkodo bot item show <id> [--after <eventId>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'id', 'after'],
     positionalArgs: ['id'],
     notes: ['--after e41 prints only the events after e41; each update you get names its event.']

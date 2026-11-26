@@ -45,6 +45,6 @@ export type PrimaryActionInputs = {
   isPrIntentInFlight?: boolean
   // Retain the header anchor while async eligibility loads to avoid flashing it in later.
   isHostedReviewCreationLoading?: boolean
-  // Orca rebased this branch: no Pull/Sync face; never promotes a force path.
+  // OpenKodo rebased this branch: no Pull/Sync face; never promotes a force path.
   suppressPullAfterRebase?: boolean
 }

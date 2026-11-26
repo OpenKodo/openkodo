@@ -4,12 +4,12 @@ import { dirname, join } from 'node:path'
 import { realFolderUnderRoot } from '../../filesystem/real-folder-under-root'
 
 const header = (agentName: string) =>
-  `<!-- Orca writes this file for ${agentName} chats in this folder; edits are replaced. -->`
+  `<!-- OpenKodo writes this file for ${agentName} chats in this folder; edits are replaced. -->`
 
 const BLOCK_START = '<!-- orca:begin -->'
 const BLOCK_END = '<!-- orca:end -->'
 
-/** Orca's own file is replaced whole; a file the user wrote keeps their text and gets Orca's block. */
+/** OpenKodo's own file is replaced whole; a file the user wrote keeps their text and gets OpenKodo's block. */
 function withOrcaText(existing: string | null, rawText: string, agentName: string): string {
   const text = rawText.replace(/<!--\s*orca:(begin|end)\s*-->/g, '')
   if (existing === null || existing.startsWith(header(agentName))) {
@@ -33,7 +33,7 @@ function orcaBlockRange(existing: string): { start: number; end: number } | null
   return start && end ? { start: start.index, end: end.index + end[0].length } : null
 }
 
-/** Writes Orca's text into `cwd`'s `path` whole, so the agent never reads a half-written file.
+/** Writes OpenKodo's text into `cwd`'s `path` whole, so the agent never reads a half-written file.
  *  A symlink on the way, or a file that cannot be read, stays untouched. The result is readable
  *  only by this host's user, a file the user wrote included, since it now carries the bot's
  *  instructions. An inheritable ACL the user set on the folder still applies on top of that. */
@@ -70,8 +70,8 @@ export async function writeFolderContextFile(
   await replaceWhole(target, withOrcaText(existing, text, agentName))
 }
 
-/** Takes Orca's text back out of `cwd`'s `path`: deletes a file Orca wrote for `agentName`, or
- *  removes only Orca's block from a file the user wrote. A symlink or unreadable file stays. */
+/** Takes OpenKodo's text back out of `cwd`'s `path`: deletes a file OpenKodo wrote for `agentName`, or
+ *  removes only OpenKodo's block from a file the user wrote. A symlink or unreadable file stays. */
 export async function removeFolderContextFile(
   cwd: string,
   path: string,

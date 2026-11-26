@@ -43,7 +43,7 @@ export function historyRowOwnershipLookup():
   }
 }
 
-/** Whether a deleted chat held the row's conversation: Orca never lists or resumes it again. */
+/** Whether a deleted chat held the row's conversation: OpenKodo never lists or resumes it again. */
 export function historyRowOfDeletedChat():
   | ((row: { agent: string; sessionId: string }) => boolean)
   | null {

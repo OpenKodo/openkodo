@@ -1,4 +1,4 @@
-// Orca's own OMP follows OMP's latest GitHub release, the build its own installer downloads.
+// OpenKodo's own OMP follows OMP's latest GitHub release, the build its own installer downloads.
 
 import { writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
@@ -64,7 +64,8 @@ export const OMP_MANAGED_CLI: ManagedAgentCli = {
     root: (dataDirectory) => join(dataDirectory, 'agent-runtimes', 'omp'),
     ...followLatestRelease(fetchLatestPin),
     // OMP reads this beside its bin folder and leaves updates to the named manager instead of replacing itself.
-    prepare: (folder) => writeFile(join(folder, 'manager.json'), JSON.stringify({ name: 'Orca' })),
+    prepare: (folder) =>
+      writeFile(join(folder, 'manager.json'), JSON.stringify({ name: 'OpenKodo' })),
     validate: (folder, pin, signal) =>
       requireRuntimeAnswersVersion(
         executable(folder),

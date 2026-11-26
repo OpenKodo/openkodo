@@ -31,7 +31,7 @@ const IS_WINDOWS = navigator.userAgent.includes('Windows')
 
 /** A bot's home, shown from the user's home rather than as a full path. */
 export function botFolderDisplay(folder: string, windows = IS_WINDOWS): string {
-  return windows ? `%USERPROFILE%\\.orca\\bots\\${folder}` : `~/.orca/bots/${folder}`
+  return windows ? `%USERPROFILE%\\.orca\\bots\\${folder}` : `~/.openkodo/bots/${folder}`
 }
 
 /** A bot chat its agent refused, as native chat words it. Its host calls itself this computer, so
@@ -88,7 +88,7 @@ export function botCreateErrorMessage(
     refusedForOlderHostPurposeLimit(error.code, error.message, purpose)
     ? translate(
         'bots.errors.purposeTooLongForHost',
-        "Orca on {{host}} takes up to 200 characters for what it's for. Shorten it, or update Orca on {{host}}.",
+        "OpenKodo on {{host}} takes up to 200 characters for what it's for. Shorten it, or update OpenKodo on {{host}}.",
         { host }
       )
     : botErrorMessage(error)

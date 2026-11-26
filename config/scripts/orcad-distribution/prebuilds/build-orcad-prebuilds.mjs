@@ -128,7 +128,7 @@ export function bindingGypForLibc(bindingGyp, libc) {
 }
 
 const GLIBC_SYMVER_GUARD =
-  '#if defined(__linux__)\n#  if defined(__x86_64__)\n#    define ORCA_GLIBC_COMPAT_VERSION'
+  '#if defined(__linux__)\n#  if defined(__x86_64__)\n#    define OPENKODO_GLIBC_COMPAT_VERSION'
 
 // Guard GLIBC symbol pins: musl has no versioned GLIBC symbols and never defines __GLIBC__.
 export function ptySourceForLibc(ptySource, libc) {

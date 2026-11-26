@@ -6,12 +6,12 @@ import { isolateFromUserAgentBrowserSettings } from './agent-browser-user-settin
 
 const AGENT_BROWSER_SOCKET_DIRECTORY_PREFIX = 'orca-ab-'
 
-/** Per-tab daemon expiry survives Orca crashes and exceeds the bridge command timeout. */
+/** Per-tab daemon expiry survives OpenKodo crashes and exceeds the bridge command timeout. */
 export const AGENT_BROWSER_IDLE_TIMEOUT_MS = 10 * 60 * 1000
 
 export type AgentBrowserProcessEnvironment = {
   env: NodeJS.ProcessEnv
-  /** Only an Orca-derived directory proves sessions belong to this profile; inherited paths may be shared. */
+  /** Only an OpenKodo-derived directory proves sessions belong to this profile; inherited paths may be shared. */
   ownsSocketDirectory: boolean
 }
 
@@ -20,8 +20,8 @@ export function createAgentBrowserProcessEnvironment(options: {
   platform: NodeJS.Platform
   userDataPath: string
 }): AgentBrowserProcessEnvironment {
-  // Commands get Orca's tokened proxy URL per spawn; a user's autoConnect, pinTab or extensions
-  // would refuse it or open tabs behind Orca's tab model.
+  // Commands get OpenKodo's tokened proxy URL per spawn; a user's autoConnect, pinTab or extensions
+  // would refuse it or open tabs behind OpenKodo's tab model.
   // A namespace moves sockets under namespaces/<name>/, where session reset and exit waits don't look.
   const env = isolateFromUserAgentBrowserSettings(options.inheritedEnv, [
     'AGENT_BROWSER_SOCKET_DIR'
@@ -29,9 +29,9 @@ export function createAgentBrowserProcessEnvironment(options: {
   env.AGENT_BROWSER_IDLE_TIMEOUT_MS =
     options.inheritedEnv.AGENT_BROWSER_IDLE_TIMEOUT_MS?.trim() ||
     String(AGENT_BROWSER_IDLE_TIMEOUT_MS)
-  // Its auto-accept dropped alert text; Orca keeps every dialog open until someone answers it.
+  // Its auto-accept dropped alert text; OpenKodo keeps every dialog open until someone answers it.
   env.AGENT_BROWSER_NO_AUTO_DIALOG = '1'
-  // Electron's Chromium updates only with Orca; skip the CVE feed fetch 0.41.2+ awaits on each session's first command.
+  // Electron's Chromium updates only with OpenKodo; skip the CVE feed fetch 0.41.2+ awaits on each session's first command.
   env.AGENT_BROWSER_NO_VERSION_CHECK = '1'
   if (options.platform === 'win32' || env.AGENT_BROWSER_SOCKET_DIR?.trim()) {
     return { env, ownsSocketDirectory: false }

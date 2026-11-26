@@ -79,7 +79,7 @@ function BotSlackSetupFlow({
   const offer = useSlackHandOffOffer(bot, step)
   const outage = useResumeWhenHostReturns(step, useBotHostOutage(bot.hostId), retry)
   const problem = slackSetupProblem(step, outage)
-  // Back from Slack's page in Orca's browser once the install ends, or needs the owner. Stepping aside
+  // Back from Slack's page in OpenKodo's browser once the install ends, or needs the owner. Stepping aside
   // mounts this flow anew, which checks again before it waits again: that is not an end.
   const settled =
     step.kind === 'installed' ||
@@ -289,7 +289,7 @@ function BotSlackSetupFlow({
             <p className="text-sm">
               {t(
                 'bots.slack.setup.uncertain',
-                'Slack may have created an app named {{name}} that Orca cannot use. Delete it in Slack app settings if it is there, then set up again.',
+                'Slack may have created an app named {{name}} that OpenKodo cannot use. Delete it in Slack app settings if it is there, then set up again.',
                 { name: bot.name }
               )}
             </p>
@@ -393,7 +393,7 @@ export function BotSlackSetupDialog({
     teamId === undefined && botSlackApps(bot).length > 0
       ? t('bots.slack.setup.connectAnother', 'Connect another Slack workspace')
       : t('bots.slack.setup.connect', 'Connect Slack')
-  // Away while Slack's page is in Orca's browser; the flow says when to come back.
+  // Away while Slack's page is in OpenKodo's browser; the flow says when to come back.
   const aside = useSetupStepAside()
   return (
     <ConnectorSetupDialog

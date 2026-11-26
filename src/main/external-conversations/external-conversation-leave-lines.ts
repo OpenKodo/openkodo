@@ -14,7 +14,7 @@ import {
   type ExternalConversationLinkStore
 } from './external-conversation-links'
 
-/** The line Orca posts as the bot once it has left; never the agent's words. */
+/** The line OpenKodo posts as the bot once it has left; never the agent's words. */
 export const THREAD_LEFT_LINE =
   "I've left this thread. New replies here won't reach me unless someone @mentions me."
 
@@ -182,7 +182,7 @@ export function leaveLines(deps: LeaveLinesDeps): LeaveLines {
       // Its answer goes first: the reply that carries it (looked up first, and a lookup that fails
       // is tried again), then the end that carries it or the end an owner's failed post holds, read
       // after that lookup so one that arrived meanwhile counts. Its acceptance wakes this; the waits
-      // cover a route that doesn't (Orca's /replies).
+      // cover a route that doesn't (OpenKodo's /replies).
       const answering =
         owed(link, turnId) &&
         (await Promise.resolve(deps.answerPending?.(link, turnId)).then(
@@ -225,7 +225,7 @@ export function leaveLines(deps: LeaveLinesDeps): LeaveLines {
           conversation,
           turnId,
           text: THREAD_LEFT_LINE,
-          // Orca's own line, on no one's behalf: no bot hears it as a person's request.
+          // OpenKodo's own line, on no one's behalf: no bot hears it as a person's request.
           turnFor: 'none'
         },
         // An @mention during a retry's wait means it is no longer left.

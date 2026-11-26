@@ -12,7 +12,7 @@ import { useOrcaCloudSignedOut } from '../../bots/orca-cloud-signed-out'
 
 type WontFireProps = { automation: Pick<Automation, 'bot' | 'on' | 'dtstart'> }
 
-/** The host of the automation's bot, whose Orca Cloud says whether webhooks run. */
+/** The host of the automation's bot, whose OpenKodo Cloud says whether webhooks run. */
 function automationBotHost(
   automation: WontFireProps['automation'],
   bots: readonly Bot[]

@@ -55,10 +55,10 @@ describe('reading a hook’s calls', () => {
     expect(await webhookCallText(routes, 'wh_x', 'c1')).toEqual({
       callId: 'c1',
       ignored: true,
-      text: `This call was ignored. ${reason}. Orca keeps no body for an ignored call.`
+      text: `This call was ignored. ${reason}. OpenKodo keeps no body for an ignored call.`
     })
     expect((await webhookCallText(routes, 'wh_x', 'c2')).text).toBe(
-      "This call was ignored by the hook's filters when it came in. Orca keeps no body for an ignored call."
+      "This call was ignored by the hook's filters when it came in. OpenKodo keeps no body for an ignored call."
     )
   })
 

@@ -143,7 +143,7 @@ function offeredEffort(session: AcpStructuredSession, effort: string | undefined
     : effort
 }
 
-/** Orca's own words name the agent and the next step; the agent's reply stays a diagnostic. */
+/** OpenKodo's own words name the agent and the next step; the agent's reply stays a diagnostic. */
 function modelCommandRefusal(
   error: AcpModelCommandRefusedError,
   value: string,

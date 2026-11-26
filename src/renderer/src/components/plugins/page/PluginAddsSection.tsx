@@ -185,7 +185,7 @@ function contributionRowId(row: PluginContribution): string {
 }
 
 /**
- * The "try it" control for a row, only while the plugin is on and Orca's live registration
+ * The "try it" control for a row, only while the plugin is on and OpenKodo's live registration
  * (not the manifest) backs it, so the control never promises something that isn't there.
  */
 function useContributionRowActions(
@@ -258,7 +258,7 @@ function useContributionRowActions(
 }
 
 /**
- * Each named thing the plugin adds. An installed plugin reads Orca's live registrations, or its
+ * Each named thing the plugin adds. An installed plugin reads OpenKodo's live registrations, or its
  * manifest while it's off or under review; a catalog plugin reads its fetched manifest. Catalog
  * types fill in whatever neither names (a manifest that couldn't be read).
  */
@@ -335,7 +335,7 @@ export function PluginAddsSection({
   }
   return (
     <DetailSection
-      title={t('auto.components.settings.PluginDetailSections.adds', 'Adds to Orca')}
+      title={t('auto.components.settings.PluginDetailSections.adds', 'Adds to OpenKodo')}
       count={String(total)}
     >
       {rows.map((row) => (

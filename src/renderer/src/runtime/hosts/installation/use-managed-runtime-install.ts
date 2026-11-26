@@ -39,7 +39,7 @@ import {
 import { useHostStructuredAgent } from '../../native-chat/agent-catalogs/use-host-structured-agent'
 
 export type ManagedRuntimeInstallObservation =
-  /** Orca provides no runtime for this agent on this host, or the host cannot install one. */
+  /** OpenKodo provides no runtime for this agent on this host, or the host cannot install one. */
   | { kind: 'inactive' }
   /** A reachable host has not yet answered its capabilities or agent list. */
   | { kind: 'pending' }
@@ -65,7 +65,7 @@ const localInstallCapable = (): boolean | null =>
 const localRemoveCapable = (): boolean =>
   readLocalRuntimeCapabilities().includes(MANAGED_RUNTIME_REMOVE_RUNTIME_CAPABILITY)
 
-/** The install state of the runtime Orca provides for `agent` on the target's host. Subscribes
+/** The install state of the runtime OpenKodo provides for `agent` on the target's host. Subscribes
  *  only while `shown`, so a hidden chat holds no subscription. */
 export function useManagedRuntimeInstall(
   target: RuntimeClientTarget,
@@ -144,7 +144,7 @@ export function useManagedRuntimeInstall(
     snapshot?.kind === 'known' && snapshot.state.operation?.phase === 'succeeded'
       ? snapshot.state.operation.id
       : null
-  // Orca's installed copy is an installed agent, so every agent list of that host is dropped and
+  // OpenKodo's installed copy is an installed agent, so every agent list of that host is dropped and
   // the surfaces showing one read it again; a surface opened later catches an unobserved settle.
   useEffect(() => {
     if (!settled || reDetectedAfter.has(settled)) {

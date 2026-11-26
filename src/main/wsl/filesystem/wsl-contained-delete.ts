@@ -1,7 +1,7 @@
 import { posix } from 'node:path'
 import type { WslUncPathInfo as WslPathInfo } from '../../../shared/file-access/wsl-paths'
 
-const REJECTION_PREFIX = 'ORCA_WSL_DELETE_REJECT:'
+const REJECTION_PREFIX = 'OPENKODO_WSL_DELETE_REJECT:'
 
 export type WslDeleteRejection = 'path-outside-known-roots' | 'unexpected-target-kind'
 

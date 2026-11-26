@@ -1,8 +1,8 @@
 import { ipcRenderer } from 'electron'
 import type { PreloadApi } from '../../api-types'
 import {
-  ORCA_PROFILE_AUTH_STATUS_CHANGED_CHANNEL,
-  ORCA_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL,
+  OPENKODO_PROFILE_AUTH_STATUS_CHANGED_CHANNEL,
+  OPENKODO_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL,
   type OrcaCloudSignInProgress,
   type OrcaProfileListResult,
   type SwitchOrcaProfileResult,
@@ -16,16 +16,17 @@ export const orcaProfilesApi = {
   authStatus: () => ipcRenderer.invoke('orcaProfiles:authStatus'),
   onAuthStatusChanged: (callback: () => void): (() => void) => {
     const listener = (): void => callback()
-    ipcRenderer.on(ORCA_PROFILE_AUTH_STATUS_CHANGED_CHANNEL, listener)
-    return () => ipcRenderer.removeListener(ORCA_PROFILE_AUTH_STATUS_CHANGED_CHANNEL, listener)
+    ipcRenderer.on(OPENKODO_PROFILE_AUTH_STATUS_CHANGED_CHANNEL, listener)
+    return () => ipcRenderer.removeListener(OPENKODO_PROFILE_AUTH_STATUS_CHANGED_CHANNEL, listener)
   },
   onSignInProgressChanged: (
     callback: (progress: OrcaCloudSignInProgress | null) => void
   ): (() => void) => {
     const listener = (_event: unknown, progress: OrcaCloudSignInProgress | null): void =>
       callback(progress)
-    ipcRenderer.on(ORCA_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL, listener)
-    return () => ipcRenderer.removeListener(ORCA_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL, listener)
+    ipcRenderer.on(OPENKODO_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL, listener)
+    return () =>
+      ipcRenderer.removeListener(OPENKODO_PROFILE_SIGN_IN_PROGRESS_CHANGED_CHANNEL, listener)
   },
   createLocal: (args) => ipcRenderer.invoke('orcaProfiles:createLocal', args),
   createCloudLinked: (args) => ipcRenderer.invoke('orcaProfiles:createCloudLinked', args),

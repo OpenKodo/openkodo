@@ -1,4 +1,4 @@
-/** Stores mail to a bot with Orca's record of the request beside it, after the checks pass. */
+/** Stores mail to a bot with OpenKodo's record of the request beside it, after the checks pass. */
 
 import { isBotGroupMemberSession } from '../../../../../../shared/bots/bot-group'
 import { runtimeBotGroups } from '../../../../../bots/bot-group-runtime'
@@ -122,7 +122,7 @@ type SendBotRequestArgs = {
   senderPaneKey: string | undefined
   recordMutationReceipt: ((receipt: unknown) => void) | undefined
   messageId?: string
-  /** Who sent it as the card shows them, for a sender this Orca has no record of (another computer's). */
+  /** Who sent it as the card shows them, for a sender this OpenKodo has no record of (another computer's). */
   senderSnapshot?: string
   /** Its sender is an agent on a computer paired with this one, either side of the pairing. */
   pairedSender?: PairedSender
@@ -237,7 +237,7 @@ async function admitBotRequestMail(
   if (blocked) {
     return blockedReceipt(blocked).receipt
   }
-  // The whole payload is Orca's, so the receiving bot never reads the sender's own fields as these.
+  // The whole payload is OpenKodo's, so the receiving bot never reads the sender's own fields as these.
   const payload = botRequestPayload(record, messageId, args.images)
   const request = {
     ...key,

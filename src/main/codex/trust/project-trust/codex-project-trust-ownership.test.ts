@@ -1,7 +1,7 @@
 /**
- * Ownership for the [projects."<path>"] tables Orca's preflight trust writes:
+ * Ownership for the [projects."<path>"] tables OpenKodo's preflight trust writes:
  * a removed worktree's entry must die with the worktree, while a table that
- * existed at the path before Orca first wrote it stays the user's.
+ * existed at the path before OpenKodo first wrote it stays the user's.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
@@ -44,7 +44,7 @@ vi.mock('./codex-project-trust-worker-spawn', async () => ({
 const PROJECT = '/tmp/worktrees/feature-r1'
 const OTHER = '/tmp/worktrees/other-r1'
 
-describe('Orca-created project trust lifecycle', () => {
+describe('OpenKodo-created project trust lifecycle', () => {
   let userDataDir: string
   let managedConfigPath: string
   let accountConfigPath: string
@@ -54,8 +54,8 @@ describe('Orca-created project trust lifecycle', () => {
 
   beforeEach(() => {
     userDataDir = mkdtempSync(join(tmpdir(), 'orca-pretrust-ownership-'))
-    previousUserDataPath = process.env.ORCA_USER_DATA_PATH
-    process.env.ORCA_USER_DATA_PATH = userDataDir
+    previousUserDataPath = process.env.OPENKODO_USER_DATA_PATH
+    process.env.OPENKODO_USER_DATA_PATH = userDataDir
     const managedHome = join(userDataDir, 'codex-runtime-home', 'home')
     const accountHome = join(userDataDir, 'codex-accounts', 'acct-1', 'home')
     const systemHome = join(userDataDir, 'system-home', '.codex')
@@ -72,9 +72,9 @@ describe('Orca-created project trust lifecycle', () => {
     beforePublish.run = null
     rmSync(userDataDir, { recursive: true, force: true })
     if (previousUserDataPath === undefined) {
-      delete process.env.ORCA_USER_DATA_PATH
+      delete process.env.OPENKODO_USER_DATA_PATH
     } else {
-      process.env.ORCA_USER_DATA_PATH = previousUserDataPath
+      process.env.OPENKODO_USER_DATA_PATH = previousUserDataPath
     }
   })
 
@@ -82,7 +82,7 @@ describe('Orca-created project trust lifecycle', () => {
     return JSON.parse(readFileSync(ledgerPath, 'utf-8')).created
   }
 
-  it('removes the tables Orca created for a removed worktree, per account, and keeps other paths', async () => {
+  it('removes the tables OpenKodo created for a removed worktree, per account, and keeps other paths', async () => {
     await markCodexProjectTrusted(PROJECT, [managedConfigPath, accountConfigPath])
     await markCodexProjectTrusted(OTHER, [managedConfigPath])
     expect(readFileSync(managedConfigPath, 'utf-8')).toContain(`[projects."${PROJECT}"]`)
@@ -98,7 +98,7 @@ describe('Orca-created project trust lifecycle', () => {
     expect(readFileSync(managedConfigPath, 'utf-8')).toContain(`[projects."${OTHER}"]`)
   })
 
-  it('keeps a table that existed at the path before Orca wrote it', async () => {
+  it('keeps a table that existed at the path before OpenKodo wrote it', async () => {
     const userTable = [`[projects."${PROJECT}"]`, 'trust_level = "untrusted"', ''].join('\n')
     writeFileSync(managedConfigPath, userTable)
     writeFileSync(accountConfigPath, userTable)
@@ -117,7 +117,7 @@ describe('Orca-created project trust lifecycle', () => {
     )
   })
 
-  it('does not delete a table the user replaced after Orca created the original', async () => {
+  it('does not delete a table the user replaced after OpenKodo created the original', async () => {
     await markCodexProjectTrusted(PROJECT, [managedConfigPath])
     const replacement = [
       `[projects."${PROJECT}"]`,

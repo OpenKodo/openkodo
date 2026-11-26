@@ -173,7 +173,7 @@ describe('where memories came from', () => {
     const chat = conversation('s1')
     await chat.started()
     write('- 2026-10-31 deploys at noon\n- 2026-10-01 owner fact\n')
-    await chat.ended(said('[Orca event]', { memorySource: 'Webhook deploys' }), edits('x'))
+    await chat.ended(said('[OpenKodo event]', { memorySource: 'Webhook deploys' }), edits('x'))
 
     expect(read()).toBe(
       '- 2026-10-31 deploys at noon · from: Webhook deploys\n- 2026-10-01 owner fact\n'

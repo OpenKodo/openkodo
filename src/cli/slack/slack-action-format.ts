@@ -7,9 +7,9 @@ type MessageFile = { id: string; name: string; type?: string; size?: number }
 
 export type ActionResult = {
   target?: RefView
-  // A post's: why it can't wake an Orca bot it mentions.
+  // A post's: why it can't wake an OpenKodo bot it mentions.
   notices?: string[]
-  // A post Orca Cloud took and sends shortly; target is then its place.
+  // A post OpenKodo Cloud took and sends shortly; target is then its place.
   queued?: true
   // A post that has gone: its web link.
   url?: string
@@ -53,7 +53,7 @@ export function formatActionResult(verb: SlackVerb | 'attach', result: ActionRes
   switch (verb) {
     case 'find':
       return [
-        // Other people's words: quoted under Orca's line, as read shows them.
+        // Other people's words: quoted under OpenKodo's line, as read shows them.
         ...(result.matches?.length
           ? result.matches.map((match) =>
               match.text === undefined
@@ -64,7 +64,7 @@ export function formatActionResult(verb: SlackVerb | 'attach', result: ActionRes
         ...(result.note ? [result.note] : [])
       ].join('\n')
     case 'read': {
-      // Other people's words: quoted under Orca's line, so they read as content, never as orders.
+      // Other people's words: quoted under OpenKodo's line, so they read as content, never as orders.
       const messages = (result.messages ?? []).map((message) =>
         [
           message.url ? `${message.ref}  ${message.url}` : message.ref,
@@ -74,7 +74,7 @@ export function formatActionResult(verb: SlackVerb | 'attach', result: ActionRes
           ),
           ...(message.files ?? []).map(
             (file) =>
-              `[Orca: file ${file.id}: ${authorName(file.name)}${file.type ? `, ${file.type}` : ''}${file.size === undefined ? '' : `, ${Math.ceil(file.size / 1024)} KB`}; --download ${file.id} saves it]`
+              `[OpenKodo: file ${file.id}: ${authorName(file.name)}${file.type ? `, ${file.type}` : ''}${file.size === undefined ? '' : `, ${Math.ceil(file.size / 1024)} KB`}; --download ${file.id} saves it]`
           )
         ].join('\n')
       )
@@ -130,6 +130,6 @@ export function formatActionResult(verb: SlackVerb | 'attach', result: ActionRes
   }
 }
 
-/** Where a download went; its name is someone else's, so it can't pose as Orca's line. */
+/** Where a download went; its name is someone else's, so it can't pose as OpenKodo's line. */
 export const formatSaved = (file: MessageFile, savedTo: string) =>
   `Saved ${authorName(file.name)} to ${savedTo}`

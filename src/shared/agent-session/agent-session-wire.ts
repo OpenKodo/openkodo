@@ -281,10 +281,10 @@ export type AgentSessionStatusSummary = {
   /** The record's Sleep mark: the user's Sleep stopped this chat and nothing has been sent since.
    *  Absent from older hosts. */
   sleptAt?: number
-  /** The chat runs a program the host already has, so it needs no Orca-installed runtime.
+  /** The chat runs a program the host already has, so it needs no OpenKodo-installed runtime.
    *  Absent from older hosts. */
   hostProgram?: true
-  /** The chat runs on the host program's own login, which the sign-in method saved in Orca
+  /** The chat runs on the host program's own login, which the sign-in method saved in OpenKodo
    *  doesn't change (an Antigravity chat on agy's own home). Absent from older hosts. */
   ownLogin?: true
   /** Host-path directory the session is held to regardless of its workspace's current directory
@@ -299,7 +299,7 @@ export type AgentSessionStatusSummary = {
 export type AgentSessionNamingError = {
   message: string
   failedAt: number
-  /** Names Orca-authored copy; `message` stays English for older clients. */
+  /** Names OpenKodo-authored copy; `message` stays English for older clients. */
   messageCode?: string
 }
 

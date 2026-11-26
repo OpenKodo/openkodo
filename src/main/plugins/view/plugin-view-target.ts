@@ -44,10 +44,10 @@ async function liveEntry(
       entry.status === 'pending'
         ? 'is waiting for approval'
         : `is ${entry.status}${entry.error ? `: ${entry.error}` : ''}`
-    throw refuse(`${pluginKey} ${why}, so Orca shows none of its panels or editors.`, [
+    throw refuse(`${pluginKey} ${why}, so OpenKodo shows none of its panels or editors.`, [
       entry.status === 'pending'
-        ? `Approve it first: \`orca plugin enable ${pluginKey}\` prints what it would get.`
-        : `\`orca plugin logs ${pluginKey}\` shows why; fix it, then run this again.`
+        ? `Approve it first: \`openkodo plugin enable ${pluginKey}\` prints what it would get.`
+        : `\`openkodo plugin logs ${pluginKey}\` shows why; fix it, then run this again.`
     ])
   }
   return { entry, plugin }
@@ -67,7 +67,7 @@ export async function resolvePluginViewPanel(
         ? `${pluginKey} contributes no panels.`
         : `${pluginKey} has no panel ${panelId}.`,
       panels.length === 0
-        ? ['Add one under contributes.panels in orca-plugin.json.']
+        ? ['Add one under contributes.panels in openkodo-plugin.json.']
         : [`Its panels: ${panels.map((entry) => entry.id).join(', ')}.`]
     )
   }
@@ -95,7 +95,7 @@ export async function resolvePluginViewEditor(
         ? `${pluginKey} contributes no custom editors.`
         : `No ${pluginKey} editor opens ${filePath}.`,
       editors.length === 0
-        ? ['Add one under contributes.customEditors in orca-plugin.json.']
+        ? ['Add one under contributes.customEditors in openkodo-plugin.json.']
         : editors.map(
             (entry) =>
               `${entry.id} opens ${[...entry.filenames, ...entry.extensions.map((ext) => `*${ext}`)].join(', ')}.`

@@ -1,5 +1,5 @@
 // Google's sign-in as a page inside the bot's settings, the trip Linear and GitHub use: Google's page opens
-// in Orca's browser on the host, whose own loopback takes the return, and shows here in the sign-in sheet.
+// in OpenKodo's browser on the host, whose own loopback takes the return, and shows here in the sign-in sheet.
 import { useEffect, useRef, type ReactNode } from 'react'
 import { ArrowUpRight } from 'lucide-react-native'
 import { BOT_CONNECTOR_NAMES } from '../../../../src/shared/bots/bot-templates'
@@ -89,7 +89,7 @@ export function MobileBotGoogleSignIn(props: {
             props.newApp
               ? t(
                   'bots.google.signInWarning',
-                  'Google will show a warning because this app is yours and brand new. Choose Advanced, then Go to Orca, and tick every box on the next screen.'
+                  'Google will show a warning because this app is yours and brand new. Choose Advanced, then Go to OpenKodo, and tick every box on the next screen.'
                 )
               : null
           }
@@ -102,7 +102,7 @@ export function MobileBotGoogleSignIn(props: {
             footer={
               error
                 ? undefined
-                : t('bots.connect.opensOnHost', 'Opens in Orca’s browser on {{host}}.', {
+                : t('bots.connect.opensOnHost', 'Opens in OpenKodo’s browser on {{host}}.', {
                     host: hostName
                   })
             }

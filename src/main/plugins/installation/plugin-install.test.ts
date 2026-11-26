@@ -31,7 +31,7 @@ async function writePluginSource(
 ): Promise<void> {
   const panelEntry = options.panelEntry ?? 'panel.html'
   await writeFile(
-    join(root, 'orca-plugin.json'),
+    join(root, 'openkodo-plugin.json'),
     JSON.stringify({
       manifestVersion: 1,
       id: options.id ?? 'demo',

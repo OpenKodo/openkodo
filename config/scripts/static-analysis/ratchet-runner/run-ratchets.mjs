@@ -44,7 +44,7 @@ function runRatchet(scriptsDir, name, root) {
   return new Promise((resolve) => {
     let output = ''
     const runtime =
-      name === MAIN_BLOCKING_RUNNER && process.env.ORCA_MAIN_BLOCKING_RATCHET_RUNTIME === 'bun'
+      name === MAIN_BLOCKING_RUNNER && process.env.OPENKODO_MAIN_BLOCKING_RATCHET_RUNTIME === 'bun'
         ? 'bun'
         : process.execPath
     const child = spawn(runtime, [path.join(scriptsDir, name)], { cwd: root })

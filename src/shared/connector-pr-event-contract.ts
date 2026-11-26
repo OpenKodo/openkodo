@@ -13,7 +13,7 @@ export const PR_EVENT_TYPES = [
   'reopened'
 ] as const
 
-/** One event on a pull request this machine's bot owner opened; never a fork's, nor the Orca app's. */
+/** One event on a pull request this machine's bot owner opened; never a fork's, nor the OpenKodo app's. */
 export const PrEvent = z.object({
   key: z.string().min(1),
   type: z.enum(PR_EVENT_TYPES),

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-/** Where the key file arrives from while the key step is open. Orca's own browser needs no watch:
+/** Where the key file arrives from while the key step is open. OpenKodo's own browser needs no watch:
  *  main takes the key as that page downloads it. */
 export type KeySource = { kind: 'downloads' } | null
 

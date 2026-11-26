@@ -179,10 +179,10 @@ const LOADING: BotToolsView = { status: 'loading' }
  */
 export type BotToolsCheck = 'check' | 'apps' | 'finished' | 'none'
 
-/** An app whose state its agent's CLI reports; one Orca signs in to has its own, and isn't checked. */
+/** An app whose state its agent's CLI reports; one OpenKodo signs in to has its own, and isn't checked. */
 const checkedApp = (tool: BotOwnTool): boolean => isBotAppTool(tool) && tool.remote
 
-// A tool Orca signs in to isn't checked: its state is Orca's own, so it is never unconfirmed.
+// A tool OpenKodo signs in to isn't checked: its state is OpenKodo's own, so it is never unconfirmed.
 const unconfirmed = (tools: readonly BotOwnTool[], detail?: string): Problems =>
   Object.fromEntries(
     tools

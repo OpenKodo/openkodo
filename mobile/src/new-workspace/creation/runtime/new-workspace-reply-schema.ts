@@ -15,7 +15,7 @@ export const SETUP_RUN_POLICIES = hostUnionArms<SetupRunPolicy>({
   'skip-by-default': true
 })
 
-// Require nullable source because SetupHookDetails reads it without guard; host explicitly sends null for absent orca.yaml.
+// Require nullable source because SetupHookDetails reads it without guard; host explicitly sends null for absent openkodo.yaml.
 // Keep hooks nullable for binary/unparsable YAML. Salvage unknown policy to existing run-by-default fallback; host union arms stay type-pinned.
 // setupTrust is optional+nullable because real components-setup-ask normal reply carries null; do not count it as dropped member.
 export const newWorkspaceRepoHooksSchema = z.looseObject({

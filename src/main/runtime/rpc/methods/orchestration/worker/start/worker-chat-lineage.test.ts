@@ -115,7 +115,7 @@ describe('the chat-lineage stamp', () => {
     const sessionId = '6f1c2a9e-5b7d-4c3e-9a8f-1d2e3f4a5b6c'
     const stamped = start({ kind: 'system' }, { chatLineage: true })
     bind(stamped, `orca_session_id:${sessionId}`)
-    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a well-formed Orca session id.
+    // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a well-formed OpenKodo session id.
     const creator = { kind: 'session', orcaSessionId: sessionId } as Parameters<
       OrchestrationDb['creatorStartsChatWorkers']
     >[0]

@@ -1,4 +1,4 @@
-// Orca's own Copilot follows Copilot's latest GitHub release, the build its own installer downloads.
+// OpenKodo's own Copilot follows Copilot's latest GitHub release, the build its own installer downloads.
 
 import { join } from 'node:path'
 import type { ManagedAgentCli, ManagedRuntimePin } from '../node-runtime/managed-runtime-release'

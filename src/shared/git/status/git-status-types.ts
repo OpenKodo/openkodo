@@ -55,7 +55,7 @@ export type ContinueRebaseResult = {
   hasStagedChanges?: boolean
   // Branch the rebase updates (head-name); null when detached.
   branch?: string | null
-  // Set when this Continue finished a rebase Orca started over an integrated upstream tip.
+  // Set when this Continue finished a rebase OpenKodo started over an integrated upstream tip.
   integratedUpstreamOid?: string
 }
 export type GitSubmoduleStatus = {

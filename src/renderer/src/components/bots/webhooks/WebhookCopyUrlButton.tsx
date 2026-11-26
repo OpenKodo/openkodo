@@ -24,7 +24,7 @@ export function WebhookCopyUrlButton({
 }): React.JSX.Element {
   const t = useTranslate()
   const key = useWebhookKey({ target, hookId, botName })
-  // Until Orca Cloud takes the hook there is no URL; the read polls only until then, so this fills in by itself.
+  // Until OpenKodo Cloud takes the hook there is no URL; the read polls only until then, so this fills in by itself.
   const read = usePendingWebhookSummary(target, hookId)
   const pending =
     read.status === 'loading' || (read.status === 'ready' && read.value.state === 'pending')

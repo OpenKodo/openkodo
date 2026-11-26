@@ -50,7 +50,7 @@ export const BotSharePublish = BotShareCandidate.extend({
     .optional()
 })
 
-/** A link the signed-in account owns; Orca Cloud refuses any other. It needs no bot on this computer:
+/** A link the signed-in account owns; OpenKodo Cloud refuses any other. It needs no bot on this computer:
  *  a deleted bot's link, or one made on another install, can be stopped too. */
 export const BotShareStop = z.object({
   shareId: requiredString('Missing link'),

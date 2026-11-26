@@ -10,7 +10,7 @@ import { joinRemotePath, type RemoteHostPlatform } from '../../ssh/remote-host/s
 import type { OrcadSlotOptions } from '../../managed-server/activation/orcad-recovery-slot'
 
 // Every shell running this probe carries it in argv, so the probe never counts itself.
-const PROBE_MARKER = '__ORCA_SLOT_PROCESS_PROBE__'
+const PROBE_MARKER = '__OPENKODO_SLOT_PROCESS_PROBE__'
 
 /** Prints LIVE, DEAD or UNKNOWN; anything unreadable is UNKNOWN. */
 export function wslOrcadSlotProcessProbeCommand(

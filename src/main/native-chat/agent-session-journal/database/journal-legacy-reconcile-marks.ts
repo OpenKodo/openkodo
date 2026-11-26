@@ -23,7 +23,7 @@ export type JournalLegacyFailure = {
   adoption?: true
 }
 
-/** Absorbed with its error: retried only when the older Orca writes this chat again. */
+/** Absorbed with its error: retried only when the older OpenKodo writes this chat again. */
 export function recordJournalLegacyFailure(
   db: Database.Database,
   failure: JournalLegacyFailure

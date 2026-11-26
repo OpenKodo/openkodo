@@ -1,6 +1,6 @@
 import type { Tab, TabGroup } from '../../../../../shared/workspace-layout/tab-groups/tab-types'
 import { createNonSecureContextUuid as createBrowserUuid } from '../../../../../shared/identifiers/non-secure-context-uuid'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { workspaceRootGroupId } from '../../../../../shared/workspace-layout/persistence/workspace-layout-minted-ids'
 import {
   replaceRecordEntries,
@@ -96,7 +96,9 @@ export function ensureWorktreeGroup(
     return { group: existing, created: false }
   }
   // Switch point: the root group id main and the Loader mint for a workspace with no group.
-  const groupId = ORCA_LAYOUT_OWNER_IS_MAIN ? workspaceRootGroupId(worktreeId) : createBrowserUuid()
+  const groupId = OPENKODO_LAYOUT_OWNER_IS_MAIN
+    ? workspaceRootGroupId(worktreeId)
+    : createBrowserUuid()
   return { group: { id: groupId, worktreeId, activeTabId: null, tabOrder: [] }, created: true }
 }
 

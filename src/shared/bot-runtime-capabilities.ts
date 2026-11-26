@@ -90,7 +90,7 @@ export const BOTS_AVATAR_REVISION_RUNTIME_CAPABILITY = 'bots.avatar-revision.v3'
 // phone keeps the read-only row.
 export const BOTS_SLACK_POST_AS_RUNTIME_CAPABILITY = 'bots.slack-post-as.v1' as const
 
-// Host lets a phone run Google's sign-in (google.signIn.start/wait/cancel), its page in Orca's browser there;
+// Host lets a phone run Google's sign-in (google.signIn.start/wait/cancel), its page in OpenKodo's browser there;
 // an older host refuses those calls, so the phone hands that step to the computer.
 export const BOTS_GOOGLE_PHONE_SIGN_IN_RUNTIME_CAPABILITY = 'bots.google-phone-sign-in.v1' as const
 

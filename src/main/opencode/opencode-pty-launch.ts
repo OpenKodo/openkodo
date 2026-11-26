@@ -47,14 +47,14 @@ export async function prepareOpenCodePtyLaunch(options: {
   const body = env?.[OPENCODE_STARTUP_PROMPT_BODY_ENV]
   const shell = env?.[OPENCODE_STARTUP_PROMPT_SHELL_ENV]
   if (env) {
-    delete env.ORCA_OPENCODE_PLUGIN_API
+    delete env.OPENKODO_OPENCODE_PLUGIN_API
     for (const key of intentKeys) {
       delete env[key]
     }
   }
   // Providers merge their own ambient environment after this preparation.
-  if (!options.envToDelete.includes('ORCA_OPENCODE_PLUGIN_API')) {
-    options.envToDelete.push('ORCA_OPENCODE_PLUGIN_API')
+  if (!options.envToDelete.includes('OPENKODO_OPENCODE_PLUGIN_API')) {
+    options.envToDelete.push('OPENKODO_OPENCODE_PLUGIN_API')
   }
   for (const key of intentKeys) {
     if (!options.envToDelete.includes(key)) {
@@ -80,13 +80,13 @@ export async function prepareOpenCodePtyLaunch(options: {
   }
   const launchEnv: Record<string, string> = {
     ...env,
-    ORCA_OPENCODE_PLUGIN_API: capabilities.pluginApi
+    OPENKODO_OPENCODE_PLUGIN_API: capabilities.pluginApi
   }
-  options.envToDelete.splice(options.envToDelete.indexOf('ORCA_OPENCODE_PLUGIN_API'), 1)
+  options.envToDelete.splice(options.envToDelete.indexOf('OPENKODO_OPENCODE_PLUGIN_API'), 1)
   if (
     capabilities.promptMode === 'prefill' &&
     !options.wsl &&
-    launchEnv.ORCA_AGENT_LAUNCH_TOKEN &&
+    launchEnv.OPENKODO_AGENT_LAUNCH_TOKEN &&
     requestedPrompt &&
     body &&
     command &&
@@ -113,8 +113,8 @@ export async function prepareOpenCodePtyLaunch(options: {
         if (installOpenCodeStartupPromptForLaunch(launchEnv, false, probeEnv)) {
           for (const key of [
             'OPENCODE_CONFIG_DIR',
-            'ORCA_OPENCODE_CONFIG_DIR',
-            'ORCA_OPENCODE_SOURCE_CONFIG_DIR'
+            'OPENKODO_OPENCODE_CONFIG_DIR',
+            'OPENKODO_OPENCODE_SOURCE_CONFIG_DIR'
           ]) {
             const deletion = options.envToDelete.indexOf(key)
             if (launchEnv[key] && deletion !== -1) {
@@ -156,7 +156,7 @@ export async function prepareOpenCodePtyLaunch(options: {
     }
   }
   if (options.wsl) {
-    addWslEnvKeys(launchEnv, ['ORCA_OPENCODE_PLUGIN_API'])
+    addWslEnvKeys(launchEnv, ['OPENKODO_OPENCODE_PLUGIN_API'])
   }
   return { env: launchEnv, command }
 }

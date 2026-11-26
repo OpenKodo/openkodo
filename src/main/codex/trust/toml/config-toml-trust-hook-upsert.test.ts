@@ -43,7 +43,7 @@ afterEach(() => {
 })
 
 describe('upsertHookTrustEntries', () => {
-  it('keeps a save that lands after Orca read the config and adds the approval on top of it', () => {
+  it('keeps a save that lands after OpenKodo read the config and adds the approval on top of it', () => {
     writeFileSync(configPath, 'model = "a"\n', 'utf-8')
     beforePublish.run = (path) => writeFileSync(path, 'model = "b"\n', 'utf-8')
 

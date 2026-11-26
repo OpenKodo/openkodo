@@ -60,7 +60,7 @@ export type LegacyProofPage = {
   historical?: true
   /** Claims only the original holds, for chats kept here, taken in before it retires. */
   claims?: LegacyClaim[]
-  /** Copies of chats an older Orca continued, converted from the original before it retires. */
+  /** Copies of chats an older OpenKodo continued, converted from the original before it retires. */
   copies?: string[]
 }
 

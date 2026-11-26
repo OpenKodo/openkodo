@@ -10,7 +10,7 @@ import { useReadOnOpen } from '../connector-connect-parts'
 import { OrcaCloudSignInGate, orcaCloudSignInReason } from '../orca-cloud-sign-in'
 import { BotLinearSetupFlow, LINEAR } from './BotLinearSetupFlow'
 
-/** "Add connector → Linear": one browser trip signs in (installing Orca on the way), then the bot is turned on. */
+/** "Add connector → Linear": one browser trip signs in (installing OpenKodo on the way), then the bot is turned on. */
 export function BotLinearSetupDialog({
   bot,
   workspaceId,
@@ -27,7 +27,7 @@ export function BotLinearSetupDialog({
   const on = useReadOnOpen(open, () =>
     botLinearWorkspaces(bot).some((entry) => entry.workspaceId === workspaceId)
   )
-  // An "Open Orca" return lands here instead of sending the owner to Settings.
+  // An "Open OpenKodo" return lands here instead of sending the owner to Settings.
   useConnectorSetupOpen(open)
   const setOpen = (next: boolean): void => {
     // Closing stops listening for a trip still in the browser.
@@ -39,7 +39,7 @@ export function BotLinearSetupDialog({
   const title = on
     ? t('bots.linear.setup.titleOn', '{{name}} in Linear', { name: bot.name })
     : t('bots.linear.setup.title', 'Add {{name}} to Linear', { name: bot.name })
-  // Away while Linear's page is in Orca's browser; the flow comes back once the sign-in ends.
+  // Away while Linear's page is in OpenKodo's browser; the flow comes back once the sign-in ends.
   const waiting = useConnectorConnect(bot.hostId, 'linear').status === 'waiting'
   const aside = useSetupStepAside()
   return (

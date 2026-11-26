@@ -98,11 +98,11 @@ export async function removeBotTool(bot: BotRef, name: string): Promise<void> {
 type ConnectAnswer =
   /** The tool's agent CLI signs in: the page to open, or null when the CLI opened it. */
   | { authorizationUrl: string | null }
-  /** Orca signs in: the host opened the browser itself. */
+  /** OpenKodo signs in: the host opened the browser itself. */
   | { attemptId: string; authorizationOrigin: string }
 
 /** Opens the tool's sign-in page, and returns it when it can be opened again (null: it can't, or
- *  nothing to sign in to); the host finishes once the browser comes back. `owned`: Orca signs in
+ *  nothing to sign in to); the host finishes once the browser comes back. `owned`: OpenKodo signs in
  *  to the tool (it has `signIn`), not its agent's CLI. */
 export async function connectBotTool(
   bot: BotRef,
@@ -111,7 +111,7 @@ export async function connectBotTool(
 ): Promise<string | null> {
   const key = startedKey(bot, name)
   begin(key)
-  // The web client has no Orca browser and signs in by pasting; a desktop opens a server bot's
+  // The web client has no OpenKodo browser and signs in by pasting; a desktop opens a server bot's
   // page in that server's own session, so the app returns to the server's listener.
   if (owned && isPairedWebClientWindow()) {
     return signInOnHost(bot, name, 'paste')
@@ -124,7 +124,7 @@ export async function connectBotTool(
     name
   })
     .catch(async (error: unknown) => {
-      // A Connect Orca refused (the app isn't supported, can't be reached) leaves its reason there.
+      // A Connect OpenKodo refused (the app isn't supported, can't be reached) leaves its reason there.
       const { progress } = await readSignInStatus(bot, name)
       if (progress?.state === 'failed') {
         started.delete(key)
@@ -217,9 +217,9 @@ export type BotToolSignInView = {
   active: boolean
   /** How the last one from this window ended; undefined while it runs or if none did. */
   outcome: string | undefined
-  /** Why Orca's own last sign-in failed; undefined if it didn't. */
+  /** Why OpenKodo's own last sign-in failed; undefined if it didn't. */
   failure: BotToolSignInFailure | 'needs-update' | undefined
-  /** The computer the bot runs on, for "Update Orca on …". */
+  /** The computer the bot runs on, for "Update OpenKodo on …". */
   hostName: string | null
 }
 

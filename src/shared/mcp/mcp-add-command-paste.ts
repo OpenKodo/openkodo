@@ -108,7 +108,7 @@ function parseClaudeAdd(tokens: readonly string[]): AgentMcpConfigEntry {
       case '--client-id':
       case '--client-secret':
       case '--callback-port':
-        // A pre-registered OAuth client of the agent's own; Orca signs in with its own client.
+        // A pre-registered OAuth client of the agent's own; OpenKodo signs in with its own client.
         throw new McpAddCommandError('unsupported')
       case '-e':
       case '--env':
@@ -201,7 +201,7 @@ function parseCodexAdd(tokens: readonly string[]): AgentMcpConfigEntry {
     } else if (flag === '--url') {
       url = value()
     } else if (flag === '--bearer-token-env-var') {
-      // The token comes from Codex's own environment, which Orca can't carry.
+      // The token comes from Codex's own environment, which OpenKodo can't carry.
       throw new McpAddCommandError('unsupported')
     } else if (!token.startsWith('-') && name === undefined) {
       name = token

@@ -9,7 +9,7 @@ export const BOT_SHARE_RECEIVE_ERRORS = {
   updated: 'bot_share_updated',
   /** The link was stopped, or never existed. */
   stopped: 'bot_share_stopped',
-  /** The review is gone (it expired, or Orca restarted): open the link again. */
+  /** The review is gone (it expired, or OpenKodo restarted): open the link again. */
   expired: 'bot_share_review_expired'
 } as const
 

@@ -1,5 +1,5 @@
 // A bot's own skills: one folder in its home, skills/<name>/SKILL.md, with a link to each in every
-// agent's skills folder so whichever agent the bot runs on loads them. Orca only ever creates a
+// agent's skills folder so whichever agent the bot runs on loads them. OpenKodo only ever creates a
 // missing link there: it never removes, replaces or rewrites anything in an agent's folder, so a
 // skill taken out of skills/ leaves its links dangling. Skills an agent's folder holds itself (older
 // bots) stay where they are and load for that agent only.

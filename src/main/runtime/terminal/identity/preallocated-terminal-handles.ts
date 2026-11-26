@@ -29,7 +29,7 @@ export abstract class RuntimePreallocatedTerminalHandles extends RuntimeMobileSe
     OrcaRuntimeWithInvalidateAllHandlesForPty['replaceSyntheticTerminalHandlesForRestoredPty']
   >
 
-  // Allocate before spawn so ORCA_TERMINAL_HANDLE lets agents self-identify; lazy RPC allocation reuses it.
+  // Allocate before spawn so OPENKODO_TERMINAL_HANDLE lets agents self-identify; lazy RPC allocation reuses it.
   preAllocateHandleForPty(ptyId: string): string {
     const existing = this.handleByPtyId.get(ptyId)
     if (existing) {

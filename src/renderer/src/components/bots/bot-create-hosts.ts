@@ -1,4 +1,4 @@
-// The computers New bot can make a bot on, why the others can't yet, and whose Orca account each runs under.
+// The computers New bot can make a bot on, why the others can't yet, and whose OpenKodo account each runs under.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { translate } from '@/i18n/i18n'
 import { useTranslate, type Translate } from '@/i18n/use-translate'
@@ -37,7 +37,7 @@ export type BotCreateHost = {
   platform?: NodeJS.Platform | null
   /** The host keeps paths the Windows way; absent for this app's own, which knows its own. */
   windows?: boolean
-  /** A WSL host main reports `idle` (its server exited with nothing using it, which includes Orca's
+  /** A WSL host main reports `idle` (its server exited with nothing using it, which includes OpenKodo's
    *  idle stop): unreachable now, but picking it wakes it, so it can be picked. */
   sleeping?: boolean
   /** A sleeping host this dialog is waking: picked, but no bot can be made until it answers. */
@@ -122,13 +122,13 @@ export function botCreateHostBlockedHint(
   }
   if (host.blocked === 'no-bots') {
     return updatable
-      ? t('bots.new.hostUpdate', 'Update Orca on {{host}}', { host: host.label })
-      : t('bots.new.hostNoBots', 'Orca on {{host}} can’t run bots yet', { host: host.label })
+      ? t('bots.new.hostUpdate', 'Update OpenKodo on {{host}}', { host: host.label })
+      : t('bots.new.hostNoBots', 'OpenKodo on {{host}} can’t run bots yet', { host: host.label })
   }
   if (host.blocked === 'needs-server') {
     return t(
       'bots.new.hostNeedsServerHint',
-      'Set up an Orca server on {{host}} in Settings → Remote Orca Servers to run bots.',
+      'Set up an OpenKodo server on {{host}} in Settings → Remote OpenKodo Servers to run bots.',
       {
         host: host.label
       }
@@ -139,7 +139,7 @@ export function botCreateHostBlockedHint(
 
 const NO_ACCOUNTS: ReadonlyMap<string, string | null> = new Map()
 
-/** Each paired server's Orca account by environment id, read once per open; null when signed out or it can't say. */
+/** Each paired server's OpenKodo account by environment id, read once per open; null when signed out or it can't say. */
 function useServerAccounts(
   environmentIds: readonly string[],
   open: boolean
@@ -182,7 +182,7 @@ export type BotCreateHostChoice = {
   hosts: readonly BotCreateHost[]
   host: BotCreateHost
   setHostId: (hostId: ExecutionHostId) => void
-  /** The server's own Orca account, shown when it differs from this app's: the bot runs as it. */
+  /** The server's own OpenKodo account, shown when it differs from this app's: the bot runs as it. */
   otherAccount: string | null
   /** `otherAccount` for each listed host whose account was read. */
   otherAccountOf: (hostId: ExecutionHostId) => string | null

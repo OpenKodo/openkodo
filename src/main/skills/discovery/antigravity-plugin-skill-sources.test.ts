@@ -137,8 +137,8 @@ describe('Antigravity plugin skill discovery', () => {
     ).toEqual(['valid-skill'])
   })
 
-  // Orca's server and agy on Orca's home get skill folders linked in, not `~/.gemini`'s plugins.
-  it('lists none while chats run in a home Orca owns', async () => {
+  // OpenKodo's server and agy on OpenKodo's home get skill folders linked in, not `~/.gemini`'s plugins.
+  it('lists none while chats run in a home OpenKodo owns', async () => {
     await writePlugin('on', ['plugin.json'])
     route.runsInOrcaHome = true
 

@@ -11,7 +11,7 @@ import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-path
 import { mainProcessState as state } from '../main-process-state'
 
 /**
- * The desktop's or Electron `orca serve`'s connector, as this process's own Orca account.
+ * The desktop's or Electron `orca serve`'s connector, as this process's own OpenKodo account.
  * Created before the window exists, so its sign-in and sign-out hooks always find it.
  */
 export function installMainProcessConnectorCloud(serve: boolean): void {

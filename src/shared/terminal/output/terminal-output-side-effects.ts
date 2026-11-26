@@ -156,7 +156,7 @@ export function createTerminalTitleTracker(
   }
 
   function applyObservedTitle(rawTitle: string): void {
-    // Why: cursor-agent re-emits its bare native title mid-turn; passing it through would stomp Orca's synthesized spinner state.
+    // Why: cursor-agent re-emits its bare native title mid-turn; passing it through would stomp OpenKodo's synthesized spinner state.
     if (isCursorNativeAgentTitle(rawTitle)) {
       if (shouldSuppressCursorNativeTitle(lastEmittedTitle)) {
         return

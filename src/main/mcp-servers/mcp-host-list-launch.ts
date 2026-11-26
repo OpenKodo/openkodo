@@ -15,7 +15,7 @@ import { botToolEntries, readBotToolsSnapshot } from '../bots/bot-tools-file'
 import { mcpHostListFolder } from './mcp-host-list-folder'
 import { sharedIds, type McpLaunchServers } from './mcp-shared-process-servers'
 
-// An entry whose workspaces Orca can't read is on nowhere, never everywhere.
+// An entry whose workspaces OpenKodo can't read is on nowhere, never everywhere.
 const NO_WORKSPACES: McpServerWorkspaces = { later: false, on: [], off: [] }
 
 export type McpServerSettings = Pick<McpServer, 'agentsOff' | 'workspaces' | 'sharedProcess'>
@@ -104,7 +104,7 @@ export async function mcpServersWithDigestsForLaunch(
 
 /**
  * Each credential's saved values or sign-in, as the tools revision counts them, from one read of
- * the store. A store Orca can't read never keeps the servers from launching.
+ * the store. A store OpenKodo can't read never keeps the servers from launching.
  */
 function savedValues(folder: string, credentials: ReadonlySet<string>): Map<string, unknown> {
   if (credentials.size === 0) {
@@ -132,12 +132,12 @@ export async function mcpServerForLaunch(
 
 /** The whole list, and the entries on for this launch. */
 async function launchEntries(agent: string, workspace: LaunchWorkspace, folder: string) {
-  // Read only: a launch never writes the list, even to give an entry edited outside Orca its id.
+  // Read only: a launch never writes the list, even to give an entry edited outside OpenKodo its id.
   const all = botToolEntries(await readBotToolsSnapshot(folder))
   return { all, on: all.filter(({ extras }) => isOnForLaunch(extras, agent, workspace)) }
 }
 
-/** A server a launch gets, with its id (null for an entry edited outside Orca that has none yet). */
+/** A server a launch gets, with its id (null for an entry edited outside OpenKodo that has none yet). */
 export type McpLaunchEntry = { id: string | null; server: BotToolServer }
 
 /** `mcpServersForLaunch` with each server's id: a repeated id names its first entry, as

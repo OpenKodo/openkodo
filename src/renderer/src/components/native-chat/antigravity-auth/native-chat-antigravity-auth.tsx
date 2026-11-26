@@ -48,9 +48,9 @@ export type AntigravitySwitchableMethod = Exclude<Method, 'oauth-business'>
 /** An Antigravity chat's host and which agy runs its chats there. */
 export type NativeChatAntigravityAuthTarget = {
   host: RuntimeClientTarget
-  /** Orca's installed agy or the person's own; null until the host says, or while none is. */
+  /** OpenKodo's installed agy or the person's own; null until the host says, or while none is. */
   agy: 'orcas' | 'yours' | null
-  /** The version of Orca's installed agy, when the host has reported one. */
+  /** The version of OpenKodo's installed agy, when the host has reported one. */
   managedVersion: string | null
   /** This chat runs on agy's own home and Google login, whatever method new chats use. */
   ownLogin: boolean
@@ -118,7 +118,7 @@ async function applyAntigravityChatAuthMethod(
         ? cause.message
         : t(
             'components.native-chat.antigravityAuth.switchFailed',
-            "Orca couldn't change how Antigravity signs in. Try again."
+            "OpenKodo couldn't change how Antigravity signs in. Try again."
           )
     )
   }

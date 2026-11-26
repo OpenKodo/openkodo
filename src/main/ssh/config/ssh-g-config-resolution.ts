@@ -197,7 +197,7 @@ export async function runSshG(args: string[]): Promise<SshResolvedConfig | null>
   try {
     const result = await runProcess({
       // Honor the user's explicit ssh override; otherwise PATH ssh, which may be newer than the system one.
-      program: process.env.ORCA_SYSTEM_SSH_PATH || 'ssh',
+      program: process.env.OPENKODO_SYSTEM_SSH_PATH || 'ssh',
       args,
       timeoutMs: SSH_G_TIMEOUT_MS
     })

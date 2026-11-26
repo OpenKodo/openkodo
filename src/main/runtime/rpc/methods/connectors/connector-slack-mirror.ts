@@ -1,4 +1,4 @@
-// The owner's Slack thread switch and post actions for a bot's chat, from Orca or a phone; an agent's
+// The owner's Slack thread switch and post actions for a bot's chat, from OpenKodo or a phone; an agent's
 // CLI never changes who sees the owner's words.
 import {
   ConnectorSlackMirrorPost,

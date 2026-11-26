@@ -1,4 +1,4 @@
-// Orca Cloud's words already say what to do (an Update link among them); a read's typed reason is added, never swapped in.
+// OpenKodo Cloud's words already say what to do (an Update link among them); a read's typed reason is added, never swapped in.
 const READ_HINTS: Readonly<Record<string, string>> = {
   slack_thread_not_found:
     "Use the ref of the thread's root message; `orca slack read <channel>` lists current refs.",

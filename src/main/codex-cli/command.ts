@@ -35,7 +35,7 @@ export function resolveGuestNativeAgentCommand(
   )
 }
 
-/** The user's own install wins; Orca's copy serves hosts that have none. */
+/** The user's own install wins; OpenKodo's copy serves hosts that have none. */
 function orUseManagedCopy(agent: ManagedAgentCliId, resolved: string): string {
   return isAbsolute(resolved) && !resolved.startsWith(WINDOWS_ONLY_AGENT_CLI_DIR)
     ? resolved

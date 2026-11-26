@@ -60,7 +60,7 @@ export function isPersonOwnedStep(
 export const GOOGLE_SETUP_FINISHED_OUTSIDE_NOTE =
   'Finished outside the card: Google is connected and ready.'
 
-/** A Done after Orca already finished the run from a working sign-in: it changes nothing. */
+/** A Done after OpenKodo already finished the run from a working sign-in: it changes nothing. */
 export const lateDone = (change: GoogleSetupChange): boolean =>
   change.action === 'done' ||
   (change.action === 'answer' && change.card === 'step' && change.values[0] === 'done')
@@ -139,7 +139,7 @@ export function recordAnswer(
       } else if (first === 'let-me' && isStep(second)) {
         run.personStep = second
       } else if (first === 'done' && isStep(second)) {
-        // The person's own Done on a step card, their sign-in, or the app key Orca saved for them:
+        // The person's own Done on a step card, their sign-in, or the app key OpenKodo saved for them:
         // the only way a person-owned step finishes.
         if (actor === 'bot') {
           throw new GoogleSetupError(PERSON_FINISHES)

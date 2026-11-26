@@ -71,7 +71,7 @@ export function startBrowserExtensionSidePanelGuest(guest: Electron.WebContents)
   panel.guest = guest
   recordBrowserSessionInput(guest)
   // Why as the page beside it: a focused panel swallows keys and its clicks never reach the host
-  // DOM, so Orca's shortcuts (Mod+L, close tab) and split focus act for that page, as in Chrome.
+  // DOM, so OpenKodo's shortcuts (Mod+L, close tab) and split focus act for that page, as in Chrome.
   // Extension commands are observed with every extension view (browser-extension-startup).
   const host = guest.hostWebContents
   const resolveHost = (): Electron.WebContents | null => (host && !host.isDestroyed() ? host : null)

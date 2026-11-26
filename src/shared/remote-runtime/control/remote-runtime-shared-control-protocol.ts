@@ -26,7 +26,9 @@ export function parseSharedControlFrame(
   if (!handshake) {
     return {
       type: 'error',
-      error: invalidRemoteRuntimeResponseError('Remote Orca runtime returned a frame before E2EE.')
+      error: invalidRemoteRuntimeResponseError(
+        'Remote OpenKodo runtime returned a frame before E2EE.'
+      )
     }
   }
   const opened = openSealedText(handshake, frame)
@@ -104,12 +106,12 @@ export function getCleanupRequest(
 export function formatSharedControlCloseMessage(code: number, reason: Buffer): string {
   const reasonText = reason.toString().trim()
   if (code !== 1005 && code !== 1006 && reasonText) {
-    return `Remote Orca runtime closed the connection (${code}: ${reasonText}).`
+    return `Remote OpenKodo runtime closed the connection (${code}: ${reasonText}).`
   }
   if (code !== 1005 && code !== 1006) {
-    return `Remote Orca runtime closed the connection (${code}).`
+    return `Remote OpenKodo runtime closed the connection (${code}).`
   }
-  return 'Remote Orca runtime closed the connection.'
+  return 'Remote OpenKodo runtime closed the connection.'
 }
 
 export function sendSharedControlEncrypted(args: {

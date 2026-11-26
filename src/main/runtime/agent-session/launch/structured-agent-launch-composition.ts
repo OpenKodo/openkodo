@@ -53,7 +53,7 @@ export type StructuredAgentLaunchSources = {
   readOnlySession?: (sessionId: string) => ReadOnlySessionMode | null
   /** Work every launch of this session waits for, read-only ones too; a rejection stops the launch. */
   prepareLaunch?: (record: AgentSessionRecord, launchDirectory: string) => Promise<void>
-  /** The MCP servers Orca adds to the session: a bot's own, and the host's list; absent adds none. */
+  /** The MCP servers OpenKodo adds to the session: a bot's own, and the host's list; absent adds none. */
   resolveToolServers?: (
     record: AgentSessionRecord,
     launchDirectory: string
@@ -78,7 +78,7 @@ export type StructuredAgentLaunchBasis = {
   visuals(): Promise<NativeChatVisualsLaunch | null>
   /** Null when there are none. A resumed conversation keeps the ones it started with, in both agents. */
   instructions(linkedSkills?: string | null): Promise<string | null>
-  /** The MCP servers Orca adds (a bot's own and the host's list); none for a read-only session. */
+  /** The MCP servers OpenKodo adds (a bot's own and the host's list); none for a read-only session. */
   toolServers(): Promise<SessionMcpTools>
   /** The bot's linked-skills folder the chat loads beside the agent's own; none for any other chat. */
   linkedSkills(): Promise<LinkedSkills>

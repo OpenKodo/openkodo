@@ -2,12 +2,12 @@
 set -euo pipefail
 
 signal_name=${1:?signal name is required}
-app_root=${ORCA_TEST_APP_ROOT:-/artifacts/root}
-signal_target_kind=${ORCA_SIGNAL_TARGET:-app}
-entrypoint_kind=${ORCA_TEST_ENTRYPOINT:-app}
-int_delivery=${ORCA_INT_DELIVERY:-foreground-process-group}
+app_root=${OPENKODO_TEST_APP_ROOT:-/artifacts/root}
+signal_target_kind=${OPENKODO_SIGNAL_TARGET:-app}
+entrypoint_kind=${OPENKODO_TEST_ENTRYPOINT:-app}
+int_delivery=${OPENKODO_INT_DELIVERY:-foreground-process-group}
 # Allow cold CI’s ~90s Electron startup plus log delivery before the observer deadline.
-startup_timeout_seconds=${ORCA_STARTUP_TIMEOUT_SECONDS:-180}
+startup_timeout_seconds=${OPENKODO_STARTUP_TIMEOUT_SECONDS:-180}
 
 if ((EUID == 0)); then
   exec runuser --user orca --preserve-environment -- "$0" "$@"
@@ -38,7 +38,7 @@ export XDG_CACHE_HOME="$state_dir/cache"
 export XDG_RUNTIME_DIR="$state_dir/runtime"
 export LIBGL_ALWAYS_SOFTWARE=1
 # Every entrypoint must serve the profile the caller chose, not the default one.
-export ORCA_USER_DATA_PATH="$state_dir/profile"
+export OPENKODO_USER_DATA_PATH="$state_dir/profile"
 mkdir -p "$HOME" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME" "$XDG_RUNTIME_DIR"
 chmod 700 "$XDG_RUNTIME_DIR"
 
@@ -46,7 +46,7 @@ case "$entrypoint_kind" in
   app) entrypoint=("$app_root/AppRun" --no-sandbox) ;;
   appimage) entrypoint=(/input/orca.AppImage --appimage-extract-and-run --no-sandbox) ;;
   launcher)
-    entrypoint=("$app_root/resources/bin/orca-ide")
+    entrypoint=("$app_root/resources/bin/openkodo")
     ;;
   *) echo "unsupported entrypoint: $entrypoint_kind" >&2; exit 64 ;;
 esac
@@ -80,16 +80,16 @@ if [[ -z "$ready_line" ]]; then
   exit 1
 fi
 
-if [[ ! -f "$ORCA_USER_DATA_PATH/orca-runtime.json" || -e "$XDG_CONFIG_HOME/orca/orca-runtime.json" ]]; then
-  ls -la "$ORCA_USER_DATA_PATH" "$XDG_CONFIG_HOME" >&2 || true
-  echo "FAIL: serve ignored ORCA_USER_DATA_PATH; its runtime metadata is not in $ORCA_USER_DATA_PATH" >&2
+if [[ ! -f "$OPENKODO_USER_DATA_PATH/orca-runtime.json" || -e "$XDG_CONFIG_HOME/orca/orca-runtime.json" ]]; then
+  ls -la "$OPENKODO_USER_DATA_PATH" "$XDG_CONFIG_HOME" >&2 || true
+  echo "FAIL: serve ignored OPENKODO_USER_DATA_PATH; its runtime metadata is not in $OPENKODO_USER_DATA_PATH" >&2
   exit 1
 fi
 
 registered_cli_verified=false
 if [[ "$entrypoint_kind" == appimage ]]; then
-  registered_cli="$HOME/.local/bin/orca-ide"
-  expected_target="$XDG_CACHE_HOME/orca/appimage/launcher/orca-ide"
+  registered_cli="$HOME/.local/bin/openkodo"
+  expected_target="$XDG_CACHE_HOME/orca/appimage/launcher/openkodo"
   actual_target=$(readlink "$registered_cli" 2>/dev/null || true)
   if [[ "$actual_target" != "$expected_target" ]]; then
     echo "FAIL: registered CLI target is ${actual_target:-missing}; expected $expected_target" >&2
@@ -203,7 +203,7 @@ for shutdown_poll in {0..50}; do
     fi
   done
   owned_residue=$(ps -eo pid=,ppid=,stat=,args= | awk -v state="$state_dir" \
-    '($0 ~ state || $0 ~ /\/artifacts\/root\/orca-ide/ || $0 ~ /[X]vfb :99 /) && $0 !~ /awk -v state=/ {print}' || true)
+    '($0 ~ state || $0 ~ /\/artifacts\/root\/openkodo/ || $0 ~ /[X]vfb :99 /) && $0 !~ /awk -v state=/ {print}' || true)
   if [[ -z "$listener_after" && -z "$owned_residue" ]] \
     && ((${#survivors[@]} == 0)); then
     break

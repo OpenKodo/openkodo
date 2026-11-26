@@ -8,7 +8,7 @@ import {
   type WslHostUninstallStopDependencies
 } from '../../wsl/host-lifecycle/wsl-host-uninstall-server-stop'
 
-/** The NSIS uninstaller's flag (config/nsis/orca-installer-hooks.nsh); keep the two in sync. */
+/** The NSIS uninstaller's flag (config/nsis/openkodo-installer-hooks.nsh); keep the two in sync. */
 export const WSL_HOLDER_UNINSTALL_FLAG = '--orca-uninstall-release-wsl-holders'
 /** Added only by the last install for this user: its HKCU/HKLM twin shares these hosts' servers. */
 export const WSL_SERVER_UNINSTALL_FLAG = '--orca-uninstall-stop-wsl-servers'
@@ -52,7 +52,7 @@ export function runWslHolderUninstallPreflight(argv: readonly string[] = process
   let holder: WslDistroHolder
   let servers: WslHostUninstallStopDependencies | undefined
   try {
-    process.env.ORCA_BACKGROUND_LAUNCH = '1'
+    process.env.OPENKODO_BACKGROUND_LAUNCH = '1'
     // The same userData the app records holders under; before any other preflight step.
     ensureWindowsAppDataPath(app)
     holder = createWslDistroHolder({ userDataPath: app.getPath('userData') })

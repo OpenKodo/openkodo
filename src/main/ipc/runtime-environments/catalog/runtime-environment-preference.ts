@@ -76,7 +76,7 @@ export function watchRuntimeEnvironmentRegistry(
   onChanged: () => void,
   owner: string
 ): () => void {
-  // Watch the file: macOS directory watches recursively stream Orca's own userData writes.
+  // Watch the file: macOS directory watches recursively stream OpenKodo's own userData writes.
   const registryWatch = watchFileAcrossReplacement(
     getEnvironmentStorePath(userDataPath),
     onChanged,

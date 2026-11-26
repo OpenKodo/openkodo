@@ -29,13 +29,14 @@ export function botOfCaller(
   return lookBotId ? (runtime.bots.list().find((entry) => entry.id === lookBotId) ?? null) : null
 }
 
-/** A token that names no bot now: its bot was deleted, or Orca restarted since its run started. */
-export const BOT_TOKEN_ENDED = 'This bot run’s Orca token has ended. Start a new chat with the bot.'
+/** A token that names no bot now: its bot was deleted, or OpenKodo restarted since its run started. */
+export const BOT_TOKEN_ENDED =
+  'This bot run’s OpenKodo token has ended. Start a new chat with the bot.'
 
 export type BotTokenCaller = { kind: 'owner' } | { kind: 'bot'; bot: Bot } | { kind: 'ended' }
 
 /**
- * Who a command came from, by the token Orca handed its bot's run (bot-tool-relay.ts), never by a
+ * Who a command came from, by the token OpenKodo handed its bot's run (bot-tool-relay.ts), never by a
  * session id the run can rename. No token is the owner's own terminal or agent; a bot run that drops
  * its token passes as the owner, the same limit as its tools. A token names a bot only on its host.
  */

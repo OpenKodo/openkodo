@@ -7,7 +7,7 @@ import {
   type ExternalConversationLink
 } from '../../shared/connectors/external-conversation-link'
 
-// A terminal pane's link from an older Orca has no session and is skipped.
+// A terminal pane's link from an older OpenKodo has no session and is skipped.
 const ExternalConversationLinkSchema = z.object({
   source: z.enum(CONNECTOR_SOURCES),
   externalId: z.string(),

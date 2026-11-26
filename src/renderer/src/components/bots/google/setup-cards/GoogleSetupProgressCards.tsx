@@ -34,7 +34,7 @@ import { googleSetupStepTitle } from './google-setup-card-copy'
 import { answerGoogleSetup, stopGoogleSetup, useGoogleSetupBlocker } from './google-setup-run-store'
 
 function keySource(run: GoogleSetupRun, armed: boolean): KeySource {
-  // Orca's browser hands the key to main as it downloads; only the person's own browser needs a watch.
+  // OpenKodo's browser hands the key to main as it downloads; only the person's own browser needs a watch.
   return armed && run.mode === 'guide-browser' && googleSetupAwaitsKey(run)
     ? { kind: 'downloads' }
     : null
@@ -263,7 +263,7 @@ export function GoogleSetupStepCard({
   botName: string
   step: GoogleSetupStep
   run: GoogleSetupRun
-  /** Orca writes a waiting step card again at the bottom; only the newest copy acts. */
+  /** OpenKodo writes a waiting step card again at the bottom; only the newest copy acts. */
   newest: boolean
 }): React.JSX.Element {
   const t = useTranslate()

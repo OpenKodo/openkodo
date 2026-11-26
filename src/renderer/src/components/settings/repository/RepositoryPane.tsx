@@ -71,7 +71,7 @@ type RepositoryPaneProps = {
   settingsSelectionKey?: string
   settingsEntryRepoIds?: ReadonlySet<string>
   removalScope?: SettingsProjectRemovalScope
-  /** Every checkout the remove action takes out of Orca. */
+  /** Every checkout the remove action takes out of OpenKodo. */
   removalSetups?: readonly ProjectHostSetup[]
   isLocalWindowsProject?: boolean
   wslAvailable?: boolean
@@ -166,7 +166,7 @@ export function RepositoryPane({
   }
 
   const handleCopyTemplate = async () => {
-    // Make missing-orca.yaml migration a one-click copy of the expected shared-template shape.
+    // Make missing-openkodo.yaml migration a one-click copy of the expected shared-template shape.
     await window.api.ui.writeClipboardText(`scripts:
   setup: |
     pnpm worktree:setup

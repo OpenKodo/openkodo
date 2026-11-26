@@ -45,7 +45,7 @@ export const McpServerProblems = z.object({
   scope: z.enum(['all', 'remote']).optional()
 })
 
-// Orca's own sign-in, run on the host for the calling device. `routed`: the host's listener takes the
+// OpenKodo's own sign-in, run on the host for the calling device. `routed`: the host's listener takes the
 // browser's return (the desktop on this computer, or a page routed to it); `paste`: the device sends
 // back the query of the address its browser ended on.
 export const McpServerSignInStart = z.object({ id: ServerId, mode: z.enum(['routed', 'paste']) })
@@ -68,7 +68,7 @@ export const McpServerDiscover = z.object({})
 // `key`: a discovered server's, from mcpServers.discover.
 export const McpServerImport = z.object({ key: z.string().min(1).max(512) })
 
-// The agents whose own MCP file Orca keeps its servers in, with the user's consent.
+// The agents whose own MCP file OpenKodo keeps its servers in, with the user's consent.
 export const McpServerAgentFilesAllow = z.object({
   agent: z.enum(MCP_FILE_AGENTS),
   allowed: z.boolean()
@@ -99,7 +99,7 @@ export const McpServerSetWorkspaces = z.object({
 
 export const McpServerSetSharedProcess = z.object({ id: ServerId, enabled: z.boolean() })
 
-// Sessions still on an older list: how many, and how many Orca can restart in place.
+// Sessions still on an older list: how many, and how many OpenKodo can restart in place.
 export const McpServerSessions = z.object({})
 
 export type McpServerAddParams = z.infer<typeof McpServerAdd>

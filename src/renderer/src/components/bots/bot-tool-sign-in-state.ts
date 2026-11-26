@@ -14,7 +14,7 @@ export const connecting = new Set<string>()
 export const startedKey = (bot: BotRef, name: string) => `${botRefKey(bot)}\0${name}`
 // How each ended sign-in went, as the host last said: done, failed, or still pending past the watch.
 export const outcomes = new Map<string, string>()
-// Why a sign-in Orca ran itself failed, when the host said; `needs-update`: the host's Orca predates
+// Why a sign-in OpenKodo ran itself failed, when the host said; `needs-update`: the host's OpenKodo predates
 // signing in for another device.
 export const failures = new Map<string, BotToolSignInFailure | 'needs-update'>()
 
@@ -23,7 +23,7 @@ export function botToolSignInOutcome(bot: BotRef, name: string): string | undefi
   return outcomes.get(startedKey(bot, name))
 }
 
-/** Why the last sign-in Orca ran for the tool from this window failed; undefined if it didn't. */
+/** Why the last sign-in OpenKodo ran for the tool from this window failed; undefined if it didn't. */
 export function botToolSignInFailure(
   bot: BotRef,
   name: string

@@ -61,7 +61,7 @@ export type BotToolSignInAttempt = {
   completeFromCallback(query: URLSearchParams): Promise<void>
 }
 
-/** What Orca registers as: a public native client (RFC 8252) for one exact redirect. */
+/** What OpenKodo registers as: a public native client (RFC 8252) for one exact redirect. */
 function clientMetadata(redirectUri: string, metadata: AuthorizationServerMetadata) {
   const methods = metadata.token_endpoint_auth_methods_supported
   const method = methods?.includes('none')
@@ -70,7 +70,7 @@ function clientMetadata(redirectUri: string, metadata: AuthorizationServerMetada
       ? 'client_secret_post'
       : undefined
   return {
-    client_name: 'Orca',
+    client_name: 'OpenKodo',
     redirect_uris: [redirectUri],
     grant_types: ['authorization_code', 'refresh_token'],
     response_types: ['code'],

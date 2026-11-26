@@ -149,7 +149,7 @@ export class AntigravityAccountService {
         throw new Error('Switch agy to another account before removing the one it is signed in to.')
       }
       vault.accounts = vault.accounts.filter((entry) => entry.id !== id)
-      // Only Orca's snapshot goes; agy keeps its own login, so a removed selection must stop gating launches.
+      // Only OpenKodo's snapshot goes; agy keeps its own login, so a removed selection must stop gating launches.
       if (vault.selectedAccountId === id) {
         vault.selectedAccountId = null
       }

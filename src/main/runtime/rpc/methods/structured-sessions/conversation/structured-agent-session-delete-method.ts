@@ -11,7 +11,7 @@ export const STRUCTURED_AGENT_SESSION_DELETE_METHOD = defineMethod({
   params: OptionsParams,
   handler: async (params, ctx) => {
     requireStructuredCapability(ctx)
-    ownerOnly(ctx, 'Only the owner deletes chats, in Orca.')
+    ownerOnly(ctx, 'Only the owner deletes chats, in OpenKodo.')
     return deleteOrcaChat(ctx.runtime, params.sessionId)
   }
 })

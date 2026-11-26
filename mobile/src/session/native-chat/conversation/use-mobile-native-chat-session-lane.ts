@@ -104,7 +104,7 @@ export function useMobileNativeChatSessionLane({
   const workerApprovals = useMobileWorkerApprovals({
     client,
     connState,
-    // A terminal chat's id is its agent's own, never an Orca session a worker reports to.
+    // A terminal chat's id is its agent's own, never an OpenKodo session a worker reports to.
     sessionId: structured ? sessionId : null,
     onAnswered: onActionResolved,
     onAnswerError: onSendError

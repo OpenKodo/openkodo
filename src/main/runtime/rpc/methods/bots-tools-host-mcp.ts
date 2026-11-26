@@ -1,6 +1,6 @@
 // bots.tools.setHostMcpServers: whether a bot's sessions also take its host's MCP server list. The
 // choice lives on the bot's record, which the bot can't write (its home folder it can), and only a
-// person sets it from Orca or a phone: the transport names the caller, and any agent's `orca` CLI
+// person sets it from OpenKodo or a phone: the transport names the caller, and any agent's `orca` CLI
 // is refused whatever it claims, so a bot never grants itself the user's servers and sign-ins.
 import { BotToolsSetHostMcpServers } from '../../../../shared/rpc-contract/bots-tools-params'
 import { botHomeFolder } from '../../../bots/bot-home'
@@ -18,7 +18,7 @@ export const BOT_TOOLS_HOST_MCP_METHODS = [
     handler: async (params, context) => {
       assertMcpServersFeatureEnabled()
       if (!context.caller || isAgentRpcCaller(context.caller)) {
-        throw new InvalidArgumentError('Change which servers a bot gets in Orca.')
+        throw new InvalidArgumentError('Change which servers a bot gets in OpenKodo.')
       }
       let changed = false
       const bot = await context.runtime.bots.update(targetBot(params, context).id, (current) => {

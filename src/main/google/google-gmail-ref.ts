@@ -1,4 +1,4 @@
-// Gmail refs as commands take them: Orca's gmail:thread:/gmail:msg: ids, a bare API id, or a Gmail
+// Gmail refs as commands take them: OpenKodo's gmail:thread:/gmail:msg: ids, a bare API id, or a Gmail
 // web link. Newer links end in a view token (FMfcgz…): the API id's decimal as "f:<n>" (thread) or
 // "msg-f:<n>", base64-encoded and rewritten as a base-40 number in consonants.
 import { GoogleToolError } from './google-api-client'
@@ -12,9 +12,9 @@ const VIEW_TOKEN = new RegExp(`^[${TOKEN_ALPHABET}]{20,200}$`)
 const GMAIL_LINK = 'https://mail.google.com/'
 
 const UNREADABLE_LINK =
-  "Orca can't read the id in that Gmail link. Find the mail with `orca gmail search` by its subject, or with rfc822msgid:<Message-ID>, and use the ref it prints."
+  "OpenKodo can't read the id in that Gmail link. Find the mail with `orca gmail search` by its subject, or with rfc822msgid:<Message-ID>, and use the ref it prints."
 
-/** A Gmail view token's API id, or null when it isn't one Orca can map to an API id. */
+/** A Gmail view token's API id, or null when it isn't one OpenKodo can map to an API id. */
 export function decodeGmailViewToken(token: string): GmailRef | null {
   if (!VIEW_TOKEN.test(token)) {
     return null
@@ -36,7 +36,7 @@ export function decodeGmailViewToken(token: string): GmailRef | null {
   return id.length <= 16 ? { kind: payload[1] === 'msg-f' ? 'msg' : 'thread', id } : null
 }
 
-/** A Gmail id as Orca prints it, a bare id, or a Gmail web link to a thread or message. */
+/** A Gmail id as OpenKodo prints it, a bare id, or a Gmail web link to a thread or message. */
 export function parseGmailRef(ref: string): GmailRef {
   const trimmed = ref.trim()
   const typed = /^gmail:(thread|msg):([A-Za-z0-9]+)$/.exec(trimmed)
@@ -89,7 +89,7 @@ export async function gmailLinksAccount(
   refs: readonly string[],
   accounts: () => Promise<readonly string[]>
 ): Promise<string | undefined> {
-  // A link Orca can't read says so before any account question.
+  // A link OpenKodo can't read says so before any account question.
   refs.filter((ref) => ref.trim().startsWith(GMAIL_LINK)).forEach(parseGmailRef)
   const hints = refs.map(gmailLinkAccount)
   const named = [...new Set(hints.flatMap((hint) => (hint && hint !== 'slot' ? [hint.email] : [])))]
@@ -107,7 +107,7 @@ export async function gmailLinksAccount(
   }
   throw new GoogleToolError(
     emails.length === 0
-      ? 'No Google account is connected on this computer. Ask your owner to connect one in Orca.'
+      ? 'No Google account is connected on this computer. Ask your owner to connect one in OpenKodo.'
       : `That Gmail link's /u/N/ is the browser's account slot, not an account. Pass --account with one of: ${emails.join(', ')}.`
   )
 }

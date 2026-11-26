@@ -18,15 +18,15 @@ beforeEach(() => {
   mkdirSync(wsl)
   writeFileSync(join(wsl, 'wsl-browser-network-relay.js'), '')
   writeFileSync(join(wsl, '.browser-network-version'), '1.0.0+abc')
-  previousRelayPath = process.env.ORCA_RELAY_PATH
-  process.env.ORCA_RELAY_PATH = relayPath
+  previousRelayPath = process.env.OPENKODO_RELAY_PATH
+  process.env.OPENKODO_RELAY_PATH = relayPath
 })
 
 afterEach(() => {
   if (previousRelayPath === undefined) {
-    delete process.env.ORCA_RELAY_PATH
+    delete process.env.OPENKODO_RELAY_PATH
   } else {
-    process.env.ORCA_RELAY_PATH = previousRelayPath
+    process.env.OPENKODO_RELAY_PATH = previousRelayPath
   }
   rmSync(relayPath, { recursive: true, force: true })
 })

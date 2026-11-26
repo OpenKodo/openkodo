@@ -10,7 +10,7 @@ import { exposeUtcTimestamp, toSqliteUtcTimestamp } from '../utc-timestamp'
 
 const RELEASABLE_STATES_SQL = WORKER_RELEASABLE_STATES.map((state) => `'${state}'`).join(', ')
 
-// The owner Dispatch, local or a paired host's attachment, finished in a state Orca may close.
+// The owner Dispatch, local or a paired host's attachment, finished in a state OpenKodo may close.
 export const OWNER_RELEASABLE_SQL = `(
   EXISTS (
     SELECT 1 FROM worker_dispatches w

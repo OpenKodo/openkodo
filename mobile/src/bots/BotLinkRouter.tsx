@@ -38,7 +38,7 @@ import { useBotLinkHostAnswers } from './use-bot-link-host-answers'
 
 type BotLinkOpen = { computer: BotLinkComputerAnswer; bot: BotLinkMatch['bot'] }
 
-/** Opens `orca://bot/…` links on the computer that lists the bot: a paired host, or a server it
+/** Opens `openkodo://bot/…` links on the computer that lists the bot: a paired host, or a server it
  *  relays, on that paired host's screen. Stays mounted: unmounting would cancel the open. */
 export function BotLinkRouter() {
   const link = useSyncExternalStore(subscribeToPendingBotLink, readPendingBotLink)
@@ -59,7 +59,7 @@ export function BotLinkRouter() {
         })
         return
       }
-      Alert.alert(t('bots.link.updateOrca', 'Update Orca'), botLinkUpdateNeededLine(t, names))
+      Alert.alert(t('bots.link.updateOrca', 'Update OpenKodo'), botLinkUpdateNeededLine(t, names))
     },
     [router, t]
   )

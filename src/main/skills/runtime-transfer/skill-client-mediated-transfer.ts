@@ -18,9 +18,9 @@ const REMOTE_TRANSFER_CLEANUP_TIMEOUT_MS = 15_000
 /** Where a skill or bot package may be downloaded from; a dev build adds the configured test origins. */
 export function skillPackageDownloadOrigins(allowConfiguredOrigins: boolean): string[] {
   const origins = ['https://storage.googleapis.com']
-  if (allowConfiguredOrigins && process.env.ORCA_SKILL_PACKAGE_DOWNLOAD_ORIGINS) {
+  if (allowConfiguredOrigins && process.env.OPENKODO_SKILL_PACKAGE_DOWNLOAD_ORIGINS) {
     origins.push(
-      ...process.env.ORCA_SKILL_PACKAGE_DOWNLOAD_ORIGINS.split(',')
+      ...process.env.OPENKODO_SKILL_PACKAGE_DOWNLOAD_ORIGINS.split(',')
         .map((origin) => origin.trim())
         .filter(Boolean)
     )

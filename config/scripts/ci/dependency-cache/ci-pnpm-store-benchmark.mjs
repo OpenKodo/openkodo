@@ -45,7 +45,7 @@ function command(program, args, cwd = checkout) {
     program,
     args,
     cwd,
-    env: { ...process.env, CI: 'true', ORCA_BACKGROUND_LAUNCH: '1' },
+    env: { ...process.env, CI: 'true', OPENKODO_BACKGROUND_LAUNCH: '1' },
     timeoutMs: 300_000
   })
   assert.equal(result.code, 0, `${program}: ${result.stdout}\n${result.stderr}`)

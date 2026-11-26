@@ -9,7 +9,7 @@ import {
   splitRetryUnknownError,
   type RendererSplit
 } from './terminal-split-retry'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { Worktree } from '../../../../shared/worktree/types'
 import { applyRemoteViewerLaunchEnv } from './remote-viewer-launch-env'
 
@@ -53,7 +53,7 @@ export abstract class OrcaRuntimeWithSplitTerminal extends OrcaRuntimeWithStopEx
     const { leaf } = this.getLiveLeafForHandle(handle)
     const direction = opts.direction ?? 'horizontal'
     // Switch point: main writes the split and starts its terminal; the window attaches to it.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN && this.ownsTabLayout(leaf.worktreeId, leaf.tabId)) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN && this.ownsTabLayout(leaf.worktreeId, leaf.tabId)) {
       if (opts.retrySplit) {
         throw splitRetryUnknownError(leaf.tabId, opts.retrySplit)
       }

@@ -21,7 +21,7 @@ import {
 
 // Leave roughly half the default macOS PTY limit for other terminals and agent-owned PTYs.
 export const DEFAULT_MAX_HOST_TERMINALS = 256
-const MAX_HOST_TERMINALS_ENV_VAR = 'ORCA_DAEMON_MAX_HOST_TERMINALS'
+const MAX_HOST_TERMINALS_ENV_VAR = 'OPENKODO_DAEMON_MAX_HOST_TERMINALS'
 const MAX_OVERRIDE_TERMINALS = 4096
 
 const REFRESH_INTERVAL_MS = 60_000

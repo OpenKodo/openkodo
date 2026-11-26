@@ -47,7 +47,7 @@ export function findAgentExecutableIndex(
  * `command` with `quotedArgs` (already quoted for `shell`, led by a space) right after the agent's
  * executable, or after the `subcommand` that must follow it (`orca claude-teams`); null when that
  * can't be done safely: a wrapper or prefix the args might not reach, or a span whose shell parse
- * differs from Orca's.
+ * differs from OpenKodo's.
  */
 export function withArgsAfterAgentExecutable(
   command: string,

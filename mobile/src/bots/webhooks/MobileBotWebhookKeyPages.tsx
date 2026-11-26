@@ -124,7 +124,7 @@ export function useWaitingWebhookSecret(hooks: readonly PhoneWebhook[]): string 
   )
 }
 
-/** Add or change the signing secret: pick the sender, then paste its secret or have Orca make one. */
+/** Add or change the signing secret: pick the sender, then paste its secret or have OpenKodo make one. */
 export function MobileBotWebhookSecret(props: {
   hook: PhoneWebhook
   busy: boolean
@@ -255,7 +255,7 @@ export function MobileBotWebhookSecret(props: {
           generates && !choosesMode
             ? t(
                 'bots.webhooks.secret.generateNote',
-                'Orca makes this secret. You copy it into {{sender}} next.',
+                'OpenKodo makes this secret. You copy it into {{sender}} next.',
                 { sender }
               )
             : undefined
@@ -271,7 +271,10 @@ export function MobileBotWebhookSecret(props: {
       {choosesMode ? (
         <MobileSegmentedControl
           segments={[
-            { value: 'generate', label: t('bots.webhooks.secret.modeGenerate', 'Orca makes one') },
+            {
+              value: 'generate',
+              label: t('bots.webhooks.secret.modeGenerate', 'OpenKodo makes one')
+            },
             { value: 'paste', label: t('bots.webhooks.secret.modePaste', 'Paste the sender’s') }
           ]}
           selected={mode}
@@ -286,7 +289,7 @@ export function MobileBotWebhookSecret(props: {
           <SettingsNote>
             {t(
               'bots.webhooks.secret.generateNote',
-              'Orca makes this secret. You copy it into {{sender}} next.',
+              'OpenKodo makes this secret. You copy it into {{sender}} next.',
               { sender }
             )}
           </SettingsNote>

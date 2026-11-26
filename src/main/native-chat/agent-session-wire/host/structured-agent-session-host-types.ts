@@ -251,12 +251,12 @@ export type StructuredAgentSessionHostDeps = {
     record: AgentSessionRecord,
     purpose?: 'read' | 'identity'
   ) => Promise<AgentSessionAccountHome | null>
-  /** The MCP servers a chat's agent launched with from Orca (a bot's own, the host list's), against
+  /** The MCP servers a chat's agent launched with from OpenKodo (a bot's own, the host list's), against
    *  what its next launch would get; a chat that got none never refreshes for tools. */
   launchTools?: {
-    /** Rereads the tools, so it also sees edits made outside Orca. */
+    /** Rereads the tools, so it also sees edits made outside OpenKodo. */
     changed: (sessionId: string) => Promise<boolean>
-    /** No I/O: whether Orca itself changed or signed in to the tools since launch. */
+    /** No I/O: whether OpenKodo itself changed or signed in to the tools since launch. */
     outdated: (sessionId: string) => boolean
   }
   conversationNaming?: StructuredAgentSessionConversationNaming

@@ -29,7 +29,7 @@ export function McpServerMark({
 }
 
 export function McpAppLogo({ slug }: { slug: string }) {
-  // Orca's own marks follow the theme; Composio's GitHub logo is black on the dark page.
+  // OpenKodo's own marks follow the theme; Composio's GitHub logo is black on the dark page.
   if (slug === 'github' || slug === 'linear') {
     return <MobileConnectorLogo source={slug} size={LOGO} />
   }

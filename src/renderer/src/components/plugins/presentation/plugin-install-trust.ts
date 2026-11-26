@@ -23,11 +23,11 @@ export type PluginInstallTrustKind =
 
 export type PluginInstallTrustPrompt = {
   kind: PluginInstallTrustKind
-  /** Who the reader must trust: the repository owner Orca parsed, else the derived publisher. */
+  /** Who the reader must trust: the repository owner OpenKodo parsed, else the derived publisher. */
   trustee: string
-  /** The publisher Orca derives from where it installs from, never the manifest's claim. */
+  /** The publisher OpenKodo derives from where it installs from, never the manifest's claim. */
   publisher: string | null
-  /** `host/owner/repo`, parsed by Orca from the URL it installs from. */
+  /** `host/owner/repo`, parsed by OpenKodo from the URL it installs from. */
   repository: string | null
   /** A catalog's name, or a local folder's path. */
   location: string | null
@@ -40,7 +40,7 @@ export { pluginRepositoryOrigin }
 const THEME_POINTS = ['themes', 'iconThemes', 'terminalThemes'] as const
 
 /**
- * Publisher confirmation for catalogs without Orca or team approval.
+ * Publisher confirmation for catalogs without OpenKodo or team approval.
  */
 export function catalogInstallTrustPrompt(
   listing: PluginMarketplaceHostListing,
@@ -57,7 +57,7 @@ export function catalogInstallTrustPrompt(
   const execution = listing.release?.execution ?? pluginExecutionProfile(manifest)
   const notice = pluginPublisherNotice({ official: false, execution, manifest, types: null })
   const origin = pluginRepositoryOrigin(listing.source.url, listing.source.path)
-  // Why the listing id: catalog installs are keyed by it, so it is the publisher Orca installs as.
+  // Why the listing id: catalog installs are keyed by it, so it is the publisher OpenKodo installs as.
   const publisher = splitQualifiedPluginKey(listing.pluginKey)?.publisher ?? null
   const themed = THEME_POINTS.some((point) => manifest.contributes[point].length > 0)
   const kind: PluginInstallTrustKind =

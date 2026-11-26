@@ -29,7 +29,7 @@ import {
   parseExecutionHostId
 } from '../../../../shared/execution-host/execution-host'
 import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 
 export abstract class OrcaRuntimeWithWorktreeSleepResumeRecording extends OrcaRuntimeWithStopTerminalsForWorktree {
@@ -150,7 +150,7 @@ export abstract class OrcaRuntimeWithWorktreeSleepResumeRecording extends OrcaRu
         )
       try {
         // Switch point: a status accepted before the sleep is saved is written before it, as in the window.
-        await (ORCA_LAYOUT_OWNER_IS_MAIN ? this.inResumeRecordOrder(commit) : commit())
+        await (OPENKODO_LAYOUT_OWNER_IS_MAIN ? this.inResumeRecordOrder(commit) : commit())
       } catch (error) {
         // Why: the PTYs already stopped; a lost record costs the resume, not the sleep.
         console.error('[runtime] could not record slept agent sessions', { worktreeId, error })
@@ -170,7 +170,7 @@ export abstract class OrcaRuntimeWithWorktreeSleepResumeRecording extends OrcaRu
     context?: TerminalIdentityReadContext
   ): RuntimePtyWorktreeRecord | null
 
-  /** Main's word on the Orca launch running in this pane now; the one check every saved note passes. */
+  /** Main's word on the OpenKodo launch running in this pane now; the one check every saved note passes. */
   getLaunchStatementForPaneKey: PaneLaunchConfigOf = (paneKey, agent) =>
     launchStatement(this.getPtyRecordForPaneKey(paneKey), agent)
 

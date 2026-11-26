@@ -90,7 +90,7 @@ export const AgentSessionRewindRecordSchema = z.object({
 export type AgentSessionRewindRecord = z.infer<typeof AgentSessionRewindRecordSchema>
 export type AgentSessionRewindFork = NonNullable<AgentSessionRewindRecord['providerFork']>
 
-// Accepted messages keep Orca's key until a rewind rebuilds the epoch with provider keys.
+// Accepted messages keep OpenKodo's key until a rewind rebuilds the epoch with provider keys.
 export function savedRewindKeys(submissions: readonly AgentJournalSubmission[]) {
   const providerKeys = new Map<string, string>()
   const omitted = new Set<string>()
@@ -120,7 +120,7 @@ export function isAgentSessionRewindTarget(
   item: Pick<AgentJournalRenderItem, 'itemId' | 'body' | 'turnScope'>,
   turnOpener: (turnItemId: string) => string | undefined
 ): boolean {
-  // An automation's run was Orca's send, not the person's turn to take back; refused for every client.
+  // An automation's run was OpenKodo's send, not the person's turn to take back; refused for every client.
   if (
     item.body.kind !== 'message' ||
     item.body.role !== 'user' ||

@@ -1,6 +1,6 @@
 import { createServer, type Server, type ServerResponse } from 'node:http'
 import type { Socket } from 'node:net'
-import { ORCA_CLOUD_CALLBACK_RESPONSE_HEADERS } from './profile-cloud-callback-page'
+import { OPENKODO_CLOUD_CALLBACK_RESPONSE_HEADERS } from './profile-cloud-callback-page'
 
 /** What one request to the callback path means for the flow waiting on it. */
 export type LoopbackCallbackHit<T> =
@@ -33,7 +33,7 @@ const MAX_HEADER_BYTES = 16 * 1024
 // A browser sends its return at once; a connection that dribbles it in is not one.
 const READ_DEADLINE_MS = 10_000
 const TEXT_HEADERS = {
-  ...ORCA_CLOUD_CALLBACK_RESPONSE_HEADERS,
+  ...OPENKODO_CLOUD_CALLBACK_RESPONSE_HEADERS,
   'content-type': 'text/plain; charset=utf-8'
 }
 
@@ -164,7 +164,7 @@ export function serveLoopbackCallback<T>(
     }
 
     async function finishPage(response: ServerResponse, value: T): Promise<void> {
-      response.writeHead(200, ORCA_CLOUD_CALLBACK_RESPONSE_HEADERS)
+      response.writeHead(200, OPENKODO_CLOUD_CALLBACK_RESPONSE_HEADERS)
       if (typeof successPage === 'string') {
         response.end(successPage)
         resolveFlow(value)
@@ -200,7 +200,7 @@ export function serveLoopbackCallback<T>(
           return
         }
         if (settled || accepted) {
-          answer(response, 410, 'This sign-in already came back. Return to Orca.')
+          answer(response, 410, 'This sign-in already came back. Return to OpenKodo.')
           return
         }
         const hit = options.read(url)

@@ -12,8 +12,8 @@ import {
 } from './monaco-large-text-paste'
 
 // Override Monaco’s sandbox-blocked clipboard read through trusted IPC, matching terminal paste.
-export const ORCA_CONTEXT_MENU_PASTE_PRIORITY = 10001
-export const ORCA_CONTEXT_MENU_PASTE_NAME = 'orca-ipc-paste'
+export const OPENKODO_CONTEXT_MENU_PASTE_PRIORITY = 10001
+export const OPENKODO_CONTEXT_MENU_PASTE_NAME = 'orca-ipc-paste'
 
 type PasteCapableEditor = MonacoPasteEditor &
   Pick<editor.ICodeEditor, 'getModel' | 'hasTextFocus' | 'getOption' | 'trigger'>

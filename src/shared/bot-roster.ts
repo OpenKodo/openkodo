@@ -103,7 +103,7 @@ export function botRosterFields(
   }
 }
 
-/** Where a bot's connectors are linked, by the names Orca keeps for them. */
+/** Where a bot's connectors are linked, by the names OpenKodo keeps for them. */
 export function botLinkedPlaces(
   bot: Pick<Bot, 'slack' | 'slackApps' | 'linear' | 'linearWorkspaces' | 'github'>
 ): string[] {

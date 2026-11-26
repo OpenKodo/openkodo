@@ -1,4 +1,4 @@
-// Composio apps a bot uses as tools. The owner brings their own Composio project key; Orca keeps it
+// Composio apps a bot uses as tools. The owner brings their own Composio project key; OpenKodo keeps it
 // on the bot's host and reads Composio's app list and each bot's sign-ins with it.
 
 /** How an app signs in: through Composio's own app, through one the owner adds in Composio, or not at all. */
@@ -62,13 +62,13 @@ export type ComposioEventsPlace = { project: string; here: boolean; elsewhere: b
 export type ComposioKey = {
   key: ComposioKeyState
   hint: string | null
-  /** Absent from an older Orca, or before upkeep ran with this key. */
+  /** Absent from an older OpenKodo, or before upkeep ran with this key. */
   events?: ComposioEventsPlace | null
 }
 
 export type ComposioAppPage = { apps: ComposioApp[]; nextCursor: string | null }
 
-/** An app sign-in Orca is waiting on, which a Connect started. */
+/** An app sign-in OpenKodo is waiting on, which a Connect started. */
 export type ComposioPendingConnect = { app: string; url: string; startedAt: number }
 
 export type ComposioConnections = {
@@ -78,7 +78,7 @@ export type ComposioConnections = {
 
 // `~/project` opens the signed-in owner's current project, as Composio's own docs link it.
 const COMPOSIO_PROJECT = 'https://dashboard.composio.dev/~/project'
-/** The Composio pages Orca sends the owner to; never the dashboard's home. */
+/** The Composio pages OpenKodo sends the owner to; never the dashboard's home. */
 export const COMPOSIO_PAGES = {
   apiKeys: `${COMPOSIO_PROJECT}/settings/api-keys`,
   // Webhooks is a tab here; it has no documented link of its own.
@@ -91,7 +91,7 @@ export const COMPOSIO_PAGES = {
 export const composioAppGuideUrl = (slug: string): string =>
   `https://docs.composio.dev/toolkits/${encodeURIComponent(slug)}`
 export const COMPOSIO_TOOL_NAME = 'composio'
-/** The source Orca's tool relay fills with the owner's current Composio key on each call. */
+/** The source OpenKodo's tool relay fills with the owner's current Composio key on each call. */
 export const COMPOSIO_HEADER_SOURCE = 'composio'
 /** The session MCP address Composio gives, which names the session. */
 export const COMPOSIO_SESSION_MCP_URL =

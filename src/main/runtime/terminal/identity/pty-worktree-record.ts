@@ -15,7 +15,7 @@ import { maxTimestamp } from '../../workspaces/process-listing/runtime-worktree-
 import type { RuntimeSyncedLeaf } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { isTerminalLeafId, makePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import { inferWorktreeIdFromPtyId } from '../../workspaces/catalog/runtime-worktree-path-identity'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import {
   mainDecidesLeafLiveness,
   mainPaneRecordFacts,
@@ -39,7 +39,7 @@ export abstract class OrcaRuntimeWithRecordPtyWorktree extends RuntimeWorkspaceR
     const prior = mainPaneRecordFacts(pty)
     this.terminalIdentity.setPtyConnected(pty, connected)
     pty.disconnectedAt = connected ? null : (pty.disconnectedAt ?? Date.now())
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       noteMainPaneRecordChange(this, prior, pty)
     }
   }
@@ -80,8 +80,10 @@ export abstract class OrcaRuntimeWithRecordPtyWorktree extends RuntimeWorkspaceR
     > = {}
   ): RuntimePtyWorktreeRecord {
     // Switch point: main's layout is the one answer to a terminal's pane, so no claim is copied.
-    const prior = ORCA_LAYOUT_OWNER_IS_MAIN ? mainPaneRecordFacts(this.ptysById.get(ptyId)) : null
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    const prior = OPENKODO_LAYOUT_OWNER_IS_MAIN
+      ? mainPaneRecordFacts(this.ptysById.get(ptyId))
+      : null
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       state = withoutPaneClaim(state)
     }
     let pty = this.ptysById.get(ptyId)
@@ -107,7 +109,7 @@ export abstract class OrcaRuntimeWithRecordPtyWorktree extends RuntimeWorkspaceR
         runtimeSessionOwned: state.runtimeSessionOwned ?? false,
         isWsl: state.isWsl ?? null,
         wslDistro,
-        ...(ORCA_LAYOUT_OWNER_IS_MAIN
+        ...(OPENKODO_LAYOUT_OWNER_IS_MAIN
           ? {}
           : {
               tabId: state.tabId ?? null,
@@ -183,7 +185,7 @@ export abstract class OrcaRuntimeWithRecordPtyWorktree extends RuntimeWorkspaceR
     }
     // A reused id's new process must not settle exit waits with the old process's code.
     if (
-      ORCA_LAYOUT_OWNER_IS_MAIN &&
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
       state.incarnationId &&
       state.incarnationId !== pty.incarnationId
     ) {

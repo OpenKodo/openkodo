@@ -81,7 +81,7 @@ export function installExternalConversations(
   }
 ): {
   current(): ExternalConversationSeam | null
-  /** Posts the owner's Orca-typed messages to their bot chats' Slack threads; lives with the seam. */
+  /** Posts the owner's OpenKodo-typed messages to their bot chats' Slack threads; lives with the seam. */
   slackMirror(): SlackMirror | null
   /** A bot thread in this chat is no longer new, on every client. */
   threadSeen(sessionId: string): void

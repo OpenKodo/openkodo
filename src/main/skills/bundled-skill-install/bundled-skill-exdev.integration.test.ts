@@ -12,7 +12,7 @@ import {
   writeCopy
 } from './testing/bundled-skill-home'
 
-const volume = process.env.ORCA_EXDEV_VOLUME
+const volume = process.env.OPENKODO_EXDEV_VOLUME
 
 describe.skipIf(!volume)('cross-volume Replace (real second volume)', () => {
   afterEach(removeSkillHomes)

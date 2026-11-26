@@ -27,10 +27,10 @@ export async function answerConversation(
   if (botRefusal) {
     return refused(botRefusal)
   }
-  // The cloud knows of its own answer, so it is never told as answered in Orca. Taken first: the
+  // The cloud knows of its own answer, so it is never told as answered in OpenKodo. Taken first: the
   // agent may work on before the answer settles.
   const keep = seam.events?.answering(link.paneKey, answer.promptId)
-  // Kept unless it surely landed: an unproven one at worst reads answered in Orca, as before.
+  // Kept unless it surely landed: an unproven one at worst reads answered in OpenKodo, as before.
   let outcome: Delivery | null = null
   try {
     outcome = await answerChatPrompt(currentChat(host.chat), link, answer)

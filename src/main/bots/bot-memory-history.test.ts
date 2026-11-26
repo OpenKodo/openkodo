@@ -103,7 +103,7 @@ function bot(memory: string, start = Date.UTC(2026, 10, 6)) {
 const OLD = '# Memory\n- 2026-11-01 owner fact\n'
 
 describe("a bot's memory history", () => {
-  it("records a chat's addition and Orca's put-back, and undoes the addition for good", async () => {
+  it("records a chat's addition and OpenKodo's put-back, and undoes the addition for good", async () => {
     const { read, rows, turnEnded, undo, write } = bot(OLD)
     write('# Memory\n- 2026-11-06 releases go out Tuesdays\n- 2026-11-01 owner fact\n')
     await turnEnded()

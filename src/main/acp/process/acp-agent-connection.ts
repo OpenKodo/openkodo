@@ -58,9 +58,9 @@ export function createAcpAgentConnection(
 type AcpConnectionLifecycle = {
   closing: boolean
   error?: Error
-  /** The process's own failure, such as its spawn; it is no refusal by Orca. */
+  /** The process's own failure, such as its spawn; it is no refusal by OpenKodo. */
   processError?: Error
-  /** Why the connection closed before the process exited, unless Orca closed it or the process
+  /** Why the connection closed before the process exited, unless OpenKodo closed it or the process
    *  itself failed. Taken when it closed. */
   lost?: Error
   finishExit?: () => void
@@ -191,7 +191,9 @@ export class AcpAgentConnection extends AcpSessionRuntime {
     }
     // A malformed protocol-stream link closes the connection without reporting signed-out status.
     unreadable = () =>
-      super.close(new AcpConnectionClosedError('The agent printed a sign-in link Orca cannot read'))
+      super.close(
+        new AcpConnectionClosedError('The agent printed a sign-in link OpenKodo cannot read')
+      )
     child.stderr.on('error', (error) => super.close(error))
     managed.onExit((exit) => {
       const expected = lifecycle.closing
@@ -199,7 +201,7 @@ export class AcpAgentConnection extends AcpSessionRuntime {
         clearTimeout(lifecycle.outputEndTimer)
         const stderr = this.stderrTail()
         const detail = stderr || `${launch.command} exited`
-        // Only an exit Orca neither caused nor preceded with its own refusal leaves calls unanswered.
+        // Only an exit OpenKodo neither caused nor preceded with its own refusal leaves calls unanswered.
         const error = withProviderSpawnAbsence(
           lifecycle.error ??
             (expected
@@ -290,14 +292,14 @@ export class AcpAgentConnection extends AcpSessionRuntime {
     return this.managed.exitStatus
   }
 
-  /** Why the connection closed before the process exited, such as Orca refusing what the agent
+  /** Why the connection closed before the process exited, such as OpenKodo refusing what the agent
    *  wrote; never the process's own failure or its exit. Kept from the moment it closed. */
   get lostBeforeExit(): Error | undefined {
     return this.lifecycle.lost
   }
 
-  /** `requested`: Orca was closing the agent when it exited. `lost`: why the connection had
-   *  already closed before the exit, such as Orca refusing what the agent wrote. */
+  /** `requested`: OpenKodo was closing the agent when it exited. `lost`: why the connection had
+   *  already closed before the exit, such as OpenKodo refusing what the agent wrote. */
   onExit(listener: (exit: ProviderProcessExit, requested?: boolean, lost?: Error) => void): void {
     this.managed.onExit((exit) => {
       try {

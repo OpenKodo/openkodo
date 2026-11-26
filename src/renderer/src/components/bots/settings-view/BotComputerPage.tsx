@@ -1,4 +1,4 @@
-// Where the bot runs, read-only: its computer, the Orca account that computer runs as, and its folder.
+// Where the bot runs, read-only: its computer, the OpenKodo account that computer runs as, and its folder.
 import { Copy, Folder, Laptop, Server, UserRound } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -47,7 +47,7 @@ export function BotComputerPage({
         ? serverAccount.email
         : undefined
       : ownAccount?.cloud?.email
-    return email ?? t('settings.bots.group.signedOut', 'Signed out of Orca')
+    return email ?? t('settings.bots.group.signedOut', 'Signed out of OpenKodo')
   }
   const copyPath = (): void => {
     if (folderPath) {
@@ -84,7 +84,7 @@ export function BotComputerPage({
       />
       <SettingsInsetRow
         icon={<UserRound />}
-        title={t('bots.settingsView.orcaAccount', 'Orca account')}
+        title={t('bots.settingsView.orcaAccount', 'OpenKodo account')}
         detail={accountLine()}
       />
       <SettingsInsetRow

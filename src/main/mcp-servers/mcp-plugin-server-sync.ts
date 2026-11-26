@@ -1,5 +1,5 @@
 // The servers approved plugins add, kept in the host's list as entries marked with their plugin, so
-// Orca's sign-in, the relay and every launch treat them as any other server. The user's switches on
+// OpenKodo's sign-in, the relay and every launch treat them as any other server. The user's switches on
 // one stay across plugin updates, and a sync that changes nothing writes nothing.
 import { randomUUID } from 'node:crypto'
 import { freeBotToolName, type BotToolServer } from '../../shared/bot-tools'
@@ -35,7 +35,7 @@ function markKey(entry: HostEntry): string | null {
   return mark ? keyOf(mark.key, mark.server) : null
 }
 
-/** What the plugin decides: its address or command, never the list's name for it or Orca's sign-in. */
+/** What the plugin decides: its address or command, never the list's name for it or OpenKodo's sign-in. */
 function definitionOf(server: BotToolServer): string {
   return JSON.stringify(
     'url' in server
@@ -44,7 +44,7 @@ function definitionOf(server: BotToolServer): string {
   )
 }
 
-/** As add sorts an address: Orca signs in to one that asks for it. One it can't reach stays plain
+/** As add sorts an address: OpenKodo signs in to one that asks for it. One it can't reach stays plain
  *  for now and is sorted again by the next sync. */
 async function sortServer(server: BotToolServer, signal?: AbortSignal): Promise<Sorted> {
   const sorted = await sortAddedBotTool(server, signal)

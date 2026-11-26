@@ -99,6 +99,6 @@ export function runPackagedProcessHostConsumer(nodeExecutable, resourcesDir, ent
     args: [entry],
     cwd: resourcesDir,
     timeoutMs: 15_000,
-    env: { ...process.env, NODE_PATH: '', NODE_OPTIONS: '', ORCA_BACKGROUND_LAUNCH: '1' }
+    env: { ...process.env, NODE_PATH: '', NODE_OPTIONS: '', OPENKODO_BACKGROUND_LAUNCH: '1' }
   })
 }

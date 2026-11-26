@@ -2,7 +2,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { dispatchWindowCloseRequest } from '../../../app-shell/shutdown/window-close-request-coordinator'
-import { ORCA_APP_RESTART_STARTED_EVENT } from '../../../../../shared/updater/updater-renderer-events'
+import { OPENKODO_APP_RESTART_STARTED_EVENT } from '../../../../../shared/updater/updater-renderer-events'
 import { saveBotLook, useBotLookSave, type BotLookUpdate } from './use-bot-look-save'
 
 afterEach(() => {
@@ -108,7 +108,7 @@ describe('saveBotLook', () => {
     }
     saveBotLook('local:b10', { avatarColor: '#f4c4cf' }, update)
     saveBotLook('local:b10', { avatarOutfit: 'tie' }, update)
-    window.dispatchEvent(new Event(ORCA_APP_RESTART_STARTED_EVENT))
+    window.dispatchEvent(new Event(OPENKODO_APP_RESTART_STARTED_EVENT))
     expect(sent).toEqual([{ avatarColor: '#f4c4cf' }, { avatarOutfit: 'tie' }])
   })
 

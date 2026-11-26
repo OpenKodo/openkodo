@@ -4,7 +4,7 @@ import { hostManualUpdateSteps } from '../../host-descriptors/host-manual-update
 import { useMobileTranslation } from '../../i18n/use-mobile-translation'
 import { SettingsSection } from '../../settings/settings-screen-frame'
 
-/** The host's Orca version, plus how to update a server that can't take a client-driven update. */
+/** The host's OpenKodo version, plus how to update a server that can't take a client-driven update. */
 export function HostOrcaVersionSection() {
   const t = useMobileTranslation()
   // The host route already read status; reusing its gates keeps the last version across a drop.
@@ -17,7 +17,7 @@ export function HostOrcaVersionSection() {
     <SettingsSection footer={updateSteps ?? undefined}>
       <ListRow
         key="version"
-        title={t('host.edit.orcaVersion', 'Orca version')}
+        title={t('host.edit.orcaVersion', 'OpenKodo version')}
         value={desktopAppVersion}
       />
     </SettingsSection>

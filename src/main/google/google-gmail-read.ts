@@ -208,7 +208,7 @@ export async function downloadGmailAttachment(
   }
   if ((part.size ?? 0) > TOOL_DOWNLOAD_MAX_BYTES) {
     throw new GoogleToolError(
-      `${part.name} is larger than ${formatMegabytes(TOOL_DOWNLOAD_MAX_BYTES)}, more than Orca hands an agent at once; open it in Gmail.`
+      `${part.name} is larger than ${formatMegabytes(TOOL_DOWNLOAD_MAX_BYTES)}, more than OpenKodo hands an agent at once; open it in Gmail.`
     )
   }
   const body = await api.get(

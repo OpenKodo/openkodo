@@ -48,14 +48,14 @@ export function redactEphemeralVmRecipeResultForDiagnostics(
   }
   return {
     ...result,
-    pairingCode: 'orca://pair?code=[redacted]',
+    pairingCode: 'openkodo://pair?code=[redacted]',
     ...(userData ? { userData } : {})
   }
 }
 
 function redactConnection(connection: EphemeralVmRecipeConnection): EphemeralVmRecipeConnection {
   if (connection.type === 'orca-server') {
-    return { ...connection, pairingCode: 'orca://pair?code=[redacted]' }
+    return { ...connection, pairingCode: 'openkodo://pair?code=[redacted]' }
   }
   return {
     ...connection,

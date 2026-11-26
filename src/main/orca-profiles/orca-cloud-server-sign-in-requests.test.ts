@@ -100,7 +100,7 @@ describe('server sign-in requests', () => {
     })
   })
 
-  it('reads a missing endpoint as an Orca Cloud without server sign-in', async () => {
+  it('reads a missing endpoint as an cloud service without server sign-in', async () => {
     vi.stubGlobal('fetch', answer(404, {}))
 
     await expect(startServerSignInRequest(CONFIG, BODY, signal())).rejects.toBeInstanceOf(
@@ -147,7 +147,7 @@ describe('server sign-in requests', () => {
     vi.stubGlobal('fetch', answer(status, json))
 
     await expect(pollServerSignInRequest(CONFIG, CLAIM, signal())).rejects.toThrow(
-      `Orca Cloud answered ${status} while waiting for approval. Start again.`
+      `cloud service answered ${status} while waiting for approval. Start again.`
     )
   })
 
@@ -157,7 +157,7 @@ describe('server sign-in requests', () => {
     const error = await pollServerSignInRequest(CONFIG, CLAIM, signal()).catch((e) => e)
 
     expect(error).not.toBeInstanceOf(ServerSignInRequestRetryableError)
-    expect(error.message).toBe('Orca Cloud no longer knows this sign-in. Start again.')
+    expect(error.message).toBe('cloud service no longer knows this sign-in. Start again.')
   })
 
   it('treats 5xx and network trouble as retryable, with messages that never carry the claim token', async () => {

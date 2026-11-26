@@ -154,7 +154,7 @@ function accountBlocker(run: GoogleSetupRun, google: SetupGoogle): GoogleSetupBl
     }
   }
   const off = choicesIn(run, account, 'api-disabled')
-  // Orca never hears Google's switch flip or an admin's approval, so each fix comes with Check again.
+  // OpenKodo never hears Google's switch flip or an admin's approval, so each fix comes with Check again.
   const recheck = { id: 'check-again' } as const
   if (off.length > 0) {
     return { kind: 'api-off', services: off, actions: [{ id: 'turn-on', services: off }, recheck] }
@@ -192,7 +192,7 @@ export function googleSetupBlocker(input: GoogleSetupBlockerInput): GoogleSetupB
   if (run.state !== 'running') {
     return null
   }
-  // A key is due once client is done, or once Orca saw it fail to arrive.
+  // A key is due once client is done, or once OpenKodo saw it fail to arrive.
   if (google && (finished(run, 'client') || run.keyMissed)) {
     const key = keyBlocker(run, google)
     if (key) {
@@ -319,7 +319,7 @@ export function googleSetupBlockerLine(blocker: GoogleSetupBlocker): string {
     case 'needs-user':
       return blocker.note ?? `Your owner's turn: ${blocker.step}.`
     case 'no-key':
-      return "Orca needs the app's key first."
+      return "OpenKodo needs the app's key first."
     case 'key-gone':
       return "This app's key no longer works: it was removed in Google Cloud."
     case 'key-other-project':
@@ -335,6 +335,6 @@ export function googleSetupBlockerLine(blocker: GoogleSetupBlocker): string {
     case 'admin-blocked':
       return `The company's Google admin blocked ${googleSetupChoicesWords(blocker.services)}.`
     case 'check-failed':
-      return `Orca couldn't check ${googleSetupChoicesWords(blocker.services)}.`
+      return `OpenKodo couldn't check ${googleSetupChoicesWords(blocker.services)}.`
   }
 }

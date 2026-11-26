@@ -49,7 +49,7 @@ export function forgetIdleAgentSessionRecord(
 }
 
 /** A whole chat to delete for good: every session of its /clear lineage, and the agent
- *  conversations it held, which Orca then never lists or adopts again. */
+ *  conversations it held, which OpenKodo then never lists or adopts again. */
 export type AgentSessionChatForget = Readonly<DeletedChat>
 
 /** Deletes every record of the chat and its tabs, or none: each lease must be released, and a /clear

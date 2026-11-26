@@ -5,7 +5,7 @@ import type { BundledSkillFilesystem } from './bundled-skill-filesystem'
 const SHA256_HEX = /^[0-9a-f]{64}$/u
 
 /**
- * Why on the planned host's disk, not in userData: every Orca build on a host (installed app,
+ * Why on the planned host's disk, not in userData: every OpenKodo build on a host (installed app,
  * dev builds, a CLI, a paired server) shares one skills folder but has its own userData. A build
  * reads what the others wrote, so a copy a newer build installed is not mistaken for a user edit.
  */
@@ -13,7 +13,7 @@ function writtenDigestPath(homeDirectory: string, name: string, digest: string):
   return join(homeDirectory, '.agents', '.orca-skill-digests', name, digest)
 }
 
-/** Whether some Orca build on this host installed `SKILL.md` text with this digest. */
+/** Whether some OpenKodo build on this host installed `SKILL.md` text with this digest. */
 export async function wasBundledSkillDigestWritten(
   filesystem: BundledSkillFilesystem,
   homeDirectory: string,
@@ -43,14 +43,14 @@ export async function recordBundledSkillDigestWritten(
     .catch(() => undefined)
 }
 
-/** SKILL.md bytes this build never shipped but some Orca build on this host wrote: not a user edit. */
+/** SKILL.md bytes this build never shipped but some OpenKodo build on this host wrote: not a user edit. */
 export async function isOtherBuildCopy(
   filesystem: BundledSkillFilesystem,
   destination: { homeDirectory: string },
   source: { name: string; releasedDigests: readonly string[] },
   observed: BundledSkillObserved
 ): Promise<boolean> {
-  // Other entries are not Orca's; a known older release stays an update to ask about.
+  // Other entries are not OpenKodo's; a known older release stays an update to ask about.
   return (
     observed.kind === 'folder' &&
     observed.skillDigest !== null &&

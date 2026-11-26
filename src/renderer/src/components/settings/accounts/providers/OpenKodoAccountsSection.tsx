@@ -6,6 +6,7 @@ import { SettingsGroup } from '../../section-layout/SettingsGroup'
 type LoginState =
   | { status: 'idle' }
   | { status: 'pending'; userCode: string; verificationUri: string; expiresAt: number }
+  | { status: 'browser'; verificationUri: string }
   | { status: 'connected'; email: string; plan: string; openCodePath: string }
   | { status: 'expired' | 'error'; message: string }
 
@@ -82,15 +83,9 @@ export function OpenKodoAccountsSection(): React.JSX.Element {
 
   const connect = async (mode: 'browser' | 'code' = 'browser'): Promise<void> => {
     setBusy(true)
-    try {
-      setLogin(
-        await (mode === 'browser'
-          ? window.api.openkodo.loginBrowser()
-          : window.api.openkodo.loginStart())
-      )
-    } finally {
-      setBusy(false)
-    }
+    const started =
+      mode === 'browser' ? window.api.openkodo.loginBrowser() : window.api.openkodo.loginStart()
+    setLogin(await started.finally(() => setBusy(false)))
   }
 
   const disconnect = async (): Promise<void> => {

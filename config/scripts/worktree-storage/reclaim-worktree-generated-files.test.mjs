@@ -292,7 +292,7 @@ it('includes generated cleanup in automatic CLI preview and apply', async () => 
   await utimes(dirname(file), new Date(0), new Date(0))
   const run = (args) =>
     runProcess({
-      program: process.env.ORCA_TEST_NODE_EXECUTABLE ?? process.execPath,
+      program: process.env.OPENKODO_TEST_NODE_EXECUTABLE ?? process.execPath,
       args: [
         resolve(import.meta.dirname, 'reclaim-worktree-space.mjs'),
         '--repo',
@@ -301,7 +301,7 @@ it('includes generated cleanup in automatic CLI preview and apply', async () => 
         ...args
       ],
       cwd: tmpdir(),
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' },
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' },
       timeoutMs: 30_000,
       terminationBarrier: true
     })

@@ -27,8 +27,8 @@ export function callBots<TResult>(
   return params === undefined ? client.call<TResult>(method) : client.call<TResult>(method, params)
 }
 
-/** bots.list; webhooks says whether the host's Orca Cloud takes webhooks, absent without one;
- *  connectorStatus 'signed-out' or 'needs-sign-in' that the host isn't signed in to Orca Cloud. */
+/** bots.list; webhooks says whether the host's OpenKodo Cloud takes webhooks, absent without one;
+ *  connectorStatus 'signed-out' or 'needs-sign-in' that the host isn't signed in to OpenKodo Cloud. */
 export type BotsListResult = {
   bots: Bot[]
   webhooks?: boolean
@@ -37,11 +37,11 @@ export type BotsListResult = {
   githubWorkflows?: boolean
   githubCiFinished?: boolean
   connectorStatus?: string
-  /** The host's name when it is a headless Orca server; null with a window; absent from an older host. */
+  /** The host's name when it is a headless OpenKodo server; null with a window; absent from an older host. */
   signInServer?: string | null
 }
 
-/** The bot, with what its host's Orca Cloud takes. */
+/** The bot, with what its host's OpenKodo Cloud takes. */
 export type HostBot = Bot &
   Pick<
     BotConnectors,
@@ -55,7 +55,7 @@ export type HostBot = Bot &
     threadReplies: boolean
   }
 
-/** The bot named by id or name (any case), with what its host's Orca Cloud takes. */
+/** The bot named by id or name (any case), with what its host's OpenKodo Cloud takes. */
 export async function findBot(
   client: HandlerContext['client'],
   selector: string

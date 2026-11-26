@@ -24,7 +24,7 @@ import {
   structuredAgentSessionCreateIntentFingerprint
 } from './structured-agent-session-create'
 import { resolveUncommittedStructuredCreate } from './structured-agent-session-precommit-refusal'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import { projectReceiptDeviceAttach } from '../subscriptions/structured-agent-session-receipt-devices'
 import {
   structuredAgentSessionClosedBeforeCreate,
@@ -131,7 +131,7 @@ async function resolveAndCommitStructuredAgentSessionCreate(
   try {
     // Nothing is created yet, so a close that came first refuses the create outright.
     if (
-      ORCA_LAYOUT_OWNER_IS_MAIN &&
+      OPENKODO_LAYOUT_OWNER_IS_MAIN &&
       structuredAgentSessionClosedBeforeCreate(params.envelope.sessionId)
     ) {
       return { ok: false, refusal: structuredAgentSessionClosedBeforeCreateRefusal() }

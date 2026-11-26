@@ -376,7 +376,7 @@ it('names the host terminal cap when a worker start the failed turn made was ref
   // The run's coordinator also got the failed start's own mail.
   expect(notices()).toContainEqual(
     expect.stringContaining(
-      "Helper's turn failed: Orca refused the terminal of a worker it started because this host is at its terminal limit (256 of 256 terminals in use)."
+      "Helper's turn failed: OpenKodo refused the terminal of a worker it started because this host is at its terminal limit (256 of 256 terminals in use)."
     )
   )
 })

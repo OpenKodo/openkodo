@@ -36,7 +36,7 @@ const CLAUDE_CUSTOM_THEME_FIRST_VERSION = '2.1.119'
 const CLAUDE_HOOK_EXEC_FORM_FIRST_VERSION = '2.1.139'
 
 // Async prompt hooks need `async` command hooks (fixed by 2.1.19) and a prompt_id on every event to order a late
-// prompt; 2.1.280 is the oldest build with that id in Orca's recorded hook fixtures.
+// prompt; 2.1.280 is the oldest build with that id in OpenKodo's recorded hook fixtures.
 const CLAUDE_ASYNC_PROMPT_HOOK_FIRST_VERSION = '2.1.280'
 
 // Unknown versions get the core lifecycle/statusLine floor until a probe resolves their actual version.

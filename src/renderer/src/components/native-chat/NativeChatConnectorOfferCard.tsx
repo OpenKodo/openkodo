@@ -72,7 +72,7 @@ function offerFootnote(source: ConnectorOfferSource): string | null {
     case 'linear':
       return translate(
         'components.native-chat.connectorOffer.linearAsYou',
-        'It can also work in Linear as you, through your own Linear sign-in in Orca.'
+        'It can also work in Linear as you, through your own Linear sign-in in OpenKodo.'
       )
     case 'slack':
     case 'google':
@@ -173,7 +173,7 @@ function OfferCard({
 
 /**
  * A server bot's connected source whose events don't reach it: the server's notice, or, when its link
- * to Orca Cloud is down with no notice of its own (refused, or stopped while signed in), why.
+ * to OpenKodo Cloud is down with no notice of its own (refused, or stopped while signed in), why.
  */
 function ServerOffer(props: OfferProps): React.JSX.Element {
   const t = useTranslate()
@@ -191,7 +191,7 @@ function ServerOffer(props: OfferProps): React.JSX.Element {
   return <SourceOffer {...props} pause={pause} />
 }
 
-/** This computer's bot while it isn't signed in to Orca Cloud: its events wait on this sign-in. */
+/** This computer's bot while it isn't signed in to OpenKodo Cloud: its events wait on this sign-in. */
 function LocalOffer(
   props: OfferProps & { offer: { source: LinkedOfferSource } }
 ): React.JSX.Element {
@@ -250,7 +250,7 @@ export function NativeChatConnectorOfferCard({
     )
   }
   const source = offer.source
-  // Google's events come from the host's own Google sign-in, not through Orca Cloud.
+  // Google's events come from the host's own Google sign-in, not through OpenKodo Cloud.
   if (source === 'google') {
     return <NativeChatGoogleOfferCard bot={bot} messageId={messageId} />
   }

@@ -94,7 +94,7 @@ function accessFixture(options: {
       // The confirm reads the bot as listed now, so the host lists this scenario's bot.
       stub({ linearLinked: false, composio: false, bots: [subject] })
       if (options.unknownMode) {
-        // The agent's own permission: Orca can't read where new conversations start.
+        // The agent's own permission: OpenKodo can't read where new conversations start.
         useAppStore.setState((state) =>
           state.settings ? { settings: { ...state.settings, agentPermissionDefault: 'own' } } : {}
         )

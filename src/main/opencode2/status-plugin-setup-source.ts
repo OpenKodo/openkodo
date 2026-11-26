@@ -4,8 +4,8 @@ import { getLegacyOpenCodeTuiSource } from '../opencode/status-hooks/plugin-sour
 
 export function getOpenCode2ModuleSource(pluginID: string, expectedAgent: string): string[] {
   return [
-    `const ORCA_TUI_PLUGIN_ENTRY = new URL("./${openCodeTuiPluginDirName(`${pluginID}.js`)}/tui.js", import.meta.url);`,
-    `const ORCA_STATUS_AGENT = "${expectedAgent}";`,
+    `const OPENKODO_TUI_PLUGIN_ENTRY = new URL("./${openCodeTuiPluginDirName(`${pluginID}.js`)}/tui.js", import.meta.url);`,
+    `const OPENKODO_STATUS_AGENT = "${expectedAgent}";`,
     ...getLegacyOpenCodeTuiSource(),
     ...getOpenCode2SetupSource()
   ]
@@ -19,7 +19,7 @@ export function getOpenCode2SetupSource(): string[] {
 // Non-session owners have no Idle ${EM_DASH} ignore known sentinels to avoid stranded blockers.
 const NON_SESSION_FORM_OWNERS = new Set(["global"]);
 
-// Normalize blockers once so server and TUI reports reach Orca in the same shape.
+// Normalize blockers once so server and TUI reports reach OpenKodo in the same shape.
 function translateOpenCode2Event(inputType, data) {
   let type = inputType;
   let properties = data || {};
@@ -64,7 +64,7 @@ async function tuiReportsPaneLifecycle() {
   try {
     const { statSync } = await import("node:fs");
     // Older SSH installers may omit the TUI copy; retain server reporting as fallback.
-    return statSync(ORCA_TUI_PLUGIN_ENTRY).isFile();
+    return statSync(OPENKODO_TUI_PLUGIN_ENTRY).isFile();
   } catch {
     return false;
   }

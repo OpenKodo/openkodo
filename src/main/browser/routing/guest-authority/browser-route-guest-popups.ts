@@ -1,6 +1,6 @@
 import type { Session, WebContents } from 'electron'
 import '../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
 import {
   isBlankBrowserPopupUrl,
   normalizeBrowserPopupUrl,
@@ -91,7 +91,7 @@ export function createBrowserRouteGuestPopupController(input: {
   let disposed = false
 
   const navigationAllowed = (url: string): boolean =>
-    input.isNavigationAllowed(isBlankBrowserPopupUrl(url) ? ORCA_BROWSER_BLANK_URL : url)
+    input.isNavigationAllowed(isBlankBrowserPopupUrl(url) ? OPENKODO_BROWSER_BLANK_URL : url)
 
   // Authority can be revoked while Chromium creates a child, so createWindow asks again.
   const routePermits = (url: string | null): url is string =>
@@ -115,7 +115,7 @@ export function createBrowserRouteGuestPopupController(input: {
     if (
       disposed ||
       contentsPartition !== input.partition ||
-      !navigationAllowed(ORCA_BROWSER_BLANK_URL)
+      !navigationAllowed(OPENKODO_BROWSER_BLANK_URL)
     ) {
       return false
     }
@@ -146,7 +146,7 @@ export function createBrowserRouteGuestPopupController(input: {
       trackBrowserPopupUserAgentDemand(contents)
       // Register before first navigation so downloads can resolve the root page.
       registerPopupOwnership(popupWebContentsId)
-      if (disposed || !navigationAllowed(ORCA_BROWSER_BLANK_URL)) {
+      if (disposed || !navigationAllowed(OPENKODO_BROWSER_BLANK_URL)) {
         releasePopupOwnership(popupWebContentsId)
         gestures.delete(gesture)
         gesture.dispose()
@@ -250,7 +250,7 @@ export function createBrowserRouteGuestPopupController(input: {
           options,
           background: details?.disposition === 'background-tab',
           showWhenAppActive: observed.byAgent,
-          canPresent: () => !disposed && navigationAllowed(ORCA_BROWSER_BLANK_URL),
+          canPresent: () => !disposed && navigationAllowed(OPENKODO_BROWSER_BLANK_URL),
           onCreated: (nativeOptions) => openPopup(nativeOptions, details?.url ?? normalized)
         })
       }

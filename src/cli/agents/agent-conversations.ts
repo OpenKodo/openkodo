@@ -24,7 +24,7 @@ import {
 } from '../../shared/agent-conversations/agent-conversation-contracts'
 import { AGENT_STATUS_STATES } from '../../shared/agent-status/contracts/agent-status-types'
 import type { RuntimeWorktreeRecord } from '../../shared/worktree/catalog/runtime-worktree-contracts'
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/orca-session-address-prefix'
 import {
   AGENT_SESSION_UNATTACHED_REFUSAL_CODE,
   isUnattachedAgentSessionReadRefusal
@@ -86,14 +86,14 @@ async function callAgentMethod<TResult>(client: RuntimeClient, method: string, p
     if (error.code === 'method_not_found') {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'This Orca host has no agent commands yet. Update Orca on that host to use agent commands.'
+        'This OpenKodo host has no agent commands yet. Update OpenKodo on that host to use agent commands.'
       )
     }
     // Chat reads answer with bare wire codes; say what they mean.
     if ([error.code, error.message].includes('structured_agent_session_unsupported')) {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        "This Orca host can't read that chat from the CLI. Update Orca on that host, or check that it has chats turned on."
+        "This OpenKodo host can't read that chat from the CLI. Update OpenKodo on that host, or check that it has chats turned on."
       )
     }
     if (isUnattachedAgentSessionReadRefusal(error)) {
@@ -108,8 +108,8 @@ async function callAgentMethod<TResult>(client: RuntimeClient, method: string, p
 
 function address(row: { orcaSessionId: string | null }): string {
   return row.orcaSessionId
-    ? `${ORCA_SESSION_ADDRESS_PREFIX}${row.orcaSessionId}`
-    : 'none yet (Orca names a terminal agent after its first report)'
+    ? `${OPENKODO_SESSION_ADDRESS_PREFIX}${row.orcaSessionId}`
+    : 'none yet (OpenKodo names a terminal agent after its first report)'
 }
 
 function formatAgentRow(row: AgentConversationRow): string {
@@ -142,7 +142,7 @@ function formatAgentList(result: WithAnnotatedHostScope<AgentListResult>): strin
 }
 
 function formatAgentShow(result: AgentShowResult): string {
-  const id = `${ORCA_SESSION_ADDRESS_PREFIX}${result.orcaSessionId}`
+  const id = `${OPENKODO_SESSION_ADDRESS_PREFIX}${result.orcaSessionId}`
   if (result.places.length === 0) {
     return `Agent ${id} (${result.kind}) isn't open in any workspace right now.`
   }
@@ -156,11 +156,13 @@ function formatTool(tool: AgentReadTool): string {
 function formatAgentRead(result: AgentReadResult): string {
   const lines = result.entries.map((entry) =>
     entry.shortened
-      ? `${formatEntry(entry)}\n[shortened to fit; open it in Orca to see it whole]`
+      ? `${formatEntry(entry)}\n[shortened to fit; open it in OpenKodo to see it whole]`
       : formatEntry(entry)
   )
   if (result.limited) {
-    lines.push('[Some conversation content was omitted or shortened; open it in Orca to see more.]')
+    lines.push(
+      '[Some conversation content was omitted or shortened; open it in OpenKodo to see more.]'
+    )
   } else if (lines.length === 0) {
     lines.push('Nothing new.')
   }

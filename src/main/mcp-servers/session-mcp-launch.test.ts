@@ -30,7 +30,7 @@ beforeEach(() => {
   })
 })
 afterEach(() => {
-  delete process.env.ORCA_MCP_SERVERS
+  delete process.env.OPENKODO_MCP_SERVERS
   useBotToolCredentialsRoot(null)
   _resetSecretStoreForTests()
   for (const dir of dirs.splice(0)) {
@@ -86,12 +86,12 @@ describe('the MCP servers a chat launches with', () => {
       }
     )
     expect(bot.tools.servers).toEqual([{ name: 'notion', command: 'npx', args: ['bot-notion'] }])
-    expect(bot.tools.env).toEqual({ ORCA_BOT_TOOLS_TOKEN: 'the-token' })
+    expect(bot.tools.env).toEqual({ OPENKODO_BOT_TOOLS_TOKEN: 'the-token' })
     expect(bot.launched?.host).toBeNull()
   })
 
   it('gives each session the servers on for its agent and workspace, and a bot its own first', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     const hostFolder = await hostList()
     const names = async (provider: string, workspaceId: string) =>
       (
@@ -111,7 +111,7 @@ describe('the MCP servers a chat launches with', () => {
     expect(await names('claude', 'repo-2::/work/docs')).toEqual(['linear', 'notion', 'sentry'])
     expect(await names('claude', 'folder:scratch')).toEqual(['linear', 'notion', 'sentry'])
 
-    // A server Orca holds the values for goes through the relay under the host's token, never a bot's.
+    // A server OpenKodo holds the values for goes through the relay under the host's token, never a bot's.
     const chat = await sessionMcpLaunchTools(null, session('claude', 'repo-2::/d'), '/d', {
       relay,
       hostFolder
@@ -120,9 +120,9 @@ describe('the MCP servers a chat launches with', () => {
       name: 'sentry',
       url: 'http://127.0.0.1:4100/mcp-servers/cred-sentry-1/mcp',
       transport: 'http',
-      headers: { authorization: 'Bearer ${ORCA_MCP_TOKEN}' }
+      headers: { authorization: 'Bearer ${OPENKODO_MCP_TOKEN}' }
     })
-    expect(chat.tools.env).toEqual({ ORCA_MCP_TOKEN: 'the-token' })
+    expect(chat.tools.env).toEqual({ OPENKODO_MCP_TOKEN: 'the-token' })
 
     const botFolder = tempDir('bot-home-')
     const own = { name: 'notion', command: 'npx', args: ['bot-notion'] }
@@ -152,11 +152,11 @@ describe('the MCP servers a chat launches with', () => {
       'sentry'
     ])
     expect(opted.tools.servers[0]).toEqual(own)
-    expect(opted.tools.env).toEqual({ ORCA_BOT_TOOLS_TOKEN: 'the-token' })
+    expect(opted.tools.env).toEqual({ OPENKODO_BOT_TOOLS_TOKEN: 'the-token' })
   })
 
   it('restarts a running chat only when a server it got, or would get now, changes', async () => {
-    process.env.ORCA_MCP_SERVERS = '1'
+    process.env.OPENKODO_MCP_SERVERS = '1'
     const hostFolder = await hostList()
     const { launched } = await sessionMcpLaunchTools(null, session('claude', 'repo-2::/d'), '/d', {
       relay,

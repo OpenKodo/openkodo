@@ -36,7 +36,7 @@ import {
 } from '../../../../../native-chat/conversation-adoption/structured-agent-cli-source'
 import type { StructuredAgentId } from '../../../../../../shared/agent-session/lifecycle/provider-handles/agent-session-provider-handle'
 import { resolveUncommittedStructuredCreate } from './structured-agent-session-precommit-refusal'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
 import { structuredAgentSessionClosedBeforeCreate } from './structured-agent-session-close-before-create'
 import type { ChatTabPlacement } from '../../../../session-tabs/chat/agent-session-tab-layout'
 
@@ -201,7 +201,7 @@ export async function commitStructuredAgentSessionCreate(args: {
                 prepared.attachParams.surfaceTabId ?? structuredAgentSessionTabId(sessionId)
               args.capture?.({ tableId, presentation: { raw: null, saved: [] } })
               if (
-                ORCA_LAYOUT_OWNER_IS_MAIN &&
+                OPENKODO_LAYOUT_OWNER_IS_MAIN &&
                 structuredAgentSessionClosedBeforeCreate(sessionId)
               ) {
                 return Promise.resolve()
@@ -235,7 +235,7 @@ export async function commitStructuredAgentSessionCreate(args: {
   args.capture?.({ tableId: surfaceTabId, presentation: { raw: null, saved: [] } })
   // A chat closed while it was being made gets no tab to show before main closes it.
   if (
-    ORCA_LAYOUT_OWNER_IS_MAIN &&
+    OPENKODO_LAYOUT_OWNER_IS_MAIN &&
     structuredAgentSessionClosedBeforeCreate(result.value.sessionId)
   ) {
     return result

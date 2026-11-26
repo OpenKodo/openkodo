@@ -10,7 +10,7 @@ import {
 } from '../../terminal-authority/structured-sessions/structured-worker-identity'
 import { currentRunCoordinatorOrcaSessionIdSql } from '../runs/run-coordinator-orca-session'
 
-const CURRENT_COORDINATOR_ORCA_SESSION_ID_SQL = currentRunCoordinatorOrcaSessionIdSql('runs')
+const CURRENT_COORDINATOR_OPENKODO_SESSION_ID_SQL = currentRunCoordinatorOrcaSessionIdSql('runs')
 
 // GLOB narrows by case-sensitive prefix; canonical identity predicates still decide.
 const HANDLE_GLOB = `${STRUCTURED_WORKER_HANDLE_PREFIX}*`
@@ -102,13 +102,13 @@ export function backfillStructuredWorkerOrcaSessionIds(db: Database.Database): v
   const coordinators = db
     .prepare(
       `SELECT id, coordinator_handle FROM runs
-       WHERE ${CURRENT_COORDINATOR_ORCA_SESSION_ID_SQL} IS NULL AND coordinator_handle GLOB ?`
+       WHERE ${CURRENT_COORDINATOR_OPENKODO_SESSION_ID_SQL} IS NULL AND coordinator_handle GLOB ?`
     )
     .all(HANDLE_GLOB)
   const setCoordinator = db.prepare(
     `UPDATE runs SET coordinator_orca_session_id = ?,
        coordinator_orca_session_id_generation = consumer_generation
-     WHERE id = ? AND ${CURRENT_COORDINATOR_ORCA_SESSION_ID_SQL} IS NULL`
+     WHERE id = ? AND ${CURRENT_COORDINATOR_OPENKODO_SESSION_ID_SQL} IS NULL`
   )
   for (const row of coordinators) {
     const orcaSessionId = orcaSessionIdFor(row.coordinator_handle, null)

@@ -1,4 +1,4 @@
-// A connector setup that steps aside for its page in Orca's browser: the dialog stays mounted but out of
+// A connector setup that steps aside for its page in OpenKodo's browser: the dialog stays mounted but out of
 // the way, and a pill at the bottom of the window stands in until Expand, ✕, or the setup comes back.
 import React, { useCallback, useId, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -63,7 +63,7 @@ export function ConnectorSetupPill({
 }
 
 /**
- * A setup dialog that steps aside to the pill while its page is open in Orca's browser, staying mounted
+ * A setup dialog that steps aside to the pill while its page is open in OpenKodo's browser, staying mounted
  * (hidden, non-modal) so its progress lives on; the setup calls `comeBack` once its page is done.
  */
 export function useSetupStepAside(): {
@@ -79,7 +79,7 @@ export function useSetupStepAside(): {
 
 /**
  * A connector's setup dialog that can step aside (useSetupStepAside): away, it stays mounted but hidden
- * and non-modal, so the page in Orca's browser is free, and the pill stands in for it. Only Close or
+ * and non-modal, so the page in OpenKodo's browser is free, and the pill stands in for it. Only Close or
  * the pill's ✕ end it then.
  */
 export function ConnectorSetupDialog({

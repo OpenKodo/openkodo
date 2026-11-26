@@ -1,4 +1,4 @@
-// `bots.github.*`: the host account's GitHub link and installs, as this host's own Orca account.
+// `bots.github.*`: the host account's GitHub link and installs, as this host's own OpenKodo account.
 import {
   BotGitHubDefaultBot,
   BotGitHubUnlink,

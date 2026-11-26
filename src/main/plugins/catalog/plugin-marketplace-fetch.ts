@@ -1,10 +1,12 @@
 import { tmpdir } from 'node:os'
 import {
+  LEGACY_PLUGIN_MARKETPLACE_FILENAME,
   PLUGIN_MARKETPLACE_FILENAME,
   pluginMarketplaceSchema,
   type PluginMarketplace
 } from '../../../shared/plugins/catalog/plugin-marketplace'
 import {
+  LEGACY_PLUGIN_CATALOG_FILENAME,
   PLUGIN_CATALOG_FILENAME,
   pluginCatalogSchema,
   pluginCatalogVersionError
@@ -39,6 +41,8 @@ export type PluginMarketplaceFetchResult = {
 }
 
 /** System Git retains private-repo SSH agent and credential-helper support. */
+const INDEX_FILENAMES = [PLUGIN_CATALOG_FILENAME, PLUGIN_MARKETPLACE_FILENAME]
+const LEGACY_INDEX_FILENAMES = [LEGACY_PLUGIN_CATALOG_FILENAME, LEGACY_PLUGIN_MARKETPLACE_FILENAME]
 export async function fetchPluginMarketplace(
   source: PluginMarketplaceRegisteredSource
 ): Promise<PluginMarketplaceFetchResult> {
@@ -63,7 +67,7 @@ async function readMarketplaceAtCommit(
 ): Promise<{ marketplace: PluginMarketplace; images: Buffer[] }> {
   const options = { cwd: repository, timeout: MARKETPLACE_GIT_TIMEOUT_MS }
   const listing = await gitExecFileAsyncBuffer(
-    ['ls-tree', '-l', '-z', commit, '--', PLUGIN_CATALOG_FILENAME, PLUGIN_MARKETPLACE_FILENAME],
+    ['ls-tree', '-l', '-z', commit, '--', ...INDEX_FILENAMES, ...LEGACY_INDEX_FILENAMES],
     { ...options, maxBuffer: 64 * 1024 }
   )
   const blobs = new Map<string, { object: string; size: number }>()
@@ -73,11 +77,9 @@ async function readMarketplaceAtCommit(
       blobs.set(match[3]!, { object: match[1]!, size: Number(match[2]) })
     }
   }
-  const filename = blobs.has(PLUGIN_CATALOG_FILENAME)
-    ? PLUGIN_CATALOG_FILENAME
-    : PLUGIN_MARKETPLACE_FILENAME
-  const blob = blobs.get(filename)
-  if (!blob) {
+  const filename = [...INDEX_FILENAMES, ...LEGACY_INDEX_FILENAMES].find((name) => blobs.has(name))
+  const blob = filename ? blobs.get(filename) : undefined
+  if (!filename || !blob) {
     throw new Error(`${PLUGIN_MARKETPLACE_FILENAME} not found`)
   }
   if (blob.size > MARKETPLACE_INDEX_MAX_BYTES) {
@@ -310,7 +312,7 @@ export function parsePluginMarketplaceIndex(filename: string, bytes: Buffer): Pl
       `invalid ${filename}: ${error instanceof Error ? error.message : String(error)}`
     )
   }
-  if (filename === PLUGIN_CATALOG_FILENAME) {
+  if (filename === PLUGIN_CATALOG_FILENAME || filename === LEGACY_PLUGIN_CATALOG_FILENAME) {
     const tooNew = pluginCatalogVersionError(raw)
     if (tooNew) {
       throw new Error(`${filename} ${tooNew}`)

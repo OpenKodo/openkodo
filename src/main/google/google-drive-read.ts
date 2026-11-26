@@ -1,4 +1,4 @@
-// `orca drive read`: any Drive file as text where Orca can make it (Docs as Markdown, Sheets tab by
+// `orca drive read`: any Drive file as text where OpenKodo can make it (Docs as Markdown, Sheets tab by
 // tab, Slides as text, PDFs read off the main thread), paged, or the file itself to save.
 import type { DriveDownload, DriveReadView } from '../../shared/google/google-files-types'
 import { sheetTable, splitA1 } from '../../shared/google/sheets-a1'
@@ -69,7 +69,7 @@ async function fileText(
     const { data } = await bytes(mediaUrl(file.id))
     const pdf = await pdfTextViaWorker(new Uint8Array(data)).catch(() => {
       throw new GoogleToolError(
-        "Orca couldn't read text from this PDF. Save it with --download instead."
+        "OpenKodo couldn't read text from this PDF. Save it with --download instead."
       )
     })
     return { text: pdf.text, source: `PDF text, ${pdf.pages} page${pdf.pages === 1 ? '' : 's'}` }
@@ -81,7 +81,7 @@ async function fileText(
   throw new GoogleToolError(
     file.mimeType === FOLDER_TYPE
       ? 'That is a folder. `orca drive list <folder>` shows what is in it.'
-      : `Orca can't show a ${file.mimeType} file as text. Save it with \`orca drive read ${file.id} --download\`.`
+      : `OpenKodo can't show a ${file.mimeType} file as text. Save it with \`orca drive read ${file.id} --download\`.`
   )
 }
 

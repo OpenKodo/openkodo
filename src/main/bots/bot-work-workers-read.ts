@@ -10,7 +10,7 @@ import type { BotWorkRuntime } from './bot-work-runtime'
 import type { BotWorkWorker } from './bot-work-types'
 
 /** Each Dispatch's worker as its lineage's newest Dispatch, read in one batch; a server-owned one from
- *  this Orca's record of it. Null when its records are gone; left out when it can't be read. */
+ *  this OpenKodo's record of it. Null when its records are gone; left out when it can't be read. */
 export async function readWorkers(
   runtime: BotWorkRuntime,
   dispatchIds: readonly string[],

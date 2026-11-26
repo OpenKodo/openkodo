@@ -185,7 +185,7 @@ export class ChatTurns {
     this.news({ kind: 'prompt', sessionId })
   }
 
-  /** A delivery an already linked chat took joins the turn begun in Orca it runs, which is the
+  /** A delivery an already linked chat took joins the turn begun in OpenKodo it runs, which is the
    *  conversation's from then. An ended turn is never told again. */
   delivered(paneKey: string, sessionId: string): void {
     const at = this.startedAt.get(paneKey)
@@ -253,7 +253,7 @@ export class ChatTurns {
       current: live,
       leave: turnLeave(linked.link, ended.turnId, this.deps.leaveLines, live)
     }
-    // A synced Orca-typed turn the thread didn't hear posts its reply too.
+    // A synced OpenKodo-typed turn the thread didn't hear posts its reply too.
     if (mirrored && !heard) {
       return endMirroredTurn(end, mirrored)
     }
@@ -263,7 +263,7 @@ export class ChatTurns {
       end.leave.settle()
       return endAdoptedTurn(end, this.deps.promptsAudience)
     }
-    // A turn begun in Orca never reached the conversation, so its end doesn't either.
+    // A turn begun in OpenKodo never reached the conversation, so its end doesn't either.
     if (shared && !heard) {
       return end.leave.settle()
     }
@@ -277,12 +277,12 @@ export class ChatTurns {
       }
       const words = legacyTurnWords(turn, linked.link, replied, reply)
       // Mail finishing what its conversation asked (its workers' reports, another bot's answer to its
-      // request) woke the chat, so the answer goes back there; other mail is answered in Orca.
+      // request) woke the chat, so the answer goes back there; other mail is answered in OpenKodo.
       const opener = turn.opener ?? turn.latestOpener
       const reported =
         origin === 'local' && !shared && Boolean(opener && isConversationReport(opener.body))
       if (!heard && !reported) {
-        // No one in the thread asked: a bot's turn Orca raised tells how it went, never what it said.
+        // No one in the thread asked: a bot's turn OpenKodo raised tells how it went, never what it said.
         if (linked.link.bot && promptRaisedBy(linked.link, turn.opener ?? null) === 'orca') {
           endAdoptedTurn(end, this.deps.promptsAudience, turn)
         }

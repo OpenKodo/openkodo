@@ -32,7 +32,7 @@ export function summaryIdentity(summary: RuntimeWorktreePsSummary): string {
  * Control lists, attached worktrees and their lineage children alike, on any host. A bot's home is
  * not one piece of work, so its workspaces stay independent.
  *
- * A parent in another Orca store keeps that link only in the child's store, so each side sees half:
+ * A parent in another OpenKodo store keeps that link only in the child's store, so each side sees half:
  * a child here whose parent is elsewhere may be in a folder there, so it is held (workers and bot
  * hand-overs aside), and this host's folders learn of children in paired servers' stores from
  * `readPairedFolderChildren`. A headless server can't reach the other servers its clients pair, so

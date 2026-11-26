@@ -42,7 +42,7 @@ afterEach(async () => {
 })
 
 it('reaches old-history retirement at serving on empty profiles through both hosts, unless shutting down', async () => {
-  vi.stubEnv('ORCA_APP_VERSION', '1.0.1')
+  vi.stubEnv('OPENKODO_APP_VERSION', '1.0.1')
   const location = startupOpen.localAgentSessionRecordStoreLocation
   vi.spyOn(startupOpen, 'localAgentSessionRecordStoreLocation').mockImplementation((ids) => ({
     ...location(ids),

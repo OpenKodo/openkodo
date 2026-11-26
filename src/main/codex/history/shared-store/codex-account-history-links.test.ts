@@ -53,7 +53,7 @@ async function holdThreadLock(lock: string): Promise<() => Promise<void>> {
 }
 
 const roots: string[] = []
-// Without a platform, the home is one Orca manages on this host, as share runs it in the app.
+// Without a platform, the home is one OpenKodo manages on this host, as share runs it in the app.
 function fixture(platform?: NodeJS.Platform) {
   const root = realpathSync(mkdtempSync(join(tmpdir(), 'codex-account-history-')))
   roots.push(root)

@@ -35,7 +35,7 @@ import {
   botItemsForClient
 } from './bots-items-waiting-compat'
 
-const REFUSAL = 'Only your owner changes items this way, in Orca.'
+const REFUSAL = 'Only your owner changes items this way, in OpenKodo.'
 
 function ownerActor(context: RpcContext): BotItemOwnerActor {
   ownerOnly(context, REFUSAL)

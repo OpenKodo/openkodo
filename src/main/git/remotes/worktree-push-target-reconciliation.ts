@@ -14,12 +14,12 @@ import {
   type WorktreePushTargetStore
 } from './worktree-push-target-cleanup'
 
-// Orca-shaped names only narrow candidates; provenance must independently prove ownership.
-const ORCA_PR_REMOTE_NAME_PATTERN =
+// OpenKodo-shaped names only narrow candidates; provenance must independently prove ownership.
+const OPENKODO_PR_REMOTE_NAME_PATTERN =
   /^pr-(?:head|[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?)(?:-[0-9]{1,2})?$/
 
 export function isOrcaGeneratedPrRemoteName(name: string): boolean {
-  return ORCA_PR_REMOTE_NAME_PATTERN.test(name)
+  return OPENKODO_PR_REMOTE_NAME_PATTERN.test(name)
 }
 
 type PrRemoteCandidate = { name: string; url: string }

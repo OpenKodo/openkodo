@@ -127,7 +127,7 @@ export const FEATURE_TIPS = [
   {
     id: 'orca-cli',
     priority: 'new',
-    title: 'Let agents drive Orca with the Orca CLI',
+    title: 'Let agents drive OpenKodo with the OpenKodo CLI',
     description: 'Enable agents to coordinate child worktrees and communicate between worktrees.',
     action: 'setup-cli',
     ctaLabel: 'Install CLI & Skills',

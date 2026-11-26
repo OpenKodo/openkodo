@@ -15,7 +15,7 @@ export function approvalRerunCommand(rawArgs: readonly string[], fingerprint: st
     }
     kept.push(arg)
   }
-  return ['orca', ...kept, '--approve', fingerprint].map(quoteCliCommandArgument).join(' ')
+  return ['openkodo', ...kept, '--approve', fingerprint].map(quoteCliCommandArgument).join(' ')
 }
 
 export function approvalFingerprintOf(data: unknown): string | null {
@@ -84,7 +84,7 @@ export function perPluginApprovalCommands(
 /** A failed plugin's own update reports its error with the steps to fix it. */
 export function perPluginFailureCommands(ctx: HandlerContext, failed: UpdateFailure[]): string[] {
   return failed.map((failure) => {
-    const command = ['orca', ...perPluginArgs(ctx, failure.pluginKey)]
+    const command = ['openkodo', ...perPluginArgs(ctx, failure.pluginKey)]
     return `To retry ${failure.pluginKey} and see how to fix it, run: ${command.map(quoteCliCommandArgument).join(' ')}`
   })
 }

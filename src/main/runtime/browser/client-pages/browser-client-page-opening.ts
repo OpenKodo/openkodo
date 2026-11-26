@@ -59,7 +59,7 @@ export type BrowserClientPageCaller = {
 export const DEFAULT_BROWSER_PROFILE_ID = 'default'
 
 export const BROWSER_HOST_UNAVAILABLE_MESSAGE =
-  'No paired Orca desktop is hosting browser pages for this server. Keep an Orca desktop paired with this server connected, then retry. If it renders remote pages on the server, set Settings › Browser › Remote server workspaces to "This device". Older desktops host only after you open a browser tab in one of this server\'s workspaces.'
+  'No paired OpenKodo desktop is hosting browser pages for this server. Keep an OpenKodo desktop paired with this server connected, then retry. If it renders remote pages on the server, set Settings › Browser › Remote server workspaces to "This device". Older desktops host only after you open a browser tab in one of this server\'s workspaces.'
 
 export async function createBrowserClientPage(
   host: BrowserClientPageOpeningHost,

@@ -15,7 +15,7 @@ import { NODE_RUNTIME_PROMOTE_TIMEOUT_MS, remoteNodeRuntimeDir } from './orcad-r
 import { recordedRemoteNodeRuntimeProbeCommand } from './orcad-remote-node-runtime-recorded-probe'
 import { ORCAD_INSTALL_MODEL } from './remote-install-model'
 
-const SECTION_END = '__ORCA_CACHED_SLOT_PROBE_END__'
+const SECTION_END = '__OPENKODO_CACHED_SLOT_PROBE_END__'
 
 export function cachedOrcadSlotProbeCommand(
   host: RemoteHostPlatform,

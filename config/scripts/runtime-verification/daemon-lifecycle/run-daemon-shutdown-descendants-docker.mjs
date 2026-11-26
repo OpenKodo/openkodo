@@ -8,14 +8,14 @@ import { build } from 'esbuild'
 
 const repo = resolve(fileURLToPath(new URL('../../../..', import.meta.url)))
 const docker =
-  process.env.ORCA_DOCKER ??
+  process.env.OPENKODO_DOCKER ??
   (existsSync('/Applications/Docker.app/Contents/Resources/bin/docker')
     ? '/Applications/Docker.app/Contents/Resources/bin/docker'
     : 'docker')
 const dockerDirectory = dirname(docker)
 const dockerEnv = {
   ...process.env,
-  ORCA_BACKGROUND_LAUNCH: '1',
+  OPENKODO_BACKGROUND_LAUNCH: '1',
   ...(dockerDirectory !== '.'
     ? { PATH: `${dockerDirectory}${delimiter}${process.env.PATH ?? ''}` }
     : {})
@@ -164,7 +164,7 @@ if (baselineIndex !== -1 && (!baselineRef || baselineRef.startsWith('-'))) {
 const temp = mkdtempSync(join(tmpdir(), 'orca-daemon-shutdown-descendants-'))
 const image = `orca-daemon-shutdown-descendants:${process.pid}-${Date.now()}`
 const platform =
-  process.env.ORCA_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
+  process.env.OPENKODO_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
 
 function baselinePlugin(ref) {
   const relocatedBaselineSources = baselineSourceRelocations(ref)
@@ -245,8 +245,8 @@ try {
     'build',
     '--platform',
     platform,
-    ...(process.env.ORCA_DAEMON_SHUTDOWN_FIXTURE_CACHE_IMAGE
-      ? ['--cache-from', process.env.ORCA_DAEMON_SHUTDOWN_FIXTURE_CACHE_IMAGE]
+    ...(process.env.OPENKODO_DAEMON_SHUTDOWN_FIXTURE_CACHE_IMAGE
+      ? ['--cache-from', process.env.OPENKODO_DAEMON_SHUTDOWN_FIXTURE_CACHE_IMAGE]
       : []),
     '-t',
     image,
@@ -260,7 +260,7 @@ try {
         '--platform',
         platform,
         '-e',
-        'ORCA_BACKGROUND_LAUNCH=1',
+        'OPENKODO_BACKGROUND_LAUNCH=1',
         '-v',
         `${bundlePath}:/fixtures/${mode}.cjs:ro`,
         image,

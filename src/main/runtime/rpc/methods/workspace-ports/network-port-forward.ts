@@ -20,7 +20,7 @@ type ConnectTarget = BrowserNetworkTunnelSessionOptions['connect']
 const outboundMemoryBudgets = new BrowserNetworkTunnelOutboundMemoryBudgetRegistry()
 let nextTunnelGeneration = 1
 
-/** Dials only this host's own loopback; the native dial still refuses Orca's own listeners. */
+/** Dials only this host's own loopback; the native dial still refuses OpenKodo's own listeners. */
 export function connectPairedPortForwardTarget(
   target: Parameters<ConnectTarget>[0],
   connect: ConnectTarget = connectNativeLoopbackTarget

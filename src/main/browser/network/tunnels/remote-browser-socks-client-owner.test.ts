@@ -18,10 +18,10 @@ import {
   verifySocksClientOwner
 } from './remote-browser-socks-client-owner'
 
-// Orca's own Electron processes: the main process and its browser network process.
+// OpenKodo's own Electron processes: the main process and its browser network process.
 vi.mock('electron', () => ({ app: { getAppMetrics: () => [{ pid: 100 }, { pid: 101 }] } }))
 
-// Rows follow the kernel's tcp4_seq_show / get_timewait4_sock formats. Orca is uid 1000 with its
+// Rows follow the kernel's tcp4_seq_show / get_timewait4_sock formats. OpenKodo is uid 1000 with its
 // SOCKS listener on 127.0.0.1:40000 (9C40); its browser connects from 127.0.0.1:54321 (D431).
 // Uid 1001 reuses port 54321 from 127.0.0.2, so only the full address pair tells the two apart.
 const PROC_NET_TCP = `  sl  local_address rem_address   st tx_queue rx_queue tr tm->when retrnsmt   uid  timeout inode

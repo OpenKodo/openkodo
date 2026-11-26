@@ -46,7 +46,7 @@ describe('codexBotToolsThreadConfig', () => {
 })
 
 describe('botToolProblems on Codex', () => {
-  it("fails each url tool named like the owner's stdio server, even one Orca signs in to, without starting Codex", async () => {
+  it("fails each url tool named like the owner's stdio server, even one OpenKodo signs in to, without starting Codex", async () => {
     useBotToolCredentialsRoot(tempDir('bot-tool-credentials-'))
     setSecretStore({
       isEncryptionAvailable: () => true,

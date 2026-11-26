@@ -1,4 +1,4 @@
-// Orca's own sign-in to a bot's app run on the bot's host for this window (`bots.tools.signIn.*`):
+// OpenKodo's own sign-in to a bot's app run on the bot's host for this window (`bots.tools.signIn.*`):
 // the page opens routed through the host, or on this device with its address pasted back.
 import { useSyncExternalStore } from 'react'
 import { callBotRpc, type BotRef } from '@/lib/bot-hosts'
@@ -50,7 +50,7 @@ export function useBotToolHostSignIn(bot: BotRef, name: string): BotToolHostSign
   }
 }
 
-/** The name of each bot host's computer as it last said it, for "Update Orca on …". */
+/** The name of each bot host's computer as it last said it, for "Update OpenKodo on …". */
 const hostNames = new Map<ExecutionHostId, string>()
 export function botToolHostName(hostId: ExecutionHostId): string | null {
   return hostNames.get(hostId) ?? null
@@ -65,7 +65,7 @@ async function hostSignsInForDevices(hostId: ExecutionHostId): Promise<boolean> 
 }
 
 /**
- * Orca's own sign-in run on the bot's host for this window. `routed`: the page opens in the bot's
+ * OpenKodo's own sign-in run on the bot's host for this window. `routed`: the page opens in the bot's
  * workspace browser, whose traffic goes through the host, so the app returns to the host's own
  * listener; when it can't open there, it signs in by paste instead. `paste`: the page opens in this
  * device's browser and the address it lands on is pasted back. Answers the page, to open again.

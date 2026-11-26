@@ -18,7 +18,7 @@ it.skipIf(process.platform === 'win32')(
       }).then(result => console.log(result.stderr.trim()))
     `
     const result = await runProcess({
-      program: process.env.ORCA_TEST_NODE_EXECUTABLE ?? process.execPath,
+      program: process.env.OPENKODO_TEST_NODE_EXECUTABLE ?? process.execPath,
       args: ['--require', require.resolve('tsx/cjs'), '-e', supervisor],
       cwd: __dirname,
       timeoutMs: 20_000

@@ -15,7 +15,7 @@ export const AUTOMATION_EVENT_SOURCE_NAMES: Record<AutomationRunEvent['source'],
   calendar: 'Google Calendar'
 }
 
-/** The Google account and Orca's ref for the mail or event, so the run reads it as the owner. */
+/** The Google account and OpenKodo's ref for the mail or event, so the run reads it as the owner. */
 function googleLines(event: AutomationRunEvent): string[] {
   const google = event.google
   if (!google) {
@@ -27,7 +27,7 @@ function googleLines(event: AutomationRunEvent): string[] {
   ]
 }
 
-// Orca's own facts about a webhook call; the call's body is quoted, never here.
+// OpenKodo's own facts about a webhook call; the call's body is quoted, never here.
 function webhookLines(call: AutomationRunWebhookCall): string[] {
   return [
     ...(call.sample ? ["This is a sample call from the hook's card, not from the sender."] : []),
@@ -86,16 +86,16 @@ export function automationEventAsker(
   return member ? 'member' : 'other'
 }
 
-// Orca's own words, outside the fence: who asked can't be claimed from inside it.
+// OpenKodo's own words, outside the fence: who asked can't be claimed from inside it.
 const ASKER_LINES: Record<AutomationEventAsker, string> = {
-  owner: '[Orca: this came from your owner.]',
-  member: '[Orca: this came from someone on your Who can ask.]',
+  owner: '[OpenKodo: this came from your owner.]',
+  member: '[OpenKodo: this came from someone on your Who can ask.]',
   other:
-    "[Orca: this came from someone who is not on your Who can ask, or whose access Orca can't tell.]"
+    "[OpenKodo: this came from someone who is not on your Who can ask, or whose access OpenKodo can't tell.]"
 }
 
 /**
- * The owner's prompt, then the event. Only what Orca itself knows (source, kind, time, and a Slack
+ * The owner's prompt, then the event. Only what OpenKodo itself knows (source, kind, time, and a Slack
  * event's checked channel id and ts) is outside the fence; everything another person wrote or named
  * is quoted inside it, as information.
  */
@@ -108,7 +108,7 @@ export function automationRunPrompt(
     return prompt
   }
   const header = [
-    `[Orca event: ${AUTOMATION_EVENT_SOURCE_NAMES[event.source]} · ${event.event.replaceAll('_', ' ')} · ${new Date(event.occurredAt).toISOString()}]`,
+    `[OpenKodo event: ${AUTOMATION_EVENT_SOURCE_NAMES[event.source]} · ${event.event.replaceAll('_', ' ')} · ${new Date(event.occurredAt).toISOString()}]`,
     ...(event.source === 'slack' ? slackLines(event) : []),
     ...(event.webhook ? webhookLines(event.webhook) : []),
     ...googleLines(event),
@@ -139,14 +139,14 @@ export function automationRunPrompt(
   ].join('\n')
 }
 
-/** A wait's run at its deadline: no event came, and the bot is told so in Orca's words. */
+/** A wait's run at its deadline: no event came, and the bot is told so in OpenKodo's words. */
 export function automationDeadlinePrompt(
   prompt: string,
   by: number,
   waitedForEvent: boolean
 ): string {
   const line = waitedForEvent
-    ? `[Orca: the deadline ${new Date(by).toISOString()} came before the event you were waiting for. This is the wait's only run.]`
-    : `[Orca: it is ${new Date(by).toISOString()}, the time you were asked to act at. This is the only run.]`
+    ? `[OpenKodo: the deadline ${new Date(by).toISOString()} came before the event you were waiting for. This is the wait's only run.]`
+    : `[OpenKodo: it is ${new Date(by).toISOString()}, the time you were asked to act at. This is the only run.]`
   return [prompt, '', line].join('\n')
 }

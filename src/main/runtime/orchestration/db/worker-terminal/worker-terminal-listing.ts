@@ -108,7 +108,7 @@ export function listWorkerTerminalResources(
   resource: WorkerTerminalResourceRow | null
   /** The follow-up its terminal went to, and the shared row it last held (null when none names it). */
   handedOn: { toDispatchId: string; resource: WorkerTerminalResourceRow | null } | null
-  /** The paired Orca's name when its Run here coordinates this worker. */
+  /** The paired OpenKodo's name when its Run here coordinates this worker. */
   coordinatedFrom: string | null
   createdAt: string
   databaseId: number

@@ -76,7 +76,7 @@ function text(
 
 function messages(intro: string): NativeChatMessage[] {
   return [
-    text('k1', 'user', 'Orca: you were just created.', 0, { orcaNotice: 'bot-created' }),
+    text('k1', 'user', 'OpenKodo: you were just created.', 0, { orcaNotice: 'bot-created' }),
     text('r1', 'reasoning', 'Greet the owner and ask.', 0.02),
     text('a1', 'assistant', intro, 0.05),
     text('u2', 'user', 'Review the open PRs on the parser.', 2),
@@ -115,7 +115,7 @@ function longMessages(length = 24): NativeChatMessage[] {
 
 function oldestMessages(): NativeChatMessage[] {
   return [
-    text('o1', 'user', 'Orca: the oldest page.', 0),
+    text('o1', 'user', 'OpenKodo: the oldest page.', 0),
     text('o2', 'assistant', 'This is where the chat began.', 1)
   ]
 }

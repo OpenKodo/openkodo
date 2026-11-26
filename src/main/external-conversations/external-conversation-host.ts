@@ -43,11 +43,11 @@ export type ExternalConversationSeamDeps = {
   onAgentPaneChange: (listener: (change: AgentPaneChange) => void) => () => void
   /** A conversation was linked to a chat, e.g. so a bot's Activity shows the thread. */
   onLinked?: () => void
-  /** A Slack channel's name through Orca Cloud, for a bot conversation's place. */
+  /** A Slack channel's name through cloud service, for a bot conversation's place. */
   nameChannel?: ConversationPlaceNamer
   /** The images a bot's request carries, fetched so its turn sees them; absent, the turn gets words. */
   askerImages?: AskerImages
-  /** Whom a bot chat acts for, as its cloud thread keeps it; undefined while Orca hasn't recorded it. */
+  /** Whom a bot chat acts for, as its cloud thread keeps it; undefined while OpenKodo hasn't recorded it. */
   actsForOf?: (sessionId: string) => ConnectorActsFor | undefined
   freesGoneChats?: () => boolean
   /** Whether the cloud routes a bot's prompts by who raised them, so it may see prompts of turns

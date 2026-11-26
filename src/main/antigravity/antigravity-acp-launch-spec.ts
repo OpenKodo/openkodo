@@ -1,5 +1,5 @@
 // Every Antigravity chat runs `agy acp`: on agy's own home and login for a Google account, or on a
-// home Orca owns (`--gemini-dir`) for any other method, and for chats Orca's retired server started.
+// home OpenKodo owns (`--gemini-dir`) for any other method, and for chats OpenKodo's retired server started.
 
 import { join } from 'node:path'
 import { homedir } from 'node:os'
@@ -10,12 +10,12 @@ import {
   antigravityChatRunsOnAgyHome,
   onAntigravityAgyOrcaHomeChanged
 } from './antigravity-chat-route'
-import { ORCA_ACP_CLIENT_INFO } from '../acp/launch/acp-client-info'
+import { OPENKODO_ACP_CLIENT_INFO } from '../acp/launch/acp-client-info'
 import { windowsLocalAppDataBinDirectories } from '../acp/launch/acp-windows-install-directories'
 import type { Implementation } from '../acp/generated/acp-protocol.generated'
 import {
   ANTIGRAVITY_ACP_DIALECT,
-  ANTIGRAVITY_AGY_ORCA_HOME_DIALECT
+  ANTIGRAVITY_AGY_OPENKODO_HOME_DIALECT
 } from '../acp/acp-dialects/antigravity-dialect'
 import type { AgentSessionAccountHome } from '../../shared/agent-session/lifecycle/accounts/agent-session-account-home'
 import {
@@ -62,11 +62,11 @@ const ANTIGRAVITY_SESSION_HISTORY: StructuredAgentSessionHistory = {
 
 const ZED_CLIENT_INFO: Implementation = { name: 'zed', version: '0.0.0' }
 
-// agy 1.5.1 and later offer every model to any client. Orca requires a newer agy, so `zed` is only
+// agy 1.5.1 and later offer every model to any client. OpenKodo requires a newer agy, so `zed` is only
 // the fallback when agy's version is unknown.
 function agyClientInfo(version: string | null): Implementation {
   return version && isValidAppVersion(version) && compareAppVersions(version, '1.5.1') >= 0
-    ? ORCA_ACP_CLIENT_INFO
+    ? OPENKODO_ACP_CLIENT_INFO
     : ZED_CLIENT_INFO
 }
 
@@ -97,12 +97,12 @@ const AGY_SESSION_MODEL_DISCOVERY: AcpSessionModelDiscovery = {
   discardSession: discardAgyListingSession
 }
 
-// agy on its own home uses agy's own sign-in and history; Orca neither signs it in nor out there.
+// agy on its own home uses agy's own sign-in and history; OpenKodo neither signs it in nor out there.
 const ANTIGRAVITY_AGY_LAUNCH_SPEC = {
   agent: 'antigravity',
   command: 'agy',
   ignoreAgentCommandSetting: true,
-  // Off, Orca's agy runs no chat: chats run the user's own (same ~/.gemini history), and on a host
+  // Off, OpenKodo's agy runs no chat: chats run the user's own (same ~/.gemini history), and on a host
   // without one they get launch's cliMissing refusal.
   managedCopyAllowed: (settings) => settings.antigravityManagedAgyEnabled !== false,
   args: ({ fullAccess }) => ['acp', ...(fullAccess ? [AGY_SKIP_PERMISSIONS_FLAG] : [])],
@@ -147,24 +147,24 @@ const ANTIGRAVITY_AGY_LAUNCH_SPEC = {
   keepsEverySession: true
 } satisfies AcpLaunchSpec
 
-// agy on a home Orca owns: the saved method's settings.json and credential, apart from agy's own
+// agy on a home OpenKodo owns: the saved method's settings.json and credential, apart from agy's own
 // settings. agy's Google login still serves it (shared keyring, or a copy of its login file).
-const ANTIGRAVITY_AGY_ORCA_HOME_LAUNCH_SPEC: AcpLaunchSpec = {
+const ANTIGRAVITY_AGY_OPENKODO_HOME_LAUNCH_SPEC: AcpLaunchSpec = {
   ...ANTIGRAVITY_AGY_LAUNCH_SPEC,
   readsAntigravityChatAuth: true,
   scrubEnvironment: scrubAgyOrcaHomeEnvironment,
-  dialect: ANTIGRAVITY_AGY_ORCA_HOME_DIALECT,
+  dialect: ANTIGRAVITY_AGY_OPENKODO_HOME_DIALECT,
   account: antigravityAgyOrcaAccount
 }
 
-/** The Orca-home spec for one home: agy is pointed at it on every launch. */
+/** The OpenKodo-home spec for one home: agy is pointed at it on every launch. */
 function agyOrcaHomeSpec(home: AgentSessionAccountHome): AcpLaunchSpec | null {
   const folder = antigravityOrcaHomeFolder(home)
   if (!folder) {
     return null
   }
   return {
-    ...ANTIGRAVITY_AGY_ORCA_HOME_LAUNCH_SPEC,
+    ...ANTIGRAVITY_AGY_OPENKODO_HOME_LAUNCH_SPEC,
     account:
       folder === ANTIGRAVITY_AGY_CHAT_HOME_FOLDER
         ? antigravityAgyOrcaAccount
@@ -181,7 +181,7 @@ export const ANTIGRAVITY_LAUNCH_SPEC = {
     ownLogin: isAntigravityHostAccountHome,
     followsSelectionBeforeFirstTurn: true,
     specFor: agyOrcaHomeSpec,
-    otherSpecs: [ANTIGRAVITY_AGY_ORCA_HOME_LAUNCH_SPEC],
+    otherSpecs: [ANTIGRAVITY_AGY_OPENKODO_HOME_LAUNCH_SPEC],
     // The saved method alone picks the home, so nothing here waits on agy.
     select: async (input) =>
       antigravityChatRunsOnAgyHome(input.settings.antigravityChatAuth)

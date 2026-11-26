@@ -58,7 +58,7 @@ function hostTarget(): ServerTarget | null {
 
 const target = hostTarget()
 const archive = target
-  ? [process.env.ORCA_NODE_RUNTIME_CACHE_DIR, resolve('out/node-runtime-cache')]
+  ? [process.env.OPENKODO_NODE_RUNTIME_CACHE_DIR, resolve('out/node-runtime-cache')]
       .filter((dir): dir is string => !!dir)
       .map((dir) => join(dir, NODE_RUNTIME_ASSETS[target].archive))
       .find((path) => existsSync(path))
@@ -139,7 +139,7 @@ describe.skipIf(process.platform === 'win32')('remote pinned-Node runtime store'
       target: 'linux-x64-glibc',
       token: 'test'
     })
-    expect(() => sh(install, source)).toThrow('ORCA_NODE_RUNTIME_EXTRACT_FAILED')
+    expect(() => sh(install, source)).toThrow('OPENKODO_NODE_RUNTIME_EXTRACT_FAILED')
     expect(readdirSync(join(root, 'runtimes'))).toEqual([])
   })
 

@@ -68,7 +68,7 @@ export function AppRail({
   const toolbarRef = useRef<HTMLDivElement | null>(null)
   const [toolbar, setToolbar] = useState<HTMLDivElement | null>(null)
   // Why stable: a new ref callback each render makes React detach (null) and reattach it, and those two setToolbar
-  // calls schedule an extra rail render per update when the compiler is off (ORCA_REACT_COMPILER=0).
+  // calls schedule an extra rail render per update when the compiler is off (OPENKODO_REACT_COMPILER=0).
   const attachToolbar = useCallback((node: HTMLDivElement | null) => {
     toolbarRef.current = node
     setToolbar(node)
@@ -198,7 +198,7 @@ export function AppRail({
       case 'skills':
         return t('auto.components.sidebar.SidebarNav.skills', 'Skills')
       case 'mobile':
-        return t('auto.components.sidebar.SidebarNav.1b5c41caee', 'Orca Mobile')
+        return t('auto.components.sidebar.SidebarNav.1b5c41caee', 'OpenKodo Mobile')
     }
   }
   const destinationIcon = (

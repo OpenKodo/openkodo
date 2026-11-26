@@ -1,7 +1,7 @@
 {
   "project_id": 406068,
   "prepared": "2026-11-08",
-  "event_contract": "implementation worktree /tmp/orca-protected-telemetry/event-contract.json version 3 (implemented-locally-not-deployed)",
+  "event_contract": "implementation worktree /tmp/openkodo-protected-telemetry/event-contract.json version 3 (implemented-locally-not-deployed)",
   "applied": {
     "insights": [
       {
@@ -158,7 +158,7 @@
       }
     ],
     "unchanged": "queries, names, tiles, filters, dashboard membership, experiments",
-    "checks": "PATCH responses matched new descriptions; query, name and dashboards byte-identical to backups; dashboard tiles and filters unchanged. Backups: /tmp/orca-protected-telemetry/dashboard-backups-2026-11-08/."
+    "checks": "PATCH responses matched new descriptions; query, name and dashboards byte-identical to backups; dashboard tiles and filters unchanged. Backups: /tmp/openkodo-protected-telemetry/dashboard-backups-2026-11-08/."
   },
   "staged_insights": [
     {
@@ -1168,7 +1168,7 @@
       "hogql_default_row_limit": 100
     },
     "validation": "Full-history async /query/ runs succeeded for every new query before save; legacy-window (2026-05-20..27) old vs new identical for 8838695, 8923273, 9050198 (old columns), 8923127 (label only); small legacy deltas on 8923532/9104872 come from legacy-start installs completing on current-flow builds. OOM equivalence on a 2h window (joins restricted to cohort ids on both sides): 9108955 and 8471904 identical; 9052828 identical to the LEFT JOIN reading of the original.",
-    "backups": "/tmp/orca-protected-telemetry/dashboard-backups-2026-11-08/onboarding-git-repair/",
+    "backups": "/tmp/openkodo-protected-telemetry/dashboard-backups-2026-11-08/onboarding-git-repair/",
     "dashboard_1562016_description": "note replaced with the repaired git/folder rule",
     "insights": [
       {

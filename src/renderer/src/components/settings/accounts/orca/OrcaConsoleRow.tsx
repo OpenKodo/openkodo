@@ -1,4 +1,4 @@
-// Settings › Orca account › "Team & admin": opens the web console signed in with a single-use ticket.
+// Settings › OpenKodo account › "Team & admin": opens the web console signed in with a single-use ticket.
 import { useState } from 'react'
 import { ExternalLink, Users } from 'lucide-react'
 import { toast } from 'sonner'

@@ -4,5 +4,5 @@
   "command": ["opencode", "--standalone"],
   "cols": 120,
   "rows": 40,
-  "note": "opencode v2.3.2 (GitHub release opencode-darwin-arm64) on macOS arm64 in tmux (pipe-pane raw output), isolated HOME/XDG dirs, OPENCODE_DISABLE_AUTOUPDATE=1, no ORCA_* vars, and one OpenAI-compatible provider at a closed localhost port. The first frame after Enter submitted the [Pasted ~83 lines] draft of opencode-2-3-2-paste-held.txt: the session view with an empty composer and OSC 7501 state=working. Its OSC 7501 titles were 'New session - <capture timestamp>' and are replaced with the base64 of 'New session': the same-length X placeholder from --redact does not decode, which drops the whole state report."
+  "note": "opencode v2.3.2 (GitHub release opencode-darwin-arm64) on macOS arm64 in tmux (pipe-pane raw output), isolated HOME/XDG dirs, OPENCODE_DISABLE_AUTOUPDATE=1, no OPENKODO_* vars, and one OpenAI-compatible provider at a closed localhost port. The first frame after Enter submitted the [Pasted ~83 lines] draft of opencode-2-3-2-paste-held.txt: the session view with an empty composer and OSC 7501 state=working. Its OSC 7501 titles were 'New session - <capture timestamp>' and are replaced with the base64 of 'New session': the same-length X placeholder from --redact does not decode, which drops the whole state report."
 }

@@ -48,7 +48,7 @@ export function chatReplyFollowUp(runtime: OrcaRuntimeService): StructuredMailFo
   return (db, message, sessionId) => replyFollowUp(runtime, db, message, chatReader(db, sessionId))
 }
 
-/** The reader a chat is, for `replyFollowUp`; undefined when Orca can no longer name its party. */
+/** The reader a chat is, for `replyFollowUp`; undefined when OpenKodo can no longer name its party. */
 export function chatReader(
   db: OrchestrationDb,
   sessionId: string
@@ -112,7 +112,7 @@ export function hintReplier(
       }
 }
 
-/** Where a reply goes, once Orca knows `refusedReplyFollowUp` accepts the replier. */
+/** Where a reply goes, once OpenKodo knows `refusedReplyFollowUp` accepts the replier. */
 export function resolveCheckedReplyRecipient(
   runtime: OrcaRuntimeService,
   db: OrchestrationDb,

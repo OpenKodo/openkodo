@@ -3,7 +3,7 @@ import type { ClaudeUsageDailyAggregate } from '../../../claude-usage/types'
 import type { CodexUsageDailyAggregate } from '../../../codex-usage/types'
 import type { OpenCodeUsageDailyAggregate } from '../../../opencode-usage/types'
 
-/** Tokens Orca worktrees used on one local calendar day. */
+/** Tokens OpenKodo worktrees used on one local calendar day. */
 export type AgentTokenDay = AgentTokenCounts & { day: string }
 
 function sumByDay<Row extends { day: string; worktreeId: string | null }>(

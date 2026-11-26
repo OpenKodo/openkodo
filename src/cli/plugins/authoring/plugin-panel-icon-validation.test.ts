@@ -24,7 +24,7 @@ beforeEach(async () => {
   root = await mkdtemp(join(tmpdir(), 'orca-panel-icon-check-'))
   dir = join(root, 'plugin')
   await createPluginFromTemplate({ dir, template: 'panel', publisher: 'acme' })
-  manifest = JSON.parse(await readFile(join(dir, 'orca-plugin.json'), 'utf8'))
+  manifest = JSON.parse(await readFile(join(dir, 'openkodo-plugin.json'), 'utf8'))
 })
 
 afterEach(async () => {
@@ -39,7 +39,7 @@ async function writeManifest(icon: unknown, overrides: Record<string, unknown> =
     ...overrides,
     contributes: { panels: [{ ...panels[0], icon }] }
   }
-  await writeFile(join(dir, 'orca-plugin.json'), JSON.stringify(next))
+  await writeFile(join(dir, 'openkodo-plugin.json'), JSON.stringify(next))
 }
 
 async function discoveredIcon(): Promise<unknown> {
@@ -77,7 +77,7 @@ it(
 )
 
 it(
-  'falls back to puzzle with a warning for icons Orca cannot draw',
+  'falls back to puzzle with a warning for icons OpenKodo cannot draw',
   async () => {
     for (const [icon, reason] of [
       [{ path: 'M0 0<script>' }, 'icon.path must be SVG path data'],
@@ -148,7 +148,7 @@ it('warns that a 2-unit stroke is thin in a viewBox larger than 48', async () =>
 it('keeps manifest text in icon warnings on one line', async () => {
   const { panels } = templateSchema.parse(manifest).contributes
   await writeFile(
-    join(dir, 'orca-plugin.json'),
+    join(dir, 'openkodo-plugin.json'),
     JSON.stringify({
       ...manifest,
       engines: { orca: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
@@ -168,7 +168,7 @@ it('requires the path icon release in engines.orca', async () => {
   const report = await validatePluginTarget(dir)
   expect(report.valid).toBe(false)
   expect(report.errors.join('\n')).toContain(
-    `must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[0].icon needs Orca ${PLUGIN_PANEL_PATH_ICON_SINCE}`
+    `must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[0].icon needs OpenKodo ${PLUGIN_PANEL_PATH_ICON_SINCE}`
   )
   await writeManifest('database', { engines: { orca: '>=1.4.246' } })
   expect((await validatePluginTarget(dir)).valid).toBe(true)
@@ -177,13 +177,13 @@ it('requires the path icon release in engines.orca', async () => {
 it(
   'requires the path icon release for icons it drops as well',
   async () => {
-    // Why: an older Orca refuses these outright, so the plugin would not load there at all.
+    // Why: an older OpenKodo refuses these outright, so the plugin would not load there at all.
     for (const icon of [{ path: 'nope' }, { color: 'red' }, 'icons/panel.svg']) {
       await writeManifest(icon, { engines: { orca: '>=1.4.246' } })
       const report = await validatePluginTarget(dir)
       expect(report.valid, JSON.stringify(icon)).toBe(false)
       expect(report.errors.join('\n'), JSON.stringify(icon)).toContain(
-        `must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[0].icon needs Orca ${PLUGIN_PANEL_PATH_ICON_SINCE}`
+        `must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[0].icon needs OpenKodo ${PLUGIN_PANEL_PATH_ICON_SINCE}`
       )
     }
   },
@@ -193,12 +193,12 @@ it(
 
 it('reports icon warnings through validate:plugin', async () => {
   await writeManifest({ path: 'M0 0L1' })
-  const raw = JSON.parse(await readFile(join(dir, 'orca-plugin.json'), 'utf8'))
+  const raw = JSON.parse(await readFile(join(dir, 'openkodo-plugin.json'), 'utf8'))
   expect(pluginManifestWarnings(raw)).toContainEqual(
     expect.stringContaining('Showing the puzzle icon instead')
   )
   await writeManifest('x.svg', { manifestVersion: 1, engines: { orca: '>=1.4.160' } })
-  const legacy = JSON.parse(await readFile(join(dir, 'orca-plugin.json'), 'utf8'))
+  const legacy = JSON.parse(await readFile(join(dir, 'openkodo-plugin.json'), 'utf8'))
   expect(pluginManifestWarnings(legacy)).toEqual([
     expect.stringContaining('file icons are not supported')
   ])
@@ -233,7 +233,7 @@ it('reports a repeated icon warning once, and logs it once across discovery refr
   const { panels } = templateSchema.parse(manifest).contributes
   const broken = { ...panels[0], icon: { path: 'M0 0L1' } }
   await writeFile(
-    join(dir, 'orca-plugin.json'),
+    join(dir, 'openkodo-plugin.json'),
     JSON.stringify({
       ...manifest,
       engines: { orca: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },

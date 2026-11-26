@@ -1,4 +1,4 @@
-/** A question a worker on a paired computer asked this Orca's coordinator, under a Run whose
+/** A question a worker on a paired computer asked this OpenKodo's coordinator, under a Run whose
  *  workers that computer runs: the notice goes there the way the answer would, as coordinator mail
  *  to the worker's Dispatch, and its outcome is recorded once the computer has taken it. */
 

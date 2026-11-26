@@ -65,7 +65,7 @@ function isPermissionConfig(value: string): boolean {
   return CODEX_PERMISSION_CONFIG_ROOTS.some((root) => root === key)
 }
 
-/** Accept only root CLI options; Orca sets permissions on the thread RPC. */
+/** Accept only root CLI options; OpenKodo sets permissions on the thread RPC. */
 export function codexStructuredLaunchArgs(tokens: readonly string[]): string[] {
   const args: string[] = []
   for (let index = 0; index < tokens.length; index += 1) {
@@ -112,7 +112,7 @@ export function codexStructuredLaunchArgs(tokens: readonly string[]): string[] {
 /**
  * The MCP server names the user's own `-c`/`--config` overrides set (`mcp_servers.<name>.…`, or a
  * whole `mcp_servers={…}` table, which replaces the ones before it), applied in order as Codex
- * does. Codex loads them beside config.toml, so a server from Orca of the same name would merge
+ * does. Codex loads them beside config.toml, so a server from OpenKodo of the same name would merge
  * into one of them.
  */
 export function codexArgsMcpServerNames(tokens: readonly string[]): string[] {

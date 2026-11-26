@@ -21,9 +21,9 @@ import { ORCAD_WSL_HOST_ENV } from '../../../shared/remote-runtime/serve-supervi
 import { execCommand } from '../../ssh/remote-exec/remote-exec-command'
 import { joinRemotePath } from '../../ssh/remote-host/ssh-remote-platform'
 
-const SECTION_END = '__ORCA_WSL_ACTIVE_PROBE_END__'
-const WSL_HOST_LAUNCH = '__ORCA_WSL_HOST_LAUNCH__'
-const OTHER_LAUNCH = '__ORCA_OTHER_LAUNCH__'
+const SECTION_END = '__OPENKODO_WSL_ACTIVE_PROBE_END__'
+const WSL_HOST_LAUNCH = '__OPENKODO_WSL_HOST_LAUNCH__'
+const OTHER_LAUNCH = '__OPENKODO_OTHER_LAUNCH__'
 
 /**
  * How the serving orcad was started: by a WSL host (it carries the marker), some other way

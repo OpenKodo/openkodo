@@ -8,15 +8,15 @@ export const ORCAD_WINDOWS_PROCESS_TREE_FILENAME = 'windows-process-tree.node'
 /** native/windows-security: secure-file ACLs without spawning icacls. */
 export const ORCAD_WINDOWS_SECURITY_FILENAME = 'windows-security.node'
 /** native/windows-cli-launcher: cmd.exe and .ps1 shims cannot carry every argv intact. */
-export const ORCAD_WINDOWS_CLI_LAUNCHER_FILENAME = 'bin/orca.exe'
+export const ORCAD_WINDOWS_CLI_LAUNCHER_FILENAME = 'bin/openkodo.exe'
 /** native/provider-exec: POSIX provider CLIs launch through it; there is no fallback launcher. */
-export const ORCAD_PROVIDER_EXEC_FILENAME = 'bin/orca-provider-exec'
+export const ORCAD_PROVIDER_EXEC_FILENAME = 'bin/openkodo-provider-exec'
 /** Its path in a POSIX prebuild slot, compiled by the slot's own toolchain at its libc floor. */
 export const ORCAD_PROVIDER_EXEC_SLOT_FILE = 'provider-exec/orca-provider-exec'
 
 /** Files every install path must mark executable; SFTP and plain copies drop the mode. */
 export function isOrcadExecutableArtifact(filename: string): boolean {
-  return /(?:^|\/)(?:rg|spawn-helper|orca-provider-exec|journal-file-lock)$/.test(filename)
+  return /(?:^|\/)(?:rg|spawn-helper|openkodo-provider-exec|journal-file-lock)$/.test(filename)
 }
 
 export function orcadBunRuntimeFilename(target: string): string {
@@ -33,7 +33,7 @@ export const ORCAD_SERVER_TARGET_FILENAME = '.server-target'
 /** The pinned Node executableSha256 enters the version hash here. Never ship .build-target in Node slots:
  * Bun-era selectors exit 78 without bun-runtime (design D7.1 R5). */
 export const ORCAD_NODE_RUNTIME_MARKER_FILENAME = '.runtime-node'
-/** Beside the slot dirs and shared across Orca versions (design D2): `runtimes/node-<sha256>/bin/node`. */
+/** Beside the slot dirs and shared across OpenKodo versions (design D2): `runtimes/node-<sha256>/bin/node`. */
 export const ORCAD_RUNTIMES_DIRNAME = 'runtimes'
 export const ORCAD_NODE_RUNTIME_DIR_PREFIX = 'node-'
 export const ORCAD_NODE_RUNTIME_POSIX_EXECUTABLE = 'bin/node'

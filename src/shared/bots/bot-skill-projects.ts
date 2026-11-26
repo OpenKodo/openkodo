@@ -34,7 +34,7 @@ export type BotOwnSkillsView = {
   }[]
 }
 
-/** Agents that skip the linked skill folders Orca loads project skills from, so their bots get a list instead. */
+/** Agents that skip the linked skill folders OpenKodo loads project skills from, so their bots get a list instead. */
 export const BOT_AGENTS_LISTING_LINKED_SKILLS: readonly string[] = [
   'grok',
   'antigravity',

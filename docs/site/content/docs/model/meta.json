@@ -1,9 +1,9 @@
 {
-  "title": "The Orca Model",
+  "title": "The OpenKodo Model",
   "defaultOpen": true,
   "pages": [
     "worktrees",
-    "orca-yaml",
+    "openkodo-yaml",
     "tabs-panes-splits",
     "agents-sessions",
     "session-restore",

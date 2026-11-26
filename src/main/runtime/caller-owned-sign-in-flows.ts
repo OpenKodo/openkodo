@@ -21,7 +21,7 @@ type SignInProgress<TProvider extends string, TPrompt> = {
   phase: HostAccountSignInPhase
   prompt?: TPrompt
   error?: string
-  /** Set when `error` is Orca's own fixed copy, so clients can localize it. */
+  /** Set when `error` is OpenKodo's own fixed copy, so clients can localize it. */
   errorCode?: string
 }
 

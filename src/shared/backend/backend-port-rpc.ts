@@ -49,7 +49,7 @@ export class BackendPortRpc {
 
   call(method: string, params?: unknown, signal?: AbortSignal): Promise<unknown> {
     if (this.closed) {
-      return Promise.reject(new Error('Orca disconnected. Try again after it reconnects.'))
+      return Promise.reject(new Error('OpenKodo disconnected. Try again after it reconnects.'))
     }
     if (signal?.aborted) {
       return Promise.reject(cancelled())
@@ -105,7 +105,7 @@ export class BackendPortRpc {
     this.port.close()
     for (const call of this.pending.values()) {
       call.release?.()
-      call.reject(new Error('Orca disconnected. Try again after it reconnects.'))
+      call.reject(new Error('OpenKodo disconnected. Try again after it reconnects.'))
     }
     this.pending.clear()
     for (const state of this.admitted.values()) {

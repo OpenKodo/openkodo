@@ -130,16 +130,16 @@ export function RepositoryHooksSection({
           !showArchive
             ? t(
                 'settings.groupHooks.description',
-                'Scripts that run in this folder when a workspace is created. Every workspace shares the folder. Local scripts are stored on this machine; `orca.yaml` scripts are shared with your team.'
+                'Scripts that run in this folder when a workspace is created. Every workspace shares the folder. Local scripts are stored on this machine; `openkodo.yaml` scripts are shared with your team.'
               )
             : isFolder
               ? t(
                   'components.settings.RepositoryHooksSection.folderDescription',
-                  'Scripts that run in this folder when a workspace is created or removed. Every workspace shares the folder. Local scripts are stored on this machine; `orca.yaml` scripts are shared with your team.'
+                  'Scripts that run in this folder when a workspace is created or removed. Every workspace shares the folder. Local scripts are stored on this machine; `openkodo.yaml` scripts are shared with your team.'
                 )
               : t(
                   'auto.components.settings.RepositoryHooksSection.8567127a40',
-                  'Scripts that run when worktrees are created or archived. Local scripts are stored on this machine; `orca.yaml` scripts are shared with your team.'
+                  'Scripts that run when worktrees are created or archived. Local scripts are stored on this machine; `openkodo.yaml` scripts are shared with your team.'
                 )
         }
       >
@@ -154,8 +154,8 @@ export function RepositoryHooksSection({
             'command',
             'local',
             'local settings scripts',
-            'orca.yaml',
-            'orca.yaml hooks',
+            'openkodo.yaml',
+            'openkodo.yaml hooks',
             'hook'
           ]}
         >
@@ -258,8 +258,8 @@ export function RepositoryHooksSection({
               'command',
               'local',
               'local settings scripts',
-              'orca.yaml',
-              'orca.yaml hooks',
+              'openkodo.yaml',
+              'openkodo.yaml hooks',
               'hook'
             ]}
           >
@@ -295,14 +295,14 @@ export function RepositoryHooksSection({
           title={t('auto.components.settings.RepositoryHooksSection.c9bc1bfd8f', 'Advanced')}
           description={t(
             'auto.components.settings.RepositoryHooksSection.610d90fdbd',
-            'Command source and orca.yaml details.'
+            'Command source and openkodo.yaml details.'
           )}
           className="py-4"
           forceVisible={forceVisible}
           keywords={[
             'advanced',
             'command source',
-            'orca.yaml',
+            'openkodo.yaml',
             'shared',
             'local',
             'both',

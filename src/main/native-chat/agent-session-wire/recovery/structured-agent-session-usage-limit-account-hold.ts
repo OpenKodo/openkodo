@@ -138,7 +138,7 @@ export class UsageLimitAccountHolds {
   }
 
   /** A relaunched cut with no reset is scheduled only once room is seen, so no due send asks for
-   *  that reading: the sweep asks for it here, for a cut Orca would continue. */
+   *  that reading: the sweep asks for it here, for a cut OpenKodo would continue. */
   askForRelaunchRoom(id: string, cut: NativeChatUsageLimitCut): void {
     if (cut.resetsAt === undefined && this.relaunched.waits(id, switchFreeIdentity(cut))) {
       askForRoom(this.scopes.get(id), UNKNOWN_RESET_ASK_MS)
@@ -311,7 +311,7 @@ export class UsageLimitAccountHolds {
     }
   }
 
-  /** The day Orca may still continue a cut runs from the reset it actually waits for. */
+  /** The day OpenKodo may still continue a cut runs from the reset it actually waits for. */
   schedulable(
     id: string,
     cut: NativeChatUsageLimitCut & SwitchReset,

@@ -1,5 +1,5 @@
 // "Connect Linear" / "Connect GitHub" and Google's sign-in from the phone, as the desktop does for a paired
-// server: the host runs the trip (Linear and GitHub as its own Orca account), its page opens in Orca's browser
+// server: the host runs the trip (Linear and GitHub as its own OpenKodo account), its page opens in OpenKodo's browser
 // on the host (in the bot's workspace, so the 127.0.0.1 return reaches the host), and the phone waits there.
 // The trip lives with the bot's workspace screen, so it keeps waiting while the panel closes to show that page.
 import {
@@ -36,7 +36,7 @@ type ConnectAsk =
   | { source: 'linear' | 'github'; switchAccount: boolean }
   | ({ source: 'google' } & GoogleSignInAsk)
 
-/** The page couldn't open in Orca's browser on the host. */
+/** The page couldn't open in OpenKodo's browser on the host. */
 export const CONNECT_NOT_ROUTED = 'not_routed'
 
 type PhoneConnectTrips = {

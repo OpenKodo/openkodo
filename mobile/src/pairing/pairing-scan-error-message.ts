@@ -7,11 +7,11 @@ function isOrcaInstallUrl(data: string): boolean {
     switch (url.origin) {
       case 'https://apps.apple.com':
         return /^\/(?:[a-z]{2}\/)?app\/(?:[^/]+\/)?id6766130217$/.test(path)
-      // onorca.dev: desktops released before the move to orca.dev show the old host.
-      case 'https://orca.dev':
-      case 'https://www.orca.dev':
-      case 'https://www.onorca.dev':
-      case 'https://onorca.dev':
+      // onopenkodo.dev: desktops released before the move to openkodo.dev show the old host.
+      case 'https://openkodo.dev':
+      case 'https://www.openkodo.dev':
+      case 'https://www.onopenkodo.dev':
+      case 'https://onopenkodo.dev':
         return path === '/download/android'
       // Older desktops offered TestFlight and versioned APK downloads.
       case 'https://testflight.apple.com':
@@ -34,5 +34,5 @@ export function getPairingScanErrorMessage(data: string, t: Translate): string {
         'app.pairScan.downloadQrCode',
         "That's the download code. Scan the pairing code in step 2 on your desktop."
       )
-    : t('app.pairScan.invalidQrCode', 'Not a valid Orca QR code')
+    : t('app.pairScan.invalidQrCode', 'Not a valid OpenKodo QR code')
 }

@@ -5,8 +5,8 @@ import { getFishClaudeShellFunction } from '../../../shared/shell/launch/agents/
 import { MANAGED_DATA_ACCOUNT_FISH_RESTORE } from '../../../shared/shell/launch/agents/managed-data-account-shell'
 import type { ShellWrapperFile } from './shell-wrapper-file-writer'
 
-/** Exactly what Orca prepended, so the snippet can remove that and nothing else. */
-export const FISH_XDG_DATA_DIRS_PREFIX_ENV = 'ORCA_FISH_XDG_DATA_DIRS_PREFIX'
+/** Exactly what OpenKodo prepended, so the snippet can remove that and nothing else. */
+export const FISH_XDG_DATA_DIRS_PREFIX_ENV = 'OPENKODO_FISH_XDG_DATA_DIRS_PREFIX'
 
 // XDG defaults also apply when fish 4.7+ sees an unset or empty XDG_DATA_DIRS.
 const XDG_DATA_DIRS_DEFAULT = '/usr/local/share:/usr/share'
@@ -47,7 +47,7 @@ export function getFishXdgDataDirsLaunchEnv(
 // Scope temporary variables to the function; only the restored env and hooks should survive.
 // Wait for fish_prompt so user-defined functions and PATH changes take precedence.
 export function getFishVendorConfSnippet(): string {
-  return `# Orca-generated. Loaded only because Orca put this directory on
+  return `# OpenKodo-generated. Loaded only because OpenKodo put this directory on
 # XDG_DATA_DIRS for one fish launch; the first thing it does is take it off.
 function __orca_fish_xdg_handoff
     set -q ${FISH_XDG_DATA_DIRS_PREFIX_ENV}; or return 0

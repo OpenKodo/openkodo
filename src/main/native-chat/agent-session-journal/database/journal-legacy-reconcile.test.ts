@@ -47,7 +47,7 @@ function turn(itemId: string, seq: number): ItemRow {
   }
 }
 
-/** An older Orca's writable open, adding a chat with its record, tab and saved history. */
+/** An older OpenKodo's writable open, adding a chat with its record, tab and saved history. */
 function olderOrcaChat(original: Database.Database, sessionId: string, history: JournalRow[]) {
   runJournalTransaction(original, () => {
     publishJournalSessionEpoch(original, { sessionId, workspaceId: 'workspace' }, 'epoch')
@@ -101,7 +101,7 @@ function items(db: Database.Database, sessionId: string): string[] {
     .map((row) => String(row.item_id))
 }
 
-it('keeps every chat and turn an older Orca saved after a downgrade, without changing either side', async () => {
+it('keeps every chat and turn an older OpenKodo saved after a downgrade, without changing either side', async () => {
   const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
@@ -113,15 +113,15 @@ it('keeps every chat and turn an older Orca saved after a downgrade, without cha
     .prepare('INSERT INTO agent_session_records VALUES(?,?)')
     .run('empty', JSON.stringify({ sessionId: 'empty', lease: { sessionId: 'empty' } }))
 
-  // Upgrade: one chat converts, then the user goes back to the older Orca.
+  // Upgrade: one chat converts, then the user goes back to the older OpenKodo.
   const first = await upgrade(root)
   expect(await first.convert('converted')).toBe('epoch')
   const converted = items(first.db, 'converted')
-  // Deleted here before the downgrade, then continued in the older Orca.
+  // Deleted here before the downgrade, then continued in the older OpenKodo.
   first.db.prepare("DELETE FROM agent_session_records WHERE session_id='unopened'").run()
   first.db.prepare("DELETE FROM agent_session_tabs WHERE session_id='unopened'").run()
   first.db.prepare("DELETE FROM agent_session_records WHERE session_id='empty'").run()
-  // Closed here (record kept), then continued in the older Orca.
+  // Closed here (record kept), then continued in the older OpenKodo.
   first.db.prepare("DELETE FROM agent_session_tabs WHERE session_id='closed'").run()
   await first.close()
 
@@ -296,7 +296,7 @@ it('keeps closed chats closed and adds no copies when a file from before revisio
   await unchanged.close()
 })
 
-it('keeps only what an older Orca wrote after a file from before revisions were kept copied it', async () => {
+it('keeps only what an older OpenKodo wrote after a file from before revisions were kept copied it', async () => {
   const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
@@ -309,17 +309,17 @@ it('keeps only what an older Orca wrote after a file from before revisions were 
     .prepare('INSERT INTO agent_session_records VALUES(?,?)')
     .run('empty', JSON.stringify({ sessionId: 'empty', lease: { sessionId: 'empty' } }))
   original.prepare("DELETE FROM agent_session_tabs WHERE session_id!='open'").run()
-  // As every older Orca that saves tabs leaves its index.
+  // As every older OpenKodo that saves tabs leaves its index.
   original.prepare("INSERT INTO agent_session_store_meta VALUES('session_tabs_recorded','1')").run()
   const first = await upgrade(root)
   expect(await first.convert('idle')).toBe('epoch')
   expect(await first.convert('converted')).toBe('epoch')
-  // Deleted here: a chat with no history the older Orca didn't write stays deleted.
+  // Deleted here: a chat with no history the older OpenKodo didn't write stays deleted.
   first.db.prepare("DELETE FROM agent_session_records WHERE session_id='empty'").run()
   asOlderChatStore(first.db)
   await first.close()
 
-  // The older Orca continues one converted chat and starts another.
+  // The older OpenKodo continues one converted chat and starts another.
   insertJournalRow(original, 'converted', turn('older-turn', tip + 1))
   olderOrcaChat(original, 'started-older', [rows[0], turn('started-turn', 2)])
   const known = ['closed', 'converted', 'idle', 'open', 'started-older']
@@ -347,7 +347,7 @@ it('keeps only what an older Orca wrote after a file from before revisions were 
     records: known.length + 1
   })
 
-  // Baselines now exist, so a later write by the older Orca is still kept, and nothing else moves.
+  // Baselines now exist, so a later write by the older OpenKodo is still kept, and nothing else moves.
   insertJournalRow(original, 'idle', turn('older-idle-turn', tip + 1))
   await later.close()
   cleanup.pop()
@@ -359,7 +359,7 @@ it('keeps only what an older Orca wrote after a file from before revisions were 
   })
 })
 
-it('keeps a message an older Orca queued in a chat from before revisions were kept', async () => {
+it('keeps a message an older OpenKodo queued in a chat from before revisions were kept', async () => {
   const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
@@ -401,7 +401,7 @@ it('keeps a message an older Orca queued in a chat from before revisions were ke
   ).toContainEqual({ message_id: 'older-queued' })
 })
 
-it('records a chat it cannot keep and does not retry it until the older Orca writes it again', async () => {
+it('records a chat it cannot keep and does not retry it until the older OpenKodo writes it again', async () => {
   const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))

@@ -89,9 +89,9 @@ export type StubOptions = {
   connectionsFail?: boolean
   /** Vercel and a server added by URL, as the bot's tools; Vercel needs sign-in on Codex. */
   tools?: boolean
-  /** The bot's tools, when Orca signs in to them (in place of `tools`). */
+  /** The bot's tools, when OpenKodo signs in to them (in place of `tools`). */
   owned?: BotOwnTool[]
-  /** How a Connect goes: the browser opens and waits, or the app refuses Orca's registration. */
+  /** How a Connect goes: the browser opens and waits, or the app refuses OpenKodo's registration. */
   connect?: 'waiting' | 'unsupported'
   /** The host refuses a new address with this message (Add by URL's sorting). */
   addRefused?: string
@@ -100,7 +100,7 @@ export type StubOptions = {
   /** The tool the host answers an add with; Vercel, signed out, by default. */
   added?: BotOwnTool
   /** A web or phone window, whose bots run on its paired server: `paste` signs in there by paste;
-   *  `finishing` has the pasted address being exchanged; `old-host` runs an Orca that can't. */
+   *  `finishing` has the pasted address being exchanged; `old-host` runs an OpenKodo that can't. */
   host?: 'paste' | 'finishing' | 'old-host'
   /** The bot's hooks and the calls each one lists; none by default. */
   webhooks?: { hooks: WebhookSummary[]; calls: WebhookCallRow[] }
@@ -116,9 +116,9 @@ export function stub(options: StubOptions): void {
   resetComposioClientForTest()
   resetBotToolSignInsForTest()
   if (options.host) {
-    Reflect.set(window, '__ORCA_WEB_CLIENT__', true)
+    Reflect.set(window, '__OPENKODO_WEB_CLIENT__', true)
   } else {
-    Reflect.deleteProperty(window, '__ORCA_WEB_CLIENT__')
+    Reflect.deleteProperty(window, '__OPENKODO_WEB_CLIENT__')
   }
   const keys = options.keys ?? ['ok']
   let statusReads = 0

@@ -5,16 +5,16 @@ import { isPlainObject } from '../agent-hooks/installation/configuration/hooks-j
 
 // Muse strips nonstandard environment variables from managed hooks unless allowlisted.
 export const MUSE_MANAGED_HOOK_ENV_VARS = [
-  'ORCA_AGENT_HOOK_PORT',
-  'ORCA_AGENT_HOOK_TOKEN',
-  'ORCA_AGENT_HOOK_ENV',
-  'ORCA_AGENT_HOOK_VERSION',
-  'ORCA_AGENT_HOOK_TRANSPORT',
-  'ORCA_AGENT_HOOK_ENDPOINT',
-  'ORCA_PANE_KEY',
-  'ORCA_TAB_ID',
-  'ORCA_WORKTREE_ID',
-  'ORCA_AGENT_LAUNCH_TOKEN',
+  'OPENKODO_AGENT_HOOK_PORT',
+  'OPENKODO_AGENT_HOOK_TOKEN',
+  'OPENKODO_AGENT_HOOK_ENV',
+  'OPENKODO_AGENT_HOOK_VERSION',
+  'OPENKODO_AGENT_HOOK_TRANSPORT',
+  'OPENKODO_AGENT_HOOK_ENDPOINT',
+  'OPENKODO_PANE_KEY',
+  'OPENKODO_TAB_ID',
+  'OPENKODO_WORKTREE_ID',
+  'OPENKODO_AGENT_LAUNCH_TOKEN',
   // Windows cmd AutoRun may need USERPROFILE or every hook exits 1.
   'USERPROFILE'
 ] as const
@@ -92,7 +92,7 @@ export function serializeMuseSettings(
   const existing = current?.managed_hooks_env_vars
   const listed = Array.isArray(existing) ? existing : []
   const orcaNames: readonly string[] = MUSE_MANAGED_HOOK_ENV_VARS
-  // Removal keeps only names the user added; an emptied list goes with Orca's pointer.
+  // Removal keeps only names the user added; an emptied list goes with OpenKodo's pointer.
   const nextNames =
     managedHooksPath !== undefined
       ? [

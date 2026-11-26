@@ -97,7 +97,7 @@ function TabBarItemRow({
   )
   const isBotChat = item.type === 'agent-session' && isBotHomeTab(item.data, bot)
   const homeRule = useBotHomeRuleApplies(bot)
-  // Why: Orca names a bot's main chat "Home" in its record; that name reads in the UI language.
+  // Why: OpenKodo names a bot's main chat "Home" in its record; that name reads in the UI language.
   const conversationName =
     isBotChat && chatNaming.name === 'Home' ? t('bots.tabs.homeTitle', 'Home') : chatNaming.name
   const ruledHome = useAppStore(

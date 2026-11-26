@@ -1,4 +1,4 @@
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { visibleGraphChangedWorktrees } from '../../session-graph/visible-graph-changed-worktrees'
 import type { RuntimeSessionTabsInventoryPublication as SessionTabsInventoryPublicationMethods } from './session-tabs-inventory-publication'
 import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged as ScheduleMobileSessionTabsChangedMethods } from '../publication/session-tabs-change-publication'
@@ -46,7 +46,7 @@ export abstract class OrcaRuntimeWithCollectMobileVisibleGraphChangedWorktrees e
   }
 
   protected captureTerminalPaneReader(): PtyPaneOf {
-    if (!ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       return (pty) => paneOfPty(pty, () => null)
     }
     const mainPane = this.mainSurfaces().capturePaneLookup()
@@ -323,7 +323,7 @@ export abstract class OrcaRuntimeWithCollectMobileVisibleGraphChangedWorktrees e
   }
 
   supportsAuthoritativeSessionTabsInventory(): boolean {
-    return process.env.ORCA_E2E_DISABLE_AUTHORITATIVE_SESSION_TABS_INVENTORY !== '1'
+    return process.env.OPENKODO_E2E_DISABLE_AUTHORITATIVE_SESSION_TABS_INVENTORY !== '1'
   }
 
   protected abstract assertSessionTabsInventoryRequestActive(signal?: AbortSignal): void

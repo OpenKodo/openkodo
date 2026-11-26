@@ -61,7 +61,7 @@ const UP_NEXT: BotUpNext = {
       's1',
       'Answer Bob’s review on #40167',
       'He asked two questions yesterday. The PR is waiting on you.',
-      'https://github.com/stablyai/orca/pull/40167'
+      'https://github.com/OpenKodo/openkodo/pull/40167'
     ),
     suggestion(
       's2',

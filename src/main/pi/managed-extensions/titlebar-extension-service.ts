@@ -5,20 +5,23 @@ import { join } from 'node:path'
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import { createHash } from 'node:crypto'
 import {
-  ORCA_PI_AGENT_STATUS_EXTENSION_FILE,
+  OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE,
   getPiAgentStatusExtensionSource
 } from './agent-status/agent-status-extension-source'
 import {
-  ORCA_PI_PREFILL_EXTENSION_FILE,
+  OPENKODO_PI_PREFILL_EXTENSION_FILE,
   getPiPrefillExtensionSource
 } from './prefill-extension-source'
-import { ORCA_PI_EXTENSION_FILE, getPiTitlebarExtensionSource } from './titlebar-extension-source'
+import {
+  OPENKODO_PI_EXTENSION_FILE,
+  getPiTitlebarExtensionSource
+} from './titlebar-extension-source'
 import { safeRemoveOverlay } from '../../pty/scrollback/overlay-mirror'
 import { migrateLegacyOmpOverlayState } from './legacy-omp-overlay-migration'
 import type { PiAgentKind } from '../../../shared/agent-launch/catalog/pi-agent-kind'
 
 const PI_AGENT_SUBDIR = 'agent'
-export const ORCA_MANAGED_EXTENSION_MARKER = '@orca-managed-pi-extension'
+export const OPENKODO_MANAGED_EXTENSION_MARKER = '@orca-managed-pi-extension'
 const OMP_MANAGED_STATUS_EXTENSION_DIR = 'omp-managed-status-extension'
 
 type ManagedExtensionWriteResult = 'written' | 'skipped-user-owned' | 'failed'
@@ -54,9 +57,9 @@ function toSafeOverlayDirName(ptyId: string): string {
 }
 
 export function withOrcaManagedExtensionMarker(source: string): string {
-  return source.includes(ORCA_MANAGED_EXTENSION_MARKER)
+  return source.includes(OPENKODO_MANAGED_EXTENSION_MARKER)
     ? source
-    : `// ${ORCA_MANAGED_EXTENSION_MARKER}\n${source}`
+    : `// ${OPENKODO_MANAGED_EXTENSION_MARKER}\n${source}`
 }
 
 export class PiTitlebarExtensionService {
@@ -92,7 +95,7 @@ export class PiTitlebarExtensionService {
     if (installed === source) {
       return 'written'
     }
-    if (installed !== undefined && !installed.includes(ORCA_MANAGED_EXTENSION_MARKER)) {
+    if (installed !== undefined && !installed.includes(OPENKODO_MANAGED_EXTENSION_MARKER)) {
       return 'skipped-user-owned'
     }
 
@@ -115,11 +118,11 @@ export class PiTitlebarExtensionService {
       return undefined
     }
 
-    const fallbackPath = join(fallbackDir, ORCA_PI_AGENT_STATUS_EXTENSION_FILE)
+    const fallbackPath = join(fallbackDir, OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE)
     return this.writeManagedExtension(fallbackPath, source) === 'written' ? fallbackPath : undefined
   }
 
-  /** Refreshes Orca-owned extension files in a Pi agent dir; user-owned files with these names stay. */
+  /** Refreshes OpenKodo-owned extension files in a Pi agent dir; user-owned files with these names stay. */
   installManagedExtensions(sourceAgentDir: string, kind: PiAgentKind): PiManagedExtensionEnv {
     const extensionsDir = join(sourceAgentDir, 'extensions')
     try {
@@ -130,15 +133,15 @@ export class PiTitlebarExtensionService {
 
     if (kind !== 'prime-agent') {
       this.writeManagedExtension(
-        join(extensionsDir, ORCA_PI_EXTENSION_FILE),
+        join(extensionsDir, OPENKODO_PI_EXTENSION_FILE),
         withOrcaManagedExtensionMarker(getPiTitlebarExtensionSource(kind))
       )
       this.writeManagedExtension(
-        join(extensionsDir, ORCA_PI_PREFILL_EXTENSION_FILE),
+        join(extensionsDir, OPENKODO_PI_PREFILL_EXTENSION_FILE),
         withOrcaManagedExtensionMarker(getPiPrefillExtensionSource(kind))
       )
     }
-    const statusExtensionPath = join(extensionsDir, ORCA_PI_AGENT_STATUS_EXTENSION_FILE)
+    const statusExtensionPath = join(extensionsDir, OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE)
     const statusSource = withOrcaManagedExtensionMarker(getPiAgentStatusExtensionSource(kind))
     const statusResult = this.writeManagedExtension(statusExtensionPath, statusSource)
 
@@ -156,7 +159,7 @@ export class PiTitlebarExtensionService {
 
   buildFreshOmpEnv(): Record<string, string> {
     return {
-      ORCA_OMP_FRESH_CONFIG: materializeOmpFreshConfig(
+      OPENKODO_OMP_FRESH_CONFIG: materializeOmpFreshConfig(
         join(getAppEnvironment().getPath('userData'), OMP_MANAGED_STATUS_EXTENSION_DIR)
       )
     }
@@ -186,7 +189,7 @@ export class PiTitlebarExtensionService {
         const statusSource = withOrcaManagedExtensionMarker(getPiAgentStatusExtensionSource(kind))
         const statusExtensionPath = this.writeOmpFallbackStatusExtension(statusSource)
         return statusExtensionPath
-          ? { ...freshConfigEnv, ORCA_OMP_STATUS_EXTENSION: statusExtensionPath }
+          ? { ...freshConfigEnv, OPENKODO_OMP_STATUS_EXTENSION: statusExtensionPath }
           : freshConfigEnv
       }
       return {}
@@ -199,14 +202,14 @@ export class PiTitlebarExtensionService {
     const installed = this.installManagedExtensions(sourceAgentDir, kind)
     const env: Record<string, string> = { ...freshConfigEnv }
     if (kind === 'omp') {
-      env.ORCA_OMP_SOURCE_AGENT_DIR = installed.sourceAgentDir
+      env.OPENKODO_OMP_SOURCE_AGENT_DIR = installed.sourceAgentDir
       if (installed.statusExtensionPath) {
-        env.ORCA_OMP_STATUS_EXTENSION = installed.statusExtensionPath
+        env.OPENKODO_OMP_STATUS_EXTENSION = installed.statusExtensionPath
       }
     } else if (kind === 'prime-agent') {
-      env.ORCA_PRIME_AGENT_SOURCE_AGENT_DIR = installed.sourceAgentDir
+      env.OPENKODO_PRIME_AGENT_SOURCE_AGENT_DIR = installed.sourceAgentDir
     } else {
-      env.ORCA_PI_SOURCE_AGENT_DIR = installed.sourceAgentDir
+      env.OPENKODO_PI_SOURCE_AGENT_DIR = installed.sourceAgentDir
     }
     return env
   }

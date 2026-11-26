@@ -42,7 +42,7 @@ import {
 } from './codex-trust-grant-cooldown'
 
 // Operational escape hatch, separate from settings, to force computed-trust fallback.
-const DISABLE_ENV_FLAG = 'ORCA_DISABLE_CODEX_TRUST_RPC'
+const DISABLE_ENV_FLAG = 'OPENKODO_DISABLE_CODEX_TRUST_RPC'
 
 export type CodexManagedTrustGrantOutcome =
   | { lane: 'rpc'; entries: CodexTrustEntry[] }
@@ -173,7 +173,7 @@ async function runGrantAttempt(
   hostKey: CodexAppServerHostKey,
   beforeSession: (() => void) | undefined
 ): Promise<CodexManagedTrustGrantOutcome> {
-  // Callers settle Orca's own hash-bound keys; restoring config would undo concurrent user saves.
+  // Callers settle OpenKodo's own hash-bound keys; restoring config would undo concurrent user saves.
   const attempt: GrantAttempt = {
     plan,
     expected,

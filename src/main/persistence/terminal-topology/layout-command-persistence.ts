@@ -28,7 +28,7 @@ import {
   isTerminalClose,
   keptOnWriteFailure
 } from './command-application/terminal-close-write-failure'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { moveTabAcrossPartitions } from './pane-moves/cross-partition-tab-move'
 import { writeRestorable } from './command-application/restorable-write'
 import { raisingBindingGenerations } from './pane-ownership/layout-command-binding-generations'
@@ -116,7 +116,7 @@ export class LayoutCommandPersistence {
         : commit()
     // Applied closes must stay closed even when persistence fails.
     const applied: Promise<LayoutApplyOutcome> =
-      ORCA_LAYOUT_OWNER_IS_MAIN && context.writeLater && isTerminalClose(command)
+      OPENKODO_LAYOUT_OWNER_IS_MAIN && context.writeLater && isTerminalClose(command)
         ? keptOnWriteFailure(
             (mutate) => context.runtime.runDurableMutation(mutate),
             writingOnly(resolved, admitted),

@@ -1,4 +1,4 @@
-// Orca's own copies of agent CLIs, for hosts without the user's own; the user's install always wins.
+// OpenKodo's own copies of agent CLIs, for hosts without the user's own; the user's install always wins.
 
 import { delimiter, dirname } from 'node:path'
 import type { ManagedAgentCli } from '../node-runtime/managed-runtime-release'
@@ -121,20 +121,20 @@ export function launchReleasesPending(): Promise<void> | null {
   return launchReleasesRecorded ? null : launchReleases.promise
 }
 
-/** Whether Orca's copy of `agent` may replace `command`, the program a launch looks for. */
+/** Whether OpenKodo's copy of `agent` may replace `command`, the program a launch looks for. */
 export function managedAgentStandsInFor(agent: ManagedAgentCliId, command: string): boolean {
   const only = MANAGED_AGENT_CLIS[agent].standsInFor
   return only === undefined || only === command
 }
 
-/** Whether `path` is inside Orca's own copies of `agent`, e.g. found on a PATH an Orca terminal
+/** Whether `path` is inside OpenKodo's own copies of `agent`, e.g. found on a PATH an OpenKodo terminal
  *  passed on; such a path is never the user's own install. */
 export function isManagedAgentCopyPath(agent: string, path: string): boolean {
   const folder = isManagedAgentCli(agent) ? installedFolders.get(agent) : undefined
   return folder !== undefined && isPathInsideOrEqual(dirname(folder), path)
 }
 
-/** Orca's copy standing in for `command` when the user has none; null without one. Only a launch
+/** OpenKodo's copy standing in for `command` when the user has none; null without one. Only a launch
  *  counts as use: reads that just weigh the program pass `use: false`. */
 export function managedAgentCommandFor(
   agent: string,
@@ -147,13 +147,13 @@ export function managedAgentCommandFor(
   return use ? managedAgentCommand(agent) : installedManagedAgentCommand(agent)
 }
 
-/** Orca's installed copy of `agent`, read without counting as use. */
+/** OpenKodo's installed copy of `agent`, read without counting as use. */
 export function installedManagedAgentCommand(agent: ManagedAgentCliId): string | null {
   const folder = installedFolders.get(agent)
   return folder ? MANAGED_AGENT_CLIS[agent].executable(folder) : null
 }
 
-/** Orca's installed copy of `agent` on this host, used only when the user has none of their own. */
+/** OpenKodo's installed copy of `agent` on this host, used only when the user has none of their own. */
 export function managedAgentCommand(agent: ManagedAgentCliId): string | null {
   const folder = installedFolders.get(agent)
   if (!folder) {
@@ -165,17 +165,17 @@ export function managedAgentCommand(agent: ManagedAgentCliId): string | null {
 
 let managedUseListener: ((agent: ManagedAgentCliId) => void) | null = null
 
-/** Told each time a launch resolves to Orca's copy, so updates follow real use instead of a timer. */
+/** Told each time a launch resolves to OpenKodo's copy, so updates follow real use instead of a timer. */
 export function onManagedAgentUse(listener: (agent: ManagedAgentCliId) => void): void {
   managedUseListener = listener
 }
 
-/** Last on PATH, so sign-in commands and CLI tabs reach Orca's copies and never shadow the user's own. */
+/** Last on PATH, so sign-in commands and CLI tabs reach OpenKodo's copies and never shadow the user's own. */
 export function appendManagedAgentDirsToChildPath(
   env: Record<string, string>,
   platform: NodeJS.Platform = process.platform
 ): void {
-  delete env.ORCA_MANAGED_AGENT_PATH
+  delete env.OPENKODO_MANAGED_AGENT_PATH
   // Opening a terminal isn't use of an agent, so this reads the folders without the use hook.
   const folders = MANAGED_AGENT_CLI_IDS.flatMap((agent) => {
     const folder = installedFolders.get(agent)
@@ -192,5 +192,5 @@ export function appendManagedAgentDirsToChildPath(
     env[key] = [...entries, ...missing].join(separator)
   }
   // Startup files re-add them after a login profile rebuilds PATH.
-  env.ORCA_MANAGED_AGENT_PATH = folders.join(separator)
+  env.OPENKODO_MANAGED_AGENT_PATH = folders.join(separator)
 }

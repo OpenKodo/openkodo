@@ -4,7 +4,7 @@ import { CreateFromPicker } from './CreateFromPicker'
 const repo = {
   id: 'branch-snapshot-fixture',
   path: '/repo',
-  displayName: 'Orca',
+  displayName: 'OpenKodo',
   badgeColor: '',
   addedAt: 0
 }

@@ -187,12 +187,12 @@ export function MobileComposioConnectCard({
           : signIn.signIn === 'key'
             ? t(
                 'chat.botCards.composio.connectKeyNote',
-                'Opens Composio to enter your {{app}} API key. Composio keeps it, not Orca.',
+                'Opens Composio to enter your {{app}} API key. Composio keeps it, not OpenKodo.',
                 { app: app.name }
               )
             : t(
                 'chat.botCards.composio.connectNote',
-                'Opens {{app}}’s sign-in from Composio in your browser. Composio keeps this sign-in, not Orca.',
+                'Opens {{app}}’s sign-in from Composio in your browser. Composio keeps this sign-in, not OpenKodo.',
                 { app: app.name }
               )
       }

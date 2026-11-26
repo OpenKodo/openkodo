@@ -48,7 +48,7 @@ afterEach(async () => {
   await rm(data, { recursive: true, force: true })
 })
 
-/** An Orca-published release, as an earlier build's Install left it. */
+/** An OpenKodo-published release, as an earlier build's Install left it. */
 async function seedRelease({ pin, bytes }: { pin: ManagedRuntimePin; bytes: Buffer }) {
   const folder = join(root, pin.version)
   await mkdir(folder, { recursive: true })
@@ -133,7 +133,7 @@ async function runningId(subject: ManagedRuntimeInstallation): Promise<string> {
   return operation?.id ?? ''
 }
 
-it('updates an older Orca install to the pinned release without a click', async () => {
+it('updates an older OpenKodo install to the pinned release without a click', async () => {
   await seedRelease(OLD)
   const fetcher = serve()
   const subject = installation(fetcher)
@@ -145,7 +145,7 @@ it('updates an older Orca install to the pinned release without a click', async 
   expect(fetcher).toHaveBeenCalledTimes(1)
 })
 
-it('keeps the release running chats use until Orca next starts', async () => {
+it('keeps the release running chats use until OpenKodo next starts', async () => {
   await seedRelease(OLD)
   const subject = installation(serve())
   await subject.updateIfBehind()
@@ -240,7 +240,7 @@ it('honors the kill switch', async () => {
   expect(launches()).toMatchObject({ version: '1.5.0' })
 })
 
-it('installs nothing where Orca has no release', async () => {
+it('installs nothing where OpenKodo has no release', async () => {
   const fetcher = serve()
   await installation(fetcher).updateIfBehind()
   expect(fetcher).not.toHaveBeenCalled()
@@ -308,7 +308,7 @@ it('keeps its backoff across host restarts, so a failing update is not fetched o
   expect(await readdir(join(data, 'agent-runtimes'))).toContain('.server-auto-update.json')
 })
 
-it('remembers a Cancel across restarts until Orca pins another release', async () => {
+it('remembers a Cancel across restarts until OpenKodo pins another release', async () => {
   vi.useFakeTimers({ toFake: ['Date'] })
   await seedRelease(OLD)
   const held = heldServe()
@@ -402,7 +402,7 @@ it("leaves a user's Update alone when the kill switch is turned off", async () =
 describe('the managed CLI, which follows its latest release', () => {
   const cli = () => runtime({ updatesToPin: undefined, refreshPin: async () => undefined })
 
-  it('asks the release server nothing while Orca has no copy installed', async () => {
+  it('asks the release server nothing while OpenKodo has no copy installed', async () => {
     const refreshPin = vi.fn(async () => undefined)
     const subject = installation(serve(), {
       runtime: runtime({ updatesToPin: undefined, refreshPin, pin: () => null })
@@ -413,7 +413,7 @@ describe('the managed CLI, which follows its latest release', () => {
     expect(state).toMatchObject({ available: true, version: null, installedVersion: null })
   })
 
-  it('looks up the latest release once Orca has a copy installed', async () => {
+  it('looks up the latest release once OpenKodo has a copy installed', async () => {
     await seedRelease(OLD)
     const refreshPin = vi.fn(async () => undefined)
     const subject = installation(serve(), {

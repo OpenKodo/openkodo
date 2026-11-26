@@ -19,7 +19,7 @@ export function useRemoveComposioKey(hostId: ExecutionHostId): () => Promise<voi
       ),
       confirmLabel: translate('bots.composio.remove', 'Remove'),
       confirmVariant: 'destructive',
-      // Without the key, Orca can't turn them off later; events would start bots with no apps.
+      // Without the key, OpenKodo can't turn them off later; events would start bots with no apps.
       dontAskAgain: {
         label: translate(
           'bots.composio.removeKey.alsoEvents',

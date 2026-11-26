@@ -1,4 +1,4 @@
-// Whether the Hermes gateway that runs a profile's tools has loaded this build's Orca plugin. The
+// Whether the Hermes gateway that runs a profile's tools has loaded this build's OpenKodo plugin. The
 // plugin marks each process it loads in (`.loaded-<pid>`, holding its generation); the gateway's
 // control socket reloads plugins in place, so a gateway that predates an update needs no restart.
 import { createHash } from 'node:crypto'
@@ -52,8 +52,8 @@ async function checkGateway(home: string): Promise<HermesGatewayPluginState> {
   if (await runsCurrentPlugin(home, gateway.pid)) {
     return 'current'
   }
-  // A reload loads what is on disk: an older Orca's copy there (this build's install may not
-  // have run yet) is replaced first, and a plugin Orca doesn't manage is never reloaded.
+  // A reload loads what is on disk: an older OpenKodo's copy there (this build's install may not
+  // have run yet) is replaced first, and a plugin OpenKodo doesn't manage is never reloaded.
   const key = `${home}\0${gateway.pid}`
   if (reloaded.has(key) || !(await pluginFilesCurrent(home))) {
     return 'stale'
@@ -166,7 +166,7 @@ async function pluginFilesCurrent(home: string): Promise<boolean> {
       readFile(join(dir, name), 'utf-8').catch(() => null)
     )
   )
-  // Orca owns the plugin only when both files say so (as getPluginFilesState decides).
+  // OpenKodo owns the plugin only when both files say so (as getPluginFilesState decides).
   if (!manifest?.includes(HERMES_PLUGIN_MARKER) || !init?.includes(HERMES_PLUGIN_MARKER)) {
     return false
   }

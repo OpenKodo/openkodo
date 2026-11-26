@@ -73,8 +73,8 @@ export function rowTabTarget(
 }
 
 /** Where focus went as it left a long group's grid: still inside; elsewhere on the page, or to nothing
- *  from a row's menu (closed by the pointer) while Orca keeps focus, so Tab back in enters at the first
- *  row as in a plain list; or anywhere else (Orca in the background, a click inside the group). */
+ *  from a row's menu (closed by the pointer) while OpenKodo keeps focus, so Tab back in enters at the first
+ *  row as in a plain list; or anywhere else (OpenKodo in the background, a click inside the group). */
 export function groupFocusLeft(event: React.FocusEvent<HTMLElement>): 'within' | 'page' | 'kept' {
   const to = event.relatedTarget
   if (to instanceof Node && event.currentTarget.contains(to)) {

@@ -12,7 +12,7 @@ import { orcadServedProfileId } from './orcad-served-profile'
 import type * as OrcadConnector from './orcad-connector'
 import { scheduleTeamPolicyRefresh } from '../orca-profiles/cloud-auth/team-policy-refresh'
 
-/** The daemon's relay host and its Orca account, which signs the relay in and out. */
+/** The daemon's relay host and its OpenKodo account, which signs the relay in and out. */
 export async function installOrcadRelayAndAccount(
   runtime: Parameters<typeof installOrcadOrcaAccount>[0],
   registerCleanup: (cleanup: BackendServiceCleanup) => void
@@ -31,7 +31,7 @@ export async function installOrcadConnectorHost(
   return installOrcadConnector(...args)
 }
 
-/** orcad's Orca account: signed in only through a client that relays the code, never a browser here. */
+/** orcad's OpenKodo account: signed in only through a client that relays the code, never a browser here. */
 export function installOrcadOrcaAccount(
   runtime: {
     bots: Pick<BotController, 'list'>
@@ -52,7 +52,7 @@ export function installOrcadOrcaAccount(
   const account = new OrcaAccountService({
     openBrowser: async () => {
       throw new Error(
-        'This server has no browser. Sign it in from a paired client or `orca auth login`.'
+        'This server has no browser. Sign it in from a paired client or `openkodo auth login`.'
       )
     },
     accountBoundLinks: botAccountSwitchBlocker({

@@ -1,5 +1,5 @@
 // "In your agents": list the servers agents keep in their own configs, and Move or Copy one into
-// Orca's host list. Move adds first, then takes the entries out of the agents' files, so a failed
+// OpenKodo's host list. Move adds first, then takes the entries out of the agents' files, so a failed
 // removal never loses the server.
 import { homedir } from 'node:os'
 import { basename } from 'node:path'
@@ -28,12 +28,12 @@ export type AgentMcpServerRow = DiscoveredMcpServer
 /** Only these workspaces; null keeps a server on everywhere. */
 export type AgentMcpServerWorkspaces = McpServerWorkspaces | null
 
-/** The host's workspace key and name for a project folder, or null when Orca doesn't know it. */
+/** The host's workspace key and name for a project folder, or null when OpenKodo doesn't know it. */
 export type WorkspaceForPath = (projectPath: string) => { key: string; name: string } | null
 
 export type ImportedMcpServerScope = {
   workspaces: AgentMcpServerWorkspaces
-  /** Agents whose own copy was switched off: the server stays off for them in Orca. */
+  /** Agents whose own copy was switched off: the server stays off for them in OpenKodo. */
   agentsOff: string[]
 }
 
@@ -47,7 +47,7 @@ export class AgentMcpServerImportError extends Error {
     super(
       reason === 'gone'
         ? 'That server changed in its agent’s settings. Refresh and try again.'
-        : 'That server is limited to a folder Orca doesn’t know, so it stays in its agent.'
+        : 'That server is limited to a folder OpenKodo doesn’t know, so it stays in its agent.'
     )
     this.name = 'AgentMcpServerImportError'
   }
@@ -55,10 +55,10 @@ export class AgentMcpServerImportError extends Error {
 
 export type AgentMcpImportHost = {
   context: AgentMcpConfigContext
-  /** Orca's data folder, which holds the managed Claude account profiles. */
+  /** OpenKodo's data folder, which holds the managed Claude account profiles. */
   userDataPath: string
   workspaceFor: WorkspaceForPath
-  /** Claude projects Orca made itself (bots' sign-in folders), never the user's. */
+  /** Claude projects OpenKodo made itself (bots' sign-in folders), never the user's. */
   isOrcaProject: (projectPath: string) => boolean
 }
 
@@ -74,7 +74,7 @@ export function localAgentMcpImportHost(
   }
 }
 
-// Bots' sign-in folders under Orca's data hold Orca's own mirrors of bot tools.
+// Bots' sign-in folders under OpenKodo's data hold OpenKodo's own mirrors of bot tools.
 function isOrcaDataProject(projectPath: string): boolean {
   return [getProfileUserDataPath(), getOrcaUserDataPath()].some((root) =>
     isPathInsideOrEqual(root, projectPath)
@@ -153,7 +153,7 @@ async function movableRow(host: AgentMcpImportHost, key: string): Promise<Import
   return found
 }
 
-/** Copy to Orca: the agents keep their entries. */
+/** Copy to OpenKodo: the agents keep their entries. */
 export async function copyAgentMcpServer<T>(
   host: AgentMcpImportHost,
   key: string,
@@ -165,7 +165,7 @@ export async function copyAgentMcpServer<T>(
   })
 }
 
-// Orca's managed Claude accounts copy ~/.claude.json's servers forward and never drop one.
+// OpenKodo's managed Claude accounts copy ~/.claude.json's servers forward and never drop one.
 async function claudeProfileCopies(
   host: AgentMcpImportHost,
   sources: readonly AgentMcpConfigSource[]
@@ -180,8 +180,8 @@ async function claudeProfileCopies(
 }
 
 /**
- * Move to Orca: adds it (limited to the workspaces a project-scoped copy was for), then removes it
- * from every agent file listed and from Orca's Claude account profiles, keeping a backup of each.
+ * Move to OpenKodo: adds it (limited to the workspaces a project-scoped copy was for), then removes it
+ * from every agent file listed and from OpenKodo's Claude account profiles, keeping a backup of each.
  */
 export async function moveAgentMcpServer<T>(
   host: AgentMcpImportHost,

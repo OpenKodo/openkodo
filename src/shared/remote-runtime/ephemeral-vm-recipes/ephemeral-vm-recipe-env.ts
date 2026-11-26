@@ -1,4 +1,4 @@
-// Recipe scripts run locally and inherit Orca's environment. These helpers let a recipe opt into a
+// Recipe scripts run locally and inherit OpenKodo's environment. These helpers let a recipe opt into a
 // narrower environment (`passEnv`) and let the UI name the credential-like variables a recipe sees.
 
 /** Variables every recipe keeps even with `passEnv`, so shells and provider CLIs still start. */
@@ -109,7 +109,7 @@ export function listCredentialLikeEnvNames(source: NodeJS.ProcessEnv): string[] 
     .sort((a, b) => a.localeCompare(b))
 }
 
-/** Parse an orca.yaml `passEnv` list. Returns null when the value is malformed. */
+/** Parse an openkodo.yaml `passEnv` list. Returns null when the value is malformed. */
 export function parseRecipePassEnv(value: unknown): string[] | null {
   if (!Array.isArray(value)) {
     return null

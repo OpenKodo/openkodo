@@ -5,7 +5,7 @@ import { parseWorkspaceKey } from '../../workspace/identity/workspace-scope'
 import { spec, WORKER_ONLY } from './plugin-host-method-spec'
 
 /**
- * Orca state and actions a full-access worker cannot reach from Node: its workspaces, terminals
+ * OpenKodo state and actions a full-access worker cannot reach from Node: its workspaces, terminals
  * and agents. Each runs the runtime method the `orca` CLI runs, on the host that owns the
  * workspace (local, WSL or SSH), so a mod acts exactly as `orca terminal create` would.
  */
@@ -80,7 +80,7 @@ const workspaceListResult = z.object({
          *  null when it records none (older rows on this machine). A project-group folder gives
          *  its folder's recorded host, null for this machine. */
         hostId: pluginHostIdSchema,
-        /** Present only with `includeStatus`, for workspaces Orca has a status for. */
+        /** Present only with `includeStatus`, for workspaces OpenKodo has a status for. */
         status: workspaceStatus.optional()
       })
     )
@@ -88,7 +88,7 @@ const workspaceListResult = z.object({
   /** More workspaces exist than the list holds, or some were left out for an over-long id or
    *  path. */
   truncated: z.boolean(),
-  /** With `includeStatus`: Orca's status listing stopped short, so some rows lack a status they
+  /** With `includeStatus`: OpenKodo's status listing stopped short, so some rows lack a status they
    *  may have. Absent without `includeStatus` and before host API 1.7. */
   statusTruncated: z.boolean().optional()
 })
@@ -107,7 +107,7 @@ const projectListResult = z.object({
         hostId: pluginHostIdSchema,
         /** The path on the host that owns it, which may be WSL or an SSH machine. */
         path: z.string().max(ID_MAX),
-        /** Hidden from Orca's sidebar on this host (`project.setHidden`); its workspaces still
+        /** Hidden from OpenKodo's sidebar on this host (`project.setHidden`); its workspaces still
          *  run. Absent before host API 1.9. */
         hidden: z.boolean().optional()
       })
@@ -152,7 +152,7 @@ const isHiddenOrControl = (char: string): boolean => {
 export function isPluginPlainLine(text: string): boolean {
   return ![...text].some(isHiddenOrControl)
 }
-/** A name Orca shows as a label: it could otherwise read as another item's name. */
+/** A name OpenKodo shows as a label: it could otherwise read as another item's name. */
 export const pluginLabelNameSchema = z
   .string()
   .max(PLUGIN_WORKSPACE_NAME_MAX)
@@ -185,7 +185,7 @@ const terminalReadResult = z.object({
   truncated: z.boolean()
 })
 
-/** An agent Orca knows: `claude`, `codex`, `antigravity`, ... */
+/** An agent OpenKodo knows: `claude`, `codex`, `antigravity`, ... */
 export const pluginAgentSchema = z.string().min(1).max(64).refine(isTuiAgent, 'unknown agent')
 
 const agentLaunchParams = z.strictObject({
@@ -230,7 +230,7 @@ const commandsRunResult = z.object({ ran: z.literal(true) })
 export const PLUGIN_WORKSPACE_ACTIONS_API = {
   'workspace.list': spec({
     summary:
-      "Lists every workspace, Git worktrees and folders, on every host Orca reaches; `includeStatus` (host API 1.7) adds each one's agent status. `hostId` is the host a row records (`local`, `ssh:…`, `runtime:…`), or null when it records none, as for a project-group folder on this machine.",
+      "Lists every workspace, Git worktrees and folders, on every host OpenKodo reaches; `includeStatus` (host API 1.7) adds each one's agent status. `hostId` is the host a row records (`local`, `ssh:…`, `runtime:…`), or null when it records none, as for a project-group folder on this machine.",
     since: 3,
     scope: 'any-workspace',
     capability: 'workspace:read',
@@ -252,7 +252,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'workspace.open': spec({
     summary:
-      'Shows a workspace in Orca, as clicking it in the sidebar does; a folder workspace needs the desktop app.',
+      'Shows a workspace in OpenKodo, as clicking it in the sidebar does; a folder workspace needs the desktop app.',
     since: 3,
     scope: 'any-workspace',
     capability: 'workspace:write',
@@ -263,7 +263,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'workspace.rename': spec({
     summary:
-      "Renames a workspace in Orca's sidebar, as renaming it by hand does; the name stays until it is renamed again.",
+      "Renames a workspace in OpenKodo's sidebar, as renaming it by hand does; the name stays until it is renamed again.",
     since: 5,
     scope: 'any-workspace',
     capability: 'workspace:write',
@@ -305,7 +305,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'editor.open': spec({
     summary:
-      "Opens a file of a workspace in an editor tab of Orca's window; desktop app only. `workspace.open` shows the workspace.",
+      "Opens a file of a workspace in an editor tab of OpenKodo's window; desktop app only. `workspace.open` shows the workspace.",
     since: 3,
     scope: 'any-workspace',
     capability: 'workspace:write',
@@ -316,7 +316,7 @@ export const PLUGIN_WORKSPACE_ACTIONS_API = {
   }),
   'commands.run': spec({
     summary:
-      "Runs one of Orca's built-in actions in its window, never a plugin's replacement of it; desktop app only.",
+      "Runs one of OpenKodo's built-in actions in its window, never a plugin's replacement of it; desktop app only.",
     since: 3,
     scope: 'desktop',
     capability: 'workspace:write',

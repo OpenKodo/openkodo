@@ -196,12 +196,12 @@ async function signIn(): Promise<void> {
 
 const stored = () => readBotToolOAuth(key.folder, key.credentialId)
 
-describe('Orca signing in to a bot’s app', () => {
-  it('registers as Orca and signs in with PKCE, the exact resource and offline access', async () => {
+describe('OpenKodo signing in to a bot’s app', () => {
+  it('registers as OpenKodo and signs in with PKCE, the exact resource and offline access', async () => {
     const attempt = await beginBotToolSignIn(key, { redirectUri: REDIRECT })
 
     expect(app.hitsTo('/register')[0]!.body).toMatchObject({
-      client_name: 'Orca',
+      client_name: 'OpenKodo',
       redirect_uris: [REDIRECT],
       grant_types: ['authorization_code', 'refresh_token'],
       token_endpoint_auth_method: 'none'
@@ -502,7 +502,7 @@ describe('Orca signing in to a bot’s app', () => {
 })
 
 describe('what an app’s address needs', () => {
-  it('needs Orca’s sign-in when it challenges and offers registration', async () => {
+  it('needs OpenKodo’s sign-in when it challenges and offers registration', async () => {
     expect(await discoverBotToolAuth(app.url)).toMatchObject({
       kind: 'oauth',
       issuer: app.base,

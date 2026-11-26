@@ -202,7 +202,7 @@ export function EphemeralVmsPane(): React.JSX.Element {
           <WhatItem
             text={t(
               'auto.components.settings.EphemeralVmsPane.whatScaffold',
-              'Writes the recipe & scripts for your provider — connected over an Orca server or SSH.'
+              'Writes the recipe & scripts for your provider — connected over an OpenKodo server or SSH.'
             )}
           />
           <WhatItem
@@ -232,7 +232,7 @@ export function EphemeralVmsPane(): React.JSX.Element {
             {setupRepo
               ? t(
                   'auto.components.settings.EphemeralVmsPane.setUpWithAgentHint',
-                  'Starts your default agent in {{repo}}. It edits orca.yaml, runs the doctors until they pass, and opens a PR.',
+                  'Starts your default agent in {{repo}}. It edits openkodo.yaml, runs the doctors until they pass, and opens a PR.',
                   { repo: setupRepo.displayName }
                 )
               : t(
@@ -282,7 +282,7 @@ export function EphemeralVmsPane(): React.JSX.Element {
             <p className="text-xs text-muted-foreground">
               {t(
                 'auto.components.settings.EphemeralVmsPane.recipesHelp',
-                'Recipes from orca.yaml and enabled plugins show up here, ready to launch a workspace on.'
+                'Recipes from openkodo.yaml and enabled plugins show up here, ready to launch a workspace on.'
               )}
             </p>
           </div>

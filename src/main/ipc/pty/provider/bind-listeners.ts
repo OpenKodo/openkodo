@@ -12,7 +12,7 @@ import {
 } from './listener-lifecycle'
 import { localProvider } from './registry'
 import { clearProviderPtyState } from './state-cleanup'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { providerSnapshotRequiredPtys, visibleRendererPtys } from '../delivery/visibility-state'
 import { markPtyEscapeBoundaryUnknown } from '../delivery/pty-escape-boundary'
 import { discardPendingPtyDataAcrossGap } from '../delivery/accept'
@@ -106,7 +106,7 @@ export function bindProviderListeners(session: PtyIpcSession): void {
         : undefined
       try {
         if (!payload.runtimeFed) {
-          const viewShown = ORCA_LAYOUT_OWNER_IS_MAIN && visibleRendererPtys.has(payload.id)
+          const viewShown = OPENKODO_LAYOUT_OWNER_IS_MAIN && visibleRendererPtys.has(payload.id)
           clearProviderPtyState(payload.id, { exitProven: true })
           ptyOwnership.delete(payload.id)
           if (syntheticExit) {

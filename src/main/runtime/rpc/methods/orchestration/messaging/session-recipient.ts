@@ -1,7 +1,7 @@
-/** Address any host-local chat by Orca session id, including /clear ancestors.
+/** Address any host-local chat by OpenKodo session id, including /clear ancestors.
  * Unbound mail belongs to the root mailbox and points at the live session. Released leases may restart; closed/foreign/unknown chats refuse before storage. */
 
-import { ORCA_SESSION_ADDRESS_PREFIX } from '../../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../../shared/agent-session/identity/orca-session-address-prefix'
 import {
   formatOrcaSessionAddress,
   isOrcaSessionId,
@@ -42,7 +42,7 @@ export type SessionRecipientRefusal = {
 
 /** Whether a recipient may name a session, so the caller can install the session host first. */
 export function mayNameSession(recipient: string): boolean {
-  return recipient.startsWith(ORCA_SESSION_ADDRESS_PREFIX) || isOrcaSessionId(recipient)
+  return recipient.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX) || isOrcaSessionId(recipient)
 }
 
 /** A recipient that names one of this host's terminal agents, and where it runs now. */
@@ -58,7 +58,7 @@ export type TerminalAgentRecipient = {
 export async function resolveTerminalAgentRecipient(
   recipient: string
 ): Promise<TerminalAgentRecipient> {
-  const sessionId = recipient.startsWith(ORCA_SESSION_ADDRESS_PREFIX)
+  const sessionId = recipient.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
     ? parseOrcaSessionAddress(recipient)
     : isOrcaSessionId(recipient)
       ? recipient
@@ -94,13 +94,13 @@ export function readSessionRecipient(
   store: AgentSessionRecordReader | null,
   terminalRecipient: TerminalAgentRecipient
 ): SessionRecipient | SessionRecipientRefusal | null {
-  if (recipient.startsWith(ORCA_SESSION_ADDRESS_PREFIX)) {
+  if (recipient.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)) {
     const sessionId = parseOrcaSessionAddress(recipient)
     return sessionId
       ? { sessionId, address: formatOrcaSessionAddress(sessionId) }
       : {
           code: CODES.unknown,
-          message: `${recipient} does not name an Orca session ID. No message was sent.`
+          message: `${recipient} does not name an OpenKodo session ID. No message was sent.`
         }
   }
   const sessionId = isOrcaSessionId(recipient) ? recipient : null
@@ -168,7 +168,7 @@ function refuseUnreachableSessionRecipient(
   if (!store) {
     return {
       code: CODES.unknown,
-      message: `Agent session ${sessionId} cannot be verified: this Orca is not running its agent-session host. ${noEffect}`,
+      message: `Agent session ${sessionId} cannot be verified: this OpenKodo is not running its agent-session host. ${noEffect}`,
       unreachable: 'unverifiable'
     }
   }
@@ -179,7 +179,7 @@ function refuseUnreachableSessionRecipient(
   if (found.kind === 'unknown') {
     return {
       code: CODES.unknown,
-      message: `No Orca agent session ${sessionId} exists on this host. ${noEffect}`,
+      message: `No OpenKodo agent session ${sessionId} exists on this host. ${noEffect}`,
       unreachable: 'unverifiable'
     }
   }
@@ -217,18 +217,18 @@ function providerIdRefusal(
   store: AgentSessionRecordReader | null,
   noEffect = 'No message was sent.'
 ): SessionRecipientRefusal {
-  // The conversation's Orca session ID, which a `/clear`ed session keeps; not the live session's.
+  // The conversation's OpenKodo session ID, which a `/clear`ed session keeps; not the live session's.
   const root = isOrcaSessionId(orcaSessionId)
     ? canonicalOrcaSessionId(orcaSessionId, store)
     : orcaSessionId
-  const address = `${ORCA_SESSION_ADDRESS_PREFIX}${root}`
+  const address = `${OPENKODO_SESSION_ADDRESS_PREFIX}${root}`
   return {
     code: CODES.providerId,
-    message: `${id} is the provider's own session id, which changes on /clear. This session's Orca session ID is ${address}; address it by that instead. ${noEffect}`
+    message: `${id} is the provider's own session id, which changes on /clear. This session's OpenKodo session ID is ${address}; address it by that instead. ${noEffect}`
   }
 }
 
-/** Terminal agents have Orca ids, but mail reaches them only through their terminal for now. */
+/** Terminal agents have OpenKodo ids, but mail reaches them only through their terminal for now. */
 function terminalAgentRefusal(
   sessionId: OrcaSessionId,
   terminalRecipient: TerminalAgentRecipient,

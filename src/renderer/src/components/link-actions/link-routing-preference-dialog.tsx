@@ -80,7 +80,7 @@ export function LinkRoutingPreferenceDialogProvider({
     void requestPreference({
       openLinksInAppDefault: previewDefault === 'orca',
       preview: true,
-      url: 'https://github.com/stablyai/orca/pull/1234'
+      url: 'https://github.com/OpenKodo/openkodo/pull/1234'
     })
   }, [requestPreference])
 
@@ -111,11 +111,11 @@ export function LinkRoutingPreferenceDialogProvider({
               {openLinksInAppDefault
                 ? t(
                     'components.link.routing.preference.dialog.keepInOrcaTitle',
-                    'Keep terminal links in Orca?'
+                    'Keep terminal links in OpenKodo?'
                   )
                 : t(
                     'components.link.routing.preference.dialog.openInOrcaTitle',
-                    'Open terminal links in Orca?'
+                    'Open terminal links in OpenKodo?'
                   )}
             </DialogTitle>
             <DialogDescription>
@@ -135,8 +135,14 @@ export function LinkRoutingPreferenceDialogProvider({
             </Button>
             <Button size="sm" autoFocus onClick={() => settleActiveRequest(true)}>
               {openLinksInAppDefault
-                ? t('auto.components.link.routing.preference.dialog.keep.orca.button', 'Keep Orca')
-                : t('auto.components.link.routing.preference.dialog.orca.button', 'Open in Orca')}
+                ? t(
+                    'auto.components.link.routing.preference.dialog.keep.orca.button',
+                    'Keep OpenKodo'
+                  )
+                : t(
+                    'auto.components.link.routing.preference.dialog.orca.button',
+                    'Open in OpenKodo'
+                  )}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -53,7 +53,8 @@ const repo = (id: string): Repo => ({
   addedAt: 1
 })
 
-const SOUL = '# Bot builder\n\nBuilds and maintains Orca bots for the team.\n\n- Short answers.\n'
+const SOUL =
+  '# Bot builder\n\nBuilds and maintains OpenKodo bots for the team.\n\n- Short answers.\n'
 const MEMORY =
   '# Memory\n\n- 2026-11-06 Releases go out on Tuesdays\n- 2026-11-01 Times in Eastern\n'
 const TOPICS = ['archive', 'bots', 'cloud', 'deploys', 'people', 'releases', 'slack'].map(
@@ -263,7 +264,7 @@ export const skills = at('panel', 'skills')
 export const sharing = at('panel', 'sharing')
 export const sharingNarrow = at('panel', 'sharing', 260)
 
-/** The bot's live link, as Orca Cloud lists it. */
+/** The bot's live link, as OpenKodo Cloud lists it. */
 function sharedLink(): void {
   const runtime = window.api.runtime
   Reflect.set(window.api, 'runtime', {

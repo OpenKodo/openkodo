@@ -13,15 +13,16 @@ import { isReservedPluginPublisher } from './plugin-publisher-reservation'
 const NEXT = PLUGIN_MANIFEST_V2_SINCE
 
 // Why frozen: v1 entries are strict, so shipped clients reject any new field. New catalogs live
-// in orca-catalog.json (plugin-catalog.ts); this file is generated from it for old clients.
-export const PLUGIN_MARKETPLACE_FILENAME = 'orca-marketplace.json'
+// in openkodo-catalog.json (plugin-catalog.ts); this file is generated from it for old clients.
+export const PLUGIN_MARKETPLACE_FILENAME = 'openkodo-marketplace.json'
+export const LEGACY_PLUGIN_MARKETPLACE_FILENAME = 'orca-marketplace.json'
 export const PLUGIN_MARKETPLACE_ENTRY_LIMIT = 2_048
 export const PLUGIN_MARKETPLACE_CATEGORY_LIMIT = 16
 
-export const OFFICIAL_PLUGIN_PUBLISHER = 'stablyai'
+export const OFFICIAL_PLUGIN_PUBLISHER = 'openkodo'
 export const OFFICIAL_PLUGIN_ID_PREFIX = 'orca-'
-export const OFFICIAL_MARKETPLACE_OWNER = 'stablyai'
-export const OFFICIAL_MARKETPLACE_REPOSITORY = 'orca-plugins'
+export const OFFICIAL_MARKETPLACE_OWNER = 'openkodo'
+export const OFFICIAL_MARKETPLACE_REPOSITORY = 'openkodo-plugins'
 
 // Why: skill contributions are not supported, so a plugin declaring one fails to install.
 // Shared catalogs this build does not control still list such packs; hide them so users never
@@ -89,7 +90,7 @@ const catalogGitSourceFields = {
     .optional()
     .meta(
       pluginFieldDoc(
-        'Directory inside the repository that holds `orca-plugin.json`, so one repository can publish many plugins. Use `/` separators, with no leading `/`, `.` or `..`. Omit when the plugin is the repository root.',
+        'Directory inside the repository that holds `openkodo-plugin.json`, so one repository can publish many plugins. Use `/` separators, with no leading `/`, `.` or `..`. Omit when the plugin is the repository root.',
         NEXT,
         ['plugins/gleam-syntax']
       )
@@ -116,7 +117,7 @@ export const marketplaceEntryFields = {
     )
     .meta(
       pluginFieldDoc(
-        "`<publisher>.<id>`: the publisher is the repository owner, lowercased (Orca installs under this key, whatever the manifest's deprecated `publisher` says), and the id is the manifest's `id`. Each half is at most 64 characters, and the reserved names `constructor` and `prototype` are refused.",
+        "`<publisher>.<id>`: the publisher is the repository owner, lowercased (OpenKodo installs under this key, whatever the manifest's deprecated `publisher` says), and the id is the manifest's `id`. Each half is at most 64 characters, and the reserved names `constructor` and `prototype` are refused.",
         NEXT,
         ['acme.gleam-syntax']
       )
@@ -186,7 +187,7 @@ const pluginMarketplaceListingEntrySchema = z
 
 export const marketplaceHeaderFields = {
   name: safePluginDisplayText(z.string().min(1).max(256)).meta(
-    pluginFieldDoc('Catalog display name.', NEXT, ['Orca Plugins'])
+    pluginFieldDoc('Catalog display name.', NEXT, ['OpenKodo Plugins'])
   ),
   owner: marketplaceOwnerSchema.meta(
     pluginFieldDoc('Account that publishes the catalog.', NEXT, ['stablyai'])
@@ -225,7 +226,7 @@ export type PluginCatalogGitSource = z.infer<typeof catalogV2GitSourceSchema>
 
 export const OFFICIAL_MARKETPLACE_GIT_SOURCE: PluginMarketplaceGitSource = {
   kind: 'git',
-  url: 'https://github.com/stablyai/orca-plugins.git',
+  url: 'https://github.com/OpenKodo/openkodo-plugins.git',
   ref: 'main'
 }
 
@@ -252,7 +253,7 @@ export function isReservedPluginIdentity(pluginKey: string): boolean {
   )
 }
 
-/** Orca's own publisher; reserved, so only the official catalog and bundled content carry it. */
+/** OpenKodo's own publisher; reserved, so only the official catalog and bundled content carry it. */
 export function hasOfficialPluginPublisher(pluginKey: string): boolean {
   return splitQualifiedPluginKey(pluginKey)?.publisher === OFFICIAL_PLUGIN_PUBLISHER
 }

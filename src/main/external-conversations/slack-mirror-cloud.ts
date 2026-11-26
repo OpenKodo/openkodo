@@ -1,4 +1,4 @@
-// The Slack mirror's calls to Orca Cloud, and what of a person's message they carry.
+// The Slack mirror's calls to cloud service, and what of a person's message they carry.
 import { readFile } from 'node:fs/promises'
 import { basename } from 'node:path'
 import * as z from 'zod'
@@ -30,8 +30,8 @@ export function mirroringCloud(cloud: SlackMirrorCloud | null): SlackMirrorCloud
 
 // Every mirror route but the post itself answers 204 with no body.
 const NoContent = z.undefined()
-// Bot and chat picks in Orca's own markup, `[Bot: Atlas](bot:id)`, read in Slack as their names.
-const ORCA_MENTION = /\[([^\]\n]{1,200})\]\((?:bot|bot-chat):[^)\s]{1,400}\)/g
+// Bot and chat picks in OpenKodo's own markup, `[Bot: Atlas](bot:id)`, read in Slack as their names.
+const OPENKODO_MENTION = /\[([^\]\n]{1,200})\]\((?:bot|bot-chat):[^)\s]{1,400}\)/g
 
 /** The text and attachment paths of a person's message, as Slack gets them. */
 export function slackMirrorContent(body: AgentJournalMessageItem): {
@@ -59,7 +59,7 @@ export function slackMirrorContent(body: AgentJournalMessageItem): {
     }
   }
   return {
-    text: words.join('\n').replace(ORCA_MENTION, '$1').trim(),
+    text: words.join('\n').replace(OPENKODO_MENTION, '$1').trim(),
     paths: [...new Set(paths)]
   }
 }
@@ -147,7 +147,7 @@ export async function postSlackMirrorMessage(
     text,
     ...(staged.fileIds.length > 0 ? { files: staged.fileIds } : {}),
     author: {
-      orcaName: message.orcaName.slice(0, 80) || 'Orca',
+      orcaName: message.orcaName.slice(0, 80) || 'OpenKodo',
       ...slackMirrorTypist(message.body)
     }
   }

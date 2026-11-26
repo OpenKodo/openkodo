@@ -142,7 +142,7 @@ it('lets a person on a paired window or phone Clear and Stop from the dock', asy
   }
 })
 
-it("refuses an agent's or a paired Orca's call even when it says it is a person's window", async () => {
+it("refuses an agent's or a paired OpenKodo's call even when it says it is a person's window", async () => {
   const db = new OrchestrationDb(':memory:')
   databases.push(db)
   const agents: Partial<RpcContext>[] = [

@@ -2,8 +2,8 @@ import { agentMessageSenderName } from '../../../../../shared/agent-session/jour
 import { parseBotAvatar } from '../../../../../shared/bot-avatar'
 import type { PeerMailSender } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 
-/** The card's sender for mail from a paired Orca, kept on the message: its label is the party, named by
- *  what that Orca sent. Display only; the sender's fields grant nothing here. */
+/** The card's sender for mail from a paired OpenKodo, kept on the message: its label is the party, named by
+ *  what that OpenKodo sent. Display only; the sender's fields grant nothing here. */
 export function peerMailSenderSnapshot(
   label: string,
   sender: PeerMailSender | undefined

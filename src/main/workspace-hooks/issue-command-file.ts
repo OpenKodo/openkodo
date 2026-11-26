@@ -1,4 +1,4 @@
-// .orca/issue-command is local; orca.yaml supplies the tracked project default.
+// .orca/issue-command is local; openkodo.yaml supplies the tracked project default.
 import { readFileSync, existsSync, mkdirSync, writeFileSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadHooks } from './hooks'
@@ -13,11 +13,11 @@ import {
 
 type IssueCommandGitOptions = GitRuntimeOptions | (() => GitRuntimeOptions)
 
-const ORCA_DIR = '.orca'
+const OPENKODO_DIR = '.orca'
 const ISSUE_COMMAND_FILENAME = 'issue-command'
 
 export function getIssueCommandFilePath(repoPath: string): string {
-  return join(repoPath, ORCA_DIR, ISSUE_COMMAND_FILENAME)
+  return join(repoPath, OPENKODO_DIR, ISSUE_COMMAND_FILENAME)
 }
 
 export function getSharedIssueCommand(repoPath: string): string | null {
@@ -129,7 +129,7 @@ function gitWslDistro(gitOptions: IssueCommandGitOptions): string | undefined {
   }
 }
 
-/** Empty content removes the local override so the shared orca.yaml command applies. */
+/** Empty content removes the local override so the shared openkodo.yaml command applies. */
 export async function writeIssueCommand(
   repoPath: string,
   content: string,
@@ -144,7 +144,7 @@ export async function writeIssueCommand(
       return
     }
 
-    const orcaDir = join(repoPath, ORCA_DIR)
+    const orcaDir = join(repoPath, OPENKODO_DIR)
     if (!existsSync(orcaDir)) {
       mkdirSync(orcaDir, { recursive: true })
     }
@@ -165,7 +165,7 @@ async function isIssueCommandUntracked(
   try {
     const tracked = await listTrackedPathSpecs(
       repoPath,
-      [`${ORCA_DIR}/${ISSUE_COMMAND_FILENAME}`],
+      [`${OPENKODO_DIR}/${ISSUE_COMMAND_FILENAME}`],
       typeof options === 'function' ? options() : options
     )
     return tracked.length === 0
@@ -181,7 +181,7 @@ async function isIssueCommandIgnoredByGit(
   options: IssueCommandGitOptions = {}
 ): Promise<boolean> {
   try {
-    const issueCommandPath = `${ORCA_DIR}/${ISSUE_COMMAND_FILENAME}`
+    const issueCommandPath = `${OPENKODO_DIR}/${ISSUE_COMMAND_FILENAME}`
     const ignored = await checkIgnoredPaths(
       repoPath,
       [issueCommandPath],

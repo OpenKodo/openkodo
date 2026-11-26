@@ -28,7 +28,7 @@ const VERBS = [
   'places'
 ] as const
 
-// As Orca Cloud answers: one entry per connected source, whatever its workspaces; Linear's find
+// As OpenKodo Cloud answers: one entry per connected source, whatever its workspaces; Linear's find
 // searches a team's or workspace's issues.
 function capabilities(state: EvalHostState) {
   const bot = state.bots[0]
@@ -71,7 +71,7 @@ function capabilities(state: EvalHostState) {
   ]
 }
 
-// As Orca Cloud lists them: each workspace, then the places in it that are workspace-scoped refs.
+// As OpenKodo Cloud lists them: each workspace, then the places in it that are workspace-scoped refs.
 export function workspaces(state: EvalHostState) {
   const bot = state.bots[0]
   const inside = (workspaceRef: string) => {

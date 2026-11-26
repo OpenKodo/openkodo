@@ -28,7 +28,7 @@ export type OwnApprovalRecord = {
   answer?: string | null
 }
 
-/** The chat's own prompt, answered here, on another device, or by its coordinator through Orca. */
+/** The chat's own prompt, answered here, on another device, or by its coordinator through OpenKodo. */
 export function ownApprovalRecord(body: AgentJournalApprovalItem): OwnApprovalRecord {
   const { resolution } = body
   const tool = approvalRecordTool(body.toolName, body.displayName ?? body.title)
@@ -37,7 +37,7 @@ export function ownApprovalRecord(body: AgentJournalApprovalItem): OwnApprovalRe
   }
   const option = body.options.find((entry) => entry.id === resolution.selectedOptionId)
   const resolvedBy = resolution.resolvedBy ?? ''
-  // Orca answers a worker's prompt only by allowing or refusing this one call.
+  // OpenKodo answers a worker's prompt only by allowing or refusing this one call.
   const allows = option?.intent === 'allow_once'
   const tone = allows ? 'allowed' : 'denied'
   if (allows || option?.intent === 'reject_once') {

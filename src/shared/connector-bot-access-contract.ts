@@ -2,7 +2,7 @@
 import * as z from 'zod'
 import { optionalConnectorAvatarUrl } from './connector-message-asker'
 
-/** The token from orca://bot/access-request?t=<token>, the owner's "Review in Orca": single use. */
+/** The token from openkodo://bot/access-request?t=<token>, the owner's "Review in OpenKodo": single use. */
 export const ACCESS_REQUEST_TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/
 
 /** Someone asking the owner for access to a bot, as their connector vouched for them. */
@@ -39,7 +39,7 @@ export type ConnectorAccessRequestList = z.infer<typeof ConnectorAccessRequestLi
 
 export type BotAccessDecision = 'granted' | 'declined'
 
-/** What a client's redeem of an owner's "Review in Orca" link came to, on one host. */
+/** What a client's redeem of an owner's "Review in OpenKodo" link came to, on one host. */
 export type BotAccessRedeemOutcome =
   | { kind: 'redeemed'; botId: string; request: ConnectorAccessRequest }
   /** The link's bot is not on this host, so the token was left unspent for the host that has it. */

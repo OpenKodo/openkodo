@@ -71,7 +71,7 @@ export class RuntimeRpcMobileDevices extends RuntimeRpcRequestAdmission {
       }
       this.runtime.forgetClientNavigationState(deviceId)
       if (device.scope === 'runtime') {
-        // Asks this Orca's agents sent that computer under this pairing will not be answered.
+        // Asks this OpenKodo's agents sent that computer under this pairing will not be answered.
         settleRemovedPairedClient(this.runtime, device)
       }
       this.mobileSocketWiring?.terminateDeviceConnections(deviceId)

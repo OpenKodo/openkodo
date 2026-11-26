@@ -1,9 +1,9 @@
-// A bot's picture: one of Orca's mascots, an uploaded image kept in its home, or (from before mascots) an emoji.
+// A bot's picture: one of OpenKodo's mascots, an uploaded image kept in its home, or (from before mascots) an emoji.
 import { readPngDimensions } from './file-preview/raster-image-dimensions'
 
 export type BotPictureRevision = { revision: number; epoch?: string }
 
-/** The mascots Orca ships, as `mascot:<id>` avatars; ids are never renamed, since bots store them. */
+/** The mascots OpenKodo ships, as `mascot:<id>` avatars; ids are never renamed, since bots store them. */
 export const BOT_MASCOT_IDS = [
   'A1',
   'B1',
@@ -93,7 +93,7 @@ export function isUploadAvatar(value: string | null): boolean {
   return value?.startsWith(UPLOAD_PREFIX) === true
 }
 
-/** Null shows the bot's initial; an unknown mascot id (from a newer Orca) does too. */
+/** Null shows the bot's initial; an unknown mascot id (from a newer OpenKodo) does too. */
 export function parseBotAvatar(value: string | null): ParsedBotAvatar | null {
   if (!value) {
     return null

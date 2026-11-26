@@ -11,10 +11,10 @@ import {
 } from './native-chat-visuals-skill-location'
 
 /** Keep the per-chat path in the child environment rather than generated skill text. */
-export const NATIVE_CHAT_SCRATCH_DIR_ENV = 'ORCA_CHAT_SCRATCH_DIR'
+export const NATIVE_CHAT_SCRATCH_DIR_ENV = 'OPENKODO_CHAT_SCRATCH_DIR'
 
-/** Strip the legacy name so launching Orca from a chat cannot leak that folder to new agents. */
-export const LEGACY_NATIVE_CHAT_VISUALS_DIR_ENV = 'ORCA_CHAT_VISUALS_DIR'
+/** Strip the legacy name so launching OpenKodo from a chat cannot leak that folder to new agents. */
+export const LEGACY_NATIVE_CHAT_VISUALS_DIR_ENV = 'OPENKODO_CHAT_VISUALS_DIR'
 
 export type NativeChatVisualsLaunch = {
   folder: string
@@ -94,6 +94,6 @@ export function nativeChatVisualsSection(skill: NativeChatVisualsSkillLocation):
   return [
     '## Inline visuals',
     '',
-    `Orca can show a chart, diagram, table, report or mockup inline in this chat as an HTML page. When a visual would help, read ${file} first and follow it.`
+    `OpenKodo can show a chart, diagram, table, report or mockup inline in this chat as an HTML page. When a visual would help, read ${file} first and follow it.`
   ].join('\n')
 }

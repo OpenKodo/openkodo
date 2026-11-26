@@ -43,7 +43,7 @@ export type BotImportedFrom = z.infer<typeof BotImportedFromSchema>
 export const BOT_IMPORT_REPLY_MAX = 200_000
 export const BOT_IMPORT_REPLY_FILE = 'import/old-bot-reply.md'
 
-/** The message the owner pastes into an old bot whose files Orca can't see. */
+/** The message the owner pastes into an old bot whose files OpenKodo can't see. */
 export const BOT_IMPORT_EXPORT_PROMPT =
   "I'm moving to another assistant and need a complete copy of your setup. Don't change, pause or delete anything. If you keep your setup in files (persona or soul, memory, user notes, skills, routines), save copies of those files, unchanged, into a folder in my Downloads called <your name>-export, then list what you saved. Write out in full in your reply anything that isn't in a file. Never include passwords, API keys, tokens or cookies."
 
@@ -59,7 +59,7 @@ export function botNameFromExportFolder(path: string): string | null {
   return id.replace(/[-_ ]+/g, '') ? botNameFromId(id) : null
 }
 
-/** Orca's first turn to a bot made from another app's bot: setup becomes the import. */
+/** OpenKodo's first turn to a bot made from another app's bot: setup becomes the import. */
 export function botImportKickoff(from: BotImportedFrom, botName: string): string {
   const app = BOT_IMPORT_APP_LABELS[from.app]
   const where =
@@ -72,11 +72,11 @@ export function botImportKickoff(from: BotImportedFrom, botName: string): string
       : `It is ${from.agent ? `"${from.agent}" ` : ''}in ${from.path}.`
   return [
     `${BOT_CREATED_KICKOFF} Your owner made you to take over "${from.name ?? botName}" from ${app}. ${where}`,
-    'Bring it over instead of the usual setup: run `orca skills get orca-cli --reference bot-import` first.'
+    'Bring it over instead of the usual setup: run `openkodo skills get openkodo-cli --reference bot-import` first.'
   ].join('\n\n')
 }
 
-/** Orca's first turn to a new bot, sent again by Try again: an import's for a bot made from another
+/** OpenKodo's first turn to a new bot, sent again by Try again: an import's for a bot made from another
  *  app's, a link's for one made from a shared link, a template's for one made from a template. */
 export function botFirstKickoff(bot: {
   name: string
@@ -103,7 +103,7 @@ export type BotImportCandidate = {
   path: string
   /** The folder as the host reads it. */
   absolutePath: string
-  /** The Orca bot an earlier import made from it, while that bot still exists. */
+  /** The OpenKodo bot an earlier import made from it, while that bot still exists. */
   importedAs?: { botId: string; name: string }
 }
 

@@ -5,7 +5,7 @@ import {
   isDesktopCreatedTabInFrameDrawnServerWorkspace,
   serverTabCount
 } from '@/store/workspace-layout/frames/frame-drawn-desktop-created-tabs'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import {
   dropTabThroughLayoutOwner,
   type TabDropCompletion
@@ -72,7 +72,7 @@ export function moveTabToNewPaneColumn(args: {
     return false
   }
   if (
-    ORCA_LAYOUT_OWNER_IS_MAIN &&
+    OPENKODO_LAYOUT_OWNER_IS_MAIN &&
     dropTabThroughLayoutOwner(
       worktreeId,
       {
@@ -112,7 +112,7 @@ export function moveTabToGroup(
   const { worktreeId, unifiedTabId, groupId, index } = args
   const at = index === undefined ? {} : { index }
   if (
-    ORCA_LAYOUT_OWNER_IS_MAIN &&
+    OPENKODO_LAYOUT_OWNER_IS_MAIN &&
     dropTabThroughLayoutOwner(
       worktreeId,
       { kind: 'move', tabId: unifiedTabId, groupId, ...at },

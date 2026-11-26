@@ -58,7 +58,7 @@ export function getPiSubagentSnapshotSourceLines(): string[] {
     "let nativeChatRosterText = ''",
     'let nativeChatPublishQueued = false',
     'function captureNativeChatUi(ctx): void {',
-    '  if (process.env.ORCA_STRUCTURED_SESSION && !isOmpRuntime()) nativeChatUi = ctx?.ui ?? null',
+    '  if (process.env.OPENKODO_STRUCTURED_SESSION && !isOmpRuntime()) nativeChatUi = ctx?.ui ?? null',
     '}',
     // An exited runner leaves as unknown; its own later completion refines that ending.
     'function nativeChatRosterChanged(): void {',

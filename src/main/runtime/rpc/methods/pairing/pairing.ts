@@ -1,6 +1,6 @@
 import { defineMethod } from '../../core'
 import {
-  DECLARE_ORCA_ACCOUNT_METHOD,
+  DECLARE_OPENKODO_ACCOUNT_METHOD,
   DeclareOrcaAccountParamsSchema
 } from '../../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
 import {
@@ -82,7 +82,7 @@ export const PAIRING_METHODS = [
     }
   }),
   defineMethod({
-    name: DECLARE_ORCA_ACCOUNT_METHOD,
+    name: DECLARE_OPENKODO_ACCOUNT_METHOD,
     permission: 'device-self',
     params: DeclareOrcaAccountParamsSchema,
     handler: (params, ctx) => {

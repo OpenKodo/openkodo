@@ -17,7 +17,7 @@ import { useAppStore } from '@/store'
 import type { AppState } from '@/store/types'
 import {
   isOrcaCloudTeamFeatureBlocked,
-  ORCA_CLOUD_TEAM_POLICY_FLAGS
+  OPENKODO_CLOUD_TEAM_POLICY_FLAGS
 } from '../../../shared/orca-profiles/orca-cloud-team-policy'
 import { activateAndRevealFolderWorkspace } from './workspace/activation/worktree-activation'
 import {
@@ -161,25 +161,25 @@ export function useListedBotItemsNeedingOwner(bot: BotRef | null): number | null
   return useSyncExternalStore(subscribe, read, read)
 }
 
-/** Whether results can go to an event's thread: the host's Orca Cloud binds it; false for no host. */
+/** Whether results can go to an event's thread: the host's OpenKodo Cloud binds it; false for no host. */
 export function useBotThreadReplies(hostId: ExecutionHostId | null): boolean {
   const read = (): boolean => (hostId ? readBotThreadReplies(hostId) : false)
   return useSyncExternalStore(subscribe, read, read)
 }
 
-/** Whether the host's Orca Cloud takes webhooks; undefined from an older host, which doesn't say, or for no host. */
+/** Whether the host's cloud service takes webhooks; undefined from an older host, which doesn't say, or for no host. */
 export function useBotWebhooks(hostId: ExecutionHostId | null): boolean | undefined {
   const read = (): boolean | undefined => (hostId ? readBotWebhooks(hostId) : undefined)
   return useSyncExternalStore(subscribe, read, read)
 }
 
-/** Whether the host must sign in to Orca again before its bots hear anything; re-read on its bots change. */
+/** Whether the host must sign in to OpenKodo again before its bots hear anything; re-read on its bots change. */
 export function useConnectorNeedsSignIn(hostId: ExecutionHostId): boolean {
   const read = (): boolean => readConnectorNeedsSignIn(hostId)
   return useSyncExternalStore(subscribe, read, read)
 }
 
-/** The host's link to Orca Cloud, from its last bots.list; undefined from an older host or without Orca Cloud. */
+/** The host's link to OpenKodo Cloud, from its last bots.list; undefined from an older host or without OpenKodo Cloud. */
 export function useBotHostConnectorStatus(
   hostId: ExecutionHostId
 ): BotHostConnectorStatus | undefined {
@@ -200,7 +200,10 @@ export function readBotsEnabled(): boolean {
 function botsEnabled(state: AppState): boolean {
   return (
     state.settings?.botsEnabled !== false &&
-    !isOrcaCloudTeamFeatureBlocked(state.orcaProfileAuthStatus, ORCA_CLOUD_TEAM_POLICY_FLAGS.bots)
+    !isOrcaCloudTeamFeatureBlocked(
+      state.orcaProfileAuthStatus,
+      OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots
+    )
   )
 }
 

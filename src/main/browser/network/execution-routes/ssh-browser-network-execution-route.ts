@@ -109,7 +109,7 @@ export async function resolveSshBrowserNetworkExecutionRoute(
     releaseInvalidation,
     connectionManager: dependencies.connectionManager,
     isCurrentAuthority: dependencies.isCurrentAuthority,
-    // Destinations leave from the host, so the host's proxy applies, never this machine's Orca setting.
+    // Destinations leave from the host, so the host's proxy applies, never this machine's OpenKodo setting.
     selectProxy: (target: BrowserNetworkTunnelOpen) =>
       selectBrowserNetworkTunnelProxy(target, null, hostProxyEnvironment())
   }

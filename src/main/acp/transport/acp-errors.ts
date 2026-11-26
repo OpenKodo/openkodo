@@ -60,10 +60,10 @@ export class AcpAuthRequiredError extends AcpAgentError {
   }
 }
 
-/** Orca's sign-in prompt message, distinct from an agent-authored error. */
+/** OpenKodo's sign-in prompt message, distinct from an agent-authored error. */
 export class AcpSignInPromptError extends AcpAuthRequiredError {}
 
-/** Preserve prompt errors so Orca's diagnostic text is never attributed to the agent. */
+/** Preserve prompt errors so OpenKodo's diagnostic text is never attributed to the agent. */
 export function acpAuthRequiredError(
   error: AcpAgentError,
   authMethods?: AuthMethod[]

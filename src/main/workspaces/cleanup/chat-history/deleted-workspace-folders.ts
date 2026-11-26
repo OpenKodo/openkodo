@@ -70,7 +70,7 @@ export function goneFolderKey(folder: GoneFolder): string {
   return `${folder.ancestorId}/${foldName(folder.name)}`
 }
 
-/** What Orca still lists: checkouts, folder projects, workspaces and renamed workspaces' earlier paths. */
+/** What OpenKodo still lists: checkouts, folder projects, workspaces and renamed workspaces' earlier paths. */
 function listedPaths(store: RuntimeStore): string[] {
   const paths = store.getRepos().map((repo) => repo.path)
   for (const folderWorkspace of store.getFolderWorkspaces?.() ?? []) {
@@ -93,7 +93,7 @@ function listedPaths(store: RuntimeStore): string[] {
   return paths.filter((path) => !parseWslUncPath(path))
 }
 
-/** Changes whenever what Orca lists, or where it nests workspaces, changes: archive and rename both write rows. */
+/** Changes whenever what OpenKodo lists, or where it nests workspaces, changes: archive and rename both write rows. */
 export function listedCatalogFingerprint(store: RuntimeStore): string {
   const { workspaceDir, nestWorkspaces, workspaceDirHistory } = store.getSettings()
   return JSON.stringify([
@@ -209,7 +209,7 @@ export async function readListedFolders(store: RuntimeStore): Promise<ListedFold
   return listed
 }
 
-/** Whether the folder or any ancestor is something Orca still lists, such as a flat workspace named like a repo. */
+/** Whether the folder or any ancestor is something OpenKodo still lists, such as a flat workspace named like a repo. */
 async function isInsideListedFolder(directory: string, listed: ListedFolders): Promise<boolean> {
   // Walk the physical ancestors: a symlinked folder can sit inside a listed checkout elsewhere.
   let current = await realpath(directory).catch(() => null)
@@ -230,8 +230,8 @@ async function isInsideListedFolder(directory: string, listed: ListedFolders): P
 }
 
 /**
- * `<workspaces root>/<repo name>` for each nested layout Orca has used: the only folders whose
- * children are Orca workspaces. Flat roots and a project's flat base also hold folders Orca never
+ * `<workspaces root>/<repo name>` for each nested layout OpenKodo has used: the only folders whose
+ * children are OpenKodo workspaces. Flat roots and a project's flat base also hold folders OpenKodo never
  * made (other tools' worktrees, the user's projects), and a folder with `.git` is a checkout.
  */
 export async function readWorkspaceParents(

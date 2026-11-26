@@ -69,7 +69,7 @@ export async function restartManagedOrcadEnvironment(
     async ({ environment, deployment }) => {
       const context = await resolveLinkedOrcadContext(environment, deployment)
       if (!context.activationRecord.active) {
-        return { outcome: 'not-restarted', reason: 'This host has no activated Orca server.' }
+        return { outcome: 'not-restarted', reason: 'This host has no activated OpenKodo server.' }
       }
       const counts = updateTerminalCounts((options) =>
         collectManagedTerminalCensus(
@@ -101,7 +101,7 @@ export async function restartManagedOrcadEnvironment(
           reason:
             wake.outcome === 'recovery-refused'
               ? wake.reason
-              : `This host’s Orca server stopped but did not start again (${wake.outcome}); reconnect to start it.`
+              : `This host’s OpenKodo server stopped but did not start again (${wake.outcome}); reconnect to start it.`
         }
       }
       // Restart may bind a different port than the existing forward.
@@ -121,7 +121,7 @@ export async function restartManagedOrcadEnvironment(
         return {
           outcome: 'not-restarted',
           reason:
-            'This host’s Orca server restarted, but its terminals still belong to an SSH session ' +
+            'This host’s OpenKodo server restarted, but its terminals still belong to an SSH session ' +
             'that has ended: its terminal daemon was still running, or this connection opens a ' +
             'new SSH session for each command. Turn on SSH connection reuse for this host if ' +
             'it is off, then restart again.'

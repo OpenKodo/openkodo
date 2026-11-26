@@ -61,7 +61,7 @@ function useResetPassed(resetsAt: number | undefined): boolean {
   return useSyncExternalStore(subscribe, read, read)
 }
 
-/** Under a usage-limit headline: the reset and Orca's plan on one line, then the actions. */
+/** Under a usage-limit headline: the reset and OpenKodo's plan on one line, then the actions. */
 export function MobileNativeChatUsageLimitStatus({
   notice,
   fontScale
@@ -86,7 +86,7 @@ export function MobileNativeChatUsageLimitStatus({
       ? Math.min(resetsAt, actions.continueAt)
       : resetsAt
   )
-  // The line names the reset Orca waits for.
+  // The line names the reset OpenKodo waits for.
   const shownAt = actions?.autoContinue ? (actions.continueAt ?? resetsAt) : resetsAt
   const shownPassed = useResetPassed(shownAt)
   if (failure?.kind !== 'usageLimitReached') {

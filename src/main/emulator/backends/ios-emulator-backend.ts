@@ -266,7 +266,7 @@ export class IosEmulatorBackend implements EmulatorBackend {
         )
       }
     }
-    // Keep the native Simulator window hidden while Orca embeds its stream.
+    // Keep the native Simulator window hidden while OpenKodo embeds its stream.
     await hideNativeSimulatorApp().catch(() => {})
     return { ...info, streamCodec: 'mjpeg', backend: 'ios' }
   }
@@ -275,7 +275,7 @@ export class IosEmulatorBackend implements EmulatorBackend {
     deviceId: string,
     options: { helperPid?: number; includeOrphaned?: boolean } = {}
   ): Promise<void> {
-    // The pane is detaching, so the simulator gets back the keyboard layout it had before Orca.
+    // The pane is detaching, so the simulator gets back the keyboard layout it had before OpenKodo.
     const restoreKeyboardLayout = this.hardwareKeyboardSync.restore(deviceId)
     await this.execServeSim(serveSimKillArgs(deviceId)).catch(() => {})
     // Stale helpers can outlive the state file that serve-sim --kill relies on.

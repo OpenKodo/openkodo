@@ -55,7 +55,9 @@ function parseArgs(argv) {
 
 function withoutOrcaEnvironment(extra = {}) {
   return {
-    ...Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('ORCA_'))),
+    ...Object.fromEntries(
+      Object.entries(process.env).filter(([key]) => !key.startsWith('OPENKODO_'))
+    ),
     ...extra
   }
 }
@@ -206,7 +208,7 @@ async function verifyNoOpWrites(scripts, home, payload) {
         withoutOrcaEnvironment({
           HOME: home,
           PATH: path,
-          ORCA_AGENT_HOOK_ENDPOINT: ''
+          OPENKODO_AGENT_HOOK_ENDPOINT: ''
         })
       )
       assertSuccessfulWrite(result, [script.fileName, ' no-op'].join(''))
@@ -240,10 +242,10 @@ async function verifyClaudeDevinSkip(scripts, home, payload) {
       withoutOrcaEnvironment({
         DEVIN_PROJECT_DIR: join(home, 'devin-project'),
         HOME: home,
-        ORCA_AGENT_HOOK_ENDPOINT: '',
-        ORCA_AGENT_HOOK_PORT: String(address.port),
-        ORCA_AGENT_HOOK_TOKEN: 'electron-verification-token',
-        ORCA_PANE_KEY: 'electron-verification-pane'
+        OPENKODO_AGENT_HOOK_ENDPOINT: '',
+        OPENKODO_AGENT_HOOK_PORT: String(address.port),
+        OPENKODO_AGENT_HOOK_TOKEN: 'electron-verification-token',
+        OPENKODO_PANE_KEY: 'electron-verification-pane'
       })
     )
     assertSuccessfulWrite(result, 'Claude Devin-import skip')
@@ -273,16 +275,16 @@ async function verifyForwarding(scripts, home, payload) {
         payload,
         withoutOrcaEnvironment({
           HOME: home,
-          ORCA_AGENT_HOOK_ENDPOINT: '',
-          ORCA_AGENT_HOOK_PORT: String(address.port),
-          ORCA_AGENT_HOOK_TOKEN: 'electron-verification-token',
-          ORCA_PANE_KEY: 'electron-verification-pane',
-          ORCA_TAB_ID: 'electron-verification-tab',
-          ORCA_WORKTREE_ID: 'electron-verification-worktree',
-          ORCA_AGENT_HOOK_ENV: 'test',
-          ORCA_AGENT_HOOK_VERSION: '1',
-          ORCA_ANTIGRAVITY_EVENT: 'PostInvocation',
-          ORCA_COPILOT_HOOK_EVENT: 'PostToolUse'
+          OPENKODO_AGENT_HOOK_ENDPOINT: '',
+          OPENKODO_AGENT_HOOK_PORT: String(address.port),
+          OPENKODO_AGENT_HOOK_TOKEN: 'electron-verification-token',
+          OPENKODO_PANE_KEY: 'electron-verification-pane',
+          OPENKODO_TAB_ID: 'electron-verification-tab',
+          OPENKODO_WORKTREE_ID: 'electron-verification-worktree',
+          OPENKODO_AGENT_HOOK_ENV: 'test',
+          OPENKODO_AGENT_HOOK_VERSION: '1',
+          OPENKODO_ANTIGRAVITY_EVENT: 'PostInvocation',
+          OPENKODO_COPILOT_HOOK_EVENT: 'PostToolUse'
         })
       )
       assertSuccessfulWrite(result, [script.fileName, ' forwarding'].join(''))

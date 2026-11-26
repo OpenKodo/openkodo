@@ -1,4 +1,4 @@
-// A bot's items in groups: Needs you (led by Orca's asks) and In progress open; Planned, Snoozed, Stale
+// A bot's items in groups: Needs you (led by OpenKodo's asks) and In progress open; Planned, Snoozed, Stale
 // and Closed folded. Each shows five rows, then Show N more. Checked rows get the floating pill; Stale's header
 // cancels them all. Asks have no checkbox, so selection and ranges never reach them.
 import { useLayoutEffect, useMemo, useRef, useState } from 'react'
@@ -60,7 +60,7 @@ export type BotItemsListProps = {
   /** The row to focus as the list shows (Back from its item): unfolded, shown and scrolled to. */
   focusUid?: string | null
   onOpen: (item: BotItem) => void
-  /** Orca's asks, leading Needs you; they show whatever the item read says. */
+  /** OpenKodo's asks, leading Needs you; they show whatever the item read says. */
   asks?: BotNeedsYouAsks
   /** The host is offline: Needs you shows every row, its footer being off with the panel. */
   offline?: boolean

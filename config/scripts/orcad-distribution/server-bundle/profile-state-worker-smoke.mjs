@@ -91,7 +91,7 @@ export async function smokeProfileStateWorkers(outDir, { timeoutMs = 30_000, run
     const result = runProcessSync({
       program: runtimePath,
       args: [join(outDir, ORCAD_SERVER_ENTRY_FILENAME), ORCAD_PROFILE_PREFLIGHT_FLAG, nonce],
-      env: { ...process.env, ORCA_BACKGROUND_LAUNCH: '1' },
+      env: { ...process.env, OPENKODO_BACKGROUND_LAUNCH: '1' },
       timeoutMs,
       maxOutputBytes: 64 * 1024
     })

@@ -4,7 +4,7 @@ import type { SourceControlWorktreeOperationState } from '../panel/use-worktree-
 import type { OrcaRebaseMarker } from '../panel/worktree-operation-store'
 import { orcaRebaseMarkerIsRetired, orcaRebaseMarkerMatches } from './orca-rebase-marker'
 
-/** After Orca's own rebase, hide Pull/Sync/FF/Push while the branch still diverges from the same tip. */
+/** After OpenKodo's own rebase, hide Pull/Sync/FF/Push while the branch still diverges from the same tip. */
 export function useOrcaRebaseMarker({
   branchName,
   operationStore,

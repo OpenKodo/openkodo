@@ -1,4 +1,4 @@
-// Saving, clearing and reporting the Gemini API key Orca's Antigravity chat uses on this host.
+// Saving, clearing and reporting the Gemini API key OpenKodo's Antigravity chat uses on this host.
 
 import type { AntigravityChatApiKeyStatus } from '../../shared/rpc-contract/accounts/antigravity-accounts-params'
 import { getMainHttpClient } from '../network/http-client'

@@ -37,7 +37,7 @@ export type DriveDownload = { file: DriveFileSummary; name: string; data: string
 export type DriveWriteView = {
   account: string
   file: DriveFileSummary
-  /** Orca's words for what happened, e.g. "Moved"; names come separately, as Google has them. */
+  /** OpenKodo's words for what happened, e.g. "Moved"; names come separately, as Google has them. */
   done: string
   folder?: { id: string; name: string }
 }

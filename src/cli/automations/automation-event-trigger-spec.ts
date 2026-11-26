@@ -55,7 +55,7 @@ function invalid(message: string): RuntimeClientError {
 }
 
 const CONNECTOR_SOURCES: readonly ConnectorEventSource[] = ['slack', 'github', 'linear']
-// Offered only for a bot whose host's Orca Cloud takes webhooks.
+// Offered only for a bot whose host's OpenKodo Cloud takes webhooks.
 const ALL_SOURCES: readonly AutomationEventSource[] = [
   ...CONNECTOR_SOURCES,
   ...GOOGLE_EVENT_SOURCES,
@@ -76,7 +76,7 @@ function eventOf(head: string): Pick<AutomationConnectorEventTrigger, 'source' |
   const known = EVENTS.find(({ source, event }) => `${source}.${event}` === head)
   if (!known) {
     throw invalid(
-      `Unknown event "${head}". Run \`orca automations trigger-options\` for the events each source has.`
+      `Unknown event "${head}". Run \`openkodo automations trigger-options\` for the events each source has.`
     )
   }
   return known
@@ -252,7 +252,7 @@ export function offeredEventSources(
   return only ? offered.filter((source) => source === only) : offered
 }
 
-/** Each source's events and filters, for `orca automations trigger-options`; with a bot, only its connectors' in full. */
+/** Each source's events and filters, for `openkodo automations trigger-options`; with a bot, only its connectors' in full. */
 export function formatAutomationTriggerOptions(
   only?: AutomationEventSource,
   bot?: BotConnectors
@@ -264,15 +264,15 @@ export function formatAutomationTriggerOptions(
     }
     if (isGoogleTrigger({ source })) {
       return bot && !heard?.includes(source)
-        ? `${source}: none of these start ${bot.name}: Google is off for it. Its owner can turn it on with \`orca google bot "${bot.name}" --on\`.`
+        ? `${source}: none of these start ${bot.name}: Google is off for it. Its owner can turn it on with \`openkodo google bot "${bot.name}" --on\`.`
         : GOOGLE_TRIGGER_OPTIONS[source]
     }
     const words: Record<string, string> = EVENT_WORDS[source]
     if (bot && !heard?.includes(source)) {
       const name = CONNECTOR_SOURCE_NAMES[source]
-      return `${source}: none of these start ${bot.name}, which has no ${name} connector (\`orca bot connectors --offer ${source}\` shows its owner a Connect card): ${AUTOMATION_EVENT_KINDS[source].map((event) => `${source}.${event}`).join(', ')}`
+      return `${source}: none of these start ${bot.name}, which has no ${name} connector (\`openkodo bot connectors --offer ${source}\` shows its owner a Connect card): ${AUTOMATION_EVENT_KINDS[source].map((event) => `${source}.${event}`).join(', ')}`
     }
-    // GitHub's newer events and label=, and finished workflow runs, only where this bot's Orca Cloud
+    // GitHub's newer events and label=, and finished workflow runs, only where this bot's OpenKodo Cloud
     // sends them.
     const older = source === 'github' && bot !== undefined && bot.githubEvents2 !== true
     const workflows = source === 'github' && (bot === undefined || bot.githubWorkflows === true)
@@ -297,7 +297,7 @@ export function formatAutomationTriggerOptions(
       ...(workflows ? [`  ${WORKFLOW_WAIT_RECIPE}`] : []),
       ...(older
         ? [
-            `  ${bot?.name ?? 'This bot'}'s Orca Cloud doesn't send ${GITHUB2_EVENT_KINDS.map((event) => `github.${event}`).join(', ')} or label= yet: to follow a pull request, wait on github.ci_failed, pr_merged, review, review_comment and comment until it updates.`
+            `  ${bot?.name ?? 'This bot'}'s cloud service doesn't send ${GITHUB2_EVENT_KINDS.map((event) => `github.${event}`).join(', ')} or label= yet: to follow a pull request, wait on github.ci_failed, pr_merged, review, review_comment and comment until it updates.`
           ]
         : [])
     ].join('\n')
@@ -307,13 +307,13 @@ export function formatAutomationTriggerOptions(
     '"You" below is the bot\'s owner.',
     ...(bot
       ? [
-          "First run `orca bot connectors`: it lists each workspace the bot is in (and each Linear workspace's teams) as refs for in=, and `orca slack find <name>` finds one Slack channel by name. A workspace ref listens anywhere in that workspace; when the bot is in more than one, ask which."
+          "First run `openkodo bot connectors`: it lists each workspace the bot is in (and each Linear workspace's teams) as refs for in=, and `openkodo slack find <name>` finds one Slack channel by name. A workspace ref listens anywhere in that workspace; when the bot is in more than one, ask which."
         ]
       : []),
     ...(bot?.cloudSignedOut ? [signedOutTriggerOptionsNote(bot)] : []),
     ...sources,
-    'Besides these, only a time starts one: `--trigger` for a schedule, or `--once --by <ISO time>` alone for a one-time reminder ("in 10 minutes"). For an event that isn\'t listed, tell your owner instead of polling for it on a schedule. This list grows as connectors and Orca update: run this again before saying an event can\'t start one.',
-    "A run gets your prompt, then the event: its source, kind and time; for Slack, the channel id and message ts (and thread ts in a thread); then, quoted, who did it, where, a link and the text. With --results-to thread (the default when only these events start it), the run answers in the event's thread: `orca bot reply` posts there, and so does its final message. `orca skills get orca-cli --reference automations` has each source's fields."
+    'Besides these, only a time starts one: `--trigger` for a schedule, or `--once --by <ISO time>` alone for a one-time reminder ("in 10 minutes"). For an event that isn\'t listed, tell your owner instead of polling for it on a schedule. This list grows as connectors and OpenKodo update: run this again before saying an event can\'t start one.',
+    "A run gets your prompt, then the event: its source, kind and time; for Slack, the channel id and message ts (and thread ts in a thread); then, quoted, who did it, where, a link and the text. With --results-to thread (the default when only these events start it), the run answers in the event's thread: `openkodo bot reply` posts there, and so does its final message. `openkodo skills get openkodo-cli --reference automations` has each source's fields."
   ].join('\n\n')
 }
 

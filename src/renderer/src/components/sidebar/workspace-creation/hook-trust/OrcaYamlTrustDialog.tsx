@@ -131,7 +131,7 @@ const OrcaYamlTrustDialog = React.memo(function OrcaYamlTrustDialog() {
               i18n={i18n}
               defaults={t(
                 'worktree.setupTrust.alwaysTrustScope',
-                'Always trust runs future <code>orca.yaml</code> changes in <repo/> without asking.'
+                'Always trust runs future <code>openkodo.yaml</code> changes in <repo/> without asking.'
               )}
               components={{ code: <code />, repo: <>{repoName}</> }}
             />

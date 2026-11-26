@@ -81,14 +81,14 @@ async function continueRebaseUnlocked(
   if ((await detectConflictOperation(worktreePath, options)) !== 'rebase') {
     return { outcome: 'not_rebasing' }
   }
-  // Why: picks open the commit-message editor and Orca has no TTY; this keeps Git's prepared message.
+  // Why: picks open the commit-message editor and OpenKodo has no TTY; this keeps Git's prepared message.
   const env: NodeJS.ProcessEnv = { ...process.env, GIT_EDITOR: 'true' }
   if (process.platform === 'win32') {
     addWslEnvKeys(env, ['GIT_EDITOR'])
   }
   const branch = await readRebasingBranch(worktreePath, options)
-  // Contract: the token is re-read under the worktree lock immediately before the spawn, so no Orca
-  // action can move the rebase in between. A Git process outside Orca acting inside that window is
+  // Contract: the token is re-read under the worktree lock immediately before the spawn, so no OpenKodo
+  // action can move the rebase in between. A Git process outside OpenKodo acting inside that window is
   // out of scope: Git has no compare-and-swap on rebase state.
   const before = await readRebaseStopToken(worktreePath, options)
   if (!expected || !sameStop(expected, before)) {

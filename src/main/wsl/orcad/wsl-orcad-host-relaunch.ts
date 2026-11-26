@@ -47,7 +47,7 @@ function wslHostNotWslLaunchedDeferral(fullVersion: string, reason: string): Wsl
 }
 
 const WSL_HOST_RELAUNCH_LOST_REASON =
-  'This host’s Orca server was restarted as a WSL host, but it came back without the WSL host ' +
+  'This host’s OpenKodo server was restarted as a WSL host, but it came back without the WSL host ' +
   'marker, likely because an SSH host started it again. Disconnect that SSH host, then restart it now.'
 
 export async function relaunchAsWslHost(args: {
@@ -115,7 +115,7 @@ export async function relaunchAsWslHost(args: {
     throw new Error(
       wake.outcome === 'recovery-refused'
         ? wake.reason
-        : `This host’s Orca server stopped to restart as a WSL host but did not start again (${wake.outcome}); connect to start it.`
+        : `This host’s OpenKodo server stopped to restart as a WSL host but did not start again (${wake.outcome}); connect to start it.`
     )
   }
   const { readiness, launch } = await args.reprobe()
@@ -132,11 +132,11 @@ export async function relaunchAsWslHost(args: {
 function terminalsRunning(liveSessions: number | null): string {
   const what =
     liveSessions === null
-      ? 'Orca could not count its terminals'
+      ? 'OpenKodo could not count its terminals'
       : `${liveSessions} terminal${liveSessions === 1 ? ' runs' : 's run'} on it`
   return (
-    `This host’s Orca server was not started as a WSL host (an SSH host usually started it), and ${what}. ` +
-    'It restarts as a WSL host when Orca next connects with no terminals running, or restart it now.'
+    `This host’s OpenKodo server was not started as a WSL host (an SSH host usually started it), and ${what}. ` +
+    'It restarts as a WSL host when OpenKodo next connects with no terminals running, or restart it now.'
   )
 }
 
@@ -148,10 +148,10 @@ function chatsRunning(census: OrcadTerminalCensus): string | null {
   }
   const what =
     typeof chats !== 'number'
-      ? 'Orca could not tell whether a chat runs on it'
+      ? 'OpenKodo could not tell whether a chat runs on it'
       : `${chats} chat${chats === 1 ? ' runs' : 's run'} on it`
   return (
-    `This host’s Orca server was not started as a WSL host (an SSH host usually started it), and ${what}. ` +
-    'It restarts as a WSL host when Orca next connects with no terminals or chats running, or restart it now.'
+    `This host’s OpenKodo server was not started as a WSL host (an SSH host usually started it), and ${what}. ` +
+    'It restarts as a WSL host when OpenKodo next connects with no terminals or chats running, or restart it now.'
   )
 }

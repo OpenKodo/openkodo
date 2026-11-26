@@ -56,7 +56,7 @@ function unseal(envelope: string): string {
 export function refuseUnsealedSecrets(hasSecret: boolean): void {
   if (hasSecret && !canSeal()) {
     throw new Error(
-      'Orca can’t lock saved tool values on this computer because it has no system keyring, so it won’t save them.'
+      'OpenKodo can’t lock saved tool values on this computer because it has no system keyring, so it won’t save them.'
     )
   }
 }

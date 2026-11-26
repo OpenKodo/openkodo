@@ -145,7 +145,7 @@ function chat(...turns: [unknown, Sent | null, unknown[]?][]) {
 }
 
 // Hardcoded: whom a turn on a chat Dana started acts for, as Slack actions and owner writes read it.
-describe('a turn the owner typed in Orca', () => {
+describe('a turn the owner typed in OpenKodo', () => {
   it('acts for the owner though the chat acts for a teammate', () => {
     expect(chat([typed, OWNER_SEND])).toEqual({ owner: true, line: null })
     // From the owner's phone, signed in to the same account.
@@ -164,7 +164,7 @@ describe('a turn the owner typed in Orca', () => {
     expect(chat([typed, OWNER_SEND], [workerMail, null])).toEqual(dana)
     // Nor does a turn no message opened borrow the owner's message before it.
     expect(chat([typed, OWNER_SEND], [null, null])).toEqual(dana)
-    // Orca's continue after a restart, an agent's send and another account's paired computer.
+    // OpenKodo's continue after a restart, an agent's send and another account's paired computer.
     expect(chat([typed, { origin: 'host' }])).toEqual(dana)
     expect(chat([{ ...typed, typedBy: { by: 'agent' } }, OWNER_SEND])).toEqual(dana)
     const otherAccount = {
@@ -172,7 +172,7 @@ describe('a turn the owner typed in Orca', () => {
       typedBy: { by: 'device', deviceId: 'd2', accountId: 'a2', account: 'Sam', own: false }
     }
     expect(chat([otherAccount, OWNER_SEND])).toEqual(dana)
-    // Anything Orca can't place as the owner is not: another account unnamed, an account it couldn't
+    // Anything OpenKodo can't place as the owner is not: another account unnamed, an account it couldn't
     // compare, or no stamp at all.
     const { account: _unnamed, ...nameless } = otherAccount.typedBy
     expect(chat([{ ...message, typedBy: nameless }, OWNER_SEND])).toEqual(dana)

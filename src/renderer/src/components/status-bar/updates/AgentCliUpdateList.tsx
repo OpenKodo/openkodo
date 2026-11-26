@@ -58,7 +58,7 @@ export function runAgentCliUpdateRow(row: AgentCliUpdateRow): void {
   void useAppStore.getState().runAgentCliUpdate(agentCliUpdateHostTarget(row.hostKey), row.agent)
 }
 
-/** For a CLI Orca can't update itself: the user runs its command in a terminal. Resolves whether it copied. */
+/** For a CLI OpenKodo can't update itself: the user runs its command in a terminal. Resolves whether it copied. */
 export function copyAgentCliUpdateCommand(
   command: string,
   t: Translate,

@@ -19,7 +19,7 @@ export function collapsePathEqualWorktreeRows(
   if (scansWithoutPathEqualRows.has(worktrees)) {
     return worktrees
   }
-  // Keep the spelling Orca already keys metadata, lineage and `id:` selectors by; ties keep Git's order.
+  // Keep the spelling OpenKodo already keys metadata, lineage and `id:` selectors by; ties keep Git's order.
   const rank = (path: string): number =>
     (path === repo.path ? 2 : 0) + (hasWorktreeMeta(composeWorktreeId(repo.id, path)) ? 1 : 0)
   const collapsed = dedupeWorktreesByPath(worktrees, process.platform, (kept, duplicate) => {

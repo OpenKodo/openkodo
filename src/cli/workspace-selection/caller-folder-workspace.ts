@@ -18,9 +18,9 @@ export type FolderWorkspaceRepoChoice = {
   path: string
 }
 
-/** The folder workspace whose terminal runs this command, from the env Orca sets on its terminals. */
+/** The folder workspace whose terminal runs this command, from the env OpenKodo sets on its terminals. */
 export function getCallerFolderWorkspaceKey(): WorkspaceKey | undefined {
-  return [process.env.ORCA_WORKSPACE_ID, process.env.ORCA_WORKTREE_ID]
+  return [process.env.OPENKODO_WORKSPACE_ID, process.env.OPENKODO_WORKTREE_ID]
     .map((id) => id?.trim())
     .find((id): id is WorkspaceKey => !!id && parseWorkspaceKey(id)?.type === 'folder')
 }
@@ -39,7 +39,7 @@ export async function getOptionalParentSelector(
     return await getOptionalWorktreeSelector(flags, 'parent-worktree', cwd, client)
   } catch (error) {
     // A worktree terminal's own workspace is a worktree; only folder terminals fall back to a folder.
-    const callerWorktree = process.env.ORCA_WORKTREE_ID?.trim()
+    const callerWorktree = process.env.OPENKODO_WORKTREE_ID?.trim()
     const callerFolder =
       callerWorktree && !callerWorktree.startsWith('folder:')
         ? undefined
@@ -119,7 +119,7 @@ export async function getFolderWorkspaceMissingRepoError(
   if (choices.length === 0) {
     return new RuntimeClientError(
       'invalid_argument',
-      `This folder workspace is not a Git repository, and Orca has no Git repositories registered under ${read.folderWorkspace.folderPath}. Add one with orca repo add --path <repository path>, then pass --repo.`,
+      `This folder workspace is not a Git repository, and OpenKodo has no Git repositories registered under ${read.folderWorkspace.folderPath}. Add one with orca repo add --path <repository path>, then pass --repo.`,
       data
     )
   }

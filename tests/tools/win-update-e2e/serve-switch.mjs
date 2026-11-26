@@ -66,8 +66,8 @@ async function startOrcaServe(exePath, userDataDir) {
       env: {
         ...process.env,
         ELECTRON_RUN_AS_NODE: '1',
-        ORCA_SERVE_RUNTIME: 'orcad',
-        ORCA_USER_DATA_PATH: userDataDir
+        OPENKODO_SERVE_RUNTIME: 'orcad',
+        OPENKODO_USER_DATA_PATH: userDataDir
       },
       windowsHide: true
     }

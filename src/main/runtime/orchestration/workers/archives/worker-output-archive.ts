@@ -123,7 +123,7 @@ export function captureWorkerOutputReference(args: {
   }
 }
 
-/** Where a worker whose process is gone left its output, from what Orca saved while it ran. */
+/** Where a worker whose process is gone left its output, from what OpenKodo saved while it ran. */
 export function deriveWorkerOutputReferenceFromSavedState(args: {
   resource: Pick<WorkerTerminalResourceRow, 'resume_session' | 'host_scope'>
   structuredWorker?: StructuredWorkerIdentity | null
@@ -297,9 +297,9 @@ export function releaseCommitFieldsForCapturedArchive(captured: WorkerOutputArch
 }
 
 const OLDER_READER_NOTE =
-  'This version of Orca reads released output from the saved copy only. Read it with a newer Orca, or see its report (worker_done) or task result.'
+  'This version of OpenKodo reads released output from the saved copy only. Read it with a newer OpenKodo, or see its report (worker_done) or task result.'
 
-/** Empty copy fields, so a downgraded Orca shows a note instead of failing on a reference row. */
+/** Empty copy fields, so a downgraded OpenKodo shows a note instead of failing on a reference row. */
 function olderReaderFields(kind: WorkerTerminalArchiveKind) {
   return kind === 'terminal_tail'
     ? { lines: [], truncated: false, terminalStatus: 'exited', warnings: [OLDER_READER_NOTE] }

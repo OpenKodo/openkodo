@@ -19,7 +19,7 @@ let subscriptionSeq = 0
 function server(): OrcaServerSignIn {
   const installed = getOrcaServerSignIn()
   if (!installed) {
-    throw new Error('Signing in to Orca is not available on this host. Update Orca on it.')
+    throw new Error('Signing in to OpenKodo is not available on this host. Update OpenKodo on it.')
   }
   return installed
 }
@@ -32,7 +32,7 @@ function flowOwner({ caller }: Pick<RpcContext, 'caller'>): string {
 }
 
 // `workspace`: anyone who can run commands here could run the sign-in in a terminal anyway.
-export const ORCA_ACCOUNT_METHODS = [
+export const OPENKODO_ACCOUNT_METHODS = [
   defineMethod({
     name: 'orcaAccount.status',
     permission: 'workspace',

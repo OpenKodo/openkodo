@@ -6,6 +6,7 @@ import { RuntimeClientError } from '../../runtime/connection/types'
 import type { PluginHostListEntry } from '../../../shared/plugins/plugin-list-entry'
 import { isQualifiedPluginKey } from '../../../shared/plugins/frames/plugin-tab-key'
 import {
+  PLUGIN_MANIFEST_FILENAMES,
   parsePluginManifest,
   qualifiedPluginKey,
   type PluginManifest
@@ -40,12 +41,12 @@ function refuse(code: string, message: string, nextSteps: string[] = []): Runtim
   return new RuntimeClientError(code, message, nextSteps.length > 0 ? { nextSteps } : undefined)
 }
 
-/** Why local only: the scenario runs the plugin's code here, then Orca on this machine draws it. */
+/** Why local only: the scenario runs the plugin's code here, then OpenKodo on this machine draws it. */
 function requireLocal(ctx: HandlerContext): void {
-  if (process.env.ORCA_CLI_CWD || ctx.client.isRemote) {
+  if (process.env.OPENKODO_CLI_CWD || ctx.client.isRemote) {
     throw refuse(
       'invalid_environment',
-      "shot --scenario runs the plugin's code on this machine and shows it in the Orca on this machine, so it does not reach another host. Run it where Orca and the plugin folder are, without --environment."
+      "shot --scenario runs the plugin's code on this machine and shows it in the OpenKodo on this machine, so it does not reach another host. Run it where OpenKodo and the plugin folder are, without --environment."
     )
   }
 }
@@ -53,11 +54,14 @@ function requireLocal(ctx: HandlerContext): void {
 async function readManifest(dir: string): Promise<PluginManifest> {
   let raw: unknown
   try {
-    raw = JSON.parse(await readFile(join(dir, 'orca-plugin.json'), 'utf8'))
+    const manifestPath =
+      PLUGIN_MANIFEST_FILENAMES.map((name) => join(dir, name)).find(existsSync) ??
+      join(dir, PLUGIN_MANIFEST_FILENAMES[0])
+    raw = JSON.parse(await readFile(manifestPath, 'utf8'))
   } catch (error) {
     throw refuse(
       'invalid_argument',
-      `${dir} has no readable orca-plugin.json: ${error instanceof Error ? error.message : String(error)}`
+      `${dir} has no readable openkodo-plugin.json: ${error instanceof Error ? error.message : String(error)}`
     )
   }
   const parsed = parsePluginManifest(raw)
@@ -94,7 +98,7 @@ async function resolveFolder(
   const plugins = await callPlugins<PluginHostListEntry[]>(ctx, 'plugins.list')
   const entry = plugins.find((plugin) => plugin.pluginKey === target)
   if (!entry) {
-    throw refuse('plugin_not_found', `Orca has no plugin ${target}.`, [
+    throw refuse('plugin_not_found', `OpenKodo has no plugin ${target}.`, [
       'Pass the plugin folder instead: `orca plugin shot <dir> --scenario <name>`.'
     ])
   }
@@ -110,7 +114,7 @@ async function resolveFolder(
   if (!enclosing || !manifest || folderKey(manifest) !== target) {
     throw refuse(
       'invalid_argument',
-      `Run this inside ${target}'s folder, or pass the folder; Orca does not share where a development folder is.`,
+      `Run this inside ${target}'s folder, or pass the folder; OpenKodo does not share where a development folder is.`,
       [`orca plugin shot <dir> --scenario <name>`]
     )
   }
@@ -152,7 +156,7 @@ export function pluginScenarioFileStem(scenario: string): string {
 /**
  * `orca plugin shot --scenario`: renders the panel in the named `.check.ts` scenario on this
  * machine (as `orca plugin check` does, against a stand-in host and the plugin's worker mounted
- * here), then has Orca draw that tree apart from the plugin and capture it.
+ * here), then has OpenKodo draw that tree apart from the plugin and capture it.
  */
 export async function takePluginScenarioShot(
   ctx: HandlerContext,
@@ -208,14 +212,14 @@ export async function takePluginScenarioShot(
   if (reply.replay !== true) {
     throw refuse(
       'runtime_unsupported',
-      'This Orca does not draw shot --scenario previews; update Orca, then run it again.'
+      'This OpenKodo does not draw shot --scenario previews; update OpenKodo, then run it again.'
     )
   }
   const path =
     request.out ??
     join(
       dir,
-      '.orca',
+      '.openkodo',
       'shots',
       `${pluginKey}-${panel.id}.${pluginScenarioFileStem(request.scenario)}.png`
     )

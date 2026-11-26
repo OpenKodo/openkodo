@@ -36,13 +36,13 @@ const STATES = {
     icon: 'settings-2',
     hint: 'Uses your Claude Code permission settings.'
   },
-  // Own settings with a reported mode Orca has no name for.
+  // Own settings with a reported mode OpenKodo has no name for.
   unnamed: {
     current: 'own',
     reported: 'read-only',
     name: 'Claude Code settings',
     icon: 'settings-2',
-    hint: "Orca can't show this mode."
+    hint: "OpenKodo can't show this mode."
   },
   // A saved value this build doesn't recognize.
   unknown: { current: 'legacy-mode', name: 'Permissions', icon: 'settings-2' }

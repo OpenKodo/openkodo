@@ -12,7 +12,7 @@ import type { CompatVerdict } from '../../transport/connection/protocol-compat'
 import type { MobileWebBundleCompatVerdict } from '../../transport/web-bundle/mobile-web-bundle-compat'
 import type { PageRouteRefusalVerdict } from '../../mobile-web-shell/routing/page-route-policy'
 
-const RELEASES_URL = 'https://github.com/stablyai/orca/releases'
+const RELEASES_URL = 'https://github.com/OpenKodo/openkodo/releases'
 const IOS_APP_STORE_URL = 'itms-apps://apps.apple.com/app/orca-ide/id6766130217'
 const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=dev.orca.app'
 
@@ -75,9 +75,9 @@ function mobileUpdateChannelTarget(t: Translate): { label: string; url: string }
 function blockTitle(remedy: BlockRemedy, t: Translate): string {
   switch (remedy) {
     case 'update-mobile':
-      return t('components.protocolBlockScreen.updateMobileTitle', 'Update Orca Mobile')
+      return t('components.protocolBlockScreen.updateMobileTitle', 'Update OpenKodo Mobile')
     case 'update-desktop':
-      return t('components.protocolBlockScreen.updateDesktopTitle', 'Update Orca on this host')
+      return t('components.protocolBlockScreen.updateDesktopTitle', 'Update OpenKodo on this host')
     case 'refresh-bundle':
       return t(
         'components.protocolBlockScreen.refreshWorkspaceTitle',
@@ -98,17 +98,17 @@ function blockBody(verdict: BlockedVerdict, remedy: BlockRemedy, t: Translate): 
       case 'app-store':
         return t(
           'components.protocolBlockScreen.mobileTooOldAppStore',
-          'This host needs a newer Orca Mobile app. Update Orca Mobile from the App Store, then try this host again.'
+          'This host needs a newer OpenKodo Mobile app. Update OpenKodo Mobile from the App Store, then try this host again.'
         )
       case 'google-play':
         return t(
           'components.protocolBlockScreen.mobileTooOldGooglePlay',
-          'This host needs a newer Orca Mobile app. Update Orca Mobile from Google Play, then try this host again.'
+          'This host needs a newer OpenKodo Mobile app. Update OpenKodo Mobile from Google Play, then try this host again.'
         )
       case 'github-releases':
         return t(
           'components.protocolBlockScreen.mobileTooOldGitHubReleases',
-          'This host needs a newer Orca Mobile app. Update Orca Mobile from GitHub Releases, then try this host again.'
+          'This host needs a newer OpenKodo Mobile app. Update OpenKodo Mobile from GitHub Releases, then try this host again.'
         )
     }
   }
@@ -117,33 +117,33 @@ function blockBody(verdict: BlockedVerdict, remedy: BlockRemedy, t: Translate): 
       case 'app-store':
         return t(
           'components.protocolBlockScreen.workspaceNeedsUpdateAppStore',
-          "This host's mobile workspace needs a newer Orca Mobile app. Update Orca Mobile from the App Store, then try this host again."
+          "This host's mobile workspace needs a newer OpenKodo Mobile app. Update OpenKodo Mobile from the App Store, then try this host again."
         )
       case 'google-play':
         return t(
           'components.protocolBlockScreen.workspaceNeedsUpdateGooglePlay',
-          "This host's mobile workspace needs a newer Orca Mobile app. Update Orca Mobile from Google Play, then try this host again."
+          "This host's mobile workspace needs a newer OpenKodo Mobile app. Update OpenKodo Mobile from Google Play, then try this host again."
         )
       case 'github-releases':
         return t(
           'components.protocolBlockScreen.workspaceNeedsUpdateGitHubReleases',
-          "This host's mobile workspace needs a newer Orca Mobile app. Update Orca Mobile from GitHub Releases, then try this host again."
+          "This host's mobile workspace needs a newer OpenKodo Mobile app. Update OpenKodo Mobile from GitHub Releases, then try this host again."
         )
     }
   }
   return t(
     'components.protocolBlockScreen.desktopTooOldBody',
-    'Orca on this host is too old for your current Orca Mobile app. Update Orca there, then try this host again.'
+    'OpenKodo on this host is too old for your current OpenKodo Mobile app. Update OpenKodo there, then try this host again.'
   )
 }
 
-/** Where this phone gets a newer Orca Mobile: the known update, else its store. */
+/** Where this phone gets a newer OpenKodo Mobile: the known update, else its store. */
 export function useMobileUpdateLink(): { label: string; url: string } {
   const t = useMobileTranslation()
   const mobileUpdate = useWallAppUpdate()
   return mobileUpdate
     ? {
-        label: t('components.protocolBlockScreen.getVersion', 'Get Orca {{version}}', {
+        label: t('components.protocolBlockScreen.getVersion', 'Get OpenKodo {{version}}', {
           version: mobileUpdate.version
         }),
         url: mobileUpdate.url

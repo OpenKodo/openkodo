@@ -1,4 +1,4 @@
-// "I'll do it in Composio": the steps to point the project at its Orca events hook by hand, each
+// "I'll do it in Composio": the steps to point the project at its OpenKodo events hook by hand, each
 // with its button, then Done, which checks the address, turns the trigger on and saves Composio's
 // own secret on the hook.
 import React from 'react'
@@ -64,7 +64,7 @@ export function ComposioEventsByHandStepsView({
         <span className="text-xs text-muted-foreground">
           {t(
             'bots.composio.byHand.doneNote',
-            'Orca then turns on {{trigger}} and saves Composio’s signing secret.',
+            'OpenKodo then turns on {{trigger}} and saves Composio’s signing secret.',
             { trigger: triggerName }
           )}
         </span>

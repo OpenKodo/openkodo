@@ -69,7 +69,7 @@ export function discardForgottenJournalChatPage(
   if (!db.prepare('SELECT 1 FROM agent_session_store_meta WHERE key=?').get(key)) {
     return { kind: 'chat-discard', more: false }
   }
-  // A record under this id again (an older Orca's copy came back) owns these rows.
+  // A record under this id again (an older OpenKodo's copy came back) owns these rows.
   if (db.prepare('SELECT 1 FROM agent_session_records WHERE session_id=?').get(sessionId)) {
     db.prepare('DELETE FROM agent_session_store_meta WHERE key=?').run(key)
     return { kind: 'chat-discard', more: false }

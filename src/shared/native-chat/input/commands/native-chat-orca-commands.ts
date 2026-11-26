@@ -1,10 +1,10 @@
-// Orca's own `/resume`, `/usage` and `/fork` rows, shared by desktop and phone; each client words them.
+// OpenKodo's own `/resume`, `/usage` and `/fork` rows, shared by desktop and phone; each client words them.
 
 import type { SlashCommandSuggestion } from './native-chat-slash-commands'
 
 export const NATIVE_CHAT_RESUME_COMMAND = 'resume'
 
-/** Replace the agent's /resume catalog entry with Orca's, and its /usage and /fork with Orca's
+/** Replace the agent's /resume catalog entry with OpenKodo's, and its /usage and /fork with OpenKodo's
  *  where this chat runs them (a description is given). */
 export function withNativeChatOrcaCommands(
   commands: readonly SlashCommandSuggestion[],

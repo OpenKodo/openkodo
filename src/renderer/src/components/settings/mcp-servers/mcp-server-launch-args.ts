@@ -31,7 +31,7 @@ export function formatMcpLaunchArgs(
     : null
 }
 
-/** The argv a typed line names; null for unbalanced quotes or shell syntax Orca won't run. */
+/** The argv a typed line names; null for unbalanced quotes or shell syntax OpenKodo won't run. */
 export function parseMcpLaunchArgs(text: string, platform: NodeJS.Platform): string[] | null {
   if (/[\r\n]/.test(text)) {
     return null

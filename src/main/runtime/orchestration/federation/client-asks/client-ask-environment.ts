@@ -1,4 +1,4 @@
-// A paired computer has no environment here, so the conversations and question records this Orca's
+// A paired computer has no environment here, so the conversations and question records this OpenKodo's
 // agents keep with one name its pairing instead: `client:<device id>/<installation id>`. Nothing that
 // resolves an environment as a paired server may read these.
 

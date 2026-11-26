@@ -1,5 +1,5 @@
 // What each agent terminal got from the host's MCP server list, by PTY, kept on disk so a terminal
-// that outlives an Orca restart (its relay token died with the old run) still counts as out of date.
+// that outlives an OpenKodo restart (its relay token died with the old run) still counts as out of date.
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { z } from 'zod'

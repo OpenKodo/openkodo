@@ -7,7 +7,7 @@ import { NativeChatSideChat } from './native-chat-side-chat-node'
 import { NativeChatUnkernedRunDecorations } from './native-chat-unkerned-run-decorations'
 import { NativeChatHardBreakParagraphs } from './native-chat-hard-break-paragraphs'
 
-/** The composer's plain-text schema: paragraphs, hard breaks and the pills only Orca inserts. */
+/** The composer's plain-text schema: paragraphs, hard breaks and the pills only OpenKodo inserts. */
 export function nativeChatPromptExtensions(): Extensions {
   return [
     StarterKit.configure({

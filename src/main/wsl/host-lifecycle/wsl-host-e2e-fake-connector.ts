@@ -1,4 +1,4 @@
-/** ORCA_E2E_FAKE_WSL_HOSTS maps fake distros directly to a headless server pairing so any CI OS can test WSL host UI without wsl.exe. */
+/** OPENKODO_E2E_FAKE_WSL_HOSTS maps fake distros directly to a headless server pairing so any CI OS can test WSL host UI without wsl.exe. */
 import { appendFileSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { z } from 'zod'
 import { parsePairingCode } from '../../../shared/remote-runtime/pairing/pairing'
@@ -46,7 +46,7 @@ const fakeWslHostsSchema = () =>
 type FakeWslHostsConfig = z.infer<ReturnType<typeof fakeWslHostsSchema>>
 
 export function readFakeWslHostsConfig(
-  raw = process.env.ORCA_E2E_FAKE_WSL_HOSTS
+  raw = process.env.OPENKODO_E2E_FAKE_WSL_HOSTS
 ): FakeWslHostsConfig | null {
   if (!raw) {
     return null
@@ -85,7 +85,7 @@ export function createFakeWslHostConnector(
   ): Promise<WslOrcadConnection> => {
     // Same guard as the real connector: nothing starts for a host that is gone.
     if (!(await options.isKnownDistro(distro))) {
-      throw new Error(`${distro} is no longer a WSL host; Orca will not start anything for it.`)
+      throw new Error(`${distro} is no longer a WSL host; OpenKodo will not start anything for it.`)
     }
     if (isStopped(distro)) {
       if (intent?.noBoot || !config.distrosFile) {

@@ -1,5 +1,5 @@
-// What Orca adds to a write a bot makes as its owner (orca linear): the redirect away from the place that
-// woke the run, and who asked when that wasn't the owner. Read from Orca's own record of the turn.
+// What OpenKodo adds to a write a bot makes as its owner (orca linear): the redirect away from the place that
+// woke the run, and who asked when that wasn't the owner. Read from OpenKodo's own record of the turn.
 import type { Bot } from '../../shared/bot-types'
 import { turnActsForOwner, type BotActingTurn, type BotWakingPlace } from './bot-request-asker'
 

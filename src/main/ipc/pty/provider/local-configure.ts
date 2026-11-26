@@ -26,7 +26,7 @@ import { isCurrentPtyExit, ptyOwnership } from './ownership-state'
 import { localProvider } from './registry'
 import { clearProviderPtyState } from './state-cleanup'
 import { visibleRendererPtys } from '../delivery/visibility-state'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { awaitExplicitAgentPluginGuestReadiness } from '../../../agent-hooks/wsl-relay/wsl-agent-plugin-readiness'
 import { prepareAntigravityAccountForLaunch } from '../../../antigravity/native-account-launch'
 
@@ -115,16 +115,16 @@ export function configureLocalPtyProvider(args: {
       routeBrowserOpensToClient: runtime?.shouldRelayTerminalBrowserOpens?.()
     })
     // Supply terminal identity at process start so agents can address orchestration without another RPC.
-    const requestedHandle = baseEnv.ORCA_TERMINAL_HANDLE
+    const requestedHandle = baseEnv.OPENKODO_TERMINAL_HANDLE
     const preAllocatedHandle =
       requestedHandle && trustedTerminalHandleEnv.has(requestedHandle)
         ? requestedHandle
         : runtime?.preAllocateHandleForPty(id)
     if (requestedHandle && requestedHandle !== preAllocatedHandle) {
-      delete env.ORCA_TERMINAL_HANDLE
+      delete env.OPENKODO_TERMINAL_HANDLE
     }
     if (preAllocatedHandle) {
-      env.ORCA_TERMINAL_HANDLE = preAllocatedHandle
+      env.OPENKODO_TERMINAL_HANDLE = preAllocatedHandle
     }
     stampWslOrchestrationCompatibilityHost(
       env,
@@ -162,7 +162,7 @@ export function configureLocalPtyProvider(args: {
       if (!isCurrentPtyExit({ id, incarnationId })) {
         return
       }
-      const viewShown = ORCA_LAYOUT_OWNER_IS_MAIN && visibleRendererPtys.has(id)
+      const viewShown = OPENKODO_LAYOUT_OWNER_IS_MAIN && visibleRendererPtys.has(id)
       clearProviderPtyState(id, { exitProven: true })
       ptyOwnership.delete(id)
       runtime?.onPtyExit(id, code, incarnationId, {

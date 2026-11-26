@@ -3,8 +3,8 @@ import { stat } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { isAbsolute } from 'node:path'
 import {
-  ORCA_AGENT_SESSION_ID_ENV,
-  ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV
+  OPENKODO_AGENT_SESSION_ID_ENV,
+  OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV
 } from '../../../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import {
   LEGACY_NATIVE_CHAT_VISUALS_DIR_ENV,
@@ -14,9 +14,9 @@ import type { CodexAppServerLaunch } from '../codex-app-server-connection'
 
 /** Per-chat keys: each thread gets them through shell_environment_policy.set, never the shared env. */
 const PER_CHAT_ENV_KEYS = [
-  ORCA_AGENT_SESSION_ID_ENV,
-  ORCA_AGENT_SESSION_SPAWN_TOKEN_ENV,
-  'ORCA_TERMINAL_HANDLE',
+  OPENKODO_AGENT_SESSION_ID_ENV,
+  OPENKODO_AGENT_SESSION_SPAWN_TOKEN_ENV,
+  'OPENKODO_TERMINAL_HANDLE',
   NATIVE_CHAT_SCRATCH_DIR_ENV,
   LEGACY_NATIVE_CHAT_VISUALS_DIR_ENV
 ] as const
@@ -113,7 +113,7 @@ function configValues(args: readonly string[]): string[] {
 
 const HOOK_STATE_OFF = /"((?:[^"\\]|\\.)*)"=\{enabled=false\}/g
 
-/** Orca's own hooks-off override (`hooks.state={"<absolute hooks.json>:<event>:<g>:<h>"=
+/** OpenKodo's own hooks-off override (`hooks.state={"<absolute hooks.json>:<event>:<g>:<h>"=
  *  {enabled=false},…}`): every entry names a hooks.json by absolute path, so nothing in it
  *  depends on the folder. Any other hooks.state value counts as folder-sensitive. */
 function isOrcaHooksState(value: string): boolean {

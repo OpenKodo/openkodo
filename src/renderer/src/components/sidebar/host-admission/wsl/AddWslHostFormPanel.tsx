@@ -36,7 +36,7 @@ export function wslDistroStateLabel(distro: WslHostDistro, t: Translate = transl
 export function wsl1DistroReason(name: string, t: Translate = translate): string {
   return t(
     'auto.components.sidebar.AddWslHostFormPanel.wsl1Reason',
-    'WSL 1 can’t run an Orca host; convert with {{command}}',
+    'WSL 1 can’t run an OpenKodo host; convert with {{command}}',
     { command: wslSetVersion2Command(name) }
   )
 }
@@ -216,7 +216,7 @@ export function AddWslHostFormPanel({
             {addingDetail ??
               t(
                 'auto.components.sidebar.AddWslHostFormPanel.addingHint',
-                'Installing and starting the Orca server in the distro. The first time can take a minute.'
+                'Installing and starting the OpenKodo server in the distro. The first time can take a minute.'
               )}
           </p>
         ) : null}

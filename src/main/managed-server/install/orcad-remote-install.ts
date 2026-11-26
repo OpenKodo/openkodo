@@ -197,11 +197,11 @@ export async function installOrcadBundle(
   }
 }
 
-/** A fenced install command found another Orca window now owns the install lock. */
+/** A fenced install command found another OpenKodo window now owns the install lock. */
 export class OrcadInstallTakenOverError extends Error {
   constructor(cause: unknown) {
     super(
-      'Another Orca window took over installing the Orca server in this distro, so this window stopped its own install. Try connecting again.',
+      'Another OpenKodo window took over installing the OpenKodo server in this distro, so this window stopped its own install. Try connecting again.',
       { cause }
     )
     this.name = 'OrcadInstallTakenOverError'
@@ -212,7 +212,7 @@ export class OrcadInstallTakenOverError extends Error {
 export class OrcadInstallHolderLostError extends Error {
   constructor(cause: unknown) {
     super(
-      'Orca lost track of its own install in this distro, so it stopped. Try connecting again.',
+      'OpenKodo lost track of its own install in this distro, so it stopped. Try connecting again.',
       { cause }
     )
     this.name = 'OrcadInstallHolderLostError'

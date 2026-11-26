@@ -1,4 +1,4 @@
-// A linked PR's row as fresh as Orca knows it: the host's read, or this window's PR cache when that
+// A linked PR's row as fresh as OpenKodo knows it: the host's read, or this window's PR cache when that
 // read it later, so a PR merged since the host's read shows merged, not its last CI result. While the
 // item page shows, each PR's workspace counts as a visible sidebar row, so the shared PR refresh
 // queue keeps it fresh at the sidebar's cadence and stops when the page closes.

@@ -23,7 +23,7 @@ import type { StructuredAgentSessionCloseCause } from '../../../native-chat/agen
 import { chatTabId, withChatTabChanges, type ChatTabChange } from './agent-session-tab-layout'
 import { createChatTabLayoutQueue } from './agent-session-tab-layout-queue'
 import type * as LayoutCommands from '../../terminal/layout/runtime-layout-apply'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LayoutApplyReply } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 import {
   captureStructuredSessionPresentation,
@@ -273,7 +273,7 @@ export abstract class OrcaRuntimeWithCloseStructuredAgentSessionTab extends Orca
       currentRaw: () => this.currentLocalStructuredSessionPresentation(sessionId),
       eligible: () => this.passiveStructuredSessionTabChangeEligible({ close: sessionId })
     })
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       this.queueChatTabChanges(changesNow)
     } else {
       for (const queued of changesNow()) {
@@ -289,7 +289,7 @@ export abstract class OrcaRuntimeWithCloseStructuredAgentSessionTab extends Orca
     eligible?: (change: ChatTabChange) => boolean
   ): Promise<void> {
     // Main-owned layouts place chat tabs with or without a window.
-    if (ORCA_LAYOUT_OWNER_IS_MAIN) {
+    if (OPENKODO_LAYOUT_OWNER_IS_MAIN) {
       return this.queueChatTabChanges(
         changes.map((change) => ({
           worktreeId,

@@ -5,12 +5,12 @@ import { pathToFileURL } from 'node:url'
 import { applyEdits, modify, parse, type ParseError } from 'jsonc-parser'
 import { resolveOpenCodeConfigDirectory } from '../../../shared/agent-launch/plugins/opencode/opencode-config-directory'
 import { openCodeTuiPluginDirName } from '../../../shared/agent-launch/plugins/opencode/opencode-tui-plugin-install'
-import { ORCA_OPENCODE_PLUGIN_FILE } from '../../opencode/status-hooks/overlay-dir-names'
-import { ORCA_PI_AGENT_STATUS_EXTENSION_FILE } from '../../pi/managed-extensions/agent-status/agent-status-extension-source'
-import { ORCA_PI_PREFILL_EXTENSION_FILE } from '../../pi/managed-extensions/prefill-extension-source'
-import { ORCA_PI_EXTENSION_FILE } from '../../pi/managed-extensions/titlebar-extension-source'
+import { OPENKODO_OPENCODE_PLUGIN_FILE } from '../../opencode/status-hooks/overlay-dir-names'
+import { OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE } from '../../pi/managed-extensions/agent-status/agent-status-extension-source'
+import { OPENKODO_PI_PREFILL_EXTENSION_FILE } from '../../pi/managed-extensions/prefill-extension-source'
+import { OPENKODO_PI_EXTENSION_FILE } from '../../pi/managed-extensions/titlebar-extension-source'
 
-/** OpenCode and Pi load Orca's status code as plugin files, outside the hook registry. */
+/** OpenCode and Pi load OpenKodo's status code as plugin files, outside the hook registry. */
 export type PluginHookAgent = 'opencode' | 'pi' | 'omp' | 'prime-agent'
 
 export type PluginHookFiles = { agent: PluginHookAgent; paths: string[] }
@@ -19,14 +19,14 @@ export type PluginHookRemoval = PluginHookFiles & { error: string | null }
 
 type Locations = { homeDir?: string; openCodeConfigDir?: string }
 
-// Every generated OpenCode plugin reads Orca's hook endpoint variables.
-const OPENCODE_MARKER = 'ORCA_AGENT_HOOK_'
+// Every generated OpenCode plugin reads OpenKodo's hook endpoint variables.
+const OPENCODE_MARKER = 'OPENKODO_AGENT_HOOK_'
 const PI_MARKER = '@orca-managed-pi-extension'
-const OPENCODE_PLUGIN_FILES = [ORCA_OPENCODE_PLUGIN_FILE, 'orca-opencode2-status.js']
+const OPENCODE_PLUGIN_FILES = [OPENKODO_OPENCODE_PLUGIN_FILE, 'orca-opencode2-status.js']
 const PI_EXTENSION_FILES = [
-  ORCA_PI_EXTENSION_FILE,
-  ORCA_PI_PREFILL_EXTENSION_FILE,
-  ORCA_PI_AGENT_STATUS_EXTENSION_FILE
+  OPENKODO_PI_EXTENSION_FILE,
+  OPENKODO_PI_PREFILL_EXTENSION_FILE,
+  OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE
 ]
 const PI_HOMES: readonly { agent: PluginHookAgent; dir: string }[] = [
   { agent: 'pi', dir: '.pi' },
@@ -55,7 +55,7 @@ function openCodeCandidates(configDir: string): string[] {
   ])
 }
 
-/** Only files carrying Orca's marker; a user's file with the same name is never listed. */
+/** Only files carrying OpenKodo's marker; a user's file with the same name is never listed. */
 export async function findPluginHookFiles(locations: Locations = {}): Promise<PluginHookFiles[]> {
   const home = locations.homeDir ?? homedir()
   const configDir = locations.openCodeConfigDir ?? resolveOpenCodeConfigDirectory()

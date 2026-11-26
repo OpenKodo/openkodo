@@ -1,6 +1,6 @@
 /** A helper agent's permission prompt inside a Claude terminal worker. Claude draws its dialog only
- *  once every PermissionRequest hook returns (probe 2026-11-19, 2.1.326), so while Orca holds it the
- *  worker's terminal shows nothing: Orca holds it only where someone in Orca can answer or see it, and
+ *  once every PermissionRequest hook returns (probe 2026-11-19, 2.1.326), so while OpenKodo holds it the
+ *  worker's terminal shows nothing: OpenKodo holds it only where someone in OpenKodo can answer or see it, and
  *  sends its card at once, since no stop of the lead's names it. */
 import type { AgentHookEventPayload } from '../../../../../shared/agent-hook-listener/listener-event'
 import { claudeSubagentTranscriptPath } from '../../../../../shared/agent-hook-listener/providers/claude/transcripts/claude-subagent-transcript-path'

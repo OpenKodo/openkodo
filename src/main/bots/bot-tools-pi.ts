@@ -1,9 +1,9 @@
-// A Pi bot's own tools reach its session through an extension Orca loads with it, which registers
+// A Pi bot's own tools reach its session through an extension OpenKodo loads with it, which registers
 // them for that session only (Pi 0.99+); nothing is written to the owner's mcp.json or the folder's.
 import type { BotToolServer } from '../../shared/bot-tools'
 import type { SessionMcpTools } from '../mcp-servers/session-mcp-tools'
 
-export const PI_BOT_TOOLS_ENV = 'ORCA_PI_BOT_TOOLS'
+export const PI_BOT_TOOLS_ENV = 'OPENKODO_PI_BOT_TOOLS'
 export const PI_BOT_TOOLS_EXTENSION_FILE = 'orca-bot-tools.ts'
 
 /**
@@ -24,7 +24,7 @@ export function piMcpServersExtensionSource(envName: string): string {
     '    try {',
     '      pi.registerMcpServer(name, config)',
     '    } catch (error) {',
-    '      console.error(`Orca could not add the tool ${name}:`, error)',
+    '      console.error(`OpenKodo could not add the tool ${name}:`, error)',
     '    }',
     '  }',
     '}',

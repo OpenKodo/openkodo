@@ -111,7 +111,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
     assertWorkspaceTargetFlagsCompatible(flags)
     const branchNameOverride = getPresentStringFlag(flags, 'branch')
     const reviewLinks = getReviewTargetLinkFlags(flags)
-    const callerTerminalHandle = process.env.ORCA_TERMINAL_HANDLE || undefined
+    const callerTerminalHandle = process.env.OPENKODO_TERMINAL_HANDLE || undefined
     const explicitParent = await resolveCreateParentSelector(flags, cwd, client)
     const explicitParentWorktree = explicitParent.parentWorktree
     const explicitParentWorkspace = explicitParent.parentWorkspace
@@ -128,7 +128,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
     const needsCwdRepoInference = !flags.has('repo') && !hasWorkspaceProjectTarget(flags)
     if (inferParent || needsCwdRepoInference) {
       try {
-        // Cwd preserves parent/repo inference when agent shells lose ORCA_TERMINAL_HANDLE.
+        // Cwd preserves parent/repo inference when agent shells lose OPENKODO_TERMINAL_HANDLE.
         cwdContext = await resolveWorktreeCreateCwdContext(
           cwd,
           client,
@@ -237,7 +237,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
       pending,
       parentSelector
         ? [
-            `Orca could not find the worktree selector "${worktree}" or the parent selector "${parentSelector}". The server did not identify which selector failed.`,
+            `OpenKodo could not find the worktree selector "${worktree}" or the parent selector "${parentSelector}". The server did not identify which selector failed.`,
             'Check both selectors with orca worktree show --worktree <selector> --json.'
           ]
         : []
@@ -263,7 +263,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
     if (!hostId) {
       throw new RuntimeClientError(
         'worktree_host_unresolved',
-        'Orca cannot tell which host owns this workspace. Refresh projects and try again.'
+        'OpenKodo cannot tell which host owns this workspace. Refresh projects and try again.'
       )
     }
     if (flags.get('allow-failed-archive-hook') === true && flags.get('run-hooks') !== true) {

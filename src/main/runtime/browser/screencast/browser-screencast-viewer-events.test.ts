@@ -49,10 +49,10 @@ async function finishedDownload(claimLabel?: string): Promise<BrowserScreencastR
 }
 
 describe('screencast viewer download events', () => {
-  it('never offers a paired device a copy of a download a feature in Orca claimed', async () => {
+  it('never offers a paired device a copy of a download a feature in OpenKodo claimed', async () => {
     const [plain] = await finishedDownload()
     expect(plain).toHaveProperty('copyId')
-    const [claimed] = await finishedDownload('Google setup in Orca')
+    const [claimed] = await finishedDownload('Google setup in OpenKodo')
     expect(claimed).not.toHaveProperty('copyId')
   })
 })

@@ -1,6 +1,6 @@
 import { carryBrowserInitializationReceipt } from '../tab-projection/browser-initialization-presentation'
 import type { RuntimeMobileSessionTabsResult } from '../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
 import { recoverWebSessionTerminalOrphansBeforeApply } from '../../hosted-terminals/recovery/web-session-terminal-orphan-recovery'
 import { isFrameDrawnServerWorkspace } from '../frame-drawn/frame-drawn-server-workspace-set'
 
@@ -9,8 +9,8 @@ export function recoverMirroredTerminalOrphansBeforeApply(
   ...args: Parameters<typeof recoverWebSessionTerminalOrphansBeforeApply>
 ): Promise<RuntimeMobileSessionTabsResult | null> {
   const [, frame, environmentId] = args
-  // Switch point: ORCA_LAYOUT_OWNER_IS_MAIN && — recovery claims host surfaces for local tabs frames drew.
-  if (ORCA_LAYOUT_OWNER_IS_MAIN && isFrameDrawnServerWorkspace(environmentId, frame.worktree)) {
+  // Switch point: OPENKODO_LAYOUT_OWNER_IS_MAIN && — recovery claims host surfaces for local tabs frames drew.
+  if (OPENKODO_LAYOUT_OWNER_IS_MAIN && isFrameDrawnServerWorkspace(environmentId, frame.worktree)) {
     return Promise.resolve(frame)
   }
   return recoverWebSessionTerminalOrphansBeforeApply(...args).then((recovered) => {

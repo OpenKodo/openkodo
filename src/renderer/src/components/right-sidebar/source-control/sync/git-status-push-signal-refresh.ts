@@ -3,7 +3,7 @@ import { selectWorktreesByRepo } from '@/store/workspaces/catalog/workspace-reco
 import { useEffect } from 'react'
 import { isWindowVisible } from '@/lib/window-activity/window-visibility-interval'
 import {
-  ORCA_TERMINAL_COMMAND_FINISHED_EVENT,
+  OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT,
   type TerminalCommandFinishedEventDetail
 } from '@/lib/terminal/output/terminal-command-finished-event'
 import type { GitStatusMetadataChangedEvent } from '../../../../../../shared/worktree/types'
@@ -73,12 +73,12 @@ function subscribeSignals(): () => void {
     window.api?.worktrees?.onChanged?.(repoSignal),
     window.api?.worktrees?.onGitStatusMetadataChanged?.(metadataSignal)
   ]
-  window.addEventListener(ORCA_TERMINAL_COMMAND_FINISHED_EVENT, commandSignal)
+  window.addEventListener(OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT, commandSignal)
   return () => {
     for (const unsub of unsubs) {
       unsub?.()
     }
-    window.removeEventListener(ORCA_TERMINAL_COMMAND_FINISHED_EVENT, commandSignal)
+    window.removeEventListener(OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT, commandSignal)
   }
 }
 export function useGitStatusPushSignalRefresh({

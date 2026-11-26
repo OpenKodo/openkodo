@@ -75,8 +75,8 @@ export function readJournalDomainEntity(
             ...prefix,
             operation.namespace
           ) !== undefined
-      // A provider turn row whose opener is Orca's own send names no thread; fences only grow, so
-      // the newest one shows whether a turn ran since `sinceFence`. Orca's `/compact` command turns
+      // A provider turn row whose opener is OpenKodo's own send names no thread; fences only grow, so
+      // the newest one shows whether a turn ran since `sinceFence`. OpenKodo's `/compact` command turns
       // don't count; past a bounded run of them, nothing is proven unexchanged.
       const { sinceFence } = operation
       const newestTurns =

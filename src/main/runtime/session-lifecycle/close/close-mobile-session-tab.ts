@@ -17,7 +17,7 @@ import type { RuntimeEdgeCommandSurface } from '../../construction/runtime-edge-
 import { getRuntimeDesktopSurface } from '../../construction/runtime-desktop-surface'
 import { retireHeadlessMobileSessionEditorTab } from '../../session-tabs/restoration/headless-editor-tabs'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
-import { ORCA_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
+import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { closeMobileStructuredSessionPresentation } from '../../session-tabs/chat/structured-session-tab-presentation'
 import type { OrcaRuntimeWithCloseStructuredAgentSessionTab as ChatPresentation } from '../../session-tabs/chat/structured-session-tab-close'
 
@@ -162,7 +162,7 @@ export abstract class OrcaRuntimeWithCloseMobileSessionTab extends OrcaRuntimeWi
         }
       }
       if (
-        ORCA_LAYOUT_OWNER_IS_MAIN &&
+        OPENKODO_LAYOUT_OWNER_IS_MAIN &&
         (await this.closeMobileRowInMainLayout(worktreeId, tabId, tab, options))
       ) {
         return finishCommittedClose()

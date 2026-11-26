@@ -1,4 +1,4 @@
-// How `orca gmail draft|send|archive|label|mark-read` and the calendar writes print: Orca's line
+// How `orca gmail draft|send|archive|label|mark-read` and the calendar writes print: OpenKodo's line
 // saying what changed, then what Google holds (subjects, people, titles, someone else's in a reply or
 // an invite) fenced as content, then the next step.
 import type {

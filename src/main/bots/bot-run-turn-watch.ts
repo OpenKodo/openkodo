@@ -180,7 +180,7 @@ export function watchBotTurnEnds(host: BotTurnHost): BotTurnWatch {
           }
           while (seen() === before) {
             if (ended) {
-              throw new Error('Orca stopped watching this run before it reported completion.')
+              throw new Error('OpenKodo stopped watching this run before it reported completion.')
             }
             await new Promise<void>((resolve) => (wake = resolve))
           }

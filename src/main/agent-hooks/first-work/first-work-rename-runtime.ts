@@ -88,7 +88,7 @@ export function firstWorkRenameDeps(
     },
     canRenameOrcaCreatedBranch: (worktreeId) => {
       const meta = localMeta(worktreeId)
-      // A creature-like name alone cannot prove Orca owns the branch.
+      // A creature-like name alone cannot prove OpenKodo owns the branch.
       return (
         !!meta?.orcaCreationSource &&
         meta.preserveBranchOnDelete !== true &&

@@ -1,4 +1,4 @@
-// What New bot asks the chosen computer: its agent choices, and its Orca account.
+// What New bot asks the chosen computer: its agent choices, and its OpenKodo account.
 import * as z from 'zod'
 import { BOT_AGENTS, type BotAgent } from '../../../src/shared/bot-types'
 import type { RpcClient } from '../transport/rpc/rpc-client-contract'
@@ -57,7 +57,7 @@ const orcaAccountStatusRead = bindDeferredRpcOperation(
   })
 )
 
-/** The host's Orca sign-in, as its status says it; null when it can't say (an older host, a failed read). */
+/** The host's OpenKodo sign-in, as its status says it; null when it can't say (an older host, a failed read). */
 export async function readOrcaAccount(
   client: RpcClient
 ): Promise<{ state: string; email?: string } | null> {

@@ -1,5 +1,5 @@
 // Which commit a 4a arm's built app came from, proved from the checkout and its existing build output, never a product hook.
-// The build already inlines `git rev-parse HEAD` as ORCA_BUILD_COMMIT (config/scripts/build-identity), which the renderer
+// The build already inlines `git rev-parse HEAD` as OPENKODO_BUILD_COMMIT (config/scripts/build-identity), which the renderer
 // passes as the skills install `sourceCommit`; that literal is the artifact's own record of the commit it was built from.
 import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'

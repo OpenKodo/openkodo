@@ -121,7 +121,7 @@ export function evaluateOrcadActivation(
     // Matching bytes already prove identity; version mismatch diagnoses launch environment without rejecting activation.
     warnings.push(
       `The candidate reports version ${health.buildVersion} but was installed as ` +
-        `${expected.fullVersion}; check ORCA_VERSION in the launch command.`
+        `${expected.fullVersion}; check OPENKODO_VERSION in the launch command.`
     )
   }
   return { decision: 'activate', coverage: daemon.selfTest.coverage, warnings }

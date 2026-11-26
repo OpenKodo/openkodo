@@ -17,7 +17,7 @@ export const MAX_ASKER_IMAGE_BYTES = 10 * 1024 * 1024
 /** Short of the cloud's lease on the delivery, which resends one not taken in time. */
 export const ASKER_IMAGES_BUDGET_MS = 10_000
 
-// A file the request lists under its words, as Orca Cloud writes one: `[image: name, file F0123]`.
+// A file the request lists under its words, as OpenKodo Cloud writes one: `[image: name, file F0123]`.
 const IMAGE_LINE = /^\[image: .+, file ([A-Za-z0-9]{1,64})\]$/
 const FILE_LINE = /^\[(?:image|file): .+, file [A-Za-z0-9]{1,64}\]$|^\[file Slack does not show\]$/
 
@@ -102,7 +102,7 @@ function within<T>(work: Promise<T>, signal: AbortSignal): Promise<T> {
   })
 }
 
-/** Fetches a request's images through Orca Cloud, as the bot's own `read --download` would. */
+/** Fetches a request's images through cloud service, as the bot's own `read --download` would. */
 export function connectorAskerImages(deps: {
   /** A read of one file on the request's message, answered with where to stream it from. */
   read: (

@@ -36,7 +36,7 @@ function isAgyHome(path: string): boolean {
 }
 
 const directories = directoryTranscriptImport({
-  // Orca's managed Antigravity server keeps a separate home that never holds these conversations.
+  // OpenKodo's managed Antigravity server keeps a separate home that never holds these conversations.
   conversationStore: ({ accountHomePath }) =>
     isAgyHome(accountHomePath) ? join(accountHomePath, AGY_CONVERSATION_FOLDER) : null,
   // Only the host's own agy can open them, so an adopted chat pins agy's home and runs `agy acp`;

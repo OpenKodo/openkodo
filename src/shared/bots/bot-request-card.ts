@@ -14,7 +14,7 @@ export const BotRequestCardSchema = z.object({
   toBotName: z.string().min(1).max(200),
   purpose: z.enum(['question', 'handoff']),
   subject: z.string().max(300),
-  /** The request's mail; absent when Orca refused to send it. */
+  /** The request's mail; absent when OpenKodo refused to send it. */
   messageId: z.string().min(1).optional(),
   /** Why it wasn't sent: a bot-request refusal code. */
   refusal: z.string().min(1).max(80).optional(),
@@ -25,7 +25,7 @@ export const BotRequestCardSchema = z.object({
 
 export type BotRequestCard = z.infer<typeof BotRequestCardSchema>
 
-/** How a sent request stands, as Orca recorded it; null while nothing has. */
+/** How a sent request stands, as OpenKodo recorded it; null while nothing has. */
 export type BotRequestCardOutcome = 'answered' | 'posted' | 'unanswered' | 'dropped' | null
 
 /** What the card reads: the outcome, the answer, the mail that carried them, and the chat it was sent to. */

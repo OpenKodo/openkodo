@@ -5,7 +5,7 @@ import { monitorEventLoopDelay } from 'node:perf_hooks'
 import { hasActiveTraceSink, startSpan } from '../observability/tracer'
 import { subscribeSystemPowerLifecycle } from '../power/system-power-lifecycle'
 
-export const EVENT_LOOP_DELAY_PROBE_ENV = 'ORCA_EVENT_LOOP_DELAY_PROBE'
+export const EVENT_LOOP_DELAY_PROBE_ENV = 'OPENKODO_EVENT_LOOP_DELAY_PROBE'
 /** Appended in the process's userData directory, one line per window. */
 export const EVENT_LOOP_DELAY_REPORT_FILE = 'event-loop-delay.ndjson'
 
@@ -76,7 +76,7 @@ export type EventLoopStallSummaryOptions = {
 }
 
 export function isEventLoopDelayProbeEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
-  return Boolean(env.ORCA_E2E_USER_DATA_DIR) || env[EVENT_LOOP_DELAY_PROBE_ENV] === '1'
+  return Boolean(env.OPENKODO_E2E_USER_DATA_DIR) || env[EVENT_LOOP_DELAY_PROBE_ENV] === '1'
 }
 
 /** Timer drift per tick, given the time and the process's cumulative CPU ms at each tick; tick returns the delay to the next one. */

@@ -26,7 +26,7 @@ async function waitFor<T>(read: () => T | null, label: string): Promise<T> {
   }
 }
 
-/** The card's issue menu > Open in Orca browser fails; the toast names why, never the link. */
+/** The card's issue menu > Open in OpenKodo browser fails; the toast names why, never the link. */
 export const openInOrcaBrowserRefused = defineFixture({
   width: 400,
   setup: () =>
@@ -91,9 +91,9 @@ export const openInOrcaBrowserRefused = defineFixture({
     const item = await waitFor(
       () =>
         [...doc.querySelectorAll<HTMLElement>('[role="menuitem"]')].find((entry) =>
-          entry.textContent?.includes('Open in Orca browser')
+          entry.textContent?.includes('Open in OpenKodo browser')
         ) ?? null,
-      'Open in Orca browser'
+      'Open in OpenKodo browser'
     )
     item.click()
     const toast = await waitFor(

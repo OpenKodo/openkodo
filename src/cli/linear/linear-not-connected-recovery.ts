@@ -17,7 +17,7 @@ export function linearNotConnectedRecovery(
   }
   return {
     nextSteps: [
-      `This command ran on the paired Orca server selected by ${server.label}, which keeps its own Linear connection. Connect it there: ${linearConnectCommand(server.flag)}`
+      `This command ran on the paired OpenKodo server selected by ${server.label}, which keeps its own Linear connection. Connect it there: ${linearConnectCommand(server.flag)}`
     ]
   }
 }

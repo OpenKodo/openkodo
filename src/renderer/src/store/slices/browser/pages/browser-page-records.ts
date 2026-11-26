@@ -5,7 +5,7 @@ import type {
 } from '../../../../../../shared/browser/workspaces/browser-workspace-types'
 import { browserPageDocLocationsEqual } from '../../../../../../shared/browser/workspaces/browser-page-doc-location'
 import '../../../../../../shared/orca-profiles/constants'
-import { ORCA_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
+import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import { getBrowserDisplayTitle } from '../../../../../../shared/browser/browser-display-title'
 import { redactKagiSessionToken } from '../../../../../../shared/browser/navigation/browser-url'
 import { isDocPreviewUrl } from '../../../../../../shared/document-preview/doc-preview-scheme'
@@ -47,7 +47,7 @@ export function buildBrowserPage(
   docLocation?: BrowserPageDocLocation
 ): BrowserPage {
   // Override grant URLs at page creation: persistence/mobile/history/address bar read this sink and cannot use another process’s expired grant.
-  const normalizedUrl = docLocation ? ORCA_BROWSER_BLANK_URL : normalizeUrl(url)
+  const normalizedUrl = docLocation ? OPENKODO_BROWSER_BLANK_URL : normalizeUrl(url)
   return {
     id: browserPageId ?? createBrowserUuid(),
     workspaceId,

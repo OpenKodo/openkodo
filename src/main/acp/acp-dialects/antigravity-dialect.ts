@@ -156,7 +156,7 @@ const RETRY_NOTICE = /^\s*\u26a0 (Model produced invalid output\.)\s*$/
 // Notices that end a turn as failed: agy's when a request outlived its OAuth token, its
 // executor-error line when it couldn't run the turn at all (a rejected Gemini API key, quota, a
 // server error), and the one when it could not rebuild its agent, whose reason may span lines;
-// Orca's server answers a rejected key or missing gcloud credentials the same way.
+// OpenKodo's server answers a rejected key or missing gcloud credentials the same way.
 const TURN_FAILURE_NOTICE =
   /^\s*(?:\u26a0 (?:UNAUTHENTICATED \(code 401\)|agent executor error): [^\n]*|API key not valid\. Please pass a valid API key\.|Agent execution error: failed to create Gemini client: [^\n]*|Agent connection was lost and could not be re-established: Failed to rebuild agent: [\s\S]*)\s*$/
 // agy drops a session whose agent it cannot rebuild; later prompts find no session.
@@ -252,15 +252,17 @@ export const ANTIGRAVITY_ACP_DIALECT: AcpDialect = {
   listedSelection: antigravityListedFamilySelection
 }
 
-// agy answers "Authentication required" alone; on Orca's home it couldn't use the saved method
+// agy answers "Authentication required" alone; on OpenKodo's home it couldn't use the saved method
 // (a key, gcloud, or agy's Google login for Enterprise), so the notice points where that is set.
-const ORCA_HOME_SIGN_IN =
+const OPENKODO_HOME_SIGN_IN =
   "agy couldn't sign in with this chat's sign-in method. Check it under Settings → Accounts → Antigravity."
 
-/** agy running on Orca's home (any method but a Google account): Sign in opens Settings. */
-export const ANTIGRAVITY_AGY_ORCA_HOME_DIALECT: AcpDialect = {
+/** agy running on OpenKodo's home (any method but a Google account): Sign in opens Settings. */
+export const ANTIGRAVITY_AGY_OPENKODO_HOME_DIALECT: AcpDialect = {
   ...ANTIGRAVITY_ACP_DIALECT,
   signInAccount: 'managed',
   promptErrorDetail: (error) =>
-    error.code === -32000 ? ORCA_HOME_SIGN_IN : ANTIGRAVITY_ACP_DIALECT.promptErrorDetail?.(error)
+    error.code === -32000
+      ? OPENKODO_HOME_SIGN_IN
+      : ANTIGRAVITY_ACP_DIALECT.promptErrorDetail?.(error)
 }

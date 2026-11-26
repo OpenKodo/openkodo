@@ -89,7 +89,7 @@ function countHiddenSameOriginPages(guest: Electron.WebContents, origin: string)
 
 /**
  * Reports a main-frame load that hasn't committed after BROWSER_LOAD_STALL_AFTER_MS, and the
- * phase it stopped in, from navigation events and the requests Orca already observes. Six hidden
+ * phase it stopped in, from navigation events and the requests OpenKodo already observes. Six hidden
  * pages holding long-lived HTTP/1.1 requests to one host fill Chromium's per-host socket pool, and
  * reloading the stuck page doesn't help; the hidden-page count says when that may be the cause.
  */

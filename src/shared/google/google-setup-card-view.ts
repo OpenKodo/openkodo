@@ -107,7 +107,7 @@ export type GoogleSetupProgressView = {
   letMe: GoogleSetupStep | null
   /** Where it's stuck, when the progress card is the one to say so. */
   panel: GoogleSetupBlocker | null
-  /** A key Orca may have missed, which the owner imports by hand. */
+  /** A key OpenKodo may have missed, which the owner imports by hand. */
   keyImport: boolean
 }
 

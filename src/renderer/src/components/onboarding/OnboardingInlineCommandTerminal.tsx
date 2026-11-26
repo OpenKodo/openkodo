@@ -5,7 +5,7 @@ import TerminalPane from '@/components/terminal-pane/TerminalPane'
 import { PASTE_TERMINAL_TEXT_EVENT, type PasteTerminalTextDetail } from '@/constants/terminal'
 import { focusTerminalTabSurface } from '@/components/terminal-pane/input/focus/focus-terminal-tab-surface'
 import {
-  ORCA_TERMINAL_COMMAND_FINISHED_EVENT,
+  OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT,
   type TerminalCommandFinishedEventDetail
 } from '@/lib/terminal/output/terminal-command-finished-event'
 import { useAppStore } from '@/store'
@@ -101,9 +101,9 @@ export function OnboardingInlineCommandTerminal({
       }
       onCommandFinished(detail.exitCode)
     }
-    window.addEventListener(ORCA_TERMINAL_COMMAND_FINISHED_EVENT, handleCommandFinished)
+    window.addEventListener(OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT, handleCommandFinished)
     return () => {
-      window.removeEventListener(ORCA_TERMINAL_COMMAND_FINISHED_EVENT, handleCommandFinished)
+      window.removeEventListener(OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT, handleCommandFinished)
     }
   }, [onCommandFinished, worktreeId])
 

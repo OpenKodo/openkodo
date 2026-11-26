@@ -155,7 +155,7 @@ export class RuntimeLegacyWorkerTerminalRecoveryPersistence {
                 gone: {
                   from: candidate.terminalHandle,
                   reason: 'lost',
-                  cause: 'its terminal was gone when Orca restarted',
+                  cause: 'its terminal was gone when OpenKodo restarted',
                   lastOutput
                 },
                 settle: () => settled

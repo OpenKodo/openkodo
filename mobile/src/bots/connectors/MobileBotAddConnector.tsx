@@ -1,5 +1,5 @@
 // Add a connector, as a page inside Connectors: the desktop's AddConnectorDialog as one grouped list, with search
-// and the category filter in the bar under the thumb, as Tasks has them. Lists what the phone can add: Orca's
+// and the category filter in the bar under the thumb, as Tasks has them. Lists what the phone can add: OpenKodo's
 // connectors, the apps Add to <bot> lists, Composio's apps, then Add by URL. A tap adds; one already on the bot
 // says Added and opens its page.
 import { BOT_CONNECTOR_NAMES } from '../../../../src/shared/bots/bot-templates'

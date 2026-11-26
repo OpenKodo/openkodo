@@ -9,8 +9,8 @@ import { isolatedServeProfile } from '../../remote/paired-runtime/client-hosts/o
 export function launchOwnedBrowserForE2E(profile: string): ReturnType<typeof spawnProcess> {
   const isolation = isolatedServeProfile(profile, {
     NODE_ENV: 'development',
-    ORCA_BACKGROUND_LAUNCH: '1',
-    ORCA_E2E_HEADLESS: '1'
+    OPENKODO_BACKGROUND_LAUNCH: '1',
+    OPENKODO_E2E_HEADLESS: '1'
   })
   return spawnProcess({
     program: resolveElectronExecutable(process.cwd()),

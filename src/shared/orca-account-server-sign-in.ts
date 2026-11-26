@@ -8,7 +8,7 @@ export type OrcaAccountStorage =
   | { kind: 'host-key'; warning: string }
   | { kind: 'refused'; reason: string }
 
-/** The host's one Orca account as it reports it to a client. */
+/** The host's one OpenKodo account as it reports it to a client. */
 export type OrcaAccountServerStatus = {
   state: 'signed-in' | 'signed-out' | 'reconnect-required' | 'unconfigured'
   email?: string
@@ -16,7 +16,7 @@ export type OrcaAccountServerStatus = {
   orgId?: string
   orgName?: string
   organizations?: OrcaCloudOrgSummary[]
-  /** When Orca Cloud last confirmed the session (capability refresh), epoch ms. */
+  /** When OpenKodo Cloud last confirmed the session (capability refresh), epoch ms. */
   lastConfirmedAt?: number
   /** Why the host signed out on its own, when it knows. */
   reason?: string
@@ -31,7 +31,7 @@ export type OrcaAccountMachinePlatform = 'macos' | 'linux' | 'windows'
 /** Everything the client needs to build the authorize link; the verifier stays on the host. */
 export type OrcaAccountAuthorizeRequest = {
   authorizeEndpoint: string
-  /** The client refuses when this is not its own Orca Cloud, before spending the single-use code. */
+  /** The client refuses when this is not its own OpenKodo Cloud, before spending the single-use code. */
   authorizeOrigin: string
   clientId: string
   scope: string
@@ -47,7 +47,7 @@ export type OrcaAccountAuthorizeRequest = {
 }
 
 /** Approve in any browser: the person opens the link, checks the code matches, and approves;
- * the host learns of it from Orca Cloud, so nothing is copied back. */
+ * the host learns of it from OpenKodo Cloud, so nothing is copied back. */
 export type OrcaAccountApprovalPrompt = {
   kind: 'approve-in-browser'
   verificationUrl: string
@@ -58,15 +58,15 @@ export type OrcaAccountApprovalPrompt = {
 }
 
 // Why a fixed list: a paired computer sends this link and the phone opens it, so the phone can't take
-// that computer's word for which site its Orca Cloud is.
+// that computer's word for which site its OpenKodo Cloud is.
 // Why a prefix and not `new URL().origin`: React Native's URL reads parts with regexes, not a real
 // parser. The computer always sends the normalized link, so its text starts with the origin and `/`.
 // Keep in step with PRODUCTION_API_BASE_URL in profile-cloud-auth-config.ts if the sign-in host moves.
-const ORCA_CLOUD_SIGN_IN_PAGE_PREFIXES: readonly string[] = ['https://login.onorca.dev/']
+const OPENKODO_CLOUD_SIGN_IN_PAGE_PREFIXES: readonly string[] = ['https://login.onopenkodo.dev/']
 
-/** Whether `url` is an https page of Orca Cloud's own sign-in site. */
+/** Whether `url` is an https page of OpenKodo Cloud's own sign-in site. */
 export function isOrcaCloudSignInPage(url: string): boolean {
-  return ORCA_CLOUD_SIGN_IN_PAGE_PREFIXES.some((prefix) => url.startsWith(prefix))
+  return OPENKODO_CLOUD_SIGN_IN_PAGE_PREFIXES.some((prefix) => url.startsWith(prefix))
 }
 
 export type OrcaAccountSignInPrompt = OrcaAccountAuthorizeRequest | OrcaAccountApprovalPrompt
@@ -89,7 +89,7 @@ export type OrcaAccountSignInStatus = {
 
 export type OrcaAccountSignInFrom = 'desktop' | 'terminal' | 'phone'
 
-/** Whether a host's sign-in belongs to the Orca Cloud this client signs in to. */
+/** Whether a host's sign-in belongs to the OpenKodo Cloud this client signs in to. */
 export function isSameOrcaCloudOrigin(
   request: Pick<OrcaAccountAuthorizeRequest, 'authorizeOrigin' | 'authorizeEndpoint'>,
   clientAuthorizeEndpoint: string

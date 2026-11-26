@@ -18,7 +18,7 @@ import {
 } from '../../../../../shared/agent-session/view/use-agent-session-mcp-panel'
 import {
   groupAgentSessionMcpServers,
-  ORCA_MCP_SOURCE
+  OPENKODO_MCP_SOURCE
 } from '../../../../../shared/agent-session/view/agent-session-mcp-server-presentation'
 import { MCP_SERVERS_RUNTIME_CAPABILITY } from '../../../../../shared/mcp-servers/mcp-servers'
 import { useStructuredAgentSessionHostCapability } from '@/runtime/native-chat/host-capabilities/structured-agent-session-host-capability'
@@ -190,7 +190,7 @@ function McpTrayStatus({ state }: McpTrayViewProps): React.JSX.Element | null {
       : state.result.status === 'unsupported'
         ? t(
             'components.native-chat.mcp.unsupported',
-            'Update Orca on this chat’s host to manage them here'
+            'Update OpenKodo on this chat’s host to manage them here'
           )
         : state.result.status === 'failed'
           ? (state.result.message ?? t('components.native-chat.mcp.readFailed', 'Couldn’t load'))
@@ -227,8 +227,8 @@ function McpTrayList({
   const t = useTranslate()
   const pending = state.pending
   const groups = groupAgentSessionMcpServers(state.servers)
-  // Orca's group sits above the agent's own, so the list grows to keep them in view.
-  const tall = groups.some((group) => group.source === ORCA_MCP_SOURCE)
+  // OpenKodo's group sits above the agent's own, so the list grows to keep them in view.
+  const tall = groups.some((group) => group.source === OPENKODO_MCP_SOURCE)
   return (
     <div
       className={cn(

@@ -13,7 +13,7 @@ import {
 import { ensureOrcaRuntimeLaunched, parseJsonOutput, runOrcaCli } from './computer-cli-driver'
 
 const isMac = process.platform === 'darwin'
-const e2eOptIn = process.env.ORCA_COMPUTER_E2E === '1'
+const e2eOptIn = process.env.OPENKODO_COMPUTER_E2E === '1'
 
 describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', () => {
   let fixture: SafariDraftFixture

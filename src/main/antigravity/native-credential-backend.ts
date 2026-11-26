@@ -64,7 +64,7 @@ export function createAntigravityHostCredentialBackend(home: string): Antigravit
   async function read() {
     if (await markerPresent(marker)) {
       throw new Error(
-        'Antigravity has a keyring fallback marker; Orca cannot verify which credential store agy will use.'
+        'Antigravity has a keyring fallback marker; OpenKodo cannot verify which credential store agy will use.'
       )
     }
     return (await keyring.read()) ?? (await file.read())

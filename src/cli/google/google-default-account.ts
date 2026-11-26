@@ -29,7 +29,7 @@ export const GOOGLE_DEFAULT_HANDLERS: Record<string, CommandHandler> = {
     if (defaultAccount === undefined) {
       throw new RuntimeClientError(
         'incompatible_runtime',
-        'Update Orca on this computer to pick a default Google account.'
+        'Update OpenKodo on this computer to pick a default Google account.'
       )
     }
     const accounts = status.result.accounts.map((entry) => entry.email)

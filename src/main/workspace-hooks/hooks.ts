@@ -103,7 +103,13 @@ async function getHookShell(): Promise<string> {
 
 // A UNC drive-mount repo's file opens only through its drive path.
 export function orcaYamlPath(repoPath: string): string {
-  return windowsFsPath(join(repoPath, 'orca.yaml'))
+  // OpenKodo writes openkodo.yaml; repositories created before the rename still
+  // carry openkodo.yaml, so read the new name first and fall back to the old one.
+  const next = windowsFsPath(join(repoPath, 'openkodo.yaml'))
+  if (existsSync(next)) {
+    return next
+  }
+  return windowsFsPath(join(repoPath, 'openkodo.yaml'))
 }
 
 export function loadHooks(repoPath: string): OrcaHooks | null {
@@ -170,7 +176,7 @@ export function runHook(
   // Failed hooks without an observed exit are unverifiable to the removal gate (#19334).
 ): Promise<{ success: boolean; output: string; exitCode?: number }> {
   const timeoutMs = options.timeoutMs ?? HOOK_TIMEOUT
-  // A caller that already resolved the hooks passes them, so orca.yaml is read once.
+  // A caller that already resolved the hooks passes them, so openkodo.yaml is read once.
   const hooks = options.hooks ?? getEffectiveHooks(repo, hooksPath)
   const script = hooks?.scripts[hookName]
 
@@ -182,7 +188,7 @@ export function runHook(
   const wslInfo = getHookWslContext(cwd, runtimeTarget)
 
   if (wslInfo) {
-    // WSL hooks need Linux paths for ORCA_* values, including Windows UNC paths.
+    // WSL hooks need Linux paths for OPENKODO_* values, including Windows UNC paths.
     const envVars = getSetupEnvVars(repo, cwd, options.identity)
     const wslEnv: Record<string, string> = {}
     for (const [key, value] of Object.entries(envVars)) {

@@ -241,7 +241,7 @@ describe.skipIf(process.platform === 'win32')('launchPlainProcessSpecOnPosixWork
       timeoutMs: 30_000
     })
 
-    await expect(run).rejects.toMatchObject({ code: 'ERR_ORCA_WORKER_CHILD_ABANDONED' })
+    await expect(run).rejects.toMatchObject({ code: 'ERR_OPENKODO_WORKER_CHILD_ABANDONED' })
     expect(pid).toBeGreaterThan(1)
     await vi.waitFor(() => expect(() => process.kill(pid, 0)).toThrow(), { timeout: 5_000 })
   })
@@ -279,7 +279,7 @@ describe.skipIf(process.platform === 'win32')('launchPlainProcessSpecOnPosixWork
       await vi.waitFor(() => expect(workerMock.lastChild?.exitCode).toBe(0), { timeout: 5_000 })
       setup.loseWorker()
 
-      expect(await settled).toBe('ERR_ORCA_WORKER_CHILD_ABANDONED')
+      expect(await settled).toBe('ERR_OPENKODO_WORKER_CHILD_ABANDONED')
       expect(kill).not.toHaveBeenCalledWith(-rootPid, 'SIGKILL')
     } finally {
       kill.mockRestore()

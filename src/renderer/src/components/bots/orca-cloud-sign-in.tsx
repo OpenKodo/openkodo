@@ -1,4 +1,4 @@
-// The one way a bot surface asks for Orca sign-in before an Orca Cloud feature: a reason, Sign in that
+// The one way a bot surface asks for OpenKodo sign-in before an OpenKodo Cloud feature: a reason, Sign in that
 // opens the browser right away, then the action the owner started carries on in the same place.
 import React, { useState } from 'react'
 import { Loader2 } from 'lucide-react'
@@ -73,23 +73,23 @@ export function OrcaCloudSignInButton({
   return <SignInButton {...props} busy={busy} onClick={start} />
 }
 
-/** "<what> connects through Orca Cloud. Sign in to Orca to continue." */
+/** "<what> connects through cloud service. Sign in to OpenKodo to continue." */
 export function orcaCloudSignInReason(what: 'slack' | 'github' | 'linear'): string {
   switch (what) {
     case 'slack':
       return translate(
         'bots.cloudSignIn.slack',
-        'Slack connects through Orca Cloud. Sign in to Orca to continue.'
+        'Slack connects through cloud service. Sign in to OpenKodo to continue.'
       )
     case 'github':
       return translate(
         'bots.cloudSignIn.github',
-        'GitHub connects through Orca Cloud. Sign in to Orca to continue.'
+        'GitHub connects through cloud service. Sign in to OpenKodo to continue.'
       )
     case 'linear':
       return translate(
         'bots.cloudSignIn.linear',
-        'Linear connects through Orca Cloud. Sign in to Orca to continue.'
+        'Linear connects through cloud service. Sign in to OpenKodo to continue.'
       )
   }
 }
@@ -139,7 +139,7 @@ export function OrcaCloudSignInDialogBody({
 const unframed = (body: React.JSX.Element): React.ReactNode => body
 
 /**
- * A setup dialog that needs Orca Cloud: signed out it asks first, and once signed in shows `children`,
+ * A setup dialog that needs OpenKodo Cloud: signed out it asks first, and once signed in shows `children`,
  * which start their setup then. `resume` re-reads what the sign-in changed before they show.
  */
 export function OrcaCloudSignInGate({
@@ -222,7 +222,7 @@ export function OrcaCloudSignInLine({
   )
 }
 
-/** How a connector row reads while this computer is signed out of Orca. */
+/** How a connector row reads while this computer is signed out of OpenKodo. */
 export function signedOutConnectorFace(): {
   description: string
   status: { label: string; tone: 'neutral' }

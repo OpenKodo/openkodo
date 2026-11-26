@@ -106,7 +106,7 @@ export const EXECUTION_HOST_METHODS = [
   'files.stat',
   'files.statTerminalArtifact',
   'files.writeTerminalArtifact',
-  // A folder row's Delete removes the Orca workspace on its host, as desktop's Remove Workspace does.
+  // A folder row's Delete removes the OpenKodo workspace on its host, as desktop's Remove Workspace does.
   'folderWorkspace.delete',
   'folderWorkspace.list',
   'git.abortMerge',

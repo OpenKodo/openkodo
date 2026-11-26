@@ -103,7 +103,7 @@ export const CHANGED_STATES: Record<string, DropdownActionInputs> = {
     rebaseBlockedByDirtyTree: true,
     primaryActionKind: 'stage'
   }),
-  // Orca's own rebase integrated the upstream tip: Pull/Sync/FF/Push would undo it or be rejected.
+  // OpenKodo's own rebase integrated the upstream tip: Pull/Sync/FF/Push would undo it or be rejected.
   orcaRebased: state({
     upstreamStatus: { hasUpstream: true, upstreamName: 'origin/feature', ahead: 3, behind: 2 },
     rebaseBehindCount: 0,

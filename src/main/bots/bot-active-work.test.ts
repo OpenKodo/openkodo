@@ -48,7 +48,7 @@ describe('an In progress item nothing runs for', () => {
       { number: 7, key: 'e10' },
       { number: 8, key: 'e10' }
     ])
-    expect(say('chat', other.idle!)).toMatch(/^\[Orca: Item 8 /)
+    expect(say('chat', other.idle!)).toMatch(/^\[OpenKodo: Item 8 /)
     expect(say('chat', [{ number: 7, key: 'e11' }])).toContain('Item 7')
     expect(say('other-chat', [idle7])).toContain('Item 7')
   })

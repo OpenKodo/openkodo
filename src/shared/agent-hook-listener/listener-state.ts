@@ -35,7 +35,7 @@ import {
 import type { HermesPaneTurn } from './providers/hermes/hermes-pane-turn'
 import type { ClaudePromptTurns } from './providers/claude/lifecycle/claude-prompt-turn-order'
 
-/** Per-listener-instance caches needing per-PTY teardown; Orca's main process and the relay each get their own, never shared. */
+/** Per-listener-instance caches needing per-PTY teardown; OpenKodo's main process and the relay each get their own, never shared. */
 export type HookListenerState = {
   warnedVersions: Set<string>
   warnedEnvs: Set<string>

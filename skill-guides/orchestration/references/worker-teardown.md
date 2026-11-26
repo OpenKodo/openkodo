@@ -11,7 +11,7 @@ can still have live or unverifiable resources.
 - `worker_done` settles the Dispatch and its Task: `succeeded` completes both,
   `failed` fails both. A reported failure is a conclusion; never mark it
   completed.
-- If a terminal worker exits without reporting, Orca fails the Dispatch (the
+- If a terminal worker exits without reporting, OpenKodo fails the Dispatch (the
   Task ordinarily returns to `ready`, or becomes `failed` at the circuit
   breaker) and mails the coordinator; a remote worker's stop relay carries the
   report home. A pending or unknown stop takes a separate path and can suppress
@@ -36,7 +36,7 @@ can still have live or unverifiable resources.
   terminal. `--keep-open` (or `worker-keep-open`) prevents automatic close.
   Auto-close and keep-open never change the Task's outcome.
 - Records persist after close. A plain `send --to dispatch:<id>` (without
-  `--on`) on local Orca or a paired server advertising
+  `--on`) on local OpenKodo or a paired server advertising
   `orchestration.remote-owned-workers.v1` can reuse an eligible open agent,
   reopen a resumable session, start fresh with prior context, or refuse when the
   workspace or restartable agent is missing; the receipt says what occurred.
@@ -65,6 +65,6 @@ can still have live or unverifiable resources.
 - The settled-worker sweep releases only on a proven process exit; a live or
   unverifiable process keeps its terminal.
 
-`ORCA orchestration worker-list --run <run_id> --include-remote` (paginated;
+`openkodo orchestration worker-list --run <run_id> --include-remote` (paginated;
 remote coverage is capability-dependent) reports each worker's liveness
 (`live`, `exited`, `unverifiable`) and conditional `next` action; follow it.

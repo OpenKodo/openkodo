@@ -284,9 +284,9 @@ function reportGrowth(kind, grown, details) {
   }
 }
 
-// Under check:changed (ORCA_CODE_QUALITY_BASE set) a shrink fails only in files the change touches;
+// Under check:changed (OPENKODO_CODE_QUALITY_BASE set) a shrink fails only in files the change touches;
 // elsewhere, e.g. after a stale-CI merge to main, it is a notice so improvements never turn CI red.
-export function listTouchedFiles(root, base = process.env.ORCA_CODE_QUALITY_BASE) {
+export function listTouchedFiles(root, base = process.env.OPENKODO_CODE_QUALITY_BASE) {
   if (!base) {
     return null
   }

@@ -16,5 +16,5 @@ export type PendingPrompt =
       header?: string
       options: PendingPromptOption[]
     }
-  /** The agent is waiting on something only Orca's own views can answer. */
+  /** The agent is waiting on something only OpenKodo's own views can answer. */
   | { kind: 'unsupported'; promptId: string; text?: string; byReply?: true }

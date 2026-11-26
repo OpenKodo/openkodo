@@ -46,7 +46,7 @@ export const pluginLanguagePackContributionSchema = z
   .object({
     locale: pluginLocaleIdSchema.meta(
       pluginFieldDoc(
-        'BCP 47 locale the pack translates Orca into. Each locale appears once, ignoring case.',
+        'BCP 47 locale the pack translates OpenKodo into. Each locale appears once, ignoring case.',
         PLUGIN_SCHEMA_SINCE_V1,
         ['pt-BR']
       )
@@ -84,7 +84,7 @@ export const pluginKeybindingContributionSchema = z
       .max(128)
       .meta(
         pluginFieldDoc(
-          'Key chord Orca recognizes, such as `Mod+Shift+K`. `Mod` is Cmd on macOS and Ctrl elsewhere. Each chord may be bound once on every platform.',
+          'Key chord OpenKodo recognizes, such as `Mod+Shift+K`. `Mod` is Cmd on macOS and Ctrl elsewhere. Each chord may be bound once on every platform.',
           PLUGIN_SCHEMA_SINCE_V1,
           ['Mod+Shift+K']
         )
@@ -95,7 +95,7 @@ export const pluginKeybindingContributionSchema = z
           ctx.addIssue({ code: 'custom', message: normalized.error })
           return z.NEVER
         }
-        // Older Orca builds reject a literal `+` key (`Mod++`), so require the portable `Plus` spelling.
+        // Older OpenKodo builds reject a literal `+` key (`Mod++`), so require the portable `Plus` spelling.
         if (normalized.value.endsWith('+Plus') && !/\bplus\b/i.test(value)) {
           ctx.addIssue({ code: 'custom', message: 'write the + key as Plus, like Mod+Plus' })
           return z.NEVER

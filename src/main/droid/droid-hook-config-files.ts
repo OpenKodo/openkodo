@@ -31,14 +31,14 @@ export const DROID_EVENTS = [
 /** Droid's hook map: hooks.json holds it at the top level, settings.json under its `hooks` key. */
 export type DroidHookEvents = Record<string, unknown>
 
-/** Orca rewrites only plain-JSON files, so a JSONC or unreadable file is never clobbered. */
+/** OpenKodo rewrites only plain-JSON files, so a JSONC or unreadable file is never clobbered. */
 export type DroidHooksFile = { path: string; events: DroidHookEvents; editable: boolean }
 
 /**
- * Strips Orca's entries from every event, then adds them back when a command is given. Null means
+ * Strips OpenKodo's entries from every event, then adds them back when a command is given. Null means
  * nothing changed, so the file must not be rewritten.
  *
- * A hooks-file event replaces the same settings.json event in Droid, so Orca joins the hooks file
+ * A hooks-file event replaces the same settings.json event in Droid, so OpenKodo joins the hooks file
  * only for events it already defines (a new key would hide the user's settings.json hooks), and an
  * event emptied there stays `[]` so it keeps hiding what it hid before.
  */
@@ -111,7 +111,7 @@ function isAbsent(snapshot: HooksJsonSnapshot): boolean {
   return snapshot.raw === null && snapshot.config !== null
 }
 
-// Droid reads the legacy hooks/hooks.json only while hooks.json is absent, so Orca edits whichever
+// Droid reads the legacy hooks/hooks.json only while hooks.json is absent, so OpenKodo edits whichever
 // one Droid loads.
 export function readDroidHooksFile(factoryDir: string): DroidHooksFile {
   const path = join(factoryDir, 'hooks.json')

@@ -124,7 +124,7 @@ describe('terminals bound to a worker', () => {
     const closed: string[] = []
     return {
       closed,
-      // An Orca restart mints a new handle for the same pane.
+      // An OpenKodo restart mints a new handle for the same pane.
       remint: (handle: string, next: string) => {
         panes.set(next, panes.get(handle)!)
         panes.delete(handle)
@@ -225,7 +225,7 @@ describe('terminals bound to a worker', () => {
   })
 
   it('a setup still recorded running that the runtime no longer sees running closes with its worker', async () => {
-    // Orca restarted, or setup finished while nothing watched it: the stored state never moved on.
+    // OpenKodo restarted, or setup finished while nothing watched it: the stored state never moved on.
     const worker = startWorker(botChat, 'running')
     expect(paneAutoCloseState(db, setupTerminals, worker.setup.paneKey)).toMatchObject({
       boundTo: { paneKey: worker.agentPaneKey }
@@ -246,7 +246,7 @@ describe('terminals bound to a worker', () => {
     expect(closed).toEqual([second.setup.terminalHandle, first.setup.terminalHandle])
   })
 
-  it('closes bound terminals found by their pane after Orca reminted their handles', async () => {
+  it('closes bound terminals found by their pane after OpenKodo reminted their handles', async () => {
     const worker = startWorker(botChat)
     const { runtime, closed, remint } = host(worker)
     remint(worker.setup.terminalHandle, 'term_setup_after_restart')
@@ -392,10 +392,10 @@ describe('terminals bound to a worker', () => {
     expect(closed).toContain('term_opened')
   })
 
-  it('a worker whose shell outlived an Orca restart still owns what it opens', async () => {
+  it('a worker whose shell outlived an OpenKodo restart still owns what it opens', async () => {
     const worker = startWorker(botChat)
     const { runtime, closed, remint } = host(worker)
-    // The shell keeps its pre-restart handle; Orca knows the pane by a new one.
+    // The shell keeps its pre-restart handle; OpenKodo knows the pane by a new one.
     remint(worker.agentHandle, 'term_agent_after_restart')
     const evidence = { terminalHandle: worker.agentHandle, paneKey: worker.agentPaneKey }
     bindTerminalToCallingWorker(

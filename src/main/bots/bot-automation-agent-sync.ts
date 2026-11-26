@@ -13,7 +13,7 @@ function runAgent(automation: BotAutomationAgent, bots: readonly Bot[]): Bot['ag
   return target && bot ? botAutomationSetup(target, bot).agent : null
 }
 
-/** A stored setup this Orca can't run (an agent since held back) is dropped, so the automation
+/** A stored setup this OpenKodo can't run (an agent since held back) is dropped, so the automation
  *  runs on its bot's agent and its next edit doesn't fail on it. */
 function withoutUnreadableSetup<A extends BotAutomationAgent>(automation: A): A {
   const target = automation?.bot
@@ -21,7 +21,7 @@ function withoutUnreadableSetup<A extends BotAutomationAgent>(automation: A): A 
     return automation
   }
   console.warn(
-    `[bots] automation ${automation.id} named an agent setup this Orca can't run; it runs on its bot's agent now`
+    `[bots] automation ${automation.id} named an agent setup this OpenKodo can't run; it runs on its bot's agent now`
   )
   const { agentSetup: _dropped, ...bot } = target
   return { ...automation, bot }

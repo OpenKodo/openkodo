@@ -74,7 +74,7 @@ export function projectBotItemNoteItem(item: AgentJournalRenderItem): NativeChat
   }
 }
 
-/** Orca's transcript cards (a started worker, a saved automation or ended wait, an added tool, a run
+/** OpenKodo's transcript cards (a started worker, a saved automation or ended wait, an added tool, a run
  *  that couldn't start); every other row as usual. */
 export function projectStructuredOrcaCardItem(
   item: AgentJournalRenderItem

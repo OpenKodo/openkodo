@@ -17,7 +17,7 @@ import type { OrchestrationScenario } from './bot-orchestration-eval-scenarios'
 
 const history = { open: [], started: [], dismissed: [] }
 const AUTOMATIONS_SOUL =
-  'I coordinate automation work in Orca, keeping the agents and their PRs moving and bringing decisions to my owner.'
+  'I coordinate automation work in OpenKodo, keeping the agents and their PRs moving and bringing decisions to my owner.'
 const SELF = { ...EVAL_BOT, agent: 'claude' as const }
 
 export const LOOK_AROUND_SCENARIOS: OrchestrationScenario[] = [
@@ -48,7 +48,7 @@ export const LOOK_AROUND_SCENARIOS: OrchestrationScenario[] = [
   },
   {
     id: 'look-adopt-other-bot',
-    soul: 'I coordinate Orca engineering work and find the right bot for each area.',
+    soul: 'I coordinate OpenKodo engineering work and find the right bot for each area.',
     turns: [{ message: lookAroundPrompt({ focus: '', history }) }],
     state: {
       ...adoptionWorld([FIXTURES.WEBHOOKS]),

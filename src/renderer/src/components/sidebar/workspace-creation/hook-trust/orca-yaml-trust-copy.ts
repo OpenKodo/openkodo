@@ -17,7 +17,7 @@ export function getCreatedBranchCopy(t: Translate = translate): SkippedSetupRevi
     ),
     description: t(
       'worktree.setupTrust.branchDiffersBody',
-      "The workspace was created, but its setup didn't run: its branch's <code>orca.yaml</code> differs from what you approved. Run these for this workspace only if you trust <repo/>."
+      "The workspace was created, but its setup didn't run: its branch's <code>openkodo.yaml</code> differs from what you approved. Run these for this workspace only if you trust <repo/>."
     ),
     heading: t('worktree.setupTrust.branchSetupScript', "Branch's setup script")
   }
@@ -32,7 +32,7 @@ export function getAutomationReviewCopy(t: Translate = translate): SkippedSetupR
     ),
     description: t(
       'automations.setupTrust.reviewBody',
-      "A run skipped setup because its branch's <code>orca.yaml</code> setup commands changed. Approving lets later runs use these commands. Only approve if you trust <repo/>."
+      "A run skipped setup because its branch's <code>openkodo.yaml</code> setup commands changed. Approving lets later runs use these commands. Only approve if you trust <repo/>."
     ),
     heading: t('worktree.setupTrust.branchSetupScript', "Branch's setup script")
   }
@@ -101,7 +101,7 @@ export function getTitle(
   }
 }
 
-// Templates embed <code>orca.yaml</code> and a <repo/> slot filled by the component.
+// Templates embed <code>openkodo.yaml</code> and a <repo/> slot filled by the component.
 export function getDescription(
   kind: ScriptKind,
   previouslyApproved: boolean,
@@ -112,22 +112,22 @@ export function getDescription(
       case 'setup':
         return t(
           'auto.components.sidebar.OrcaYamlTrustDialog.setupChangedBody',
-          '<code>orca.yaml</code> changed since you last approved. Re-review before it runs when this workspace is created.'
+          '<code>openkodo.yaml</code> changed since you last approved. Re-review before it runs when this workspace is created.'
         )
       case 'archive':
         return t(
           'auto.components.sidebar.OrcaYamlTrustDialog.archiveChangedBody',
-          '<code>orca.yaml</code> changed since you last approved. Re-review before it runs when this workspace is removed.'
+          '<code>openkodo.yaml</code> changed since you last approved. Re-review before it runs when this workspace is removed.'
         )
       case 'issueCommand':
         return t(
           'auto.components.sidebar.OrcaYamlTrustDialog.issueCommandChangedBody',
-          '<code>orca.yaml</code> changed since you last approved. Re-review before it runs when this workspace launches with a linked issue.'
+          '<code>openkodo.yaml</code> changed since you last approved. Re-review before it runs when this workspace launches with a linked issue.'
         )
       case 'vmRecipe':
         return t(
           'auto.components.sidebar.OrcaYamlTrustDialog.vmRecipeChangedBody',
-          '<code>orca.yaml</code> changed since you last approved. Re-review before it runs before provisioning a VM.'
+          '<code>openkodo.yaml</code> changed since you last approved. Re-review before it runs before provisioning a VM.'
         )
     }
   }
@@ -135,22 +135,22 @@ export function getDescription(
     case 'setup':
       return t(
         'auto.components.sidebar.OrcaYamlTrustDialog.setupRunBody',
-        "This repository's <code>orca.yaml</code> runs on your machine when this workspace is created. Only run if you trust <repo/>."
+        "This repository's <code>openkodo.yaml</code> runs on your machine when this workspace is created. Only run if you trust <repo/>."
       )
     case 'archive':
       return t(
         'auto.components.sidebar.OrcaYamlTrustDialog.archiveRunBody',
-        "This repository's <code>orca.yaml</code> runs on your machine when this workspace is removed. Only run if you trust <repo/>."
+        "This repository's <code>openkodo.yaml</code> runs on your machine when this workspace is removed. Only run if you trust <repo/>."
       )
     case 'issueCommand':
       return t(
         'auto.components.sidebar.OrcaYamlTrustDialog.issueCommandRunBody',
-        "This repository's <code>orca.yaml</code> runs on your machine when this workspace launches with a linked issue. Only run if you trust <repo/>."
+        "This repository's <code>openkodo.yaml</code> runs on your machine when this workspace launches with a linked issue. Only run if you trust <repo/>."
       )
     case 'vmRecipe':
       return t(
         'auto.components.sidebar.OrcaYamlTrustDialog.vmRecipeRunBody',
-        "This repository's <code>orca.yaml</code> runs on your machine before provisioning a VM. Only run if you trust <repo/>."
+        "This repository's <code>openkodo.yaml</code> runs on your machine before provisioning a VM. Only run if you trust <repo/>."
       )
   }
 }
