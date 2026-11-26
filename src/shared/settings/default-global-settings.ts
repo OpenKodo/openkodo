@@ -14,7 +14,7 @@ import { DEFAULT_OPEN_IN_APPLICATIONS } from '../editor/launch/open-in-applicati
 import { DEFAULT_NATIVE_CHAT_IDLE_STOP_MINUTES } from '../native-chat/settings/native-chat-idle-stop'
 import { DEFAULT_BROWSER_MEMORY_SAVER_HOURS } from '../browser/guest-lifecycle/browser-memory-saver'
 import { DEFAULT_DISABLED_TUI_AGENTS } from '../agent-launch/catalog/tui-agent-selection'
-import { UI_LANGUAGE_SYSTEM } from '../i18n/ui-language'
+import { UI_LANGUAGE_ENGLISH } from '../i18n/ui-language'
 import {
   DEFAULT_LEFT_SIDEBAR_TINT_COLOR,
   DEFAULT_LEFT_SIDEBAR_TINT_OPACITY
@@ -61,7 +61,11 @@ export function buildDefaultSettings(args: {
     leftSidebarAppearanceMode: 'default',
     leftSidebarTintColor: DEFAULT_LEFT_SIDEBAR_TINT_COLOR,
     leftSidebarTintOpacity: DEFAULT_LEFT_SIDEBAR_TINT_OPACITY,
-    uiLanguage: UI_LANGUAGE_SYSTEM,
+    // OpenKodo ships English-first: the product copy, docs and model names are
+    // written in English, and a half-translated UI is worse than a consistent
+    // one. Existing installs keep whatever the user picked; System and every
+    // other language stay one click away in Settings → Language.
+    uiLanguage: UI_LANGUAGE_ENGLISH,
     uiLanguagePortugueseMigrationApplied: true,
     appIcon: DEFAULT_APP_ICON_ID,
     appFontFamily: args.appFontFamily,
