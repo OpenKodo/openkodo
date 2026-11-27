@@ -4,7 +4,10 @@ import type { JournalSqlStatusContext } from './journal-sql-status-context'
 import type { JournalObserverRead, JournalObserverResult } from './journal-observer-read'
 import { readJournalSqlStatusState } from './journal-sql-status-state'
 import { readJournalSqlStatusIndicators } from './journal-sql-status-indicators'
-import { readJournalSqlUsageLimitCut, readJournalSqlOrcaStopCut } from './journal-sql-status-cuts'
+import {
+  readJournalSqlUsageLimitCut,
+  readJournalSqlOpenKodoStopCut
+} from './journal-sql-status-cuts'
 import { readJournalSqlGoalRows } from './journal-sql-item-reads'
 import { agentSessionThreadGoalStartsTurns } from '../../../shared/agent-session/thread-goals/agent-session-thread-goal'
 
@@ -47,7 +50,7 @@ export function readJournalSqlObserver(
       input.firstInputSubmissionKey
     ),
     usageLimitCut: readJournalSqlUsageLimitCut(context),
-    orcaStopCut: readJournalSqlOrcaStopCut(context),
+    openkodoStopCut: readJournalSqlOpenKodoStopCut(context),
     work: readJournalSqlWorkState(context, work, input.authority)
   }
 }

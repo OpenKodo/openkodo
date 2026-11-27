@@ -1,7 +1,7 @@
 // Share Windows/guest relay paths, methods and exit codes (docs/agent-status-over-wsl.md, STA-1515).
 
 /** Guest-side install dir for the relay bundle, relative to `$HOME`. */
-export const WSL_HOOK_RELAY_DIR = '.orca-wsl/hook-relay'
+export const WSL_HOOK_RELAY_DIR = '.openkodo-wsl/hook-relay'
 export const WSL_HOOK_RELAY_BUNDLE_NAME = 'wsl-agent-hook-relay.js'
 export const WSL_HOOK_RELAY_VERSION_FILE = '.version'
 
@@ -40,7 +40,7 @@ export type WslFsResult<T extends object = object> = ({ ok: true } & T) | WslFsF
 /** Restart-stable per-instance endpoint directory. Rewrite the same file so surviving agents discover fresh port/token values. */
 export function wslHookRelayEndpointDir(guestHome: string, instanceKey: string): string {
   const home = guestHome.endsWith('/') ? guestHome.slice(0, -1) : guestHome
-  return `${home}/.orca-wsl/agent-hooks/instance-${instanceKey}`
+  return `${home}/.openkodo-wsl/agent-hooks/instance-${instanceKey}`
 }
 
 /** Keep instance keys shell/path-inert on both sides of the boundary. */

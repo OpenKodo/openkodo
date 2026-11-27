@@ -297,7 +297,7 @@ export function AppearanceInterfaceSection({
           <SearchableSetting
             title={t('auto.components.settings.AppearancePane.8063dd3b6b', 'Titlebar app name')}
             description={titlebarEntry?.description}
-            keywords={titlebarEntry?.keywords ?? ['titlebar', 'orca', 'app', 'name']}
+            keywords={titlebarEntry?.keywords ?? ['titlebar', 'openkodo', 'app', 'name']}
           >
             <SettingsSwitchRow
               label={t('auto.components.settings.AppearancePane.8063dd3b6b', 'Titlebar app name')}

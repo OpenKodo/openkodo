@@ -1,8 +1,8 @@
 import type {
   HookCommandSourcePolicy,
-  OrcaHooks,
+  OpenKodoHooks,
   RepoHookSettings
-} from '../../../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { Repo } from '../../../../../../shared/repository/repo-types'
 import { DEFAULT_REPO_HOOK_SETTINGS } from './repository-hook-defaults'
 import { translate } from '@/i18n/i18n'
@@ -129,7 +129,7 @@ export type HookYamlPresentation = {
 }
 
 export function renderYamlScriptPreview(
-  hooks: OrcaHooks | null,
+  hooks: OpenKodoHooks | null,
   support: Pick<HookYamlPresentation, 'archive' | 'issueCommand'>
 ): string {
   const formatScript = (key: string, command?: string): string =>

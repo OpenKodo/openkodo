@@ -12,7 +12,7 @@ export async function createVerifiedSkillPlacementCopy(
   filesystem: SkillInstallFilesystem,
   fileModes?: readonly SkillInstalledFileMode[]
 ): Promise<void> {
-  const temporary = `${destinationPath}.orca-copy-${randomUUID()}`
+  const temporary = `${destinationPath}.openkodo-copy-${randomUUID()}`
   try {
     await cp(canonicalPath, temporary, { recursive: true, verbatimSymlinks: true })
     const [source, copied] = await Promise.all([
@@ -35,8 +35,9 @@ export async function replaceOwnedSkillPlacementCopy(
   fileModes?: readonly SkillInstalledFileMode[],
   transaction?: { replacementPath: string; backupPath: string; retainBackup: boolean }
 ): Promise<void> {
-  const replacement = transaction?.replacementPath ?? `${destinationPath}.orca-copy-${randomUUID()}`
-  const backup = transaction?.backupPath ?? `${destinationPath}.orca-backup-${randomUUID()}`
+  const replacement =
+    transaction?.replacementPath ?? `${destinationPath}.openkodo-copy-${randomUUID()}`
+  const backup = transaction?.backupPath ?? `${destinationPath}.openkodo-backup-${randomUUID()}`
   try {
     await (transaction
       ? createSkillPlacementCopyAtMissingDestination(

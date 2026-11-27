@@ -38,7 +38,7 @@ export function hasRecordedStructuredWorkerSession(
   return Boolean(
     this.db
       .prepare(`SELECT 1 FROM dispatch_contexts
-    WHERE assignee_orca_session_id = ? AND process_incarnation = ? LIMIT 1`)
+    WHERE assignee_openkodo_session_id = ? AND process_incarnation = ? LIMIT 1`)
       .get(session, process)
   )
 }

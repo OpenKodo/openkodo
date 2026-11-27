@@ -25,7 +25,7 @@ import {
   wrapReadablePosixHookCommand
 } from '../../hooks/definitions/codex-hook-definition'
 import { buildCodexHookCommand as getManagedCommand } from '../../hooks/definitions/codex-hook-command-form'
-import { getOrcaManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
+import { getOpenKodoManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
 import {
   removeCodexManagedHookTrustEntries,
   removeStaleWslCodexManagedHookTrustEntries
@@ -133,7 +133,7 @@ export function removeSystemManagedHookTrustEntries(
 export function removeRuntimeManagedHookTrustEntries(
   configPath: string,
   codexHashes: readonly CodexHookHashes[],
-  runtimeHomePath: string = getOrcaManagedCodexHomePath()
+  runtimeHomePath: string = getOpenKodoManagedCodexHomePath()
 ): void {
   try {
     removeCodexManagedHookTrustEntries({

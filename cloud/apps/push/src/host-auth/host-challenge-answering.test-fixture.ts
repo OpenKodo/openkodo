@@ -3,8 +3,8 @@ import {
   PUSH_HOST_CHALLENGE_PLAINTEXT_DOMAIN,
   PUSH_HOST_PROOF_TRANSCRIPT_DOMAIN,
   PUSH_HOST_PROOF_TRANSCRIPT_FIELD_COUNT
-} from '@orca-cloud/push-contract/push-host-proof-transcript'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
+} from '@openkodo-cloud/push-contract/push-host-proof-transcript'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
 import nacl from 'tweetnacl'
 import { decodeCanonicalBase64 } from './canonical-base64.js'
 import { deriveHostFingerprint } from './host-fingerprint.js'

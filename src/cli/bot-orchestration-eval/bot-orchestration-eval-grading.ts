@@ -298,7 +298,7 @@ export function oneOf(...checks: TurnCheck[]): TurnCheck {
 // A shell command that reads the openkodo project's files, as opposed to OpenKodo's own commands. Codex can
 // run a command inside the checkout without naming it, so a read of a source path counts too.
 const READS_OPENKODO_CHECKOUT =
-  /projects\/orca(?![\w-])|\b(rg|grep|sed|cat|git (log|show|grep|blame))\b.*\b(src|cloud)\//
+  /projects\/openkodo(?![\w-])|\b(rg|grep|sed|cat|git (log|show|grep|blame))\b.*\b(src|cloud)\//
 
 function shellBeforeFirstStart(turn: EvalTurnOutcome): string[] {
   const first = turn.shell.findIndex((command) => command.includes('worker-start'))

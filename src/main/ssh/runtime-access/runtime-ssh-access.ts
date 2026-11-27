@@ -14,22 +14,22 @@ import {
   prepareRuntimeEnvironmentSshAccessLink,
   prepareRuntimeEnvironmentSshAccessUnlink
 } from '../../../shared/remote-runtime/host-store/runtime-environment-ssh-access-store'
-import { getManagedOrcadFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
+import { getManagedOpenkododFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-openkodod-ssh-owner'
 import type { SshTarget } from '../../../shared/remote-runtime/ssh/ssh-types'
 import { runTargetLifecycle } from '../../ipc/ssh/ssh-target-lifecycle-queue'
-import { requireManagedOrcadInfrastructure } from '../../managed-server/lifecycle/orcad-managed-runtime-context'
+import { requireManagedOpenkododInfrastructure } from '../../managed-server/lifecycle/openkodod-managed-runtime-context'
 import {
-  closeOrcadManagedTunnel,
-  ensureOrcadManagedTunnel,
-  startOrcadManagedTunnel
-} from '../../managed-server/lifecycle/orcad-managed-tunnel'
+  closeOpenkododManagedTunnel,
+  ensureOpenkododManagedTunnel,
+  startOpenkododManagedTunnel
+} from '../../managed-server/lifecycle/openkodod-managed-tunnel'
 import { verifyRuntimeEnvironmentSshTunnel } from './runtime-ssh-access-verification'
 import { fingerprintRuntimeSshTarget } from './runtime-ssh-target-fingerprint'
-import { orcadTargetBlockerMessage } from '../targets/ssh-target-orcad-claims'
-import { dependentStateSummary } from '../targets/ssh-target-orcad-dependents'
-import type { OrcadMigrationBlocker } from '../../../shared/orcad-migration/orcad-migration-preflight'
+import { openkododTargetBlockerMessage } from '../targets/ssh-target-openkodod-claims'
+import { dependentStateSummary } from '../targets/ssh-target-openkodod-dependents'
+import type { OpenkododMigrationBlocker } from '../../../shared/openkodod-migration/openkodod-migration-preflight'
 
-type TargetClaims = ReturnType<typeof requireManagedOrcadInfrastructure>['claims']
+type TargetClaims = ReturnType<typeof requireManagedOpenkododInfrastructure>['claims']
 
 function requireTarget(claims: TargetClaims, targetId: string): SshTarget & { generation: number } {
   const target = claims.listTargets().find((entry) => entry.id === targetId)
@@ -37,29 +37,29 @@ function requireTarget(claims: TargetClaims, targetId: string): SshTarget & { ge
   if (!target || generation === undefined || !Number.isSafeInteger(generation) || generation <= 0) {
     throw new Error('SSH access requires an existing durable SSH target generation.')
   }
-  if (target.orcadProvisioning) {
+  if (target.openkododProvisioning) {
     throw new Error('This SSH target has pending server provisioning.')
   }
   return { ...target, generation }
 }
 
 // Give link-specific recovery steps; bare codes and host-conversion wording are unhelpful here.
-function sshAccessBlockerMessage(targetId: string, blocker: OrcadMigrationBlocker): string {
+function sshAccessBlockerMessage(targetId: string, blocker: OpenkododMigrationBlocker): string {
   switch (blocker.code) {
-    case 'orcad_migration_dependent_state':
+    case 'openkodod_migration_dependent_state':
       return `This SSH target is still used by saved OpenKodo state: ${dependentStateSummary(blocker.dependencies)}. Remove it, or link SSH access through an SSH target with nothing saved.`
-    case 'orcad_migration_direct_ssh_repositories':
-    case 'orcad_migration_direct_ssh_folder_workspaces':
+    case 'openkodod_migration_direct_ssh_repositories':
+    case 'openkodod_migration_direct_ssh_folder_workspaces':
       return 'This SSH target already has direct SSH projects. Remove them, or link SSH access through another SSH target.'
-    case 'orcad_migration_direct_ssh_terminal_leases':
+    case 'openkodod_migration_direct_ssh_terminal_leases':
       return 'This SSH target still owns terminal sessions. Close them before linking SSH access.'
-    case 'orcad_migration_saved_port_forwards':
+    case 'openkodod_migration_saved_port_forwards':
       return 'This SSH target has saved port forwards. Remove them, or link SSH access through another SSH target.'
-    case 'orcad_migration_target_not_found':
-    case 'orcad_migration_target_owned':
-    case 'orcad_migration_owner_unrecorded':
-    case 'orcad_migration_dependency_unverifiable':
-      return orcadTargetBlockerMessage(targetId, blocker)
+    case 'openkodod_migration_target_not_found':
+    case 'openkodod_migration_target_owned':
+    case 'openkodod_migration_owner_unrecorded':
+    case 'openkodod_migration_dependency_unverifiable':
+      return openkododTargetBlockerMessage(targetId, blocker)
   }
 }
 
@@ -71,8 +71,8 @@ function requireAccessOnlyTarget(claims: TargetClaims, targetId: string, environ
     .blockers.filter(
       (entry) =>
         !(
-          entry.code === 'orcad_migration_target_owned' &&
-          getManagedOrcadFenceEnvironmentId(target) === environmentId
+          entry.code === 'openkodod_migration_target_owned' &&
+          getManagedOpenkododFenceEnvironmentId(target) === environmentId
         )
     )
   if (blockers.length) {
@@ -94,12 +94,12 @@ function requireFence(
   allowUnowned = false
 ): SshTarget {
   const target = requireTarget(claims, fence.sshTargetId)
-  const owner = getManagedOrcadFenceEnvironmentId(target)
+  const owner = getManagedOpenkododFenceEnvironmentId(target)
   if (
     target.generation !== fence.sshTargetGeneration ||
     !fence.targetFingerprint ||
     fingerprintRuntimeSshTarget(target) !== fence.targetFingerprint ||
-    (owner !== environmentId && !(allowUnowned && !target.orcadFence))
+    (owner !== environmentId && !(allowUnowned && !target.openkododFence))
   ) {
     throw new Error('The SSH target registration, connection configuration, or owner changed.')
   }
@@ -118,10 +118,10 @@ export async function linkRuntimeSshAccess(
   const environmentId = (await resolveEnvironment(userDataPath, args.selector)).id
   return runTargetLifecycle(`runtime-ssh-access:${userDataPath}:${environmentId}`, () =>
     runTargetLifecycle(args.sshTargetId, async () => {
-      const { claims, connectionManager } = requireManagedOrcadInfrastructure()
+      const { claims, connectionManager } = requireManagedOpenkododInfrastructure()
       const environment = await resolveEnvironment(userDataPath, environmentId)
       assertRuntimeEnvironmentNotReconciling(environment)
-      if (environment.orcadDeployment) {
+      if (environment.openkododDeployment) {
         throw new Error('Managed deployments cannot use independent SSH access.')
       }
       const target = requireAccessOnlyTarget(claims, args.sshTargetId, environmentId)
@@ -141,7 +141,7 @@ export async function linkRuntimeSshAccess(
           throw new Error('This server already has a different SSH access request.')
         }
         requireFence(claims, environmentId, access)
-        await ensureOrcadManagedTunnel(userDataPath, environmentId)
+        await ensureOpenkododManagedTunnel(userDataPath, environmentId)
         requireFence(claims, environmentId, access)
         await options.invalidateTransport?.(environmentId)
         return redactRuntimeEnvironment(await resolveEnvironment(userDataPath, environmentId))
@@ -173,7 +173,7 @@ export async function linkRuntimeSshAccess(
         options.signal?.throwIfAborted()
         requireFence(claims, environmentId, fence)
         tunnelStarted = true
-        const localPort = await startOrcadManagedTunnel(
+        const localPort = await startOpenkododManagedTunnel(
           environmentId,
           claimed,
           connection,
@@ -201,7 +201,7 @@ export async function linkRuntimeSshAccess(
         return linked
       } catch (error) {
         if (tunnelStarted && !linkCommitted) {
-          await closeOrcadManagedTunnel(environmentId)
+          await closeOpenkododManagedTunnel(environmentId)
         }
         throw error
       }
@@ -219,7 +219,7 @@ export async function unlinkRuntimeSshAccess(
   return runTargetLifecycle(`runtime-ssh-access:${userDataPath}:${environmentId}`, async () => {
     const environment = await resolveEnvironment(userDataPath, environmentId)
     assertRuntimeEnvironmentNotReconciling(environment)
-    if (environment.orcadDeployment) {
+    if (environment.openkododDeployment) {
       throw new Error('Managed deployments cannot unlink independent SSH access.')
     }
     const access = environment.pendingSshAccessOperation ?? environment.sshAccess
@@ -227,7 +227,7 @@ export async function unlinkRuntimeSshAccess(
       return redactRuntimeEnvironment(environment)
     }
     return runTargetLifecycle(access.sshTargetId, async () => {
-      const { claims } = requireManagedOrcadInfrastructure()
+      const { claims } = requireManagedOpenkododInfrastructure()
       requireFence(claims, environmentId, access, !!environment.pendingSshAccessOperation)
       const prepared =
         environment.pendingSshAccessOperation?.operation === 'link'
@@ -240,9 +240,9 @@ export async function unlinkRuntimeSshAccess(
               requestId: args.requestId
             })
       await options.invalidateTransport(environmentId)
-      await closeOrcadManagedTunnel(environmentId)
+      await closeOpenkododManagedTunnel(environmentId)
       const target = requireFence(claims, environmentId, access, true)
-      if (target.orcadFence && !claims.release(target.id, environmentId)) {
+      if (target.openkododFence && !claims.release(target.id, environmentId)) {
         throw new Error('The SSH target owner changed before access could be released.')
       }
       await claims.flush()

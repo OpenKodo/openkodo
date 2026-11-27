@@ -1,6 +1,6 @@
 import { AGENT_LAUNCH_PLAIN_SESSION_ID_RUNTIME_CAPABILITY } from '../../../../src/shared/agent-launch/contracts/agent-launch-runtime-capability'
 import type { TuiAgent } from '../../../../src/shared/agent-launch/catalog/tui-agent'
-import { createOrcaSessionId } from '../../../../src/shared/agent-session/identity/orca-session-address'
+import { createOpenKodoSessionId } from '../../../../src/shared/agent-session/identity/openkodo-session-address'
 import { isStructuredAgentId } from '../../../../src/shared/agent-session/lifecycle/provider-handles/agent-session-provider-handle-encoding'
 import { makePaneKey } from '../../../../src/shared/workspace-layout/stable-pane-id'
 
@@ -20,7 +20,7 @@ export function reserveMobileAgentLaunch(
     sessionId: !isStructuredAgentId(agent)
       ? null
       : hostCapabilities?.includes(AGENT_LAUNCH_PLAIN_SESSION_ID_RUNTIME_CAPABILITY)
-        ? createOrcaSessionId(randomUuid)
+        ? createOpenKodoSessionId(randomUuid)
         : agentPrefixedSessionId(agent, randomUuid)
   }
 }

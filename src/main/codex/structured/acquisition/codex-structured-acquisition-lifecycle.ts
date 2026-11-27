@@ -5,7 +5,7 @@ import {
 import { providerSpawnAbsent } from '../../../provider-process/provider-executable-missing'
 import { providerOutcomeLost } from '../../../provider-process/provider-process-exit-status'
 import { providerStartupFailureFact } from '../../../native-chat/agent-session-wire/startup/structured-agent-session-failure-text'
-import { cancelProcessAcquisition } from '@orca/process-host/cancel-process-acquisition'
+import { cancelProcessAcquisition } from '@openkodo/process-host/cancel-process-acquisition'
 import '../../../native-chat/agent-session-wire/providers/structured-agent-session-adapter'
 import {
   AgentSessionAcquisitionExitUnprovenError,

@@ -8,7 +8,7 @@ const {
   readPeMachine
 } = require('../../native-build/windows/windows-pe-machine.cjs')
 
-// electron-builder's `Arch` enum values for the Windows slices Orca can package.
+// electron-builder's `Arch` enum values for the Windows slices OpenKodo can package.
 const ARCH_BY_ELECTRON_BUILDER_ENUM = { 1: 'x64', 3: 'arm64' }
 
 // Require correct-arch native hook: missing extraResources only warns and otherwise silently leaves users on slower .cmd form.

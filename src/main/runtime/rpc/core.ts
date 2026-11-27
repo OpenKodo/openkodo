@@ -1,8 +1,8 @@
-import type { DeclareOrcaAccountParams } from '../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
+import type { DeclareOpenKodoAccountParams } from '../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
 import type { RuntimeClientCapabilities } from './callers/runtime-client-capabilities'
 import type { ZodError, ZodType } from 'zod'
 import type { TerminalStreamFrame } from '../../../shared/terminal/stream/terminal-stream-protocol'
-import type { OrcaRuntimeService } from '../orca-runtime'
+import type { OpenKodoRuntimeService } from '../openkodo-runtime'
 import type { OrchestrationCompatibilityCallerAuthority } from '../orchestration/terminal-authority/orchestration-compatibility-authority'
 import type { StructuredAgentCliSourceEvidence } from '../../native-chat/conversation-adoption/structured-agent-cli-source'
 import type {
@@ -23,11 +23,11 @@ import type {
 import type { OrchestrationCompatibilityEvidence } from '../../../shared/orchestration/orchestration-compatibility-evidence'
 import type { OrchestrationEntryCaller } from '../orchestration/addressing/orchestration-caller-identity'
 import type { RpcCallerIdentity } from './callers/rpc-caller-identity'
-import type { OrcadPeerDesktopsResult } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
+import type { OpenkododPeerDesktopsResult } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-peer-desktops-contract'
 import type { RpcBinarySender } from './transports/rpc-binary-sender'
 import type { RpcCallerScope } from './callers/rpc-caller-scope'
 import type { RpcMethodPermission } from './callers/rpc-method-permission'
-import type { OrcadFeatureRequirement } from './startup/orcad-readiness'
+import type { OpenkododFeatureRequirement } from './startup/openkodod-readiness'
 import {
   runsOrchestrationAccessCheck,
   type OrchestrationMethodAccessDeclaration
@@ -50,12 +50,12 @@ export type DeviceSelfRpcContext = {
   registerDeviceKey(params: RegisterDeviceKeyParams): RegisterDeviceKeyResult
   exchangePairingTicket(params: ExchangePairingTicketParams): ExchangePairingTicketResult
   /** A paired desktop's claimed OpenKodo account; ignored for any other device. */
-  declareOrcaAccount(
-    account: DeclareOrcaAccountParams['account'],
-    clientInstanceId?: DeclareOrcaAccountParams['clientInstanceId']
+  declareOpenKodoAccount(
+    account: DeclareOpenKodoAccountParams['account'],
+    clientInstanceId?: DeclareOpenKodoAccountParams['clientInstanceId']
   ): void
   /** What this connection declared, so desktops sharing one paired row each name their own. */
-  orcaAccount(): DeclareOrcaAccountParams['account']
+  openkodoAccount(): DeclareOpenKodoAccountParams['account']
   /** The desktop installation this connection declared, if any. */
   clientInstanceId(): string | undefined
 }
@@ -126,7 +126,7 @@ export type LegacyCoordinatorAuthorityProof = Readonly<{
 }>
 
 export type RpcContext = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   // Release long-poll handlers immediately when the client disconnects.
   signal?: AbortSignal
   // Cleanup is socket-scoped so sibling sockets sharing a device token survive.
@@ -192,7 +192,7 @@ export type RpcContext = {
   }
   // Authenticated runtime devices see which other desktops share this server.
   peerDesktops?: {
-    list(callerClientInstanceId?: string): OrcadPeerDesktopsResult
+    list(callerClientInstanceId?: string): OpenkododPeerDesktopsResult
     /** Tags this socket with the caller's installation until it closes. */
     declare(clientInstanceId: string): void
   }
@@ -224,8 +224,8 @@ export type RpcTypedMethod<TName extends string, TSchema extends ZodType | null,
   // Every new method must explicitly choose caller permissions.
   readonly permission: RpcMethodPermission
   readonly params: TSchema
-  // Startup phases this method needs; the dispatcher waits for them, bounded (orcad only).
-  readonly requires?: OrcadFeatureRequirement<RpcParsedParams<TSchema>>
+  // Startup phases this method needs; the dispatcher waits for them, bounded (openkodod only).
+  readonly requires?: OpenkododFeatureRequirement<RpcParsedParams<TSchema>>
   readonly handler: (params: RpcParsedParams<TSchema>, ctx: RpcContext) => TResult
 }
 
@@ -240,7 +240,7 @@ export type RpcTypedStreamingMethod<TName extends string, TSchema extends ZodTyp
   readonly name: TName
   readonly permission: RpcMethodPermission
   readonly params: TSchema
-  readonly requires?: OrcadFeatureRequirement<RpcParsedParams<TSchema>>
+  readonly requires?: OpenkododFeatureRequirement<RpcParsedParams<TSchema>>
   readonly stream: true
   readonly handler: (
     params: RpcParsedParams<TSchema>,
@@ -259,7 +259,7 @@ type RpcMethodWithParams<P> = {
   readonly name: string
   readonly permission: RpcMethodPermission
   readonly params: ZodType | null
-  readonly requires?: OrcadFeatureRequirement<P>
+  readonly requires?: OpenkododFeatureRequirement<P>
   // Set only by defineOrchestrationMethod, whose checked handler the registry requires.
   readonly orchestrationAccess?: OrchestrationMethodAccessDeclaration
   readonly handler: (params: P, ctx: RpcContext) => unknown
@@ -269,7 +269,7 @@ type RpcStreamingMethodWithParams<P> = {
   readonly name: string
   readonly permission: RpcMethodPermission
   readonly params: ZodType | null
-  readonly requires?: OrcadFeatureRequirement<P>
+  readonly requires?: OpenkododFeatureRequirement<P>
   readonly orchestrationAccess?: OrchestrationMethodAccessDeclaration
   readonly stream: true
   readonly handler: (params: P, ctx: RpcContext, emit: (result: unknown) => void) => Promise<void>

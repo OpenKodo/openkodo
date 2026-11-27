@@ -18,7 +18,7 @@ import { handleDirector, type DirectorContext } from './director'
 
 export { HostRelay, SpliceRelay, UserHosts }
 
-const INTERNAL_HEADERS = ['x-edge-claims', 'x-edge-origin', 'x-edge-kind', 'x-edge-conn-id', 'x-edge-place', INGRESS_HEADER, 'x-orca-client-ip', 'x-orca-client-country']
+const INTERNAL_HEADERS = ['x-edge-claims', 'x-edge-origin', 'x-edge-kind', 'x-edge-conn-id', 'x-edge-place', INGRESS_HEADER, 'x-openkodo-client-ip', 'x-openkodo-client-country']
 
 function reject(status: number, retryAfter?: number): Response {
   const headers = retryAfter === undefined ? undefined : { 'retry-after': String(retryAfter) }

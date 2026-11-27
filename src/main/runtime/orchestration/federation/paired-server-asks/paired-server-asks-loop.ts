@@ -2,7 +2,7 @@
 // pulls, notes the pairing the server answered under, and, once a batch is acknowledged, admits what
 // was allowed and hands back what is owed. Nothing here is timed.
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type {
   OrchestrationEnvironmentTransport,
@@ -35,7 +35,7 @@ const Answered = z.object({ clientAsks: z.object({ seenAs: z.string() }).optiona
 const activeByRuntime = new WeakMap<object, Map<string, PairedServerAsks>>()
 const watchedDatabases = new WeakSet<object>()
 
-function activeOf(runtime: OrcaRuntimeService): Map<string, PairedServerAsks> {
+function activeOf(runtime: OpenKodoRuntimeService): Map<string, PairedServerAsks> {
   const active = activeByRuntime.get(runtime) ?? new Map<string, PairedServerAsks>()
   activeByRuntime.set(runtime, active)
   return active
@@ -67,7 +67,7 @@ function supportKey(pairing: string, support: ServerAsksSupport | undefined): st
  *  came, or the pairing or the server's answer changed; otherwise it keeps its session. A loop with
  *  no ask to pull for doesn't wait on a first read: the next pull uses it. */
 export async function refreshPairedServerAsks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   holder: PairedServerAsksHolder,
   server: OrchestrationWorkerServer,
   transport: OrchestrationEnvironmentTransport | null
@@ -113,7 +113,7 @@ export async function refreshPairedServerAsks(
 }
 
 async function beginPairedServerAsks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   asks: PairedServerAsks,
   transport: OrchestrationEnvironmentTransport | null
@@ -137,7 +137,7 @@ async function beginPairedServerAsks(
 /** The loop stops taking asks under this session: the server hears it, so sends there fail as
  *  offline at once rather than when its pull times out. */
 export function endPairedServerAsks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   asks: PairedServerAsks | null | undefined
 ): void {
   if (asks && activeOf(runtime).get(asks.environmentId) === asks) {
@@ -165,7 +165,7 @@ export function notePairedServerAnswer(
 }
 
 export function afterPairedServerPull(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   asks: PairedServerAsks | null | undefined
 ): void {
   if (asks) {
@@ -175,14 +175,17 @@ export function afterPairedServerPull(
 }
 
 /** An approved card is admitted now, connected or not. */
-export function admitPairedServerAsksNow(runtime: OrcaRuntimeService, environmentId: string): void {
+export function admitPairedServerAsksNow(
+  runtime: OpenKodoRuntimeService,
+  environmentId: string
+): void {
   void admitPairedServerAsks(runtime, environmentId)
 }
 
 /** At startup, and when a pairing is verified: a capable server this computer hasn't announced
  *  itself to under its current pairing gets one pull, so the server can end the pairing it replaced. */
 export async function announcePairedServers(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   transport: OrchestrationEnvironmentTransport | null,
   pullOnce: (environmentId: string) => void,
   only?: string
@@ -208,7 +211,7 @@ export async function announcePairedServers(
 
 /** Announces at once, and again for each pairing that is verified later, until unsubscribed. */
 export function watchPairedServers(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   transport: OrchestrationEnvironmentTransport,
   pullOnce: (environmentId: string) => void
 ): () => void {
@@ -224,7 +227,7 @@ export function watchPairedServers(
 
 /** Imports an item a server that sends this computer asks queued for it; false for any other item. */
 export async function importAsk(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   asks: PairedServerAsks | null | undefined,
   item: PulledItem
@@ -239,13 +242,13 @@ export async function importAsk(
 const LEAVE_TIMEOUT_MS = 15_000
 
 /** The loop taking asks from that server now, or every one when no server is named. */
-export function activePairedServerAsks(runtime: OrcaRuntimeService): PairedServerAsks[]
+export function activePairedServerAsks(runtime: OpenKodoRuntimeService): PairedServerAsks[]
 export function activePairedServerAsks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   environmentId: string
 ): PairedServerAsks | undefined
 export function activePairedServerAsks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   environmentId?: string
 ): PairedServerAsks[] | PairedServerAsks | undefined {
   const active = activeOf(runtime)
@@ -254,7 +257,7 @@ export function activePairedServerAsks(
 
 /** Tells the server this computer stops listening now, so sends there fail as offline at once. */
 export async function leavePairedServer(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   asks: PairedServerAsks
 ): Promise<void> {
   await runtime

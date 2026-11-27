@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react'
 
 // The last few members picked from `@` in any chat (ids, else names), newest first; they lead their
 // match tier.
-const STORAGE_KEY = 'orca.nativeChat.recentMentions'
+const STORAGE_KEY = 'openkodo.nativeChat.recentMentions'
 const LIMIT = 5
 const EMPTY: readonly string[] = []
 

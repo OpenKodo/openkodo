@@ -15,7 +15,9 @@ export function formatCliStatus(status: CliStatusResult): string {
     `runtimeId: ${status.runtime.runtimeId ?? 'none'}`,
     `graphState: ${status.graph.state}`,
     ...(status.runtime.degradations ?? []).map((degradation) => `degraded: ${degradation.message}`),
-    ...(status.caller === undefined ? [] : [`orcaSessionId: ${formatStatusCaller(status.caller)}`])
+    ...(status.caller === undefined
+      ? []
+      : [`openkodoSessionId: ${formatStatusCaller(status.caller)}`])
   ].join('\n')
 }
 
@@ -23,5 +25,5 @@ function formatStatusCaller(caller: CliStatusCaller): string {
   if ('refusal' in caller) {
     return `none (refused: ${caller.refusal.code})`
   }
-  return `${caller.orcaSessionId}${caller.live ? '' : ' (not live)'}`
+  return `${caller.openkodoSessionId}${caller.live ? '' : ' (not live)'}`
 }

@@ -1,4 +1,4 @@
-// COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+// COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
 export const OPENKODO_SKILLS_REPOSITORY_URL = 'https://github.com/OpenKodo/openkodo'
 
 // Pin one CLI across install rails: 1.5.x lacks commit fetch and bare npx may reuse stale/wrong binaries (#18687).

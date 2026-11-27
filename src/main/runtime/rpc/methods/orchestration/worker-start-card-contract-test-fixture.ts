@@ -2,13 +2,13 @@ import { afterEach, vi } from 'vitest'
 import { createOrchestrationRpcHarness } from './rpc-test-harness'
 import { setStructuredAgentSessionHost } from '../../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import type { QueuedMessageTestRig } from '../../../../native-chat/agent-session-wire/host/testing/structured-agent-session-queued-message-rig.test-fixture'
-import { testOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { testOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 
 export const h = createOrchestrationRpcHarness()
 
-export const COORD = testOrcaSessionId('start-card-caller')
+export const COORD = testOpenKodoSessionId('start-card-caller')
 
-export const WORKER = testOrcaSessionId('start-card-worker')
+export const WORKER = testOpenKodoSessionId('start-card-worker')
 
 let rig: QueuedMessageTestRig | undefined
 

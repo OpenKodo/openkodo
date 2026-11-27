@@ -107,14 +107,14 @@ export async function publishArtifactFromSurface(
 
 async function ensureArtifactAccountConnected(): Promise<boolean> {
   const state = useAppStore.getState()
-  if (state.orcaProfileAuthStatus?.state === 'connected') {
+  if (state.openkodoProfileAuthStatus?.state === 'connected') {
     return true
   }
-  return (await state.connectCurrentOrcaProfile())?.status === 'connected'
+  return (await state.connectCurrentOpenKodoProfile())?.status === 'connected'
 }
 
 async function reconnectArtifactAccount(): Promise<boolean> {
-  return (await useAppStore.getState().connectCurrentOrcaProfile())?.status === 'connected'
+  return (await useAppStore.getState().connectCurrentOpenKodoProfile())?.status === 'connected'
 }
 
 function showArtifactPublishedToast(result: ArtifactPublishResult): void {

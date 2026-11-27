@@ -3,7 +3,12 @@ import path from 'node:path'
 
 export const MAX_OPENKODO_RPC_OUTPUT_BYTES = 20 * 1024 * 1024
 
-export function appendOrcaRpcOutput(output, chunk, bytes, limit = MAX_OPENKODO_RPC_OUTPUT_BYTES) {
+export function appendOpenKodoRpcOutput(
+  output,
+  chunk,
+  bytes,
+  limit = MAX_OPENKODO_RPC_OUTPUT_BYTES
+) {
   const nextBytes = bytes + Buffer.byteLength(chunk)
   return {
     output: nextBytes > limit ? output : output + chunk,
@@ -12,7 +17,7 @@ export function appendOrcaRpcOutput(output, chunk, bytes, limit = MAX_OPENKODO_R
   }
 }
 
-export function resolveOrcaCliCommand({
+export function resolveOpenKodoCliCommand({
   env = process.env,
   platform: _platform = process.platform
 } = {}) {
@@ -25,21 +30,21 @@ export function resolveOrcaCliCommand({
   return 'openkodo'
 }
 
-export function resolveOrcaCliInvocation({
+export function resolveOpenKodoCliInvocation({
   env = process.env,
   platform = process.platform,
   nodeExecutable = process.execPath
 } = {}) {
-  const command = resolveOrcaCliCommand({ env, platform })
+  const command = resolveOpenKodoCliCommand({ env, platform })
   const commandName = platform === 'win32' ? path.win32.basename(command).toLowerCase() : command
   if (
     platform === 'win32' &&
     env.OPENKODO_DEV_REPO_ROOT &&
-    (commandName === 'orca-dev' || commandName === 'orca-dev.cmd')
+    (commandName === 'openkodo-dev' || commandName === 'openkodo-dev.cmd')
   ) {
     const defaultUserDataPath = path.win32.join(
       env.APPDATA ?? path.win32.join(env.USERPROFILE ?? '', 'AppData', 'Roaming'),
-      'orca-dev'
+      'openkodo-dev'
     )
     return {
       command: nodeExecutable,
@@ -65,7 +70,7 @@ export function resolveOrcaCliInvocation({
   return { command, prefixArgs: [] }
 }
 
-export function createOrcaRpc({
+export function createOpenKodoRpc({
   envName,
   cliCommand,
   env = process.env,
@@ -73,8 +78,8 @@ export function createOrcaRpc({
 }) {
   const cliInvocation = cliCommand
     ? { command: cliCommand, prefixArgs: [] }
-    : resolveOrcaCliInvocation({ env, platform })
-  const commandLabel = cliCommand ?? resolveOrcaCliCommand({ env, platform })
+    : resolveOpenKodoCliInvocation({ env, platform })
+  const commandLabel = cliCommand ?? resolveOpenKodoCliCommand({ env, platform })
   const commandArgs = (args, local) => [
     ...cliInvocation.prefixArgs,
     ...args,
@@ -82,7 +87,7 @@ export function createOrcaRpc({
     '--json'
   ]
 
-  function orcaJsonSync(args, opts = {}) {
+  function openkodoJsonSync(args, opts = {}) {
     const started = performance.now()
     const result = spawnSync(cliInvocation.command, commandArgs(args, opts.local), {
       encoding: 'utf8',
@@ -106,7 +111,7 @@ export function createOrcaRpc({
     return { parsed, elapsedMs, result: parsed.result }
   }
 
-  function orcaJsonAsync(args, opts = {}) {
+  function openkodoJsonAsync(args, opts = {}) {
     const started = performance.now()
     return new Promise((resolve, reject) => {
       const child = spawn(cliInvocation.command, commandArgs(args, opts.local), {
@@ -130,7 +135,7 @@ export function createOrcaRpc({
         if (settled) {
           return stream
         }
-        const appended = appendOrcaRpcOutput(stream, chunk, outputBytes)
+        const appended = appendOpenKodoRpcOutput(stream, chunk, outputBytes)
         outputBytes = appended.bytes
         if (appended.exceeded) {
           child.kill('SIGKILL')
@@ -202,12 +207,12 @@ export function createOrcaRpc({
   async function runReconnectRefreshStorm(notes) {
     const started = performance.now()
     const jobs = [
-      () => orcaJsonAsync(['status'], { timeoutMs: 90_000 }),
-      () => orcaJsonAsync(['worktree', 'list'], { timeoutMs: 120_000 }),
-      () => orcaJsonAsync(['terminal', 'list'], { timeoutMs: 120_000 }),
-      () => orcaJsonAsync(['status'], { local: true, timeoutMs: 60_000 }),
-      () => orcaJsonAsync(['worktree', 'list'], { timeoutMs: 120_000 }),
-      () => orcaJsonAsync(['terminal', 'list'], { timeoutMs: 120_000 })
+      () => openkodoJsonAsync(['status'], { timeoutMs: 90_000 }),
+      () => openkodoJsonAsync(['worktree', 'list'], { timeoutMs: 120_000 }),
+      () => openkodoJsonAsync(['terminal', 'list'], { timeoutMs: 120_000 }),
+      () => openkodoJsonAsync(['status'], { local: true, timeoutMs: 60_000 }),
+      () => openkodoJsonAsync(['worktree', 'list'], { timeoutMs: 120_000 }),
+      () => openkodoJsonAsync(['terminal', 'list'], { timeoutMs: 120_000 })
     ]
     const results = await Promise.all(
       jobs.map(async (job, index) => {
@@ -231,14 +236,14 @@ export function createOrcaRpc({
   async function runRestartProxy(notes) {
     const started = performance.now()
     try {
-      const opened = await orcaJsonAsync(['open'], { local: true, timeoutMs: 120_000 })
-      notes.push(`orca open ms=${opened.elapsedMs.toFixed(0)}`)
+      const opened = await openkodoJsonAsync(['open'], { local: true, timeoutMs: 120_000 })
+      notes.push(`openkodo open ms=${opened.elapsedMs.toFixed(0)}`)
     } catch (error) {
-      notes.push(`orca open failed: ${String(error).slice(0, 200)}`)
+      notes.push(`openkodo open failed: ${String(error).slice(0, 200)}`)
     }
     const storm = await runReconnectRefreshStorm(notes)
     return { wallMs: performance.now() - started, storm }
   }
 
-  return { orcaJsonSync, orcaJsonAsync, runReconnectRefreshStorm, runRestartProxy }
+  return { openkodoJsonSync, openkodoJsonAsync, runReconnectRefreshStorm, runRestartProxy }
 }

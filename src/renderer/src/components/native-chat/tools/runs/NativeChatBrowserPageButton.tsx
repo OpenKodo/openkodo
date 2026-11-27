@@ -18,7 +18,7 @@ import {
   nativeChatToolRunCategory
 } from '../../../../../../shared/native-chat/tools/native-chat-tool-icon'
 import { nativeChatFullCommand } from '../../../../../../shared/native-chat/tools/native-chat-tool-input-text'
-import { parseOrcaBrowserCommand } from '../../../../../../shared/browser/automation/orca-browser-cli-commands'
+import { parseOpenKodoBrowserCommand } from '../../../../../../shared/browser/automation/openkodo-browser-cli-commands'
 import type { NativeChatToolCallBlock } from '../../../../../../shared/native-chat/native-chat-types'
 import type { AgentJournalRenderItem } from '../../../../../../shared/agent-session/journal/agent-session-journal-types'
 
@@ -28,7 +28,7 @@ const pageIdByRunCallId = new Map<string, string>()
 const REMEMBERED_RUNS_MAX = 500
 
 function commandPageId(call: NativeChatToolCallBlock | undefined): string | null {
-  return parseOrcaBrowserCommand(nativeChatFullCommand(call?.input) ?? '')?.pageId ?? null
+  return parseOpenKodoBrowserCommand(nativeChatFullCommand(call?.input) ?? '')?.pageId ?? null
 }
 
 /** The page the run's newest call named or was remembered with. */

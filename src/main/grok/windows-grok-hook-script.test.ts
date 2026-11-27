@@ -17,7 +17,7 @@ describe.skipIf(process.platform !== 'win32')('buildWindowsGrokHookScript (win32
   })
 
   function writeScript(): string {
-    const dir = mkdtempSync(join(tmpdir(), 'orca-grok-hook-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-grok-hook-'))
     dirs.push(dir)
     const scriptPath = join(dir, 'grok-hook.cmd')
     writeFileSync(scriptPath, buildWindowsGrokHookScript())

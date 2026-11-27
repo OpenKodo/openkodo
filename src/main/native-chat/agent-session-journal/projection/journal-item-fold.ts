@@ -59,7 +59,7 @@ export function journalItemRevisionValue(
   const submitted =
     existing.body.kind === 'message' &&
     existing.body.role === 'user' &&
-    parseAgentJournalItemKey(existing.itemId)?.provider === 'orca'
+    parseAgentJournalItemKey(existing.itemId)?.provider === 'openkodo'
   const { sequenceIndex: _revisedAt, ...revised } = next
   return {
     ...revised,

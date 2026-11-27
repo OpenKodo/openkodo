@@ -1,10 +1,10 @@
-// libuv spawns with bInheritHandles=TRUE and no handle list, so every inheritable handle in Orca
+// libuv spawns with bInheritHandles=TRUE and no handle list, so every inheritable handle in OpenKodo
 // reaches a long-lived child. This spawn lists exactly one NUL handle, used for all three stdio.
 // Flags follow libuv's detached spawn, with CREATE_NO_WINDOW in place of DETACHED_PROCESS: a
 // console-less holder makes Windows open a new, visible console for every console program it starts
 // (System32's wsl.exe starts the WSL package's wsl.exe, which shows as an empty terminal window),
 // while a windowless console is inherited. CREATE_BREAKAWAY_FROM_JOB: a holder must outlive a
-// kill-on-close job Orca was launched into (an OpenSSH session's, a terminal's). A job that forbids
+// kill-on-close job OpenKodo was launched into (an OpenSSH session's, a terminal's). A job that forbids
 // breakaway fails that with ERROR_ACCESS_DENIED; the spawn then retries inside it and reports so.
 
 #include "isolated-spawn.h"
@@ -127,7 +127,7 @@ Napi::Value SpawnDetachedIsolated(const Napi::CallbackInfo& info) {
   result.Set("breakawayDenied", Napi::Boolean::New(env, breakawayDenied));
   auto* watch = new ExitWatch{created.hProcess};
   watch->onExit = Napi::ThreadSafeFunction::New(env, info[4].As<Napi::Function>(),
-                                                "orcaIsolatedSpawnExit", 0, 1);
+                                                "openkodoIsolatedSpawnExit", 0, 1);
   watch->onExit.Unref(env);
   if (!RegisterWaitForSingleObject(&watch->wait, created.hProcess, OnProcessExited, watch, INFINITE,
                                    WT_EXECUTEONLYONCE)) {

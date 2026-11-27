@@ -2,7 +2,7 @@ import {
   TerminalIdentityRawInputs,
   TerminalIdentityReadContext
 } from './terminal-identity-read-context'
-import { OrcaRuntimeWithMailboxTerminalIdentity } from '../../orchestration/mailbox/routing/mailbox-terminal-identity'
+import { OpenKodoRuntimeWithMailboxTerminalIdentity } from '../../orchestration/mailbox/routing/mailbox-terminal-identity'
 import type {
   RuntimeLeafRecord,
   RuntimePtyWorktreeRecord
@@ -33,7 +33,7 @@ import { readTerminalTail } from '../output/tail/terminal-tail-read'
 import { structuredWorkerTerminalRefusal } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-terminal-refusal'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 
-export abstract class OrcaRuntimeWithBuildPtyTerminalSummary extends OrcaRuntimeWithMailboxTerminalIdentity {
+export abstract class OpenKodoRuntimeWithBuildPtyTerminalSummary extends OpenKodoRuntimeWithMailboxTerminalIdentity {
   protected abstract bindPtyIncarnationHandle(
     retained: PtyIncarnationHandleRecord,
     leaf: RuntimeLeafRecord

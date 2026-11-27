@@ -3,12 +3,12 @@
 import type { Automation } from '../../shared/automations/automation-definition'
 import { botAutomationFacts } from '../../shared/bots/bot-automation-rows'
 import type { AutomationOnceEffects } from '../automations/automation-trigger-runs'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
-import { appendOrcaChatCard } from '../runtime/orca-chat-card'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
+import { appendOpenKodoChatCard } from '../runtime/openkodo-chat-card'
 import { runtimeBotChats } from './bot-chat-session'
 import { botChatTakingMail } from '../runtime/rpc/methods/bots-chats'
 
-export function runtimeBotWaits(runtime: OrcaRuntimeService): AutomationOnceEffects {
+export function runtimeBotWaits(runtime: OpenKodoRuntimeService): AutomationOnceEffects {
   const chats = runtimeBotChats(runtime)
   // Never fails the expiry it reports.
   const expiredCard = async (automation: Automation): Promise<void> => {
@@ -22,7 +22,7 @@ export function runtimeBotWaits(runtime: OrcaRuntimeService): AutomationOnceEffe
         ? await botChatTakingMail(runtime, bot, target.chat.sessionId)
         : null
       const sessionId = chosen?.sessionId ?? (await chats.ensure(bot.id))
-      appendOrcaChatCard(
+      appendOpenKodoChatCard(
         sessionId,
         {
           kind: 'wait-ended',

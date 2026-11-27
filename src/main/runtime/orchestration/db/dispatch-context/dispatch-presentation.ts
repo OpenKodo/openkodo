@@ -52,14 +52,15 @@ export function listSessionDispatchesForPresentation(
 ): { dispatch: DispatchContextRow; order: number }[] {
   const candidates = readPresentationDispatchCandidates(this, now).filter(
     (row) =>
-      row.assignee_orca_session_id && (!sessions || sessions.includes(row.assignee_orca_session_id))
+      row.assignee_openkodo_session_id &&
+      (!sessions || sessions.includes(row.assignee_openkodo_session_id))
   )
   const newestActiveOrderBySession = new Map<string, number>()
   const selected = new Map<string, (typeof candidates)[number]>()
   for (const candidate of candidates) {
     // Include handled rows even when a newer non-public row later suppresses their address.
     if (candidate.status === 'pending' || candidate.status === 'dispatched') {
-      const session = candidate.assignee_orca_session_id
+      const session = candidate.assignee_openkodo_session_id
       if (session) {
         newestActiveOrderBySession.set(
           session,
@@ -68,8 +69,8 @@ export function listSessionDispatchesForPresentation(
       }
     }
     const address = presentationAddressKey(
-      candidate.assignee_handle ? 'assignee_handle' : 'assignee_orca_session_id',
-      candidate.assignee_handle || candidate.assignee_orca_session_id
+      candidate.assignee_handle ? 'assignee_handle' : 'assignee_openkodo_session_id',
+      candidate.assignee_handle || candidate.assignee_openkodo_session_id
     )
     const previous = selected.get(address)
     const active = candidate.status === 'pending' || candidate.status === 'dispatched'
@@ -92,7 +93,7 @@ export function listSessionDispatchesForPresentation(
   for (const [column, active] of [
     ['assignee_handle', true],
     ['assignee_handle', false],
-    ['assignee_orca_session_id', false]
+    ['assignee_openkodo_session_id', false]
   ] as const) {
     const addresses = eligible
       .filter(
@@ -123,7 +124,7 @@ export function listSessionDispatchesForPresentation(
     const active = dispatch.status === 'pending' || dispatch.status === 'dispatched'
     const latest =
       active && !candidate.assignee_handle
-        ? newestActiveOrderBySession.get(candidate.assignee_orca_session_id ?? '')
+        ? newestActiveOrderBySession.get(candidate.assignee_openkodo_session_id ?? '')
         : latestOrderByAddress.get(address)
     if (latest !== presentation_order) {
       continue

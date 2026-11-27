@@ -5,7 +5,7 @@ import { getClaudeProfileRouter } from '../../../claude-accounts/profiles/routin
 import { claudeRoutedHomeAsync } from '../../../claude-accounts/profiles/routing/claude-profile-routed-home'
 import { normalizeCodexRuntimeSelection } from '../../../codex-accounts/account-management/runtime-selection'
 import {
-  resolveOrcaManagedCodexHomePath,
+  resolveOpenKodoManagedCodexHomePath,
   getSystemCodexHomePath
 } from '../../../codex/configuration/homes/codex-home-paths'
 import { resolveAbsoluteDirOverride } from '../../../../shared/file-access/absolute-dir-override'
@@ -90,7 +90,7 @@ export function resolveStructuredCodexAccountKind(
   if (same(getSystemCodexHomePath())) {
     return 'system'
   }
-  if (same(resolveOrcaManagedCodexHomePath())) {
+  if (same(resolveOpenKodoManagedCodexHomePath())) {
     return normalizeCodexRuntimeSelection(settings).host ? 'managed' : 'system'
   }
   return undefined

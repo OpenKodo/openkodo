@@ -8,7 +8,7 @@ import {
  * Names the user gave terminal tabs, remembered per agent session so Session History keeps them
  * after the tab closes and a resume can name its new tab. Kept on this client only.
  */
-export const TERMINAL_SESSION_NAMES_STORAGE_KEY = 'orca.aiVault.terminalSessionNames.v1'
+export const TERMINAL_SESSION_NAMES_STORAGE_KEY = 'openkodo.aiVault.terminalSessionNames.v1'
 export const TERMINAL_SESSION_NAMES_MAX_ENTRIES = 500
 const TITLE_MAX_LENGTH = 200
 

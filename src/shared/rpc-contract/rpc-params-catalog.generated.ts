@@ -46,8 +46,8 @@ import {
 } from '../browser/client-hosting/desktop-browser-bridge-protocol'
 import { MobileWebBundleChunkParamsSchema } from '../mobile-web-bundle/bundle-rpc-contract'
 import { MobileWebBundleLocaleCatalogParamsSchema } from '../mobile-web-bundle/locale-catalog-contract'
-import { OrcadMigrationBlobChunkRequestSchema } from '../orcad-migration/orcad-migration-blob-transfer'
-import { OrcadMigrationSnapshotChunkRequestSchema } from '../orcad-migration/orcad-migration-scrollback'
+import { OpenkododMigrationBlobChunkRequestSchema } from '../openkodod-migration/openkodod-migration-blob-transfer'
+import { OpenkododMigrationSnapshotChunkRequestSchema } from '../openkodod-migration/openkodod-migration-scrollback'
 import {
   WorkerDockAcknowledge,
   WorkerDockRead,
@@ -62,13 +62,13 @@ import {
 } from '../orchestration/orchestration-crew'
 import { PeerRunCancelParams } from '../orchestration/remote-owned-wire'
 import {
-  OrcadDeclareClientParamsSchema,
-  OrcadPeerDesktopsParamsSchema
-} from '../remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
-import { OrcadTerminalCensusParamsSchema } from '../remote-runtime/orcad-lifecycle/orcad-terminal-census'
+  OpenkododDeclareClientParamsSchema,
+  OpenkododPeerDesktopsParamsSchema
+} from '../remote-runtime/openkodod-lifecycle/openkodod-peer-desktops-contract'
+import { OpenkododTerminalCensusParamsSchema } from '../remote-runtime/openkodod-lifecycle/openkodod-terminal-census'
 import { DelegatedMobileDeviceSyncParamsSchema } from '../remote-runtime/pairing/delegated-mobile-device-contract'
 import { RegisterDeviceKeyParamsSchema } from '../remote-runtime/pairing/device-key-registration-contract'
-import { DeclareOrcaAccountParamsSchema } from '../remote-runtime/pairing/paired-desktop-account-contract'
+import { DeclareOpenKodoAccountParamsSchema } from '../remote-runtime/pairing/paired-desktop-account-contract'
 import { PairingCreateOfferParamsSchema } from '../remote-runtime/pairing/pairing-create-offer-contract'
 import { ExchangePairingTicketParamsSchema } from '../remote-runtime/pairing/ticket-exchange-contract'
 import {
@@ -582,10 +582,10 @@ import {
   ManagedServerUpdate
 } from './host-management/managed-server-params'
 import {
-  OrcadMigrationCatalogParams,
-  OrcadMigrationCatalogReferenceParams,
-  OrcadMigrationCommitCatalogParams
-} from './host-management/orcad-migration-params'
+  OpenkododMigrationCatalogParams,
+  OpenkododMigrationCatalogReferenceParams,
+  OpenkododMigrationCommitCatalogParams
+} from './host-management/openkodod-migration-params'
 import { RecipeVmWakeParams } from './host-management/recipe-vm-wake-params'
 import { ClientCapabilitiesUpdate } from './host-management/runtime-client-capabilities-params'
 import { StatusGetParams } from './host-management/status-params'
@@ -683,13 +683,13 @@ import {
   NotificationsSubscribeParams
 } from './notifications/notifications-params'
 import {
-  OrcaAccountSelectOrgParams,
-  OrcaAccountSignInCompleteParams,
-  OrcaAccountSignInFlowParams,
-  OrcaAccountSignInStartParams,
-  OrcaAccountSignInWaitParams,
-  OrcaAccountUnsubscribeParams
-} from './orca-account-params'
+  OpenKodoAccountSelectOrgParams,
+  OpenKodoAccountSignInCompleteParams,
+  OpenKodoAccountSignInFlowParams,
+  OpenKodoAccountSignInStartParams,
+  OpenKodoAccountSignInWaitParams,
+  OpenKodoAccountUnsubscribeParams
+} from './openkodo-account-params'
 import { ApprovalAnswerParams } from './orchestration/orchestration-approval-answer-params'
 import {
   FederationDispatchParams,
@@ -1806,10 +1806,10 @@ export const RPC_PARAMS_BY_METHOD = {
   'google.signIn.start': GoogleSignInStartParams,
   'google.signIn.wait': GoogleSignInWaitParams,
   'google.status': GoogleStatusParams,
-  'host.declareAccount': DeclareOrcaAccountParamsSchema,
-  'host.declareClient': OrcadDeclareClientParamsSchema,
+  'host.declareAccount': DeclareOpenKodoAccountParamsSchema,
+  'host.declareClient': OpenkododDeclareClientParamsSchema,
   'host.gitBash.isAvailable': null,
-  'host.peerDesktops': OrcadPeerDesktopsParamsSchema,
+  'host.peerDesktops': OpenkododPeerDesktopsParamsSchema,
   'host.platform': null,
   'host.pwsh.isAvailable': null,
   'host.wsl.isAvailable': null,
@@ -1954,23 +1954,23 @@ export const RPC_PARAMS_BY_METHOD = {
   'notifications.testPush': null,
   'notifications.unregisterPush': null,
   'notifications.unsubscribe': NotificationUnsubscribeParams,
-  'orcaAccount.selectOrg': OrcaAccountSelectOrgParams,
-  'orcaAccount.signIn.cancel': OrcaAccountSignInFlowParams,
-  'orcaAccount.signIn.complete': OrcaAccountSignInCompleteParams,
-  'orcaAccount.signIn.start': OrcaAccountSignInStartParams,
-  'orcaAccount.signIn.wait': OrcaAccountSignInWaitParams,
-  'orcaAccount.signOut': null,
-  'orcaAccount.status': null,
-  'orcaAccount.subscribe': null,
-  'orcaAccount.unsubscribe': OrcaAccountUnsubscribeParams,
-  'orcad.migration.abortCatalog': OrcadMigrationCatalogParams,
-  'orcad.migration.abortCatalogByReference': OrcadMigrationCatalogReferenceParams,
-  'orcad.migration.catalogState': OrcadMigrationCatalogParams,
-  'orcad.migration.commitCatalog': OrcadMigrationCommitCatalogParams,
-  'orcad.migration.stageBlobChunk': OrcadMigrationBlobChunkRequestSchema,
-  'orcad.migration.stageCatalog': OrcadMigrationCatalogParams,
-  'orcad.migration.stageSnapshotChunk': OrcadMigrationSnapshotChunkRequestSchema,
-  'orcad.terminalCensus': OrcadTerminalCensusParamsSchema,
+  'openkodoAccount.selectOrg': OpenKodoAccountSelectOrgParams,
+  'openkodoAccount.signIn.cancel': OpenKodoAccountSignInFlowParams,
+  'openkodoAccount.signIn.complete': OpenKodoAccountSignInCompleteParams,
+  'openkodoAccount.signIn.start': OpenKodoAccountSignInStartParams,
+  'openkodoAccount.signIn.wait': OpenKodoAccountSignInWaitParams,
+  'openkodoAccount.signOut': null,
+  'openkodoAccount.status': null,
+  'openkodoAccount.subscribe': null,
+  'openkodoAccount.unsubscribe': OpenKodoAccountUnsubscribeParams,
+  'openkodod.migration.abortCatalog': OpenkododMigrationCatalogParams,
+  'openkodod.migration.abortCatalogByReference': OpenkododMigrationCatalogReferenceParams,
+  'openkodod.migration.catalogState': OpenkododMigrationCatalogParams,
+  'openkodod.migration.commitCatalog': OpenkododMigrationCommitCatalogParams,
+  'openkodod.migration.stageBlobChunk': OpenkododMigrationBlobChunkRequestSchema,
+  'openkodod.migration.stageCatalog': OpenkododMigrationCatalogParams,
+  'openkodod.migration.stageSnapshotChunk': OpenkododMigrationSnapshotChunkRequestSchema,
+  'openkodod.terminalCensus': OpenkododTerminalCensusParamsSchema,
   'orchestration.approvalAnswer': ApprovalAnswerParams,
   'orchestration.ask': AskParams,
   'orchestration.callerShow': null,
@@ -2164,19 +2164,19 @@ export const RPC_PARAMS_BY_METHOD = {
   'sidebarInputs.workspaceCreations': null,
   'sidebarInputs.workspaceRows': null,
   'sidebarSession.begin': SidebarSessionBeginParams,
-  'skills.autoUpdateBundledOrca': BundledSkillAutoUpdateRequestSchema,
+  'skills.autoUpdateBundledOpenKodo': BundledSkillAutoUpdateRequestSchema,
   'skills.beginUpload': SkillUploadBeginRequestSchema,
   'skills.cancelInstall': SkillsCancelInstallParams,
   'skills.cancelUpload': SkillUploadCommitRequestSchema,
   'skills.commitUpload': SkillUploadCommitRequestSchema,
   'skills.delete': SkillDeleteRequestSchema,
   'skills.discover': SkillsDiscoverParams,
-  'skills.executeBundledOrca': BundledSkillExecuteRequestSchema,
+  'skills.executeBundledOpenKodo': BundledSkillExecuteRequestSchema,
   'skills.getInstallProgress': SkillsGetInstallProgressParams,
   'skills.install': SkillInstallRequestSchema,
   'skills.installBundle': SkillBundleInstallRequestSchema,
   'skills.listManagedInstalls': null,
-  'skills.planBundledOrca': BundledSkillPlanRequestSchema,
+  'skills.planBundledOpenKodo': BundledSkillPlanRequestSchema,
   'skills.previewDelete': SkillDeleteRequestSchema,
   'skills.previewInstall': SkillInstallPreviewRequestSchema,
   'skills.removeInstall': SkillRemoveRequestSchema,

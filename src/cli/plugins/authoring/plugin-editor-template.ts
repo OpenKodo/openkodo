@@ -9,7 +9,7 @@ import {
   type PluginTemplateInput
 } from './plugin-template-files'
 
-// The rich-editor recipe as a starting point: a TypeScript editor on `orca.document.session`, its
+// The rich-editor recipe as a starting point: a TypeScript editor on `openkodo.document.session`, its
 // sync tested in Node with `mockEditorHost`. Sandboxed frame code, so loading it needs `--approve`.
 
 const MAIN_TS = `import { start } from './sync'
@@ -20,7 +20,7 @@ const text = document.createElement('textarea')
 text.spellcheck = false
 text.style.cssText =
   'box-sizing:border-box;width:100%;height:100vh;margin:0;padding:12px;border:0;resize:none;' +
-  'font:13px ui-monospace,monospace;color:var(--orca-foreground);background:var(--orca-background)'
+  'font:13px ui-monospace,monospace;color:var(--openkodo-foreground);background:var(--openkodo-background)'
 document.body.style.margin = '0'
 document.body.append(text)
 
@@ -47,7 +47,7 @@ export function mergeText(base: string, outside: string, mine: string): string {
 
 /** The only code that talks to OpenKodo: sends edits, keeps unsaved typing, merges outside writes. */
 export function start() {
-  const document = orca.document
+  const document = openkodo.document
   if (!document) {
     throw new Error('this file runs as a custom editor')
   }
@@ -55,7 +55,7 @@ export function start() {
 }
 `
 
-const SYNC_TEST_TS = `import { assert, mockEditorHost, test } from 'orca/testing'
+const SYNC_TEST_TS = `import { assert, mockEditorHost, test } from 'openkodo/testing'
 import { start } from './sync'
 
 test('merges an outside write that lands while an edit waits', async () => {
@@ -105,7 +105,7 @@ export function editor(input: PluginTemplateInput): PluginTemplate {
       }),
       'README.md': readme(
         input,
-        `A custom editor for \`${extension}\` files, in TypeScript with no build step. \`editor/sync.ts\` keeps the file in step through \`orca.document.session\` (replace its stand-in \`mergeText\` with your format's merge), and \`editor/main.ts\` is the view. \`openkodo plugin test .\` runs \`editor/sync.test.ts\` in Node with \`mockEditorHost\`; \`openkodo plugin check .\` reads every file the editor loads; \`openkodo plugin shot <plugin-key> --editor <file>\` saves a PNG of it. \`"frame": "isolated"\` keeps it to the OpenKodo desktop app. Loading it needs approval: \`openkodo plugin dev watch .\` prints the exact access and the \`--approve\` fingerprint.`
+        `A custom editor for \`${extension}\` files, in TypeScript with no build step. \`editor/sync.ts\` keeps the file in step through \`openkodo.document.session\` (replace its stand-in \`mergeText\` with your format's merge), and \`editor/main.ts\` is the view. \`openkodo plugin test .\` runs \`editor/sync.test.ts\` in Node with \`mockEditorHost\`; \`openkodo plugin check .\` reads every file the editor loads; \`openkodo plugin shot <plugin-key> --editor <file>\` saves a PNG of it. \`"frame": "isolated"\` keeps it to the OpenKodo desktop app. Loading it needs approval: \`openkodo plugin dev watch .\` prints the exact access and the \`--approve\` fingerprint.`
       ),
       ...COMMON_FILES
     }

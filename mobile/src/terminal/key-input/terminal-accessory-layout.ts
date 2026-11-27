@@ -5,7 +5,7 @@ import './terminal-accessory-keys'
 import type { TerminalAccessoryKey } from './terminal-accessory-keys'
 import { TERMINAL_ACCESSORY_KEY_DEFINITIONS as TERMINAL_ACCESSORY_KEYS } from './terminal-key-definitions'
 
-export const TERMINAL_ACCESSORY_LAYOUT_STORAGE_KEY = 'orca:terminal-accessory-layout'
+export const TERMINAL_ACCESSORY_LAYOUT_STORAGE_KEY = 'openkodo:terminal-accessory-layout'
 
 export type TerminalAccessoryLayout = {
   orderedBuiltInIds: string[]

@@ -8,7 +8,7 @@ import {
 } from '../../shared/agent-session/view/structured-agent-session-projection'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 import type { OwnerNotice } from '../runtime/push/notifications/runtime-mobile-notification-controller'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { BOT_FOLDER_MISSING } from '../automations/bot-run-target'
 import { botOwnerNoticeText } from './bot-owner-notice-copy'
 
@@ -27,7 +27,7 @@ export const BOT_COULD_NOT_FINISH_COPY = {
 }
 
 /** The runtime's owner notice, for every bot alert. */
-export function runtimeBotOwnerNotice(runtime: OrcaRuntimeService): BotOwnerNoticeDeps {
+export function runtimeBotOwnerNotice(runtime: OpenKodoRuntimeService): BotOwnerNoticeDeps {
   return {
     notify: (notice) => {
       if (notice.worktreeId && runtime.isWorkspaceNotificationMuted(notice.worktreeId)) {

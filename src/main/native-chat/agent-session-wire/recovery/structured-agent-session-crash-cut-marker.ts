@@ -15,7 +15,7 @@ import {
 import { agentSessionProviderHandleChainHead } from '../../../../shared/agent-session/lifecycle/provider-handles/agent-session-provider-handle'
 import { agentSessionProviderHandleRoot } from '../../../../shared/agent-session/lifecycle/provider-handles/agent-session-provider-handle-encoding'
 import { readAgentJournalTurn } from '../../../../shared/agent-session/lifecycle/records/agent-session-turn-record'
-import { orcaStopCauseOfRow } from '../../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import { openkodoStopCauseOfRow } from '../../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import {
   isBackgroundTaskBlock,
   isSubagentBlock,
@@ -109,7 +109,9 @@ export function crashCutResumeMarker(input: {
   const tasks = lostTasks(settled, turnItem.itemId)
   // Only this turn's cut counts; a cut turn is itself settled, so a row outside it adds nothing.
   const provenCut =
-    settled.some((item) => inTurn(item, turnItem.itemId) && orcaStopCauseOfRow(item) === 'crash') ||
+    settled.some(
+      (item) => inTurn(item, turnItem.itemId) && openkodoStopCauseOfRow(item) === 'crash'
+    ) ||
     (settled.includes(turnItem) && turn.state === 'interrupted')
   // No proof its agent exited: it may still be running, so only a person may continue it.
   const exitUnproven = !provenCut && settled.includes(turnItem) && turn.state === 'unverifiable'
@@ -126,7 +128,7 @@ export function crashCutResumeMarker(input: {
     // Settlement stamps the cut with how its run ended: a quit killed mid-teardown reads as a quit.
     trigger:
       settled.flatMap(
-        (item) => (inTurn(item, turnItem.itemId) && orcaStopCauseOfRow(item)) || []
+        (item) => (inTurn(item, turnItem.itemId) && openkodoStopCauseOfRow(item)) || []
       )[0] ?? 'crash',
     teardownId: crashCutTeardownId(input.crashedRuntime),
     journalCursor: cursor,

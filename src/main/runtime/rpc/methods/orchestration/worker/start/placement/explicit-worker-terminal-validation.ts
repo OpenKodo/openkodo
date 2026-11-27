@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../../../orchestration/orchestration-error'
 import { refuseUnmatchedWorkerSelector } from '../worker-start-selector-refusal'
 import { isPeerCaller } from '../../../../../../orchestration/addressing/orchestration-caller-identity'
@@ -8,8 +8,8 @@ import type {
   OrchestrationPartyIdentity as OrchestrationParty
 } from '../../../../../../../../shared/orchestration/mailbox/orchestration-party-identity'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
-import type { OrcaSessionId } from '../../../../../../../../shared/agent-session/identity/orca-session-address'
-import { formatOrcaSessionAddress } from '../../../../../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../../../../../shared/agent-session/identity/openkodo-session-address'
+import { formatOpenKodoSessionAddress } from '../../../../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
   admitChatAssignee,
   chatAssigneeOf,
@@ -18,7 +18,7 @@ import {
 
 /** Before any effects, refuse coordinator self-assignment, foreign-workspace panes and terminals without agents. */
 export async function assertExplicitWorkerTerminalUsable(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   terminal: string
   from: string
   coordinator: OrchestrationCallerIdentity | null
@@ -68,7 +68,7 @@ export async function assertExplicitWorkerTerminalUsable(args: {
 
 /** `--terminal` without `--worktree` starts where that terminal or chat already is, not in the caller's workspace. */
 export async function explicitWorkerWorkspace(
-  runtime: Pick<OrcaRuntimeService, 'showTerminal' | 'ensureStructuredAgentSessionHost'>,
+  runtime: Pick<OpenKodoRuntimeService, 'showTerminal' | 'ensureStructuredAgentSessionHost'>,
   db: OrchestrationDb,
   terminal: OrchestrationParty | '' | undefined
 ): Promise<string> {
@@ -88,7 +88,7 @@ export async function explicitWorkerWorkspace(
 
 /** A `--terminal` party: a terminal pane, or a chat named by its OpenKodo session ID. */
 export async function assertExplicitWorkerUsable(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   terminal: OrchestrationParty
   from: string
@@ -103,22 +103,22 @@ export async function assertExplicitWorkerUsable(args: {
 
 /** The same refusals for a chat named by its OpenKodo session ID: itself, unreachable, another worktree. */
 async function assertExplicitWorkerChatUsable(args: {
-  runtime: Pick<OrcaRuntimeService, 'ensureStructuredAgentSessionHost'>
+  runtime: Pick<OpenKodoRuntimeService, 'ensureStructuredAgentSessionHost'>
   db: OrchestrationDb
-  chat: OrcaSessionId
+  chat: OpenKodoSessionId
   coordinator: OrchestrationCallerIdentity | null
   resolvedWorktreeId: string | undefined
 }): Promise<void> {
   refuseChatSelfAssignment({
     sessionId: args.chat,
-    coordinatorSessionId: args.coordinator?.orcaSessionId,
+    coordinatorSessionId: args.coordinator?.openkodoSessionId,
     remedy: 'Pass --terminal for a different agent, or omit it so worker-start creates one.'
   })
   const session = await admitChatAssignee(args.runtime, args.chat, args.db)
   if (session.location.workspaceId !== args.resolvedWorktreeId) {
     throw new OrchestrationError(
       'terminal_worktree_mismatch',
-      `${formatOrcaSessionAddress(args.chat)} does not belong to worktree ${args.resolvedWorktreeId}.`
+      `${formatOpenKodoSessionAddress(args.chat)} does not belong to worktree ${args.resolvedWorktreeId}.`
     )
   }
 }

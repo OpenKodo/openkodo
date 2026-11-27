@@ -7,7 +7,7 @@ export const INSTALL_LOCK_HOLDER_FILENAME = '.holder-flock'
 // The holder's pid, so an owner that gave up on it can stop it before it marks the lock late.
 const HOLDER_PID_FILENAME = '.holder-pid'
 // In the holder's own command line beside its token, so a kill can check the pid is still that holder.
-const HOLDER_ARGV_TAG = 'orca-install-lock-holder'
+const HOLDER_ARGV_TAG = 'openkodo-install-lock-holder'
 const HOLDER_MARKER = 'held'
 /** Exit status of a fenced command whose lock another owner now holds. */
 export const INSTALL_LOCK_FENCE_EXIT_CODE = 75

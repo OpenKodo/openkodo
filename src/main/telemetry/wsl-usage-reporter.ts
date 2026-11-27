@@ -126,7 +126,7 @@ async function readWslHostDistros(userDataPath: string): Promise<Map<string, str
     return new Map(
       (await listEnvironments(userDataPath))
         .filter(isWslHostRuntimeEnvironment)
-        .map((environment) => [environment.id, environment.orcadDeployment.distro])
+        .map((environment) => [environment.id, environment.openkododDeployment.distro])
     )
   } catch {
     return new Map()

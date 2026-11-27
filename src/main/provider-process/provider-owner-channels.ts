@@ -26,7 +26,7 @@ export class ProviderOwnerListener {
   async listen(): Promise<string> {
     // Darwin's Unix socket path limit is 104 bytes; its per-user TMPDIR can already exceed it.
     this.directory = await mkdtemp(
-      join(process.platform === 'darwin' ? '/tmp' : tmpdir(), 'orca-provider-')
+      join(process.platform === 'darwin' ? '/tmp' : tmpdir(), 'openkodo-provider-')
     )
     await chmod(this.directory, 0o700)
     if (this.stopped) {

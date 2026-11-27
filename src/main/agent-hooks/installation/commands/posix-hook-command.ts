@@ -15,7 +15,11 @@ export function wrapPosixHookCommand(
   env: Record<string, string> = {},
   // Gate events treat silence as denial, so missing scripts may need fallback stdout.
   // Hosts that ignore unread stdin may exit outside OpenKodo before the drain spawns `cat`.
-  options: { fallbackStdout?: string; stdinMayStayOpen?: boolean; exitOutsideOrca?: boolean } = {}
+  options: {
+    fallbackStdout?: string
+    stdinMayStayOpen?: boolean
+    exitOutsideOpenKodo?: boolean
+  } = {}
 ): string {
   // Keep arbitrary paths literal across shell metacharacters.
   const quoted = quotePosixShell(scriptPath)
@@ -31,7 +35,7 @@ export function wrapPosixHookCommand(
       ? drain
       : `printf '%s\\n' ${quotePosixShell(options.fallbackStdout)}; ${drain}`
   const fileGuards = [`[ -f ${quoted} ]`, `[ -r ${quoted} ]`, `[ -x ${quoted} ]`]
-  if (options.exitOutsideOrca) {
+  if (options.exitOutsideOpenKodo) {
     return `${POSIX_OPENKODO_PANE_GUARD} || exit 0; if ${fileGuards.join(' && ')}; then ${invocation}; else ${fallback}; fi`
   }
   const guards = [POSIX_OPENKODO_PANE_GUARD, ...fileGuards].join(' && ')

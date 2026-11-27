@@ -73,7 +73,7 @@ const send = (conversation: ConnectorConversation, text: string, extra = {}) => 
 let orchestration: OrchestrationDb
 
 beforeEach(() => {
-  testState.dir = mkdtempSync(join(tmpdir(), 'orca-thread-mute-'))
+  testState.dir = mkdtempSync(join(tmpdir(), 'openkodo-thread-mute-'))
   orchestration = new OrchestrationDb(join(testState.dir, 'orchestration.db'))
 })
 

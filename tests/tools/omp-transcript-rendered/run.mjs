@@ -44,7 +44,7 @@ const app = await electron.launch({
 })
 const report = {
   scope:
-    'Production desktop message list renders actual OMP SessionManager transcripts read through Orca; hidden Electron fixture, no full shell or model turn.',
+    'Production desktop message list renders actual OMP SessionManager transcripts read through OpenKodo; hidden Electron fixture, no full shell or model turn.',
   results: []
 }
 try {

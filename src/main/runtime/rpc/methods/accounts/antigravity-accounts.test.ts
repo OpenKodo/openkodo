@@ -58,12 +58,15 @@ it("selecting another host account lists the host agy catalog again and leaves O
   agy.set('host', host.service)
   const [hostAgy] = antigravityHostCatalogFingerprints()
   saveCatalog(hostAgy!)
-  saveCatalog('orca-home')
+  saveCatalog('openkodo-home')
   if ('stream' in select) {
     throw new Error('select streams')
   }
   await select.handler({ target: { runtime: 'host' }, accountId: host.b }, context)
-  expect([store.shouldRefresh(hostAgy!), store.shouldRefresh('orca-home')]).toEqual([true, false])
+  expect([store.shouldRefresh(hostAgy!), store.shouldRefresh('openkodo-home')]).toEqual([
+    true,
+    false
+  ])
 })
 
 it("selecting a WSL distro's account reads its agy login only as the switch needs", async () => {

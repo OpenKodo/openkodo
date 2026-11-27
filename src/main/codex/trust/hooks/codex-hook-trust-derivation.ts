@@ -2,7 +2,7 @@ import { realpathSync, statSync } from 'node:fs'
 import { mkdir, mkdtemp, readdir, realpath, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { removeTree } from '../../../../shared/file-write/windows-transient-lock-removal'
 import '../../../codex-cli/command'
 import { withCliRuntimeOnPath } from '../../../../shared/shell/command-resolution/node-cli-command-resolution'
@@ -39,7 +39,7 @@ const DERIVE_TIMEOUT_MS = 30_000
 const SCRATCH_DUMMY_HOOK = { type: 'command', command: 'exit 0' }
 const SCRATCH_OPENKODO_GROUP_INDEXES = [0, 2] as const
 const SCRATCH_DUMMY_GROUP_INDEX = 1
-const SCRATCH_PREFIXES = ['orca-codex-hook-trust-', 'orca-codex-version-'] as const
+const SCRATCH_PREFIXES = ['openkodo-codex-hook-trust-', 'openkodo-codex-version-'] as const
 // An hour exceeds any probe's lifetime; older scratch homes were abandoned.
 const STALE_SCRATCH_MS = 60 * 60_000
 
@@ -101,8 +101,11 @@ export async function deriveCodexHookHashes(
 export function buildScratchHooksJson(hookCommand: string, positionCopy: boolean): string {
   const hooks = Object.fromEntries(
     CODEX_EVENTS.map((eventName) => {
-      const orca = { hooks: [buildCodexManagedHook(hookCommand, eventName)] }
-      return [eventName, positionCopy ? [orca, { hooks: [SCRATCH_DUMMY_HOOK] }, orca] : [orca]]
+      const openkodo = { hooks: [buildCodexManagedHook(hookCommand, eventName)] }
+      return [
+        eventName,
+        positionCopy ? [openkodo, { hooks: [SCRATCH_DUMMY_HOOK] }, openkodo] : [openkodo]
+      ]
     })
   )
   return `${JSON.stringify({ hooks }, null, 2)}\n`

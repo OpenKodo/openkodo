@@ -80,7 +80,7 @@ export async function readPiHistoryJournalView(
         }
         if (
           body.kind === 'turn' ||
-          (identity?.provider === 'orca' && body.kind === 'message' && !queued.has(itemId))
+          (identity?.provider === 'openkodo' && body.kind === 'message' && !queued.has(itemId))
         ) {
           ownWorkSequence = Math.max(ownWorkSequence, sequence)
         }

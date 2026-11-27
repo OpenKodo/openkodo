@@ -41,7 +41,7 @@ import { botHomeFolder } from '../../../bots/bot-home'
 import { listedBotsFacts } from './bots-list-facts'
 import { normalizeBotSidebarView } from '../../../../shared/bots/bot-sidebar-view'
 import { OWNER_ACTS_FOR } from '../../../../shared/bots/bot-acts-for'
-import { orcaSignInServer } from '../../../bots/orca-sign-in-server'
+import { openkodoSignInServer } from '../../../bots/openkodo-sign-in-server'
 import { refuseUnsavedFolderDrafts } from '../../repositories/folder-workspace-deletion'
 
 async function updateBot(params: BotUpdateParams, context: RpcContext) {
@@ -119,7 +119,7 @@ export const BOT_METHODS = [
     handler: async (_params, { runtime }) => {
       const webhooks = runtime.getWebhooks()
       const listing = runtime.bots.listing()
-      const signInServer = orcaSignInServer(runtime)
+      const signInServer = openkodoSignInServer(runtime)
       return {
         ...listing,
         // The host's Bot options, so a phone lists its bots as this sidebar does.

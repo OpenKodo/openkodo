@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { Alert, Linking, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation, useNavigationContainerRef, useRouter } from 'expo-router'
-import { OrcaMobileWebShellView } from '../../modules/orca-mobile-web-shell/src/index'
-import { parseMobileWebShellLoadState } from '../../modules/orca-mobile-web-shell/src/load-state'
+import { OpenKodoMobileWebShellView } from '../../modules/openkodo-mobile-web-shell/src/index'
+import { parseMobileWebShellLoadState } from '../../modules/openkodo-mobile-web-shell/src/load-state'
 import { HostRouteNoticeBanner } from '../components/host-connection/HostRouteNoticeBanner'
 import { colors } from '../theme/mobile-theme'
 import { themedStyleSheet } from '../theme/themed-styles'
@@ -389,7 +389,7 @@ export function MobileWebShellScreen({
           onDismiss={() => setNoticeDismissedFor(state.sessionId)}
         />
       )}
-      <OrcaMobileWebShellView
+      <OpenKodoMobileWebShellView
         key={state.sessionId}
         ref={bridge.viewRef}
         // Overlays cannot cover the screen beneath; hide their opaque WebView until first paint.

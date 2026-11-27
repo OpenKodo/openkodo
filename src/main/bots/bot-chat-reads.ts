@@ -1,7 +1,7 @@
 // What bot background work reads from a bot's chats: bounded journal windows, never a whole chat.
 import type { AgentJournalRenderItem } from '../../shared/agent-session/journal/agent-session-journal-types'
 import { indexBotGroupJournal } from '../../shared/bots/bot-group'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { requireStructuredHost } from './bot-chat-session'
 import type { JournalOperationWindowAnchors } from '../native-chat/agent-session-journal/journal-domain-operation-window'
 import { getStructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-registry'
@@ -35,7 +35,7 @@ export function botChatJournal(
   }
 }
 
-export function botChatReads(runtime: OrcaRuntimeService): BotChatReads {
+export function botChatReads(runtime: OpenKodoRuntimeService): BotChatReads {
   const window = async (sessionId: string, anchors: JournalOperationWindowAnchors) =>
     (
       await (

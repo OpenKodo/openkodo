@@ -9,8 +9,8 @@ import {
 } from './agent-session/open/open-located-agent-message-sender'
 import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
 import { showAgentPaneUnavailable } from '@/components/terminal-pane/agent-status/stale-agent-row'
-import { openAiVaultSessionLogInOrca } from '@/components/right-sidebar/ai-vault/session-actions/ai-vault-session-log-open'
-import { canOpenAiVaultSessionLogInOrca } from '@/components/right-sidebar/ai-vault/session-actions/ai-vault-session-path-actions'
+import { openAiVaultSessionLogInOpenKodo } from '@/components/right-sidebar/ai-vault/session-actions/ai-vault-session-log-open'
+import { canOpenAiVaultSessionLogInOpenKodo } from '@/components/right-sidebar/ai-vault/session-actions/ai-vault-session-path-actions'
 import {
   isAiVaultAgent,
   type AiVaultSession
@@ -130,8 +130,8 @@ export async function openWorkerTranscript(
             executionHostId: LOCAL_EXECUTION_HOST_ID
           }
         : null
-    if (log && canOpenAiVaultSessionLogInOrca(log)) {
-      if (await openAiVaultSessionLogInOrca(log, { notifyMissingWorkspace: false })) {
+    if (log && canOpenAiVaultSessionLogInOpenKodo(log)) {
+      if (await openAiVaultSessionLogInOpenKodo(log, { notifyMissingWorkspace: false })) {
         return
       }
     }

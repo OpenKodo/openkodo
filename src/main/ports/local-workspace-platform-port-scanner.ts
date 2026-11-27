@@ -1,5 +1,5 @@
 import { readFile, readlink } from 'node:fs/promises'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { LSOF_NONBLOCKING_ARGS } from '../../shared/process-observation/lsof-nonblocking-args'
 import { getProcessOutputFields } from '../../shared/process-observation/process-output-field-scanner'
 import { readWindowsProcessTable } from '../windows/windows-process-table'

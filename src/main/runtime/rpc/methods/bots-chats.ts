@@ -7,10 +7,10 @@ import type { BotRosterEntry } from '../../../../shared/bot-roster'
 import { botOfHomeWorkspace } from '../../../../shared/bots/bot-homes'
 import { BotChats, BotChatsSeen } from '../../../../shared/rpc-contract/bots-params'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
-import { createCanonicalOrcaSessionResolver } from '../../orchestration/addressing/session-lineage/canonical-orca-session-id'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
+import { createCanonicalOpenKodoSessionResolver } from '../../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import type { OrchestrationDb } from '../../orchestration/db/orchestration-db'
 import {
   clearedInto,
@@ -25,7 +25,7 @@ import {
 import { refuseUndeliverableSessionRecipientWith } from './orchestration/messaging/session-recipient'
 import { namedOrCallerBot } from './bots-caller-bot'
 import { defineMethod } from '../core'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import {
   isBotBackgroundRun,
   type BotBackgroundRuns
@@ -71,7 +71,7 @@ export const BOT_CHATS_METHODS = [BOT_CHATS_METHOD, BOT_CHATS_UNSEEN_METHOD, BOT
 /** A bot's chats on this host; with `all`, its closed ones (earlier Home Chats) too. */
 export async function readBotChats(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     'ensureStructuredAgentSessionHost' | 'getOrchestrationDb' | 'lookAround'
   >,
   bot: Pick<Bot, 'folderWorkspaceId' | 'chatSessionId'>,
@@ -94,7 +94,7 @@ export async function readBotChats(
  *  it now (a /clear moves it on); null when the bot has no such chat or it was closed. */
 export async function botChatTakingMail(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     'ensureStructuredAgentSessionHost' | 'getOrchestrationDb' | 'lookAround'
   >,
   bot: Pick<Bot, 'folderWorkspaceId' | 'chatSessionId'>,
@@ -138,7 +138,7 @@ export function botChatRecordRow(
   rootOf: (id: string) => string,
   homeRoot: string | null
 ): Omit<BotChatRow, 'self' | 'closed'> | null {
-  if (!isOrcaSessionId(record.sessionId) || clearedInto(record) !== null) {
+  if (!isOpenKodoSessionId(record.sessionId) || clearedInto(record) !== null) {
     return null
   }
   const id = rootOf(record.sessionId)
@@ -183,8 +183,8 @@ export function listBotChatsWith(
   backgroundRuns: BotBackgroundRuns
 ): BotChatRow[] {
   // A /clear keeps the conversation's address at its root, so each lineage is listed once, by that.
-  const root = createCanonicalOrcaSessionResolver(store)
-  const rootOf = (id: string | null) => (id && isOrcaSessionId(id) ? root(id) : null)
+  const root = createCanonicalOpenKodoSessionResolver(store)
+  const rootOf = (id: string | null) => (id && isOpenKodoSessionId(id) ? root(id) : null)
   const home = rootOf(bot.chatSessionId)
   const self = rootOf(callerSessionId)
   const rootOfChat = (id: string) => rootOf(id) ?? id
@@ -196,12 +196,12 @@ export function listBotChatsWith(
         !isBotBackgroundRun(backgroundRuns, record)
           ? botChatRecordRow(record, rootOfChat, home)
           : null
-      if (!row || !isOrcaSessionId(record.sessionId)) {
+      if (!row || !isOpenKodoSessionId(record.sessionId)) {
         return []
       }
       const recipient = {
         sessionId: record.sessionId,
-        address: formatOrcaSessionAddress(record.sessionId)
+        address: formatOpenKodoSessionAddress(record.sessionId)
       }
       // The delivery check itself, so a picker lists exactly the chats mail would reach.
       const refusal = refuseUndeliverableSessionRecipientWith(context, recipient, store)

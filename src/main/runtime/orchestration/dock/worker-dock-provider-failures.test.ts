@@ -13,10 +13,10 @@ import { makeStructuredAgentStatusSubject } from '../../../../shared/agent-statu
 it.each(['agent', 'command'] as const)(
   'retains a failed provider %s through a new turn and restart until its exact Clear',
   (kind) => {
-    const directory = mkdtempSync(join(tmpdir(), 'orca-provider-failure-'))
+    const directory = mkdtempSync(join(tmpdir(), 'openkodo-provider-failure-'))
     const file = join(directory, 'orchestration.db')
     const session = '11111111-1111-4111-8111-111111111111'
-    const party = `orca_session_id:${session}`
+    const party = `openkodo_session_id:${session}`
     let db = new OrchestrationDb(file)
     try {
       const parent = makeStructuredAgentStatusSubject(

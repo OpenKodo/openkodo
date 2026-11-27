@@ -167,13 +167,15 @@ async function antigravityPolicy(
 function dshPolicy(
   plan: CommitMessagePlan<GenerationArgument>
 ): CommitMessagePlan<GenerationArgument> {
-  const plugin = `export const inject = ['tools']\nexport function apply(ctx) {\n  ctx.tools.guard(exec => exec.name === 'read' ? undefined : 'This text task permits only file reads')\n  ctx.provide('orcaTextReadPolicy', Object.freeze({}))\n}\n`
+  const plugin = `export const inject = ['tools']\nexport function apply(ctx) {\n  ctx.tools.guard(exec => exec.name === 'read' ? undefined : 'This text task permits only file reads')\n  ctx.provide('openkodoTextReadPolicy', Object.freeze({}))\n}\n`
   const patch = JSON.stringify([
     { id: 'tools', config: { mode: 'native' } },
     {
-      insert: [{ id: 'orca-text-read-policy', name: `${TEXT_TASK_DIRECTORY}/text-task-policy.mjs` }]
+      insert: [
+        { id: 'openkodo-text-read-policy', name: `${TEXT_TASK_DIRECTORY}/text-task-policy.mjs` }
+      ]
     },
-    { id: 'headless-runner', inject: ['headlessStartup', 'orcaTextReadPolicy'] }
+    { id: 'headless-runner', inject: ['headlessStartup', 'openkodoTextReadPolicy'] }
   ])
   // Launcher overlays must precede its task operand and follow the user's overlays.
   const args = [...plan.args]

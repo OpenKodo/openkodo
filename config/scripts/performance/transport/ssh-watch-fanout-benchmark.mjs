@@ -67,7 +67,7 @@ assert.ok(REPO_PATHS.length > 0, 'Benchmark needs tracked paths')
 
 // Model multi-worktree host with explorer and base-directory watchers per root.
 function makeRoots(count) {
-  return Array.from({ length: count }, (_, index) => `/home/dev/worktrees/orca-${index}`)
+  return Array.from({ length: count }, (_, index) => `/home/dev/worktrees/openkodo-${index}`)
 }
 
 function makeEvents(roots, count) {

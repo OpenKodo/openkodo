@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { handBackReplayTargets } from '../../../../orchestration/db/messages/helper-mailbox-hand-back'
 import {
   readMutationReplayNudge,
@@ -12,7 +12,7 @@ import { followThroughWorkerReport, settledDispatchId } from './settled-worker-f
 
 /** An accepted send's replay redelivers its nudge and follow-through; undefined when it carries none. */
 export function replayAcceptedSend(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: z.infer<typeof SendParams>,
   replayedMutationReceipt: unknown
 ): { receipt: unknown } | undefined {

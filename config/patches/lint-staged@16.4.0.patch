@@ -48,7 +48,7 @@ index 3a32d6a9cd65c7ecb6b3cbccfce5a15c96530435..f91b1931224ce59df5cf9880248d4fad
 -      .split('\n')
 -      .filter(Boolean)
 -      .map((file) => path.resolve(this.topLevelDir, file))
-+    // Orca patch: `ls-files --deleted` lstat()s every tracked file one at a time, which takes tens
++    // OpenKodo patch: `ls-files --deleted` lstat()s every tracked file one at a time, which takes tens
 +    // of seconds when the stat cache is cold. `diff-files` reads the index with parallel lstat
 +    // (preload) instead. Like `ls-files --deleted`, it must not trust an fsmonitor (a stale one
 +    // would hide a deletion), so the monitor is turned off for this read-only query. It does
@@ -180,7 +180,7 @@ index 77ffe8f2423bb24ed80e2e23b57847a69c137195..822ff82c189cf712029e5e5870e5b3d9
        '--cached', // show all tracked files
 -      '--others', // show untracked files
 -      '--exclude-standard', // apply standard git exclusions (.gitignore, etc.)
-+      // Orca patch: no `--others`. Listing untracked files walks the whole worktree, which takes
++      // OpenKodo patch: no `--others`. Listing untracked files walks the whole worktree, which takes
 +      // seconds on a cold stat cache. Untracked configs in `cwd` and above are still found by
 +      // `listConfigFilesFromFs`; a nested config must be tracked or staged to apply.
        '--',

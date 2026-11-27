@@ -29,7 +29,7 @@ export function NativeChatNoticeAuthRecovery({
   block: NativeChatTextBlock
   agentName: string | undefined
 }): React.JSX.Element | null {
-  if (block.orcaStop !== undefined) {
+  if (block.openkodoStop !== undefined) {
     return null
   }
   const failure = readWholeAgentSessionFailureFact(block.failure)

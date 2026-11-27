@@ -6,7 +6,7 @@ const TITLEBAR_SAFE_TOP = 36
 const KEEP_CLEAR_GAP = 8
 
 export const FLOATING_TERMINAL_TRIGGER_POSITION_STORAGE_KEY =
-  'orca-floating-terminal-trigger-position-v2'
+  'openkodo-floating-terminal-trigger-position-v2'
 
 export type FloatingTerminalTriggerPosition = {
   left: number

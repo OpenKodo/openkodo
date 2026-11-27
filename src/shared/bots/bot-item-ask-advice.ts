@@ -210,7 +210,7 @@ function hasJargon(words: string): boolean {
     if (isPath(token)) {
       continue
     }
-    if (token.includes('orca_session_id:')) {
+    if (token.includes('openkodo_session_id:')) {
       return true
     }
     for (const raw of token.split(PIECE_SPLIT)) {

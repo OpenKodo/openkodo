@@ -2,15 +2,15 @@
 // session address does; `--chat new` starts a new chat for it.
 import { botOfAddress, parseBotAddress } from '../../../../../../shared/bot-roster'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId,
-  parseOrcaSessionAddress,
-  type OrcaSessionAddress
-} from '../../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress,
+  type OpenKodoSessionAddress
+} from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 import { botOfSession } from '../../../../../bots/bot-session-tabs'
 import { botNotFound, isBotRequestPurpose } from '../../../../../bots/bot-request-policy'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { Bot } from '../../../../../../shared/bot-types'
 import { resolveItem } from '../../bots-items-write-support'
 import { refuse } from './bot-recipient'
@@ -63,7 +63,7 @@ export async function routeBotMail(
 
 /** `--item <n>` names the chat that owns item n, or the Home Chat once that chat is gone. */
 async function chatForItem(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   to: string,
   { chat, item }: { chat?: string; item?: string }
 ): Promise<string | undefined> {
@@ -88,7 +88,7 @@ async function chatForItem(
   return owning.gone ? undefined : owning.id
 }
 
-function addressedBot(runtime: OrcaRuntimeService, to: string, flag: string): Bot {
+function addressedBot(runtime: OpenKodoRuntimeService, to: string, flag: string): Bot {
   const name = parseBotAddress(to)
   if (name === null) {
     throw new OrchestrationError(
@@ -102,20 +102,20 @@ function addressedBot(runtime: OrcaRuntimeService, to: string, flag: string): Bo
 
 /** `--to bot:<name> --chat <id>`: the address of that chat, refused unless it is one of that bot's. */
 export async function botChatAddress(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   to: string,
   chat: string
-): Promise<OrcaSessionAddress> {
+): Promise<OpenKodoSessionAddress> {
   const bot = addressedBot(runtime, to, '--chat')
   await runtime.ensureStructuredAgentSessionHost().catch(() => undefined)
   // `openkodo bot chats` prints `chat:<id>`; the bare id and a session address name it too.
   const id = chat.startsWith('chat:') ? chat.slice('chat:'.length) : chat
-  const sessionId = parseOrcaSessionAddress(id) ?? (isOrcaSessionId(id) ? id : null)
+  const sessionId = parseOpenKodoSessionAddress(id) ?? (isOpenKodoSessionId(id) ? id : null)
   if (!sessionId || botOfSession(runtime.bots, sessionId)?.id !== bot.id) {
     return refuse({
       code: 'bot_chat_not_found',
       message: `${bot.name} has no chat ${chat}, so pick one that \`openkodo bot chats --bot "${bot.name}"\` lists.`
     })
   }
-  return formatOrcaSessionAddress(sessionId)
+  return formatOpenKodoSessionAddress(sessionId)
 }

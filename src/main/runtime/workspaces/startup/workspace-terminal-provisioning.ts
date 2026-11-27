@@ -1,7 +1,7 @@
 import type { RuntimeRemoteFetchController } from '../../repositories/runtime-remote-fetch-controller'
 import type { TerminalSplitOptions } from '../../terminal/launch/terminal-split-surface'
 import type { RuntimeTerminalSplit } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
-import { OrcaRuntimeWithActivateManagedWorktree } from './workspace-activation'
+import { OpenKodoRuntimeWithActivateManagedWorktree } from './workspace-activation'
 import type { WorktreeTerminalProvisioningHost } from './runtime-worktree-terminal-provisioning'
 import type { WorktreeStartupReadinessHost } from './runtime-worktree-startup-readiness'
 import { prefetchWorktreeCreateBase } from '../../../workspaces/creation/worktree-create-base-prefetch'
@@ -16,7 +16,7 @@ import {
   type RuntimeNavigationTarget
 } from '../../../../shared/remote-runtime/session-graph/runtime-navigation'
 
-export abstract class OrcaRuntimeWithGetWorktreeTerminalProvisioningHost extends OrcaRuntimeWithActivateManagedWorktree {
+export abstract class OpenKodoRuntimeWithGetWorktreeTerminalProvisioningHost extends OpenKodoRuntimeWithActivateManagedWorktree {
   abstract applyLayoutCommand(command: WindowLayoutCommand): Promise<LayoutApplyReply>
 
   abstract splitTerminal(

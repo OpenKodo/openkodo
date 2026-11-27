@@ -1,6 +1,6 @@
-# Contributing to Orca
+# Contributing to OpenKodo
 
-Thanks for contributing to Orca.
+Thanks for contributing to OpenKodo.
 
 Found a security vulnerability? Do not open a public issue or PR; report it privately as described in [`SECURITY.md`](./SECURITY.md).
 
@@ -25,8 +25,8 @@ Use a clear, descriptive branch name that reflects the change, such as `fix/ctrl
 ## Code Guidelines
 
 - Keep changes scoped to a clear user-facing improvement, bug fix, or refactor.
-- Orca targets macOS, Linux, and Windows. Guard platform-specific code with runtime checks, use `CmdOrCtrl` in Electron menu accelerators, show `⌘`/`⇧` labels on macOS and `Ctrl+`/`Shift+` elsewhere, and build paths with `path.join`. See [cross-platform support](../docs/agents-md-refs/cross-platform-support.md).
-- Orca must work against local repositories, remote servers, and SSH worktrees. Do not assume a process, file, credential, shell, or network path exists only on the local machine.
+- OpenKodo targets macOS, Linux, and Windows. Guard platform-specific code with runtime checks, use `CmdOrCtrl` in Electron menu accelerators, show `⌘`/`⇧` labels on macOS and `Ctrl+`/`Shift+` elsewhere, and build paths with `path.join`. See [cross-platform support](../docs/agents-md-refs/cross-platform-support.md).
+- OpenKodo must work against local repositories, remote servers, and SSH worktrees. Do not assume a process, file, credential, shell, or network path exists only on the local machine.
 - Keep generic behavior provider-neutral across CLI agents, integrations, and git providers; guard integration-specific logic behind explicit checks.
 - Follow existing architecture, avoid unnecessary work in hot paths, clean up owned resources, and use concrete module names.
 - For UI work, follow [`docs/STYLEGUIDE.md`](../docs/STYLEGUIDE.md) and verify behavior across platforms, light/dark mode, and SSH latency.
@@ -52,7 +52,7 @@ Tests are the exception: add one only for logic where a silent regression is cos
 
 ### Targeting Local Tests
 
-On macOS and Linux, set `git config --local orca.serializeChangedChecks true` to queue full `pnpm check:changed` runs across worktrees. Eligible runs using this queue start in arrival order within each lane, with normal runs before yielding runs; silent tickets can be passed. Runs from older checkouts share the same lock but not the order. A waiting run prints its approximate place in line, recounted when the line moves and otherwise about every 10 seconds while it can poll, and, when the queue's last record of the run holding the slot is recent, that run's pid, folder and claim time. A queued run whose process has exited is removed. A run that has not checked in for 30 seconds stops holding up the others; it keeps its place if it checks in again within 5 minutes, and after that rejoins at the back. A run whose launching process, up to 16 levels above it when it joined, is found to have exited (checked about every 10 seconds) waits behind runs whose launchers are still running for the rest of its wait. If the queue file cannot be used (it cannot be opened or written for any reason other than being busy), a run prints one warning and waits for the slot directly, as before the queue existed: still one run at a time, but without a place in line. No run is ever stopped by the queue. On Ctrl+C, SIGTERM, or terminal hangup, the runner waits for its active check process groups to stop before admitting another run. Processes that detach from those groups, or survive a force-kill of the runner, can continue independently. Windows uses the standard concurrent runner.
+On macOS and Linux, set `git config --local openkodo.serializeChangedChecks true` to queue full `pnpm check:changed` runs across worktrees. Eligible runs using this queue start in arrival order within each lane, with normal runs before yielding runs; silent tickets can be passed. Runs from older checkouts share the same lock but not the order. A waiting run prints its approximate place in line, recounted when the line moves and otherwise about every 10 seconds while it can poll, and, when the queue's last record of the run holding the slot is recent, that run's pid, folder and claim time. A queued run whose process has exited is removed. A run that has not checked in for 30 seconds stops holding up the others; it keeps its place if it checks in again within 5 minutes, and after that rejoins at the back. A run whose launching process, up to 16 levels above it when it joined, is found to have exited (checked about every 10 seconds) waits behind runs whose launchers are still running for the rest of its wait. If the queue file cannot be used (it cannot be opened or written for any reason other than being busy), a run prints one warning and waits for the slot directly, as before the queue existed: still one run at a time, but without a place in line. No run is ever stopped by the queue. On Ctrl+C, SIGTERM, or terminal hangup, the runner waits for its active check process groups to stop before admitting another run. Processes that detach from those groups, or survive a force-kill of the runner, can continue independently. Windows uses the standard concurrent runner.
 
 Use `pnpm test`, not raw `vitest`: only it keeps the transform cache that makes repeat runs fast.
 
@@ -62,7 +62,7 @@ pnpm test:changed src/main/runtime --maxWorkers=2   # staged, unstaged, and untr
 pnpm test --changed=origin/main --maxWorkers=2      # also commits since the merge base
 ```
 
-Affected tests follow Vitest's static import graph, so run suites explicitly for dynamic imports, fixtures, or subprocess inputs. Local affected tests do not replace CI. If a file passes alone but fails after others, add `// @orca-isolated-worker` to it.
+Affected tests follow Vitest's static import graph, so run suites explicitly for dynamic imports, fixtures, or subprocess inputs. Local affected tests do not replace CI. If a file passes alone but fails after others, add `// @openkodo-isolated-worker` to it.
 
 ## Pull Requests
 

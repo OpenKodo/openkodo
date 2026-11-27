@@ -176,7 +176,7 @@ export const BotSchema = z.object({
   name: BotNameSchema,
   /** v1 bots live on this computer; SSH and WSL hosts come later. */
   hostId: z.literal(LOCAL_EXECUTION_HOST_ID),
-  /** The home's name in ~/.orca/bots, reserved at create; never a path, so it cannot point outside. */
+  /** The home's name in ~/.openkodo/bots, reserved at create; never a path, so it cannot point outside. */
   folder: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   /** The bot's home folder workspace, in the hidden Bots project group. */
   folderWorkspaceId: z.string().min(1),
@@ -202,7 +202,7 @@ export const BotSchema = z.object({
   launch: BotLaunchSchema.optional().catch(undefined),
   notifications: BotNotificationsSchema,
   members: z.array(BotMemberSchema).max(BOT_MAX_MEMBERS),
-  /** The first of slackApps, kept for readers that know one workspace (older Orcas, the phone). */
+  /** The first of slackApps, kept for readers that know one workspace (older OpenKodos, the phone). */
   slack: BotSlackLinkSchema.nullable(),
   /** Every Slack workspace the bot is in, first one first; absent on bots saved before several. */
   slackApps: z.array(BotSlackLinkSchema).max(BOT_MAX_CONNECTOR_WORKSPACES).optional(),

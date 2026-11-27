@@ -1,6 +1,6 @@
 // What a paired server's removal or re-pair ends here: the Run work it held, and the questions this
 // OpenKodo's agents asked agents there.
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { OrchestrationWorkerServer } from '../environment-transport'
 import {
@@ -14,7 +14,7 @@ import { retirePairedServerRoute } from '../paired-server-asks/paired-server-ask
 /** Its Runs' Tasks here fail with why, the askers still waiting on it are told, and its agents'
  *  cards and allowances here go. */
 export function settleRemovedPairedServer(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   environmentId: string,
   serverName: string
@@ -29,7 +29,7 @@ export function settleRemovedPairedServer(
 
 /** Work and questions sent under an older pairing are lost with it. */
 export function settleRepairedServer(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   server: OrchestrationWorkerServer
 ): void {

@@ -17,7 +17,7 @@ export function openMarkdownExternalUrl(
     state: AppState
     worktreeId: string | null
     sourceOwner: HttpLinkSourceOwner
-    destination: 'orca' | 'system'
+    destination: 'openkodo' | 'system'
   }
 ): void {
   if (sourceOwner.kind === 'unknown') {

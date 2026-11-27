@@ -7,8 +7,8 @@
  * - `prepared`: nothing outside the journal changed yet; a failed profile rewrite drops the record.
  * - `profile-rewritten`: the profile names the drive paths; the other stores only go forward.
  */
-import { isRecord } from '../../../shared/orcad-migration/orcad-migration-manifest-fields'
-import { createMigrationJournalDirectory } from '../../persistence/migrating-orcad-catalog/cutover-journals/migration-journal-directory'
+import { isRecord } from '../../../shared/openkodod-migration/openkodod-migration-manifest-fields'
+import { createMigrationJournalDirectory } from '../../persistence/migrating-openkodod-catalog/cutover-journals/migration-journal-directory'
 
 export const WSL_DRIVE_UNC_CONVERSION_PHASES = ['prepared', 'profile-rewritten'] as const
 export type WslDriveUncConversionPhase = (typeof WSL_DRIVE_UNC_CONVERSION_PHASES)[number]

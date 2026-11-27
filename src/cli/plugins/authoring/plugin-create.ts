@@ -13,7 +13,7 @@ export type PluginCreateResult = {
   template: PluginTemplateName
   pluginKey: string
   files: string[]
-  /** Generated, gitignored typings (`.orca/types`), for templates written in TypeScript. */
+  /** Generated, gitignored typings (`.openkodo/types`), for templates written in TypeScript. */
   typeFiles: string[]
 }
 

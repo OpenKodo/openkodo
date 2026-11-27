@@ -63,43 +63,43 @@ export function hostDownloadNodeRuntimeCommand(
       : null
   const sources = [
     desktopMirror
-      ? `orca_dl_get 'the mirror set on this computer' ${quotePosixShell(desktopMirror)}`
+      ? `openkodo_dl_get 'the mirror set on this computer' ${quotePosixShell(desktopMirror)}`
       : null,
-    `orca_dl_get ${quotePosixShell(new URL(hostNodeRuntimeUrl(args.target)).host)} ${quotePosixShell(hostNodeRuntimeUrl(args.target))}`
+    `openkodo_dl_get ${quotePosixShell(new URL(hostNodeRuntimeUrl(args.target)).host)} ${quotePosixShell(hostNodeRuntimeUrl(args.target))}`
   ].filter((line): line is string => line !== null)
   const min = HOST_DOWNLOAD_MIN_ATTEMPT_SECONDS
   // Bound endless mirror/proxy responses so they cannot fill the host disk.
   const sizeCap = `ulimit -f ${HOST_DOWNLOAD_MAX_BLOCKS} 2>/dev/null`
   // wget lacks a total timeout; a silent watchdog avoids host-specific timeout commands and open SSH captures.
   const wget =
-    `wget -q -T ${connectTimeout} -t 1 -O ${file} "$2" & orca_dl_pid=$!; ` +
+    `wget -q -T ${connectTimeout} -t 1 -O ${file} "$2" & openkodo_dl_pid=$!; ` +
     // Kill the watchdog's sleep too so it cannot linger after wget exits.
-    `(trap 'kill "$orca_dl_z" 2>/dev/null; exit 0' TERM; sleep "$orca_dl_t" & orca_dl_z=$!; ` +
-    'wait "$orca_dl_z" && kill "$orca_dl_pid") </dev/null >/dev/null 2>&1 & orca_dl_dog=$!; ' +
-    'wait "$orca_dl_pid"; orca_dl_s=$?; kill "$orca_dl_dog" 2>/dev/null; exit "$orca_dl_s"'
-  const curl = `curl -fsSLg --connect-timeout ${connectTimeout} --max-time "$orca_dl_t" -o ${file} "$2"`
+    `(trap 'kill "$openkodo_dl_z" 2>/dev/null; exit 0' TERM; sleep "$openkodo_dl_t" & openkodo_dl_z=$!; ` +
+    'wait "$openkodo_dl_z" && kill "$openkodo_dl_pid") </dev/null >/dev/null 2>&1 & openkodo_dl_dog=$!; ' +
+    'wait "$openkodo_dl_pid"; openkodo_dl_s=$?; kill "$openkodo_dl_dog" 2>/dev/null; exit "$openkodo_dl_s"'
+  const curl = `curl -fsSLg --connect-timeout ${connectTimeout} --max-time "$openkodo_dl_t" -o ${file} "$2"`
   return [
-    'orca_dl_ok=; orca_dl_out=; orca_dl_tool=',
-    'if command -v curl >/dev/null 2>&1; then orca_dl_tool=curl; elif command -v wget >/dev/null 2>&1; then orca_dl_tool=wget; fi',
-    `orca_dl_n=${sources.length}`,
-    'orca_dl_end=$(date +%s 2>/dev/null)',
-    `case "$orca_dl_end" in ''|*[!0-9]*) orca_dl_end= ;; *) orca_dl_end=$((orca_dl_end + ${HOST_DOWNLOAD_BUDGET_SECONDS})) ;; esac`,
+    'openkodo_dl_ok=; openkodo_dl_out=; openkodo_dl_tool=',
+    'if command -v curl >/dev/null 2>&1; then openkodo_dl_tool=curl; elif command -v wget >/dev/null 2>&1; then openkodo_dl_tool=wget; fi',
+    `openkodo_dl_n=${sources.length}`,
+    'openkodo_dl_end=$(date +%s 2>/dev/null)',
+    `case "$openkodo_dl_end" in ''|*[!0-9]*) openkodo_dl_end= ;; *) openkodo_dl_end=$((openkodo_dl_end + ${HOST_DOWNLOAD_BUDGET_SECONDS})) ;; esac`,
     // Share remaining time evenly so stalled mirrors cannot starve later sources.
-    'orca_dl_get() {',
-    '  [ -z "$orca_dl_ok" ] || return 0',
-    `  if [ -n "$orca_dl_end" ]; then orca_dl_t=$(((orca_dl_end - $(date +%s)) / orca_dl_n)); else orca_dl_t=${Math.floor(HOST_DOWNLOAD_BUDGET_SECONDS / sources.length)}; fi`,
-    '  orca_dl_n=$((orca_dl_n - 1))',
-    `  if [ "$orca_dl_t" -lt ${min} ]; then orca_dl_out="$orca_dl_out\${orca_dl_out:+; }$1: not tried, out of time"; return 0; fi`,
-    `  if [ "$orca_dl_tool" = curl ]; then orca_dl_said=$( (${sizeCap}; ${curl}) 2>&1 ); orca_dl_try=$?`,
-    `  else orca_dl_said=$( (${sizeCap}; ${wget}) 2>&1 ); orca_dl_try=$?; fi`,
-    `  if [ "$orca_dl_try" = 0 ] && [ "$(${remoteSha256Command(file)})" = ${quotePosixShell(asset.archiveSha256)} ]; then orca_dl_ok=1; return 0; fi`,
+    'openkodo_dl_get() {',
+    '  [ -z "$openkodo_dl_ok" ] || return 0',
+    `  if [ -n "$openkodo_dl_end" ]; then openkodo_dl_t=$(((openkodo_dl_end - $(date +%s)) / openkodo_dl_n)); else openkodo_dl_t=${Math.floor(HOST_DOWNLOAD_BUDGET_SECONDS / sources.length)}; fi`,
+    '  openkodo_dl_n=$((openkodo_dl_n - 1))',
+    `  if [ "$openkodo_dl_t" -lt ${min} ]; then openkodo_dl_out="$openkodo_dl_out\${openkodo_dl_out:+; }$1: not tried, out of time"; return 0; fi`,
+    `  if [ "$openkodo_dl_tool" = curl ]; then openkodo_dl_said=$( (${sizeCap}; ${curl}) 2>&1 ); openkodo_dl_try=$?`,
+    `  else openkodo_dl_said=$( (${sizeCap}; ${wget}) 2>&1 ); openkodo_dl_try=$?; fi`,
+    `  if [ "$openkodo_dl_try" = 0 ] && [ "$(${remoteSha256Command(file)})" = ${quotePosixShell(asset.archiveSha256)} ]; then openkodo_dl_ok=1; return 0; fi`,
     `  rm -f ${file}`,
-    `  [ "$orca_dl_try" = 0 ] && orca_dl_said='${HOST_NODE_DOWNLOAD_NOT_PINNED}'`,
-    '  orca_dl_out="$orca_dl_out${orca_dl_out:+; }$1: $orca_dl_tool exit $orca_dl_try${orca_dl_said:+, $orca_dl_said}"',
+    `  [ "$openkodo_dl_try" = 0 ] && openkodo_dl_said='${HOST_NODE_DOWNLOAD_NOT_PINNED}'`,
+    '  openkodo_dl_out="$openkodo_dl_out${openkodo_dl_out:+; }$1: $openkodo_dl_tool exit $openkodo_dl_try${openkodo_dl_said:+, $openkodo_dl_said}"',
     '}',
-    `if [ -z "$orca_dl_tool" ]; then echo ${HOST_NODE_DOWNLOAD_NO_TOOL}; else`,
+    `if [ -z "$openkodo_dl_tool" ]; then echo ${HOST_NODE_DOWNLOAD_NO_TOOL}; else`,
     ...sources,
-    `if [ -n "$orca_dl_ok" ]; then echo ${HOST_NODE_DOWNLOAD_OK}; else echo ${HOST_NODE_DOWNLOAD_FAILED}; printf '%s\\n' "$orca_dl_out" | head -c 3000; fi`,
+    `if [ -n "$openkodo_dl_ok" ]; then echo ${HOST_NODE_DOWNLOAD_OK}; else echo ${HOST_NODE_DOWNLOAD_FAILED}; printf '%s\\n' "$openkodo_dl_out" | head -c 3000; fi`,
     'fi'
   ].join('\n')
 }
@@ -192,7 +192,7 @@ async function downloadNodeRuntimeOnHost(args: {
     )
   }
   console.warn(
-    `[orcad] This computer couldn't download Node, so the host downloaded it: ${String(args.desktopError)}`
+    `[openkodod] This computer couldn't download Node, so the host downloaded it: ${String(args.desktopError)}`
   )
   return pinnedNodeRuntimeAsset(args.target).archive
 }

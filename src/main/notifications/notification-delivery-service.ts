@@ -5,7 +5,7 @@ import type {
   NotificationDispatchResult,
   NotificationSettings
 } from '../../shared/notifications/notification-settings-types'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   buildNotificationOptions,
   notificationNeedsSlackReplyCheck
@@ -27,7 +27,7 @@ export type NotificationDeliveryDependencies = {
   isWindowVisible: (window: BrowserWindow | null) => boolean
   setTrayAttention: (attention: boolean) => void
   isNotificationSupported: () => boolean
-  dispatchMobileNotification: OrcaRuntimeService['dispatchMobileNotification'] | null
+  dispatchMobileNotification: OpenKodoRuntimeService['dispatchMobileNotification'] | null
   readAuthorizationStatus: () => Promise<
     'authorized' | 'denied' | 'not-determined' | 'unknown' | null
   >

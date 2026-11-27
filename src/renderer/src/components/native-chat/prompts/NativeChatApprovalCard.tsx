@@ -348,9 +348,12 @@ export function NativeChatApprovalCard({
                     />
                   ) : null}
                   {newerSubject ? (
-                    <p data-native-chat-approval-needs-newer-orca="true" className="break-words">
+                    <p
+                      data-native-chat-approval-needs-newer-openkodo="true"
+                      className="break-words"
+                    >
                       {t(
-                        'components.native-chat.approval.needsNewerOrca',
+                        'components.native-chat.approval.needsNewerOpenKodo',
                         'This request needs a newer version of OpenKodo.'
                       )}
                     </p>

@@ -11,7 +11,7 @@ import {
 vi.mock('electron', () => ({ app: { on: vi.fn(), off: vi.fn() }, session: {} }))
 
 const RENDERER_ID = 7
-const PARTITION = 'persist:orca-browser'
+const PARTITION = 'persist:openkodo-browser'
 
 // The renderer opens a created tab at its URL; main's attach makes that first load.
 type Outcome = 'loads' | 'fails' | 'downloads'

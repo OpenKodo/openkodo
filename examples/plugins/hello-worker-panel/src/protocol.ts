@@ -1,7 +1,7 @@
 // The panel ↔ worker contract, declared once: src/panel.tsx and worker/main.mjs both read it.
 export {}
 
-declare module 'orca' {
+declare module 'openkodo' {
   // oxlint-disable-next-line typescript/consistent-type-definitions -- declaration merging needs an interface
   interface PluginRequests {
     /** The next idea from the `suggestions` setting, skipping titles already on the list. */

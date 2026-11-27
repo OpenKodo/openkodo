@@ -13,7 +13,7 @@ export type LegacyJournalRetirementEvent = z.infer<typeof legacyJournalRetiremen
 
 /**
  * Where the process running the cleanup reports an outcome. The desktop's main process registers
- * it; a host without one (headless orcad) reports to its log only.
+ * it; a host without one (headless openkodod) reports to its log only.
  */
 type Host = {
   report: (event: LegacyJournalRetirementEvent) => Promise<unknown>

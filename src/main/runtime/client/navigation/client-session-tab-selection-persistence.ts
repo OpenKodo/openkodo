@@ -1,7 +1,7 @@
 import type {
   PersistedMobileClientTabSelection,
   PersistedMobileClientTabSelections
-} from '../../../../shared/orca-profiles/persisted-state-types'
+} from '../../../../shared/openkodo-profiles/persisted-state-types'
 
 function normalizeClientSessionTabSelection(
   raw: unknown

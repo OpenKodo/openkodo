@@ -4,7 +4,7 @@ import type { BotToolServer } from '../../shared/bot-tools'
 import type { SessionMcpTools } from '../mcp-servers/session-mcp-tools'
 
 export const PI_BOT_TOOLS_ENV = 'OPENKODO_PI_BOT_TOOLS'
-export const PI_BOT_TOOLS_EXTENSION_FILE = 'orca-bot-tools.ts'
+export const PI_BOT_TOOLS_EXTENSION_FILE = 'openkodo-bot-tools.ts'
 
 /**
  * An extension that registers the servers `envName` holds (Pi's `mcp.json` entries, by name). The
@@ -14,7 +14,7 @@ export const PI_BOT_TOOLS_EXTENSION_FILE = 'orca-bot-tools.ts'
  */
 export function piMcpServersExtensionSource(envName: string): string {
   return [
-    `const KEPT = Symbol.for('orca.${envName}')`,
+    `const KEPT = Symbol.for('openkodo.${envName}')`,
     'export default function (pi) {',
     `  globalThis[KEPT] ??= process.env.${envName}`,
     `  delete process.env.${envName}`,

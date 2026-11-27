@@ -33,7 +33,7 @@ import {
 } from './native-chat-composer-draft-storage'
 
 const PERSIST_DEBOUNCE_MS = 250
-const CHANNEL_NAME = 'orca-native-chat-composer-drafts'
+const CHANNEL_NAME = 'openkodo-native-chat-composer-drafts'
 
 let flushTimer: ReturnType<typeof setTimeout> | null = null
 let flushOnHideInstalled = false

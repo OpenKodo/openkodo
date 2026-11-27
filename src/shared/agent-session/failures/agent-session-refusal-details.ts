@@ -157,7 +157,7 @@ export const AGENT_SESSION_REFUSAL_REASONS = {
     /** The disk refused the chat's write; it opens once space is freed. */
     'journalStorageFull',
     /** A newer OpenKodo wrote the journal, or this chat's rows; only an update writes past it. */
-    'journalWrittenByNewerOrca'
+    'journalWrittenByNewerOpenKodo'
   ],
   structured_agent_session_unsupported: [
     'clientCapabilityMissing',

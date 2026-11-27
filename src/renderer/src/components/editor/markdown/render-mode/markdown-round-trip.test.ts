@@ -87,17 +87,17 @@ describe('rich markdown round trip', () => {
         'Switch'
       )
     ).toBe(
-      '<details class="orca-details">\n<summary>Switch ![i](x.png)</summary>\n\nBody\n\n</details>'
+      '<details class="openkodo-details">\n<summary>Switch ![i](x.png)</summary>\n\nBody\n\n</details>'
     )
   })
 
   it('keeps nested toggle bodies editable rather than inert raw html', () => {
     const markdown = markdownAfterTextReplace(
       [
-        '<details class="orca-details" open>',
+        '<details class="openkodo-details" open>',
         '<summary>Outer</summary>',
         '',
-        '<details class="orca-details" open>',
+        '<details class="openkodo-details" open>',
         '<summary>Inner</summary>',
         '',
         'Body',

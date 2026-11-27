@@ -11,7 +11,7 @@ import { argvRequestsServeMode, normalizeServeModeArgv } from './serve-launch/se
 import {
   configureDevUserDataPath,
   configureElectronNetworkCompatibility,
-  configureOrcaUserDataPathEnv,
+  configureOpenKodoUserDataPathEnv,
   disableUnsupportedChromiumFeatures,
   enableMainProcessGpuFeatures,
   installDevParentDisconnectQuit,
@@ -51,8 +51,8 @@ import {
   recordSubprocessSpawn,
   startMainThreadChurnProbe
 } from '../diagnostics/main-thread-churn-probe'
-import { setSpawnObserver } from '@orca/process-host/spawn-observer'
-import { setDefaultProcessLauncher } from '@orca/process-host'
+import { setSpawnObserver } from '@openkodo/process-host/spawn-observer'
+import { setDefaultProcessLauncher } from '@openkodo/process-host'
 import { launchPlainProcessSpecOnPosixWorker } from '../git/command-runner/process-capture/process-spec-worker-launch'
 import { settledDiffCache } from '../git/source-control/git-read-cache-invalidation'
 import { reserveServeStdoutForReadiness } from '../server/serve-stdout-boundary'
@@ -74,10 +74,10 @@ import { selectLinuxKeyringBackend } from './linux-runtime/select-linux-keyring-
 import { initDataPath, getCanonicalUserDataPath } from '../persistence/loading-store/user-data-path'
 import { applyMacPressAndHoldDefaultAtStartup } from '../window/desktop-integration/macos-press-and-hold-default'
 import { configureSessionParseCachePersistence } from '../ai-vault/parse-cache/session-parse-cache-persistence'
-import '../orca-profiles/profile-index-store'
+import '../openkodo-profiles/profile-index-store'
 // oxfmt-ignore
-import { getProfileUserDataPath, initOrcaProfilePaths } from '../orca-profiles/profile-storage-paths'
-import { recoverPendingProfileProjectMoves } from '../orca-profiles/project-transfer/profile-project-move-intent'
+import { getProfileUserDataPath, initOpenKodoProfilePaths } from '../openkodo-profiles/profile-storage-paths'
+import { recoverPendingProfileProjectMoves } from '../openkodo-profiles/project-transfer/profile-project-move-intent'
 import { initStatsPath } from '../stats/collector'
 import { registerDocPreviewSchemePrivileges } from '../browser/document-preview/doc-preview-protocol'
 import { PRIVILEGED_CUSTOM_SCHEMES } from './chromium-policy/privileged-custom-schemes'
@@ -194,7 +194,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
   // Register before spawning so CLI/relay-shared tree killing can reach main's gate and breadcrumbs.
   installMainProcessTreeKillGate()
   configureDevUserDataPath(isDev)
-  configureOrcaUserDataPathEnv()
+  configureOpenKodoUserDataPathEnv()
   // #16761: install the lazy environment accessor immediately after userData selection or early resolves can throw/memoize the wrong profile.
   setAppEnvironment(new ElectronAppEnvironment())
   // Capture after overrides, before ready-time app naming can change userData on case-sensitive filesystems.
@@ -255,7 +255,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
     app.exit(SINGLE_INSTANCE_ALREADY_RUNNING_EXIT_CODE)
     return false
   }
-  // Electron's lock fences desktops; the shared profile lock also fences orcad serve.
+  // Electron's lock fences desktops; the shared profile lock also fences openkodod serve.
   if (!skip && !bypass && !acquireDesktopProfileLockOrExplain(getCanonicalUserDataPath())) {
     return false
   }
@@ -282,7 +282,7 @@ function initializeMainProcessPreflight(options: MainProcessPreflightOptions): b
     filePath: join(getCanonicalUserDataPath(), 'ai-vault', 'session-parse-cache.json'),
     appVersion: app.getVersion()
   })
-  initOrcaProfilePaths()
+  initOpenKodoProfilePaths()
   // Recover cross-profile moves before Store opens either profile so no reader sees half-committed ownership.
   const profileUserDataPath = getProfileUserDataPath()
   recoverPendingProfileProjectMoves(

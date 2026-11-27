@@ -16,7 +16,7 @@ export function spawnSupervisedAgent(
   input: SourceControlAgentSpawnInput,
   spawnEnv: NodeJS.ProcessEnv
 ): SpawnedSourceControlAgentProcess {
-  // On a WSL-host orcad, a missing CLI must fail rather than run a Windows shim found via PATH.
+  // On a WSL-host openkodod, a missing CLI must fail rather than run a Windows shim found via PATH.
   const env = guestNativeSpawnEnv(spawnEnv)
   const cwd = input.useCwdForNative ? input.cwd : undefined
   // Match native chats' install discovery from the agent's cwd, not OpenKodo's.

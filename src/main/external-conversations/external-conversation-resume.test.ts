@@ -34,13 +34,17 @@ async function failedTurn(chat: QueuedMessageTestRig): Promise<void> {
   const id = await chat.workingSend()
   const turnId = `turn-${id}`
   await chat.settleAccepted(id, id)
-  chat
-    .providerEvents()
-    .appendItem(
-      { provider: 'codex', threadId: THREAD, turnId, ordinal: 1 },
-      { kind: 'turn', turnId, state: 'completed', outcome: 'failure', userItemId: `orca:${id}` },
-      { turnScope: { kind: 'thread' } }
-    )
+  chat.providerEvents().appendItem(
+    { provider: 'codex', threadId: THREAD, turnId, ordinal: 1 },
+    {
+      kind: 'turn',
+      turnId,
+      state: 'completed',
+      outcome: 'failure',
+      userItemId: `openkodo:${id}`
+    },
+    { turnScope: { kind: 'thread' } }
+  )
   chat.providerEvents().publish()
   // The queue's failure read is the journal database's: let the turn's write land there first.
   await chat.providerEvents().written?.()
@@ -78,7 +82,7 @@ describe('resumeRefusal', () => {
       .providerEvents()
       .appendItem(
         { provider: 'codex', threadId: THREAD, turnId, ordinal: 1 },
-        { kind: 'turn', turnId, state: 'running', userItemId: `orca:${id}` },
+        { kind: 'turn', turnId, state: 'running', userItemId: `openkodo:${id}` },
         { turnScope: { kind: 'thread' } }
       )
     rig.providerEvents().publish()

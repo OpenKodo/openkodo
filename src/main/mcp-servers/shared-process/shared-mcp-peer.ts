@@ -39,7 +39,7 @@ export async function initializeChild(
       params: {
         protocolVersion: LATEST_PROTOCOL_VERSION,
         capabilities: {},
-        clientInfo: { name: 'orca', version: '1.0.0' }
+        clientInfo: { name: 'openkodo', version: '1.0.0' }
       }
     },
     InitializeResultSchema,

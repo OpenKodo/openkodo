@@ -1,4 +1,4 @@
-import { OpaqueIdSchema } from '@orca-cloud/push-contract'
+import { OpaqueIdSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { ConnectorTurnForSchema } from './connector-wire-scalars.js'
 
@@ -20,7 +20,7 @@ export const ConnectorBotSlackAppResponseSchema = z.object({
 const OAuthFailure = { oauthFailure: z.literal('other_user').optional() }
 
 // - created: the app exists and waits for its Install click (or a workspace admin's approval).
-// - uncertain: Slack may have created an app Orca holds no secrets for, or the app's events are not
+// - uncertain: Slack may have created an app OpenKodo holds no secrets for, or the app's events are not
 //   on yet; setting up again finishes it or makes a new one.
 // - grant_expired: as uncertain, with no config grant left to continue; a new paste fixes it.
 export const ConnectorBotSlackStateSchema = z.discriminatedUnion('state', [
@@ -60,7 +60,7 @@ export const ConnectorBotSlackStateResponseSchema = ConnectorBotSlackStateSchema
 // The people of the bot's workspace who may be on Who can ask, and other Slack apps, by name.
 // complete is false when the workspace is too large to read whole, so someone may be missing.
 // avatarUrl is Slack's picture of them; left out when they have none, or by an older cloud.
-// app: another Slack app's bot user (its name already says "(app)"), never Slackbot or an Orca bot.
+// app: another Slack app's bot user (its name already says "(app)"), never Slackbot or an OpenKodo bot.
 export const ConnectorBotSlackMembersResponseSchema = z.object({
   members: z.array(
     z.object({
@@ -86,7 +86,7 @@ export const ConnectorBotPostRequestSchema = z.object({
   turnFor: ConnectorTurnForSchema.optional()
 })
 
-// Orca's mascots, by the id a bot's picture names; the connector holds each one's image.
+// OpenKodo's mascots, by the id a bot's picture names; the connector holds each one's image.
 export const CONNECTOR_BOT_MASCOT_IDS = [
   'A1',
   'B1',

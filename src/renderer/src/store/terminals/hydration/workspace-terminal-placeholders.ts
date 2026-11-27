@@ -1,6 +1,6 @@
 import type { Repo } from '../../../../../shared/repository/repo-types'
 import type { Worktree } from '../../../../../shared/worktree/types'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import { DEFAULT_REPO_BADGE_COLOR } from '../../../../../shared/repository/appearance/repo-badge-color'
 import {
   getRepoExecutionHostId,

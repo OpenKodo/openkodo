@@ -10,7 +10,7 @@ export function getIssueCommandTrustContent(result: IssueCommandReadResult): str
   return ''
 }
 
-// A committed .orca/issue-command came from the repo, so it needs the same trust as openkodo.yaml.
+// A committed .openkodo/issue-command came from the repo, so it needs the same trust as openkodo.yaml.
 export function isUserOwnedIssueCommand(result: IssueCommandReadResult): boolean {
   return result.source === 'local' && result.localUntracked === true
 }

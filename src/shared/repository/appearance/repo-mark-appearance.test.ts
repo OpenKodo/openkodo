@@ -14,30 +14,30 @@ const markOf = (
 describe('resolveRepoMarkAppearances', () => {
   it('gives projects without an icon distinct letters and real colors, oldest first', () => {
     const marks = resolveRepoMarkAppearances([
-      repo('orca-internal', 2),
-      repo('orca', 1),
+      repo('openkodo-internal', 2),
+      repo('openkodo', 1),
       repo('ops', 3)
     ])
-    expect(markOf(marks, 'orca', 1)).toEqual({
-      icon: { type: 'letters', text: 'OR' },
+    expect(markOf(marks, 'openkodo', 1)).toEqual({
+      icon: { type: 'letters', text: 'OP' },
       color: '#ef4444'
     })
-    expect(markOf(marks, 'orca-internal', 2)).toEqual({
+    expect(markOf(marks, 'openkodo-internal', 2)).toEqual({
       icon: { type: 'letters', text: 'OI' },
       color: '#f97316'
     })
     expect(markOf(marks, 'ops', 3)).toEqual({
-      icon: { type: 'letters', text: 'OP' },
+      icon: { type: 'letters', text: 'OS' },
       color: '#eab308'
     })
   })
 
   it('keeps default letters off letters a project chose explicitly', () => {
     const marks = resolveRepoMarkAppearances([
-      repo('orca', 1),
-      repo('other', 2, { repoIcon: { type: 'letters', text: 'OR' } })
+      repo('openkodo', 1),
+      repo('other', 2, { repoIcon: { type: 'letters', text: 'OP' } })
     ])
-    expect(markOf(marks, 'orca', 1)?.icon).toEqual({ type: 'letters', text: 'OC' })
+    expect(markOf(marks, 'openkodo', 1)?.icon).toEqual({ type: 'letters', text: 'ON' })
   })
 
   it('skips colors a sibling picked explicitly, and leaves images out of color groups', () => {

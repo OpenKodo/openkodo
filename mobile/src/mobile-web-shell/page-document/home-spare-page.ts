@@ -2,7 +2,7 @@ import {
   claimSpareDocument,
   discardSpareDocument,
   prepareSpareDocument
-} from '../../../modules/orca-mobile-web-shell/src/spare-document'
+} from '../../../modules/openkodo-mobile-web-shell/src/spare-document'
 import type { GenerationStore } from '../generations/generation-store'
 import { generationDirectoryPath } from '../generations/generation-store-file-system'
 import { deriveHostCacheKey } from '../generations/host-cache-key'

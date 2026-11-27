@@ -10,10 +10,10 @@ import type {
   PeerMailRelayPayload,
   PeerMailSender
 } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { botOfSession } from '../../../../bots/bot-session-tabs'
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { PeerMailConversationRow } from '../../db/federation/peer-mail-store'
 import { generateId } from '../../db/generated-id'
@@ -21,7 +21,7 @@ import { OrchestrationError } from '../../orchestration-error'
 import type { OrchestrationWorkerServer } from '../environment-transport'
 
 export type PeerMailRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getOrchestrationDb'
   | 'resolveOrchestrationWorkerServer'
   | 'callOrchestrationWorkerServer'
@@ -51,7 +51,7 @@ export function peerMailSenderLabel(runtime: PeerMailRuntime, sender: string): s
 /** Who is sending, from this OpenKodo's own records, for the receiving card; it grants nothing there. */
 export function peerMailSender(runtime: PeerMailRuntime, address: string): PeerMailSender {
   const named = runtime.orchestrationSenderNames.sender(address)
-  const sessionId = named.party.orcaSessionId ?? parseOrcaSessionAddress(address)
+  const sessionId = named.party.openkodoSessionId ?? parseOpenKodoSessionAddress(address)
   const bot = sessionId ? botOfSession(runtime.bots, sessionId) : null
   return {
     name: named.name,

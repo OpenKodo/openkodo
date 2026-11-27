@@ -5,7 +5,7 @@ import { publishedLaunchTarget } from './launch/automation-agent-run-result'
 import { launchAutomationChatAgent } from './launch/automation-chat-agent-launch'
 import { tuiAgentDisplayName } from '../../shared/agent-launch/catalog/tui-agent-display-names'
 import type { Store } from '../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { AutomationService } from './automation-service'
 import {
   createRunTerminalRetention,
@@ -34,7 +34,7 @@ const MAX_REMEMBERED_LAUNCHES = 256
 
 export function createRuntimeAutomationService(input: {
   store: Store
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   claudeUsage?: AutomationUsageClient
   codexUsage?: AutomationUsageClient
   /** Only server processes execute remote_host_service schedules. */
@@ -223,7 +223,7 @@ export function createRuntimeAutomationService(input: {
 function createRuntimeRunTerminalRetention(
   service: AutomationService,
   store: Store,
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): RunTerminalRetention {
   return createRunTerminalRetention({
     listRuns: () => store.listAutomationRuns(),

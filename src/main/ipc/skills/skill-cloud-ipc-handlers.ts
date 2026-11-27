@@ -9,7 +9,7 @@ import type {
 } from '../../../shared/skills/discovery/skills'
 import type { SkillCloudDownloadGrant } from '../../../shared/skills/sharing/skill-cloud-contract'
 import type { SkillBundleInstallProgress } from '../../../shared/skills/installation/skill-bundle-install-contract'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import {
   installSkillBundleCloudGrant,
   installSkillCloudGrant
@@ -46,7 +46,10 @@ export type SkillShareDiscover = (
   skillDirectories?: readonly string[]
 ) => Promise<SkillDiscoveryResult>
 
-function registerSharingHandlers(runtime: OrcaRuntimeService, discover: SkillShareDiscover): void {
+function registerSharingHandlers(
+  runtime: OpenKodoRuntimeService,
+  discover: SkillShareDiscover
+): void {
   const preparations = new SkillSharePreparationService(
     join(app.getPath('userData'), 'skill-share-preparations'),
     {
@@ -88,7 +91,7 @@ function registerSharingHandlers(runtime: OrcaRuntimeService, discover: SkillSha
   })
 }
 
-function registerCloudInstallHandlers(runtime: OrcaRuntimeService): void {
+function registerCloudInstallHandlers(runtime: OpenKodoRuntimeService): void {
   const remoteInstallCancellation = new SkillRemoteInstallCancellation()
   const installAuthorizedGrant = async (
     grant: SkillCloudDownloadGrant,
@@ -294,7 +297,7 @@ function registerCloudInstallHandlers(runtime: OrcaRuntimeService): void {
 }
 
 export function registerSkillCloudIpcHandlers(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   discover: SkillShareDiscover
 ): void {
   registerSharingHandlers(runtime, discover)

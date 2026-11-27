@@ -12,13 +12,13 @@ import {
 } from '../../../shared/remote-runtime/e2ee/node/e2ee-crypto'
 import { parsePairingCode } from '../../../shared/remote-runtime/pairing/pairing'
 import type { PairingOffer } from '../../../shared/remote-runtime/pairing/mobile-relay-pairing-offer'
-import type { OrcaRuntimeRpcServer } from '../rpc/server/runtime-rpc'
+import type { OpenKodoRuntimeRpcServer } from '../rpc/server/runtime-rpc'
 
 export const TARGET = 'runtime:env-1'
 export type Frame = Record<string, unknown>
 
 export function pair(
-  server: OrcaRuntimeRpcServer,
+  server: OpenKodoRuntimeRpcServer,
   scope: 'mobile' | 'runtime',
   name: string
 ): PairingOffer {
@@ -30,7 +30,7 @@ export function pair(
 }
 
 export async function connectPhone(
-  desktop: OrcaRuntimeRpcServer,
+  desktop: OpenKodoRuntimeRpcServer,
   name: string,
   cleanups: (() => Promise<void> | void)[]
 ) {

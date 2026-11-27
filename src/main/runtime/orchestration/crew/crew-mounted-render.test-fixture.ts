@@ -3,15 +3,15 @@ import { fixture } from './crew-read-model.test-fixture'
 import { subscribeCrew } from './crew-stream'
 import { agentSessionRecordFixture } from '../../../native-chat/testing/agent-session-record-test-fixture'
 import { agentSessionConversationView } from '../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
-import { testOrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address-test-fixture'
-import { formatOrcaSessionAddress } from '../../../../shared/agent-session/identity/orca-session-address'
+import { testOpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
+import { formatOpenKodoSessionAddress } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { MountedCrewProducerModule } from '../../../../shared/orchestration/orchestration-crew-mounted.test-fixture'
 
 export const createMountedCrewProducer: MountedCrewProducerModule['createMountedCrewProducer'] =
   () => {
     const f = fixture()
-    const sessionId = testOrcaSessionId('aaaaaaaa-1111-4111-8111-aaaaaaaaaaaa')
-    const address = formatOrcaSessionAddress(sessionId)
+    const sessionId = testOpenKodoSessionId('aaaaaaaa-1111-4111-8111-aaaaaaaaaaaa')
+    const address = formatOpenKodoSessionAddress(sessionId)
     const record = agentSessionConversationView(agentSessionRecordFixture({ sessionId }))
     f.deps.records = {
       listRecords: () => [record],
@@ -30,14 +30,14 @@ export const createMountedCrewProducer: MountedCrewProducerModule['createMounted
             objective: 'Remembered owner',
             coordinatorHandle: null,
             coordinatorPaneKey: null,
-            coordinatorOrcaSessionId: sessionId
+            coordinatorOpenKodoSessionId: sessionId
           })
         }
         f.db.unbindOtherRunsForCoordinator(
           {
             terminalHandle: null,
             paneKey: null,
-            orcaSessionId: sessionId
+            openkodoSessionId: sessionId
           },
           f.run.id
         )

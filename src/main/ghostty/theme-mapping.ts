@@ -18,7 +18,7 @@ import {
 } from '../../shared/terminal-themes/terminal-custom-themes'
 import { DEFAULT_TERMINAL_THEME_DARK } from '../../shared/terminal-themes/terminal-theme-selection'
 import { TERMINAL_THEME_CATALOG } from '../../shared/terminal-themes/terminal-theme-catalog'
-import { mapGhosttyToOrca } from './mapper'
+import { mapGhosttyToOpenKodo } from './mapper'
 import { resolveGhosttyThemeColors } from './theme-resolution'
 
 export type GhosttyThemePair = { light: string; dark: string }
@@ -127,7 +127,7 @@ async function resolveTheme(
     return builtIn ? { selection: builtIn, name: builtIn } : null
   }
 
-  const themeDiff = mapGhosttyToOrca(colors).diff
+  const themeDiff = mapGhosttyToOpenKodo(colors).diff
   const terminal = ghosttyThemeTerminalColors(themeDiff.terminalColorOverrides ?? {})
   const dividerColor = themeDiff.terminalDividerColorDark
   // A Ghostty theme OpenKodo already ships selects the built-in instead of adding a same-named duplicate.

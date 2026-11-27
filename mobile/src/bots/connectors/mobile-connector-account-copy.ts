@@ -102,7 +102,7 @@ export function connectorAccountErrorMessage(
   }
 }
 
-/** A workspace as the owner recognizes it: "Stably (linear.app/stably)". */
+/** A workspace as the owner recognizes it: "OpenKodo (linear.app/openkodo)". */
 export function linearWorkspaceLabel(name: string, urlKey: string | undefined): string {
   return urlKey ? `${name} (linear.app/${urlKey})` : name
 }

@@ -1,4 +1,4 @@
-import { EpochMsSchema, OpaqueIdSchema, SequenceSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema, OpaqueIdSchema, SequenceSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 import {
@@ -20,13 +20,13 @@ const textEncoder = new TextEncoder()
 const utf8Bytes = (text: string) => textEncoder.encode(text).byteLength
 
 // Who raised a prompt, sent with a bot link's prompts only to a cloud that lists prompts.audience.
-// 'conversation': the turn its conversation asked for; 'orca': anything else (mail from another bot,
-// a turn typed in Orca, a conversation the chat no longer answers). Absent (an older machine) reads
-// 'conversation', as before; a value this cloud can't read reads 'orca', the most restrictive.
-// wokenBy: with 'orca', who woke the turn. open: the chat (and its item) an Orca link opens.
+// 'conversation': the turn its conversation asked for; 'openkodo': anything else (mail from another bot,
+// a turn typed in OpenKodo, a conversation the chat no longer answers). Absent (an older machine) reads
+// 'conversation', as before; a value this cloud can't read reads 'openkodo', the most restrictive.
+// wokenBy: with 'openkodo', who woke the turn. open: the chat (and its item) an OpenKodo link opens.
 // byReply: exactly one option-less free-text question, so the owner's reply can answer it.
 const PromptAudience = {
-  raisedBy: z.enum(['conversation', 'orca']).optional().catch('orca'),
+  raisedBy: z.enum(['conversation', 'openkodo']).optional().catch('openkodo'),
   wokenBy: z
     .string()
     .min(1)
@@ -57,8 +57,8 @@ export const ConnectorPendingPromptSchema = z.discriminatedUnion('kind', [
     options: z.array(PromptOptionSchema),
     ...PromptAudience
   }),
-  // Only Orca's own views can answer it. text: what it asks (its header, each question and its
-  // options), for a card that links to Orca; one too long is dropped.
+  // Only OpenKodo's own views can answer it. text: what it asks (its header, each question and its
+  // options), for a card that links to OpenKodo; one too long is dropped.
   z.object({
     kind: z.literal('unsupported'),
     promptId: OpaqueIdSchema,
@@ -178,9 +178,9 @@ export const ConnectorEventSchema = z.discriminatedUnion('kind', [
     ...PaneEvent,
     kind: z.literal('prompt'),
     prompt: ConnectorPendingPromptSchema,
-    // The agent worked past this prompt in Orca; its card closes as answered there.
+    // The agent worked past this prompt in OpenKodo; its card closes as answered there.
     answered: z.literal(true).optional(),
-    // With answered: the option labels chosen in Orca; absent for free text or when unreadable.
+    // With answered: the option labels chosen in OpenKodo; absent for free text or when unreadable.
     answeredWith: z
       .string()
       .min(1)
@@ -209,7 +209,7 @@ export const ConnectorEventSchema = z.discriminatedUnion('kind', [
         (text) => utf8Bytes(text) <= CONNECTOR_LIMITS.maxLongAnswerBytes
       )
       .optional(),
-    // A chat turn's cause; someone typing in Orca ('local') is not mirrored back.
+    // A chat turn's cause; someone typing in OpenKodo ('local') is not mirrored back.
     origin: z.enum(['delivery', 'local']).optional(),
     // Why a failed turn failed; absent from older machines and turns that didn't fail.
     failure: OptionalConnectorFailureSchema,
@@ -276,9 +276,9 @@ export const ConnectorEventsRequestSchema = z
       v === CONNECTOR_AUDIENCE_EVENTS_VERSION ||
       events.every((event) =>
         event.kind === 'prompt'
-          ? event.prompt.raisedBy !== 'orca'
+          ? event.prompt.raisedBy !== 'openkodo'
           : event.kind !== 'snapshot' ||
-            event.conversations.every((conversation) => conversation.prompt?.raisedBy !== 'orca')
+            event.conversations.every((conversation) => conversation.prompt?.raisedBy !== 'openkodo')
       ),
     { message: 'Private prompts require audience-aware event requests' }
   )
@@ -313,7 +313,7 @@ export const ConnectorReplyRequestSchema = z.object({
     .optional()
 })
 
-// notices: why the reply can't wake an Orca bot it mentions; an older machine drops them.
+// notices: why the reply can't wake an OpenKodo bot it mentions; an older machine drops them.
 export const ConnectorReplyResponseSchema = z.discriminatedUnion('status', [
   z.object({
     status: z.literal('posted'),

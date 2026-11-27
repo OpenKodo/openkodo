@@ -1,5 +1,5 @@
-import { spawnProcess } from '@orca/process-host'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { spawnProcess } from '@openkodo/process-host'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { resolveWslInteropSpawnCwd } from '../../../wsl/execution/wsl-interop-spawn-directory'
 

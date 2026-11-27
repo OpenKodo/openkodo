@@ -1,11 +1,11 @@
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { RuntimeStore } from '../../runtime/construction/runtime-store-contract'
 import { WorkspaceCleanupRunner } from './workspace-cleanup-runner'
 import { setWorkspaceCleanupRunner } from './workspace-cleanup-runner-registry'
 
-/** Starts the runner for the repos this process owns: desktop main for local/WSL, each orcad for its own. */
+/** Starts the runner for the repos this process owns: desktop main for local/WSL, each openkodod for its own. */
 export function startWorkspaceCleanupRunner(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   store: RuntimeStore
 ): WorkspaceCleanupRunner | null {
   const historyDirectory = store.getProfileStorageDirectory?.()

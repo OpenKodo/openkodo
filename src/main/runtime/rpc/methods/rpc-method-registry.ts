@@ -2,8 +2,8 @@ import { STATUS_METHODS } from './host-management/status'
 import { DESKTOP_WINDOW_METHODS } from './host-management/desktop-window'
 import { SIDEBAR_INPUT_METHODS } from './sidebar-inputs/sidebar-inputs'
 import { SIDEBAR_REPO_ICON_METHODS } from './sidebar-inputs/sidebar-repo-icons'
-import { ORCAD_TERMINAL_CENSUS_METHODS } from './orcad/orcad-terminal-census'
-import { ORCAD_MIGRATION_METHODS } from './orcad/orcad-migration'
+import { OPENKODOD_TERMINAL_CENSUS_METHODS } from './openkodod/openkodod-terminal-census'
+import { OPENKODOD_MIGRATION_METHODS } from './openkodod/openkodod-migration'
 import { SESSION_TERMINAL_SCROLLBACK_METHODS } from './terminal/session-terminal-scrollback'
 import { AI_VAULT_METHODS } from './history/ai-vault'
 import { AUTOMATION_METHODS } from './automations/automations'
@@ -33,7 +33,7 @@ import { DIAGNOSTICS_METHODS } from './host-management/diagnostics'
 import { TERMINAL_DAEMON_METHODS } from './terminal/terminal-daemon'
 import { ACCOUNT_METHODS } from './accounts/accounts'
 import { ANTIGRAVITY_ACCOUNT_METHODS } from './accounts/antigravity-accounts'
-import { OPENKODO_ACCOUNT_METHODS } from './orca-account'
+import { OPENKODO_ACCOUNT_METHODS } from './openkodo-account'
 import { GOOGLE_METHODS } from './google'
 import { GOOGLE_READ_METHODS } from './google-read'
 import { GOOGLE_FILES_METHODS } from './google-files'
@@ -136,8 +136,8 @@ const CORE_RPC_METHODS = [
   ...STATUS_METHODS,
   ...PAIRED_SERVER_ASKS_METHODS,
   ...DESKTOP_WINDOW_METHODS,
-  ...ORCAD_TERMINAL_CENSUS_METHODS,
-  ...ORCAD_MIGRATION_METHODS,
+  ...OPENKODOD_TERMINAL_CENSUS_METHODS,
+  ...OPENKODOD_MIGRATION_METHODS,
   ...SESSION_TERMINAL_SCROLLBACK_METHODS,
   ...AGENT_HOOK_METHODS,
   ...AI_VAULT_METHODS,

@@ -42,7 +42,7 @@ export type GitHubInstallRecord = {
 // Every 3 s for 2 minutes, then every 30 s; at once, then every 1 s for a while, when the owner comes
 // back from GitHub (see followProviderReturn).
 export const GITHUB_INSTALL_FOLLOW: AwaitGitHubOptions = { slowAfterMs: 2 * 60_000 }
-const STORAGE_KEY = 'orca.bots.githubInstall.v1'
+const STORAGE_KEY = 'openkodo.bots.githubInstall.v1'
 
 let record: GitHubInstallRecord | null = null
 let wait: GitHubWait | null = null
@@ -208,7 +208,7 @@ function signInToGitHub(
     bot,
     owner: gitHubSetupOwner(bot),
     onOpened: (destination) => {
-      if (destination === 'orca-browser') {
+      if (destination === 'openkodo-browser') {
         minimizeGitHubInstall()
       }
     }
@@ -242,7 +242,7 @@ export function tripToGitHubInstall(
   update({
     before: before ?? record.before ?? [],
     inSystemBrowser: destination === 'system-browser',
-    ...(destination === 'orca-browser' ? { surface: 'pill' as const } : {})
+    ...(destination === 'openkodo-browser' ? { surface: 'pill' as const } : {})
   })
   own(started)
 }

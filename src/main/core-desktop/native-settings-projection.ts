@@ -1,5 +1,5 @@
 import type { GlobalSettings } from '../../shared/settings/global-settings-types'
-import type { PersistedUIState } from '../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../shared/openkodo-profiles/persisted-ui-state-types'
 import type { Store } from '../persistence/loading-store/store'
 
 /** Writes main's native code asks the core to make. */

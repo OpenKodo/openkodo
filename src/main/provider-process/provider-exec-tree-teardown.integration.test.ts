@@ -56,7 +56,7 @@ describe.skipIf(process.platform !== 'darwin' && process.platform !== 'linux')(
 
     it('stops a tool that left the CLI session, and nothing it cannot prove is the chat’s', async () => {
       dir = await mkdtemp(join(tmpdir(), 'provider-exec-tree-'))
-      const binary = join(dir, 'orca-provider-exec')
+      const binary = join(dir, 'openkodo-provider-exec')
       execFileSync(process.platform === 'darwin' ? 'clang' : 'cc', [
         '-std=c11',
         '-O2',

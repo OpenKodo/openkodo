@@ -10,7 +10,11 @@ import {
   findRoleIndex,
   type SafariDraftFixture
 } from './computer-driver'
-import { ensureOrcaRuntimeLaunched, parseJsonOutput, runOrcaCli } from './computer-cli-driver'
+import {
+  ensureOpenKodoRuntimeLaunched,
+  parseJsonOutput,
+  runOpenKodoCli
+} from './computer-cli-driver'
 
 const isMac = process.platform === 'darwin'
 const e2eOptIn = process.env.OPENKODO_COMPUTER_E2E === '1'
@@ -19,7 +23,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
   let fixture: SafariDraftFixture
 
   beforeAll(async () => {
-    await ensureOrcaRuntimeLaunched()
+    await ensureOpenKodoRuntimeLaunched()
     fixture = await ensureSafariDraftFixtureLaunched()
   })
 
@@ -31,7 +35,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
     const targetArgs = await safariFixtureWindowTargetArgs(fixture.title)
     let state = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'get-app-state',
           '--app',
@@ -51,7 +55,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
     )
     expect(recipientIndex).toBeGreaterThanOrEqual(0)
 
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'click',
       '--app',
@@ -67,7 +71,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
     const recipient = `agent-${Date.now()}@example.com`
     const recipientPaste = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'paste-text',
           '--app',
@@ -88,7 +92,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
 
     state = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'press-key',
           '--app',
@@ -106,7 +110,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
     const body = `hello browser draft ${Date.now()}`
     const bodyPaste = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'paste-text',
           '--app',
@@ -127,7 +131,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
 
     state = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'get-app-state',
           '--app',
@@ -144,7 +148,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
 
     const saved = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'click',
           '--app',
@@ -166,7 +170,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
     const targetArgs = await safariFixtureWindowTargetArgs(fixture.title)
     const before = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'get-app-state',
           '--app',
@@ -187,7 +191,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
 
     const middle = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'click',
           '--app',
@@ -212,7 +216,8 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (Safari web app)', 
 
 async function safariFixtureWindowTargetArgs(title: string): Promise<string[]> {
   const windows = parseJsonOutput<{ result: ComputerListWindowsResult }>(
-    (await runOrcaCli(['computer', 'list-windows', '--app', 'com.apple.Safari', '--json'])).stdout
+    (await runOpenKodoCli(['computer', 'list-windows', '--app', 'com.apple.Safari', '--json']))
+      .stdout
   ).result.windows
   const target = windows.find((window) => window.title.includes(title))
   expect(target).toBeTruthy()

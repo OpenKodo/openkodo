@@ -32,7 +32,7 @@ export async function agentOwnMcpServerNames(
     readAgentMcpServerNames(configAgent, context, { projectPath: cwd }),
     // The agent loads OpenKodo's own bridge entries too: one this OpenKodo keeps for a server (Grok's,
     // Cursor's and Droid's files) already serves it, so the session isn't given it a second time.
-    readAgentMcpServers(configAgent, context, { projectPath: cwd, withOrcaOwned: true })
+    readAgentMcpServers(configAgent, context, { projectPath: cwd, withOpenKodoOwned: true })
   ])
   const userDataPath = hasAppEnvironment() ? getAppEnvironment().getPath('userData') : null
   const bridged = servers

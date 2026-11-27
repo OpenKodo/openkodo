@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { parseWorkspaceKey } from '../../../../../shared/workspace/identity/workspace-scope'
 import type { ExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import { resolveQualifiedFolderWorkspace } from '../../../../../shared/folder-workspaces/folder-workspace-execution-host'
@@ -7,12 +7,12 @@ import { resolveWorktreeHostRouting } from '../../../workspaces/catalog/worktree
 
 export async function resolveQualifiedAgentDetectionHost(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     'requireStore' | 'resolveAgentDetectionHost' | 'showManagedWorktree'
   >,
   params: { worktreeId?: string; worktreeHostId?: ExecutionHostId; repoId?: string },
-  selectedWorktree?: Awaited<ReturnType<OrcaRuntimeService['showManagedWorktree']>>,
-  selectedFolder?: NonNullable<ReturnType<OrcaRuntimeService['resolveManagedFolderWorkspace']>>
+  selectedWorktree?: Awaited<ReturnType<OpenKodoRuntimeService['showManagedWorktree']>>,
+  selectedFolder?: NonNullable<ReturnType<OpenKodoRuntimeService['resolveManagedFolderWorkspace']>>
 ) {
   const hostId = params.worktreeHostId
   if (!hostId || !params.worktreeId) {

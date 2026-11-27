@@ -12,7 +12,7 @@ import {
   orchestrationMigrationData
 } from '../../shared/orchestration/orchestration-rpc-contract'
 import type { PairedRuntimeConnection } from '../../shared/remote-runtime/pairing/paired-runtime-connection'
-import { openLocalOrca } from './app-launch/open-local-orca'
+import { openLocalOpenKodo } from './app-launch/open-local-openkodo'
 import { getDefaultUserDataPath, readMetadata } from './profile/metadata'
 import { getCliStatus, getOfflineRuntimeAdmission } from './status/status'
 import type { OfflineRuntimeAdmission } from './status/status'
@@ -308,12 +308,12 @@ export class RuntimeClient {
     }
   }
 
-  async openOrca(timeoutMs = 15_000): Promise<RuntimeRpcSuccess<CliStatusResult>> {
+  async openOpenKodo(timeoutMs = 15_000): Promise<RuntimeRpcSuccess<CliStatusResult>> {
     if (this.remoteSelected) {
       return this.getCliStatus()
     }
     reenterPackagedElectron()
-    return openLocalOrca(
+    return openLocalOpenKodo(
       () => this.getCliStatus(),
       (options) => this.call<{ requested: boolean }>('desktop.openWindowInBackground', {}, options),
       timeoutMs

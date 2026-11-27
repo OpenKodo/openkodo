@@ -25,7 +25,7 @@ export type ForkMarker = {
   sourceParentId?: string
 }
 export const FORK_MARKER_ITEM_ID = agentJournalItemKey({
-  provider: 'orca',
+  provider: 'openkodo',
   clientMessageId: 'forked-from'
 })
 

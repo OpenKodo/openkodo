@@ -6,7 +6,7 @@ export function resolveTerminalBrowserCommand(
   platform: NodeJS.Platform = process.platform
 ): string {
   if (!cliLauncher) {
-    return 'orca'
+    return 'openkodo'
   }
   // Why: xdg-open splits BROWSER on spaces and ':', Python reads '%s' as a template, gh eats '\'.
   if (platform !== 'win32' && !/[\s:]|%s/.test(cliLauncher)) {

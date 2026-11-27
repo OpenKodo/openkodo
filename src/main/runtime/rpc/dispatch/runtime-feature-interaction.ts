@@ -1,6 +1,6 @@
 import type { FeatureInteractionId } from '../../../../shared/feature-education/interactions/feature-interaction-catalog'
 import { isBrowserPaneUiRuntimeRpcParams } from '../../../../shared/remote-runtime/rpc/runtime-rpc-feature-interaction-source'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 export function getRuntimeFeatureInteractionId(
   method: string,
@@ -44,7 +44,7 @@ export function getRuntimeFeatureInteractionId(
 }
 
 export function recordRuntimeFeatureInteraction(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   method: string,
   result: unknown,
   alreadyRecorded?: Set<FeatureInteractionId>,

@@ -14,7 +14,7 @@ import { localBotHomeFilesystem } from './bot-home'
 import { createBotMemoryRecord } from './bot-memory-record'
 import { createBotTurnContext } from './bot-turn-context'
 
-const FOLDER = '/home/me/.orca/bots/scout'
+const FOLDER = '/home/me/.openkodo/bots/scout'
 const MEMORY = join(FOLDER, 'MEMORY.md')
 
 const said = (
@@ -281,7 +281,7 @@ describe('where memories came from', () => {
   })
 
   it('the disk write refuses a file that changed since it was read', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'orca-bot-memory-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-bot-memory-'))
     try {
       const path = join(dir, 'MEMORY.md')
       writeFileSync(path, '- b\n')

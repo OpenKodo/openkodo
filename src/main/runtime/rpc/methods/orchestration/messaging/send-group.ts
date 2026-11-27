@@ -3,7 +3,7 @@ import type {
   MessageType
 } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { resolveGroupAddress } from '../../../../orchestration/addressing/groups/group-addressing'
 import { isEquivalentPaneKey } from '../../../../orchestration/db/pane-key-match'
@@ -36,7 +36,7 @@ const MAX_STATUS_READS = 3
 
 function listRunGroupCandidates(args: {
   db: OrchestrationDb
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   senderRunId: string
   groupAddress: string
   agents: readonly GroupAgentSnapshot[]
@@ -101,7 +101,7 @@ function listRunGroupCandidates(args: {
 
 export async function sendGroupMessage(args: {
   params: SendParamsInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   from: string
   groupAddress: string

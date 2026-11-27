@@ -2,9 +2,9 @@ import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import {
   nativeExecutableResolver,
   type NativeExecutableSelection
-} from '@orca/process-host/native-executable-resolution'
-import { createPosixGroupTermination } from '@orca/process-host/posix-group-termination'
-import { spawnProcess } from '@orca/process-host'
+} from '@openkodo/process-host/native-executable-resolution'
+import { createPosixGroupTermination } from '@openkodo/process-host/posix-group-termination'
+import { spawnProcess } from '@openkodo/process-host'
 import type {
   WorkerThreadChildErrorPayload,
   WorkerThreadChildEvent,

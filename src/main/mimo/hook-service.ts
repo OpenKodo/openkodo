@@ -27,7 +27,7 @@ import {
   safeRemoveOverlay
 } from '../pty/scrollback/overlay-mirror'
 
-const OPENKODO_MIMOCODE_PLUGIN_FILE = 'orca-mimocode-status.js'
+const OPENKODO_MIMOCODE_PLUGIN_FILE = 'openkodo-mimocode-status.js'
 const MIMOCODE_HOOKS_DIR = 'mimocode-hooks'
 const PLUGIN_ONLY_CONFIG_DIR = 'config'
 const SOURCE_CONFIG_OVERLAYS_DIR = 'config-overlays'

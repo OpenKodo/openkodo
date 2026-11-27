@@ -1,5 +1,5 @@
 import type { Store } from '../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../orca-runtime'
+import type { OpenKodoRuntimeService } from '../openkodo-runtime'
 import type { RuntimeConstructionDependencies } from './runtime-construction-dependencies'
 import { findWorkspaceEphemeralVmRuntime } from '../../../shared/remote-runtime/ephemeral-vm-store/ephemeral-vm-workspace-runtime'
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
@@ -16,7 +16,7 @@ import {
   setRecipeVmAsleepStoreRoot
 } from '../../ephemeral-vm/recipe-vm-asleep'
 import { setSshHostAsleepCheck } from '../../ssh/connection/ssh-host-sleep-hold'
-import { openRecipeVmEnvironment } from '../../ipc/runtime-environments/managed-orcad/runtime-environment-recipe-vm-wake'
+import { openRecipeVmEnvironment } from '../../ipc/runtime-environments/managed-openkodod/runtime-environment-recipe-vm-wake'
 import { ArtifactCloudService } from '../../artifacts/artifact-cloud-service'
 import { SkillCloudService } from '../../skills/cloud/skill-cloud-package-service'
 import { isArtifactSharingEnabled } from '../../../shared/artifacts/artifact-sharing-gate'
@@ -43,7 +43,7 @@ export function desktopWorkspaceSleepPlatform(
 }
 
 export function installDesktopWorkspaceVmWaker(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   userDataPath: () => string
 ): void {
   // Opening a recipe VM's workspace from a client wakes the VM through the runtime's one owner.
@@ -63,7 +63,7 @@ export function installDesktopWorkspaceVmWaker(
 }
 
 export function configureDesktopCloudServices(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   getSettings: () => ReturnType<Store['getSettings']> | undefined,
   userDataPath: string
 ): void {

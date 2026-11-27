@@ -34,8 +34,8 @@ const theme = DEFAULT_TERMINAL_THEME
 
 // A Claude Code turn: prompt, tool rows, a rule and the input box, so weight and spacing show on real shapes.
 const SAMPLE_LINES = [
-  '<i class="g">➜</i> <i class="b">~/orca</i> <i class="m">main</i> <i class="d">❯</i> claude',
-  '<b class="y">✻</b> <b>Claude Code</b>  <i class="d">~/orca/mobile</i>',
+  '<i class="g">➜</i> <i class="b">~/openkodo</i> <i class="m">main</i> <i class="d">❯</i> claude',
+  '<b class="y">✻</b> <b>Claude Code</b>  <i class="d">~/openkodo/mobile</i>',
   '',
   '<i class="g">●</i> Read <b>src/terminal/text-scaling.ts</b>',
   '<i class="g">●</i> Bash(pnpm test resume --maxWorkers=2)',
@@ -60,7 +60,7 @@ function measure(look) {
     window.ReactNativeWebView.postMessage(JSON.stringify({ cellWidth: cellWidth }));
   }
 }
-window.__orcaPreview = function (look) {
+window.__openkodoPreview = function (look) {
   var root = document.documentElement.style;
   root.setProperty('--f', look.family);
   root.setProperty('--s', look.px + 'px');
@@ -90,6 +90,6 @@ b{font-weight:var(--bw)}i{font-style:normal}
 </style></head>
 <body><pre id="t">${SAMPLE_LINES.join('\n')}</pre>
 <script>${SCRIPT}
-window.__orcaPreview(${JSON.stringify(look).replace(/</g, '\\u003c')});
+window.__openkodoPreview(${JSON.stringify(look).replace(/</g, '\\u003c')});
 </script></body></html>`
 }

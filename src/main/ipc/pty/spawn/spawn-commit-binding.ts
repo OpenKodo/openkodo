@@ -1,7 +1,7 @@
 import type { Store } from '../../../persistence/loading-store/store'
 import type { PersistPtyBindingArgs } from '../../../persistence/loading-store/terminal-bindings/pty-binding-persistence'
 import { createTerminalSessionStateSaveFailureMessage } from '../../../../shared/workspace-session/terminal-session-state-save-failure'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { IPtyProvider } from '../../../providers/pty/provider-contract'
 import type { PtySpawnResult } from '../../../providers/pty/spawn-result'
 import { PaneOwnerContentionError, type AbsentPaneBinding } from '../pane/pane-spawn-operation'
@@ -26,7 +26,7 @@ export async function savePtySpawnPaneBinding(
     result: PtySpawnResult
     provider: IPtyProvider
     replacedPaneOwner?: ReplacedPaneOwner | null
-    deps: { runtime?: OrcaRuntimeService }
+    deps: { runtime?: OpenKodoRuntimeService }
   },
   { store, binding, absentOwner, refusal, failureLog }: PtySpawnPaneBinding,
   connectionId: string | null | undefined

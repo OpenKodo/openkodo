@@ -28,7 +28,7 @@ describe('createWorktreeSharedPaths', () => {
   let error: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
-    root = mkdtempSync(join(tmpdir(), 'orca-sharedpaths-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-sharedpaths-'))
     primary = join(root, 'primary')
     worktree = join(root, 'worktree')
     mkdirSync(primary, { recursive: true })
@@ -63,7 +63,7 @@ describe('createWorktreeCopiedPaths', () => {
   let error: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
-    root = mkdtempSync(join(tmpdir(), 'orca-copiedpaths-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-copiedpaths-'))
     primary = join(root, 'primary')
     worktree = join(root, 'worktree')
     mkdirSync(primary, { recursive: true })
@@ -108,7 +108,7 @@ describe('removeWorktreeSymlinks', () => {
   let error: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
-    root = mkdtempSync(join(tmpdir(), 'orca-unlink-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-unlink-'))
     primary = join(root, 'primary')
     worktree = join(root, 'worktree')
     mkdirSync(primary, { recursive: true })

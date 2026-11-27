@@ -25,7 +25,7 @@ const StateSchema = z.object({
 export type GoogleTriggerState = z.infer<typeof StateSchema>
 
 export const googleTriggerStatePath = () =>
-  join(dirname(getDataFile()), 'orca-google-triggers.json')
+  join(dirname(getDataFile()), 'openkodo-google-triggers.json')
 
 export const listenerKey = (botId: string, account: string) => `${botId} ${account}`
 

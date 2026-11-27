@@ -1,8 +1,6 @@
-import { app } from 'electron'
 import { resolveAppImageRuntimeIdentity } from '../../updater/linux-package/appimage-runtime-identity'
 import { prepareAppImageCopyForServe } from '../../cli/appimage/appimage-serve-preparation'
 import { CliInstaller } from '../../cli/cli-installer'
-import { installLinuxBareOrcaDispatcher } from '../../cli/launchers/linux-bare-orca-dispatcher'
 
 /** Headless serve has no renderer to run the normal cli:install flow, so it registers here. */
 export async function registerCliForHeadlessServe(): Promise<void> {
@@ -38,23 +36,5 @@ export async function registerCliForHeadlessServe(): Promise<void> {
       '[serve] openkodo CLI install skipped:',
       error instanceof Error ? error.message : String(error)
     )
-  }
-  // Linux installs orca-ide; Claude Team invokes bare orca, requiring a best-effort user-local dispatcher.
-  if (process.platform === 'linux' && app.isPackaged && process.resourcesPath) {
-    try {
-      const dispatcher = await installLinuxBareOrcaDispatcher({
-        resourcesPath: process.resourcesPath,
-        ...(appImageDeadlineAt === undefined ? {} : { appImageDeadlineAt })
-      })
-      console.log(
-        `[serve] bare openkodo dispatcher ${dispatcher.state}: ${dispatcher.dispatcherPath}` +
-          `${dispatcher.target ? ` -> ${dispatcher.target}` : ''}`
-      )
-    } catch (error) {
-      console.warn(
-        '[serve] bare openkodo dispatcher install skipped:',
-        error instanceof Error ? error.message : String(error)
-      )
-    }
   }
 }

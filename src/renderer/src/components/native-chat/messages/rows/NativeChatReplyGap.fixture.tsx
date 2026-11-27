@@ -47,7 +47,7 @@ function ReplyGap({ visual }: { visual: boolean }): React.JSX.Element {
         'reply',
         'assistant',
         visual
-          ? 'The trend is increasing.\n\n::orca-visual{file="trend.html"}'
+          ? 'The trend is increasing.\n\n::openkodo-visual{file="trend.html"}'
           : 'The trend is increasing.'
       )
     ]

@@ -30,9 +30,9 @@ import {
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 import type { NativeChatTimedRow } from '../conversation/slots/native-chat-timed-rows'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { WorkerApprovalDecision } from '../../../../../shared/orchestration/approvals/worker-approval-payload'
 
 // The person's own Deny: the worker gets this, word for word where its agent takes a message.
@@ -346,7 +346,7 @@ function useSecondClock(active: boolean): number {
 
 /** The chat's address its workers report to, when it can coordinate: an OpenKodo session on its host. */
 export function nativeChatWorkerApprovalParty(pane: { sessionId: string }): string | null {
-  return isOrcaSessionId(pane.sessionId) ? formatOrcaSessionAddress(pane.sessionId) : null
+  return isOpenKodoSessionId(pane.sessionId) ? formatOpenKodoSessionAddress(pane.sessionId) : null
 }
 
 /** A coordinator chat's closed worker prompts, each in its transcript at the time the worker

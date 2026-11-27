@@ -14,16 +14,16 @@ const OPENKODO_MINTED_HISTFILE = new RegExp(
     `terminal-history-wsl/[^/]+/${WORKTREE_HASH}/${HISTORY_FILE}` +
     '|' +
     // Relay: ~/.openkodo-remote/terminal-history/<hash>-<file>
-    `\\.orca-remote/terminal-history/${WORKTREE_HASH}-${HISTORY_FILE}` +
+    `\\.openkodo-remote/terminal-history/${WORKTREE_HASH}-${HISTORY_FILE}` +
     ')$'
 )
 
-export function isOrcaMintedHistFile(value: string | undefined): boolean {
+export function isOpenKodoMintedHistFile(value: string | undefined): boolean {
   return typeof value === 'string' && OPENKODO_MINTED_HISTFILE.test(value.replace(/\\/g, '/'))
 }
 
-export function dropInheritedOrcaHistFile(env: Record<string, string | undefined>): void {
-  if (isOrcaMintedHistFile(env.HISTFILE)) {
+export function dropInheritedOpenKodoHistFile(env: Record<string, string | undefined>): void {
+  if (isOpenKodoMintedHistFile(env.HISTFILE)) {
     delete env.HISTFILE
   }
 }

@@ -4,7 +4,7 @@ import {
   findNewestInstallableRelease
 } from '../app-update/github-release-update-source'
 
-export const NEW_APP_PLAY_URL = 'https://play.google.com/store/apps/details?id=dev.orca.app'
+export const NEW_APP_PLAY_URL = 'https://play.google.com/store/apps/details?id=dev.openkodo.app'
 const RELEASES_PAGE_URL = 'https://github.com/OpenKodo/openkodo/releases'
 const LOOKUP_TIMEOUT_MS = 10_000
 

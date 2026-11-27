@@ -51,7 +51,7 @@ export abstract class UpdaterRequiredRestart extends UpdaterRemoteStatus {
     const {
       teamRestart: _restart,
       requiredByTeam: _team,
-      requiredByOrca: _orca,
+      requiredByOpenKodo: _openkodo,
       ...download
     } = status
     if (this.isRequiredTeamUpdate(download.version)) {
@@ -74,9 +74,9 @@ export abstract class UpdaterRequiredRestart extends UpdaterRemoteStatus {
     }
   }
 
-  protected requiredUpdateStatusFields(): { requiredByTeam: true; requiredByOrca?: true } {
+  protected requiredUpdateStatusFields(): { requiredByTeam: true; requiredByOpenKodo?: true } {
     return this.getTeamUpdatePolicy?.()?.emergency
-      ? { requiredByTeam: true, requiredByOrca: true }
+      ? { requiredByTeam: true, requiredByOpenKodo: true }
       : { requiredByTeam: true }
   }
 

@@ -63,7 +63,7 @@ function getWorktreeVisibilityMenuLabel(
   )
   return visibility === 'show'
     ? t(
-        'auto.components.sidebar.repoHeaderProjectActions.hideNonOrcaWorktrees',
+        'auto.components.sidebar.repoHeaderProjectActions.hideNonOpenKodoWorktrees',
         'Hide non-OpenKodo worktrees'
       )
     : t(

@@ -89,7 +89,7 @@ function buildAppIfNeeded() {
 }
 
 function createGitRepo() {
-  const repoDir = mkdtempSync(path.join(tmpdir(), 'orca-wayland-gpu-repo-'))
+  const repoDir = mkdtempSync(path.join(tmpdir(), 'openkodo-wayland-gpu-repo-'))
   run('git', ['init'], { cwd: repoDir, stdio: 'pipe' })
   run('git', ['config', 'user.email', 'wayland-gpu@test.local'], { cwd: repoDir, stdio: 'pipe' })
   run('git', ['config', 'user.name', 'Wayland GPU Test'], { cwd: repoDir, stdio: 'pipe' })
@@ -148,7 +148,7 @@ async function runValidation(mode) {
   buildAppIfNeeded()
 
   const repoPath = createGitRepo()
-  const userDataPath = mkdtempSync(path.join(tmpdir(), 'orca-wayland-gpu-userdata-'))
+  const userDataPath = mkdtempSync(path.join(tmpdir(), 'openkodo-wayland-gpu-userdata-'))
   // E2E flag disables Linux GPU and invalidates repro; explicitly confine Codex/Node homes to disposable profile instead.
   const isolatedHome = path.join(userDataPath, 'home')
   mkdirSync(isolatedHome, { recursive: true })
@@ -200,13 +200,13 @@ async function runValidation(mode) {
       ELECTRON_RUN_AS_NODE: _unused,
       DISPLAY: _display,
       CODEX_HOME: _codexHome,
-      OPENKODO_CODEX_HOME: _orcaCodexHome,
+      OPENKODO_CODEX_HOME: _openkodoCodexHome,
       ...env
     } = process.env
     void _unused
     void _display
     void _codexHome
-    void _orcaCodexHome
+    void _openkodoCodexHome
     logPhase('launch.start')
     app = await runWithTimeout(
       'Electron launch',

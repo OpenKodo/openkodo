@@ -4,7 +4,7 @@ import type { ProspectiveWorkspace } from '@/lib/agent-session/launch/routing/ag
 import { useTranslate } from '@/i18n/use-translate'
 import { isValidAutomationSchedule } from '../../../../../shared/automations/scheduling/automation-schedule-parsing'
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
-import type { OrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { ProjectHostSetup } from '../../../../../shared/project/project-types'
 import type { Repo } from '../../../../../shared/repository/repo-types'
 import type { Worktree } from '../../../../../shared/worktree/types'
@@ -40,7 +40,7 @@ type AutomationEditorSettingsSidebarProps = {
   destination?: AutomationCreateDestinationControl
   repos: readonly Repo[]
   projectHostSetups: readonly ProjectHostSetup[]
-  automationYamlHooksByRepoKey: Record<string, OrcaHooks | null>
+  automationYamlHooksByRepoKey: Record<string, OpenKodoHooks | null>
   getAutomationHooksCacheKey: (repoId: string) => string
   repoMap: Map<string, Repo>
   worktrees: Worktree[]

@@ -1,9 +1,9 @@
-import { OrcaRuntimeWithMarkPtyLivenessUnverifiable } from './terminal-input-floor'
+import { OpenKodoRuntimeWithMarkPtyLivenessUnverifiable } from './terminal-input-floor'
 import type { ApplyLayoutResult } from './terminal-layout-state'
 import type { RuntimeTerminalDriverState } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { clampTerminalViewport } from '../../../../shared/terminal/viewport/terminal-viewport'
 
-export abstract class OrcaRuntimeWithMobileTookFloor extends OrcaRuntimeWithMarkPtyLivenessUnverifiable {
+export abstract class OpenKodoRuntimeWithMobileTookFloor extends OpenKodoRuntimeWithMarkPtyLivenessUnverifiable {
   abstract applyMobileDisplayMode(ptyId: string): Promise<boolean>
   abstract setMobileDisplayMode(ptyId: string, mode: 'auto' | 'desktop'): void
 

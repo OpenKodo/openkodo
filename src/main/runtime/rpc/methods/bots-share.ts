@@ -7,12 +7,12 @@ import {
   BotShareStatusParams,
   BotShareStop
 } from '../../../../shared/rpc-contract/bots-share-params'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod, InvalidArgumentError, type RpcContext } from '../core'
 
-export const BOT_SHARE_UNKNOWN_CALLER = 'Share a bot from OpenKodo or its `orca` CLI.'
+export const BOT_SHARE_UNKNOWN_CALLER = 'Share a bot from OpenKodo or its `openkodo` CLI.'
 
-/** Anyone who can reach the bot through OpenKodo (a window, a paired device, or an agent's `orca` CLI,
+/** Anyone who can reach the bot through OpenKodo (a window, a paired device, or an agent's `openkodo` CLI,
  *  here or over a pairing) can already read and paste its files, so all of them may share; only a
  *  client with no proven identity is refused. */
 export function assertTrustedCaller(context: RpcContext): void {
@@ -27,7 +27,7 @@ function authorizedBot(context: RpcContext, botId: string): Bot {
   return botOf(context.runtime, botId)
 }
 
-function botOf(runtime: OrcaRuntimeService, botId: string): Bot {
+function botOf(runtime: OpenKodoRuntimeService, botId: string): Bot {
   const bot = runtime.bots.list().find((entry) => entry.id === botId)
   if (!bot) {
     throw new InvalidArgumentError('No such bot.')

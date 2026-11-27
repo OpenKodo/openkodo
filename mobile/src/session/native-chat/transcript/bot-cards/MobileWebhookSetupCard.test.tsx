@@ -39,7 +39,7 @@ vi.mock(
 )
 
 const HOOK = 'wh_PhoneCardTest001'
-const URL = `https://connector.orca.dev/hooks/${HOOK}/secret-key`
+const URL = `https://connector.openkodo.dev/hooks/${HOOK}/secret-key`
 
 let tree: ReactTestRenderer | null = null
 afterEach(() => {

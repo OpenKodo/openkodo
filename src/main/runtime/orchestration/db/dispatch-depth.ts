@@ -2,7 +2,7 @@ import { createDispatchCreatorEvaluation } from './dispatch-creator-evaluation'
 import { requireOrchestrationAdmission } from '../addressing/orchestration-admission'
 
 import type { OrchestrationDb } from './orchestration-db'
-import type { OrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { DispatchContextRow, RemoteDispatchAttachmentRow } from './orchestration-records'
 import { potentiallyLiveRemoteAttachmentSql } from './federation/remote-attachment-liveness'
 import {
@@ -22,24 +22,28 @@ export type DispatchCreator =
       /** Remote attachment matching requires the exact incarnation; local rows do not. */
       processIncarnation?: string
       /** A structured worker's bare OpenKodo session id, recorded beside its handle. */
-      orcaSessionId?: OrcaSessionId | null
+      openkodoSessionId?: OpenKodoSessionId | null
       turnSource?: DispatchCreatorTurnSource
     }
   /** A structured session with no terminal handle, identified by its OpenKodo session id alone. */
-  | { kind: 'session'; orcaSessionId: OrcaSessionId; turnSource?: DispatchCreatorTurnSource }
+  | {
+      kind: 'session'
+      openkodoSessionId: OpenKodoSessionId
+      turnSource?: DispatchCreatorTurnSource
+    }
 
 /** Creator identity to persist on a new row, so depth can later tell delegation from bookkeeping. */
 export function recordedCreatorIdentity(creator: DispatchCreator): {
   creatorHandle: string | null
   creatorPaneKey: string | null
-  creatorOrcaSessionId: OrcaSessionId | null
+  creatorOpenKodoSessionId: OpenKodoSessionId | null
   creatorTurnSource: DispatchCreatorTurnSource | null
 } {
   if (creator.kind === 'system') {
     return {
       creatorHandle: null,
       creatorPaneKey: null,
-      creatorOrcaSessionId: null,
+      creatorOpenKodoSessionId: null,
       creatorTurnSource: null
     }
   }
@@ -48,14 +52,14 @@ export function recordedCreatorIdentity(creator: DispatchCreator): {
     return {
       creatorHandle: null,
       creatorPaneKey: null,
-      creatorOrcaSessionId: creator.orcaSessionId,
+      creatorOpenKodoSessionId: creator.openkodoSessionId,
       creatorTurnSource
     }
   }
   return {
     creatorHandle: creator.handle,
     creatorPaneKey: creator.paneKey ?? null,
-    creatorOrcaSessionId: creator.orcaSessionId ?? null,
+    creatorOpenKodoSessionId: creator.openkodoSessionId ?? null,
     creatorTurnSource
   }
 }
@@ -71,10 +75,10 @@ function findActiveDispatchForCreator(
   const row = this.db
     .prepare(
       `SELECT ${DISPATCH_CONTEXT_COLUMN_LIST} FROM dispatch_contexts
-       WHERE assignee_orca_session_id = ? AND status IN ('pending', 'dispatched')
+       WHERE assignee_openkodo_session_id = ? AND status IN ('pending', 'dispatched')
        ORDER BY rowid DESC LIMIT 1`
     )
-    .get(creator.orcaSessionId)
+    .get(creator.openkodoSessionId)
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: The schema-pinned complete Dispatch projection returns one Dispatch row or undefined; the adapter exposes unknown.
   return row as DispatchContextRow | undefined
 }

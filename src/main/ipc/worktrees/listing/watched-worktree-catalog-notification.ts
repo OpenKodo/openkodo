@@ -1,10 +1,10 @@
 import type { BrowserWindow } from 'electron'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { notifyWorktreesChanged } from '../worktree-remote'
 import { runWorktreeChangeInvalidators } from './worktree-change-invalidators'
 
 type WorktreeCatalogRemoteClientNotifier = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'notifyWorktreeCatalogChangedForRemoteClients' | 'notifyGitStatusChangedForRemoteClients'
 >
 

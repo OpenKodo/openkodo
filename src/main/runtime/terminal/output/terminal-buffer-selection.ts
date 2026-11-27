@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithCreatePtyHeadlessTerminalState } from './headless-terminal-state'
+import { OpenKodoRuntimeWithCreatePtyHeadlessTerminalState } from './headless-terminal-state'
 import type { TerminalOscLinkRange } from '../../../../shared/terminal/links/terminal-osc-link-ranges'
 import type {
   PtyProviderBufferSnapshot,
@@ -8,7 +8,7 @@ import type { ProviderTerminalBufferWait } from '../records/runtime-terminal-sta
 import { withTimeout } from '../../../../shared/concurrency/promise-timeout-fallback'
 import { AUTHORITATIVE_TERMINAL_SNAPSHOT_TIMEOUT_MS } from './provider-snapshot-budget'
 
-export abstract class OrcaRuntimeWithSerializeTerminalBufferFromAvailableState extends OrcaRuntimeWithCreatePtyHeadlessTerminalState {
+export abstract class OpenKodoRuntimeWithSerializeTerminalBufferFromAvailableState extends OpenKodoRuntimeWithCreatePtyHeadlessTerminalState {
   protected abstract captureProviderTerminalBuffer(
     ptyId: string,
     opts: PtyProviderBufferSnapshotOptions,

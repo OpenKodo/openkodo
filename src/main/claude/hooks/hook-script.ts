@@ -109,7 +109,7 @@ export function getManagedScript(
     ...(decides
       ? wrapPosixClaudeDecisionPost(
           buildPosixAgentHookPostCommand(source, {
-            decisionHeaderVar: 'orca_hook_decides',
+            decisionHeaderVar: 'openkodo_hook_decides',
             cachedMetadata: true
           })
         )

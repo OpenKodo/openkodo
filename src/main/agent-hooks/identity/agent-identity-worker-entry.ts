@@ -4,10 +4,10 @@ import { parentPort } from 'node:worker_threads'
 import SyncDatabase from '../../sqlite/sync-database'
 import { hardenSqliteDatabaseFiles } from '../../sqlite/harden-database-files'
 import {
-  createOrcaSessionId,
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../shared/agent-session/identity/orca-session-address'
+  createOpenKodoSessionId,
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../shared/agent-session/identity/openkodo-session-address'
 import type { AgentProviderKey } from './agent-provider-key'
 import {
   REVERSE_LOOKUP_UNAVAILABLE,
@@ -17,12 +17,12 @@ import {
 } from './agent-identity-worker-protocol'
 import { installWorkerSendLedger } from '../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-agent-identity')
+installWorkerSendLedger('openkodo-agent-identity')
 
 /** Bump only with additive DDL below; a newer file opens read-only, never rebuilt. */
 const SCHEMA_VERSION = 1
 const SCHEMA_SQL = `CREATE TABLE IF NOT EXISTS identities(
-  orca_session_id TEXT PRIMARY KEY,
+  openkodo_session_id TEXT PRIMARY KEY,
   agent TEXT NOT NULL,
   created_at INTEGER NOT NULL
 );
@@ -32,28 +32,28 @@ CREATE TABLE IF NOT EXISTS provider_links(
   agent TEXT NOT NULL,
   provider_session_id TEXT NOT NULL,
   locator TEXT NOT NULL,
-  orca_session_id TEXT NOT NULL REFERENCES identities(orca_session_id),
+  openkodo_session_id TEXT NOT NULL REFERENCES identities(openkodo_session_id),
   UNIQUE(execution_host, wsl_distro, agent, provider_session_id, locator)
 );`
 
-const SELECT_LINK = `SELECT orca_session_id FROM provider_links
+const SELECT_LINK = `SELECT openkodo_session_id FROM provider_links
   WHERE execution_host = ? AND wsl_distro = ? AND agent = ? AND provider_session_id = ? AND locator = ?`
 // Reverse lookups for `openkodo agent` reads: indexes only, so older builds open the file unchanged.
-const LOOKUP_INDEX_SQL = `CREATE INDEX IF NOT EXISTS provider_links_by_orca_session
-  ON provider_links(orca_session_id);
+const LOOKUP_INDEX_SQL = `CREATE INDEX IF NOT EXISTS provider_links_by_openkodo_session
+  ON provider_links(openkodo_session_id);
 CREATE INDEX IF NOT EXISTS provider_links_by_provider_session
   ON provider_links(provider_session_id);`
 
-type ReverseLookupColumn = 'orca_session_id' | 'provider_session_id'
+type ReverseLookupColumn = 'openkodo_session_id' | 'provider_session_id'
 
 const PROVIDER_SESSION_ID_MATCH_LIMIT = 8
 
 function querySql(column: ReverseLookupColumn, index: string): string {
   const from = `FROM provider_links INDEXED BY ${quoteIdentifier(index)}`
-  return column === 'orca_session_id'
+  return column === 'openkodo_session_id'
     ? `SELECT execution_host, wsl_distro, agent, provider_session_id, locator ${from}
-       WHERE orca_session_id = ? LIMIT 1`
-    : `SELECT DISTINCT orca_session_id ${from}
+       WHERE openkodo_session_id = ? LIMIT 1`
+    : `SELECT DISTINCT openkodo_session_id ${from}
        WHERE provider_session_id = ? LIMIT ${PROVIDER_SESSION_ID_MATCH_LIMIT}`
 }
 
@@ -170,35 +170,35 @@ export class AgentIdentityStore {
     })
   }
 
-  lookup(key: AgentProviderKey): OrcaSessionId | null {
+  lookup(key: AgentProviderKey): OpenKodoSessionId | null {
     const row = this.db.prepare(SELECT_LINK).get(...keyBindings(key))
-    const id = row?.orca_session_id
-    return typeof id === 'string' && isOrcaSessionId(id) ? id : null
+    const id = row?.openkodo_session_id
+    return typeof id === 'string' && isOpenKodoSessionId(id) ? id : null
   }
 
   /** The key's id, minting one on first sighting (null only for an unlinked key in a read-only
    *  file); concurrent first sightings converge on the
    *  committed link. Throws on lock or I/O failure so callers retry later. */
-  identify(key: AgentProviderKey): OrcaSessionId | null {
+  identify(key: AgentProviderKey): OpenKodoSessionId | null {
     const existing = this.lookup(key)
     if (existing || this.readOnly) {
       return existing
     }
-    const minted = createOrcaSessionId(randomUUID)
+    const minted = createOpenKodoSessionId(randomUUID)
     this.db.exec('BEGIN IMMEDIATE')
     try {
       this.db
-        .prepare('INSERT INTO identities(orca_session_id, agent, created_at) VALUES (?, ?, ?)')
+        .prepare('INSERT INTO identities(openkodo_session_id, agent, created_at) VALUES (?, ?, ?)')
         .run(minted, key.agent, Date.now())
       const linked = this.db
         .prepare(
-          `INSERT INTO provider_links(execution_host, wsl_distro, agent, provider_session_id, locator, orca_session_id)
+          `INSERT INTO provider_links(execution_host, wsl_distro, agent, provider_session_id, locator, openkodo_session_id)
            VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING`
         )
         .run(...keyBindings(key), minted)
       // Another writer linked the key first: its id stands and this mint is dropped.
       if (Number(linked.changes) === 0) {
-        this.db.prepare('DELETE FROM identities WHERE orca_session_id = ?').run(minted)
+        this.db.prepare('DELETE FROM identities WHERE openkodo_session_id = ?').run(minted)
       }
       this.db.exec('COMMIT')
     } catch (error) {
@@ -217,13 +217,14 @@ export class AgentIdentityStore {
   /** Whether this host minted `id`; terminal identities are never chat records. */
   has(id: string): boolean {
     return (
-      this.db.prepare('SELECT 1 FROM identities WHERE orca_session_id = ?').get(id) !== undefined
+      this.db.prepare('SELECT 1 FROM identities WHERE openkodo_session_id = ?').get(id) !==
+      undefined
     )
   }
 
   /** The provider conversation `id` names: each mint links exactly one key. */
   providerKeyOf(id: string): AgentProviderKey | null | ReverseLookupUnavailable {
-    const sql = this.reverse.sqlFor('orca_session_id')
+    const sql = this.reverse.sqlFor('openkodo_session_id')
     if (!sql) {
       return REVERSE_LOOKUP_UNAVAILABLE
     }
@@ -240,7 +241,7 @@ export class AgentIdentityStore {
   }
 
   /** OpenKodo ids linked to a provider's own session id, so a caller can be told which to use. */
-  idsOfProviderSession(providerSessionId: string): OrcaSessionId[] | ReverseLookupUnavailable {
+  idsOfProviderSession(providerSessionId: string): OpenKodoSessionId[] | ReverseLookupUnavailable {
     const sql = this.reverse.sqlFor('provider_session_id')
     if (!sql) {
       return REVERSE_LOOKUP_UNAVAILABLE
@@ -248,8 +249,8 @@ export class AgentIdentityStore {
     return this.db
       .prepare(sql)
       .all(providerSessionId)
-      .map((row) => row.orca_session_id)
-      .filter((id): id is OrcaSessionId => typeof id === 'string' && isOrcaSessionId(id))
+      .map((row) => row.openkodo_session_id)
+      .filter((id): id is OpenKodoSessionId => typeof id === 'string' && isOpenKodoSessionId(id))
   }
 
   close(): void {
@@ -327,9 +328,9 @@ export function handleAgentIdentityRequest(
       case 'identify':
         return { id: request.id, ok: true, value: opened.identify(request.key) }
       case 'has':
-        return { id: request.id, ok: true, value: opened.has(request.orcaSessionId) }
+        return { id: request.id, ok: true, value: opened.has(request.openkodoSessionId) }
       case 'providerKeyOf':
-        return { id: request.id, ok: true, value: opened.providerKeyOf(request.orcaSessionId) }
+        return { id: request.id, ok: true, value: opened.providerKeyOf(request.openkodoSessionId) }
       case 'idsOfProviderSession':
         return {
           id: request.id,

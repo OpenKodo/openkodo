@@ -35,7 +35,7 @@ export function GeneralSupportSection({
 
   useEffect(() => {
     let cancelled = false
-    void window.api.gh.checkOrcaStarred().then((result) => {
+    void window.api.gh.checkOpenKodoStarred().then((result) => {
       if (cancelled) {
         return
       }
@@ -63,7 +63,7 @@ export function GeneralSupportSection({
       return
     }
     setStarState('starring')
-    const ok = await window.api.gh.starOrca('settings')
+    const ok = await window.api.gh.starOpenKodo('settings')
     if (!ok) {
       if (mountedRef.current) {
         setStarState('web-fallback')

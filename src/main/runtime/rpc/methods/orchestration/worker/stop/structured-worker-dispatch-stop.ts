@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import type { WorkerStopReceipt } from '../../../../../../../shared/orchestration/workers/orchestration-worker-stop-receipt'
 import type { StructuredWorkerIdentity } from '../../../../../orchestration/terminal-authority/structured-sessions/structured-worker-identity'
@@ -6,7 +6,7 @@ import { stopStructuredWorker } from '../../structured-workers/orchestration-str
 
 /** Stops a worker that runs as a chat session; one whose agent is still starting stops once that start ends. */
 export async function stopStructuredDispatch(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string,
   structured: StructuredWorkerIdentity
@@ -49,7 +49,7 @@ export async function stopStructuredDispatch(
 
 /** The pending stop of a worker whose agent was still starting, once that start has ended. */
 function settleStopOfCancelledStart(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string,
   stopped: boolean

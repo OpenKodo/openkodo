@@ -72,7 +72,7 @@ export class CodexUsageStore extends UsageProviderStoreLifecycle<
         selectDays: (state) => codexOpenCodeTokenDays(state.dailyAggregates)
       },
       logTag: '[codex-usage]',
-      resolveCacheFile: () => join(host.userDataPath, 'orca-codex-usage.json'),
+      resolveCacheFile: () => join(host.userDataPath, 'openkodo-codex-usage.json'),
       createDefaultState: getDefaultState,
       normalizeState: normalizePersistedState,
       sourceKey: 'processedFiles',

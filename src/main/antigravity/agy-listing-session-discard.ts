@@ -2,7 +2,7 @@ import { basename, join } from 'node:path'
 import { rm, stat } from 'node:fs/promises'
 import { ANTIGRAVITY_ACP_HOME } from '../../shared/agent-session/lifecycle/provider-handles/antigravity-session-origin'
 import type { AcpListingSession } from '../acp/discovery/acp-model-discovery-policy'
-import { ANTIGRAVITY_AGY_CHAT_HOME_FOLDER } from './antigravity-agy-orca-home'
+import { ANTIGRAVITY_AGY_CHAT_HOME_FOLDER } from './antigravity-agy-openkodo-home'
 import { ANTIGRAVITY_CHAT_HOME_FOLDER } from './antigravity-chat-home'
 
 const SESSION_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i

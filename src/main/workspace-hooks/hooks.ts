@@ -1,27 +1,27 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { access } from 'node:fs/promises'
 import { join } from 'node:path'
-import { parseOrcaYaml } from '../../shared/workspace-setup/orca-yaml'
+import { parseOpenKodoYaml } from '../../shared/workspace-setup/openkodo-yaml'
 import { resolveHookCommandSourcePolicy } from '../../shared/workspace-setup/hooks/hook-command-source-policy'
 import { getEffectiveHooksFromConfig } from './effective-hook-config'
 import { getHookRuntimeTarget, getHookWslContext } from './hook-runtime-target'
 import { getSetupEnvVars, type HookWorkspaceIdentity } from './setup-hook-env-vars'
-import { applyHostHookOrcaCliEnv, wslHookOrcaCliEnv } from './hook-orca-cli-env'
+import { applyHostHookOpenKodoCliEnv, wslHookOpenKodoCliEnv } from './hook-openkodo-cli-env'
 import { promptGuardShellEnv } from '../git/command-runner/git-environment/git-process-env'
 import { dropIncoherentCondaActivationEnv } from '../pty/shell-startup/conda-activation-env'
 import { toLinuxPath } from '../../shared/file-access/wsl-paths'
 import { runWslProcess } from '../wsl/execution/wsl-runner'
 import { windowsFsPath } from '../wsl/filesystem/wsl-unc-drive-fs-path'
 import type { HookRuntimeTarget } from './hook-runtime-target'
-import type { OrcaHooks } from '../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { WorkspaceHookOwner } from '../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { ProjectExecutionRuntimeResolution } from '../../shared/execution-host/project-execution-runtime'
 import { spawn } from 'node:child_process'
 import {
   forceTerminateProcessTree,
   signalProcessTree
-} from '@orca/process-host/process-tree-termination'
-import { createOutputSink } from '@orca/process-host/bounded-output-sink'
+} from '@openkodo/process-host/process-tree-termination'
+import { createOutputSink } from '@openkodo/process-host/bounded-output-sink'
 
 const HOOK_TIMEOUT = 120_000
 
@@ -102,7 +102,7 @@ async function getHookShell(): Promise<string> {
 }
 
 // A UNC drive-mount repo's file opens only through its drive path.
-export function orcaYamlPath(repoPath: string): string {
+export function openkodoYamlPath(repoPath: string): string {
   // OpenKodo writes openkodo.yaml; repositories created before the rename still
   // carry openkodo.yaml, so read the new name first and fall back to the old one.
   const next = windowsFsPath(join(repoPath, 'openkodo.yaml'))
@@ -112,28 +112,28 @@ export function orcaYamlPath(repoPath: string): string {
   return windowsFsPath(join(repoPath, 'openkodo.yaml'))
 }
 
-export function loadHooks(repoPath: string): OrcaHooks | null {
-  const yamlPath = orcaYamlPath(repoPath)
+export function loadHooks(repoPath: string): OpenKodoHooks | null {
+  const yamlPath = openkodoYamlPath(repoPath)
   if (!existsSync(yamlPath)) {
     return null
   }
 
   try {
     const content = readFileSync(yamlPath, 'utf-8')
-    return parseOrcaYaml(content)
+    return parseOpenKodoYaml(content)
   } catch {
     return null
   }
 }
 
 export function hasHooksFile(repoPath: string): boolean {
-  return existsSync(orcaYamlPath(repoPath))
+  return existsSync(openkodoYamlPath(repoPath))
 }
 
 export function getEffectiveHooks(
   repo: WorkspaceHookOwner,
   worktreePath?: string
-): OrcaHooks | null {
+): OpenKodoHooks | null {
   const hooksRoot = worktreePath ?? repo.path
   return getEffectiveHooksFromConfig(repo, loadHooks(hooksRoot))
 }
@@ -172,7 +172,7 @@ export function runHook(
   repo: WorkspaceHookOwner,
   hooksPath?: string,
   projectRuntime?: ProjectExecutionRuntimeResolution | HookRuntimeTarget,
-  options: { identity?: HookWorkspaceIdentity; timeoutMs?: number; hooks?: OrcaHooks } = {}
+  options: { identity?: HookWorkspaceIdentity; timeoutMs?: number; hooks?: OpenKodoHooks } = {}
   // Failed hooks without an observed exit are unverifiable to the removal gate (#19334).
 ): Promise<{ success: boolean; output: string; exitCode?: number }> {
   const timeoutMs = options.timeoutMs ?? HOOK_TIMEOUT
@@ -196,7 +196,7 @@ export function runHook(
     }
     // Forward unattended Git flags to WSL; keep host askpass out of the guest.
     const guardedEnv = promptGuardShellEnv(wslEnv)
-    const wslCli = wslHookOrcaCliEnv()
+    const wslCli = wslHookOpenKodoCliEnv()
     const guestEnv: Record<string, string> = { ...wslCli.env, ...wslEnv }
     for (const [key, value] of Object.entries(guardedEnv)) {
       if (value !== undefined && (key === 'GIT_TERMINAL_PROMPT' || key === 'GCM_INTERACTIVE')) {
@@ -219,7 +219,7 @@ export function runHook(
   }
 
   const shellHookEnv: NodeJS.ProcessEnv = { ...process.env }
-  applyHostHookOrcaCliEnv(shellHookEnv)
+  applyHostHookOpenKodoCliEnv(shellHookEnv)
   Object.assign(shellHookEnv, getSetupEnvVars(repo, cwd, options.identity))
   dropIncoherentCondaActivationEnv(shellHookEnv)
 

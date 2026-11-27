@@ -20,7 +20,7 @@ export type SlashCommandSuggestion = {
   /** Declared only on curated rows; a surface that cannot show the reply drops the row. */
   reply?: NativeChatCommandReply
   /** The desktop chat runs it itself: it hides an agent command of the same name, never a skill. */
-  orcaOwned?: true
+  openkodoOwned?: true
   /** Sent bare, it opens a TUI screen the chat cannot show, so a terminal-backed chat switches to Terminal. */
   opensInTerminal?: true
 }

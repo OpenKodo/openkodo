@@ -10,7 +10,7 @@ export const BrowserWindow = undefined
 export const app = {
   isPackaged: false,
   getVersion: () => '0.0.0-wsl-relay-benchmark',
-  getName: () => 'orca-wsl-relay-benchmark',
+  getName: () => 'openkodo-wsl-relay-benchmark',
   getPath: (name) => {
     if (name === 'userData') {
       return userDataPath

@@ -4,7 +4,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { RpcContext } from '../../../core'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { createOrchestrationRpcHarness } from '../rpc-test-harness'
 import { createRootDispatch } from '../../../../orchestration/db/root-dispatch-test-fixture'
 import { resolveWorkerReporterIdentity } from '../../../../orchestration/workers/reports/reminted-worker-reporter'
@@ -25,7 +25,7 @@ const REMOTE_DISPATCH = 'ctx_remote_fences'
 describe('restart-recovered worker fences after entry', () => {
   const harness = createOrchestrationRpcHarness()
   let db: OrchestrationDb
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let ctx: RpcContext
   // What the runtime records for the worker pane; a test swaps it to model a replacement process.
   let paneIncarnation = INCARNATION

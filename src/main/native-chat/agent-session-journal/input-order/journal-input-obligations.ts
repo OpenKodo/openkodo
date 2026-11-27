@@ -268,7 +268,7 @@ export function journalInputPresentationMember(
   }
   const identity = parseAgentJournalItemKey(itemId)
   return (
-    identity?.provider !== 'orca' ||
+    identity?.provider !== 'openkodo' ||
     !state.inputs.rejections.has(identity.clientMessageId) ||
     state.inputs.presentations.has(identity.clientMessageId)
   )

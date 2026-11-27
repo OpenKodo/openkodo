@@ -7,7 +7,7 @@ import { finishCodexHookPass, runCodexHookPassEffectsOffMain } from './codex-hoo
 import type { CodexLaunchConfigPreparation } from './codex-hook-launch-preparation'
 import { removeRealHomeCodexHookForOptOut } from '../reconciliation/codex-real-home-hook-install'
 import type { CodexHookHashes } from '../../trust/hooks/codex-hook-trust-derivation'
-import { getOrcaManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
+import { getOpenKodoManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
 
 export async function refreshCodexRuntimeUserHooksExclusively(
   runtimeHomePath: string,
@@ -29,10 +29,10 @@ export async function removeCodexHooksExclusively(
   const configPath = getConfigPath()
   if (existsSync(configPath)) {
     // Rebuild first to move user approvals back from slots shifted by OpenKodo's group.
-    await refreshCodexRuntimeUserHooksExclusively(getOrcaManagedCodexHomePath(), getStatus)
+    await refreshCodexRuntimeUserHooksExclusively(getOpenKodoManagedCodexHomePath(), getStatus)
   }
   // Rebuild leaves runtime hooks untouched when system hooks are unreadable, so strip them here too.
-  if (!stripCodexManagedHooksFromHome(getOrcaManagedCodexHomePath(), codexHashes)) {
+  if (!stripCodexManagedHooksFromHome(getOpenKodoManagedCodexHomePath(), codexHashes)) {
     // A malformed runtime file must not strand real-home or legacy hooks after disabling.
     await removeRealHomeCodexHookForOptOut(codexHashes)
     await cleanupLegacyManagedHookRepresentations()

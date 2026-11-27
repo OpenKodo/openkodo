@@ -1,6 +1,6 @@
-import { OrcaRuntimeWithApplyLayout } from './terminal-layout-application'
+import { OpenKodoRuntimeWithApplyLayout } from './terminal-layout-application'
 
-export abstract class OrcaRuntimeWithHandleMobileSubscribe extends OrcaRuntimeWithApplyLayout {
+export abstract class OpenKodoRuntimeWithHandleMobileSubscribe extends OpenKodoRuntimeWithApplyLayout {
   protected abstract handleMobileSubscribeInternal(
     ptyId: string,
     clientId: string,

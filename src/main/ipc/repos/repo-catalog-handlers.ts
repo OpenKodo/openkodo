@@ -6,7 +6,7 @@ import {
   normalizeExecutionHostId,
   parseExecutionHostId
 } from '../../../shared/execution-host/execution-host'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { enrichRepoGitUsernames } from '../../workspaces/catalog/repo-git-username-enrichment'
 import { enrichMissingRepoGitRemoteIdentities } from '../../workspaces/catalog/repo-git-remote-identity-enrichment'
 import { invalidateAuthorizedRootsCache } from '../worktrees/removal/registered-worktree-roots-cache'
@@ -16,7 +16,7 @@ import { ProjectUpdateIpcArgs, parseProjectGroupIpcArgs } from './repo-ipc-arg-s
 import {
   visibleProjectHostSetups,
   visibleRepos
-} from '../../persistence/migrating-orcad-catalog/source/catalog/orcad-source-visibility'
+} from '../../persistence/migrating-openkodod-catalog/source/catalog/openkodod-source-visibility'
 import {
   assertWslMoveProjectWritable,
   assertWslMoveReposWritable,
@@ -34,7 +34,7 @@ import { isGatedOffWslHost } from '../../wsl/host-lifecycle/wsl-host-gate'
 export function registerRepoCatalogHandlers(
   mainWindow: BrowserWindow,
   store: Store,
-  runtime: Pick<OrcaRuntimeService, 'removeProject'>
+  runtime: Pick<OpenKodoRuntimeService, 'removeProject'>
 ): void {
   // Enrichment deduplicates by callback identity; per-call closures accumulate broadcasts during slow sweeps.
   const broadcastReposChanged = (): void => notifyReposChanged(mainWindow)

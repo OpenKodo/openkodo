@@ -22,7 +22,7 @@ import type { ClaudeJournalSnapshot } from '../../claude/subagents/claude-subage
 import type { JournalInputReader } from './journal-input-reads'
 import type { HostUsageLimitCut } from '../agent-session-wire/recovery/structured-agent-session-usage-limit-chain'
 import type { JournalStatusState } from './journal-status-state'
-import type { NativeChatOrcaStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import type { NativeChatOpenKodoStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import type { AgentJournalTurnScope } from '../../../shared/agent-session/journal/agent-session-journal-turn-scope'
 import type {
   JournalStatusIndicatorRead,
@@ -76,7 +76,7 @@ export type AgentSessionJournalReads = {
   statusState(currentFence?: number | null): Promise<JournalStatusState>
   input: JournalInputReader
   usageLimitCut(): Promise<HostUsageLimitCut | null>
-  orcaStopCut(): Promise<NativeChatOrcaStopCut | null>
+  openkodoStopCut(): Promise<NativeChatOpenKodoStopCut | null>
   contextFloor(): Promise<AgentJournalCursor | null>
   cursor(): Promise<AgentJournalCursor>
   physicalCursor(): Promise<AgentJournalCursor>

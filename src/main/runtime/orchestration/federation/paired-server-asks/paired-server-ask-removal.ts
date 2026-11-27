@@ -1,6 +1,6 @@
 // When a person removes a server pairing, or deletes an agent, what waits for them goes too, and
 // each asker is told it was declined while that can still reach the server.
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   forgetServerRoute,
   listPairedServerAsks
@@ -14,7 +14,7 @@ import { notifyPairedServerCardsChanged } from './paired-server-card-notices'
 
 /** A deleted agent's cards and admissions are declined, and nothing names it anymore. A failure is
  *  logged, never thrown: the deletion goes ahead. */
-export function forgetPairedServerAsksOf(runtime: OrcaRuntimeService, botId: string): void {
+export function forgetPairedServerAsksOf(runtime: OpenKodoRuntimeService, botId: string): void {
   try {
     forgetAsksOf(runtime, botId)
   } catch (error) {
@@ -22,7 +22,7 @@ export function forgetPairedServerAsksOf(runtime: OrcaRuntimeService, botId: str
   }
 }
 
-function forgetAsksOf(runtime: OrcaRuntimeService, botId: string): void {
+function forgetAsksOf(runtime: OpenKodoRuntimeService, botId: string): void {
   const db = runtime.getOrchestrationDb()
   for (const state of ['card', 'admit'] as const) {
     for (const row of listPairedServerAsks(db, { state }).filter((ask) => ask.bot_id === botId)) {
@@ -36,7 +36,7 @@ function forgetAsksOf(runtime: OrcaRuntimeService, botId: string): void {
 
 /** Asks an agent here took and hasn't answered: each asker hears the pairing is gone, by the
  *  conversation it asked on; an unread one is taken, so it isn't worked on for nobody. */
-function tellUnansweredAskers(runtime: OrcaRuntimeService, environmentId: string): void {
+function tellUnansweredAskers(runtime: OpenKodoRuntimeService, environmentId: string): void {
   const db = runtime.getOrchestrationDb()
   const unanswered = db.db
     .prepare(
@@ -61,7 +61,7 @@ function tellUnansweredAskers(runtime: OrcaRuntimeService, environmentId: string
  *  told, and what is owed goes back once, then the pairing's rows go. A server that can't be reached
  *  now tells its askers when this computer pairs again or is removed there. */
 export async function settlePairedServerAsksOnRemoval(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   environmentId: string
 ): Promise<void> {
   const db = runtime.getOrchestrationDb()
@@ -84,7 +84,10 @@ export async function settlePairedServerAsksOnRemoval(
 
 /** The removed pairing's rows go, never to another pairing; also when a loop finds the server
  *  removed by a path that ran no settle step. */
-export function retirePairedServerRoute(runtime: OrcaRuntimeService, environmentId: string): void {
+export function retirePairedServerRoute(
+  runtime: OpenKodoRuntimeService,
+  environmentId: string
+): void {
   const db = runtime.getOrchestrationDb()
   forgetServerRoute(db, environmentId)
   notifyPairedServerCardsChanged(runtime)

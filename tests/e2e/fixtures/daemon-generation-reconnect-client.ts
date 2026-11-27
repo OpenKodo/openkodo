@@ -3,7 +3,7 @@ import process from 'node:process'
 import { randomUUID } from 'node:crypto'
 import { DaemonPtyAdapter } from '../../../src/main/daemon/providers/adapter/daemon-pty-adapter'
 import type { DaemonPtyRouter } from '../../../src/main/daemon/providers/routing/daemon-pty-router'
-import { OrcaRuntimeService } from '../../../src/main/runtime/orca-runtime'
+import { OpenKodoRuntimeService } from '../../../src/main/runtime/openkodo-runtime'
 import { RpcDispatcher } from '../../../src/main/runtime/rpc/dispatcher'
 import { SESSION_TAB_METHODS } from '../../../src/main/runtime/rpc/methods/session-tabs/session-tabs'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../src/shared/remote-runtime/session-graph/runtime-session-contracts'
@@ -147,7 +147,7 @@ function createRuntimeClosePath(
     const leafId = `00000000-0000-4000-8000-${String(index + 1).padStart(12, '0')}`
     return { session, leafId, mobileTabId: `${PARENT_TAB_ID}::${leafId}` }
   })
-  const runtime = new OrcaRuntimeService()
+  const runtime = new OpenKodoRuntimeService()
   runtime.setPtyController({
     write: (ptyId, data) => {
       router.write(ptyId, data)

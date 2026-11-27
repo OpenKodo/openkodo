@@ -79,7 +79,7 @@ export const BotGroupSchema = z.object({
   name: BotNameSchema,
   hostId: z.literal('local'),
   revision: z.number().int().positive(),
-  /** Its hidden home, `~/.orca/bots/<folder>`, which holds the room tab as a bot's home holds its chat. */
+  /** Its hidden home, `~/.openkodo/bots/<folder>`, which holds the room tab as a bot's home holds its chat. */
   folder: z.string().min(1),
   folderWorkspaceId: z.string().min(1),
   createdAt: z.number(),

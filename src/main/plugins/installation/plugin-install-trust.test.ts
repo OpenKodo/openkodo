@@ -27,7 +27,7 @@ async function writePlugin(root: string, publisher: string, id: string): Promise
       publisher,
       name: 'Plugin',
       version: '1.0.0',
-      engines: { orca: '>=1.0.0' },
+      engines: { openkodo: '>=1.0.0' },
       pluginApi: 1,
       capabilities: []
     })
@@ -81,8 +81,8 @@ describe('plugin install trust', () => {
   })
 
   it('rejects locally installed reserved identities before publication', async () => {
-    const sourcePath = await tempRoot('orca-reserved-plugin-')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const sourcePath = await tempRoot('openkodo-reserved-plugin-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await writePlugin(sourcePath, 'openkodo', 'openkodo-skills')
 
     await expect(
@@ -95,8 +95,8 @@ describe('plugin install trust', () => {
   })
 
   it('allows the app-bundled path only for the complete official identity', async () => {
-    const sourcePath = await tempRoot('orca-bundled-plugin-')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const sourcePath = await tempRoot('openkodo-bundled-plugin-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await writePlugin(sourcePath, 'openkodo', 'openkodo-skills')
 
     const result = await installBundledPlugin({
@@ -115,8 +115,8 @@ describe('plugin install trust', () => {
   })
 
   it('blocks a killed plugin even when the caller bypasses marketplace UI', async () => {
-    const sourcePath = await tempRoot('orca-killed-plugin-')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const sourcePath = await tempRoot('openkodo-killed-plugin-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await writePlugin(sourcePath, 'community', 'unsafe')
 
     await expect(

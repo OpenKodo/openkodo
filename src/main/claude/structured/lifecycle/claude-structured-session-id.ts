@@ -1,20 +1,20 @@
 import { createHash } from 'node:crypto'
 
 /** A stable UUID (v4 layout) for the Claude conversation behind an OpenKodo chat. */
-export function claudeSessionIdForOrcaSession(
+export function claudeSessionIdForOpenKodoSession(
   sessionId: string,
   clearOperationId?: string
 ): string {
   return stableUuid(
     clearOperationId
-      ? `orca-claude:${sessionId}:context-clear:${clearOperationId}`
-      : `orca-claude:${sessionId}`
+      ? `openkodo-claude:${sessionId}:context-clear:${clearOperationId}`
+      : `openkodo-claude:${sessionId}`
   )
 }
 
 /** Stable across retries so a rewind always names the same conversation. */
 export function claudeSessionIdForRewind(sessionId: string, rewindOperationId: string): string {
-  return stableUuid(`orca-claude:${sessionId}:rewind:${rewindOperationId}`)
+  return stableUuid(`openkodo-claude:${sessionId}:rewind:${rewindOperationId}`)
 }
 
 /** Fresh submissions have fresh keys; only provably unwritten input may reuse one. */
@@ -22,7 +22,7 @@ export function claudePromptUuidForSubmission(
   sessionId: string,
   submissionItemKey: string
 ): string {
-  return stableUuid(JSON.stringify(['orca-claude:prompt', sessionId, submissionItemKey]))
+  return stableUuid(JSON.stringify(['openkodo-claude:prompt', sessionId, submissionItemKey]))
 }
 
 function stableUuid(identity: string): string {

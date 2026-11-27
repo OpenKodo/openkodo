@@ -16,14 +16,14 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   compileWindowsRustExecutable({
     repoRoot,
     crateRoot,
-    binName: 'orca-agent-hook',
+    binName: 'openkodo-agent-hook',
     label: 'Windows agent hook',
     fingerprintInputs: [
       iconPath,
       join(repoRoot, 'config/scripts/native-build/windows/build-windows-agent-hook.mjs')
     ],
     arch: readArg('--arch') ?? process.arch,
-    outputPath: readArg('--output') ?? join(crateRoot, '.build', 'orca-agent-hook.exe'),
+    outputPath: readArg('--output') ?? join(crateRoot, '.build', 'openkodo-agent-hook.exe'),
     buildEnv: (version) => ({
       OPENKODO_HOOK_BUILD_VERSION: version,
       OPENKODO_HOOK_BUILD_ICON: iconPath

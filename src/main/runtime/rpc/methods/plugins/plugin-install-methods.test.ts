@@ -78,7 +78,7 @@ afterEach(() => setPluginInstallServicesForRpc(null))
 
 describe('plugins.update', () => {
   it('--all returns the failed updates next to the other outcomes', async () => {
-    const missing = join(tmpdir(), 'orca-missing-plugin-folder-46698')
+    const missing = join(tmpdir(), 'openkodo-missing-plugin-folder-46698')
     useLock([
       lockEntry('acme.pinned', {
         kind: 'git',

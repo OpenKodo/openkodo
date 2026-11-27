@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import {
   getExecutionHostIdFromWorktreeHostIdentity,
   getWorktreeIdFromHostIdentity
@@ -7,8 +7,8 @@ import { parseExecutionHostId } from '../../../shared/execution-host/execution-h
 import { addWorkspaceSessionWorktreeOwners } from '../restoring-sessions/session-worktree-ownership'
 import { splitWorktreeId } from '../../../shared/worktree/id'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
-import { SESSION_FIELDS_PRUNED_BY_OWNER_KEY } from '../../orca-profiles/project-transfer/profile-project-session-field-disposition'
-import { ownerKeyWorktreeIds } from '../../orca-profiles/project-transfer/profile-project-worktree-identity'
+import { SESSION_FIELDS_PRUNED_BY_OWNER_KEY } from '../../openkodo-profiles/project-transfer/profile-project-session-field-disposition'
+import { ownerKeyWorktreeIds } from '../../openkodo-profiles/project-transfer/profile-project-worktree-identity'
 
 /** Paired-host catalogs live on the remote host. */
 const isPairedHost = (hostId: string | null | undefined): boolean =>
@@ -49,7 +49,7 @@ export function collectDeregisteredRepoIds(state: PersistedState): Set<string> {
     }
   }
   // Staged imports own recovery rows before repo registration.
-  for (const staged of state.orcadMigrationStagedCatalogs ?? []) {
+  for (const staged of state.openkododMigrationStagedCatalogs ?? []) {
     for (const repo of staged.manifest.payload.repositories) {
       liveRepoIds.add(repo.id)
     }

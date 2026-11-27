@@ -6,8 +6,8 @@ import { buildCodexHookCommand as getManagedCommand } from '../definitions/codex
 import { installCodexHooksExclusively } from './codex-hook-local-install'
 import {
   getManagedCodexHookHome,
-  readStopgapOrcaHashes
-} from '../../trust/hooks/codex-hook-orca-approvals'
+  readStopgapOpenKodoHashes
+} from '../../trust/hooks/codex-hook-openkodo-approvals'
 import { refreshCodexRuntimeUserHooksExclusively } from './codex-hook-local-maintenance'
 import { readCodexHookHomeStatus } from '../reconciliation/codex-hook-status'
 import { finishCodexHookPass, runCodexHookPassEffectsOffMain } from './codex-hook-pass-off-main'
@@ -122,7 +122,7 @@ export class CodexHookLaunchPreparation {
         const hashes =
           answer.kind === 'hashes'
             ? answer.hashes
-            : readStopgapOrcaHashes(
+            : readStopgapOpenKodoHashes(
                 getManagedCodexHookHome(runtimeHomePath),
                 getManagedCommand(getManagedScriptPath())
               )

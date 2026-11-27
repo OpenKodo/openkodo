@@ -401,7 +401,7 @@
               "text": "where is the exports stall bug at?"
             }
           ],
-          "note": "Public channels only. This conversation is private and isn't searched; read it with `orca slack read slack:T0EVAL:C0LEADS:1793373100.000300`. Some matches are left out: Slack couldn't say whether the person is in their channels."
+          "note": "Public channels only. This conversation is private and isn't searched; read it with `openkodo slack read slack:T0EVAL:C0LEADS:1793373100.000300`. Some matches are left out: Slack couldn't say whether the person is in their channels."
         }
       }
     },
@@ -428,7 +428,7 @@
               "text": "where is the exports stall bug at?"
             }
           ],
-          "note": "Public channels only. This conversation is private and isn't searched; read it with `orca slack read slack:T0EVAL:D0BOB`. Some matches are left out: Slack couldn't say whether the person is in their channels."
+          "note": "Public channels only. This conversation is private and isn't searched; read it with `openkodo slack read slack:T0EVAL:D0BOB`. Some matches are left out: Slack couldn't say whether the person is in their channels."
         }
       }
     },
@@ -455,7 +455,7 @@
               "text": "where is the exports stall bug at?"
             }
           ],
-          "note": "Public channels only. Read this conversation with `orca slack read slack:T0EVAL:C0MYSTERY:1793400000.000100`. Some matches are left out: Slack couldn't say whether the person is in their channels."
+          "note": "Public channels only. Read this conversation with `openkodo slack read slack:T0EVAL:C0MYSTERY:1793400000.000100`. Some matches are left out: Slack couldn't say whether the person is in their channels."
         }
       }
     }

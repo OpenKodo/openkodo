@@ -1,5 +1,5 @@
 import type { RuntimeStore } from '../../runtime/construction/runtime-store-contract'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { worktreeIdentityKey } from '../../../shared/worktree/id'
 import {
   folderGroupOf,
@@ -56,7 +56,7 @@ export type WorkspaceCleanupWorkspace = {
   readPairedFolderChildren: () => Promise<PairedFolderChildren>
 }
 
-/** Repos whose checkouts this process owns; a host served by its own orcad is that server's to clean. */
+/** Repos whose checkouts this process owns; a host served by its own openkodod is that server's to clean. */
 export function listWorkspaceCleanupOwnedRepos(store: RuntimeStore): Map<string, Repo> {
   const repos = new Map<string, Repo>()
   for (const repo of runtimeVisibleRepos(store)) {
@@ -123,7 +123,7 @@ function inputWithoutGit(summary: RuntimeWorktreePsSummary): WorkspaceCleanupEva
 }
 
 /** This host's own window persists its unsaved drafts in the session; remote clients report theirs. Keyed by identity so path spellings match. */
-function dirtyEditorWorktreeIds(store: RuntimeStore, runtime: OrcaRuntimeService): Set<string> {
+function dirtyEditorWorktreeIds(store: RuntimeStore, runtime: OpenKodoRuntimeService): Set<string> {
   const session = store.getWorkspaceSession?.(LOCAL_EXECUTION_HOST_ID)
   const ids = new Set([...listClientUnsavedEditorWorktreeIds(runtime)].map(worktreeIdentityKey))
   for (const [worktreeId, files] of Object.entries(session?.openFilesByWorktree ?? {})) {
@@ -136,7 +136,7 @@ function dirtyEditorWorktreeIds(store: RuntimeStore, runtime: OrcaRuntimeService
 
 async function scanTargets(
   store: RuntimeStore,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   worktreeIds: string[],
   signal: AbortSignal | undefined
 ): Promise<Map<string, WorkspaceCleanupCandidate>> {
@@ -188,7 +188,7 @@ function withHostBlockers(
  * re-check, to that workspace and its folder siblings as listed now when `withFolderSiblings` is set. */
 export async function collectWorkspaceCleanupWorkspaces(args: {
   store: RuntimeStore
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   globalRules: WorkspaceCleanupRules
   now: number
   worktreeId?: string

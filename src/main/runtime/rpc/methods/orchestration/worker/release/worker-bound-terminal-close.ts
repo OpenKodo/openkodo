@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import { isEquivalentPaneKey } from '../../../../../orchestration/db/pane-key-match'
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../../../../orchestration/db/worker-terminal/worker-bound-terminals'
 
 type BoundTerminalCloseRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'getTerminalPaneKey' | 'getTerminalHandleForPaneKey' | 'closeTerminal' | 'isSetupTerminalRunning'
 >
 

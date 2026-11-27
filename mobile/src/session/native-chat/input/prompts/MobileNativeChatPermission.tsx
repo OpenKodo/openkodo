@@ -235,7 +235,7 @@ function MobileNativeChatPermissionContext({
         note
       )}
       {newerSubject ? (
-        <Text testID="native-chat-approval-needs-newer-orca" style={styles.line}>
+        <Text testID="native-chat-approval-needs-newer-openkodo" style={styles.line}>
           {t(
             'chat.permission.newerVersionRequired',
             'This request needs a newer version of OpenKodo.'

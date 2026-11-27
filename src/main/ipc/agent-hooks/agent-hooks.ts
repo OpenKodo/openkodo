@@ -5,7 +5,7 @@ import type {
 } from '../../../shared/agent-status/contracts/agent-status-ipc-payload'
 import type { AgentInterruptInferenceRequest } from '../../../shared/agent-status/lifecycle/agent-interrupt-intent'
 import type { AgentQuestionAnsweredInferenceRequest } from '../../../shared/agent-status/lifecycle/agent-question-answered-intent'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { agentHookServer } from '../../agent-hooks/server/agent-hook-server'
 import { getMigrationUnsupportedPtySnapshot } from '../../agent-hooks/observations/migration-unsupported-pty-state'
 import { registerAgentPaneAuthorityIpcHandlers } from './agent-pane-authority-ipc'
@@ -23,7 +23,7 @@ type AgentHookHandlerDependencies = {
 // Startup auto-installs hooks; renderer removal would misleadingly revert on the next launch.
 export function registerAgentHookHandlers(
   runtime?: AgentStatusRuntimeEnrichment &
-    Partial<Pick<OrcaRuntimeService, 'terminalWorkerRestartOffers'>>,
+    Partial<Pick<OpenKodoRuntimeService, 'terminalWorkerRestartOffers'>>,
   dependencies: AgentHookHandlerDependencies = {}
 ): void {
   // Allow safe re-registration independently of the outer module guard.

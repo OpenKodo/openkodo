@@ -5,9 +5,9 @@ import type { CommandHandler } from '../../dispatch/dispatch'
 import { formatCliStatus, formatCliStatus as formatStatus } from '../status/cli-status-format'
 import { printResult } from '../../output/command-result-output'
 import { RuntimeClientError } from '../connection/types'
-import { serveOrcaApp } from '../launch'
+import { serveOpenKodoApp } from '../launch'
 import { getOptionalServeBind } from './serve-bind-flag'
-import { stripElectronRunAsNode } from '../orca-app-executable'
+import { stripElectronRunAsNode } from '../openkodo-app-executable'
 import { resolveCliStatusCaller } from '../status/status-caller'
 import { getServeSuperviseValidationError } from '../serve/supervision/serve-supervised-service'
 import { getOptionalServePort } from './serve-port-flag'
@@ -84,7 +84,7 @@ export const CORE_HANDLERS: Record<string, CommandHandler> = {
     )
   },
   open: async ({ client, json }) => {
-    const result = await client.openOrca()
+    const result = await client.openOpenKodo()
     printResult(result, json, formatCliStatus)
   },
   serve: async ({ flags, json }) => {
@@ -97,15 +97,15 @@ export const CORE_HANDLERS: Record<string, CommandHandler> = {
           '--data-root expects a directory. Usage: openkodo serve --reclaim-stale-lock [--data-root <dir>] [--yes] [--json]'
         )
       }
-      // Why lazy: only this mode needs orcad's lock code, and every other command skips loading it.
-      const { printOrcadStaleLockReclaimResult, reclaimStaleOrcadInstanceLock } =
-        await import('../../../main/orcad/instance-lock/orcad-stale-lock-reclaim.js')
-      const result = await reclaimStaleOrcadInstanceLock(
+      // Why lazy: only this mode needs openkodod's lock code, and every other command skips loading it.
+      const { printOpenkododStaleLockReclaimResult, reclaimStaleOpenkododInstanceLock } =
+        await import('../../../main/openkodod/instance-lock/openkodod-stale-lock-reclaim.js')
+      const result = await reclaimStaleOpenkododInstanceLock(
         typeof dataRoot === 'string' ? resolve(dataRoot) : resolveLaunchUserDataPath(),
         // This CLI's own binary is no command to give a user; `openkodo serve` is.
         { yes: flags.get('yes') === true, hintRuntime: null }
       )
-      printOrcadStaleLockReclaimResult(result, json)
+      printOpenkododStaleLockReclaimResult(result, json)
       process.exitCode = result.exitCode
       return
     }
@@ -140,7 +140,7 @@ export const CORE_HANDLERS: Record<string, CommandHandler> = {
     const port = getOptionalServePort(flags)
     const pairingAddressValue = flags.get('pairing-address')
     reenterPackagedElectron()
-    const exitCode = await serveOrcaApp({
+    const exitCode = await serveOpenKodoApp({
       json,
       port,
       bind,

@@ -1,10 +1,10 @@
-import { spawnProcess } from '@orca/process-host'
-import { windowsPowerShellPath } from '@orca/process-host/windows-system-binary'
+import { spawnProcess } from '@openkodo/process-host'
+import { windowsPowerShellPath } from '@openkodo/process-host/windows-system-binary'
 import { reportComputerDiagnostic } from '../../sidecar-transport/computer-sidecar-diagnostics'
 import { isReplayableTool } from '../actions/desktop-script-action'
 import type { BridgeRequest, BridgeResponse } from '../desktop-script-provider-types'
 import { DesktopScriptRequestQueue } from './desktop-script-request-queue'
-import type { PipedProcessSpawner } from '@orca/process-host/process-spec'
+import type { PipedProcessSpawner } from '@openkodo/process-host/process-spec'
 import { startServeChannel, type DesktopScriptServeChannel } from './desktop-script-serve-channel'
 import {
   MAX_START_ATTEMPTS,

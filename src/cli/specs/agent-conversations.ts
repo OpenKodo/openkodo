@@ -8,7 +8,7 @@ export const AGENT_CONVERSATION_COMMAND_SPECS: CommandSpec[] = [
     usage: 'openkodo agent list [--worktree <selector>] [--state <state>] [--json]',
     allowedFlags: [...GLOBAL_FLAGS, 'worktree', 'state'],
     notes: [
-      "Lists agents in this OpenKodo host's workspaces: chats and terminal agents alike, each with its `orca_session_id:` ID. A terminal agent shows no ID until it first reports to OpenKodo.",
+      "Lists agents in this OpenKodo host's workspaces: chats and terminal agents alike, each with its `openkodo_session_id:` ID. A terminal agent shows no ID until it first reports to OpenKodo.",
       'A chat keeps its ID across /clear; a terminal agent gets a new one when /clear starts a new conversation.',
       '--state keeps agents in one state: working, blocked, waiting or done.',
       'To see which agent CLIs are installed and can be launched, use `openkodo agent installed`.',
@@ -27,10 +27,12 @@ export const AGENT_CONVERSATION_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...GLOBAL_FLAGS, 'id'],
     positionalArgs: ['id'],
     notes: [
-      '<id> is the `orca_session_id:` ID from `openkodo agent list` or Copy OpenKodo Session ID.',
+      '<id> is the `openkodo_session_id:` ID from `openkodo agent list` or Copy OpenKodo Session ID.',
       'An agent resumed in two panes shows both; one that is closed shows none. A listed sleeping terminal agent shows its last state and where it wakes when its workspace is reopened.'
     ],
-    examples: ['openkodo agent show orca_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json']
+    examples: [
+      'openkodo agent show openkodo_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json'
+    ]
   },
   {
     path: ['agent', 'read'],
@@ -45,8 +47,8 @@ export const AGENT_CONVERSATION_COMMAND_SPECS: CommandSpec[] = [
       'A terminal agent can be read while OpenKodo knows where its transcript is: while it is open, or asleep in a workspace. On Windows, a sleeping agent that ran in WSL can be read once its tab is reopened.'
     ],
     examples: [
-      'openkodo agent read orca_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --limit 10',
-      'openkodo agent read orca_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json'
+      'openkodo agent read openkodo_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --limit 10',
+      'openkodo agent read openkodo_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json'
     ]
   }
 ]

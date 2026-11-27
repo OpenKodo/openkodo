@@ -28,17 +28,17 @@ import {
 import { ComposioSetup } from '../../../composio/composio-setup'
 import { ComposioEvents } from '../../../composio/composio-events'
 import { createComposioIngress } from './bots-composio-ingress'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod, InvalidArgumentError, type RpcContext } from '../core'
 import { ownerOnly } from './bots-caller-gates'
 import { botToolsHome } from './bots-tools'
 
 const instances = new WeakMap<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   { bots: ComposioBots; setup: ComposioSetup; events: ComposioEvents }
 >()
 
-export function webhooksOf(runtime: OrcaRuntimeService) {
+export function webhooksOf(runtime: OpenKodoRuntimeService) {
   const service = runtime.getWebhooks()
   if (!service) {
     throw new InvalidArgumentError('Webhooks aren’t available on this computer.')
@@ -47,7 +47,7 @@ export function webhooksOf(runtime: OrcaRuntimeService) {
 }
 
 /** This runtime's Composio pieces, made on first use. */
-export function instanceOf(runtime: OrcaRuntimeService) {
+export function instanceOf(runtime: OpenKodoRuntimeService) {
   let instance = instances.get(runtime)
   if (!instance) {
     const bots: ComposioBots = new ComposioBots({
@@ -109,11 +109,11 @@ export function instanceOf(runtime: OrcaRuntimeService) {
 }
 
 /** This runtime's Composio apps, made on first use. */
-export function composioBotsOf(runtime: OrcaRuntimeService): ComposioBots {
+export function composioBotsOf(runtime: OpenKodoRuntimeService): ComposioBots {
   return instanceOf(runtime).bots
 }
 
-function botOf(runtime: OrcaRuntimeService, botId: string) {
+function botOf(runtime: OpenKodoRuntimeService, botId: string) {
   const bot = runtime.bots.list().find((entry) => entry.id === botId)
   if (!bot) {
     throw new InvalidArgumentError('bot_not_found')

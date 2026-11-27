@@ -8,7 +8,7 @@ import {
   PLUGIN_SCHEMA_SINCE_V1
 } from './plugin-schema-field-docs'
 
-const since = (version: string) => ({ 'x-orca-since': version })
+const since = (version: string) => ({ 'x-openkodo-since': version })
 
 // Why synthetic: each option and field carries its own release, so the floor shows which
 // option the walk took.

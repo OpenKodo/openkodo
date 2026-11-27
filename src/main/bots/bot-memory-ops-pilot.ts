@@ -11,7 +11,7 @@ export type TidyUpFiles = Pick<
 >
 
 /** A bot's Tidy-up runs on ops only while this file is in its home (the pilot). */
-export const TIDY_UP_OPS_PILOT_FILE = '.orca-memory-pilot'
+export const TIDY_UP_OPS_PILOT_FILE = '.openkodo-memory-pilot'
 /** Lines past this many that aren't facts (headings aside) keep a bot on whole-file Tidy-up: the
  *  snapshot would leave them out of every op and every limit. */
 export const TIDY_UP_OPS_MAX_PROSE_LINES = 5

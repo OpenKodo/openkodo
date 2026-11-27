@@ -1,4 +1,4 @@
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { buildWslExecArgs } from '../../../shared/shell/wsl/wsl-login-shell-command'
 import { toWindowsWslPath } from '../../../shared/file-access/wsl-paths'
 import { filterUserWslDistros, parseWslDistros } from './wsl-distro-list-output'

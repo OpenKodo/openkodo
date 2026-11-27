@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Needs bash 4+ (mapfile); on macOS use Homebrew bash.
-# Mirror Orca release assets from GitHub Releases to the public R2 bucket
-# served at https://downloads.orca.dev. orca.dev's "Download started" page
+# Mirror OpenKodo release assets from GitHub Releases to the public R2 bucket
+# served at https://downloads.openkodo.dev. openkodo.dev's "Download started" page
 # offers these as an opt-in "mirror link" for when GitHub returns 5xx.
 # Run by .github/workflows/release-mirror-r2.yml after each published release.
 #
@@ -14,13 +14,13 @@
 # Layout written to the bucket:
 #   releases/<tag>/<asset>       immutable, versioned copy
 #   latest/<asset>               stable desktop tags (vX.Y.Z) only — what the mirror link points at
-#   android/latest/<asset>       android-v* tags (dev.orca.app) only
+#   android/latest/<asset>       android-v* tags (dev.openkodo.app) only
 #   latest/release.json          {tag, mirroredAt, assets[]} for the desktop alias
 #
 # Requires: gh (authenticated), curl, jq, and an uploader:
 #   - aws CLI + R2 S3 keys (R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY): preferred,
 #     multipart uploads, no size limit. Create keys in Cloudflare dashboard →
-#     R2 → Manage API tokens (Object Read & Write on orca-downloads).
+#     R2 → Manage API tokens (Object Read & Write on openkodo-downloads).
 #   - otherwise wrangler (authenticated), which caps each file at 300 MiB.
 # Downloads are retried aggressively and resumed, and every file is checked
 # against the size and sha256 digest GitHub reports before upload.
@@ -28,9 +28,9 @@
 set -euo pipefail
 
 REPO="${REPO:-OpenKodo/openkodo}"
-BUCKET="${BUCKET:-orca-downloads}"
-PUBLIC_BASE="${PUBLIC_BASE:-https://downloads.orca.dev}"
-WEBSITE_ASSETS=(orca-macos-arm64.dmg orca-macos-x64.dmg orca-windows-setup.exe orca-linux.AppImage)
+BUCKET="${BUCKET:-openkodo-downloads}"
+PUBLIC_BASE="${PUBLIC_BASE:-https://downloads.openkodo.dev}"
+WEBSITE_ASSETS=(openkodo-macos-arm64.dmg openkodo-macos-x64.dmg openkodo-windows-setup.exe openkodo-linux.AppImage)
 CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-57e6ddd3bb755dbf8e8dc7ff557e9014}"
 R2_ENDPOINT="https://$CLOUDFLARE_ACCOUNT_ID.r2.cloudflarestorage.com"
 # wrangler r2 object put caps single uploads at 300 MiB; the S3 path has no such cap.
@@ -71,7 +71,7 @@ RELEASE_JSON="$(retry 10 gh api "repos/$REPO/releases/tags/$TAG")"
 
 if (( ${#REQUESTED_ASSETS[@]} == 0 )); then
   if [[ "${ALL_ASSETS:-0}" == "1" ]]; then
-    mapfile -t REQUESTED_ASSETS < <(jq -r '.assets[].name | select(startswith("orca-sourcemaps") | not)' <<<"$RELEASE_JSON")
+    mapfile -t REQUESTED_ASSETS < <(jq -r '.assets[].name | select(startswith("openkodo-sourcemaps") | not)' <<<"$RELEASE_JSON")
   elif [[ "$TAG" == v* ]]; then
     REQUESTED_ASSETS=("${WEBSITE_ASSETS[@]}")
   else
@@ -88,7 +88,7 @@ else
   ALIAS_PREFIX=""
 fi
 
-WORK_DIR="${WORK_DIR:-${TMPDIR:-/tmp}/orca-release-mirror/$TAG}"
+WORK_DIR="${WORK_DIR:-${TMPDIR:-/tmp}/openkodo-release-mirror/$TAG}"
 mkdir -p "$WORK_DIR"
 log "working dir: $WORK_DIR"
 

@@ -62,7 +62,7 @@ function inCI(): boolean {
 
 export function resolveObservabilityConsent(): ObservabilityConsent {
   const dnt = envOn('DO_NOT_TRACK')
-  const orcaDisabled = envOn('OPENKODO_TELEMETRY_DISABLED')
+  const openkodoDisabled = envOn('OPENKODO_TELEMETRY_DISABLED')
   const diagnosticsDisabled = envOn('OPENKODO_DIAGNOSTICS_DISABLED')
   const ci = inCI()
 
@@ -80,7 +80,7 @@ export function resolveObservabilityConsent(): ObservabilityConsent {
       disabledReason: 'openkodo_diagnostics_disabled'
     }
   }
-  if (dnt || orcaDisabled) {
+  if (dnt || openkodoDisabled) {
     // DNT gates network traffic; local files remain on this machine.
     return {
       localFileEnabled: true,
@@ -185,7 +185,7 @@ export function getDiagnosticsStatus(): DiagnosticsStatus {
 export async function collectDiagnosticBundle(
   meta: Pick<
     CollectBundleOptions,
-    'appVersion' | 'platform' | 'arch' | 'osRelease' | 'orcaChannel' | 'lookbackMinutes'
+    'appVersion' | 'platform' | 'arch' | 'osRelease' | 'openkodoChannel' | 'lookbackMinutes'
   > & { nativeHangCaptureId?: string }
 ): Promise<CollectedBundle> {
   // Flush before collection so the bundle includes the user’s latest action.

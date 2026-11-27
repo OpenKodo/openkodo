@@ -1,6 +1,6 @@
 import { isAbsolute, resolve } from 'node:path'
 import type { PoolOptions, PoolWorker, WorkerRequest } from 'vitest/node'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type { ChildProcess } from 'node:child_process'
 import {
   decodeNodeRuntimeMessage,

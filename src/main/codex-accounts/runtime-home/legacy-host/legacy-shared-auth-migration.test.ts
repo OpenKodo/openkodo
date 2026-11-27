@@ -191,7 +191,7 @@ describe('legacy shared Codex MCP credentials migration (#8440)', () => {
 })
 
 function createFixture() {
-  const root = mkdtempSync(join(tmpdir(), 'orca-codex-auth-migration-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-codex-auth-migration-'))
   const managedAccountsRoot = join(root, 'codex-accounts')
   const metadataDir = join(root, 'codex-runtime-home')
   const sharedRuntimeHome = join(metadataDir, 'home')
@@ -218,7 +218,7 @@ function createFixture() {
     createAccount(accountId: string, providerAccountId: string, auth: string) {
       const managedHomePath = join(managedAccountsRoot, accountId, 'home')
       mkdirSync(managedHomePath, { recursive: true })
-      writeFileSync(join(managedHomePath, '.orca-managed-home'), `${accountId}\n`, 'utf-8')
+      writeFileSync(join(managedHomePath, '.openkodo-managed-home'), `${accountId}\n`, 'utf-8')
       writeFileSync(join(managedHomePath, 'auth.json'), auth, 'utf-8')
       return createAccount(accountId, providerAccountId, managedHomePath)
     },

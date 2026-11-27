@@ -97,7 +97,7 @@ export async function openWorkspacePortInBrowser(args: {
   runtimeTarget: RuntimeClientTarget | null
   createBrowserTab: BrowserTabCreator
   setRemoteBrowserPageHandle: RemoteBrowserPageHandleSetter
-  openInOrcaBrowser?: boolean
+  openInOpenKodoBrowser?: boolean
   localhostLabelRoute?: LocalhostWorktreeLabelRoute | null
 }): Promise<{ ok: true } | { ok: false; reason: string }> {
   if (!args.runtimeTarget) {
@@ -109,7 +109,7 @@ export async function openWorkspacePortInBrowser(args: {
     localhostLabelRoute: args.localhostLabelRoute
   })
   const openInSystemBrowser =
-    args.openInOrcaBrowser === false
+    args.openInOpenKodoBrowser === false
       ? portSystemBrowserOpener(
           url,
           args.runtimeTarget,

@@ -1,4 +1,4 @@
-import { isRecord } from '../../../shared/orcad-migration/orcad-migration-manifest-fields'
+import { isRecord } from '../../../shared/openkodod-migration/openkodod-migration-manifest-fields'
 import type Database from '../../sqlite/sync-database'
 
 /** Head and record identities change inside the writer's existing transaction. */

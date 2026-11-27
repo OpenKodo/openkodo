@@ -1,8 +1,8 @@
-import type { OrcaPushPayload } from '../payload-identity/push-payload'
+import type { OpenKodoPushPayload } from '../payload-identity/push-payload'
 
 export type NativeDismissal = {
-  rememberAll(payloads: readonly OrcaPushPayload[]): Promise<void>
-  wasDismissed(payload: OrcaPushPayload): Promise<boolean>
+  rememberAll(payloads: readonly OpenKodoPushPayload[]): Promise<void>
+  wasDismissed(payload: OpenKodoPushPayload): Promise<boolean>
 }
 // Android and web use JavaScript storage; iOS requires the native ledger.
 export const nativePushDismissal: NativeDismissal | null = null

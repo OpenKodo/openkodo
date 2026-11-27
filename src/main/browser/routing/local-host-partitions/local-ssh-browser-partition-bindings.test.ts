@@ -18,11 +18,11 @@ vi.mock('../../sessions/profiles/browser-session-registry', () => ({
 }))
 
 beforeEach(async () => {
-  directory.path = mkdtempSync(join(tmpdir(), 'orca-ssh-jar-'))
-  const { configureBrowserRoutePartitionBindingsForOrcaProfile } =
+  directory.path = mkdtempSync(join(tmpdir(), 'openkodo-ssh-jar-'))
+  const { configureBrowserRoutePartitionBindingsForOpenKodoProfile } =
     await import('../partitions/browser-route-partition-binding-runtime')
-  configureBrowserRoutePartitionBindingsForOrcaProfile({
-    orcaProfileId: 'local',
+  configureBrowserRoutePartitionBindingsForOpenKodoProfile({
+    openkodoProfileId: 'local',
     profileDirectory: directory.path
   })
 })

@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, vi } from 'vitest'
 import { folderWorkspaceKey } from '../../../../shared/workspace/identity/workspace-scope'
-import { getDefaultWorkspaceSession } from '../../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../../../../shared/openkodo-profiles/constants'
 import { structuredAgentSessionTabId } from '../../../../shared/agent-session/view/structured-agent-session-projection'
 import {
   agentSessionLeaseFixture,
@@ -18,7 +18,7 @@ import {
   closeTestStores,
   testState
 } from '../../../persistence/persistence-test-harness'
-import { initOrcaProfilePaths } from '../../../orca-profiles/profile-storage-paths'
+import { initOpenKodoProfilePaths } from '../../../openkodo-profiles/profile-storage-paths'
 import { closeTestJournalHostDatabases } from '../../../native-chat/agent-session-journal/store-lifecycle/journal-host-database-test-support'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import {
@@ -28,7 +28,7 @@ import {
 import { openTestAgentSessionRecordStoreSlot } from '../records/agent-session-record-store-test-harness'
 import { seedTestAgentSessionRecordStore } from '../records/agent-session-record-store-persistence.test-fixture'
 import { createStructuredAgentSessionLogger } from '../../../native-chat/agent-session-wire/host/structured-agent-session-logger'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { withChatTabChanges } from '../../session-tabs/chat/agent-session-tab-layout'
 import { collectSavedStructuredAgentSessionIds } from './saved-structured-agent-session-restoration'
 import { chatTabCommandsSettled } from '../../terminal/layout/session-layout-apply.test-fixture'
@@ -40,7 +40,7 @@ export const B = 'chat-b-0002',
 export let root: string
 
 beforeEach(async () => {
-  root = await mkdtemp(join(tmpdir(), 'orca-tab-authority-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-tab-authority-'))
   testState.dir = root
   vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 })
@@ -53,7 +53,7 @@ afterEach(async () => {
   await rm(root, { recursive: true, force: true })
 })
 
-export class AuthorityRuntime extends OrcaRuntimeService {
+export class AuthorityRuntime extends OpenKodoRuntimeService {
   protected override structuredAgentCatalogDependencies() {
     const missing = () => ({ command: join(root, 'agent-not-installed'), prefixArgs: [] })
     return {
@@ -79,7 +79,7 @@ export async function authorityProfile(
   options: { visible?: string[]; records?: string[] } = {},
   profile = createStore()
 ) {
-  initOrcaProfilePaths()
+  initOpenKodoProfilePaths()
   const group = profile.createProjectGroup({
     name: 'Chats',
     parentPath: root,

@@ -1,5 +1,5 @@
 {
-  "name": "@orca/expo-two-way-audio",
+  "name": "@openkodo/expo-two-way-audio",
   "version": "0.0.1",
   "private": true,
   "description": "Native module for two way audio streaming",
@@ -14,7 +14,7 @@
     "url": "https://github.com/OpenKodo/openkodo/issues"
   },
   "license": "MIT",
-  "author": "Orca contributors",
+  "author": "OpenKodo contributors",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OpenKodo/openkodo.git",

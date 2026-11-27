@@ -1,17 +1,17 @@
 import { getEphemeralVmRecipeResultCheckoutMode } from './ephemeral-vm-recipes'
 import type { EphemeralVmRecipeResult } from './ephemeral-vm-recipes'
-import type { OrcaVmRecipe } from '../../workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../workspace-setup/openkodo-yaml-hook-types'
 import { ephemeralVmFailure, type EphemeralVmFailure } from './ephemeral-vm-failure-copy'
 
-export function getEphemeralVmRecipeResultSchemaVersion(recipe: OrcaVmRecipe): 1 | 2 {
+export function getEphemeralVmRecipeResultSchemaVersion(recipe: OpenKodoVmRecipe): 1 | 2 {
   return recipe.checkoutMode === 'provisioned-root' ? 2 : 1
 }
 
 export function getEphemeralVmRecipeCheckoutModeFailure(
-  recipe: OrcaVmRecipe,
+  recipe: OpenKodoVmRecipe,
   result: EphemeralVmRecipeResult
 ): EphemeralVmFailure | null {
-  const configuredMode = recipe.checkoutMode ?? 'orca-worktree'
+  const configuredMode = recipe.checkoutMode ?? 'openkodo-worktree'
   const resultMode = getEphemeralVmRecipeResultCheckoutMode(result)
   if (configuredMode === resultMode) {
     return null

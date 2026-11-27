@@ -11,7 +11,7 @@ import {
   type ConnectLogin
 } from '../../../../cloud/packages/connector-contract/src/connect-login-seal'
 import {
-  ensureOrcaDir,
+  ensureOpenKodoDir,
   ensureWorkspaceTokenDir,
   getWorkspaceLoginPath
 } from './linear-credential-paths'
@@ -49,7 +49,7 @@ export async function saveWorkspaceLogin(
     ) {
       return
     }
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     await ensureWorkspaceTokenDir()
     await writeEncryptedCredential(
       'Linear',

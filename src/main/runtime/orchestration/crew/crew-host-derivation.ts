@@ -30,7 +30,7 @@ export function createCrewHostDerivation(deps: CrewReadDependencies, capacity?: 
   const assignmentParty = new Map<string, Party>()
   const addAssignment = (row: CrewAssignmentRow): Party => {
     const worker = party(
-      row.assignee_orca_session_id,
+      row.assignee_openkodo_session_id,
       row.assignee_handle,
       row.assignee_pane_key,
       `dispatch:${row.id}`,
@@ -53,7 +53,7 @@ export function createCrewHostDerivation(deps: CrewReadDependencies, capacity?: 
     if (manager) {
       alias(`run:${row.run_id}`, manager.address)
     }
-    party(row.creator_orca_session_id, row.creator_handle, row.creator_pane_key)
+    party(row.creator_openkodo_session_id, row.creator_handle, row.creator_pane_key)
   }
   const relations = new Map<
     string,
@@ -77,7 +77,7 @@ export function createCrewHostDerivation(deps: CrewReadDependencies, capacity?: 
         ? assignmentParty.get(assignment.creator_dispatch_id)
         : undefined) ??
       party(
-        assignment.creator_orca_session_id,
+        assignment.creator_openkodo_session_id,
         assignment.creator_handle,
         assignment.creator_pane_key
       )

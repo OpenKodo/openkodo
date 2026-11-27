@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { OrchestrationError } from '../../orchestration-error'
 import { environmentStoreWriteCount } from '../../../../../shared/remote-runtime/host-store/runtime-environment-store-worker-client'
 import type { RuntimeRequestGuard } from '../../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
@@ -13,7 +13,7 @@ import {
 } from '../../db/remote-owned/remote-run-links'
 
 export type RemoteOwnedRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getOrchestrationDb'
   | 'resolveOrchestrationWorkerServer'
   | 'callOrchestrationWorkerServer'

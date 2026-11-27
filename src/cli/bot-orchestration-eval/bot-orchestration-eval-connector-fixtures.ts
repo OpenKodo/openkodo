@@ -84,7 +84,7 @@ export const LOG_DONE = workerDone(
 
 const STALL_WORKSPACE = workspace({
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'eng-9310-export-stall',
   state: 'working',
   byBot: true,

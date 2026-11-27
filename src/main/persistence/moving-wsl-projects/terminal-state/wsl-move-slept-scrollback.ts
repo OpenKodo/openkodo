@@ -9,13 +9,13 @@ import { closeSync, mkdirSync, openSync, readSync, rmSync, writeFileSync } from 
 import { join } from 'node:path'
 
 import {
-  type OrcadMigrationBlobDescriptor,
-  ORCAD_MIGRATION_BLOB_KIND_CONTRACTS
-} from '../../../../shared/orcad-migration/orcad-migration-blob-transfer'
+  type OpenkododMigrationBlobDescriptor,
+  OPENKODOD_MIGRATION_BLOB_KIND_CONTRACTS
+} from '../../../../shared/openkodod-migration/openkodod-migration-blob-transfer'
 import {
-  ORCAD_MIGRATION_TERMINAL_HISTORY_VERSION,
-  type OrcadMigrationTerminalHistoryDocument
-} from '../../../../shared/orcad-migration/orcad-migration-terminal-history'
+  OPENKODOD_MIGRATION_TERMINAL_HISTORY_VERSION,
+  type OpenkododMigrationTerminalHistoryDocument
+} from '../../../../shared/openkodod-migration/openkodod-migration-terminal-history'
 import {
   isTerminalLeafId,
   makePaneKey,
@@ -27,8 +27,8 @@ import { parsePtySessionId } from '../../../../shared/terminal/pty/lifecycle/pty
 import { collectLeafIds } from '../../../../shared/workspace-layout/terminal-topology/terminal-pane-layout-tree'
 import type { ColdRestoreInfo } from '../../../daemon/history/restoration/terminal-history-cold-restore-info'
 import type { TerminalCheckpointFile } from '../../../daemon/protocol/daemon-checkpoint-file'
-import type { OrcadMigrationBlobSource } from '../../../managed-server/migration/transfers/orcad-migration-blob-coordinator'
-import { orcadMigrationTerminalHistoryKey } from '../../migrating-orcad-catalog/terminal-history/orcad-terminal-history-installer'
+import type { OpenkododMigrationBlobSource } from '../../../managed-server/migration/transfers/openkodod-migration-blob-coordinator'
+import { openkododMigrationTerminalHistoryKey } from '../../migrating-openkodod-catalog/terminal-history/openkodod-terminal-history-installer'
 import type { WslMoveDriverDeps } from '../execution/wsl-move-driver-ports'
 import {
   wslMoveHostLinuxCwd,
@@ -48,7 +48,7 @@ export type WslMoveSleptScrollback = {
 }
 
 export const WSL_MOVE_SLEPT_SPOOL_DIR = 'wsl-move-slept-scrollback'
-const MAX_HISTORY_BYTES = ORCAD_MIGRATION_BLOB_KIND_CONTRACTS['terminal-history'].maxBytes
+const MAX_HISTORY_BYTES = OPENKODOD_MIGRATION_BLOB_KIND_CONTRACTS['terminal-history'].maxBytes
 
 export function emptyWslMoveSleptScrollback(): WslMoveSleptScrollback {
   return { buffers: new Map(), problems: [], dispose: () => {} }
@@ -122,18 +122,18 @@ export function wslMoveTerminalHistoryBlobs(
     }
   }
 ): {
-  descriptors: OrcadMigrationBlobDescriptor[]
-  source: OrcadMigrationBlobSource
+  descriptors: OpenkododMigrationBlobDescriptor[]
+  source: OpenkododMigrationBlobSource
 } {
   const byKey = new Map<string, WslMoveSleptBuffer>()
-  const descriptors: OrcadMigrationBlobDescriptor[] = []
+  const descriptors: OpenkododMigrationBlobDescriptor[] = []
   const layouts = manifest.payload.dormantState?.workspaceSession?.terminalLayoutsByTabId ?? {}
   for (const [paneKey, entry] of slept.buffers) {
     const pane = parsePaneKey(paneKey)
     if (!pane || !collectLeafIds(layouts[pane.tabId]?.root).includes(pane.leafId)) {
       continue
     }
-    const key = orcadMigrationTerminalHistoryKey(paneKey)
+    const key = openkododMigrationTerminalHistoryKey(paneKey)
     byKey.set(key, entry)
     descriptors.push({
       blobKind: 'terminal-history',
@@ -148,7 +148,7 @@ export function wslMoveTerminalHistoryBlobs(
       readChunk: async (requested, offset, maxBytes) => {
         const entry = byKey.get(requested.key)
         if (!entry || entry.sha256 !== requested.sha256) {
-          throw new Error(`orcad_migration_source_blob_changed:${requested.blobKind}`)
+          throw new Error(`openkodod_migration_source_blob_changed:${requested.blobKind}`)
         }
         const length = Math.max(0, Math.min(maxBytes, entry.byteLength - offset))
         const chunk = Buffer.alloc(length)
@@ -211,8 +211,8 @@ export async function readWslMoveSleptScrollbackFromHistory(
       const shellCwd = pane.shellCwd && /^\/(?!\/)/.test(pane.shellCwd) ? pane.shellCwd : null
       const cwd =
         shellCwd ?? wslMoveHostLinuxCwd(detection.restoreInfo.cwd, pane, distro, mappedDrives)
-      const document: OrcadMigrationTerminalHistoryDocument = {
-        version: ORCAD_MIGRATION_TERMINAL_HISTORY_VERSION,
+      const document: OpenkododMigrationTerminalHistoryDocument = {
+        version: OPENKODOD_MIGRATION_TERMINAL_HISTORY_VERSION,
         paneKey: pane.paneKey,
         cwd,
         cols: detection.restoreInfo.cols,

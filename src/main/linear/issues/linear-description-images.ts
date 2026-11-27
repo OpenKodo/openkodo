@@ -5,7 +5,7 @@ import {
   type LinearClientForWorkspace
 } from '../accounts/linear-account-client'
 
-const DESCRIPTION_QUERY = `query OrcaLinearDescriptionImages($id: String!) {
+const DESCRIPTION_QUERY = `query OpenKodoLinearDescriptionImages($id: String!) {
   issue(id: $id) { description }
 }`
 

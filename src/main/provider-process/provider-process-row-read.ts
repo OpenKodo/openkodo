@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { loadLibprocAddon } from '../../shared/process-observation/darwin/libproc-addon'
 import {
   readFreshNativeTable,

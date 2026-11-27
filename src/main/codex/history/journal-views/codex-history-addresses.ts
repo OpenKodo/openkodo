@@ -27,7 +27,7 @@ export function codexHistoryAddresses(input: { threadId: string; journal: Journa
       return identity.threadId === input.threadId && identity.turnId === turn.id
     }
     if (
-      identity?.provider === 'orca' &&
+      identity?.provider === 'openkodo' &&
       identity.clientMessageId.startsWith('codex-history-item:')
     ) {
       const encoded = identity.clientMessageId.slice('codex-history-item:'.length)

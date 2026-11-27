@@ -120,7 +120,7 @@ export type StructuredAgentSessionEndedEvent = {
   failure?: SubmissionRejectionFact
   cause: 'unexpected-exit' | 'requested-close'
   /** An unexpected exit OpenKodo caused by stopping the agent after its own failure; log only. */
-  closedByOrca?: true
+  closedByOpenKodo?: true
   deathEvidenceKind?: 'kill-delivered'
   /** Execution-host observations from a requested provider close, when available. */
   processExit?: {

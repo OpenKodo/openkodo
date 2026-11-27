@@ -1,4 +1,4 @@
-# GitHub Themes for Orca
+# GitHub Themes for OpenKodo
 
 - GitHub Light Default (light)
 - GitHub Light High Contrast (light)

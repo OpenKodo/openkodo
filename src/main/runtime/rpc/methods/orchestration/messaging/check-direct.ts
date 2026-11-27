@@ -1,6 +1,6 @@
 import type { MessageType } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { formatMessageBanner } from '../../../../orchestration/mailbox/formatting/message-formatting'
 import type { CheckMailReconciliation } from './check-mail-reconciliation'
@@ -15,7 +15,7 @@ type CheckParamsInput = z.infer<typeof CheckParams>
 
 export async function checkDirectMailbox(args: {
   params: CheckParamsInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   handle: string
   typeFilter: MessageType[] | undefined

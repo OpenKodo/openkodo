@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test'
 import { startHiddenRendererFrameCapture as startCapture } from '../../../../src/main/browser/electron-fixtures/hidden-renderer-frame-capture-fixture'
-import './orca-app'
+import './openkodo-app'
 import { expect } from '@playwright/test'
 
 export async function startHiddenRendererFrameCapture(page: Page): Promise<() => Promise<void>> {

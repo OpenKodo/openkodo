@@ -15,7 +15,7 @@ import { canConnectAddRepoHost, canSelectAddRepoHost } from './add-repo-host-ava
 import {
   indexExecutionHostsById,
   pickerExecutionHosts
-} from '../../../../../../shared/execution-host/managed-orcad-execution-host'
+} from '../../../../../../shared/execution-host/managed-openkodod-execution-host'
 import { translate } from '@/i18n/i18n'
 import { extractIpcErrorMessage } from '@/runtime/errors/ipc-error'
 import { toastSshConnectFailure } from '@/ssh/ssh-connect-failure-toast'

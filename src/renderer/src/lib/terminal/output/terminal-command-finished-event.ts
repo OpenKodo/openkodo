@@ -1,4 +1,4 @@
-export const OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT = 'orca:terminal-command-finished'
+export const OPENKODO_TERMINAL_COMMAND_FINISHED_EVENT = 'openkodo:terminal-command-finished'
 
 export type TerminalCommandFinishedEventDetail = {
   worktreeId: string

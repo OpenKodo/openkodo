@@ -7,7 +7,7 @@ import {
   openSync,
   statfsSync
 } from 'node:fs'
-import { filesystemTypeIsLocalDisk } from '../orcad/instance-lock/orcad-data-root-locality'
+import { filesystemTypeIsLocalDisk } from '../openkodod/instance-lock/openkodod-data-root-locality'
 import type { DarwinPortScanOperation } from './port-scan-command-protocol'
 
 /** The child inherits this open-file description; closing a duplicate never unlocks it. */
@@ -27,7 +27,7 @@ export function openDarwinPortScanLock(operation: DarwinPortScanOperation): numb
   if (!filesystemTypeIsLocalDisk('darwin', filesystem.type, () => statfsSync('/').type)) {
     return null
   }
-  const directory = `${root}/orca-port-scan-${uid}`
+  const directory = `${root}/openkodo-port-scan-${uid}`
   mkdirSync(directory, { mode: 0o700, recursive: true })
   const dir = lstatSync(directory)
   if (

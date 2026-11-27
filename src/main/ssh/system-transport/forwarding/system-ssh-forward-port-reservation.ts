@@ -1,6 +1,6 @@
 /** Resolve port 0 locally because OpenSSH never reports its -L 0 choice; recover fixed ports only from proven OpenKodo forwards. */
 import { createServer } from 'node:net'
-import { stopOrphanedOrcaSshForward } from './system-ssh-orphaned-forward'
+import { stopOrphanedOpenKodoSshForward } from './system-ssh-orphaned-forward'
 
 /** Recovery requires supplied ownership evidence; unrelated listeners retain their bind error. */
 export async function reserveLocalForwardPort(
@@ -25,7 +25,7 @@ async function releaseLocalForwardPort(
   cancelMuxedForward?: () => Promise<boolean>
 ): Promise<boolean> {
   // Only the exact supplied OpenKodo forward argv permits fixed-port process recovery.
-  if (orphanArgs && (await stopOrphanedOrcaSshForward(localPort, orphanArgs))) {
+  if (orphanArgs && (await stopOrphanedOpenKodoSshForward(localPort, orphanArgs))) {
     return true
   }
   // A muxed forward survives its client, so process matching cannot recover it.

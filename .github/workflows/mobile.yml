@@ -20,7 +20,7 @@ on:
       - 'src/main/runtime/rpc/**'
       - 'src/main/runtime/rpc/server/runtime-rpc.ts'
       - 'src/main/runtime/rpc/server/pairing/device-registry.ts'
-      - 'src/main/runtime/orca-runtime.ts'
+      - 'src/main/runtime/openkodo-runtime.ts'
       - 'src/main/runtime/agent-session/environment/agent-session-account-env.ts'
       - 'src/main/runtime/agent-session/launch/agent-session-launch-directory.ts'
       - 'src/main/runtime/session-tabs/chat/agent-session-tab-identity.ts'
@@ -143,7 +143,7 @@ on:
       - 'src/main/runtime/rpc/**'
       - 'src/main/runtime/rpc/server/runtime-rpc.ts'
       - 'src/main/runtime/rpc/server/pairing/device-registry.ts'
-      - 'src/main/runtime/orca-runtime.ts'
+      - 'src/main/runtime/openkodo-runtime.ts'
       - 'src/main/runtime/agent-session/environment/agent-session-account-env.ts'
       - 'src/main/runtime/agent-session/launch/agent-session-launch-directory.ts'
       - 'src/main/runtime/session-tabs/chat/agent-session-tab-identity.ts'
@@ -262,7 +262,7 @@ jobs:
     env:
       # Freeze bundler to reject Gemfile drift before release jobs resolve different fastlane versions.
       BUNDLE_FROZEN: 'true'
-      ORCA_MOBILE_TYPECHECK_COMPILER: 'bun'
+      OPENKODO_MOBILE_TYPECHECK_COMPILER: 'bun'
 
     defaults:
       run:
@@ -391,7 +391,7 @@ jobs:
       - name: Test
         if: steps.test-scope.outputs.should_run != 'false'
         env:
-          ORCA_BACKGROUND_LAUNCH: '1'
+          OPENKODO_BACKGROUND_LAUNCH: '1'
         run: node ../config/scripts/mobile-web/check-entry/run-mobile-ci-tests.mjs
 
       # The Ruby checks below read the completed fastlane install.
@@ -424,7 +424,7 @@ jobs:
   main-tests:
     name: Mobile tests on main
     env:
-      ORCA_MOBILE_TYPECHECK_COMPILER: 'bun'
+      OPENKODO_MOBILE_TYPECHECK_COMPILER: 'bun'
     if: github.event_name == 'push'
     # Why ARM: the same pure-Node Vitest run `verify` makes on a pull request.
     runs-on: ubuntu-24.04-arm
@@ -483,5 +483,5 @@ jobs:
 
       - name: Test
         env:
-          ORCA_BACKGROUND_LAUNCH: '1'
+          OPENKODO_BACKGROUND_LAUNCH: '1'
         run: node ../config/scripts/mobile-web/check-entry/run-mobile-ci-tests.mjs

@@ -1,7 +1,7 @@
 // Who took an agent question: the party whose read commit took it, recorded once on the question's own
 // row. A later read never moves it, so it names the actual taker even after mailboxes change hands.
 import type { OrchestrationDb } from '../orchestration-db'
-import { createChatOrcaSessionIdResolver } from '../../addressing/session-lineage/canonical-orca-session-id'
+import { createChatOpenKodoSessionIdResolver } from '../../addressing/session-lineage/canonical-openkodo-session-id'
 import { noteQuestionEdge } from './question-edges'
 
 export type MailTaker =
@@ -14,25 +14,25 @@ export type MailTaker =
   /** Read by answering it. */
   | { kind: 'reply' }
   /** Read by OpenKodo itself: answer mail, rejections, the Run scheduler. */
-  | { kind: 'orca' }
+  | { kind: 'openkodo' }
   /** Never read by its receiver: a person withdrew it, or it was dropped. */
   | { kind: 'dropped'; why: string }
 
 /** A chat taker, by its /clear lineage root, so a successor's later turns still name the same taker. */
 export function sessionMailTaker(sessionId: string): MailTaker {
-  return { kind: 'session', sessionId: createChatOrcaSessionIdResolver()(sessionId) }
+  return { kind: 'session', sessionId: createChatOpenKodoSessionIdResolver()(sessionId) }
 }
 
 /** The party a consuming read hands its questions to: a terminal agent by its handle, a chat by its
  *  session, anything else as a shell. */
 export function callerMailTaker(caller: {
   terminalHandle: string | null
-  orcaSessionId: string | null
+  openkodoSessionId: string | null
 }): MailTaker {
   if (caller.terminalHandle) {
     return { kind: 'terminal', handle: caller.terminalHandle }
   }
-  return caller.orcaSessionId ? sessionMailTaker(caller.orcaSessionId) : { kind: 'shell' }
+  return caller.openkodoSessionId ? sessionMailTaker(caller.openkodoSessionId) : { kind: 'shell' }
 }
 
 export function mailTakerKey(taker: MailTaker): string {
@@ -45,7 +45,7 @@ export function mailTakerKey(taker: MailTaker): string {
       return `dropped:${taker.why}`
     case 'shell':
     case 'reply':
-    case 'orca':
+    case 'openkodo':
       return taker.kind
   }
 }

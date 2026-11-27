@@ -439,7 +439,7 @@
   },
   {
     "filePath": "src/shared/bots/bot-connectors-view.ts",
-    "reason": "CLI and agent text for orca bot connectors."
+    "reason": "CLI and agent text for openkodo bot connectors."
   },
   {
     "filePath": "src/shared/bots/bot-work-list.ts",

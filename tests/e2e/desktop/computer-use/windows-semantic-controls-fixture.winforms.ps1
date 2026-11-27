@@ -12,10 +12,10 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 // Why: a form shown without activation opens behind the foreground window, so any activation by an action is observable.
-public class OrcaFixtureInactiveForm : System.Windows.Forms.Form {
+public class OpenKodoFixtureInactiveForm : System.Windows.Forms.Form {
     protected override bool ShowWithoutActivation { get { return true; } }
 }
-public static class OrcaFixtureForeground {
+public static class OpenKodoFixtureForeground {
     [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] static extern int GetWindowText(IntPtr hwnd, StringBuilder text, int count);
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] static extern IntPtr FindWindow(string className, string title);
@@ -29,7 +29,7 @@ public static class OrcaFixtureForeground {
 }
 "@
 
-$form = New-Object OrcaFixtureInactiveForm
+$form = New-Object OpenKodoFixtureInactiveForm
 $form.Text = $Title
 $form.StartPosition = "Manual"
 $form.Bounds = New-Object System.Drawing.Rectangle(480, 40, 420, 340)
@@ -65,7 +65,7 @@ $state = [ordered]@{ ready = $false; activations = 0; active = $false; name = $n
 # Why: a failed activation check prints this log, which says what ran just before the window was activated.
 $clock = [Diagnostics.Stopwatch]::StartNew()
 function Add-FixtureEvent([string]$Name) {
-    $state.events = @($state.events + "$($clock.ElapsedMilliseconds) $Name fg=$([OrcaFixtureForeground]::Title())" | Select-Object -Last 40)
+    $state.events = @($state.events + "$($clock.ElapsedMilliseconds) $Name fg=$([OpenKodoFixtureForeground]::Title())" | Select-Object -Last 40)
 }
 function Save-FixtureState {
     # Why: an exception in an event handler would end the fixture; a reader holding the file only delays one write.
@@ -76,10 +76,10 @@ function Save-FixtureState {
     } catch {}
 }
 
-# Why: hand activation back to the holder process later, so each action starts behind another app and Orca still sees what it caused.
+# Why: hand activation back to the holder process later, so each action starts behind another app and OpenKodo still sees what it caused.
 $handBack = New-Object System.Windows.Forms.Timer
 $handBack.Interval = 2000
-$handBack.Add_Tick({ $handBack.Stop(); Add-FixtureEvent "hand back $([OrcaFixtureForeground]::Give($HolderTitle))"; Save-FixtureState })
+$handBack.Add_Tick({ $handBack.Stop(); Add-FixtureEvent "hand back $([OpenKodoFixtureForeground]::Give($HolderTitle))"; Save-FixtureState })
 $form.Add_Activated({
     $state.activations++
     $state.active = $true

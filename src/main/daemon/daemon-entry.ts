@@ -1,5 +1,5 @@
 import '../memory/host-malloc-tunables-claim'
-import '../ipc/pty/host-env/inherited-orca-identity-claim'
+import '../ipc/pty/host-env/inherited-openkodo-identity-claim'
 import { parseArgs } from './launch/daemon-command-arguments'
 import { readFileSync } from 'node:fs'
 import { startDaemon, type DaemonHandle } from './server/daemon-main'
@@ -183,7 +183,7 @@ async function main(): Promise<void> {
       process.platform === 'darwin' &&
       process.ppid === 1 &&
       process.env.OPENKODO_PROVIDER_HOST === '1' &&
-      /\/(?:OpenKodo Agents|OpenKodo Terminal Host)\.app\/Contents\/MacOS\/(?:OpenKodo Agents|orca-terminal-host)$/.test(
+      /\/(?:OpenKodo Agents|OpenKodo Terminal Host)\.app\/Contents\/MacOS\/(?:OpenKodo Agents|openkodo-terminal-host)$/.test(
         process.execPath
       ),
     ...(pidPath ? { pidPath } : {}),
@@ -251,7 +251,7 @@ async function main(): Promise<void> {
   }
 }
 
-// Tests and build-orcad.mjs load checks import this module without starting a daemon.
+// Tests and build-openkodod.mjs load checks import this module without starting a daemon.
 const isDirectExecution = !process.env.VITEST && !process.env.OPENKODO_DAEMON_ENTRY_LOAD_CHECK
 if (isDirectExecution) {
   main().catch((err) => {

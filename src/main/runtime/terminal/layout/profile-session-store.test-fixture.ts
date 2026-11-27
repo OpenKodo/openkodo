@@ -1,10 +1,10 @@
 // Model profile sessions by host, including routed layout commands and write notifications.
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
-import { getDefaultWorkspaceSession } from '../../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../../../../shared/openkodo-profiles/constants'
 import type { LayoutCommand } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 import { resolveHostId } from '../../../persistence/loading-store/workspace-sessions/session-host-partitions'
 import { applyCommandToSession } from '../../../persistence/terminal-topology/pane-admission/terminal-pane-admission'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { RuntimeStore } from '../../construction/runtime-store-contract'
 
 export type SessionStore = {
@@ -71,7 +71,7 @@ export function forgetInstalledPaneSession(
   }
 }
 
-export function storeOf(runtime: OrcaRuntimeService): SessionStore | null {
+export function storeOf(runtime: OpenKodoRuntimeService): SessionStore | null {
   return runtime['store'] ?? null
 }
 
@@ -123,7 +123,7 @@ export function asProfileSessionStore(
 
 /** The session main's layout reads from the runtime's store, as bindPaneFirst left it. */
 export function boundSessionOf(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   hostId = 'local'
 ): WorkspaceSessionState {
   return storeOf(runtime)?.getWorkspaceSession?.(hostId) ?? getDefaultWorkspaceSession()

@@ -1,6 +1,6 @@
 import type { MessageType } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { CheckMailReconciliation } from './check-mail-reconciliation'
 import type { OrchestrationSessionCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import type { CheckParams } from '../../../../../../shared/rpc-contract/orchestration/orchestration-params'
@@ -15,7 +15,7 @@ type RemoteAttachment = NonNullable<
 
 export type WorkerMailboxCheckInput = {
   params: CheckParamsInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   handle: string
   paneKey: string | undefined

@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto'
 import type { RuntimeTransportMetadata } from '../../../../shared/remote-runtime/bootstrap/runtime-bootstrap'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { RpcDispatcher } from '../dispatcher'
 import { ALL_RPC_METHODS } from '../methods/rpc-method-registry'
 import type { RpcTransport } from '../transport'
@@ -26,7 +26,7 @@ import { errorResponse } from '../responses/rpc-response'
 import {
   RUNTIME_IDLE_STOPPED_ERROR_CODE,
   RUNTIME_IDLE_STOPPED_MESSAGE
-} from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-idle-stop-signal'
+} from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-idle-stop-signal'
 
 import {
   type RuntimeMetadataOwnershipWatch,
@@ -43,7 +43,7 @@ import {
 import {
   type MobilePairingOffer,
   type MobileRelayPairingProvider,
-  type OrcaRuntimeRpcServerOptions,
+  type OpenKodoRuntimeRpcServerOptions,
   type PairingOfferUnavailable,
   DEFAULT_WS_PORT
 } from './runtime-rpc-pairing-types'
@@ -53,7 +53,7 @@ import type { ServeNetworkSourceOptions } from './serve-network-source-policy'
 import type { WebSocketSourceGuard } from '../transports/websocket/source-admission/ws-network-source-guard'
 
 export class RuntimeRpcState {
-  protected readonly runtime: OrcaRuntimeService
+  protected readonly runtime: OpenKodoRuntimeService
   protected readonly dispatcher: RpcDispatcher
   protected readonly streamingMethods: ReadonlySet<string>
   protected readonly userDataPath: string
@@ -150,7 +150,7 @@ export class RuntimeRpcState {
     longPollCap = LONG_POLL_CAP,
     metadataOwnershipPollMs = RUNTIME_METADATA_OWNERSHIP_POLL_MS,
     methods
-  }: OrcaRuntimeRpcServerOptions) {
+  }: OpenKodoRuntimeRpcServerOptions) {
     this.runtime = runtime
     this.dispatcher = new RpcDispatcher({ runtime, methods: methods ?? ALL_RPC_METHODS })
     // By declaration, so every subscription, current or future, is classified the same way.

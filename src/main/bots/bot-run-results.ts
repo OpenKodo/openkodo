@@ -13,16 +13,16 @@ import {
 } from '../../shared/connectors/connector-cloud-contract'
 import { botTurnFor } from './bot-turn-for'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../shared/agent-session/identity/openkodo-session-address'
 import { capAnswer } from '../connector-cloud/connector-snapshot'
 import type { ConnectorResult } from '../connector-cloud/connector-cloud-request'
 import type { ConnectorBotPostBody } from '../connector-cloud/connector-replies'
 import type { ConversationKey } from '../external-conversations/external-conversation-types'
 import type { AutomationLaunch } from '../automations/launch/automation-launch'
 import type { BotRunResults } from '../automations/bot-automation-launch'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   alertBotCouldNotStart,
   BOT_COULD_NOT_FINISH_COPY,
@@ -40,16 +40,16 @@ import { structuredAgentSessionRefusalLine } from '../../shared/agent-session/re
 import { tuiAgentDisplayName } from '../../shared/agent-launch/catalog/tui-agent-display-names'
 import { ANSWERED_TOGETHER_NOTICE } from '../../shared/automations/history/automation-run-answered-together'
 import * as resultNote from './bot-run-result-note'
-import { writeStructuredAgentSessionOrcaNote } from '../native-chat/agent-session-wire/structured-agent-session-orca-note'
+import { writeStructuredAgentSessionOpenKodoNote } from '../native-chat/agent-session-wire/structured-agent-session-openkodo-note'
 import { resultPlaceValue } from '../automations/bot-automation-place-refs'
 import { watchBotTurnEnds, type BotRunUnavailable, type BotTurnEnd } from './bot-run-turn-watch'
-import { orcaSignInServer } from './orca-sign-in-server'
+import { openkodoSignInServer } from './openkodo-sign-in-server'
 import {
   hostNotSignedIn,
-  orcaCloudNeedsSignIn,
+  openkodoCloudNeedsSignIn,
   serverSignInSteps,
-  type OrcaSignInServer
-} from '../../shared/bots/host-orca-sign-in'
+  type OpenKodoSignInServer
+} from '../../shared/bots/host-openkodo-sign-in'
 
 export type BotRunCompletion = Awaited<NonNullable<AutomationLaunch['completion']>>
 
@@ -64,7 +64,7 @@ export type BotRunDeliveryDependencies = BotOwnerNoticeDeps &
     /** This host is signed out of OpenKodo, so nothing posts through OpenKodo Cloud. */
     cloudSignedOut(): boolean
     /** This host's name when it is a headless server, whose signed-out note says how it signs in. */
-    signInServer?(): OrcaSignInServer
+    signInServer?(): OpenKodoSignInServer
     /** An OpenKodo note in the run's own conversation, where its result shows. */
     noteToRun(sessionId: string, noteId: string, text: string): Promise<unknown>
     /** The bot's words in an event's thread through the run's own cloud conversation, linking no
@@ -96,13 +96,13 @@ export type BotRunResult = {
 function runSender(sessionId: string, name: string): AgentMessageSource {
   return {
     kind: 'agent',
-    senders: isOrcaSessionId(sessionId)
+    senders: isOpenKodoSessionId(sessionId)
       ? [
           {
             party: {
-              address: formatOrcaSessionAddress(sessionId),
+              address: formatOpenKodoSessionAddress(sessionId),
               terminalHandle: null,
-              orcaSessionId: sessionId
+              openkodoSessionId: sessionId
             },
             name
           }
@@ -116,7 +116,7 @@ const COPY = {
   failed: (outcome: string) => `The bot's turn ended without finishing (${outcome}).`,
   chatResult: (automation: string, message: string) => `Result of "${automation}":\n\n${message}`,
   cloudOff: "cloud service isn't connected, so the result wasn't posted.",
-  signedOut: (place: string, server: OrcaSignInServer, botName: string) => {
+  signedOut: (place: string, server: OpenKodoSignInServer, botName: string) => {
     const steps = serverSignInSteps(server, botName, 'owner')
     return steps
       ? `Not posted to ${place}. ${hostNotSignedIn(server)}. ${steps}`
@@ -272,12 +272,12 @@ async function noteNotices(
 }
 
 export function runtimeBotRunRefusals(
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): (automation: Pick<Automation, 'name' | 'bot'>, error: string) => void {
   return botRunRefusalAlerts(runtimeBotOwnerNotice(runtime), () => runtime.bots.list())
 }
 
-export function runtimeBotRunResults(runtime: OrcaRuntimeService): BotRunResults {
+export function runtimeBotRunResults(runtime: OpenKodoRuntimeService): BotRunResults {
   const chats = runtimeBotChats(runtime)
   return {
     watch: async () => watchBotTurnEnds(await requireStructuredHost(runtime)),
@@ -299,10 +299,10 @@ export function runtimeBotRunResults(runtime: OrcaRuntimeService): BotRunResults
             chatThatTookIt(await chats.sendToChat(bot.id, text, from)),
           noteToChat: resultNote.runtimeNoteToChat(runtime, chats),
           postAsBot: (bot, body) => runtime.getConnectorCloud()?.postAsBot(bot.id, body) ?? null,
-          cloudSignedOut: () => orcaCloudNeedsSignIn(runtime.getConnectorCloud()?.status()),
-          signInServer: () => orcaSignInServer(runtime),
+          cloudSignedOut: () => openkodoCloudNeedsSignIn(runtime.getConnectorCloud()?.status()),
+          signInServer: () => openkodoSignInServer(runtime),
           noteToRun: async (sessionId, noteId, text) =>
-            writeStructuredAgentSessionOrcaNote(
+            writeStructuredAgentSessionOpenKodoNote(
               await requireStructuredHost(runtime),
               sessionId,
               noteId,

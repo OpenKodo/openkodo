@@ -3,7 +3,7 @@ import type { ChildProcess } from 'node:child_process'
 import {
   childProcessHasExited,
   signalProcessTree
-} from '@orca/process-host/process-tree-termination'
+} from '@openkodo/process-host/process-tree-termination'
 import { createSshOperationAbortError } from '../../connection/ssh-exec-options'
 import type { SshTarget } from '../../../../shared/remote-runtime/ssh/ssh-types'
 import type { SshResolvedConfig } from '../../config/ssh-g-config-resolution'
@@ -22,7 +22,7 @@ import {
 // Allow the full proxy handshake: avoiding repeats is the route's purpose.
 export const SYSTEM_SSH_LOOPBACK_ROUTE_LISTEN_TIMEOUT_MS = 60_000
 export const SYSTEM_SSH_LOOPBACK_ROUTE_PROBE_TIMEOUT_MS = 15_000
-const LOOPBACK_ROUTE_PROBE_MARKER = 'ORCA-SYSTEM-SSH-LOOPBACK-OK'
+const LOOPBACK_ROUTE_PROBE_MARKER = 'OPENKODO-SYSTEM-SSH-LOOPBACK-OK'
 
 export type SystemSshLoopbackRoute = {
   args: SystemSshLoopbackRouteArgs

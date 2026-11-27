@@ -143,7 +143,7 @@ it('joins held children before cancelling the real repeated delete-time authoriz
 })
 
 it('refuses before sweeping children when a checkout replaces the pinned marker during ownership proof', async () => {
-  const scratch = mkdtempSync(join(tmpdir(), 'orca-win-auth-race-'))
+  const scratch = mkdtempSync(join(tmpdir(), 'openkodo-win-auth-race-'))
   try {
     const gitFile = join(scratch, '.git')
     writeFileSync(gitFile, 'gitdir: C:/repo/.git/worktrees/feature\n')
@@ -171,7 +171,7 @@ it('refuses before sweeping children when a checkout replaces the pinned marker 
 })
 
 it('refuses before sweeping children when a checkout replaces the pinned marker during directory enumeration', async () => {
-  const scratch = mkdtempSync(join(tmpdir(), 'orca-win-readdir-race-'))
+  const scratch = mkdtempSync(join(tmpdir(), 'openkodo-win-readdir-race-'))
   try {
     const gitFile = join(scratch, '.git')
     writeFileSync(gitFile, 'gitdir: C:/repo/.git/worktrees/feature\n')
@@ -197,7 +197,7 @@ it('refuses before sweeping children when a checkout replaces the pinned marker 
 })
 
 it('skips child deletion and refuses non-empty folder when the pinned marker disappears during enumeration', async () => {
-  const scratch = mkdtempSync(join(tmpdir(), 'orca-win-readdir-loss-'))
+  const scratch = mkdtempSync(join(tmpdir(), 'openkodo-win-readdir-loss-'))
   try {
     const gitFile = join(scratch, '.git')
     writeFileSync(gitFile, 'gitdir: C:/repo/.git/worktrees/feature\n')

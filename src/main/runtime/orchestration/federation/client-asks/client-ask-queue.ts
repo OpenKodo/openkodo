@@ -1,7 +1,7 @@
 // Asks and replies this OpenKodo's agents send agents on a paired computer wait in the relay queue
 // (`to_worker` on this OpenKodo's home conversation) until that computer pulls them; it acknowledges
 // what it took. When the pairing they were sent under ends, their askers are told once.
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { forgetPeerQuestionOut, tellUnpairedPeerQuestions } from '../peer-mail/peer-questions-out'
 import { notifyPeerMailQueued } from '../peer-mail/peer-mail-waiters'
@@ -41,7 +41,7 @@ function dropQueuedClientItems(
 }
 
 function endClientPairings(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   environmentIds: readonly string[],
   serverName: string,
   reason: string,
@@ -64,7 +64,7 @@ function endClientPairings(
  *  lost with that pairing. Only the conversations of that fingerprint and installation are touched,
  *  so two computers sharing a copied installation id never end each other's. */
 export function settleReplacedClientPairing(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: {
     previousPairing: string
     currentFingerprint: string
@@ -97,7 +97,7 @@ export function settleReplacedClientPairing(
 /** A paired computer's device was removed here: its askers are told, and it stops listening. A
  *  failure is logged, never thrown: the revoke itself already happened. */
 export function settleRemovedPairedClient(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   device: { deviceId: string; name: string }
 ): void {
   try {
@@ -108,7 +108,7 @@ export function settleRemovedPairedClient(
 }
 
 function settleRemovedClientDevice(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   device: { deviceId: string; name: string }
 ): void {
   forgetClientAskDevice(runtime, device.deviceId)
@@ -131,7 +131,10 @@ function settleRemovedClientDevice(
 /** A chat that asked agents on paired computers was deleted: asks not taken yet are dropped, and
  *  each one taken is withdrawn there, so a card waiting for a person goes. Its questions are
  *  forgotten, since no one is left to tell. A failure is logged, never thrown: the chat is gone. */
-export function withdrawClientAsksOf(runtime: OrcaRuntimeService, askers: readonly string[]): void {
+export function withdrawClientAsksOf(
+  runtime: OpenKodoRuntimeService,
+  askers: readonly string[]
+): void {
   try {
     const db = runtime.getOrchestrationDb()
     for (const asker of askers) {

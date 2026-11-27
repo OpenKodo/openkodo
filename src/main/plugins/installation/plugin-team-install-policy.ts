@@ -1,4 +1,4 @@
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { allowsTeamCatalogSource } from '../catalog/plugin-marketplace-team-policy'
 import type {
   PluginBlockNotice,
@@ -8,7 +8,7 @@ import type {
   PluginInstallSource,
   PluginLockEntry
 } from '../../../shared/plugins/installation/plugin-install-lockfile'
-import { getActiveTeamCapabilities } from '../../orca-profiles/cloud-auth/active-team-capabilities'
+import { getActiveTeamCapabilities } from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
 import { requiredPluginInstallError } from './required-plugin-release-policy'
 
 export function teamAllowsMemberPluginSource(): boolean {

@@ -3,7 +3,7 @@ import { basename, dirname, join } from 'node:path'
 import { withSpan } from '../../../observability/tracer'
 import { normalizeRuntimePathForComparison } from '../../../../shared/file-access/cross-platform-path'
 import {
-  getOrcaUserDataPath,
+  getOpenKodoUserDataPath,
   getSystemCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import {
@@ -40,7 +40,7 @@ const MOVE_OUTCOMES: Record<string, CodexHistoryMoveOutcome> = {
 }
 
 const INDEX_PENDING_DIR = (): string =>
-  join(getOrcaUserDataPath(), 'codex-account-history', 'index-pending')
+  join(getOpenKodoUserDataPath(), 'codex-account-history', 'index-pending')
 
 /**
  * Host account history passes, one at a time (homes merging into one store at once would race on
@@ -67,7 +67,8 @@ export class CodexAccountHistoryPasses {
       this.censusHomes = (homes ?? []).map((home) => normalizeRuntimePathForComparison(home))
       return homes && this.censusHomes
     },
-    markerPath: () => join(getOrcaUserDataPath(), 'codex-account-history', 'move-status-sent.json')
+    markerPath: () =>
+      join(getOpenKodoUserDataPath(), 'codex-account-history', 'move-status-sent.json')
   })
 
   /**

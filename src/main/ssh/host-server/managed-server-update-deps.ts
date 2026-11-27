@@ -1,18 +1,18 @@
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import type { ManagedServerUpdateDeps } from './managed-server-update-check'
-import { autoUpdateManagedOrcadEnvironment } from '../../managed-server/lifecycle/orcad-managed-auto-update'
-import { requireManagedOrcadTargetStore } from '../../managed-server/lifecycle/orcad-managed-runtime-context'
+import { autoUpdateManagedOpenkododEnvironment } from '../../managed-server/lifecycle/openkodod-managed-auto-update'
+import { requireManagedOpenkododTargetStore } from '../../managed-server/lifecycle/openkodod-managed-runtime-context'
 import {
-  orcadUpdateFailedThisLaunch,
-  recordOrcadUpdateFailedThisLaunch
-} from '../../managed-server/lifecycle/orcad-managed-update-failure-memory'
+  openkododUpdateFailedThisLaunch,
+  recordOpenkododUpdateFailedThisLaunch
+} from '../../managed-server/lifecycle/openkodod-managed-update-failure-memory'
 
 export function managedServerUpdateDeps(userDataPath: string): ManagedServerUpdateDeps {
-  const registry = requireManagedOrcadTargetStore()
+  const registry = requireManagedOpenkododTargetStore()
   const appVersion = getAppEnvironment().getVersion()
   return {
     autoUpdate: async (environmentId, options) =>
-      await autoUpdateManagedOrcadEnvironment(userDataPath, {
+      await autoUpdateManagedOpenkododEnvironment(userDataPath, {
         environmentId,
         appVersion,
         ...options
@@ -23,11 +23,11 @@ export function managedServerUpdateDeps(userDataPath: string): ManagedServerUpda
       return failure?.appVersion === appVersion ? failure.reason : null
     },
     // Only attempted failures suppress retry; keep launch-only state out of peer-published SshTarget.
-    failedThisLaunch: (target) => orcadUpdateFailedThisLaunch({ kind: 'ssh', id: target.id }),
+    failedThisLaunch: (target) => openkododUpdateFailedThisLaunch({ kind: 'ssh', id: target.id }),
     recordUpdateFailure: (target, reason) => {
-      recordOrcadUpdateFailedThisLaunch(
+      recordOpenkododUpdateFailedThisLaunch(
         { kind: 'ssh', id: target.id },
-        { code: 'orcad_update_failed', reason }
+        { code: 'openkodod_update_failed', reason }
       )
       registry.updateTarget(target.id, { managedServerUpdateFailure: { reason, appVersion } })
     },

@@ -1,10 +1,10 @@
 import { ipcMain } from 'electron'
 import type { Store } from '../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { parseTerminalSurfaceCloseTarget } from '../../shared/workspace-layout/terminal-surfaces/terminal-surface-close-target'
-import { isFrozenOrcadSourceSessionPartition } from '../persistence/migrating-orcad-catalog/source/catalog/orcad-source-visibility'
+import { isFrozenOpenkododSourceSessionPartition } from '../persistence/migrating-openkodod-catalog/source/catalog/openkodod-source-visibility'
 import { isWslMoveWindowWriteHeld } from '../persistence/moving-wsl-projects/quiescence/wsl-move-window-write-hold'
-import { visibleSessionHostIds } from '../persistence/migrating-orcad-catalog/retained-source/orcad-retained-source-session'
+import { visibleSessionHostIds } from '../persistence/migrating-openkodod-catalog/retained-source/openkodod-retained-source-session'
 import { markAgentLaunchesClosedByUser } from '../agent-launch/agent-launch-pane-attachment'
 import { windowViewPatchForMain, windowViewSaveForMain } from '../persistence/window-save-view'
 import { windowWrittenWorkspaces } from '../persistence/window-session-written-workspaces'
@@ -39,11 +39,11 @@ import {
   type WorkspaceSessionEntriesPatchResult
 } from '../../shared/workspace-session/workspace-session-entries-patch'
 
-export function registerSessionHandlers(store: Store, runtime: OrcaRuntimeService): void {
+export function registerSessionHandlers(store: Store, runtime: OpenKodoRuntimeService): void {
   // Why: renderer saves would change a fenced host's frozen source partition, or write back what a
   // WSL move rewrote under this window before main reloads it.
   const isFenced = (hostId?: string | null): boolean =>
-    isFrozenOrcadSourceSessionPartition(store, hostId) || isWslMoveWindowWriteHeld()
+    isFrozenOpenkododSourceSessionPartition(store, hostId) || isWslMoveWindowWriteHeld()
 
   // Optional hostId preserves local-partition behavior for older renderers.
   ipcMain.handle('session:get', (_event, hostId?: string | null) => {

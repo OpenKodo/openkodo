@@ -1,9 +1,9 @@
 import * as chatSettings from './web-native-chat-settings'
 import type { PreloadApi } from '../../../../../preload/api-types'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { normalizeWorktreeVisibilityDefaults } from '../../../../../shared/worktree/visibility/external-worktree-visibility'
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
-import type { PersistedUIState } from '../../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import { osc52ClipboardDefaultOnOverridesPersistedOff } from '../../../../../shared/terminal/clipboard/osc52-clipboard-settings'
 import {
   applyPRBotAuthorOverride,

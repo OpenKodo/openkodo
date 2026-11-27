@@ -234,7 +234,7 @@ function getComputerUseInstallStatus(
       label:
         permissions.unavailableReason === 'web_client'
           ? t(
-              'auto.components.feature.wall.agent.capability.setup.status.requiresOrcaDesktop',
+              'auto.components.feature.wall.agent.capability.setup.status.requiresOpenKodoDesktop',
               'Requires OpenKodo Desktop'
             )
           : t(

@@ -1,6 +1,6 @@
 import { isKnownHarnessInjectedUserTurnText } from '../../../agent-session/journal/harness-injected-user-turns'
 import { isTextBlock, type NativeChatMessage } from '../../native-chat-types'
-import { isNativeChatOrcaCard } from '../../native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../../native-chat-openkodo-card'
 import { isNativeChatProviderTurnStart } from '../turns/native-chat-provider-turn-start'
 
 function messageText(message: NativeChatMessage): string {
@@ -13,7 +13,7 @@ function messageText(message: NativeChatMessage): string {
 
 /** Harness-injected user/system turns are transport machinery, not conversation. */
 export function isNoiseMessage(message: NativeChatMessage): boolean {
-  if (isNativeChatOrcaCard(message) || isNativeChatProviderTurnStart(message)) {
+  if (isNativeChatOpenKodoCard(message) || isNativeChatProviderTurnStart(message)) {
     return false
   }
   if (message.role !== 'user' && message.role !== 'system') {

@@ -5,7 +5,7 @@ import {
   recoverInterruptedGuardedFileOperation,
   writeFileAtomicallyIfUnchanged
 } from '../../../filesystem/atomic-file-publication'
-import { getOrcaManagedCodexHomePath, getSystemCodexHomePath } from '../homes/codex-home-paths'
+import { getOpenKodoManagedCodexHomePath, getSystemCodexHomePath } from '../homes/codex-home-paths'
 import {
   promoteCodexRuntimeSettingsToSystem,
   snapshotCodexRuntimeSettingsBaseline,
@@ -34,7 +34,7 @@ const RUNTIME_CONFIG_WRITE = { mode: 0o600 } as const
 
 export function syncSystemConfigIntoManagedCodexHome(
   homes: CodexSettingsPromotionHomes = {
-    runtimeHomePath: getOrcaManagedCodexHomePath(),
+    runtimeHomePath: getOpenKodoManagedCodexHomePath(),
     systemHomePath: getSystemCodexHomePath()
   }
 ): boolean {
@@ -134,7 +134,7 @@ function writeCodexDaemonSocketGuard(runtimeHomePath: string, runtimeConfig: str
 /** One-way refresh for retained PTYs; promoting stale settings from this retired home could overwrite live config. */
 export function syncSystemConfigIntoLegacySharedCodexHome(
   homes: CodexSettingsPromotionHomes = {
-    runtimeHomePath: getOrcaManagedCodexHomePath(),
+    runtimeHomePath: getOpenKodoManagedCodexHomePath(),
     systemHomePath: getSystemCodexHomePath()
   }
 ): void {

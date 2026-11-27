@@ -5,7 +5,7 @@ import { lstatIfPresent } from '../../../filesystem/merged-directory-link'
 import { removeStagedCopy } from '../rollouts/codex-rollout-staged-copy'
 import { replaceImportFile } from './codex-history-import-ledger'
 
-const STAGED_IMPORT = /^\.orca-import-[^-]+-.+\.tmp$/
+const STAGED_IMPORT = /^\.openkodo-import-[^-]+-.+\.tmp$/
 // Staged copies accumulate here only while removals keep failing; at this many, staging stops.
 const MAX_RECORDED = 32
 

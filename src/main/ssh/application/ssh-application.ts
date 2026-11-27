@@ -1,5 +1,5 @@
 import type { Store } from '../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { SshConnectionStore } from '../targets/ssh-connection-store'
 import { SshConnectionManager } from '../connection/ssh-connection-manager'
 import { SshPortForwardManager } from '../port-forwarding/ssh-port-forward'
@@ -32,10 +32,10 @@ import { broadcastPortForwards } from '../../ipc/ssh/ssh-renderer-broadcast'
 import { registerSshTargetCrudHandlers } from '../../ipc/ssh/ssh-target-crud-handlers'
 import { registerSshConnectionHandlers } from '../../ipc/ssh/ssh-connection-handlers'
 import { registerSshPortForwardHandlers } from '../../ipc/ssh/ssh-port-forward-handlers'
-import { installManagedOrcadStartStatus } from '../../ipc/runtime-environments/managed-orcad/runtime-environment-managed-tunnel'
-import { retainUnretainedOrcadMigrationSources } from '../../persistence/migrating-orcad-catalog/retained-source/orcad-migration-source-retention'
-import { reconcileManagedOrcadSshTargets } from '../../persistence/migrating-orcad-catalog/retained-source/orcad-retained-source'
-import { installOrcadMigrationScrollbackRetention } from '../../persistence/migrating-orcad-catalog/terminal-history/orcad-migration-scrollback-retention-wiring'
+import { installManagedOpenkododStartStatus } from '../../ipc/runtime-environments/managed-openkodod/runtime-environment-managed-tunnel'
+import { retainUnretainedOpenkododMigrationSources } from '../../persistence/migrating-openkodod-catalog/retained-source/openkodod-migration-source-retention'
+import { reconcileManagedOpenkododSshTargets } from '../../persistence/migrating-openkodod-catalog/retained-source/openkodod-retained-source'
+import { installOpenkododMigrationScrollbackRetention } from '../../persistence/migrating-openkodod-catalog/terminal-history/openkodod-migration-scrollback-retention-wiring'
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import type { RegisterSshRequest } from './ssh-application-requests'
 
@@ -52,7 +52,7 @@ export async function startSshApplication({
   beforeReady
 }: {
   store: Store
-  runtime?: OrcaRuntimeService
+  runtime?: OpenKodoRuntimeService
   hostInitialization?: Promise<void>
   register: RegisterSshRequest
   /** Synchronous wiring that must exist before startup reconciliation settles. */
@@ -65,7 +65,7 @@ export async function startSshApplication({
   const ready = (async () => {
     await hostInitialization
     await holdLaunchReconnectOptOuts(getSshTargetRegistryStore()!.listTargets())
-    await reconcileManagedOrcadSshTargets(getAppEnvironment().getPath('userData'), store)
+    await reconcileManagedOpenkododSshTargets(getAppEnvironment().getPath('userData'), store)
   })()
   setSshStartupReady(ready)
   const handle: RegisterSshRequest = (channel, operation) =>
@@ -120,9 +120,9 @@ export async function startSshApplication({
   beforeReady?.()
 
   await ready
-  void retainUnretainedOrcadMigrationSources(getAppEnvironment().getPath('userData'), store)
-  installOrcadMigrationScrollbackRetention(getAppEnvironment().getPath('userData'), store)
-  installManagedOrcadStartStatus()
+  void retainUnretainedOpenkododMigrationSources(getAppEnvironment().getPath('userData'), store)
+  installOpenkododMigrationScrollbackRetention(getAppEnvironment().getPath('userData'), store)
+  installManagedOpenkododStartStatus()
   return {
     connectionManager: connectionManager!,
     sshStore: getSshTargetRegistryStore() as SshConnectionStore

@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { testOrcaSessionId } from '../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { testOpenKodoSessionId } from '../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import { OrchestrationDb } from '../runtime/orchestration/db/orchestration-db'
 import '../runtime/orchestration/db/contract-constants'
 import '../runtime/orchestration/db/messages/mailbox-routing-page'
@@ -10,7 +10,7 @@ import '../runtime/orchestration/db/dispatch-row-writer'
 import '../runtime/orchestration/db/attempt-outcome-projection'
 import { botDispatches } from './bot-chat-dispatches'
 
-const CHAT_SESSION = testOrcaSessionId('chat-session')
+const CHAT_SESSION = testOpenKodoSessionId('chat-session')
 
 const opened: { db: OrchestrationDb; dir: string }[] = []
 
@@ -22,7 +22,7 @@ afterEach(() => {
 })
 
 function openDb(): OrchestrationDb {
-  const dir = mkdtempSync(join(tmpdir(), 'orca-bot-chat-dispatches-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-bot-chat-dispatches-'))
   const db = new OrchestrationDb(join(dir, 'orchestration.db'))
   opened.push({ db, dir })
   return db
@@ -34,7 +34,7 @@ function failedDispatch(db: OrchestrationDb, spec: string): string {
   const dispatch = db.createDispatchContext({
     taskId: task.id,
     assigneeHandle: `term_${spec}`,
-    creator: { kind: 'session', orcaSessionId: CHAT_SESSION },
+    creator: { kind: 'session', openkodoSessionId: CHAT_SESSION },
     maxDepth: Number.MAX_SAFE_INTEGER
   })
   db.failDispatch(dispatch.id, 'boom')
@@ -46,7 +46,7 @@ function placed(db: OrchestrationDb) {
     db,
     (sessionId) => (sessionId === CHAT_SESSION ? 'chat' : null),
     () => null,
-    { orcaSessionIds: [CHAT_SESSION], paneKeys: [] }
+    { openkodoSessionIds: [CHAT_SESSION], paneKeys: [] }
   )
 }
 

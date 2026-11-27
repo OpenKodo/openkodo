@@ -3,7 +3,7 @@ import { pushMissedSinceRead, type MobilePushDismissalRpcSender } from './push-d
 import { loadHostCatalog } from '../../host-catalog/host-store'
 import { resolveHostIdForFingerprint } from '../payload-identity/push-host-fingerprint'
 import { readNativeNotificationData } from '../payload-identity/native-notification-data'
-import { readOrcaPushPayload, type OrcaPushPayload } from '../payload-identity/push-payload'
+import { readOpenKodoPushPayload, type OpenKodoPushPayload } from '../payload-identity/push-payload'
 import { dismissRememberedPushNotifications } from './push-tray-dismissal'
 import { rememberPushDismissals } from './push-dismissal-watermarks'
 import {
@@ -13,15 +13,15 @@ import {
 
 const key = (item: PushNotificationIdentity) =>
   JSON.stringify([item.notificationId, item.notificationEpoch, item.notificationSeq])
-async function readDelivered(hostId: string): Promise<Map<string, OrcaPushPayload>> {
-  const selected = new Map<string, OrcaPushPayload>()
+async function readDelivered(hostId: string): Promise<Map<string, OpenKodoPushPayload>> {
+  const selected = new Map<string, OpenKodoPushPayload>()
   try {
     const [presented, hosts] = await Promise.all([
       Notifications.getPresentedNotificationsAsync(),
       loadHostCatalog()
     ])
     for (const notification of presented) {
-      const payload = readOrcaPushPayload(readNativeNotificationData(notification.request))
+      const payload = readOpenKodoPushPayload(readNativeNotificationData(notification.request))
       if (!payload || resolveHostIdForFingerprint(payload.hostFingerprint, hosts) !== hostId) {
         continue
       }
@@ -62,7 +62,7 @@ export async function requestNotificationCatchup(
     if (!result?.dismissedPushes) {
       continue
     }
-    const confirmed: OrcaPushPayload[] = []
+    const confirmed: OpenKodoPushPayload[] = []
     for (const raw of result.dismissedPushes.slice(0, 256)) {
       if (isDisposed()) {
         break

@@ -2,7 +2,7 @@ import { isEventTargetInsideFloatingWorkspacePanel } from '@/components/floating
 
 export type ViewerZoomDirection = 'in' | 'out' | 'reset'
 
-const VIEWER_ZOOM_REQUEST_EVENT = 'orca:viewer-zoom-request'
+const VIEWER_ZOOM_REQUEST_EVENT = 'openkodo:viewer-zoom-request'
 const OPEN_DIALOG_SELECTOR =
   '[role="dialog"][data-state="open"], [role="alertdialog"][data-state="open"]'
 

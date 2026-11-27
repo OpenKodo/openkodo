@@ -33,7 +33,7 @@ import {
 import { WebhookHooks } from './webhook-hooks'
 import { webhookNoticeText } from './webhook-notice-text'
 import { WebhookHostLedger } from './webhook-host-ledger'
-import { orcaCloudNeedsSignIn } from '../../shared/bots/host-orca-sign-in'
+import { openkodoCloudNeedsSignIn } from '../../shared/bots/host-openkodo-sign-in'
 
 type TriggerDelivery = Extract<ConnectorDelivery, { kind: 'trigger' }>
 
@@ -140,7 +140,7 @@ export class WebhookHostService {
 
   /** Signed out of OpenKodo, so no event or webhook call reaches this host's bots. */
   signedOut(): boolean {
-    return orcaCloudNeedsSignIn(this.deps.cloud()?.status?.())
+    return openkodoCloudNeedsSignIn(this.deps.cloud()?.status?.())
   }
 
   /** Whether this host's OpenKodo Cloud takes webhooks; until a hello says, assume it does and let the mint decide. */

@@ -227,7 +227,7 @@ async function main() {
     ).stdout
       .toString('utf8')
       .trim()
-    const fixtureName = `.orca-wsl-git-shell-benchmark-${process.pid}-${randomUUID()}.txt`
+    const fixtureName = `.openkodo-wsl-git-shell-benchmark-${process.pid}-${randomUUID()}.txt`
     const fixturePath = posix.join(repo, fixtureName)
     const prepareStage = async () => {
       await runGit('fast', repo, ['reset', '--quiet', '--', fixtureName])
@@ -237,7 +237,7 @@ async function main() {
           '/bin/sh',
           '-c',
           'printf "benchmark\\n" > "$1"',
-          'orca-wsl-git-shell-benchmark',
+          'openkodo-wsl-git-shell-benchmark',
           fixturePath
         ])
       )
@@ -274,7 +274,7 @@ async function main() {
         '/bin/sh',
         '-c',
         'set -C; printf "benchmark\\n" > "$1"',
-        'orca-wsl-git-shell-benchmark',
+        'openkodo-wsl-git-shell-benchmark',
         fixturePath
       ]),
       { allowFailure: true }

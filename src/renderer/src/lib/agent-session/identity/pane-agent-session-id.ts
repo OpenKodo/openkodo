@@ -39,7 +39,7 @@ export function canPaneOfferAgentId(
   const live = state.agentStatusByPaneKey.get(paneKey)
   if (live && live.restoredUnconfirmed !== true) {
     // Null: the host can name it but its first link failed; the click retries there.
-    return live.orcaSessionId !== undefined
+    return live.openkodoSessionId !== undefined
   }
   const record = state.sleepingAgentSessionsByPaneKey[paneKey]
   return Boolean(record?.providerSession.id) && !record?.connectionId && ownerResolvesSleeping()

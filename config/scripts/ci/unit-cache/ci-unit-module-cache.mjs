@@ -12,7 +12,7 @@ import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { pathToFileURL } from 'node:url'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { collectNodeServerInputs } from '../../node-server/qualification/node-server-change-scope.mjs'
 import { workspacePackageManifests } from '../../workspace/source-exports/workspace-source-exports.mjs'
 import { writeAssignment } from '../sharding/ci-shard-assignment.mjs'
@@ -112,7 +112,7 @@ export function moduleCacheIdentity({
   return {
     ...identity,
     key: `unit-module-v2-${platform}-${arch}-n${versions.node}-b${versions.bun}-v${versions.vitest}-s${shard.index}of${shard.count}-${digest}`,
-    path: join(resolve(cacheRoot), 'orca-vitest-module-cache')
+    path: join(resolve(cacheRoot), 'openkodo-vitest-module-cache')
   }
 }
 

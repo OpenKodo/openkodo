@@ -105,7 +105,7 @@ export type PluginViewDrawnPanel = {
   pendingRequests?: number
   /** One result per requested act. */
   actions?: PluginShotActResult[]
-  /** An editor capture: the frame asked for its document (`orca.document.get` or `onDidChange`). */
+  /** An editor capture: the frame asked for its document (`openkodo.document.get` or `onDidChange`). */
   subscribed?: boolean
   /** An editor capture's guest, exactly: other tabs of the same editor share its URL. */
   guestContentsId?: number

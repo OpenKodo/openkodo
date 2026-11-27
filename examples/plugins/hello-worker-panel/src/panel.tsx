@@ -1,4 +1,4 @@
-// No build step: Orca strips the types, compiles the JSX and resolves `./todos` when it loads.
+// No build step: OpenKodo strips the types, compiles the JSX and resolves `./todos` when it loads.
 import {
   atom,
   Badge,
@@ -17,7 +17,7 @@ import {
   ui,
   update,
   type PanelContext
-} from 'orca'
+} from 'openkodo'
 import { TodoList } from './todo-list'
 import { add, clearDone, draft, openCount, percentDone, todos } from './todos'
 
@@ -70,7 +70,7 @@ export default function Panel() {
         </Row>
       </Row>
       {done ? <Text tone="success">{done}</Text> : null}
-      {/* Feature-detect: an older Orca without Progress still renders the rest. */}
+      {/* Feature-detect: an older OpenKodo without Progress still renders the rest. */}
       {ui.has('Progress') ? <Progress label="Done" labelHidden value={read(percentDone)} /> : null}
       <Row gap="xs">
         <Input

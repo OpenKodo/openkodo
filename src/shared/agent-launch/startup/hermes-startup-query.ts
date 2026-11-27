@@ -10,9 +10,9 @@ import {
 const QUERY_ENV_LIMIT = 24_000
 const QUERY_PLACEHOLDER = '__OPENKODO_HERMES_STARTUP_QUERY__'
 const QUERY_ARG_PLACEHOLDER = `--query=${QUERY_PLACEHOLDER}`
-const POSIX_QUERY_VARIABLE = '__orca_hermes_startup_query'
-const POWERSHELL_QUERY_VARIABLE = 'orcaHermesStartupQuery'
-const POWERSHELL_NATIVE_QUERY_VARIABLE = 'orcaHermesNativeQuery'
+const POSIX_QUERY_VARIABLE = '__openkodo_hermes_startup_query'
+const POWERSHELL_QUERY_VARIABLE = 'openkodoHermesStartupQuery'
+const POWERSHELL_NATIVE_QUERY_VARIABLE = 'openkodoHermesNativeQuery'
 
 export const OPENKODO_HERMES_STARTUP_QUERY_ENV = 'OPENKODO_HERMES_STARTUP_QUERY'
 
@@ -65,7 +65,7 @@ function findChatSubcommand(args: readonly string[]): number {
   return -1
 }
 
-function stripOrcaOwnedHermesArgs(args: readonly string[]): string[] {
+function stripOpenKodoOwnedHermesArgs(args: readonly string[]): string[] {
   const normalized: string[] = []
   for (let index = 0; index < args.length; index += 1) {
     const token = args[index]
@@ -133,8 +133,8 @@ function normalizeHermesArgv(
     ...commandPrefix,
     'chat',
     QUERY_ARG_PLACEHOLDER,
-    ...stripOrcaOwnedHermesArgs(baseArgsWithoutChat),
-    ...stripOrcaOwnedHermesArgs(configuredArgsWithoutChat),
+    ...stripOpenKodoOwnedHermesArgs(baseArgsWithoutChat),
+    ...stripOpenKodoOwnedHermesArgs(configuredArgsWithoutChat),
     '--tui'
   ]
 }

@@ -38,7 +38,7 @@ function computerErrorLabel(blocked: BotCreateHostBlock, updatable: boolean, t: 
       return t('bots.new.validation.computerOffline', 'Offline')
     case 'no-bots':
       return updatable
-        ? t('bots.new.validation.updateOrca', 'Update OpenKodo')
+        ? t('bots.new.validation.updateOpenKodo', 'Update OpenKodo')
         : t('bots.new.validation.botsUnavailable', 'Bots unavailable')
     case 'needs-server':
       return t('bots.new.hostNeedsServer', 'Needs OpenKodo server')

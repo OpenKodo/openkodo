@@ -44,7 +44,7 @@ describe('saved agent status from an older build', () => {
 
   beforeEach(() => {
     _internals.resetCachesForTests()
-    userDataPath = mkdtempSync(join(tmpdir(), 'orca-last-status-migration-'))
+    userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-last-status-migration-'))
   })
 
   afterEach(() => {

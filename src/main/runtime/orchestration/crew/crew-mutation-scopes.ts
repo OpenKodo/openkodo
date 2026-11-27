@@ -96,10 +96,10 @@ export function collectDispatchWrites<T>(
 const party = z.string().nullish()
 const CreatedDispatchParties = z.object({
   run_id: z.string(),
-  creator_orca_session_id: party,
+  creator_openkodo_session_id: party,
   creator_handle: party,
   creator_pane_key: party,
-  assignee_orca_session_id: party,
+  assignee_openkodo_session_id: party,
   assignee_handle: party,
   assignee_pane_key: party
 })
@@ -130,7 +130,7 @@ export function createdDispatchParties(db: OrchestrationDb, ids: Set<string>): S
 const RunCoordinator = z.object({
   coordinatorHandle: party,
   coordinatorPaneKey: party,
-  coordinatorOrcaSessionId: party
+  coordinatorOpenKodoSessionId: party
 })
 
 /** A new Run names only its coordinator; the crew showing that party reads it. */

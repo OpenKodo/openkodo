@@ -21,7 +21,7 @@ async function createInstalledPlugin(options: { worker: boolean }): Promise<{
   manifest: PluginManifest
   contentHash: string
 }> {
-  const userDataPath = await mkdtemp(join(tmpdir(), 'orca-plugin-service-integrity-'))
+  const userDataPath = await mkdtemp(join(tmpdir(), 'openkodo-plugin-service-integrity-'))
   roots.push(userDataPath)
   const pluginKey = 'samples.demo'
   const pluginDir = join(userDataPath, 'plugins', pluginKey)
@@ -33,7 +33,7 @@ async function createInstalledPlugin(options: { worker: boolean }): Promise<{
     publisher: 'samples',
     name: 'Demo',
     version: '1.0.0',
-    engines: { orca: '>=1.0.0' },
+    engines: { openkodo: '>=1.0.0' },
     pluginApi: 1,
     ...(options.worker ? { main: 'worker.js' } : {}),
     contributes: {

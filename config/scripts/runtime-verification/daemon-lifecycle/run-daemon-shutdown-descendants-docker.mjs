@@ -161,8 +161,8 @@ if (baselineIndex !== -1 && (!baselineRef || baselineRef.startsWith('-'))) {
   throw new Error('Usage: run-daemon-shutdown-descendants-docker.mjs [--baseline <git-ref>]')
 }
 
-const temp = mkdtempSync(join(tmpdir(), 'orca-daemon-shutdown-descendants-'))
-const image = `orca-daemon-shutdown-descendants:${process.pid}-${Date.now()}`
+const temp = mkdtempSync(join(tmpdir(), 'openkodo-daemon-shutdown-descendants-'))
+const image = `openkodo-daemon-shutdown-descendants:${process.pid}-${Date.now()}`
 const platform =
   process.env.OPENKODO_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
 

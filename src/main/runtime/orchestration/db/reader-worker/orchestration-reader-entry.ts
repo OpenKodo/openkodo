@@ -11,7 +11,7 @@ import type {
   OrchestrationReaderResponse
 } from './orchestration-reader-protocol'
 
-installWorkerSendLedger('orca-orchestration-reader')
+installWorkerSendLedger('openkodo-orchestration-reader')
 
 // Main's own lock wait; a longer one is the client's timeout to report.
 const BUSY_TIMEOUT_MS = 5000

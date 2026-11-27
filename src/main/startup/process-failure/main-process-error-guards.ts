@@ -148,7 +148,7 @@ export function installUncaughtExceptionQuitGuard(
   let quitting = false
   process.on('uncaughtException', (error: unknown): void => {
     const errorCode = readErrorProperty(error, 'code')
-    // A local PTY that died under us is not a main-process fault (same rule as the daemon and orcad).
+    // A local PTY that died under us is not a main-process fault (same rule as the daemon and openkodod).
     if (errorCode === 'EIO' || errorCode === 'EPIPE' || isBenignNativePtyFault(error)) {
       return
     }

@@ -5,27 +5,30 @@ import type { EventProps } from '../../../../shared/telemetry/telemetry-event-cl
 import type { ChatUiLaunchTipVariant } from '../../../../shared/feature-education/chat-ui-launch-tip-audience'
 import type { GlobalSettings } from '../../../../shared/settings/global-settings-types'
 
-export type OrcaCliFeatureTipSource = EventProps<'orca_cli_feature_tip_shown'>['source']
-export type OrcaCliFeatureTipSetupResult = EventProps<'orca_cli_feature_tip_setup_result'>['result']
+export type OpenKodoCliFeatureTipSource = EventProps<'openkodo_cli_feature_tip_shown'>['source']
+export type OpenKodoCliFeatureTipSetupResult =
+  EventProps<'openkodo_cli_feature_tip_setup_result'>['result']
 export type CmdJPaletteFeatureTipSource = EventProps<'cmd_j_palette_feature_tip_shown'>['source']
 
-export function getOrcaCliFeatureTipTelemetrySource(value: unknown): OrcaCliFeatureTipSource {
+export function getOpenKodoCliFeatureTipTelemetrySource(
+  value: unknown
+): OpenKodoCliFeatureTipSource {
   return value === 'app_open' ? 'app_open' : 'manual'
 }
 
-export function trackOrcaCliFeatureTipShown(source: OrcaCliFeatureTipSource): void {
-  track('orca_cli_feature_tip_shown', { source })
+export function trackOpenKodoCliFeatureTipShown(source: OpenKodoCliFeatureTipSource): void {
+  track('openkodo_cli_feature_tip_shown', { source })
 }
 
-export function trackOrcaCliFeatureTipSetupClicked(source: OrcaCliFeatureTipSource): void {
-  track('orca_cli_feature_tip_setup_clicked', { source })
+export function trackOpenKodoCliFeatureTipSetupClicked(source: OpenKodoCliFeatureTipSource): void {
+  track('openkodo_cli_feature_tip_setup_clicked', { source })
 }
 
-export function trackOrcaCliFeatureTipSetupResult(
-  source: OrcaCliFeatureTipSource,
-  result: OrcaCliFeatureTipSetupResult
+export function trackOpenKodoCliFeatureTipSetupResult(
+  source: OpenKodoCliFeatureTipSource,
+  result: OpenKodoCliFeatureTipSetupResult
 ): void {
-  track('orca_cli_feature_tip_setup_result', { source, result })
+  track('openkodo_cli_feature_tip_setup_result', { source, result })
 }
 
 export function trackCmdJPaletteFeatureTipShown(source: CmdJPaletteFeatureTipSource): void {

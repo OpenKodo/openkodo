@@ -140,7 +140,7 @@ export function taskMountAdapters(
         taskUiReady: true,
         githubProjectFieldVisibilityScope: null,
         taskResumeRef: { current: {} },
-        trustedOrcaHooks: {},
+        trustedOpenKodoHooks: {},
         repos: []
       })
       let actions: ReturnType<typeof usePreferences>

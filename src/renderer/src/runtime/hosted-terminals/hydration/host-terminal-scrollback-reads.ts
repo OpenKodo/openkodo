@@ -6,7 +6,7 @@ import {
   runtimeEnvironmentIdForWorkspaceOwner,
   type RuntimeEnvironmentOwnerMatch
 } from '@/lib/workspace/ownership/resolve-owner'
-import type { OrcadDeploymentLink } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
+import type { OpenkododDeploymentLink } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { callRuntimeRpc } from '../../rpc/calls/runtime-rpc-call'
 import { runtimeEnvironmentSupportsCapability } from '../../rpc/compatibility/runtime-capability-proof'
 import { peekRuntimeEnvironmentCapability } from '../../rpc/compatibility/runtime-compatibility-cache'
@@ -263,12 +263,14 @@ export async function fetchHostScrollback(
  */
 export function hostScrollbackEnvironmentId(
   owner: RuntimeEnvironmentOwnerMatch,
-  environments: readonly { id: string; orcadDeployment?: OrcadDeploymentLink | null }[] | undefined
+  environments:
+    | readonly { id: string; openkododDeployment?: OpenkododDeploymentLink | null }[]
+    | undefined
 ): string | null {
   if (owner.kind !== 'resolved' || owner.environmentId === null) {
     return null
   }
   const environmentId = owner.environmentId
   const environment = environments?.find((candidate) => candidate.id === environmentId)
-  return environment?.orcadDeployment?.kind === 'wsl' ? environmentId : null
+  return environment?.openkododDeployment?.kind === 'wsl' ? environmentId : null
 }

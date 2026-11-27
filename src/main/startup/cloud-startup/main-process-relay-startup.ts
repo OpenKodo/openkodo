@@ -1,6 +1,6 @@
 import { app, powerMonitor } from 'electron'
-import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-paths'
-import type { OrcaRuntimeRpcServer } from '../../runtime/rpc/server/runtime-rpc'
+import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
+import type { OpenKodoRuntimeRpcServer } from '../../runtime/rpc/server/runtime-rpc'
 import { installRelayHost } from '../../runtime/mobile-cloud-relay/relay-host-install'
 import { publishDesktopRelayStatus } from './main-process-relay-status'
 import { mainProcessState as state } from '../main-process-state'
@@ -9,7 +9,7 @@ import { mainProcessState as state } from '../main-process-state'
  * The desktop's or Electron `openkodo serve`'s relay, as this process's own OpenKodo account, so phones
  * reach it without a direct path. Register before proxy readiness; the install waits for it.
  */
-export function startMainProcessRelayService(runtimeRpc: OrcaRuntimeRpcServer): void {
+export function startMainProcessRelayService(runtimeRpc: OpenKodoRuntimeRpcServer): void {
   state.core.relayHost = installRelayHost({
     runtimeRpc,
     userDataPath: getProfileUserDataPath(),

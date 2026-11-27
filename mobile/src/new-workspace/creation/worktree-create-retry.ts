@@ -1,6 +1,6 @@
 import type { SetupTrustMismatch } from '../../../../src/shared/worktree/create-types'
 import { readSetupTrustMismatch } from './created-worktree-setup-review'
-import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../../src/shared/hashing/orca-hook-content-hash'
+import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../../src/shared/hashing/openkodo-hook-content-hash'
 import { translate } from '../../i18n/mobile-i18n'
 import type { TuiAgent } from '../../../../src/shared/agent-launch/catalog/tui-agent'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'

@@ -5,7 +5,7 @@ import { appendFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/pro
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { loadClaudeUsageBenchmarkScanner } from './claude-usage-benchmark-scanner.mjs'
 import {
   claudeBenchmarkSha256,
@@ -77,7 +77,7 @@ function fileComponents(file) {
   }
 }
 
-const home = await mkdtemp(join(tmpdir(), 'orca-claude-persisted-bytes-'))
+const home = await mkdtemp(join(tmpdir(), 'openkodo-claude-persisted-bytes-'))
 try {
   const project = join(home, '.claude', 'projects', 'benchmark')
   const cwd = join(home, 'repo')

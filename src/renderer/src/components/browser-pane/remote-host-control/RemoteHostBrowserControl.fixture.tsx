@@ -120,7 +120,7 @@ export const firstUseNotice = defineFixture({
 })
 
 /** Hosts OpenKodo created itself keep their setting; only Stop is offered. */
-export const firstUseNoticeOrcaOwnedHost = defineFixture({
+export const firstUseNoticeOpenKodoOwnedHost = defineFixture({
   width: 520,
   render: () => <Notice canDisallow={false} />,
   interact: toastMounted

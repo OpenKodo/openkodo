@@ -31,7 +31,7 @@ export type AntigravityAccountState = {
   /** Where new Google-account chats run, as the route answered: agy, or OpenKodo's server sign-in.
    *  Absent when the saved method isn't Google account, the route didn't answer in time, on older
    *  hosts and on WSL; Settings shows the Google sign-in choice only where it is present. */
-  chatGoogleSignInInUse?: 'agy' | 'orca'
+  chatGoogleSignInInUse?: 'agy' | 'openkodo'
   /** Host only: new Gemini API key chats run on agy (in a home OpenKodo owns) with the
    *  method and credential saved here. Absent from older hosts, which run them on the server. */
   chatKeyOnAgy?: boolean

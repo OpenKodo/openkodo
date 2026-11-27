@@ -17,7 +17,7 @@ export class ProfileStateWriterThread {
     }
   ) {
     this.worker = spawnWorkerThread(workerPath, {
-      name: 'orca-profile-state-writer',
+      name: 'openkodo-profile-state-writer',
       workerData,
       execArgv: []
     })

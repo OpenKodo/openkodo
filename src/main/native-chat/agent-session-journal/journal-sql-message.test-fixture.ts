@@ -28,7 +28,7 @@ export function message(
 ): JournalSqlMessage {
   return {
     kind,
-    identity: { provider: 'orca', clientMessageId },
+    identity: { provider: 'openkodo', clientMessageId },
     body: { kind: 'message', role: 'assistant', blocks: [{ type: 'text', text }] },
     options: { fence: 1, turnScope: { kind: 'thread' } }
   }

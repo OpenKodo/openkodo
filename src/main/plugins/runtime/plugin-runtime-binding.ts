@@ -10,7 +10,7 @@ import { installPluginOpenedTerminalPruning } from '../workers/host-api/plugin-o
 import { installPluginAutomationOwnershipEnd } from '../contributions/plugin-automation-ownership'
 import { installPluginMcpServerSync } from '../contributions/plugin-mcp-server-sync'
 import { installPluginResidentWorkerWarmer } from '../workers/worker-admission/plugin-resident-worker'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { pluginRuntimeRpc } from './plugin-runtime-rpc'
 import type { DispatcherOptions } from '../../runtime/rpc/dispatcher'
 import type { PluginRuntimeRpc } from '../workers/host-api/plugin-host-runtime-call'
@@ -92,7 +92,7 @@ export function pluginRuntimeDelegate(
 /** Binds the plugin host to main's runtime: its delegate, and the hooks OpenKodo's own code runs. */
 export function bindPluginRuntime(
   service: PluginService,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   hookServer: { getStatusSnapshot(): readonly PluginAgentStatusRow[] },
   methods: DispatcherOptions['methods']
 ): PluginRuntimeDelegate {

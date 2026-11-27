@@ -1,5 +1,5 @@
-import type { OrcaCloudAuthConfig } from '../../../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import { OrcaCloudRequestError } from '../../../orca-profiles/cloud-auth/profile-cloud-client'
+import type { OpenKodoCloudAuthConfig } from '../../../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import { OpenKodoCloudRequestError } from '../../../openkodo-profiles/cloud-auth/profile-cloud-client'
 import {
   exchangeRelayAuthorization,
   RelayHttpError,
@@ -13,9 +13,9 @@ import type { RelaySessionBrokerOptions } from './relay-session-broker-contract'
 // authOrigin (AssignmentResponse.authOrigin, the front door the assignment routes through). Every
 // other endpoint stays on the configured auth base.
 export function relayAuthConfigAt(
-  config: OrcaCloudAuthConfig,
+  config: OpenKodoCloudAuthConfig,
   authOrigin: string
-): OrcaCloudAuthConfig {
+): OpenKodoCloudAuthConfig {
   return {
     ...config,
     refreshEndpoint: new URL('/v1/desktop/auth/refresh', `${authOrigin}/`).toString(),
@@ -27,7 +27,7 @@ export function relayAuthConfigAt(
 // unanswered attempts (network error, timeout) and 5xx are worth another origin.
 function isAuthAnswer(error: unknown): boolean {
   const statusCode =
-    error instanceof OrcaCloudRequestError || error instanceof RelayHttpError
+    error instanceof OpenKodoCloudRequestError || error instanceof RelayHttpError
       ? error.statusCode
       : null
   return statusCode !== null && statusCode >= 400 && statusCode < 500

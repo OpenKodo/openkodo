@@ -1,5 +1,5 @@
 import { WINDOWS_FILE_ALL_ACCESS } from './windows-security-addon'
-import type { WindowsDacl } from '@orca/windows-security'
+import type { WindowsDacl } from '@openkodo/windows-security'
 
 /** SYSTEM and the local Administrators group: they can take ownership regardless, so denying them buys nothing. */
 export const LOCAL_SYSTEM_SID = 'S-1-5-18'

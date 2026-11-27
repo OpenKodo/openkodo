@@ -3,7 +3,7 @@
 import { existsSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { resolvePnpmCliInvocation } from '../../tool-invocation/pnpm-cli-invocation.mjs'
 import { getDefaultSeedSource, seedDevProfile } from './dev-profile-seed.mjs'
 
@@ -11,10 +11,10 @@ const USAGE = `Usage: pnpm dev:fresh [--] [--keep] [--seed-from[=<profile dir>]]
 
   --keep                 keep the temporary profile after exit
   --seed-from[=<dir>]    start from a slim copy of a profile (projects, workspaces, settings,
-                         SSH targets, account session); default: orca-dev, else the installed app
+                         SSH targets, account session); default: openkodo-dev, else the installed app
   OPENKODO_FRESH_PROFILE_DIR=<dir>   use (and keep) a fixed profile directory`
 
-const TEMP_PREFIX = 'orca-fresh-profile-'
+const TEMP_PREFIX = 'openkodo-fresh-profile-'
 
 function parseArgs(argv) {
   const options = { keep: false, seedFrom: null, devArgs: [] }

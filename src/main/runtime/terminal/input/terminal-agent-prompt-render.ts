@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithSubmitTerminalAgentPrompt } from './terminal-agent-prompt-submit'
+import { OpenKodoRuntimeWithSubmitTerminalAgentPrompt } from './terminal-agent-prompt-submit'
 import type {
   RuntimeTerminalWait,
   RuntimeTerminalWaitCondition
@@ -19,7 +19,7 @@ const CLAUDE_AGENT_PROMPT_RENDER_MARKER = '\x1b[?25h'
 
 type AgentPromptRenderWaitEnd = NonNullable<RuntimeTerminalPromptSubmit['renderWait']>
 
-export abstract class OrcaRuntimeWithCreateAgentPromptRenderGate extends OrcaRuntimeWithSubmitTerminalAgentPrompt {
+export abstract class OpenKodoRuntimeWithCreateAgentPromptRenderGate extends OpenKodoRuntimeWithSubmitTerminalAgentPrompt {
   protected createAgentPromptRenderGate(
     ptyId: string,
     pasteIngestMs: number,

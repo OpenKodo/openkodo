@@ -5,7 +5,7 @@ import { resolvePathEnvKey } from '../../pty/environment/windows-path-segment-me
 import { expandWindowsEnvironmentVariables } from '../../../shared/shell/launch/windows-environment-expansion'
 import { resolveSafePtyDefaultCwd } from '../working-directory/default-cwd'
 import { REMOTE_VIEWER_CLIPBOARD_ENV } from '../../../shared/clipboard/remote-viewer-clipboard-env'
-import { ORCAD_SERVER_LAUNCH_ENV_KEYS } from '../../../shared/remote-runtime/serve-supervisor/orcad-server-launch-env'
+import { OPENKODOD_SERVER_LAUNCH_ENV_KEYS } from '../../../shared/remote-runtime/serve-supervisor/openkodod-server-launch-env'
 import { isLocalCounterPtyId } from '../../../shared/terminal/pty/lifecycle/pty-session-id-format'
 
 const PANE_IDENTITY_ENV_KEYS = [
@@ -16,8 +16,8 @@ const PANE_IDENTITY_ENV_KEYS = [
   'JCODE_RUNTIME_DIR',
   // Per-viewer: an OpenKodo started from a remote viewer's pane must not mark its own local panes.
   REMOTE_VIEWER_CLIPBOARD_ENV,
-  // A server's own launch env; a user's `orcad` in this shell is not that server.
-  ...ORCAD_SERVER_LAUNCH_ENV_KEYS
+  // A server's own launch env; a user's `openkodod` in this shell is not that server.
+  ...OPENKODOD_SERVER_LAUNCH_ENV_KEYS
 ] as const
 
 export function getDefaultCwd(): string {

@@ -37,7 +37,7 @@ export function buildCommitMessageGenerationParams(args: {
   }
   const sameResolvedAgent = args.baseParams?.agentId === args.agentId
   const baseModel = sameResolvedAgent ? args.baseParams?.model : undefined
-  const usesOrcaDefaultModel = !baseModel || args.baseParams?.usesOrcaDefaultModel === true
+  const usesOpenKodoDefaultModel = !baseModel || args.baseParams?.usesOpenKodoDefaultModel === true
   const modelId = baseModel || capability.defaultModelId
   const model = capability.models.find((candidate) => candidate.id === modelId)
   const thinkingLevel =
@@ -49,7 +49,7 @@ export function buildCommitMessageGenerationParams(args: {
   return {
     agentId: args.agentId,
     model: modelId,
-    ...(usesOrcaDefaultModel ? { usesOrcaDefaultModel: true } : {}),
+    ...(usesOpenKodoDefaultModel ? { usesOpenKodoDefaultModel: true } : {}),
     ...(thinkingLevel ? { thinkingLevel } : {}),
     commandInputTemplate: args.commandTemplate,
     ...(args.agentArgs !== undefined ? { agentArgs: args.agentArgs } : {}),

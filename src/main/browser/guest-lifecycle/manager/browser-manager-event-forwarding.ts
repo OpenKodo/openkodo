@@ -92,7 +92,7 @@ export abstract class BrowserManagerEventForwarding extends BrowserManagerBindin
 
   protected sendPopupEvent(browserTabId: string, event: PendingPopupEvent): void {
     // An OpenKodo tab is reported where it is requested and a child window where it opens.
-    if (event.action !== 'opened-in-orca') {
+    if (event.action !== 'opened-in-openkodo') {
       this.pageEvents.emit(browserTabId, {
         kind: 'popup',
         action: event.action,

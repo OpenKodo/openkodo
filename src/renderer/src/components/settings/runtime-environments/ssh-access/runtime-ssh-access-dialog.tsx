@@ -1,6 +1,6 @@
 import type { PublicKnownRuntimeEnvironment } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { SshTarget } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
-import type { ManagedOrcadPreloadApi } from '../../../../../../preload/api/runtime/managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from '../../../../../../preload/api/runtime/managed-openkodod-api'
 import { useTranslate } from '@/i18n/use-translate'
 import { Button } from '../../../ui/button'
 import {
@@ -21,7 +21,7 @@ export function RuntimeSshAccessDialog({
   onChanged
 }: {
   open: boolean
-  api: Pick<ManagedOrcadPreloadApi, 'linkSshAccess' | 'unlinkSshAccess'>
+  api: Pick<ManagedOpenkododPreloadApi, 'linkSshAccess' | 'unlinkSshAccess'>
   environment: PublicKnownRuntimeEnvironment
   targets: SshTarget[]
   onOpenChange: (open: boolean) => void

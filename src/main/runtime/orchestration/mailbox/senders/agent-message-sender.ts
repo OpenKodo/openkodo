@@ -12,7 +12,7 @@ import {
   workerIdentityName,
   type WorkerIdentity
 } from '../../workers/identity/worker-identity'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
   agentMessageSenderName,
   type AgentMessageSender
@@ -106,9 +106,9 @@ function senderParty(
     return {
       address,
       terminalHandle: null,
-      orcaSessionId: db?.getFederatedDispatch(id)
+      openkodoSessionId: db?.getFederatedDispatch(id)
         ? null
-        : (db?.getDispatchContextById(id)?.assignee_orca_session_id ?? null)
+        : (db?.getDispatchContextById(id)?.assignee_openkodo_session_id ?? null)
     }
   }
   if (address.startsWith('run:')) {
@@ -119,7 +119,7 @@ function senderParty(
     return {
       address,
       terminalHandle: coordinator?.terminalHandle ?? null,
-      orcaSessionId: coordinator?.orcaSessionId ?? null
+      openkodoSessionId: coordinator?.openkodoSessionId ?? null
     }
   }
   try {
@@ -127,7 +127,11 @@ function senderParty(
     return party
   } catch {
     // If worker identity is lost, retain only what its address proves.
-    return { address, terminalHandle: null, orcaSessionId: parseOrcaSessionAddress(address) }
+    return {
+      address,
+      terminalHandle: null,
+      openkodoSessionId: parseOpenKodoSessionAddress(address)
+    }
   }
 }
 

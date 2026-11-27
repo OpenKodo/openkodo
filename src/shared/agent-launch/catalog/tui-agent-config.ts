@@ -1,8 +1,8 @@
 import type { TuiAgent } from './tui-agent'
 import {
-  getOrcaCliCommandNameForPlatform,
-  skipsLinuxOrcaCliRename
-} from '../../cli/orca-cli-command-name'
+  getOpenKodoCliCommandNameForPlatform,
+  skipsLinuxOpenKodoCliRename
+} from '../../cli/openkodo-cli-command-name'
 import type { TuiAgentConfig, TuiAgentConfigSource } from './tui-agent-config-types'
 
 function resolveTuiAgentConfig(source: TuiAgentConfigSource): TuiAgentConfig {
@@ -31,16 +31,16 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
   },
   'claude-agent-teams': {
     // This launch mode uses OpenKodo’s CLI wrapper rather than a separate agent binary.
-    detectCmd: 'orca',
-    detectCmdAliases: ['orca-dev', 'orca-ide'],
+    detectCmd: 'openkodo',
+    detectCmdAliases: ['openkodo-dev', 'openkodo-ide'],
     // OpenKodo’s always-present shim alone must not report installed Agent Teams without Claude.
     detectRequiredCommands: ['claude'],
     // Windows/WSL use Claude’s in-process fallback, not this native-pane/tmux wrapper.
     detectUnsupportedRuntimes: ['win32', 'wsl'],
     launchCmd: 'openkodo claude-teams',
     launchCmdByPlatform: {
-      linux: `${getOrcaCliCommandNameForPlatform('linux')} claude-teams`,
-      win32: `${getOrcaCliCommandNameForPlatform('win32')} claude-teams`
+      linux: `${getOpenKodoCliCommandNameForPlatform('linux')} claude-teams`,
+      win32: `${getOpenKodoCliCommandNameForPlatform('win32')} claude-teams`
     },
     expectedProcess: 'claude',
     promptInjectionMode: 'stdin-after-start',
@@ -353,7 +353,7 @@ export function getTuiAgentLaunchCommand(
   platform: NodeJS.Platform,
   opts?: { isRemote?: boolean }
 ): string {
-  if (platform === 'linux' && skipsLinuxOrcaCliRename(opts?.isRemote)) {
+  if (platform === 'linux' && skipsLinuxOpenKodoCliRename(opts?.isRemote)) {
     return config.launchCmd
   }
   return config.launchCmdByPlatform?.[platform] ?? config.launchCmd

@@ -216,7 +216,7 @@ export function activateLocalPtySession(args: {
     staging = stageStartupCommand({
       command: spawn.command,
       shellPath: plan.shellPath,
-      orcaBuiltLine: spawn.launchAgent !== undefined
+      openkodoBuiltLine: spawn.launchAgent !== undefined
     })
     const notice = startupStagingFailureNotice(staging)
     if (notice) {

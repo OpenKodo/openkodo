@@ -134,7 +134,7 @@ function BrowserSkillInstallForRuntime({
     try {
       const result = await runOnboardingFeatureSetup(BROWSER_ONLY_FEATURE_SETUP)
       recordFeatureInteraction('agent-browser-setup')
-      // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+      // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
       if (legacyWsl) {
         const command = buildAgentFeatureSkillInstallCommand(result.skillNames)
         await window.api.ui.writeClipboardText(
@@ -195,7 +195,7 @@ function BrowserSkillInstallForRuntime({
     }
   }, [activeRuntime, busy, installAction, installSkills, legacyWsl, recordFeatureInteraction])
 
-  // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+  // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
   if (wslSetup) {
     return (
       <FeatureSetupInlineTerminal
@@ -258,7 +258,7 @@ function BrowserSkillInstallForRuntime({
             ? t('auto.components.feature.wall.FeatureWallBrowserAction.5f97caf76b', 'Installing…')
             : installAction.kind === 'replace'
               ? t(
-                  'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
+                  'auto.components.settings.AgentSkillSetupPanel.replaceWithOpenKodoCopy',
                   'Replace with OpenKodo’s'
                 )
               : installAction.kind === 'run' && installAction.changes

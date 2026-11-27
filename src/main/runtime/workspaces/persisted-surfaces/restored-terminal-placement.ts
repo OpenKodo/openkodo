@@ -35,7 +35,7 @@ import { followExportedPaneKeys } from '../../terminal/identity/exported-pane-ke
 
 export const FIRST_SURFACE_PLACEMENT_WAIT_MS = 500
 
-export abstract class OrcaRuntimeWithRestoredTerminalPlacement extends LegacyWorkerRuntimeRecovery {
+export abstract class OpenKodoRuntimeWithRestoredTerminalPlacement extends LegacyWorkerRuntimeRecovery {
   abstract applyLayoutCommand(command: WindowLayoutCommand): Promise<LayoutApplyReply>
   protected abstract notePaneSleeping(paneKey: string): void
 

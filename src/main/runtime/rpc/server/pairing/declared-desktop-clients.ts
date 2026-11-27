@@ -1,6 +1,6 @@
-import type { OrcadPeerDesktopsResult } from '../../../../../shared/remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
+import type { OpenkododPeerDesktopsResult } from '../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-peer-desktops-contract'
 import { sanitizeDeviceLabel } from '../../../../../shared/remote-runtime/pairing/device-key-proof'
-import type { DeviceEntry, DeviceOrcaAccount } from './device-entry'
+import type { DeviceEntry, DeviceOpenKodoAccount } from './device-entry'
 
 const UNNAMED_DESKTOP = 'another OpenKodo'
 // Lost contact isn't proof an OpenKodo left: a closed control socket still counts while it reconnects.
@@ -9,7 +9,7 @@ export const DECLARED_CLIENT_RECONNECT_GRACE_MS = 60_000
 type Declaration = { clientInstanceId: string; deviceId: string }
 type AccountDeclaration = {
   deviceId: string
-  account: DeviceOrcaAccount | null
+  account: DeviceOpenKodoAccount | null
   clientInstanceId?: string
 }
 
@@ -37,7 +37,7 @@ export class DeclaredDesktopClients {
     this.accounts.set(connectionId, declaration)
   }
 
-  accountOf(connectionId: string): DeviceOrcaAccount | null {
+  accountOf(connectionId: string): DeviceOpenKodoAccount | null {
     return this.accounts.get(connectionId)?.account ?? null
   }
 
@@ -50,7 +50,7 @@ export class DeclaredDesktopClients {
 
   /** What an installation on this paired row declares now: how a phone it relays or paired is
    *  named. Scoped to the row, so installations elsewhere that chose the same id never match. */
-  accountOfInstance(deviceId: string, clientInstanceId: string): DeviceOrcaAccount | null {
+  accountOfInstance(deviceId: string, clientInstanceId: string): DeviceOpenKodoAccount | null {
     for (const declaration of this.accounts.values()) {
       if (
         declaration.deviceId === deviceId &&
@@ -84,7 +84,7 @@ export class DeclaredDesktopClients {
   peers(
     caller: { connectionId: string; clientInstanceId?: string },
     getDevice: (deviceId: string) => DeviceEntry | null
-  ): OrcadPeerDesktopsResult {
+  ): OpenkododPeerDesktopsResult {
     const callerInstance =
       caller.clientInstanceId ?? this.byConnection.get(caller.connectionId)?.clientInstanceId
     const names = new Map<string, string>()

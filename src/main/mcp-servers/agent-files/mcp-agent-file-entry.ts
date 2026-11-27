@@ -28,8 +28,8 @@ export function mcpAgentFileEntry(
 
 /**
  * The entry's name: the server's, then this OpenKodo's data folder by name and a short hash of its full
- * path (`linear-orca-3f2a1c`), so two Orcas on one machine never claim one name, even two profiles
- * whose folders are both called `orca`.
+ * path (`linear-openkodo-3f2a1c`), so two OpenKodos on one machine never claim one name, even two profiles
+ * whose folders are both called `openkodo`.
  */
 export function mcpAgentFileEntryName(serverName: string, userDataPath: string): string {
   return `${serverName}${entrySuffix(userDataPath)}`
@@ -43,7 +43,7 @@ function entrySuffix(userDataPath: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9_-]+/g, '-')
     .slice(0, 24)
-  return `-${folder || 'orca'}-${instanceHash(userDataPath).slice(0, 6)}`
+  return `-${folder || 'openkodo'}-${instanceHash(userDataPath).slice(0, 6)}`
 }
 
 /** The host server an entry this OpenKodo wrote stands for, by name; null for anyone else's entry. */
@@ -62,7 +62,7 @@ export function mcpHostServerNameOfEntry(
 export function mcpAgentFileMarkers(userDataPath: string): ManagedTomlMarkers {
   const tag = instanceHash(userDataPath).slice(0, 12)
   return {
-    startMarker: `# BEGIN ORCA MCP SERVERS ${tag}`,
-    endMarker: `# END ORCA MCP SERVERS ${tag}`
+    startMarker: `# BEGIN OPENKODO MCP SERVERS ${tag}`,
+    endMarker: `# END OPENKODO MCP SERVERS ${tag}`
   }
 }

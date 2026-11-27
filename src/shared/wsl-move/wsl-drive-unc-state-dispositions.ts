@@ -2,7 +2,7 @@
  * What converting a UNC Windows-drive project to its drive path (D1c) does with each saved field;
  * src/main/wsl/filesystem/wsl-drive-unc-state-rewrite.ts applies it.
  */
-import type { PersistedState } from '../orca-profiles/persisted-state-types'
+import type { PersistedState } from '../openkodo-profiles/persisted-state-types'
 
 type Disposition =
   /** Every identity string in it is re-keyed. */
@@ -53,9 +53,9 @@ export const WSL_DRIVE_UNC_STATE_DISPOSITIONS = {
   automations: 'rewrite',
   // Run history stays as it ran, beside its automation.
   automationRuns: 'keep',
-  orcadMigrationImportReceipts: 'keep',
-  orcadMigrationEvictedReceipts: 'keep',
-  orcadMigrationStagedCatalogs: 'keep',
+  openkododMigrationImportReceipts: 'keep',
+  openkododMigrationEvictedReceipts: 'keep',
+  openkododMigrationStagedCatalogs: 'keep',
   onboarding: 'keep',
   featureInteractionTelemetryBuckets: 'keep',
   codexResetCreditAttemptLedger: 'keep',

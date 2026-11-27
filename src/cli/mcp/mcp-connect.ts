@@ -13,7 +13,7 @@ import type { RuntimeClient } from '../runtime/client'
 import { RuntimeRpcFailureError } from '../runtime/connection/types'
 import { isLaunchedByAnotherRuntime } from '../runtime/connection/runtime-source-fence'
 import { mcpCallerWorkspace } from './mcp-caller-workspace'
-import { readOrcaCliVersion } from '../cli-version'
+import { readOpenKodoCliVersion } from '../cli-version'
 import { bridgeMcpServer } from '../../main/mcp-servers/agent-files/mcp-connect-bridge'
 
 /** The host's answer; any refusal (switch off, a Look around, an older host) is a server with no tools. */
@@ -66,7 +66,7 @@ const connect: CommandHandler = async ({ flags, client, cwd }) => {
   try {
     process.exitCode = await bridgeMcpServer(
       () => readConnection(client, { id, agent, cwd, given }),
-      readOrcaCliVersion() ?? '0.0.0'
+      readOpenKodoCliVersion() ?? '0.0.0'
     )
   } catch (error) {
     // OpenKodo isn't running (or can't be reached): the agent shows this server as failed to start.

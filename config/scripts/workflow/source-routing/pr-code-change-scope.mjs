@@ -29,7 +29,7 @@ export const PR_CHECK_JOBS = [
   'typecheck',
   'xterm_patch_sync',
   'test',
-  'orcad_browser',
+  'openkodod_browser',
   'mobile_web_app',
   'cross-version-wire',
   'managed_hook_node18',
@@ -57,11 +57,11 @@ const GLOBAL_FORCE_PREFIXES = [
 
 const GLOBAL_FORCE_FILES = new Set(['package.json', 'pnpm-lock.yaml'])
 
-const ORCAD_BROWSER_PREFIXES = [
-  'src/main/orcad/browser-providers/chromium/external-chromium-',
-  'src/main/orcad/browser-providers/orcad-browser-provider',
-  'src/main/orcad/browser-providers/orcad-agent-browser-binary',
-  'src/main/orcad/browser-providers/electron/electron-serve-browser-process'
+const OPENKODOD_BROWSER_PREFIXES = [
+  'src/main/openkodod/browser-providers/chromium/external-chromium-',
+  'src/main/openkodod/browser-providers/openkodod-browser-provider',
+  'src/main/openkodod/browser-providers/openkodod-agent-browser-binary',
+  'src/main/openkodod/browser-providers/electron/electron-serve-browser-process'
 ]
 
 // Include page build/verification/manifest/packaging, entry/routes/imported mobile sources and render-check shell policy.
@@ -105,7 +105,7 @@ const MOBILE_WEB_APP_PREFIXES = [
   'mobile/packages/',
   'mobile/package.json',
   'mobile/pnpm-lock.yaml',
-  'mobile/modules/orca-mobile-web-shell/',
+  'mobile/modules/openkodo-mobile-web-shell/',
   // Chat visuals on both mobile surfaces are built from it; their in-page links check runs here.
   'src/shared/native-chat/visuals/native-chat-visual-shell'
 ]
@@ -257,7 +257,7 @@ const NATIVE_CACHE_FILES = new Set([
   'src/shared/archives/zip-extractor-command.ts',
   'config/scripts/artifact-storage/reflink-copy/space-sharing-copy.mjs',
   'config/scripts/native-build/node-addons/native-dependency-lock-digest.mjs',
-  'config/scripts/orcad-distribution/prebuilds/orcad-prebuild-node-gyp.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/openkodod-prebuild-node-gyp.mjs',
   'config/scripts/native-build/windows/msbuild-file-tracking.mjs'
 ])
 
@@ -426,8 +426,8 @@ function jobDetector(job) {
   switch (job) {
     case 'xterm_patch_sync':
       return (files) => files.some((file) => matchesPrefix(file, XTERM_PREFIXES))
-    case 'orcad_browser':
-      return (files) => files.some((file) => matchesPrefix(file, ORCAD_BROWSER_PREFIXES))
+    case 'openkodod_browser':
+      return (files) => files.some((file) => matchesPrefix(file, OPENKODOD_BROWSER_PREFIXES))
     // Handle inside map too: default detector otherwise runs this job on every desktop-relevant PR.
     case 'mobile_web_app':
       return changesMobileWebApp

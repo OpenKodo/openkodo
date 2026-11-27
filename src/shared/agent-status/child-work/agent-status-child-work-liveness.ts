@@ -1,4 +1,4 @@
-import { OPENKODO_ORCHESTRATION_WAIT_COMMAND } from '../../cli/orca-cli-invocations'
+import { OPENKODO_ORCHESTRATION_WAIT_COMMAND } from '../../cli/openkodo-cli-invocations'
 import type {
   AgentChildWorkKind,
   AgentChildWorkMembership,

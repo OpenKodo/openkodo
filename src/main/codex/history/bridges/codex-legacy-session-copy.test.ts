@@ -41,14 +41,14 @@ vi.mock('node:fs/promises', async (importOriginal) => {
   return {
     ...actual,
     lstat: (...args: Parameters<typeof actual.lstat>) => {
-      if (renameHook.failAsideStat && /\.orca-legacy-copy\.\d+$/.test(String(args[0]))) {
+      if (renameHook.failAsideStat && /\.openkodo-legacy-copy\.\d+$/.test(String(args[0]))) {
         renameHook.failAsideStat = false
         return Promise.reject(Object.assign(new Error('EIO: i/o error'), { code: 'EIO' }))
       }
       return actual.lstat(...args)
     },
     rename: async (from: string, to: string) => {
-      if (String(to).includes('.orca-legacy-copy.')) {
+      if (String(to).includes('.openkodo-legacy-copy.')) {
         renameHook.beforeAside?.()
       }
       return actual.rename(from, to)
@@ -99,7 +99,9 @@ function legacyCopy(sourceText: string, copyText: string): void {
 function asides(): string[] {
   const name = basename(copyPath)
   return readdirSync(dirname(copyPath))
-    .filter((entry) => entry.startsWith(`${name}.orca-legacy-copy.`) && !entry.endsWith('.probe'))
+    .filter(
+      (entry) => entry.startsWith(`${name}.openkodo-legacy-copy.`) && !entry.endsWith('.probe')
+    )
     .map((entry) => join(dirname(copyPath), entry))
 }
 
@@ -125,12 +127,12 @@ function bridgePass(): Promise<unknown> {
 }
 
 beforeEach(() => {
-  root = mkdtempSync(join(tmpdir(), 'orca-legacy-session-copy-'))
+  root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-session-copy-'))
   vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
   systemHome = join(root, 'real-codex-home')
   sourcePath = join(systemHome, 'sessions', RELATIVE_PATH)
   copyPath = join(runtimeHome(), 'sessions', RELATIVE_PATH)
-  markerPath = join(runtimeHome(), '.orca-session-copies', `${RELATIVE_PATH}.json`)
+  markerPath = join(runtimeHome(), '.openkodo-session-copies', `${RELATIVE_PATH}.json`)
   renameHook.beforeAside = null
   renameHook.failAsideStat = false
   // A Codex that keeps thread-writer locks ran in both homes, and holds none now.
@@ -198,7 +200,7 @@ describe('legacy session copy swap', () => {
       onTestFinished(letGo)
       const blocked = lstatSync(blockedCopy)
       writeFile(
-        join(runtimeHome(), '.orca-session-copies', `${blockedRelative}.json`),
+        join(runtimeHome(), '.openkodo-session-copies', `${blockedRelative}.json`),
         JSON.stringify({
           sourcePath: blockedSource,
           sourceSize: blocked.size,
@@ -231,7 +233,7 @@ describe('legacy session copy swap', () => {
     truncateSync(largeSource, 65 * 1024 * 1024)
     const large = lstatSync(largeCopy)
     writeFile(
-      join(runtimeHome(), '.orca-session-copies', `${largeRelative}.json`),
+      join(runtimeHome(), '.openkodo-session-copies', `${largeRelative}.json`),
       JSON.stringify({
         sourcePath: largeSource,
         sourceSize: large.size,
@@ -375,7 +377,7 @@ describe('legacy session copy swap', () => {
 
   it('finishes a swap that stopped after moving the copy aside', async () => {
     legacyCopy(OLD_TURNS + NEW_TURNS, OLD_TURNS)
-    const aside = `${copyPath}.orca-legacy-copy.1`
+    const aside = `${copyPath}.openkodo-legacy-copy.1`
     writeFileSync(
       markerPath,
       JSON.stringify({ ...JSON.parse(readFileSync(markerPath, 'utf-8')), aside: basename(aside) })
@@ -391,7 +393,7 @@ describe('legacy session copy swap', () => {
 
   it('gives back a copy moved aside with a late turn instead of linking its source there', async () => {
     legacyCopy(OLD_TURNS + NEW_TURNS, OLD_TURNS)
-    const aside = `${copyPath}.orca-legacy-copy.1`
+    const aside = `${copyPath}.openkodo-legacy-copy.1`
     writeFileSync(
       markerPath,
       JSON.stringify({ ...JSON.parse(readFileSync(markerPath, 'utf-8')), aside: basename(aside) })
@@ -407,7 +409,7 @@ describe('legacy session copy swap', () => {
 
   it('leaves the name empty while the marker of a copy moved aside cannot be read', async () => {
     legacyCopy(OLD_TURNS + NEW_TURNS, OLD_TURNS)
-    renameSync(copyPath, `${copyPath}.orca-legacy-copy.1`)
+    renameSync(copyPath, `${copyPath}.openkodo-legacy-copy.1`)
     rmSync(markerPath)
     mkdirSync(markerPath)
 
@@ -422,7 +424,7 @@ describe('legacy session copy swap', () => {
       settleLegacySessionCopyName({ managedHome: runtimeHome(), relativePath: RELATIVE_PATH })
 
     await expect(settle()).resolves.toBeUndefined()
-    writeFile(`${copyPath}.orca-legacy-copy.1`, OLD_TURNS)
+    writeFile(`${copyPath}.openkodo-legacy-copy.1`, OLD_TURNS)
     await expect(settle()).rejects.toThrow()
   })
 
@@ -432,7 +434,7 @@ describe('legacy session copy swap', () => {
       settleLegacySessionCopyName({ managedHome: runtimeHome(), relativePath: RELATIVE_PATH })
 
     await expect(settle()).resolves.toBeUndefined()
-    writeFile(`${copyPath}.orca-legacy-copy.2`, OLD_TURNS)
+    writeFile(`${copyPath}.openkodo-legacy-copy.2`, OLD_TURNS)
     await expect(settle()).rejects.toThrow()
   })
 

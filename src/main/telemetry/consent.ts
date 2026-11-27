@@ -52,7 +52,7 @@ function resolveEnvOverride(): ConsentState | null {
     return { effective: 'disabled', reason: 'do_not_track' }
   }
   if (isEnvVarTruthy('OPENKODO_TELEMETRY_DISABLED')) {
-    return { effective: 'disabled', reason: 'orca_disabled' }
+    return { effective: 'disabled', reason: 'openkodo_disabled' }
   }
   // Any nonempty CI marker disables transmission, including non-boolean build IDs.
   if (CI_ENV_VARS.some((v) => process.env[v] !== undefined && process.env[v] !== '')) {

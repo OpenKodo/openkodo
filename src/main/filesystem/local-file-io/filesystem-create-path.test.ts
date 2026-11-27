@@ -10,7 +10,7 @@ afterEach(async () => {
 })
 
 it('creates a new notebook as nbformat 4 JSON without clobbering an existing one', async () => {
-  root = await mkdtemp(join(tmpdir(), 'orca-create-ipynb-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-create-ipynb-'))
   const notebookPath = join(root, 'nested', 'Analysis.IPYNB')
 
   await createLocalFile(notebookPath)

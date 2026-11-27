@@ -7,7 +7,7 @@ import type {
 } from '../../../../../shared/agent-session/journal/agent-journal-creation-facts'
 import type { AgentMessageSender } from '../../../../../shared/agent-session/journal/agent-session-message-source'
 import type { AgentType } from '../../../../../shared/agent-status/contracts/agent-status-types'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { WORKER_AGENT_STARTING_STAGE } from '../../db/worker-dispatch/worker-awaiting-agent-stage'
 import {
   sessionCallerOf,
@@ -51,7 +51,7 @@ export function prepareAgentCreationCard(
 
 /** The started agent's sender, keeping the kind the launch knows when the lookup can't find it. */
 export function startedAgentSender(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   address: string,
   agent: AgentType | null,
   dispatchId?: string
@@ -86,7 +86,7 @@ export function dispatchWorkerStarted(
 
 /** A started worker's card in its caller's chat, and a bot caller's work record. */
 export function prepareWorkerStartCard(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   caller: OrchestrationEntryCaller | undefined
 ): (args: WorkerStarted) => void {
   // A paired OpenKodo has no chat here to show the card in, and is no bot here.

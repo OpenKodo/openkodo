@@ -11,7 +11,7 @@ import type { AgentSessionFailureFact } from '../../../../../shared/agent-sessio
 import { agentSessionFailureSentence } from '../../../../../shared/agent-session/failures/agent-session-failure-words'
 import { formatUsageLimitResetClock } from '../../../../../shared/agent-session/failures/agent-session-usage-limit'
 import { sayAgentSessionFailureTranslated } from '../messages/notices/agent-session-failure-words-text'
-import { useNativeChatOrcaStopView } from '../messages/notices/native-chat-orca-stop-context'
+import { useNativeChatOpenKodoStopView } from '../messages/notices/native-chat-openkodo-stop-context'
 import { ProviderFrameRow } from '../messages/diagnostics/NativeChatProviderDetails'
 import { NativeChatInterruptedContinueButton } from './NativeChatInterruptedContinue'
 import { useNativeChatUsageLimitActions } from './NativeChatUsageLimitActions'
@@ -186,7 +186,7 @@ function UsageLimitCard({
   active
 }: UsageLimitRowProps): React.JSX.Element {
   const t = useTranslate()
-  const view = useNativeChatOrcaStopView()
+  const view = useNativeChatOpenKodoStopView()
   const actions = useNativeChatUsageLimitActions()
   const limit = failure.kind === 'usageLimitReached' ? failure.usageLimit : undefined
   // When Continue applies: the provider's reset, or earlier once the chat moved accounts.

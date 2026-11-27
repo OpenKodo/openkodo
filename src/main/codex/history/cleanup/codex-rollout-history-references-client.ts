@@ -5,7 +5,7 @@ import {
   currentWorkerEntryLayout,
   resolveWorkerThreadEntryPath
 } from '../../../worker-threads/worker-thread-entry-path'
-import { getOrcaUserDataPath } from '../../configuration/homes/codex-home-paths'
+import { getOpenKodoUserDataPath } from '../../configuration/homes/codex-home-paths'
 import type { CodexRolloutHistoryReferences } from './codex-rollout-history-references'
 import type {
   CodexRolloutReferencesRequest,
@@ -16,7 +16,7 @@ import type {
 const WORKER_FILENAME = 'codex-rollout-history-references-worker-entry.js'
 
 export function codexRolloutHistoryCachePath(): string {
-  return join(getOrcaUserDataPath(), 'codex-rollout-history-bases.json')
+  return join(getOpenKodoUserDataPath(), 'codex-rollout-history-bases.json')
 }
 
 type Pending = { resolve: (value: unknown) => void; reject: (error: Error) => void }
@@ -33,7 +33,7 @@ export function createCodexRolloutHistoryReferencesClient(
   createWorker: (data: CodexRolloutReferencesWorkerData) => Worker = (data) =>
     spawnWorkerThread(
       resolveWorkerThreadEntryPath(currentWorkerEntryLayout(__dirname), WORKER_FILENAME),
-      { name: 'orca-codex-rollout-references', workerData: data }
+      { name: 'openkodo-codex-rollout-references', workerData: data }
     )
 ): CodexRolloutHistoryReferences & { close(): Promise<void> } {
   const pending = new Map<number, Pending>()

@@ -108,7 +108,7 @@ export function dispatchOpener(
   name: string
 ): (() => void) | null {
   const worker = {
-    party: { address: `dispatch:${dispatchId}`, terminalHandle: null, orcaSessionId: null },
+    party: { address: `dispatch:${dispatchId}`, terminalHandle: null, openkodoSessionId: null },
     name
   }
   return openSender

@@ -159,7 +159,7 @@ export function createAcpStructuredLaunchResolver(
   return withTestSpawnToken(
     acpStructuredAgentDefinition(spec),
     launchSources(deps),
-    acpStructuredLaunchPart(spec, { dataDirectory: '/orca-data', ...deps }),
+    acpStructuredLaunchPart(spec, { dataDirectory: '/openkodo-data', ...deps }),
     null
   )
 }
@@ -173,7 +173,7 @@ export function createPiRpcLaunchResolver(
   const resolve = withTestSpawnToken(
     PI_RPC_AGENT,
     launchSources(deps),
-    piRpcLaunchPart({ dataDirectory: '/orca-data', ...deps }),
+    piRpcLaunchPart({ dataDirectory: '/openkodo-data', ...deps }),
     null
   )
   return (identity: AgentSessionJournalIdentity, spawnToken: string | null = null) =>

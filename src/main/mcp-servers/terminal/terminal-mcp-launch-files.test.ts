@@ -6,9 +6,9 @@ describe('a Windows path as a WSL guest opens it', () => {
     expect(
       wslGuestDrivePath(
         null,
-        'C:\\Users\\Ada B\\AppData\\Roaming\\orca\\wsl-managed-cli\\ab12\\orca-ide'
+        'C:\\Users\\Ada B\\AppData\\Roaming\\openkodo\\wsl-managed-cli\\ab12\\openkodo-ide'
       )
-    ).toBe('/mnt/c/Users/Ada B/AppData/Roaming/orca/wsl-managed-cli/ab12/orca-ide')
+    ).toBe('/mnt/c/Users/Ada B/AppData/Roaming/openkodo/wsl-managed-cli/ab12/openkodo-ide')
     expect(wslGuestDrivePath('Ubuntu', 'D:/data/claude-1.json')).toBe('/mnt/d/data/claude-1.json')
   })
 

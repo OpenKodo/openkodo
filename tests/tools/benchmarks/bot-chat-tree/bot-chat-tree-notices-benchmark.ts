@@ -69,7 +69,7 @@ it(`one botsChanged at ${BOTS} bots x ${CHATS} chats`, { timeout: 1_800_000 }, a
     "INSERT INTO tasks (id, spec, task_title, status) VALUES (?, 'spec', ?, 'completed')"
   )
   const dispatch = raw.prepare(
-    "INSERT INTO dispatch_contexts (id, task_id, creator_orca_session_id, status) VALUES (?, ?, ?, 'completed')"
+    "INSERT INTO dispatch_contexts (id, task_id, creator_openkodo_session_id, status) VALUES (?, ?, ?, 'completed')"
   )
   raw.exec('BEGIN')
   for (let b = 0; b < BOTS; b += 1) {

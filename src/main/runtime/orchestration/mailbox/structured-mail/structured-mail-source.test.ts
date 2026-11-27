@@ -71,8 +71,8 @@ describe('structured mail conversation routing', () => {
 
 it("sends the owner's answer to an item question a thread asked back to that thread, and only OpenKodo's item mail", () => {
   const db = new OrchestrationDb(':memory:')
-  const asker = 'orca_session_id:11111111-1111-4111-8111-111111111111'
-  const other = 'orca_session_id:22222222-2222-4222-8222-222222222222'
+  const asker = 'openkodo_session_id:11111111-1111-4111-8111-111111111111'
+  const other = 'openkodo_session_id:22222222-2222-4222-8222-222222222222'
   try {
     const answersThere = (
       from: string,
@@ -81,7 +81,7 @@ it("sends the owner's answer to an item question a thread asked back to that thr
     ) => {
       const message = db.insertMessage({
         from,
-        ...(from === 'orca:items' ? { orcaAuthored: 'item-mail' as const } : {}),
+        ...(from === 'openkodo:items' ? { openkodoAuthored: 'item-mail' as const } : {}),
         to: sessionId,
         subject: 'Item #4 answered',
         type: 'status',
@@ -101,10 +101,10 @@ it("sends the owner's answer to an item question a thread asked back to that thr
       return isConversationReport({ kind: 'message', role: 'user', blocks: [], from: source })
     }
 
-    expect(answersThere('orca:items', asker)).toBe(true)
+    expect(answersThere('openkodo:items', asker)).toBe(true)
     // Another chat reading it, item mail no thread asked, and anyone else's payload stay in OpenKodo.
-    expect(answersThere('orca:items', asker, other)).toBe(false)
-    expect(answersThere('orca:items', undefined)).toBe(false)
+    expect(answersThere('openkodo:items', asker, other)).toBe(false)
+    expect(answersThere('openkodo:items', undefined)).toBe(false)
     expect(answersThere(other, asker)).toBe(false)
   } finally {
     db.close()

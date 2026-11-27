@@ -11,7 +11,7 @@ import {
   getAgentSessionAttachmentStore
 } from '../../../../../native-chat/agent-session-attachments/agent-session-attachment-store-registry'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { resolveItem } from '../../bots-items-write-support'
 import { botChatTakingMail } from '../../bots-chats'
 
@@ -23,7 +23,7 @@ type ItemMail = {
 }
 
 export async function withItemMailFiles<T extends ItemMail>(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   mail: T
 ): Promise<T> {
   const local = mail.params.files ?? []

@@ -9,9 +9,9 @@ describe('skillBackupDirectory', () => {
     'matches a POSIX host executor for %s',
     (home) => {
       const folder = skillBackupDirectory(home)
-      expect(folder).toBe(posix.join(home, '.agents', '.orca-skill-backups'))
+      expect(folder).toBe(posix.join(home, '.agents', '.openkodo-skill-backups'))
       expect(folder).not.toContain('\\')
-      expect(collapseHomePath(folder, home)).toBe('~/.agents/.orca-skill-backups')
+      expect(collapseHomePath(folder, home)).toBe('~/.agents/.openkodo-skill-backups')
     }
   )
 
@@ -19,9 +19,9 @@ describe('skillBackupDirectory', () => {
     'matches a Windows host executor for %s',
     (home) => {
       const folder = skillBackupDirectory(home)
-      expect(folder).toBe(win32.join(home, '.agents', '.orca-skill-backups'))
+      expect(folder).toBe(win32.join(home, '.agents', '.openkodo-skill-backups'))
       expect(folder.slice(home.replace(/\\+$/u, '').length)).not.toContain('/')
-      expect(collapseHomePath(folder, home)).toBe('~\\.agents\\.orca-skill-backups')
+      expect(collapseHomePath(folder, home)).toBe('~\\.agents\\.openkodo-skill-backups')
     }
   )
 })

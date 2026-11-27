@@ -36,7 +36,7 @@ if (process.platform === 'win32' || process.getuid?.() === 0) {
     platform: process.platform
   })
 } else {
-  const home = await mkdtemp(join(tmpdir(), 'orca-claude-discovery-coverage-'))
+  const home = await mkdtemp(join(tmpdir(), 'openkodo-claude-discovery-coverage-'))
   const denied = join(home, '.claude', 'projects', 'denied')
   try {
     const project = join(home, '.claude', 'projects', 'valid')

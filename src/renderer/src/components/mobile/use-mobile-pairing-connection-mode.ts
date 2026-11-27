@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAppStore } from '@/store'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import {
   resolveMobilePairingConnectionMode,
   type MobilePairingConnectionMode
@@ -13,8 +13,8 @@ export function useMobilePairingConnectionMode(): [
   React.Dispatch<React.SetStateAction<MobilePairingConnectionMode>>
 ] {
   const savedConnectionMode = useAppStore((s) => s.settings?.mobilePairingConnectionMode)
-  const signedIn = useAppStore((s) => s.orcaProfileAuthStatus?.state === 'connected')
-  const relayBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.mobileRelay)
+  const signedIn = useAppStore((s) => s.openkodoProfileAuthStatus?.state === 'connected')
+  const relayBlocked = useOpenKodoTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.mobileRelay)
   const [connectionMode, setConnectionMode] = useState<MobilePairingConnectionMode>(() =>
     resolveMobilePairingConnectionMode(savedConnectionMode, { signedIn })
   )

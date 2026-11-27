@@ -31,7 +31,7 @@ describe('prepareClaudeSignInBrowser', () => {
         linuxPath: null,
         wslDistro: null
       })
-      expect(browser?.path).toBe(join(home, '.orca-sign-in-browser'))
+      expect(browser?.path).toBe(join(home, '.openkodo-sign-in-browser'))
       expect(statSync(browser!.path).mode & 0o700).toBe(0o700)
       const next = browser!.nextLink(new AbortController().signal)
       execFileSync(browser!.path, [LINK])

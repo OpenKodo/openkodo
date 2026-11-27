@@ -106,7 +106,7 @@ export function botRequestSenderName(
 
 const senderOf = botRequestSenderName
 
-/** 'Slack message from "Carol" in "#orca"', from the host's record of the event; names are quoted
+/** 'Slack message from "Carol" in "#openkodo"', from the host's record of the event; names are quoted
  *  so one never reads as the view's own words. */
 export function botRequestOriginLabel(origin: AutomationTriggeredBy): string {
   const names: Partial<Record<string, string>> = AUTOMATION_EVENT_SOURCE_NAMES

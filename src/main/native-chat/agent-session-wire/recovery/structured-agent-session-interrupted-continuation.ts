@@ -45,7 +45,9 @@ export async function continueInterruptedStructuredAgentSessionTurn(
   const { sessionId, turnItemId } = input
   const stillCut = async (): Promise<boolean> => {
     const journal = host.sessions.get(sessionId)?.journal
-    return journal !== undefined && (await journal.reads.orcaStopCut())?.turnItemId === turnItemId
+    return (
+      journal !== undefined && (await journal.reads.openkodoStopCut())?.turnItemId === turnItemId
+    )
   }
   const continuationId = interruptedContinuationId(sessionId, turnItemId, host.now(), input.nonce)
   try {

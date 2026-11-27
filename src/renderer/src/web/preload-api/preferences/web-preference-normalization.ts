@@ -10,7 +10,7 @@ import {
   carriedChatUiLaunchSettings
 } from '../../../../../shared/native-chat/settings/native-chat-providers'
 import { normalizeAutoRenameBranchFromWorkDefaultOn } from '../../../../../shared/source-control/ai/settings/auto-rename-branch-from-work-settings'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
 import { normalizeTerminalCustomThemes } from '../../../../../shared/terminal-themes/terminal-custom-themes'

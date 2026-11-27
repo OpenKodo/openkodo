@@ -7,7 +7,7 @@ import type { Translate } from '@/i18n/use-translate'
 
 export function mcpSourceLabel(source: string, t: Translate): string {
   switch (source) {
-    case 'orca':
+    case 'openkodo':
       return 'OpenKodo'
     case 'claudeai':
       return 'claude.ai'

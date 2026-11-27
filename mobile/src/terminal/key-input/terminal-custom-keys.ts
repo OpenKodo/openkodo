@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistMirrored, subscribeMirroredKey } from '../../storage/mirrored-storage-keys'
 import { TERMINAL_CSI_U_CTRL_ENTER_INPUT } from '../../../../src/shared/terminal/protocol/input-modes/terminal-modified-enter-encoding'
 
-const CUSTOM_ACCESSORY_KEYS_STORAGE_KEY = 'orca:custom-accessory-keys'
+const CUSTOM_ACCESSORY_KEYS_STORAGE_KEY = 'openkodo:custom-accessory-keys'
 
 export type CustomKey = {
   id: string

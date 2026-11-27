@@ -1,10 +1,10 @@
 import { detectTerminalWaitBlockedReason } from './terminal-wait-detection'
 import {
-  OrcaRuntimeWithResolveAuthoritativeTerminalWaitPermission,
+  OpenKodoRuntimeWithResolveAuthoritativeTerminalWaitPermission,
   type TerminalInteractiveWaitEvidence
 } from './terminal-wait-permission'
 
-export abstract class OrcaRuntimeWithTitlelessPaneAgentIdentity extends OrcaRuntimeWithResolveAuthoritativeTerminalWaitPermission {
+export abstract class OpenKodoRuntimeWithTitlelessPaneAgentIdentity extends OpenKodoRuntimeWithResolveAuthoritativeTerminalWaitPermission {
   /** A hand-typed agent's startup dialogs emit no title, so no title transition asked which process owns the pane. */
   protected override readTerminalInteractiveWaitEvidence(
     handle: string,

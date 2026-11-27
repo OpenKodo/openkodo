@@ -7,7 +7,7 @@ import {
   getPreferredPairedRuntimeConnection,
   type KnownRuntimeEnvironment
 } from '../../../../shared/remote-runtime/host-catalog/runtime-environments'
-import { managedOrcadRefusalNeedingUserCode } from '../../../managed-server/lifecycle/orcad-managed-tunnel-identity'
+import { managedOpenkododRefusalNeedingUserCode } from '../../../managed-server/lifecycle/openkodod-managed-tunnel-identity'
 import { recoverRefusedPairing } from '../pairing/runtime-environment-pairing-refusal-registry'
 import { recordRuntimeEnvironmentUsage } from '../../../../shared/remote-runtime/host-store/runtime-environment-usage-record'
 import { RuntimeHostStatusOwner } from '../../../../shared/remote-runtime/host-status/runtime-host-status-owner'
@@ -27,7 +27,7 @@ import {
 } from '../connections/runtime-environment-capability-evidence'
 import { isRuntimeEnvironmentManuallyDisconnected } from '../connectivity/runtime-environment-manual-disconnect'
 import { runtimeEnvironmentChangedFailure } from '../requests/runtime-environment-revision-guard'
-import { resolveManagedRuntimeEnvironment } from '../managed-orcad/runtime-environment-managed-tunnel'
+import { resolveManagedRuntimeEnvironment } from '../managed-openkodod/runtime-environment-managed-tunnel'
 import { isRecipeVmEnvironmentAsleep } from '../../../ephemeral-vm/recipe-vm-asleep'
 import { noteRuntimeEnvironmentStatusContact } from './runtime-environment-contact-loss'
 import {
@@ -57,7 +57,7 @@ async function answerRefusedPairing(
   try {
     outcome = await recovery
   } catch (error) {
-    const code = managedOrcadRefusalNeedingUserCode(error)
+    const code = managedOpenkododRefusalNeedingUserCode(error)
     return code && error instanceof Error
       ? runtimeHostStatusFailure(code, error.message)
       : runtimeHostStatusError(error)
@@ -101,7 +101,7 @@ export function createRuntimeEnvironmentStatusOwner(
       try {
         await resolveManagedRuntimeEnvironment(userDataPath, environment.id)
       } catch (error) {
-        const code = managedOrcadRefusalNeedingUserCode(error)
+        const code = managedOpenkododRefusalNeedingUserCode(error)
         if (code && error instanceof Error) {
           return runtimeHostStatusFailure(code, error.message)
         }

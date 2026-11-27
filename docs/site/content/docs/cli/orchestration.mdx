@@ -7,7 +7,7 @@ import { Callout } from '@/components/docs/prose'
 
 Orchestration is OpenKodo's structured multi-agent layer: a **Run** (namespace + coordinator inbox), **Tasks**, **Dispatches**, supervised **workers**, messages, and decision gates.
 
-Use it when you need ownership, completion tracking, or a DAG. To send another agent a one-way message, use `openkodo orchestration send --to <terminal handle or orca_session_id:<id>> --subject "<topic>" --body "<message>"`; it needs no Run or Task. For full ownership handoffs without supervision, use `worktree create --agent` or `agent launch` from the `openkodo-cli` skill.
+Use it when you need ownership, completion tracking, or a DAG. To send another agent a one-way message, use `openkodo orchestration send --to <terminal handle or openkodo_session_id:<id>> --subject "<topic>" --body "<message>"`; it needs no Run or Task. For full ownership handoffs without supervision, use `worktree create --agent` or `agent launch` from the `openkodo-cli` skill.
 
 <Callout title="Experimental">
   Enable orchestration under Settings → Experimental before using these commands. The CLI talks to

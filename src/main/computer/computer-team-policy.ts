@@ -1,5 +1,5 @@
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
-import { getActiveTeamCapabilities } from '../orca-profiles/cloud-auth/active-team-capabilities'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/openkodo-profiles/openkodo-cloud-team-policy'
+import { getActiveTeamCapabilities } from '../openkodo-profiles/cloud-auth/active-team-capabilities'
 import { RuntimeClientError } from './runtime-client-error'
 
 export function assertTeamAllowsComputerUse(): void {

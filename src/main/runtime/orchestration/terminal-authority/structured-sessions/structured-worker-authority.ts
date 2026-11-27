@@ -4,13 +4,13 @@
 import type { SessionPartyReader } from '../../addressing/session-party-reader'
 import type { AgentSessionConversationView } from '../../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES as CODES } from '../../../../../shared/orchestration/orchestration-session-caller-codes'
 import type { RuntimeTerminalState } from '../../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { getStructuredAgentSessionHost } from '../../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import { canonicalOrcaSessionId } from '../../addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../../addressing/session-lineage/canonical-openkodo-session-id'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { OrchestrationError } from '../../orchestration-error'
 import {
@@ -84,10 +84,10 @@ export function resolveStructuredWorkerIdentityForSession(
   db: OrchestrationDb | null | undefined
 ): StructuredWorkerIdentity | null {
   const exact = structuredWorkerIdentities.getBySessionId(sessionId)
-  if (exact || !isOrcaSessionId(sessionId)) {
+  if (exact || !isOpenKodoSessionId(sessionId)) {
     return exact ?? resolveStructuredWorkerIdentityForRoot(sessionId, db)
   }
-  return resolveStructuredWorkerIdentityForRoot(canonicalOrcaSessionId(sessionId), db)
+  return resolveStructuredWorkerIdentityForRoot(canonicalOpenKodoSessionId(sessionId), db)
 }
 
 /** The worker minted for a lineage root session, rehydrated from its durable row after a restart. */
@@ -107,7 +107,7 @@ export function resolveStructuredWorkerIdentityForRoot(
 
 /** Recorded workers must retain handle identity; a missing handle cannot turn one into an ordinary chat caller. */
 export function isRecordedStructuredWorkerSession(
-  sessionId: OrcaSessionId,
+  sessionId: OpenKodoSessionId,
   db: SessionPartyReader
 ): boolean {
   return db.hasRecordedStructuredWorkerSession(

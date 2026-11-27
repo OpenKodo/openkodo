@@ -3,7 +3,7 @@ import type { AgentSessionRecord } from '../../../../shared/agent-session/lifecy
 import { withMovedAccountHome } from './agent-session-owner-proof'
 
 const agyHome = { variable: 'GEMINI_HOME', path: '/home/u/.gemini' }
-const orcaHome = { variable: 'GEMINI_HOME', path: '/data/antigravity-agy-chat' }
+const openkodoHome = { variable: 'GEMINI_HOME', path: '/data/antigravity-agy-chat' }
 
 function record(providerHandleChain: unknown[]): AgentSessionRecord {
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: only the two fields the rule reads matter here.
@@ -12,8 +12,8 @@ function record(providerHandleChain: unknown[]): AgentSessionRecord {
 
 it('moves only a chat with no conversation yet; one with history stays where it lives', () => {
   const fresh = record([])
-  expect(withMovedAccountHome(fresh, fresh, orcaHome).accountHome).toEqual(orcaHome)
+  expect(withMovedAccountHome(fresh, fresh, openkodoHome).accountHome).toEqual(openkodoHome)
   const started = record([{ handle: { nativeId: 's1' } }])
-  expect(withMovedAccountHome(started, started, orcaHome).accountHome).toEqual(agyHome)
+  expect(withMovedAccountHome(started, started, openkodoHome).accountHome).toEqual(agyHome)
   expect(withMovedAccountHome(fresh, fresh, undefined).accountHome).toEqual(agyHome)
 })

@@ -1,4 +1,4 @@
-/** Plain-language copy for the WSL move dialog: no "manifest", "orcad" or "UNC". */
+/** Plain-language copy for the WSL move dialog: no "manifest", "openkodod" or "UNC". */
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 import { wslMoveHostUpdateRequiredMessage } from './wsl-move-host-copy'

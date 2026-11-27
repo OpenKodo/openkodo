@@ -1,5 +1,5 @@
-import type { PushNotification } from '@orca-cloud/push-contract/send-messages'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { PushNotification } from '@openkodo-cloud/push-contract/send-messages'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 import { parsePushDeliveryPayload } from './push-delivery-payload.js'
 
 export async function reconcileQueuedDismissal(

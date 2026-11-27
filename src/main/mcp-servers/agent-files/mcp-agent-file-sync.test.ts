@@ -44,16 +44,16 @@ function instance(folder: string, homeDir: string, userDataPath: string): McpAge
   return {
     folder,
     userDataPath,
-    launcher: join(userDataPath, 'bin', 'orca'),
+    launcher: join(userDataPath, 'bin', 'openkodo'),
     context: { homeDir, env: {}, platform: 'darwin' },
-    ledger: new McpAgentFileLedger(join(folder, '.orca', 'agent-files-ledger.json')),
+    ledger: new McpAgentFileLedger(join(folder, '.openkodo', 'agent-files-ledger.json')),
     log: () => {}
   }
 }
 
 /** The keys of OpenKodo's entries for `server` (named `<server>-<folder>-<hash>`). */
 const serverKeys = (file: { mcpServers: Record<string, unknown> }, server: string): string[] =>
-  Object.keys(file.mcpServers).filter((name) => name.startsWith(`${server}-orca-`))
+  Object.keys(file.mcpServers).filter((name) => name.startsWith(`${server}-openkodo-`))
 
 async function setUp() {
   const homeDir = tempDir('mcp-agent-files-home-')
@@ -77,7 +77,7 @@ async function setUp() {
 describe("OpenKodo's servers in Grok's, Cursor's and Droid's own MCP files", () => {
   it('withdrawing consent leaves each file as it was plus only the user’s own edits', async () => {
     const { homeDir, folder, paths } = await setUp()
-    const app = instance(folder, homeDir, join(homeDir, 'one', 'orca'))
+    const app = instance(folder, homeDir, join(homeDir, 'one', 'openkodo'))
     for (const agent of ['grok', 'cursor', 'droid'] as const) {
       await setMcpAgentFileAllowed(agent, true, folder)
     }
@@ -93,10 +93,14 @@ describe("OpenKodo's servers in Grok's, Cursor's and Droid's own MCP files", () 
     ])
     const droid = JSON.parse(read(paths.droid))
     expect(droid.mcpServers[serverKeys(droid, 'postgres')[0]!].type).toBe('stdio')
-    expect(read(paths.grok)).toMatch(/\[mcp_servers\.postgres-orca-[0-9a-f]+\]\r\n/)
+    expect(read(paths.grok)).toMatch(/\[mcp_servers\.postgres-openkodo-[0-9a-f]+\]\r\n/)
 
-    // Another profile, whose folder is also called `orca`, keeps its own same-named server beside.
-    const other = instance(tempDir('mcp-agent-files-other-'), homeDir, join(homeDir, 'two', 'orca'))
+    // Another profile, whose folder is also called `openkodo`, keeps its own same-named server beside.
+    const other = instance(
+      tempDir('mcp-agent-files-other-'),
+      homeDir,
+      join(homeDir, 'two', 'openkodo')
+    )
     await addMcpServer(
       { name: 'postgres', command: 'npx', args: ['-y', 'postgres'] },
       { nameGiven: true },
@@ -124,7 +128,7 @@ describe("OpenKodo's servers in Grok's, Cursor's and Droid's own MCP files", () 
     const left = serverKeys(after, 'postgres')
     expect(left).toHaveLength(1)
     expect(after.mcpServers[left[0]!].env.OPENKODO_USER_DATA_PATH).toBe(
-      join(homeDir, 'two', 'orca')
+      join(homeDir, 'two', 'openkodo')
     )
     expect(after.editor).toBe('vim')
 
@@ -137,12 +141,12 @@ describe("OpenKodo's servers in Grok's, Cursor's and Droid's own MCP files", () 
 
   it('renames entries an earlier OpenKodo wrote under the plain server name on the next sync', async () => {
     const { homeDir, folder, paths } = await setUp()
-    const app = instance(folder, homeDir, join(homeDir, 'orca'))
+    const app = instance(folder, homeDir, join(homeDir, 'openkodo'))
     await setMcpAgentFileAllowed('cursor', true, folder)
     await syncMcpAgentFiles(app)
     // What the earlier naming left: the same entry, and the ledger's record of it, as `postgres`.
     const [name] = serverKeys(parse(read(paths.cursor)), 'postgres')
-    const ledgerPath = join(folder, '.orca', 'agent-files-ledger.json')
+    const ledgerPath = join(folder, '.openkodo', 'agent-files-ledger.json')
     writeFileSync(paths.cursor, read(paths.cursor).replace(`"${name}"`, '"postgres"'))
     writeFileSync(ledgerPath, read(ledgerPath).replaceAll(`\\"${name}\\"`, '\\"postgres\\"'))
     writeFileSync(ledgerPath, read(ledgerPath).replace(`"${name}"`, '"postgres"'))
@@ -163,7 +167,7 @@ describe("OpenKodo's servers in Grok's, Cursor's and Droid's own MCP files", () 
     await setMcpAgentFileAllowed('cursor', true, folder)
     await setMcpAgentFileAllowed('droid', true, folder)
     delete process.env.OPENKODO_MCP_SERVERS
-    await syncMcpAgentFiles(instance(folder, homeDir, join(homeDir, 'orca')))
+    await syncMcpAgentFiles(instance(folder, homeDir, join(homeDir, 'openkodo')))
     expect(read(paths.cursor)).toBe(CURSOR_BEFORE)
     expect(read(paths.grok)).toBe(GROK_BEFORE)
     expect(existsSync(paths.droid)).toBe(false)

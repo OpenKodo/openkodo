@@ -52,7 +52,7 @@ export async function main(root = process.cwd(), arg = undefined, sources = unde
       baselinePath: BASELINE_PATH,
       header: [
         '# References to functions that make a synchronous fs, child_process or SQLite call, or call such a',
-        '# function, per file, in event-loop code (Electron main, orcad, daemon, preload; worker-only modules excluded).',
+        '# function, per file, in event-loop code (Electron main, openkodod, daemon, preload; worker-only modules excluded).',
         '# This is a RATCHET: counts may only go DOWN.',
         '# Prune: node config/scripts/static-analysis/ratchets/runtime-lifecycle/check-main-blocking-helper-ratchet.mjs --prune'
       ],

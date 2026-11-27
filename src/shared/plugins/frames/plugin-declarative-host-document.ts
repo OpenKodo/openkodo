@@ -15,9 +15,9 @@ const scriptJson = (value: unknown): string => JSON.stringify(value).replaceAll(
  */
 export function buildPluginDeclarativeHostBody(entry: string): string {
   const imports = {
-    orca: RUNTIME_PATH,
-    'orca/jsx-runtime': RUNTIME_PATH,
-    'orca/jsx-dev-runtime': RUNTIME_PATH
+    openkodo: RUNTIME_PATH,
+    'openkodo/jsx-runtime': RUNTIME_PATH,
+    'openkodo/jsx-dev-runtime': RUNTIME_PATH
   }
   const entryPath = `/${entry.split('/').map(encodeURIComponent).join('/')}`
   return (
@@ -30,10 +30,10 @@ export function buildPluginDeclarativeHostBody(entry: string): string {
     '{ revision: 0, message: String((error && error.message) || error).slice(0, 4096) })\n' +
     'let runtime = null\n' +
     'try {\n' +
-    // Why the URL, not `orca`: the same module instance, and no bare specifier in main's bundle.
-    `  const orca = await import(${scriptJson(RUNTIME_PATH)})\n` +
+    // Why the URL, not `openkodo`: the same module instance, and no bare specifier in main's bundle.
+    `  const openkodo = await import(${scriptJson(RUNTIME_PATH)})\n` +
     // Installed before the panel module loads, so state is fetched while it downloads.
-    '  runtime = orca.installOrcaDeclarativeRuntime({ post, awaitHydration: true })\n' +
+    '  runtime = openkodo.installOpenKodoDeclarativeRuntime({ post, awaitHydration: true })\n' +
     `  await runtime.boot(await import(${scriptJson(entryPath)}))\n` +
     '} catch (error) {\n' +
     // The runtime's report names the plugin file and line; the fallback covers a runtime that failed.

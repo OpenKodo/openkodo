@@ -9,9 +9,9 @@ import type {
   WorkerThreadFactory
 } from '../../worker-threads/worker-thread-transport'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../shared/agent-session/identity/openkodo-session-address'
 import type { AgentProviderKey } from './agent-provider-key'
 import { isRecord } from '../../../shared/agent-status/child-work/agent-status-child-work-value-guards'
 import {
@@ -29,20 +29,20 @@ const OPERATION_TIMEOUT_MS = 10_000
 const IDLE_TEARDOWN_MS = 60_000
 
 /** `undefined`: the worker could not answer (spawn, open, lock, timeout); never a settled miss. */
-export type AgentIdentityLookup = { id: OrcaSessionId | null } | undefined
+export type AgentIdentityLookup = { id: OpenKodoSessionId | null } | undefined
 
 export type AgentIdentityClient = {
   identify(path: string, key: AgentProviderKey): Promise<AgentIdentityLookup>
-  has(path: string, orcaSessionId: string): Promise<boolean | undefined>
-  /** `{ key: null }`: this host never linked `orcaSessionId`; undefined: no answer now. */
+  has(path: string, openkodoSessionId: string): Promise<boolean | undefined>
+  /** `{ key: null }`: this host never linked `openkodoSessionId`; undefined: no answer now. */
   providerKeyOf(
     path: string,
-    orcaSessionId: string
+    openkodoSessionId: string
   ): Promise<{ key: AgentProviderKey | null } | ReverseLookupUnavailable | undefined>
   idsOfProviderSession(
     path: string,
     providerSessionId: string
-  ): Promise<OrcaSessionId[] | ReverseLookupUnavailable | undefined>
+  ): Promise<OpenKodoSessionId[] | ReverseLookupUnavailable | undefined>
   /** Terminated but not yet exited: a replacement must wait for `retired()`. */
   readonly isRetiring: boolean
   retired(): Promise<void>
@@ -53,7 +53,7 @@ function spawnAgentIdentityWorker(): WorkerRequestTransport {
   // A missing entry fails the spawned worker, which the queue reports as unavailable.
   return spawnWorkerThread(
     resolveWorkerThreadEntryPath(currentWorkerEntryLayout(__dirname), WORKER_ENTRY_FILENAME),
-    { name: 'orca-agent-identity' }
+    { name: 'openkodo-agent-identity' }
   )
 }
 
@@ -85,19 +85,24 @@ export class AgentIdentityWorkerClient implements AgentIdentityClient {
     if (value === null) {
       return { id: null }
     }
-    return typeof value === 'string' && isOrcaSessionId(value) ? { id: value } : undefined
+    return typeof value === 'string' && isOpenKodoSessionId(value) ? { id: value } : undefined
   }
 
-  async has(path: string, orcaSessionId: string): Promise<boolean | undefined> {
-    const value = await this.request((id) => ({ id, kind: 'has', path, orcaSessionId }))
+  async has(path: string, openkodoSessionId: string): Promise<boolean | undefined> {
+    const value = await this.request((id) => ({ id, kind: 'has', path, openkodoSessionId }))
     return typeof value === 'boolean' ? value : undefined
   }
 
   async providerKeyOf(
     path: string,
-    orcaSessionId: string
+    openkodoSessionId: string
   ): Promise<{ key: AgentProviderKey | null } | ReverseLookupUnavailable | undefined> {
-    const value = await this.request((id) => ({ id, kind: 'providerKeyOf', path, orcaSessionId }))
+    const value = await this.request((id) => ({
+      id,
+      kind: 'providerKeyOf',
+      path,
+      openkodoSessionId
+    }))
     if (value === null) {
       return { key: null }
     }
@@ -110,7 +115,7 @@ export class AgentIdentityWorkerClient implements AgentIdentityClient {
   async idsOfProviderSession(
     path: string,
     providerSessionId: string
-  ): Promise<OrcaSessionId[] | ReverseLookupUnavailable | undefined> {
+  ): Promise<OpenKodoSessionId[] | ReverseLookupUnavailable | undefined> {
     const value = await this.request((id) => ({
       id,
       kind: 'idsOfProviderSession',
@@ -120,7 +125,7 @@ export class AgentIdentityWorkerClient implements AgentIdentityClient {
     if (isReverseLookupUnavailable(value)) {
       return REVERSE_LOOKUP_UNAVAILABLE
     }
-    return Array.isArray(value) ? value.filter(isOrcaSessionId) : undefined
+    return Array.isArray(value) ? value.filter(isOpenKodoSessionId) : undefined
   }
 
   get isRetiring(): boolean {

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/class-names'
 import {
-  getTerminalUrlOrcaBrowserHint,
+  getTerminalUrlOpenKodoBrowserHint,
   getTerminalUrlSystemBrowserHint
 } from '../../../terminal-pane/links/terminal-link-open-hints'
 import type { HostedReviewInfo as ChecksPanelReview } from '../../../../../../shared/source-control/hosted-review/hosted-review-contracts'
@@ -55,8 +55,8 @@ export function ChecksPanelReviewHeader({
   const modifierHint =
     modifierHintDestination === 'system-browser'
       ? getTerminalUrlSystemBrowserHint()
-      : modifierHintDestination === 'orca'
-        ? getTerminalUrlOrcaBrowserHint()
+      : modifierHintDestination === 'openkodo'
+        ? getTerminalUrlOpenKodoBrowserHint()
         : null
   const title = modifierHint ? `${openTitle}. ${modifierHint}` : openTitle
 

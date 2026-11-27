@@ -166,7 +166,7 @@ async function main() {
     throw new Error(`missing ${entryPath} — run \`pnpm build\` first`)
   }
 
-  const dir = mkdtempSync(join(tmpdir(), 'orca-endpoint-handover-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-endpoint-handover-'))
   const socketPath = join(dir, 'daemon.sock')
   const protocolVersion = readProtocolVersion()
   const daemons = []

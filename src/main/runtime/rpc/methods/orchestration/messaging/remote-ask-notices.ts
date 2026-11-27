@@ -2,7 +2,7 @@
  *  workers that computer runs: the notice goes there the way the answer would, as coordinator mail
  *  to the worker's Dispatch, and its outcome is recorded once the computer has taken it. */
 
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { QuestionNoticeWriter } from '../../../../orchestration/mailbox/questions/question-reconcile'
 import { getRemoteOwnedQuestion } from '../../../../orchestration/db/remote-owned/remote-dispatch-records'
@@ -37,7 +37,7 @@ function endRemoteAsk(db: OrchestrationDb, messageId: string, ended: 'unanswered
 
 export function remoteAskNotices(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     | 'getOrchestrationDb'
     | 'resolveOrchestrationWorkerServer'
     | 'callOrchestrationWorkerServer'

@@ -146,15 +146,15 @@ function measure(fn, chunk) {
 
 // Check nonempty carries too or implementation returning empty always would pass equivalence.
 const EQUIVALENCE_FIXTURES = [
-  `noise ${'x'.repeat(400)}https://github.com/acme/orca/pull/7`,
-  `https://github.com/acme/orca/pull/1${'x'.repeat(600)}`,
-  `https://github.com/acme/orca/pull/1${'x'.repeat(600)}https`,
+  `noise ${'x'.repeat(400)}https://github.com/acme/openkodo/pull/7`,
+  `https://github.com/acme/openkodo/pull/1${'x'.repeat(600)}`,
+  `https://github.com/acme/openkodo/pull/1${'x'.repeat(600)}https`,
   `${'x'.repeat(1000)}https`,
   `${'x'.repeat(1000)}http`,
-  'https://github.com/acme/orca/pull/7 trailing words',
+  'https://github.com/acme/openkodo/pull/7 trailing words',
   `${'y'.repeat(600)}`,
   '',
-  'https://github.com/acme/orca/pull/7'
+  'https://github.com/acme/openkodo/pull/7'
 ]
 for (const fixture of EQUIVALENCE_FIXTURES) {
   if (carryBefore(fixture) !== carryAfter(fixture)) {

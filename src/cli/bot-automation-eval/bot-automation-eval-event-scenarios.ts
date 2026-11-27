@@ -38,22 +38,23 @@ function expectMissingConnector(name: RegExp) {
 
 export const EVENT_SCENARIOS: EvalScenario[] = [
   {
-    id: 'slack-orca-link',
+    id: 'slack-openkodo-link',
     category: 'slack',
     // Slack writes a channel it links as <#id|name>; the bot's own mention is stripped.
     message:
-      "each time someone pings me in <#C07ORCA0001|orca>, if it's a bug or ticket, start an agent on it",
+      "each time someone pings me in <#C07OPENKODO0001|openkodo>, if it's a bug or ticket, start an agent on it",
     grade: expectCreate({
-      triggers: [{ on: 'slack.mentioned', in: ['C07ORCA0001'] }],
+      triggers: [{ on: 'slack.mentioned', in: ['C07OPENKODO0001'] }],
       prompt: [/bug/i, /ticket/i]
     })
   },
   {
-    id: 'slack-orca-bare-link',
+    id: 'slack-openkodo-bare-link',
     category: 'slack',
     // Newer Slack clients send a linked channel without its name.
-    message: 'whenever anyone mentions me in <#C07ORCA0001|>, triage it and tell me what it needs',
-    grade: expectCreate({ triggers: [{ on: 'slack.mentioned', in: ['C07ORCA0001'] }] })
+    message:
+      'whenever anyone mentions me in <#C07OPENKODO0001|>, triage it and tell me what it needs',
+    grade: expectCreate({ triggers: [{ on: 'slack.mentioned', in: ['C07OPENKODO0001'] }] })
   },
   {
     id: 'slack-mention-id',

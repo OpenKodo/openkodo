@@ -9,7 +9,7 @@ import { runtimeEnvironmentSupportsCapability } from '@/runtime/rpc/compatibilit
 import { lastVerifiedRuntimeStatus } from '../../../../../../shared/remote-runtime/host-status/runtime-host-status'
 import { resolveContinuedRuntimeEnvironmentRevision } from '@/runtime/rpc/environment-revisions/runtime-environment-revision'
 import { useAppStore } from '@/store/index'
-import { useDeleteOrcaChat } from '@/lib/agent-session/chat-deletion/orca-chat-delete'
+import { useDeleteOpenKodoChat } from '@/lib/agent-session/chat-deletion/openkodo-chat-delete'
 import { useRuntimeHostStatusSelector } from '@/store/slices/runtime-status/views/use-runtime-status-view'
 import { forgetAiVaultSessionResult } from '../scanning/ai-vault-session-result-cache'
 import '../session-list/ai-vault-session-filters'
@@ -80,7 +80,7 @@ export function useAiVaultSessionDeleteAction({
   const confirm = useConfirmationDialog()
   const pendingSessionIds = useRef(new Set<string>())
 
-  const deleteChat = useDeleteOrcaChat()
+  const deleteChat = useDeleteOpenKodoChat()
   const runDelete = useCallback(
     async (session: AiVaultSession) => {
       const chat = session.structuredSession

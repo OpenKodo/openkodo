@@ -80,7 +80,7 @@ export async function resumeEphemeralVmWorkspace(
     })
   }
   const recipeContext = getRuntimeRecipeContext(store, userDataPath, runtime.id)
-  if (lostContact && runtime.connectionMode === 'orca-server' && !recipeContext.recipe.resume) {
+  if (lostContact && runtime.connectionMode === 'openkodo-server' && !recipeContext.recipe.resume) {
     // Nothing can restart this VM, and only the user can tell whether it is gone. Retry the
     // server now, and say what is left; the record and the workspace stay as they are.
     if (runtime.runtimeEnvironmentId) {

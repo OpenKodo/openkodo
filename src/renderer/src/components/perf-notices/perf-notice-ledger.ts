@@ -4,7 +4,7 @@ import type { PerfNoticeId } from '../../../../shared/perf-notices/perf-notice-s
 type NoticeRecord = { lastShownAt: number; snoozedUntil: number }
 type Ledger = { lastToastAt: number | null; notices: Partial<Record<PerfNoticeId, NoticeRecord>> }
 
-const STORAGE_KEY = 'orca.perfNotices.v1'
+const STORAGE_KEY = 'openkodo.perfNotices.v1'
 const MINUTE = 60_000
 const DAY = 24 * 60 * MINUTE
 const WEEK = 7 * DAY

@@ -10,7 +10,7 @@ import {
   BrowserTunnelDestinationBlockedError,
   browserTunnelTargetBlockReason,
   createBrowserTunnelGuardedLookup,
-  reserveBrowserTunnelOrcaListenerPort
+  reserveBrowserTunnelOpenKodoListenerPort
 } from './browser-network-tunnel-destination-policy'
 import type { BrowserNetworkTunnelSocket } from './browser-network-tunnel-stream-state'
 
@@ -48,11 +48,11 @@ describe('browser tunnel destination policy', () => {
   })
 
   it("blocks only the host's own reserved OpenKodo listener ports, and only while reserved", () => {
-    const release = reserveBrowserTunnelOrcaListenerPort(6768)
+    const release = reserveBrowserTunnelOpenKodoListenerPort(6768)
     cleanups.push(release)
 
     for (const host of ['localhost', 'app.localhost', '127.0.0.1', '127.1.2.3', '::1', '0.0.0.0']) {
-      expect(browserTunnelTargetBlockReason(host, 6768)).toBe('orca_listener')
+      expect(browserTunnelTargetBlockReason(host, 6768)).toBe('openkodo_listener')
     }
     expect(browserTunnelTargetBlockReason('127.0.0.1', 6769)).toBeNull()
     expect(browserTunnelTargetBlockReason('203.0.113.9', 6768)).toBeNull()
@@ -95,7 +95,7 @@ describe('browser tunnel destination policy', () => {
 describe('remote (SSH/WSL) browser tunnel routes', () => {
   it("refuse the remote machine's metadata but keep its loopback and OpenKodo-port-numbered servers", () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {})
-    cleanups.push(reserveBrowserTunnelOrcaListenerPort(6768))
+    cleanups.push(reserveBrowserTunnelOpenKodoListenerPort(6768))
     const dialed: string[] = []
     const connect = guardRemoteBrowserNetworkConnect((target) => {
       dialed.push(`${target.host}:${target.port}`)
@@ -165,7 +165,7 @@ describe('native browser tunnel dial', () => {
 
   it('restores unrestricted dialing when the host opts out', async () => {
     const port = await startServer()
-    cleanups.push(reserveBrowserTunnelOrcaListenerPort(port))
+    cleanups.push(reserveBrowserTunnelOpenKodoListenerPort(port))
 
     await expect(
       outcome(

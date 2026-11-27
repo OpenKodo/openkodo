@@ -1,5 +1,5 @@
 import type { RuntimeTerminalAgentStatusEvent } from './terminal-agent-status-events'
-import { OrcaRuntimeWithApplyTrackedPtyTitle } from './terminal-title-observation'
+import { OpenKodoRuntimeWithApplyTrackedPtyTitle } from './terminal-title-observation'
 import type { RuntimePtyTitleTrackerEntry } from '../records/runtime-terminal-state-records'
 import { createCommandCodeOutputStatusDetector } from '../../../../shared/agent-status/output/command-code-output-status'
 
@@ -8,7 +8,7 @@ type TerminalAgentStatusTarget = Pick<
   'source' | 'paneKey' | 'tabId' | 'worktreeId' | 'connectionId' | 'terminalHandle'
 >
 
-export abstract class RuntimeCommandCodeCompletion extends OrcaRuntimeWithApplyTrackedPtyTitle {
+export abstract class RuntimeCommandCodeCompletion extends OpenKodoRuntimeWithApplyTrackedPtyTitle {
   abstract getAgentStatusTerminalHandleForPaneKey(paneKey: string): string | undefined
 
   private readonly commandCodeDoneCandidates = new Map<

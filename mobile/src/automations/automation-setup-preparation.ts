@@ -1,24 +1,24 @@
-import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../src/shared/hashing/orca-hook-content-hash'
-import { isOrcaHookRepoTrusted } from '../../../src/shared/workspace-setup/hooks/orca-hook-trust-entries'
+import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../src/shared/hashing/openkodo-hook-content-hash'
+import { isOpenKodoHookRepoTrusted } from '../../../src/shared/workspace-setup/hooks/openkodo-hook-trust-entries'
 import {
   parseExecutionHostId,
   type ExecutionHostId
 } from '../../../src/shared/execution-host/execution-host'
 import { findAutomationRepo } from '../../../src/shared/automations/ownership/automation-repo-target'
 import { getAutomationSetupDefaultDecision } from '../../../src/shared/automations/launch/automation-setup-decision'
-import type { PersistedTrustedOrcaHooks } from '../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import {
   newWorkspaceSetupHooksRead,
   newWorkspaceUiStateRead
 } from '../new-workspace/creation/runtime/new-workspace-operations'
-import type { OrcaHookTrustPrompt } from '../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../components/hook-trust/OpenKodoHookTrustDrawer'
 import { newTabRepoListRead } from '../session/agent-launch/mobile-runtime-repo-operations'
 import {
-  isOrcaHookTrusted,
+  isOpenKodoHookTrusted,
   normalizeSetupHookTrust,
   readRepoHooksSetupCommand,
-  usesVersionedOrcaHookTrust,
-  wasOrcaHookPreviouslyApproved
+  usesVersionedOpenKodoHookTrust,
+  wasOpenKodoHookPreviouslyApproved
 } from '../new-workspace/creation/setup-hook-trust'
 import type { RpcClient } from '../transport/rpc/rpc-client-contract'
 import type { AutomationDraft } from './automation-draft'
@@ -38,8 +38,8 @@ export async function prepareAutomationSetup(args: {
   targets: AutomationTargets
   current: () => boolean
   confirm: (
-    prompt: OrcaHookTrustPrompt,
-    trust: PersistedTrustedOrcaHooks,
+    prompt: OpenKodoHookTrustPrompt,
+    trust: PersistedTrustedOpenKodoHooks,
     repos: readonly { id: string }[]
   ) => Promise<'run' | 'skip' | null>
 }): Promise<AutomationDraft | null> {
@@ -107,12 +107,12 @@ export async function prepareAutomationSetup(args: {
       : { ...draft, setupDecision: 'inherit', setupTrustHash: undefined }
   }
   // Trust can only be saved on a paired desktop; a runtime host never trusts the repo.
-  let trust: PersistedTrustedOrcaHooks = {}
+  let trust: PersistedTrustedOpenKodoHooks = {}
   if (!runtimeHost) {
     try {
       const reply = newWorkspaceUiStateRead.interpret(await newWorkspaceUiStateRead.request(client))
       if (reply.accepted) {
-        trust = reply.value?.trustedOrcaHooks ?? {}
+        trust = reply.value?.trustedOpenKodoHooks ?? {}
       }
     } catch {
       // An unreadable approval record grants no trust.
@@ -124,14 +124,14 @@ export async function prepareAutomationSetup(args: {
   if (!setupTrust) {
     // As desktop: approving no shared setup in an untrusted repo pins empty content, so setup the base
     // branch adds later is skipped for review instead of running unseen.
-    if (isOrcaHookRepoTrusted(trust, repos, setup.repoId)) {
+    if (isOpenKodoHookRepoTrusted(trust, repos, setup.repoId)) {
       return readRepoHooksSetupCommand(details.value)
         ? { ...draft, setupDecision: 'run', setupTrustHash: undefined }
         : { ...draft, setupDecision: 'inherit', setupTrustHash: undefined }
     }
     return { ...draft, setupDecision: 'run', setupTrustHash: EMPTY_OPENKODO_HOOK_CONTENT_HASH }
   }
-  if (isOrcaHookTrusted(trust, repos, setup.repoId, 'setup', setupTrust.contentHash)) {
+  if (isOpenKodoHookTrusted(trust, repos, setup.repoId, 'setup', setupTrust.contentHash)) {
     return { ...draft, setupDecision: 'run', setupTrustHash: undefined }
   }
   const approved = await args.confirm(
@@ -140,8 +140,8 @@ export async function prepareAutomationSetup(args: {
       repoId: setup.repoId,
       repoName: setup.displayName,
       ...setupTrust,
-      previouslyApproved: wasOrcaHookPreviouslyApproved(trust, setup.repoId, 'setup'),
-      versionOnly: usesVersionedOrcaHookTrust(repos, setup.repoId)
+      previouslyApproved: wasOpenKodoHookPreviouslyApproved(trust, setup.repoId, 'setup'),
+      versionOnly: usesVersionedOpenKodoHookTrust(repos, setup.repoId)
     },
     trust,
     repos

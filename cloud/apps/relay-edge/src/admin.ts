@@ -25,7 +25,7 @@ import { z } from 'zod'
 import type { Env } from './env'
 import type { AdminReplayGuard } from './admin-jti'
 
-export const ADMIN_AUDIENCE = 'orca-relay-edge-admin'
+export const ADMIN_AUDIENCE = 'openkodo-relay-edge-admin'
 export const ADMIN_PURPOSE = 'edge-admin'
 export type AdminOp = 'assign' | 'export' | 'erase' | 'drain' | 'verify' | UserIndexAdminOp
 export type UserIndexAdminOp = 'list-hosts' | 'index-host' | 'erase-user-index'

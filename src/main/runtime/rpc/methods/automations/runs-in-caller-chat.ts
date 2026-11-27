@@ -4,7 +4,7 @@ import { botGroupRoomChat } from '../../../../bots/bot-group-automation-run'
 import { runtimeBotGroups } from '../../../../bots/bot-group-runtime'
 import { isBotGroupMemberSession } from '../../../../../shared/bots/bot-group'
 import { runtimeChatHost } from '../../../../external-conversations/external-conversation-chat'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { readBotChats } from '../bots-chats'
 
 /**
@@ -14,7 +14,7 @@ import { readBotChats } from '../bots-chats'
  * made from a group room the bot is a member of runs in that room, and is refused once it left.
  */
 export async function targetInCallerChat(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   caller: string | undefined,
   target: AutomationBotTarget,
   once: boolean

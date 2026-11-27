@@ -16,14 +16,14 @@ const PROFILES: BrowserSessionProfile[] = [
   {
     id: 'default',
     scope: 'default',
-    partition: 'persist:orca-browser',
+    partition: 'persist:openkodo-browser',
     label: 'Default',
     source: null
   },
   {
     id: 'fixture-work',
     scope: 'isolated',
-    partition: 'persist:orca-browser-fixture-work',
+    partition: 'persist:openkodo-browser-fixture-work',
     label: 'Work',
     source: null
   }
@@ -91,7 +91,7 @@ function seedLastUsed(source: BrowserCookieImportSource | null): void {
   if (source) {
     rememberBrowserCookieImportLastUsed(source)
   } else {
-    window.localStorage.removeItem('orca.browser.cookieImport.lastUsedSource')
+    window.localStorage.removeItem('openkodo.browser.cookieImport.lastUsedSource')
   }
 }
 

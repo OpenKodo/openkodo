@@ -1,13 +1,13 @@
-import { getOrcaPushGatewayUrl } from '../../orca-profiles/cloud-auth/profile-cloud-auth-config'
+import { getOpenKodoPushGatewayUrl } from '../../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
 import { DesktopPushService } from '../../runtime/push/desktop-push-service'
 import { executionHostPushCoverage } from '../../notifications/execution-host-push-coverage'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
-import type { OrcaRuntimeRpcServer } from '../../runtime/rpc/server/runtime-rpc'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
+import type { OpenKodoRuntimeRpcServer } from '../../runtime/rpc/server/runtime-rpc'
 import { mainProcessState as state } from '../main-process-state'
 
 // Push authenticates by host keypair, so accountless hosts must register phones too; shared startup state supplies the runtime in both modes.
-export function startDesktopPushService(runtimeRpc: OrcaRuntimeRpcServer): void {
-  const runtime: OrcaRuntimeService | null = state.core.runtime
+export function startDesktopPushService(runtimeRpc: OpenKodoRuntimeRpcServer): void {
+  const runtime: OpenKodoRuntimeService | null = state.core.runtime
   if (!runtime) {
     console.warn('[push] Background push startup skipped: runtime not started')
     return
@@ -16,7 +16,7 @@ export function startDesktopPushService(runtimeRpc: OrcaRuntimeRpcServer): void 
     const pushService = DesktopPushService.create({
       runtime,
       runtimeRpc,
-      gatewayUrl: getOrcaPushGatewayUrl(),
+      gatewayUrl: getOpenKodoPushGatewayUrl(),
       coverage: executionHostPushCoverage
     })
     pushService?.start()

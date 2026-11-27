@@ -3,13 +3,16 @@ import type { GlobalSettings } from '../../../../../shared/settings/global-setti
 import { Button } from '@/components/ui/button'
 import { SettingsSwitchRow } from '../form-controls/SettingsFormControls'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
-import { useOrcaProfileAuthStatusRefresh } from '@/components/orca-profiles/use-orca-profile-auth-status-refresh'
+import { useOpenKodoProfileAuthStatusRefresh } from '@/components/openkodo-profiles/use-openkodo-profile-auth-status-refresh'
 import { useAppStore } from '@/store/index'
 import { isWebClientLocation } from '@/app-shell/platform/web-client-location'
 import { useTranslate } from '@/i18n/use-translate'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../../orca-profiles/OrcaSignInProgress'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../../openkodo-profiles/OpenKodoSignInProgress'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 
 type HowToStep = { key: string; title: string; description: string }
 
@@ -22,14 +25,16 @@ export function ArtifactsSettingsPane({
 }): React.JSX.Element {
   const t = useTranslate()
   const openArtifactsPage = useAppStore((state) => state.openArtifactsPage)
-  const authStatus = useAppStore((state) => state.orcaProfileAuthStatus)
+  const authStatus = useAppStore((state) => state.openkodoProfileAuthStatus)
   const signedIn = authStatus?.state === 'connected'
   // Only the desktop host can grant sharing; web clients mirror it because settings.update excludes this capability.
   const isWebClient = isWebClientLocation()
-  const teamBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)
+  const teamBlocked = useOpenKodoTeamFeatureBlocked(
+    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing
+  )
   const sharingEnabled = !teamBlocked && settings.artifactSharingEnabled === true
 
-  useOrcaProfileAuthStatusRefresh()
+  useOpenKodoProfileAuthStatusRefresh()
 
   const howToSteps: HowToStep[] = [
     ...(sharingEnabled
@@ -127,12 +132,12 @@ export function ArtifactsSettingsPane({
                 )}
               </p>
             </div>
-            <OrcaSignInButton size="sm" disabled={authStatus?.configured !== true}>
+            <OpenKodoSignInButton size="sm" disabled={authStatus?.configured !== true}>
               {authStatus?.state === 'reconnect-required'
                 ? t('auto.components.settings.artifacts.signInAgain', 'Sign in again')
                 : t('auto.components.settings.artifacts.signIn', 'Sign in to OpenKodo')}
-            </OrcaSignInButton>
-            <OrcaSignInWaitNotice className="basis-full" />
+            </OpenKodoSignInButton>
+            <OpenKodoSignInWaitNotice className="basis-full" />
           </section>
         ) : null}
       </SettingsGroup>

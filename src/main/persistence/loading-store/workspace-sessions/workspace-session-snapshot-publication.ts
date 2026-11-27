@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
 import { WORKSPACE_SESSION_DOMAINS } from '../../workspace-session-domains'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import { sanitizeWorkspaceSessionTerminalRetirements } from '../../../runtime/terminal/surface/mobile-session-terminal-persistence-retirement'

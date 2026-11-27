@@ -164,7 +164,7 @@ export function botItemLinksOnePerChain(links: readonly BotItemLinkView[]): BotI
 export type BotItemActor =
   | { kind: 'bot'; botId: string; chatId: string }
   | { kind: 'owner'; device?: string }
-  | { kind: 'orca'; why: string }
+  | { kind: 'openkodo'; why: string }
 
 export const BOT_ITEM_EVENT_KINDS = [
   'made',

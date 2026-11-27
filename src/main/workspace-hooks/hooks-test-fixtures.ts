@@ -6,7 +6,7 @@ export const TEST_REPO_PATH = join('/test/repo')
 export const TEST_WORKTREE_PATH = join('/test/worktree')
 export const TEST_REPO_OPENKODO_YAML_PATH = join(TEST_REPO_PATH, 'openkodo.yaml')
 export const TEST_WORKTREE_OPENKODO_YAML_PATH = join(TEST_WORKTREE_PATH, 'openkodo.yaml')
-export const TEST_ISSUE_COMMAND_PATH = join(TEST_REPO_PATH, '.orca', 'issue-command')
+export const TEST_ISSUE_COMMAND_PATH = join(TEST_REPO_PATH, '.openkodo', 'issue-command')
 export const TEST_GITIGNORE_PATH = join(TEST_REPO_PATH, '.gitignore')
 
 export const makeHookTestRepo = (hookSettings?: unknown): Repo =>

@@ -1,6 +1,6 @@
 import { BotsDisabledError, isBotsEnabled } from '../../shared/bots-switch'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
-import { isTeamFeatureBlocked } from '../orca-profiles/cloud-auth/active-team-capabilities'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/openkodo-profiles/openkodo-cloud-team-policy'
+import { isTeamFeatureBlocked } from '../openkodo-profiles/cloud-auth/active-team-capabilities'
 
 export const BOTS_BLOCKED_BY_TEAM = 'Bots are turned off by your team.'
 

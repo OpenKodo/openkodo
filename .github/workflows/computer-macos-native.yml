@@ -17,7 +17,7 @@ on:
       - 'native/computer-use-macos/**'
       - 'native/computer-use-linux/**'
       - 'native/computer-use-windows/**'
-      - 'skills/orca-computer-use/SKILL.md'
+      - 'skills/openkodo-computer-use/SKILL.md'
       - 'src/main/computer/**'
       - 'src/shared/computer/computer-use-*.ts'
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.draft != true
     runs-on: macos-15
     env:
-      ORCA_BACKGROUND_LAUNCH: '1'
+      OPENKODO_BACKGROUND_LAUNCH: '1'
     timeout-minutes: 180
     permissions:
       contents: read

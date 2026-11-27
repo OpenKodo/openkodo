@@ -12,21 +12,21 @@ export function MobileLinkActionSheet(props: {
   // Called once the sheet has slid away; the URL stays on screen until then.
   onClose: () => void
   // Absent where an OpenKodo browser tab cannot open (floating workspace, or a host without streaming).
-  openInOrca?: (url: string) => void
+  openInOpenKodo?: (url: string) => void
 }): React.JSX.Element {
-  const { url, onClose, openInOrca } = props
+  const { url, onClose, openInOpenKodo } = props
   const t = useMobileTranslation()
   const clipboard = useClipboardWriter()
   const [visible, setVisible] = useState(true)
   const [copied, setCopied] = useState(false)
   const actions: ActionSheetAction[] = []
-  if (openInOrca) {
+  if (openInOpenKodo) {
     actions.push({
-      id: 'openInOrca',
-      label: t('session.linkActionSheet.openInOrca', 'Open in OpenKodo browser'),
+      id: 'openInOpenKodo',
+      label: t('session.linkActionSheet.openInOpenKodo', 'Open in OpenKodo browser'),
       icon: Globe,
       closeBeforePress: true,
-      onPress: () => openInOrca(url)
+      onPress: () => openInOpenKodo(url)
     })
   }
   actions.push(

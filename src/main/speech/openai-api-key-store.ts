@@ -20,19 +20,19 @@ type StoredOpenAiKey = {
 const OPENAI_SPEECH_TOKEN_FILE = 'openai-speech-token.enc'
 let cachedOpenAiSpeechApiKey: string | null = null
 
-function getOrcaDir(): string {
+function getOpenKodoDir(): string {
   return openKodoHomePath()
 }
 
-async function ensureOrcaDir(): Promise<void> {
-  const dir = getOrcaDir()
+async function ensureOpenKodoDir(): Promise<void> {
+  const dir = getOpenKodoDir()
   if (!(await credentialFileExists(dir))) {
     await mkdir(dir, { recursive: true })
   }
 }
 
 export function getOpenAiKeyPath(): string {
-  return join(getOrcaDir(), OPENAI_SPEECH_TOKEN_FILE)
+  return join(getOpenKodoDir(), OPENAI_SPEECH_TOKEN_FILE)
 }
 
 async function readLegacyJsonStoredOpenAiKey(): Promise<StoredOpenAiKey | null> {
@@ -58,7 +58,7 @@ export async function hasOpenAiSpeechApiKey(): Promise<boolean> {
   )
 }
 
-/** Check host decryption: orcad may not open a desktop safeStorage key even when its file exists. */
+/** Check host decryption: openkodod may not open a desktop safeStorage key even when its file exists. */
 export async function canReadOpenAiSpeechApiKey(): Promise<boolean> {
   if (!(await hasOpenAiSpeechApiKey())) {
     return false
@@ -88,7 +88,7 @@ export async function saveOpenAiSpeechApiKey(apiKey: string): Promise<void> {
     if (!trimmed) {
       throw new Error('OpenAI API key is required')
     }
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     if (getSecretStore().isEncryptionAvailable()) {
       await stageCredentialFile(getOpenAiKeyPath(), getSecretStore().encryptString(trimmed))
       cachedOpenAiSpeechApiKey = trimmed

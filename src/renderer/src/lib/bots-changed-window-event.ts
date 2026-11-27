@@ -11,7 +11,7 @@ import {
 
 /** Fans a host's `botsChanged` out to whichever bot views are open; `detail.hostId` names the host,
  *  `detail.scope` the bots and kinds of change it covers (absent from an older host: everything). */
-export const BOTS_CHANGED_EVENT = 'orca:bots-changed'
+export const BOTS_CHANGED_EVENT = 'openkodo:bots-changed'
 
 export type BotsChangedDetail = { hostId: ExecutionHostId; scope?: BotChangeScope }
 

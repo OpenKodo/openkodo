@@ -1,5 +1,5 @@
 import type { ChildProcess, SpawnOptions } from 'node:child_process'
-import { spawnNativeProcess } from '@orca/process-host/native-process-spawn'
+import { spawnNativeProcess } from '@openkodo/process-host/native-process-spawn'
 import { recordSubprocessSpawn } from '../../diagnostics/main-thread-churn-probe'
 import { startGitSpan } from '../../observability/instrumentation'
 import { createAbortError } from './process-capture/abort-error'

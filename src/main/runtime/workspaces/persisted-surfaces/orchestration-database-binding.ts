@@ -1,6 +1,6 @@
 import { orchestrationDbFile } from '../../orchestration/db/orchestration-db-file'
 import { getAppEnvironment } from '../../../../shared/app-lifecycle/app-environment'
-import { OrcaRuntimeWithPtyForegroundProcessReads } from '../../client/runtime-client-state'
+import { OpenKodoRuntimeWithPtyForegroundProcessReads } from '../../client/runtime-client-state'
 import { getWorkerTerminalAutoReleaseScheduler } from '../../orchestration/terminal-authority/release/worker-terminal-auto-release-scheduler'
 import type { OrchestrationDb } from '../../orchestration/db/orchestration-db'
 import { createAgentOrchestrationChangeNotice } from './agent-orchestration-change-notice'
@@ -8,7 +8,7 @@ import { createAgentOrchestrationChangeNotice } from './agent-orchestration-chan
 // Keyed by runtime, not a field: the database can open while the runtime is still constructing.
 const runtimesWatchingAutoReleaseSetting = new WeakSet<object>()
 
-export abstract class OrcaRuntimeWithOrchestrationDatabaseBinding extends OrcaRuntimeWithPtyForegroundProcessReads {
+export abstract class OpenKodoRuntimeWithOrchestrationDatabaseBinding extends OpenKodoRuntimeWithPtyForegroundProcessReads {
   protected orchestrationDbPath(): string {
     return orchestrationDbFile(getAppEnvironment().getPath('userData'))
   }
@@ -43,7 +43,9 @@ export abstract class OrcaRuntimeWithOrchestrationDatabaseBinding extends OrcaRu
     db.federatedWorkersListener = (dispatchIds) => {
       this.botFederatedWorkersChanged(dispatchIds)
       const sessions = new Set(
-        dispatchIds.flatMap((id) => db.getDispatchContextById(id)?.creator_orca_session_id ?? [])
+        dispatchIds.flatMap(
+          (id) => db.getDispatchContextById(id)?.creator_openkodo_session_id ?? []
+        )
       )
       for (const sessionId of sessions) {
         db.sessionWorkersListener?.(sessionId)

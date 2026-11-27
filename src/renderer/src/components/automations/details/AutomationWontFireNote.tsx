@@ -8,7 +8,7 @@ import type { Bot } from '../../../../../shared/bot-types'
 import type { ExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import { automationWontFire } from './automation-wont-fire'
 import { AttentionDot } from '@/components/bots/AttentionDot'
-import { useOrcaCloudSignedOut } from '../../bots/orca-cloud-signed-out'
+import { useOpenKodoCloudSignedOut } from '../../bots/openkodo-cloud-signed-out'
 
 type WontFireProps = { automation: Pick<Automation, 'bot' | 'on' | 'dtstart'> }
 
@@ -30,7 +30,7 @@ export function AutomationWontFireMark({
     automation,
     useBotsEnabled() ? bots : [],
     webhooks,
-    useOrcaCloudSignedOut()
+    useOpenKodoCloudSignedOut()
   )
   if (!wontFire) {
     return null
@@ -61,7 +61,7 @@ export function AutomationWontFireNote({ automation }: WontFireProps): React.JSX
     automation,
     bots,
     useBotWebhooks(automationBotHost(automation, bots)),
-    useOrcaCloudSignedOut()
+    useOpenKodoCloudSignedOut()
   )
   if (!wontFire) {
     return null

@@ -1,11 +1,11 @@
 import type { PtySpawnResult } from '../../../providers/pty/spawn-result'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { pendingByPaneKey, rendererSerializerReadiness } from './serializer-state'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { buildFreshShellViewportSequence } from '../../../../shared/terminal/viewport/terminal-fresh-shell-viewport'
 
 export function seedHeadlessTerminalFromSpawnResult(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   result: PtySpawnResult,
   paneKey: string | null
 ): void {

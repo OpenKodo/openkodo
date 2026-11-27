@@ -7,7 +7,7 @@ import { createStaleIfErrorJWKSet } from './stale-if-error-jwks.js'
 const config = {
   jwksUrl: 'https://auth.example.test/.well-known/jwks.json',
   authIssuer: 'https://auth.example.test',
-  authAudience: 'orca-relay'
+  authAudience: 'openkodo-relay'
 } satisfies Partial<RelayConfig>
 
 type SigningKey = { kid: string; privateKey: CryptoKey; jwk: JWK }

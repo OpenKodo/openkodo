@@ -1,4 +1,4 @@
-import type { MobileWebShellFailureReason } from '../../../modules/orca-mobile-web-shell/src/load-state'
+import type { MobileWebShellFailureReason } from '../../../modules/openkodo-mobile-web-shell/src/load-state'
 import type { MobileWebPageRoute, PageRouteRefusalVerdict } from '../routing/page-route-policy'
 import type {
   MobileWebBundleCompatManifest,

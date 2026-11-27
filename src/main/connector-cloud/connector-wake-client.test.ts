@@ -128,7 +128,7 @@ describe('connector wake client', () => {
     await settle()
     expect(h.wake.dialed).toHaveLength(3)
     expect(h.wake.last?.headers.authorization).toBe('Bearer wake-1')
-    expect(h.wake.last?.headers['x-orca-wake-gap-ms']).toBeDefined()
+    expect(h.wake.last?.headers['x-openkodo-wake-gap-ms']).toBeDefined()
     h.wake.last?.refuse(503, { 'retry-after': '1' })
     await settle(1_100)
     h.wake.last?.refuse(500)

@@ -2,7 +2,7 @@ import { platform, arch } from 'node:os'
 import { app } from 'electron'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { agentBrowserDependencyBinaryPath } from '../../../../shared/remote-runtime/orcad-distribution/orcad-agent-browser-name'
+import { agentBrowserDependencyBinaryPath } from '../../../../shared/remote-runtime/openkodod-distribution/openkodod-agent-browser-name'
 
 export function agentBrowserNativeName(): string {
   const ext = process.platform === 'win32' ? '.exe' : ''

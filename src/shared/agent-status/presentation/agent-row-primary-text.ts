@@ -1,10 +1,10 @@
 import type { AgentStatusEntry } from '../contracts/agent-status-types'
 import { getRuntimePathBasename } from '../../file-access/cross-platform-path'
 import {
-  findOrcaDispatchPreambleStart,
-  findOrcaDispatchTaskMarkerIndex,
+  findOpenKodoDispatchPreambleStart,
+  findOpenKodoDispatchTaskMarkerIndex,
   OPENKODO_DISPATCH_STATUS_TASK_MARKER
-} from '../../orchestration/workers/orca-dispatch-status-prompt'
+} from '../../orchestration/workers/openkodo-dispatch-status-prompt'
 
 const OPENKODO_DISPATCH_TASK_MARKER = OPENKODO_DISPATCH_STATUS_TASK_MARKER
 const OPENKODO_DISPATCH_TASK_ID_MARKER = 'Your task ID is:'
@@ -20,22 +20,22 @@ const ATTACHED_FILE_CLOSER = '</file>'
 const PASTED_DATA_LEAD = /^(?:\{\s*"[^"]*"\s*:|\[\s*\{\s*"|\[\s*"[^"]*"\s*,|<\?xml\s|<!doctype\s)/i
 
 /** True when the live prompt is still an OpenKodo dispatch turn (not sticky metadata alone). */
-export function isOrcaDispatchPrompt(prompt: string): boolean {
-  return findOrcaDispatchPreambleStart(prompt) !== -1
+export function isOpenKodoDispatchPrompt(prompt: string): boolean {
+  return findOpenKodoDispatchPreambleStart(prompt) !== -1
 }
 
 /** Only matching live dispatch task IDs may use sticky labels; missing IDs in truncated status prompts still trust labels. */
 export function orchestrationLabelsMatchLiveDispatch(
   entry: Pick<AgentStatusEntry, 'orchestration' | 'prompt'>
 ): boolean {
-  if (!isOrcaDispatchPrompt(entry.prompt)) {
+  if (!isOpenKodoDispatchPrompt(entry.prompt)) {
     return false
   }
   const orchestrationTaskId = entry.orchestration?.taskId?.trim()
   if (!orchestrationTaskId) {
     return false
   }
-  const liveTaskId = getOrcaDispatchTaskId(entry.prompt)
+  const liveTaskId = getOpenKodoDispatchTaskId(entry.prompt)
   if (!liveTaskId) {
     return true
   }
@@ -50,11 +50,11 @@ export function getAgentRowPrimaryText(
     return (
       entry.orchestration?.displayName?.trim() ||
       entry.orchestration?.taskTitle?.trim() ||
-      getOrcaDispatchTaskPreview(entry.prompt)
+      getOpenKodoDispatchTaskPreview(entry.prompt)
     )
   }
-  if (isOrcaDispatchPrompt(entry.prompt)) {
-    return getOrcaDispatchTaskPreview(entry.prompt)
+  if (isOpenKodoDispatchPrompt(entry.prompt)) {
+    return getOpenKodoDispatchTaskPreview(entry.prompt)
   }
   return getAgentPromptLabel(entry.prompt)
 }
@@ -75,14 +75,14 @@ export function getAgentRowGeneratedTitleText(
   entry: Pick<AgentStatusEntry, 'orchestration' | 'prompt'>
 ): string {
   // Sticky dispatch labels must not rename later work.
-  if (isOrcaDispatchPrompt(entry.prompt)) {
+  if (isOpenKodoDispatchPrompt(entry.prompt)) {
     return getAgentRowPrimaryText(entry)
   }
   return entry.prompt
 }
 
-export function getOrcaDispatchTaskId(prompt: string): string | null {
-  const start = findOrcaDispatchPreambleStart(prompt)
+export function getOpenKodoDispatchTaskId(prompt: string): string | null {
+  const start = findOpenKodoDispatchPreambleStart(prompt)
   if (start === -1) {
     return null
   }
@@ -98,9 +98,9 @@ export function getOrcaDispatchTaskId(prompt: string): string | null {
   return idLine || null
 }
 
-function getOrcaDispatchTaskPreview(prompt: string): string {
+function getOpenKodoDispatchTaskPreview(prompt: string): string {
   // Render only bounded marker/preview windows; accept both raw multiline preambles and normalized 200-char single-line task bodies.
-  const start = findOrcaDispatchPreambleStart(prompt)
+  const start = findOpenKodoDispatchPreambleStart(prompt)
   if (start === -1) {
     return ''
   }
@@ -109,7 +109,7 @@ function getOrcaDispatchTaskPreview(prompt: string): string {
     start + OPENKODO_DISPATCH_TASK_MARKER_SCAN_LIMIT + OPENKODO_DISPATCH_TASK_PREVIEW_SCAN_LIMIT
   )
   // Share standalone-marker rules so base-drift subjects cannot impersonate the real task separator.
-  const taskMarkerIndex = findOrcaDispatchTaskMarkerIndex(scan)
+  const taskMarkerIndex = findOpenKodoDispatchTaskMarkerIndex(scan)
   if (taskMarkerIndex === -1) {
     return ''
   }

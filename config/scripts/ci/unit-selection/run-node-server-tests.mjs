@@ -4,20 +4,20 @@ import { randomUUID } from 'node:crypto'
 import { globSync, mkdtempSync, readdirSync, readFileSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import {
-  ORCAD_CLI_ENTRY_FILENAME,
-  ORCAD_SERVER_ENTRY_FILENAME,
-  ORCAD_VERSION_FILENAME
-} from '../../../../src/shared/remote-runtime/orcad-distribution/orcad-artifacts.ts'
+  OPENKODOD_CLI_ENTRY_FILENAME,
+  OPENKODOD_SERVER_ENTRY_FILENAME,
+  OPENKODOD_VERSION_FILENAME
+} from '../../../../src/shared/remote-runtime/openkodod-distribution/openkodod-artifacts.ts'
 import { NODE_RUNTIME_PIN } from '../../../../src/shared/node-runtime/node-runtime-pin.ts'
 import {
-  ORCAD_PROFILE_PREFLIGHT_FLAG,
-  parseOrcadProfilePreflight
-} from '../../../../src/shared/remote-runtime/orcad-distribution/orcad-profile-preflight.ts'
-import { packagedNodeRuntimePath } from '../../orcad-distribution/prebuilds/build-orcad-node.mjs'
-import { ensurePinnedNodeExecutable } from '../../orcad-distribution/prebuilds/pinned-node-downloads.mjs'
-import { currentTarget } from '../../orcad-distribution/prebuilds/server-build-target.mjs'
+  OPENKODOD_PROFILE_PREFLIGHT_FLAG,
+  parseOpenkododProfilePreflight
+} from '../../../../src/shared/remote-runtime/openkodod-distribution/openkodod-profile-preflight.ts'
+import { packagedNodeRuntimePath } from '../../openkodod-distribution/prebuilds/build-openkodod-node.mjs'
+import { ensurePinnedNodeExecutable } from '../../openkodod-distribution/prebuilds/pinned-node-downloads.mjs'
+import { currentTarget } from '../../openkodod-distribution/prebuilds/server-build-target.mjs'
 import { UNIT_INCLUDE } from './dependency-graph/ci-unit-files.mjs'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { describeProcessFailure } from '../../tool-invocation/process-failure-message.mjs'
 import {
   nodeServerTestPaths,
@@ -27,12 +27,12 @@ import {
 const root = resolve(import.meta.dirname, '../../../..')
 const target = currentTarget()
 const artifact = process.argv.includes('--artifact')
-// Lanes that provide the pinned Bun and the last Bun orcad slot (design D7 upgrade and rollback).
+// Lanes that provide the pinned Bun and the last Bun openkodod slot (design D7 upgrade and rollback).
 const crossRuntime = process.argv.includes('--cross-runtime')
 const testArgs = process.argv
   .slice(2)
   .filter((arg) => arg !== '--artifact' && arg !== '--cross-runtime')
-const packageDir = join(root, 'out', 'orcad')
+const packageDir = join(root, 'out', 'openkodod')
 const runtimePath = artifact
   ? packagedNodeRuntimePath(packageDir, target)
   : await ensurePinnedNodeExecutable({ target })
@@ -64,7 +64,11 @@ if (artifact) {
   const nonce = randomUUID()
   const result = runProcessSync({
     program: runtimePath,
-    args: [join(packageDir, ORCAD_SERVER_ENTRY_FILENAME), ORCAD_PROFILE_PREFLIGHT_FLAG, nonce],
+    args: [
+      join(packageDir, OPENKODOD_SERVER_ENTRY_FILENAME),
+      OPENKODOD_PROFILE_PREFLIGHT_FLAG,
+      nonce
+    ],
     cwd: root,
     env,
     timeoutMs: 90_000
@@ -72,11 +76,11 @@ if (artifact) {
   if (result.code !== 0 || result.timedOut || result.outputTruncated) {
     throw new Error(`Bundled runtime readiness failed: ${describeProcessFailure(result)}`)
   }
-  const response = parseOrcadProfilePreflight(
+  const response = parseOpenkododProfilePreflight(
     result.stdout,
     nonce,
     { runtime: 'node', runtimeVersion: NODE_RUNTIME_PIN.version },
-    readFileSync(join(packageDir, ORCAD_VERSION_FILENAME), 'utf8').trim()
+    readFileSync(join(packageDir, OPENKODOD_VERSION_FILENAME), 'utf8').trim()
   )
   process.stdout.write(`${JSON.stringify({ target, ...response })}\n`)
 
@@ -100,20 +104,20 @@ function defaultTestArgs() {
     .sort()
 }
 
-/** The server's own CLI must plan an install of Orca's bundled skills, offline and npx-free. */
+/** The server's own CLI must plan an install of OpenKodo's bundled skills, offline and npx-free. */
 function assertBundledCliPlansSkillInstall() {
   // Why the real path: the planner reports real paths, and macOS tmpdir is a /var symlink.
-  const home = realpathSync(mkdtempSync(join(tmpdir(), 'orcad-skills-home-')))
+  const home = realpathSync(mkdtempSync(join(tmpdir(), 'openkodod-skills-home-')))
   const { OPENKODO_CLI_CWD: _forwarded, ...hostEnv } = env
   try {
     const cli = runProcessSync({
       program: runtimePath,
       args: [
-        join(packageDir, ORCAD_CLI_ENTRY_FILENAME),
+        join(packageDir, OPENKODOD_CLI_ENTRY_FILENAME),
         'skills',
         'install',
         '--skill',
-        'orca-cli',
+        'openkodo-cli',
         '--agent',
         'universal',
         '--dry-run',
@@ -128,14 +132,14 @@ function assertBundledCliPlansSkillInstall() {
       throw new Error(`Bundled CLI skills dry-run failed: ${failure}`)
     }
     const result = JSON.parse(cli.stdout)
-    const ops = result.plan?.skills?.find((skill) => skill.name === 'orca-cli')?.ops ?? []
+    const ops = result.plan?.skills?.find((skill) => skill.name === 'openkodo-cli')?.ops ?? []
     if (
       result.executed !== false ||
       !/^[0-9a-f]{64}$/.test(result.planDigest) ||
       ops.length === 0 ||
       !ops.every((op) => op.path.startsWith(home))
     ) {
-      throw new Error(`Bundled CLI did not plan orca-cli into ${home}: ${cli.stdout}`)
+      throw new Error(`Bundled CLI did not plan openkodo-cli into ${home}: ${cli.stdout}`)
     }
     if (readdirSync(home).length > 0) {
       throw new Error(

@@ -71,7 +71,7 @@ export function agentStatusEntryEqual(
     a.launchAttested === b.launchAttested &&
     programStatusFacetsEqual(a.programStatus, b.programStatus) &&
     agentProviderSessionsEqual(a.agentType, a.providerSession, b.providerSession) &&
-    a.orcaSessionId === b.orcaSessionId &&
+    a.openkodoSessionId === b.openkodoSessionId &&
     // Paired clients nest workers by these alone; a lineage-only frame must still land.
     a.terminalHandle === b.terminalHandle &&
     (a.orchestration === b.orchestration ||

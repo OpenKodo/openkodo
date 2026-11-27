@@ -208,7 +208,7 @@ export async function releaseHeldPageInput(
       return await send(release.method, release.params)
     }
     const button = normalizeCdpPointerButton(String(release.params.button))
-    // Held input belongs to an SSH host's orca CLI, an agent.
+    // Held input belongs to an SSH host's openkodo CLI, an agent.
     const state = cdpPointerStateFor(webContents, 'agent')
     const remaining = { ...state }
     releaseCdpPointerButton(remaining, button)

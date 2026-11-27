@@ -25,7 +25,7 @@ async function sign(opts: Sign = {}): Promise<string> {
   return new SignJWT(claims)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuer(opts.issuer ?? ISSUER)
-    .setAudience('orca-relay-edge-admin')
+    .setAudience('openkodo-relay-edge-admin')
     .setIssuedAt(now)
     .setExpirationTime(now + 60)
     .sign(new TextEncoder().encode(opts.key ?? KEY))

@@ -108,7 +108,7 @@ test('Korean bootstrap guards reviewed keys without contaminating the English ca
       table,
       JSON.stringify([
         { key: 'one', en: '<term>{{x}} {{y}} {{x}}</term>', ko: '<term>{{y}} {{x}} {{x}}</term>' },
-        { key: 'two', en: 'Orca', ko: '가짜' },
+        { key: 'two', en: 'OpenKodo', ko: '가짜' },
         { key: 'auto.lib.agent.catalog.example', en: 'Example agent', ko: '가짜' },
         { key: 'auto.components.status.bar.StatusBar.6d1042aa6f', en: 'test pin', ko: '가짜' }
       ])
@@ -117,7 +117,7 @@ test('Korean bootstrap guards reviewed keys without contaminating the English ca
       source,
       JSON.stringify({
         one: '<term>{{x}} {{y}} {{x}}</term>',
-        two: 'Orca',
+        two: 'OpenKodo',
         auto: {
           lib: { agent: { catalog: { example: 'Example agent' } } },
           components: { status: { bar: { StatusBar: { '6d1042aa6f': 'test pin' } } } }
@@ -129,7 +129,7 @@ test('Korean bootstrap guards reviewed keys without contaminating the English ca
     expect(result.status, result.stderr).toBe(0)
     const pinned = JSON.parse(readFileSync(output))
     expect(pinned.one).toBe('<term>{{y}} {{x}} {{x}}</term>')
-    expect(pinned.two).toBe('Orca')
+    expect(pinned.two).toBe('OpenKodo')
     expect(pinned.auto.lib.agent.catalog.example).toBe('Example agent')
     expect(pinned.auto.components.status.bar.StatusBar['6d1042aa6f']).toContain('사용량 구간')
     writeFileSync(table, 'invalid JSON')

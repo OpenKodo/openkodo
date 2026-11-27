@@ -1,5 +1,5 @@
 /**
- * Part of the frame shell's IIFE (plugin-panel-shell.ts): an editor's `orca.document`, including
+ * Part of the frame shell's IIFE (plugin-panel-shell.ts): an editor's `openkodo.document`, including
  * `session()`, the document sync every editor otherwise rebuilds. Uses the shell's `call`, `on`,
  * `latest`, `waiting`, `starting` and `helloSeen`.
  *
@@ -34,7 +34,7 @@ export const PLUGIN_FRAME_DOCUMENT_SCRIPT = `
     if (!documentSubscribed) { documentSubscribed = true; post({ kind: 'evt', event: E.editorSubscribed }) }
   }
   if (C.surface === 'editor') {
-    orca.document = Object.freeze({
+    openkodo.document = Object.freeze({
       get: function () {
         markDocumentSubscribed()
         return latest ? Promise.resolve(latest) : new Promise(function (resolve) { waiting.push(resolve) })

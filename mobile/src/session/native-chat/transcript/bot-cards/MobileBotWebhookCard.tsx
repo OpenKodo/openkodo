@@ -1,4 +1,4 @@
-// The ::orca-webhook card: the hook's URL, masked, with Copy fetching the key-bearing one from the bot's host. Only in the hook's own
+// The ::openkodo-webhook card: the hook's URL, masked, with Copy fetching the key-bearing one from the bot's host. Only in the hook's own
 // bot's chats; anywhere else, the line that says where the URL is. Rotating stays in Settings.
 import { useContext, useEffect, useState } from 'react'
 import { Text, View } from 'react-native'

@@ -1,6 +1,6 @@
 name: Daily macOS Dev Build
 
-# Publish daily main builds to orca-daily, separate from hourly and stable/RC feeds. Sign/notarize for update-preserved macOS TCC grants; PR/release pipelines own blocking validation, with E2E detached after publish. Cron 18:15 UTC means 10:15 PST/11:15 PDT, offset from hourly. Use the shared hourly App with write access to orca-daily (setup-hourly-release-token.sh/setup-daily-release-repo.sh). Mint tokens again after build and upload because 2×45min retry can exceed their 1h life. Keep releases draft until manifests verify; drafts retain build numbers.
+# Publish daily main builds to openkodo-daily, separate from hourly and stable/RC feeds. Sign/notarize for update-preserved macOS TCC grants; PR/release pipelines own blocking validation, with E2E detached after publish. Cron 18:15 UTC means 10:15 PST/11:15 PDT, offset from hourly. Use the shared hourly App with write access to openkodo-daily (setup-hourly-release-token.sh/setup-daily-release-repo.sh). Mint tokens again after build and upload because 2×45min retry can exceed their 1h life. Keep releases draft until manifests verify; drafts retain build numbers.
 
 on:
   schedule:
@@ -27,7 +27,7 @@ env:
   DAILY_RETAIN_COUNT: 30
 
 jobs:
-  # Why: the app and the orcad template it ships must come from one commit, so resolve main once.
+  # Why: the app and the openkodod template it ships must come from one commit, so resolve main once.
   resolve-main:
     if: github.repository == 'OpenKodo/openkodo'
     runs-on: ubuntu-latest
@@ -46,8 +46,8 @@ jobs:
           [[ "$head_sha" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::Could not resolve main"; exit 1; }
           echo "head_sha=$head_sha" >>"$GITHUB_OUTPUT"
 
-  # As release-cut does: every SSH host runs orcad, deployed from the template this build ships.
-  orcad-template:
+  # As release-cut does: every SSH host runs openkodod, deployed from the template this build ships.
+  openkodod-template:
     needs: resolve-main
     permissions:
       contents: read
@@ -61,7 +61,7 @@ jobs:
   build-daily-mac:
     needs:
       - resolve-main
-      - orcad-template
+      - openkodod-template
     if: github.repository == 'OpenKodo/openkodo'
     outputs:
       tag: ${{ steps.release.outputs.tag }}
@@ -81,7 +81,7 @@ jobs:
           ref: ${{ needs.resolve-main.outputs.head_sha }}
           # Version helpers only read HEAD; published versions come from git tags.
           fetch-depth: 1
-          # Read this repo without persisted credentials; write orca-daily through env-passed App token (zizmor: artipacked).
+          # Read this repo without persisted credentials; write openkodo-daily through env-passed App token (zizmor: artipacked).
           persist-credentials: false
 
       - name: Mint daily repo token
@@ -91,7 +91,7 @@ jobs:
           app-id: ${{ secrets.HOURLY_RELEASE_APP_ID }}
           private-key: ${{ secrets.HOURLY_RELEASE_APP_PRIVATE_KEY }}
           owner: stablyai
-          repositories: orca-daily
+          repositories: openkodo-daily
 
       # Skip unchanged main to avoid duplicate builds/tags and runner cost.
       - name: Check whether main moved since the last daily
@@ -148,14 +148,14 @@ jobs:
       - name: Locate the pinned Node runtime cache
         if: steps.freshness.outputs.should_build == 'true'
         shell: bash
-        run: echo "ORCA_NODE_RUNTIME_CACHE_DIR=$HOME/Library/Caches/orca-node-runtime" >>"$GITHUB_ENV"
+        run: echo "OPENKODO_NODE_RUNTIME_CACHE_DIR=$HOME/Library/Caches/openkodo-node-runtime" >>"$GITHUB_ENV"
 
       - name: Cache the pinned Node runtime
         if: steps.freshness.outputs.should_build == 'true'
         uses: actions/cache@v5
         with:
-          path: ~/Library/Caches/orca-node-runtime
-          key: orca-node-runtime-mac-${{ hashFiles('src/shared/node-runtime/node-runtime-pin.ts') }}
+          path: ~/Library/Caches/openkodo-node-runtime
+          key: openkodo-node-runtime-mac-${{ hashFiles('src/shared/node-runtime/node-runtime-pin.ts') }}
 
       - name: Cache electron-builder downloads
         if: steps.freshness.outputs.should_build == 'true'
@@ -187,7 +187,7 @@ jobs:
       - uses: ./.github/actions/install-mobile-dependencies
         if: steps.freshness.outputs.should_build == 'true'
 
-      # Why: signing is what makes a daily installable over an existing Orca, so
+      # Why: signing is what makes a daily installable over an existing OpenKodo, so
       # a missing cert must fail here rather than after a 20-minute build.
       - name: Verify macOS signing environment
         if: steps.freshness.outputs.should_build == 'true'
@@ -223,7 +223,7 @@ jobs:
             --jq '.[].tagName' || true)"
           published="$main_tags"$'\n'"$channel_tags"
           echo "Published version sources: $(grep -c . <<<"$main_tags" || true) main tags, $(grep -c . <<<"$channel_tags" || true) channel tags"
-          ORCA_PUBLISHED_VERSIONS="$published" ORCA_DAILY_RELEASE_NAMES="$names" \
+          OPENKODO_PUBLISHED_VERSIONS="$published" OPENKODO_DAILY_RELEASE_NAMES="$names" \
             node "$(if [ -f config/scripts/release/versioning/daily-build-version.mjs ]; then printf %s config/scripts/release/versioning/daily-build-version.mjs; else printf %s config/scripts/daily-build-version.mjs; fi)" \
             >"$RUNNER_TEMP/daily-identity.txt"
           grep -E '^(version|build_number)=' "$RUNNER_TEMP/daily-identity.txt"
@@ -240,15 +240,15 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=4096
           # Leave dev identity unset so official-only stable/rc telemetry stays silent.
-          ORCA_DIAGNOSTICS_TOKEN_URL: https://orca.dev/diagnostics/token
+          OPENKODO_DIAGNOSTICS_TOKEN_URL: https://openkodo.dev/diagnostics/token
 
       # After the app build so nothing that cleans out/ can drop it; electron-builder ships it.
-      - name: Download the orcad deployment template
+      - name: Download the openkodod deployment template
         if: steps.freshness.outputs.should_build == 'true'
         uses: actions/download-artifact@v8
         with:
-          name: orcad-template
-          path: out/orcad-template
+          name: openkodod-template
+          path: out/openkodod-template
 
       # Refresh the one-hour token after read-only install/build, before long publish/notary work.
       - name: Re-mint daily repo token for publish
@@ -259,7 +259,7 @@ jobs:
           app-id: ${{ secrets.HOURLY_RELEASE_APP_ID }}
           private-key: ${{ secrets.HOURLY_RELEASE_APP_PRIVATE_KEY }}
           owner: stablyai
-          repositories: orca-daily
+          repositories: openkodo-daily
 
       - name: Create daily release
         id: release
@@ -282,12 +282,12 @@ jobs:
           Built from [\`OpenKodo/openkodo@$short_sha\`](https://github.com/OpenKodo/openkodo/commit/$SHA).
 
           **Unvetted.** No tests ran. The macOS build is signed and notarized like a
-          release, so it installs through Orca's in-app updater and opens from a manual
+          release, so it installs through OpenKodo's in-app updater and opens from a manual
           download without a Gatekeeper prompt — but nothing here has been reviewed.
 
           **Windows builds are unsigned.** They install and update normally once you
           are on one, but a signed Stable or RC build cannot install one through the
-          in-app updater — download \`orca-windows-setup.exe\` below and run it once
+          in-app updater — download \`openkodo-windows-setup.exe\` below and run it once
           (SmartScreen will warn about an unknown publisher). Every later switch,
           including back to Stable, works in-app from there.
           EOF
@@ -309,14 +309,14 @@ jobs:
           timeout_minutes: 45
           max_attempts: 2
           retry_wait_seconds: 30
-          command: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON "$(if [ -f config/scripts/orcad-distribution/prebuilds/pinned-node-downloads.mjs ]; then printf %s config/scripts/orcad-distribution/prebuilds/pinned-node-downloads.mjs; else printf %s config/scripts/pinned-node-downloads.mjs; fi)" darwin-arm64 darwin-x64 && node "$(if [ -f config/scripts/native-build/node-addons/ensure-native-runtime.mjs ]; then printf %s config/scripts/native-build/node-addons/ensure-native-runtime.mjs; else printf %s config/scripts/ensure-native-runtime.mjs; fi)" --runtime=electron && if { [ -f config/scripts/desktop-distribution/macos/build-mac-notarization-overlap.mjs ] || [ -f config/scripts/build-mac-notarization-overlap.mjs ]; }; then ORCA_MAC_DAILY=1 node "$(if [ -f config/scripts/desktop-distribution/macos/build-mac-notarization-overlap.mjs ]; then printf %s config/scripts/desktop-distribution/macos/build-mac-notarization-overlap.mjs; else printf %s config/scripts/build-mac-notarization-overlap.mjs; fi)" --publish always; else ORCA_MAC_DAILY=1 pnpm exec electron-builder --config config/electron-builder.config.cjs --mac --publish always; fi
+          command: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON "$(if [ -f config/scripts/openkodod-distribution/prebuilds/pinned-node-downloads.mjs ]; then printf %s config/scripts/openkodod-distribution/prebuilds/pinned-node-downloads.mjs; else printf %s config/scripts/pinned-node-downloads.mjs; fi)" darwin-arm64 darwin-x64 && node "$(if [ -f config/scripts/native-build/node-addons/ensure-native-runtime.mjs ]; then printf %s config/scripts/native-build/node-addons/ensure-native-runtime.mjs; else printf %s config/scripts/ensure-native-runtime.mjs; fi)" --runtime=electron && if { [ -f config/scripts/desktop-distribution/macos/build-mac-notarization-overlap.mjs ] || [ -f config/scripts/build-mac-notarization-overlap.mjs ]; }; then OPENKODO_MAC_DAILY=1 node "$(if [ -f config/scripts/desktop-distribution/macos/build-mac-notarization-overlap.mjs ]; then printf %s config/scripts/desktop-distribution/macos/build-mac-notarization-overlap.mjs; else printf %s config/scripts/build-mac-notarization-overlap.mjs; fi)" --publish always; else OPENKODO_MAC_DAILY=1 pnpm exec electron-builder --config config/electron-builder.config.cjs --mac --publish always; fi
         env:
-          # Give the publisher App write access to its configured orca-daily target.
+          # Give the publisher App write access to its configured openkodo-daily target.
           GH_TOKEN: ${{ steps.app_token_publish.outputs.token }}
-          ORCA_DAILY_BUILD_VERSION: ${{ steps.daily.outputs.version }}
-          ORCA_BUILD_COMMIT: ${{ steps.daily.outputs.commit }}
+          OPENKODO_DAILY_BUILD_VERSION: ${{ steps.daily.outputs.version }}
+          OPENKODO_BUILD_COMMIT: ${{ steps.daily.outputs.commit }}
           # beforePack and afterPack fail the package when the template is absent.
-          ORCA_REQUIRE_ORCAD_TEMPLATE: '1'
+          OPENKODO_REQUIRE_OPENKODOD_TEMPLATE: '1'
           CSC_LINK: ${{ secrets.MAC_CERTS }}
           CSC_KEY_PASSWORD: ${{ secrets.MAC_CERTS_PASSWORD }}
           # Require Apple id/app-specific password/team for notary authentication, separate from signing cert.
@@ -333,7 +333,7 @@ jobs:
           app-id: ${{ secrets.HOURLY_RELEASE_APP_ID }}
           private-key: ${{ secrets.HOURLY_RELEASE_APP_PRIVATE_KEY }}
           owner: stablyai
-          repositories: orca-daily
+          repositories: openkodo-daily
 
       # Builder cannot write this field, so older macOS updaters would install a build that won't launch.
       - name: Gate the update manifest on the minimum macOS
@@ -481,5 +481,5 @@ jobs:
       tag: ${{ needs.build-daily-mac.outputs.tag }}
       ref: ${{ needs.build-daily-mac.outputs.head_sha }}
       version: ${{ needs.build-daily-mac.outputs.version }}
-      orcad_template: true
+      openkodod_template: true
       fast_release: false

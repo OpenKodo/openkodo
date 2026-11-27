@@ -1,4 +1,4 @@
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import type { RuntimeMetadata } from '../../../../shared/remote-runtime/bootstrap/runtime-bootstrap'
 import type { RuntimeRpcFailure } from '../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 import { SINGLE_INSTANCE_ALREADY_RUNNING_EXIT_CODE } from '../../../../shared/app-lifecycle/launch/single-instance-exit-code'
@@ -76,7 +76,7 @@ export function serveProfileRefusalMessage(
   if (verdict.reason === 'access-denied') {
     return `${lead}: it refused this CLI's credentials, so it cannot be shown to be stopped; not starting a second process. Stop it, or run this command as the user that started it.`
   }
-  return `${lead}: its socket neither accepted nor refused a connection, so this profile cannot be shown to be free; not starting a second process. Stop that process, or delete orca-runtime.json from this profile if nothing owns it.`
+  return `${lead}: its socket neither accepted nor refused a connection, so this profile cannot be shown to be free; not starting a second process. Stop that process, or delete openkodo-runtime.json from this profile if nothing owns it.`
 }
 
 function refusalEnvelope(code: string, message: string, data: unknown): RuntimeRpcFailure {

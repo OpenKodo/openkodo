@@ -3,7 +3,7 @@ import { CommandFinishArbiter, commandMarkAgent } from './command-finish-arbiter
 import { notifyWorktreeActivity } from '../../../ipc/worktrees/git/worktree-activity-signal'
 import type { LaunchedAgentForeground } from '../wait/launched-agent-foreground'
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
-import { OrcaRuntimeWithScheduleWaitBlockedCheck } from '../wait/terminal-wait-blocked-checks'
+import { OpenKodoRuntimeWithScheduleWaitBlockedCheck } from '../wait/terminal-wait-blocked-checks'
 import type { PtyTransientFact } from '../../../providers/pty/events'
 import type {
   TerminalSideEffectBatch,
@@ -25,7 +25,7 @@ import type {
 } from '../records/runtime-terminal-state-records'
 import type { TerminalTitleFactMeta } from '../../../../shared/terminal/output/terminal-output-side-effects'
 
-export abstract class OrcaRuntimeWithEmitDaemonPtyTransientFact extends OrcaRuntimeWithScheduleWaitBlockedCheck {
+export abstract class OpenKodoRuntimeWithEmitDaemonPtyTransientFact extends OpenKodoRuntimeWithScheduleWaitBlockedCheck {
   protected abstract retirePtyAgentLaunchAuthority(ptyId: string, confirmedExit?: boolean): void
   abstract readCommandMarkForeground(
     ptyId: string,

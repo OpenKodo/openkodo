@@ -354,7 +354,7 @@
           "epoch": 1,
           "hostGen": 0,
           "keyGeneration": 2,
-          "url": "https://connector.orca.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
+          "url": "https://connector.openkodo.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
           "adapter": "github",
           "previousKeyExpiresAt": 1800000000000,
           "lastCall": {
@@ -376,7 +376,7 @@
           "epoch": 1,
           "hostGen": 0,
           "keyGeneration": 2,
-          "url": "https://connector.orca.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
+          "url": "https://connector.openkodo.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
           "adapter": null,
           "previousKeyExpiresAt": 1800000000000,
           "lastCall": null,
@@ -394,7 +394,7 @@
           "epoch": 1,
           "hostGen": 0,
           "keyGeneration": 2,
-          "url": "https://connector.orca.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
+          "url": "https://connector.openkodo.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
           "adapter": "github",
           "previousKeyExpiresAt": 1800000000000,
           "lastCall": {
@@ -416,7 +416,7 @@
           "epoch": 1,
           "hostGen": 0,
           "keyGeneration": 2,
-          "url": "https://connector.orca.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
+          "url": "https://connector.openkodo.dev/hooks/wh_7Kx2pQ9mZbV4tL1r",
           "adapter": "github",
           "previousKeyExpiresAt": 1800000000000,
           "lastCall": {

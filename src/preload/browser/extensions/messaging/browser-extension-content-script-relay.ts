@@ -14,7 +14,7 @@ import type {
  * sends every sync change back to its tabs the same way. The messages carry this key; OpenKodo hides
  * them from the extension's own onMessage listeners.
  */
-export const CONTENT_SCRIPT_RELAY_KEY = 'orcaContentScriptRelay'
+export const CONTENT_SCRIPT_RELAY_KEY = 'openkodoContentScriptRelay'
 
 type ApiObject = Record<string, unknown>
 type ExtensionCallable = (...args: unknown[]) => unknown
@@ -29,8 +29,8 @@ const isApiObject = (value: unknown): value is ApiObject =>
  * Self-contained for the same reason as installBrowserExtensionApis: pages serialize it.
  */
 export function installContentScriptRelayFilter(answer?: BrowserExtensionStorageSyncRelay): void {
-  const key = 'orcaContentScriptRelay'
-  const probeKey = 'orcaDocumentTargetProbe'
+  const key = 'openkodoContentScriptRelay'
+  const probeKey = 'openkodoDocumentTargetProbe'
   const isObject = (value: unknown): value is ApiObject =>
     value !== null && typeof value === 'object'
   const isCallable = (value: unknown): value is ExtensionCallable => typeof value === 'function'
@@ -169,7 +169,7 @@ export function createContentScriptRelayBridge(
       sender.id === extensionId
     ) {
       for (const handler of handlers) {
-        handler('orcaStorageSync', 'onChanged', [relayed.changes])
+        handler('openkodoStorageSync', 'onChanged', [relayed.changes])
       }
     }
     return undefined

@@ -2,15 +2,18 @@ import type { AgentMessageSender } from '../../../../../shared/agent-session/jou
 import { readWorkerTerminalHostScope } from '../../../../../shared/orchestration/workers/worker-terminal-host-scope'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { DispatchContextRow } from '../../db/orchestration-records'
-import { canonicalOrcaSessionId } from '../../addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../../addressing/session-lineage/canonical-openkodo-session-id'
 import { resolveOrchestrationParty } from '../../addressing/orchestration-party'
 import { runCoordinatorKey } from '../../addressing/orchestration-caller-identity'
 
-type Party = Pick<AgentMessageSender['party'], 'terminalHandle' | 'orcaSessionId'>
+type Party = Pick<AgentMessageSender['party'], 'terminalHandle' | 'openkodoSessionId'>
 
 function sameParty(a: Party, b: Party): boolean {
-  if (a.orcaSessionId && b.orcaSessionId) {
-    return canonicalOrcaSessionId(a.orcaSessionId) === canonicalOrcaSessionId(b.orcaSessionId)
+  if (a.openkodoSessionId && b.openkodoSessionId) {
+    return (
+      canonicalOpenKodoSessionId(a.openkodoSessionId) ===
+      canonicalOpenKodoSessionId(b.openkodoSessionId)
+    )
   }
   return Boolean(a.terminalHandle && a.terminalHandle === b.terminalHandle)
 }
@@ -50,7 +53,10 @@ function dispatchWorkerLineage(
   const creator = known && dispatch.run_id === runId ? dispatch : null
   return creator &&
     sameParty(
-      { terminalHandle: creator.creator_handle, orcaSessionId: creator.creator_orca_session_id },
+      {
+        terminalHandle: creator.creator_handle,
+        openkodoSessionId: creator.creator_openkodo_session_id
+      },
       recipient
     )
     ? { relation: 'worker', workerDispatch: creator }
@@ -104,7 +110,7 @@ export function agentMessageLineage(args: RelationArgs): Lineage {
         ? [db.getDispatchContextById(id)]
         : db.getActiveDispatchMailboxOwners(
             party.terminalHandle ??
-              (party.orcaSessionId ? `orca_session_id:${party.orcaSessionId}` : '')
+              (party.openkodoSessionId ? `openkodo_session_id:${party.openkodoSessionId}` : '')
           )
       const matches = candidates.filter((row): row is DispatchContextRow =>
         Boolean(
@@ -113,7 +119,7 @@ export function agentMessageLineage(args: RelationArgs): Lineage {
           localDispatch(row) &&
           sameParty(party, {
             terminalHandle: row.assignee_handle,
-            orcaSessionId: row.assignee_orca_session_id
+            openkodoSessionId: row.assignee_openkodo_session_id
           })
         )
       )
@@ -123,10 +129,10 @@ export function agentMessageLineage(args: RelationArgs): Lineage {
       if (!dispatch) {
         return undefined
       }
-      if (dispatch.creator_handle || dispatch.creator_orca_session_id) {
+      if (dispatch.creator_handle || dispatch.creator_openkodo_session_id) {
         return {
           terminalHandle: dispatch.creator_handle,
-          orcaSessionId: dispatch.creator_orca_session_id
+          openkodoSessionId: dispatch.creator_openkodo_session_id
         }
       }
       if (dispatch.creator_dispatch_id) {
@@ -134,7 +140,7 @@ export function agentMessageLineage(args: RelationArgs): Lineage {
         return creator && creator.run_id === runId && localDispatch(creator)
           ? {
               terminalHandle: creator.assignee_handle,
-              orcaSessionId: creator.assignee_orca_session_id
+              openkodoSessionId: creator.assignee_openkodo_session_id
             }
           : undefined
       }

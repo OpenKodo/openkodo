@@ -24,7 +24,7 @@ import type {
 } from '../../../../orchestration/db/orchestration-records'
 import type { RpcContext } from '../../../core'
 import { workerApprovalAccess, type WorkerApprovalAccess } from '../access/worker-approval-access'
-import { formatOrcaSessionAddress } from '../../../../../../shared/agent-session/identity/orca-session-address'
+import { formatOpenKodoSessionAddress } from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 
 export type WorkerApprovalAnswerReceipt = {
   approvalId: string
@@ -213,8 +213,8 @@ function mailApprovalReason(
       id,
       from:
         params.from ??
-        (orchestrationCaller?.orcaSessionId
-          ? formatOrcaSessionAddress(orchestrationCaller.orcaSessionId)
+        (orchestrationCaller?.openkodoSessionId
+          ? formatOpenKodoSessionAddress(orchestrationCaller.openkodoSessionId)
           : `run:${dispatch.run_id}`),
       to: `dispatch:${dispatch.id}`,
       subject: `${params.decision === 'allow' ? 'Allowed' : 'Denied'}: ${title}`,

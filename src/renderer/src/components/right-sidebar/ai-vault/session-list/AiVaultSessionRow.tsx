@@ -1,7 +1,7 @@
 import {
-  orcaChatGroupDeleteReason,
-  useOrcaChatDeleteHostReason
-} from '@/lib/agent-session/chat-deletion/orca-chat-delete'
+  openkodoChatGroupDeleteReason,
+  useOpenKodoChatDeleteHostReason
+} from '@/lib/agent-session/chat-deletion/openkodo-chat-delete'
 import { isBotGroupMemberSession } from '../../../../../../shared/bots/bot-group'
 import { isAntigravityReferenceSession } from '../../../../../../shared/agent-session/lifecycle/provider-handles/antigravity-session-origin'
 import type { AiVaultSubagentResumeActions } from './AiVaultSessionSubagents'
@@ -122,12 +122,12 @@ export function VaultSessionRow({
   const detailsId = getSessionDetailsId(session.id)
   const latestTurn = latestSessionConversationTurn(session)
   const deleteHost = useAiVaultSessionDeleteHost(session)
-  const chatDeleteHostReason = useOrcaChatDeleteHostReason(session.executionHostId)
+  const chatDeleteHostReason = useOpenKodoChatDeleteHostReason(session.executionHostId)
   // An OpenKodo chat is deleted by the host that owns it; the agent's own transcript stays.
   const deleteBlockedReason = session.structuredSession
     ? onRequestDelete
       ? isBotGroupMemberSession(session.structuredSession.sessionId)
-        ? orcaChatGroupDeleteReason(t)
+        ? openkodoChatGroupDeleteReason(t)
         : chatDeleteHostReason
       : t(
           'auto.components.right.sidebar.AiVaultSearchEvidence.sourceActionsUnavailable',

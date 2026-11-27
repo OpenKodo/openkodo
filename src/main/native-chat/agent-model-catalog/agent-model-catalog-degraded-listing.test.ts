@@ -77,16 +77,19 @@ it('a short probe lists again 5 minutes later by the clock, also after the clock
 
 it("selecting another account drops only the rows seen under that login; other homes' catalogs stay fresh", () => {
   const { write, ids, store } = catalog()
-  for (const fp of ['host-fp', 'orca-fp']) {
+  for (const fp of ['host-fp', 'openkodo-fp']) {
     write(FULL, 'discovery', fp)
     write(FULL, 'live', fp)
   }
   store.forgetSeenRows(['host-fp'])
-  expect([store.shouldRefresh('host-fp'), store.shouldRefresh('orca-fp')]).toEqual([true, false])
+  expect([store.shouldRefresh('host-fp'), store.shouldRefresh('openkodo-fp')]).toEqual([
+    true,
+    false
+  ])
   write(DEGRADED, 'discovery', 'host-fp')
-  write(DEGRADED, 'discovery', 'orca-fp')
+  write(DEGRADED, 'discovery', 'openkodo-fp')
   expect(ids('host-fp')).toEqual(DEGRADED.map((model) => model.id))
-  expect(ids('orca-fp')).toEqual(expect.arrayContaining(ONLY_FULL))
+  expect(ids('openkodo-fp')).toEqual(expect.arrayContaining(ONLY_FULL))
 })
 
 it("a first probe still running when the account changes saves nothing of the previous account's", async () => {

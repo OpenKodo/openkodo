@@ -19,7 +19,7 @@ import { folderWorkspaceKey } from '../../../../../../shared/workspace/identity/
 import { makeTestBot } from '../../../../../bots/bot.test-fixture'
 import type { StructuredAgentSessionHost } from '../../../../../native-chat/agent-session-wire/host/structured-agent-session-host'
 import { setStructuredAgentSessionHost } from '../../../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import { OrcaRuntimeService } from '../../../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { OrchestrationEnvironmentTransport } from '../../../../orchestration/federation/environment-transport'
 import type { OrchestrationSessionCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
@@ -29,7 +29,7 @@ import { ORCHESTRATION_METHODS } from '../orchestration'
 import { ORCHESTRATION_REPLY_METHOD } from '../messaging/reply-method'
 import { notifyPeerMailQueued } from '../../../../orchestration/federation/peer-mail/peer-mail-waiters'
 import { structuredMailMessage } from '../../../../orchestration/mailbox/structured-mail/structured-mail-source'
-import { OrcaRuntimeRpcServer } from '../../../server/runtime-rpc'
+import { OpenKodoRuntimeRpcServer } from '../../../server/runtime-rpc'
 import { STATUS_METHODS } from '../../host-management/status'
 import { TERMINAL_QUERY_METHODS } from '../../terminal/terminal-query-methods'
 
@@ -44,10 +44,10 @@ vi.mock(
 
 const A_PANE = 'tab_a:aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
 const B_PANE = 'tab_b:bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
-const CHAT_ON_A = 'orca_session_id:11111111-1111-4111-8111-111111111111'
-const CHAT_ON_B = 'orca_session_id:22222222-2222-4222-8222-222222222222'
+const CHAT_ON_A = 'openkodo_session_id:11111111-1111-4111-8111-111111111111'
+const CHAT_ON_B = 'openkodo_session_id:22222222-2222-4222-8222-222222222222'
 
-type Side = { db: OrchestrationDb; runtime: OrcaRuntimeService; dispatcher: RpcDispatcher }
+type Side = { db: OrchestrationDb; runtime: OpenKodoRuntimeService; dispatcher: RpcDispatcher }
 
 describe('agent mail between paired OpenKodo servers', () => {
   let dir: string
@@ -57,7 +57,7 @@ describe('agent mail between paired OpenKodo servers', () => {
   let bClientKind: 'runtime' | 'mobile'
   let aCredential: string
   let hasEnvironment: () => boolean
-  const cliServers = new Map<Side, OrcaRuntimeRpcServer>()
+  const cliServers = new Map<Side, OpenKodoRuntimeRpcServer>()
 
   async function cli(side: Side, ...args: string[]) {
     for (const name of [
@@ -78,7 +78,7 @@ describe('agent mail between paired OpenKodo servers', () => {
     vi.stubEnv('OPENKODO_USER_DATA_PATH', userDataPath)
     if (!cliServers.has(side)) {
       mkdirSync(userDataPath, { recursive: true })
-      const server = new OrcaRuntimeRpcServer({
+      const server = new OpenKodoRuntimeRpcServer({
         runtime: side.runtime,
         userDataPath,
         methods: [...STATUS_METHODS, ...TERMINAL_QUERY_METHODS, ...ORCHESTRATION_METHODS]
@@ -102,7 +102,7 @@ describe('agent mail between paired OpenKodo servers', () => {
 
   function openSide(name: string, machine: string, transport?: OrchestrationEnvironmentTransport) {
     const db = new OrchestrationDb(join(dir, `${name}.db`))
-    const runtime = new OrcaRuntimeService(null, undefined, {
+    const runtime = new OpenKodoRuntimeService(null, undefined, {
       orchestrationEnvironmentTransport: transport
     })
     vi.spyOn(runtime, 'readMachineName').mockReturnValue(machine)
@@ -157,7 +157,7 @@ describe('agent mail between paired OpenKodo servers', () => {
   }
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'orca-peer-mail-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-peer-mail-'))
     bCapabilities = (capabilities) => capabilities
     bClientKind = 'runtime'
     aCredential = 'fingerprint_a'
@@ -198,7 +198,7 @@ describe('agent mail between paired OpenKodo servers', () => {
     const orchestrationCaller = {
       address: caller,
       terminalHandle: null,
-      orcaSessionId: caller.slice('orca_session_id:'.length),
+      openkodoSessionId: caller.slice('openkodo_session_id:'.length),
       paneKey: null
     } as unknown as OrchestrationSessionCaller
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a test double carrying only the fields the code under test reads.
@@ -213,7 +213,7 @@ describe('agent mail between paired OpenKodo servers', () => {
   }
 
   function receivingBotHome(held = false): string[] {
-    const sessionId = CHAT_ON_B.slice('orca_session_id:'.length)
+    const sessionId = CHAT_ON_B.slice('openkodo_session_id:'.length)
     const bot = makeTestBot({ name: 'Docs', agent: 'claude', chatSessionId: sessionId })
     const saved = agentSessionRecordFixture(agentSessionLeaseFixture({ sessionId }))
     const record = agentSessionConversationView({
@@ -271,7 +271,7 @@ describe('agent mail between paired OpenKodo servers', () => {
       mailboxHandle: CHAT_ON_B,
       dispatchId: null,
       message,
-      cliCommand: 'orca',
+      cliCommand: 'openkodo',
       senderSnapshot: () => ({ name: null, agent: null }),
       followUp: undefined
     })
@@ -414,7 +414,7 @@ describe('agent mail between paired OpenKodo servers', () => {
       orchestrationCaller: {
         address: CHAT_ON_A,
         terminalHandle: null,
-        orcaSessionId: CHAT_ON_A.slice(16),
+        openkodoSessionId: CHAT_ON_A.slice(16),
         paneKey: null
       }
     } as unknown as RpcContext)
@@ -631,7 +631,7 @@ describe('agent mail between paired OpenKodo servers', () => {
     a.runtime.ensureOrchestrationFederationRelay()
     await vi.waitFor(() => expect(mailFor(a, 'term_a')).toHaveLength(1))
     const [answer] = mailFor(a, 'term_a')
-    b.db.markAsRead([first!.id], { kind: 'orca' })
+    b.db.markAsRead([first!.id], { kind: 'openkodo' })
 
     aCredential = 'fingerprint_a_repaired'
     await expect(

@@ -148,6 +148,6 @@ async function submitStartupPrompt(ctx) {
     return noop;
   }
 }
-export default { id: "orca-opencode-startup-prompt", setup: submitStartupPrompt };
+export default { id: "openkodo-opencode-startup-prompt", setup: submitStartupPrompt };
 `.trimStart()
 }

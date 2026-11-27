@@ -56,7 +56,7 @@ export function parseTccPromptEvent(line: string): TccPromptEvent | null {
   }
 }
 
-export function isOrcaAttributedPrompt(event: TccPromptEvent): boolean {
+export function isOpenKodoAttributedPrompt(event: TccPromptEvent): boolean {
   return (
     OPENKODO_RESPONSIBLE_IDENTIFIERS.has(event.responsibleIdentifier) &&
     WATCHED_SERVICES.has(event.service)
@@ -144,7 +144,7 @@ export class MacosTccPromptWatch {
 
   private handleLine(line: string): void {
     const event = parseTccPromptEvent(line)
-    if (!event || !isOrcaAttributedPrompt(event)) {
+    if (!event || !isOpenKodoAttributedPrompt(event)) {
       return
     }
     this.options.onPrompt(event)

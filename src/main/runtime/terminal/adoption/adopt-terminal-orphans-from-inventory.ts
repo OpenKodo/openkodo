@@ -6,7 +6,7 @@ import {
 } from '../surface/pty-recorded-surface-topology'
 import { resolveStructuredWorkerAuthority } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-authority'
 import type { RuntimeLeafRecord } from '../records/runtime-terminal-state-records'
-import { OrcaRuntimeWithSubscribeToTerminalResize } from '../layout/terminal-resize-listeners'
+import { OpenKodoRuntimeWithSubscribeToTerminalResize } from '../layout/terminal-resize-listeners'
 import type { RuntimeMobileSessionTabsResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type {
   RuntimeTerminalOrphanAdoptionRequest,
@@ -21,7 +21,7 @@ import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 import { getLatestPtyTitle } from '../../workspaces/process-listing/runtime-worktree-status-projection'
 import type { PtyLivenessVerdict } from '../../../../shared/terminal/pty/lifecycle/pty-liveness-verdict'
 
-export abstract class OrcaRuntimeWithAdoptTerminalOrphansFromInventory extends OrcaRuntimeWithSubscribeToTerminalResize {
+export abstract class OpenKodoRuntimeWithAdoptTerminalOrphansFromInventory extends OpenKodoRuntimeWithSubscribeToTerminalResize {
   protected abstract issueHandle(
     leaf: RuntimeLeafRecord,
     context?: TerminalIdentityReadContext

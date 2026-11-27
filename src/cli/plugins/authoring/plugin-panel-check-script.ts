@@ -4,7 +4,7 @@
  * panel on one mock host, so the panel's `plugin.request` reaches the worker as in OpenKodo.
  */
 export const PLUGIN_PANEL_CHECK_SCRIPT = `
-const { mount, mockHost, mountWorker } = await import('orca/testing')
+const { mount, mockHost, mountWorker } = await import('openkodo/testing')
 const { panels, main, scenario: only, drawnTree, listOnly } = JSON.parse(
   process.env.OPENKODO_PLUGIN_CHECK_PANELS
 )

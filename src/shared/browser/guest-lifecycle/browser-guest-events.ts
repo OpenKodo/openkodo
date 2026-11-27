@@ -38,7 +38,7 @@ export type BrowserPopupEvent = {
   /** Sanitized to origin/host so auth query params never leak into UI state. */
   origin: string
   /** Whether OpenKodo opened the target in OpenKodo, opened it externally, or blocked it as unsafe. */
-  action: 'opened-in-orca' | 'opened-external' | 'blocked'
+  action: 'opened-in-openkodo' | 'opened-external' | 'blocked'
 }
 
 export type BrowserDownloadRequestedEvent = {

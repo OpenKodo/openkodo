@@ -7,7 +7,7 @@ import { subscribeWorkerDock } from './worker-dock-stream'
 // The strip's current-work rule: live work always; failures only while recent, unacknowledged,
 // not stopped by the owner and not replaced by a retry; unresolved or unverified rows age out.
 const session = '22222222-2222-4222-8222-222222222222'
-const party = `orca_session_id:${session}`
+const party = `openkodo_session_id:${session}`
 const NOW = Date.parse('2026-11-23T12:00:00Z')
 const HOUR = 60 * 60_000
 let db: OrchestrationDb
@@ -31,7 +31,7 @@ function dispatch(taskId = task()) {
     startOptions: { agent: 'codex' }
   })
   db.db
-    .prepare('UPDATE dispatch_contexts SET creator_orca_session_id = ? WHERE id = ?')
+    .prepare('UPDATE dispatch_contexts SET creator_openkodo_session_id = ? WHERE id = ?')
     .run(session, created.id)
   return created.id
 }

@@ -10,7 +10,7 @@ const ACCOUNT_ENV_KEYS = ['XDG_DATA_HOME', 'XDG_STATE_HOME', 'OPENCODE_DB', 'OPE
 export function scrubOpenCodeAcpEnvironment(
   env: Record<string, string>,
   inherited: NodeJS.ProcessEnv,
-  userDataPath: string | null = orcaUserDataPath()
+  userDataPath: string | null = openkodoUserDataPath()
 ): string[] {
   const view: Record<string, string> = {}
   for (const [key, value] of Object.entries(inherited)) {
@@ -55,7 +55,7 @@ export function scrubOpenCodeAcpEnvironment(
   return removed
 }
 
-function orcaUserDataPath(): string | null {
+function openkodoUserDataPath(): string | null {
   try {
     return getAppEnvironment().getPath('userData')
   } catch {

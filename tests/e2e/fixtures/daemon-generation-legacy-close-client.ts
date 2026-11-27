@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import process from 'node:process'
 import type { Store } from '../../../src/main/persistence/loading-store/store'
-import { OrcaRuntimeService } from '../../../src/main/runtime/orca-runtime'
+import { OpenKodoRuntimeService } from '../../../src/main/runtime/openkodo-runtime'
 import { RpcDispatcher } from '../../../src/main/runtime/rpc/dispatcher'
 import { SESSION_TAB_METHODS } from '../../../src/main/runtime/rpc/methods/session-tabs/session-tabs'
 import { SESSION_TAB_CLOSE_INTENT_RUNTIME_CAPABILITY } from '../../../src/shared/remote-runtime/protocol/session-tabs-runtime-capabilities'
@@ -153,7 +153,7 @@ async function main(): Promise<void> {
     }
 
     store = createDaemonGenerationProfileStore(config.cwd)
-    const runtime = new OrcaRuntimeService(store)
+    const runtime = new OpenKodoRuntimeService(store)
     const calls: Record<string, unknown>[] = []
     const sessionByTabId = new Map(config.sessions.map((session) => [session.tabId, session]))
     runtime.setPtyController({

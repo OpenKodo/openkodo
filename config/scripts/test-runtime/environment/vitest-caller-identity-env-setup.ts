@@ -1,4 +1,4 @@
-// Clear the launching terminal’s inherited Orca identity so test branches depend on fixture env, not which agent launched runner.
+// Clear the launching terminal’s inherited OpenKodo identity so test branches depend on fixture env, not which agent launched runner.
 // Clear the launching terminal's identity too: macOS /etc/zshrc and /etc/bashrc source /etc/{zsh,bash}rc_$TERM_PROGRAM.
 for (const name of [
   'OPENKODO_AGENT_SESSION_ID',

@@ -4,16 +4,16 @@ import type { BridgeRpcClientDiagnostic } from '../client-state/bridge-client-di
 import type { BridgeShellSession } from '../client-state/bridge-client-session'
 import type { BridgeInitRoute } from '../protocol/bridge-init-route'
 import {
-  createOrcaBridgePageTransport,
-  readOrcaBridgePageChannel
-} from './orca-bridge-page-channel'
+  createOpenKodoBridgePageTransport,
+  readOpenKodoBridgePageChannel
+} from './openkodo-bridge-page-channel'
 
 // Stamp boot progress to distinguish no script, thrown startup and unanswered shell; unbridged and shell-too-old are terminal states.
 export type PageMountState = 'started' | 'unbridged' | 'shell-too-old' | 'shell-ready' | 'mounted'
 
-export const PAGE_MOUNT_STATE_KEY = 'orcaWebEntry'
-export const PAGE_SESSION_ID_KEY = 'orcaWebSessionId'
-export const PAGE_BUILD_ID_KEY = 'orcaWebBuildId'
+export const PAGE_MOUNT_STATE_KEY = 'openkodoWebEntry'
+export const PAGE_SESSION_ID_KEY = 'openkodoWebSessionId'
+export const PAGE_BUILD_ID_KEY = 'openkodoWebBuildId'
 
 export type PageMountTarget = { dataset: DOMStringMap }
 
@@ -34,12 +34,12 @@ export function createPageDiagnosticReporter(): (diagnostic: BridgeRpcClientDiag
 
 // Create one client before render: the channel’s single onmessage slot would let a second silently steal frames.
 export function createShellPageClient(): BridgeRpcClient | null {
-  const channel = readOrcaBridgePageChannel()
+  const channel = readOpenKodoBridgePageChannel()
   if (channel === null) {
     return null
   }
   return createBridgeRpcClient({
-    ...createOrcaBridgePageTransport(channel),
+    ...createOpenKodoBridgePageTransport(channel),
     onDiagnostic: createPageDiagnosticReporter()
   })
 }

@@ -1,20 +1,20 @@
 import type { OrchestrationCliCommand } from './orchestration-cli-command'
 import type { RuntimeAgentPromptWriteOptions } from '../../../terminal/input/agent-prompt-write-options'
-import { OPENKODO_DISPATCH_PROMPT_LEAD_LINE } from '../../../../../shared/orchestration/workers/orca-dispatch-status-prompt'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_DISPATCH_PROMPT_LEAD_LINE } from '../../../../../shared/orchestration/workers/openkodo-dispatch-status-prompt'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 
 export type PreambleParams = {
   taskId: string
   // Dispatch ids fence completion authority across retries of one Task.
   dispatchId: string
   taskSpec: string
-  /** A terminal handle, or a session's `orca_session_id:<id>`; a terminal handle is not printed. */
+  /** A terminal handle, or a session's `openkodo_session_id:<id>`; a terminal handle is not printed. */
   coordinatorHandle: string
   /** The paired OpenKodo's name when it coordinates this worker's Run from another computer. */
   coordinatedFrom?: string
   workerHandle: string
   devMode?: boolean
-  // Packaged WSL uses orca-ide; other hosts retain their existing launcher.
+  // Packaged WSL uses openkodo-ide; other hosts retain their existing launcher.
   cliCommand?: OrchestrationCliCommand
   // Supply actual preflight drift only; spurious warnings train workers to ignore stale-base evidence.
   baseDrift?: {
@@ -82,8 +82,8 @@ function checkLines({
 
 // Place behavior rules beside CLI examples, where agent readers use them.
 export function buildDispatchPreamble(params: PreambleParams): string {
-  // Dev agents must reach the dev socket through orca-dev.
-  const cli = params.devMode ? 'orca-dev' : (params.cliCommand ?? 'orca')
+  // Dev agents must reach the dev socket through openkodo-dev.
+  const cli = params.devMode ? 'openkodo-dev' : (params.cliCommand ?? 'openkodo')
   const chat = isSessionHandle(params.workerHandle)
   const surface = chat ? 'chat' : 'terminal'
   const postDoneInstructions = buildPostWorkerDoneInstructions({

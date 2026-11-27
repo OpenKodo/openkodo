@@ -48,7 +48,7 @@ function started(turn: string, dispatchId: string): [NativeChatMessage, string] 
       dispatchId,
       task: `${worker}\n\nCheck whether the finding reproduces on the release build.`,
       worker: {
-        party: { address, terminalHandle: address, orcaSessionId: null },
+        party: { address, terminalHandle: address, openkodoSessionId: null },
         name: worker
       }
     }

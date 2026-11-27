@@ -111,7 +111,7 @@ export const NativeChatComposerPane = forwardRef<ComposerHandle, C.NativeChatCom
       disabled ||
       (structuredTransport?.runtime === 'remote' && structuredTransport.sessionPending === true)
 
-    const { picker, orcaCommands, sideChat } = useNativeChatComposerCommandPicker({
+    const { picker, openkodoCommands, sideChat } = useNativeChatComposerCommandPicker({
       mode: editSession ? 'edit' : launchPrompt || pending ? 'launch' : undefined,
       agent,
       terminalTabId,
@@ -274,7 +274,7 @@ export const NativeChatComposerPane = forwardRef<ComposerHandle, C.NativeChatCom
       sendPty,
       sendStructured,
       submitEmpty: launchPrompt?.onEmptySubmit,
-      orcaCommands: pending || launchPrompt ? undefined : orcaCommands,
+      openkodoCommands: pending || launchPrompt ? undefined : openkodoCommands,
       setDraft,
       setCaret
     })
@@ -290,7 +290,7 @@ export const NativeChatComposerPane = forwardRef<ComposerHandle, C.NativeChatCom
       editSession,
       isWorking,
       canStop: hasPty && onStop !== undefined,
-      orcaCommand: !pending && !launchPrompt && orcaCommands.matchesDraft(draft),
+      openkodoCommand: !pending && !launchPrompt && openkodoCommands.matchesDraft(draft),
       goalMode: goalMode.active,
       mentionHold: mentions.sendHeld
     })
@@ -333,7 +333,7 @@ export const NativeChatComposerPane = forwardRef<ComposerHandle, C.NativeChatCom
       completePickerItem: editSession ? chooseEditItem : goalMode.interceptPick(completeItem),
       dispatchPickerCommand: editSession
         ? chooseEditItem
-        : goalMode.interceptPick(orcaCommands.interceptPick(dispatchPickerCommand)),
+        : goalMode.interceptPick(openkodoCommands.interceptPick(dispatchPickerCommand)),
       dismissPicker: dismiss,
       interrupt: editSession?.cancel ?? (escapeStops ? interrupt : undefined),
       send,
@@ -393,7 +393,9 @@ export const NativeChatComposerPane = forwardRef<ComposerHandle, C.NativeChatCom
             onKeyDown={handleKeyDown}
             onPaste={handlePasteEvent}
             pickerListboxId={picker.listboxId}
-            onChoosePickerItem={goalMode.interceptPick(orcaCommands.interceptPick(completeItem))}
+            onChoosePickerItem={goalMode.interceptPick(
+              openkodoCommands.interceptPick(completeItem)
+            )}
             goalMode={goalMode}
             onRetrySkills={picker.retrySkills}
             onChooseMentionFile={mentions.chooseMention}

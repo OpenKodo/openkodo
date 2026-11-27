@@ -11,7 +11,7 @@ import {
   type UpdateCandidate
 } from '../review/PluginUpdateCandidate'
 import { PluginUpdateReview } from '../review/PluginUpdateReview'
-import { installUpdates, loadUpdate, requiredNewerOrca } from '../state/plugin-update-approval'
+import { installUpdates, loadUpdate, requiredNewerOpenKodo } from '../state/plugin-update-approval'
 import type { PluginListEntry } from '../list/plugin-list-entries'
 
 /** Updates that change access or repository; they land only through their own review. */
@@ -43,13 +43,13 @@ function failureMessage(failed: readonly string[], updatedCount: number): string
 export function PluginUpdateAllDialog({
   open,
   entries,
-  orcaVersion,
+  openkodoVersion,
   onClose,
   onUpdated
 }: {
   open: boolean
   entries: readonly PluginListEntry[]
-  orcaVersion?: string | null
+  openkodoVersion?: string | null
   onClose: () => void
   onUpdated: (pluginKeys: string[]) => Promise<void>
 }): React.JSX.Element {
@@ -61,9 +61,9 @@ export function PluginUpdateAllDialog({
   const [failure, setFailure] = useState<string | null>(null)
   // Why frozen: each update reloads the list mid-run; the rows belong to the set the user opened.
   const [plugins] = useState(entries)
-  const orcaVersionRef = useRef(orcaVersion)
+  const openkodoVersionRef = useRef(openkodoVersion)
   useLayoutEffect(() => {
-    orcaVersionRef.current = orcaVersion
+    openkodoVersionRef.current = openkodoVersion
   })
 
   useEffect(() => {
@@ -79,12 +79,12 @@ export function PluginUpdateAllDialog({
             entry,
             preview,
             error: false,
-            needsOrca: requiredNewerOrca(preview, orcaVersionRef.current),
+            needsOpenKodo: requiredNewerOpenKodo(preview, openkodoVersionRef.current),
             installedManifest
           }
         } catch (cause) {
           console.warn('[plugins] update preview failed:', cause)
-          return { entry, preview: null, error: true, needsOrca: null, installedManifest: null }
+          return { entry, preview: null, error: true, needsOpenKodo: null, installedManifest: null }
         }
       })
     ).then((next) => {
@@ -107,7 +107,7 @@ export function PluginUpdateAllDialog({
     Boolean(candidate.preview) &&
     !candidate.preview?.blockedByKillList &&
     !isCurrent(candidate.entry, candidate.preview) &&
-    !candidate.needsOrca &&
+    !candidate.needsOpenKodo &&
     !updated.has(candidate.entry.pluginKey)
   const approvals = (candidates ?? []).filter(
     (candidate) => installable(candidate) && needsOwnApproval(candidate)

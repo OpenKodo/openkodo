@@ -5,10 +5,10 @@ const STOP_NOTE_PREFIX = 'stop:'
 export const STOP_NOTE_CANCELLATION_REQUESTED = 'Cancellation requested.'
 
 export function structuredAgentSessionStopNoteIdentity(stopKey: string): AgentJournalItemIdentity {
-  return { provider: 'orca', clientMessageId: `${STOP_NOTE_PREFIX}${stopKey}` }
+  return { provider: 'openkodo', clientMessageId: `${STOP_NOTE_PREFIX}${stopKey}` }
 }
 
 export function isStructuredAgentSessionStopNote(itemId: string): boolean {
   const identity = parseAgentJournalItemKey(itemId)
-  return identity?.provider === 'orca' && identity.clientMessageId.startsWith(STOP_NOTE_PREFIX)
+  return identity?.provider === 'openkodo' && identity.clientMessageId.startsWith(STOP_NOTE_PREFIX)
 }

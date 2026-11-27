@@ -16,9 +16,9 @@ export type ConnectorRuntimeKind = 'desktop' | 'serve'
 
 /** What the connector needs from this OpenKodo. */
 export type ConnectorMachine = {
-  /** The desktop app, or a server: Electron `openkodo serve` or orcad. */
+  /** The desktop app, or a server: Electron `openkodo serve` or openkodod. */
   runtime: ConnectorRuntimeKind
-  orcaVersion: string
+  openkodoVersion: string
   /** Read per hello: the computer's display name (Settings, else macOS ComputerName), never the raw hostname. */
   hostName: () => string
   seam: () => ExternalConversationSeam | null

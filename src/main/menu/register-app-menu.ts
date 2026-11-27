@@ -112,7 +112,7 @@ function buildAndApplyMenu(options: RegisterAppMenuOptions): void {
   }
 
   const featureTourItem: Electron.MenuItemConstructorOptions = {
-    label: translateMain('menu.exploreOrca', 'Explore OpenKodo'),
+    label: translateMain('menu.exploreOpenKodo', 'Explore OpenKodo'),
     click: (_menuItem, window) => onOpenFeatureTour(window)
   }
 

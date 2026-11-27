@@ -4,7 +4,7 @@ import { basename, join } from 'node:path'
 import { getAppEnvironment } from '../../../../../shared/app-lifecycle/app-environment'
 import { waitForPromiseWithSignal } from '../../../../../shared/concurrency/abort-signal-reason'
 import type { ServerTarget } from '../../../../../shared/node-runtime/node-runtime-pin'
-import { OPENCODE_SQLITE_READER_FILENAME } from '../../../../../shared/remote-runtime/orcad-distribution/remote-bundle-artifacts'
+import { OPENCODE_SQLITE_READER_FILENAME } from '../../../../../shared/remote-runtime/openkodod-distribution/remote-bundle-artifacts'
 import { parseWslUncPath, toWindowsWslUncPath } from '../../../../../shared/file-access/wsl-paths'
 import { NODE_SQLITE_READER_API_SOURCE } from '../../../../sqlite/node-sqlite-reader-api'
 import { relayBundleCandidates } from '../../../../wsl/execution/relay-bundle-paths'
@@ -15,8 +15,8 @@ import {
   nodeRuntimeStoreDir,
   posixNodeRuntimeExecutable,
   probeRemoteNodeRuntimeCommand
-} from '../../../../managed-server/install/orcad-remote-node-runtime'
-import { REMOTE_NODE_RUNTIME_READY } from '../../../../managed-server/install/orcad-remote-node-runtime-report'
+} from '../../../../managed-server/install/openkodod-remote-node-runtime'
+import { REMOTE_NODE_RUNTIME_READY } from '../../../../managed-server/install/openkodod-remote-node-runtime-report'
 import { getRemoteHostPlatform } from '../../../../ssh/remote-host/ssh-remote-platform'
 import { runWslProcess, type WslSpec } from '../../../../wsl/execution/wsl-runner'
 import { describeWslProcessFailure } from '../../../../wsl/execution/wsl-process-failure'
@@ -147,7 +147,7 @@ async function prepare(distro: string): Promise<OpenCodeWslRuntime> {
     }
     // Reuse SSH runtime-store validation; leave legacy vault-sqlite Bun installations untouched.
     const host = getRemoteHostPlatform(arch === 'x86_64' ? 'linux-x64' : 'linux-arm64')
-    const runtimeDir = nodeRuntimeStoreDir(host, `${home}/.cache/orca`, target)
+    const runtimeDir = nodeRuntimeStoreDir(host, `${home}/.cache/openkodo`, target)
     executable = posixNodeRuntimeExecutable(host, runtimeDir)
     const probe = await run({
       script: probeRemoteNodeRuntimeCommand(host, runtimeDir, target),
@@ -158,7 +158,7 @@ async function prepare(distro: string): Promise<OpenCodeWslRuntime> {
       if (!download) {
         download = materializeNodeRuntimeArchive(
           target,
-          join(app.getPath('userData'), 'orcad-artifacts'),
+          join(app.getPath('userData'), 'openkodod-artifacts'),
           { signal: AbortSignal.timeout(PREPARATION_TIMEOUT_MS) }
         ).finally(() => downloads.delete(target))
         downloads.set(target, download)

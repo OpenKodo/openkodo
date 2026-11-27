@@ -66,12 +66,12 @@ Imported themes appear alongside OpenKodo's built-ins in the theme dropdown.
 
 OpenKodo desktop terminals render 24-bit color, OSC 8 hyperlinks, and inline raster images. The terminal's image renderer supports Kitty graphics, Sixel, and iTerm2 inline pictures when **Settings → Terminal → Inline Images** is enabled.
 
-| Signal                      | Meaning                                                                                                                                       |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `TERM_PROGRAM=OpenKodo`     | Identity of the direct OpenKodo terminal. Preserve it when launching tools.                                                                   |
-| `COLORTERM=truecolor`       | Programs can emit 24-bit color.                                                                                                               |
-| `FORCE_HYPERLINK=1`         | OpenKodo can open OSC 8 hyperlinks. Tools that honor this environment variable can emit them.                                                 |
-| `ORCA_IMAGE_PROTOCOL=kitty` | Startup hint for newly opened terminals with inline images enabled and a supporting viewer. Kitty is the preferred encoder for raster images. |
+| Signal                          | Meaning                                                                                                                                       |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TERM_PROGRAM=OpenKodo`         | Identity of the direct OpenKodo terminal. Preserve it when launching tools.                                                                   |
+| `COLORTERM=truecolor`           | Programs can emit 24-bit color.                                                                                                               |
+| `FORCE_HYPERLINK=1`             | OpenKodo can open OSC 8 hyperlinks. Tools that honor this environment variable can emit them.                                                 |
+| `OPENKODO_IMAGE_PROTOCOL=kitty` | Startup hint for newly opened terminals with inline images enabled and a supporting viewer. Kitty is the preferred encoder for raster images. |
 
 Prefer a Kitty graphics query for live image detection. Send the direct `a=q` query before a primary-device-attributes query, and wait for the graphics reply within a bounded deadline. OpenKodo advertises Sixel in its primary device attributes when the renderer is ready. Terminal settings and the viewer can change after launch.
 
@@ -173,4 +173,4 @@ Quick Commands save terminal commands you run often, such as `npm run dev`, `pnp
 
 Each command has a label, command text, and scope. Use **Global** for commands that apply everywhere, or **Project** to show the command only in worktrees for a specific repo. The tab-bar button opens a fresh terminal tab and runs the command; the terminal context menu can insert commands into the current terminal. Use the copy control on a command row (Settings list, tab-bar menu, or [mobile Quick Commands](/docs/mobile#quick-commands)) to put the command body on the clipboard.
 
-When you work with a paired [Remote OpenKodo Server](/docs/remote-servers) (or another execution host), the picker can show **local and remote** collections side by side, labeled by host (for example _Local Mac_ and _Orca Server_). **Saved on** is where the command is stored; running a command still executes in the terminal or workspace where you invoke it — so a client-owned command can run inside a remote worktree. Older servers that do not advertise multi-host Quick Commands fall back to the local-only list.
+When you work with a paired [Remote OpenKodo Server](/docs/remote-servers) (or another execution host), the picker can show **local and remote** collections side by side, labeled by host (for example _Local Mac_ and _OpenKodo Server_). **Saved on** is where the command is stored; running a command still executes in the terminal or workspace where you invoke it — so a client-owned command can run inside a remote worktree. Older servers that do not advertise multi-host Quick Commands fall back to the local-only list.

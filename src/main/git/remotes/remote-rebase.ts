@@ -18,7 +18,7 @@ import {
   AUTOSTASH_REAPPLY_CONFLICT,
   detectConflictOperation
 } from '../source-control/mutations/git-conflict-operation'
-import { recordOrcaRebaseProvenance } from '../source-control/mutations/orca-rebase-provenance'
+import { recordOpenKodoRebaseProvenance } from '../source-control/mutations/openkodo-rebase-provenance'
 import {
   readRebaseRunFiles,
   readRebaseRunIdentity,
@@ -27,7 +27,7 @@ import {
 } from '../source-control/mutations/rebase-continue'
 import type { RebaseFromBaseResult } from '../../../shared/git/status/git-status-types'
 import { addWslEnvKeys } from '../../../shared/shell/wsl/wsl-env'
-import { headMovedOnlyByRebaseRun, newOrcaRebaseReflogAction } from './orca-rebase-reflog'
+import { headMovedOnlyByRebaseRun, newOpenKodoRebaseReflogAction } from './openkodo-rebase-reflog'
 
 export async function gitPullRebaseFromBase(
   worktreePath: string,
@@ -55,7 +55,7 @@ async function gitPullRebaseFromBaseUnlocked(
     let ownRun: { onto: string; origHead: string } | null = null
     // A rebase directory that already existed was not created by this run.
     let rebaseDirAbsentBeforeSpawn = false
-    const reflogAction = newOrcaRebaseReflogAction()
+    const reflogAction = newOpenKodoRebaseReflogAction()
     try {
       const source = await resolveGitRemoteRebaseSource(
         (args) => gitExecFileAsync(args, operationOptions),
@@ -78,7 +78,7 @@ async function gitPullRebaseFromBaseUnlocked(
         }
       }
       // Why: concurrent fetches can replace FETCH_HEAD and remote-tracking refs between fetch and rebase.
-      rebaseRef = `refs/orca/rebase/${randomUUID()}`
+      rebaseRef = `refs/openkodo/rebase/${randomUUID()}`
       const fetchArgs = [
         source.remoteName,
         `+refs/heads/${source.branchName}:${rebaseRef}`,
@@ -121,7 +121,7 @@ async function gitPullRebaseFromBaseUnlocked(
       }
     } catch (error) {
       if (integratedUpstreamOid && ownRun && rebaseDirAbsentBeforeSpawn) {
-        await rememberPausedOrcaRebase(
+        await rememberPausedOpenKodoRebase(
           worktreePath,
           integratedUpstreamOid,
           ownRun,
@@ -194,7 +194,7 @@ function reflogActionEnv(reflogAction: string): NodeJS.ProcessEnv {
 // A conflict stop keeps the proof with the run this spawn created: no rebase directory before it,
 // and every HEAD move since its start tagged with this spawn's reflog action. The proof is keyed by
 // the directory identity observed before that check, so only that run's Continue can claim it.
-async function rememberPausedOrcaRebase(
+async function rememberPausedOpenKodoRebase(
   worktreePath: string,
   integratedUpstreamOid: string,
   ownRun: { onto: string; origHead: string },
@@ -227,7 +227,7 @@ async function rememberPausedOrcaRebase(
     const branch = await readRebasingBranch(worktreePath, readOptions)
     const { incarnation } = await readRebaseStopToken(worktreePath, readOptions)
     if (branch && incarnation?.startsWith(`${observed}:`)) {
-      recordOrcaRebaseProvenance(worktreePath, { branch, integratedUpstreamOid, incarnation })
+      recordOpenKodoRebaseProvenance(worktreePath, { branch, integratedUpstreamOid, incarnation })
     }
   } catch {
     // Missing proof only keeps Pull and Sync offered.

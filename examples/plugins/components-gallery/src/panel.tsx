@@ -1,5 +1,5 @@
-// No build step: Orca transpiles these files when the panel loads.
-import { atom, read, set, Tab, Tabs } from 'orca'
+// No build step: OpenKodo transpiles these files when the panel loads.
+import { atom, read, set, Tab, Tabs } from 'openkodo'
 import { ContentTab } from './content'
 import { DataTab } from './data'
 import { FormsTab } from './forms'

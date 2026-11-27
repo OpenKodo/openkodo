@@ -699,7 +699,7 @@ describe('Slack-bound words from the client', () => {
   it('sends a Slack reply and its notes with no path on this machine, folded or not', async () => {
     const { client, machine } = startClient()
     await settle()
-    const text = 'Report: ![side by side](~/.orca/reports/r/side.png)'
+    const text = 'Report: ![side by side](~/.openkodo/reports/r/side.png)'
     await client.reply({ replyId: 'r1', conversation, turnId: 7, text, review })
     expect(h.fake.replies.get('r1')).toEqual({
       v: 1,

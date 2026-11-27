@@ -22,7 +22,7 @@ afterEach(async () => {
 it.skipIf(process.platform === 'win32')(
   'refuses a ref or metadata file that is, or links to, a FIFO or an oversized file instead of reading it',
   async () => {
-    root = await mkdtemp(join(tmpdir(), 'orca-ref-link-'))
+    root = await mkdtemp(join(tmpdir(), 'openkodo-ref-link-'))
     execFileSync('mkfifo', [join(root, 'fifo')])
     await writeFile(join(root, 'large'), `${'a'.repeat(40)}\n`.repeat(200))
     await symlink(join(root, 'fifo'), join(root, 'to-fifo'))
@@ -37,7 +37,7 @@ it.skipIf(process.platform === 'win32')(
 )
 
 it('reads rebase state larger than a gitfile may be', async () => {
-  root = await mkdtemp(join(tmpdir(), 'orca-large-rebase-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-large-rebase-'))
   const rebase = join(root, 'worktrees', 'topic', 'rebase-merge')
   await mkdir(rebase, { recursive: true })
   await writeFile(join(root, 'HEAD'), 'ref: refs/heads/main\n')
@@ -59,7 +59,7 @@ it('keeps a branch name ending in a no-break space, which Git allows', () => {
 it.skipIf(process.platform === 'win32')(
   'reads a backslashed Windows link target as the ref Git for Windows sees',
   async () => {
-    root = await mkdtemp(join(tmpdir(), 'orca-windows-link-'))
+    root = await mkdtemp(join(tmpdir(), 'openkodo-windows-link-'))
     await symlink('refs\\heads\\main', join(root, 'HEAD'))
     const platform = Object.getOwnPropertyDescriptor(process, 'platform')!
     Object.defineProperty(process, 'platform', { value: 'win32' })

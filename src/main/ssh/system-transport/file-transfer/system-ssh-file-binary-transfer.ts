@@ -186,7 +186,7 @@ async function withTemporaryLocalFile<T>(
   contents: Buffer,
   send: (localPath: string) => Promise<T>
 ): Promise<T> {
-  const directory = await mkdtemp(join(tmpdir(), 'orca-win-upload-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-win-upload-'))
   const localPath = join(directory, 'payload.bin')
   try {
     // Repository payloads in shared temp directories must be private from creation.

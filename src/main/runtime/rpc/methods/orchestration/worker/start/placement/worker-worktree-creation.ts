@@ -4,7 +4,7 @@ import type { RuntimeTerminalCreate } from '../../../../../../../../shared/termi
 import type { AgentLaunchPreferences } from '../../../../../../../../shared/agent-session/lifecycle/operations/agent-session-host-authority'
 import type { TuiAgent } from '../../../../../../../../shared/agent-launch/catalog/tui-agent'
 import { suggestCreatureNameForPaths } from '../../../../../../../../shared/worktree/naming/worktree-name-suggestion'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import { resolveUnattendedSetupDecision } from '../../../../../../../workspace-hooks/effective-hook-config'
 import { OrchestrationError } from '../../../../../../orchestration/orchestration-error'
@@ -28,7 +28,7 @@ export type WorkerWorktreeCreationTarget = {
 }
 
 export async function resolveWorkerWorktreeCreationTarget(args: {
-  runtime: Pick<OrcaRuntimeService, 'showManagedWorktree'>
+  runtime: Pick<OpenKodoRuntimeService, 'showManagedWorktree'>
   requestedWorktree: string
   repo: string | undefined
   callerWorktreeId: string
@@ -117,7 +117,7 @@ export async function resolveWorkerWorktreeName(
 }
 
 export async function createWorkerWorktree(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   dispatchId: string
   requestedWorktree: string
@@ -140,7 +140,7 @@ export async function createWorkerWorktree(args: {
   launchPreferences?: AgentLaunchPreferences
   effects: WorkerEffect[]
 }): Promise<{
-  worktree: Awaited<ReturnType<OrcaRuntimeService['showManagedWorktree']>>
+  worktree: Awaited<ReturnType<OpenKodoRuntimeService['showManagedWorktree']>>
   terminalHandle: string | undefined
   terminalCreation?: RuntimeTerminalCreate
   setupReceipt: WorkerSetupReceipt
@@ -260,7 +260,9 @@ export async function createWorkerWorktree(args: {
     terminalId: setupTerminalHandle ?? setupTerminal?.id
   })
   return {
-    worktree: created.worktree as Awaited<ReturnType<OrcaRuntimeService['showManagedWorktree']>>,
+    worktree: created.worktree as Awaited<
+      ReturnType<OpenKodoRuntimeService['showManagedWorktree']>
+    >,
     terminalHandle,
     terminalCreation,
     setupReceipt

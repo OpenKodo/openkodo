@@ -13,8 +13,8 @@ export function migrateV48(this: OrchestrationDb, current: number): void {
   this.db.exec(`
     CREATE INDEX IF NOT EXISTS idx_dispatch_contexts_origin
       ON dispatch_contexts(origin_ref) WHERE origin_ref IS NOT NULL;
-    CREATE INDEX IF NOT EXISTS idx_dispatch_creator_orca_session_id
-      ON dispatch_contexts(creator_orca_session_id) WHERE creator_orca_session_id IS NOT NULL;
+    CREATE INDEX IF NOT EXISTS idx_dispatch_creator_openkodo_session_id
+      ON dispatch_contexts(creator_openkodo_session_id) WHERE creator_openkodo_session_id IS NOT NULL;
     CREATE INDEX IF NOT EXISTS idx_dispatch_creator_pane_key
       ON dispatch_contexts(creator_pane_key) WHERE creator_pane_key IS NOT NULL;
   `)

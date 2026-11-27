@@ -1,4 +1,4 @@
-import type { PersistedUIState } from '../orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../openkodo-profiles/persisted-ui-state-types'
 import type { StatusBarItem } from '../ui-chrome/ui-chrome-types'
 
 export const DEFAULT_STATUS_BAR_ITEMS: StatusBarItem[] = [

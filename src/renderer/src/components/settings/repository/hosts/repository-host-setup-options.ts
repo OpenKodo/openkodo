@@ -11,7 +11,7 @@ import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 import { translateHostDisplayLabel } from '../../../../runtime/hosts/display/execution-host-label'
 import { getHostSetupUnavailableDetail } from '@/lib/workspace/creation/project-host-setup-options'
-import { pickerExecutionHosts } from '../../../../../../shared/execution-host/managed-orcad-execution-host'
+import { pickerExecutionHosts } from '../../../../../../shared/execution-host/managed-openkodod-execution-host'
 
 export type SetupHostOption = {
   id: ExecutionHostId

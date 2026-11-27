@@ -17,7 +17,7 @@ import {
 } from '../worktree/catalog/home-host-worktree-fetch'
 
 // Where Home kept its counts before the device store: read once to seed the store, then removed.
-const LEGACY_SNAPSHOT_KEY = 'orca:home-snapshot:v1'
+const LEGACY_SNAPSHOT_KEY = 'openkodo:home-snapshot:v1'
 
 const legacySnapshotSchema = z.object({
   savedAt: z.number(),

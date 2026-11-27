@@ -57,7 +57,7 @@ it('refuses stop or acknowledgment from the CLI, an agent, or a paired client th
     { kind: 'paired-device', deviceId: 'paired-agent', agent: true }
   ]
   const params = {
-    party: 'orca_session_id:11111111-1111-4111-8111-111111111111',
+    party: 'openkodo_session_id:11111111-1111-4111-8111-111111111111',
     dispatch: 'ctx_unknown',
     requestId: 'stop-request',
     settlements: [],
@@ -88,7 +88,7 @@ type OwnerParams = {
 }
 
 const ownerParams: OwnerParams = {
-  party: 'orca_session_id:11111111-1111-4111-8111-111111111111',
+  party: 'openkodo_session_id:11111111-1111-4111-8111-111111111111',
   dispatch: 'ctx_unknown',
   requestId: 'stop-request',
   settlements: [],
@@ -151,7 +151,7 @@ it("refuses an agent's or a paired OpenKodo's call even when it says it is a per
       clientCapabilities: [ORCHESTRATION_PERSON_APPROVALS_CLIENT_CAPABILITY]
     },
     {
-      caller: { kind: 'paired-device', deviceId: 'paired-orca' },
+      caller: { kind: 'paired-device', deviceId: 'paired-openkodo' },
       clientCapabilities: [ORCHESTRATION_PERSON_APPROVALS_CLIENT_CAPABILITY],
       // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: only its presence is read.
       orchestrationCaller: {} as RpcContext['orchestrationCaller']
@@ -211,7 +211,7 @@ it('stops a worker once for a double-clicked and then retried dock Stop', async 
   })
   db.db
     .prepare(
-      "UPDATE dispatch_contexts SET creator_orca_session_id = '11111111-1111-4111-8111-111111111111' WHERE id = ?"
+      "UPDATE dispatch_contexts SET creator_openkodo_session_id = '11111111-1111-4111-8111-111111111111' WHERE id = ?"
     )
     .run(dispatch.id)
   db.db

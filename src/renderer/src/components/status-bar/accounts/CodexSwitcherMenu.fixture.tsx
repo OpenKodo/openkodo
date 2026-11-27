@@ -1,5 +1,5 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import type { CodexManagedAccount } from '../../../../../shared/agent-accounts/managed-account-types'
 import { createEmptyRateLimitState } from '../../../../../shared/agent-usage/rate-limits/rate-limit-state-factory'
 import { setRendererUiLanguage } from '@/i18n/i18n'
@@ -137,7 +137,7 @@ function managed(account: SampleAccount): CodexManagedAccount {
   return {
     id: account.id,
     email: account.email,
-    managedHomePath: `/home/me/.orca/codex/${account.id}`,
+    managedHomePath: `/home/me/.openkodo/codex/${account.id}`,
     managedHomeRuntime: account.wslDistro ? 'wsl' : 'host',
     wslDistro: account.wslDistro ?? null,
     providerAccountId: `provider-${account.id}`,

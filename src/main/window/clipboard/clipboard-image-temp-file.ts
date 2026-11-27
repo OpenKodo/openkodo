@@ -49,7 +49,7 @@ export async function saveClipboardImageBufferAsTempFile(
   }
   // A picked file keeps its own name, so the paste gets a folder to stay unique.
   const tempPath = args?.fileName
-    ? path.join(folder, `orca-paste-${randomUUID()}`, shellInertFileName(args.fileName))
+    ? path.join(folder, `openkodo-paste-${randomUUID()}`, shellInertFileName(args.fileName))
     : path.join(
         folder,
         // Phone picks are often JPEG or HEIC; agents trust the extension over the bytes.

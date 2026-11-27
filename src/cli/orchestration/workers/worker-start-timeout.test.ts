@@ -11,10 +11,10 @@ import { RuntimeClient } from '../../runtime/client'
 import { ORCHESTRATION_WORKER_LAUNCH_HANDLER } from './worker-launch-handler'
 
 test('a lost worker-start reply returns the original receipt without another start', async () => {
-  const profile = await mkdtemp(join(tmpdir(), 'orca-worker-'))
+  const profile = await mkdtemp(join(tmpdir(), 'openkodo-worker-'))
   const windows = process.platform === 'win32'
   const endpoint = windows
-    ? `\\\\.\\pipe\\orca-worker-${randomUUID()}`
+    ? `\\\\.\\pipe\\openkodo-worker-${randomUUID()}`
     : join(profile, 'runtime.sock')
   const runtimeId = 'worker-test-runtime'
   const receipt = { dispatchId: 'dispatch:original', taskId: 'task:original', state: 'ready' }

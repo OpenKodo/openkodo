@@ -18,7 +18,7 @@ import '../../../../../orchestration/db/messages/mailbox-routing-page'
 import '../../../../../orchestration/db/dispatch-row-writer'
 import '../../../../../orchestration/db/attempt-outcome-projection'
 import { reconcileRequestedWorkerTerminalReleases } from '../../../../../orchestration/terminal-authority/release/worker-terminal-release-reconciliation'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { LocalPtyProvider } from '../../../../../../providers/local-pty/local-pty-provider'
 import { exitListeners } from '../../../../../../providers/local-pty/local-pty-provider-state'
 import type { IPtyProvider } from '../../../../../../providers/pty/provider-contract'
@@ -66,7 +66,7 @@ function twoGenerationDaemon(
 describe('worker release once the exact process is proven exited', () => {
   let db: OrchestrationDb
   let dbOpen = false
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let activeRunId: string
   let fixture: WorkerReleaseFixture
 
@@ -495,7 +495,7 @@ describe('worker release once the exact process is proven exited', () => {
       'keeps a release pending when discovery keeps a torn older-daemon record (pid then %j) it cannot rule out',
       async (tail) => {
         setup()
-        const runtimeDir = mkdtempSync(path.join(os.tmpdir(), 'orca-legacy-discovery-'))
+        const runtimeDir = mkdtempSync(path.join(os.tmpdir(), 'openkodo-legacy-discovery-'))
         try {
           // A torn record whose integer prefix names an exited process, and no socket: that ESRCH would
           // speak for another process, so discovery keeps the record and the proof stays declined.
@@ -525,7 +525,7 @@ describe('worker release once the exact process is proven exited', () => {
 
     it('releases once discovery removes an older record whose daemon has exited', async () => {
       setup()
-      const runtimeDir = mkdtempSync(path.join(os.tmpdir(), 'orca-legacy-discovery-'))
+      const runtimeDir = mkdtempSync(path.join(os.tmpdir(), 'openkodo-legacy-discovery-'))
       try {
         const exitedPid = spawnSync(process.execPath, ['-e', '']).pid
         writeFileSync(path.join(runtimeDir, 'daemon-v5.pid'), JSON.stringify({ pid: exitedPid }))

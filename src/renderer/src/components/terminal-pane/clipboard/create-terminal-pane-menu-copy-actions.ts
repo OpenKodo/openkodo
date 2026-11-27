@@ -56,13 +56,13 @@ export function createTerminalPaneMenuCopyActions({
       if (!pane || !target) {
         return null
       }
-      const result = await callRuntimeRpc<{ orcaSessionId: string | null }>(
+      const result = await callRuntimeRpc<{ openkodoSessionId: string | null }>(
         target,
         'terminal.agentId',
         // The host matches its own pane keys, not this client's mirrored ones.
         { paneKey: toHostSessionPaneKey(makePaneKey(tabId, pane.leafId)), worktreeId }
       )
-      return result.orcaSessionId
+      return result.openkodoSessionId
     },
     // Like Copy Session ID: xterm needs its textarea focused for typing after the menu (#592), but
     // a slow answer must not pull focus back from wherever the user has moved since.

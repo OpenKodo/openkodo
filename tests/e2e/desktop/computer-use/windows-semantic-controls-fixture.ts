@@ -67,9 +67,9 @@ async function launchWindowsControlsFixture<State extends z.infer<typeof Fixture
   schema: z.ZodType<State>
 ): Promise<WindowsControlsFixture<State>> {
   const fixtureScript = join(helpersDir, script)
-  const tempDir = await mkdtemp(join(tmpdir(), 'orca-computer-windows-semantic-'))
+  const tempDir = await mkdtemp(join(tmpdir(), 'openkodo-computer-windows-semantic-'))
   const statePath = join(tempDir, 'state.json')
-  const title = `Orca Semantic Controls ${Date.now()}`
+  const title = `OpenKodo Semantic Controls ${Date.now()}`
   const holderTitle = `${title} holder`
   // Why: a window in another process takes activation back, as the user's own app would hold it.
   const holder: ChildProcess = spawn(

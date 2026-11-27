@@ -1,12 +1,12 @@
 # Agent status integrations
 
-Orca learns what each agent is doing through two channels. Both write into the hook server's
+OpenKodo learns what each agent is doing through two channels. Both write into the hook server's
 status store.
 
 | Channel                                                                                                    | How                                                                                                                                                                                                    | What it carries                                                                                                     |
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
 | **Managed integrations** (this folder)                                                                     | Per-agent hooks, plugins and extensions that POST to the loopback hook server. Installers are listed in `installation/managed-agent-hook-registry.ts`; each agent's code lives in `src/main/<agent>/`. | State, prompt, tool name and input, assistant reply, provider session id (resume and native chat), model, subagents |
-| **OSC 7501** (Program Status Protocol, [spec](https://www.superlogical.com/rex/docs/build/program-status)) | The agent writes its own status into the terminal stream. Orca reads it from PTY output and answers the protocol's `?` probe.                                                                          | State, blocked `kind`, one free-text line (`msg`), child records                                                    |
+| **OSC 7501** (Program Status Protocol, [spec](https://www.superlogical.com/rex/docs/build/program-status)) | The agent writes its own status into the terminal stream. OpenKodo reads it from PTY output and answers the protocol's `?` probe.                                                                      | State, blocked `kind`, one free-text line (`msg`), child records                                                    |
 
 **Precedence:** hooks win, and OSC 7501 fills in wherever they don't speak. That covers:
 
@@ -29,30 +29,30 @@ one resolver, `src/shared/program-status/presentation.ts`.
 ## OSC 7501 support matrix
 
 _Last updated: 2026-11-17._ Each "✅ live" row was checked by running the real CLI in a PTY whose
-terminal answered queries the way Orca does.
+terminal answered queries the way OpenKodo does.
 
 **Columns:**
 
 - **Probe:** whether the agent waits for the terminal to answer `OSC 7501 ; ?` before it sends
-  anything (Orca answers).
+  anything (OpenKodo answers).
 - **Kinds:** which `blocked` reasons it names: `permission`, `question`, `auth`.
 - **Children:** whether it reports subagents as child records.
 
 ### Agents that send OSC 7501
 
-| Agent                  | Verified                                  | Probe                                      | States   | Kinds                | `msg` content                                                  | Children     | Orca integration | Use OSC 7501 for                                                              |
-| ---------------------- | ----------------------------------------- | ------------------------------------------ | -------- | -------------------- | -------------------------------------------------------------- | ------------ | ---------------- | ----------------------------------------------------------------------------- |
-| Claude Code (`claude`) | ✅ live, 2.1.302 (support since 2.1.295)  | required                                   | all five | all three            | task summary, "approve Write: …", "answer: Q? (A · B)", errors | ✅ subagents | hooks            | Fallback. Richest OSC 7501 of any harness, but no prompt and no session id. ¹ |
-| Grok (`grok`)          | ✅ live, 1.0.60 (`program_status = auto`) | required (`on` forces it)                  | all five | yes                  | live phase ("Writing command…"), "Turn complete in 19s."       | ✅           | hooks            | Fallback                                                                      |
-| pi (`pi`)              | ✅ live, 1.3.0                            | required (`PI_PROGRAM_STATUS=1` forces it) | all five | all three            | session name, dialog title, first line of an error             | —            | extension        | Fallback                                                                      |
-| oh-my-pi (`omp`)       | ✅ live, 18.10.3                          | sends without asking                       | all five | permission, question | on `blocked`/`error` only                                      | —            | extension        | Fallback                                                                      |
-| Codex (`codex`)        | ✅ live, 0.163.0                          | sends without asking                       | all five | none sent (0.163)    | none                                                           | —            | hooks            | Fallback; state only                                                          |
-| Kimi Code (`kimi`)     | ✅ live, 2.6.3 (also in 2.5.3)            | required (`PI_PROGRAM_STATUS=1` forces it) | 3 of 5   | —                    | the turn's prompt                                              | —            | hooks            | Fallback; reports as `app=kimi-code`                                          |
-| Kiro (`kiro`)          | reported on 3.1.0 (#40567), not run live  | —                                          | —        | —                    | —                                                              | —            | hooks            | Fallback; reports as `app=kiro-cli`                                           |
+| Agent                  | Verified                                  | Probe                                      | States   | Kinds                | `msg` content                                                  | Children     | OpenKodo integration | Use OSC 7501 for                                                              |
+| ---------------------- | ----------------------------------------- | ------------------------------------------ | -------- | -------------------- | -------------------------------------------------------------- | ------------ | -------------------- | ----------------------------------------------------------------------------- |
+| Claude Code (`claude`) | ✅ live, 2.1.302 (support since 2.1.295)  | required                                   | all five | all three            | task summary, "approve Write: …", "answer: Q? (A · B)", errors | ✅ subagents | hooks                | Fallback. Richest OSC 7501 of any harness, but no prompt and no session id. ¹ |
+| Grok (`grok`)          | ✅ live, 1.0.60 (`program_status = auto`) | required (`on` forces it)                  | all five | yes                  | live phase ("Writing command…"), "Turn complete in 19s."       | ✅           | hooks                | Fallback                                                                      |
+| pi (`pi`)              | ✅ live, 1.3.0                            | required (`PI_PROGRAM_STATUS=1` forces it) | all five | all three            | session name, dialog title, first line of an error             | —            | extension            | Fallback                                                                      |
+| oh-my-pi (`omp`)       | ✅ live, 18.10.3                          | sends without asking                       | all five | permission, question | on `blocked`/`error` only                                      | —            | extension            | Fallback                                                                      |
+| Codex (`codex`)        | ✅ live, 0.163.0                          | sends without asking                       | all five | none sent (0.163)    | none                                                           | —            | hooks                | Fallback; state only                                                          |
+| Kimi Code (`kimi`)     | ✅ live, 2.6.3 (also in 2.5.3)            | required (`PI_PROGRAM_STATUS=1` forces it) | 3 of 5   | —                    | the turn's prompt                                              | —            | hooks                | Fallback; reports as `app=kimi-code`                                          |
+| Kiro (`kiro`)          | reported on 3.1.0 (#40567), not run live  | —                                          | —        | —                    | —                                                              | —            | hooks                | Fallback; reports as `app=kiro-cli`                                           |
 
 ### Agents that don't send OSC 7501 yet
 
-| Agent                                                                    | Checked                             | Orca integration           |
+| Agent                                                                    | Checked                             | OpenKodo integration       |
 | ------------------------------------------------------------------------ | ----------------------------------- | -------------------------- |
 | OpenCode (`opencode`, `opencode2`)                                       | installed binary v2.0.16 and source | plugin                     |
 | Kilocode (`kilo`)                                                        | installed package and source        | —                          |
@@ -64,13 +64,13 @@ terminal answered queries the way Orca does.
 | Qwen Code, Freebuff, DeepSeek (`dsh`)                                    | source                              | hooks (qwen-code, dsh)     |
 | Antigravity, Copilot, Command Code, ZCode, OpenClaude, Mimo, Prime Agent | not checked                         | hooks / plugin / extension |
 
-¹ Claude Code stops putting its `⠂`/`✳` status glyph in the window title once Orca answers the
+¹ Claude Code stops putting its `⠂`/`✳` status glyph in the window title once OpenKodo answers the
 probe. So everything that read that glyph reads the program's activity instead while it reports:
 the title trackers (`createAgentStatusTracker`, and `classifyPtyTitleStatus` in main) and the
 Escape-interrupt check (`ClaudeTerminalInterruptTracker`). Activity ends when the shell prompt
 returns or the terminal resets, even though a `done`/`error` record stays on screen, so a later
 agent in the same pane is classified by its own titles again. Because answering changes what Claude
-paints, a client answers for a remote Orca host only when that host advertises
+paints, a client answers for a remote OpenKodo host only when that host advertises
 `terminal.program-status.v1`.
 
 ## Could an agent drop its hook for OSC 7501?
@@ -84,7 +84,7 @@ can move to OSC 7501 only once its OSC 7501 output, or another channel, carries 
 When an agent ships OSC 7501 support, or changes what it reports:
 
 1. Run it in a PTY whose terminal answers `OSC 7501 ; ?` and record the reports.
-2. If its `app` id differs from Orca's agent id, add the mapping to `APP_TO_AGENT_TYPE` in
+2. If its `app` id differs from OpenKodo's agent id, add the mapping to `APP_TO_AGENT_TYPE` in
    `src/shared/program-status/agent-status-projector.ts` (examples: `claude-code` → `claude`,
    `grok-build` → `grok`, `kimi-code` → `kimi`, `kiro-cli` → `kiro`). Otherwise hook precedence
    can't match its rows.
@@ -94,13 +94,13 @@ When an agent ships OSC 7501 support, or changes what it reports:
 
 The hook server runs plugins' `agent.tool.before` and `.after` on each tool event it receives, after
 it records status (`tool-events/agent-tool-plugin-hooks.ts`). Only Claude Code's POSIX script waits for the
-answer: it sends `X-Orca-Hook-Decision: claude-pre-tool-use-v1` on PreToolUse, waits at most 8 s
-(Orca answers within 6 s), and prints Orca's `hookSpecificOutput` (a `deny`, or `updatedInput`
-without an approval) or `{}`. A timeout, an error or Orca being down prints `{}`, so the call
-proceeds as if Orca were not there. Every other script discards the reply, so for those agents
+answer: it sends `X-OpenKodo-Hook-Decision: claude-pre-tool-use-v1` on PreToolUse, waits at most 8 s
+(OpenKodo answers within 6 s), and prints OpenKodo's `hookSpecificOutput` (a `deny`, or `updatedInput`
+without an approval) or `{}`. A timeout, an error or OpenKodo being down prints `{}`, so the call
+proceeds as if OpenKodo were not there. Every other script discards the reply, so for those agents
 `agent.tool.before` only observes.
 
-| Agent                                                                                          | Tool events Orca receives        | Blocks?                                             |
+| Agent                                                                                          | Tool events OpenKodo receives    | Blocks?                                             |
 | ---------------------------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------- |
 | Claude Code (POSIX)                                                                            | PreToolUse, PostToolUse(Failure) | yes                                                 |
 | Claude Code (Windows `.cmd`)                                                                   | same                             | no: prints `{}` first; follow-up                    |

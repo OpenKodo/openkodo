@@ -1,5 +1,5 @@
 import { ProjectGroupHooksCheck } from '../../../shared/rpc-contract/projects/repo-params'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { type BrowserWindow, ipcMain } from 'electron'
 import type { Store } from '../../persistence/loading-store/store'
 import type { Repo } from '../../../shared/repository/repo-types'
@@ -29,7 +29,7 @@ import { runtimeVisibleProjectGroups } from '../../runtime/workspaces/catalog/ru
 export function registerProjectGroupHandlers(
   mainWindow: BrowserWindow,
   store: Store,
-  runtime: Pick<OrcaRuntimeService, 'checkProjectGroupHooks'>
+  runtime: Pick<OpenKodoRuntimeService, 'checkProjectGroupHooks'>
 ): void {
   ipcMain.handle('projectGroups:checkHooks', (_event, rawArgs: unknown) => {
     const args = parseProjectGroupIpcArgs(

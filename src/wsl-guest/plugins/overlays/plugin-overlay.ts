@@ -27,26 +27,26 @@ import {
   writeOpenCodeTuiPlugin
 } from '../../../shared/agent-launch/plugins/opencode/opencode-tui-plugin-install'
 type LegacyOverlayAgentKind = Exclude<PiAgentKind, 'prime-agent'>
-const RELAY_HOOKS_DIR = '.orca-relay'
+const RELAY_HOOKS_DIR = '.openkodo-relay'
 const OPENCODE_OVERLAY_SUBDIR = 'opencode-overlays'
 const OPENCODE2_OVERLAY_SUBDIR = 'opencode2-overlays'
 const PI_OVERLAY_SUBDIR_BY_KIND: Record<LegacyOverlayAgentKind, string> = {
   pi: 'pi-overlays',
   omp: 'omp-overlays'
 }
-const OPENCODE_PLUGIN_FILE = 'orca-opencode-status.js'
-const OPENCODE2_PLUGIN_FILE = 'orca-opencode2-status.js'
+const OPENCODE_PLUGIN_FILE = 'openkodo-opencode-status.js'
+const OPENCODE2_PLUGIN_FILE = 'openkodo-opencode2-status.js'
 // OpenKodo's own entries (either major, file and TUI copy) are never mirrored from user config.
 const OPENKODO_OPENCODE_PLUGIN_ENTRIES = new Set([
   OPENCODE_STARTUP_PROMPT_PLUGIN_DIRECTORY,
   ...[OPENCODE_PLUGIN_FILE, OPENCODE2_PLUGIN_FILE].flatMap((f) => [f, openCodeTuiPluginDirName(f)])
 ])
-const PI_EXTENSION_FILE = 'orca-agent-status.ts'
+const PI_EXTENSION_FILE = 'openkodo-agent-status.ts'
 const PI_AGENT_SUBDIR = 'agent'
 const OMP_MANAGED_STATUS_EXTENSION_DIR = 'omp-managed-status-extension'
 // Bare OMP uses relay-managed status without creating ~/.omp; match the local installer.
-const OPENKODO_MANAGED_EXTENSION_MARKER = '@orca-managed-pi-extension'
-function withOrcaManagedPiExtensionMarker(source: string): string {
+const OPENKODO_MANAGED_EXTENSION_MARKER = '@openkodo-managed-pi-extension'
+function withOpenKodoManagedPiExtensionMarker(source: string): string {
   return source.includes(OPENKODO_MANAGED_EXTENSION_MARKER)
     ? source
     : `// ${OPENKODO_MANAGED_EXTENSION_MARKER}\n${source}`
@@ -113,13 +113,13 @@ export class PluginOverlayManager {
       this.opencode2PluginSource = sources.opencode2PluginSource
     }
     if (typeof sources.piExtensionSource === 'string') {
-      this.piExtensionSources.pi = withOrcaManagedPiExtensionMarker(sources.piExtensionSource)
+      this.piExtensionSources.pi = withOpenKodoManagedPiExtensionMarker(sources.piExtensionSource)
     }
     if (typeof sources.ompExtensionSource === 'string') {
-      this.piExtensionSources.omp = withOrcaManagedPiExtensionMarker(sources.ompExtensionSource)
+      this.piExtensionSources.omp = withOpenKodoManagedPiExtensionMarker(sources.ompExtensionSource)
     }
     if (typeof sources.primeAgentExtensionSource === 'string') {
-      this.piExtensionSources['prime-agent'] = withOrcaManagedPiExtensionMarker(
+      this.piExtensionSources['prime-agent'] = withOpenKodoManagedPiExtensionMarker(
         sources.primeAgentExtensionSource
       )
     }

@@ -12,7 +12,7 @@ import { writeNewE2EEKeypair } from './rpc/server/pairing/e2ee-keypair'
 import { DEVICE_REGISTRY_FILENAME } from './rpc/server/pairing/mobile-pairing-files'
 import { HOST_INSTALLATION_FILENAME } from './hosts/platform-probe/host-descriptor'
 
-export const HOST_INSTANCE_FILENAME = 'orca-host-instance.json'
+export const HOST_INSTANCE_FILENAME = 'openkodo-host-instance.json'
 export const OPENKODO_INSTANCE_ID_ENV = 'OPENKODO_INSTANCE_ID'
 const MAX_HOST_INSTANCE_FILE_BYTES = 4 * 1024
 const IDENTITY_FILENAMES = [
@@ -22,7 +22,7 @@ const IDENTITY_FILENAMES = [
 ] as const
 const STAGED_SUFFIX = '.next'
 /** Replaced identity files are moved here so an unwanted rotation can be undone by hand. */
-export const IDENTITY_BACKUPS_DIRNAME = 'orca-identity-backups'
+export const IDENTITY_BACKUPS_DIRNAME = 'openkodo-identity-backups'
 const MAX_IDENTITY_BACKUPS = 5
 const BACKUP_NAME_RE = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z-[0-9a-f]{6}$/
 
@@ -59,7 +59,7 @@ export class HostIdentityRotationNotStartedError extends Error {
 
 export function hostInstanceIdFromEnv(env: NodeJS.ProcessEnv = process.env): string | null {
   const raw = env[OPENKODO_INSTANCE_ID_ENV]?.trim()
-  return raw ? createHash('sha256').update(`orca-host-instance\0${raw}`).digest('hex') : null
+  return raw ? createHash('sha256').update(`openkodo-host-instance\0${raw}`).digest('hex') : null
 }
 
 function isMissing(error: unknown): boolean {

@@ -7,13 +7,13 @@ import type { WslHostConnector, WslHostServiceDependencies } from './wsl-host-co
 import { wslHostNotConnectedMessage } from './wsl-host-add-admission'
 import { wslHostStoppedMessage } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-stopped-message'
 import { admitConnectToPendingHost } from './wsl-host-removal'
-import type { WslOrcadConnection } from '../orcad/wsl-orcad-connection-types'
+import type { WslOpenkododConnection } from '../openkodod/wsl-openkodod-connection-types'
 import {
   isWslHostIdleStopped,
   pendingWslHostWake,
   wakeWslHostAfterIdleStop
 } from './wsl-host-idle-stop'
-import { RUNTIME_IDLE_STOPPED_MESSAGE } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-idle-stop-signal'
+import { RUNTIME_IDLE_STOPPED_MESSAGE } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-idle-stop-signal'
 
 export type WslHostRuntimeCallPort = {
   record: WslHostDeploymentRecord | null
@@ -28,7 +28,7 @@ export type WslHostRuntimeCallPort = {
   retireConnectionChange: (distro: string) => void
   /** Shown as liveness shows a stop, so the host's panes offer Start. */
   publishStopped: (record: WslHostDeploymentRecord) => void
-  publishReady: (record: WslHostDeploymentRecord, connection: WslOrcadConnection) => void
+  publishReady: (record: WslHostDeploymentRecord, connection: WslOpenkododConnection) => void
   /** The same call again, once the distro is confirmed running. */
   retry: () => Promise<void>
   /** The user asked for this call (a gesture, a focus, Start): only it wakes an idle-stopped host. */

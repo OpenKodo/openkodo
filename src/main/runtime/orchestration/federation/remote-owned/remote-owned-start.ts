@@ -10,7 +10,7 @@ import {
 import { startsInChatLineage } from '../../../rpc/methods/orchestration/worker/start/worker-chat-lineage'
 import { ORCHESTRATION_CONTRACT_PREFLIGHT_TIMEOUT_MS } from '../../../../../shared/orchestration/orchestration-timing-budgets'
 import type { RuntimeStatus } from '../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { RpcContext } from '../../../rpc/core'
 import { prepareWorkerStart } from '../../../rpc/methods/orchestration/worker/worker-start-method'
 import { resolveFederatedWorkerStartBudgets } from '../../../rpc/methods/orchestration/worker/start/launch/worker-start-budgets'
@@ -47,14 +47,14 @@ type StartContext = Pick<
 
 /** Whether the server runs the workers placed on it as its own; an older one keeps today's remote attachments. */
 export async function serverOwnsPlacedWorkers(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   server: OrchestrationWorkerServer
 ): Promise<boolean> {
   return serverSupports(runtime, server, ORCHESTRATION_REMOTE_OWNED_WORKERS_RUNTIME_CAPABILITY)
 }
 
 async function serverSupports(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   server: OrchestrationWorkerServer,
   capability: string
 ): Promise<boolean> {
@@ -79,8 +79,8 @@ async function serverSupports(
 /** The lineage a start carries to the server: only when its caller is in one and the server takes it.
  *  An older server would ignore it and keep its own settings, as before. */
 export async function forwardedChatLineage(
-  runtime: OrcaRuntimeService,
-  db: ReturnType<OrcaRuntimeService['getOrchestrationDb']>,
+  runtime: OpenKodoRuntimeService,
+  db: ReturnType<OpenKodoRuntimeService['getOrchestrationDb']>,
   params: StartParams,
   caller: StartContext['orchestrationCaller'],
   server: OrchestrationWorkerServer
@@ -126,7 +126,7 @@ const StartedOnServer = z.object({
  * record: the Task is reserved for the server first, and becomes its attempt once it answers.
  */
 export async function startRemoteOwnedWorker(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: StartParams,
   ctx: StartContext,
   callerRequestId: string | undefined
@@ -184,7 +184,7 @@ export async function startRemoteOwnedWorker(
     db,
     params.worktree,
     {
-      orcaSessionId: coordinator?.orcaSessionId ?? null,
+      openkodoSessionId: coordinator?.openkodoSessionId ?? null,
       creatorDispatchId: helperCreator?.id ?? null
     },
     (sessionId) => botOfSession(runtime.bots, sessionId) !== null
@@ -266,7 +266,7 @@ export async function startRemoteOwnedWorker(
 
 /** What a start's failure says about its reservation: adopt the Dispatch it names, keep it for the server's queue to answer, or free it. */
 function settleUnansweredStart(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   start: {
     conversationId: string
     taskId: string

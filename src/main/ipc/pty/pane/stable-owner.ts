@@ -5,7 +5,7 @@ import { toSshExecutionHostId } from '../../../../shared/execution-host/executio
 import { makePaneKey, parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import type { Store } from '../../../persistence/loading-store/store'
 import { retireTerminalSurfaceFromPersistence } from '../../../runtime/terminal/surface/mobile-session-terminal-persistence-retirement'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { IPtyProvider, PtySpawnOptions } from '../../../providers/pty/provider-contract'
 import type { PtySpawnResult } from '../../../providers/pty/spawn-result'
 import { getPtySshConnectionId } from '../provider/registry'
@@ -63,7 +63,7 @@ export function resolvePersistedStablePaneOwner(
 }
 
 export function resolveStablePaneOwner(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   store: Store | undefined,
   paneKey: string | null | undefined,
   worktreeId: string | undefined,
@@ -72,8 +72,9 @@ export function resolveStablePaneOwner(
   if (!paneKey || !worktreeId) {
     return null
   }
-  let resolved: ReturnType<OrcaRuntimeService['resolveTerminalPane']> | null = null
-  let resolvedHandleCandidate: ReturnType<OrcaRuntimeService['resolveTerminalPane']> | null = null
+  let resolved: ReturnType<OpenKodoRuntimeService['resolveTerminalPane']> | null = null
+  let resolvedHandleCandidate: ReturnType<OpenKodoRuntimeService['resolveTerminalPane']> | null =
+    null
   if (runtime && typeof runtime.resolveTerminalPane === 'function') {
     try {
       const candidate = runtime.resolveTerminalPane(paneKey, worktreeId)
@@ -164,7 +165,7 @@ export async function retirePersistedStablePaneOwner(
 }
 
 export type StablePaneSpawnContext = {
-  runtime: OrcaRuntimeService | undefined
+  runtime: OpenKodoRuntimeService | undefined
   store?: Store
   provider: IPtyProvider
   spawnOptions: PtySpawnOptions

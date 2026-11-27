@@ -1,4 +1,4 @@
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 
 // Caps worker and prune traffic at poolMax - 1 connections so request-path lookups always find one.
 export function reserveRequestConnection(database: PushDatabase, poolMax: number): PushDatabase {

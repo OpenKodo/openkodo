@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 
-// A bot shared with Orca accounts: its host lists the people in its hello (sharedWith), and a
-// teammate's Orca finds it with GET `${shares}/mine` and reaches the host over the relay. A message
+// A bot shared with OpenKodo accounts: its host lists the people in its hello (sharedWith), and a
+// teammate's OpenKodo finds it with GET `${shares}/mine` and reaches the host over the relay. A message
 // sent while the host is away is held here sealed to the host's key (held-message seal in the app),
 // so the cloud sees who, which bot, when and how large, never the words. Every route and delivery
 // here is used only with a cloud and a host that list CONNECTOR_CLOUD_BOT_SHARES_FEATURE.
@@ -14,7 +14,7 @@ const OpaqueIdSchema = z.string().min(1).max(128)
  *  random (a UUID or 16+ random bytes, base64url), so it is unique across hosts; it goes in paths as is. */
 export const ShareIdSchema = z.string().regex(/^[A-Za-z0-9_-]{1,128}$/)
 
-// On a person's request or trigger actor: the Orca account, linked to them, whose share of the bot let
+// On a person's request or trigger actor: the OpenKodo account, linked to them, whose share of the bot let
 // them ask (canAskBot's linkedAccountIds). The machine trusts it only while that account is on its
 // Bot.shares, never as a grant of its own. Absent from an older cloud; an older machine ignores it.
 export const ViaAccountSchema = OpaqueIdSchema.optional()
@@ -44,13 +44,13 @@ const Name = z.string().min(1).max(CONNECTOR_LIMITS.maxDisplayTextLength)
 // A bot's purpose, as its owner wrote it (ConnectorBotSchema.botPurpose and the /mine entry).
 export const BotPurposeSchema = z.string().min(1).max(CONNECTOR_LIMITS.maxBotPurposeLength)
 
-// One person a bot is shared with, in its hello: an Orca account, or an email not yet resolved to one.
+// One person a bot is shared with, in its hello: an OpenKodo account, or an email not yet resolved to one.
 export const ConnectorBotShareSchema = z.union([
   z.object({ shareId: ShareIdSchema, accountId: OpaqueIdSchema }),
   z.object({ shareId: ShareIdSchema, email: ShareEmailSchema })
 ])
 
-// Deliveries to the host, all on the share's own conversation { source: 'orca', externalId: shareId },
+// Deliveries to the host, all on the share's own conversation { source: 'openkodo', externalId: shareId },
 // so the inbox hands them out in order: a resolve before an accept, an accept before a held message.
 // The host acks each received: false and done once handled.
 export const ShareDeliveryFields = {
@@ -58,7 +58,7 @@ export const ShareDeliveryFields = {
   botId: OpaqueIdSchema
 }
 
-// An invited email signed in to Orca: the host rewrites that invite as this account.
+// An invited email signed in to OpenKodo: the host rewrites that invite as this account.
 export const ShareResolvedFields = {
   ...ShareDeliveryFields,
   email: ShareEmailSchema,
@@ -140,7 +140,7 @@ export const ConnectorSharesMineSchema = z.object({
       // The owner's hello botPurpose for the bot; absent when it sends none.
       botPurpose: BotPurposeSchema.optional(),
       // The host's E2EE key, which held messages are sealed to: present only once the host's hello
-      // carries hostKey, which it sends when it takes share_send. Absent, the teammate's Orca holds
+      // carries hostKey, which it sends when it takes share_send. Absent, the teammate's OpenKodo holds
       // nothing and sends only while the host is online.
       hostKey: SharePublicKeySchema.optional(),
       // The host's answers to this account's accepts, by device key.

@@ -3,7 +3,7 @@
 // process becomes the server (execve), or on Windows starts it and stays as its wrapper, so the
 // values never sit in the agent's config, its command line or its own environment.
 import { isAbsolute, resolve } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type { McpServerConnection } from '../../shared/mcp-servers/mcp-servers'
 import { encodeMcpEnvPairs } from '../../shared/mcp-servers/mcp-env-pairs'
 import { resolveCliCommand } from '../../shared/shell/command-resolution/node-cli-command-resolution'

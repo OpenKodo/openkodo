@@ -2,7 +2,7 @@ import { createLocalWorkerStartDispatch } from './local-worker-start-dispatch'
 import { refuseClaimedWorkerTerminal } from '../../../../../orchestration/db/worker-dispatch/worker-terminal-claim'
 import { probeWorkerOpenCodeModelLaunchSupport } from './launch/worker-opencode-model-preflight'
 import { resolveWorkerConfiguredAgentParams } from './launch/worker-configured-agent-preflight'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import type {
   DispatchContextRow,
@@ -53,7 +53,7 @@ import { placedWorkerParty, type WorkerFollowUp } from '../follow-up/worker-foll
 
 export async function startLocalWorker(args: {
   params: WorkerStartInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   /** Called only once effect-free validation passes, so a refused start binds no new Run. */
   bindRun: () => RunRow

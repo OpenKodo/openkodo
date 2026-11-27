@@ -1,5 +1,5 @@
 import { resolve } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 
 export function startDevStorageReclaim({
   repoRoot,
@@ -28,14 +28,14 @@ export function startDevStorageReclaim({
       detached: true,
       stdio: 'ignore'
     })
-    child.on('error', (error) => report(`[orca-dev] Storage cleanup skipped: ${error.message}`))
+    child.on('error', (error) => report(`[openkodo-dev] Storage cleanup skipped: ${error.message}`))
     child.on('exit', (code) => {
       if (code !== 0) {
-        report('[orca-dev] Storage cleanup did not finish; retry with pnpm reclaim-space.')
+        report('[openkodo-dev] Storage cleanup did not finish; retry with pnpm reclaim-space.')
       }
     })
     child.unref()
   } catch (error) {
-    report(`[orca-dev] Storage cleanup skipped: ${error.message}`)
+    report(`[openkodo-dev] Storage cleanup skipped: ${error.message}`)
   }
 }

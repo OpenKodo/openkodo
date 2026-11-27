@@ -67,12 +67,12 @@ export class CrewRelevance {
   /** A shown party, by every identity a new Dispatch or Run may name it by. */
   addParty(party: {
     paneKey?: string | null
-    orcaSessionId?: string | null
+    openkodoSessionId?: string | null
     terminalHandle?: string | null
   }): void {
     this.addPane(party.paneKey)
-    if (party.orcaSessionId) {
-      this.sessions.add(party.orcaSessionId)
+    if (party.openkodoSessionId) {
+      this.sessions.add(party.openkodoSessionId)
     }
     if (party.terminalHandle) {
       this.handles.add(party.terminalHandle)

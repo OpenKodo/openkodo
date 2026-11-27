@@ -32,7 +32,7 @@ type Props = {
   fontFamily?: string
   // File targets call this with relative/absolute path and optional :line(:col); omit on screens without viewer to leave paths plain.
   onOpenFile?: (pathText: string) => void
-  // Enable ::orca-visual directives only in assistant native-chat prose; keep callback identity stable for memoization.
+  // Enable ::openkodo-visual directives only in assistant native-chat prose; keep callback identity stable for memoization.
   renderImage?: (href: string, alt: string, width?: number) => ReactNode
   renderVisual?: (directive: NativeChatVisualDirective, index: number) => ReactNode
   // Close incomplete streaming markup like desktop; diagrams remain code until text stops.

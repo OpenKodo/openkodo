@@ -3,7 +3,7 @@ import { app } from 'electron'
 import { sanitizeCrashReportString } from '../../../shared/crash-reporting/crash-report-redaction'
 import type { CrashReportDiagnosticBundle } from '../../../shared/crash-reporting/crash-reporting-diagnostic-bundle'
 import { collectDiagnosticBundle, getDiagnosticsStatus } from '../../observability/index'
-import { resolveDiagnosticOrcaChannel } from '../../observability/diagnostic-upload-endpoint'
+import { resolveDiagnosticOpenKodoChannel } from '../../observability/diagnostic-upload-endpoint'
 import type { FeedbackDiagnosticBundleAttachment } from '../../ipc/feedback/feedback-request'
 import type { FeedbackSubmitResult } from '../../../shared/feedback/feedback-submit-contract'
 
@@ -47,7 +47,7 @@ async function collectCrashDiagnosticBundleAttachment(
       platform: os.platform(),
       arch: os.arch(),
       osRelease: os.release(),
-      orcaChannel: resolveDiagnosticOrcaChannel(),
+      openkodoChannel: resolveDiagnosticOpenKodoChannel(),
       // Reports after relaunch need logs older than the default 30-minute support window.
       lookbackMinutes: CRASH_REPORT_LOG_LOOKBACK_MINUTES,
       nativeHangCaptureId

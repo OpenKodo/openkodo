@@ -1,4 +1,4 @@
-import { EpochMsSchema, SequenceSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema, SequenceSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 import {
@@ -66,7 +66,7 @@ export const WebhookCallFieldsSchema = z.object({
   callId: WebhookCallIdSchema,
   // The hook's lifecycle generation at admission; pause, delete and revoke-now raise it.
   epoch: SequenceSchema,
-  // Always 1, as hooks never move host; older Orca requires it.
+  // Always 1, as hooks never move host; older OpenKodo requires it.
   hostGen: SequenceSchema,
   // Sent from the card's "Send a sample call", never from a caller.
   sample: z.literal(true).optional()

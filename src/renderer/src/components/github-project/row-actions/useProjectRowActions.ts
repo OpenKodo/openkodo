@@ -44,7 +44,7 @@ export function useProjectRowActions({
   const [slugDialog, setSlugDialog] = useState<{ origin: GitHubItemDialogProjectOrigin } | null>(
     null
   )
-  const [repoNotInOrca, setRepoNotInOrca] = useState<{
+  const [repoNotInOpenKodo, setRepoNotInOpenKodo] = useState<{
     owner: string
     repo: string
     host?: string
@@ -68,15 +68,15 @@ export function useProjectRowActions({
   const missingDialogs = resolveMissingRepoProjectDialogState({
     slugIndexReady,
     slugDialog,
-    repoNotInOrca,
+    repoNotInOpenKodo,
     lookupSlug,
     selectedRepoIds
   })
   if (missingDialogs.slugDialog !== slugDialog) {
     setSlugDialog(missingDialogs.slugDialog)
   }
-  if (missingDialogs.repoNotInOrca !== repoNotInOrca) {
-    setRepoNotInOrca(missingDialogs.repoNotInOrca)
+  if (missingDialogs.repoNotInOpenKodo !== repoNotInOpenKodo) {
+    setRepoNotInOpenKodo(missingDialogs.repoNotInOpenKodo)
   }
 
   const buildOrigin = useCallback(
@@ -195,7 +195,7 @@ export function useProjectRowActions({
         return
       }
       if (resolution.status === 'no_global_match') {
-        setRepoNotInOrca({
+        setRepoNotInOpenKodo({
           owner: origin.owner,
           repo: origin.repo,
           host: origin.host,
@@ -232,7 +232,7 @@ export function useProjectRowActions({
     missingDialogs,
     setDialogRepoItem,
     setSlugDialog,
-    setRepoNotInOrca,
+    setRepoNotInOpenKodo,
     openDialog,
     startWork,
     ...rowMutations

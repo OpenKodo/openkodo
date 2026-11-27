@@ -52,7 +52,7 @@ afterEach(() => cleanups.splice(0).forEach((cleanup) => cleanup()))
 
 /** A real chat journal, written by the same writers the host uses. */
 function chatJournal(agent: 'codex' | 'claude' | 'pi', turn: AgentJournalItemIdentity) {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-bot-run-turn-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-bot-run-turn-'))
   const db = new Database(join(directory, 'journal.sqlite'))
   cleanups.push(() => {
     db.close()

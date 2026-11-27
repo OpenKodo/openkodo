@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 
 export type IssuedPushSession = {
   sessionToken: string
@@ -28,7 +28,7 @@ export class PushHostSessionStore {
     const expiresAt = createdAt + PUSH_LIMITS.sessionTtlMs
     await this.database.transaction(async (transaction) => {
       // One active session per desktop bounds rows even for self-minted hosts that flood proofs.
-      await transaction.lockQuotaScope(`orca-push-session:${hostFingerprint}`)
+      await transaction.lockQuotaScope(`openkodo-push-session:${hostFingerprint}`)
       await transaction.query('DELETE FROM push_sessions WHERE host_fingerprint = ?', [
         hostFingerprint
       ])

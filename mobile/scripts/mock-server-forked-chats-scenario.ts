@@ -13,7 +13,7 @@ import type { RpcRequest, RpcResponse } from './mock-server-rpc-handlers'
 type Respond = (response: RpcResponse) => void
 type Success = (id: string, result: unknown, streaming?: boolean) => RpcResponse
 
-const REPO_PATH = '/tmp/orca-mobile-repro/orca'
+const REPO_PATH = '/tmp/openkodo-mobile-repro/openkodo'
 const WORKTREE_PATH = `${REPO_PATH}/worktrees/forks`
 const WORKTREE_ID = `repo-1::${WORKTREE_PATH}`
 
@@ -125,7 +125,7 @@ function worktrees(): RuntimeWorktreePsSummary[] {
     {
       worktreeId: WORKTREE_ID,
       repoId: 'repo-1',
-      repo: 'orca',
+      repo: 'openkodo',
       path: WORKTREE_PATH,
       branch: 'feature/forks',
       isArchived: false,
@@ -167,7 +167,7 @@ function historySession(chat: MockChat, index: number) {
     cwd: WORKTREE_PATH,
     branch: 'feature/forks',
     model: null,
-    filePath: `/tmp/orca-mobile-repro/transcripts/${chat.sessionId}.jsonl`,
+    filePath: `/tmp/openkodo-mobile-repro/transcripts/${chat.sessionId}.jsonl`,
     codexHome: null,
     createdAt: at,
     updatedAt: at,

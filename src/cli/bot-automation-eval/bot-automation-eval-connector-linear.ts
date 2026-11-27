@@ -5,7 +5,7 @@ import { hasLinear, type PlaceView } from './bot-automation-eval-connector-place
 import type { EvalHostState } from './bot-automation-eval-host'
 import { linearIssue, linearTeam } from './bot-automation-eval-linear'
 import { createLinear, setLinear } from './bot-automation-eval-linear-writes'
-import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
+import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-openkodo'
 
 /** A Linear issue's fields changed as the bot asked. */
 export function setIssue(

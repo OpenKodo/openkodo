@@ -26,7 +26,7 @@ The probe talks to third-party servers, so it stays read-only and narrow: https 
 
 Add the entry to `BOT_MCP_APPS`, run the command above, and include its passing output in the PR.
 
-Check the vendor's docs for a list of approved MCP clients first, and skip an app that restricts clients: its server passes this check but refuses Orca's sign-in.
+Check the vendor's docs for a list of approved MCP clients first, and skip an app that restricts clients: its server passes this check but refuses OpenKodo's sign-in.
 
 ## Files
 

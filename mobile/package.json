@@ -1,5 +1,5 @@
 {
-  "name": "orca-mobile",
+  "name": "openkodo-mobile",
   "version": "0.0.1",
   "private": true,
   "main": "index.js",
@@ -13,8 +13,8 @@
     "typecheck": "node ../config/scripts/typecheck/project-execution/run-typecheck-projects-in-parallel.mjs --project=mobile/tsconfig.json",
     "typecheck:tests": "node ../config/scripts/typecheck/project-execution/run-typecheck-projects-in-parallel.mjs --project=mobile/tsconfig.test.json",
     "check:tests-typecheck": "node scripts/check-tests-typecheck-ratchet.mjs",
-    "rpc:record": "tsx --conditions=orca-source scripts/rpc-recording.mts",
-    "rpc:diff": "tsx --conditions=orca-source scripts/rpc-diff.mts",
+    "rpc:record": "tsx --conditions=openkodo-source scripts/rpc-recording.mts",
+    "rpc:diff": "tsx --conditions=openkodo-source scripts/rpc-diff.mts",
     "lint": "oxlint",
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@formatjs/intl-pluralrules": "6.3.16",
     "@noble/hashes": "1.8.0",
-    "@orca/expo-two-way-audio": "file:./packages/expo-two-way-audio",
+    "@openkodo/expo-two-way-audio": "file:./packages/expo-two-way-audio",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@tanstack/query-persist-client-core": "5.107.1",
     "@tanstack/react-query": "5.107.1",
@@ -83,7 +83,7 @@
     "zod": "~4.6.7"
   },
   "devDependencies": {
-    "@orca/process-host": "link:../src/packages/process-host",
+    "@openkodo/process-host": "link:../src/packages/process-host",
     "@react-native/metro-config": "0.88.1",
     "@types/markdown-it": "14.1.2",
     "@types/markdown-it-footnote": "^3.0.4",

@@ -23,7 +23,7 @@ on:
         required: false
         type: string
         default: ''
-      # Why: the app, orcad and its test template (--dark-test-template) build with it; releases refuse it.
+      # Why: the app, openkodod and its test template (--dark-test-template) build with it; releases refuse it.
       # Why: only required gates pay for Blacksmith; advisory lanes run on free hosted runners.
       fast_runners:
         description: Run on Blacksmith instead of free GitHub-hosted runners
@@ -31,7 +31,7 @@ on:
         type: boolean
         default: false
       layout_owner:
-        description: Set to main to build with ORCA_LAYOUT_OWNER=main and record save-divergence reports
+        description: Set to main to build with OPENKODO_LAYOUT_OWNER=main and record save-divergence reports
         required: false
         type: string
         default: ''
@@ -60,7 +60,7 @@ jobs:
     runs-on: ${{ inputs.fast_runners && 'blacksmith-8vcpu-ubuntu-2404' || 'ubuntu-24.04' }}
     timeout-minutes: 15
     env:
-      ORCA_BACKGROUND_LAUNCH: '1'
+      OPENKODO_BACKGROUND_LAUNCH: '1'
 
     steps:
       - name: Checkout
@@ -70,13 +70,13 @@ jobs:
 
       - name: Install native build tools
         env:
-          ORCA_E2E_APT_PACKAGES: build-essential python3
+          OPENKODO_E2E_APT_PACKAGES: build-essential python3
         run: &install_e2e_tools |
-          if [ "$ORCA_E2E_APT_PACKAGES" = 'build-essential python3' ] &&
+          if [ "$OPENKODO_E2E_APT_PACKAGES" = 'build-essential python3' ] &&
             command -v make >/dev/null && command -v g++ >/dev/null && command -v python3 >/dev/null; then
             exit 0
           fi
-          read -r -a packages <<< "$ORCA_E2E_APT_PACKAGES"
+          read -r -a packages <<< "$OPENKODO_E2E_APT_PACKAGES"
           if [ -f .github/scripts/install-ubuntu-apt-packages.sh ]; then
             bash .github/scripts/install-ubuntu-apt-packages.sh "${packages[@]}"
             exit 0
@@ -90,7 +90,7 @@ jobs:
                 sudo sed -i 's|https*://azure\.archive\.ubuntu\.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$source"
               fi
             done
-            sudo tee /etc/apt/apt.conf.d/99-orca-ci >/dev/null <<'APTCONF'
+            sudo tee /etc/apt/apt.conf.d/99-openkodo-ci >/dev/null <<'APTCONF'
           Acquire::http::Timeout "15";
           Acquire::https::Timeout "15";
           Acquire::Retries "1";
@@ -120,11 +120,11 @@ jobs:
       - name: Build E2E outputs
         env:
           VITE_EXPOSE_STORE: 'true'
-          ORCA_CI_MAIN_SOURCEMAPS: '0'
+          OPENKODO_CI_MAIN_SOURCEMAPS: '0'
           LAYOUT_OWNER: ${{ inputs.layout_owner }}
         run: |
           if [ -n "$LAYOUT_OWNER" ]; then
-            export ORCA_LAYOUT_OWNER="$LAYOUT_OWNER"
+            export OPENKODO_LAYOUT_OWNER="$LAYOUT_OWNER"
           fi
           pnpm run build:electron-vite:parallel --mode e2e
 
@@ -147,7 +147,7 @@ jobs:
       # The switch-on specs skip, rather than fail, when the build left no marker.
       - name: Check layout-owner build marker
         if: inputs.layout_owner == 'main'
-        run: test -f out/main/ORCA_LAYOUT_OWNER_MAIN
+        run: test -f out/main/OPENKODO_LAYOUT_OWNER_MAIN
 
       - name: Check shared native runtime action
         id: native-runtime-action
@@ -201,7 +201,7 @@ jobs:
         # The Azure archive took 16 minutes for one font package; bound setup
         # separately so a slow mirror cannot consume the test budget.
         env: &e2e_tool_packages
-          ORCA_E2E_APT_PACKAGES: build-essential fonts-noto-cjk openssh-client python3 ripgrep xvfb zsh openbox x11-utils xdotool
+          OPENKODO_E2E_APT_PACKAGES: build-essential fonts-noto-cjk openssh-client python3 ripgrep xvfb zsh openbox x11-utils xdotool
         run: *install_e2e_tools
 
       - uses: ./.github/actions/install-node-dependencies
@@ -218,7 +218,7 @@ jobs:
       - name: Run E2E tests
         env:
           PLAYWRIGHT_JSON_OUTPUT_FILE: e2e-results/results.json
-        run: xvfb-run --auto-servernum bash .github/scripts/e2e-with-window-manager.sh env SKIP_BUILD=1 ORCA_E2E_FORWARD_APP_LOGS=1 ORCA_E2E_WEB_CLIENT=1 pnpm run test:e2e --workers=1 --reporter=list,json
+        run: xvfb-run --auto-servernum bash .github/scripts/e2e-with-window-manager.sh env SKIP_BUILD=1 OPENKODO_E2E_FORWARD_APP_LOGS=1 OPENKODO_E2E_WEB_CLIENT=1 pnpm run test:e2e --workers=1 --reporter=list,json
 
       - name: Summarize E2E failures
         if: always()
@@ -238,7 +238,7 @@ jobs:
   changed-e2e:
     name: changed e2e specs
     env:
-      ORCA_BACKGROUND_LAUNCH: ${{ inputs.background_launch && '1' || '' }}
+      OPENKODO_BACKGROUND_LAUNCH: ${{ inputs.background_launch && '1' || '' }}
     needs: [build]
     if: inputs.test_files != ''
     runs-on: ${{ inputs.fast_runners && 'blacksmith-4vcpu-ubuntu-2404' || 'ubuntu-24.04' }}
@@ -275,12 +275,12 @@ jobs:
             echo "No changed specs."
             exit 0
           fi
-          E2E_ENV=(SKIP_BUILD=1 ORCA_E2E_FORWARD_APP_LOGS=1 ORCA_E2E_WEB_CLIENT=1)
+          E2E_ENV=(SKIP_BUILD=1 OPENKODO_E2E_FORWARD_APP_LOGS=1 OPENKODO_E2E_WEB_CLIENT=1)
           E2E_PROJECT_ARGS=()
           if [ -n "$LAYOUT_OWNER" ]; then
-            test -f out/main/ORCA_LAYOUT_OWNER_MAIN
+            test -f out/main/OPENKODO_LAYOUT_OWNER_MAIN
             mkdir -p layout-divergence
-            E2E_ENV+=(ORCA_LAYOUT_SAVE_DIVERGENCE_LOG="$PWD/layout-divergence/window-specs.jsonl")
+            E2E_ENV+=(OPENKODO_LAYOUT_SAVE_DIVERGENCE_LOG="$PWD/layout-divergence/window-specs.jsonl")
             E2E_ENV+=(PLAYWRIGHT_JSON_OUTPUT_FILE="$PWD/layout-divergence/window-specs-results.json")
             E2E_PROJECT_ARGS+=('--reporter=list,json')
           fi

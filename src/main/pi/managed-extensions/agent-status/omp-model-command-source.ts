@@ -1,7 +1,7 @@
 export function getOmpModelCommandSourceLines(): string[] {
   return [
     "  if (isOmpRuntime() && typeof pi.registerCommand === 'function' && typeof pi.setModel === 'function') {",
-    "    pi.registerCommand('orca-model', {",
+    "    pi.registerCommand('openkodo-model', {",
     "      description: 'Switch the model selected in OpenKodo',",
     '      handler: async (selector, ctx) => {',
     '        const models = ctx.modelRegistry.getAvailable()',

@@ -87,7 +87,7 @@ function actorOf(value: unknown): BotItemActor {
     const device = str(fields.device)
     return device ? { kind: 'owner', device } : { kind: 'owner' }
   }
-  return { kind: 'orca', why: str(fields?.why) ?? 'orca' }
+  return { kind: 'openkodo', why: str(fields?.why) ?? 'openkodo' }
 }
 
 export function itemRecordOf(row: SqliteRow): BotItemRecord {

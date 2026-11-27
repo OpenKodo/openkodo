@@ -1,7 +1,7 @@
 import { replaceWorkspaceSessionPartitions } from '../restoring-sessions/workspace-session-partition-replacement'
 import type { ProjectHostSetup } from '../../../shared/project/project-types'
 import { toSshExecutionHostId } from '../../../shared/execution-host/execution-host'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import {
   migrateFolderWorkspaceHostSshTargetId,
   migrateUiHostScopeSshTargetId,

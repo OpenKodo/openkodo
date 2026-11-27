@@ -17,7 +17,7 @@ import { skillBackupLocation, type SkillBackupHost } from '../freshness/skill-ba
 
 const HOME = '/home/dev'
 const REMOTE: SkillBackupHost = { kind: 'remote', name: 'build-box' }
-const BACKUP = `${HOME}/.agents/.orca-skill-backups/orca-cli-2026-11-22T09-14-03-512Z-4f1c2a9e-7b3d-4e8a-9c21-6d0e5f3b8a17`
+const BACKUP = `${HOME}/.agents/.openkodo-skill-backups/openkodo-cli-2026-11-22T09-14-03-512Z-4f1c2a9e-7b3d-4e8a-9c21-6d0e5f3b8a17`
 
 function seededPlan(folder: string, replaceable: boolean): BundledSkillPlan {
   return {
@@ -26,7 +26,7 @@ function seededPlan(folder: string, replaceable: boolean): BundledSkillPlan {
     planDigest: 'b'.repeat(64),
     skills: [
       {
-        name: 'orca-cli',
+        name: 'openkodo-cli',
         digest: 'a'.repeat(64),
         ops: [
           {
@@ -99,11 +99,11 @@ function replacedStatus(host: SkillBackupHost) {
     scope: 'global',
     skills: [
       {
-        name: 'orca-cli',
+        name: 'openkodo-cli',
         status: 'ran',
         ops: [
           {
-            path: `${HOME}/.agents/skills/orca-cli`,
+            path: `${HOME}/.agents/skills/openkodo-cli`,
             kind: 'replace',
             status: 'done',
             backupPath: BACKUP
@@ -145,7 +145,7 @@ export const featureWallReplace = defineFixture({
     const { bundledPlan } = window.api.skills
     window.api.skills.bundledPlan = async () => {
       window.api.skills.bundledPlan = bundledPlan
-      return seededPlan('orca-cli', true)
+      return seededPlan('openkodo-cli', true)
     }
   },
   render: () => (
@@ -170,7 +170,7 @@ function AttentionLineInLocale(): React.JSX.Element {
         install={{ state: { kind: 'idle' }, retry: () => undefined }}
         attention={{
           retry: () => undefined,
-          message: bundledSkillSetupAttentionMessage(seededPlan('orca', false))
+          message: bundledSkillSetupAttentionMessage(seededPlan('openkodo', false))
         }}
       />
     </div>

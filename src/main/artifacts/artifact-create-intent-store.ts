@@ -14,7 +14,7 @@ import {
   serializeArtifactFileChange,
   writeArtifactFileWhileCurrent
 } from './artifact-guarded-secure-write'
-import { getOrcaProfileDirectory } from '../orca-profiles/profile-storage-paths'
+import { getOpenKodoProfileDirectory } from '../openkodo-profiles/profile-storage-paths'
 import type { ArtifactWriteBody } from './artifact-cloud-request'
 import type { ArtifactShareScope } from './artifact-share-record-store'
 import {
@@ -30,7 +30,7 @@ export { MAX_ARTIFACT_CREATE_INTENT_BYTES, type ArtifactCreateIntent }
 export const MAX_PENDING_ARTIFACT_CREATES = 32
 
 function intentDirectory(profileId: string, userDataPath: string): string {
-  return join(getOrcaProfileDirectory(profileId, userDataPath), 'artifact-create-intents')
+  return join(getOpenKodoProfileDirectory(profileId, userDataPath), 'artifact-create-intents')
 }
 
 const waitingCreatesByFolder = new Map<string, number>()

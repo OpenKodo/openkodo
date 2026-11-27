@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS remote_questions (
 CREATE INDEX IF NOT EXISTS idx_remote_questions_dispatch_status
   ON remote_questions(dispatch_id, status);
 
--- Agent mail between paired Orcas. 'home': this OpenKodo opened it for local_party and pulls replies
+-- Agent mail between paired OpenKodos. 'home': this OpenKodo opened it for local_party and pulls replies
 -- from environment_id over the pairing credential peer_fingerprint, so a re-pair opens a new one. 'peer': the paired OpenKodo peer_fingerprint opened it here; its replies wait in
 -- federation_relay_items under dispatch_id = conversation_id until that OpenKodo pulls them.
 CREATE TABLE IF NOT EXISTS peer_mail_conversations (
@@ -137,7 +137,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_peer_mail_home_pairing
 CREATE INDEX IF NOT EXISTS idx_peer_mail_peer_fingerprint
   ON peer_mail_conversations(peer_fingerprint, role);
 
--- A message that crossed between paired Orcas: its reply goes back over its conversation, to remote_party.
+-- A message that crossed between paired OpenKodos: its reply goes back over its conversation, to remote_party.
 CREATE TABLE IF NOT EXISTS peer_mail_messages (
   message_id      TEXT PRIMARY KEY,
   conversation_id TEXT NOT NULL,
@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS dispatch_contexts (
   assignee_handle     TEXT,
   assignee_pane_key   TEXT,
   -- Bare OpenKodo session id the agent is addressed by, when it has one (today only structured
-  -- sessions); for a /clear'd chat, its lineage root's. Not its orca_session_id:<id> address.
-  assignee_orca_session_id TEXT,
+  -- sessions); for a /clear'd chat, its lineage root's. Not its openkodo_session_id:<id> address.
+  assignee_openkodo_session_id TEXT,
   capability_hash     TEXT,
   process_incarnation TEXT,
   capability_revoked_at TEXT,
@@ -196,8 +196,8 @@ CREATE TABLE IF NOT EXISTS dispatch_contexts (
   -- so it must not count as a nesting parent. Null on rows written before v37 and for OpenKodo's loop.
   creator_handle      TEXT,
   creator_pane_key    TEXT,
-  -- Same form as assignee_orca_session_id: the id the creator is addressed by (a lineage root's).
-  creator_orca_session_id TEXT,
+  -- Same form as assignee_openkodo_session_id: the id the creator is addressed by (a lineage root's).
+  creator_openkodo_session_id TEXT,
   -- 'connector' when the creator chat's turn was its connector conversation's, so reports go back there.
   creator_turn_source TEXT,
   -- What its creator started it for, opaque here (bot items: bot-item:<uid>); retries inherit it.

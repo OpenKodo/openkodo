@@ -347,7 +347,7 @@ export default function BrowserAddressBar({
         <PopoverTrigger asChild>
           <form
             ref={setAddressBarFormRef}
-            data-orca-browser-address-bar-overlay={overlay ? 'true' : undefined}
+            data-openkodo-browser-address-bar-overlay={overlay ? 'true' : undefined}
             className={cn(
               'flex items-center gap-2 rounded-lg border border-transparent bg-muted px-2.5 transition-colors focus-within:border-border',
               // Position against the toolbar row so the overlay spans it, not the squeezed slot.
@@ -376,7 +376,7 @@ export default function BrowserAddressBar({
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               onSelect={acceptOnCaretMove}
-              data-orca-browser-address-bar="true"
+              data-openkodo-browser-address-bar="true"
               surface="embedded"
               spellCheck={false}
               autoCapitalize="none"

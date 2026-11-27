@@ -18,7 +18,7 @@ export const CONVERSATION_COMMANDS: readonly SlashCommandSuggestion[] = [
 export const STRUCTURED_AGENT_SESSION_MCP_COMMAND: SlashCommandSuggestion = {
   name: 'mcp',
   description: 'Manage MCP servers',
-  orcaOwned: true
+  openkodoOwned: true
 }
 
 /** Session options remain available on hosts predating conversation commands. */
@@ -63,17 +63,20 @@ export function structuredSessionSlashCommands(
 ): readonly SlashCommandSuggestion[] {
   const modeCommands: SlashCommandSuggestion[] = interactionModeSupported
     ? [
-        { name: 'plan', description: 'Switch to Plan mode', orcaOwned: true },
+        { name: 'plan', description: 'Switch to Plan mode', openkodoOwned: true },
         ...(agent === 'codex'
-          ? [{ name: 'default', description: 'Switch to Build mode', orcaOwned: true as const }]
+          ? [{ name: 'default', description: 'Switch to Build mode', openkodoOwned: true as const }]
           : [])
       ]
     : []
-  const orcaOwned = [...modeCommands, ...(mcpPanel ? [STRUCTURED_AGENT_SESSION_MCP_COMMAND] : [])]
+  const openkodoOwned = [
+    ...modeCommands,
+    ...(mcpPanel ? [STRUCTURED_AGENT_SESSION_MCP_COMMAND] : [])
+  ]
   const hostOwned = [
-    ...orcaOwned,
+    ...openkodoOwned,
     ...structuredSlashCommands(conversationCommands, agent, compactInstructions).filter(
-      ({ name }) => !orcaOwned.some((entry) => entry.name === name)
+      ({ name }) => !openkodoOwned.some((entry) => entry.name === name)
     )
   ]
   if (reported === undefined) {

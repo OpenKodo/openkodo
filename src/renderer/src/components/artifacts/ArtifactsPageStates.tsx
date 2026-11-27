@@ -1,7 +1,10 @@
 import { ArrowRight, Files, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslate } from '@/i18n/use-translate'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../orca-profiles/OrcaSignInProgress'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../openkodo-profiles/OpenKodoSignInProgress'
 
 export function ArtifactsPageErrorBanner({
   error,
@@ -62,12 +65,12 @@ export function ArtifactsPageAuthState({
       </div>
       {configured ? (
         <>
-          <OrcaSignInButton size="sm">
+          <OpenKodoSignInButton size="sm">
             {needsReconnect
               ? t('auto.components.artifacts.ArtifactsPage.signInAgainAction', 'Sign in again')
               : t('auto.components.artifacts.ArtifactsPage.signIn', 'Sign in to OpenKodo')}
-          </OrcaSignInButton>
-          <OrcaSignInWaitNotice className="justify-center" />
+          </OpenKodoSignInButton>
+          <OpenKodoSignInWaitNotice className="justify-center" />
         </>
       ) : (
         <div className="flex flex-col items-center gap-2">

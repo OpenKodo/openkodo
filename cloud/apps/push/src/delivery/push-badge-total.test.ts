@@ -1,6 +1,6 @@
 import { afterEach, expect, it } from 'vitest'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
-import type { PushNotification } from '@orca-cloud/push-contract/send-messages'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
+import type { PushNotification } from '@openkodo-cloud/push-contract/send-messages'
 import { openInMemoryPushDatabase } from '../database/push-database.js'
 import { PushDeviceRegistryStore } from '../devices/device-registry-store.js'
 import { PushBadgeCountStore } from '../devices/push-badge-count-store.js'
@@ -21,7 +21,7 @@ const notification = (fields: Partial<PushNotification>): PushNotification => ({
   notificationSeq: 1,
   source: 'agent-task-complete',
   agentState: null,
-  title: 'Orca',
+  title: 'OpenKodo',
   body: '',
   ...fields
 })

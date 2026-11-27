@@ -1,9 +1,9 @@
 import React from 'react'
 import { useAppStore } from '@/store'
-import { useOrcaWindowForegroundFocused } from '@/attention/use-orca-window-foreground-focused'
+import { useOpenKodoWindowForegroundFocused } from '@/attention/use-openkodo-window-foreground-focused'
 import { selectRailPageHidesWorkspaceList } from '@/components/app-rail/app-rail-layout'
 
-export const WORKSPACE_BOARD_MOVED_HINT_STORAGE_KEY = 'orca.workspaceBoardMovedHintSeen.v1'
+export const WORKSPACE_BOARD_MOVED_HINT_STORAGE_KEY = 'openkodo.workspaceBoardMovedHintSeen.v1'
 export const WORKSPACE_BOARD_MOVED_HINT_DURATION_MS = 12000
 // Covers the bubble's fade-out (tooltip exit animations run 150 ms) so no hover label opens under it.
 export const WORKSPACE_BOARD_MOVED_HINT_EXIT_MS = 200
@@ -50,7 +50,7 @@ export function useWorkspaceBoardMovedHint(): WorkspaceBoardMovedHint {
   const phaseRef = React.useRef(phase)
   const persistedUIReady = useAppStore((state) => state.persistedUIReady)
   const boardUsedBeforeLaunch = useAppStore((state) => state.workspaceBoardUsedBeforeLaunch)
-  const windowFocused = useOrcaWindowForegroundFocused(phase === 'idle')
+  const windowFocused = useOpenKodoWindowForegroundFocused(phase === 'idle')
   const listVisible = !useAppStore(selectRailPageHidesWorkspaceList)
 
   React.useEffect(() => {

@@ -4,7 +4,7 @@ import { isDeepStrictEqual } from 'node:util'
 import { normalizeRuntimePathForComparison as codexBinaryKey } from '../../../../shared/file-access/cross-platform-path'
 import { writeFileAtomically } from '../../../filesystem/atomic-file-publication'
 import { isPlainObject } from '../../../agent-hooks/installation/configuration/hooks-json-read'
-import { getOrcaUserDataPath } from '../../configuration/homes/codex-home-paths'
+import { getOpenKodoUserDataPath } from '../../configuration/homes/codex-home-paths'
 import type { CodexHookAnswer, CodexHookHashes } from './codex-hook-trust-derivation'
 import { CODEX_MANAGED_EVENT_LABELS } from '../../hooks/definitions/codex-hook-definition'
 import type { CodexEventLabel } from '../toml/config-toml-trust'
@@ -26,7 +26,7 @@ type MemoizedCodexHookAnswer = Exclude<CodexHookAnswer, { kind: 'pending' }>
 const MAX_RECORDS = 8
 
 export function getCodexHookTrustMemoPath(): string {
-  return join(getOrcaUserDataPath(), 'codex-hook-trust.json')
+  return join(getOpenKodoUserDataPath(), 'codex-hook-trust.json')
 }
 
 function readMemo(): MemoFile {

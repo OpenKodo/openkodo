@@ -1,4 +1,4 @@
-export const AMP_PLUGIN_FILE = 'orca-agent-status.ts'
+export const AMP_PLUGIN_FILE = 'openkodo-agent-status.ts'
 export const AMP_PLUGIN_MARKER = 'Managed by OpenKodo. Do not edit; changes may be overwritten.'
 
 export function getAmpPluginSource(): string {
@@ -41,7 +41,7 @@ export function getAmpPluginSource(): string {
     '    cachedEndpointValues = null',
     '    if ((error as { code?: unknown })?.code !== "ENOENT" && !warnedBadEndpoint) {',
     '      warnedBadEndpoint = true',
-    "      console.warn('[orca-hook] failed to parse Amp endpoint file:', (error as Error).message)",
+    "      console.warn('[openkodo-hook] failed to parse Amp endpoint file:', (error as Error).message)",
     '    }',
     '    return null',
     '  }',

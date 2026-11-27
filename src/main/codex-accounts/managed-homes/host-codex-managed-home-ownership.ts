@@ -11,12 +11,12 @@ type HostCodexManagedHomeOwnershipOptions = {
 
 export const MISSING_MANAGED_HOME_MESSAGE = 'Managed Codex home directory does not exist on disk.'
 
-export const MANAGED_HOME_MARKER = '.orca-managed-home'
+export const MANAGED_HOME_MARKER = '.openkodo-managed-home'
 /**
  * Replaces the marker before a Windows home gets junctions: older builds refuse to use or delete
  * a home without the first one, and their recursive delete would follow a junction into ~/.codex.
  */
-export const LINKED_MANAGED_HOME_MARKER = '.orca-managed-home-linked'
+export const LINKED_MANAGED_HOME_MARKER = '.openkodo-managed-home-linked'
 
 // The linked marker is read second: a share pass renames the first into it, never back, so a
 // rename landing between the two reads still finds one of them.

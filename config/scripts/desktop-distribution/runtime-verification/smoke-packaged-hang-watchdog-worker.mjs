@@ -24,7 +24,7 @@ function readAppDirArg(argv) {
     return explicit.slice('--app-dir='.length)
   }
   if (process.platform === 'darwin') {
-    return 'dist/mac-arm64/Orca.app'
+    return 'dist/mac-arm64/OpenKodo.app'
   }
   if (process.platform === 'win32') {
     return 'dist/win-unpacked'
@@ -82,7 +82,7 @@ async function runInternal() {
     throw new Error(`Missing ${ASAR_ENV}`)
   }
   const { app } = await import('electron')
-  const tempRoot = mkdtempSync(join(tmpdir(), 'orca-packaged-watchdog-smoke-'))
+  const tempRoot = mkdtempSync(join(tmpdir(), 'openkodo-packaged-watchdog-smoke-'))
   const markerPath = join(tempRoot, 'main-thread-hang.json')
   const entryPath = join(appAsar, 'out', 'main', 'main-thread-hang-watchdog-entry.js')
   try {
@@ -121,11 +121,11 @@ function runSmoke() {
   }
   const require = createRequire(import.meta.url)
   const executable = require('electron')
-  const launcherDir = mkdtempSync(join(tmpdir(), 'orca-packaged-watchdog-launcher-'))
+  const launcherDir = mkdtempSync(join(tmpdir(), 'openkodo-packaged-watchdog-launcher-'))
   const launcherPath = join(launcherDir, 'main.cjs')
   writeFileSync(
     join(launcherDir, 'package.json'),
-    JSON.stringify({ name: 'orca-packaged-watchdog-smoke', main: 'main.cjs' })
+    JSON.stringify({ name: 'openkodo-packaged-watchdog-smoke', main: 'main.cjs' })
   )
   writeFileSync(
     launcherPath,

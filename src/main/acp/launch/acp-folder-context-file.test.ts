@@ -93,7 +93,7 @@ describe('Hermes context file', () => {
 
   it('keeps notes under a stray begin marker and handles CRLF files', async () => {
     const path = join(dir, HERMES_CONTEXT_FILE)
-    await writeFile(path, 'intro\r\n<!-- orca:begin -->\r\nKEEP ME\r\n')
+    await writeFile(path, 'intro\r\n<!-- openkodo:begin -->\r\nKEEP ME\r\n')
     await writeHermesContextFile(dir, 'first')
     await writeHermesContextFile(dir, 'second')
     const content = await readFile(path, 'utf8')
@@ -106,7 +106,7 @@ describe('Hermes context file', () => {
     const path = join(dir, HERMES_CONTEXT_FILE)
     await writeFile(
       path,
-      'intro\n<!-- orca:begin -->\nold\n<!-- orca:end -->\nKEEP ME\n<!-- orca:end -->\n'
+      'intro\n<!-- openkodo:begin -->\nold\n<!-- openkodo:end -->\nKEEP ME\n<!-- openkodo:end -->\n'
     )
     await writeHermesContextFile(dir, 'fresh')
     const content = await readFile(path, 'utf8')
@@ -117,11 +117,11 @@ describe('Hermes context file', () => {
 })
 
 it("takes OpenKodo's text back out of a context file and keeps the user's", async () => {
-  const orcaOwn = join(dir, 'own')
-  await mkdir(orcaOwn)
-  await writeFolderContextFile(orcaOwn, 'GEMINI.md', 'Gemini', 'bot preamble')
-  await removeFolderContextFile(orcaOwn, 'GEMINI.md', 'Gemini')
-  await expect(lstat(join(orcaOwn, 'GEMINI.md'))).rejects.toThrow()
+  const openkodoOwn = join(dir, 'own')
+  await mkdir(openkodoOwn)
+  await writeFolderContextFile(openkodoOwn, 'GEMINI.md', 'Gemini', 'bot preamble')
+  await removeFolderContextFile(openkodoOwn, 'GEMINI.md', 'Gemini')
+  await expect(lstat(join(openkodoOwn, 'GEMINI.md'))).rejects.toThrow()
 
   await writeFile(join(dir, 'GEMINI.md'), 'My own rules.\n')
   await writeFolderContextFile(dir, 'GEMINI.md', 'Gemini', 'bot preamble')

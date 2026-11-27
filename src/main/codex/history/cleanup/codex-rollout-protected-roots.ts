@@ -90,7 +90,7 @@ export async function resolveProtectedRoots(
       [
         join(realPath, 'sessions', ...dated),
         join(realPath, 'archived_sessions'),
-        join(realPath, '.orca-session-copies', ...dated)
+        join(realPath, '.openkodo-session-copies', ...dated)
       ].map(folderId)
     )
     resolved.push({

@@ -20,8 +20,8 @@ async function readRules(cwd: string): Promise<string[]> {
 /** Opens a Cursor chat against a stub agent that, like cursor-agent, reads the folder's rules when a
  *  session opens; the stub then exits, ending the start right after the open. */
 async function openCursorChat(resumeSessionId: string | null) {
-  const cwd = await mkdtemp(join(tmpdir(), 'orca-cursor-open-'))
-  const dataDirectory = await mkdtemp(join(tmpdir(), 'orca-cursor-data-'))
+  const cwd = await mkdtemp(join(tmpdir(), 'openkodo-cursor-open-'))
+  const dataDirectory = await mkdtemp(join(tmpdir(), 'openkodo-cursor-data-'))
   folders.push(cwd, dataDirectory)
   const instructions = await acpLaunchInstructions(CURSOR_LAUNCH_SPEC, dataDirectory, {
     sessionId: 'chat-1',

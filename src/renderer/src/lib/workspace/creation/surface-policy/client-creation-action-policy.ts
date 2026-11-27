@@ -4,7 +4,7 @@ import { BROWSER_SCREENCAST_RUNTIME_CAPABILITY } from '../../../../../../shared/
 import { isPairedWebClientWindow } from '../../../../app-shell/chrome/desktop-window-chrome'
 import { runtimeEnvironmentIdOrLocalUnlessTwin } from '../../ownership/worktree-runtime-owner'
 import { expectsBrowserClientHosting } from '../../../../../../shared/browser/client-hosting/browser-client-hosting-eligibility'
-import { getOrcadSshDeployment } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
+import { getOpenkododSshDeployment } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { PublicKnownRuntimeEnvironment } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { RuntimeStatus } from '../../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { BrowserClientHostPlacementPreference } from '../../../../../../shared/browser/client-hosting/browser-client-host-placement'
@@ -127,11 +127,11 @@ type RuntimeBrowserHostingStatuses = ReadonlyMap<
 >
 
 export type RuntimeBrowserHostingState = {
-  runtimeEnvironments?: readonly Pick<PublicKnownRuntimeEnvironment, 'id' | 'orcadDeployment'>[]
+  runtimeEnvironments?: readonly Pick<PublicKnownRuntimeEnvironment, 'id' | 'openkododDeployment'>[]
   settings?: Pick<GlobalSettings, 'browserClientHostedRemoteEnabled'> | null
 }
 
-/** Host orcad browser pages on this desktop through runtime tunnels; managed SSH deployments retain the SSH browser route. */
+/** Host openkodod browser pages on this desktop through runtime tunnels; managed SSH deployments retain the SSH browser route. */
 export function runtimeHostsPagesOnThisDesktop(
   state: RuntimeBrowserHostingState,
   runtimeEnvironmentId: string,
@@ -142,7 +142,7 @@ export function runtimeHostsPagesOnThisDesktop(
     return false
   }
   const environment = state.runtimeEnvironments?.find((entry) => entry.id === runtimeEnvironmentId)
-  if (environment && getOrcadSshDeployment(environment)) {
+  if (environment && getOpenkododSshDeployment(environment)) {
     return false
   }
   const status = statuses.get(runtimeEnvironmentId)?.status

@@ -4,7 +4,7 @@ import type {
 } from '../../shared/worktree/catalog/runtime-worktree-contracts'
 import type { RuntimeClient } from '../runtime/client'
 import { addressableOfPsRow, addressableOfShowRecord, annotateListing } from './workspace-address'
-import { callerOrcaClient } from './worktree-parent-fields'
+import { callerOpenKodoClient } from './worktree-parent-fields'
 
 /** Annotates `worktree ps` rows; the returned function applies them to any rows aligned by index. */
 export async function annotatePsRows(
@@ -13,7 +13,7 @@ export async function annotatePsRows(
 ): Promise<<Row>(aligned: Row[]) => Row[]> {
   const annotations = await annotateListing(
     client,
-    () => callerOrcaClient(client),
+    () => callerOpenKodoClient(client),
     rows.map(addressableOfPsRow)
   )
   return (aligned) => aligned.map((row, index) => ({ ...row, ...annotations[index] }))
@@ -23,7 +23,7 @@ export async function annotatePsRows(
 export async function annotateShown<
   Response extends { result: { worktree: RuntimeWorktreeRecord } }
 >(client: RuntimeClient, response: Response): Promise<Response> {
-  const [annotation] = await annotateListing(client, () => callerOrcaClient(client), [
+  const [annotation] = await annotateListing(client, () => callerOpenKodoClient(client), [
     addressableOfShowRecord(response.result.worktree)
   ])
   return {

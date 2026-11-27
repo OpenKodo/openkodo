@@ -5,7 +5,7 @@ import { z } from 'zod'
 // that socket; a plain claim, not proof.
 export const DECLARE_OPENKODO_ACCOUNT_METHOD = 'host.declareAccount'
 
-export const DeclareOrcaAccountParamsSchema = z
+export const DeclareOpenKodoAccountParamsSchema = z
   .object({
     account: z
       .object({
@@ -20,4 +20,4 @@ export const DeclareOrcaAccountParamsSchema = z
   })
   .strict()
 
-export type DeclareOrcaAccountParams = z.infer<typeof DeclareOrcaAccountParamsSchema>
+export type DeclareOpenKodoAccountParams = z.infer<typeof DeclareOpenKodoAccountParamsSchema>

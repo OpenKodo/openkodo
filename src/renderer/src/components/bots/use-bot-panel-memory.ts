@@ -6,7 +6,7 @@ import { useBotForWorkspace } from './bot-workspace'
 
 import { useResetOtherBotConnectorPage } from './bot-connector-page'
 
-const CLOSED_KEY = 'orca.bots.panelClosed'
+const CLOSED_KEY = 'openkodo.bots.panelClosed'
 
 function readClosed(): Set<string> {
   try {

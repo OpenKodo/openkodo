@@ -6,7 +6,7 @@ import {
 } from '../../../view-mode/file-view-preference-storage'
 import type { CsvTableMutation } from '../../document/csv-text-document'
 
-export const CSV_COLUMN_WIDTHS_STORAGE_KEY = 'orca.csv.column-widths.v1'
+export const CSV_COLUMN_WIDTHS_STORAGE_KEY = 'openkodo.csv.column-widths.v1'
 export type CsvColumnWidths = Record<number, number>
 
 export function readCsvColumnWidths(fileKey: string): CsvColumnWidths {

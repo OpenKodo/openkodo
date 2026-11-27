@@ -49,7 +49,7 @@ import {
 } from '../../persistence/moving-wsl-projects/quiescence/wsl-move-scope-guard'
 import { buildWslMoveShellHistoryBlobs } from '../../persistence/moving-wsl-projects/terminal-state/wsl-move-shell-history-blobs'
 import { inspectPtyProviderProcessForRenderer } from '../../providers/pty/process-inspection'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { getTrustedUIRendererWebContents, getTrustedUIRendererWindow } from '../ui'
 import { registerWslMoveHandlers } from './wsl-move-handlers'
 import { wslMoveMappedDrivePorts } from './wsl-move-mapped-drive-ports'
@@ -72,7 +72,7 @@ import { isWslDistroRegistered } from '../../wsl/discovery/wsl-distro-registry-i
 import { ptyPaneKey } from '../pty/pane/key-state'
 import { tryGetProviderForPty } from '../pty/provider/registry'
 /** The move's IPC handlers; its driver reads every move dependency from this module. */
-export function registerWslMoveWiring(store: Store, runtime: OrcaRuntimeService): void {
+export function registerWslMoveWiring(store: Store, runtime: OpenKodoRuntimeService): void {
   setWslMoveReloadableWindow(() => {
     const contents = getTrustedUIRendererWebContents()
     return contents && wslMoveReloadableWindow(contents)
@@ -109,7 +109,7 @@ async function readWslMovePaneShellCwds(
 
 export function createWslMoveDriverDeps(
   store: Store,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   hostConnect: WslMoveHostConnectMode
 ): WslMoveDriverDeps {
   const userDataPath = app.getPath('userData')

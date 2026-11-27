@@ -13,7 +13,7 @@ export const NATIVE_CHAT_IMAGE_LABEL_ENGLISH: NativeChatImageLabelCopy = {
 }
 
 const PASTED_IMAGE_NAME = new RegExp(
-  `^orca-paste-.+${AGENT_SESSION_PASTED_IMAGE_SUFFIX_SOURCE}$`,
+  `^openkodo-paste-.+${AGENT_SESSION_PASTED_IMAGE_SUFFIX_SOURCE}$`,
   'i'
 )
 
@@ -23,10 +23,10 @@ export function isNativeChatPastedImagePath(path: string): boolean {
   return PASTED_IMAGE_NAME.test(base)
 }
 
-/** True for a long text paste OpenKodo saved as a file (`orca-paste-<ts>-<uuid>.txt`). */
+/** True for a long text paste OpenKodo saved as a file (`openkodo-paste-<ts>-<uuid>.txt`). */
 export function isNativeChatPastedTextPath(path: string): boolean {
   const base = path.split(/[\\/]/).findLast(Boolean) ?? path
-  return /^orca-paste-.+\.txt$/i.test(base)
+  return /^openkodo-paste-.+\.txt$/i.test(base)
 }
 
 /** What a chat image is called where it is not drawn: its alt text, else its file's name. */

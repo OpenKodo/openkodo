@@ -130,7 +130,7 @@ const LINEAR_ISSUE_LIST_FIELDS = `
 `
 
 export const SEARCH_ISSUES_QUERY = `
-  query OrcaLinearIssueSearch($term: String!, $first: Int) {
+  query OpenKodoLinearIssueSearch($term: String!, $first: Int) {
     searchIssues(term: $term, first: $first) {
       nodes {
         ${LINEAR_ISSUE_NODE_FIELDS}
@@ -140,7 +140,7 @@ export const SEARCH_ISSUES_QUERY = `
 `
 
 export const ALL_ISSUES_QUERY = `
-  query OrcaLinearIssues(
+  query OpenKodoLinearIssues(
     $first: Int,
     $after: String,
     $filter: IssueFilter,
@@ -160,7 +160,7 @@ export const ALL_ISSUES_QUERY = `
 `
 
 export const VIEWER_ASSIGNED_ISSUES_QUERY = `
-  query OrcaLinearViewerAssignedIssues(
+  query OpenKodoLinearViewerAssignedIssues(
     $first: Int,
     $after: String,
     $filter: IssueFilter,
@@ -182,7 +182,7 @@ export const VIEWER_ASSIGNED_ISSUES_QUERY = `
 `
 
 export const VIEWER_CREATED_ISSUES_QUERY = `
-  query OrcaLinearViewerCreatedIssues(
+  query OpenKodoLinearViewerCreatedIssues(
     $first: Int,
     $after: String,
     $filter: IssueFilter,
@@ -222,7 +222,7 @@ export const AGENT_ISSUE_WRITE_FIELDS = `
 `
 
 export const ISSUE_BY_UUID_QUERY = `
-  query OrcaLinearIssueByUuid($id: String!) {
+  query OpenKodoLinearIssueByUuid($id: String!) {
     issue(id: $id) {
       ${AGENT_ISSUE_WRITE_FIELDS}
     }
@@ -230,7 +230,7 @@ export const ISSUE_BY_UUID_QUERY = `
 `
 
 export const COMMENT_BY_UUID_QUERY = `
-  query OrcaLinearCommentByUuid($id: String!) {
+  query OpenKodoLinearCommentByUuid($id: String!) {
     comment(id: $id) {
       id
       url
@@ -242,7 +242,7 @@ export const COMMENT_BY_UUID_QUERY = `
 `
 
 export const ATTACHMENT_BY_UUID_QUERY = `
-  query OrcaLinearAttachmentByUuid($id: String!) {
+  query OpenKodoLinearAttachmentByUuid($id: String!) {
     attachment(id: $id) {
       id
       title
@@ -254,7 +254,7 @@ export const ATTACHMENT_BY_UUID_QUERY = `
 
 // Fetch authors with comments to avoid SDK per-author requests holding the shared concurrency slot; retain its 50-comment page size.
 export const ISSUE_COMMENTS_QUERY = `
-  query OrcaLinearIssueComments($id: String!) {
+  query OpenKodoLinearIssueComments($id: String!) {
     issue(id: $id) {
       comments(first: 50) {
         nodes {

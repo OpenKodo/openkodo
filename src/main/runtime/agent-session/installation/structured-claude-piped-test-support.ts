@@ -14,7 +14,7 @@ import { stopStructuredAgentSessionRuntime } from './structured-agent-session-ru
 import { ensureTestStructuredAgentSessionHost as ensureStructuredAgentSessionHost } from '../records/agent-session-record-store-test-harness'
 
 export async function claudePipedFixture() {
-  const directory = await mkdtemp(join(tmpdir(), 'orca-claude-kill-evidence-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-claude-kill-evidence-'))
   const children: ReturnType<typeof createFakePipedChild>[] = []
   const connections: Awaited<ReturnType<typeof openClaudeStreamJsonConnection>>[] = []
   const prompts: string[] = []

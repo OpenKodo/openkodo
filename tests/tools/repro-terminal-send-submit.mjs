@@ -74,7 +74,7 @@ function runCommand(command, args, options = {}) {
   })
 }
 
-async function callOrca(cli, args, cwd) {
+async function callOpenKodo(cli, args, cwd) {
   const command = cli.endsWith('.mjs') ? process.execPath : cli
   const prefixArgs = cli.endsWith('.mjs') ? [cli] : []
   let stdout
@@ -113,7 +113,7 @@ async function readReport(reportPath, timeoutMs) {
 
 async function closeTerminal(cli, handle, cwd) {
   try {
-    await callOrca(cli, ['terminal', 'close', '--terminal', handle], cwd)
+    await callOpenKodo(cli, ['terminal', 'close', '--terminal', handle], cwd)
   } catch {
     // Best-effort fixture cleanup.
   }
@@ -123,7 +123,7 @@ async function waitForPermissionPrompt(cli, handle, cwd) {
   const deadline = Date.now() + 10_000
   let lastTerminal = null
   while (Date.now() < deadline) {
-    const shown = await callOrca(cli, ['terminal', 'show', '--terminal', handle], cwd)
+    const shown = await callOpenKodo(cli, ['terminal', 'show', '--terminal', handle], cwd)
     lastTerminal = shown.terminal ?? null
     if (lastTerminal?.agentWait) {
       return
@@ -137,7 +137,7 @@ async function waitForWorktreeSelector(cli, repoId, cwd) {
   const deadline = Date.now() + 10_000
   const expectedPath = path.resolve(cwd)
   while (Date.now() < deadline) {
-    const listed = await callOrca(cli, ['worktree', 'list', '--repo', `id:${repoId}`], cwd)
+    const listed = await callOpenKodo(cli, ['worktree', 'list', '--repo', `id:${repoId}`], cwd)
     const worktree = listed.worktrees?.find((candidate) => {
       const candidatePath = path.resolve(candidate.path)
       return process.platform === 'win32'
@@ -175,10 +175,10 @@ async function createFakeCodexCommand(tempDir, args) {
 }
 
 async function parentMain() {
-  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'orca')
+  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'openkodo')
   const cwd = path.resolve(argValue('worktree', process.cwd()))
   const timeoutMs = parsePositiveInteger('timeout-ms', DEFAULT_TIMEOUT_MS)
-  const tempDir = path.join(tmpdir(), `orca-terminal-send-submit-${process.pid}-${Date.now()}`)
+  const tempDir = path.join(tmpdir(), `openkodo-terminal-send-submit-${process.pid}-${Date.now()}`)
   const reportPath = path.resolve(argValue('report', path.join(tempDir, 'report.json')))
   const marker = argValue('marker', `OPENKODO_TERMINAL_SEND_${process.pid}_${Date.now()}`)
   const prompt = `${marker} ${'slow composer payload '.repeat(24)}`
@@ -206,13 +206,13 @@ async function parentMain() {
         ...(expectBlocked ? ['--permission-before-send'] : []),
         ...(process.platform === 'win32' ? ['--allow-unframed-paste'] : [])
       ]))
-    const added = await callOrca(cli, ['repo', 'add', '--path', cwd], cwd)
+    const added = await callOpenKodo(cli, ['repo', 'add', '--path', cwd], cwd)
     const repoId = added.repo?.id
     if (!repoId) {
       throw new Error('repo add returned no id')
     }
     const worktreeSelector = await waitForWorktreeSelector(cli, repoId, cwd)
-    const created = await callOrca(
+    const created = await callOpenKodo(
       cli,
       [
         'terminal',
@@ -240,7 +240,7 @@ async function parentMain() {
       }
       await waitForPermissionPrompt(cli, handle, cwd)
     } else {
-      await callOrca(
+      await callOpenKodo(
         cli,
         ['terminal', 'wait', '--terminal', handle, '--for', 'tui-idle', '--timeout-ms', '10000'],
         cwd
@@ -249,7 +249,7 @@ async function parentMain() {
     let sendErrorCode = null
     let sendReceipt = null
     try {
-      sendReceipt = await callOrca(
+      sendReceipt = await callOpenKodo(
         cli,
         ['terminal', 'send', '--terminal', handle, '--text', prompt, '--enter'],
         cwd
@@ -265,7 +265,7 @@ async function parentMain() {
     let rescueSent = false
     if (!report && !expectUnsubmitted && !expectBlocked) {
       rescueSent = true
-      await callOrca(cli, ['terminal', 'send', '--terminal', handle, '--enter'], cwd)
+      await callOpenKodo(cli, ['terminal', 'send', '--terminal', handle, '--enter'], cwd)
       report = await readReport(reportPath, timeoutMs)
     }
     if (!report) {

@@ -1,6 +1,6 @@
-import { OrcaRuntimeWithRegisterPty } from '../lifecycle/pty-registration'
+import { OpenKodoRuntimeWithRegisterPty } from '../lifecycle/pty-registration'
 
-export abstract class OrcaRuntimeWithPreparePtyExecutionContext extends OrcaRuntimeWithRegisterPty {
+export abstract class OpenKodoRuntimeWithPreparePtyExecutionContext extends OpenKodoRuntimeWithRegisterPty {
   protected abstract disposeHeadlessTerminal(ptyId: string): void
 
   protected abstract replaceHeadlessTerminalAfterExecutionContextChange(ptyId: string): void

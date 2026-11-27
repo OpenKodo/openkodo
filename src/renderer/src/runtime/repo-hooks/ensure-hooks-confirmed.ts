@@ -1,11 +1,11 @@
 import { findHookRepo, hookRepoOwnerHostId } from './hook-owner-resolution'
 import { projectGroupHookTrustKey } from '../../../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { AppState } from '@/store/types'
-import type { OrcaHooks } from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { resolveHookCommandSourcePolicy } from '../../../../shared/workspace-setup/hooks/hook-command-source-policy'
-import { getSetupTrustContent } from '../../../../shared/workspace-setup/hooks/orca-hook-setup-config'
-import { hashOrcaHookScript } from './orca-hook-trust'
-import type { OrcaHookTrustKind } from '../../../../shared/workspace-setup/hooks/orca-hook-trust-entries'
+import { getSetupTrustContent } from '../../../../shared/workspace-setup/hooks/openkodo-hook-setup-config'
+import { hashOpenKodoHookScript } from './openkodo-hook-trust'
+import type { OpenKodoHookTrustKind } from '../../../../shared/workspace-setup/hooks/openkodo-hook-trust-entries'
 import { getVmRecipeTrustContent } from './vm-recipe-trust-content'
 import type { SetupHooksCreateSource } from '../../../../shared/worktree/setup-hooks-create-source'
 import { getIssueCommandTrustContent, isUserOwnedIssueCommand } from './issue-command-trust-content'
@@ -158,7 +158,7 @@ export function confirmCreatedWorktreeSetupContent(
     )
     // Repo-wide trust approves any content, but the host runs only content it can match.
     return approval.decision === 'run' && approval.approvedContentHash === undefined
-      ? { decision: 'run', approvedContentHash: await hashOrcaHookScript(scriptContent) }
+      ? { decision: 'run', approvedContentHash: await hashOpenKodoHookScript(scriptContent) }
       : approval
   })
 }
@@ -167,7 +167,7 @@ export async function ensureHooksApproved(
   // Read current trust when dequeued so earlier prompts’ decisions apply.
   stateOrGetter: AppState | (() => AppState),
   repoId: string,
-  scriptKind: OrcaHookTrustKind,
+  scriptKind: OpenKodoHookTrustKind,
   hostId?: ExecutionHostId,
   runtimeOwnerEnvironmentId?: string | null,
   isCancelled: () => boolean = NEVER_CANCEL_TRUST_CHECK,
@@ -230,7 +230,7 @@ export async function ensureHooksApproved(
         if (result.status === 'error') {
           return SKIP
         }
-        const yamlHooks = (result.hooks as OrcaHooks | null) ?? null
+        const yamlHooks = (result.hooks as OpenKodoHooks | null) ?? null
         scriptContent =
           scriptKind === 'setup'
             ? getSetupTrustContent(yamlHooks)

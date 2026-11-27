@@ -1,7 +1,7 @@
 import { sessionIdFromStructuredWorkerIncarnation } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-identity'
 import '../../rpc/methods/orchestration/structured-workers/orchestration-structured-worker-lifecycle'
 import { observeStructuredWorker } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-authority'
-import { OrcaRuntimeWithApplyMobileDisplayMode } from './terminal-display-mode'
+import { OpenKodoRuntimeWithApplyMobileDisplayMode } from './terminal-display-mode'
 import { addListenerToMap } from './terminal-listener-map'
 import { notifyRuntimeListeners } from '../../events/runtime-listener-delivery'
 import { withTimeoutResult } from '../../../../shared/concurrency/promise-timeout-fallback'
@@ -27,7 +27,7 @@ import {
   type ExecutionHostId
 } from '../../../../shared/execution-host/execution-host'
 
-export abstract class OrcaRuntimeWithSubscribeToTerminalResize extends OrcaRuntimeWithApplyMobileDisplayMode {
+export abstract class OpenKodoRuntimeWithSubscribeToTerminalResize extends OpenKodoRuntimeWithApplyMobileDisplayMode {
   private readonly inProcessWorkerExits = new InProcessWorkerExitEvidence()
   subscribeToTerminalResize(
     ptyId: string,

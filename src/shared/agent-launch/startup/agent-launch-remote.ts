@@ -6,7 +6,7 @@ import {
 } from '../../execution-host/execution-host'
 import { isWslUncPath } from '../../file-access/wsl-paths'
 
-/** SSH relays and OpenKodo servers put plain `orca` on PATH; the Linux `orca-ide` rename is for local desktops and WSL. */
+/** SSH relays and OpenKodo servers put plain `openkodo` on PATH; the Linux `openkodo-ide` rename is for local desktops and WSL. */
 export function launchHostIsRemote(
   hostKind: ParsedExecutionHost['kind'],
   workspacePath: string | null | undefined

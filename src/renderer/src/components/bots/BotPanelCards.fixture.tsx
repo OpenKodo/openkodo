@@ -120,7 +120,7 @@ const mentions: BotAutomationRow = {
 const TWELVE: BotActivity = {
   workers: [
     worker('d1', 'Export Nov 10–11 bulk actions', 'blocked'),
-    worker('d2', 'Draft replies for @orca_build mentions', 'working')
+    worker('d2', 'Draft replies for @openkodo_build mentions', 'working')
   ],
   inProgress: [
     {

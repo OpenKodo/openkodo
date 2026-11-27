@@ -7,7 +7,7 @@ import type {
   PRSnapshotReply
 } from '../../../shared/github/pull-requests/refresh/pull-request-refresh-types'
 import type { Repo } from '../../../shared/repository/repo-types'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { getPRForBranch } from '../../github/client/lookup/get-pr-for-branch'
 import type { GitHubPRBranchLookupOptions } from '../../github/client/lookup/pull-request-lookup-data'
 import {
@@ -40,7 +40,7 @@ const visibilityCleanupRegistered = new Set<number>()
 export function registerGitHubPRRefreshHandlers(
   store: Store,
   stats: StatsCollector,
-  runtime: Pick<OrcaRuntimeService, 'notifyPullRequestChangedForRemoteClients'>
+  runtime: Pick<OpenKodoRuntimeService, 'notifyPullRequestChangedForRemoteClients'>
 ): void {
   // The windows these handlers serve are the renderers the coordinator reports to.
   setPRRefreshRendererPort(electronPRRefreshRenderer)
@@ -63,7 +63,7 @@ export function registerGitHubPRRefreshHandlers(
       recordPRIfNeeded(repo, outcome)
     }
   })
-  // Only the desktop drives the coordinator; serve and orcad have no publisher, so phones keep polling there.
+  // Only the desktop drives the coordinator; serve and openkodod have no publisher, so phones keep polling there.
   addPRRefreshOutcomeObserver(
     pullRequestChangeObserver((change) => runtime.notifyPullRequestChangedForRemoteClients(change))
   )

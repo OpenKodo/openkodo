@@ -1,14 +1,14 @@
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { visibleGraphChangedWorktrees } from '../../session-graph/visible-graph-changed-worktrees'
 import type { RuntimeSessionTabsInventoryPublication as SessionTabsInventoryPublicationMethods } from './session-tabs-inventory-publication'
-import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged as ScheduleMobileSessionTabsChangedMethods } from '../publication/session-tabs-change-publication'
-import type { OrcaRuntimeWithResolveBrowserNetworkExecutionHostForWorktree as ResolveBrowserNetworkExecutionHostForWorktreeMethods } from '../../terminal/launch/terminal-workspace-scope'
-import type { OrcaRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession as HydrateHeadlessMobileSessionTabsFromWorkspaceSessionMethods } from '../restoration/mobile-session-hydration'
-import type { OrcaRuntimeWithBuildHeadlessMobileSessionBrowserTabs as BuildHeadlessMobileSessionBrowserTabsMethods } from '../../session-lifecycle/projection/build-headless-mobile-session-browser-tabs'
-import type { OrcaRuntimeWithRestoreLivePairedRendererSessionOwnedMobileTerminals as RestoreLivePairedRendererSessionOwnedMobileTerminalsMethods } from '../restoration/renderer-session-terminal-rescue'
-import type { OrcaRuntimeWithTouchMobileSessionTabsForWorktree as TouchMobileSessionTabsForWorktreeMethods } from '../restoration/mobile-session-membership'
-import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout as PruneMobileSessionTabGroupLayoutMethods } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
-import { OrcaRuntimeWithSyncWindowGraph } from '../../session-graph/session-window-graph'
+import type { OpenKodoRuntimeWithScheduleMobileSessionTabsChanged as ScheduleMobileSessionTabsChangedMethods } from '../publication/session-tabs-change-publication'
+import type { OpenKodoRuntimeWithResolveBrowserNetworkExecutionHostForWorktree as ResolveBrowserNetworkExecutionHostForWorktreeMethods } from '../../terminal/launch/terminal-workspace-scope'
+import type { OpenKodoRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession as HydrateHeadlessMobileSessionTabsFromWorkspaceSessionMethods } from '../restoration/mobile-session-hydration'
+import type { OpenKodoRuntimeWithBuildHeadlessMobileSessionBrowserTabs as BuildHeadlessMobileSessionBrowserTabsMethods } from '../../session-lifecycle/projection/build-headless-mobile-session-browser-tabs'
+import type { OpenKodoRuntimeWithRestoreLivePairedRendererSessionOwnedMobileTerminals as RestoreLivePairedRendererSessionOwnedMobileTerminalsMethods } from '../restoration/renderer-session-terminal-rescue'
+import type { OpenKodoRuntimeWithTouchMobileSessionTabsForWorktree as TouchMobileSessionTabsForWorktreeMethods } from '../restoration/mobile-session-membership'
+import type { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout as PruneMobileSessionTabGroupLayoutMethods } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import { OpenKodoRuntimeWithSyncWindowGraph } from '../../session-graph/session-window-graph'
 import { mainTerminalSurfaces } from '../../terminal/surface/main-terminal-surfaces'
 import type { MainTerminalSurfacesHost } from '../../terminal/surface/main-terminal-surfaces-host'
 import type { WorkspaceLayoutReads } from '../../terminal/surface/workspace-layout-stream'
@@ -28,7 +28,7 @@ import {
   type PtyPaneOf
 } from '../../terminal/surface/pty-pane-query'
 
-export abstract class OrcaRuntimeWithCollectMobileVisibleGraphChangedWorktrees extends OrcaRuntimeWithSyncWindowGraph {
+export abstract class OpenKodoRuntimeWithCollectMobileVisibleGraphChangedWorktrees extends OpenKodoRuntimeWithSyncWindowGraph {
   abstract get workspaceLayoutReads(): WorkspaceLayoutReads
   declare protected readonly paneStartStatuses: PaneStartStatuses | null
 

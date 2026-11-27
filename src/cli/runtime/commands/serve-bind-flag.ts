@@ -1,11 +1,11 @@
-import { resolveOrcadBindHost } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-bind-address'
+import { resolveOpenkododBindHost } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-bind-address'
 import { getPresentStringFlag } from '../../arguments/flags'
 import { RuntimeClientError } from '../connection/types'
 
 /** Convert a CLI bind value into the normalized literal address used by serve. */
 export function resolveServeBindValue(raw: string): string {
   try {
-    return resolveOrcadBindHost(raw)
+    return resolveOpenkododBindHost(raw)
   } catch (error) {
     throw new RuntimeClientError(
       'invalid_argument',

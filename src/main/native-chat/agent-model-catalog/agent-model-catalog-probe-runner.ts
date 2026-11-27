@@ -3,7 +3,7 @@ import type { ProviderProcessSpawner } from '../../provider-process/provider-pro
 import { StringDecoder } from 'node:string_decoder'
 import { withTimeout } from '../../../shared/concurrency/promise-timeout-fallback'
 
-import { createOutputSink } from '@orca/process-host/bounded-output-sink'
+import { createOutputSink } from '@openkodo/process-host/bounded-output-sink'
 import { spawnManagedProviderProcess } from '../../provider-process/managed-provider-process'
 import type { ProviderProcessClosePolicy } from '../../provider-process/provider-process-close'
 import type { ProviderProcessLaunch } from '../../provider-process/provider-process-launch'

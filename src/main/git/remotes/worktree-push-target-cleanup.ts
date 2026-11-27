@@ -171,14 +171,14 @@ function isBranchConfigSeparator(code: number): boolean {
 }
 
 // Deferred materialization may omit store flags; read the repo-local OpenKodo-created marker too.
-async function remoteHasOrcaProvenance(
+async function remoteHasOpenKodoProvenance(
   execGit: GitRemoteExec,
   repoPath: string,
   remoteName: string
 ): Promise<boolean> {
   try {
     const { stdout } = await execGit(
-      ['config', '--get', `remote.${remoteName}.orca-created`],
+      ['config', '--get', `remote.${remoteName}.openkodo-created`],
       repoPath
     )
     return stdout.trim() === 'true'
@@ -199,7 +199,7 @@ export async function cleanupUnusedWorktreePushTargetRemoteWithExec(
   }
   if (
     !target.remoteCreated &&
-    !(await remoteHasOrcaProvenance(execGit, repoPath, target.remoteName))
+    !(await remoteHasOpenKodoProvenance(execGit, repoPath, target.remoteName))
   ) {
     return
   }

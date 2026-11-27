@@ -1,5 +1,5 @@
-import { runProcess } from '@orca/process-host'
-import type { ProcessResult } from '@orca/process-host/process-spec'
+import { runProcess } from '@openkodo/process-host'
+import type { ProcessResult } from '@openkodo/process-host/process-spec'
 import {
   DEADLINE_PASSED,
   createSettleNotifier,

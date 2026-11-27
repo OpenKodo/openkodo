@@ -1,6 +1,6 @@
 import { defineOrchestrationMethod } from '../access/orchestration-method-access'
 import { ResetParams } from '../../../../../../shared/rpc-contract/orchestration/orchestration-params'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { listLiveRemoteRunLinkEnvironments } from '../../../../orchestration/db/remote-owned/remote-run-links'
 
 export const ORCHESTRATION_RESET_METHODS = [
@@ -39,7 +39,7 @@ export const ORCHESTRATION_RESET_METHODS = [
 ]
 
 /** A reset owes each paired server a cancel of the Runs it coordinated there; their pull loop sends it. */
-function resumeOwedCancels(runtime: OrcaRuntimeService): void {
+function resumeOwedCancels(runtime: OpenKodoRuntimeService): void {
   if (listLiveRemoteRunLinkEnvironments(runtime.getOrchestrationDb()).length > 0) {
     runtime.ensureOrchestrationFederationRelay()
   }

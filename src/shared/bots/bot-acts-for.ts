@@ -59,7 +59,7 @@ export function distinctAskers(askers: readonly BotRequestAsker[]): BotRequestAs
   })
 }
 
-/** What started an automation run, as the host recorded it ("Slack message from Carol in #orca"):
+/** What started an automation run, as the host recorded it ("Slack message from Carol in #openkodo"):
  *  the event's source and kind, who did it and where. Never whom it acts for. */
 export type AutomationTriggeredBy = {
   source: string

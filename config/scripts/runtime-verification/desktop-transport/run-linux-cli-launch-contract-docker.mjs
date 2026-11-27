@@ -11,9 +11,9 @@ const platform = valueAfter('--platform')
 const dockerPlatformArgs = platform ? ['--platform', platform] : []
 
 const suffix = `${process.pid}-${Date.now()}`
-const artifactVolume = `orca-cli-contract-artifact-${suffix}`
+const artifactVolume = `openkodo-cli-contract-artifact-${suffix}`
 const tagArchitecture = platform?.split('/')[1] ?? process.arch
-const tag = `orca-cli-launch-contract:ubuntu-24.04-${tagArchitecture}-${suffix}`
+const tag = `openkodo-cli-launch-contract:ubuntu-24.04-${tagArchitecture}-${suffix}`
 const containers = new Set()
 let artifactVolumeCreated = false
 const CASE_TIMEOUT_MS = 90_000
@@ -48,7 +48,7 @@ const CASES = [
 try {
   if (!appImage) {
     fail(
-      'Usage: run-linux-cli-launch-contract-docker.mjs --appimage /path/to/orca-linux.AppImage [--platform linux/amd64|linux/arm64]'
+      'Usage: run-linux-cli-launch-contract-docker.mjs --appimage /path/to/openkodo-linux.AppImage [--platform linux/amd64|linux/arm64]'
     )
   }
   if (commandArgs.includes('--platform') && !platform) {
@@ -118,7 +118,7 @@ function runContract() {
 }
 
 function runCase(caseName) {
-  const container = `orca-cli-contract-${caseName}-${suffix}`
+  const container = `openkodo-cli-contract-${caseName}-${suffix}`
   containers.add(container)
   // FUSE and extra capabilities would invalidate the test conditions.
   return docker(
@@ -165,7 +165,7 @@ function buildImage() {
 // Extract unprivileged so chrome-sandbox is not root-owned setuid.
 function stageArtifacts() {
   console.log('Staging the AppImage payload…')
-  const container = `orca-cli-contract-stage-${suffix}`
+  const container = `openkodo-cli-contract-stage-${suffix}`
   containers.add(container)
   docker(
     [
@@ -177,18 +177,18 @@ function stageArtifacts() {
       '-v',
       `${artifactVolume}:/artifacts`,
       '-v',
-      `${appImage}:/input/orca-linux.AppImage:ro`,
+      `${appImage}:/input/openkodo-linux.AppImage:ro`,
       '--entrypoint',
       'bash',
       tag,
       '-lc',
       [
         'set -euo pipefail',
-        'cp /input/orca-linux.AppImage /artifacts/orca-linux.AppImage',
-        'chmod +x /artifacts/orca-linux.AppImage',
-        'chown -R orca:orca /artifacts',
+        'cp /input/openkodo-linux.AppImage /artifacts/openkodo-linux.AppImage',
+        'chmod +x /artifacts/openkodo-linux.AppImage',
+        'chown -R openkodo:openkodo /artifacts',
         // Use the AppImage runtime's no-FUSE extraction path.
-        'cd /artifacts && runuser --user orca -- ./orca-linux.AppImage --appimage-extract >/dev/null',
+        'cd /artifacts && runuser --user openkodo -- ./openkodo-linux.AppImage --appimage-extract >/dev/null',
         'test -x /artifacts/squashfs-root/resources/bin/openkodo'
       ].join(' && ')
     ],

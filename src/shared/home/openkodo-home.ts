@@ -1,14 +1,14 @@
 import { homedir } from 'node:os'
 import { join } from 'node:path'
-import { stat } from 'node:fs/promises'
+import { cp, rename, stat } from 'node:fs/promises'
 
 /**
- * OpenKodo's data directory. Installs from before the rename used `.orca`;
- * those keep using it so an upgrade never moves credentials out from under a
- * running app. New installs get `.openkodo`.
+ * OpenKodo's data directory, `~/.openkodo`. One-time upgrade step: a profile
+ * written by the pre-rename build under its old dot-directory is moved here on
+ * first launch, so credentials and settings are never lost.
  */
 export const OPENKODO_HOME_DIRNAME = '.openkodo'
-export const LEGACY_HOME_DIRNAME = '.orca'
+const PRE_RENAME_HOME_DIRNAME = '.orca'
 
 let migratedHome: string | null = null
 
@@ -29,10 +29,15 @@ async function exists(path: string): Promise<boolean> {
 /** Runs once at startup, before anything reads a credential or hook path. */
 export async function resolveOpenKodoHome(home: string = homedir()): Promise<string> {
   const next = join(home, OPENKODO_HOME_DIRNAME)
-  const legacy = join(home, LEGACY_HOME_DIRNAME)
-  if (!(await exists(next)) && (await exists(legacy))) {
-    migratedHome = legacy
-    return legacy
+  const previous = join(home, PRE_RENAME_HOME_DIRNAME)
+  // Tests must never move a developer's real profile; production upgrades do.
+  const mayMigrate = process.env.VITEST === undefined && process.env.NODE_ENV !== 'test'
+  if (mayMigrate && !(await exists(next)) && (await exists(previous))) {
+    try {
+      await rename(previous, next)
+    } catch {
+      await cp(previous, next, { recursive: true, errorOnExist: true, force: false })
+    }
   }
   migratedHome = next
   return next

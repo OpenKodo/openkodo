@@ -1,7 +1,7 @@
 import type { IPtyProvider } from '../../../providers/pty/provider-contract'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
-type UnstoppedPtyRuntime = Pick<OrcaRuntimeService, 'getPtyLivenessVerdict'>
+type UnstoppedPtyRuntime = Pick<OpenKodoRuntimeService, 'getPtyLivenessVerdict'>
 import {
   UNSTOPPED_PTY_DETAIL_SEPARATOR,
   STILL_LIVE_DETAIL_PREFIX,

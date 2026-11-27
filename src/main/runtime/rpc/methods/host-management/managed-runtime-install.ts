@@ -1,6 +1,6 @@
 // Install on the agent's chat host without a workspace; negotiate install.v1/remove.v1 and stream a snapshot followed by state revisions.
 
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   ManagedRuntimeAgentParams,
   ManagedRuntimeCancelParams
@@ -17,7 +17,7 @@ import { ManagedRuntimeInstallation } from '../../../../node-runtime/managed-run
 import { onManagedServerUse } from '../../../../node-runtime/managed-runtime-release'
 import '../../../../native-chat/agent-session-wire/providers/structured-agent-session-adapter'
 import { isAgentSessionPreSpawnError } from '../../../../native-chat/agent-session-wire/providers/structured-agent-session-adapter-errors'
-import { getProfileUserDataPath } from '../../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../../openkodo-profiles/profile-storage-paths'
 import { stopStructuredAgentChats } from '../../../agent-session/lifecycle/structured-agent-chat-stop'
 import {
   resolveHostStructuredAgentLaunchEnvironment,
@@ -62,7 +62,7 @@ function installationPrograms(agent: string): ManagedRuntimeProgram[] {
 function installationOf(
   agent: string,
   program: ManagedRuntimeProgram,
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): ManagedRuntimeInstallation {
   const key = `${program}:${agent}`
   const existing = installations.get(key)
@@ -87,7 +87,7 @@ function revisionClockFor(agent: string): RevisionClock {
 /** The installation `program` names, or the one Install, its status and removal act on now. */
 async function selectedInstallation(
   agent: string,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   program?: ManagedRuntimeProgram
 ): Promise<ManagedRuntimeInstallation> {
   const programs = installationPrograms(agent)
@@ -110,7 +110,7 @@ async function selectedInstallation(
 
 function acpInstallation(
   agent: string,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   revisions: RevisionClock
 ): ManagedRuntimeInstallation {
   const spec = acpLaunchSpecFor(agent)
@@ -175,7 +175,7 @@ function acpInstallation(
 /** These chats run the user's own install when the host has one, so OpenKodo's copy is the fallback. */
 function agentCliInstallation(
   agent: ManagedAgentCliId,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   revisions: RevisionClock
 ): ManagedRuntimeInstallation {
   const managedRuntime = managedAgentCli(agent).runtime
@@ -206,7 +206,7 @@ function agentCliInstallation(
 }
 
 /** Each installation reclaims stale releases when created, so create them every launch, not only when a client asks. */
-export function reclaimManagedRuntimeReleasesAtLaunch(runtime: OrcaRuntimeService): void {
+export function reclaimManagedRuntimeReleasesAtLaunch(runtime: OpenKodoRuntimeService): void {
   provideManagedAgentDetection(runtime)
   const agents = new Set([
     ...ACP_LAUNCH_SPECS.filter((spec) => spec.managedRuntime).map((spec) => spec.agent),

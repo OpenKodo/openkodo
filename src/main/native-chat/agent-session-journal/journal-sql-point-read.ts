@@ -21,7 +21,10 @@ import { readJournalSqlProjection } from './journal-sql-read-transaction'
 import type { JournalSqlScope } from './journal-sql-scope'
 import { readJournalSqlInput } from './journal-sql-input-reads'
 import { JournalSqlStatusContext } from './journal-sql-status-context'
-import { readJournalSqlUsageLimitCut, readJournalSqlOrcaStopCut } from './journal-sql-status-cuts'
+import {
+  readJournalSqlUsageLimitCut,
+  readJournalSqlOpenKodoStopCut
+} from './journal-sql-status-cuts'
 import { readJournalSqlStatusState } from './journal-sql-status-state'
 import { readJournalSqlStatusIndicators } from './journal-sql-status-indicators'
 import { readJournalSqlQueue } from './journal-sql-queue-read'
@@ -154,11 +157,11 @@ function read(
       }
     }
     case 'usage-limit-cut':
-    case 'orca-stop-cut': {
+    case 'openkodo-stop-cut': {
       const state = new JournalSqlStatusContext(scope)
       return operation.kind === 'usage-limit-cut'
         ? { kind: 'usage-limit-cut', cut: readJournalSqlUsageLimitCut(state) }
-        : { kind: 'orca-stop-cut', cut: readJournalSqlOrcaStopCut(state) }
+        : { kind: 'openkodo-stop-cut', cut: readJournalSqlOpenKodoStopCut(state) }
     }
     case 'input-read':
       return { kind: 'input-read', result: readJournalSqlInput(scope, operation.operation) }

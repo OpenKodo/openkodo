@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { PublicKnownRuntimeEnvironment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
-import { ORCAD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE } from '../../../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
+import { OPENKODOD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE } from '../../../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 import type { RemoteServerUpdateEntry } from '@/runtime/hosts/updates/remote-server-update-coordinator'
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { SettingsSection } from '../section-layout/SettingsSection'
@@ -293,7 +293,7 @@ export const minimumChippedRows = chippedRows(276)
 function chippedRows(width: number): ReturnType<typeof defineFixture> {
   const wslHost: PublicKnownRuntimeEnvironment = {
     ...environment('ubuntu', 'Ubuntu', 'ws://192.0.2.16:6768'),
-    orcadDeployment: { kind: 'wsl', distro: 'Ubuntu', localPort: 6768, remotePort: 6768 }
+    openkododDeployment: { kind: 'wsl', distro: 'Ubuntu', localPort: 6768, remotePort: 6768 }
   }
   return defineFixture({
     width,
@@ -307,7 +307,7 @@ function chippedRows(width: number): ReturnType<typeof defineFixture> {
           detail: null,
           deferredUpdate: {
             candidateVersion: '1.9.0',
-            code: ORCAD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE,
+            code: OPENKODOD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE,
             reason: 'Started outside WSL host mode.',
             forceable: false
           }

@@ -15,7 +15,7 @@ import {
   validateSkillPackagePath
 } from '../../../shared/skills/packages/skill-package-manifest'
 
-export const BOT_TRANSPORT_MANIFEST_PATH = 'dev.orca.bot-sharing/manifest.json'
+export const BOT_TRANSPORT_MANIFEST_PATH = 'dev.openkodo.bot-sharing/manifest.json'
 
 const ID_PATTERN = /^[A-Za-z0-9_-]{1,128}$/
 const SHA256_PATTERN = /^[a-f0-9]{64}$/

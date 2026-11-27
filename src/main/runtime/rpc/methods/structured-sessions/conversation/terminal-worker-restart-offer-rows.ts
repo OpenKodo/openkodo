@@ -1,7 +1,7 @@
 // One restart offer for a person to act on: cut chats, and terminal workers a reboot or daemon crash took
 // while Resume work on restart was off. Ids name a chat or an offered worker's Dispatch, never both.
 
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { StructuredAgentSessionHost } from '../../../../../native-chat/agent-session-wire/host/structured-agent-session-host'
 import {
   restartRowsFor,
@@ -10,7 +10,7 @@ import {
 } from '../../../../../native-chat/agent-session-wire/recovery/structured-agent-session-restart-resume-set'
 import type { StructuredAgentSessionRestartResume } from '../../../../../native-chat/agent-session-wire/recovery/structured-agent-session-restart-resume-contract'
 
-type OfferRuntime = Pick<OrcaRuntimeService, 'terminalWorkerRestartOffers'>
+type OfferRuntime = Pick<OpenKodoRuntimeService, 'terminalWorkerRestartOffers'>
 type OfferHost = Pick<StructuredAgentSessionHost, 'restartResume'>
 
 /** The ids that name workers rather than chats, and of those the offers this client may act on. */

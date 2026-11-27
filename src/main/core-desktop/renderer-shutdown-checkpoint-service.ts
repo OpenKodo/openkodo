@@ -5,10 +5,10 @@ import {
 } from '../../shared/execution-host/execution-host'
 import type { SleepingAgentSessionRecord } from '../../shared/agent-session/lifecycle/agent-session-resume'
 import { applyCommandToSession } from '../persistence/terminal-topology/pane-admission/terminal-pane-admission'
-import type { PersistedUIState } from '../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../shared/openkodo-profiles/persisted-ui-state-types'
 import type { WorkspaceSessionState } from '../../shared/workspace-session/workspace-session-state-types'
 import type { Store } from '../persistence/loading-store/store'
-import { isFrozenOrcadSourceSessionPartition } from '../persistence/migrating-orcad-catalog/source/catalog/orcad-source-visibility'
+import { isFrozenOpenkododSourceSessionPartition } from '../persistence/migrating-openkodod-catalog/source/catalog/openkodod-source-visibility'
 import { isWslMoveWindowWriteHeld } from '../persistence/moving-wsl-projects/quiescence/wsl-move-window-write-hold'
 import { windowViewSaveForMain, type ReconnectFactsFor } from '../persistence/window-save-view'
 import { reportWindowSaveDrift } from '../persistence/window-save-divergence'
@@ -158,7 +158,7 @@ export function createRendererShutdownCheckpointService(
         // A window a WSL move rewrote under is stale; main reloads it and keeps what is on disk.
         const sessions = isWslMoveWindowWriteHeld() ? [] : sessionsWithDesktopRelays(store, capture)
         for (const { state, hostId } of sessions) {
-          if (!isFrozenOrcadSourceSessionPartition(store, hostId)) {
+          if (!isFrozenOpenkododSourceSessionPartition(store, hostId)) {
             store.stageWorkspaceSessionBeforeUnload(
               OPENKODO_LAYOUT_OWNER_IS_MAIN
                 ? stagedSessionForMain(

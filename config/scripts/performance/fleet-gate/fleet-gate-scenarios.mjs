@@ -87,7 +87,7 @@ async function postHook(endpoint, pane, payload) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Orca-Agent-Hook-Token': endpoint.OPENKODO_AGENT_HOOK_TOKEN
+          'X-OpenKodo-Agent-Hook-Token': endpoint.OPENKODO_AGENT_HOOK_TOKEN
         },
         body: JSON.stringify({
           paneKey: pane.paneKey,

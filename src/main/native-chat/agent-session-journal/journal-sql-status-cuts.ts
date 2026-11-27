@@ -10,9 +10,9 @@ import {
   usageLimitStopWithdrawal
 } from '../../../shared/native-chat/transcript/continuation/native-chat-usage-limit-cut'
 import {
-  orcaStopCauseOfRow,
-  type NativeChatOrcaStopCut
-} from '../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+  openkodoStopCauseOfRow,
+  type NativeChatOpenKodoStopCut
+} from '../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import type { UsageLimitContinueIdentity } from '../../../shared/agent-session/lifecycle/stopping/agent-session-usage-limit-continue'
 import { agentJournalSubmissionReturnedToCard } from '../../../shared/agent-session/requests/agent-session-queued-submission'
 import type { JournalSqlStatusContext } from './journal-sql-status-context'
@@ -231,10 +231,10 @@ export function readJournalSqlUsageLimitStopWithdrawal(
   return usageLimitStopWithdrawal(readJournalSqlUsageLimitCut(state))
 }
 
-export function readJournalSqlOrcaStopCut(
+export function readJournalSqlOpenKodoStopCut(
   state: JournalSqlStatusContext,
   floor = 0
-): NativeChatOrcaStopCut | null {
+): NativeChatOpenKodoStopCut | null {
   const latest = latestCutTurn(state, floor)
   if (!latest || latest.verdict !== 'interruption') {
     return null
@@ -245,7 +245,7 @@ export function readJournalSqlOrcaStopCut(
     floor
   })) {
     const displayed = state.displayed(item.itemId)
-    const cause = displayed && orcaStopCauseOfRow(displayed)
+    const cause = displayed && openkodoStopCauseOfRow(displayed)
     if (cause) {
       return { turnItemId: latest.item.itemId, cause }
     }

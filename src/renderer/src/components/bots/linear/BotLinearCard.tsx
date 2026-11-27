@@ -23,7 +23,7 @@ import { botLinearErrorMessage, linearHowToAsk, linearWorkspaceLabel } from './b
 import { BotLinearSetupDialog } from './BotLinearSetupDialog'
 import { useLinearWhoCanAsk } from './use-linear-who-can-ask'
 import type { BotWhoCanAskService } from '../BotWhoCanAskList'
-import { signedOutConnectorFace } from '../orca-cloud-sign-in'
+import { signedOutConnectorFace } from '../openkodo-cloud-sign-in'
 import { BOT_SLACK_DESKTOP_ERRORS } from '../../../../../shared/connector-bot-slack-contract'
 
 type LinearCardFace = {

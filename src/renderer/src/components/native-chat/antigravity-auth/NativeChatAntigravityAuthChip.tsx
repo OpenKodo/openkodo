@@ -48,8 +48,8 @@ export function NativeChatAntigravityAuthChip({
   // The host's current version; a chat started before an upgrade runs the older one until it restarts.
   const program = auth.agy
     ? antigravityProgramLabel(
-        auth.agy === 'orcas',
-        auth.detection?.agyVersion ?? (auth.agy === 'orcas' ? auth.managedVersion : null),
+        auth.agy === 'openkodos',
+        auth.detection?.agyVersion ?? (auth.agy === 'openkodos' ? auth.managedVersion : null),
         t
       )
     : null

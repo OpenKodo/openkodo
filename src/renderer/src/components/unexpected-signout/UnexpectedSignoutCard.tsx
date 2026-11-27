@@ -7,7 +7,10 @@ import { Button } from '../ui/button'
 import { Card } from '../ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible'
 import { shouldShowUnexpectedSignoutCard } from './unexpected-signout-visibility'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../orca-profiles/OrcaSignInProgress'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../openkodo-profiles/OpenKodoSignInProgress'
 
 function readPreviewFlag(): boolean {
   if (!import.meta.env.DEV) {
@@ -17,7 +20,7 @@ function readPreviewFlag(): boolean {
     if (new URLSearchParams(window.location.search).get('showSignoutCard') === '1') {
       return true
     }
-    return window.localStorage.getItem('orca-debug-show-signout-card') === '1'
+    return window.localStorage.getItem('openkodo-debug-show-signout-card') === '1'
   } catch {
     return false
   }
@@ -45,7 +48,7 @@ function FeatureRow({
 
 export function UnexpectedSignoutCard(): React.JSX.Element | null {
   const t = useTranslate()
-  const authStatus = useAppStore((s) => s.orcaProfileAuthStatus)
+  const authStatus = useAppStore((s) => s.openkodoProfileAuthStatus)
   const persistedUIReady = useAppStore((s) => s.persistedUIReady)
   const persistedDismissedVersion = useAppStore((s) => s.dismissedUnexpectedSignoutVersion)
   const dismissedVersions = useAppStore((s) => s.unexpectedSignoutDismissedVersions)
@@ -65,7 +68,7 @@ export function UnexpectedSignoutCard(): React.JSX.Element | null {
       attempts += 1
       void useAppStore
         .getState()
-        .fetchOrcaProfileAuthStatus()
+        .fetchOpenKodoProfileAuthStatus()
         .then((status) => {
           if (cancelled) {
             return
@@ -230,11 +233,16 @@ export function UnexpectedSignoutCard(): React.JSX.Element | null {
           </Collapsible>
 
           <div className="mt-0.5 flex gap-2">
-            <OrcaSignInButton variant="default" size="sm" className="flex-1" disabled={!canConnect}>
+            <OpenKodoSignInButton
+              variant="default"
+              size="sm"
+              className="flex-1"
+              disabled={!canConnect}
+            >
               {t('auto.components.UnexpectedSignoutCard.c5b3e8a17d', 'Sign in to OpenKodo')}
-            </OrcaSignInButton>
+            </OpenKodoSignInButton>
           </div>
-          <OrcaSignInWaitNotice />
+          <OpenKodoSignInWaitNotice />
         </div>
       </Card>
     </div>

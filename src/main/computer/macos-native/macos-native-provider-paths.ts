@@ -22,6 +22,6 @@ export function resolveMacOSComputerUseExecutablePath(): string | null {
   if (!appPath) {
     return null
   }
-  const executablePath = join(appPath, 'Contents', 'MacOS', 'orca-computer-use-macos')
+  const executablePath = join(appPath, 'Contents', 'MacOS', 'openkodo-computer-use-macos')
   return existsSync(executablePath) ? executablePath : null
 }

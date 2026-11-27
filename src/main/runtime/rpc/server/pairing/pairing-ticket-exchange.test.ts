@@ -13,7 +13,7 @@ const RETRY = 'b'.repeat(48)
 let dir: string
 
 beforeEach(() => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-ticket-exchange-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-ticket-exchange-'))
 })
 
 afterEach(() => {

@@ -157,7 +157,7 @@ export function buildMirroredAgentStatusPatch(
     const accepted =
       nextEntry === entry
         ? entry
-        : withHostOrcaSessionId(
+        : withHostOpenKodoSessionId(
             {
               ...withHostProgramStatus(nextEntry, entry.programStatus),
               ...(entry.launchAttested !== undefined
@@ -298,13 +298,18 @@ function withHostProgramStatus(
 
 /** Only the host names its agents: for the same conversation its stamp wins, including no stamp
  *  (a settled miss clearing a pending null); the client never mints or keeps one across keys. */
-function withHostOrcaSessionId(next: AgentStatusEntry, host: AgentStatusEntry): AgentStatusEntry {
+function withHostOpenKodoSessionId(
+  next: AgentStatusEntry,
+  host: AgentStatusEntry
+): AgentStatusEntry {
   if (
     !host.providerSession ||
     !agentProviderSessionsEqual(host.agentType, host.providerSession, next.providerSession)
   ) {
     return next
   }
-  const { orcaSessionId: _client, ...rest } = next
-  return host.orcaSessionId !== undefined ? { ...rest, orcaSessionId: host.orcaSessionId } : rest
+  const { openkodoSessionId: _client, ...rest } = next
+  return host.openkodoSessionId !== undefined
+    ? { ...rest, openkodoSessionId: host.openkodoSessionId }
+    : rest
 }

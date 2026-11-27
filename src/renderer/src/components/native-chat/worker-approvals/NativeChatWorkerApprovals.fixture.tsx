@@ -14,7 +14,7 @@ import type {
   WorkerApprovalPayload
 } from '../../../../../shared/orchestration/approvals/worker-approval-payload'
 
-const command = `cd ~/orca/workspaces/orca/github-install && python3 - <<'EOF'
+const command = `cd ~/openkodo/workspaces/openkodo/github-install && python3 - <<'EOF'
 import json, pathlib
 spec = json.loads(pathlib.Path("dialog.json").read_text())
 print(f"\`{spec['title']}\` -> \${spec['id']}")
@@ -214,7 +214,7 @@ function pane(
         <NativeChatApprovalCard
           approval={{
             title: 'Allow Read?',
-            detail: '~/orca-lanes/worker-prompt-stall/plan.html',
+            detail: '~/openkodo-lanes/worker-prompt-stall/plan.html',
             options: [
               { label: 'Allow', send: 'allow' },
               { label: 'Deny', send: 'deny' }

@@ -28,7 +28,7 @@ const builder: Bot = {
   updatedAt: 1
 }
 
-const CLI = '"${OPENKODO_CLI_COMMAND:-orca}"'
+const CLI = '"${OPENKODO_CLI_COMMAND:-openkodo}"'
 
 const bash = (callId: string, command: string): NativeChatBlock => ({
   type: 'tool-call',
@@ -45,15 +45,15 @@ const result = (callId: string, output: string): NativeChatBlock => ({
 })
 
 const PS = [
-  'webhooks · orca · host=local · active 25m ago',
+  'webhooks · openkodo · host=local · active 25m ago',
   '--worktree id:r1::/src/webhooks',
   'agent claude idle, 25m ago (--terminal term_a)',
   '',
-  'automations-improve · orca · host=local · active 4m ago',
+  'automations-improve · openkodo · host=local · active 4m ago',
   '--worktree id:r1::/src/automations-improve',
   'agent codex working, 4m ago (--terminal term_b)',
   '',
-  'mobile-ota · orca · host=local · active 3d ago',
+  'mobile-ota · openkodo · host=local · active 3d ago',
   '--worktree id:r1::/src/mobile-ota',
   'no agent open',
   '',
@@ -69,7 +69,7 @@ function turn(psDone: boolean): NativeChatMessage[] {
       timestamp: 1,
       blocks: [
         bash('1', `${CLI} repo list`),
-        result('1', 'r1  orca  /src/orca\nr2  api  /src/api'),
+        result('1', 'r1  openkodo  /src/openkodo\nr2  api  /src/api'),
         bash('2', "gh search prs --author=@me --state=open --limit 100 --jq '.[]'"),
         result(
           '2',

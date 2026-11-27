@@ -8,7 +8,7 @@ import { botReplyRefusal } from '../../../../external-conversations/external-con
 import { ConnectorReply } from '../../../../../shared/rpc-contract/connectors/connector-params'
 import type { ExternalConversationSeam } from '../../../../external-conversations/external-conversation-seam'
 import { chatPaneKey } from '../../../../external-conversations/external-conversation-chat'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { defineMethod } from '../../core'
 import { botTurnFor } from '../../../../bots/bot-turn-for'
 import { sessionCallerOf } from '../../../orchestration/addressing/orchestration-caller-identity'
@@ -18,7 +18,7 @@ import { CONNECTOR_REACT_METHOD } from '../connector-react'
 import { CONNECTOR_LEAVE_THREAD_METHOD } from '../connector-leave-thread'
 
 export function requireSeam(
-  runtime: Pick<OrcaRuntimeService, 'getExternalConversationSeam'>
+  runtime: Pick<OpenKodoRuntimeService, 'getExternalConversationSeam'>
 ): ExternalConversationSeam {
   const seam = runtime.getExternalConversationSeam()
   if (!seam) {

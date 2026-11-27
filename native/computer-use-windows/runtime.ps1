@@ -28,7 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public static class OrcaDesktopWin32 {
+public static class OpenKodoDesktopWin32 {
     // Default proxy discovery needs a typed caller before PowerShell's dynamic stack frames.
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
     public static void InitializeAutomation() {
@@ -659,7 +659,7 @@ public static class OrcaDesktopWin32 {
 }
 "@
 
-[OrcaDesktopWin32]::InitializeAutomation()
+[OpenKodoDesktopWin32]::InitializeAutomation()
 
 $MaxNodes = 1200
 $MaxDepth = 64
@@ -692,32 +692,32 @@ $MouseEvents = @{
     HorizontalWheel = 0x01000
 }
 
-function Write-OrcaJson($Payload) {
+function Write-OpenKodoJson($Payload) {
     $Payload | ConvertTo-Json -Depth 100 -Compress
 }
 
-function New-OrcaFrame([double]$X, [double]$Y, [double]$Width, [double]$Height) {
+function New-OpenKodoFrame([double]$X, [double]$Y, [double]$Width, [double]$Height) {
     if ($Width -le 0 -or $Height -le 0) { return $null }
     [pscustomobject]@{ x = $X; y = $Y; width = $Width; height = $Height }
 }
 
-function Read-OrcaOperation([string]$Path) {
+function Read-OpenKodoOperation([string]$Path) {
     Get-Content -Raw -Encoding UTF8 -Path $Path | ConvertFrom-Json
 }
 
-function ConvertTo-OrcaLParam([int]$X, [int]$Y) {
+function ConvertTo-OpenKodoLParam([int]$X, [int]$Y) {
     [IntPtr]((($Y -band 0xffff) -shl 16) -bor ($X -band 0xffff))
 }
 
-function ConvertTo-OrcaWheelParam([int]$Delta) {
+function ConvertTo-OpenKodoWheelParam([int]$Delta) {
     [IntPtr](($Delta -band 0xffff) -shl 16)
 }
 
-function Get-OrcaWindowProcesses {
+function Get-OpenKodoWindowProcesses {
     @(Get-Process | Where-Object { $_.MainWindowHandle -ne 0 } | Sort-Object ProcessName, Id)
 }
 
-function Find-OrcaProcess([string]$Query) {
+function Find-OpenKodoProcess([string]$Query) {
     $needle = ""
     if ($null -ne $Query) { $needle = $Query.Trim() }
     if ([string]::IsNullOrWhiteSpace($needle)) { throw 'appNotFound("")' }
@@ -727,11 +727,11 @@ function Find-OrcaProcess([string]$Query) {
     }
 
     $parsedProcessId = 0
-    $processes = Get-OrcaWindowProcesses
+    $processes = Get-OpenKodoWindowProcesses
     if ([int]::TryParse($needle, [ref]$parsedProcessId)) {
         $match = $processes | Where-Object { $_.Id -eq $parsedProcessId } | Select-Object -First 1
         if ($null -ne $match) {
-            Assert-OrcaProcessAllowed $match
+            Assert-OpenKodoProcessAllowed $match
             return $match
         }
     }
@@ -750,14 +750,14 @@ function Find-OrcaProcess([string]$Query) {
         $_.MainWindowTitle -ilike "*$needle*"
     } | Select-Object -First 1
     if ($null -ne $match) {
-        Assert-OrcaProcessAllowed $match
+        Assert-OpenKodoProcessAllowed $match
         return $match
     }
 
     throw "appNotFound(`"$Query`")"
 }
 
-function Assert-OrcaProcessAllowed($Process, [string]$WindowTitle = "") {
+function Assert-OpenKodoProcessAllowed($Process, [string]$WindowTitle = "") {
     $values = @($Process.ProcessName, $Process.MainWindowTitle, $WindowTitle) | ForEach-Object { ([string]$_).ToLowerInvariant() }
     foreach ($fragment in $BlockedAppFragments) {
         foreach ($value in $values) {
@@ -768,7 +768,7 @@ function Assert-OrcaProcessAllowed($Process, [string]$WindowTitle = "") {
     }
 }
 
-function Test-OrcaBrowserProcess($Process) {
+function Test-OpenKodoBrowserProcess($Process) {
     $name = ([string]$Process.ProcessName).ToLowerInvariant()
     $browserProcesses = @(
         "arc",
@@ -786,72 +786,72 @@ function Test-OrcaBrowserProcess($Process) {
 }
 
 # Why: MainWindowHandle is a z-order guess that moves to a tooltip or another window, so the id the agent holds is the window.
-function Resolve-OrcaTargetWindow($Process, $WindowId, $WindowIndex) {
+function Resolve-OpenKodoTargetWindow($Process, $WindowId, $WindowIndex) {
     if ($null -ne $WindowIndex -and [int]$WindowIndex -ne 0) {
         throw "windowNotFound(`"$WindowIndex`")"
     }
     if ($null -ne $WindowId) {
         $handle = [IntPtr][int64]$WindowId
-        if (-not [OrcaDesktopWin32]::IsTargetWindow($handle, [int]$Process.Id)) {
+        if (-not [OpenKodoDesktopWin32]::IsTargetWindow($handle, [int]$Process.Id)) {
             throw "windowNotFound(`"$WindowId`")"
         }
     } else {
-        $handle = [OrcaDesktopWin32]::FindMainTargetWindow([int]$Process.Id)
+        $handle = [OpenKodoDesktopWin32]::FindMainTargetWindow([int]$Process.Id)
         if ($handle -eq [IntPtr]::Zero) {
             throw "No top-level UI Automation window is available for $($Process.ProcessName)."
         }
     }
-    Assert-OrcaProcessAllowed $Process ([OrcaDesktopWin32]::GetWindowTitle($handle))
+    Assert-OpenKodoProcessAllowed $Process ([OpenKodoDesktopWin32]::GetWindowTitle($handle))
     $handle
 }
 
-function Get-OrcaRootElement($Process, [IntPtr]$WindowHandle) {
-    if ([OrcaDesktopWin32]::IsWindowHung($WindowHandle, $WindowResponseTimeoutMilliseconds)) {
-        throw "window_not_responding: $(Get-OrcaAppName $Process) is not responding; nothing was read from or sent to it"
+function Get-OpenKodoRootElement($Process, [IntPtr]$WindowHandle) {
+    if ([OpenKodoDesktopWin32]::IsWindowHung($WindowHandle, $WindowResponseTimeoutMilliseconds)) {
+        throw "window_not_responding: $(Get-OpenKodoAppName $Process) is not responding; nothing was read from or sent to it"
     }
     [Windows.Automation.AutomationElement]::FromHandle($WindowHandle)
 }
 
-function Assert-OrcaInputAllowed($Process) {
-    $targetLevel = [OrcaDesktopWin32]::GetProcessIntegrityLevel([int]$Process.Id)
-    $ownLevel = [OrcaDesktopWin32]::GetProcessIntegrityLevel($PID)
+function Assert-OpenKodoInputAllowed($Process) {
+    $targetLevel = [OpenKodoDesktopWin32]::GetProcessIntegrityLevel([int]$Process.Id)
+    $ownLevel = [OpenKodoDesktopWin32]::GetProcessIntegrityLevel($PID)
     # Why: UIPI silently drops input to a higher-integrity process; unknown levels proceed as before.
     if ($targetLevel -lt 0 -or $ownLevel -lt 0 -or $targetLevel -le $ownLevel) { return }
-    throw "target_elevated: $(Get-OrcaAppName $Process) runs as administrator, so Windows blocks input to it from Orca; no input was sent"
+    throw "target_elevated: $(Get-OpenKodoAppName $Process) runs as administrator, so Windows blocks input to it from OpenKodo; no input was sent"
 }
 
-function Get-OrcaWindowFrame([IntPtr]$WindowHandle, $RootElement) {
-    $rect = New-Object OrcaDesktopWin32+RECT
-    if ([OrcaDesktopWin32]::GetWindowRect($WindowHandle, [ref]$rect)) {
-        return New-OrcaFrame $rect.Left $rect.Top ($rect.Right - $rect.Left) ($rect.Bottom - $rect.Top)
+function Get-OpenKodoWindowFrame([IntPtr]$WindowHandle, $RootElement) {
+    $rect = New-Object OpenKodoDesktopWin32+RECT
+    if ([OpenKodoDesktopWin32]::GetWindowRect($WindowHandle, [ref]$rect)) {
+        return New-OpenKodoFrame $rect.Left $rect.Top ($rect.Right - $rect.Left) ($rect.Bottom - $rect.Top)
     }
 
     try {
         $bounds = $RootElement.Current.BoundingRectangle
         if (-not $bounds.IsEmpty) {
-            return New-OrcaFrame $bounds.X $bounds.Y $bounds.Width $bounds.Height
+            return New-OpenKodoFrame $bounds.X $bounds.Y $bounds.Width $bounds.Height
         }
     } catch {}
     $null
 }
 
-function Get-OrcaAppName($Process) {
+function Get-OpenKodoAppName($Process) {
     if ($Process.ProcessName -eq "ApplicationFrameHost" -and -not [string]::IsNullOrWhiteSpace($Process.MainWindowTitle)) {
         return [string]$Process.MainWindowTitle
     }
     [string]$Process.ProcessName
 }
 
-function New-OrcaAppRecord($Process) {
+function New-OpenKodoAppRecord($Process) {
     [pscustomobject]@{
-        name = Get-OrcaAppName $Process
+        name = Get-OpenKodoAppName $Process
         bundleIdentifier = $Process.ProcessName
         bundleId = $Process.ProcessName
         pid = [int]$Process.Id
     }
 }
 
-function Invoke-OrcaWindowPatternActivation($RootElement) {
+function Invoke-OpenKodoWindowPatternActivation($RootElement) {
     # Why: reapplying the current visual state lets the window's provider activate it when Windows refuses our raise (agent-desktop #651).
     # Only for maximized windows: re-applying Normal restores a snapped window's pre-snap size.
     try {
@@ -862,48 +862,48 @@ function Invoke-OrcaWindowPatternActivation($RootElement) {
 }
 
 # Brings only the target window to the front; returns $null once it is the foreground window, otherwise why not.
-function Restore-OrcaWindow([IntPtr]$Handle, $RootElement) {
-    if ([OrcaDesktopWin32]::IsWindowCloaked($Handle)) {
+function Restore-OpenKodoWindow([IntPtr]$Handle, $RootElement) {
+    if ([OpenKodoDesktopWin32]::IsWindowCloaked($Handle)) {
         return "it is on another virtual desktop, and raising it would switch the user's desktop"
     }
     # Why: SW_RESTORE also un-maximizes, which moves the frame the agent targeted.
-    if ([OrcaDesktopWin32]::IsIconic($Handle)) {
-        [void][OrcaDesktopWin32]::ShowWindow($Handle, 9)
+    if ([OpenKodoDesktopWin32]::IsIconic($Handle)) {
+        [void][OpenKodoDesktopWin32]::ShowWindow($Handle, 9)
     }
-    if (Test-OrcaWindowFocused $Handle) { return $null }
+    if (Test-OpenKodoWindowFocused $Handle) { return $null }
     # Why: Windows often refuses a background process's raise; after one refusal try the UIA route, then one more raise.
-    [void][OrcaDesktopWin32]::SetForegroundWindow($Handle)
-    if (Wait-OrcaWindowFocused $Handle 250) { return $null }
-    Invoke-OrcaWindowPatternActivation $RootElement
-    if (Wait-OrcaWindowFocused $Handle 250) { return $null }
-    [void][OrcaDesktopWin32]::SetForegroundWindow($Handle)
-    if (Wait-OrcaWindowFocused $Handle 250) { return $null }
+    [void][OpenKodoDesktopWin32]::SetForegroundWindow($Handle)
+    if (Wait-OpenKodoWindowFocused $Handle 250) { return $null }
+    Invoke-OpenKodoWindowPatternActivation $RootElement
+    if (Wait-OpenKodoWindowFocused $Handle 250) { return $null }
+    [void][OpenKodoDesktopWin32]::SetForegroundWindow($Handle)
+    if (Wait-OpenKodoWindowFocused $Handle 250) { return $null }
     "Windows refused to bring it to the front"
 }
 
-function Test-OrcaTargetTookForeground([IntPtr]$Before, $Process) {
-    $after = [OrcaDesktopWin32]::GetForegroundWindow()
+function Test-OpenKodoTargetTookForeground([IntPtr]$Before, $Process) {
+    $after = [OpenKodoDesktopWin32]::GetForegroundWindow()
     if ($after -eq $Before) { return $false }
     $owner = [uint32]0
-    [void][OrcaDesktopWin32]::GetWindowThreadProcessId($after, [ref]$owner)
+    [void][OpenKodoDesktopWin32]::GetWindowThreadProcessId($after, [ref]$owner)
     $owner -eq $Process.Id
 }
 
-function Test-OrcaWindowFocused([IntPtr]$WindowHandle) {
-    [OrcaDesktopWin32]::GetForegroundWindow() -eq $WindowHandle
+function Test-OpenKodoWindowFocused([IntPtr]$WindowHandle) {
+    [OpenKodoDesktopWin32]::GetForegroundWindow() -eq $WindowHandle
 }
 
-function Wait-OrcaWindowFocused([IntPtr]$WindowHandle, [int]$TimeoutMilliseconds) {
+function Wait-OpenKodoWindowFocused([IntPtr]$WindowHandle, [int]$TimeoutMilliseconds) {
     $stopwatch = [Diagnostics.Stopwatch]::StartNew()
     while ($stopwatch.ElapsedMilliseconds -lt $TimeoutMilliseconds) {
-        if (Test-OrcaWindowFocused $WindowHandle) { return $true }
+        if (Test-OpenKodoWindowFocused $WindowHandle) { return $true }
         Start-Sleep -Milliseconds 50
     }
-    Test-OrcaWindowFocused $WindowHandle
+    Test-OpenKodoWindowFocused $WindowHandle
 }
 
-function Assert-OrcaKeyboardFocus([IntPtr]$WindowHandle, $Operation, $RestoreFailure = $null, $Process = $null) {
-    if (Test-OrcaWindowFocused $WindowHandle) { return }
+function Assert-OpenKodoKeyboardFocus([IntPtr]$WindowHandle, $Operation, $RestoreFailure = $null, $Process = $null) {
+    if (Test-OpenKodoWindowFocused $WindowHandle) { return }
     if ([bool]$Operation.restoreWindow) {
         $reason = if ($null -ne $RestoreFailure) { " ($RestoreFailure)" } else { "" }
         throw "window_not_focused: keyboard input requires the target window to be focused; restoreWindow was requested but the target window is still not focused$reason, so nothing was sent; ask the user to bring it forward or check desktop permissions"
@@ -914,69 +914,69 @@ function Assert-OrcaKeyboardFocus([IntPtr]$WindowHandle, $Operation, $RestoreFai
     } else {
         "To press a button in the background, click it with click --element-index; to enter text, use type-text --element-index <field>."
     }
-    throw (New-OrcaForegroundRefusal $Process "$verb sends keys, which go only to the window in front" $alternative "takes the user's keyboard")
+    throw (New-OpenKodoForegroundRefusal $Process "$verb sends keys, which go only to the window in front" $alternative "takes the user's keyboard")
 }
 
 # Raises the target for real mouse input, then returns its frame read after the raise (restoring moves it).
-function Restore-OrcaPointerWindow($Process, [IntPtr]$WindowHandle, $RootElement) {
-    $failure = Restore-OrcaWindow $WindowHandle $RootElement
+function Restore-OpenKodoPointerWindow($Process, [IntPtr]$WindowHandle, $RootElement) {
+    $failure = Restore-OpenKodoWindow $WindowHandle $RootElement
     if ($null -ne $failure) {
-        throw "window_not_focused: restoreWindow was requested but $(Get-OrcaAppName $Process) did not come to the front ($failure); no pointer input was sent"
+        throw "window_not_focused: restoreWindow was requested but $(Get-OpenKodoAppName $Process) did not come to the front ($failure); no pointer input was sent"
     }
-    Get-OrcaWindowFrame $WindowHandle $RootElement
+    Get-OpenKodoWindowFrame $WindowHandle $RootElement
 }
 
-function New-OrcaForegroundRefusal($Process, [string]$Need, [string]$Alternative = "", [string]$Takes = "moves the user's pointer") {
+function New-OpenKodoForegroundRefusal($Process, [string]$Need, [string]$Alternative = "", [string]$Takes = "moves the user's pointer") {
     $hint = if ([string]::IsNullOrEmpty($Alternative)) { "" } else { " $Alternative" }
-    "background_unavailable: $Need, which on Windows brings $(Get-OrcaAppName $Process) to the front and $Takes; nothing was sent.$hint Ask the user before retrying with --restore-window."
+    "background_unavailable: $Need, which on Windows brings $(Get-OpenKodoAppName $Process) to the front and $Takes; nothing was sent.$hint Ask the user before retrying with --restore-window."
 }
 
-function Get-OrcaCursorPosition {
-    $point = New-Object OrcaDesktopWin32+POINT
-    if ([OrcaDesktopWin32]::GetCursorPos([ref]$point)) { return $point }
+function Get-OpenKodoCursorPosition {
+    $point = New-Object OpenKodoDesktopWin32+POINT
+    if ([OpenKodoDesktopWin32]::GetCursorPos([ref]$point)) { return $point }
     $null
 }
 
-function Restore-OrcaCursorPosition($Point) {
+function Restore-OpenKodoCursorPosition($Point) {
     if ($null -eq $Point) { return }
     # Why: injected input is handled asynchronously and apps read the live cursor while handling it (context menus, hover);
     # Windows gives no signal when they are done.
     Start-Sleep -Milliseconds 200
-    [void][OrcaDesktopWin32]::SetCursorPos($Point.X, $Point.Y)
+    [void][OpenKodoDesktopWin32]::SetCursorPos($Point.X, $Point.Y)
 }
 
-function Get-OrcaElementFrame($Element, $WindowFrame) {
+function Get-OpenKodoElementFrame($Element, $WindowFrame) {
     try {
         $bounds = $Element.Current.BoundingRectangle
         if ($bounds.IsEmpty) { return $null }
         if ($null -eq $WindowFrame) {
-            return New-OrcaFrame $bounds.X $bounds.Y $bounds.Width $bounds.Height
+            return New-OpenKodoFrame $bounds.X $bounds.Y $bounds.Width $bounds.Height
         }
-        New-OrcaFrame ($bounds.X - $WindowFrame.x) ($bounds.Y - $WindowFrame.y) $bounds.Width $bounds.Height
+        New-OpenKodoFrame ($bounds.X - $WindowFrame.x) ($bounds.Y - $WindowFrame.y) $bounds.Width $bounds.Height
     } catch {
         $null
     }
 }
 
-function Get-OrcaProperty($Element, [string]$Name) {
+function Get-OpenKodoProperty($Element, [string]$Name) {
     try { [string]$Element.Current.$Name } catch { "" }
 }
 
-function Get-OrcaRuntimeId($Element) {
+function Get-OpenKodoRuntimeId($Element) {
     try { @($Element.GetRuntimeId()) } catch { @() }
 }
 
-function Test-OrcaSensitiveElement($Element) {
+function Test-OpenKodoSensitiveElement($Element) {
     try {
         if ($Element.Current.IsPassword) { return $true }
     } catch {}
     $controlType = try { [string]$Element.Current.ControlType.ProgrammaticName } catch { "" }
     $parts = @(
-        (Get-OrcaProperty $Element "LocalizedControlType"),
+        (Get-OpenKodoProperty $Element "LocalizedControlType"),
         $controlType,
-        (Get-OrcaProperty $Element "Name"),
-        (Get-OrcaProperty $Element "AutomationId"),
-        (Get-OrcaProperty $Element "ClassName")
+        (Get-OpenKodoProperty $Element "Name"),
+        (Get-OpenKodoProperty $Element "AutomationId"),
+        (Get-OpenKodoProperty $Element "ClassName")
     )
     $haystack = (($parts -join " ") -replace "\s+", " ").ToLowerInvariant()
     foreach ($term in @("password", "passcode", "secret", "one-time code", "verification code")) {
@@ -985,9 +985,9 @@ function Test-OrcaSensitiveElement($Element) {
     $haystack -match "(^|[^a-z0-9])pin([^a-z0-9]|$)"
 }
 
-function Get-OrcaValueText($Element) {
+function Get-OpenKodoValueText($Element) {
     try {
-        if (Test-OrcaSensitiveElement $Element) { return "[redacted]" }
+        if (Test-OpenKodoSensitiveElement $Element) { return "[redacted]" }
         $pattern = $Element.GetCurrentPattern([Windows.Automation.ValuePattern]::Pattern)
         $rawValue = $pattern.Current.Value
         $text = if ($null -eq $rawValue) { "" } else { [string]$rawValue }
@@ -998,43 +998,43 @@ function Get-OrcaValueText($Element) {
     }
 }
 
-function Test-OrcaNativeClass([string]$ClassName, [string]$BaseClass) {
+function Test-OpenKodoNativeClass([string]$ClassName, [string]$BaseClass) {
     # Why: WinForms controls are superclasses named WindowsForms10.<BASE>.app..., and answer the base class's messages.
     $ClassName -match "^(?:WindowsForms\d+\.)?(?:$BaseClass)(?:\.|$)"
 }
 
-function Test-OrcaEditClass([string]$ClassName) {
+function Test-OpenKodoEditClass([string]$ClassName) {
     # Why: user32 edits and RichEdit answer EM_ and WM_GETTEXT messages from other processes.
-    Test-OrcaNativeClass $ClassName "Edit|RichEdit\w*"
+    Test-OpenKodoNativeClass $ClassName "Edit|RichEdit\w*"
 }
 
-# Only for elements Get-OrcaValueText left empty, so never a sensitive one (it answers "[redacted]" for those).
-function Get-OrcaEditValueText([IntPtr]$Handle) {
+# Only for elements Get-OpenKodoValueText left empty, so never a sensitive one (it answers "[redacted]" for those).
+function Get-OpenKodoEditValueText([IntPtr]$Handle) {
     # Why: the client-side edit proxy gives a multiline edit (Notepad's document) no ValuePattern, so its text is read directly.
-    $text = [OrcaDesktopWin32]::GetEditText($Handle, $TextLimit + 1)
+    $text = [OpenKodoDesktopWin32]::GetEditText($Handle, $TextLimit + 1)
     if ($null -eq $text) { return "" }
     if ($text.Length -gt $TextLimit) { return $text.Substring(0, $TextLimit) + "..." }
     $text
 }
 
-function Get-OrcaNativeEdit($Element, $Process) {
-    $className = Get-OrcaProperty $Element "ClassName"
-    if (-not (Test-OrcaEditClass $className)) { return $null }
+function Get-OpenKodoNativeEdit($Element, $Process) {
+    $className = Get-OpenKodoProperty $Element "ClassName"
+    if (-not (Test-OpenKodoEditClass $className)) { return $null }
     $handle = try { [IntPtr][int64]$Element.Current.NativeWindowHandle } catch { [IntPtr]::Zero }
     if ($handle -eq [IntPtr]::Zero) { return $null }
     [pscustomobject]@{
         handle = $handle
         processId = [int]$Process.Id
         rich = $className -match "RichEdit"
-        sensitive = Test-OrcaSensitiveElement $Element
+        sensitive = Test-OpenKodoSensitiveElement $Element
     }
 }
 
-function Assert-OrcaWindowOwner([IntPtr]$Handle, [int]$ProcessId) {
+function Assert-OpenKodoWindowOwner([IntPtr]$Handle, [int]$ProcessId) {
     # Why: a window handle can be recycled for another process between the tree read and the message.
     $owner = [uint32]0
-    if ([OrcaDesktopWin32]::IsWindow($Handle)) {
-        [void][OrcaDesktopWin32]::GetWindowThreadProcessId($Handle, [ref]$owner)
+    if ([OpenKodoDesktopWin32]::IsWindow($Handle)) {
+        [void][OpenKodoDesktopWin32]::GetWindowThreadProcessId($Handle, [ref]$owner)
     }
     if ($owner -ne $ProcessId) {
         throw "stale element: the control's window no longer belongs to the target app; run get-app-state again and use a fresh element index"
@@ -1042,53 +1042,53 @@ function Assert-OrcaWindowOwner([IntPtr]$Handle, [int]$ProcessId) {
 }
 
 # The element's own window when it is a native control of BaseClass owned by the target process.
-function Get-OrcaNativeControl($Element, $Process, [string]$BaseClass) {
-    if (-not (Test-OrcaNativeClass (Get-OrcaProperty $Element "ClassName") $BaseClass)) { return $null }
+function Get-OpenKodoNativeControl($Element, $Process, [string]$BaseClass) {
+    if (-not (Test-OpenKodoNativeClass (Get-OpenKodoProperty $Element "ClassName") $BaseClass)) { return $null }
     $handle = try { [IntPtr][int64]$Element.Current.NativeWindowHandle } catch { [IntPtr]::Zero }
     if ($handle -eq [IntPtr]::Zero) { return $null }
-    Assert-OrcaWindowOwner $handle ([int]$Process.Id)
+    Assert-OpenKodoWindowOwner $handle ([int]$Process.Id)
     $handle
 }
 
-function ConvertTo-OrcaEditNewlines([string]$Text, [bool]$Collapse) {
+function ConvertTo-OpenKodoEditNewlines([string]$Text, [bool]$Collapse) {
     $normalized = $Text -replace "`r`n|`r", "`n"
     if ($Collapse) { return $normalized }
     $normalized -replace "`n", "`r`n"
 }
 
-function Invoke-OrcaEditTextInsertion($Edit, [int]$Index, [string]$Text, [switch]$ReplaceAll) {
-    Assert-OrcaWindowOwner $Edit.handle $Edit.processId
-    $style = [OrcaDesktopWin32]::GetWindowLong($Edit.handle, -16)
+function Invoke-OpenKodoEditTextInsertion($Edit, [int]$Index, [string]$Text, [switch]$ReplaceAll) {
+    Assert-OpenKodoWindowOwner $Edit.handle $Edit.processId
+    $style = [OpenKodoDesktopWin32]::GetWindowLong($Edit.handle, -16)
     if (($style -band 0x0800) -ne 0) { throw "element $Index text is not settable: the field is read-only" }
-    $insert = ConvertTo-OrcaEditNewlines $Text $false
-    $before = if ($Edit.sensitive) { $null } else { [OrcaDesktopWin32]::GetEditText($Edit.handle, $EditReadbackLimit) }
-    $selection = [OrcaDesktopWin32]::GetEditSelection($Edit.handle)
+    $insert = ConvertTo-OpenKodoEditNewlines $Text $false
+    $before = if ($Edit.sensitive) { $null } else { [OpenKodoDesktopWin32]::GetEditText($Edit.handle, $EditReadbackLimit) }
+    $selection = [OpenKodoDesktopWin32]::GetEditSelection($Edit.handle)
     # Why: an edit cuts text past its EM_SETLIMITTEXT limit, which would leave a partial write; refuse it untouched instead.
-    $limit = [OrcaDesktopWin32]::SendControlMessage($Edit.handle, 0x00D5, [IntPtr]::Zero, [IntPtr]::Zero)
+    $limit = [OpenKodoDesktopWin32]::SendControlMessage($Edit.handle, 0x00D5, [IntPtr]::Zero, [IntPtr]::Zero)
     if ($null -ne $limit -and $limit -gt 0) {
         # Why: RichEdit counts a line break as one character, so its lengths are compared without CRLF.
         # Why: a readback cut at the read limit holds only a prefix, so the field reports its own length then.
-        $current = if ($null -ne $before -and $before.Length -lt $EditReadbackLimit) { (ConvertTo-OrcaEditNewlines $before $Edit.rich).Length } else { [OrcaDesktopWin32]::SendControlMessage($Edit.handle, 0x000E, [IntPtr]::Zero, [IntPtr]::Zero) }
+        $current = if ($null -ne $before -and $before.Length -lt $EditReadbackLimit) { (ConvertTo-OpenKodoEditNewlines $before $Edit.rich).Length } else { [OpenKodoDesktopWin32]::SendControlMessage($Edit.handle, 0x000E, [IntPtr]::Zero, [IntPtr]::Zero) }
         $replaced = if ($ReplaceAll) { $current } elseif ($null -ne $selection) { [Math]::Abs($selection[1] - $selection[0]) } else { 0 }
-        $length = $current - $replaced + (ConvertTo-OrcaEditNewlines $Text $Edit.rich).Length
+        $length = $current - $replaced + (ConvertTo-OpenKodoEditNewlines $Text $Edit.rich).Length
         if ($null -ne $current -and $length -gt $limit) { throw "element $Index text is not settable: the result would be $length characters, past the field's $limit-character limit" }
     }
-    Assert-OrcaWindowOwner $Edit.handle $Edit.processId
-    if (-not [OrcaDesktopWin32]::ReplaceEditSelection($Edit.handle, $insert)) {
+    Assert-OpenKodoWindowOwner $Edit.handle $Edit.processId
+    if (-not [OpenKodoDesktopWin32]::ReplaceEditSelection($Edit.handle, $insert)) {
         throw "window_not_responding: the text field did not answer the insertion in time; the text may still land, so run get-app-state before retrying"
     }
     $action = [pscustomobject]@{ path = "accessibility"; actionName = "EM_REPLACESEL"; fallbackReason = $null; verification = [pscustomobject]@{ state = "unverified"; reason = "readback_unsupported" } }
-    $after = if ($null -eq $before) { $null } else { [OrcaDesktopWin32]::GetEditText($Edit.handle, $EditReadbackLimit) }
+    $after = if ($null -eq $before) { $null } else { [OpenKodoDesktopWin32]::GetEditText($Edit.handle, $EditReadbackLimit) }
     # Why: a text past the read limit can't show the whole result, so it neither proves nor disproves the insertion.
     if ($null -eq $after -or $before.Length -ge $EditReadbackLimit -or $after.Length -ge $EditReadbackLimit) { return $action }
     # Why: RichEdit counts a line break as one character in its selection but may read it back as CRLF.
-    $current = if ($Edit.rich) { ConvertTo-OrcaEditNewlines $before $true } else { $before }
-    $actual = if ($Edit.rich) { ConvertTo-OrcaEditNewlines $after $true } else { $after }
+    $current = if ($Edit.rich) { ConvertTo-OpenKodoEditNewlines $before $true } else { $before }
+    $actual = if ($Edit.rich) { ConvertTo-OpenKodoEditNewlines $after $true } else { $after }
     $expected = $null
     if ($null -ne $selection -and [Math]::Max($selection[0], $selection[1]) -le $current.Length) {
         $start = [Math]::Min($selection[0], $selection[1])
         $end = [Math]::Max($selection[0], $selection[1])
-        $expected = $current.Substring(0, $start) + (ConvertTo-OrcaEditNewlines $Text $Edit.rich) + $current.Substring($end)
+        $expected = $current.Substring(0, $start) + (ConvertTo-OpenKodoEditNewlines $Text $Edit.rich) + $current.Substring($end)
     }
     if ($null -ne $expected -and $actual -ceq $expected) {
         $action.verification = [pscustomobject]@{ state = "verified"; property = "elementText" }
@@ -1100,7 +1100,7 @@ function Invoke-OrcaEditTextInsertion($Edit, [int]$Index, [string]$Text, [switch
     $action
 }
 
-function Set-OrcaTextCaret($Element, [string]$Leading) {
+function Set-OpenKodoTextCaret($Element, [string]$Leading) {
     # Why: a ValuePattern write resets WPF's caret to the start, so the next insertion would land there.
     try {
         # Why: UIA moves by caret positions, which keep a surrogate pair, a combining sequence and a CRLF together.
@@ -1117,7 +1117,7 @@ function Set-OrcaTextCaret($Element, [string]$Leading) {
     } catch {}
 }
 
-function Get-OrcaTextSelectionOffsets($Element) {
+function Get-OpenKodoTextSelectionOffsets($Element) {
     try {
         $text = $Element.GetCurrentPattern([Windows.Automation.TextPattern]::Pattern)
         $ranges = @($text.GetSelection())
@@ -1131,17 +1131,17 @@ function Get-OrcaTextSelectionOffsets($Element) {
     }
 }
 
-function Invoke-OrcaValueTextInsertion($Element, [int]$Index, [string]$Text) {
+function Invoke-OpenKodoValueTextInsertion($Element, [int]$Index, [string]$Text) {
     $pattern = try { $Element.GetCurrentPattern([Windows.Automation.ValuePattern]::Pattern) } catch { $null }
     if ($null -eq $pattern) { return $null }
     if ($pattern.Current.IsReadOnly) { throw "element $Index text is not settable: the field is read-only" }
     # Why: Chromium applies a value write as replaced inner text, which editors with their own model miss or revert.
-    if ((Get-OrcaProperty $Element "FrameworkId") -eq "Chrome") { return $null }
-    if (Test-OrcaSensitiveElement $Element) {
+    if ((Get-OpenKodoProperty $Element "FrameworkId") -eq "Chrome") { return $null }
+    if (Test-OpenKodoSensitiveElement $Element) {
         throw "element $Index text is not settable at its caret: it is a password field, whose text can't be read; use set-value to replace it"
     }
     $current = [string]$pattern.Current.Value
-    $selection = Get-OrcaTextSelectionOffsets $Element
+    $selection = Get-OpenKodoTextSelectionOffsets $Element
     # Why: without a readable selection the caret is unknown; appending matches macOS's default insertion point.
     if ($null -eq $selection -or $selection[1] -gt $current.Length) { $selection = @($current.Length, $current.Length) }
     $next = $current.Substring(0, $selection[0]) + $Text + $current.Substring($selection[1])
@@ -1153,7 +1153,7 @@ function Invoke-OrcaValueTextInsertion($Element, [int]$Index, [string]$Text) {
         if ($actual -ceq $next -or $stopwatch.ElapsedMilliseconds -ge 500) { break }
         Start-Sleep -Milliseconds 25
     }
-    if ($actual -ceq $next) { Set-OrcaTextCaret $Element ($current.Substring(0, $selection[0]) + $Text) }
+    if ($actual -ceq $next) { Set-OpenKodoTextCaret $Element ($current.Substring(0, $selection[0]) + $Text) }
     $verification = if ($actual -ceq $next) {
         [pscustomobject]@{ state = "verified"; property = "elementText" }
     } elseif ($null -eq $actual) {
@@ -1166,7 +1166,7 @@ function Invoke-OrcaValueTextInsertion($Element, [int]$Index, [string]$Text) {
     [pscustomobject]@{ path = "accessibility"; actionName = "setValue"; fallbackReason = $null; verification = $verification }
 }
 
-function Test-OrcaTextPatternReadOnly($Element) {
+function Test-OpenKodoTextPatternReadOnly($Element) {
     try {
         $range = $Element.GetCurrentPattern([Windows.Automation.TextPattern]::Pattern).DocumentRange
         $range.GetAttributeValue([Windows.Automation.TextPattern]::IsReadOnlyAttribute) -eq $true
@@ -1175,37 +1175,37 @@ function Test-OrcaTextPatternReadOnly($Element) {
     }
 }
 
-function Invoke-OrcaElementTextInsertion($Element, $Record, $Process, [IntPtr]$WindowHandle, $RootElement, $Operation, [string]$Text) {
+function Invoke-OpenKodoElementTextInsertion($Element, $Record, $Process, [IntPtr]$WindowHandle, $RootElement, $Operation, [string]$Text) {
     if ($null -eq $Element) {
         throw "stale element: element $($Record.index) is gone; run get-app-state again and use a fresh element index"
     }
     $index = [int]$Record.index
     # Why: edit messages bypass a disabled field's lock, which set-value's UI Automation write honours.
-    if (Test-OrcaElementDisabled $Element) { throw "element $index text is not settable: the field is disabled" }
-    $edit = Get-OrcaNativeEdit $Element $Process
-    if ($null -ne $edit) { return Invoke-OrcaEditTextInsertion $edit $index $Text }
+    if (Test-OpenKodoElementDisabled $Element) { throw "element $index text is not settable: the field is disabled" }
+    $edit = Get-OpenKodoNativeEdit $Element $Process
+    if ($null -ne $edit) { return Invoke-OpenKodoEditTextInsertion $edit $index $Text }
     # Why: list and tree items also take ValuePattern, where a write renames them rather than typing.
     $controlType = try { [string]$Element.Current.ControlType.ProgrammaticName } catch { "" }
     if ($controlType -notin @("ControlType.Edit", "ControlType.Document")) {
         throw "element $index text is not settable: it is not a text field"
     }
-    $action = Invoke-OrcaValueTextInsertion $Element $index $Text
+    $action = Invoke-OpenKodoValueTextInsertion $Element $index $Text
     if ($null -ne $action) { return $action }
     # Why: a read-only document with no ValuePattern (WPF RichTextBox) says so only through TextPattern; keys would do nothing.
-    if (Test-OrcaTextPatternReadOnly $Element) { throw "element $index text is not settable: the field is read-only" }
+    if (Test-OpenKodoTextPatternReadOnly $Element) { throw "element $index text is not settable: the field is read-only" }
     if (-not [bool]$Operation.restoreWindow) {
-        throw (New-OrcaForegroundRefusal $Process "element $index accepts text only as keys, which go only to the window in front" "" "takes the user's keyboard")
+        throw (New-OpenKodoForegroundRefusal $Process "element $index accepts text only as keys, which go only to the window in front" "" "takes the user's keyboard")
     }
-    $failure = Restore-OrcaWindow $WindowHandle $RootElement
-    Assert-OrcaKeyboardFocus $WindowHandle $Operation $failure $Process
+    $failure = Restore-OpenKodoWindow $WindowHandle $RootElement
+    Assert-OpenKodoKeyboardFocus $WindowHandle $Operation $failure $Process
     try { $Element.SetFocus() } catch {
         throw "window_not_focused: element $index did not take keyboard focus; no text was sent"
     }
-    Send-OrcaText $WindowHandle $Text
+    Send-OpenKodoText $WindowHandle $Text
     [pscustomobject]@{ path = "synthetic"; actionName = "typeText"; fallbackReason = "actionUnsupported"; verification = [pscustomobject]@{ state = "unverified"; reason = "synthetic_input" } }
 }
 
-function Get-OrcaRangeValueText($Element) {
+function Get-OpenKodoRangeValueText($Element) {
     try {
         $pattern = $Element.GetCurrentPattern([Windows.Automation.RangeValuePattern]::Pattern)
         ([double]$pattern.Current.Value).ToString([Globalization.CultureInfo]::InvariantCulture)
@@ -1214,7 +1214,7 @@ function Get-OrcaRangeValueText($Element) {
     }
 }
 
-function Test-OrcaRangeValueWritable($Element) {
+function Test-OpenKodoRangeValueWritable($Element) {
     try {
         -not $Element.GetCurrentPattern([Windows.Automation.RangeValuePattern]::Pattern).Current.IsReadOnly
     } catch {
@@ -1222,7 +1222,7 @@ function Test-OrcaRangeValueWritable($Element) {
     }
 }
 
-function Get-OrcaExpandCollapseActions($Element) {
+function Get-OpenKodoExpandCollapseActions($Element) {
     try {
         $state = $Element.GetCurrentPattern([Windows.Automation.ExpandCollapsePattern]::Pattern).Current.ExpandCollapseState
     } catch {
@@ -1236,7 +1236,7 @@ function Get-OrcaExpandCollapseActions($Element) {
     @()
 }
 
-function Get-OrcaActions($Element, $Patterns = $null) {
+function Get-OpenKodoActions($Element, $Patterns = $null) {
     if ($null -eq $Patterns) { $Patterns = @($Element.GetSupportedPatterns()) }
     $actions = New-Object System.Collections.Generic.List[string]
     foreach ($pattern in $Patterns) {
@@ -1246,25 +1246,25 @@ function Get-OrcaActions($Element, $Patterns = $null) {
         elseif ($name -like "SelectionItemPatternIdentifiers.Pattern") { $actions.Add("Select") }
         elseif ($name -like "ScrollPatternIdentifiers.Pattern") { $actions.Add("Scroll") }
         elseif ($name -like "ValuePatternIdentifiers.Pattern") { $actions.Add("SetValue") }
-        elseif ($name -like "RangeValuePatternIdentifiers.Pattern") { if (Test-OrcaRangeValueWritable $Element) { $actions.Add("SetValue") } }
-        elseif ($name -like "ExpandCollapsePatternIdentifiers.Pattern") { foreach ($action in @(Get-OrcaExpandCollapseActions $Element)) { $actions.Add($action) } }
+        elseif ($name -like "RangeValuePatternIdentifiers.Pattern") { if (Test-OpenKodoRangeValueWritable $Element) { $actions.Add("SetValue") } }
+        elseif ($name -like "ExpandCollapsePatternIdentifiers.Pattern") { foreach ($action in @(Get-OpenKodoExpandCollapseActions $Element)) { $actions.Add($action) } }
         elseif ($name -like "ScrollItemPatternIdentifiers.Pattern") { $actions.Add("ScrollToVisible") }
     }
     @($actions | Select-Object -Unique)
 }
 
-function Get-OrcaMeaningfulActions($Actions) {
+function Get-OpenKodoMeaningfulActions($Actions) {
     $noisy = @("Invoke", "ScrollToVisible", "ShowMenu")
     @($Actions | Where-Object { $noisy -notcontains $_ })
 }
 
-function Format-OrcaSnapshotText([string]$Text) {
+function Format-OpenKodoSnapshotText([string]$Text) {
     if ([string]::IsNullOrWhiteSpace($Text)) { return "" }
     (($Text -replace "\s+", " ").Trim())
 }
 
-function Format-OrcaValueSegment([string]$RoleKey, [string]$Title, [string]$Value) {
-    $clean = Format-OrcaSnapshotText $Value
+function Format-OpenKodoValueSegment([string]$RoleKey, [string]$Title, [string]$Value) {
+    $clean = Format-OpenKodoSnapshotText $Value
     if ([string]::IsNullOrWhiteSpace($clean) -or $clean -eq $Title) { return "" }
     if ($RoleKey -eq "heading" -and $clean -match "^\d+$") { return "" }
     if ($RoleKey -in @("text", "edit", "document", "scroll bar", "progress bar")) {
@@ -1273,8 +1273,8 @@ function Format-OrcaValueSegment([string]$RoleKey, [string]$Title, [string]$Valu
     ", Value: $clean"
 }
 
-function Test-OrcaSuppressChildren([string]$RoleKey, [string]$Title, [string]$Value, [string]$Summary) {
-    $hasCompactLabel = -not [string]::IsNullOrWhiteSpace($Title) -or -not [string]::IsNullOrWhiteSpace((Format-OrcaSnapshotText $Value)) -or -not [string]::IsNullOrWhiteSpace((Format-OrcaSnapshotText $Summary))
+function Test-OpenKodoSuppressChildren([string]$RoleKey, [string]$Title, [string]$Value, [string]$Summary) {
+    $hasCompactLabel = -not [string]::IsNullOrWhiteSpace($Title) -or -not [string]::IsNullOrWhiteSpace((Format-OpenKodoSnapshotText $Value)) -or -not [string]::IsNullOrWhiteSpace((Format-OpenKodoSnapshotText $Summary))
     $hasCompactLabel -and $RoleKey -in @(
         "button",
         "check box",
@@ -1288,15 +1288,15 @@ function Test-OrcaSuppressChildren([string]$RoleKey, [string]$Title, [string]$Va
     )
 }
 
-function Get-OrcaTextSnippets($Element, [int]$Limit = 6, [int]$MaxDepth = 3) {
+function Get-OpenKodoTextSnippets($Element, [int]$Limit = 6, [int]$MaxDepth = 3) {
     $values = New-Object System.Collections.Generic.List[string]
     $seen = New-Object System.Collections.Generic.HashSet[string]
 
-    function Visit-OrcaText($Node, [int]$Depth) {
+    function Visit-OpenKodoText($Node, [int]$Depth) {
         if ($values.Count -ge $Limit -or $Depth -gt $MaxDepth) { return }
         $role = try { [string]$Node.Current.LocalizedControlType } catch { "" }
         if ($role -match "text|link|label") {
-            foreach ($raw in @((Get-OrcaProperty $Node "Name"), (Get-OrcaValueText $Node))) {
+            foreach ($raw in @((Get-OpenKodoProperty $Node "Name"), (Get-OpenKodoValueText $Node))) {
                 $value = (($raw -replace "\s+", " ").Trim())
                 if (-not [string]::IsNullOrWhiteSpace($value) -and $seen.Add($value)) {
                     if ($value.Length -gt 80) { $value = $value.Substring(0, 80) + "..." }
@@ -1308,73 +1308,73 @@ function Get-OrcaTextSnippets($Element, [int]$Limit = 6, [int]$MaxDepth = 3) {
         try {
             $children = $Node.FindAll([Windows.Automation.TreeScope]::Children, [Windows.Automation.Condition]::TrueCondition)
             for ($i = 0; $i -lt $children.Count; $i++) {
-                Visit-OrcaText $children.Item($i) ($Depth + 1)
+                Visit-OpenKodoText $children.Item($i) ($Depth + 1)
                 if ($values.Count -ge $Limit) { return }
             }
         } catch {}
     }
 
-    Visit-OrcaText $Element 0
+    Visit-OpenKodoText $Element 0
     @($values.ToArray())
 }
 
-function Test-OrcaPlainTextSubtree($Element, [int]$MaxDepth = 4) {
-    $script:sawOrcaText = $false
+function Test-OpenKodoPlainTextSubtree($Element, [int]$MaxDepth = 4) {
+    $script:sawOpenKodoText = $false
     $allowed = @("pane", "group", "custom", "unknown", "text", "link", "image")
 
-    function Visit-OrcaPlainText($Node, [int]$Depth) {
+    function Visit-OpenKodoPlainText($Node, [int]$Depth) {
         if ($Depth -gt $MaxDepth) { return $false }
         $role = try { [string]$Node.Current.LocalizedControlType } catch { "" }
         $roleKey = $role.ToLowerInvariant()
         if ($allowed -notcontains $roleKey) { return $false }
-        if ($roleKey -match "text|link") { $script:sawOrcaText = $true }
-        if (@(Get-OrcaMeaningfulActions @(Get-OrcaActions $Node)).Count -gt 0) { return $false }
+        if ($roleKey -match "text|link") { $script:sawOpenKodoText = $true }
+        if (@(Get-OpenKodoMeaningfulActions @(Get-OpenKodoActions $Node)).Count -gt 0) { return $false }
         try {
             $children = $Node.FindAll([Windows.Automation.TreeScope]::Children, [Windows.Automation.Condition]::TrueCondition)
             for ($i = 0; $i -lt $children.Count; $i++) {
-                if (-not (Visit-OrcaPlainText $children.Item($i) ($Depth + 1))) { return $false }
+                if (-not (Visit-OpenKodoPlainText $children.Item($i) ($Depth + 1))) { return $false }
             }
         } catch {}
         return $true
     }
 
-    (Visit-OrcaPlainText $Element 0) -and $script:sawOrcaText
+    (Visit-OpenKodoPlainText $Element 0) -and $script:sawOpenKodoText
 }
 
-function New-OrcaElementRecord($Element, [int]$Index, $WindowFrame) {
+function New-OpenKodoElementRecord($Element, [int]$Index, $WindowFrame) {
     $controlType = try { [string]$Element.Current.ControlType.ProgrammaticName } catch { "" }
     $nativeWindowHandle = try { [int64]$Element.Current.NativeWindowHandle } catch { 0 }
-    $className = Get-OrcaProperty $Element "ClassName"
+    $className = Get-OpenKodoProperty $Element "ClassName"
     $patterns = @($Element.GetSupportedPatterns())
-    $value = Get-OrcaValueText $Element
+    $value = Get-OpenKodoValueText $Element
     if ([string]::IsNullOrEmpty($value) -and $patterns -contains [Windows.Automation.RangeValuePattern]::Pattern) {
-        $value = Get-OrcaRangeValueText $Element
+        $value = Get-OpenKodoRangeValueText $Element
     }
-    if ([string]::IsNullOrEmpty($value) -and $nativeWindowHandle -ne 0 -and (Test-OrcaEditClass $className)) {
-        $value = Get-OrcaEditValueText ([IntPtr]$nativeWindowHandle)
+    if ([string]::IsNullOrEmpty($value) -and $nativeWindowHandle -ne 0 -and (Test-OpenKodoEditClass $className)) {
+        $value = Get-OpenKodoEditValueText ([IntPtr]$nativeWindowHandle)
     }
     [pscustomobject]@{
         index = $Index
-        runtimeId = @(Get-OrcaRuntimeId $Element)
-        automationId = Get-OrcaProperty $Element "AutomationId"
-        name = Get-OrcaProperty $Element "Name"
+        runtimeId = @(Get-OpenKodoRuntimeId $Element)
+        automationId = Get-OpenKodoProperty $Element "AutomationId"
+        name = Get-OpenKodoProperty $Element "Name"
         controlType = $controlType
-        localizedControlType = Get-OrcaProperty $Element "LocalizedControlType"
+        localizedControlType = Get-OpenKodoProperty $Element "LocalizedControlType"
         className = $className
         value = $value
-        isSelected = Test-OrcaElementSelected $Element
-        isDisabled = Test-OrcaElementDisabled $Element
+        isSelected = Test-OpenKodoElementSelected $Element
+        isDisabled = Test-OpenKodoElementDisabled $Element
         nativeWindowHandle = $nativeWindowHandle
-        frame = Get-OrcaElementFrame $Element $WindowFrame
-        actions = @(Get-OrcaActions $Element $patterns)
+        frame = Get-OpenKodoElementFrame $Element $WindowFrame
+        actions = @(Get-OpenKodoActions $Element $patterns)
     }
 }
 
-function Test-OrcaElementDisabled($Element) {
+function Test-OpenKodoElementDisabled($Element) {
     try { return -not [bool]$Element.Current.IsEnabled } catch { return $false }
 }
 
-function Test-OrcaElementSelected($Element) {
+function Test-OpenKodoElementSelected($Element) {
     try {
         $pattern = $Element.GetCurrentPattern([Windows.Automation.SelectionItemPattern]::Pattern)
         return [bool]$pattern.Current.IsSelected
@@ -1383,7 +1383,7 @@ function Test-OrcaElementSelected($Element) {
     }
 }
 
-function Render-OrcaTree($RootElement, $WindowFrame, [bool]$CompactBrowserTabs = $false) {
+function Render-OpenKodoTree($RootElement, $WindowFrame, [bool]$CompactBrowserTabs = $false) {
     $records = New-Object System.Collections.Generic.List[object]
     $lines = New-Object System.Collections.Generic.List[string]
     $seen = New-Object System.Collections.Generic.HashSet[string]
@@ -1396,7 +1396,7 @@ function Render-OrcaTree($RootElement, $WindowFrame, [bool]$CompactBrowserTabs =
     # Tab compaction shrinks records mid-walk, so $records.Count would reuse retained indexes.
     $nextIndex = [ref]0
 
-    function Visit-OrcaChildren($Children, [int]$Depth) {
+    function Visit-OpenKodoChildren($Children, [int]$Depth) {
         for ($i = 0; $i -lt $Children.Count; $i++) {
             if ($records.Count -ge $MaxNodes -or $Depth -gt $MaxDepth) {
                 $truncation.truncated = $true
@@ -1405,32 +1405,32 @@ function Render-OrcaTree($RootElement, $WindowFrame, [bool]$CompactBrowserTabs =
                 $lines.Add(("`t" * $Depth) + "... $($Children.Count - $i) more not shown (snapshot limit)")
                 return
             }
-            Visit-OrcaNode $Children.Item($i) $Depth
+            Visit-OpenKodoNode $Children.Item($i) $Depth
         }
     }
 
-    function Visit-OrcaNode($Node, [int]$Depth) {
+    function Visit-OpenKodoNode($Node, [int]$Depth) {
         $identity = try { (@($Node.GetRuntimeId()) -join ".") } catch { [Guid]::NewGuid().ToString() }
         if (-not $seen.Add($identity)) { return }
 
-        $record = New-OrcaElementRecord $Node $nextIndex.Value $WindowFrame
+        $record = New-OpenKodoElementRecord $Node $nextIndex.Value $WindowFrame
         $children = @()
         try {
             $children = @($Node.FindAll([Windows.Automation.TreeScope]::Children, [Windows.Automation.Condition]::TrueCondition))
         } catch {}
-        $meaningfulActions = @(Get-OrcaMeaningfulActions $record.actions)
+        $meaningfulActions = @(Get-OpenKodoMeaningfulActions $record.actions)
         $title = if ([string]::IsNullOrWhiteSpace($record.name)) { $record.automationId } else { $record.name }
         $role = if ([string]::IsNullOrWhiteSpace($record.localizedControlType)) { $record.controlType } else { $record.localizedControlType }
         $roleKey = $role.ToLowerInvariant()
         $genericSummary = $null
         if (($roleKey -in @("pane", "group", "custom", "unknown")) -and [string]::IsNullOrWhiteSpace($title) -and [string]::IsNullOrWhiteSpace($record.value)) {
-            $snippets = @(Get-OrcaTextSnippets $Node 8 4)
-            if ($snippets.Count -ge 2 -and (Test-OrcaPlainTextSubtree $Node)) {
+            $snippets = @(Get-OpenKodoTextSnippets $Node 8 4)
+            if ($snippets.Count -ge 2 -and (Test-OpenKodoPlainTextSubtree $Node)) {
                 $genericSummary = ($snippets -join " ")
             }
         }
         if (($roleKey -in @("pane", "group", "custom", "unknown")) -and [string]::IsNullOrWhiteSpace($title) -and [string]::IsNullOrWhiteSpace($record.value) -and $meaningfulActions.Count -eq 0 -and $null -eq $genericSummary -and $children.Count -le 1) {
-            Visit-OrcaChildren $children $Depth
+            Visit-OpenKodoChildren $children $Depth
             return
         }
 
@@ -1438,14 +1438,14 @@ function Render-OrcaTree($RootElement, $WindowFrame, [bool]$CompactBrowserTabs =
         $nextIndex.Value++
 
         $traits = if ($record.isDisabled) { " (disabled)" } else { "" }
-        $line = "$($record.index) $role$traits $(Format-OrcaSnapshotText $title)".TrimEnd()
-        $line += Format-OrcaValueSegment $roleKey $title $record.value
+        $line = "$($record.index) $role$traits $(Format-OpenKodoSnapshotText $title)".TrimEnd()
+        $line += Format-OpenKodoValueSegment $roleKey $title $record.value
         if (-not [string]::IsNullOrWhiteSpace($genericSummary) -and $genericSummary -ne $title) {
-            $line += ", Text: " + (Format-OrcaSnapshotText $genericSummary)
+            $line += ", Text: " + (Format-OpenKodoSnapshotText $genericSummary)
         } elseif ($roleKey -in @("row", "data item", "list item")) {
-            $rowSummary = @((Get-OrcaTextSnippets $Node 6 3)) -join " "
+            $rowSummary = @((Get-OpenKodoTextSnippets $Node 6 3)) -join " "
             if (-not [string]::IsNullOrWhiteSpace($rowSummary) -and $rowSummary -ne $title) {
-                $line += ", Text: " + (Format-OrcaSnapshotText $rowSummary)
+                $line += ", Text: " + (Format-OpenKodoSnapshotText $rowSummary)
             }
         }
         if ($meaningfulActions.Count -gt 0) {
@@ -1453,22 +1453,22 @@ function Render-OrcaTree($RootElement, $WindowFrame, [bool]$CompactBrowserTabs =
         }
         $lines.Add(("`t" * $Depth) + $line)
 
-        if (-not [string]::IsNullOrWhiteSpace($genericSummary) -or (Test-OrcaSuppressChildren $roleKey $title $record.value $genericSummary)) { return }
+        if (-not [string]::IsNullOrWhiteSpace($genericSummary) -or (Test-OpenKodoSuppressChildren $roleKey $title $record.value $genericSummary)) { return }
         $childLineStart = $lines.Count
-        Visit-OrcaChildren $children ($Depth + 1)
+        Visit-OpenKodoChildren $children ($Depth + 1)
         if ($CompactBrowserTabs) {
-            Compress-OrcaRenderedBrowserTabs $records $lines $childLineStart ($Depth + 1)
+            Compress-OpenKodoRenderedBrowserTabs $records $lines $childLineStart ($Depth + 1)
         }
     }
 
-    Visit-OrcaNode $RootElement 0
+    Visit-OpenKodoNode $RootElement 0
     [pscustomobject]@{ elements = @($records.ToArray()); lines = @($lines.ToArray()); truncation = $truncation }
 }
 
-function Compress-OrcaRenderedBrowserTabs($Records, $Lines, [int]$StartLine, [int]$Depth) {
+function Compress-OpenKodoRenderedBrowserTabs($Records, $Lines, [int]$StartLine, [int]$Depth) {
     $tabLineIndexes = New-Object System.Collections.Generic.List[int]
     for ($lineIndex = $StartLine; $lineIndex -lt $Lines.Count; $lineIndex++) {
-        if (Test-OrcaDirectRenderedBrowserTabLine ([string]$Lines[$lineIndex]) $Depth) {
+        if (Test-OpenKodoDirectRenderedBrowserTabLine ([string]$Lines[$lineIndex]) $Depth) {
             $tabLineIndexes.Add($lineIndex)
         }
     }
@@ -1480,7 +1480,7 @@ function Compress-OrcaRenderedBrowserTabs($Records, $Lines, [int]$StartLine, [in
     }
     $activeLineIndexes = New-Object System.Collections.Generic.HashSet[int]
     foreach ($lineIndex in $tabLineIndexes) {
-        if (Test-OrcaActiveRenderedBrowserTabLine ([string]$Lines[$lineIndex]) $Depth $recordsByIndex) {
+        if (Test-OpenKodoActiveRenderedBrowserTabLine ([string]$Lines[$lineIndex]) $Depth $recordsByIndex) {
             [void]$activeLineIndexes.Add($lineIndex)
         }
     }
@@ -1492,7 +1492,7 @@ function Compress-OrcaRenderedBrowserTabs($Records, $Lines, [int]$StartLine, [in
     for ($i = $tabLineIndexes.Count - 1; $i -ge 0; $i--) {
         $lineIndex = $tabLineIndexes[$i]
         if ($activeLineIndexes.Contains($lineIndex)) { continue }
-        $recordIndex = Get-OrcaRenderedElementIndex ([string]$Lines[$lineIndex]) $Depth
+        $recordIndex = Get-OpenKodoRenderedElementIndex ([string]$Lines[$lineIndex]) $Depth
         if ($null -ne $recordIndex) {
             [void]$omittedRecordIndexes.Add([int]$recordIndex)
         }
@@ -1508,7 +1508,7 @@ function Compress-OrcaRenderedBrowserTabs($Records, $Lines, [int]$StartLine, [in
     $Lines.Insert($insertionIndex, (("`t" * $Depth) + "... $omittedCount inactive browser tabs omitted"))
 }
 
-function Test-OrcaDirectRenderedBrowserTabLine([string]$Line, [int]$Depth) {
+function Test-OpenKodoDirectRenderedBrowserTabLine([string]$Line, [int]$Depth) {
     $indent = "`t" * $Depth
     if (-not $Line.StartsWith($indent)) { return $false }
     $text = $Line.Substring($indent.Length)
@@ -1516,21 +1516,21 @@ function Test-OrcaDirectRenderedBrowserTabLine([string]$Line, [int]$Depth) {
     $text -match "^\d+ (page tab|tab item|tab)($|[ \(,])"
 }
 
-function Test-OrcaActiveRenderedBrowserTabLine([string]$Line, [int]$Depth, $RecordsByIndex) {
+function Test-OpenKodoActiveRenderedBrowserTabLine([string]$Line, [int]$Depth, $RecordsByIndex) {
     if ($Line.Contains("(selected")) { return $true }
-    $recordIndex = Get-OrcaRenderedElementIndex $Line $Depth
+    $recordIndex = Get-OpenKodoRenderedElementIndex $Line $Depth
     if ($null -eq $recordIndex -or -not $RecordsByIndex.ContainsKey([int]$recordIndex)) { return $false }
     $record = $RecordsByIndex[[int]$recordIndex]
-    [bool]$record.isSelected -or (Format-OrcaSnapshotText $record.value) -eq "1"
+    [bool]$record.isSelected -or (Format-OpenKodoSnapshotText $record.value) -eq "1"
 }
 
-function Get-OrcaRenderedElementIndex([string]$Line, [int]$Depth) {
+function Get-OpenKodoRenderedElementIndex([string]$Line, [int]$Depth) {
     $text = $Line.Substring(("`t" * $Depth).Length)
     if ($text -match "^(\d+)") { return [int]$Matches[1] }
     $null
 }
 
-function ConvertTo-OrcaImageBytes([System.Drawing.Image]$Image, [string]$Format) {
+function ConvertTo-OpenKodoImageBytes([System.Drawing.Image]$Image, [string]$Format) {
     $stream = $null
     $parameters = $null
     try {
@@ -1553,7 +1553,7 @@ function ConvertTo-OrcaImageBytes([System.Drawing.Image]$Image, [string]$Format)
 }
 
 # The size and format the caller asked for; a value the RPC layer would refuse is ignored.
-function Get-OrcaScreenshotRequest($Operation) {
+function Get-OpenKodoScreenshotRequest($Operation) {
     $request = [pscustomobject]@{ format = "png"; maxScale = $null; maxEdge = $null }
     if ($Operation.screenshotFormat -eq "jpeg") { $request.format = "jpeg" }
     foreach ($pair in @(@("screenshotScale", "maxScale"), @("screenshotMaxEdge", "maxEdge"))) {
@@ -1565,7 +1565,7 @@ function Get-OrcaScreenshotRequest($Operation) {
     $request
 }
 
-function New-OrcaScreenshotPayload([byte[]]$Bytes, [string]$Format, [int]$Width, [int]$Height, [double]$Scale) {
+function New-OpenKodoScreenshotPayload([byte[]]$Bytes, [string]$Format, [int]$Width, [int]$Height, [double]$Scale) {
     [pscustomobject]@{
         base64 = [Convert]::ToBase64String($Bytes)
         format = $Format
@@ -1575,7 +1575,7 @@ function New-OrcaScreenshotPayload([byte[]]$Bytes, [string]$Format, [int]$Width,
     }
 }
 
-function Resize-OrcaBitmap([System.Drawing.Bitmap]$Source, [int]$Width, [int]$Height) {
+function Resize-OpenKodoBitmap([System.Drawing.Bitmap]$Source, [int]$Width, [int]$Height) {
     $resized = $null
     $graphics = $null
     try {
@@ -1592,7 +1592,7 @@ function Resize-OrcaBitmap([System.Drawing.Bitmap]$Source, [int]$Width, [int]$He
     }
 }
 
-function Get-OrcaBoundedScreenshotPayload([System.Drawing.Bitmap]$Bitmap, $Request) {
+function Get-OpenKodoBoundedScreenshotPayload([System.Drawing.Bitmap]$Bitmap, $Request) {
     $originalWidth = [int][Math]::Max(1, $Bitmap.Width)
     $originalHeight = [int][Math]::Max(1, $Bitmap.Height)
     $longEdge = [double][Math]::Max($originalWidth, $originalHeight)
@@ -1623,12 +1623,12 @@ function Get-OrcaBoundedScreenshotPayload([System.Drawing.Bitmap]$Bitmap, $Reque
         try {
             $image = $Bitmap
             if ($width -ne $originalWidth -or $height -ne $originalHeight) {
-                $resized = Resize-OrcaBitmap $Bitmap $width $height
+                $resized = Resize-OpenKodoBitmap $Bitmap $width $height
                 $image = $resized
             }
-            $candidateBytes = ConvertTo-OrcaImageBytes $image $Request.format
+            $candidateBytes = ConvertTo-OpenKodoImageBytes $image $Request.format
             if ($candidateBytes.Length -le $MaxScreenshotPngBytes) {
-                return New-OrcaScreenshotPayload $candidateBytes $Request.format $width $height ($width / [double]$originalWidth)
+                return New-OpenKodoScreenshotPayload $candidateBytes $Request.format $width $height ($width / [double]$originalWidth)
             }
         } finally {
             if ($null -ne $resized) { $resized.Dispose() }
@@ -1643,21 +1643,21 @@ function Get-OrcaBoundedScreenshotPayload([System.Drawing.Bitmap]$Bitmap, $Reque
     }
 }
 
-function Get-OrcaScreenshot($ScreenshotRequest, $WindowFrame, [IntPtr]$WindowHandle) {
+function Get-OpenKodoScreenshot($ScreenshotRequest, $WindowFrame, [IntPtr]$WindowHandle) {
     if ($null -eq $ScreenshotRequest -or $null -eq $WindowFrame) { return $null }
     $bitmap = $null
     $graphics = $null
     try {
         $width = [int][Math]::Max(1, [Math]::Round($WindowFrame.width))
         $height = [int][Math]::Max(1, [Math]::Round($WindowFrame.height))
-        $bitmap = [OrcaDesktopWin32]::CaptureWindow($WindowHandle, $width, $height, $WindowResponseTimeoutMilliseconds)
+        $bitmap = [OpenKodoDesktopWin32]::CaptureWindow($WindowHandle, $width, $height, $WindowResponseTimeoutMilliseconds)
         if ($null -eq $bitmap) {
             # Screen copy shows whatever is on top, so it is only the fallback for windows that render blank.
             $bitmap = New-Object System.Drawing.Bitmap $width, $height
             $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
             $graphics.CopyFromScreen([int][Math]::Round($WindowFrame.x), [int][Math]::Round($WindowFrame.y), 0, 0, $bitmap.Size)
         }
-        Get-OrcaBoundedScreenshotPayload $bitmap $ScreenshotRequest
+        Get-OpenKodoBoundedScreenshotPayload $bitmap $ScreenshotRequest
     } catch {
         $null
     } finally {
@@ -1666,28 +1666,28 @@ function Get-OrcaScreenshot($ScreenshotRequest, $WindowFrame, [IntPtr]$WindowHan
     }
 }
 
-function New-OrcaSnapshot([string]$Query, $ScreenshotRequest, $WindowId = $null, $WindowIndex = $null, [bool]$RestoreWindow = $false, $TreeRoot = $null) {
-    $process = Find-OrcaProcess $Query
-    $handle = Resolve-OrcaTargetWindow $process $WindowId $WindowIndex
+function New-OpenKodoSnapshot([string]$Query, $ScreenshotRequest, $WindowId = $null, $WindowIndex = $null, [bool]$RestoreWindow = $false, $TreeRoot = $null) {
+    $process = Find-OpenKodoProcess $Query
+    $handle = Resolve-OpenKodoTargetWindow $process $WindowId $WindowIndex
     # Root first: its hang probe must run before ShowWindow, which blocks on a hung window.
-    $root = Get-OrcaRootElement $process $handle
+    $root = Get-OpenKodoRootElement $process $handle
     # Why: observation works behind other windows, so a refused raise still returns the snapshot.
-    if ($RestoreWindow) { [void](Restore-OrcaWindow $handle $root) }
-    $windowFrame = Get-OrcaWindowFrame $handle $root
+    if ($RestoreWindow) { [void](Restore-OpenKodoWindow $handle $root) }
+    $windowFrame = Get-OpenKodoWindowFrame $handle $root
     $walkRoot = $root
     if ($null -ne $TreeRoot) {
-        $walkRoot = Find-OrcaElement $root $TreeRoot
+        $walkRoot = Find-OpenKodoElement $root $TreeRoot
         if ($null -eq $walkRoot) {
             throw "stale element: element $($TreeRoot.index) is gone; run get-app-state again and use a fresh element index"
         }
     }
-    $tree = Render-OrcaTree $walkRoot $windowFrame (Test-OrcaBrowserProcess $process)
-    $screenshot = Get-OrcaScreenshot $ScreenshotRequest $windowFrame $handle
+    $tree = Render-OpenKodoTree $walkRoot $windowFrame (Test-OpenKodoBrowserProcess $process)
+    $screenshot = Get-OpenKodoScreenshot $ScreenshotRequest $windowFrame $handle
 
     [pscustomobject]@{
         snapshotId = [guid]::NewGuid().ToString()
-        app = New-OrcaAppRecord $process
-        windowTitle = [OrcaDesktopWin32]::GetWindowTitle($handle)
+        app = New-OpenKodoAppRecord $process
+        windowTitle = [OpenKodoDesktopWin32]::GetWindowTitle($handle)
         windowId = [int64]$handle
         windowBounds = $windowFrame
         screenshotBase64 = if ($null -ne $screenshot) { $screenshot.base64 } else { $null }
@@ -1706,17 +1706,17 @@ function New-OrcaSnapshot([string]$Query, $ScreenshotRequest, $WindowId = $null,
     }
 }
 
-function Get-OrcaAppList {
-    @(Get-OrcaWindowProcesses | ForEach-Object {
-        New-OrcaAppRecord $_
+function Get-OpenKodoAppList {
+    @(Get-OpenKodoWindowProcesses | ForEach-Object {
+        New-OpenKodoAppRecord $_
     })
 }
 
-function Get-OrcaWindowList([string]$Query) {
-    $process = Find-OrcaProcess $Query
-    $handle = Resolve-OrcaTargetWindow $process $null $null
-    $root = Get-OrcaRootElement $process $handle
-    $windowFrame = Get-OrcaWindowFrame $handle $root
+function Get-OpenKodoWindowList([string]$Query) {
+    $process = Find-OpenKodoProcess $Query
+    $handle = Resolve-OpenKodoTargetWindow $process $null $null
+    $root = Get-OpenKodoRootElement $process $handle
+    $windowFrame = Get-OpenKodoWindowFrame $handle $root
     $x = $null
     $y = $null
     $width = 0
@@ -1727,14 +1727,14 @@ function Get-OrcaWindowList([string]$Query) {
         $width = [int][Math]::Max(0, [Math]::Round($windowFrame.width))
         $height = [int][Math]::Max(0, [Math]::Round($windowFrame.height))
     }
-    $app = New-OrcaAppRecord $process
+    $app = New-OpenKodoAppRecord $process
     [pscustomobject]@{
         app = $app
         windows = @([pscustomobject]@{
             index = 0
             app = $app
             id = [int64]$handle
-            title = [OrcaDesktopWin32]::GetWindowTitle($handle)
+            title = [OpenKodoDesktopWin32]::GetWindowTitle($handle)
             x = $x
             y = $y
             width = $width
@@ -1747,7 +1747,7 @@ function Get-OrcaWindowList([string]$Query) {
     }
 }
 
-function Resolve-OrcaLaunchExecutable([string]$Query) {
+function Resolve-OpenKodoLaunchExecutable([string]$Query) {
     $needle = $Query.Trim()
     if ([System.IO.Path]::IsPathRooted($needle)) {
         if (Test-Path -LiteralPath $needle -PathType Leaf) { return $needle }
@@ -1766,14 +1766,14 @@ function Resolve-OrcaLaunchExecutable([string]$Query) {
     throw "appNotFound(`"$Query`")"
 }
 
-function Wait-OrcaLaunchedWindow([int]$ProcessId, [string]$ProcessName, [DateTime]$StartedAt, [int]$TimeoutMilliseconds) {
+function Wait-OpenKodoLaunchedWindow([int]$ProcessId, [string]$ProcessName, [DateTime]$StartedAt, [int]$TimeoutMilliseconds) {
     $deadline = [DateTime]::UtcNow.AddMilliseconds($TimeoutMilliseconds)
     while ([DateTime]::UtcNow -lt $deadline) {
         $process = Get-Process -Id $ProcessId -ErrorAction SilentlyContinue
         if ($null -ne $process -and $process.MainWindowHandle -ne 0) { return $process }
         if ($null -eq $process) {
             # Why: stubs such as Windows 11's notepad.exe start the real app under the same name and exit.
-            $handoff = Get-OrcaWindowProcesses | Where-Object {
+            $handoff = Get-OpenKodoWindowProcesses | Where-Object {
                 $_.ProcessName -ieq $ProcessName -and $_.StartTime -ge $StartedAt
             } | Select-Object -First 1
             if ($null -ne $handoff) { return $handoff }
@@ -1783,72 +1783,72 @@ function Wait-OrcaLaunchedWindow([int]$ProcessId, [string]$ProcessName, [DateTim
     Get-Process -Id $ProcessId -ErrorAction SilentlyContinue
 }
 
-function New-OrcaLaunchResult($Process, [bool]$Launched) {
+function New-OpenKodoLaunchResult($Process, [bool]$Launched) {
     $owner = [uint32]0
-    [void][OrcaDesktopWin32]::GetWindowThreadProcessId([OrcaDesktopWin32]::GetForegroundWindow(), [ref]$owner)
+    [void][OpenKodoDesktopWin32]::GetWindowThreadProcessId([OpenKodoDesktopWin32]::GetForegroundWindow(), [ref]$owner)
     # Why: measured, not taken from the request; an app may raise itself however it was started.
     $delivery = if ($owner -eq $Process.Id) { "foreground" } else { "background" }
-    [pscustomobject]@{ ok = $true; app = New-OrcaAppRecord $Process; launched = $Launched; delivery = $delivery }
+    [pscustomobject]@{ ok = $true; app = New-OpenKodoAppRecord $Process; launched = $Launched; delivery = $delivery }
 }
 
-function Find-OrcaRunningLaunchTarget([string]$ProcessName, [string]$ExecutablePath = "") {
+function Find-OpenKodoRunningLaunchTarget([string]$ProcessName, [string]$ExecutablePath = "") {
     # Why: starting a running app again usually opens a second window over the user's work; tray-only apps count too.
     $session = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
     $running = @(Get-Process -Name ([WildcardPattern]::Escape($ProcessName)) -ErrorAction SilentlyContinue | Where-Object {
         # A resolved executable must be that file, not another copy with the same name.
         $_.SessionId -eq $session -and ([string]::IsNullOrEmpty($ExecutablePath) -or [string]$_.Path -ieq $ExecutablePath)
     }) | Sort-Object { $_.MainWindowHandle -eq 0 } | Select-Object -First 1
-    if ($null -ne $running) { Assert-OrcaProcessAllowed $running }
+    if ($null -ne $running) { Assert-OpenKodoProcessAllowed $running }
     $running
 }
 
-function Invoke-OrcaLaunchApp($Operation) {
+function Invoke-OpenKodoLaunchApp($Operation) {
     $query = ([string]$Operation.app).Trim()
     if ([string]::IsNullOrWhiteSpace($query)) { throw 'appNotFound("")' }
     # A bare name means any running copy; a path means that file, checked once it resolves.
     if (-not [System.IO.Path]::IsPathRooted($query)) {
         $queryName = if ($query.EndsWith(".exe", [System.StringComparison]::OrdinalIgnoreCase)) { $query.Substring(0, $query.Length - 4) } else { $query }
-        $running = Find-OrcaRunningLaunchTarget $queryName
-        if ($null -ne $running) { return New-OrcaLaunchResult $running $false }
+        $running = Find-OpenKodoRunningLaunchTarget $queryName
+        if ($null -ne $running) { return New-OpenKodoLaunchResult $running $false }
     }
 
-    $executable = [System.IO.Path]::GetFullPath((Resolve-OrcaLaunchExecutable $query))
+    $executable = [System.IO.Path]::GetFullPath((Resolve-OpenKodoLaunchExecutable $query))
     # Why: an App Paths alias can name a differently named executable.
-    $running = Find-OrcaRunningLaunchTarget ([System.IO.Path]::GetFileNameWithoutExtension($executable)) $executable
-    if ($null -ne $running) { return New-OrcaLaunchResult $running $false }
+    $running = Find-OpenKodoRunningLaunchTarget ([System.IO.Path]::GetFileNameWithoutExtension($executable)) $executable
+    if ($null -ne $running) { return New-OpenKodoLaunchResult $running $false }
     $name = [System.IO.Path]::GetFileNameWithoutExtension($executable).ToLowerInvariant().Replace(" ", "")
     foreach ($fragment in $BlockedAppFragments) {
         if ($name.Contains($fragment.Replace(" ", ""))) { throw "appBlocked(`"$name`")" }
     }
     $activate = [bool]$Operation.activate
-    # Why: Orca runs this script with ELECTRON_RUN_AS_NODE=1, which would start an Electron app as bare Node.
+    # Why: OpenKodo runs this script with ELECTRON_RUN_AS_NODE=1, which would start an Electron app as bare Node.
     Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
     $startedAt = (Get-Date).AddSeconds(-1)
     try {
         $processId = if ($activate) {
             (Start-Process -FilePath $executable -PassThru).Id
         } else {
-            [OrcaDesktopWin32]::LaunchWithoutForeground($executable, [System.IO.Path]::GetDirectoryName($executable))
+            [OpenKodoDesktopWin32]::LaunchWithoutForeground($executable, [System.IO.Path]::GetDirectoryName($executable))
         }
     } catch {
         throw "app_launch_failed: could not launch '$query': $($_.Exception.Message)"
     }
-    $process = Wait-OrcaLaunchedWindow $processId ([System.IO.Path]::GetFileNameWithoutExtension($executable)) $startedAt 10000
+    $process = Wait-OpenKodoLaunchedWindow $processId ([System.IO.Path]::GetFileNameWithoutExtension($executable)) $startedAt 10000
     if ($null -eq $process) {
         throw "app_launch_failed: the process started for '$query' exited; if it handed off to another process, find that one with list-apps"
     }
-    $result = New-OrcaLaunchResult $process $true
+    $result = New-OpenKodoLaunchResult $process $true
     # Why: an app that still took the foreground keeps the keyboard; burying it would hide where typing goes.
     if (-not $activate -and $result.delivery -eq "background" -and $process.MainWindowHandle -ne 0) {
-        [void][OrcaDesktopWin32]::SendWindowToBack([IntPtr]$process.MainWindowHandle)
+        [void][OpenKodoDesktopWin32]::SendWindowToBack([IntPtr]$process.MainWindowHandle)
     }
     $result
 }
 
-function Get-OrcaHandshake {
+function Get-OpenKodoHandshake {
     [pscustomobject]@{
         platform = "win32"
-        provider = "orca-computer-use-windows"
+        provider = "openkodo-computer-use-windows"
         providerVersion = "1.0.0"
         protocolVersion = 1
         supports = [pscustomobject]@{
@@ -1874,7 +1874,7 @@ function Get-OrcaHandshake {
     }
 }
 
-function Test-OrcaSameRuntimeId($Left, $Right) {
+function Test-OpenKodoSameRuntimeId($Left, $Right) {
     if ($null -eq $Left -or $null -eq $Right -or $Left.Count -ne $Right.Count) { return $false }
     for ($i = 0; $i -lt $Left.Count; $i++) {
         if ([int]$Left[$i] -ne [int]$Right[$i]) { return $false }
@@ -1882,7 +1882,7 @@ function Test-OrcaSameRuntimeId($Left, $Right) {
     $true
 }
 
-function Find-OrcaElement($RootElement, $Record) {
+function Find-OpenKodoElement($RootElement, $Record) {
     if ($null -eq $Record) { return $null }
     if ($Record.index -eq 0) { return $RootElement }
 
@@ -1890,7 +1890,7 @@ function Find-OrcaElement($RootElement, $Record) {
         $descendants = $RootElement.FindAll([Windows.Automation.TreeScope]::Descendants, [Windows.Automation.Condition]::TrueCondition)
         for ($i = 0; $i -lt $descendants.Count; $i++) {
             $candidate = $descendants.Item($i)
-            if (Test-OrcaSameRuntimeId @($candidate.GetRuntimeId()) @($Record.runtimeId)) {
+            if (Test-OpenKodoSameRuntimeId @($candidate.GetRuntimeId()) @($Record.runtimeId)) {
                 return $candidate
             }
         }
@@ -1900,25 +1900,25 @@ function Find-OrcaElement($RootElement, $Record) {
 
 # Why: UI Automation's Invoke and Toggle focus a WinForms button first, which activates its background window;
 # BM_CLICK runs the button's own click (and check box or radio state) with no focus change.
-function Invoke-OrcaNativeButtonClick($Element, $Process) {
+function Invoke-OpenKodoNativeButtonClick($Element, $Process) {
     if ($null -eq $Process) { return $false }
     # Why: measured on WinForms, whose buttons click on BM_CLICK directly; a user32 button simulates the mouse and
     # sets focus, which can fail in an inactive dialog, so those keep the UI Automation pattern.
-    if ((Get-OrcaProperty $Element "ClassName") -notmatch "^WindowsForms\d+\.BUTTON\.") { return $false }
-    $button = Get-OrcaNativeControl $Element $Process "Button"
+    if ((Get-OpenKodoProperty $Element "ClassName") -notmatch "^WindowsForms\d+\.BUTTON\.") { return $false }
+    $button = Get-OpenKodoNativeControl $Element $Process "Button"
     if ($null -eq $button) { return $false }
     # Why: a group box shares the Button class but presses nothing; real buttons offer one of these patterns.
     $patterns = @(try { $Element.GetSupportedPatterns() } catch { @() })
     $pressable = @([Windows.Automation.InvokePattern]::Pattern, [Windows.Automation.TogglePattern]::Pattern, [Windows.Automation.SelectionItemPattern]::Pattern)
     if (@($patterns | Where-Object { $pressable -contains $_ }).Count -eq 0) { return $false }
     # A click that opens a modal dialog doesn't return until the dialog closes, so an unanswered BM_CLICK still counts as sent.
-    [void][OrcaDesktopWin32]::SendControlMessage($button, 0x00F5, [IntPtr]::Zero, [IntPtr]::Zero)
+    [void][OpenKodoDesktopWin32]::SendControlMessage($button, 0x00F5, [IntPtr]::Zero, [IntPtr]::Zero)
     $true
 }
 
 # False only when the element offers none of these patterns; a pattern that fails is an error, never a cue for a real click.
-function Invoke-OrcaPrimaryAction($Element, $Index, $Process) {
-    if (Invoke-OrcaNativeButtonClick $Element $Process) { return $true }
+function Invoke-OpenKodoPrimaryAction($Element, $Index, $Process) {
+    if (Invoke-OpenKodoNativeButtonClick $Element $Process) { return $true }
     foreach ($pattern in @(
         [Windows.Automation.InvokePattern]::Pattern,
         [Windows.Automation.SelectionItemPattern]::Pattern,
@@ -1944,7 +1944,7 @@ function Invoke-OrcaPrimaryAction($Element, $Index, $Process) {
     $false
 }
 
-function Invoke-OrcaNamedAction($Element, [string]$Action) {
+function Invoke-OpenKodoNamedAction($Element, [string]$Action) {
     $wanted = ""
     # Why: accept the rendered name ("ScrollToVisible") and macOS's spaced form ("scroll to visible").
     if ($null -ne $Action) { $wanted = ($Action -replace "\s+", "").ToLowerInvariant() }
@@ -1985,29 +1985,29 @@ function Invoke-OrcaNamedAction($Element, [string]$Action) {
     }
 }
 
-function Test-OrcaRangeValueMatches([string]$Actual, [double]$Expected) {
+function Test-OpenKodoRangeValueMatches([string]$Actual, [double]$Expected) {
     # Why: allow float32 rounding (0.1 reads back 0.100000001), but cap it so a snapped neighbour never verifies at any size.
     $actualNumber = 0.0
     [double]::TryParse($Actual, [Globalization.NumberStyles]::Float, [Globalization.CultureInfo]::InvariantCulture, [ref]$actualNumber) -and
         [Math]::Abs($actualNumber - $Expected) -le [Math]::Min(1e-6 * [Math]::Max(1.0, [Math]::Abs($Expected)), 1e-3)
 }
 
-function Set-OrcaNativeComboValue($Element, $Process, [string]$Value) {
-    $combo = Get-OrcaNativeControl $Element $Process "ComboBox"
+function Set-OpenKodoNativeComboValue($Element, $Process, [string]$Value) {
+    $combo = Get-OpenKodoNativeControl $Element $Process "ComboBox"
     if ($null -eq $combo) { return $null }
     # Why: an owner-drawn combo without CBS_HASSTRINGS keeps item data, not names, so its items can't be found by name.
-    $style = [OrcaDesktopWin32]::GetWindowLong($combo, -16)
+    $style = [OpenKodoDesktopWin32]::GetWindowLong($combo, -16)
     if (($style -band 0x0030) -ne 0 -and ($style -band 0x0200) -eq 0) { return $null }
-    $count = [OrcaDesktopWin32]::SendControlMessage($combo, 0x0146, [IntPtr]::Zero, [IntPtr]::Zero)
+    $count = [OpenKodoDesktopWin32]::SendControlMessage($combo, 0x0146, [IntPtr]::Zero, [IntPtr]::Zero)
     if ($null -eq $count -or $count -le 0) { return $null }
     # Why: CB_FINDSTRINGEXACT ignores case and wraps, so walk its hits once and keep those whose text matches exactly.
     $exact = @()
-    $first = [OrcaDesktopWin32]::FindControlString($combo, 0x0158, -1, $Value)
+    $first = [OpenKodoDesktopWin32]::FindControlString($combo, 0x0158, -1, $Value)
     $hit = $first
     for ($step = 0; $null -ne $hit -and $hit -ge 0 -and $step -lt $count; $step++) {
-        $text = [OrcaDesktopWin32]::GetControlItemText($combo, 0x0149, 0x0148, [int]$hit)
+        $text = [OpenKodoDesktopWin32]::GetControlItemText($combo, 0x0149, 0x0148, [int]$hit)
         if ($text -ceq $Value) { $exact += [int]$hit }
-        $hit = [OrcaDesktopWin32]::FindControlString($combo, 0x0158, [int]$hit, $Value)
+        $hit = [OpenKodoDesktopWin32]::FindControlString($combo, 0x0158, [int]$hit, $Value)
         # Why: a search or read the combo didn't answer could hide a second option with the same name.
         if ($null -eq $text -or $null -eq $hit) {
             throw "window_not_responding: the combo box did not answer its option search in time; nothing was selected"
@@ -2017,20 +2017,20 @@ function Set-OrcaNativeComboValue($Element, $Process, [string]$Value) {
     if ($exact.Count -eq 0) { return $null }
     if ($exact.Count -gt 1) { throw "element value is not settable by name: more than one option is named '$Value'" }
     # CB_SETCURSEL changes the selection without opening the list; CBN_SELCHANGE runs the app's own change handler.
-    Assert-OrcaWindowOwner $combo ([int]$Process.Id)
-    if ($null -eq [OrcaDesktopWin32]::SendControlMessage($combo, 0x014E, [IntPtr]$exact[0], [IntPtr]::Zero)) {
+    Assert-OpenKodoWindowOwner $combo ([int]$Process.Id)
+    if ($null -eq [OpenKodoDesktopWin32]::SendControlMessage($combo, 0x014E, [IntPtr]$exact[0], [IntPtr]::Zero)) {
         throw "window_not_responding: the combo box did not answer in time; the selection may still change, so run get-app-state before retrying"
     }
-    $parent = [OrcaDesktopWin32]::GetParent($combo)
+    $parent = [OpenKodoDesktopWin32]::GetParent($combo)
     if ($parent -ne [IntPtr]::Zero) {
-        Assert-OrcaWindowOwner $parent ([int]$Process.Id)
-        $command = [IntPtr]((1 -shl 16) -bor ([OrcaDesktopWin32]::GetDlgCtrlID($combo) -band 0xFFFF))
-        [void][OrcaDesktopWin32]::SendControlMessage($parent, 0x0111, $command, $combo)
+        Assert-OpenKodoWindowOwner $parent ([int]$Process.Id)
+        $command = [IntPtr]((1 -shl 16) -bor ([OpenKodoDesktopWin32]::GetDlgCtrlID($combo) -band 0xFFFF))
+        [void][OpenKodoDesktopWin32]::SendControlMessage($parent, 0x0111, $command, $combo)
     }
     # Why: the change handler ran inside the send above, so the selection now is the one the app kept.
-    $selected = [OrcaDesktopWin32]::SendControlMessage($combo, 0x0147, [IntPtr]::Zero, [IntPtr]::Zero)
+    $selected = [OpenKodoDesktopWin32]::SendControlMessage($combo, 0x0147, [IntPtr]::Zero, [IntPtr]::Zero)
     # Why: a handler that clears the selection leaves CB_ERR (-1), which contradicts the write rather than hiding it.
-    $actual = if ($null -eq $selected) { $null } elseif ($selected -lt 0) { "" } else { [OrcaDesktopWin32]::GetControlItemText($combo, 0x0149, 0x0148, [int]$selected) }
+    $actual = if ($null -eq $selected) { $null } elseif ($selected -lt 0) { "" } else { [OpenKodoDesktopWin32]::GetControlItemText($combo, 0x0149, 0x0148, [int]$selected) }
     $verification = if ($actual -ceq $Value) {
         [pscustomobject]@{ state = "verified"; property = "value" }
     } elseif ($null -eq $actual) {
@@ -2041,16 +2041,16 @@ function Set-OrcaNativeComboValue($Element, $Process, [string]$Value) {
     [pscustomobject]@{ verification = $verification }
 }
 
-function Set-OrcaNativeEditValue($Element, $Process, [int]$Index, [string]$Value) {
-    $edit = Get-OrcaNativeEdit $Element $Process
+function Set-OpenKodoNativeEditValue($Element, $Process, [int]$Index, [string]$Value) {
+    $edit = Get-OpenKodoNativeEdit $Element $Process
     if ($null -eq $edit) { return $null }
     # Why: UI Automation's ValuePattern focuses the field first, which activates its background window; selecting
     # everything and replacing it runs the edit's own change notification, which WM_SETTEXT skips for multiline edits.
-    Assert-OrcaWindowOwner $edit.handle $edit.processId
-    if ($null -eq [OrcaDesktopWin32]::SendControlMessage($edit.handle, 0x00B1, [IntPtr]::Zero, [IntPtr](-1))) {
+    Assert-OpenKodoWindowOwner $edit.handle $edit.processId
+    if ($null -eq [OpenKodoDesktopWin32]::SendControlMessage($edit.handle, 0x00B1, [IntPtr]::Zero, [IntPtr](-1))) {
         throw "window_not_responding: the text field did not answer in time; nothing was written"
     }
-    $action = Invoke-OrcaEditTextInsertion $edit $Index $Value -ReplaceAll
+    $action = Invoke-OpenKodoEditTextInsertion $edit $Index $Value -ReplaceAll
     $verification = if ($action.verification.state -eq "verified") {
         [pscustomobject]@{ state = "verified"; property = "value" }
     } elseif ($action.verification.reason -eq "text_mismatch") {
@@ -2061,16 +2061,16 @@ function Set-OrcaNativeEditValue($Element, $Process, [int]$Index, [string]$Value
     [pscustomobject]@{ verification = $verification }
 }
 
-function Set-OrcaElementValue($Element, $Process, [int]$Index, [string]$Value) {
+function Set-OpenKodoElementValue($Element, $Process, [int]$Index, [string]$Value) {
     if ($null -ne $Process) {
         # Why: these write native controls without focusing them; a disabled one is locked against the user, so it is refused.
-        $native = (Test-OrcaEditClass (Get-OrcaProperty $Element "ClassName")) -or (Test-OrcaNativeClass (Get-OrcaProperty $Element "ClassName") "ComboBox")
-        if ($native -and (Test-OrcaElementDisabled $Element)) {
+        $native = (Test-OpenKodoEditClass (Get-OpenKodoProperty $Element "ClassName")) -or (Test-OpenKodoNativeClass (Get-OpenKodoProperty $Element "ClassName") "ComboBox")
+        if ($native -and (Test-OpenKodoElementDisabled $Element)) {
             throw "element_not_enabled: element $Index is disabled, so no input was sent; do what enables it first, then run get-app-state and retry once its line no longer lists disabled"
         }
-        $combo = Set-OrcaNativeComboValue $Element $Process $Value
+        $combo = Set-OpenKodoNativeComboValue $Element $Process $Value
         if ($null -ne $combo) { return $combo }
-        $edit = Set-OrcaNativeEditValue $Element $Process $Index $Value
+        $edit = Set-OpenKodoNativeEditValue $Element $Process $Index $Value
         if ($null -ne $edit) { return $edit }
     }
     try {
@@ -2080,7 +2080,7 @@ function Set-OrcaElementValue($Element, $Process, [int]$Index, [string]$Value) {
             return [pscustomobject]@{ verification = $null }
         }
     } catch {}
-    if (-not (Test-OrcaRangeValueWritable $Element)) { return $null }
+    if (-not (Test-OpenKodoRangeValueWritable $Element)) { return $null }
     $range = $Element.GetCurrentPattern([Windows.Automation.RangeValuePattern]::Pattern)
     $culture = [Globalization.CultureInfo]::InvariantCulture
     $number = 0.0
@@ -2096,8 +2096,8 @@ function Set-OrcaElementValue($Element, $Process, [int]$Index, [string]$Value) {
     # Why: Chromium applies the write asynchronously, so poll briefly like macOS's settled readback.
     $stopwatch = [Diagnostics.Stopwatch]::StartNew()
     while ($true) {
-        $actual = Get-OrcaRangeValueText $Element
-        $matched = Test-OrcaRangeValueMatches $actual $number
+        $actual = Get-OpenKodoRangeValueText $Element
+        $matched = Test-OpenKodoRangeValueMatches $actual $number
         if ($matched -or $stopwatch.ElapsedMilliseconds -ge 500) { break }
         Start-Sleep -Milliseconds 25
     }
@@ -2112,8 +2112,8 @@ function Set-OrcaElementValue($Element, $Process, [int]$Index, [string]$Value) {
     [pscustomobject]@{ verification = $verification }
 }
 
-function Get-OrcaScrollPattern($Element, $RootElement, [bool]$Vertical) {
-    $rootId = Get-OrcaRuntimeId $RootElement
+function Get-OpenKodoScrollPattern($Element, $RootElement, [bool]$Vertical) {
+    $rootId = Get-OpenKodoRuntimeId $RootElement
     $current = $Element
     # Why: an item's ScrollPattern lives on its list or viewport, the same container a wheel at its center would scroll.
     while ($null -ne $current) {
@@ -2122,17 +2122,17 @@ function Get-OrcaScrollPattern($Element, $RootElement, [bool]$Vertical) {
             $scrollable = if ($Vertical) { $pattern.Current.VerticallyScrollable } else { $pattern.Current.HorizontallyScrollable }
             if ($scrollable) { return $pattern }
         } catch {}
-        if (Test-OrcaSameRuntimeId (Get-OrcaRuntimeId $current) $rootId) { break }
+        if (Test-OpenKodoSameRuntimeId (Get-OpenKodoRuntimeId $current) $rootId) { break }
         $current = try { [Windows.Automation.TreeWalker]::RawViewWalker.GetParent($current) } catch { $null }
     }
     $null
 }
 
-function Test-OrcaElementWithin($Element, $RootElement) {
-    $rootId = Get-OrcaRuntimeId $RootElement
+function Test-OpenKodoElementWithin($Element, $RootElement) {
+    $rootId = Get-OpenKodoRuntimeId $RootElement
     $current = $Element
     for ($depth = 0; $null -ne $current -and $depth -le $MaxDepth; $depth++) {
-        if (Test-OrcaSameRuntimeId (Get-OrcaRuntimeId $current) $rootId) { return $true }
+        if (Test-OpenKodoSameRuntimeId (Get-OpenKodoRuntimeId $current) $rootId) { return $true }
         $current = try { [Windows.Automation.TreeWalker]::RawViewWalker.GetParent($current) } catch { $null }
     }
     $false
@@ -2140,10 +2140,10 @@ function Test-OrcaElementWithin($Element, $RootElement) {
 
 # The element a wheel at this screen point would scroll: what is drawn there, else (when another window covers it)
 # the innermost on-screen scroll container under it.
-function Find-OrcaScrollContainerAt($RootElement, [double]$ScreenX, [double]$ScreenY, [bool]$Vertical) {
+function Find-OpenKodoScrollContainerAt($RootElement, [double]$ScreenX, [double]$ScreenY, [bool]$Vertical) {
     try {
         $hit = [Windows.Automation.AutomationElement]::FromPoint((New-Object System.Windows.Point $ScreenX, $ScreenY))
-        if (Test-OrcaElementWithin $hit $RootElement) { return $hit }
+        if (Test-OpenKodoElementWithin $hit $RootElement) { return $hit }
     } catch {}
     $candidates = @($RootElement)
     try {
@@ -2168,7 +2168,7 @@ function Find-OrcaScrollContainerAt($RootElement, [double]$ScreenX, [double]$Scr
     $best
 }
 
-function Get-OrcaScrollPercent($Pattern, [bool]$Vertical) {
+function Get-OpenKodoScrollPercent($Pattern, [bool]$Vertical) {
     try {
         if ($Vertical) { return [double]$Pattern.Current.VerticalScrollPercent }
         [double]$Pattern.Current.HorizontalScrollPercent
@@ -2177,7 +2177,7 @@ function Get-OrcaScrollPercent($Pattern, [bool]$Vertical) {
     }
 }
 
-function Get-OrcaScrollViewSize($Pattern, [bool]$Vertical) {
+function Get-OpenKodoScrollViewSize($Pattern, [bool]$Vertical) {
     try {
         if ($Vertical) { return [double]$Pattern.Current.VerticalViewSize }
         [double]$Pattern.Current.HorizontalViewSize
@@ -2186,19 +2186,19 @@ function Get-OrcaScrollViewSize($Pattern, [bool]$Vertical) {
     }
 }
 
-function Wait-OrcaScrollPercentChange($Pattern, [bool]$Vertical, $Before) {
+function Wait-OpenKodoScrollPercentChange($Pattern, [bool]$Vertical, $Before) {
     # Why: WPF and Chromium move the viewport after the call returns, so poll briefly for the new position.
     $stopwatch = [Diagnostics.Stopwatch]::StartNew()
     while ($true) {
-        $after = Get-OrcaScrollPercent $Pattern $Vertical
+        $after = Get-OpenKodoScrollPercent $Pattern $Vertical
         if ($after -ne $Before -or $stopwatch.ElapsedMilliseconds -ge 500) { return $after }
         Start-Sleep -Milliseconds 25
     }
 }
 
 # Moves a fraction of a page by scroll percentage, where one page is the visible share of the content.
-function Invoke-OrcaScrollPercent($Pattern, [bool]$Vertical, [bool]$Forward, [double]$Pages, [double]$Before) {
-    $viewSize = Get-OrcaScrollViewSize $Pattern $Vertical
+function Invoke-OpenKodoScrollPercent($Pattern, [bool]$Vertical, [bool]$Forward, [double]$Pages, [double]$Before) {
+    $viewSize = Get-OpenKodoScrollViewSize $Pattern $Vertical
     if ($null -eq $viewSize -or $viewSize -le 0 -or $viewSize -ge 100) { return $false }
     # Why: scroll percent spans the hidden part only, so one view is viewSize / (100 - viewSize) of that range.
     $step = $Pages * 100 * $viewSize / (100 - $viewSize)
@@ -2211,32 +2211,32 @@ function Invoke-OrcaScrollPercent($Pattern, [bool]$Vertical, [bool]$Forward, [do
         return $false
     }
     # Why: the target differs from the start, so an unmoved position means the provider ignored the write.
-    $after = Wait-OrcaScrollPercentChange $Pattern $Vertical $Before
+    $after = Wait-OpenKodoScrollPercentChange $Pattern $Vertical $Before
     $null -ne $after -and $after -ne $Before
 }
 
 # Why: ScrollPattern on a list box focuses it first, which activates its background window; LB_SETTOPINDEX pages the
 # list itself. A page is the rows the list shows.
-function Invoke-OrcaNativeListScroll($Element, $RootElement, $Process, [string]$Direction, [double]$Pages) {
+function Invoke-OpenKodoNativeListScroll($Element, $RootElement, $Process, [string]$Direction, [double]$Pages) {
     if ($null -eq $Process -or $Direction -notin @("up", "down")) { return $false }
-    $rootId = Get-OrcaRuntimeId $RootElement
+    $rootId = Get-OpenKodoRuntimeId $RootElement
     $current = $Element
     $list = $null
     # Why: an item scrolls with its list box, the window a wheel at its center would scroll.
     while ($null -ne $current -and $null -eq $list) {
-        $list = Get-OrcaNativeControl $current $Process "ListBox"
-        if (Test-OrcaSameRuntimeId (Get-OrcaRuntimeId $current) $rootId) { break }
+        $list = Get-OpenKodoNativeControl $current $Process "ListBox"
+        if (Test-OpenKodoSameRuntimeId (Get-OpenKodoRuntimeId $current) $rootId) { break }
         $current = try { [Windows.Automation.TreeWalker]::RawViewWalker.GetParent($current) } catch { $null }
     }
     if ($null -eq $list) { return $false }
     # Why: rows of an LBS_OWNERDRAWVARIABLE list differ in height, so a page can't be counted in rows, and an
     # LBS_MULTICOLUMN list pages sideways.
-    if (([OrcaDesktopWin32]::GetWindowLong($list, -16) -band 0x0220) -ne 0) { return $false }
-    $top = [OrcaDesktopWin32]::SendControlMessage($list, 0x018E, [IntPtr]::Zero, [IntPtr]::Zero)
-    $count = [OrcaDesktopWin32]::SendControlMessage($list, 0x018B, [IntPtr]::Zero, [IntPtr]::Zero)
-    $itemHeight = [OrcaDesktopWin32]::SendControlMessage($list, 0x01A1, [IntPtr]::Zero, [IntPtr]::Zero)
+    if (([OpenKodoDesktopWin32]::GetWindowLong($list, -16) -band 0x0220) -ne 0) { return $false }
+    $top = [OpenKodoDesktopWin32]::SendControlMessage($list, 0x018E, [IntPtr]::Zero, [IntPtr]::Zero)
+    $count = [OpenKodoDesktopWin32]::SendControlMessage($list, 0x018B, [IntPtr]::Zero, [IntPtr]::Zero)
+    $itemHeight = [OpenKodoDesktopWin32]::SendControlMessage($list, 0x01A1, [IntPtr]::Zero, [IntPtr]::Zero)
     if ($null -eq $top -or $null -eq $count -or $null -eq $itemHeight -or $itemHeight -le 0 -or $count -le 0) { return $false }
-    $rows = [Math]::Max(1, [Math]::Floor([OrcaDesktopWin32]::GetClientHeight($list) / $itemHeight))
+    $rows = [Math]::Max(1, [Math]::Floor([OpenKodoDesktopWin32]::GetClientHeight($list) / $itemHeight))
     $step = [int][Math]::Max(1, [Math]::Round($rows * $Pages))
     $target = if ($Direction -eq "down") { $top + $step } else { $top - $step }
     # Why: a list that shows every row leaves the scroll to an enclosing ScrollPattern.
@@ -2244,23 +2244,23 @@ function Invoke-OrcaNativeListScroll($Element, $RootElement, $Process, [string]$
     $target = [Math]::Max(0, [Math]::Min($count - $rows, $target))
     # Why: at that end already there is nothing left to move, as ScrollPattern reports at the end of its content.
     if ($target -eq $top) { return $true }
-    if ($null -eq [OrcaDesktopWin32]::SendControlMessage($list, 0x0197, [IntPtr][int]$target, [IntPtr]::Zero)) {
+    if ($null -eq [OpenKodoDesktopWin32]::SendControlMessage($list, 0x0197, [IntPtr][int]$target, [IntPtr]::Zero)) {
         throw "window_not_responding: the list did not answer in time; it may still scroll, so run get-app-state before retrying"
     }
     $true
 }
 
-function Invoke-OrcaScrollPattern($Element, $RootElement, $Process, [string]$Direction, [double]$Pages) {
+function Invoke-OpenKodoScrollPattern($Element, $RootElement, $Process, [string]$Direction, [double]$Pages) {
     if ($null -eq $Element) { return $false }
-    if (Invoke-OrcaNativeListScroll $Element $RootElement $Process $Direction $Pages) { return $true }
+    if (Invoke-OpenKodoNativeListScroll $Element $RootElement $Process $Direction $Pages) { return $true }
     $vertical = $Direction -in @("up", "down")
     $forward = $Direction -in @("down", "right")
-    $pattern = Get-OrcaScrollPattern $Element $RootElement $vertical
+    $pattern = Get-OpenKodoScrollPattern $Element $RootElement $vertical
     if ($null -eq $pattern) { return $false }
     # Why: without a readable position nothing can tell the end of the content from a refused scroll.
-    $before = Get-OrcaScrollPercent $pattern $vertical
+    $before = Get-OpenKodoScrollPercent $pattern $vertical
     if ($null -eq $before -or $before -lt 0) { return $false }
-    if ($Pages -ne [Math]::Floor($Pages)) { return Invoke-OrcaScrollPercent $pattern $vertical $forward $Pages $before }
+    if ($Pages -ne [Math]::Floor($Pages)) { return Invoke-OpenKodoScrollPercent $pattern $vertical $forward $Pages $before }
     $amount = if ($forward) { [Windows.Automation.ScrollAmount]::LargeIncrement } else { [Windows.Automation.ScrollAmount]::LargeDecrement }
     $none = [Windows.Automation.ScrollAmount]::NoAmount
     for ($page = 0; $page -lt $Pages; $page++) {
@@ -2270,7 +2270,7 @@ function Invoke-OrcaScrollPattern($Element, $RootElement, $Process, [string]$Dir
             # Why: a refusal before any page moved means ScrollPattern can't do it; after that it is the end of the content.
             return $page -gt 0
         }
-        $after = Wait-OrcaScrollPercentChange $pattern $vertical $before
+        $after = Wait-OpenKodoScrollPercentChange $pattern $vertical $before
         if ($null -eq $after -or $after -eq $before) {
             # Why: a first page that doesn't move away from the end means the provider ignored it; later ones reached the end.
             $atEnd = if ($forward) { $before -ge 99.99 } else { $before -le 0.01 }
@@ -2282,7 +2282,7 @@ function Invoke-OrcaScrollPattern($Element, $RootElement, $Process, [string]$Dir
     $true
 }
 
-function Get-OrcaRequiredNumber($Value, [string]$Name) {
+function Get-OpenKodoRequiredNumber($Value, [string]$Name) {
     if ($null -eq $Value) { throw "$Name is required" }
     $number = [double]$Value
     if ([double]::IsNaN($number) -or [double]::IsInfinity($number)) {
@@ -2291,45 +2291,45 @@ function Get-OrcaRequiredNumber($Value, [string]$Name) {
     $number
 }
 
-function Get-OrcaPositiveInteger($Value, [string]$Name) {
+function Get-OpenKodoPositiveInteger($Value, [string]$Name) {
     if ($null -eq $Value) { $Value = 1 }
     $number = [int]$Value
     if ($number -le 0) { throw "$Name must be a positive integer" }
     $number
 }
 
-function Get-OrcaPositiveNumber($Value, [string]$Name) {
+function Get-OpenKodoPositiveNumber($Value, [string]$Name) {
     if ($null -eq $Value) { $Value = 1 }
-    $number = Get-OrcaRequiredNumber $Value $Name
+    $number = Get-OpenKodoRequiredNumber $Value $Name
     if ($number -le 0) { throw "$Name must be a positive number" }
     $number
 }
 
-function Get-OrcaRequiredString($Value, [string]$Name) {
+function Get-OpenKodoRequiredString($Value, [string]$Name) {
     if ($null -eq $Value) { throw "$Name is required" }
     $text = [string]$Value
     if ($text.Length -eq 0) { throw "$Name is required" }
     $text
 }
 
-function Assert-OrcaElementFound($Element, $Record) {
+function Assert-OpenKodoElementFound($Element, $Record) {
     if ($null -ne $Record -and $null -eq $Element) { throw "stale element frame; run get-app-state again and use a fresh element index" }
 }
 
 # Screen point for real mouse input: the element's center when the request names one, else window-local x/y.
-function Get-OrcaPointerPoint($Element, $Record, $X, $Y, [string]$XName, [string]$YName, $WindowFrame) {
+function Get-OpenKodoPointerPoint($Element, $Record, $X, $Y, [string]$XName, [string]$YName, $WindowFrame) {
     if ($null -ne $Record) {
-        $point = Get-OrcaElementScreenPoint $Element
+        $point = Get-OpenKodoElementScreenPoint $Element
         if ($null -eq $point) { throw "stale element frame; run get-app-state again and use a fresh element index" }
         return $point
     }
     @{
-        x = [int][Math]::Round($WindowFrame.x + (Get-OrcaRequiredNumber $X $XName))
-        y = [int][Math]::Round($WindowFrame.y + (Get-OrcaRequiredNumber $Y $YName))
+        x = [int][Math]::Round($WindowFrame.x + (Get-OpenKodoRequiredNumber $X $XName))
+        y = [int][Math]::Round($WindowFrame.y + (Get-OpenKodoRequiredNumber $Y $YName))
     }
 }
 
-function Get-OrcaElementScreenPoint($Element) {
+function Get-OpenKodoElementScreenPoint($Element) {
     if ($null -eq $Element) { return $null }
     try {
         $rect = $Element.Current.BoundingRectangle
@@ -2343,8 +2343,8 @@ function Get-OrcaElementScreenPoint($Element) {
     $null
 }
 
-function Send-OrcaMouseClick([int]$ScreenX, [int]$ScreenY, [string]$Button, [int]$Count, [string]$Modifiers) {
-    [void][OrcaDesktopWin32]::SetCursorPos($ScreenX, $ScreenY)
+function Send-OpenKodoMouseClick([int]$ScreenX, [int]$ScreenY, [string]$Button, [int]$Count, [string]$Modifiers) {
+    [void][OpenKodoDesktopWin32]::SetCursorPos($ScreenX, $ScreenY)
     $buttonName = if ([string]::IsNullOrWhiteSpace($Button)) { "left" } else { $Button.ToLowerInvariant() }
     switch ($buttonName) {
         "left" { $down = $MouseEvents.LeftDown; $up = $MouseEvents.LeftUp }
@@ -2353,18 +2353,18 @@ function Send-OrcaMouseClick([int]$ScreenX, [int]$ScreenY, [string]$Button, [int
         default { throw "unsupported mouse button: $Button" }
     }
 
-    $modifierKeys = @(Get-OrcaClickModifierVirtualKeys $Modifiers)
-    $clickCount = Get-OrcaPositiveInteger $Count "click_count"
+    $modifierKeys = @(Get-OpenKodoClickModifierVirtualKeys $Modifiers)
+    $clickCount = Get-OpenKodoPositiveInteger $Count "click_count"
     if ($modifierKeys.Count -eq 0) {
         for ($i = 0; $i -lt $clickCount; $i++) {
-            [OrcaDesktopWin32]::mouse_event($down, 0, 0, 0, [UIntPtr]::Zero)
+            [OpenKodoDesktopWin32]::mouse_event($down, 0, 0, 0, [UIntPtr]::Zero)
             Start-Sleep -Milliseconds 35
-            [OrcaDesktopWin32]::mouse_event($up, 0, 0, 0, [UIntPtr]::Zero)
+            [OpenKodoDesktopWin32]::mouse_event($up, 0, 0, 0, [UIntPtr]::Zero)
         }
         return
     }
     for ($i = 0; $i -lt $clickCount; $i++) {
-        [OrcaDesktopWin32]::SendModifiedClick(
+        [OpenKodoDesktopWin32]::SendModifiedClick(
             [byte[]]$modifierKeys,
             [uint32]$down,
             [uint32]$up
@@ -2373,30 +2373,30 @@ function Send-OrcaMouseClick([int]$ScreenX, [int]$ScreenY, [string]$Button, [int
     }
 }
 
-function Send-OrcaDrag($From, $To) {
+function Send-OpenKodoDrag($From, $To) {
     $startX = [int]$From.x
     $startY = [int]$From.y
     $endX = [int]$To.x
     $endY = [int]$To.y
-    [void][OrcaDesktopWin32]::SetCursorPos($startX, $startY)
-    [OrcaDesktopWin32]::mouse_event($MouseEvents.LeftDown, 0, 0, 0, [UIntPtr]::Zero)
+    [void][OpenKodoDesktopWin32]::SetCursorPos($startX, $startY)
+    [OpenKodoDesktopWin32]::mouse_event($MouseEvents.LeftDown, 0, 0, 0, [UIntPtr]::Zero)
     for ($step = 1; $step -le 12; $step++) {
         $x = [int][Math]::Round($startX + (($endX - $startX) * $step / 12))
         $y = [int][Math]::Round($startY + (($endY - $startY) * $step / 12))
-        [void][OrcaDesktopWin32]::SetCursorPos($x, $y)
+        [void][OpenKodoDesktopWin32]::SetCursorPos($x, $y)
         Start-Sleep -Milliseconds 20
     }
-    [OrcaDesktopWin32]::mouse_event($MouseEvents.LeftUp, 0, 0, 0, [UIntPtr]::Zero)
+    [OpenKodoDesktopWin32]::mouse_event($MouseEvents.LeftUp, 0, 0, 0, [UIntPtr]::Zero)
 }
 
-function Send-OrcaText([IntPtr]$WindowHandle, [string]$Text) {
-    Assert-OrcaStillFocused $WindowHandle
-    if (-not [OrcaDesktopWin32]::SendUnicodeText($Text)) {
+function Send-OpenKodoText([IntPtr]$WindowHandle, [string]$Text) {
+    Assert-OpenKodoStillFocused $WindowHandle
+    if (-not [OpenKodoDesktopWin32]::SendUnicodeText($Text)) {
         throw "SendInput did not deliver the text; inspect the field before retrying"
     }
 }
 
-function Get-OrcaVirtualKey([string]$Key) {
+function Get-OpenKodoVirtualKey([string]$Key) {
     $normalized = $Key.ToLowerInvariant()
     $map = @{
         "return" = 0x0D; "enter" = 0x0D; "tab" = 0x09; "escape" = 0x1B; "esc" = 0x1B
@@ -2408,19 +2408,19 @@ function Get-OrcaVirtualKey([string]$Key) {
     throw "Unsupported key: $Key"
 }
 
-function Assert-OrcaStillFocused([IntPtr]$WindowHandle) {
+function Assert-OpenKodoStillFocused([IntPtr]$WindowHandle) {
     # Why: keys go to whatever is in front, so a user switching windows since the focus check must not receive them.
-    if (-not (Test-OrcaWindowFocused $WindowHandle)) {
+    if (-not (Test-OpenKodoWindowFocused $WindowHandle)) {
         throw "window_not_focused: the target window lost focus before the keys were sent; nothing was sent"
     }
 }
 
-function Send-OrcaKey([IntPtr]$WindowHandle, [string]$Key) {
-    Assert-OrcaStillFocused $WindowHandle
-    [System.Windows.Forms.SendKeys]::SendWait((ConvertTo-OrcaSendKeysKey $Key))
+function Send-OpenKodoKey([IntPtr]$WindowHandle, [string]$Key) {
+    Assert-OpenKodoStillFocused $WindowHandle
+    [System.Windows.Forms.SendKeys]::SendWait((ConvertTo-OpenKodoSendKeysKey $Key))
 }
 
-function Get-OrcaModifierVirtualKey([string]$Modifier) {
+function Get-OpenKodoModifierVirtualKey([string]$Modifier) {
     switch ($Modifier.ToLowerInvariant()) {
         { $_ -in @("ctrl", "control", "cmdorctrl", "commandorcontrol") } { return 0x11 }
         { $_ -in @("shift") } { return 0x10 }
@@ -2430,17 +2430,17 @@ function Get-OrcaModifierVirtualKey([string]$Modifier) {
     }
 }
 
-function Get-OrcaClickModifierVirtualKeys([string]$Modifiers) {
+function Get-OpenKodoClickModifierVirtualKeys([string]$Modifiers) {
     if ([string]::IsNullOrWhiteSpace($Modifiers)) { return @() }
     $parts = @($Modifiers.Split("+") | ForEach-Object { $_.Trim() })
     $emptyParts = @($parts | Where-Object { [string]::IsNullOrWhiteSpace($_) })
     if ($parts.Count -eq 0 -or $emptyParts.Count -gt 0) {
         throw "Click modifiers require modifier keys only"
     }
-    @($parts | ForEach-Object { Get-OrcaModifierVirtualKey $_ })
+    @($parts | ForEach-Object { Get-OpenKodoModifierVirtualKey $_ })
 }
 
-function ConvertTo-OrcaSendKeysHotkey([string]$KeySpec) {
+function ConvertTo-OpenKodoSendKeysHotkey([string]$KeySpec) {
     $parts = @($KeySpec.Split("+") | ForEach-Object { $_.Trim() } | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
     if ($parts.Count -eq 0) { throw "Unsupported key: $KeySpec" }
     $key = $parts[$parts.Count - 1]
@@ -2449,19 +2449,19 @@ function ConvertTo-OrcaSendKeysHotkey([string]$KeySpec) {
         # SendKeys adds Shift for an uppercase letter, turning Ctrl+A into Ctrl+Shift+A.
         if ($key.Length -eq 1) { $key = $key.ToLowerInvariant() }
         foreach ($modifier in $parts[0..($parts.Count - 2)]) {
-            $prefix += ConvertTo-OrcaSendKeysModifier $modifier
+            $prefix += ConvertTo-OpenKodoSendKeysModifier $modifier
         }
     }
-    $prefix + (ConvertTo-OrcaSendKeysKey $key)
+    $prefix + (ConvertTo-OpenKodoSendKeysKey $key)
 }
 
-function Send-OrcaHotkey([IntPtr]$WindowHandle, [string]$KeySpec) {
-    $keys = ConvertTo-OrcaSendKeysHotkey $KeySpec
-    Assert-OrcaStillFocused $WindowHandle
+function Send-OpenKodoHotkey([IntPtr]$WindowHandle, [string]$KeySpec) {
+    $keys = ConvertTo-OpenKodoSendKeysHotkey $KeySpec
+    Assert-OpenKodoStillFocused $WindowHandle
     [System.Windows.Forms.SendKeys]::SendWait($keys)
 }
 
-function ConvertTo-OrcaSendKeysText([string]$Text) {
+function ConvertTo-OpenKodoSendKeysText([string]$Text) {
     $builder = New-Object System.Text.StringBuilder
     foreach ($character in $Text.ToCharArray()) {
         $value = [string]$character
@@ -2476,7 +2476,7 @@ function ConvertTo-OrcaSendKeysText([string]$Text) {
     $builder.ToString()
 }
 
-function ConvertTo-OrcaSendKeysKey([string]$Key) {
+function ConvertTo-OpenKodoSendKeysKey([string]$Key) {
     switch ($Key.ToLowerInvariant()) {
         { $_ -in @("return", "enter") } { return "{ENTER}" }
         "tab" { return "{TAB}" }
@@ -2494,13 +2494,13 @@ function ConvertTo-OrcaSendKeysKey([string]$Key) {
         { $_ -in @("pagedown", "page_down") } { return "{PGDN}" }
         "insert" { return "{INSERT}" }
         default {
-            if ($Key.Length -eq 1) { return (ConvertTo-OrcaSendKeysText $Key) }
+            if ($Key.Length -eq 1) { return (ConvertTo-OpenKodoSendKeysText $Key) }
             throw "Unsupported key: $Key"
         }
     }
 }
 
-function ConvertTo-OrcaSendKeysModifier([string]$Modifier) {
+function ConvertTo-OpenKodoSendKeysModifier([string]$Modifier) {
     switch ($Modifier.ToLowerInvariant()) {
         { $_ -in @("ctrl", "control", "cmdorctrl", "commandorcontrol") } { return "^" }
         "shift" { return "+" }
@@ -2509,14 +2509,14 @@ function ConvertTo-OrcaSendKeysModifier([string]$Modifier) {
     }
 }
 
-function Send-OrcaPasteText([IntPtr]$WindowHandle, [string]$Text) {
+function Send-OpenKodoPasteText([IntPtr]$WindowHandle, [string]$Text) {
     $previous = $null
     $hadPrevious = $false
     try { $previous = [System.Windows.Forms.Clipboard]::GetDataObject() } catch {}
     $hadPrevious = $null -ne $previous
     try {
         Set-Clipboard -Value $Text
-        Send-OrcaHotkey $WindowHandle "Ctrl+v"
+        Send-OpenKodoHotkey $WindowHandle "Ctrl+v"
     } finally {
         if ($hadPrevious) {
             try { [System.Windows.Forms.Clipboard]::SetDataObject($previous, $true) } catch {}
@@ -2526,52 +2526,52 @@ function Send-OrcaPasteText([IntPtr]$WindowHandle, [string]$Text) {
     }
 }
 
-function Invoke-OrcaOperation($Operation) {
-    $screenshotRequest = if ([bool]$Operation.noScreenshot) { $null } else { Get-OrcaScreenshotRequest $Operation }
+function Invoke-OpenKodoOperation($Operation) {
+    $screenshotRequest = if ([bool]$Operation.noScreenshot) { $null } else { Get-OpenKodoScreenshotRequest $Operation }
     if ($Operation.tool -eq "handshake") {
-        return [pscustomobject]@{ ok = $true; capabilities = Get-OrcaHandshake }
+        return [pscustomobject]@{ ok = $true; capabilities = Get-OpenKodoHandshake }
     }
     if ($Operation.tool -eq "list_apps") {
-        return [pscustomobject]@{ ok = $true; apps = @(Get-OrcaAppList) }
+        return [pscustomobject]@{ ok = $true; apps = @(Get-OpenKodoAppList) }
     }
     if ($Operation.tool -eq "list_windows") {
-        $list = Get-OrcaWindowList $Operation.app
+        $list = Get-OpenKodoWindowList $Operation.app
         return [pscustomobject]@{ ok = $true; app = $list.app; windows = @($list.windows) }
     }
     if ($Operation.tool -eq "launch_app") {
-        return Invoke-OrcaLaunchApp $Operation
+        return Invoke-OpenKodoLaunchApp $Operation
     }
     if ($Operation.tool -eq "get_app_state") {
-        return [pscustomobject]@{ ok = $true; snapshot = New-OrcaSnapshot $Operation.app $screenshotRequest $Operation.windowId $Operation.windowIndex ([bool]$Operation.restoreWindow) $Operation.root }
+        return [pscustomobject]@{ ok = $true; snapshot = New-OpenKodoSnapshot $Operation.app $screenshotRequest $Operation.windowId $Operation.windowIndex ([bool]$Operation.restoreWindow) $Operation.root }
     }
 
-    $process = Find-OrcaProcess $Operation.app
-    Assert-OrcaInputAllowed $process
-    $handle = Resolve-OrcaTargetWindow $process $Operation.windowId $Operation.windowIndex
-    $root = Get-OrcaRootElement $process $handle
+    $process = Find-OpenKodoProcess $Operation.app
+    Assert-OpenKodoInputAllowed $process
+    $handle = Resolve-OpenKodoTargetWindow $process $Operation.windowId $Operation.windowIndex
+    $root = Get-OpenKodoRootElement $process $handle
     $restoreWindow = [bool]$Operation.restoreWindow
-    $windowFrame = if ($null -ne $Operation.windowBounds) { $Operation.windowBounds } else { Get-OrcaWindowFrame $handle $root }
-    $element = Find-OrcaElement $root $Operation.element
-    $fromElement = Find-OrcaElement $root $Operation.fromElement
-    $toElement = Find-OrcaElement $root $Operation.toElement
+    $windowFrame = if ($null -ne $Operation.windowBounds) { $Operation.windowBounds } else { Get-OpenKodoWindowFrame $handle $root }
+    $element = Find-OpenKodoElement $root $Operation.element
+    $fromElement = Find-OpenKodoElement $root $Operation.fromElement
+    $toElement = Find-OpenKodoElement $root $Operation.toElement
     $typesIntoElement = $Operation.tool -eq "type_text" -and $null -ne $Operation.element
     if ($Operation.tool -in @("type_text", "press_key", "hotkey", "paste_text") -and -not $typesIntoElement) {
-        $restoreFailure = if ($restoreWindow) { Restore-OrcaWindow $handle $root } else { $null }
-        Assert-OrcaKeyboardFocus $handle $Operation $restoreFailure $process
+        $restoreFailure = if ($restoreWindow) { Restore-OpenKodoWindow $handle $root } else { $null }
+        Assert-OpenKodoKeyboardFocus $handle $Operation $restoreFailure $process
     }
-    $foregroundBefore = [OrcaDesktopWin32]::GetForegroundWindow()
+    $foregroundBefore = [OpenKodoDesktopWin32]::GetForegroundWindow()
     # Why: a stale or frameless target must fail before any refusal or raise; a minimized window has no frames until restored.
-    $validatePointsBeforeRaise = -not [OrcaDesktopWin32]::IsIconic($handle)
+    $validatePointsBeforeRaise = -not [OpenKodoDesktopWin32]::IsIconic($handle)
     $action = $null
 
     switch ($Operation.tool) {
         "click" {
-            Assert-OrcaElementFound $element $Operation.element
-            $clickCount = Get-OrcaPositiveInteger $Operation.click_count "click_count"
+            Assert-OpenKodoElementFound $element $Operation.element
+            $clickCount = Get-OpenKodoPositiveInteger $Operation.click_count "click_count"
             $button = if ([string]::IsNullOrWhiteSpace([string]$Operation.mouse_button)) { "left" } else { ([string]$Operation.mouse_button).ToLowerInvariant() }
             if ($button -notin @("left", "right", "middle")) { throw "unsupported mouse button: $($Operation.mouse_button)" }
-            [void](Get-OrcaClickModifierVirtualKeys $Operation.modifiers)
-            if ($null -ne $element -and (Test-OrcaElementDisabled $element)) {
+            [void](Get-OpenKodoClickModifierVirtualKeys $Operation.modifiers)
+            if ($null -ne $element -and (Test-OpenKodoElementDisabled $element)) {
                 throw "element_not_enabled: element $($Operation.element.index) is disabled, so no input was sent; do what enables it first, then run get-app-state and retry once its line no longer lists disabled"
             }
             $pointerNeed = if (-not [string]::IsNullOrWhiteSpace([string]$Operation.modifiers)) { "a click with modifiers needs the real mouse and keyboard" }
@@ -2582,36 +2582,36 @@ function Invoke-OrcaOperation($Operation) {
                 else { $null }
             $alternative = if ($null -eq $Operation.element) { "Click an element by --element-index instead when it lists Invoke, Select or Toggle." } else { "" }
             if ($null -eq $pointerNeed) {
-                if (Invoke-OrcaPrimaryAction $element $Operation.element.index $process) {
+                if (Invoke-OpenKodoPrimaryAction $element $Operation.element.index $process) {
                     $action = [pscustomobject]@{ path = "accessibility"; actionName = "primaryAction"; fallbackReason = $null }
                     break
                 }
                 $pointerNeed = "element $($Operation.element.index) has no Invoke, Select or Toggle action, so clicking it needs the real mouse"
                 $alternative = "For a text field, use set-value instead."
             }
-            if ($validatePointsBeforeRaise) { [void](Get-OrcaPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame) }
+            if ($validatePointsBeforeRaise) { [void](Get-OpenKodoPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame) }
             if (-not $restoreWindow) {
-                throw (New-OrcaForegroundRefusal $process $pointerNeed $alternative)
+                throw (New-OpenKodoForegroundRefusal $process $pointerNeed $alternative)
             }
-            $windowFrame = Restore-OrcaPointerWindow $process $handle $root
-            $point = Get-OrcaPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame
-            $cursor = Get-OrcaCursorPosition
+            $windowFrame = Restore-OpenKodoPointerWindow $process $handle $root
+            $point = Get-OpenKodoPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame
+            $cursor = Get-OpenKodoCursorPosition
             try {
-                Send-OrcaMouseClick $point.x $point.y $button $clickCount $Operation.modifiers
+                Send-OpenKodoMouseClick $point.x $point.y $button $clickCount $Operation.modifiers
             } finally {
-                Restore-OrcaCursorPosition $cursor
+                Restore-OpenKodoCursorPosition $cursor
             }
             $action = [pscustomobject]@{ path = "synthetic"; actionName = $null; fallbackReason = "actionUnsupported" }
         }
         "perform_secondary_action" {
             if ($null -eq $element) { throw "unknown element_index" }
-            if (-not (Invoke-OrcaNamedAction $element $Operation.action)) {
+            if (-not (Invoke-OpenKodoNamedAction $element $Operation.action)) {
                 throw "$($Operation.action) is not a valid secondary action"
             }
             $action = [pscustomobject]@{ path = "accessibility"; actionName = $Operation.action; fallbackReason = $null }
         }
         "scroll" {
-            $pages = Get-OrcaPositiveNumber $Operation.pages "pages"
+            $pages = Get-OpenKodoPositiveNumber $Operation.pages "pages"
             $delta = 120 * [int][Math]::Ceiling($pages)
             $mouseEvent = $MouseEvents.Wheel
             if ($Operation.direction -eq "down") {
@@ -2624,78 +2624,78 @@ function Invoke-OrcaOperation($Operation) {
             } elseif ($Operation.direction -ne "up") {
                 throw "unsupported scroll direction: $($Operation.direction)"
             }
-            Assert-OrcaElementFound $element $Operation.element
+            Assert-OpenKodoElementFound $element $Operation.element
             $scrollTarget = $element
             if ($null -eq $Operation.element) {
-                $at = Get-OrcaPointerPoint $null $null $Operation.x $Operation.y "x" "y" $windowFrame
-                $scrollTarget = Find-OrcaScrollContainerAt $root $at.x $at.y ($Operation.direction -in @("up", "down"))
+                $at = Get-OpenKodoPointerPoint $null $null $Operation.x $Operation.y "x" "y" $windowFrame
+                $scrollTarget = Find-OpenKodoScrollContainerAt $root $at.x $at.y ($Operation.direction -in @("up", "down"))
             }
-            if (Invoke-OrcaScrollPattern $scrollTarget $root $process $Operation.direction $pages) {
+            if (Invoke-OpenKodoScrollPattern $scrollTarget $root $process $Operation.direction $pages) {
                 $action = [pscustomobject]@{ path = "accessibility"; actionName = "scroll"; fallbackReason = $null }
                 break
             }
-            if ($validatePointsBeforeRaise) { [void](Get-OrcaPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame) }
+            if ($validatePointsBeforeRaise) { [void](Get-OpenKodoPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame) }
             if (-not $restoreWindow) {
                 $where = if ($null -ne $Operation.element) { "element $($Operation.element.index)" } else { "that point" }
-                throw (New-OrcaForegroundRefusal $process "nothing under $where scrolls $($Operation.direction) through UI Automation, so this scroll needs the real mouse wheel")
+                throw (New-OpenKodoForegroundRefusal $process "nothing under $where scrolls $($Operation.direction) through UI Automation, so this scroll needs the real mouse wheel")
             }
             # Why: the wheel scrolls whatever is under the pointer, so the window must be on top.
-            $windowFrame = Restore-OrcaPointerWindow $process $handle $root
-            $point = Get-OrcaPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame
-            $cursor = Get-OrcaCursorPosition
+            $windowFrame = Restore-OpenKodoPointerWindow $process $handle $root
+            $point = Get-OpenKodoPointerPoint $element $Operation.element $Operation.x $Operation.y "x" "y" $windowFrame
+            $cursor = Get-OpenKodoCursorPosition
             try {
-                [void][OrcaDesktopWin32]::SetCursorPos([int]$point.x, [int]$point.y)
-                [OrcaDesktopWin32]::mouse_event($mouseEvent, 0, 0, $delta, [UIntPtr]::Zero)
+                [void][OpenKodoDesktopWin32]::SetCursorPos([int]$point.x, [int]$point.y)
+                [OpenKodoDesktopWin32]::mouse_event($mouseEvent, 0, 0, $delta, [UIntPtr]::Zero)
             } finally {
-                Restore-OrcaCursorPosition $cursor
+                Restore-OpenKodoCursorPosition $cursor
             }
             $fallbackReason = if ($null -ne $Operation.element) { "actionUnsupported" } else { $null }
             $action = [pscustomobject]@{ path = "synthetic"; actionName = "scroll"; fallbackReason = $fallbackReason }
         }
         "drag" {
-            Assert-OrcaElementFound $fromElement $Operation.fromElement
-            Assert-OrcaElementFound $toElement $Operation.toElement
+            Assert-OpenKodoElementFound $fromElement $Operation.fromElement
+            Assert-OpenKodoElementFound $toElement $Operation.toElement
             if ($validatePointsBeforeRaise) {
-                [void](Get-OrcaPointerPoint $fromElement $Operation.fromElement $Operation.from_x $Operation.from_y "from_x" "from_y" $windowFrame)
-                [void](Get-OrcaPointerPoint $toElement $Operation.toElement $Operation.to_x $Operation.to_y "to_x" "to_y" $windowFrame)
+                [void](Get-OpenKodoPointerPoint $fromElement $Operation.fromElement $Operation.from_x $Operation.from_y "from_x" "from_y" $windowFrame)
+                [void](Get-OpenKodoPointerPoint $toElement $Operation.toElement $Operation.to_x $Operation.to_y "to_x" "to_y" $windowFrame)
             }
             if (-not $restoreWindow) {
-                throw (New-OrcaForegroundRefusal $process "a drag needs the real mouse, because UI Automation has no drag")
+                throw (New-OpenKodoForegroundRefusal $process "a drag needs the real mouse, because UI Automation has no drag")
             }
-            $windowFrame = Restore-OrcaPointerWindow $process $handle $root
-            $from = Get-OrcaPointerPoint $fromElement $Operation.fromElement $Operation.from_x $Operation.from_y "from_x" "from_y" $windowFrame
-            $to = Get-OrcaPointerPoint $toElement $Operation.toElement $Operation.to_x $Operation.to_y "to_x" "to_y" $windowFrame
-            $cursor = Get-OrcaCursorPosition
+            $windowFrame = Restore-OpenKodoPointerWindow $process $handle $root
+            $from = Get-OpenKodoPointerPoint $fromElement $Operation.fromElement $Operation.from_x $Operation.from_y "from_x" "from_y" $windowFrame
+            $to = Get-OpenKodoPointerPoint $toElement $Operation.toElement $Operation.to_x $Operation.to_y "to_x" "to_y" $windowFrame
+            $cursor = Get-OpenKodoCursorPosition
             try {
-                Send-OrcaDrag $from $to
+                Send-OpenKodoDrag $from $to
             } finally {
-                Restore-OrcaCursorPosition $cursor
+                Restore-OpenKodoCursorPosition $cursor
             }
             $action = [pscustomobject]@{ path = "synthetic"; actionName = "drag"; fallbackReason = $null }
         }
         "type_text" {
-            $text = Get-OrcaRequiredString $Operation.text "text"
+            $text = Get-OpenKodoRequiredString $Operation.text "text"
             if ($typesIntoElement) {
-                $action = Invoke-OrcaElementTextInsertion $element $Operation.element $process $handle $root $Operation $text
+                $action = Invoke-OpenKodoElementTextInsertion $element $Operation.element $process $handle $root $Operation $text
             } else {
-                Send-OrcaText $handle $text
+                Send-OpenKodoText $handle $text
                 $action = [pscustomobject]@{ path = "synthetic"; actionName = "typeText"; fallbackReason = $null; verification = [pscustomobject]@{ state = "unverified"; reason = "synthetic_input" } }
             }
         }
         "press_key" {
-            Send-OrcaKey $handle (Get-OrcaRequiredString $Operation.key "key")
+            Send-OpenKodoKey $handle (Get-OpenKodoRequiredString $Operation.key "key")
             $action = [pscustomobject]@{ path = "synthetic"; actionName = "pressKey"; fallbackReason = $null; verification = [pscustomobject]@{ state = "unverified"; reason = "synthetic_input" } }
         }
         "hotkey" {
-            Send-OrcaHotkey $handle (Get-OrcaRequiredString $Operation.key "key")
+            Send-OpenKodoHotkey $handle (Get-OpenKodoRequiredString $Operation.key "key")
             $action = [pscustomobject]@{ path = "synthetic"; actionName = "hotkey"; fallbackReason = $null; verification = [pscustomobject]@{ state = "unverified"; reason = "synthetic_input" } }
         }
         "paste_text" {
-            Send-OrcaPasteText $handle (Get-OrcaRequiredString $Operation.text "text")
+            Send-OpenKodoPasteText $handle (Get-OpenKodoRequiredString $Operation.text "text")
             $action = [pscustomobject]@{ path = "clipboard"; actionName = "paste"; fallbackReason = $null; verification = [pscustomobject]@{ state = "unverified"; reason = "clipboard_paste" } }
         }
         "set_value" {
-            $written = if ($null -ne $element) { Set-OrcaElementValue $element $process ([int]$Operation.element.index) ([string]$Operation.value) } else { $null }
+            $written = if ($null -ne $element) { Set-OpenKodoElementValue $element $process ([int]$Operation.element.index) ([string]$Operation.value) } else { $null }
             if ($null -eq $written) {
                 throw "element value is not settable"
             }
@@ -2709,36 +2709,36 @@ function Invoke-OrcaOperation($Operation) {
         }
     }
     # Why: an app can activate itself and hand the foreground back during the observe, so sample before it too.
-    $patternTookForeground = $action.path -eq "accessibility" -and (Test-OrcaTargetTookForeground $foregroundBefore $process)
+    $patternTookForeground = $action.path -eq "accessibility" -and (Test-OpenKodoTargetTookForeground $foregroundBefore $process)
 
     try {
         try {
             # Why: the observe reads the process and window the input went to, even if the action retitled it.
-            $snapshot = New-OrcaSnapshot "pid:$($process.Id)" $screenshotRequest ([int64]$handle) $null
+            $snapshot = New-OpenKodoSnapshot "pid:$($process.Id)" $screenshotRequest ([int64]$handle) $null
         } catch {
             if ($_.Exception.Message -like "window_not_responding:*") { throw }
             # Why: only a target window the action closed may hand the observe to the app's main window.
-            if ([OrcaDesktopWin32]::IsTargetWindow($handle, [int]$process.Id)) { throw }
+            if ([OpenKodoDesktopWin32]::IsTargetWindow($handle, [int]$process.Id)) { throw }
             if ($null -eq $action.verification) {
                 $action | Add-Member -NotePropertyName verification -NotePropertyValue ([pscustomobject]@{ state = "unverified"; reason = "window_changed" })
             }
-            $snapshot = New-OrcaSnapshot "pid:$($process.Id)" $screenshotRequest $null $null
+            $snapshot = New-OpenKodoSnapshot "pid:$($process.Id)" $screenshotRequest $null $null
         }
     } catch {
         # Why: the input was already sent, so the pre-action "nothing was sent" wording would invite a duplicate retry.
         if ($_.Exception.Message -like "window_not_responding:*") {
-            throw "window_not_responding: $(Get-OrcaAppName $process) stopped responding after the action was sent; the action may already have been delivered"
+            throw "window_not_responding: $(Get-OpenKodoAppName $process) stopped responding after the action was sent; the action may already have been delivered"
         }
         throw
     }
     # Why: real mouse and key input needs the target in front. WPF and others activate their own window for UIA patterns,
     # sometimes after the call returns, so those are measured again once the observe above has given them time.
-    $delivery = if ($action.path -eq "accessibility" -and -not $patternTookForeground -and -not (Test-OrcaTargetTookForeground $foregroundBefore $process)) { "background" } else { "foreground" }
+    $delivery = if ($action.path -eq "accessibility" -and -not $patternTookForeground -and -not (Test-OpenKodoTargetTookForeground $foregroundBefore $process)) { "background" } else { "foreground" }
     $action | Add-Member -NotePropertyName delivery -NotePropertyValue $delivery
     [pscustomobject]@{ ok = $true; action = $action; snapshot = $snapshot }
 }
 
-function Invoke-OrcaServeLoop {
+function Invoke-OpenKodoServeLoop {
     # Announce readiness after Add-Type and before reading: absence proves no request ran and permits safe replay.
     # A missing response cannot prove that; replay could duplicate input.
     [Console]::Out.WriteLine('{"ready":true}')
@@ -2752,7 +2752,7 @@ function Invoke-OrcaServeLoop {
         try {
             $operation = $line | ConvertFrom-Json
             $requestId = $operation.requestId
-            $response = Invoke-OrcaOperation $operation
+            $response = Invoke-OpenKodoOperation $operation
         } catch {
             $response = [pscustomobject]@{ ok = $false; error = [string]$_.Exception.Message }
             # ConvertFrom-Json can fail before reading id; recover it from raw input so the error reaches its request
@@ -2771,14 +2771,14 @@ function Invoke-OrcaServeLoop {
 }
 
 if ($Serve) {
-    Invoke-OrcaServeLoop
+    Invoke-OpenKodoServeLoop
 } elseif ([string]::IsNullOrWhiteSpace($OperationPath)) {
-    Write-OrcaJson ([pscustomobject]@{ ok = $false; error = "runtime.ps1 requires an operation path or -Serve" })
+    Write-OpenKodoJson ([pscustomobject]@{ ok = $false; error = "runtime.ps1 requires an operation path or -Serve" })
 } else {
     try {
-        $operation = Read-OrcaOperation $OperationPath
-        Write-OrcaJson (Invoke-OrcaOperation $operation)
+        $operation = Read-OpenKodoOperation $OperationPath
+        Write-OpenKodoJson (Invoke-OpenKodoOperation $operation)
     } catch {
-        Write-OrcaJson ([pscustomobject]@{ ok = $false; error = [string]$_.Exception.Message })
+        Write-OpenKodoJson ([pscustomobject]@{ ok = $false; error = [string]$_.Exception.Message })
     }
 }

@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { exposeUtcTimestamp } from '../../db/utc-timestamp'
 import {
   countRemoteDispatches,
@@ -9,7 +9,7 @@ import { getRemoteRunLink } from '../../db/remote-owned/remote-run-links'
 import type { PeerServerAnswerStatus } from '../peer-mail/peer-mail-relay'
 
 type ReadsRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'getOrchestrationDb' | 'resolveOrchestrationWorkerServer' | 'getPeerServerAnswerStatus'
 >
 

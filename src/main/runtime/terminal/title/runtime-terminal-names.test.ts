@@ -3,7 +3,7 @@ import { setRuntimeDesktopSurface } from '../../construction/runtime-desktop-sur
 import {
   setupLayoutOwnerRuntime,
   WORKTREE_ID
-} from '../layout/orca-runtime-layout-owner-start-fixture'
+} from '../layout/openkodo-runtime-layout-owner-start-fixture'
 
 it('publishes a rename and reset for a live terminal the open host window holds no pane for', async () => {
   const { runtime } = setupLayoutOwnerRuntime()

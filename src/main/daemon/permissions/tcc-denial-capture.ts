@@ -1,7 +1,7 @@
 // Capture macOS's verdict once per helper incarnation and folder class when a denial is confirmed.
 
 import { homedir } from 'node:os'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { join } from 'node:path'
 import type { MacTccFolderClass } from '../../../shared/telemetry/daemon-adoption-telemetry'
 import {
@@ -11,7 +11,7 @@ import {
   type FullDiskAccessValue,
   type HelperOrigin
 } from '../../../shared/terminal/daemon/daemon-tcc-denial-capture'
-import { LOCAL_BUILD_COMPATIBILITY_CONTRACT } from '../../../shared/remote-runtime/orcad-distribution/local-build-compatibility-contract'
+import { LOCAL_BUILD_COMPATIBILITY_CONTRACT } from '../../../shared/remote-runtime/openkodod-distribution/local-build-compatibility-contract'
 import type { DeveloperPermissionStatus } from '../../../shared/app-lifecycle/permissions/developer-permissions-types'
 import type { EventProps } from '../../../shared/telemetry/telemetry-event-classification'
 import { msSinceWakeSignal } from '../../power/wake-signal-clock'

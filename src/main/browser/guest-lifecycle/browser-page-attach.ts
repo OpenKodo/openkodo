@@ -24,7 +24,7 @@ type Attach = {
 const attachments = new Map<string, Attach>()
 export const guestLoads = new WeakMap<Electron.WebContents, Promise<void>>()
 let generation = 0
-const MARKER = 'data:text/html,orca-browser-attach-'
+const MARKER = 'data:text/html,openkodo-browser-attach-'
 let admittedAttach: Attach | null = null
 
 export function prepareBrowserPageAttach(

@@ -1,4 +1,4 @@
-import type { OrcaRuntimeWithRuntimeId } from '../construction/runtime-identity-state'
+import type { OpenKodoRuntimeWithRuntimeId } from '../construction/runtime-identity-state'
 import type { AgentStatusEntry } from '../../../shared/agent-status/contracts/agent-status-types'
 import {
   rendererStatusOccupantKey,
@@ -264,8 +264,10 @@ export class RendererStatusReplica {
   }
 }
 
-const replicas = new WeakMap<OrcaRuntimeWithRuntimeId, RendererStatusReplica>()
-export function rendererStatusReplica(runtime: OrcaRuntimeWithRuntimeId): RendererStatusReplica {
+const replicas = new WeakMap<OpenKodoRuntimeWithRuntimeId, RendererStatusReplica>()
+export function rendererStatusReplica(
+  runtime: OpenKodoRuntimeWithRuntimeId
+): RendererStatusReplica {
   let replica = replicas.get(runtime)
   if (!replica) {
     replicas.set(runtime, (replica = new RendererStatusReplica()))

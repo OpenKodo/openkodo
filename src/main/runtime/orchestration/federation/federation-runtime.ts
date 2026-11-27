@@ -1,7 +1,7 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 export type FederationRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'syncOrchestrationFederatedDispatch'
   | 'getOrchestrationDb'
   | 'resolveOrchestrationWorkerServer'

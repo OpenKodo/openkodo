@@ -1,12 +1,12 @@
-import { getOrcadSshDeployment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
+import { getOpenkododSshDeployment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { useAppStore } from '@/store/index'
 import { getRuntimeEnvironmentRevision } from '../../rpc/environment-revisions/runtime-environment-revision'
 
 // Managed SSH hosts reach this desktop's own browser through the desktop browser bridge instead.
 function hostsBrowserPagesOn(
-  environment: Parameters<typeof getOrcadSshDeployment>[0] | undefined
+  environment: Parameters<typeof getOpenkododSshDeployment>[0] | undefined
 ): boolean {
-  return Boolean(environment && !getOrcadSshDeployment(environment))
+  return Boolean(environment && !getOpenkododSshDeployment(environment))
 }
 
 /** Whether this desktop offers to host the browser pages of the server it subscribes to. */

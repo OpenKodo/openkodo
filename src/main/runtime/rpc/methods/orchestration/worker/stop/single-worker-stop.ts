@@ -11,7 +11,7 @@ import {
   ORCHESTRATION_WORKER_STOP_HELPERS_RUNTIME_CAPABILITY,
   ORCHESTRATION_WORKER_STOP_VERDICT_RUNTIME_CAPABILITY
 } from '../../../../../../../shared/orchestration/orchestration-runtime-capabilities'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { inspectWorkerTerminal } from '../observation/worker-observation'
 import { resolvePinnedFederatedServer } from '../../../../../orchestration/legacy-remote-home/pinned-federated-server'
 import { refuseFederatedStopWhileKeptOpen } from '../worker-keep-open'
@@ -23,7 +23,7 @@ export type StopMutation = RpcContext['orchestrationMutation']
 
 /** Fence and stop exactly one Dispatch's worker, as worker-stop always has. */
 export async function stopSingleWorker(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   dispatchId: string,
   orchestrationMutation: StopMutation
 ): Promise<WorkerStopReceipt> {

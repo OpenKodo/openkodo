@@ -11,13 +11,13 @@ import { clampNumber } from '@/lib/terminal/appearance/terminal-theme'
 import { isAutosavePausedForNonUtf8File } from './editor-non-utf8-autosave-pause'
 import type { OpenFile } from '@/store/slices/editor/types/open-file'
 
-export const OPENKODO_EDITOR_QUIESCE_FILE_SAVES_EVENT = 'orca:editor-quiesce-file-saves'
-export const OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT = 'orca:editor-external-file-change'
-export const OPENKODO_EDITOR_SAVE_FILE_EVENT = 'orca:editor-save-file'
-export const OPENKODO_EDITOR_SAVE_AND_CLOSE_EVENT = 'orca:save-and-close'
-export const OPENKODO_EDITOR_FILE_SAVED_EVENT = 'orca:editor-file-saved'
+export const OPENKODO_EDITOR_QUIESCE_FILE_SAVES_EVENT = 'openkodo:editor-quiesce-file-saves'
+export const OPENKODO_EDITOR_EXTERNAL_FILE_CHANGE_EVENT = 'openkodo:editor-external-file-change'
+export const OPENKODO_EDITOR_SAVE_FILE_EVENT = 'openkodo:editor-save-file'
+export const OPENKODO_EDITOR_SAVE_AND_CLOSE_EVENT = 'openkodo:save-and-close'
+export const OPENKODO_EDITOR_FILE_SAVED_EVENT = 'openkodo:editor-file-saved'
 // Drop sibling content caches when their disk baseline advances without cached text.
-export const OPENKODO_EDITOR_FILE_CACHE_STALE_EVENT = 'orca:editor-file-cache-stale'
+export const OPENKODO_EDITOR_FILE_CACHE_STALE_EVENT = 'openkodo:editor-file-cache-stale'
 
 export function notifyEditorFileCacheStale(fileId: string): void {
   window.dispatchEvent(
@@ -26,8 +26,8 @@ export function notifyEditorFileCacheStale(fileId: string): void {
     })
   )
 }
-export const OPENKODO_EDITOR_REQUEST_CMD_SAVE_EVENT = 'orca:editor-request-cmd-save'
-export const OPENKODO_EDITOR_REQUEST_FILE_CLOSE_EVENT = 'orca:editor-request-file-close'
+export const OPENKODO_EDITOR_REQUEST_CMD_SAVE_EVENT = 'openkodo:editor-request-cmd-save'
+export const OPENKODO_EDITOR_REQUEST_FILE_CLOSE_EVENT = 'openkodo:editor-request-file-close'
 
 export type EditorPathMutationTarget = {
   worktreeId: string

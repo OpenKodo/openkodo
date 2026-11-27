@@ -1,14 +1,14 @@
 import type { Page } from '@playwright/test'
 import { expect } from '@playwright/test'
-import { test } from '../../desktop/electron-fixtures/orca-app'
+import { test } from '../../desktop/electron-fixtures/openkodo-app'
 import { waitForActiveWorktree, waitForSessionReady } from '../../desktop/renderer-probes/store'
 
-test.beforeEach(async ({ orcaPage }) => {
-  await orcaPage.setViewportSize({ width: 1440, height: 900 })
-  await waitForSessionReady(orcaPage)
-  await waitForActiveWorktree(orcaPage)
+test.beforeEach(async ({ openkodoPage }) => {
+  await openkodoPage.setViewportSize({ width: 1440, height: 900 })
+  await waitForSessionReady(openkodoPage)
+  await waitForActiveWorktree(openkodoPage)
   // New-style cards wrap the title in the details hover.
-  await orcaPage.evaluate(() =>
+  await openkodoPage.evaluate(() =>
     window.__store!.getState().updateSettings({ experimentalNewWorktreeCardStyle: true })
   )
 })
@@ -25,15 +25,15 @@ async function renameByDoubleClick(page: Page, from: string, to: string): Promis
 }
 
 // Renaming shuts the details hover; dropping it instead would remount the title and end the rename.
-test('double-click renames the active new-style card', async ({ orcaPage }) => {
-  await renameByDoubleClick(orcaPage, 'main', 'renamed-active-card')
+test('double-click renames the active new-style card', async ({ openkodoPage }) => {
+  await renameByDoubleClick(openkodoPage, 'main', 'renamed-active-card')
 })
 
 // The first click wakes a sleeping workspace; un-dimming it must not remount the title mid-rename.
-test('double-click renames a sleeping new-style card', async ({ orcaPage }) => {
-  const sidebar = orcaPage.locator('#workspace-list-region')
+test('double-click renames a sleeping new-style card', async ({ openkodoPage }) => {
+  const sidebar = openkodoPage.locator('#workspace-list-region')
   await expect(
     sidebar.locator('[data-worktree-sleeping-dim]').getByText('e2e-secondary', { exact: true })
   ).toBeVisible()
-  await renameByDoubleClick(orcaPage, 'e2e-secondary', 'renamed-sleeping-card')
+  await renameByDoubleClick(openkodoPage, 'e2e-secondary', 'renamed-sleeping-card')
 })

@@ -33,7 +33,7 @@ import { parseWslPath } from '../../../wsl/filesystem/unc-path-access'
 import { getWorktreeMirrorDistro } from '../../execution-host/project-runtime-git-options'
 import type { ProjectRuntimeResolutionStore } from '../../execution-host/local-project-runtime-resolution'
 
-const RETIREMENT_PROBE_NAME = 'orca-retirement-probe'
+const RETIREMENT_PROBE_NAME = 'openkodo-retirement-probe'
 
 type RetirementRuntimeStore = {
   getProjects?: ProjectRuntimeResolutionStore['getProjects']

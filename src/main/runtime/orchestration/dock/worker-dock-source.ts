@@ -1,8 +1,8 @@
 import {
-  isOrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../shared/agent-session/identity/orca-session-address'
-import { canonicalOrcaSessionId } from '../addressing/session-lineage/canonical-orca-session-id'
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
+import { canonicalOpenKodoSessionId } from '../addressing/session-lineage/canonical-openkodo-session-id'
 import {
   clearedInto,
   readAgentSessionRecordStore,
@@ -18,14 +18,14 @@ export function workerDockSourceOfSession(
   sessionId: string,
   store: LineageStore | null = readAgentSessionRecordStore()
 ): string {
-  return isOrcaSessionId(sessionId) ? canonicalOrcaSessionId(sessionId, store) : sessionId
+  return isOpenKodoSessionId(sessionId) ? canonicalOpenKodoSessionId(sessionId, store) : sessionId
 }
 
 export function workerDockSession(
   party: string,
   store: LineageStore | null = readAgentSessionRecordStore()
 ): string {
-  const session = parseOrcaSessionAddress(party)
+  const session = parseOpenKodoSessionAddress(party)
   if (!session) {
     throw new OrchestrationError('invalid_argument', 'A worker dock needs a source session.')
   }

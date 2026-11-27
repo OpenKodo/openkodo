@@ -1,13 +1,13 @@
 import type { RuntimeTerminalSend } from '../../../../../../../../shared/terminal/runtime/runtime-terminal-send-contract'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../../../../shared/agent-session/identity/orca-session-address'
-import { canonicalOrcaSessionId } from '../../../../../../orchestration/addressing/session-lineage/canonical-orca-session-id'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../../../../shared/agent-session/identity/openkodo-session-address'
+import { canonicalOpenKodoSessionId } from '../../../../../../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import {
-  orcaSessionIdOrHandle,
+  openkodoSessionIdOrHandle,
   resolveDispatchAssigneeParty
 } from '../../../../../../orchestration/addressing/orchestration-party'
 import { buildDispatchPreamble } from '../../../../../../orchestration/workers/launch/worker-dispatch-preamble'
@@ -29,7 +29,7 @@ type StructuredSession = Awaited<ReturnType<typeof createStructuredWorkerSession
  * PTY writes return queued/accepted; structured turns may stay held while agents start. Unobserved starts remain unknown, never torn down.
  * Busy chat tasks queue as cards, like input waiting in busy terminals. */
 export async function deliverWorkerDispatchPreamble(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   structuredSession: StructuredSession
   terminalHandle: string
@@ -60,14 +60,16 @@ export async function deliverWorkerDispatchPreamble(args: {
     taskId: args.taskId,
     dispatchId: args.dispatchId,
     taskSpec: args.taskSpec,
-    coordinatorHandle: orcaSessionIdOrHandle(args.coordinatorHandle, args.db),
+    coordinatorHandle: openkodoSessionIdOrHandle(args.coordinatorHandle, args.db),
     coordinatedFrom: args.db.getPeerRun(args.runId)?.home_label,
     // Its mailbox stays keyed by the handle; its commands name its OpenKodo session ID, which binds to it.
     workerHandle:
-      structuredSession && isOrcaSessionId(structuredSession.identity.sessionId)
-        ? formatOrcaSessionAddress(canonicalOrcaSessionId(structuredSession.identity.sessionId))
+      structuredSession && isOpenKodoSessionId(structuredSession.identity.sessionId)
+        ? formatOpenKodoSessionAddress(
+            canonicalOpenKodoSessionId(structuredSession.identity.sessionId)
+          )
         : chat
-          ? formatOrcaSessionAddress(chat)
+          ? formatOpenKodoSessionAddress(chat)
           : terminalHandle,
     devMode: args.devMode,
     cliCommand: runtime.getTerminalOrchestrationCliCommand(terminalHandle),
@@ -183,7 +185,7 @@ function chatTaskTurnStart(delivery: ChatTaskDelivery): WorkerTurnStartObservati
 
 /** Who the task is from, for a worker whose chat shows the sender. */
 function workerTaskSource(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   dispatchId: string
   runId: string

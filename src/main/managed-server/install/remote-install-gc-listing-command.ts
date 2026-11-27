@@ -8,7 +8,7 @@ import { quotePosixShell } from '../../../shared/shell/launch/shell-argument-quo
 
 export const MAX_REMOTE_INSTALL_GC_LISTING_ENTRIES = 64
 
-/** Scope both listing glob and validation regex by install model so orcad GC never even receives legacy relay directory names. */
+/** Scope both listing glob and validation regex by install model so openkodod GC never even receives legacy relay directory names. */
 export function listRemoteInstallBaseDirsCommand(
   host: RemoteHostPlatform,
   baseDir: string,

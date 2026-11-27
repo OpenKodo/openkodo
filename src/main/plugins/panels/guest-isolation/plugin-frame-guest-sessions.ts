@@ -159,7 +159,9 @@ function ensureSession(frameKey: string): Promise<Session> {
 
 // Why the app path: resources/ ships inside app.asar, and dev and e2e run from the checkout.
 function readDeclarativeRuntime(): Promise<Uint8Array> {
-  return readFile(join(app.getAppPath(), 'resources', 'plugins', 'declarative', 'orca-runtime.mjs'))
+  return readFile(
+    join(app.getAppPath(), 'resources', 'plugins', 'declarative', 'openkodo-runtime.mjs')
+  )
 }
 
 /** The URL a contribution's guest loads: its HTML entry, or OpenKodo's host page for a module. */
@@ -244,7 +246,7 @@ setPluginFrameGuestHooks({ admit: admitAttach, attach: attachGuest })
 function hasFramePartition(frameKey: string): boolean {
   return (
     sessionsByKey.has(frameKey) ||
-    existsSync(join(app.getPath('userData'), 'Partitions', `orca-plugin-${frameKey}`))
+    existsSync(join(app.getPath('userData'), 'Partitions', `openkodo-plugin-${frameKey}`))
   )
 }
 

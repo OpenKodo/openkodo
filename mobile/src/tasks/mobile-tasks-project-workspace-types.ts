@@ -1,4 +1,4 @@
-import type { OrcaHookTrustPrompt } from '../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../components/hook-trust/OpenKodoHookTrustDrawer'
 import type {
   GitHubWorkItem,
   GitLabWorkItem,
@@ -119,8 +119,8 @@ export type WorkspaceCreateArgs = {
 
 export type HostedStartPoint = { baseBranch: string; pushTarget?: GitPushTarget }
 
-export type OrcaYamlTrustPrompt = WorkspaceCreateArgs &
-  OrcaHookTrustPrompt & {
+export type OpenKodoYamlTrustPrompt = WorkspaceCreateArgs &
+  OpenKodoHookTrustPrompt & {
     /** The workspace exists; only its skipped setup is under review. Opening it ends the review. */
     created?: { worktreeId: string; open: (notice?: string) => void }
     /** An approval is saving or running; the drawer stays busy and ignores other choices. */
@@ -147,7 +147,7 @@ export function workspaceAgentIconId(agent: WorkspaceAgentChoice): string {
   return agent === 'blank' ? '__blank__' : agent
 }
 
-export type ProjectRepoNotInOrcaPrompt = {
+export type ProjectRepoNotInOpenKodoPrompt = {
   owner: string
   repo: string
   url: string | null

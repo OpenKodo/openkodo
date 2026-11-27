@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import '../shared/env/legacy-brand-env-auto'
 import './runtime/app-launch/packaged-cli-interpreter'
 import {
   findCommandSpec,
@@ -10,7 +9,7 @@ import {
   validateCommandAndFlags
 } from './arguments/args'
 import { specPaths } from './discovery/command-spec'
-import { readOrcaCliVersion } from './cli-version'
+import { readOpenKodoCliVersion } from './cli-version'
 import { dispatch } from './dispatch/dispatch'
 import {
   resolveEnvironmentSelectorForStore,
@@ -59,7 +58,7 @@ export async function main(
   await resolveOpenKodoHome()
   // Why: version audits use the bundled launcher; Electron intercepts direct binary version flags.
   if (argv.length === 1 && (argv[0] === '--version' || argv[0] === '-v')) {
-    const version = readOrcaCliVersion()
+    const version = readOpenKodoCliVersion()
     if (!version) {
       process.stderr.write('Could not determine the OpenKodo version for this build.\n')
       process.exitCode = 1
@@ -130,9 +129,9 @@ export async function main(
     await refuseLocalManagementSelector(parsed.commandPath, parsed.flags)
     const RuntimeClientClass = await loadRuntimeClientClass()
     // `--on` runs on the caller's own OpenKodo, which reaches that server; an inherited selection never reroutes it.
-    const onCallersOrca = runsOnCallersOrca(parsed.commandPath, parsed.flags)
+    const onCallersOpenKodo = runsOnCallersOpenKodo(parsed.commandPath, parsed.flags)
     if (
-      onCallersOrca &&
+      onCallersOpenKodo &&
       (parsed.flags.has('pairing-code') ||
         (parsed.flags.has('environment') &&
           !isLocalEnvironmentSelector(parsed.flags.get('environment'))))
@@ -142,7 +141,7 @@ export async function main(
         '--on already names the server; drop --environment. Your own OpenKodo reaches it.'
       )
     }
-    const ignoreRemoteSelection = onCallersOrca || ignoresRemoteSelection(parsed.commandPath)
+    const ignoreRemoteSelection = onCallersOpenKodo || ignoresRemoteSelection(parsed.commandPath)
     const pairingCode = ignoreRemoteSelection ? null : parsed.flags.get('pairing-code')
     const environmentSelector = ignoreRemoteSelection ? null : parsed.flags.get('environment')
     // An explicit local route suppresses ambient OPENKODO_ENVIRONMENT and pairing codes.
@@ -234,7 +233,7 @@ export async function main(
 
 const ON_CALLERS_OPENKODO_COMMANDS: ReadonlySet<string> = new Set(['send', 'reply', 'worker-start'])
 
-function runsOnCallersOrca(
+function runsOnCallersOpenKodo(
   commandPath: readonly string[],
   flags: ReadonlyMap<string, string | boolean>
 ): boolean {

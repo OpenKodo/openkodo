@@ -5,8 +5,8 @@ export function nodeServerTestPaths() {
     'src/main/persistence/profile-state',
     'src/main/persistence/loading-store/profile-writing/profile-state',
     'src/main/sqlite',
-    // The orcad server's identity and stop path, which Windows SSH hosts rely on (W2).
-    'src/main/orcad/instance-lock/orcad-instance-lock.test.ts',
+    // The openkodod server's identity and stop path, which Windows SSH hosts rely on (W2).
+    'src/main/openkodod/instance-lock/openkodod-instance-lock.test.ts',
     // The directory, not a prefix: its siblings are POSIX-host unit tests pr.yml already runs.
     'src/main/daemon/pty-subprocess/conpty-startup-input-reader.ts',
     'src/main/daemon/pty-subprocess/daemon-pty-physical-owner.ts',

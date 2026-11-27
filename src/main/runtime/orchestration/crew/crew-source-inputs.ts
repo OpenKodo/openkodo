@@ -73,7 +73,7 @@ export function createCrewSourceInputs(db: OrchestrationDb | null, capacity = ()
         for (const key of [
           row.handle,
           row.pane ? paneKey(row.pane) : null,
-          row.session ? `orca_session_id:${row.session}` : null,
+          row.session ? `openkodo_session_id:${row.session}` : null,
           `dispatch:${row.id}`
         ]) {
           index(claimsByKey, key, id)
@@ -187,7 +187,7 @@ export function createCrewSourceInputs(db: OrchestrationDb | null, capacity = ()
     return value
   }
   const ownedRuns = (party: OrchestrationCoordinatorKey) => {
-    const key = JSON.stringify([party.terminalHandle, party.orcaSessionId, party.paneKey])
+    const key = JSON.stringify([party.terminalHandle, party.openkodoSessionId, party.paneKey])
     return (
       owned.get(key) ??
       retain(owned, key, db ? readCrewOwnedRunAddresses(db, party, legacyOwner) : [])

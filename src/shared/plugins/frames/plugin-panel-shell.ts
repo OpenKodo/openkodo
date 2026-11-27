@@ -31,7 +31,7 @@ export const PLUGIN_PANEL_CSP =
 /** Renderer fills theme/tokens before mounting srcdoc; main cannot know the active presentation values. */
 export const PANEL_SHELL_TOKENS_PLACEHOLDER = '/*__OPENKODO_PANEL_TOKENS__*/'
 export const PANEL_SHELL_COLOR_SCHEME_PLACEHOLDER = '__OPENKODO_COLOR_SCHEME__'
-const PANEL_SHELL_TOKENS_STYLE_ID = 'orca-design-tokens'
+const PANEL_SHELL_TOKENS_STYLE_ID = 'openkodo-design-tokens'
 
 export type PluginFrameSurface = 'panel' | 'editor'
 
@@ -39,7 +39,7 @@ export type PluginFrameSurface = 'panel' | 'editor'
  *  a declarative host page also gets OpenKodo's boot script a way to post `ui.*` events. */
 type FrameTransport = 'parent' | 'guest' | 'declarative-guest'
 
-/** The frozen `window.orca` every frame gets before plugin code runs: the public frame API.
+/** The frozen `window.openkodo` every frame gets before plugin code runs: the public frame API.
  *  The envelope underneath is internal. `api` and `has` start from this host's table, so they work
  *  synchronously; `hello` confirms them and carries the theme. */
 function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport): string {
@@ -53,7 +53,7 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
     events: FRAME_EVENTS,
     editor: EDITOR_METHODS,
     // Iframes get no user-gesture API at all: OpenKodo cannot verify their gestures. A components
-    // panel's hidden guest never has activation; its `orca` module routes these through the
+    // panel's hidden guest never has activation; its `openkodo` module routes these through the
     // press grant with host.call instead.
     user: transport === 'guest' ? PLUGIN_FRAME_USER_METHODS : null,
     tokensStyleId: PANEL_SHELL_TOKENS_STYLE_ID,
@@ -92,7 +92,7 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
       if (event.source === parent) receive(event.data)
     })
   }
-  function post(message) { send(Object.assign({ orca: C.protocol }, message)) }
+  function post(message) { send(Object.assign({ openkodo: C.protocol }, message)) }
   function failure(error) {
     var e = new Error(String(error && error.message || 'host call failed'))
     e.code = C.codes.indexOf(error && error.code) >= 0 ? error.code : 'action_failed'
@@ -107,7 +107,7 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
     }) : []
   }
   function on(name, fn) {
-    if (typeof fn !== 'function') throw new TypeError('orca.on needs a handler')
+    if (typeof fn !== 'function') throw new TypeError('openkodo.on needs a handler')
     var set = listeners.get(name) || new Set()
     listeners.set(name, set)
     var entry = function (payload) { return fn(payload) }
@@ -161,7 +161,7 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
     emit('theme', { colorScheme: theme.colorScheme })
   }
   function receive(m) {
-    if (!m || m.orca !== C.protocol) return
+    if (!m || m.openkodo !== C.protocol) return
     if (m.kind === 'res') {
       var settle = pending.get(m.id)
       if (settle) { pending.delete(m.id); settle(m) }
@@ -193,7 +193,7 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
       })
     }
   }
-  var orca = {
+  var openkodo = {
     host: Object.freeze({
       call: call,
       has: function (method) { return methods.indexOf(method) >= 0 }
@@ -201,10 +201,10 @@ function frameApiScript(surface: PluginFrameSurface, transport: FrameTransport):
     on: on
   }
 ${PLUGIN_FRAME_FACADES_SCRIPT}  if (C.user) {
-    orca.shell = Object.freeze({
+    openkodo.shell = Object.freeze({
       openExternal: function (url) { return userCall(C.user.openExternal, { url: String(url) }) }
     })
-    orca.files = Object.freeze({
+    openkodo.files = Object.freeze({
       saveAs: function (options) {
         var o = options || {}
         var data = ArrayBuffer.isView(o.data)
@@ -219,8 +219,8 @@ ${PLUGIN_FRAME_FACADES_SCRIPT}  if (C.user) {
       }
     })
   }
-  Object.defineProperty(orca, 'api', { get: function () { return api }, enumerable: true })
-  Object.defineProperty(orca, 'locale', {
+  Object.defineProperty(openkodo, 'api', { get: function () { return api }, enumerable: true })
+  Object.defineProperty(openkodo, 'locale', {
     get: function () { return locale || navigator.language }, enumerable: true
   })
 ${PLUGIN_FRAME_DOCUMENT_SCRIPT}  if (C.surface === 'editor') {
@@ -232,7 +232,7 @@ ${PLUGIN_FRAME_DOCUMENT_SCRIPT}  if (C.surface === 'editor') {
       } })
     }, true)
   }
-  Object.defineProperty(window, 'orca', { value: Object.freeze(orca), writable: false, configurable: false })
+  Object.defineProperty(window, 'openkodo', { value: Object.freeze(openkodo), writable: false, configurable: false })
   if (C.declarativePost) {
     // One-shot for OpenKodo's boot script, which deletes it before importing the plugin module.
     Object.defineProperty(window, C.declarativePost, { configurable: true, value: function (event, payload) {

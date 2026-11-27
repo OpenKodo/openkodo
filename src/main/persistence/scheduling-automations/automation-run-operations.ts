@@ -9,7 +9,7 @@ import type {
   AutomationRunsPage,
   AutomationRunTrigger
 } from '../../../shared/automations/history/automation-run'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { runHasEvent, type AutomationRunEvent } from '../../../shared/automation-event-triggers'
 import {
   nextAutomationRunNumber,

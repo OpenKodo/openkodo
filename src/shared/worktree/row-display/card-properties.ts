@@ -1,5 +1,5 @@
 import type { GlobalSettings } from '../../settings/global-settings-types'
-import type { PersistedUIState } from '../../orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../openkodo-profiles/persisted-ui-state-types'
 import type { WorktreeCardMode, WorktreeCardProperty } from '../../ui-chrome/ui-chrome-types'
 
 const FIXED_WORKTREE_CARD_PROPERTIES: WorktreeCardProperty[] = ['status', 'unread']

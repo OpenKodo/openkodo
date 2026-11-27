@@ -13,7 +13,7 @@ import {
   type PluginManifest
 } from '../../../shared/plugins/manifest/plugin-manifest'
 import { isQualifiedPluginKey } from '../../../shared/plugins/frames/plugin-tab-key'
-import { satisfiesOrcaEngineRange } from '../../../shared/plugins/manifest/plugin-manifest-engine-range'
+import { satisfiesOpenKodoEngineRange } from '../../../shared/plugins/manifest/plugin-manifest-engine-range'
 import {
   localPluginPublisher,
   withPluginPublisher
@@ -129,11 +129,11 @@ async function readManifestDir(
   )
   const pluginKey = qualifiedPluginKey(manifest)
   logPluginManifestWarnings(rootDir, pluginKey, parsed.warnings ?? [])
-  if (!satisfiesOrcaEngineRange(hostVersion, manifest.engines.orca)) {
+  if (!satisfiesOpenKodoEngineRange(hostVersion, manifest.engines.openkodo)) {
     return {
       pluginKey,
       rootDir,
-      error: `requires OpenKodo ${manifest.engines.orca} (this is ${hostVersion})`,
+      error: `requires OpenKodo ${manifest.engines.openkodo} (this is ${hostVersion})`,
       isDev
     }
   }

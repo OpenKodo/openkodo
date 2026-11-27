@@ -19,7 +19,7 @@ export const MUSE_MANAGED_HOOK_ENV_VARS = [
   'USERPROFILE'
 ] as const
 
-export function hasOrcaEnvVars(config: Record<string, unknown>): boolean {
+export function hasOpenKodoEnvVars(config: Record<string, unknown>): boolean {
   const names: readonly unknown[] = MUSE_MANAGED_HOOK_ENV_VARS
   const listed = config.managed_hooks_env_vars
   return Array.isArray(listed) && listed.some((name) => names.includes(name))
@@ -91,7 +91,7 @@ export function serializeMuseSettings(
   }
   const existing = current?.managed_hooks_env_vars
   const listed = Array.isArray(existing) ? existing : []
-  const orcaNames: readonly string[] = MUSE_MANAGED_HOOK_ENV_VARS
+  const openkodoNames: readonly string[] = MUSE_MANAGED_HOOK_ENV_VARS
   // Removal keeps only names the user added; an emptied list goes with OpenKodo's pointer.
   const nextNames =
     managedHooksPath !== undefined
@@ -101,7 +101,7 @@ export function serializeMuseSettings(
             ...MUSE_MANAGED_HOOK_ENV_VARS
           ])
         ]
-      : listed.filter((value) => typeof value !== 'string' || !orcaNames.includes(value))
+      : listed.filter((value) => typeof value !== 'string' || !openkodoNames.includes(value))
   const nextValue = managedHooksPath === undefined && nextNames.length === 0 ? undefined : nextNames
   if (
     (managedHooksPath !== undefined || Array.isArray(existing)) &&

@@ -264,5 +264,5 @@ export function botMentionContext(
       : ''
     return `${who} The user picked one of its chats${titled}. To ask that chat, run \`openkodo orchestration send --to ${address} --chat ${chat.id} --type question|handoff --subject … --body …\`; if that send is refused, tell the user and don't send it to any other chat; don't message it unless asked.`
   })
-  return `<orca_context>${lines.join('\n')}</orca_context>`
+  return `<openkodo_context>${lines.join('\n')}</openkodo_context>`
 }

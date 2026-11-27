@@ -133,7 +133,7 @@ describe('Claude profile namespace', () => {
   })
   it('refuses a data root inside the default Claude home', () => {
     const userHome = root()
-    const dataRoot = join(userHome, '.claude', 'orca')
+    const dataRoot = join(userHome, '.claude', 'openkodo')
     expect(() =>
       prepareClaudeProfileDirectory(dataRoot, describeClaudeProfile(dataRoot, 'a', local), userHome)
     ).toThrow('separate directories')
@@ -142,7 +142,7 @@ describe('Claude profile namespace', () => {
   it.runIf(caseInsensitive)('refuses a case-only alias of the default home', () => {
     const userHome = root()
     mkdirSync(join(userHome, '.claude'))
-    const dataRoot = join(userHome, '.CLAUDE', 'orca')
+    const dataRoot = join(userHome, '.CLAUDE', 'openkodo')
     expect(() =>
       prepareClaudeProfileDirectory(dataRoot, describeClaudeProfile(dataRoot, 'a', local), userHome)
     ).toThrow('separate directories')

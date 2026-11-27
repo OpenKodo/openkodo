@@ -1,5 +1,5 @@
 import type { ProviderProcessSpawner } from '../../provider-process/provider-process-spawn'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { spawnManagedProviderProcess } from '../../provider-process/managed-provider-process'
 import { awaitProviderChildSpawn } from '../../provider-process/provider-child'
 import { createClaudeChildTreeReaper } from '../../claude/child-process/claude-agent-sdk-exit-proof'

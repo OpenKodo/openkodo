@@ -1,6 +1,6 @@
 import React from 'react'
 import { defineFixture } from '../../../../component-fixtures/component-fixture'
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import type { PublicKnownRuntimeEnvironment } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { NewWorkspaceProjectOption } from '@/lib/workspace/creation/new-workspace-project-options'
 import type { ProjectHostSetupOption } from '@/lib/workspace/creation/project-host-setup-options'
@@ -17,7 +17,7 @@ const ubuntuRuntime: PublicKnownRuntimeEnvironment = {
   runtimeId: null,
   preferredEndpointId: 'default',
   endpoints: [],
-  orcadDeployment: {
+  openkododDeployment: {
     kind: 'wsl',
     distro: 'Ubuntu-24.04',
     localPort: 4100,
@@ -27,7 +27,7 @@ const ubuntuRuntime: PublicKnownRuntimeEnvironment = {
 
 const multiHostStore = {
   settings: {
-    ...getDefaultSettings('/Users/alice/orca'),
+    ...getDefaultSettings('/Users/alice/openkodo'),
     experimentalWslHosts: true
   },
   hostLabelOverrides: new Map([['local', 'Local Mac']] as const),
@@ -67,9 +67,9 @@ const multiHostStore = {
 const composerProjects: NewWorkspaceProjectOption[] = [
   {
     kind: 'project',
-    id: 'orca',
-    projectId: 'orca',
-    displayName: 'orca',
+    id: 'openkodo',
+    projectId: 'openkodo',
+    displayName: 'openkodo',
     badgeColor: 'var(--muted-foreground)',
     detail: 'OpenKodo/openkodo'
   },
@@ -87,22 +87,22 @@ const composerHosts: ProjectHostSetupOption[] = [
   {
     kind: 'ready',
     id: 'setup-local',
-    projectId: 'orca',
-    repoId: 'orca-local',
+    projectId: 'openkodo',
+    repoId: 'openkodo-local',
     hostId: 'local',
     label: 'Local Mac',
     detail: 'Local',
-    path: '/Users/alice/orca'
+    path: '/Users/alice/openkodo'
   },
   {
     kind: 'ready',
     id: 'setup-ubuntu',
-    projectId: 'orca',
-    repoId: 'orca-ubuntu',
+    projectId: 'openkodo',
+    repoId: 'openkodo-ubuntu',
     hostId: 'runtime:wsl-ubuntu',
     label: 'Ubuntu-24.04',
     detail: 'WSL',
-    path: '/home/alice/orca'
+    path: '/home/alice/openkodo'
   }
 ]
 
@@ -132,7 +132,7 @@ function ComposerRunOnUbuntuFrame(): React.JSX.Element {
         selectedRepoRequiresConnection={false}
         selectedRepoConnectInProgress={false}
         projectOptions={composerProjects}
-        selectedProjectId="orca"
+        selectedProjectId="openkodo"
         onProjectChange={() => {}}
         projectDescriptionId="fixture-composer-project-desc"
         onAddProject={() => {}}
@@ -152,7 +152,7 @@ function ComposerRunOnUbuntuFrame(): React.JSX.Element {
         onConnectSelectedRepo={async () => {}}
         sshStatusLabel="Connected"
         connectButtonLabel="Connect"
-        selectedProjectName="orca"
+        selectedProjectName="openkodo"
       />
     </div>
   )

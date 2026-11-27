@@ -6,7 +6,7 @@ import { prepareWslPrompt, stageLocalPromptFiles } from '../prompts/source-contr
 import { producePromptRecords } from '../prompts/source-control-prompt-producer'
 import { argumentBudgetFailure } from './source-control-command-line-budget'
 import { removeTree } from '../../../shared/file-write/windows-transient-lock-removal'
-import { WindowsCmdLineBreakError } from '@orca/process-host/windows-command-line'
+import { WindowsCmdLineBreakError } from '@openkodo/process-host/windows-command-line'
 import { WindowsCommandLineBudgetError } from '../../../shared/shell/launch/windows-command-line-budget'
 import {
   agentHostFailure,

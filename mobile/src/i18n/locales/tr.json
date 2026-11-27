@@ -493,7 +493,7 @@
       "greenLead": "CI başarılı:",
       "at": "commit"
     },
-    "orcaStop": {
+    "openkodoStop": {
       "canContinue": "Bu konuşmada devam edebilirsiniz.",
       "crash": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo beklenmedik biçimde durdu.",
       "quit": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo kapatıldı.",
@@ -2461,7 +2461,7 @@
       "updateStepsServiceManager": "Paket yöneticisi veya hizmet yöneticisiyle güncelleyin.",
       "updateStepsSourceCheckout": "Kaynak kodun bulunduğu Git çalışma kopyasından güncelleyin.",
       "updateStepsServer": "Sunucuda OpenKodo’yı güncelleyip yeniden başlatın.",
-      "orcaVersion": "OpenKodo sürümü"
+      "openkodoVersion": "OpenKodo sürümü"
     }
   },
   "hostScreen": {
@@ -3797,7 +3797,7 @@
       "cannotRunHere": "OpenKodo bu ajanı burada bir sohbette çalıştıramıyor.",
       "capacity": "Bu sohbeti çalıştıran bilgisayardaki OpenKodo istek sınırına ulaştı. O bilgisayarda OpenKodo'yı güncelleyip yeniden deneyin.",
       "chatNotFound": "OpenKodo'da bu sohbet bulunamadı.",
-      "chatSavedByNewerOrca": "Bu sohbet daha yeni bir OpenKodo sürümüyle kaydedilmiş.",
+      "chatSavedByNewerOpenKodo": "Bu sohbet daha yeni bir OpenKodo sürümüyle kaydedilmiş.",
       "clearAfterAnswer": "Ajanın sorusuna veya onay isteğine yanıt verin, ardından /clear komutunu çalıştırın.",
       "clearAfterRetry": "Önceki mesajınızı yeniden göndermeyi deneyin, ardından /clear komutunu çalıştırın.",
       "clearAfterSending": "Önceki mesajınız hâlâ gönderiliyor. Gönderildikten sonra /clear komutunu çalıştırın.",
@@ -3847,7 +3847,7 @@
       "restartFailed": "Ajan yeniden başlatılamadı.",
       "runClearWhenDone": "Tamamlandığında /clear komutunu çalıştırın.",
       "runCompactWhenDone": "Tamamlandığında /compact komutunu çalıştırın.",
-      "savedByNewerOrca": "Sohbetler daha yeni bir OpenKodo sürümüyle kaydedildi.",
+      "savedByNewerOpenKodo": "Sohbetler daha yeni bir OpenKodo sürümüyle kaydedildi.",
       "sendOutcomeLost": "OpenKodo mesajınızın ajana ulaştığını doğrulayamadı. Sohbeti kontrol edip gerekirse yeniden gönderin.",
       "settleEarlierMessage": "Önceki mesajınızın iletilmesini bekleyin veya yeniden deneyin.",
       "shortenMessage": "Kısaltın veya bölün, ardından yeniden gönderin.",
@@ -3859,8 +3859,8 @@
       "turnActive": "Ajan hâlâ yanıt veriyor.",
       "unreachable": "OpenKodo ajana ulaşamadı.",
       "unsupported": "Bu işlem, sohbetin çalıştığı bilgisayarda daha yeni bir OpenKodo sürümü gerektiriyor. Oradaki OpenKodo'yı güncelleyip tekrar deneyin.",
-      "updateOrcaToKeepUsing": "Kullanmaya devam etmek için OpenKodo'yı güncelleyin.",
-      "updateOrcaToOpenChat": "Açmak için OpenKodo'yı güncelleyin.",
+      "updateOpenKodoToKeepUsing": "Kullanmaya devam etmek için OpenKodo'yı güncelleyin.",
+      "updateOpenKodoToOpenChat": "Açmak için OpenKodo'yı güncelleyin.",
       "waitForBackgroundTasks": "Arka plan görevlerinin tamamlanmasını bekleyin.",
       "waitForCommand": "/compact veya /clear işleminin tamamlanmasını bekleyin.",
       "waitForStart": "Ajanın başlatılmasının tamamlanmasını bekleyin.",
@@ -3954,7 +3954,7 @@
       "pointsAndColumns": "{{points}} · {{count}} sütun",
       "moreTerminal": "Diğer terminal ayarları"
     },
-    "orcaCommands": {
+    "openkodoCommands": {
       "desktopOnly": "Masaüstü uygulamasında kullanılabilir"
     },
     "browserProfile": {
@@ -3988,7 +3988,7 @@
       "outsideWorkspace": "Bu dosya çalışma alanının dışında. Görüntülemek için masaüstü uygulamasında açın."
     },
     "linkActionSheet": {
-      "openInOrca": "OpenKodo tarayıcısında aç",
+      "openInOpenKodo": "OpenKodo tarayıcısında aç",
       "openInBrowser": "Sistem tarayıcısında aç",
       "copyLink": "Bağlantıyı kopyala"
     },
@@ -5124,7 +5124,7 @@
       "projectSubtitle": "GitHub Projesi · {{repository}}{{itemNumber}}",
       "pullRequest": "Pull request",
       "reopenItem": "Öğeyi yeniden aç",
-      "repositoryNotInOrca": "Repository OpenKodo'da değil",
+      "repositoryNotInOpenKodo": "Repository OpenKodo'da değil",
       "status": "Durum",
       "type": "Tür",
       "workspaceCreationRequirement": "Çalışma alanları yalnızca GitHub sorunlarından ve pull request'lerinden oluşturulabilir."
@@ -6007,7 +6007,7 @@
       "reorder": "Yeniden sırala…"
     },
     "list": {
-      "updateOrcaOn": "{{host}} üzerindeki OpenKodo'yı güncelle",
+      "updateOpenKodoOn": "{{host}} üzerindeki OpenKodo'yı güncelle",
       "cantReach": "{{host}} yanıt vermiyor. Yeniden bağlandığında botları görünür.",
       "noBotsYet": "Henüz bot yok.",
       "offline": "Çevrimdışı",
@@ -6216,8 +6216,8 @@
       "postAs": {
         "title": "Şu adla yayımla",
         "changeOn": "{{host}} üzerinde değiştir",
-        "orcaUser": "OpenKodo kullanıcısı",
-        "viaOrca": "{{name}} (OpenKodo aracılığıyla)",
+        "openkodoUser": "OpenKodo kullanıcısı",
+        "viaOpenKodo": "{{name}} (OpenKodo aracılığıyla)",
         "sample": "Ardından yayına alın",
         "linePlain": "OpenKodo’dan bir Slack ileti dizisini yanıtladığınızda {{name}} olarak paylaşılır.",
         "approve": "Slack’te onayla",
@@ -6524,8 +6524,8 @@
         "description": "{{bot}} botunun Gmail, Takvim ve Drive hesaplarınıza nasıl giriş yapacağını seçin.",
         "self": "Kendi sunucunuzda",
         "selfNote": "Kendi Google uygulamanız.",
-        "orca": "OpenKodo’da barındırılıyor",
-        "orcaNote": "Google ile oturum açın.",
+        "openkodo": "OpenKodo’da barındırılıyor",
+        "openkodoNote": "Google ile oturum açın.",
         "soon": "Yakında"
       },
       "importFromTeam": "Ekibinizin kurulum dosyasını içe aktarın",
@@ -6608,7 +6608,7 @@
       "chatOpenFailed": "{{name}} bu sohbeti açamadı. Bağlantıyı yeniden deneyin.",
       "unreachableSingle": "{{name}} ile bağlantı kurulamadı. Orada OpenKodo’nın çalıştığından emin olun ve yeniden deneyin.",
       "workspaceDeleted": "Bu sohbetin çalışma alanı {{name}} üzerinde silindi.",
-      "updateOrca": "OpenKodo’yı güncelle",
+      "updateOpenKodo": "OpenKodo’yı güncelle",
       "openRequestFailed": "İstek açılamadı",
       "botNotFound": "Bot bulunamadı",
       "openOn": "{{name}} öğesini şurada aç"
@@ -6638,7 +6638,7 @@
       "deleteBot": "Botu sil…",
       "accountChecking": "Kontrol ediliyor…",
       "signedOut": "OpenKodo oturumu kapatıldı",
-      "orcaAccount": "OpenKodo hesabı",
+      "openkodoAccount": "OpenKodo hesabı",
       "folder": "Klasör",
       "copyPath": "Yolu kopyala",
       "pathCopied": "Yol kopyalandı",
@@ -6832,7 +6832,7 @@
       },
       "blank": "Boş bot",
       "blankLine": "İlk sohbette bota görevini anlatın.",
-      "byOrca": "{{category}} · OpenKodo tarafından hazırlandı",
+      "byOpenKodo": "{{category}} · OpenKodo tarafından hazırlandı",
       "originTemplateNamed": "{{template}} şablonundan",
       "noMatch": "“{{query}}” ile eşleşen şablon yok",
       "pr-review": {

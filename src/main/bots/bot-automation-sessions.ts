@@ -5,7 +5,7 @@ import type { BotConversationActsFor } from '../runtime/orchestration/db/bot-req
 import { agentSessionSendBodyFingerprint } from '../../shared/agent-session/requests/structured-agent-session-send-mutation'
 import type { BotAutomationSessions } from '../automations/bot-automation-launch'
 import type { BotRunSend } from './bot-run-turn-watch'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { StructuredSessionTurnOutcome } from '../runtime/orchestration/turn-delivery/send-agent-turn'
 import {
   botMessageBody,
@@ -125,7 +125,9 @@ export function botAutomationSessions(
   }
 }
 
-export function runtimeBotAutomationSessions(runtime: OrcaRuntimeService): BotAutomationSessions {
+export function runtimeBotAutomationSessions(
+  runtime: OpenKodoRuntimeService
+): BotAutomationSessions {
   const sessions = botAutomationSessions({
     chats: runtimeBotChats(runtime),
     chatTakingMail: (bot, chatId) => botChatTakingMail(runtime, bot, chatId),

@@ -6,7 +6,7 @@ import { translate } from '@/i18n/i18n'
 import {
   OPENKODO_CONTEXT_MENU_PASTE_NAME,
   OPENKODO_CONTEXT_MENU_PASTE_PRIORITY,
-  runOrcaContextMenuPaste
+  runOpenKodoContextMenuPaste
 } from './monaco-context-menu-paste'
 
 let installed = false
@@ -24,7 +24,7 @@ export function installMonacoContextMenuPaste(monaco: typeof Monaco): void {
     OPENKODO_CONTEXT_MENU_PASTE_PRIORITY,
     OPENKODO_CONTEXT_MENU_PASTE_NAME,
     () =>
-      runOrcaContextMenuPaste({
+      runOpenKodoContextMenuPaste({
         getFocusedEditor: () =>
           monaco.editor.getEditors().find((candidate) => candidate.hasTextFocus()) ?? null,
         readClipboardText: (options) => window.api.ui.readClipboardText(options),

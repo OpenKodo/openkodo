@@ -3393,7 +3393,7 @@
         {
           "complete": "ui.set#2",
           "params": {
-            "trustedOrcaHooks": {
+            "trustedOpenKodoHooks": {
               "repo-1": {
                 "all": {
                   "approvedAt": 1767225600000
@@ -3518,7 +3518,7 @@
                 }
               },
               "setupRunPolicy": "run-by-default",
-              "source": "orca.yaml",
+              "source": "openkodo.yaml",
               "setupConfig": null,
               "archiveTrust": {
                 "contentHash": "archive-hash-1",
@@ -3536,7 +3536,7 @@
             "ok": true,
             "result": {
               "ui": {
-                "trustedOrcaHooks": {}
+                "trustedOpenKodoHooks": {}
               }
             }
           }
@@ -3551,7 +3551,7 @@
         {
           "complete": "ui.set#1",
           "params": {
-            "trustedOrcaHooks": {
+            "trustedOpenKodoHooks": {
               "repo-1": {
                 "all": {
                   "approvedAt": 1767225600000
@@ -3612,7 +3612,7 @@
                 }
               },
               "setupRunPolicy": "run-by-default",
-              "source": "orca.yaml",
+              "source": "openkodo.yaml",
               "setupConfig": null,
               "archiveTrust": {
                 "contentHash": "archive-hash-1",
@@ -3630,7 +3630,7 @@
             "ok": true,
             "result": {
               "ui": {
-                "trustedOrcaHooks": {
+                "trustedOpenKodoHooks": {
                   "repo-1": {
                     "all": {
                       "approvedAt": 1767225600000
@@ -6421,7 +6421,7 @@
             "activate": false,
             "clientMutationId": "resume-mutation-1",
             "env": {
-              "ORCA_RESUME": "1"
+              "OPENKODO_RESUME": "1"
             },
             "envToDelete": ["CODEX_HOME"],
             "launchAgent": "codex",
@@ -6479,7 +6479,7 @@
             "activate": false,
             "clientMutationId": "resume-mutation-1",
             "env": {
-              "ORCA_RESUME": "1"
+              "OPENKODO_RESUME": "1"
             },
             "envToDelete": ["CODEX_HOME"],
             "launchAgent": "codex",
@@ -6537,7 +6537,7 @@
             "activate": false,
             "clientMutationId": "resume-mutation-1",
             "env": {
-              "ORCA_RESUME": "1"
+              "OPENKODO_RESUME": "1"
             },
             "envToDelete": ["CODEX_HOME"],
             "launchAgent": "codex",
@@ -7566,8 +7566,8 @@
       "sites": ["mobile/src/settings/notification-display-test.tsx"],
       "schedules": [],
       "deviceStore": {
-        "orca:pushServiceNotificationsEnabled": "true",
-        "orca:hosts": "[{\"id\":\"host-1\",\"name\":\"Desk\",\"endpoint\":\"ws://desk.local:7777\",\"publicKeyB64\":\"AAAA\",\"lastConnected\":1700000000000}]"
+        "openkodo:pushServiceNotificationsEnabled": "true",
+        "openkodo:hosts": "[{\"id\":\"host-1\",\"name\":\"Desk\",\"endpoint\":\"ws://desk.local:7777\",\"publicKeyB64\":\"AAAA\",\"lastConnected\":1700000000000}]"
       },
       "deviceState": {
         "notificationPermissions": {
@@ -8190,7 +8190,7 @@
       "sites": ["mobile/src/notifications/mobile-notifications.ts"],
       "schedules": [],
       "deviceStore": {
-        "orca:hosts": "[{\"id\":\"host-1\",\"name\":\"Desk\",\"endpoint\":\"wss://desk.test\",\"publicKeyB64\":\"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=\",\"lastConnected\":1700000000000}]"
+        "openkodo:hosts": "[{\"id\":\"host-1\",\"name\":\"Desk\",\"endpoint\":\"wss://desk.test\",\"publicKeyB64\":\"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=\",\"lastConnected\":1700000000000}]"
       },
       "deviceState": {
         "notificationTray": [
@@ -8838,7 +8838,7 @@
       "sites": ["mobile/src/notifications/mobile-notifications.ts"],
       "schedules": [],
       "deviceStore": {
-        "orca:hosts": "[{\"id\":\"host-1\",\"name\":\"Desk\",\"endpoint\":\"wss://desk.test\",\"publicKeyB64\":\"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=\",\"lastConnected\":1700000000000}]"
+        "openkodo:hosts": "[{\"id\":\"host-1\",\"name\":\"Desk\",\"endpoint\":\"wss://desk.test\",\"publicKeyB64\":\"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=\",\"lastConnected\":1700000000000}]"
       },
       "deviceState": {
         "notificationTray": [

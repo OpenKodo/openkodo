@@ -2,7 +2,7 @@
 // Delivery; a plain check returns it with the Run's mail, as the pointer it was woken by names no Run.
 import type { MessageRow, MessageType } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationSessionCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import { formatMessageBanner } from '../../../../orchestration/mailbox/formatting/message-formatting'
 import type { CheckMailReconciliation } from './check-mail-reconciliation'
@@ -39,7 +39,7 @@ export function ownDirectMail(
 
 /** Takes the caller's own direct mail and adds it to the Run check's answer, in sequence order. */
 export async function withOwnDirectMail(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   reader: OrchestrationSessionCaller | undefined
   handle: string

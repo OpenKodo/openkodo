@@ -12,7 +12,9 @@ export function migratePortugueseUiLanguageOnLoad(
   return {
     uiLanguage:
       settings?.uiLanguagePortugueseMigrationApplied !== true &&
-      settings?.uiLanguage === 'plugin:stablyai.orca-portuguese/pt-BR'
+      typeof settings?.uiLanguage === 'string' &&
+      settings.uiLanguage.startsWith('plugin:') &&
+      settings.uiLanguage.endsWith('.openkodo-portuguese/pt-BR')
         ? 'pt'
         : normalizeUiLanguage(settings?.uiLanguage),
     uiLanguagePortugueseMigrationApplied: true

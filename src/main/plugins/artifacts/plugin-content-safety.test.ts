@@ -17,7 +17,7 @@ import { hashPluginTree } from './plugin-content-hash'
 const roots: string[] = []
 
 async function tempRoot(): Promise<string> {
-  const root = await mkdtemp(join(tmpdir(), 'orca-plugin-content-test-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-plugin-content-test-'))
   roots.push(root)
   return root
 }
@@ -34,7 +34,7 @@ function manifest(overrides: ManifestOverrides = {}): PluginManifest {
     publisher: 'samples',
     name: 'Demo',
     version: '1.0.0',
-    engines: { orca: '>=1.0.0' },
+    engines: { openkodo: '>=1.0.0' },
     pluginApi: 1,
     capabilities: [],
     ...manifestOverrides,

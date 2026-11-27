@@ -15,24 +15,24 @@ import {
   type WorktreeProofAccess
 } from './worktree-orphan-gitdir-proof'
 
-const OPENKODO_CREATION_SOURCES = new Set<NonNullable<WorktreeMeta['orcaCreationSource']>>([
+const OPENKODO_CREATION_SOURCES = new Set<NonNullable<WorktreeMeta['openkodoCreationSource']>>([
   'desktop',
   'runtime',
   'cli',
   'ssh'
 ])
 const OPENKODO_OWNED_PROVENANCE_META_KEYS = [
-  'orcaCreatedAt',
-  'orcaCreationSource',
-  'orcaCreationWorkspaceLayout',
+  'openkodoCreatedAt',
+  'openkodoCreationSource',
+  'openkodoCreationWorkspaceLayout',
   'automationProvenance',
   'cliProvenance',
   'creatorProvenance'
 ] as const
-type UnregisteredOrcaCleanupMeta = Pick<
+type UnregisteredOpenKodoCleanupMeta = Pick<
   WorktreeMeta,
-  | 'orcaCreatedAt'
-  | 'orcaCreationSource'
+  | 'openkodoCreatedAt'
+  | 'openkodoCreationSource'
   | 'createdAt'
   | 'createdWithAgent'
   | 'pushTarget'
@@ -156,14 +156,14 @@ export async function canSafelyRemoveOrphanedWorktreeDirectory(
   })
 }
 
-export function canCleanupUnregisteredOrcaWorktreeDirectory(args: {
-  meta: UnregisteredOrcaCleanupMeta | null | undefined
+export function canCleanupUnregisteredOpenKodoWorktreeDirectory(args: {
+  meta: UnregisteredOpenKodoCleanupMeta | null | undefined
 }): boolean {
-  if (hasCurrentOrcaCreationProvenance(args.meta)) {
+  if (hasCurrentOpenKodoCreationProvenance(args.meta)) {
     return true
   }
 
-  if (hasLegacyOrcaCreationEvidence(args.meta)) {
+  if (hasLegacyOpenKodoCreationEvidence(args.meta)) {
     return true
   }
 
@@ -171,18 +171,18 @@ export function canCleanupUnregisteredOrcaWorktreeDirectory(args: {
   return false
 }
 
-function hasCurrentOrcaCreationProvenance(
-  meta: Pick<WorktreeMeta, 'orcaCreatedAt' | 'orcaCreationSource'> | null | undefined
+function hasCurrentOpenKodoCreationProvenance(
+  meta: Pick<WorktreeMeta, 'openkodoCreatedAt' | 'openkodoCreationSource'> | null | undefined
 ): boolean {
   return (
-    typeof meta?.orcaCreatedAt === 'number' &&
-    !!meta.orcaCreationSource &&
-    OPENKODO_CREATION_SOURCES.has(meta.orcaCreationSource)
+    typeof meta?.openkodoCreatedAt === 'number' &&
+    !!meta.openkodoCreationSource &&
+    OPENKODO_CREATION_SOURCES.has(meta.openkodoCreationSource)
   )
 }
 
-function hasLegacyOrcaCreationEvidence(
-  meta: UnregisteredOrcaCleanupMeta | null | undefined
+function hasLegacyOpenKodoCreationEvidence(
+  meta: UnregisteredOpenKodoCleanupMeta | null | undefined
 ): boolean {
   return Boolean(
     meta?.createdAt ||
@@ -194,7 +194,7 @@ function hasLegacyOrcaCreationEvidence(
   )
 }
 
-export function stripOrcaProvenanceMetaUpdates(
+export function stripOpenKodoProvenanceMetaUpdates(
   updates: Partial<WorktreeMeta> | null | undefined
 ): Partial<WorktreeMeta> {
   const sanitized = { ...updates }

@@ -183,5 +183,5 @@ export function advanceGoogleConsole(
 
 /** The file name Share with teammates saves. */
 export function googleAppExportFileName(projectId: string | undefined): string {
-  return `${projectId ?? 'team'}-google-app.orca.json`
+  return `${projectId ?? 'team'}-google-app.openkodo.json`
 }

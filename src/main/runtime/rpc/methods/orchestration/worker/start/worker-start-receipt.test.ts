@@ -8,7 +8,7 @@ import { dispatchReportMailbox } from '../../../../../orchestration/workers/repo
 import { reportFailedWorkerStart } from '../../../../../orchestration/workers/turn-stops/failed-worker-start-report'
 import { settleRestartCutStart } from '../../../../../orchestration/workers/turn-stops/awaiting-worker-start-report'
 import { OrchestrationError } from '../../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { GitCommandTimeoutError } from '../../../../../../../shared/git/commands/git-command-timeout'
 import { failWorkerStartWithReceipt } from './worker-start-receipt'
 import { TerminalHostCapError } from '../../../../../../../shared/terminal/pty/lifecycle/terminal-host-cap-refusal'
@@ -53,7 +53,7 @@ describe('a worker start cut before its agent ran', () => {
   }
 
   function failStart(dispatchId: string, taskId: string, error: unknown) {
-    const runtime = stub<OrcaRuntimeService>({
+    const runtime = stub<OpenKodoRuntimeService>({
       notifyMessageArrived: () => {},
       reportUnconfirmedWorkerStart: async () => {}
     })

@@ -41,7 +41,7 @@ import {
   agentSessionCurrentContextBody,
   agentSessionCurrentContextRows
 } from '../conversation-context/agent-session-context-clear'
-import { nativeChatStatusTurnOutcome } from '../../native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import { nativeChatStatusTurnOutcome } from '../../native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 
 /** Anchor truncation markers at the end so body lookalikes remain content. */
 const BOUNDED_TEXT_MARKERS = [

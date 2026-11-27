@@ -1,7 +1,7 @@
 import { join, resolve as resolvePath } from 'node:path'
 import {
   getSystemCodexHomePath,
-  resolveOrcaManagedCodexHomePath
+  resolveOpenKodoManagedCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import { agentModelCatalogInputStamp } from '../../../native-chat/agent-model-catalog/agent-model-catalog-input-stamp'
 import {
@@ -113,7 +113,7 @@ export function createCodexModelCatalogProbe(
         env: launchDirectory ? envWithPathRelativeTo(env, launchDirectory) : env,
         configFiles: [
           join(
-            resolvePath(accountHomePath) === resolvePath(resolveOrcaManagedCodexHomePath())
+            resolvePath(accountHomePath) === resolvePath(resolveOpenKodoManagedCodexHomePath())
               ? getSystemCodexHomePath()
               : accountHomePath,
             'config.toml'

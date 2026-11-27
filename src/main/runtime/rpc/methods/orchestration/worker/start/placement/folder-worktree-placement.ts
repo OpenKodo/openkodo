@@ -1,9 +1,9 @@
 import { isFolderRepo } from '../../../../../../../../shared/repository/repo-kind'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../../../orchestration/orchestration-error'
 
 export async function assertOrchestrationWorktreeCreationSupported(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   repoSelector: string
   existingPlacement: string
 }): Promise<void> {
@@ -18,10 +18,12 @@ export async function assertOrchestrationWorktreeCreationSupported(args: {
 
 /** The existing workspace a worker reuses, or none once a new worktree's repo can host one. */
 export async function resolveExistingWorkerWorkspace(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   creationTarget: { repoSelector: string } | undefined,
   existingWorktree: string
-): Promise<Awaited<ReturnType<OrcaRuntimeService['showManagedTerminalWorkspace']>> | undefined> {
+): Promise<
+  Awaited<ReturnType<OpenKodoRuntimeService['showManagedTerminalWorkspace']>> | undefined
+> {
   if (!creationTarget) {
     return runtime.showManagedTerminalWorkspace(existingWorktree)
   }

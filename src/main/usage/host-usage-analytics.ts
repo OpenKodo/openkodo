@@ -4,7 +4,7 @@ type HostUsageAnalytics = (call: UsageCall) => Promise<unknown>
 
 let hostUsageAnalytics: HostUsageAnalytics | null = null
 
-/** Each host process has one usage service: the desktop's backend process or orcad's own. */
+/** Each host process has one usage service: the desktop's backend process or openkodod's own. */
 export function provideHostUsageAnalytics(analytics: HostUsageAnalytics): void {
   hostUsageAnalytics = analytics
 }

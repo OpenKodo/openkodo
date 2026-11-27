@@ -38,7 +38,7 @@ export const WORKSPACE_CATALOG_SAVE_DOMAINS: readonly string[] = [
   'deletedSshConfigAliases',
   'removedSshTargetTombstones',
   'sshPtyConsumerRecoveries',
-  'orcadMigrationStagedCatalogs'
+  'openkododMigrationStagedCatalogs'
 ]
 
 /** Undefined means a whole save, which may have changed any catalog domain. */

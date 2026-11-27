@@ -64,7 +64,7 @@ export class ClaudeAgentTeamsService {
       token,
       leaderPane,
       leaderHandle: args.leaderHandle,
-      sessionName: 'orca',
+      sessionName: 'openkodo',
       windowIndex: '0',
       tmuxValue,
       baseEnv: env,

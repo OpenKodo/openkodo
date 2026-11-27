@@ -20,7 +20,7 @@ import { translateHostDisplayLabel } from '../../runtime/hosts/display/execution
 import {
   expandEquivalentExecutionHostIds,
   pickerExecutionHosts
-} from '../../../../shared/execution-host/managed-orcad-execution-host'
+} from '../../../../shared/execution-host/managed-openkodod-execution-host'
 import { buildPaletteFilterOptionSearchText } from './palette-filter-option-list'
 
 export type PaletteFilterOption = {

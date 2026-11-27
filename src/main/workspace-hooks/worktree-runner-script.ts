@@ -33,7 +33,7 @@ import { buildPosixRunnerScript, buildWindowsRunnerScript } from './setup-runner
 
 import type { WorkspaceHookOwner } from '../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { WorktreeSetupLaunch } from '../../shared/worktree/creation/launch-types'
-import type { SetupAgentStartupPolicy } from '../../shared/workspace-setup/orca-yaml-hook-types'
+import type { SetupAgentStartupPolicy } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { ProjectExecutionRuntimeResolution } from '../../shared/execution-host/project-execution-runtime'
 
 type SetupRunnerShellSettings = Record<string, unknown> | undefined
@@ -177,7 +177,7 @@ async function resolveGitRunnerScriptPath(
 ): Promise<string> {
   const wslWorktree = isWslPath(worktreePath) || Boolean(runtimeTarget?.wslDistro)
   // Linked worktrees have .git files; resolve the per-worktree gitdir through Git.
-  const gitRelPath = `orca/${runnerBaseName}.${runnerExtension}`
+  const gitRelPath = `openkodo/${runnerBaseName}.${runnerExtension}`
   // Read the link with the D1c Git router (if WSL Git made the worktree, host Git can't). A worktree
   // inside a distro never runs synchronous Git: that would be a synchronous wsl.exe on the main thread.
   const fromLink = isWslPath(worktreePath)

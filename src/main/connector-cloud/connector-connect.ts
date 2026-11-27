@@ -1,8 +1,8 @@
 // "Connect in one trip" for Linear and GitHub: listen on 127.0.0.1, let the cloud send the browser
 // through sign-in (and install), then redeem the one-time result it hands back to this computer.
 import { randomBytes } from 'node:crypto'
-import { serveLoopbackCallback } from '../orca-profiles/cloud-auth/loopback-callback'
-import { orcaCallbackSuccessPage } from '../orca-profiles/cloud-auth/profile-cloud-callback-page'
+import { serveLoopbackCallback } from '../openkodo-profiles/cloud-auth/loopback-callback'
+import { openkodoCallbackSuccessPage } from '../openkodo-profiles/cloud-auth/profile-cloud-callback-page'
 import type { BotSlackResult } from '../../shared/connector-bot-slack-contract'
 import type { ConnectorConnectSource } from '../../shared/connectors/connector-cloud-contract'
 import {
@@ -169,7 +169,7 @@ export async function connectConnector(
       path: CONNECTOR_CONNECT_LOOPBACK_PATH,
       timeoutMs: CONNECT_TIMEOUT_MS,
       signal: controller.signal,
-      successPage: orcaCallbackSuccessPage(`Signed in to ${SOURCE_LABELS[source]}`),
+      successPage: openkodoCallbackSuccessPage(`Signed in to ${SOURCE_LABELS[source]}`),
       errors: FLOW_ERRORS,
       read: (url) => {
         const code = url.searchParams.get('r')

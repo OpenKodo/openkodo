@@ -56,8 +56,8 @@ async function main() {
   }
 
   const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-  const canary = `ORCA-CRASH-SENTINEL-${runId}`
-  const runDir = mkdtempSync(path.join(tmpdir(), `orca-win-crash-e2e-${runId}-`))
+  const canary = `OPENKODO-CRASH-SENTINEL-${runId}`
+  const runDir = mkdtempSync(path.join(tmpdir(), `openkodo-win-crash-e2e-${runId}-`))
   const userDataDir = path.join(runDir, 'userData')
   const shellPidFile = path.join(runDir, 'shell.pid')
   const reattachFile = path.join(runDir, 'reattach.txt')

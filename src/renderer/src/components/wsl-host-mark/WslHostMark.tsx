@@ -9,7 +9,7 @@ import { cn } from '@/lib/class-names'
 import { parseExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import {
   isWslHostRuntimeEnvironment,
-  type OrcadDeploymentLink
+  type OpenkododDeploymentLink
 } from '../../../../shared/remote-runtime/host-catalog/runtime-environments'
 
 /** The distro a WSL host runs in; null for any other host, including an unknown runtime id. */
@@ -18,7 +18,7 @@ export function selectWslHostDistro(
     /** Optional: some list builders run before the environments load. */
     runtimeEnvironments?: readonly {
       id: string
-      orcadDeployment?: OrcadDeploymentLink | null
+      openkododDeployment?: OpenkododDeploymentLink | null
     }[]
   },
   hostId: string | null | undefined
@@ -31,7 +31,7 @@ export function selectWslHostDistro(
     (candidate) => candidate.id === host.environmentId
   )
   return environment && isWslHostRuntimeEnvironment(environment)
-    ? environment.orcadDeployment.distro
+    ? environment.openkododDeployment.distro
     : null
 }
 

@@ -104,7 +104,7 @@ export function BrowserToolbarZoomRow({
   )
 }
 
-const MATCH_OPENKODO_VALUE = 'orca'
+const MATCH_OPENKODO_VALUE = 'openkodo'
 
 export function BrowserToolbarAppearanceSub({
   browserPageId,
@@ -132,7 +132,7 @@ export function BrowserToolbarAppearanceSub({
           >
             <DropdownMenuRadioItem value={MATCH_OPENKODO_VALUE}>
               {t(
-                'auto.components.browser.pane.BrowserToolbarMenu.appearanceMatchOrca',
+                'auto.components.browser.pane.BrowserToolbarMenu.appearanceMatchOpenKodo',
                 'Match OpenKodo'
               )}
             </DropdownMenuRadioItem>

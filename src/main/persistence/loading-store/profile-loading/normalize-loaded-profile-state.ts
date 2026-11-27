@@ -4,9 +4,9 @@ import type { SshRemotePtyLease } from '../../../../shared/remote-runtime/ssh/ss
 import { normalizeFeatureInteractionTelemetryBuckets } from '../../../../shared/feature-education/interactions/feature-interactions'
 import { normalizeFolderWorkspaceDiffComments } from '../../../workspaces/catalog/folder-workspace-diff-comments'
 import { normalizeFolderWorkspaces } from '../../../../shared/folder-workspaces/folder-workspaces'
-import { normalizeOrcadMigrationEvictedReceipts } from '../../../../shared/orcad-migration/orcad-migration-evicted-receipts'
-import { normalizeOrcadMigrationImportReceipts } from '../../../../shared/orcad-migration/orcad-migration-manifest-validation'
-import { normalizeOrcadMigrationStagedCatalogs } from '../../../../shared/orcad-migration/orcad-migration-staged-catalog-validation'
+import { normalizeOpenkododMigrationEvictedReceipts } from '../../../../shared/openkodod-migration/openkodod-migration-evicted-receipts'
+import { normalizeOpenkododMigrationImportReceipts } from '../../../../shared/openkodod-migration/openkodod-migration-manifest-validation'
+import { normalizeOpenkododMigrationStagedCatalogs } from '../../../../shared/openkodod-migration/openkodod-migration-staged-catalog-validation'
 import { normalizeWorkspaceLineageByChildKey } from '../../applying-settings/ui-interaction-merge'
 import { dropInferredParentsOverFolderParents } from '../workspace-lineage/folder-parent-lineage-persistence'
 import { normalizeCrossStoreLineageByChildKey } from '../../../../shared/worktree/lineage/cross-store-lineage-records'
@@ -27,7 +27,7 @@ import {
   normalizeLegacyPaneKeyAliasEntries,
   normalizeMigrationUnsupportedPtyEntries
 } from '../../restoring-sessions/pane-alias-normalization'
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
 import type { PreparedLoadedTerminalSettings } from './prepare-loaded-terminal-settings'
 import type { PreparedLoadedProfileSettings } from './prepare-loaded-profile-settings'
 import { normalizeLoadedGlobalSettings } from './normalize-loaded-global-settings'
@@ -212,14 +212,14 @@ export function normalizeLoadedProfileState(
               }
             : {})
         }),
-    orcadMigrationImportReceipts: normalizeOrcadMigrationImportReceipts(
-      parsed.orcadMigrationImportReceipts
+    openkododMigrationImportReceipts: normalizeOpenkododMigrationImportReceipts(
+      parsed.openkododMigrationImportReceipts
     ),
-    orcadMigrationEvictedReceipts: normalizeOrcadMigrationEvictedReceipts(
-      parsed.orcadMigrationEvictedReceipts
+    openkododMigrationEvictedReceipts: normalizeOpenkododMigrationEvictedReceipts(
+      parsed.openkododMigrationEvictedReceipts
     ),
-    orcadMigrationStagedCatalogs: normalizeOrcadMigrationStagedCatalogs(
-      parsed.orcadMigrationStagedCatalogs
+    openkododMigrationStagedCatalogs: normalizeOpenkododMigrationStagedCatalogs(
+      parsed.openkododMigrationStagedCatalogs
     ),
     onboarding: normalizedOnboarding
   }

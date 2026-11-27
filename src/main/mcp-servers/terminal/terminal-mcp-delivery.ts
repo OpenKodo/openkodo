@@ -42,7 +42,7 @@ export type TerminalMcpLaunch = {
   /** Set when the agent runs in a WSL distro (null: the default one). */
   wsl?: {
     distro: string | null
-    /** Its servers that run the guest's `orca`, which reaches Windows over interop. */
+    /** Its servers that run the guest's `openkodo`, which reaches Windows over interop. */
     interop?: ReadonlySet<string>
   }
 }

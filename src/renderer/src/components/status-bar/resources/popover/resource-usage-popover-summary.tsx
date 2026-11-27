@@ -129,12 +129,12 @@ export function renderSessionsOnlyErrorBanner(t: Translate = translate): React.J
 }
 
 const OWNER_SWATCH_CLS = {
-  orca: 'bg-chart-2 dark:bg-chart-1',
+  openkodo: 'bg-chart-2 dark:bg-chart-1',
   agents: 'bg-chart-5 dark:bg-chart-2',
   yourProcesses: 'bg-foreground/45'
 } as const
 
-const OWNERS = ['orca', 'agents', 'yourProcesses'] as const
+const OWNERS = ['openkodo', 'agents', 'yourProcesses'] as const
 
 function OwnerSwatch({ owner }: { owner: ResourceOwnerKey }): React.JSX.Element {
   return (
@@ -147,10 +147,10 @@ function OwnerSwatch({ owner }: { owner: ResourceOwnerKey }): React.JSX.Element 
 
 /** Each owner's share of their combined memory; shared pages make host-based shares unreliable. */
 function barWidths(split: ResourceOwnerSplit): Record<ResourceOwnerKey, number> {
-  const tracked = split.orca.memory + split.agents.memory + split.yourProcesses.memory
+  const tracked = split.openkodo.memory + split.agents.memory + split.yourProcesses.memory
   const pct = (bytes: number): number => (tracked > 0 ? (bytes / tracked) * 100 : 0)
   return {
-    orca: pct(split.orca.memory),
+    openkodo: pct(split.openkodo.memory),
     agents: pct(split.agents.memory),
     yourProcesses: pct(split.yourProcesses.memory)
   }

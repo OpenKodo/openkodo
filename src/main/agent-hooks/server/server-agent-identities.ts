@@ -19,7 +19,7 @@ import {
   isReverseLookupUnavailable,
   type ReverseLookupUnavailable
 } from '../identity/agent-identity-worker-protocol'
-import type { OrcaSessionId } from '../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../shared/agent-session/identity/openkodo-session-address'
 
 import type { EnrichedAgentHookEventPayload } from './server-types'
 import type { AgentStatusIpcPayload } from '../../../shared/agent-status/contracts/agent-status-ipc-payload'
@@ -208,7 +208,7 @@ export abstract class AgentHookServerAgentIdentities extends AgentHookServerStat
    *  file can't answer that by index; undefined when the store cannot answer now. */
   async terminalAgentIdsOfProviderSession(
     providerSessionId: string
-  ): Promise<OrcaSessionId[] | ReverseLookupUnavailable | undefined> {
+  ): Promise<OpenKodoSessionId[] | ReverseLookupUnavailable | undefined> {
     return this.agentIdentities.idsOfProviderSession(providerSessionId)
   }
 
@@ -310,7 +310,7 @@ export abstract class AgentHookServerAgentIdentities extends AgentHookServerStat
   async resolvePaneAgentId(
     paneKey: string,
     readSleeping: () => SleepingAgentSighting | undefined
-  ): Promise<OrcaSessionId | null> {
+  ): Promise<OpenKodoSessionId | null> {
     // Before selection, so a first click's lazy store start is not taken for its end.
     const authority = this.agentIdentities.authority()
     const selected = this.paneAgentSighting(paneKey, readSleeping)
@@ -331,7 +331,7 @@ export abstract class AgentHookServerAgentIdentities extends AgentHookServerStat
   private paneAgentSighting(
     paneKey: string,
     readSleeping: () => SleepingAgentSighting | undefined
-  ): { sighting: ProviderSessionSighting; id?: OrcaSessionId } | null {
+  ): { sighting: ProviderSessionSighting; id?: OpenKodoSessionId } | null {
     const resolved = this.resolvePaneKeyAlias(paneKey)
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: Main admits enriched legacy rows; the shared view declares their base event type.
     const legacy = this.state.lastStatusByPaneKey.get(resolved) as

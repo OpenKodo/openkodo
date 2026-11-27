@@ -39,7 +39,7 @@ function focusEditorContent(): void {
 }
 
 /** Open a local log read-only via external-file openFile; preserve existing writable authority and never redirect to a remote host. */
-export async function openAiVaultSessionLogInOrca(
+export async function openAiVaultSessionLogInOpenKodo(
   session: AiVaultLogSession,
   options: { notifyMissingWorkspace?: boolean } = {}
 ): Promise<boolean> {

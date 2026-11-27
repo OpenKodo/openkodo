@@ -1,12 +1,12 @@
 import { assert, expect, it } from 'vitest'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { HeadlessEmulator } from '../../../daemon/emulation/headless-emulator'
 
 const grid = { cols: 80, rows: 24 }
 const partial = 'prompt\r\n> \x1b[?'
 
 function createRuntime() {
-  const runtime = new OrcaRuntimeService()
+  const runtime = new OpenKodoRuntimeService()
   runtime.setPtyController({
     write: () => true,
     kill: () => true,

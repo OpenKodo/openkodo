@@ -18,7 +18,7 @@ import {
   visibleProjectGroups,
   visibleProjectHostSetups,
   visibleRepos
-} from '../../../persistence/migrating-orcad-catalog/source/catalog/orcad-source-visibility'
+} from '../../../persistence/migrating-openkodod-catalog/source/catalog/openkodod-source-visibility'
 import { isBotsProjectGroup } from '../../../bots/bot-home'
 import type { RuntimeStore } from '../../construction/runtime-store-contract'
 
@@ -27,7 +27,7 @@ type CatalogSource = Pick<
   'getRepos' | 'getProjectGroups' | 'getFolderWorkspaces' | 'getSshTargets' | 'getProjectHostSetups'
 >
 
-// Headless orcad has no SSH targets, so nothing of its own is ever a retained source.
+// Headless openkodod has no SSH targets, so nothing of its own is ever a retained source.
 function catalogStore(store: CatalogSource) {
   return {
     getRepos: () => store.getRepos(),

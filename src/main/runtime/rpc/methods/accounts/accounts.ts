@@ -1,10 +1,10 @@
 import { defineMethod, type RpcContext } from '../../core'
 import { ACCOUNT_SUBSCRIPTION_METHOD } from './account-subscription-method'
 import { ACCOUNT_RENAME_METHODS } from './account-rename-methods'
-import type { OrcadFeature } from '../../startup/orcad-readiness'
+import type { OpenkododFeature } from '../../startup/openkodod-readiness'
 import { rpcCallerOperationKey } from '../../callers/rpc-caller-identity'
 import { HostAccountSignInFlows } from '../../../agent-session/environment/host-account-sign-in-flows'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   AddDataAccountParams,
   SelectDataAccountParams,
@@ -31,8 +31,8 @@ import { withTimeout } from '../../../../../shared/concurrency/promise-timeout-f
 // Why 10s: well under the CLI's 60s request timeout even when several Codex homes probe slowly.
 const STALE_USAGE_WAIT_MS = 10_000
 
-const hostSignIns = new WeakMap<OrcaRuntimeService, HostAccountSignInFlows>()
-function hostSignInFlows(runtime: OrcaRuntimeService): HostAccountSignInFlows {
+const hostSignIns = new WeakMap<OpenKodoRuntimeService, HostAccountSignInFlows>()
+function hostSignInFlows(runtime: OpenKodoRuntimeService): HostAccountSignInFlows {
   let flows = hostSignIns.get(runtime)
   if (!flows) {
     flows = new HostAccountSignInFlows((provider, channel, accountId) =>
@@ -265,5 +265,5 @@ const ACCOUNT_SERVICE_FREE_METHODS: ReadonlySet<string> = new Set([
 export const ACCOUNT_METHODS = ACCOUNT_METHOD_DEFINITIONS.map((method) =>
   ACCOUNT_SERVICE_FREE_METHODS.has(method.name)
     ? method
-    : { ...method, requires: ['accounts'] satisfies OrcadFeature[] }
+    : { ...method, requires: ['accounts'] satisfies OpenkododFeature[] }
 )

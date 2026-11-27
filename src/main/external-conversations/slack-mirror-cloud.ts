@@ -122,7 +122,7 @@ export async function postSlackMirrorMessage(
     clientMessageId: string
     conversation: ConnectorConversation
     body: AgentJournalMessageItem
-    orcaName: string
+    openkodoName: string
   }
 ): Promise<ConnectorResult<unknown>> {
   const { clientMessageId, conversation } = message
@@ -147,7 +147,7 @@ export async function postSlackMirrorMessage(
     text,
     ...(staged.fileIds.length > 0 ? { files: staged.fileIds } : {}),
     author: {
-      orcaName: message.orcaName.slice(0, 80) || 'OpenKodo',
+      openkodoName: message.openkodoName.slice(0, 80) || 'OpenKodo',
       ...slackMirrorTypist(message.body)
     }
   }

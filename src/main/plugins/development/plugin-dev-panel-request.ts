@@ -24,14 +24,14 @@ export type PluginDevRequestService = PluginDevFolderLookup & {
 export type PluginDevRequestResult = { pluginKey: string; name: string; result: PluginJsonValue }
 
 /** Panel id the handler sees when `--panel` is not passed. */
-export const PLUGIN_DEV_REQUEST_PANEL_ID = 'orca-cli'
+export const PLUGIN_DEV_REQUEST_PANEL_ID = 'openkodo-cli'
 
 const LOGS_HINT =
   'Worker errors appear in `openkodo plugin logs <plugin-key>` and `openkodo plugin dev watch`.'
 
 function requestNextStep(code: PluginErrorCode, name: string): string {
   if (code === 'unknown_method') {
-    return `Register it in the worker with orca.panels.handle('${name}', …); a save restarts the worker with the new handlers.`
+    return `Register it in the worker with openkodo.panels.handle('${name}', …); a save restarts the worker with the new handlers.`
   }
   if (code === 'timeout') {
     return 'The handler did not answer in time; pass a larger --timeout-ms (at most 120000) or make it answer sooner.'
@@ -80,7 +80,7 @@ export async function requestPluginDevPanelHandler(input: {
   if (!plugin.manifest.main) {
     throw new PluginCliError('invalid_argument', `${key} has no worker to answer ${name}.`, {
       nextSteps: [
-        'Add "main" (a trusted-worker plugin) whose activate(orca) calls orca.panels.handle; `openkodo plugin create --template worker-panel` scaffolds one.'
+        'Add "main" (a trusted-worker plugin) whose activate(openkodo) calls openkodo.panels.handle; `openkodo plugin create --template worker-panel` scaffolds one.'
       ]
     })
   }

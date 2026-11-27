@@ -67,18 +67,18 @@ const SOULS = {
 const home = makeFolderWorkspace({
   id: releaseBot.folderWorkspaceId,
   name: releaseBot.name,
-  folderPath: `~/.orca/bots/${releaseBot.folder}`
+  folderPath: `~/.openkodo/bots/${releaseBot.folder}`
 })
 const docsHome = makeFolderWorkspace({
   id: localBot.folderWorkspaceId,
   name: localBot.name,
-  folderPath: `~/.orca/bots/${localBot.folder}`
+  folderPath: `~/.openkodo/bots/${localBot.folder}`
 })
 
 const repo: Repo = {
-  id: 'orca',
-  path: '/src/orca',
-  displayName: 'orca',
+  id: 'openkodo',
+  path: '/src/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1,
   executionHostId: 'local'
@@ -102,9 +102,9 @@ const LINES: Line[] = [
 
 const worktrees = LINES.map((line) =>
   makeWorktree({
-    id: `orca::/src/orca/${line.name}`,
+    id: `openkodo::/src/openkodo/${line.name}`,
     repoId: repo.id,
-    path: `/src/orca/${line.name}`,
+    path: `/src/openkodo/${line.name}`,
     branch: line.name,
     displayName: line.title
   })
@@ -133,7 +133,7 @@ const homeChat: AgentStatusEntry = {
   stateHistory: [],
   toolName: 'Bash',
   toolInput:
-    'cd ~/.orca/bots/bot-release-manager; "${OPENKODO_CLI_COMMAND:-orca}" orchestration dispatch --task "Cut RC 1.4.232" --worktree new --agent claude'
+    'cd ~/.openkodo/bots/bot-release-manager; "${OPENKODO_CLI_COMMAND:-openkodo}" orchestration dispatch --task "Cut RC 1.4.232" --worktree new --agent claude'
 }
 
 function treeChat(

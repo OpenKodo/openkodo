@@ -1,13 +1,13 @@
 import { expect } from 'vitest'
 import type { ComputerSnapshotResult } from '../../../../src/shared/computer/computer-use-runtime-types'
 import { findRoleIndex } from './computer-driver'
-import { parseJsonOutput, runOrcaCli } from './computer-cli-driver'
+import { parseJsonOutput, runOpenKodoCli } from './computer-cli-driver'
 
 export const editableRolePattern = /^\s*(\d+)\s+(document|edit|text|pane)(?:\s|$)/im
 export async function focusNotepadDocument(app: string): Promise<void> {
   const snapshot = parseJsonOutput<{ result: ComputerSnapshotResult }>(
     (
-      await runOrcaCli([
+      await runOpenKodoCli([
         'computer',
         'get-app-state',
         '--app',
@@ -21,7 +21,7 @@ export async function focusNotepadDocument(app: string): Promise<void> {
   const documentIndex = findRoleIndex(snapshot.result.snapshot.treeText, editableRolePattern)
   expect(documentIndex).toBeGreaterThanOrEqual(0)
 
-  await runOrcaCli([
+  await runOpenKodoCli([
     'computer',
     'click',
     '--app',

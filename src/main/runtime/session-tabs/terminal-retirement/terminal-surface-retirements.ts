@@ -1,5 +1,5 @@
-import type { OrcaRuntimeWithBindPtyIncarnationHandle as BindPtyIncarnationHandleMethods } from '../../terminal/identity/terminal-handle-bindings'
-import { OrcaRuntimeWithTouchMobileSessionTabsForWorktree } from '../restoration/mobile-session-membership'
+import type { OpenKodoRuntimeWithBindPtyIncarnationHandle as BindPtyIncarnationHandleMethods } from '../../terminal/identity/terminal-handle-bindings'
+import { OpenKodoRuntimeWithTouchMobileSessionTabsForWorktree } from '../restoration/mobile-session-membership'
 import type { RetiredTerminalSurface } from '../../terminal/surface/mobile-session-terminal-retirement'
 import type { RuntimeMobileSessionRetiredTerminalSurface } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import {
@@ -18,7 +18,7 @@ import { retireTerminalSurfacesFromSnapshot } from '../../terminal/surface/mobil
 import { attachRetirementProofsToSnapshot } from '../../terminal/surface/mobile-session-terminal-retirement-proof'
 import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 
-export abstract class OrcaRuntimeWithPersistTerminalSurfaceRetirements extends OrcaRuntimeWithTouchMobileSessionTabsForWorktree {
+export abstract class OpenKodoRuntimeWithPersistTerminalSurfaceRetirements extends OpenKodoRuntimeWithTouchMobileSessionTabsForWorktree {
   protected abstract findHandleForPtyRecord(
     ...args: Parameters<BindPtyIncarnationHandleMethods['findHandleForPtyRecord']>
   ): ReturnType<BindPtyIncarnationHandleMethods['findHandleForPtyRecord']>

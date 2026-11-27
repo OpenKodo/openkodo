@@ -1,8 +1,8 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { DESKTOP_TERMINAL_SCROLLBACK_ROWS_DEFAULT } from '../../../../../shared/terminal/replay/terminal-scrollback-policy'
 
 type HeadlessCopySource = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getPtyOutputSequence'
   | 'serializeRendererTerminalBuffer'
   | 'replaceHeadlessTerminalFromRendererSnapshotForRecovery'

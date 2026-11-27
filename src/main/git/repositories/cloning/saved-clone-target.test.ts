@@ -16,9 +16,9 @@ function git(cwd: string, ...args: string[]): void {
 
 // finished=false models interrupted checkout; commits=false models a finished empty clone.
 function checkout(originUrl: string, { finished = true, commits = true } = {}): string {
-  const root = mkdtempSync(join(tmpdir(), 'orca-saved-clone-target-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-saved-clone-target-'))
   roots.push(root)
-  const path = join(root, 'orca')
+  const path = join(root, 'openkodo')
   if (finished && !commits) {
     const source = join(root, 'empty-source')
     execFileSync('git', ['init', '-q', source])
@@ -40,7 +40,7 @@ function saved(path: string, extra: Partial<Repo> = {}): Repo {
   return {
     id: 'saved',
     path,
-    displayName: 'orca',
+    displayName: 'openkodo',
     badgeColor: '#fff',
     addedAt: 1,
     kind: 'git',
@@ -106,22 +106,22 @@ describe('reuseSavedCloneTarget', () => {
   })
 
   it('does not reuse a folder nested inside a clone of an empty repository', async () => {
-    const nested = join(checkout(url, { commits: false }), 'orca')
+    const nested = join(checkout(url, { commits: false }), 'openkodo')
     mkdirSync(nested)
     await expect(decide(saved(nested))).rejects.toThrow('already an OpenKodo project')
   })
 
   it('refuses a finished clone of a different URL with the same folder name', async () => {
-    const project = saved(checkout('https://github.com/me/orca.git'))
-    await expect(decide(project)).rejects.toThrow('"orca" is already an OpenKodo project')
+    const project = saved(checkout('https://github.com/me/openkodo.git'))
+    await expect(decide(project)).rejects.toThrow('"openkodo" is already an OpenKodo project')
   })
 
   it('says the recorded repository differs without disclosing its credential-bearing URL', async () => {
-    const project = saved(join(tmpdir(), 'orca-saved-clone-target-absent'), {
+    const project = saved(join(tmpdir(), 'openkodo-saved-clone-target-absent'), {
       gitRemoteIdentity: {
-        canonicalKey: 'github.com/someone/orca',
+        canonicalKey: 'github.com/someone/openkodo',
         remoteName: 'origin',
-        remoteUrl: 'https://synthetic-user:synthetic-secret@github.com/someone/orca.git'
+        remoteUrl: 'https://synthetic-user:synthetic-secret@github.com/someone/openkodo.git'
       }
     })
     const result = decide(project)
@@ -131,8 +131,10 @@ describe('reuseSavedCloneTarget', () => {
   })
 
   it('refuses a finished clone of a different local path, which does not normalize', async () => {
-    const project = saved(checkout('/srv/other/orca'))
-    await expect(decide(project, '/srv/mine/orca')).rejects.toThrow('already an OpenKodo project')
+    const project = saved(checkout('/srv/other/openkodo'))
+    await expect(decide(project, '/srv/mine/openkodo')).rejects.toThrow(
+      'already an OpenKodo project'
+    )
   })
 
   it('does not reuse a clone that was killed before it finished', async () => {
@@ -147,13 +149,13 @@ describe('reuseSavedCloneTarget', () => {
   })
 
   it('does not reuse a clone whose origin also lists another URL', async () => {
-    const path = checkout('https://github.com/me/orca.git')
+    const path = checkout('https://github.com/me/openkodo.git')
     git(path, 'remote', 'set-url', '--add', 'origin', url)
     await expect(decide(saved(path))).rejects.toThrow('already an OpenKodo project')
   })
 
   it('refuses to re-clone into a fork project whose stored identity is its upstream', async () => {
-    const path = join(tmpdir(), 'orca-saved-clone-target-deleted-fork')
+    const path = join(tmpdir(), 'openkodo-saved-clone-target-deleted-fork')
     const upstream = {
       canonicalKey: 'github.com/OpenKodo/openkodo',
       remoteName: 'upstream',
@@ -165,7 +167,7 @@ describe('reuseSavedCloneTarget', () => {
   })
 
   it('does not reuse a folder that only sits inside a clone of the URL', async () => {
-    const nested = join(checkout(url), 'orca')
+    const nested = join(checkout(url), 'openkodo')
     mkdirSync(nested)
     await expect(decide(saved(nested))).rejects.toThrow('already an OpenKodo project')
   })

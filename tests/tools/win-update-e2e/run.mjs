@@ -51,8 +51,8 @@ async function main() {
   const isolated = Boolean(installDir)
 
   const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-  const canary = `ORCA-E2E-CANARY-${runId}`
-  const runDir = mkdtempSync(path.join(tmpdir(), `orca-win-update-e2e-${runId}-`))
+  const canary = `OPENKODO-E2E-CANARY-${runId}`
+  const runDir = mkdtempSync(path.join(tmpdir(), `openkodo-win-update-e2e-${runId}-`))
   const userDataDir = path.join(runDir, 'userData')
   const baselinePath = path.join(runDir, 'baseline.json')
   const watchOut = path.join(runDir, 'window-watch.jsonl')
@@ -507,7 +507,7 @@ async function teardown({
   // Uninstall only fully owned targets; leave a pre-existing developer install that this run updated.
   if (hadPreexistingInstall) {
     console.log(
-      '\n*** NOTE: an Orca install existed before this run. It was OVERWRITTEN and the\n' +
+      '\n*** NOTE: an OpenKodo install existed before this run. It was OVERWRITTEN and the\n' +
         '    --to version is now installed. Your prior build was NOT restored — reinstall\n' +
         '    your intended build if needed. Skipping uninstall. ***\n'
     )

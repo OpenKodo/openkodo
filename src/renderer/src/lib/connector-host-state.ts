@@ -8,7 +8,7 @@ import {
   type ExecutionHostId
 } from '../../../shared/execution-host/execution-host'
 import { followProviderReturn } from './browser-return-watch'
-import { hostConnectorAccount, signedInOrcaAccount } from './signed-in-orca-account'
+import { hostConnectorAccount, signedInOpenKodoAccount } from './signed-in-openkodo-account'
 
 /** `unchanged`: the last wait ran out with nothing new from the provider. */
 export type ConnectorAwait = 'checking' | 'unchanged' | null
@@ -224,9 +224,9 @@ export function createConnectorHostState<View>({
       return
     }
     watching = true
-    shownAccount = signedInOrcaAccount()
+    shownAccount = signedInOpenKodoAccount()
     useAppStore.subscribe(() => {
-      const account = signedInOrcaAccount()
+      const account = signedInOpenKodoAccount()
       if (account === shownAccount) {
         return
       }

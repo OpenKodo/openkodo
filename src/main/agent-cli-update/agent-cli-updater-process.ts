@@ -1,6 +1,6 @@
 // Runs an agent CLI's own updater, stopping one that hangs without cutting off one that is slow.
 
-import { runProcess, spawnProcess } from '@orca/process-host'
+import { runProcess, spawnProcess } from '@openkodo/process-host'
 
 // One waiting on a prompt goes quiet; npm can also stay quiet while it installs, so this is generous.
 export const UPDATER_IDLE_MS = 3 * 60_000

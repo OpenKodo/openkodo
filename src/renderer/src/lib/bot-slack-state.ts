@@ -6,7 +6,7 @@ import {
   type ConnectorBotSlackState,
   type ConnectorBotSlackStateResponse
 } from '../../../shared/connector-bot-slack-contract'
-import { hostConnectorAccount } from './signed-in-orca-account'
+import { hostConnectorAccount } from './signed-in-openkodo-account'
 import { followProviderReturn } from './browser-return-watch'
 import { botSlackCalls } from './bot-connector-host-calls'
 import { botRefKey, type BotRef } from './bot-hosts'

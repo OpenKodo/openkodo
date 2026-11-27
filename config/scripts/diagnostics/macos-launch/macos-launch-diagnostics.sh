@@ -54,8 +54,8 @@ fi
 
 ARCH="$(uname -m)"
 case "$ARCH" in
-  arm64) ASSET="orca-macos-arm64.dmg" ;;
-  x86_64) ASSET="orca-macos-x64.dmg" ;;
+  arm64) ASSET="openkodo-macos-arm64.dmg" ;;
+  x86_64) ASSET="openkodo-macos-x64.dmg" ;;
   *)
     echo "Unsupported macOS architecture: $ARCH" >&2
     exit 2
@@ -63,7 +63,7 @@ case "$ARCH" in
 esac
 
 TIMESTAMP="$(date -u '+%Y%m%dT%H%M%SZ')"
-WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/orca-launch-diagnostics.XXXXXXXX")"
+WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/openkodo-launch-diagnostics.XXXXXXXX")"
 OUT_DIR="$WORK_DIR/output"
 MOUNT_DIR="$WORK_DIR/mount"
 APP_DIR="$WORK_DIR/OpenKodo.app"
@@ -71,13 +71,13 @@ DMG_PATH="$WORK_DIR/$ASSET"
 mkdir -p "$OUT_DIR" "$MOUNT_DIR"
 
 if [[ -d "$HOME/Desktop" ]]; then
-  ZIP_PATH="$HOME/Desktop/orca-launch-diagnostics-${TAG}-${TIMESTAMP}.zip"
+  ZIP_PATH="$HOME/Desktop/openkodo-launch-diagnostics-${TAG}-${TIMESTAMP}.zip"
 else
-  ZIP_PATH="$PWD/orca-launch-diagnostics-${TAG}-${TIMESTAMP}.zip"
+  ZIP_PATH="$PWD/openkodo-launch-diagnostics-${TAG}-${TIMESTAMP}.zip"
 fi
 
 diag_log() {
-  printf '[orca-diagnostics] %s\n' "$*"
+  printf '[openkodo-diagnostics] %s\n' "$*"
 }
 
 run_capture() {
@@ -122,11 +122,11 @@ write_environment_report() {
     echo "$SHELL"
     echo
     echo "## current OpenKodo processes before diagnostics"
-    pgrep -fl 'OpenKodo|orca' || true
+    pgrep -fl 'OpenKodo|openkodo' || true
   } >"$OUT_DIR/environment.txt"
 }
 
-ensure_no_existing_orca() {
+ensure_no_existing_openkodo() {
   local existing
   existing="$(pgrep -x OpenKodo || true)"
   if [[ -z "$existing" ]]; then
@@ -137,7 +137,7 @@ ensure_no_existing_orca() {
     echo "An OpenKodo process is already running. Close OpenKodo and run this script again."
     echo
     ps -p "$(printf '%s' "$existing" | paste -sd, -)" -o pid=,ppid=,command= || true
-  } | tee "$OUT_DIR/existing-orca-process.txt" >&2
+  } | tee "$OUT_DIR/existing-openkodo-process.txt" >&2
   exit 2
 }
 
@@ -204,7 +204,7 @@ stop_log_stream() {
   fi
 }
 
-latest_orca_pid_for_app() {
+latest_openkodo_pid_for_app() {
   pgrep -nf "$APP_DIR/Contents/MacOS/OpenKodo" || true
 }
 
@@ -218,7 +218,7 @@ sample_process_once() {
 
 terminate_app_processes() {
   local pid
-  pid="$(latest_orca_pid_for_app)"
+  pid="$(latest_openkodo_pid_for_app)"
   if [[ -n "$pid" ]]; then
     kill "$pid" >/dev/null 2>&1 || true
     sleep 1
@@ -237,7 +237,7 @@ wait_for_probe() {
 
   for i in $(seq 1 200); do
     local app_pid
-    app_pid="$(latest_orca_pid_for_app)"
+    app_pid="$(latest_openkodo_pid_for_app)"
     if [[ "$sampled" -eq 0 && -n "$app_pid" ]]; then
       sampled=1
       echo "sampled_pid=$app_pid" >>"$OUT_DIR/$label.meta"
@@ -356,7 +356,7 @@ package_results() {
 }
 
 write_environment_report
-ensure_no_existing_orca
+ensure_no_existing_openkodo
 download_and_copy_app
 write_app_report
 run_launchservices_probe "launchservices-trace"

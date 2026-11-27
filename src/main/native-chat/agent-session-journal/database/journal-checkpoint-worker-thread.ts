@@ -11,7 +11,7 @@ const STOP_TIMEOUT_MS = 5000
 
 export function spawnJournalCheckpointWorker(filename: string): WorkerRequestTransport {
   return spawnWorkerThread(journalCheckpointWorkerSource, {
-    name: 'orca-journal-checkpoint',
+    name: 'openkodo-journal-checkpoint',
     eval: true,
     workerData: {
       filename,

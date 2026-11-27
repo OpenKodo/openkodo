@@ -53,7 +53,7 @@ export type WorktreeCreationRequest = {
    *  live status immediately after the workspace takes ownership. */
   ephemeralVmRuntimeEnvironmentId?: string
   /** Checkout ownership selected by the provisioned recipe. */
-  ephemeralVmCheckoutMode?: 'orca-worktree' | 'provisioned-root'
+  ephemeralVmCheckoutMode?: 'openkodo-worktree' | 'provisioned-root'
   /** Source-host commit captured before a provisioned-root recipe starts. */
   ephemeralVmExpectedRefHead?: string
   // Retain a serializable recipe so failed creates can rerun provisioning.
@@ -61,7 +61,7 @@ export type WorktreeCreationRequest = {
     sourceRepoId: string
     recipeId: string
     projectId: string
-    checkoutMode?: 'orca-worktree' | 'provisioned-root'
+    checkoutMode?: 'openkodo-worktree' | 'provisioned-root'
   }
   // Capture local/runtime progress routing at submit so focus changes cannot alter Retry behavior.
   worktreeCreateProgressMode?: WorktreeCreationProgressMode

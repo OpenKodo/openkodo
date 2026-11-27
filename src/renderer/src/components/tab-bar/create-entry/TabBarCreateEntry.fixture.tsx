@@ -12,13 +12,13 @@ const GROUP_ID = 'create-entry-group'
 
 const repo: Repo = {
   id: 'repo-1',
-  path: '/workspace/orca',
-  displayName: 'orca',
+  path: '/workspace/openkodo',
+  displayName: 'openkodo',
   badgeColor: '#3b82f6',
   addedAt: 0
 }
 
-const worktree = makeWorktree({ id: WORKSPACE_ID, repoId: repo.id, path: '/workspace/orca' })
+const worktree = makeWorktree({ id: WORKSPACE_ID, repoId: repo.id, path: '/workspace/openkodo' })
 const tabs = ['Claude recovery', 'Claude follow-up'].map((title, index) =>
   makeTab({ id: `term-${index}`, worktreeId: WORKSPACE_ID, title, launchAgent: 'claude' })
 )

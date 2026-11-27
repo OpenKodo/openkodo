@@ -1,5 +1,5 @@
 import { parseExecutionHostId } from '../../../../../../../shared/execution-host/execution-host'
-import { getOrcadSshDeployment } from '../../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
+import { getOpenkododSshDeployment } from '../../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { workspaceOwnerHostId } from '@/lib/workspace/ownership/workspace-row-owner-host'
 import type { AppState } from '@/store/types'
 import type { RuntimeStatuses } from '@/store/slices/runtime-status/views/runtime-status-owner'
@@ -19,7 +19,7 @@ export function selectManagedPairingRefusedEnvironmentId(
     return null
   }
   const environment = state.runtimeEnvironments.find((entry) => entry.id === host.environmentId)
-  if (!environment || !getOrcadSshDeployment(environment)) {
+  if (!environment || !getOpenkododSshDeployment(environment)) {
     return null
   }
   const snapshot = statuses.get(environment.id)?.snapshot

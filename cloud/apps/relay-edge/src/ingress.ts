@@ -1,7 +1,7 @@
 // Front doors that are not Cloudflare. Two ways to be trusted; anything else is a direct request.
-//  - Signed (our ingress proxy): `x-orca-ingress: v1 …` with an HMAC (relay-contract ingress-header.ts).
-//  - Token (a cloud load balancer, which cannot compute a MAC): `x-orca-ingress: v1s <name> <origin>
-//    <token>` plus `x-orca-client-ip` / `x-orca-client-country`, all set by the load balancer
+//  - Signed (our ingress proxy): `x-openkodo-ingress: v1 …` with an HMAC (relay-contract ingress-header.ts).
+//  - Token (a cloud load balancer, which cannot compute a MAC): `x-openkodo-ingress: v1s <name> <origin>
+//    <token>` plus `x-openkodo-client-ip` / `x-openkodo-client-country`, all set by the load balancer
 //    (it overwrites same-named client headers). Trusted only when the token is one of
 //    INGRESS_TOKENS, the origin is one of INGRESS_ORIGINS, AND cf-connecting-ip (the hop that
 //    reached Cloudflare) is inside INGRESS_SOURCE_CIDRS, the load balancer's published egress
@@ -29,9 +29,9 @@ export async function readIngress(config: EdgeConfig, request: Request): Promise
   if (!fromTokenSource(config, request)) { return null }
   if (!(await tokenMatches(tokens, token))) { return null }
   // Expanded by the load balancer; a missing value (empty) is refused rather than keyed on its egress.
-  const clientIp = request.headers.get('x-orca-client-ip')?.trim() ?? ''
+  const clientIp = request.headers.get('x-openkodo-client-ip')?.trim() ?? ''
   if (!parseIp(clientIp)) { return null }
-  const country = request.headers.get('x-orca-client-country')?.trim().toUpperCase() ?? ''
+  const country = request.headers.get('x-openkodo-client-country')?.trim().toUpperCase() ?? ''
   return { name, origin, clientIp, ...(COUNTRY.test(country) ? { country } : {}) }
 }
 

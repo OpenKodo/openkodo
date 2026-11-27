@@ -2,7 +2,7 @@
 
 import * as z from 'zod'
 import { normalizeAgentSessionConversationName } from '../conversation-naming/agent-session-conversation-name'
-import { isOrcaSessionId, type OrcaSessionId } from '../identity/orca-session-address'
+import { isOpenKodoSessionId, type OpenKodoSessionId } from '../identity/openkodo-session-address'
 import type { OrchestrationPartyIdentity } from '../../orchestration/mailbox/orchestration-party-identity'
 import type { AgentType } from '../../agent-status/contracts/agent-status-types'
 import { AGENT_TYPE_MAX_LENGTH } from '../../agent-status/contracts/agent-status-field-normalization'
@@ -97,8 +97,8 @@ export function agentMessageSenderName(value: unknown): string | null {
   return normalizeAgentSessionConversationName(value)
 }
 
-const orcaSessionIdSchema = z.custom<OrcaSessionId>(
-  (value) => typeof value === 'string' && isOrcaSessionId(value)
+const openkodoSessionIdSchema = z.custom<OpenKodoSessionId>(
+  (value) => typeof value === 'string' && isOpenKodoSessionId(value)
 )
 
 const contentRangeSchema = z.tuple([z.number().int().nonnegative(), z.number().int().nonnegative()])
@@ -133,7 +133,7 @@ const senderSchema = z.object({
   party: z.object({
     address: z.string().min(1),
     terminalHandle: z.string().nullable(),
-    orcaSessionId: orcaSessionIdSchema.nullable()
+    openkodoSessionId: openkodoSessionIdSchema.nullable()
   }),
   // Any bounded string: a kind a newer build knows still draws as its first letter.
   agent: salvagedOptional('agent', z.string().min(1).max(AGENT_TYPE_MAX_LENGTH)),

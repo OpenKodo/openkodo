@@ -112,10 +112,10 @@ const amp: TerminalMcpAdapter = {
 // `bearer_token_env_var` on a server, first in Codex's MCP client.
 const CODEX_BEARER_ENV_VERSION = '0.60.0'
 // `env_vars` on a stdio server (openai/codex#5246): Codex starts one with only a fixed list of its
-// own variables plus these, so without it a WSL guest's `orca` never gets the interop socket.
+// own variables plus these, so without it a WSL guest's `openkodo` never gets the interop socket.
 const CODEX_ENV_VARS_VERSION = '0.47.0'
 
-/** The WSL servers Codex can start through the guest's `orca`, and the note for an older Codex. */
+/** The WSL servers Codex can start through the guest's `openkodo`, and the note for an older Codex. */
 async function codexWslInterop(
   launch: TerminalMcpLaunch,
   executable: string

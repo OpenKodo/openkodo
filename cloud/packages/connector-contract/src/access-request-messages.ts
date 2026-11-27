@@ -1,12 +1,12 @@
-import { EpochMsSchema, OpaqueIdSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema, OpaqueIdSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 
 // "Request access": someone a bot doesn't take asked its owner to be added. The cloud records who
-// asked from the source's signed payload; only the owner's own Orca adds them, through its usual
+// asked from the source's signed payload; only the owner's own OpenKodo adds them, through its usual
 // People with access path.
 
-// The token from orca://bot/access-request?t=<token> (the owner's "Review in Orca").
+// The token from openkodo://bot/access-request?t=<token> (the owner's "Review in OpenKodo").
 export const ACCESS_REQUEST_TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/
 
 // POST `${accessRequests}/redeem`: the link works once, and only for the bot owner's account.
@@ -43,13 +43,13 @@ export const ConnectorAccessRequestSchema = z.object({
 })
 
 // GET `${accessRequests}`: the account's pending requests, newest first. granted holds recent grants
-// whose bot has not yet listed the person, so an Orca whose add failed can finish it.
+// whose bot has not yet listed the person, so an OpenKodo whose add failed can finish it.
 export const ConnectorAccessRequestListSchema = z.object({
   requests: z.array(ConnectorAccessRequestSchema),
   granted: z.array(ConnectorAccessRequestSchema).optional()
 })
 
-// POST `${accessRequests}/<request id>/decision`: granted once the owner's Orca added them, declined
+// POST `${accessRequests}/<request id>/decision`: granted once the owner's OpenKodo added them, declined
 // on Cancel or Decline. Either closes the request.
 export const ConnectorAccessRequestDecisionSchema = z.object({
   v: z.literal(1),

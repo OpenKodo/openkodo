@@ -3,7 +3,7 @@ import type { KnownRuntimeEnvironment } from '../../../../shared/remote-runtime/
 import {
   prepareManagedRuntimeRequest,
   type ManagedRuntimeCallPreparation
-} from '../managed-orcad/runtime-environment-managed-tunnel'
+} from '../managed-openkodod/runtime-environment-managed-tunnel'
 import { runtimeEnvironmentRevisionFailure } from './runtime-environment-revision-guard'
 import { resolveEnvironment } from '../../../../shared/remote-runtime/host-store/runtime-environment-store'
 

@@ -1,4 +1,4 @@
-import type { PersistedUIState } from '../../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import { normalizeSidebarBotsHeight } from '../../../../../shared/sidebar-bots-height'
 import { normalizeBotSidebarView } from '../../../../../shared/bots/bot-sidebar-view'
 import { normalizeBotChatFolds } from '../../../../../shared/bots/bot-chat-tree'

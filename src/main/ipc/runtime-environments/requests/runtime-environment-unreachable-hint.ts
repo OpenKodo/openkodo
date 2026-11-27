@@ -6,7 +6,7 @@ const UNREACHABLE_RE =
   /could not connect to the remote openkodo runtime|remote openkodo runtime closed the connection|timed out (?:waiting for|while connecting to) the remote openkodo runtime/i
 
 export function withRuntimeUnreachableHint(
-  environment: Pick<KnownRuntimeEnvironment, 'orcadDeployment' | 'sshAccess'>,
+  environment: Pick<KnownRuntimeEnvironment, 'openkododDeployment' | 'sshAccess'>,
   message: string,
   endpoint: string | null | undefined
 ): string {

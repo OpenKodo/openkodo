@@ -3,7 +3,7 @@
 // Rows only merge into a newer row, so the merged row was the last one drawn when it arrived: it
 // turns into the newer row in place, and nothing above it moves.
 import type { NativeChatMessage } from '../../native-chat-types'
-import type { AutomationRunNotStartedRow } from '../../../agent-journal-orca-card-items'
+import type { AutomationRunNotStartedRow } from '../../../agent-journal-openkodo-card-items'
 import type { OrchestrationSessionWorker } from '../../../orchestration-session-workers'
 import { agentMessageSessionWorker } from '../../../agent-session/view/messages/agent-message-dispatch'
 import { rowDrawsNothing } from '../../../bots/bot-item-note-runs'

@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto'
 import { afterEach, expect, it } from 'vitest'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
 import { cleanupDurablePushFixtures, fixture } from '../delivery/durable-push-store.test-fixture.js'
 import { PushDeviceRegistryStore } from './device-registry-store.js'
 import { PushBadgeCountStore } from './push-badge-count-store.js'

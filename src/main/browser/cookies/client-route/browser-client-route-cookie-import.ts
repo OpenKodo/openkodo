@@ -179,19 +179,19 @@ function deriveRoutePartition(
   return resolveBrowserRoutePartitionBinding({
     bindings,
     identity: {
-      orcaProfileId: routeIdentity.orcaProfileId,
+      openkodoProfileId: routeIdentity.openkodoProfileId,
       browserProfileId,
       authorityConnectionIdentity: routeIdentity.authorityConnectionIdentity,
       executionHostIdentity: routeIdentity.executionHostIdentity
     },
     compatibleIdentity: {
-      orcaProfileId: routeIdentity.orcaProfileId,
+      openkodoProfileId: routeIdentity.openkodoProfileId,
       browserProfileId,
       authorityConnectionIdentity: routeIdentity.pairingAuthorityConnectionIdentity,
       executionHostIdentity: routeIdentity.executionHostIdentity
     },
     legacyIdentity: {
-      orcaProfileId: routeIdentity.orcaProfileId,
+      openkodoProfileId: routeIdentity.openkodoProfileId,
       browserProfileId,
       authorityConnectionIdentity: routeIdentity.legacyAuthorityConnectionIdentity,
       executionHostIdentity: routeIdentity.legacyExecutionHostIdentity

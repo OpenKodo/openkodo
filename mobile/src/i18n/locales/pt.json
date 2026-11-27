@@ -372,7 +372,7 @@
       "greenLead": "CI verde em",
       "at": "em"
     },
-    "orcaStop": {
+    "openkodoStop": {
       "canContinue": "Você pode continuar nesta conversa.",
       "crash": "O OpenKodo ({{machine}}) parou inesperadamente enquanto esta resposta estava em andamento.",
       "quit": "O OpenKodo ({{machine}}) foi fechado enquanto esta resposta estava em andamento.",
@@ -3177,7 +3177,7 @@
       "cannotRunHere": "O OpenKodo não pode executar este agente em um chat aqui.",
       "capacity": "O OpenKodo no computador que executa este chat atingiu um limite de requisições. Atualize o OpenKodo lá e tente novamente.",
       "chatNotFound": "O OpenKodo não consegue encontrar este chat.",
-      "chatSavedByNewerOrca": "Este chat foi salvo por uma versão mais recente do OpenKodo.",
+      "chatSavedByNewerOpenKodo": "Este chat foi salvo por uma versão mais recente do OpenKodo.",
       "clearAfterAnswer": "Responda à pergunta ou ao pedido de aprovação do agente e execute /clear.",
       "clearAfterRetry": "Tente enviar sua mensagem anterior novamente e execute /clear.",
       "clearAfterSending": "Sua mensagem anterior ainda está sendo enviada. Execute /clear após o envio.",
@@ -3227,7 +3227,7 @@
       "restartFailed": "Não foi possível reiniciar o agente.",
       "runClearWhenDone": "Execute /clear quando terminar.",
       "runCompactWhenDone": "Execute /compact quando terminar.",
-      "savedByNewerOrca": "Os chats foram salvos por uma versão mais recente do OpenKodo.",
+      "savedByNewerOpenKodo": "Os chats foram salvos por uma versão mais recente do OpenKodo.",
       "sendOutcomeLost": "O OpenKodo não conseguiu confirmar que sua mensagem chegou ao agente. Verifique o chat e envie-a novamente, se necessário.",
       "settleEarlierMessage": "Aguarde o envio da sua mensagem anterior ou tente enviá-la novamente.",
       "shortenMessage": "Encurte ou divida a mensagem e envie novamente.",
@@ -3239,8 +3239,8 @@
       "turnActive": "O agente ainda está respondendo.",
       "unreachable": "O OpenKodo não conseguiu se conectar ao agente.",
       "unsupported": "Isto exige uma versão mais recente do OpenKodo no computador que executa este chat. Atualize o OpenKodo lá e tente novamente.",
-      "updateOrcaToKeepUsing": "Atualize o OpenKodo para continuar usando-os.",
-      "updateOrcaToOpenChat": "Atualize o OpenKodo para abri-lo.",
+      "updateOpenKodoToKeepUsing": "Atualize o OpenKodo para continuar usando-os.",
+      "updateOpenKodoToOpenChat": "Atualize o OpenKodo para abri-lo.",
       "waitForBackgroundTasks": "Aguarde a conclusão das tarefas em segundo plano.",
       "waitForCommand": "Aguarde a conclusão do /compact ou /clear.",
       "waitForStart": "Aguarde o agente terminar de iniciar.",
@@ -3324,7 +3324,7 @@
       "outsideWorkspace": "Este arquivo está fora do espaço de trabalho. Abra-o no computador para visualizá-lo."
     },
     "linkActionSheet": {
-      "openInOrca": "Abrir no navegador do OpenKodo",
+      "openInOpenKodo": "Abrir no navegador do OpenKodo",
       "openInBrowser": "Abrir no navegador do sistema",
       "copyLink": "Copiar link"
     },
@@ -4399,7 +4399,7 @@
       "projectSubtitle": "Projeto do GitHub · {{repository}}{{itemNumber}}",
       "pullRequest": "Pull request",
       "reopenItem": "Reabrir item",
-      "repositoryNotInOrca": "Repositório não está no OpenKodo",
+      "repositoryNotInOpenKodo": "Repositório não está no OpenKodo",
       "status": "Status",
       "type": "Tipo",
       "workspaceCreationRequirement": "Espaços de trabalho só podem ser criados a partir de issues e pull requests do GitHub."
@@ -5187,7 +5187,7 @@
       "deleteBot": "Excluir bot…",
       "accountChecking": "Verificando…",
       "signedOut": "Sessão do OpenKodo encerrada",
-      "orcaAccount": "Conta do OpenKodo",
+      "openkodoAccount": "Conta do OpenKodo",
       "folder": "Pasta",
       "copyPath": "Copiar caminho",
       "pathCopied": "Caminho copiado",

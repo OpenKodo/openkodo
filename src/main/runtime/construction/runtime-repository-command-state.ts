@@ -1,5 +1,5 @@
 import type { RuntimeTerminalAgentStatus } from '../../../shared/terminal/runtime/runtime-terminal-contracts'
-import { RuntimeGitCommands } from '../integrations/git/orca-runtime-git'
+import { RuntimeGitCommands } from '../integrations/git/openkodo-runtime-git'
 import { RuntimeHostedReviewCommands } from '../integrations/reviews/runtime-hosted-review-commands'
 import { RuntimeGitHubRepositoryQueryCommands } from '../integrations/github/runtime-github-repository-query-commands'
 import { RuntimeGitLabQueryCommands } from '../integrations/gitlab/runtime-gitlab-query-commands'
@@ -20,11 +20,11 @@ import {
   createBranchSwitchHost,
   storeBackedBranchSwitchSources
 } from '../integrations/git/runtime-branch-switch-host'
-import { OrcaRuntimeWithFileCommands } from './runtime-file-command-state'
+import { OpenKodoRuntimeWithFileCommands } from './runtime-file-command-state'
 import { readCreateSourceSetupHooks } from '../../workspace-hooks/create-source-setup-hooks'
 import { getWorktreeCreatePrefetchGitOptions } from '../../workspaces/execution-host/project-runtime-git-options'
 
-export abstract class OrcaRuntimeWithRepositoryCommands extends OrcaRuntimeWithFileCommands {
+export abstract class OpenKodoRuntimeWithRepositoryCommands extends OpenKodoRuntimeWithFileCommands {
   protected readonly gitCommands = new RuntimeGitCommands({
     resolveRuntimeGitTarget: (selector) => this.resolveRuntimeGitTarget(selector),
     getRuntimeSettings: () => this.requireStore().getSettings(),

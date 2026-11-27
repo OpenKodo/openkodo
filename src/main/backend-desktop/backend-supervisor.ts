@@ -12,8 +12,8 @@ import {
   currentWorkerEntryLayout,
   resolveWorkerThreadEntryPath
 } from '../worker-threads/worker-thread-entry-path'
-import { ManagedOrcadEventWindow } from '../managed-server/lifecycle/orcad-managed-event-window'
-import { ORCAD_SHUTDOWN_DEADLINE_MS } from '../orcad/host-lifecycle/managed-stop/orcad-stop-deadlines'
+import { ManagedOpenkododEventWindow } from '../managed-server/lifecycle/openkodod-managed-event-window'
+import { OPENKODOD_SHUTDOWN_DEADLINE_MS } from '../openkodod/host-lifecycle/managed-stop/openkodod-stop-deadlines'
 import {
   createBackendDesktopCapabilities,
   admitBackendPortRequest,
@@ -34,7 +34,7 @@ export class BackendSupervisor {
   private desiredRunning = true
   private exited: Promise<void> = Promise.resolve()
   private restartTimer: ReturnType<typeof setTimeout> | undefined
-  private readonly failures = new ManagedOrcadEventWindow(10 * 60_000, Date.now)
+  private readonly failures = new ManagedOpenkododEventWindow(10 * 60_000, Date.now)
   private incarnation: string | undefined
   private readonly documents = new Map<number, BackendDocument>()
   private stopping?: Promise<void>
@@ -127,7 +127,7 @@ export class BackendSupervisor {
         if (this.child === child) {
           child.kill()
         }
-      }, ORCAD_SHUTDOWN_DEADLINE_MS + 1_000)
+      }, OPENKODOD_SHUTDOWN_DEADLINE_MS + 1_000)
       this.control?.close()
       await exited
       clearTimeout(deadline)
@@ -252,7 +252,7 @@ export class BackendSupervisor {
       if (this.child === child) {
         child.kill()
       }
-    }, ORCAD_SHUTDOWN_DEADLINE_MS * 2)
+    }, OPENKODOD_SHUTDOWN_DEADLINE_MS * 2)
     child.stderr?.on('data', (chunk: Buffer) =>
       console.warn(`[backend] ${chunk.toString().slice(0, 16_384)}`)
     )

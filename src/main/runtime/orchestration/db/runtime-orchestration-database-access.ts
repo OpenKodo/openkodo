@@ -9,9 +9,9 @@ import { committedHandBackTypes, type MailHandBack } from './messages/helper-mai
 import { existsSync } from 'node:fs'
 import { structuredMailboxCustody } from '../mailbox/routing/structured-session-mail-target'
 import { closeOrphanedTerminalApprovals } from '../workers/approvals/terminal-approval-orphans'
-import { OrcaRuntimeWithAutomationApiOperations } from '../../workspaces/persisted-surfaces/automation-api-operations'
+import { OpenKodoRuntimeWithAutomationApiOperations } from '../../workspaces/persisted-surfaces/automation-api-operations'
 
-export abstract class RuntimeOrchestrationDatabaseAccess extends OrcaRuntimeWithAutomationApiOperations {
+export abstract class RuntimeOrchestrationDatabaseAccess extends OpenKodoRuntimeWithAutomationApiOperations {
   private orchestrationDbMaintenance: OrchestrationDbMaintenance | undefined
 
   abstract ensureOrchestrationFederationRelay(

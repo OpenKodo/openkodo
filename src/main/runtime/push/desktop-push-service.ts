@@ -7,8 +7,8 @@ import type {
 } from '../../../shared/notifications/mobile-push-contract'
 import { runKeyedSerializedOperation } from '../../../shared/concurrency/keyed-serialized-operations'
 import type { DeviceRegistry } from '../rpc/server/pairing/device-registry'
-import type { OrcaRuntimeService } from '../orca-runtime'
-import type { OrcaRuntimeRpcServer } from '../rpc/server/runtime-rpc'
+import type { OpenKodoRuntimeService } from '../openkodo-runtime'
+import type { OpenKodoRuntimeRpcServer } from '../rpc/server/runtime-rpc'
 import { PushDispatcher, type PushCoverageRequest } from './push-dispatcher'
 import { PushBadgeSync } from './push-badge-sync'
 import type { ExecutionHostPushCoverage } from './push-burst-slots'
@@ -28,8 +28,8 @@ const OUTBOX_RETRY_MAX_MS = 10 * 60_000
 type RegisterStorageFailure = 'not_mobile' | 'registration_storage_failed'
 
 type DesktopPushServiceOptions = {
-  runtime: OrcaRuntimeService
-  runtimeRpc: OrcaRuntimeRpcServer
+  runtime: OpenKodoRuntimeService
+  runtimeRpc: OpenKodoRuntimeRpcServer
   gatewayUrl: string
   /** Inject a gateway client for tests. */
   client?: PushGatewayClient
@@ -42,8 +42,8 @@ type DesktopPushServiceOptions = {
 }
 
 export class DesktopPushService {
-  private readonly runtime: OrcaRuntimeService
-  private readonly runtimeRpc: OrcaRuntimeRpcServer
+  private readonly runtime: OpenKodoRuntimeService
+  private readonly runtimeRpc: OpenKodoRuntimeRpcServer
   private readonly registry: DeviceRegistry
   private readonly outbox: PushUnregisterOutbox
   private readonly client: PushGatewayClient

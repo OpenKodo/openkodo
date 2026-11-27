@@ -20,7 +20,7 @@ import { callBots, findBot, type BotsListResult } from '../bots/bot'
 import { botEventSources, wontFireNote } from '../../shared/bot-event-sources'
 import type { AutomationListPayload } from './automation-format'
 import type { AutomationOnce } from '../../shared/automation-once'
-import { orcaCloudNeedsSignIn } from '../../shared/bots/host-orca-sign-in'
+import { openkodoCloudNeedsSignIn } from '../../shared/bots/host-openkodo-sign-in'
 
 type Flags = Map<string, string | boolean>
 
@@ -120,7 +120,7 @@ export async function withWontFire<Listed extends { result: AutomationListPayloa
         {
           ...bot,
           webhooks,
-          cloudSignedOut: orcaCloudNeedsSignIn(connectorStatus),
+          cloudSignedOut: openkodoCloudNeedsSignIn(connectorStatus),
           ...(signInServer !== undefined ? { signInServer } : {})
         },
         on ?? []

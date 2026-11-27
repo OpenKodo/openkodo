@@ -1,11 +1,11 @@
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import { requireWorkerAuthority } from './worker-placement-topology'
 
 /** Record created PTY custody before boot so user input can revoke ownership before worker-release cleanup.
  * Dispatch authority still waits for readiness; reused caller panes and structured sessions have no custody gap. */
 export function recordCreatedWorkerTerminalCustody(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   stage: { db: OrchestrationDb; dispatchId: string; worktreeId: string; terminalHandle: string },
   created: boolean
 ): void {

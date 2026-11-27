@@ -23,8 +23,8 @@ import {
 } from '../tabs-and-windows/browser-extension-tab-model'
 import {
   matchesDiscardedTabNativeQuery,
-  matchesOrcaTabQuery,
-  type OrcaTabQuery
+  matchesOpenKodoTabQuery,
+  type OpenKodoTabQuery
 } from '../tabs-and-windows/browser-extension-tab-query'
 import {
   activateBrowserExtensionDiscardedTab,
@@ -110,7 +110,7 @@ function mergeCallerTab(
 
 function queryTabs(
   caller: BrowserExtensionCaller,
-  query: OrcaTabQuery,
+  query: OpenKodoTabQuery,
   nativeTabs: Record<string, unknown>[]
 ): chrome.tabs.Tab[] {
   const context = {
@@ -133,7 +133,7 @@ function queryTabs(
         : []
     })
     .concat(discarded)
-    .filter((tab) => matchesOrcaTabQuery(tab, query, context))
+    .filter((tab) => matchesOpenKodoTabQuery(tab, query, context))
     .sort((a, b) => a.windowId - b.windowId || a.index - b.index)
 }
 

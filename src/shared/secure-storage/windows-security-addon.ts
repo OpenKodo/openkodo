@@ -3,8 +3,8 @@ import { realpath } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { basename, isAbsolute, join, relative, toNamespacedPath } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import type * as WindowsSecurityModule from '@orca/windows-security'
-import { ORCAD_WINDOWS_SECURITY_FILENAME } from '../remote-runtime/orcad-distribution/orcad-artifacts'
+import type * as WindowsSecurityModule from '@openkodo/windows-security'
+import { OPENKODOD_WINDOWS_SECURITY_FILENAME } from '../remote-runtime/openkodod-distribution/openkodod-artifacts'
 
 export type WindowsSecurityAddon = typeof WindowsSecurityModule
 
@@ -34,7 +34,7 @@ const requireFromHere = createRequire(
 
 let loaded: WindowsSecurity | { error: string } | null = null
 
-/** Load orcad’s staged binary at its slot root; desktop/CLI packages must resolve inside the app.
+/** Load openkodod’s staged binary at its slot root; desktop/CLI packages must resolve inside the app.
  * Bare package lookup could escape to C:\node_modules, which another local user can create. */
 export function loadWindowsSecurity(): WindowsSecurity | { error: string } {
   loaded ??= loadOnce()
@@ -63,9 +63,9 @@ async function loadOnceAsync(): Promise<WindowsSecurity | { error: string }> {
   }
   const failures: string[] = []
   const candidates = [
-    () => join(nativeLookupDirectory, ORCAD_WINDOWS_SECURITY_FILENAME),
-    () => join(nativeLookupDirectory, '..', '..', ORCAD_WINDOWS_SECURITY_FILENAME),
-    () => trustedPackagePathAsync(requireFromHere.resolve('@orca/windows-security'), appRoots())
+    () => join(nativeLookupDirectory, OPENKODOD_WINDOWS_SECURITY_FILENAME),
+    () => join(nativeLookupDirectory, '..', '..', OPENKODOD_WINDOWS_SECURITY_FILENAME),
+    () => trustedPackagePathAsync(requireFromHere.resolve('@openkodo/windows-security'), appRoots())
   ]
   for (const candidate of candidates) {
     try {
@@ -88,7 +88,7 @@ export async function trustedPackagePathAsync(
       return real
     }
   }
-  throw new Error(`refusing @orca/windows-security outside the app: ${real}`)
+  throw new Error(`refusing @openkodo/windows-security outside the app: ${real}`)
 }
 
 function loadOnce(): WindowsSecurity | { error: string } {
@@ -97,9 +97,9 @@ function loadOnce(): WindowsSecurity | { error: string } {
   }
   const failures: string[] = []
   const candidates = [
-    () => join(nativeLookupDirectory, ORCAD_WINDOWS_SECURITY_FILENAME),
-    () => join(nativeLookupDirectory, '..', '..', ORCAD_WINDOWS_SECURITY_FILENAME),
-    () => trustedPackagePath(requireFromHere.resolve('@orca/windows-security'), appRoots())
+    () => join(nativeLookupDirectory, OPENKODOD_WINDOWS_SECURITY_FILENAME),
+    () => join(nativeLookupDirectory, '..', '..', OPENKODOD_WINDOWS_SECURITY_FILENAME),
+    () => trustedPackagePath(requireFromHere.resolve('@openkodo/windows-security'), appRoots())
   ]
   for (const candidate of candidates) {
     try {
@@ -131,7 +131,7 @@ export function trustedPackagePath(resolved: string, roots: readonly string[]): 
   if (roots.some((root) => isInsidePackageRoot(real, realpathSync(root)))) {
     return real
   }
-  throw new Error(`refusing @orca/windows-security outside the app: ${real}`)
+  throw new Error(`refusing @openkodo/windows-security outside the app: ${real}`)
 }
 
 function isInsidePackageRoot(real: string, root: string): boolean {

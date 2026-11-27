@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { OrcadManagedRestartResult } from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododManagedRestartResult } from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import type { SshManagedServerStatus } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { translate } from '@/i18n/i18n'
@@ -13,11 +13,13 @@ import {
   DialogHeader,
   DialogTitle
 } from '../../../ui/dialog'
-import { getManagedOrcadApi } from '../../../../runtime/hosts/installation/managed-orcad-api-availability'
+import { getManagedOpenkododApi } from '../../../../runtime/hosts/installation/managed-openkodod-api-availability'
 
 /** Offered only when the launching SSH session proved ended. */
 export function canRestartSshHostServer(status: SshManagedServerStatus | undefined): boolean {
-  return Boolean(getManagedOrcadApi() && status?.kind === 'managed' && status.launchSessionEnded)
+  return Boolean(
+    getManagedOpenkododApi() && status?.kind === 'managed' && status.launchSessionEnded
+  )
 }
 
 /** Restart macOS managed servers to restore local-network access (#25934); main refuses running terminals and never ends them. */
@@ -33,7 +35,7 @@ export function SshHostRestartServerDialog({
   onChanged: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()
-  const api = getManagedOrcadApi()
+  const api = getManagedOpenkododApi()
   const mountedRef = useMountedRef()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -96,7 +98,9 @@ export function SshHostRestartServerDialog({
   )
 }
 
-function refusalText(result: Exclude<OrcadManagedRestartResult, { outcome: 'restarted' }>): string {
+function refusalText(
+  result: Exclude<OpenkododManagedRestartResult, { outcome: 'restarted' }>
+): string {
   if (result.outcome === 'not-restarted') {
     return result.reason
   }

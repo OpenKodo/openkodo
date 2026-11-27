@@ -7,7 +7,7 @@ import type {
   AgentSessionProcessIdentityField
 } from '../../../../shared/agent-session/lifecycle/leases/agent-session-lease-adjudication'
 import type { AgentSessionProcessIdentity } from '../../../../shared/agent-session/lifecycle/agent-session-record'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { psLocaleEnvironment } from '../../../../shared/process-observation/tables/ps-locale-environment'
 import { runPsInProcess } from '../../../../shared/process-observation/darwin/libproc-process-table'
 import {

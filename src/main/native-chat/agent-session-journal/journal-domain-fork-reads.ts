@@ -148,7 +148,7 @@ export function readJournalDomainSavedContent(scope: JournalSqlScope): JournalSa
     .iterate(...scope.prefix)) {
     scope.examined(row)
     const identity = parseAgentJournalItemKey(String(row.item_id))
-    if (row.dispatch_state === 'accepted' || (identity && identity.provider !== 'orca')) {
+    if (row.dispatch_state === 'accepted' || (identity && identity.provider !== 'openkodo')) {
       return 'content'
     }
     uncertain ||=

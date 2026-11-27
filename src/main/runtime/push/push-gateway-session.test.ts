@@ -3,7 +3,7 @@ import { deriveRelayHostId } from '../mobile-cloud-relay/director/relay-http-cli
 import { buildPushChallengeFixture, createPushHostKeypair } from './push-host-challenge-fixtures'
 import { PushGatewaySession } from './push-gateway-session'
 
-const ORIGIN = 'https://push.onorca.dev'
+const ORIGIN = 'https://push.onopenkodo.dev'
 
 describe('PushGatewaySession clock refusals', () => {
   it('signs in again as soon as an ahead clock is set back, instead of waiting out the cache', async () => {

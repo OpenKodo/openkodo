@@ -180,7 +180,7 @@ export async function prepareRuntimePtySpawn(
   ctx.selectedCodexHomePath = hostEnv.selectedCodexHomePath
   ctx.codexResumeHomeSelected = hostEnv.codexResumeHomeSelected
   ctx.skipCodexHomeEnv = hostEnv.skipCodexHomeEnv
-  ctx.stripInheritedOrcaCodexHome = hostEnv.stripInheritedOrcaCodexHome
+  ctx.stripInheritedOpenKodoCodexHome = hostEnv.stripInheritedOpenKodoCodexHome
 
   return null
 }

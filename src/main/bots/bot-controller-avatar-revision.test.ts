@@ -37,8 +37,8 @@ describe('BotController', () => {
   const botsRoot = () => botsRootFolder()
 
   beforeEach(() => {
-    testState.dir = mkdtempSync(join(tmpdir(), 'orca-bots-profile-'))
-    osHome.dir = mkdtempSync(join(tmpdir(), 'orca-bots-home-'))
+    testState.dir = mkdtempSync(join(tmpdir(), 'openkodo-bots-profile-'))
+    osHome.dir = mkdtempSync(join(tmpdir(), 'openkodo-bots-home-'))
     store = createStore()
     const projectGroups = new RuntimeProjectGroupController({
       getStore: () => store,

@@ -1,5 +1,5 @@
 import { DEFAULT_SETUP_AGENT_STARTUP_POLICY } from '../agent-launch/startup/setup-agent-startup-policy'
-import type { RepoHookSettings, SetupAgentStartupPolicy } from './orca-yaml-hook-types'
+import type { RepoHookSettings, SetupAgentStartupPolicy } from './openkodo-yaml-hook-types'
 
 export function getDefaultRepoHookSettings(): RepoHookSettings {
   return {

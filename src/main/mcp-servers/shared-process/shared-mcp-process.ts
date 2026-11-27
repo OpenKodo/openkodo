@@ -5,12 +5,12 @@ import { once } from 'node:events'
 import { randomUUID } from 'node:crypto'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
-import { spawnProcess } from '@orca/process-host'
-import type { PipedProcessSpec } from '@orca/process-host/process-spec'
+import { spawnProcess } from '@openkodo/process-host'
+import type { PipedProcessSpec } from '@openkodo/process-host/process-spec'
 import {
   forceTerminateProcessTree,
   signalProcessTree
-} from '@orca/process-host/process-tree-termination'
+} from '@openkodo/process-host/process-tree-termination'
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js'
 import {
   isInitializeRequest,

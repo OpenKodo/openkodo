@@ -26,9 +26,9 @@ import {
   parsePaneKey
 } from '../../../../../shared/workspace-layout/stable-pane-id'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
 import {
   STRUCTURED_WORKER_HANDLE_PREFIX,
@@ -92,11 +92,11 @@ function persistedStructuredWorkerPaneKeyIsValid(
 }
 
 /** The OpenKodo session id a `structured:<sessionId>` incarnation names; null for any other. */
-export function structuredWorkerOrcaSessionIdForIncarnation(
+export function structuredWorkerOpenKodoSessionIdForIncarnation(
   processIncarnation: string | null | undefined
-): OrcaSessionId | null {
+): OpenKodoSessionId | null {
   const sessionId = sessionIdFromStructuredWorkerIncarnation(processIncarnation)
-  return sessionId !== null && isOrcaSessionId(sessionId) ? sessionId : null
+  return sessionId !== null && isOpenKodoSessionId(sessionId) ? sessionId : null
 }
 
 /** Structured sessions can only exist local and outside WSL; anything else is not our authority. */

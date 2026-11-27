@@ -31,7 +31,7 @@ const args = Object.fromEntries(
       []
     )
 )
-const dir = resolve(args.dir ?? join(tmpdir(), 'orca-journal-burst'))
+const dir = resolve(args.dir ?? join(tmpdir(), 'openkodo-journal-burst'))
 const rows = Number(args.rows ?? 3_200_000)
 const sessionCounts = String(args.sessions ?? '1,25,50')
   .split(',')
@@ -84,7 +84,7 @@ const options = { fence: 1, turnScope: { kind: 'thread' } }
 const filler = (length, seed) =>
   `${seed} `.repeat(Math.ceil(length / (seed.length + 1))).slice(0, length)
 const message = (clientMessageId, role, text, completed) => ({
-  identity: { provider: 'orca', clientMessageId },
+  identity: { provider: 'openkodo', clientMessageId },
   body: {
     kind: 'message',
     role,
@@ -298,7 +298,7 @@ const summary = (values) => ({
 
 async function run(arm, sessions, round) {
   // Builds share this process; each sizes its own worker send ledger, so none inherits another's.
-  setEnvironmentData('orca.worker-send-ledger.v1', undefined)
+  setEnvironmentData('openkodo.worker-send-ledger.v1', undefined)
   // Every run starts from an empty WAL, so no arm inherits the WAL an earlier run left behind.
   const { DatabaseSync } = await import('node:sqlite')
   const raw = new DatabaseSync(filename)
@@ -352,7 +352,7 @@ async function run(arm, sessions, round) {
     savedAt: Date.now(),
     operation: {
       kind: 'item',
-      identity: { provider: 'orca', clientMessageId: label },
+      identity: { provider: 'openkodo', clientMessageId: label },
       body: { kind: 'status', text: label },
       options
     }

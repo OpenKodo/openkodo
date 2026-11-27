@@ -1,11 +1,11 @@
 import { runKeyedSerializedOperation } from '../../../shared/concurrency/keyed-serialized-operations'
-import { spawnDetachedWithoutInheritance } from '@orca/process-host/isolated-detached-spawn'
+import { spawnDetachedWithoutInheritance } from '@openkodo/process-host/isolated-detached-spawn'
 import { queryWindowsProcess } from '../../daemon/endpoint/identity/daemon-process-inspection'
 import {
   listConfirmedRunningWslDistros,
   noteWslDistroMayHaveStopped
 } from './wsl-background-distro-gate'
-import { WslDistroNotRunningError } from '../orcad/wsl-orcad-connection-errors'
+import { WslDistroNotRunningError } from '../openkodod/wsl-openkodod-connection-errors'
 import { resolveWslInteropSpawnCwd } from '../execution/wsl-interop-spawn-directory'
 import { buildWslDistroHolderArgs } from './wsl-distro-holder-command'
 import {

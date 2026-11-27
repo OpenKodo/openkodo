@@ -17,8 +17,8 @@ const mocks = vi.hoisted(() => {
 vi.mock('@/runtime/provider-accounts/ownership/use-active-account-owner', () => ({
   useActiveAccountOwner: () => ({ target: { kind: 'local' }, wslHostDistro: mocks.distro })
 }))
-vi.mock('@/attention/orca-window-foreground-focus', () => ({
-  isOrcaWindowForegroundFocused: () => mocks.focused
+vi.mock('@/attention/openkodo-window-foreground-focus', () => ({
+  isOpenKodoWindowForegroundFocused: () => mocks.focused
 }))
 vi.mock('../../../store/index', () => ({
   useAppStore: (selector: (state: unknown) => unknown) =>

@@ -5,8 +5,8 @@ import { RepositoryRemoveProjectSection } from './RepositoryRemoveProjectSection
 
 const repo: Repo = {
   id: 'repo-1',
-  path: '/Users/dev/orca',
-  displayName: 'orca',
+  path: '/Users/dev/openkodo',
+  displayName: 'openkodo',
   badgeColor: '#3b82f6',
   addedAt: 0
 }
@@ -18,7 +18,7 @@ function setup(id: string, hostId: ProjectHostSetup['hostId'], path: string): Pr
     hostId,
     repoId: `repo-${id}`,
     path,
-    displayName: 'orca',
+    displayName: 'openkodo',
     setupState: 'ready',
     setupMethod: 'imported-existing-folder',
     createdAt: 0,
@@ -27,9 +27,9 @@ function setup(id: string, hostId: ProjectHostSetup['hostId'], path: string): Pr
 }
 
 const setups = [
-  setup('a', 'local', '/Users/dev/orca'),
-  setup('b', 'local', '/Users/dev/orca/workspaces/orca'),
-  setup('c', 'ssh:openclaw', '/home/dev/orca')
+  setup('a', 'local', '/Users/dev/openkodo'),
+  setup('b', 'local', '/Users/dev/openkodo/workspaces/openkodo'),
+  setup('c', 'ssh:openclaw', '/home/dev/openkodo')
 ]
 
 const entry = { title: 'Remove project', description: '', keywords: ['remove'] }

@@ -1,26 +1,26 @@
 ; electron-builder accepts one nsis.include; keep every customInstall/customUnInstall hook here.
 
-!include "${__FILEDIR__}\orca-process-check.nsh"
-!include "${__FILEDIR__}\orca-user-path-cleanup.nsh"
-!include "${__FILEDIR__}\orca-other-install-check.nsh"
+!include "${__FILEDIR__}\openkodo-process-check.nsh"
+!include "${__FILEDIR__}\openkodo-user-path-cleanup.nsh"
+!include "${__FILEDIR__}\openkodo-other-install-check.nsh"
 
 ; #10138/#23225: electron-builder’s APP_ASSOCIATE overwrites the extension’s default without backup,
 ; and APP_UNASSOCIATE never restores it. Register only additive ProgID/OpenWithProgids/SupportedTypes
 ; entries; never write the extension’s default handler. Sync extensions with isOsOpenedDocumentName().
-!define MARKDOWN_PROGID "Orca.Markdown"
-!define TABULAR_PROGID "Orca.Tabular"
+!define MARKDOWN_PROGID "OpenKodo.Markdown"
+!define TABULAR_PROGID "OpenKodo.Tabular"
 
-!macro ORCA_REGISTER_DOCUMENT_OPEN_WITH EXT PROGID
+!macro OPENKODO_REGISTER_DOCUMENT_OPEN_WITH EXT PROGID
   WriteRegNone SHELL_CONTEXT "Software\Classes\${EXT}\OpenWithProgids" "${PROGID}"
   WriteRegStr SHELL_CONTEXT "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" "${EXT}" ""
 !macroend
 
-!macro ORCA_UNREGISTER_DOCUMENT_OPEN_WITH EXT PROGID
+!macro OPENKODO_UNREGISTER_DOCUMENT_OPEN_WITH EXT PROGID
   DeleteRegValue SHELL_CONTEXT "Software\Classes\${EXT}\OpenWithProgids" "${PROGID}"
   DeleteRegValue SHELL_CONTEXT "Software\Classes\Applications\${APP_EXECUTABLE_FILENAME}\SupportedTypes" "${EXT}"
 !macroend
 
-!macro ORCA_REGISTER_DOCUMENT_PROGID PROGID NAME
+!macro OPENKODO_REGISTER_DOCUMENT_PROGID PROGID NAME
   WriteRegStr SHELL_CONTEXT "Software\Classes\${PROGID}" "" "${NAME}"
   WriteRegStr SHELL_CONTEXT "Software\Classes\${PROGID}\DefaultIcon" "" "$appExe,0"
   WriteRegStr SHELL_CONTEXT "Software\Classes\${PROGID}\shell\open" "" "Open with ${PRODUCT_NAME}"
@@ -28,13 +28,13 @@
 !macroend
 
 !macro customInstall
-  !insertmacro ORCA_REGISTER_DOCUMENT_PROGID "${MARKDOWN_PROGID}" "Markdown Document"
-  !insertmacro ORCA_REGISTER_DOCUMENT_PROGID "${TABULAR_PROGID}" "Tabular Document"
-  !insertmacro ORCA_REGISTER_DOCUMENT_OPEN_WITH ".md" "${MARKDOWN_PROGID}"
-  !insertmacro ORCA_REGISTER_DOCUMENT_OPEN_WITH ".markdown" "${MARKDOWN_PROGID}"
-  !insertmacro ORCA_REGISTER_DOCUMENT_OPEN_WITH ".mdx" "${MARKDOWN_PROGID}"
-  !insertmacro ORCA_REGISTER_DOCUMENT_OPEN_WITH ".csv" "${TABULAR_PROGID}"
-  !insertmacro ORCA_REGISTER_DOCUMENT_OPEN_WITH ".tsv" "${TABULAR_PROGID}"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_PROGID "${MARKDOWN_PROGID}" "Markdown Document"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_PROGID "${TABULAR_PROGID}" "Tabular Document"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_OPEN_WITH ".md" "${MARKDOWN_PROGID}"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_OPEN_WITH ".markdown" "${MARKDOWN_PROGID}"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_OPEN_WITH ".mdx" "${MARKDOWN_PROGID}"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_OPEN_WITH ".csv" "${TABULAR_PROGID}"
+  !insertmacro OPENKODO_REGISTER_DOCUMENT_OPEN_WITH ".tsv" "${TABULAR_PROGID}"
   ; Why: Explorer caches the association list until told otherwise.
   System::Call "shell32::SHChangeNotify(i,i,i,i) (0x08000000, 0x1000, 0, 0)"
 !macroend
@@ -59,9 +59,9 @@
     ${endIf}
     nsExec::Exec 'taskkill /F /IM "${APP_EXECUTABLE_FILENAME}" $2'
     Pop $0
-    nsExec::Exec 'taskkill /F /IM "orca-terminal-daemon.exe" $2'
+    nsExec::Exec 'taskkill /F /IM "openkodo-terminal-daemon.exe" $2'
     Pop $0
-    ; WSL hosts: the detached wsl.exe holders and each host's server keep their distros running. Orca
+    ; WSL hosts: the detached wsl.exe holders and each host's server keep their distros running. OpenKodo
     ; ends only the holders its profile recorded, each checked by pid, start time and command line.
     ; The last install for this user also stops each recorded host's server in a running distro: the
     ; HKCU/HKLM twin shares this userData, its host records and those servers, so it keeps them.
@@ -78,14 +78,14 @@
     ${if} ${FileExists} "$APPDATA\${APP_FILENAME}\wsl-distro-holders\*.json"
       StrCpy $1 "1"
     ${endIf}
-    ${if} ${FileExists} "$APPDATA\${APP_FILENAME}\orca-wsl-host-deployments.json"
+    ${if} ${FileExists} "$APPDATA\${APP_FILENAME}\openkodo-wsl-host-deployments.json"
       StrCpy $2 "1"
     ${endIf}
     !ifdef APP_PRODUCT_FILENAME
       ${if} ${FileExists} "$APPDATA\${APP_PRODUCT_FILENAME}\wsl-distro-holders\*.json"
         StrCpy $1 "1"
       ${endIf}
-      ${if} ${FileExists} "$APPDATA\${APP_PRODUCT_FILENAME}\orca-wsl-host-deployments.json"
+      ${if} ${FileExists} "$APPDATA\${APP_PRODUCT_FILENAME}\openkodo-wsl-host-deployments.json"
         StrCpy $2 "1"
       ${endIf}
     !endif
@@ -93,7 +93,7 @@
       ${if} ${FileExists} "$APPDATA\${APP_PACKAGE_NAME}\wsl-distro-holders\*.json"
         StrCpy $1 "1"
       ${endIf}
-      ${if} ${FileExists} "$APPDATA\${APP_PACKAGE_NAME}\orca-wsl-host-deployments.json"
+      ${if} ${FileExists} "$APPDATA\${APP_PACKAGE_NAME}\openkodo-wsl-host-deployments.json"
         StrCpy $2 "1"
       ${endIf}
     !endif
@@ -101,42 +101,42 @@
       SetShellVarContext all
     ${endIf}
     ${if} $2 == "1"
-      !insertmacro ORCA_OTHER_INSTALL_STATE $2
+      !insertmacro OPENKODO_OTHER_INSTALL_STATE $2
     ${endIf}
     ${if} $2 == "none"
-      nsExec::Exec '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" --orca-uninstall-release-wsl-holders --orca-uninstall-stop-wsl-servers'
+      nsExec::Exec '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" --openkodo-uninstall-release-wsl-holders --openkodo-uninstall-stop-wsl-servers'
       Pop $0
     ${elseIf} $1 == "1"
-      nsExec::Exec '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" --orca-uninstall-release-wsl-holders'
+      nsExec::Exec '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" --openkodo-uninstall-release-wsl-holders'
       Pop $0
     ${endIf}
-    ; Agent hook entries call the ~/.orca\agent-hooks scripts by bare path. Those scripts outlive the
-    ; app, but once that folder is removed every agent fails a hook per event, so the last Orca for
+    ; Agent hook entries call the ~/.openkodo\agent-hooks scripts by bare path. Those scripts outlive the
+    ; app, but once that folder is removed every agent fails a hook per event, so the last OpenKodo for
     ; this user takes the entries out. Another install, or an unreadable registry, keeps them.
     ; Best effort: the exit code never blocks uninstall.
     ; Sync the flag with AGENT_HOOKS_UNINSTALL_FLAG in src/main/startup/uninstall/agent-hooks-uninstall-preflight.ts.
-    !insertmacro ORCA_OTHER_INSTALL_STATE $1
+    !insertmacro OPENKODO_OTHER_INSTALL_STATE $1
     ${if} $1 == "none"
-      nsExec::Exec '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" --orca-uninstall-remove-agent-hooks'
+      nsExec::Exec '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" --openkodo-uninstall-remove-agent-hooks'
       Pop $0
     ${endIf}
-    ; The `orca` command's PATH entry (Settings → Command line) would otherwise outlive the app.
-    !insertmacro ORCA_REMOVE_USER_PATH_ENTRY "$INSTDIR\resources\bin"
+    ; The `openkodo` command's PATH entry (Settings → Command line) would otherwise outlive the app.
+    !insertmacro OPENKODO_REMOVE_USER_PATH_ENTRY "$INSTDIR\resources\bin"
     Pop $2
     Pop $1
     Pop $0
     ; Give the OS a moment to release the image lock before removing the tree.
     Sleep 500
-    RMDir /r "$LOCALAPPDATA\Orca\daemon-host"
-    RMDir /r "$LOCALAPPDATA\Orca\daemon-host-profiles"
+    RMDir /r "$LOCALAPPDATA\OpenKodo\daemon-host"
+    RMDir /r "$LOCALAPPDATA\OpenKodo\daemon-host-profiles"
   ${endIf}
   ; customInstall rewrites associations on every update, so remove them during uninstallOldVersion too.
   DeleteRegKey SHELL_CONTEXT "Software\Classes\${MARKDOWN_PROGID}"
   DeleteRegKey SHELL_CONTEXT "Software\Classes\${TABULAR_PROGID}"
-  !insertmacro ORCA_UNREGISTER_DOCUMENT_OPEN_WITH ".md" "${MARKDOWN_PROGID}"
-  !insertmacro ORCA_UNREGISTER_DOCUMENT_OPEN_WITH ".markdown" "${MARKDOWN_PROGID}"
-  !insertmacro ORCA_UNREGISTER_DOCUMENT_OPEN_WITH ".mdx" "${MARKDOWN_PROGID}"
-  !insertmacro ORCA_UNREGISTER_DOCUMENT_OPEN_WITH ".csv" "${TABULAR_PROGID}"
-  !insertmacro ORCA_UNREGISTER_DOCUMENT_OPEN_WITH ".tsv" "${TABULAR_PROGID}"
+  !insertmacro OPENKODO_UNREGISTER_DOCUMENT_OPEN_WITH ".md" "${MARKDOWN_PROGID}"
+  !insertmacro OPENKODO_UNREGISTER_DOCUMENT_OPEN_WITH ".markdown" "${MARKDOWN_PROGID}"
+  !insertmacro OPENKODO_UNREGISTER_DOCUMENT_OPEN_WITH ".mdx" "${MARKDOWN_PROGID}"
+  !insertmacro OPENKODO_UNREGISTER_DOCUMENT_OPEN_WITH ".csv" "${TABULAR_PROGID}"
+  !insertmacro OPENKODO_UNREGISTER_DOCUMENT_OPEN_WITH ".tsv" "${TABULAR_PROGID}"
   System::Call "shell32::SHChangeNotify(i,i,i,i) (0x08000000, 0x1000, 0, 0)"
 !macroend

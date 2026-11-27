@@ -24,7 +24,7 @@ import type { PluginImageCache } from '../media/plugin-image-cache'
 import { cacheValidatedMarketplace } from './plugin-marketplace-provenance'
 import { CommunityMarketplaceSeed } from './plugin-community-marketplace-seed'
 import { COMMUNITY_MARKETPLACE_GIT_SOURCE } from '../../../shared/plugins/catalog/plugin-install-link'
-import type { OrcaCloudCapabilities } from '../../../shared/orca-profiles/orca-cloud-capabilities'
+import type { OpenKodoCloudCapabilities } from '../../../shared/openkodo-profiles/openkodo-cloud-capabilities'
 import { PluginMarketplaceTeamPolicy } from './plugin-marketplace-team-policy'
 import { pluginMarketplaceErrorMessage } from './plugin-marketplace-error-message'
 import { sharedSourceRefresh } from './plugin-marketplace-shared-refresh'
@@ -66,7 +66,7 @@ export class PluginMarketplaceService {
     /** Picks which of an entry's releases to offer; without it the newest is offered. */
     hostVersion?: string
     imageCache?: PluginImageCache
-    getTeamCapabilities?: () => OrcaCloudCapabilities | undefined
+    getTeamCapabilities?: () => OpenKodoCloudCapabilities | undefined
   }) {
     this.hostVersion = options.hostVersion ?? null
     this.imageCache = options.imageCache ?? null

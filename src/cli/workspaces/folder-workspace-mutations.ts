@@ -48,7 +48,7 @@ async function showFolderWorkspace(
   })
 }
 
-/** Older Orcas edit the first folder that shares an id and delete every one, so they are refused before any change. */
+/** Older OpenKodos edit the first folder that shares an id and delete every one, so they are refused before any change. */
 async function assertUniqueIdMutationSupported(client: RuntimeClient): Promise<RuntimeStatus> {
   const status = await client.call<RuntimeStatus>('status.get')
   if (
@@ -141,7 +141,7 @@ export async function removeIfFolderWorkspace(
   printResult(
     result,
     json,
-    () => 'removed: true\nOrca no longer lists this folder workspace; the folder stays on disk.'
+    () => 'removed: true\nOpenKodo no longer lists this folder workspace; the folder stays on disk.'
   )
   return true
 }

@@ -5,7 +5,7 @@ import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-l
 import type { AppState } from '@/store/types'
 import type { HeldDrawnTabs } from '@/store/workspace-layout/frames/workspace-layout-frame-held-tabs'
 
-const STORAGE_KEY = 'orca.desktop-created-server-tabs.v1'
+const STORAGE_KEY = 'openkodo.desktop-created-server-tabs.v1'
 
 type Entry = { environmentId: string; worktreeId: string; ids: Set<string> }
 

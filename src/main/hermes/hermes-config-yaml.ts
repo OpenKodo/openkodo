@@ -92,18 +92,18 @@ function updatePassthrough(
     : { ...config, terminal: { ...terminal, client_env_passthrough: next } }
 }
 
-function addOrcaPassthrough(config: HermesConfig): HermesConfig {
+function addOpenKodoPassthrough(config: HermesConfig): HermesConfig {
   return updatePassthrough(config, (names) => [
     ...names,
     ...HERMES_CLIENT_ENV_PASSTHROUGH.filter((name) => !names.includes(name))
   ])
 }
 
-export function installOrcaStatusConfig(config: HermesConfig): HermesConfig {
-  return addOrcaPassthrough(enablePlugin(config))
+export function installOpenKodoStatusConfig(config: HermesConfig): HermesConfig {
+  return addOpenKodoPassthrough(enablePlugin(config))
 }
 
-export function removeOrcaStatusConfig(config: HermesConfig): HermesConfig {
+export function removeOpenKodoStatusConfig(config: HermesConfig): HermesConfig {
   return updatePassthrough(disablePlugin(config), (names) =>
     names.filter((name) => !HERMES_CLIENT_ENV_PASSTHROUGH.includes(name))
   )
@@ -134,12 +134,12 @@ function updateWithPluginFallback(
   return next.content === null ? updateConfigContent(content, pluginOnly) : next
 }
 
-export function installOrcaStatusContent(content: string | null) {
-  return updateWithPluginFallback(content, installOrcaStatusConfig, enablePlugin)
+export function installOpenKodoStatusContent(content: string | null) {
+  return updateWithPluginFallback(content, installOpenKodoStatusConfig, enablePlugin)
 }
 
-export function removeOrcaStatusContent(content: string | null) {
-  return updateWithPluginFallback(content, removeOrcaStatusConfig, disablePlugin)
+export function removeOpenKodoStatusContent(content: string | null) {
+  return updateWithPluginFallback(content, removeOpenKodoStatusConfig, disablePlugin)
 }
 
 export function getConfigEnablement(config: HermesConfig): {
@@ -165,8 +165,8 @@ export function getConfigEnablement(config: HermesConfig): {
   }
 }
 
-/** A named profile's passthrough, refreshed only while the user keeps orca-status enabled there; null skips the profile. */
-export function refreshProfileOrcaStatusContent(content: string | null): {
+/** A named profile's passthrough, refreshed only while the user keeps openkodo-status enabled there; null skips the profile. */
+export function refreshProfileOpenKodoStatusContent(content: string | null): {
   content: string | null
 } {
   const parsed = parseHermesConfig(content)
@@ -174,5 +174,7 @@ export function refreshProfileOrcaStatusContent(content: string | null): {
     return { content: null }
   }
   const { enabled, disabled } = getConfigEnablement(parsed.config)
-  return enabled && !disabled ? updateConfigContent(content, addOrcaPassthrough) : { content: null }
+  return enabled && !disabled
+    ? updateConfigContent(content, addOpenKodoPassthrough)
+    : { content: null }
 }

@@ -22,7 +22,7 @@ export function buildCommonProps(
     os_release: osRelease(),
     install_id: installId,
     session_id: sid,
-    orca_channel: channel
+    openkodo_channel: channel
   }
 }
 

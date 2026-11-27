@@ -41,7 +41,7 @@ export async function describeClaudeUsageBenchmarkTooling() {
 }
 
 export async function readClaudeUsageBenchmarkBaselineSources() {
-  const { runProcessSync } = await import('@orca/process-host')
+  const { runProcessSync } = await import('@openkodo/process-host')
   const readGit = (args) => {
     const result = runProcessSync({
       program: 'git',
@@ -72,11 +72,11 @@ export async function loadClaudeUsageBenchmarkScanner(
   baselineCommit = null
 ) {
   const sourceFingerprints = {}
-  const { runProcessSync } = await import('@orca/process-host')
+  const { runProcessSync } = await import('@openkodo/process-host')
   const result = await build({
     stdin: {
       contents: `export { scanClaudeUsageFiles } from './src/main/claude-usage/scanner';
-        export { resetReadMetrics, readMetrics } from 'orca-benchmark-fs';
+        export { resetReadMetrics, readMetrics } from 'openkodo-benchmark-fs';
         export { open as openForBenchmark } from 'node:fs/promises';
         export { createReadStream as createReadStreamForBenchmark } from 'node:fs';`,
       resolveDir: ROOT,
@@ -147,9 +147,9 @@ export async function loadClaudeUsageBenchmarkScanner(
             return { contents, loader, resolveDir: dirname(args.path) }
           })
           bundler.onResolve(
-            { filter: /^node:(fs(?:\/promises)?|os)$|^orca-benchmark-fs$/ },
+            { filter: /^node:(fs(?:\/promises)?|os)$|^openkodo-benchmark-fs$/ },
             (args) => {
-              if (args.path === 'orca-benchmark-fs') {
+              if (args.path === 'openkodo-benchmark-fs') {
                 return { path: 'node:fs', namespace: 'benchmark' }
               }
               if (args.namespace === 'benchmark') {
@@ -175,7 +175,7 @@ export async function loadClaudeUsageBenchmarkScanner(
             if (args.path === 'node:fs/promises') {
               return {
                 contents: `import * as fs from 'node:fs/promises';
-                  import { recordStream, recordRead } from 'orca-benchmark-fs';
+                  import { recordStream, recordRead } from 'openkodo-benchmark-fs';
                   export * from 'node:fs/promises';
                   export function readFile() {
                     throw new Error('Extend benchmark accounting before using fs.promises.readFile');

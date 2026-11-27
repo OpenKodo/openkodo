@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../addressing/orchestration-caller-identity'
 import { OrchestrationError } from '../orchestration-error'
 import { readCallerStoreInstallationId } from '../../hosts/platform-probe/host-descriptor'
@@ -12,7 +12,7 @@ import { resolveDispatchCallerWorktreeId } from '../../rpc/methods/orchestration
  */
 export async function resolveCrossMachineChildParent(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     | 'showTerminal'
     | 'getOrchestrationDispatchAuthority'
     | 'resolveCallerParentForAnotherStore'

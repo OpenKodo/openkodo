@@ -25,5 +25,5 @@ export function defaultPluginShotsDir(
   cwd: string,
   exists: (path: string) => boolean = existsSync
 ): string {
-  return join(enclosingPluginFolder(cwd, exists) ?? cwd, '.orca', 'shots')
+  return join(enclosingPluginFolder(cwd, exists) ?? cwd, '.openkodo', 'shots')
 }

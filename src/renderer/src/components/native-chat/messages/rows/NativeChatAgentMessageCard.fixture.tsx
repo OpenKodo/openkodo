@@ -30,7 +30,7 @@ const started = projectStructuredAgentStartItem({
     dispatchId: 'fixture-dispatch',
     task: prose,
     worker: {
-      party: { address: 'term_sender', terminalHandle: 'term_sender', orcaSessionId: null },
+      party: { address: 'term_sender', terminalHandle: 'term_sender', openkodoSessionId: null },
       name: 'Parser worker'
     }
   }
@@ -75,7 +75,7 @@ function cards() {
               party: {
                 address,
                 terminalHandle: kind === 'generic' && index === 0 ? null : address,
-                orcaSessionId: null
+                openkodoSessionId: null
               },
               name,
               ...(kind === 'worker' || kind === 'coordinator' ? { relation: kind } : {})
@@ -215,7 +215,7 @@ export const fromAnotherComputer = defineFixture({
               party: {
                 address: `${sender.name} on Alice's Mac`,
                 terminalHandle: null,
-                orcaSessionId: null
+                openkodoSessionId: null
               },
               host: "Alice's Mac",
               ...sender
@@ -318,7 +318,7 @@ const reviewStarted = projectStructuredAgentStartItem({
     dispatchId: 'review-dispatch',
     task: 'Review the share dialog change and run its tests.',
     worker: {
-      party: { address: 'term_worker', terminalHandle: 'term_worker', orcaSessionId: null },
+      party: { address: 'term_worker', terminalHandle: 'term_worker', openkodoSessionId: null },
       name: 'Review worker',
       agent: 'codex'
     }

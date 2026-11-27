@@ -78,7 +78,7 @@ export type FirstWorkBranchRenameDeps = FirstWorkAttemptDeps & {
   isFolderWorkspaceWslMoveBlocked?: (worktreeId: string) => boolean
   isPendingFirstAgentMessageRename?: (worktreeId: string) => boolean
   /** Require OpenKodo creation provenance before renaming a branch. */
-  canRenameOrcaCreatedBranch: (worktreeId: string) => boolean
+  canRenameOpenKodoCreatedBranch: (worktreeId: string) => boolean
   setDisplayName: (worktreeId: string, displayName: string) => void
   /** Best-effort local folder alignment after the branch rename. */
   renameWorktreeFolder?: (worktreeId: string, newLeaf: string) => Promise<boolean>
@@ -186,7 +186,7 @@ async function runAutoRename(
   if (!currentBranch) {
     return defer('interrupted', 'no checked-out branch')
   }
-  if (!deps.canRenameOrcaCreatedBranch(worktreeId)) {
+  if (!deps.canRenameOpenKodoCreatedBranch(worktreeId)) {
     return stop('name-chosen', 'worktree is not eligible for auto-rename', true)
   }
   const leaf = currentBranch.slice(currentBranch.lastIndexOf('/') + 1)

@@ -1,7 +1,7 @@
 import { selectExecutionHostDisplayLabel } from '@/runtime/hosts/display/execution-host-display-label'
 import { executionHostIdForStructuredTarget } from '@/runtime/native-chat/session-ownership/structured-agent-session-owner'
 import { useTranslate, type Translate } from '@/i18n/use-translate'
-import { sayNativeChatOrcaStopTranslated } from '@/components/native-chat/messages/notices/native-chat-orca-stop-words-text'
+import { sayNativeChatOpenKodoStopTranslated } from '@/components/native-chat/messages/notices/native-chat-openkodo-stop-words-text'
 import type { RuntimeClientTarget } from '../../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 import { useAppStore } from '../../../../store/index'
 import type { AppState } from '../../../../store/types'
@@ -30,7 +30,7 @@ export function structuredAgentSessionHostPlace(
   t: Translate
 ): string {
   return remoteHost
-    ? (hostLabel ?? sayNativeChatOrcaStopTranslated('unnamedServer'))
+    ? (hostLabel ?? sayNativeChatOpenKodoStopTranslated('unnamedServer'))
     : t('components.native-chat.receipt.thisComputer', 'this computer')
 }
 

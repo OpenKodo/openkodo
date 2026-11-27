@@ -116,7 +116,7 @@ function labelSourceSelector(
   dispatchId: string | undefined
 ): (state: AppState) => LabelSource {
   const identity = party ? { party, name: null } : undefined
-  const { address, orcaSessionId } = party ?? {}
+  const { address, openkodoSessionId } = party ?? {}
   let previous: LabelSource = { host: null, worktreeId: null }
   return (state) => {
     const owner = agentMessageSenderOwner(state, chatWorktreeId, target)
@@ -126,11 +126,11 @@ function labelSourceSelector(
         : undefined
     const legacyTab =
       owner &&
-      orcaSessionId &&
+      openkodoSessionId &&
       address !== undefined &&
       !address.startsWith('dispatch:') &&
       !hasAgentSenderPublication(state, owner)
-        ? findAgentMessageSenderChatTab(state, orcaSessionId, owner)
+        ? findAgentMessageSenderChatTab(state, openkodoSessionId, owner)
         : undefined
     const sessionId = association?.sessionId ?? legacyTab?.entityId
     const next = {
@@ -157,7 +157,7 @@ function useAgentMessageSenderChat(
   target?: RuntimeClientTarget,
   dispatchId?: string
 ): LabelSource {
-  const { address, orcaSessionId, terminalHandle } = sender?.party ?? {}
+  const { address, openkodoSessionId, terminalHandle } = sender?.party ?? {}
   const stableTarget = useStableSenderTarget(target)
   const select = useMemo(
     () =>
@@ -165,7 +165,7 @@ function useAgentMessageSenderChat(
         address !== undefined
           ? {
               address,
-              orcaSessionId: orcaSessionId ?? null,
+              openkodoSessionId: openkodoSessionId ?? null,
               terminalHandle: terminalHandle ?? null
             }
           : undefined,
@@ -173,7 +173,7 @@ function useAgentMessageSenderChat(
         stableTarget,
         dispatchId
       ),
-    [address, orcaSessionId, terminalHandle, chatWorktreeId, stableTarget, dispatchId]
+    [address, openkodoSessionId, terminalHandle, chatWorktreeId, stableTarget, dispatchId]
   )
   return useLeasedSenderSelector(NO_ROWS, select)
 }

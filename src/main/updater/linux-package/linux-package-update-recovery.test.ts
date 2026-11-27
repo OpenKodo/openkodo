@@ -65,7 +65,7 @@ function capture(overrides: Record<string, unknown> = {}): LinuxPackageArtifact 
   const downloadedFile =
     typeof overrides.downloadedFile === 'string'
       ? overrides.downloadedFile
-      : path.join(downloadDir, 'orca.deb')
+      : path.join(downloadDir, 'openkodo.deb')
   return recovery.captureLinuxPackageArtifact({
     version: VERSION,
     files: [{ url: path.basename(downloadedFile), sha512: SHA512 }],
@@ -79,9 +79,9 @@ beforeEach(async () => {
   hashPasses.count = 0
   getPackageTypeMock.mockReset().mockReturnValue('deb')
   buildCommandMock.mockReset().mockReturnValue({ ok: true, command: 'installed command' })
-  tempRoot = await fsp.mkdtemp(path.join(os.tmpdir(), 'orca-recovery-'))
+  tempRoot = await fsp.mkdtemp(path.join(os.tmpdir(), 'openkodo-recovery-'))
   cacheRoot = path.join(tempRoot, 'cache')
-  updaterDir = path.join(cacheRoot, 'orca-updater')
+  updaterDir = path.join(cacheRoot, 'openkodo-updater')
   downloadDir = path.join(updaterDir, 'pending')
   outsideDir = path.join(tempRoot, 'outside')
   await fsp.mkdir(downloadDir, { recursive: true })
@@ -106,8 +106,8 @@ describe('captureLinuxPackageArtifact', () => {
   it('refuses an ambiguous basename with two different digests', () => {
     capture({
       files: [
-        { url: 'orca.deb', sha512: SHA512 },
-        { url: 'https://mirror.example.com/orca.deb', sha512: 'conflicting-digest' }
+        { url: 'openkodo.deb', sha512: SHA512 },
+        { url: 'https://mirror.example.com/openkodo.deb', sha512: 'conflicting-digest' }
       ]
     })
     expect(recovery.getTrackedLinuxPackageArtifact()).toBeNull()
@@ -116,27 +116,31 @@ describe('captureLinuxPackageArtifact', () => {
   it('refuses a digest that cannot decode to 64 bytes', () => {
     // Invalid release metadata must not arm recovery that blames the downloaded file.
     capture({
-      files: [{ url: 'orca.deb', sha512: createHash('sha256').update(PAYLOAD).digest('base64') }]
+      files: [
+        { url: 'openkodo.deb', sha512: createHash('sha256').update(PAYLOAD).digest('base64') }
+      ]
     })
     expect(recovery.getTrackedLinuxPackageArtifact()).toBeNull()
   })
 
   it('refuses a digest with characters outside the base64 alphabet', () => {
     // Buffer.from silently drops invalid characters unless checked by a round trip.
-    capture({ files: [{ url: 'orca.deb', sha512: `${SHA512.slice(0, 4)}!${SHA512.slice(4)}` }] })
+    capture({
+      files: [{ url: 'openkodo.deb', sha512: `${SHA512.slice(0, 4)}!${SHA512.slice(4)}` }]
+    })
     expect(recovery.getTrackedLinuxPackageArtifact()).toBeNull()
   })
 
   it('keeps a retained artifact when a later event carries a malformed digest', () => {
     capture()
-    expect(capture({ files: [{ url: 'orca.deb', sha512: 'not-a-digest' }] })).toBeNull()
+    expect(capture({ files: [{ url: 'openkodo.deb', sha512: 'not-a-digest' }] })).toBeNull()
     expect(recovery.getTrackedLinuxPackageArtifact()?.sha512).toBe(SHA512)
   })
 })
 
 describePosix('resolveLinuxPackageInstallInstructions', () => {
   it('reports missing when the package was deleted', async () => {
-    const filePath = await writePackage('orca.deb')
+    const filePath = await writePackage('openkodo.deb')
     capture()
     await fsp.rm(filePath)
     await expect(recovery.resolveLinuxPackageInstallInstructions(recoveryFor())).resolves.toEqual({
@@ -148,7 +152,7 @@ describePosix('resolveLinuxPackageInstallInstructions', () => {
 
 describePosix('digest validation', () => {
   it('rejects a package whose contents changed', async () => {
-    const filePath = await writePackage('orca.deb')
+    const filePath = await writePackage('openkodo.deb')
     capture()
     await fsp.writeFile(filePath, 'tampered payload')
     await expect(recovery.resolveLinuxPackageInstallInstructions(recoveryFor())).resolves.toEqual({
@@ -160,7 +164,7 @@ describePosix('digest validation', () => {
 
 describePosix('cache containment', () => {
   it('rejects a directory in place of the package', async () => {
-    await fsp.mkdir(path.join(downloadDir, 'orca.deb'))
+    await fsp.mkdir(path.join(downloadDir, 'openkodo.deb'))
     capture()
     await expect(recovery.resolveLinuxPackageInstallInstructions(recoveryFor())).resolves.toEqual({
       ok: false,
@@ -170,7 +174,7 @@ describePosix('cache containment', () => {
 
   it('rejects a symlink to a real package inside the cache', async () => {
     await writePackage('real.deb')
-    const linkPath = path.join(downloadDir, 'orca.deb')
+    const linkPath = path.join(downloadDir, 'openkodo.deb')
     await fsp.symlink(path.join(downloadDir, 'real.deb'), linkPath)
     capture()
     await expect(recovery.resolveLinuxPackageInstallInstructions(recoveryFor())).resolves.toEqual({
@@ -185,7 +189,7 @@ describePosix('pending-directory anchoring', () => {
   it('rejects a pending directory buried deeper than one level under the cache root', async () => {
     const deepPending = path.join(cacheRoot, 'evil', 'nested', 'pending')
     await fsp.mkdir(deepPending, { recursive: true })
-    const filePath = path.join(deepPending, 'orca.deb')
+    const filePath = path.join(deepPending, 'openkodo.deb')
     await fsp.writeFile(filePath, PAYLOAD)
     capture({ downloadedFile: filePath })
     await expect(recovery.resolveLinuxPackageInstallInstructions(recoveryFor())).resolves.toEqual({
@@ -195,13 +199,13 @@ describePosix('pending-directory anchoring', () => {
   })
 
   it('accepts a pending directory reached through a symlink that stays in the cache', async () => {
-    await writePackage('orca.deb')
+    await writePackage('openkodo.deb')
     await fsp.symlink(updaterDir, path.join(cacheRoot, 'link-to-updater'))
-    capture({ downloadedFile: path.join(cacheRoot, 'link-to-updater', 'pending', 'orca.deb') })
+    capture({ downloadedFile: path.join(cacheRoot, 'link-to-updater', 'pending', 'openkodo.deb') })
     await expect(recovery.resolveLinuxPackageInstallInstructions(recoveryFor())).resolves.toEqual({
       ok: true,
       command: 'installed command',
-      packageFileName: 'orca.deb'
+      packageFileName: 'openkodo.deb'
     })
   })
 })

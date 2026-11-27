@@ -1,6 +1,6 @@
 /** R39: each ready control socket to a WSL host says which OpenKodo installation it belongs to. */
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
-import { ORCAD_DECLARE_CLIENT_METHOD } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
+import { OPENKODOD_DECLARE_CLIENT_METHOD } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-peer-desktops-contract'
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import type { RuntimeRpcResponse } from '../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 import { wslHostClientInstanceId } from './wsl-host-client-instance'
@@ -23,7 +23,7 @@ export async function declareWslHostClient(
     return
   }
   void request(
-    ORCAD_DECLARE_CLIENT_METHOD,
+    OPENKODOD_DECLARE_CLIENT_METHOD,
     { clientInstanceId: wslHostClientInstanceId() },
     DECLARE_TIMEOUT_MS
   )
@@ -44,7 +44,7 @@ async function isWslHostEnvironment(environmentId: string): Promise<boolean> {
       getAppEnvironment().getPath('userData'),
       environmentId
     )
-    return environment.orcadDeployment?.kind === 'wsl'
+    return environment.openkododDeployment?.kind === 'wsl'
   } catch {
     return false
   }

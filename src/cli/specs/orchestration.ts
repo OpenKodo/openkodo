@@ -71,7 +71,7 @@ export const ORCHESTRATION_COMMAND_SPECS: CommandSpec[] = [
       'A worker_done with the active task/dispatch IDs completes that task only from the dispatched pane. When stable pane identity is unavailable, the sender handle must exactly match the dispatch assignee; injected preambles include the correct --from value.',
       'Prefer --task-id/--dispatch-id/etc. over raw --payload JSON in worker commands; PowerShell strips JSON quotes easily.',
       'For a long or multi-line body, write it to a file and pass --body-file <path> (or - for stdin); the CLI reads it on this computer, so no shell quoting applies.',
-      '--on <server> mails a terminal or chat agent on a paired server (--to term_… or orca_session_id:…). Your own OpenKodo carries it, and replies come back to your own check. From an agent, --environment runs the command on that server and delivers no mail.',
+      '--on <server> mails a terminal or chat agent on a paired server (--to term_… or openkodo_session_id:…). Your own OpenKodo carries it, and replies come back to your own check. From an agent, --environment runs the command on that server and delivers no mail.',
       '--on-client <computer> mails an agent on a computer paired to this OpenKodo (--to bot:<id>), as its mention in your chat names it. A person on that computer approves it once, and its reply comes back to your own check; it fails at once when that computer is not connected, or comes back declined.'
     ]
   },

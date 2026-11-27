@@ -68,7 +68,7 @@ export const WebhookRotateRequestSchema = z.object({
   operationId: OperationId,
   stopNow: z.boolean()
 })
-// A pasted secret, or generate for one Orca makes.
+// A pasted secret, or generate for one OpenKodo makes.
 export const WebhookSecretRequestSchema = z.object({
   v: Version,
   operationId: OperationId,
@@ -119,7 +119,7 @@ export const WebhookViewSchema = z.object({
   botId: z.string().min(1),
   state: z.enum(['pending', 'live', 'paused', 'orphaned']),
   epoch: z.number().int().nonnegative(),
-  // Always 1, as hooks never move host; older Orca requires it.
+  // Always 1, as hooks never move host; older OpenKodo requires it.
   hostGen: z.number().int().nonnegative(),
   // Raised on every rotation, so a card holding an older key knows it changed.
   keyGeneration: z.number().int().nonnegative(),
@@ -156,7 +156,7 @@ export const WebhookCallRowSchema = z.discriminatedUnion('kind', [
 export const WebhookCallsSchema = z.object({ calls: z.array(WebhookCallRowSchema) })
 export const WebhookRevealedSchema = z.object({ key: z.string().min(1) })
 export const WebhookRotatedSchema = z.object({ cancelledCalls: z.number().int().nonnegative() })
-// Only a secret Orca generates comes back, for the owner to paste into the sender.
+// Only a secret OpenKodo generates comes back, for the owner to paste into the sender.
 export const WebhookSecretSetSchema = z.object({ secret: z.string().min(1).optional() })
 export const WebhookSampleSentSchema = z.object({ callId: CallId })
 

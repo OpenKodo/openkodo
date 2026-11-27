@@ -2,7 +2,7 @@
 import { toast } from 'sonner'
 import type { PluginMarketplaceHostInstallPreview } from '../../../../../preload/api/plugins/plugin-host-api'
 import {
-  satisfiesOrcaEngineRange,
+  satisfiesOpenKodoEngineRange,
   type PluginManifest
 } from '../../../../../shared/plugins/manifest/plugin-manifest'
 import { translate } from '@/i18n/i18n'
@@ -28,12 +28,12 @@ export async function loadUpdate(pluginKey: string): Promise<LoadedUpdate> {
 }
 
 /** The update's minimum OpenKodo when this OpenKodo can't run it; null when it can or either is unknown. */
-export function requiredNewerOrca(
+export function requiredNewerOpenKodo(
   preview: PluginMarketplaceHostInstallPreview,
-  orcaVersion: string | null | undefined
+  openkodoVersion: string | null | undefined
 ): string | null {
-  const range = preview.manifest.engines?.orca
-  if (!range || !orcaVersion || satisfiesOrcaEngineRange(orcaVersion, range)) {
+  const range = preview.manifest.engines?.openkodo
+  if (!range || !openkodoVersion || satisfiesOpenKodoEngineRange(openkodoVersion, range)) {
     return null
   }
   return range.replace(/^>=/, '')

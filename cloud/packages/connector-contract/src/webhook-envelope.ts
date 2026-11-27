@@ -1,4 +1,4 @@
-import { EpochMsSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 
 // A call as the cloud keeps it and its host fetches it: the hook's own keys already scrubbed out,

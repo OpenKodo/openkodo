@@ -1,5 +1,5 @@
 import { hashKey, type QueryClient } from '@tanstack/react-query'
-import type { PersistedTrustedOrcaHooks } from '../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import { defineHostQuery, readHostQueryLive } from '../../query/host-query'
 import { hostQueryKey, type HostQueryParams } from '../../query/host-query-key'
 import { holdsRestoredHostQueryData } from '../../query/host-query-persistence'
@@ -34,7 +34,10 @@ import {
 // What the Tasks screen opens on: settings, resume state and provider availability, read in one batch.
 export type TaskHydration = {
   settings: RuntimeTaskSettings
-  ui: { taskResumeState?: TaskResumeState; trustedOrcaHooks?: PersistedTrustedOrcaHooks } | null
+  ui: {
+    taskResumeState?: TaskResumeState
+    trustedOpenKodoHooks?: PersistedTrustedOpenKodoHooks
+  } | null
   glabInstalled: boolean
   linearConnected: boolean
 }

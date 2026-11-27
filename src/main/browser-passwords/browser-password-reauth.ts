@@ -1,5 +1,5 @@
 import { systemPreferences } from 'electron'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { browserPasswordSettings } from './browser-password-vault-access'
 import type { BrowserPasswordReauthMethod } from '../../shared/browser/passwords/browser-passwords-types'
 

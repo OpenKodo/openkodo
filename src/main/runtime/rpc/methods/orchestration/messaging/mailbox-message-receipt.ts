@@ -2,7 +2,7 @@ import type { MessageRow } from '../../../../orchestration/db/orchestration-reco
 import type { MailboxDeliveryBatch } from '../../../../orchestration/db/messages/role-mailbox-delivery'
 import { formatMessageBanner } from '../../../../orchestration/mailbox/formatting/message-formatting'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationSessionCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import { getMessagesByIds } from '../../../../orchestration/db/messages/messages-by-id'
 import { replyFollowUp } from './reply-follow-up'
@@ -112,7 +112,7 @@ export function handsOverBatch(result: unknown): boolean {
 
 /** Adds what each message offers instead of `[Reply:]` for this reader, so every check view prints the same. */
 export function withReplyFollowUps<T>(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   reader: OrchestrationSessionCaller | undefined,
   result: T
@@ -163,7 +163,7 @@ type ReportReceipt = MailboxMessageReceipt & { follow_up?: ReportFollowUpAction 
 /** Names the open item each finished worker's report was started for, read now. A failed read leaves
  *  that report as it was. */
 export async function withReportItems<T>(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   result: T
 ): Promise<T> {

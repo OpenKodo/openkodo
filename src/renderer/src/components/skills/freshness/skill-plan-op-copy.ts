@@ -50,7 +50,7 @@ export function leaveReasonText(
     case 'edited':
       // Why neutral: an older OpenKodo release with extra files and a hand edit both land here.
       return t(
-        'auto.components.skills.skillPlanOpCopy.differsFromOrca',
+        'auto.components.skills.skillPlanOpCopy.differsFromOpenKodo',
         "This copy differs from OpenKodo's"
       )
     case 'other-build':

@@ -45,10 +45,10 @@ export const AGENT_SESSION_WRITE_NOTICE_COPY = {
   diskFull: 'The disk on the computer running this chat is full.',
   freeDiskSpace: 'Free up space on that disk, then try again.',
   savedInOtherFolder: 'This conversation was saved in another folder.',
-  savedByNewerOrca: 'Chats were saved by a newer OpenKodo.',
-  updateOrcaToKeepUsing: 'Update OpenKodo to keep using them.',
-  chatSavedByNewerOrca: 'This chat was saved by a newer OpenKodo.',
-  updateOrcaToOpenChat: 'Update OpenKodo to open it.',
+  savedByNewerOpenKodo: 'Chats were saved by a newer OpenKodo.',
+  updateOpenKodoToKeepUsing: 'Update OpenKodo to keep using them.',
+  chatSavedByNewerOpenKodo: 'This chat was saved by a newer OpenKodo.',
+  updateOpenKodoToOpenChat: 'Update OpenKodo to open it.',
   unsupported:
     'This needs a newer OpenKodo on the computer running this chat. Update OpenKodo there, then try again.',
   notAvailable: "This isn't available in this chat.",
@@ -124,6 +124,6 @@ export const AGENT_SESSION_HISTORY_UNREAD_CAUSES: ReadonlySet<AgentSessionWriteN
     'historyUnusable',
     'historyUnavailable',
     'historyUnreadable',
-    'savedByNewerOrca',
-    'chatSavedByNewerOrca'
+    'savedByNewerOpenKodo',
+    'chatSavedByNewerOpenKodo'
   ])

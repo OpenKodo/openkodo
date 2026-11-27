@@ -47,8 +47,8 @@ export const NativeChatSlackPeopleContext = createContext<SlackPeople | null>(nu
 export const NativeChatMentionEveryoneContext = createContext(true)
 
 // Hast property sanitize must let through to the span renderer.
-const MENTION_PROPERTY = 'dataOrcaMention'
-const BOT_CHAT_PROPERTY = 'dataOrcaBotChat'
+const MENTION_PROPERTY = 'dataOpenKodoMention'
+const BOT_CHAT_PROPERTY = 'dataOpenKodoBotChat'
 const SKIPPED = new Set([
   'code',
   'inlineCode',
@@ -140,13 +140,13 @@ const MENTION_CHIP = 'rounded-sm bg-accent px-0.5 font-medium text-foreground'
 
 function MentionSpan({
   node: _node,
-  'data-orca-bot-chat': chat,
+  'data-openkodo-bot-chat': chat,
   ...props
-}: SpanProps & { 'data-orca-bot-chat'?: string }): React.JSX.Element {
+}: SpanProps & { 'data-openkodo-bot-chat'?: string }): React.JSX.Element {
   if (chat) {
     return <BotChatMentionChip {...props} chat={chat} />
   }
-  return 'data-orca-mention' in props ? (
+  return 'data-openkodo-mention' in props ? (
     <span {...props} className={MENTION_CHIP} />
   ) : (
     <span {...props} />

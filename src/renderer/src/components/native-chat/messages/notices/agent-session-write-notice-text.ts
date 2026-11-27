@@ -72,17 +72,23 @@ const SENTENCES: Record<AgentSessionWriteNoticeSentence, () => string> = {
     translate('components.native-chat.writeNotice.freeDiskSpace', COPY.freeDiskSpace),
   savedInOtherFolder: () =>
     translate('components.native-chat.writeNotice.savedInOtherFolder', COPY.savedInOtherFolder),
-  savedByNewerOrca: () =>
-    translate('components.native-chat.writeNotice.savedByNewerOrca', COPY.savedByNewerOrca),
-  updateOrcaToKeepUsing: () =>
+  savedByNewerOpenKodo: () =>
+    translate('components.native-chat.writeNotice.savedByNewerOpenKodo', COPY.savedByNewerOpenKodo),
+  updateOpenKodoToKeepUsing: () =>
     translate(
-      'components.native-chat.writeNotice.updateOrcaToKeepUsing',
-      COPY.updateOrcaToKeepUsing
+      'components.native-chat.writeNotice.updateOpenKodoToKeepUsing',
+      COPY.updateOpenKodoToKeepUsing
     ),
-  chatSavedByNewerOrca: () =>
-    translate('components.native-chat.writeNotice.chatSavedByNewerOrca', COPY.chatSavedByNewerOrca),
-  updateOrcaToOpenChat: () =>
-    translate('components.native-chat.writeNotice.updateOrcaToOpenChat', COPY.updateOrcaToOpenChat),
+  chatSavedByNewerOpenKodo: () =>
+    translate(
+      'components.native-chat.writeNotice.chatSavedByNewerOpenKodo',
+      COPY.chatSavedByNewerOpenKodo
+    ),
+  updateOpenKodoToOpenChat: () =>
+    translate(
+      'components.native-chat.writeNotice.updateOpenKodoToOpenChat',
+      COPY.updateOpenKodoToOpenChat
+    ),
   unsupported: () => translate('components.native-chat.writeNotice.unsupported', COPY.unsupported),
   notAvailable: () =>
     translate('components.native-chat.writeNotice.notAvailable', COPY.notAvailable),

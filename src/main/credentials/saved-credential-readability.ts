@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { getSecretStore } from '../../shared/secure-storage/secret-store'
 
 export type SavedCredentialUnreadable =
-  /** Desktop safeStorage and orcad host keys cannot decrypt each other's files in ~/.orca. */
+  /** Desktop safeStorage and openkodod host keys cannot decrypt each other's files in ~/.openkodo. */
   'sealed-elsewhere' | 'unreadable'
 
 export type SavedCredentialFile = {
@@ -12,13 +12,13 @@ export type SavedCredentialFile = {
   legacyRaw?: boolean
 }
 
-// Orcad can report encryption available before its host key is loaded; probe actual use.
+// Openkodod can report encryption available before its host key is loaded; probe actual use.
 function secretStoreWorks(): boolean {
   try {
     const store = getSecretStore()
     return (
-      store.decryptString(store.encryptString('orca-secret-store-probe')) ===
-      'orca-secret-store-probe'
+      store.decryptString(store.encryptString('openkodo-secret-store-probe')) ===
+      'openkodo-secret-store-probe'
     )
   } catch {
     return false

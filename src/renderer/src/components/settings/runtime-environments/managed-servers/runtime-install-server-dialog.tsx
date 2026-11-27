@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { toast } from 'sonner'
-import type { ManagedOrcadPreloadApi } from '../../../../../../preload/api/runtime/managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from '../../../../../../preload/api/runtime/managed-openkodod-api'
 import type { SshTarget } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { useTranslate } from '@/i18n/use-translate'
@@ -22,7 +22,7 @@ import { HostCombobox } from '../../../host-picker/HostCombobox'
 
 type RuntimeInstallServerDialogProps = {
   open: boolean
-  api: ManagedOrcadPreloadApi
+  api: ManagedOpenkododPreloadApi
   emptyTargets: SshTarget[]
   loadFailed: boolean
   onOpenChange: (open: boolean) => void

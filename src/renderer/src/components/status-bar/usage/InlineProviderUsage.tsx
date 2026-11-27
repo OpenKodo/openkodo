@@ -189,7 +189,7 @@ export function InlineUsageSignInAction({
           <Loader2 className="size-3 animate-spin motion-reduce:animate-none" />
         ) : null}
         {isSigningIn && showBusyLabel
-          ? t('auto.components.OrcaSignInProgress.signingIn', 'Signing in…')
+          ? t('auto.components.OpenKodoSignInProgress.signingIn', 'Signing in…')
           : t('auto.components.status.bar.StatusBar.c35af53b73', 'Sign in')}
       </Button>
     </DropdownMenuItem>

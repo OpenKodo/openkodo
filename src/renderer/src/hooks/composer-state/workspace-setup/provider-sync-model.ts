@@ -1,8 +1,8 @@
 import type { RefObject } from 'react'
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   SetupAgentStartupPolicy
-} from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { HookCheckResult } from '@/runtime/repo-hooks/runtime-hooks-client'
 
 export type ComposerProviderSyncModel = {
@@ -17,5 +17,5 @@ export type ComposerProviderSyncModel = {
     targetRepoId: string,
     options?: { background?: boolean }
   ) => Promise<HookCheckResult>
-  commitHookCheckIfCurrent: (targetContextKey: string, hooks: OrcaHooks | null) => boolean
+  commitHookCheckIfCurrent: (targetContextKey: string, hooks: OpenKodoHooks | null) => boolean
 }

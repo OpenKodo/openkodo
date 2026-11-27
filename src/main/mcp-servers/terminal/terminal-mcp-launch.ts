@@ -199,7 +199,7 @@ export async function withTerminalMcpServers(
           ? {
               wsl: {
                 ...input.wsl,
-                // In WSL each rewritten server runs the guest's `orca`, which needs interop.
+                // In WSL each rewritten server runs the guest's `openkodo`, which needs interop.
                 interop: new Set(
                   offered.bridged
                     .map((server) => server.name)

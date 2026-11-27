@@ -1,7 +1,7 @@
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { RefObject } from 'react'
 import type { NativeChatComposerHandle } from '../native-chat/composer/native-chat-composer-types'
 import { LazyOrchestrationCrewPanel } from './LazyOrchestrationCrewPanel'
@@ -25,7 +25,7 @@ export function NativeChatCrewPanel({
 }): React.JSX.Element | null {
   const party =
     suppliedParty ??
-    (sessionId && isOrcaSessionId(sessionId) ? formatOrcaSessionAddress(sessionId) : null)
+    (sessionId && isOpenKodoSessionId(sessionId) ? formatOpenKodoSessionAddress(sessionId) : null)
   if (!target || !party) {
     return null
   }

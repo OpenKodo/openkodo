@@ -17,12 +17,12 @@ import type {
   PairedUiState,
   PairingLocalUiField
 } from '../../../../../shared/remote-runtime/pairing/pairing-local-ui-fields'
-import type { PersistedUIState } from '../../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import { normalizeStatusBarUsageMode } from '../../../../../shared/status-bar/status-bar-usage-mode'
 import { normalizeStatusBarUsageFormat } from '../../../../../shared/status-bar/status-bar-usage-format'
 import { normalizeUsagePercentageDisplay } from '../../../../../shared/agent-usage/display/usage-percentage-display'
 import { mergeWorkspaceCleanupUIState } from '../../../../../shared/workspace-cleanup/workspace-cleanup-ui-state'
-import { getDefaultUIState } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultUIState } from '../../../../../shared/openkodo-profiles/constants'
 import { pinnedBotUiState } from './paired-bot-ui-state'
 import { getStoredSettings } from './web-preferences-store'
 import { UI_STORAGE_KEY, readJson } from '../web-storage'

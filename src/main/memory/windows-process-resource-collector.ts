@@ -1,8 +1,8 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   windowsPowerShellPath,
   windowsSystem32Binary
-} from '@orca/process-host/windows-system-binary'
+} from '@openkodo/process-host/windows-system-binary'
 import os from 'node:os'
 import { performance } from 'node:perf_hooks'
 import {

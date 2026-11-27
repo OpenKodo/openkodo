@@ -23,8 +23,8 @@ export type ComposerProviderRuntimeSyncInput = Pick<
 import { useEffect, useCallback, useRef } from 'react'
 import type {
   SetupAgentStartupPolicy,
-  OrcaHooks
-} from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+  OpenKodoHooks
+} from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { useAppStore } from '@/store/index'
 import { isGitRepoKind } from '../../../../../shared/repository/repo-kind'
 import { toast } from 'sonner'
@@ -218,7 +218,7 @@ export function useComposerProviderRuntimeSync(input: ComposerProviderRuntimeSyn
   )
 
   const commitHookCheckIfCurrent = useCallback(
-    (targetContextKey: string, hooks: OrcaHooks | null): boolean => {
+    (targetContextKey: string, hooks: OpenKodoHooks | null): boolean => {
       if (selectedRepoHookContextKey !== targetContextKey) {
         return false
       }

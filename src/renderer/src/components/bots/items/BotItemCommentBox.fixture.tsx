@@ -44,7 +44,7 @@ export const pastedImage = defineFixture({
     folderWorkspaces: [
       makeFolderWorkspace({
         id: fixtureCos.folderWorkspaceId,
-        folderPath: '/home/me/.orca/bots/cos'
+        folderPath: '/home/me/.openkodo/bots/cos'
       })
     ]
   },
@@ -55,7 +55,8 @@ export const pastedImage = defineFixture({
       { text: '', images: [] },
       'immediate'
     )
-    window.api.ui.saveClipboardImageAsTempFile = async () => '/home/me/.orca/attachments/image.png'
+    window.api.ui.saveClipboardImageAsTempFile = async () =>
+      '/home/me/.openkodo/attachments/image.png'
   },
   interact: pasteImage,
   render: () => (
@@ -150,7 +151,9 @@ export const posted = defineFixture({
           at: 1_700_000_000_000,
           data: {
             text: 'The dialog clips here [Image #1] on narrow windows.',
-            images: [{ path: '/home/me/.orca/attachments/image.png', name: 'image.png', bytes: 70 }]
+            images: [
+              { path: '/home/me/.openkodo/attachments/image.png', name: 'image.png', bytes: 70 }
+            ]
           }
         }
       }}
@@ -165,9 +168,9 @@ const PICKER_SKILLS = ['release-notes', 'triage'].map((name) => ({
   providers: ['claude'],
   sourceKind: 'repo',
   sourceLabel: 'Repository',
-  rootPath: '/home/me/.orca/bots/cos/.claude/skills',
-  directoryPath: `/home/me/.orca/bots/cos/.claude/skills/${name}`,
-  skillFilePath: `/home/me/.orca/bots/cos/.claude/skills/${name}/SKILL.md`,
+  rootPath: '/home/me/.openkodo/bots/cos/.claude/skills',
+  directoryPath: `/home/me/.openkodo/bots/cos/.claude/skills/${name}`,
+  skillFilePath: `/home/me/.openkodo/bots/cos/.claude/skills/${name}/SKILL.md`,
   installed: true,
   updatedAt: null
 }))
@@ -175,7 +178,7 @@ const PICKER_SKILLS = ['release-notes', 'triage'].map((name) => ({
 const PICKER_SKILL_SOURCE = {
   id: 'repo-claude',
   label: 'Repository',
-  path: '/home/me/.orca/bots/cos/.claude/skills',
+  path: '/home/me/.openkodo/bots/cos/.claude/skills',
   sourceKind: 'repo',
   providers: ['claude'],
   owner: 'claude'

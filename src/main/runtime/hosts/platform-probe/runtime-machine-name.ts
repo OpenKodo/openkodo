@@ -1,5 +1,5 @@
 import os from 'node:os'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { normalizeMachineName } from '../../../../shared/remote-runtime/host-metadata/machine-name'
 import { withTimeout } from '../../../../shared/concurrency/promise-timeout-fallback'
 

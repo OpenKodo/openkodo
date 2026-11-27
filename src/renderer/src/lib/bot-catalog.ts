@@ -16,9 +16,9 @@ import { useShallow } from 'zustand/react/shallow'
 import { useAppStore } from '@/store'
 import type { AppState } from '@/store/types'
 import {
-  isOrcaCloudTeamFeatureBlocked,
+  isOpenKodoCloudTeamFeatureBlocked,
   OPENKODO_CLOUD_TEAM_POLICY_FLAGS
-} from '../../../shared/orca-profiles/orca-cloud-team-policy'
+} from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { activateAndRevealFolderWorkspace } from './workspace/activation/worktree-activation'
 import {
   activateStructuredAgentSessionById,
@@ -200,8 +200,8 @@ export function readBotsEnabled(): boolean {
 function botsEnabled(state: AppState): boolean {
   return (
     state.settings?.botsEnabled !== false &&
-    !isOrcaCloudTeamFeatureBlocked(
-      state.orcaProfileAuthStatus,
+    !isOpenKodoCloudTeamFeatureBlocked(
+      state.openkodoProfileAuthStatus,
       OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots
     )
   )

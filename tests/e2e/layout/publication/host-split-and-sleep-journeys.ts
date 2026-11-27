@@ -3,7 +3,7 @@ import { mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import type { Page } from '@playwright/test'
-import '../../desktop/electron-fixtures/orca-app'
+import '../../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import { RuntimeClient } from '../../../../src/cli/runtime/client'
 import type { RuntimeTerminalListResult } from '../../../../src/shared/terminal/runtime/runtime-terminal-contracts'
@@ -29,7 +29,7 @@ export async function addHostCreatedSplitWorktree(
   userDataDir: string
 ): Promise<FolderWorkspaceSetup> {
   const { worktreeId } = await bootstrapFirstLaunch(page, seededRepoPathOrSkip())
-  const repoPath = realpathSync(mkdtempSync(path.join(os.tmpdir(), 'orca-e2e-parity-setup-')))
+  const repoPath = realpathSync(mkdtempSync(path.join(os.tmpdir(), 'openkodo-e2e-parity-setup-')))
   const git = (...args: string[]): void => {
     execFileSync('git', args, { cwd: repoPath, stdio: 'pipe' })
   }

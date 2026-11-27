@@ -59,9 +59,9 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
     usage: 'openkodo environment stop --environment <selector> --yes [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'yes'],
     notes: [
-      'Stops orcad on the SSH host and, once the host proves it exited, removes the server from this machine and disconnects the host. Its terminals end. Connecting the host again sets up a new server. Requires --yes.',
-      'If the host cannot prove orcad exited, the server stays linked and the refusal says why; nothing is removed on a guess. For a host that is gone for good, use `openkodo environment forget`.',
-      'If this server is the default host for new projects, choose another one first. `openkodo environment cancel-stop` withdraws a stop orcad has not acted on yet.',
+      'Stops the OpenKodo server on the SSH host and, once the host proves it exited, removes the server from this machine and disconnects the host. Its terminals end. Connecting the host again sets up a new server. Requires --yes.',
+      'If the host cannot prove openkodod exited, the server stays linked and the refusal says why; nothing is removed on a guess. For a host that is gone for good, use `openkodo environment forget`.',
+      'If this server is the default host for new projects, choose another one first. `openkodo environment cancel-stop` withdraws a stop the OpenKodo server has not acted on yet.',
       SELECTOR_NOTE,
       DESKTOP_NOTE
     ],
@@ -75,7 +75,7 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment', 'yes'],
     notes: [
       'Removes the server from this machine without contacting its host, so the SSH host can then be removed. Use it when the host was deleted or can never be reached again. Requires --yes.',
-      'Nothing on the host is stopped: if it comes back, orcad may still be running there.',
+      'Nothing on the host is stopped: if it comes back, openkodod may still be running there.',
       'The SSH host is left disconnected, since no OpenKodo server serves it any more. Connecting it again (Connect in OpenKodo) sets its server up again, relinking one still running there.',
       SELECTOR_NOTE,
       DESKTOP_NOTE
@@ -84,7 +84,7 @@ export const MANAGED_SERVER_COMMAND_SPECS: CommandSpec[] = [
   },
   {
     path: ['environment', 'cancel-stop'],
-    summary: 'Withdraw a managed OpenKodo server stop that orcad has not acted on yet',
+    summary: 'Withdraw a managed OpenKodo server stop that the server has not acted on yet',
     usage: 'openkodo environment cancel-stop --environment <selector> [--json]',
     allowedFlags: [...LOCAL_COMMAND_FLAGS, 'environment'],
     notes: [SELECTOR_NOTE, DESKTOP_NOTE]

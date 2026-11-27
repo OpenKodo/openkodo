@@ -1,15 +1,15 @@
-import type { OrcaRuntimeWithRestoreLivePairedRendererSessionOwnedMobileTerminals as RendererTerminalRescue } from '../../session-tabs/restoration/renderer-session-terminal-rescue'
-import type { OrcaRuntimeWithCloseStructuredAgentSessionTab as StructuredSessionClose } from '../../session-tabs/chat/structured-session-tab-close'
-import type { OrcaRuntimeWithTransitionGraphReloadToTerminalState as SessionGraphAuthority } from '../../session-graph/session-graph-authority'
-import type { OrcaRuntimeWithWaitForMobileTerminalSurface as MobileTerminalSurface } from '../../terminal/view/mobile-terminal-surface'
-import type { OrcaRuntimeWithCloseHeadlessMobileTerminalTab as HeadlessTerminalClose } from '../../session-tabs/terminal-retirement/headless-terminal-tab-close'
-import { OrcaRuntimeWithReconcileHeadlessMobileSessionBrowserTabs } from '../projection/reconcile-headless-mobile-session-browser-tabs'
+import type { OpenKodoRuntimeWithRestoreLivePairedRendererSessionOwnedMobileTerminals as RendererTerminalRescue } from '../../session-tabs/restoration/renderer-session-terminal-rescue'
+import type { OpenKodoRuntimeWithCloseStructuredAgentSessionTab as StructuredSessionClose } from '../../session-tabs/chat/structured-session-tab-close'
+import type { OpenKodoRuntimeWithTransitionGraphReloadToTerminalState as SessionGraphAuthority } from '../../session-graph/session-graph-authority'
+import type { OpenKodoRuntimeWithWaitForMobileTerminalSurface as MobileTerminalSurface } from '../../terminal/view/mobile-terminal-surface'
+import type { OpenKodoRuntimeWithCloseHeadlessMobileTerminalTab as HeadlessTerminalClose } from '../../session-tabs/terminal-retirement/headless-terminal-tab-close'
+import { OpenKodoRuntimeWithReconcileHeadlessMobileSessionBrowserTabs } from '../projection/reconcile-headless-mobile-session-browser-tabs'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { RuntimeMobileSessionTerminalTab } from '../../../../shared/remote-runtime/session-graph/runtime-mobile-session-tab-contracts'
 import { SSH_PANE_RECOVERY_GRACE_MS } from '../../terminal/recovery/ssh-pane-recovery-window'
 import { terminalIsOfTab } from './closed-tab-terminal'
 
-export abstract class OrcaRuntimeWithHasLiveOrPersistedServeOrSshOwnedPtyBinding extends OrcaRuntimeWithReconcileHeadlessMobileSessionBrowserTabs {
+export abstract class OpenKodoRuntimeWithHasLiveOrPersistedServeOrSshOwnedPtyBinding extends OpenKodoRuntimeWithReconcileHeadlessMobileSessionBrowserTabs {
   protected abstract setPairedRendererSessionOwnership(
     ...args: Parameters<RendererTerminalRescue['setPairedRendererSessionOwnership']>
   ): ReturnType<RendererTerminalRescue['setPairedRendererSessionOwnership']>

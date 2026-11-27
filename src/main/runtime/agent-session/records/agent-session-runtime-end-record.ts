@@ -9,7 +9,7 @@ import {
   readNodeFileSyncWithinLimit,
   readNodeFileWithinLimit
 } from '../../../../shared/file-content/node-bounded-file-reader'
-import type { AgentSessionOrcaStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-orca-stop'
+import type { AgentSessionOpenKodoStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import {
   AGENT_SESSION_RESUME_TRIGGERS,
   type AgentSessionResumeTrigger
@@ -111,7 +111,7 @@ function readTrigger(value: unknown): AgentSessionResumeTrigger | undefined {
   return AGENT_SESSION_RESUME_TRIGGERS.find((trigger) => trigger === value)
 }
 
-type RecordReading = { startedAt: number; end: AgentSessionOrcaStopCause | undefined }
+type RecordReading = { startedAt: number; end: AgentSessionOpenKodoStopCause | undefined }
 
 function parseRecord(text: string, runtime: string): RecordReading | undefined {
   const parsed: unknown = JSON.parse(text)
@@ -137,7 +137,7 @@ function parseRecord(text: string, runtime: string): RecordReading | undefined {
   }
 }
 
-function readRecordedEnd(path: string, runtime: string): AgentSessionOrcaStopCause | undefined {
+function readRecordedEnd(path: string, runtime: string): AgentSessionOpenKodoStopCause | undefined {
   try {
     return parseRecord(
       readNodeFileSyncWithinLimit(path, MAX_RUNTIME_RECORD_BYTES).buffer.toString('utf8'),
@@ -183,7 +183,7 @@ export async function previousAgentSessionRuntimeStartedAt(
 /** Missing/unreadable runtime records give no cause; null means the directory itself could not be listed. */
 export function readAgentSessionRuntimeEnds(
   stateDirectory: string
-): ReadonlyMap<string, AgentSessionOrcaStopCause> | null {
+): ReadonlyMap<string, AgentSessionOpenKodoStopCause> | null {
   const directory = join(stateDirectory, RUNTIMES_DIRECTORY)
   let names: string[]
   try {
@@ -191,7 +191,7 @@ export function readAgentSessionRuntimeEnds(
   } catch (error) {
     return error instanceof Error && 'code' in error && error.code === 'ENOENT' ? new Map() : null
   }
-  const ends = new Map<string, AgentSessionOrcaStopCause>()
+  const ends = new Map<string, AgentSessionOpenKodoStopCause>()
   for (const name of names) {
     const runtime = RECORD_FILE.exec(name)?.[1]
     const end = runtime ? readRecordedEnd(join(directory, name), runtime) : undefined

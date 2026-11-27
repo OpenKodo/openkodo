@@ -1,4 +1,4 @@
-import type { OrcaRuntimeWithGetPtyRecordForPaneKey } from '../../mailbox/routing/terminal-pane-mail-routing'
+import type { OpenKodoRuntimeWithGetPtyRecordForPaneKey } from '../../mailbox/routing/terminal-pane-mail-routing'
 import { escalateChatWorkerError } from './chat-worker-error-escalation'
 import type {
   StructuredAgentSessionIdleDeath,
@@ -10,16 +10,18 @@ import { RuntimeStructuredAgentHost } from '../../../agent-session/installation/
 
 export abstract class RuntimeChatWorkerEvents extends RuntimeStructuredAgentHost {
   abstract onStructuredSessionStatusForMail(
-    ...args: Parameters<OrcaRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionStatusForMail']>
-  ): ReturnType<OrcaRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionStatusForMail']>
+    ...args: Parameters<
+      OpenKodoRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionStatusForMail']
+    >
+  ): ReturnType<OpenKodoRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionStatusForMail']>
 
   abstract onStructuredSessionTabHidden(
-    ...args: Parameters<OrcaRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionTabHidden']>
-  ): ReturnType<OrcaRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionTabHidden']>
+    ...args: Parameters<OpenKodoRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionTabHidden']>
+  ): ReturnType<OpenKodoRuntimeWithGetPtyRecordForPaneKey['onStructuredSessionTabHidden']>
 
   abstract structuredChatMailOwed(
-    ...args: Parameters<OrcaRuntimeWithGetPtyRecordForPaneKey['structuredChatMailOwed']>
-  ): ReturnType<OrcaRuntimeWithGetPtyRecordForPaneKey['structuredChatMailOwed']>
+    ...args: Parameters<OpenKodoRuntimeWithGetPtyRecordForPaneKey['structuredChatMailOwed']>
+  ): ReturnType<OpenKodoRuntimeWithGetPtyRecordForPaneKey['structuredChatMailOwed']>
 
   /** A message a chat took; the connector seam keeps its turn's source for the chat's thread. */
   abstract onChatMessageAdmitted(message: AdmittedMessage): void

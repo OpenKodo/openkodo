@@ -5,11 +5,11 @@ import { composioAppName } from '../../../../shared/composio/composio-curated-ap
 import { composioUserOfAccount } from '../../../composio/composio-api-events'
 import { composioCallRouter, ComposioUpkeep } from '../../../composio/composio-upkeep'
 import type { WebhookHostService } from '../../../webhooks/webhook-host-service'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { instanceOf } from './bots-composio'
 
 export function installComposioUpkeep(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   webhooks: WebhookHostService
 ): ComposioUpkeep {
   webhooks.setCallRouter(
@@ -31,7 +31,7 @@ export function installComposioUpkeep(
 const noticed = new Set<string>()
 
 async function postReconnectCard(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   accountId: string,
   app: string
 ): Promise<void> {

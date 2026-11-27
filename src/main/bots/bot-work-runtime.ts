@@ -15,8 +15,8 @@ import {
 } from '../external-conversations/external-conversation-links'
 import { readWorkspaceReviewPR } from '../../shared/sidebar-list/feed-facts/workspace-review-facts'
 import type { RuntimeStore } from '../runtime/construction/runtime-store-contract'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { OrchestrationDb } from '../runtime/orchestration/db/orchestration-db'
 import {
   BotWorkRecord,
@@ -37,7 +37,7 @@ import { getRemoteDispatch } from '../runtime/orchestration/db/remote-owned/remo
 type TurnMessage = Pick<AgentJournalMessageItem, 'origin'>
 
 export type BotWorkRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getOrchestrationDb'
   | 'resolveOrchestrationWorkerServer'
   | 'callOrchestrationWorkerServer'

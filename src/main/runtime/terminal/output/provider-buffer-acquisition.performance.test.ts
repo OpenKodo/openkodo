@@ -12,7 +12,7 @@ import type {
   PtyProviderBufferSnapshotOptions
 } from '../../../providers/pty/provider-contract'
 import { TerminalKittyKeyboardModeTracker } from '../../../../shared/terminal/protocol/input-modes/terminal-kitty-keyboard-mode-tracker'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 const ANSI_FRAME: PtyProviderBufferSnapshot = {
   data: '\x1b[?1049hLegacy screen',
@@ -48,7 +48,7 @@ function startTerminals(
       supportsVisibleProjectionSnapshot: () => hello.visibleProjectionSnapshots === true
     })
   )
-  const runtime = new OrcaRuntimeService(null)
+  const runtime = new OpenKodoRuntimeService(null)
   runtime.setPtyController({
     write: () => true,
     kill: () => true,

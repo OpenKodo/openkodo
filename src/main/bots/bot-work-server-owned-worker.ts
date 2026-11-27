@@ -2,7 +2,7 @@
 // record of it, as worker-show reads it, never by a call there.
 import { buildOrchestrationTaskDisplayMetadata } from '../../shared/orchestration/orchestration-task-display'
 import type { OrchestrationSessionWorkerState } from '../../shared/orchestration-session-workers'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   getRemoteDispatch,
   isRemoteDispatchTerminal,
@@ -14,7 +14,7 @@ import { remoteServerName } from '../runtime/orchestration/federation/remote-own
 import type { BotWorkWorker } from './bot-work-types'
 
 type ServerOwnedRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'getOrchestrationDb' | 'resolveOrchestrationWorkerServer'
 >
 

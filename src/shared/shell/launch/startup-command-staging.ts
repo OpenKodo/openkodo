@@ -10,7 +10,7 @@ import {
 } from '../../agent-launch/startup/startup-line-prompt-carry'
 import { quoteStartupArg } from '../../agent-launch/startup/tui-agent-startup-shell'
 
-export const STAGED_STARTUP_COMMAND_PREFIX = 'orca-launch-'
+export const STAGED_STARTUP_COMMAND_PREFIX = 'openkodo-launch-'
 
 /** Which delivery ran for a spawn's typed startup line, decided by the host that owns the PTY. */
 export type StartupLineDelivery = 'typed' | 'staged' | 'typed-after-stage-failed'
@@ -51,7 +51,7 @@ export function shouldStageStartupCommand(args: {
   shellPath: string | undefined
   platform: NodeJS.Platform
   /** An agent launch line OpenKodo built with POSIX quoting, which sh can run in any shell. */
-  orcaBuiltLine?: boolean
+  openkodoBuiltLine?: boolean
 }): boolean {
   if (args.platform === 'win32') {
     return false
@@ -62,9 +62,9 @@ export function shouldStageStartupCommand(args: {
     hasControlByte(body) || encoder.encode(body).byteLength > TYPED_STARTUP_LINE_PROMPT_BUDGET_BYTES
   if (shellName === null) {
     // tcsh mutates backslashes/!! and nu rejects POSIX apostrophe escapes; type plain lines directly to retain foreground-job detection.
-    return args.orcaBuiltLine === true && (needsStaging || /[!\\"`$]/.test(body))
+    return args.openkodoBuiltLine === true && (needsStaging || /[!\\"`$]/.test(body))
   }
-  return needsStaging && (SOURCING_SHELLS.has(shellName) || args.orcaBuiltLine === true)
+  return needsStaging && (SOURCING_SHELLS.has(shellName) || args.openkodoBuiltLine === true)
 }
 
 function stagedScriptLine(shellName: string | null, quotedPath: string): string {
@@ -82,7 +82,7 @@ let staleSweepStarted = false
 export function stageStartupCommand(args: {
   command: string
   shellPath: string | undefined
-  orcaBuiltLine?: boolean
+  openkodoBuiltLine?: boolean
   platform?: NodeJS.Platform
   directory?: string
 }): StartupCommandStaging {
@@ -131,7 +131,7 @@ export function startupStagingFailureNotice(staging: StartupCommandStaging): str
   const reason = [...staging.failure]
     .map((char) => (char < ' ' || char === '\x7f' ? ' ' : char))
     .join('')
-  return `\r\n[orca] Could not stage the launch command (${reason}); typed it in full. If the shell shows quote> or waits for more input, press Ctrl-C and launch again.\r\n`
+  return `\r\n[openkodo] Could not stage the launch command (${reason}); typed it in full. If the shell shows quote> or waits for more input, press Ctrl-C and launch again.\r\n`
 }
 
 export function discardStagedStartupCommand(staging: StartupCommandStaging | undefined): void {

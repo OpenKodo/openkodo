@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { readNodeFileWithinLimit } from '../../../shared/file-content/node-bounded-file-reader'
 import { InFlightPromiseDedupe } from '../../../shared/concurrency/in-flight-promise-dedupe'
 import { awaitDaemonValueWithinCallerDeadline } from '../launch/daemon-request-deadline'

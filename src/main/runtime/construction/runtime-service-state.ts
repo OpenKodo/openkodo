@@ -6,9 +6,9 @@ import { createStructuredMailboxPointerHost } from '../orchestration/mailbox/str
 import { localOrchestrationCliCommand } from '../orchestration/workers/launch/orchestration-cli-command'
 import { RuntimeOrchestrationSenderNames } from '../orchestration/mailbox/senders/runtime-orchestration-sender-names'
 import { isStructuredWorkerHandle } from '../../../shared/orchestration/workers/structured-worker-handle'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import { resolveStructuredWorkerAuthority } from '../orchestration/terminal-authority/structured-sessions/structured-worker-authority'
-import { OrcaRuntimeWithAgentOrchestrationDependencies } from '../orchestration/crew/runtime-agent-orchestration-dependencies'
+import { OpenKodoRuntimeWithAgentOrchestrationDependencies } from '../orchestration/crew/runtime-agent-orchestration-dependencies'
 import { RuntimeTerminalAgentPresence } from '../terminal/query/runtime-terminal-agent-presence'
 import type { LegacyWorkerTerminalRecoveryPlan } from '../orchestration/terminal-authority/release/orchestration-legacy-worker-terminal-recovery'
 import type { TerminalWorkerRestartResume } from '../orchestration/workers/restart-resume/terminal-worker-restart-resume'
@@ -48,7 +48,7 @@ import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/
 import { mainListsEveryPane } from '../terminal/surface/main-terminal-surfaces'
 import { structuredMailboxCustody } from '../orchestration/mailbox/routing/structured-session-mail-target'
 
-export abstract class OrcaRuntimeWithStopRequestedPtyIds extends OrcaRuntimeWithAgentOrchestrationDependencies {
+export abstract class OpenKodoRuntimeWithStopRequestedPtyIds extends OpenKodoRuntimeWithAgentOrchestrationDependencies {
   protected readonly stopRequestedPtyIds = new Set<string>()
 
   protected readonly ptyExitListenersByPtyId = new Map<string, Set<() => void>>()

@@ -166,7 +166,7 @@ export function createStructuredAgentSessionRestartWitnesses(deps: {
           return offer
         }
         const journal = deps.sessions.get(sessionId)?.journal
-        const cut = journal ? await journal.reads.orcaStopCut() : null
+        const cut = journal ? await journal.reads.openkodoStopCut() : null
         const turn = cut && journal ? await journal.reads.item(cut.turnItemId) : null
         const turnId = readAgentJournalTurn(turn?.body)?.turnId
         return cut && turnId ? { cause: cut.cause, turnId } : null

@@ -1,4 +1,4 @@
-import type { OrcaVmRecipeLifecycleMode } from '../../workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipeLifecycleMode } from '../../workspace-setup/openkodo-yaml-hook-types'
 import { formatEphemeralVmRecipeTimeout } from './ephemeral-vm-recipe-timeouts'
 
 // One English table for ephemeral VM failures: main builds the wire/persisted English, the renderer translates by code.
@@ -46,7 +46,7 @@ type EphemeralVmFailureParams = {
   runtimeId?: string
   ref?: string
   exitCode?: number
-  mode?: OrcaVmRecipeLifecycleMode
+  mode?: OpenKodoVmRecipeLifecycleMode
   timeout?: string
   timeoutSeconds?: number
 }
@@ -97,7 +97,7 @@ export function ephemeralVmExitFailure(
 }
 
 export function ephemeralVmTimeoutFailure(
-  mode: OrcaVmRecipeLifecycleMode,
+  mode: OpenKodoVmRecipeLifecycleMode,
   timeoutSeconds: number
 ): EphemeralVmFailure {
   return ephemeralVmFailure('recipeTimedOut', {

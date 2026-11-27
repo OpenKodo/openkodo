@@ -7,7 +7,7 @@ import { parse as parseToml } from 'smol-toml'
 import {
   agentMcpConfigEntry,
   agentMcpServerMergeKey,
-  isOrcaOwnedAgentMcpServer,
+  isOpenKodoOwnedAgentMcpServer,
   type AgentMcpConfigEntry
 } from '../../../shared/mcp/agent-mcp-config-entry'
 import type { BotToolServer } from '../../../shared/bot-tools'
@@ -74,7 +74,7 @@ export function agentMcpConfigServersIn(
   location: AgentMcpConfigLocation,
   text: string,
   skipProject: (projectPath: string) => boolean = () => false,
-  withOrcaOwned = false
+  withOpenKodoOwned = false
 ): AgentMcpConfigServer[] | null {
   const parsed = parseAgentMcpConfigText(text, location.format)
   if (!parsed) {
@@ -85,7 +85,7 @@ export function agentMcpConfigServersIn(
       const entry = agentMcpConfigEntry(name, raw, block.dialect)
       if (
         !entry ||
-        (!withOrcaOwned && isOrcaOwnedAgentMcpServer(entry.server)) ||
+        (!withOpenKodoOwned && isOpenKodoOwnedAgentMcpServer(entry.server)) ||
         block.restrictedNames?.has(name)
       ) {
         return []
@@ -104,7 +104,7 @@ export function agentMcpConfigServersIn(
 async function readLocation(
   location: AgentMcpConfigLocation,
   skipProject?: (projectPath: string) => boolean,
-  withOrcaOwned?: boolean
+  withOpenKodoOwned?: boolean
 ): Promise<AgentMcpConfigServer[]> {
   let text: string
   try {
@@ -115,7 +115,7 @@ async function readLocation(
     }
     return []
   }
-  const servers = agentMcpConfigServersIn(location, text, skipProject, withOrcaOwned)
+  const servers = agentMcpConfigServersIn(location, text, skipProject, withOpenKodoOwned)
   if (!servers) {
     console.warn(`[mcp-servers] ${location.path} doesn't parse; its servers aren't listed`)
   }
@@ -124,7 +124,7 @@ async function readLocation(
 
 /**
  * The servers one agent loads from its own config: its user files, and with `projectPath` that
- * repo's files too. OpenKodo's own bridge entries are left out unless `withOrcaOwned`.
+ * repo's files too. OpenKodo's own bridge entries are left out unless `withOpenKodoOwned`.
  */
 export async function readAgentMcpServers(
   agent: McpConfigAgent,
@@ -132,12 +132,14 @@ export async function readAgentMcpServers(
   options: {
     projectPath?: string
     skipProject?: (projectPath: string) => boolean
-    withOrcaOwned?: boolean
+    withOpenKodoOwned?: boolean
   } = {}
 ): Promise<AgentMcpConfigServer[]> {
   const locations = await agentMcpConfigLocations(agent, context, options.projectPath)
   const read = await Promise.all(
-    locations.map((location) => readLocation(location, options.skipProject, options.withOrcaOwned))
+    locations.map((location) =>
+      readLocation(location, options.skipProject, options.withOpenKodoOwned)
+    )
   )
   return read.flat()
 }

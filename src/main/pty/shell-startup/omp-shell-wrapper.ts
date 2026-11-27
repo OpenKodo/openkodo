@@ -40,28 +40,28 @@ export function getPosixOmpShellWrapper(): string {
   return `# Why: OMP does not auto-load OpenKodo's managed status extension; wrap only
 # interactive launch invocations so subcommands such as \`omp config\` keep
 # their normal argv shape.
-__orca_omp_should_skip_extension() {
+__openkodo_omp_should_skip_extension() {
   case "\${1:-}" in
     'help'|'--help'|'-h'|'--version'|'-v') return 0 ;;
     ${subcommands}) return 0 ;;
   esac
   return 1
 }
-__orca_omp_cwd_is_usable() {
-  local __orca_physical_cwd
+__openkodo_omp_cwd_is_usable() {
+  local __openkodo_physical_cwd
   [[ -x . ]] || return 1
   if [[ -n "\${PWD:-}" && -d "\${PWD:-}" ]]; then
     [[ "\${PWD}" -ef . ]]
   else
     # Why compare the path: shell builtins can print a cached path for a deleted cwd.
-    __orca_physical_cwd="$(builtin pwd -P 2>/dev/null)" || return 1
-    [[ -d "$__orca_physical_cwd" && "$__orca_physical_cwd" -ef . ]]
+    __openkodo_physical_cwd="$(builtin pwd -P 2>/dev/null)" || return 1
+    [[ -d "$__openkodo_physical_cwd" && "$__openkodo_physical_cwd" -ef . ]]
   fi
 }
-__orca_omp_invoke() {
-  local __orca_use_extension="$1"
+__openkodo_omp_invoke() {
+  local __openkodo_use_extension="$1"
   shift
-  if [[ $__orca_use_extension -eq 1 && -n "\${OPENKODO_OMP_STATUS_EXTENSION:-}" && -f "\${OPENKODO_OMP_STATUS_EXTENSION}" ]]; then
+  if [[ $__openkodo_use_extension -eq 1 && -n "\${OPENKODO_OMP_STATUS_EXTENSION:-}" && -f "\${OPENKODO_OMP_STATUS_EXTENSION}" ]]; then
     if [[ "\${1:-}" == "launch" ]]; then
       shift
       command omp launch --extension "\${OPENKODO_OMP_STATUS_EXTENSION}" "$@"
@@ -72,31 +72,31 @@ __orca_omp_invoke() {
     command omp "$@"
   fi
 }
-__orca_omp() {
-  local __orca_use_extension=1
-  __orca_omp_should_skip_extension "\${1:-}" && __orca_use_extension=0
-  if ! __orca_omp_cwd_is_usable; then
-    local __orca_logical_cwd="\${PWD:-\${OPENKODO_WORKTREE_PATH:-\${OPENKODO_ROOT_PATH:-}}}"
+__openkodo_omp() {
+  local __openkodo_use_extension=1
+  __openkodo_omp_should_skip_extension "\${1:-}" && __openkodo_use_extension=0
+  if ! __openkodo_omp_cwd_is_usable; then
+    local __openkodo_logical_cwd="\${PWD:-\${OPENKODO_WORKTREE_PATH:-\${OPENKODO_ROOT_PATH:-}}}"
     # Why: a restored shell can retain the deleted directory inode after its path is recreated.
     (
-      if [[ -z "$__orca_logical_cwd" ]]; then
+      if [[ -z "$__openkodo_logical_cwd" ]]; then
         printf 'OpenKodo: OMP cannot start because no terminal working directory is available. Open a new terminal in an existing directory.\\n' >&2
         return 1
       fi
-      if ! builtin cd -P -- "$__orca_logical_cwd" 2>/dev/null; then
-        printf 'OpenKodo: OMP cannot access the terminal working directory "%s". Open a new terminal in an existing directory.\\n' "$__orca_logical_cwd" >&2
+      if ! builtin cd -P -- "$__openkodo_logical_cwd" 2>/dev/null; then
+        printf 'OpenKodo: OMP cannot access the terminal working directory "%s". Open a new terminal in an existing directory.\\n' "$__openkodo_logical_cwd" >&2
         return 1
       fi
-      __orca_omp_invoke "$__orca_use_extension" "$@"
+      __openkodo_omp_invoke "$__openkodo_use_extension" "$@"
     )
   else
-    __orca_omp_invoke "$__orca_use_extension" "$@"
+    __openkodo_omp_invoke "$__openkodo_use_extension" "$@"
   fi
 }
 if [[ -n "\${OPENKODO_OMP_STATUS_EXTENSION:-}" ]]; then
   # Why the function reserved word: it suppresses alias expansion of the name, which
   # an \`alias omp\` otherwise rewrites at parse time, aborting the rest of the file.
-  function omp { __orca_omp "$@"; }
+  function omp { __openkodo_omp "$@"; }
 fi
 `
 }
@@ -106,34 +106,34 @@ export function getPowerShellOmpShellWrapper(): string {
   return `# Why: OMP does not auto-load OpenKodo's managed status extension; wrap only
 # interactive launch invocations so subcommands such as \`omp config\` keep
 # their normal argv shape.
-function Global:__OrcaOmpShouldSkipExtension {
+function Global:__OpenKodoOmpShouldSkipExtension {
     param([string]$Name)
     $skip = @("help", "--help", "-h", "--version", "-v") + @(${subcommands})
     return $skip -contains $Name
 }
 if ($env:OPENKODO_OMP_STATUS_EXTENSION) {
     function Global:omp {
-        $orcaUseExtension = -not (__OrcaOmpShouldSkipExtension -Name ([string]($args[0])))
-        $orcaStatus = 0
-        $orcaCommand = Get-Command omp -CommandType Application,ExternalScript -ErrorAction SilentlyContinue | Select-Object -First 1
-        if (-not $orcaCommand) {
+        $openkodoUseExtension = -not (__OpenKodoOmpShouldSkipExtension -Name ([string]($args[0])))
+        $openkodoStatus = 0
+        $openkodoCommand = Get-Command omp -CommandType Application,ExternalScript -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $openkodoCommand) {
             Write-Error "omp executable not found"
-            $orcaStatus = 127
-        } elseif ($orcaUseExtension -and $env:OPENKODO_OMP_STATUS_EXTENSION -and
+            $openkodoStatus = 127
+        } elseif ($openkodoUseExtension -and $env:OPENKODO_OMP_STATUS_EXTENSION -and
             (Test-Path -LiteralPath $env:OPENKODO_OMP_STATUS_EXTENSION)) {
             if ($args.Count -gt 0 -and $args[0] -eq "launch") {
-                $orcaLaunchArgs = @($args | Select-Object -Skip 1)
-                & $orcaCommand.Source launch --extension $env:OPENKODO_OMP_STATUS_EXTENSION @orcaLaunchArgs
+                $openkodoLaunchArgs = @($args | Select-Object -Skip 1)
+                & $openkodoCommand.Source launch --extension $env:OPENKODO_OMP_STATUS_EXTENSION @openkodoLaunchArgs
             } else {
-                & $orcaCommand.Source --extension $env:OPENKODO_OMP_STATUS_EXTENSION @args
+                & $openkodoCommand.Source --extension $env:OPENKODO_OMP_STATUS_EXTENSION @args
             }
-            $orcaStatus = $LASTEXITCODE
+            $openkodoStatus = $LASTEXITCODE
         } else {
-            & $orcaCommand.Source @args
-            $orcaStatus = $LASTEXITCODE
+            & $openkodoCommand.Source @args
+            $openkodoStatus = $LASTEXITCODE
         }
 
-        $global:LASTEXITCODE = $orcaStatus
+        $global:LASTEXITCODE = $openkodoStatus
     }
 }
 `

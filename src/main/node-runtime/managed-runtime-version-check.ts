@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { ManagedRuntimeStartError } from './managed-runtime-release'
 
 const VALIDATE_TIMEOUT_MS = 60_000

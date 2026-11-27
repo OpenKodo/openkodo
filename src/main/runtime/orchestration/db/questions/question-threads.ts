@@ -150,7 +150,7 @@ export function answerQuestion(
     })
     // The answer is the worker's mail; a federated worker's copy lives on its execution host.
     if (this.getFederatedDispatch(question.dispatch_id)) {
-      this.markAsReadAndDelivered([message.id], { kind: 'orca' })
+      this.markAsReadAndDelivered([message.id], { kind: 'openkodo' })
     }
     this.db
       .prepare(

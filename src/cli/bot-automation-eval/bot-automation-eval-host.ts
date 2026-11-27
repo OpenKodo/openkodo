@@ -1,11 +1,11 @@
-// Runs one benchmark turn: the real agent CLI as a bot, in a scratch home, with the stand-in `orca`.
+// Runs one benchmark turn: the real agent CLI as a bot, in a scratch home, with the stand-in `openkodo`.
 import type { LeaveThreadRefusalCode } from '../../shared/connectors/connector-leave-thread-copy'
 import { randomUUID } from 'node:crypto'
 import { chmod, mkdir, mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { homedir, tmpdir, userInfo } from 'node:os'
 import { delimiter, join } from 'node:path'
 import { build } from 'esbuild'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import type { Automation } from '../../shared/automations/automation-definition'
 import type { Bot } from '../../shared/bot-types'
 import type { BotRequestAsker } from '../../shared/bots/bot-acts-for'
@@ -137,7 +137,7 @@ export const EVAL_BOT = {
   linear: { workspaceId: 'lin-eval', workspaceName: 'Eval' }
 }
 
-const HOME_PREFIX = 'orca-bot-eval-home-'
+const HOME_PREFIX = 'openkodo-bot-eval-home-'
 
 /** The stand-in's state, log and reply for a home: beside it, where the bot doesn't look. */
 export function evalFolder(home: string): string {
@@ -155,7 +155,7 @@ export function agentSessionFolder(home: string): string {
 }
 
 // Agents run commands in a login shell. Only zsh reads the profile below; bash's reads the owner's
-// own, which puts the real orca, gh and gcloud ahead of the shims.
+// own, which puts the real openkodo, gh and gcloud ahead of the shims.
 function assertZshLoginShell(): void {
   const shells = [process.env.SHELL, userInfo().shell]
   if (!shells.every((shell) => shell?.endsWith('/zsh'))) {
@@ -165,13 +165,13 @@ function assertZshLoginShell(): void {
   }
 }
 
-/** Bundles the stand-in once; `bin/orca` runs it. */
+/** Bundles the stand-in once; `bin/openkodo` runs it. */
 export async function prepareStandIn(): Promise<{ dir: string; dispose: () => Promise<void> }> {
   assertZshLoginShell()
-  const dir = await mkdtemp(join(tmpdir(), 'orca-bot-eval-cli-'))
+  const dir = await mkdtemp(join(tmpdir(), 'openkodo-bot-eval-cli-'))
   await build({
     entryPoints: {
-      orca: join(__dirname, 'bot-automation-eval-orca.ts'),
+      openkodo: join(__dirname, 'bot-automation-eval-openkodo.ts'),
       'owner-slack': join(__dirname, 'bot-automation-eval-owner-slack.ts'),
       gh: join(__dirname, 'bot-automation-eval-gh-cli.ts')
     },
@@ -184,8 +184,8 @@ export async function prepareStandIn(): Promise<{ dir: string; dispose: () => Pr
     external: ['electron']
   })
   await mkdir(join(dir, 'bin'))
-  const bin = join(dir, 'bin', 'orca')
-  await writeFile(bin, `#!/bin/sh\nexec node "${join(dir, 'orca.cjs')}" "$@"\n`)
+  const bin = join(dir, 'bin', 'openkodo')
+  await writeFile(bin, `#!/bin/sh\nexec node "${join(dir, 'openkodo.cjs')}" "$@"\n`)
   await chmod(bin, 0o755)
   // A login shell's profile puts the owner's tools back ahead of the shims; this one re-prepends them.
   await mkdir(join(dir, 'zdot'))
@@ -211,13 +211,13 @@ export function childEnv(standIn: string, home: string): Record<string, string> 
     ...env,
     PATH: `${join(standIn, 'bin')}${delimiter}${env.PATH ?? ''}`,
     ZDOTDIR: join(standIn, 'zdot'),
-    OPENKODO_CLI_COMMAND: join(standIn, 'bin', 'orca'),
+    OPENKODO_CLI_COMMAND: join(standIn, 'bin', 'openkodo'),
     OPENKODO_EVAL_STATE: join(evalFolder(home), 'state.json'),
     OPENKODO_EVAL_LOG: join(evalFolder(home), 'log.jsonl'),
     // A real gh reached past the stand-in (by absolute path) finds no login of the owner's.
     GH_CONFIG_DIR: join(evalFolder(home), 'no-gh'),
     // `openkodo status` reads the app's metadata directly, past the stand-in; point it at nothing.
-    OPENKODO_USER_DATA_PATH: join(evalFolder(home), 'no-orca'),
+    OPENKODO_USER_DATA_PATH: join(evalFolder(home), 'no-openkodo'),
     // A bot is a native chat; without these, chat-only commands refuse before the stand-in.
     OPENKODO_AGENT_SESSION_ID: randomUUID(),
     OPENKODO_STRUCTURED_SESSION: '1',
@@ -313,7 +313,7 @@ export async function runBotTurn(input: {
     const merged: EvalHostState = {
       bots: [{ ...EVAL_BOT, agent: input.agent }],
       automations: input.automations,
-      repos: [{ id: 'repo-orca', displayName: 'orca', path: join(home, 'orca') }],
+      repos: [{ id: 'repo-openkodo', displayName: 'openkodo', path: join(home, 'openkodo') }],
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       ...input.state
     }

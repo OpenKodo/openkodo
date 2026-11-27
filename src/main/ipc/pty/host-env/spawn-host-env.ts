@@ -14,9 +14,9 @@ import type { CodexSessionResumePreparation } from '../../../codex/history/resum
 import type { CodexAccountSelectionTarget } from '../../../../shared/agent-accounts/codex/codex-selection-lane'
 import { isSafePtySessionId } from '../../../daemon/sessions/pty-session-id'
 import type { IPtyProvider } from '../../../providers/pty/provider-contract'
-import { stampWslOrchestrationCompatibilityHost } from '../../../pty/shell-startup/wsl-orca-env'
+import { stampWslOrchestrationCompatibilityHost } from '../../../pty/shell-startup/wsl-openkodo-env'
 import { getRuntimeSourceStamp } from '../../../runtime/hosts/platform-probe/host-descriptor'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { buildPtyHostEnv } from './assembly'
 import { detectBareShellPluginAgentsOnPath } from '../../../agent-hooks/installation/bare-shell-plugin-agent-presence'
 import { blockedWslDistroForPath } from '../../../wsl/filesystem/wsl-unc-access-gate'
@@ -26,7 +26,7 @@ import {
   getCompatibleSelectedCodexHomePath,
   resolveCodexHomeAfterManagedAuthReadiness,
   shouldSkipCodexHomeEnvForWindowsShell,
-  shouldStripInheritedOrcaCodexHome
+  shouldStripInheritedOpenKodoCodexHome
 } from './codex-home'
 import type {
   CodexResumeLaunch,
@@ -64,7 +64,7 @@ export type PtySpawnHostEnv = {
   selectedCodexHomePath: string | null
   codexResumeHomeSelected: boolean
   skipCodexHomeEnv: boolean
-  stripInheritedOrcaCodexHome: boolean
+  stripInheritedOpenKodoCodexHome: boolean
 }
 
 type PtySpawnHostEnvArgs = {
@@ -94,7 +94,7 @@ type PtySpawnHostEnvArgs = {
   requestedAgentTeamsPath: string | undefined
   provider: IPtyProvider
   deps: PtySpawnCodexResumeDeps & {
-    runtime?: OrcaRuntimeService
+    runtime?: OpenKodoRuntimeService
     getSettings?: () => GlobalSettings | undefined
     getSelectedCodexHomePath?: GetSelectedCodexHomePath
   }
@@ -194,9 +194,9 @@ async function resolvePtySpawnHostEnvForAct(args: PtySpawnHostEnvArgs): Promise<
       codexResumeHome && codexHomePathsEqual(selectedCodexHomePath, codexResumeHome.codexHomePath)
     ),
     skipCodexHomeEnv,
-    stripInheritedOrcaCodexHome:
+    stripInheritedOpenKodoCodexHome:
       args.isDaemonHostSpawn &&
-      shouldStripInheritedOrcaCodexHome({
+      shouldStripInheritedOpenKodoCodexHome({
         target,
         selectedCodexHomePath,
         skipCodexHomeEnv,
@@ -252,7 +252,7 @@ async function resolvePtySpawnHostEnvForAct(args: PtySpawnHostEnvArgs): Promise<
       userDataPath: getAppEnvironment().getPath('userData'),
       selectedCodexHomePath,
       skipCodexHomeEnv,
-      stripInheritedOrcaCodexHome: hostEnv.stripInheritedOrcaCodexHome,
+      stripInheritedOpenKodoCodexHome: hostEnv.stripInheritedOpenKodoCodexHome,
       launchCommand,
       launchAgent: isTuiAgent(args.launchAgent) ? args.launchAgent : undefined,
       shellPath: args.shellOverride,

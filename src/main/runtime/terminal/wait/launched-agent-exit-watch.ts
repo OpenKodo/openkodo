@@ -2,7 +2,7 @@ import { FOREGROUND_COMMAND_READS } from '../../../../shared/terminal/pty/foregr
 import { createOsc133CommandFinishedScanner } from '../../../../shared/terminal/output/terminal-osc133-command-finished'
 import { terminalSafe } from '../../../../shared/terminal/output/terminal-safe-text'
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { applyTerminalLineControls } from '../output/tail/terminal-tail-line-controls'
 
 const COMMAND_STARTED_MARK = '\x1b]133;C'
@@ -19,7 +19,7 @@ const SHELL_RETURN_READ_DELAYS_MS = [
 ]
 
 export type LaunchedAgentExitRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'readLaunchedAgentForeground' | 'subscribeToTerminalData' | 'readRecentTerminalOutput'
 >
 

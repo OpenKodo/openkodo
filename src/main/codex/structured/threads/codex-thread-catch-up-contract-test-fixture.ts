@@ -63,7 +63,7 @@ afterEach(async () => {
 })
 
 export async function chat(clock: { now: number }) {
-  const root = await mkdtemp(join(tmpdir(), 'orca-codex-catch-up-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-codex-catch-up-'))
   const journalOptions = {
     identity: {
       sessionId: SESSION,

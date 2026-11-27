@@ -7,7 +7,7 @@ import {
 } from '../../../../../shared/browser/runtime/browser-runtime-capabilities'
 import { getBrowserHostLeaseRegistry } from '../../../browser-host/leases/browser-host-lease-registry-instance'
 import type { BrowserHostLease } from '../../../browser-host/leases/browser-host-lease-records'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { BrowserNetworkTunnelOutboundMemoryBudgetRegistry } from '../../../../browser/network/tunnels/browser-network-tunnel-outbound-memory-budget'
 import '../../../../browser/network/execution-routes/browser-network-execution-route'
 import { browserNetworkExecutionHostKey } from '../../../../../shared/browser/client-hosting/browser-network-execution-host'
@@ -37,16 +37,16 @@ function request(lease?: BrowserHostLease, overrides: Record<string, unknown> = 
   }
 }
 
-function runtime(cleanups = new Map<string, () => void>()): OrcaRuntimeService {
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the tunnel methods and lease registry read only these three accessors; OrcaRuntimeService is a class, so a structural double cannot satisfy it without the cast.
+function runtime(cleanups = new Map<string, () => void>()): OpenKodoRuntimeService {
+  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the tunnel methods and lease registry read only these three accessors; OpenKodoRuntimeService is a class, so a structural double cannot satisfy it without the cast.
   return {
     getRuntimeId: () => 'runtime-a',
     getStartedAt: () => 1,
     registerSubscriptionCleanup: (id: string, cleanup: () => void) => cleanups.set(id, cleanup)
-  } as unknown as OrcaRuntimeService
+  } as unknown as OpenKodoRuntimeService
 }
 
-function attachLease(hostRuntime: OrcaRuntimeService): BrowserHostLease {
+function attachLease(hostRuntime: OpenKodoRuntimeService): BrowserHostLease {
   return getBrowserHostLeaseRegistry(hostRuntime).attach({
     browserHostClientId: 'host-a',
     connectionId: 'host-control-connection',
@@ -56,7 +56,7 @@ function attachLease(hostRuntime: OrcaRuntimeService): BrowserHostLease {
 }
 
 function grantExecutionHost(
-  hostRuntime: OrcaRuntimeService,
+  hostRuntime: OpenKodoRuntimeService,
   lease: BrowserHostLease,
   executionHost: Parameters<typeof browserNetworkExecutionHostKey>[0]
 ) {

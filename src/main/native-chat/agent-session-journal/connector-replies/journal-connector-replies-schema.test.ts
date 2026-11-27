@@ -11,7 +11,7 @@ let dir = ''
 afterEach(() => rmSync(dir, { recursive: true, force: true }))
 
 it('reads a row an older build left as the older quiet rule, and records new rows as trailing', () => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-reply-schema-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-reply-schema-'))
   const db = new Database(join(dir, 'journal.db'))
   // The table as a build before quiet_rule made it, with a pending row of its own.
   db.exec(`CREATE TABLE journal_connector_replies (account TEXT NOT NULL, delivery_id TEXT NOT NULL,

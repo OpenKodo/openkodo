@@ -1,11 +1,11 @@
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { RuntimeMobileSessionTabsResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { createProfile } from './client-hosted-browser-persistence-test-harness'
 import { RpcDispatcher } from '../../rpc/dispatcher'
 import { BROWSER_CLIENT_HOST_METHODS } from '../../rpc/methods/browser/browser-client-host'
 import { BROWSER_CLIENT_HOST_RUNTIME_CAPABILITY } from '../../../../shared/browser/runtime/browser-runtime-capabilities'
 
-class ReconciliationDeliveryRuntime extends OrcaRuntimeService {
+class ReconciliationDeliveryRuntime extends OpenKodoRuntimeService {
   projectedFrames = 0
   sessionTabsSequence() {
     return this.mobileSessionTabsChangeSequence

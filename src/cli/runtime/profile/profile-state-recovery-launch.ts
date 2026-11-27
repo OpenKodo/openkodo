@@ -1,29 +1,29 @@
 import { realpathSync } from 'node:fs'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   PROFILE_STATE_RECOVERY_FLAG,
   PROFILE_STATE_RECOVERY_RESULT_PREFIX,
   profileStateRecoveryResponseSchema,
   type ProfileStateRecoveryRequest,
   type ProfileStateRollbackResult
-} from '../../../shared/orca-profiles/profile-state-recovery-command'
+} from '../../../shared/openkodo-profiles/profile-state-recovery-command'
 import {
   getExecutableAppArgs,
   resolveAppChildCwd,
-  resolveForegroundOrcaExecutable,
+  resolveForegroundOpenKodoExecutable,
   stripElectronRunAsNode
-} from '../orca-app-executable'
+} from '../openkodo-app-executable'
 import { RuntimeClientError } from '../connection/types'
-import { canStartOrcaServer } from '../app-launch/serve-app-launcher'
+import { canStartOpenKodoServer } from '../app-launch/serve-app-launcher'
 
 export function canLaunchProfileStateRecovery(): boolean {
-  return canStartOrcaServer(process.env)
+  return canStartOpenKodoServer(process.env)
 }
 
 export async function launchProfileStateRecovery(
   request: ProfileStateRecoveryRequest
 ): Promise<ProfileStateRollbackResult> {
-  const executable = resolveForegroundOrcaExecutable()
+  const executable = resolveForegroundOpenKodoExecutable()
   const userDataPath = realpathSync(request.userDataPath)
   const response = await runProcess({
     program: executable,

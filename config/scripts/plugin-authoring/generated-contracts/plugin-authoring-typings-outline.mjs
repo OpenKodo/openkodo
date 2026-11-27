@@ -127,7 +127,7 @@ export function readTypingsModule(text, fileName, moduleName) {
       const type = values.get(name)?.type
       return type &&
         ts.isTypeReferenceNode(type) &&
-        type.typeName.getText(source) === 'OrcaComponent'
+        type.typeName.getText(source) === 'OpenKodoComponent'
         ? type.typeArguments?.[0]?.getText(source)
         : undefined
     }

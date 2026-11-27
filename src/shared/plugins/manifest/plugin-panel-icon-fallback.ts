@@ -8,7 +8,10 @@ import {
   resolvePluginPanelPathIcon
 } from '../contributions/plugin-panel-path-icon'
 import { stripUnsafeDisplayCharacters } from '../../text/display-text-safety'
-import { orcaEngineRangeSchema, satisfiesOrcaEngineRange } from './plugin-manifest-engine-range'
+import {
+  openkodoEngineRangeSchema,
+  satisfiesOpenKodoEngineRange
+} from './plugin-manifest-engine-range'
 import { isPluginJsonObject } from './plugin-json-object'
 import { PLUGIN_PANEL_PATH_ICON_SINCE } from './plugin-schema-field-docs'
 
@@ -127,11 +130,11 @@ export function pluginPanelIconEngineFloorError(raw: unknown): string | null {
   if (!isPluginJsonObject(raw) || raw.manifestVersion !== 2 || !isPluginJsonObject(raw.engines)) {
     return null
   }
-  const declared = raw.engines.orca
-  if (typeof declared !== 'string' || !orcaEngineRangeSchema.safeParse(declared).success) {
+  const declared = raw.engines.openkodo
+  if (typeof declared !== 'string' || !openkodoEngineRangeSchema.safeParse(declared).success) {
     return null
   }
-  if (satisfiesOrcaEngineRange(declared.slice(2), `>=${PLUGIN_PANEL_PATH_ICON_SINCE}`)) {
+  if (satisfiesOpenKodoEngineRange(declared.slice(2), `>=${PLUGIN_PANEL_PATH_ICON_SINCE}`)) {
     return null
   }
   const index = rawPanels(raw).findIndex(
@@ -139,5 +142,5 @@ export function pluginPanelIconEngineFloorError(raw: unknown): string | null {
   )
   return index === -1
     ? null
-    : `engines.orca: must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[${index}].icon needs OpenKodo ${PLUGIN_PANEL_PATH_ICON_SINCE}`
+    : `engines.openkodo: must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[${index}].icon needs OpenKodo ${PLUGIN_PANEL_PATH_ICON_SINCE}`
 }

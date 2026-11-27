@@ -184,7 +184,7 @@ export const MCP_SERVER_METHODS = [
             const home = await toolsHomeFor(context.runtime, agent, {
               botId: MCP_HOST_LIST_RELAY_OWNER,
               folder,
-              signInFolder: join(folder, '.orca', 'sign-in'),
+              signInFolder: join(folder, '.openkodo', 'sign-in'),
               otherBotFolders: []
             })
             const byName = await botToolProblems(home, { remote, signal })

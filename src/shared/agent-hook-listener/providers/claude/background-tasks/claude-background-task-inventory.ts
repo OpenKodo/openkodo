@@ -1,6 +1,6 @@
 import { classifyClaudeBackgroundTaskKind } from './claude-background-task-kind'
 import { isAgentChildWorkKind } from '../../../../agent-status/child-work/agent-status-child-work-liveness'
-import { runsOrcaOrchestrationWait } from '../../../../cli/orca-cli-invocations'
+import { runsOpenKodoOrchestrationWait } from '../../../../cli/openkodo-cli-invocations'
 import { redactString } from '../../../../observability/redactor'
 
 const CLAUDE_TERMINAL_BACKGROUND_TASK_STATUSES = new Set([
@@ -89,14 +89,14 @@ export function readClaudeBackgroundAgentTasks(hookPayload: Record<string, unkno
       const id = typeof obj.id === 'string' ? obj.id.trim() : ''
       if (id.length > 0) {
         runningNonAgentTaskIds.push(id)
-        if (runsOrcaOrchestrationWait(obj.command)) {
+        if (runsOpenKodoOrchestrationWait(obj.command)) {
           runningAgentWaitIds.push(id)
         }
       }
       const command = [obj.command, obj.description].find(
         (text): text is string => typeof text === 'string' && text.trim().length > 0
       )
-      if (!runsOrcaOrchestrationWait(obj.command)) {
+      if (!runsOpenKodoOrchestrationWait(obj.command)) {
         // Why: these reach worker status, the CLI and the orchestration DB, so credentials never leave here.
         runningNonAgentTaskCommands.push(command ? redactString(command.trim()) : 'background task')
       }

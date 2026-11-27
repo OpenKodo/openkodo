@@ -15,18 +15,18 @@ is available on the supported macOS versions.
 To reproduce the native fault without showing or focusing a window:
 
 ```sh
-clang -fobjc-arc -framework AppKit native/macos-menu-dead-key/probe-menu-dead-key.m -o /tmp/orca-dead-key-probe
-ORCA_BACKGROUND_LAUNCH=1 /tmp/orca-dead-key-probe
+clang -fobjc-arc -framework AppKit native/macos-menu-dead-key/probe-menu-dead-key.m -o /tmp/openkodo-dead-key-probe
+OPENKODO_BACKGROUND_LAUNCH=1 /tmp/openkodo-dead-key-probe
 ```
 
 The unguarded probe exits 42 with `characterAtIndex:` out of bounds. The automated
 regression test that built both Mac architectures and loaded the guard into this probe
 was removed in the test-suite reduction; the probe above is the remaining manual check.
 
-On 2026-11-16, m4air (macOS 27.2, 26B123, arm64), accessed through `orca --environment
+On 2026-11-16, m4air (macOS 27.2, 26B123, arm64), accessed through `openkodo --environment
 m4air`, reproduced the report's `NSMenu performKeyEquivalent: + 80` exception
 before the fix. The guarded probe passed, including Command+C and a numeric-pad
-shortcut. A hidden Orca Electron 43.8.7 dev instance also passed the native menu
+shortcut. A hidden OpenKodo Electron 43.8.7 dev instance also passed the native menu
 event and subsequent native text delivery to its search field. Physical ABNT2
 composition and the reported signal-handler spin were not reproduced; an
 isolated Electron exception probe terminated instead of spinning.

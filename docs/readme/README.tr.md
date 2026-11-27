@@ -225,8 +225,6 @@ _Ya da bir paket yöneticisiyle:_
 # macOS (Homebrew)
 brew install --cask OpenKodo/openkodo/openkodo
 
-# Arch Linux (AUR) - kaynaktan derlemek için stably-openkodo-git
-yay -S stably-openkodo-bin
 ```
 
 ### Mobil Yardımcı - iOS, Android

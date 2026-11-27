@@ -46,7 +46,7 @@ export async function installRemoteGrokHook(
   script: string
 ): Promise<AgentHookInstallStatus> {
   const home = remoteHome.replace(/\/$/, '')
-  const configPath = `${remoteGrokHome(home, remoteGrokHomeDir)}/hooks/orca-status.json`
+  const configPath = `${remoteGrokHome(home, remoteGrokHomeDir)}/hooks/openkodo-status.json`
   const scriptPath = `${home}/.openkodo/agent-hooks/grok-hook.sh`
   try {
     const config = await readHooksJsonRemote(sftp, configPath)

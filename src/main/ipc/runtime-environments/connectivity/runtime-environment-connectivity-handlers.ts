@@ -34,7 +34,7 @@ import { rendererOrchestrationEnvelope } from '../connections/runtime-environmen
 import { getRuntimeEnvironmentStatus } from '../status/runtime-environment-status-probe'
 import { noteRuntimeEnvironmentConnectRequested } from '../pairing/runtime-environment-pairing-refusal-registry'
 import { publicRuntimeEnvironmentWithHostKey } from '../catalog/runtime-environment-host-key'
-import { withWslOrcadAccountEnv } from '../../../wsl/orcad/wsl-orcad-account-env'
+import { withWslOpenkododAccountEnv } from '../../../wsl/openkodod/wsl-openkodod-account-env'
 import { clearSshCredentialDeclinedForEnvironment } from '../../../ssh/authentication/ssh-credential-decline'
 import {
   disconnectManagedHostOfEnvironmentForUser,
@@ -42,9 +42,9 @@ import {
   liftSshUserDisconnectForEnvironment
 } from '../../ssh/ssh-host-user-disconnect'
 import {
-  observeWslOrcadHostResponse,
-  wslOrcadHostSupports
-} from '../../../wsl/orcad/wsl-orcad-host-environments'
+  observeWslOpenkododHostResponse,
+  wslOpenkododHostSupports
+} from '../../../wsl/openkodod/wsl-openkodod-host-environments'
 import {
   assertWslHostReachable,
   isGatedOffWslHost
@@ -162,7 +162,7 @@ function registerPassiveStatusHandler(getUserDataPath: () => string): void {
         args.timeoutMs,
         { observeOnly: args.observeOnly, force: args.force }
       )
-      observeWslOrcadHostResponse(environment.id, 'status.get', response)
+      observeWslOpenkododHostResponse(environment.id, 'status.get', response)
       return isRuntimeEnvironmentManuallyDisconnected(environment.id)
         ? manuallyDisconnectedResponse(environment)
         : response
@@ -208,12 +208,12 @@ function registerPassiveCallHandler(
         args.params
       )
       // Every renderer request to a paired host passes this account environment boundary.
-      const accounts = await withWslOrcadAccountEnv({
+      const accounts = await withWslOpenkododAccountEnv({
         environmentId: environment.id,
         method: args.method,
         params: args.params,
         hostSupports: (capability) =>
-          wslOrcadHostSupports(environment.id, capability, () =>
+          wslOpenkododHostSupports(environment.id, capability, () =>
             callRuntimeEnvironment(
               getUserDataPath(),
               environment.id,
@@ -257,7 +257,7 @@ function registerPassiveCallHandler(
         }
         throw error
       }
-      observeWslOrcadHostResponse(environment.id, args.method, response)
+      observeWslOpenkododHostResponse(environment.id, args.method, response)
       recordAnswer?.(environment, args.method, response)
       return isRuntimeEnvironmentManuallyDisconnected(environment.id)
         ? manuallyDisconnectedResponse(environment)

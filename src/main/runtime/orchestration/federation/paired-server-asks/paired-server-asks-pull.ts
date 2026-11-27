@@ -3,7 +3,7 @@
 // loop names itself on every pull of a session.
 import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { ORCHESTRATION_CLIENT_AGENT_ASKS_RUNTIME_CAPABILITY } from '../../../../../shared/orchestration/orchestration-runtime-capabilities'
 import type { PeerMailClientAsksPull } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
@@ -35,7 +35,7 @@ export type PairedServerAsks = {
 }
 
 type Runtime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getRuntimeId'
   | 'readMachineName'
   | 'resolveOrchestrationWorkerServer'

@@ -3,7 +3,7 @@ import type {
   PluginMarketplaceHostListing,
   PluginMarketplaceHostSourceState
 } from '../../../../../preload/api/plugins/plugin-host-api'
-import { satisfiesOrcaEngineRange } from '../../../../../shared/plugins/manifest/plugin-manifest'
+import { satisfiesOpenKodoEngineRange } from '../../../../../shared/plugins/manifest/plugin-manifest'
 import {
   pluginCatalogReleaseTypes,
   type PluginCatalogType
@@ -32,7 +32,7 @@ export type PluginListEntry = {
   /** What the catalog says this release contributes; empty when unknown. */
   types: readonly PluginCatalogType[]
   /** Oldest OpenKodo the catalog release supports, e.g. "1.6.0". */
-  minimumOrca: string | null
+  minimumOpenKodo: string | null
   /** A newer catalog version than the installed one that this OpenKodo can run, if any. */
   updateVersion: string | null
   /** Catalog release to reinstall over an installed copy that can't load: same version, other bytes. */
@@ -114,26 +114,28 @@ function catalogVersion(listing: PluginMarketplaceHostListing): string | null {
 }
 
 /** The minimum OpenKodo a release needs when this OpenKodo is older; null when it runs or either is unknown. */
-export function needsNewerOrca(
-  minimumOrca: string | null | undefined,
-  orcaVersion: string | null
+export function needsNewerOpenKodo(
+  minimumOpenKodo: string | null | undefined,
+  openkodoVersion: string | null
 ): string | null {
-  return minimumOrca && orcaVersion && !satisfiesOrcaEngineRange(orcaVersion, `>=${minimumOrca}`)
-    ? minimumOrca
+  return minimumOpenKodo &&
+    openkodoVersion &&
+    !satisfiesOpenKodoEngineRange(openkodoVersion, `>=${minimumOpenKodo}`)
+    ? minimumOpenKodo
     : null
 }
 
 function newerCatalogVersion(
   plugin: PluginHostListEntry,
   listing: PluginMarketplaceHostListing | null,
-  orcaVersion: string | null
+  openkodoVersion: string | null
 ): string | null {
   const version = listing ? catalogVersion(listing) : null
   if (!version || plugin.source?.kind !== 'marketplace') {
     return null
   }
   // Why: an update this OpenKodo can't run isn't one to offer; OpenKodo itself needs updating first.
-  if (needsNewerOrca(listing?.release?.minimumOrca, orcaVersion)) {
+  if (needsNewerOpenKodo(listing?.release?.minimumOpenKodo, openkodoVersion)) {
     return null
   }
   return compareAppVersions(version, plugin.version) > 0 ? version : null
@@ -142,14 +144,14 @@ function newerCatalogVersion(
 function reinstallCatalogVersion(
   plugin: PluginHostListEntry,
   listing: PluginMarketplaceHostListing | null,
-  orcaVersion: string | null
+  openkodoVersion: string | null
 ): string | null {
   const release = listing?.release
   if (plugin.status !== 'invalid' || plugin.source?.kind !== 'marketplace' || !release) {
     return null
   }
   // Why bytes, not version: reinstalling the same bytes would fail the same way.
-  return needsNewerOrca(release.minimumOrca, orcaVersion) ||
+  return needsNewerOpenKodo(release.minimumOpenKodo, openkodoVersion) ||
     release.contentHash === plugin.source.contentHash
     ? null
     : release.version
@@ -160,15 +162,15 @@ export function pluginListEntryFromInstalled(
   listing: PluginMarketplaceHostListing | null = null,
   {
     catalogIds = [],
-    orcaVersion = null,
+    openkodoVersion = null,
     autoUpdates = null
   }: {
     catalogIds?: readonly string[]
-    orcaVersion?: string | null
+    openkodoVersion?: string | null
     autoUpdates?: PluginAutoUpdateState | null
   } = {}
 ): PluginListEntry {
-  const updateVersion = newerCatalogVersion(plugin, listing, orcaVersion)
+  const updateVersion = newerCatalogVersion(plugin, listing, openkodoVersion)
   return {
     pluginKey: plugin.pluginKey,
     name: sanitizePluginDisplayText(plugin.name) || pluginDisplayNameFromKey(plugin.pluginKey),
@@ -178,9 +180,11 @@ export function pluginListEntryFromInstalled(
     official: plugin.official,
     categories: listing?.categories ?? [],
     types: listing?.release ? pluginCatalogReleaseTypes(listing.release) : (plugin.types ?? []),
-    minimumOrca: listing?.release?.minimumOrca ?? null,
+    minimumOpenKodo: listing?.release?.minimumOpenKodo ?? null,
     updateVersion,
-    reinstallVersion: updateVersion ? null : reinstallCatalogVersion(plugin, listing, orcaVersion),
+    reinstallVersion: updateVersion
+      ? null
+      : reinstallCatalogVersion(plugin, listing, openkodoVersion),
     catalogIds,
     updatable: plugin.source?.kind === 'marketplace' && listing !== null,
     autoUpdate: entryAutoUpdate(plugin, updateVersion, autoUpdates),
@@ -210,7 +214,7 @@ export function pluginListEntryFromListing(
     official: listing.official,
     categories: listing.categories,
     types: listing.release ? pluginCatalogReleaseTypes(listing.release) : [],
-    minimumOrca: listing.release?.minimumOrca ?? null,
+    minimumOpenKodo: listing.release?.minimumOpenKodo ?? null,
     updateVersion: null,
     catalogIds,
     updatable: false,
@@ -264,11 +268,11 @@ export function buildPluginListEntries(
   listings: readonly PluginMarketplaceHostListing[],
   {
     sources = [],
-    orcaVersion = null,
+    openkodoVersion = null,
     autoUpdates = null
   }: {
     sources?: readonly PluginMarketplaceHostSourceState[]
-    orcaVersion?: string | null
+    openkodoVersion?: string | null
     autoUpdates?: PluginAutoUpdateState | null
   } = {},
   t?: Translate
@@ -291,7 +295,7 @@ export function buildPluginListEntries(
         )
         const entry = pluginListEntryFromInstalled(plugin, listing, {
           catalogIds: catalogIdsOf(plugin.pluginKey),
-          orcaVersion,
+          openkodoVersion,
           autoUpdates
         })
         const own = ownCatalog && plugin.source?.marketplace ? listing : null

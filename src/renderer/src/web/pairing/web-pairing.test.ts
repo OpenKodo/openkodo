@@ -36,7 +36,7 @@ describe('web pairing input', () => {
     expect(readPairingInputFromLocation(location)).toBeNull()
   })
 
-  it('rejects orca URLs outside the exact pairing route', () => {
+  it('rejects openkodo URLs outside the exact pairing route', () => {
     expect(parseWebPairingInput(`openkodo://pairing?code=${encodeOffer()}`)).toBeNull()
     expect(parseWebPairingInput(`openkodo://pair-extra?code=${encodeOffer()}`)).toBeNull()
   })

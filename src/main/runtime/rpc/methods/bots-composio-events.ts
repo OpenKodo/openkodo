@@ -10,7 +10,7 @@ import { composioUserOfBot } from '../../../../shared/composio/composio-apps'
 import { automationWebhookTrigger } from '../../../../shared/automation-event-triggers'
 import type { Automation } from '../../../../shared/automations/automation-definition'
 import type { WebhookWhere } from '../../../../shared/connector-webhook-contract'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod, InvalidArgumentError } from '../core'
 import { composio, instanceOf, setupBot, webhooksOf } from './bots-composio'
 import { ownerOnly } from './bots-caller-gates'
@@ -101,7 +101,7 @@ export const BOT_COMPOSIO_EVENTS_METHODS = [
  * or undefined when it was there.
  */
 export async function keepToBotsOwnEvents(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   automation: Automation,
   botId: string
 ): Promise<string | undefined> {

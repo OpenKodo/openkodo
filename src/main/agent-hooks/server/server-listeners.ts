@@ -19,7 +19,7 @@ import { combinedAgentStatusEntries } from './combined-agent-status-entries'
 import { PaneTimers } from './program-status/pane-timers'
 import { ProgramStatusFacetStore } from './program-status/facet-store'
 import { AgentHookServerAgentIdentities } from './server-agent-identities'
-import { publishedOrcaSessionId } from '../identity/pane-agent-identities'
+import { publishedOpenKodoSessionId } from '../identity/pane-agent-identities'
 
 export abstract class AgentHookServerListeners extends AgentHookServerAgentIdentities {
   protected statusChangeNotificationVersion = 0
@@ -254,8 +254,8 @@ export abstract class AgentHookServerListeners extends AgentHookServerAgentIdent
         ? undefined
         : this.agentIdentities.canonicalIdentity(subjectKey)
       if (status) {
-        const orcaSessionId = publishedOrcaSessionId(identity)
-        rows.push(orcaSessionId !== undefined ? { ...status, orcaSessionId } : status)
+        const openkodoSessionId = publishedOpenKodoSessionId(identity)
+        rows.push(openkodoSessionId !== undefined ? { ...status, openkodoSessionId } : status)
       }
     }
     return rows

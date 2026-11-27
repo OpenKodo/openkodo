@@ -1,7 +1,7 @@
 // Continue an OpenKodo-stopped turn: which cut is offered, and when a failed attempt still shows.
 
 import type { StructuredAgentSessionHostCapabilityState } from '../../../agent-session/capabilities/structured-agent-session-host-capability'
-import type { NativeChatOrcaStopCut } from './native-chat-orca-stop-cut'
+import type { NativeChatOpenKodoStopCut } from './native-chat-openkodo-stop-cut'
 
 /** `asked`: the cut this client asked to continue, hidden until the journal shows what came of it. */
 export type NativeChatInterruptedContinueAttempt = {
@@ -16,7 +16,7 @@ export const NO_NATIVE_CHAT_INTERRUPTED_CONTINUE_ATTEMPT: NativeChatInterruptedC
 
 export function nativeChatInterruptedContinueState(input: {
   capability: StructuredAgentSessionHostCapabilityState
-  cut: NativeChatOrcaStopCut | null
+  cut: NativeChatOpenKodoStopCut | null
   /** Also true while the host may take no turn: Continue starts one. */
   isWorking: boolean
   resuming: boolean

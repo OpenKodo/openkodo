@@ -37,7 +37,7 @@ export function getLinkRoutingModifierTitle(
         'Hold Shift to open in your web browser'
       )
     : t(
-        'auto.components.settings.BrowserLinkRoutingModifierSetting.titleOrca',
+        'auto.components.settings.BrowserLinkRoutingModifierSetting.titleOpenKodo',
         'Hold Shift to open in OpenKodo'
       )
 }
@@ -61,7 +61,7 @@ export function getLinkRoutingModifierDescription(
         { chord }
       )
     : t(
-        'auto.components.settings.BrowserLinkRoutingModifierSetting.descriptionOrca',
+        'auto.components.settings.BrowserLinkRoutingModifierSetting.descriptionOpenKodo',
         "Links open in your system browser. When enabled, {{chord}}+click opens one in OpenKodo's built-in browser instead.",
         { chord }
       )

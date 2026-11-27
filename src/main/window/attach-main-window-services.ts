@@ -27,7 +27,7 @@ import {
   hasSystemMediaAccess,
   requestSystemMediaAccess
 } from '../browser/site-settings/permissions/browser-media-access'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { hasWorkingUpdateAgents } from '../updater/lifecycle/update-agent-activity'
 import { reloadWithRendererCheckpoint } from './renderer-relays/native-unload-coordinator'
 import type { RuntimeWorktreeLifecycleEvent } from '../runtime/workspaces/lifecycle/worktree-lifecycle-event'
@@ -64,7 +64,7 @@ export async function attachMainWindowServices(
   mainWindow: BrowserWindow,
   store: Store,
   nativeSettings: NativeSettingsProjection,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   getSelectedCodexHomePath?: GetSelectedCodexHomePath,
   prepareClaudeAuth?: (
     target?: ClaudeAccountSelectionTarget

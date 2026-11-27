@@ -1,7 +1,7 @@
 import type { BrowserPageZoomCommand } from '../../../../../../shared/browser/site-settings/browser-page-zoom'
 import type { BrowserPageSiteDisplay } from '../../../../../../shared/browser/site-settings/browser-site-display'
 
-export const OPENKODO_BROWSER_PAGE_ZOOM_EVENT = 'orca:browser-page-zoom'
+export const OPENKODO_BROWSER_PAGE_ZOOM_EVENT = 'openkodo:browser-page-zoom'
 
 /** Zoom chords that land in OpenKodo's own window while a browser pane holds focus. */
 export function dispatchBrowserPageZoom(command: BrowserPageZoomCommand): void {
@@ -20,7 +20,7 @@ export function addBrowserPageZoomEventListener(
   return () => window.removeEventListener(OPENKODO_BROWSER_PAGE_ZOOM_EVENT, listener)
 }
 
-const OPENKODO_BROWSER_PAGE_SITE_DISPLAY_EVENT = 'orca:browser-page-site-display'
+const OPENKODO_BROWSER_PAGE_SITE_DISPLAY_EVENT = 'openkodo:browser-page-site-display'
 
 type BrowserPageSiteDisplayUpdate = {
   browserPageId: string

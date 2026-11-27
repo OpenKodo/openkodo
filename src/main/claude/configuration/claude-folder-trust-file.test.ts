@@ -18,7 +18,7 @@ import { grantClaudeFolderTrust, grantClaudeWorkspaceTrust } from './claude-fold
 let root: string
 
 beforeEach(() => {
-  root = realpathSync(mkdtempSync(join(tmpdir(), 'orca-claude-trust-')))
+  root = realpathSync(mkdtempSync(join(tmpdir(), 'openkodo-claude-trust-')))
 })
 
 afterEach(() => {

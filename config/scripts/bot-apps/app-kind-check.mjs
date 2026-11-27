@@ -26,7 +26,7 @@ function initializeRequest() {
     params: {
       protocolVersion: LATEST_PROTOCOL_VERSION,
       capabilities: {},
-      clientInfo: { name: 'orca-bot-app-check', version: '1' }
+      clientInfo: { name: 'openkodo-bot-app-check', version: '1' }
     }
   }
 }

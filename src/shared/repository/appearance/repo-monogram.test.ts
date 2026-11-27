@@ -3,8 +3,8 @@ import { monogramFontScale, monogramWidthEm, suggestRepoMonogram } from './repo-
 
 describe('suggestRepoMonogram', () => {
   it('abbreviates names the way people do', () => {
-    expect(suggestRepoMonogram('orca')).toBe('OR')
-    expect(suggestRepoMonogram('orca-internal')).toBe('OI')
+    expect(suggestRepoMonogram('openkodo')).toBe('OP')
+    expect(suggestRepoMonogram('openkodo-internal')).toBe('OI')
     expect(suggestRepoMonogram('myApp')).toBe('MA')
     expect(suggestRepoMonogram('terraform_modules')).toBe('TM')
     expect(suggestRepoMonogram('customer-onboarding-flow')).toBe('CO')
@@ -19,9 +19,9 @@ describe('suggestRepoMonogram', () => {
   })
 
   it('steps to another abbreviation when one is taken', () => {
-    expect(suggestRepoMonogram('orca', ['OR'])).toBe('OC')
-    expect(suggestRepoMonogram('orca-internal', ['OI'])).toBe('OR')
-    expect(suggestRepoMonogram('orca', ['or', 'OC'])).toBe('OA')
+    expect(suggestRepoMonogram('openkodo', ['OP'])).toBe('ON')
+    expect(suggestRepoMonogram('openkodo-internal', ['OI'])).toBe('OP')
+    expect(suggestRepoMonogram('openkodo', ['op', 'OC'])).toBe('ON')
   })
 
   it('keeps non-Latin names', () => {

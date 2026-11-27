@@ -95,7 +95,7 @@ export function toLegacyDetectedWorktreeResult(
     source: 'session-fallback',
     worktrees: worktrees.map((worktree) => ({
       ...worktree,
-      ownership: 'orca-managed',
+      ownership: 'openkodo-managed',
       selectedCheckout: false,
       visible: true
     }))

@@ -80,7 +80,7 @@ export function reexecServeUnderInitReaper(deps: ServeInitReaperDeps): ServeInit
   try {
     deps.execve(
       bash,
-      ['bash', '-c', SERVE_INIT_REAPER_SCRIPT, 'orca-serve-init', ...command.args],
+      ['bash', '-c', SERVE_INIT_REAPER_SCRIPT, 'openkodo-serve-init', ...command.args],
       command.env
     )
   } catch (error) {

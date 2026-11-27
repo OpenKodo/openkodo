@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { getDefaultPersistedState } from '../../../shared/orca-profiles/constants'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import { getDefaultPersistedState } from '../../../shared/openkodo-profiles/constants'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { heavyWslMoverProfile } from '../../persistence/__fixtures__/wsl-mover/wsl-mover-heavy-profile'
 import {
   repo,

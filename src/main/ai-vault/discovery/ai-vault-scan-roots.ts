@@ -11,7 +11,7 @@ import { filterPathsToRunningWslDistrosAsync } from '../../wsl/filesystem/wsl-ru
 import type { AiVaultScanOptions } from '../session-scanner-types'
 import { managedOpenCodeAccountDataDirs } from '../../opencode/accounts/opencode-managed-account-data-dirs'
 import { antigravityChatBrainDir } from '../../antigravity/antigravity-chat-home'
-import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
 import { prepareOpenCodeWslReaders } from '../scanners/opencode/reader-transport/opencode-wsl-runtime-preparation'
 
 // Configure sources through the runtime service; headless serve never runs window-only IPC registration.

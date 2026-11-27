@@ -160,7 +160,7 @@ export async function sendItemRequest(
       'That bot already has this request, so nothing was written.'
     )
   }
-  const prefix = 'orca_session_id:'
+  const prefix = 'openkodo_session_id:'
   return {
     landed: message.to_handle.startsWith(prefix)
       ? message.to_handle.slice(prefix.length)

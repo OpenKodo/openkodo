@@ -1,9 +1,9 @@
 // Home names the bot's one Chat; a Home Chat a new one replaced becomes an ordinary chat of the bot's.
 import type { Bot } from '../../shared/bot-types'
-import { isOrcaSessionId } from '../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../shared/agent-session/identity/openkodo-session-address'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 import type { StructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-host'
-import { createCanonicalOrcaSessionResolver } from '../runtime/orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { createCanonicalOpenKodoSessionResolver } from '../runtime/orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 
 /** The Chat's tab name. */
 export const BOT_CHAT_NAME = 'Home'
@@ -49,12 +49,12 @@ export async function nameNewHome(
  *  side chats are. Naming is metadata: a chat that cannot be renamed keeps its name, blocking nothing. */
 export async function releaseReplacedHomes(host: BotHomeHost, bot: Bot): Promise<void> {
   const home = folderWorkspaceKey(bot.folderWorkspaceId)
-  const resolve = createCanonicalOrcaSessionResolver({
+  const resolve = createCanonicalOpenKodoSessionResolver({
     listRecords: host.deps.store.listConversations,
     lineageRevision: host.deps.store.lineageRevision
   })
   // By /clear root, so a Chat continued by /clear stays the Chat.
-  const rootOf = (id: string): string => (isOrcaSessionId(id) ? resolve(id) : id)
+  const rootOf = (id: string): string => (isOpenKodoSessionId(id) ? resolve(id) : id)
   const chat = bot.chatSessionId ? rootOf(bot.chatSessionId) : null
   for (const conversation of host.deps.store.listConversations()) {
     if (

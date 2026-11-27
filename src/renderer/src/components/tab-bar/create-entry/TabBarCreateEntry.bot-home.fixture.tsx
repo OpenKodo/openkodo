@@ -99,7 +99,7 @@ function searchCase(query: string, check: (frame: HTMLElement) => void | Promise
           id: bot.folderWorkspaceId,
           projectGroupId: 'bots',
           name: bot.name,
-          folderPath: `/home/me/.orca/bots/${bot.folder}`
+          folderPath: `/home/me/.openkodo/bots/${bot.folder}`
         })
       ],
       detectedAgentIds: [...AGENTS],

@@ -21,7 +21,7 @@ let dir: string
 let manifest: Record<string, unknown>
 
 beforeEach(async () => {
-  root = await mkdtemp(join(tmpdir(), 'orca-panel-icon-check-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-panel-icon-check-'))
   dir = join(root, 'plugin')
   await createPluginFromTemplate({ dir, template: 'panel', publisher: 'acme' })
   manifest = JSON.parse(await readFile(join(dir, 'openkodo-plugin.json'), 'utf8'))
@@ -35,7 +35,7 @@ async function writeManifest(icon: unknown, overrides: Record<string, unknown> =
   const { panels } = templateSchema.parse(manifest).contributes
   const next = {
     ...manifest,
-    engines: { orca: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
+    engines: { openkodo: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
     ...overrides,
     contributes: { panels: [{ ...panels[0], icon }] }
   }
@@ -151,7 +151,7 @@ it('keeps manifest text in icon warnings on one line', async () => {
     join(dir, 'openkodo-plugin.json'),
     JSON.stringify({
       ...manifest,
-      engines: { orca: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
+      engines: { openkodo: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
       contributes: {
         panels: [{ ...panels[0], icon: { path: 'M0 0', 'x\nINFO forged\u001b[2K': 1 } }]
       }
@@ -163,14 +163,14 @@ it('keeps manifest text in icon warnings on one line', async () => {
   expect(warnings[0]).toContain('x INFO forged')
 })
 
-it('requires the path icon release in engines.orca', async () => {
-  await writeManifest({ path: 'M4 4h16v16H4z' }, { engines: { orca: '>=1.4.272' } })
+it('requires the path icon release in engines.openkodo', async () => {
+  await writeManifest({ path: 'M4 4h16v16H4z' }, { engines: { openkodo: '>=1.4.272' } })
   const report = await validatePluginTarget(dir)
   expect(report.valid).toBe(false)
   expect(report.errors.join('\n')).toContain(
     `must be at least >=${PLUGIN_PANEL_PATH_ICON_SINCE}, because contributes.panels[0].icon needs OpenKodo ${PLUGIN_PANEL_PATH_ICON_SINCE}`
   )
-  await writeManifest('database', { engines: { orca: '>=1.4.246' } })
+  await writeManifest('database', { engines: { openkodo: '>=1.4.246' } })
   expect((await validatePluginTarget(dir)).valid).toBe(true)
 })
 
@@ -179,7 +179,7 @@ it(
   async () => {
     // Why: an older OpenKodo refuses these outright, so the plugin would not load there at all.
     for (const icon of [{ path: 'nope' }, { color: 'red' }, 'icons/panel.svg']) {
-      await writeManifest(icon, { engines: { orca: '>=1.4.246' } })
+      await writeManifest(icon, { engines: { openkodo: '>=1.4.246' } })
       const report = await validatePluginTarget(dir)
       expect(report.valid, JSON.stringify(icon)).toBe(false)
       expect(report.errors.join('\n'), JSON.stringify(icon)).toContain(
@@ -197,7 +197,7 @@ it('reports icon warnings through validate:plugin', async () => {
   expect(pluginManifestWarnings(raw)).toContainEqual(
     expect.stringContaining('Showing the puzzle icon instead')
   )
-  await writeManifest('x.svg', { manifestVersion: 1, engines: { orca: '>=1.4.160' } })
+  await writeManifest('x.svg', { manifestVersion: 1, engines: { openkodo: '>=1.4.160' } })
   const legacy = JSON.parse(await readFile(join(dir, 'openkodo-plugin.json'), 'utf8'))
   expect(pluginManifestWarnings(legacy)).toEqual([
     expect.stringContaining('file icons are not supported')
@@ -212,7 +212,7 @@ it(
       ['x.svg', 'file icons are not supported'],
       ['databse', "isn't a built-in icon name"]
     ] as const) {
-      await writeManifest(icon, { manifestVersion: 1, engines: { orca: '>=1.4.160' } })
+      await writeManifest(icon, { manifestVersion: 1, engines: { openkodo: '>=1.4.160' } })
       const report = await validatePluginTarget(dir)
       expect(report.valid, JSON.stringify(icon)).toBe(true)
       expect(report.warnings?.[0], JSON.stringify(icon)).toContain(reason)
@@ -236,7 +236,7 @@ it('reports a repeated icon warning once, and logs it once across discovery refr
     join(dir, 'openkodo-plugin.json'),
     JSON.stringify({
       ...manifest,
-      engines: { orca: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
+      engines: { openkodo: `>=${PLUGIN_PANEL_PATH_ICON_SINCE}` },
       contributes: { panels: [broken, { ...broken, id: 'second' }] }
     })
   )

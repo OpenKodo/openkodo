@@ -48,7 +48,7 @@ export function ClientHostedBrowserUnavailableNotice({
           ?.name ?? null)
       : null
   })
-  // Why: a runtime known to have no browser of its own (orcad) cannot take the page back.
+  // Why: a runtime known to have no browser of its own (openkodod) cannot take the page back.
   const runtimeCanHostPage = useRuntimeHostStatusSelector(runtimeEnvironmentId, (entry) => {
     const capabilities = entry?.status?.capabilities
     return !capabilities || capabilities.includes(BROWSER_SCREENCAST_RUNTIME_CAPABILITY)

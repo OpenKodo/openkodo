@@ -1,4 +1,4 @@
-import { createOutputSink } from '@orca/process-host/bounded-output-sink'
+import { createOutputSink } from '@openkodo/process-host/bounded-output-sink'
 import type { ChildProcess } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { hasLocalCommandSelection } from '../../../ipc/command-path/command-path-resolver'

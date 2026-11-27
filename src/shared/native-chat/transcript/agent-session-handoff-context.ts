@@ -3,7 +3,7 @@ import type {
   NativeChatToolCallBlock,
   NativeChatToolResultBlock
 } from '../native-chat-types'
-import { isNativeChatOrcaCard } from '../native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../native-chat-openkodo-card'
 import { isWordlessProviderFrameBlock } from './notices/native-chat-provider-frame-summary'
 import { pairToolBlocks, type NativeChatToolPair } from '../tools/native-chat-tool-pairs'
 import { formatToolInputPreview } from '../tools/native-chat-tool-summary'
@@ -67,7 +67,7 @@ function contextEntryChars(entries: readonly { text: string }[]): number {
 
 function prioritizeConversation(messages: readonly NativeChatMessage[]): ConversationMessage[] {
   const candidates = messages.flatMap((message, messageIndex) => {
-    if (isNativeChatOrcaCard(message) || message.role === 'reasoning') {
+    if (isNativeChatOpenKodoCard(message) || message.role === 'reasoning') {
       return []
     }
     const fallbacks = workerTranscriptBlockFallbacks(message.blocks)
@@ -115,7 +115,7 @@ function selectToolEvidence(messages: readonly NativeChatMessage[]): {
     () => []
   )
   messages.forEach((message, messageIndex) => {
-    if (isNativeChatOrcaCard(message) || message.role === 'reasoning') {
+    if (isNativeChatOpenKodoCard(message) || message.role === 'reasoning') {
       return
     }
     message.blocks.forEach((block, blockIndex) => {

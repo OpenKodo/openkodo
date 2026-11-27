@@ -2,7 +2,7 @@ import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import SidebarToolbar from './SidebarToolbar'
 
-const HINT_SEEN_KEY = 'orca.workspaceBoardMovedHintSeen.v1'
+const HINT_SEEN_KEY = 'openkodo.workspaceBoardMovedHintSeen.v1'
 const ELIGIBLE_STORE = {
   persistedUIReady: true,
   featureInteractions: { 'workspace-board': { firstInteractedAt: 1, interactionCount: 1 } },

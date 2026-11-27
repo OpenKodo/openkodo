@@ -5,11 +5,11 @@ import type {
   OrchestrationFleetWorker
 } from '../../../../../../shared/orchestration/fleet/orchestration-fleet-projection'
 import { isStructuredWorkerHandle } from '../../../../../../shared/orchestration/workers/structured-worker-handle'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 
 /** The terminal reads that tell a missing terminal from an unconfirmed one; a reader without them never says missing. */
 export type TerminalPresenceReads = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'refreshAuthoritativeTerminalInventory'
   | 'getTerminalHandleForPaneKey'
   | 'resolveTerminalHandleByProcessIncarnation'

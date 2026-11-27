@@ -3,7 +3,7 @@
 import { constants } from 'node:fs'
 import { access, chmod, writeFile } from 'node:fs/promises'
 import { delimiter, join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 async function git(args: string[]): Promise<string> {
   const result = await runProcess({

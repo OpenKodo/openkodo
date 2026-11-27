@@ -60,10 +60,10 @@ function linearWorkspace(fields: Partial<ConnectorLinearWorkspace>): ConnectorLi
   }
 }
 
-const orcaBotTest: ConnectorGitHubInstallation = {
+const openkodoBotTest: ConnectorGitHubInstallation = {
   installationId: '1',
   accountLogin: 'dana',
-  repositories: [{ fullName: 'dana/orca-bot-test' }]
+  repositories: [{ fullName: 'dana/openkodo-bot-test' }]
 }
 
 const notAnswered = async (): Promise<{ ok: false; error: string }> => ({
@@ -98,7 +98,7 @@ function stubConnectors(
     state: async () => ({
       ok: true,
       value: {
-        installUrl: 'https://github.com/apps/orca-ide/installations/new',
+        installUrl: 'https://github.com/apps/openkodo-ide/installations/new',
         account: { userId: '42', login },
         installations,
         defaultBotId: null
@@ -151,7 +151,7 @@ const gitHubDialog = (): React.JSX.Element => <GitHubSetup bot={triage} />
 
 export const linearOneWorkspace = defineFixture({
   width: 1100,
-  setup: () => stubConnectors([linearWorkspace({})], [orcaBotTest]),
+  setup: () => stubConnectors([linearWorkspace({})], [openkodoBotTest]),
   render: () => linearDialog()
 })
 
@@ -163,14 +163,14 @@ export const linearTwoWorkspaces = defineFixture({
         linearWorkspace({}),
         linearWorkspace({ workspaceId: 'org-beta', name: 'Beta', urlKey: 'beta' })
       ],
-      [orcaBotTest]
+      [openkodoBotTest]
     ),
   render: () => linearDialog()
 })
 
 export const linearNotYou = defineFixture({
   width: 1100,
-  setup: () => stubConnectors([linearWorkspace({})], [orcaBotTest]),
+  setup: () => stubConnectors([linearWorkspace({})], [openkodoBotTest]),
   render: () => linearDialog(),
   interact: () => clickWhenShown('Not you?')
 })
@@ -179,7 +179,7 @@ const issueTriage: Bot = { ...triage, name: 'GitHub issue triage', folder: 'gith
 
 export const linearConnect = defineFixture({
   width: 1100,
-  setup: () => stubConnectors([], [orcaBotTest]),
+  setup: () => stubConnectors([], [openkodoBotTest]),
   render: () => linearDialog(issueTriage)
 })
 
@@ -187,7 +187,7 @@ export const linearConnect = defineFixture({
 export const linearDone = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([linearWorkspace({})], [orcaBotTest])
+    stubConnectors([linearWorkspace({})], [openkodoBotTest])
     publishBots([issueTriage])
     // Turn on saves the bot on its host, then reads the list again; answer both here.
     const on = { ...issueTriage, linearWorkspaces: [acme] }
@@ -209,7 +209,7 @@ export const linearDone = defineFixture({
 export const gitHubOneInstall = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([], [orcaBotTest])
+    stubConnectors([], [openkodoBotTest])
     openGitHubSetup(triage)
   },
   render: gitHubDialog
@@ -220,7 +220,7 @@ export const gitHubTwoInstalls = defineFixture({
   setup: () => {
     stubConnectors(
       [],
-      [orcaBotTest, { installationId: '2', accountLogin: 'acme-org', repositories: null }]
+      [openkodoBotTest, { installationId: '2', accountLogin: 'acme-org', repositories: null }]
     )
     openGitHubSetup(triage)
   },
@@ -237,7 +237,7 @@ const longScout: Bot = {
 export const gitHubDone = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([], [orcaBotTest])
+    stubConnectors([], [openkodoBotTest])
     openGitHubSetup(scout)
   },
   render: () => <GitHubSetup bot={scout} />
@@ -248,7 +248,7 @@ export const gitHubDone = defineFixture({
 export const gitHubDoneLongName = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([], [orcaBotTest], 'dana-lee-from-the-platform-infrastructure-team')
+    stubConnectors([], [openkodoBotTest], 'dana-lee-from-the-platform-infrastructure-team')
     openGitHubSetup(longScout)
   },
   render: () => <GitHubSetup bot={longScout} />
@@ -257,7 +257,7 @@ export const gitHubDoneLongName = defineFixture({
 export const gitHubNotYou = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([], [orcaBotTest])
+    stubConnectors([], [openkodoBotTest])
     openGitHubSetup(triage)
   },
   render: gitHubDialog,
@@ -310,7 +310,7 @@ const openTriage: Bot = {
 export const linearOpenSetup = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([linearWorkspace({})], [orcaBotTest])
+    stubConnectors([linearWorkspace({})], [openkodoBotTest])
     publishBots([openTriage, scout])
   },
   render: () => (
@@ -324,7 +324,7 @@ export const linearOpenSetup = defineFixture({
 export const linearAlreadyOn = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([linearWorkspace({})], [orcaBotTest])
+    stubConnectors([linearWorkspace({})], [openkodoBotTest])
     publishBots([{ ...openTriage, permissionMode: 'ask', linearWorkspaces: [acme] }])
   },
   render: () => (
@@ -342,7 +342,7 @@ export const linearAlreadyOn = defineFixture({
 // Linear's people search fails: the picker says so and offers Try again.
 export const linearPickerFailed = defineFixture({
   width: 1100,
-  setup: () => stubConnectors([linearWorkspace({})], [orcaBotTest]),
+  setup: () => stubConnectors([linearWorkspace({})], [openkodoBotTest]),
   render: () => linearDialog(),
   interact: async () => {
     await clickWhenShown('Add')
@@ -367,7 +367,7 @@ const people = async (): Promise<unknown> => ({
 export const linearConfirm = defineFixture({
   width: 1100,
   setup: () => {
-    stubConnectors([linearWorkspace({})], [orcaBotTest])
+    stubConnectors([linearWorkspace({})], [openkodoBotTest])
     linearFake.members = people
   },
   render: () => linearDialog(),

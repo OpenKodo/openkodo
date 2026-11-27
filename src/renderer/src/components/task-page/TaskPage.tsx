@@ -35,7 +35,7 @@ import { useTaskPageJiraIssueCreation } from './jira/creation/use-task-page-jira
 import { useTaskPageJiraSummaryGeneration } from './jira/creation/use-task-page-jira-summary-generation'
 import { useTaskPageGlobalEffects } from './use-task-page-global-effects'
 import { useTaskPageLinearListEffects } from './linear/issues/use-task-page-linear-list-effects'
-import { useTaskPageLinearInOrcaEffects } from './linear/issues/use-task-page-linear-in-orca-effects'
+import { useTaskPageLinearInOpenKodoEffects } from './linear/issues/use-task-page-linear-in-openkodo-effects'
 import { useTaskPageLinearCollectionEffects } from './linear/projects/use-task-page-linear-collection-effects'
 import { useTaskPageJiraListEffects } from './jira/listing/use-task-page-jira-list-effects'
 import { useTaskPageComposerActions } from './use-task-page-composer-actions'
@@ -78,7 +78,7 @@ export default function TaskPage(): React.JSX.Element {
   const stage34 = useTaskPageJiraSummaryGeneration(stage33)
   const stage35 = useTaskPageGlobalEffects(stage34)
   const stage36 = useTaskPageLinearListEffects(stage35)
-  const stage37 = useTaskPageLinearInOrcaEffects(stage36)
+  const stage37 = useTaskPageLinearInOpenKodoEffects(stage36)
   const stage38 = useTaskPageLinearCollectionEffects(stage37)
   const stage39 = useTaskPageJiraListEffects(stage38)
   const stage40 = useTaskPageComposerActions(stage39)

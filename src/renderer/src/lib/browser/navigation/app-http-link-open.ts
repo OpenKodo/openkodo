@@ -23,7 +23,7 @@ export type OpenAppHttpLinkOptions = {
   /** Opens in the workspace's browser whatever the link setting says. */
   forceInApp?: boolean
   /** Explicit destination override when a surface bypasses the link setting. */
-  destination?: 'orca' | 'system'
+  destination?: 'openkodo' | 'system'
 }
 
 function isEscapeModifierClick(event: AppHttpLinkClick | undefined): boolean {
@@ -51,7 +51,7 @@ export function openAppHttpLink(
       forceSystemBrowser: true
     })
   }
-  if (options.destination === 'orca') {
+  if (options.destination === 'openkodo') {
     return openOwnedHttpLink(url, {
       worktreeId: host?.worktreeId ?? null,
       sourceOwner: host?.owner ?? LOCAL_OWNER,

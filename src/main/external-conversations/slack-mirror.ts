@@ -36,7 +36,7 @@ import {
 /** The send id behind a person's message item; null for any other item. */
 function clientMessageIdOf(itemId: string): string | null {
   const identity = parseAgentJournalItemKey(itemId)
-  return identity?.provider === 'orca' && 'clientMessageId' in identity
+  return identity?.provider === 'openkodo' && 'clientMessageId' in identity
     ? identity.clientMessageId
     : null
 }
@@ -44,7 +44,7 @@ function clientMessageIdOf(itemId: string): string | null {
 export type SlackMirrorDeps = SlackMirrorLinkDeps & {
   cloud: () => SlackMirrorCloud | null
   /** The OpenKodo account's name, posted beside the words. */
-  orcaName: () => string
+  openkodoName: () => string
   /** A bot's "Post my OpenKodo messages to Slack threads I start"; undefined reads as on. */
   botSetting: (botId: string) => boolean | undefined
   /** A message of the chat, read back for Retry. */
@@ -291,7 +291,7 @@ export class SlackMirror extends SlackMirrorLinks {
             clientMessageId,
             conversation,
             body,
-            orcaName: this.deps.orcaName()
+            openkodoName: this.deps.openkodoName()
           })
         : null
     const current = this.linkOfSession(sessionId)

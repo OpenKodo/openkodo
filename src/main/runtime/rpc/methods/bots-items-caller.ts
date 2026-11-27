@@ -1,16 +1,16 @@
 // Who is calling `bots.items.*`: only a bot's own chat on this host writes, and the author is always
 // that bot. Look around and Tidy-up runs resolve to their bot too, so they may read but never write.
 import type { Bot } from '../../../../shared/bot-types'
-import { isOrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { isBotBackgroundRun } from '../../../bots/bot-background-run-records'
 import { botOfCaller } from '../../../bots/bot-of-caller'
 import { botOfSession } from '../../../bots/bot-session-tabs'
 import { BotItemError } from '../../../bots/bot-item-error'
 import type { BotItemBotActor } from '../../../bots/bot-items-input'
 import type { BotItemSource } from '../../../bots/bot-items-schema'
-import { createCanonicalOrcaSessionResolver } from '../../orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { createCanonicalOpenKodoSessionResolver } from '../../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import { readAgentSessionRecordStore } from '../../orchestration/addressing/session-lineage/structured-session-lineage'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { InvalidArgumentError, type RpcContext } from '../core'
 import { isBotOwnChat } from '../../../bots/bot-own-chat'
 
@@ -23,7 +23,7 @@ export type BotItemWriter = {
 }
 
 type CallerRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'bots' | 'lookAround' | 'botItems' | 'getOrchestrationDb'
 >
 
@@ -80,11 +80,11 @@ export function itemsWriter(
     throw new BotItemError('invalid_argument', BACKGROUND_READ_ONLY)
   }
   const bot = botOfSession(runtime.bots, sessionId)
-  if (!bot || !store || !record || !isOrcaSessionId(sessionId)) {
+  if (!bot || !store || !record || !isOpenKodoSessionId(sessionId)) {
     throw new BotItemError('invalid_argument', ONLY_BOT_CHATS)
   }
-  const rootOf = createCanonicalOrcaSessionResolver(store)
-  const root = (id: string) => (isOrcaSessionId(id) ? rootOf(id) : id)
+  const rootOf = createCanonicalOpenKodoSessionResolver(store)
+  const root = (id: string) => (isOpenKodoSessionId(id) ? rootOf(id) : id)
   if (!isBotOwnChat(record, runtime.getOrchestrationDb(), store)) {
     throw new BotItemError('invalid_argument', ONLY_BOT_CHATS)
   }

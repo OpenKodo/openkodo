@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Builds native/provider-exec for one target into native/provider-exec/.build/<target>/.
 // Desktop Linux targets compile in the glibc-floor Docker toolchain; server slots (linux-*-glibc,
-// -glibc217, -musl) use the slot runner's own compiler, which build-orcad-prebuilds gates.
+// -glibc217, -musl) use the slot runner's own compiler, which build-openkodod-prebuilds gates.
 import { createHash } from 'node:crypto'
 import { spawnSync } from 'node:child_process'
 import {
@@ -20,7 +20,7 @@ import { pathToFileURL } from 'node:url'
 import glibcVerification from '../linux/verify-linux-glibc-floor.cjs'
 import { linuxNativeToolchainImage } from '../linux/build-wayland-clipboard.mjs'
 
-const PROVIDER_EXEC_EXECUTABLE = 'orca-provider-exec'
+const PROVIDER_EXEC_EXECUTABLE = 'openkodo-provider-exec'
 // Equals the desktop's minimumSystemVersion; the pinned server Node needs a newer macOS anyway.
 export const MACOS_DEPLOYMENT_TARGET = '13.4'
 const SOURCE = 'native/provider-exec/provider-exec.c'
@@ -117,7 +117,7 @@ function verifyOutput(output, { platform, arch }, outputDir, toolchain) {
   if (violation) {
     throw new Error(`${output} is ${violation.actual}, expected ${arch}`)
   }
-  // Server slots are gated at their own floor when build-orcad-prebuilds stores them; a dev
+  // Server slots are gated at their own floor when build-openkodod-prebuilds stores them; a dev
   // host build never ships, because packaging's Docker fingerprint differs.
   if (toolchain === 'docker') {
     glibcVerification.verifyLinuxGlibcFloor(outputDir, { targetArch: arch })

@@ -1,5 +1,5 @@
 // When a catalog plugin was listed, and the Newly added row built from it. Mirrors the website's
-// derivation (orca-site src/lib/plugins/pluginCatalog.ts and pluginNew.ts) so both show the same
+// derivation (openkodo-site src/lib/plugins/pluginCatalog.ts and pluginNew.ts) so both show the same
 // plugins with the same ages. Catalogs carry no listing date; it is estimated from release dates.
 
 /** Cards the Newly added row may hold. */

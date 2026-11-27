@@ -5,7 +5,7 @@ import { isDeepStrictEqual } from 'node:util'
 import type { McpFileAgent } from '../../../shared/mcp-servers/mcp-servers'
 import {
   agentMcpConfigEntry,
-  isOrcaOwnedAgentMcpServer
+  isOpenKodoOwnedAgentMcpServer
 } from '../../../shared/mcp/agent-mcp-config-entry'
 import {
   findManagedTomlBlocks,
@@ -56,7 +56,7 @@ export function mcpAgentFileServerNames(edit: McpAgentFileEdit, text: string): S
 }
 
 /** The file's names that hold another OpenKodo's bridge entry (one pinned to another data folder). */
-export function otherOrcasServerNames(
+export function otherOpenKodosServerNames(
   edit: McpAgentFileEdit,
   text: string,
   userDataPath: string
@@ -72,7 +72,7 @@ export function otherOrcasServerNames(
       const entry = agentMcpConfigEntry(name, raw, dialect)
       const server = entry?.server
       return server &&
-        isOrcaOwnedAgentMcpServer(server) &&
+        isOpenKodoOwnedAgentMcpServer(server) &&
         !('url' in server) &&
         server.env?.OPENKODO_USER_DATA_PATH !== userDataPath
         ? [name]
@@ -86,7 +86,7 @@ export function otherOrcasServerNames(
  * what the ledger says OpenKodo wrote (`owned`) or what it would write now (`recognized`), then the
  * servers' table when OpenKodo added it (`addedTable`) and nothing else is left in it.
  */
-export function withoutOrcaEntries(
+export function withoutOpenKodoEntries(
   edit: McpAgentFileEdit,
   text: string,
   owned: Readonly<Record<string, unknown>>,
@@ -136,7 +136,7 @@ function tomlTable(name: string, entry: McpAgentFileEntry, eol: string): string 
  * `base` (null: no file) with `entries` added, by name; entry names are TOML bare keys. Null when the
  * JSON has no object to add them to.
  */
-export function withOrcaEntries(
+export function withOpenKodoEntries(
   edit: McpAgentFileEdit,
   base: string | null,
   entries: ReadonlyMap<string, McpAgentFileEntry>

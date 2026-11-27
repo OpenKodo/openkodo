@@ -1,9 +1,9 @@
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId,
-  parseOrcaSessionAddress,
-  type OrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress,
+  type OpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES as CODES } from '../../../../shared/orchestration/orchestration-session-caller-codes'
 import {
   isRecordedStructuredWorkerSession,
@@ -11,7 +11,7 @@ import {
   resolveStructuredWorkerIdentityForRoot
 } from '../terminal-authority/structured-sessions/structured-worker-authority'
 import type { StructuredWorkerIdentity } from '../terminal-authority/structured-sessions/structured-worker-identity'
-import { canonicalOrcaSessionId } from './session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from './session-lineage/canonical-openkodo-session-id'
 import type { AgentSessionRecordReader } from './session-lineage/structured-session-lineage'
 import type { OrchestrationDb } from '../db/orchestration-db'
 import type { SessionPartyReader } from './session-party-reader'
@@ -21,7 +21,7 @@ import { OrchestrationError } from '../orchestration-error'
 
 /** A party named by an OpenKodo session id: a structured worker, or a chat. */
 export type OrchestrationSessionParty = OrchestrationParty &
-  Readonly<{ orcaSessionId: OrcaSessionId }>
+  Readonly<{ openkodoSessionId: OpenKodoSessionId }>
 
 const NO_EFFECTS = { effectsApplied: false } as const
 
@@ -40,12 +40,12 @@ export const ORCHESTRATION_TARGET_PARAM: Readonly<
 }
 
 /** The party an OpenKodo session id names. Throws when it is a worker this host lost the identity of. */
-export function resolveOrcaSessionParty(
-  orcaSessionId: OrcaSessionId,
+export function resolveOpenKodoSessionParty(
+  openkodoSessionId: OpenKodoSessionId,
   db: SessionPartyReader | null | undefined,
   store?: Pick<AgentSessionRecordReader, 'listRecords'> | null
 ): OrchestrationSessionParty {
-  const id = canonicalOrcaSessionId(orcaSessionId, store)
+  const id = canonicalOpenKodoSessionId(openkodoSessionId, store)
   const worker = resolveStructuredWorkerIdentityForRoot(id, db)
   const party = sessionPartyFromWorkerIdentity(
     id,
@@ -64,17 +64,17 @@ export function resolveOrcaSessionParty(
 }
 
 export function sessionPartyFromWorkerIdentity(
-  id: OrcaSessionId,
+  id: OpenKodoSessionId,
   worker: Pick<StructuredWorkerIdentity, 'handle' | 'paneKey'> | null,
   recordedWorker: boolean
 ): OrchestrationSessionParty | undefined {
   if (!worker && recordedWorker) {
     return undefined
   }
-  const key = { terminalHandle: worker?.handle ?? null, orcaSessionId: id }
+  const key = { terminalHandle: worker?.handle ?? null, openkodoSessionId: id }
   return {
     ...key,
-    address: mailboxAddressOf(key) ?? formatOrcaSessionAddress(id),
+    address: mailboxAddressOf(key) ?? formatOpenKodoSessionAddress(id),
     paneKey: worker?.paneKey ?? null
   }
 }
@@ -84,27 +84,29 @@ export function resolveOrchestrationParty(
   address: string,
   db: OrchestrationDb | null | undefined
 ): OrchestrationParty {
-  const orcaSessionId = parseOrcaSessionAddress(address)
-  if (orcaSessionId) {
-    return resolveOrcaSessionParty(orcaSessionId, db)
+  const openkodoSessionId = parseOpenKodoSessionAddress(address)
+  if (openkodoSessionId) {
+    return resolveOpenKodoSessionParty(openkodoSessionId, db)
   }
   const worker = resolveStructuredWorkerIdentity(address, db)
   return {
     address,
     terminalHandle: address,
     paneKey: worker?.paneKey ?? null,
-    orcaSessionId:
-      worker && isOrcaSessionId(worker.sessionId) ? canonicalOrcaSessionId(worker.sessionId) : null
+    openkodoSessionId:
+      worker && isOpenKodoSessionId(worker.sessionId)
+        ? canonicalOpenKodoSessionId(worker.sessionId)
+        : null
   }
 }
 
 /** How a preamble names a party: a session by its OpenKodo session ID (its `/clear` root), else its handle. */
-export function orcaSessionIdOrHandle(
+export function openkodoSessionIdOrHandle(
   address: string,
   db: OrchestrationDb | null | undefined
 ): string {
-  const { orcaSessionId } = resolveOrchestrationParty(address, db)
-  return orcaSessionId === null ? address : formatOrcaSessionAddress(orcaSessionId)
+  const { openkodoSessionId } = resolveOrchestrationParty(address, db)
+  return openkodoSessionId === null ? address : formatOpenKodoSessionAddress(openkodoSessionId)
 }
 
 /** A caller named by a param: naming a chat's address proves nothing, unlike its own session id. */
@@ -116,7 +118,7 @@ export function resolveDeclaredCallerParty(
   if (party.terminalHandle === null) {
     throw new OrchestrationError(
       CODES.chatNotDeclarable,
-      `Agent session ${party.orcaSessionId} is a chat, and a chat is identified only by the OpenKodo session ID its own environment sends, never by naming it. No effects were applied.`,
+      `Agent session ${party.openkodoSessionId} is a chat, and a chat is identified only by the OpenKodo session ID its own environment sends, never by naming it. No effects were applied.`,
       NO_EFFECTS
     )
   }

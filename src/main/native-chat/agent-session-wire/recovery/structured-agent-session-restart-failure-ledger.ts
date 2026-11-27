@@ -75,7 +75,7 @@ export function createStructuredAgentSessionRestartFailureLedger(deps: {
   /** A provider-accepted message since the restart, including its own late-settled continuation, spends the failure. */
   deliveredSince: (marker: AgentSessionResumeMarker) => Promise<boolean>
   /** Preserve newer-chat failures for compatible builds, hidden here. */
-  savedByNewerOrca: (sessionId: string) => boolean
+  savedByNewerOpenKodo: (sessionId: string) => boolean
   logger: StructuredAgentSessionLogger
   now: () => number
   /** Share the capsule mutation lane with offer operations. */
@@ -99,7 +99,7 @@ export function createStructuredAgentSessionRestartFailureLedger(deps: {
     const record = deps.getRecord(failure.marker.sessionId)
     if (
       !record ||
-      deps.savedByNewerOrca(failure.marker.sessionId) ||
+      deps.savedByNewerOpenKodo(failure.marker.sessionId) ||
       (await deps.deliveredSince(failure.marker))
     ) {
       return []
@@ -159,7 +159,7 @@ export function createStructuredAgentSessionRestartFailureLedger(deps: {
       if (
         !resumed &&
         outcome.reason === 'agent_session_journal_unreadable' &&
-        outcome.details?.reason === 'journalWrittenByNewerOrca'
+        outcome.details?.reason === 'journalWrittenByNewerOpenKodo'
       ) {
         continue
       }
@@ -227,7 +227,7 @@ export function createStructuredAgentSessionRestartFailureLedger(deps: {
             return (
               record === null ||
               !audience(record.provider) ||
-              (sessionIds === undefined && deps.savedByNewerOrca(marker.sessionId))
+              (sessionIds === undefined && deps.savedByNewerOpenKodo(marker.sessionId))
             )
           }
           if (sessionIds === undefined) {
@@ -244,7 +244,8 @@ export function createStructuredAgentSessionRestartFailureLedger(deps: {
         }
         await beforeClearAll()
         // Dismiss only shown records; newer chats belong to compatible builds.
-        const keep = (marker: AgentSessionResumeMarker) => deps.savedByNewerOrca(marker.sessionId)
+        const keep = (marker: AgentSessionResumeMarker) =>
+          deps.savedByNewerOpenKodo(marker.sessionId)
         return (await deps.capsule?.clearAll(deps.now(), keep)) ?? NO_RECOVERY_DISMISSAL
       })
   }

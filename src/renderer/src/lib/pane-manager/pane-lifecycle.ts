@@ -7,7 +7,7 @@ import {
 } from './terminal-fit/pane-fit-resize-observer'
 import { clearPendingSplitScrollRestore } from './terminal-scroll/pane-split-scroll'
 import { cancelDeferredScrollRestore } from './terminal-scroll/pane-scroll'
-import { activateOrcaTerminalUnicodeProvider } from '../../../../shared/terminal/appearance/terminal-unicode-provider'
+import { activateOpenKodoTerminalUnicodeProvider } from '../../../../shared/terminal/appearance/terminal-unicode-provider'
 import { attachTerminalMouseWheelMultiplier } from './terminal-input/pane-terminal-mouse-wheel'
 import { attachTerminalScrollIntentTracking } from './terminal-scroll/terminal-scroll-intent-dom-tracking'
 import {
@@ -81,7 +81,7 @@ export function openTerminal(
   )
 
   // Activate Unicode v11 before every restore/write path: xterm bakes widths into cells, and default v6 mismeasures CJK/emoji/ZWJ into broken glyphs.
-  activateOrcaTerminalUnicodeProvider(terminal)
+  activateOpenKodoTerminalUnicodeProvider(terminal)
 
   // Any joiner scans the whole grid each repaint; register lazily before the first live/replayed RTL parse.
   pane.arabicShapingJoinerCleanup = configureLazyArabicShapingJoiner(

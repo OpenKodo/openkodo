@@ -138,7 +138,7 @@ function hasAppImagePackageEvidence(runtimeRoot: string, resourcesPath: string):
       typeof marker === 'object' &&
       marker !== null &&
       'name' in marker &&
-      marker.name === 'orca-compiled-output' &&
+      marker.name === 'openkodo-compiled-output' &&
       'type' in marker &&
       marker.type === 'commonjs'
     )

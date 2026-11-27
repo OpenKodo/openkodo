@@ -12,8 +12,8 @@ import {
   makeRepo
 } from './persistence-test-harness'
 import './persistence-session-fixtures'
-import '../../shared/orca-profiles/constants'
-import type { PersistedState } from '../../shared/orca-profiles/persisted-state-types'
+import '../../shared/openkodo-profiles/constants'
+import type { PersistedState } from '../../shared/openkodo-profiles/persisted-state-types'
 
 import '../observability/tracer'
 import { _resetPtyBindingSpanSamplingForTests } from './loading-store/terminal-bindings/pty-binding-span'
@@ -67,7 +67,7 @@ vi.mock('../telemetry/cohort-classifier', () => ({
 
 describe('Store', () => {
   beforeEach(() => {
-    testState.dir = mkdtempSync(join(tmpdir(), 'orca-test-'))
+    testState.dir = mkdtempSync(join(tmpdir(), 'openkodo-test-'))
     trackMock.mockReset()
     getCohortAtEmitMock.mockReset()
     getCohortAtEmitMock.mockReturnValue({ nth_repo_added: 2 })
@@ -161,8 +161,8 @@ describe('Store', () => {
   it('keeps the GitHub cache scoped to explicit profile data files', async () => {
     const profileADir = join(testState.dir, 'profiles', 'a')
     const profileBDir = join(testState.dir, 'profiles', 'b')
-    const profileADataFile = join(profileADir, 'orca-data.json')
-    const profileBDataFile = join(profileBDir, 'orca-data.json')
+    const profileADataFile = join(profileADir, 'openkodo-data.json')
+    const profileBDataFile = join(profileBDir, 'openkodo-data.json')
     mkdirSync(profileADir, { recursive: true })
     mkdirSync(profileBDir, { recursive: true })
 

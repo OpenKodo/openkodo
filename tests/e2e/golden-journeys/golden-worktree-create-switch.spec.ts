@@ -2,7 +2,7 @@ import { removeWorktreeViaStore } from '../terminal/input/dead-terminal'
 import { openSidebarWorkspaceComposer } from '../workspaces/sidebar/sidebar-project-dialog'
 import { dismissSetupScriptPrompts } from '../workspaces/sidebar/sidebar-setup-prompt'
 import type { Page } from '@playwright/test'
-import { test } from '../desktop/electron-fixtures/orca-app'
+import { test } from '../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import {
   ensureTerminalVisible,
@@ -30,60 +30,62 @@ async function createWorkspace(page: Page, name: string): Promise<void> {
 }
 
 test('creates a worktree, keeps its terminal isolated, and switches back @golden', async ({
-  orcaPage
+  openkodoPage
 }) => {
   test.setTimeout(180_000)
-  await waitForSessionReady(orcaPage)
-  await dismissSetupScriptPrompts(orcaPage)
-  const originalWorktreeId = await waitForActiveWorktree(orcaPage)
-  await waitForActiveTerminalManager(orcaPage, 30_000)
-  const parentPtyId = await waitForActivePanePtyId(orcaPage)
+  await waitForSessionReady(openkodoPage)
+  await dismissSetupScriptPrompts(openkodoPage)
+  const originalWorktreeId = await waitForActiveWorktree(openkodoPage)
+  await waitForActiveTerminalManager(openkodoPage, 30_000)
+  const parentPtyId = await waitForActivePanePtyId(openkodoPage)
   const workspaceName = `golden-switch-${Date.now()}`
   let childWorktreeId: string | null = null
 
   try {
-    await createWorkspace(orcaPage, workspaceName)
+    await createWorkspace(openkodoPage, workspaceName)
     await expect(
-      orcaPage.locator('[role="option"][aria-current="page"]').filter({ hasText: workspaceName })
+      openkodoPage
+        .locator('[role="option"][aria-current="page"]')
+        .filter({ hasText: workspaceName })
     ).toBeVisible({ timeout: 30_000 })
-    childWorktreeId = await waitForActiveWorktree(orcaPage)
+    childWorktreeId = await waitForActiveWorktree(openkodoPage)
     // Why: the cleanup force-removes childWorktreeId, so it must never resolve to the original.
     expect(childWorktreeId).not.toBe(originalWorktreeId)
     await expect(
-      orcaPage.locator(`[role="option"][data-worktree-id="${childWorktreeId}"]`)
+      openkodoPage.locator(`[role="option"][data-worktree-id="${childWorktreeId}"]`)
     ).toHaveAttribute('aria-current', 'page')
 
-    await createTerminalTabFromMenu(orcaPage)
-    await waitForActiveTerminalManager(orcaPage, 30_000)
-    const childPtyId = await waitForActivePanePtyId(orcaPage)
+    await createTerminalTabFromMenu(openkodoPage)
+    await waitForActiveTerminalManager(openkodoPage, 30_000)
+    const childPtyId = await waitForActivePanePtyId(openkodoPage)
     expect(childPtyId).not.toBe(parentPtyId)
-    await waitForPtyShellEcho(orcaPage, childPtyId, 15_000)
-    await execInTerminal(orcaPage, childPtyId, splitMarkerEchoCommand('worktree', '-b'))
-    await waitForTerminalOutput(orcaPage, 'worktree-b')
+    await waitForPtyShellEcho(openkodoPage, childPtyId, 15_000)
+    await execInTerminal(openkodoPage, childPtyId, splitMarkerEchoCommand('worktree', '-b'))
+    await waitForTerminalOutput(openkodoPage, 'worktree-b')
 
-    await orcaPage.locator(`[role="option"][data-worktree-id="${originalWorktreeId}"]`).click()
+    await openkodoPage.locator(`[role="option"][data-worktree-id="${originalWorktreeId}"]`).click()
     await expect(
-      orcaPage.locator(`[role="option"][data-worktree-id="${originalWorktreeId}"]`)
+      openkodoPage.locator(`[role="option"][data-worktree-id="${originalWorktreeId}"]`)
     ).toHaveAttribute('aria-current', 'page', { timeout: 20_000 })
     // Wait for store activation too: sidebar aria-current can precede the child terminal’s manager remount.
     await expect
-      .poll(() => getActiveWorktreeId(orcaPage), {
+      .poll(() => getActiveWorktreeId(openkodoPage), {
         timeout: 20_000,
         message: 'store did not activate the original worktree after sidebar click'
       })
       .toBe(originalWorktreeId)
-    await ensureTerminalVisible(orcaPage)
-    await waitForActiveTerminalManager(orcaPage, 30_000)
-    expect(await waitForActivePanePtyId(orcaPage, 30_000)).toBe(parentPtyId)
+    await ensureTerminalVisible(openkodoPage)
+    await waitForActiveTerminalManager(openkodoPage, 30_000)
+    expect(await waitForActivePanePtyId(openkodoPage, 30_000)).toBe(parentPtyId)
   } finally {
     if (childWorktreeId) {
-      if ((await getActiveWorktreeId(orcaPage).catch(() => null)) !== originalWorktreeId) {
-        await orcaPage
+      if ((await getActiveWorktreeId(openkodoPage).catch(() => null)) !== originalWorktreeId) {
+        await openkodoPage
           .locator(`[role="option"][data-worktree-id="${originalWorktreeId}"]`)
           .click()
           .catch(() => undefined)
       }
-      await removeWorktreeViaStore(orcaPage, childWorktreeId)
+      await removeWorktreeViaStore(openkodoPage, childWorktreeId)
     }
   }
 })

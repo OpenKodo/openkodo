@@ -10,19 +10,19 @@ import type { BotHostConnectorStatus } from '@/lib/bot-catalog-snapshot'
 import {
   cancelBotHostSignIn,
   startBotHostSignIn,
-  useBotHostOrcaAccount,
-  useBotHostOrcaAccountSettled,
+  useBotHostOpenKodoAccount,
+  useBotHostOpenKodoAccountSettled,
   useBotHostSignIn,
   type BotHostSignInView
-} from '@/lib/bot-host-orca-account'
+} from '@/lib/bot-host-openkodo-account'
 import { useBotHostHas, useBotHostVerified } from '@/lib/bot-host-status'
 import { useAppStore } from '@/store'
 import { BOTS_CONNECTORS_RUNTIME_CAPABILITY } from '../../../../shared/bot-runtime-capabilities'
 import { botHasConnector, type Bot } from '../../../../shared/bot-types'
 import { botLinkOwners } from '../../../../shared/bot-link-owners'
-import { orcaCloudNeedsSignIn } from '../../../../shared/bots/host-orca-sign-in'
+import { openkodoCloudNeedsSignIn } from '../../../../shared/bots/host-openkodo-sign-in'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import type { OrcaAccountServerStatus } from '../../../../shared/orca-account-server-sign-in'
+import type { OpenKodoAccountServerStatus } from '../../../../shared/openkodo-account-server-sign-in'
 import { joinSentences } from '../../../../shared/text/sentence-joining'
 import { useBotHostLabel } from './use-bot-host-label'
 import { BotHostSignInBlocked, useBotHostSignInFromHere } from './bot-host-sign-in-from-here'
@@ -45,7 +45,7 @@ export type BotHostNoticeState =
 
 /** The notice for a server bot, from its host's own account, its connector and its OpenKodo's version. */
 export function botHostNoticeState(input: {
-  account: OrcaAccountServerStatus | null
+  account: OpenKodoAccountServerStatus | null
   connector: BotHostConnectorStatus | undefined
   /** null until the host's status is verified. */
   hasConnectorSetup: boolean | null
@@ -64,11 +64,12 @@ export function botHostNoticeState(input: {
   }
   if (!account) {
     // Still reading says nothing; a failed read says so only where the link waits on a sign-in.
-    return input.settled && orcaCloudNeedsSignIn(connector) ? { kind: 'unread' } : null
+    return input.settled && openkodoCloudNeedsSignIn(connector) ? { kind: 'unread' } : null
   }
   if (account.state === 'unconfigured') {
     // Only where a sign-in would matter: the bot has links, or the link itself asks for one.
-    return connector !== 'ok' && (input.linkOwners.length > 0 || orcaCloudNeedsSignIn(connector))
+    return connector !== 'ok' &&
+      (input.linkOwners.length > 0 || openkodoCloudNeedsSignIn(connector))
       ? { kind: 'unconfigured' }
       : null
   }
@@ -214,15 +215,15 @@ export function useServerNoticeState(
   bot: Bot | null
 ): {
   state: BotHostNoticeState
-  account: OrcaAccountServerStatus | null
+  account: OpenKodoAccountServerStatus | null
   connector: BotHostConnectorStatus | undefined
 } {
-  const account = useBotHostOrcaAccount(hostId)
-  const settled = useBotHostOrcaAccountSettled(hostId)
+  const account = useBotHostOpenKodoAccount(hostId)
+  const settled = useBotHostOpenKodoAccountSettled(hostId)
   const connector = useBotHostConnectorStatus(hostId)
   const hasSetup = useBotHostHas(hostId, BOTS_CONNECTORS_RUNTIME_CAPABILITY)
   const hasConnectorSetup = useBotHostVerified(hostId) ? hasSetup : null
-  const ownCloud = useAppStore((state) => state.orcaProfileAuthStatus?.cloud ?? null)
+  const ownCloud = useAppStore((state) => state.openkodoProfileAuthStatus?.cloud ?? null)
   const own = ownCloud ? { userId: ownCloud.userId, email: ownCloud.email } : null
   const state = botHostNoticeState({
     account,

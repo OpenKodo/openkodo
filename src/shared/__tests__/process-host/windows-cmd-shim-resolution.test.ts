@@ -7,8 +7,8 @@ import { removeTreeSync } from '../../file-write/windows-transient-lock-removal'
 import {
   parseWindowsCmdShim,
   resolveWindowsCmdShim
-} from '@orca/process-host/windows-cmd-shim-resolution'
-import '@orca/process-host'
+} from '@openkodo/process-host/windows-cmd-shim-resolution'
+import '@openkodo/process-host'
 import {
   REAL_AGENT_BROWSER_CMD,
   REAL_CODEX_CMD,
@@ -98,7 +98,7 @@ describeOnWindows('resolveWindowsCmdShim', () => {
   let env: NodeJS.ProcessEnv
 
   beforeAll(() => {
-    dir = mkdtempSync(join(tmpdir(), 'orca-shim-resolve-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-shim-resolve-'))
     env = { ...process.env }
     writeFileSync(join(dir, 'cli.js'), 'process.stdout.write("hi")\n')
     writeFileSync(join(dir, 'ci2.js'), '')
@@ -117,7 +117,7 @@ describeOnWindows('resolveWindowsCmdShim', () => {
   }
 
   it('prefers a node.exe sitting beside the shim, as the shim itself does', () => {
-    const sibling = mkdtempSync(join(tmpdir(), 'orca-shim-sibling-'))
+    const sibling = mkdtempSync(join(tmpdir(), 'openkodo-shim-sibling-'))
     try {
       writeFileSync(join(sibling, 'node.exe'), '')
       writeFileSync(join(sibling, 'cli.js'), '')
@@ -192,9 +192,9 @@ describeOnWindows('resolveWindowsCmdShim', () => {
 
   it('gives up when cmd would resolve `node` to a non-.exe PATHEXT spelling', () => {
     // cmd stops at the first PATHEXT match, including .COM before .EXE; skipping it would launch the wrong binary.
-    const first = mkdtempSync(join(tmpdir(), 'orca-shim-ext-first-'))
-    const second = mkdtempSync(join(tmpdir(), 'orca-shim-ext-second-'))
-    const shimDir = mkdtempSync(join(tmpdir(), 'orca-shim-ext-'))
+    const first = mkdtempSync(join(tmpdir(), 'openkodo-shim-ext-first-'))
+    const second = mkdtempSync(join(tmpdir(), 'openkodo-shim-ext-second-'))
+    const shimDir = mkdtempSync(join(tmpdir(), 'openkodo-shim-ext-'))
     try {
       writeFileSync(join(first, 'node.com'), '')
       const nodeExe = join(second, 'node.exe')
@@ -219,8 +219,8 @@ describeOnWindows('resolveWindowsCmdShim', () => {
 
   it('falls back to cmd.exe when the cached interpreter has been uninstalled', () => {
     // A deleted cached interpreter must fall back to cmd.exe instead of spawning ENOENT.
-    const nodeDir = mkdtempSync(join(tmpdir(), 'orca-shim-gone-node-'))
-    const shimDir = mkdtempSync(join(tmpdir(), 'orca-shim-gone-'))
+    const nodeDir = mkdtempSync(join(tmpdir(), 'openkodo-shim-gone-node-'))
+    const shimDir = mkdtempSync(join(tmpdir(), 'openkodo-shim-gone-'))
     try {
       const nodeExe = join(nodeDir, 'node.exe')
       writeFileSync(nodeExe, '')

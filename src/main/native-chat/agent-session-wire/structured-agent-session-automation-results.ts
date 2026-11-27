@@ -79,7 +79,7 @@ export async function markAutomationResultsRead(
     }
     const read = { ...note, readWith: clientMessageId }
     await journal.appendItem(
-      { provider: 'orca', clientMessageId: automationResultNoteClientMessageId(note.runId) },
+      { provider: 'openkodo', clientMessageId: automationResultNoteClientMessageId(note.runId) },
       automationResultNoteBody(read),
       { fence, turnScope: AGENT_JOURNAL_THREAD_SCOPE }
     )

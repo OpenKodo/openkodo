@@ -2,7 +2,7 @@ import type {
   SshConnectionState,
   SshConnectionStatus
 } from '../../../../src/shared/remote-runtime/ssh/ssh-types'
-import { ORCAD_RECLAIM_STALE_LOCK_FLAG } from '../../../../src/shared/remote-runtime/orcad-lifecycle/orcad-stale-lock-reclaim'
+import { OPENKODOD_RECLAIM_STALE_LOCK_FLAG } from '../../../../src/shared/remote-runtime/openkodod-lifecycle/openkodod-stale-lock-reclaim'
 import { translate } from '../../i18n/mobile-i18n'
 
 // Keep unread SSH fields optional so an omitted member cannot drop auth-failed state into connected fallback.
@@ -73,6 +73,6 @@ function needsDesktopServerRecovery(server: WorkspaceSshRecord['managedServer'])
   return (
     server?.kind === 'managed' &&
     server.serving?.state === 'unverifiable' &&
-    Boolean(server.serving.detail?.includes(ORCAD_RECLAIM_STALE_LOCK_FLAG))
+    Boolean(server.serving.detail?.includes(OPENKODOD_RECLAIM_STALE_LOCK_FLAG))
   )
 }

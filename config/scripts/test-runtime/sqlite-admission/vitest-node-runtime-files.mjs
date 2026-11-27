@@ -12,7 +12,7 @@ const NODE_RUNTIME_INCLUDE = [
   'src/main/persistence/**/*.test.ts',
   'src/main/persistence*.test.ts',
   'src/main/sqlite/**/*.test.ts',
-  'src/main/orca-profiles/**/*.test.ts',
+  'src/main/openkodo-profiles/**/*.test.ts',
   'src/main/managed-data-accounts/**/*.test.ts',
   'src/**/*.node-pty.test.ts',
   'src/**/node-pty-*.test.ts',

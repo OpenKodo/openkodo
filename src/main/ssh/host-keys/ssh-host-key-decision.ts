@@ -1,5 +1,5 @@
 /** Keep host-key policy independent of handshake wiring and inject trust evidence for deterministic decisions. */
-import { isEphemeralRuntimeSshOwner } from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
+import { isEphemeralRuntimeSshOwner } from '../../../shared/remote-runtime/ssh/managed-openkodod-ssh-owner'
 import type { SshTargetOwner } from '../../../shared/remote-runtime/ssh/ssh-types'
 import type { KnownHostsOutcome } from './ssh-known-hosts'
 
@@ -10,7 +10,7 @@ export type HostKeyDecision = {
   action: HostKeyAction
   outcome: KnownHostsOutcome
   /** Name the disagreeing source so guidance points to a remedy that can work. */
-  disagreeingSource?: 'orca-store' | 'known-hosts'
+  disagreeingSource?: 'openkodo-store' | 'known-hosts'
   reason?: string
 }
 
@@ -121,7 +121,7 @@ export function decideHostKey(input: HostKeyDecisionInput): HostKeyDecision {
     return {
       action: 'reject',
       outcome: 'mismatch',
-      disagreeingSource: 'orca-store',
+      disagreeingSource: 'openkodo-store',
       reason: rejection(
         displayHost,
         `The key changed since you last connected. ${changedKeyHint(hostKeyStoreFile)}`
@@ -142,7 +142,7 @@ export function decideHostKey(input: HostKeyDecisionInput): HostKeyDecision {
     return {
       action: 'reject',
       outcome: 'unknown-type-known-host',
-      disagreeingSource: fromKnownHosts ? 'known-hosts' : 'orca-store',
+      disagreeingSource: fromKnownHosts ? 'known-hosts' : 'openkodo-store',
       reason: rejection(
         displayHost,
         // OpenSSH also refuses known hosts offering a different key type; ssh-keygen -R unblocks both.

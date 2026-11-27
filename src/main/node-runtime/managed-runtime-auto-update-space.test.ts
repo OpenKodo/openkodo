@@ -50,7 +50,7 @@ let data: string
 beforeEach(async () => {
   installs.length = 0
   disk.unreadable = false
-  data = await mkdtemp(join(tmpdir(), 'orca-runtime-space-'))
+  data = await mkdtemp(join(tmpdir(), 'openkodo-runtime-space-'))
   const folder = join(data, 'agent-runtimes', 'server', '1.5.0')
   await mkdir(folder, { recursive: true })
   await writeFile(join(folder, 'server'), OLD)

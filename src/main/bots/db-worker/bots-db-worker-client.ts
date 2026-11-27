@@ -29,7 +29,7 @@ const MAX_QUEUED_CALLS = 500
 function spawnBotsDbWorker(): WorkerRequestTransport {
   return spawnWorkerThread(
     resolveWorkerThreadEntryPath(currentWorkerEntryLayout(__dirname), WORKER_ENTRY_FILENAME),
-    { name: 'orca-bots-db' }
+    { name: 'openkodo-bots-db' }
   )
 }
 

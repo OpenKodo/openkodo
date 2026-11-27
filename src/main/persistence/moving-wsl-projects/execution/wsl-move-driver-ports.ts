@@ -3,21 +3,21 @@
  * with fakes and the production wiring stays in one place (wsl-move-driver-wiring).
  */
 import type { WslMoveBrowserCookieFreshPartitionReason } from '../../../../shared/wsl-move/wsl-move-browser-cookie-copy'
-import type { OrcadMigrationBlobDescriptor } from '../../../../shared/orcad-migration/orcad-migration-blob-transfer'
+import type { OpenkododMigrationBlobDescriptor } from '../../../../shared/openkodod-migration/openkodod-migration-blob-transfer'
 import type {
-  OrcadMigrationCatalogState,
-  OrcadMigrationManifest
-} from '../../../../shared/orcad-migration/orcad-migration-manifest'
+  OpenkododMigrationCatalogState,
+  OpenkododMigrationManifest
+} from '../../../../shared/openkodod-migration/openkodod-migration-manifest'
 import type { FolderWorkspace } from '../../../../shared/folder-workspaces/folder-workspace-types'
 import type { ProjectGroup } from '../../../../shared/project/groups/project-group-types'
 import type { Repo } from '../../../../shared/repository/repo-types'
 import type { WslMoveProgressEvent } from '../../../../shared/wsl-move/wsl-move-driver-types'
 import type {
-  OrcadMigrationBlobDestination,
-  OrcadMigrationBlobSource
-} from '../../../managed-server/migration/transfers/orcad-migration-blob-coordinator'
-import type { OrcadMigrationDestinationCatalog } from '../../../managed-server/migration/cutover/orcad-migration-cutover-coordinator'
-import type { OrcadMigrationSnapshotSource } from '../../../managed-server/migration/transfers/orcad-migration-snapshot-coordinator'
+  OpenkododMigrationBlobDestination,
+  OpenkododMigrationBlobSource
+} from '../../../managed-server/migration/transfers/openkodod-migration-blob-coordinator'
+import type { OpenkododMigrationDestinationCatalog } from '../../../managed-server/migration/cutover/openkodod-migration-cutover-coordinator'
+import type { OpenkododMigrationSnapshotSource } from '../../../managed-server/migration/transfers/openkodod-migration-snapshot-coordinator'
 import type { WslMoveHostHolding } from '../manifest-scope/wsl-move-delta-plan'
 import type { WslMoveQuiesceDeps } from '../quiescence/wsl-move-quiesce'
 import type { WslMoveSleptScrollback } from '../terminal-state/wsl-move-slept-scrollback'
@@ -53,13 +53,13 @@ export type WslMoveHost = {
   serverState?: WslMoveHostServerState
   /** Read after the connect re-saved the deployment link; absent when no OpenKodo profile is active. */
   browserLoginsNotCarried?: WslMoveBrowserCookieFreshPartitionReason
-  catalog: OrcadMigrationDestinationCatalog
+  catalog: OpenkododMigrationDestinationCatalog
   /** Commit naming every blob sent, so the host refuses a commit missing one. */
   commitWithBlobs: (
-    manifest: OrcadMigrationManifest,
-    expectedBlobs: readonly OrcadMigrationBlobDescriptor[]
-  ) => Promise<OrcadMigrationCatalogState>
-  blobs: Pick<OrcadMigrationBlobDestination, 'stageChunk'>
+    manifest: OpenkododMigrationManifest,
+    expectedBlobs: readonly OpenkododMigrationBlobDescriptor[]
+  ) => Promise<OpenkododMigrationCatalogState>
+  blobs: Pick<OpenkododMigrationBlobDestination, 'stageChunk'>
   readHolding: () => Promise<WslMoveHostHolding>
 }
 
@@ -111,7 +111,7 @@ export type WslMoveDriverDeps = {
     WslMoveQuiesceDeps,
     'sleepWorkspaces' | 'livePtyIds' | 'captureRestoreHints' | 'proveExited' | 'wait'
   >
-  snapshots: OrcadMigrationSnapshotSource
+  snapshots: OpenkododMigrationSnapshotSource
   /**
    * After Sleep, each paused pane's daemon checkpoint as the buffer a terminal restores from. A
    * slept pane has no renderer snapshot, so this is its only scrollback.
@@ -130,7 +130,10 @@ export type WslMoveDriverDeps = {
   shellHistory: (
     distro: string,
     worktrees: WslMoveManifestExport['worktrees']
-  ) => Promise<{ descriptors: OrcadMigrationBlobDescriptor[]; source: OrcadMigrationBlobSource }>
+  ) => Promise<{
+    descriptors: OpenkododMigrationBlobDescriptor[]
+    source: OpenkododMigrationBlobSource
+  }>
   /** After commit: rewrite this desktop's main-process stores; the renderer then reloads. */
   finishOnDesktop: () => Promise<void>
   progress: (event: WslMoveProgressEvent) => void

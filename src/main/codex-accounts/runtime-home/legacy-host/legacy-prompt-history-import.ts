@@ -119,7 +119,7 @@ async function publishWithoutOverwrite(
   }
 }
 
-const IMPORT_COPY_SUFFIX = '.orca-import.tmp'
+const IMPORT_COPY_SUFFIX = '.openkodo-import.tmp'
 
 // Copies an attempt a quit cut short left behind. Only regular files: removing one only drops that
 // name, even when it is a hard link to the published history.

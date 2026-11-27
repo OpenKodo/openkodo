@@ -1,11 +1,11 @@
-import { canonicalOrcaSessionFromEdges } from '../addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionFromEdges } from '../addressing/session-lineage/canonical-openkodo-session-id'
 import type { AgentMessageSender } from '../../../../shared/agent-session/journal/agent-session-message-source'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId,
-  type OrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId,
+  type OpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { isPublicOrchestrationAddress } from '../../../../shared/orchestration/mailbox/orchestration-agent-reference'
 import {
   createCanonicalSessionPaneResolver,
@@ -65,10 +65,10 @@ export function createCrewPartyRegistry({
       lineageAliases.set(
         heads[0],
         [...component].sort().map((id) => {
-          if (!isOrcaSessionId(id)) {
+          if (!isOpenKodoSessionId(id)) {
             throw new Error(`Not an OpenKodo session id: ${id}`)
           }
-          return formatOrcaSessionAddress(id)
+          return formatOpenKodoSessionAddress(id)
         })
       )
     }
@@ -117,8 +117,8 @@ export function createCrewPartyRegistry({
       const handle = mismatch ? null : candidateHandle
       const publicHandle = handle?.startsWith('term_') ? handle : null
       const publicAddress =
-        sessionId && isOrcaSessionId(sessionId)
-          ? formatOrcaSessionAddress(sessionId)
+        sessionId && isOpenKodoSessionId(sessionId)
+          ? formatOpenKodoSessionAddress(sessionId)
           : ((publicHandle && (aliases.get(publicHandle) ?? base?.addressOf(publicHandle))) ??
             publicHandle ??
             fallback)
@@ -129,7 +129,7 @@ export function createCrewPartyRegistry({
       const value = existing ?? {
         address: publicAddress,
         terminalHandle: publicHandle,
-        orcaSessionId: parseOrcaSessionAddress(publicAddress),
+        openkodoSessionId: parseOpenKodoSessionAddress(publicAddress),
         paneKey: sessionId ? canonicalPane(sessionId) : pane
       }
       parties.set(publicAddress, value)
@@ -139,7 +139,7 @@ export function createCrewPartyRegistry({
         ...(sessionId ? (lineageAliases.get(sessionId) ?? []) : []),
         mismatch ? null : storedHandle,
         handle,
-        session && isOrcaSessionId(session) ? formatOrcaSessionAddress(session) : null
+        session && isOpenKodoSessionId(session) ? formatOpenKodoSessionAddress(session) : null
       ]) {
         if (alias) {
           registerAlias(alias, publicAddress)
@@ -170,7 +170,8 @@ export function createCrewPartyRegistry({
           }
         }
       },
-      commandCanonical: (id: OrcaSessionId) => canonicalOrcaSessionFromEdges(id, clearedFrom),
+      commandCanonical: (id: OpenKodoSessionId) =>
+        canonicalOpenKodoSessionFromEdges(id, clearedFrom),
       fork: (identity?: CrewIdentityRead) => build(lookup, identity)
     }
   }

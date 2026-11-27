@@ -10,7 +10,7 @@ import {
   SHARED_TOOL_PROCESS_SESSION_ID_PATTERN
 } from '../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 
-export const HERMES_PLUGIN_NAME = 'orca-status'
+export const HERMES_PLUGIN_NAME = 'openkodo-status'
 export const HERMES_PLUGIN_MARKER = 'Managed by OpenKodo. Do not edit; changes may be overwritten.'
 
 export const HERMES_EVENTS = [
@@ -97,7 +97,7 @@ EVENTS = ${JSON.stringify(HERMES_EVENTS)}
 # Why: the gateway runs every chat's tools, so its own environment names no chat. OpenKodo writes each
 # chat's here, by Hermes session id, and Hermes asks for it at every tool spawn.
 SESSION_ENV_NAMES = ${JSON.stringify(SHARED_TOOL_PROCESS_SESSION_ENV_NAMES)}
-# <home>/plugins/orca-status/__init__.py -> <home>/<sessions dir>
+# <home>/plugins/openkodo-status/__init__.py -> <home>/<sessions dir>
 SESSION_ENV_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "${HERMES_SESSION_ENV_DIR}")
 LOADED_MARK = os.path.join(SESSION_ENV_DIR, "${HERMES_PLUGIN_LOADED_PREFIX}%d" % os.getpid())
 SESSION_ID = re.compile(r"${HERMES_SESSION_ID_PATTERN}")
@@ -192,7 +192,7 @@ def _endpoint_env(env: dict[str, str]) -> dict[str, str]:
     return env
 
 
-def _post_to_orca(payload: dict[str, Any]) -> None:
+def _post_to_openkodo(payload: dict[str, Any]) -> None:
     pane_env = _pane_env()
     if pane_env is None:
         return
@@ -279,7 +279,7 @@ def _session_env(session_id: str) -> dict[str, Any]:
 
 def _make_hook(event_name: str) -> Callable[..., None]:
     def _hook(**kwargs: Any) -> None:
-        _post_to_orca(_payload_for_event(event_name, kwargs))
+        _post_to_openkodo(_payload_for_event(event_name, kwargs))
 
     return _hook
 

@@ -1,6 +1,6 @@
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type { ChildProcess } from 'node:child_process'
-import type { PipedProcessSpec, ProcessSpec } from '@orca/process-host/process-spec'
+import type { PipedProcessSpec, ProcessSpec } from '@openkodo/process-host/process-spec'
 import type { ProviderChild } from './provider-child'
 import { supervisedPosixLaunch, type ProviderSpawnSpec } from './provider-process-supervisor'
 import { DirectProviderChild } from './direct-provider-child'

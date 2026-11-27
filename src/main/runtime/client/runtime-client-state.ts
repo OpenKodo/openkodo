@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithStateFields } from '../construction/runtime-construction'
+import { OpenKodoRuntimeWithStateFields } from '../construction/runtime-construction'
 import {
   persistClientHostedBrowserPages,
   rehydrateClientHostedBrowserPages
@@ -17,7 +17,7 @@ import type { IPtyProvider } from '../../providers/pty/provider-contract'
 import { killAllProcessesForWorktree } from '../workspaces/removal/worktree-teardown'
 import type { MemorySnapshot, StatsSummary } from '../../../shared/diagnostics/process-stats-types'
 import { collectMemorySnapshot } from '../../memory/collector'
-import type { PersistedUIState } from '../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../shared/openkodo-profiles/persisted-ui-state-types'
 import type {
   AgentListPublication,
   AgentListVerdictUpdate,
@@ -34,7 +34,7 @@ import type { WorktreeTerminalStopOptions } from '../terminal/stop/worktree-term
 import type { PtyLivenessVerdict } from '../../../shared/terminal/pty/lifecycle/pty-liveness-verdict'
 import type { Automation } from '../../../shared/automations/automation-definition'
 
-export abstract class OrcaRuntimeWithPtyForegroundProcessReads extends OrcaRuntimeWithStateFields {
+export abstract class OpenKodoRuntimeWithPtyForegroundProcessReads extends OpenKodoRuntimeWithStateFields {
   abstract retireStructuredAgentSessionTabFromSnapshot(sessionId: string): boolean
 
   abstract getPtyLivenessVerdict(ptyId: string): PtyLivenessVerdict | null

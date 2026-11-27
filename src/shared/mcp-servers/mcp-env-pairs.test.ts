@@ -1,7 +1,7 @@
 import { chmodSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { afterEach, describe, expect, it } from 'vitest'
 import { encodeMcpEnvPairs, mcpEnvWrapperCommand } from './mcp-env-pairs'
 
@@ -12,12 +12,12 @@ afterEach(() => {
   }
 })
 
-/** A stand-in for the guest's `orca` that answers `mcp env` with `answer`, as the real one would. */
-function fakeOrca(answer: string): string {
+/** A stand-in for the guest's `openkodo` that answers `mcp env` with `answer`, as the real one would. */
+function fakeOpenKodo(answer: string): string {
   const dir = mkdtempSync(join(tmpdir(), 'mcp-env-'))
   dirs.push(dir)
   writeFileSync(join(dir, 'answer'), answer)
-  const launcher = join(dir, 'orca')
+  const launcher = join(dir, 'openkodo')
   // Like the interop bridge, it would read whatever stdin it's given before answering.
   writeFileSync(
     launcher,
@@ -59,20 +59,22 @@ describe.skipIf(process.platform === 'win32')(
       }
       // The agent's first request is already in the pipe when the wrapper starts.
       const initialize = '{"jsonrpc":"2.0","id":1,"method":"initialize"}'
-      const { code, stdout } = await runWrapped(fakeOrca(encodeMcpEnvPairs(env)), initialize)
+      const { code, stdout } = await runWrapped(fakeOpenKodo(encodeMcpEnvPairs(env)), initialize)
       expect(code).toBe(0)
       expect(stdout).toBe(`${env.DATABASE_URL}|${env.NOTE}||saved-p|saved-e|${initialize}|`)
     })
 
     it('starts nothing from a cut-off answer', async () => {
       const whole = encodeMcpEnvPairs({ DATABASE_URL: 'postgres://db' })
-      const { code, stdout } = await runWrapped(fakeOrca(whole.slice(0, whole.indexOf('ORCA'))))
+      const { code, stdout } = await runWrapped(
+        fakeOpenKodo(whole.slice(0, whole.indexOf('OPENKODO')))
+      )
       expect(code).toBe(1)
       expect(stdout).toBe('')
     })
 
     it('names the workspace the launch chose the server by, or that it chose by none', async () => {
-      const launcher = fakeOrca(encodeMcpEnvPairs({}))
+      const launcher = fakeOpenKodo(encodeMcpEnvPairs({}))
       const argsOf = (): string[] =>
         readFileSync(join(dirname(launcher), 'args'), 'utf8')
           .trim()

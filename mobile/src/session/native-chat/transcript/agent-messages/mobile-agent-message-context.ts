@@ -1,4 +1,4 @@
-import { parseOrcaSessionAddress } from '../../../../../../src/shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../../src/shared/agent-session/identity/openkodo-session-address'
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from 'react'
 import type { MobileSessionTab } from '../../../tabs/mobile-session-tabs'
 import type { AgentMessageSource } from '../../../../../../src/shared/agent-session/journal/agent-session-message-source'
@@ -15,7 +15,7 @@ type Sender = AgentMessageSource['senders'][number]
 type TerminalIdentity = { handle: string; agentIdentity?: string }
 const EMPTY_VIEW: AgentMessageSenderView = Object.freeze({})
 const senderSession = (sender: Sender | undefined) =>
-  sender?.party.orcaSessionId ?? parseOrcaSessionAddress(sender?.party.address)
+  sender?.party.openkodoSessionId ?? parseOpenKodoSessionAddress(sender?.party.address)
 const senderKey = (sender: Sender | undefined) =>
   senderSession(sender)
     ? `chat:${senderSession(sender)}`

@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithCloseMobileSessionTab } from '../../session-lifecycle/close/close-mobile-session-tab'
+import { OpenKodoRuntimeWithCloseMobileSessionTab } from '../../session-lifecycle/close/close-mobile-session-tab'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
@@ -35,7 +35,7 @@ export function restoredChatTabChanges(
   )
 }
 
-export abstract class OrcaRuntimeWithStructuredSessionTabProjection extends OrcaRuntimeWithCloseMobileSessionTab {
+export abstract class OpenKodoRuntimeWithStructuredSessionTabProjection extends OpenKodoRuntimeWithCloseMobileSessionTab {
   protected passiveStructuredSessionTabChangeEligible(change: ChatTabChange): boolean {
     const host = getStructuredAgentSessionHost()
     if ('open' in change) {

@@ -5,15 +5,15 @@ import {
   type FleetEvidenceBinding
 } from '../../../shared/orchestration/fleet/orchestration-fleet-agent-status-evidence'
 import { isValidTerminalTabId } from '../../../shared/workspace-layout/terminal-surfaces/terminal-tab-id'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 
 export type AgentStatusRuntimeEnrichment = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getAgentStatusTerminalHandleForPaneKey'
   | 'getAgentStatusOrchestrationContextForPaneKey'
   | 'getTerminalProcessIncarnation'
 > &
-  Partial<Pick<OrcaRuntimeService, 'getLaunchStatementForPaneKey'>>
+  Partial<Pick<OpenKodoRuntimeService, 'getLaunchStatementForPaneKey'>>
 
 const MAX_AGENT_STATUS_DROP_TAB_ID_LENGTH = 160
 

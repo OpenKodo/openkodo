@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from 'node:util'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { marketplaceSourceId } from './plugin-marketplace-store'
 import type { PluginMarketplaceInstaller } from './plugin-marketplace-installer'
 import type { PluginMarketplaceService } from './plugin-marketplace-service'
@@ -7,7 +7,7 @@ import type { PluginService } from '../plugin-service'
 import {
   getActiveTeamCapabilities,
   getActiveTeamProfileScope
-} from '../../orca-profiles/cloud-auth/active-team-capabilities'
+} from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
 import {
   getRequiredTeamPlugins,
   isCompliantTeamPluginInstall

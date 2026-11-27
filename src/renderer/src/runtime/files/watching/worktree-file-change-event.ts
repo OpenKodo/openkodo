@@ -1,6 +1,6 @@
 import type { FsChangedPayload } from '../../../../../shared/file-watch/filesystem-change-event'
 
-export const OPENKODO_WORKTREE_FILE_CHANGE_EVENT = 'orca:worktree-file-change'
+export const OPENKODO_WORKTREE_FILE_CHANGE_EVENT = 'openkodo:worktree-file-change'
 
 export type WorktreeFileChangeEventDetail = {
   payload: FsChangedPayload
@@ -10,7 +10,7 @@ export type WorktreeFileChangeEventDetail = {
 declare global {
   // oxlint-disable-next-line typescript/consistent-type-definitions -- WindowEventMap requires declaration merging.
   interface WindowEventMap {
-    'orca:worktree-file-change': CustomEvent<WorktreeFileChangeEventDetail>
+    'openkodo:worktree-file-change': CustomEvent<WorktreeFileChangeEventDetail>
   }
 }
 

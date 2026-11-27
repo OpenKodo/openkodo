@@ -1,5 +1,5 @@
 import { app } from 'electron'
-import { checkOrcaStarred } from '../github/client/fetch/orca-star'
+import { checkOpenKodoStarred } from '../github/client/fetch/openkodo-star'
 import type { Store } from '../persistence/loading-store/store'
 import type { StarNagPromptMode } from '../../shared/telemetry/star-nag-telemetry'
 
@@ -42,7 +42,7 @@ export class StarNagAgentValueMoment {
     }
     this.deps.setEvaluating(true)
     try {
-      const starred = await checkOrcaStarred()
+      const starred = await checkOpenKodoStarred()
       if (this.deps.store.getUI().starNagCompleted) {
         return { status: 'skipped' }
       }

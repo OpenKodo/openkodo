@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { RuntimeStore } from '../../runtime/construction/runtime-store-contract'
 import { readWorkspaceSpaceAnalysisSnapshot } from '../space-analysis/workspace-space-analysis-snapshot'
 import {
@@ -53,7 +53,7 @@ type DecidedWorkspace = {
 }
 
 export type WorkspaceCleanupRunnerDeps = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   store: RuntimeStore
   /** Profile storage directory: the run history and space-analysis sidecars live here. */
   historyDirectory: string

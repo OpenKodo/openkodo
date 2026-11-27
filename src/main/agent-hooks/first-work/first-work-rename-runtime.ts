@@ -10,7 +10,7 @@ import { moveWorktree } from '../../git/worktrees/movement/worktree-move'
 import { isWslMoveFolderWorkspaceBlocked } from '../../persistence/moving-wsl-projects/orchestration/wsl-move-background-backoff'
 import type { Store } from '../../persistence/loading-store/store'
 import type { RuntimeStore } from '../../runtime/construction/runtime-store-contract'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { resolveWorktreeMetaOwner } from '../../persistence/host-qualified-worktree-meta'
 
 const ENABLE_FIRST_WORK_FOLDER_RENAME = false
@@ -30,7 +30,7 @@ export function firstWorkRenameDeps(
       Pick<Store, 'migrateWorktreeIdentity' | 'getWorktreeIdForTab' | 'getWorktreeMetaForHost'>
     >,
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     | 'getCommitMessageAgentEnvironmentResolvers'
     | 'notifyFolderWorkspaceChanged'
     | 'notifyBranchRenamed'
@@ -53,8 +53,8 @@ export function firstWorkRenameDeps(
         ? [
             worktreeId,
             meta.createdAt ?? '',
-            meta.orcaCreatedAt ?? '',
-            meta.orcaCreationSource ?? ''
+            meta.openkodoCreatedAt ?? '',
+            meta.openkodoCreationSource ?? ''
           ].join('\u0000')
         : null
     },
@@ -86,11 +86,11 @@ export function firstWorkRenameDeps(
             true
         : store.getWorktreeMeta(worktreeId)?.pendingFirstAgentMessageRename === true
     },
-    canRenameOrcaCreatedBranch: (worktreeId) => {
+    canRenameOpenKodoCreatedBranch: (worktreeId) => {
       const meta = localMeta(worktreeId)
       // A creature-like name alone cannot prove OpenKodo owns the branch.
       return (
-        !!meta?.orcaCreationSource &&
+        !!meta?.openkodoCreationSource &&
         meta.preserveBranchOnDelete !== true &&
         meta.branchNameIsUserChosen !== true
       )
@@ -178,7 +178,7 @@ export function firstWorkRenameDeps(
 export function firstWorkRetryDeps(
   store: Parameters<typeof firstWorkRenameDeps>[0],
   runtime: Parameters<typeof firstWorkRenameDeps>[1] &
-    Pick<OrcaRuntimeService, 'listWorkspaceStructuredSessions' | 'openAgentSessionRecordStore'>
+    Pick<OpenKodoRuntimeService, 'listWorkspaceStructuredSessions' | 'openAgentSessionRecordStore'>
 ): FirstWorkRetryDeps {
   const localMeta = (worktreeId: string) =>
     store.getWorktreeMetaForHost?.(worktreeId, LOCAL_EXECUTION_HOST_ID) ??
@@ -191,7 +191,7 @@ export function firstWorkRetryDeps(
         return store.getFolderWorkspace!(scope.folderWorkspaceId)?.createdAt
       }
       const meta = localMeta(worktreeId)
-      return meta?.createdAt ?? meta?.orcaCreatedAt
+      return meta?.createdAt ?? meta?.openkodoCreatedAt
     },
     getBaseRef: (worktreeId) => localMeta(worktreeId)?.baseRef,
     nativeReads: (worktreeId) => ({

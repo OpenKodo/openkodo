@@ -60,7 +60,8 @@ export function connectorSnapshot(
       agent,
       working,
       prompt:
-        prompt?.raisedBy === 'orca' && !cloudFeatures.has(CONNECTOR_CLOUD_PROMPTS_AUDIENCE_FEATURE)
+        prompt?.raisedBy === 'openkodo' &&
+        !cloudFeatures.has(CONNECTOR_CLOUD_PROMPTS_AUDIENCE_FEATURE)
           ? null
           : prompt,
       ...(turnId === null ? {} : { turnId }),

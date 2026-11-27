@@ -1,7 +1,7 @@
 // How a bot request a card in the owner's chat names has ended, and its answer, from OpenKodo's record.
 import { BotRequestOutcomeParams } from '../../../../shared/rpc-contract/bots-look-around-params'
 import type { BotRequestCardReading } from '../../../../shared/bots/bot-request-card'
-import { parseOrcaSessionAddress } from '../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { defineMethod, InvalidArgumentError } from '../core'
 import { isBotAnswerTo } from './orchestration/messaging/bot-request-outcome'
 import { readClientAskOutcome } from './orchestration/messaging/client-ask-card'
@@ -36,7 +36,7 @@ export const BOT_REQUEST_OUTCOME_METHOD = defineMethod({
       answer: answer?.body ?? null,
       mailIds: replies.map((reply) => reply.id),
       // A request is mailed to the chat it runs in: the bot's Chat, a named one, or one made for it.
-      chatId: parseOrcaSessionAddress(request.to_handle)
+      chatId: parseOpenKodoSessionAddress(request.to_handle)
     }
   }
 })

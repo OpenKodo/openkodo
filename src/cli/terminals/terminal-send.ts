@@ -67,7 +67,7 @@ export const terminalSendHandler: CommandHandler = async ({ flags, client, cwd, 
           ...(waitSubmitMs ? { waitSubmitMs } : {})
         }
       : {}),
-    client: { id: 'orca-cli', type: 'desktop' }
+    client: { id: 'openkodo-cli', type: 'desktop' }
   }
   const options = promptDeliverySupported
     ? {

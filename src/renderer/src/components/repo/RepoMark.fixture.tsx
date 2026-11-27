@@ -15,10 +15,10 @@ function repo(id: string, addedAt: number, extra: Partial<Repo> = {}): Repo {
   }
 }
 
-const sameOrcaEmoji = { type: 'emoji', emoji: '🐳' } as const
+const sameOpenKodoEmoji = { type: 'emoji', emoji: '🐳' } as const
 const REPOS: Repo[] = [
-  repo('orca', 1, { repoIcon: sameOrcaEmoji }),
-  repo('orca-internal', 2, { repoIcon: sameOrcaEmoji }),
+  repo('openkodo', 1, { repoIcon: sameOpenKodoEmoji }),
+  repo('openkodo-internal', 2, { repoIcon: sameOpenKodoEmoji }),
   repo('dotfiles', 3),
   repo('scratch', 4),
   repo('api', 5, { repoIcon: { type: 'lucide', name: 'Braces' }, badgeColor: '#14b8a6' }),

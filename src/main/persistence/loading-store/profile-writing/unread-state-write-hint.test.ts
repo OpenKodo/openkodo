@@ -7,7 +7,7 @@ import { hostWorktreeTarget } from '../../../../shared/worktree/host-qualified-i
 import { closeTestStores, createStore, makeRepo, testState } from '../../persistence-test-harness'
 
 beforeEach(() => {
-  testState.dir = mkdtempSync(join(tmpdir(), 'orca-unread-hint-'))
+  testState.dir = mkdtempSync(join(tmpdir(), 'openkodo-unread-hint-'))
 })
 
 afterEach(async () => {

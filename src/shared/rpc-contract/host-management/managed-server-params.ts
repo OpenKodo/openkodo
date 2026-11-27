@@ -14,6 +14,6 @@ export const ManagedServerRecover = ManagedServerSelector.extend({
 export const ManagedServerUpdate = ManagedServerSelector.extend({
   // Restarts over live terminals when the update would otherwise defer.
   force: z.boolean().optional(),
-  // With force: the confirmed `--yes` that terminals orcad runs itself end when they cannot be counted.
+  // With force: the confirmed `--yes` that terminals openkodod runs itself end when they cannot be counted.
   endInProcessTerminals: z.boolean().optional()
 })

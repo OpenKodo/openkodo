@@ -19,9 +19,9 @@ import {
 import type { MobilePairedServerAsks } from './use-mobile-paired-server-asks'
 import type { WorkerApprovalDecision } from '../../../../../../src/shared/orchestration/approvals/worker-approval-payload'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../../src/shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../../src/shared/agent-session/identity/openkodo-session-address'
 
 export type MobileWorkerApproval = OrchestrationWorkerApprovalEntry
 
@@ -82,7 +82,8 @@ export function useMobileWorkerApprovals({
     useOptionalHostProtocolGates()?.hostCapabilities.includes(
       ORCHESTRATION_PAIRED_WORKER_APPROVALS_RUNTIME_CAPABILITY
     ) === true
-  const party = sessionId && isOrcaSessionId(sessionId) ? formatOrcaSessionAddress(sessionId) : null
+  const party =
+    sessionId && isOpenKodoSessionId(sessionId) ? formatOpenKodoSessionAddress(sessionId) : null
   const [received, setReceived] = useState<readonly MobileWorkerApproval[]>(NONE)
   // Kept through a reconnect, so the transcript's lines don't blink; only this party's show.
   const [receipts, setReceipts] = useState<{

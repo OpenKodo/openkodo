@@ -1,4 +1,4 @@
-/** @jsxImportSource orca */
+/** @jsxImportSource openkodo */
 import {
   atom,
   Badge,
@@ -19,11 +19,11 @@ import {
   Text,
   update,
   type PanelContext
-} from 'orca'
+} from 'openkodo'
 
 type Todo = { id: number; title: string; done: boolean }
 
-// Persisted for the plugin: the list survives closing the panel and restarting Orca.
+// Persisted for the plugin: the list survives closing the panel and restarting OpenKodo.
 const todos = atom<Todo[]>(
   'todos',
   [
@@ -116,7 +116,7 @@ export default function Panel() {
         </Button>
       </Row>
       <Text muted size="xs">
-        Runs isolated with no network; Orca draws every control. Theme changes seen:{' '}
+        Runs isolated with no network; OpenKodo draws every control. Theme changes seen:{' '}
         {read(seenThemes)}.
       </Text>
     </Stack>

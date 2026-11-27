@@ -1,5 +1,5 @@
-import type { OrcaRuntimeWithBindPtyIncarnationHandle } from './terminal-handle-bindings'
-import type { OrcaRuntimeWithInvalidateAllHandlesForPty } from '../lifecycle/pty-handle-invalidation'
+import type { OpenKodoRuntimeWithBindPtyIncarnationHandle } from './terminal-handle-bindings'
+import type { OpenKodoRuntimeWithInvalidateAllHandlesForPty } from '../lifecycle/pty-handle-invalidation'
 import { randomUUID } from 'node:crypto'
 import type { PtyIncarnationId } from '../../../../shared/terminal/pty/lifecycle/pty-incarnation'
 import { forgetPtySurface } from '../surface/pty-recorded-surface-topology'
@@ -8,25 +8,27 @@ export abstract class RuntimePreallocatedTerminalHandles extends RuntimeMobileSe
   protected abstract deliverPendingMessagesForPty(ptyId: string): void
 
   protected abstract invalidatePtyIncarnationHandle(
-    ...args: Parameters<OrcaRuntimeWithBindPtyIncarnationHandle['invalidatePtyIncarnationHandle']>
-  ): ReturnType<OrcaRuntimeWithBindPtyIncarnationHandle['invalidatePtyIncarnationHandle']>
+    ...args: Parameters<
+      OpenKodoRuntimeWithBindPtyIncarnationHandle['invalidatePtyIncarnationHandle']
+    >
+  ): ReturnType<OpenKodoRuntimeWithBindPtyIncarnationHandle['invalidatePtyIncarnationHandle']>
 
   protected abstract invalidateAllHandlesForPty(
-    ...args: Parameters<OrcaRuntimeWithInvalidateAllHandlesForPty['invalidateAllHandlesForPty']>
-  ): ReturnType<OrcaRuntimeWithInvalidateAllHandlesForPty['invalidateAllHandlesForPty']>
+    ...args: Parameters<OpenKodoRuntimeWithInvalidateAllHandlesForPty['invalidateAllHandlesForPty']>
+  ): ReturnType<OpenKodoRuntimeWithInvalidateAllHandlesForPty['invalidateAllHandlesForPty']>
 
   protected abstract isTerminalHandleAdoptionBlocked(
     ...args: Parameters<
-      OrcaRuntimeWithInvalidateAllHandlesForPty['isTerminalHandleAdoptionBlocked']
+      OpenKodoRuntimeWithInvalidateAllHandlesForPty['isTerminalHandleAdoptionBlocked']
     >
-  ): ReturnType<OrcaRuntimeWithInvalidateAllHandlesForPty['isTerminalHandleAdoptionBlocked']>
+  ): ReturnType<OpenKodoRuntimeWithInvalidateAllHandlesForPty['isTerminalHandleAdoptionBlocked']>
 
   protected abstract replaceSyntheticTerminalHandlesForRestoredPty(
     ...args: Parameters<
-      OrcaRuntimeWithInvalidateAllHandlesForPty['replaceSyntheticTerminalHandlesForRestoredPty']
+      OpenKodoRuntimeWithInvalidateAllHandlesForPty['replaceSyntheticTerminalHandlesForRestoredPty']
     >
   ): ReturnType<
-    OrcaRuntimeWithInvalidateAllHandlesForPty['replaceSyntheticTerminalHandlesForRestoredPty']
+    OpenKodoRuntimeWithInvalidateAllHandlesForPty['replaceSyntheticTerminalHandlesForRestoredPty']
   >
 
   // Allocate before spawn so OPENKODO_TERMINAL_HANDLE lets agents self-identify; lazy RPC allocation reuses it.

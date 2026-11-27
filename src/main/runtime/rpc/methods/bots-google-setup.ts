@@ -20,7 +20,7 @@ import {
   writeGoogleSetupCards
 } from '../../../google/google-setup-chat-cards'
 import { googleSetupRuns, type GoogleSetupActor } from '../../../google/google-setup-runs'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { googleSetupKeyRefusedLine } from '../../../google/google-setup-key-download'
 import { noWindowAnswersGoogleCards } from '../../../google/google-card-reach'
 import { defineMethod, InvalidArgumentError, type RpcContext } from '../core'
@@ -79,13 +79,13 @@ export function whose(
   return { botId: params.botId, actor: isAgentRpcCaller(context.caller) ? 'bot' : 'owner' }
 }
 
-function chatOf(runtime: OrcaRuntimeService, botId: string): string | undefined {
+function chatOf(runtime: OpenKodoRuntimeService, botId: string): string | undefined {
   return runtime.bots.list().find((entry) => entry.id === botId)?.chatSessionId ?? undefined
 }
 
 /** A card answer: the run changes, the cards follow, and the bot reads it as its next turn. */
 export async function answerGoogleSetupCard(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string,
   actor: GoogleSetupActor,
   card: GoogleSetupCard,
@@ -124,7 +124,7 @@ export async function withBlocker(context: RpcContext, botId: string, read: Goog
 
 /** OpenKodo's reading that the key didn't arrive: the owner's card offers recovery, and the bot hears why. */
 export async function recordGoogleSetupKeyMissed(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string,
   reason: string
 ): Promise<void> {

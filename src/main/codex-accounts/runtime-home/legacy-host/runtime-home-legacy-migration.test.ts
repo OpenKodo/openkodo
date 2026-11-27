@@ -237,7 +237,7 @@ describe('CodexRuntimeHomeService', () => {
     await constructService()
 
     expect(
-      readFileSync(join(runtimeSessionsDir, 'session.orca-legacy-account-1.json'), 'utf-8')
+      readFileSync(join(runtimeSessionsDir, 'session.openkodo-legacy-account-1.json'), 'utf-8')
     ).toBe('{"legacy":2}')
     expect(existsSync(migrationMarkerPath())).toBe(true)
   })
@@ -251,7 +251,7 @@ describe('CodexRuntimeHomeService', () => {
     mkdirSync(join(managedHomePath, 'sessions'), { recursive: true })
     writeFileSync(join(managedHomePath, 'sessions', 'a.json'), '{"legacy":"a"}', 'utf-8')
     writeFileSync(join(managedHomePath, 'sessions', 'b.json'), '{"legacy":"b"}', 'utf-8')
-    fsHooks.failedCopies.add(join(runtimeSessionsDir, 'b.orca-legacy-account-1.json'))
+    fsHooks.failedCopies.add(join(runtimeSessionsDir, 'b.openkodo-legacy-account-1.json'))
 
     await constructService()
     await waitForImportOutcomes(['imported'])
@@ -290,7 +290,7 @@ describe('CodexRuntimeHomeService', () => {
     const runtimeSessionsDir = join(getRuntimeCodexHomePath(), 'sessions')
     mkdirSync(runtimeSessionsDir, { recursive: true })
     writeFileSync(join(runtimeSessionsDir, 'session.json'), '{"turns":[1]}', 'utf-8')
-    const occupiedPreservedPath = join(runtimeSessionsDir, 'session.orca-legacy-account-1.json')
+    const occupiedPreservedPath = join(runtimeSessionsDir, 'session.openkodo-legacy-account-1.json')
     writeFileSync(occupiedPreservedPath, '{"turns":["kept"]}', 'utf-8')
     const managedHomePath = createManagedAuth(
       testState.userDataDir,
@@ -305,7 +305,7 @@ describe('CodexRuntimeHomeService', () => {
 
     expect(readFileSync(occupiedPreservedPath, 'utf-8')).toBe('{"turns":["kept"]}')
     expect(
-      readFileSync(join(runtimeSessionsDir, 'session.orca-legacy-account-1-1.json'), 'utf-8')
+      readFileSync(join(runtimeSessionsDir, 'session.openkodo-legacy-account-1-1.json'), 'utf-8')
     ).toBe('{"turns":[1,2]}')
     await waitForHistorySettled()
   })

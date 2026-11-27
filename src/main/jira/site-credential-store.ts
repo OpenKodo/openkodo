@@ -28,24 +28,24 @@ export async function getCredentialError(siteId: string): Promise<string | undef
   return tokenFileCache.error(siteId)
 }
 
-function getOrcaDir(): string {
+function getOpenKodoDir(): string {
   return openKodoHomePath()
 }
 
 function getSiteFilePath(): string {
-  return join(getOrcaDir(), 'jira-sites.json')
+  return join(getOpenKodoDir(), 'jira-sites.json')
 }
 
 export function getTokenDir(): string {
-  return join(getOrcaDir(), 'jira-tokens')
+  return join(getOpenKodoDir(), 'jira-tokens')
 }
 
 function getTokenPath(siteId: string): string {
   return join(getTokenDir(), `${Buffer.from(siteId).toString('base64url')}.enc`)
 }
 
-async function ensureOrcaDir(): Promise<void> {
-  const dir = getOrcaDir()
+async function ensureOpenKodoDir(): Promise<void> {
+  const dir = getOpenKodoDir()
   if (!(await credentialFileExists(dir))) {
     await mkdir(dir, { recursive: true })
   }
@@ -167,7 +167,7 @@ async function selectableSiteFile(file: JiraSiteFile): Promise<JiraSiteFile> {
 
 export async function writeSiteFile(file: JiraSiteFile): Promise<void> {
   return inCredentialFileOrder(getSiteFilePath(), async () => {
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     const next = await selectableSiteFile(file)
     await writeFile(getSiteFilePath(), JSON.stringify(next, null, 2), {
       encoding: 'utf-8',
@@ -190,7 +190,7 @@ export async function getSiteTokenProtection(
 
 export async function saveToken(siteId: string, apiToken: string): Promise<void> {
   return inCredentialFileOrder(`${getTokenPath(siteId)}.mutation`, async () => {
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     await ensureTokenDir()
     await writeEncryptedCredential('Jira', getTokenPath(siteId), apiToken)
     // The next action reads the actual file, including any overlapping writer's replacement.

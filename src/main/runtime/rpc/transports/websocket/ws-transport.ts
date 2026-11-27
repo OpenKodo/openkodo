@@ -21,7 +21,7 @@ import {
 } from './source-admission/network-source-class'
 import { UnauthenticatedSourceCap } from './source-admission/ws-unauthenticated-source-cap'
 import type { WebSocketSourceGuard } from './source-admission/ws-network-source-guard'
-import { reserveBrowserTunnelOrcaListenerPort } from '../../../../browser/network/tunnels/browser-network-tunnel-destination-policy'
+import { reserveBrowserTunnelOpenKodoListenerPort } from '../../../../browser/network/tunnels/browser-network-tunnel-destination-policy'
 
 export const WEBSOCKET_TRANSPORT_MAX_MESSAGE_BYTES = REMOTE_RUNTIME_MAX_INBOUND_FRAME_BYTES
 // Allow many remote-desktop streams so stale ones cannot starve control RPCs.
@@ -264,7 +264,7 @@ export class WebSocketTransport implements RpcTransport {
 
     this.httpServer = httpServer
     this.wss = wss
-    this.releaseTunnelReservation = reserveBrowserTunnelOrcaListenerPort(this.resolvedPort)
+    this.releaseTunnelReservation = reserveBrowserTunnelOpenKodoListenerPort(this.resolvedPort)
   }
 
   async stop(): Promise<void> {

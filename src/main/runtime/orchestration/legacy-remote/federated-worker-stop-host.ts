@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { WorkerStopReceipt } from '../../../../shared/orchestration/workers/orchestration-worker-stop-receipt'
 import { archiveWorkerOutputBeforeStop } from '../../rpc/methods/orchestration/worker/stop/worker-stop-archive'
 import { describeUnconfirmedAgentStop } from '../../../../shared/terminal/pty/lifecycle/pty-liveness-verdict'
@@ -7,7 +7,7 @@ import { closeStoppedWorkerTerminals } from '../../rpc/methods/orchestration/wor
 
 /** Close the exact attached worker this host runs for its home. */
 export async function stopRemoteAttachment(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: { dispatchId: string }
 ): Promise<WorkerStopReceipt> {
   const db = runtime.getOrchestrationDb()

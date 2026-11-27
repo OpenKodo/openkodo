@@ -1,4 +1,4 @@
-import type { PushNotification } from '@orca-cloud/push-contract/send-messages'
+import type { PushNotification } from '@openkodo-cloud/push-contract/send-messages'
 
 export function parsePushDeliveryPayload(payload: string): PushNotification {
   const value: unknown = JSON.parse(payload)

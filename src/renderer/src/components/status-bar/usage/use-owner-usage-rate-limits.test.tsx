@@ -51,8 +51,8 @@ vi.mock('@/runtime/provider-accounts/observations/runtime-provider-accounts-clie
     }
   }
 }))
-vi.mock('@/attention/orca-window-foreground-focus', () => ({
-  isOrcaWindowForegroundFocused: () => true
+vi.mock('@/attention/openkodo-window-foreground-focus', () => ({
+  isOpenKodoWindowForegroundFocused: () => true
 }))
 vi.mock('../../../store/index', () => ({
   useAppStore: (selector: (state: unknown) => unknown) =>

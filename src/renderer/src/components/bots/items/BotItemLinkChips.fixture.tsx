@@ -149,7 +149,7 @@ export const activeTwinOnOtherHost = defineFixture({
         id: fixtureCos.folderWorkspaceId,
         projectGroupId: 'bots',
         name: fixtureCos.name,
-        folderPath: '/home/fixture/.orca/bots/cos',
+        folderPath: '/home/fixture/.openkodo/bots/cos',
         executionHostId: 'runtime:studio'
       })
     ],

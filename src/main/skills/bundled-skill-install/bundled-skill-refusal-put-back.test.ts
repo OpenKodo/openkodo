@@ -34,7 +34,7 @@ describe('cross-drive refusal put-back', () => {
           : join(dirname(home.claude), alias)
       await writeCopy(home.shared, OLD_TEXT)
       await writeCopy(former, OLD_TEXT)
-      const backups = join(home.home, '.agents', '.orca-skill-backups')
+      const backups = join(home.home, '.agents', '.openkodo-skill-backups')
       const late = lateEditingFilesystem(backups, former)
       const input = {
         ...serviceInput(home, { agents: ['claude'] }),
@@ -79,7 +79,7 @@ describe('cross-drive refusal put-back', () => {
     const former = join(home.home, '.gemini', 'skills', NAME)
     await writeCopy(home.shared, OLD_TEXT)
     await writeCopy(former, OLD_TEXT)
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     const late = lateEditingFilesystem(backups, former, () => writeCopy(former, 'someone else\n'))
     const input = serviceInput(home, { agents: ['claude'] })
     const plan = await previewBundledSkillInstall(input)
@@ -103,7 +103,7 @@ describe('cross-drive refusal put-back', () => {
     const former = join(home.home, '.gemini', 'skills', NAME)
     await writeCopy(home.shared, OLD_TEXT)
     await writeCopy(former, OLD_TEXT)
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     // An empty directory is one a native rename could silently replace.
     const late = lateEditingFilesystem(backups, former, () => mkdir(former))
     let renamesOntoFormer = 0
@@ -136,7 +136,7 @@ describe('cross-drive refusal put-back', () => {
     const former = join(dirname(home.claude), alias)
     await writeCopy(home.shared, OLD_TEXT)
     await writeCopy(former, OLD_TEXT)
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     const late = lateEditingFilesystem(backups, former)
     let putBackAttempts = 0
     const filesystem: BundledSkillFilesystem = {

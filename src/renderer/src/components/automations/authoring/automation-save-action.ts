@@ -14,7 +14,7 @@ import {
   getDraftExtraAgentArgsError,
   parseDraftTime
 } from './automation-draft-model'
-import { saveOrcaAutomation } from './automation-orca-save'
+import { saveOpenKodoAutomation } from './automation-openkodo-save'
 import { botTargetError, saveBotAutomation } from './automation-bot-save'
 import type { AutomationSaveContext } from './automation-save-context'
 
@@ -179,7 +179,7 @@ export function createAutomationSaveAction(context: AutomationSaveContext) {
         )
         return
       }
-      await saveOrcaAutomation(context, { hour, minute, now, surface })
+      await saveOpenKodoAutomation(context, { hour, minute, now, surface })
     } catch (error) {
       toast.error(
         error instanceof Error

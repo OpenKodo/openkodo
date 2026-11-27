@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../orca-runtime'
+import type { OpenKodoRuntimeService } from '../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../orchestration/addressing/orchestration-caller-identity'
 import type { RpcContext, RpcRequest } from './core'
 import type { RpcCallerScope } from './callers/rpc-caller-scope'
@@ -10,7 +10,7 @@ import { assertLookAroundMayCall } from './look-around-rpc-guard'
 
 /** A call's context. Handlers see the scope admission checked, which a pinned dispatcher sets for every call. */
 export function rpcCallContext(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   options: RpcDispatchStreamingOptions | undefined,
   pinned: RpcCallerScope | undefined,

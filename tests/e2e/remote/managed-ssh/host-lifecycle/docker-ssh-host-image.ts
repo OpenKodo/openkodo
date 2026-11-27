@@ -32,7 +32,7 @@ function hashDockerFixtureDirectory(fixtureDir: string): string {
 function fixtureImage(root: string): string {
   const fixtureDir = path.join(root, 'tests', 'e2e', 'fixtures', 'docker-ssh-host')
   const digest = hashDockerFixtureDirectory(fixtureDir)
-  return `orca-e2e-ssh-host:${digest}`
+  return `openkodo-e2e-ssh-host:${digest}`
 }
 
 export function getDockerSshHostImage(): string {

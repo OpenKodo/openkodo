@@ -1,7 +1,7 @@
-import { OrcaRuntimeWithHandleMobileSubscribe } from './mobile-terminal-subscribe'
+import { OpenKodoRuntimeWithHandleMobileSubscribe } from './mobile-terminal-subscribe'
 import { clampTerminalViewport } from '../../../../shared/terminal/viewport/terminal-viewport'
 
-export abstract class OrcaRuntimeWithHandleMobileSubscribeInternal extends OrcaRuntimeWithHandleMobileSubscribe {
+export abstract class OpenKodoRuntimeWithHandleMobileSubscribeInternal extends OpenKodoRuntimeWithHandleMobileSubscribe {
   protected async handleMobileSubscribeInternal(
     ptyId: string,
     clientId: string,

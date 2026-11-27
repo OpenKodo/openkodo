@@ -160,16 +160,16 @@ export function buildAgentStatusLiveEntry(
   // stamp included (a settled miss clears a pending null); an ID-less local update keeps the
   // id only for the very same agent, owner and provider key (locator included).
   const keepsExistingId =
-    existing?.orcaSessionId !== undefined &&
+    existing?.openkodoSessionId !== undefined &&
     existing.agentType === identity.agentType &&
     (routing?.connectionId === undefined ||
       routing.connectionId === (existing.connectionId ?? null)) &&
     agentProviderSessionsEqual(identity.agentType, existing.providerSession, providerSession)
-  const orcaSessionId =
-    metadata?.providerSession || metadata?.orcaSessionId !== undefined
-      ? metadata.orcaSessionId
+  const openkodoSessionId =
+    metadata?.providerSession || metadata?.openkodoSessionId !== undefined
+      ? metadata.openkodoSessionId
       : keepsExistingId
-        ? existing?.orcaSessionId
+        ? existing?.openkodoSessionId
         : undefined
   const entry: AgentStatusEntry = {
     state: payload.state,
@@ -217,7 +217,7 @@ export function buildAgentStatusLiveEntry(
     ...liveEntryChildFields(existing, payload),
     ...(mainAgent ? { mainAgent } : {}),
     ...(providerSession ? { providerSession } : {}),
-    ...(orcaSessionId !== undefined ? { orcaSessionId } : {}),
+    ...(openkodoSessionId !== undefined ? { openkodoSessionId } : {}),
     ...(launchAttested !== undefined ? { launchAttested } : {}),
     ...(metadata?.terminalResumeEligible === false
       ? { terminalResumeEligible: false as const }

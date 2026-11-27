@@ -11,9 +11,9 @@ import { PluginPreviewCache } from './plugin-preview-cache'
 import { requestPluginInstallCounts } from '@/store/plugins/installation/plugin-install-counts'
 import { useAppStore } from '@/store/index'
 import {
-  getOrcaCloudTeamCapabilities,
+  getOpenKodoCloudTeamCapabilities,
   OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags
-} from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+} from '../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 
 /** A plugin page's manifest read; a failure means nothing is known, not "nothing needed". */
 export type PluginPagePreview =
@@ -63,7 +63,7 @@ export function usePluginCatalog({
   const requestRef = useRef(0)
   const [previewCache] = useState(createPluginPagePreviewCache)
   const teamCapabilities = useAppStore((state) =>
-    getOrcaCloudTeamCapabilities(state.orcaProfileAuthStatus)
+    getOpenKodoCloudTeamCapabilities(state.openkodoProfileAuthStatus)
   )
   const catalogPolicy = useMemo(() => {
     const policy = teamCapabilities?.teamPolicy

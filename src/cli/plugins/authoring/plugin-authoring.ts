@@ -136,7 +136,7 @@ export const PLUGIN_AUTHORING_HANDLERS: Record<string, CommandHandler> = {
       [
         `Wrote OpenKodo plugin typings into ${dir}:`,
         ...files.map((file) => `  ${file}`),
-        'Extend them from tsconfig.json: { "extends": "./.orca/types/tsconfig.json" }'
+        'Extend them from tsconfig.json: { "extends": "./.openkodo/types/tsconfig.json" }'
       ].join('\n')
     )
   },

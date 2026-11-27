@@ -46,7 +46,7 @@ it('posts a legacy Slack answer only for the owner’s confirmed DM', () => {
     ownerDm: legacyTurnWords(turn, link, 'not-covered', undefined),
     member: legacyTurnWords(member, link, 'not-covered', undefined),
     differentDm: legacyTurnWords(turn, { ...link, ...differentDm }, 'not-covered', undefined),
-    orcaOpener: legacyTurnWords(withOpener(localBody), link, 'not-covered', undefined),
+    openkodoOpener: legacyTurnWords(withOpener(localBody), link, 'not-covered', undefined),
     positionalOpener: legacyTurnWords(
       { ...turn, opener: null, latestOpener: opener },
       link,
@@ -64,7 +64,7 @@ it('posts a legacy Slack answer only for the owner’s confirmed DM', () => {
     ownerDm: 'I started the fix.',
     member: null,
     differentDm: null,
-    orcaOpener: null,
+    openkodoOpener: null,
     positionalOpener: null,
     channel: null,
     possibleOutboxReply: null

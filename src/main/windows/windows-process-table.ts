@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import type { WindowsJobObjectApi } from './windows-job-object'
 import { createProcessTableSnapshotReader } from '../../shared/process-observation/tables/process-table-snapshot-reader'
-import { ORCAD_WINDOWS_PROCESS_TREE_FILENAME } from '../../shared/remote-runtime/orcad-distribution/orcad-artifacts'
+import { OPENKODOD_WINDOWS_PROCESS_TREE_FILENAME } from '../../shared/remote-runtime/openkodod-distribution/openkodod-artifacts'
 import { reportWindowsCommandLineRecoveryHealth } from './windows-command-line-recovery-health'
 import { readWindowsProcessRowsWithCim } from './windows-process-table-cim-scan'
 import { WindowsProcessTableTimeoutError } from './windows-process-table-timeout-error'
@@ -68,8 +68,8 @@ type WindowsProcessTreeAddon = {
 /** Raw addon flags; Memory stays off. CreationTime in this enum requests it but only supportedProcessDataFlags proves binary support. */
 const PROCESS_DATA_FLAG = { None: 0, Memory: 1, CommandLine: 2, CreationTime: 4 } as const
 
-/** Staged beside the orcad bundle by orcad-windows-process-tree.mjs. */
-const RELAY_ADDON_FILENAME = `./${ORCAD_WINDOWS_PROCESS_TREE_FILENAME}`
+/** Staged beside the openkodod bundle by openkodod-windows-process-tree.mjs. */
+const RELAY_ADDON_FILENAME = `./${OPENKODOD_WINDOWS_PROCESS_TREE_FILENAME}`
 
 /** The import whose absence tells the patched binary from the published prebuilt. */
 const FLAGGED_ADDON_IMPORT = 'ReadProcessMemory'

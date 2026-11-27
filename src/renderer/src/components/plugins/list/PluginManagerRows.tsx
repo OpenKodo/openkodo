@@ -241,7 +241,7 @@ export function installedPluginControls(
           <DropdownMenuItem disabled>
             <Trash2 />
             {t(
-              'auto.components.settings.PluginManagerRows.bundledWithOrca',
+              'auto.components.settings.PluginManagerRows.bundledWithOpenKodo',
               'Bundled with OpenKodo'
             )}
           </DropdownMenuItem>

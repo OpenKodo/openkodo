@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { ProjectHostSetup } from '../../../shared/project/project-types'
 import type { Repo } from '../../../shared/repository/repo-types'
 import type { ExecutionHostId } from '../../../shared/execution-host/execution-host'

@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
 import {
   LOCAL_EXECUTION_HOST_ID,
@@ -16,8 +16,8 @@ import {
   deleteOwnerKeyedSessionFields,
   type RemovedOwnerFileIds
 } from './session-owner-fields'
-import { sessionFieldsRemovedWithWorkspace } from '../../orca-profiles/project-transfer/profile-project-session-field-disposition'
-import { markdownFileIdCandidates } from '../../orca-profiles/project-transfer/profile-session-markdown-transfer'
+import { sessionFieldsRemovedWithWorkspace } from '../../openkodo-profiles/project-transfer/profile-project-session-field-disposition'
+import { markdownFileIdCandidates } from '../../openkodo-profiles/project-transfer/profile-session-markdown-transfer'
 
 const OWNER_PANE_KEYED_FIELDS = sessionFieldsRemovedWithWorkspace('ownerPaneKey')
 const OWNER_ROW_FIELDS = sessionFieldsRemovedWithWorkspace('ownerRow')

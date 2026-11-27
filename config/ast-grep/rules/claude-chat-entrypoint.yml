@@ -54,7 +54,7 @@ rule:
         - kind: string_fragment
         - kind: property_identifier
         - kind: identifier
-    - regex: '^withOrcaClaudeChatEntrypoint$'
+    - regex: '^withOpenKodoClaudeChatEntrypoint$'
 ---
 id: claude-chat-entrypoint-callers-tsx
 language: tsx
@@ -76,7 +76,7 @@ rule:
         - kind: string_fragment
         - kind: property_identifier
         - kind: identifier
-    - regex: '^withOrcaClaudeChatEntrypoint$'
+    - regex: '^withOpenKodoClaudeChatEntrypoint$'
 ---
 id: claude-entrypoint-key-owner
 language: typescript

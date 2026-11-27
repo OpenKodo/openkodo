@@ -63,7 +63,7 @@ function readBundleIdentity(bundlePath: string): string {
 }
 
 /** Only installer-known launchd supervisors participate; unmanaged servers retain install refusal.
- * label supports owners that restart their own child, such as orcad. */
+ * label supports owners that restart their own child, such as openkodod. */
 export function openServeBundlePark(input: {
   executable: string
   label?: string

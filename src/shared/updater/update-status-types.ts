@@ -141,7 +141,7 @@ export type UpdateStatus = (
   automaticDownload?: boolean
   requiredByTeam?: boolean
   /** Emergency requirements share the managed restart flow. */
-  requiredByOrca?: boolean
+  requiredByOpenKodo?: boolean
   /** macOS desktop has staged this version for installation on a normal quit. */
   installOnQuit?: true
 }

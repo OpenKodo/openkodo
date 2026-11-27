@@ -25,10 +25,10 @@ import {
 } from '../../../shared/automations/history/automation-run-failure-copy'
 import { AutomationDispatchCancelledError } from '../dispatch/automation-dispatch-cancelled-error'
 import {
-  isOrcadFencedAutomation,
-  managedOrcadHostOf,
-  ORCAD_FENCED_AUTOMATION
-} from './orcad-fenced-automation'
+  isOpenkododFencedAutomation,
+  managedOpenkododHostOf,
+  OPENKODOD_FENCED_AUTOMATION
+} from './openkodod-fenced-automation'
 import { resolveBotAutomationRunTarget, type AutomationBotRunTarget } from '../bot-run-target'
 
 export type AutomationRepoRunTarget = {
@@ -151,8 +151,8 @@ export function captureLegacyRunTarget(
   allowRemoteHostScheduling: boolean
 ): Automation {
   // The scheduler's first write; a fenced row must stay as the move exported it.
-  if (isOrcadFencedAutomation(store, automation)) {
-    throw new AutomationDispatchCancelledError(ORCAD_FENCED_AUTOMATION)
+  if (isOpenkododFencedAutomation(store, automation)) {
+    throw new AutomationDispatchCancelledError(OPENKODOD_FENCED_AUTOMATION)
   }
   const runContext = findLegacyAutomationRunContextStamp(store, automation, {
     allowRemoteHostScheduling
@@ -173,7 +173,7 @@ export function resolveAutomationRunTarget(
   if (automation.bot) {
     return resolveBotAutomationRunTarget(store, automation.bot)
   }
-  const managedHost = managedOrcadHostOf(store, automation)
+  const managedHost = managedOpenkododHostOf(store, automation)
   if (managedHost) {
     return { ok: false, ...automationRunFailure('managedHostServer', { host: managedHost.label }) }
   }

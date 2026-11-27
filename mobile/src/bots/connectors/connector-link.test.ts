@@ -5,7 +5,7 @@ import { connectorLinkTarget, GITHUB_LINK_HOSTS, GOOGLE_LINK_HOSTS } from './con
 
 describe('connectorLinkTarget', () => {
   it('refuses non-https schemes and malformed URLs', () => {
-    expect(connectorLinkTarget('http://github.com/apps/orca')).toBeNull()
+    expect(connectorLinkTarget('http://github.com/apps/openkodo')).toBeNull()
     expect(connectorLinkTarget('javascript:alert(1)')).toBeNull()
     expect(connectorLinkTarget('intent://x#Intent;end')).toBeNull()
     expect(connectorLinkTarget('not a url')).toBeNull()
@@ -22,8 +22,8 @@ describe('connectorLinkTarget', () => {
 
   it('accepts https on the provider host and its subdomains', () => {
     expect(
-      connectorLinkTarget('https://github.com/apps/orca/installations/new', GITHUB_LINK_HOSTS)
-    ).toBe('https://github.com/apps/orca/installations/new')
+      connectorLinkTarget('https://github.com/apps/openkodo/installations/new', GITHUB_LINK_HOSTS)
+    ).toBe('https://github.com/apps/openkodo/installations/new')
     expect(connectorLinkTarget('https://console.cloud.google.com/apis', GOOGLE_LINK_HOSTS)).toBe(
       'https://console.cloud.google.com/apis'
     )

@@ -507,7 +507,7 @@
       "greenLead": "CI зелёный в",
       "at": "на"
     },
-    "orcaStop": {
+    "openkodoStop": {
       "canContinue": "Вы можете продолжить этот разговор.",
       "crash": "Во время ответа OpenKodo на {{machine}} неожиданно завершилась.",
       "quit": "Во время ответа OpenKodo на {{machine}} была закрыта.",
@@ -2589,7 +2589,7 @@
       "updateStepsServiceManager": "Обновите его через менеджер пакетов или менеджер служб.",
       "updateStepsSourceCheckout": "Обновите его из исходного репозитория.",
       "updateStepsServer": "Обновите OpenKodo на сервере и перезапустите её.",
-      "orcaVersion": "Версия OpenKodo"
+      "openkodoVersion": "Версия OpenKodo"
     }
   },
   "hostScreen": {
@@ -4013,7 +4013,7 @@
       "cannotRunHere": "Здесь OpenKodo не может запустить этого агента в чате.",
       "capacity": "OpenKodo на компьютере с этим чатом достигла лимита запросов. Обновите OpenKodo на нём и повторите попытку.",
       "chatNotFound": "OpenKodo не может найти этот чат.",
-      "chatSavedByNewerOrca": "Этот чат сохранён более новой версией OpenKodo.",
+      "chatSavedByNewerOpenKodo": "Этот чат сохранён более новой версией OpenKodo.",
       "clearAfterAnswer": "Ответьте на вопрос или запрос разрешения агента, затем выполните /clear.",
       "clearAfterRetry": "Повторно отправьте предыдущее сообщение, затем выполните /clear.",
       "clearAfterSending": "Предыдущее сообщение ещё отправляется. После его отправки выполните /clear.",
@@ -4063,7 +4063,7 @@
       "restartFailed": "Не удалось перезапустить агента.",
       "runClearWhenDone": "После завершения выполните /clear.",
       "runCompactWhenDone": "После завершения выполните /compact.",
-      "savedByNewerOrca": "Чаты сохранены более новой версией OpenKodo.",
+      "savedByNewerOpenKodo": "Чаты сохранены более новой версией OpenKodo.",
       "sendOutcomeLost": "OpenKodo не удалось подтвердить доставку сообщения агенту. Проверьте чат и при необходимости отправьте его снова.",
       "settleEarlierMessage": "Дождитесь доставки предыдущего сообщения или повторите его отправку.",
       "shortenMessage": "Сократите или разделите сообщение и отправьте снова.",
@@ -4075,8 +4075,8 @@
       "turnActive": "Агент ещё отвечает.",
       "unreachable": "OpenKodo не удалось связаться с агентом.",
       "unsupported": "На компьютере с этим чатом нужна более новая версия OpenKodo. Обновите OpenKodo на нём и повторите попытку.",
-      "updateOrcaToKeepUsing": "Обновите OpenKodo, чтобы продолжить работу с ними.",
-      "updateOrcaToOpenChat": "Обновите OpenKodo, чтобы открыть его.",
+      "updateOpenKodoToKeepUsing": "Обновите OpenKodo, чтобы продолжить работу с ними.",
+      "updateOpenKodoToOpenChat": "Обновите OpenKodo, чтобы открыть его.",
       "waitForBackgroundTasks": "Дождитесь завершения фоновых задач.",
       "waitForCommand": "Дождитесь завершения /compact или /clear.",
       "waitForStart": "Дождитесь запуска агента.",
@@ -4192,7 +4192,7 @@
       "outsideWorkspace": "Этот файл находится за пределами рабочего пространства. Откройте его на компьютере, чтобы просмотреть."
     },
     "linkActionSheet": {
-      "openInOrca": "Открыть в браузере OpenKodo",
+      "openInOpenKodo": "Открыть в браузере OpenKodo",
       "openInBrowser": "Открыть в системном браузере",
       "copyLink": "Скопировать ссылку"
     },
@@ -4226,7 +4226,7 @@
       "pointsAndColumns": "{{points}} · столбцов: {{count}}",
       "moreTerminal": "Другие настройки терминала"
     },
-    "orcaCommands": {
+    "openkodoCommands": {
       "desktopOnly": "Доступно в приложении на компьютере"
     },
     "tabMenu": {
@@ -5410,7 +5410,7 @@
       "projectSubtitle": "Проект GitHub · {{repository}}{{itemNumber}}",
       "pullRequest": "Пул-реквест",
       "reopenItem": "Открыть элемент заново",
-      "repositoryNotInOrca": "Репозиторий не добавлен в OpenKodo",
+      "repositoryNotInOpenKodo": "Репозиторий не добавлен в OpenKodo",
       "status": "Статус",
       "type": "Тип",
       "workspaceCreationRequirement": "Рабочие пространства можно создавать только на основе задач и пул-реквестов GitHub."
@@ -6315,7 +6315,7 @@
       "chatOpenFailed": "{{name}} не смог открыть этот чат. Попробуйте открыть ссылку снова.",
       "unreachableSingle": "Не удалось подключиться к {{name}}. Убедитесь, что OpenKodo запущена на этом компьютере, и повторите попытку.",
       "workspaceDeleted": "Рабочая область этого чата удалена на {{name}}.",
-      "updateOrca": "Обновить OpenKodo",
+      "updateOpenKodo": "Обновить OpenKodo",
       "openRequestFailed": "Не удалось открыть запрос",
       "botNotFound": "Бот не найден",
       "openOn": "Открыть {{name}} на"
@@ -6345,7 +6345,7 @@
       "deleteBot": "Удалить бота…",
       "accountChecking": "Проверка…",
       "signedOut": "Выполнен выход из учётной записи OpenKodo",
-      "orcaAccount": "Учётная запись OpenKodo",
+      "openkodoAccount": "Учётная запись OpenKodo",
       "folder": "Папка",
       "copyPath": "Копировать путь",
       "pathCopied": "Путь скопирован",
@@ -6555,7 +6555,7 @@
       },
       "blank": "Пустой бот",
       "blankLine": "Расскажите ему в первом чате, для чего он нужен.",
-      "byOrca": "{{category}} · от OpenKodo",
+      "byOpenKodo": "{{category}} · от OpenKodo",
       "originTemplateNamed": "Из шаблона «{{template}}»",
       "noMatch": "Нет шаблонов по запросу «{{query}}»",
       "security-check": {
@@ -8192,7 +8192,7 @@
       "hide": "Скрыть рабочие пространства {{name}}"
     },
     "list": {
-      "updateOrcaOn": "Обновите OpenKodo на {{host}}",
+      "updateOpenKodoOn": "Обновите OpenKodo на {{host}}",
       "cantReach": "Не удаётся связаться с {{host}}. Его боты появятся, когда он вернётся.",
       "noBotsYet": "Ботов пока нет.",
       "offline": "Не в сети",
@@ -8377,8 +8377,8 @@
       "postAs": {
         "title": "Публиковать от имени",
         "changeOn": "Изменить на {{host}}",
-        "orcaUser": "Пользователь OpenKodo",
-        "viaOrca": "{{name}} (через OpenKodo)",
+        "openkodoUser": "Пользователь OpenKodo",
+        "viaOpenKodo": "{{name}} (через OpenKodo)",
         "sample": "После этого выкатывайте",
         "linePlain": "Когда вы отвечаете в обсуждении Slack из OpenKodo, ответ публикуется от имени {{name}}.",
         "approve": "Одобрить в Slack",
@@ -8640,8 +8640,8 @@
         "description": "Выберите, как {{bot}} входит в ваш Gmail, Календарь и Диск.",
         "self": "Собственное приложение",
         "selfNote": "Ваше собственное приложение Google.",
-        "orca": "Приложение OpenKodo",
-        "orcaNote": "Вход через Google.",
+        "openkodo": "Приложение OpenKodo",
+        "openkodoNote": "Вход через Google.",
         "soon": "Скоро"
       },
       "bot": {

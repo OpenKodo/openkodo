@@ -1,5 +1,5 @@
 import type { BrowserWindow } from 'electron'
-import { publishedOrcaSessionId } from '../../agent-hooks/identity/pane-agent-identities'
+import { publishedOpenKodoSessionId } from '../../agent-hooks/identity/pane-agent-identities'
 import { agentHookServer } from '../../agent-hooks/server/agent-hook-server'
 import { setMigrationUnsupportedPtyListener } from '../../agent-hooks/observations/migration-unsupported-pty-state'
 import { getDashboardPopoutWindow } from '../../window/dashboard-popout-window'
@@ -99,8 +99,8 @@ export function installMainWindowAgentStatusListeners(options: MainWindowAgentSt
       ...(turnStartedAt !== undefined ? { turnStartedAt } : {}),
       ...pickHostTurnEnd({ turnEndedAt, turnEndDisposition }),
       ...(providerSession ? { providerSession } : {}),
-      ...(publishedOrcaSessionId(agentIdentity) !== undefined
-        ? { orcaSessionId: publishedOrcaSessionId(agentIdentity) }
+      ...(publishedOpenKodoSessionId(agentIdentity) !== undefined
+        ? { openkodoSessionId: publishedOpenKodoSessionId(agentIdentity) }
         : {}),
       ...(promptInteractionKey ? { promptInteractionKey } : {}),
       ...(restoredUnconfirmed ? { restoredUnconfirmed: true } : {}),

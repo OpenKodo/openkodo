@@ -63,7 +63,7 @@ export function useMobileNativeChatComposerMenu(input: {
   /** A picked skill; a send carries its file while its token stays, and treats a leading one as chat. */
   onPickSkill?: (skill: Extract<ComposerMenuRow, { kind: 'skill' }>) => void
   /** An OpenKodo command row was picked; it outranks an earlier skill pick of the same token. */
-  onPickOrcaCommand?: (token: string) => void
+  onPickOpenKodoCommand?: (token: string) => void
   editing?: boolean
   interactionModeSupported?: boolean
   admitsInteractionMode?: (mode: AgentSessionInteractionMode) => boolean
@@ -216,8 +216,8 @@ export function useMobileNativeChatComposerMenu(input: {
     if (row.kind === 'command' && input.refuseCommand?.(row.token)) {
       return
     }
-    if (row.kind === 'command' && row.orcaOwned) {
-      input.onPickOrcaCommand?.(row.token)
+    if (row.kind === 'command' && row.openkodoOwned) {
+      input.onPickOpenKodoCommand?.(row.token)
     }
     const enterGoalMode = input.goalMode?.enter
     const changeMode = input.onPickInteractionMode
@@ -226,7 +226,7 @@ export function useMobileNativeChatComposerMenu(input: {
       structuredCatalog &&
       input.interactionModeSupported &&
       row.kind === 'command' &&
-      row.orcaOwned
+      row.openkodoOwned
         ? agentSessionInteractionCommand(agent ?? '', row.token)
         : null
     const modeDraft =

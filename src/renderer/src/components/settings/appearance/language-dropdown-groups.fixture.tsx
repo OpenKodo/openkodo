@@ -20,14 +20,14 @@ const builtIns = UI_LANGUAGE_CHOICES.map((choice) => ({
   lang: choice.value === 'system' ? undefined : choice.value
 }))
 function catalogPack(publisher: string, locale: string): CatalogLanguagePack {
-  const pluginKey = `${publisher}.orca-${locale}`
+  const pluginKey = `${publisher}.openkodo-${locale}`
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the dropdown reads only listing.pluginKey.
   const listing = { pluginKey } as CatalogLanguagePack['listing']
   return { id: `plugin:${pluginKey}/${locale}`, locale, listing }
 }
 
 function installedPack(publisher: string, locale: string): PluginLanguagePackRegistration {
-  const pluginKey = `${publisher}.orca-${locale}`
+  const pluginKey = `${publisher}.openkodo-${locale}`
   return {
     id: `plugin:${pluginKey}/${locale}`,
     resourceLanguage: locale,

@@ -40,13 +40,13 @@ type CliSectionProps = {
 
 function getInstallDescription(platform: string): string {
   if (platform === 'darwin') {
-    return 'Register `orca` in /usr/local/bin.'
+    return 'Register `openkodo` in /usr/local/bin.'
   }
   if (platform === 'linux') {
     return 'Register `openkodo` in ~/.local/bin.'
   }
   if (platform === 'win32') {
-    return 'Register `orca` in your user PATH.'
+    return 'Register `openkodo` in your user PATH.'
   }
   return 'CLI registration is not yet available on this platform.'
 }
@@ -305,7 +305,7 @@ export function CliSection({
               )}
               skillNames={[OPENKODO_CLI_SKILL_NAME]}
               target={skillRuntime.bundledSkillTarget}
-              // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+              // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
               terminalRuntime={agentRuntime}
               installed={cliSkillDetected}
               loading={cliSkillLoading}

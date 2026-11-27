@@ -3,7 +3,7 @@ import type { TelemetrySettings } from '../telemetry/telemetry-settings-types'
 import type { BrowserProfileScope } from '../browser/profiles/browser-profile-scope'
 import type { GlobalSettingsBase } from './global-settings-base'
 import type { ExecutionHostId } from '../execution-host/execution-host'
-import type { OrcaWorkspaceLayout } from '../worktree/paths/orca-workspace-layout'
+import type { OpenKodoWorkspaceLayout } from '../worktree/paths/openkodo-workspace-layout'
 import type { GitHubProjectSettings } from '../github/projects/project-types'
 import type { VoiceSettings } from '../speech/speech-types'
 import type { AiVaultSearchSettings } from '../ai-vault/search/ai-vault-search-settings'
@@ -53,7 +53,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   /** Per-host value is host override ?? client default, keyed by ExecutionHostId. */
   hostSettingOverrides?: Partial<Record<ExecutionHostId, HostSettingOverrides>>
   nestWorkspaces: boolean
-  workspaceDirHistory?: OrcaWorkspaceLayout[]
+  workspaceDirHistory?: OpenKodoWorkspaceLayout[]
   refreshLocalBaseRefOnWorktreeCreate: boolean
   /** Permanently dismisses the suggestion to enable local base refresh. */
   localBaseRefSuggestionDismissed: boolean
@@ -276,7 +276,7 @@ export type GlobalSettings = GlobalSettingsBase & {
   antigravityServerAutoUpdateEnabled?: boolean
   /** No longer read: Google-account chats always use agy's own login. Kept so older clients'
    *  updates of this host-owned key are still accepted. */
-  antigravityGoogleSignIn?: 'auto' | 'agy' | 'orca'
+  antigravityGoogleSignIn?: 'auto' | 'agy' | 'openkodo'
   /** Browser profile new tabs in a workspace use; missing = 'shared' (the Default profile). */
   browserProfileScope?: BrowserProfileScope
   /** Profile new tabs use per browser host when no repo/workspace profile applies; missing = Default. */

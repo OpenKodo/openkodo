@@ -1,25 +1,25 @@
 import {
   getPreferredPairedRuntimeConnection,
-  getOrcadSshDeployment
+  getOpenkododSshDeployment
 } from '../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { runtimeEnvironmentConnectionPairingKey } from '../connections/runtime-environment-capability-evidence'
 import { errorMessage } from '../../../../shared/errors/error-message'
 import { resolveEnvironment } from '../../../../shared/remote-runtime/host-store/runtime-environment-store'
-import { managedOrcadRefusalNeedingUserCode } from '../../../managed-server/lifecycle/orcad-managed-tunnel-identity'
+import { managedOpenkododRefusalNeedingUserCode } from '../../../managed-server/lifecycle/openkodod-managed-tunnel-identity'
 import {
-  managedOrcadPairingFailureStands,
-  recoverRefusedManagedOrcadPairing
-} from '../../../managed-server/lifecycle/orcad-managed-tunnel'
+  managedOpenkododPairingFailureStands,
+  recoverRefusedManagedOpenkododPairing
+} from '../../../managed-server/lifecycle/openkodod-managed-tunnel'
 import { withRuntimeEnvironmentStatusOwner } from '../connections/runtime-environment-request-connections'
 
 /** Null leaves user-managed pairing recovery to the caller. */
 export async function recoverRefusedManagedPairing(
   userDataPath: string,
   environmentId: string,
-  recover: typeof recoverRefusedManagedOrcadPairing = recoverRefusedManagedOrcadPairing
+  recover: typeof recoverRefusedManagedOpenkododPairing = recoverRefusedManagedOpenkododPairing
 ): Promise<'built' | 'repaired' | null> {
   try {
-    if (!getOrcadSshDeployment(await resolveEnvironment(userDataPath, environmentId))) {
+    if (!getOpenkododSshDeployment(await resolveEnvironment(userDataPath, environmentId))) {
       return null
     }
   } catch {
@@ -32,8 +32,8 @@ export async function recoverRefusedManagedPairing(
 export async function handleManagedSharedControlRefusal(
   userDataPath: string,
   environmentId: string,
-  recover: typeof recoverRefusedManagedOrcadPairing = recoverRefusedManagedOrcadPairing,
-  failureStands: typeof managedOrcadPairingFailureStands = managedOrcadPairingFailureStands
+  recover: typeof recoverRefusedManagedOpenkododPairing = recoverRefusedManagedOpenkododPairing,
+  failureStands: typeof managedOpenkododPairingFailureStands = managedOpenkododPairingFailureStands
 ): Promise<'retry' | 'stop' | null> {
   const expected = await resolveEnvironment(userDataPath, environmentId).catch(() => null)
   try {
@@ -41,7 +41,7 @@ export async function handleManagedSharedControlRefusal(
     return outcome === null ? null : outcome === 'repaired' ? 'stop' : 'retry'
   } catch (error: unknown) {
     // A concurrent pairing has a successor owner this failure never judged.
-    const code = managedOrcadRefusalNeedingUserCode(error)
+    const code = managedOpenkododRefusalNeedingUserCode(error)
     if (code && error instanceof Error && (await failureStands(userDataPath, environmentId))) {
       // Authentication refusal blocks retries until an explicit user connect.
       try {

@@ -1,6 +1,6 @@
 /** Resolve session identity before params, compatibility, receipts and dispatch branching; ids identify same-user callers, not credentials.
  * Refuse paired/SSH/WSL claims, provider ids that rotate on /clear, and non-live leases; a released (sleeping) one may act except as NEEDS_RUNNING_AGENT lists. Session identity overrides declarations and maps workers to minted handles/panes.
- * Without session evidence, a declared orca_session_id: may resolve a worker handle; a chat address alone identifies no caller. */
+ * Without session evidence, a declared openkodo_session_id: may resolve a worker handle; a chat address alone identifies no caller. */
 import {
   agentSessionLeaseAdmitsWriter,
   agentSessionLeaseIsReleased
@@ -8,26 +8,26 @@ import {
 import type { AgentSessionRecord } from '../../../../../shared/agent-session/lifecycle/agent-session-record'
 import { OPENKODO_AGENT_SESSION_ID_ENV } from '../../../../../shared/agent-session/lifecycle/launch/agent-session-caller-env'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../../shared/agent-session/identity/orca-session-address'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES as CODES } from '../../../../../shared/orchestration/orchestration-session-caller-codes'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type {
   OrchestrationEntryCaller,
   OrchestrationSessionCaller
 } from '../../../orchestration/addressing/orchestration-caller-identity'
 import { OrchestrationError } from '../../../orchestration/orchestration-error'
-import { canonicalOrcaSessionId } from '../../../orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../../../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import type { OrchestrationDb } from '../../../orchestration/db/orchestration-db'
 import {
   resolveDeclaredCallerParty,
-  resolveOrcaSessionParty,
+  resolveOpenKodoSessionParty,
   resolveOrchestrationParty
 } from '../../../orchestration/addressing/orchestration-party'
-import { lookupOrcaAgentSession } from '../../../orchestration/mailbox/routing/structured-session-mail-address'
+import { lookupOpenKodoAgentSession } from '../../../orchestration/mailbox/routing/structured-session-mail-address'
 import { conversationRecordReader } from '../../../orchestration/addressing/session-lineage/structured-session-lineage'
 import type { AgentSessionRecordStore } from '../../../agent-session/records/agent-session-record-store'
 import { getStructuredAgentSessionHost } from '../../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
@@ -94,12 +94,14 @@ function declaredSessionAddress(
   }
   const values: Record<string, unknown> = { ...params }
   const declared = values[name]
-  return typeof declared === 'string' && parseOrcaSessionAddress(declared) ? declared : undefined
+  return typeof declared === 'string' && parseOpenKodoSessionAddress(declared)
+    ? declared
+    : undefined
 }
 
 /** Only for a request `needsOrchestrationCallerResolution` accepts. Throws the refusal, if any. */
 export async function resolveOrchestrationSessionCaller(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   route: OrchestrationRequestRoute | undefined,
   /** The method's declared caller field (its access declaration), if it reads one. */
@@ -125,7 +127,7 @@ export async function resolveOrchestrationSessionCaller(
   const { sessionId, record } = await readActingSessionRecord(runtime, claimed, request.method)
   const db = runtime.getOrchestrationDb()
   const caller: OrchestrationSessionCaller = Object.freeze({
-    ...resolveOrcaSessionParty(sessionId, db),
+    ...resolveOpenKodoSessionParty(sessionId, db),
     sessionId,
     workspaceId: record.location.workspaceId
   })
@@ -142,11 +144,11 @@ export async function resolveOrchestrationSessionCaller(
 
 /** The record of the session an id names, refused unless that session runs on this host and may act now. */
 export async function readActingSessionRecord(
-  runtime: Pick<OrcaRuntimeService, 'ensureStructuredAgentSessionHost'>,
+  runtime: Pick<OpenKodoRuntimeService, 'ensureStructuredAgentSessionHost'>,
   claimed: unknown,
   method: string
-): Promise<{ sessionId: OrcaSessionId; record: AgentSessionRecord }> {
-  if (typeof claimed !== 'string' || !isOrcaSessionId(claimed)) {
+): Promise<{ sessionId: OpenKodoSessionId; record: AgentSessionRecord }> {
+  if (typeof claimed !== 'string' || !isOpenKodoSessionId(claimed)) {
     throw new OrchestrationError(
       CODES.unknown,
       'The caller named an ID that is not an OpenKodo session ID. No effects were applied.',
@@ -160,7 +162,7 @@ export async function readActingSessionRecord(
 
 /** The workspace an acting session runs in, refused like readActingSessionRecord. */
 export async function readActingSessionWorkspaceKey(
-  runtime: Pick<OrcaRuntimeService, 'ensureStructuredAgentSessionHost'>,
+  runtime: Pick<OpenKodoRuntimeService, 'ensureStructuredAgentSessionHost'>,
   sessionId: string,
   method: string
 ): Promise<string> {
@@ -168,7 +170,7 @@ export async function readActingSessionWorkspaceKey(
 }
 
 async function readSessionRecord(
-  runtime: Pick<OrcaRuntimeService, 'ensureStructuredAgentSessionHost'>,
+  runtime: Pick<OpenKodoRuntimeService, 'ensureStructuredAgentSessionHost'>,
   sessionId: string
 ): Promise<AgentSessionRecord> {
   let store: AgentSessionRecordStore | null
@@ -185,15 +187,15 @@ async function readSessionRecord(
       NO_EFFECTS
     )
   }
-  const found = lookupOrcaAgentSession(conversationRecordReader(store), sessionId)
+  const found = lookupOpenKodoAgentSession(conversationRecordReader(store), sessionId)
   if (found.kind === 'found') {
     return store.requireWritableRecord(found.record.sessionId)
   }
   if (found.kind === 'provider-id') {
     throw new OrchestrationError(
       CODES.providerId,
-      `${sessionId} is the provider's own session id, which changes on /clear. This session's OpenKodo session ID is ${OPENKODO_SESSION_ADDRESS_PREFIX}${found.orcaSessionId}; set ${OPENKODO_AGENT_SESSION_ID_ENV}=${found.orcaSessionId} instead. No effects were applied.`,
-      { ...NO_EFFECTS, orcaSessionId: found.orcaSessionId }
+      `${sessionId} is the provider's own session id, which changes on /clear. This session's OpenKodo session ID is ${OPENKODO_SESSION_ADDRESS_PREFIX}${found.openkodoSessionId}; set ${OPENKODO_AGENT_SESSION_ID_ENV}=${found.openkodoSessionId} instead. No effects were applied.`,
+      { ...NO_EFFECTS, openkodoSessionId: found.openkodoSessionId }
     )
   }
   throw new OrchestrationError(
@@ -228,7 +230,7 @@ function assertSessionCanAct(sessionId: string, record: AgentSessionRecord, meth
   )
 }
 
-/** A request with no session id that declares an `orca_session_id:` caller: a worker's is its handle. */
+/** A request with no session id that declares an `openkodo_session_id:` caller: a worker's is its handle. */
 function bindDeclaredSessionAddress(
   db: OrchestrationDb,
   request: RpcRequest,
@@ -252,8 +254,8 @@ function declaredNamesCaller(
   if (typeof declared !== 'string') {
     return false
   }
-  if (isOrcaSessionId(declared)) {
-    return canonicalOrcaSessionId(declared) === caller.orcaSessionId
+  if (isOpenKodoSessionId(declared)) {
+    return canonicalOpenKodoSessionId(declared) === caller.openkodoSessionId
   }
   try {
     return resolveOrchestrationParty(declared, db).address === caller.address

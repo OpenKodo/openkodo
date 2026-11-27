@@ -117,7 +117,7 @@ export function usePluginPageNavigation(
 /** The version plugins are gated against, for "Needs OpenKodo X" checks; null until known. Why not
  *  the raw app version: main gates on pluginHostVersion, and a development build's package version
  *  lags the fields it already reads, so the two must agree. */
-export function useOrcaVersion(): string | null {
+export function useOpenKodoVersion(): string | null {
   const [version, setVersion] = useState<string | null>(null)
   useEffect(() => {
     let stale = false

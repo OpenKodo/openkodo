@@ -11,9 +11,9 @@ const avatar = {
 } as const
 
 const githubRepo: Repo = {
-  id: 'orca',
-  path: '/Users/nwparker/orca/workspaces/orca/sidebar-squashed',
-  displayName: 'orca',
+  id: 'openkodo',
+  path: '/Users/nwparker/openkodo/workspaces/openkodo/sidebar-squashed',
+  displayName: 'openkodo',
   badgeColor: '#8b5cf6',
   repoIcon: avatar,
   addedAt: 1,
@@ -70,7 +70,7 @@ const folderRepo: Repo = {
 
 const longRepo: Repo = {
   id: 'long',
-  path: '/Users/nwparker/orca/workspaces/orca-internal/customer-onboarding-flow-redesign-with-billing-migration',
+  path: '/Users/nwparker/openkodo/workspaces/openkodo-internal/customer-onboarding-flow-redesign-with-billing-migration',
   displayName: 'customer-onboarding-flow-redesign-with-billing-migration',
   badgeColor: '#0ea5e9',
   repoIcon: { type: 'lucide', name: 'Rocket' },
@@ -84,9 +84,9 @@ const longRepo: Repo = {
 }
 
 const lettersRepo: Repo = {
-  id: 'orca-internal',
-  path: '/Users/nwparker/code/orca-internal',
-  displayName: 'orca-internal',
+  id: 'openkodo-internal',
+  path: '/Users/nwparker/code/openkodo-internal',
+  displayName: 'openkodo-internal',
   badgeColor: '#737373',
   repoIcon: { type: 'letters', text: 'OI' },
   addedAt: 6

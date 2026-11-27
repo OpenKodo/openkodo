@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
-import { OrcaRuntimeService } from '../../orca-runtime'
-import { sendRestartContinuePrompt } from '../../construction/orca-runtime-terminal-worker-restart-resume'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
+import { sendRestartContinuePrompt } from '../../construction/openkodo-runtime-terminal-worker-restart-resume'
 
 const COMPOSER = '\x1b[?2004h\x1b[?1049h› Ask Codex to do anything\r\n'
 // Codex's hooks review, opening over a brief that was already pasted.
@@ -20,7 +20,7 @@ it.each([
 ])(
   'a worker $prompt presses Enter only into its own composer (dialog=$dialog, input=$input)',
   async ({ prompt, dialog, input, enter }) => {
-    const runtime = new OrcaRuntimeService()
+    const runtime = new OpenKodoRuntimeService()
     const writes: string[] = []
     let seq = 1
     runtime.setPtyController({

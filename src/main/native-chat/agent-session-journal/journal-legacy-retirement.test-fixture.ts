@@ -82,7 +82,7 @@ export async function fakeLease(filename: string) {
 }
 
 /** An older OpenKodo's writable open of the original, adding one chat with saved history. */
-export function olderOrcaChat(filename: string, sessionId: string): void {
+export function olderOpenKodoChat(filename: string, sessionId: string): void {
   const { db } = openJournalDatabase(filename)
   runJournalTransaction(db, () => {
     publishJournalSessionEpoch(db, { sessionId, workspaceId: 'workspace' }, 'epoch')
@@ -98,7 +98,7 @@ export function olderOrcaChat(filename: string, sessionId: string): void {
 }
 
 /** An older OpenKodo's later turns in a chat, as a new epoch replacing the old (as its /clear does). */
-export function continueInOlderOrca(filename: string, sessionId: string): void {
+export function continueInOlderOpenKodo(filename: string, sessionId: string): void {
   const { db } = openJournalDatabase(filename)
   runJournalTransaction(db, () => {
     db.prepare("DELETE FROM journal_rows WHERE session_id=? AND epoch<>'continued'").run(sessionId)
@@ -123,13 +123,13 @@ export async function profile(
     storage?: () => Promise<JournalConversionStorage>
   } = {}
 ) {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-retirement-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-retirement-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const filename = journalDatabasePath(root)
   if (options.original) {
     options.original(filename)
   } else {
-    olderOrcaChat(filename, 'unopened')
+    olderOpenKodoChat(filename, 'unopened')
   }
   if (options.seed) {
     const { db: legacy } = openJournalDatabase(filename)

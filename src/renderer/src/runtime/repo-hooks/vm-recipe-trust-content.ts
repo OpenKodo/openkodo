@@ -1,7 +1,7 @@
-import type { OrcaHooks } from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 
 /** The environment recipe commands a vmRecipe trust approval covers. */
-export function getVmRecipeTrustContent(yamlHooks: OrcaHooks | null): string {
+export function getVmRecipeTrustContent(yamlHooks: OpenKodoHooks | null): string {
   return (yamlHooks?.environmentRecipes ?? [])
     .map((recipe) =>
       [

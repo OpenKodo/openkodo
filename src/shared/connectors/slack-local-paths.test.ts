@@ -4,7 +4,7 @@ import { redactLocalPaths } from './slack-local-paths'
 describe('redactLocalPaths', () => {
   it('turns a local image embed into its words', () => {
     expect(
-      redactLocalPaths('Here:\n![side by side](~/.orca/reports/bot-share/side.png)\nDone.')
+      redactLocalPaths('Here:\n![side by side](~/.openkodo/reports/bot-share/side.png)\nDone.')
     ).toBe('Here:\nside by side\nDone.')
   })
 
@@ -339,7 +339,7 @@ describe('redactLocalPaths', () => {
   it('reduces bare paths to the file name, in prose and code', () => {
     expect(
       redactLocalPaths(
-        'Saved to /Users/ada/.orca/reports/x/report.html, also `~/notes/plan.md`.\n```\ncat /tmp/run/out.log\n```'
+        'Saved to /Users/ada/.openkodo/reports/x/report.html, also `~/notes/plan.md`.\n```\ncat /tmp/run/out.log\n```'
       )
     ).toBe('Saved to report.html, also `plan.md`.\n```\ncat out.log\n```')
   })

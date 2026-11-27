@@ -33,7 +33,7 @@ export function transformPluginSourceWithMappings(
   const result = transform(source, {
     transforms: TRANSFORMS_BY_EXTENSION[posix.extname(relativePath).toLowerCase()] ?? [],
     jsxRuntime: 'automatic',
-    jsxImportSource: 'orca',
+    jsxImportSource: 'openkodo',
     production: true,
     // Why: Chromium and the worker's Node run modern syntax as written; only types and JSX go.
     disableESTransforms: true,

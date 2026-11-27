@@ -27,7 +27,7 @@ export function codexHistoryItemKeys(
       recordId: continuedOutsideRecordId(turnId)
     }),
     agentJournalItemKey({
-      provider: 'orca',
+      provider: 'openkodo',
       clientMessageId: `codex-compaction:${codexCompactionKey(input.threadId, turnId)}`
     })
   ])
@@ -58,7 +58,7 @@ export function codexHistoryItemKeys(
       }
     }
     if (typeof item.clientId === 'string') {
-      keys.add(agentJournalItemKey({ provider: 'orca', clientMessageId: item.clientId }))
+      keys.add(agentJournalItemKey({ provider: 'openkodo', clientMessageId: item.clientId }))
     }
   }
   return [...keys]

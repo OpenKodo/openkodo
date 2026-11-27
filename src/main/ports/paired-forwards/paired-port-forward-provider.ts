@@ -1,6 +1,6 @@
 import { createServer, type Server, type Socket } from 'node:net'
 import { BROWSER_NETWORK_TUNNEL_MAX_STREAMS } from '../../browser/network/tunnels/browser-network-tunnel-stream-state'
-import { reserveBrowserTunnelOrcaListenerPort } from '../../browser/network/tunnels/browser-network-tunnel-destination-policy'
+import { reserveBrowserTunnelOpenKodoListenerPort } from '../../browser/network/tunnels/browser-network-tunnel-destination-policy'
 import { pipeUpstreamToClient } from '../../browser/network/tunnels/remote-browser-socks-upstream'
 import { createSocksClientAdmission } from '../../browser/network/tunnels/remote-browser-socks-client-owner'
 import { listenForPortForward } from '../../ssh/port-forwarding/ssh2-port-forward-provider'
@@ -97,7 +97,7 @@ export class PairedPortForwardProvider implements SshPortForwardProvider<PairedP
       }
     }
     // This desktop's own paired clients must not reach the server's ports through this listener.
-    const releaseReservation = reserveBrowserTunnelOrcaListenerPort(localPort)
+    const releaseReservation = reserveBrowserTunnelOpenKodoListenerPort(localPort)
 
     const close = (): Promise<void> => {
       if (closed) {

@@ -43,7 +43,7 @@ export function defaultHostTerminalLedgerDir(
   uid: number | undefined = process.getuid?.()
 ): string | null {
   if (platform === 'win32') {
-    return join(tmpdir(), 'orca-daemon-host-terminals')
+    return join(tmpdir(), 'openkodo-daemon-host-terminals')
   }
   // Network-mounted home directories can span hosts; the ledger must stay machine-local.
   return uid === undefined

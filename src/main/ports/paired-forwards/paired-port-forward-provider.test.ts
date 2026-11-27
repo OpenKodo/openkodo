@@ -81,7 +81,7 @@ describe('PairedPortForwardProvider', () => {
         true
       )
       // Another paired client of this desktop must not chain through the forward to the server.
-      expect(browserTunnelTargetBlockReason('127.0.0.1', port)).toBe('orca_listener')
+      expect(browserTunnelTargetBlockReason('127.0.0.1', port)).toBe('openkodo_listener')
     } finally {
       await forward.close()
     }

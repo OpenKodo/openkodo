@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render, within, type RenderResult } from '@tes
 import { afterEach, beforeEach, expect, vi } from 'vitest'
 import type { GlobalSettings } from '../../../../../../shared/settings/global-settings-types'
 import type { AiVaultSession } from '../../../../../../shared/ai-vault/contracts/ai-vault-types'
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import { searchHit } from '../../../../../../shared/ai-vault/search/ai-vault-search-test-fixture'
 import { useAppStore } from '../../../../store/index'
 import { TooltipProvider } from '@/components/ui/tooltip'

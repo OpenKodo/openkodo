@@ -22,7 +22,7 @@ import {
   noteBrowserExtensionSidePanelAdmitted
 } from './browser-extension-side-panel-guests'
 
-const ATTACH_MARKER = 'data:text/html,orca-side-panel-attach-'
+const ATTACH_MARKER = 'data:text/html,openkodo-side-panel-attach-'
 
 /** The renderer asks for a webview src; main hands out a one-use marker it alone can redeem. */
 export function prepareBrowserExtensionSidePanelAttach(panelId: string): string | null {

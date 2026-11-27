@@ -53,7 +53,7 @@ export function handedAgentRows(agents: readonly BotHandedAgentObservation[]): B
 }
 
 /** OpenKodo writes these prompts itself (mail, restart notes), so they never name the agent's work. */
-function isOrcaWrittenPrompt(prompt: string): boolean {
+function isOpenKodoWrittenPrompt(prompt: string): boolean {
   return (
     prompt.startsWith('──── From: ') ||
     prompt.startsWith(AGENT_SESSION_RESTART_CONTINUATION_MESSAGE) ||
@@ -69,7 +69,7 @@ function handedAgentTitle(agent: BotHandedAgentObservation): string {
     agent.taskTitle ||
     agent.title ||
     question ||
-    (prompt && !isOrcaWrittenPrompt(prompt) ? prompt : '') ||
+    (prompt && !isOpenKodoWrittenPrompt(prompt) ? prompt : '') ||
     worktreeFolderName(agent.worktreeId)
   )
 }

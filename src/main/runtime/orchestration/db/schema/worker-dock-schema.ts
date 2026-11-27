@@ -5,7 +5,7 @@ import type { OrchestrationDb } from '../orchestration-db'
 // The projection is written inside the existing lifecycle/report transaction, before its wake.
 const projection = (identity: string) => `
   INSERT INTO worker_dock_facts(dispatch_id, source, home, state, changed_at, report_id, settlement, model, reason)
-  SELECT d.id, COALESCE(d.creator_orca_session_id, CASE WHEN d.creator_dispatch_id IS NULL THEN r.coordinator_orca_session_id END),
+  SELECT d.id, COALESCE(d.creator_openkodo_session_id, CASE WHEN d.creator_dispatch_id IS NULL THEN r.coordinator_openkodo_session_id END),
     CASE WHEN r.home_database = 'this_database' THEN (SELECT id FROM worker_dock_authority LIMIT 1) ELSE r.home_database END, w.state,
     COALESCE(f.home_received_at, CAST(round(unixepoch(w.updated_at, 'subsec') * 1000) AS INTEGER)),
     CASE WHEN f.facet = 'worker_report' AND json_extract(f.payload, '$.status') = 'accepted'
@@ -77,7 +77,7 @@ export function installWorkerDockSchema(this: OrchestrationDb): void {
   }
   for (const [table, identity, columns] of [
     ['worker_dispatches', 'NEW.dispatch_id', 'state, start_options, last_error'],
-    ['dispatch_contexts', 'NEW.id', 'creator_orca_session_id'],
+    ['dispatch_contexts', 'NEW.id', 'creator_openkodo_session_id'],
     ['attempt_observation_facts', 'NEW.dispatch_id', 'payload']
   ]) {
     for (const event of ['INSERT', `UPDATE OF ${columns}`]) {
@@ -87,9 +87,9 @@ export function installWorkerDockSchema(this: OrchestrationDb): void {
     }
   }
   this.db
-    .exec(`CREATE TRIGGER IF NOT EXISTS worker_dock_run_source AFTER UPDATE OF coordinator_orca_session_id ON runs BEGIN
-    UPDATE worker_dock_facts SET source = NEW.coordinator_orca_session_id
-      WHERE dispatch_id IN (SELECT id FROM dispatch_contexts WHERE run_id = NEW.id AND creator_orca_session_id IS NULL AND creator_dispatch_id IS NULL);
+    .exec(`CREATE TRIGGER IF NOT EXISTS worker_dock_run_source AFTER UPDATE OF coordinator_openkodo_session_id ON runs BEGIN
+    UPDATE worker_dock_facts SET source = NEW.coordinator_openkodo_session_id
+      WHERE dispatch_id IN (SELECT id FROM dispatch_contexts WHERE run_id = NEW.id AND creator_openkodo_session_id IS NULL AND creator_dispatch_id IS NULL);
   END;
   CREATE TRIGGER IF NOT EXISTS worker_dock_report_deleted AFTER DELETE ON messages BEGIN
     UPDATE worker_dock_facts SET report_id = NULL, result_lost_at = CAST(round(unixepoch('now', 'subsec') * 1000) AS INTEGER), changed_at = CAST(round(unixepoch('now', 'subsec') * 1000) AS INTEGER) WHERE report_id = OLD.id;

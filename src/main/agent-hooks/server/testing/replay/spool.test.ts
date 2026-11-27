@@ -21,7 +21,7 @@ import { makePaneKey } from '../../../../../shared/workspace-layout/stable-pane-
 
 describe('agent hook spool', () => {
   it('waits for a newline before replaying a complete-looking final record', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'orca-spool-unterminated-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-spool-unterminated-'))
     const spool = join(dir, 'spool')
     mkdirSync(spool)
     const file = join(spool, 'pane-live.jsonl')
@@ -50,7 +50,7 @@ describe('agent hook spool', () => {
   })
 
   it('does not let historical empty pane files starve newer records', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'orca-spool-empty-files-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-spool-empty-files-'))
     const spool = join(dir, 'spool')
     mkdirSync(spool)
     for (let index = 0; index < AGENT_HOOK_SPOOL_MAX_FILES; index += 1) {
@@ -74,7 +74,7 @@ describe('agent hook spool', () => {
   })
 
   it('rejects stale launch tokens before ingest and truncates in place', async () => {
-    const dir = mkdtempSync(join(tmpdir(), 'orca-spool-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-spool-'))
     const spool = join(dir, 'spool')
     mkdirSync(spool)
     const file = join(spool, 'pane-1.jsonl')
@@ -97,7 +97,7 @@ describe('agent hook spool', () => {
   })
 
   it('rejects a stale remote replay against the hydrated launch-token fence', async () => {
-    const userDataPath = mkdtempSync(join(tmpdir(), 'orca-spool-remote-fence-'))
+    const userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-spool-remote-fence-'))
     const paneKey = makePaneKey('tab-remote-fence', '00000000-0000-4000-8000-000000000003')
     const first = new AgentHookServer()
     const second = new AgentHookServer()

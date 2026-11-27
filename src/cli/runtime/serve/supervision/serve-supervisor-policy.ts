@@ -1,4 +1,4 @@
-import type { ProcessResult } from '@orca/process-host/process-spec'
+import type { ProcessResult } from '@openkodo/process-host/process-spec'
 import type { ServeUpdateHandoffState } from '../../../../shared/remote-runtime/serve-supervisor/serve-update-handoff'
 
 type ExitSignal = ProcessResult['signal']

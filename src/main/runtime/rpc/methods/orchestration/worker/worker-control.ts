@@ -1,6 +1,6 @@
 import { cancelWorkerStartWait } from './start/readiness/worker-start-waits'
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { OrchestrationWorkerReadResult } from '../../../../../../shared/orchestration/workers/orchestration-worker-output'
 import { exposeDispatchContext } from './observation/dispatch-context-exposure'
@@ -212,7 +212,7 @@ export const ORCHESTRATION_WORKER_CONTROL_METHODS = [
 
 /** Every local read source (archive, chat, terminal) returns here, so one projection decorates them all. */
 async function readLocalWorkerOutput(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: z.infer<typeof WorkerReadParams>,
   dispatch: NonNullable<ReturnType<OrchestrationDb['getDispatchContextById']>>,
   worker: ReturnType<OrchestrationDb['getWorkerDispatch']>

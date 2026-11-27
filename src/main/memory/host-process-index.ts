@@ -1,6 +1,6 @@
 import { readlink } from 'node:fs/promises'
 import os from 'node:os'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { enumerateWindowsProcessResources } from './windows-process-resource-collector'
 import { getProcessMemoryMetric } from './process-memory-metric'
 import { readDarwinProcessFootprints } from './darwin-process-footprint'

@@ -22,8 +22,8 @@ export const PUSH_LIMITS = {
 } as const
 
 export const PUSH_DEFAULTS = {
-  apnsTopic: 'com.stably.orca.mobile',
-  androidChannelId: 'orca-desktop'
+  apnsTopic: 'dev.openkodo.mobile',
+  androidChannelId: 'openkodo-desktop'
 } as const
 
 export const PUSH_HOST_FINGERPRINT_LENGTH = 16

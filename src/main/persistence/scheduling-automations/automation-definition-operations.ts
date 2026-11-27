@@ -12,7 +12,7 @@ import type {
   AutomationCreateInput
 } from '../../../shared/automations/automation-definition'
 import type { AutomationRun } from '../../../shared/automations/history/automation-run'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { normalizeAutomationPrecheck } from '../../../shared/automations/launch/automation-precheck'
 import {
   assertAutomationExtraAgentArgs,
@@ -34,7 +34,7 @@ import {
 } from './automation-context-migration'
 import { firstAutomationRunAt } from './automation-schedule-operations'
 import { botAndTriggerFields } from './automation-bot-trigger-fields'
-import { refuseManagedOrcadHost } from '../../automations/ownership/orcad-fenced-automation'
+import { refuseManagedOpenkododHost } from '../../automations/ownership/openkodod-fenced-automation'
 import {
   automationProjectionContext,
   automationWorkspaceSshPin,
@@ -90,7 +90,7 @@ export function createAutomation(
         ),
         workspaceSshPin
       })
-  refuseManagedOrcadHost(operations.state, executionTarget, workspaceSshPin)
+  refuseManagedOpenkododHost(operations.state, executionTarget, workspaceSshPin)
   if (options?.destination) {
     const context = automationProjectionContext(
       operations.state,

@@ -19,7 +19,7 @@ type RegisteredRoute = LocalhostWorktreeLabelRoute & {
   target: URL
 }
 
-const OPENKODO_LOCALHOST_SUFFIX = '.orca.localhost'
+const OPENKODO_LOCALHOST_SUFFIX = '.openkodo.localhost'
 
 export class LocalhostWorktreeLabelProxy {
   private server: Server | null = null

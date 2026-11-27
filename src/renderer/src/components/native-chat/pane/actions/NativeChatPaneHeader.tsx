@@ -19,8 +19,8 @@ import { NativeChatSettingsButton } from '../../appearance/NativeChatSettingsBut
 import type { NativeChatStructuredViewProps } from '../../native-chat-view-types'
 import type { NativeChatHandOff } from './use-native-chat-hand-off'
 
-const HEADER_STYLE: React.CSSProperties & Record<'--orca-pane-title-bg', string> = {
-  '--orca-pane-title-bg': 'var(--chat-canvas)'
+const HEADER_STYLE: React.CSSProperties & Record<'--openkodo-pane-title-bg', string> = {
+  '--openkodo-pane-title-bg': 'var(--chat-canvas)'
 }
 
 export type NativeChatHeaderHandOff = { open: () => void; disabled: boolean }

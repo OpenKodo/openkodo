@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   TerminalStreamOpcode,
   encodeTerminalStreamJson
@@ -26,7 +26,7 @@ export function isTerminalSnapshotForcedUnavailable(): boolean {
 }
 
 export async function serializeBudgetedRequestedSnapshot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   ptyId: string,
   scrollbackRows: number | undefined
 ): Promise<SerializedSnapshot> {
@@ -100,7 +100,7 @@ type SnapshotVariableMeta = Pick<
   | 'lastTitle'
 >
 
-type TerminalBufferSource = Pick<OrcaRuntimeService, 'serializeTerminalBuffer'>
+type TerminalBufferSource = Pick<OpenKodoRuntimeService, 'serializeTerminalBuffer'>
 
 /** Carry publication fields with the cap: measuring snapshot text alone omits caller-owned metadata. */
 export type MobileSnapshotByteBudget = {
@@ -126,7 +126,7 @@ export type MobileSnapshotByteBudget = {
 /** `JSON.stringify` writes `false` in five bytes and `true` in four, so `false` is the bound. */
 const WIDEST_BOOLEAN = false
 
-type MobileDisplayMode = ReturnType<OrcaRuntimeService['getMobileDisplayMode']>
+type MobileDisplayMode = ReturnType<OpenKodoRuntimeService['getMobileDisplayMode']>
 
 const DISPLAY_MODES = ['auto', 'desktop'] as const satisfies readonly MobileDisplayMode[]
 
@@ -230,7 +230,7 @@ export async function serializeBudgetedMobileSnapshot(
 }
 
 type RendererBufferSource = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'getPtyOutputSequence' | 'serializeRendererTerminalBuffer'
 >
 
@@ -273,7 +273,7 @@ export async function serializeStableMobileRendererSnapshot(
 
 // Restored hard newlines cannot rewrap in mobile xterm; reserialize the full buffer at the new columns.
 export async function sendMobileResizeRestream(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   ptyId: string,
   sendFrame: (opcode: TerminalStreamOpcode, payload?: Uint8Array<ArrayBufferLike>) => void,
   event: { cols: number; rows: number; displayMode: string; reason: string; seq?: number },

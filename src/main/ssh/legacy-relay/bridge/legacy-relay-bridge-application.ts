@@ -5,7 +5,7 @@
 import { LEGACY_RELAY_BRIDGE_CHANNELS as CHANNELS } from '../../../../shared/remote-runtime/relay/legacy-relay-bridge-contract'
 import { isRemoteCliControlAllowed } from '../../../../shared/remote-runtime/ssh/ssh-remote-cli-control'
 import type { Store } from '../../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { PtyRetirementWithoutProof } from '../../../pty/process-retirement/pty-exit-proof'
 import { toAppSshPtyId } from '../../../../shared/remote-runtime/ssh/ssh-pty-id'
 import { track } from '../../../telemetry/client'
@@ -25,7 +25,7 @@ export function installLegacyRelayBridgeApplication(args: {
     | 'getSshTarget'
   >
   connection: (targetId: string) => SshConnection | null
-  runtime?: () => OrcaRuntimeService | null
+  runtime?: () => OpenKodoRuntimeService | null
 }): void {
   const send = (channel: string, payload: unknown): void => {
     sshDesktopHost().publish(channel, payload)

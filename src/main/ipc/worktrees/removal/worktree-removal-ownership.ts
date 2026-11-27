@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { getLocalPtyProvider } from '../../pty/provider/registry'
 import { clearProviderPtyState } from '../../pty/provider/state-cleanup'
 import { killAllProcessesForWorktree } from '../../../runtime/workspaces/removal/worktree-teardown'
@@ -14,14 +14,14 @@ import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 import { agentHookServer } from '../../../agent-hooks/server/agent-hook-server'
 import { removeWorktreeMetaRow } from '../../../persistence/host-qualified-worktree-meta'
 import { pruneWorktreePRRefreshAliases } from '../../../github/pull-requests/refresh/pr-refresh-coordinator'
-import { dropOrcaCreatedAgentTrustForRemovedWorktree } from '../../../runtime/workspaces/removal/worktree-removal-agent-trust-cleanup'
+import { dropOpenKodoCreatedAgentTrustForRemovedWorktree } from '../../../runtime/workspaces/removal/worktree-removal-agent-trust-cleanup'
 import {
   dropRemovedWorktreeProcessState,
   pruneRemovedWorktreeSnapshots
 } from '../../../workspaces/removal/worktree-removal-process-cleanup'
 
 export async function stopPtysForDestructiveWorktreeRemoval(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   worktreeId: string,
   options: { connectionId?: string; allowUnverifiedStop?: boolean } = {}
 ): Promise<void> {
@@ -74,7 +74,7 @@ export function removeWorktreeMetadataAndTransientState(
     entryPoint = 'worktree-removal'
   }: {
     store: Store
-    runtime: Pick<OrcaRuntimeService, 'releaseRemovedWorktreeHostSessions'>
+    runtime: Pick<OpenKodoRuntimeService, 'releaseRemovedWorktreeHostSessions'>
     entryPoint?: 'worktree-removal' | 'folder-removal'
   },
   worktreeId: string,
@@ -96,7 +96,7 @@ export function removeWorktreeMetadataAndTransientState(
   // Why: trust is keyed by this path in local files; another host's repo copy doesn't use it.
   const pretrustDrop =
     options.dropAgentTrust && !worktreeOwnedByOtherHost
-      ? dropOrcaCreatedAgentTrustForRemovedWorktree(worktreeId)
+      ? dropOpenKodoCreatedAgentTrustForRemovedWorktree(worktreeId)
       : undefined
   if (!preservesSameIdOwner) {
     dropRemovedWorktreeProcessState(worktreeId)

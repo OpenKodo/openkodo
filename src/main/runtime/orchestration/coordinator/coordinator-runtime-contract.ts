@@ -44,5 +44,5 @@ export type CoordinatorRuntime = {
   // The worker's native/WSL pane determines its packaged CLI name.
   getTerminalOrchestrationCliCommand?(
     handle: string
-  ): 'openkodo' | 'openkodo-dev' | 'orca' | 'orca-dev' | 'orca-ide'
+  ): 'openkodo' | 'openkodo-dev' | 'openkodo' | 'openkodo-dev' | 'openkodo-ide'
 }

@@ -45,37 +45,37 @@ export function noteAgyLoginChanged(): void {
   // The old login's answer no longer holds; the next check gives the new one.
   lastAgySignIn = null
 }
-let lastRunsInOrcaHome = false
+let lastRunsInOpenKodoHome = false
 
 /** Whether the latest new-chat answer runs chats in a home OpenKodo owns, which loads skill folders but
  *  not `~/.gemini`'s plugins; false before any. */
-export function lastAntigravityChatRunsInOrcaHome(): boolean {
-  return lastRunsInOrcaHome
+export function lastAntigravityChatRunsInOpenKodoHome(): boolean {
+  return lastRunsInOpenKodoHome
 }
 
 /** Where new chats run on this host for the saved method: agy's own home (true) or OpenKodo's. */
 export function antigravityChatRunsOnAgyHome(savedAuth: unknown): boolean {
   const personal = savedChatAuthIsPersonal(savedAuth)
-  lastRunsInOrcaHome = !personal
+  lastRunsInOpenKodoHome = !personal
   return personal
 }
-let agyOrcaHomeRevision = 0
-const agyOrcaHomeListeners = new Set<() => void>()
+let agyOpenKodoHomeRevision = 0
+const agyOpenKodoHomeListeners = new Set<() => void>()
 
 /** Changes whenever a saved key changes, which decides whether key chats and their listings run. */
-export function antigravityAgyOrcaHomeRevision(): number {
-  return agyOrcaHomeRevision
+export function antigravityAgyOpenKodoHomeRevision(): number {
+  return agyOpenKodoHomeRevision
 }
 
-export function onAntigravityAgyOrcaHomeChanged(listener: () => void): () => void {
-  agyOrcaHomeListeners.add(listener)
-  return () => agyOrcaHomeListeners.delete(listener)
+export function onAntigravityAgyOpenKodoHomeChanged(listener: () => void): () => void {
+  agyOpenKodoHomeListeners.add(listener)
+  return () => agyOpenKodoHomeListeners.delete(listener)
 }
 
 /** A saved Gemini API key was added or removed. */
 export function onAntigravityChatApiKeyChanged(): void {
-  agyOrcaHomeRevision += 1
-  agyOrcaHomeListeners.forEach((listener) => listener())
+  agyOpenKodoHomeRevision += 1
+  agyOpenKodoHomeListeners.forEach((listener) => listener())
 }
 
 /** Whether agy on its own home is definitely signed out, as the latest check (a chat start, an

@@ -1,6 +1,6 @@
 // Loaded on first host install: the host, router and every provider adapter stay out of startup.
 
-import { writeStructuredAgentSessionOrcaNote } from '../../../native-chat/agent-session-wire/structured-agent-session-orca-note'
+import { writeStructuredAgentSessionOpenKodoNote } from '../../../native-chat/agent-session-wire/structured-agent-session-openkodo-note'
 import { readTurnEndedItems } from '../../../native-chat/agent-session-wire/structured-agent-session-turn-context'
 import { bindAtRestCommandContexts } from '../../../native-chat/agent-session-wire/options/at-rest-command-context'
 import { StructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-host'
@@ -140,7 +140,7 @@ export async function installOnJournal(
             async (since) =>
               readTurnEndedItems(await installed.journalReads(sessionId), turnId, since),
             (clientMessageId, body) =>
-              writeStructuredAgentSessionOrcaNote(installed, sessionId, clientMessageId, body),
+              writeStructuredAgentSessionOpenKodoNote(installed, sessionId, clientMessageId, body),
             { outcome }
           )
         }

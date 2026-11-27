@@ -7,7 +7,7 @@ import { registerSlackHandOffHandlers } from '../../ipc/slack-hand-off'
 import { registerAvatarGenerationHandlers } from '../../avatar-generation/avatar-generation-ipc'
 import { browserManager } from '../../browser/guest-lifecycle/manager/browser-manager'
 import { installGoogleSetupHostWatch } from '../../google/google-setup-host-watch'
-import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
 import { mainProcessState as state } from '../main-process-state'
 
 /**

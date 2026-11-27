@@ -11,7 +11,7 @@ import { getCodexManagedScriptFileName } from '../definitions/codex-hook-identit
 import {
   getRealHomeCodexHookHome,
   type CodexHookHome
-} from '../../trust/hooks/codex-hook-orca-approvals'
+} from '../../trust/hooks/codex-hook-openkodo-approvals'
 import { mutateRealHomeHooksPreservingUserTrust } from '../../trust/hooks/codex-user-hook-trust-moves'
 
 /** Move shifted user approvals; the caller removes OpenKodo's own approvals. */

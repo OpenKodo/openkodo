@@ -9,17 +9,17 @@ import { RuntimeRpcCallError } from '@/runtime/rpc/calls/runtime-rpc-result'
 import DeleteWorktreeDialog from './DeleteWorktreeDialog'
 
 const repo: Repo = {
-  id: 'orca-plugins',
-  path: '/Users/me/orca/orca-plugins',
-  displayName: 'orca-plugins',
+  id: 'openkodo-plugins',
+  path: '/Users/me/openkodo/openkodo-plugins',
+  displayName: 'openkodo-plugins',
   badgeColor: '',
   addedAt: 1
 }
 
 const worktree: Worktree = {
-  id: 'orca-plugins::/Users/me/orca/workspaces/orca-plugins/support-editable-excalidraw',
+  id: 'openkodo-plugins::/Users/me/openkodo/workspaces/openkodo-plugins/support-editable-excalidraw',
   repoId: repo.id,
-  path: '/Users/me/orca/workspaces/orca-plugins/support-editable-excalidraw',
+  path: '/Users/me/openkodo/workspaces/openkodo-plugins/support-editable-excalidraw',
   displayName: 'Support editable .excalidraw.svg and .excalidraw.png files',
   branch: 'support-editable-excalidraw',
   head: 'abc123',
@@ -38,16 +38,16 @@ const worktree: Worktree = {
 
 const shortWorktree: Worktree = {
   ...worktree,
-  id: 'orca-plugins::/Users/me/orca/workspaces/orca-plugins/fix-login',
-  path: '/Users/me/orca/workspaces/orca-plugins/fix-login',
+  id: 'openkodo-plugins::/Users/me/openkodo/workspaces/openkodo-plugins/fix-login',
+  path: '/Users/me/openkodo/workspaces/openkodo-plugins/fix-login',
   displayName: 'fix-login',
   branch: 'fix-login'
 }
 
 const thirdWorktree: Worktree = {
   ...worktree,
-  id: 'orca-plugins::/Users/me/orca/workspaces/orca-plugins/docs-refresh',
-  path: '/Users/me/orca/workspaces/orca-plugins/docs-refresh',
+  id: 'openkodo-plugins::/Users/me/openkodo/workspaces/openkodo-plugins/docs-refresh',
+  path: '/Users/me/openkodo/workspaces/openkodo-plugins/docs-refresh',
   displayName: 'docs-refresh',
   branch: 'docs-refresh'
 }
@@ -55,7 +55,7 @@ const thirdWorktree: Worktree = {
 function unsavedFile(worktreeId: string, name: string): OpenFile {
   return {
     id: `${worktreeId}::${name}`,
-    filePath: `/Users/me/orca/workspaces/orca-plugins/fix-login/${name}`,
+    filePath: `/Users/me/openkodo/workspaces/openkodo-plugins/fix-login/${name}`,
     relativePath: name,
     worktreeId,
     language: 'typescript',
@@ -103,7 +103,7 @@ const manyAtRiskLocalFiles: WorktreeAtRiskLocalFiles = {
     'scratch/perf-trace.json',
     'tests/e2e/.cross-version-checkouts/',
     'tests/fixtures/.local-snapshots/',
-    'packages/desktop/.orca-local/session-override.json',
+    'packages/desktop/.openkodo-local/session-override.json',
     'packages/cli/.local-config.yaml',
     'scripts/private/bench-results.csv',
     'docs/drafts/notes.md',
@@ -260,7 +260,7 @@ export const forceDelete = dialogFixture({
   deleteState: {
     isDeleting: false,
     error:
-      "fatal: '/Users/me/orca/workspaces/orca-plugins/fix-login' contains modified or untracked files, use --force to delete it",
+      "fatal: '/Users/me/openkodo/workspaces/openkodo-plugins/fix-login' contains modified or untracked files, use --force to delete it",
     canForceDelete: true,
     forceDeleteReason: 'dirty'
   }

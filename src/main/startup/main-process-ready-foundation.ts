@@ -13,8 +13,8 @@ import {
   browserManager
 } from '../browser/guest-lifecycle/manager/browser-manager'
 import { browserSiteDisplayController } from '../browser/site-settings/display/browser-site-display-controller'
-import { ensureActiveOrcaProfile } from '../orca-profiles/profile-index-store'
-import { initializeTeamCapabilities } from '../orca-profiles/cloud-auth/initialize-team-capabilities'
+import { ensureActiveOpenKodoProfile } from '../openkodo-profiles/profile-index-store'
+import { initializeTeamCapabilities } from '../openkodo-profiles/cloud-auth/initialize-team-capabilities'
 import { getCanonicalUserDataPath } from '../persistence/loading-store/user-data-path'
 import { getAppEnvironment } from '../../shared/app-lifecycle/app-environment'
 import { loadWslMappedDriveAnswers } from '../wsl/filesystem/wsl-mapped-drive-answers-file'
@@ -23,12 +23,12 @@ import { startWslMoveStartup } from '../persistence/moving-wsl-projects/startup/
 import { startWslHostsPolicyLiveUpdates } from '../wsl/host-lifecycle/wsl-hosts-policy-live-update'
 import { runPendingWslDriveUncConversions } from '../wsl/filesystem/wsl-drive-unc-conversion-startup'
 import { createProfileStateStoreForStartup } from '../persistence/profile-state/startup/profile-state-startup-authority'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { initializeBrowserClientHostId } from '../browser/client-hosts/lifecycle/browser-client-host-id'
 import { scheduleSecretProtectionGapReport } from '../host/deferred-secret-protection-report'
 import { withholdUnreachableKeychainForServe } from '../host/serve-keychain-guard'
 import { initSshHostKeyStoreFile } from '../ssh/host-keys/ssh-host-key-store'
-import { initOrcadHeldFenceTokenFile } from '../managed-server/activation/orcad-held-fence-tokens'
+import { initOpenkododHeldFenceTokenFile } from '../managed-server/activation/openkodod-held-fence-tokens'
 import { neutralizeLegacyTerminalShimDir } from '../pty/shell-startup/legacy-terminal-shim-dir'
 import { createWindowsShellPathHydration } from './shell-environment/windows-shell-path-hydration'
 import { configureWindowsHostGitEnvironmentReadiness } from '../git/command-runner/host-routing/windows-host-git-environment'
@@ -143,8 +143,8 @@ export async function initializeReadyFoundation(): Promise<void> {
   state.managedWslCliStartupBarrierReady = createWslCliReconciliationStartupBarrier(
     state.managedWslCliReconciliationReady
   )
-  const profile = ensureActiveOrcaProfile()
-  state.activeOrcaProfile = profile
+  const profile = ensureActiveOpenKodoProfile()
+  state.activeOpenKodoProfile = profile
   await initializeTeamCapabilities(getProfileUserDataPath(), profile.profile)
   // Read durable browser hosting ID before window argv stamps it or renderer and lease ownership diverge.
   initializeBrowserClientHostId(profile.profileDirectory)
@@ -219,7 +219,7 @@ export async function initializeReadyFoundation(): Promise<void> {
   })
   // Bind the profile host-key sidecar before connects or accepted trust records silently vanish each launch.
   initSshHostKeyStoreFile(profile.dataFile)
-  initOrcadHeldFenceTokenFile(profile.dataFile)
+  initOpenkododHeldFenceTokenFile(profile.dataFile)
   // Neutralize legacy shims before PTY handlers, including headless serve which never opens a main window.
   neutralizeLegacyTerminalShimDir(app.getPath('userData'))
   const windowsShellPathHydration = createWindowsShellPathHydration()
@@ -300,7 +300,7 @@ export async function initializeReadyFoundation(): Promise<void> {
   })
   // Desktop webviews and runtime commands share sessions; initialize without waiting for renderer IPC.
   initializeBrowserSessionsForApp({
-    orcaProfileId: profile.profile.id,
+    openkodoProfileId: profile.profile.id,
     profileDirectory: profile.profileDirectory,
     // Sweep against current SSH targets or live target cookie jars look orphaned.
     listLocalSshTargetIds: () => {

@@ -60,7 +60,7 @@ function ChoiceLine({
               }
             />
             {t(
-              'auto.components.skills.SkillUpdateRow.replaceWithOrca',
+              'auto.components.skills.SkillUpdateRow.replaceWithOpenKodo',
               "Replace with OpenKodo's copy (keeps a backup)"
             )}
           </label>

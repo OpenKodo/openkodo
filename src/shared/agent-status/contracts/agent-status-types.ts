@@ -80,7 +80,7 @@ export type AgentStatusEntry = {
   /** Provider model currently used by this session. */
   model?: string
   /** Command installed by the running OMP extension; absent on older hosts. */
-  modelSwitchCommand?: 'orca-model'
+  modelSwitchCommand?: 'openkodo-model'
   /** Composite key: `${tabId}:${leafId}` where leafId is a stable UUID layout leaf. */
   paneKey: string
   /** Runtime terminal handle for matching retained parent rows when the parent
@@ -130,7 +130,7 @@ export type AgentStatusEntry = {
   providerSession?: AgentProviderSessionMetadata
   /** The execution host's OpenKodo id for this terminal agent's conversation; null while that host
    *  has not named it yet; absent from older hosts. */
-  orcaSessionId?: string | null
+  openkodoSessionId?: string | null
   /** The launch owner's last word: its admitted launch runs (true) or none (false); absent from older hosts. */
   launchAttested?: boolean
   /** False when the status belongs to a non-terminal owner that restores itself. */
@@ -156,7 +156,7 @@ export type AgentStatusPayload = {
   prompt?: string
   agentType?: AgentType
   model?: string
-  modelSwitchCommand?: 'orca-model'
+  modelSwitchCommand?: 'openkodo-model'
   toolName?: string
   toolInput?: string
   /** JSON string of the AskUserQuestion tool input, captured live. See the
@@ -318,8 +318,8 @@ function normalizeAgentStatusObject(parsed: unknown): ParsedAgentStatusPayload |
     // Why: normalize like the other single-line fields so embedded newlines (e.g. `agentType: "claude\nrogue"`) can't break single-line UI and equality checks.
     agentType: normalizeOptionalField(obj.agentType, AGENT_TYPE_MAX_LENGTH),
     model: normalizeOptionalField(obj.model, AGENT_MODEL_MAX_LENGTH),
-    ...(obj.modelSwitchCommand === 'orca-model'
-      ? { modelSwitchCommand: 'orca-model' as const }
+    ...(obj.modelSwitchCommand === 'openkodo-model'
+      ? { modelSwitchCommand: 'openkodo-model' as const }
       : {}),
     toolName: normalizeOptionalField(obj.toolName, AGENT_STATUS_TOOL_NAME_MAX_LENGTH),
     toolInput: normalizeOptionalField(obj.toolInput, AGENT_STATUS_TOOL_INPUT_MAX_LENGTH),

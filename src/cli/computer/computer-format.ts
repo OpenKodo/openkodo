@@ -94,7 +94,7 @@ export function prepareComputerCliJsonResult<TResult>(
 
 const COMPUTER_SCREENSHOT_TEMP_DIR = {
   envVar: 'OPENKODO_COMPUTER_SCREENSHOT_TMPDIR',
-  dirName: 'orca-computer-use'
+  dirName: 'openkodo-computer-use'
 }
 
 export function formatListApps(result: ComputerListAppsResult): string {

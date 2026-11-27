@@ -15,7 +15,7 @@ import { BotAccessControlLine } from './BotAccessReach'
 import type { BotWhoCanAskService } from './BotWhoCanAskList'
 import { requestLine, useBotWhoCanAsk } from './use-bot-who-can-ask'
 import { BotWhoCanAskPicker } from './BotWhoCanAskPicker'
-import { OrcaCloudSignInLine } from './orca-cloud-sign-in'
+import { OpenKodoCloudSignInLine } from './openkodo-cloud-sign-in'
 import { refreshAccessRequests } from '@/lib/bot-access-requests'
 import { SettingsInsetGroup } from './settings-view/BotSettingsRows'
 import { useBotConnectorPaged } from './bot-connector-page'
@@ -41,7 +41,7 @@ export function BotWhoCanAskInsetList({
     <div className={paged ? 'mt-3.5' : undefined}>
       <BotConnectorCaption title={t('bots.whoCanAsk.caption', 'Who can ask')} />
       {list.requestsWaitOnSignIn ? (
-        <OrcaCloudSignInLine
+        <OpenKodoCloudSignInLine
           className="mb-2"
           text={t('bots.cloudSignIn.accessRequests', 'Access requests need OpenKodo sign-in.')}
           onSignedIn={refreshAccessRequests}

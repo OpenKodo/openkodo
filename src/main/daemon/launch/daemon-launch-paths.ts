@@ -28,7 +28,7 @@ export function getDaemonHistoryDir(): string {
 
 export function getDaemonEntryPath(): string {
   const appPath = getAppEnvironment().getAppPath()
-  // Electron needs the unpacked script; packaged orcad has no asar to redirect.
+  // Electron needs the unpacked script; packaged openkodod has no asar to redirect.
   const basePath = appPath.includes('app.asar')
     ? appPath.replace('app.asar', 'app.asar.unpacked')
     : appPath
@@ -38,7 +38,7 @@ export function getDaemonEntryPath(): string {
     : join(basePath, 'out', 'main', 'daemon-entry.js')
 }
 
-/** Recycle drained stale daemons on macOS for TCC; orcad opts in everywhere for code and umask updates. */
+/** Recycle drained stale daemons on macOS for TCC; openkodod opts in everywhere for code and umask updates. */
 export function resolveStaleDaemonRecycleVersion(onEveryPlatform = false): string | null {
   const environment = getAppEnvironment()
   if (!environment.isPackaged()) {

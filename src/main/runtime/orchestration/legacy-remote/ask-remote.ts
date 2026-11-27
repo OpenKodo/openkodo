@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { WorkerDispatchState } from '../db/orchestration-records'
 import { OrchestrationError } from '../orchestration-error'
 import { clampOrchestrationAskTimeoutMs } from '../../../../shared/orchestration/mailbox/orchestration-ask-timeout'
@@ -12,7 +12,7 @@ import {
 
 export async function askRemoteRunHome(args: {
   params: z.infer<typeof AskParams>
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   signal?: AbortSignal
   recordMutationReceipt?: (receipt: unknown) => void
   from: string

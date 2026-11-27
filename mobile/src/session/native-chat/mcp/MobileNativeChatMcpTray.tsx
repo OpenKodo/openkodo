@@ -17,7 +17,7 @@ const useAgentSessionMcpPanel = createAgentSessionMcpPanelHook({
 // Of the chat's visible height, which shrinks while the keyboard is up; OpenKodo's group above the
 // agent's own gets more of it.
 const LIST_SHARE = 0.4
-const LIST_SHARE_WITH_ORCA = 0.5
+const LIST_SHARE_WITH_OPENKODO = 0.5
 
 /** The `/mcp` tray on the composer's top edge; each opening reads the servers afresh. */
 export function MobileNativeChatMcpTray({
@@ -44,7 +44,7 @@ function McpTrayContent({ panel }: { panel: MobileStructuredMcpPanel }) {
       listMaxHeight={Math.round(
         visibleHeight *
           (state.servers.some((server) => server.source === OPENKODO_MCP_SOURCE)
-            ? LIST_SHARE_WITH_ORCA
+            ? LIST_SHARE_WITH_OPENKODO
             : LIST_SHARE)
       )}
     />

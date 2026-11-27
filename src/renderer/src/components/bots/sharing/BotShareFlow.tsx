@@ -6,7 +6,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useTranslate } from '@/i18n/use-translate'
 import type { Bot } from '../../../../../shared/bot-types'
 import { BOT_SHARE_ERRORS } from '../../../../../shared/bots/bot-share-errors'
-import { useOrcaCloudSignedOut } from '../orca-cloud-signed-out'
+import { useOpenKodoCloudSignedOut } from '../openkodo-cloud-signed-out'
 import { botShareFlagPage } from './bot-share-flags'
 import {
   botShareFlagSpot,
@@ -41,7 +41,7 @@ export function BotShareFlow({
   shareId,
   ...props
 }: BotShareFlowProps & { link?: BotShareLink | null; shareId?: string }): React.JSX.Element {
-  const signedOut = useOrcaCloudSignedOut()
+  const signedOut = useOpenKodoCloudSignedOut()
   const linkState = useBotShareLink(props.bot.id, link, signedOut, shareId)
   return <BotSharePreview {...props} linkState={linkState} />
 }

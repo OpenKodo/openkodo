@@ -1,6 +1,6 @@
 // One OpenKodo address per Composio project: the "Composio events" hook. Composio sends every bot's
 // events there, and the host hands each call to the bot automation it's for, by the Composio user it
-// names (orca-bot-<id>) and that automation's own filter. Adding a bot never takes another's events.
+// names (openkodo-bot-<id>) and that automation's own filter. Adding a bot never takes another's events.
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { z } from 'zod'

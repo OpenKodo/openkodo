@@ -8,7 +8,7 @@ import {
 } from '../../../../shared/wsl-move/wsl-mapped-drive-paths'
 import type { Store } from '../../loading-store/store'
 import { isLocalWslMoveRow, wslMoveHostDistro } from './wsl-move-scope-guard'
-import { defaultWslOrcadEnvironmentId } from '../../../wsl/orcad/wsl-orcad-deploy'
+import { defaultWslOpenkododEnvironmentId } from '../../../wsl/openkodod/wsl-openkodod-deploy'
 
 /**
  * A bridge project of the distro (local, on its UNC path or a drive mapped into it, not moved) or
@@ -22,7 +22,7 @@ export async function isDistroInUse(
   distro: string,
   lastKnownMappedDrives?: () => readonly WslMappedDrive[] | 'unverifiable'
 ): Promise<boolean> {
-  const environmentId = defaultWslOrcadEnvironmentId(distro)
+  const environmentId = defaultWslOpenkododEnvironmentId(distro)
   try {
     const hosts = await readWslHostDeployments(userDataPath)
     if (

@@ -1,8 +1,8 @@
-import { OpaqueIdSchema } from '@orca-cloud/push-contract'
+import { OpaqueIdSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 
 // POST `…/links/preview` and `…/links/confirm`: the first-use link Linear showed a person who asked a
-// bot while unlinked, as the desktop received it from orca://linear/link?t=<token>.
+// bot while unlinked, as the desktop received it from openkodo://linear/link?t=<token>.
 export const ConnectorLinearLinkTokenRequestSchema = z.object({
   v: z.literal(1),
   token: z.string().regex(/^[A-Za-z0-9_-]{43}$/)
@@ -19,10 +19,10 @@ export const ConnectorLinearLinkPreviewSchema = z.object({
   urlKey: z.string().optional()
 })
 
-// The Linear workspaces the account's user is linked in, whether Orca is installed there, and the
+// The Linear workspaces the account's user is linked in, whether OpenKodo is installed there, and the
 // bot their requests go to when they name none (one of the account's own; null for none).
 export const ConnectorLinearStateSchema = z.object({
-  // Where a workspace admin installs Orca.
+  // Where a workspace admin installs OpenKodo.
   installUrl: z.string().url(),
   workspaces: z.array(
     z.object({

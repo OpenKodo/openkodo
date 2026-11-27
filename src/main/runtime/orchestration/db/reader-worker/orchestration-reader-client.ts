@@ -30,7 +30,7 @@ const MAX_QUEUED_READS = 100
 function spawnOrchestrationReader(): WorkerRequestTransport {
   return spawnWorkerThread(
     resolveWorkerThreadEntryPath(currentWorkerEntryLayout(__dirname), WORKER_ENTRY_FILENAME),
-    { name: 'orca-orchestration-reader' }
+    { name: 'openkodo-orchestration-reader' }
   )
 }
 

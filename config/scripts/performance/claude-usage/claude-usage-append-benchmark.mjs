@@ -284,7 +284,7 @@ async function runSmallCorpus(arms, project, cwd) {
   }
 }
 
-const home = await mkdtemp(join(tmpdir(), 'orca-claude-usage-append-benchmark-'))
+const home = await mkdtemp(join(tmpdir(), 'openkodo-claude-usage-append-benchmark-'))
 try {
   const project = join(home, '.claude', 'projects', 'benchmark')
   const cwd = join(home, 'repo')

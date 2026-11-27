@@ -26,10 +26,10 @@ if (args.length !== 2 || args[0] !== '--baseline' || !args[1] || args[1].startsW
 }
 const baselineRef = args[1]
 const dockerDir = join(repo, 'config/docker/daemon-scope-lifetime')
-const temp = mkdtempSync(join(tmpdir(), 'orca-daemon-scope-lifetime-'))
+const temp = mkdtempSync(join(tmpdir(), 'openkodo-daemon-scope-lifetime-'))
 const suffix = `${process.pid}-${Date.now()}`
-const image = `orca-daemon-scope-lifetime:${suffix}`
-const container = `orca-daemon-scope-lifetime-${suffix}`
+const image = `openkodo-daemon-scope-lifetime:${suffix}`
+const container = `openkodo-daemon-scope-lifetime-${suffix}`
 const platform =
   process.env.OPENKODO_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
 
@@ -166,7 +166,7 @@ function runCases(baseImage) {
     '-c',
     [
       'systemctl start systemd-logind.service',
-      'loginctl enable-linger orca-repro',
+      'loginctl enable-linger openkodo-repro',
       'systemctl start user@1100.service',
       'test -S /run/user/1100/bus'
     ].join(' && ')
@@ -181,7 +181,7 @@ function runCases(baseImage) {
         '240s',
         'runuser',
         '-u',
-        'orca-repro',
+        'openkodo-repro',
         '--',
         'env',
         'XDG_RUNTIME_DIR=/run/user/1100',

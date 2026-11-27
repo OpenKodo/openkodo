@@ -6,19 +6,19 @@ import type { ProjectGroup } from '../../../../../../shared/project/groups/proje
 import WorktreeContextMenu from './WorktreeContextMenu'
 
 const repo: Repo = {
-  id: 'orca',
-  path: '/preview/orca',
-  displayName: 'orca',
+  id: 'openkodo',
+  path: '/preview/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }
 
 const worktree: Worktree = {
-  id: 'orca::/preview/orca/release',
+  id: 'openkodo::/preview/openkodo/release',
   repoId: repo.id,
   hostId: 'local',
   instanceId: 'release-instance',
-  path: '/preview/orca/release',
+  path: '/preview/openkodo/release',
   displayName: 'Prepare the release',
   branch: 'release',
   head: 'abc123',
@@ -37,9 +37,9 @@ const worktree: Worktree = {
 
 const childWorktree: Worktree = {
   ...worktree,
-  id: 'orca::/preview/orca/release-notes',
+  id: 'openkodo::/preview/openkodo/release-notes',
   instanceId: 'release-notes-instance',
-  path: '/preview/orca/release-notes',
+  path: '/preview/openkodo/release-notes',
   displayName: 'Write release notes',
   branch: 'release-notes'
 }

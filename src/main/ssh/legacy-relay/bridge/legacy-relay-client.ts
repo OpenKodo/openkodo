@@ -22,7 +22,7 @@ export const REMOTE_CLI_UNAVAILABLE =
 
 export type LegacyRelayOwnerClaim = { ownerGeneration: number; ownerLease: string }
 
-/** Serves the `orca` commands run inside the old relay's terminals; params are the host's. */
+/** Serves the `openkodo` commands run inside the old relay's terminals; params are the host's. */
 export type LegacyRelayCliServer = {
   /** `signal` aborts when this client's connection closes, so a waiting check stops with it. */
   cli: (params: Record<string, unknown>, signal: AbortSignal) => Promise<unknown>
@@ -37,7 +37,7 @@ type LegacyRelayClientOptions = {
   openTransport: () => Promise<MultiplexerTransport>
   /** Test seam for the owner-claim retry wait. */
   sleep?: (ms: number) => Promise<void>
-  /** Absent: every relay-era `orca` command is refused with REMOTE_CLI_UNAVAILABLE. */
+  /** Absent: every relay-era `openkodo` command is refused with REMOTE_CLI_UNAVAILABLE. */
   cliServer?: LegacyRelayCliServer
 }
 
@@ -133,15 +133,15 @@ export class LegacyRelayClient {
     cliServer: LegacyRelayCliServer | undefined
   ) {
     mux.onNotification((method, params) => this.route(method, params))
-    // The old relay forwards `orca` commands run inside its terminals to its attached client;
+    // The old relay forwards `openkodo` commands run inside its terminals to its attached client;
     // without a server this says why instead of "Method not found".
     const closed = new AbortController()
-    mux.onRequest('orca.cli', (params) =>
+    mux.onRequest('openkodo.cli', (params) =>
       cliServer
         ? cliServer.cli(params, closed.signal)
         : Promise.reject(new Error(REMOTE_CLI_UNAVAILABLE))
     )
-    mux.onRequest('orca.cli.postOutput', (params) =>
+    mux.onRequest('openkodo.cli.postOutput', (params) =>
       cliServer
         ? cliServer.postOutput(params, closed.signal)
         : Promise.reject(new Error(REMOTE_CLI_UNAVAILABLE))

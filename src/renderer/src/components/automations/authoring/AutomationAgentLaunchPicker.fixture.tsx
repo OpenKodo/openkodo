@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { AGENT_CATALOG } from '@/lib/agent-catalog/agent-catalog'
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { AutomationAgentLaunchPicker } from './AutomationAgentLaunchPicker'

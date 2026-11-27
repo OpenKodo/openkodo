@@ -1,4 +1,4 @@
-import '../../../desktop/electron-fixtures/orca-app'
+import '../../../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import type {
   createRuntimeDesktopPairingOffer,
@@ -33,7 +33,7 @@ export async function assertNestedTerminalDestination(
   expectedSentinel: string
 ): Promise<void> {
   await focusActiveTerminalInput(client.page)
-  await client.page.keyboard.insertText('cat .orca-e2e-destination-id')
+  await client.page.keyboard.insertText('cat .openkodo-e2e-destination-id')
   await client.page.keyboard.press('Enter')
   await expect
     .poll(() => getTerminalContent(client.page), { timeout: 15_000 })

@@ -10,7 +10,7 @@ export function createMobileE2EEV2Fixture(): {
   sharedSecret: Uint8Array
 } {
   const context = {
-    protocol: 'orca-mobile-e2ee' as const,
+    protocol: 'openkodo-mobile-e2ee' as const,
     initiator: 'mobile' as const,
     responder: 'desktop' as const,
     transport: 'relay' as const,
@@ -39,9 +39,9 @@ export function createMobileE2EEV2Fixture(): {
 }
 
 export const MOBILE_E2EE_V2_VECTOR = {
-  transcriptLength: 1347,
-  transcriptHashHex: 'ca6385f8bbf64a223fdd59587bfb67e2373891ce9e6d85ab41df8b7a20a168e3',
-  mobileToDesktopKeyHex: 'df17ff534df77fd3a30999f4e6200c8fcedefbb15d369301ca62c3cdfea9559a',
-  desktopToMobileKeyHex: '71365fcf8212a6d63caf909ee28de3c8f689682ef298a374136055e0ab1cde4a',
-  sessionIdHex: '339ae1f2bdff63481857d2813c2f19dd1f5aa4824705d5e5daeb25dae7b9196e'
+  transcriptLength: 1359,
+  transcriptHashHex: '2d40ec3d9c0c43f20dd67cd45afd27ac7b3aec48df42d3219b8d14a04c0a0c2b',
+  mobileToDesktopKeyHex: 'c0bd531e5dfcb415e66befc1a097a55f7def18e3477e261fcb3a8d847eb56984',
+  desktopToMobileKeyHex: 'a70af2eaa777cd300622a848376aeecbe0a3e9740d98eb31c2c5d4a61468b015',
+  sessionIdHex: '7807acd75b32f66d1d35f4246bfa16cb7dc73e8b183f6848c167db0f86507570'
 } as const

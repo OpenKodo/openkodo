@@ -4,7 +4,7 @@ import {
   testConnectionProbes
 } from './ssh-connect-attempt-registry'
 import { connectionManager, portForwardManager } from './ssh-ipc-context'
-import { shutdownOrcadManagedTunnels } from '../../managed-server/lifecycle/orcad-managed-tunnel'
+import { shutdownOpenkododManagedTunnels } from '../../managed-server/lifecycle/openkodod-managed-tunnel'
 import { closeAllPlainSshTerminals } from '../../ssh/plain-ssh-terminal/plain-ssh-terminal-sessions'
 
 // One absolute deadline bounds all phases, including connects stuck before their next cancellation checkpoint.
@@ -66,7 +66,7 @@ function sshShutdownTasks(): SshShutdownTask[] {
     {
       // Independent ssh -L children survive app exit and retain ports needed by the next launch.
       targetId: '*forwards',
-      promise: Promise.all([portForwardManager?.closeAll(), shutdownOrcadManagedTunnels()])
+      promise: Promise.all([portForwardManager?.closeAll(), shutdownOpenkododManagedTunnels()])
     },
     {
       // Plain SSH terminals have no restoration owner and must end with OpenKodo.

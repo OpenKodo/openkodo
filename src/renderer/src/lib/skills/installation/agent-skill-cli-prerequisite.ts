@@ -3,7 +3,7 @@ import type { CliInstallStatus } from '../../../../../shared/cli/cli-install-typ
 import { translate } from '@/i18n/i18n'
 import { formatCliUserFacingDetail } from '@/lib/cli/cli-user-facing-detail'
 
-type EnsureOrcaCliAvailableOptions = {
+type EnsureOpenKodoCliAvailableOptions = {
   onStatusChange?: (status: CliInstallStatus) => void
   registrationPromptDelayMs?: number
 }
@@ -12,14 +12,14 @@ export const CLI_PREREQUISITE_REGISTRATION_TOAST = 'OpenKodo needs to register i
 export const CLI_PREREQUISITE_REGISTRATION_TOAST_DESCRIPTION =
   'Approve the system prompt so skill setup can use the OpenKodo CLI command.'
 
-export function isOrcaCliAvailableOnPath(status: CliInstallStatus | null | undefined): boolean {
+export function isOpenKodoCliAvailableOnPath(status: CliInstallStatus | null | undefined): boolean {
   return status?.state === 'installed' && status.pathConfigured === true
 }
 
-export async function ensureOrcaCliAvailableForAgentSkillTerminal({
+export async function ensureOpenKodoCliAvailableForAgentSkillTerminal({
   onStatusChange,
   registrationPromptDelayMs = 700
-}: EnsureOrcaCliAvailableOptions = {}): Promise<CliInstallStatus | null> {
+}: EnsureOpenKodoCliAvailableOptions = {}): Promise<CliInstallStatus | null> {
   try {
     const status = await window.api.cli.getInstallStatus()
     onStatusChange?.(status)
@@ -36,7 +36,7 @@ export async function ensureOrcaCliAvailableForAgentSkillTerminal({
 
     if (status.state !== 'installed' || status.pathConfigured === false) {
       // Show app context before macOS can immediately present its native authorization prompt.
-      await showOrcaCliRegistrationPromptToast(registrationPromptDelayMs)
+      await showOpenKodoCliRegistrationPromptToast(registrationPromptDelayMs)
       const next = await window.api.cli.install()
       onStatusChange?.(next)
       showCliPrerequisiteWarning(next)
@@ -57,7 +57,7 @@ export async function ensureOrcaCliAvailableForAgentSkillTerminal({
   }
 }
 
-async function showOrcaCliRegistrationPromptToast(delayMs = 700): Promise<void> {
+async function showOpenKodoCliRegistrationPromptToast(delayMs = 700): Promise<void> {
   toast.message(CLI_PREREQUISITE_REGISTRATION_TOAST, {
     description: CLI_PREREQUISITE_REGISTRATION_TOAST_DESCRIPTION
   })

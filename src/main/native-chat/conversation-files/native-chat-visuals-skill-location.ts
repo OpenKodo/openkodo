@@ -6,7 +6,7 @@ import { getAppEnvironment, hasAppEnvironment } from '../../../shared/app-lifecy
 import type { NativeChatSkillRoot } from '../native-chat-skill-roots'
 
 const PLUGIN_DIR_NAME = 'native-chat-visuals'
-export const NATIVE_CHAT_VISUALS_SKILL_NAME = 'orca-chat-visuals'
+export const NATIVE_CHAT_VISUALS_SKILL_NAME = 'openkodo-chat-visuals'
 
 /** Its pluginDir contains .claude-plugin/plugin.json and skills/<name>/SKILL.md. */
 export type NativeChatVisualsSkillLocation = NativeChatSkillRoot
@@ -18,7 +18,7 @@ function candidatePluginDirs(): string[] {
   }
   const packaged = hasAppEnvironment() && getAppEnvironment().isPackaged()
   if (packaged) {
-    // Plain-Node orcad uses its app root; packaged installs must never fall back to launch-directory checkouts.
+    // Plain-Node openkodod uses its app root; packaged installs must never fall back to launch-directory checkouts.
     candidates.push(join(getAppEnvironment().getAppPath(), PLUGIN_DIR_NAME))
     return candidates
   }

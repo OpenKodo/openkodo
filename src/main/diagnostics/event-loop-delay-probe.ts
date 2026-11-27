@@ -29,7 +29,7 @@ const MAIN_STALL_SUMMARY: EventLoopStallSummaryOptions = {
 const STALL_MS = 250
 
 export type EventLoopDelayWindow = {
-  process: 'main' | 'orcad'
+  process: 'main' | 'openkodod'
   pid: number
   /** Epoch ms at the end of the window, so a test can match it to its own phases. */
   t: number

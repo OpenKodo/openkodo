@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import '../../../../../orchestration/db/contract-constants'
 import '../../../../../orchestration/db/messages/mailbox-routing-page'
 import '../../../../../orchestration/db/dispatch-row-writer'
@@ -24,7 +24,7 @@ const workerGeneration = '11111111-1111-4111-8111-111111111111'
 describe('worker release stays within its own custody', () => {
   let db: OrchestrationDb
   let dbOpen = false
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let activeRunId: string
   let fixture: WorkerReleaseFixture
 

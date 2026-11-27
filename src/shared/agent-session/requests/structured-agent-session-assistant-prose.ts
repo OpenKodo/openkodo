@@ -12,7 +12,7 @@ const isWebhookKey = (run: string): boolean =>
         ? markdown
         : String.fromCharCode(Number.parseInt(percent ?? json, 16))
     )
-    .includes('orcawh_')
+    .includes('openkodowh_')
 
 const RUN_AFTER = /[\w%\\-]*/y
 

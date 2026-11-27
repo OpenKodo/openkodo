@@ -142,7 +142,7 @@ export const folded340 = defineFixture({
   setup: () => {
     stubBotPanel(MIXED, cos)()
     window.localStorage.setItem(
-      'orca.bots.panelFolds',
+      'openkodo.bots.panelFolds',
       JSON.stringify({ [cos.id]: ['automations'] })
     )
   }

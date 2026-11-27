@@ -15,7 +15,7 @@ import {
 } from './bot-automation-eval-linear'
 import { createLinear, setLinear } from './bot-automation-eval-linear-writes'
 import { CONNECTOR_PRIORITIES } from '../../shared/connector-action-contract'
-import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
+import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-openkodo'
 import WORLD from './bot-automation-eval-linear-world.json'
 
 const OWNER = WORLD.members.find((member) => member.id === WORLD.ownerId)!

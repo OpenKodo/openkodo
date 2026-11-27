@@ -40,7 +40,7 @@ describe('Slack reads', () => {
     const { printed, calls } = await runRead(
       { ref: SLACK_REF },
       {
-        target: { ref: SLACK_REF, label: '#orca-releases thread' },
+        target: { ref: SLACK_REF, label: '#openkodo-releases thread' },
         messages: [
           { ref: SLACK_REF, label: 'root', author: 'Jinjing', text: 'Release notes', at: 0 },
           {

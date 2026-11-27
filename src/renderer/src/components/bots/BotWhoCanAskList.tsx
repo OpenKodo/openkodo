@@ -14,7 +14,7 @@ import { BotAccessWarningLine } from './BotAccessWarningLine'
 import type { BotAccessConnector } from '../../../../shared/bots/bot-access-reach'
 import { AttentionDot } from './AttentionDot'
 import { BotWhoCanAskPicker } from './BotWhoCanAskPicker'
-import { OrcaCloudSignInLine } from './orca-cloud-sign-in'
+import { OpenKodoCloudSignInLine } from './openkodo-cloud-sign-in'
 import { accessRequestPerson } from '../../../../shared/bots/bot-access-request'
 import { requestLine, useBotWhoCanAsk } from './use-bot-who-can-ask'
 
@@ -45,7 +45,7 @@ export type BotWhoCanAskService = {
   ownerId: string | null
   /** The owner's other accounts here (GitHub's other linked logins): found as the owner, never offered. */
   otherOwnerIds?: readonly string[]
-  /** Its name there, e.g. "@orca-bots"; null when unknown. */
+  /** Its name there, e.g. "@openkodo-bots"; null when unknown. */
   ownerName: string | null
   kind: BotAccessConnector
   /** Named in the access confirmation, e.g. "Slack" and its workspace. */
@@ -173,7 +173,7 @@ export function BotWhoCanAskList({
       ) : null}
       {/* Requests come through OpenKodo Cloud: signed out, nobody's shows, so say why. */}
       {requestsWaitOnSignIn ? (
-        <OrcaCloudSignInLine
+        <OpenKodoCloudSignInLine
           className="mb-3"
           text={t('bots.cloudSignIn.accessRequests', 'Access requests need OpenKodo sign-in.')}
           onSignedIn={refreshAccessRequests}

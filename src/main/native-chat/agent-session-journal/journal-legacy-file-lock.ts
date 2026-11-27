@@ -1,10 +1,10 @@
-import { signalProcessTree } from '@orca/process-host/process-tree-termination'
+import { signalProcessTree } from '@openkodo/process-host/process-tree-termination'
 import {
   JournalLegacyRetentionError,
   JournalLegacyIneligibleError
 } from './journal-legacy-retention-error'
-import type { PipedProcessSpawner } from '@orca/process-host/process-spec'
-import { spawnProcess } from '@orca/process-host'
+import type { PipedProcessSpawner } from '@openkodo/process-host/process-spec'
+import { spawnProcess } from '@openkodo/process-host'
 import { createRequire } from 'node:module'
 import { access, constants } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'

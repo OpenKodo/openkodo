@@ -1,18 +1,18 @@
 /** Keep local WSL move journals outside the profile store so SSH-only builds never read them (mover design §4.4). */
 import { z } from 'zod'
-import { parseOrcadMigrationManifest } from '../orcad-migration/orcad-migration-manifest-validation'
+import { parseOpenkododMigrationManifest } from '../openkodod-migration/openkodod-migration-manifest-validation'
 import type {
-  OrcadMigrationLocalWslManifestSource,
-  OrcadMigrationManifest
-} from '../orcad-migration/orcad-migration-manifest'
-import { isOrcadMigrationLocalWslSource } from '../orcad-migration/orcad-migration-source-kind'
+  OpenkododMigrationLocalWslManifestSource,
+  OpenkododMigrationManifest
+} from '../openkodod-migration/openkodod-migration-manifest'
+import { isOpenkododMigrationLocalWslSource } from '../openkodod-migration/openkodod-migration-source-kind'
 import { WslMoveBrowserCookieCopySchema } from './wsl-move-browser-cookie-copy'
 import { WslMappedDrivesSchema } from './wsl-mapped-drive-paths'
 import {
-  MAX_ORCAD_MIGRATION_TERMINAL_RESTORE_HINTS,
-  isOrcadMigrationTerminalRestoreHintCwd,
-  isOrcadMigrationTerminalRestoreHintPaneKey
-} from '../orcad-migration/orcad-migration-terminal-restore-hints'
+  MAX_OPENKODOD_MIGRATION_TERMINAL_RESTORE_HINTS,
+  isOpenkododMigrationTerminalRestoreHintCwd,
+  isOpenkododMigrationTerminalRestoreHintPaneKey
+} from '../openkodod-migration/openkodod-migration-terminal-restore-hints'
 
 export const WSL_MOVE_CUTOVER_VERSION = 1
 /**
@@ -65,11 +65,11 @@ const WslMoveCutoverSchema = z.object({
   terminalRestoreHints: z
     .array(
       z.object({
-        paneKey: z.string().refine(isOrcadMigrationTerminalRestoreHintPaneKey),
-        cwd: z.string().refine(isOrcadMigrationTerminalRestoreHintCwd)
+        paneKey: z.string().refine(isOpenkododMigrationTerminalRestoreHintPaneKey),
+        cwd: z.string().refine(isOpenkododMigrationTerminalRestoreHintCwd)
       })
     )
-    .max(MAX_ORCAD_MIGRATION_TERMINAL_RESTORE_HINTS)
+    .max(MAX_OPENKODOD_MIGRATION_TERMINAL_RESTORE_HINTS)
     .optional()
     .catch(undefined),
   // Automations the manifest carries disabled (the wire only takes disabled ones) that were on
@@ -96,7 +96,7 @@ const WslMoveCutoverSchema = z.object({
 })
 
 export type WslMoveCutover = Omit<z.infer<typeof WslMoveCutoverSchema>, 'manifest'> & {
-  manifest: OrcadMigrationManifest & { source: OrcadMigrationLocalWslManifestSource }
+  manifest: OpenkododMigrationManifest & { source: OpenkododMigrationLocalWslManifestSource }
 }
 
 /** One in-flight move per distro; WSL resolves distro names case-insensitively. */
@@ -118,10 +118,10 @@ export function parseWslMoveCutover(value: unknown): WslMoveCutover {
   if (record.version !== wslMoveCutoverVersionFor(record.mappedDrives)) {
     throw new Error('wsl_move_cutover_version_mismatch')
   }
-  const manifest = parseOrcadMigrationManifest(record.manifest)
+  const manifest = parseOpenkododMigrationManifest(record.manifest)
   const { source } = manifest
   if (
-    !isOrcadMigrationLocalWslSource(source) ||
+    !isOpenkododMigrationLocalWslSource(source) ||
     manifest.migrationId !== record.migrationId ||
     manifest.manifestSha256 !== record.manifestSha256 ||
     manifest.destinationEnvironmentId !== record.destinationEnvironmentId ||

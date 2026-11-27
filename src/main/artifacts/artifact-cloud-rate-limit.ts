@@ -1,5 +1,5 @@
 import { ARTIFACT_RATE_LIMITED_CODE } from '../../shared/artifacts/artifacts'
-import { OrcaCloudRequestError } from '../orca-profiles/cloud-auth/profile-cloud-client'
+import { OpenKodoCloudRequestError } from '../openkodo-profiles/cloud-auth/profile-cloud-client'
 
 const MAX_SERVER_MESSAGE_LENGTH = 300
 
@@ -12,7 +12,7 @@ export type ArtifactRateLimitDetails = {
 }
 
 /** A 429 from the artifact API; `message` is written for people, `data` for programs. */
-export class ArtifactCloudRateLimitError extends OrcaCloudRequestError {
+export class ArtifactCloudRateLimitError extends OpenKodoCloudRequestError {
   readonly code = ARTIFACT_RATE_LIMITED_CODE
   readonly data: ArtifactRateLimitDetails
 

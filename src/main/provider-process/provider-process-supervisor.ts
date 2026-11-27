@@ -276,7 +276,7 @@ export function resolveProviderExecPath(platform: NodeJS.Platform = process.plat
       app.getAppPath(),
       'native/provider-exec/.build',
       `${platform}-${process.arch}`,
-      'orca-provider-exec'
+      'openkodo-provider-exec'
     )
   }
   if (process.resourcesPath) {

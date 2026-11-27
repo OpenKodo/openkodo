@@ -153,7 +153,7 @@ async function launch(
 }
 
 beforeEach(() => {
-  directory = mkdtempSync(join(tmpdir(), 'orca-session-cookie-restore-'))
+  directory = mkdtempSync(join(tmpdir(), 'openkodo-session-cookie-restore-'))
   decryptFails = false
   sealing = true
   Object.assign(io, {
@@ -537,7 +537,7 @@ describe('session cookie snapshot that a launch read', () => {
 
   it('a file that is not JSON is replaced by the next save of live cookies', async () => {
     await saveSnapshot([sessionCookie('sid', 'example.com')])
-    writeFileSync(snapshotFile(), '{"format":"orca-browser-session-cook')
+    writeFileSync(snapshotFile(), '{"format":"openkodo-browser-session-cook')
     const { jar } = await launch()
     expect(jar.names()).toEqual([])
 
@@ -826,7 +826,7 @@ describe('session cookie snapshot with a cookie launch could not restore', () =>
 })
 
 describe('a cookie clear, quit and retirement at the real callers', () => {
-  const ROUTE = `persist:orca-browser-v1-${'a'.repeat(64)}`
+  const ROUTE = `persist:openkodo-browser-v1-${'a'.repeat(64)}`
   const signedIn = async () => {
     await saveSnapshot([sessionCookie('sid', 'example.com'), sessionCookie('SID', 'google.com')])
     return launch()

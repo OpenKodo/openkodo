@@ -10,7 +10,7 @@ import { findSshRouteDuplicates, sshRouteSnapshotFingerprint } from './ssh-targe
 
 import type { SshRouteResolvers, SshRouteSnapshot } from './ssh-target-route-resolution'
 
-import { SshTargetOrcadClaims } from './ssh-target-orcad-claims'
+import { SshTargetOpenkododClaims } from './ssh-target-openkodod-claims'
 import {
   buildRemovedSshTargetTombstone,
   readoptOrphanedWorkspacesForTarget
@@ -19,7 +19,7 @@ import {
 import {
   getRuntimeOwnedSshTargetId,
   isRuntimeOwnedSshTarget,
-  isManagedOrcadSshTarget
+  isManagedOpenkododSshTarget
 } from './ssh-target-runtime-ownership'
 
 // Reuse a snapshot while nothing it was built from changed, but re-resolve now and then: /etc/ssh_config and Match exec can change too.
@@ -102,13 +102,13 @@ export class SshConnectionStore {
     return next
   }
 
-  /** Exclusive managed-orcad ownership of a target; see ssh-target-orcad-claims. */
-  getOrcadRuntimeClaims(): SshTargetOrcadClaims {
-    return new SshTargetOrcadClaims(this.store)
+  /** Exclusive managed-openkodod ownership of a target; see ssh-target-openkodod-claims. */
+  getOpenkododRuntimeClaims(): SshTargetOpenkododClaims {
+    return new SshTargetOpenkododClaims(this.store)
   }
 
   /** The profile reads and scrollback reservations a migration exports from. */
-  getOrcadMigrationSource(): Store {
+  getOpenkododMigrationSource(): Store {
     return this.store
   }
 
@@ -259,7 +259,7 @@ export class SshConnectionStore {
       if (
         existing.source === 'manual' ||
         isRuntimeOwnedSshTarget(existing) ||
-        isManagedOrcadSshTarget(existing) ||
+        isManagedOpenkododSshTarget(existing) ||
         (existing.source === undefined && !isLegacyConfigImportTarget(existing))
       ) {
         manualAliases.add(alias)

@@ -9,7 +9,7 @@ const { findOwnAgentCli, latestAgentCliRelease, readAgentCliVersion, runProcess 
   })
 )
 
-vi.mock('@orca/process-host', () => ({ runProcess }))
+vi.mock('@openkodo/process-host', () => ({ runProcess }))
 vi.mock('./agent-cli-own-install', () => ({ findOwnAgentCli }))
 vi.mock('../agent-launch/preflight/agent-cli-version-probe', () => ({ readAgentCliVersion }))
 // The launcher file stays put while the version behind it changes.

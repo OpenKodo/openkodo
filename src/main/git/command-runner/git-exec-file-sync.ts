@@ -1,5 +1,5 @@
 import type { SpawnOptions } from 'node:child_process'
-import { execNativeFileSync } from '@orca/process-host/native-process-spawn'
+import { execNativeFileSync } from '@openkodo/process-host/native-process-spawn'
 import { recordSubprocessSpawn } from '../../diagnostics/main-thread-churn-probe'
 import { untranslatedGitOutputEnv } from './git-environment/git-process-env'
 import { resolveCommand } from './host-routing/wsl-command-resolution'

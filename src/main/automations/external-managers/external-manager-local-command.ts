@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { resolveCommandOnLocalPath } from '../../ipc/command-path/command-path-resolver'
 import { getSystem32ExePath } from '../../windows/windows-command-paths'
 

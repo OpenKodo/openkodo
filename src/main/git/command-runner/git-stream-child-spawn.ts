@@ -1,5 +1,5 @@
 import { spawn, type ChildProcess } from 'node:child_process'
-import { spawnNativeProcess } from '@orca/process-host/native-process-spawn'
+import { spawnNativeProcess } from '@openkodo/process-host/native-process-spawn'
 import { recordSubprocessSpawn } from '../../diagnostics/main-thread-churn-probe'
 import type { ResolvedCommand } from './host-routing/wsl-command-resolution'
 import { untranslatedGitOutputEnv } from './git-environment/git-process-env'

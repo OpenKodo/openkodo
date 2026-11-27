@@ -20,11 +20,11 @@ describe.skipIf(!volume)('cross-volume Replace (real second volume)', () => {
   // Opt-in real-disk run: writing 400 files and hashing them for consent outlast the default timeout.
   it('leaves all bytes in place and does no backup work after the rejected rename', async () => {
     const home = await makeSkillHome()
-    const project = await mkdtemp(join(volume!, 'orca-exdev-'))
+    const project = await mkdtemp(join(volume!, 'openkodo-exdev-'))
     try {
       const skills = join(project, '.agents', 'skills')
       const skill = join(skills, NAME)
-      const backups = join(home.home, '.agents', '.orca-skill-backups')
+      const backups = join(home.home, '.agents', '.openkodo-skill-backups')
       const edited = `---\nname: ${NAME}\n---\nmine\n`
       await writeCopy(skill, edited)
       for (let index = 0; index < 400; index += 1) {

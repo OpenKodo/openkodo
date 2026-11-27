@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { isOrcaCliAvailableOnPath } from '@/lib/skills/installation/agent-skill-cli-prerequisite'
+import { isOpenKodoCliAvailableOnPath } from '@/lib/skills/installation/agent-skill-cli-prerequisite'
 import {
   ORCHESTRATION_SETUP_STATE_EVENT,
   isOrchestrationSetupEnabled,
@@ -31,7 +31,9 @@ export function useFloatingTerminalOrchestrationVisibility({
       if (mountedRef.current) {
         const cliRegistrationUnavailable =
           status?.state === 'unsupported' && status.unsupportedReason === 'launch_mode_unavailable'
-        setShowOrchestrationSetup(!cliRegistrationUnavailable && !isOrcaCliAvailableOnPath(status))
+        setShowOrchestrationSetup(
+          !cliRegistrationUnavailable && !isOpenKodoCliAvailableOnPath(status)
+        )
       }
     } catch {
       if (mountedRef.current) {

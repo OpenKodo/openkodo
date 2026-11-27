@@ -1,4 +1,4 @@
-import type { AccountBoundLinks } from '../orca-profiles/orca-account-service'
+import type { AccountBoundLinks } from '../openkodo-profiles/openkodo-account-service'
 import type { BotController } from './bot-controller'
 import { botLinkOwners } from '../../shared/bot-link-owners'
 

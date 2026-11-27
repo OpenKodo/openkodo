@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test'
-import { test } from '../desktop/electron-fixtures/orca-app'
+import { test } from '../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import { chooseOnboardingAgentSurface } from '../desktop/renderer-probes/onboarding-navigation'
 import {
@@ -28,31 +28,33 @@ async function completeOnboarding(page: Page): Promise<void> {
   await expect(page.getByRole('dialog', { name: /Add a project/i })).toHaveCount(0)
 }
 
-test('fresh profile opens a live Home terminal @golden', async ({ electronApp, orcaPage }) => {
-  await waitForSessionReady(orcaPage)
-  await expect(orcaPage.locator('#root')).toBeVisible()
-  await chooseOnboardingAgentSurface(orcaPage)
+test('fresh profile opens a live Home terminal @golden', async ({ electronApp, openkodoPage }) => {
+  await waitForSessionReady(openkodoPage)
+  await expect(openkodoPage.locator('#root')).toBeVisible()
+  await chooseOnboardingAgentSurface(openkodoPage)
 
-  await completeOnboarding(orcaPage)
+  await completeOnboarding(openkodoPage)
   const homePath = await electronApp.evaluate(({ app }) => app.getPath('home'))
-  await waitForActiveWorktree(orcaPage)
-  await ensureTerminalVisible(orcaPage, 30_000)
-  await waitForActiveTerminalManager(orcaPage, 30_000)
-  const ptyId = await waitForActivePanePtyId(orcaPage, 30_000)
-  await expect.poll(() => orcaPage.evaluate((id) => window.api.pty.hasPty(id), ptyId)).toBe(true)
-
-  const marker = `orca-e2e-fresh-${Date.now()}`
-  await focusActiveTerminalInput(orcaPage)
-  await orcaPage.keyboard.type(`echo ${marker}`)
-  await orcaPage.keyboard.press('Enter')
+  await waitForActiveWorktree(openkodoPage)
+  await ensureTerminalVisible(openkodoPage, 30_000)
+  await waitForActiveTerminalManager(openkodoPage, 30_000)
+  const ptyId = await waitForActivePanePtyId(openkodoPage, 30_000)
   await expect
-    .poll(async () => (await getTerminalContent(orcaPage)).split(marker).length - 1, {
+    .poll(() => openkodoPage.evaluate((id) => window.api.pty.hasPty(id), ptyId))
+    .toBe(true)
+
+  const marker = `openkodo-e2e-fresh-${Date.now()}`
+  await focusActiveTerminalInput(openkodoPage)
+  await openkodoPage.keyboard.type(`echo ${marker}`)
+  await openkodoPage.keyboard.press('Enter')
+  await expect
+    .poll(async () => (await getTerminalContent(openkodoPage)).split(marker).length - 1, {
       message: 'marker should appear in both the echoed command and command output'
     })
     .toBeGreaterThanOrEqual(2)
 
-  const begin = `orca-cwd-begin-${Date.now()}`
-  const end = `orca-cwd-end-${Date.now()}`
+  const begin = `openkodo-cwd-begin-${Date.now()}`
+  const end = `openkodo-cwd-end-${Date.now()}`
   const normalizePath = (value: string): string => {
     const normalized = value.trim().replaceAll('\\', '/')
     const withoutTrailingSeparator =
@@ -61,13 +63,13 @@ test('fresh profile opens a live Home terminal @golden', async ({ electronApp, o
       ? withoutTrailingSeparator.toLowerCase()
       : withoutTrailingSeparator
   }
-  await focusActiveTerminalInput(orcaPage)
-  await orcaPage.keyboard.type(`echo "${begin}$(pwd)${end}"`)
-  await orcaPage.keyboard.press('Enter')
+  await focusActiveTerminalInput(openkodoPage)
+  await openkodoPage.keyboard.type(`echo "${begin}$(pwd)${end}"`)
+  await openkodoPage.keyboard.press('Enter')
   await expect
     .poll(
       async () => {
-        const content = await getTerminalContent(orcaPage)
+        const content = await getTerminalContent(openkodoPage)
         return [...content.matchAll(new RegExp(`${begin}(.*?)${end}`, 'gs'))].map((match) =>
           normalizePath(match[1].replace(/[\r\n]/g, ''))
         )

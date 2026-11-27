@@ -1,5 +1,5 @@
 import { useAppStore } from '@/store'
-import '../../../../../../shared/orca-profiles/constants'
+import '../../../../../../shared/openkodo-profiles/constants'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../../../shared/execution-host/execution-host'
 import { resolveBrowserPagePartition } from '../browser-page-partition'
 
@@ -15,12 +15,12 @@ export function useBrowserPageWebviewPartition({
     (s) => s.browserSessionProfilesByHostId[LOCAL_EXECUTION_HOST_ID]
   )
   const mirroredProfiles = useAppStore((s) => s.browserSessionProfiles)
-  const activeOrcaProfileId = useAppStore((s) => s.activeOrcaProfileId)
+  const activeOpenKodoProfileId = useAppStore((s) => s.activeOpenKodoProfileId)
   return resolveBrowserPagePartition({
     sessionProfileId,
     sessionPartition,
     localProfiles,
     mirroredProfiles,
-    activeOrcaProfileId
+    activeOpenKodoProfileId
   })
 }

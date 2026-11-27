@@ -9,7 +9,7 @@ import {
   type AgentSessionExecutionLocation,
   type AgentSessionRecord
 } from '../../../../shared/agent-session/lifecycle/agent-session-record'
-import type { AgentSessionOrcaStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-orca-stop'
+import type { AgentSessionOpenKodoStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import type { AgentSessionTabTable } from './agent-session-tab-table'
 
 export type RetiredAgentSessionClaimKey = { keyId: string; retiredAt: number }
@@ -26,7 +26,7 @@ export type AgentSessionStoreState = {
   /** Chat tab id → the conversation it shows; null until this store first records a tab. */
   sessionTabs: AgentSessionTabTable | null
   /** Prior runtime endings, read at load; missing/null evidence attributes no death to OpenKodo. */
-  runtimeEnds?: ReadonlyMap<string, AgentSessionOrcaStopCause> | null
+  runtimeEnds?: ReadonlyMap<string, AgentSessionOpenKodoStopCause> | null
 }
 
 export function heldAgentSessionIds(state: AgentSessionStoreState): string[] {

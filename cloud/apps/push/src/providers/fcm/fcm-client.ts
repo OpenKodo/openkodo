@@ -1,6 +1,6 @@
 import { providerRetryAfter } from '../provider-retry-delay.js'
-import { PUSH_DEFAULTS } from '@orca-cloud/push-contract/push-limits'
-import { orcaDataStrings, type PushDelivery } from '../../delivery/push-delivery-message.js'
+import { PUSH_DEFAULTS } from '@openkodo-cloud/push-contract/push-limits'
+import { openkodoDataStrings, type PushDelivery } from '../../delivery/push-delivery-message.js'
 import type { PushProviderOutcome } from '../push-provider-outcome.js'
 
 export const FCM_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging'
@@ -38,8 +38,8 @@ export function fcmMessageBody(input: {
       },
       // Notification payloads collapse offline; Expo renders these data messages natively.
       data: {
-        ...orcaDataStrings(delivery.orca),
-        ...(delivery.orca.kind === 'dismiss'
+        ...openkodoDataStrings(delivery.openkodo),
+        ...(delivery.openkodo.kind === 'dismiss'
           ? {}
           : {
               title: delivery.title,

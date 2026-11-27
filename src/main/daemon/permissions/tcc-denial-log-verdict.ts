@@ -1,6 +1,6 @@
 // macOS's own record of a terminal-host folder denial: tccd decisions and kernel sandbox denies.
 
-import type { runProcess } from '@orca/process-host'
+import type { runProcess } from '@openkodo/process-host'
 import { z } from 'zod'
 import type { MacTccFolderClass } from '../../../shared/telemetry/daemon-adoption-telemetry'
 import type {

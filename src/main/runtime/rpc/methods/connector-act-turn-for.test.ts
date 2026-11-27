@@ -114,10 +114,10 @@ function context(callerSessionId?: string) {
     ...(callerSessionId
       ? {
           orchestrationCaller: {
-            address: `orca_session_id:${callerSessionId}`,
+            address: `openkodo_session_id:${callerSessionId}`,
             terminalHandle: null,
             paneKey: null,
-            orcaSessionId: callerSessionId,
+            openkodoSessionId: callerSessionId,
             sessionId: callerSessionId,
             workspaceId: 'w'
           }

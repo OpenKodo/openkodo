@@ -1,10 +1,10 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { OrchestrationDb } from '../db/orchestration-db'
 import type { FederationEffect } from './federation-effects'
 import type { WorkerSetupReceipt } from '../../rpc/methods/orchestration/worker/start/placement/worker-placement-topology'
 
 export function prepareFederatedAttachmentAuthority(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   dispatchId: string
   terminalHandle: string

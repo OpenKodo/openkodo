@@ -1,7 +1,7 @@
 /** Host-resolved OpenKodo session identity comes from the injected environment, never flags. Terminal agents lack it;
  * openkodo status --json publishes it as caller. */
 export type OrchestrationCallerSession = {
-  orcaSessionId: string
+  openkodoSessionId: string
   live: boolean
 }
 
@@ -17,12 +17,12 @@ export type CliStatusCaller = OrchestrationCallerSession | OrchestrationCallerRe
 /** `null`: the caller is not an OpenKodo session. */
 export type OrchestrationCallerShowResult = {
   caller: OrchestrationCallerSession | null
-  /** True when this OpenKodo verified the calling terminal agent's launch. Absent from older Orcas. */
+  /** True when this OpenKodo verified the calling terminal agent's launch. Absent from older OpenKodos. */
   terminal?: boolean
 }
 
 /** `orchestration.sessionAddress`: a session's OpenKodo session ID, its `/clear` root's. */
-export type OrchestrationSessionAddressResult = { orcaSessionId: string }
+export type OrchestrationSessionAddressResult = { openkodoSessionId: string }
 
 /** Where a party is now: a chat at its `/clear` lineage's live session, or a terminal. */
 export type OrchestrationPartyLocation =

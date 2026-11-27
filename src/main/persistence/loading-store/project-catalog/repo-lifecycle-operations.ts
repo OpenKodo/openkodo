@@ -9,7 +9,7 @@ import type { RepoHostTarget } from '../../../../shared/repository/repo-host-ide
 import {
   removeRepoFromHostWorkspaceSessions,
   removeRepoFromWorkspaceSession
-} from '../../../orca-profiles/project-transfer/profile-project-session-state'
+} from '../../../openkodo-profiles/project-transfer/profile-project-session-state'
 import {
   getRepoExecutionHostId,
   parseExecutionHostId,
@@ -34,7 +34,7 @@ import type { StoreRuntimeState } from '../store-runtime-state'
 import { type WriteSchedulingOperations, scheduleSave } from '../profile-writing/write-scheduling'
 import { pruneDeregisteredRepoUiResidue } from './repo-lifecycle-ui-residue'
 import { isWslMoveProjectSessionFrozen } from '../../moving-wsl-projects/quiescence/wsl-move-scope-guard'
-import { dropOrcadTerminalRestoreHintsForWorktrees } from '../../migrating-orcad-catalog/terminal-history/orcad-terminal-restore-hint-store'
+import { dropOpenkododTerminalRestoreHintsForWorktrees } from '../../migrating-openkodod-catalog/terminal-history/openkodod-terminal-restore-hint-store'
 import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 import { applyNewWindowsDriveProjectDefault } from '../../../wsl/filesystem/wsl-drive-project-new-default'
 
@@ -62,7 +62,7 @@ type RepoLifecycleOperationsRuntime = Pick<
   | 'repoOrderOperations'
   | 'repoUpdateOperations'
   | 'state'
-  | 'orcadTerminalRestoreHints'
+  | 'openkododTerminalRestoreHints'
 >
 
 const repoLifecycleOperationsContext = Symbol('RepoLifecycleOperations')
@@ -180,8 +180,8 @@ export class RepoLifecycleOperations {
 }
 
 function dropRepoRestoreHints(owner: RepoLifecycleOperations, repoId: string): void {
-  dropOrcadTerminalRestoreHintsForWorktrees(
-    owner[repoLifecycleOperationsContext].runtime.orcadTerminalRestoreHints,
+  dropOpenkododTerminalRestoreHintsForWorktrees(
+    owner[repoLifecycleOperationsContext].runtime.openkododTerminalRestoreHints,
     (worktreeId) => getRepoIdFromWorktreeId(worktreeId) === repoId
   )
 }

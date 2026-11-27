@@ -1,5 +1,5 @@
 /**
- * The signed manifest a local WSL move carries into the distro's orcad (mover design, section 2).
+ * The signed manifest a local WSL move carries into the distro's openkodod (mover design, section 2).
  *
  * Reads only. The same dormant-state collectors the SSH conversion uses, through a local-WSL scope,
  * then the UNC→Linux rewrite. Anything those collectors cannot carry comes back as a blocker: a move
@@ -13,27 +13,27 @@ import {
 import { resolveFolderWorkspaceHost } from '../../../../shared/folder-workspaces/folder-workspace-execution-host'
 import type { FolderWorkspace } from '../../../../shared/folder-workspaces/folder-workspace-types'
 import type {
-  OrcadMigrationCatalogPayload,
-  OrcadMigrationLocalWslManifestSource,
-  OrcadMigrationManifest
-} from '../../../../shared/orcad-migration/orcad-migration-manifest'
+  OpenkododMigrationCatalogPayload,
+  OpenkododMigrationLocalWslManifestSource,
+  OpenkododMigrationManifest
+} from '../../../../shared/openkodod-migration/openkodod-migration-manifest'
 import {
-  ORCAD_MIGRATION_MANIFEST_VERSION,
-  parseOrcadMigrationManifest
-} from '../../../../shared/orcad-migration/orcad-migration-manifest-validation'
-import { withoutOrcadRetainedMarker } from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-retained-marker'
+  OPENKODOD_MIGRATION_MANIFEST_VERSION,
+  parseOpenkododMigrationManifest
+} from '../../../../shared/openkodod-migration/openkodod-migration-manifest-validation'
+import { withoutOpenkododRetainedMarker } from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-retained-marker'
 import type { ProjectGroup } from '../../../../shared/project/groups/project-group-types'
 import type { Repo } from '../../../../shared/repository/repo-types'
 import { parseWorkspaceKey } from '../../../../shared/workspace/identity/workspace-scope'
 import { getRepoIdFromWorktreeId, getRepoMainWorktreeId } from '../../../../shared/worktree/id'
-import { computeOrcadMigrationManifestSha256 } from '../../../orcad/migration/orcad-migration-manifest-digest'
-import { hasDormantState } from '../../migrating-orcad-catalog/source/dormancy/orcad-migration-dormant-state'
+import { computeOpenkododMigrationManifestSha256 } from '../../../openkodod/migration/openkodod-migration-manifest-digest'
+import { hasDormantState } from '../../migrating-openkodod-catalog/source/dormancy/openkodod-migration-dormant-state'
 import {
-  rewriteOrcadMigrationPayloadPaths,
-  rewriteOrcadMigrationWorktreeId
-} from '../../migrating-orcad-catalog/path-rewrite/orcad-migration-path-rewrite'
+  rewriteOpenkododMigrationPayloadPaths,
+  rewriteOpenkododMigrationWorktreeId
+} from '../../migrating-openkodod-catalog/path-rewrite/openkodod-migration-path-rewrite'
 import type { Store } from '../../loading-store/store'
-import { compareKeys } from '../../migrating-orcad-catalog/source/catalog/orcad-source-key-order'
+import { compareKeys } from '../../migrating-openkodod-catalog/source/catalog/openkodod-source-key-order'
 import {
   wslMoveSourcePathToLinux,
   type WslMappedDrive
@@ -63,7 +63,7 @@ export type WslMoveManifestExportRequest = {
 
 export type WslMoveManifestExport = {
   /** Signed; its source scope is exactly the request's, its paths rewritten to the distro's. */
-  manifest: OrcadMigrationManifest
+  manifest: OpenkododMigrationManifest
   /** User-facing reasons for state the manifest cannot carry. Non-empty: the driver refuses. */
   blockers: string[]
   /** What the Sleep relay takes: every worktree id and `folder:<id>` key in scope (UNC form). */
@@ -93,7 +93,7 @@ export type WslMoveManifestExportStore = Pick<
   | 'getRepos'
   | 'getFolderWorkspaces'
   | 'getProjectGroups'
-  | 'inspectOrcadMigrationSourceDormantState'
+  | 'inspectOpenkododMigrationSourceDormantState'
 >
 
 const DORMANT_KIND_WORDS: Record<string, string> = {
@@ -119,7 +119,7 @@ export function exportWslMoveManifest(
   // The retained mark is this desktop's record; the host must never receive it.
   const repos = pickLocalRows(store.getRepos(), request.repoIds, isLocalRepo, (id) =>
     missing.push(id)
-  ).map(withoutOrcadRetainedMarker)
+  ).map(withoutOpenkododRetainedMarker)
   const allGroups = store.getProjectGroups()
   const allFolders = store.getFolderWorkspaces()
   const folderWorkspaces = pickLocalRows(
@@ -131,17 +131,17 @@ export function exportWslMoveManifest(
         workspace.id
       ).kind === 'local',
     (id) => missing.push(id)
-  ).map(withoutOrcadRetainedMarker)
+  ).map(withoutOpenkododRetainedMarker)
   // The signed scope must name exactly the rows it carries: a stale plan is replanned, not signed.
   if (missing.length > 0) {
     throw new WslMoveScopeChangedError(missing)
   }
-  const catalog: OrcadMigrationCatalogPayload = {
+  const catalog: OpenkododMigrationCatalogPayload = {
     repositories: repos,
     projectGroups: referencedGroups(allGroups, [...repos, ...folderWorkspaces]),
     folderWorkspaces
   }
-  const source: OrcadMigrationLocalWslManifestSource = {
+  const source: OpenkododMigrationLocalWslManifestSource = {
     kind: 'local-wsl',
     distro: request.distro,
     ...(request.distroGuid ? { distroGuid: request.distroGuid } : {}),
@@ -149,7 +149,7 @@ export function exportWslMoveManifest(
     scopeFolderWorkspaceIds: [...request.folderWorkspaceIds],
     generation: request.generation
   }
-  const inspection = store.inspectOrcadMigrationSourceDormantState(
+  const inspection = store.inspectOpenkododMigrationSourceDormantState(
     source,
     catalog,
     request.destinationEnvironmentId,
@@ -176,16 +176,16 @@ export function exportWslMoveManifest(
   const rewriter = createUncToLinuxPathRewriter(request.distro, request.mappedDrives, {
     onMappedDrive: (letter) => usedLetters.add(letter)
   })
-  const payload = rewriteOrcadMigrationPayloadPaths(
+  const payload = rewriteOpenkododMigrationPayloadPaths(
     { ...catalog, ...(hasDormantState(dormantState) ? { dormantState } : {}) },
     rewriter
   )
   // Sign what the journal and the host read back: the parsed form (the parser keeps only the fields
   // it knows, so a session field it drops would break the digest) of the JSON (an in-memory value
   // with toJSON serializes differently), never the live objects.
-  const unsigned: Omit<OrcadMigrationManifest, 'manifestSha256'> = JSON.parse(
+  const unsigned: Omit<OpenkododMigrationManifest, 'manifestSha256'> = JSON.parse(
     JSON.stringify({
-      version: ORCAD_MIGRATION_MANIFEST_VERSION,
+      version: OPENKODOD_MIGRATION_MANIFEST_VERSION,
       migrationId: request.migrationId,
       createdAt: request.now().toISOString(),
       source,
@@ -193,19 +193,19 @@ export function exportWslMoveManifest(
       destinationEnvironmentId: request.destinationEnvironmentId
     })
   )
-  const { manifestSha256: _unsigned, ...normalized } = parseOrcadMigrationManifest({
+  const { manifestSha256: _unsigned, ...normalized } = parseOpenkododMigrationManifest({
     ...unsigned,
     manifestSha256: UNSIGNED_DIGEST
   })
-  const manifestSha256 = computeOrcadMigrationManifestSha256(normalized)
-  if (manifestSha256 !== computeOrcadMigrationManifestSha256(unsigned)) {
+  const manifestSha256 = computeOpenkododMigrationManifestSha256(normalized)
+  if (manifestSha256 !== computeOpenkododMigrationManifestSha256(unsigned)) {
     // Not refused (the parsed form is what moves), but a field the parser drops does not move.
     console.warn(
       '[wsl-move] The manifest parser dropped fields of the exported state:',
       differingPaths(unsigned, normalized).join(', ')
     )
   }
-  const manifest: OrcadMigrationManifest = { ...normalized, manifestSha256 }
+  const manifest: OpenkododMigrationManifest = { ...normalized, manifestSha256 }
   const worktreeIds = scopedWorktreeIds(repos, { ...catalog, dormantState })
   const workspaceKeys = [
     ...worktreeIds,
@@ -218,7 +218,7 @@ export function exportWslMoveManifest(
     workspaceKeys,
     worktrees: worktreeIds.map((sourceWorktreeId) => ({
       sourceWorktreeId,
-      destinationWorktreeId: rewriteOrcadMigrationWorktreeId(sourceWorktreeId, rewriter)
+      destinationWorktreeId: rewriteOpenkododMigrationWorktreeId(sourceWorktreeId, rewriter)
     })),
     automationsToReenable: inspection.automationsEnabledAtSource,
     mappedDriveLetters: [...usedLetters].sort()
@@ -270,7 +270,7 @@ function referencedGroups(
 /** Every worktree id in scope the store names: each repo's main worktree and any saved for it. */
 function scopedWorktreeIds(
   repos: readonly Repo[],
-  payload: OrcadMigrationCatalogPayload
+  payload: OpenkododMigrationCatalogPayload
 ): string[] {
   const repoIds = new Set(repos.map((repo) => repo.id))
   const ids = new Set(repos.map((repo) => getRepoMainWorktreeId(repo)))

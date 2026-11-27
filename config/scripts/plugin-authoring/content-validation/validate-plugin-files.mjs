@@ -1,5 +1,5 @@
 // Strict check of plugin manifests and catalogs, for authors and catalog CI.
-// Usage: node config/scripts/validate-plugin-files.mjs <plugin dir | orca-plugin.json | orca-catalog.json>...
+// Usage: node config/scripts/validate-plugin-files.mjs <plugin dir | openkodo-plugin.json | openkodo-catalog.json>...
 // For a plugin directory in a Git repository it also prints the catalog release entry for the
 // committed HEAD, with the `source.path` to list when the plugin is not the repository root.
 import { createHash } from 'node:crypto'
@@ -15,19 +15,19 @@ const { validatePluginFile, pluginManifestWarnings } = loadPluginSchemaModule(
   'installation/plugin-file-validation.ts'
 )
 const { parsePluginManifest } = loadPluginSchemaModule('manifest/plugin-manifest.ts')
-// Why the CLI's main entry: `orca plugin validate` and `release-entry` run these same checks, and
-// the printed contentHash must be what Orca computes at install.
+// Why the CLI's main entry: `openkodo plugin validate` and `release-entry` run these same checks, and
+// the printed contentHash must be what OpenKodo computes at install.
 const { pluginCatalogReleaseForHead } = loadPluginSchemaModule(
   '../../main/plugins/catalog/plugin-catalog-release-entry.ts'
 )
 const { validateDeclaredPluginArtifacts, validatePluginInstallContent } = loadPluginSchemaModule(
   '../../main/plugins/artifacts/plugin-artifact-validation.ts'
 )
-// Why shared: `orca plugin validate` runs these same host-call checks.
+// Why shared: `openkodo plugin validate` runs these same host-call checks.
 const { validatePluginHostCalls } = loadPluginSchemaModule(
   '../../main/plugins/artifacts/plugin-host-call-validation.ts'
 )
-// Why shared: `orca plugin validate` runs these same strict artifact checks.
+// Why shared: `openkodo plugin validate` runs these same strict artifact checks.
 const { strictPluginArtifactErrors, strictPluginArtifactWarnings } = loadPluginSchemaModule(
   'authoring/plugin-strict-artifact-checks.ts'
 )
@@ -36,7 +36,7 @@ const { englishSourceLookup } = loadPluginSchemaModule(
   'languages/plugin-translation-string-policy.ts'
 )
 let englishSource = null
-// Why Orca's English: pack strings are capped relative to the text they translate.
+// Why OpenKodo's English: pack strings are capped relative to the text they translate.
 function englishLookup() {
   englishSource ??= englishSourceLookup(
     JSON.parse(
@@ -71,7 +71,7 @@ async function installContentErrors(root, manifest) {
 const targets = process.argv.slice(2)
 if (targets.length === 0) {
   console.error(
-    'usage: validate-plugin-files <plugin dir | orca-plugin.json | orca-catalog.json>...'
+    'usage: validate-plugin-files <plugin dir | openkodo-plugin.json | openkodo-catalog.json>...'
   )
   process.exit(2)
 }
@@ -83,12 +83,12 @@ for (const target of targets) {
     continue
   }
   const files = statSync(target).isDirectory()
-    ? ['orca-plugin.json', 'orca-catalog.json']
+    ? ['openkodo-plugin.json', 'openkodo-catalog.json']
         .map((name) => path.join(target, name))
         .filter((file) => existsSync(file))
     : [target]
   if (files.length === 0) {
-    console.error(`${target}: no orca-plugin.json or orca-catalog.json`)
+    console.error(`${target}: no openkodo-plugin.json or openkodo-catalog.json`)
     failed = true
   }
   let manifestOk = false
@@ -113,7 +113,7 @@ for (const target of targets) {
     }
     const errors = validatePluginFile(path.basename(file), raw, readCatalogFile)
     let hostCallWarnings = []
-    if (errors.length === 0 && path.basename(file) === 'orca-plugin.json') {
+    if (errors.length === 0 && path.basename(file) === 'openkodo-plugin.json') {
       const { manifest } = parsePluginManifest(raw)
       errors.push(...strictPluginArtifactErrors(manifest, readPluginText(root), englishLookup()))
       errors.push(...(await installContentErrors(root, manifest)))
@@ -124,7 +124,7 @@ for (const target of targets) {
     for (const error of errors) {
       console.error(`${file}: ${error}`)
     }
-    if (errors.length === 0 && path.basename(file) === 'orca-plugin.json') {
+    if (errors.length === 0 && path.basename(file) === 'openkodo-plugin.json') {
       const { manifest } = parsePluginManifest(raw)
       for (const warning of [
         ...pluginManifestWarnings(raw),
@@ -137,7 +137,7 @@ for (const target of targets) {
     failed ||= errors.length > 0
     if (errors.length === 0) {
       console.log(`${file}: ok`)
-      manifestOk ||= path.basename(file) === 'orca-plugin.json'
+      manifestOk ||= path.basename(file) === 'openkodo-plugin.json'
     }
   }
   if (manifestOk && statSync(target).isDirectory()) {

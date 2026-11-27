@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { app, shell } from 'electron'
 import { posix } from 'node:path'
 import { pathToFileURL } from 'node:url'

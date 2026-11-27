@@ -8,7 +8,7 @@ import {
 } from '../../../shared/agent-hook-listener/configuration/agent-hook-types'
 
 // Use a per-user relay directory so shared hosts isolate endpoint files with mode 0700.
-const RELAY_HOOKS_DIR_NAME = '.orca-relay'
+const RELAY_HOOKS_DIR_NAME = '.openkodo-relay'
 const RELAY_HOOKS_SUBDIR = 'agent-hooks'
 
 export function defaultEndpointDir(): string {

@@ -4,16 +4,16 @@ import type {
   OrchestrationSessionAddressResult
 } from '../../../../../shared/orchestration/orchestration-caller-status'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES as CODES } from '../../../../../shared/orchestration/orchestration-session-caller-codes'
 import {
   PartyLocationParams,
   SessionAddressParams
 } from '../../../../../shared/rpc-contract/orchestration/orchestration-params'
 import { OrchestrationError } from '../../../orchestration/orchestration-error'
-import { resolveOrcaSessionParty } from '../../../orchestration/addressing/orchestration-party'
+import { resolveOpenKodoSessionParty } from '../../../orchestration/addressing/orchestration-party'
 import { locateOrchestrationParty } from '../../../orchestration/addressing/orchestration-party-location'
 import { readAgentSessionRecordStore } from '../../../orchestration/addressing/session-lineage/structured-session-lineage'
 import type { z } from 'zod'
@@ -79,7 +79,9 @@ export const ORCHESTRATION_CALLER_METHODS = [
       caller:
         orchestrationCaller && orchestrationCaller.kind !== 'peer'
           ? {
-              orcaSessionId: formatOrcaSessionAddress(orchestrationCaller.orcaSessionId),
+              openkodoSessionId: formatOpenKodoSessionAddress(
+                orchestrationCaller.openkodoSessionId
+              ),
               live: true
             }
           : null,
@@ -98,15 +100,15 @@ export const ORCHESTRATION_CALLER_METHODS = [
     params: SessionAddressParams,
     // Only host records know the chat's /clear root.
     handler: (params, { runtime }): OrchestrationSessionAddressResult => {
-      if (!isOrcaSessionId(params.sessionId)) {
+      if (!isOpenKodoSessionId(params.sessionId)) {
         throw new OrchestrationError(
           CODES.unknown,
           `${params.sessionId} is not an OpenKodo session ID.`,
           { effectsApplied: false }
         )
       }
-      const party = resolveOrcaSessionParty(params.sessionId, runtime.getOrchestrationDb())
-      return { orcaSessionId: formatOrcaSessionAddress(party.orcaSessionId) }
+      const party = resolveOpenKodoSessionParty(params.sessionId, runtime.getOrchestrationDb())
+      return { openkodoSessionId: formatOpenKodoSessionAddress(party.openkodoSessionId) }
     }
   }),
   defineOrchestrationMethod({

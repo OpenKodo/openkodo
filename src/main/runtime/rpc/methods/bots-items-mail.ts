@@ -12,7 +12,7 @@ import type { BotItemNoteBy } from '../../../../shared/bots/bot-item-note'
 import { appendBotItemNote, botItemNote } from '../../../bots/bot-item-chat-notes'
 import { botItemChangeMail, botItemMailImages } from '../../../bots/bot-items-mail-text'
 import type { BotItemMail } from '../../../bots/bot-items-schema'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 /** A message id from the first item event it carries. */
 export function botItemMailId(eventId: number): string {
@@ -22,7 +22,7 @@ export function botItemMailId(eventId: number): string {
 /** Who a mailed change's note names: the owner, the bot's chat that made it ('other-chat' once
  *  that chat is gone), or another agent. */
 function noteBy(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: Bot,
   actor: BotItemActor | undefined
 ): BotItemNoteBy {
@@ -58,7 +58,7 @@ function answerAskedIn(owed: BotItemMail): string | null {
 
 /** Stores the event's mail unless it is there already; true once nothing is owed. */
 export async function sendBotItemMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   owed: BotItemMail
 ): Promise<boolean> {
   const db = runtime.getOrchestrationDb()
@@ -73,7 +73,7 @@ export async function sendBotItemMail(
     return true
   }
   const sessionId = await botMailSession(runtime, bot, owed.chatId)
-  const to = `orca_session_id:${sessionId}`
+  const to = `openkodo_session_id:${sessionId}`
   const images = botItemMailImages(owed.changes)
   const asker = answerAskedIn(owed)
   const payload = JSON.stringify({
@@ -96,7 +96,7 @@ export async function sendBotItemMail(
     type: 'status',
     ...mail,
     payload,
-    orcaAuthored: 'item-mail'
+    openkodoAuthored: 'item-mail'
   })
   runtime.notifyMessageArrived(to, 'status')
   // The chat shows the change itself, naming who made it; the mail row stays hidden there. A change

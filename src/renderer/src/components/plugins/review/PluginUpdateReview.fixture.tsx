@@ -25,14 +25,14 @@ const editor = (id: string, extensions: string[]): Record<string, unknown> => ({
 function manifest(version: string, extra: Record<string, unknown> = {}): PluginManifest {
   return pluginManifestSchema.parse({
     manifestVersion: 2,
-    id: 'orca-excalidraw',
+    id: 'openkodo-excalidraw',
     publisher: 'openkodo',
     name: 'Excalidraw',
     version,
     execution: 'sandboxed-ui',
     description: 'Draw and edit .excalidraw diagrams.',
     license: 'MIT',
-    engines: { orca: '>=1.4.248' },
+    engines: { openkodo: '>=1.4.248' },
     capabilities: [],
     contributes: { customEditors: [editor('excalidraw', ['.excalidraw', '.excalidraw.json'])] },
     ...extra
@@ -77,7 +77,7 @@ const entry = pluginListEntryFromInstalled(installedExcalidraw)
 // A community plugin whose update adds a background worker: full access.
 const installedMermaid: PluginHostListEntry = {
   ...installedExcalidraw,
-  pluginKey: 'octocat.orca-mermaid-live',
+  pluginKey: 'octocat.openkodo-mermaid-live',
   name: 'Mermaid Live',
   publisher: 'octocat',
   version: '0.4.0',
@@ -148,14 +148,14 @@ function setup(): void {
 function mermaidManifest(version: string, extra: Record<string, unknown> = {}): PluginManifest {
   return pluginManifestSchema.parse({
     manifestVersion: 2,
-    id: 'orca-mermaid-live',
+    id: 'openkodo-mermaid-live',
     publisher: 'octocat',
     name: 'Mermaid Live',
     version,
     execution: 'sandboxed-ui',
     description: 'Live Mermaid previews.',
     license: 'MIT',
-    engines: { orca: '>=1.4.248' },
+    engines: { openkodo: '>=1.4.248' },
     capabilities: [],
     contributes: { customEditors: [editor('mermaid', ['.mmd'])] },
     ...extra

@@ -101,7 +101,7 @@ export class LegacyQueueOrderReader {
   afterRow(state: JournalReducerState, row: JournalRow): void {
     const refreshItem = (itemId: string) => {
       const identity = parseAgentJournalItemKey(state.aliases.get(itemId) ?? itemId)
-      if (identity?.provider === 'orca') {
+      if (identity?.provider === 'openkodo') {
         this.refresh(state, identity.clientMessageId)
       }
     }

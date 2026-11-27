@@ -32,7 +32,7 @@ const checks = [
       '-c',
       [
         'import importlib.util',
-        'spec=importlib.util.spec_from_file_location("orca_linux","native/computer-use-linux/runtime.py")',
+        'spec=importlib.util.spec_from_file_location("openkodo_linux","native/computer-use-linux/runtime.py")',
         'module=importlib.util.module_from_spec(spec)',
         'spec.loader.exec_module(module)',
         'print("import-ok")'
@@ -123,7 +123,7 @@ function verifyMacOSHelperApp() {
 }
 
 function verifyWindowsProviderHandshake() {
-  const dir = mkdtempSync(join(tmpdir(), 'orca-computer-use-verify-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-computer-use-verify-'))
   const operationPath = join(dir, 'operation.json')
   try {
     writeFileSync(operationPath, JSON.stringify({ tool: 'handshake' }), { mode: 0o600 })

@@ -73,7 +73,7 @@ A workspace under your home is yours, however it got there; moving it out only m
 
 ### Agents on a paired server
 
-- Mail one with `openkodo orchestration send --on <server> --to <term_…|orca_session_id:…> --subject <text> --body-file <file>`. Your own OpenKodo carries it; replies arrive in your own `check`.
+- Mail one with `openkodo orchestration send --on <server> --to <term_…|openkodo_session_id:…> --subject <text> --body-file <file>`. Your own OpenKodo carries it; replies arrive in your own `check`.
 - A bot there takes `--to bot:<name>` with `--on <server>`, and `--chat <id|new>` or `--item <n>` as on this computer. It treats the request as its owner's, and its answer comes back to your own `check` as a local bot's does.
 - Answer mail from another server with plain `openkodo orchestration reply --id <msg_id> --body-file <file>`; it goes back where it came from. `reply --on` is refused.
 - Your mail and workers stay on your own OpenKodo. `send` and `worker-start` with `--environment` (or an inherited `OPENKODO_ENVIRONMENT`) are refused with the `--on` command to run instead. `check` takes no `--on` and no server: replies from other servers already arrive in it. With `--environment` (or `OPENKODO_ENVIRONMENT`) it is refused with `mailbox_is_local`; drop the server. Read-only `inbox`, `worker-list` and `run-list` with `--environment` show that server's records.

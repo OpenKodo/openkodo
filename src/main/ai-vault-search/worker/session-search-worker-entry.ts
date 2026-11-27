@@ -17,7 +17,7 @@ import type {
 } from './session-search-worker-protocol'
 import { installWorkerSendLedger } from '../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-session-search')
+installWorkerSendLedger('openkodo-session-search')
 
 setActiveSink({
   push: (trace) => parentPort?.postMessage({ id: 0, trace }),

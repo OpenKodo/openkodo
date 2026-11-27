@@ -1,5 +1,5 @@
 import type { Store } from '../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import {
   SkillDiscoveryTargetSchema,
   type SkillDiscoveryResult,
@@ -21,7 +21,7 @@ import { runAsWslUserAct, wslDistroForPath } from '../../wsl/filesystem/wsl-unc-
 import { registerSkillCloudIpcHandlers } from './skill-cloud-ipc-handlers'
 import { handleMainWindowSkillIpc } from './skill-ipc-main-window'
 
-export function registerSkillsHandlers(store: Store, runtime?: OrcaRuntimeService): void {
+export function registerSkillsHandlers(store: Store, runtime?: OpenKodoRuntimeService): void {
   const discoverResolved = async (
     resolvedTarget: Awaited<ReturnType<typeof resolveSkillDiscoveryTarget>>,
     refresh: boolean,

@@ -53,7 +53,7 @@ export function ShortcutTerminalPolicyControl({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="orca-first">
+              <SelectItem value="openkodo-first">
                 {t(
                   'auto.components.settings.ShortcutTerminalPolicyControl.63308571d8',
                   'OpenKodo first'

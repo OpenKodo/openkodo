@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { OrchestrationDb } from '../../db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   recordPeerQuestionOut,
   settlePeerQuestionsOut,
@@ -18,7 +18,7 @@ describe('questions asked of an agent on a paired computer', () => {
     getTerminalHandleForPaneKey: () => null,
     notifyMessageArrived: (handle: string) => void notified.push(handle),
     notifyPeerMailReturned: () => {}
-  } as unknown as OrcaRuntimeService
+  } as unknown as OpenKodoRuntimeService
 
   beforeEach(() => {
     db = new OrchestrationDb(':memory:')

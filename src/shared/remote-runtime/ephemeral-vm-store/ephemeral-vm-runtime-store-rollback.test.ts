@@ -52,7 +52,7 @@ describe('ephemeral VM runtime store rollback projection', () => {
   })
 
   function makeUserDataPath(): string {
-    const path = mkdtempSync(join(tmpdir(), 'orca-vm-rollback-store-'))
+    const path = mkdtempSync(join(tmpdir(), 'openkodo-vm-rollback-store-'))
     tempDirs.push(path)
     return path
   }

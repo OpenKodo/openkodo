@@ -6,9 +6,9 @@ import {
   compareAppVersions,
   parseCliVersion
 } from '../../../shared/app-lifecycle/identity/app-version'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { agentCliMinimumVersion } from './agent-cli-minimum-version'
-import type { ProcessSpec } from '@orca/process-host/process-spec'
+import type { ProcessSpec } from '@openkodo/process-host/process-spec'
 
 function warnRefused(program: string, why: string, output = ''): void {
   const said = output.trim().replace(/\s+/g, ' ').slice(0, 200)

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { BoundedMap } from '../../../../../../../shared/collections/bounded-map'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../../orchestration/orchestration-error'
 import type { WorkerTerminalListState } from '../../../../../orchestration/terminal-authority/release/worker-terminal-ownership'
 
@@ -22,10 +22,10 @@ type WorkerListSnapshotStore = {
   pins: Map<string, number>
 }
 
-const storesByRuntime = new WeakMap<OrcaRuntimeService, WorkerListSnapshotStore>()
+const storesByRuntime = new WeakMap<OpenKodoRuntimeService, WorkerListSnapshotStore>()
 
 export function createWorkerListSnapshot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: {
     runId?: string
     terminalState: WorkerTerminalListState
@@ -54,7 +54,7 @@ export function createWorkerListSnapshot(
 }
 
 export function readWorkerListSnapshot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   id: string,
   params: { runId?: string; terminalState?: WorkerTerminalListState }
 ): WorkerListSnapshot {
@@ -78,7 +78,7 @@ export function readWorkerListSnapshot(
 }
 
 export function pinWorkerListSnapshot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   id: string,
   params: { runId?: string; terminalState?: WorkerTerminalListState }
 ): { snapshot: WorkerListSnapshot; release: () => void } {
@@ -103,7 +103,7 @@ export function pinWorkerListSnapshot(
   }
 }
 
-function storeFor(runtime: OrcaRuntimeService): WorkerListSnapshotStore {
+function storeFor(runtime: OpenKodoRuntimeService): WorkerListSnapshotStore {
   let store = storesByRuntime.get(runtime)
   if (!store) {
     const pins = new Map<string, number>()

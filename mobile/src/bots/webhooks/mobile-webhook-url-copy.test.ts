@@ -4,7 +4,7 @@ import type { RpcResponse } from '../../transport/rpc/rpc-wire-types'
 import { copyPhoneWebhookUrl } from './mobile-webhook-url-copy'
 
 const HOOK = 'wh_PhoneCopyTest001'
-const URL = `https://connector.orca.dev/hooks/${HOOK}/secret-key`
+const URL = `https://connector.openkodo.dev/hooks/${HOOK}/secret-key`
 
 function clipboard(): { written: string[]; writeText: (value: string) => Promise<void> } {
   const written: string[] = []

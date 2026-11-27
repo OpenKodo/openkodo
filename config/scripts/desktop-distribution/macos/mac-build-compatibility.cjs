@@ -1,8 +1,8 @@
 const { writeFileSync } = require('node:fs')
 const { join } = require('node:path')
-const compatibilityContract = require('../../../../src/shared/remote-runtime/orcad-distribution/local-build-compatibility-contract.json')
+const compatibilityContract = require('../../../../src/shared/remote-runtime/openkodod-distribution/local-build-compatibility-contract.json')
 
-const MAC_BUILD_COMPATIBILITY_FILENAME = 'orca-local-build.json'
+const MAC_BUILD_COMPATIBILITY_FILENAME = 'openkodo-local-build.json'
 
 function createMacBuildCompatibility({ version, commit, architecture }) {
   if (architecture !== 'arm64' && architecture !== 'x64') {

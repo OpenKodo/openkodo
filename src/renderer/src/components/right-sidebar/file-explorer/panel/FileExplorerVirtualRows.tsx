@@ -39,7 +39,7 @@ type FileExplorerVirtualRowsProps = {
   /** Cached ownership for selected paths hidden by collapse or filtering. */
   dirCache?: Record<string, DirCache>
   runtimeDownloadContext?: RuntimeFileOperationArgs | null
-  canOpenInOrcaBrowser?: (filePath: string) => boolean
+  canOpenInOpenKodoBrowser?: (filePath: string) => boolean
   onClick: (node: TreeNode, event: React.MouseEvent<HTMLButtonElement>) => void
   onDoubleClick: (node: TreeNode) => void
   onViewFile: (node: TreeNode) => void
@@ -126,7 +126,7 @@ export function FileExplorerVirtualRows(props: FileExplorerVirtualRowsProps): Re
     sourceWorkspaceId,
     dirCache,
     runtimeDownloadContext,
-    canOpenInOrcaBrowser = () => false,
+    canOpenInOpenKodoBrowser = () => false,
     onClick,
     onDoubleClick,
     onViewFile,
@@ -238,7 +238,7 @@ export function FileExplorerVirtualRows(props: FileExplorerVirtualRowsProps): Re
               sourceWorkspaceId={sourceWorkspaceId}
               resolveDragSourceOwner={resolveSourceOwner}
               runtimeDownloadContext={runtimeDownloadContext}
-              canOpenInOrcaBrowser={canOpenInOrcaBrowser(n.path)}
+              canOpenInOpenKodoBrowser={canOpenInOpenKodoBrowser(n.path)}
               canCollapseFolderSubtree={canCollapseFolderSubtree}
               targetDir={n.isDirectory ? n.path : dirname(n.path)}
               targetDepth={n.isDirectory ? n.depth + 1 : n.depth}

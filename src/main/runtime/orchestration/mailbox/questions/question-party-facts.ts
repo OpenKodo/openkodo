@@ -8,8 +8,8 @@ import {
   readAgentSessionRecordStore,
   resolveLineageRunningSession
 } from '../../addressing/session-lineage/structured-session-lineage'
-import { isOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { isOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 
 export type QuestionPartyReads = {
   /** The chat running this lineage root's conversation now. */
@@ -57,16 +57,20 @@ export async function readQuestionPartyFacts(
       running.set(party, (await reads.chatRunning(live)) === true)
       const ids = [...new Set([root, live])]
       const runs = ids.flatMap((id) =>
-        isOrcaSessionId(id)
+        isOpenKodoSessionId(id)
           ? db
-              .runsBoundToCoordinator({ orcaSessionId: id, paneKey: null, terminalHandle: null })
+              .runsBoundToCoordinator({
+                openkodoSessionId: id,
+                paneKey: null,
+                terminalHandle: null
+              })
               .map((run) => `run:${run.id}`)
           : []
       )
       const all = [
         ...ids.map((id) => `${OPENKODO_SESSION_ADDRESS_PREFIX}${id}`),
         ...runs,
-        ...openDispatchMailboxes(db, 'assignee_orca_session_id', ids)
+        ...openDispatchMailboxes(db, 'assignee_openkodo_session_id', ids)
       ]
       mailboxes.set(
         party,
@@ -102,8 +106,8 @@ export async function readQuestionPartyFacts(
 /** The taker key a Dispatch's worker takes mail as: its chat's lineage root, or its terminal. */
 export function dispatchParty(db: OrchestrationDb, dispatchId: string): string | null {
   const dispatch = db.getDispatchContextById(dispatchId)
-  if (dispatch?.assignee_orca_session_id) {
-    return mailTakerKey(sessionMailTaker(dispatch.assignee_orca_session_id))
+  if (dispatch?.assignee_openkodo_session_id) {
+    return mailTakerKey(sessionMailTaker(dispatch.assignee_openkodo_session_id))
   }
   return dispatch?.assignee_handle ? `terminal:${dispatch.assignee_handle}` : null
 }

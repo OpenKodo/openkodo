@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 // POST `bots/<bot id>/slack/handoffs`, by the bot's own host: a single-use code (5 minutes) that lets
-// another signed-in Orca account create the bot's app with its own config grant. A new code replaces
+// another signed-in OpenKodo account create the bot's app with its own config grant. A new code replaces
 // the last one for that bot and workspace.
 export const ConnectorBotSlackHandOffRequestSchema = z.object({
   v: z.literal(1),

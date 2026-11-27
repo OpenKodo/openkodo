@@ -5,7 +5,7 @@
 import { isResumableTuiAgent } from '../../../../../../../shared/agent-session/lifecycle/agent-session-resume'
 import { agentProviderSessionsEqual } from '../../../../../../../shared/agent-session/lifecycle/resume/agent-provider-session-equality'
 import { isStructuredWorkerHandle } from '../../../../../../../shared/orchestration/workers/structured-worker-handle'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import {
   readWorkerResumeSession,
@@ -45,7 +45,7 @@ export type WorkerFollowUpPlacement = {
 }
 
 export async function chooseWorkerFollowUpPlacement(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   latest: DispatchContextRow,
   found: WorkerTerminalResourceRow | undefined,
@@ -113,7 +113,7 @@ export async function chooseWorkerFollowUpPlacement(
 
 /** The handle a follow-up takes in place, or null once its agent is proven gone; never a guess. */
 async function openWorkerTerminal(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   resource: WorkerTerminalResourceRow,
   release: LeftoverShellRelease
@@ -148,7 +148,7 @@ async function openWorkerTerminal(
 
 /** The agent exited and left OpenKodo's shell behind: close it the way worker-release does before replacing it. */
 async function releaseLeftoverShell(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string,
   release: LeftoverShellRelease
@@ -193,7 +193,7 @@ function chatTabOpen(db: OrchestrationDb, resource: WorkerTerminalResourceRow): 
 
 /** The user resumed the conversation in a tab of their own: the follow-up goes there and the tab stays theirs. */
 export async function userTabHoldingSession(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   session: WorkerResumeSession
 ): Promise<string | undefined> {
   for (const row of runtime.getAgentRowsForProviderSession(

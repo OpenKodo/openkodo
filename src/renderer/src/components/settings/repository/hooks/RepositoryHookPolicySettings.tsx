@@ -1,10 +1,10 @@
 import { ChevronRight } from 'lucide-react'
 import type {
   HookCommandSourcePolicy,
-  OrcaHooks,
+  OpenKodoHooks,
   SetupAgentStartupPolicy,
   SetupRunPolicy
-} from '../../../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { Trans } from 'react-i18next'
 import { i18n, translate } from '@/i18n/i18n'
 import { useTranslate, type Translate } from '@/i18n/use-translate'
@@ -192,7 +192,7 @@ export function RepositoryHookCommandSourceSetting({
   setupOnly?: boolean
   yamlPresentation?: HookYamlPresentation
   yamlState: string
-  yamlHooks: OrcaHooks | null
+  yamlHooks: OpenKodoHooks | null
   copiedTemplate: boolean
   isAdvancedOpen: boolean
   onSelectPolicy: (policy: HookCommandSourcePolicy) => void

@@ -7,20 +7,20 @@ import type {
 
 /** Which agy runs a chat and its version, so its models and account are no surprise. */
 export function antigravityProgramLabel(
-  orcas: boolean,
+  openkodos: boolean,
   version: string | null | undefined,
   t: Translate = translate
 ): string {
-  if (orcas) {
+  if (openkodos) {
     return version
       ? t(
-          'components.native-chat.antigravityAuth.orcasAgyVersion',
+          'components.native-chat.antigravityAuth.openkodosAgyVersion',
           "OpenKodo's agy · v{{version}}",
           {
             version
           }
         )
-      : t('components.native-chat.antigravityAuth.orcasAgy', "OpenKodo's agy")
+      : t('components.native-chat.antigravityAuth.openkodosAgy', "OpenKodo's agy")
   }
   return version
     ? t('components.native-chat.antigravityAuth.yourAgyVersion', 'Your agy · v{{version}}', {

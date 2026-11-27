@@ -1,6 +1,6 @@
 // Promotion waits for the store lock; GC skips busy stores rather than queuing behind installs.
 import { randomUUID } from 'node:crypto'
-import { ORCAD_RUNTIMES_DIRNAME } from '../../../shared/remote-runtime/orcad-distribution/orcad-artifacts'
+import { OPENKODOD_RUNTIMES_DIRNAME } from '../../../shared/remote-runtime/openkodod-distribution/openkodod-artifacts'
 import type { RemoteInstallTransport } from './remote-install-transport'
 import { quotePosixShell } from '../../../shared/shell/launch/shell-argument-quoting'
 import { execHostCommand } from '../../ssh/remote-exec/remote-host-exec'
@@ -29,7 +29,7 @@ export type HeldRuntimeStoreLock = {
 }
 
 export function remoteNodeRuntimeStoreDir(host: RemoteHostPlatform, remoteHome: string): string {
-  return joinRemotePath(host, remoteHome, RELAY_REMOTE_DIR, ORCAD_RUNTIMES_DIRNAME)
+  return joinRemotePath(host, remoteHome, RELAY_REMOTE_DIR, OPENKODOD_RUNTIMES_DIRNAME)
 }
 
 function lockDir(host: RemoteHostPlatform, storeDir: string): string {
@@ -57,9 +57,9 @@ function heldLock(
       }
       // Ignore hangups and capture output so release precedes writes to a potentially closed channel.
       return (
-        `trap '' HUP PIPE; orca_store_out=$(${command}); orca_store_status=$?; ` +
+        `trap '' HUP PIPE; openkodo_store_out=$(${command}); openkodo_store_status=$?; ` +
         `${posixReleaseOwnedLockCommand(host, lockDir(host, storeDir), owner)}; ` +
-        `printf '%s\\n' "$orca_store_out"; exit $orca_store_status`
+        `printf '%s\\n' "$openkodo_store_out"; exit $openkodo_store_status`
       )
     }
   }

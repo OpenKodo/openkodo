@@ -10,7 +10,7 @@ import { getCachedWslHome } from '../../../wsl/discovery/wsl-home-cache'
 import { isWslDistroRunning } from '../../../wsl/discovery/wsl-background-distro-gate'
 import {
   getSystemCodexHomePath,
-  resolveOrcaManagedCodexHomePath,
+  resolveOpenKodoManagedCodexHomePath,
   syncCodexGlobalInstructionsIntoManagedHome,
   syncSystemCodexResourcesIntoManagedHome
 } from '../../../codex/configuration/homes/codex-home-paths'
@@ -35,7 +35,7 @@ import { CodexRuntimeHomeManagedHome } from './runtime-home-service-managed-home
 export abstract class CodexRuntimeHomeRouting extends CodexRuntimeHomeManagedHome {
   getHostCodexHomePathsForSessionDiscovery(): string[] {
     // Transcript polling must resolve the mirror path without creating it.
-    const homes = [resolveOrcaManagedCodexHomePath()]
+    const homes = [resolveOpenKodoManagedCodexHomePath()]
     if (this.isHostSystemDefaultRealHomeSelected() || this.getSelfContainedManagedHostAccount()) {
       // Include real-home history even when nested OpenKodo inherits a managed CODEX_HOME.
       homes.push(getSystemCodexHomePath())
@@ -290,7 +290,7 @@ export abstract class CodexRuntimeHomeRouting extends CodexRuntimeHomeManagedHom
     homePath: string,
     launchEnv?: NodeJS.ProcessEnv
   ): Promise<void> {
-    const mirrorHome = resolveOrcaManagedCodexHomePath()
+    const mirrorHome = resolveOpenKodoManagedCodexHomePath()
     if (
       this.getSelfContainedManagedHostAccount() ||
       normalizeRuntimePathForComparison(homePath) !== normalizeRuntimePathForComparison(mirrorHome)

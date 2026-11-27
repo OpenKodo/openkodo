@@ -1,5 +1,5 @@
 import { execFile, type ChildProcess } from 'node:child_process'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 
 export const LOGIN_PROCESS_POSIX_GRACE_MS = 5_000
 export const LOGIN_PROCESS_CLOSE_FALLBACK_MS = 1_000

@@ -1,5 +1,5 @@
 # References to functions that make a synchronous fs, child_process or SQLite call, or call such a
-# function, per file, in event-loop code (Electron main, orcad, daemon, preload; worker-only modules excluded).
+# function, per file, in event-loop code (Electron main, openkodod, daemon, preload; worker-only modules excluded).
 # This is a RATCHET: counts may only go DOWN.
 # Prune: node config/scripts/static-analysis/ratchets/runtime-lifecycle/check-main-blocking-helper-ratchet.mjs --prune
 1 src/main/acp/conversation-copy/acp-conversation-copies.ts
@@ -236,10 +236,9 @@
 6 src/main/cli/cli-installer.ts
 1 src/main/cli/installation/cli-command-installation.ts
 4 src/main/cli/installation/cli-install-location.ts
-5 src/main/cli/launchers/linux-bare-orca-dispatcher.ts
-14 src/main/cli/launchers/linux-terminal-orca-cli-shim.ts
-1 src/main/cli/launchers/orca-cli-child-path.ts
-1 src/main/cli/launchers/this-app-orca-cli-launcher.ts # resolves this app's CLI launcher once per data folder per run (the Linux packaged shim check), for the MCP agent-file and terminal entries
+14 src/main/cli/launchers/linux-terminal-openkodo-cli-shim.ts
+1 src/main/cli/launchers/openkodo-cli-child-path.ts
+1 src/main/cli/launchers/this-app-openkodo-cli-launcher.ts # resolves this app's CLI launcher once per data folder per run (the Linux packaged shim check), for the MCP agent-file and terminal entries
 1 src/main/cli/wsl/wsl-cli-installer.ts
 1 src/main/cli/wsl/wsl-cli-registration-reconciliation.ts
 6 src/main/cli/wsl/wsl-cli-registration-registry.ts
@@ -299,7 +298,7 @@
 1 src/main/codex/configuration/shared-server/codex-shared-server-fix.ts
 3 src/main/codex/configuration/shared-server/codex-shared-server-pane.ts
 2 src/main/codex/configuration/shared-server/codex-shared-server-probe.ts
-8 src/main/codex/configuration/toml/config-toml-atomic-write.ts # compare-before-publish re-read of config.toml so a save made after Orca read it is never overwritten (moved here from the worker-only trust transaction); +1 resolvesIntoWslShare only with refuseWslTarget (promotion write-back), realpath.native only for a Windows drive-letter target (#45247)
+8 src/main/codex/configuration/toml/config-toml-atomic-write.ts # compare-before-publish re-read of config.toml so a save made after OpenKodo read it is never overwritten (moved here from the worker-only trust transaction); +1 resolvesIntoWslShare only with refuseWslTarget (promotion write-back), realpath.native only for a Windows drive-letter target (#45247)
 4 src/main/codex/configuration/toml/config-toml-runtime-owned-sections.ts
 9 src/main/codex/history/backfill/codex-session-backfill-marker.ts
 6 src/main/codex/history/backfill/codex-session-backfill.ts
@@ -341,7 +340,7 @@
 2 src/main/codex/structured/catalog/codex-at-rest-skills-probe.ts
 1 src/main/codex/structured/catalog/codex-model-catalog-probe.ts
 1 src/main/codex/structured/launch/codex-structured-launch-resolution.ts
-1 src/main/codex/structured/launch/codex-structured-orca-hooks-off.ts
+1 src/main/codex/structured/launch/codex-structured-openkodo-hooks-off.ts
 3 src/main/codex/structured/session-lifecycle/codex-provider-session-rename.ts
 1 src/main/codex/structured/session-lifecycle/codex-session-account-usage.ts
 1 src/main/codex/structured/session-lifecycle/codex-session-mcp.ts
@@ -353,7 +352,7 @@
 6 src/main/codex/trust/grants/codex-trust-grant-ledger.ts
 7 src/main/codex/trust/hooks/codex-hook-approval-first-write.ts
 14 src/main/codex/trust/hooks/codex-hook-hash-lookup.ts
-11 src/main/codex/trust/hooks/codex-hook-orca-approvals.ts
+11 src/main/codex/trust/hooks/codex-hook-openkodo-approvals.ts
 11 src/main/codex/trust/hooks/codex-hook-trust-cleanup.ts
 4 src/main/codex/trust/hooks/codex-hook-trust-derivation.ts
 6 src/main/codex/trust/hooks/codex-hook-trust-memo.ts
@@ -618,20 +617,20 @@
 1 src/main/ipc/filesystem/watcher-process/supervision/parcel-watcher-supervisor-subscribe.ts
 1 src/main/ipc/filesystem/watchers/filesystem-watcher-wsl.ts
 1 src/main/ipc/filesystem/watchers/wsl-watcher-spawn.ts
-1 src/main/ipc/hooks/register-worktree-hook-check-handler.ts # why: branding pass now resolves openkodo.yaml before orca.yaml
+1 src/main/ipc/hooks/register-worktree-hook-check-handler.ts # why: branding pass now resolves openkodo.yaml before openkodo.yaml
 2 src/main/ipc/hooks/register-worktree-hook-file-handlers.ts
 1 src/main/ipc/linear/register-handlers.ts
 7 src/main/ipc/notebook.ts
 1 src/main/ipc/notifications/notification-authorization-status.ts
 2 src/main/ipc/notifications/notifications.ts
-5 src/main/ipc/orca-uninstall.ts
+5 src/main/ipc/openkodo-uninstall.ts
 4 src/main/ipc/plugins/plugins.ts
 3 src/main/ipc/preflight/preflight-command-exec.ts
 1 src/main/ipc/preflight/preflight-local-env.ts
 1 src/main/ipc/preflight/preflight-wsl-agent-detection.ts
 1 src/main/ipc/preflight/preflight-wsl-command.ts
-5 src/main/ipc/profiles/orca-profile-org-members-handlers.ts
-12 src/main/ipc/profiles/orca-profiles.ts
+5 src/main/ipc/profiles/openkodo-profile-org-members-handlers.ts
+12 src/main/ipc/profiles/openkodo-profiles.ts
 2 src/main/ipc/pty/delivery/producer-sync.ts
 2 src/main/ipc/pty/delivery/wire-session.ts
 8 src/main/ipc/pty/host-env/assembly.ts
@@ -664,9 +663,9 @@
 1 src/main/ipc/repos/repo-update-handler.ts
 2 src/main/ipc/runtime-environments/catalog/runtime-environment-preference.ts
 2 src/main/ipc/runtime-environments/connections/paired-desktop-account-declaration.ts
-1 src/main/ipc/runtime-environments/managed-orcad/managed-orcad-actions.ts
-1 src/main/ipc/runtime-environments/managed-orcad/orcad-runtime-lifecycle-handlers.ts
-1 src/main/ipc/runtime-environments/managed-orcad/runtime-environment-recipe-vm-wake.ts
+1 src/main/ipc/runtime-environments/managed-openkodod/managed-openkodod-actions.ts
+1 src/main/ipc/runtime-environments/managed-openkodod/openkodod-runtime-lifecycle-handlers.ts
+1 src/main/ipc/runtime-environments/managed-openkodod/runtime-environment-recipe-vm-wake.ts
 1 src/main/ipc/runtime-environments/mobile-relay/runtime-environment-mobile-relay-hosts.ts
 1 src/main/ipc/runtime-environments/runtime-environments.ts
 2 src/main/ipc/session.ts
@@ -732,36 +731,36 @@
 7 src/main/managed-data-accounts/credential-capture.ts
 1 src/main/managed-data-accounts/profile-removal.ts
 2 src/main/managed-data-accounts/service.ts
-2 src/main/managed-server/activation/orcad-activation-fence-hold.ts
-15 src/main/managed-server/activation/orcad-activation-lock.ts
-1 src/main/managed-server/activation/orcad-activation-recovery.ts
-3 src/main/managed-server/activation/orcad-exited-own-lock.ts
-5 src/main/managed-server/activation/orcad-held-fence-tokens.ts
-1 src/main/managed-server/activation/orcad-installed-activation.ts
-1 src/main/managed-server/install/orcad-local-build-hash.ts
-1 src/main/managed-server/install/orcad-remote-decommission.ts
-6 src/main/managed-server/install/orcad-remote-deploy.ts
-4 src/main/managed-server/install/orcad-remote-install.ts
-1 src/main/managed-server/install/orcad-remote-rollback.ts
-1 src/main/managed-server/lifecycle/orcad-idle-restart-stop.ts # moved from orcad-managed-launch-session.ts with the idle-restart stop (withOrcadActivationLock), now shared with the WSL host relaunch
-4 src/main/managed-server/lifecycle/orcad-managed-auto-update.ts
-1 src/main/managed-server/lifecycle/orcad-managed-runtime-context.ts
-1 src/main/managed-server/lifecycle/orcad-managed-stale-lock-reclaim.ts
-1 src/main/managed-server/lifecycle/orcad-managed-tunnel-transport.ts
-4 src/main/managed-server/lifecycle/orcad-managed-wake.ts
-1 src/main/managed-server/lifecycle/orcad-runtime-conversion.ts
-1 src/main/managed-server/lifecycle/orcad-runtime-decommission.ts
-3 src/main/managed-server/lifecycle/orcad-runtime-deployment.ts
-3 src/main/managed-server/lifecycle/orcad-runtime-maintenance.ts
-1 src/main/managed-server/lifecycle/orcad-runtime-status.ts
-1 src/main/managed-server/migration/cutover/orcad-unreachable-setup-release.ts
-3 src/main/mcp-servers/mcp-host-list-launch.ts # mcpServersForLaunch moved from mcp-host-list.ts: reads the host list per chat launch and per orca mcp connect; +2 the saved-values digests, read at launch and after Orca writes the list
+2 src/main/managed-server/activation/openkodod-activation-fence-hold.ts
+15 src/main/managed-server/activation/openkodod-activation-lock.ts
+1 src/main/managed-server/activation/openkodod-activation-recovery.ts
+3 src/main/managed-server/activation/openkodod-exited-own-lock.ts
+5 src/main/managed-server/activation/openkodod-held-fence-tokens.ts
+1 src/main/managed-server/activation/openkodod-installed-activation.ts
+1 src/main/managed-server/install/openkodod-local-build-hash.ts
+1 src/main/managed-server/install/openkodod-remote-decommission.ts
+6 src/main/managed-server/install/openkodod-remote-deploy.ts
+4 src/main/managed-server/install/openkodod-remote-install.ts
+1 src/main/managed-server/install/openkodod-remote-rollback.ts
+1 src/main/managed-server/lifecycle/openkodod-idle-restart-stop.ts # moved from openkodod-managed-launch-session.ts with the idle-restart stop (withOpenkododActivationLock), now shared with the WSL host relaunch
+4 src/main/managed-server/lifecycle/openkodod-managed-auto-update.ts
+1 src/main/managed-server/lifecycle/openkodod-managed-runtime-context.ts
+1 src/main/managed-server/lifecycle/openkodod-managed-stale-lock-reclaim.ts
+1 src/main/managed-server/lifecycle/openkodod-managed-tunnel-transport.ts
+4 src/main/managed-server/lifecycle/openkodod-managed-wake.ts
+1 src/main/managed-server/lifecycle/openkodod-runtime-conversion.ts
+1 src/main/managed-server/lifecycle/openkodod-runtime-decommission.ts
+3 src/main/managed-server/lifecycle/openkodod-runtime-deployment.ts
+3 src/main/managed-server/lifecycle/openkodod-runtime-maintenance.ts
+1 src/main/managed-server/lifecycle/openkodod-runtime-status.ts
+1 src/main/managed-server/migration/cutover/openkodod-unreachable-setup-release.ts
+3 src/main/mcp-servers/mcp-host-list-launch.ts # mcpServersForLaunch moved from mcp-host-list.ts: reads the host list per chat launch and per openkodo mcp connect; +2 the saved-values digests, read at launch and after OpenKodo writes the list
 3 src/main/mcp-servers/mcp-host-list-sign-in.ts # the host MCP list reuses the bot tools file and its synchronous credential store, read per user action as bots-tools.ts does
 8 src/main/mcp-servers/mcp-host-list.ts # the host MCP list reuses the bot tools file and its synchronous credential store, read per user action as bots-tools.ts does
 1 src/main/mcp-servers/mcp-shared-process-servers.ts # a shared server's relay request reads the host list as a launch does; only its one-time inline-header migration is synchronous
 3 src/main/mcp-servers/session-mcp-launch.ts # per chat launch and turn: the bot launch read of its tools file, its revision check (moved from bot-structured-session-wiring.ts), and the host list read
 1 src/main/mcp-servers/terminal/terminal-mcp-cli-support.ts # runWslProcess for a WSL CLI's --help/--version probe, once per CLI and distro per 10 minutes
-1 src/main/mcp-servers/terminal/terminal-mcp-servers.ts # wslGuestOrcaLauncher: the managed WSL CLI launcher, resolved once per data folder per run
+1 src/main/mcp-servers/terminal/terminal-mcp-servers.ts # wslGuestOpenKodoLauncher: the managed WSL CLI launcher, resolved once per data folder per run
 3 src/main/mcp-servers/terminal/terminal-mcp-wsl-servers.ts # resolves the managed WSL CLI launcher (getManagedWslCliDir) once per data folder per run; settleWslAutomountRoot reads a distro mount root once per distro start (cached after)
 1 src/main/media/local-preview-grant-file.ts
 1 src/main/media/media-preview-protocol.ts
@@ -838,103 +837,103 @@
 1 src/main/opencode/text-tasks/wsl/opencode-wsl-text-task-entry.ts
 4 src/main/opencode/text-tasks/wsl/opencode-wsl-text-task.ts
 2 src/main/opencode/transcripts/opencode-transcript-import.ts
-7 src/main/orca-profiles/catalog/other-profile-workspace-catalog.ts
-2 src/main/orca-profiles/catalog/profile-project-presence.ts
-11 src/main/orca-profiles/cloud-auth/profile-artifact-cloud-cleanup.ts
-1 src/main/orca-profiles/cloud-auth/profile-cloud-auth-status.ts
-3 src/main/orca-profiles/cloud-auth/profile-cloud-capability-refresh.ts
-3 src/main/orca-profiles/cloud-auth/profile-cloud-code-sign-in.ts
-11 src/main/orca-profiles/cloud-auth/profile-cloud-dev-service.ts
-19 src/main/orca-profiles/cloud-auth/profile-cloud-index.ts
-30 src/main/orca-profiles/cloud-auth/profile-cloud-service.ts
-1 src/main/orca-profiles/cloud-console/cloud-console-link.ts # click-time console link reads the profile index once
-5 src/main/orca-profiles/cloud-org/profile-cloud-org-members-service.ts
-2 src/main/orca-profiles/cloud-org/profile-cloud-org-selection.ts
-9 src/main/orca-profiles/cloud-session/profile-cloud-session-commit.ts
-21 src/main/orca-profiles/cloud-session/profile-cloud-session-owner.ts
-6 src/main/orca-profiles/cloud-session/profile-cloud-session-refresh.ts
-6 src/main/orca-profiles/cloud-session/profile-cloud-session-store.ts
-8 src/main/orca-profiles/orca-account-service.ts # +1 openConsole: click-time console link reads the profile index once
-1 src/main/orca-profiles/profile-account-user-id.ts
-21 src/main/orca-profiles/profile-index-store.ts # writeRollingFileBackup replaces copyFileSync (main-sync-fs 12 -> 11)
-1 src/main/orca-profiles/profile-storage-paths.ts
-6 src/main/orca-profiles/project-transfer/profile-active-transfer.ts
-2 src/main/orca-profiles/project-transfer/profile-project-domain-move-intent.ts
-10 src/main/orca-profiles/project-transfer/profile-project-domain-state.ts
-13 src/main/orca-profiles/project-transfer/profile-project-move-intent.ts
-2 src/main/orca-profiles/project-transfer/profile-project-move-record.ts
-15 src/main/orca-profiles/project-transfer/profile-project-state-file.ts
-2 src/main/orca-profiles/project-transfer/profile-project-transfer-migration.ts
-13 src/main/orca-profiles/project-transfer/profile-project-transfer.ts
-2 src/main/orca-profiles/storage/new-profile-state.ts
-3 src/main/orca-profiles/storage/profile-legacy-state-import.ts
-4 src/main/orcad/account-launch/orcad-account-services.ts
-4 src/main/orcad/account-launch/orcad-codex-account-homes.ts
-4 src/main/orcad/account-launch/orcad-host-account-launch-env-store.ts
-2 src/main/orcad/account-launch/orcad-wsl-host-claude-profile-refresh.ts
-3 src/main/orcad/artifact-slots/orcad-artifact-cache-retention.ts
-1 src/main/orcad/artifact-slots/orcad-artifact-identity.ts
-1 src/main/orcad/artifact-slots/orcad-artifact-materializer.ts
-3 src/main/orcad/artifact-slots/orcad-daemon-slot-pins.ts
-2 src/main/orcad/browser-providers/electron/electron-serve-browser-process.ts
-1 src/main/orcad/browser-providers/electron/electron-sidecar-profile.ts
-3 src/main/orcad/browser-providers/orcad-browser-provider.ts
-1 src/main/orcad/browser-providers/orcad-browser-startup.ts
-1 src/main/orcad/browser-providers/orcad-sidecar-runtime-client.ts
-7 src/main/orcad/credentials/orcad-plaintext-credential-migration.ts
-7 src/main/orcad/credentials/orcad-secret-key-record.ts
-10 src/main/orcad/credentials/orcad-secret-key-resolution.ts
-2 src/main/orcad/credentials/orcad-secret-store-startup.ts
-3 src/main/orcad/credentials/orcad-secret-store.ts
-3 src/main/orcad/daemon/orcad-daemon-supervision.ts
-7 src/main/orcad/diagnostics/orcad-health.ts
-1 src/main/orcad/diagnostics/orcad-observability.ts
-2 src/main/orcad/host-lifecycle/idle-exit/orcad-idle-stop-record.ts
-10 src/main/orcad/host-lifecycle/idle-exit/orcad-managed-idle-exit-host.ts
-8 src/main/orcad/host-lifecycle/managed-stop/orcad-completed-stop-receipt.ts
-1 src/main/orcad/host-lifecycle/managed-stop/orcad-managed-stop-admission.ts
-3 src/main/orcad/host-lifecycle/managed-stop/orcad-managed-stop-cancellation.ts
-8 src/main/orcad/host-lifecycle/managed-stop/orcad-managed-stop-command.ts
-14 src/main/orcad/host-lifecycle/managed-stop/orcad-managed-stop-completion.ts
-3 src/main/orcad/host-lifecycle/managed-stop/orcad-managed-stop-decision.ts
-4 src/main/orcad/host-lifecycle/managed-stop/orcad-managed-stop-request.ts
-3 src/main/orcad/host-lifecycle/managed-stop/orcad-stop-request-listener.ts
-5 src/main/orcad/host-lifecycle/orcad-lifecycle.ts
-3 src/main/orcad/host-runtime/orcad-entry.ts
-5 src/main/orcad/host-runtime/orcad-host-adapters.ts
-2 src/main/orcad/host-runtime/orcad-runtime-rpc.ts
-2 src/main/orcad/host-runtime/orcad-session-scanner-idle.ts
-1 src/main/orcad/host-runtime/orcad-session-search.ts
-1 src/main/orcad/host-runtime/orcad-speech-services.ts
-2 src/main/orcad/host-runtime/orcad-wsl-host-login-environment.ts
-1 src/main/orcad/instance-lock/orcad-data-root-privacy.ts
-6 src/main/orcad/instance-lock/orcad-instance-lock-hold.ts # journal legacy retirement: <=2 reads of the small (64 KiB-capped) profile lock file per attempt; attempts back off 1m->1h and stop once retired or refused
-14 src/main/orcad/instance-lock/orcad-instance-lock-reclaim.ts
-1 src/main/orcad/instance-lock/orcad-instance-lock-record.ts
-20 src/main/orcad/instance-lock/orcad-instance-lock.ts
-1 src/main/orcad/instance-lock/orcad-lock-clone-machine.ts
-2 src/main/orcad/instance-lock/orcad-lock-holder-locality.ts
-7 src/main/orcad/instance-lock/orcad-process-start-time.ts
-14 src/main/orcad/instance-lock/orcad-stale-lock-reclaim.ts
-1 src/main/orcad/instance-lock/orcad-wsl-holder-release.ts
-2 src/main/orcad/launcher.ts
-9 src/main/orcad/main.ts
-1 src/main/orcad/migration/orcad-migration-destination-capabilities.ts
-3 src/main/orcad/migration/orcad-migration-wsl-destination.ts
-2 src/main/orcad/native-runtime/node-pty-prebuilt-slot.ts
-2 src/main/orcad/native-runtime/node-pty-precondition.ts
-3 src/main/orcad/native-runtime/orcad-native-preflight.ts
-9 src/main/orcad/native-runtime/orcad-runtime-native-preflight.ts
-1 src/main/orcad/orcad-connector.ts
-2 src/main/orcad/profile-state/orcad-host-identity-reset.ts
-3 src/main/orcad/profile-state/orcad-profile-state-startup.ts
-6 src/main/orcad/runtime-launch/orcad-bundled-runtime.ts
-9 src/main/orcad/runtime-launch/orcad-profile-preflight.ts
-1 src/main/orcad/runtime-launch/orcad-startup-qualification.ts
-3 src/main/orcad/runtime-launch/windows-breakaway-launcher.ts
-6 src/main/orcad/serve-startup/orcad-cli-launcher.ts
-3 src/main/orcad/serve-startup/orcad-command-startup.ts
-2 src/main/orcad/serve-startup/orcad-ws-port-policy.ts
+7 src/main/openkodo-profiles/catalog/other-profile-workspace-catalog.ts
+2 src/main/openkodo-profiles/catalog/profile-project-presence.ts
+11 src/main/openkodo-profiles/cloud-auth/profile-artifact-cloud-cleanup.ts
+1 src/main/openkodo-profiles/cloud-auth/profile-cloud-auth-status.ts
+3 src/main/openkodo-profiles/cloud-auth/profile-cloud-capability-refresh.ts
+3 src/main/openkodo-profiles/cloud-auth/profile-cloud-code-sign-in.ts
+11 src/main/openkodo-profiles/cloud-auth/profile-cloud-dev-service.ts
+19 src/main/openkodo-profiles/cloud-auth/profile-cloud-index.ts
+30 src/main/openkodo-profiles/cloud-auth/profile-cloud-service.ts
+1 src/main/openkodo-profiles/cloud-console/cloud-console-link.ts # click-time console link reads the profile index once
+5 src/main/openkodo-profiles/cloud-org/profile-cloud-org-members-service.ts
+2 src/main/openkodo-profiles/cloud-org/profile-cloud-org-selection.ts
+9 src/main/openkodo-profiles/cloud-session/profile-cloud-session-commit.ts
+21 src/main/openkodo-profiles/cloud-session/profile-cloud-session-owner.ts
+6 src/main/openkodo-profiles/cloud-session/profile-cloud-session-refresh.ts
+6 src/main/openkodo-profiles/cloud-session/profile-cloud-session-store.ts
+8 src/main/openkodo-profiles/openkodo-account-service.ts # +1 openConsole: click-time console link reads the profile index once
+1 src/main/openkodo-profiles/profile-account-user-id.ts
+21 src/main/openkodo-profiles/profile-index-store.ts # writeRollingFileBackup replaces copyFileSync (main-sync-fs 12 -> 11)
+1 src/main/openkodo-profiles/profile-storage-paths.ts
+6 src/main/openkodo-profiles/project-transfer/profile-active-transfer.ts
+2 src/main/openkodo-profiles/project-transfer/profile-project-domain-move-intent.ts
+10 src/main/openkodo-profiles/project-transfer/profile-project-domain-state.ts
+13 src/main/openkodo-profiles/project-transfer/profile-project-move-intent.ts
+2 src/main/openkodo-profiles/project-transfer/profile-project-move-record.ts
+15 src/main/openkodo-profiles/project-transfer/profile-project-state-file.ts
+2 src/main/openkodo-profiles/project-transfer/profile-project-transfer-migration.ts
+13 src/main/openkodo-profiles/project-transfer/profile-project-transfer.ts
+2 src/main/openkodo-profiles/storage/new-profile-state.ts
+3 src/main/openkodo-profiles/storage/profile-legacy-state-import.ts
+4 src/main/openkodod/account-launch/openkodod-account-services.ts
+4 src/main/openkodod/account-launch/openkodod-codex-account-homes.ts
+4 src/main/openkodod/account-launch/openkodod-host-account-launch-env-store.ts
+2 src/main/openkodod/account-launch/openkodod-wsl-host-claude-profile-refresh.ts
+3 src/main/openkodod/artifact-slots/openkodod-artifact-cache-retention.ts
+1 src/main/openkodod/artifact-slots/openkodod-artifact-identity.ts
+1 src/main/openkodod/artifact-slots/openkodod-artifact-materializer.ts
+3 src/main/openkodod/artifact-slots/openkodod-daemon-slot-pins.ts
+2 src/main/openkodod/browser-providers/electron/electron-serve-browser-process.ts
+1 src/main/openkodod/browser-providers/electron/electron-sidecar-profile.ts
+3 src/main/openkodod/browser-providers/openkodod-browser-provider.ts
+1 src/main/openkodod/browser-providers/openkodod-browser-startup.ts
+1 src/main/openkodod/browser-providers/openkodod-sidecar-runtime-client.ts
+7 src/main/openkodod/credentials/openkodod-plaintext-credential-migration.ts
+7 src/main/openkodod/credentials/openkodod-secret-key-record.ts
+10 src/main/openkodod/credentials/openkodod-secret-key-resolution.ts
+2 src/main/openkodod/credentials/openkodod-secret-store-startup.ts
+3 src/main/openkodod/credentials/openkodod-secret-store.ts
+3 src/main/openkodod/daemon/openkodod-daemon-supervision.ts
+7 src/main/openkodod/diagnostics/openkodod-health.ts
+1 src/main/openkodod/diagnostics/openkodod-observability.ts
+2 src/main/openkodod/host-lifecycle/idle-exit/openkodod-idle-stop-record.ts
+10 src/main/openkodod/host-lifecycle/idle-exit/openkodod-managed-idle-exit-host.ts
+8 src/main/openkodod/host-lifecycle/managed-stop/openkodod-completed-stop-receipt.ts
+1 src/main/openkodod/host-lifecycle/managed-stop/openkodod-managed-stop-admission.ts
+3 src/main/openkodod/host-lifecycle/managed-stop/openkodod-managed-stop-cancellation.ts
+8 src/main/openkodod/host-lifecycle/managed-stop/openkodod-managed-stop-command.ts
+14 src/main/openkodod/host-lifecycle/managed-stop/openkodod-managed-stop-completion.ts
+3 src/main/openkodod/host-lifecycle/managed-stop/openkodod-managed-stop-decision.ts
+4 src/main/openkodod/host-lifecycle/managed-stop/openkodod-managed-stop-request.ts
+3 src/main/openkodod/host-lifecycle/managed-stop/openkodod-stop-request-listener.ts
+5 src/main/openkodod/host-lifecycle/openkodod-lifecycle.ts
+3 src/main/openkodod/host-runtime/openkodod-entry.ts
+5 src/main/openkodod/host-runtime/openkodod-host-adapters.ts
+2 src/main/openkodod/host-runtime/openkodod-runtime-rpc.ts
+2 src/main/openkodod/host-runtime/openkodod-session-scanner-idle.ts
+1 src/main/openkodod/host-runtime/openkodod-session-search.ts
+1 src/main/openkodod/host-runtime/openkodod-speech-services.ts
+2 src/main/openkodod/host-runtime/openkodod-wsl-host-login-environment.ts
+1 src/main/openkodod/instance-lock/openkodod-data-root-privacy.ts
+6 src/main/openkodod/instance-lock/openkodod-instance-lock-hold.ts # journal legacy retirement: <=2 reads of the small (64 KiB-capped) profile lock file per attempt; attempts back off 1m->1h and stop once retired or refused
+14 src/main/openkodod/instance-lock/openkodod-instance-lock-reclaim.ts
+1 src/main/openkodod/instance-lock/openkodod-instance-lock-record.ts
+20 src/main/openkodod/instance-lock/openkodod-instance-lock.ts
+1 src/main/openkodod/instance-lock/openkodod-lock-clone-machine.ts
+2 src/main/openkodod/instance-lock/openkodod-lock-holder-locality.ts
+7 src/main/openkodod/instance-lock/openkodod-process-start-time.ts
+14 src/main/openkodod/instance-lock/openkodod-stale-lock-reclaim.ts
+1 src/main/openkodod/instance-lock/openkodod-wsl-holder-release.ts
+2 src/main/openkodod/launcher.ts
+9 src/main/openkodod/main.ts
+1 src/main/openkodod/migration/openkodod-migration-destination-capabilities.ts
+3 src/main/openkodod/migration/openkodod-migration-wsl-destination.ts
+2 src/main/openkodod/native-runtime/node-pty-prebuilt-slot.ts
+2 src/main/openkodod/native-runtime/node-pty-precondition.ts
+3 src/main/openkodod/native-runtime/openkodod-native-preflight.ts
+9 src/main/openkodod/native-runtime/openkodod-runtime-native-preflight.ts
+1 src/main/openkodod/openkodod-connector.ts
+2 src/main/openkodod/profile-state/openkodod-host-identity-reset.ts
+3 src/main/openkodod/profile-state/openkodod-profile-state-startup.ts
+6 src/main/openkodod/runtime-launch/openkodod-bundled-runtime.ts
+9 src/main/openkodod/runtime-launch/openkodod-profile-preflight.ts
+1 src/main/openkodod/runtime-launch/openkodod-startup-qualification.ts
+3 src/main/openkodod/runtime-launch/windows-breakaway-launcher.ts
+6 src/main/openkodod/serve-startup/openkodod-cli-launcher.ts
+3 src/main/openkodod/serve-startup/openkodod-command-startup.ts
+2 src/main/openkodod/serve-startup/openkodod-ws-port-policy.ts
 8 src/main/persistence/loading-store/profile-loading/loaded-state-parsing.ts
 2 src/main/persistence/loading-store/profile-loading/prepare-loaded-terminal-settings.ts
 1 src/main/persistence/loading-store/project-catalog/repo-lifecycle-operations.ts
@@ -944,23 +943,23 @@
 2 src/main/persistence/loading-store/workspace-sessions/session-snapshot-operations.ts
 1 src/main/persistence/loading-store/workspace-sessions/terminal-session-cleanup.ts
 2 src/main/persistence/loading-store/workspace-sessions/workspace-session-snapshot-publication.ts
-5 src/main/persistence/migrating-orcad-catalog/blob-transfer/orcad-migration-blob-install-persistence.ts
-11 src/main/persistence/migrating-orcad-catalog/blob-transfer/orcad-migration-blob-installers.ts
-26 src/main/persistence/migrating-orcad-catalog/blob-transfer/orcad-migration-blob-staging.ts
-6 src/main/persistence/migrating-orcad-catalog/blob-transfer/orcad-migration-staged-file.ts
-1 src/main/persistence/migrating-orcad-catalog/catalog-commit/orcad-staged-automation-run-history.ts
-6 src/main/persistence/migrating-orcad-catalog/cutover-journals/migration-journal-directory.ts
-1 src/main/persistence/migrating-orcad-catalog/cutover-journals/orcad-migration-cutover-journal.ts
-21 src/main/persistence/migrating-orcad-catalog/orcad-catalog-import.ts
-2 src/main/persistence/migrating-orcad-catalog/source/catalog/orcad-source-export.ts
-1 src/main/persistence/migrating-orcad-catalog/source/scrollback/orcad-source-scrollback-cleanup.ts
-5 src/main/persistence/migrating-orcad-catalog/source/scrollback/orcad-source-scrollback-retention.ts
-4 src/main/persistence/migrating-orcad-catalog/source/scrollback/orcad-source-scrollback-state.ts
-1 src/main/persistence/migrating-orcad-catalog/source/sessions/orcad-source-workspace-session.ts
-14 src/main/persistence/migrating-orcad-catalog/terminal-history/orcad-scrollback-snapshot-transfer.ts
-16 src/main/persistence/migrating-orcad-catalog/terminal-history/orcad-shell-history-installer.ts
-8 src/main/persistence/migrating-orcad-catalog/terminal-history/orcad-terminal-history-installer.ts
-3 src/main/persistence/migrating-orcad-catalog/terminal-history/orcad-terminal-restore-hint-store.ts
+5 src/main/persistence/migrating-openkodod-catalog/blob-transfer/openkodod-migration-blob-install-persistence.ts
+11 src/main/persistence/migrating-openkodod-catalog/blob-transfer/openkodod-migration-blob-installers.ts
+26 src/main/persistence/migrating-openkodod-catalog/blob-transfer/openkodod-migration-blob-staging.ts
+6 src/main/persistence/migrating-openkodod-catalog/blob-transfer/openkodod-migration-staged-file.ts
+1 src/main/persistence/migrating-openkodod-catalog/catalog-commit/openkodod-staged-automation-run-history.ts
+6 src/main/persistence/migrating-openkodod-catalog/cutover-journals/migration-journal-directory.ts
+1 src/main/persistence/migrating-openkodod-catalog/cutover-journals/openkodod-migration-cutover-journal.ts
+21 src/main/persistence/migrating-openkodod-catalog/openkodod-catalog-import.ts
+2 src/main/persistence/migrating-openkodod-catalog/source/catalog/openkodod-source-export.ts
+1 src/main/persistence/migrating-openkodod-catalog/source/scrollback/openkodod-source-scrollback-cleanup.ts
+5 src/main/persistence/migrating-openkodod-catalog/source/scrollback/openkodod-source-scrollback-retention.ts
+4 src/main/persistence/migrating-openkodod-catalog/source/scrollback/openkodod-source-scrollback-state.ts
+1 src/main/persistence/migrating-openkodod-catalog/source/sessions/openkodod-source-workspace-session.ts
+14 src/main/persistence/migrating-openkodod-catalog/terminal-history/openkodod-scrollback-snapshot-transfer.ts
+16 src/main/persistence/migrating-openkodod-catalog/terminal-history/openkodod-shell-history-installer.ts
+8 src/main/persistence/migrating-openkodod-catalog/terminal-history/openkodod-terminal-history-installer.ts
+3 src/main/persistence/migrating-openkodod-catalog/terminal-history/openkodod-terminal-restore-hint-store.ts
 1 src/main/persistence/moving-wsl-projects/cutover-recovery/wsl-move-cutover-journal.ts
 1 src/main/persistence/moving-wsl-projects/cutover-recovery/wsl-move-owed-host-aborts.ts
 1 src/main/persistence/moving-wsl-projects/desktop-state/wsl-move-desktop-rewrite-registry.ts
@@ -1139,7 +1138,7 @@
 4 src/main/runtime/files/file-mutations.ts
 4 src/main/runtime/files/file-reads.ts
 1 src/main/runtime/files/file-target.ts
-1 src/main/runtime/files/paths/orca-runtime-read-kitty-file.ts
+1 src/main/runtime/files/paths/openkodo-runtime-read-kitty-file.ts
 1 src/main/runtime/files/staged-file-save-commands.ts
 1 src/main/runtime/files/staged-file-saves.ts
 2 src/main/runtime/files/watch/file-watches.ts
@@ -1153,8 +1152,8 @@
 1 src/main/runtime/mobile-cloud-relay/desktop-relay-service.ts
 2 src/main/runtime/mobile-cloud-relay/pairing/relay-revoke-outbox.ts
 4 src/main/runtime/mobile-cloud-relay/region-selection/relay-region-preference.ts
-4 src/main/runtime/orca-runtime-bots.ts
-2 src/main/runtime/orca-runtime.ts
+4 src/main/runtime/openkodo-runtime-bots.ts
+2 src/main/runtime/openkodo-runtime.ts
 16 src/main/runtime/orchestration/db/attach-orchestration-db-methods.ts
 1 src/main/runtime/orchestration/db/database-file-permissions.ts
 2 src/main/runtime/orchestration/db/decision-gates/decision-gate-store.ts
@@ -1184,7 +1183,7 @@
 1 src/main/runtime/orchestration/db/schema/migrate-v40.ts
 4 src/main/runtime/orchestration/db/schema/migrate.ts
 10 src/main/runtime/orchestration/db/schema/orchestration-schema-version-skew.ts
-1 src/main/runtime/orchestration/db/schema/structured-worker-orca-session-backfill.ts
+1 src/main/runtime/orchestration/db/schema/structured-worker-openkodo-session-backfill.ts
 1 src/main/runtime/orchestration/db/schema/worker-dock-schema.ts # one backfill transaction when the worker dock tables are first installed at database open; later dock facts are written by triggers inside lifecycle statements that were already synchronous
 9 src/main/runtime/orchestration/db/tasks/task-status-transition.ts
 2 src/main/runtime/orchestration/db/tasks/task-store.ts
@@ -1240,7 +1239,7 @@
 3 src/main/runtime/rpc/methods/mcp-servers.ts # the host MCP list reuses the bot tools file and its synchronous credential store, read per user action as bots-tools.ts does
 1 src/main/runtime/rpc/methods/mobile-delivery/bundled-mobile-web-bundle.ts
 8 src/main/runtime/rpc/methods/mobile-delivery/mobile-web-bundle.ts
-1 src/main/runtime/rpc/methods/orcad/orcad-migration.ts
+1 src/main/runtime/rpc/methods/openkodod/openkodod-migration.ts
 1 src/main/runtime/rpc/methods/orchestration/messaging/bot-request-outcome.ts # one savepoint per dropped question, around orchestration DB writes that were already synchronous, so the read and its take commit together
 2 src/main/runtime/rpc/methods/orchestration/messaging/bot-request-sender-notice.ts # one savepoint around orchestration DB writes that were already synchronous, so an answer or notice and its mail commit together
 1 src/main/runtime/rpc/methods/orchestration/messaging/check-mail-reconciliation.ts
@@ -1389,7 +1388,7 @@
 4 src/main/startup/runtime-startup/main-process-runtime-service.ts
 1 src/main/startup/serve-launch/headless-serve-ssh-registration.ts
 3 src/main/startup/serve-launch/main-process-serve.ts
-3 src/main/startup/serve-launch/serve-cli-registration.ts
+2 src/main/startup/serve-launch/serve-cli-registration.ts
 1 src/main/startup/serve-launch/serve-user-data-path-guard.ts
 4 src/main/startup/shell-environment/windows-shell-path-hydration.ts
 1 src/main/startup/uninstall/agent-hooks-uninstall-preflight.ts
@@ -1453,10 +1452,10 @@
 12 src/main/windows/windows-process-table.ts # the windows-process-tree loader: one cached readFileSync per process (relay addon check)
 3 src/main/worker-threads/forked-child-entry-path.ts
 2 src/main/worker-threads/worker-send-ledger.ts
-2 src/main/workspace-hooks/hook-orca-cli-env.ts
+2 src/main/workspace-hooks/hook-openkodo-cli-env.ts
 7 src/main/workspace-hooks/hooks.ts
 5 src/main/workspace-hooks/issue-command-file.ts
-2 src/main/workspace-hooks/workspace-hook-inspection.ts # why: branding pass now resolves openkodo.yaml before orca.yaml
+2 src/main/workspace-hooks/workspace-hook-inspection.ts # why: branding pass now resolves openkodo.yaml before openkodo.yaml
 5 src/main/workspace-hooks/worktree-runner-script.ts
 8 src/main/workspaces/catalog/folder-repo-git-conversion.ts
 1 src/main/workspaces/catalog/folder-upgrade-worktree-path.ts
@@ -1464,7 +1463,7 @@
 2 src/main/workspaces/catalog/repo-worktree-catalog-owner.ts
 5 src/main/workspaces/catalog/repo-worktrees.ts
 1 src/main/workspaces/cleanup/chat-history/deleted-workspace-chat-history.ts
-4 src/main/workspaces/cleanup/workspace-cleanup-removal-step.ts # folder workspace group (#44715): decideWorkspaceCleanups wraps the per-workspace decision; same orca.yaml read, now also for folder siblings in the re-check
+4 src/main/workspaces/cleanup/workspace-cleanup-removal-step.ts # folder workspace group (#44715): decideWorkspaceCleanups wraps the per-workspace decision; same openkodo.yaml read, now also for folder siblings in the re-check
 2 src/main/workspaces/cleanup/workspace-cleanup-runner.ts
 3 src/main/workspaces/creation/preparation/worktree-create-preparation-pool.ts
 2 src/main/workspaces/creation/preparation/worktree-create-preparation-stale-cleanup.ts
@@ -1511,14 +1510,14 @@
 1 src/main/wsl/host-lifecycle/wsl-host-uninstall-server-stop.ts
 1 src/main/wsl/host-lifecycle/wsl-hosts-policy-live-update.ts
 1 src/main/wsl/host-lifecycle/wsl-orphan-holder-release.ts
-1 src/main/wsl/orcad/wsl-orcad-active-probe.ts
-2 src/main/wsl/orcad/wsl-orcad-connection.ts
-7 src/main/wsl/orcad/wsl-orcad-deploy.ts
-1 src/main/wsl/orcad/wsl-orcad-failed-install-removal.ts
-2 src/main/wsl/orcad/wsl-orcad-host-transport.ts
-5 src/main/wsl/orcad/wsl-orcad-instance-adoption.ts
-1 src/main/wsl/orcad/wsl-orcad-liveness-wiring.ts
-1 src/main/wsl/orcad/wsl-orcad-pairing-repair.ts
+1 src/main/wsl/openkodod/wsl-openkodod-active-probe.ts
+2 src/main/wsl/openkodod/wsl-openkodod-connection.ts
+7 src/main/wsl/openkodod/wsl-openkodod-deploy.ts
+1 src/main/wsl/openkodod/wsl-openkodod-failed-install-removal.ts
+2 src/main/wsl/openkodod/wsl-openkodod-host-transport.ts
+5 src/main/wsl/openkodod/wsl-openkodod-instance-adoption.ts
+1 src/main/wsl/openkodod/wsl-openkodod-liveness-wiring.ts
+1 src/main/wsl/openkodod/wsl-openkodod-pairing-repair.ts
 7 src/main/zcode/hook-service.ts # zcode-app-cli setting.json is read on the same one-shot startup, toggle and uninstall paths as config.json
 3 src/main/zcode/zcode-plan-credential-commands.ts
 3 src/main/zcode/zcode-v2-plan-credentials.ts
@@ -1550,7 +1549,7 @@
 3 src/shared/agent-launch/plugins/opencode/opencode-tui-config-registration.ts
 10 src/shared/agent-launch/plugins/opencode/opencode-tui-plugin-install.ts
 2 src/shared/file-content/node-source-copy-content-equality.ts
-4 src/shared/plugins/declarative/testing/orca-testing.ts
+4 src/shared/plugins/declarative/testing/openkodo-testing.ts
 7 src/shared/remote-runtime/e2ee/node/remote-runtime-e2ee-v2-host-latch.ts
 4 src/shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-recipe-doctor.ts
 4 src/shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-recipe-runner.ts
@@ -1560,7 +1559,7 @@
 6 src/shared/remote-runtime/ephemeral-vm-store/ephemeral-vm-runtime-write-ahead-store.ts
 1 src/shared/remote-runtime/ephemeral-vm-store/ephemeral-vm-workspace-runtime.ts
 2 src/shared/remote-runtime/host-store/runtime-e2ee-keypair-file.ts
-3 src/shared/remote-runtime/host-store/runtime-environment-managed-orcad-operations.ts
+3 src/shared/remote-runtime/host-store/runtime-environment-managed-openkodod-operations.ts
 2 src/shared/remote-runtime/host-store/runtime-environment-resume-pairing-operations.ts
 2 src/shared/remote-runtime/host-store/runtime-environment-sidecar.ts
 4 src/shared/remote-runtime/host-store/runtime-environment-store-command.ts

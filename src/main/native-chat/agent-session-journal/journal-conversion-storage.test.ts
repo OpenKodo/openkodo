@@ -6,7 +6,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import Database from '../../sqlite/sync-database'
 import { journalDatabasePath } from './database/journal-host-database'
 import { measureJournalConversionStorage } from './journal-conversion-storage'
-import { olderOrcaChat } from './journal-legacy-retirement.test-fixture'
+import { olderOpenKodoChat } from './journal-legacy-retirement.test-fixture'
 import { journalLegacyCopySourceKey } from './database/journal-legacy-source'
 import { ensureJournalOutcomeTables } from './outcomes/journal-outcome-format'
 
@@ -52,11 +52,11 @@ it('counts only blocks this user may write, and reads no chat below the floor', 
 
 it('estimates one chat from its own bytes, so other chats and newer store chats change nothing', async () => {
   statfs.mockResolvedValue({ bsize: 4096, blocks: 1000, bfree: 300, bavail: 100 })
-  const root = mkdtempSync(join(tmpdir(), 'orca-conversion-storage-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-conversion-storage-'))
   roots.push(root)
   const filename = journalDatabasePath(root)
-  olderOrcaChat(filename, 'unopened')
-  olderOrcaChat(filename, 'other')
+  olderOpenKodoChat(filename, 'unopened')
+  olderOpenKodoChat(filename, 'other')
   const legacy = new Database(filename)
   // Multi-byte text: three bytes per CJK character, four per emoji.
   legacy
@@ -123,7 +123,7 @@ it('estimates one chat from its own bytes, so other chats and newer store chats 
     totalBytes: 1000 * 4096,
     sizedAt: before?.sizedAt
   })
-  olderOrcaChat(filename, 'later')
+  olderOpenKodoChat(filename, 'later')
   const changed = await measureJournalConversionStorage(
     filename,
     source,

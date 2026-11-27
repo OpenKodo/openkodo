@@ -11,7 +11,7 @@ import { agentHookServer } from '../../../agent-hooks/server/agent-hook-server'
 import { wslHookRelayManager } from '../../../agent-hooks/wsl-relay/wsl-hook-relay-manager'
 import { wslInteropHealthMonitor } from '../../../wsl/execution/wsl-interop-health'
 import { piTitlebarExtensionService } from '../../../pi/managed-extensions/titlebar-extension-service'
-import { prependOrcaCliDirToChildPath } from '../../../cli/launchers/orca-cli-child-path'
+import { prependOpenKodoCliDirToChildPath } from '../../../cli/launchers/openkodo-cli-child-path'
 import { appendManagedAgentDirsToChildPath } from '../../../managed-agent-cli/managed-agent-cli-registry'
 import { resolveTerminalBrowserCommand } from './terminal-browser-command'
 import { getManagedWslCliDir, getWslCliCommandName } from '../../../cli/wsl/wsl-managed-cli'
@@ -22,7 +22,7 @@ import { scheduleCodexHookReconcile } from '../../../codex/hooks/reconciliation/
 import { buildConfiguredProxyEnv } from '../../../../shared/network/network-proxy'
 import { isTuiAgentEnabled } from '../../../../shared/agent-launch/catalog/tui-agent-selection'
 import type { BuildPtyHostEnvOptions } from './types'
-import { stripInheritedOrcaCodexHomeOverride } from './codex-home'
+import { stripInheritedOpenKodoCodexHomeOverride } from './codex-home'
 import {
   clearPiAgentShadowEnv,
   exposePiManagedExtensionEnv,
@@ -261,8 +261,8 @@ export function buildPtyHostEnv(
     } else {
       delete baseEnv.OPENKODO_CODEX_LAUNCH_PREFLIGHT
     }
-  } else if (opts.stripInheritedOrcaCodexHome) {
-    stripInheritedOrcaCodexHomeOverride(baseEnv)
+  } else if (opts.stripInheritedOpenKodoCodexHome) {
+    stripInheritedOpenKodoCodexHomeOverride(baseEnv)
     delete baseEnv.OPENKODO_CODEX_LAUNCH_PREFLIGHT
   } else {
     delete baseEnv.OPENKODO_CODEX_LAUNCH_PREFLIGHT
@@ -291,7 +291,7 @@ export function buildPtyHostEnv(
     }
     delete baseEnv.OPENKODO_CLI_COMMAND
   }
-  const cliLauncher = prependOrcaCliDirToChildPath(baseEnv, {
+  const cliLauncher = prependOpenKodoCliDirToChildPath(baseEnv, {
     isPackaged: opts.isPackaged,
     userDataPath: opts.userDataPath,
     resourcesPath: opts.resourcesPath

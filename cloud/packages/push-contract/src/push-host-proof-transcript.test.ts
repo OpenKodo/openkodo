@@ -4,7 +4,7 @@ import {
 } from './push-host-proof-transcript.js'
 
 const transcriptInput = {
-  gatewayOrigin: 'https://push.onorca.dev',
+  gatewayOrigin: 'https://push.onopenkodo.dev',
   gatewayEphemeralPublicKey: new Uint8Array(32).fill(7),
   challengeNonce: new Uint8Array(24).fill(9),
   challengeId: 'challenge-1',
@@ -32,9 +32,9 @@ describe('push host proof transcript', () => {
       offset += valueLength
     }
     expect(fields).toEqual([
-      ['protocol', Buffer.from('orca-push-host-proof/v1')],
+      ['protocol', Buffer.from('openkodo-push-host-proof/v1')],
       ['version', Buffer.from([1])],
-      ['gatewayOrigin', Buffer.from('https://push.onorca.dev')],
+      ['gatewayOrigin', Buffer.from('https://push.onopenkodo.dev')],
       ['gatewayEphemeralPublicKey', Buffer.alloc(32, 7)],
       ['challengeNonce', Buffer.alloc(24, 9)],
       ['challengeId', Buffer.from('challenge-1')],

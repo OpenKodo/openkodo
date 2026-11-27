@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import { botOfSession } from '../../../../../../bots/bot-session-tabs'
 
@@ -23,13 +23,13 @@ export function workerKeepOpenByDefault(
 export function coordinatorKeepOpenByDefault(
   db: OrchestrationDb,
   worktree: string | undefined,
-  caller: { orcaSessionId: string | null; creatorDispatchId: string | null },
+  caller: { openkodoSessionId: string | null; creatorDispatchId: string | null },
   isBotChat: (sessionId: string) => boolean
 ): boolean {
   if (worktree !== 'new-child' && worktree !== 'new-top-level') {
     return false
   }
-  if (caller.orcaSessionId && isBotChat(caller.orcaSessionId)) {
+  if (caller.openkodoSessionId && isBotChat(caller.openkodoSessionId)) {
     return false
   }
   return !(caller.creatorDispatchId && startedForBot(db, caller.creatorDispatchId, isBotChat))
@@ -50,8 +50,10 @@ export function startedForBot(
       return false
     }
     const session =
-      context.creator_orca_session_id ??
-      (context.creator_dispatch_id ? null : db.getRun(context.run_id)?.coordinator_orca_session_id)
+      context.creator_openkodo_session_id ??
+      (context.creator_dispatch_id
+        ? null
+        : db.getRun(context.run_id)?.coordinator_openkodo_session_id)
     if (session && isBotChat(session)) {
       return true
     }
@@ -62,7 +64,7 @@ export function startedForBot(
 
 /** Tells the CLI whether to keep the worker open when it asked nothing; older CLIs ignore it. */
 export function withKeepOpenDefault<T>(
-  runtime: Pick<OrcaRuntimeService, 'getOrchestrationDb' | 'bots'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getOrchestrationDb' | 'bots'>,
   worktree: string | undefined,
   receipt: T
 ): T {

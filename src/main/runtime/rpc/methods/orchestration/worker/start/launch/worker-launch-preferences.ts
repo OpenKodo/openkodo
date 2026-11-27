@@ -3,7 +3,7 @@ import { checkAgentLaunchModelPreferences } from '../../../../../../../../shared
 import { ORCHESTRATION_WORKER_LAUNCH_PREFERENCES_RUNTIME_CAPABILITY } from '../../../../../../../../shared/orchestration/orchestration-runtime-capabilities'
 import type { TuiAgent } from '../../../../../../../../shared/agent-launch/catalog/tui-agent'
 import { isTuiAgent } from '../../../../../../../../shared/agent-launch/catalog/tui-agent-config'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { AgentMessageSender } from '../../../../../../../../shared/agent-session/journal/agent-session-message-source'
 import { OrchestrationError } from '../../../../../../orchestration/orchestration-error'
 
@@ -49,7 +49,7 @@ export function structuredWorkerLaunchReceipt(
 /** A reuse start launches nothing; the agent already running there is its effective agent, so
  *  mail from a start that never binds still names it. */
 export function reusedWorkerLaunchReceipt(
-  runtime: Pick<OrcaRuntimeService, 'orchestrationSenderNames'>,
+  runtime: Pick<OpenKodoRuntimeService, 'orchestrationSenderNames'>,
   receipt: OrchestrationWorkerLaunchReceipt,
   party: AgentMessageSender['party']
 ): OrchestrationWorkerLaunchReceipt {

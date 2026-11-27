@@ -176,7 +176,7 @@ function selectDirectTests(root, related) {
   return [...direct]
 }
 
-// Why before importing @orca/process-host: its dist is what this builds, and a cache hit skips both.
+// Why before importing @openkodo/process-host: its dist is what this builds, and a cache hit skips both.
 function buildWorkspacePackages(root, env) {
   const pnpm = resolvePnpmCliInvocation()
   const result = spawnSync(pnpm.command, [...pnpm.prefixArgs, 'run', 'build:packages'], {
@@ -383,7 +383,7 @@ export async function main(root, argv) {
   }
   const setting = spawnSync(
     'git',
-    ['config', '--local', '--bool', '--get', 'orca.serializeChangedChecks'],
+    ['config', '--local', '--bool', '--get', 'openkodo.serializeChangedChecks'],
     {
       cwd: root,
       encoding: 'utf8'
@@ -393,7 +393,7 @@ export async function main(root, argv) {
     return runChangedChecks(root, options)
   }
   if (setting.status !== 0) {
-    throw new Error(setting.stderr || 'Could not read Orca check settings')
+    throw new Error(setting.stderr || 'Could not read OpenKodo check settings')
   }
   const { acquireChangedCheckSlot } = await import('./check-changed-slot.mjs')
   const release = await acquireChangedCheckSlot()
@@ -483,7 +483,7 @@ async function runChangedChecks(root, options, signal) {
       buildWorkspacePackages(root, env)
     }
   }
-  const { runProcess, runProcessSync } = admittedHost ?? (await import('@orca/process-host'))
+  const { runProcess, runProcessSync } = admittedHost ?? (await import('@openkodo/process-host'))
   const { resolvePinnedBunExecutable } =
     await import('../../tool-invocation/pinned-bun-executable.mjs')
   const bun = () => resolvePinnedBunExecutable(root, runProcessSync) ?? 'bun'

@@ -6,7 +6,7 @@ import {
 } from '../../../shared/remote-runtime/pairing/pairing'
 import { getPreferredPairingOffer } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
-import { sendSupportedMigrationRequest } from '../../managed-server/migration/catalog/orcad-migration-request'
+import { sendSupportedMigrationRequest } from '../../managed-server/migration/catalog/openkodod-migration-request'
 import { getWslHostService } from './wsl-host-service-instance'
 import type { WslMoveMovedAutomation } from '../../persistence/moving-wsl-projects/desktop-state/wsl-move-host-automations-rewrite'
 
@@ -35,7 +35,7 @@ export async function openWslHostAutomationApi(
   const environment = await resolveEnvironment(userDataPath, environmentId)
   const pairing = parsePairingCode(encodePairingOffer(getPreferredPairingOffer(environment)))
   if (!pairing) {
-    throw new Error('orcad_migration_pairing_code_invalid')
+    throw new Error('openkodod_migration_pairing_code_invalid')
   }
   const options = environment.runtimeId ? { expectedRuntimeId: environment.runtimeId } : {}
   return (method, params) => sendSupportedMigrationRequest(pairing, method, params, options)

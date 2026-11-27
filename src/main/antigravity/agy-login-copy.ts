@@ -39,7 +39,7 @@ async function sweepTemps(folder: string): Promise<void> {
  *  for a key or gcloud, which mustn't find one, nor once agy has no login (signed out). OpenKodo's
  *  server never wrote this file, so whatever is there is OpenKodo's copy. Keyring hosts have no login
  *  file and share the OS login. Never fails the launch. */
-export async function copyAgyLoginIntoOrcaHome(
+export async function copyAgyLoginIntoOpenKodoHome(
   chatHome: string,
   userHome: string,
   google: boolean

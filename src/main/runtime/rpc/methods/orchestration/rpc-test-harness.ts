@@ -6,13 +6,13 @@ import '../../../orchestration/db/contract-constants'
 import '../../../orchestration/db/messages/mailbox-routing-page'
 import '../../../orchestration/db/dispatch-row-writer'
 import '../../../orchestration/db/attempt-outcome-projection'
-import { OrcaRuntimeService } from '../../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 
 export const COORDINATOR_PANE_KEY = 'tab_coord:aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'
 
 export type OrchestrationRpcState = {
   db: OrchestrationDb
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   ctx: RpcContext
   activeRunId: string | undefined
 }
@@ -21,7 +21,7 @@ export type OrchestrationRpcState = {
 export function createOrchestrationRpcHarness() {
   let db: OrchestrationDb
   let dbOpen = false
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let activeRunId: string | undefined
   let databasePath = ':memory:'
 
@@ -29,13 +29,13 @@ export function createOrchestrationRpcHarness() {
 
   function setup(
     withBoundRun = true,
-    store: ConstructorParameters<typeof OrcaRuntimeService>[0] = null,
+    store: ConstructorParameters<typeof OpenKodoRuntimeService>[0] = null,
     path = ':memory:'
   ): OrchestrationRpcState {
     databasePath = path
     db = new OrchestrationDb(path)
     dbOpen = true
-    runtime = new OrcaRuntimeService(store)
+    runtime = new OpenKodoRuntimeService(store)
     runtime.setOrchestrationDb(db)
     vi.spyOn(runtime, 'getTerminalPaneKey').mockImplementation((handle) =>
       handle === 'term_coord' ? coordinatorPaneKey : null

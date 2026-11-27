@@ -24,7 +24,7 @@ export function makeExecStdinWriteFileCommand(
   if (!Number.isSafeInteger(byteLength) || byteLength < 0) {
     throw new Error(`Invalid upload size: ${byteLength}`)
   }
-  const part = `${remotePath}.orca-part-${options.token}`
+  const part = `${remotePath}.openkodo-part-${options.token}`
   const escapedPart = quotePosixShell(part)
   const steps = [
     `mkdir -p ${quotePosixShell(posix.dirname(remotePath))}`,

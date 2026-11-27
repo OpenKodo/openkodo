@@ -1,6 +1,6 @@
 import { readdir, stat } from 'node:fs/promises'
 import { join } from 'node:path'
-import { lastAntigravityChatRunsInOrcaHome } from '../../antigravity/antigravity-chat-route'
+import { lastAntigravityChatRunsInOpenKodoHome } from '../../antigravity/antigravity-chat-route'
 import { mapWithConcurrency } from '../../../shared/concurrency/map-with-concurrency'
 import {
   asRecord,
@@ -73,7 +73,7 @@ export async function discoverAntigravityPluginSkillSources(args: {
   homeDir: string
   signal?: AbortSignal
 }): Promise<SkillScanRoot[]> {
-  if (lastAntigravityChatRunsInOrcaHome()) {
+  if (lastAntigravityChatRunsInOpenKodoHome()) {
     return []
   }
   const configRoot = join(args.homeDir, '.gemini', 'config')

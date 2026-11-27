@@ -1,7 +1,7 @@
 import type { BrowserExtensionMainWorldBridge } from '../api/browser-extension-main-world'
 
 /** Main-only namespace behind connectNative/sendNativeMessage; never installed on `chrome`. */
-export const PRELOAD_NATIVE_MESSAGING_NAMESPACE = 'orcaNativeMessaging'
+export const PRELOAD_NATIVE_MESSAGING_NAMESPACE = 'openkodoNativeMessaging'
 
 export type BrowserExtensionNativeMessagingContext = 'page' | 'worker'
 
@@ -19,7 +19,7 @@ export function installBrowserExtensionNativeMessaging(
   bridge: BrowserExtensionMainWorldBridge,
   context: BrowserExtensionNativeMessagingContext
 ): void {
-  const namespace = 'orcaNativeMessaging'
+  const namespace = 'openkodoNativeMessaging'
   const portEvent = 'onPortEvent'
   const disconnectedError = 'Attempting to use a disconnected port object'
   const isObject = (value: unknown): value is ApiObject =>

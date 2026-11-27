@@ -13,7 +13,7 @@ function measureChrome(region: PluginChromeRegion): Rect | null {
     const { clientWidth: width, clientHeight: height } = document.documentElement
     return width > 0 && height > 0 ? { x: 0, y: 0, width, height } : null
   }
-  const bar = document.querySelector('[data-orca-status-bar]')
+  const bar = document.querySelector('[data-openkodo-status-bar]')
   if (!bar) {
     return null
   }

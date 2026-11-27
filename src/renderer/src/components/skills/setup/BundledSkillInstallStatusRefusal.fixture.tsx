@@ -18,7 +18,7 @@ function status(
 ): React.JSX.Element {
   const result: BundledSkillInstallResult = {
     scope: 'global',
-    skills: [{ name: 'orca-cli', status: 'ran', ops }, ...others]
+    skills: [{ name: 'openkodo-cli', status: 'ran', ops }, ...others]
   }
   const state = {
     kind: 'done' as const,
@@ -39,7 +39,7 @@ const refused = (
   path: string,
   fields: Partial<BundledSkillOpOutcome> = {}
 ): BundledSkillOpOutcome => ({
-  path: `${SKILLS}/orca-cli`,
+  path: `${SKILLS}/openkodo-cli`,
   kind: 'replace',
   status: 'failed',
   error: 'EXDEV',
@@ -47,7 +47,7 @@ const refused = (
   ...fields
 })
 const linked: BundledSkillOpOutcome = {
-  path: '/Users/sam/.claude/skills/orca-cli',
+  path: '/Users/sam/.claude/skills/openkodo-cli',
   kind: 'link',
   status: 'done'
 }
@@ -55,28 +55,28 @@ const linked: BundledSkillOpOutcome = {
 function Lines(): React.JSX.Element {
   return (
     <div className="flex flex-col gap-4 bg-background p-4">
-      {status([refused('in-place', '/Volumes/Work/project/.agents/skills/orca-cli')])}
-      {status([refused('in-place', `${SKILLS}/orca-cli`), linked])}
+      {status([refused('in-place', '/Volumes/Work/project/.agents/skills/openkodo-cli')])}
+      {status([refused('in-place', `${SKILLS}/openkodo-cli`), linked])}
       {status([
-        refused('leftover', `${SKILLS}/.orca-cli.orca-old-3f2a9c1e`, {
+        refused('leftover', `${SKILLS}/.openkodo-cli.openkodo-old-3f2a9c1e`, {
           kind: 'keep',
           currentConfirmed: true
         })
       ])}
       {status([
-        refused('moved-aside', `${SKILLS}/.orca-cli-old.orca-old-5c09b7d2`, {
+        refused('moved-aside', `${SKILLS}/.openkodo-cli-old.openkodo-old-5c09b7d2`, {
           kind: 'keep',
           currentConfirmed: true
         })
       ])}
       {status([
-        refused('moved-aside', `${SKILLS}/.orca-cli.orca-old-7b1d44e0`, {
+        refused('moved-aside', `${SKILLS}/.openkodo-cli.openkodo-old-7b1d44e0`, {
           kind: 'update',
           contentApplied: true
         })
       ])}
       {status(
-        [refused('in-place', `${SKILLS}/orca-cli`)],
+        [refused('in-place', `${SKILLS}/openkodo-cli`)],
         [
           {
             name: 'orchestration',
@@ -91,7 +91,7 @@ function Lines(): React.JSX.Element {
 
 export const states = defineFixture({ render: () => <Lines />, width: 480 })
 
-const LONG = 'orca-cli-orchestration-and-worktree-handoff'
+const LONG = 'openkodo-cli-orchestration-and-worktree-handoff'
 const updated = (name: string): BundledSkillInstallResult['skills'][number] => ({
   name,
   status: 'ran',
@@ -103,7 +103,7 @@ function Batch(): React.JSX.Element {
   return (
     <div className="bg-background p-4">
       {status(
-        [refused('in-place', `${SKILLS}/orca-cli`)],
+        [refused('in-place', `${SKILLS}/openkodo-cli`)],
         [
           updated('orchestration'),
           {
@@ -117,7 +117,7 @@ function Batch(): React.JSX.Element {
                 error: 'EXDEV',
                 currentConfirmed: true,
                 backupRefusal: {
-                  path: `${SKILLS}/.${LONG}.orca-old-0c6e2f19-91aa-4d0b-8f3e-5a2b7c9d1e44`,
+                  path: `${SKILLS}/.${LONG}.openkodo-old-0c6e2f19-91aa-4d0b-8f3e-5a2b7c9d1e44`,
                   source: 'moved-aside'
                 }
               }
@@ -153,7 +153,7 @@ export const putBackLines = defineFixture({ render: () => <PutBack />, width: 32
 
 /** After a refresh shows attention, the run's kept and backed-up paths stay below it. */
 function AfterRefresh(): React.JSX.Element {
-  const backup = `/Users/sam/.agents/.orca-skill-backups/${LONG}-2026-11-23T18-02-11-512Z`
+  const backup = `/Users/sam/.agents/.openkodo-skill-backups/${LONG}-2026-11-23T18-02-11-512Z`
   return (
     <div className="bg-background p-4">
       {status(
@@ -180,8 +180,8 @@ function MixedPaths(): React.JSX.Element {
     <div className="bg-background p-4">
       {status([
         putBack({ kind: 'update', contentApplied: true }),
-        refused('in-place', '/Users/sam/.claude/skills/orca-cli', {
-          path: '/Users/sam/.claude/skills/orca-cli',
+        refused('in-place', '/Users/sam/.claude/skills/openkodo-cli', {
+          path: '/Users/sam/.claude/skills/openkodo-cli',
           kind: 'replace'
         })
       ])}
@@ -193,12 +193,12 @@ export const mixedPaths = defineFixture({ render: () => <MixedPaths />, width: 3
 
 /** A refused and a backed-up copy on a paired host: both offer Copy path. */
 function Remote(): React.JSX.Element {
-  const backup = '/Users/sam/.agents/.orca-skill-backups/orca-cli-2026-11-23T18-02-11-512Z'
+  const backup = '/Users/sam/.agents/.openkodo-skill-backups/openkodo-cli-2026-11-23T18-02-11-512Z'
   return (
     <div className="bg-background p-4">
       {status(
         [
-          refused('moved-aside', `${SKILLS}/.orca-cli.orca-old-7b1d44e0`, {
+          refused('moved-aside', `${SKILLS}/.openkodo-cli.openkodo-old-7b1d44e0`, {
             kind: 'update',
             contentApplied: true,
             backupPath: backup,

@@ -51,7 +51,7 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
       ...buildWindowsHookEnvironmentGuardLines(),
       // Drain pre_tool input before POST so jcode cannot block writing a payload larger than the pipe.
       `if "%JCODE_HOOK_EVENT%"=="pre_tool" ${WINDOWS_HOOK_STDIN_DRAIN_COMMAND}`,
-      `set "OPENKODO_JCODE_PAYLOAD_FILE=%TEMP%\\orca-jcode-hook-%RANDOM%%RANDOM%.json"`,
+      `set "OPENKODO_JCODE_PAYLOAD_FILE=%TEMP%\\openkodo-jcode-hook-%RANDOM%%RANDOM%.json"`,
       `>"${payloadFile}" echo(!JCODE_HOOK_PAYLOAD!`,
       // Input redirection avoids spawning cmd's extra pipeline shells on every event.
       `<"${payloadFile}" ${buildWindowsAgentHookPostCommand('jcode', [
@@ -80,14 +80,14 @@ function getManagedScript(target: 'local' | 'posix' = 'local'): string {
     'fi',
     // Forward jcode's JSON payload verbatim; rebuilding arbitrary text in shell is unsafe.
     'payload="$JCODE_HOOK_PAYLOAD"',
-    'orca_post_jcode_event() {',
+    'openkodo_post_jcode_event() {',
     ...buildPosixAgentHookPostCommand('jcode').map((line) => `  ${line}`),
     '}',
     // Detach the observer POST: jcode waits for gate stderr EOF before releasing the tool.
     'if [ "$JCODE_HOOK_EVENT" = pre_tool ]; then',
-    '  orca_post_jcode_event >/dev/null 2>&1 &',
+    '  openkodo_post_jcode_event >/dev/null 2>&1 &',
     'else',
-    '  orca_post_jcode_event >/dev/null 2>&1 || :',
+    '  openkodo_post_jcode_event >/dev/null 2>&1 || :',
     'fi',
     'exit 0',
     ''

@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type {
   AutomationChatLaunchRequest,
   AutomationChatAgentLaunch
@@ -15,7 +15,7 @@ import { automationRunAcceptedTarget } from './automation-agent-run-result'
 import { publishChatTabInBackground } from '../../runtime/session-tabs/chat/background-chat-tab-publication'
 
 export async function reuseAutomationChat(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   { automation, run, runs }: AutomationChatLaunchRequest
 ): Promise<AutomationChatAgentLaunch | null> {
   let preparationError: { error: unknown } | undefined
@@ -121,7 +121,7 @@ export async function reuseAutomationChat(
 
 /** A closed chat still receives the queued prompt, so publish that tab without taking focus. */
 async function openReusedAutomationChat(
-  runtime: Pick<OrcaRuntimeService, 'publishStructuredAgentSessionTab'>,
+  runtime: Pick<OpenKodoRuntimeService, 'publishStructuredAgentSessionTab'>,
   host: NonNullable<ReturnType<typeof getStructuredAgentSessionHost>>,
   sessionId: string
 ): Promise<void> {

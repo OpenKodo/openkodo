@@ -1,6 +1,6 @@
 import { recordRendererCrashBreadcrumb } from '@/diagnostics/crash-reporting/crash-breadcrumb-recorder'
 
-export const TERMINAL_STARTUP_TIMING_KEY = 'orca:terminal-startup-timing'
+export const TERMINAL_STARTUP_TIMING_KEY = 'openkodo:terminal-startup-timing'
 type Disposable = { dispose(): void }
 type Phase = 'connected' | 'liveData' | 'submitted' | 'writeStarted' | 'parsed' | 'renderEvent'
 type Finish = 'observed' | 'timeout' | 'disposed' | 'replaced' | 'error'

@@ -20,7 +20,7 @@ vi.mock('../workers/lifecycle/session-worker-liveness', async (importOriginal) =
 })
 
 const source = '11111111-1111-4111-8111-111111111111'
-const party = `orca_session_id:${source}`
+const party = `openkodo_session_id:${source}`
 let db: OrchestrationDb
 beforeEach(() => {
   db = new OrchestrationDb(':memory:')
@@ -40,7 +40,7 @@ function readyStructuredWorker(handle: string, sessionId: string): string {
     startOptions: { agent: 'claude' }
   })
   db.db
-    .prepare('UPDATE dispatch_contexts SET creator_orca_session_id = ? WHERE id = ?')
+    .prepare('UPDATE dispatch_contexts SET creator_openkodo_session_id = ? WHERE id = ?')
     .run(source, dispatch.id)
   db.db
     .prepare("UPDATE worker_dispatches SET state = 'ready' WHERE dispatch_id = ?")

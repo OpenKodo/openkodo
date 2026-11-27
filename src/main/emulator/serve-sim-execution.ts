@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { platform, tmpdir } from 'node:os'
 import { delimiter, join } from 'node:path'
@@ -7,7 +7,7 @@ import { EmulatorError } from './emulator-errors'
 import { materializeServeSimRuntime } from './serve-sim-runtime-materializer'
 
 const EXEC_TIMEOUT_MS = 90_000
-const MAC_OPEN_SHIM_DIR = join(tmpdir(), 'orca-serve-sim-open-shim')
+const MAC_OPEN_SHIM_DIR = join(tmpdir(), 'openkodo-serve-sim-open-shim')
 const MAC_OPEN_SHIM_PATH = join(MAC_OPEN_SHIM_DIR, 'open')
 const MAC_OPEN_SHIM = `#!/bin/sh
 has_simulator_target=0

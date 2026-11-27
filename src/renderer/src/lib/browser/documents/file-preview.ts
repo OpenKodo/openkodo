@@ -19,7 +19,7 @@ import {
 import { useAppStore } from '@/store/index'
 import { sshHostWithoutServerMessage } from '../../../../../shared/project/host-setup/project-host-setup-target'
 import { findSiblingGroupId } from '../../../../../shared/workspace-layout/tab-groups/tab-group-layout-tree'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import {
   selectFolderWorkspaces,
@@ -51,7 +51,7 @@ function getLocalFilePreviewPlan(
   }
 }
 
-/** Use embedded browser tabs locally; remote documents require this desktop’s granted orca-preview scheme because client guests refuse file: and local file URLs would read the wrong machine. */
+/** Use embedded browser tabs locally; remote documents require this desktop’s granted openkodo-preview scheme because client guests refuse file: and local file URLs would read the wrong machine. */
 export type WorkspaceFilePreviewPlan =
   | { status: 'browser-tab'; url: string; title: string }
   | { status: 'doc-preview' }

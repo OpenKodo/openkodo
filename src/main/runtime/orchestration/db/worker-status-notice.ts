@@ -1,6 +1,6 @@
 import type Database from '../../../sqlite/sync-database'
 
-const NOTICE_FUNCTION = 'orca_worker_status_changed'
+const NOTICE_FUNCTION = 'openkodo_worker_status_changed'
 
 /** What a write did to a Dispatch's rows: a new Dispatch, a change to one, or a removal. */
 export type DispatchRowChange = 'inserted' | 'written' | 'deleted'
@@ -30,38 +30,38 @@ export function installWorkerStatusNotice(
     return null
   })
   db.exec(`
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_dispatch_insert_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_dispatch_insert_notice
     AFTER INSERT ON main.dispatch_contexts
     BEGIN SELECT ${NOTICE_FUNCTION}(NEW.id, 'inserted'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_dispatch_update_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_dispatch_update_notice
     AFTER UPDATE ON main.dispatch_contexts
     BEGIN SELECT ${NOTICE_FUNCTION}(NEW.id, 'written'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_dispatch_delete_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_dispatch_delete_notice
     AFTER DELETE ON main.dispatch_contexts
     BEGIN SELECT ${NOTICE_FUNCTION}(OLD.id, 'deleted'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_worker_insert_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_worker_insert_notice
     AFTER INSERT ON main.worker_dispatches
     BEGIN SELECT ${NOTICE_FUNCTION}(NEW.dispatch_id, 'written'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_worker_update_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_worker_update_notice
     AFTER UPDATE ON main.worker_dispatches
     BEGIN SELECT ${NOTICE_FUNCTION}(NEW.dispatch_id, 'written'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_worker_delete_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_worker_delete_notice
     AFTER DELETE ON main.worker_dispatches
     BEGIN SELECT ${NOTICE_FUNCTION}(OLD.dispatch_id, 'deleted'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_worker_resource_insert_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_worker_resource_insert_notice
     AFTER INSERT ON main.worker_terminal_resources
     BEGIN SELECT ${NOTICE_FUNCTION}(NEW.owner_dispatch_id, 'written'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_worker_resource_update_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_worker_resource_update_notice
     AFTER UPDATE ON main.worker_terminal_resources
     BEGIN
       SELECT ${NOTICE_FUNCTION}(OLD.owner_dispatch_id, 'written')
         WHERE OLD.owner_dispatch_id IS NOT NEW.owner_dispatch_id;
       SELECT ${NOTICE_FUNCTION}(NEW.owner_dispatch_id, 'written');
     END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_worker_resource_delete_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_worker_resource_delete_notice
     AFTER DELETE ON main.worker_terminal_resources
     BEGIN SELECT ${NOTICE_FUNCTION}(OLD.owner_dispatch_id, 'deleted'); END;
-    CREATE TEMP TRIGGER IF NOT EXISTS orca_task_update_notice
+    CREATE TEMP TRIGGER IF NOT EXISTS openkodo_task_update_notice
     AFTER UPDATE ON main.tasks
     BEGIN SELECT ${NOTICE_FUNCTION}(d.id, 'written') FROM main.dispatch_contexts d WHERE d.task_id = NEW.id; END;
   `)

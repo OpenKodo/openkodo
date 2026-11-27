@@ -1,4 +1,4 @@
-import type { OrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { OrchestrationCoordinatorKey } from '../addressing/orchestration-caller-identity'
 import {
   structuredWorkerIdentities,
@@ -39,20 +39,20 @@ export function heldCrewDispatchWorker(
 export function createCrewRecipientWorkerFacts(
   query: ReturnType<typeof crewRecipientOwnerQueries>,
   running: ReturnType<typeof createLineageRunningSessionResolver>,
-  canonical: (id: OrcaSessionId) => OrcaSessionId,
+  canonical: (id: OpenKodoSessionId) => OpenKodoSessionId,
   visibility: () => ReadonlySet<string>
 ) {
   const identities = new Map<
     string,
     { identity: StructuredWorkerIdentity | null; recorded: boolean; held: boolean }
   >()
-  const rootOf = (id: OrcaSessionId) => canonical(id)
-  const keyFor = (id: OrcaSessionId): Key | undefined => {
+  const rootOf = (id: OpenKodoSessionId) => canonical(id)
+  const keyFor = (id: OpenKodoSessionId): Key | undefined => {
     const root = rootOf(id)
     const fact = identities.get(root)
     return fact ? sessionPartyFromWorkerIdentity(root, fact.identity, fact.recorded) : undefined
   }
-  const prepareIdentities = (ids: OrcaSessionId[]) => {
+  const prepareIdentities = (ids: OpenKodoSessionId[]) => {
     const missing = [...new Set(ids.map(rootOf))].filter((id) => !identities.has(id))
     if (!missing.length) {
       return
@@ -94,13 +94,13 @@ export function createCrewRecipientWorkerFacts(
     }
   }
   const livePane = (key: Key) =>
-    key.orcaSessionId && identities.get(key.orcaSessionId)?.held
+    key.openkodoSessionId && identities.get(key.openkodoSessionId)?.held
       ? (key.paneKey ?? undefined)
       : undefined
   return {
     keyFor,
     prepare: prepareIdentities,
     livePane,
-    covered: (id: OrcaSessionId) => identities.has(rootOf(id))
+    covered: (id: OpenKodoSessionId) => identities.has(rootOf(id))
   }
 }

@@ -1,1 +1,1 @@
-export const OPENKODO_TAB_SESSION_PREFIX = 'orca-tab-'
+export const OPENKODO_TAB_SESSION_PREFIX = 'openkodo-tab-'

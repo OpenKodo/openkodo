@@ -1,10 +1,10 @@
 import { lstatIfPresent } from './codex-legacy-session-copy-name-ops'
 
 /**
- * The legacy copy's own bytes stay under `<name>.orca-legacy-copy.<attempt>` once its source is
+ * The legacy copy's own bytes stay under `<name>.openkodo-legacy-copy.<attempt>` once its source is
  * linked in; each attempt reserves a name of its own, so no step ever replaces or removes one.
  */
-export const LEGACY_SESSION_COPY_ASIDE_SUFFIX = '.orca-legacy-copy'
+export const LEGACY_SESSION_COPY_ASIDE_SUFFIX = '.openkodo-legacy-copy'
 /** Attempts that each keep an aside name; past this a copy settles as kept. */
 export const LEGACY_SESSION_COPY_MAX_ASIDES = 16
 

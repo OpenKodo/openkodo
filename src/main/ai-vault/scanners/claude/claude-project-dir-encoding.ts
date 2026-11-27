@@ -50,7 +50,7 @@ export function isClaudeProjectBucketInScope(
 }
 
 /** The encoded path below one scope prefix (`''` for the scope's own bucket), or null when the bucket is outside it.
- * An encoded separator boundary keeps openkodo from matching its sibling orcadyne; a root (`-`, `C--`) keeps its separator. */
+ * An encoded separator boundary keeps openkodo from matching its sibling openkododyne; a root (`-`, `C--`) keeps its separator. */
 export function claudeProjectBucketNameBelowScope(
   projectDirName: string,
   scopePrefix: string

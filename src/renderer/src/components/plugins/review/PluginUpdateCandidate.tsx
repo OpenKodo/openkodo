@@ -26,7 +26,7 @@ export type UpdateCandidate = {
   preview: PluginMarketplaceHostInstallPreview | null
   error: boolean
   /** Oldest OpenKodo the update runs on, when this OpenKodo is older. */
-  needsOrca: string | null
+  needsOpenKodo: string | null
   /** Read with the preview, so a review's lines are complete before it can be approved. */
   installedManifest: PluginManifest | null
 }
@@ -255,7 +255,7 @@ export function CandidateRow({
   onCheckedChange: (checked: boolean) => void
 }): React.JSX.Element {
   const t = useTranslate()
-  const { entry, preview, error, needsOrca } = candidate
+  const { entry, preview, error, needsOpenKodo } = candidate
   const checkboxId = `plugin-update-${entry.pluginKey}`
   let note: React.ReactNode = null
   if (done) {
@@ -284,13 +284,13 @@ export function CandidateRow({
         {t('auto.components.settings.PluginUpdateAllDialog.current', 'Already installed')}
       </p>
     )
-  } else if (needsOrca) {
+  } else if (needsOpenKodo) {
     note = (
       <p className="text-xs text-status-warning-text">
         {t(
-          'auto.components.settings.PluginUpdateAllDialog.needsOrca',
+          'auto.components.settings.PluginUpdateAllDialog.needsOpenKodo',
           'Needs OpenKodo {{value0}} or later',
-          { value0: needsOrca }
+          { value0: needsOpenKodo }
         )}
       </p>
     )

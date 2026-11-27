@@ -9,11 +9,11 @@ import type { WindowLayoutCommand } from '../../terminal/layout/runtime-layout-a
 import { closeMainOwnedPaneByHandle } from '../layout/main-handle-close'
 import {
   NO_STOP,
-  OrcaRuntimeWithExplicitCloseTabPtyStops
+  OpenKodoRuntimeWithExplicitCloseTabPtyStops
 } from './explicit-terminal-close-pty-stops'
 import { closePairedHostLeafFirst } from './paired-host-terminal-close'
 
-export abstract class OrcaRuntimeWithStopExplicitlyClosedTabPtys extends OrcaRuntimeWithExplicitCloseTabPtyStops {
+export abstract class OpenKodoRuntimeWithStopExplicitlyClosedTabPtys extends OpenKodoRuntimeWithExplicitCloseTabPtyStops {
   protected abstract getResolvedWorktreeMap(): Promise<Map<string, ResolvedWorktree>>
   abstract applyLayoutCommand(command: WindowLayoutCommand): Promise<LayoutApplyReply>
   protected abstract refreshPtyWorktreeRecordsFromController(

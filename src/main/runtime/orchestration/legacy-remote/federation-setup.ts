@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { OrchestrationDb } from '../db/orchestration-db'
 import {
   applyWaitForSetupOutcome,
@@ -49,7 +49,7 @@ export function persistFederatedSetupWaitOutcome(
 }
 
 export function monitorFederatedSetup(
-  args: FederationSetupStageArgs & { runtime: OrcaRuntimeService }
+  args: FederationSetupStageArgs & { runtime: OpenKodoRuntimeService }
 ): void {
   const setupTerminal = args.effects.find(
     (effect) => effect.kind === 'terminal' && effect.role === 'setup' && effect.id

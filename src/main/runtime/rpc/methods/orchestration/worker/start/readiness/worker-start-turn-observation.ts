@@ -1,6 +1,6 @@
 import { AGENT_PROMPT_EFFECT_TIMEOUT_MS } from '../../../../../../../../shared/orchestration/orchestration-timing-budgets'
 import type { RuntimeTerminalPromptDelivery } from '../../../../../../../../shared/terminal/runtime/runtime-terminal-send-contract'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 
 /** Observed/permission prove live input handling; unsupported keeps accepted-write evidence.
  * Unobserved means supported observation timed out after write: unverifiable, never dead, and no safe blind resend. */
@@ -33,7 +33,7 @@ function classifyPromptDelivery(prompt: RuntimeTerminalPromptDelivery): WorkerTu
 
 /** Reuse terminal.send's lifecycle/hook observer, never output bytes; client grace already includes AGENT_PROMPT_EFFECT_TIMEOUT_MS. */
 export async function observeWorkerTurnStart(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   terminalHandle: string
   prompt: RuntimeTerminalPromptDelivery | undefined
   timeoutMs?: number

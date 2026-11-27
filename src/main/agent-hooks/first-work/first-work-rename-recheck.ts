@@ -29,7 +29,7 @@ export function syncRenameGuards(
   if (isWslMoveRepoBlocked(repo)) {
     return defer('project-moving', 'a WSL move started before the branch rename')
   }
-  if (!deps.canRenameOrcaCreatedBranch(worktreeId)) {
+  if (!deps.canRenameOpenKodoCreatedBranch(worktreeId)) {
     return stop('name-chosen', 'worktree is not eligible for auto-rename', true)
   }
   return null
@@ -48,7 +48,7 @@ export function renameGuardsPass(
     !!repo &&
     resolveGitRouteForHost(getRepoExecutionHostId(repo)).kind === 'local' &&
     !isWslMoveRepoBlocked(repo) &&
-    deps.canRenameOrcaCreatedBranch(worktreeId)
+    deps.canRenameOpenKodoCreatedBranch(worktreeId)
   )
 }
 

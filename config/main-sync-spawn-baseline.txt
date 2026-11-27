@@ -2,7 +2,7 @@
 # execFileSync/spawnSync/execSync, runProcessSync and the repo sync wrappers listed in
 # config/scripts/static-analysis/process-boundaries/check-main-sync-spawn-ratchet.mjs (synchronous ACL rewrites and grants, which
 # can block on a whole directory subtree).
-# Some entries run in the daemon or orcad process, or are test harnesses outside the test-path
+# Some entries run in the daemon or openkodod process, or are test harnesses outside the test-path
 # conventions. This is a RATCHET: counts may only go DOWN.
 # Prune after removing launches: pnpm check:main-sync-spawn-ratchet --prune
 1 src/main/agent-hooks/installation/scripts/managed-hook-script-write.ts
@@ -26,8 +26,8 @@
 1 src/main/ipc/worktrees/paths/worktree-logic.ts
 1 src/main/network/macos-tailscale-dns-diagnostic.ts
 1 src/main/opencode/status-hooks/legacy-plugin-acl-retry.ts
-2 src/main/orcad/native-runtime/node-pty-precondition.ts
-1 src/main/orcad/instance-lock/orcad-data-root-privacy.ts
+2 src/main/openkodod/native-runtime/node-pty-precondition.ts
+1 src/main/openkodod/instance-lock/openkodod-data-root-privacy.ts
 2 src/main/persistence/profile-state/access/profile-state-access-identity.ts
 1 src/main/persistence/profile-state/recovery/profile-state-recovery-copy.ts
 1 src/main/plugins/catalog/plugin-private-marketplace-ssh-shim.cjs

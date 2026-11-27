@@ -25,7 +25,7 @@ import { MobileNativeChatRewindDialog } from './MobileNativeChatRewindDialog'
 export function MobileNativeChatRowOverlaysHost({
   conversation,
   imageSource,
-  onOpenUrlInOrca,
+  onOpenUrlInOpenKodo,
   linkOpenMode,
   rewind,
   children
@@ -33,7 +33,7 @@ export function MobileNativeChatRowOverlaysHost({
   conversation: MobileNativeChatConversation
   imageSource?: MobileNativeChatImageSource
   /** Absent where the host can't open a browser tab for this chat. */
-  onOpenUrlInOrca?: (url: string) => void
+  onOpenUrlInOpenKodo?: (url: string) => void
   linkOpenMode: MobileLinkOpenMode
   /** The chat's "Rewind to here"; absent where it can't rewind. */
   rewind?: AgentSessionRewindSurface
@@ -59,14 +59,14 @@ export function MobileNativeChatRowOverlaysHost({
     [setShown, openRewind, imageSource]
   )
   // Why a ref: every markdown block reads openLink, so a reconnect must not change its identity.
-  const linkRouteRef = useRef({ linkOpenMode, onOpenUrlInOrca })
+  const linkRouteRef = useRef({ linkOpenMode, onOpenUrlInOpenKodo })
   useLayoutEffect(() => {
-    linkRouteRef.current = { linkOpenMode, onOpenUrlInOrca }
-  }, [linkOpenMode, onOpenUrlInOrca])
+    linkRouteRef.current = { linkOpenMode, onOpenUrlInOpenKodo }
+  }, [linkOpenMode, onOpenUrlInOpenKodo])
   const openLink = useCallback(
     (url: string) => {
       const route = linkRouteRef.current
-      openMobileWebLink(url, route.linkOpenMode, route.onOpenUrlInOrca, (link) =>
+      openMobileWebLink(url, route.linkOpenMode, route.onOpenUrlInOpenKodo, (link) =>
         setShown({ link })
       )
     },
@@ -80,9 +80,13 @@ export function MobileNativeChatRowOverlaysHost({
     ) : shown?.actionsFor ? (
       <MobileNativeChatMessageActionsSheet message={shown.actionsFor} onClose={close} />
     ) : shown?.link ? (
-      <MobileLinkActionSheet url={shown.link} onClose={close} openInOrca={onOpenUrlInOrca} />
+      <MobileLinkActionSheet
+        url={shown.link}
+        onClose={close}
+        openInOpenKodo={onOpenUrlInOpenKodo}
+      />
     ) : null
-  }, [shown, setShown, onOpenUrlInOrca])
+  }, [shown, setShown, onOpenUrlInOpenKodo])
   return (
     <MobileNativeChatRowOverlaysContext.Provider value={overlays}>
       <MarkdownLinkHandlerContext.Provider value={openLink}>

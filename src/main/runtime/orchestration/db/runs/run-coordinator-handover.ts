@@ -1,9 +1,9 @@
 // A chat that will never read again hands its Runs to the chat that reads its mail now, so their
 // workers' later reports and asks reach someone instead of waiting on a closed chat.
 import {
-  formatOrcaSessionAddress,
-  type OrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  type OpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { OrchestrationDb } from '../orchestration-db'
 
 /** Unread Run mail an earlier coordinator was pointed at is pointed at again, for whoever reads the
@@ -23,28 +23,28 @@ export function repointUnreadRunMail(db: OrchestrationDb, runId: string): void {
 /** Every Run `from` coordinates now coordinated from `to`, keeping `to`'s own Runs; true when any moved. */
 export function handOverCoordinatorChatRuns(
   db: OrchestrationDb,
-  from: OrcaSessionId,
-  to: OrcaSessionId
+  from: OpenKodoSessionId,
+  to: OpenKodoSessionId
 ): boolean {
   const runs = db.runsBoundToCoordinator({
-    orcaSessionId: from,
+    openkodoSessionId: from,
     paneKey: null,
     terminalHandle: null
   })
   if (runs.length === 0 || from === to) {
     return false
   }
-  const changed = new Set<string>([formatOrcaSessionAddress(to)])
+  const changed = new Set<string>([formatOpenKodoSessionAddress(to)])
   db.db.exec('BEGIN IMMEDIATE')
   try {
     for (const run of runs) {
       const mailbox = `run:${run.id}`
-      db.routeAllUnreadDirectMessagesToRunMailbox(run.id, formatOrcaSessionAddress(from))
+      db.routeAllUnreadDirectMessagesToRunMailbox(run.id, formatOpenKodoSessionAddress(from))
       db.db
         .prepare(
           `UPDATE runs
-           SET coordinator_handle = NULL, coordinator_pane_key = NULL, coordinator_orca_session_id = ?,
-               coordinator_orca_session_id_generation = consumer_generation + 1,
+           SET coordinator_handle = NULL, coordinator_pane_key = NULL, coordinator_openkodo_session_id = ?,
+               coordinator_openkodo_session_id_generation = consumer_generation + 1,
                consumer_generation = consumer_generation + 1,
                updated_at = datetime('now')
            WHERE id = ?`

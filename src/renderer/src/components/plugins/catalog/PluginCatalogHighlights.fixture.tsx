@@ -156,7 +156,7 @@ const handlers: CatalogCardHandlers = {
     onRemoveRequest: () => undefined
   },
   busyPluginKeys: new Set(),
-  orcaVersion: '1.4.256',
+  openkodoVersion: '1.4.256',
   refreshing: false
 }
 
@@ -175,7 +175,11 @@ function setup(): void {
 function render(): React.JSX.Element {
   return (
     <div className="@container/plugin-catalog space-y-8 p-6">
-      <PluginCatalogHighlights entries={entries} orcaVersion="1.4.256" cardHandlers={handlers} />
+      <PluginCatalogHighlights
+        entries={entries}
+        openkodoVersion="1.4.256"
+        cardHandlers={handlers}
+      />
     </div>
   )
 }
@@ -212,7 +216,7 @@ function renderPage(pageEntries: readonly PluginListEntry[]): () => React.JSX.El
     <div className="@container/plugin-catalog space-y-8 p-6">
       <PluginCatalogHighlights
         entries={pageEntries}
-        orcaVersion="1.4.256"
+        openkodoVersion="1.4.256"
         cardHandlers={handlers}
       />
       {groups.map((group) => (

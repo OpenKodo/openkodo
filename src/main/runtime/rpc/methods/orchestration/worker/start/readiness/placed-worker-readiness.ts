@@ -1,5 +1,5 @@
 import type { RuntimeTerminalWait } from '../../../../../../../../shared/terminal/runtime/runtime-terminal-contracts'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import { agentStartupBlockedMessage } from '../../../../../../terminal/wait/agent-startup-blocked-message'
 import { waitForWorkerAgentReady } from '../../../../../../terminal/wait/launched-agent-composer-readiness'
 import { watchSetupEnd, type SetupEndWatch } from './worker-setup-end-watch'
@@ -19,7 +19,7 @@ import {
 } from './worker-start-structured-setup-gate'
 
 type PlacedWorkerReadiness = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   structuredSession: Awaited<ReturnType<typeof createStructuredWorkerSessionForWorktree>> | null
   workerChat: boolean
   setupStage: WorkerSetupStageArgs

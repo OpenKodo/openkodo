@@ -98,7 +98,7 @@ export async function readMailboxDeliveryHold(
 export function describeMailboxDeliveryHold(
   recipient: string,
   hold: MailboxDeliveryHold,
-  receiverCli: OrchestrationCliCommand = 'orca'
+  receiverCli: OrchestrationCliCommand = 'openkodo'
 ): string {
   switch (hold.kind) {
     case 'prompt':

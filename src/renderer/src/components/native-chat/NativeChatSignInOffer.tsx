@@ -15,9 +15,9 @@ import {
 } from '@/lib/bot-host-link-read'
 import { useBotHostVerified } from '@/lib/bot-host-status'
 import {
-  useBotHostOrcaAccountReading,
-  useBotHostOrcaAccountSettled
-} from '@/lib/bot-host-orca-account'
+  useBotHostOpenKodoAccountReading,
+  useBotHostOpenKodoAccountSettled
+} from '@/lib/bot-host-openkodo-account'
 import { useBotHostOffline } from '@/lib/bot-host-views'
 import type { Bot } from '../../../../shared/bot-types'
 import {
@@ -25,9 +25,12 @@ import {
   type ConnectorOffer
 } from '../../../../shared/bots/bot-connector-offer'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
-import { OrcaCloudSignInLine } from '../bots/orca-cloud-sign-in'
-import { readOrcaCloudSignedOut, useOrcaCloudNeedsSignIn } from '../bots/orca-cloud-signed-out'
-import type { OrcaProfileAuthStatus } from '../../../../shared/orca-profiles/orca-profiles'
+import { OpenKodoCloudSignInLine } from '../bots/openkodo-cloud-sign-in'
+import {
+  readOpenKodoCloudSignedOut,
+  useOpenKodoCloudNeedsSignIn
+} from '../bots/openkodo-cloud-signed-out'
+import type { OpenKodoProfileAuthStatus } from '../../../../shared/openkodo-profiles/openkodo-profiles'
 import { BotConnectorsHostNotice, useServerNoticeState } from '../bots/BotConnectorsHostNotice'
 import { useBotHostLabel } from '../bots/use-bot-host-label'
 import { useNativeChatOffer } from './NativeChatOfferActions'
@@ -76,8 +79,10 @@ function tellBot(answering: ReturnType<typeof useNativeChatOffer>): void {
 
 // This computer's sign-in as far as its link goes: who, and whether signed in. A change starts the
 // link's count again, so nothing acts on a read from before it.
-function localSignInKey(state: { orcaProfileAuthStatus: OrcaProfileAuthStatus | null }): string {
-  const status = state.orcaProfileAuthStatus
+function localSignInKey(state: {
+  openkodoProfileAuthStatus: OpenKodoProfileAuthStatus | null
+}): string {
+  const status = state.openkodoProfileAuthStatus
   return `${status?.state ?? ''}|${status?.cloud?.userId ?? ''}`
 }
 
@@ -100,7 +105,7 @@ async function tellOnceLinked(
     await refreshBotHost(LOCAL_EXECUTION_HOST_ID)
     if (
       !signInChanged &&
-      !readOrcaCloudSignedOut() &&
+      !readOpenKodoCloudSignedOut() &&
       botHostLinkReadSince(LOCAL_EXECUTION_HOST_ID, mark) &&
       readBotHostConnectorStatus(LOCAL_EXECUTION_HOST_ID) === 'ok'
     ) {
@@ -120,7 +125,7 @@ export function SignInOffer({ bot, offer, messageId }: SignInOfferProps): React.
   const t = useTranslate()
   const answering = useNativeChatOffer(bot.id, messageId)
   // Signed in only while OpenKodo Cloud takes this computer's sign-in, not merely while it has one.
-  const needsSignIn = useOrcaCloudNeedsSignIn()
+  const needsSignIn = useOpenKodoCloudNeedsSignIn()
   const link = useBotHostLinkReadSinceOpen(
     LOCAL_EXECUTION_HOST_ID,
     refreshBotHost,
@@ -129,7 +134,7 @@ export function SignInOffer({ bot, offer, messageId }: SignInOfferProps): React.
   const connector = useBotHostConnectorStatus(LOCAL_EXECUTION_HOST_ID)
   if (needsSignIn) {
     return (
-      <OrcaCloudSignInLine
+      <OpenKodoCloudSignInLine
         text={signInReason(offer, t)}
         onSignedIn={() => tellOnceLinked(link.mark, answering)}
       />
@@ -191,11 +196,11 @@ export function ServerSignInOffer({
   const t = useTranslate()
   const host = useBotHostLabel(bot.hostId)
   const verified = useBotHostVerified(bot.hostId)
-  const settled = useBotHostOrcaAccountSettled(bot.hostId)
+  const settled = useBotHostOpenKodoAccountSettled(bot.hostId)
   const { state, account, connector } = useServerNoticeState(bot.hostId, bot)
   const answering = useNativeChatOffer(bot.id, messageId)
   const offline = useBotHostOffline(bot.hostId)
-  const reading = useBotHostOrcaAccountReading(bot.hostId)
+  const reading = useBotHostOpenKodoAccountReading(bot.hostId)
   const linkRead = useBotHostLinkReadSinceOpen(bot.hostId, refreshBotHost).fresh
   // Only positive proof, read now: a live, verified server signed in, and its link to OpenKodo Cloud read
   // since this card opened and saying ok. Having told the bot once proves nothing about it since.

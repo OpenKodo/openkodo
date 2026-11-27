@@ -7,7 +7,7 @@ import { createServer as createHttpServer, type IncomingMessage, type ServerResp
 import { Agent, createServer as createHttpsServer, request as httpsRequest } from 'node:https'
 import { isIP, type Socket } from 'node:net'
 import { connect as tlsConnect } from 'node:tls'
-import { INGRESS_HEADER, signIngressHeader } from '@orca-cloud/relay-contract/ingress-header'
+import { INGRESS_HEADER, signIngressHeader } from '@openkodo-cloud/relay-contract/ingress-header'
 
 export type IngressConfig = {
   name: string
@@ -26,7 +26,7 @@ export type IngressConfig = {
 }
 
 // Inbound headers a client must never be able to set on the edge hop, and hop-by-hop headers.
-const STRIPPED = /^(host|x-orca-ingress.*|x-edge-.*|cf-.*|x-forwarded-.*|forwarded|x-real-ip|true-client-ip)$/i
+const STRIPPED = /^(host|x-openkodo-ingress.*|x-edge-.*|cf-.*|x-forwarded-.*|forwarded|x-real-ip|true-client-ip)$/i
 const HOP = /^(connection|keep-alive|proxy-connection|proxy-authorization|te|trailer|transfer-encoding|upgrade)$/i
 const ROUTED = /^\/(health$|v1\/)/
 

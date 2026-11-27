@@ -107,7 +107,7 @@ export function getLinuxRootPackageType(): LinuxRootPackageType | null {
 }
 
 // electron-builder's deb.packageName. dpkg writes this list for every package it installs.
-const DPKG_FILE_LIST = '/var/lib/dpkg/info/orca-ide.list'
+const DPKG_FILE_LIST = '/var/lib/dpkg/info/openkodo-ide.list'
 
 /** Repackagers can inherit deb/rpm markers; require the same manager discovery used for installation. */
 export function isExternallyManagedLinuxInstall(): boolean {

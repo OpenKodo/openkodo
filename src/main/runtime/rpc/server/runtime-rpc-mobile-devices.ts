@@ -2,7 +2,7 @@ import type {
   RelayDeviceBinding,
   RelayRevokeOutboxItem
 } from '../../mobile-cloud-relay/pairing/relay-revoke-outbox'
-import type { DeviceEntry, DeviceOrcaAccount, PairedDeviceTypist } from './pairing/device-entry'
+import type { DeviceEntry, DeviceOpenKodoAccount, PairedDeviceTypist } from './pairing/device-entry'
 import type { DeviceSelfRpcContext } from '../core'
 import { pairedDeviceTypistOf } from './pairing/paired-device-typist'
 import type {
@@ -83,7 +83,7 @@ export class RuntimeRpcMobileDevices extends RuntimeRpcRequestAdmission {
   /** Who typed a paired device's message; see `pairedDeviceTypistOf`. */
   pairedDeviceTypist(
     deviceId: string,
-    connectionClaim?: DeviceOrcaAccount | null
+    connectionClaim?: DeviceOpenKodoAccount | null
   ): PairedDeviceTypist | null {
     const registry = this.deviceRegistry
     return registry
@@ -100,10 +100,10 @@ export class RuntimeRpcMobileDevices extends RuntimeRpcRequestAdmission {
   protected desktopAccountSelf(
     device: Pick<DeviceEntry, 'deviceId' | 'scope'>,
     connectionId: string
-  ): Pick<DeviceSelfRpcContext, 'declareOrcaAccount' | 'orcaAccount' | 'clientInstanceId'> {
+  ): Pick<DeviceSelfRpcContext, 'declareOpenKodoAccount' | 'openkodoAccount' | 'clientInstanceId'> {
     return {
-      declareOrcaAccount: (account, clientInstanceId) => {
-        this.deviceRegistry?.setOrcaAccount(device.deviceId, account)
+      declareOpenKodoAccount: (account, clientInstanceId) => {
+        this.deviceRegistry?.setOpenKodoAccount(device.deviceId, account)
         if (device.scope === 'runtime') {
           this.declaredDesktopClients.declareAccount(connectionId, {
             deviceId: device.deviceId,
@@ -112,7 +112,7 @@ export class RuntimeRpcMobileDevices extends RuntimeRpcRequestAdmission {
           })
         }
       },
-      orcaAccount: () => this.declaredDesktopClients.accountOf(connectionId),
+      openkodoAccount: () => this.declaredDesktopClients.accountOf(connectionId),
       clientInstanceId: () => this.declaredDesktopClients.instanceOf(connectionId)
     }
   }

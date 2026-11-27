@@ -8,7 +8,7 @@ export const RUNTIME_HOST_STATUS_CHANNEL = 'runtimeEnvironments:statusChanged'
 export type RuntimeHostBlockedReason = 'access-revoked' | 'server-replaced' | 'incompatible'
 
 /** Status code for a managed host whose own OpenKodo server is no longer the paired one. */
-export const RUNTIME_SERVER_REPLACED_STATUS_CODE = 'orcad_server_replaced'
+export const RUNTIME_SERVER_REPLACED_STATUS_CODE = 'openkodod_server_replaced'
 
 /** Local client state; never exchanged with the paired host. */
 export type RuntimeHostStatusSnapshot = {

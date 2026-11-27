@@ -823,7 +823,7 @@ describe('shared Codex app-servers', () => {
       )
       // A fallback would try to spawn this missing command and fail differently.
       await expect(
-        open({ command: 'orca-test-no-such-codex', args: [], cwd: process.cwd() }, {})
+        open({ command: 'openkodo-test-no-such-codex', args: [], cwd: process.cwd() }, {})
       ).rejects.toBeInstanceOf(CodexSharedServerUncontainedError)
       expect(opensSharedCodexServer(open)).toBe(true)
     })

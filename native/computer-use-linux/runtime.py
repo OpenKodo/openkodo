@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Orca Linux computer-use bridge.
+"""OpenKodo Linux computer-use bridge.
 
-The Node sidecar owns Orca's public API. This process is intentionally a small
+The Node sidecar owns OpenKodo's public API. This process is intentionally a small
 AT-SPI adapter: read one JSON operation file, execute it in the user's desktop
 session, and print one JSON response.
 """
@@ -865,7 +865,7 @@ PORTAL_SERVICE = "org.freedesktop.portal.Desktop"
 DBUS_DAEMON = ("org.freedesktop.DBus", "/org/freedesktop/DBus", "org.freedesktop.DBus")
 PERMISSION_STORE = ("org.freedesktop.impl.portal.PermissionStore", "/org/freedesktop/impl/portal/PermissionStore",
                     "org.freedesktop.impl.portal.PermissionStore")
-KWIN_REPORT_XML = ("<node><interface name='dev.orca.ComputerUse.KWinReport'>"
+KWIN_REPORT_XML = ("<node><interface name='dev.openkodo.ComputerUse.KWinReport'>"
                    "<method name='Report'><arg type='s' direction='in'/></method></interface></node>")
 KWIN_QUERY_SECONDS = 2
 PORTAL_ANSWER_SECONDS = 10
@@ -922,7 +922,7 @@ KWIN_LAYOUT_SCRIPT = """(function (target) {
         report = {error: String(error)};
     }
     callDBus(target[0], target[1], target[2], "Report", JSON.stringify(report));
-})(__ORCA_REPORT_TARGET__);
+})(__OPENKODO_REPORT_TARGET__);
 """
 
 
@@ -1126,7 +1126,7 @@ def kwin_layout(bus):
     if kwin is None:
         raise ValueError("KWin is not on the session bus")
     token = uuid.uuid4().hex
-    path = "/dev/orca/ComputerUse/KWinReport/" + token
+    path = "/dev/openkodo/ComputerUse/KWinReport/" + token
     reports = []
 
     def on_call(_connection, sender, _path, _interface, method, parameters, invocation):
@@ -1136,12 +1136,12 @@ def kwin_layout(bus):
 
     interface = Gio.DBusNodeInfo.new_for_xml(KWIN_REPORT_XML).interfaces[0]
     registration = bus.register_object(path, interface, on_call, None, None)
-    plugin = "orca-computer-use-" + token
-    descriptor, script_path = tempfile.mkstemp(prefix="orca-kwin-", suffix=".js", dir=os.environ.get("XDG_RUNTIME_DIR"))
+    plugin = "openkodo-computer-use-" + token
+    descriptor, script_path = tempfile.mkstemp(prefix="openkodo-kwin-", suffix=".js", dir=os.environ.get("XDG_RUNTIME_DIR"))
     try:
-        target = json.dumps([bus.get_unique_name(), path, "dev.orca.ComputerUse.KWinReport"])
+        target = json.dumps([bus.get_unique_name(), path, "dev.openkodo.ComputerUse.KWinReport"])
         with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
-            handle.write(KWIN_LAYOUT_SCRIPT.replace("__ORCA_REPORT_TARGET__", target))
+            handle.write(KWIN_LAYOUT_SCRIPT.replace("__OPENKODO_REPORT_TARGET__", target))
         script_id = bus_call(bus, KWIN_SERVICE, "/Scripting", "org.kde.kwin.Scripting", "loadScript",
                              GLib.Variant("(ss)", (script_path, plugin)), "(i)").unpack()[0]
         if script_id < 0:
@@ -1229,7 +1229,7 @@ def take_portal_file(uri, not_before):
 
 def portal_screenshot_png(bus):
     permissions = screenshot_permissions(bus)
-    token = "orca_" + uuid.uuid4().hex
+    token = "openkodo_" + uuid.uuid4().hex
     answers = []
     subscription = bus.signal_subscribe(None, "org.freedesktop.portal.Request", "Response", None, None,
                                         Gio.DBusSignalFlags.NONE,
@@ -1499,7 +1499,7 @@ def make_snapshot(query, screenshot_request, window_id=None, window_index=None, 
     window_title = name_of(window)
     screenshot = capture_png(bounds, screenshot_request, app, window) if screenshot_request is not None else None
     if screenshot_request is not None and bounds is None and placement.window_coords:
-        screenshot = screenshot_failure("GTK 4 screenshot skipped: Orca can't tell where this window sits on screen; "
+        screenshot = screenshot_failure("GTK 4 screenshot skipped: OpenKodo can't tell where this window sits on screen; "
                                         "use --no-screenshot and trust the tree")
     geometry = GeometryReader()
     for item in records:
@@ -1551,7 +1551,7 @@ def handshake_response():
     )
     return {
         "platform": "linux",
-        "provider": "orca-computer-use-linux",
+        "provider": "openkodo-computer-use-linux",
         "providerVersion": "1.0.0",
         "protocolVersion": 1,
         "supports": {
@@ -1723,7 +1723,7 @@ def activate_focused_entry(app, window):
 
 def screen_point(placed, saved_element=None, x=None, y=None, node=None):
     if placed.window_coords and placed.origin is None:
-        raise RuntimeError("unsupported capability: Orca can't tell where this GTK 4 window sits on screen, so "
+        raise RuntimeError("unsupported capability: OpenKodo can't tell where this GTK 4 window sits on screen, so "
                            "pointer input would miss; nothing was sent. Use an element's accessibility action or set-value")
     window_rect = placed.screen(placed.window)
     rect = placed.screen(node) if node is not None else None
@@ -2147,7 +2147,7 @@ def temporary_x11_keymap(value, read_receipt):
 
     if Gdk is None and not value.isascii():
         raise RuntimeError("unsupported capability: synthetic Unicode text requires GDK on X11")
-    lock = open(os.path.join(os.environ["XDG_RUNTIME_DIR"], "orca-computer-keyboard.lock"), "a")
+    lock = open(os.path.join(os.environ["XDG_RUNTIME_DIR"], "openkodo-computer-keyboard.lock"), "a")
     try:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)

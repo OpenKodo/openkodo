@@ -4,7 +4,7 @@ import type { WorkerTerminalListState } from '../../../../orchestration/terminal
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import { WORKER_LIST_CURSOR_EXPIRED_MESSAGE } from '../../../../orchestration/db/worker-terminal/worker-terminal-listing'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { defineOrchestrationMethod } from '../access/orchestration-method-access'
 import {
   decodeWorkerListCursor,
@@ -50,7 +50,7 @@ export const ORCHESTRATION_WORKER_LIST_METHOD = defineOrchestrationMethod({
 })
 
 async function listLocalWorkerPage(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: z.infer<typeof WorkerListParams>
 ) {
   const db = runtime.getOrchestrationDb()
@@ -149,7 +149,7 @@ async function listLocalWorkerPage(
 }
 
 function readSnapshotRows(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   cursor: Extract<WorkerListCursor, { version: 3 }>,
   params: WorkerListPageParams,
@@ -171,7 +171,7 @@ function readSnapshotRows(
 }
 
 type WorkerListPageArgs = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   params: WorkerListPageParams
   limit: number
   rows: ReturnType<OrchestrationDb['listWorkerTerminalResources']>

@@ -84,17 +84,20 @@ const SENTENCES: Record<AgentSessionWriteNoticeSentence, () => string> = {
       'session.writeNotice.savedInOtherFolder',
       'This conversation was saved in another folder.'
     ),
-  savedByNewerOrca: () =>
-    translate('session.writeNotice.savedByNewerOrca', 'Chats were saved by a newer OpenKodo.'),
-  updateOrcaToKeepUsing: () =>
-    translate('session.writeNotice.updateOrcaToKeepUsing', 'Update OpenKodo to keep using them.'),
-  chatSavedByNewerOrca: () =>
+  savedByNewerOpenKodo: () =>
+    translate('session.writeNotice.savedByNewerOpenKodo', 'Chats were saved by a newer OpenKodo.'),
+  updateOpenKodoToKeepUsing: () =>
     translate(
-      'session.writeNotice.chatSavedByNewerOrca',
+      'session.writeNotice.updateOpenKodoToKeepUsing',
+      'Update OpenKodo to keep using them.'
+    ),
+  chatSavedByNewerOpenKodo: () =>
+    translate(
+      'session.writeNotice.chatSavedByNewerOpenKodo',
       'This chat was saved by a newer OpenKodo.'
     ),
-  updateOrcaToOpenChat: () =>
-    translate('session.writeNotice.updateOrcaToOpenChat', 'Update OpenKodo to open it.'),
+  updateOpenKodoToOpenChat: () =>
+    translate('session.writeNotice.updateOpenKodoToOpenChat', 'Update OpenKodo to open it.'),
   unsupported: () =>
     translate(
       'session.writeNotice.unsupported',

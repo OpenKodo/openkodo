@@ -11,7 +11,7 @@ import { join } from 'node:path'
 import type { SecretAtRestProtection } from '../../shared/secure-storage/secret-at-rest-protection'
 
 const ZCODE_PLAN_API_KEY_FILE = 'zcode-plan-api-key.enc'
-export const API_KEY_ENVELOPE_PREFIX = 'orca-zcode-plan-api-key:v1:'
+export const API_KEY_ENVELOPE_PREFIX = 'openkodo-zcode-plan-api-key:v1:'
 let cachedZcodePlanApiKey: string | null = null
 let warnedZcodePlanApiKeyStatusHardenFailure = false
 

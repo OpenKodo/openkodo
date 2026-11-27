@@ -213,7 +213,7 @@ function tabStatus(contents: Electron.WebContents): 'loading' | 'complete' {
 }
 
 /** The fields OpenKodo owns; url/title come from Electron's native result or describeBrowserExtensionTab. */
-function orcaTabFields(entry: BrowserExtensionTabEntry): chrome.tabs.Tab {
+function openkodoTabFields(entry: BrowserExtensionTabEntry): chrome.tabs.Tab {
   const { contents } = entry
   return {
     id: contents.id,
@@ -239,7 +239,7 @@ export function describeBrowserExtensionTab(
 ): chrome.tabs.Tab {
   const url = entry.contents.getURL()
   return {
-    ...orcaTabFields(entry),
+    ...openkodoTabFields(entry),
     ...(canExtensionSeeTabUrl(extension, entry.contents.session, url, entry.contents.id)
       ? { url, title: entry.contents.getTitle() }
       : {})
@@ -264,7 +264,7 @@ export function mergeNativeTab(
       Object.assign(native, { [key]: nativeTab[key] })
     }
   }
-  return { ...orcaTabFields(entry), ...native }
+  return { ...openkodoTabFields(entry), ...native }
 }
 
 /**

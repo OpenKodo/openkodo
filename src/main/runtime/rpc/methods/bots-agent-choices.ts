@@ -13,7 +13,7 @@ import {
   readyBotDefaultAgent
 } from '../../../../shared/bots/bot-agent-choices'
 import { nativeChatPreferenceFor } from '../../../../shared/agent-launch/choices/structured-native-chat-launch-route'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import {
   detectAgentsOnHost,
   HOST_DEFAULT_AGENT_DETECTION
@@ -25,7 +25,7 @@ import { hostDetectionOptions } from './preflight/preflight'
 const AVAILABILITY_WAIT_MS = 10_000
 
 function availabilitySnapshot(
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): Promise<ReadonlyMap<string, AgentSessionAgentAvailability> | null> {
   return new Promise((resolve) => {
     let release: (() => void) | null = null
@@ -50,7 +50,7 @@ function availabilitySnapshot(
   })
 }
 
-export async function hostBotAgentChoices(runtime: OrcaRuntimeService) {
+export async function hostBotAgentChoices(runtime: OpenKodoRuntimeService) {
   const settings = runtime.requireStore().getSettings()
   const [detected, roster] = await Promise.all([
     detectAgentsOnHost(HOST_DEFAULT_AGENT_DETECTION, hostDetectionOptions(runtime)).catch(

@@ -43,7 +43,7 @@ export function useSourceControlWorktreeOperationState({
   const rebaseAutoStash = useStore(operationView, (s) => s.rebaseAutoStash)
   const rebaseStop = useStore(operationView, (s) => s.rebaseStop)
   const rebaseStopInspectFailure = useStore(operationView, (s) => s.rebaseStopInspectFailure)
-  const orcaRebase = useStore(operationView, (s) => s.orcaRebase)
+  const openkodoRebase = useStore(operationView, (s) => s.openkodoRebase)
   const remoteActionError = useStore(operationView, (s) => s.remoteActionError)
   const activeRemoteActionSequence = useStore(operationView, (s) =>
     s.remoteActionSequence > 0 ? s.remoteActionSequence : null
@@ -100,7 +100,7 @@ export function useSourceControlWorktreeOperationState({
     rebaseAutoStash,
     rebaseStop,
     rebaseStopInspectFailure,
-    orcaRebase,
+    openkodoRebase,
     remoteActionError,
     updateCommitDraft
   }

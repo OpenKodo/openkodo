@@ -94,12 +94,22 @@ export function createBotTurnContext(
     return given.get(sessionId) ?? entry
   }
   /** OpenKodo's Tools and Rules, under the bot's current name, go first, where they outrank memory. */
-  const withOrcaRules = (sessionId: string, entry: Given, held: Held, plan: TurnPlan | null) => {
-    const known = { ...entry.orcaRules, name: currentBotName(entry.botId) ?? entry.orcaRules.name }
-    return withBotRulesUpdate(known, held, plan, (orcaRules) => update(sessionId, { orcaRules }))
+  const withOpenKodoRules = (
+    sessionId: string,
+    entry: Given,
+    held: Held,
+    plan: TurnPlan | null
+  ) => {
+    const known = {
+      ...entry.openkodoRules,
+      name: currentBotName(entry.botId) ?? entry.openkodoRules.name
+    }
+    return withBotRulesUpdate(known, held, plan, (openkodoRules) =>
+      update(sessionId, { openkodoRules })
+    )
   }
   return {
-    launched: (sessionId, botId, folder, files, delivered, orcaRules) => {
+    launched: (sessionId, botId, folder, files, delivered, openkodoRules) => {
       record.started(botId, files.memory)
       given.set(
         sessionId,
@@ -110,7 +120,7 @@ export function createBotTurnContext(
           delivered,
           memoryRecord: record.version(botId),
           skillProjects: linkedProjectsKey(linkedSkills.launchScanned(sessionId)),
-          orcaRules
+          openkodoRules
         })
       )
       // What memory/ held at launch is what the agent can have read; a turn before this lands takes it.
@@ -126,7 +136,7 @@ export function createBotTurnContext(
     // a person's words.
     launchedInstructions: (sessionId) => {
       const entry = given.get(sessionId)
-      return entry ? botLaunchedInstructions(entry.orcaRules) : null
+      return entry ? botLaunchedInstructions(entry.openkodoRules) : null
     },
     launchUpdate: async (sessionId, held) => {
       const stored = given.get(sessionId)
@@ -153,7 +163,7 @@ export function createBotTurnContext(
         skillsNow ? update(sessionId, { skills: skillsNow.skills }) : undefined
       )
       const plan = text.length === 0 ? null : { text: text.join('\n\n'), given: taken }
-      return withOrcaRules(sessionId, entry, held, plan)
+      return withOpenKodoRules(sessionId, entry, held, plan)
     },
     plan: async (sessionId, message, held) => {
       const stored = given.get(sessionId)
@@ -189,9 +199,9 @@ export function createBotTurnContext(
         ...(memoryNow || topicsNow ? ['memory' as const] : [])
       ]
       if (changed.length === 0 && !work && !skillsNow && !rules && !others && !unanswered) {
-        return withOrcaRules(sessionId, entry, held, null)
+        return withOpenKodoRules(sessionId, entry, held, null)
       }
-      return withOrcaRules(sessionId, entry, held, {
+      return withOpenKodoRules(sessionId, entry, held, {
         text: [
           ...(rules ? [rules] : []),
           ...(soul !== entry.soul ? [botSoulUpdateText(files.soul)] : []),

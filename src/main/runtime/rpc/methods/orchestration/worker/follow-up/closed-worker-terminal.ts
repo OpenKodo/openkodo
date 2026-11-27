@@ -3,7 +3,7 @@
 import { randomUUID } from 'node:crypto'
 import { isResumableTuiAgent } from '../../../../../../../shared/agent-session/lifecycle/agent-session-resume'
 import type { OrchestrationPartyLocation } from '../../../../../../../shared/orchestration/orchestration-caller-status'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import { readWorkerResumeSession } from '../../../../../orchestration/db/dispatch-context/worker-follow-up-lineage'
 import { userTabHoldingSession } from './worker-follow-up-choice'
@@ -15,7 +15,7 @@ const uncertain = new Map<string, string>()
 
 /** Null keeps the lookup's answer: the worker's terminal is still there, or its conversation cannot resume here. */
 export async function openClosedWorkerTerminal(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   handle: string
 ): Promise<OrchestrationPartyLocation | null> {

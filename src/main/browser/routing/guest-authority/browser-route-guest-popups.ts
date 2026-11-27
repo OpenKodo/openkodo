@@ -1,5 +1,5 @@
 import type { Session, WebContents } from 'electron'
-import '../../../../shared/orca-profiles/constants'
+import '../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
 import {
   isBlankBrowserPopupUrl,

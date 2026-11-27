@@ -13,7 +13,7 @@ function readAppDirArg(argv) {
     return explicit.slice('--app-dir='.length)
   }
   if (process.platform === 'darwin') {
-    return 'dist/mac-arm64/Orca.app'
+    return 'dist/mac-arm64/OpenKodo.app'
   }
   if (process.platform === 'win32') {
     return 'dist/win-unpacked'
@@ -23,16 +23,16 @@ function readAppDirArg(argv) {
 
 function getPackagedCliPath(appDir) {
   if (process.platform === 'darwin' || appDir.endsWith('.app')) {
-    return join(appDir, 'Contents', 'Resources', 'bin', 'orca')
+    return join(appDir, 'Contents', 'Resources', 'bin', 'openkodo')
   }
   if (process.platform === 'win32') {
-    return join(appDir, 'resources', 'bin', 'orca.exe')
+    return join(appDir, 'resources', 'bin', 'openkodo.exe')
   }
   return join(appDir, 'resources', 'bin', 'openkodo')
 }
 
 const appDir = resolve(readAppDirArg(process.argv.slice(2)))
-const tempRoot = await mkdtemp(join(tmpdir(), 'orca-packaged-cli-smoke-'))
+const tempRoot = await mkdtemp(join(tmpdir(), 'openkodo-packaged-cli-smoke-'))
 const copiedAppDir = join(tempRoot, basename(appDir))
 
 let smokeFailure = null
@@ -52,8 +52,8 @@ try {
   const [
     ,
     listResult,
-    orcaCliResult,
-    orcaComputerUseResult,
+    openkodoCliResult,
+    openkodoComputerUseResult,
     computerUseResult,
     installResult,
     updateResult
@@ -61,7 +61,7 @@ try {
     run(['--help']),
     run(['skills', 'list', '--json']),
     run(['skills', 'get', 'openkodo-cli']),
-    run(['skills', 'get', 'orca-computer-use']),
+    run(['skills', 'get', 'openkodo-computer-use']),
     run(['skills', 'get', 'computer-use']),
     run([
       'skills',
@@ -77,9 +77,9 @@ try {
   ])
   const list = JSON.parse(listResult.stdout)
   assert(list.topics.some((topic) => topic.name === 'openkodo-cli'))
-  assert.match(orcaCliResult.stdout, /name: orca-cli/)
-  assert.match(orcaComputerUseResult.stdout, /name: orca-computer-use/)
-  assert.match(computerUseResult.stdout, /name: orca-computer-use/)
+  assert.match(openkodoCliResult.stdout, /name: openkodo-cli/)
+  assert.match(openkodoComputerUseResult.stdout, /name: openkodo-computer-use/)
+  assert.match(computerUseResult.stdout, /name: openkodo-computer-use/)
   const install = JSON.parse(installResult.stdout)
   const update = JSON.parse(updateResult.stdout)
   assert.equal(install.executed, false)
@@ -89,7 +89,7 @@ try {
   smokeFailure = error
 }
 
-// Retry Windows cleanup locks from just-exited Orca.exe/crashpad descendants; persistent lock still throws unless it would mask smoke’s original failure.
+// Retry Windows cleanup locks from just-exited OpenKodo.exe/crashpad descendants; persistent lock still throws unless it would mask smoke’s original failure.
 const cleanupFailure = await rm(tempRoot, {
   recursive: true,
   force: true,

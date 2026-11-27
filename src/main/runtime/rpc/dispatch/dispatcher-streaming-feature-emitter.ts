@@ -1,11 +1,11 @@
 import type { FeatureInteractionId } from '../../../../shared/feature-education/interactions/feature-interaction-catalog'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { RpcEnvelopeMeta, RpcRequest, RpcResponse } from '../core'
 import { successResponse } from '../responses/rpc-response'
 import { recordRuntimeFeatureInteraction } from './runtime-feature-interaction'
 
 export function createDispatcherStreamingFeatureEmitter(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   meta: RpcEnvelopeMeta,
   reply: (response: RpcResponse) => void

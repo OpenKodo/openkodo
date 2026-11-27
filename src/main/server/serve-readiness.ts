@@ -1,5 +1,5 @@
 import type { PairingOfferUnavailableReason } from '../runtime/rpc/server/runtime-rpc-pairing-types'
-import type { OrcadHealth } from '../orcad/diagnostics/orcad-health'
+import type { OpenkododHealth } from '../openkodod/diagnostics/openkodod-health'
 import { describePtyProcessCeiling } from '../../shared/terminal/pty/native-process/pty-process-ceiling-state'
 
 export type ServePairingUnavailableReason = PairingOfferUnavailableReason | 'disabled_by_operator'
@@ -27,7 +27,7 @@ export type ServeReadiness = {
   managedWslCliReconciliation: 'pending' | 'settled' | 'failed'
   pairing: ServePairingReadiness
   /** Optional for older/Electron hosts: absence means unreported, never healthy. Carries build identity, Node ABI and terminal-daemon self-test. */
-  health?: OrcadHealth
+  health?: OpenkododHealth
 }
 
 export type ServeReadinessOutput =
@@ -74,7 +74,7 @@ export function renderServeReadiness(
   }
   if (output.mode === 'json') {
     return JSON.stringify({
-      type: 'orca_server_ready',
+      type: 'openkodo_server_ready',
       schemaVersion: 1,
       runtimeId: readiness.runtimeId,
       endpoint: readiness.boundEndpoint,
@@ -103,7 +103,7 @@ function renderHumanReadiness(readiness: ServeReadiness): string {
     lines.push(
       `Terminal daemon: ${daemon.state} — PTY self-test ${daemon.selfTest.ok ? 'passed' : 'FAILED'}` +
         ` (${daemon.selfTest.coverage}: ${daemon.selfTest.verdict})` +
-        `; terminals survive an orcad restart: ${daemon.ownsFreshSessions ? 'yes' : 'NO'}`
+        `; terminals survive an openkodod restart: ${daemon.ownsFreshSessions ? 'yes' : 'NO'}`
     )
     if (daemon.processCeiling !== undefined) {
       lines.push(`Terminal process ceiling: ${describePtyProcessCeiling(daemon.processCeiling)}`)

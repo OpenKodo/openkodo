@@ -1,6 +1,6 @@
 import type { PtySpawnOutcome } from '../../ipc/pty/spawn/spawn-outcome'
 import { agentHookServer } from '../../agent-hooks/server/agent-hook-server'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { IPtyProvider } from '../../providers/pty/provider-contract'
 import type { PtySpawnResult } from '../../providers/pty/spawn-result'
 import { ptyIncarnationById, ptyOwnership } from '../../ipc/pty/provider/ownership-state'
@@ -13,7 +13,7 @@ import {
 import { OpenCodeStartupPromptClaims } from './opencode-startup-prompt-claims'
 
 type OpenCodePromptRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'terminalRunFacts'
   | 'readOpenCodeStartupPromptOwner'
   | 'isPtyStopRequested'

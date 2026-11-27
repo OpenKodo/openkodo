@@ -1,7 +1,7 @@
 /** The notice an agent question's asker gets when its taker stopped without answering, or never
  *  read it: worded from the taker's last turn, sent by the asker's own route with its outcome. */
 
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { QuestionNoticeWriter } from '../../../../orchestration/mailbox/questions/question-reconcile'
 import { liveLineageSession } from '../../../../orchestration/mailbox/questions/question-party-facts'
 import type { ChatStateReader } from '../../../../../native-chat/agent-session-wire/observations/chat-turn-running'
@@ -62,7 +62,7 @@ async function noticeWords(
 }
 
 export async function botQuestionNotices(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   taker: string,
   messageIds: readonly string[],
   readChat?: ChatStateReader

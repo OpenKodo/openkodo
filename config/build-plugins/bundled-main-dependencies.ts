@@ -10,7 +10,7 @@ export const BUNDLED_MAIN_DEPENDENCIES = new Set([
   'fflate',
   'mime-types',
   'mime-db',
-  // Linear save confirmation; bundled like orcad so packaging needs no extra node_modules.
+  // Linear save confirmation; bundled like openkodod so packaging needs no extra node_modules.
   'unified',
   'remark-parse',
   'remark-gfm',

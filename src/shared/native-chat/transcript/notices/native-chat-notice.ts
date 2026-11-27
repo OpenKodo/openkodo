@@ -6,7 +6,7 @@ import {
   isAgentSessionHostStatusPresentation,
   type AgentSessionHostStatusPresentation
 } from '../../../agent-session/view/agent-session-host-status-rows'
-import { AGENT_SESSION_OPENKODO_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-orca-stop'
+import { AGENT_SESSION_OPENKODO_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import { NATIVE_CHAT_STOPPED_BEFORE_START_PRESENTATION } from '../pending-sends/native-chat-stopped-before-start'
 import { AGENT_SESSION_FORKED_FROM_PRESENTATION } from '../../../agent-session/lifecycle/records/agent-session-fork'
 import type { NativeChatBlock, NativeChatTextBlock } from '../../native-chat-types'
@@ -108,7 +108,7 @@ export function nativeChatNoticeLook(block: NativeChatTextBlock): NativeChatNoti
   }
   const modelFallback =
     !block.failure &&
-    !block.orcaStop &&
+    !block.openkodoStop &&
     (presentation === undefined || presentation === AGENT_SESSION_TURN_NOTICE_PRESENTATION) &&
     (block.tone === undefined || block.tone === 'notice')
       ? readClaudeModelFallbackFrame(block.providerFrame)
@@ -117,7 +117,7 @@ export function nativeChatNoticeLook(block: NativeChatTextBlock): NativeChatNoti
     return { kind: 'model-fallback', ...modelFallback }
   }
   // Declared notification kinds select disclosure; prose and nested failures do not.
-  if (presentation === undefined && !block.failure && !block.orcaStop) {
+  if (presentation === undefined && !block.failure && !block.openkodoStop) {
     const frame = block.providerFrame
     const denial = readCodexAutoReviewDenialFrame(frame)
     if (denial) {

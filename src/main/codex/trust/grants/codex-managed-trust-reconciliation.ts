@@ -59,7 +59,7 @@ function addLedgerRecognizedHashes(
 }
 
 /** Read Codex's recorded hashes only for matching OpenKodo hook signatures. */
-export function readLedgerOrcaHashes(
+export function readLedgerOpenKodoHashes(
   runtimeHomePath: string,
   command: string,
   timeoutSec: number

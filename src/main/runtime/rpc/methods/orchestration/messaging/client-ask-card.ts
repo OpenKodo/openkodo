@@ -4,7 +4,7 @@ import { writeInChat } from '../../../../../bots/bot-chat-status-line'
 import { isBotRequestPurpose } from '../../../../../bots/bot-request-policy'
 import { isBotAnswer } from '../../../../../bots/bot-group-remote-answers'
 import { parseBotAddress } from '../../../../../../shared/bot-roster'
-import { parseOrcaSessionAddress } from '../../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
   botRequestCardBody,
   type BotRequestCard,
@@ -24,7 +24,7 @@ export function clientAskCard(args: {
   write: (fields: Pick<BotRequestCard, 'messageId' | 'refusal'>) => void
   refused: (error: unknown) => void
 } {
-  const sessionId = parseOrcaSessionAddress(args.asker)
+  const sessionId = parseOpenKodoSessionAddress(args.asker)
   const name = parseBotAddress(args.to)
   const write = (fields: Pick<BotRequestCard, 'messageId' | 'refusal'>): void => {
     if (!sessionId || !name || !isBotRequestPurpose(args.type) || args.type === 'status') {

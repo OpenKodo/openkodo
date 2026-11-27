@@ -72,7 +72,7 @@ function stubHost(): void {
     }
     if (method === 'webhooks.reveal') {
       // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: answers webhooks.reveal, whose result is a WebhookKey.
-      return { url: `https://connector.orca.dev/hooks/${hookId}/k3y`, key: 'k3y' } as never
+      return { url: `https://connector.openkodo.dev/hooks/${hookId}/k3y`, key: 'k3y' } as never
     }
     throw new Error('not in this fixture')
   })

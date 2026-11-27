@@ -8,7 +8,7 @@ function buildMacNativeAddon(resourcesDir, arch, nativeDir, addonName) {
     throw new Error(`Cannot build macOS native addon for ${process.platform}/${arch}`)
   }
   const root = resolve(__dirname, '../../../..')
-  const workDir = mkdtempSync(join(tmpdir(), `orca-${nativeDir}-${arch}-`))
+  const workDir = mkdtempSync(join(tmpdir(), `openkodo-${nativeDir}-${arch}-`))
   try {
     cpSync(join(root, 'native', nativeDir), workDir, { recursive: true })
     execFileSync(

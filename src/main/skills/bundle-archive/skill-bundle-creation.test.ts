@@ -11,7 +11,7 @@ import '../package-archive/skill-package-tar'
 const temporaryDirectories: string[] = []
 
 async function temporaryDirectory(): Promise<string> {
-  const directory = await mkdtemp(join(tmpdir(), 'orca-skill-bundle-test-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-skill-bundle-test-'))
   temporaryDirectories.push(directory)
   return directory
 }
@@ -128,8 +128,8 @@ describe('skill bundle creation and extraction', () => {
       bundleName: 'team-skills'
     })
     const destination = join(root, 'conflicting-staging')
-    const importedManifest = join(destination, 'dev.orca.skill-sharing', 'manifest.json')
-    await mkdir(join(destination, 'dev.orca.skill-sharing'), { recursive: true })
+    const importedManifest = join(destination, 'dev.openkodo.skill-sharing', 'manifest.json')
+    await mkdir(join(destination, 'dev.openkodo.skill-sharing'), { recursive: true })
     await writeFile(importedManifest, 'unowned\n')
 
     await expect(

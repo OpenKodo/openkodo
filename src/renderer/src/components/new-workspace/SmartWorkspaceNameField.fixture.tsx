@@ -19,9 +19,9 @@ import SmartWorkspaceNameField from './SmartWorkspaceNameField'
 import type { SmartWorkspaceNameFieldProps } from './name-field/smart-workspace-name-field-model'
 
 const repo: Repo = {
-  id: 'repo-orca',
-  path: '/Users/dev/orca',
-  displayName: 'orca',
+  id: 'repo-openkodo',
+  path: '/Users/dev/openkodo',
+  displayName: 'openkodo',
   badgeColor: '#64748b',
   addedAt: 0
 }
@@ -36,10 +36,10 @@ const linearStatusFixture: LinearConnectionStatus = {
   connected: true,
   viewer: null,
   selectedWorkspaceId: 'all',
-  activeWorkspaceId: 'ws-stably',
+  activeWorkspaceId: 'ws-openkodo',
   workspaces: [
     {
-      id: 'ws-stably',
+      id: 'ws-openkodo',
       organizationId: 'org-stably',
       organizationName: 'OpenKodo',
       displayName: 'Dev User',
@@ -81,14 +81,14 @@ function makeLinearIssue(
 const linearIssuesFixture: LinearIssue[] = [
   makeLinearIssue(
     'lin-1',
-    'ws-stably',
+    'ws-openkodo',
     'OpenKodo',
     'STA-3699',
     'Update installer swaps app.asar under the running renderer'
   ),
   makeLinearIssue(
     'lin-2',
-    'ws-stably',
+    'ws-openkodo',
     'OpenKodo',
     'STA-6457',
     '[Bug]: AppImage squashfs is unmounted before helper exits'
@@ -105,7 +105,7 @@ const linearIssuesFixture: LinearIssue[] = [
 const jiraProjectsFixture: JiraProject[] = [
   {
     id: '100',
-    key: 'ORCA',
+    key: 'OPENKODO',
     name: 'OpenKodo Desktop',
     siteId: 'site-1',
     siteName: 'stably.atlassian.net'
@@ -160,13 +160,13 @@ function makeJiraIssue(id: string, key: string, title: string, project: JiraProj
 const jiraIssuesFixture: JiraIssue[] = [
   makeJiraIssue(
     'jira-1',
-    'ORCA-412',
+    'OPENKODO-412',
     'Align scope pickers inside workspace source results popover',
     jiraProjectsFixture[0]
   ),
   makeJiraIssue(
     'jira-2',
-    'ORCA-389',
+    'OPENKODO-389',
     'Keep composer search input stationary across provider tabs',
     jiraProjectsFixture[0]
   ),
@@ -374,14 +374,14 @@ export const linearFilteredWorkspace = defineFixture({
 export const jira = defineFixture({
   width: 480,
   setup: seedSourceProviders,
-  render: () => <ComposerSurfacePreview initialQuery="ORCA" />,
+  render: () => <ComposerSurfacePreview initialQuery="OPENKODO" />,
   interact: (frame) => selectMode(frame, 'jira')
 })
 
 export const jiraDropdownOpen = defineFixture({
   width: 480,
   setup: seedSourceProviders,
-  render: () => <ComposerSurfacePreview initialQuery="ORCA" />,
+  render: () => <ComposerSurfacePreview initialQuery="OPENKODO" />,
   interact: async (frame) => {
     await selectMode(frame, 'jira')
     openScopeDropdown('Jira project')

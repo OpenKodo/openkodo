@@ -1,4 +1,4 @@
-// The ::orca-webhook{hook="…"} card: a hook's URL and key controls, read from the bot's execution host.
+// The ::openkodo-webhook{hook="…"} card: a hook's URL and key controls, read from the bot's execution host.
 import React, { useState } from 'react'
 import { Webhook } from 'lucide-react'
 import { ConnectorStatus } from '@/components/bots/BotConnectorRow'

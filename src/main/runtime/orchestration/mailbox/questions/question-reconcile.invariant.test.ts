@@ -13,7 +13,7 @@ import '../../db/attempt-outcome-projection'
 import { noteQuestionEdge, type QuestionEdge } from '../../db/messages/question-edges'
 import { stampQuestionTakes, type MailTaker } from '../../db/messages/mail-taker'
 import { linkWorkerToQuestion } from '../../../rpc/methods/orchestration/worker/start/worker-question-link'
-import { testOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { testOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import { QuestionReconciler } from './question-reconciler'
 import type { QuestionKind } from './question-reconcile'
 import { dropReaderlessRunQuestions } from '../../db/questions/readerless-run-questions'
@@ -87,7 +87,7 @@ class World {
       objective: 'invariant',
       coordinatorHandle: null,
       coordinatorPaneKey: null,
-      coordinatorOrcaSessionId: testOrcaSessionId(session(COORDINATOR))
+      coordinatorOpenKodoSessionId: testOpenKodoSessionId(session(COORDINATOR))
     }).id
     const task = this.db.createTask({ spec: 'asker', runId: this.runId })
     this.askDispatch = this.db.createStartingWorkerDispatch({
@@ -101,7 +101,7 @@ class World {
   }
 
   mailbox(index: number): string {
-    return `orca_session_id:${session(index)}`
+    return `openkodo_session_id:${session(index)}`
   }
   /** Every mailbox a receiver reads: the coordinator also reads the Run's while bound. */
   mailboxesOf(index: number): string[] {
@@ -140,7 +140,7 @@ class World {
       }
       const chat = mailbox.startsWith('dispatch:')
         ? `W-${mailbox.slice('dispatch:'.length)}`
-        : mailbox.slice('orca_session_id:'.length)
+        : mailbox.slice('openkodo_session_id:'.length)
       return this.receiving(chat) ? chat : null
     },
     chatHandingOver: (mailbox) => this.handing.some((mail) => mail.mailbox === mailbox),
@@ -264,7 +264,7 @@ class World {
     const row = {
       mailbox_handle: message.to_handle,
       message_id: id,
-      session_id: message.to_handle.replace(/^orca_session_id:|^dispatch:/, ''),
+      session_id: message.to_handle.replace(/^openkodo_session_id:|^dispatch:/, ''),
       operation_id: `op-${this.seq++}`,
       minted_at_ms: 1_700_000_000_000
     }
@@ -352,7 +352,7 @@ class World {
           depth: 1,
           record: '{}',
           message: {
-            from: 'orca_session_id:asker',
+            from: 'openkodo_session_id:asker',
             to: this.mailbox(op.to),
             subject: 'q',
             type: 'question'
@@ -383,7 +383,11 @@ class World {
         const to = worker
           ? `dispatch:${worker.dispatchId}`
           : this.mailbox(op.op === 'status' ? op.to % 2 : 0)
-        const mail = this.db.insertMessage({ from: 'orca_session_id:asker', to, subject: 'fyi' })
+        const mail = this.db.insertMessage({
+          from: 'openkodo_session_id:asker',
+          to,
+          subject: 'fyi'
+        })
         this.pending.push({ id: mail.id, mailbox: to })
         return
       }
@@ -478,7 +482,7 @@ class World {
           {
             terminalHandle: null,
             paneKey: null,
-            orcaSessionId: testOrcaSessionId(session(COORDINATOR))
+            openkodoSessionId: testOpenKodoSessionId(session(COORDINATOR))
           },
           'run_none'
         )
@@ -507,7 +511,7 @@ class World {
             address: this.mailbox(held.index),
             terminalHandle: null,
             paneKey: null,
-            orcaSessionId: testOrcaSessionId(session(held.index))
+            openkodoSessionId: testOpenKodoSessionId(session(held.index))
           },
           false
         )
@@ -559,7 +563,7 @@ class World {
         }
         // A chat worker: its Dispatch names its session.
         this.db.db
-          .prepare('UPDATE dispatch_contexts SET assignee_orca_session_id = ? WHERE id = ?')
+          .prepare('UPDATE dispatch_contexts SET assignee_openkodo_session_id = ? WHERE id = ?')
           .run(`W-${worker.dispatchId}`, worker.dispatchId)
         worker.state = 'running'
         this.db.markWorkerDispatchReady(worker.dispatchId)
@@ -592,7 +596,7 @@ class World {
         this.pending = this.pending.filter((m) => m.mailbox !== `dispatch:${worker.dispatchId}`)
         if (
           op.failed ||
-          !this.db.getDispatchContextById(worker.dispatchId)?.assignee_orca_session_id
+          !this.db.getDispatchContextById(worker.dispatchId)?.assignee_openkodo_session_id
         ) {
           this.db.failDispatch(worker.dispatchId, 'worker exited', { workerProcessExited: true })
         } else {

@@ -1,13 +1,13 @@
 import type { PtyRendererDelivery } from '../session'
 import { getPtyIpc } from '../pty-host-bindings'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { createPtyWriteInput } from './write-input'
 import { installPtyTerminalAttentionIpcHandler } from './terminal-attention'
 import { observeTerminalUserInput } from '../../../telemetry/protected-milestones'
 
 export function installPtyWriteIpcHandlers(deps: {
   mainWindow?: PtyRendererDelivery
-  runtime?: OrcaRuntimeService
+  runtime?: OpenKodoRuntimeService
 }): void {
   const ipcMain = getPtyIpc()
   const { runtime } = deps

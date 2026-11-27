@@ -25,15 +25,15 @@ afterEach(() => {
 it.skipIf(process.platform === 'win32')(
   'runs the profile on the launch PATH, so profile entries appear once',
   async () => {
-    dir = mkdtempSync(join(tmpdir(), 'orca-login-shell-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-login-shell-'))
     const rcBin = join(dir, 'rc-bin')
-    const orcaSeeded = join(dir, 'orca-seeded-bin')
+    const openkodoSeeded = join(dir, 'openkodo-seeded-bin')
     const shell = join(dir, 'fake-shell')
     // Stands in for `zsh -ilc`: the "rc file" prepends rcBin, then the command runs.
     writeFileSync(shell, `#!/bin/sh\nexport PATH="${rcBin}:$PATH"\nexec /bin/sh -c "$2"\n`)
     chmodSync(shell, 0o755)
     // Startup hydration already merged the profile's entries and OpenKodo's seeded dirs into process.env.
-    process.env.PATH = [rcBin, launchPath, orcaSeeded].join(delimiter)
+    process.env.PATH = [rcBin, launchPath, openkodoSeeded].join(delimiter)
 
     const capture = await captureLoginShellEnvironment({ shellOverride: shell })
 
@@ -41,7 +41,7 @@ it.skipIf(process.platform === 'win32')(
     const segments = capture.env.PATH!.split(delimiter)
     expect(segments.filter((segment) => segment === rcBin)).toHaveLength(1)
     expect(segments[0]).toBe(rcBin)
-    expect(segments).toContain(orcaSeeded)
+    expect(segments).toContain(openkodoSeeded)
   }
 )
 

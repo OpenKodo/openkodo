@@ -1,6 +1,6 @@
 import { rendererStatusReplica } from '../../session-graph/renderer-status-replica'
 import { selectFreshAgentRowForMobileTab } from '../../workspaces/process-listing/runtime-hook-agent-row-selection'
-import { OrcaRuntimeWithSavedConversationTitlePublication } from '../../session-tabs/chat/saved-conversation-title-publication'
+import { OpenKodoRuntimeWithSavedConversationTitlePublication } from '../../session-tabs/chat/saved-conversation-title-publication'
 import type { TabGroupLayoutNode } from '../../../../shared/workspace-layout/tab-groups/tab-types'
 import type {
   RuntimeMobileSessionSnapshotTab,
@@ -35,7 +35,7 @@ import {
 import { structuredConversationTabNamer } from '../../session-tabs/chat/structured-conversation-tab-namer'
 import { hostMobileTerminalTheme } from './host-mobile-terminal-theme'
 
-export abstract class OrcaRuntimeWithPruneMobileSessionTabGroupLayout extends OrcaRuntimeWithSavedConversationTitlePublication {
+export abstract class OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout extends OpenKodoRuntimeWithSavedConversationTitlePublication {
   private readonly hostMobileTerminalTheme = hostMobileTerminalTheme(this.store, () =>
     this.notifyMobileSessionTabSnapshots()
   )

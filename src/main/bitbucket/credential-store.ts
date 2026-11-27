@@ -46,20 +46,20 @@ let metadataLoadedFromDisk = false
 let cachedSecret: BitbucketStoredSecret | null = null
 let credentialError: string | null = null
 
-function getOrcaDir(): string {
+function getOpenKodoDir(): string {
   return openKodoHomePath()
 }
 
 function getMetadataPath(): string {
-  return join(getOrcaDir(), 'bitbucket-credential.json')
+  return join(getOpenKodoDir(), 'bitbucket-credential.json')
 }
 
 export function getSecretPath(): string {
-  return join(getOrcaDir(), 'bitbucket-credential.enc')
+  return join(getOpenKodoDir(), 'bitbucket-credential.enc')
 }
 
-async function ensureOrcaDir(): Promise<void> {
-  const dir = getOrcaDir()
+async function ensureOpenKodoDir(): Promise<void> {
+  const dir = getOpenKodoDir()
   if (!(await credentialFileExists(dir))) {
     await mkdir(dir, { recursive: true })
   }
@@ -176,7 +176,7 @@ export async function getBitbucketCredentialProtection(): Promise<SecretAtRestPr
 
 export async function saveBitbucketCredential(input: BitbucketCredentialSaveInput): Promise<void> {
   return inCredentialFileOrder(`${getSecretPath()}.mutation`, async () => {
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     const secret: BitbucketStoredSecret = {
       accessToken: input.accessToken,
       apiToken: input.apiToken,

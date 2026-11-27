@@ -1,4 +1,4 @@
-import type { ApnsEnvironment } from '@orca-cloud/push-contract/device-registration-messages'
+import type { ApnsEnvironment } from '@openkodo-cloud/push-contract/device-registration-messages'
 import { ApnsAuthenticationToken } from './apns-authentication-token.js'
 import type { ApnsTransport } from './apns-http2-transport.js'
 import type { ApnsCredentials } from '../../config.js'
@@ -29,13 +29,13 @@ function readReason(body: string): string {
 }
 
 export function apnsBody(delivery: PushDelivery): string {
-  // No orca data: an app that predates badges has nothing to present in the foreground.
-  if (delivery.orca.kind === 'badge') {
+  // No openkodo data: an app that predates badges has nothing to present in the foreground.
+  if (delivery.openkodo.kind === 'badge') {
     return JSON.stringify({ aps: { badge: delivery.badge ?? 0 } })
   }
   return JSON.stringify({
     aps:
-      delivery.orca.kind === 'dismiss'
+      delivery.openkodo.kind === 'dismiss'
         ? { 'content-available': 1 }
         : {
             alert: { title: delivery.title, body: delivery.body },
@@ -43,7 +43,7 @@ export function apnsBody(delivery: PushDelivery): string {
             ...(delivery.sound === false ? {} : { sound: 'default' }),
             'thread-id': delivery.hostFingerprint
           },
-    orca: delivery.orca
+    openkodo: delivery.openkodo
   })
 }
 
@@ -70,11 +70,11 @@ export class ApnsClient {
         headers: {
           authorization: `bearer ${this.authentication.value()}`,
           'apns-topic': this.options.topic,
-          'apns-push-type': delivery.orca.kind === 'dismiss' ? 'background' : 'alert',
-          'apns-priority': delivery.orca.kind === 'dismiss' ? '5' : '10',
+          'apns-push-type': delivery.openkodo.kind === 'dismiss' ? 'background' : 'alert',
+          'apns-priority': delivery.openkodo.kind === 'dismiss' ? '5' : '10',
           // Never stored: APNs keeps one push per app for an offline phone, and a badge must not displace an alert.
-          'apns-expiration': delivery.orca.kind === 'badge' ? '0' : String(expiration),
-          ...(delivery.orca.kind === 'alert' || delivery.orca.kind === undefined
+          'apns-expiration': delivery.openkodo.kind === 'badge' ? '0' : String(expiration),
+          ...(delivery.openkodo.kind === 'alert' || delivery.openkodo.kind === undefined
             ? { 'apns-collapse-id': delivery.collapseId }
             : {})
         },

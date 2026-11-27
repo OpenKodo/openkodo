@@ -18,7 +18,7 @@ export function sessionSearchWorkerFactory() {
     throw new Error(`Session search worker entry not found: ${path}`)
   }
   return spawnWorkerThread(path, {
-    name: 'orca-session-search',
+    name: 'openkodo-session-search',
     resourceLimits: { maxOldGenerationSizeMb: 256 }
   })
 }

@@ -1,6 +1,6 @@
 import { SkillSetupCommand } from './SkillSetupCommand'
 import { SkillSetupRow } from './SkillSetupRow'
-// COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+// COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Loader2, RefreshCw, Terminal } from 'lucide-react'
 import { toast } from 'sonner'
@@ -19,7 +19,7 @@ import {
   recheckSurfacesAfterAgentSkillInstall,
   syncSurfacesAfterAgentSkillRecheck
 } from './agent-skill-recheck-surface-sync'
-import { isOrcaCliAvailableOnPath } from '@/lib/skills/installation/agent-skill-cli-prerequisite'
+import { isOpenKodoCliAvailableOnPath } from '@/lib/skills/installation/agent-skill-cli-prerequisite'
 import { cn } from '@/lib/class-names'
 import { useTranslate } from '@/i18n/use-translate'
 
@@ -45,7 +45,7 @@ export function WslAgentSkillSetupPanel({
   hideHeader = false,
   preInstallNotice,
   getPrerequisiteStatus,
-  isPrerequisiteAvailable = isOrcaCliAvailableOnPath,
+  isPrerequisiteAvailable = isOpenKodoCliAvailableOnPath,
   onBeforeOpenTerminal,
   showInstallWhenInstalled = true,
   showRecheckWhenInstalled = true,

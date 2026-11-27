@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'orca.jira.has-workspace.v1'
+const STORAGE_KEY = 'openkodo.jira.has-workspace.v1'
 
 export function loadJiraLinkedView(): boolean {
   try {

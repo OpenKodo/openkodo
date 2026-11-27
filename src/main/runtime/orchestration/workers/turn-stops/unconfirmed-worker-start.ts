@@ -1,9 +1,9 @@
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
-import { canonicalOrcaSessionId } from '../../addressing/session-lineage/canonical-orca-session-id'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { canonicalOpenKodoSessionId } from '../../addressing/session-lineage/canonical-openkodo-session-id'
 import { readWorkerPresence } from '../../db/worker-presence/worker-presence-store'
 import { observeWorker } from './worker-presence-report'
 import { START_BLOCKED_FENCE } from './awaiting-worker-start-report'
@@ -46,10 +46,10 @@ export function observeUnconfirmedWorkerStart(
 ): void {
   const dispatch = db.getDispatchContextById(dispatchId)
   const worker = db.getWorkerDispatch(dispatchId)
-  const chat = dispatch?.assignee_orca_session_id
+  const chat = dispatch?.assignee_openkodo_session_id
   const from =
-    chat && isOrcaSessionId(chat)
-      ? formatOrcaSessionAddress(canonicalOrcaSessionId(chat))
+    chat && isOpenKodoSessionId(chat)
+      ? formatOpenKodoSessionAddress(canonicalOpenKodoSessionId(chat))
       : dispatch?.assignee_handle
   // Only a start that handed its brief to a worker it placed here can hold it unsent; a paired
   // server decides its own workers.

@@ -7,12 +7,12 @@ import {
 import type { Bot } from '../../../../shared/bot-types'
 import { hookIdOfRule } from '../../../../shared/connector-webhook-contract'
 import type { ComposioIngress } from '../../../composio/composio-events-ingress'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 export const COMPOSIO_INGRESS_NAME = 'Composio events'
 
 export async function createComposioIngress(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: Bot
 ): Promise<ComposioIngress> {
   const automation = await runtime.createAutomation({

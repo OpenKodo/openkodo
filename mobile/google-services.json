@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "120364513935",
-    "project_id": "onorca-cloud",
-    "storage_bucket": "onorca-cloud.firebasestorage.app"
+    "project_id": "onopenkodo-cloud",
+    "storage_bucket": "onopenkodo-cloud.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:120364513935:android:1d951dc430aeb9bc664efa",
         "android_client_info": {
-          "package_name": "com.stably.orca.mobile"
+          "package_name": "dev.openkodo.app"
         }
       },
       "oauth_client": [
@@ -38,7 +38,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:120364513935:android:7653382286f468dd664efa",
         "android_client_info": {
-          "package_name": "com.stably.orca.mobile.four"
+          "package_name": "dev.openkodo.app.four"
         }
       },
       "oauth_client": [
@@ -67,7 +67,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:120364513935:android:78bd38b4b38892c7664efa",
         "android_client_info": {
-          "package_name": "dev.orca.app"
+          "package_name": "dev.openkodo.app"
         }
       },
       "oauth_client": [

@@ -34,7 +34,7 @@ import {
   type RelayRegionProbeReport
 } from './relay-region-probe'
 
-const RELAY_REGION_CACHE_FILENAME = 'orca-relay-region-preference.json'
+const RELAY_REGION_CACHE_FILENAME = 'openkodo-relay-region-preference.json'
 const CACHE_MAX_BYTES = 8 * 1024
 const CACHE_TTL_MS = 24 * 60 * 60_000
 // Cache withheld hints briefly to avoid probing every reconnect without retaining them as long as chosen regions.

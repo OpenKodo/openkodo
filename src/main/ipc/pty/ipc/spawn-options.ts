@@ -18,7 +18,7 @@ export async function buildPtyIpcSpawnOptions(ctx: PtyIpcSpawnState): Promise<vo
     isDaemonHostSpawn: ctx.isDaemonHostSpawn,
     connectionId: args.connectionId,
     skipCodexHomeEnv: ctx.skipCodexHomeEnv,
-    stripInheritedOrcaCodexHome: ctx.stripInheritedOrcaCodexHome,
+    stripInheritedOpenKodoCodexHome: ctx.stripInheritedOpenKodoCodexHome,
     codexResumeHomeSelected: ctx.codexResumeHomeSelected,
     settings
   })

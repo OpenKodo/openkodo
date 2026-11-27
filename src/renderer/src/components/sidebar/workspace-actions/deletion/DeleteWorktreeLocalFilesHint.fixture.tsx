@@ -13,7 +13,7 @@ const atRiskFiles: WorktreeAtRiskLocalFiles = {
     '.tmp/',
     'scratch/migration-dump.sql',
     'tests/e2e/.cross-version-checkouts/',
-    'packages/desktop/.orca-local/session-override.json'
+    'packages/desktop/.openkodo-local/session-override.json'
   ],
   complete: true
 }

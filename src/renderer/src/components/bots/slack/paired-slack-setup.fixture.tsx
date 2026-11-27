@@ -6,7 +6,7 @@ import { useAppStore } from '@/store'
 import type { Bot } from '../../../../../shared/bot-types'
 import type { ConnectorBotSlackState } from '../../../../../shared/connector-bot-slack-contract'
 import type { PublicKnownRuntimeEnvironment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { BotSlackSetupDialog } from './BotSlackSetupDialog'
 
 // A bot on build-box (its own OpenKodo account), set up from a desktop signed in as alex@example.com,
@@ -112,7 +112,7 @@ function stub(scene: Scene): void {
           return createCompatibleRuntimeStatusResponse('build-box')
         case 'bots.list':
           return answered({ bots: [scene.long ? longBot : base] })
-        case 'orcaAccount.status':
+        case 'openkodoAccount.status':
           return answered({ state: 'signed-in', email: scene.serverEmail ?? 'builder@example.com' })
         case 'bots.slack.state':
           return ok(scene.server)
@@ -151,7 +151,7 @@ const store = {
       { status: createCompatibleRuntimeStatusResponse('build-box').result, checkedAt: 1 }
     ]
   ]),
-  orcaProfileAuthStatus: {
+  openkodoProfileAuthStatus: {
     activeProfileId: 'p1',
     configured: true,
     state: 'connected' as const,
@@ -186,16 +186,16 @@ async function whenShown(text: string, click?: string): Promise<void> {
 const longStore = {
   ...store,
   runtimeEnvironments: [{ ...buildBox, name: 'build-box-with-a-very-long-made-up-example-name' }],
-  orcaProfileAuthStatus: {
-    ...store.orcaProfileAuthStatus,
-    cloud: { ...store.orcaProfileAuthStatus.cloud, email: LONG_EMAIL }
+  openkodoProfileAuthStatus: {
+    ...store.openkodoProfileAuthStatus,
+    cloud: { ...store.openkodoProfileAuthStatus.cloud, email: LONG_EMAIL }
   }
 }
 
 // Signed in, with the account not read yet: nothing to offer until it is.
 const lateStore = {
   ...store,
-  orcaProfileAuthStatus: { ...store.orcaProfileAuthStatus, cloud: undefined }
+  openkodoProfileAuthStatus: { ...store.openkodoProfileAuthStatus, cloud: undefined }
 }
 
 const droppedStore = (state: 'reconnecting' | 'closed') => ({
@@ -293,7 +293,7 @@ export const offerLateWhileTyping = scene(
       )
       field.dispatchEvent(new Event('input', { bubbles: true }))
     }
-    useAppStore.setState({ orcaProfileAuthStatus: store.orcaProfileAuthStatus })
+    useAppStore.setState({ openkodoProfileAuthStatus: store.openkodoProfileAuthStatus })
     await new Promise((resolve) => setTimeout(resolve, 500))
   }
 )
@@ -412,7 +412,7 @@ async function typeThenSignIn(): Promise<void> {
     )
     field.dispatchEvent(new Event('input', { bubbles: true }))
   }
-  useAppStore.setState({ orcaProfileAuthStatus: store.orcaProfileAuthStatus })
+  useAppStore.setState({ openkodoProfileAuthStatus: store.openkodoProfileAuthStatus })
   await whenShown(USE_HERE)
 }
 export const reconnectLateOffer340 = scene(lapsedLate, typeThenSignIn, 340)

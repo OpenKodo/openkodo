@@ -51,7 +51,7 @@ const activeProvisionControllers = new Map<string, AbortController>()
 export type EphemeralVmProvisionIpcResult =
   | {
       ok: true
-      connectionType: 'orca-server'
+      connectionType: 'openkodo-server'
       runtime: EphemeralVmProvisionedRuntimeRecord
       environment: PublicKnownRuntimeEnvironment
       stderr: string
@@ -274,7 +274,7 @@ export function registerEphemeralVmHandlers(store: Store, pluginService?: Plugin
         )
         return {
           ok: true,
-          connectionType: 'orca-server',
+          connectionType: 'openkodo-server',
           runtime,
           environment: redactRuntimeEnvironment(environment),
           stderr: redactEphemeralVmRecipeDiagnosticText(result.start.stderr),

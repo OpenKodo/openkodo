@@ -1,7 +1,7 @@
 import type { DictationTerm } from './dictation-dictionary'
 import { createNearMissMatcher, type NearMissMatcher } from './dictation-near-miss'
 
-// Symbols that belong to a name ("C#", "C++", "@orca") count as part of a word, so a term never doubles them.
+// Symbols that belong to a name ("C#", "C++", "@openkodo") count as part of a word, so a term never doubles them.
 const WORD_RE = /[\p{L}\p{M}\p{N}#+@$&]+/gu
 // Spaces, or one joiner as in "on-change" or "stt-worker.ts": what may sit between the words of one term.
 const JOINING_GAP_RE = /^(?:\s+|[-_./])$/u
@@ -51,7 +51,7 @@ export function createDictationDictionary(
   // The repo name is a guess, not something the user typed, so it never takes a near miss.
   const typedTerms: [key: string, spelling: Spelling][] = []
   for (const { term, hint } of terms ?? []) {
-    // A one-word repo name like "orca" would recase every "OpenKodo"; only a name of several words joins.
+    // A one-word repo name like "openkodo" would recase every "OpenKodo"; only a name of several words joins.
     if (!hint || (term.match(WORD_RE)?.length ?? 0) > 1) {
       add(wordKey(term), term)
     }

@@ -1,18 +1,18 @@
 {
-  "name": "orca-cloud",
+  "name": "openkodo-cloud",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "pnpm -r build",
     "build:process-host": "tsc -p ../src/packages/process-host/tsconfig.json --typeRoots ./node_modules/@types",
-    "dev": "pnpm --filter @orca-cloud/relay dev",
+    "dev": "pnpm --filter @openkodo-cloud/relay dev",
     "lint": "pnpm -r lint",
-    "test": "pnpm build:libs && pnpm -r --config.enable-pre-post-scripts=false --filter \"!@orca-cloud/relay\" test && pnpm --filter @orca-cloud/relay test",
+    "test": "pnpm build:libs && pnpm -r --config.enable-pre-post-scripts=false --filter \"!@openkodo-cloud/relay\" test && pnpm --filter @openkodo-cloud/relay test",
     "build:libs": "pnpm -r --filter \"./packages/*\" build",
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
-    "@orca/process-host": "link:../src/packages/process-host",
+    "@openkodo/process-host": "link:../src/packages/process-host",
     "@types/node": "^24.19.2",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",

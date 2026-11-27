@@ -268,8 +268,8 @@ export function MobileNativeChatNoticeRow({
       const continuation = names.continuation
       const continueOffered =
         continuation !== undefined &&
-        notice.orcaStop?.turnItemId !== undefined &&
-        notice.orcaStop.turnItemId === continuation.offeredTurnItemId
+        notice.openkodoStop?.turnItemId !== undefined &&
+        notice.openkodoStop.turnItemId === continuation.offeredTurnItemId
       const content = (
         <View style={look.tone ? styles.toneText : undefined}>
           <Text selectable={INLINE_TEXT_SELECTION} style={textStyle}>

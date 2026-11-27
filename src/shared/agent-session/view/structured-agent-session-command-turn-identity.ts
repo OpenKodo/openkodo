@@ -5,7 +5,7 @@ import type { AgentJournalItemIdentity } from '../journal/agent-session-journal-
 export function structuredAgentSessionCommandTurnIdentity(
   clientMessageId: string
 ): AgentJournalItemIdentity {
-  return { provider: 'orca', clientMessageId: `command-turn:${clientMessageId}` }
+  return { provider: 'openkodo', clientMessageId: `command-turn:${clientMessageId}` }
 }
 
 /** Stop/delivery gates recognize command turns by the compact: prefix. */
@@ -20,6 +20,6 @@ export function structuredAgentSessionCommandTurn(clientMessageId: string): {
     identity,
     itemId: agentJournalItemKey(identity),
     turnId: `compact:${clientMessageId}`,
-    resultIdentity: { provider: 'orca', clientMessageId: `command-result:${clientMessageId}` }
+    resultIdentity: { provider: 'openkodo', clientMessageId: `command-result:${clientMessageId}` }
   }
 }

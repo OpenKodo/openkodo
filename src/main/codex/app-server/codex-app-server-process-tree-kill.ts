@@ -1,8 +1,8 @@
-import { spawnProcess } from '@orca/process-host'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { spawnProcess } from '@openkodo/process-host'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import type { ChildProcess } from 'node:child_process'
-import type { ProcessSpec } from '@orca/process-host/process-spec'
-import { admitProcessTreeKill } from '@orca/process-host/process-tree-kill-gate'
+import type { ProcessSpec } from '@openkodo/process-host/process-spec'
+import { admitProcessTreeKill } from '@openkodo/process-host/process-tree-kill-gate'
 
 /** Spawn seam for tests; production always goes through the hardened spawnProcess wrapper. */
 export type CodexAppServerSpawn = (

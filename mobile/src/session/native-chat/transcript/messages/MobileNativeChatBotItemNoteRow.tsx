@@ -5,7 +5,7 @@ import { useContext, useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { ListTodo, MessageSquare } from 'lucide-react-native'
 import type { NativeChatMessage } from '../../../../../../src/shared/native-chat/native-chat-types'
-import { isNativeChatOrcaCard } from '../../../../../../src/shared/native-chat/native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../../../../../../src/shared/native-chat/native-chat-openkodo-card'
 import { stripSentImagePromptMarkers } from '../../../../../../src/shared/native-chat/transcript/images/native-chat-sent-image-prompt-markers'
 import { isBotItemMail } from '../../../../../../src/shared/bots/bot-item-note-runs'
 import type {
@@ -300,7 +300,7 @@ export function mobileNativeChatBotItemRow(
     )
   }
   const folded =
-    message.role === 'system' && message.blocks.length === 0 && !isNativeChatOrcaCard(message)
+    message.role === 'system' && message.blocks.length === 0 && !isNativeChatOpenKodoCard(message)
   return isBotItemMail(message) || folded ? <View testID={mobileNativeChatRowId(rowId)} /> : null
 }
 

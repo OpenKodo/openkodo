@@ -75,7 +75,7 @@ describe('a worker waiting on its own background task', () => {
   })
 
   // One OpenKodo process: a restart is a new one over the same database.
-  function startOrca(incarnation = 'incarnation_1'): WorkerBackgroundWaits {
+  function startOpenKodo(incarnation = 'incarnation_1'): WorkerBackgroundWaits {
     return new WorkerBackgroundWaits({
       getDb: () => db,
       isWaitingForMail: () => false,
@@ -114,9 +114,9 @@ describe('a worker waiting on its own background task', () => {
   }
 
   it('is told once, at the bound, and never again for the same wait', () => {
-    const orca = startOrca()
+    const openkodo = startOpenKodo()
     row = heldRow(TURN_END)
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 0 })
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 0 })
     advanceTo(TURN_END + 19 * MINUTE)
     expect(notices()).toEqual([])
 
@@ -127,8 +127,8 @@ describe('a worker waiting on its own background task', () => {
     )
 
     // The same wait seen again, live or after a restart that remints the process id, is the same fact.
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 1 })
-    const restarted = startOrca('incarnation_after_restart')
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 1 })
+    const restarted = startOpenKodo('incarnation_after_restart')
     restarted.observe({
       kind: 'seeded',
       paneKey: PANE,
@@ -178,19 +178,19 @@ describe('a worker waiting on its own background task', () => {
   })
 
   it('stays quiet when a turn starts before the bound', () => {
-    const orca = startOrca()
+    const openkodo = startOpenKodo()
     row = heldRow(TURN_END)
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 0 })
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 0 })
     advanceTo(TURN_END + 15 * MINUTE)
     row = leadWorkingRow(TURN_END + 15 * MINUTE)
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 1 })
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 1 })
     advanceTo(TURN_END + 90 * MINUTE)
     expect(notices()).toEqual([])
   })
 
   it('stays quiet when the row shows a new turn that no edge reported', () => {
     row = heldRow(TURN_END)
-    startOrca().observe({
+    startOpenKodo().observe({
       kind: 'observed',
       paneKey: PANE,
       workspace: null,
@@ -208,14 +208,14 @@ describe('a worker waiting on its own background task', () => {
       notify: () => {},
       backgroundWaitShown: () => false
     })
-    startOrca().arm(db, dispatchId)
+    startOpenKodo().arm(db, dispatchId)
     advanceTo(TURN_END + 91 * MINUTE)
     expect(notices()).toEqual([])
   })
 
   it('still tells the coordinator when OpenKodo restarts during the wait', () => {
     row = heldRow(TURN_END)
-    startOrca().observe({
+    startOpenKodo().observe({
       kind: 'observed',
       paneKey: PANE,
       workspace: null,
@@ -225,7 +225,7 @@ describe('a worker waiting on its own background task', () => {
     advanceTo(TURN_END + 10 * MINUTE)
     // The old process's timer died with it.
     timers = []
-    startOrca().arm(db, dispatchId)
+    startOpenKodo().arm(db, dispatchId)
     advanceTo(TURN_END + 20 * MINUTE)
     expect(notices()).toHaveLength(1)
   })
@@ -236,9 +236,9 @@ describe('a worker waiting on its own background task', () => {
             WHERE subject = 'Worker stopped on an error without reporting' ORDER BY rowid`)
         .all()
         .map((message) => String(message.body))
-    const orca = startOrca()
+    const openkodo = startOpenKodo()
     row = heldRow(TURN_END)
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 0 })
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 0 })
     const failedAt = TURN_END + 10 * MINUTE
     // The task's notification woke the lead and its request failed; another task keeps the pane working.
     row = {
@@ -246,14 +246,14 @@ describe('a worker waiting on its own background task', () => {
       lastAssistantMessage: 'API Error: 503 All accounts are temporarily unavailable.',
       mainAgent: { state: 'done', outcome: 'failure', stateStartedAt: failedAt }
     }
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 1 })
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 1 })
     expect(errors()).toHaveLength(1)
     expect(errors()[0]).toContain(`Worker ${HANDLE} ended its turn on an error without sending`)
     expect(errors()[0]).toContain('API Error: 503')
 
-    orca.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 2 })
+    openkodo.observe({ kind: 'observed', paneKey: PANE, workspace: null, phase: 'working', at: 2 })
     // A restart remints the process id and its sweep reads the same restored row.
-    const restarted = startOrca('incarnation_after_restart')
+    const restarted = startOpenKodo('incarnation_after_restart')
     restarted.observe({
       kind: 'seeded',
       paneKey: PANE,

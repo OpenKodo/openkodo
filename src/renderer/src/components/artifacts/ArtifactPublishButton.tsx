@@ -7,12 +7,15 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { useTranslate } from '@/i18n/use-translate'
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '@/store/index'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { ArtifactPublishedLinkPanel } from './ArtifactPublishedLinkPanel'
 import { getPublishedArtifactLink } from './artifact-published-link-client'
 import { publishArtifactFromSurface } from './artifact-publish-flow'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../orca-profiles/OrcaSignInProgress'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../openkodo-profiles/OpenKodoSignInProgress'
 
 type PublishedLinkLookup = {
   key: string
@@ -56,12 +59,14 @@ export function ArtifactPublishButton({
   const lookupSequence = useRef(0)
   const popoverContentRef = useRef<HTMLDivElement>(null)
   const dismissedByExternalFocusRef = useRef(false)
-  const authStatus = useAppStore((state) => state.orcaProfileAuthStatus)
+  const authStatus = useAppStore((state) => state.openkodoProfileAuthStatus)
   const openSettingsPage = useAppStore((state) => state.openSettingsPage)
   const openSettingsTarget = useAppStore((state) => state.openSettingsTarget)
   const settings = useAppStore((state) => state.settings)
   const signedIn = authStatus?.state === 'connected'
-  const teamBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing)
+  const teamBlocked = useOpenKodoTeamFeatureBlocked(
+    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing
+  )
   const sharingEnabled = !teamBlocked && settings?.artifactSharingEnabled === true
   const accountKey =
     authStatus?.state === 'connected'
@@ -244,7 +249,7 @@ export function ArtifactPublishButton({
                   )}
                 </p>
               </div>
-              <OrcaSignInButton
+              <OpenKodoSignInButton
                 variant="outline"
                 size="xs"
                 disabled={authStatus?.configured !== true}
@@ -255,10 +260,10 @@ export function ArtifactPublishButton({
                       'Sign in again'
                     )
                   : t('auto.components.artifacts.ArtifactPublishButton.signIn', 'Sign in')}
-              </OrcaSignInButton>
+              </OpenKodoSignInButton>
             </div>
           ) : null}
-          {!signedIn ? <OrcaSignInWaitNotice /> : null}
+          {!signedIn ? <OpenKodoSignInWaitNotice /> : null}
 
           {!sharingEnabled ? (
             <div className={cn('space-y-2', !signedIn && 'border-t border-border/60 pt-3')}>

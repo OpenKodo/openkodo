@@ -20,7 +20,7 @@ import { useStructuredAgentSessionHostCapabilityState } from '@/runtime/native-c
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 import type { AgentJournalRenderItem } from '../../../../../shared/agent-session/journal/agent-session-journal-types'
 import type { AgentJournalCardSubmission } from '../../../../../shared/agent-session/requests/agent-session-queued-submission'
-import { latestNativeChatOrcaStopCut } from '../../../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import { latestNativeChatOpenKodoStopCut } from '../../../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import {
   latestNativeChatUsageLimitCut,
   NATIVE_CHAT_USAGE_LIMIT_CONTINUE_MESSAGE
@@ -32,7 +32,7 @@ import {
   NO_NATIVE_CHAT_INTERRUPTED_CONTINUE_ATTEMPT,
   nativeChatInterruptedContinueAccepted
 } from '../../../../../shared/native-chat/transcript/continuation/native-chat-interrupted-continue'
-import type { NativeChatOrcaStopView } from '@/components/native-chat/messages/notices/native-chat-orca-stop-context'
+import type { NativeChatOpenKodoStopView } from '@/components/native-chat/messages/notices/native-chat-openkodo-stop-context'
 import { useStructuredAgentSessionHostLabel } from '@/components/native-chat/pane/ownership/use-structured-agent-session-host-label'
 import { useNativeChatTargetRestartResuming } from '@/components/native-chat-recovery/offers/native-chat-restart-runtimes'
 import { useNativeChatLaunchResumePending } from '@/components/native-chat-recovery/offers/native-chat-launch-resume-decision'
@@ -41,7 +41,7 @@ import type { NativeChatStructuredComposerTransport } from '@/components/native-
 
 export type NativeChatInterruptedContinuation = {
   /** Host identity and continuation availability for the cut’s transcript row. */
-  view: NativeChatOrcaStopView
+  view: NativeChatOpenKodoStopView
   /** Show a failed Continue until retry, dismissal or continuation from any client. */
   continueError: (NativeChatComposerNoticeContent & { onDismiss: () => void }) | null
 }
@@ -83,7 +83,7 @@ export function useNativeChatInterruptedContinuation(input: {
   const launchPending = useNativeChatLaunchResumePending() && target.kind === 'local'
   const resuming = useNativeChatTargetRestartResuming(target).includes(sessionId) || launchPending
   const cut = useMemo(
-    () => latestNativeChatOrcaStopCut(input.journalItems, input.submissions),
+    () => latestNativeChatOpenKodoStopCut(input.journalItems, input.submissions),
     [input.journalItems, input.submissions]
   )
   // Any host: Continue past a usage limit is the person's own message, which every host takes.

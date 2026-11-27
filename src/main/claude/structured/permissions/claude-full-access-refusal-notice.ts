@@ -121,7 +121,7 @@ export function journalClaudeFullAccessRefusal(
     return
   }
   deps.sink.appendItem(
-    { provider: 'orca', clientMessageId: `full-access-refused:claude:${notice.id}` },
+    { provider: 'openkodo', clientMessageId: `full-access-refused:claude:${notice.id}` },
     notice.body,
     { turnScope }
   )

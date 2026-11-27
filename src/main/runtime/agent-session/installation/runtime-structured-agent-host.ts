@@ -5,7 +5,7 @@ import { nativeChatShellEnvironmentPolicy } from '../../../../shared/native-chat
 import { claudeStructuredAuthPolicyForSettings } from '../../../claude-accounts/runtime-auth/claude-structured-auth-policy'
 import { resolveStructuredAgentCommand } from '../../../native-chat/agent-launch/structured-agent-command-resolution'
 import { structuredAgentConfiguredArgs } from '../../../native-chat/agent-launch/structured-agent-configured-args'
-import { getProfileUserDataPath } from '../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../openkodo-profiles/profile-storage-paths'
 import { isTuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent-config'
 import {
   structuredAgentLaunchEnv,
@@ -13,20 +13,20 @@ import {
 } from '../environment/structured-agent-launch-env'
 import type { StructuredAgentId } from '../../../../shared/agent-session/lifecycle/provider-handles/agent-session-provider-handle'
 import type { RuntimeWorkspaceCatalog } from '../../workspaces/catalog/workspace-catalog'
-import type { OrcaRuntimeWithRefreshPtyWorktreeRecordsFromController } from '../../terminal/lifecycle/pty-worktree-refresh'
+import type { OpenKodoRuntimeWithRefreshPtyWorktreeRecordsFromController } from '../../terminal/lifecycle/pty-worktree-refresh'
 import type { RuntimeAccountController } from '../environment/runtime-account-controller'
-import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
-import type { OrcaRuntimeWithGetStructuredAgentSessionCreateSupport } from '../../session-tabs/chat/structured-session-create-support'
+import type { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import type { OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport } from '../../session-tabs/chat/structured-session-create-support'
 import type { AgentSessionRecord } from '../../../../shared/agent-session/lifecycle/agent-session-record'
 import type { StructuredAgentSessionHostDeps } from '../../../native-chat/agent-session-wire/host/structured-agent-session-host-types'
-import { OrcaRuntimeWithStartTuiIdleVisibleReadProbe } from '../../terminal/wait/terminal-wait-visible-probe'
+import { OpenKodoRuntimeWithStartTuiIdleVisibleReadProbe } from '../../terminal/wait/terminal-wait-visible-probe'
 import {
   hostShellEnvironment,
   hostShellEnvironmentRevision
 } from '../environment/structured-agent-shell-environment'
 import { usageLimitAccountSources } from './usage-limit-account-usage'
 
-export abstract class RuntimeStructuredAgentHost extends OrcaRuntimeWithStartTuiIdleVisibleReadProbe {
+export abstract class RuntimeStructuredAgentHost extends OpenKodoRuntimeWithStartTuiIdleVisibleReadProbe {
   /** Apply the host-owning desktop's account overlay to configured agent environment. */
   protected structuredAgentLaunchEnv(
     agent: StructuredAgentId,
@@ -94,10 +94,10 @@ export abstract class RuntimeStructuredAgentHost extends OrcaRuntimeWithStartTui
 
   protected abstract refreshPtyWorktreeRecordsFromController(
     ...args: Parameters<
-      OrcaRuntimeWithRefreshPtyWorktreeRecordsFromController['refreshPtyWorktreeRecordsFromController']
+      OpenKodoRuntimeWithRefreshPtyWorktreeRecordsFromController['refreshPtyWorktreeRecordsFromController']
     >
   ): ReturnType<
-    OrcaRuntimeWithRefreshPtyWorktreeRecordsFromController['refreshPtyWorktreeRecordsFromController']
+    OpenKodoRuntimeWithRefreshPtyWorktreeRecordsFromController['refreshPtyWorktreeRecordsFromController']
   >
 
   protected abstract isWorktreeTerminalSleepHeld(workspaceId: string): boolean
@@ -116,34 +116,34 @@ export abstract class RuntimeStructuredAgentHost extends OrcaRuntimeWithStartTui
 
   abstract refreshStructuredConversationTabTitle(
     ...args: Parameters<
-      OrcaRuntimeWithPruneMobileSessionTabGroupLayout['refreshStructuredConversationTabTitle']
+      OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout['refreshStructuredConversationTabTitle']
     >
   ): ReturnType<
-    OrcaRuntimeWithPruneMobileSessionTabGroupLayout['refreshStructuredConversationTabTitle']
+    OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout['refreshStructuredConversationTabTitle']
   >
 
   abstract resolveStructuredAgentAccountHome(
     ...args: Parameters<
-      OrcaRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentAccountHome']
+      OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentAccountHome']
     >
   ): ReturnType<
-    OrcaRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentAccountHome']
+    OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentAccountHome']
   >
 
   abstract resolveStructuredAgentLaunchAccountHome(
     ...args: Parameters<
-      OrcaRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentLaunchAccountHome']
+      OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentLaunchAccountHome']
     >
   ): ReturnType<
-    OrcaRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentLaunchAccountHome']
+    OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport['resolveStructuredAgentLaunchAccountHome']
   >
 
   abstract prepareStructuredAgentLaunchAccountHome(
     ...args: Parameters<
-      OrcaRuntimeWithGetStructuredAgentSessionCreateSupport['prepareStructuredAgentLaunchAccountHome']
+      OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport['prepareStructuredAgentLaunchAccountHome']
     >
   ): ReturnType<
-    OrcaRuntimeWithGetStructuredAgentSessionCreateSupport['prepareStructuredAgentLaunchAccountHome']
+    OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport['prepareStructuredAgentLaunchAccountHome']
   >
 
   protected abstract assertStructuredChatAcquireAdmissible(

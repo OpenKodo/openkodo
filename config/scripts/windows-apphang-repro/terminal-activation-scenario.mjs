@@ -34,7 +34,7 @@ class ReproductionObservedError extends Error {
 
 async function setupAppFixture(page, fixture, gpuMode, sourceControl) {
   return await runWithTimeout(
-    'fixture registration in Orca',
+    'fixture registration in OpenKodo',
     () =>
       page.evaluate(
         async ({ repoPath, plainPath, importedWorktreePaths, mode, openSourceControl }) => {
@@ -254,7 +254,7 @@ async function pingMainIpc(page) {
 async function readRendererProbe(page) {
   return await runWithTimeout(
     'renderer probe read',
-    () => page.evaluate(() => globalThis.__orcaApphangProbe?.probe ?? null),
+    () => page.evaluate(() => globalThis.__openkodoApphangProbe?.probe ?? null),
     rendererActionTimeoutMs
   )
 }
@@ -284,7 +284,7 @@ async function resetRendererProbe(page) {
     'renderer probe reset',
     () =>
       page.evaluate(() => {
-        const probe = globalThis.__orcaApphangProbe?.probe
+        const probe = globalThis.__openkodoApphangProbe?.probe
         if (!probe) {
           return
         }

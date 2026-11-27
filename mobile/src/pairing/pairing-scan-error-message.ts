@@ -1,6 +1,6 @@
 import type { Translate } from '../i18n/mobile-i18n'
 
-function isOrcaInstallUrl(data: string): boolean {
+function isOpenKodoInstallUrl(data: string): boolean {
   try {
     const url = new URL(data.trim())
     const path = url.pathname.replace(/\/$/, '')
@@ -29,7 +29,7 @@ function isOrcaInstallUrl(data: string): boolean {
 }
 
 export function getPairingScanErrorMessage(data: string, t: Translate): string {
-  return isOrcaInstallUrl(data)
+  return isOpenKodoInstallUrl(data)
     ? t(
         'app.pairScan.downloadQrCode',
         "That's the download code. Scan the pairing code in step 2 on your desktop."

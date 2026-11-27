@@ -1,5 +1,5 @@
 import type { EnvironmentDoctorCheck } from '../../shared/workspace-setup/environment-doctor/environment-doctor-types'
-import { parseOrcaYaml } from '../../shared/workspace-setup/orca-yaml'
+import { parseOpenKodoYaml } from '../../shared/workspace-setup/openkodo-yaml'
 import {
   check,
   PROBE_TIMEOUT_MS,
@@ -11,7 +11,7 @@ import {
 import type { GitCheckoutProbe } from './environment-doctor-git'
 
 // OpenKodo writes .cmd or .sh on Windows depending on the script's shell, so look for both.
-const SETUP_RUNNER_NAMES = ['orca/setup-runner.sh', 'orca/setup-runner.cmd'] as const
+const SETUP_RUNNER_NAMES = ['openkodo/setup-runner.sh', 'openkodo/setup-runner.cmd'] as const
 
 export async function checkSetup(
   deps: EnvironmentDoctorDeps,
@@ -25,7 +25,7 @@ export async function checkSetup(
 ): Promise<EnvironmentDoctorCheck[]> {
   const yaml =
     (await context.readRepoFile('openkodo.yaml')) ?? (await context.readRepoFile('openkodo.yaml'))
-  const script = yaml ? parseOrcaYaml(yaml)?.scripts.setup?.trim() : undefined
+  const script = yaml ? parseOpenKodoYaml(yaml)?.scripts.setup?.trim() : undefined
   if (!script) {
     return [
       context.impliesInstall

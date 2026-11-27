@@ -86,7 +86,7 @@ const installedImageUrlSchema = z
   .string()
   .refine((url) => parsePluginImageUrl(url)?.kind === 'installed')
 
-/** What main hands the renderer: `orca-plugin-image` URLs main serves only after checking the bytes.
+/** What main hands the renderer: `openkodo-plugin-image` URLs main serves only after checking the bytes.
  *  `videoUrl` is optional per field so a bad one leaves the static image. */
 export const pluginThemeBackgroundRegistrationSchema = z.object({
   url: installedImageUrlSchema,

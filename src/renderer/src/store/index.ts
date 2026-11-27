@@ -50,7 +50,7 @@ import { createCommitMessageGenerationSlice } from './slices/hosted-review/gener
 import { createPinnedTabCloseConfirmSlice } from './slices/tabs/pinned-tab-close-confirm'
 import { createRecentlyClosedTerminalTabsSlice } from './terminals/tabs/recently-closed-terminal-tabs'
 import { createRecentlyClosedTabsSlice } from './slices/tabs/recently-closed-tabs'
-import { createOrcaProfilesSlice } from './slices/orca-profiles/create-orca-profiles-slice'
+import { createOpenKodoProfilesSlice } from './slices/openkodo-profiles/create-openkodo-profiles-slice'
 import { createNewIssueDraftSlice } from './slices/task-creation/new-issue-draft'
 import { createFeedbackDraftSlice } from './slices/feedback/feedback-draft'
 import { createTaskCreationDraftsSlice } from './slices/task-creation/task-creation-drafts'
@@ -153,7 +153,7 @@ export const useAppStore = create<AppState>()(
               ...createPinnedTabCloseConfirmSlice(...a),
               ...createRecentlyClosedTerminalTabsSlice(...a),
               ...createRecentlyClosedTabsSlice(...a),
-              ...createOrcaProfilesSlice(...a),
+              ...createOpenKodoProfilesSlice(...a),
               ...createNewIssueDraftSlice(...a),
               ...createFeedbackDraftSlice(...a),
               ...createTaskCreationDraftsSlice(...a),

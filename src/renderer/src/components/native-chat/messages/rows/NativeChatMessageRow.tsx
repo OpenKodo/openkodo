@@ -9,7 +9,7 @@ import type {
   NativeChatMessage,
   NativeChatToolCallBlock
 } from '../../../../../../shared/native-chat/native-chat-types'
-import { isNativeChatOrcaCard } from '../../../../../../shared/native-chat/native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../../../../../../shared/native-chat/native-chat-openkodo-card'
 import { nativeChatBotMessageCardOf } from '../../../../../../shared/native-chat/bot-cards/native-chat-bot-card-kind'
 import { nativeChatMessageBotCard } from '../../native-chat-bot-cards'
 import { deriveNativeChatRowContent } from '../../../../../../shared/native-chat/transcript/row-content/native-chat-row-content'
@@ -147,7 +147,7 @@ function MessageRowContent(props: MessageRowProps): React.JSX.Element | null {
   const { scrollToTop, returnToView } = useNativeChatRowNavigation(rowRef, onScrollMessageToTop)
 
   // Return after all hooks to preserve hook order when content disappears.
-  if (run === undefined && !rowHasContent(content) && !isNativeChatOrcaCard(message)) {
+  if (run === undefined && !rowHasContent(content) && !isNativeChatOpenKodoCard(message)) {
     return null
   }
 
@@ -247,11 +247,11 @@ function MessageRowContent(props: MessageRowProps): React.JSX.Element | null {
   }
 
   // The card the person answered shows the receipt; the turn that tells the bot draws nothing.
-  if (message.orcaNotice === 'card-answer') {
+  if (message.openkodoNotice === 'card-answer') {
     return <div ref={rowRef} data-native-chat-message-id={message.id} />
   }
 
-  if (message.orcaNotice === 'bot-created') {
+  if (message.openkodoNotice === 'bot-created') {
     return (
       <div ref={rowRef} data-native-chat-message-id={message.id}>
         <NativeChatBotCreatedRow messageId={message.id} timestamp={message.timestamp} />
@@ -259,7 +259,7 @@ function MessageRowContent(props: MessageRowProps): React.JSX.Element | null {
     )
   }
 
-  if (message.orcaNotice === 'took-over') {
+  if (message.openkodoNotice === 'took-over') {
     const goal = message.tookOver?.goal
     const divider = (
       <NativeChatTookOverRow tookOver={message.tookOver} timestamp={message.timestamp} />

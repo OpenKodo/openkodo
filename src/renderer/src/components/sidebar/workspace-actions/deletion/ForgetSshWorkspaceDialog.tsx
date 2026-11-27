@@ -149,7 +149,7 @@ export function ForgetSshWorkspaceDialog(): React.JSX.Element | null {
         <DialogHeader>
           <DialogTitle>
             {t(
-              'components.sidebar.ForgetSshWorkspaceDialog.removeFromOrcaTitle',
+              'components.sidebar.ForgetSshWorkspaceDialog.removeFromOpenKodoTitle',
               'Remove {{name}} from OpenKodo?',
               { name: displayName }
             )}

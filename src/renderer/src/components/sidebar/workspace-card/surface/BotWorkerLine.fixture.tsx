@@ -5,8 +5,8 @@ import WorktreeCard from './WorktreeCard'
 
 const repo: Repo = {
   id: 'bot-line-preview',
-  path: '/preview/orca',
-  displayName: 'orca',
+  path: '/preview/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }
@@ -15,7 +15,7 @@ function worktree(id: string, displayName: string, repoId = repo.id): Worktree {
     id,
     displayName,
     repoId,
-    path: `/preview/orca/${id}`,
+    path: `/preview/openkodo/${id}`,
     branch: id,
     head: 'abc123',
     isBare: false,

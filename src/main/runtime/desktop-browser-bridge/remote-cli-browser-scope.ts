@@ -55,7 +55,7 @@ export function captureRemoteCliBrowserRevocation(): (webContentsId?: number) =>
     if (webContentsId !== undefined && active?.admitGuest && !active.admitGuest(webContentsId)) {
       throw new BrowserError(
         DESKTOP_BROWSER_BRIDGE_UNROUTED_CODE,
-        "This page is not browsing through the SSH host, so the host's orca CLI cannot use it."
+        "This page is not browsing through the SSH host, so the host's openkodo CLI cannot use it."
       )
     }
   }

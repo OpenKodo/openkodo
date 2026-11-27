@@ -149,8 +149,8 @@ const sessions = [
 
 const repo: Repo = {
   id: 'bot-row-preview',
-  path: '/preview/orca',
-  displayName: 'orca',
+  path: '/preview/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }
@@ -159,7 +159,7 @@ function worker(id: string, displayName: string): Worktree {
     id,
     displayName,
     repoId: repo.id,
-    path: `/preview/orca/${id}`,
+    path: `/preview/openkodo/${id}`,
     branch: id,
     head: 'abc123',
     isBare: false,
@@ -250,7 +250,7 @@ const CASES: [string, number, React.ReactNode][] = [
     row(release, {
       home: home(release, {
         externalConversations: [
-          thread('slack-release', 'slack', 'Can you cut the release?', '#releases', 'orca')
+          thread('slack-release', 'slack', 'Can you cut the release?', '#releases', 'openkodo')
         ]
       })
     })
@@ -305,7 +305,7 @@ const CASES: [string, number, React.ReactNode][] = [
     280,
     row(docs, {
       home: home(docs, {
-        externalConversations: [thread('github-docs', 'github', 'Typo in README', 'orca#3412')]
+        externalConversations: [thread('github-docs', 'github', 'Typo in README', 'openkodo#3412')]
       })
     })
   ],

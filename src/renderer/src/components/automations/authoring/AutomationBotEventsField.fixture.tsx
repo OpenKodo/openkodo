@@ -9,7 +9,7 @@ import { AutomationBotEventsField } from './AutomationBotEventsField'
 
 const THREAD = 'slack:T0ACME:C0DEPLOYS:1793590000.000100'
 const CHANNEL = 'slack:T0ACME:C0DEPLOYS'
-const NAMES = { [THREAD]: '#orca', [CHANNEL]: '#orca', U0NORA: 'Nora' }
+const NAMES = { [THREAD]: '#openkodo', [CHANNEL]: '#openkodo', U0NORA: 'Nora' }
 
 // Saved with names, as a save on this build keeps them.
 const named: AutomationConnectorEventTrigger[] = [
@@ -59,7 +59,7 @@ function Panel({ triggers }: { triggers: AutomationEventTrigger[] }): React.JSX.
           resultsTo: 'thread',
           automation: {
             id: 'auto-1',
-            name: 'Answer Nora in #orca',
+            name: 'Answer Nora in #openkodo',
             enabled: true,
             nextRunAt: 0,
             updatedAt: 0,

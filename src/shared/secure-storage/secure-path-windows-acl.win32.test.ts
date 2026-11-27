@@ -25,7 +25,7 @@ describeOnWindows('Windows secure paths against a real filesystem', () => {
   let addon: WindowsSecurity['addon']
   let sid: string
   let root: string
-  /** A relocated data root: `C:\orca-…` inherits BUILTIN\Users and Authenticated Users from C:\. */
+  /** A relocated data root: `C:\openkodo-…` inherits BUILTIN\Users and Authenticated Users from C:\. */
   let relocatedRoot: string
 
   const daclOf = (path: string) => addon.getDaclAces(path)
@@ -41,8 +41,8 @@ describeOnWindows('Windows secure paths against a real filesystem', () => {
     }
     addon = loaded.addon
     sid = loaded.userSid
-    root = mkdtempSync(join(tmpdir(), 'orca-acl-win32-'))
-    relocatedRoot = join('C:\\', `orca-acl-test-${randomBytes(4).toString('hex')}`)
+    root = mkdtempSync(join(tmpdir(), 'openkodo-acl-win32-'))
+    relocatedRoot = join('C:\\', `openkodo-acl-test-${randomBytes(4).toString('hex')}`)
     mkdirSync(relocatedRoot)
   })
 

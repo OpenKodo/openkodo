@@ -92,11 +92,11 @@ export function GoogleHostChoiceDialog({
         </DialogHeader>
         <RadioGroup value="self">
           <HostOption
-            value="orca"
+            value="openkodo"
             disabled
-            title={t('bots.google.hostChoice.orca', 'OpenKodo hosted')}
+            title={t('bots.google.hostChoice.openkodo', 'OpenKodo hosted')}
             badge={<Badge variant="comingSoon">{t('bots.google.hostChoice.soon', 'Soon')}</Badge>}
-            note={t('bots.google.hostChoice.orcaNote', 'Sign in with Google.')}
+            note={t('bots.google.hostChoice.openkodoNote', 'Sign in with Google.')}
           />
           <HostOption
             value="self"

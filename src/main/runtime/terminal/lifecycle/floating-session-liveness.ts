@@ -1,5 +1,5 @@
 import { reconsiderCreatorRest } from '../../orchestration/workers/turn-stops/worker-presence-report'
-import { OrcaRuntimeWithRefreshPtyWorktreeRecordsWithControllerInventory } from './pty-controller-inventory-refresh'
+import { OpenKodoRuntimeWithRefreshPtyWorktreeRecordsWithControllerInventory } from './pty-controller-inventory-refresh'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../../shared/workspace/identity/floating-workspace-id'
 import { indexFloatingSnapshotPtyBindings } from './floating-snapshot-pty-bindings'
 import type {
@@ -11,7 +11,7 @@ import { botGroupOfRoomMailAddress } from '../../../../shared/bots/bot-group-roo
 import { questionAnswerWaitPrefix } from '../../orchestration/mailbox/questions/question-answer-delivery'
 const DISCONNECTED_PTY_RECORD_MAX = 128
 
-export abstract class OrcaRuntimeWithRefreshFloatingWorkspacePtyLiveness extends OrcaRuntimeWithRefreshPtyWorktreeRecordsWithControllerInventory {
+export abstract class OpenKodoRuntimeWithRefreshFloatingWorkspacePtyLiveness extends OpenKodoRuntimeWithRefreshPtyWorktreeRecordsWithControllerInventory {
   protected refreshFloatingWorkspacePtyLiveness(): Set<string> | null {
     const controller = this.ptyController
     if (!controller?.hasPty) {

@@ -4,7 +4,7 @@ import type {
   ComputerSnapshotResult
 } from '../../../../src/shared/computer/computer-use-runtime-types'
 import { findRoleIndex } from './computer-driver'
-import { parseJsonOutput, runOrcaCli } from './computer-cli-driver'
+import { parseJsonOutput, runOpenKodoCli } from './computer-cli-driver'
 import type {
   WindowsControlsFixture,
   WindowsFormsFixtureState,
@@ -13,7 +13,7 @@ import type {
 
 export async function treeText(app: string): Promise<string> {
   return parseJsonOutput<{ result: ComputerSnapshotResult }>(
-    (await runOrcaCli(['computer', 'get-app-state', '--app', app, '--no-screenshot', '--json']))
+    (await runOpenKodoCli(['computer', 'get-app-state', '--app', app, '--no-screenshot', '--json']))
       .stdout
   ).result.snapshot.treeText
 }
@@ -37,7 +37,7 @@ export async function runPatternAction<
   const { waitForState } = target
   const before = await waitForState((state) => !state.active, 'fixture window inactive')
   const result = parseJsonOutput<{ result: ComputerActionResult }>(
-    (await runOrcaCli(['computer', ...args, '--no-screenshot', '--json'])).stdout
+    (await runOpenKodoCli(['computer', ...args, '--no-screenshot', '--json'])).stdout
   ).result
   expect(result.action?.path).toBe('accessibility')
   const after = await waitForState(effect, label)

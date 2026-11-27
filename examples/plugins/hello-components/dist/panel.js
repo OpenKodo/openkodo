@@ -20,8 +20,8 @@ import {
   Switch,
   Text,
   update
-} from "orca";
-import { jsx, jsxs } from "orca/jsx-runtime";
+} from "openkodo";
+import { jsx, jsxs } from "openkodo/jsx-runtime";
 var todos = atom(
   "todos",
   [
@@ -113,7 +113,7 @@ function Panel() {
       }
     ) }),
     /* @__PURE__ */ jsxs(Text, { muted: true, size: "xs", children: [
-      "Runs isolated with no network; Orca draws every control. Theme changes seen:",
+      "Runs isolated with no network; OpenKodo draws every control. Theme changes seen:",
       " ",
       read(seenThemes),
       "."

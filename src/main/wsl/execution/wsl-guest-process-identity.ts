@@ -1,31 +1,33 @@
 /** Use kernel boot ID and /proc start ticks for distro/process identity; wall-clock jumps after host sleep can misidentify live processes (microsoft/WSL#4179/#10006). */
-import type { OrcadProcessIncarnation } from '../../orcad/instance-lock/orcad-process-start-time'
-import type { OrcadHostTransport } from '../../managed-server/install/orcad-host-transport'
+import type { OpenkododProcessIncarnation } from '../../openkodod/instance-lock/openkodod-process-start-time'
+import type { OpenkododHostTransport } from '../../managed-server/install/openkodod-host-transport'
 import { execCommand } from '../../ssh/remote-exec/remote-exec-command'
 
 export type WslGuestIdentity = {
   /** `<boot_id>:<pid 1 start ticks>`; a distro restart (or a VM restart) changes it. */
   distroInstance: string
-  /** orcad's `<pid>:<start ticks>`; null when no pid was asked for or the process is gone. */
-  orcad: string | null
+  /** openkodod's `<pid>:<start ticks>`; null when no pid was asked for or the process is gone. */
+  openkodod: string | null
 }
 
-const SECTION = '--orca-identity--'
+const SECTION = '--openkodo-identity--'
 const IDENTITY_TIMEOUT_MS = 10_000
 
 /** One exec, so a classification never mixes two distro incarnations. */
-export function wslGuestIdentityCommand(orcadPid: number | null): string {
+export function wslGuestIdentityCommand(openkododPid: number | null): string {
   return wslGuestIdentityShellCommand(
-    orcadPid !== null && Number.isSafeInteger(orcadPid) && orcadPid > 0 ? String(orcadPid) : null
+    openkododPid !== null && Number.isSafeInteger(openkododPid) && openkododPid > 0
+      ? String(openkododPid)
+      : null
   )
 }
 
 /** `pidWord` is a digits-only word, literal or a shell expansion the caller has validated. */
 export function wslGuestIdentityShellCommand(pidWord: string | null): string {
-  const orcad = pidWord !== null ? `cat /proc/${pidWord}/stat 2>/dev/null; ` : ''
+  const openkodod = pidWord !== null ? `cat /proc/${pidWord}/stat 2>/dev/null; ` : ''
   return [
     `cat /proc/sys/kernel/random/boot_id; echo ${SECTION}; cat /proc/1/stat; echo ${SECTION}; `,
-    `${orcad}echo ${SECTION}`
+    `${openkodod}echo ${SECTION}`
   ].join('')
 }
 
@@ -59,32 +61,32 @@ export function parseWslGuestIdentity(output: string): WslGuestIdentity | null {
   if (!/^[0-9a-f-]{36}$/i.test(bootId) || !initTicks) {
     return null
   }
-  const orcadStat = sections[2].trim()
-  const orcadPid = orcadStat ? procStatPid(orcadStat) : null
-  const orcadTicks = orcadStat ? procStatStartTicks(orcadStat) : null
+  const openkododStat = sections[2].trim()
+  const openkododPid = openkododStat ? procStatPid(openkododStat) : null
+  const openkododTicks = openkododStat ? procStatStartTicks(openkododStat) : null
   return {
     distroInstance: `${bootId.toLowerCase()}:${initTicks}`,
-    orcad: orcadPid && orcadTicks ? `${orcadPid}:${orcadTicks}` : null
+    openkodod: openkododPid && openkododTicks ? `${openkododPid}:${openkododTicks}` : null
   }
 }
 
-/** The asked-for PID's identity in the form orcad's instance lock records; null when it is gone. */
-export function wslGuestOrcadIncarnation(
+/** The asked-for PID's identity in the form openkodod's instance lock records; null when it is gone. */
+export function wslGuestOpenkododIncarnation(
   identity: WslGuestIdentity
-): OrcadProcessIncarnation | null {
-  const linuxStartTicks = identity.orcad?.split(':')[1]
+): OpenkododProcessIncarnation | null {
+  const linuxStartTicks = identity.openkodod?.split(':')[1]
   const bootId = identity.distroInstance.split(':')[0]
   return linuxStartTicks && bootId ? { linuxStartTicks, bootId } : null
 }
 
 /** null when the guest could not answer: that is unverifiable, never evidence of an exit. */
 export async function readWslGuestIdentity(
-  conn: OrcadHostTransport,
-  orcadPid: number | null
+  conn: OpenkododHostTransport,
+  openkododPid: number | null
 ): Promise<WslGuestIdentity | null> {
   try {
     return parseWslGuestIdentity(
-      await execCommand(conn, wslGuestIdentityCommand(orcadPid), {
+      await execCommand(conn, wslGuestIdentityCommand(openkododPid), {
         timeoutMs: IDENTITY_TIMEOUT_MS
       })
     )

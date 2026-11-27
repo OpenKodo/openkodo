@@ -5,7 +5,7 @@
 import { ipcMain } from 'electron'
 import { z } from 'zod'
 import { LEGACY_RELAY_BRIDGE_CHANNELS as CHANNELS } from '../../../../shared/remote-runtime/relay/legacy-relay-bridge-contract'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import {
   attachLegacyRelayPane,
   closeLegacyRelayPane,
@@ -30,7 +30,7 @@ const PausedArgsSchema = z.object({
 const ResizeArgsSchema = z.object({ ptyId: PtyIdSchema, cols: SizeSchema, rows: SizeSchema })
 
 export function registerLegacyRelayBridgeIpc(args: {
-  runtime?: () => OrcaRuntimeService | null
+  runtime?: () => OpenKodoRuntimeService | null
 }): void {
   const runtime = args.runtime
   ipcMain.removeHandler(CHANNELS.listPanes)

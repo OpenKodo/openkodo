@@ -191,11 +191,11 @@ openkodo serve --port 6768 --pairing-address 100.64.1.20
 
 Use only one host mode at a time. If the OpenKodo desktop app is already sharing that computer, do not start a second `openkodo serve` process for the same setup.
 
-`openkodo serve` runs on OpenKodo's own Node server (orcad) by default. If orcad can't serve on this computer, it uses the desktop app's server instead and prints one line saying why. On a packaged macOS app it uses the desktop app's server, so paired clients can still update it, unless you set `ORCA_SERVE_RUNTIME=orcad` (see [A Mac reached only over SSH](#a-mac-reached-only-over-ssh)). To always use the desktop app's server, set `ORCA_SERVE_RUNTIME=electron`.
+`openkodo serve` runs on OpenKodo's own Node server (openkodod) by default. If openkodod can't serve on this computer, it uses the desktop app's server instead and prints one line saying why. On a packaged macOS app it uses the desktop app's server, so paired clients can still update it, unless you set `OPENKODO_SERVE_RUNTIME=openkodod` (see [A Mac reached only over SSH](#a-mac-reached-only-over-ssh)). To always use the desktop app's server, set `OPENKODO_SERVE_RUNTIME=electron`.
 
 ### Install only the server on Linux
 
-Each release also publishes the server alone for Linux x64 and arm64: orcad, the Node runtime it runs on, and the `openkodo` CLI. It needs no desktop packages (GTK, X11, Xvfb), so it suits your own headless Linux servers, VMs and containers. It is about 60 MB to download, against 190 MB for the `.deb`. Download it, check it, and unpack it:
+Each release also publishes the server alone for Linux x64 and arm64: openkodod, the Node runtime it runs on, and the `openkodo` CLI. It needs no desktop packages (GTK, X11, Xvfb), so it suits your own headless Linux servers, VMs and containers. It is about 60 MB to download, against 190 MB for the `.deb`. Download it, check it, and unpack it:
 
 ```bash
 arch=$(uname -m | sed 's/x86_64/x64/; s/aarch64/arm64/')
@@ -216,8 +216,8 @@ To pin a release, replace `latest/download` with `download/v<version>`, and keep
 By default, nothing caps how much memory a terminal's processes use, so one runaway job can push the whole server into the kernel's out-of-memory killer. On Linux you can cap each terminal by setting these variables in the environment that starts `openkodo serve` (or in its service unit):
 
 ```bash
-export ORCA_TERMINAL_MEMORY_MAX=16G      # memory per terminal, 256M or more
-export ORCA_TERMINAL_MEMORY_SWAP_MAX=0   # swap per terminal; 0 means no swap
+export OPENKODO_TERMINAL_MEMORY_MAX=16G      # memory per terminal, 256M or more
+export OPENKODO_TERMINAL_MEMORY_SWAP_MAX=0   # swap per terminal; 0 means no swap
 openkodo serve --pairing-address 100.64.1.20
 ```
 
@@ -230,10 +230,10 @@ openkodo serve --pairing-address 100.64.1.20
 
 ### Use the GPU on a Linux server
 
-On Linux, `openkodo serve` turns off hardware acceleration by default, because most headless hosts have no GPU and a failing GPU process can stop the server from starting. Browser panes then render in software. If the host gives the OpenKodo process a GPU (for example a render node such as `/dev/dri/renderD128`), set `ORCA_SERVE_GPU=1` in the environment that starts `openkodo serve` (or in its service unit) to keep hardware acceleration on:
+On Linux, `openkodo serve` turns off hardware acceleration by default, because most headless hosts have no GPU and a failing GPU process can stop the server from starting. Browser panes then render in software. If the host gives the OpenKodo process a GPU (for example a render node such as `/dev/dri/renderD128`), set `OPENKODO_SERVE_GPU=1` in the environment that starts `openkodo serve` (or in its service unit) to keep hardware acceleration on:
 
 ```bash
-export ORCA_SERVE_GPU=1
+export OPENKODO_SERVE_GPU=1
 openkodo serve --pairing-address 100.64.1.20
 ```
 
@@ -241,11 +241,11 @@ This only stops OpenKodo from turning the GPU off. Chromium may still render in 
 
 ### Copies of a machine image
 
-Copies of a machine image share the server identity: the pairing key, the paired devices, and the installation id. Revoking a device on one copy leaves it working on the others, and the desktop app treats all copies as one server. Set `ORCA_INSTANCE_ID` per instance (for example the cloud-init instance id) in the environment that starts `openkodo serve`, or run `openkodo serve reset-identity` on each copy.
+Copies of a machine image share the server identity: the pairing key, the paired devices, and the installation id. Revoking a device on one copy leaves it working on the others, and the desktop app treats all copies as one server. Set `OPENKODO_INSTANCE_ID` per instance (for example the cloud-init instance id) in the environment that starts `openkodo serve`, or run `openkodo serve reset-identity` on each copy.
 
-- With `ORCA_INSTANCE_ID` set, OpenKodo records the value with the server identity. If a later start sees a different value, OpenKodo creates a new identity and removes all paired devices on that copy, so clients pair with it again.
+- With `OPENKODO_INSTANCE_ID` set, OpenKodo records the value with the server identity. If a later start sees a different value, OpenKodo creates a new identity and removes all paired devices on that copy, so clients pair with it again.
 - The first value OpenKodo sees on an existing server is only recorded, so setting the variable later keeps existing pairings. Use a value that stays the same across restarts of one instance; a value that changes on every boot forces a new pairing each time.
-- When `ORCA_INSTANCE_ID` is not set, OpenKodo never changes the identity on its own.
+- When `OPENKODO_INSTANCE_ID` is not set, OpenKodo never changes the identity on its own.
 - If OpenKodo cannot write the new identity (for example on a full or read-only disk), it keeps serving the current one unchanged, logs an error, and tries again on the next start.
 - `openkodo serve reset-identity` does the same reset on demand. Stop OpenKodo on that machine first; the command asks for confirmation, or pass `--yes`.
 - Each reset moves the replaced files into a new folder under `openkodontity-backups` in the OpenKodo data directory (the five most recent are kept). To undo an unwanted reset, stop OpenKodo and copy the files from that folder back into the data directory.
@@ -280,7 +280,7 @@ It works the same against the desktop app, a foreground `openkodo serve`, or `op
 On a packaged macOS app, `openkodo serve` uses the desktop app's server, which needs a desktop login: started from an SSH session with nobody logged in, it aborts at startup. To serve such a Mac, ask for OpenKodo's Node server instead. It has no in-app updater, so update the app yourself (for example with `brew upgrade --cask OpenKodo/openkodo/openkodo`) and restart the server:
 
 ```bash
-ORCA_SERVE_RUNTIME=orcad openkodo serve --pairing-address 100.64.1.20
+OPENKODO_SERVE_RUNTIME=openkodod openkodo serve --pairing-address 100.64.1.20
 ```
 
 ## Desktop app or `openkodo serve`?

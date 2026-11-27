@@ -19,7 +19,7 @@ import {
   withBrowserExtensionModuleShimImport,
   type BrowserExtensionWorkerShimInjection
 } from './browser-extension-worker-shim-injection'
-import { withOrcaContentScript } from './browser-extension-content-script-manifest'
+import { withOpenKodoContentScript } from './browser-extension-content-script-manifest'
 import {
   withPrivateFilesHiddenFromWebAccessibleResources,
   withStaticWebAccessibleResources
@@ -62,7 +62,7 @@ export function chromeExtensionIdFromKey(base64Key: string): string {
  */
 function unpackedManifestKey(sourceDirectory: string): string {
   return createHash('sha256')
-    .update(`orca-unpacked:${resolve(sourceDirectory)}`)
+    .update(`openkodo-unpacked:${resolve(sourceDirectory)}`)
     .digest('base64')
 }
 
@@ -76,8 +76,8 @@ function parseManifest(text: string): Record<string, unknown> {
 
 async function writeAtomically(path: string, content: string | Buffer): Promise<void> {
   await mkdir(dirname(path), { recursive: true })
-  await writeFile(`${path}.orca-tmp`, content)
-  await renameFileWithWindowsRetryAsync(`${path}.orca-tmp`, path)
+  await writeFile(`${path}.openkodo-tmp`, content)
+  await renameFileWithWindowsRetryAsync(`${path}.openkodo-tmp`, path)
 }
 
 // Why compare first: rewriting identical files would churn mtimes under a loaded extension.
@@ -185,7 +185,7 @@ const OPENKODO_GENERATED_FILE_NAMES = new Set([
  * Refuses a package that already has a file where OpenKodo writes its own, which would overwrite it.
  * Asks the file system rather than comparing names, so every spelling that aliases one counts.
  */
-export async function refuseOrcaFileCollisions(
+export async function refuseOpenKodoFileCollisions(
   directory: string,
   manifest: Record<string, unknown>
 ): Promise<void> {
@@ -257,14 +257,14 @@ async function prepare(
   const originalPath = join(directory, BROWSER_EXTENSION_ORIGINAL_MANIFEST_FILE)
   const { originalText, original } = await readOriginalManifest(directory, extension.source)
   if (unpacked) {
-    await refuseOrcaFileCollisions(directory, original)
+    await refuseOpenKodoFileCollisions(directory, original)
   }
   const key = manifestKey(original, extension)
   const extensionId = chromeExtensionIdFromKey(key)
   const packageFiles = await listPackageFiles(directory)
   const staticResources = withStaticWebAccessibleResources({ ...original, key })
   const injection = buildBrowserExtensionWorkerShimInjection(staticResources)
-  const withContentScript = withOrcaContentScript(injection?.manifest ?? staticResources)
+  const withContentScript = withOpenKodoContentScript(injection?.manifest ?? staticResources)
   await writeIfChanged(originalPath, originalText)
   let workerScripts = ''
   if (injection) {

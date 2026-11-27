@@ -26,7 +26,7 @@ export function RichMarkdownAnnotationOverlay({
       {target ? (
         <button
           type="button"
-          className="orca-diff-comment-add-btn rich-markdown-comment-add-btn"
+          className="openkodo-diff-comment-add-btn rich-markdown-comment-add-btn"
           // Why: horizontal placement is CSS so it follows the current shell width and reading column.
           style={{ top: target.buttonTop ?? 56 }}
           title={t(

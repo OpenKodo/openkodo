@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Platform } from 'react-native'
 import type { MobilePushFilter } from '../../../../src/shared/notifications/mobile-push-contract'
 
-const KEY = 'orca:notificationDeliveryPreferences'
+const KEY = 'openkodo:notificationDeliveryPreferences'
 export type NotificationDeliveryPreferences = {
   onlyWhenDesktopAway: boolean
   onlyWhenAgentNeedsInput: boolean

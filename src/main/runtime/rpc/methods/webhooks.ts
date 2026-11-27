@@ -13,10 +13,10 @@ import {
 } from '../../../../shared/rpc-contract/webhooks-params'
 import type { WebhookHostService } from '../../../webhooks/webhook-host-service'
 import { dropWebhookRule } from '../../../webhooks/webhook-hooks'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod } from '../core'
 
-function webhooks(runtime: OrcaRuntimeService): WebhookHostService {
+function webhooks(runtime: OpenKodoRuntimeService): WebhookHostService {
   const service = runtime.getWebhooks()
   if (!service) {
     throw new Error('webhooks_unavailable')

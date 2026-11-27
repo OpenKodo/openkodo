@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:events'
 import { MessageChannel } from 'node:worker_threads'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { runProcess, setDefaultProcessLauncher } from '@orca/process-host'
+import { runProcess, setDefaultProcessLauncher } from '@openkodo/process-host'
 import type * as WorkerChildModule from '../../../worker-thread-child-process/worker-thread-child-process'
 import { WorkerThreadChildProcessHost } from '../../../worker-thread-child-process/worker-thread-child-process'
 import { serveWorkerThreadChildProcesses } from '../../../worker-thread-child-process/worker-thread-child-process-server'

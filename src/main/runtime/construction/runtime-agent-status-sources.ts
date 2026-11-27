@@ -7,11 +7,11 @@ import {
 
 import type { RuntimeConstructionBindings as HostBindings } from './runtime-construction-dependencies'
 
-import { OrcaRuntimeWithTerminalDrivers } from '../terminal/driver/terminal-driver-resources'
+import { OpenKodoRuntimeWithTerminalDrivers } from '../terminal/driver/terminal-driver-resources'
 
 import type { AgentStatusIpcPayload } from '../../../shared/agent-status/contracts/agent-status-ipc-payload'
 
-export abstract class RuntimeAgentStatusSources extends OrcaRuntimeWithTerminalDrivers {
+export abstract class RuntimeAgentStatusSources extends OpenKodoRuntimeWithTerminalDrivers {
   protected getPaneAgentIdentityFn: HostBindings['getPaneAgentIdentity'] | null = null
 
   readPaneAgentIdentity(

@@ -2,7 +2,7 @@
 // once per binary (its real path and modification time) from `--help` or `--version`, so a CLI too
 // old for the route starts as it would without OpenKodo rather than failing on an option it doesn't know.
 import { realpath, stat } from 'node:fs/promises'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { BoundedMap } from '../../../shared/collections/bounded-map'
 import {
   compareAppVersions,

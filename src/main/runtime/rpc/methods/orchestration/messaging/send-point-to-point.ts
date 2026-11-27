@@ -3,7 +3,7 @@ import type {
   MessageType
 } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import {
   isFederatedRelaySender,
   reconcileLifecycleMessage
@@ -30,7 +30,7 @@ type SendReceipt = <T extends object>(receipt: T) => T & { warnings?: SendRecipi
 
 export function sendPointToPointMessage(args: {
   params: SendParamsInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   from: string
   to: string
@@ -141,7 +141,7 @@ export function sendPointToPointMessage(args: {
         // No Dispatch means no coordinator can act on it; mark it read and record the receipt
         // directly, since recordReceiptForPostCommitNudge would default a replay nudge.
         if (!dispatch) {
-          db.markAsRead([msg.id], { kind: 'orca' })
+          db.markAsRead([msg.id], { kind: 'openkodo' })
           recordMutationReceipt?.(receipt)
           return { receipt, nudge: () => undefined }
         }

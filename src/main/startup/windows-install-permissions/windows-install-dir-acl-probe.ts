@@ -4,7 +4,7 @@ import { sanitizeCrashReportString } from '../../../shared/crash-reporting/crash
 import type { CrashReportBreadcrumbData } from '../../../shared/crash-reporting/crash-reporting'
 import { recordDurableCrashBreadcrumb } from '../../crash-reporting/breadcrumbs/durable-crash-breadcrumb'
 import { loadWindowsSecurity } from '../../../shared/secure-storage/windows-security-addon'
-import type { WindowsDacl } from '@orca/windows-security'
+import type { WindowsDacl } from '@openkodo/windows-security'
 import {
   ACCESS_ALLOWED_ACE_TYPE,
   ACCESS_DENIED_ACE_TYPE,

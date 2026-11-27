@@ -4,14 +4,14 @@ import type {
   RendererStatusPublication,
   RendererStatusAck
 } from '../../../shared/agent-status/renderer-status-publication'
-import { OrcaRuntimeWithAttachWindow } from './session-graph-promotion'
+import { OpenKodoRuntimeWithAttachWindow } from './session-graph-promotion'
 import type {
   RuntimeRendererSyncWindowGraph,
   RuntimeSyncWindowGraph
 } from '../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 
-export abstract class OrcaRuntimeWithAdmitWindowPublisher extends OrcaRuntimeWithAttachWindow {
+export abstract class OpenKodoRuntimeWithAdmitWindowPublisher extends OpenKodoRuntimeWithAttachWindow {
   syncRendererAgentStatus(windowId: number, batch: RendererStatusPublication): RendererStatusAck {
     if (windowId !== this.authoritativeWindowId || this.rendererGeneration !== batch.epoch) {
       return { accepted: false, reason: 'superseded' }

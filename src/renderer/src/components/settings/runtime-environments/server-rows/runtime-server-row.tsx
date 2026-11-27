@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link2 } from 'lucide-react'
 import {
-  getOrcadSshDeployment,
+  getOpenkododSshDeployment,
   type PublicKnownRuntimeEnvironment
 } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { SshTarget } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
-import type { ManagedOrcadPreloadApi } from '../../../../../../preload/api/runtime/managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from '../../../../../../preload/api/runtime/managed-openkodod-api'
 import type { RemoteServerUpdateEntry } from '@/runtime/hosts/updates/remote-server-update-coordinator'
 import type { UpdateCheckOptions } from '../../../../../../shared/updater/update-status-types'
 import { getRuntimeServerProblemLine, getRuntimeServerRoute } from './runtime-server-row-meta'
@@ -63,7 +63,7 @@ type RuntimeServerRowProps = {
   removing: boolean
   isBusy: boolean
   /** The SSH-access API and hosts; absent where managed servers aren't available (web). */
-  sshAccessApi?: Pick<ManagedOrcadPreloadApi, 'linkSshAccess' | 'unlinkSshAccess'> | null
+  sshAccessApi?: Pick<ManagedOpenkododPreloadApi, 'linkSshAccess' | 'unlinkSshAccess'> | null
   sshTargets?: SshTarget[]
   managed?: ManagedServerLifecycle | null
   onOpenUpdate: () => void
@@ -118,7 +118,7 @@ export function RuntimeServerRow({
   // Revoked access-link tokens fail every Connect; only Re-pair can restore access.
   const canConnect = !(row.accessRevoked && repairable)
   const updateActionable = remoteUpdate?.phase === 'available' || remoteUpdate?.phase === 'failed'
-  const deployment = getOrcadSshDeployment(environment)
+  const deployment = getOpenkododSshDeployment(environment)
   const sshAccess = environment.sshAccess
   const pendingSshAccess = environment.pendingSshAccessOperation
 

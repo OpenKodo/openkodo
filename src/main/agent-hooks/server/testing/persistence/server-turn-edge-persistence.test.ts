@@ -26,7 +26,7 @@ describe('saved agent status between batched saves', () => {
 
   beforeEach(async () => {
     _internals.resetCachesForTests()
-    userDataPath = mkdtempSync(join(tmpdir(), 'orca-turn-edge-persistence-'))
+    userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-turn-edge-persistence-'))
     server = new AgentHookServer()
     await server.start({ env: 'production', userDataPath })
     vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'Date'] })

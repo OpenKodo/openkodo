@@ -330,7 +330,7 @@ export class ConnectorCloud {
   }
 
   /** The signed-in OpenKodo account's name, as a mirrored Slack post names its author. */
-  orcaAccountName(): string {
+  openkodoAccountName(): string {
     return connectorAccountName(this.options.userDataPath)
   }
 

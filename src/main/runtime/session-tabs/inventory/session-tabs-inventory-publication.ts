@@ -4,13 +4,13 @@ import {
   LOCAL_EXECUTION_HOST_ID,
   parseExecutionHostId
 } from '../../../../shared/execution-host/execution-host'
-import { OrcaRuntimeWithCollectMobileVisibleGraphChangedWorktrees } from './session-tabs-inventory'
+import { OpenKodoRuntimeWithCollectMobileVisibleGraphChangedWorktrees } from './session-tabs-inventory'
 
 // Bounds how stale a reused census may be: a terminal the controller holds but the runtime was never told about
 // shows up within this long, while a burst of reads still shares one census.
 const LOCAL_TERMINAL_CENSUS_REUSE_MS = 1_000
 
-export abstract class RuntimeSessionTabsInventoryPublication extends OrcaRuntimeWithCollectMobileVisibleGraphChangedWorktrees {
+export abstract class RuntimeSessionTabsInventoryPublication extends OpenKodoRuntimeWithCollectMobileVisibleGraphChangedWorktrees {
   /** A workspace's chat tabs, from the tab state alone: no PTY inventory, which only terminal tabs need.
    *  Bot reads (chats tree, Activity, Look around) ask this for a bot home, which has no terminals. */
   async listChatSessionTabs(worktreeId: string): Promise<{ sessionId: string; title: string }[]> {

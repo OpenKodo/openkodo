@@ -1,6 +1,6 @@
 import { agentHookServer } from '../../../agent-hooks/server/agent-hook-server'
 import type { Store } from '../../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import { toSshExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import { collectLeafIds } from '../../../../shared/workspace-layout/terminal-topology/terminal-pane-layout-tree'
@@ -18,7 +18,7 @@ import {
 } from '../../../runtime/terminal/lifecycle/run-terminal-shell-alone'
 
 export function bindTerminalPaneStatusLifecycle(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   store: Store | undefined
 ): void {
   agentHookServer.setTerminalPaneLifecycle({
@@ -119,7 +119,7 @@ export function bindTerminalPaneStatusLifecycle(
  *  a remote host, which reports no process tree to main. */
 /** The pane's PTY from the spawn-time index, else the runtime's pane search. */
 function resolvePanePty(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   paneKey: string
 ): { ptyId: string | null; incarnationId: string | null } {
   const ptyId = paneKeyPtyId.get(paneKey)
@@ -131,7 +131,7 @@ function resolvePanePty(
 }
 
 async function paneShellAlone(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   paneKey: string,
   agent: string | undefined,
   stillCurrent: () => boolean = () => true

@@ -34,7 +34,7 @@ function areaOfCommand(command: string): FirstLookArea | null {
     if ((first === 'claude' || first === 'codex') && second === 'mcp') {
       return 'tools'
     }
-    if (first && /orca/i.test(first)) {
+    if (first && /openkodo/i.test(first)) {
       if (second === 'repo' && third === 'list') {
         return 'projects'
       }
@@ -72,7 +72,7 @@ function parsed(output: string): unknown {
 const RepoList = z.object({
   repos: z.array(z.object({ displayName: z.string() }))
 })
-// `orca … --json` prints an RPC envelope, its payload under `result`.
+// `openkodo … --json` prints an RPC envelope, its payload under `result`.
 const Repos = z.union([z.object({ result: RepoList }).transform((value) => value.result), RepoList])
 const IssueList = z.object({
   issues: z.array(z.unknown()),

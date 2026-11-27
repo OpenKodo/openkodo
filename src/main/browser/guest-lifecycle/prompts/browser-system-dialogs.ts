@@ -17,7 +17,7 @@ import {
 import { browserManager } from '../manager/browser-manager'
 import { cancelBrowserPasskeyRequests } from '../../webauthn/browser-passkey-requests'
 
-const PRELOAD_ID = 'orca-browser-system-dialogs'
+const PRELOAD_ID = 'openkodo-browser-system-dialogs'
 
 /** Watches the session's pages for passkey requests and print dialogs, which Electron doesn't report. */
 export function watchBrowserSystemDialogs(browserSession: Session): void {

@@ -12,7 +12,7 @@ import { readNativeChatTranscript } from '../../src/main/native-chat/transcript-
 
 const reference = process.argv[2]
 assert.ok(reference, 'Pass the read-only oh-my-pi source checkout path')
-const scratch = await mkdtemp(join(tmpdir(), 'orca-omp-transcript-'))
+const scratch = await mkdtemp(join(tmpdir(), 'openkodo-omp-transcript-'))
 process.env.HOME = join(scratch, 'home')
 process.env.USERPROFILE = process.env.HOME
 process.env.OMP_CODING_AGENT_DIR = join(scratch, 'agent')
@@ -112,7 +112,7 @@ try {
       producers: ['omp', 'pi'],
       reports: posts.length,
       proof:
-        'Actual OMP loader and persistent SessionManager, custom directory, lazy creation, new-session switch, HTTP metadata, Orca transcript reader, child suppression',
+        'Actual OMP loader and persistent SessionManager, custom directory, lazy creation, new-session switch, HTTP metadata, OpenKodo transcript reader, child suppression',
       modelCalls: 0,
       rendered: false
     })

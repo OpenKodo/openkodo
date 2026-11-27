@@ -25,7 +25,7 @@ vi.mock('../api-runtime/browser-extension-worker-shim-source', () => ({
   readBrowserExtensionContentScript: () => mocks.contentScript
 }))
 
-mocks.userData = mkdtempSync(join(tmpdir(), 'orca-extension-load-'))
+mocks.userData = mkdtempSync(join(tmpdir(), 'openkodo-extension-load-'))
 
 const {
   browserExtensionIdForUnpackedFolder,
@@ -76,19 +76,21 @@ describe('extension load directories', () => {
       key: STORE_KEY,
       background: { service_worker: 'bg.js' }
     })
-    expect(readJson(join(directory, 'orca-original-manifest.json'))).toMatchObject({
+    expect(readJson(join(directory, 'openkodo-original-manifest.json'))).toMatchObject({
       background: { service_worker: 'bg.js' }
     })
     const worker = join(directory, 'bg.js')
     expect(importedScripts(worker, '/bg.js')).toEqual([
-      '/orca-extension-api.js',
-      '/orca-original-worker.js'
+      '/openkodo-extension-api.js',
+      '/openkodo-original-worker.js'
     ])
     // Under an older build's wrapper (a downgrade), whose own shim already ran.
-    expect(importedScripts(worker, '/orca-background.js')).toEqual(['/orca-original-worker.js'])
-    expect(readFileSync(join(directory, 'orca-original-worker.js'), 'utf8')).toBe(WORKER)
-    expect(readFileSync(join(directory, 'orca-extension-api.js'), 'utf8')).toBe('/* shim v1 */')
-    expect(readJson(join(directory, 'orca-extension-api-token.json'))).toEqual({
+    expect(importedScripts(worker, '/openkodo-background.js')).toEqual([
+      '/openkodo-original-worker.js'
+    ])
+    expect(readFileSync(join(directory, 'openkodo-original-worker.js'), 'utf8')).toBe(WORKER)
+    expect(readFileSync(join(directory, 'openkodo-extension-api.js'), 'utf8')).toBe('/* shim v1 */')
+    expect(readJson(join(directory, 'openkodo-extension-api-token.json'))).toEqual({
       token: getBrowserExtensionWorkerToken(first.extensionId)
     })
     const wrapper = readFileSync(worker, 'utf8')
@@ -100,9 +102,9 @@ describe('extension load directories', () => {
     const updated = await prepareBrowserExtensionDirectory({ source: 'webstore', path: directory })
     mocks.shim = '/* shim v1 */'
     expect(updated.workerSignature).not.toBe(first.workerSignature)
-    expect(readFileSync(join(directory, 'orca-extension-api.js'), 'utf8')).toBe('/* shim v2 */')
+    expect(readFileSync(join(directory, 'openkodo-extension-api.js'), 'utf8')).toBe('/* shim v2 */')
     // Preparing in place again must never move the wrapper over the extension's own script.
-    expect(readFileSync(join(directory, 'orca-original-worker.js'), 'utf8')).toBe(WORKER)
+    expect(readFileSync(join(directory, 'openkodo-original-worker.js'), 'utf8')).toBe(WORKER)
     expect(readFileSync(worker, 'utf8')).toBe(wrapper)
   })
 
@@ -116,23 +118,23 @@ describe('extension load directories', () => {
       background: { service_worker: 'js/bg.js' }
     }
     mkdirSync(join(directory, 'js'), { recursive: true })
-    writeFileSync(join(directory, 'orca-original-manifest.json'), JSON.stringify(manifest))
+    writeFileSync(join(directory, 'openkodo-original-manifest.json'), JSON.stringify(manifest))
     writeFileSync(
       join(directory, 'manifest.json'),
-      JSON.stringify({ ...manifest, background: { service_worker: 'js/orca-background.js' } })
+      JSON.stringify({ ...manifest, background: { service_worker: 'js/openkodo-background.js' } })
     )
     writeFileSync(join(directory, 'js', 'bg.js'), WORKER)
-    writeFileSync(join(directory, 'js', 'orca-background.js'), 'importScripts("/js/bg.js")')
+    writeFileSync(join(directory, 'js', 'openkodo-background.js'), 'importScripts("/js/bg.js")')
 
     await prepareBrowserExtensionDirectory({ source: 'webstore', path: directory })
     expect(readJson(join(directory, 'manifest.json'))).toMatchObject({
       background: { service_worker: 'js/bg.js' }
     })
     expect(importedScripts(join(directory, 'js', 'bg.js'), '/js/bg.js')).toEqual([
-      '/orca-extension-api.js',
-      '/js/orca-original-worker.js'
+      '/openkodo-extension-api.js',
+      '/js/openkodo-original-worker.js'
     ])
-    expect(readFileSync(join(directory, 'js', 'orca-original-worker.js'), 'utf8')).toBe(WORKER)
+    expect(readFileSync(join(directory, 'js', 'openkodo-original-worker.js'), 'utf8')).toBe(WORKER)
   })
 
   it('loads an unpacked folder from a stable OpenKodo copy and never touches the folder', async () => {
@@ -171,14 +173,14 @@ describe('extension load directories', () => {
     writeFileSync(join(source, 'bg.js'), 'self.started = "edited"')
     const cached = await prepareBrowserExtensionDirectory({ source: 'unpacked', path: source })
     expect(readFileSync(join(cached.directory, 'bg.js'), 'utf8')).toBe(
-      `import "/orca-extension-api.js";${WORKER}`
+      `import "/openkodo-extension-api.js";${WORKER}`
     )
     const refreshed = await prepareBrowserExtensionDirectory(
       { source: 'unpacked', path: source },
       { refresh: true }
     )
     expect(readFileSync(join(refreshed.directory, 'bg.js'), 'utf8')).toBe(
-      'import "/orca-extension-api.js";self.started = "edited"'
+      'import "/openkodo-extension-api.js";self.started = "edited"'
     )
     expect(refreshed.extensionId).toBe(first.extensionId)
     expect(refreshed.directory).toBe(first.directory)
@@ -194,10 +196,10 @@ describe('extension load directories', () => {
         manifest_version: 3,
         name: 'Legacy',
         version: '1',
-        background: { service_worker: 'orca-background.js' }
+        background: { service_worker: 'openkodo-background.js' }
       })
     )
-    writeFileSync(join(source, 'orca-background.js'), WORKER)
+    writeFileSync(join(source, 'openkodo-background.js'), WORKER)
     await expect(
       prepareBrowserExtensionDirectory({ source: 'unpacked', path: source })
     ).rejects.toThrow("can't load this extension")
@@ -205,7 +207,11 @@ describe('extension load directories', () => {
 
   it('never lists the worker token as web-accessible, in any spelling', async () => {
     const directory = join(mocks.userData, 'browser-extensions', 'store-war', '1.0')
-    const resources = ['ORCA-EXTENSION-API-TOKEN.JSON', 'orca-extension-api-token.json', '*']
+    const resources = [
+      'OPENKODO-EXTENSION-API-TOKEN.JSON',
+      'openkodo-extension-api-token.json',
+      '*'
+    ]
     writeExtension(directory, {
       manifest_version: 3,
       name: 'Vault',
@@ -215,7 +221,7 @@ describe('extension load directories', () => {
       web_accessible_resources: [{ resources, matches: ['<all_urls>'] }]
     })
     await prepareBrowserExtensionDirectory({ source: 'webstore', path: directory })
-    const token = statSync(join(directory, 'orca-extension-api-token.json'))
+    const token = statSync(join(directory, 'openkodo-extension-api-token.json'))
     const listed = z
       .object({ web_accessible_resources: z.tuple([z.object({ resources: z.array(z.string()) })]) })
       .parse(readJson(join(directory, 'manifest.json'))).web_accessible_resources[0].resources

@@ -30,25 +30,25 @@ export function renderMobileTasksProjectMissingRepoDrawer(model: ConnectionPrese
   const {
     copiedLinkKey,
     copyTextToClipboard,
-    projectRepoNotInOrca,
-    setProjectRepoNotInOrca,
+    projectRepoNotInOpenKodo,
+    setProjectRepoNotInOpenKodo,
     taskUiReady
   } = model
   return (
     <BottomDrawer
-      visible={taskUiReady && projectRepoNotInOrca != null}
+      visible={taskUiReady && projectRepoNotInOpenKodo != null}
       onClose={() => {
-        setProjectRepoNotInOrca(null)
+        setProjectRepoNotInOpenKodo(null)
       }}
       // Layer above the project detail rendered later in the shared host.
       zIndex={TASK_SECONDARY_DRAWER_Z_INDEX}
     >
-      {projectRepoNotInOrca ? (
+      {projectRepoNotInOpenKodo ? (
         <View>
           <View style={styles.sheetHeader}>
             <Text style={styles.sheetTitle}>
               {translate(
-                'tasks.projectDetailDrawer.repositoryNotInOrca',
+                'tasks.projectDetailDrawer.repositoryNotInOpenKodo',
                 'Repository not in OpenKodo'
               )}
             </Text>
@@ -56,20 +56,20 @@ export function renderMobileTasksProjectMissingRepoDrawer(model: ConnectionPrese
               {translate(
                 'tasks.projectDetailDrawer.addRepositoryFromDesktop',
                 '{{repository}} is not added to OpenKodo. Add this repository from the desktop app, then refresh mobile Tasks.',
-                { repository: `${projectRepoNotInOrca.owner}/${projectRepoNotInOrca.repo}` }
+                { repository: `${projectRepoNotInOpenKodo.owner}/${projectRepoNotInOpenKodo.repo}` }
               )}
             </Text>
           </View>
 
           <ListGroup separatorInset={LIST_LEADING_INSET}>
-            {projectRepoNotInOrca.url ? (
+            {projectRepoNotInOpenKodo.url ? (
               <ListRow
                 key="open"
                 title={translate('tasks.projectDetailDrawer.openInGitHub', 'Open in GitHub')}
                 leading={<ExternalLink size={16} color={colors.textPrimary} />}
                 onPress={() => {
-                  if (projectRepoNotInOrca.url) {
-                    void openExternalLink(projectRepoNotInOrca.url)
+                  if (projectRepoNotInOpenKodo.url) {
+                    void openExternalLink(projectRepoNotInOpenKodo.url)
                   }
                 }}
               />
@@ -78,15 +78,15 @@ export function renderMobileTasksProjectMissingRepoDrawer(model: ConnectionPrese
               key="copy"
               title={
                 copiedLinkKey ===
-                `project-repo:${projectRepoNotInOrca.owner}/${projectRepoNotInOrca.repo}`
+                `project-repo:${projectRepoNotInOpenKodo.owner}/${projectRepoNotInOpenKodo.repo}`
                   ? translate('common.copied', 'Copied')
                   : translate('tasks.projectDetailDrawer.copyRepository', 'Copy repository')
               }
               leading={<Copy size={16} color={colors.textPrimary} />}
               onPress={() =>
                 void copyTextToClipboard(
-                  `project-repo:${projectRepoNotInOrca.owner}/${projectRepoNotInOrca.repo}`,
-                  `${projectRepoNotInOrca.owner}/${projectRepoNotInOrca.repo}`
+                  `project-repo:${projectRepoNotInOpenKodo.owner}/${projectRepoNotInOpenKodo.repo}`,
+                  `${projectRepoNotInOpenKodo.owner}/${projectRepoNotInOpenKodo.repo}`
                 )
               }
             />

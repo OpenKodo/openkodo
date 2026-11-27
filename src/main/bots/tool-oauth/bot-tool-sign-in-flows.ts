@@ -8,11 +8,11 @@ import type {
 } from '../../../shared/bot-tool-sign-in'
 import { commitBotToolOAuth, readBotToolOAuth } from '../bot-tool-credentials'
 import { onBotToolCredentialEnded } from '../bot-tool-credential-ended'
-import { serveLoopbackCallback } from '../../orca-profiles/cloud-auth/loopback-callback'
+import { serveLoopbackCallback } from '../../openkodo-profiles/cloud-auth/loopback-callback'
 import {
-  orcaCallbackOutcome,
-  orcaCallbackReceivedPage
-} from '../../orca-profiles/cloud-auth/profile-cloud-callback-page'
+  openkodoCallbackOutcome,
+  openkodoCallbackReceivedPage
+} from '../../openkodo-profiles/cloud-auth/profile-cloud-callback-page'
 import {
   ATTEMPT_TTL_MS,
   BotToolSignInError,
@@ -112,12 +112,12 @@ export async function completeFlowSignIn(
 /** The page's second part, after the exchange: "Signed in" only once the tokens are stored. */
 function outcomePage(failure: BotToolSignInFailure | null): string {
   return failure
-    ? orcaCallbackOutcome({
+    ? openkodoCallbackOutcome({
         ok: false,
         heading: 'Couldn’t sign in',
         line: FAILED_LINES[failure] ?? 'Return to OpenKodo and try again.'
       })
-    : orcaCallbackOutcome({
+    : openkodoCallbackOutcome({
         ok: true,
         heading: 'Signed in',
         line: 'You can close this tab and return to OpenKodo.'
@@ -229,7 +229,7 @@ export async function serveFlowSignIn(
         ? { kind: 'accept', value: url.searchParams }
         : { kind: 'stray', message: 'Nothing to finish here. Return to OpenKodo.' },
     successPage: {
-      received: orcaCallbackReceivedPage(),
+      received: openkodoCallbackReceivedPage(),
       finish: async (query) => outcomePage(await finish(attempt!, query))
     },
     onListening: async (port) => {

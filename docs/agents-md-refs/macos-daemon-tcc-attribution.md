@@ -6,7 +6,7 @@ up, or before treating a missing executable as a permission denial. Background: 
 
 ## Why a signed copy started by launchd
 
-A daemon forked from the app runs as `Orca Helper` and macOS charges its privacy access to the app
+A daemon forked from the app runs as `OpenKodo Helper` and macOS charges its privacy access to the app
 at its original path. While an update replaces that path, a daemon that first touches a protected
 file is denied, and the denial persists after the new bundle arrives even though System Settings
 still shows the grant. A missing executable alone does not cause it: a daemon that already read
@@ -14,14 +14,14 @@ protected files keeps working after its old executable is deleted.
 
 So a packaged macOS GUI app starts its daemon from a private copy that the updater never touches:
 
-- Each packaged macOS app ships a signed helper, `Contents/Helpers/Orca Agents.app` (about
+- Each packaged macOS app ships a signed helper, `Contents/Helpers/OpenKodo Agents.app` (about
   124 MiB): the pinned Node from `src/shared/node-runtime/node-runtime-pin.ts` as its main executable, the
   daemon's `out/main` JS and that slice's node-pty.
   `config/scripts/macos/terminal-host-bundle/macos-terminal-host-bundle.cjs`
   builds and signs it in `afterPack`, boots it through one PTY round trip, and fails the build on any
   layout, Info.plist, OS floor, architecture or signature drift.
 - `macos-daemon-bundle.ts` keeps one copy per helper build, named by the helper's CDHash, at
-  `userData/daemon-host/macos/terminal-host-<cdhash>/app.noindex/Orca Agents.app`. The helper
+  `userData/daemon-host/macos/terminal-host-<cdhash>/app.noindex/OpenKodo Agents.app`. The helper
   is read from the bundle the running main process executes from, never the whole app. A present
   copy is reused as is. Otherwise the helper is cloned (APFS clone, regular copy otherwise) into a
   `.staging-<pid>-*` sibling, verified once with
@@ -29,7 +29,7 @@ So a packaged macOS GUI app starts its daemon from a private copy that the updat
   losing that rename to another publisher is fine. An app without the helper falls back to the
   fork.
 - `macos-daemon-launchd.ts` runs the copy's Node on the copy's `daemon-entry.js` as a
-  non-persistent launchd job, so the daemon has Orca's own identity rather than the UI process's
+  non-persistent launchd job, so the daemon has OpenKodo's own identity rather than the UI process's
   replaceable path. The label is fixed per profile and protocol
   (`dev.openkodo.terminal.<profile hash>.v<protocol>`). Before bootstrap a stopped job with
   that label is booted out. A running job gets a bounded wait for shutdown and launchd retirement;
@@ -51,13 +51,13 @@ fork.
 
 ## Why the helper is `dev.openkodo.app`
 
-TCC records grants against the designated requirement, which for Orca is the identifier plus team.
+TCC records grants against the designated requirement, which for OpenKodo is the identifier plus team.
 Signing the helper with the app's own identifier lets it inherit every existing grant, including Full
 Disk Access, which a user can only add by hand. A distinct identifier would be a new client: new
 folder prompts naming it, and a new Full Disk Access row for every user.
 
-The helper's bundle, executable and display name are `Orca Agents`; its identifier, signing team
-and designated requirement still match Orca.app. This names the existing terminal-agent process
+The helper's bundle, executable and display name are `OpenKodo Agents`; its identifier, signing team
+and designated requirement still match OpenKodo.app. This names the existing terminal-agent process
 without changing its privacy client. Supported local macOS native chat providers also start
 under the independent host when it supports provider spawning and its executable can be resolved:
 the host starts the app's native provider owner (`openkodo-provider-exec`) and connects every owner
@@ -79,7 +79,7 @@ it cannot predict access to other folders a tool might later open or a grant rev
 The helper's Node declares `LC_BUILD_VERSION minos 13.5`, which is also the helper's
 `LSMinimumSystemVersion` and `NODE_RUNTIME_DARWIN_MINIMUM_OS`. Packaging fails if a Node pin bump
 changes it. Below 13.5 the launcher returns before copying and the fork runs, so those Macs keep the
-pre-#25848 behaviour. Orca itself needs macOS 13.4, so only 13.4.x Macs take that path.
+pre-#25848 behaviour. OpenKodo itself needs macOS 13.4, so only 13.4.x Macs take that path.
 
 ## First launch
 
@@ -89,8 +89,8 @@ the daemon's `/usr/bin/login` preflight can time out, and that one shell is spaw
 
 ## Security
 
-The helper is a signed "run any JS as Orca" binary: it honours `NODE_OPTIONS` and any script path,
-and Electron's fuses do not apply to it. Orca's own binary already allows the same, because its
+The helper is a signed "run any JS as OpenKodo" binary: it honours `NODE_OPTIONS` and any script path,
+and Electron's fuses do not apply to it. OpenKodo's own binary already allows the same, because its
 RunAsNode fuse is enabled, so the helper adds no new exposure.
 
 ## Fallback states
@@ -124,10 +124,10 @@ may still be copying.
 
 The helper declares no links, documents or types, has a lower `CFBundleVersion` than the app and
 `LSUIElement`, and was not registered in the signed spike, nested or copied. Copies sit in a
-`.noindex` folder, which Spotlight skips, and Orca never registers them. Starting the daemon through
+`.noindex` folder, which Spotlight skips, and OpenKodo never registers them. Starting the daemon through
 launchd leaves no record, but another process running the copy's executable directly can make
 macOS register it, so retirement runs `lsregister -u` on the bundle before deleting it.
-Retirement recognizes both `Orca Agents.app` and the legacy `Orca Terminal Host.app` inside unused
+Retirement recognizes both `OpenKodo Agents.app` and the legacy `OpenKodo Terminal Host.app` inside unused
 copies, so changing the current bundle name does not leave old LaunchServices registrations behind.
 
 Do not register copies explicitly (`lsregister -f` or `LSRegisterURL`).
@@ -136,9 +136,9 @@ Do not register copies explicitly (`lsregister -f` or `LSRegisterURL`).
 
 Terminal processes' responsible process is the helper, and macOS Local Network privacy maps a
 responsible process to an app by its main executable's `LC_UUID` (TN3179). Stock Node's UUID is
-shared by every install of that Node build, so with it Orca's terminals and any other program on
+shared by every install of that Node build, so with it OpenKodo's terminals and any other program on
 that Node shared Local Network decisions in both directions, and LAN access was blocked while System
-Settings showed Orca allowed (#21988).
+Settings showed OpenKodo allowed (#21988).
 
 Local Network also caches one UUID per bundle id, and the helper shares `dev.openkodo.app` with
 the app. A helper UUID of its own keeps replacing the app's cached UUID and back: in testing it
@@ -173,4 +173,4 @@ new terminal until a manual Restart. Node/SSH hosts do not perform GUI-service r
 Running old daemons keep their terminals; settings reports app and terminal-host Full Disk Access
 separately, and a denied terminal is recovered by closing it or restarting the daemon. The packaging
 hook also gives the main bundle and every Helper the Desktop, Documents and Downloads descriptions,
-because the fork fallback still hosts terminals in `Orca Helper`.
+because the fork fallback still hosts terminals in `OpenKodo Helper`.

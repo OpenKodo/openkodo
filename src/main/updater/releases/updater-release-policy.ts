@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from 'node:util'
-import type { OrcaCloudTeamPolicy } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import type { OpenKodoCloudTeamPolicy } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import type { UpdateCheckVariant } from '../lifecycle/updater-types'
 import { compareVersions, isPrereleaseVersion, isValidVersion } from './updater-fallback'
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../../shared/updater/release-channel'
 
 export type TeamUpdatePolicy = Pick<
-  OrcaCloudTeamPolicy,
+  OpenKodoCloudTeamPolicy,
   | 'updateChannel'
   | 'updateDelayDays'
   | 'minimumVersion'

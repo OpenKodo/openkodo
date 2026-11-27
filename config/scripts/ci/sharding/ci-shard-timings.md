@@ -237,8 +237,8 @@ lanes or multiple attempts. Then run:
 node config/scripts/ci/sharding/ci-shard-timing-import.mjs LOG_DIRECTORY UNIT_RUN_ID E2E_RUN_ID config/scripts/ci/sharding/ci-shard-timings.json
 ```
 
-The initial source logs are in `/tmp/orca-ci-shard-logs`; two were reused from
-`/tmp/orca-ci-audit`, and the remaining twenty were fetched read-only. Reimporting
+The initial source logs are in `/tmp/openkodo-ci-shard-logs`; two were reused from
+`/tmp/openkodo-ci-audit`, and the remaining twenty were fetched read-only. Reimporting
 those logs reproduced the original baseline byte-for-byte. Review file-count and
 load projections before adopting a new baseline; no network access is needed to
 plan or run shards.

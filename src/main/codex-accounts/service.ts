@@ -1,6 +1,6 @@
 import { execFileSync, spawn } from 'node:child_process'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
-import { assertWslDistroAllowed } from '@orca/process-host/wsl-distro-allowlist'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
+import { assertWslDistroAllowed } from '@openkodo/process-host/wsl-distro-allowlist'
 import type { WindowsHostInteractiveLoginSpawn } from '../providers/shell-launch/windows/windows-interactive-login-spawn'
 import type {
   CodexManagedAccount,
@@ -183,7 +183,7 @@ export class CodexAccountService {
     this.pendingLoginUrlListeners.add(listener)
   }
 
-  /** The desktop supplies a WSL link opener; orcad leaves it unset. */
+  /** The desktop supplies a WSL link opener; openkodod leaves it unset. */
   setWslLoginUrlOpener(opener: ((url: string) => void) | null): void {
     this.openWslLoginUrl = opener
   }

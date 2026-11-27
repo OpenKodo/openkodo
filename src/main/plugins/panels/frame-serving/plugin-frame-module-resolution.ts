@@ -12,8 +12,8 @@ export type PluginModuleSpecifierResolution =
 /** Whether a plugin-relative `/`-separated path names a file of the plugin. */
 export type PluginFileExists = (relativePath: string) => Promise<boolean>
 
-const isOrcaSpecifier = (specifier: string): boolean =>
-  specifier === 'orca' || specifier.startsWith('orca/')
+const isOpenKodoSpecifier = (specifier: string): boolean =>
+  specifier === 'openkodo' || specifier.startsWith('openkodo/')
 
 // Why kept: URLs are not bare names; the guest CSP decides whether they load.
 const isUrlSpecifier = (specifier: string): boolean => /^[a-z][a-z0-9+.-]*:/i.test(specifier)
@@ -25,7 +25,7 @@ function relativeSpecifier(fromPath: string, toPath: string): string {
 }
 
 /**
- * Maps one import of `fromPath` to an exact plugin file. `orca` and URLs are left for the import
+ * Maps one import of `fromPath` to an exact plugin file. `openkodo` and URLs are left for the import
  * map and CSP; any other bare name is refused, because there is no bundler to provide it.
  */
 export async function resolvePluginModuleSpecifier(
@@ -33,13 +33,13 @@ export async function resolvePluginModuleSpecifier(
   specifier: string,
   exists: PluginFileExists
 ): Promise<PluginModuleSpecifierResolution> {
-  if (isOrcaSpecifier(specifier) || isUrlSpecifier(specifier)) {
+  if (isOpenKodoSpecifier(specifier) || isUrlSpecifier(specifier)) {
     return { kind: 'keep' }
   }
   if (!specifier.startsWith('./') && !specifier.startsWith('../') && !specifier.startsWith('/')) {
     return {
       kind: 'refuse',
-      reason: `cannot import "${specifier}": plugins load without a bundler, so only "orca" and relative files can be imported. Copy the package's ESM files into the plugin and import them by a relative path.`
+      reason: `cannot import "${specifier}": plugins load without a bundler, so only "openkodo" and relative files can be imported. Copy the package's ESM files into the plugin and import them by a relative path.`
     }
   }
   const [pathPart] = specifier.split(/[?#]/, 1)

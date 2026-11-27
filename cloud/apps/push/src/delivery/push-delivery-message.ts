@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto'
-import type { PushNotification } from '@orca-cloud/push-contract/send-messages'
+import type { PushNotification } from '@openkodo-cloud/push-contract/send-messages'
 
-export type PushOrcaData = {
+export type PushOpenKodoData = {
   kind?: 'alert' | 'dismiss' | 'badge'
   hostFingerprint: string
   worktreeId?: string
@@ -24,7 +24,7 @@ export type PushDelivery = {
   title: string
   body: string
   collapseId: string
-  orca: PushOrcaData
+  openkodo: PushOpenKodoData
 }
 
 export function collapseIdFor(notification: PushNotification, hostFingerprint: string): string {
@@ -52,7 +52,7 @@ export function buildPushDelivery(input: {
     title: notification.title,
     body: notification.body,
     collapseId: collapseIdFor(notification, hostFingerprint),
-    orca: {
+    openkodo: {
       ...(notification.kind ? { kind: notification.kind } : {}),
       hostFingerprint,
       ...(notification.paneKey === undefined ? {} : { paneKey: notification.paneKey }),
@@ -71,9 +71,9 @@ export function buildPushDelivery(input: {
   }
 }
 
-export function orcaDataStrings(orca: PushOrcaData): Record<string, string> {
+export function openkodoDataStrings(openkodo: PushOpenKodoData): Record<string, string> {
   return Object.fromEntries(
-    Object.entries(orca)
+    Object.entries(openkodo)
       .filter(([, value]) => value !== undefined && value !== null)
       .map(([key, value]) => [
         key,

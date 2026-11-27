@@ -1,7 +1,7 @@
-import { OrcaRuntimeWithRecordPtyWorktree } from '../identity/pty-worktree-record'
+import { OpenKodoRuntimeWithRecordPtyWorktree } from '../identity/pty-worktree-record'
 import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree-path-identity'
 
-export abstract class OrcaRuntimeWithRefreshPtyWorktreeRecordsFromController extends OrcaRuntimeWithRecordPtyWorktree {
+export abstract class OpenKodoRuntimeWithRefreshPtyWorktreeRecordsFromController extends OpenKodoRuntimeWithRecordPtyWorktree {
   protected abstract refreshFloatingWorkspacePtyLiveness(): Set<string> | null
 
   /** Synchronizes PTY tracking records with running daemon sessions, querying their foreground agent states. */

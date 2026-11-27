@@ -135,7 +135,7 @@ export function getLegendItems(provider: 'claude' | 'codex', t: Translate = tran
   ]
 }
 
-export function OrcaLogo(): React.JSX.Element {
+export function OpenKodoLogo(): React.JSX.Element {
   return (
     <svg
       width={26}

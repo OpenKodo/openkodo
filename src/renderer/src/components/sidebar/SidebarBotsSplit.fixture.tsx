@@ -93,7 +93,7 @@ function splitAt(sidebarBotsHeight: number | null, { folded = false } = {}) {
           id: owner.folderWorkspaceId,
           projectGroupId: 'bots',
           name: owner.name,
-          folderPath: `/home/me/.orca/bots/${owner.folder}`
+          folderPath: `/home/me/.openkodo/bots/${owner.folder}`
         })
       )
     },
@@ -135,7 +135,7 @@ export const overflowWithWorkspaces = defineFixture({
         id: owner.folderWorkspaceId,
         projectGroupId: 'bots',
         name: owner.name,
-        folderPath: `/home/me/.orca/bots/${owner.folder}`
+        folderPath: `/home/me/.openkodo/bots/${owner.folder}`
       })
     ),
     worktreesByRepo: { 'repo-1': BUILDER_WORKSPACES },

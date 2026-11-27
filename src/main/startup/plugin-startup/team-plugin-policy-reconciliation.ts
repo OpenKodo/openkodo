@@ -2,7 +2,7 @@ import {
   getActiveTeamCapabilities,
   getActiveTeamProfileScope,
   onTeamCapabilitiesInvalidated
-} from '../../orca-profiles/cloud-auth/active-team-capabilities'
+} from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
 import type { PluginMarketplaceService } from '../../plugins/catalog/plugin-marketplace-service'
 import type { PluginMarketplaceInstaller } from '../../plugins/catalog/plugin-marketplace-installer'
 import type { PluginService } from '../../plugins/plugin-service'
@@ -11,7 +11,7 @@ import { BrowserWindow } from 'electron'
 import { recordRequiredPluginFailures } from '../../plugins/catalog/required-plugin-failures'
 import { applyPluginConsent } from '../../plugins/activation/plugin-enablement'
 import type { Store } from '../../persistence/loading-store/store'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import {
   createStaleMarketplaceRefresh,
   MISSING_SNAPSHOT_RETRY_MS

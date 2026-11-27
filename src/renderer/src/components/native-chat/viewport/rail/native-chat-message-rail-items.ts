@@ -67,7 +67,7 @@ export function buildNativeChatRailItems(
     if (
       slot.kind !== 'message' ||
       slot.message.role !== 'user' ||
-      slot.message.orcaNotice !== undefined ||
+      slot.message.openkodoNotice !== undefined ||
       slot.message.from !== undefined ||
       slot.message.stoppedBeforeStart === true
     ) {

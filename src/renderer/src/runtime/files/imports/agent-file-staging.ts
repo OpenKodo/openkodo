@@ -44,7 +44,7 @@ export function resolveAgentStagingWorktreePath(
   return worktree?.path ?? (catalogHostId === 'local' ? fallbackCwd : null) ?? null
 }
 
-/** A worktree on a paired or managed server, where an agent can read `.orca/drops`. */
+/** A worktree on a paired or managed server, where an agent can read `.openkodo/drops`. */
 export type AgentFileStagingTarget = {
   runtimeEnvironmentId: string
   worktreeId: string
@@ -60,7 +60,7 @@ export type AgentFileStagingResult = {
   failed: { sourcePath: string; reason: string }[]
 }
 
-/** Copy client files into the worktree's `.orca/drops` on the agent's host; returns paths that host can read. */
+/** Copy client files into the worktree's `.openkodo/drops` on the agent's host; returns paths that host can read. */
 export async function stageClientFilesForAgent(
   target: AgentFileStagingTarget,
   sourcePaths: string[],

@@ -103,7 +103,7 @@ export const ORCHESTRATION_ASK_METHODS = [
           {
             address: from,
             paneKey: paneKey ?? null,
-            orcaSessionId: orchestrationCaller?.orcaSessionId ?? null,
+            openkodoSessionId: orchestrationCaller?.openkodoSessionId ?? null,
             // A restart-reissued reporter proves its process by the same recovered incarnation.
             processIncarnation: () => reporter.processIncarnation() ?? undefined
           },

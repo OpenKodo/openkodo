@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from 'node:util'
-import { getActiveTeamProfileScope } from '../../orca-profiles/cloud-auth/active-team-capabilities'
-import type { OrcaCloudSessionIdentity } from '../../orca-profiles/cloud-session/profile-cloud-session-store'
+import { getActiveTeamProfileScope } from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
+import type { OpenKodoCloudSessionIdentity } from '../../openkodo-profiles/cloud-session/profile-cloud-session-store'
 
 type TeamProfile = NonNullable<ReturnType<typeof getActiveTeamProfileScope>>
 
@@ -50,7 +50,7 @@ export function takeRequiredPluginFailures(): { pluginKeys: readonly string[]; n
 }
 
 export function getRequiredPluginFailureHeader(
-  identity: OrcaCloudSessionIdentity | undefined
+  identity: OpenKodoCloudSessionIdentity | undefined
 ): string | undefined {
   const active = activeReport()
   if (

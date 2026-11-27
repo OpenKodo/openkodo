@@ -2,7 +2,7 @@
 // file watches, and starts again on the next request.
 import { applyContentChanges } from './lsp-document-text.mjs'
 
-const SESSION_ID_PREFIX = 'orca-session-'
+const SESSION_ID_PREFIX = 'openkodo-session-'
 const WATCHED_FILES = 'workspace/didChangeWatchedFiles'
 const SHUTDOWN_GRACE_MS = 5000
 // Matches the plugin's startupTimeout: a restart that hasn't initialized by then is abandoned.

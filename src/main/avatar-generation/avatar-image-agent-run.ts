@@ -220,7 +220,7 @@ export async function runAvatarImageAgent(input: {
   if (signal.aborted) {
     return { ok: false, error: 'canceled' }
   }
-  const cwd = await mkdtemp(join(tmpdir(), 'orca-avatar-'))
+  const cwd = await mkdtemp(join(tmpdir(), 'openkodo-avatar-'))
   let cleanup: string[] = []
   try {
     if (agent === 'grok') {

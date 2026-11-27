@@ -4,7 +4,7 @@ import {
   serializeBudgetedMobileSnapshot
 } from './terminal-snapshot-publication'
 import { getOutputAfterSnapshotSeq } from './terminal-stream-replay'
-import { isMovedPaneHistorySessionId } from '../../../../../shared/orcad-migration/orcad-migration-terminal-history'
+import { isMovedPaneHistorySessionId } from '../../../../../shared/openkodod-migration/openkodod-migration-terminal-history'
 import {
   MOBILE_SUBSCRIBE_SCROLLBACK_ROWS,
   MOVED_PANE_SUBSCRIBE_SCROLLBACK_ROWS

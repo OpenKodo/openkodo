@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Symlink orca-dev into /usr/local/bin after build:cli for global dev access.
+// Symlink openkodo-dev into /usr/local/bin after build:cli for global dev access.
 import { existsSync, lstatSync, readlinkSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import path from 'node:path'
@@ -13,7 +13,7 @@ const commandPath =
     : null
 
 if (!commandPath) {
-  console.log('[orca-dev] Skipping global symlink (unsupported platform).')
+  console.log('[openkodo-dev] Skipping global symlink (unsupported platform).')
   process.exit(0)
 }
 
@@ -39,7 +39,7 @@ function isOwnedByUs(target) {
 // existsSync follows the link, so a link to a removed checkout reads as absent and `ln` then fails.
 if (isDanglingSymlink(commandPath)) {
   console.error(
-    `[orca-dev] ${commandPath} points to ${readlinkSync(commandPath)}, which no longer exists, so orca-dev runs nothing. Point it at this checkout with:\n` +
+    `[openkodo-dev] ${commandPath} points to ${readlinkSync(commandPath)}, which no longer exists, so openkodo-dev runs nothing. Point it at this checkout with:\n` +
       `  sudo ln -sf ${source} ${commandPath}`
   )
   process.exit(0)
@@ -47,21 +47,21 @@ if (isDanglingSymlink(commandPath)) {
 
 if (existsSync(commandPath)) {
   if (isOwnedByUs(commandPath)) {
-    console.log(`[orca-dev] ${commandPath} already points to dev CLI.`)
+    console.log(`[openkodo-dev] ${commandPath} already points to dev CLI.`)
     process.exit(0)
   }
   console.error(
-    `[orca-dev] ${commandPath} exists but is not our symlink. Remove it manually if you want the dev CLI installed globally.`
+    `[openkodo-dev] ${commandPath} exists but is not our symlink. Remove it manually if you want the dev CLI installed globally.`
   )
   process.exit(0)
 }
 
 try {
   execFileSync('ln', ['-s', source, commandPath], { stdio: 'inherit' })
-  console.log(`[orca-dev] Symlinked ${commandPath} → ${source}`)
+  console.log(`[openkodo-dev] Symlinked ${commandPath} → ${source}`)
 } catch {
   console.log(
-    `[orca-dev] Could not create ${commandPath} (permission denied). Run once with:\n` +
+    `[openkodo-dev] Could not create ${commandPath} (permission denied). Run once with:\n` +
       `  sudo ln -s ${source} ${commandPath}`
   )
 }

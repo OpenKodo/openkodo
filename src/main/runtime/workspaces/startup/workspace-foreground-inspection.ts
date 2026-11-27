@@ -1,5 +1,5 @@
 import type { RuntimePtyWorktreeRecord } from '../../terminal/records/runtime-terminal-state-records'
-import { OrcaRuntimeWithListManagedWorktrees } from '../managed-workspace-operations'
+import { OpenKodoRuntimeWithListManagedWorktrees } from '../managed-workspace-operations'
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
 import {
   describeLaunchedAgentHost,
@@ -12,7 +12,7 @@ import {
 } from '../../terminal/wait/launched-agent-foreground'
 import { reattachedRestTitleAgent } from '../../terminal/wait/reattached-rest-title'
 
-export abstract class OrcaRuntimeWithForegroundInspection extends OrcaRuntimeWithListManagedWorktrees {
+export abstract class OpenKodoRuntimeWithForegroundInspection extends OpenKodoRuntimeWithListManagedWorktrees {
   launchedAgentTerminalIdentity(ptyId: string): unknown {
     return this.ptysById.get(ptyId)
   }

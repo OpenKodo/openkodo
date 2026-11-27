@@ -1,11 +1,11 @@
 {
   "extraKnownMarketplaces": {
-    "orca-agent-plugins": {
+    "openkodo-agent-plugins": {
       "source": { "source": "directory", "path": "./config/agent-plugins" }
     }
   },
   "enabledPlugins": {
-    "orca-typescript@orca-agent-plugins": true,
+    "openkodo-typescript@openkodo-agent-plugins": true,
     "typescript-lsp@claude-plugins-official": false
   }
 }

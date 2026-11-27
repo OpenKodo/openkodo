@@ -96,7 +96,7 @@ export function checkpointOffMainThread(orchestrationDb: OrchestrationDb): () =>
   let worker: ReturnType<typeof spawnWorkerThread>
   try {
     worker = spawnWorkerThread(checkpointWorkerSource, {
-      name: 'orca-orchestration-checkpoint',
+      name: 'openkodo-orchestration-checkpoint',
       eval: true,
       workerData: {
         filename,

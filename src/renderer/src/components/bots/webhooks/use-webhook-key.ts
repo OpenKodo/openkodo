@@ -25,8 +25,8 @@ export type WebhookKeyControls = {
 /** Everything a shown key belongs to; the key fields remount, dropping it, when this changes. */
 export function useWebhookKeyScope(target: RuntimeClientTarget, summary: WebhookSummary): string {
   const account = useAppStore((s) =>
-    s.orcaProfileAuthStatus
-      ? `${s.orcaProfileAuthStatus.activeProfileId}:${s.orcaProfileAuthStatus.state}`
+    s.openkodoProfileAuthStatus
+      ? `${s.openkodoProfileAuthStatus.activeProfileId}:${s.openkodoProfileAuthStatus.state}`
       : 'signed-out'
   )
   const host = target.kind === 'local' ? 'local' : `env:${target.environmentId}`

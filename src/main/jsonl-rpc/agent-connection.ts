@@ -1,5 +1,5 @@
 import type { ProviderProcessSpawner } from '../provider-process/provider-process-spawn'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import {
   providerDiagnostic,
   withProviderDiagnostic

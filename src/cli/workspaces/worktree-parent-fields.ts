@@ -24,7 +24,7 @@ import {
 const CALLER_PARENT_INFERENCE_BUDGET_MS = 3_000
 
 /** This machine's own OpenKodo, where a caller-relative parent (active, current, this terminal) lives. */
-export function callerOrcaClient(client: RuntimeClient): RuntimeClient {
+export function callerOpenKodoClient(client: RuntimeClient): RuntimeClient {
   return client.isRemote ? new RuntimeClient(client.userDataPath, undefined, null, null) : client
 }
 

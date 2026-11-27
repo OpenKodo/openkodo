@@ -201,7 +201,7 @@ jobs:
     timeout-minutes: 15
     environment:
       name: docs-production
-      url: https://orca.dev/docs
+      url: https://openkodo.dev/docs
     env:
       VERCEL_TELEMETRY_DISABLED: '1'
     steps:

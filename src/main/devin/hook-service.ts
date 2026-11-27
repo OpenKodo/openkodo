@@ -31,7 +31,7 @@ import {
 import {
   mergeHookInstallDetail,
   parseDevinHooksConfigText,
-  readConfigFromOrcaOverlapDetail,
+  readConfigFromOpenKodoOverlapDetail,
   readDevinHooksConfig,
   readDevinHooksSource,
   serializeDevinHooksConfig
@@ -135,7 +135,7 @@ export class DevinHookService {
       state,
       configPath,
       managedHooksPresent,
-      detail: mergeHookInstallDetail(detail, readConfigFromOrcaOverlapDetail(config))
+      detail: mergeHookInstallDetail(detail, readConfigFromOpenKodoOverlapDetail(config))
     }
   }
 

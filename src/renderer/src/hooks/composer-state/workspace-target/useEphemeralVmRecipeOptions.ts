@@ -3,7 +3,7 @@ import {
   LOCAL_EXECUTION_HOST_ID,
   type ExecutionHostId
 } from '../../../../../shared/execution-host/execution-host'
-import type { OrcaVmRecipe } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { EphemeralVmFailure } from '../../../../../shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-failure-copy'
 import { ephemeralVmErrorText } from '@/runtime/ephemeral-vm/ephemeral-vm-error-copy'
 import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
@@ -19,12 +19,12 @@ type EphemeralVmRecipeOptionsArgs = {
 }
 
 export function useEphemeralVmRecipeOptions(args: EphemeralVmRecipeOptionsArgs): {
-  recipes: OrcaVmRecipe[]
+  recipes: OpenKodoVmRecipe[]
   selectedRecipeId: string | null
   setSelectedRecipeId: (recipeId: string | null) => void
   error: string | null
 } {
-  const [recipes, setRecipes] = useState<OrcaVmRecipe[]>([])
+  const [recipes, setRecipes] = useState<OpenKodoVmRecipe[]>([])
   const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null)
   // Failures stay coded until render so a language switch relocalizes them.
   const [errors, setErrors] = useState<EphemeralVmFailure[]>([])

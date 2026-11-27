@@ -13,7 +13,7 @@ import { useTranslate } from '@/i18n/use-translate'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { matchesSettingsSearch } from '../search/settings-search'
 import { useAppStore } from '../../../store/index'
-import { OrcaUninstallSection } from './uninstall/OrcaUninstallSection'
+import { OpenKodoUninstallSection } from './uninstall/OpenKodoUninstallSection'
 
 type AdvancedPaneProps = {
   settings: GlobalSettings
@@ -153,7 +153,7 @@ export function AdvancedPane({ settings, updateSettings }: AdvancedPaneProps): R
             : 'hidden'
         }
       >
-        <OrcaUninstallSection />
+        <OpenKodoUninstallSection />
       </SettingsGroup>
     </div>
   )

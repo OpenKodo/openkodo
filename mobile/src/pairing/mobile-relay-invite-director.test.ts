@@ -18,8 +18,8 @@ class FakeSocket {
 
 const relay = {
   v: 1 as const,
-  directorUrl: 'https://relay.onorca.dev',
-  cellUrl: 'https://relay-c1.onorca.dev',
+  directorUrl: 'https://relay.onopenkodo.dev',
+  cellUrl: 'https://relay-c1.onopenkodo.dev',
   assignmentEpoch: 7,
   relayHostId: 'AbCdEf0123_-xyZ9',
   inviteToken: 'abcdefghijklmnopqrstuvwxyzABCDEFGH012345678',
@@ -39,7 +39,7 @@ describe('pairing invite director resolution', () => {
       }
     })
     socket.onopen?.()
-    expect(url).toBe('wss://relay.onorca.dev/v1/connect/AbCdEf0123_-xyZ9')
+    expect(url).toBe('wss://relay.onopenkodo.dev/v1/connect/AbCdEf0123_-xyZ9')
     expect(JSON.parse(socket.sent[0]!)).toEqual({
       type: 'relay-auth',
       v: 1,
@@ -50,13 +50,13 @@ describe('pairing invite director resolution', () => {
       data: JSON.stringify({
         type: 'relay-moved',
         v: 1,
-        cellUrl: 'https://relay-c2.onorca.dev',
+        cellUrl: 'https://relay-c2.onopenkodo.dev',
         assignmentEpoch: 8
       })
     })
 
     await expect(resolving).resolves.toMatchObject({
-      cellUrl: 'https://relay-c2.onorca.dev',
+      cellUrl: 'https://relay-c2.onopenkodo.dev',
       assignmentEpoch: 8
     })
   })
@@ -71,7 +71,7 @@ describe('pairing invite director resolution', () => {
       data: JSON.stringify({
         type: 'relay-moved',
         v: 1,
-        cellUrl: 'https://relay-c2.onorca.dev',
+        cellUrl: 'https://relay-c2.onopenkodo.dev',
         assignmentEpoch: 8,
         targetFromCell: true
       })

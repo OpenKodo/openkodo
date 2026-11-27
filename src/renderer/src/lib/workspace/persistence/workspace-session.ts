@@ -20,7 +20,7 @@ import { pickCloseIntents, type CloseIntentFields } from './workspace-session-cl
 import { buildSanitizedTabsByWorktree } from './workspace-session-sanitized-tabs'
 import { withStrandedEditorDrafts, type StrandedEditorDrafts } from './stranded-editor-drafts'
 
-/** Why (issue #1158): require both flags so a hydration failure can't overwrite orca-data.json with empty error-path state. */
+/** Why (issue #1158): require both flags so a hydration failure can't overwrite openkodo-data.json with empty error-path state. */
 export function shouldPersistWorkspaceSession(
   state: Pick<AppState, 'workspaceSessionReady' | 'hydrationSucceeded'>
 ): boolean {

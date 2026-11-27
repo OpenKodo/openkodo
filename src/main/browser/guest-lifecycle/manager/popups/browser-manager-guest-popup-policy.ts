@@ -177,7 +177,7 @@ export abstract class BrowserManagerGuestPopupPolicy extends BrowserManagerNavig
     }
     const agentOpened = observed?.byAgent !== false && this.isAgentLeadingGuest(guest.id)
     if (
-      this.openLinkInOrcaTab(
+      this.openLinkInOpenKodoTab(
         ownerContext.browserTabId,
         newTabUrl,
         request.disposition !== 'background-tab',
@@ -186,7 +186,7 @@ export abstract class BrowserManagerGuestPopupPolicy extends BrowserManagerNavig
     ) {
       this.forwardOrQueuePopupEvent(guest.id, {
         origin: safeOrigin(newTabUrl),
-        action: 'opened-in-orca'
+        action: 'opened-in-openkodo'
       })
     }
     // A vanished renderer must not turn new-tab intent into a native popup.
@@ -296,7 +296,7 @@ export abstract class BrowserManagerGuestPopupPolicy extends BrowserManagerNavig
     const opened = Boolean(options.webContents || options.nativeWindow)
     this.forwardOrQueuePopupEvent(openerGuest.id, {
       origin: safeOrigin(targetUrl),
-      action: opened ? 'opened-in-orca' : 'blocked'
+      action: opened ? 'opened-in-openkodo' : 'blocked'
     })
     const ownerTabId = this.resolveBrowserTabIdForGuestWebContentsId(openerGuest.id)
     if (opened && ownerTabId) {

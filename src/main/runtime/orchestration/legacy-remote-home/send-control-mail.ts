@@ -1,8 +1,8 @@
 import type { MessagePriority, MessageType } from '../db/orchestration-records'
 import type { OrchestrationDb } from '../db/orchestration-db'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { OrchestrationError } from '../orchestration-error'
-import { callerMailProvenance } from '../db/messages/message-orca-provenance'
+import { callerMailProvenance } from '../db/messages/message-openkodo-provenance'
 import { pairedServerSendRefusal } from '../paired-server-follow-up-refusal'
 import { encodeFederatedControlMessage } from '../legacy-remote/federation-control-message'
 import { ORCHESTRATION_FEDERATION_CONTROL_MAIL_PROTOCOL_VERSION } from '../../../../shared/orchestration/orchestration-runtime-capabilities'
@@ -17,7 +17,7 @@ type SendReceipt = <T extends object>(receipt: T) => T & { warnings?: SendRecipi
 /** Delivers coordinator control mail to a federated worker when `to` names its exact Dispatch. */
 export function sendFederatedControlMail(args: {
   params: SendParamsInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   from: string
   to: string

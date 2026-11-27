@@ -148,7 +148,7 @@ function settledView(
           })
         : t('components.managed-runtime.reinstall', 'Reinstall {{agent}}', { agent })
     return view(
-      t('components.managed-runtime.installedByOrca', 'Installed by OpenKodo · {{version}}', {
+      t('components.managed-runtime.installedByOpenKodo', 'Installed by OpenKodo · {{version}}', {
         version: state.installedVersion
       }),
       null,
@@ -167,7 +167,7 @@ function settledView(
         ? reinstall
         : null
     const status = t(
-      'components.managed-runtime.installedByOrca',
+      'components.managed-runtime.installedByOpenKodo',
       'Installed by OpenKodo · {{version}}',
       {
         version: state.installedVersion

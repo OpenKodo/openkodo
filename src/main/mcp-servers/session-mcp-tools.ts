@@ -52,7 +52,7 @@ export class SessionMcpTools {
 
   /**
    * A bot's launch always gets its token, whichever agent runs it: its tools present it to the
-   * relay, and the `orca` calls the session makes name the bot by it. Any other session gets the
+   * relay, and the `openkodo` calls the session makes name the bot by it. Any other session gets the
    * host's token, which names no bot, and only when one of its servers goes through the relay. On
    * a shared name the bot's own server wins over the host list's. A terminal's launch (`terminal`)
    * always names the token by its variable and carries it in env: its argv lands in shell history.

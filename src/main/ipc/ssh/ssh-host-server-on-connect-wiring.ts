@@ -1,39 +1,39 @@
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import {
-  getManagedOrcadFenceEnvironmentId,
-  managedOrcadServerName
-} from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
+  getManagedOpenkododFenceEnvironmentId,
+  managedOpenkododServerName
+} from '../../../shared/remote-runtime/ssh/managed-openkodod-ssh-owner'
 import { listEnvironments } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
-import { findOrcadMigrationSourceCutoverForTarget } from '../../persistence/migrating-orcad-catalog/cutover-journals/orcad-migration-cutover-journal'
-import { abandonOrcadConversion } from '../../managed-server/migration/cutover/orcad-conversion-abandon'
-import { retainOrcadMigrationSource } from '../../persistence/migrating-orcad-catalog/retained-source/orcad-migration-source-retention'
-import { enableMovedOrcadAutomationsForTarget } from '../../persistence/migrating-orcad-catalog/retained-source/orcad-migration-moved-automations'
-import { hasOrcadTemplate } from '../../orcad/artifact-slots/orcad-artifact-materializer'
-import { isOrcadHostUnavailableFixableOnHost } from '../../orcad/diagnostics/orcad-host-unavailable'
+import { findOpenkododMigrationSourceCutoverForTarget } from '../../persistence/migrating-openkodod-catalog/cutover-journals/openkodod-migration-cutover-journal'
+import { abandonOpenkododConversion } from '../../managed-server/migration/cutover/openkodod-conversion-abandon'
+import { retainOpenkododMigrationSource } from '../../persistence/migrating-openkodod-catalog/retained-source/openkodod-migration-source-retention'
+import { enableMovedOpenkododAutomationsForTarget } from '../../persistence/migrating-openkodod-catalog/retained-source/openkodod-migration-moved-automations'
+import { hasOpenkododTemplate } from '../../openkodod/artifact-slots/openkodod-artifact-materializer'
+import { isOpenkododHostUnavailableFixableOnHost } from '../../openkodod/diagnostics/openkodod-host-unavailable'
 import { managedServerUpdateDeps } from '../../ssh/host-server/managed-server-update-deps'
-import { ensureOrcadManagedTunnel } from '../../managed-server/lifecycle/orcad-managed-tunnel'
-import { verifyOrcadManagedServing } from '../../managed-server/lifecycle/orcad-managed-serving-verify'
-import { convertSshTargetToManagedOrcad } from '../../managed-server/lifecycle/orcad-runtime-conversion'
+import { ensureOpenkododManagedTunnel } from '../../managed-server/lifecycle/openkodod-managed-tunnel'
+import { verifyOpenkododManagedServing } from '../../managed-server/lifecycle/openkodod-managed-serving-verify'
+import { convertSshTargetToManagedOpenkodod } from '../../managed-server/lifecycle/openkodod-runtime-conversion'
 import {
-  orcadMigrationDestinationFor,
-  orcadServerAutomationEnablerFor,
-  orcadServerFolderCatalogFor,
-  orcadServerRepositoriesFor
-} from '../../managed-server/lifecycle/orcad-runtime-conversion-wiring'
-import { createManagedOrcadEnvironment } from '../../managed-server/lifecycle/orcad-runtime-deployment'
+  openkododMigrationDestinationFor,
+  openkododServerAutomationEnablerFor,
+  openkododServerFolderCatalogFor,
+  openkododServerRepositoriesFor
+} from '../../managed-server/lifecycle/openkodod-runtime-conversion-wiring'
+import { createManagedOpenkododEnvironment } from '../../managed-server/lifecycle/openkodod-runtime-deployment'
 import type { HostServerOnConnectDeps } from '../../ssh/host-server/ssh-host-server-on-connect'
 import {
   censusSshHostRelaysBeforeSession,
   relayTerminalsOnConnect
 } from '../../ssh/legacy-relay/endpoints/ssh-host-relay-terminals-on-connect'
-import { requireManagedOrcadInfrastructure } from '../../managed-server/lifecycle/orcad-managed-runtime-context'
+import { requireManagedOpenkododInfrastructure } from '../../managed-server/lifecycle/openkodod-managed-runtime-context'
 import { censusHostRelayTerminalsFor } from '../../ssh/legacy-relay/endpoints/ssh-host-relay-census-for-target'
 import { setSshHostServerStatus } from '../../ssh/host-server/ssh-host-server-status'
 import { trackSshHostServerEvent } from '../../ssh/host-server/ssh-host-server-telemetry'
 import { knownSshHostPlatform } from '../../ssh/remote-host/ssh-host-platform-memo'
-import { knownOrcadTunnelTransport } from '../../managed-server/lifecycle/orcad-tunnel-transport-memo'
+import { knownOpenkododTunnelTransport } from '../../managed-server/lifecycle/openkodod-tunnel-transport-memo'
 import { getSshTargetRegistryStore } from '../../ssh/targets/ssh-target-registry'
-import { releaseUnreachableOrcadSetup } from '../../managed-server/migration/cutover/orcad-unreachable-setup-release'
+import { releaseUnreachableOpenkododSetup } from '../../managed-server/migration/cutover/openkodod-unreachable-setup-release'
 import { broadcastSshState } from './ssh-renderer-broadcast'
 import { connectInFlight } from './ssh-connect-attempt-registry'
 import { startLegacyRelayBridge } from '../../ssh/legacy-relay/bridge/legacy-relay-bridge-registry'
@@ -41,57 +41,57 @@ import { isBridgeableLease } from '../../ssh/legacy-relay/bridge/legacy-relay-br
 
 export function hostServerOnConnectDeps(userDataPath: string): HostServerOnConnectDeps {
   const registry = getSshTargetRegistryStore()!
-  const claims = registry.getOrcadRuntimeClaims()
-  const store = registry.getOrcadMigrationSource()
+  const claims = registry.getOpenkododRuntimeClaims()
+  const store = registry.getOpenkododMigrationSource()
   const appVersion = getAppEnvironment().getVersion()
   const isRegistered = async (environmentId: string): Promise<boolean> =>
     (await listEnvironments(userDataPath)).some((entry) => entry.id === environmentId)
   return {
     // A fence alone may be unfinished setup; only registered servers count.
     managedEnvironmentId: async (target) => {
-      const environmentId = getManagedOrcadFenceEnvironmentId(target)
+      const environmentId = getManagedOpenkododFenceEnvironmentId(target)
       return environmentId && (await isRegistered(environmentId)) ? environmentId : null
     },
     ensureTunnel: async (environmentId) => {
-      await ensureOrcadManagedTunnel(userDataPath, environmentId)
+      await ensureOpenkododManagedTunnel(userDataPath, environmentId)
     },
-    ensureServing: (environmentId) => verifyOrcadManagedServing(userDataPath, environmentId),
+    ensureServing: (environmentId) => verifyOpenkododManagedServing(userDataPath, environmentId),
     retainCommittedSource: async (target) => {
-      const head = findOrcadMigrationSourceCutoverForTarget(userDataPath, target.id)
+      const head = findOpenkododMigrationSourceCutoverForTarget(userDataPath, target.id)
       if (head?.phase !== 'destination-committed') {
         return 0
       }
-      await retainOrcadMigrationSource(userDataPath, head.migrationId, store)
+      await retainOpenkododMigrationSource(userDataPath, head.migrationId, store)
       // Retry what earlier connects could not reach the server to re-enable.
       const environment = (await listEnvironments(userDataPath)).find(
         (entry) => entry.id === head.destinationEnvironmentId
       )
       return environment
-        ? enableMovedOrcadAutomationsForTarget(
+        ? enableMovedOpenkododAutomationsForTarget(
             userDataPath,
             target.id,
-            orcadServerAutomationEnablerFor(environment)
+            openkododServerAutomationEnablerFor(environment)
           )
         : 0
     },
-    hasTemplate: hasOrcadTemplate,
+    hasTemplate: hasOpenkododTemplate,
     recordedUnavailable: (target) =>
       target.managedServerUnavailable?.appVersion === appVersion
         ? target.managedServerUnavailable.reason
         : null,
     recordUnavailable: (target, reason) => {
-      if (!isOrcadHostUnavailableFixableOnHost(reason)) {
+      if (!isOpenkododHostUnavailableFixableOnHost(reason)) {
         registry.updateTarget(target.id, { managedServerUnavailable: { reason, appVersion } })
       }
     },
     ...managedServerUpdateDeps(userDataPath),
     isEmptyHost: (target) => {
       // An interrupted empty-host deploy passes its own claim, recorded by its provisioning intent.
-      const environmentId = getManagedOrcadFenceEnvironmentId(target)
+      const environmentId = getManagedOpenkododFenceEnvironmentId(target)
       return claims.preflight(
         target.id,
         environmentId
-          ? { environmentId, recorded: target.orcadProvisioning !== undefined }
+          ? { environmentId, recorded: target.openkododProvisioning !== undefined }
           : undefined
       ).claimable
     },
@@ -101,13 +101,13 @@ export function hostServerOnConnectDeps(userDataPath: string): HostServerOnConne
         targetId: target.id,
         censusHost: async () =>
           censusSshHostRelaysBeforeSession(
-            await requireManagedOrcadInfrastructure().connectionManager.connect(target),
+            await requireManagedOpenkododInfrastructure().connectionManager.connect(target),
             target.id
           )
       }),
     deploy: (target) =>
-      createManagedOrcadEnvironment(userDataPath, {
-        name: target.orcadProvisioning?.name ?? managedOrcadServerName(target),
+      createManagedOpenkododEnvironment(userDataPath, {
+        name: target.openkododProvisioning?.name ?? managedOpenkododServerName(target),
         sshTargetId: target.id
       }),
     convert: async (target, hostProof) => {
@@ -115,18 +115,18 @@ export function hostServerOnConnectDeps(userDataPath: string): HostServerOnConne
       if (hostProof?.bridged) {
         await startLegacyRelayBridge(target.id)
       }
-      const converted = await convertSshTargetToManagedOrcad(userDataPath, {
+      const converted = await convertSshTargetToManagedOpenkodod(userDataPath, {
         sshTargetId: target.id,
-        name: managedOrcadServerName(target),
+        name: managedOpenkododServerName(target),
         // The connect's own census already answered; a conversion before any session reuses it.
         censusHost: (host) =>
           hostProof ? Promise.resolve(hostProof) : censusHostRelayTerminalsFor(host)(),
         isBridgedPaneLease: isBridgeableLease,
         // Releasing the direct session here would cancel the connect that requested conversion.
-        destinationFor: orcadMigrationDestinationFor,
-        serverRepositoriesFor: orcadServerRepositoriesFor,
-        serverFolderCatalogFor: orcadServerFolderCatalogFor,
-        serverAutomationEnablerFor: orcadServerAutomationEnablerFor
+        destinationFor: openkododMigrationDestinationFor,
+        serverRepositoriesFor: openkododServerRepositoriesFor,
+        serverFolderCatalogFor: openkododServerFolderCatalogFor,
+        serverAutomationEnablerFor: openkododServerAutomationEnablerFor
       })
       // A quiet retry's refusal is not the user's attempt, so it keeps their consent.
       const quiet = connectInFlight.get(target.id)?.quiet?.active === true
@@ -138,15 +138,15 @@ export function hostServerOnConnectDeps(userDataPath: string): HostServerOnConne
     },
     abandonDeploy: async (target) => {
       const environmentId =
-        getManagedOrcadFenceEnvironmentId(target) ??
-        getManagedOrcadFenceEnvironmentId(registry.getTarget(target.id))
+        getManagedOpenkododFenceEnvironmentId(target) ??
+        getManagedOpenkododFenceEnvironmentId(registry.getTarget(target.id))
       if (environmentId && !(await isRegistered(environmentId))) {
         claims.release(target.id, environmentId)
         await claims.flush()
       }
     },
     hasUnfinishedConversion: (target) => {
-      const head = findOrcadMigrationSourceCutoverForTarget(userDataPath, target.id)
+      const head = findOpenkododMigrationSourceCutoverForTarget(userDataPath, target.id)
       return (
         head !== null &&
         !head.supersedesMigrationId &&
@@ -154,24 +154,25 @@ export function hostServerOnConnectDeps(userDataPath: string): HostServerOnConne
       )
     },
     abandonConversion: async (target) => {
-      await abandonOrcadConversion({
+      await abandonOpenkododConversion({
         userDataPath,
         store,
         claims,
         targetId: target.id,
-        destinationFor: orcadMigrationDestinationFor
+        destinationFor: openkododMigrationDestinationFor
       })
     },
     isFencedBeforeStaging: (target) =>
-      findOrcadMigrationSourceCutoverForTarget(userDataPath, target.id)?.phase === 'source-fenced',
+      findOpenkododMigrationSourceCutoverForTarget(userDataPath, target.id)?.phase ===
+      'source-fenced',
     releaseUnreachableSetup: (target) =>
-      releaseUnreachableOrcadSetup({ userDataPath, claims, targetId: target.id }),
+      releaseUnreachableOpenkododSetup({ userDataPath, claims, targetId: target.id }),
     // Read at report time: a deploy or conversion learns the platform while the decision runs.
     report: (target, event) =>
       trackSshHostServerEvent(
         event,
         knownSshHostPlatform(target.id),
-        knownOrcadTunnelTransport(target.id)
+        knownOpenkododTunnelTransport(target.id)
       ),
     progress: (target, phase) => {
       // Cancelled decisions keep running; their progress must not revive connection status.

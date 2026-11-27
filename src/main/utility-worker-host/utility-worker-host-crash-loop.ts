@@ -1,5 +1,5 @@
 import { recordDurableCrashBreadcrumb } from '../crash-reporting/breadcrumbs/durable-crash-breadcrumb'
-import { ManagedOrcadEventWindow } from '../managed-server/lifecycle/orcad-managed-event-window'
+import { ManagedOpenkododEventWindow } from '../managed-server/lifecycle/openkodod-managed-event-window'
 import { UtilityWorkerHostPausedError } from './utility-worker-host-protocol'
 
 /** After repeated crashes a capped host refuses work until a user retries; never moves it in-process. */
@@ -13,14 +13,14 @@ export type UtilityWorkerHostCrashCap = {
 
 /** Crashes in a sliding window; at the cap it latches paused until a retry, not until time passes. */
 export class UtilityWorkerHostCrashLoop {
-  private readonly crashes: ManagedOrcadEventWindow
+  private readonly crashes: ManagedOpenkododEventWindow
   private paused = false
 
   constructor(
     private readonly serviceName: string,
     private readonly cap: UtilityWorkerHostCrashCap
   ) {
-    this.crashes = new ManagedOrcadEventWindow(cap.windowMs, Date.now)
+    this.crashes = new ManagedOpenkododEventWindow(cap.windowMs, Date.now)
   }
 
   get pauseMessage(): string | null {

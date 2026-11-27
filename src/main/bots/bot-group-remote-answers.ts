@@ -136,7 +136,7 @@ export function collectRemoteAnswers(
     }
   })
   if (read.length > 0) {
-    db.markAsRead(read, { kind: 'orca' })
+    db.markAsRead(read, { kind: 'openkodo' })
   }
   return messages.map((message) => updated.get(message.id) ?? message)
 }
@@ -200,7 +200,7 @@ export function remoteRoomMailArrived(groups: BotGroupRuntime, groupId: string):
     if (!db.db.prepare('SELECT 1 FROM bot_groups WHERE id = ?').get(groupId)) {
       db.markAsRead(
         rows.map((row) => String(row.id)),
-        { kind: 'orca' }
+        { kind: 'openkodo' }
       )
       return
     }
@@ -226,7 +226,7 @@ export function remoteRoomMailArrived(groups: BotGroupRuntime, groupId: string):
       }
     }
     if (settled.length > 0) {
-      db.markAsRead(settled, { kind: 'orca' })
+      db.markAsRead(settled, { kind: 'openkodo' })
     }
   } catch (error) {
     console.warn('[bot-groups] could not read a remote member answer', error)

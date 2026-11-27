@@ -4,7 +4,7 @@
 
 ## Worker events
 
-List each in `contributes.events` (`{ "on": "<event>" }`), with `main`, the `trusted-worker` profile and the capability shown; then `orca.events.on(event, handler)` in `activate(orca)` returns `{ dispose() }`. Payloads:
+List each in `contributes.events` (`{ "on": "<event>" }`), with `main`, the `trusted-worker` profile and the capability shown; then `openkodo.events.on(event, handler)` in `activate(openkodo)` returns `{ dispose() }`. Payloads:
 
 - `workspace.created` (capability `workspace:read`; since 1.4.245): A worktree workspace was created; `workspaceListId` (host API 1.7) is the id `workspace.list` gives it.
   `{ workspaceId: string; workspaceListId?: string; kind: "worktree" | "folder"; path: string; branch: string }`
@@ -17,13 +17,13 @@ List each in `contributes.events` (`{ "on": "<event>" }`), with `main`, the `tru
 - `editor.typography.changed` (no capability; since 1.4.257): What OpenKodo's file editor uses changed (a setting or the editor zoom); the payload is what `editor.readTypography` now answers. Needs no capability.
   `{ fontFamily: string; cssFontFamily: string; fontSize: number; fontWeight: string; lineHeight: number; fontLigatures: boolean; wordWrap: "on" | "off"; minimap: boolean }`
 
-## Frame events (`orca.on(event, handler)` in HTML panels and custom editors)
+## Frame events (`openkodo.on(event, handler)` in HTML panels and custom editors)
 
-- `theme: FrameTheme`: The `--orca-*` variables and the `light`/`dark` class on `<html>` already changed.
-- `'editor.document': EditorDocument`: Custom editors: a new document; `orca.document.onDidChange` is the usual way to listen.
-- `'editor.flush': undefined`: Custom editors: post pending edits before a save; Orca waits for a returned promise.
+- `theme: FrameTheme`: The `--openkodo-*` variables and the `light`/`dark` class on `<html>` already changed.
+- `'editor.document': EditorDocument`: Custom editors: a new document; `openkodo.document.onDidChange` is the usual way to listen.
+- `'editor.flush': undefined`: Custom editors: post pending edits before a save; OpenKodo waits for a returned promise.
 
-## Components panel events (`on(event, handler)` from `orca`)
+## Components panel events (`on(event, handler)` from `openkodo`)
 
 - `theme: { colorScheme: 'light' | 'dark' }`
-- Every worker event above, with the same payload and capability; a panel needs no `contributes.events` entry, it subscribes while it is open. HTML panels get them on `orca.on` too.
+- Every worker event above, with the same payload and capability; a panel needs no `contributes.events` entry, it subscribes while it is open. HTML panels get them on `openkodo.on` too.

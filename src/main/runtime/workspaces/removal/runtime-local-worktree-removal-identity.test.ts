@@ -37,7 +37,7 @@ async function initRepo(path: string): Promise<void> {
 }
 
 beforeEach(async () => {
-  scratchDir = await realpath(await mkdtemp(join(tmpdir(), 'orca-removal-identity-')))
+  scratchDir = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-removal-identity-')))
 })
 
 afterEach(async () => {

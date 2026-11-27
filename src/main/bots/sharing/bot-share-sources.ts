@@ -53,7 +53,7 @@ export type BotShareable = {
   connectors: BotPackageConnector[]
 }
 
-/** `.orca/bot-tools.json`, as the tools file module names it. */
+/** `.openkodo/bot-tools.json`, as the tools file module names it. */
 const BOT_TOOLS_FILE_SEGMENTS = relative('home', botToolsPath('home')).split(sep)
 
 /** An HTTP tool's address without its sign-in part, query or fragment; the path stays. */
@@ -175,7 +175,7 @@ async function readMemory(
     .sort((left, right) => left.topic.localeCompare(right.topic, 'en-US'))
 }
 
-/** The bot's tools file, read only when neither it nor `.orca` is a link. */
+/** The bot's tools file, read only when neither it nor `.openkodo` is a link. */
 async function readOwnToolServers(
   home: Home,
   leftOut: BotShareable['leftOut']

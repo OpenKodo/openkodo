@@ -1,11 +1,11 @@
 import type { ChildProcess } from 'node:child_process'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import {
   forceTerminateProcessTree,
   signalProcessTree
-} from '@orca/process-host/process-tree-termination'
-import { inFlightWindowsTreeKill } from '@orca/process-host/windows-tree-kill'
-import { createOutputSink } from '@orca/process-host/bounded-output-sink'
+} from '@openkodo/process-host/process-tree-termination'
+import { inFlightWindowsTreeKill } from '@openkodo/process-host/windows-tree-kill'
+import { createOutputSink } from '@openkodo/process-host/bounded-output-sink'
 import {
   resolveCliCommand,
   withCliRuntimeOnPath
@@ -43,8 +43,8 @@ export async function resolveOpenCodeLoginCommand(
   }
   const installGuidance =
     process.platform === 'win32'
-      ? 'Install alongside your existing CLI with `npm install --prefix C:\\tools\\orca-opencode2 @opencode/cli`. Append C:\\tools\\orca-opencode2\\node_modules\\.bin to PATH after existing entries, then run this command again. If an unusable opencode2 is the first match, repair that installation without changing your generic opencode launcher.'
-      : 'Install alongside your existing CLI with `npm install --prefix ./orca-opencode2 @opencode/cli`. Append the absolute path of orca-opencode2/node_modules/.bin to PATH after existing entries, then run this command again.'
+      ? 'Install alongside your existing CLI with `npm install --prefix C:\\tools\\openkodo-opencode2 @opencode/cli`. Append C:\\tools\\openkodo-opencode2\\node_modules\\.bin to PATH after existing entries, then run this command again. If an unusable opencode2 is the first match, repair that installation without changing your generic opencode launcher.'
+      : 'Install alongside your existing CLI with `npm install --prefix ./openkodo-opencode2 @opencode/cli`. Append the absolute path of openkodo-opencode2/node_modules/.bin to PATH after existing entries, then run this command again.'
   throw new RuntimeClientError(
     'invalid_environment',
     `Could not find an OpenCode 2 login. Managed OpenCode accounts require OpenCode 2. ${installGuidance}`

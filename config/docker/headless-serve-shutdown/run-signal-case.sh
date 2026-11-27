@@ -10,7 +10,7 @@ int_delivery=${OPENKODO_INT_DELIVERY:-foreground-process-group}
 startup_timeout_seconds=${OPENKODO_STARTUP_TIMEOUT_SECONDS:-180}
 
 if ((EUID == 0)); then
-  exec runuser --user orca --preserve-environment -- "$0" "$@"
+  exec runuser --user openkodo --preserve-environment -- "$0" "$@"
 fi
 
 case "$signal_name" in
@@ -18,7 +18,7 @@ case "$signal_name" in
   *) echo "unsupported signal: $signal_name" >&2; exit 64 ;;
 esac
 
-state_dir=$(mktemp -d "/tmp/orca-shutdown-${signal_name}.XXXXXX")
+state_dir=$(mktemp -d "/tmp/openkodo-shutdown-${signal_name}.XXXXXX")
 stdout_log="$state_dir/stdout.log"
 stderr_log="$state_dir/stderr.log"
 ulimit -c 0
@@ -44,7 +44,7 @@ chmod 700 "$XDG_RUNTIME_DIR"
 
 case "$entrypoint_kind" in
   app) entrypoint=("$app_root/AppRun" --no-sandbox) ;;
-  appimage) entrypoint=(/input/orca.AppImage --appimage-extract-and-run --no-sandbox) ;;
+  appimage) entrypoint=(/input/openkodo.AppImage --appimage-extract-and-run --no-sandbox) ;;
   launcher)
     entrypoint=("$app_root/resources/bin/openkodo")
     ;;
@@ -59,7 +59,7 @@ app_start_ticks=$(awk '{print $22}' "/proc/$app_pid/stat")
 # Poll finite snapshots: jq inputs waits for EOF under first(), leaking tail -F observers past the timeout.
 read_ready_line() {
   sed -u -n 's/^[^{]*//p' "$stdout_log" \
-    | jq --unbuffered -Rnc 'first(inputs | fromjson? | select(.type == "orca_server_ready" and .schemaVersion == 1))'
+    | jq --unbuffered -Rnc 'first(inputs | fromjson? | select(.type == "openkodo_server_ready" and .schemaVersion == 1))'
 }
 
 ready_line=''
@@ -76,11 +76,11 @@ if [[ -z "$ready_line" ]]; then
 fi
 if [[ -z "$ready_line" ]]; then
   cat "$stdout_log" "$stderr_log" >&2
-  echo "FAIL: entrypoint exited or timed out before orca_server_ready" >&2
+  echo "FAIL: entrypoint exited or timed out before openkodo_server_ready" >&2
   exit 1
 fi
 
-if [[ ! -f "$OPENKODO_USER_DATA_PATH/orca-runtime.json" || -e "$XDG_CONFIG_HOME/orca/orca-runtime.json" ]]; then
+if [[ ! -f "$OPENKODO_USER_DATA_PATH/openkodo-runtime.json" || -e "$XDG_CONFIG_HOME/openkodo/openkodo-runtime.json" ]]; then
   ls -la "$OPENKODO_USER_DATA_PATH" "$XDG_CONFIG_HOME" >&2 || true
   echo "FAIL: serve ignored OPENKODO_USER_DATA_PATH; its runtime metadata is not in $OPENKODO_USER_DATA_PATH" >&2
   exit 1
@@ -89,7 +89,7 @@ fi
 registered_cli_verified=false
 if [[ "$entrypoint_kind" == appimage ]]; then
   registered_cli="$HOME/.local/bin/openkodo"
-  expected_target="$XDG_CACHE_HOME/orca/appimage/launcher/openkodo"
+  expected_target="$XDG_CACHE_HOME/openkodo/appimage/launcher/openkodo"
   actual_target=$(readlink "$registered_cli" 2>/dev/null || true)
   if [[ "$actual_target" != "$expected_target" ]]; then
     echo "FAIL: registered CLI target is ${actual_target:-missing}; expected $expected_target" >&2
@@ -101,9 +101,9 @@ if [[ "$entrypoint_kind" == appimage ]]; then
     exit 1
   fi
   # Pre-lease builds prune every generation under sha256(AppImage path); this build must not extract there.
-  installed_target=$(readlink "$XDG_CACHE_HOME/orca/appimage/launcher/installed" 2>/dev/null || true)
+  installed_target=$(readlink "$XDG_CACHE_HOME/openkodo/appimage/launcher/installed" 2>/dev/null || true)
   installed_namespace=$(basename "$(dirname "$(dirname "$(dirname "$(dirname "$installed_target")")")")")
-  legacy_namespace=$(printf '%s' /input/orca.AppImage | sha256sum | cut -c1-24)
+  legacy_namespace=$(printf '%s' /input/openkodo.AppImage | sha256sum | cut -c1-24)
   if [[ ! -x "$installed_target" || "$installed_namespace" == "$legacy_namespace" ]]; then
     echo "FAIL: installed CLI payload ${installed_target:-missing} is in the legacy namespace or missing" >&2
     exit 1

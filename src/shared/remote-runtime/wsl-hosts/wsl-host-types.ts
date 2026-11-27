@@ -24,7 +24,7 @@ export type WslHostDistro = {
   name: string
   /** 'unverifiable': WSL's running list couldn't be read, so OpenKodo can't say. */
   state: 'running' | 'stopped' | 'unverifiable'
-  /** WSL 1 runs no Linux kernel, so it cannot host orcad; null when the registry did not say. */
+  /** WSL 1 runs no Linux kernel, so it cannot host openkodod; null when the registry did not say. */
   version: 1 | 2 | null
   environmentId: string | null
 }
@@ -65,16 +65,16 @@ export type WslHostUpdateIntent = 'update' | 'force'
  * The distro's server was started some other way (usually by an SSH host), without the WSL host
  * marker, and terminals keep it from restarting on its own. It cannot take moved projects.
  */
-export const ORCAD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE = 'orcad_not_started_as_wsl_host'
+export const OPENKODOD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE = 'openkodod_not_started_as_wsl_host'
 
 /** Update anyway over an uncounted census: Update's admission, pinned to the build the user confirmed. */
 export type WslHostPastUncountedTerminals = { incumbentVersion: string | null }
 
 /** A host a newer OpenKodo runs refused this build: only Force (or updating OpenKodo) changes that. */
-export const ORCAD_HOST_NEWER_DEFERRAL_CODE = 'orcad_host_newer'
+export const OPENKODOD_HOST_NEWER_DEFERRAL_CODE = 'openkodod_host_newer'
 
 /** A project move to the host runs on this desktop; the update waits for it to finish. */
-export const ORCAD_UPDATE_WSL_MOVE_RUNNING_CODE = 'orcad_update_wsl_move_running'
+export const OPENKODOD_UPDATE_WSL_MOVE_RUNNING_CODE = 'openkodod_update_wsl_move_running'
 
 export type WslHostDeferredUpdate = {
   candidateVersion: string
@@ -88,7 +88,7 @@ export type WslHostDeferredUpdate = {
 }
 
 export type WslHostCapability = {
-  /** False when the packaged orcad template is missing, so no WSL host can deploy or connect. */
+  /** False when the packaged openkodod template is missing, so no WSL host can deploy or connect. */
   serverFiles: boolean
   /** False in serve-only or after a live policy block: saved hosts work, but nothing is added or moved. Absent from older mains. */
   acceptsNewWork?: boolean

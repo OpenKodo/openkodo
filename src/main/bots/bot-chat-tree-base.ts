@@ -13,11 +13,11 @@ import type { BotChatOrigin, BotChatTreeChat } from '../../shared/bots/bot-chat-
 import { HOME_CHAT_TITLE } from '../../shared/bots/bot-chat-tree-model'
 import type { ExternalConversationLink } from '../../shared/connectors/external-conversation-link'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../shared/agent-session/identity/openkodo-session-address'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
-import { createCanonicalOrcaSessionResolver } from '../runtime/orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { createCanonicalOpenKodoSessionResolver } from '../runtime/orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import {
   resolveLineageRunningSession,
   type AgentSessionRecordReader,
@@ -171,7 +171,7 @@ function botChatBaseChatOfRow(
   const root = store.getRecord(row.id)
   const reach = {
     running: () => running,
-    addressable: (id: OrcaSessionId) => Boolean(addressableSessionParty(id, parties))
+    addressable: (id: OpenKodoSessionId) => Boolean(addressableSessionParty(id, parties))
   }
   const closed = root ? structuredSessionMailReachWith(reach, store, root).kind === 'ended' : false
   const origin = row.home ? { origin: 'home' as const } : build.originBySessionId.get(row.id)
@@ -203,10 +203,10 @@ export function buildBotChatBase(
   inputs: BotChatInputs,
   records: readonly AgentSessionConversationView[]
 ): BotChatBaseBuild {
-  const root = store ? createCanonicalOrcaSessionResolver(store) : (id: string) => id
-  const rootOf = (id: string): string => (isOrcaSessionId(id) ? root(id) : id)
+  const root = store ? createCanonicalOpenKodoSessionResolver(store) : (id: string) => id
+  const rootOf = (id: string): string => (isOpenKodoSessionId(id) ? root(id) : id)
   const homeRoot =
-    inputs.bot.chatSessionId && isOrcaSessionId(inputs.bot.chatSessionId)
+    inputs.bot.chatSessionId && isOpenKodoSessionId(inputs.bot.chatSessionId)
       ? root(inputs.bot.chatSessionId)
       : null
   const originBySessionId = new Map<
@@ -248,7 +248,7 @@ export function buildBotChatBase(
     const parties = readSessionParties(
       ctx.db,
       rows.flatMap(({ row, running }) =>
-        running.kind === 'here' && isOrcaSessionId(running.sessionId) ? [row.id] : []
+        running.kind === 'here' && isOpenKodoSessionId(running.sessionId) ? [row.id] : []
       )
     )
     for (const { record, row, running } of rows) {
@@ -296,7 +296,7 @@ export function buildBotChatBase(
         : null
   }
   const placement = new BotDispatchPlacement(chatOfSession, chatOfPaneKey, {
-    orcaSessionIds: sessionIds,
+    openkodoSessionIds: sessionIds,
     paneKeys: [
       ...sessionByPaneKey.keys(),
       ...inputs.runs.flatMap((run) => (run.terminalPaneKey ? [run.terminalPaneKey] : []))

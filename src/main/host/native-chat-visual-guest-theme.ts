@@ -7,7 +7,7 @@ import {
   type NativeChatVisualTheme,
   type NativeChatVisualGuestTheme
 } from '../../shared/native-chat/visuals/native-chat-visual-shell'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { nativeChatScratchRootFor } from '../native-chat/conversation-files/native-chat-scratch-folder'
 import { browserSiteDisplayController } from '../browser/site-settings/display/browser-site-display-controller'
 import { isNativeChatVisualGuestLocation } from '../native-chat/conversation-files/native-chat-visual-guest-location'

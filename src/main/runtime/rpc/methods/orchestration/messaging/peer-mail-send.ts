@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import type { OrchestrationCompatibilityCallerAuthority } from '../../../../orchestration/terminal-authority/orchestration-compatibility-authority'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
@@ -30,7 +30,7 @@ const NOTHING_SENT = { effectsApplied: false } as const
 /** `send --on <server>`: this OpenKodo carries the mail and keeps the conversation the replies come back on. */
 export async function sendPeerMail(args: {
   params: z.infer<typeof SendParams> & { on: string }
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   orchestrationCaller: OrchestrationEntryCaller | undefined
   attestedCaller: OrchestrationCompatibilityCallerAuthority | undefined
   orchestrationMutation: { callerFingerprint: string; requestId: string } | undefined
@@ -41,7 +41,7 @@ export async function sendPeerMail(args: {
   if (!to || /^(run|dispatch|task):/.test(to) || to.startsWith('@')) {
     throw new OrchestrationError(
       'invalid_argument',
-      `--on sends to one agent or bot on that server: --to term_…, orca_session_id:… or bot:<name>${to ? `, not ${to}` : ''}. Nothing was sent.`,
+      `--on sends to one agent or bot on that server: --to term_…, openkodo_session_id:… or bot:<name>${to ? `, not ${to}` : ''}. Nothing was sent.`,
       NOTHING_SENT
     )
   }

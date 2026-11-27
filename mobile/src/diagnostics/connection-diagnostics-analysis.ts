@@ -12,7 +12,7 @@ import type { ConnectionState } from '../transport/connection/connection-state'
 export type ConnectionDiagnosis = {
   likelyCause: string
   nextStep: string
-  reportability: 'none' | 'orca-relay'
+  reportability: 'none' | 'openkodo-relay'
 }
 
 type DiagnoseConnectionArgs = {
@@ -97,7 +97,7 @@ function diagnoseFailure(
     return {
       likelyCause: `${path} stopped answering authenticated health checks.`,
       nextStep: 'OpenKodo closed the stale session and started recovery.',
-      reportability: relayLiveness ? 'orca-relay' : 'none'
+      reportability: relayLiveness ? 'openkodo-relay' : 'none'
     }
   }
 
@@ -107,7 +107,9 @@ function diagnoseFailure(
       nextStep:
         'OpenKodo started Relay recovery; the event history includes the cell close reason.',
       reportability:
-        failure?.code === 'relay-session-failed' && failure.path === 'relay' ? 'orca-relay' : 'none'
+        failure?.code === 'relay-session-failed' && failure.path === 'relay'
+          ? 'openkodo-relay'
+          : 'none'
     }
   }
 
@@ -161,7 +163,7 @@ export function getReportableConnectionIncidentId(args: DiagnoseConnectionArgs):
     return null
   }
   return diagnoseFailure(args, selected.entry, diagnosticEvidence(selected.entry)).reportability ===
-    'orca-relay'
+    'openkodo-relay'
     ? selected.entry.id
     : null
 }

@@ -1,17 +1,17 @@
 /** Observable state for components panels: reads during a render subscribe that render. */
 
-const ATOM = Symbol.for('orca.declarative.atom')
+const ATOM = Symbol.for('openkodo.declarative.atom')
 
 /** Where a keyed atom's value survives: `memory` (this panel run), `plugin`, `workspace`, or
  *  `storage`: the plugin's own storage under the atom's key, shared with its worker. */
-export type OrcaPersistScope = 'memory' | 'plugin' | 'workspace' | 'storage'
-export type OrcaAtomOptions<T> = {
-  persist?: OrcaPersistScope
+export type OpenKodoPersistScope = 'memory' | 'plugin' | 'workspace' | 'storage'
+export type OpenKodoAtomOptions<T> = {
+  persist?: OpenKodoPersistScope
   /** Bump when the stored shape changes; `migrate` then receives the older value. */
   version?: number
   migrate?: (stored: unknown, fromVersion: number) => T
 }
-export type OrcaStoredValue = { version: number; value: unknown }
+export type OpenKodoStoredValue = { version: number; value: unknown }
 
 type AtomState<T> = {
   value: T
@@ -21,34 +21,34 @@ type AtomState<T> = {
   /** Derived atoms compute on every read, so whatever they read subscribes the render. */
   compute?: () => T
   key?: string
-  persist: OrcaPersistScope
+  persist: OpenKodoPersistScope
   version: number
   migrate?: (stored: unknown, fromVersion: number) => T
 }
 
-export type OrcaAtom<T> = { readonly [ATOM]: AtomState<T> }
+export type OpenKodoAtom<T> = { readonly [ATOM]: AtomState<T> }
 
-type Tracker = (atom: OrcaAtom<unknown>) => void
+type Tracker = (atom: OpenKodoAtom<unknown>) => void
 let activeTracker: Tracker | null = null
 
 const ATOM_KEY = /^[A-Za-z0-9_.:-]{1,128}$/
-const keyed = new Map<string, OrcaAtom<unknown>>()
+const keyed = new Map<string, OpenKodoAtom<unknown>>()
 /** Values from the host, by scope; atoms created later hydrate from it too. `memory` holds the
  *  keyed memory atoms of the guest a dev hot reload replaced. */
-type SnapshotScope = Exclude<OrcaPersistScope, 'storage'>
-const snapshot: Record<SnapshotScope, Map<string, OrcaStoredValue>> = {
+type SnapshotScope = Exclude<OpenKodoPersistScope, 'storage'>
+const snapshot: Record<SnapshotScope, Map<string, OpenKodoStoredValue>> = {
   memory: new Map(),
   plugin: new Map(),
   workspace: new Map()
 }
-let onPersistedChange: ((atom: OrcaAtom<unknown>) => void) | null = null
-let onMemoryChange: ((atom: OrcaAtom<unknown>) => void) | null = null
+let onPersistedChange: ((atom: OpenKodoAtom<unknown>) => void) | null = null
+let onMemoryChange: ((atom: OpenKodoAtom<unknown>) => void) | null = null
 let onStorageAtom: ((key: string) => void) | null = null
 
 /** Plugin-written atoms, so a new runtime starts them from their initial values. */
 const writableAtoms = new Set<AtomState<unknown>>()
 
-function create<T>(initial: T, fields: Partial<AtomState<T>> = {}): OrcaAtom<T> {
+function create<T>(initial: T, fields: Partial<AtomState<T>> = {}): OpenKodoAtom<T> {
   const created = Object.freeze({
     [ATOM]: {
       value: initial,
@@ -68,7 +68,7 @@ function create<T>(initial: T, fields: Partial<AtomState<T>> = {}): OrcaAtom<T> 
 
 /**
  * Puts every atom back to its initial value and forgets persisted snapshots. A guest installs one
- * runtime before the plugin loads, so this matters only to `orca/testing`, which mounts a module
+ * runtime before the plugin loads, so this matters only to `openkodo/testing`, which mounts a module
  * many times in one process.
  */
 export function resetAtoms(): void {
@@ -104,9 +104,9 @@ function stored<T>(inner: AtomState<T>): Stored<T> {
  * `atom(initial)` is anonymous and lives for this panel run. `atom(key, initial, options)` is
  * named (unique per plugin) and may persist across runs for the plugin or the workspace.
  */
-export function atom<T>(initial: T): OrcaAtom<T>
-export function atom<T>(key: string, initial: T, options?: OrcaAtomOptions<T>): OrcaAtom<T>
-export function atom<T>(...args: [T] | [string, T, OrcaAtomOptions<T>?]): OrcaAtom<T> {
+export function atom<T>(initial: T): OpenKodoAtom<T>
+export function atom<T>(key: string, initial: T, options?: OpenKodoAtomOptions<T>): OpenKodoAtom<T>
+export function atom<T>(...args: [T] | [string, T, OpenKodoAtomOptions<T>?]): OpenKodoAtom<T> {
   if (args.length === 1) {
     return create(args[0])
   }
@@ -140,7 +140,7 @@ export function atom<T>(...args: [T] | [string, T, OrcaAtomOptions<T>?]): OrcaAt
 }
 
 /** A read-only atom computed from others; reading it in render subscribes to what it reads. */
-export function derived<T>(compute: () => T): OrcaAtom<T> {
+export function derived<T>(compute: () => T): OpenKodoAtom<T> {
   if (typeof compute !== 'function') {
     throw new TypeError('derived() takes a function')
   }
@@ -148,12 +148,12 @@ export function derived<T>(compute: () => T): OrcaAtom<T> {
 }
 
 /** A read-only atom only OpenKodo updates (for example `ctx.visible`). */
-export function hostAtom<T>(initial: T): { atom: OrcaAtom<T>; set: (value: T) => void } {
+export function hostAtom<T>(initial: T): { atom: OpenKodoAtom<T>; set: (value: T) => void } {
   const result = create(initial, { readonly: true })
   return { atom: result, set: (value) => assign(result[ATOM], value, false) }
 }
 
-function state<T>(target: OrcaAtom<T>): AtomState<T> {
+function state<T>(target: OpenKodoAtom<T>): AtomState<T> {
   const inner = typeof target === 'object' && target !== null ? target[ATOM] : undefined
   if (!inner) {
     throw new TypeError('expected an atom created by atom()')
@@ -161,7 +161,7 @@ function state<T>(target: OrcaAtom<T>): AtomState<T> {
   return inner
 }
 
-export function read<T>(target: OrcaAtom<T>): T {
+export function read<T>(target: OpenKodoAtom<T>): T {
   const inner = state(target)
   if (inner.compute) {
     return inner.compute()
@@ -185,7 +185,7 @@ function assign<T>(inner: AtomState<T>, value: T, persist: boolean): void {
   }
 }
 
-function writable<T>(target: OrcaAtom<T>, verb: string): AtomState<T> {
+function writable<T>(target: OpenKodoAtom<T>, verb: string): AtomState<T> {
   if (activeTracker) {
     // Why: a write while rendering would schedule another render, forever.
     throw new Error(`${verb}() was called while rendering; call it from an event handler instead`)
@@ -198,12 +198,12 @@ function writable<T>(target: OrcaAtom<T>, verb: string): AtomState<T> {
 }
 
 /** Stores `value` as is, functions included. */
-export function set<T>(target: OrcaAtom<T>, value: T): void {
+export function set<T>(target: OpenKodoAtom<T>, value: T): void {
   assign(writable(target, 'set'), value, true)
 }
 
 /** Replaces the value with `updater(previous)`. */
-export function update<T>(target: OrcaAtom<T>, updater: (previous: T) => T): void {
+export function update<T>(target: OpenKodoAtom<T>, updater: (previous: T) => T): void {
   const inner = writable(target, 'update')
   if (typeof updater !== 'function') {
     throw new TypeError('update() takes an updater function; use set() to store a value')
@@ -211,14 +211,14 @@ export function update<T>(target: OrcaAtom<T>, updater: (previous: T) => T): voi
   assign(inner, updater(inner.value), true)
 }
 
-export function subscribeAtom(target: OrcaAtom<unknown>, listener: () => void): () => void {
+export function subscribeAtom(target: OpenKodoAtom<unknown>, listener: () => void): () => void {
   const inner = state(target)
   inner.listeners.add(listener)
   return () => inner.listeners.delete(listener)
 }
 
 /** Runs `render`, adding every atom it reads to `reads` (even when it throws). */
-export function trackAtomReads<R>(reads: Set<OrcaAtom<unknown>>, render: () => R): R {
+export function trackAtomReads<R>(reads: Set<OpenKodoAtom<unknown>>, render: () => R): R {
   const previous = activeTracker
   activeTracker = (target) => reads.add(target)
   try {
@@ -228,14 +228,14 @@ export function trackAtomReads<R>(reads: Set<OrcaAtom<unknown>>, render: () => R
   }
 }
 
-export type OrcaPersistedEntry = {
+export type OpenKodoPersistedEntry = {
   scope: 'plugin' | 'workspace' | 'storage'
   key: string
   version: number
   value: unknown
 }
 
-export function persistedEntry(target: OrcaAtom<unknown>): OrcaPersistedEntry | null {
+export function persistedEntry(target: OpenKodoAtom<unknown>): OpenKodoPersistedEntry | null {
   const inner = state(target)
   return inner.key && inner.persist !== 'memory'
     ? { scope: inner.persist, key: inner.key, version: inner.version, value: inner.value }
@@ -243,13 +243,15 @@ export function persistedEntry(target: OrcaAtom<unknown>): OrcaPersistedEntry | 
 }
 
 /** Called with each persisted atom that changes from plugin code (not from hydration). */
-export function watchPersistedAtoms(listener: ((atom: OrcaAtom<unknown>) => void) | null): void {
+export function watchPersistedAtoms(
+  listener: ((atom: OpenKodoAtom<unknown>) => void) | null
+): void {
   onPersistedChange = listener
 }
 
 /** A keyed memory atom's value, for handing over to the next guest of a dev hot reload. */
 export function memoryEntry(
-  target: OrcaAtom<unknown>
+  target: OpenKodoAtom<unknown>
 ): { key: string; version: number; value: unknown } | null {
   const inner = state(target)
   return inner.key && inner.persist === 'memory'
@@ -258,7 +260,7 @@ export function memoryEntry(
 }
 
 /** Called with each keyed memory atom that changes from plugin code. */
-export function watchMemoryAtoms(listener: ((atom: OrcaAtom<unknown>) => void) | null): void {
+export function watchMemoryAtoms(listener: ((atom: OpenKodoAtom<unknown>) => void) | null): void {
   onMemoryChange = listener
 }
 
@@ -299,7 +301,7 @@ export function captureAtomValues(): () => void {
 /** Applies stored values for a scope (on boot, or the workspace's after a workspace switch). */
 export function hydrateAtoms(
   scope: SnapshotScope,
-  values: ReadonlyMap<string, OrcaStoredValue>
+  values: ReadonlyMap<string, OpenKodoStoredValue>
 ): void {
   snapshot[scope] = new Map(values)
   for (const target of keyed.values()) {

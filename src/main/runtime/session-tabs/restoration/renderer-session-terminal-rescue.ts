@@ -1,11 +1,11 @@
-import type { OrcaRuntimeWithWaitForLeafPtyId as WaitForLeafPtyIdMethods } from '../../terminal/view/renderer-terminal-snapshot'
-import { OrcaRuntimeWithWaitForMobileTerminalSurface } from '../../terminal/view/mobile-terminal-surface'
+import type { OpenKodoRuntimeWithWaitForLeafPtyId as WaitForLeafPtyIdMethods } from '../../terminal/view/renderer-terminal-snapshot'
+import { OpenKodoRuntimeWithWaitForMobileTerminalSurface } from '../../terminal/view/mobile-terminal-surface'
 import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import type { RuntimePtyWorktreeRecord } from '../../terminal/records/runtime-terminal-state-records'
 import type { RuntimeMobileSessionCreateTerminalResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { worktreeIdsEqual } from '../../../../shared/worktree/id'
 
-export abstract class OrcaRuntimeWithRestoreLivePairedRendererSessionOwnedMobileTerminals extends OrcaRuntimeWithWaitForMobileTerminalSurface {
+export abstract class OpenKodoRuntimeWithRestoreLivePairedRendererSessionOwnedMobileTerminals extends OpenKodoRuntimeWithWaitForMobileTerminalSurface {
   protected abstract resolveHandleForTab(
     ...args: Parameters<WaitForLeafPtyIdMethods['resolveHandleForTab']>
   ): ReturnType<WaitForLeafPtyIdMethods['resolveHandleForTab']>

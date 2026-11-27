@@ -146,7 +146,7 @@ export function recoverInterruptedGuardedFileOperation(
 
 /**
  * Drops a held file once its bytes are back at the target (`restore` puts them back when the target
- * is free). Otherwise it is kept beside it as `<target>.orca-kept-<id>`, with its own permissions: a
+ * is free). Otherwise it is kept beside it as `<target>.openkodo-kept-<id>`, with its own permissions: a
  * writer that recreated the target found no file, so the held bytes can be the user's only copy of
  * their settings. Held bytes never go back over a target that a newer writer created. Credentials
  * are dropped instead, as a kept copy would outlive a logout.
@@ -176,7 +176,7 @@ function restoreMovedFileWithoutOverwrite(
       break
     }
     const path =
-      attempt === 0 ? targetPath : `${targetPath}.orca-kept-${name}${keptSuffix(attempt)}`
+      attempt === 0 ? targetPath : `${targetPath}.openkodo-kept-${name}${keptSuffix(attempt)}`
     let free = attempt === 0 && restore
     try {
       if (held !== null && nodeFileContentsEqualSync(path, held)) {
@@ -223,7 +223,7 @@ function keptSuffix(attempt: number): string {
 }
 
 export function getGuardedOperationHeldPath(targetPath: string): string {
-  return `${targetPath}.orca-guarded`
+  return `${targetPath}.openkodo-guarded`
 }
 
 function attemptGuardedAtomicWrite(

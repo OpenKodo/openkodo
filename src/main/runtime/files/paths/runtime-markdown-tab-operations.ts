@@ -1,4 +1,4 @@
-import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged } from '../../session-tabs/publication/session-tabs-change-publication'
+import type { OpenKodoRuntimeWithScheduleMobileSessionTabsChanged } from '../../session-tabs/publication/session-tabs-change-publication'
 import type {
   RuntimeMarkdownReadTabResult,
   RuntimeMarkdownSaveTabResult
@@ -21,9 +21,11 @@ export abstract class RuntimeMarkdownTabOperations extends RuntimeMobileSessionT
 
   protected abstract resolveMobileMarkdownWorktreeId(
     ...args: Parameters<
-      OrcaRuntimeWithScheduleMobileSessionTabsChanged['resolveMobileMarkdownWorktreeId']
+      OpenKodoRuntimeWithScheduleMobileSessionTabsChanged['resolveMobileMarkdownWorktreeId']
     >
-  ): ReturnType<OrcaRuntimeWithScheduleMobileSessionTabsChanged['resolveMobileMarkdownWorktreeId']>
+  ): ReturnType<
+    OpenKodoRuntimeWithScheduleMobileSessionTabsChanged['resolveMobileMarkdownWorktreeId']
+  >
 
   async readMobileMarkdownTab(
     worktreeSelector: string,

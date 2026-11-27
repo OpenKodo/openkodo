@@ -1,29 +1,29 @@
 // The servers a terminal pane of an agent gets from the host list, shaped for its CLI before relay
 // addresses are filled in: saved env behind `openkodo mcp exec` on this host, and in WSL everything that
-// needs OpenKodo behind the guest's `orca`.
+// needs OpenKodo behind the guest's `openkodo`.
 import { access } from 'node:fs/promises'
 import type { BotToolServer } from '../../../shared/bot-tools'
 import { mcpServerWorkspaceKeyOf } from '../../../shared/mcp-servers/mcp-servers'
 import { getAppEnvironment, hasAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
-import { thisAppOrcaCliLauncher } from '../../cli/launchers/this-app-orca-cli-launcher'
+import { thisAppOpenKodoCliLauncher } from '../../cli/launchers/this-app-openkodo-cli-launcher'
 import { cmdShimArgument } from '../../bots/bot-tools-claude'
 import { mcpServerEntriesForLaunch, type McpLaunchEntry } from '../mcp-host-list-launch'
 import { mcpHostListFolder } from '../mcp-host-list-folder'
 import {
   settleWslMountRoot,
   wslConnectServer,
-  wslGuestOrcaLauncher,
+  wslGuestOpenKodoLauncher,
   wslSavedEnvServer
 } from './terminal-mcp-wsl-servers'
 
-/** The `orca` launcher this host's terminals run, and the user data it names its OpenKodo by; null when
+/** The `openkodo` launcher this host's terminals run, and the user data it names its OpenKodo by; null when
  *  this host has none to run (a dev serve never installs one). */
-async function orcaCliLauncher(): Promise<{ launcher: string; userDataPath: string } | null> {
+async function openkodoCliLauncher(): Promise<{ launcher: string; userDataPath: string } | null> {
   if (!hasAppEnvironment()) {
     return null
   }
   const userDataPath = getAppEnvironment().getPath('userData')
-  const launcher = thisAppOrcaCliLauncher(userDataPath)
+  const launcher = thisAppOpenKodoCliLauncher(userDataPath)
   const found = launcher
     ? await access(launcher).then(
         () => true,
@@ -38,7 +38,7 @@ async function orcaCliLauncher(): Promise<{ launcher: string; userDataPath: stri
  * OpenKodo and execs the real command, so no saved value sits in the agent's config, argv or env.
  * `OPENKODO_USER_DATA_PATH` is named outright since agents start servers with a trimmed environment.
  */
-function throughOrcaExec(
+function throughOpenKodoExec(
   entry: McpLaunchEntry,
   launch: { agent: string; workspaceId: string | null },
   cli: { launcher: string; userDataPath: string } | null
@@ -73,7 +73,7 @@ export type WslLaunch = { distro: string | null } | null
 /**
  * The servers a pane of `agent` gets, shaped for a terminal. A command server OpenKodo runs once for
  * every session stays as it is here: SessionMcpTools points the agent at it through the relay. In
- * WSL, every server that needs OpenKodo goes through the guest's `orca` (terminal-mcp-wsl-servers.ts).
+ * WSL, every server that needs OpenKodo goes through the guest's `openkodo` (terminal-mcp-wsl-servers.ts).
  */
 export async function terminalServers(
   agent: string,
@@ -94,14 +94,14 @@ export async function terminalServers(
     !('url' in server) && !shared(server) && Object.keys(server.env ?? {}).length > 0
   const relayed = (server: BotToolServer): boolean =>
     'url' in server ? server.credential !== undefined : shared(server)
-  const needsOrca = entries.some(({ server }) => savedEnv(server) || (wsl && relayed(server)))
-  const cli = wsl || !needsOrca ? null : await orcaCliLauncher()
+  const needsOpenKodo = entries.some(({ server }) => savedEnv(server) || (wsl && relayed(server)))
+  const cli = wsl || !needsOpenKodo ? null : await openkodoCliLauncher()
   if (wsl && entries.length > 0) {
     // Guest paths (the launcher's here, the launch files' later) follow where this distro mounts
     // Windows drives, which it reports once per start.
     await settleWslMountRoot(wsl.distro)
   }
-  const guest = wsl && needsOrca ? wslGuestOrcaLauncher(wsl.distro) : null
+  const guest = wsl && needsOpenKodo ? wslGuestOpenKodoLauncher(wsl.distro) : null
   const wslLaunch = { agent, workspaceId, launcher: guest }
   const bridged: BotToolServer[] = []
   const servers = entries.flatMap((entry) => {
@@ -109,7 +109,7 @@ export async function terminalServers(
     const shaped = !wsl
       ? shared(server)
         ? server
-        : throughOrcaExec(entry, { agent, workspaceId }, cli)
+        : throughOpenKodoExec(entry, { agent, workspaceId }, cli)
       : relayed(server)
         ? wslConnectServer(entry, wslLaunch)
         : savedEnv(server)

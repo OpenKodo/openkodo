@@ -1,5 +1,5 @@
 name: PR Checks
-run-name: "PR ${{ github.event.pull_request.number }} | source ${{ github.sha }} | workflow ${{ github.workflow_sha }} | unit ${{ github.event.pull_request.draft && vars.ORCA_UNIT_SELECTION_MODE == 'selected' && 'selected' || 'full' }}"
+run-name: "PR ${{ github.event.pull_request.number }} | source ${{ github.sha }} | workflow ${{ github.workflow_sha }} | unit ${{ github.event.pull_request.draft && vars.OPENKODO_UNIT_SELECTION_MODE == 'selected' && 'selected' || 'full' }}"
 
 on:
   pull_request:
@@ -39,7 +39,7 @@ jobs:
       xterm_patch_sync: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.xterm_patch_sync }}
       test: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.test }}
       relay_integration: ${{ steps.filter.outputs.relay_integration }}
-      orcad_browser: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.orcad_browser }}
+      openkodod_browser: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.openkodod_browser }}
       cross-version-wire: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.cross-version-wire }}
       managed_hook_node18: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.managed_hook_node18 }}
       package: ${{ steps.readiness.outputs.reused != 'true' && steps.filter.outputs.package }}
@@ -342,7 +342,7 @@ jobs:
         continue-on-error: true
         env:
           NODE18_EXECUTABLE: ${{ steps.node18_executable.outputs.executable }}
-          ORCA_BACKGROUND_LAUNCH: '1'
+          OPENKODO_BACKGROUND_LAUNCH: '1'
         run: |
           test -n "$NODE18_EXECUTABLE"
           "$NODE18_EXECUTABLE" config/scripts/desktop-distribution/runtime-verification/smoke-process-host-node18.mjs
@@ -587,11 +587,11 @@ jobs:
       # Runs every config/scripts/check-*-ratchet(s).mjs, so a new ratchet needs no step here.
       - name: Enforce ratchets
         env:
-          ORCA_MAIN_BLOCKING_RATCHET_RUNTIME: bun
+          OPENKODO_MAIN_BLOCKING_RATCHET_RUNTIME: bun
         run: node config/scripts/static-analysis/ratchet-runner/run-ratchets.mjs
 
-  orcad_terminal_smoke:
-    name: orcad terminal smoke
+  openkodod_terminal_smoke:
+    name: openkodod terminal smoke
     needs: [code_paths]
     if: needs.code_paths.outputs.static_analysis == 'true'
     # Its own runner: the ~90s bundle and boot were static analysis's tail.
@@ -633,31 +633,31 @@ jobs:
       - uses: ./.github/actions/install-mobile-dependencies
         if: needs.code_paths.outputs.mobile_dependencies == 'true'
 
-      - name: Decide whether the orcad terminal smoke runs
-        id: orcad-smoke-scope
+      - name: Decide whether the openkodod terminal smoke runs
+        id: openkodod-smoke-scope
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           # Detection failures run the smoke; renames retain the removed input path.
           DIFF_BASE="$(node config/scripts/git/pr-diff-base/git-pull-request-diff-base.mjs "$BASE_SHA")"
-          if git diff --name-only --no-renames -z "$DIFF_BASE" HEAD > "$RUNNER_TEMP/orcad-smoke-changes" &&
-            scope="$(node config/scripts/orcad-distribution/qualification/orcad-terminal-smoke-change-scope.mjs "$RUNNER_TEMP/orcad-smoke-changes")" && [ "$scope" = false ]; then
-            echo "Orcad terminal smoke inputs are unchanged."
+          if git diff --name-only --no-renames -z "$DIFF_BASE" HEAD > "$RUNNER_TEMP/openkodod-smoke-changes" &&
+            scope="$(node config/scripts/openkodod-distribution/qualification/openkodod-terminal-smoke-change-scope.mjs "$RUNNER_TEMP/openkodod-smoke-changes")" && [ "$scope" = false ]; then
+            echo "Openkodod terminal smoke inputs are unchanged."
             echo 'run=false' >> "$GITHUB_OUTPUT"
           else
             echo 'run=true' >> "$GITHUB_OUTPUT"
           fi
 
-      # orcad refuses to build without the page phones load.
+      # openkodod refuses to build without the page phones load.
       - uses: ./.github/actions/build-mobile-web-bundle
-        if: steps.orcad-smoke-scope.outputs.run == 'true'
+        if: steps.openkodod-smoke-scope.outputs.run == 'true'
 
       # Pair import-graph electron exclusion with built-Node boot/pair/worktree/PTY smoke; graph purity alone does not prove runtime operation.
-      - name: Boot orcad and round-trip a terminal
-        if: steps.orcad-smoke-scope.outputs.run == 'true'
+      - name: Boot openkodod and round-trip a terminal
+        if: steps.openkodod-smoke-scope.outputs.run == 'true'
         env:
-          ORCA_BACKGROUND_LAUNCH: '1'
-        run: pnpm run smoke:orcad-terminal
+          OPENKODO_BACKGROUND_LAUNCH: '1'
+        run: pnpm run smoke:openkodod-terminal
 
   xterm_patch_sync:
     name: xterm patch sync
@@ -694,9 +694,9 @@ jobs:
     if: needs.code_paths.outputs.test == 'true'
     uses: ./.github/workflows/unit-plan.yml
     with:
-      selection_mode: ${{ vars.ORCA_UNIT_SELECTION_MODE || 'shadow' }}
+      selection_mode: ${{ vars.OPENKODO_UNIT_SELECTION_MODE || 'shadow' }}
       # Only selected drafts apply a plan before tests; everything else defers shadow analysis.
-      defer_shadow: ${{ !(vars.ORCA_UNIT_SELECTION_MODE == 'selected' && github.event.pull_request.draft == true) }}
+      defer_shadow: ${{ !(vars.OPENKODO_UNIT_SELECTION_MODE == 'selected' && github.event.pull_request.draft == true) }}
 
   test:
     needs: [code_paths, unit_plan]
@@ -711,8 +711,8 @@ jobs:
       # Free hosted ARM: 12 shards measured 361s median cold vs ~390s for 5 warm Blacksmith 8-vCPU shards.
       runner: ubuntu-24.04-arm
       phase_diagnostics: true
-      # Restore main's transform cache; the `ci:cold-unit-cache` label or ORCA_UNIT_MODULE_CACHE=off forces cold.
-      module_cache: ${{ (vars.ORCA_UNIT_MODULE_CACHE == 'off' || contains(github.event.pull_request.labels.*.name, 'ci:cold-unit-cache')) && 'off' || 'warm' }}
+      # Restore main's transform cache; the `ci:cold-unit-cache` label or OPENKODO_UNIT_MODULE_CACHE=off forces cold.
+      module_cache: ${{ (vars.OPENKODO_UNIT_MODULE_CACHE == 'off' || contains(github.event.pull_request.labels.*.name, 'ci:cold-unit-cache')) && 'off' || 'warm' }}
       shards: ${{ needs.unit_plan.outputs.shards }}
       download_selection_plan: ${{ needs.unit_plan.outputs.selection_planned == 'true' }}
 
@@ -783,7 +783,7 @@ jobs:
       - name: Runtime launcher change does not bump daemon protocol
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          ORCA_ALLOW_RUNTIME_LAUNCHER_PROTOCOL_BUMP: ${{ contains(github.event.pull_request.labels.*.name, 'allow-runtime-launcher-protocol-bump') }}
+          OPENKODO_ALLOW_RUNTIME_LAUNCHER_PROTOCOL_BUMP: ${{ contains(github.event.pull_request.labels.*.name, 'allow-runtime-launcher-protocol-bump') }}
         run: |
           DIFF_BASE="$(node config/scripts/git/pr-diff-base/git-pull-request-diff-base.mjs "$BASE_SHA")"
           pnpm run check:runtime-launcher-protocol-ratchet -- --base "$DIFF_BASE"
@@ -895,8 +895,8 @@ jobs:
 
       - name: Verify Linux daemon shutdown descendant cleanup
         env:
-          ORCA_BACKGROUND_LAUNCH: '1'
-          ORCA_DAEMON_SHUTDOWN_FIXTURE_CACHE_IMAGE: ${{ steps.daemon-fixture-cache.outputs.image }}
+          OPENKODO_BACKGROUND_LAUNCH: '1'
+          OPENKODO_DAEMON_SHUTDOWN_FIXTURE_CACHE_IMAGE: ${{ steps.daemon-fixture-cache.outputs.image }}
         run: node config/scripts/runtime-verification/daemon-lifecycle/run-daemon-shutdown-descendants-docker.mjs
 
       # Load independent fixtures during builds; keep native lifecycle probes serial.
@@ -933,7 +933,7 @@ jobs:
         background: true
         run: |
           # Use the shell lane's bounded refresh; required tooling installation stays fatal.
-          sudo tee /etc/apt/apt.conf.d/99-orca-package-tools >/dev/null <<'APTCONF'
+          sudo tee /etc/apt/apt.conf.d/99-openkodo-package-tools >/dev/null <<'APTCONF'
           Acquire::http::Timeout "15";
           Acquire::https::Timeout "15";
           Acquire::Retries "1";
@@ -943,7 +943,7 @@ jobs:
 
       - name: Build package inputs
         env:
-          ORCA_CI_MAIN_SOURCEMAPS: '0'
+          OPENKODO_CI_MAIN_SOURCEMAPS: '0'
         run: |
           status=0
           pnpm run build:packages || exit 1
@@ -973,8 +973,8 @@ jobs:
 
       - name: Package unpacked app
         env:
-          ORCA_BACKGROUND_LAUNCH: '1'
-          ORCA_REUSE_PREPARED_NATIVE_RUNTIME: '1'
+          OPENKODO_BACKGROUND_LAUNCH: '1'
+          OPENKODO_REUSE_PREPARED_NATIVE_RUNTIME: '1'
         # Prepare once with every hook, then isolate the format-specific mutations.
         run: |
           pnpm exec electron-builder --config config/electron-builder.config.cjs --linux dir --x64 --publish never
@@ -988,23 +988,23 @@ jobs:
         id: headless-serve-shutdown
         background: true
         env:
-          ORCA_SHUTDOWN_FIXTURE_CACHE_IMAGE: ${{ steps.shutdown-fixture-cache.outputs.image }}
+          OPENKODO_SHUTDOWN_FIXTURE_CACHE_IMAGE: ${{ steps.shutdown-fixture-cache.outputs.image }}
           PACKAGE_PRIOR_SUCCESS: ${{ job.status == 'success' }}
         run: |
           if [ "$PACKAGE_PRIOR_SUCCESS" != true ]; then exit 0; fi
           node config/scripts/runtime-verification/daemon-lifecycle/run-headless-serve-shutdown-docker.mjs \
-            --appimage dist/orca-linux.AppImage --all-entrypoints
+            --appimage dist/openkodo-linux.AppImage --all-entrypoints
 
       - name: Verify root-package marker payloads
         run: |
           set -euo pipefail
           version="$(node -p "require('./package.json').version")"
-          deb="dist/orca-ide_${version}_amd64.deb"
-          rpm="dist/orca-ide-${version}.x86_64.rpm"
+          deb="dist/openkodo-ide_${version}_amd64.deb"
+          rpm="dist/openkodo-ide-${version}.x86_64.rpm"
           test -s "$deb"
           test -s "$rpm"
-          deb_marker="$(dpkg-deb --fsys-tarfile "$deb" | tar -xOf - ./opt/Orca/resources/package-type)"
-          rpm_marker="$(rpm2cpio "$rpm" | cpio --quiet --extract --to-stdout ./opt/Orca/resources/package-type)"
+          deb_marker="$(dpkg-deb --fsys-tarfile "$deb" | tar -xOf - ./opt/OpenKodo/resources/package-type)"
+          rpm_marker="$(rpm2cpio "$rpm" | cpio --quiet --extract --to-stdout ./opt/OpenKodo/resources/package-type)"
           [[ "$deb_marker" == deb ]] || { echo "Expected deb marker, got: $deb_marker"; exit 1; }
           [[ "$rpm_marker" == rpm ]] || { echo "Expected rpm marker, got: $rpm_marker"; exit 1; }
           # Only the AppImage carries the pinned Node (config/scripts/desktop-distribution/linux/appimage-node-runtime.cjs).
@@ -1015,17 +1015,17 @@ jobs:
             echo "The rpm must not carry the AppImage's Node"; exit 1
           fi
           appimage_root="$(mktemp -d)"
-          (cd "$appimage_root" && "$GITHUB_WORKSPACE/dist/orca-linux.AppImage" --appimage-extract 'resources/node-runtime/bin/node' >/dev/null)
+          (cd "$appimage_root" && "$GITHUB_WORKSPACE/dist/openkodo-linux.AppImage" --appimage-extract 'resources/node-runtime/bin/node' >/dev/null)
           test -x "$appimage_root/squashfs-root/resources/node-runtime/bin/node"
           "$appimage_root/squashfs-root/resources/node-runtime/bin/node" --version
           rm -rf "$appimage_root"
-          ls -l dist/orca-linux.AppImage "$deb" "$rpm"
+          ls -l dist/openkodo-linux.AppImage "$deb" "$rpm"
 
       # Kept briefly so a reviewer can run this exact AppImage on a real Linux desktop.
       - uses: actions/upload-artifact@v7
         with:
-          name: orca-linux-appimage-${{ github.event.pull_request.head.sha }}
-          path: dist/orca-linux.AppImage
+          name: openkodo-linux-appimage-${{ github.event.pull_request.head.sha }}
+          path: dist/openkodo-linux.AppImage
           retention-days: 3
           compression-level: 0
 
@@ -1034,8 +1034,8 @@ jobs:
 
       - name: Verify Linux CLI launch contract
         env:
-          ORCA_CLI_FIXTURE_CACHE_IMAGE: ${{ steps.cli-fixture-cache.outputs.image }}
-        run: node config/scripts/runtime-verification/desktop-transport/run-linux-cli-launch-contract-docker.mjs --appimage dist/orca-linux.AppImage
+          OPENKODO_CLI_FIXTURE_CACHE_IMAGE: ${{ steps.cli-fixture-cache.outputs.image }}
+        run: node config/scripts/runtime-verification/desktop-transport/run-linux-cli-launch-contract-docker.mjs --appimage dist/openkodo-linux.AppImage
 
       - name: Smoke packaged CLI
         run: node config/scripts/desktop-distribution/runtime-verification/smoke-packaged-cli.mjs --app-dir=dist/linux-unpacked
@@ -1068,7 +1068,7 @@ jobs:
       # Files come from WINDOWS_BOUNDARY_TESTS, the same list that decides whether this job runs.
       - name: Test Windows-specific boundaries
         env:
-          ORCA_BACKGROUND_LAUNCH: '1'
+          OPENKODO_BACKGROUND_LAUNCH: '1'
         run: |
           $files = node config/scripts/workflow/source-routing/pr-package-test-paths.mjs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -1077,7 +1077,7 @@ jobs:
       # Isolate slow-taskkill CPU burners so they cannot starve unrelated test files.
       - name: Test Windows tree kill under CPU load
         env:
-          ORCA_WINDOWS_TREE_KILL_LOAD: '1'
+          OPENKODO_WINDOWS_TREE_KILL_LOAD: '1'
         run: >-
           pnpm exec vitest run --config config/vitest.config.ts
           src/shared/__tests__/process-host/windows-tree-kill-late-taskkill.win32.test.ts
@@ -1143,7 +1143,7 @@ jobs:
 
       - name: Build host and CLI package inputs
         env:
-          ORCA_CI_MAIN_SOURCEMAPS: '0'
+          OPENKODO_CI_MAIN_SOURCEMAPS: '0'
         run: pnpm run build:wsl-guest && pnpm run build:native && pnpm run verify:computer-native && pnpm run build:cli
 
       - wait: install-mobile-deps
@@ -1153,7 +1153,7 @@ jobs:
       - name: Build app and mobile-web package inputs
         shell: bash
         env:
-          ORCA_CI_MAIN_SOURCEMAPS: '0'
+          OPENKODO_CI_MAIN_SOURCEMAPS: '0'
         run: |
           status=0
           pids=()
@@ -1174,13 +1174,13 @@ jobs:
 
       - name: Package unpacked app
         env:
-          ORCA_REUSE_PREPARED_NATIVE_RUNTIME: '1'
+          OPENKODO_REUSE_PREPARED_NATIVE_RUNTIME: '1'
         run: pnpm exec electron-builder --config config/electron-builder.config.cjs --dir
 
       - name: Smoke packaged Windows PTY native capability
         id: win-pty-smoke
         background: true
-        run: pnpm run smoke:windows-pty-native-capability -- --exe=dist/win-unpacked/Orca.exe
+        run: pnpm run smoke:windows-pty-native-capability -- --exe=dist/win-unpacked/OpenKodo.exe
 
       - name: Smoke packaged CLI
         run: node config/scripts/desktop-distribution/runtime-verification/smoke-packaged-cli.mjs --app-dir=dist/win-unpacked
@@ -1233,7 +1233,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      ORCA_PNPM_FORCE_GLOBAL_VIRTUAL_STORE_IN_CI: '1'
+      OPENKODO_PNPM_FORCE_GLOBAL_VIRTUAL_STORE_IN_CI: '1'
 
     steps:
       # Persist layout via GITHUB_ENV (job env cannot read runner.temp) for every pnpm command/install check.
@@ -1288,7 +1288,7 @@ jobs:
       - typecheck
       - preflight_generated
       - preflight_ratchets
-      - orcad_terminal_smoke
+      - openkodod_terminal_smoke
       - xterm_patch_sync
       - test
       - mobile_web_app
@@ -1312,7 +1312,7 @@ jobs:
           TYPECHECK: ${{ needs.typecheck.result }}
           PREFLIGHT_GENERATED: ${{ needs.preflight_generated.result }}
           PREFLIGHT_RATCHETS: ${{ needs.preflight_ratchets.result }}
-          ORCAD_TERMINAL_SMOKE: ${{ needs.orcad_terminal_smoke.result }}
+          OPENKODOD_TERMINAL_SMOKE: ${{ needs.openkodod_terminal_smoke.result }}
           STATIC_ANALYSIS_SHOULD_RUN: ${{ needs.code_paths.outputs.static_analysis }}
           TYPECHECK_SHOULD_RUN: ${{ needs.code_paths.outputs.typecheck }}
           PREFLIGHT_SHOULD_RUN: ${{ needs.code_paths.outputs.static_analysis == 'true' || needs.code_paths.outputs.typecheck == 'true' }}
@@ -1369,7 +1369,7 @@ jobs:
           check_job typecheck "$TYPECHECK" "$TYPECHECK_SHOULD_RUN"
           check_job preflight_generated "$PREFLIGHT_GENERATED" "$STATIC_ANALYSIS_SHOULD_RUN"
           check_job preflight_ratchets "$PREFLIGHT_RATCHETS" "$STATIC_ANALYSIS_SHOULD_RUN"
-          check_job orcad_terminal_smoke "$ORCAD_TERMINAL_SMOKE" "$STATIC_ANALYSIS_SHOULD_RUN"
+          check_job openkodod_terminal_smoke "$OPENKODOD_TERMINAL_SMOKE" "$STATIC_ANALYSIS_SHOULD_RUN"
           check_job xterm_patch_sync "$XTERM_PATCH_SYNC" "$XTERM_PATCH_SYNC_SHOULD_RUN"
           check_job test "$TEST" "$TEST_SHOULD_RUN"
           check_job mobile_web_app "$MOBILE_WEB_APP" "$MOBILE_WEB_APP_SHOULD_RUN"

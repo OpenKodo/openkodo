@@ -12,7 +12,7 @@ import {
   stageWindowsProcessTreeNodeAddonApiHeaders,
   windowsProcessTreeAddonPath
 } from '../windows/windows-process-tree-gyp-rebuild.mjs'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { describeProcessFailure } from '../../tool-invocation/process-failure-message.mjs'
 import { ensureUnpackagedProviderExec } from '../posix/unpackaged-provider-exec.mjs'
 import {
@@ -77,7 +77,7 @@ if (runtime === 'node') {
 // addon is current, and keep dev usable without it because the app only warns when it is missing.
 function ensureMacMenuDeadKeyAddon() {
   const sourceDir = resolve(projectDir, 'native/macos-menu-dead-key')
-  const addon = resolve(projectDir, 'out/native/orca_menu_dead_key.node')
+  const addon = resolve(projectDir, 'out/native/openkodo_menu_dead_key.node')
   const expectedArch = process.arch === 'x64' ? 'x86_64' : process.arch
   const sourcesChangedAt = Math.max(
     ...['binding.gyp', 'menu-dead-key.m'].map((file) => statSync(resolve(sourceDir, file)).mtimeMs)
@@ -327,17 +327,17 @@ function loadNativeModule(moduleName) {
     }
     return
   }
-  if (moduleName === '@orca/windows-notifications') {
+  if (moduleName === '@openkodo/windows-notifications') {
     require(moduleName).getFocusAssistState()
     return
   }
-  if (moduleName === '@orca/windows-registry') {
+  if (moduleName === '@openkodo/windows-registry') {
     const registry = require(moduleName)
     // Why: the package defers loading its .node addon until the first registry call.
     registry.getRegistryKey(registry.HK.CU, 'Environment')
     return
   }
-  if (moduleName === '@orca/windows-security') {
+  if (moduleName === '@openkodo/windows-security') {
     const security = require(moduleName)
     // currentUserSid loads the addon; a stale build that still loads lacks the newest export.
     if (!security.currentUserSid() || !security.hasNativeExport('tcpClientOwnerAsync')) {
@@ -365,7 +365,7 @@ function loadNodePtyNativeModule() {
   assertNodePtyJobOwnership({ nativeName, native, addonPath })
   if (requiresPatchedNodePtySourceBuild() && !isSourceBuildDir(native?.dir)) {
     throw new Error(
-      `node-pty resolved to ${native.dir}; expected build/Release so Orca's node-pty patch is active`
+      `node-pty resolved to ${native.dir}; expected build/Release so OpenKodo's node-pty patch is active`
     )
   }
 }
@@ -388,7 +388,7 @@ function getPatchedNodePtyRebuildReason() {
     return null
   }
 
-  // Loadable upstream prebuilds lack Orca patches; require source-built build/Release artifacts on both platforms.
+  // Loadable upstream prebuilds lack OpenKodo patches; require source-built build/Release artifacts on both platforms.
   const nodePtyDir = resolve(projectDir, 'node_modules', 'node-pty')
   const artifactPaths = nodePtyBuildArtifactPaths(nodePtyDir)
   const missingArtifact = artifactPaths.find((artifactPath) => !existsSync(artifactPath))

@@ -20,7 +20,7 @@ function terminalFontFaceCss(family, url, unicodeRange, weight = '400') {
 /** @param {string} url */
 export function terminalNerdFontCss(url) {
   return terminalFontFaceCss(
-    'Orca Nerd Font Symbols',
+    'OpenKodo Nerd Font Symbols',
     url,
     'U+E000-F8FF,U+F0000-FFFFD,U+100000-10FFFD'
   )
@@ -29,7 +29,7 @@ export function terminalNerdFontCss(url) {
 // Noto Sans Symbols 2 subset: Android ships no font with ⏴⏵⏶⏷ (Claude Code's ⏵⏵ mode marker).
 /** @param {string} url */
 export function terminalSymbolsFontCss(url) {
-  return terminalFontFaceCss('Orca Terminal Symbols', url, 'U+23F4-23F7')
+  return terminalFontFaceCss('OpenKodo Terminal Symbols', url, 'U+23F4-23F7')
 }
 
 // Google Fonts' latin and latin-ext subsets; anything else falls through to the system mono stack.
@@ -38,7 +38,7 @@ const LATIN_RANGE =
 const LATIN_EXT_RANGE =
   'U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF'
 
-/** Variable fonts shipped with Orca, keyed by the id the terminal font setting stores. */
+/** Variable fonts shipped with OpenKodo, keyed by the id the terminal font setting stores. */
 export const TERMINAL_BUNDLED_FONTS = /** @type {const} */ ({
   'jetbrains-mono': { family: 'JetBrains Mono', weights: '100 800', file: 'JetBrainsMono' },
   'fira-code': { family: 'Fira Code', weights: '300 700', file: 'FiraCode' },

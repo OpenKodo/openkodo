@@ -30,7 +30,7 @@ export function cancelDictationCleanup(requestId: string): void {
 }
 
 // One folder for every run, so the agent reads no project and keeps one history bucket, not one per dictation.
-const cleanupFolder = (): string => join(tmpdir(), 'orca-dictation-cleanup')
+const cleanupFolder = (): string => join(tmpdir(), 'openkodo-dictation-cleanup')
 
 /** Runs the user's agent on dictated text, on this computer, in an empty folder of its own. */
 export async function cleanUpDictatedText(

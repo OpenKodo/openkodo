@@ -3,7 +3,7 @@
 
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { resolveStructuredWorkerAuthority } from './structured-worker-authority'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 
 const TERMINAL_HANDLE_STALE = 'terminal_handle_stale'
 const AGENT_SESSION_HAS_NO_TERMINAL = 'terminal_unsupported_for_agent_session'
@@ -21,7 +21,7 @@ export function structuredWorkerTerminalRefusal(
     )
   }
   // A chat address never names a terminal, live or not.
-  if (parseOrcaSessionAddress(handle)) {
+  if (parseOpenKodoSessionAddress(handle)) {
     return agentSessionRefusal(
       `${handle} is a chat session, not a terminal, so terminal commands cannot address it. ` +
         `Message it with \`openkodo orchestration send --to ${handle} --subject "<topic>" --body "<message>"\`.`

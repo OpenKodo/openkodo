@@ -21,14 +21,14 @@ export function prepareDevCliTerminalWrappers({
   if (platform === 'win32') {
     const wrapperContent = `@echo off\r\nset "OPENKODO_USER_DATA_PATH=${escapeWindowsBatchValue(userDataPath)}"\r\nset "OPENKODO_DEV_CLI_INVOCATION=1"\r\nset "OPENKODO_APP_EXECUTABLE=${escapeWindowsBatchValue(electronExecutable)}"\r\nset "OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT=1"\r\nnode "${escapeWindowsBatchValue(cliPath)}" %*\r\n`
     for (const targetDir of [binDir, userDataBinDir]) {
-      for (const commandName of ['orca-dev.cmd', 'orca.cmd']) {
+      for (const commandName of ['openkodo-dev.cmd', 'openkodo.cmd']) {
         writeFileSync(path.join(targetDir, commandName), wrapperContent, 'utf8')
       }
     }
   } else {
     const wrapperContent = `#!/usr/bin/env bash\nexport OPENKODO_USER_DATA_PATH=${JSON.stringify(userDataPath)}\nexport OPENKODO_DEV_CLI_INVOCATION=1\nexport OPENKODO_APP_EXECUTABLE=${JSON.stringify(electronExecutable)}\nexport OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT=1\nexec node ${JSON.stringify(cliPath)} "$@"\n`
     for (const targetDir of [binDir, userDataBinDir]) {
-      for (const commandName of ['orca-dev', 'orca']) {
+      for (const commandName of ['openkodo-dev', 'openkodo']) {
         const wrapperPath = path.join(targetDir, commandName)
         writeFileSync(wrapperPath, wrapperContent, 'utf8')
         chmodSync(wrapperPath, 0o755)

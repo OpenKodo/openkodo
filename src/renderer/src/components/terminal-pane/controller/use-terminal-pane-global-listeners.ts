@@ -77,7 +77,7 @@ export function useTerminalPaneGlobalListeners(controller: TerminalPaneMountedCo
     macOptionAsAltRef,
     paneKittyKeyboardModesRef,
     keybindings,
-    terminalShortcutPolicy: settings?.terminalShortcutPolicy ?? 'orca-first'
+    terminalShortcutPolicy: settings?.terminalShortcutPolicy ?? 'openkodo-first'
   })
   useTerminalPaneGlobalEffects({
     terminalManager,

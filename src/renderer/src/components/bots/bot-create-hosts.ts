@@ -19,7 +19,7 @@ import {
 } from '../../../../shared/execution-host/execution-host'
 import { buildExecutionHostRegistry } from '../../../../shared/execution-host/execution-host-registry'
 import { getHostDisplayLabelOverrides } from '../../../../shared/execution-host/host-setting-overrides'
-import type { OrcaAccountServerStatus } from '../../../../shared/orca-account-server-sign-in'
+import type { OpenKodoAccountServerStatus } from '../../../../shared/openkodo-account-server-sign-in'
 import { lastVerifiedRuntimeStatus } from '../../../../shared/remote-runtime/host-status/runtime-host-status'
 import { useBotWslSetup, type BotWslSetup } from './use-bot-wsl-setup'
 import { useBotWslWakes } from './use-bot-wsl-wakes'
@@ -162,7 +162,7 @@ function useServerAccounts(
       }
       asked.current.add(environmentId)
       const target = botHostTarget(toRuntimeExecutionHostId(environmentId))
-      void callRuntimeRpc<OrcaAccountServerStatus>(target, 'orcaAccount.status')
+      void callRuntimeRpc<OpenKodoAccountServerStatus>(target, 'openkodoAccount.status')
         .then(
           (status) => (status.state === 'signed-in' ? (status.email ?? null) : null),
           // An older server can't say; nothing is shown rather than a guess.
@@ -221,8 +221,8 @@ export function useBotCreateHost(
   const wslHostStatuses = useAppStore((s) => s.wslHostStatuses)
   const settings = useAppStore((s) => s.settings?.hostSettingOverrides)
   const ownEmail = useAppStore((s) =>
-    s.orcaProfileAuthStatus?.state === 'connected'
-      ? s.orcaProfileAuthStatus.cloud?.email
+    s.openkodoProfileAuthStatus?.state === 'connected'
+      ? s.openkodoProfileAuthStatus.cloud?.email
       : undefined
   )
   const onlyKey = only?.join('\n')

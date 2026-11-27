@@ -1,7 +1,7 @@
 // The profile lock proves replaced host runtimes lost their pipes, not that provider processes died.
 // Attribute only runtimes this host replaced; terminal claims and unknown owners provide no such evidence.
 
-import type { AgentSessionOrcaStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-orca-stop'
+import type { AgentSessionOpenKodoStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import {
   listAgentSessionConversations,
   type AgentSessionStoreState
@@ -15,7 +15,7 @@ export type AgentSessionReplacedRuntime = {
   /** The last renewal of the owner loaded at `fence`, its last proof of life. */
   lastProvenAliveAt?: number
   /** How the runtime holding the owner loaded at `fence` ended, when its record says. */
-  runtimeEnd?: AgentSessionOrcaStopCause
+  runtimeEnd?: AgentSessionOpenKodoStopCause
 }
 
 export function agentSessionReplacedRuntimes(

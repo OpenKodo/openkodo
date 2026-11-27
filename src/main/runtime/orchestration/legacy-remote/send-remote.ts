@@ -1,7 +1,7 @@
 import type { MessageType, WorkerDispatchState } from '../db/orchestration-records'
 import type { OrchestrationDb } from '../db/orchestration-db'
 
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { OrchestrationError } from '../orchestration-error'
 import { waitForFederatedLifecycleSettlement } from './federation-lifecycle-settlement'
 import { bindCoordinatorMutationPayload } from '../workers/reports/dispatch-message-binding'
@@ -24,7 +24,7 @@ type RemoteAttachment = {
 
 export async function sendRemoteMessage(args: {
   params: SendParamsInput
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   from: string
   senderPaneKey: string

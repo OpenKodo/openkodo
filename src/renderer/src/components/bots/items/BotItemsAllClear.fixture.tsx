@@ -49,7 +49,7 @@ const items = [
 
 // Closed opens (its default is folded) so the line can be checked against the rows' text edge.
 window.localStorage.setItem(
-  'orca.bots.panelFolds',
+  'openkodo.bots.panelFolds',
   JSON.stringify({ [letterBot.id]: ['items-closed'] })
 )
 

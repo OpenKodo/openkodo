@@ -1,7 +1,7 @@
 import { PLUGIN_DECLARATIVE_MESSAGES } from '../plugin-declarative-message-names'
 import { captureAtomValues } from './declarative-atoms'
 import { readHostMessage } from './declarative-host-messages'
-import type { OrcaBridge, OrcaDisposable } from './declarative-runtime-types'
+import type { OpenKodoBridge, OpenKodoDisposable } from './declarative-runtime-types'
 
 /**
  * `openkodo plugin shot --act` changes the live panel; OpenKodo asks this guest to remember its atoms
@@ -9,9 +9,9 @@ import type { OrcaBridge, OrcaDisposable } from './declarative-runtime-types'
  * guest's atoms: what handlers did elsewhere (worker requests, storage writes) stays.
  */
 export function actSnapshotSubscriptions(
-  on: NonNullable<OrcaBridge['on']>,
+  on: NonNullable<OpenKodoBridge['on']>,
   document: string
-): OrcaDisposable[] {
+): OpenKodoDisposable[] {
   let restore: (() => void) | null = null
   const ours = (payload: unknown): boolean => readHostMessage(payload).document === document
   return [

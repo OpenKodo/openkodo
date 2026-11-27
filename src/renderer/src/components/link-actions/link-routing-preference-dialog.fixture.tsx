@@ -24,6 +24,6 @@ function dialogFixture(openLinksInAppDefault: boolean) {
   })
 }
 
-export const openInOrca = dialogFixture(false)
+export const openInOpenKodo = dialogFixture(false)
 
-export const keepInOrca = dialogFixture(true)
+export const keepInOpenKodo = dialogFixture(true)

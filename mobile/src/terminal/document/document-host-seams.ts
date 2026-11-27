@@ -74,9 +74,9 @@ declare global {
     Terminal?: unknown
     // Native shell capture starts before engine loading, so it can report failures that precede document startup.
     __engineErrors?: string[]
-    __orcaTerminalTextScale?: unknown
-    __orcaTerminalFontStyle?: unknown
-    __orcaTerminalShown?: unknown
+    __openkodoTerminalTextScale?: unknown
+    __openkodoTerminalFontStyle?: unknown
+    __openkodoTerminalShown?: unknown
   }
   const Terminal: new (options: Record<string, unknown>) => TerminalDocumentTerminal
 }
@@ -141,11 +141,14 @@ export function windowHasEngine() {
 }
 
 export function windowStart(): TerminalDocumentStart {
-  const scale = window.__orcaTerminalTextScale
+  const scale = window.__openkodoTerminalTextScale
   return {
     textScale: typeof scale === 'number' && scale > 0 ? scale : 1,
-    fontStyle: readTerminalFontStyle(window.__orcaTerminalFontStyle, DEFAULT_TERMINAL_FONT_STYLE),
-    shown: window.__orcaTerminalShown !== false
+    fontStyle: readTerminalFontStyle(
+      window.__openkodoTerminalFontStyle,
+      DEFAULT_TERMINAL_FONT_STYLE
+    ),
+    shown: window.__openkodoTerminalShown !== false
   }
 }
 

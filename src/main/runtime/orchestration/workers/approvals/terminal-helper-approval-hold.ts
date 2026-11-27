@@ -28,7 +28,7 @@ export function promptTranscriptPath(event: AgentHookEventPayload): string | nul
 }
 
 /** Holding hides a helper's dialog from the terminal, so only a coordinator that can answer or show it may. */
-export function orcaMayHoldHelper(
+export function openkodoMayHoldHelper(
   deps: Pick<TerminalWorkerApprovalHoldsDeps, 'coordinatorApprovals' | 'isChatMailbox'>,
   worker: { db: OrchestrationDb; dispatch: DispatchContextRow }
 ): boolean {

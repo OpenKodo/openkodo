@@ -4,7 +4,7 @@
 
 import { randomUUID } from 'node:crypto'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type * as accountTypes from '../../shared/agent-accounts/antigravity/antigravity-account-types'
 import { antigravityChatSignIn } from './antigravity-chat-account'
 import { agyLoginFailure } from './antigravity-sign-in-failure'

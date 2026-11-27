@@ -21,7 +21,7 @@ import { within } from './bot-share-own-path'
 let root: string
 
 beforeEach(async () => {
-  root = await mkdtemp(join(tmpdir(), 'orca-bot-package-test-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-bot-package-test-'))
   // Inline tool headers move to the credential store on read; never the real one.
   useBotToolCredentialsRoot(join(root, 'credentials'))
 })
@@ -80,7 +80,7 @@ async function writeHome(home: string): Promise<void> {
     ['memory/area-owners.md', 'Web: Dara\n'],
     ['memory/imported-hermes.md', 'From Hermes\n'],
     [
-      '.orca/bot-tools.json',
+      '.openkodo/bot-tools.json',
       JSON.stringify({
         servers: [
           {
@@ -321,8 +321,10 @@ describe('what a bot export may read', () => {
   })
 
   it('treats a folder on another Windows drive as outside', () => {
-    expect(within('C:\\orca\\bots\\a\\skills', 'D:\\elsewhere\\skill', win32)).toBe(false)
-    expect(within('C:\\orca\\bots\\a\\skills', 'C:\\orca\\bots\\a\\skills\\x', win32)).toBe(true)
+    expect(within('C:\\openkodo\\bots\\a\\skills', 'D:\\elsewhere\\skill', win32)).toBe(false)
+    expect(within('C:\\openkodo\\bots\\a\\skills', 'C:\\openkodo\\bots\\a\\skills\\x', win32)).toBe(
+      true
+    )
   })
 
   it('never follows a directory link out of the bot home', async () => {
@@ -373,13 +375,16 @@ describe('what a bot export may read', () => {
       )
       const linkedFile = join(root, 'home-a')
       await writeHome(linkedFile)
-      await rm(join(linkedFile, '.orca', 'bot-tools.json'))
-      await symlink(join(outside, 'bot-tools.json'), join(linkedFile, '.orca', 'bot-tools.json'))
+      await rm(join(linkedFile, '.openkodo', 'bot-tools.json'))
+      await symlink(
+        join(outside, 'bot-tools.json'),
+        join(linkedFile, '.openkodo', 'bot-tools.json')
+      )
       const shareable = await readBotShareable({ bot, home: linkedFile, automations: [] })
       expect(shareable.tools).toEqual([])
       expect(shareable.leftOut).toContainEqual({
         kind: 'tool',
-        name: '.orca/bot-tools.json',
+        name: '.openkodo/bot-tools.json',
         why: 'linked'
       })
     }
@@ -394,13 +399,13 @@ describe('what a bot export may read', () => {
     )
     const linkedFolder = join(root, 'home-b')
     await writeHome(linkedFolder)
-    await rm(join(linkedFolder, '.orca'), { recursive: true })
-    await symlink(outside, join(linkedFolder, '.orca'), 'junction')
+    await rm(join(linkedFolder, '.openkodo'), { recursive: true })
+    await symlink(outside, join(linkedFolder, '.openkodo'), 'junction')
     const shareable = await readBotShareable({ bot, home: linkedFolder, automations: [] })
     expect(shareable.tools).toEqual([])
     expect(shareable.leftOut).toContainEqual({
       kind: 'tool',
-      name: '.orca/bot-tools.json',
+      name: '.openkodo/bot-tools.json',
       why: 'linked'
     })
   })
@@ -558,7 +563,7 @@ async function craftArchive(
 }
 
 const base = [
-  { path: 'dev.orca.bot-sharing/bot.json', text: JSON.stringify(BOT_JSON), role: 'manifest' },
+  { path: 'dev.openkodo.bot-sharing/bot.json', text: JSON.stringify(BOT_JSON), role: 'manifest' },
   { path: 'SOUL.md', text: '# Crafted\n', role: 'soul' }
 ]
 
@@ -639,7 +644,7 @@ describe('the bot transport digest', () => {
           identitySha256: 'a4c5460042db2a9ae9c1bd5b162064112e02f539c14796d1c7b9451f96b52b83'
         },
         {
-          path: 'dev.orca.bot-sharing/bot.json',
+          path: 'dev.openkodo.bot-sharing/bot.json',
           role: 'manifest',
           size: 2,
           executable: false,
@@ -657,7 +662,7 @@ describe('the bot transport digest', () => {
           identitySha256: 'a1af8e8f451990ae82d10f2792bc39fceb1f78bac7712e2da44f6b3363091472'
         }
       ])
-    ).toBe('fd68e847c6e36d4d82b19e37f745b76b349ead260de0cd56fd65562b21f2c26e')
+    ).toBe('96ab8b93d98bd6788379c7bcf334a064e73938eaf548f32b680e9a5a18b537bf')
     expect(
       describeObservedSkillFile('SOUL.md', Buffer.from('# Crafted\r\nShips on Fridays.\r\n'), false)
         .identitySha256

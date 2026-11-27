@@ -1,5 +1,5 @@
 // The stand-in host's work record: OpenKodo's own BotWorkRecord over a store file beside the stand-in's
-// state, reading workers and workspaces from that state. The `orca` stand-in records starts and
+// state, reading workers and workspaces from that state. The `openkodo` stand-in records starts and
 // answers `bot work`; the thread runner reads the turn note.
 import { join } from 'node:path'
 import { BotWorkRecord, type BotTurnAddress } from '../../main/bots/bot-work-record'

@@ -64,7 +64,7 @@ function refuse(message: unknown, refusal: PluginFrameSendRefusal): void {
     retryable: refusal.code === 'rate_limited',
     ...(refusal.code === 'rate_limited' ? { retryAfterMs: refusal.retryAfterMs } : {})
   }
-  queueMicrotask(() => deliver({ orca: 1, kind: 'res', id, error }))
+  queueMicrotask(() => deliver({ openkodo: 1, kind: 'res', id, error }))
 }
 
 // Why only HTML in the top frame: OpenKodo's shell, which takes and hides the transport before plugin

@@ -3,12 +3,12 @@ import { readCachedRuntimeEnvironmentCapability } from '@/runtime/rpc/compatibil
 import { resolveOwner } from '@/lib/workspace/ownership/resolve-owner'
 import type { WorktreeOperationRouteState } from '@/lib/workspace/ownership/worktree-operation-route'
 import {
-  getOrcadSshDeployment,
-  type OrcadDeploymentLink
+  getOpenkododSshDeployment,
+  type OpenkododDeploymentLink
 } from '../../../../shared/remote-runtime/host-catalog/runtime-environments'
 
 type ServerPortForwardState = Omit<WorktreeOperationRouteState, 'runtimeEnvironments'> & {
-  runtimeEnvironments?: readonly { id: string; orcadDeployment?: OrcadDeploymentLink }[]
+  runtimeEnvironments?: readonly { id: string; openkododDeployment?: OpenkododDeploymentLink }[]
   /** This desktop's own SSH targets; a paired server's targets live on that server. */
   sshTargetLabels?: ReadonlyMap<string, string>
 }
@@ -25,7 +25,7 @@ export function serverSshForwardTargetId(environmentId: string): string | null {
   const environment = readOwnerState?.()?.runtimeEnvironments?.find(
     (candidate) => candidate.id === environmentId
   )
-  return (environment && getOrcadSshDeployment(environment)?.sshTargetId) || null
+  return (environment && getOpenkododSshDeployment(environment)?.sshTargetId) || null
 }
 
 /** Whether this desktop can forward an SSH host's localhost ports over its own connection to it. */

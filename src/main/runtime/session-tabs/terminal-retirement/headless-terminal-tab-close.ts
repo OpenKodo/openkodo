@@ -1,7 +1,7 @@
 import type { RuntimeHeadlessTabProperties as HeadlessTabPropertiesMethods } from '../layout/headless-tab-properties'
 import type { RuntimeHeadlessTabGroups as HeadlessTabGroupsMethods } from '../layout/headless-tab-group-moves'
 import type { RuntimeHeadlessTerminalTabTitles as PersistHeadlessTerminalTitleMethods } from '../publication/headless-terminal-tab-titles'
-import { OrcaRuntimeWithMainLayoutTabMoves } from '../layout/main-layout-session-tab-move'
+import { OpenKodoRuntimeWithMainLayoutTabMoves } from '../layout/main-layout-session-tab-move'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type {
   RuntimeMobileSessionTabMove,
@@ -18,7 +18,7 @@ import type { RuntimePtyWorktreeRecord } from '../../terminal/records/runtime-te
 import type { TerminalPaneLayoutNode } from '../../../../shared/workspace-layout/terminal-tab-types'
 import type { RuntimeTerminalRename } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 
-export abstract class OrcaRuntimeWithCloseHeadlessMobileTerminalTab extends OrcaRuntimeWithMainLayoutTabMoves {
+export abstract class OpenKodoRuntimeWithCloseHeadlessMobileTerminalTab extends OpenKodoRuntimeWithMainLayoutTabMoves {
   protected abstract applyHeadlessTerminalPaneLayoutToSnapshot(
     ...args: Parameters<HeadlessTabPropertiesMethods['applyHeadlessTerminalPaneLayoutToSnapshot']>
   ): ReturnType<HeadlessTabPropertiesMethods['applyHeadlessTerminalPaneLayoutToSnapshot']>

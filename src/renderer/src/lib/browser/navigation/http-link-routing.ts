@@ -155,7 +155,7 @@ export async function openSystemHttpLinkReportingOutcome(url: string): Promise<b
   }
 }
 
-export type HttpLinkDestination = 'orca-browser' | 'system-browser' | 'none'
+export type HttpLinkDestination = 'openkodo-browser' | 'system-browser' | 'none'
 
 // Route only external http(s); file/markdown targets stay with resolveMarkdownLinkTarget. Modifier-held resolves the user’s Shift choice; forceSystemBrowser is unconditional.
 export function openHttpLink(url: string, opts: OpenHttpLinkOptions = {}): HttpLinkDestination {
@@ -191,23 +191,23 @@ function executeHttpLink(
     : !remoteRuntimeActive
   const openLinksInApp = state?.settings?.openLinksInApp === true
   // A client fallback tab browses from this desktop, so it cannot reach the owner's loopback either.
-  const prefersOrca =
+  const prefersOpenKodo =
     openLinksInApp ||
     (!opts.allowClientBrowserFallback &&
       isRemoteLoopbackHttpLink(url, effectiveSourceOwner, worktreeId))
   const modifier = resolveModifierRouting(
     Boolean(opts.modifierHeld),
-    prefersOrca,
+    prefersOpenKodo,
     state?.settings?.openLinksInAppModifierInverts === true
   )
-  const wantsOrca =
+  const wantsOpenKodo =
     !forceSystemBrowser &&
     !modifier.wantsSystemBrowser &&
     Boolean(worktreeId) &&
-    (forceInApp || prefersOrca || modifier.wantsOrca)
+    (forceInApp || prefersOpenKodo || modifier.wantsOpenKodo)
 
   if (
-    wantsOrca &&
+    wantsOpenKodo &&
     allowRemoteInApp &&
     worktreeId &&
     (effectiveSourceOwner?.kind === 'runtime' ||
@@ -242,12 +242,12 @@ function executeHttpLink(
         opts.onBrowserOpenComplete ? isHttpLinkBackgroundOpen(state) : false,
         opts.onBrowserOpenComplete
       )
-      return 'orca-browser'
+      return 'openkodo-browser'
     }
     return 'none'
   }
 
-  if (wantsOrca && sourceIsLocal && worktreeId && state) {
+  if (wantsOpenKodo && sourceIsLocal && worktreeId && state) {
     const getState = () => storeAccessor?.() ?? state
     const reveal = captureBrowserLinkReveal(getState, storeSubscriber, opts.linkContext?.canReveal)
     const openLocal = (chosenUrl: string): void => {
@@ -286,7 +286,7 @@ function executeHttpLink(
     } else {
       openLocal(url)
     }
-    return 'orca-browser'
+    return 'openkodo-browser'
   }
 
   const localhostRoute = state ? localhostLabelRouteForHttpLink(url, state, sourceOwner) : null

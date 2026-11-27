@@ -6,7 +6,7 @@ import {
   type AppPathName
 } from '../../../shared/app-lifecycle/app-environment'
 import { createNodeServiceEnvironment } from '../../../main/backend/node-service-environment'
-import { readOrcaCliVersion } from '../../cli-version'
+import { readOpenKodoCliVersion } from '../../cli-version'
 import { getDefaultUserDataPath } from './metadata'
 
 /** Main hook code resolves OpenKodo's userData (Claude profile homes) through this port. */
@@ -32,7 +32,7 @@ export function ensureCliAppEnvironment(scriptPath = process.argv[1] ?? ''): voi
     createNodeServiceEnvironment({
       getPath: (name) => paths[name],
       getAppPath: () => appPath,
-      getVersion: () => readOrcaCliVersion() ?? '0.0.0',
+      getVersion: () => readOpenKodoCliVersion() ?? '0.0.0',
       isPackaged: () => unpacked !== -1
     }).environment
   )

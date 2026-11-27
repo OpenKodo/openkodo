@@ -3,16 +3,16 @@
 import { findPaneSleepingRecord } from './pane-sleeping-record'
 import { hookRowPaneResumeRecord, isPaneLocalHookRow } from './hook-row-pane-resume-record'
 import { makePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
-import { OrcaRuntimeWithApplyMobileSessionTabNavigation } from './apply-mobile-session-tab-navigation'
+import { OpenKodoRuntimeWithApplyMobileSessionTabNavigation } from './apply-mobile-session-tab-navigation'
 import type { RuntimeMobileSessionTerminalTab } from '../../../../shared/remote-runtime/session-graph/runtime-mobile-session-tab-contracts'
 import type { SleepingAgentSessionRecord } from '../../../../shared/agent-session/lifecycle/agent-session-resume'
 import { agentProviderSessionsEqual } from '../../../../shared/agent-session/lifecycle/resume/agent-provider-session-equality'
 import type {
   MobileTerminalResumeCommand,
-  OrcaRuntimeWithResolveMobileSessionTerminalCommand as MobileTerminalStartup
+  OpenKodoRuntimeWithResolveMobileSessionTerminalCommand as MobileTerminalStartup
 } from '../../terminal/launch/mobile-terminal-startup'
-import type { OrcaRuntimeWithMarkPtyLivenessUnverifiable as PtyExitFloor } from '../../terminal/layout/terminal-input-floor'
-import type { OrcaRuntimeWithStopTerminalsForWorktree as SessionEditHost } from '../../terminal/stop/worktree-terminal-stop'
+import type { OpenKodoRuntimeWithMarkPtyLivenessUnverifiable as PtyExitFloor } from '../../terminal/layout/terminal-input-floor'
+import type { OpenKodoRuntimeWithStopTerminalsForWorktree as SessionEditHost } from '../../terminal/stop/worktree-terminal-stop'
 import { claimSleepRecordForPane, isUnclaimedRunningSleepRecord } from './sleep-record-pane-claim'
 import {
   AgentSessionResumeClaims,
@@ -25,7 +25,7 @@ import {
 export type PaneResumeStartup = MobileTerminalResumeCommand & {
   resumeClaim: AgentSessionResumeClaim
 }
-export abstract class OrcaRuntimeWithAgentSessionResumeOwnership extends OrcaRuntimeWithApplyMobileSessionTabNavigation {
+export abstract class OpenKodoRuntimeWithAgentSessionResumeOwnership extends OpenKodoRuntimeWithApplyMobileSessionTabNavigation {
   protected abstract resolveMobileSessionResumeCommand(
     ...args: Parameters<MobileTerminalStartup['resolveMobileSessionResumeCommand']>
   ): ReturnType<MobileTerminalStartup['resolveMobileSessionResumeCommand']>

@@ -80,7 +80,7 @@ export class PresentationDispatchIndex {
       ...(row.assignee_pane_key
         ? [paneAddress(row.assignee_pane_key), `exact:${row.assignee_pane_key}`]
         : []),
-      ...(row.assignee_orca_session_id ? [`session:${row.assignee_orca_session_id}`] : [])
+      ...(row.assignee_openkodo_session_id ? [`session:${row.assignee_openkodo_session_id}`] : [])
     ]
   }
 
@@ -174,12 +174,12 @@ export class PresentationDispatchIndex {
             (key) => this.candidates.get(key) ?? []
           )
         )
-      : [...this.candidates.values()].filter((row) => row.assignee_orca_session_id)
+      : [...this.candidates.values()].filter((row) => row.assignee_openkodo_session_id)
     const selected = new Map<string, Candidate>()
     for (const row of candidates) {
       const address = row.assignee_handle
         ? `handle:${row.assignee_handle}`
-        : `session:${row.assignee_orca_session_id}`
+        : `session:${row.assignee_openkodo_session_id}`
       const previous = selected.get(address)
       if (
         !previous ||
@@ -192,13 +192,13 @@ export class PresentationDispatchIndex {
     return [...selected].flatMap(([key, row]) => {
       const latest =
         active(row) && !row.assignee_handle
-          ? this.newest(`session:${row.assignee_orca_session_id}`)
+          ? this.newest(`session:${row.assignee_openkodo_session_id}`)
           : this.read(row.id, `session-latest:${active(row)}:${key}`, [key], () =>
               this.db.db
                 .prepare(
-                  `SELECT rowid AS n FROM dispatch_contexts WHERE ${row.assignee_handle ? 'assignee_handle' : 'assignee_orca_session_id'} = ? ${active(row) ? "AND status IN ('pending', 'dispatched')" : ''} ORDER BY rowid DESC LIMIT 1`
+                  `SELECT rowid AS n FROM dispatch_contexts WHERE ${row.assignee_handle ? 'assignee_handle' : 'assignee_openkodo_session_id'} = ? ${active(row) ? "AND status IN ('pending', 'dispatched')" : ''} ORDER BY rowid DESC LIMIT 1`
                 )
-                .get(row.assignee_handle || row.assignee_orca_session_id)
+                .get(row.assignee_handle || row.assignee_openkodo_session_id)
             )
       const order =
         latest && ('presentation_order' in latest ? latest.presentation_order : latest.n)

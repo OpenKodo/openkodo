@@ -14,7 +14,7 @@ export type BuildPtyHostEnvOptions = {
   selectedCodexHomePath: string | null
   skipCodexHomeEnv?: boolean
   /** Real-home routing strips only inherited OpenKodo-owned Codex overrides, preserving user CODEX_HOME. */
-  stripInheritedOrcaCodexHome?: boolean
+  stripInheritedOpenKodoCodexHome?: boolean
   /** Explicit launch command selects Pi/OMP extension targets; never infer agent identity from directories on disk. */
   launchCommand?: string
   /** Trusted agent identity for wrapped commands that cannot be recognized from text. */

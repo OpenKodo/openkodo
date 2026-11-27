@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
-import { test } from '../desktop/electron-fixtures/orca-app'
+import { test } from '../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import {
   cleanupGoldenWorktree,
@@ -16,7 +16,7 @@ import {
 import { waitForSessionReady } from '../desktop/renderer-probes/store'
 
 test('@golden stages and commits a file through Source Control', async ({
-  orcaPage,
+  openkodoPage,
   testRepoPath,
   registerPostElectronShutdownCleanup
 }) => {
@@ -25,10 +25,10 @@ test('@golden stages and commits a file through Source Control', async ({
   seedGoldenSourceEdit(fixture.worktreePath)
   const hookMarkerPath = installPassingNodePreCommitHook(fixture)
 
-  await waitForSessionReady(orcaPage)
-  await openGoldenSourceControl(orcaPage, testRepoPath, fixture)
+  await waitForSessionReady(openkodoPage)
+  await openGoldenSourceControl(openkodoPage, testRepoPath, fixture)
 
-  const unstagedRow = orcaPage
+  const unstagedRow = openkodoPage
     .locator('[data-testid="source-control-entry"][data-source-control-area="unstaged"]')
     .filter({ hasText: path.basename(GOLDEN_CHANGED_PATH) })
   await expect(unstagedRow).toBeVisible()
@@ -37,12 +37,14 @@ test('@golden stages and commits a file through Source Control', async ({
   await stageButton.press('Enter')
   await expect(unstagedRow).toHaveCount(0, { timeout: 10_000 })
 
-  const stagedRow = orcaPage
+  const stagedRow = openkodoPage
     .locator('[data-testid="source-control-entry"][data-source-control-area="staged"]')
     .filter({ hasText: path.basename(GOLDEN_CHANGED_PATH) })
   await expect(stagedRow).toBeVisible({ timeout: 10_000 })
-  await orcaPage.getByRole('textbox', { name: 'Commit message' }).fill('test: golden daily loop')
-  await orcaPage.getByRole('button', { name: 'Commit', exact: true }).click()
+  await openkodoPage
+    .getByRole('textbox', { name: 'Commit message' })
+    .fill('test: golden daily loop')
+  await openkodoPage.getByRole('button', { name: 'Commit', exact: true }).click()
 
   await expect(stagedRow).toHaveCount(0, { timeout: 20_000 })
   await expect
@@ -63,6 +65,8 @@ test('@golden stages and commits a file through Source Control', async ({
   ).toBe(`${GOLDEN_GIT_AUTHOR_NAME}\n${GOLDEN_GIT_AUTHOR_EMAIL}\ntest: golden daily loop`)
   await expect.poll(() => existsSync(hookMarkerPath), { timeout: 20_000 }).toBe(true)
   await expect(
-    orcaPage.locator('[data-sonner-toast]').filter({ hasText: /node|command not found|cmd\.exe/i })
+    openkodoPage
+      .locator('[data-sonner-toast]')
+      .filter({ hasText: /node|command not found|cmd\.exe/i })
   ).toHaveCount(0)
 })

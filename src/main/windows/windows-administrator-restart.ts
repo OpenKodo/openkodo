@@ -1,12 +1,12 @@
 import { existsSync } from 'node:fs'
 import { win32 } from 'node:path'
 import { app } from 'electron'
-import { quoteWindowsArgument } from '@orca/process-host/windows-command-line'
+import { quoteWindowsArgument } from '@openkodo/process-host/windows-command-line'
 import { getBundledLauncherPath } from '../cli/packaged-assets/bundled-cli-launcher-path'
 import { getWindowsAdministratorStatus } from './windows-administrator-status'
 import { BACKGROUND_OPEN_ARG } from '../../shared/app-lifecycle/launch/background-open-argv'
 
-const RESTART_LOCAL_TERMINALS_ARG = '--orca-restart-local-terminals-as-administrator'
+const RESTART_LOCAL_TERMINALS_ARG = '--openkodo-restart-local-terminals-as-administrator'
 
 export function getWindowsAdministratorRelaunchOptions(): Electron.RelaunchOptions | undefined {
   if (
@@ -36,7 +36,7 @@ export function prepareWindowsAdministratorRestart(): Electron.RelaunchOptions {
   return {
     execPath: launcher,
     args: [
-      '--orca-restart-as-administrator',
+      '--openkodo-restart-as-administrator',
       process.execPath,
       [...args, RESTART_LOCAL_TERMINALS_ARG].map(quoteWindowsArgument).join(' '),
       args.map(quoteWindowsArgument).join(' ')

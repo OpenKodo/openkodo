@@ -1,13 +1,13 @@
 {
-  "$schema": "https://raw.githubusercontent.com/OpenKodo/openkodo/main/docs/schemas/plugins/orca-plugin.v2.schema.json",
+  "$schema": "https://raw.githubusercontent.com/OpenKodo/openkodo/main/docs/schemas/plugins/openkodo-plugin.v2.schema.json",
   "manifestVersion": 2,
   "execution": "data",
-  "id": "orca-gleam-syntax",
+  "id": "openkodo-gleam-syntax",
   "publisher": "openkodo",
   "name": "Gleam",
   "version": "1.0.0",
   "description": "Syntax highlighting for Gleam files.",
-  "engines": { "orca": ">=1.4.245" },
+  "engines": { "openkodo": ">=1.4.245" },
   "contributes": {
     "syntaxes": [
       {

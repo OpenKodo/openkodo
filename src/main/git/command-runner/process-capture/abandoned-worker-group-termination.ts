@@ -2,7 +2,7 @@ import type { ChildProcess } from 'node:child_process'
 import {
   forceTerminateProcessTree,
   posixProcessGroupQuiet
-} from '@orca/process-host/process-tree-termination'
+} from '@openkodo/process-host/process-tree-termination'
 import type { WorkerThreadChildProcess } from '../../../worker-thread-child-process/worker-thread-child-process'
 
 const ABANDONED_GROUP_FIRST_CHECK_MS = 1_000

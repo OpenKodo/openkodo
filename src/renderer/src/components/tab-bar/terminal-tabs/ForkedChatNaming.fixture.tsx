@@ -10,7 +10,7 @@ import type { DashboardAgentRow } from '../../dashboard/rows/dashboard-agent-row
 import type { AiVaultSession } from '../../../../../shared/ai-vault/contracts/ai-vault-types'
 import type { Tab } from '../../../../../shared/workspace-layout/tab-groups/tab-types'
 
-const WORKTREE = 'repo-1::/repos/orca'
+const WORKTREE = 'repo-1::/repos/openkodo'
 
 type Chat = {
   id: string
@@ -205,7 +205,7 @@ function vaultSession(chat: Chat, index: number): AiVaultSession {
     agent: 'claude',
     sessionId: chat.id,
     title: chat.name ?? 'Claude Chat',
-    cwd: '/repos/orca',
+    cwd: '/repos/openkodo',
     branch: 'main',
     model: null,
     filePath: `/tmp/${chat.id}.jsonl`,

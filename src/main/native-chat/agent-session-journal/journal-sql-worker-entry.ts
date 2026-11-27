@@ -32,7 +32,7 @@ import { JournalSqlQueueClock, journalSqlTimedGate } from './journal-sql-writer-
 import { JournalSqlWriterQueue } from './journal-sql-writer-queue'
 import { JournalSqlWalParking } from './journal-sql-wal-parking'
 
-installWorkerSendLedger('orca-journal-sql-writer')
+installWorkerSendLedger('openkodo-journal-sql-writer')
 
 function legacyDestinationMain(filename: string): string {
   return legacyDestinationFileIdentity(lstatSync(filename, { bigint: true }))

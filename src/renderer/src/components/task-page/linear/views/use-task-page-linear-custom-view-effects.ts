@@ -1,7 +1,7 @@
 import { observeLinearIssueRead } from '@/store/slices/linear/linear-issue-read-lifecycle'
 import { linearIssueReadError } from '@/lib/work-items/linear/linear-read-error'
 import { taskProviderErrorText } from '@/lib/work-items/task-provider-error-copy'
-import type { TaskPageLinearInOrcaEffectsModel } from '../issues/use-task-page-linear-in-orca-effects'
+import type { TaskPageLinearInOpenKodoEffectsModel } from '../issues/use-task-page-linear-in-openkodo-effects'
 import { useEffect } from 'react'
 
 import { LINEAR_ITEM_LIMIT } from '../../task-page-source-context'
@@ -11,7 +11,7 @@ import type {
   LinearCustomViewModel
 } from '../../../../../../shared/linear/project-types'
 import { clampLinearIssueListLimit } from '../../../../../../shared/linear/issue-read-limits'
-export function useTaskPageLinearCustomViewEffects(model: TaskPageLinearInOrcaEffectsModel) {
+export function useTaskPageLinearCustomViewEffects(model: TaskPageLinearInOpenKodoEffectsModel) {
   const {
     getCachedLinearCustomViews,
     listLinearCustomViews,

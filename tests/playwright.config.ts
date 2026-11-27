@@ -33,7 +33,7 @@ export default defineConfig({
       testMatch: '**/*.spec.ts',
       grepInvert: /@headful/,
       metadata: {
-        orcaHeadful: false
+        openkodoHeadful: false
       }
     },
     {
@@ -41,7 +41,7 @@ export default defineConfig({
       testMatch: '**/*.spec.ts',
       grep: /@headful/,
       metadata: {
-        orcaHeadful: true
+        openkodoHeadful: true
       }
     }
   ]

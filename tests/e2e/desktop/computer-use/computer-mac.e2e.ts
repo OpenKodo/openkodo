@@ -9,7 +9,11 @@ import {
   findRoleIndex,
   killTextEdit
 } from './computer-driver'
-import { ensureOrcaRuntimeLaunched, parseJsonOutput, runOrcaCli } from './computer-cli-driver'
+import {
+  ensureOpenKodoRuntimeLaunched,
+  parseJsonOutput,
+  runOpenKodoCli
+} from './computer-cli-driver'
 import {
   clickCapturedTextEditOpenDialog,
   doubleClickTextEditWord
@@ -20,7 +24,7 @@ const e2eOptIn = process.env.OPENKODO_COMPUTER_E2E === '1'
 
 describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => {
   beforeAll(async () => {
-    await ensureOrcaRuntimeLaunched()
+    await ensureOpenKodoRuntimeLaunched()
     await ensureTextEditLaunched()
   })
 
@@ -30,7 +34,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
 
   test('click, type-text, and re-observe show inserted text', async () => {
     const before = parseJsonOutput<{ result: ComputerSnapshotResult }>(
-      (await runOrcaCli(['computer', 'get-app-state', '--app', 'TextEdit', '--json'])).stdout
+      (await runOpenKodoCli(['computer', 'get-app-state', '--app', 'TextEdit', '--json'])).stdout
     )
     const textTarget = findRoleIndex(
       before.result.snapshot.treeText,
@@ -38,7 +42,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
     )
     expect(textTarget).toBeGreaterThanOrEqual(0)
 
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'click',
       '--app',
@@ -47,11 +51,11 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
       String(textTarget)
     ])
 
-    const marker = `orca computer e2e ${Date.now()}`
-    await runOrcaCli(['computer', 'type-text', '--app', 'TextEdit', '--text', marker])
+    const marker = `openkodo computer e2e ${Date.now()}`
+    await runOpenKodoCli(['computer', 'type-text', '--app', 'TextEdit', '--text', marker])
 
     const after = parseJsonOutput<{ result: ComputerSnapshotResult }>(
-      (await runOrcaCli(['computer', 'get-app-state', '--app', 'TextEdit', '--json'])).stdout
+      (await runOpenKodoCli(['computer', 'get-app-state', '--app', 'TextEdit', '--json'])).stdout
     )
     expect(after.result.snapshot.treeText).toContain(marker)
   })
@@ -78,7 +82,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
   test('accessibility text actions work when TextEdit is not frontmost', async () => {
     const before = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'get-app-state',
           '--app',
@@ -95,7 +99,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
     )
     expect(textTarget).toBeGreaterThanOrEqual(0)
 
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'click',
       '--app',
@@ -106,20 +110,20 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
       '--no-screenshot'
     ])
 
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'paste-text',
       '--app',
       'TextEdit',
       '--text',
-      'orca unfocused first',
+      'openkodo unfocused first',
       '--no-screenshot'
     ])
     await activateFinder()
 
     const selectAll = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'hotkey',
           '--app',
@@ -134,10 +138,10 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
     expect(selectAll.result.action?.actionName).toBe('AXSelectAll')
     expect(selectAll.result.action?.verification?.state).toBe('verified')
 
-    const marker = `orca unfocused final ${Date.now()}`
+    const marker = `openkodo unfocused final ${Date.now()}`
     const replacement = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'paste-text',
           '--app',
@@ -157,7 +161,7 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
 
     const after = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'get-app-state',
           '--app',
@@ -168,6 +172,6 @@ describe.skipIf(!isMac || !e2eOptIn)('computer-use macOS e2e (TextEdit)', () => 
       ).stdout
     )
     expect(after.result.snapshot.treeText).toContain(marker)
-    expect(after.result.snapshot.treeText).not.toContain('orca unfocused first')
+    expect(after.result.snapshot.treeText).not.toContain('openkodo unfocused first')
   })
 })

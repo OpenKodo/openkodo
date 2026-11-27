@@ -7,7 +7,7 @@ import type {
 import { transpilePluginSource } from './source-transpilation/plugin-source-transpiler'
 import { installWorkerSendLedger } from '../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-plugin-transpile')
+installWorkerSendLedger('openkodo-plugin-transpile')
 
 // Electron-free: transpiling a large plugin file must never block the main process.
 

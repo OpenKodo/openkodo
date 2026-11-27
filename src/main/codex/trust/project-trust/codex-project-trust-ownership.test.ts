@@ -17,7 +17,7 @@ import {
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { markCodexProjectTrusted } from '../../../agent-launch/trust/agent-trust-presets'
-import { removeOrcaCreatedProjectTrustEntries } from './codex-project-trust-worker-client'
+import { removeOpenKodoCreatedProjectTrustEntries } from './codex-project-trust-worker-client'
 import type * as TomlAtomicWrite from '../../configuration/toml/config-toml-atomic-write'
 
 // Runs just before each config publication, between the grant's read and its write.
@@ -53,7 +53,7 @@ describe('OpenKodo-created project trust lifecycle', () => {
   let previousUserDataPath: string | undefined
 
   beforeEach(() => {
-    userDataDir = mkdtempSync(join(tmpdir(), 'orca-pretrust-ownership-'))
+    userDataDir = mkdtempSync(join(tmpdir(), 'openkodo-pretrust-ownership-'))
     previousUserDataPath = process.env.OPENKODO_USER_DATA_PATH
     process.env.OPENKODO_USER_DATA_PATH = userDataDir
     const managedHome = join(userDataDir, 'codex-runtime-home', 'home')
@@ -87,14 +87,14 @@ describe('OpenKodo-created project trust lifecycle', () => {
     await markCodexProjectTrusted(OTHER, [managedConfigPath])
     expect(readFileSync(managedConfigPath, 'utf-8')).toContain(`[projects."${PROJECT}"]`)
 
-    await removeOrcaCreatedProjectTrustEntries(PROJECT)
+    await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
 
     for (const configPath of [managedConfigPath, accountConfigPath]) {
       expect(readFileSync(configPath, 'utf-8')).not.toContain(`[projects."${PROJECT}"]`)
     }
     expect(readFileSync(managedConfigPath, 'utf-8')).toContain(`[projects."${OTHER}"]`)
     // The record was forgotten, so removing again cannot touch surviving entries.
-    await removeOrcaCreatedProjectTrustEntries(PROJECT)
+    await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
     expect(readFileSync(managedConfigPath, 'utf-8')).toContain(`[projects."${OTHER}"]`)
   })
 
@@ -107,7 +107,7 @@ describe('OpenKodo-created project trust lifecycle', () => {
     await markCodexProjectTrusted(PROJECT, [managedConfigPath])
 
     // …but the worktree removal must not delete the pre-existing tables.
-    await removeOrcaCreatedProjectTrustEntries(PROJECT)
+    await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
 
     expect(readFileSync(managedConfigPath, 'utf-8')).toBe(
       [`[projects."${PROJECT}"]`, 'trust_level = "trusted"', ''].join('\n')
@@ -127,11 +127,11 @@ describe('OpenKodo-created project trust lifecycle', () => {
     ].join('\n')
     writeFileSync(managedConfigPath, replacement)
 
-    await removeOrcaCreatedProjectTrustEntries(PROJECT)
+    await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
 
     expect(readFileSync(managedConfigPath, 'utf-8')).toBe(replacement)
     // The spent record is dropped, so a later pass cannot delete the user's table either.
-    await removeOrcaCreatedProjectTrustEntries(PROJECT)
+    await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
     expect(readFileSync(managedConfigPath, 'utf-8')).toBe(replacement)
   })
 
@@ -155,7 +155,7 @@ describe('OpenKodo-created project trust lifecycle', () => {
     const projectTables = Array.from(
       { length: 3_300 },
       (_, i) =>
-        `[projects."/Users/me/orca/workspaces/repo/feature-${i}"]\ntrust_level = "trusted"\n`
+        `[projects."/Users/me/openkodo/workspaces/repo/feature-${i}"]\ntrust_level = "trusted"\n`
     ).join('\n')
     for (const configPath of configs) {
       writeFileSync(configPath, projectTables)
@@ -187,7 +187,7 @@ describe('OpenKodo-created project trust lifecycle', () => {
     )
 
     await Promise.all([
-      ...Array.from({ length: 6 }, (_, i) => removeOrcaCreatedProjectTrustEntries(project(i))),
+      ...Array.from({ length: 6 }, (_, i) => removeOpenKodoCreatedProjectTrustEntries(project(i))),
       ...Array.from({ length: 6 }, (_, i) => markCodexProjectTrusted(project(12 + i), configs))
     ])
 
@@ -232,7 +232,7 @@ describe('OpenKodo-created project trust lifecycle', () => {
     expect(Object.keys(ledgerWhenSystemPublished ?? {}).sort()).toEqual(
       [managedConfigPath, systemConfigPath].sort()
     )
-    await removeOrcaCreatedProjectTrustEntries(PROJECT)
+    await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
     for (const configPath of [managedConfigPath, systemConfigPath]) {
       expect(readFileSync(configPath, 'utf-8')).not.toContain(`[projects."${PROJECT}"]`)
     }
@@ -277,7 +277,7 @@ describe('OpenKodo-created project trust lifecycle', () => {
       }
       expect(Object.keys(readLedger())).toEqual([managedConfigPath])
 
-      await removeOrcaCreatedProjectTrustEntries(PROJECT)
+      await removeOpenKodoCreatedProjectTrustEntries(PROJECT)
       expect(readFileSync(managedConfigPath, 'utf-8')).not.toContain(`[projects."${PROJECT}"]`)
     }
   )

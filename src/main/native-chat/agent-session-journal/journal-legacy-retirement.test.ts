@@ -6,9 +6,9 @@ import { initializeJournalDomainDatabase } from './database/journal-domain-datab
 import {
   cleanup,
   companions,
-  continueInOlderOrca,
+  continueInOlderOpenKodo,
   fakeLease,
-  olderOrcaChat,
+  olderOpenKodoChat,
   profile,
   queue
 } from './journal-legacy-retirement.test-fixture'
@@ -126,7 +126,7 @@ it('after a downgrade to an older OpenKodo, the re-upgrade takes its new chat an
   const before = tabsAndRecords(db).records.length
 
   // The older OpenKodo finds no journal, starts a new one and saves one chat in it.
-  olderOrcaChat(filename, 'made-after-downgrade')
+  olderOpenKodoChat(filename, 'made-after-downgrade')
   await initializeJournalDomainDatabase(root)
   expect(tabsAndRecords(db).records.length).toBe(before + 1)
 
@@ -270,7 +270,7 @@ it('keeps the original version of what both sides changed, then retires, with no
   )
 
   // A later retirement of a restored original keeps its own version beside the first one.
-  olderOrcaChat(queued.filename, 'unopened')
+  olderOpenKodoChat(queued.filename, 'unopened')
   queue(queued.filename, 'unopened', 'queued in a restored original')
   await initializeJournalDomainDatabase(queued.root)
   await queued.launch('1.0.2').run()
@@ -427,7 +427,7 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
   // history still lives only in the original, so the copy converts before the original goes.
   const continued = await profile()
   await continued.convert('unopened')
-  continueInOlderOrca(continued.filename, 'unopened')
+  continueInOlderOpenKodo(continued.filename, 'unopened')
   await initializeJournalDomainDatabase(continued.root)
   const copy = String(
     continued.db
@@ -473,7 +473,7 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
   // A copy whose conversion failed is left for an open to retry; the proof only refuses.
   const failedCopy = await profile()
   await failedCopy.convert('unopened')
-  continueInOlderOrca(failedCopy.filename, 'unopened')
+  continueInOlderOpenKodo(failedCopy.filename, 'unopened')
   await initializeJournalDomainDatabase(failedCopy.root)
   const failedCopyId = String(
     failedCopy.db
@@ -494,7 +494,7 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
   // A copy whose chat an older OpenKodo then deleted from the original has nothing left to take.
   const goneCopy = await profile()
   await goneCopy.convert('unopened')
-  continueInOlderOrca(goneCopy.filename, 'unopened')
+  continueInOlderOpenKodo(goneCopy.filename, 'unopened')
   await initializeJournalDomainDatabase(goneCopy.root)
   const gone = new Database(goneCopy.filename)
   gone.exec(`DELETE FROM journal_rows WHERE session_id='unopened';
@@ -526,12 +526,12 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
 
   // A copy whose conversion fails once is converted on the next attempt, with none skipped.
   const twoCopies = await profile()
-  olderOrcaChat(twoCopies.filename, 'second')
+  olderOpenKodoChat(twoCopies.filename, 'second')
   await initializeJournalDomainDatabase(twoCopies.root)
   await twoCopies.convert('unopened')
   await twoCopies.convert('second')
-  continueInOlderOrca(twoCopies.filename, 'unopened')
-  continueInOlderOrca(twoCopies.filename, 'second')
+  continueInOlderOpenKodo(twoCopies.filename, 'unopened')
+  continueInOlderOpenKodo(twoCopies.filename, 'second')
   await initializeJournalDomainDatabase(twoCopies.root)
   const copies = twoCopies.db
     .prepare(
@@ -559,9 +559,9 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
   const dueFirst = await profile()
   // More chats than one proof page holds, so the due chat is on a later page.
   for (let chat = 0; chat < 32; chat++) {
-    olderOrcaChat(dueFirst.filename, `a${String(chat).padStart(2, '0')}`)
+    olderOpenKodoChat(dueFirst.filename, `a${String(chat).padStart(2, '0')}`)
   }
-  olderOrcaChat(dueFirst.filename, 'zz-later')
+  olderOpenKodoChat(dueFirst.filename, 'zz-later')
   await initializeJournalDomainDatabase(dueFirst.root)
   dueFirst.db.exec(`INSERT INTO agent_session_store_meta
     VALUES('journal.legacy-compare:zz-later','["epoch",9,null,null]')`)
@@ -571,7 +571,7 @@ it('converts the copies the reconcile keeps, and keeps the original while a chat
   expect(companions(dueFirst.filename)).toContain(dueFirst.filename)
   const stale = await profile()
   stale.db.exec(`INSERT INTO agent_session_store_meta
-    VALUES('journal.legacy-compare:deleted-in-older-orca','["epoch",9,null,null]')`)
+    VALUES('journal.legacy-compare:deleted-in-older-openkodo','["epoch",9,null,null]')`)
   await stale.launch().run()
   expect(stale.errors).toEqual([])
   expect(companions(stale.filename)).toEqual([])
@@ -679,7 +679,7 @@ it('converts nothing for the proof or its copies below the disk floor, and both 
     const continued = await profile({ storage })
     // An open converts below the floor; the older OpenKodo's later turns then need a copy.
     await continued.convert('unopened')
-    continueInOlderOrca(continued.filename, 'unopened')
+    continueInOlderOpenKodo(continued.filename, 'unopened')
     await initializeJournalDomainDatabase(continued.root)
     const copy = String(
       continued.db

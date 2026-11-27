@@ -3,7 +3,7 @@ import { parseWarpThemeYaml } from './parser'
 import type { ParseWarpThemeOptions } from './parser'
 import { installWorkerSendLedger } from '../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-warp-theme-parser')
+installWorkerSendLedger('openkodo-warp-theme-parser')
 
 const data = workerData as {
   content?: unknown

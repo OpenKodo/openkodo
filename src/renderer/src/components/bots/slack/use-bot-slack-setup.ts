@@ -90,7 +90,7 @@ export function useBotSlackSetup(
         return false
       }
       wait(teamId, link, false)
-      if (opened === 'orca-browser') {
+      if (opened === 'openkodo-browser') {
         onStepAside?.()
       }
       return true
@@ -114,7 +114,7 @@ export function useBotSlackSetup(
         remember(teamId, link)
         if (
           openBotHostPageOrSay(bot.hostId, link.authorizeUrl, { bot, local: 'system' }) ===
-          'orca-browser'
+          'openkodo-browser'
         ) {
           onStepAside?.()
         }

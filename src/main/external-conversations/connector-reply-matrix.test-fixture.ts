@@ -58,7 +58,7 @@ const openedDatabases: Database[] = []
 export function installReplyMatrix(): void {
   beforeEach(() => {
     vi.useFakeTimers()
-    dir = mkdtempSync(join(tmpdir(), 'orca-reply-matrix-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-reply-matrix-'))
   })
   afterEach(() => {
     vi.useRealTimers()

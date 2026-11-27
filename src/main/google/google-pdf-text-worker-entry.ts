@@ -4,7 +4,7 @@ import { pdfText } from './google-pdf-text'
 import type { PdfTextWorkerRequest, PdfTextWorkerResponse } from './google-pdf-text-worker-protocol'
 import { installWorkerSendLedger } from '../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-google-pdf-text')
+installWorkerSendLedger('openkodo-google-pdf-text')
 
 if (!parentPort) {
   throw new Error('PDF text worker requires a parent port.')

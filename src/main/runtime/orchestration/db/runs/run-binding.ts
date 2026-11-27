@@ -3,7 +3,7 @@ import { OrchestrationError } from '../../orchestration-error'
 import { LEGACY_CONTRACT_VERSION } from '../contract-constants'
 import { isEquivalentPaneKey } from '../pane-key-match'
 import type { OrchestrationDb } from '../orchestration-db'
-import type { OrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { findCallerWorkerDispatches, workerRunBindingRefusal } from './worker-run-binding'
 import { repointUnreadRunMail } from './run-coordinator-handover'
 import {
@@ -18,8 +18,8 @@ export function bindRun(
     runId: string
     coordinatorHandle: string | null
     coordinatorPaneKey: string | null
-    /** The coordinator's bare OpenKodo session id when it is a structured session; see orca-session-address. */
-    coordinatorOrcaSessionId?: OrcaSessionId | null
+    /** The coordinator's bare OpenKodo session id when it is a structured session; see openkodo-session-address. */
+    coordinatorOpenKodoSessionId?: OpenKodoSessionId | null
     takeoverLegacy?: boolean
     legacyCoordinatorAuthority?: {
       runId: string
@@ -33,7 +33,7 @@ export function bindRun(
   const coordinator = {
     terminalHandle: params.coordinatorHandle,
     paneKey: params.coordinatorPaneKey,
-    orcaSessionId: params.coordinatorOrcaSessionId ?? null
+    openkodoSessionId: params.coordinatorOpenKodoSessionId ?? null
   }
   // Why: the mailboxes this call actually changed; a call that changed none notifies no one.
   const changed = new Set<string>()
@@ -187,8 +187,8 @@ export function bindRun(
       this.db
         .prepare(
           `UPDATE runs
-           SET coordinator_handle = ?, coordinator_pane_key = ?, coordinator_orca_session_id = ?,
-               coordinator_orca_session_id_generation = consumer_generation + 1,
+           SET coordinator_handle = ?, coordinator_pane_key = ?, coordinator_openkodo_session_id = ?,
+               coordinator_openkodo_session_id_generation = consumer_generation + 1,
                consumer_generation = consumer_generation + 1,
                updated_at = datetime('now')
            WHERE id = ?`
@@ -196,14 +196,14 @@ export function bindRun(
         .run(
           coordinator.terminalHandle,
           coordinator.paneKey,
-          coordinator.orcaSessionId,
+          coordinator.openkodoSessionId,
           params.runId
         )
       changed.add(runMailbox)
       this.fenceUnacknowledgedMailboxDeliveries(`run:${params.runId}`)
       const previous = runCoordinatorKey(run)
       if (
-        previous.orcaSessionId !== coordinator.orcaSessionId ||
+        previous.openkodoSessionId !== coordinator.openkodoSessionId ||
         previous.terminalHandle !== coordinator.terminalHandle
       ) {
         // A pointer the old coordinator was handed points the new one at nothing.
@@ -213,16 +213,16 @@ export function bindRun(
         this.promoteLegacyCoordinatorMailForTakeover(params.runId, retainedCoordinatorHandle)
         movedLegacyMail = true
       }
-    } else if (runCoordinatorKey(run).orcaSessionId !== coordinator.orcaSessionId) {
+    } else if (runCoordinatorKey(run).openkodoSessionId !== coordinator.openkodoSessionId) {
       // Same consumer: backfill the session id omitted by an older writer.
       changed.add(runMailbox)
       this.db
         .prepare(
-          `UPDATE runs SET coordinator_orca_session_id = ?,
-             coordinator_orca_session_id_generation = consumer_generation
+          `UPDATE runs SET coordinator_openkodo_session_id = ?,
+             coordinator_openkodo_session_id_generation = consumer_generation
            WHERE id = ?`
         )
-        .run(coordinator.orcaSessionId, params.runId)
+        .run(coordinator.openkodoSessionId, params.runId)
     }
     this.db.exec('COMMIT')
   } catch (error) {

@@ -12,7 +12,7 @@ import { getPreferredPairedRuntimeConnection } from '../../../shared/remote-runt
 import type { PairedRuntimeConnection } from '../../../shared/remote-runtime/pairing/paired-runtime-connection'
 import { classifyRuntimeEnvironmentHost } from '../../../shared/remote-runtime/host-catalog/runtime-environment-host-kind'
 import { ELECTRON_REMOTE_RUNTIME_CLIENT_CAPABILITIES } from '../../../shared/remote-runtime/protocol/electron-remote-runtime-client-capabilities'
-import { IDLE_PASSIVE_CLIENT_CAPABILITY } from '../../../shared/remote-runtime/protocol/orcad-runtime-capabilities'
+import { IDLE_PASSIVE_CLIENT_CAPABILITY } from '../../../shared/remote-runtime/protocol/openkodod-runtime-capabilities'
 import { subscribeRemoteRuntimeTransport } from '../../../shared/remote-runtime/requests/remote-runtime-subscription-transport'
 import { decodeRuntimeEnvironmentSubscriptionEvents } from '../runtime-environments/subscriptions/runtime-environment-subscription-events'
 import { isRuntimeEnvironmentManuallyDisconnected } from '../runtime-environments/connectivity/runtime-environment-manual-disconnect'

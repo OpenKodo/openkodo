@@ -13,14 +13,14 @@ function layoutPaneTopBanners(pane: HTMLElement, leaving?: HTMLElement): void {
     if (banner === leaving) {
       continue
     }
-    banner.style.setProperty('--orca-pane-top-banner-offset', `${offset}px`)
+    banner.style.setProperty('--openkodo-pane-top-banner-offset', `${offset}px`)
     offset += banner.offsetHeight
     count += 1
   }
   if (count === 0) {
-    pane.style.removeProperty('--orca-pane-top-banner-height')
+    pane.style.removeProperty('--openkodo-pane-top-banner-height')
   } else {
-    pane.style.setProperty('--orca-pane-top-banner-height', `${offset}px`)
+    pane.style.setProperty('--openkodo-pane-top-banner-height', `${offset}px`)
   }
 }
 
@@ -49,7 +49,7 @@ function measureControlsInset(banner: HTMLElement, controls: HTMLElement | null)
   // Why from the bar's own edge: the overlay repositions after the pane resizes, so page coordinates can be a frame stale.
   const inset =
     controls && bar ? bar.getBoundingClientRect().right - controls.getBoundingClientRect().left : 0
-  banner.style.setProperty('--orca-pane-top-banner-controls-inset', `${Math.ceil(inset)}px`)
+  banner.style.setProperty('--openkodo-pane-top-banner-controls-inset', `${Math.ceil(inset)}px`)
 }
 
 /** Reserves the banner's height at the top of its pane so the terminal refits below it. */
@@ -205,7 +205,7 @@ export function PaneTopBanner({
         className={cn(
           // Why these insets: the text starts at the terminal's first column, and the action ends where the terminal's last
           // column does or, under floating pane controls, a gap before them.
-          'relative flex h-8 items-center gap-2 border-b border-border pr-[max(var(--pane-padding-x,4px),calc(var(--orca-pane-top-banner-controls-inset,0px)+0.5rem))] pl-(--pane-padding-x,4px) text-xs',
+          'relative flex h-8 items-center gap-2 border-b border-border pr-[max(var(--pane-padding-x,4px),calc(var(--openkodo-pane-top-banner-controls-inset,0px)+0.5rem))] pl-(--pane-padding-x,4px) text-xs',
           className
         )}
       >

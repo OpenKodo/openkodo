@@ -29,7 +29,7 @@ export type SlackMirrorPostBody = {
    *  computer as the install says). account: a paired device on that OpenKodo account. computer: a
    *  device that named none. An agent's posts as the bot. slackUserId is ignored. */
   author: {
-    orcaName: string
+    openkodoName: string
     slackUserId?: string
     agent?: true
     typist?: SlackMirrorTypist

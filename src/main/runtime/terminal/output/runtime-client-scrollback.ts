@@ -1,11 +1,11 @@
-import { OrcaRuntimeWithMigrationCatalog } from '../../hosts/migration/runtime-migration-catalog'
+import { OpenKodoRuntimeWithMigrationCatalog } from '../../hosts/migration/runtime-migration-catalog'
 import type { SessionReadTerminalScrollbackResult } from '../../../../shared/rpc-contract/session-tabs/session-terminal-scrollback-params'
 import {
   readHostTerminalScrollback,
   type HostTerminalScrollbackReadRequest
 } from './host-terminal-scrollback-read'
 
-export abstract class OrcaRuntimeWithClientTerminalScrollback extends OrcaRuntimeWithMigrationCatalog {
+export abstract class OpenKodoRuntimeWithClientTerminalScrollback extends OpenKodoRuntimeWithMigrationCatalog {
   /** A migrated pane's stored scrollback, for a client whose own copy is gone or never existed. */
   async readTerminalScrollbackForClient(
     request: HostTerminalScrollbackReadRequest

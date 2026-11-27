@@ -12,7 +12,7 @@ import {
   getAppEnvironment,
   hasAppEnvironment
 } from '../../../../shared/app-lifecycle/app-environment'
-import { getOrcaCliCommandNameForPlatform } from '../../../../shared/cli/orca-cli-command-name'
+import { getOpenKodoCliCommandNameForPlatform } from '../../../../shared/cli/openkodo-cli-command-name'
 import { getBundledLauncherPath } from '../../../cli/packaged-assets/bundled-cli-launcher-path'
 import { resolvePathEnvKey } from '../../../pty/environment/windows-path-segment-merge'
 
@@ -96,8 +96,10 @@ export function resolveClaudeAgentTeamsShimBin(
     return override
   }
   return (
-    findExecutableOnPath(process.platform === 'win32' ? 'orca-dev.cmd' : 'orca-dev', pathValue) ??
-    findExecutableOnPath(getOrcaCliCommandNameForPlatform(process.platform), pathValue)
+    findExecutableOnPath(
+      process.platform === 'win32' ? 'openkodo-dev.cmd' : 'openkodo-dev',
+      pathValue
+    ) ?? findExecutableOnPath(getOpenKodoCliCommandNameForPlatform(process.platform), pathValue)
   )
 }
 
@@ -136,15 +138,15 @@ function unixShimScript(): string {
   return [
     '#!/usr/bin/env sh',
     'set -eu',
-    'orca_bin=${OPENKODO_AGENT_TEAMS_SHIM_BIN:-}',
-    'case $orca_bin in',
+    'openkodo_bin=${OPENKODO_AGENT_TEAMS_SHIM_BIN:-}',
+    'case $openkodo_bin in',
     '  /*|[A-Za-z]:[\\\\/]*) ;;',
     '  *)',
     '    echo "openkodo agent-teams tmux shim: OPENKODO_AGENT_TEAMS_SHIM_BIN must be an absolute path" >&2',
     '    exit 127',
     '    ;;',
     'esac',
-    'exec "$orca_bin" agent-teams-tmux "$@"',
+    'exec "$openkodo_bin" agent-teams-tmux "$@"',
     ''
   ].join('\n')
 }

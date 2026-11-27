@@ -60,7 +60,7 @@ async function installMainWindowCoreServices(
   const keybindings = state.core.keybindings
   const codexRuntimeHome = state.core.codexRuntimeHome
   const claudeRuntimeAuth = state.core.claudeRuntimeAuth
-  const orcaAccount = state.core.orcaAccount
+  const openkodoAccount = state.core.openkodoAccount
   if (
     !store ||
     !nativeSettings ||
@@ -73,7 +73,7 @@ async function installMainWindowCoreServices(
     !keybindings ||
     !codexRuntimeHome ||
     !claudeRuntimeAuth ||
-    !orcaAccount
+    !openkodoAccount
   ) {
     throw new Error('Main window services must be initialized before attaching')
   }
@@ -114,7 +114,7 @@ async function installMainWindowCoreServices(
         ])
       },
       onQuit: quitFromUserCommand,
-      orcaAccount,
+      openkodoAccount,
       rendererCheckpoint: state.core.rendererCheckpoint ?? undefined
     },
     state.core.pluginService ?? undefined,

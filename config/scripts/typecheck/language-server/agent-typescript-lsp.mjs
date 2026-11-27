@@ -1,6 +1,6 @@
 // Adapt TypeScript 7 pull diagnostics for agent clients that only accept publishDiagnostics.
-import { spawnProcess } from '@orca/process-host'
-import { signalProcessTree } from '@orca/process-host/process-tree-termination'
+import { spawnProcess } from '@openkodo/process-host'
+import { signalProcessTree } from '@openkodo/process-host/process-tree-termination'
 import { realpathSync } from 'node:fs'
 import { join, resolve, sep } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -9,7 +9,7 @@ import { resolveTsrsLauncher, supportsTsrs } from '../project-execution/tsrs-typ
 import { createServerSession } from './typescript-server-session.mjs'
 
 const PULL_DEBOUNCE_MS = 100
-const BRIDGE_ID_PREFIX = 'orca-diagnostics-'
+const BRIDGE_ID_PREFIX = 'openkodo-diagnostics-'
 // Agents sit idle for hours; a stopped server frees its memory and file watches and restarts on the next request.
 const IDLE_MINUTES = 10
 // setTimeout fires at once past 2^31-1 ms, so longer periods mean "never stop".

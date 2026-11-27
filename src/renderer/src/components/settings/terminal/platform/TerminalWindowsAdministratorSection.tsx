@@ -134,7 +134,7 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
             <DialogTitle>
               {showConfirmation
                 ? t(
-                    'settings.terminal.windows.confirmOrcaAdministratorRestart',
+                    'settings.terminal.windows.confirmOpenKodoAdministratorRestart',
                     'Restart OpenKodo as administrator?'
                   )
                 : helpLabel}
@@ -182,7 +182,7 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
           )}
           {restartError ? (
             <DialogError onRetry={() => void restartAsAdministrator()}>
-              {t('settings.terminal.windows.orcaCouldNotRestart', 'OpenKodo couldn’t restart.')}
+              {t('settings.terminal.windows.openkodoCouldNotRestart', 'OpenKodo couldn’t restart.')}
             </DialogError>
           ) : null}
           <DialogFooter
@@ -231,7 +231,7 @@ export function TerminalWindowsAdministratorSection(): React.JSX.Element {
               >
                 {restarting
                   ? t('settings.terminal.windows.restartingAdministrator', 'Restarting…')
-                  : t('settings.terminal.windows.restartOrca', 'Restart')}
+                  : t('settings.terminal.windows.restartOpenKodo', 'Restart')}
               </Button>
             ) : (
               <Button size="sm" onClick={openManageSessions}>

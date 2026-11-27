@@ -75,10 +75,10 @@ export class PromptTurns {
       return null
     }
     const audience = link.bot ? this.audienceOf(link, prompt) : undefined
-    if (audience?.raisedBy === 'orca' && !this.deps.promptsAudience()) {
+    if (audience?.raisedBy === 'openkodo' && !this.deps.promptsAudience()) {
       return null
     }
-    if (!heard || (audience?.raisedBy === 'orca' && !this.adoptedTurn(link))) {
+    if (!heard || (audience?.raisedBy === 'openkodo' && !this.adoptedTurn(link))) {
       this.adoptFor(linked, tellStart && !heard)
     }
     return audience ? { ...prompt, ...audience } : prompt

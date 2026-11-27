@@ -15,13 +15,13 @@
     "resources/skills/released-digests.json",
     "src/shared/plugins/languages/protected-copy-keys.json",
     "resources/plugins/declarative/*.mjs",
-    "resources/plugins/declarative/orca.d.ts",
+    "resources/plugins/declarative/openkodo.d.ts",
     "examples/plugins/*/dist/**",
     "docs/schemas/plugins/**/*.schema.json",
     "docs/reference/plugin-manifest.md",
     "docs/reference/plugin-catalog.md",
     "docs/reference/plugin-host-api.md",
-    "resources/plugins/types/orca-host.d.ts",
+    "resources/plugins/types/openkodo-host.d.ts",
     "docs/reference/plugin-theme-tokens.md"
   ]
 }

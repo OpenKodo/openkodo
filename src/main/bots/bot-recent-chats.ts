@@ -4,7 +4,7 @@
 import { BOT_CHAT_ID_PREFIX } from '../../shared/bots/bot-chat-row'
 import { botAddressArgument } from '../../shared/bot-roster'
 import { fenceQuotedText, inlineUntrusted } from '../../shared/quoted-text-fence'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { readBotChats } from '../runtime/rpc/methods/bots-chats'
 import { readSharedBotChatTree } from './bot-chat-tree-host'
 import { BOT_OPENKODO_CLI } from './bot-preamble'
@@ -81,7 +81,7 @@ export function botRecentChatsSection(
 
 /** The recent-chats section for a turn of `sessionId`, a chat of `botId`; null when there is none. */
 export async function readBotRecentChats(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string,
   sessionId: string,
   now = Date.now()

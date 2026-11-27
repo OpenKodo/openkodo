@@ -25,7 +25,7 @@ export const ConnectLoginSchema = z.object({
 })
 export type ConnectLogin = z.infer<typeof ConnectLoginSchema>
 
-const INFO = Buffer.from('orca connect login v1')
+const INFO = Buffer.from('openkodo connect login v1')
 const KEY_BYTES = 32
 const IV_BYTES = 12
 const TAG_BYTES = 16

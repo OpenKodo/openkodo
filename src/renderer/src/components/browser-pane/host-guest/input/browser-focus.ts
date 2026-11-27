@@ -5,7 +5,7 @@ export type BrowserFocusRequestDetail = {
   target: BrowserFocusTarget
 }
 
-export const OPENKODO_BROWSER_FOCUS_REQUEST_EVENT = 'orca:browser-focus-request'
+export const OPENKODO_BROWSER_FOCUS_REQUEST_EVENT = 'openkodo:browser-focus-request'
 
 const FOCUS_REQUEST_TTL_MS = 30_000
 

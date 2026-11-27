@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppStore } from '@/store'
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import { defineFixture } from '../../../../component-fixtures/component-fixture'
 import type { Worktree } from '../../../../../../shared/worktree/types'
 import {
@@ -70,7 +70,7 @@ const rows: RenderRow[] = TREE.map(({ seed, depth }, index) => {
   return {
     type: 'item',
     rowKey: seed.id,
-    sectionKey: 'repo-orca',
+    sectionKey: 'repo-openkodo',
     worktree: worktrees.get(seed.id)!,
     repo: FIXTURE_REPO,
     depth,

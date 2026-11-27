@@ -112,7 +112,7 @@ export function installNativeBenchmarkObserver(api, output, environment = proces
 if (process.env.OPENKODO_NATIVE_BENCHMARK_TRACE) {
   const require = createRequire(import.meta.url)
   installNativeBenchmarkObserver(
-    require('@orca/process-host'),
+    require('@openkodo/process-host'),
     process.env.OPENKODO_NATIVE_BENCHMARK_TRACE
   )
 }

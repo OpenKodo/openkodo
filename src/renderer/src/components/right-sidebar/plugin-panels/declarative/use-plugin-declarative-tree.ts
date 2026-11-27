@@ -27,10 +27,10 @@ const systemNow = (): number => Date.now()
 
 type RenderedTree = { document: string; revision: number; tree: PluginDeclarativeNode | null }
 /**
- * `plugin`: text the plugin reported. `orca`: OpenKodo refused what the plugin sent. `load`: the guest
+ * `plugin`: text the plugin reported. `openkodo`: OpenKodo refused what the plugin sent. `load`: the guest
  * failed before its first render (a broken dev save); any tree on screen is the last good one.
  */
-export type PluginDeclarativeIssue = { source: 'plugin' | 'orca' | 'load'; message: string }
+export type PluginDeclarativeIssue = { source: 'plugin' | 'openkodo' | 'load'; message: string }
 
 function invalidTreeMessage(): string {
   return translate(
@@ -116,7 +116,7 @@ export function usePluginDeclarativeTree(
           ack({ document: parsed.document, revision: parsed.revision, accepted: false })
         }
         console.warn(`[plugin] declarative render refused: ${parsed.error}`)
-        report({ source: 'orca', message: invalidTreeMessage() })
+        report({ source: 'openkodo', message: invalidTreeMessage() })
         return
       }
       // Why: never step back to an older tree of the same document.
@@ -169,7 +169,7 @@ export function usePluginDeclarativeTree(
           )
         }
         if (retryAfterMs === null) {
-          report({ source: 'orca', message: invalidTreeMessage() })
+          report({ source: 'openkodo', message: invalidTreeMessage() })
         }
       },
       onGuestEvent: (event, payload) => guestEventRef.current?.(event, payload),
@@ -181,7 +181,7 @@ export function usePluginDeclarativeTree(
                 source: loadingRef.current ? 'load' : 'plugin',
                 message: clamp(parsed.data.message)
               }
-            : { source: 'orca', message: invalidTreeMessage() }
+            : { source: 'openkodo', message: invalidTreeMessage() }
         )
       }
     }

@@ -9,7 +9,7 @@ import type {
 // URL, model and key are sealed together so a key can never be sent to a host it wasn't saved for.
 const store = createEncryptedApiKeyFileStore({
   fileName: 'openai-compatible-speech-provider.enc',
-  envelopePrefix: 'orca-openai-compatible-speech:v1:',
+  envelopePrefix: 'openkodo-openai-compatible-speech:v1:',
   providerLabel: 'OpenAI-compatible speech provider',
   logScope: 'speech'
 })

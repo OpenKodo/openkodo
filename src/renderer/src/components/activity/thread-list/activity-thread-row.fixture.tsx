@@ -10,7 +10,7 @@ function thread(minutesAgo: number, unread: boolean): AgentPaneThread {
     worktree: {
       id: 'activity-fixture',
       repoId: 'fixture-repo',
-      path: '/projects/orca/activity-timestamp',
+      path: '/projects/openkodo/activity-timestamp',
       head: 'abc123',
       branch: 'activity-timestamp',
       isBare: false,

@@ -5,11 +5,11 @@ const COMMAND =
   "if [ -x '/home/u/.openkodo/agent-hooks/kimi-hook.sh' ]; then /bin/sh '/home/u/.openkodo/agent-hooks/kimi-hook.sh'; fi"
 const isManaged = (command: string | undefined): boolean =>
   typeof command === 'string' && command.includes('agent-hooks/kimi-hook.sh')
-const START_MARKER = '# >>> orca-managed-kimi-hooks (managed by OpenKodo; do not edit) >>>'
+const START_MARKER = '# >>> openkodo-managed-kimi-hooks (managed by OpenKodo; do not edit) >>>'
 
 /** Drops only the `# <<< ... <<<` line, the hand-edit that orphans the block. */
 function deleteEndMarker(text: string): string {
-  return text.replace(/\r?\n# <<< orca-managed-kimi-hooks <<<(?=\r?\n|$)/, '')
+  return text.replace(/\r?\n# <<< openkodo-managed-kimi-hooks <<<(?=\r?\n|$)/, '')
 }
 
 // #18861: an orphaned start marker used to make every following byte "managed".

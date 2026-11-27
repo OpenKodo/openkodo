@@ -52,7 +52,7 @@ export type SkillHome = {
 const directories: string[] = []
 
 export async function makeSkillHome(): Promise<SkillHome> {
-  const root = await realpath(await mkdtemp(join(tmpdir(), 'orca-bundled-skill-')))
+  const root = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-bundled-skill-')))
   directories.push(root)
   const home = join(root, 'home')
   await mkdir(home, { recursive: true })
@@ -143,7 +143,7 @@ export async function snapshot(path: string): Promise<string> {
 export async function leftoverSiblings(path: string): Promise<string[]> {
   const parent = join(path, '..')
   return (await readdir(parent).catch(() => [])).filter((name) =>
-    /\.orca-(?:stage|old)-/u.test(name)
+    /\.openkodo-(?:stage|old)-/u.test(name)
   )
 }
 

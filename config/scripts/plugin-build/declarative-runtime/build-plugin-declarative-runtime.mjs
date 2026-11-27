@@ -1,5 +1,5 @@
-// Bundle the files Orca ships for components panels into resources/plugins/declarative/:
-// the guest `orca` module, the `orca/testing` kit, and the Node hooks `orca plugin test` runs with.
+// Bundle the files OpenKodo ships for components panels into resources/plugins/declarative/:
+// the guest `openkodo` module, the `openkodo/testing` kit, and the Node hooks `openkodo plugin test` runs with.
 // `--check` fails when a checked-in file is stale instead of rewriting it.
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
@@ -10,14 +10,14 @@ const OUTPUT_DIR = path.join(ROOT, 'resources', 'plugins', 'declarative')
 const DECLARATIVE = path.join(ROOT, 'src', 'shared', 'plugins', 'declarative')
 const TESTING = path.join(ROOT, 'src', 'main', 'plugins', 'testing')
 
-export const DECLARATIVE_RUNTIME_OUTPUT = path.join(OUTPUT_DIR, 'orca-runtime.mjs')
+export const DECLARATIVE_RUNTIME_OUTPUT = path.join(OUTPUT_DIR, 'openkodo-runtime.mjs')
 
 /** The kit and the panel must share one runtime instance, so the kit imports the shipped file. */
 const runtimeAsSibling = {
-  name: 'orca-runtime-as-sibling',
+  name: 'openkodo-runtime-as-sibling',
   setup(builder) {
-    builder.onResolve({ filter: /runtime\/orca-module$/ }, () => ({
-      path: './orca-runtime.mjs',
+    builder.onResolve({ filter: /runtime\/openkodo-module$/ }, () => ({
+      path: './openkodo-runtime.mjs',
       external: true
     }))
   }
@@ -25,26 +25,26 @@ const runtimeAsSibling = {
 
 const BUNDLES = [
   {
-    file: 'orca-runtime.mjs',
-    entry: path.join(DECLARATIVE, 'runtime', 'orca-module.ts'),
+    file: 'openkodo-runtime.mjs',
+    entry: path.join(DECLARATIVE, 'runtime', 'openkodo-module.ts'),
     source: 'src/shared/plugins/declarative/runtime/',
     platform: 'browser'
   },
   {
-    file: 'orca-testing.mjs',
-    entry: path.join(DECLARATIVE, 'testing', 'orca-testing.ts'),
+    file: 'openkodo-testing.mjs',
+    entry: path.join(DECLARATIVE, 'testing', 'openkodo-testing.ts'),
     source: 'src/shared/plugins/declarative/testing/',
     platform: 'node',
     plugins: [runtimeAsSibling]
   },
   {
-    file: 'orca-test-hooks.mjs',
+    file: 'openkodo-test-hooks.mjs',
     entry: path.join(TESTING, 'plugin-test-hooks.ts'),
     source: 'src/main/plugins/testing/',
     platform: 'node'
   },
   {
-    file: 'orca-test-register.mjs',
+    file: 'openkodo-test-register.mjs',
     entry: path.join(TESTING, 'plugin-test-register.ts'),
     source: 'src/main/plugins/testing/',
     platform: 'node'

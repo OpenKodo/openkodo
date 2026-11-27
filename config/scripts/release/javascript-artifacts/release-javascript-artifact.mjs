@@ -12,7 +12,7 @@ import {
   writeFileSync
 } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { describeProcessFailure } from '../../tool-invocation/process-failure-message.mjs'
 import { isDirectInvocation } from '../../tool-invocation/script-entry-detection.mjs'
 import { DESKTOP_RC_TAG, DESKTOP_STABLE_TAG } from '../versioning/release-tag-patterns.mjs'
@@ -24,7 +24,7 @@ const REQUIRED_FILES = [
   'preload/index.js',
   'renderer/index.html',
   'renderer/.vite/manifest.json',
-  'renderer/.orca-web-client-files.json',
+  'renderer/.openkodo-web-client-files.json',
   'web/web-index.html',
   'mobile-web/manifest.json',
   'package.json'
@@ -101,7 +101,9 @@ export function javascriptInventory(directory, prefix = '', { excludeHostOutput 
     .sort((left, right) => (left.name < right.name ? -1 : left.name > right.name ? 1 : 0))
     .flatMap((entry) => {
       const name = prefix ? `${prefix}/${entry.name}` : entry.name
-      const hostOutput = ['relay', 'orcad-template', 'orcad-prebuilds'].includes(name.split('/')[0])
+      const hostOutput = ['relay', 'openkodod-template', 'openkodod-prebuilds'].includes(
+        name.split('/')[0]
+      )
       if (excludeHostOutput && hostOutput) {
         return []
       }

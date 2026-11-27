@@ -11,7 +11,7 @@ import {
 } from './profile-state-database-schema'
 import { existsSync, mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
-import '../../../../shared/orca-profiles/profile-state-storage-paths'
+import '../../../../shared/openkodo-profiles/profile-state-storage-paths'
 import { ProfileStateDatabaseOpenError } from './profile-state-database-errors'
 import {
   verifyEmptyProfileStateSchema,

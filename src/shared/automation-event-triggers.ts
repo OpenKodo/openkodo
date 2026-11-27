@@ -126,7 +126,7 @@ export type AutomationConnectorEventTrigger = {
     /** The owner's own events count too, beside anyone `from` names; with no `from`, only theirs.
      *  github.pr_opened only (OWN_EVENT_KINDS): the bot works as its owner on GitHub. */
     fromOwner?: true
-    /** Display names ("#orca", "Nora") by the in, subject or from value they name; never matched. */
+    /** Display names ("#openkodo", "Nora") by the in, subject or from value they name; never matched. */
     names?: Record<string, string>
   }
 }[ConnectorEventSource]

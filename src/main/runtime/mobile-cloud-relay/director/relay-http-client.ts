@@ -50,7 +50,7 @@ const AssignmentResponseSchema = z
 // RELAY_HOST_CAPABILITY_FRONT_DOOR_AUTH. A header, not a body key, so an older director ignores it;
 // a director sends alternateCellUrls / authOrigin only when it sees the matching capability.
 export const RELAY_ASSIGN_CAPABILITY_HEADERS = {
-  'x-orca-host-capabilities': 'origin-alternates-v1, front-door-auth-v1'
+  'x-openkodo-host-capabilities': 'origin-alternates-v1, front-door-auth-v1'
 } as const
 
 // Mirror relay-contract AssignmentResponse.alternateCellUrls: at most two origins.

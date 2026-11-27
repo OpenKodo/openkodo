@@ -73,7 +73,7 @@ export function clearSettingsTargetHighlightBleed(target: HTMLElement): void {
   target.removeAttribute(SETTINGS_TARGET_LOOSE_ATTRIBUTE)
 }
 
-const SETTINGS_TARGET_REVEAL_EVENT = 'orca-settings-target-reveal'
+const SETTINGS_TARGET_REVEAL_EVENT = 'openkodo-settings-target-reveal'
 
 // Collapsed sections keep their rows mounted but hidden; the jump asks each one around the target to open.
 export function requestSettingsTargetReveal(target: HTMLElement): void {

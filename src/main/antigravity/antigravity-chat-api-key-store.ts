@@ -4,7 +4,7 @@ import { mkdir, readFile, rm, stat } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { getSecretStore } from '../../shared/secure-storage/secret-store'
 import { durableWriteTempPath, writeFileDurable } from '../filesystem/durable-file-write'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { ANTIGRAVITY_CHAT_HOME_FOLDER } from './antigravity-chat-home'
 
 const FILE = 'gemini-api-key.enc'

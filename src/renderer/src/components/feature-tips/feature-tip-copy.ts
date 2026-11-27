@@ -41,7 +41,7 @@ const FEATURE_TIP_COPY: Record<
     ctaLabel: () =>
       translate('auto.components.feature.tips.feature.tip.copy.91e2719807', 'Enable session search')
   },
-  'orca-cli': {
+  'openkodo-cli': {
     title: () =>
       translate(
         'auto.components.feature.tips.feature.tip.copy.3eacedec93',

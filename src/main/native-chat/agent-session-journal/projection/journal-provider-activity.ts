@@ -31,7 +31,7 @@ export function isJournalProviderActivity(
   // Codex detail rows use OpenKodo IDs; fallback rows already identify their provider.
   if (
     !identity ||
-    (identity.provider === 'orca' &&
+    (identity.provider === 'openkodo' &&
       !identity.clientMessageId.startsWith('codex-item:') &&
       !(body.kind === 'status' && body.providerFrame !== undefined))
   ) {

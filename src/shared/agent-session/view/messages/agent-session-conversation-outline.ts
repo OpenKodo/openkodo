@@ -187,7 +187,7 @@ export function projectAgentSessionConversationOutline(
       sequence === undefined ||
       stopped.has(message.id) ||
       message.role !== 'user' ||
-      message.orcaNotice !== undefined ||
+      message.openkodoNotice !== undefined ||
       message.from !== undefined ||
       !nativeChatRowRendersContent(message.blocks)
     ) {

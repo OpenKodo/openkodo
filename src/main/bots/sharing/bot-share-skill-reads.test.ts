@@ -204,7 +204,7 @@ describe('a reused skill listing on disk', () => {
     `---\nname: ${name}\ndescription: Ship it\n---\nSteps.\n`
 
   beforeEach(async () => {
-    root = await mkdtemp(join(tmpdir(), 'orca-bot-share-skill-reads-test-'))
+    root = await mkdtemp(join(tmpdir(), 'openkodo-bot-share-skill-reads-test-'))
     useBotToolCredentialsRoot(join(root, 'credentials'))
     home = join(root, 'home')
     project = join(root, 'team-skills')

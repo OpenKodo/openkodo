@@ -1,5 +1,5 @@
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
-import type { PushNotification, PushSendResult } from '@orca-cloud/push-contract/send-messages'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
+import type { PushNotification, PushSendResult } from '@openkodo-cloud/push-contract/send-messages'
 import type { PushDeviceRegistryStore } from '../devices/device-registry-store.js'
 import type { PushBadgeCountStore } from '../devices/push-badge-count-store.js'
 import type { DurablePushStore } from './durable-push-store.js'
@@ -82,7 +82,7 @@ export async function sendRemovalBadge(
     notificationSeq: 0,
     source: 'agent-task-complete',
     agentState: null,
-    title: 'Orca',
+    title: 'OpenKodo',
     body: ''
   })
 }

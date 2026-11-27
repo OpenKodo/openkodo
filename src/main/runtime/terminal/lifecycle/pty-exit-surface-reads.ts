@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithOnClientDisconnected } from '../layout/terminal-client-disconnect'
+import { OpenKodoRuntimeWithOnClientDisconnected } from '../layout/terminal-client-disconnect'
 import type { PtyIncarnationId } from '../../../../shared/terminal/pty/lifecycle/pty-incarnation'
 
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
@@ -7,7 +7,7 @@ import { closedPaneOfExitedPty, type ClosedPaneOfExit } from './closed-pane-of-e
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
 import type { RuntimeTerminalResolvePane } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 
-export abstract class RuntimePtyExitSurfaceReads extends OrcaRuntimeWithOnClientDisconnected {
+export abstract class RuntimePtyExitSurfaceReads extends OpenKodoRuntimeWithOnClientDisconnected {
   abstract resolveTerminalPane(paneKey: string): RuntimeTerminalResolvePane
 
   /** Another process, or a later incarnation of this one, already runs in the pane; with no

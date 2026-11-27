@@ -5,16 +5,16 @@ import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import {
-  createOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../../../../shared/agent-session/identity/orca-session-address'
+  createOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { WorkerTerminalReleaseRuntime } from '../../../../../orchestration/terminal-authority/release/worker-terminal-release-runtime'
 import type { StructuredWorkerIdentity } from '../../../../../orchestration/terminal-authority/structured-sessions/structured-worker-identity'
 import { stopStructuredWorkerForRelease } from './structured-worker-release-stop'
 import { reopenWorkerChat } from '../follow-up/worker-follow-up-placement'
 
-const BOT_CHAT = createOrcaSessionId(randomUUID)
-const USER_CHAT = createOrcaSessionId(randomUUID)
+const BOT_CHAT = createOpenKodoSessionId(randomUUID)
+const USER_CHAT = createOpenKodoSessionId(randomUUID)
 
 const mocks = vi.hoisted(() => {
   const state: { close: ReturnType<typeof vi.fn>; identity: unknown; host: unknown } = {
@@ -79,7 +79,7 @@ describe('releasing a bot chat worker sleeps the workspace made for it', () => {
   let lastDispatch = ''
 
   beforeEach(() => {
-    directory = mkdtempSync(join(tmpdir(), 'orca-chat-worker-sleep-'))
+    directory = mkdtempSync(join(tmpdir(), 'openkodo-chat-worker-sleep-'))
     db = new OrchestrationDb(join(directory, 'orchestration.db'))
     runId = db.createRun({
       objective: 'sleep',
@@ -142,14 +142,14 @@ describe('releasing a bot chat worker sleeps the workspace made for it', () => {
   })
 
   function startWorker(args: {
-    from: OrcaSessionId
+    from: OpenKodoSessionId
     worktreeId: string
     createdIt: boolean
     followUpOf?: string
   }) {
     const task = db.createTask({ runId, spec: 'chat worker' })
     const { dispatch } = db.createStartingWorkerDispatch({
-      creator: { kind: 'session', orcaSessionId: args.from },
+      creator: { kind: 'session', openkodoSessionId: args.from },
       maxDepth: Number.MAX_SAFE_INTEGER,
       taskId: task.id,
       startOptions: {},

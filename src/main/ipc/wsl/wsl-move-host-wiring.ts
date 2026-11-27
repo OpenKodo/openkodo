@@ -3,17 +3,17 @@ import { encodePairingOffer } from '../../../shared/remote-runtime/pairing/pairi
 import { getPreferredPairingOffer } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import { findWslHostDeployment } from '../../../shared/remote-runtime/host-store/runtime-environment-wsl-host-store'
-import { orcadMigrationDestinationFor } from '../../managed-server/lifecycle/orcad-runtime-conversion-wiring'
+import { openkododMigrationDestinationFor } from '../../managed-server/lifecycle/openkodod-runtime-conversion-wiring'
 import { ensureWslMoveDestinationBrowserLogins } from '../../persistence/moving-wsl-projects/desktop-state/wsl-move-browser-cookie-copy'
-import { activeBrowserRoutePartitionOrcaProfileId } from '../../browser/routing/partitions/browser-route-partition-binding-runtime'
+import { activeBrowserRoutePartitionOpenKodoProfileId } from '../../browser/routing/partitions/browser-route-partition-binding-runtime'
 import { wslHostBrowserRouteStorage } from '../../browser/routing/local-host-partitions/wsl-host-browser-route-partition'
 import type { WslMoveHost } from '../../persistence/moving-wsl-projects/execution/wsl-move-driver-ports'
-import { commitRemoteOrcadMigrationCatalog } from '../../managed-server/migration/catalog/orcad-migration-catalog-client'
-import { listRemoteOrcadRepositories } from '../../managed-server/migration/linking/orcad-server-repositories'
-import { stageRemoteOrcadMigrationBlobChunk } from '../../managed-server/migration/transfers/orcad-migration-chunk-client'
-import { listRemoteOrcadFolderCatalog } from '../../managed-server/migration/linking/orcad-server-folder-workspaces'
+import { commitRemoteOpenkododMigrationCatalog } from '../../managed-server/migration/catalog/openkodod-migration-catalog-client'
+import { listRemoteOpenkododRepositories } from '../../managed-server/migration/linking/openkodod-server-repositories'
+import { stageRemoteOpenkododMigrationBlobChunk } from '../../managed-server/migration/transfers/openkodod-migration-chunk-client'
+import { listRemoteOpenkododFolderCatalog } from '../../managed-server/migration/linking/openkodod-server-folder-workspaces'
 import { getWslHostService } from '../../wsl/host-lifecycle/wsl-host-service-instance'
-import { defaultWslOrcadEnvironmentId } from '../../wsl/orcad/wsl-orcad-deploy'
+import { defaultWslOpenkododEnvironmentId } from '../../wsl/openkodod/wsl-openkodod-deploy'
 import { getRuntimeEnvironmentStatus } from '../runtime-environments/status/runtime-environment-status-probe'
 import {
   connectWslMoveHostService,
@@ -27,14 +27,14 @@ export async function connectWslMoveHost(
   mode: WslMoveHostConnectMode
 ): Promise<WslMoveHost | null> {
   const service = getWslHostService()
-  const environmentId = defaultWslOrcadEnvironmentId(distro)
+  const environmentId = defaultWslOpenkododEnvironmentId(distro)
   if (!service || !(await connectWslMoveHostService(service, userDataPath, distro, mode))) {
     return null
   }
   const { environment, notCarried } = await ensureWslMoveDestinationBrowserLogins({
     resolveEnvironment: async () => await resolveEnvironment(userDataPath, environmentId),
     resaveConnection: () => service.resaveConnection(environmentId),
-    orcaProfileId: activeBrowserRoutePartitionOrcaProfileId,
+    openkodoProfileId: activeBrowserRoutePartitionOpenKodoProfileId,
     resolveHostStorage: wslHostBrowserRouteStorage
   })
   const status = await getRuntimeEnvironmentStatus(userDataPath, environmentId)
@@ -52,16 +52,16 @@ export async function connectWslMoveHost(
     capabilities: status.result.capabilities ?? [],
     ...wslMoveHostServerState(service, environmentId),
     ...(notCarried ? { browserLoginsNotCarried: notCarried } : {}),
-    catalog: orcadMigrationDestinationFor(environment),
+    catalog: openkododMigrationDestinationFor(environment),
     commitWithBlobs: (manifest, expectedBlobs) =>
-      commitRemoteOrcadMigrationCatalog(pairingCode, manifest, { ...options, expectedBlobs }),
+      commitRemoteOpenkododMigrationCatalog(pairingCode, manifest, { ...options, expectedBlobs }),
     blobs: {
-      stageChunk: (request) => stageRemoteOrcadMigrationBlobChunk(pairingCode, request, options)
+      stageChunk: (request) => stageRemoteOpenkododMigrationBlobChunk(pairingCode, request, options)
     },
     readHolding: async () => {
       const [repositories, folders] = await Promise.all([
-        listRemoteOrcadRepositories(pairingCode, options),
-        listRemoteOrcadFolderCatalog(pairingCode, options)
+        listRemoteOpenkododRepositories(pairingCode, options),
+        listRemoteOpenkododFolderCatalog(pairingCode, options)
       ])
       return {
         repoIds: repositories.map((repo) => repo.id),

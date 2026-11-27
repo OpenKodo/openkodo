@@ -17,7 +17,7 @@ afterEach(() => {
 })
 
 it('locates a starting worker at its placed terminal before hand-over binds its assignee', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'orca-party-location-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-party-location-'))
   dirs.push(dir)
   const db = new OrchestrationDb(join(dir, 'orchestration.db'))
   const task = db.createTask({ runId: 'run_legacy_local', spec: 'slow start' })

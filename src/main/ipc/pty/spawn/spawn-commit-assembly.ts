@@ -5,7 +5,7 @@ import type { AgentSessionClaimedSpawnResult } from '../../../../shared/agent-se
 import type { GlobalSettings } from '../../../../shared/settings/global-settings-types'
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
 import type { Store, PtyBindingSourceExpectation } from '../../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { PtyRegistrationClaim } from '../../../runtime/terminal/records/runtime-terminal-state-records'
 import { markNativeWindowsConptyPty } from '../../../runtime/terminal/output/terminal-model-query-authority'
 import type { IPtyProvider } from '../../../providers/pty/provider-contract'
@@ -38,7 +38,7 @@ import { publishCommittedPtySpawn, type PtySpawnPaneKeyAliases } from './spawn-c
 
 export type PtySpawnCommitState = {
   deps: {
-    runtime?: OrcaRuntimeService
+    runtime?: OpenKodoRuntimeService
     getSettings?: () => GlobalSettings | undefined
     options?: { onCodexHomePtySpawned?: (args: CodexHomePtySpawnedLifecycleArgs) => void }
     sendPtySpawnedToRenderer: (id: string) => void

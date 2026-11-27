@@ -8,7 +8,7 @@ import {
   isWslSharePath,
   resolvesIntoWslShare
 } from '../../../wsl/filesystem/wsl-share-path-resolution'
-import { getOrcaManagedCodexHomePath, getSystemCodexHomePath } from '../homes/codex-home-paths'
+import { getOpenKodoManagedCodexHomePath, getSystemCodexHomePath } from '../homes/codex-home-paths'
 import { upsertPromotedSettingsInContent } from './codex-config-settings-upsert'
 import {
   PROMOTED_STRUCTURED_KEYS,
@@ -55,7 +55,7 @@ export type CodexSettingsBaselineSnapshotOptions = {
 
 /** Snapshot only after a successful mirror so pending runtime changes remain promotable. */
 export function snapshotCodexRuntimeSettingsBaseline(
-  runtimeHomePath = getOrcaManagedCodexHomePath(),
+  runtimeHomePath = getOpenKodoManagedCodexHomePath(),
   options: CodexSettingsBaselineSnapshotOptions = {}
 ): boolean {
   try {
@@ -125,7 +125,7 @@ export type CodexSettingsPromotionPlan = {
 
 function getHostPromotionHomes(): CodexSettingsPromotionHomes {
   return {
-    runtimeHomePath: getOrcaManagedCodexHomePath(),
+    runtimeHomePath: getOpenKodoManagedCodexHomePath(),
     systemHomePath: getSystemCodexHomePath()
   }
 }

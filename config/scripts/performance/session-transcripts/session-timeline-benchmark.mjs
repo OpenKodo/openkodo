@@ -89,7 +89,7 @@ async function load(source, sourcePath = target) {
       }
     ]
   })
-  const directory = await mkdtemp(join(tmpdir(), 'orca-session-timeline-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-session-timeline-'))
   try {
     const file = join(directory, 'timeline.cjs')
     await writeFile(file, result.outputFiles[0].text)

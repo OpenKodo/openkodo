@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import { createCodexAccountActionRunner } from '../accounts-pane-account-actions'
 import { getCodexSystemDefaultSubtitle } from './accounts-pane-runtime'
 import type { CodexRateLimitAccountsState } from '../../../../../../shared/agent-accounts/managed-account-types'

@@ -4,7 +4,7 @@ import {
   type OrchestrationPeerCaller
 } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import { parseOrcaSessionAddress } from '../../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { RpcContext } from '../../../core'
 import { resolveDispatchCreator } from '../runs/dispatch-creator'
 import type {
@@ -144,12 +144,12 @@ function partyRunId(
 
 /** The Run of the newest Dispatch a terminal, pane or session was given. */
 function assigneeRunId(db: OrchestrationDb, subject: string): string | undefined {
-  const session = parseOrcaSessionAddress(subject) ?? subject
+  const session = parseOpenKodoSessionAddress(subject) ?? subject
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: SELECT of one column returns exactly that column.
   const row = db.db
     .prepare(
       `SELECT run_id FROM dispatch_contexts
-       WHERE assignee_handle = ?1 OR assignee_pane_key = ?1 OR assignee_orca_session_id = ?2
+       WHERE assignee_handle = ?1 OR assignee_pane_key = ?1 OR assignee_openkodo_session_id = ?2
        ORDER BY rowid DESC LIMIT 1`
     )
     .get(subject, session) as { run_id: string } | undefined

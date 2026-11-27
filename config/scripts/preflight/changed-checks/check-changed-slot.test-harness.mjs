@@ -57,7 +57,7 @@ export function registerSlotHarness() {
   beforeEach(async () => {
     teardownClosed = false
     teardownDeadline = undefined
-    rawRoot = await mkdtemp(join(tmpdir(), 'orca-changed-slot-'))
+    rawRoot = await mkdtemp(join(tmpdir(), 'openkodo-changed-slot-'))
     root = await realpath(rawRoot)
     file = join(root, 'host.sqlite')
   })

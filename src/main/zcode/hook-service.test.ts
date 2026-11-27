@@ -36,7 +36,7 @@ describe('ZCode managed hooks', () => {
   let cliDir: string
 
   beforeEach(() => {
-    home = mkdtempSync(join(tmpdir(), 'orca-zcode-hooks-'))
+    home = mkdtempSync(join(tmpdir(), 'openkodo-zcode-hooks-'))
     cliDir = join(home, '.zcode', 'cli')
     mkdirSync(cliDir, { recursive: true })
     homedirMock.mockReturnValue(home)

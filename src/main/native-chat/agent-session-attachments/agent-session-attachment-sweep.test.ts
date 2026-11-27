@@ -65,7 +65,7 @@ let db: Database.Database
 let recorded: Set<string> | null
 
 beforeEach(async () => {
-  stateDirectory = await mkdtemp(join(tmpdir(), 'orca-attachment-sweep-'))
+  stateDirectory = await mkdtemp(join(tmpdir(), 'openkodo-attachment-sweep-'))
   store = new AgentSessionAttachmentStore(agentSessionAttachmentStoreRoot(stateDirectory), {
     hasSession: () => true
   })

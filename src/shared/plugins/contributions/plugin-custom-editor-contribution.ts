@@ -54,7 +54,7 @@ export const pluginCustomEditorContributionSchema = z
     }),
     entry: pluginRelativePathSchema.meta(
       pluginPathFieldDoc(
-        `HTML file rendered inside an editor frame, like a panel, or a \`.ts\`/\`.tsx\` module that OpenKodo transpiles and loads in a generated page (needs \`engines.orca\` \`>=${PLUGIN_SOURCE_MODULES_SINCE}\`). It receives the open document and posts edits back; it never gets a file path or file system. It is trusted code: install editors you trust.`,
+        `HTML file rendered inside an editor frame, like a panel, or a \`.ts\`/\`.tsx\` module that OpenKodo transpiles and loads in a generated page (needs \`engines.openkodo\` \`>=${PLUGIN_SOURCE_MODULES_SINCE}\`). It receives the open document and posts edits back; it never gets a file path or file system. It is trusted code: install editors you trust.`,
         PLUGIN_MANIFEST_V2_SINCE,
         ['editor/index.html']
       )

@@ -4,7 +4,7 @@ import type {
 } from '../records/runtime-terminal-state-records'
 import type { AgentStatusIpcPayload } from '../../../../shared/agent-status/contracts/agent-status-ipc-payload'
 import { splitFreebuffScreenUpdates } from '../../../../shared/agent-status/output/freebuff-screen-status'
-import { OrcaRuntimeWithSerializeMainTerminalBuffer } from './terminal-buffer-operations'
+import { OpenKodoRuntimeWithSerializeMainTerminalBuffer } from './terminal-buffer-operations'
 import { observeFreebuffTerminalStatus } from './freebuff-terminal-status'
 import {
   observeCodexCapacityTerminalStatus,
@@ -20,7 +20,7 @@ import {
 import { shouldModelAnswerHiddenPtyQueries } from './terminal-model-query-authority'
 import { advancePartialEscapeTail } from '../../../../shared/terminal/protocol/escape/terminal-partial-escape-tail'
 
-export abstract class OrcaRuntimeWithMaybeHydrateHeadlessFromRenderer extends OrcaRuntimeWithSerializeMainTerminalBuffer {
+export abstract class OpenKodoRuntimeWithMaybeHydrateHeadlessFromRenderer extends OpenKodoRuntimeWithSerializeMainTerminalBuffer {
   protected abstract getOrCreateHeadlessTerminal(ptyId: string): RuntimeHeadlessTerminal
   /** `ref` is the terminal whose title changed or the pane key whose start facts did. */
   protected abstract markPaneLiveTitlesDirty(ref: string): void

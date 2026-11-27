@@ -1,4 +1,4 @@
-// Gate runs on one machine share ~/.cache/orca-fleet-gate; a lock keeps two runs from building the same entry at once.
+// Gate runs on one machine share ~/.cache/openkodo-fleet-gate; a lock keeps two runs from building the same entry at once.
 import { spawnSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'

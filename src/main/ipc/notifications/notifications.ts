@@ -12,7 +12,7 @@ import type {
   StructuredNotificationRead
 } from '../../../shared/notifications/notification-settings-types'
 import { isNotificationAttentionAcknowledgement } from '../../../shared/notifications/notification-settings-types'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { readNotificationAuthorizationStatus } from './notification-authorization-status'
 import { setTrayAttention } from '../../tray/system-tray'
 import { isMainWindowVisible } from '../../window/visibility/main-window-visibility'
@@ -39,7 +39,7 @@ import {
 
 let stopRuntimeAttentionEvents: (() => void) | undefined
 
-export function registerNotificationHandlers(store: Store, runtime?: OrcaRuntimeService): void {
+export function registerNotificationHandlers(store: Store, runtime?: OpenKodoRuntimeService): void {
   ipcMain.removeHandler('notifications:getDesktopAwayState')
   ipcMain.handle('notifications:getDesktopAwayState', () => readDesktopAwayState(powerMonitor))
   resetNotificationPermissionEvidence()

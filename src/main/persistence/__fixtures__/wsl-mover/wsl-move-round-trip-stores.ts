@@ -3,7 +3,7 @@
  * data file at creation, so the shared test directory only has to point at it while it opens.
  */
 import { join } from 'node:path'
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
 import {
   createStore,
   readPersistedStateJson,
@@ -22,5 +22,5 @@ export function openWslMoveRoundTripStore(dir: string, seed?: PersistedState): S
 
 /** The persisted JSON of the store opened over `dir`, as a reader of its profile gets it. */
 export function readWslMoveRoundTripStoreJson(dir: string): string {
-  return readPersistedStateJson(join(dir, 'orca-data.json'))
+  return readPersistedStateJson(join(dir, 'openkodo-data.json'))
 }

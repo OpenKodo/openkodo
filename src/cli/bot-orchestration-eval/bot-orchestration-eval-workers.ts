@@ -57,7 +57,7 @@ export function resolveRepo(
 }
 
 // With no --name, the runtime picks an unused sea-creature name and the receipt names the workspace.
-const GENERATED_NAMES = ['otter', 'narwhal', 'manatee', 'octopus', 'seahorse', 'walrus', 'orca']
+const GENERATED_NAMES = ['otter', 'narwhal', 'manatee', 'octopus', 'seahorse', 'walrus', 'openkodo']
 
 function generatedName(state: EvalHostState): string {
   const used = new Set((state.worktrees ?? []).map((row) => row.displayName))

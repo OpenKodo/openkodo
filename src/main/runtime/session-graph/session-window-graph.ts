@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithAdmitWindowPublisher } from './session-window-publisher'
+import { OpenKodoRuntimeWithAdmitWindowPublisher } from './session-window-publisher'
 import type {
   RuntimeRendererSyncWindowGraph,
   RuntimeSyncWindowGraph,
@@ -14,7 +14,7 @@ import { assertBrowserPageInventoryFrames } from '../session-tabs/inventory/mobi
 
 type Graph = RuntimeSyncWindowGraph
 
-export abstract class OrcaRuntimeWithSyncWindowGraph extends OrcaRuntimeWithAdmitWindowPublisher {
+export abstract class OpenKodoRuntimeWithSyncWindowGraph extends OpenKodoRuntimeWithAdmitWindowPublisher {
   /** Layout-owner builds: main's panes in place of the window's (session-tabs-inventory.ts). */
   protected abstract withMainSurfaces(windowId: number, graph: Graph): Graph
   declare protected terminalGroupGridSizes?: RuntimeSyncWindowGraph['terminalGroupGridSizes']
@@ -23,7 +23,7 @@ export abstract class OrcaRuntimeWithSyncWindowGraph extends OrcaRuntimeWithAdmi
     this.agentOrchestrationProjection
   )
 
-  /** A serve or orcad host: no owner window here ever answers a card. */
+  /** A serve or openkodod host: no owner window here ever answers a card. */
   servesWithoutWindow = (): boolean => this.servesHeadlessGraph
 
   shouldRelayTerminalBrowserOpens(): boolean {

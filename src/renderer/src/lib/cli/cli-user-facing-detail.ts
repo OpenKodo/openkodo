@@ -83,7 +83,7 @@ const KNOWN_CLI_DETAILS: {
     key: 'auto.lib.cli.detail.readlinkPermissionDenied',
     fallback:
       'OpenKodo does not have permission to inspect {{path}}. Check the path and its parent directory permissions, then try again.',
-    vars: (match) => ({ path: match?.[1] ?? 'orca' })
+    vars: (match) => ({ path: match?.[1] ?? 'openkodo' })
   },
   {
     test: /Registered at (.+)\.?$/,
@@ -102,13 +102,13 @@ const KNOWN_CLI_DETAILS: {
   },
   {
     test: /(.+) exists but is not an OpenKodo launcher script\.?$/,
-    key: 'auto.lib.cli.detail.notOrcaLauncherScript',
+    key: 'auto.lib.cli.detail.notOpenKodoLauncherScript',
     fallback: '{{path}} exists but is not an OpenKodo launcher script.',
     vars: (match) => ({ path: match?.[1] ?? '' })
   },
   {
     test: /(.+) exists but is not an OpenKodo symlink\.?$/,
-    key: 'auto.lib.cli.detail.notOrcaSymlink',
+    key: 'auto.lib.cli.detail.notOpenKodoSymlink',
     fallback: '{{path}} exists but is not an OpenKodo symlink.',
     vars: (match) => ({ path: match?.[1] ?? '' })
   },
@@ -128,7 +128,7 @@ const KNOWN_CLI_DETAILS: {
     test: /^(.+) cannot be read\. Register again to repair it\.?$/i,
     key: 'auto.lib.cli.detail.unreadableSymlink',
     fallback: '{{path}} cannot be read. Register again to repair it.',
-    vars: (match) => ({ path: match?.[1] ?? 'orca' })
+    vars: (match) => ({ path: match?.[1] ?? 'openkodo' })
   }
 ]
 
@@ -140,7 +140,7 @@ function stripElectronInvokePrefix(raw: string): string {
 /** Path may be blank when status is still resolving — keep a usable command token. */
 function registerPathToken(raw: string | undefined): string {
   const trimmed = raw?.trim() ?? ''
-  return trimmed.length > 0 ? trimmed : 'orca'
+  return trimmed.length > 0 ? trimmed : 'openkodo'
 }
 
 /** Map stable English "Register … to use OpenKodo from …" status details. */

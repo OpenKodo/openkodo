@@ -14,7 +14,7 @@ import {
   Switch,
   Text,
   Textarea
-} from 'orca'
+} from 'openkodo'
 
 export const title = atom('gallery.title', '', { persist: 'plugin' })
 export const notes = atom('')

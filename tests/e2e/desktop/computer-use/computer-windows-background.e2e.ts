@@ -1,7 +1,11 @@
 import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 import type { ComputerActionResult } from '../../../../src/shared/computer/computer-use-runtime-types'
 import './computer-driver'
-import { ensureOrcaRuntimeLaunched, runOrcaCli, stopOrcaRuntime } from './computer-cli-driver'
+import {
+  ensureOpenKodoRuntimeLaunched,
+  runOpenKodoCli,
+  stopOpenKodoRuntime
+} from './computer-cli-driver'
 import { elementIndex, runPatternAction } from './windows-fixture-actions'
 import {
   launchWindowsFormsFixture,
@@ -28,14 +32,14 @@ describe.skipIf(!isWindows || !e2eOptIn || process.env.CI !== 'true')(
   'computer-use Windows UI Automation actions',
   () => {
     beforeAll(async () => {
-      await ensureOrcaRuntimeLaunched()
+      await ensureOpenKodoRuntimeLaunched()
       fixture = await launchWindowsSemanticFixture()
     })
 
     afterAll(async () => {
       await fixture?.close()
       fixture = null
-      await stopOrcaRuntime()
+      await stopOpenKodoRuntime()
     })
 
     test('scroll pages a list through ScrollPattern and reports whether the window came forward', async () => {
@@ -156,14 +160,14 @@ describe.skipIf(!isWindows || !e2eOptIn || process.env.CI !== 'true')(
   'computer-use Windows Forms actions',
   () => {
     beforeAll(async () => {
-      await ensureOrcaRuntimeLaunched()
+      await ensureOpenKodoRuntimeLaunched()
       formsFixture = await launchWindowsFormsFixture()
     })
 
     afterAll(async () => {
       await formsFixture?.close()
       formsFixture = null
-      await stopOrcaRuntime()
+      await stopOpenKodoRuntime()
     })
 
     test('type-text --element-index types into background text boxes at their caret', async () => {
@@ -228,7 +232,7 @@ describe.skipIf(!isWindows || !e2eOptIn || process.env.CI !== 'true')(
     test('keys refuse in the background and send nothing', async () => {
       const { app, readState, waitForState } = requireFormsFixture()
       const before = await waitForState((state) => !state.active, 'fixture window inactive')
-      const failure = await runOrcaCli([
+      const failure = await runOpenKodoCli([
         'computer',
         'press-key',
         '--app',

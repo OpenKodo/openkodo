@@ -41,7 +41,7 @@ import type { TerminalQuickCommandMenuHost } from '@/lib/terminal/quick-commands
 import { TerminalQuickCommandsSubmenu } from '../quick-commands/TerminalQuickCommandsSubmenu'
 import { AddToChatSubmenu } from '../../native-chat/selection-quotes/AddToChatMenu'
 import type { TerminalPaneAgentIdCopy } from './terminal-pane-context-menu-types'
-import { CopyOrcaIdMenuItem } from '../../native-chat/pane/actions/NativeChatCopyOrcaSessionIdMenuItem'
+import { CopyOpenKodoIdMenuItem } from '../../native-chat/pane/actions/NativeChatCopyOpenKodoSessionIdMenuItem'
 
 type TerminalContextMenuProps = {
   open: boolean
@@ -88,7 +88,7 @@ type TerminalContextMenuProps = {
   onCopyPaneId: () => void
   canCopyAgentSessionId: boolean
   onCopyAgentSessionId: () => void
-  /** Copies `orca_session_id:<id>` from the pane's host; absent where the menu has no agent. */
+  /** Copies `openkodo_session_id:<id>` from the pane's host; absent where the menu has no agent. */
   agentIdCopy?: TerminalPaneAgentIdCopy
   onRestoreTerminalFocus: () => void
 }
@@ -329,24 +329,24 @@ function TerminalContextMenuItems({
         </DropdownMenuItem>
       ) : null}
       {agentIdCopy ? (
-        <CopyOrcaIdMenuItem
-          resolveOrcaSessionId={agentIdCopy.resolve}
+        <CopyOpenKodoIdMenuItem
+          resolveOpenKodoSessionId={agentIdCopy.resolve}
           onSettled={agentIdCopy.focusPane}
           copy={{
             label: t(
-              'components.terminalPane.TerminalContextMenu.copyOrcaSessionId',
+              'components.terminalPane.TerminalContextMenu.copyOpenKodoSessionId',
               'Copy OpenKodo Session ID'
             ),
             tooltip: t(
-              'components.terminalPane.TerminalContextMenu.orcaSessionIdTooltip',
+              'components.terminalPane.TerminalContextMenu.openkodoSessionIdTooltip',
               "OpenKodo's ID for this agent, separate from the agent CLI's own session ID. Agents use it to refer to each other through OpenKodo."
             ),
             copied: t(
-              'components.terminalPane.TerminalContextMenu.orcaSessionIdCopied',
+              'components.terminalPane.TerminalContextMenu.openkodoSessionIdCopied',
               'OpenKodo session ID copied'
             ),
             failed: t(
-              'components.terminalPane.TerminalContextMenu.orcaSessionIdCopyFailed',
+              'components.terminalPane.TerminalContextMenu.openkodoSessionIdCopyFailed',
               'Unable to copy OpenKodo session ID'
             )
           }}

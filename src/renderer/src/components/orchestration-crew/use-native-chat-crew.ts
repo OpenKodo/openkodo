@@ -8,9 +8,9 @@ import {
   type RefObject
 } from 'react'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type {
   OrchestrationCrewRow,
   OrchestrationCrewSnapshot,
@@ -64,7 +64,9 @@ export function useNativeChatCrewSource({
   // Shares the crew panel's suspension: each followed chat runs a crew rebuild on main.
   const enabled = useOrchestrationPanelEnabled()
   const party =
-    enabled && isVisible && isOrcaSessionId(sessionId) ? formatOrcaSessionAddress(sessionId) : null
+    enabled && isVisible && isOpenKodoSessionId(sessionId)
+      ? formatOpenKodoSessionAddress(sessionId)
+      : null
   const kind = target.kind
   const environmentId = target.kind === 'environment' ? target.environmentId : null
   const observation = useMemo(() => {

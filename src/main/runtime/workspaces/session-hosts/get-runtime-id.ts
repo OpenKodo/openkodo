@@ -10,7 +10,7 @@ import { parseWorkspaceKey } from '../../../../shared/workspace/identity/workspa
 import { TerminalListHostScope } from '../../terminal/query/terminal-list-host-scope'
 import type { RuntimeWorkspaceSelectors } from '../workspace-selectors'
 
-export abstract class OrcaRuntimeWithGetRuntimeId extends TerminalListHostScope {
+export abstract class OpenKodoRuntimeWithGetRuntimeId extends TerminalListHostScope {
   protected abstract buildResolvedWorktreeForHost(
     ...args: Parameters<RuntimeWorkspaceSelectors['buildResolvedWorktreeForHost']>
   ): ReturnType<RuntimeWorkspaceSelectors['buildResolvedWorktreeForHost']>

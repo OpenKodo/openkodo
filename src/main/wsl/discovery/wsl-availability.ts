@@ -1,5 +1,5 @@
-import { runProcess } from '@orca/process-host'
-import type { ProcessResult, ProcessSpec } from '@orca/process-host/process-spec'
+import { runProcess } from '@openkodo/process-host'
+import type { ProcessResult, ProcessSpec } from '@openkodo/process-host/process-spec'
 import { buildWslExecArgs } from '../../../shared/shell/wsl/wsl-login-shell-command'
 import { wslExeProcessSpec } from '../execution/wsl-exe-process'
 import { notifyWslDiscoveryChanged } from './wsl-discovery-change'

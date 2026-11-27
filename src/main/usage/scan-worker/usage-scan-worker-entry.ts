@@ -29,7 +29,7 @@ import {
 } from '../cache/usage-source-cache-file'
 import { installWorkerSendLedger } from '../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-usage-scan')
+installWorkerSendLedger('openkodo-usage-scan')
 
 // #20940: serial history/SQLite scans stay off main; imports must remain Electron-free (plain-node-entry-guard).
 // OpenCode WSL overrides can fork a transcript sidecar. Worker teardown only closes IPC; the sidecar exits on disconnect. Future children need explicit ownership if disconnect does not stop them. Sidecars restart per worker lifecycle.

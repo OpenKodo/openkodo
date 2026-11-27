@@ -6,7 +6,7 @@ export function setDaemonProcessName(): void {
   }
   try {
     // process.title overwrites argv, which daemon adoption and recovery use as identity evidence.
-    writeFileSync('/proc/self/comm', 'orca-agents')
+    writeFileSync('/proc/self/comm', 'openkodo-agents')
   } catch {
     // Naming must not prevent terminals starting when procfs is unavailable or read-only.
   }

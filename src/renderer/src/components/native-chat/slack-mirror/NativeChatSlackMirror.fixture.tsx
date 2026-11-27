@@ -48,7 +48,7 @@ function Frame({ value, children }: { value: NativeChatSlackMirror; children: Re
   )
 }
 
-const ITEM = 'orca:send-1'
+const ITEM = 'openkodo:send-1'
 
 export const on = defineFixture({
   width: 520,

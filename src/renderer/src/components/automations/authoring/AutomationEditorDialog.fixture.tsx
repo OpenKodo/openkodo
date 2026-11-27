@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import type { Repo } from '../../../../../shared/repository/repo-types'
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { stubBots } from '../../../component-fixtures/fixture-bots'
@@ -8,8 +8,8 @@ import { AutomationEditorDialog, type AutomationDraft } from './AutomationEditor
 
 const REPO: Repo = {
   id: 'repo-1',
-  path: '/Users/me/orca',
-  displayName: 'orca',
+  path: '/Users/me/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }

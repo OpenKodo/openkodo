@@ -47,7 +47,7 @@ export function setPluginFrameGuestLogSink(next: PluginFrameLogSink | null): voi
 
 const escapeRegExp = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
-/** `orca-plugin-frame://<key>/src/panel.tsx?rev=…` becomes `src/panel.tsx`, in stack traces too. */
+/** `openkodo-plugin-frame://<key>/src/panel.tsx?rev=…` becomes `src/panel.tsx`, in stack traces too. */
 export function shortenPluginFrameUrls(text: string, frameKey: string): string {
   const origin = new RegExp(
     `${escapeRegExp(pluginFrameOrigin(frameKey))}/([^\\s?#):]*)(?:[?#][^\\s:)]*)?`,
@@ -77,13 +77,13 @@ export function pluginFrameSourceLocation(
   return lineNumber > 0 ? `${path}:${lineNumber}` : path
 }
 
-// After shortening, OpenKodo's own guest files read `__orca/…`; authors only need their own frames.
+// After shortening, OpenKodo's own guest files read `__openkodo/…`; authors only need their own frames.
 const OPENKODO_STACK_FRAME = new RegExp(`^\\s+at (?:.*\\()?${PLUGIN_FRAME_RESERVED_SEGMENT}/`)
 // `at Array.forEach (<anonymous>)`, `at new Promise (<anonymous>)`: engine frames with no source.
 const SOURCELESS_STACK_FRAME = /^\s+at (?:.*\((?:<anonymous>|native)\)|<anonymous>|native)\s*$/
 
-/** Drops stack lines inside OpenKodo's guest runtime (`__orca/orca-runtime.mjs`) and the engine's. */
-export function withoutOrcaStackFrames(text: string): string {
+/** Drops stack lines inside OpenKodo's guest runtime (`__openkodo/openkodo-runtime.mjs`) and the engine's. */
+export function withoutOpenKodoStackFrames(text: string): string {
   return text
     .split('\n')
     .filter((line) => !OPENKODO_STACK_FRAME.test(line) && !SOURCELESS_STACK_FRAME.test(line))
@@ -98,7 +98,7 @@ export function formatPluginFrameConsoleLine(
   if (!level) {
     return null
   }
-  let message = withoutOrcaStackFrames(shortenPluginFrameUrls(details.message, frameKey))
+  let message = withoutOpenKodoStackFrames(shortenPluginFrameUrls(details.message, frameKey))
   if (message.length > MESSAGE_CHAR_LIMIT) {
     message = `${message.slice(0, MESSAGE_CHAR_LIMIT)}… (truncated)`
   }

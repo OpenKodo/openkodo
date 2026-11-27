@@ -1,8 +1,8 @@
 # Computer-use task benchmark
 
-Compares Orca's direct Linux AT-SPI and Windows UI Automation providers with
+Compares OpenKodo's direct Linux AT-SPI and Windows UI Automation providers with
 cua-driver 0.38.0. This does not measure the CLI, sidecar, model, or complete agent
-workflows. It does not install cua-driver in Orca.
+workflows. It does not install cua-driver in OpenKodo.
 
 Run the `Computer-use task benchmark` GitHub Actions workflow on a branch. Native
 input runs only on its disposable Windows runner or Linux Xvfb desktop. The runner
@@ -48,7 +48,7 @@ Do not generalize these results to every application on a platform.
   rounds for balanced positions. Default/background and explicitly requested
   foreground profiles are separate trials. Foreground can intentionally interfere.
 - Comparable per-step time includes the action and an additional full no-screenshot
-  observation for every provider. Raw action time is diagnostic because Orca already
+  observation for every provider. Raw action time is diagnostic because OpenKodo already
   returns a snapshot with mutations. Task time includes provider startup, discovery
   and all action/read pairs. Medians include completed tasks only; failed-attempt
   durations and sample counts are separate. Diagnostic serialization and disk I/O
@@ -62,7 +62,7 @@ Tasks cover explicit text targeting with another field logically focused, Unicod
 entry plus submit, select-all replacement plus submit, and color choice plus one
 click. Interference probes remain separate from task latency comparisons.
 
-Explicit-target typing is a native capability probe. Orca's public CLI/RPC accepts
+Explicit-target typing is a native capability probe. OpenKodo's public CLI/RPC accepts
 an element target for text (`type-text --element-index`) on providers that report
 `actions.typeTextElement` (macOS, Linux and Windows). Click-then-type tasks send no element with the text, like `type-text`
 without the index, although this benchmark still bypasses public transports.

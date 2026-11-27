@@ -2,7 +2,7 @@ import { runLifecycleWriteTransaction } from '../db/lifecycle-write-transaction-
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { OrchestrationDb } from '../db/orchestration-db'
 import { acknowledgeWorkerDock, readWorkerDock, readWorkerDockResult } from './worker-dock-read'
-import { isOrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { subscribeWorkerDock } from './worker-dock-stream'
 import { refreshWorkerDockActivity, workerDockActivitySource } from './worker-dock-activity'
 import type { AgentStatusIpcPayload } from '../../../../shared/agent-status/contracts/agent-status-ipc-payload'
@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 const session = '11111111-1111-4111-8111-111111111111'
-const party = `orca_session_id:${session}`
+const party = `openkodo_session_id:${session}`
 let db: OrchestrationDb
 beforeEach(() => {
   db = new OrchestrationDb(':memory:')
@@ -35,7 +35,7 @@ function worker() {
     }
   })
   db.db
-    .prepare('UPDATE dispatch_contexts SET creator_orca_session_id = ? WHERE id = ?')
+    .prepare('UPDATE dispatch_contexts SET creator_openkodo_session_id = ? WHERE id = ?')
     .run(session, dispatch.id)
   return dispatch.id
 }
@@ -322,7 +322,7 @@ describe('worker dock lifecycle projection', () => {
   })
 
   it('shares 200 durable failure acknowledgments across reopen and another paired client', () => {
-    const directory = mkdtempSync(join(tmpdir(), 'orca-dock-'))
+    const directory = mkdtempSync(join(tmpdir(), 'openkodo-dock-'))
     db.close()
     db = new OrchestrationDb(join(directory, 'orchestration.db'))
     let other: OrchestrationDb | undefined
@@ -457,12 +457,12 @@ describe('worker dock lifecycle projection', () => {
   })
 
   it('updates a visible source through lifecycle settlement, Clear and restore', async () => {
-    if (!isOrcaSessionId(session)) {
+    if (!isOpenKodoSessionId(session)) {
       throw new Error('Invalid source session')
     }
     const task = db.createTask({ runId: 'run_legacy_local', spec: 'Verify the journal' })
     const { dispatch } = db.createStartingWorkerDispatch({
-      creator: { kind: 'session', orcaSessionId: session },
+      creator: { kind: 'session', openkodoSessionId: session },
       maxDepth: 10,
       taskId: task.id,
       startOptions: { agent: 'codex' }

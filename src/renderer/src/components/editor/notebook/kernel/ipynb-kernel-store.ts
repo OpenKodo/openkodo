@@ -46,7 +46,7 @@ const IDLE_SESSION: NotebookKernelSession = {
   interruptStalled: false,
   setup: null
 }
-const ENVIRONMENTS_STORAGE_KEY = 'orca.notebookPythonEnvironments'
+const ENVIRONMENTS_STORAGE_KEY = 'openkodo.notebookPythonEnvironments'
 
 function loadEnvironments(): Record<string, PythonEnvironment> {
   try {

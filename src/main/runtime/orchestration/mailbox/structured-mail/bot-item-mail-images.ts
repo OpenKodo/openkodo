@@ -26,8 +26,8 @@ export function botItemMailImageBlocks(
     return []
   }
   // A bot request's payload is OpenKodo's own, never the sender's.
-  const orcas = message.from_handle === BOT_ITEM_MAIL_SENDER || 'botRequest' in payload
-  const images = orcas && 'images' in payload ? payload.images : null
+  const openkodos = message.from_handle === BOT_ITEM_MAIL_SENDER || 'botRequest' in payload
+  const images = openkodos && 'images' in payload ? payload.images : null
   return (Array.isArray(images) ? images : [])
     .filter(
       (path): path is string =>

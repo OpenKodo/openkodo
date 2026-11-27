@@ -6,7 +6,7 @@ import type {
 import type { CrewRuntimeReaders } from '../../orchestration/crew/crew-runtime-watch'
 import { createCrewNotifiedTerminalIdentity } from '../identity/terminal-identity-crew-notice'
 import type { WaitBlockedCheckState } from '../wait/wait-blocked-check-state'
-import { OrcaRuntimeWithStopRequestedPtyIds } from '../../construction/runtime-service-state'
+import { OpenKodoRuntimeWithStopRequestedPtyIds } from '../../construction/runtime-service-state'
 import { RuntimeSubscriptionRegistry } from '../../client/runtime-subscription-registry'
 import { RuntimeMobileNotificationController } from '../../push/notifications/runtime-mobile-notification-controller'
 import type {
@@ -23,7 +23,7 @@ import { MainDaemonAttachments } from './main-daemon-attachments'
 import { parseAppSshPtyId } from '../../../../shared/remote-runtime/ssh/ssh-pty-id'
 import type { HostTerminalUsage } from '../../../../shared/terminal/runtime-policy/terminal-limit-policy'
 
-export abstract class OrcaRuntimeWithFitOverrideListeners extends OrcaRuntimeWithStopRequestedPtyIds {
+export abstract class OpenKodoRuntimeWithFitOverrideListeners extends OpenKodoRuntimeWithStopRequestedPtyIds {
   protected readonly terminalIdentity = createCrewNotifiedTerminalIdentity(this.crewChanges)
   protected readonly ptysById = this.terminalIdentity.ptys
   readonly handles = this.terminalIdentity.handles

@@ -43,7 +43,7 @@ export const CheckParams = z
     compatibilityAck: OptionalString,
     compatibilityQuestionAck: OptionalString,
     compatibilityCliCommand: z
-      .enum(['openkodo', 'openkodo-dev', 'orca', 'orca-ide', 'orca-dev'])
+      .enum(['openkodo', 'openkodo-dev', 'openkodo', 'openkodo-ide', 'openkodo-dev'])
       .optional(),
     run: OptionalString,
     wait: OptionalBoolean,
@@ -147,9 +147,9 @@ export const AskParams = z
     from: OptionalString,
     run: OptionalString,
     compatibilityCliCommand: z
-      .enum(['openkodo', 'openkodo-dev', 'orca', 'orca-ide', 'orca-dev'])
+      .enum(['openkodo', 'openkodo-dev', 'openkodo', 'openkodo-ide', 'openkodo-dev'])
       .optional(),
-    compatibilityWindowsCommand: z.enum(['openkodo', 'orca', 'orca-ide']).optional()
+    compatibilityWindowsCommand: z.enum(['openkodo', 'openkodo', 'openkodo-ide']).optional()
   })
   .superRefine((params, ctx) => {
     if ((params.question ? 1 : 0) + (params.resume ? 1 : 0) !== 1) {

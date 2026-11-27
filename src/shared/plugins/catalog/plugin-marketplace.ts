@@ -15,12 +15,12 @@ const NEXT = PLUGIN_MANIFEST_V2_SINCE
 // Why frozen: v1 entries are strict, so shipped clients reject any new field. New catalogs live
 // in openkodo-catalog.json (plugin-catalog.ts); this file is generated from it for old clients.
 export const PLUGIN_MARKETPLACE_FILENAME = 'openkodo-marketplace.json'
-export const LEGACY_PLUGIN_MARKETPLACE_FILENAME = 'orca-marketplace.json'
+export const LEGACY_PLUGIN_MARKETPLACE_FILENAME = 'openkodo-marketplace.json'
 export const PLUGIN_MARKETPLACE_ENTRY_LIMIT = 2_048
 export const PLUGIN_MARKETPLACE_CATEGORY_LIMIT = 16
 
 export const OFFICIAL_PLUGIN_PUBLISHER = 'openkodo'
-export const OFFICIAL_PLUGIN_ID_PREFIX = 'orca-'
+export const OFFICIAL_PLUGIN_ID_PREFIX = 'openkodo-'
 export const OFFICIAL_MARKETPLACE_OWNER = 'openkodo'
 export const OFFICIAL_MARKETPLACE_REPOSITORY = 'openkodo-plugins'
 
@@ -55,7 +55,7 @@ const gitSourceFields = {
     .refine(isAllowedPluginGitUrl, 'git URL must use HTTPS or SSH')
     .meta(
       pluginFieldDoc('HTTPS or SSH URL of the plugin repository.', NEXT, [
-        'https://github.com/acme/orca-gleam-syntax.git'
+        'https://github.com/acme/openkodo-gleam-syntax.git'
       ])
     ),
   // Why: marketplace installs must first resolve a named ref to an exact

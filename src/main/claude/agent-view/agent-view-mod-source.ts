@@ -149,7 +149,7 @@ export function register(on) {
     configDir = await $.env.get('CLAUDE_CONFIG_DIR') || await $.env.get('OPENKODO_CLAUDE_CONFIG_DIR')
     if (!configDir) return result
     endedSessionId = undefined
-    await $.command.register({ name: 'orca-agent-view', description: 'Open the agent selected in OpenKodo', immediate: true })
+    await $.command.register({ name: 'openkodo-agent-view', description: 'Open the agent selected in OpenKodo', immediate: true })
     void announce($)
     return result
   })
@@ -165,7 +165,7 @@ export function register(on) {
     })
   } catch {}
 
-  on('command.run', { command: 'orca-agent-view' }, async ($) => {
+  on('command.run', { command: 'openkodo-agent-view' }, async ($) => {
     try {
       const session = identity
       if (!session || session.sessionId !== await $.session.id()) return {}

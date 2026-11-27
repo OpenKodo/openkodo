@@ -40,8 +40,8 @@ function onFirstCallTo(
   return () => mock.mockImplementation(actual)
 }
 
-const isKept = (destination: string): boolean => destination.includes('.orca-kept-')
-const isHeld = (destination: string): boolean => destination.endsWith('.orca-guarded')
+const isKept = (destination: string): boolean => destination.includes('.openkodo-kept-')
+const isHeld = (destination: string): boolean => destination.endsWith('.openkodo-guarded')
 
 vi.mock('node:fs', async (importOriginal) => {
   const actual = await importOriginal<typeof NodeFs>()
@@ -67,7 +67,7 @@ describe('writeFileAtomically', () => {
   let dir: string
 
   function setup(): string {
-    dir = mkdtempSync(join(tmpdir(), 'orca-fs-utils-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-fs-utils-'))
     return dir
   }
 
@@ -119,7 +119,7 @@ describe('writeFileAtomically', () => {
     setup()
     try {
       const target = join(dir, 'guarded.toml')
-      const held = `${target}.orca-guarded`
+      const held = `${target}.openkodo-guarded`
       writeFileSync(held, 'baseline')
 
       expect(writeFileAtomicallyIfUnchanged(target, 'baseline', 'next')).toBe(true)
@@ -134,7 +134,7 @@ describe('writeFileAtomically', () => {
     setup()
     try {
       const target = join(dir, 'config.toml')
-      writeFileSync(`${target}.orca-guarded`, 'model = "o5"\n[profiles.work]\n')
+      writeFileSync(`${target}.openkodo-guarded`, 'model = "o5"\n[profiles.work]\n')
       // A writer that found no file wrote only its own key.
       writeFileSync(target, 'approval = "never"\n')
 
@@ -155,20 +155,20 @@ describe('writeFileAtomically', () => {
     try {
       const target = join(dir, 'config.toml')
       const conflict = (): void => {
-        writeFileSync(`${target}.orca-guarded`, 'model = "o5"\n')
+        writeFileSync(`${target}.openkodo-guarded`, 'model = "o5"\n')
         writeFileSync(target, 'approval = "never"\n')
         expect(writeFileAtomicallyIfUnchanged(target, 'approval = "never"\n', 'next')).toBe(true)
       }
       const kept = (): string[] =>
         readdirSync(dir)
-          .filter((name) => name.includes('.orca-kept-'))
+          .filter((name) => name.includes('.openkodo-kept-'))
           .map((name) => readFileSync(join(dir, name), 'utf-8'))
           .sort()
       conflict()
       conflict()
       expect(kept()).toEqual(['model = "o5"\n'])
       // Edited since it was kept, the copy no longer holds those bytes.
-      const keptName = readdirSync(dir).find((name) => name.includes('.orca-kept-'))!
+      const keptName = readdirSync(dir).find((name) => name.includes('.openkodo-kept-'))!
       writeFileSync(join(dir, keptName), 'model = "edited"\n')
       conflict()
       conflict()
@@ -182,7 +182,7 @@ describe('writeFileAtomically', () => {
     setup()
     try {
       const target = join(dir, 'config.toml')
-      writeFileSync(`${target}.orca-guarded`, 'model = "o5"\n')
+      writeFileSync(`${target}.openkodo-guarded`, 'model = "o5"\n')
       writeFileSync(target, 'approval = "never"\n')
       const undo = onFirstCallTo(fsMock.linkSync, isKept, () => {
         throw Object.assign(new Error('no space'), { code: 'ENOSPC' })
@@ -192,11 +192,11 @@ describe('writeFileAtomically', () => {
         'no space'
       )
       undo()
-      expect(readFileSync(`${target}.orca-guarded`, 'utf-8')).toBe('model = "o5"\n')
+      expect(readFileSync(`${target}.openkodo-guarded`, 'utf-8')).toBe('model = "o5"\n')
       expect(writeFileAtomicallyIfUnchanged(target, 'approval = "never"\n', 'next')).toBe(true)
       expect(
         readdirSync(dir)
-          .filter((name) => name.includes('.orca-kept-'))
+          .filter((name) => name.includes('.openkodo-kept-'))
           .map((name) => readFileSync(join(dir, name), 'utf-8'))
       ).toEqual(['model = "o5"\n'])
     } finally {
@@ -210,13 +210,13 @@ describe('writeFileAtomically', () => {
       setup()
       try {
         const target = join(dir, 'config.toml')
-        const heldPath = `${target}.orca-guarded`
+        const heldPath = `${target}.openkodo-guarded`
         writeFileSync(target, 'approval = "never"\n')
         writeFileSync(heldPath, 'model = "o5"\n', { mode: 0o000 })
 
         expect(() => recoverInterruptedGuardedFileOperation(target)).toThrow()
         expect(() => recoverInterruptedGuardedFileOperation(target)).toThrow()
-        expect(readdirSync(dir).sort()).toEqual(['config.toml', 'config.toml.orca-guarded'])
+        expect(readdirSync(dir).sort()).toEqual(['config.toml', 'config.toml.openkodo-guarded'])
       } finally {
         cleanup()
       }
@@ -227,7 +227,7 @@ describe('writeFileAtomically', () => {
     setup()
     try {
       const target = join(dir, 'config.toml')
-      writeFileSync(`${target}.orca-guarded`, 'model = "o5"\n')
+      writeFileSync(`${target}.openkodo-guarded`, 'model = "o5"\n')
       writeFileSync(target, 'approval = "never"\n')
       const link = fsMock.linkSync.getMockImplementation()!
       const undo = onFirstCallTo(fsMock.linkSync, isKept, (source, kept) => {
@@ -239,7 +239,7 @@ describe('writeFileAtomically', () => {
       undo()
       expect(
         readdirSync(dir)
-          .filter((name) => name.includes('.orca-kept-'))
+          .filter((name) => name.includes('.openkodo-kept-'))
           .map((name) => readFileSync(join(dir, name), 'utf-8'))
           .sort()
       ).toEqual(['model = "o5"\n', 'theirs\n'])
@@ -273,7 +273,7 @@ describe('writeFileAtomically', () => {
     setup()
     try {
       const target = join(dir, 'config.toml')
-      writeFileSync(`${target}.orca-guarded`, 'user edit\n')
+      writeFileSync(`${target}.openkodo-guarded`, 'user edit\n')
       const link = fsMock.linkSync.getMockImplementation()!
       const full = Object.assign(new Error('no space'), { code: 'ENOSPC' })
       fsMock.linkSync.mockImplementation((source: string, destination: string) => {
@@ -318,7 +318,7 @@ describe('writeFileAtomically', () => {
     setup()
     try {
       const target = join(dir, 'auth.json')
-      writeFileSync(`${target}.orca-guarded`, '{"token":"a"}')
+      writeFileSync(`${target}.openkodo-guarded`, '{"token":"a"}')
       writeFileSync(target, '{"token":"b"}')
 
       expect(removeFileAtomicallyIfUnchanged(target, '{"token":"b"}', { credential: true })).toBe(
@@ -398,7 +398,7 @@ describe('writeFileAtomically', () => {
       expect(writeFileAtomicallyIfUnchanged(target, 'user edit\n', 'mirror\n')).toBe(false)
       undo()
       expect(readFileSync(target, 'utf-8')).toBe('newer edit\n')
-      const kept = readdirSync(dir).filter((name) => name.includes('.orca-kept-'))
+      const kept = readdirSync(dir).filter((name) => name.includes('.openkodo-kept-'))
       expect(kept).toHaveLength(1)
       expect(readFileSync(join(dir, kept[0]), 'utf-8')).toBe('user edit\n')
     } finally {

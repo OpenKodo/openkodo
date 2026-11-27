@@ -76,7 +76,7 @@ function text(
 
 function messages(intro: string): NativeChatMessage[] {
   return [
-    text('k1', 'user', 'OpenKodo: you were just created.', 0, { orcaNotice: 'bot-created' }),
+    text('k1', 'user', 'OpenKodo: you were just created.', 0, { openkodoNotice: 'bot-created' }),
     text('r1', 'reasoning', 'Greet the owner and ask.', 0.02),
     text('a1', 'assistant', intro, 0.05),
     text('u2', 'user', 'Review the open PRs on the parser.', 2),

@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { SshRemotePtyLease } from '../../../shared/remote-runtime/ssh/ssh-types'
 
 export type SshPtyLeaseTombstoneRetentionOperations = {

@@ -2,9 +2,9 @@ import { PLUGIN_EVENT_NAMES } from '../contributions/plugin-event-contribution'
 import { PLUGIN_PANEL_REQUEST_MAX_TIMEOUT_MS } from '../workers/plugin-panel-bridge-protocol'
 
 /**
- * Part of the frame shell's IIFE (plugin-panel-shell.ts), after `orca` exists: `orca.plugin`
- * (requests to and posts from the plugin's worker), `orca.storage`, `orca.settings`,
- * `orca.secrets`, and `orca.on` for workspace and agent events. Uses the shell's `call`, `on`,
+ * Part of the frame shell's IIFE (plugin-panel-shell.ts), after `openkodo` exists: `openkodo.plugin`
+ * (requests to and posts from the plugin's worker), `openkodo.storage`, `openkodo.settings`,
+ * `openkodo.secrets`, and `openkodo.on` for workspace and agent events. Uses the shell's `call`, `on`,
  * `emit` and `failure`; `receivePush` handles the host's `plugin.push` event.
  */
 export const PLUGIN_FRAME_FACADES_SCRIPT = `
@@ -32,7 +32,7 @@ export const PLUGIN_FRAME_FACADES_SCRIPT = `
       subscribed.add(name)
       call('events.subscribe', { event: name }).catch(function (e) {
         subscribed.delete(name)
-        console.warn('[orca] cannot receive ' + name + ': ' + (e && e.message))
+        console.warn('[openkodo] cannot receive ' + name + ': ' + (e && e.message))
       })
     }
     return subscription
@@ -45,8 +45,8 @@ export const PLUGIN_FRAME_FACADES_SCRIPT = `
   }
   function pick(name) { return function (result) { return result ? result[name] : undefined } }
   function done() { return undefined }
-  orca.on = onEvent
-  orca.plugin = Object.freeze({
+  openkodo.on = onEvent
+  openkodo.plugin = Object.freeze({
     request: function (name, input, options) {
       var o = options || {}
       var params = { name: String(name) }
@@ -58,7 +58,7 @@ export const PLUGIN_FRAME_FACADES_SCRIPT = `
     },
     on: function (event, fn) { return listen(pluginListeners, String(event), fn) }
   })
-  orca.storage = Object.freeze({
+  openkodo.storage = Object.freeze({
     get: function (key) {
       return call('storage.get', { key: String(key) }).then(pick('value')).then(function (v) { return v === undefined ? null : v })
     },
@@ -67,7 +67,7 @@ export const PLUGIN_FRAME_FACADES_SCRIPT = `
     keys: function () { return call('storage.keys').then(pick('keys')) },
     onDidChange: function (fn) { return listen(dataListeners, 'storage', fn) }
   })
-  orca.settings = Object.freeze({
+  openkodo.settings = Object.freeze({
     get: function (key) {
       return call('settings.get').then(function (result) {
         var all = (result && result.settings) || {}
@@ -77,7 +77,7 @@ export const PLUGIN_FRAME_FACADES_SCRIPT = `
     set: function (key, value) { return call('settings.set', { key: String(key), value: value }).then(done) },
     onDidChange: function (fn) { return listen(dataListeners, 'settings', fn) }
   })
-  orca.secrets = Object.freeze({
+  openkodo.secrets = Object.freeze({
     get: function (key) { return call('secrets.get', { key: String(key) }).then(pick('value')) },
     set: function (key, value) { return call('secrets.set', { key: String(key), value: String(value) }).then(done) },
     delete: function (key) { return call('secrets.delete', { key: String(key) }).then(done) }

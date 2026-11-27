@@ -128,7 +128,7 @@ export function handleRichMarkdownEditorClick({
         state: useAppStore.getState(),
         worktreeId,
         sourceOwner,
-        destination: 'orca'
+        destination: 'openkodo'
       })
       return true
     }

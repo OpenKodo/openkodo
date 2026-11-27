@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../../../src/shared/orca-profiles/orca-profiles'
+import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../../../src/shared/openkodo-profiles/openkodo-profiles'
 import {
   acquireProfileStateMaintenance,
   acquireProfileStateRuntimeAdmission

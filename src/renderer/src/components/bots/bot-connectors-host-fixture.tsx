@@ -106,7 +106,7 @@ export type StubOptions = {
   webhooks?: { hooks: WebhookSummary[]; calls: WebhookCallRow[] }
 }
 
-const HOST_PAGE = 'https://mcp.acme-notes.example/authorize?client_id=orca&state=fixture'
+const HOST_PAGE = 'https://mcp.acme-notes.example/authorize?client_id=openkodo&state=fixture'
 
 export function stub(options: StubOptions): void {
   const bots = options.bots ?? [base, empty, slackOnly, switchedToCodex, twoOfEach]
@@ -175,8 +175,8 @@ export function stub(options: StubOptions): void {
     state: async () => ({
       ok: true,
       value: {
-        installUrl: 'https://github.com/apps/orca-ide/installations/new',
-        account: { userId: '42', login: 'cos-orca' },
+        installUrl: 'https://github.com/apps/openkodo-ide/installations/new',
+        account: { userId: '42', login: 'cos-openkodo' },
         installations: [
           ...(options.sameService
             ? [
@@ -193,7 +193,7 @@ export function stub(options: StubOptions): void {
         accounts: [
           {
             userId: '42',
-            login: 'cos-orca',
+            login: 'cos-openkodo',
             installations: [...(options.sameService ? ['2'] : []), '1'],
             defaultBotId: null,
             linkedAccounts: []
@@ -292,7 +292,7 @@ export function stub(options: StubOptions): void {
       expiresAt: Date.now() + 300_000,
       state: 'waiting',
       authorizationUrl: HOST_PAGE,
-      redirectUri: 'http://127.0.0.1:41234/orca/app-callback'
+      redirectUri: 'http://127.0.0.1:41234/openkodo/app-callback'
     }),
     // Like the host's long poll: the change once, then nothing until it settles.
     'bots.tools.signIn.wait': () =>

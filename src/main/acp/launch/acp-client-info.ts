@@ -1,7 +1,7 @@
 import type { Implementation } from '../generated/acp-protocol.generated'
 import type { AcpLaunchSpec } from './acp-launch-contract'
 
-export const OPENKODO_ACP_CLIENT_INFO: Implementation = { name: 'orca', version: '1' }
+export const OPENKODO_ACP_CLIENT_INFO: Implementation = { name: 'openkodo', version: '1' }
 
 /** The identity initialize sends to a spec's agent at the launched version. */
 export function acpClientInfo(

@@ -20,7 +20,7 @@ export type AgentSessionRefusalAction =
   /** Continue somewhere else: the current conversation, or a new chat. */
   | 'goElsewhere'
   | 'checkChat'
-  | 'updateOrca'
+  | 'updateOpenKodo'
   /** What the write was for is over: the question it answered moved on. */
   | 'nothingLeft'
   /** OpenKodo's own state or fault; nothing the person does gets past it. */
@@ -176,7 +176,7 @@ const REASON_WORDS = {
     handoffInFlight: codeWords('retry')
   },
   agent_session_operation_expired: { operationExpired: codeWords('retry') },
-  agent_session_operation_capacity: { operationCapacity: codeWords('updateOrca') },
+  agent_session_operation_capacity: { operationCapacity: codeWords('updateOpenKodo') },
   agent_session_operation_unknown: {
     outcomeUnknown: codeWords('checkChat'),
     resultLost: codeWords('checkChat'),
@@ -193,9 +193,9 @@ const REASON_WORDS = {
     // The step stays beside a Retry: retrying before space is freed fails again.
     journalStorageFull: causeWords('diskFull', 'actFirst', 'freeDiskSpace'),
     // Writes meet newer/read-only databases; reads meet this chat, opened only by an update.
-    journalWrittenByNewerOrca: {
-      ...causeWords('savedByNewerOrca', 'updateOrca', 'updateOrcaToKeepUsing'),
-      history: { cause: 'chatSavedByNewerOrca', step: 'updateOrcaToOpenChat' }
+    journalWrittenByNewerOpenKodo: {
+      ...causeWords('savedByNewerOpenKodo', 'updateOpenKodo', 'updateOpenKodoToKeepUsing'),
+      history: { cause: 'chatSavedByNewerOpenKodo', step: 'updateOpenKodoToOpenChat' }
     }
   },
   // Unknown methods justify the code's update advice; unsupported agents/locations or absent chat hosts do not. Only hostUnsupported names the unsupported cause; missing client capabilities retain older copy.

@@ -1,4 +1,4 @@
-import type { PersistedUIState } from '../../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import type { ActivityBarPosition } from '../../../../../shared/ui-chrome/ui-chrome-types'
 import { persistedUIValuesEqual } from '../../../../../shared/collections/persisted-ui-equality'
 

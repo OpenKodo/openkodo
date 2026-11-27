@@ -1,4 +1,4 @@
-import { getOrcaProfileBrowserSessionPartition } from '../../../../shared/orca-profiles/orca-profiles'
+import { getOpenKodoProfileBrowserSessionPartition } from '../../../../shared/openkodo-profiles/openkodo-profiles'
 import type { BrowserSessionProfile } from '../../../../shared/browser/workspaces/browser-workspace-types'
 
 const BROWSER_SESSION_PROFILE_ID_RE =
@@ -7,7 +7,7 @@ const BROWSER_SESSION_PROFILE_ID_RE =
 // Persisted metadata must not add arbitrary partitions to the webview allowlist.
 export function isValidPersistedBrowserSessionProfile(
   profile: unknown,
-  activeOrcaProfileId: string
+  activeOpenKodoProfileId: string
 ): profile is BrowserSessionProfile {
   if (!profile || typeof profile !== 'object') {
     return false
@@ -19,17 +19,17 @@ export function isValidPersistedBrowserSessionProfile(
     typeof candidate.id === 'string' &&
     typeof candidate.partition === 'string' &&
     typeof candidate.label === 'string' &&
-    isProfileOwnedSessionPartition(candidate.id, candidate.partition, activeOrcaProfileId)
+    isProfileOwnedSessionPartition(candidate.id, candidate.partition, activeOpenKodoProfileId)
   )
 }
 
 function isProfileOwnedSessionPartition(
   profileId: string,
   partition: string,
-  activeOrcaProfileId: string
+  activeOpenKodoProfileId: string
 ): boolean {
   return (
     BROWSER_SESSION_PROFILE_ID_RE.test(profileId) &&
-    partition === getOrcaProfileBrowserSessionPartition(activeOrcaProfileId, profileId)
+    partition === getOpenKodoProfileBrowserSessionPartition(activeOpenKodoProfileId, profileId)
   )
 }

@@ -42,7 +42,7 @@ function decodeDataUrl(src: string): FetchedRepoIcon | null {
 
 /**
  * The workspace icons the window shows (each repo's `repoIcon`), as small data URLs a phone can
- * draw even where its shell admits no https images. Without an encoder (orcad) small images pass
+ * draw even where its shell admits no https images. Without an encoder (openkodod) small images pass
  * through unchanged and larger ones fall back.
  */
 export class RepoIconDataUrls {

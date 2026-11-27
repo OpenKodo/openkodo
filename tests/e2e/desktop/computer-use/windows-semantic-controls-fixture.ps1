@@ -10,7 +10,7 @@ Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-public static class OrcaFixtureForeground {
+public static class OpenKodoFixtureForeground {
     [DllImport("user32.dll")] static extern IntPtr GetForegroundWindow();
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] static extern int GetWindowText(IntPtr hwnd, StringBuilder text, int count);
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] static extern IntPtr FindWindow(string className, string title);
@@ -55,7 +55,7 @@ $state = [ordered]@{ ready = $false; activations = 0; active = $false; listOffse
 # Why: a failed activation check prints this log, which says what ran just before the window was activated.
 $clock = [Diagnostics.Stopwatch]::StartNew()
 function Add-FixtureEvent([string]$Name) {
-    $state.events = @($state.events + "$($clock.ElapsedMilliseconds) $Name fg=$([OrcaFixtureForeground]::Title())" | Select-Object -Last 40)
+    $state.events = @($state.events + "$($clock.ElapsedMilliseconds) $Name fg=$([OpenKodoFixtureForeground]::Title())" | Select-Object -Last 40)
 }
 function Save-FixtureState {
     # Why: an exception in a WPF event handler would end the fixture; a reader holding the file only delays one write.
@@ -66,10 +66,10 @@ function Save-FixtureState {
     } catch {}
 }
 
-# Why: hand activation back to the holder process later, so each action starts behind another app and Orca still sees what it caused.
+# Why: hand activation back to the holder process later, so each action starts behind another app and OpenKodo still sees what it caused.
 $handBack = New-Object Windows.Threading.DispatcherTimer
 $handBack.Interval = [TimeSpan]::FromSeconds(2)
-$handBack.Add_Tick({ $handBack.Stop(); Add-FixtureEvent "hand back $([OrcaFixtureForeground]::Give($HolderTitle))"; Save-FixtureState })
+$handBack.Add_Tick({ $handBack.Stop(); Add-FixtureEvent "hand back $([OpenKodoFixtureForeground]::Give($HolderTitle))"; Save-FixtureState })
 $window.Add_Activated({
     $state.activations++
     $state.active = $true

@@ -46,8 +46,8 @@ import { createDesktopPluginAppearance } from '../../plugins/appearance/desktop-
 import { bindPluginEditorTypography } from '../../plugins/appearance/plugin-editor-typography'
 import { bindDesktopPluginNotices } from './desktop-plugin-notices'
 import { ALL_RPC_METHODS } from '../../runtime/rpc/methods/rpc-method-registry'
-import { getActiveTeamCapabilities } from '../../orca-profiles/cloud-auth/active-team-capabilities'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import { getActiveTeamCapabilities } from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { watchTeamPluginPolicy } from './team-plugin-policy-reconciliation'
 import {
   findTeamPluginBlock,

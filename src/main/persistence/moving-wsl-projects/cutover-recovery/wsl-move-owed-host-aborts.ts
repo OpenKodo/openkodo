@@ -4,11 +4,11 @@
  * keeps its claims on those projects for the stage's 7-day lifetime and refuses every retry. The
  * reset leaves this record; the next move into the distro aborts that stage by identity first.
  */
-import type { OrcadMigrationCatalogReferenceAbortResult } from '../../../../shared/orcad-migration/orcad-migration-manifest'
-import { isRecord } from '../../../../shared/orcad-migration/orcad-migration-manifest-fields'
+import type { OpenkododMigrationCatalogReferenceAbortResult } from '../../../../shared/openkodod-migration/openkodod-migration-manifest'
+import { isRecord } from '../../../../shared/openkodod-migration/openkodod-migration-manifest-fields'
 import type { WslMoveCutover } from '../../../../shared/wsl-move/wsl-move-cutover'
-import { createMigrationJournalDirectory } from '../../migrating-orcad-catalog/cutover-journals/migration-journal-directory'
-import type { OrcadMigrationDestinationCatalog } from '../../../managed-server/migration/cutover/orcad-migration-cutover-coordinator'
+import { createMigrationJournalDirectory } from '../../migrating-openkodod-catalog/cutover-journals/migration-journal-directory'
+import type { OpenkododMigrationDestinationCatalog } from '../../../managed-server/migration/cutover/openkodod-migration-cutover-coordinator'
 
 export type WslMoveOwedHostAbort = {
   migrationId: string
@@ -18,7 +18,7 @@ export type WslMoveOwedHostAbort = {
 
 const owed = createMigrationJournalDirectory<WslMoveOwedHostAbort>({
   // Its own directory: builds without it never read it, and their stage simply expires.
-  directoryName: 'orcad-migration-wsl-owed-aborts',
+  directoryName: 'openkodod-migration-wsl-owed-aborts',
   maxFileBytes: 4096,
   parse: parseOwedAbort,
   unreadable: (detail) => new Error(`wsl_move_owed_aborts_unreadable: ${detail}`)
@@ -64,7 +64,7 @@ export function listWslMoveOwedHostAborts(userDataPath: string): WslMoveOwedHost
 export async function settleWslMoveOwedHostAborts(
   userDataPath: string,
   journalKey: string,
-  destination: Pick<OrcadMigrationDestinationCatalog, 'abortByReference'>,
+  destination: Pick<OpenkododMigrationDestinationCatalog, 'abortByReference'>,
   warn: (message: string) => void = (message) => console.warn(message)
 ): Promise<void> {
   let pending: WslMoveOwedHostAbort[]
@@ -75,7 +75,7 @@ export async function settleWslMoveOwedHostAborts(
     return
   }
   for (const entry of pending) {
-    let answer: OrcadMigrationCatalogReferenceAbortResult
+    let answer: OpenkododMigrationCatalogReferenceAbortResult
     try {
       answer = await destination.abortByReference(entry)
     } catch (error) {

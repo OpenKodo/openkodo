@@ -1,5 +1,5 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { getDefaultWorkspaceCleanupRules } from '../../../../../shared/workspace-cleanup/workspace-cleanup-policy'
 import type { WorkspaceCleanupReport } from '../../../../../shared/workspace-cleanup/workspace-cleanup-run'
 import { useAppStore } from '@/store'
@@ -26,12 +26,12 @@ const report: WorkspaceCleanupReport = {
       chatHistory: { deleted: 38, failed: 0, freedBytes: 214_000_000 },
       rows: [
         {
-          worktreeId: 'app::/Users/test/orca/workspaces/app/login-form',
+          worktreeId: 'app::/Users/test/openkodo/workspaces/app/login-form',
           repoId: 'app',
           repoName: 'app',
           displayName: 'login-form',
           branch: 'login-form',
-          path: '/Users/test/orca/workspaces/app/login-form',
+          path: '/Users/test/openkodo/workspaces/app/login-form',
           outcome: 'removed',
           reason: 'merged',
           prNumber: 412,

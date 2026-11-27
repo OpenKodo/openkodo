@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { delimiter, win32 as pathWin32 } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { resolveWindowsShellStartupFamily } from '../../../shared/shell/launch/windows-terminal-shell'
 import {
   resolveProfileLoadingFallbackShell,
@@ -173,11 +173,13 @@ function spawnShellAndReadEnvironment(
 }
 
 /** Shell PATH order first, then OpenKodo's own entries the shell lacks, so nothing reachable before goes missing. */
-function keepOrcaPathEntries(
+function keepOpenKodoPathEntries(
   captured: NodeJS.ProcessEnv,
-  orcaEnv: NodeJS.ProcessEnv
+  openkodoEnv: NodeJS.ProcessEnv
 ): NodeJS.ProcessEnv {
-  const segments = [captured.PATH, orcaEnv.PATH].flatMap((value) => value?.split(delimiter) ?? [])
+  const segments = [captured.PATH, openkodoEnv.PATH].flatMap(
+    (value) => value?.split(delimiter) ?? []
+  )
   return { ...captured, PATH: [...new Set(segments.filter(Boolean))].join(delimiter) }
 }
 
@@ -233,7 +235,7 @@ export function captureLoginShellEnvironment(
         }
         return {
           status: 'captured',
-          env: fromLaunchPath ? keepOrcaPathEntries(captured, env) : captured
+          env: fromLaunchPath ? keepOpenKodoPathEntries(captured, env) : captured
         }
       })
       .catch(() => fellBack)

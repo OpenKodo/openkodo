@@ -1,12 +1,12 @@
 import { dirname } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
-import type { PipedProcessSpec } from '@orca/process-host/process-spec'
+import type { PipedProcessSpec } from '@openkodo/process-host/process-spec'
 import {
   childProcessHasExited,
   forceTerminateProcessTree,
   signalProcessTree
-} from '@orca/process-host/process-tree-termination'
+} from '@openkodo/process-host/process-tree-termination'
 import { getForkedChildEntryPath } from '../../../worker-threads/forked-child-entry-path'
 import { NATIVE_HOST_ERRORS } from './browser-extension-native-host-errors'
 import {

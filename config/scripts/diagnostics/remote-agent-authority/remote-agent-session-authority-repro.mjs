@@ -38,7 +38,7 @@ const binPath = path.join(scratch, 'bin')
 const spawnMarkerPath = path.join(scratch, 'agent-spawns.txt')
 const inputMarkerPath = path.join(scratch, 'agent-input.txt')
 const exitTriggerPath = path.join(scratch, 'exit-agent')
-const agentSessionToken = '--orca-repro-agent-session'
+const agentSessionToken = '--openkodo-repro-agent-session'
 const childProcesses = new Set()
 let server = null
 let activePairingCode = null
@@ -55,9 +55,9 @@ try {
       '-C',
       projectPath,
       '-c',
-      'user.name=Orca Repro',
+      'user.name=OpenKodo Repro',
       '-c',
-      'user.email=orca-repro@example.invalid',
+      'user.email=openkodo-repro@example.invalid',
       'commit',
       '--allow-empty',
       '-m',
@@ -67,7 +67,7 @@ try {
   )
   const fixtureAgentPath = installFixtureAgent(binPath)
   writeFileSync(
-    path.join(profilePath, 'orca-data.json'),
+    path.join(profilePath, 'openkodo-data.json'),
     JSON.stringify({
       settings: { agentCmdOverrides: { codex: quoteFixtureAgentCommand(fixtureAgentPath) } }
     })
@@ -399,7 +399,7 @@ async function startServer(port) {
     lines.on('line', (line) => {
       try {
         const parsed = JSON.parse(line)
-        if (parsed.type === 'orca_server_ready' && parsed.pairing?.url) {
+        if (parsed.type === 'openkodo_server_ready' && parsed.pairing?.url) {
           clearTimeout(timeout)
           resolve(parsed)
         }

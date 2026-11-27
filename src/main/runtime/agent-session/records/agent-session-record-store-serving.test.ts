@@ -1,4 +1,4 @@
-// @orca-isolated-worker -- Suite hooks own the temporary SQL worker bundle.
+// @openkodo-isolated-worker -- Suite hooks own the temporary SQL worker bundle.
 import { existsSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -10,7 +10,7 @@ import {
 import { initializeJournalDomainDatabase } from '../../../native-chat/agent-session-journal/database/journal-domain-database'
 import { journalDatabasePath } from '../../../native-chat/agent-session-journal/database/journal-host-database'
 import { openJournalDatabase } from '../../../native-chat/agent-session-journal/database/journal-database'
-import { acquireOrcadInstanceLock } from '../../../orcad/instance-lock/orcad-instance-lock'
+import { acquireOpenkododInstanceLock } from '../../../openkodod/instance-lock/openkodod-instance-lock'
 import {
   setLegacyJournalRetirementHost,
   type LegacyJournalRetirementEvent
@@ -19,12 +19,12 @@ import { retireAgentSessionRecordStore } from './agent-session-record-store-slot
 import * as startupOpen from './local-agent-session-record-store-startup-open'
 import { chatJournalHostServing } from '../../../startup/runtime-startup/chat-journal-startup'
 import { mainProcessState } from '../../../startup/main-process-state'
-import { startOrcadAgentSessionRecordStoreOpen } from '../../../orcad/host-lifecycle/orcad-lifecycle'
+import { startOpenkododAgentSessionRecordStoreOpen } from '../../../openkodod/host-lifecycle/openkodod-lifecycle'
 import { markHostShuttingDown } from '../../../startup/quit/host-shutdown-state'
-import { OrcaRuntimeWithGetWorktreePs } from '../../workspaces/process-listing/workspace-process-listing'
+import { OpenKodoRuntimeWithGetWorktreePs } from '../../workspaces/process-listing/workspace-process-listing'
 
 const profile = vi.hoisted(() => ({ directory: '' }))
-vi.mock('../../../orca-profiles/profile-storage-paths', () => ({
+vi.mock('../../../openkodo-profiles/profile-storage-paths', () => ({
   getProfileUserDataPath: () => profile.directory
 }))
 
@@ -52,7 +52,8 @@ it('reaches old-history retirement at serving on empty profiles through both hos
   vi.spyOn(console, 'warn').mockImplementation(() => {})
   const runtime = {
     legacyStructuredSessionTabIds: [],
-    openAgentSessionRecordStore: OrcaRuntimeWithGetWorktreePs.prototype.openAgentSessionRecordStore,
+    openAgentSessionRecordStore:
+      OpenKodoRuntimeWithGetWorktreePs.prototype.openAgentSessionRecordStore,
     startPullRequestWatches: () => {}
   }
 
@@ -60,14 +61,14 @@ it('reaches old-history retirement at serving on empty profiles through both hos
   const hosts = [
     async () => chatJournalHostServing(),
     async () => {
-      const handle = await startOrcadAgentSessionRecordStoreOpen(null)
+      const handle = await startOpenkododAgentSessionRecordStoreOpen(null)
       handle.serving(runtime)
     }
   ]
   const withProfile = async (run: (filename: string) => Promise<void>) => {
-    const root = mkdtempSync(join(tmpdir(), 'orca-old-history-serving-'))
+    const root = mkdtempSync(join(tmpdir(), 'openkodo-old-history-serving-'))
     profile.directory = root
-    const lock = acquireOrcadInstanceLock(root, {
+    const lock = acquireOpenkododInstanceLock(root, {
       machineIdentity: () => 'temporary-test-machine',
       startedAtMs: () => null,
       incarnation: () => null
@@ -102,7 +103,7 @@ it('reaches old-history retirement at serving on empty profiles through both hos
     expect(existsSync(filename)).toBe(true)
   })
 
-  const shutdownRoot = mkdtempSync(join(tmpdir(), 'orca-old-history-shutdown-'))
+  const shutdownRoot = mkdtempSync(join(tmpdir(), 'openkodo-old-history-shutdown-'))
   profile.directory = shutdownRoot
   try {
     markHostShuttingDown()

@@ -124,12 +124,12 @@ function git(cwd, ...cmd) {
 
 // Use native local repo plus two external worktrees for portable default-workflow coverage rather than the WSL apphang fixture.
 function createLocalRepoFixture() {
-  const baseDir = mkdtempSync(path.join(os.tmpdir(), 'orca-termperf-'))
+  const baseDir = mkdtempSync(path.join(os.tmpdir(), 'openkodo-termperf-'))
   const repoPath = path.join(baseDir, 'repo')
   mkdirSync(repoPath, { recursive: true })
   git(repoPath, 'init', '--initial-branch=main')
-  git(repoPath, 'config', 'user.email', 'bench@orca.local')
-  git(repoPath, 'config', 'user.name', 'Orca Bench')
+  git(repoPath, 'config', 'user.email', 'bench@openkodo.local')
+  git(repoPath, 'config', 'user.name', 'OpenKodo Bench')
   writeFileSync(path.join(repoPath, 'README.md'), '# terminal perf fixture\n')
   git(repoPath, 'add', '.')
   git(repoPath, 'commit', '-m', 'init', '--no-gpg-sign')
@@ -144,7 +144,7 @@ function createLocalRepoFixture() {
 
 async function setupWorkspaces(page, fixture) {
   return await runWithTimeout(
-    'fixture registration in Orca',
+    'fixture registration in OpenKodo',
     () =>
       page.evaluate(
         async ({ repoPath, importedWorktreePaths }) => {

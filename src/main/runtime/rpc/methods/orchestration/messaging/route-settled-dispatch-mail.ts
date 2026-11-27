@@ -1,6 +1,6 @@
 import type { MessageType } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { routeAllMailboxPages } from './mailbox-page-routing'
 
@@ -9,7 +9,7 @@ import { routeAllMailboxPages } from './mailbox-page-routing'
  * An aborted check still finishes the move in the background so no page is left half-routed.
  */
 export async function routeSettledDispatchMail(
-  runtime: Pick<OrcaRuntimeService, 'notifyMessageArrived'>,
+  runtime: Pick<OpenKodoRuntimeService, 'notifyMessageArrived'>,
   db: OrchestrationDb,
   target: { dispatchId: string; runId: string; signal: AbortSignal | undefined }
 ): Promise<void> {

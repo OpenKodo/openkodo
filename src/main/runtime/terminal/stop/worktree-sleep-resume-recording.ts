@@ -1,6 +1,6 @@
 import type { TerminalIdentityReadContext } from '../query/terminal-identity-read-context'
 import { sleepingRecordsEquivalentIgnoringCaptureTime } from '../../../../shared/agent-session/lifecycle/resume/agent-resume-record-equivalence'
-import { OrcaRuntimeWithStopTerminalsForWorktree } from './worktree-terminal-stop'
+import { OpenKodoRuntimeWithStopTerminalsForWorktree } from './worktree-terminal-stop'
 import { launchStatement } from '../launch/launch-evidence'
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
 import {
@@ -32,7 +32,7 @@ import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 
-export abstract class OrcaRuntimeWithWorktreeSleepResumeRecording extends OrcaRuntimeWithStopTerminalsForWorktree {
+export abstract class OpenKodoRuntimeWithWorktreeSleepResumeRecording extends OpenKodoRuntimeWithStopTerminalsForWorktree {
   /** Capture after earlier status writes so their saved copy participates in exact cleanup. */
   readSavedResumeSource(
     worktreeId: string,

@@ -10,7 +10,10 @@ import { fileURLToPath } from 'node:url'
 import { isPluginWorkerSourcePath } from '../../../../shared/plugins/frames/plugin-frame-source-modules'
 import { pluginModuleCandidatePaths } from '../../source-loading/plugin-module-candidate-paths'
 import { transformPluginSource } from '../../source-loading/plugin-source-sucrase-transform'
-import { isOrcaSpecifier, pluginWorkerOrcaImportMessage } from './plugin-worker-orca-import'
+import {
+  isOpenKodoSpecifier,
+  pluginWorkerOpenKodoImportMessage
+} from './plugin-worker-openkodo-import'
 
 // Plain-Node entry code: runs in the plugin host process, so no Electron imports.
 
@@ -64,8 +67,8 @@ export function createPluginWorkerSourceHooks(pluginRoot: string): PluginWorkerS
     try {
       return nextResolve(specifier, context)
     } catch (error) {
-      if (isOrcaSpecifier(specifier)) {
-        throw new Error(pluginWorkerOrcaImportMessage(specifier), { cause: error })
+      if (isOpenKodoSpecifier(specifier)) {
+        throw new Error(pluginWorkerOpenKodoImportMessage(specifier), { cause: error })
       }
       if (!isRelativeSpecifier(specifier) || !NOT_FOUND_CODES.has(errorCode(error))) {
         throw error

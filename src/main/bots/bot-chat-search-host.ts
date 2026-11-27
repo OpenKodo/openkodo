@@ -20,7 +20,7 @@ import type { BotChatSearchParams } from '../../shared/rpc-contract/bots-params'
 import { searchSessionService } from '../ai-vault-search/session-search-service-registry'
 import { sessionSearchPolicy } from '../ai-vault-search/session-search-policy'
 import { searchWithStructuredOwners } from '../ai-vault/structured-sessions/structured-session-ownership'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { SESSION_SEARCH_LIMIT_MAX } from '../../shared/ai-vault/search/ai-vault-search-limit'
 import {
   readBotChatTreeParts,
@@ -207,11 +207,11 @@ export async function indexedChatMatches(
 }
 
 const treePartsByRuntime = new WeakMap<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   (botId: string) => Promise<BotChatTreeParts>
 >()
 
-export function runtimeBotChatSearchHost(runtime: OrcaRuntimeService): BotChatSearchHost {
+export function runtimeBotChatSearchHost(runtime: OpenKodoRuntimeService): BotChatSearchHost {
   let treeParts = treePartsByRuntime.get(runtime)
   if (!treeParts) {
     treeParts = recentBotChatTreeParts((botId) =>

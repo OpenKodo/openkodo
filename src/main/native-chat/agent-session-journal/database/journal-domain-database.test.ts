@@ -38,7 +38,7 @@ afterEach(() => {
 })
 
 function directory(): string {
-  const path = mkdtempSync(join(tmpdir(), 'orca-domain-database-'))
+  const path = mkdtempSync(join(tmpdir(), 'openkodo-domain-database-'))
   cleanup.push(() => rmSync(path, { recursive: true, force: true }))
   return path
 }

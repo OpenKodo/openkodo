@@ -11,7 +11,7 @@ export type StructuredAgentSessionChildExit = {
   observedAt?: number
   startupUnanswered?: true
   /** OpenKodo stopped the agent after its own failure; the exit stays unexpected for the turn. */
-  closedByOrca?: true
+  closedByOpenKodo?: true
 }
 
 export function structuredAgentSessionEndedEventExit(
@@ -24,6 +24,6 @@ export function structuredAgentSessionEndedEventExit(
     ...(event.failure ? { failure: event.failure } : {}),
     ...(event.observedAt === undefined ? {} : { observedAt: event.observedAt }),
     ...(event.startupUnanswered ? { startupUnanswered: event.startupUnanswered } : {}),
-    ...(event.closedByOrca ? { closedByOrca: true as const } : {})
+    ...(event.closedByOpenKodo ? { closedByOpenKodo: true as const } : {})
   }
 }

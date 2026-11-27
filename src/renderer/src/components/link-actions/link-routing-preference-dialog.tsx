@@ -20,10 +20,10 @@ import {
 type LinkRoutingPreferenceDialogRequest = {
   id: number
   options: LinkRoutingPreferenceDialogOptions
-  resolve: (openInOrca: boolean) => void
+  resolve: (openInOpenKodo: boolean) => void
 }
 
-const PREVIEW_STORAGE_KEY = 'orca.previewLinkRoutingPreferenceDialog'
+const PREVIEW_STORAGE_KEY = 'openkodo.previewLinkRoutingPreferenceDialog'
 const PREVIEW_DEFAULT_STORAGE_KEY = `${PREVIEW_STORAGE_KEY}.default`
 
 export function LinkRoutingPreferenceDialogProvider({
@@ -78,18 +78,18 @@ export function LinkRoutingPreferenceDialogProvider({
     window.sessionStorage.removeItem(PREVIEW_STORAGE_KEY)
     window.sessionStorage.removeItem(PREVIEW_DEFAULT_STORAGE_KEY)
     void requestPreference({
-      openLinksInAppDefault: previewDefault === 'orca',
+      openLinksInAppDefault: previewDefault === 'openkodo',
       preview: true,
       url: 'https://github.com/OpenKodo/openkodo/pull/1234'
     })
   }, [requestPreference])
 
-  const settleActiveRequest = useCallback((openInOrca: boolean) => {
+  const settleActiveRequest = useCallback((openInOpenKodo: boolean) => {
     const request = activeRequestRef.current
     if (!request) {
       return
     }
-    request.resolve(openInOrca)
+    request.resolve(openInOpenKodo)
     setQueue((currentQueue) => {
       if (currentQueue[0]?.id === request.id) {
         return currentQueue.slice(1)
@@ -110,11 +110,11 @@ export function LinkRoutingPreferenceDialogProvider({
             <DialogTitle>
               {openLinksInAppDefault
                 ? t(
-                    'components.link.routing.preference.dialog.keepInOrcaTitle',
+                    'components.link.routing.preference.dialog.keepInOpenKodoTitle',
                     'Keep terminal links in OpenKodo?'
                   )
                 : t(
-                    'components.link.routing.preference.dialog.openInOrcaTitle',
+                    'components.link.routing.preference.dialog.openInOpenKodoTitle',
                     'Open terminal links in OpenKodo?'
                   )}
             </DialogTitle>
@@ -136,11 +136,11 @@ export function LinkRoutingPreferenceDialogProvider({
             <Button size="sm" autoFocus onClick={() => settleActiveRequest(true)}>
               {openLinksInAppDefault
                 ? t(
-                    'auto.components.link.routing.preference.dialog.keep.orca.button',
+                    'auto.components.link.routing.preference.dialog.keep.openkodo.button',
                     'Keep OpenKodo'
                   )
                 : t(
-                    'auto.components.link.routing.preference.dialog.orca.button',
+                    'auto.components.link.routing.preference.dialog.openkodo.button',
                     'Open in OpenKodo'
                   )}
             </Button>

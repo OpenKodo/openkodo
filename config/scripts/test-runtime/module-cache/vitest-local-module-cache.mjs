@@ -5,7 +5,7 @@ import { join } from 'node:path'
 const STALE_AFTER_MS = 30 * 60_000
 
 export function localModuleCacheParent(root) {
-  return join(root, 'node_modules', '.cache', 'orca-vitest-modules')
+  return join(root, 'node_modules', '.cache', 'openkodo-vitest-modules')
 }
 
 /** Retire directories from earlier policies so one worktree holds a single cache. */

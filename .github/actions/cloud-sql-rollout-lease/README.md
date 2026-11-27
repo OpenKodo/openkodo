@@ -31,7 +31,7 @@ in the first cell job.
 - uses: google-github-actions/setup-gcloud@v2
 - uses: ./.github/actions/cloud-sql-rollout-lease
   with:
-    bucket: onorca-cloud-terraform-state
+    bucket: onopenkodo-cloud-terraform-state
     object: terraform/state/cloud-sql-rollout/production.lock
 ```
 
@@ -39,8 +39,8 @@ Buckets and objects in use:
 
 | Environment | Bucket                                 | Object                                              |
 | ----------- | -------------------------------------- | --------------------------------------------------- |
-| production  | `onorca-cloud-terraform-state`         | `terraform/state/cloud-sql-rollout/production.lock` |
-| staging     | `onorca-cloud-staging-terraform-state` | `terraform/state/cloud-sql-rollout/staging.lock`    |
+| production  | `onopenkodo-cloud-terraform-state`         | `terraform/state/cloud-sql-rollout/production.lock` |
+| staging     | `onopenkodo-cloud-staging-terraform-state` | `terraform/state/cloud-sql-rollout/staging.lock`    |
 
 Workflows that serve both environments (`deploy-relay-asia-topology`,
 `operate-relay-asia-admission`) select the pair with an `inputs.environment == 'production'`

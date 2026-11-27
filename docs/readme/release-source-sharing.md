@@ -34,7 +34,7 @@ already-created import directories usable.
 ## Controls and scope
 
 Sharing is enabled for ordinary local cross-version tests. Set
-`ORCA_DISABLE_SHARED_RELEASE_CACHE=1` to keep ordinary local extraction. CI and explicit
+`OPENKODO_DISABLE_SHARED_RELEASE_CACHE=1` to keep ordinary local extraction. CI and explicit
 `cacheRoot` options remain isolated unless a caller explicitly supplies `sharedCacheRoot`.
 
 This only changes test tooling. It adds no development-server task or background worktree

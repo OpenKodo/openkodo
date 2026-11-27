@@ -1,11 +1,11 @@
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import type { EphemeralVmRuntimeStatus } from '../../../../../../shared/remote-runtime/ephemeral-vm-store/ephemeral-vm-runtimes'
 import { defineFixture } from '../../../../component-fixtures/component-fixture'
 import { makeRepo, makeWorktree } from '../../../worktree-jump/worktree-jump-palette-test-fixtures'
 import type { EphemeralVmWorkspaceRuntime } from '@/store/slices/ephemeral-vm/ephemeral-vm-lifecycle'
 import WorktreeCard from './WorktreeCard'
 
-const repo = { ...makeRepo(), displayName: 'orca' }
+const repo = { ...makeRepo(), displayName: 'openkodo' }
 
 const cases: {
   id: string

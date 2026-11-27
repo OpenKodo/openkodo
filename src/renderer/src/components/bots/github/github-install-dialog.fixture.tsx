@@ -4,7 +4,7 @@ import type { ConnectorGitHubInstallation } from '../../../../../shared/connecto
 import {
   Setup,
   clickAddRepositories,
-  inOrcaStore,
+  inOpenKodoStore,
   marketing,
   settle,
   setGitHubInstallations,
@@ -79,7 +79,7 @@ function Scene({ chatWidth = 300 }: { chatWidth?: number }): React.JSX.Element {
 
 export const before = defineFixture({
   width: 1100,
-  store: inOrcaStore,
+  store: inOpenKodoStore,
   setup: () => stubGitHub(),
   render: () => <Scene />
 })
@@ -100,9 +100,15 @@ export const done = defineFixture({
         {
           installationId: '1',
           accountLogin: 'openkodo',
-          repositories: ['orca', 'website', 'handbook', 'api', 'plugins', 'devex', 'widgets'].map(
-            (name) => ({ fullName: `openkodo/${name}` })
-          )
+          repositories: [
+            'openkodo',
+            'website',
+            'handbook',
+            'api',
+            'plugins',
+            'devex',
+            'widgets'
+          ].map((name) => ({ fullName: `openkodo/${name}` }))
         }
       ]
     }),
@@ -110,18 +116,18 @@ export const done = defineFixture({
 })
 
 // GitHub's page opened in OpenKodo's browser: setup minimized to the pill by itself.
-export const inOrcaMinimized = defineFixture({
+export const inOpenKodoMinimized = defineFixture({
   width: 1100,
-  store: inOrcaStore,
+  store: inOpenKodoStore,
   setup: () => stubGitHub(),
   render: () => <Scene />,
   interact: () => clickAddRepositories()
 })
 
 // GitHub reported the save: the pill says what was added, before it expands.
-export const inOrcaDone = defineFixture({
+export const inOpenKodoDone = defineFixture({
   width: 1100,
-  store: inOrcaStore,
+  store: inOpenKodoStore,
   setup: () => stubGitHub(),
   render: () => <Scene />,
   interact: async () => {
@@ -133,9 +139,9 @@ export const inOrcaDone = defineFixture({
 })
 
 // Then the dialog opens again on the new repositories.
-export const inOrcaExpanded = defineFixture({
+export const inOpenKodoExpanded = defineFixture({
   width: 1100,
-  store: inOrcaStore,
+  store: inOpenKodoStore,
   setup: () => stubGitHub(),
   render: () => <Scene />,
   interact: async () => {

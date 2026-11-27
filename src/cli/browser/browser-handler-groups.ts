@@ -1,4 +1,4 @@
-import { OPENKODO_BROWSER_CLI_COMMAND_KEYS } from '../../shared/browser/automation/orca-browser-cli-commands'
+import { OPENKODO_BROWSER_CLI_COMMAND_KEYS } from '../../shared/browser/automation/openkodo-browser-cli-commands'
 import type { HandlerGroup } from '../dispatch/handler-group-manifest'
 
 export const BROWSER_HANDLER_GROUPS: readonly HandlerGroup[] = [

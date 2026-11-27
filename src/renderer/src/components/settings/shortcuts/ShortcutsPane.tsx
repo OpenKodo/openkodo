@@ -27,7 +27,7 @@ export function ShortcutsPane(): React.JSX.Element {
   useTranslation()
   const searchQuery = useAppStore((state) => state.settingsSearchQuery)
   const terminalShortcutPolicy = useAppStore(
-    (state) => state.settings?.terminalShortcutPolicy ?? 'orca-first'
+    (state) => state.settings?.terminalShortcutPolicy ?? 'openkodo-first'
   )
   const updateSettings = useAppStore((state) => state.updateSettings)
   const disableKeybindingAction = useAppStore((state) => state.disableKeybindingAction)

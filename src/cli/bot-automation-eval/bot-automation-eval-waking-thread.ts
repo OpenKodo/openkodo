@@ -4,7 +4,7 @@ import type { EvalHostState } from './bot-automation-eval-host'
 import { EVAL_UPLOAD_PREFIX } from './bot-automation-eval-artifacts'
 import { ConnectorActionArgs } from '../../shared/connector-action-contract'
 import WORLD from './bot-automation-eval-slack-world.json'
-import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
+import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-openkodo'
 
 const USE_REPLY =
   'That\'s the thread that woke you: answer there with `openkodo bot reply --text "..."` (your final message is posted there too).'

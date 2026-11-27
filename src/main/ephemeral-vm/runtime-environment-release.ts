@@ -1,10 +1,10 @@
 import type { EphemeralVmRuntimeRecord } from '../../shared/remote-runtime/ephemeral-vm-store/ephemeral-vm-runtimes'
-import { removeManagedOrcadEnvironment } from '../../shared/remote-runtime/host-store/runtime-environment-managed-orcad-store'
+import { removeManagedOpenkododEnvironment } from '../../shared/remote-runtime/host-store/runtime-environment-managed-openkodod-store'
 import {
   listEnvironments,
   removeEnvironment
 } from '../../shared/remote-runtime/host-store/runtime-environment-store'
-import { getOrcadSshDeployment } from '../../shared/remote-runtime/host-catalog/runtime-environments'
+import { getOpenkododSshDeployment } from '../../shared/remote-runtime/host-catalog/runtime-environments'
 
 /** Remove destroyed VM servers so managed tunnels stop reconnecting. */
 export async function releaseEphemeralVmRuntimeEnvironments(
@@ -18,18 +18,18 @@ export async function releaseEphemeralVmRuntimeEnvironments(
     (entry) =>
       entry.id === runtime.runtimeEnvironmentId ||
       (runtime.sshTargetId !== undefined &&
-        getOrcadSshDeployment(entry)?.sshTargetId === runtime.sshTargetId)
+        getOpenkododSshDeployment(entry)?.sshTargetId === runtime.sshTargetId)
   )
   for (const environment of environments) {
-    if (!environment.orcadDeployment) {
+    if (!environment.openkododDeployment) {
       await removeEnvironment(userDataPath, environment.id)
       retireRemovedEnvironment(environment.id)
       continue
     }
-    const { closeOrcadManagedTunnel } =
-      await import('../managed-server/lifecycle/orcad-managed-tunnel')
-    await closeOrcadManagedTunnel(environment.id).catch(() => undefined)
-    await removeManagedOrcadEnvironment(userDataPath, environment.id)
+    const { closeOpenkododManagedTunnel } =
+      await import('../managed-server/lifecycle/openkodod-managed-tunnel')
+    await closeOpenkododManagedTunnel(environment.id).catch(() => undefined)
+    await removeManagedOpenkododEnvironment(userDataPath, environment.id)
     retireRemovedEnvironment(environment.id)
   }
 }

@@ -13,8 +13,8 @@ import type { MobileWebBundleCompatVerdict } from '../../transport/web-bundle/mo
 import type { PageRouteRefusalVerdict } from '../../mobile-web-shell/routing/page-route-policy'
 
 const RELEASES_URL = 'https://github.com/OpenKodo/openkodo/releases'
-const IOS_APP_STORE_URL = 'itms-apps://apps.apple.com/app/orca-ide/id6766130217'
-const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=dev.orca.app'
+const IOS_APP_STORE_URL = 'itms-apps://apps.apple.com/app/openkodo-ide/id6766130217'
+const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=dev.openkodo.app'
 
 // Protocol/bundle/page-route walls are terminal: no native workspace fallback; update the relevant app or bundle.
 export type BlockedVerdict =

@@ -15,7 +15,7 @@ import {
 const hello = {
   v: 1,
   contract: 1,
-  orcaVersion: '1.4.230',
+  openkodoVersion: '1.4.230',
   platform: 'darwin',
   runtime: 'desktop',
   hostName: 'mac',
@@ -79,18 +79,18 @@ describe('bot shares contract', () => {
     }
   })
 
-  it('never reads orca as a place: no workspace rows, no rules, only share deliveries on it', () => {
+  it('never reads openkodo as a place: no workspace rows, no rules, only share deliveries on it', () => {
     const parsed = ConnectorHelloRequestSchema.parse({
       ...hello,
-      bots: [{ ...bot, sharedAppWorkspaces: [{ source: 'orca', workspaceId: 'w', members: [] }] }]
+      bots: [{ ...bot, sharedAppWorkspaces: [{ source: 'openkodo', workspaceId: 'w', members: [] }] }]
     })
     expect(parsed.bots?.[0]?.sharedAppWorkspaces).toEqual([])
-    const rule = { id: 't1', automationId: 'a1', botId: 'bot-1', source: 'orca', event: 'x', graceMinutes: 60 }
+    const rule = { id: 't1', automationId: 'a1', botId: 'bot-1', source: 'openkodo', event: 'x', graceMinutes: 60 }
     expect(ConnectorHelloRequestSchema.parse({ ...hello, triggers: [rule] }).triggers).toEqual([])
 
     const base = { deliveryId: 'd1', seq: 1, expiresAt: 1, shareId: 's1', botId: 'bot-1' }
     const resolved = { ...base, kind: 'share_resolved', email: 'alice@example.com', accountId: 'acct-1' }
-    const onShare = { source: 'orca', externalId: 's1' }
+    const onShare = { source: 'openkodo', externalId: 's1' }
     expect(ConnectorDeliverySchema.safeParse({ ...resolved, conversation: onShare }).success).toBe(true)
     // Another share's queue would let it pass that share's accept.
     expect(
@@ -125,7 +125,7 @@ describe('bot shares contract', () => {
       botId: 'bot-1',
       accountId: 'acct-1'
     }
-    const onShare = { source: 'orca', externalId: 's1' }
+    const onShare = { source: 'openkodo', externalId: 's1' }
     expect(ConnectorDeliverySchema.safeParse({ ...declined, conversation: onShare }).success).toBe(true)
     expect(
       ConnectorDeliverySchema.safeParse({ ...declined, conversation: { ...onShare, externalId: 's2' } }).success

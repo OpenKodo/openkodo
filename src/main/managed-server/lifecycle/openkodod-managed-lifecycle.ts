@@ -1,0 +1,36 @@
+import { assertRuntimeEnvironmentNotReconciling } from '../../../shared/remote-runtime/host-catalog/runtime-environment-reconciliation-record'
+import { runTargetLifecycle } from '../../ipc/ssh/ssh-target-lifecycle-queue'
+import { rebuildOpenkododManagedTunnel } from './openkodod-managed-tunnel'
+import { requireManagedOpenkododEnvironment } from './openkodod-managed-runtime-context'
+
+export type LifecycleArgs = { selector: string; signal?: AbortSignal }
+
+export async function withManagedOpenkododLifecycle<T>(
+  userDataPath: string,
+  selector: string,
+  run: (managed: Awaited<ReturnType<typeof requireManagedOpenkododEnvironment>>) => Promise<T>
+): Promise<T> {
+  const { environment, deployment } = await requireManagedOpenkododEnvironment(
+    userDataPath,
+    selector
+  )
+  return runTargetLifecycle(deployment.sshTargetId, async () => {
+    // Re-read in the lifecycle queue because reconciliation/stop may have won first.
+    const current = await requireManagedOpenkododEnvironment(userDataPath, environment.id)
+    assertRuntimeEnvironmentNotReconciling(current.environment)
+    return run(current)
+  })
+}
+
+/** Rebuild forwarding when a launched slot binds a different port. */
+export async function followLaunchedServerPort(
+  userDataPath: string,
+  environmentId: string
+): Promise<void> {
+  try {
+    await rebuildOpenkododManagedTunnel(userDataPath, environmentId)
+  } catch (error) {
+    // Server already launched; if tunnel rebuild fails, the next connect can forward its bound port.
+    console.warn('[ssh] Could not forward to the relaunched managed OpenKodo server:', error)
+  }
+}

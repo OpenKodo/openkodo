@@ -1,5 +1,5 @@
 import { resolveResumeLaunchRecipe } from '../../../../../../../shared/agent-launch/choices/resume-launch-recipe'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import { OrchestrationError } from '../../../../../orchestration/orchestration-error'
 import type { OrchestrationPartyIdentity as OrchestrationParty } from '../../../../../../../shared/orchestration/mailbox/orchestration-party-identity'
@@ -44,7 +44,7 @@ export type ReopenedWorker = {
 
 /** Resume a closed terminal worker's conversation in a new background tab; never a shell. Null: start a fresh agent. */
 export async function reopenWorkerTerminal(
-  runtime: Pick<OrcaRuntimeService, 'resumeAgentSessionInWorkspace'>,
+  runtime: Pick<OpenKodoRuntimeService, 'resumeAgentSessionInWorkspace'>,
   worktreeId: string,
   session: WorkerResumeSession,
   dispatchId: string
@@ -117,7 +117,7 @@ export function placedWorkerParty(
  *  Its custody identity comes from the worker, since its released row cannot vouch for it. */
 export async function reopenWorkerChat(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     'ensureStructuredAgentSessionHost' | 'publishStructuredAgentSessionTab'
   >,
   db: OrchestrationDb,

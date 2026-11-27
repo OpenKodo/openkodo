@@ -1,4 +1,4 @@
-import type { PersistedUIState } from '../orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../openkodo-profiles/persisted-ui-state-types'
 import type {
   AgentActivityDisplayMode,
   ProjectOrderBy,

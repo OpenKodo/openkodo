@@ -16,7 +16,7 @@ export type PluginCatalogApprovalRequest = {
 
 /** Bound to the exact URL and branch added, so approving one catalog never adds another. */
 export function pluginCatalogApprovalFingerprint(source: { url: string; ref: string }): string {
-  const canonical = JSON.stringify(['orca-plugin-catalog-approval-v1', source.url, source.ref])
+  const canonical = JSON.stringify(['openkodo-plugin-catalog-approval-v1', source.url, source.ref])
   return `cat1-${createHash('sha256').update(canonical).digest('hex').slice(0, 32)}`
 }
 

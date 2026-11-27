@@ -4,19 +4,19 @@ import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { discoverSkills } from './skill-native-discovery'
 
-const route = vi.hoisted(() => ({ runsInOrcaHome: false }))
+const route = vi.hoisted(() => ({ runsInOpenKodoHome: false }))
 vi.mock('../../antigravity/antigravity-chat-route', () => ({
-  lastAntigravityChatRunsInOrcaHome: () => route.runsInOrcaHome
+  lastAntigravityChatRunsInOpenKodoHome: () => route.runsInOpenKodoHome
 }))
 
 let directory: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'orca-antigravity-plugins-'))
+  directory = await mkdtemp(join(tmpdir(), 'openkodo-antigravity-plugins-'))
 })
 
 afterEach(async () => {
-  route.runsInOrcaHome = false
+  route.runsInOpenKodoHome = false
   await rm(directory, { recursive: true, force: true })
 })
 
@@ -140,7 +140,7 @@ describe('Antigravity plugin skill discovery', () => {
   // OpenKodo's server and agy on OpenKodo's home get skill folders linked in, not `~/.gemini`'s plugins.
   it('lists none while chats run in a home OpenKodo owns', async () => {
     await writePlugin('on', ['plugin.json'])
-    route.runsInOrcaHome = true
+    route.runsInOpenKodoHome = true
 
     const result = await discoverWorkspaceSkills()
 

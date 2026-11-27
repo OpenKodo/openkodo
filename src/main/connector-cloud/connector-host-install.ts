@@ -1,4 +1,4 @@
-// The connector and what moves with it, on any host: the desktop app, Electron `openkodo serve` and orcad.
+// The connector and what moves with it, on any host: the desktop app, Electron `openkodo serve` and openkodod.
 import { BotAvatarSync } from './bot-avatar-sync'
 import { withBotsCloudClient } from './bots-cloud-client'
 import { createConnectorCloud } from './connector-cloud-install'
@@ -11,16 +11,16 @@ import { notifyBotCouldNotFinish, runtimeBotOwnerNotice } from '../bots/bot-coul
 import { WebhookHostService } from '../webhooks/webhook-host-service'
 import { installComposioUpkeep } from '../runtime/rpc/methods/bots-composio-upkeep'
 import { refreshDueLinearLogins } from '../linear/accounts/linear-login-refresh'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { Store } from '../persistence/loading-store/store'
 import { splitBotsByOlderBuildSupport, withGitHubMembersTagged } from '../../shared/bot-types'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
-import { onTeamFeatureBlockChanged } from '../orca-profiles/cloud-auth/active-team-capabilities'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/openkodo-profiles/openkodo-cloud-team-policy'
+import { onTeamFeatureBlockChanged } from '../openkodo-profiles/cloud-auth/active-team-capabilities'
 
 const LINEAR_LOGIN_REFRESH_DELAY_MS = 30_000
 
 export type ConnectorHostOptions = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   store: Store
   /** This host's own data folder, so the connector mints as its own account and install id. */
   userDataPath: string
@@ -59,7 +59,7 @@ export function installConnectorHost({
   const botFolder = (botId: string): string | null => {
     const bot = store.getBots().find((entry) => entry.id === botId)
     const folder = store.getFolderWorkspaces().find((entry) => entry.id === bot?.folderWorkspaceId)
-    // Bot homes live under this host's ~/.orca/bots; a remote path is never written as a local one.
+    // Bot homes live under this host's ~/.openkodo/bots; a remote path is never written as a local one.
     return folder && !folder.connectionId ? folder.folderPath : null
   }
   const webhooks = new WebhookHostService({

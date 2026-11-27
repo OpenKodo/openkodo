@@ -1,5 +1,5 @@
 import type { BotLinkOpenTarget } from '../../shared/bots/bot-link-open-target'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { InvalidArgumentError } from '../runtime/rpc/core'
 import {
   readAgentSessionRecordStore,
@@ -11,7 +11,7 @@ import { readWorkerTerminalHostScope } from '../../shared/orchestration/workers/
 import { LOCAL_EXECUTION_HOST_ID } from '../../shared/execution-host/execution-host'
 
 type AuthorityRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'bots' | 'getExternalConversationSeam' | 'getOrchestrationDb'
 >
 
@@ -61,7 +61,7 @@ export function assertBotLinkOpenAuthority(
     structured?.sessionId ?? chatAssigneeSessionId(row?.agentTerminalHandle ?? null)
   if (
     !dispatch ||
-    dispatch.creator_orca_session_id !== guard.leadSessionId ||
+    dispatch.creator_openkodo_session_id !== guard.leadSessionId ||
     !row ||
     !row.agentTerminalHandle ||
     (structured &&

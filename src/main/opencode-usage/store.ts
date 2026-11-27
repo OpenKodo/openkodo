@@ -43,7 +43,7 @@ export class OpenCodeUsageStore extends UsageProviderStoreLifecycle<
         selectDays: (state) => codexOpenCodeTokenDays(state.dailyAggregates)
       },
       logTag: '[opencode-usage]',
-      resolveCacheFile: () => join(host.userDataPath, 'orca-opencode-usage.json'),
+      resolveCacheFile: () => join(host.userDataPath, 'openkodo-opencode-usage.json'),
       createDefaultState: getDefaultState,
       normalizeState: normalizePersistedState,
       sourceKey: 'processedDatabases',

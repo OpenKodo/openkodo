@@ -18,9 +18,9 @@ import {
 import type { AutomationService } from '../../../automations/automation-service'
 import type { RuntimeAutomationBatchUpdate } from '../../integrations/automations/runtime-automation-batch-update'
 import type { AutomationBatchUpdateResult } from '../../../persistence/scheduling-automations/automation-definition-update'
-import { OrcaRuntimeWithCrewOperations } from './crew-operations'
+import { OpenKodoRuntimeWithCrewOperations } from './crew-operations'
 
-export abstract class OrcaRuntimeWithAutomationApiOperations extends OrcaRuntimeWithCrewOperations {
+export abstract class OpenKodoRuntimeWithAutomationApiOperations extends OpenKodoRuntimeWithCrewOperations {
   abstract notifyAutomationsChanged(payload?: AutomationsChangedPayload): void
 
   private readAutomationRuns<T>(

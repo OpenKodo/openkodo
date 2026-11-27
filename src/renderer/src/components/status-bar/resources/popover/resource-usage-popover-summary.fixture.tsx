@@ -4,7 +4,7 @@ import { ResourceUsageStatusSegment } from '../ResourceUsageStatusSegment'
 import type { MemorySnapshot } from '../../../../../../shared/diagnostics/process-stats-types'
 
 const fixtureOwnerSplit = {
-  orca: { memory: 987842478 },
+  openkodo: { memory: 987842478 },
   agents: { memory: 6023725056 },
   yourProcesses: { memory: 2029359923 }
 }

@@ -11,7 +11,7 @@ import { useSourceControlCreatePrIntentFlows } from '../review/use-create-pr-int
 import { useSourceControlReviewFlows } from '../review/use-review-flows'
 import { useSourceControlUpstreamStatusFetch } from '../sync/use-upstream-status-fetch'
 import { useRebaseAutoStashProbe } from '../sync/use-rebase-auto-stash-probe'
-import { useOrcaRebaseMarker } from '../sync/use-orca-rebase-marker'
+import { useOpenKodoRebaseMarker } from '../sync/use-openkodo-rebase-marker'
 import { resolveSourceControlRebaseModel } from './base-rebase-state'
 import { useSourceControlPanelFoundation } from './use-panel-foundation'
 import { useChangeScopeSync } from './use-change-scope-sync'
@@ -76,10 +76,10 @@ export function useSourceControlPanelModel() {
     unresolvedConflicts,
     worktreePath
   } = foundation
-  const suppressPullAfterRebase = useOrcaRebaseMarker({
+  const suppressPullAfterRebase = useOpenKodoRebaseMarker({
     branchName,
     operationStore: foundation.operationStore,
-    orcaRebase: foundation.orcaRebase,
+    openkodoRebase: foundation.openkodoRebase,
     remoteStatus
   })
   const {

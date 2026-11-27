@@ -109,11 +109,11 @@
         "standardStatus": "标准用户",
         "unknownAdministrator": "无法确定",
         "10aafff216": "打开管理会话",
-        "confirmOrcaAdministratorRestart": "以管理员身份重新启动 OpenKodo？",
+        "confirmOpenKodoAdministratorRestart": "以管理员身份重新启动 OpenKodo？",
         "administratorRestartSummary": "本地终端和代理将会关闭。Windows 会请求你批准。",
-        "orcaCouldNotRestart": "OpenKodo 无法重新启动。",
+        "openkodoCouldNotRestart": "OpenKodo 无法重新启动。",
         "manualAdministratorSteps": "手动步骤",
-        "restartOrca": "重新启动"
+        "restartOpenKodo": "重新启动"
       },
       "limit": {
         "label": "运行中终端的最大数量",
@@ -1354,7 +1354,7 @@
   "menu": {
     "checkForUpdates": "检查更新...",
     "settings": "设置",
-    "exploreOrca": "探索 OpenKodo",
+    "exploreOpenKodo": "探索 OpenKodo",
     "gettingStarted": "OpenKodo 入门",
     "reportCrash": "报告崩溃...",
     "file": "文件",
@@ -1397,7 +1397,7 @@
     "zoom": "缩放"
   },
   "tray": {
-    "openOrca": "打开 OpenKodo",
+    "openOpenKodo": "打开 OpenKodo",
     "quit": "退出",
     "minimizeNotice": {
       "body": "OpenKodo 仍在系统托盘中运行"
@@ -1701,7 +1701,7 @@
         "jira": {
           "856083302c": "Jira 连接已被新的请求取代"
         },
-        "orca": {
+        "openkodo": {
           "profiles": {
             "612f7f6861": "创建配置文件失败",
             "319d7cf39b": "已创建云配置文件",
@@ -2314,8 +2314,8 @@
           "differentLauncher": "{{path}} 指向其他启动器",
           "launcherMissing": "此 OpenKodo 构建缺少捆绑的 CLI 启动器",
           "noWslDistro": "没有可用的 WSL 发行版",
-          "notOrcaLauncherScript": "{{path}} 已存在，但不是 OpenKodo 启动器脚本",
-          "notOrcaSymlink": "{{path}} 已存在，但不是 OpenKodo 符号链接",
+          "notOpenKodoLauncherScript": "{{path}} 已存在，但不是 OpenKodo 启动器脚本",
+          "notOpenKodoSymlink": "{{path}} 已存在，但不是 OpenKodo 符号链接",
           "olderLauncher": "{{path}} 包含旧版 OpenKodo 启动器",
           "platformUnsupported": "此平台尚未实现 CLI 注册",
           "readlinkPermissionDenied": "OpenKodo 没有权限检查 {{path}}，请检查该路径及其父目录的权限，然后重试",
@@ -3129,8 +3129,8 @@
         "addHost": "添加主机",
         "addSshHost": "添加 SSH 主机",
         "addSshHostHint": "通过 SSH 使用现有机器",
-        "addRemoteOrcaServer": "添加远程 OpenKodo 服务器",
-        "addRemoteOrcaServerHint": "配对另一个 OpenKodo 运行时",
+        "addRemoteOpenKodoServer": "添加远程 OpenKodo 服务器",
+        "addRemoteOpenKodoServerHint": "配对另一个 OpenKodo 运行时",
         "hostConnectionFailed": "连接失败",
         "defaultBranchUpdateFailed": "无法更新项目的默认分支，请重试",
         "setLocation": "设置项目位置",
@@ -4681,7 +4681,7 @@
             "switchTerminal": "切换终端",
             "openTaskTerminal": "打开任务终端",
             "systemBrowser": "系统浏览器",
-            "orcaBrowser": "OpenKodo 浏览器",
+            "openkodoBrowser": "OpenKodo 浏览器",
             "terminalLinkSettings": "终端链接设置",
             "copyLink": "复制链接",
             "copied": "已复制",
@@ -6037,7 +6037,7 @@
           "connectHost": "请连接 SSH 主机"
         },
         "SkillUpdateRow": {
-          "replaceWithOrca": "替换为 OpenKodo 的副本（保留备份）"
+          "replaceWithOpenKodo": "替换为 OpenKodo 的副本（保留备份）"
         },
         "host": {
           "local": "此机器",
@@ -6321,7 +6321,7 @@
           "installAvailable": "可安装",
           "otherBuild": "由其他版本的 OpenKodo 安装",
           "otherBuildKept": "已保留：由其他版本的 OpenKodo 写入",
-          "differsFromOrca": "此副本与 OpenKodo 的副本不同",
+          "differsFromOpenKodo": "此副本与 OpenKodo 的副本不同",
           "replaceMovesFolder": "替换会将整个文件夹（包括所有额外文件）移动到 {{folder}}。",
           "replaceMovesFolderOnHost": "替换会将整个文件夹（包括所有额外文件）移动到 {{host}} 上的 {{folder}}。",
           "replaceMovesLink": "替换会将此链接移动到 {{folder}}。",
@@ -6510,7 +6510,7 @@
           "removeWithChildrenFolder_other": "从 OpenKodo 移除 <target/> 和<descendants>{{count}} 个子工作区</descendants>。磁盘上的项目文件夹不会被删除",
           "removeWithChildrenMixed_other": "从 OpenKodo 移除 <target/> 和<descendants>{{count}} 个子工作区</descendants>。Git 工作树也会从 git 和磁盘中移除；文件夹工作区只会移除 OpenKodo 中的工作区条目",
           "removeWithChildrenGit_other": "从 git 移除 <target/> 和<descendants>{{count}} 个子工作区</descendants>，并删除其工作区文件夹",
-          "removeSingleFolderFromOrca": "将其从 OpenKodo 中移除。磁盘上的文件夹会保留。",
+          "removeSingleFolderFromOpenKodo": "将其从 OpenKodo 中移除。磁盘上的文件夹会保留。",
           "deleteSingleWorktreeAndBranch": "删除工作树和本地更改。如果其分支已合并，也会将其删除。"
         },
         "DeleteWorktreeDirtyChangeHint": {
@@ -6552,7 +6552,7 @@
           "8851b77327": "已在本机检查此路径",
           "sshConnectionUnavailable": "未找到 SSH 连接“{{connection}}”或该连接未连接"
         },
-        "OrcaYamlTrustDialog": {
+        "OpenKodoYamlTrustDialog": {
           "f3e2b868fb": "运行钩子",
           "43b7bec4cd": "别跑",
           "setupChangedTitle": "{{repo}} 的设置脚本已更改 — 运行新版本？",
@@ -6942,7 +6942,7 @@
           "cliStartupAgent": "以 {{value0}} 启动",
           "cliCreated": "由 OpenKodo CLI 创建",
           "linkedJira": "已关联 Jira {{value0}}",
-          "openInOrcaBrowser": "在 OpenKodo 浏览器中打开"
+          "openInOpenKodoBrowser": "在 OpenKodo 浏览器中打开"
         },
         "WorktreeCardMetadataStatusBadges": {
           "fe188062a1": "状态：开放",
@@ -7535,7 +7535,7 @@
           "port": "端口",
           "identityFile": "身份文件",
           "identityFilePlaceholder": "~/.ssh/id_ed25519(可选)",
-          "nameInOrca": "在 OpenKodo 中的名称",
+          "nameInOpenKodo": "在 OpenKodo 中的名称",
           "serverNamePlaceholder": "开发机",
           "accessLink": "访问链接",
           "pairingCodePlaceholder": "openkodo://pair?code=...",
@@ -7561,7 +7561,7 @@
           "sshConfigPickerEmptyHint": "在那里添加 Host 条目，或返回手动填写",
           "sshConfigPickerNoMatchHint": "试试其他筛选，或返回手动输入",
           "sshConfigPickerMoreResults": "仅显示前 {{value0}} 个匹配项，缩小筛选范围以查看更多",
-          "sshConfigPickerInOrca": "已在 OpenKodo 中",
+          "sshConfigPickerInOpenKodo": "已在 OpenKodo 中",
           "sshConfigPickerPreviouslyRemoved": "已从 OpenKodo 移除",
           "sshConfigPickerBack": "返回",
           "fillFromSshConfig": "从 ~/.ssh/config 填充…",
@@ -7746,7 +7746,7 @@
           "showError": "无法显示检测到的工作树。请重试"
         },
         "repoHeaderProjectActions": {
-          "hideNonOrcaWorktrees": "隐藏非 OpenKodo 工作树",
+          "hideNonOpenKodoWorktrees": "隐藏非 OpenKodo 工作树",
           "showHiddenWorktrees": "显示隐藏的工作树"
         },
         "useWorktreeCardLinkedDetails": {
@@ -8062,7 +8062,7 @@
           "retrySetup": "重试",
           "installing": "正在安装...",
           "hostUnavailable": "OpenKodo 暂时无法在此工作区所在的机器上安装技能",
-          "replaceWithOrcaCopy": "替换为 OpenKodo 版本",
+          "replaceWithOpenKodoCopy": "替换为 OpenKodo 版本",
           "copyCommandAria": "复制命令",
           "ed197f59a2": "复制命令",
           "failedToCopyCommand": "复制命令失败",
@@ -9587,7 +9587,7 @@
           "removing": "正在移除…",
           "testing": "正在测试…",
           "select": "选择 {{label}}",
-          "orcaServer": "OpenKodo 服务器",
+          "openkodoServer": "OpenKodo 服务器",
           "moreActions": "{{label}} 的更多操作",
           "testConnection": "测试连接",
           "edit": "编辑…",
@@ -12231,13 +12231,13 @@
           "notificationPlayground": "通知测试面板",
           "notificationPlaygroundDescription": "用于检查提示布局、恢复操作和长文案换行的开发触发器",
           "devOnly": "仅开发",
-          "orcaCloud": "cloud service",
-          "orcaCloudDescription": "开发环境云登录预览(生产隐藏)，配置 OPENKODO_CLOUD_API_URL 与 OPENKODO_CLOUD_CLIENT_ID 后可出现在账户切换器",
-          "orcaCloudStatus": "状态",
-          "orcaCloudSignOut": "退出登录",
-          "orcaCloudConnect": "连接配置文件",
-          "orcaCloudRefresh": "刷新状态",
-          "orcaCloudNotConfigured": "设置 OPENKODO_CLOUD_API_URL 和 OPENKODO_CLOUD_CLIENT_ID 以在此开发版本中预览 cloud service 登录",
+          "openkodoCloud": "cloud service",
+          "openkodoCloudDescription": "开发环境云登录预览(生产隐藏)，配置 OPENKODO_CLOUD_API_URL 与 OPENKODO_CLOUD_CLIENT_ID 后可出现在账户切换器",
+          "openkodoCloudStatus": "状态",
+          "openkodoCloudSignOut": "退出登录",
+          "openkodoCloudConnect": "连接配置文件",
+          "openkodoCloudRefresh": "刷新状态",
+          "openkodoCloudNotConfigured": "设置 OPENKODO_CLOUD_API_URL 和 OPENKODO_CLOUD_CLIENT_ID 以在此开发版本中预览 cloud service 登录",
           "deleteAnywayClicked": "已点击“仍然删除”"
         },
         "EphemeralVmRecipeRow": {
@@ -12347,7 +12347,7 @@
                 "tickets": "工单",
                 "issues": "议题",
                 "skill": "技能",
-                "orcaLinear": "OpenKodo-线性"
+                "openkodoLinear": "OpenKodo-线性"
               }
             }
           }
@@ -12493,9 +12493,9 @@
         },
         "BrowserLinkRoutingModifierSetting": {
           "titleSystem": "按住 Shift 在系统浏览器中打开",
-          "titleOrca": "按住 Shift 在 OpenKodo 中打开",
+          "titleOpenKodo": "按住 Shift 在 OpenKodo 中打开",
           "descriptionSystem": "链接在 OpenKodo 中打开，因此 {{chord}}+点击会将其发送到系统浏览器",
-          "descriptionOrca": "链接在系统浏览器中打开，启用后，{{chord}}+点击会改在 OpenKodo 内置浏览器中打开"
+          "descriptionOpenKodo": "链接在系统浏览器中打开，启用后，{{chord}}+点击会改在 OpenKodo 内置浏览器中打开"
         },
         "BrowserLinkRoutingBackgroundSetting": {
           "title": "在后台打开链接",
@@ -12974,7 +12974,7 @@
           "09f41ce46c": "显示工件按钮",
           "7b2b114099": "打开工件"
         },
-        "orcaAccount": {
+        "openkodoAccount": {
           "connected": "已连接",
           "reconnectRequired": "会话已过期，请重新登录以使用云功能",
           "unavailable": "此构建不支持 OpenKodo 登录",
@@ -13260,9 +13260,9 @@
             "confirmForget": "在此桌面上忘记",
             "keepLinked": "保持关联",
             "forgetDescription": "在此处取消关联此服务器，而不联系其主机，如果主机恢复，服务器可能仍在那里运行",
-            "orcaVersion": "此主机上的 OpenKodo：{{version}}",
-            "stopOrcaDescription": "停止 SSH 主机上的 OpenKodo，并将其从此列表中移除",
-            "updateOrcaOnHost": "更新此主机上的 OpenKodo",
+            "openkodoVersion": "此主机上的 OpenKodo：{{version}}",
+            "stopOpenKodoDescription": "停止 SSH 主机上的 OpenKodo，并将其从此列表中移除",
+            "updateOpenKodoOnHost": "更新此主机上的 OpenKodo",
             "updateAnyway": "仍然更新",
             "notNow": "暂不",
             "forceUpdate": "此主机上有终端正在运行。更新期间它们会继续运行，OpenKodo 服务器重启后其窗格会重新连接",
@@ -13538,7 +13538,7 @@
           "confirm": "恢复"
         },
         "SshTargetList": {
-          "addedInOrca": "在 OpenKodo 中添加",
+          "addedInOpenKodo": "在 OpenKodo 中添加",
           "fromConfig": "来自 ~/.ssh/config",
           "filteredCount": "{{count}} / {{total}}",
           "selectManualGroup": "选择所有在 OpenKodo 中添加的主机",
@@ -13672,7 +13672,7 @@
           "attentionSharedNotCurrent": "需要处理 · 此文件夹使用的共享副本不是 OpenKodo 的副本",
           "resultUpdateSkippedPlaces": "{{result}} · 已跳过 {{places}} 个位置的更新：{{reason}}",
           "resultUpdateSkippedAgent": "{{result}} · 已跳过 {{agent}} 中的更新：{{reason}}",
-          "attentionDiffersFromOrca": "需要处理 · 此副本与 OpenKodo 的副本不同",
+          "attentionDiffersFromOpenKodo": "需要处理 · 此副本与 OpenKodo 的副本不同",
           "replaceMovesCopyToBackup": "替换会将当前副本（包括所有额外文件）移动到备份。",
           "replaceMovesCopyToFolder": "替换会将当前副本（包括所有额外文件）移动到 {{folder}}。",
           "replaceMovesCopyToFolderOnHost": "替换会将当前副本（包括所有额外文件）移动到 {{host}} 上的 {{folder}}。"
@@ -13776,8 +13776,8 @@
           "stoppedTitle": "因错误而停止",
           "stoppedBody": "它一直崩溃。重新启动以重试",
           "invalidTitle": "OpenKodo 无法加载此插件",
-          "needsOrcaTitle": "需要 OpenKodo {{value0}} 或更高版本",
-          "needsOrcaBody": "你的 OpenKodo 版本为 {{value0}}",
+          "needsOpenKodoTitle": "需要 OpenKodo {{value0}} 或更高版本",
+          "needsOpenKodoBody": "你的 OpenKodo 版本为 {{value0}}",
           "back": "插件",
           "info": "信息",
           "version": "版本",
@@ -13829,7 +13829,7 @@
           "viewError": "查看错误",
           "copyId": "复制插件 ID",
           "checkUpdate": "检查更新",
-          "bundledWithOrca": "随 OpenKodo 附带",
+          "bundledWithOpenKodo": "随 OpenKodo 附带",
           "installName": "安装 {{value0}}",
           "copied": "已复制插件 ID",
           "copyFailed": "无法复制插件 ID",
@@ -13839,7 +13839,7 @@
           "updateAvailable": "有可用更新 {{value0}}",
           "updateLabel": "将 {{value0}} 更新到 {{value1}}",
           "update": "更新到 {{value0}}",
-          "needsOrca": "需要 OpenKodo {{value0}}",
+          "needsOpenKodo": "需要 OpenKodo {{value0}}",
           "rollbackTo": "回滚到 {{value0}}…",
           "copyContentHash": "复制内容哈希",
           "reviewUpdate": "审核更新",
@@ -13877,7 +13877,7 @@
           "close": "关闭",
           "retry": "重试",
           "updated": "已更新",
-          "needsOrca": "需要 OpenKodo {{value0}} 或更高版本",
+          "needsOpenKodo": "需要 OpenKodo {{value0}} 或更高版本",
           "current": "已安装",
           "allAccess": "查看全部访问权限",
           "newCommands": "命令",
@@ -16522,7 +16522,7 @@
                   "6d2b0a84e1": "此版本不可用",
                   "needsMacAccess": "需要 macOS 访问权限",
                   "notInstalled": "未安装",
-                  "requiresOrcaDesktop": "需要 OpenKodo 桌面应用"
+                  "requiresOpenKodoDesktop": "需要 OpenKodo 桌面应用"
                 }
               }
             }
@@ -18191,7 +18191,7 @@
             "zoomIn": "放大",
             "resetZoom": "重置缩放",
             "appearance": "外观",
-            "appearanceMatchOrca": "与 OpenKodo 一致",
+            "appearanceMatchOpenKodo": "与 OpenKodo 一致",
             "appearanceLight": "浅色",
             "appearanceDark": "深色",
             "zoomPercent": "缩放 {{value0}}%"
@@ -19117,14 +19117,14 @@
         "routing": {
           "preference": {
             "dialog": {
-              "orca": {
+              "openkodo": {
                 "button": "在 OpenKodo 中打开"
               },
               "system": {
                 "button": "使用系统浏览器"
               },
               "keep": {
-                "orca": {
+                "openkodo": {
                   "button": "继续使用 OpenKodo"
                 }
               }
@@ -19232,7 +19232,7 @@
           "copy": "复制"
         }
       },
-      "orca": {
+      "openkodo": {
         "profiles": {
           "signout": {
             "confirm": {
@@ -19632,7 +19632,7 @@
         "c77189bc0c": "更新筛选器",
         "19af906d12": "保存筛选器"
       },
-      "OrcaSignInProgress": {
+      "OpenKodoSignInProgress": {
         "waiting": "正在等待在浏览器中登录",
         "copyLink": "复制登录链接",
         "copied": "已复制登录链接",
@@ -19994,10 +19994,10 @@
       },
       "reasoning": "推理",
       "contextMenu": {
-        "copyOrcaSessionId": "复制 OpenKodo 会话 ID",
-        "orcaSessionIdCopied": "已复制 OpenKodo 会话 ID",
-        "orcaSessionIdCopyFailed": "无法复制 OpenKodo 会话 ID",
-        "orcaSessionIdTooltip": "OpenKodo 为此聊天分配的 ID，独立于智能体 CLI 自身的会话 ID，智能体通过 OpenKodo 用它来相互指代",
+        "copyOpenKodoSessionId": "复制 OpenKodo 会话 ID",
+        "openkodoSessionIdCopied": "已复制 OpenKodo 会话 ID",
+        "openkodoSessionIdCopyFailed": "无法复制 OpenKodo 会话 ID",
+        "openkodoSessionIdTooltip": "OpenKodo 为此聊天分配的 ID，独立于智能体 CLI 自身的会话 ID，智能体通过 OpenKodo 用它来相互指代",
         "noSessionContext": "没有可用的聊天上下文"
       },
       "failureWords": {
@@ -20159,10 +20159,10 @@
         "diskFull": "运行此聊天的电脑磁盘已满。",
         "freeDiskSpace": "请释放该磁盘空间后重试。",
         "savedInOtherFolder": "此对话保存在另一个文件夹中",
-        "savedByNewerOrca": "这些聊天由更新版本的 OpenKodo 保存",
-        "updateOrcaToKeepUsing": "请更新 OpenKodo 以继续使用这些聊天",
-        "chatSavedByNewerOrca": "此聊天由更新版本的 OpenKodo 保存",
-        "updateOrcaToOpenChat": "请更新 OpenKodo 以打开它",
+        "savedByNewerOpenKodo": "这些聊天由更新版本的 OpenKodo 保存",
+        "updateOpenKodoToKeepUsing": "请更新 OpenKodo 以继续使用这些聊天",
+        "chatSavedByNewerOpenKodo": "此聊天由更新版本的 OpenKodo 保存",
+        "updateOpenKodoToOpenChat": "请更新 OpenKodo 以打开它",
         "unsupported": "运行此聊天的计算机需要更新版本的 OpenKodo，请在该计算机上更新 OpenKodo 后重试",
         "notAvailable": "此聊天中无法使用此功能",
         "cannotRunHere": "OpenKodo 无法在此处以聊天方式运行此代理",
@@ -20531,7 +20531,7 @@
         "stepLabel": "{{value0}}，第 {{value1}} 个，共 {{value2}} 个：{{value3}}"
       },
       "approval": {
-        "needsNewerOrca": "此请求需要更新版本的 OpenKodo",
+        "needsNewerOpenKodo": "此请求需要更新版本的 OpenKodo",
         "title": "允许 {{value0}}？",
         "allow": "允许",
         "deny": "拒绝",
@@ -20641,12 +20641,12 @@
         "stoppedBeforeStart": "已手动停止",
         "dismiss": "关闭",
         "copyError": "复制错误",
-        "orcaStopUpdate": "此回复进行期间，{{machine}} 上的 OpenKodo 为更新而重新启动",
-        "orcaStopQuit": "此回复进行期间，{{machine}} 上的 OpenKodo 已关闭",
-        "orcaStopCrash": "此回复进行期间，{{machine}} 上的 OpenKodo 意外停止",
-        "orcaStopRemote": "此回复进行期间，{{machine}} 上的 OpenKodo 已停止",
-        "orcaStopCanContinue": "你可以在此对话中继续",
-        "orcaStopUnnamedServer": "远程服务器",
+        "openkodoStopUpdate": "此回复进行期间，{{machine}} 上的 OpenKodo 为更新而重新启动",
+        "openkodoStopQuit": "此回复进行期间，{{machine}} 上的 OpenKodo 已关闭",
+        "openkodoStopCrash": "此回复进行期间，{{machine}} 上的 OpenKodo 意外停止",
+        "openkodoStopRemote": "此回复进行期间，{{machine}} 上的 OpenKodo 已停止",
+        "openkodoStopCanContinue": "你可以在此对话中继续",
+        "openkodoStopUnnamedServer": "远程服务器",
         "restartContinued": "重启后 OpenKodo 已让此智能体继续，你自己的提示词没有重新发送",
         "restartContinueRefused": "重启后 OpenKodo 无法继续此聊天，请发送一条消息来继续",
         "restartContinueUnconfirmed": "重启后 OpenKodo 已让此智能体继续，但无法确认它是否已继续，请先查看它的最新回复，再发送下一条消息",
@@ -21720,8 +21720,8 @@
         "signInGoogle": "使用 Google 登录",
         "yourAgy": "你的 agy",
         "yourAgyVersion": "你的 agy · v{{version}}",
-        "orcasAgy": "OpenKodo 自带的 agy",
-        "orcasAgyVersion": "OpenKodo 自带的 agy · v{{version}}",
+        "openkodosAgy": "OpenKodo 自带的 agy",
+        "openkodosAgyVersion": "OpenKodo 自带的 agy · v{{version}}",
         "runsOn": "运行于：{{program}}",
         "keepsOwnLogin": "此聊天沿用 agy 自带的 Google 登录，新聊天将使用 {{method}}",
         "apiKeyEnvironment": "来自你的环境变量",
@@ -22199,10 +22199,10 @@
         "copySessionIdSuccess": "已复制会话 ID",
         "copySessionIdError": "复制会话 ID 失败",
         "copySessionIdUnavailable": "没有可复制的会话 ID",
-        "copyOrcaSessionId": "复制 OpenKodo 会话 ID",
-        "orcaSessionIdTooltip": "OpenKodo 为此智能体分配的 ID，与智能体 CLI 自身的会话 ID 不同，智能体之间通过 OpenKodo 用它来指代彼此",
-        "orcaSessionIdCopied": "已复制 OpenKodo 会话 ID",
-        "orcaSessionIdCopyFailed": "复制 OpenKodo 会话 ID 失败"
+        "copyOpenKodoSessionId": "复制 OpenKodo 会话 ID",
+        "openkodoSessionIdTooltip": "OpenKodo 为此智能体分配的 ID，与智能体 CLI 自身的会话 ID 不同，智能体之间通过 OpenKodo 用它来指代彼此",
+        "openkodoSessionIdCopied": "已复制 OpenKodo 会话 ID",
+        "openkodoSessionIdCopyFailed": "复制 OpenKodo 会话 ID 失败"
       },
       "hostFile": {
         "updateHostForOutsideFiles": "更新 {{value0}} 上的 OpenKodo 以打开其工作区之外的文件"
@@ -22255,8 +22255,8 @@
           "lightLooks": "浅色外观",
           "moreThemes": "更多主题",
           "next": "更多外观",
-          "orcaDark": "OpenKodo 深色",
-          "orcaLight": "OpenKodo 浅色",
+          "openkodoDark": "OpenKodo 深色",
+          "openkodoLight": "OpenKodo 浅色",
           "pluginsHint": "更多主题以插件形式提供。",
           "previous": "上一组外观",
           "showsWhenDark": "系统为深色时显示",
@@ -22915,7 +22915,7 @@
           "sectionDescription": "{{host}} 为其智能体和终端发出的通知"
         }
       },
-      "orcaAccount": {
+      "openkodoAccount": {
         "server": {
           "sectionDescription": "{{host}} 运行时所用的 OpenKodo 账户，用于其 bots 的 Slack、GitHub、Linear 和 Webhook",
           "unread": "无法读取 {{host}} 的 OpenKodo 账户。请更新或重新连接 {{host}}",
@@ -23032,7 +23032,7 @@
       "failed": "安装失败，请重试",
       "cancelFailed": "无法取消安装，请重试",
       "install": "安装 {{agent}}",
-      "installedByOrca": "由 OpenKodo 安装 · {{version}}",
+      "installedByOpenKodo": "由 OpenKodo 安装 · {{version}}",
       "notInstalled": "未安装",
       "progress": "{{agent}} 下载",
       "readFailed": "无法检查此主机上的 {{agent}}，正在重试",
@@ -23231,8 +23231,8 @@
       "routing": {
         "preference": {
           "dialog": {
-            "keepInOrcaTitle": "继续在 OpenKodo 中打开终端链接？",
-            "openInOrcaTitle": "在 OpenKodo 中打开终端链接？",
+            "keepInOpenKodoTitle": "继续在 OpenKodo 中打开终端链接？",
+            "openInOpenKodoTitle": "在 OpenKodo 中打开终端链接？",
             "shortcutSummary": "{{shortcut}}-点击可改用系统浏览器打开一次。可在设置中更改。"
           }
         }
@@ -23274,7 +23274,7 @@
     },
     "sidebar": {
       "ForgetSshWorkspaceDialog": {
-        "removeFromOrcaTitle": "要从 OpenKodo 中移除 {{name}}？",
+        "removeFromOpenKodoTitle": "要从 OpenKodo 中移除 {{name}}？",
         "ghostHostLine": "{{host}} 已不再是已保存的主机。文件会保留在该主机上。",
         "disconnectedHostLine": "{{host}} 未连接。文件会保留在主机上。",
         "filesStayLine": "文件会保留在 {{host}} 上。",
@@ -23861,7 +23861,7 @@
       "statusDetails": {
         "runningListUnavailable": "Windows 未报告该发行版是否正在运行",
         "guestUnanswered": "发行版正在运行，但未响应 OpenKodo 的检查",
-        "orcadUnanswered": "发行版中的 OpenKodo 服务器未响应",
+        "openkododUnanswered": "发行版中的 OpenKodo 服务器未响应",
         "restartGaveUp_other": "尝试 {{count}} 次后仍无法重启 {{distro}} 中的 OpenKodo 服务器",
         "serviceUnconfirmed": "WSL 服务未确认该发行版是否正在运行",
         "peerCheckFailed": "OpenKodo 无法向 WSL 主机询问此电脑上的另一个 OpenKodo 是否仍在使用该主机：{{detail}}",
@@ -24074,7 +24074,7 @@
     },
     "eyebrowNew": "新功能",
     "eyebrowTip": "提示",
-    "orcaCli": {
+    "openkodoCli": {
       "title": "让智能体通过 OpenKodo CLI 操控 OpenKodo",
       "description": "让智能体协调子工作树，并在工作树之间通信",
       "cta": "安装 CLI 与技能"
@@ -25680,7 +25680,7 @@
       "failed": "无法验证：无法刷新本地终端。正在显示上次观察到的终端",
       "retry": "重试",
       "loading": "正在加载终端…",
-      "noLocalOrcaPtys": "没有本地 OpenKodo PTY",
+      "noLocalOpenKodoPtys": "没有本地 OpenKodo PTY",
       "openNamed": "打开 {{terminal}}",
       "endNamed": "结束 {{terminal}}",
       "endShort": "结束",
@@ -26128,7 +26128,7 @@
       "alreadyPairedAddAgain": "此服务器已作为“{{name}}”配对。要更新其连接，请在设置 > 远程 OpenKodo 服务器下重新添加",
       "alreadyPairedUnreadable": "此服务器已作为“{{name}}”配对，但此版本的 OpenKodo 无法读取其已保存的设置",
       "nameTaken": "名为“{{name}}”的服务器已存在",
-      "idNeedsNewerOrca": "具有此 ID 的服务器已存在，其格式需要更新版本的 OpenKodo",
+      "idNeedsNewerOpenKodo": "具有此 ID 的服务器已存在，其格式需要更新版本的 OpenKodo",
       "hostSaveFailed": "OpenKodo 已验证主机，但无法保存。请检查本地设置存储并重试",
       "repairSaveFailed": "OpenKodo 已验证服务器，但无法保存新的配对。请检查本地设置存储并重试",
       "repairCloudWorkspace": "此服务器属于一个云工作区，该工作区恢复运行时会再次与其配对"
@@ -27690,7 +27690,7 @@
         "noAgents": "无代理",
         "noAgentsAvailable": "没有可用的代理",
         "pictureLoading": "正在加载图片…",
-        "updateOrca": "更新 OpenKodo"
+        "updateOpenKodo": "更新 OpenKodo"
       },
       "parts": {
         "olderHost": "{{host}} 需要更新 OpenKodo 才能添加技能和计划",
@@ -28527,9 +28527,9 @@
       "importSetupFile": "导入文件",
       "hostChoice": {
         "description": "选择 {{bot}} 登录你的 Gmail、日历和云端硬盘的方式",
-        "orca": "OpenKodo 托管",
+        "openkodo": "OpenKodo 托管",
         "soon": "即将推出",
-        "orcaNote": "使用 Google 登录",
+        "openkodoNote": "使用 Google 登录",
         "self": "自行托管",
         "selfNote": "使用你自己的 Google 应用",
         "continue": "继续"
@@ -28608,7 +28608,7 @@
       "wontStart": "无法启动",
       "finishInBrowser": "在浏览器中完成",
       "cantReach": "无法连接",
-      "signInOrca": "适用于 Claude 和 Codex",
+      "signInOpenKodo": "适用于 Claude 和 Codex",
       "finishing": "正在完成登录…",
       "updateHost": "请更新 {{host}} 上的 OpenKodo 以登录应用",
       "updateServer": "请更新服务器上的 OpenKodo 以登录应用",
@@ -29026,7 +29026,7 @@
       "computerFoot": "它的连接器、工具和文件位于此电脑上",
       "pairedServer": "已配对的服务器 · 运行此 bot 的聊天、工具和自动化",
       "thisComputerDetail": "此电脑",
-      "orcaAccount": "OpenKodo 账户",
+      "openkodoAccount": "OpenKodo 账户",
       "folder": "文件夹",
       "copyPath": "复制路径",
       "topicFiles": "主题文件",
@@ -29991,12 +29991,12 @@
         "anotherWay": "用其他方式设置"
       },
       "postAs": {
-        "orcaUser": "OpenKodo 用户",
+        "openkodoUser": "OpenKodo 用户",
         "thisComputer": "此电脑",
         "caption": "在此 bot 的 Slack 话题中",
         "approve": "在 Slack 中批准",
         "cancel": "取消",
-        "viaOrca": "{{name}}（通过 OpenKodo）",
+        "viaOpenKodo": "{{name}}（通过 OpenKodo）",
         "app": "应用",
         "sample": "那之后就发布吧",
         "line": "你从 OpenKodo 回复 Slack 话题时，会以 <picker>{{name}}</picker> 的身份发布",

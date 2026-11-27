@@ -34,7 +34,7 @@ function withAgents(
   return view
 }
 
-const party = { address: 'term_worker', terminalHandle: 'term_worker', orcaSessionId: null }
+const party = { address: 'term_worker', terminalHandle: 'term_worker', openkodoSessionId: null }
 const RESULT_SENDER: AgentMessageSource = {
   kind: 'agent',
   senders: [{ party, name: 'nightly run' }],

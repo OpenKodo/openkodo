@@ -59,7 +59,10 @@ export function BotLinkRouter() {
         })
         return
       }
-      Alert.alert(t('bots.link.updateOrca', 'Update OpenKodo'), botLinkUpdateNeededLine(t, names))
+      Alert.alert(
+        t('bots.link.updateOpenKodo', 'Update OpenKodo'),
+        botLinkUpdateNeededLine(t, names)
+      )
     },
     [router, t]
   )

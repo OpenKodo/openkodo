@@ -2,11 +2,11 @@
 
 import { DSH_HOOK_EXECUTOR_PACKAGE } from './dsh-hook-packages'
 
-const START_MARKER = '# >>> orca-managed-dsh-hooks (managed by OpenKodo; do not edit) >>>'
-const END_MARKER = '# <<< orca-managed-dsh-hooks <<<'
+const START_MARKER = '# >>> openkodo-managed-dsh-hooks (managed by OpenKodo; do not edit) >>>'
+const END_MARKER = '# <<< openkodo-managed-dsh-hooks <<<'
 
 /** DSH targets patch rows by ID, so keep this stable. */
-const MANAGED_ROW_ID = 'orca-agent-hooks'
+const MANAGED_ROW_ID = 'openkodo-agent-hooks'
 
 const EMPTY_FLOW_SEQUENCE = '[]'
 

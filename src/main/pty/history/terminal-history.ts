@@ -2,12 +2,12 @@ import { join, basename } from 'node:path'
 import { mkdirSync, existsSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { readFile, stat } from 'node:fs/promises'
 import {
-  dropInheritedOrcaFishHistory,
+  dropInheritedOpenKodoFishHistory,
   fishHistorySessionName,
   isSafeFishHistorySession,
   resolveFishHistoryDir
 } from './fish-history-session'
-import { dropInheritedOrcaHistFile } from './worktree-history-file-path'
+import { dropInheritedOpenKodoHistFile } from './worktree-history-file-path'
 import { parseWslPath } from '../../wsl/filesystem/unc-path-access'
 import { toLinuxPath } from '../../../shared/file-access/wsl-paths'
 import { getHistoryRoot, getHistoryRootWsl } from './terminal-history-paths'
@@ -207,8 +207,8 @@ export function injectHistoryEnv(
 ): HistoryInjectionResult {
   // Nested OpenKodo launches inherit this value; clear it before any early return to prevent history leaks.
   delete spawnEnv.OPENKODO_HISTFILE
-  dropInheritedOrcaFishHistory(spawnEnv)
-  dropInheritedOrcaHistFile(spawnEnv)
+  dropInheritedOpenKodoFishHistory(spawnEnv)
+  dropInheritedOpenKodoHistFile(spawnEnv)
 
   const shell = resolveShellKind(shellPath)
   const result: HistoryInjectionResult = {
@@ -268,7 +268,7 @@ export function injectWslFishHistoryEnv(
   wslDistro: string
 ): string | null {
   // Drop inherited OpenKodo sessions even when the caller did not run injectHistoryEnv first.
-  dropInheritedOrcaFishHistory(spawnEnv)
+  dropInheritedOpenKodoFishHistory(spawnEnv)
   if (spawnEnv.fish_history) {
     return null
   }

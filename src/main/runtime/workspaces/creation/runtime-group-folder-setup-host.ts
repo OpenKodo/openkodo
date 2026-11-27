@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithGetWorktreeTerminalProvisioningHost } from '../startup/workspace-terminal-provisioning'
+import { OpenKodoRuntimeWithGetWorktreeTerminalProvisioningHost } from '../startup/workspace-terminal-provisioning'
 import {
   prepareGroupFolderCreation,
   groupFolderCreationIsUserAct,
@@ -18,7 +18,7 @@ import { resolveStartupAgentLaunchRuntime } from '../../terminal/launch/agent-la
 import { projectGroupHookOwner } from '../../../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { TerminalCreateOptions } from '../../terminal/launch/terminal-create-options'
 
-export abstract class OrcaRuntimeWithGroupFolderSetup extends OrcaRuntimeWithGetWorktreeTerminalProvisioningHost {
+export abstract class OpenKodoRuntimeWithGroupFolderSetup extends OpenKodoRuntimeWithGetWorktreeTerminalProvisioningHost {
   protected finishGroupFolderCreation = async (
     input: RuntimeGroupFolderCreateInput,
     group: ProjectGroup,

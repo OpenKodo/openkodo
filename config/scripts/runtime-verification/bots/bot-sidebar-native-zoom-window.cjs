@@ -1,7 +1,7 @@
 const { app, BrowserWindow, contextBridge, webFrame } = require('electron')
 
 if (process.type === 'renderer') {
-  contextBridge.exposeInMainWorld('__orcaNativeZoom', {
+  contextBridge.exposeInMainWorld('__openkodoNativeZoom', {
     get: () => webFrame.getZoomLevel(),
     set: (level) => webFrame.setZoomLevel(level)
   })

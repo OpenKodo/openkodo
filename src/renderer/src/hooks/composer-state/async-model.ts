@@ -2,17 +2,17 @@ import type * as React from 'react'
 import type { RefObject } from 'react'
 import type { GitHubWorkItem } from '../../../../shared/github/work-items/work-item-types'
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   SetupAgentStartupPolicy
-} from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { GitHubRepositoryIdentity } from '../../../../shared/github/repositories/repository-identity'
 import type { WorkspaceCreateErrorDisplay } from '@/lib/workspace/creation/workspace-create-error-format'
 import type { IssueCommandReadResult } from '@/runtime/repo-hooks/runtime-hooks-client'
 import type { SmartSourceSelection } from './linked-work-items/source-selection-decisions'
 
 export type ComposerAsyncModel = {
-  yamlHooks: OrcaHooks | null
-  setYamlHooks: React.Dispatch<React.SetStateAction<OrcaHooks | null>>
+  yamlHooks: OpenKodoHooks | null
+  setYamlHooks: React.Dispatch<React.SetStateAction<OpenKodoHooks | null>>
   checkedHooksContextKey: string | null
   setCheckedHooksContextKey: React.Dispatch<React.SetStateAction<string | null>>
   loadedIssueCommand: { contextKey: string; result: IssueCommandReadResult } | null

@@ -2,7 +2,7 @@
 // its first pull in a session until a pull's caller goes away or it leaves; an answered pull keeps it,
 // since it pulls again at once. Nothing is timed, and a server restart starts with none.
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { OrchestrationError } from '../../orchestration-error'
 import type { PeerMailClientAsksPull } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 
@@ -18,7 +18,7 @@ export type ClientAskListener = {
 export type ClientAskPull = { key: string; session: string }
 
 /** The runtime whose server the computers listen on; a test's runtimes keep separate listeners. */
-export type ClientAskListenerOwner = Pick<OrcaRuntimeService, 'getOrchestrationDb'>
+export type ClientAskListenerOwner = Pick<OpenKodoRuntimeService, 'getOrchestrationDb'>
 
 const listenersByOwner = new WeakMap<ClientAskListenerOwner, Map<string, ClientAskListener>>()
 // The name each computer last pulled with, so a send while it's away can still name it.

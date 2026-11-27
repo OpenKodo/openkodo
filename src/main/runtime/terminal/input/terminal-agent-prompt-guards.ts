@@ -5,7 +5,7 @@ import type {
   RuntimeAgentPromptWriteOptions
 } from './agent-prompt-write-options'
 import { waitForAgentPromptPromise } from './agent-prompt-signals'
-import { OrcaRuntimeWithResubmitHeldAgentPrompt } from './terminal-agent-prompt-resubmit'
+import { OpenKodoRuntimeWithResubmitHeldAgentPrompt } from './terminal-agent-prompt-resubmit'
 import { detectTerminalWaitBlockedReason } from '../wait/terminal-wait-detection'
 import {
   projectTerminalVisibleLines,
@@ -31,7 +31,7 @@ function readSubmitHoldOnScreen(
 }
 
 /** Checks a prompt write runs before it types or submits. */
-export abstract class OrcaRuntimeWithAgentPromptWriteGuards extends OrcaRuntimeWithResubmitHeldAgentPrompt {
+export abstract class OpenKodoRuntimeWithAgentPromptWriteGuards extends OpenKodoRuntimeWithResubmitHeldAgentPrompt {
   protected assertAgentPromptExpectedBinding(
     handle: string,
     expected: AgentPromptExpectedBinding | undefined

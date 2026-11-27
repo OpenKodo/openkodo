@@ -8,11 +8,11 @@ import { app, BrowserWindow, nativeImage } from 'electron'
 import classicIcon from '../../../../resources/icon.png?asset'
 import classicDevIcon from '../../../../resources/icon-dev.png?asset'
 import classicDevMacIcon from '../../../../resources/icon-dev-mac.png?asset'
-import watercolorIcon from '../../../../resources/app-icons/orca-watercolor.png?asset'
-import watercolorMacIcon from '../../../../resources/app-icons/orca-watercolor-mac.png?asset'
-import watercolorMacDockIcon from '../../../../resources/app-icons/orca-watercolor-mac.png?asset&asarUnpack'
-import blueIcon from '../../../../resources/app-icons/orca-blue.png?asset'
-import blueMacDockIcon from '../../../../resources/app-icons/orca-blue.png?asset&asarUnpack'
+import watercolorIcon from '../../../../resources/app-icons/openkodo-watercolor.png?asset'
+import watercolorMacIcon from '../../../../resources/app-icons/openkodo-watercolor-mac.png?asset'
+import watercolorMacDockIcon from '../../../../resources/app-icons/openkodo-watercolor-mac.png?asset&asarUnpack'
+import blueIcon from '../../../../resources/app-icons/openkodo-blue.png?asset'
+import blueMacDockIcon from '../../../../resources/app-icons/openkodo-blue.png?asset&asarUnpack'
 import {
   CUSTOM_APP_ICON_ID,
   normalizeAppIconId,

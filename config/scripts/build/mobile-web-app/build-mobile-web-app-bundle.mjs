@@ -122,7 +122,7 @@ export const MOBILE_WEB_APP_ROOT_RESET =
 // Disable body text selection/callout to prevent WebKit/Android long-press interference, including portaled modals; fields opt back in.
 // Stop the WebView rubber-banding the whole page (headers included) when an inner list hits its end; inner scrollers keep their bounce.
 export const MOBILE_WEB_APP_NATIVE_PARITY_STYLE =
-  '<style id="orca-native-parity">:where(input:focus,textarea:focus){outline:none}' +
+  '<style id="openkodo-native-parity">:where(input:focus,textarea:focus){outline:none}' +
   ':where(html){overscroll-behavior:none}' +
   ':where(body){-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}' +
   ':where(input,textarea,[contenteditable]){-webkit-user-select:text;user-select:text;' +
@@ -140,14 +140,14 @@ const PAGE_ASYNC_STORAGE_MODULE = join(
 // nodePaths cannot override shared modules’ root Zod resolution. Alias mobile’s package to match tsconfig and salvage/container instances; esbuild picks its ESM module entry.
 const MOBILE_ZOD_PACKAGE = join(mobileDir, 'node_modules', 'zod')
 
-const ROUTE_MANIFEST_PLUGIN_NAME = 'orca-route-manifest'
-const LUCIDE_PLUGIN_NAME = 'orca-lucide-barrel-provider'
-const HAIRLINE_PLUGIN_NAME = 'orca-hairline-device-pixel'
+const ROUTE_MANIFEST_PLUGIN_NAME = 'openkodo-route-manifest'
+const LUCIDE_PLUGIN_NAME = 'openkodo-lucide-barrel-provider'
+const HAIRLINE_PLUGIN_NAME = 'openkodo-hairline-device-pixel'
 
 const ENTRY_CHUNK_NAME = 'entry'
 
 const ROUTE_MANIFEST_MODULE = /web-entry[\\/]route-manifest(\.ts)?$/
-const LAZY_ENTRY_NAMESPACE = 'orca-lazy-entry'
+const LAZY_ENTRY_NAMESPACE = 'openkodo-lazy-entry'
 
 // The entry's static imports as written, minus the manifest: a route importing it would be an output cycle.
 async function entryImportAnchors() {
@@ -650,12 +650,12 @@ export async function buildMobileWebAppBundle({
 
   // Root-absolute URLs survive nested routes; CSP allows only about: base. ESM entry/chunks load under existing self policy.
   const html =
-    '<!doctype html>\n<html lang="en" data-orca-scrollbars="sleek">\n<head>\n<meta charset="utf-8" />\n' +
+    '<!doctype html>\n<html lang="en" data-openkodo-scrollbars="sleek">\n<head>\n<meta charset="utf-8" />\n' +
     // Shell owns safe-area padding/insets; viewport-fit=cover would invite page-side double padding.
     '<meta name="viewport" content="width=device-width, initial-scale=1" />\n' +
     // Empty favicon prevents repeated unmanifested /favicon.ico requests/403s; WebView needs no tab icon asset.
     '<link rel="icon" href="data:," />\n' +
-    `<title>Orca</title>\n${MOBILE_WEB_APP_ROOT_RESET}\n${MOBILE_WEB_APP_NATIVE_PARITY_STYLE}\n<style id="orca-scrollbars">${scrollbarStyle}</style>\n</head>\n<body>\n<div id="root"></div>\n` +
+    `<title>OpenKodo</title>\n${MOBILE_WEB_APP_ROOT_RESET}\n${MOBILE_WEB_APP_NATIVE_PARITY_STYLE}\n<style id="openkodo-scrollbars">${scrollbarStyle}</style>\n</head>\n<body>\n<div id="root"></div>\n` +
     `<script type="module" src="/${scriptAsset.path}"></script>\n</body>\n</html>\n`
   const indexBytes = Buffer.from(html, 'utf8')
   const indexAsset = {

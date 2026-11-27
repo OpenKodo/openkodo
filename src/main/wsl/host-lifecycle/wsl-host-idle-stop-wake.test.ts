@@ -6,13 +6,13 @@ import {
   noteWslHostIdleStop,
   withWslHostIdleStop
 } from './wsl-host-idle-stop'
-import type { WslOrcadConnection } from '../orcad/wsl-orcad-connection-types'
+import type { WslOpenkododConnection } from '../openkodod/wsl-openkodod-connection-types'
 
 const DISTRO = 'Ubuntu'
 const ENVIRONMENT_ID = 'wsl:ubuntu'
 
 // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the wake reads no field of it
-const connection = {} as WslOrcadConnection
+const connection = {} as WslOpenkododConnection
 
 function portFor(connects: { count: number }, booted: Promise<void>) {
   return (call: Pick<WslHostRuntimeCallPort, 'wake' | 'background'>): WslHostRuntimeCallPort =>
@@ -39,7 +39,7 @@ function portFor(connects: { count: number }, booted: Promise<void>) {
 describe('waking a WSL host OpenKodo stopped idle', () => {
   it('boots once for concurrent user calls, lets plain calls wait on it, refuses polls', async () => {
     noteWslHostIdleStop(ENVIRONMENT_ID)
-    // Liveness saw the old orcad exit, so the wake needn't wait for it.
+    // Liveness saw the old openkodod exit, so the wake needn't wait for it.
     withWslHostIdleStop(DISTRO, null, { state: 'idle', terminals: 'unverifiable' })
     const connects = { count: 0 }
     const boot = Promise.withResolvers<void>()

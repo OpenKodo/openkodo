@@ -1,8 +1,8 @@
 {
   "recordedAt": "2026-10-10T00:42:45.888Z",
   "sourceCommit": "bcfbb8cb6d543aca516fca346c32c47ec880019f",
-  "primaryWorktree": "/Users/nwparker/orca/workspaces/orca/perf-2",
-  "command": "ORCA_BACKGROUND_LAUNCH=1 node /tmp/openkodo-perf-2-pr-proof/mobile-tool-availability-proof.mjs",
+  "primaryWorktree": "/Users/nwparker/openkodo/workspaces/openkodo/perf-2",
+  "command": "OPENKODO_BACKGROUND_LAUNCH=1 node /tmp/openkodo-perf-2-pr-proof/mobile-tool-availability-proof.mjs",
   "harness": {
     "file": "/tmp/openkodo-perf-2-pr-proof/mobile-tool-availability-proof.mjs",
     "sha256": "fe66e12c27a628aaf01b5b0074b8986f440f0b05c08ce10b23e16789717688d4",
@@ -14,7 +14,7 @@
     "sourceSha256": {
       "config/scripts/build-mobile-web-app-bundle.mjs": "d5538dc0f33a2270e96515a2b9f155a02ae32e83711b15dfa3882c280c7ea699",
       "config/scripts/mobile-web-app-render-harness.mjs": "795218671c3d01a6c982197fa950fbb4b8b7ae079ccc68fc83d4394f1c36f58c",
-      "mobile/modules/openkodo-mobile-web-shell/android/src/main/java/expo/modules/orcamobilewebshell/MobileWebShellCsp.kt": "9936abe45e1eb2717154fa7bc2c6daf99ac0bb928ed46208916e90e1209bf479"
+      "mobile/modules/openkodo-mobile-web-shell/android/src/main/java/expo/modules/openkodomobilewebshell/MobileWebShellCsp.kt": "9936abe45e1eb2717154fa7bc2c6daf99ac0bb928ed46208916e90e1209bf479"
     },
     "productionComponents": [
       "mobile/src/session/MobileNativeChatMessage.tsx",

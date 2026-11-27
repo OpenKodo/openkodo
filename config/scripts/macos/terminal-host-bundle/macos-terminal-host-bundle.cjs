@@ -218,7 +218,7 @@ function buildMacTerminalHostInfo({ appInfo, usageDescriptions, minimumOs }) {
     CFBundlePackageType: 'APPL',
     CFBundleInfoDictionaryVersion: '6.0',
     CFBundleIconFile: 'icon.icns',
-    // Lower than the app's so LaunchServices ranks the helper below Orca.app among duplicates.
+    // Lower than the app's so LaunchServices ranks the helper below OpenKodo.app among duplicates.
     CFBundleVersion: '0',
     CFBundleShortVersionString: appInfo.CFBundleShortVersionString,
     LSMinimumSystemVersion: minimumOs,
@@ -332,7 +332,7 @@ async function loadNodeRuntimePin() {
 async function pinnedDarwinNode(arch) {
   const { ensurePinnedNodeExecutable } = await import(
     pathToFileURL(
-      resolve(__dirname, '../../orcad-distribution/prebuilds/pinned-node-downloads.mjs')
+      resolve(__dirname, '../../openkodod-distribution/prebuilds/pinned-node-downloads.mjs')
     ).href
   )
   return ensurePinnedNodeExecutable({ target: `darwin-${arch}` })

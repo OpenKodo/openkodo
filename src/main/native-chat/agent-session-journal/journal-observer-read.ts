@@ -6,7 +6,7 @@ import type {
 } from '../../../shared/agent-session/journal/agent-session-journal-types'
 import type { AgentSessionLatestTurn } from '../../../shared/agent-session/agent-session-wire'
 import type { HostUsageLimitCut } from '../agent-session-wire/recovery/structured-agent-session-usage-limit-chain'
-import type { NativeChatOrcaStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import type { NativeChatOpenKodoStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import type { StructuredAgentSessionWorkEvidence } from '../agent-session-wire/observations/structured-agent-session-work-evidence'
 import type { JournalLatestStop } from './context-epochs/journal-stop-turn-end'
 import type { JournalStatusState } from './journal-status-state'
@@ -52,7 +52,7 @@ export type JournalObserverResult = {
   state: JournalStatusState & { goalContinues?: true }
   indicators: JournalStatusIndicators
   usageLimitCut: HostUsageLimitCut | null
-  orcaStopCut: NativeChatOrcaStopCut | null
+  openkodoStopCut: NativeChatOpenKodoStopCut | null
   work: {
     promptStandings?: PromptStandingRead
     liveFence: number | null

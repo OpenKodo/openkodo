@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithReadKittyFile } from '../../files/paths/orca-runtime-read-kitty-file'
+import { OpenKodoRuntimeWithReadKittyFile } from '../../files/paths/openkodo-runtime-read-kitty-file'
 import type { RuntimeWorkspaceRepoScanRefresh } from './workspace-repo-scan-refresh'
 import type { ResolvedWorktree } from './runtime-worktree-path-identity'
 import { splitWorktreeIdForFilesystem } from '../../../../shared/worktree/id'
@@ -58,7 +58,7 @@ import {
 import * as ScanCache from './runtime-worktree-scan-cache'
 const RESOLVED_WORKTREE_CACHE_TTL_MS = 1000
 
-export abstract class RuntimeWorkspaceCatalog extends OrcaRuntimeWithReadKittyFile {
+export abstract class RuntimeWorkspaceCatalog extends OpenKodoRuntimeWithReadKittyFile {
   private readonly worktreeRowMemo = new WorktreeRowProjectionMemo<RepoWorktreeRow>()
 
   protected abstract readRepoWorktreeCatalog(

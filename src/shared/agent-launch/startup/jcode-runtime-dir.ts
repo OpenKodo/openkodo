@@ -10,7 +10,7 @@ export const JCODE_RUNTIME_DIR_ENV_KEY = 'JCODE_RUNTIME_DIR'
 // runtimeDir/jcode.sock must fit 104 bytes. Long TMPDIR plus full 73-character pane keys cannot; a stable 16-hex digest keeps paths short.
 export function buildJcodeRuntimeDir(paneKey: string): string {
   const hash = createHash('sha256').update(paneKey).digest('hex').slice(0, 16)
-  return join(tmpdir(), 'orca-jcode', hash)
+  return join(tmpdir(), 'openkodo-jcode', hash)
 }
 
 /** jcode's daemon model is unix-socket based; Windows support is unverified. */

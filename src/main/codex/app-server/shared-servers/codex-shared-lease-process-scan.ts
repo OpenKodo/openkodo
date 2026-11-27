@@ -1,5 +1,5 @@
 import { readdir, readFile, stat } from 'node:fs/promises'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { errnoCodeOrUnknown } from '../../../../shared/errors/errno-code'
 import { spawnTokenFromEnvironBlock } from '../../../runtime/agent-session/ownership/agent-session-spawn-token-readback'
 import {
@@ -87,9 +87,9 @@ function parseStat(stat: string): LinuxProcess {
   }
 }
 
-// Linux keeps 15 characters of a process name, so `orca-provider-exec` reads `orca-provider-e`.
+// Linux keeps 15 characters of a process name, so `openkodo-provider-exec` reads `openkodo-provider-e`.
 const isLauncherName = (name: string | undefined): boolean =>
-  (name ?? '').startsWith('orca-provider-e')
+  (name ?? '').startsWith('openkodo-provider-e')
 
 /** Own-user processes with their parent and name, from one `ps` child so Electron main parses one
  *  table instead of walking /proc; the walk is the fallback where ps can't run. */

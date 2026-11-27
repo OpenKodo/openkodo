@@ -29,7 +29,7 @@ import type { BotChatTreeActions } from '../bots/MobileBotChatTree'
 import { openBotItemWorker } from '../bots/items/bot-item-worker-open'
 import type { BotChatTreeWorker } from '../../../src/shared/bots/bot-chat-tree'
 import { useOpenMobileAutomations } from '../automations/use-open-mobile-automations'
-import { useOpenUrlInOrca } from '../browser/tab-navigation/use-open-url-in-orca'
+import { useOpenUrlInOpenKodo } from '../browser/tab-navigation/use-open-url-in-openkodo'
 import {
   PhoneConnectTripContext,
   usePhoneConnectTrips
@@ -147,7 +147,7 @@ export function MobileSessionBotSheet({ controller }: { controller: MobileSessio
       live = false
     }
   }, [homeDraft, homeTabId, hostId, worktreeId])
-  const openInOrca = useOpenUrlInOrca(controller)
+  const openInOpenKodo = useOpenUrlInOpenKodo(controller)
   const { sessionTabsRef, fetchSessionTabs, openBotPanel } = controller
   // A Connect's sign-in shows in a sheet of its own, or as a new tab when the computer closed the trip's.
   const [signInPageId, setSignInPageId] = useState<string | null>(null)
@@ -159,11 +159,11 @@ export function MobileSessionBotSheet({ controller }: { controller: MobileSessio
     if (browserTabOf(sessionTabsRef.current, page.browserPageId)) {
       setSignInPageId(page.browserPageId)
     } else {
-      openInOrca?.(page.url)
+      openInOpenKodo?.(page.url)
     }
   }
   const connectTrips = usePhoneConnectTrips(client, worktreeId, {
-    show: openInOrca ? (page) => void showSignIn(page) : null,
+    show: openInOpenKodo ? (page) => void showSignIn(page) : null,
     reopen: (back) => {
       setSignInPageId(null)
       openBotPanel({ settings: back })

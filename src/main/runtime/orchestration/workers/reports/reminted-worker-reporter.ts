@@ -1,11 +1,11 @@
 import type { OrchestrationCompatibilityEvidence } from '../../../../../shared/orchestration/orchestration-compatibility-evidence'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationCompatibilityCallerAuthority } from '../../terminal-authority/orchestration-compatibility-authority'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { isEquivalentPaneKey } from '../../db/pane-key-match'
 
 type RemintRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getTerminalPaneKey'
   | 'getTerminalProcessIncarnation'
   | 'resolveTerminalHandleByProcessIncarnation'

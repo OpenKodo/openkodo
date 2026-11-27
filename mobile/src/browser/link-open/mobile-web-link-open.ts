@@ -4,21 +4,21 @@ import { isLoopbackHttpUrl } from '../../../../src/shared/workspace/ports/localh
 
 /**
  * Where a web link tapped in terminal output or chat opens. The phone's browser stands in
- * wherever no OpenKodo browser tab can open (see useOpenUrlInOrca).
+ * wherever no OpenKodo browser tab can open (see useOpenUrlInOpenKodo).
  */
 export function openMobileWebLink(
   url: string,
   mode: MobileLinkOpenMode,
-  openInOrca: ((url: string) => void) | undefined,
+  openInOpenKodo: ((url: string) => void) | undefined,
   ask: (url: string) => void
 ): void {
   // Why: a loopback URL names the host that printed it; the phone's own browser would load the phone.
-  if (openInOrca && isLoopbackHttpUrl(url)) {
-    openInOrca(url)
+  if (openInOpenKodo && isLoopbackHttpUrl(url)) {
+    openInOpenKodo(url)
   } else if (mode === 'ask') {
     ask(url)
-  } else if (mode === 'orca-browser' && openInOrca) {
-    openInOrca(url)
+  } else if (mode === 'openkodo-browser' && openInOpenKodo) {
+    openInOpenKodo(url)
   } else {
     openExternalLink(url)
   }

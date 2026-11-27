@@ -1,6 +1,6 @@
 import { app, clipboard } from 'electron'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   assertClipboardTextWriteWithinLimitWithYield,
   CLIPBOARD_TEXT_WRITE_MAX_BYTES,
@@ -125,7 +125,7 @@ function publisherPath(): string | Promise<string> {
         'wayland-clipboard',
         '.build',
         process.arch,
-        'orca-wayland-clipboard'
+        'openkodo-wayland-clipboard'
       )
   if (
     !app.isPackaged ||

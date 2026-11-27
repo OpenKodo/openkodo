@@ -6,7 +6,7 @@ import { getPiAgentStatusRuntimeDetectionSourceLines } from './agent-status-runt
 import { getPiAgentStatusWslCurlSourceLines } from './agent-status-wsl-curl-source'
 import { getPiSubagentSnapshotSourceLines } from './agent-status-subagent-roster-source'
 
-export const OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE = 'orca-agent-status.ts'
+export const OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE = 'openkodo-agent-status.ts'
 
 /** Self-contained source runs inside Pi-family agents without OpenKodo module imports. */
 export function getPiAgentStatusExtensionSource(kind: PiAgentKind = 'pi'): string {
@@ -96,7 +96,7 @@ export function getPiAgentStatusExtensionSource(kind: PiAgentKind = 'pi'): strin
     "    if (!model || typeof model !== 'object') return",
     "    const provider = 'provider' in model && typeof model.provider === 'string' ? model.provider : ''",
     "    const id = 'id' in model && typeof model.id === 'string' ? model.id : ''",
-    "    if (provider && id) modelMetadata = { model: provider + '/' + id, ...(ompModelSwitchSupported ? { model_switch_command: 'orca-model' } : {}) }",
+    "    if (provider && id) modelMetadata = { model: provider + '/' + id, ...(ompModelSwitchSupported ? { model_switch_command: 'openkodo-model' } : {}) }",
     '  } catch {',
     '    // Throwing model getters cannot interrupt status delivery.',
     '  }',
@@ -157,7 +157,7 @@ export function getPiAgentStatusExtensionSource(kind: PiAgentKind = 'pi'): strin
     '    const code = (err as { code?: string } | null)?.code',
     "    if (err && code !== 'ENOENT' && !warnedBadEndpoint) {",
     '      warnedBadEndpoint = true',
-    "      console.warn('[orca-pi-status] failed to parse endpoint file:', (err as Error).message)",
+    "      console.warn('[openkodo-pi-status] failed to parse endpoint file:', (err as Error).message)",
     '    }',
     '    return null',
     '  }',

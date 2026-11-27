@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { OrcaCloudAuthConfig } from '../../../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import { OrcaCloudRequestError } from '../../../orca-profiles/cloud-auth/profile-cloud-client'
+import type { OpenKodoCloudAuthConfig } from '../../../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import { OpenKodoCloudRequestError } from '../../../openkodo-profiles/cloud-auth/profile-cloud-client'
 import type { E2EEKeypair } from '../../rpc/server/pairing/e2ee-keypair'
 import type { RelayAccessTokenRefresh } from './relay-session-broker-contract'
 import {
@@ -27,7 +27,7 @@ const authConfig = {
   relayDirectorUrl: 'https://director.example.test',
   clientId: 'client',
   scope: 'openid'
-} satisfies OrcaCloudAuthConfig
+} satisfies OpenKodoCloudAuthConfig
 
 const keypair: E2EEKeypair = {
   publicKey: new Uint8Array(32),
@@ -50,7 +50,7 @@ function fakeAuth(plan: { refresh?: Outcome[]; relayToken?: Outcome[] }) {
       throw new TypeError('fetch failed')
     }
     if (outcome !== 'ok') {
-      throw new OrcaCloudRequestError(outcome)
+      throw new OpenKodoCloudRequestError(outcome)
     }
     return { accessToken: 'access-token' }
   }
@@ -161,7 +161,7 @@ describe('relay token renewal with an authOrigin', () => {
     const origin = new RelayRenewalOrigin()
     origin.failed(new TypeError('fetch failed'), FRONT_DOOR)
     expect(origin.next(FRONT_DOOR)).toBe(FRONT_DOOR)
-    origin.failed(new OrcaCloudRequestError(404), FRONT_DOOR)
+    origin.failed(new OpenKodoCloudRequestError(404), FRONT_DOOR)
     expect(origin.next(FRONT_DOOR)).toBeUndefined()
   })
 

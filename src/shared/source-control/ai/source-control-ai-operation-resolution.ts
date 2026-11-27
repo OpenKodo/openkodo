@@ -42,7 +42,7 @@ export type ResolvedSourceControlAiGenerationParams = {
   agentId: TuiAgent | 'custom'
   model: string
   /** OpenKodo passed its own default (spec.defaultModelId) because no available model was picked. */
-  usesOrcaDefaultModel?: boolean
+  usesOpenKodoDefaultModel?: boolean
   thinkingLevel?: string
   customPrompt?: string
   commandInputTemplate?: string
@@ -249,7 +249,7 @@ export function resolveSourceControlAiForOperation(
       params: {
         agentId: resolvedAgent,
         model: model.id,
-        ...(pickedModel ? {} : { usesOrcaDefaultModel: true }),
+        ...(pickedModel ? {} : { usesOpenKodoDefaultModel: true }),
         thinkingLevel,
         ...commonParams,
         ...(customAgentCommand ? { customAgentCommand } : {}),

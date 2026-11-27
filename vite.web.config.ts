@@ -15,7 +15,7 @@ import { resolveBuildSourceCommit } from './config/scripts/build-identity/build-
 export default defineConfig({
   root: resolve('src/renderer'),
   cacheDir: resolve('.cache/vite/web'),
-  // Resolve assets relatively for reverse-proxy pairing prefixes such as /orca/web-index.html.
+  // Resolve assets relatively for reverse-proxy pairing prefixes such as /openkodo/web-index.html.
   base: './',
   plugins: [
     react(reactPluginOptions()),
@@ -24,8 +24,8 @@ export default defineConfig({
     createViteCacheRetentionPlugin()
   ],
   define: {
-    ORCA_FEATURE_WALL_ENABLED: 'true',
-    ORCA_BUILD_COMMIT: JSON.stringify(resolveBuildSourceCommit())
+    OPENKODO_FEATURE_WALL_ENABLED: 'true',
+    OPENKODO_BUILD_COMMIT: JSON.stringify(resolveBuildSourceCommit())
   },
   resolve: {
     alias: {

@@ -5,7 +5,10 @@ import {
   type PluginExecutionProfile
 } from '../contributions/plugin-execution-profile'
 import { pluginCapabilityReachable } from '../capabilities/plugin-capability-reach'
-import { orcaEngineRangeSchema, satisfiesOrcaEngineRange } from './plugin-manifest-engine-range'
+import {
+  openkodoEngineRangeSchema,
+  satisfiesOpenKodoEngineRange
+} from './plugin-manifest-engine-range'
 import {
   PLUGIN_DERIVED_PUBLISHER_SINCE,
   PLUGIN_SOURCE_MODULES_SINCE
@@ -47,31 +50,34 @@ export function validatePluginManifestV2Rules(manifest: V2RuleSubject, ctx: Refi
 /** Why authoring only: OpenKodo before PLUGIN_DERIVED_PUBLISHER_SINCE requires `publisher`, so a
  *  manifest without it must say "requires OpenKodo X" there instead of failing to parse. */
 export function validateOmittedPublisherFloor(
-  manifest: { publisher?: string; engines: { orca: string } },
+  manifest: { publisher?: string; engines: { openkodo: string } },
   ctx: RefinementCtx
 ): void {
   if (
     manifest.publisher !== undefined ||
-    !orcaEngineRangeSchema.safeParse(manifest.engines.orca).success ||
-    satisfiesOrcaEngineRange(manifest.engines.orca.slice(2), `>=${PLUGIN_DERIVED_PUBLISHER_SINCE}`)
+    !openkodoEngineRangeSchema.safeParse(manifest.engines.openkodo).success ||
+    satisfiesOpenKodoEngineRange(
+      manifest.engines.openkodo.slice(2),
+      `>=${PLUGIN_DERIVED_PUBLISHER_SINCE}`
+    )
   ) {
     return
   }
   ctx.addIssue({
     code: 'custom',
-    path: ['engines', 'orca'],
+    path: ['engines', 'openkodo'],
     message: `must be at least >=${PLUGIN_DERIVED_PUBLISHER_SINCE} when publisher is left out, because older OpenKodo requires publisher`
   })
 }
 
 const engineBelow = (range: string, version: string): boolean =>
-  orcaEngineRangeSchema.safeParse(range).success &&
-  !satisfiesOrcaEngineRange(range.slice(2), `>=${version}`)
+  openkodoEngineRangeSchema.safeParse(range).success &&
+  !satisfiesOpenKodoEngineRange(range.slice(2), `>=${version}`)
 
 /** Why authoring only: older OpenKodo serves a `.tsx` entry as raw bytes, so it must not install it. */
 export function validateSourceModuleEntryFloor(
   manifest: {
-    engines: { orca: string }
+    engines: { openkodo: string }
     main?: string
     contributes: {
       panels: readonly { entry: string }[]
@@ -84,10 +90,10 @@ export function validateSourceModuleEntryFloor(
   const usesSource = [...panels, ...customEditors].some((item) =>
     isPluginSourceModulePath(item.entry)
   )
-  if (usesSource && engineBelow(manifest.engines.orca, PLUGIN_SOURCE_MODULES_SINCE)) {
+  if (usesSource && engineBelow(manifest.engines.openkodo, PLUGIN_SOURCE_MODULES_SINCE)) {
     ctx.addIssue({
       code: 'custom',
-      path: ['engines', 'orca'],
+      path: ['engines', 'openkodo'],
       message: `must be at least >=${PLUGIN_SOURCE_MODULES_SINCE} when a panel or editor entry is a .ts, .tsx, .mts or .jsx file, because older OpenKodo does not transpile it`
     })
   }
@@ -101,10 +107,10 @@ export function validateSourceModuleEntryFloor(
       path: ['main'],
       message: 'a worker runs in Node with no JSX; use a .ts, .mts, .js or .mjs file'
     })
-  } else if (engineBelow(manifest.engines.orca, PLUGIN_SOURCE_MODULES_SINCE)) {
+  } else if (engineBelow(manifest.engines.openkodo, PLUGIN_SOURCE_MODULES_SINCE)) {
     ctx.addIssue({
       code: 'custom',
-      path: ['engines', 'orca'],
+      path: ['engines', 'openkodo'],
       message: `must be at least >=${PLUGIN_SOURCE_MODULES_SINCE} when main is a .ts or .mts file, because older OpenKodo does not transpile it`
     })
   }

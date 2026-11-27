@@ -25,7 +25,7 @@ export function AddRemoteHostSshConfigPicker({
   onQueryChange,
   onRetry,
   onBack,
-  onAddAllToOrca
+  onAddAllToOpenKodo
 }: {
   hosts: SshConfigHostSummary[]
   totalHostCount: number
@@ -40,7 +40,7 @@ export function AddRemoteHostSshConfigPicker({
   onQueryChange: (query: string) => void
   onRetry: () => void
   onBack: () => void
-  onAddAllToOrca: () => void
+  onAddAllToOpenKodo: () => void
 }): React.JSX.Element {
   const t = useTranslate()
   const [query, setQuery] = useState('')
@@ -160,7 +160,7 @@ export function AddRemoteHostSshConfigPicker({
               <li key={host.alias}>
                 <button
                   type="button"
-                  disabled={picksDisabled || host.alreadyInOrca}
+                  disabled={picksDisabled || host.alreadyInOpenKodo}
                   className={cn(
                     'flex w-full items-start justify-between gap-3 px-3 py-2.5 text-left',
                     'hover:bg-accent focus-visible:bg-accent focus-visible:outline-none',
@@ -188,13 +188,13 @@ export function AddRemoteHostSshConfigPicker({
                         'Reading…'
                       )}
                     </span>
-                  ) : host.alreadyInOrca ? (
+                  ) : host.alreadyInOpenKodo ? (
                     <Badge
                       variant="outline"
                       className="mt-0.5 shrink-0 border-emerald-500/40 text-[10.5px] text-emerald-400"
                     >
                       {t(
-                        'auto.components.sidebar.AddRemoteHostDialog.sshConfigPickerInOrca',
+                        'auto.components.sidebar.AddRemoteHostDialog.sshConfigPickerInOpenKodo',
                         'In OpenKodo'
                       )}
                     </Badge>
@@ -231,7 +231,7 @@ export function AddRemoteHostSshConfigPicker({
           type="button"
           variant="secondary"
           disabled={!canAddAll}
-          onClick={onAddAllToOrca}
+          onClick={onAddAllToOpenKodo}
           className="w-full sm:w-auto"
         >
           {isBulkImporting

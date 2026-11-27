@@ -19,8 +19,8 @@ export type FocusedFrameRoute =
 
 // Refuse input if deeper nesting prevents a direct route.
 const MAX_FRAME_DEPTH = 6
-const PROBE_OBJECT_GROUP = 'orca-focused-frame-probe'
-const PROBE_WORLD_NAME = 'orca-focused-frame-probe'
+const PROBE_OBJECT_GROUP = 'openkodo-focused-frame-probe'
+const PROBE_WORLD_NAME = 'openkodo-focused-frame-probe'
 
 const FOCUSED_FRAME_ELEMENT_EXPRESSION = `(() => {
   let element = document.activeElement

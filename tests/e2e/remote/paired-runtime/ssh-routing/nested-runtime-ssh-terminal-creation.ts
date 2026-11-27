@@ -1,4 +1,4 @@
-import '../../../desktop/electron-fixtures/orca-app'
+import '../../../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import type { PairedElectronClient } from '../client-hosts/paired-electron-client'
 import { focusActiveTerminalInput, waitForActivePanePtyId } from '../../../terminal/input/terminal'

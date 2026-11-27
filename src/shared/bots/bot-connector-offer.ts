@@ -9,11 +9,11 @@ import { CONNECTOR_SOURCE_NAMES } from '../connectors/external-conversation-link
 import { botLinearWorkspaces, botSlackApps, type Bot } from '../bot-types'
 import { googleBotAsk, type GoogleBotConnectState } from '../google/google-bot-connect-state'
 import {
-  orcaCloudNeedsSignIn,
+  openkodoCloudNeedsSignIn,
   serverSignInSteps,
   thisHost,
-  type OrcaSignInServer
-} from './host-orca-sign-in'
+  type OpenKodoSignInServer
+} from './host-openkodo-sign-in'
 
 export const CONNECTOR_OFFER_SOURCES = ['slack', 'linear', 'github', 'google'] as const
 export type ConnectorOfferSource = (typeof CONNECTOR_OFFER_SOURCES)[number]
@@ -61,7 +61,7 @@ function signInWhat(source: OfferSource): string {
 export function connectorOfferText(
   offer: ConnectorOffer,
   botName: string,
-  server?: OrcaSignInServer
+  server?: OpenKodoSignInServer
 ): string {
   if (offer.signIn || offer.source === 'webhook') {
     const steps = serverSignInSteps(server, botName, 'owner')
@@ -80,7 +80,7 @@ export function connectorOfferText(
 export function connectorOfferBody(
   offer: ConnectorOffer,
   botName: string,
-  server?: OrcaSignInServer
+  server?: OpenKodoSignInServer
 ): AgentJournalPlainStatusItem & { connectorOffer: ConnectorOffer } {
   return {
     kind: 'status',
@@ -128,9 +128,9 @@ export function signInOfferReply(
   source: OfferSource,
   /** The host's link to OpenKodo Cloud (ConnectorCloudStatus); undefined without OpenKodo Cloud. */
   status: string | undefined,
-  server?: OrcaSignInServer
+  server?: OpenKodoSignInServer
 ): { offered: boolean; message: string } | null {
-  const signedOut = orcaCloudNeedsSignIn(status)
+  const signedOut = openkodoCloudNeedsSignIn(status)
   if (source === 'google' || (source !== 'webhook' && !(signedOut && connected(bot, source)))) {
     return null
   }

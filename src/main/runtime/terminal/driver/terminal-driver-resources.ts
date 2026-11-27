@@ -1,5 +1,5 @@
 import type { RuntimeServiceCommandSurface } from '../../construction/runtime-service-command-surface'
-import type { OrcaRuntimeWithCloseStructuredAgentSessionTab as ChatPresentation } from '../../session-tabs/chat/structured-session-tab-close'
+import type { OpenKodoRuntimeWithCloseStructuredAgentSessionTab as ChatPresentation } from '../../session-tabs/chat/structured-session-tab-close'
 import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree-path-identity'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
@@ -14,7 +14,7 @@ import type {
 } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import type { ExactWorkerProviderSession } from '../../../../shared/orchestration/workers/orchestration-worker-output'
 import type { RuntimeProviderSnapshotReadOptions } from '../output/provider-snapshot-read-options'
-import { OrcaRuntimeWithFitOverrideListeners } from '../lifecycle/terminal-view-resources'
+import { OpenKodoRuntimeWithFitOverrideListeners } from '../lifecycle/terminal-view-resources'
 import type { RuntimeTerminalDriverState } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type {
   ApplyLayoutResult,
@@ -48,7 +48,7 @@ import type { ServeBrowserPageState } from '../../browser/headless/serve-browser
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LayoutCommand } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 
-export abstract class OrcaRuntimeWithTerminalDrivers extends OrcaRuntimeWithFitOverrideListeners {
+export abstract class OpenKodoRuntimeWithTerminalDrivers extends OpenKodoRuntimeWithFitOverrideListeners {
   abstract currentLocalStructuredSessionPresentation(
     ...args: Parameters<ChatPresentation['currentLocalStructuredSessionPresentation']>
   ): ReturnType<ChatPresentation['currentLocalStructuredSessionPresentation']>

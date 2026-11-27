@@ -1,6 +1,6 @@
 import { homedir } from 'node:os'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
-import type { OrcaWorkspaceLayout } from '../../../shared/worktree/paths/orca-workspace-layout'
+import type { OpenKodoWorkspaceLayout } from '../../../shared/worktree/paths/openkodo-workspace-layout'
 import { normalizeRuntimePathForComparison } from '../../../shared/file-access/cross-platform-path'
 import {
   legacyTerminalScrollbackBytesToRows,
@@ -49,7 +49,7 @@ export function normalizeLoadedWorkspaceDirSetting(
 export function buildWorkspaceDirHistoryForUpdate(
   current: GlobalSettings,
   updates: Partial<GlobalSettings>
-): OrcaWorkspaceLayout[] | null {
+): OpenKodoWorkspaceLayout[] | null {
   if (!('workspaceDir' in updates) && !('nestWorkspaces' in updates)) {
     return null
   }
@@ -206,7 +206,7 @@ export function migrateTerminalTuiScrollSensitivityDefault(settings: GlobalSetti
   }
 }
 
-export function getWorkspaceLayoutHistoryKey(layout: OrcaWorkspaceLayout): string {
+export function getWorkspaceLayoutHistoryKey(layout: OpenKodoWorkspaceLayout): string {
   return `${normalizeRuntimePathForComparison(layout.path)}:${layout.nestWorkspaces}`
 }
 

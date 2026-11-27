@@ -13,14 +13,14 @@ import type { NativeChatMessage } from '../../../shared/native-chat/native-chat-
 export class ContinuedTranscriptMarkers {
   private readonly id = randomUUID()
   private readonly pattern = new RegExp(
-    `\u0000orca-continued:${this.id}:(\\d+)\u0001([\\s\\S]*?)\u0000orca-continued-end:${this.id}\u0001`,
+    `\u0000openkodo-continued:${this.id}:(\\d+)\u0001([\\s\\S]*?)\u0000openkodo-continued-end:${this.id}\u0001`,
     'g'
   )
 
   mark(item: AgentJournalRenderItem, index: number): AgentJournalRenderItem {
     const { body } = item
     const wrap = (head: string) =>
-      `\u0000orca-continued:${this.id}:${index}\u0001${head}\u0000orca-continued-end:${this.id}\u0001`
+      `\u0000openkodo-continued:${this.id}:${index}\u0001${head}\u0000openkodo-continued-end:${this.id}\u0001`
     if (body.kind === 'diff') {
       return { ...item, body: { ...body, patch: { ...body.patch, head: wrap(body.patch.head) } } }
     }

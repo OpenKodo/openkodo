@@ -1,4 +1,4 @@
-/* The bots announcement card: its own surfaces (the Slack thread, the miniature Orca window's chrome,
+/* The bots announcement card: its own surfaces (the Slack thread, the miniature OpenKodo window's chrome,
    the mascots and the page nav). App pieces inside it are the app's components; the window is a .dark
    scope so they draw as the dark app does. Cues: `data-on` shows a piece, `data-state` picks a step. */
 
@@ -699,7 +699,7 @@
   color: var(--foreground);
 }
 
-/* ===== A miniature Orca window, framed by a camera that moves over it. ===== */
+/* ===== A miniature OpenKodo window, framed by a camera that moves over it. ===== */
 [data-feature-tip='bots'] .bt-stage {
   position: absolute;
   inset: 0;

@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import type { OrcaPushPayload } from '../payload-identity/push-payload'
+import type { OpenKodoPushPayload } from '../payload-identity/push-payload'
 import { nativePushDismissal } from './native-push-dismissal'
 
-const STORAGE_KEY = 'orca:pushDismissalWatermarks:v1'
+const STORAGE_KEY = 'openkodo:pushDismissalWatermarks:v1'
 // Keep every live fence: count-based eviction lets delayed alerts reappear.
 const RETENTION_MS = 24 * 60 * 60 * 1000
 
@@ -18,7 +18,7 @@ function queueDismissalOperation<T>(operation: () => Promise<T>): Promise<T> {
   return pending
 }
 
-function eventKey(payload: OrcaPushPayload): string | null {
+function eventKey(payload: OpenKodoPushPayload): string | null {
   if (
     !payload.notificationId ||
     !payload.notificationEpoch ||
@@ -55,11 +55,13 @@ async function readEntries(): Promise<Entry[]> {
   }
 }
 
-export async function rememberPushDismissal(payload: OrcaPushPayload): Promise<void> {
+export async function rememberPushDismissal(payload: OpenKodoPushPayload): Promise<void> {
   return rememberPushDismissals([payload])
 }
 
-export async function rememberPushDismissals(payloads: readonly OrcaPushPayload[]): Promise<void> {
+export async function rememberPushDismissals(
+  payloads: readonly OpenKodoPushPayload[]
+): Promise<void> {
   const valid = payloads.flatMap((payload) => {
     const key = eventKey(payload)
     return key === null ? [] : [{ key, payload }]
@@ -82,7 +84,7 @@ export async function rememberPushDismissals(payloads: readonly OrcaPushPayload[
   })
 }
 
-async function readDismissal(payload: OrcaPushPayload, key: string): Promise<boolean> {
+async function readDismissal(payload: OpenKodoPushPayload, key: string): Promise<boolean> {
   if (nativePushDismissal) {
     return nativePushDismissal.wasDismissed(payload)
   }
@@ -91,7 +93,7 @@ async function readDismissal(payload: OrcaPushPayload, key: string): Promise<boo
   )
 }
 
-export async function wasPushDismissed(payload: OrcaPushPayload): Promise<boolean> {
+export async function wasPushDismissed(payload: OpenKodoPushPayload): Promise<boolean> {
   const key = eventKey(payload)
   if (!key) {
     return false

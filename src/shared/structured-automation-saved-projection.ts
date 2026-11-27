@@ -76,7 +76,7 @@ export function projectBotItemNoteItem(item: AgentJournalRenderItem): NativeChat
 
 /** OpenKodo's transcript cards (a started worker, a saved automation or ended wait, an added tool, a run
  *  that couldn't start); every other row as usual. */
-export function projectStructuredOrcaCardItem(
+export function projectStructuredOpenKodoCardItem(
   item: AgentJournalRenderItem
 ): NativeChatMessage | null {
   if (item.body.kind === 'tool-added') {

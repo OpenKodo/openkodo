@@ -140,7 +140,7 @@ export class BotItemsWrites extends BotItemsEdits {
       }
       const { botId, chatId } = starter
       const actor: BotItemActor =
-        botId && chatId ? { kind: 'bot', botId, chatId } : { kind: 'orca', why: 'worker-start' }
+        botId && chatId ? { kind: 'bot', botId, chatId } : { kind: 'openkodo', why: 'worker-start' }
       const mail = mailsItemChat(item, actor)
       const links = { links: [`dispatch:${dispatchId}`] }
       let eventId = this.appendEvent(uid, 'linked', actor, links, mail, now)
@@ -163,7 +163,7 @@ export class BotItemsWrites extends BotItemsEdits {
   usageLimitWait(uid: string, text: string | null, now = Date.now()): number | null {
     return this.transaction(() => {
       const item = this.get(uid)
-      const actor: BotItemActor = { kind: 'orca', why: BOT_ITEM_USAGE_LIMIT_WAIT }
+      const actor: BotItemActor = { kind: 'openkodo', why: BOT_ITEM_USAGE_LIMIT_WAIT }
       if (item?.status === 'working' && text !== null) {
         return this.moveToWait(item, text, actor, false, now)
       }
@@ -172,7 +172,7 @@ export class BotItemsWrites extends BotItemsEdits {
       }
       const row = this.db.prepare('SELECT * FROM item_events WHERE id = ?').get(item.waitEvent)
       const by = row === undefined ? null : eventRecordOf(row).actor
-      if (by?.kind !== 'orca' || by.why !== BOT_ITEM_USAGE_LIMIT_WAIT) {
+      if (by?.kind !== 'openkodo' || by.why !== BOT_ITEM_USAGE_LIMIT_WAIT) {
         return null
       }
       if (text !== null) {
@@ -187,7 +187,7 @@ export class BotItemsWrites extends BotItemsEdits {
     return this.db
       .prepare(
         `SELECT items.uid FROM items JOIN item_events ON item_events.id = items.wait_event
-         WHERE items.status = 'waiting' AND json_extract(item_events.actor, '$.kind') = 'orca'
+         WHERE items.status = 'waiting' AND json_extract(item_events.actor, '$.kind') = 'openkodo'
            AND json_extract(item_events.actor, '$.why') = ?`
       )
       .all(BOT_ITEM_USAGE_LIMIT_WAIT)
@@ -202,14 +202,14 @@ export class BotItemsWrites extends BotItemsEdits {
 
   /** OpenKodo's own line on an item, such as why a worker started for it had to start in a terminal.
    *  It mails no chat: the starter already read the same reason in its receipt. */
-  orcaComment(uid: string, text: string, why: string, now = Date.now()): BotItemWriteOutcome {
+  openkodoComment(uid: string, text: string, why: string, now = Date.now()): BotItemWriteOutcome {
     assertBotItemText('text', text)
     return this.transaction(() => {
       this.requireItem(uid)
       const eventId = this.appendEvent(
         uid,
         'commented',
-        { kind: 'orca', why },
+        { kind: 'openkodo', why },
         { text },
         false,
         now

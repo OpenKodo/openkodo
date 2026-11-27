@@ -171,7 +171,7 @@ async function dismissPrompt(
     if (committed) {
       // Log adapter details locally; journal only the user-facing failure.
       await ctx.journal.appendItem(
-        { provider: 'orca', clientMessageId: `${item.itemId}#delivery` },
+        { provider: 'openkodo', clientMessageId: `${item.itemId}#delivery` },
         {
           kind: 'status',
           ...agentSessionFailureWords(agentSessionFailureFact('answerUnconfirmed'), {

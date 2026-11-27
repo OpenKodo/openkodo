@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process'
-import { assertWslDistroAllowed } from '@orca/process-host/wsl-distro-allowlist'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { assertWslDistroAllowed } from '@openkodo/process-host/wsl-distro-allowlist'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import {
   buildWslCapturedLoginShellCommand,
   buildWslExecArgs
@@ -76,10 +76,10 @@ function parseProbe(payload: string | null): WslGitReadEnvironment | null {
 
 function probeWslGitReadEnvironment(distro: string): Promise<ProbeOutcome> {
   const probeCommand = [
-    '_orca_git_path=$(command -v git 2>/dev/null || true)',
-    'case "$_orca_git_path" in /*) [ -x "$_orca_git_path" ] || exit 127 ;; *) exit 127 ;; esac',
+    '_openkodo_git_path=$(command -v git 2>/dev/null || true)',
+    'case "$_openkodo_git_path" in /*) [ -x "$_openkodo_git_path" ] || exit 127 ;; *) exit 127 ;; esac',
     'if [ -n "${XDG_CONFIG_HOME:-}" ] || [ -n "${LD_LIBRARY_PATH:-}" ] || env | grep -q \'^GIT_\'; then exit 78; fi',
-    `printf '%s\\0%s\\0%s' "$PATH" "$_orca_git_path" "$HOME"`
+    `printf '%s\\0%s\\0%s' "$PATH" "$_openkodo_git_path" "$HOME"`
   ].join('\n')
   const captured = buildWslCapturedLoginShellCommand(probeCommand)
   const args = buildWslExecArgs(distro, ['sh', '-lc', captured.command])

@@ -34,7 +34,7 @@ export class MuseUsageStore extends UsageProviderStoreLifecycle<
   constructor(host: UsageStoreHost) {
     super(host, {
       logTag: '[muse-usage]',
-      resolveCacheFile: () => join(host.userDataPath, 'orca-muse-usage.json'),
+      resolveCacheFile: () => join(host.userDataPath, 'openkodo-muse-usage.json'),
       createDefaultState: getDefaultMuseUsageState,
       normalizeState: normalizeMuseUsageState,
       sourceKey: 'processedFiles',

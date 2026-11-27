@@ -1,7 +1,7 @@
 import { homedir } from 'node:os'
 import { isAbsolute, join } from 'node:path'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
-import { getDefaultWorkspaceDir } from '../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceDir } from '../../../shared/openkodo-profiles/constants'
 import { normalizeRuntimePathForComparison } from '../../../shared/file-access/cross-platform-path'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../shared/execution-host/execution-host'
 import { getEffectiveHostSetting } from '../../../shared/execution-host/host-setting-overrides'
@@ -23,5 +23,5 @@ export function getDefaultCreateProjectParent(
   if (configured && isAbsolute(configured) && !isUntouchedDefault) {
     return configured
   }
-  return join(home, 'orca', 'projects')
+  return join(home, 'openkodo', 'projects')
 }

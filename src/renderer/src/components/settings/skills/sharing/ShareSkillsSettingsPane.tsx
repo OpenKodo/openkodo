@@ -1,12 +1,15 @@
 import { ArrowRight, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useOrcaProfileAuthStatusRefresh } from '@/components/orca-profiles/use-orca-profile-auth-status-refresh'
+import { useOpenKodoProfileAuthStatusRefresh } from '@/components/openkodo-profiles/use-openkodo-profile-auth-status-refresh'
 import { useTranslate } from '@/i18n/use-translate'
 import { isWebClientLocation } from '@/app-shell/platform/web-client-location'
 import { useAppStore } from '@/store/index'
 import { SettingsSwitchRow } from '../../form-controls/SettingsFormControls'
 import { SettingsGroup } from '../../section-layout/SettingsGroup'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../../../orca-profiles/OrcaSignInProgress'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../../../openkodo-profiles/OpenKodoSignInProgress'
 
 type HowToStep = { key: string; title: string; description: string }
 
@@ -16,12 +19,12 @@ export function ShareSkillsSettingsPane(): React.JSX.Element {
   const openSkillsSharedLinks = useAppStore((state) => state.openSkillsSharedLinks)
   const settings = useAppStore((state) => state.settings)
   const updateSettings = useAppStore((state) => state.updateSettings)
-  const authStatus = useAppStore((state) => state.orcaProfileAuthStatus)
+  const authStatus = useAppStore((state) => state.openkodoProfileAuthStatus)
   const signedIn = authStatus?.state === 'connected'
   const isWebClient = isWebClientLocation()
   const agentSharingEnabled = settings?.agentSkillSharingEnabled === true
 
-  useOrcaProfileAuthStatusRefresh()
+  useOpenKodoProfileAuthStatusRefresh()
 
   const steps: HowToStep[] = [
     {
@@ -119,13 +122,13 @@ export function ShareSkillsSettingsPane(): React.JSX.Element {
               </p>
             </div>
             {!isWebClient ? (
-              <OrcaSignInButton size="sm" disabled={authStatus?.configured !== true}>
+              <OpenKodoSignInButton size="sm" disabled={authStatus?.configured !== true}>
                 {authStatus?.state === 'reconnect-required'
                   ? t('auto.components.settings.shareSkills.signInAgain', 'Sign in again')
                   : t('auto.components.settings.shareSkills.signIn', 'Sign in to OpenKodo')}
-              </OrcaSignInButton>
+              </OpenKodoSignInButton>
             ) : null}
-            {!isWebClient ? <OrcaSignInWaitNotice className="basis-full" /> : null}
+            {!isWebClient ? <OpenKodoSignInWaitNotice className="basis-full" /> : null}
           </section>
         ) : null}
 

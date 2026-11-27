@@ -26,12 +26,12 @@ describe('branch cleanup with real Git', () => {
   }
 
   beforeEach(async () => {
-    root = await realpath(await mkdtemp(join(tmpdir(), 'orca-branch-cleanup-')))
+    root = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-branch-cleanup-')))
     remote = join(root, 'remote')
     await mkdir(remote)
     await git(remote, ['init', '-q'])
     await git(remote, ['config', 'user.name', 'OpenKodo Test'])
-    await git(remote, ['config', 'user.email', 'orca@example.invalid'])
+    await git(remote, ['config', 'user.email', 'openkodo@example.invalid'])
     await git(remote, ['config', 'gc.auto', '0'])
     await commit(remote, 'base')
     await git(remote, ['branch', '-M', 'main'])

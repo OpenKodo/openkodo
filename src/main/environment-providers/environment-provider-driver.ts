@@ -10,7 +10,7 @@ export type EnvironmentProviderCapabilities = Readonly<{
   memoryPause: boolean
   /** Hard per-session cap enforced by the provider; null when sessions are unbounded. */
   maxSessionMs: number | null
-  /** The filesystem (worktree, auth homes, orcad identity) survives suspend. */
+  /** The filesystem (worktree, auth homes, openkodod identity) survives suspend. */
   fsPersistOnStop: boolean
   /** OpenKodo-owned idle stop; null when the provider has none. */
   idleStopMs: number | null

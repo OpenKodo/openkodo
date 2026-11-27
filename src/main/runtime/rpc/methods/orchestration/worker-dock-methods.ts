@@ -26,7 +26,7 @@ import { isPersonCaller } from './access/worker-approval-access'
 import type { RpcContext } from '../../core'
 
 /** Clear and Stop are the person's: this computer's OpenKodo window, or a paired window or phone that
- *  says it is one. The orca CLI, agents and a paired OpenKodo's forwarded calls are refused. */
+ *  says it is one. The openkodo CLI, agents and a paired OpenKodo's forwarded calls are refused. */
 function requireOwner({ ctx }: { ctx: RpcContext }): void {
   if (!isPersonCaller(ctx)) {
     throw new OrchestrationError(

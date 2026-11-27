@@ -114,7 +114,7 @@ Provisioning and building often takes 20 to 30 minutes.
   box's logs, terminal history, and orchestration database. Two VMs from one such snapshot emitted
   identical `deviceToken` and `pairedDeviceId`. Snapshot before the runtime has ever run, or delete
   the resolved user-data directory first:
-  `orca_user_data_path="${OPENKODO_USER_DATA_PATH:-${XDG_CONFIG_HOME:-$HOME/.config}/orca}"`.
+  `openkodo_user_data_path="${OPENKODO_USER_DATA_PATH:-${XDG_CONFIG_HOME:-$HOME/.config}/openkodo}"`.
   Resolve symlinks and inspect that path before deleting it: it must be an absolute directory
   dedicated to OpenKodo runtime data, never `/`, the home directory, or an ancestor of home. Refuse
   empty or relative paths. Remove only that verified directory, not an unchecked environment value.

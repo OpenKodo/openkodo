@@ -50,7 +50,7 @@ export function nativeChatComposerSendState(
     isWorking: boolean
     canStop: boolean
     /** The draft is an OpenKodo command such as /resume, which runs without the agent. */
-    orcaCommand?: boolean
+    openkodoCommand?: boolean
     /** Goal mode submits the draft as an objective, which starts work. */
     goalMode?: boolean
     /** A picked bot chat that can't take the message, or isn't checked yet: Send waits. */
@@ -70,7 +70,7 @@ export function nativeChatComposerSendState(
   const sendHeld = localHold || hostHold
   // Like Enter, a held host still takes commands that start no turn.
   const runsWhileHostHolds =
-    input.orcaCommand === true ||
+    input.openkodoCommand === true ||
     (transport !== undefined &&
       !input.messageDelivery &&
       input.goalMode !== true &&

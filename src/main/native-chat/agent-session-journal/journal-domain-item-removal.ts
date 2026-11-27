@@ -244,7 +244,7 @@ export function queuedJournalDomainSubmission(
   itemId: string
 ): boolean {
   const identity = parseAgentJournalItemKey(itemId)
-  if (identity?.provider !== 'orca') {
+  if (identity?.provider !== 'openkodo') {
     return false
   }
   const row = db

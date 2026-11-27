@@ -16,7 +16,7 @@ import {
 } from './active-agent-terminal-send-readiness'
 import { codeForReadinessStatus, runtimeFailureCode } from './active-agent-note-send-diagnostics'
 
-const OPENKODO_DESKTOP_TERMINAL_CLIENT = { id: 'orca-desktop', type: 'desktop' as const }
+const OPENKODO_DESKTOP_TERMINAL_CLIENT = { id: 'openkodo-desktop', type: 'desktop' as const }
 
 export async function sendPromptWithLegacyCombinedSend(
   runtimeTarget: Parameters<typeof callRuntimeRpc>[0],

@@ -144,7 +144,7 @@ function BundledAgentSkillSetupPanel({
               ? t('auto.components.settings.AgentSkillSetupPanel.installing', 'Installing...')
               : installedButton === 'replace'
                 ? t(
-                    'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
+                    'auto.components.settings.AgentSkillSetupPanel.replaceWithOpenKodoCopy',
                     'Replace with OpenKodo’s'
                   )
                 : action.kind === 'run' && action.changes
@@ -308,7 +308,7 @@ export function AgentSkillSetupPanel(props: AgentSkillSetupPanelProps): React.JS
   const activeRuntime = useActiveProjectSkillRuntime()
   const runtime =
     props.terminalRuntime ?? (props.target === undefined ? activeRuntime.agentRuntime : undefined)
-  // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+  // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
   if (runtime?.runtime === 'wsl') {
     return (
       <WslAgentSkillSetupPanel

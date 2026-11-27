@@ -19,8 +19,8 @@ import {
   type AiVaultSubagentRunStatus
 } from '../../../../../../shared/ai-vault/contracts/ai-vault-types'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../../../shared/execution-host/execution-host'
-import { canOpenAiVaultSessionLogInOrca } from '../session-actions/ai-vault-session-path-actions'
-import { openAiVaultSessionLogInOrca } from '../session-actions/ai-vault-session-log-open'
+import { canOpenAiVaultSessionLogInOpenKodo } from '../session-actions/ai-vault-session-path-actions'
+import { openAiVaultSessionLogInOpenKodo } from '../session-actions/ai-vault-session-log-open'
 import { useTranslate } from '@/i18n/use-translate'
 import {
   aiVaultSessionResumeLabel,
@@ -239,7 +239,7 @@ function SubagentSessionLine({
             <Play className="size-3.5" />
           </Button>
         ) : null}
-        {resume !== null && canOpenAiVaultSessionLogInOrca(session) ? (
+        {resume !== null && canOpenAiVaultSessionLogInOpenKodo(session) ? (
           <Button
             type="button"
             variant="ghost"
@@ -248,7 +248,7 @@ function SubagentSessionLine({
             title={t('auto.components.right.sidebar.AiVaultSessionSubagents.viewLog', 'View Log')}
             onClick={(event) => {
               event.stopPropagation()
-              void openAiVaultSessionLogInOrca(session)
+              void openAiVaultSessionLogInOpenKodo(session)
             }}
             className="shrink-0 text-muted-foreground"
           >

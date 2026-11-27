@@ -21,8 +21,8 @@ type Locations = { homeDir?: string; openCodeConfigDir?: string }
 
 // Every generated OpenCode plugin reads OpenKodo's hook endpoint variables.
 const OPENCODE_MARKER = 'OPENKODO_AGENT_HOOK_'
-const PI_MARKER = '@orca-managed-pi-extension'
-const OPENCODE_PLUGIN_FILES = [OPENKODO_OPENCODE_PLUGIN_FILE, 'orca-opencode2-status.js']
+const PI_MARKER = '@openkodo-managed-pi-extension'
+const OPENCODE_PLUGIN_FILES = [OPENKODO_OPENCODE_PLUGIN_FILE, 'openkodo-opencode2-status.js']
 const PI_EXTENSION_FILES = [
   OPENKODO_PI_EXTENSION_FILE,
   OPENKODO_PI_PREFILL_EXTENSION_FILE,

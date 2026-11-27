@@ -4,7 +4,8 @@ import { chatApprovalFromJournal } from '../../../../../shared/native-chat/input
 import { NativeChatApprovalCard } from './NativeChatApprovalCard'
 import { NativeChatResolutionReceipt } from './NativeChatResolutionReceipt'
 
-const url = 'https://linear.app/oauth/authorize?client_id=orca-mcp&response_type=code&state=4f2a9c'
+const url =
+  'https://linear.app/oauth/authorize?client_id=openkodo-mcp&response_type=code&state=4f2a9c'
 
 const request: AgentJournalApprovalItem = {
   kind: 'approval',

@@ -2,7 +2,7 @@ import {
   AGENT_PROMPT_EFFECT_TIMEOUT_MS,
   ORCHESTRATION_WORKER_START_CLIENT_GRACE_MS
 } from '../../../../../../../../shared/orchestration/orchestration-timing-budgets'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import type { RunRow, TaskRow } from '../../../../../../orchestration/db/orchestration-records'
 import type { AgentLaunchModeReceipt as WorkerStartModeReceipt } from '../../../../../../../../shared/agent-launch/contracts/agent-launch-intent'
@@ -29,7 +29,7 @@ import {
 
 /** Claim ready only for proven turn start or unsupported observation; supported-but-unobserved starts remain start_unknown. */
 export async function deliverAndSettleWorkerStartReadiness(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   run: RunRow
   task: TaskRow

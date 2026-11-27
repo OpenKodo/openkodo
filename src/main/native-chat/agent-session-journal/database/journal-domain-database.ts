@@ -13,7 +13,7 @@ import {
   JOURNAL_LEGACY_CONVERTED_BY,
   journalDatabasePath,
   journalDomainDatabasePath,
-  journalRunningOrcaVersion
+  journalRunningOpenKodoVersion
 } from './journal-host-database'
 import { tryFoldJournalTextTails } from '../journal-text-tail'
 import {
@@ -39,7 +39,7 @@ export async function initializeJournalDomainDatabase(stateDirectory: string): P
     console.warn('[agent-session-journal] removing an abandoned initializer failed', error)
   }
   if (existsSync(destination)) {
-    absorbOlderOrcaWrites(stateDirectory, destination)
+    absorbOlderOpenKodoWrites(stateDirectory, destination)
     return destination
   }
   const temporary = mkdtempSync(join(stateDirectory, `.journal-domain-import-${process.pid}-`))
@@ -63,7 +63,7 @@ export async function initializeJournalDomainDatabase(stateDirectory: string): P
       meta.run(JOURNAL_LEGACY_SOURCE_RECEIPT, JSON.stringify(sourceReceipt))
       meta.run(JOURNAL_LEGACY_REVISIONS_KEPT, '1')
       // An unknown version is no later than any, and waits for a launch that knows its own.
-      meta.run(JOURNAL_LEGACY_CONVERTED_BY, journalRunningOrcaVersion() ?? 'unknown')
+      meta.run(JOURNAL_LEGACY_CONVERTED_BY, journalRunningOpenKodoVersion() ?? 'unknown')
       const checkpoint = db.prepare('PRAGMA wal_checkpoint(TRUNCATE)').get()
       if (checkpoint?.busy !== 0 || checkpoint.log !== checkpoint.checkpointed) {
         throw new Error('chat initialization could not fold its private WAL')
@@ -86,7 +86,7 @@ export async function initializeJournalDomainDatabase(stateDirectory: string): P
 }
 
 /** Best effort: a failure leaves the original unabsorbed for the next launch, never blocks chats. */
-function absorbOlderOrcaWrites(stateDirectory: string, destination: string): void {
+function absorbOlderOpenKodoWrites(stateDirectory: string, destination: string): void {
   try {
     const { db, readOnly } = openJournalDomainDatabase(destination)
     try {

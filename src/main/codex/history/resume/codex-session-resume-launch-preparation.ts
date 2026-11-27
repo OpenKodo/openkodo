@@ -16,9 +16,9 @@ import { reconcileCodexHooksForLaunch } from '../../hooks/reconciliation/codex-h
 import { ensureCodexDaemonSocketGuard } from '../../configuration/settings/codex-config-mirror'
 import { isAgentStatusHooksEnabledForAgent } from '../../../../shared/agent-hook-listener/configuration/agent-status-hooks-setting'
 import {
-  getOrcaManagedCodexHomePath,
+  getOpenKodoManagedCodexHomePath,
   getSystemCodexHomePath,
-  resolveOrcaManagedCodexHomePath
+  resolveOpenKodoManagedCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import { normalizeRuntimePathForComparison } from '../../../../shared/file-access/cross-platform-path'
 import type { CodexRuntimeHomeService } from '../../../codex-accounts/runtime-home-service'
@@ -72,7 +72,7 @@ export function createCodexSessionResumeLaunchPreparation(deps: {
     const selectedAccountCodexHome = runtimeHome.resolveSelectedHostAccountCodexHomePathForResume()
     await settleLegacySessionCopyBeforeResume(
       args.providerSession.transcriptPath,
-      resolveOrcaManagedCodexHomePath()
+      resolveOpenKodoManagedCodexHomePath()
     )
     const preparation = await prepareCodexSessionResume({
       sessionId: args.providerSession.id,
@@ -80,7 +80,7 @@ export function createCodexSessionResumeLaunchPreparation(deps: {
       trustedCodexHomes: trustedHomes,
       getSelectedAccountCodexHome: () => selectedAccountCodexHome,
       systemCodexHomePath: systemHomePath,
-      sharedRuntimeCodexHomePath: getOrcaManagedCodexHomePath(),
+      sharedRuntimeCodexHomePath: getOpenKodoManagedCodexHomePath(),
       resolveVerifiedResumeHome: async (sessionSource) => {
         let migrated = { useRealCodexHome: false }
         try {
@@ -128,7 +128,7 @@ export function createCodexSessionResumeLaunchPreparation(deps: {
           ...preparation,
           reconcileSharedRuntimeAuth:
             normalizeRuntimePathForComparison(preparation.codexHomePath) ===
-            normalizeRuntimePathForComparison(getOrcaManagedCodexHomePath())
+            normalizeRuntimePathForComparison(getOpenKodoManagedCodexHomePath())
         }
       : preparation
   }

@@ -1,13 +1,13 @@
 import { isDismissedAlert, reconcileQueuedDismissal } from './push-queued-dismissal.js'
 import { parsePushDeliveryPayload } from './push-delivery-payload.js'
 import { createHash, randomUUID } from 'node:crypto'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
-import type { PushNotification } from '@orca-cloud/push-contract/send-messages'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
+import type { PushNotification } from '@openkodo-cloud/push-contract/send-messages'
 import { WORKER_DRAINS } from './push-worker-concurrency.js'
 import type {
   CloudDatabase as PushDatabase,
   SqlRow
-} from '@orca-cloud/cloud-database/cloud-database'
+} from '@openkodo-cloud/cloud-database/cloud-database'
 import { limitPushDatabaseConcurrency } from '../database/push-background-database.js'
 
 const RETENTION_MS = 24 * 60 * 60_000

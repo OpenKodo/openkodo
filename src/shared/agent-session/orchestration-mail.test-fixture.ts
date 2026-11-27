@@ -24,7 +24,7 @@ ${body}
           name: 'Review worker',
           agent: 'codex',
           relation: 'worker',
-          party: { address: 'term_worker', terminalHandle: 'term_worker', orcaSessionId: null }
+          party: { address: 'term_worker', terminalHandle: 'term_worker', openkodoSessionId: null }
         }
       ],
       orchestration: {

@@ -487,6 +487,46 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "mobile/src/bots/MobileBotImportSheet.tsx",
+        "src/cli/runtime/launch.ts",
+        "src/main/backend/core-runtime-activation.ts",
+        "src/main/bots/bot-turn-context.ts",
+        "src/main/ipc/skills/skill-cloud-ipc-handlers.ts",
+        "src/main/managed-server/activation/openkodod-activation-host-test-harness.ts",
+        "src/main/managed-server/lifecycle/openkodod-managed-tunnel-manager.ts",
+        "src/main/openkodo-profiles/cloud-auth/profile-cloud-service.ts",
+        "src/main/openkodod/artifact-slots/openkodod-artifact-materializer.ts",
+        "src/main/openkodod/instance-lock/openkodod-stale-lock-reclaim.ts",
+        "src/main/persistence/migrating-openkodod-catalog/blob-transfer/openkodod-migration-blob-staging.ts",
+        "src/main/persistence/migrating-openkodod-catalog/openkodod-catalog-import.ts",
+        "src/main/runtime/construction/openkodo-runtime-agent-transitions.ts",
+        "src/main/runtime/rpc/dispatcher.ts",
+        "src/main/runtime/terminal/wait/terminal-wait-permission.ts",
+        "src/main/wsl/openkodod/wsl-openkodod-connection.ts",
+        "src/main/wsl/openkodod/wsl-openkodod-deploy.ts",
+        "src/main/wsl/openkodod/wsl-openkodod-liveness-supervisor.ts",
+        "src/preload/browser/extensions/documents/browser-extension-document-targets.ts",
+        "src/renderer/src/components/native-chat/prompts/NativeChatApprovalCard.tsx",
+        "src/renderer/src/components/plugins/list/plugin-list-entries.ts",
+        "src/renderer/src/components/settings/navigation/use-settings-repo-scroll-effects.ts",
+        "src/renderer/src/components/setup-guide/use-setup-guide-progress.ts",
+        "src/shared/openkodo-profiles/openkodo-profiles.ts",
+        "src/shared/openkodod-migration/openkodod-migration-dormant-automation-validation.ts",
+        "src/shared/plugins/declarative/runtime/declarative-renderer.ts"
+      ],
+      "rules": {
+        "max-lines": [
+          "error",
+          {
+            "max": 420,
+            "skipBlankLines": true,
+            "skipComments": true
+          }
+        ]
+      }
     }
   ],
   "ignorePatterns": [

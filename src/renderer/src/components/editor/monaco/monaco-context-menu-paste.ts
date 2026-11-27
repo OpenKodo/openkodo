@@ -13,7 +13,7 @@ import {
 
 // Override Monaco’s sandbox-blocked clipboard read through trusted IPC, matching terminal paste.
 export const OPENKODO_CONTEXT_MENU_PASTE_PRIORITY = 10001
-export const OPENKODO_CONTEXT_MENU_PASTE_NAME = 'orca-ipc-paste'
+export const OPENKODO_CONTEXT_MENU_PASTE_NAME = 'openkodo-ipc-paste'
 
 type PasteCapableEditor = MonacoPasteEditor &
   Pick<editor.ICodeEditor, 'getModel' | 'hasTextFocus' | 'getOption' | 'trigger'>
@@ -25,7 +25,7 @@ type ClipboardPasteMetadata = {
   mode?: string | null
 } | null
 
-export type OrcaContextMenuPasteDeps = {
+export type OpenKodoContextMenuPasteDeps = {
   getFocusedEditor: () => PasteCapableEditor | null
   readClipboardText: (options?: ReadClipboardTextOptions) => Promise<string>
   getClipboardMetadata: (text: string) => ClipboardPasteMetadata
@@ -35,7 +35,7 @@ export type OrcaContextMenuPasteDeps = {
   onReadError?: (error: unknown) => void
 }
 
-export type OrcaContextMenuPasteOutcome =
+export type OpenKodoContextMenuPasteOutcome =
   | { status: 'pasted'; mode: 'native' | 'chunked' }
   | { status: 'noop'; reason: 'empty' | 'read-failed' | 'too-large' | 'target-lost' }
 
@@ -58,9 +58,9 @@ function resolvePasteMetadata(
 }
 
 /** Return false to yield to Monaco; a truthy Promise claims IPC paste and prevents its blocked default from running. */
-export function runOrcaContextMenuPaste(
-  deps: OrcaContextMenuPasteDeps
-): false | Promise<OrcaContextMenuPasteOutcome> {
+export function runOpenKodoContextMenuPaste(
+  deps: OpenKodoContextMenuPasteDeps
+): false | Promise<OpenKodoContextMenuPasteOutcome> {
   const editorInstance = deps.getFocusedEditor()
   // Claim only the focused text editor so other surfaces retain their paste behavior.
   if (!editorInstance || !editorInstance.getModel() || !editorInstance.hasTextFocus()) {
@@ -72,14 +72,14 @@ export function runOrcaContextMenuPaste(
   }
 
   const snapshot = snapshotMonacoPasteTarget(editorInstance)
-  return snapshot ? performOrcaContextMenuPaste(editorInstance, snapshot, deps) : false
+  return snapshot ? performOpenKodoContextMenuPaste(editorInstance, snapshot, deps) : false
 }
 
-async function performOrcaContextMenuPaste(
+async function performOpenKodoContextMenuPaste(
   editorInstance: PasteCapableEditor,
   snapshot: MonacoPasteSnapshot,
-  deps: OrcaContextMenuPasteDeps
-): Promise<OrcaContextMenuPasteOutcome> {
+  deps: OpenKodoContextMenuPasteDeps
+): Promise<OpenKodoContextMenuPasteOutcome> {
   let text: string
   try {
     text = await deps.readClipboardText({ maxBytes: MONACO_PASTE_MAX_BYTES })

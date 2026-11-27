@@ -3,7 +3,7 @@ import type {
   ArtifactPublishResult,
   ArtifactWriteRequest
 } from '../../shared/artifacts/artifacts'
-import { OrcaCloudRequestError } from '../orca-profiles/cloud-auth/profile-cloud-client'
+import { OpenKodoCloudRequestError } from '../openkodo-profiles/cloud-auth/profile-cloud-client'
 import {
   artifactRequest,
   type ArtifactWriteBody,
@@ -43,7 +43,7 @@ function artifactWriteBodiesMatch(left: ArtifactWriteBody, right: ArtifactWriteB
 
 function discardsCreateIntent(error: unknown): boolean {
   return (
-    error instanceof OrcaCloudRequestError &&
+    error instanceof OpenKodoCloudRequestError &&
     error.statusCode >= 400 &&
     error.statusCode < 500 &&
     ![408, 409, 425, 429].includes(error.statusCode)
@@ -147,7 +147,7 @@ export class ArtifactPublisher {
           const item = await this.updateExisting(request, token, apiUrl, auth, record)
           return { change: 'updated', item }
         } catch (error) {
-          if (!(error instanceof OrcaCloudRequestError) || error.statusCode !== 404) {
+          if (!(error instanceof OpenKodoCloudRequestError) || error.statusCode !== 404) {
             throw error
           }
           await removeArtifactShareRecords(

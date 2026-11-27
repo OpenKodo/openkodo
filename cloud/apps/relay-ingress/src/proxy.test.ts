@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import WebSocket, { WebSocketServer } from 'ws'
-import { INGRESS_HEADER, verifyIngressHeader } from '@orca-cloud/relay-contract/ingress-header'
+import { INGRESS_HEADER, verifyIngressHeader } from '@openkodo-cloud/relay-contract/ingress-header'
 import { createIngressProxy } from './proxy.js'
 
 const SECRET = 's'.repeat(40)

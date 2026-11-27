@@ -6,7 +6,7 @@ import type { AgentJournalRenderItem } from '../../../../../../shared/agent-sess
 import { latestStructuredAgentSessionUserItem } from '../../../../../../shared/agent-session/requests/structured-agent-session-latest-request'
 import type { Bot } from '../../../../../../shared/bot-types'
 import type { RpcContext } from '../../../core'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationSessionCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import type { createOrchestrationRpcHarness } from '../rpc-test-harness'
 import { makeTestBot } from '../../../../../bots/bot.test-fixture'
@@ -59,7 +59,7 @@ export const botChatSessionMock = {
   runtimeBotChats: () => ({ withChat }),
   // Records whom the conversation acts for, as the real start does.
   startBotSession: async (
-    runtime: OrcaRuntimeService,
+    runtime: OpenKodoRuntimeService,
     _bot: unknown,
     input?: { actsFor?: BotConversationActsFor }
   ) => {
@@ -87,11 +87,11 @@ export function recipientRoutingMock(actual: typeof RecipientRouting): typeof Re
   return {
     ...actual,
     resolveBareOrchestrationRecipient: (params) =>
-      params.handle.startsWith('orca_session_id:')
+      params.handle.startsWith('openkodo_session_id:')
         ? { ok: true, to: params.handle, runId: params.senderRunId }
         : actual.resolveBareOrchestrationRecipient(params),
     resolveReplyRecipient: (params) =>
-      params.originalFrom.startsWith('orca_session_id:')
+      params.originalFrom.startsWith('openkodo_session_id:')
         ? { to: params.originalFrom, runId: params.originalRunId }
         : actual.resolveReplyRecipient(params)
   }
@@ -123,10 +123,10 @@ export function caller(sessionId: string): OrchestrationSessionCaller {
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: fixed UUID test ids are OpenKodo session ids.
   const id = sessionId as OrchestrationSessionCaller['sessionId']
   return {
-    address: `orca_session_id:${sessionId}`,
+    address: `openkodo_session_id:${sessionId}`,
     terminalHandle: null,
     paneKey: null,
-    orcaSessionId: id,
+    openkodoSessionId: id,
     sessionId: id,
     workspaceId: 'w'
   }
@@ -157,7 +157,9 @@ export function setupBotMail(h: ReturnType<typeof createOrchestrationRpcHarness>
     conversationTurn: vi.fn((_chats: unknown, _sessionId: string) => false)
   }
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the bot path reads only replyTarget and conversationTurn from the seam.
-  const seamStub = seam as unknown as ReturnType<OrcaRuntimeService['getExternalConversationSeam']>
+  const seamStub = seam as unknown as ReturnType<
+    OpenKodoRuntimeService['getExternalConversationSeam']
+  >
   vi.spyOn(runtime, 'getExternalConversationSeam').mockReturnValue(seamStub)
   vi.spyOn(runtime, 'notifyMessageArrived').mockImplementation(() => {})
   // A `--chat new` chat's tab, shown in the bot's home.
@@ -181,7 +183,7 @@ export function setupBotMail(h: ReturnType<typeof createOrchestrationRpcHarness>
   const send = (from: string, params: Record<string, unknown>) =>
     h.call(
       'orchestration.send',
-      { subject: 'update the install docs', from: `orca_session_id:${from}`, ...params },
+      { subject: 'update the install docs', from: `openkodo_session_id:${from}`, ...params },
       context(from)
     )
   // A receipt as JSON, so its fields read without a cast.

@@ -12,8 +12,8 @@ const FRAME_STYLE = `body {
         margin: 0;
         padding: 12px;
         font: 13px system-ui, sans-serif;
-        color: var(--orca-foreground);
-        background: var(--orca-background);
+        color: var(--openkodo-foreground);
+        background: var(--openkodo-background);
       }`
 
 export function panel(input: PluginTemplateInput): PluginTemplate {
@@ -42,12 +42,12 @@ export function panel(input: PluginTemplateInput): PluginTemplate {
     <script>
       const label = document.getElementById('workspace')
       async function refresh() {
-        if (!orca.host.has('workspace.readContext')) {
+        if (!openkodo.host.has('workspace.readContext')) {
           label.textContent = 'This OpenKodo cannot read workspace context.'
           return
         }
         try {
-          const context = await orca.host.call('workspace.readContext', {})
+          const context = await openkodo.host.call('workspace.readContext', {})
           label.textContent = JSON.stringify(context, null, 2)
         } catch (error) {
           label.textContent = error.code + ': ' + error.message
@@ -60,7 +60,7 @@ export function panel(input: PluginTemplateInput): PluginTemplate {
 `,
       'README.md': readme(
         input,
-        'A right-sidebar panel. It runs in a sandboxed frame and calls host methods its `capabilities` allow through `window.orca`. Loading it needs approval: `openkodo plugin dev watch .` prints the exact access and the `--approve` fingerprint.'
+        'A right-sidebar panel. It runs in a sandboxed frame and calls host methods its `capabilities` allow through `window.openkodo`. Loading it needs approval: `openkodo plugin dev watch .` prints the exact access and the `--approve` fingerprint.'
       ),
       ...COMMON_FILES
     }

@@ -33,7 +33,7 @@ import { themedStyleSheet } from '../../theme/themed-styles'
 import { useMobileColorScheme } from '../../theme/use-mobile-color-scheme'
 import { MobileBotTextButton } from '../MobileBotTextButton'
 import { botShareCheckSummary, botShareLines } from './bot-share-copy'
-import type { useHostOrcaSignIn } from './use-host-orca-sign-in'
+import type { useHostOpenKodoSignIn } from './use-host-openkodo-sign-in'
 import type { PhoneShareLinkState } from './use-phone-bot-share-link'
 import { uniqueEvents, type ShareContext, type ShareList } from './mobile-share-pages'
 
@@ -263,7 +263,7 @@ export function ShareFoot(props: {
   upToDate: boolean | null
   ready: boolean
   building: boolean
-  signIn: ReturnType<typeof useHostOrcaSignIn>
+  signIn: ReturnType<typeof useHostOpenKodoSignIn>
   hostName: string
   onPublish: () => void
   onReload: () => void

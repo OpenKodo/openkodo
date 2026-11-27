@@ -38,7 +38,7 @@ const PR = automation('PR #858', {
 })
 // Ahead of the real clock, so these still read Waiting.
 const NORA_BY = { by: Date.now() + 4 * 3_600_000 }
-const NORA = automation("Nora's reply in #orca", {
+const NORA = automation("Nora's reply in #openkodo", {
   once: NORA_BY,
   on: [{ id: 'r2', source: 'slack', event: 'message', in: ['C1'] }]
 })
@@ -53,7 +53,7 @@ const TRIAGE = automation('Morning triage', {
 const BUGS = automation('Bug reports in #bugs', {
   on: [{ id: 'r3', source: 'slack', event: 'message', in: ['C2'] }]
 })
-const ISSUES = automation('New issues in orca', {
+const ISSUES = automation('New issues in openkodo', {
   on: [{ id: 'r4', source: 'linear', event: 'issue_created' }]
 })
 

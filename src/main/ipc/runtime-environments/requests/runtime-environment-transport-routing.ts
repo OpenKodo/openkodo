@@ -11,7 +11,7 @@ import {
   requireWslHostWithoutStart,
   wakeIdleStoppedWslHost,
   type ManagedRuntimeCallPreparation
-} from '../managed-orcad/runtime-environment-managed-tunnel'
+} from '../managed-openkodod/runtime-environment-managed-tunnel'
 import type * as Rpc from '../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 import '../../../../shared/remote-runtime/requests/remote-runtime-request-socket'
 import { withRuntimeUnreachableHint } from './runtime-environment-unreachable-hint'

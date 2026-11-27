@@ -2,15 +2,15 @@ import { getAutomationSetupDefaultDecision } from '../../../../../shared/automat
 
 import type { AutomationWorkspaceMode } from '../../../../../shared/automations/automation-definition'
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   SetupRunPolicy
-} from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { ProjectHostSetup } from '../../../../../shared/project/project-types'
 import type { Repo } from '../../../../../shared/repository/repo-types'
 import type { SetupDecision } from '../../../../../shared/worktree/create-types'
 import { findAutomationRepo } from '../../../../../shared/automations/ownership/automation-repo-target'
 import { getRepoExecutionHostId } from '../../../../../shared/execution-host/execution-host'
-import { getSetupConfig } from '../../../../../shared/workspace-setup/hooks/orca-hook-setup-config'
+import { getSetupConfig } from '../../../../../shared/workspace-setup/hooks/openkodo-hook-setup-config'
 
 type AutomationSetupSource = {
   setupScript: string
@@ -21,7 +21,7 @@ function getAutomationSetupSource(
   repoId: string,
   repos: readonly Repo[],
   projectHostSetups: readonly ProjectHostSetup[],
-  yamlHooks: OrcaHooks | null | undefined
+  yamlHooks: OpenKodoHooks | null | undefined
 ): AutomationSetupSource | null {
   const repo = findAutomationRepo(repos, repoId)
   if (!repo) {
@@ -53,7 +53,7 @@ export function getVisibleAutomationSetupDecision(args: {
   repoId: string
   repos: readonly Repo[]
   projectHostSetups: readonly ProjectHostSetup[]
-  yamlHooks?: OrcaHooks | null
+  yamlHooks?: OpenKodoHooks | null
 }): Extract<SetupDecision, 'run' | 'skip'> | undefined {
   if (args.workspaceMode !== 'new_per_run') {
     return undefined
@@ -68,7 +68,7 @@ export function resolveAutomationSetupDecisionForSave(args: {
   repoId: string
   repos: readonly Repo[]
   projectHostSetups: readonly ProjectHostSetup[]
-  yamlHooks?: OrcaHooks | null
+  yamlHooks?: OpenKodoHooks | null
   draftSetupDecision: Extract<SetupDecision, 'run' | 'skip'> | undefined
 }): Extract<SetupDecision, 'run' | 'skip'> | undefined {
   if (args.workspaceMode !== 'new_per_run') {

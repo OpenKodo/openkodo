@@ -11,7 +11,7 @@ import {
 
 import type { ContextualTourId } from '../../../../../src/shared/feature-education/contextual-tours/contextual-tours'
 import { getE2ECompletedOnboardingProfile } from '../../../desktop/electron-fixtures/e2e-completed-onboarding-profile'
-import { getOrcaElectronLaunchArgs } from '../../../desktop/electron-fixtures/electron-launch-args'
+import { getOpenKodoElectronLaunchArgs } from '../../../desktop/electron-fixtures/electron-launch-args'
 import {
   cleanupE2EDaemons,
   closeElectronAppForE2E
@@ -21,7 +21,7 @@ import {
   createElectronHomeIsolation
 } from '../../../desktop/electron-fixtures/electron-home-isolation'
 import { retryTransientMainEvaluate } from '../../../desktop/electron-fixtures/electron-main-evaluate-retry'
-import { forwardElectronProcessLogs } from '../../../desktop/electron-fixtures/orca-app'
+import { forwardElectronProcessLogs } from '../../../desktop/electron-fixtures/openkodo-app'
 import {
   replaceRuntimePairingInPlace,
   type SameIdPairingReplacement
@@ -55,7 +55,7 @@ export type PairedWebClient = {
   dispose: () => Promise<void>
 }
 
-const DIRECT_SSH_PROBE_CANARY_TARGET_ID = '__orca_e2e_direct_ssh_probe_canary__'
+const DIRECT_SSH_PROBE_CANARY_TARGET_ID = '__openkodo_e2e_direct_ssh_probe_canary__'
 
 function readDirectSshAttemptTargetIds(probePath: string): string[] {
   try {
@@ -177,7 +177,7 @@ export async function launchPairedElectronClient(
 ): Promise<PairedElectronClient> {
   const reusedProfile = options.reuseUserDataDir !== undefined
   const userDataDir =
-    options.reuseUserDataDir ?? mkdtempSync(path.join(os.tmpdir(), 'orca-e2e-paired-desktop-'))
+    options.reuseUserDataDir ?? mkdtempSync(path.join(os.tmpdir(), 'openkodo-e2e-paired-desktop-'))
   const directSshProbePath = path.join(userDataDir, 'forbidden-local-ssh-connects.jsonl')
   if (!reusedProfile) {
     const completed = getE2ECompletedOnboardingProfile()
@@ -189,7 +189,10 @@ export async function launchPairedElectronClient(
       ...completed,
       ui: { ...completed.ui, contextualToursSeenIds: seenContextualTourIds }
     }
-    writeFileSync(path.join(userDataDir, 'orca-data.json'), `${JSON.stringify(profile, null, 2)}\n`)
+    writeFileSync(
+      path.join(userDataDir, 'openkodo-data.json'),
+      `${JSON.stringify(profile, null, 2)}\n`
+    )
   }
   const { ELECTRON_RUN_AS_NODE: _unused, ...cleanEnv } = process.env
   void _unused
@@ -205,7 +208,7 @@ export async function launchPairedElectronClient(
     mkdirSync(recordVideoDir, { recursive: true })
   }
   const app = await electron.launch({
-    args: getOrcaElectronLaunchArgs(mainPath, false),
+    args: getOpenKodoElectronLaunchArgs(mainPath, false),
     ...(recordVideoDir
       ? { recordVideo: { dir: recordVideoDir, size: { width: 1920, height: 1080 } } }
       : {}),

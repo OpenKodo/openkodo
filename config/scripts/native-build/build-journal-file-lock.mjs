@@ -8,7 +8,7 @@ import {
   initializeWindowsNativeToolchain,
   mergeWindowsCompilerEnvironment
 } from './windows/initialize-windows-native-toolchain.mjs'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { MACOS_DEPLOYMENT_TARGET } from './posix/build-provider-exec.mjs'
 
 // Reuse the desktop glibc-floor Docker image for desktop packaging; server slots follow

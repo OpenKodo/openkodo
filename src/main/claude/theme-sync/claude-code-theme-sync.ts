@@ -22,7 +22,7 @@ import {
   type ClaudeThemeOwnership
 } from './claude-code-theme-ownership'
 
-const THEME_SETTING = 'custom:orca'
+const THEME_SETTING = 'custom:openkodo'
 // Why only these: colorblind and ANSI-only themes, and the user's own custom ones, were picked on purpose.
 const REPLACEABLE_THEMES = new Set(['dark', 'light', 'auto'])
 
@@ -31,13 +31,13 @@ export type ClaudeCodeThemeSyncTarget =
   | { enabled: false; terminalBase: string }
 
 function themeFilePath(configDir: string): string {
-  return join(configDir, 'themes', 'orca.json')
+  return join(configDir, 'themes', 'openkodo.json')
 }
 
 /** Atomic so Claude Code's theme watcher never reads a half-written file. */
 export async function replaceFile(path: string, content: string): Promise<void> {
   // Why not .json: Claude Code only loads .json files, so it never sees the temp file as a theme.
-  const tmp = join(dirname(path), `.orca-${randomUUID()}.tmp`)
+  const tmp = join(dirname(path), `.openkodo-${randomUUID()}.tmp`)
   try {
     await writeFile(tmp, content, 'utf-8')
     await rename(tmp, path)
@@ -161,7 +161,7 @@ function revertSettings(
     const reverted = settings.theme === (entry.previousTheme ?? undefined)
     return reverted ? { restored: true, previousTheme: entry.previousTheme } : { restored: true }
   }
-  const { theme: _orcaTheme, ...rest } = settings
+  const { theme: _openkodoTheme, ...rest } = settings
   writeHooksJson(
     settingsPath,
     entry.previousTheme === null ? rest : { ...settings, theme: entry.previousTheme }

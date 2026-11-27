@@ -1,10 +1,10 @@
 import { defineFixture } from '../../../../component-fixtures/component-fixture'
-import type { OrcadManagedStaleLockReclaimResult } from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododManagedStaleLockReclaimResult } from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import type { SshManagedServerStatus } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
 import { SshHostRecoverServerDialog } from './SshHostRecoverServerAction'
 
 const DETAIL =
-  'orcad holds the data root. If it is not running anywhere, run `/opt/bun /slot/orcad.js --reclaim-stale-lock --data-root /home/dev/.orca` on the machine it ran on.'
+  'openkodod holds the data root. If it is not running anywhere, run `/opt/bun /slot/openkodod.js --reclaim-stale-lock --data-root /home/dev/.openkodo` on the machine it ran on.'
 
 const status: SshManagedServerStatus = {
   kind: 'managed',
@@ -12,10 +12,10 @@ const status: SshManagedServerStatus = {
   serving: { state: 'unverifiable', detail: DETAIL }
 }
 
-const eligible: OrcadManagedStaleLockReclaimResult = {
+const eligible: OpenkododManagedStaleLockReclaimResult = {
   status: 'eligible',
   message: 'The lock was written before this host last restarted.',
-  lockPath: '/home/dev/.orca/orcad.lock',
+  lockPath: '/home/dev/.openkodo/openkodod.lock',
   evidence: {
     pid: 4182,
     host: 'devbox-2',
@@ -42,14 +42,14 @@ async function confirmAndClear(): Promise<void> {
 }
 
 function dialogFixture(
-  reclaim: (args: { yes: boolean }) => Promise<OrcadManagedStaleLockReclaimResult>,
+  reclaim: (args: { yes: boolean }) => Promise<OpenkododManagedStaleLockReclaimResult>,
   interact?: () => Promise<void>
 ) {
   return defineFixture({
     width: 640,
     setup: () => {
       Object.assign(window.api.runtimeEnvironments, {
-        managedOrcad: { reclaimStaleLock: reclaim }
+        managedOpenkodod: { reclaimStaleLock: reclaim }
       })
     },
     render: () => (

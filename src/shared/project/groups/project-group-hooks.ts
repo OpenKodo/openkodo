@@ -1,13 +1,13 @@
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   RepoHookSettings,
   SetupRunPolicy
-} from '../../workspace-setup/orca-yaml-hook-types'
-import type { SetupConfig } from '../../workspace-setup/hooks/orca-hook-setup-config'
+} from '../../workspace-setup/openkodo-yaml-hook-types'
+import type { SetupConfig } from '../../workspace-setup/hooks/openkodo-hook-setup-config'
 export type GroupHookCheckResult = {
   status?: 'ok' | 'error'
   hasHooks: boolean
-  hooks: OrcaHooks | null
+  hooks: OpenKodoHooks | null
   mayNeedUpdate: boolean
   unavailable?: 'wsl-distro-stopped' | 'wsl-distro-unverifiable'
   hookSettings?: RepoHookSettings

@@ -64,7 +64,7 @@ export async function planBundledSkillsOnTarget(
   }
   const plan = await callRuntimeRpc<BundledSkillPlan>(
     { kind: 'environment', environmentId: target.environmentId },
-    'skills.planBundledOrca',
+    'skills.planBundledOpenKodo',
     request,
     { timeoutMs: BUNDLED_SKILL_PLAN_TIMEOUT_MS }
   )
@@ -91,7 +91,7 @@ export async function executeBundledSkillsOnTarget(
   }
   return callRuntimeRpc<BundledSkillInstallResult>(
     { kind: 'environment', environmentId: target.environmentId },
-    'skills.executeBundledOrca',
+    'skills.executeBundledOpenKodo',
     { planDigest, request },
     { timeoutMs: BUNDLED_SKILL_EXECUTE_TIMEOUT_MS }
   )
@@ -123,7 +123,7 @@ export async function autoUpdateBundledSkillsOnTarget(
   }
   return callRuntimeRpc<BundledSkillInstallResult>(
     { kind: 'environment', environmentId: target.environmentId },
-    'skills.autoUpdateBundledOrca',
+    'skills.autoUpdateBundledOpenKodo',
     request,
     {
       timeoutMs: BUNDLED_SKILL_EXECUTE_TIMEOUT_MS,

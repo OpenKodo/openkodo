@@ -131,9 +131,10 @@ export const EVAL_SCENARIOS: EvalScenario[] = [
     })
   },
   {
-    id: 'ask-orca-by-name',
+    id: 'ask-openkodo-by-name',
     category: 'ask',
-    message: "each time someone pings me in #orca, if it's a bug or ticket, start an agent on it",
+    message:
+      "each time someone pings me in #openkodo, if it's a bug or ticket, start an agent on it",
     grade: expectQuestion(/channel/i)
   },
   {

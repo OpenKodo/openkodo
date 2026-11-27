@@ -162,7 +162,7 @@ export function BotToolAppRow({
                 {
                   label: t('bots.toolApp.signInLabel', 'Sign-in'),
                   value: owned
-                    ? t('bots.toolApp.signInOrca', 'Works with Claude and Codex')
+                    ? t('bots.toolApp.signInOpenKodo', 'Works with Claude and Codex')
                     : problem?.kind === 'sign-in'
                       ? t('bots.toolApp.signInMissing', '{{agent}} isn’t signed in', {
                           agent: botAgentLabel(bot.agent)

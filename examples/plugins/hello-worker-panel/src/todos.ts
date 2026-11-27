@@ -1,4 +1,4 @@
-import { atom, derived, read, set, update } from 'orca'
+import { atom, derived, read, set, update } from 'openkodo'
 
 export type Todo = { id: number; title: string; done: boolean }
 

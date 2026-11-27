@@ -119,7 +119,7 @@ export type RuntimeConstructionDependencies = {
   orchestrationEnvironmentTransport?: OrchestrationEnvironmentTransport
   workspaceSleepPlatform?: WorkspaceSleepPlatform
   /** The OpenKodo profile whose store this runtime serves; fixed for the process, unlike the active one. */
-  servedOrcaProfileId?: string
+  servedOpenKodoProfileId?: string
 }
 
 export type RuntimeConstructionBindings = Required<RuntimeConstructionDependencies>

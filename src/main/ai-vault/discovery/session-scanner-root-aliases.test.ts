@@ -17,7 +17,7 @@ afterEach(async () => {
 
 describe('scanAiVaultSessions — Claude root aliases', () => {
   it('reads a transcript once when profile homes link their projects to the shared folder', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'orca-ai-vault-root-alias-'))
+    const root = await mkdtemp(join(tmpdir(), 'openkodo-ai-vault-root-alias-'))
     tempRoots.push(root)
     const roots = isolatedScanRoots(root)
     const transcript = join(roots.claudeProjectsDir, '-Users-ada-repo', 'shared.jsonl')

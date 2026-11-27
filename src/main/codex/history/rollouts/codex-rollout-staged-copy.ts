@@ -1,7 +1,7 @@
 import { constants, type BigIntStats } from 'node:fs'
 import { copyFile, rm, stat, utimes } from 'node:fs/promises'
 import { dirname } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 // Below this a cp spawn costs more than the copy it saves.
 const MIN_DARWIN_CLONE_BYTES = 1024 * 1024

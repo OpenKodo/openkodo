@@ -1,4 +1,5 @@
-export const OPENKODO_RUNTIME_RPC_FEATURE_INTERACTION_SOURCE_KEY = '__orcaFeatureInteractionSource'
+export const OPENKODO_RUNTIME_RPC_FEATURE_INTERACTION_SOURCE_KEY =
+  '__openkodoFeatureInteractionSource'
 
 export const OPENKODO_RUNTIME_RPC_BROWSER_UI_SOURCE = 'browser-pane-ui'
 

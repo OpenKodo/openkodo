@@ -23,7 +23,7 @@ import {
   INSTALLED_AGENT_SKILLS_REFRESHED_EVENT
 } from '../discovery/installed-agent-skills-change-event'
 import { useActiveProjectSkillRuntime } from '../runtime/useActiveProjectSkillRuntime'
-import { getManagedOrcadSshTargetId } from '../../../../../shared/execution-host/managed-orcad-execution-host'
+import { getManagedOpenkododSshTargetId } from '../../../../../shared/execution-host/managed-openkodod-execution-host'
 import {
   skillBackupHost,
   skillBackupLocation,
@@ -62,7 +62,7 @@ export function useBundledSkillInstallAction(
       return null
     }
     const environment = state.runtimeEnvironments.find((entry) => entry.id === target.environmentId)
-    return environment && getManagedOrcadSshTargetId(environment) ? 'connect-host' : 'unknown'
+    return environment && getManagedOpenkododSshTargetId(environment) ? 'connect-host' : 'unknown'
   })
   const namesKey = skillNames.join(',')
   const planKey = options.enabled && targetKey && !unavailable ? `${targetKey}|${namesKey}` : null

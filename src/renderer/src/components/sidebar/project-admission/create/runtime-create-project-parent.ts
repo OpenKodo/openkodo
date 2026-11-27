@@ -20,7 +20,7 @@ export async function getRuntimeDefaultCreateProjectParent(
     if (!(error instanceof RuntimeRpcCallError) || error.code !== 'method_not_found') {
       throw error
     }
-    // Older hosts can't read their settings for us; keep their previous <home>/orca/projects suggestion.
+    // Older hosts can't read their settings for us; keep their previous <home>/openkodo/projects suggestion.
     const home = await browseRuntimeServerDirectory(environmentId, '~')
     return getDefaultCreateProjectParent(home.resolvedPath)
   }

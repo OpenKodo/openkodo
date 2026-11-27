@@ -6,7 +6,7 @@ import type { BotHandedAgentObservation } from '../../shared/bots/bot-activity-h
 import type { RuntimeWorktreePsSummary } from '../../shared/worktree/catalog/runtime-worktree-contracts'
 import { toRuntimeExecutionHostId } from '../../shared/execution-host/execution-host'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 
 // Short: a slow or gone computer only leaves its rows out of this read.
 const PAIRED_READ_TIMEOUT_MS = 5_000
@@ -16,7 +16,10 @@ const PAIRED_READ_REUSE_MS = 10_000
 // after each miss in a row, so reads while it is away cost nothing.
 const PAIRED_UNREACHABLE_BACKOFF_MS = [5_000, 10_000, 30_000, 60_000, 120_000] as const
 
-export type BotPairedRuntime = Pick<OrcaRuntimeService, 'bots' | 'callOrchestrationWorkerServer'>
+export type BotPairedRuntime = Pick<
+  OpenKodoRuntimeService,
+  'bots' | 'callOrchestrationWorkerServer'
+>
 
 /** A computer's answer, and when it was asked: it reflects that computer no earlier than `askedAt`.
  *  `misses` counts the failed asks in a row before it; a failed answer is kept until `retryAt`. */

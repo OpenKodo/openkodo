@@ -5,7 +5,7 @@ import type { NativeChatOpenedPullRequest } from '../../../../../../shared/nativ
 const pullRequest: NativeChatOpenedPullRequest = {
   provider: 'github',
   url: 'https://github.com/OpenKodo/openkodo/pull/3',
-  slug: { owner: 'openkodo', repo: 'orca' },
+  slug: { owner: 'openkodo', repo: 'openkodo' },
   number: 3
 }
 

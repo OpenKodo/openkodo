@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import type { OrchestrationCompatibilityCallerAuthority } from '../../../../orchestration/terminal-authority/orchestration-compatibility-authority'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
@@ -36,7 +36,7 @@ const NOTHING_SENT = { effectsApplied: false } as const
  *  while it is connected and decides there whether its agent takes it. Its replies come back here. */
 export function sendClientAsk(args: {
   params: z.infer<typeof SendParams> & { onClient: string }
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   orchestrationCaller: OrchestrationEntryCaller | undefined
   attestedCaller: OrchestrationCompatibilityCallerAuthority | undefined
   orchestrationMutation: { callerFingerprint: string; requestId: string } | undefined

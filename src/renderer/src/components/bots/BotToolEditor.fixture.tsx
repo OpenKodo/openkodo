@@ -5,7 +5,7 @@ import type { BotToolDetails } from '../../../../shared/bot-tools'
 const context = {
   agent: 'codex' as const,
   platform: 'darwin' as const,
-  folder: '/preview/.orca/bots/atlas'
+  folder: '/preview/.openkodo/bots/atlas'
 }
 const saved: BotToolDetails = {
   version: 'a'.repeat(64),

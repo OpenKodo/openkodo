@@ -128,7 +128,7 @@ export function fixtureFor(
           id: BOT.folderWorkspaceId,
           projectGroupId: 'bots',
           name: BOT.name,
-          folderPath: '/home/me/.orca/bots/builder'
+          folderPath: '/home/me/.openkodo/bots/builder'
         })
       ],
       worktreesByRepo: { 'repo-1': worktrees },

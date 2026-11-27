@@ -1,4 +1,4 @@
-// @orca-isolated-worker -- Suite hooks own the temporary SQL worker bundle.
+// @openkodo-isolated-worker -- Suite hooks own the temporary SQL worker bundle.
 import { afterAll } from 'vitest'
 /** Centralize store fixtures in the worker-owned journal DB; closeTestAgentSessionRecordStores owns their cleanup. */
 

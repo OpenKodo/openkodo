@@ -1,5 +1,5 @@
 // Bringing a bot over from another app: the new bot reads the old one's files itself in its first turn
-// (no per-app parser), guided by the orca-cli `bot-import` reference.
+// (no per-app parser), guided by the openkodo-cli `bot-import` reference.
 import * as z from 'zod'
 import { BOT_CREATED_KICKOFF } from '../bot-created-kickoff'
 import { type BotSharedFrom, botShareKickoff } from './bot-shared-from'

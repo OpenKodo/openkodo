@@ -31,7 +31,7 @@ const auth = (
 ): NativeChatAntigravityAuth => ({
   host: { kind: 'local' },
   agy,
-  managedVersion: agy === 'orcas' ? '1.5.16' : null,
+  managedVersion: agy === 'openkodos' ? '1.5.16' : null,
   ownLogin: false,
   detection,
   keyAndAdc: true,
@@ -114,10 +114,10 @@ export const chipMenu = defineFixture({
   )
 })
 
-export const chipMenuOrcasAgy = defineFixture({
+export const chipMenuOpenKodosAgy = defineFixture({
   width: 720,
   interact: openChip,
-  render: () => <ChipMenu auth={auth({ ...FOUND, agyVersion: null }, 'orcas')} />
+  render: () => <ChipMenu auth={auth({ ...FOUND, agyVersion: null }, 'openkodos')} />
 })
 
 export const failureNotice = defineFixture({

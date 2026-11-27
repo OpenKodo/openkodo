@@ -26,7 +26,7 @@ import type {
 } from '../../persistence/moving-wsl-projects/orchestration/wsl-move-orchestrator-ports'
 import { prepareWslMoveHost } from '../../persistence/moving-wsl-projects/quiescence/wsl-move-host-readiness'
 import { readConfirmedRunningWslDistros } from '../../wsl/discovery/wsl-background-distro-gate'
-import { defaultWslOrcadEnvironmentId } from '../../wsl/orcad/wsl-orcad-deploy'
+import { defaultWslOpenkododEnvironmentId } from '../../wsl/openkodod/wsl-openkodod-deploy'
 import {
   readWslMoveOrchestratorRecords,
   writeWslMoveOrchestratorRecords
@@ -99,7 +99,7 @@ function prepareHost(
   if (!service) {
     return Promise.resolve('failed')
   }
-  const environmentId = defaultWslOrcadEnvironmentId(distro)
+  const environmentId = defaultWslOpenkododEnvironmentId(distro)
   return prepareWslMoveHost(
     {
       readRunningDistros: readConfirmedRunningWslDistros,
@@ -144,7 +144,7 @@ function createOrchestrator(
       ),
     hostRemovalPending: async (distro) => await wslHostRemovalPending(userDataPath, distro),
     hasHost: async (distro) =>
-      (await getWslHostService()?.recordForEnvironment(defaultWslOrcadEnvironmentId(distro))) !=
+      (await getWslHostService()?.recordForEnvironment(defaultWslOpenkododEnvironmentId(distro))) !=
       null,
     isHostReady,
     preview: async (distro, userAsked) =>

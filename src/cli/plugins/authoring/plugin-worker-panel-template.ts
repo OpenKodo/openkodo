@@ -11,7 +11,7 @@ import { PLUGIN_TYPES_DIR } from './plugin-type-files'
 const PROTOCOL_TS = `// The panel <-> worker contract, declared once: src/panel.tsx and src/worker.ts both read it.
 export {}
 
-declare module 'orca' {
+declare module 'openkodo' {
   interface PluginRequests {
     /** The total the worker keeps in storage. */
     'counter.get': { output: { total: number } }
@@ -27,7 +27,7 @@ declare module 'orca' {
 
 const PANEL_CHECK_TS = `// \`openkodo plugin check\` renders the panel once per scenario, each with the worker on a fresh
 // host. Seed what the worker reads so check shows more than the first state.
-import { defineCheck } from 'orca/testing'
+import { defineCheck } from 'openkodo/testing'
 
 export default defineCheck({
   fresh: {},
@@ -37,24 +37,24 @@ export default defineCheck({
 
 const WORKER_TS = `// The plugin's own worker. OpenKodo starts it on the panel's first plugin.request and transpiles
 // this file when it loads: no build step. A save restarts it and drops its in-memory state, so
-// the total lives in orca.storage (the storage:own capability).
-import type { OrcaWorkerApi } from 'orca/worker'
+// the total lives in openkodo.storage (the storage:own capability).
+import type { OpenKodoWorkerApi } from 'openkodo/worker'
 
 const TOTAL = 'total'
 
-async function storedTotal(orca: OrcaWorkerApi): Promise<number> {
-  const value = await orca.storage.get(TOTAL)
+async function storedTotal(openkodo: OpenKodoWorkerApi): Promise<number> {
+  const value = await openkodo.storage.get(TOTAL)
   return typeof value === 'number' ? value : 0
 }
 
-export default function activate(orca: OrcaWorkerApi): void {
-  orca.panels.handle('counter.get', async () => ({ total: await storedTotal(orca) }))
+export default function activate(openkodo: OpenKodoWorkerApi): void {
+  openkodo.panels.handle('counter.get', async () => ({ total: await storedTotal(openkodo) }))
 
-  orca.panels.handle('counter.add', async ({ by }) => {
-    const total = (await storedTotal(orca)) + by
-    await orca.storage.set(TOTAL, total)
+  openkodo.panels.handle('counter.add', async ({ by }) => {
+    const total = (await storedTotal(openkodo)) + by
+    await openkodo.storage.set(TOTAL, total)
     // Every open panel hears it, so a second panel stays in step.
-    orca.panels.post('counter.changed', { total })
+    openkodo.panels.post('counter.changed', { total })
     return { total }
   })
 }
@@ -74,7 +74,7 @@ import {
   Text,
   update,
   type PanelContext
-} from 'orca'
+} from 'openkodo'
 
 /** What the worker last reported; null until it answers. */
 const total = atom<number | null>(null)
@@ -117,7 +117,7 @@ export default function Panel() {
 `
 
 const PANEL_TEST_TSX = `// \`openkodo plugin test .\` runs this in Node with the same runtime and checks OpenKodo uses.
-import { assert, mockHost, mount, test } from 'orca/testing'
+import { assert, mockHost, mount, test } from 'openkodo/testing'
 import * as panel from './panel'
 
 test('shows the worker total and adds the step', async () => {
@@ -148,8 +148,8 @@ test('shows the worker total and adds the step', async () => {
 })
 `
 
-const WORKER_TEST_TS = `// Runs src/worker.ts's activate(orca) with the openkodo object OpenKodo passes, over a mock host.
-import { assert, mockHost, mountWorker, test } from 'orca/testing'
+const WORKER_TEST_TS = `// Runs src/worker.ts's activate(openkodo) with the openkodo object OpenKodo passes, over a mock host.
+import { assert, mockHost, mountWorker, test } from 'openkodo/testing'
 import * as main from './worker'
 
 test('adds to the stored total and tells open panels', async () => {
@@ -196,7 +196,7 @@ export function workerPanel(input: PluginTemplateInput): PluginTemplate {
       'tsconfig.json': json({ extends: `./${PLUGIN_TYPES_DIR}/tsconfig.json`, include: ['src'] }),
       'README.md': readme(
         input,
-        `A right-sidebar panel (\`src/panel.tsx\`) and the plugin's own worker (\`src/worker.ts\`). The panel asks with \`plugin.request\`, the worker answers with \`orca.panels.handle\`, keeps the total in \`orca.storage\` and tells every open panel with \`orca.panels.post\`; \`src/protocol.ts\` types both sides. OpenKodo transpiles both files when they load, so there is no build step: save and the panel or worker reloads (a worker reload drops its in-memory state, so keep what must last in storage). \`openkodo plugin test .\` runs \`src/panel.test.tsx\` and \`src/worker.test.ts\` in Node with \`orca/testing\`, and \`openkodo plugin check .\` renders the panel with the worker in each \`src/panel.check.ts\` scenario; \`npx tsc -p .\` type-checks against the typings \`openkodo plugin types .\` writes to \`${PLUGIN_TYPES_DIR}/\`. With the folder loaded, \`openkodo plugin dev request . counter.add --data '{"by":1}'\` calls the worker as the panel does.`
+        `A right-sidebar panel (\`src/panel.tsx\`) and the plugin's own worker (\`src/worker.ts\`). The panel asks with \`plugin.request\`, the worker answers with \`openkodo.panels.handle\`, keeps the total in \`openkodo.storage\` and tells every open panel with \`openkodo.panels.post\`; \`src/protocol.ts\` types both sides. OpenKodo transpiles both files when they load, so there is no build step: save and the panel or worker reloads (a worker reload drops its in-memory state, so keep what must last in storage). \`openkodo plugin test .\` runs \`src/panel.test.tsx\` and \`src/worker.test.ts\` in Node with \`openkodo/testing\`, and \`openkodo plugin check .\` renders the panel with the worker in each \`src/panel.check.ts\` scenario; \`npx tsc -p .\` type-checks against the typings \`openkodo plugin types .\` writes to \`${PLUGIN_TYPES_DIR}/\`. With the folder loaded, \`openkodo plugin dev request . counter.add --data '{"by":1}'\` calls the worker as the panel does.`
       ),
       ...COMMON_FILES
     }

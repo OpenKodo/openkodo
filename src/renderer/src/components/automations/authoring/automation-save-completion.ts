@@ -2,7 +2,7 @@ import type { Automation } from '../../../../../shared/automations/automation-de
 import { useAppStore } from '@/store/index'
 import type { AutomationCreateDestination } from './automation-create-destination'
 import type { AutomationSaveContext } from './automation-save-context'
-import { showAutomationSavedToast } from './automation-orca-save-operations'
+import { showAutomationSavedToast } from './automation-openkodo-save-operations'
 
 export async function completeAutomationSave(
   context: AutomationSaveContext,

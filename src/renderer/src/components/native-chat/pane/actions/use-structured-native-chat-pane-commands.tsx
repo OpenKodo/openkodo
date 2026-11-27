@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
-import { isOrcaSessionId } from '../../../../../../shared/agent-session/identity/orca-session-address'
-import { resolveStructuredSessionOrcaSessionId } from '../../../../runtime/native-chat/orchestration/structured-session-orca-session-id'
+import { isOpenKodoSessionId } from '../../../../../../shared/agent-session/identity/openkodo-session-address'
+import { resolveStructuredSessionOpenKodoSessionId } from '../../../../runtime/native-chat/orchestration/structured-session-openkodo-session-id'
 import type { NativeChatStructuredViewProps } from '../../native-chat-view-types'
 import type { NativeChatHandOff } from './use-native-chat-hand-off'
 import {
@@ -31,10 +31,10 @@ export function useStructuredNativeChatPaneCommands({
   const { tabId, groupId, isVisible, sessionId, target } = pane
   const terminalPaneActions = pane.contextMenuActions
   const focusSource = useCallback(() => composerRef.current?.focus(), [composerRef])
-  const resolveOrcaSessionId = useMemo(
+  const resolveOpenKodoSessionId = useMemo(
     () =>
-      isOrcaSessionId(sessionId)
-        ? () => resolveStructuredSessionOrcaSessionId(target, sessionId)
+      isOpenKodoSessionId(sessionId)
+        ? () => resolveStructuredSessionOpenKodoSessionId(target, sessionId)
         : undefined,
     [sessionId, target]
   )
@@ -59,7 +59,7 @@ export function useStructuredNativeChatPaneCommands({
     handOffDisabled: handOff.preparing || handOff.dialog !== null,
     onHandOff: terminalPaneActions === undefined && handOff.available ? handOff.open : undefined,
     actions: terminalPaneActions,
-    resolveOrcaSessionId,
+    resolveOpenKodoSessionId,
     showTerminalPaneActions: terminalPaneActions !== undefined,
     chatSession:
       ownerWorktreeId && terminalPaneActions === undefined && isVisible

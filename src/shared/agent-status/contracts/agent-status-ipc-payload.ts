@@ -99,7 +99,7 @@ export type AgentStatusIpcPayload = ParsedAgentStatusPayload & {
   programStatusOnly?: true
   /** The terminal agent's OpenKodo id on its execution host; null when that host can name this
    *  conversation but has not yet (Copy retries); absent from older hosts and unnameable rows. */
-  orcaSessionId?: string | null
+  openkodoSessionId?: string | null
   /** See AgentStatusEntry.restoredUnconfirmed — hydrated nonterminal provenance. */
   restoredUnconfirmed?: boolean
   /** The pane's owning agent session on its execution host; absent from older hosts. */

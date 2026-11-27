@@ -31,7 +31,7 @@ import {
   type JournalReaderReplyCreditGrant
 } from './journal-sql-reader-reply-credit'
 
-installWorkerSendLedger('orca-journal-sql-reader')
+installWorkerSendLedger('openkodo-journal-sql-reader')
 
 if (
   !parentPort ||

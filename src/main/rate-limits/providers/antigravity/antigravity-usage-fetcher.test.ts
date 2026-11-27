@@ -1,6 +1,6 @@
 import { afterEach, expect, it } from 'vitest'
 import { join } from 'node:path'
-import type { runProcess } from '@orca/process-host'
+import type { runProcess } from '@openkodo/process-host'
 import { fetchAntigravityRateLimits } from './antigravity-usage-fetcher'
 import {
   installedManagedAgentCommand,

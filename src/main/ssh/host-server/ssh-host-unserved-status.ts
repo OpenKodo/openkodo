@@ -68,7 +68,7 @@ export function unservedHostServerMessage(decision: UnservedDecision): string {
     return HELD_MOVE_MESSAGE
   }
   switch (decision.reason) {
-    case 'orcad_unavailable':
+    case 'openkodod_unavailable':
       return (
         (decision.detail && UNAVAILABLE_MESSAGES[decision.detail]) ||
         'This SSH host isn’t supported by this version of OpenKodo. To keep using it, install an older version of OpenKodo.'

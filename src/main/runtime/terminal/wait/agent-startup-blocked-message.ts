@@ -1,6 +1,6 @@
 import type { RuntimeTerminalWaitBlockedReason } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { describeTerminalWaitBlockedReason } from '../../../../shared/terminal/runtime-policy/terminal-wait-blocked-reason-legacy-alias'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 const CLAUDE_BYPASS_WARNING_RE = /running\s*in\s*bypass\s*permissions\s*mode/
 
@@ -10,7 +10,7 @@ const CLAUDE_BYPASS_WARNING_HINT =
 
 /** Keeps the parsed `Agent startup blocked: <reason>` prefix, then names the dialog when it is one the user can fix in Settings. */
 export async function agentStartupBlockedMessage(
-  runtime: Pick<OrcaRuntimeService, 'readTerminal'>,
+  runtime: Pick<OpenKodoRuntimeService, 'readTerminal'>,
   handle: string,
   reason: RuntimeTerminalWaitBlockedReason
 ): Promise<string> {

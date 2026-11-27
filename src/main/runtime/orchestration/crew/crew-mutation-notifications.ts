@@ -182,8 +182,8 @@ export function attachCrewMutationNotifications(ctor: { prototype: CrewMutationP
   const insert = prototype.insertMessage
   prototype.insertMessage = function (this: OrchestrationDb, message) {
     const result = insert.call(this, message)
-    if (result.type === 'worker_done' && result.to_handle.startsWith('orca_session_id:')) {
-      this.workerDockSources?.invalidate(result.to_handle.slice('orca_session_id:'.length))
+    if (result.type === 'worker_done' && result.to_handle.startsWith('openkodo_session_id:')) {
+      this.workerDockSources?.invalidate(result.to_handle.slice('openkodo_session_id:'.length))
     }
     if (result.type !== 'heartbeat') {
       const notice: CrewInvalidation =

@@ -127,8 +127,8 @@ describe('share offer seal', () => {
     v: 1,
     relay: {
       v: 1,
-      directorUrl: 'https://relay.orca.dev',
-      cellUrl: 'https://cell-1.relay.orca.dev',
+      directorUrl: 'https://relay.openkodo.dev',
+      cellUrl: 'https://cell-1.relay.openkodo.dev',
       assignmentEpoch: 3,
       relayHostId: 'AbCdEf0123_-xyZ9',
       inviteToken: 'A'.repeat(43),

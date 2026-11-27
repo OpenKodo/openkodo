@@ -250,8 +250,8 @@ export function MobileBotGoogleConnect(props: {
           accessibilityRole="radio"
         />
         <ListRow
-          title={t('bots.google.hostChoice.orca', 'OpenKodo hosted')}
-          subtitle={t('bots.google.hostChoice.orcaNote', 'Sign in with Google.')}
+          title={t('bots.google.hostChoice.openkodo', 'OpenKodo hosted')}
+          subtitle={t('bots.google.hostChoice.openkodoNote', 'Sign in with Google.')}
           value={t('bots.google.hostChoice.soon', 'Soon')}
           disabled
           accessibilityRole="radio"

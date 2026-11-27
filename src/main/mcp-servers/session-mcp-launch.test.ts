@@ -101,13 +101,13 @@ describe('the MCP servers a chat launches with', () => {
         })
       ).tools.servers.map((server) => server.name)
 
-    expect(await names('claude', 'repo-1::/work/orca')).toEqual([
+    expect(await names('claude', 'repo-1::/work/openkodo')).toEqual([
       'linear',
       'postgres',
       'notion',
       'sentry'
     ])
-    expect(await names('codex', 'repo-1::/work/orca')).toEqual(['postgres', 'notion', 'sentry'])
+    expect(await names('codex', 'repo-1::/work/openkodo')).toEqual(['postgres', 'notion', 'sentry'])
     expect(await names('claude', 'repo-2::/work/docs')).toEqual(['linear', 'notion', 'sentry'])
     expect(await names('claude', 'folder:scratch')).toEqual(['linear', 'notion', 'sentry'])
 

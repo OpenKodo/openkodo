@@ -1,5 +1,5 @@
 import { latestNativeChatUsageLimitCut } from '../../../shared/native-chat/transcript/continuation/native-chat-usage-limit-cut'
-import { latestNativeChatOrcaStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import { latestNativeChatOpenKodoStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import type { UsageLimitContinueIdentity } from '../../../shared/agent-session/lifecycle/stopping/agent-session-usage-limit-continue'
 import type { JournalReducerState } from './projection/journal-reducer'
 import { renderJournalStatus, renderJournalStatusItem } from './projection/journal-public-read'
@@ -33,7 +33,7 @@ export function readJournalUsageLimitContinueIdentity(
     : undefined
 }
 
-export function readJournalOrcaStopCut(state: JournalReducerState, floor = 0) {
+export function readJournalOpenKodoStopCut(state: JournalReducerState, floor = 0) {
   const snapshot = snapshotSince(state, floor)
-  return latestNativeChatOrcaStopCut(snapshot.items, snapshot.submissions, snapshot.bodyOf)
+  return latestNativeChatOpenKodoStopCut(snapshot.items, snapshot.submissions, snapshot.bodyOf)
 }

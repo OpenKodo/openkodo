@@ -1,6 +1,6 @@
 import { execFile, type ChildProcess } from 'node:child_process'
 import { closeSync } from 'node:fs'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { LSOF_NONBLOCKING_ARGS } from '../../shared/process-observation/lsof-nonblocking-args'
 import { psLocaleEnvironment } from '../../shared/process-observation/tables/ps-locale-environment'
 import { DarwinNetstatListeners } from './darwin-netstat-listeners'

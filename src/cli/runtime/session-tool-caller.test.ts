@@ -38,14 +38,14 @@ describe('adoptSessionToolCaller', () => {
   })
 
   it("refuses a bot's tool whose token never arrived, and only a bot's", async () => {
-    const home = await mkdtemp(join(tmpdir(), 'orca-tool-caller-'))
+    const home = await mkdtemp(join(tmpdir(), 'openkodo-tool-caller-'))
     try {
-      await mkdir(join(home, 'orca-sessions'))
+      await mkdir(join(home, 'openkodo-sessions'))
       await writeFile(
-        join(home, 'orca-sessions', 'local-bot.json'),
-        JSON.stringify({ orcaBot: '1' })
+        join(home, 'openkodo-sessions', 'local-bot.json'),
+        JSON.stringify({ openkodoBot: '1' })
       )
-      await writeFile(join(home, 'orca-sessions', 'local-chat.json'), JSON.stringify({}))
+      await writeFile(join(home, 'openkodo-sessions', 'local-chat.json'), JSON.stringify({}))
       const noTrade = async () => {
         throw new Error('no token to trade')
       }

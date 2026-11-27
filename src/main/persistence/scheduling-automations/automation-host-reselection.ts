@@ -2,7 +2,7 @@ import type {
   Automation,
   AutomationUpdateInput
 } from '../../../shared/automations/automation-definition'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import {
   AUTOMATION_ORPHAN_ISSUES,
   projectAutomationSelector,

@@ -12,7 +12,7 @@ import { liveFederatedHomeAutoReleaseAt } from '../terminal-authority/release/wo
 import type { OrchestrationDb } from '../db/orchestration-db'
 import type { FederatedDispatchRow } from '../db/orchestration-records'
 import { OrchestrationError } from '../orchestration-error'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { resolvePinnedFederatedServer } from './pinned-federated-server'
 import { applyConfirmedFederatedReleaseHomeProjection } from './federated-worker-release'
 
@@ -40,7 +40,7 @@ export type FederatedFleetHostError = {
 
 /** What a snapshot read needs of the runtime: the paired servers and a call to one. */
 export type FederatedFleetRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'resolveOrchestrationWorkerServer' | 'callOrchestrationWorkerServer'
 >
 

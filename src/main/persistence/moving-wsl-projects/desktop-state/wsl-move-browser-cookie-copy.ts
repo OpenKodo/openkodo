@@ -31,13 +31,13 @@ export type WslMoveBrowserCookieCopyDependencies = {
    * window exists, so destroying the copy's hidden windows never closes the last one.
    */
   sessionsReady: () => boolean
-  orcaProfileId: () => string | null
+  openkodoProfileId: () => string | null
   listEnvironments: () =>
     | readonly KnownRuntimeEnvironment[]
     | Promise<readonly KnownRuntimeEnvironment[]>
   listBrowserProfiles: () => readonly { id: string; partition: string }[]
   resolveHostStorage: (
-    orcaProfileId: string,
+    openkodoProfileId: string,
     environment: KnownRuntimeEnvironment
   ) => WslHostBrowserRouteStorageResult
   bindHostPartition: (storage: WslHostBrowserRouteStorage, browserProfileId: string) => string
@@ -55,13 +55,13 @@ export type WslMoveBrowserCookieCopyPreview =
 /** What a move into `environment` would do with the logins; the move preview shows the reason. */
 export function previewWslMoveBrowserCookieCopy(
   dependencies: Pick<WslMoveBrowserCookieCopyDependencies, 'resolveHostStorage'>,
-  orcaProfileId: string,
+  openkodoProfileId: string,
   environment: KnownRuntimeEnvironment | undefined
 ): WslMoveBrowserCookieCopyPreview {
   if (!environment) {
     return { kind: 'fresh-partition', reason: 'destination-environment-missing' }
   }
-  const storage = dependencies.resolveHostStorage(orcaProfileId, environment)
+  const storage = dependencies.resolveHostStorage(openkodoProfileId, environment)
   return storage.kind === 'stable'
     ? { kind: 'copy' }
     : { kind: 'fresh-partition', reason: storage.reason }
@@ -75,22 +75,22 @@ export function previewWslMoveBrowserCookieCopy(
 export async function ensureWslMoveDestinationBrowserLogins(dependencies: {
   resolveEnvironment: () => KnownRuntimeEnvironment | Promise<KnownRuntimeEnvironment>
   resaveConnection: () => void | Promise<void>
-  orcaProfileId: () => string | null
+  openkodoProfileId: () => string | null
   resolveHostStorage: WslMoveBrowserCookieCopyDependencies['resolveHostStorage']
 }): Promise<{
   environment: KnownRuntimeEnvironment
   notCarried?: WslMoveBrowserCookieFreshPartitionReason
 }> {
   let environment = await dependencies.resolveEnvironment()
-  if (!environment.orcadDeployment) {
+  if (!environment.openkododDeployment) {
     await dependencies.resaveConnection()
     environment = await dependencies.resolveEnvironment()
   }
-  const orcaProfileId = dependencies.orcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = dependencies.openkodoProfileId()
+  if (!openkodoProfileId) {
     return { environment }
   }
-  const preview = previewWslMoveBrowserCookieCopy(dependencies, orcaProfileId, environment)
+  const preview = previewWslMoveBrowserCookieCopy(dependencies, openkodoProfileId, environment)
   return preview.kind === 'copy' ? { environment } : { environment, notCarried: preview.reason }
 }
 
@@ -107,8 +107,8 @@ export async function runWslMoveBrowserCookieCopy(
     // No ledger entry: the pass after the first window shows retries it.
     throw new Error('wsl_move_browser_sessions_not_ready')
   }
-  const orcaProfileId = dependencies.orcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = dependencies.openkodoProfileId()
+  if (!openkodoProfileId) {
     throw new Error('wsl_move_browser_sessions_not_ready')
   }
   const { cutover } = context
@@ -122,7 +122,7 @@ export async function runWslMoveBrowserCookieCopy(
     })
     return []
   }
-  const storage = dependencies.resolveHostStorage(orcaProfileId, environment)
+  const storage = dependencies.resolveHostStorage(openkodoProfileId, environment)
   if (storage.kind !== 'stable') {
     recordOutcome(dependencies.userDataPath, cutover.migrationId, {
       outcome: 'fresh-partition',

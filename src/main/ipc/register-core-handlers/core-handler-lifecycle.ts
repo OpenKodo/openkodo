@@ -1,16 +1,16 @@
-import type { OrcaAccountService } from '../../orca-profiles/orca-account-service'
+import type { OpenKodoAccountService } from '../../openkodo-profiles/openkodo-account-service'
 import type {
   AiVaultPrepareSessionResumeArgs,
   AiVaultPrepareSessionResumeResult
 } from '../../../shared/ai-vault/resume/ai-vault-resume-preparation'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { RendererShutdownCheckpointService } from '../../core-desktop/renderer-shutdown-checkpoint-service'
 import { settleWithinMs } from '../../startup/quit/quit-teardown-deadline'
 
 const RELAUNCH_DISMISSAL_CLOSE_TIMEOUT_MS = 2_000
 
 export async function closeNotificationDismissalsBeforeRelaunch(
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): Promise<void> {
   const result = await settleWithinMs(
     runtime.closeNotificationDismissals(),
@@ -26,7 +26,7 @@ export type CoreHandlerLifecycleOptions = {
   hostInitialization?: Promise<void>
   onBeforeRelaunch?: () => void | Promise<void>
   onQuit?: () => void
-  orcaAccount?: OrcaAccountService
+  openkodoAccount?: OpenKodoAccountService
   rendererCheckpoint?: RendererShutdownCheckpointService
   getAdditionalAiVaultCodexHomePaths?: () => readonly string[]
   prepareAiVaultSessionResume?: (

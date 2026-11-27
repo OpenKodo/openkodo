@@ -19,7 +19,7 @@ function asDataUrl(mimeType: string, bytes: Uint8Array, maxLength: number): stri
 
 /**
  * A small data URL for an icon, which a phone page draws even though its shell loads no https
- * image. Without an encoder (orcad) a small image passes through unchanged; null means it can't fit.
+ * image. Without an encoder (openkodod) a small image passes through unchanged; null means it can't fit.
  */
 export function iconDataUrl(
   image: FetchedRepoIcon,
@@ -47,6 +47,6 @@ export function iconDataUrl(
     }
   }
   // Why pass through when encoding fails: Electron decodes only PNG and JPEG everywhere, and
-  // a small GIF, WebP or ICO the phone can draw must not show worse than on orcad.
+  // a small GIF, WebP or ICO the phone can draw must not show worse than on openkodod.
   return asDataUrl(image.mimeType, image.bytes, limits.maxDataUrlLength)
 }

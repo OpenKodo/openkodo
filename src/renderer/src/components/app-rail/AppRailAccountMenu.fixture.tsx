@@ -2,19 +2,19 @@
 import React from 'react'
 import { defineFixture } from '../../component-fixtures/component-fixture'
 import { useHelpMenuController, type SetupMilestones } from '../sidebar/chrome/help-menu-controller'
-import type { OrcaProfileAuthStatus } from '../../../../shared/orca-profiles/orca-profiles'
+import type { OpenKodoProfileAuthStatus } from '../../../../shared/openkodo-profiles/openkodo-profiles'
 import { AppRailAccountMenu } from './AppRailAccountMenu'
 import { AppRail } from './AppRail'
 import { useAppStore } from '@/store'
 import { ConfirmationDialogProvider } from '../dismiss/confirmation/confirmation-dialog'
 
-const SIGNED_OUT: OrcaProfileAuthStatus = {
+const SIGNED_OUT: OpenKodoProfileAuthStatus = {
   activeProfileId: 'fixture',
   configured: true,
   state: 'local',
   persistence: 'encrypted'
 }
-const cloudAccount = (displayName: string, email: string): OrcaProfileAuthStatus => ({
+const cloudAccount = (displayName: string, email: string): OpenKodoProfileAuthStatus => ({
   ...SIGNED_OUT,
   state: 'connected',
   cloud: { cloudProfileId: 'c1', userId: 'u1', email, displayName, linkedAt: 1 }
@@ -61,59 +61,59 @@ function openMenu(frame: HTMLElement): Promise<void> {
 
 export const signedIn = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: ALEX },
+  store: { openkodoProfileAuthStatus: ALEX },
   render: () => <RailShell height={120} />
 })
 export const signedOut = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: SIGNED_OUT },
+  store: { openkodoProfileAuthStatus: SIGNED_OUT },
   render: () => <RailShell height={120} />
 })
 export const setupSignedIn = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: ALEX },
+  store: { openkodoProfileAuthStatus: ALEX },
   render: () => <RailShell height={120} milestones={SETUP} />
 })
 export const setupSignedOut = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: SIGNED_OUT },
+  store: { openkodoProfileAuthStatus: SIGNED_OUT },
   render: () => <RailShell height={120} milestones={SETUP} />
 })
 
 export const signedInOpen = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: ALEX },
+  store: { openkodoProfileAuthStatus: ALEX },
   render: () => <RailShell />,
   interact: openMenu
 })
 export const signedOutOpen = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: SIGNED_OUT },
+  store: { openkodoProfileAuthStatus: SIGNED_OUT },
   render: () => <RailShell />,
   interact: openMenu
 })
 export const setupOpen = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: ALEX },
+  store: { openkodoProfileAuthStatus: ALEX },
   render: () => <RailShell milestones={SETUP} />,
   interact: openMenu
 })
 export const setupSignedOutOpen = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: SIGNED_OUT },
+  store: { openkodoProfileAuthStatus: SIGNED_OUT },
   render: () => <RailShell milestones={SETUP} />,
   interact: openMenu
 })
 export const longNameOpen = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: LONG },
+  store: { openkodoProfileAuthStatus: LONG },
   render: () => <RailShell />,
   interact: openMenu
 })
 /** A short window: the menu scrolls within it instead of running off screen. */
 export const shortWindowOpen = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: ALEX },
+  store: { openkodoProfileAuthStatus: ALEX },
   render: () => <RailShell height={320} />,
   interact: openMenu
 })
@@ -132,12 +132,12 @@ function FullRail({ height }: { height: number }): React.JSX.Element {
 }
 export const railTall = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: ALEX },
+  store: { openkodoProfileAuthStatus: ALEX },
   render: () => <FullRail height={420} />
 })
 export const railShort = defineFixture({
   width: 300,
-  store: { orcaProfileAuthStatus: SIGNED_OUT },
+  store: { openkodoProfileAuthStatus: SIGNED_OUT },
   render: () => <FullRail height={170} />
 })
 
@@ -170,9 +170,9 @@ function RailWithPage(): React.JSX.Element {
 export const railWithPage = defineFixture({
   width: 900,
   store: {
-    orcaProfileAuthStatus: ALEX,
-    signOutCurrentOrcaProfile: async () => {
-      useAppStore.setState({ orcaProfileAuthStatus: SIGNED_OUT })
+    openkodoProfileAuthStatus: ALEX,
+    signOutCurrentOpenKodoProfile: async () => {
+      useAppStore.setState({ openkodoProfileAuthStatus: SIGNED_OUT })
       return { status: 'signed-out', auth: SIGNED_OUT, activeProfileId: 'fixture', profiles: [] }
     }
   },

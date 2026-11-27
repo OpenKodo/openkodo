@@ -9,7 +9,7 @@ import {
   rememberRuntimeEnvironmentCompatibility,
   runtimeCompatibilityChecks
 } from './runtime-compatibility-cache'
-import { RUNTIME_IDLE_STOPPED_ERROR_CODE } from '../../../../../shared/remote-runtime/orcad-lifecycle/orcad-idle-stop-signal'
+import { RUNTIME_IDLE_STOPPED_ERROR_CODE } from '../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-idle-stop-signal'
 
 function isIdleStopRefusal(error: unknown): boolean {
   return (

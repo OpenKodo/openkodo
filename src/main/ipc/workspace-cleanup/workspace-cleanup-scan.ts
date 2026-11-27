@@ -76,7 +76,7 @@ export async function scanWorkspaceCleanup(
     return { scannedAt, candidates: [], errors: [] }
   }
   const allRepos = store.getRepos()
-  // Hidden source rows (an SSH host now served by its own orcad) are that server's to scan.
+  // Hidden source rows (an SSH host now served by its own openkodod) are that server's to scan.
   const visibleRepos = runtimeVisibleRepos(store)
   const repos =
     targetWorktreeIdsByRepo.size > 0

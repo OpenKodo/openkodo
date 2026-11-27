@@ -8,7 +8,7 @@ import type { CreatedDispatch } from './dispatch-context-store'
 /** A Dispatch with who created it and who runs it, so a worker's own workers trace back to its creator. */
 export type DispatchCreatorLink = CreatedDispatch & {
   status: DispatchContextRow['status']
-  assigneeOrcaSessionId: string | null
+  assigneeOpenKodoSessionId: string | null
   assigneePaneKey: string | null
   worktreeId: string | null
   /** Epoch ms it settled, else when it was created. */
@@ -22,8 +22,8 @@ export type DispatchCreatorLink = CreatedDispatch & {
   title: string | null
 }
 
-export const DISPATCH_LINK_COLUMNS = `d.id, d.status, d.last_failure, d.creator_orca_session_id, d.creator_pane_key,
-  d.assignee_orca_session_id, d.assignee_pane_key, COALESCE(w.worktree_id, r.worktree_id) AS worktree_id,
+export const DISPATCH_LINK_COLUMNS = `d.id, d.status, d.last_failure, d.creator_openkodo_session_id, d.creator_pane_key,
+  d.assignee_openkodo_session_id, d.assignee_pane_key, COALESCE(w.worktree_id, r.worktree_id) AS worktree_id,
   COALESCE(d.completed_at, d.created_at) AS at, d.completed_at,
   COALESCE(t.task_title, t.display_name) AS title`
 export const DISPATCH_LINK_JOINS = `LEFT JOIN worker_dispatches w ON w.dispatch_id = d.id
@@ -46,12 +46,12 @@ export function dispatchLinkRows(rows: unknown[]): DispatchCreatorLink[] {
             id: row.id,
             // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the column's CHECK constraint limits it to DispatchContextRow's statuses.
             status: ('status' in row ? row.status : 'pending') as DispatchContextRow['status'],
-            creatorOrcaSessionId: textOrNull(
-              'creator_orca_session_id' in row ? row.creator_orca_session_id : null
+            creatorOpenKodoSessionId: textOrNull(
+              'creator_openkodo_session_id' in row ? row.creator_openkodo_session_id : null
             ),
             creatorPaneKey: textOrNull('creator_pane_key' in row ? row.creator_pane_key : null),
-            assigneeOrcaSessionId: textOrNull(
-              'assignee_orca_session_id' in row ? row.assignee_orca_session_id : null
+            assigneeOpenKodoSessionId: textOrNull(
+              'assignee_openkodo_session_id' in row ? row.assignee_openkodo_session_id : null
             ),
             assigneePaneKey: textOrNull('assignee_pane_key' in row ? row.assignee_pane_key : null),
             worktreeId: textOrNull('worktree_id' in row ? row.worktree_id : null),

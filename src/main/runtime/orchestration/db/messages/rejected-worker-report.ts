@@ -18,7 +18,7 @@ export function rejectedReportInTurn(
         WHERE run_id = ? AND from_handle = ? AND type = 'worker_done'
           AND json_valid(payload)
           AND json_extract(payload, '$.dispatchId') = ?
-          AND json_type(payload, '$._orcaLifecycleRejection.code') IS 'text'
+          AND json_type(payload, '$._openkodoLifecycleRejection.code') IS 'text'
           AND created_at >= datetime(?, 'unixepoch')
         LIMIT 1`
     )

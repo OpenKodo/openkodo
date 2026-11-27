@@ -83,7 +83,7 @@ export function createMarkdownLinkAction(
           state: initialState,
           worktreeId: ctx.worktreeId,
           sourceOwner,
-          destination: 'orca'
+          destination: 'openkodo'
         })
         return
       }

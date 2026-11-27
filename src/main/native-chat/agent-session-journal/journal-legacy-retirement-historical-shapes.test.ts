@@ -5,7 +5,7 @@ import { initializeJournalDomainDatabase } from './database/journal-domain-datab
 import {
   companions,
   fakeLease,
-  olderOrcaChat,
+  olderOpenKodoChat,
   profile,
   queue
 } from './journal-legacy-retirement.test-fixture'
@@ -39,7 +39,7 @@ it('retires a journal v1.4.219 wrote, with or without its Stop pauses, upgraded 
     // A later build's writable open upgrades the rest of the file, never the pause table.
     (filename: string) => {
       v1_4_219Journal(filename, 'unopened', true)
-      olderOrcaChat(filename, 'continued-later')
+      olderOpenKodoChat(filename, 'continued-later')
     }
   ]
   for (const original of shapes) {

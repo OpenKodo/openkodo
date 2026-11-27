@@ -29,7 +29,7 @@ import { registerRuntimePortForwardsIpcBridge } from './runtime-events/runtime-p
 import { registerEphemeralVmLifecycleIpcBridge } from '../../runtime/ephemeral-vm/ephemeral-vm-lifecycle-ipc-bridge'
 import { registerMobileAndTerminalCloseIpcBridge } from './mobile-driver/mobile-terminal-close-ipc-bridge'
 import { registerMobileDriverIpcBridge } from './mobile-driver/mobile-driver-ipc-bridge'
-import { registerOrcaProfileAuthIpcBridge } from '../../components/orca-profiles/orca-profile-auth-ipc-bridge'
+import { registerOpenKodoProfileAuthIpcBridge } from '../../components/openkodo-profiles/openkodo-profile-auth-ipc-bridge'
 import { registerPluginViewIpcBridge } from '../../components/plugins/view/plugin-view-ipc-bridge'
 import { registerPreflightWslRetryIpcBridge } from '../../runtime/hosts/wsl/preflight-wsl-retry-ipc-bridge'
 import { registerOsMarkdownFileOpenBridge } from './native-app/os-markdown-file-open-bridge'
@@ -144,7 +144,7 @@ export function installAppLifetimeIpcEvents(): () => void {
   registerSettingsAndSidebarIpcBridge(unsubs)
   registerQuitAndStopAllSessionsIpcBridge(unsubs)
   registerBackgroundWorkerPausedIpcBridge(unsubs)
-  registerOrcaProfileAuthIpcBridge(unsubs)
+  registerOpenKodoProfileAuthIpcBridge(unsubs)
   registerPreflightWslRetryIpcBridge(unsubs)
   registerWorkspaceShortcutIpcBridge(unsubs)
   registerOsMarkdownFileOpenBridge(unsubs)

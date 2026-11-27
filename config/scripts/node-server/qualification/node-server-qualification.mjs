@@ -14,22 +14,22 @@ const BUILD_PREFIXES = [
   '.github/actions/install-node-dependencies/',
   '.github/actions/restore-pnpm-verification/',
   '.github/actions/prepare-native-runtime/',
-  '.github/actions/prepare-orcad-prebuilds/'
+  '.github/actions/prepare-openkodod-prebuilds/'
 ]
 // A remote target's OS does not identify the client platform that builds its commands.
 const CROSS_HOST_PREFIXES = [
   'src/main/ssh/',
   'src/main/managed-server/',
   'src/main/node-runtime/',
-  'src/main/orcad/artifact-slots/orcad-artifact-materializer.ts',
-  'src/main/orcad/diagnostics/orcad-host-unavailable.ts',
+  'src/main/openkodod/artifact-slots/openkodod-artifact-materializer.ts',
+  'src/main/openkodod/diagnostics/openkodod-host-unavailable.ts',
   'src/main/providers/',
   'src/wsl-guest/'
 ]
 const PLATFORM_PREFIXES = [
   'src/main/persistence/',
   'src/main/sqlite/',
-  'src/main/orcad/',
+  'src/main/openkodod/',
   'src/main/daemon/',
   'src/main/wsl/',
   'src/packages/process-host/'

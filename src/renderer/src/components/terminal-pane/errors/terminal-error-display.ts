@@ -50,7 +50,7 @@ function tokenPattern(source: string): { match: RegExp; replaceAll: RegExp } {
 const TERMINAL_HOST_GONE = tokenPattern('(^|[^a-z0-9_])terminal_host_gone(?=$|[^a-z0-9_])')
 
 const LEGACY_TERMINAL_HOST_GONE_PATTERN =
-  /(^|[^a-z])connect (?:ENOENT|ECONNREFUSED) [^\r\n]*orca-terminal-host-v[^\r\n]*/i
+  /(^|[^a-z])connect (?:ENOENT|ECONNREFUSED) [^\r\n]*openkodo-terminal-host-v[^\r\n]*/i
 
 // Session-absence responses from SSH, relay and older daemons prove only that this pane lost its session, not that the shell died.
 const UNREATTACHABLE_SESSIONS = [

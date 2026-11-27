@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { cn } from '@/lib/class-names'
 import '@/lib/workspace/ownership/connection-context'
 import { useAppStore } from '@/store/index'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import { normalizeExternalBrowserUrl } from '../../../../../shared/browser/navigation/browser-url'
 import { getLiveBrowserUrl } from '../describe-page/live-browser-url-registry'
@@ -276,7 +276,7 @@ export function BrowserPagePane({
   // Why: synchronous webview URL access blocks render; navigation handlers update this cache before their store writes can re-render the pane.
   const liveBrowserUrl = getLiveBrowserUrl(browserTab.id) ?? browserTab.url
   // An SSH-routed page's localhost is the SSH host's; the system browser reaches it only through a forward.
-  const sshRouted = Boolean(sessionPartition?.startsWith('persist:orca-browser-v1-'))
+  const sshRouted = Boolean(sessionPartition?.startsWith('persist:openkodo-browser-v1-'))
   const sshPortForwards = useSshRoutedPagePortForwards(worktreeId, sshRouted)
   const sshRoutedExternalUrl = sshRouted
     ? (url: string) => getSshRoutedOpenableExternalUrl(url, sshPortForwards)

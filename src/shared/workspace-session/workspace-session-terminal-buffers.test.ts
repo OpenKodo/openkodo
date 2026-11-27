@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../workspace/identity/floating-workspace-id'
-import { getDefaultWorkspaceSession } from '../orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../openkodo-profiles/constants'
 import type { WorkspaceSessionState } from './workspace-session-state-types'
 import '../terminal/replay/terminal-scrollback-limits'
 

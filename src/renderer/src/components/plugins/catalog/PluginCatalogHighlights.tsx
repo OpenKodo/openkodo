@@ -11,19 +11,24 @@ import { pickCatalogHighlights } from './plugin-catalog-highlights'
 /** Featured and Newly added rows above the catalogs; Featured shows only alongside Newly added. */
 export function PluginCatalogHighlights({
   entries,
-  orcaVersion,
+  openkodoVersion,
   cardHandlers
 }: {
   /** Installed and listed plugins; the rows offer only ones that can be installed now. */
   entries: readonly PluginListEntry[]
-  orcaVersion: string | null
+  openkodoVersion: string | null
   cardHandlers: CatalogCardHandlers
 }): React.JSX.Element | null {
   const t = useTranslate()
   const intlLocale = useIntlLocale()
   const installCounts = usePluginInstallCountsStore((state) => state.counts)
   const now = useNow(60_000)
-  const { featured, newlyAdded } = pickCatalogHighlights(entries, installCounts, orcaVersion, now)
+  const { featured, newlyAdded } = pickCatalogHighlights(
+    entries,
+    installCounts,
+    openkodoVersion,
+    now
+  )
   if (featured.length === 0 && newlyAdded.length === 0) {
     return null
   }

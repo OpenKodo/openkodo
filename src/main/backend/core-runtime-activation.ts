@@ -1,5 +1,5 @@
 import type { BackendCoreHost } from './core-runtime'
-import type { OrcadHandle } from '../orcad/serve-startup/orcad-start-contract'
+import type { OpenkododHandle } from '../openkodod/serve-startup/openkodod-start-contract'
 import type { BackendCoreProfileShutdown } from './core-profile-shutdown'
 import { prepareBackendDaemon } from './core-daemon-startup'
 import { prepareWorktreeRemovalsForStore } from '../workspaces/removal/worktree-removal-records-load'
@@ -7,40 +7,43 @@ import { worktreeRemovalLifetime } from '../workspaces/removal/worktree-removal-
 import { getAppEnvironment } from '../../shared/app-lifecycle/app-environment'
 import { LOCAL_EXECUTION_HOST_ID } from '../../shared/execution-host/execution-host'
 import {
-  describeOrcadBindExposure,
-  resolveOrcadBindHost
-} from '../../shared/remote-runtime/orcad-lifecycle/orcad-bind-address'
+  describeOpenkododBindExposure,
+  resolveOpenkododBindHost
+} from '../../shared/remote-runtime/openkodod-lifecycle/openkodod-bind-address'
 import {
-  startOrcadAgentSessionRecordStoreOpen,
-  stopOrcadStructuredAgentSessions
-} from '../orcad/host-lifecycle/orcad-lifecycle'
+  startOpenkododAgentSessionRecordStoreOpen,
+  stopOpenkododStructuredAgentSessions
+} from '../openkodod/host-lifecycle/openkodod-lifecycle'
 import type { BackendServiceCleanup } from './service-composition'
-import { bindOrcadStopTerminalAdmission } from '../orcad/host-lifecycle/managed-stop/orcad-stop-terminal-admission'
-import { beginOrcadIdleExit } from '../orcad/host-lifecycle/idle-exit/orcad-managed-idle-exit-host'
+import { bindOpenkododStopTerminalAdmission } from '../openkodod/host-lifecycle/managed-stop/openkodod-stop-terminal-admission'
+import { beginOpenkododIdleExit } from '../openkodod/host-lifecycle/idle-exit/openkodod-managed-idle-exit-host'
 import {
-  orcadSchedulersKeepHostBusy,
-  startOrcadSchedulers
-} from '../orcad/host-runtime/orcad-schedulers'
+  openkododSchedulersKeepHostBusy,
+  startOpenkododSchedulers
+} from '../openkodod/host-runtime/openkodod-schedulers'
 import {
   changedAiVaultSearchSettings,
   type AiVaultSearchSettings
 } from '../../shared/ai-vault/search/ai-vault-search-settings'
-import { adoptWslHostLoginEnvironmentLogged } from '../orcad/host-runtime/orcad-wsl-host-login-environment'
-import { createOrcadStartupTiming } from '../orcad/diagnostics/orcad-startup-timing'
+import { adoptWslHostLoginEnvironmentLogged } from '../openkodod/host-runtime/openkodod-wsl-host-login-environment'
+import { createOpenkododStartupTiming } from '../openkodod/diagnostics/openkodod-startup-timing'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
-import { restoreOrcadTerminalAuthority } from '../orcad/host-runtime/orcad-restored-terminal-authority'
-import { installOrcadFeatureReadiness } from '../runtime/rpc/startup/orcad-readiness'
+import { restoreOpenkododTerminalAuthority } from '../openkodod/host-runtime/openkodod-restored-terminal-authority'
+import { installOpenkododFeatureReadiness } from '../runtime/rpc/startup/openkodod-readiness'
 import { isAgentStatusHooksEnabled } from '../../shared/agent-hook-listener/configuration/agent-status-hooks-setting'
-import { installOrcadConnectorHost, installOrcadRelayAndAccount } from '../orcad/orcad-orca-account'
+import {
+  installOpenkododConnectorHost,
+  installOpenkododRelayAndAccount
+} from '../openkodod/openkodod-openkodo-account'
 
 export async function activateBackendRuntime(
   host: BackendCoreHost,
   registerCleanup: (cleanup: BackendServiceCleanup) => void,
   profileShutdown: BackendCoreProfileShutdown,
   setObservabilityCleanup: (close: () => Promise<void>) => void
-): Promise<Pick<OrcadHandle, 'readiness'>> {
+): Promise<Pick<OpenkododHandle, 'readiness'>> {
   const { options } = host
-  const { time: timed, report: reportStartupTiming } = createOrcadStartupTiming()
+  const { time: timed, report: reportStartupTiming } = createOpenkododStartupTiming()
   // Overlap login-shell probing with imports and store startup.
   const loginEnvironment = adoptWslHostLoginEnvironmentLogged()
   const { ready: daemonStartup } = await prepareBackendDaemon(
@@ -48,29 +51,35 @@ export async function activateBackendRuntime(
     timed,
     registerCleanup
   )
-  const { OrcaRuntimeService } = await import('../runtime/orca-runtime')
-  const { createOrcadRuntimeRpcServer } = await import('../orcad/host-runtime/orcad-runtime-rpc')
+  const { OpenKodoRuntimeService } = await import('../runtime/openkodo-runtime')
+  const { createOpenkododRuntimeRpcServer } =
+    await import('../openkodod/host-runtime/openkodod-runtime-rpc')
   const { registerHeadlessPtyRuntime } = await import('../ipc/pty/register-headless-runtime')
   const { getLocalPtyProvider } = await import('../ipc/pty/provider/registry')
-  const { installOrcadObservability } = await import('../orcad/diagnostics/orcad-observability')
-  setObservabilityCleanup(installOrcadObservability())
+  const { installOpenkododObservability } =
+    await import('../openkodod/diagnostics/openkodod-observability')
+  setObservabilityCleanup(installOpenkododObservability())
   const { ServeReadinessPublisher } = await import('../server/serve-readiness')
   const { servePublishMode } = await import('../server/serve-pairing-readiness')
-  const { buildOrcadServeReadiness } = await import('../orcad/serve-startup/orcad-serve-readiness')
-  const { createOrcadProfileStateStartup } =
-    await import('../orcad/profile-state/orcad-profile-state-startup')
+  const { buildOpenkododServeReadiness } =
+    await import('../openkodod/serve-startup/openkodod-serve-readiness')
+  const { createOpenkododProfileStateStartup } =
+    await import('../openkodod/profile-state/openkodod-profile-state-startup')
   const { daemonOwnsFreshPersistentPtys } =
     await import('../daemon/providers/lifecycle/daemon-provider-state')
   const { resolveDaemonSessionScrollbackRows } =
     await import('../daemon/sessions/daemon-session-scrollback-window')
-  const { collectOrcadHealth } = await import('../orcad/diagnostics/orcad-health')
+  const { collectOpenkododHealth } = await import('../openkodod/diagnostics/openkodod-health')
   const { agentHookServer } = await import('../agent-hooks/server/agent-hook-server')
   await import('../agent-hooks/installation/managed-agent-hook-controls')
   const { agentHookRuntimeDeps } = await import('../agent-hooks/runtime/agent-hook-runtime-deps')
   const { installHookStatusSessionTabsRepublish } =
     await import('../agent-hooks/runtime/hook-status-session-tabs-republish')
-  const { startOrcadAgentHookServer, startOrcadManagedAgentHooks, stopOrcadAgentListeners } =
-    await import('../orcad/host-runtime/orcad-managed-agent-hooks')
+  const {
+    startOpenkododAgentHookServer,
+    startOpenkododManagedAgentHooks,
+    stopOpenkododAgentListeners
+  } = await import('../openkodod/host-runtime/openkodod-managed-agent-hooks')
   const { AgentStatusObservedPaneIdentities, AgentStatusObservedPaneIdentityCapture } =
     await import('../runtime/terminal/identity/agent-status-observed-pane-identity')
 
@@ -81,32 +90,38 @@ export async function activateBackendRuntime(
   let uninstallObservedStatusIdentity = (): void => {}
   // Cleanups run in reverse: RPC, then recovery and watchers, then the final flush; the daemon
   // disconnect, registered above, runs last.
-  registerCleanup(() => stopOrcadAgentListeners(agentHookServer))
+  registerCleanup(() => stopOpenkododAgentListeners(agentHookServer))
   registerCleanup(() => uninstallHookStatusRepublish())
   registerCleanup(() => uninstallObservedStatusIdentity())
   registerCleanup(profileShutdown.finalize)
-  registerCleanup(stopOrcadStructuredAgentSessions)
+  registerCleanup(stopOpenkododStructuredAgentSessions)
   registerCleanup(() => disposeWatcherProcessAndWait())
-  const { startOrcadDesktopPushService } = await import('../orcad/host-runtime/orcad-desktop-push')
+  const { startOpenkododDesktopPushService } =
+    await import('../openkodod/host-runtime/openkodod-desktop-push')
 
   const runtimeUserDataPath = getAppEnvironment().getPath('userData')
   const { startEventLoopDelayProbe } = await import('../diagnostics/event-loop-delay-probe')
-  startEventLoopDelayProbe('orcad', runtimeUserDataPath)
+  startEventLoopDelayProbe('openkodod', runtimeUserDataPath)
   await timed('cli-launcher', () => host.prepareCliLauncher()).catch((error: unknown) => {
-    console.warn('[orcad] Could not prepare the profile CLI launcher', error)
+    console.warn('[openkodod] Could not prepare the profile CLI launcher', error)
   })
-  const idleExitStartup = beginOrcadIdleExit(runtimeUserDataPath)
-  const { applyOrcadSessionScannerIdleTimeout } =
-    await import('../orcad/host-runtime/orcad-session-scanner-idle')
-  await applyOrcadSessionScannerIdleTimeout()
+  const idleExitStartup = beginOpenkododIdleExit(runtimeUserDataPath)
+  const { applyOpenkododSessionScannerIdleTimeout } =
+    await import('../openkodod/host-runtime/openkodod-session-scanner-idle')
+  await applyOpenkododSessionScannerIdleTimeout()
   // Initialize sealing before Store load unseals protected settings.
   await timed('secret-store', () => host.prepareSecrets(runtimeUserDataPath))
   const { store: profileStore, authority: profileStateAuthority } = await timed('profile', () =>
-    createOrcadProfileStateStartup(runtimeUserDataPath)
+    createOpenkododProfileStateStartup(runtimeUserDataPath)
   )
   profileShutdown.store = profileStore
-  const { installOrcadUsageService } = await import('../orcad/host-runtime/orcad-usage-service')
-  const usageClients = installOrcadUsageService(profileStore, runtimeUserDataPath, registerCleanup)
+  const { installOpenkododUsageService } =
+    await import('../openkodod/host-runtime/openkodod-usage-service')
+  const usageClients = installOpenkododUsageService(
+    profileStore,
+    runtimeUserDataPath,
+    registerCleanup
+  )
   registerCleanup(() => worktreeRemovalLifetime.close())
   await timed('worktree-removals', () => prepareWorktreeRemovalsForStore(profileStore))
   const observedPaneIdentities = new AgentStatusObservedPaneIdentities()
@@ -115,9 +130,9 @@ export async function activateBackendRuntime(
     observedStatusCapture.observe(enriched)
   )
   // Subscribe before hooks start so early turns are counted.
-  const { startOrcadStats } = await import('../orcad/host-runtime/orcad-stats')
-  const stats = startOrcadStats(runtimeUserDataPath, agentHookServer, registerCleanup)
-  await startOrcadAgentHookServer(agentHookServer, {
+  const { startOpenkododStats } = await import('../openkodod/host-runtime/openkodod-stats')
+  const stats = startOpenkododStats(runtimeUserDataPath, agentHookServer, registerCleanup)
+  await startOpenkododAgentHookServer(agentHookServer, {
     env: 'production',
     userDataPath: runtimeUserDataPath,
     statusHooksEnabled: isAgentStatusHooksEnabled(profileStore.getSettings())
@@ -125,14 +140,14 @@ export async function activateBackendRuntime(
 
   // Reconcile, daemon and runtime all consume this environment.
   await timed('login-env-wait', () => loginEnvironment)
-  const managedAgentHooks = startOrcadManagedAgentHooks(
+  const managedAgentHooks = startOpenkododManagedAgentHooks(
     profileStore,
     (enabled) => agentHookServer.setStatusHooksEnabled(enabled),
     registerCleanup
   )
 
   // Boots the chat writer during the daemon wait, after login env; restoration consumes this attempt.
-  const chatJournal = await startOrcadAgentSessionRecordStoreOpen(profileStore)
+  const chatJournal = await startOpenkododAgentSessionRecordStoreOpen(profileStore)
 
   // Install the daemon provider before PTY handlers can route their first call.
   await daemonStartup
@@ -140,18 +155,18 @@ export async function activateBackendRuntime(
   // Runtime constructor callbacks use this index only after it is installed.
   let sessionSearch: { apply(settings: AiVaultSearchSettings): void; dispose(): void } | null = null
 
-  const { orcadCodexAccountHomes } =
-    await import('../orcad/account-launch/orcad-codex-account-homes')
-  const codexAccountHomes = orcadCodexAccountHomes(
+  const { openkododCodexAccountHomes } =
+    await import('../openkodod/account-launch/openkodod-codex-account-homes')
+  const codexAccountHomes = openkododCodexAccountHomes(
     () => profileStore.getSettings(),
     registerCleanup
   )
 
   // Gates open where each phase finishes today; RPC starts after all of them.
-  const featureReadiness = installOrcadFeatureReadiness()
-  const { createOrcadAccountServices } =
-    await import('../orcad/account-launch/orcad-account-services')
-  const accountLaunch = createOrcadAccountServices({
+  const featureReadiness = installOpenkododFeatureReadiness()
+  const { createOpenkododAccountServices } =
+    await import('../openkodod/account-launch/openkodod-account-services')
+  const accountLaunch = createOpenkododAccountServices({
     store: profileStore,
     setClaudeStatusLineListener: (listener) =>
       agentHookServer.setClaudeStatusLineListener(listener),
@@ -161,10 +176,10 @@ export async function activateBackendRuntime(
 
   const { loadAgentSessionClaimSigner } =
     await import('../runtime/agent-session/ownership/agent-session-claim-identity')
-  const { createOrcadPairedEnvironmentOptions } =
-    await import('../orcad/host-runtime/orcad-paired-environment-options')
-  const pairedEnvironments = createOrcadPairedEnvironmentOptions()
-  const runtime = new OrcaRuntimeService(profileStore, stats, {
+  const { createOpenkododPairedEnvironmentOptions } =
+    await import('../openkodod/host-runtime/openkodod-paired-environment-options')
+  const pairedEnvironments = createOpenkododPairedEnvironmentOptions()
+  const runtime = new OpenKodoRuntimeService(profileStore, stats, {
     legacyStructuredSessionTabIds: chatJournal.open.legacySessionTabIds,
     // Persistent signatures let restarted runtimes adopt PTYs owned before restart.
     agentSessionClaimSigner: loadAgentSessionClaimSigner(runtimeUserDataPath, runtimeUserDataPath),
@@ -217,24 +232,25 @@ export async function activateBackendRuntime(
   const { wireGitHubIssueLinkTitleFill } =
     await import('../github/workspace-links/github-issue-link-title-wiring')
   registerCleanup(wireGitHubIssueLinkTitleFill(profileStore, runtime))
-  const { installOrcadEmulatorBridge } = await import('../orcad/host-runtime/orcad-emulator-bridge')
-  installOrcadEmulatorBridge(runtime, registerCleanup)
-  const relay = await installOrcadRelayAndAccount(runtime, registerCleanup)
+  const { installOpenkododEmulatorBridge } =
+    await import('../openkodod/host-runtime/openkodod-emulator-bridge')
+  installOpenkododEmulatorBridge(runtime, registerCleanup)
+  const relay = await installOpenkododRelayAndAccount(runtime, registerCleanup)
   // Agents here set Google up through a paired desktop's browser; their key and secret stay here.
   const { installGoogleSetupHostWatch } = await import('../google/google-setup-host-watch')
   registerCleanup(installGoogleSetupHostWatch(runtime))
 
   // Restore prior desktop-pushed account selection before automations or CLI launches.
-  const { restoreOrcadHostAccountLaunchEnv } =
-    await import('../orcad/account-launch/orcad-host-account-launch-env-store')
-  restoreOrcadHostAccountLaunchEnv(runtime, runtimeUserDataPath)
+  const { restoreOpenkododHostAccountLaunchEnv } =
+    await import('../openkodod/account-launch/openkodod-host-account-launch-env-store')
+  restoreOpenkododHostAccountLaunchEnv(runtime, runtimeUserDataPath)
   featureReadiness.open('accounts')
 
-  const { installOrcadSessionSearchService } =
-    await import('../orcad/host-runtime/orcad-session-search')
+  const { installOpenkododSessionSearchService } =
+    await import('../openkodod/host-runtime/openkodod-session-search')
   const { sessionSearchScopeCatalogFromStore } =
     await import('../ai-vault-search/scope/session-search-store-scope-catalog')
-  sessionSearch = await installOrcadSessionSearchService({
+  sessionSearch = await installOpenkododSessionSearchService({
     userDataPath: runtimeUserDataPath,
     getSettings: () => profileStore.getSettings(),
     // Workspace/Project scopes resolve through this host's own registrations, read per search.
@@ -246,7 +262,7 @@ export async function activateBackendRuntime(
   const { startAgentStateRulesLiveUpdates } =
     await import('../runtime/agent-state-rules/agent-state-rules-live-update')
   startAgentStateRulesLiveUpdates(profileStore, (rules) =>
-    console.info(`[orcad] agent state rules ${rules.version} (${rules.source})`)
+    console.info(`[openkodod] agent state rules ${rules.version} (${rules.source})`)
   )
   // Paired phones dictate through this host; keep its model loaded the same way the desktop does.
   const { startSpeechModelWarmup } = await import('../speech/speech-model-warmup')
@@ -281,7 +297,7 @@ export async function activateBackendRuntime(
   // Recover browser/orchestration authority before clients attach to the runtime graph.
   runtime.rehydrateClientHostedBrowserPages()
 
-  await restoreOrcadTerminalAuthority(runtime, timed, featureReadiness)
+  await restoreOpenkododTerminalAuthority(runtime, timed, featureReadiness)
   runtime.agentTransitions.seedRestoredRows()
   void runtime.sidebarFacts?.reconcileSortStampTiers(getLocalPtyProvider())
 
@@ -299,33 +315,33 @@ export async function activateBackendRuntime(
     await import('../runtime/session-graph/headless-runtime-graph')
   publishHeadlessRuntimeGraph(runtime)
   // Only the runtime can identify running shells and install deferred migrated history.
-  void runtime.installPendingOrcadMigrationShellHistory().catch((error: unknown) => {
-    console.error('[orcad-migration] installing pending shell history failed:', error)
+  void runtime.installPendingOpenkododMigrationShellHistory().catch((error: unknown) => {
+    console.error('[openkodod-migration] installing pending shell history failed:', error)
   })
 
-  const connector = await installOrcadConnectorHost(runtime, profileStore, registerCleanup)
+  const connector = await installOpenkododConnectorHost(runtime, profileStore, registerCleanup)
 
-  const bindHost = resolveOrcadBindHost(options.bind)
-  bindOrcadStopTerminalAdmission(runtime.terminalUpdateAdmission)
-  const rpc = createOrcadRuntimeRpcServer(runtime, runtimeUserDataPath, options, bindHost)
+  const bindHost = resolveOpenkododBindHost(options.bind)
+  bindOpenkododStopTerminalAdmission(runtime.terminalUpdateAdmission)
+  const rpc = createOpenkododRuntimeRpcServer(runtime, runtimeUserDataPath, options, bindHost)
   pairedEnvironments.bindRpc(rpc)
   runtime.setAgentSenderPeerKey(() => rpc.getE2EEPublicKey())
   // Stop RPC before cleanup can tear down writers and runtime state.
   registerCleanup(() => rpc.stop())
   await timed('rpc', () => rpc.start())
   worktreeRemovalLifetime.resume(() => runtime.finishInterruptedWorktreeRemovals())
-  startOrcadSchedulers(runtime, profileStore, usageClients, registerCleanup)
+  startOpenkododSchedulers(runtime, profileStore, usageClients, registerCleanup)
   connector.connect()
   relay.start(rpc)
-  startOrcadDesktopPushService(runtime, rpc)
-  console.error(`[orcad] ${describeOrcadBindExposure(bindHost)}`)
+  startOpenkododDesktopPushService(runtime, rpc)
+  console.error(`[openkodod] ${describeOpenkododBindExposure(bindHost)}`)
 
-  const readiness = await buildOrcadServeReadiness({
+  const readiness = await buildOpenkododServeReadiness({
     options,
     runtimeId: runtime.getRuntimeId(),
     rpc,
     collectHealth: () =>
-      collectOrcadHealth(
+      collectOpenkododHealth(
         getAppEnvironment().getVersion(),
         profileStateAuthority,
         idleExitStartup.previousIdleStop
@@ -345,8 +361,8 @@ export async function activateBackendRuntime(
   await idleExitStartup.start({
     rpc,
     agentStates: () => agentHookServer.getStatusSnapshot(),
-    hasStagedMigration: () => profileStore.hasStagedOrcadMigrationCatalog(),
-    automationsBusy: () => orcadSchedulersKeepHostBusy(runtime, profileStore),
+    hasStagedMigration: () => profileStore.hasStagedOpenkododMigrationCatalog(),
+    automationsBusy: () => openkododSchedulersKeepHostBusy(runtime, profileStore),
     emulatorsBusy: async () =>
       (await runtime.getEmulatorBridge()?.hasLiveManagedSessions()) ?? false,
     registerCleanup

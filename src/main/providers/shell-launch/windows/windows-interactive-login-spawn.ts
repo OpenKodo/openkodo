@@ -36,17 +36,17 @@ function buildPidRelayScript(
   exitCodeFilePath: string
 ): string {
   const decode =
-    'function Read-OrcaValue([string]$Value) { [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Value)) }'
-  const encodedArgs = args.map((arg) => `(Read-OrcaValue '${encodeUtf8(arg)}')`).join(',')
+    'function Read-OpenKodoValue([string]$Value) { [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($Value)) }'
+  const encodedArgs = args.map((arg) => `(Read-OpenKodoValue '${encodeUtf8(arg)}')`).join(',')
   return [
     decode,
-    `$Command = Read-OrcaValue '${encodeUtf8(command)}'`,
+    `$Command = Read-OpenKodoValue '${encodeUtf8(command)}'`,
     `$Arguments = @(${encodedArgs})`,
-    `[IO.File]::WriteAllText((Read-OrcaValue '${encodeUtf8(pidFilePath)}'), [string]$PID)`,
+    `[IO.File]::WriteAllText((Read-OpenKodoValue '${encodeUtf8(pidFilePath)}'), [string]$PID)`,
     '& $Command @Arguments',
-    '$OrcaExitCode = if ($null -eq $LASTEXITCODE) { 0 } else { $LASTEXITCODE }',
-    `[IO.File]::WriteAllText((Read-OrcaValue '${encodeUtf8(exitCodeFilePath)}'), [string]$OrcaExitCode)`,
-    'exit $OrcaExitCode'
+    '$OpenKodoExitCode = if ($null -eq $LASTEXITCODE) { 0 } else { $LASTEXITCODE }',
+    `[IO.File]::WriteAllText((Read-OpenKodoValue '${encodeUtf8(exitCodeFilePath)}'), [string]$OpenKodoExitCode)`,
+    'exit $OpenKodoExitCode'
   ].join('; ')
 }
 
@@ -97,8 +97,8 @@ export function buildWindowsHostInteractiveLoginSpawn(
 ): WindowsHostInteractiveLoginSpawn {
   const { spawnCmd, spawnArgs } = getSpawnArgsForWindows(command, args)
   const relayId = randomUUID()
-  const pidFilePath = join(tmpdir(), `orca-interactive-login-${relayId}.pid`)
-  const exitCodeFilePath = join(tmpdir(), `orca-interactive-login-${relayId}.exit`)
+  const pidFilePath = join(tmpdir(), `openkodo-interactive-login-${relayId}.pid`)
+  const exitCodeFilePath = join(tmpdir(), `openkodo-interactive-login-${relayId}.exit`)
   const powershell = getSystem32ExePath('WindowsPowerShell\\v1.0\\powershell.exe')
   const script = buildPidRelayScript(spawnCmd, spawnArgs, pidFilePath, exitCodeFilePath)
   // EncodedCommand needs no execution-policy override, so omit noisy no-op Bypass. Keep base64: start reparses via cmd, whose guard rejects the raw script’s metacharacters.

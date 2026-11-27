@@ -11,7 +11,7 @@ import {
 } from '@/store/plugins/updates/plugin-update-review-toast'
 import { pluginListEntryFromInstalled, type PluginListEntry } from '../list/plugin-list-entries'
 import { PluginUpdateReviewToast } from '../review/PluginUpdateReviewToast'
-import { useOrcaVersion } from '../state/use-plugin-page-navigation'
+import { useOpenKodoVersion } from '../state/use-plugin-page-navigation'
 import { PluginUpdateAllDialog } from './PluginUpdateAllDialog'
 
 const TOAST_ID = 'plugin-update-review'
@@ -67,7 +67,7 @@ function useHeldUpdateToast(): void {
 export function PluginUpdateReviewHost(): React.JSX.Element | null {
   useHeldUpdateToast()
   const request = usePluginUpdateReviewDialogStore((state) => state.request)
-  const orcaVersion = useOrcaVersion()
+  const openkodoVersion = useOpenKodoVersion()
   const [loaded, setLoaded] = useState<{ id: number; entries: PluginListEntry[] } | null>(null)
   useEffect(() => {
     if (!request) {
@@ -109,7 +109,7 @@ export function PluginUpdateReviewHost(): React.JSX.Element | null {
       key={request.id}
       open
       entries={loaded.entries}
-      orcaVersion={orcaVersion}
+      openkodoVersion={openkodoVersion}
       onClose={closePluginUpdateReviewDialog}
       // Why nothing to reload: main's install events refresh what the rest of OpenKodo shows.
       onUpdated={async () => undefined}

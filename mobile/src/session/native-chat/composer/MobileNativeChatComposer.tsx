@@ -34,7 +34,7 @@ import type { MobileNativeChatSendIntent } from './delivery/mobile-native-chat-s
 import { MobileNativeChatComposerMic } from './dictation/MobileNativeChatComposerMic'
 import { MobileNativeChatDictationLeading } from './dictation/MobileNativeChatDictationLeading'
 import { useMobileNativeChatComposerGoalMode } from './commands/use-mobile-native-chat-composer-goal-mode'
-import { useMobileNativeChatOrcaCommands } from './commands/use-mobile-native-chat-orca-commands'
+import { useMobileNativeChatOpenKodoCommands } from './commands/use-mobile-native-chat-openkodo-commands'
 import { MobileNativeChatComposerPlanChip } from './commands/MobileNativeChatComposerPlanChip'
 import type { MobileNativeChatComposerProps } from './mobile-native-chat-composer-props'
 import { MobileNativeChatMcpTray } from '../mcp/MobileNativeChatMcpTray'
@@ -112,7 +112,7 @@ export function MobileNativeChatComposer({
   // Only a structured chat's sends reach the host's mention context, as on the desktop.
   const mentionBots = useMobileNativeChatMentionBots(!roomMentions && structured !== null)
   const goal = useMobileNativeChatComposerGoalMode(structured, !!editSession, sendSurfaceId)
-  const orca = useMobileNativeChatOrcaCommands({
+  const openkodo = useMobileNativeChatOpenKodoCommands({
     structured,
     agent,
     sendSurfaceId,
@@ -139,12 +139,12 @@ export function MobileNativeChatComposer({
         recordMobileNativeChatSkillPick(sendSurfaceId, skill)
       }
     },
-    refuseCommand: editSession?.refuseCommand ?? orca.refusesPick,
-    onPickOrcaCommand: editSession ? undefined : orca.onPickCommand,
+    refuseCommand: editSession?.refuseCommand ?? openkodo.refusesPick,
+    onPickOpenKodoCommand: editSession ? undefined : openkodo.onPickCommand,
     editing: editSession !== undefined,
     goalMode: goal.menu,
     agent,
-    structuredCatalog: orca.catalog,
+    structuredCatalog: openkodo.catalog,
     interactionModeSupported:
       editSession?.interactionModeSupported ??
       sessionOptions?.controller.snapshot.some((entry) => entry.id === 'interactionMode'),
@@ -209,7 +209,7 @@ export function MobileNativeChatComposer({
       !canSend ||
       sendingRef.current ||
       // Before goal mode too, so an OpenKodo command never becomes an objective.
-      orca.consume(value) ||
+      openkodo.consume(value) ||
       goal.consumeBareGoal(value, () => onChangeText(''))
     ) {
       return
@@ -257,7 +257,7 @@ export function MobileNativeChatComposer({
       />
       <View style={styles.composerInset} testID="native-chat-composer-inset">
         {editSession ? null : <MobileNativeChatMcpTray panel={structured?.mcpPanel} />}
-        {orca.usageSheet}
+        {openkodo.usageSheet}
         {goal.strip}
         {editSession ? null : <MobileNativeChatQuoteTab {...{ value, onChangeText, fieldRef }} />}
         <View {...contextRing.barProps} style={styles.bar} testID="native-chat-composer">

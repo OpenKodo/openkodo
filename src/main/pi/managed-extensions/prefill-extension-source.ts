@@ -1,6 +1,6 @@
 import type { PiAgentKind } from '../../../shared/agent-launch/catalog/pi-agent-kind'
 
-export const OPENKODO_PI_PREFILL_EXTENSION_FILE = 'orca-prefill.ts'
+export const OPENKODO_PI_PREFILL_EXTENSION_FILE = 'openkodo-prefill.ts'
 
 // Keep draft variables agent-specific so Pi and OMP cannot consume each other's prefill.
 type PrefillAgentKind = Exclude<PiAgentKind, 'prime-agent'>

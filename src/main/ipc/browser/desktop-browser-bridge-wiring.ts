@@ -1,4 +1,4 @@
-/** Route eligible SSH hosts through their paired orcad connection to this desktop's browser bridge. */
+/** Route eligible SSH hosts through their paired openkodod connection to this desktop's browser bridge. */
 import { createHash, randomUUID } from 'node:crypto'
 import path from 'node:path'
 import { app, webContents, type BrowserWindow } from 'electron'
@@ -19,10 +19,10 @@ import '../../../shared/remote-runtime/requests/remote-runtime-request-socket'
 import { subscribeRemoteRuntimeTransport } from '../../../shared/remote-runtime/requests/remote-runtime-subscription-transport'
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import {
-  getOrcadSshDeployment,
+  getOpenkododSshDeployment,
   getPreferredPairedRuntimeConnection
 } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
-import { getManagedOrcadFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
+import { getManagedOpenkododFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-openkodod-ssh-owner'
 import { isRemoteCliControlAllowed } from '../../../shared/remote-runtime/ssh/ssh-remote-cli-control'
 import { browserManager } from '../../browser/guest-lifecycle/manager/browser-manager'
 import {
@@ -31,10 +31,10 @@ import {
 } from '../../browser/desktop-browser-bridge/desktop-browser-bridge-manager'
 import { executeDesktopBrowserBridgeRequest } from '../../browser/desktop-browser-bridge/desktop-browser-bridge-executor'
 import { rendererResolveRemoteCliWorkspace } from '../../browser/desktop-browser-bridge/desktop-browser-bridge-renderer-scope'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { RpcDispatcher } from '../../runtime/rpc/dispatcher'
 import { ALL_RPC_METHODS } from '../../runtime/rpc/methods/rpc-method-registry'
-import { ensureOrcadManagedTunnel } from '../../managed-server/lifecycle/orcad-managed-tunnel'
+import { ensureOpenkododManagedTunnel } from '../../managed-server/lifecycle/openkodod-managed-tunnel'
 import { getSshTargetRegistryStore } from '../../ssh/targets/ssh-target-registry'
 import type { SshConnectionManager } from '../../ssh/connection/ssh-connection-manager'
 import { getRuntimeEnvironmentStatus } from '../runtime-environments/status/runtime-environment-status-probe'
@@ -67,7 +67,7 @@ function hostFilesFor(candidate: DesktopBrowserBridgeCandidate): DesktopBrowserB
   if (!files) {
     const scope = createHash('sha256').update(candidate.environmentId).digest('hex').slice(0, 16)
     files = new DesktopBrowserBridgeHostFiles({
-      stagingRoot: path.join(app.getPath('temp'), 'orca-desktop-browser-bridge-files', scope),
+      stagingRoot: path.join(app.getPath('temp'), 'openkodo-desktop-browser-bridge-files', scope),
       hostLabel: () => hostLabelByEnvironmentId.get(environmentId) ?? candidate.hostLabel
     })
     hostFilesByEnvironmentId.set(candidate.environmentId, files)
@@ -85,9 +85,10 @@ export async function listDesktopBrowserBridgeCandidates(
   connections: Pick<SshConnectionManager, 'getState'> | null
 ): Promise<DesktopBrowserBridgeCandidate[]> {
   const candidates: DesktopBrowserBridgeCandidate[] = []
-  // Why: a managed host's eligibility follows its orcad claim, not whether it is listed in SSH
+  // Why: a managed host's eligibility follows its openkodod claim, not whether it is listed in SSH
   // settings; environment recipes connect runtime-owned targets that are claimed the same way.
-  for (const target of getSshTargetRegistryStore()?.getOrcadRuntimeClaims().listTargets() ?? []) {
+  for (const target of getSshTargetRegistryStore()?.getOpenkododRuntimeClaims().listTargets() ??
+    []) {
     if (!isRemoteCliControlAllowed(target) || isDesktopBrowserBridgeHostStopped(target.id)) {
       continue
     }
@@ -95,7 +96,7 @@ export async function listDesktopBrowserBridgeCandidates(
       continue
     }
     // Only managed hosts qualify even when the global switch defaults on.
-    const environmentId = getManagedOrcadFenceEnvironmentId(target)
+    const environmentId = getManagedOpenkododFenceEnvironmentId(target)
     if (!environmentId || isRuntimeEnvironmentManuallyDisconnected(environmentId)) {
       continue
     }
@@ -105,7 +106,7 @@ export async function listDesktopBrowserBridgeCandidates(
     }
     try {
       const environment = await resolveEnvironment(userDataPath, environmentId)
-      if (getOrcadSshDeployment(environment)?.sshTargetId !== target.id) {
+      if (getOpenkododSshDeployment(environment)?.sshTargetId !== target.id) {
         continue
       }
     } catch {
@@ -118,7 +119,7 @@ export async function listDesktopBrowserBridgeCandidates(
 
 export function installDesktopBrowserBridge(options: {
   userDataPath: string
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   getMainWindow: () => BrowserWindow | null
   getConnectionManager: () => Pick<SshConnectionManager, 'getState'> | null
 }): void {
@@ -156,7 +157,7 @@ export function installDesktopBrowserBridge(options: {
       return (status.result.capabilities ?? []).includes(DESKTOP_BROWSER_BRIDGE_RUNTIME_CAPABILITY)
     },
     subscribe: (environmentId) => async (callbacks) => {
-      await ensureOrcadManagedTunnel(userDataPath, environmentId)
+      await ensureOpenkododManagedTunnel(userDataPath, environmentId)
       const connection = getPreferredPairedRuntimeConnection(
         await resolveEnvironment(userDataPath, environmentId)
       )
@@ -215,7 +216,7 @@ export function installDesktopBrowserBridge(options: {
           worktreeIdForPage: (browserPageId) =>
             browserManager.getWorktreeIdForTab(browserPageId) ?? null,
           dispatch: (method, params) =>
-            // Why: the SSH host's orca CLI is an agent caller; the cursor and tab badge key off it.
+            // Why: the SSH host's openkodo CLI is an agent caller; the cursor and tab badge key off it.
             getDispatcher().dispatch(
               { id: randomUUID(), authToken: '', method, params },
               { caller: { kind: 'local-cli' } }

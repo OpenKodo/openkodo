@@ -61,7 +61,7 @@ export async function collectImportGraph(root, files) {
       {
         name: 'main-blocking-workspace-sources',
         setup(pluginBuild) {
-          pluginBuild.onResolve({ filter: /^@orca\// }, ({ path: specifier }) => {
+          pluginBuild.onResolve({ filter: /^@openkodo\// }, ({ path: specifier }) => {
             const source = workspace.resolve(specifier)
             return source ? { path: source.path } : undefined
           })
@@ -126,7 +126,7 @@ function createRequireTargets(file, contents, sources) {
   return targets
 }
 
-/** Electron main, CLI, orcad and preload entries: guarded even when a worker happens to import one. */
+/** Electron main, CLI, openkodod and preload entries: guarded even when a worker happens to import one. */
 export function eventLoopEntryFiles(root) {
   // Fixtures lack build config; a renamed main entry must not disable root validation in the real repo.
   const realRepo =
@@ -166,7 +166,7 @@ export function eventLoopEntryFiles(root) {
   const preload = listTrackedFiles(root, ['src/preload']).filter(
     (file) => file.split('/').length === 3 && isMainBlockingSource(file)
   )
-  const entries = [...built, ...cli, 'src/main/index.ts', 'src/main/orcad/main.ts', ...preload]
+  const entries = [...built, ...cli, 'src/main/index.ts', 'src/main/openkodod/main.ts', ...preload]
   if (realRepo) {
     const tracked = new Set(listTrackedFiles(root, entries))
     const missing = entries.filter(

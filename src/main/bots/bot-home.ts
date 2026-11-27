@@ -91,11 +91,11 @@ export type BotsRootPaths = {
   xdgDataHome?: string
 }
 
-// A shared-home SSH server's per-machine data root, `~/.orca-<machine key prefix>`.
-const MACHINE_DATA_ROOT = /^\.orca-[a-f0-9]{8}$/u
+// A shared-home SSH server's per-machine data root, `~/.openkodo-<machine key prefix>`.
+const MACHINE_DATA_ROOT = /^\.openkodo-[a-f0-9]{8}$/u
 
-/** The hidden Bots project group's folder: `~/.orca/bots` for every profile a real setup runs on
- *  (desktop, shared dev, orcad's defaults, shared-home servers), `<userData>/bots` for any other
+/** The hidden Bots project group's folder: `~/.openkodo/bots` for every profile a real setup runs on
+ *  (desktop, shared dev, openkodod's defaults, shared-home servers), `<userData>/bots` for any other
  *  data folder, so isolated runs never write into the real setup. */
 export function botsRootFolder(paths: BotsRootPaths = currentBotsRootPaths()): string {
   // Case-folded: app.setName can recase a default profile's path on case-insensitive disks.
@@ -104,10 +104,10 @@ export function botsRootFolder(paths: BotsRootPaths = currentBotsRootPaths()): s
   const standardProfiles = [
     join(paths.appData, 'openkodo'),
     join(paths.appData, 'openkodo-dev'),
-    join(paths.appData, 'orca'),
-    join(paths.appData, 'orca-dev'),
+    join(paths.appData, 'openkodo'),
+    join(paths.appData, 'openkodo-dev'),
     join(paths.home, '.openkodo'),
-    join(paths.home, '.orca'),
+    join(paths.home, '.openkodo'),
     ...(paths.xdgDataHome ? [join(paths.xdgDataHome, 'OpenKodo')] : [])
   ].map(comparable)
   const machineDataRoot =

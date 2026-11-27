@@ -6,13 +6,13 @@ appimage=${OPENKODO_TEST_APPIMAGE:-/artifacts/squashfs-root/AppRun}
 timeout_seconds=${OPENKODO_STARTUP_TIMEOUT_SECONDS:-12}
 pairing_address=${OPENKODO_PAIRING_ADDRESS:-127.0.0.1}
 port=${OPENKODO_SERVE_PORT:-0}
-state_dir="/tmp/orca-${case_name}"
+state_dir="/tmp/openkodo-${case_name}"
 
 if ((EUID == 0)); then
   mkdir -p "$state_dir/config" "$state_dir/cache"
-  chown -R orca:orca "$state_dir"
+  chown -R openkodo:openkodo "$state_dir"
   # Why: packaged serve should exercise the same unprivileged account required by production systemd guidance.
-  exec runuser --user orca --preserve-environment -- "$0" "$@"
+  exec runuser --user openkodo --preserve-environment -- "$0" "$@"
 fi
 
 mkdir -p "$state_dir/config" "$state_dir/cache"

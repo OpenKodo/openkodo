@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithStopTerminalsForProject } from '../../terminal/stop/project-terminal-stop'
+import { OpenKodoRuntimeWithStopTerminalsForProject } from '../../terminal/stop/project-terminal-stop'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 
 export type SessionTitlePublisher = {
@@ -9,7 +9,7 @@ export type SessionTitlePublisher = {
 
 export type SessionTitleAuthority = ReadonlyMap<string, ReadonlySet<string>>
 
-export abstract class OrcaRuntimeWithSessionTitleAuthority extends OrcaRuntimeWithStopTerminalsForProject {
+export abstract class OpenKodoRuntimeWithSessionTitleAuthority extends OpenKodoRuntimeWithStopTerminalsForProject {
   private currentSessionTitlePublisher(worktreeId: string): SessionTitlePublisher | undefined {
     const publisher = this.acceptedRendererMobileSnapshotByWorktree.get(worktreeId)?.titlePublisher
     return (

@@ -2,7 +2,7 @@
 export const WSL_CODEX_RUNTIME_HOME_SEGMENTS = [
   '.local',
   'share',
-  'orca',
+  'openkodo',
   'codex-runtime-home',
   'home'
 ] as const

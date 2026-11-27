@@ -35,7 +35,7 @@ export function mint(account: Account, key: KeyLike, relayHostId: string): Promi
     .setProtectedHeader({ alg: 'ES256', kid: account.jwtKid })
     .setSubject(account.user)
     .setIssuer(account.jwtIssuer)
-    .setAudience('orca-relay')
+    .setAudience('openkodo-relay')
     .setIssuedAt()
     .setExpirationTime('30m')
     .sign(key)
@@ -70,7 +70,7 @@ export function desktop(
     createSocket: (url, token) => {
       const target = opts.dialOrigin ? url.replace(new URL(url).origin, opts.dialOrigin.replace(/^http/, 'ws')) : url
       const ws = new WebSocket(target, {
-        headers: { authorization: `Bearer ${token}`, 'x-orca-host-capabilities': 'pending-conn-details', ...opts.extraHeaders },
+        headers: { authorization: `Bearer ${token}`, 'x-openkodo-host-capabilities': 'pending-conn-details', ...opts.extraHeaders },
         perMessageDeflate: false,
         maxPayload: 1024 * 1024 + 1024
       })
@@ -128,7 +128,7 @@ export async function adminAssign(
   const token = await new SignJWT({ purpose: 'edge-admin', op: 'assign', bodySha256: sha(raw) })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuer(admin.issuer)
-    .setAudience('orca-relay-edge-admin')
+    .setAudience('openkodo-relay-edge-admin')
     .setIssuedAt()
     .setExpirationTime('1m')
     .sign(new TextEncoder().encode(admin.key))

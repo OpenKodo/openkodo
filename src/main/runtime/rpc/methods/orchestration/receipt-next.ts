@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { projectWorkerListFleet } from './worker/fleet/worker-list-projection'
 import type { OrchestrationDb } from '../../../orchestration/db/orchestration-db'
 
@@ -44,7 +44,7 @@ export function withWorkerStartNext(
 }
 
 export async function withRunCheckNext(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   result: unknown
 ): Promise<unknown> {
   // A batch is capped, so a take that leaves unread mail behind is the one case that needs another check.
@@ -68,7 +68,10 @@ export function withAnswerNext<T extends object>(receipt: T): T & { next: string
 }
 
 /** A worker still runs and worker-list owes no action: each running worker's stop or exit sends mail. */
-async function awaitsWorkerReports(runtime: OrcaRuntimeService, runId: string): Promise<boolean> {
+async function awaitsWorkerReports(
+  runtime: OpenKodoRuntimeService,
+  runId: string
+): Promise<boolean> {
   const db = runtime.getOrchestrationDb()
   const workers: Awaited<ReturnType<typeof projectWorkerListFleet>>['workers'] = []
   // Settled history projects to no action, so a long Run's past workers are never projected here.

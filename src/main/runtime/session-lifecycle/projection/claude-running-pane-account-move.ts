@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithRestartAgentPaneInPlace } from './restart-agent-pane-in-place'
+import { OpenKodoRuntimeWithRestartAgentPaneInPlace } from './restart-agent-pane-in-place'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { isRemoteRuntimePtyId } from '../../../../shared/remote-runtime/remote-runtime-pty-id'
 import {
@@ -30,8 +30,8 @@ type ClaudePane = {
 type ClaudePaneRestart = ClaudePane & { session: AgentProviderSessionMetadata }
 
 /** The host moves its own running Claude terminals when its account switches: all of them on a host
- *  with no window (serve, orcad), and on a desktop the ones its window doesn't hold. */
-export abstract class OrcaRuntimeWithClaudeRunningPaneAccountMove extends OrcaRuntimeWithRestartAgentPaneInPlace {
+ *  with no window (serve, openkodod), and on a desktop the ones its window doesn't hold. */
+export abstract class OpenKodoRuntimeWithClaudeRunningPaneAccountMove extends OpenKodoRuntimeWithRestartAgentPaneInPlace {
   private claudePanePlans: Promise<unknown> = Promise.resolve()
   private claudePaneRestarts: Promise<unknown> = Promise.resolve()
   /** Panes queued or mid-restart; their new terminal takes whatever account is selected then. */

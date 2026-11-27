@@ -110,7 +110,7 @@ export function renderAccountsSettingsSection(
       {!view.isSectionMounted('accounts') ? null : !model.settingsHostScope.available ? (
         <SettingsHostScopeUnavailableNotice />
       ) : wslHostDistro ? (
-        // A WSL host's orcad has no account services; this desktop owns its distro's accounts.
+        // A WSL host's openkodod has no account services; this desktop owns its distro's accounts.
         <AccountsPane
           key={wslHostDistro ?? getProviderAccountsOwnerKey(model.settingsHostScope.target)}
           nativeAccounts={model.nativeAccounts}

@@ -1,6 +1,6 @@
 /** What a coordinator is told about a worker's permission prompt: who may answer, and how it closed. */
 import type { WorkerApprovalPayload } from '../../../../../shared/orchestration/approvals/worker-approval-payload'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 
 /** A helper's prompt is held from the worker's terminal: Claude shows it there only after OpenKodo lets go. */
 export function describeHelperHold(chatCoordinator: boolean | undefined): string {

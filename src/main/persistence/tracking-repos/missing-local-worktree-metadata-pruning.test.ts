@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import {
   getDefaultPersistedState,
   getDefaultWorkspaceSession
-} from '../../../shared/orca-profiles/constants'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+} from '../../../shared/openkodo-profiles/constants'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { Project } from '../../../shared/project/project-types'
 import type { Repo } from '../../../shared/repository/repo-types'
 import type { SshRemotePtyLease } from '../../../shared/remote-runtime/ssh/ssh-types'

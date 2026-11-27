@@ -23,7 +23,7 @@ import { botSlackErrorMessage, slackHowToAsk } from './bot-slack-copy'
 import { useBotHostLabel } from '../use-bot-host-label'
 import { BotSlackSetupDialog } from './BotSlackSetupDialog'
 import { BotSlackSection } from './BotSlackSection'
-import { signedOutConnectorFace } from '../orca-cloud-sign-in'
+import { signedOutConnectorFace } from '../openkodo-cloud-sign-in'
 import { useSlackWhoCanAsk } from './use-slack-who-can-ask'
 
 function slackAppSettingsUrl(appId: string): string {

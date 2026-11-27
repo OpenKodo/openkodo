@@ -233,7 +233,7 @@ export const queuedMessageStyles = themedStyleSheet(() => ({
   lit: {
     backgroundColor: colors.translucentFill
   },
-  // The lit row's Steer pill fills like the composer's primary (orca #40820).
+  // The lit row's Steer pill fills like the composer's primary (openkodo #40820).
   litAction: {
     backgroundColor: colors.surfaceBright
   },

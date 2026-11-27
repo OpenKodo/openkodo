@@ -1,6 +1,6 @@
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { WorkerTerminalResourceRow } from '../../terminal-authority/release/worker-terminal-ownership'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationCompatibilityEvidence } from '../../../../../shared/orchestration/orchestration-compatibility-evidence'
 import type { RpcCallerIdentity } from '../../../rpc/callers/rpc-caller-identity'
 import {
@@ -16,7 +16,7 @@ import { resolveStructuredWorkerIdentityForSession } from '../../terminal-author
  *  worker, so their terminals get no owner; nor does one created with --keep-open. */
 export function bindTerminalToCallingWorker(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     'getExistingOrchestrationDb' | 'getTerminalPaneKey' | 'getTerminalHandleForPaneKey'
   >,
   caller: {

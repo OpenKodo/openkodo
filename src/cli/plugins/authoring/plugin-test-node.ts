@@ -2,8 +2,8 @@ import { getPackagedElectronExecutable } from '../../runtime/app-launch/packaged
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
-import type { ProcessResult, ProcessSpec } from '@orca/process-host/process-spec'
+import { runProcess } from '@openkodo/process-host'
+import type { ProcessResult, ProcessSpec } from '@openkodo/process-host/process-spec'
 
 /** `module.register` (the `--import` hooks) arrived in Node 20.6; `node:test` is older. */
 const MIN_NODE = [20, 6] as const
@@ -13,7 +13,7 @@ export type PluginTestNode = {
   program: string
   /** Extra environment: OpenKodo's own runtime needs ELECTRON_RUN_AS_NODE to act as Node. */
   env: Record<string, string>
-  source: 'system' | 'orca'
+  source: 'system' | 'openkodo'
   version: string
 }
 
@@ -49,7 +49,7 @@ function supports(version: string): boolean {
 export async function selectPluginTestNode(
   deps: Dependencies = defaults()
 ): Promise<PluginTestNode> {
-  const empty = await mkdtemp(join(tmpdir(), 'orca-plugin-node-'))
+  const empty = await mkdtemp(join(tmpdir(), 'openkodo-plugin-node-'))
   const probe = await deps
     .run({
       program: 'node',
@@ -70,7 +70,7 @@ export async function selectPluginTestNode(
   return {
     program: deps.execPath,
     env: deps.electron ? { ELECTRON_RUN_AS_NODE: '1' } : {},
-    source: 'orca',
+    source: 'openkodo',
     version: deps.version
   }
 }

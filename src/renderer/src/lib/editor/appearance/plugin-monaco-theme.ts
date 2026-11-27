@@ -143,5 +143,5 @@ export function derivePluginMonacoTheme(input: {
     }),
     colors
   }
-  return { name: `orca-plugin-${hashThemeContent(JSON.stringify(data))}`, data }
+  return { name: `openkodo-plugin-${hashThemeContent(JSON.stringify(data))}`, data }
 }

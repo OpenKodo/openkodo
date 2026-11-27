@@ -1,5 +1,5 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
-import { getDefaultVoiceSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultVoiceSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { VoiceSpeechGpuSetting } from './VoiceSpeechGpuSetting'
 
 export const auto = defineFixture({

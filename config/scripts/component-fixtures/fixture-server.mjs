@@ -130,7 +130,7 @@ function invalidateFixtureRegistry(server) {
 
 function createFixtureApiPlugin(session) {
   return {
-    name: 'orca-component-fixture-api',
+    name: 'openkodo-component-fixture-api',
     configureServer(server) {
       // Any watched source change makes the warm page reload before its next shot.
       server.watcher.on('all', (event, file) => {

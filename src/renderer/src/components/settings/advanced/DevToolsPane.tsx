@@ -5,12 +5,15 @@ import { Badge } from '../../ui/badge'
 import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { showDeleteWorktreeFailureToast } from '../../sidebar/workspace-actions/deletion/delete-worktree-failure-toast'
 import { showLocalBaseRefUpdateSuggestionToast } from '../../sidebar/workspace-creation/base-ref-update/local-base-ref-suggestion-toast'
-import { useOrcaProfileAuthStatusRefresh } from '@/components/orca-profiles/use-orca-profile-auth-status-refresh'
+import { useOpenKodoProfileAuthStatusRefresh } from '@/components/openkodo-profiles/use-openkodo-profile-auth-status-refresh'
 import { translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 import { useAppStore } from '@/store/index'
 import type { AppState } from '@/store/types'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../../orca-profiles/OrcaSignInProgress'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../../openkodo-profiles/OpenKodoSignInProgress'
 
 const LONG_WORKSPACE_NAME = 'feature/dev-toast-layout-with-a-long-workspace-name'
 const DEV_TOAST_DESCRIPTION =
@@ -137,20 +140,20 @@ function showDeleteFailureToast(): void {
 }
 
 // Preview Cloud auth under dev environment flags while packaged account switchers remain hidden.
-function OrcaCloudDevSubsection(): React.JSX.Element {
+function OpenKodoCloudDevSubsection(): React.JSX.Element {
   const t = useTranslate()
-  const authStatus = useAppStore((s) => s.orcaProfileAuthStatus)
-  const signOut = useAppStore((s) => s.signOutCurrentOrcaProfile)
-  const refresh = useAppStore((s) => s.fetchOrcaProfileAuthStatus)
+  const authStatus = useAppStore((s) => s.openkodoProfileAuthStatus)
+  const signOut = useAppStore((s) => s.signOutCurrentOpenKodoProfile)
+  const refresh = useAppStore((s) => s.fetchOpenKodoProfileAuthStatus)
   const configured = authStatus?.configured === true
   const connected = authStatus?.state === 'connected'
-  useOrcaProfileAuthStatusRefresh()
+  useOpenKodoProfileAuthStatusRefresh()
 
   return (
     <SettingsGroup
-      title={t('auto.components.settings.DevToolsPane.orcaCloud', 'cloud service')}
+      title={t('auto.components.settings.DevToolsPane.openkodoCloud', 'cloud service')}
       description={t(
-        'auto.components.settings.DevToolsPane.orcaCloudDescription',
+        'auto.components.settings.DevToolsPane.openkodoCloudDescription',
         'Dev-only preview of first-party cloud sign-in. Hidden in production; in dev it also appears in the sidebar account switcher once OPENKODO_CLOUD_API_URL and OPENKODO_CLOUD_CLIENT_ID are set.'
       )}
       action={
@@ -163,22 +166,22 @@ function OrcaCloudDevSubsection(): React.JSX.Element {
       {configured ? (
         <div className="space-y-2">
           <p className="text-xs text-muted-foreground">
-            {t('auto.components.settings.DevToolsPane.orcaCloudStatus', 'Status')}:{' '}
+            {t('auto.components.settings.DevToolsPane.openkodoCloudStatus', 'Status')}:{' '}
             <span className="font-medium text-foreground">{authStatus?.state}</span>
           </p>
           <div className="flex flex-wrap gap-2">
             {connected ? (
               <Button type="button" variant="outline" size="sm" onClick={() => void signOut()}>
-                {t('auto.components.settings.DevToolsPane.orcaCloudSignOut', 'Sign out')}
+                {t('auto.components.settings.DevToolsPane.openkodoCloudSignOut', 'Sign out')}
               </Button>
             ) : (
-              <OrcaSignInButton variant="outline" size="sm">
-                {t('auto.components.settings.DevToolsPane.orcaCloudConnect', 'Connect profile')}
-              </OrcaSignInButton>
+              <OpenKodoSignInButton variant="outline" size="sm">
+                {t('auto.components.settings.DevToolsPane.openkodoCloudConnect', 'Connect profile')}
+              </OpenKodoSignInButton>
             )}
-            {connected ? null : <OrcaSignInWaitNotice className="basis-full" />}
+            {connected ? null : <OpenKodoSignInWaitNotice className="basis-full" />}
             <Button type="button" variant="ghost" size="sm" onClick={() => void refresh()}>
-              {t('auto.components.settings.DevToolsPane.orcaCloudRefresh', 'Refresh status')}
+              {t('auto.components.settings.DevToolsPane.openkodoCloudRefresh', 'Refresh status')}
             </Button>
           </div>
         </div>
@@ -186,7 +189,7 @@ function OrcaCloudDevSubsection(): React.JSX.Element {
         <p className="text-xs text-muted-foreground">
           {authStatus?.setupMessage ??
             t(
-              'auto.components.settings.DevToolsPane.orcaCloudNotConfigured',
+              'auto.components.settings.DevToolsPane.openkodoCloudNotConfigured',
               'Set OPENKODO_CLOUD_API_URL and OPENKODO_CLOUD_CLIENT_ID to preview cloud service sign-in in this dev build.'
             )}
         </p>
@@ -305,7 +308,7 @@ export function DevToolsPane(): React.JSX.Element {
         </div>
       </SettingsGroup>
 
-      <OrcaCloudDevSubsection />
+      <OpenKodoCloudDevSubsection />
     </div>
   )
 }

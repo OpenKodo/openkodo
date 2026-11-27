@@ -6,7 +6,7 @@ resolved; pass `--json` and branch on `error.code`.
 ## dev watch
 
 `openkodo plugin dev watch <dir> [--check] [--shot <out-dir> [--shot-panel <id>]] [--approve <fp>] --json`
-loads the folder (refreshing `.orca/types`) and prints one JSON object per line:
+loads the folder (refreshing `.openkodo/types`) and prints one JSON object per line:
 
 - `loaded`, `unloaded`, `disconnected`, `warning`.
 - `log`: what panels, editors and the worker print. Console errors and uncaught exceptions read
@@ -38,7 +38,7 @@ re-checks changed commands and shortcuts), `openkodo plugin dev unload <dir>`.
 - `openkodo plugin shot <plugin-key> [--panel <id>] [--theme light|dark] [--width <px>] [--out <png>] --json`
   waits for the panel's current code to draw and, for a components panel, for its host calls
   (`plugin.request` included) to answer and redraw (at most 3s more), then writes a PNG cropped to
-  it (default `.orca/shots/<plugin-key>-<panel>.png` in the plugin folder when run inside one, else
+  it (default `.openkodo/shots/<plugin-key>-<panel>.png` in the plugin folder when run inside one, else
   in `<cwd>`) and returns `{ path, width, height, theme, themeApplied, themeReason?, settled,
   errors, pendingRequests?, actions?, restored? }`. `pendingRequests` above 0 means a worker had
   not answered, so the PNG may show the loading state. Check a narrow `--width` and both themes. `--theme` applies only while OpenKodo's
@@ -68,7 +68,7 @@ re-checks changed commands and shortcuts), `openkodo plugin dev unload <dir>`.
   `errors` has what the render reported; an unknown name fails and lists the scenarios. Limits:
   a still frame (host-owned control values start from the tree's props), images show their
   placeholder, no `--act`, local only (no `--environment`), and OpenKodo's window must be hidden
-  or minimized. Default file `.orca/shots/<plugin-key>-<panel>.<scenario>.png`.
+  or minimized. Default file `.openkodo/shots/<plugin-key>-<panel>.<scenario>.png`.
 - `openkodo plugin open <plugin-key> [--panel <id> | --editor <file>]` shows the panel in the right
   sidebar, or a file in the plugin's custom editor. Neither raises the window. `--editor` opens the
   file in the workspace that holds it (its real path counts: `/tmp` is `/private/tmp`), or else
@@ -89,11 +89,11 @@ acts on the file itself and keeps its tab open), and a shot without acts closes 
 opened. Edits only mark the tab dirty, as typing does: to write them to disk, end an `--in-place`
 `--act` with `{"key":"s","modifiers":["meta"]}` (`"control"` on Linux and Windows). Before each `key` OpenKodo focuses the editor's guest, so a canvas keeps getting keys. It exits 1 and lists `errors` when the editor threw, was blocked by its
 content policy, or never asked for its document within 5s; the PNG is written anyway. The theme
-and size are put back. Default file `.orca/shots/<plugin-key>-<editor>.png`.
+and size are put back. Default file `.openkodo/shots/<plugin-key>-<editor>.png`.
 
 `openkodo plugin shot <dir> --status-bar [--theme light|dark]` captures OpenKodo's status bar, where your
 status bar items draw, and `--window` the whole window, both from the hidden window. Default files
-`.orca/shots/<plugin-key>-status-bar.png` and `-window.png`.
+`.openkodo/shots/<plugin-key>-status-bar.png` and `-window.png`.
 
 - Both need the desktop app with a workspace. With none showing, a shot selects one of this
   machine's workspaces in the hidden window. A shot never changes the view: it fails with
@@ -121,8 +121,8 @@ with `main`; the worker starts if needed) and prints `{ pluginKey, name, result 
 Both run the plugin's code on this machine, outside OpenKodo's sandbox: only on code you trust.
 
 - `openkodo plugin test [dir] --json` runs every `*.test.ts(x)` (also `.mts`, `.js(x)`, `.mjs`),
-  skipping `node_modules`, `.orca`, `dist` and dot-folders, with `node:test` or the plugin's own
-  vitest. Stdout is `{ ok, result: { runner, code, node: 'system' | 'orca', files } }`; the exit
+  skipping `node_modules`, `.openkodo`, `dist` and dot-folders, with `node:test` or the plugin's own
+  vitest. Stdout is `{ ok, result: { runner, code, node: 'system' | 'openkodo', files } }`; the exit
   code is the runner's (`plugin_tests_failed`).
 - `openkodo plugin check [dir] --json` validates, then renders each components panel once against a
   stand-in host with the manifest's capabilities: what it threw (`file:line:col`), layouts OpenKodo
@@ -143,7 +143,7 @@ them beside its entry (`src/panel.check.ts` for `src/panel.tsx`); check renders 
 scenario, each on a fresh host with the worker, and labels each result with `scenario`:
 
 ```ts
-import { defineCheck } from 'orca/testing'
+import { defineCheck } from 'openkodo/testing'
 
 export default defineCheck({
   empty: {},
@@ -182,14 +182,14 @@ export default defineCheck({
   `capabilities`), plus `persisted` and `theme` as `mount()` takes them, and `events` delivered in
   order after the first draw. `requests` stubs a name; any other goes to the worker.
 - Add one per state worth seeing: empty, busy, an error answer (`hostError(code)` in `results`).
-- OpenKodo itself never loads `*.check.ts`; it may import `orca/testing`.
+- OpenKodo itself never loads `*.check.ts`; it may import `openkodo/testing`.
 
-### Panels with orca/testing
+### Panels with openkodo/testing
 
 Put tests next to the panel (`src/panel.test.tsx`; the components template writes one):
 
 ```tsx
-import { afterEach, assert, mount, test, type TestPanel } from 'orca/testing'
+import { afterEach, assert, mount, test, type TestPanel } from 'openkodo/testing'
 import * as panelModule from './panel'
 
 let panel: TestPanel | undefined
@@ -222,13 +222,13 @@ test('adds a task', async () => {
 - Mount the module, never call its default export. A control with `value` but no `onChange` is
   read-only, so `type`/`toggle` throw on it.
 
-### Workers with orca/testing
+### Workers with openkodo/testing
 
 `mountWorker(main, { host, events, commands })` calls the module's default-exported
-`activate(orca)` with OpenKodo's worker `openkodo` backed by `mockHost`, loading `.ts` mains as OpenKodo does.
+`activate(openkodo)` with OpenKodo's worker `openkodo` backed by `mockHost`, loading `.ts` mains as OpenKodo does.
 
 ```ts
-import { assert, mountWorker, test } from 'orca/testing'
+import { assert, mountWorker, test } from 'openkodo/testing'
 import * as main from './worker'
 
 test('answers the panel and notifies on blocked agents', async () => {
@@ -246,7 +246,7 @@ test('answers the panel and notifies on blocked agents', async () => {
 })
 ```
 
-- Its `activate(orca)` must be the module's default export. Events, commands and capabilities
+- Its `activate(openkodo)` must be the module's default export. Events, commands and capabilities
   default to the manifest's (`mountWorker(main, { host, events, commands })` overrides).
 - `emit` delivers only events `contributes.events` lists, checks the payload and waits for every
   handler. `request(name, input, { panel })` is a panel's `plugin.request` answered by

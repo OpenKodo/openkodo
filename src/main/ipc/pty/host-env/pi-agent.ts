@@ -184,9 +184,9 @@ export function resolveOpenCodeSourceConfigDir(
   inheritedEnv: NodeJS.ProcessEnv = process.env
 ): string | undefined {
   const configDir = baseEnv.OPENCODE_CONFIG_DIR ?? inheritedEnv.OPENCODE_CONFIG_DIR
-  const orcaConfigDir =
+  const openkodoConfigDir =
     baseEnv.OPENKODO_OPENCODE_CONFIG_DIR ?? inheritedEnv.OPENKODO_OPENCODE_CONFIG_DIR
-  if (configDir && orcaConfigDir && configDir !== orcaConfigDir) {
+  if (configDir && openkodoConfigDir && configDir !== openkodoConfigDir) {
     return configDir
   }
   const sourceDir =
@@ -195,8 +195,8 @@ export function resolveOpenCodeSourceConfigDir(
     return sourceDir
   }
 
-  // Matching public/private paths identify OpenKodo-owned state, not user config to mirror into child Orcas.
-  if (configDir && orcaConfigDir && configDir === orcaConfigDir) {
+  // Matching public/private paths identify OpenKodo-owned state, not user config to mirror into child OpenKodos.
+  if (configDir && openkodoConfigDir && configDir === openkodoConfigDir) {
     return undefined
   }
 

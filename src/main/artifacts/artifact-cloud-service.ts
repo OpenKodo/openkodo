@@ -10,10 +10,10 @@ import type {
   ArtifactWriteRequest
 } from '../../shared/artifacts/artifacts'
 import { assertArtifactSharingAllowed } from '../../shared/artifacts/artifact-sharing-gate'
-import { ensureActiveOrcaProfile } from '../orca-profiles/profile-index-store'
-import { getOrcaCloudAuthConfig } from '../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import { prepareArtifactCloudUse } from '../orca-profiles/cloud-auth/profile-artifact-cloud-cleanup'
-import { runWithFreshOrcaCloudSession } from '../orca-profiles/cloud-session/profile-cloud-session-refresh'
+import { ensureActiveOpenKodoProfile } from '../openkodo-profiles/profile-index-store'
+import { getOpenKodoCloudAuthConfig } from '../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import { prepareArtifactCloudUse } from '../openkodo-profiles/cloud-auth/profile-artifact-cloud-cleanup'
+import { runWithFreshOpenKodoCloudSession } from '../openkodo-profiles/cloud-session/profile-cloud-session-refresh'
 import {
   allowsArtifactCloudAuthOverride,
   resolveArtifactCloudApiUrl
@@ -25,9 +25,9 @@ import {
 } from './artifact-share-record-store'
 import { artifactRequest, artifactWriteBody } from './artifact-cloud-request'
 import { ArtifactPublisher } from './artifact-publisher'
-import { OrcaCloudRequestError } from '../orca-profiles/cloud-auth/profile-cloud-client'
-import { isTeamFeatureBlocked } from '../orca-profiles/cloud-auth/active-team-capabilities'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/orca-profiles/orca-cloud-team-policy'
+import { OpenKodoCloudRequestError } from '../openkodo-profiles/cloud-auth/profile-cloud-client'
+import { isTeamFeatureBlocked } from '../openkodo-profiles/cloud-auth/active-team-capabilities'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 
 import {
   type ArtifactAuthContext,
@@ -51,7 +51,7 @@ async function deleteArtifactRequest(
     })
   } catch (error) {
     if (
-      !(error instanceof OrcaCloudRequestError) ||
+      !(error instanceof OpenKodoCloudRequestError) ||
       error.statusCode !== 404 ||
       error.errorCode !== 'artifact_not_found'
     ) {
@@ -222,7 +222,7 @@ export class ArtifactCloudService {
     operation: (token: string, apiUrl: string, auth: ArtifactAuthContext) => Promise<T>
   ): Promise<ArtifactCloudOperation<T>> {
     const apiUrl = resolveArtifactCloudApiUrl(options.apiUrl)
-    const active = ensureActiveOrcaProfile(this.userDataPath)
+    const active = ensureActiveOpenKodoProfile(this.userDataPath)
     prepareArtifactCloudUse(active.profile, this.userDataPath)
     // Outlives the 401 re-run below, so the whole operation gets one rate-limit wait.
     const rateLimitAllowance = createArtifactRateLimitAllowance()
@@ -247,11 +247,11 @@ export class ArtifactCloudService {
         value
       }
     }
-    const config = getOrcaCloudAuthConfig()
+    const config = getOpenKodoCloudAuthConfig()
     if (!config.configured) {
       return { status: 'unconfigured', message: config.setupMessage }
     }
-    const result = await runWithFreshOrcaCloudSession(
+    const result = await runWithFreshOpenKodoCloudSession(
       config.config,
       active,
       this.userDataPath,

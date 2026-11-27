@@ -41,7 +41,7 @@ export function installDiffCommentAddButtonOverlay({
 }: AddButtonOverlayArgs): DiffCommentAddButtonOverlayHandle {
   const plus = document.createElement('button')
   plus.type = 'button'
-  plus.className = 'orca-diff-comment-add-btn'
+  plus.className = 'openkodo-diff-comment-add-btn'
   plus.title = addButtonLabel
   plus.setAttribute('aria-label', addButtonLabel)
   plus.innerHTML =
@@ -97,7 +97,7 @@ export function installDiffCommentAddButtonOverlay({
       dragging = isDragging
       // Disable hit testing during selection drag to avoid a hole in the swept band; keep following the growing endpoint as feedback.
       plus.style.pointerEvents = isDragging ? 'none' : ''
-      editorDomNode.classList.toggle('orca-diff-comment-range-dragging', isDragging)
+      editorDomNode.classList.toggle('openkodo-diff-comment-range-dragging', isDragging)
       if (isDragging && focusLine !== null) {
         hoverLineRef.current = focusLine
         positionAtLine(focusLine)
@@ -150,7 +150,7 @@ export function installDiffCommentAddButtonOverlay({
         d.dispose()
       }
       rangeDrag.dispose()
-      editorDomNode.classList.remove('orca-diff-comment-range-dragging')
+      editorDomNode.classList.remove('openkodo-diff-comment-range-dragging')
       plus.remove()
     },
     setPendingRange: rangeDrag.setPendingRange,

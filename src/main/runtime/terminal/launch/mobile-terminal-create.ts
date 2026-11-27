@@ -1,5 +1,5 @@
-import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged as SessionTabsPublication } from '../../session-tabs/publication/session-tabs-change-publication'
-import { OrcaRuntimeWithFailedStartPanes } from './failed-start-pane'
+import type { OpenKodoRuntimeWithScheduleMobileSessionTabsChanged as SessionTabsPublication } from '../../session-tabs/publication/session-tabs-change-publication'
+import { OpenKodoRuntimeWithFailedStartPanes } from './failed-start-pane'
 import type { WorktreeStartupLaunch } from '../../../../shared/worktree/creation/launch-types'
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
 import type {
@@ -78,7 +78,7 @@ export type OwnedMobileTerminalCreateOptions = {
   onPtyCreated?: (ptyId: string, result: RuntimeTerminalCreate) => void
 }
 
-export abstract class OrcaRuntimeWithCreateMobileSessionTerminal extends OrcaRuntimeWithFailedStartPanes {
+export abstract class OpenKodoRuntimeWithCreateMobileSessionTerminal extends OpenKodoRuntimeWithFailedStartPanes {
   protected abstract runCreateMobileSessionTerminal(
     worktreeSelector: string,
     opts?: MobileTerminalCreateOptions

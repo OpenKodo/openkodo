@@ -110,7 +110,7 @@ class FakeApp {
     } else if (path === '/.well-known/oauth-authorization-server') {
       json(200, this.metadata)
     } else if (path === '/register') {
-      json(201, { ...body, client_id: 'orca-client' })
+      json(201, { ...body, client_id: 'openkodo-client' })
     } else if (path === '/token') {
       const params = form(body)
       if (this.tokenAnswer) {
@@ -221,7 +221,7 @@ describe('OpenKodo signing in to a bot’s app', () => {
     const exchange = form(app.hitsTo('/token')[0]!.body)
     expect(exchange.get('resource')).toBe(app.url)
     expect(exchange.get('redirect_uri')).toBe(REDIRECT)
-    expect(exchange.get('client_id')).toBe('orca-client')
+    expect(exchange.get('client_id')).toBe('openkodo-client')
     expect(botToolSignInState(key)).toEqual({ state: 'signed-in', limited: false })
     expect(await botToolAccessToken(key)).toEqual({ token: 'access-1', grant: 1 })
     // The sealed file never holds a token in the clear.
@@ -348,7 +348,7 @@ describe('OpenKodo signing in to a bot’s app', () => {
     app.tokenAnswer = async () => [400, { error: 'invalid_grant' }]
     expect(await refreshBotToolAccessToken(key, 'access-1')).toBeNull()
     expect(botToolSignInState(key)).toEqual({ state: 'lost' })
-    expect(stored()?.record.client).toMatchObject({ client_id: 'orca-client' })
+    expect(stored()?.record.client).toMatchObject({ client_id: 'openkodo-client' })
   })
 
   it('lets no refresh that finishes after a sign-out bring the sign-in back', async () => {

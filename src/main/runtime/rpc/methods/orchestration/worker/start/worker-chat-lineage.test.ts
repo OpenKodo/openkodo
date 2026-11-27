@@ -41,7 +41,7 @@ describe('a chat-lineage worker start', () => {
       settings: TERMINAL_SETTINGS,
       chatLineage: true
     })
-    expect(hermes).toMatchObject({ mode: 'terminal', reason: 'chat_cannot_run_orca_commands' })
+    expect(hermes).toMatchObject({ mode: 'terminal', reason: 'chat_cannot_run_openkodo_commands' })
     const chosen = decideWorkerStartMode({
       params: { agent: 'codex' },
       settings: TERMINAL_SETTINGS,
@@ -114,9 +114,9 @@ describe('the chat-lineage stamp', () => {
 
     const sessionId = '6f1c2a9e-5b7d-4c3e-9a8f-1d2e3f4a5b6c'
     const stamped = start({ kind: 'system' }, { chatLineage: true })
-    bind(stamped, `orca_session_id:${sessionId}`)
+    bind(stamped, `openkodo_session_id:${sessionId}`)
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a well-formed OpenKodo session id.
-    const creator = { kind: 'session', orcaSessionId: sessionId } as Parameters<
+    const creator = { kind: 'session', openkodoSessionId: sessionId } as Parameters<
       OrchestrationDb['creatorStartsChatWorkers']
     >[0]
     expect(db.creatorStartsChatWorkers(creator)).toBe(true)
@@ -147,8 +147,8 @@ describe('a chat-lineage start that took a terminal', () => {
     const changed: string[] = []
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the note calls only these store methods.
     const remote = {
-      orcaComment: async (...args: Parameters<BotItemsStore['orcaComment']>) =>
-        store.orcaComment(...args),
+      openkodoComment: async (...args: Parameters<BotItemsStore['openkodoComment']>) =>
+        store.openkodoComment(...args),
       get: async (uid: string) => store.get(uid)
     } as unknown as ReturnType<
       Parameters<typeof noteTerminalFallbackOnItem>[0]['botItems']['store']
@@ -172,7 +172,7 @@ describe('a chat-lineage start that took a terminal', () => {
 
     await noteTerminalFallbackOnItem(
       runtime,
-      { itemUid, chatLineage: true, terminal: 'orca_session_id:x' },
+      { itemUid, chatLineage: true, terminal: 'openkodo_session_id:x' },
       receipt('ready')
     )
     await noteTerminalFallbackOnItem(runtime, { itemUid, chatLineage: true }, receipt('failed'))

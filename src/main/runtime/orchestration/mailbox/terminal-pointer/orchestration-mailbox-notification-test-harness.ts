@@ -6,7 +6,7 @@ import { vi } from 'vitest'
 import type { AgentStatusIpcPayload } from '../../../../../shared/agent-status/contracts/agent-status-ipc-payload'
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
 import type Database from '../../../../sqlite/sync-database'
-import { OrcaRuntimeService } from '../../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { OrchestrationDb } from '../../db/orchestration-db'
 import type { RuntimeStore } from '../../../construction/runtime-store-contract'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-layout/layout-owner-switch'
@@ -76,7 +76,7 @@ export function insertDirectRunMessage(db: OrchestrationDb, runId: string, subje
   return db.getMessageById(message.id)!
 }
 
-class MailboxRuntime extends OrcaRuntimeService {
+class MailboxRuntime extends OpenKodoRuntimeService {
   get idleEvidenceSource() {
     return this.tuiIdleEvidenceSource
   }
@@ -195,7 +195,7 @@ export async function createRuntime(
 }
 
 export async function registerSecondPane(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   leafId = SECOND_LEAF_ID,
   includeFirstPane = true
 ): Promise<void> {
@@ -250,7 +250,7 @@ export async function registerSecondPane(
   })
 }
 
-export async function driveToLiveIdle(runtime: OrcaRuntimeService): Promise<void> {
+export async function driveToLiveIdle(runtime: OpenKodoRuntimeService): Promise<void> {
   await runtime.listTerminals()
   runtime.onPtyData(PTY_ID, '\x1b]0;Codex done\x07', 1)
   // Await the model's write chain so the chunk is parsed.

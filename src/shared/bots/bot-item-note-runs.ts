@@ -4,13 +4,13 @@
 // bot's notes in one turn, with only tool work between them, fold into the first (its row stays put
 // while a live turn adds to it, and shows the latest note's time).
 import type { NativeChatMessage } from '../native-chat/native-chat-types'
-import { isNativeChatOrcaCard } from '../native-chat/native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../native-chat/native-chat-openkodo-card'
 import { nativeChatRowRendersContent } from '../native-chat/transcript/row-content/native-chat-row-content'
 import { nativeChatRowRendersProse } from '../native-chat/transcript/folding/native-chat-trailing-run'
 import type { BotItemNoteItem, BotItemNoteView } from './bot-item-note'
 
 /** The sender item mail names. */
-export const BOT_ITEM_MAIL_SENDER = 'orca:items'
+export const BOT_ITEM_MAIL_SENDER = 'openkodo:items'
 
 /** Item mail ids: only OpenKodo's item code mints one, as no send, ask or reply takes a caller's message id. */
 export const BOT_ITEM_MAIL_ID_PREFIX = 'msg_item_'
@@ -35,7 +35,7 @@ function ownerMoveOf(message: NativeChatMessage): string | null {
 export function rowDrawsNothing(message: NativeChatMessage): boolean {
   return (
     isBotItemMail(message) ||
-    (!isNativeChatOrcaCard(message) && !nativeChatRowRendersContent(message.blocks))
+    (!isNativeChatOpenKodoCard(message) && !nativeChatRowRendersContent(message.blocks))
   )
 }
 
@@ -186,7 +186,9 @@ function foldOwnerMoves(messages: readonly NativeChatMessage[], out: NativeChatM
 /** Tool calls and reasoning between two notes keep them one row; prose, a person or another card don't. */
 function breaksRun(message: NativeChatMessage): boolean {
   return (
-    message.role === 'user' || isNativeChatOrcaCard(message) || nativeChatRowRendersProse(message)
+    message.role === 'user' ||
+    isNativeChatOpenKodoCard(message) ||
+    nativeChatRowRendersProse(message)
   )
 }
 

@@ -1,6 +1,6 @@
 import type { AgentStatus } from '../../../../shared/agent-status/title/agent-title-core'
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
-import { OrcaRuntimeWithGetUnpersistedTrackedTitleForPty } from './terminal-title-tracker'
+import { OpenKodoRuntimeWithGetUnpersistedTrackedTitleForPty } from './terminal-title-tracker'
 import type { TerminalTitleFactMeta } from '../../../../shared/terminal/output/terminal-output-side-effects'
 import { detectAgentStatusFromTitle } from '../../../../shared/agent-status/title/agent-title-status'
 import { terminalTitleBlocksExplicitAgentStatus } from '../../workspaces/process-listing/runtime-worktree-status-projection'
@@ -12,7 +12,7 @@ import { jcodePaneTitleStatus } from '../../../../shared/agent-status/title/prov
 /** Claude fires PermissionRequest just before it reports the block; older wait hooks belong to other prompts. */
 const PERMISSION_HOOK_LEAD_MS = 5_000
 
-export abstract class OrcaRuntimeWithApplyTrackedPtyTitle extends OrcaRuntimeWithGetUnpersistedTrackedTitleForPty {
+export abstract class OpenKodoRuntimeWithApplyTrackedPtyTitle extends OpenKodoRuntimeWithGetUnpersistedTrackedTitleForPty {
   protected abstract collectPaneKeysForPty(ptyId: string): Set<string>
   protected abstract recordAgentPromptLifecycleState(
     ptyId: string,

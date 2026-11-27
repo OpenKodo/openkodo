@@ -8,8 +8,8 @@ import type { BridgePageGeometry } from '../bridge/page-geometry/bridge-page-geo
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type {
   MobileWebShellBridgeMessagePayload,
-  OrcaMobileWebShellViewHandle
-} from '../../../modules/orca-mobile-web-shell/src/index'
+  OpenKodoMobileWebShellViewHandle
+} from '../../../modules/openkodo-mobile-web-shell/src/index'
 import { useHostClient } from '../../transport/connection/host-client-hooks'
 import { createBridgeDiagnosticReporter } from '../diagnostics/bridge-diagnostic-log'
 import { bridgeDiagnosticLine } from '../diagnostics/shell-bridge-log-lines'
@@ -40,7 +40,7 @@ class BridgeViewGoneError extends Error {
 }
 
 // Stamp both refs with their session: React attaches replacement refs before retired cleanup, which must not post teardown frames into the new page.
-type MountedView = { sessionId: string; handle: OrcaMobileWebShellViewHandle }
+type MountedView = { sessionId: string; handle: OpenKodoMobileWebShellViewHandle }
 type MountedHost = { sessionId: string; host: BridgeHost }
 type EstablishedBack = { sessionId: string; back: BridgeSessionBack }
 
@@ -51,7 +51,7 @@ export type MobileWebShellBridgeMessageEvent = {
 export type MobileWebShellBridgeView = {
   // Keep bridgeEnabled tied to ready, not client arrival: toggling it reloads native. Without a client, let the page retry ready until a host can answer.
   readonly bridgeEnabled: boolean
-  readonly viewRef: (handle: OrcaMobileWebShellViewHandle | null) => void
+  readonly viewRef: (handle: OpenKodoMobileWebShellViewHandle | null) => void
   readonly onBridgeMessage: (event: MobileWebShellBridgeMessageEvent) => void
   /**
    * Hands the mounted host a rewritten route for the screen it is already serving. Dropped when
@@ -235,7 +235,7 @@ export function useMobileWebShellBridge(args: MobileWebShellBridgeArgs): MobileW
   return {
     bridgeEnabled: ready !== null,
     viewRef: useCallback(
-      (handle: OrcaMobileWebShellViewHandle | null) => {
+      (handle: OpenKodoMobileWebShellViewHandle | null) => {
         viewRef.current = handle === null || sessionId === null ? null : { sessionId, handle }
       },
       [sessionId]

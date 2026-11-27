@@ -34,30 +34,30 @@ import { isBotGroupMemberSession } from '../../../../../../shared/bots/bot-group
 import { chatPaneKey } from '../../../../../external-conversations/external-conversation-chat'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import { currentRunCoordinatorOrcaSessionId } from '../../../../orchestration/db/runs/run-coordinator-orca-session'
+import { currentRunCoordinatorOpenKodoSessionId } from '../../../../orchestration/db/runs/run-coordinator-openkodo-session'
 import { readAgentSessionRecordStore } from '../../../../orchestration/addressing/session-lineage/structured-session-lineage'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { mayNameSession, readSessionRecipient } from './session-recipient'
 import type { OrchestrationPartyIdentity as OrchestrationCallerIdentity } from '../../../../../../shared/orchestration/mailbox/orchestration-party-identity'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../../../shared/agent-session/identity/orca-session-address'
-import { canonicalOrcaSessionId } from '../../../../orchestration/addressing/session-lineage/canonical-orca-session-id'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../../../shared/agent-session/identity/openkodo-session-address'
+import { canonicalOpenKodoSessionId } from '../../../../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 
 /** `chat` is the chat an address names; null when the bot is named, which reaches its Home Chat.
  *  `newChat`: sent with `--chat new`, so it lands in a chat the bot starts for it. */
 export type ReceivingBot = {
   bot: Bot
   via: 'alias' | 'address'
-  chat: OrcaSessionId | null
+  chat: OpenKodoSessionId | null
   newChat?: boolean
 }
 
 /** Whether mail to `receiving` lands in a chat other than the sending one: a new chat always does, and
  *  the bot's name lands in its Home Chat (made on first use). The /clear root names each chat. */
 export function toOtherChat(receiving: ReceivingBot, senderSessionId: string | null): boolean {
-  if (!senderSessionId || !isOrcaSessionId(senderSessionId)) {
+  if (!senderSessionId || !isOpenKodoSessionId(senderSessionId)) {
     return false
   }
   if (receiving.newChat) {
@@ -65,10 +65,10 @@ export function toOtherChat(receiving: ReceivingBot, senderSessionId: string | n
   }
   const home = receiving.via === 'alias' ? receiving.bot.chatSessionId : null
   const chat = receiving.chat ?? home
-  if (!chat || !isOrcaSessionId(chat)) {
+  if (!chat || !isOpenKodoSessionId(chat)) {
     return receiving.via === 'alias'
   }
-  return canonicalOrcaSessionId(chat) !== canonicalOrcaSessionId(senderSessionId)
+  return canonicalOpenKodoSessionId(chat) !== canonicalOpenKodoSessionId(senderSessionId)
 }
 
 export function refuse(refusal: BotRequestRefusal): never {
@@ -83,7 +83,7 @@ type AddressReach =
 /** What an address may reach, decided without waiting: a bot by name (an unknown name is refused), a
  *  Run a bot's chat coordinates, or a session to look up. A Run's own workers mail it as ever. */
 export function botAddressReach(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   to: string,
   sender: OrchestrationCallerIdentity,
@@ -107,9 +107,9 @@ export function botAddressReach(
     const member =
       db.getActiveDispatchForIdentity(sender.address, sender.paneKey ?? undefined)?.run_id === runId
     const run = member ? undefined : db.getRun(runId)
-    const coordinator = run ? currentRunCoordinatorOrcaSessionId(run) : null
+    const coordinator = run ? currentRunCoordinatorOpenKodoSessionId(run) : null
     const bot = coordinator ? botOfSession(runtime.bots, coordinator) : null
-    const chat = coordinator && isOrcaSessionId(coordinator) ? coordinator : null
+    const chat = coordinator && isOpenKodoSessionId(coordinator) ? coordinator : null
     return bot ? { kind: 'bot', receiving: { bot, via: 'address', chat } } : { kind: 'none' }
   }
   return mayNameSession(to) ? { kind: 'session' } : { kind: 'none' }
@@ -117,7 +117,7 @@ export function botAddressReach(
 
 /** The bot an address reaches, or null when it reaches no bot. */
 export async function receivingBot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   reach: AddressReach,
   to: string
 ): Promise<ReceivingBot | null> {
@@ -174,9 +174,10 @@ export function creatorSession(
     dispatch = creator
   }
   return {
-    sessionId: dispatch.creator_orca_session_id,
+    sessionId: dispatch.creator_openkodo_session_id,
     dispatchId,
-    terminalCreated: dispatch.creator_orca_session_id === null && dispatch.creator_handle !== null
+    terminalCreated:
+      dispatch.creator_openkodo_session_id === null && dispatch.creator_handle !== null
   }
 }
 
@@ -187,7 +188,7 @@ export function workspaceOf(externalId: string): string | null {
 
 /** Who the sender acts for; null for a bot's own worker mailing its own chat, which is ordinary mail. */
 export async function readActingSender(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   callerSessionId: string | undefined,
   sender: OrchestrationCallerIdentity,
@@ -255,7 +256,7 @@ export async function readActingSender(
 /** What a bot's chat is doing now: who its running turn is for, and the conversation it answers.
  *  With `opening`, the turn that message is about to open, read from it alone, not the journal. */
 export async function readBotTurn(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   sessionId: string,
   opening?: AgentJournalMessageItem
@@ -270,7 +271,7 @@ export async function readBotTurn(
   const conversation = key ? { source: key.source, externalId: key.externalId } : null
   const workspaceId = conversation ? workspaceOf(conversation.externalId) : null
   const host = await requireStructuredHost(runtime)
-  const root = isOrcaSessionId(sessionId) ? canonicalOrcaSessionId(sessionId) : sessionId
+  const root = isOpenKodoSessionId(sessionId) ? canonicalOpenKodoSessionId(sessionId) : sessionId
   let recorded = readBotConversationActsFor(runtime, root)
   if (!recorded) {
     // Conversations from before OpenKodo recorded this, and ones a person opened: their first message

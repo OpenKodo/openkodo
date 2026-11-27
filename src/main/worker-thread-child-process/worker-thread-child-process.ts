@@ -1,5 +1,5 @@
 import type { Worker } from 'node:worker_threads'
-import { assertWslNotLatchedAbsent } from '@orca/process-host/wsl-not-installed-latch'
+import { assertWslNotLatchedAbsent } from '@openkodo/process-host/wsl-not-installed-latch'
 import { spawnWorkerThread } from '../worker-threads/worker-thread-spawn'
 import { LazyWorkerThreadHost } from '../worker-threads/lazy-worker-thread-host'
 import type { WorkerThreadFactory } from '../worker-threads/worker-thread-transport'
@@ -265,7 +265,7 @@ function defaultWorkerFactory(): Worker {
     WORKER_ENTRY_FILENAME
   )
   // A missing entry surfaces as the worker's own error before it answers, which retires the host (failedToStart).
-  return spawnWorkerThread(workerPath, { name: 'orca-child-process-spawner' })
+  return spawnWorkerThread(workerPath, { name: 'openkodo-child-process-spawner' })
 }
 
 let sharedHost: WorkerThreadChildProcessHost | null = null

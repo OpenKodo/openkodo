@@ -65,7 +65,7 @@ export async function collectHangMachineSnapshot(
     load15: process.platform === 'win32' ? null : loads[2]
   }
   if (process.platform === 'darwin' && !signal.aborted) {
-    const { runProcess } = await import('@orca/process-host')
+    const { runProcess } = await import('@openkodo/process-host')
     const commands = await Promise.allSettled([
       runProcess({
         program: '/usr/sbin/sysctl',

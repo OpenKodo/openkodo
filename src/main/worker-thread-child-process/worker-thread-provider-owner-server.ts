@@ -1,5 +1,5 @@
 import { connect, type Socket } from 'node:net'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type {
   WorkerThreadChildErrorPayload,
   WorkerThreadChildEvent,
@@ -57,7 +57,7 @@ function toErrorPayload(error: unknown): WorkerThreadChildErrorPayload {
   }
 }
 
-/** Spawns orca-provider-exec on the worker thread so posix_spawn never blocks Electron's main thread. */
+/** Spawns openkodo-provider-exec on the worker thread so posix_spawn never blocks Electron's main thread. */
 export async function spawnWorkerThreadProviderOwner(
   port: ProviderOwnerPort,
   id: number,

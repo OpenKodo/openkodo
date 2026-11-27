@@ -2,7 +2,7 @@ import type { AgentMessageSource } from '../../journal/agent-session-message-sou
 import { orchestrationMailDisplayText } from './orchestration-mail-display-text'
 import type { NativeChatBlock } from '../../../native-chat/native-chat-types'
 import { nativeChatProseToMarkdown } from '../../../native-chat/transcript/row-content/native-chat-prose'
-import { orcaDispatchTaskBodyOffset } from '../../../orchestration/workers/orca-dispatch-status-prompt'
+import { openkodoDispatchTaskBodyOffset } from '../../../orchestration/workers/openkodo-dispatch-status-prompt'
 
 const taskBodies = new WeakMap<readonly NativeChatBlock[], string | undefined>()
 const mailBodies = new WeakMap<
@@ -42,7 +42,7 @@ export function agentMessageDisplayText(
   }
   const texts = blocks.filter((block) => block.type === 'text')
   const text = texts.length === 1 ? texts[0].text : undefined
-  const offset = text === undefined ? undefined : orcaDispatchTaskBodyOffset(text)
+  const offset = text === undefined ? undefined : openkodoDispatchTaskBodyOffset(text)
   const body = offset === undefined ? undefined : text?.slice(offset)
   taskBodies.set(blocks, body)
   return body

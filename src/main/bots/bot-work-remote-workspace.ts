@@ -1,12 +1,12 @@
 // A paired server's worker workspace, read on that server the way federationShow reaches it: the
 // pinned server for the Dispatch, so a re-paired machine is never asked about another's work.
 import type { Worktree } from '../../shared/worktree/types'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { resolvePinnedFederatedServer } from '../runtime/orchestration/legacy-remote-home/pinned-federated-server'
 import type { BotWorkWorker, BotWorkWorkspace } from './bot-work-types'
 
 export type BotWorkRemoteRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'getOrchestrationDb' | 'resolveOrchestrationWorkerServer' | 'callOrchestrationWorkerServer'
 >
 

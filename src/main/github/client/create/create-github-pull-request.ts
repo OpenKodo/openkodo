@@ -86,7 +86,7 @@ export async function createGitHubPullRequest(
         }
       }
 
-      const tempDir = await mkdtemp(join(tmpdir(), 'orca-pr-body-'))
+      const tempDir = await mkdtemp(join(tmpdir(), 'openkodo-pr-body-'))
       await acquire()
       const bodyPath = join(tempDir, 'body.md')
       try {

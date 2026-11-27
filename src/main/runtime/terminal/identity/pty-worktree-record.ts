@@ -28,7 +28,7 @@ import {
 } from '../surface/pty-recorded-surface-topology'
 import { followExportedPaneKeys } from './exported-pane-key-follow'
 
-export abstract class OrcaRuntimeWithRecordPtyWorktree extends RuntimeWorkspaceRepoScanRefresh {
+export abstract class OpenKodoRuntimeWithRecordPtyWorktree extends RuntimeWorkspaceRepoScanRefresh {
   /** Switch-on, a pane main owns is no proof its terminal runs: its record decides (L80). */
   protected mainDecidesLiveness(worktreeId: string): boolean {
     return mainDecidesLeafLiveness(this, worktreeId)

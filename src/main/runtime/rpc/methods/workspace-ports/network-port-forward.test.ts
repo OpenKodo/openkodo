@@ -2,19 +2,19 @@ import { describe, expect, it, vi } from 'vitest'
 import '../../../../../shared/remote-runtime/protocol/protocol-version'
 import { NETWORK_PORT_FORWARD_RUNTIME_CAPABILITY } from '../../../../../shared/remote-runtime/protocol/workspace-ports-runtime-capabilities'
 import { BrowserTunnelDestinationBlockedError } from '../../../../browser/network/tunnels/browser-network-tunnel-destination-policy'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { RpcDispatcher } from '../../dispatcher'
 import {
   connectPairedPortForwardTarget,
   createNetworkPortForwardMethods
 } from './network-port-forward'
 
-function runtime(): OrcaRuntimeService {
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the method reads only these accessors; OrcaRuntimeService is a class, so a structural double cannot satisfy it without the cast.
+function runtime(): OpenKodoRuntimeService {
+  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the method reads only these accessors; OpenKodoRuntimeService is a class, so a structural double cannot satisfy it without the cast.
   return {
     getRuntimeId: () => 'runtime-a',
     registerSubscriptionCleanup: () => {}
-  } as unknown as OrcaRuntimeService
+  } as unknown as OpenKodoRuntimeService
 }
 
 const request = {

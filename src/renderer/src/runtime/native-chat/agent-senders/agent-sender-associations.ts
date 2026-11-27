@@ -19,10 +19,10 @@ const LEGACY: AgentSenderResolution = Object.freeze({ kind: 'legacy' })
 /** The identities a card names its sender by, most specific first: the Dispatch a Started-worker
  *  card records, the chat session, the terminal handle it sent from, a federated Dispatch. */
 function senderIdentities(sender: AgentMessageSender, dispatchId: string | undefined): string[] {
-  const { address, orcaSessionId, terminalHandle } = sender.party
+  const { address, openkodoSessionId, terminalHandle } = sender.party
   return [
     dispatchId ? `dispatch:${dispatchId}` : undefined,
-    orcaSessionId ? `orca_session_id:${orcaSessionId}` : undefined,
+    openkodoSessionId ? `openkodo_session_id:${openkodoSessionId}` : undefined,
     terminalHandle && !terminalHandle.startsWith('dispatch:') ? terminalHandle : undefined,
     address.startsWith('dispatch:') ? address : undefined
   ].filter((identity): identity is string => Boolean(identity))
@@ -38,7 +38,7 @@ export function resolveAgentMessageSender(
 ): AgentSenderResolution {
   if (
     sender.party.address.startsWith('run:') &&
-    !sender.party.orcaSessionId &&
+    !sender.party.openkodoSessionId &&
     !sender.party.terminalHandle
   ) {
     return { kind: 'gone', sender: 'other' }
@@ -53,7 +53,7 @@ export function resolveAgentMessageSender(
     }
     if (location) {
       const role = sender.party.address.startsWith('dispatch:') || dispatchId !== undefined
-      const stableSession = identity.startsWith('orca_session_id:')
+      const stableSession = identity.startsWith('openkodo_session_id:')
       if (
         (identity.startsWith('dispatch:') || (role && !stableSession)) &&
         location.dispatchActor !== true
@@ -63,10 +63,10 @@ export function resolveAgentMessageSender(
       return { kind: 'located', location }
     }
   }
-  const { orcaSessionId, terminalHandle } = sender.party
+  const { openkodoSessionId, terminalHandle } = sender.party
   return {
     kind: 'gone',
-    sender: orcaSessionId
+    sender: openkodoSessionId
       ? 'chat'
       : terminalHandle && !terminalHandle.startsWith('dispatch:')
         ? 'terminal'

@@ -114,11 +114,11 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
     turns: [
       {
         message:
-          "Add a `region` field to the connector hello message: the cloud connector (orca's cloud/ folder) should accept and store it, and the desktop app should send it."
+          "Add a `region` field to the connector hello message: the cloud connector (openkodo's cloud/ folder) should accept and store it, and the desktop app should send it."
       }
     ],
     state: EMPTY_WORLD,
-    // Both sides live in the openkodo project; one worker or two, all in orca.
+    // Both sides live in the openkodo project; one worker or two, all in openkodo.
     checks: [[startsInOneOf([[OPENKODO_REPO], [OPENKODO_REPO, OPENKODO_REPO]]), handsOffFirst]]
   },
   {
@@ -145,7 +145,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
   {
     id: 'follow-up-same-thread',
     turns: [
-      { message: 'fix the flaky test in orca' },
+      { message: 'fix the flaky test in openkodo' },
       { message: 'oh, and make sure it passes on Windows too' }
     ],
     state: EMPTY_WORLD,
@@ -161,7 +161,10 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
   },
   {
     id: 'result-pickup',
-    turns: [{ message: 'fix the flaky test in orca' }, { message: WOKEN, mail: FLAKY_DONE_MAIL }],
+    turns: [
+      { message: 'fix the flaky test in openkodo' },
+      { message: WOKEN, mail: FLAKY_DONE_MAIL }
+    ],
     state: EMPTY_WORLD,
     checks: [[startsIn([OPENKODO_REPO]), handsOffFirst], readsResult]
   },
@@ -192,7 +195,7 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
   {
     id: 'soul-ask-first',
     soul: 'Always check with me before starting any work: say what you would do, then wait for my go-ahead.',
-    turns: [{ message: 'fix the flaky test in orca' }],
+    turns: [{ message: 'fix the flaky test in openkodo' }],
     state: EMPTY_WORLD,
     checks: [[noStart]]
   },
@@ -206,14 +209,14 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
   {
     id: 'soul-terse',
     soul: 'Reply in one short sentence, never more.',
-    turns: [{ message: 'fix the flaky test in orca' }],
+    turns: [{ message: 'fix the flaky test in openkodo' }],
     state: EMPTY_WORLD,
     checks: [[startsIn([OPENKODO_REPO]), wordsWithin(1, 30, 'one short sentence')]]
   },
   {
     id: 'soul-detailed',
     soul: 'Always explain in detail: what you are doing, why, who is on it, and what happens next.',
-    turns: [{ message: 'fix the flaky test in orca' }],
+    turns: [{ message: 'fix the flaky test in openkodo' }],
     state: EMPTY_WORLD,
     checks: [[startsIn([OPENKODO_REPO]), wordsWithin(80, 2000, 'detail')]]
   },
@@ -246,14 +249,14 @@ export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [
 const PR_READS = [
   /^gh\s+pr\s+(?:view|list|diff|checks|status)\b/,
   /^gh\s+search\s+prs\b/,
-  /^(?:"\$\{OPENKODO_CLI_COMMAND:-orca\}"|orca)\s+(?:bot\s+connectors|repo\s+list)(?:\s+--json)?$/,
+  /^(?:"\$\{OPENKODO_CLI_COMMAND:-openkodo\}"|openkodo)\s+(?:bot\s+connectors|repo\s+list)(?:\s+--json)?$/,
   /^(?:jq|head|sort|wc)\b/
 ]
 
 const GREETS_ONLY = [
   runsNothing,
   noStart,
-  replyAvoids(/::orca-idea/, 'idea buttons'),
+  replyAvoids(/::openkodo-idea/, 'idea buttons'),
   asksOneQuestion
 ]
 

@@ -34,7 +34,7 @@ function getShellReadyWrapperBaseDir(): string {
   // Isolate content-addressed trees from older daemons that overwrite the legacy shell-ready directory.
   // Temp fallback serves old/test launchers; production supplies OPENKODO_USER_DATA_PATH.
   // Only file sizes are checked, so do not use the shared-temp fallback in production.
-  return join(userDataPath || tmpdir(), userDataPath ? 'shell-wrappers' : 'orca-shell-wrappers')
+  return join(userDataPath || tmpdir(), userDataPath ? 'shell-wrappers' : 'openkodo-shell-wrappers')
 }
 
 // Cache the digest per base directory so changing OPENKODO_USER_DATA_PATH selects a fresh root.

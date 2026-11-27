@@ -3,12 +3,12 @@ import {
   buildPushHostChallengePlaintext,
   buildPushHostProofMacInput,
   buildPushHostProofTranscript
-} from '@orca-cloud/push-contract/push-host-proof-transcript'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
+} from '@openkodo-cloud/push-contract/push-host-proof-transcript'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
 import nacl from 'tweetnacl'
 import { decodeCanonicalBase64 } from './canonical-base64.js'
 import { deriveHostFingerprint } from './host-fingerprint.js'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 
 export type IssuedPushChallenge = {
   challengeId: string

@@ -17,7 +17,7 @@ const SESSION_PARTY_ROWS_SQL = `
   SELECT json_extract(s.value, '$[0]') AS session_id, ${selectColumns(WORKER_TERMINAL_RESOURCE_COLUMNS, 'r')},
     EXISTS (
       SELECT 1 FROM dispatch_contexts d
-      WHERE d.assignee_orca_session_id = json_extract(s.value, '$[0]')
+      WHERE d.assignee_openkodo_session_id = json_extract(s.value, '$[0]')
         AND d.process_incarnation = json_extract(s.value, '$[1]')
     ) AS recorded_worker
   FROM json_each(?1) AS s

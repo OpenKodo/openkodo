@@ -30,9 +30,9 @@ import { LayoutCommandPersistence } from '../terminal-topology/layout-command-pe
 import { SshProfileOperations } from './ssh-state/ssh-profile-operations'
 import { RetiredWorktreeNamePersistence } from './project-catalog/retired-worktree-name-persistence'
 import { SshLeaseRecoveryOperations } from './ssh-state/ssh-lease-recovery-operations'
-import { OrcadSourceExportPersistence } from '../migrating-orcad-catalog/source/catalog/orcad-source-export'
-import { OrcadCatalogImportPersistence } from '../migrating-orcad-catalog/orcad-catalog-import'
-import { OrcadMigrationBlobInstallPersistence } from '../migrating-orcad-catalog/blob-transfer/orcad-migration-blob-install-persistence'
+import { OpenkododSourceExportPersistence } from '../migrating-openkodod-catalog/source/catalog/openkodod-source-export'
+import { OpenkododCatalogImportPersistence } from '../migrating-openkodod-catalog/openkodod-catalog-import'
+import { OpenkododMigrationBlobInstallPersistence } from '../migrating-openkodod-catalog/blob-transfer/openkodod-migration-blob-install-persistence'
 
 export type StoreDomainOperations = WriteSchedulingOperations &
   PrimaryStateWriteOperations &
@@ -56,9 +56,9 @@ export type StoreDomainOperations = WriteSchedulingOperations &
   SshProfileOperations &
   RetiredWorktreeNamePersistence &
   SshLeaseRecoveryOperations &
-  OrcadSourceExportPersistence &
-  OrcadCatalogImportPersistence &
-  OrcadMigrationBlobInstallPersistence &
+  OpenkododSourceExportPersistence &
+  OpenkododCatalogImportPersistence &
+  OpenkododMigrationBlobInstallPersistence &
   WriteFlushBarrierOperations
 
 export type StoreDomains = {
@@ -90,9 +90,9 @@ export type StoreDomains = {
   sshProfiles: SshProfileOperations
   retiredWorktreeNames: RetiredWorktreeNamePersistence
   sshLeases: SshLeaseRecoveryOperations
-  orcadSourceExport: OrcadSourceExportPersistence
-  orcadCatalogImports: OrcadCatalogImportPersistence
-  orcadMigrationBlobInstalls: OrcadMigrationBlobInstallPersistence
+  openkododSourceExport: OpenkododSourceExportPersistence
+  openkododCatalogImports: OpenkododCatalogImportPersistence
+  openkododMigrationBlobInstalls: OpenkododMigrationBlobInstallPersistence
 }
 
 export const STORE_DOMAIN_OPERATION_CLASSES = [
@@ -118,9 +118,9 @@ export const STORE_DOMAIN_OPERATION_CLASSES = [
   SshProfileOperations,
   RetiredWorktreeNamePersistence,
   SshLeaseRecoveryOperations,
-  OrcadSourceExportPersistence,
-  OrcadCatalogImportPersistence,
-  OrcadMigrationBlobInstallPersistence,
+  OpenkododSourceExportPersistence,
+  OpenkododCatalogImportPersistence,
+  OpenkododMigrationBlobInstallPersistence,
   WriteFlushBarrierOperations
 ] as const
 
@@ -169,7 +169,7 @@ export function createStoreDomains(runtime: StoreRuntimeState): StoreDomains {
     bindingRecovery,
     scheduling
   )
-  const orcadCatalogImports = new OrcadCatalogImportPersistence(runtime, repos, scheduling)
+  const openkododCatalogImports = new OpenkododCatalogImportPersistence(runtime, repos, scheduling)
   return {
     adaptation,
     cohorts,
@@ -206,8 +206,8 @@ export function createStoreDomains(runtime: StoreRuntimeState): StoreDomains {
     sshProfiles,
     retiredWorktreeNames,
     sshLeases,
-    orcadSourceExport: new OrcadSourceExportPersistence(runtime),
-    orcadCatalogImports,
-    orcadMigrationBlobInstalls: new OrcadMigrationBlobInstallPersistence(runtime)
+    openkododSourceExport: new OpenkododSourceExportPersistence(runtime),
+    openkododCatalogImports,
+    openkododMigrationBlobInstalls: new OpenkododMigrationBlobInstallPersistence(runtime)
   }
 }

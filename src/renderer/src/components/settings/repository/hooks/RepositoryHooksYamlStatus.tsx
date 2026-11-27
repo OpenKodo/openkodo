@@ -1,6 +1,6 @@
 import { AlertTriangle, ChevronRight } from 'lucide-react'
 import { Trans } from 'react-i18next'
-import type { OrcaHooks } from '../../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { Button } from '../../../ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../../ui/collapsible'
 import { i18n, translate } from '@/i18n/i18n'
@@ -132,7 +132,7 @@ function YamlScriptsDisclosure({
 }: {
   presentation: HookYamlPresentation
   yamlState: 'loaded' | 'missing'
-  yamlHooks: OrcaHooks | null
+  yamlHooks: OpenKodoHooks | null
   copiedTemplate: boolean
   onCopyTemplate: () => void
 }): React.JSX.Element {
@@ -204,7 +204,7 @@ export function RepositoryHooksYamlStatus({
   setupOnly?: boolean
   yamlPresentation?: HookYamlPresentation
   yamlState: string
-  yamlHooks: OrcaHooks | null
+  yamlHooks: OpenKodoHooks | null
   copiedTemplate: boolean
   onCopyTemplate: () => void
 }): React.JSX.Element {

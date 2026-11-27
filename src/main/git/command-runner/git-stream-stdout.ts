@@ -1,5 +1,5 @@
 import type { SpawnOptions } from 'node:child_process'
-import { createPosixGroupTermination } from '@orca/process-host/posix-group-termination'
+import { createPosixGroupTermination } from '@openkodo/process-host/posix-group-termination'
 import { StringDecoder } from 'node:string_decoder'
 import { withGitSpan } from '../../observability/instrumentation'
 import { createAbortError } from './process-capture/abort-error'

@@ -9,9 +9,9 @@ import '../messages/mailbox-routing-page'
 import '../dispatch-row-writer'
 import '../attempt-outcome-projection'
 import {
-  createOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  createOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { bindWorkerTerminal, keepPaneOpen, paneAutoCloseState } from './worker-bound-terminals'
 import {
   closeRetriedFailedSetup,
@@ -33,8 +33,8 @@ describe('terminals bound to a worker', () => {
   let directory: string
   let db: OrchestrationDb
   let runId: string
-  const botChat = createOrcaSessionId(randomUUID)
-  const personChat = createOrcaSessionId(randomUUID)
+  const botChat = createOpenKodoSessionId(randomUUID)
+  const personChat = createOpenKodoSessionId(randomUUID)
   const isBotChat = (sessionId: string) => sessionId === botChat
   // Setup terminals the runtime sees still running; empty after a restart.
   const runningSetups = new Set<string>()
@@ -42,7 +42,7 @@ describe('terminals bound to a worker', () => {
 
   beforeEach(() => {
     runningSetups.clear()
-    directory = mkdtempSync(join(tmpdir(), 'orca-worker-bound-terminals-'))
+    directory = mkdtempSync(join(tmpdir(), 'openkodo-worker-bound-terminals-'))
     db = new OrchestrationDb(join(directory, 'orchestration.db'))
     runId = db.createRun({
       objective: 'bound',
@@ -56,14 +56,14 @@ describe('terminals bound to a worker', () => {
   })
 
   function startWorker(
-    creatorChat: OrcaSessionId,
+    creatorChat: OpenKodoSessionId,
     setupState = 'succeeded',
     creatorDispatchId?: string,
     chat = false
   ) {
     const task = db.createTask({ runId, spec: 'work' })
     const { dispatch } = db.createStartingWorkerDispatch({
-      creator: { kind: 'session', orcaSessionId: creatorChat },
+      creator: { kind: 'session', openkodoSessionId: creatorChat },
       maxDepth: Number.MAX_SAFE_INTEGER,
       taskId: task.id,
       startOptions: {},
@@ -75,7 +75,7 @@ describe('terminals bound to a worker', () => {
         .run(creatorDispatchId, dispatch.id)
     }
     // A chat worker runs as a structured session, not in a terminal.
-    const session = createOrcaSessionId(randomUUID)
+    const session = createOpenKodoSessionId(randomUUID)
     const agentHandle = chat ? mintStructuredWorkerHandle() : `term_agent_${dispatch.id}`
     const agentPaneKey = chat
       ? mintStructuredWorkerPaneKey(session)
@@ -256,15 +256,15 @@ describe('terminals bound to a worker', () => {
   })
 
   it("decides a paired server's worker from this host's coordinator", () => {
-    const party = (orcaSessionId: string | null, creatorDispatchId: string | null = null) => ({
-      orcaSessionId,
+    const party = (openkodoSessionId: string | null, creatorDispatchId: string | null = null) => ({
+      openkodoSessionId,
       creatorDispatchId
     })
     expect(coordinatorKeepOpenByDefault(db, 'new-child', party(botChat), isBotChat)).toBe(false)
     expect(coordinatorKeepOpenByDefault(db, 'new-child', party(personChat), isBotChat)).toBe(true)
     // A chat worker a bot started, starting a helper of its own there: its chat is no bot's, but
     // its recorded Dispatch leads back to one.
-    const workerChat = createOrcaSessionId(randomUUID)
+    const workerChat = createOpenKodoSessionId(randomUUID)
     const botsWorker = startWorker(botChat)
     expect(
       coordinatorKeepOpenByDefault(

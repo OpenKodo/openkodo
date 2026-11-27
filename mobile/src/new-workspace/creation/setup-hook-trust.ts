@@ -1,16 +1,16 @@
-import type { PersistedTrustedOrcaHooks } from '../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import {
-  isOrcaHookContentApproved,
-  isOrcaHookRepoIdOnSeveralHosts,
-  isOrcaHookRepoTrusted,
-  type OrcaHookTrustKind,
-  withOrcaHookRepoAlwaysTrusted,
-  withOrcaHookScriptConfirmed
-} from '../../../../src/shared/workspace-setup/hooks/orca-hook-trust-entries'
-import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../../src/shared/hashing/orca-hook-content-hash'
+  isOpenKodoHookContentApproved,
+  isOpenKodoHookRepoIdOnSeveralHosts,
+  isOpenKodoHookRepoTrusted,
+  type OpenKodoHookTrustKind,
+  withOpenKodoHookRepoAlwaysTrusted,
+  withOpenKodoHookScriptConfirmed
+} from '../../../../src/shared/workspace-setup/hooks/openkodo-hook-trust-entries'
+import { EMPTY_OPENKODO_HOOK_CONTENT_HASH } from '../../../../src/shared/hashing/openkodo-hook-content-hash'
 import type { SetupHooksCreateSource } from '../../../../src/shared/worktree/setup-hooks-create-source'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'
-import type { OrcaHookTrustPrompt } from '../../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../../components/hook-trust/OpenKodoHookTrustDrawer'
 import { taskUiStateWrite } from '../../tasks/screen-state/mobile-task-runtime-operations'
 import { repoSetupHooksRead } from './mobile-workspace-source-operations'
 
@@ -20,30 +20,30 @@ export type SetupHookTrust = {
 }
 
 /** Same-id repos on several hosts keep per-version approvals; an unknown repo list can't rule that out. */
-export function usesVersionedOrcaHookTrust(
+export function usesVersionedOpenKodoHookTrust(
   repos: readonly { id: string }[] | null,
   repoId: string
 ): boolean {
-  return !repos || isOrcaHookRepoIdOnSeveralHosts(repos, repoId)
+  return !repos || isOpenKodoHookRepoIdOnSeveralHosts(repos, repoId)
 }
 
-export function isOrcaHookTrusted(
-  trust: PersistedTrustedOrcaHooks,
+export function isOpenKodoHookTrusted(
+  trust: PersistedTrustedOpenKodoHooks,
   repos: readonly { id: string }[] | null,
   repoId: string,
-  kind: OrcaHookTrustKind,
+  kind: OpenKodoHookTrustKind,
   contentHash: string
 ): boolean {
   return (
-    (repos !== null && isOrcaHookRepoTrusted(trust, repos, repoId)) ||
-    isOrcaHookContentApproved(trust, repoId, kind, contentHash)
+    (repos !== null && isOpenKodoHookRepoTrusted(trust, repos, repoId)) ||
+    isOpenKodoHookContentApproved(trust, repoId, kind, contentHash)
   )
 }
 
-export function wasOrcaHookPreviouslyApproved(
-  trust: PersistedTrustedOrcaHooks,
+export function wasOpenKodoHookPreviouslyApproved(
+  trust: PersistedTrustedOpenKodoHooks,
   repoId: string,
-  kind: OrcaHookTrustKind
+  kind: OpenKodoHookTrustKind
 ): boolean {
   return Boolean(trust[repoId]?.[kind]?.contentHash)
 }
@@ -71,13 +71,13 @@ export type CreateSetupApproval = { approvedSetupHash?: string }
 /** Approves a create's setup without asking, or returns a prompt with the setup of the ref it checks out. */
 export async function resolveCreateSetupApproval(args: {
   client: RpcClient
-  trust: PersistedTrustedOrcaHooks
+  trust: PersistedTrustedOpenKodoHooks
   repos: readonly { id: string }[]
   repo: { id: string; displayName: string }
   createSource: SetupHooksCreateSource
-}): Promise<{ approved: CreateSetupApproval } | { ask: OrcaHookTrustPrompt }> {
+}): Promise<{ approved: CreateSetupApproval } | { ask: OpenKodoHookTrustPrompt }> {
   const repoId = args.repo.id
-  if (isOrcaHookRepoTrusted(args.trust, args.repos, repoId)) {
+  if (isOpenKodoHookRepoTrusted(args.trust, args.repos, repoId)) {
     return { approved: {} }
   }
   // Older hosts ignore createSource and report the project checkout's setup.
@@ -98,7 +98,7 @@ export async function resolveCreateSetupApproval(args: {
           : { approvedSetupHash: EMPTY_OPENKODO_HOOK_CONTENT_HASH }
     }
   }
-  if (isOrcaHookContentApproved(args.trust, repoId, 'setup', setupTrust.contentHash)) {
+  if (isOpenKodoHookContentApproved(args.trust, repoId, 'setup', setupTrust.contentHash)) {
     return { approved: { approvedSetupHash: setupTrust.contentHash } }
   }
   return {
@@ -108,8 +108,8 @@ export async function resolveCreateSetupApproval(args: {
       repoName: args.repo.displayName,
       scriptContent: setupTrust.scriptContent,
       contentHash: setupTrust.contentHash,
-      previouslyApproved: wasOrcaHookPreviouslyApproved(args.trust, repoId, 'setup'),
-      versionOnly: usesVersionedOrcaHookTrust(args.repos, repoId)
+      previouslyApproved: wasOpenKodoHookPreviouslyApproved(args.trust, repoId, 'setup'),
+      versionOnly: usesVersionedOpenKodoHookTrust(args.repos, repoId)
     }
   }
 }
@@ -117,17 +117,17 @@ export async function resolveCreateSetupApproval(args: {
 /** Repo trust runs any content; otherwise the host runs only the shown content. */
 export function approvedCreateSetup(
   repos: readonly { id: string }[] | null,
-  prompt: Pick<OrcaHookTrustPrompt, 'repoId' | 'contentHash'>,
+  prompt: Pick<OpenKodoHookTrustPrompt, 'repoId' | 'contentHash'>,
   alwaysTrust: boolean
 ): CreateSetupApproval {
-  return alwaysTrust && !usesVersionedOrcaHookTrust(repos, prompt.repoId)
+  return alwaysTrust && !usesVersionedOpenKodoHookTrust(repos, prompt.repoId)
     ? {}
     : { approvedSetupHash: prompt.contentHash }
 }
 
 type HookTrustApproval = {
   client: RpcClient
-  trust: PersistedTrustedOrcaHooks
+  trust: PersistedTrustedOpenKodoHooks
   repos: readonly { id: string }[] | null
   repoId: string
   contentHash: string
@@ -135,16 +135,18 @@ type HookTrustApproval = {
 }
 
 /** Run once stores nothing and Always trust stores repo trust; same-id repos also keep this version. */
-export async function persistOrcaHookTrustApproval(
-  args: HookTrustApproval & { kind: OrcaHookTrustKind }
-): Promise<PersistedTrustedOrcaHooks> {
-  const confirmed = usesVersionedOrcaHookTrust(args.repos, args.repoId)
-    ? withOrcaHookScriptConfirmed(args.trust, args.repoId, args.kind, args.contentHash)
+export async function persistOpenKodoHookTrustApproval(
+  args: HookTrustApproval & { kind: OpenKodoHookTrustKind }
+): Promise<PersistedTrustedOpenKodoHooks> {
+  const confirmed = usesVersionedOpenKodoHookTrust(args.repos, args.repoId)
+    ? withOpenKodoHookScriptConfirmed(args.trust, args.repoId, args.kind, args.contentHash)
     : args.trust
-  const next = args.alwaysTrust ? withOrcaHookRepoAlwaysTrusted(confirmed, args.repoId) : confirmed
+  const next = args.alwaysTrust
+    ? withOpenKodoHookRepoAlwaysTrusted(confirmed, args.repoId)
+    : confirmed
   if (next !== args.trust) {
     taskUiStateWrite.interpret(
-      await taskUiStateWrite.request(args.client, { trustedOrcaHooks: next })
+      await taskUiStateWrite.request(args.client, { trustedOpenKodoHooks: next })
     )
   }
   return next
@@ -152,8 +154,8 @@ export async function persistOrcaHookTrustApproval(
 
 export function persistSetupHookTrustApproval(
   args: HookTrustApproval
-): Promise<PersistedTrustedOrcaHooks> {
-  return persistOrcaHookTrustApproval({ ...args, kind: 'setup' })
+): Promise<PersistedTrustedOpenKodoHooks> {
+  return persistOpenKodoHookTrustApproval({ ...args, kind: 'setup' })
 }
 
 // Hooks may omit setupTrust; validate the pair here while preserving other host fields.

@@ -1,8 +1,8 @@
 import { getRepoHostIdentityForParts } from '../../../shared/repository/repo-host-identity'
 import { createRepoRowExecutionHostLookup } from '../../../shared/execution-host/worktree-execution-host-resolution'
 import type { RuntimeWorkspaceCatalog } from './catalog/workspace-catalog'
-import type { OrcaRuntimeWithListManagedWorktrees } from './managed-workspace-operations'
-import type { OrcaRuntimeWithTransitionGraphReloadToTerminalState } from '../session-graph/session-graph-authority'
+import type { OpenKodoRuntimeWithListManagedWorktrees } from './managed-workspace-operations'
+import type { OpenKodoRuntimeWithTransitionGraphReloadToTerminalState } from '../session-graph/session-graph-authority'
 import {
   getConnectionExecutionHostId,
   LOCAL_EXECUTION_HOST_ID,
@@ -12,27 +12,29 @@ import type { ResolvedWorktree } from './catalog/runtime-worktree-path-identity'
 import { resolveWorktreeHostRouting } from './catalog/worktree-launch-host-repo'
 import { findRuntimeWorkspaceFileOwner } from '../../../shared/file-access/runtime-workspace-file-owner'
 import { RuntimePreallocatedTerminalHandles } from '../terminal/identity/preallocated-terminal-handles'
-export abstract class OrcaRuntimeWithResolveKnownWorkspaceFileTarget extends RuntimePreallocatedTerminalHandles {
+export abstract class OpenKodoRuntimeWithResolveKnownWorkspaceFileTarget extends RuntimePreallocatedTerminalHandles {
   protected abstract listResolvedWorktrees(
     ...args: Parameters<RuntimeWorkspaceCatalog['listResolvedWorktrees']>
   ): ReturnType<RuntimeWorkspaceCatalog['listResolvedWorktrees']>
 
   protected abstract buildRuntimeVisibilitySourceMatchersByRepoId(
     ...args: Parameters<
-      OrcaRuntimeWithListManagedWorktrees['buildRuntimeVisibilitySourceMatchersByRepoId']
+      OpenKodoRuntimeWithListManagedWorktrees['buildRuntimeVisibilitySourceMatchersByRepoId']
     >
-  ): ReturnType<OrcaRuntimeWithListManagedWorktrees['buildRuntimeVisibilitySourceMatchersByRepoId']>
+  ): ReturnType<
+    OpenKodoRuntimeWithListManagedWorktrees['buildRuntimeVisibilitySourceMatchersByRepoId']
+  >
 
   protected abstract isRuntimeWorktreeVisible(
-    ...args: Parameters<OrcaRuntimeWithListManagedWorktrees['isRuntimeWorktreeVisible']>
-  ): ReturnType<OrcaRuntimeWithListManagedWorktrees['isRuntimeWorktreeVisible']>
+    ...args: Parameters<OpenKodoRuntimeWithListManagedWorktrees['isRuntimeWorktreeVisible']>
+  ): ReturnType<OpenKodoRuntimeWithListManagedWorktrees['isRuntimeWorktreeVisible']>
 
   protected abstract resolveFolderWorkspaceConnectionId(
     ...args: Parameters<
-      OrcaRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceConnectionId']
+      OpenKodoRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceConnectionId']
     >
   ): ReturnType<
-    OrcaRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceConnectionId']
+    OpenKodoRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceConnectionId']
   >
 
   protected async resolveKnownWorkspaceFileTarget(

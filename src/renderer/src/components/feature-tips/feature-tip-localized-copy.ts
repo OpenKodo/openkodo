@@ -23,16 +23,16 @@ const getFeatureTipCopyById = createLocalizedCatalog(
       ),
       ctaLabel: translate('featureTips.sessionSearch.cta', 'Enable session search')
     },
-    'orca-cli': {
+    'openkodo-cli': {
       title: translate(
-        'featureTips.orcaCli.title',
+        'featureTips.openkodoCli.title',
         'Let agents drive OpenKodo with the OpenKodo CLI'
       ),
       description: translate(
-        'featureTips.orcaCli.description',
+        'featureTips.openkodoCli.description',
         'Enable agents to coordinate child worktrees and communicate between worktrees.'
       ),
-      ctaLabel: translate('featureTips.orcaCli.cta', 'Install CLI & Skills')
+      ctaLabel: translate('featureTips.openkodoCli.cta', 'Install CLI & Skills')
     },
     'cmd-j-palette': {
       // The dialog replaces <shortcut> with the live key binding.

@@ -168,7 +168,7 @@
       "statusDetails": {
         "runningListUnavailable": "Windows, dağıtımın çalışıp çalışmadığını bildirmedi.",
         "guestUnanswered": "Dağıtım çalışıyor ancak OpenKodo'nın kontrolüne yanıt vermedi.",
-        "orcadUnanswered": "Dağıtım içindeki OpenKodo sunucusu yanıt vermedi.",
+        "openkododUnanswered": "Dağıtım içindeki OpenKodo sunucusu yanıt vermedi.",
         "restartGaveUp_one": "{{count}} denemeden sonra {{distro}} içindeki OpenKodo sunucusu yeniden başlatılamadı",
         "restartGaveUp_other": "{{count}} denemeden sonra {{distro}} içindeki OpenKodo sunucusu yeniden başlatılamadı",
         "serviceUnconfirmed": "WSL hizmeti dağıtımın çalışıp çalışmadığını doğrulamadı.",
@@ -782,11 +782,11 @@
         "restartingAdministrator": "Yeniden başlatılıyor…",
         "administratorSearchDescription": "OpenKodo'nın Windows izinlerini görüntüleyin veya yönetici onayıyla yeniden başlatın.",
         "10aafff216": "Oturumları Yönet'i aç",
-        "confirmOrcaAdministratorRestart": "OpenKodo yönetici olarak yeniden başlatılsın mı?",
+        "confirmOpenKodoAdministratorRestart": "OpenKodo yönetici olarak yeniden başlatılsın mı?",
         "administratorRestartSummary": "Yerel terminaller ve ajanlar kapanır. Windows onayınızı ister.",
-        "orcaCouldNotRestart": "OpenKodo yeniden başlatılamadı.",
+        "openkodoCouldNotRestart": "OpenKodo yeniden başlatılamadı.",
         "manualAdministratorSteps": "Elle yapılacak adımlar",
-        "restartOrca": "Yeniden başlat"
+        "restartOpenKodo": "Yeniden başlat"
       },
       "limit": {
         "label": "Aynı anda çalışabilecek terminal sayısı",
@@ -2038,7 +2038,7 @@
   "menu": {
     "checkForUpdates": "Güncellemeleri Kontrol Et...",
     "settings": "Ayarlar",
-    "exploreOrca": "OpenKodo'yı Keşfet",
+    "exploreOpenKodo": "OpenKodo'yı Keşfet",
     "gettingStarted": "OpenKodo ile Başlarken",
     "reportCrash": "Çökme Bildir...",
     "file": "Dosya",
@@ -2081,7 +2081,7 @@
     "zoom": "Pencereyi büyüt"
   },
   "tray": {
-    "openOrca": "OpenKodo'yı Aç",
+    "openOpenKodo": "OpenKodo'yı Aç",
     "quit": "Çıkış",
     "minimizeNotice": {
       "body": "OpenKodo sistem tepsisinde çalışmaya devam ediyor"
@@ -2386,7 +2386,7 @@
         "jira": {
           "856083302c": "Jira bağlantısının yerini daha yeni bir istek aldı."
         },
-        "orca": {
+        "openkodo": {
           "profiles": {
             "612f7f6861": "Profil oluşturulamadı",
             "319d7cf39b": "Bulut profili oluşturuldu",
@@ -2999,8 +2999,8 @@
           "differentLauncher": "{{path}} farklı bir başlatıcıyı gösteriyor.",
           "launcherMissing": "Bu OpenKodo derlemesinde paketlenmiş CLI başlatıcısı eksik.",
           "noWslDistro": "Kullanılabilir WSL dağıtımı yok.",
-          "notOrcaLauncherScript": "{{path}} mevcut ancak bir OpenKodo başlatıcı betiği değil.",
-          "notOrcaSymlink": "{{path}} mevcut ancak bir OpenKodo sembolik bağlantısı değil.",
+          "notOpenKodoLauncherScript": "{{path}} mevcut ancak bir OpenKodo başlatıcı betiği değil.",
+          "notOpenKodoSymlink": "{{path}} mevcut ancak bir OpenKodo sembolik bağlantısı değil.",
           "olderLauncher": "{{path}} eski bir OpenKodo başlatıcısı içeriyor.",
           "platformUnsupported": "CLI kaydı bu platformda uygulanmamış.",
           "readlinkPermissionDenied": "OpenKodo’nın {{path}} öğesini denetleme izni yok. Yolun ve üst dizininin izinlerini kontrol edip yeniden deneyin.",
@@ -3826,8 +3826,8 @@
         "addHost": "Sunucu ekle",
         "addSshHost": "SSH sunucusu ekle",
         "addSshHostHint": "SSH üzerinden mevcut bir makineyi kullanın",
-        "addRemoteOrcaServer": "Uzak OpenKodo Sunucusu Ekle",
-        "addRemoteOrcaServerHint": "Başka bir OpenKodo çalışma zamanını eşleştirin",
+        "addRemoteOpenKodoServer": "Uzak OpenKodo Sunucusu Ekle",
+        "addRemoteOpenKodoServerHint": "Başka bir OpenKodo çalışma zamanını eşleştirin",
         "hostConnectionFailed": "Bağlantı başarısız oldu",
         "connect": "Bağlan",
         "reconnect": "Yeniden bağlan",
@@ -5244,7 +5244,7 @@
             "switchTerminal": "Terminali değiştir",
             "openTaskTerminal": "Görev terminalini aç",
             "systemBrowser": "Sistem Tarayıcısı",
-            "orcaBrowser": "OpenKodo Tarayıcı",
+            "openkodoBrowser": "OpenKodo Tarayıcı",
             "terminalLinkSettings": "Terminal bağlantı ayarları",
             "copyLink": "Bağlantıyı kopyala",
             "copied": "Kopyalandı",
@@ -6726,7 +6726,7 @@
           "updateAction_one": "{{count}} beceriyi güncelle"
         },
         "SkillUpdateRow": {
-          "replaceWithOrca": "OpenKodo'nın kopyasıyla değiştir (yedek saklanır)"
+          "replaceWithOpenKodo": "OpenKodo'nın kopyasıyla değiştir (yedek saklanır)"
         },
         "SkillFreshnessStatusPill": {
           "updateAvailable": "Güncelleme mevcut",
@@ -7106,7 +7106,7 @@
           "installAvailable": "Yüklenebilir",
           "otherBuild": "OpenKodo'nın başka bir sürümü tarafından yüklendi",
           "otherBuildKept": "Korundu: OpenKodo'nın başka bir sürümü tarafından yazıldı",
-          "differsFromOrca": "Bu kopya OpenKodo'nın kopyasından farklı",
+          "differsFromOpenKodo": "Bu kopya OpenKodo'nın kopyasından farklı",
           "replaceMovesFolder": "Değiştirme işlemi, ek dosyalar dahil tüm klasörü {{folder}} konumuna taşır.",
           "replaceMovesFolderOnHost": "Değiştirme işlemi, ek dosyalar dahil tüm klasörü {{host}} üzerindeki {{folder}} konumuna taşır.",
           "replaceMovesLink": "Değiştirme işlemi bu bağlantıyı {{folder}} konumuna taşır.",
@@ -7335,7 +7335,7 @@
           "removeWithChildrenMixed_other": "OpenKodo'dan <target/> ve <descendants>{{count}} alt çalışma alanı</descendants> kaldır. Git worktree'leri git'ten ve diskten de kaldırılacak; klasör çalışma alanlarında yalnızca OpenKodo kaydı kaldırılacak.",
           "removeWithChildrenGit_one": "git'ten <target/> ve <descendants>{{count}} alt çalışma alanı</descendants> kaldır ve ilgili çalışma alanı klasörlerini sil.",
           "removeWithChildrenGit_other": "git'ten <target/> ve <descendants>{{count}} alt çalışma alanı</descendants> kaldır ve ilgili çalışma alanı klasörlerini sil.",
-          "removeSingleFolderFromOrca": "OpenKodo'dan kaldırır. Diskteki klasör korunur.",
+          "removeSingleFolderFromOpenKodo": "OpenKodo'dan kaldırır. Diskteki klasör korunur.",
           "deleteSingleWorktreeAndBranch": "Worktree'yi ve yerel değişiklikleri siler. Branch birleştirilmişse onu da siler."
         },
         "DeleteWorktreeDirtyChangeHint": {
@@ -7379,7 +7379,7 @@
           "8851b77327": "Bu yol yerel olarak kontrol edildi.",
           "sshConnectionUnavailable": "\"{{connection}}\" SSH bağlantısı bulunamadı veya bağlı değil"
         },
-        "OrcaYamlTrustDialog": {
+        "OpenKodoYamlTrustDialog": {
           "f3e2b868fb": "Hook'ları çalıştır",
           "43b7bec4cd": "Çalıştırma",
           "setupChangedTitle": "{{repo}} için kurulum betiği değişti — yeni sürüm çalıştırılsın mı?",
@@ -7758,7 +7758,7 @@
           "c7fa72ead0": "Notları düzenle",
           "93cbea12c2": "Notlar",
           "dbe2d18972": "Daha fazla {{value0}} işlemi",
-          "openInOrcaBrowser": "OpenKodo tarayıcısında aç",
+          "openInOpenKodoBrowser": "OpenKodo tarayıcısında aç",
           "2c67730e07": "OpenKodo'da aç",
           "807b13b9ec": "Sorunu düzenle",
           "moreIssueActions": "Daha fazla sorun işlemi",
@@ -8325,7 +8325,7 @@
           "port": "Port",
           "identityFile": "Kimlik dosyası",
           "identityFilePlaceholder": "~/.ssh/id_ed25519 (isteğe bağlı)",
-          "nameInOrca": "OpenKodo'daki adı",
+          "nameInOpenKodo": "OpenKodo'daki adı",
           "serverNamePlaceholder": "Geliştirme sunucusu",
           "accessLink": "Erişim bağlantısı",
           "pairingCodePlaceholder": "openkodo://pair?code=...",
@@ -8351,7 +8351,7 @@
           "sshConfigPickerEmptyHint": "Oraya bir Host girişi ekleyin veya geri dönüp ayrıntıları manuel olarak girin.",
           "sshConfigPickerNoMatchHint": "Başka bir filtre deneyin veya geri dönüp manuel olarak girin.",
           "sshConfigPickerMoreResults": "İlk {{value0}} eşleşme gösteriliyor. Daha fazlasını bulmak için filtrenizi daraltın.",
-          "sshConfigPickerInOrca": "OpenKodo'da",
+          "sshConfigPickerInOpenKodo": "OpenKodo'da",
           "sshConfigPickerPreviouslyRemoved": "OpenKodo'dan kaldırıldı",
           "sshConfigPickerBack": "Geri",
           "fillFromSshConfig": "~/.ssh/config'den doldur…",
@@ -8565,7 +8565,7 @@
           "showError": "Bulunan worktree'ler gösterilemedi. Tekrar deneyin."
         },
         "repoHeaderProjectActions": {
-          "hideNonOrcaWorktrees": "OpenKodo dışında oluşturulan worktree'leri gizle",
+          "hideNonOpenKodoWorktrees": "OpenKodo dışında oluşturulan worktree'leri gizle",
           "showHiddenWorktrees": "Gizli worktree'leri göster"
         },
         "useWorktreeCardLinkedDetails": {
@@ -8902,7 +8902,7 @@
           "retrySetup": "Yeniden dene",
           "installing": "Yükleniyor…",
           "hostUnavailable": "OpenKodo bu çalışma alanının makinesine henüz beceri yükleyemiyor.",
-          "replaceWithOrcaCopy": "OpenKodo sürümüyle değiştir",
+          "replaceWithOpenKodoCopy": "OpenKodo sürümüyle değiştir",
           "copyCommandAria": "Komutu kopyala",
           "ed197f59a2": "Komutu kopyala",
           "failedToCopyCommand": "Komut kopyalanamadı.",
@@ -10474,7 +10474,7 @@
           "removing": "Kaldırılıyor…",
           "testing": "Test ediliyor…",
           "select": "{{label}} öğesini seç",
-          "orcaServer": "OpenKodo sunucusu",
+          "openkodoServer": "OpenKodo sunucusu",
           "moreActions": "{{label}} için diğer işlemler",
           "testConnection": "Bağlantıyı test et",
           "edit": "Düzenle…",
@@ -13041,13 +13041,13 @@
           "notificationPlayground": "Bildirim oyun alanı",
           "notificationPlaygroundDescription": "Toast düzenini, kurtarma eylemlerini ve uzun metin sarmalamasını kontrol etmek için yalnızca geliştirmede kullanılan tetikleyiciler.",
           "devOnly": "Yalnızca geliştirme",
-          "orcaCloud": "cloud service",
-          "orcaCloudDescription": "Birinci taraf bulut girişinin yalnızca geliştirme için önizlemesi. Üretimde gizlidir; geliştirmede OPENKODO_CLOUD_API_URL ve OPENKODO_CLOUD_CLIENT_ID ayarlandığında kenar çubuğu hesap değiştiricisinde de görünür.",
-          "orcaCloudStatus": "Durum",
-          "orcaCloudSignOut": "Çıkış yap",
-          "orcaCloudConnect": "Profili bağla",
-          "orcaCloudRefresh": "Durumu yenile",
-          "orcaCloudNotConfigured": "Bu geliştirme sürümünde cloud service girişini önizlemek için OPENKODO_CLOUD_API_URL ve OPENKODO_CLOUD_CLIENT_ID ayarlayın.",
+          "openkodoCloud": "cloud service",
+          "openkodoCloudDescription": "Birinci taraf bulut girişinin yalnızca geliştirme için önizlemesi. Üretimde gizlidir; geliştirmede OPENKODO_CLOUD_API_URL ve OPENKODO_CLOUD_CLIENT_ID ayarlandığında kenar çubuğu hesap değiştiricisinde de görünür.",
+          "openkodoCloudStatus": "Durum",
+          "openkodoCloudSignOut": "Çıkış yap",
+          "openkodoCloudConnect": "Profili bağla",
+          "openkodoCloudRefresh": "Durumu yenile",
+          "openkodoCloudNotConfigured": "Bu geliştirme sürümünde cloud service girişini önizlemek için OPENKODO_CLOUD_API_URL ve OPENKODO_CLOUD_CLIENT_ID ayarlayın.",
           "deleteAnywayClicked": "Yine de Sil'e tıklandı"
         },
         "EphemeralVmRecipeRow": {
@@ -13157,7 +13157,7 @@
                 "tickets": "biletler",
                 "issues": "issue'lar",
                 "skill": "beceri",
-                "orcaLinear": "openkodo-linear"
+                "openkodoLinear": "openkodo-linear"
               }
             }
           }
@@ -13303,9 +13303,9 @@
         },
         "BrowserLinkRoutingModifierSetting": {
           "titleSystem": "Web tarayıcınızda açmak için Shift tuşunu basılı tutun",
-          "titleOrca": "OpenKodo'da açmak için Shift tuşunu basılı tutun",
+          "titleOpenKodo": "OpenKodo'da açmak için Shift tuşunu basılı tutun",
           "descriptionSystem": "Bağlantılar OpenKodo'da açılır, bu yüzden {{chord}}+tıklama bunun yerine bir tanesini sistem tarayıcınıza gönderir.",
-          "descriptionOrca": "Bağlantılar sistem tarayıcınızda açılır. Etkinleştirildiğinde {{chord}}+tıklama bunun yerine bir tanesini OpenKodo'nın yerleşik tarayıcısında açar."
+          "descriptionOpenKodo": "Bağlantılar sistem tarayıcınızda açılır. Etkinleştirildiğinde {{chord}}+tıklama bunun yerine bir tanesini OpenKodo'nın yerleşik tarayıcısında açar."
         },
         "BrowserLinkRoutingBackgroundSetting": {
           "title": "Bağlantıları arka planda aç",
@@ -13716,7 +13716,7 @@
           "09f41ce46c": "Artifact'ler düğmesini göster",
           "7b2b114099": "Artifact'leri aç"
         },
-        "orcaAccount": {
+        "openkodoAccount": {
           "connected": "Bağlı",
           "reconnectRequired": "Oturumunuzun süresi doldu. Bulut özelliklerini kullanmak için tekrar oturum açın.",
           "unavailable": "OpenKodo oturum açma bu sürümde kullanılamıyor.",
@@ -13970,9 +13970,9 @@
             "confirmForget": "Bu masaüstünde unut",
             "keepLinked": "Bağlı tut",
             "forgetDescription": "Ana makinesine erişmeden bu sunucunun buradaki bağlantısını kaldırır. Ana makine geri gelirse sunucu orada hâlâ çalışıyor olabilir.",
-            "orcaVersion": "Bu ana makinedeki OpenKodo: {{version}}",
-            "stopOrcaDescription": "SSH sunucusundaki OpenKodo'yı durdurur ve bu listeden kaldırır.",
-            "updateOrcaOnHost": "Bu ana makinedeki OpenKodo'yı güncelle",
+            "openkodoVersion": "Bu ana makinedeki OpenKodo: {{version}}",
+            "stopOpenKodoDescription": "SSH sunucusundaki OpenKodo'yı durdurur ve bu listeden kaldırır.",
+            "updateOpenKodoOnHost": "Bu ana makinedeki OpenKodo'yı güncelle",
             "updateAnyway": "Yine de güncelle",
             "notNow": "Şimdi değil",
             "forceUpdate": "Bu sunucuda terminaller çalışıyor. Güncelleme boyunca çalışmaya devam ederler ve OpenKodo sunucusu yeniden başladığında bölmeleri yeniden bağlanır.",
@@ -14312,7 +14312,7 @@
           "confirm": "Geri getir"
         },
         "SshTargetList": {
-          "addedInOrca": "OpenKodo'da eklendi",
+          "addedInOpenKodo": "OpenKodo'da eklendi",
           "fromConfig": "~/.ssh/config kaynaklı",
           "filteredCount": "{{total}} öğeden {{count}}",
           "selectManualGroup": "OpenKodo'da eklenen tüm SSH sunucularını seç",
@@ -14447,7 +14447,7 @@
           "attentionSharedNotCurrent": "Dikkat gerekiyor · Bu klasörün kullandığı paylaşılan kopya OpenKodo'ya ait değil",
           "resultUpdateSkippedPlaces": "{{result}} · {{places}} konumda güncelleme atlandı: {{reason}}",
           "resultUpdateSkippedAgent": "{{result}} · {{agent}} için güncelleme atlandı: {{reason}}",
-          "attentionDiffersFromOrca": "Dikkat gerekiyor · Bu kopya OpenKodo'nın kopyasından farklı",
+          "attentionDiffersFromOpenKodo": "Dikkat gerekiyor · Bu kopya OpenKodo'nın kopyasından farklı",
           "replaceMovesCopyToBackup": "Değiştirme işlemi, ek dosyalar dahil mevcut kopyayı bir yedeğe taşır.",
           "replaceMovesCopyToFolder": "Değiştirme işlemi, ek dosyalar dahil mevcut kopyayı {{folder}} konumuna taşır.",
           "replaceMovesCopyToFolderOnHost": "Değiştirme işlemi, ek dosyalar dahil mevcut kopyayı {{host}} üzerindeki {{folder}} konumuna taşır."
@@ -14500,7 +14500,7 @@
           "close": "Kapat",
           "retry": "Tekrar dene",
           "updated": "Güncellendi",
-          "needsOrca": "OpenKodo {{value0}} veya üzeri gerekir",
+          "needsOpenKodo": "OpenKodo {{value0}} veya üzeri gerekir",
           "current": "Zaten yüklü",
           "newShortcuts": "Klavye kısayolları",
           "newCommands": "Komutlar",
@@ -14587,8 +14587,8 @@
           "stoppedTitle": "Bir hatadan sonra durduruldu",
           "stoppedBody": "Sürekli çöktü. Yeniden denemek için yeniden başlatın.",
           "invalidTitle": "OpenKodo bu eklentiyi yükleyemiyor",
-          "needsOrcaTitle": "OpenKodo {{value0}} veya üzeri gerekir",
-          "needsOrcaBody": "Sizdeki sürüm: OpenKodo {{value0}}.",
+          "needsOpenKodoTitle": "OpenKodo {{value0}} veya üzeri gerekir",
+          "needsOpenKodoBody": "Sizdeki sürüm: OpenKodo {{value0}}.",
           "newerTitle": "Daha yeni bir sürüm var",
           "newerBody": "Siz buradayken katalog değişti.",
           "showNewer": "Yenisini göster",
@@ -14696,12 +14696,12 @@
           "viewError": "Hatayı görüntüle",
           "copyId": "Eklenti kimliğini kopyala",
           "checkUpdate": "Güncellemeyi denetle",
-          "bundledWithOrca": "OpenKodo ile birlikte gelir",
+          "bundledWithOpenKodo": "OpenKodo ile birlikte gelir",
           "installName": "{{value0}} eklentisini yükle",
           "crashedOnce": "Bir kez çöktü",
           "updateLabel": "{{value0}} eklentisini {{value1}} sürümüne güncelle",
           "update": "{{value0}} sürümüne güncelle",
-          "needsOrca": "OpenKodo {{value0}} gerekli",
+          "needsOpenKodo": "OpenKodo {{value0}} gerekli",
           "rollbackTo": "{{value0}} sürümüne geri al…",
           "copyContentHash": "İçerik karmasını kopyala",
           "reviewUpdate": "Güncellemeyi incele",
@@ -17404,7 +17404,7 @@
                   "6d2b0a84e1": "Bu derlemede kullanılamıyor",
                   "notInstalled": "Yüklü değil",
                   "needsMacAccess": "macOS erişimi gerekiyor",
-                  "requiresOrcaDesktop": "OpenKodo Desktop gerekiyor"
+                  "requiresOpenKodoDesktop": "OpenKodo Desktop gerekiyor"
                 }
               }
             }
@@ -19089,7 +19089,7 @@
             "zoomIn": "Yakınlaştır",
             "resetZoom": "Yakınlaştırmayı sıfırla",
             "appearance": "Görünüm",
-            "appearanceMatchOrca": "OpenKodo ile eşleştir",
+            "appearanceMatchOpenKodo": "OpenKodo ile eşleştir",
             "appearanceLight": "Açık",
             "appearanceDark": "Koyu",
             "zoomPercent": "Yakınlaştırma %{{value0}}"
@@ -20039,11 +20039,11 @@
           "preference": {
             "dialog": {
               "keep": {
-                "orca": {
+                "openkodo": {
                   "button": "OpenKodo'da kalsın"
                 }
               },
-              "orca": {
+              "openkodo": {
                 "button": "OpenKodo'da aç"
               },
               "system": {
@@ -20158,7 +20158,7 @@
           "copy": "Kopyala"
         }
       },
-      "orca": {
+      "openkodo": {
         "profiles": {
           "signout": {
             "confirm": {
@@ -20541,7 +20541,7 @@
         "c77189bc0c": "Filtreyi güncelle",
         "19af906d12": "Filtreyi kaydet"
       },
-      "OrcaSignInProgress": {
+      "OpenKodoSignInProgress": {
         "waiting": "Tarayıcınızda oturum açmanız bekleniyor",
         "copyLink": "Oturum açma bağlantısını kopyala",
         "copied": "Oturum açma bağlantısı kopyalandı",
@@ -20953,8 +20953,8 @@
           "lightLooks": "Açık görünümler",
           "moreThemes": "Daha fazla tema",
           "next": "Daha fazla görünüm",
-          "orcaDark": "OpenKodo Koyu",
-          "orcaLight": "OpenKodo Açık",
+          "openkodoDark": "OpenKodo Koyu",
+          "openkodoLight": "OpenKodo Açık",
           "pluginsHint": "Daha fazla tema eklenti olarak sunulur.",
           "previous": "Önceki görünümler",
           "showsWhenDark": "Sisteminiz koyu olduğunda gösterilir",
@@ -21205,10 +21205,10 @@
         "diskFull": "Bu sohbeti çalıştıran bilgisayarın diski dolu.",
         "freeDiskSpace": "Bu diskte yer açın, ardından tekrar deneyin.",
         "savedInOtherFolder": "Bu konuşma başka bir klasöre kaydedildi.",
-        "savedByNewerOrca": "Sohbetler daha yeni bir OpenKodo sürümüyle kaydedildi.",
-        "updateOrcaToKeepUsing": "Kullanmaya devam etmek için OpenKodo'yı güncelleyin.",
-        "chatSavedByNewerOrca": "Bu sohbet daha yeni bir OpenKodo sürümüyle kaydedilmiş.",
-        "updateOrcaToOpenChat": "Açmak için OpenKodo'yı güncelleyin.",
+        "savedByNewerOpenKodo": "Sohbetler daha yeni bir OpenKodo sürümüyle kaydedildi.",
+        "updateOpenKodoToKeepUsing": "Kullanmaya devam etmek için OpenKodo'yı güncelleyin.",
+        "chatSavedByNewerOpenKodo": "Bu sohbet daha yeni bir OpenKodo sürümüyle kaydedilmiş.",
+        "updateOpenKodoToOpenChat": "Açmak için OpenKodo'yı güncelleyin.",
         "unsupported": "Bu işlem, sohbetin çalıştığı bilgisayarda daha yeni bir OpenKodo sürümü gerektiriyor. Oradaki OpenKodo'yı güncelleyip tekrar deneyin.",
         "notAvailable": "Bu özellik bu sohbette kullanılamıyor.",
         "cannotRunHere": "OpenKodo bu ajanı burada bir sohbette çalıştıramıyor.",
@@ -21310,12 +21310,12 @@
         "stoppedBeforeStart": "Elle durduruldu",
         "dismiss": "Kapat",
         "copyError": "Hatayı kopyala",
-        "orcaStopUpdate": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo bir güncelleme için yeniden başlatıldı.",
-        "orcaStopQuit": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo kapatıldı.",
-        "orcaStopCrash": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo beklenmedik biçimde durdu.",
-        "orcaStopRemote": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo durdu.",
-        "orcaStopCanContinue": "Bu konuşmada devam edebilirsiniz.",
-        "orcaStopUnnamedServer": "uzak sunucu",
+        "openkodoStopUpdate": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo bir güncelleme için yeniden başlatıldı.",
+        "openkodoStopQuit": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo kapatıldı.",
+        "openkodoStopCrash": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo beklenmedik biçimde durdu.",
+        "openkodoStopRemote": "Bu yanıt hazırlanırken {{machine}} üzerindeki OpenKodo durdu.",
+        "openkodoStopCanContinue": "Bu konuşmada devam edebilirsiniz.",
+        "openkodoStopUnnamedServer": "uzak sunucu",
         "permissionDenied": "{{agent}} izin vermedi. Ayrıntıları görüntüleyin.",
         "safetyReviewApproved": "{{agent}} bu işleme onay verdi. Ayrıntıları görüntüleyin.",
         "safetyReview": "{{agent}} bir güvenlik incelemesi uyarısı bildirdi. Ayrıntıları görüntüleyin.",
@@ -21769,7 +21769,7 @@
         "cancel": "İptal",
         "reason": "Neden",
         "needsAccess": "Erişim gerekiyor:",
-        "needsNewerOrca": "Bu istek için OpenKodo'nın daha yeni bir sürümü gerekiyor.",
+        "needsNewerOpenKodo": "Bu istek için OpenKodo'nın daha yeni bir sürümü gerekiyor.",
         "plan": {
           "file": "Plan dosyası",
           "reviewTitle": "Önerilen planı incele",
@@ -21967,10 +21967,10 @@
         "deferredNote": "İhtiyaç olduğunda yüklenir. Kullanılan toplama dahil değildir."
       },
       "contextMenu": {
-        "copyOrcaSessionId": "OpenKodo Oturum Kimliğini Kopyala",
-        "orcaSessionIdCopied": "OpenKodo oturum kimliği kopyalandı",
-        "orcaSessionIdCopyFailed": "OpenKodo oturum kimliği kopyalanamıyor",
-        "orcaSessionIdTooltip": "OpenKodo'nın bu sohbet için kullandığı kimliktir; ajan CLI'sinin kendi oturum kimliğinden ayrıdır. Ajanlar OpenKodo üzerinden birbirlerine başvurmak için bunu kullanır.",
+        "copyOpenKodoSessionId": "OpenKodo Oturum Kimliğini Kopyala",
+        "openkodoSessionIdCopied": "OpenKodo oturum kimliği kopyalandı",
+        "openkodoSessionIdCopyFailed": "OpenKodo oturum kimliği kopyalanamıyor",
+        "openkodoSessionIdTooltip": "OpenKodo'nın bu sohbet için kullandığı kimliktir; ajan CLI'sinin kendi oturum kimliğinden ayrıdır. Ajanlar OpenKodo üzerinden birbirlerine başvurmak için bunu kullanır.",
         "noSessionContext": "Sohbet bağlamı yok."
       },
       "dismissDeliveryNotice": "Kapat",
@@ -22693,8 +22693,8 @@
         "signInGoogle": "Google ile oturum aç",
         "yourAgy": "Sizin agy kopyanız",
         "yourAgyVersion": "Sizin agy sürümünüz · v{{version}}",
-        "orcasAgy": "OpenKodo'nın agy kopyası",
-        "orcasAgyVersion": "OpenKodo’nın agy sürümü · v{{version}}",
+        "openkodosAgy": "OpenKodo'nın agy kopyası",
+        "openkodosAgyVersion": "OpenKodo’nın agy sürümü · v{{version}}",
         "runsOn": "Çalıştığı program: {{program}}",
         "keepsOwnLogin": "Bu sohbet agy’nin kendi Google oturumunu kullanmaya devam eder. Yeni sohbetlerde kullanılacak yöntem: {{method}}.",
         "apiKeyEnvironment": "Ortamınızdan",
@@ -23357,10 +23357,10 @@
         "copySessionIdSuccess": "Oturum Kimliği kopyalandı",
         "copySessionIdError": "Oturum kimliği kopyalanamadı",
         "copySessionIdUnavailable": "Kopyalanacak oturum kimliği yok",
-        "copyOrcaSessionId": "OpenKodo Oturum Kimliğini Kopyala",
-        "orcaSessionIdTooltip": "OpenKodo’nın bu ajana verdiği kimliktir. Ajanın CLI'sindeki oturum kimliğinden ayrıdır. Ajanlar OpenKodo üzerinden birbirlerine başvururken bu kimliği kullanır.",
-        "orcaSessionIdCopied": "OpenKodo oturum kimliği kopyalandı",
-        "orcaSessionIdCopyFailed": "OpenKodo oturum kimliği kopyalanamıyor"
+        "copyOpenKodoSessionId": "OpenKodo Oturum Kimliğini Kopyala",
+        "openkodoSessionIdTooltip": "OpenKodo’nın bu ajana verdiği kimliktir. Ajanın CLI'sindeki oturum kimliğinden ayrıdır. Ajanlar OpenKodo üzerinden birbirlerine başvururken bu kimliği kullanır.",
+        "openkodoSessionIdCopied": "OpenKodo oturum kimliği kopyalandı",
+        "openkodoSessionIdCopyFailed": "OpenKodo oturum kimliği kopyalanamıyor"
       },
       "hostFile": {
         "updateHostForOutsideFiles": "Çalışma alanları dışındaki dosyaları açmak için {{value0}} üzerindeki OpenKodo'yı güncelleyin"
@@ -23944,7 +23944,7 @@
           "sectionDescription": "{{host}} üzerindeki ajan ve terminaller için gönderilen uyarılar."
         }
       },
-      "orcaAccount": {
+      "openkodoAccount": {
         "server": {
           "sectionDescription": "{{host}} üzerindeki botların Slack, GitHub, Linear ve webhook bağlantılarında kullanılan OpenKodo hesabı.",
           "unread": "{{host}} üzerindeki OpenKodo hesabı okunamadı. {{host}} üzerindeki OpenKodo’yı güncelleyin veya bağlantıyı yeniden kurun.",
@@ -24083,7 +24083,7 @@
       "stepDownload": "İndir",
       "stepUnpack": "Arşivden çıkar",
       "stepCheck": "Kontrol et",
-      "installedByOrca": "OpenKodo tarafından kuruldu · {{version}}",
+      "installedByOpenKodo": "OpenKodo tarafından kuruldu · {{version}}",
       "updateTo": "{{version}} sürümüne güncelle"
     },
     "linearWorkspacePicker": {
@@ -24182,8 +24182,8 @@
       "routing": {
         "preference": {
           "dialog": {
-            "keepInOrcaTitle": "Terminal bağlantıları OpenKodo'da açılmaya devam etsin mi?",
-            "openInOrcaTitle": "Terminal bağlantıları OpenKodo'da açılsın mı?",
+            "keepInOpenKodoTitle": "Terminal bağlantıları OpenKodo'da açılmaya devam etsin mi?",
+            "openInOpenKodoTitle": "Terminal bağlantıları OpenKodo'da açılsın mı?",
             "shortcutSummary": "{{shortcut}}-tıklama sistem tarayıcınızı bir kez açar. Bunu Ayarlar'dan değiştirebilirsiniz."
           }
         }
@@ -24198,7 +24198,7 @@
     },
     "sidebar": {
       "ForgetSshWorkspaceDialog": {
-        "removeFromOrcaTitle": "{{name}} OpenKodo'dan kaldırılsın mı?",
+        "removeFromOpenKodoTitle": "{{name}} OpenKodo'dan kaldırılsın mı?",
         "ghostHostLine": "{{host}} artık kayıtlı bir ana makine değil. Dosyalar orada kalır.",
         "disconnectedHostLine": "{{host}} bağlı değil. Dosyalar ana makinede kalır.",
         "filesStayLine": "Dosyalar {{host}} üzerinde kalır.",
@@ -24480,7 +24480,7 @@
     },
     "eyebrowNew": "Yeni",
     "eyebrowTip": "İpucu",
-    "orcaCli": {
+    "openkodoCli": {
       "title": "Ajanların OpenKodo CLI ile OpenKodo'yı yönetmesini sağlayın",
       "description": "Ajanların alt worktree'leri koordine etmesini ve worktree'ler arasında iletişim kurmasını sağlayın.",
       "cta": "CLI ve Becerileri Yükle"
@@ -26150,7 +26150,7 @@
       "failed": "Doğrulanamıyor: yerel terminaller yenilenemedi. Son gözlemlenen terminaller gösteriliyor.",
       "retry": "Yeniden dene",
       "loading": "Terminaller yükleniyor…",
-      "noLocalOrcaPtys": "Yerel OpenKodo PTY'si yok",
+      "noLocalOpenKodoPtys": "Yerel OpenKodo PTY'si yok",
       "openNamed": "{{terminal}} terminalini aç",
       "endNamed": "{{terminal}} terminalini sonlandır",
       "endShort": "Sonlandır",
@@ -26172,7 +26172,7 @@
     "killAllLocal": "Tüm yerel oturumları sonlandır",
     "killFailed": "Terminal sonlandırılamadı. Son gözlemlenen oturumlar korunur.",
     "owner": {
-      "orca": "OpenKodo",
+      "openkodo": "OpenKodo",
       "agents": "Ajanlar",
       "otherTerminals": "Diğer terminaller",
       "privateBytes": "OpenKodo, ajanlar ve terminaller için ayrılmış bellek"
@@ -26575,7 +26575,7 @@
       "alreadyPairedAddAgain": "Bu sunucu zaten \"{{name}}\" olarak eşleştirilmiş. Bağlantısını güncellemek için Ayarlar > Uzak OpenKodo Sunucuları bölümünden yeniden ekleyin.",
       "alreadyPairedUnreadable": "Bu sunucu zaten \"{{name}}\" olarak eşleştirilmiş, ancak sunucunun kayıtlı ayarları OpenKodo'nın bu sürümünde okunamıyor.",
       "nameTaken": "\"{{name}}\" adlı bir sunucu zaten var.",
-      "idNeedsNewerOrca": "Bu kimliğe sahip bir sunucu, OpenKodo'nın daha yeni bir sürümünü gerektiren bir biçimde zaten var.",
+      "idNeedsNewerOpenKodo": "Bu kimliğe sahip bir sunucu, OpenKodo'nın daha yeni bir sürümünü gerektiren bir biçimde zaten var.",
       "hostSaveFailed": "OpenKodo sunucuyu doğruladı ancak sunucu kaydedilemedi. Yerel ayar depolamasını kontrol edip yeniden deneyin.",
       "repairSaveFailed": "OpenKodo sunucuyu doğruladı ancak yeni eşleştirme kaydedilemedi. Yerel ayar depolamasını kontrol edip yeniden deneyin.",
       "repairCloudWorkspace": "Bu sunucu, devam ettirildiğinde onu yeniden eşleştiren bir bulut çalışma alanına ait."
@@ -27931,7 +27931,7 @@
         "noAgents": "Ajan yok",
         "noAgentsAvailable": "Kullanılabilir ajan yok",
         "pictureLoading": "Görsel yükleniyor…",
-        "updateOrca": "OpenKodo’yı güncelleyin"
+        "updateOpenKodo": "OpenKodo’yı güncelleyin"
       },
       "agentClaude": "Claude Code",
       "hostUnreachable": "{{host}} adresine ulaşılamıyor",
@@ -29020,7 +29020,7 @@
       "computerFoot": "Bağlayıcıları, araçları ve dosyaları bu bilgisayarda bulunur.",
       "pairedServer": "Eşleştirilmiş sunucu · Bu botun sohbetlerini, araçlarını ve otomasyonlarını çalıştırır",
       "thisComputerDetail": "Bu bilgisayar",
-      "orcaAccount": "OpenKodo hesabı",
+      "openkodoAccount": "OpenKodo hesabı",
       "folder": "Klasör",
       "copyPath": "Yolu kopyala",
       "topicFiles": "Konu dosyaları",
@@ -29602,9 +29602,9 @@
       "importSetupFile": "Dosyayı içe aktar",
       "hostChoice": {
         "description": "{{bot}} botunun Gmail, Takvim ve Drive hesaplarınıza nasıl giriş yapacağını seçin.",
-        "orca": "OpenKodo’da barındırılıyor",
+        "openkodo": "OpenKodo’da barındırılıyor",
         "soon": "Yakında",
-        "orcaNote": "Google ile oturum açın.",
+        "openkodoNote": "Google ile oturum açın.",
         "self": "Kendi sunucunuzda",
         "selfNote": "Kendi Google uygulamanız.",
         "continue": "Devam et"
@@ -29813,12 +29813,12 @@
         "anotherWay": "Başka bir yolla kur"
       },
       "postAs": {
-        "orcaUser": "OpenKodo kullanıcısı",
+        "openkodoUser": "OpenKodo kullanıcısı",
         "thisComputer": "Bu bilgisayar",
         "caption": "Bu botun Slack yazışmalarında",
         "approve": "Slack’te onayla",
         "cancel": "İptal",
-        "viaOrca": "{{name}} (OpenKodo aracılığıyla)",
+        "viaOpenKodo": "{{name}} (OpenKodo aracılığıyla)",
         "app": "UYGULAMA",
         "sample": "Ondan sonra yayımla",
         "line": "OpenKodo’dan bir Slack yazışmasına verdiğiniz yanıt <picker>{{name}}</picker> adına gönderilir",
@@ -30450,7 +30450,7 @@
       "wontStart": "Başlamaz",
       "finishInBrowser": "Tarayıcıda tamamla",
       "cantReach": "Ulaşılamıyor",
-      "signInOrca": "Claude ve Codex ile çalışır",
+      "signInOpenKodo": "Claude ve Codex ile çalışır",
       "finishing": "Oturum açma tamamlanıyor…",
       "updateHost": "Uygulamalarda oturum açmak için {{host}} üzerindeki OpenKodo'yı güncelleyin",
       "updateServer": "Uygulamalarda oturum açmak için sunucudaki OpenKodo'yı güncelleyin",

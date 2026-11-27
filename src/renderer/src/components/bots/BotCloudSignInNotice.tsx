@@ -9,8 +9,8 @@ import { refreshBotSlack } from '@/lib/bot-slack-state'
 import { emitBotsChangedWindowEvent } from '@/lib/bots-changed-window-event'
 import { botLinearWorkspaces, botSlackApps, type Bot } from '../../../../shared/bot-types'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
-import { OrcaCloudSignInLine } from './orca-cloud-sign-in'
-import { useOrcaCloudSignedOut } from './orca-cloud-signed-out'
+import { OpenKodoCloudSignInLine } from './openkodo-cloud-sign-in'
+import { useOpenKodoCloudSignedOut } from './openkodo-cloud-signed-out'
 
 /** Reads again what a sign-in brings back: the bot's connectors, access requests and webhooks. */
 export async function refreshBotCloudReads(bot: Pick<Bot, 'id' | 'hostId'>): Promise<void> {
@@ -24,7 +24,7 @@ export async function refreshBotCloudReads(bot: Pick<Bot, 'id' | 'hostId'>): Pro
 }
 
 /** Whether the bot has something that only works through OpenKodo Cloud. */
-function usesOrcaCloud(bot: Bot, webhooks: boolean): boolean {
+function usesOpenKodoCloud(bot: Bot, webhooks: boolean): boolean {
   return (
     webhooks ||
     botSlackApps(bot).length > 0 ||
@@ -42,14 +42,14 @@ export function BotCloudSignInNotice({
   webhooks: boolean
 }): React.JSX.Element | null {
   const t = useTranslate()
-  const signedOut = useOrcaCloudSignedOut(bot.hostId)
+  const signedOut = useOpenKodoCloudSignedOut(bot.hostId)
   // Only this computer's refusal; a server's has its own notice.
   const refused =
     useConnectorNeedsSignIn(LOCAL_EXECUTION_HOST_ID) && bot.hostId === LOCAL_EXECUTION_HOST_ID
   const resume = (): Promise<void> => refreshBotCloudReads(bot)
-  if (signedOut && usesOrcaCloud(bot, webhooks)) {
+  if (signedOut && usesOpenKodoCloud(bot, webhooks)) {
     return (
-      <OrcaCloudSignInLine
+      <OpenKodoCloudSignInLine
         link
         className="px-2 py-1.5"
         text={t('bots.cloudSignIn.botOff', 'Signed out of OpenKodo · Slack, events, sharing off')}
@@ -59,7 +59,7 @@ export function BotCloudSignInNotice({
   }
   if (refused) {
     return (
-      <OrcaCloudSignInLine
+      <OpenKodoCloudSignInLine
         className="px-2 py-1.5"
         text={t(
           'bots.connectors.signInChanged',

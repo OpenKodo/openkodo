@@ -1,7 +1,7 @@
 import {
   REMOTE_BUNDLE_PLATFORMS,
   type RemoteBundlePlatform
-} from '../remote-runtime/orcad-distribution/remote-bundle-artifacts'
+} from '../remote-runtime/openkodod-distribution/remote-bundle-artifacts'
 
 /** Bundle ripgrep for every relay platform so local/WSL/SSH search never depends on a user-installed rg. */
 export const BUNDLED_RIPGREP_PLATFORMS: readonly RemoteBundlePlatform[] = REMOTE_BUNDLE_PLATFORMS

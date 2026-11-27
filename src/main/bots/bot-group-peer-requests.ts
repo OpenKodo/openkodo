@@ -275,7 +275,7 @@ export async function recordGroupWorker(
       .operationMessage(operationId)
       ?.turns.find((turn) => turn.operationId === operationId)?.sessionId
     if (sessionId) {
-      groups.runtime.notifyMessageArrived(`orca_session_id:${sessionId}`, 'message')
+      groups.runtime.notifyMessageArrived(`openkodo_session_id:${sessionId}`, 'message')
     }
   }
 }

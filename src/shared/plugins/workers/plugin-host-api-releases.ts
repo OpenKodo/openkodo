@@ -11,7 +11,7 @@ import { pluginHostMethodSinceFor, type PluginHostMethodSpec } from './plugin-ho
 
 /**
  * The first OpenKodo release offering each Host API minor, indexed by minor. Why a table: authors
- * declare `engines.orca`, not a minor, so the validator needs the release a method arrived in.
+ * declare `engines.openkodo`, not a minor, so the validator needs the release a method arrived in.
  * Method floors use `since`/`framesSince`; `paramsSince` is ignored, as a param cannot be seen statically.
  * Minors 0–6 come from the release tags: the first `v1.4.*` whose method table had that minor.
  */
@@ -29,7 +29,7 @@ export const PLUGIN_HOST_API_MINOR_SINCE: readonly string[] = [
   PLUGIN_HOST_API_1_10_SINCE
 ]
 
-/** `orca.host.has` arrived with manifest format 2; on older OpenKodo a guard throws instead of answering. */
+/** `openkodo.host.has` arrived with manifest format 2; on older OpenKodo a guard throws instead of answering. */
 export const PLUGIN_HOST_HAS_SINCE = PLUGIN_MANIFEST_V2_SINCE
 
 /** The oldest OpenKodo whose surface offers the method; null for a minor this table does not know. */

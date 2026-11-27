@@ -62,7 +62,7 @@ export function dispatchStarter(
   dispatchId: string,
   chatRoot: (sessionId: string) => string
 ): { sessionId: string; chatId: string } | null {
-  const creator = db.getDispatchContextById(dispatchId)?.creator_orca_session_id
+  const creator = db.getDispatchContextById(dispatchId)?.creator_openkodo_session_id
   const records = creator ? readAgentSessionRecordStore() : null
   const live = creator && records ? lineageLiveSession(records, creator) : null
   return creator && live ? { sessionId: live.sessionId, chatId: chatRoot(creator) } : null
@@ -75,7 +75,7 @@ export function dispatchStarterBotId(
   bots: readonly Bot[],
   records: AgentSessionRecordReader | null = readAgentSessionRecordStore()
 ): string | null {
-  const creator = db.getDispatchContextById(dispatchId)?.creator_orca_session_id
+  const creator = db.getDispatchContextById(dispatchId)?.creator_openkodo_session_id
   const record = creator ? records?.getRecord(creator) : null
   return record && records && isBotOwnChat(record, db, records)
     ? (botOfHomeWorkspace(bots, record.location.workspaceId)?.id ?? null)

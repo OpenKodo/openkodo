@@ -1,10 +1,9 @@
-import '../shared/env/legacy-brand-env-auto'
 import { app, clipboard, dialog, type BrowserWindow } from 'electron'
-import { isRoutedOrcaDeepLink } from './startup/open-routing/orca-deep-link-url'
+import { isRoutedOpenKodoDeepLink } from './startup/open-routing/openkodo-deep-link-url'
 import { createMacAppActivationHandler } from './window/activation/macos-app-activation'
 import {
   isBackgroundLaunch,
-  isOrcadSidecarLaunch
+  isOpenkododSidecarLaunch
 } from './window/activation/foreground-activation-policy'
 import {
   createDesktopHandoff,
@@ -40,17 +39,17 @@ import {
   readProfileStateCopySavedTimes
 } from './persistence/profile-state/startup/profile-state-startup-recovery-dialog'
 import { profileStateDesktopRecoveryArgs } from './startup/profile-startup/profile-state-recovery-preflight'
-import { profileStateRepairSectionApproval } from '../shared/orca-profiles/profile-state-recovery-command'
+import { profileStateRepairSectionApproval } from '../shared/openkodo-profiles/profile-state-recovery-command'
 import { prepareEarlyMainUiLanguage, translateMain } from './i18n/main-i18n'
 import { ProfileStateRecoveryRequiredError } from './persistence/profile-state/recovery/profile-state-recovery-required'
-import { getProfileUserDataPath } from './orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from './openkodo-profiles/profile-storage-paths'
 import { leaseAppImageGenerationForCurrentProcess } from './cli/appimage/appimage-generation-lease'
 import { deleteLegacyWslHostWakeList } from './wsl/host-lifecycle/wsl-host-early-wake'
 import { readWslInstallation } from './wsl/discovery/wsl-installation'
 import { configureWslHostsGateFromDisk } from './wsl/host-lifecycle/wsl-host-gate-startup'
 import { configureRemoteRuntimeE2EEV2HostLatch } from '../shared/remote-runtime/e2ee/node/remote-runtime-e2ee-v2-host-latch'
 import { ignoreInheritedWslHostsGateState } from '../shared/remote-runtime/wsl-hosts/wsl-host-internal-gate'
-import { registerOrcaProtocolClient } from './startup/open-routing/orca-protocol-registration'
+import { registerOpenKodoProtocolClient } from './startup/open-routing/openkodo-protocol-registration'
 import { resolveOpenKodoHome } from '../shared/home/openkodo-home'
 import {
   completeOpenKodoProtocol,
@@ -110,7 +109,7 @@ function publishDeepLink(link: DeepLink): void {
 function requestDesktopActivation(argv: readonly string[] = []): void {
   // Windows and Linux hand protocol URLs to the second instance as plain argv.
   const openkodoCode = openKodoHandoffFromArgs(argv)
-  if (openkodoCode && !isOrcadSidecarLaunch()) {
+  if (openkodoCode && !isOpenkododSidecarLaunch()) {
     void completeOpenKodoProtocol(
       `openkodo://openkodo/connect?code=${encodeURIComponent(openkodoCode)}`
     )
@@ -128,7 +127,7 @@ function requestDesktopActivation(argv: readonly string[] = []): void {
     return
   }
   // The sidecar’s throwaway profile must never become the user’s window.
-  if (isOrcadSidecarLaunch()) {
+  if (isOpenkododSidecarLaunch()) {
     requestDesktopHandoff()
     return
   }
@@ -206,7 +205,7 @@ if (preflightReady) {
         .catch(() => undefined)
       return
     }
-    if (!state.deepLinks.accepts(url) && !isRoutedOrcaDeepLink(url)) {
+    if (!state.deepLinks.accepts(url) && !isRoutedOpenKodoDeepLink(url)) {
       return
     }
     event.preventDefault()
@@ -219,13 +218,13 @@ if (preflightReady) {
     }
     event.preventDefault()
     // Cold-start activation must wait for Electron readiness; sidecars have no pending window.
-    if (app.isReady() || isOrcadSidecarLaunch()) {
+    if (app.isReady() || isOpenkododSidecarLaunch()) {
       requestDesktopActivation()
     }
   })
-  registerOrcaProtocolClient(app, {
+  registerOpenKodoProtocolClient(app, {
     platform: process.platform,
-    desktopLaunch: !state.isServeMode && !isBackgroundLaunch() && !isOrcadSidecarLaunch()
+    desktopLaunch: !state.isServeMode && !isBackgroundLaunch() && !isOpenkododSidecarLaunch()
   })
   state.deepLinks.capture(process.argv)
   state.pluginInstallLinks.capture(process.argv)

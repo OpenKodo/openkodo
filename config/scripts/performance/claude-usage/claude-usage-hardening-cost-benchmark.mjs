@@ -8,7 +8,7 @@ import { performance } from 'node:perf_hooks'
 import { parseArgs } from 'node:util'
 import { build } from 'esbuild'
 import { buildCounterbalancedSchedule } from '../measurement/counterbalanced-benchmark-schedule.mjs'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import {
   loadClaudeUsageBenchmarkScanner,
   readClaudeUsageBenchmarkBaselineSources
@@ -144,7 +144,7 @@ function median(values) {
   return (sorted[middle - 1] + sorted[middle]) / 2
 }
 
-const home = await mkdtemp(join(tmpdir(), 'orca-claude-hardening-cost-'))
+const home = await mkdtemp(join(tmpdir(), 'openkodo-claude-hardening-cost-'))
 try {
   const project = join(home, '.claude', 'projects', 'benchmark')
   const cwd = join(home, 'repo')

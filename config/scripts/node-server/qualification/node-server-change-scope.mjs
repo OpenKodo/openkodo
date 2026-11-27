@@ -7,13 +7,13 @@ import { classifyNativeCompatChanges } from './node-server-native-compat-scope.m
 
 const ROOT = resolve(import.meta.dirname, '../../../..')
 const BUILD_SCRIPTS = [
-  'config/scripts/orcad-distribution/prebuilds/build-orcad-node.mjs',
-  'config/scripts/orcad-distribution/prebuilds/server-build-target.mjs',
-  'config/scripts/orcad-distribution/prebuilds/pinned-node-downloads.mjs',
-  'config/scripts/orcad-distribution/server-bundle/build-orcad.mjs',
-  'config/scripts/orcad-distribution/prebuilds/build-orcad-prebuilds.mjs',
-  'config/scripts/orcad-distribution/prebuilds/orcad-windows-prebuild-cache.mjs',
-  'config/scripts/orcad-distribution/prebuilds/orcad-prebuild-smoke-child.cjs',
+  'config/scripts/openkodod-distribution/prebuilds/build-openkodod-node.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/server-build-target.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/pinned-node-downloads.mjs',
+  'config/scripts/openkodod-distribution/server-bundle/build-openkodod.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/build-openkodod-prebuilds.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/openkodod-windows-prebuild-cache.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/openkodod-prebuild-smoke-child.cjs',
   'config/scripts/native-build/windows/build-windows-process-tree-addon.mjs',
   'config/scripts/native-build/windows/build-windows-cli-launcher.mjs',
   'config/scripts/native-build/windows/build-windows-security-addon.mjs',
@@ -51,11 +51,11 @@ const ALWAYS_PREFIXES = [
   '.github/actions/restore-pnpm-verification/',
   '.github/actions/prepare-headless-compiler/',
   '.github/actions/prepare-native-runtime/',
-  '.github/actions/prepare-orcad-prebuilds/',
+  '.github/actions/prepare-openkodod-prebuilds/',
   // These areas also contain worker paths and fixtures opened without an import.
   'src/main/persistence/',
   'src/main/sqlite/',
-  'src/main/orcad/',
+  'src/main/openkodod/',
   'src/main/runtime/',
   'src/main/claude/',
   'src/main/daemon/pty-subprocess/conpty-startup-input-reader.ts',
@@ -92,11 +92,11 @@ export function discoverNodeServerTests(root = ROOT) {
 export async function collectNodeServerInputs({ root = ROOT, entryPoints } = {}) {
   const [
     { build },
-    { externalNativeAddons, ORCAD_CHILD_ENTRY_POINTS, ORCAD_LAUNCHER_ENTRY_POINT },
+    { externalNativeAddons, OPENKODOD_CHILD_ENTRY_POINTS, OPENKODOD_LAUNCHER_ENTRY_POINT },
     { createWorkspaceSourceResolver }
   ] = await Promise.all([
     import('esbuild'),
-    import('../../orcad-distribution/server-bundle/orcad-entry-build.mjs'),
+    import('../../openkodod-distribution/server-bundle/openkodod-entry-build.mjs'),
     import('../../workspace/source-exports/workspace-source-exports.mjs')
   ])
   const workspace = createWorkspaceSourceResolver(root)
@@ -114,11 +114,11 @@ export async function collectNodeServerInputs({ root = ROOT, entryPoints } = {})
       })
     }
   }
-  // General src/main/ bundle/boot regressions are covered by pr.yml's orcad terminal smoke;
+  // General src/main/ bundle/boot regressions are covered by pr.yml's openkodod terminal smoke;
   // trace the launcher, child workers, build scripts, and node-server test suites here.
   const entries = entryPoints ?? [
-    ORCAD_LAUNCHER_ENTRY_POINT,
-    ...Object.values(ORCAD_CHILD_ENTRY_POINTS),
+    OPENKODOD_LAUNCHER_ENTRY_POINT,
+    ...Object.values(OPENKODOD_CHILD_ENTRY_POINTS),
     ...BUILD_SCRIPTS,
     ...discoverNodeServerTests(root)
   ]
@@ -184,7 +184,7 @@ export async function classifyNodeServerChanges(
     (file) =>
       ALWAYS_FILES.has(file) ||
       (ALWAYS_PREFIXES.some((prefix) => file.startsWith(prefix)) && !isSourceUnitTest(file)) ||
-      /^config\/scripts\/(?:release\/workflow-contracts\/|orcad-distribution\/qualification\/)?(?:orcad-distribution\/prebuilds\/|orcad-distribution\/template\/|orcad-distribution\/server-bundle\/|orcad-distribution\/qualification\/)?(?:test-runtime\/environment\/)?[^/]*orcad[^/]*$/.test(
+      /^config\/scripts\/(?:release\/workflow-contracts\/|openkodod-distribution\/qualification\/)?(?:openkodod-distribution\/prebuilds\/|openkodod-distribution\/template\/|openkodod-distribution\/server-bundle\/|openkodod-distribution\/qualification\/)?(?:test-runtime\/environment\/)?[^/]*openkodod[^/]*$/.test(
         file
       ) ||
       selectors.some((selector) => file.includes(selector))

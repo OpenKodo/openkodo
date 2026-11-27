@@ -64,7 +64,7 @@ export async function addDataAccount(
   }
   const loginOptions = readOpenCodeLoginOptions(ctx, provider)
   await assertDataAccountsSupported(ctx)
-  const directory = mkdtempSync(join(tmpdir(), `orca-account-add-${provider}-`))
+  const directory = mkdtempSync(join(tmpdir(), `openkodo-account-add-${provider}-`))
   const session: InteractiveLoginSession = {
     child: null,
     registering: false,

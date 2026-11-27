@@ -2,7 +2,7 @@
 // one write, so a slow admission never holds the pull: an ask its people allowed is admitted after
 // the acknowledgment, one they introduced waits for a person, anything else is declined.
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import {
   ClientAskPayload,
@@ -56,7 +56,7 @@ function isDeclined(db: OrchestrationDb, conversationId: string, messageId: stri
 /** Its asker hears "Declined" with no reason: by the reply route, so a question settles by its id.
  *  The notice's id follows the ask's, so a replayed import queues no second one. */
 export function declinePairedServerAsk(
-  runtime: Pick<OrcaRuntimeService, 'readMachineName'>,
+  runtime: Pick<OpenKodoRuntimeService, 'readMachineName'>,
   db: OrchestrationDb,
   ask: { conversationId: string; messageId: string; to: string; subject: string }
 ): void {
@@ -78,7 +78,7 @@ export function declinePairedServerAsk(
 
 /** A held ask is declined once: its row goes, and its asker is told, even when it can't be read. */
 export function declineHeldPairedServerAsk(
-  runtime: Pick<OrcaRuntimeService, 'readMachineName' | 'getOrchestrationDb'>,
+  runtime: Pick<OpenKodoRuntimeService, 'readMachineName' | 'getOrchestrationDb'>,
   row: PairedServerAskRow
 ): void {
   const db = runtime.getOrchestrationDb()
@@ -158,7 +158,7 @@ function openReversedConversation(
 }
 
 function decideAsk(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   asks: PairedServerAsks,
   item: PulledItem,
@@ -196,7 +196,7 @@ function decideAsk(
 
 /** Imports one item; a replay changes nothing. Returns whether a card now waits for a person. */
 export async function importPairedServerItem(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   asks: PairedServerAsks,
   item: PulledItem

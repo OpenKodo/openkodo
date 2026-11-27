@@ -83,7 +83,7 @@ export function backupRealHomeHooksJsonOnce(
     return
   }
   const backupDir = getRealHomeHookStateDir(userDataPath)
-  const backupPath = join(backupDir, 'hooks.json.pre-orca')
+  const backupPath = join(backupDir, 'hooks.json.pre-openkodo')
   if (existsSync(backupPath)) {
     return
   }

@@ -28,7 +28,7 @@ import { openHelpLink } from '../chrome/help-link-open'
 
 const GITHUB_ISSUES_URL = 'https://github.com/OpenKodo/openkodo/issues/'
 const DISCORD_URL = 'https://discord.gg/fzjDKHxv8Q'
-const X_URL = 'https://x.com/orca_build'
+const X_URL = 'https://x.com/openkodo_build'
 
 type SubmitIdentity = {
   githubLogin: string | null

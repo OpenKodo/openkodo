@@ -4,8 +4,8 @@
   "id": "hello-components",
   "name": "Hello Components",
   "version": "1.0.0",
-  "description": "Sample components panel: persisted state, a list, an input, a switch and buttons drawn with Orca's own controls.",
-  "engines": { "orca": ">=1.4.246" },
+  "description": "Sample components panel: persisted state, a list, an input, a switch and buttons drawn with OpenKodo's own controls.",
+  "engines": { "openkodo": ">=1.4.246" },
   "pluginApi": 1,
   "contributes": {
     "panels": [

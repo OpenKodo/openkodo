@@ -6,7 +6,7 @@ import {
 import { cancelSettingsListReveal } from '../section-layout/settings-list-scroll'
 import { resolveGeneralSubPage } from '../general/general-sub-pages'
 import { useEffect, useRef, useState } from 'react'
-import type { OrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { getRepoExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import { checkRuntimeHooks } from '@/runtime/repo-hooks/runtime-hooks-client'
 import { getRepoHostIdentity } from '../../../../../shared/repository/repo-host-identity'
@@ -88,7 +88,10 @@ export function useSettingsRepoScrollEffects(
     setRepoHooksMap((previous) => {
       const next = Object.fromEntries(
         Object.entries(previous).filter(([identity]) => repoHostIdentitySet.has(identity))
-      ) as Record<string, { hasHooks: boolean; hooks: OrcaHooks | null; mayNeedUpdate: boolean }>
+      ) as Record<
+        string,
+        { hasHooks: boolean; hooks: OpenKodoHooks | null; mayNeedUpdate: boolean }
+      >
       return Object.keys(next).length === Object.keys(previous).length ? previous : next
     })
   }, [repos, setRepoHooksMap])

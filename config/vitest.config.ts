@@ -24,7 +24,7 @@ const nodeRuntimeInclude = process.versions.bun
   ? getNodeRuntimeInclude({ filters: readRunFilters() })
   : []
 const balancedShards = process.env.OPENKODO_BALANCE_UNIT_SHARDS === '1'
-// An Orca terminal publishes its WSL hosts gate to children; empty reads as unset, so tests resolve their own.
+// An OpenKodo terminal publishes its WSL hosts gate to children; empty reads as unset, so tests resolve their own.
 const gitEnv = { ...gitSigningOffEnv(), OPENKODO_WSL_HOSTS_GATE_STATE: '' }
 const moduleCachePath = process.env.OPENKODO_UNIT_MODULE_CACHE_PATH
 const phoneContractPattern = /\/mobile\/src\/.*\.(?:ts|tsx)(?:\?.*)?$/

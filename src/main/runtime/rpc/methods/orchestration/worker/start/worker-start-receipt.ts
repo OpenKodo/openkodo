@@ -5,7 +5,7 @@ import {
 } from '../../../../../../../shared/terminal/pty/lifecycle/terminal-host-cap-refusal'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import type { WorkerDispatchRow } from '../../../../../orchestration/db/orchestration-records'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { tearDownFailedWorkerStart } from './readiness/failed-worker-start-teardown'
 import { reportFailedWorkerStart } from '../../../../../orchestration/workers/turn-stops/failed-worker-start-report'
 import {
@@ -21,7 +21,7 @@ import { replaceDispatchCapabilities } from '../../../../../orchestration/termin
 import { redactString } from '../../../../../../../shared/observability/redactor'
 
 type WorkerStartFailureArgs = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   structuredSession: Awaited<ReturnType<typeof createStructuredWorkerSessionForWorktree>> | null
   db: OrchestrationDb
   runId: string

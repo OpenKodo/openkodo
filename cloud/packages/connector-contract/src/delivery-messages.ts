@@ -1,4 +1,4 @@
-import { EpochMsSchema, OpaqueIdSchema, SequenceSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema, OpaqueIdSchema, SequenceSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 import {
@@ -107,7 +107,7 @@ export const ConnectorAskerSchema = z.object({
   messageRef: z.string().min(1).max(2048).optional(),
   // A bare mention's request: the asker's own messages before it (see ConnectorEarlierOwnSchema).
   earlierOwn: ConnectorEarlierOwnSchema.optional(),
-  // The Orca bot that wrote it for them (item 167): its words, on their behalf.
+  // The OpenKodo bot that wrote it for them (item 167): its words, on their behalf.
   via: z
     .object({
       kind: z.literal('bot'),
@@ -118,7 +118,7 @@ export const ConnectorAskerSchema = z.object({
   // Another Slack app the owner put on Who can ask wrote it, not a person: userId is its bot user,
   // and no one's permission comes with it. An older machine drops it and reads a member's request.
   app: z.literal(true).optional(),
-  // Orca's own lines for the agent on where it was asked (GitHub: the branch, how to post there),
+  // OpenKodo's own lines for the agent on where it was asked (GitHub: the branch, how to post there),
   // which the chat doesn't show. Only to a machine that lists askerNote; any other reads it in text.
   note: z.string().min(1).max(CONNECTOR_LIMITS.maxAskerNoteLength).optional(),
   viaAccount: ViaAccountSchema

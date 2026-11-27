@@ -1,5 +1,5 @@
 import type { Store } from '../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { RECIPE_REMOVAL_REQUEST_TIMEOUT_MS } from '../../shared/remote-runtime/ephemeral-vm-recipes/recipe-host-removal'
 import { callRuntimeEnvironment } from '../ipc/runtime-environments/requests/runtime-environment-transport-routing'
 import { getRuntimeEnvironmentRegistryRoot } from '../ipc/runtime-environments/catalog/runtime-environment-registry-root'
@@ -12,7 +12,7 @@ import {
 
 /** Desktop-only: removing a recipe workspace from a phone or another client destroys its VM here. */
 export function wireRecipeWorkspaceRemoval(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   store: Store,
   userDataPath: () => string
 ): void {

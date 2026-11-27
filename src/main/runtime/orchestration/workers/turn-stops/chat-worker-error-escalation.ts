@@ -1,11 +1,11 @@
 import { createHash } from 'node:crypto'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { StructuredAgentSessionRequestFailure } from '../../../../native-chat/agent-session-wire/observations/structured-agent-session-request-failures'
 import { resolveStructuredWorkerIdentityForSession } from '../../terminal-authority/structured-sessions/structured-worker-authority'
-import { canonicalOrcaSessionId } from '../../addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../../addressing/session-lineage/canonical-openkodo-session-id'
 import { isSenderOwnRejection } from './chat-worker-error-words'
 import { readChatRequestError } from './chat-request-error-read'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -20,9 +20,9 @@ type ChatWorkerDispatch = { dispatch: DispatchContextRow; from: string }
 /** The open Dispatch this session works, as a chat assignee or as a structured worker. */
 export function chatWorkerDispatches(sessionId: string, db: OrchestrationDb): ChatWorkerDispatch[] {
   const found: ChatWorkerDispatch[] = []
-  if (isOrcaSessionId(sessionId)) {
+  if (isOpenKodoSessionId(sessionId)) {
     // A `/clear` successor keeps its root's address, so the Dispatch names the root.
-    const address = formatOrcaSessionAddress(canonicalOrcaSessionId(sessionId))
+    const address = formatOpenKodoSessionAddress(canonicalOpenKodoSessionId(sessionId))
     const dispatch = db.getActiveDispatchForTerminal(address)
     if (dispatch) {
       found.push({ dispatch, from: address })

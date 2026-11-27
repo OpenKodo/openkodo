@@ -1,4 +1,4 @@
-import { EpochMsSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 
 // Why the agent couldn't do what was asked, as the machine read it from the agent's own typed signals

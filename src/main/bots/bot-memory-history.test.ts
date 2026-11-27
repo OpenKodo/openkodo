@@ -8,7 +8,7 @@ import type { BotMemoryHistoryRow } from '../../shared/bots/bot-memory-history'
 import { createBotMemoryRecord } from './bot-memory-record'
 import { createBotTurnContext } from './bot-turn-context'
 
-const FOLDER = '/home/me/.orca/bots/scout'
+const FOLDER = '/home/me/.openkodo/bots/scout'
 const MEMORY = join(FOLDER, 'MEMORY.md')
 const DAY = 24 * 60 * 60 * 1000
 

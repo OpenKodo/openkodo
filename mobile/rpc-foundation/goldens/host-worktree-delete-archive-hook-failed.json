@@ -97,7 +97,7 @@
     "13a502482107": {
       "name": "ui.set#1",
       "ordinal": 8,
-      "json": "{\"id\":\"frame-3\",\"deviceToken\":\"recording-device\",\"method\":\"ui.set\",\"params\":{\"trustedOrcaHooks\":{\"repo-1\":{\"all\":{\"approvedAt\":1767225600000}}}}}"
+      "json": "{\"id\":\"frame-3\",\"deviceToken\":\"recording-device\",\"method\":\"ui.set\",\"params\":{\"trustedOpenKodoHooks\":{\"repo-1\":{\"all\":{\"approvedAt\":1767225600000}}}}}"
     },
     "2a9143a299b9": {
       "actionError": "",
@@ -165,7 +165,7 @@
               "$rpc": "null"
             },
             "setupRunPolicy": "run-by-default",
-            "source": "orca.yaml"
+            "source": "openkodo.yaml"
           }
         }
       }
@@ -186,7 +186,7 @@
         {
           "name": "params",
           "value": {
-            "trustedOrcaHooks": {
+            "trustedOpenKodoHooks": {
               "repo-1": {
                 "all": {
                   "approvedAt": 1767225600000
@@ -302,7 +302,7 @@
           "ok": true,
           "result": {
             "ui": {
-              "trustedOrcaHooks": {}
+              "trustedOpenKodoHooks": {}
             }
           }
         }
@@ -352,7 +352,7 @@
           "ok": true,
           "result": {
             "ui": {
-              "trustedOrcaHooks": {
+              "trustedOpenKodoHooks": {
                 "repo-1": {
                   "all": {
                     "approvedAt": 1767225600000
@@ -573,7 +573,7 @@
               "$rpc": "null"
             },
             "setupRunPolicy": "run-by-default",
-            "source": "orca.yaml"
+            "source": "openkodo.yaml"
           }
         }
       }

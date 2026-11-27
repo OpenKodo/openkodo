@@ -3,7 +3,7 @@ import {
   ARTIFACT_RATE_LIMIT_MAX_RETRY_DELAY_SECONDS,
   type ArtifactWriteRequest
 } from '../../shared/artifacts/artifacts'
-import { OrcaCloudRequestError } from '../orca-profiles/cloud-auth/profile-cloud-client'
+import { OpenKodoCloudRequestError } from '../openkodo-profiles/cloud-auth/profile-cloud-client'
 import { readArtifactRateLimitResponse } from './artifact-cloud-rate-limit'
 import type { ArtifactRateLimitReplay } from './artifact-cloud-auth-context'
 
@@ -42,7 +42,7 @@ function sendArtifactRequest(
     method: options.method ?? 'GET',
     headers: {
       authorization: `Bearer ${token}`,
-      ...(options.editToken ? { 'x-orca-edit-token': options.editToken } : {}),
+      ...(options.editToken ? { 'x-openkodo-edit-token': options.editToken } : {}),
       ...(options.idempotencyKey ? { 'idempotency-key': options.idempotencyKey } : {}),
       ...(options.body ? { 'content-type': 'application/json' } : {})
     },
@@ -89,7 +89,7 @@ export async function artifactRequest<T>(
   }
   if (!response.ok) {
     const body = (await response.json().catch(() => null)) as { code?: string } | null
-    throw new OrcaCloudRequestError(response.status, body?.code)
+    throw new OpenKodoCloudRequestError(response.status, body?.code)
   }
   if (response.status === 204) {
     return undefined as T

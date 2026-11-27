@@ -6,13 +6,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { parsePairingCode } from '../../../../shared/remote-runtime/pairing/pairing'
 import { pairedRuntimeConnectionFromOffer } from '../../../../shared/remote-runtime/pairing/paired-runtime-connection'
 import { RemoteRuntimeSharedControlConnection } from '../../../../shared/remote-runtime/control/remote-runtime-shared-control-connection'
-import { IDLE_PASSIVE_CONTROL_CLIENT_CAPABILITY } from '../../../../shared/remote-runtime/protocol/orcad-runtime-capabilities'
-import { RUNTIME_IDLE_STOPPED_ERROR_CODE } from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-idle-stop-signal'
+import { IDLE_PASSIVE_CONTROL_CLIENT_CAPABILITY } from '../../../../shared/remote-runtime/protocol/openkodod-runtime-capabilities'
+import { RUNTIME_IDLE_STOPPED_ERROR_CODE } from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-idle-stop-signal'
 import { defineMethod, defineStreamingMethod } from '../core'
 import { STATUS_METHODS } from '../methods/host-management/status'
-import { OrcaRuntimeService } from '../../orca-runtime'
-import { OrcaRuntimeRpcServer } from './runtime-rpc'
-import { installOrcadManagedIdleExit } from '../../../orcad/host-lifecycle/idle-exit/orcad-managed-idle-exit'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
+import { OpenKodoRuntimeRpcServer } from './runtime-rpc'
+import { installOpenkododManagedIdleExit } from '../../../openkodod/host-lifecycle/idle-exit/openkodod-managed-idle-exit'
 import { subscribeRemoteRuntimeTransport } from '../../../../shared/remote-runtime/requests/remote-runtime-subscription-transport'
 import { desktopRuntimeClientCapabilities } from '../../../ipc/runtime-environments/connections/runtime-environment-shared-control-policy'
 
@@ -58,9 +58,9 @@ afterEach(async () => {
 })
 
 async function startHostAndDesktop() {
-  const userDataPath = mkdtempSync(join(tmpdir(), 'orca-idle-passive-control-'))
-  const server = new OrcaRuntimeRpcServer({
-    runtime: new OrcaRuntimeService(),
+  const userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-idle-passive-control-'))
+  const server = new OpenKodoRuntimeRpcServer({
+    runtime: new OpenKodoRuntimeService(),
     userDataPath,
     enableWebSocket: true,
     wsPort: 0,
@@ -162,7 +162,7 @@ describe('a passive desktop control socket', () => {
     )
     cleanups.push(() => ownSocket.close())
     let stopped = false
-    const dispose = installOrcadManagedIdleExit({
+    const dispose = installOpenkododManagedIdleExit({
       config: { timeoutMs: 400, activationRoot: tmpdir() },
       ports: {
         readClientActivity: () => server.readClientActivity(),

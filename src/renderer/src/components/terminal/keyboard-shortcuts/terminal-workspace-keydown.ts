@@ -61,7 +61,7 @@ export function handleTerminalWorkspaceKeyDown(
       terminalShortcutPolicy
     })
   const notifyTerminalCapture = (actionId: KeybindingActionId): void => {
-    if (context !== 'terminal' || terminalShortcutPolicy !== 'orca-first') {
+    if (context !== 'terminal' || terminalShortcutPolicy !== 'openkodo-first') {
       return
     }
     showTerminalShortcutCaptureNotification({

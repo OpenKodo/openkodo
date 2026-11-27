@@ -181,7 +181,7 @@ export const ROOT_HELP_TEXT_SECONDARY = [
   '  $ openkodo file open-changed --mode diff',
   '  $ openkodo file open src/App.tsx',
   '  $ openkodo terminal create --worktree active --command "pnpm dev"',
-  '  $ openkodo terminal list --worktree path:/Users/me/orca/workspaces/orca/cli-test-1 --json',
+  '  $ openkodo terminal list --worktree path:/Users/me/openkodo/workspaces/openkodo/cli-test-1 --json',
   '  $ openkodo terminal send --terminal term_123 --text "npm test" --enter',
   '  $ openkodo terminal wait --terminal term_123 --for exit --timeout-ms 60000 --json',
   '  $ openkodo tab current --json',

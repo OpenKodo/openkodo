@@ -139,7 +139,7 @@ export function useHoldDictationGesture({
     })
   )
   const notifyTerminalCapture = useEffectEvent(() => {
-    if (normalizeTerminalShortcutPolicy(settings?.terminalShortcutPolicy) === 'orca-first') {
+    if (normalizeTerminalShortcutPolicy(settings?.terminalShortcutPolicy) === 'openkodo-first') {
       showTerminalShortcutCaptureNotification({
         actionId: 'voice.dictation',
         platform: getShortcutPlatform(),

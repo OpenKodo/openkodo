@@ -67,7 +67,7 @@ export function TerminalPaneRecentImages({
     return () => container.removeAttribute('data-has-recent-images')
   }, [container, showImages])
   const chips = showImages ? (
-    <div className="pane-title-recent-images scrollbar-none ml-auto flex min-w-0 items-center gap-1 self-center overflow-x-auto rounded-md bg-(--orca-pane-title-bg)">
+    <div className="pane-title-recent-images scrollbar-none ml-auto flex min-w-0 items-center gap-1 self-center overflow-x-auto rounded-md bg-(--openkodo-pane-title-bg)">
       {images.map((item) => (
         <TerminalImageChip key={item.path} image={item} terminal={terminal} location={location} />
       ))}

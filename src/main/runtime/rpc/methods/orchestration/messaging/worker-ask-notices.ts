@@ -1,7 +1,7 @@
 /** A worker's `ask` its coordinator stopped without answering, or that no one will read: the
  *  worker is told on the route an answer takes, so its stop reporting resumes. */
 
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { QuestionNoticeWriter } from '../../../../orchestration/mailbox/questions/question-reconcile'
 import { encodeFederatedControlMessage } from '../../../../orchestration/legacy-remote/federation-control-message'
 import { deliverQuestionAnswer } from '../../../../orchestration/mailbox/questions/question-answer-delivery'
@@ -18,7 +18,7 @@ export function workerAskNoticeText(runId: string, why: string): string {
 
 export function workerAskNotices(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     | 'getOrchestrationDb'
     | 'notifyMessageArrived'
     | 'notifyMessageWaiters'

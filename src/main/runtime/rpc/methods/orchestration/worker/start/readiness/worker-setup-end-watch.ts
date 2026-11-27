@@ -3,7 +3,7 @@ import {
   SETUP_FAILED_MESSAGE_PREFIX,
   SETUP_WAIT_TIMEOUT_MESSAGE
 } from '../../../../../../../../shared/agent-launch/startup/setup-agent-sequencing'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 
 export type SetupEnd = { at: number; failed: boolean }
 
@@ -24,7 +24,7 @@ const SETUP_END_LINES = [
 const SETUP_END_CARRY = Math.max(...SETUP_END_LINES.map(({ line }) => line.length)) - 1
 
 export function watchSetupEnd(
-  runtime: Pick<OrcaRuntimeService, 'subscribeToTerminalData' | 'readRecentTerminalOutput'>,
+  runtime: Pick<OpenKodoRuntimeService, 'subscribeToTerminalData' | 'readRecentTerminalOutput'>,
   ptyId: string
 ): SetupEndWatch {
   let end: SetupEnd | null = null

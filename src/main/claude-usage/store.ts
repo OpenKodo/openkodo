@@ -75,7 +75,7 @@ export class ClaudeUsageStore extends UsageProviderStoreLifecycle<
         selectDays: (state) => claudeTokenDays(state.dailyAggregates)
       },
       logTag: '[claude-usage]',
-      resolveCacheFile: () => join(host.userDataPath, 'orca-claude-usage.json'),
+      resolveCacheFile: () => join(host.userDataPath, 'openkodo-claude-usage.json'),
       createDefaultState: getDefaultState,
       normalizeState: normalizePersistedState,
       parseReport: parseClaudeUsageReport,

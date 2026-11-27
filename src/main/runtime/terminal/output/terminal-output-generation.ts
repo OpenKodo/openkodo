@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithCreateTerminalSideEffectCommandCodeDetector } from './terminal-derived-agent-facts'
+import { OpenKodoRuntimeWithCreateTerminalSideEffectCommandCodeDetector } from './terminal-derived-agent-facts'
 import type { AgentStatus } from '../../../../shared/agent-status/title/agent-title-core'
 import { getDisplayPromptLifecycle } from '../../workspaces/process-listing/runtime-worktree-status-projection'
 import { findLastCompleteOscTitleRange } from './terminal-osc-title-range'
@@ -13,7 +13,7 @@ import {
   retainedFrameIsProven
 } from '../wait/reattached-paint-ledger'
 
-export abstract class OrcaRuntimeWithRecordAgentPromptLifecycleState extends OrcaRuntimeWithCreateTerminalSideEffectCommandCodeDetector {
+export abstract class OpenKodoRuntimeWithRecordAgentPromptLifecycleState extends OpenKodoRuntimeWithCreateTerminalSideEffectCommandCodeDetector {
   private readonly ptyLifecycleCancellation = new Map<string, AbortController>()
   private readonly publishedOutputRings = new TerminalPublishedOutputRings()
 

@@ -1,21 +1,21 @@
-/** Share orcad's profile lock to prevent concurrent desktop/serve writers; Electron's own instance lock cannot fence plain Node. */
-import { acquireOrcadInstanceLock } from '../../orcad/instance-lock/orcad-instance-lock'
-import type { OrcadInstanceLock } from '../../orcad/instance-lock/orcad-instance-lock-hold'
-import { OrcadInstanceLockError } from '../../orcad/instance-lock/orcad-data-root-privacy'
+/** Share openkodod's profile lock to prevent concurrent desktop/serve writers; Electron's own instance lock cannot fence plain Node. */
+import { acquireOpenkododInstanceLock } from '../../openkodod/instance-lock/openkodod-instance-lock'
+import type { OpenkododInstanceLock } from '../../openkodod/instance-lock/openkodod-instance-lock-hold'
+import { OpenkododInstanceLockError } from '../../openkodod/instance-lock/openkodod-data-root-privacy'
 import {
   writeStartupDiagnosticLine,
   type StartupDiagnosticSink
 } from '../diagnostics/startup-diagnostics'
 
 export type DesktopProfileLockResult =
-  | { state: 'acquired'; lock: OrcadInstanceLock }
+  | { state: 'acquired'; lock: OpenkododInstanceLock }
   | { state: 'held'; message: string }
   /** Unrelated lock failures preserve legacy desktop startup. */
   | { state: 'unavailable' }
 
 export function acquireDesktopProfileInstanceLock(
   userDataPath: string,
-  acquire: typeof acquireOrcadInstanceLock = acquireOrcadInstanceLock,
+  acquire: typeof acquireOpenkododInstanceLock = acquireOpenkododInstanceLock,
   write?: StartupDiagnosticSink
 ): DesktopProfileLockResult {
   try {
@@ -26,9 +26,9 @@ export function acquireDesktopProfileInstanceLock(
   } catch (error) {
     // A holder this machine cannot judge may still be running: refusing keeps one writer.
     if (
-      error instanceof OrcadInstanceLockError &&
-      (error.code === 'orcad_instance_lock_held' ||
-        error.code === 'orcad_instance_lock_holder_unverifiable')
+      error instanceof OpenkododInstanceLockError &&
+      (error.code === 'openkodod_instance_lock_held' ||
+        error.code === 'openkodod_instance_lock_holder_unverifiable')
     ) {
       writeStartupDiagnosticLine(`[single-instance] ${error.message}`, write)
       return { state: 'held', message: error.message }

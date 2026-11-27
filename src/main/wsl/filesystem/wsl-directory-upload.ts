@@ -179,7 +179,7 @@ export async function uploadDirectoryIntoWsl(
     signal
   )
   const manifest = await digestManifest(plan, signal)
-  const stage = `${remoteDir.replace(/\/+$/, '')}/.orca-upload-${randomBytes(8).toString('hex')}`
+  const stage = `${remoteDir.replace(/\/+$/, '')}/.openkodo-upload-${randomBytes(8).toString('hex')}`
   // Cold runtime deployment exceeds the 30s probe default; use the deploy timeout.
   const execOptions = { signal, timeoutMs: REMOTE_INSTALL_TIMEOUT_MS }
   const stagedFromGuest =

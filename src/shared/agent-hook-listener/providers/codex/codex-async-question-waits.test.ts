@@ -159,7 +159,7 @@ it('holds no question accepted as the turn was interrupted', () => {
 
 // Codex's approvals reviewer decides these while the turn keeps working.
 it('keeps working behind a question while the approvals reviewer decides an approval', () => {
-  const rollout = join(mkdtempSync(join(tmpdir(), 'orca-codex-reviewer-')), 'rollout.jsonl')
+  const rollout = join(mkdtempSync(join(tmpdir(), 'openkodo-codex-reviewer-')), 'rollout.jsonl')
   writeFileSync(
     rollout,
     `${JSON.stringify({ type: 'turn_context', payload: { approvals_reviewer: 'auto_review' } })}\n`

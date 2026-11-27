@@ -160,7 +160,7 @@ function emptyNotice(
     return one
       ? {
           kind: 'empty',
-          title: translate('bots.list.updateOrcaOn', 'Update OpenKodo on {{host}}', {
+          title: translate('bots.list.updateOpenKodoOn', 'Update OpenKodo on {{host}}', {
             host: one.label
           }),
           message: translate(

@@ -14,7 +14,7 @@ import type { RuntimeTerminalCreate } from '../../../shared/terminal/runtime/run
 import type { Automation } from '../../../shared/automations/automation-definition'
 import type { AutomationRun } from '../../../shared/automations/history/automation-run'
 import { findReusableAutomationRun } from '../../../shared/automations/history/automation-session-reuse'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { deliverTerminalAgentLaunchPrompt } from '../../runtime/rpc/methods/agent-launch/agent-launch-terminal-prompt'
 import { AutomationRunLaunchError, type AutomationLaunch } from './automation-launch'
 import { AutomationDispatchRefusedError } from '../dispatch/automation-launch-runner'
@@ -35,7 +35,7 @@ export type AutomationTerminalAgentLaunch = Omit<AutomationLaunch, 'completion'>
 }
 
 export async function launchAutomationTerminalAgent(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: {
     automation: Automation
     run: Pick<AutomationRun, 'id' | 'title' | 'scheduledFor' | 'trigger'>
@@ -199,7 +199,7 @@ function runTargetOf(
 }
 
 async function sendToReusableSession(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: {
     automation: Automation
     run: Pick<AutomationRun, 'id'>
@@ -266,7 +266,7 @@ async function sendToReusableSession(
 
 /** A missing workspace or one owned by a paired server is a typed skip, never a fresh local launch. */
 async function resolveLocalExistingWorkspace(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   automation: Automation,
   target: AutomationRepoRunTarget
 ) {
@@ -290,7 +290,7 @@ async function resolveLocalExistingWorkspace(
 }
 
 export type RunOwnHandleRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'getTerminalHandleForPaneKey' | 'getTerminalPtyIdForHandle' | 'getPtyLivenessVerdict'
 >
 

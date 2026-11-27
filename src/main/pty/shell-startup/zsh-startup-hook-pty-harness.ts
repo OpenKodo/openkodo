@@ -13,8 +13,8 @@ export const ZSH_PATH = hasZsh
 
 export const MARKERS = {
   // oxlint-disable-next-line no-control-regex -- OSC markers are delimited by ESC and BEL bytes
-  identity: /\]777;orca-shell-start:\d+/,
-  ready: ']777;orca-shell-ready',
+  identity: /\]777;openkodo-shell-start:\d+/,
+  ready: ']777;openkodo-shell-ready',
   promptStart: ']133;A',
   commandStart: ']133;C',
   // oxlint-disable-next-line no-control-regex -- OSC markers are delimited by ESC and BEL bytes
@@ -58,8 +58,8 @@ function parseValues(resultPath: string): Record<string, string> {
 
 /** A second-prompt sentinel proves readiness; initial output quiescence only gates the first input. */
 export async function runZshPty(options: ZshPtyOptions): Promise<ZshPtyRun> {
-  const sentinel = '@@ORCA-PTY-READY@@'
-  const workDir = mkdtempSync(join(tmpdir(), 'orca-zsh-pty-'))
+  const sentinel = '@@OPENKODO-PTY-READY@@'
+  const workDir = mkdtempSync(join(tmpdir(), 'openkodo-zsh-pty-'))
   const resultPath = join(workDir, 'probe.txt')
   const timeoutMs = options.timeoutMs ?? 20_000
 
@@ -158,7 +158,7 @@ export async function runZshPty(options: ZshPtyOptions): Promise<ZshPtyRun> {
 }
 
 export function makeZshHome(files: Record<string, string>): string {
-  const home = mkdtempSync(join(tmpdir(), 'orca-zsh-home-'))
+  const home = mkdtempSync(join(tmpdir(), 'openkodo-zsh-home-'))
   for (const [name, content] of Object.entries(files)) {
     writeFileSync(join(home, name), content)
   }

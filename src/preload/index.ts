@@ -4,7 +4,7 @@ import { installHiddenWindowFramePump } from './renderer/hidden-window-frame-pum
 import type { PreloadApi } from './api-types'
 import { installBrowserFindListener } from './renderer/renderer-runtime'
 import { appApi } from './api/app-bridge'
-import { orcaProfilesApi } from './api/profiles/orca-profiles-bridge'
+import { openkodoProfilesApi } from './api/profiles/openkodo-profiles-bridge'
 import { platformApi } from './api/platform-bridge'
 import { wslApi } from './api/wsl/wsl-bridge'
 import { wslMoveApi } from './api/wsl/wsl-move-bridge'
@@ -42,7 +42,7 @@ import { keybindingsApi } from './api/preferences/keybindings-bridge'
 import { codexAccountsApi } from './api/agent-accounts/codex-accounts-bridge'
 import { claudeAccountsApi } from './api/agent-accounts/claude-accounts-bridge'
 import { cliApi } from './api/cli-install/cli-bridge'
-import { orcaUninstallApi } from './api/orca-uninstall/orca-uninstall-bridge'
+import { openkodoUninstallApi } from './api/openkodo-uninstall/openkodo-uninstall-bridge'
 import { codexConfigSyncApi } from './api/agent-accounts/codex-config-sync-bridge'
 import { preflightApi } from './api/preflight/preflight-bridge'
 import { backgroundWorkerApi } from './api/diagnostics/background-worker-bridge'
@@ -115,7 +115,7 @@ const telemetryGetConsentStateApi: PreloadApi['telemetryGetConsentState'] = () =
 
 const api = {
   app: appApi,
-  orcaProfiles: orcaProfilesApi,
+  openkodoProfiles: openkodoProfilesApi,
   platform: platformApi,
   wsl: wslApi,
   wslMove: wslMoveApi,
@@ -158,7 +158,7 @@ const api = {
   codexAccounts: codexAccountsApi,
   claudeAccounts: claudeAccountsApi,
   cli: cliApi,
-  orcaUninstall: orcaUninstallApi,
+  openkodoUninstall: openkodoUninstallApi,
   codexConfigSync: codexConfigSyncApi,
   preflight: preflightApi,
   backgroundWorker: backgroundWorkerApi,

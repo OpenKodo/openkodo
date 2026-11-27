@@ -1,5 +1,5 @@
 import type { AgentJournalTypedBy } from '../../../../shared/agent-session/journal/agent-journal-typed-by'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { ConnectorCloud } from '../../../connector-cloud/connector-cloud'
 import type { DeviceSelfRpcContext, RpcContext } from '../core'
 import { isAgentRpcCaller, type RpcCallerIdentity } from './rpc-caller-identity'
@@ -11,8 +11,8 @@ import { isAgentRpcCaller, type RpcCallerIdentity } from './rpc-caller-identity'
 export function typedByOf(context: {
   caller?: RpcCallerIdentity | undefined
   clientKind?: RpcContext['clientKind']
-  deviceSelf?: Pick<DeviceSelfRpcContext, 'orcaAccount'> | undefined
-  runtime: Partial<Pick<OrcaRuntimeService, 'pairedDeviceAccount'>> & {
+  deviceSelf?: Pick<DeviceSelfRpcContext, 'openkodoAccount'> | undefined
+  runtime: Partial<Pick<OpenKodoRuntimeService, 'pairedDeviceAccount'>> & {
     getConnectorCloud?: () => Pick<ConnectorCloud, 'signedInAccount'> | null
   }
 }): AgentJournalTypedBy | undefined {
@@ -27,7 +27,7 @@ export function typedByOf(context: {
     return undefined
   }
   const connectionClaim =
-    context.clientKind === 'mobile' ? undefined : (context.deviceSelf?.orcaAccount() ?? null)
+    context.clientKind === 'mobile' ? undefined : (context.deviceSelf?.openkodoAccount() ?? null)
   const claim = context.runtime.pairedDeviceAccount?.(caller.deviceId, connectionClaim)
   if (!claim) {
     return { by: 'device', deviceId: caller.deviceId }

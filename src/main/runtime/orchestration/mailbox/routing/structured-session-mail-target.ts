@@ -1,15 +1,15 @@
 /** Resolve structured-owned mail to a session turn, covering Run, session, Dispatch and worker-handle addresses. */
 
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../../shared/agent-session/identity/orca-session-address'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 
-import type { OrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { OrchestrationDb } from '../../db/orchestration-db'
-import { currentRunCoordinatorOrcaSessionId } from '../../db/runs/run-coordinator-orca-session'
+import { currentRunCoordinatorOpenKodoSessionId } from '../../db/runs/run-coordinator-openkodo-session'
 import type { StructuredPointerTarget } from '../structured-pointer/structured-mailbox-pointer-delivery'
 import {
   addressableSessionParty,
@@ -29,15 +29,15 @@ export function handleLessCoordinatorSessionId(
   run: Pick<
     RunRow,
     | 'coordinator_handle'
-    | 'coordinator_orca_session_id'
-    | 'coordinator_orca_session_id_generation'
+    | 'coordinator_openkodo_session_id'
+    | 'coordinator_openkodo_session_id_generation'
     | 'consumer_generation'
   >
-): OrcaSessionId | null {
+): OpenKodoSessionId | null {
   if (run.coordinator_handle !== null) {
     return null
   }
-  return currentRunCoordinatorOrcaSessionId(run)
+  return currentRunCoordinatorOpenKodoSessionId(run)
 }
 
 /** Who holds a mailbox: the chat session its mail reaches; someone else (a terminal, a released worker,
@@ -114,7 +114,7 @@ export function structuredMailboxCustody(
       : 'elsewhere'
   }
   if (mailboxHandle.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)) {
-    const sessionId = parseOrcaSessionAddress(mailboxHandle)
+    const sessionId = parseOpenKodoSessionAddress(mailboxHandle)
     return sessionId ? structuredSessionMailCustody(sessionId, db) : 'elsewhere'
   }
   if (!mailboxHandle.startsWith('dispatch:')) {
@@ -133,14 +133,17 @@ export function structuredMailboxCustody(
 
 /** Re-derive Run, direct and active-Dispatch mail on each idle edge, including root mail for /clear successors. */
 export function structuredSessionOwnedMailboxes(sessionId: string, db: OrchestrationDb): string[] {
-  const party = isOrcaSessionId(sessionId) ? addressableSessionParty(sessionId, db) : null
+  const party = isOpenKodoSessionId(sessionId) ? addressableSessionParty(sessionId, db) : null
   if (!party) {
     return []
   }
   const mailboxes = db.runsBoundToCoordinator(party).map((run) => `run:${run.id}`)
   // Direct mail can name any session of the lineage (item mail names the live one), not only its root.
-  const lineage = resolveLineageRunningSession(readAgentSessionRecordStore(), party.orcaSessionId)
-  const members = lineage.lineage.filter(isOrcaSessionId).map(formatOrcaSessionAddress)
+  const lineage = resolveLineageRunningSession(
+    readAgentSessionRecordStore(),
+    party.openkodoSessionId
+  )
+  const members = lineage.lineage.filter(isOpenKodoSessionId).map(formatOpenKodoSessionAddress)
   const addresses = new Set<string>([party.address, ...members])
   for (const address of addresses) {
     if (db.getUnreadDirectMessageTypes(address).length > 0) {

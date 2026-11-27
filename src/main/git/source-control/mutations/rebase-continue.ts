@@ -18,7 +18,7 @@ import { runWithGitReadCacheInvalidation } from '../git-read-cache-invalidation'
 import { readRebaseIndexObservation } from './rebase-index-observation'
 import { resolveGitDir } from '../resolve-git-dir'
 import { AUTOSTASH_REAPPLY_CONFLICT, detectConflictOperation } from './git-conflict-operation'
-import { takeOrcaRebaseProvenance } from './orca-rebase-provenance'
+import { takeOpenKodoRebaseProvenance } from './openkodo-rebase-provenance'
 import { joinGitOutput, readGitErrorOutput } from './git-command-output'
 
 // Git's own words for a pick the resolution left empty (apply backend; merge backend in older Git).
@@ -114,7 +114,11 @@ async function continueRebaseUnlocked(
     if (!exitedCleanly) {
       return { outcome: 'failed', message: output, branch }
     }
-    const integratedUpstreamOid = takeOrcaRebaseProvenance(worktreePath, branch, before.incarnation)
+    const integratedUpstreamOid = takeOpenKodoRebaseProvenance(
+      worktreePath,
+      branch,
+      before.incarnation
+    )
     return {
       outcome: AUTOSTASH_REAPPLY_CONFLICT.test(output)
         ? 'completed_autostash_conflict'

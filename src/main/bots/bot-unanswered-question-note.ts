@@ -1,9 +1,9 @@
 // Every few turns of a chat acting for the bot's owner: put a question they left unanswered on an item.
 // And the reverse: when the chat's own Needs you items change, list them so an answer in chat clears them.
 // The turn number is the chat's ended turns as its journal holds them, read on the journal's reader.
-import { isOrcaSessionId } from '../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../shared/agent-session/identity/openkodo-session-address'
 import { actsForOwner } from '../../shared/bots/bot-acts-for'
-import { canonicalOrcaSessionId } from '../runtime/orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../runtime/orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import type { BotLookAroundStore } from './bot-look-around-store'
 import {
   readBotConversationActsFor,
@@ -52,7 +52,7 @@ export function createBotOwnerChatCheck(
 
 /** The id items name a chat by: its /clear root. */
 function chatRoot(sessionId: string): string {
-  return isOrcaSessionId(sessionId) ? canonicalOrcaSessionId(sessionId) : sessionId
+  return isOpenKodoSessionId(sessionId) ? canonicalOpenKodoSessionId(sessionId) : sessionId
 }
 
 /** The note for the turn starting now in one of a host's chats, when it is an owner chat's every-fifth. */

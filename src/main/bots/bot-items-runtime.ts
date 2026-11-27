@@ -11,7 +11,7 @@ import {
   type BotChangeScope,
   type BotNeedsYouCounts
 } from '../../shared/bots/bot-change-scope'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { access } from 'node:fs/promises'
 import { BotItemWorkerLinks } from './bot-item-worker-links'
 import { trackDispatchLinks, type TrackedBotItems } from './bot-item-dispatch-link-refs'
@@ -76,7 +76,7 @@ export class BotItemsHost {
       store: () => this.openedStore(),
       join: this.join,
       sessionOf: (dispatchId) => {
-        const session = db()?.getDispatchContextById(dispatchId)?.assignee_orca_session_id
+        const session = db()?.getDispatchContextById(dispatchId)?.assignee_openkodo_session_id
         return session ? deps.chatRoot(session) : null
       },
       root: deps.chatRoot,

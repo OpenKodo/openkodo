@@ -3,8 +3,8 @@ import { PLUGIN_EVENT_NAMES } from '../contributions/plugin-event-contribution'
 
 /**
  * A plugin's panels and its own worker: panels call `plugin.request(name, input)` (the
- * `plugin.request` host method), the worker answers with `orca.panels.handle(name, ...)` and
- * pushes with `orca.panels.post(event, payload)`. Same plugin only; main routes both ways.
+ * `plugin.request` host method), the worker answers with `openkodo.panels.handle(name, ...)` and
+ * pushes with `openkodo.panels.post(event, payload)`. Same plugin only; main routes both ways.
  */
 
 /** Request and event names: what authors declare in `PluginRequests` / `PluginPanelEvents`. */

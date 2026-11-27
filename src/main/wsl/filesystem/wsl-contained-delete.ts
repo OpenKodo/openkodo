@@ -100,7 +100,7 @@ export function containedDeleteCommand(
     'sh',
     '-c',
     WSL_CONTAINED_DELETE_SCRIPT,
-    'orca-wsl-delete',
+    'openkodo-wsl-delete',
     recursive ? 'directory' : 'regular file',
     String(rootParts.length),
     ...rootParts,

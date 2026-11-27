@@ -11,7 +11,7 @@ type XtermTerminalWithUnicodeCore = {
   _core?: XtermUnicodeServiceCore
 }
 
-const OPENKODO_UNICODE_VERSION = 'orca-11-zwj'
+const OPENKODO_UNICODE_VERSION = 'openkodo-11-zwj'
 const UNICODE11_VERSION = '11'
 const ZERO_WIDTH_JOINER = 0x200d
 
@@ -27,7 +27,7 @@ function createProperties(charKind: number, width: 0 | 1 | 2, shouldJoin: boolea
   return ((charKind & 0xffffff) << 3) | ((width & 3) << 1) | (shouldJoin ? 1 : 0)
 }
 
-class OrcaUnicodeProvider implements IUnicodeVersionProvider {
+class OpenKodoUnicodeProvider implements IUnicodeVersionProvider {
   public readonly version = OPENKODO_UNICODE_VERSION
 
   public constructor(private readonly baseProvider: IUnicodeVersionProvider) {}
@@ -53,7 +53,9 @@ class OrcaUnicodeProvider implements IUnicodeVersionProvider {
   }
 }
 
-export function activateOrcaTerminalUnicodeProvider(terminal: XtermTerminalWithUnicodeCore): void {
+export function activateOpenKodoTerminalUnicodeProvider(
+  terminal: XtermTerminalWithUnicodeCore
+): void {
   const { unicode } = terminal
   if (unicode.activeVersion === OPENKODO_UNICODE_VERSION) {
     return
@@ -66,7 +68,7 @@ export function activateOrcaTerminalUnicodeProvider(terminal: XtermTerminalWithU
   }
 
   if (!unicode.versions.includes(OPENKODO_UNICODE_VERSION)) {
-    unicode.register(new OrcaUnicodeProvider(baseProvider))
+    unicode.register(new OpenKodoUnicodeProvider(baseProvider))
   }
   unicode.activeVersion = OPENKODO_UNICODE_VERSION
 }

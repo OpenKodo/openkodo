@@ -19,7 +19,7 @@ vi.mock('./journal-text-tail-writes', () => ({
   }
 }))
 
-const ITEM = 'orca:assistant'
+const ITEM = 'openkodo:assistant'
 const dirs: string[] = []
 afterEach(() => {
   switches.writes = true
@@ -140,7 +140,7 @@ it('saves only appended text, reads it whole, and folds at the size bound, a rew
   expect(
     db
       .prepare(`SELECT json_extract(payload_json,'$.body.blocks[0].text') AS text FROM journal_items
-        WHERE item_id='orca:turn-reply'`)
+        WHERE item_id='openkodo:turn-reply'`)
       .get()!.text
   ).toBe(replyText)
   expect(readText(db).detail).toEqual([{ type: 'text', text }])

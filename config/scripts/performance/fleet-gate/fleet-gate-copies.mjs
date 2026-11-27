@@ -25,7 +25,7 @@ export function copyProfile(seedDir, targetDir) {
   copyInternalLinkedFiles(sourceDir, targetDir, daemonDir)
 }
 
-/** A link to a file inside the seed (e.g. a linked orca-data.json) becomes a real copy of its target, never a link back. */
+/** A link to a file inside the seed (e.g. a linked openkodo-data.json) becomes a real copy of its target, never a link back. */
 function copyInternalLinkedFiles(sourceDir, targetDir, daemonDir) {
   const visit = (dir) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {

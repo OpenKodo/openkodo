@@ -136,8 +136,8 @@ let userDataDir: string
 let previousUserDataPath: string | undefined
 
 beforeEach(() => {
-  tmpHome = mkdtempSync(join(tmpdir(), 'orca-codex-wsl-regen-home-'))
-  userDataDir = mkdtempSync(join(tmpdir(), 'orca-codex-wsl-regen-user-data-'))
+  tmpHome = mkdtempSync(join(tmpdir(), 'openkodo-codex-wsl-regen-home-'))
+  userDataDir = mkdtempSync(join(tmpdir(), 'openkodo-codex-wsl-regen-user-data-'))
   previousUserDataPath = process.env.OPENKODO_USER_DATA_PATH
   process.env.OPENKODO_USER_DATA_PATH = userDataDir
   homedirMock.mockReturnValue(tmpHome)
@@ -210,7 +210,7 @@ describe('managed Codex config for a WSL distro config', () => {
     expect(readRuntimeConfig()).toContain('model = "gpt-5"')
     expect(readRuntimeConfig()).toContain('[mcp_servers.docs]')
     expect(readRuntimeConfig()).not.toContain('ponytail')
-    expect(readRuntimeConfig()).toMatch(/^daemon_auto_start = false # orca:/m)
+    expect(readRuntimeConfig()).toMatch(/^daemon_auto_start = false # openkodo:/m)
   })
 
   it('keeps edits pending in a managed copy from before the update as OpenKodo lines', () => {
@@ -233,17 +233,17 @@ describe('managed Codex config for a WSL distro config', () => {
     syncSystemConfigIntoManagedCodexHome()
 
     expect(readFileSync(systemConfigPath(), 'utf-8')).toBe(original)
-    expect(readRuntimeConfig()).toMatch(/^model = "o4" # orca: /m)
-    expect(readRuntimeConfig()).toMatch(/^enabled = false # orca: /m)
+    expect(readRuntimeConfig()).toMatch(/^model = "o4" # openkodo: /m)
+    expect(readRuntimeConfig()).toMatch(/^enabled = false # openkodo: /m)
     expect(readRuntimeConfig().match(/\[plugins\."ponytail@ponytail"\]/g)).toHaveLength(1)
     // A later tab change is still replaced; an edit to the distro file wins over the kept line.
     simulateCodexSettingWrite('model', '"o3"')
     syncSystemConfigIntoManagedCodexHome()
-    expect(readRuntimeConfig()).toMatch(/^model = "o4" # orca: /m)
+    expect(readRuntimeConfig()).toMatch(/^model = "o4" # openkodo: /m)
     writeSystemConfig(original.replace('"gpt-5"', '"gpt-6"'))
     syncSystemConfigIntoManagedCodexHome()
     expect(readRuntimeConfig()).toMatch(/^model = "gpt-6"$/m)
-    expect(readRuntimeConfig()).toMatch(/^enabled = false # orca: /m)
+    expect(readRuntimeConfig()).toMatch(/^enabled = false # openkodo: /m)
   })
 
   it.skipIf(process.platform === 'win32')(
@@ -261,7 +261,7 @@ describe('managed Codex config for a WSL distro config', () => {
       syncSystemConfigIntoManagedCodexHome()
 
       expect(readFileSync(systemConfigPath(), 'utf-8')).toBe('model = "gpt-5"\n')
-      expect(readRuntimeConfig()).toMatch(/^model = "o4" # orca: /m)
+      expect(readRuntimeConfig()).toMatch(/^model = "o4" # openkodo: /m)
     }
   )
 
@@ -280,7 +280,7 @@ describe('managed Codex config for a WSL distro config', () => {
   it('does not bring back a plugin the distro dropped when the baseline predates plugin tracking', () => {
     writeSystemConfig('model = "gpt-5"\n\n[plugins."old@market"]\nenabled = true\n')
     syncSystemConfigIntoManagedCodexHome()
-    const baselinePath = join(runtimeConfigPath(), '..', '.orca-config-settings-baseline.json')
+    const baselinePath = join(runtimeConfigPath(), '..', '.openkodo-config-settings-baseline.json')
     const stored = JSON.parse(readFileSync(baselinePath, 'utf-8'))
     stored.version = 2
     delete stored.registrations
@@ -300,7 +300,7 @@ describe('managed Codex config for a WSL distro config', () => {
     simulateCodexSettingWrite('model', '"o4"')
     wslTestState.wslPath = systemConfigPath()
     wslTestState.failTempWrite = true
-    wslTestState.failTempWriteMatch = '.orca-config-settings-baseline.json'
+    wslTestState.failTempWriteMatch = '.openkodo-config-settings-baseline.json'
 
     syncSystemConfigIntoManagedCodexHome()
     wslTestState.failTempWrite = false
@@ -308,7 +308,7 @@ describe('managed Codex config for a WSL distro config', () => {
     syncSystemConfigIntoManagedCodexHome()
 
     expect(readRuntimeConfig()).toMatch(
-      /^model = "o4" # orca: tab edit kept from before the update$/m
+      /^model = "o4" # openkodo: tab edit kept from before the update$/m
     )
     expect(readFileSync(systemConfigPath(), 'utf-8')).toBe('model = "gpt-5"\n')
   })
@@ -477,7 +477,11 @@ describe('managed Codex config for a WSL distro config', () => {
       writeSystemConfig('approval_policy = "never"\n')
       syncSystemConfigIntoManagedCodexHome()
       // A baseline from before `model` was tracked, so diverging values are held back as a conflict.
-      const baselinePath = join(runtimeConfigPath(), '..', '.orca-config-settings-baseline.json')
+      const baselinePath = join(
+        runtimeConfigPath(),
+        '..',
+        '.openkodo-config-settings-baseline.json'
+      )
       const stored = JSON.parse(readFileSync(baselinePath, 'utf-8'))
       delete stored.settings.model
       writeFileSync(baselinePath, JSON.stringify(stored), 'utf-8')
@@ -554,7 +558,7 @@ describe('managed Codex config for a WSL distro config', () => {
     writeSystemConfig('model = "gpt-5"\n')
     syncSystemConfigIntoManagedCodexHome()
 
-    expect(readRuntimeConfig()).toContain(`model = ${huge} # orca: `)
+    expect(readRuntimeConfig()).toContain(`model = ${huge} # openkodo: `)
     expect(readRuntimeConfig()).not.toContain('docs@market')
   })
 
@@ -571,7 +575,7 @@ describe('managed Codex config for a WSL distro config', () => {
     writeSystemConfig('model = "gpt-5"\n')
     syncSystemConfigIntoManagedCodexHome()
 
-    expect(readRuntimeConfig()).toMatch(/^model = "o4" # orca: /m)
+    expect(readRuntimeConfig()).toMatch(/^model = "o4" # openkodo: /m)
   })
 
   describe.skipIf(process.platform === 'win32')(
@@ -608,12 +612,16 @@ describe('managed Codex config for a WSL distro config', () => {
         simulateCodexSettingWrite('model', '"o4"')
         await nativeSourceCheckSettled()
         // A quit after the guarded write moved the baseline aside, before it published the new one.
-        const baselinePath = join(runtimeConfigPath(), '..', '.orca-config-settings-baseline.json')
-        renameSync(baselinePath, `${baselinePath}.orca-guarded`)
+        const baselinePath = join(
+          runtimeConfigPath(),
+          '..',
+          '.openkodo-config-settings-baseline.json'
+        )
+        renameSync(baselinePath, `${baselinePath}.openkodo-guarded`)
 
         syncSystemConfigIntoManagedCodexHome()
 
-        expect(readRuntimeConfig()).toMatch(/^model = "o4" # orca: /m)
+        expect(readRuntimeConfig()).toMatch(/^model = "o4" # openkodo: /m)
       })
 
       it('keeps a tab edit made before the check confirms the link', async () => {
@@ -624,7 +632,7 @@ describe('managed Codex config for a WSL distro config', () => {
 
         syncSystemConfigIntoManagedCodexHome()
 
-        expect(readRuntimeConfig()).toMatch(/^model = "o4" # orca: /m)
+        expect(readRuntimeConfig()).toMatch(/^model = "o4" # openkodo: /m)
       })
     }
   )

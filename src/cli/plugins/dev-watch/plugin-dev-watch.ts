@@ -30,7 +30,7 @@ export class PluginHostUnreachableError extends Error {}
 // Why: `dev reload` rejects watch-only flags; the old `--approve` is replaced by the new one.
 const WATCH_ONLY_FLAGS = new Set(['check', 'shot', 'shot-panel', 'approve'])
 
-/** `orca … plugin dev watch <dir>` → `… plugin dev reload <dir>`, so approving keeps this session. */
+/** `openkodo … plugin dev watch <dir>` → `… plugin dev reload <dir>`, so approving keeps this session. */
 export function devReloadArgs(rawArgs: readonly string[]): string[] {
   const watch = rawArgs.findIndex((arg, index) => arg === 'watch' && rawArgs[index - 1] === 'dev')
   const kept: string[] = []

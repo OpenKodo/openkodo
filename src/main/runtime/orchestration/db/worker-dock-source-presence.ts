@@ -44,7 +44,7 @@ export class WorkerDockSourcePresence {
     if (!row) {
       return
     }
-    if (!row.creator_orca_session_id && !row.creator_dispatch_id) {
+    if (!row.creator_openkodo_session_id && !row.creator_dispatch_id) {
       let fallback = this.fallbackByRun.get(row.run_id)
       if (!fallback) {
         fallback = new Set()
@@ -55,7 +55,7 @@ export class WorkerDockSourcePresence {
       this.fallbackByRun.get(row.run_id)?.delete(row.id)
     }
     const source =
-      row.creator_orca_session_id ??
+      row.creator_openkodo_session_id ??
       (row.creator_dispatch_id === null ? this.runs.get(row.run_id) : null)
     if (source) {
       this.dispatchSources.set(row.id, source)
@@ -67,7 +67,7 @@ export class WorkerDockSourcePresence {
       return
     }
     const previous = this.runs.get(row.id)
-    const source = row.coordinator_orca_session_id
+    const source = row.coordinator_openkodo_session_id
     this.runs.set(row.id, source)
     if (previous === source) {
       return

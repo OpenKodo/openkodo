@@ -1,4 +1,4 @@
-import type { OrcaSessionId } from '../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../shared/agent-session/identity/openkodo-session-address'
 import type { AgentProviderKey } from './agent-provider-key'
 import type { AgentIdentityClient } from './agent-identity-worker-client'
 import type { RowAgentIdentity } from './pane-agent-identities'
@@ -11,7 +11,7 @@ export type KeyDemand = {
   key: AgentProviderKey
   identity: RowAgentIdentity
   places: Set<string>
-  waiters: Set<(id: OrcaSessionId | null) => void>
+  waiters: Set<(id: OpenKodoSessionId | null) => void>
 }
 
 type Operation =
@@ -83,7 +83,7 @@ export class AgentIdentityDemand {
     this.release(keyString)
   }
 
-  async identify(keyString: string, key: AgentProviderKey): Promise<OrcaSessionId | null> {
+  async identify(keyString: string, key: AgentProviderKey): Promise<OpenKodoSessionId | null> {
     this.syncAuthority()
     const generation = this.generationValue
     const demand =
@@ -91,8 +91,8 @@ export class AgentIdentityDemand {
     if (!demand.identity.pending) {
       return demand.identity.id
     }
-    const id = await new Promise<OrcaSessionId | null>((resolve) => {
-      const waiter = (answer: OrcaSessionId | null): void => {
+    const id = await new Promise<OpenKodoSessionId | null>((resolve) => {
+      const waiter = (answer: OpenKodoSessionId | null): void => {
         clearTimeout(timer)
         demand.waiters.delete(waiter)
         // The grant belongs to live clicks: with none left, a row waits for the automatic retry.

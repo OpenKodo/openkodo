@@ -159,7 +159,7 @@ describe.skipIf(process.platform === 'win32')('launchProviderOwnerOnWorker', () 
     expect(await setup.host.whenReady()).toBe(true)
 
     const spec: ProviderSpawnSpec = {
-      program: '/nonexistent/orca-provider-exec',
+      program: '/nonexistent/openkodo-provider-exec',
       args: [],
       command: process.execPath,
       env: process.env,

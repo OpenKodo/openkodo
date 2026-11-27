@@ -25,7 +25,7 @@ import {
 import {
   fetchRepoCatalogForTarget,
   filterSetupsForPrunedRepoRows,
-  filterTrustedOrcaHooksToValidRepos,
+  filterTrustedOpenKodoHooksToValidRepos,
   mergeFetchedRepoCatalog,
   reconcileFetchedCatalogWorktreeState,
   reconcileSupersededSshRepos
@@ -142,8 +142,8 @@ export function createAllHostRepoCatalogActions(
               ),
               s.wslMovedProjects
             ),
-            trustedOrcaHooks: filterTrustedOrcaHooksToValidRepos(
-              s.trustedOrcaHooks,
+            trustedOpenKodoHooks: filterTrustedOpenKodoHooksToValidRepos(
+              s.trustedOpenKodoHooks,
               retainedRepoIds
             )
           }

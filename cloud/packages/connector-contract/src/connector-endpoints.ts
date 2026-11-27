@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 // Every route is POST except hello and a bot's avatar (PUT), a bot's Slack state (GET) and the DELETEs, with `Authorization: Bearer <connector token>`: the 5-minute
-// token Orca's auth service mints for a signed-in machine. The machine is that token's (sub, mid), the
+// token OpenKodo's auth service mints for a signed-in machine. The machine is that token's (sub, mid), the
 // user and the per-install machine id. A 401 means fetch a new token and try again.
 export const CONNECTOR_PATHS = {
   hello: '/v1/connector/hello',
@@ -42,7 +42,7 @@ export const CONNECTOR_PATHS = {
   // GET lists the account's linked people in Slack, GitHub and Linear (ConnectorLinksResponseSchema);
   // DELETE `${links}/<source>/<workspace id>/<user id>` unlinks one of its own: 204, or 404 not_linked.
   links: '/v1/connector/links',
-  // A teammate's Orca, for bots shared with its account (share-messages.ts): GET `${shares}/mine`; POST
+  // A teammate's OpenKodo, for bots shared with its account (share-messages.ts): GET `${shares}/mine`; POST
   // `…/<share id>/accept` (202 queued) and `…/<share id>/decline` (200 declined); POST and GET
   // `…/<share id>/messages` hold a message and read held states.
   // The messages routes also take a phone's `Bearer <share credential>` in place of a connector token.
@@ -76,7 +76,7 @@ export type ConnectorErrorCode = (typeof CONNECTOR_ERROR_CODES)[number]
 // Codes stay open so an older machine reads a newer one as a plain failure.
 export const ConnectorErrorResponseSchema = z.object({ error: z.string().min(1) })
 
-// Sources a person links to their Orca account; a source a newer cloud adds is skipped, not refused.
+// Sources a person links to their OpenKodo account; a source a newer cloud adds is skipped, not refused.
 export const CONNECTOR_LINK_SOURCES = ['slack', 'github', 'linear'] as const
 export type ConnectorLinkSource = (typeof CONNECTOR_LINK_SOURCES)[number]
 

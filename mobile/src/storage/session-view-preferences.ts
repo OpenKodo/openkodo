@@ -5,8 +5,8 @@ import { isNativeChatSupportedAgent } from '../../../src/shared/native-chat/nati
 
 export type MobileSessionView = 'terminal' | 'chat'
 
-const DEFAULT_SESSION_VIEW_KEY = 'orca:defaultSessionView'
-const NATIVE_CHAT_TABS_PREFIX = 'orca:nativeChatTabs:'
+const DEFAULT_SESSION_VIEW_KEY = 'openkodo:defaultSessionView'
+const NATIVE_CHAT_TABS_PREFIX = 'openkodo:nativeChatTabs:'
 
 // Default to terminal; native chat is opt-in.
 export const DEFAULT_SESSION_VIEW: MobileSessionView = 'terminal'
@@ -69,7 +69,7 @@ export function saveDefaultSessionView(view: MobileSessionView): Promise<void> {
   return write
 }
 
-const NEW_AGENT_SURFACE_KEY = 'orca:newAgentSurface'
+const NEW_AGENT_SURFACE_KEY = 'openkodo:newAgentSurface'
 
 /** The Chat or CLI pick from the New Tab sheet; null until this device has made one. */
 export async function loadNewAgentSurface(): Promise<AgentLaunchSurface | null> {

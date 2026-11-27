@@ -90,7 +90,7 @@ function antigravityAgy(
     return { agy: null, managedVersion: null }
   }
   return state.source === 'managed'
-    ? { agy: 'orcas', managedVersion: state.installedVersion }
+    ? { agy: 'openkodos', managedVersion: state.installedVersion }
     : { agy: 'yours', managedVersion: null }
 }
 

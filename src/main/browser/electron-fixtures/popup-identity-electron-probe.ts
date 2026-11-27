@@ -1,4 +1,4 @@
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { createServer } from 'node:net'
 import { createRequire } from 'node:module'
@@ -10,7 +10,7 @@ import { waitForBrowserCdpEndpoint } from '../identity/wire-probes/browser-sessi
 import { resolveElectronProbeLaunch } from './electron-probe-display-launch'
 
 export function createPopupIdentityProbeRoot(): string {
-  return mkdtempSync(join(tmpdir(), 'orca-popup-identity-'))
+  return mkdtempSync(join(tmpdir(), 'openkodo-popup-identity-'))
 }
 
 export async function buildPopupIdentityProbe(

@@ -1,5 +1,5 @@
-import { runProcess } from '@orca/process-host'
-import { windowsPowerShellPath } from '@orca/process-host/windows-system-binary'
+import { runProcess } from '@openkodo/process-host'
+import { windowsPowerShellPath } from '@openkodo/process-host/windows-system-binary'
 import { quotePowerShellLiteral } from '../../../shared/shell/launch/powershell-native-argument'
 import { WINDOWS_PATH_WRITE_TIMEOUT_MS } from './cli-install-constants'
 

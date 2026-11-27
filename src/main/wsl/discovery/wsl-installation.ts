@@ -1,7 +1,7 @@
-import { runProcess } from '@orca/process-host'
-import { latchWslNotInstalled } from '@orca/process-host/wsl-not-installed-latch'
-import type { ProcessResult, ProcessSpec } from '@orca/process-host/process-spec'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { runProcess } from '@openkodo/process-host'
+import { latchWslNotInstalled } from '@openkodo/process-host/wsl-not-installed-latch'
+import type { ProcessResult, ProcessSpec } from '@openkodo/process-host/process-spec'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { resolveWslInteropSpawnCwd } from '../execution/wsl-interop-spawn-directory'
 import { loadWindowsNativeRegistry } from '../../windows/windows-native-registry'
 

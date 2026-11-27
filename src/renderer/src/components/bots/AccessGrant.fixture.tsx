@@ -78,7 +78,7 @@ function setup(): void {
     result:
       method === 'status.get'
         ? status
-        : method === 'orcaAccount.status'
+        : method === 'openkodoAccount.status'
           ? {
               state: 'signed-in',
               displayName: 'Alex Morgan',

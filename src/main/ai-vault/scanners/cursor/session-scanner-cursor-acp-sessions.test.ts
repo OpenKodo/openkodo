@@ -28,7 +28,7 @@ async function writeAcpSession(configDir: string, sessionId: string, activity: D
 
 describe('Cursor ACP sessions in Session History', () => {
   it('lists the sessions native Chat owns, by meta.json under its cwd, dated by store.db', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'orca-cursor-acp-'))
+    const root = await mkdtemp(join(tmpdir(), 'openkodo-cursor-acp-'))
     tempRoots.push(root)
     const configDir = join(root, 'cursor-config')
     const owned = '6f1c2a54-0d4e-4c55-9a7e-2b8f0c1d3e4a'
@@ -66,7 +66,7 @@ describe('Cursor ACP sessions in Session History', () => {
   })
 
   it('lists a session once its meta.json lands after store.db', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'orca-cursor-acp-'))
+    const root = await mkdtemp(join(tmpdir(), 'openkodo-cursor-acp-'))
     tempRoots.push(root)
     const configDir = join(root, 'cursor-config')
     const owned = '7a2d3b65-1e5f-4d66-8b8f-3c9a1d2e4f5b'

@@ -49,7 +49,7 @@ export const RAW_BUNDLED_AGENT_STATE_RULE_FILES: readonly unknown[] = [
 ]
 
 // Inline imports keep packaged/headless builds independent of resource paths.
-// Not parsed at load: zod-validating them cost ~25 ms of orcad startup on every launch.
+// Not parsed at load: zod-validating them cost ~25 ms of openkodod startup on every launch.
 export const BUNDLED_AGENT_STATE_RULE_FILES: readonly AgentStateRulesFile[] =
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: trusted bundled JSON is authored to this schema; untrusted overrides are parsed.
   RAW_BUNDLED_AGENT_STATE_RULE_FILES as readonly AgentStateRulesFile[]

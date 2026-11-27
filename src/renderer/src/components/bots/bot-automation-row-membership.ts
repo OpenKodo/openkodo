@@ -5,7 +5,7 @@ import { automationWontFire } from '../automations/details/automation-wont-fire'
 import type { BotAutomationCardRow } from './bot-automation-card'
 import { paused, wontFireState } from './bot-automation-row-controls'
 import type { BotRowState } from './BotPanelRow'
-import { useOrcaCloudSignedOut } from './orca-cloud-signed-out'
+import { useOpenKodoCloudSignedOut } from './openkodo-cloud-signed-out'
 
 export type NormalAutomationCardRow = Extract<BotAutomationCardRow, { kind: 'automation' }>
 /** The bot visit, Activity authority and row a Pause/Resume save was asked from. */
@@ -49,7 +49,7 @@ export function useBotAutomationMembership(bot: Bot, hasConnectorNeed: boolean) 
     bot,
     hasConnectorNeed,
     webhooks: useBotWebhooks(bot.hostId),
-    cloudSignedOut: useOrcaCloudSignedOut()
+    cloudSignedOut: useOpenKodoCloudSignedOut()
   }
 }
 

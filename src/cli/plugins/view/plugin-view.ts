@@ -74,7 +74,7 @@ const SHOT_RPC_TIMEOUT_MS = 30_000
 // Above the host's 4s per act.
 const SHOT_RPC_ACT_TIMEOUT_MS = 5_000
 
-/** `.orca/` ignores itself in Git, so shots next to a plugin never get committed. */
+/** `.openkodo/` ignores itself in Git, so shots next to a plugin never get committed. */
 export function defaultPluginShotPath(dir: string, pluginKey: string, panelId: string): string {
   return join(dir, `${pluginKey}-${panelId}.png`)
 }

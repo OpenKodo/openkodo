@@ -41,7 +41,7 @@ export function journalClaudePluginInputFailure({
   finish(event.observedAt, true, stopCheck)
   // Physical-exit settlement revises this same row after proof; it must not add another notice.
   const identity = {
-    provider: 'orca' as const,
+    provider: 'openkodo' as const,
     clientMessageId: `${PROVIDER_EXIT_ROW_PREFIX}${event.sessionId}:${event.fence}:${event.acquisitionGeneration}`
   }
   const body = {

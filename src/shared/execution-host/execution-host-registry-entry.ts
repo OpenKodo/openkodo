@@ -7,7 +7,7 @@ import type { RuntimeCompatVerdict } from '../remote-runtime/protocol/protocol-c
 import type { RuntimeStatus } from '../remote-runtime/session-graph/runtime-session-contracts'
 import type { SshConnectionStatus } from '../remote-runtime/ssh/ssh-types'
 import type { RuntimeEnvironmentSource } from '../remote-runtime/host-catalog/runtime-environments'
-import type { ManagedOrcadDeploymentSummary } from './managed-orcad-execution-host'
+import type { ManagedOpenkododDeploymentSummary } from './managed-openkodod-execution-host'
 import type { ExecutionHostHealth, ExecutionHostVmState } from './execution-host-health'
 
 export type ExecutionHostRegistryEntry = {
@@ -30,7 +30,7 @@ export type ExecutionHostRegistryEntry = {
   platform?: NodeJS.Platform | null
   remoteControlState?: RuntimeStatus['remoteControl']
   source?: RuntimeEnvironmentSource
-  /** See managed-orcad-execution-host: pairs an SSH host with its managed server. */
+  /** See managed-openkodod-execution-host: pairs an SSH host with its managed server. */
   aliasHostIds?: readonly ExecutionHostId[]
   mergedIntoHostId?: ExecutionHostId
 }
@@ -39,7 +39,7 @@ export type RuntimeEnvironmentSummary = {
   id: string
   name?: string | null
   source?: RuntimeEnvironmentSource
-  orcadDeployment?: ManagedOrcadDeploymentSummary | null
+  openkododDeployment?: ManagedOpenkododDeploymentSummary | null
 }
 
 export type RuntimeStatusByEnvironmentId = ReadonlyMap<string, RuntimeEnvironmentStatus>

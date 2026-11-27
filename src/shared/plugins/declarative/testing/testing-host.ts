@@ -32,7 +32,7 @@ class Refusal extends Error {
 }
 
 export type MockHostOptions = MockPluginDataOptions & {
-  /** Granted capabilities; defaults to the ones the plugin's orca-plugin.json declares. */
+  /** Granted capabilities; defaults to the ones the plugin's openkodo-plugin.json declares. */
   capabilities?: readonly string[]
   /** What each method answers: a value, or a function of the params (it may throw `hostError`).
    *  Overrides the built-in storage, settings, secrets and `requests`. */

@@ -26,17 +26,17 @@ function RestartCountdown({ until }: { until: number }): React.JSX.Element {
 export function RequiredUpdateRestartContent({
   version,
   restart,
-  requiredByOrca,
+  requiredByOpenKodo,
   onRestart
 }: {
   version: string
   restart: TeamUpdateRestart
-  requiredByOrca?: boolean
+  requiredByOpenKodo?: boolean
   onRestart: () => void
 }): React.JSX.Element {
   const t = useTranslate()
   const locale = useIntlLocale()
-  const title = requiredByOrca
+  const title = requiredByOpenKodo
     ? t('updates.emergencyRequired.title', 'OpenKodo {{version}} is required', { version })
     : t('updates.teamRequired.title', 'Your team requires OpenKodo {{version}}', { version })
   const restartNow = t('updates.teamRequired.restartNow', 'Restart now')

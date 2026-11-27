@@ -15,7 +15,7 @@ import type {
 } from '../../../shared/skills/installation/skill-install-contract'
 import type { SkillCloudDownloadGrant } from '../../../shared/skills/sharing/skill-cloud-contract'
 import { getRuntimeEnvironmentStatus } from '../../ipc/runtime-environments/status/runtime-environment-status-probe'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { skillInstallFailureFromError } from '../install/skill-install-operation-error'
 import { recordSkillCapabilityAbsence } from '../observability/skill-operation-observability'
 import {
@@ -71,7 +71,7 @@ function bundleFailureResult(
 }
 
 export async function installSkillBundleCloudGrant(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   grant: SkillCloudDownloadGrant,
   input: SkillBundleCloudGrantInstallInput,
   signal?: AbortSignal,
@@ -142,7 +142,7 @@ export async function installSkillBundleCloudGrant(
 }
 
 export async function installSkillCloudGrant(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   grant: SkillCloudDownloadGrant,
   input: SkillCloudGrantInstallInput,
   signal?: AbortSignal

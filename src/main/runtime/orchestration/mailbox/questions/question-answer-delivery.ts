@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { OrchestrationError } from '../../orchestration-error'
 
 type QuestionState = {
@@ -22,7 +22,7 @@ function questionAnswerWaitHandle(question: { dispatch_id: string; message_id: s
 
 /** A waiting ask takes its own answer; otherwise the answer is Dispatch mail that wakes the worker. */
 export function deliverQuestionAnswer(
-  runtime: Pick<OrcaRuntimeService, 'notifyMessageWaiters' | 'notifyMessageArrived'>,
+  runtime: Pick<OpenKodoRuntimeService, 'notifyMessageWaiters' | 'notifyMessageArrived'>,
   question: { message_id: string; dispatch_id: string }
 ): void {
   if (!runtime.notifyMessageWaiters(questionAnswerWaitHandle(question))) {
@@ -54,7 +54,7 @@ export function askedQuestionReceipt(
 /** The older waiting form of ask, kept for callers that still wait (older CLIs, --wait, --resume). */
 export async function waitForQuestionAnswer(args: {
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     'waitForMessage' | 'getOrchestrationDb' | 'notifyMessageArrived'
   >
   questionId: string
@@ -103,7 +103,7 @@ export async function waitForQuestionAnswer(args: {
       if (current.answer_message_id) {
         args.runtime
           .getOrchestrationDb()
-          .markAsReadAndDelivered([current.answer_message_id], { kind: 'orca' })
+          .markAsReadAndDelivered([current.answer_message_id], { kind: 'openkodo' })
       }
       return {
         answer: current.answer_body,
@@ -120,7 +120,7 @@ export async function waitForQuestionAnswer(args: {
     // for a late answer.
     const notice = current.told ? unreadNotice(args.runtime, current) : undefined
     if (current.told && notice) {
-      args.runtime.getOrchestrationDb().markAsReadAndDelivered([notice.id], { kind: 'orca' })
+      args.runtime.getOrchestrationDb().markAsReadAndDelivered([notice.id], { kind: 'openkodo' })
       return {
         ...unanswered,
         notice: notice.body,
@@ -143,7 +143,7 @@ export async function waitForQuestionAnswer(args: {
 
 /** The unread notice telling this question's worker it went unanswered. */
 function unreadNotice(
-  runtime: Pick<OrcaRuntimeService, 'getOrchestrationDb'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getOrchestrationDb'>,
   question: QuestionState
 ): { id: string; body: string } | undefined {
   const row = runtime

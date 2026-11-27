@@ -11,8 +11,11 @@ import { agentHookServer } from '../../agent-hooks/server/agent-hook-server'
 import { browserManager } from '../../browser/guest-lifecycle/manager/browser-manager'
 import type { DesktopCore } from '../../core-desktop/desktop-core'
 import type { Store } from '../../persistence/loading-store/store'
-import { createDesktopOrcaAccountService } from '../desktop-orca-account-service'
-import { installOrcaServerSignIn, OrcaServerSignIn } from '../../orca-profiles/orca-server-sign-in'
+import { createDesktopOpenKodoAccountService } from '../desktop-openkodo-account-service'
+import {
+  installOpenKodoServerSignIn,
+  OpenKodoServerSignIn
+} from '../../openkodo-profiles/openkodo-server-sign-in'
 import { GoogleConnect, installGoogleConnect } from '../../google/google-connect'
 import { setBotToolSignInBrowser } from '../../bots/tool-oauth/bot-tool-sign-in-flows'
 
@@ -55,9 +58,9 @@ export async function initializeMainProcessAccountServices(
   core.codexAccounts = services.codexAccounts
   core.claudeRuntimeAuth = services.claudeRuntimeAuth
   core.claudeAccounts = services.claudeAccounts
-  core.orcaAccount = createDesktopOrcaAccountService(openExternal)
+  core.openkodoAccount = createDesktopOpenKodoAccountService(openExternal)
   // A paired client may sign this host in too (D3); the desktop keeps its own window sign-in.
-  installOrcaServerSignIn(new OrcaServerSignIn({ account: core.orcaAccount }))
+  installOpenKodoServerSignIn(new OpenKodoServerSignIn({ account: core.openkodoAccount }))
   installGoogleConnect(new GoogleConnect({ openBrowser: openExternal }))
   setBotToolSignInBrowser(openExternal)
   // Defer shared-home migration; compatibility launches re-arm non-destructive scans for new rollouts (#4444, #8612, #12480).

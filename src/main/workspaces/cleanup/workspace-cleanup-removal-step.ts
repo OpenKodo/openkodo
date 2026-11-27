@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { RuntimeStore } from '../../runtime/construction/runtime-store-contract'
 import {
   queueWorkspaceArchive,
@@ -27,7 +27,7 @@ function selectorFor(workspace: WorkspaceCleanupWorkspace): string {
 
 /** The evaluator's verdict plus the checks only a live host can make; any doubt keeps the workspace. */
 async function decideWorkspaceCleanup(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   workspace: WorkspaceCleanupWorkspace,
   now: number
 ): Promise<WorkspaceCleanupEvaluation> {
@@ -66,7 +66,7 @@ async function decideWorkspaceCleanup(
 
 /** Every workspace's verdict, in order; a folder workspace's worktrees go together or not at all. */
 export async function decideWorkspaceCleanups(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   workspaces: readonly WorkspaceCleanupWorkspace[],
   now: number
 ): Promise<WorkspaceCleanupEvaluation[]> {
@@ -93,7 +93,7 @@ type RemovalOutcome = Pick<
 /** Re-reads every piece of evidence, its folder siblings' too, right before removing one workspace;
  * removal itself goes through the lifecycle queue. */
 export async function removeWorkspaceForCleanup(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   store: RuntimeStore
   globalRules: () => WorkspaceCleanupRules
   workspace: WorkspaceCleanupWorkspace

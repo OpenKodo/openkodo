@@ -7,12 +7,12 @@ import {
 } from '../../../../shared/workspace/identity/workspace-scope'
 import { getAppEnvironment } from '../../../../shared/app-lifecycle/app-environment'
 import { listEnvironments } from '../../../../shared/remote-runtime/host-store/runtime-environment-store'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod } from '../core'
 
 /** Best-effort: an unreachable or older server keeps its link until the bot's next delete reaches it. */
 export async function releaseBotHomeOnServers(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botHomeKey: string,
   environmentIds?: readonly string[]
 ): Promise<void> {
@@ -34,7 +34,7 @@ export async function releaseBotHomeOnServers(
 
 /** A link outlives a home removed by hand, and a paired server's never sees the removal. */
 export function releaseDeletedBotLinks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: { folderWorkspaceId: string }
 ): void {
   const homeKey = folderWorkspaceKey(bot.folderWorkspaceId)

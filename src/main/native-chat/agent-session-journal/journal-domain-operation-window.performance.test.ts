@@ -63,7 +63,7 @@ function chat(
   family?: 'chain' | 'card' | 'answered' | 'unsettled'
 ): Database {
   const chained = family === 'chain'
-  const directory = mkdtempSync(join(tmpdir(), 'orca-operation-window-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-operation-window-'))
   directories.push(directory)
   const db = new Database(join(directory, 'journal.sqlite'))
   migrateJournalDomainSchema(db)
@@ -180,7 +180,7 @@ function chat(
       target,
       {
         kind: 'item',
-        identity: { provider: 'orca', clientMessageId: `note-${message}` },
+        identity: { provider: 'openkodo', clientMessageId: `note-${message}` },
         body: { kind: 'message', role: 'assistant', blocks: [{ type: 'text', text: 'note' }] },
         options: { turnScope: { kind: 'thread' }, fence: 1 }
       },
@@ -193,7 +193,7 @@ function chat(
       target,
       {
         kind: 'item',
-        identity: { provider: 'orca', clientMessageId: `call-${call}` },
+        identity: { provider: 'openkodo', clientMessageId: `call-${call}` },
         body: {
           kind: 'tool-call',
           name: 'shell',

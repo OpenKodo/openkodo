@@ -7,7 +7,7 @@ import { ConnectorSetupDialog, useSetupStepAside } from '../connector-setup-surf
 import { useConnectorSetupOpen } from '@/lib/connector-setup-open'
 import { botLinearWorkspaces, type Bot } from '../../../../../shared/bot-types'
 import { useReadOnOpen } from '../connector-connect-parts'
-import { OrcaCloudSignInGate, orcaCloudSignInReason } from '../orca-cloud-sign-in'
+import { OpenKodoCloudSignInGate, openkodoCloudSignInReason } from '../openkodo-cloud-sign-in'
 import { BotLinearSetupFlow, LINEAR } from './BotLinearSetupFlow'
 
 /** "Add connector → Linear": one browser trip signs in (installing OpenKodo on the way), then the bot is turned on. */
@@ -52,10 +52,10 @@ export function BotLinearSetupDialog({
       botName={bot.name}
       waiting={waiting}
     >
-      <OrcaCloudSignInGate
+      <OpenKodoCloudSignInGate
         hostId={bot.hostId}
         title={title}
-        reason={orcaCloudSignInReason('linear')}
+        reason={openkodoCloudSignInReason('linear')}
         onCancel={() => setOpen(false)}
         resume={() => refreshBotLinear(bot.hostId)}
       >
@@ -67,7 +67,7 @@ export function BotLinearSetupDialog({
           onClose={() => setOpen(false)}
           aside={aside}
         />
-      </OrcaCloudSignInGate>
+      </OpenKodoCloudSignInGate>
     </ConnectorSetupDialog>
   )
 }

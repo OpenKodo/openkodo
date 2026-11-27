@@ -1,9 +1,9 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { StructuredSessionSurfaceRuntime } from '../../../agent-session/lifecycle/structured-agent-session-close'
 
 export type WorkerTerminalReleaseRuntime = StructuredSessionSurfaceRuntime &
   Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     | 'forgetStructuredSessionMail'
     | 'resolveOrchestrationWorkerServer'
     | 'callOrchestrationWorkerServer'
@@ -30,7 +30,7 @@ export type WorkerTerminalReleaseRuntime = StructuredSessionSurfaceRuntime &
   // Lower runtime layers declare neither; without them a release closes its chat.
   Partial<
     Pick<
-      OrcaRuntimeService,
+      OpenKodoRuntimeService,
       'sleepWorkspaces' | 'bots' | 'listMobileSessionTabs' | 'savedTabsForWorktree'
     >
   >

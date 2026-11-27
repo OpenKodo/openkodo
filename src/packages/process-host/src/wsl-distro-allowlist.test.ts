@@ -83,10 +83,10 @@ describe('internal WSL distro allowlist', () => {
 
   it('malformed: fails closed for every distro and logs once', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    for (const value of ['', ' ', 'orca-test-a,', 'openkodo test', 'a;b']) {
+    for (const value of ['', ' ', 'openkodo-test-a,', 'openkodo test', 'a;b']) {
       expect(parseWslDistroAllowlist(value), JSON.stringify(value)).toBeNull()
     }
-    vi.stubEnv(WSL_DISTRO_ALLOWLIST_ENV, 'orca-test-a,,')
+    vi.stubEnv(WSL_DISTRO_ALLOWLIST_ENV, 'openkodo-test-a,,')
     expect(refusal(WSL, ['-d', 'openkodo-test-a'])).toMatchObject({
       code: WSL_DISTRO_NOT_ALLOWLISTED_CODE
     })

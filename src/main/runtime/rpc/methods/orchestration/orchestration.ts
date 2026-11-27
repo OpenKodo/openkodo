@@ -1,4 +1,4 @@
-import { requiringOrcadFeature } from '../../startup/orcad-readiness'
+import { requiringOpenkododFeature } from '../../startup/openkodod-readiness'
 import { ORCHESTRATION_CREW_METHODS } from './crew-methods'
 import { ORCHESTRATION_WORKER_DOCK_METHODS } from './worker-dock-methods'
 import { ORCHESTRATION_RUN_METHODS } from './runs/runs'
@@ -16,7 +16,7 @@ import { ORCHESTRATION_CALLER_METHODS } from './caller-show'
 import type { OrchestrationMethodAccessDeclaration } from './access/orchestration-method-access'
 
 // Every orchestration method reads the authority restored at startup.
-export const ORCHESTRATION_METHODS = requiringOrcadFeature('orchestration', [
+export const ORCHESTRATION_METHODS = requiringOpenkododFeature('orchestration', [
   ...ORCHESTRATION_CREW_METHODS,
   ...ORCHESTRATION_WORKER_DOCK_METHODS,
   ...ORCHESTRATION_RUN_METHODS,

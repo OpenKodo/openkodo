@@ -6,7 +6,7 @@ import type {
 } from '../../../../../../shared/native-chat/native-chat-types'
 import { nativeChatAutomationTurnKeys } from '../../../../../../shared/native-chat/transcript/turns/native-chat-automation-turns'
 import { nativeChatActingTurnKeys } from '../../../../../../shared/native-chat/transcript/turns/native-chat-acting-turns'
-import { isNativeChatOrcaCard } from '../../../../../../shared/native-chat/native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../../../../../../shared/native-chat/native-chat-openkodo-card'
 import type { NativeChatTurnStatus } from '../../../../../../shared/native-chat/transcript/turns/native-chat-turn-status'
 import { isNativeChatRowInLiveWorkingTurn } from '../../../../../../shared/native-chat/transcript/turns/native-chat-live-turn-membership'
 import { nativeChatTurnBarRows } from '../../../../../../shared/native-chat/transcript/turns/native-chat-turn-grouping'
@@ -226,7 +226,7 @@ export function buildNativeChatTranscript(
       receipt !== undefined ||
       (!folded &&
         message.mergedInto === undefined &&
-        (isNativeChatOrcaCard(message) || nativeChatRowRendersContent(message.blocks)) &&
+        (isNativeChatOpenKodoCard(message) || nativeChatRowRendersContent(message.blocks)) &&
         message.id !== liveReasoningId)
     if (drawsRow || status || turnDiff || openedPullRequests) {
       slots.push({

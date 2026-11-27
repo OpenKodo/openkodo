@@ -37,7 +37,7 @@ export type PluginDevEmitService = PluginDevFolderLookup & {
 export type PluginDevEmitResult = {
   pluginKey: string
   event: PluginEventName
-  /** `panels`: open panels of this plugin that subscribed with `orca.on(event)`. */
+  /** `panels`: open panels of this plugin that subscribed with `openkodo.on(event)`. */
   delivered: { worker: boolean; panels: number }
 }
 
@@ -107,7 +107,7 @@ function skipError(
     case 'not-subscribed':
       return new PluginCliError('invalid_argument', `Nothing in ${key} listens for ${event}.`, {
         nextSteps: [
-          `A worker hears it with { "on": "${event}" } in contributes.events; an open panel hears it once it calls orca.on('${event}', …).${capabilityNote(event)}`
+          `A worker hears it with { "on": "${event}" } in contributes.events; an open panel hears it once it calls openkodo.on('${event}', …).${capabilityNote(event)}`
         ]
       })
     case 'not-approved':

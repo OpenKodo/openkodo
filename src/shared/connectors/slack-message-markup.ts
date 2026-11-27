@@ -131,9 +131,9 @@ export function slackMentionsPlainText(text: string): string {
 }
 
 /** A mention in the drawn form: a link to this marker, which the chat draws as a mention. */
-export const SLACK_MENTION_HREF = 'orca-mention:'
+export const SLACK_MENTION_HREF = 'openkodo-mention:'
 // The asker's own text never forms the marker: a zero-width joiner breaks it, in the drawn form only.
-const TYPED_MARKER = /orca-mention:/gi
+const TYPED_MARKER = /openkodo-mention:/gi
 
 /** A Slack message in two forms: `text` reads as Slack shows it (copy, titles, previews), with
  *  links as `text (url)`; `markdown` is what the chat draws, its mentions as `SLACK_MENTION_HREF`
@@ -155,7 +155,7 @@ export function slackMarkupShownText(text: string): { text: string; markdown: st
   )
   const markdown = segments.map((segment) =>
     segment.kind === 'text'
-      ? segment.text.replace(TYPED_MARKER, 'orca-mention\u200d:')
+      ? segment.text.replace(TYPED_MARKER, 'openkodo-mention\u200d:')
       : segment.kind === 'link'
         ? linkMarkdown(segment.url, segment.text)
         : segment.kind === 'mention'

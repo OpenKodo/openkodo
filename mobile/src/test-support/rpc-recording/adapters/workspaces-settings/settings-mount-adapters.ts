@@ -82,7 +82,7 @@ export function settingsMountAdapters(
         },
         state: () => ({
           settings: state?.runtimeSettings,
-          trust: state?.trustedOrcaHooks,
+          trust: state?.trustedOpenKodoHooks,
           providers: state?.availableProviders
         }),
         dispose: hook.unmount

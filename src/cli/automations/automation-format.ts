@@ -34,7 +34,7 @@ export type AutomationShowPayload = {
   owner?: AutomationOwnerPrecondition
 }
 
-/** An event-only automation stores a placeholder schedule so older Orcas never run it; JSON shows none. */
+/** An event-only automation stores a placeholder schedule so older OpenKodos never run it; JSON shows none. */
 export function automationJson(automation: Automation) {
   return hasAutomationSchedule(automation)
     ? automation

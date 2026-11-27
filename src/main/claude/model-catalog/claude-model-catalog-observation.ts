@@ -17,9 +17,9 @@ export function readClaudeCatalogObservation(
   env: Readonly<Record<string, string>>,
   account: AgentSessionAccountKind
 ): AgentModelCatalogSuccess {
-  const listing = replies.get('orca-model-discovery')
+  const listing = replies.get('openkodo-model-discovery')
   const models = listedModels(listing)
-  const settings = replies.get('orca-model-settings')
+  const settings = replies.get('openkodo-model-settings')
   const applied = record(record(settings)?.applied)
   const configured =
     applied &&
@@ -36,7 +36,7 @@ export function readClaudeCatalogObservation(
     complete: isCompleteClaudeModelListing(listing) && configured !== undefined,
     ...(fastModeSupport ? { fastModeSupport } : {}),
     ...(configured ? { configured } : {}),
-    ...(claudeCatalogSignedOut(replies.get('orca-signin-discovery'), settings, env)
+    ...(claudeCatalogSignedOut(replies.get('openkodo-signin-discovery'), settings, env)
       ? { unavailable: { reason: 'notSignedIn', account } }
       : {})
   }

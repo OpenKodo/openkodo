@@ -8,7 +8,7 @@ import {
 import type { BotItem } from '../../shared/bots/bot-items'
 import { RuntimeClientError } from '../runtime/connection/types'
 import type { EvalHostState } from './bot-automation-eval-host'
-import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
+import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-openkodo'
 import {
   matches,
   normalizeCommandPositionals,
@@ -19,7 +19,7 @@ import {
 import { ARTIFACT_COMMAND_SPECS } from '../specs/artifacts'
 
 export const EVAL_SHARE_URL = 'https://openkodo.dev/share/a/eval-report'
-export const EVAL_UPLOAD_PREFIX = 'data:application/x-orca-eval-upload,'
+export const EVAL_UPLOAD_PREFIX = 'data:application/x-openkodo-eval-upload,'
 
 export type EvalArtifactInvocation = { id: string; argv: string[] }
 

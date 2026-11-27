@@ -12,7 +12,7 @@ import {
   type ManagedAgentCliId
 } from '../../../../managed-agent-cli/managed-agent-cli-registry'
 import { runtimeReleaseMayBePublished } from '../../../../node-runtime/managed-runtime-release'
-import { getProfileUserDataPath } from '../../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../../openkodo-profiles/profile-storage-paths'
 import { provideInstalledManagedAgents } from '../../../../preflight/managed-agent-detection'
 import { notifyAgentsRefreshedOnHost } from '../../../../preflight/agents-refreshed-on-host'
 

@@ -204,7 +204,7 @@ export function buildDefaultSettings(args: {
     showPinnedWorktreesInGroups: false,
     ctrlTabOrderMode: 'mru',
     // Why: OpenKodo-first keeps core shortcuts working from a focused terminal; TUI-ownership users opt in.
-    terminalShortcutPolicy: 'orca-first',
+    terminalShortcutPolicy: 'openkodo-first',
     floatingTerminalEnabled: true,
     browserClientHostedRemoteEnabled: true,
     antigravityManagedAgyEnabled: true,

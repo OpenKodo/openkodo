@@ -1,6 +1,6 @@
 import { settingsRead } from '../../../settings/mobile-settings-read-operations'
 import { useRef, useState, type Dispatch, type SetStateAction } from 'react'
-import type { PersistedTrustedOrcaHooks } from '../../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import type { RetiredNameRegistry } from '../../../../../src/shared/worktree/naming/retired-name-registry'
 import type { RpcClient } from '../../../transport/rpc/rpc-client-contract'
 import { folderCreateBusyMessage, uncertainCreateMessage } from './new-workspace-create-copy'
@@ -69,8 +69,8 @@ export function useNewWorkspaceCreateSubmit(args: {
   setupDecisionChoice: Exclude<WorkspaceCreateSetupDecision, 'inherit'> | null
   runSetup: boolean
   setupWait: boolean | null
-  trustedOrcaHooks: PersistedTrustedOrcaHooks
-  setTrustedOrcaHooks: (trust: PersistedTrustedOrcaHooks) => void
+  trustedOpenKodoHooks: PersistedTrustedOpenKodoHooks
+  setTrustedOpenKodoHooks: (trust: PersistedTrustedOpenKodoHooks) => void
   getWorktreeCreateCutoverSupport: () => Promise<WorktreeCreateIdempotencySupport | false>
   getAgentLaunchSupport: () => Promise<AgentLaunchSupport | false>
   getBranchIntentSupport: (intent: 'open-existing-v2' | 'create-new') => Promise<boolean>
@@ -205,7 +205,7 @@ export function useNewWorkspaceCreateSubmit(args: {
       if (needsTrustCheck && !setupApproval) {
         const resolved = await resolveCreateSetupApproval({
           client,
-          trust: args.trustedOrcaHooks,
+          trust: args.trustedOpenKodoHooks,
           repos: args.repos,
           repo: setupRepo,
           createSource: selection ? composerSetupHooksCreateSource(selection) : { kind: 'base' }
@@ -278,7 +278,7 @@ export function useNewWorkspaceCreateSubmit(args: {
           ...createdSetupReviewPrompt({
             repo: setupRepo,
             repos: args.repos,
-            trust: args.trustedOrcaHooks,
+            trust: args.trustedOpenKodoHooks,
             mismatch
           }),
           created

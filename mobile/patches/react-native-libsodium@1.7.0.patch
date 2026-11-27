@@ -6,9 +6,9 @@ index fbc745de0b351ca6193930a5682e5fa44589e8bf..7f75eaa3e62230435bd634882cdb98cd
  #import <React/RCTLog.h>
  #import "react-native-libsodium.h"
  
-+// Orca: RN 0.88 removed RCTCxxBridge.runtime. Under bridgeless the module's bridge is an
++// OpenKodo: RN 0.88 removed RCTCxxBridge.runtime. Under bridgeless the module's bridge is an
 +// RCTBridgeProxy, which still implements -runtime but no longer declares it publicly.
-+@protocol OrcaLibsodiumRuntimeProvider
++@protocol OpenKodoLibsodiumRuntimeProvider
 +- (void *)runtime;
 +@end
 +
@@ -22,7 +22,7 @@ index fbc745de0b351ca6193930a5682e5fa44589e8bf..7f75eaa3e62230435bd634882cdb98cd
 -  RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
 -  if (!cxxBridge.runtime) {
 -    RCTLogInfo(@"libsodium install failure: no cxx bridge runtime");
-+  void *runtime = [(id<OrcaLibsodiumRuntimeProvider>)self.bridge runtime];
++  void *runtime = [(id<OpenKodoLibsodiumRuntimeProvider>)self.bridge runtime];
 +  if (!runtime) {
 +    RCTLogInfo(@"libsodium install failure: no bridge runtime");
      return nil;

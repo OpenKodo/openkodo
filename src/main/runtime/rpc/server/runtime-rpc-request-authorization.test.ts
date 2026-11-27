@@ -5,14 +5,14 @@ import { mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import '../../orchestration/db/contract-constants'
 import '../../orchestration/db/messages/mailbox-routing-page'
 import '../../orchestration/db/dispatch-row-writer'
 import '../../orchestration/db/attempt-outcome-projection'
 
 import { readRuntimeMetadata } from './runtime-metadata'
-import { OrcaRuntimeRpcServer } from './runtime-rpc'
+import { OpenKodoRuntimeRpcServer } from './runtime-rpc'
 import { sendRequest } from './runtime-rpc-test-harness'
 import { STATUS_METHODS } from '../methods/host-management/status'
 import { ORCHESTRATION_FEDERATION_CONTROL_METHODS } from '../../orchestration/legacy-remote/federation-control'
@@ -66,11 +66,11 @@ const { getWorktreeListingMocks } = vi.hoisted(() => {
   return { getWorktreeListingMocks: () => (listings ??= createWorktreeListingMocks()) }
 })
 
-describe('OrcaRuntimeRpcServer', () => {
+describe('OpenKodoRuntimeRpcServer', () => {
   it('rejects requests with the wrong auth token', async () => {
-    const userDataPath = mkdtempSync(join(tmpdir(), 'orca-runtime-rpc-'))
-    const runtime = new OrcaRuntimeService()
-    const server = new OrcaRuntimeRpcServer({ runtime, methods, userDataPath })
+    const userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-runtime-rpc-'))
+    const runtime = new OpenKodoRuntimeService()
+    const server = new OpenKodoRuntimeRpcServer({ runtime, methods, userDataPath })
 
     await server.start()
 

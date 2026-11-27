@@ -1,12 +1,12 @@
 import { PushAuthAdmission } from './http/push-auth-admission.js'
 import { createAdaptorServer } from '@hono/node-server'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
-import { PushDeviceRegistrationRequestSchema } from '@orca-cloud/push-contract/device-registration-messages'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
+import { PushDeviceRegistrationRequestSchema } from '@openkodo-cloud/push-contract/device-registration-messages'
 import {
   PushHostChallengeRequestSchema,
   PushHostSessionRequestSchema
-} from '@orca-cloud/push-contract/host-auth-messages'
-import { PushSendRequestSchema, type PushSendResult } from '@orca-cloud/push-contract/send-messages'
+} from '@openkodo-cloud/push-contract/host-auth-messages'
+import { PushSendRequestSchema, type PushSendResult } from '@openkodo-cloud/push-contract/send-messages'
 import { Hono, type MiddlewareHandler } from 'hono'
 import { bodyLimit } from 'hono/body-limit'
 import { ApnsClient } from './providers/apns/apns-client.js'
@@ -33,7 +33,7 @@ import {
 } from './providers/fcm/fcm-client.js'
 import { PushHostChallengeStore } from './host-auth/host-challenge-store.js'
 import { PushHostSessionStore } from './host-auth/host-session-store.js'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 import { PushDispatcher } from './delivery/push-dispatcher.js'
 import { PushObservability } from './push-observability.js'
 import { reserveRequestConnection } from './database/push-background-database.js'
@@ -138,7 +138,7 @@ export function createPushServer(
     observability.record('request_error')
     console.warn(
       JSON.stringify({
-        event: 'orca_push_request_failed',
+        event: 'openkodo_push_request_failed',
         error: error instanceof Error ? error.name : 'unknown'
       })
     )

@@ -1,5 +1,5 @@
 import type { TerminalIdentityReadContext } from '../query/terminal-identity-read-context'
-import { OrcaRuntimeWithBuildPtyTerminalSummary } from '../query/pty-terminal-summary'
+import { OpenKodoRuntimeWithBuildPtyTerminalSummary } from '../query/pty-terminal-summary'
 import type { PtyIncarnationHandleRecord } from './terminal-handle-records'
 import type {
   RuntimeLeafRecord,
@@ -10,7 +10,7 @@ import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layo
 import type { TerminalHandleAccess } from '../../agent-senders/runtime-agent-sender-associations'
 import { readIssuedTerminalHandles } from './terminal-issued-handle-reader'
 
-export abstract class OrcaRuntimeWithBindPtyIncarnationHandle extends OrcaRuntimeWithBuildPtyTerminalSummary {
+export abstract class OpenKodoRuntimeWithBindPtyIncarnationHandle extends OpenKodoRuntimeWithBuildPtyTerminalSummary {
   protected bindPtyIncarnationHandle(
     retained: PtyIncarnationHandleRecord,
     leaf: RuntimeLeafRecord

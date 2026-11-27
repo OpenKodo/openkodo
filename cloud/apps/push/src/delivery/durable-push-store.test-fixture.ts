@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto'
 import pg from 'pg'
-import type { PushNotification } from '@orca-cloud/push-contract/send-messages'
+import type { PushNotification } from '@openkodo-cloud/push-contract/send-messages'
 import { openInMemoryPushDatabase, openPushDatabase } from '../database/push-database.js'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 import { DurablePushStore } from './durable-push-store.js'
 
 export const durablePushTestDatabaseUrl =
-  process.env.ORCA_PUSH_DURABLE_TEST_POSTGRES_URL ?? process.env.ORCA_PUSH_TEST_DATABASE_URL
+  process.env.OPENKODO_PUSH_DURABLE_TEST_POSTGRES_URL ?? process.env.OPENKODO_PUSH_TEST_DATABASE_URL
 
 const cleanups: (() => Promise<void>)[] = []
 export async function cleanupDurablePushFixtures(): Promise<void> {

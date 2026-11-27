@@ -2,7 +2,7 @@ import { once } from 'node:events'
 import { writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { buildSync, type Metafile } from 'esbuild'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { createWorkspaceSourceResolver } from '../../../../../config/scripts/workspace/source-exports/workspace-source-exports.mjs'
 
 export type RecoveryCrashOptions = {
@@ -83,7 +83,7 @@ fs.rmSync = (target, ...rest) => {
 let clone = 0
 const link = fs.linkSync
 fs.linkSync = (from, to) => {
-  const isClone = from.includes('.orca-recovery-clone-')
+  const isClone = from.includes('.openkodo-recovery-clone-')
   if (isClone) barrier('clone:' + (++clone) + ':before')
   link(from, to)
   if (isClone) barrier('clone:' + clone + ':after')

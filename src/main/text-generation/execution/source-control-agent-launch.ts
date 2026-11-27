@@ -1,5 +1,5 @@
 import { wslDistroForCommand } from '../../../shared/file-access/wsl-paths'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import {
   withCliRuntimeOnPath,
   resolveCliCommand

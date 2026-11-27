@@ -37,7 +37,7 @@ import {
   writeWriteAheadRuntimes
 } from './ephemeral-vm-runtime-write-ahead-store'
 
-const EPHEMERAL_VM_RUNTIMES_FILE = 'orca-ephemeral-vm-runtimes.json'
+const EPHEMERAL_VM_RUNTIMES_FILE = 'openkodo-ephemeral-vm-runtimes.json'
 export const MAX_EPHEMERAL_VM_RUNTIME_STORE_FILE_BYTES = 1024 * 1024
 
 export type EphemeralVmRuntimeStoreErrorCode = 'invalid_argument' | 'runtime_error'

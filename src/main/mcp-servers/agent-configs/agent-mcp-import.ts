@@ -13,8 +13,8 @@ import { agentMcpServerMergeKey } from '../../../shared/mcp/agent-mcp-config-ent
 import { isPathInsideOrEqual } from '../../../shared/file-access/cross-platform-path'
 import { folderWorkspaceKey } from '../../../shared/workspace/identity/workspace-scope'
 import { listClaudeProfileHomesAsync } from '../../claude-accounts/profiles/claude-profile-homes'
-import { getOrcaUserDataPath } from '../../codex/configuration/homes/codex-home-paths'
-import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-paths'
+import { getOpenKodoUserDataPath } from '../../codex/configuration/homes/codex-home-paths'
+import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
 import { claudeGlobalConfigFile, type AgentMcpConfigContext } from './agent-mcp-config-locations'
 import {
   discoverAgentMcpServers,
@@ -59,7 +59,7 @@ export type AgentMcpImportHost = {
   userDataPath: string
   workspaceFor: WorkspaceForPath
   /** Claude projects OpenKodo made itself (bots' sign-in folders), never the user's. */
-  isOrcaProject: (projectPath: string) => boolean
+  isOpenKodoProject: (projectPath: string) => boolean
 }
 
 export function localAgentMcpImportHost(
@@ -70,13 +70,13 @@ export function localAgentMcpImportHost(
     context: { homeDir: homedir(), env: process.env, platform: process.platform },
     userDataPath,
     workspaceFor,
-    isOrcaProject: isOrcaDataProject
+    isOpenKodoProject: isOpenKodoDataProject
   }
 }
 
 // Bots' sign-in folders under OpenKodo's data hold OpenKodo's own mirrors of bot tools.
-function isOrcaDataProject(projectPath: string): boolean {
-  return [getProfileUserDataPath(), getOrcaUserDataPath()].some((root) =>
+function isOpenKodoDataProject(projectPath: string): boolean {
+  return [getProfileUserDataPath(), getOpenKodoUserDataPath()].some((root) =>
     isPathInsideOrEqual(root, projectPath)
   )
 }
@@ -127,7 +127,7 @@ function importRow(found: DiscoveredAgentMcpServer, workspaceFor: WorkspaceForPa
 }
 
 async function importRows(host: AgentMcpImportHost): Promise<ImportRow[]> {
-  const found = await discoverAgentMcpServers(host.context, host.isOrcaProject)
+  const found = await discoverAgentMcpServers(host.context, host.isOpenKodoProject)
   return found.map((server) => importRow(server, host.workspaceFor))
 }
 

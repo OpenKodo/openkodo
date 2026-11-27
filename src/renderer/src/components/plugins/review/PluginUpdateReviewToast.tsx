@@ -12,10 +12,10 @@ import { PluginRowArt } from '../list/PluginRowArt'
 import {
   installUpdates,
   loadUpdate,
-  requiredNewerOrca,
+  requiredNewerOpenKodo,
   type LoadedUpdate
 } from '../state/plugin-update-approval'
-import { useOrcaVersion } from '../state/use-plugin-page-navigation'
+import { useOpenKodoVersion } from '../state/use-plugin-page-navigation'
 import { PluginUpdatePublisher, PluginUpdateVersions } from './PluginUpdateIdentity'
 import { PluginUpdateAdditionList } from './PluginUpdateReview'
 import { pluginUpdateAdditions } from './plugin-update-additions'
@@ -121,7 +121,7 @@ export function PluginUpdateReviewToast({
   onResize: () => void
 }): React.JSX.Element {
   const t = useTranslate()
-  const orcaVersion = useOrcaVersion()
+  const openkodoVersion = useOpenKodoVersion()
   const loaded = useLoadedNotices(notices)
   const [busy, setBusy] = useState(false)
   const [failure, setFailure] = useState<string | null>(null)
@@ -159,7 +159,7 @@ export function PluginUpdateReviewToast({
         loaded.installed.has(pluginKey) &&
         preview.accessGrowth !== undefined &&
         !preview.blockedByKillList &&
-        !requiredNewerOrca(preview, orcaVersion)
+        !requiredNewerOpenKodo(preview, openkodoVersion)
       )
     })
   const update = async (): Promise<void> => {

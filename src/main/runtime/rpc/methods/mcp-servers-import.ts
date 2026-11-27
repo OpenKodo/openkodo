@@ -24,7 +24,7 @@ import {
   setMcpServerWorkspaces
 } from '../../../mcp-servers/mcp-host-list'
 import { McpServersError } from '../../../mcp-servers/mcp-servers-error'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { RpcContext } from '../core'
 
 export { copyAgentMcpServer, listAgentMcpServers, moveAgentMcpServer }
@@ -33,7 +33,9 @@ const isLocal = (executionHostId: string | null | undefined): boolean =>
   executionHostId == null || parseExecutionHostId(executionHostId)?.kind === 'local'
 
 /** This host's repos, their worktrees and folder workspaces: what a Claude project path maps to. */
-export async function agentMcpImportHost(runtime: OrcaRuntimeService): Promise<AgentMcpImportHost> {
+export async function agentMcpImportHost(
+  runtime: OpenKodoRuntimeService
+): Promise<AgentMcpImportHost> {
   const store = runtime.requireStore()
   const repos = store.getRepos().filter(isRepoOnCatalogHost)
   const local = new Set(repos.map((repo) => repo.id))

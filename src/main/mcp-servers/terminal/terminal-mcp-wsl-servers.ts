@@ -1,5 +1,5 @@
 // The host list's servers for an agent in a WSL distro. The guest can't reach Windows loopback, and
-// its `orca` is a bridge to the Windows CLI, so a server that needs OpenKodo goes through that CLI:
+// its `openkodo` is a bridge to the Windows CLI, so a server that needs OpenKodo goes through that CLI:
 // - one through the relay (saved headers, OpenKodo's sign-in, or a shared process) runs as
 //   `openkodo mcp connect`, which bridges its stdio to the relay on Windows;
 // - a command server with saved env runs in the guest, under a wrapper that reads the env from
@@ -45,8 +45,8 @@ export async function settleWslMountRoot(distro: string | null): Promise<void> {
   })
 }
 
-/** The guest path of this OpenKodo's `orca` launcher for `distro`; null when it has none there. */
-export function wslGuestOrcaLauncher(distro: string | null): string | null {
+/** The guest path of this OpenKodo's `openkodo` launcher for `distro`; null when it has none there. */
+export function wslGuestOpenKodoLauncher(distro: string | null): string | null {
   const launcher = managedWslLauncher()
   return launcher ? wslGuestDrivePath(distro, launcher) : null
 }
@@ -54,7 +54,7 @@ export function wslGuestOrcaLauncher(distro: string | null): string | null {
 export type WslServerLaunch = {
   agent: string
   workspaceId: string | null
-  /** The guest launcher (`wslGuestOrcaLauncher`); null leaves out every server that needs OpenKodo. */
+  /** The guest launcher (`wslGuestOpenKodoLauncher`); null leaves out every server that needs OpenKodo. */
   launcher: string | null
 }
 
@@ -82,7 +82,7 @@ export function wslConnectServer(
 }
 
 /** What an agent that starts its servers with a trimmed environment must pass on for the guest's
- *  `orca` to reach Windows: the interop socket, and the distro its bridge names. */
+ *  `openkodo` to reach Windows: the interop socket, and the distro its bridge names. */
 export const WSL_INTEROP_ENV = ['WSL_INTEROP', 'WSL_DISTRO_NAME'] as const
 
 /** The command server in the guest, its saved env read from this OpenKodo by the wrapper. */

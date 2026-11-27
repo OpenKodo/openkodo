@@ -40,7 +40,7 @@ import { maybeAutoRenameWorkspaceOnFirstStructuredTurn } from '../../../agent-ho
 import { firstWorkRenameDeps } from '../../../agent-hooks/first-work/first-work-rename-runtime'
 import { createStructuredChatNamingHandler } from '../../../native-chat/structured-chat-naming'
 import { structuredChatNamingDeps } from '../../agent-session/naming/structured-chat-naming-runtime'
-import { getProfileUserDataPath } from '../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../openkodo-profiles/profile-storage-paths'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
 import { chatWorkerTurnStopReporter } from '../../orchestration/workers/turn-stops/chat-worker-turn-stops'
 import { buildWorktreeListingPage } from '../catalog/worktree-listing-host-scope'
@@ -64,7 +64,7 @@ import { startPRWatchRuntime } from '../../agent-session/lifecycle/pr-watch-runt
 import { workerDockFailureSink } from '../../orchestration/dock/worker-dock-provider-failures'
 import { workerDockSourceOfSession } from '../../orchestration/dock/worker-dock-source'
 
-export abstract class OrcaRuntimeWithGetWorktreePs extends RuntimeChatWorkerEvents {
+export abstract class OpenKodoRuntimeWithGetWorktreePs extends RuntimeChatWorkerEvents {
   protected readonly workerAutoReleaseActivity = new WorkerAutoReleaseActivity(
     () => this._orchestrationDb
   )

@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 import { PeerMailItem } from '../../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 import { ORCHESTRATION_CONTRACT_VERSION } from '../../../../../../shared/orchestration/orchestration-runtime-capabilities'
-import { OrcaRuntimeService } from '../../../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import {
   peerMailRelayEnvironments,
@@ -29,14 +29,14 @@ const Pulled = z.object({
 describe('agents here messaging agents on a paired computer', () => {
   let dir: string
   let db: OrchestrationDb
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let dispatcher: RpcDispatcher
   let count = 0
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'orca-client-asks-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-client-asks-'))
     db = new OrchestrationDb(join(dir, 'server.db'))
-    runtime = new OrcaRuntimeService(null)
+    runtime = new OpenKodoRuntimeService(null)
     vi.spyOn(runtime, 'readMachineName').mockReturnValue('Build Box')
     vi.spyOn(runtime, 'getTerminalHandleForPaneKey').mockReturnValue(null)
     vi.spyOn(runtime, 'getLiveTerminalPaneKey').mockImplementation((handle) =>

@@ -1,5 +1,5 @@
 import { BoundedMap } from '../../../shared/collections/bounded-map'
-import { runsOrcaOrchestrationWait } from '../../../shared/cli/orca-cli-invocations'
+import { runsOpenKodoOrchestrationWait } from '../../../shared/cli/openkodo-cli-invocations'
 import {
   claudeRecord,
   claudeToolUses,
@@ -14,7 +14,7 @@ export class ClaudeAgentWaitCalls {
   observe(message: Record<string, unknown>): void {
     const envelope = readClaudeMessageEnvelope(message)
     for (const tool of envelope ? claudeToolUses(envelope) : []) {
-      if (runsOrcaOrchestrationWait(claudeRecord(tool.input)?.command)) {
+      if (runsOpenKodoOrchestrationWait(claudeRecord(tool.input)?.command)) {
         this.pending.set(tool.id, true)
       }
     }

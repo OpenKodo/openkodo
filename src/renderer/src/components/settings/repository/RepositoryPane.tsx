@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from 'react'
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   RepoHookSettings
-} from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type {
   Project,
   ProjectHostSetup,
@@ -56,7 +56,7 @@ const EMPTY_REMOVAL_SETUPS: ProjectHostSetup[] = []
 
 type RepositoryPaneProps = {
   repo: Repo
-  yamlHooks: OrcaHooks | null
+  yamlHooks: OpenKodoHooks | null
   hasHooksFile: boolean
   hooksInspectionReady: boolean
   mayNeedUpdate: boolean

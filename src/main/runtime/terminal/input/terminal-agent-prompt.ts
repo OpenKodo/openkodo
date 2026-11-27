@@ -30,13 +30,15 @@ import {
   resolveAgentPromptEffectTimeoutMs,
   verifyAgentPromptSubmission
 } from './agent-prompt-submission-verification'
-import { OrcaRuntimeWithAgentPromptWriteGuards } from './terminal-agent-prompt-guards'
-import type { OrcaRuntimeWithCreateAgentPromptRenderGate } from './terminal-agent-prompt-render'
+import { OpenKodoRuntimeWithAgentPromptWriteGuards } from './terminal-agent-prompt-guards'
+import type { OpenKodoRuntimeWithCreateAgentPromptRenderGate } from './terminal-agent-prompt-render'
 
-export abstract class OrcaRuntimeWithWriteTerminalAgentPrompt extends OrcaRuntimeWithAgentPromptWriteGuards {
+export abstract class OpenKodoRuntimeWithWriteTerminalAgentPrompt extends OpenKodoRuntimeWithAgentPromptWriteGuards {
   protected abstract createAgentPromptRenderGate(
-    ...args: Parameters<OrcaRuntimeWithCreateAgentPromptRenderGate['createAgentPromptRenderGate']>
-  ): ReturnType<OrcaRuntimeWithCreateAgentPromptRenderGate['createAgentPromptRenderGate']>
+    ...args: Parameters<
+      OpenKodoRuntimeWithCreateAgentPromptRenderGate['createAgentPromptRenderGate']
+    >
+  ): ReturnType<OpenKodoRuntimeWithCreateAgentPromptRenderGate['createAgentPromptRenderGate']>
 
   protected async writeTerminalAgentPrompt(
     handle: string,

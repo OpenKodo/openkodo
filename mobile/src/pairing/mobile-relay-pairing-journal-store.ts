@@ -12,8 +12,8 @@ import {
   writePairingKeychainItem
 } from '../host-credentials/pairing-keychain'
 
-const JOURNAL_STORAGE_KEY = 'orca:mobile-relay:pairing-journal:v1'
-const JOURNAL_SECRET_KEY = 'orca.mobile-relay.pairing-journal.v1'
+const JOURNAL_STORAGE_KEY = 'openkodo:mobile-relay:pairing-journal:v1'
+const JOURNAL_SECRET_KEY = 'openkodo.mobile-relay.pairing-journal.v1'
 let journalMutation: Promise<void> = Promise.resolve()
 // Protect only attempts still running in this process; new scans may supersede ended or previous-launch recovery journals.
 const inFlightJournalIds = new Set<string>()

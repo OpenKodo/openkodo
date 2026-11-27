@@ -4,12 +4,12 @@ import type {
   EphemeralVmRecipeDoctorCheck,
   EphemeralVmRecipeDoctorResult
 } from './ephemeral-vm-recipes'
-import type { OrcaVmRecipe } from '../../workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../workspace-setup/openkodo-yaml-hook-types'
 
 export function doctorEphemeralVmRecipe(args: {
   repoPath: string
   recipeId: string
-  recipes: readonly OrcaVmRecipe[]
+  recipes: readonly OpenKodoVmRecipe[]
   localExecutionSupported?: boolean
 }): EphemeralVmRecipeDoctorResult {
   const checks: EphemeralVmRecipeDoctorCheck[] = []
@@ -122,7 +122,7 @@ function checkCommandPath(
       id,
       status: 'warn',
       message: `Command is not a repo-relative path: ${executable}`,
-      remediation: 'Use a repo-relative script such as ./scripts/orca-vm/start.sh.'
+      remediation: 'Use a repo-relative script such as ./scripts/openkodo-vm/start.sh.'
     }
   }
   const scriptPath = join(repoPath, normalize(executable))

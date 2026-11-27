@@ -39,7 +39,7 @@ const manifest = pluginManifestSchema.parse({
   version: '2.0.0',
   execution: 'data',
   license: 'MIT',
-  engines: { orca: '>=1.4.248' },
+  engines: { openkodo: '>=1.4.248' },
   capabilities: [],
   contributes: {}
 })

@@ -3,8 +3,8 @@ import type { WorktreeOperationRouteState } from '@/lib/workspace/ownership/work
 import { hostRouteForAuthority, type HostRoute } from '@/runtime/rpc/targets/runtime-client-target'
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 import {
-  getOrcadSshDeployment,
-  type OrcadDeploymentLink
+  getOpenkododSshDeployment,
+  type OpenkododDeploymentLink
 } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import {
   isRuntimeOwnedSshTargetId,
@@ -76,14 +76,14 @@ export function portsPanelReachesRemoteHost(host: PortsPanelHost): boolean {
 /** Managed servers scan their ports, but client forwards still ride the SSH tunnel to their host (#29153). */
 export function portsPanelForwardTargetId(
   host: PortsPanelHost,
-  environments: readonly { id: string; orcadDeployment?: OrcadDeploymentLink }[]
+  environments: readonly { id: string; openkododDeployment?: OpenkododDeploymentLink }[]
 ): string | null {
   if (host.kind !== 'endpoint' || host.target.kind !== 'environment') {
     return null
   }
   const { environmentId } = host.target
   const environment = environments.find((candidate) => candidate.id === environmentId)
-  return (environment && getOrcadSshDeployment(environment)?.sshTargetId) || null
+  return (environment && getOpenkododSshDeployment(environment)?.sshTargetId) || null
 }
 
 /** Any other paired server forwards over the connection OpenKodo already keeps to it. */

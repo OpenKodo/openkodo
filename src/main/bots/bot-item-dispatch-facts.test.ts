@@ -23,7 +23,7 @@ describe('dispatchStarterBotId', () => {
   ] as Bot[]
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: only the dispatch's creator is read.
   const db = {
-    getDispatchContextById: (id: string) => ({ creator_orca_session_id: id.slice(4) })
+    getDispatchContextById: (id: string) => ({ creator_openkodo_session_id: id.slice(4) })
   } as unknown as OrchestrationDb
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: only getRecord's session and home are read.
   const records = {

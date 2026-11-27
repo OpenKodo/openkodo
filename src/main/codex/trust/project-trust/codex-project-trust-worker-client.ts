@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import { WorkerThreadRequestQueue } from '../../../worker-threads/worker-thread-request-queue'
-import { getOrcaUserDataPath } from '../../configuration/homes/codex-home-paths'
+import { getOpenKodoUserDataPath } from '../../configuration/homes/codex-home-paths'
 import { runExclusivelyForCodexTrustConfig } from '../toml/codex-trust-config-mutation-queue'
 import { spawnCodexProjectTrustWorker } from './codex-project-trust-worker-spawn'
 import { getAntigravityTrustLedgerPath } from '../../../agent-launch/trust/antigravity-workspace-trust-ownership'
@@ -57,7 +57,7 @@ function toError(failure: CodexProjectTrustWorkerFailure): Error {
 async function request(
   build: (id: number, ledgerPath: string) => CodexProjectTrustWorkerRequest
 ): Promise<Extract<CodexProjectTrustWorkerResponse, { ok: true }>> {
-  const ledgerPath = join(getOrcaUserDataPath(), LEDGER_FILE_NAME)
+  const ledgerPath = join(getOpenKodoUserDataPath(), LEDGER_FILE_NAME)
   const active = getQueue()
   let response: CodexProjectTrustWorkerResponse
   try {
@@ -121,7 +121,7 @@ export async function grantCodexProjectTrustOffMain(
  * not fail over a config file it cannot read — the record is kept so a later
  * pass retries. Resolves once every touched file has been written.
  */
-export async function removeOrcaCreatedProjectTrustEntries(projectPath: string): Promise<void> {
+export async function removeOpenKodoCreatedProjectTrustEntries(projectPath: string): Promise<void> {
   let configFiles: string[]
   try {
     const listed = await request((id, ledgerPath) => ({
@@ -160,7 +160,7 @@ export async function removeOrcaCreatedProjectTrustEntries(projectPath: string):
  * Removes the Antigravity `trustedWorkspaces` entries OpenKodo created for `workspacePath`, on the
  * worker and inside the queue Antigravity grants use, so neither overwrites the other. Never throws.
  */
-export function removeOrcaCreatedAntigravityTrustOffMain(workspacePath: string): Promise<void> {
+export function removeOpenKodoCreatedAntigravityTrustOffMain(workspacePath: string): Promise<void> {
   const ledgerPath = getAntigravityTrustLedgerPath()
   return runExclusivelyForCodexTrustConfig(ledgerPath, async () => {
     try {

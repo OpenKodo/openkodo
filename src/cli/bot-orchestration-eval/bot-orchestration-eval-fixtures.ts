@@ -19,11 +19,11 @@ function repo(id: string, displayName: string, path = `projects/${displayName}`)
 export const PROJECTS: Repo[] = [
   repo(CLOUD_REPO, 'api'),
   repo('678b455b-03fc-45f3-8220-d8be37445c2f', 'marketing-site'),
-  repo(OPENKODO_REPO, 'orca'),
+  repo(OPENKODO_REPO, 'openkodo'),
   repo(NOQA_REPO, 'noqa'),
   repo('750672a7-fc4b-41bc-9a70-0330384f7ea9', 'review-10162-mobile-ime'),
   repo('943ba66f-22a3-4a58-aab7-523c3839e8d2', 'verify-pr-11387-reproduction'),
-  repo('da7ddbb8-cfe4-4c5e-bbfd-ee90af62e426', 'repo', '/tmp/orca-dev/repo'),
+  repo('da7ddbb8-cfe4-4c5e-bbfd-ee90af62e426', 'repo', '/tmp/openkodo-dev/repo'),
   repo('4c954c74-2914-4908-b7ce-922e9c7a5daf', 'cloud-monorepo-local'),
   repo('8e6175f3-04b1-4e31-999c-5318c25e2ea2', 'bug-consolidation'),
   repo('798c5e6e-42d3-4bf8-a91c-9dd4743ab218', 'repo', '/tmp/rel205-archgate/repo'),
@@ -77,7 +77,7 @@ export function workspace(input: {
 
 export const FLAKY_WORKSPACE = workspace({
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'fix-flaky-scrollback-test',
   state: 'working',
   byBot: true,
@@ -87,7 +87,7 @@ export const FLAKY_WORKSPACE = workspace({
 
 export const STA_123_WORKSPACE = workspace({
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'eng-123-scrollback',
   state: 'working',
   byBot: true,
@@ -104,7 +104,7 @@ export const OWNER_WORKSPACES = [
   FLAKY_WORKSPACE,
   workspace({
     repoId: OPENKODO_REPO,
-    repo: 'orca',
+    repo: 'openkodo',
     name: 'mobile-ota',
     state: 'done',
     prompt: 'make a pr with emulator proof of screenshots of it working',
@@ -112,7 +112,7 @@ export const OWNER_WORKSPACES = [
   }),
   workspace({
     repoId: OPENKODO_REPO,
-    repo: 'orca',
+    repo: 'openkodo',
     name: 'sidebar-perf',
     state: 'blocked',
     agentType: 'codex',
@@ -131,7 +131,7 @@ export const OWNER_WORKSPACES = [
   ...Array.from({ length: 24 }, (_, index) =>
     workspace({
       repoId: OPENKODO_REPO,
-      repo: 'orca',
+      repo: 'openkodo',
       name: `old-task-${index + 1}`,
       state: 'done',
       prompt: `Old task ${index + 1}`,

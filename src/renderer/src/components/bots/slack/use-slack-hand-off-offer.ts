@@ -2,7 +2,7 @@
 // account signed in here, and the workspaces its token is offered for.
 import { isPairedWebClientWindow } from '@/app-shell/chrome/desktop-window-chrome'
 import { useHostBots } from '@/lib/bot-catalog'
-import { useBotHostOrcaAccount } from '@/lib/bot-host-orca-account'
+import { useBotHostOpenKodoAccount } from '@/lib/bot-host-openkodo-account'
 import { useAppStore } from '@/store'
 import { botSlackApps, type Bot } from '../../../../../shared/bot-types'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../../shared/execution-host/execution-host'
@@ -34,10 +34,10 @@ export function slackHandOffTeams(
 export function useSlackHandOffOffer(bot: Bot, step: BotSlackSetupStep): SlackHandOffOffer | null {
   const paired = bot.hostId !== LOCAL_EXECUTION_HOST_ID
   const localBots = useHostBots(LOCAL_EXECUTION_HOST_ID)
-  const hostAccount = useBotHostOrcaAccount(bot.hostId)
+  const hostAccount = useBotHostOpenKodoAccount(bot.hostId)
   const own = useAppStore((state) =>
-    state.orcaProfileAuthStatus?.state === 'connected'
-      ? (state.orcaProfileAuthStatus.cloud?.email ?? null)
+    state.openkodoProfileAuthStatus?.state === 'connected'
+      ? (state.openkodoProfileAuthStatus.cloud?.email ?? null)
       : null
   )
   // Only OpenKodo's own desktop window spends this account's token; a paired web client has no redeem.

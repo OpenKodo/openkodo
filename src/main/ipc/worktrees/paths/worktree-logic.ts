@@ -1,6 +1,6 @@
 import { resolve, relative, isAbsolute, posix, sep, win32 } from 'node:path'
 import type { WorktreePathSettings } from './worktree-path-settings'
-import type { OrcaWorkspaceLayout } from '../../../../shared/worktree/paths/orca-workspace-layout'
+import type { OpenKodoWorkspaceLayout } from '../../../../shared/worktree/paths/openkodo-workspace-layout'
 import type { Repo } from '../../../../shared/repository/repo-types'
 import {
   isWindowsAbsolutePathLike,
@@ -150,7 +150,7 @@ function workspaceRootForMirrorHome(
 ): string {
   // Desktop absolute roots must mirror into WSL; repo-relative roots already resolve inside the distro.
   return wslHome
-    ? win32.join(wslHome, 'orca', 'workspaces')
+    ? win32.join(wslHome, 'openkodo', 'workspaces')
     : resolveWorkspaceDirForRepo(repoPath, workspaceDir)
 }
 
@@ -188,7 +188,7 @@ export function getWorktreePathSettings(
 export function getWorktreeCreationLayout(
   repo: WorktreeBasePathRepo,
   settings: WorktreePathSettings
-): OrcaWorkspaceLayout {
+): OpenKodoWorkspaceLayout {
   return {
     path: getEffectiveWorktreeBasePath(repo, settings),
     nestWorkspaces: settings.nestWorkspaces

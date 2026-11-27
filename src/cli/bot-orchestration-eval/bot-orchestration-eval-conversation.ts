@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 import { mkdir, mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { isAbsolute, join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { BOT_FIRST_RUN_RULES, buildBotPreamble } from '../../main/bots/bot-preamble'
 import { parseClaude, parseCodex } from './bot-orchestration-eval-agent-stream'
 import { isBotCreatedKickoff } from '../../shared/bot-created-kickoff'
@@ -52,10 +52,10 @@ export type EvalRecordedWrite = EvalWrite & {
 
 export type EvalTurnOutcome = {
   reply: string
-  /** argv of every `orca` call. */
+  /** argv of every `openkodo` call. */
   commands: string[][]
   writes: EvalRecordedWrite[]
-  /** Every shell command the agent ran, `orca` or not. */
+  /** Every shell command the agent ran, `openkodo` or not. */
   shell: string[]
   /** Every tool call, by name (`shell` for a command); a native read or MCP call shows here only. */
   tools: string[]
@@ -105,7 +105,7 @@ function turnArgs(
 // A clean checkout of the real project makes a bot's look-around realistic; each thread reads its own
 // clone of it. Without one the projects' folders don't exist and a bot can only hand off or ask.
 const CHECKOUT_SOURCES: Record<string, string | undefined> = {
-  orca: process.env.OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT
+  openkodo: process.env.OPENKODO_BOT_EVAL_OPENKODO_CHECKOUT
 }
 
 const NOT_RUN = { reply: '', commands: [], writes: [], shell: [], tools: [], ownerTools: [] }
@@ -127,7 +127,7 @@ export async function runBotThread(input: {
 }): Promise<EvalThreadOutcome> {
   const botName = input.botName ?? EVAL_BOT.name
   // The automation benchmark's home prefix, so agentSessionFolder accepts it.
-  const home = await realpath(await mkdtemp(join(tmpdir(), 'orca-bot-eval-home-')))
+  const home = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-bot-eval-home-')))
   try {
     await mkdir(evalFolder(home))
     await writeFile(join(home, 'SOUL.md'), input.soul ?? '')

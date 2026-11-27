@@ -1,14 +1,14 @@
-/** WSL hosts whose orcad said it stopped idle (#46567): held down until a user's wake. */
+/** WSL hosts whose openkodod said it stopped idle (#46567): held down until a user's wake. */
 import { clearRuntimeEnvironmentContactLoss } from '../../ipc/runtime-environments/status/runtime-environment-contact-loss'
-import type { WslOrcadConnectionStatus } from '../orcad/wsl-orcad-connection-status'
-import type { WslOrcadConnection } from '../orcad/wsl-orcad-connection-types'
-import { defaultWslOrcadEnvironmentId } from '../orcad/wsl-orcad-environment-id'
+import type { WslOpenkododConnectionStatus } from '../openkodod/wsl-openkodod-connection-status'
+import type { WslOpenkododConnection } from '../openkodod/wsl-openkodod-connection-types'
+import { defaultWslOpenkododEnvironmentId } from '../openkodod/wsl-openkodod-environment-id'
 
-// orcad's shutdown deadline is 15 s; a wake waits this long at most for the old process to go.
-const OLD_ORCAD_EXIT_WAIT_MS = 16_000
+// openkodod's shutdown deadline is 15 s; a wake waits this long at most for the old process to go.
+const OLD_OPENKODOD_EXIT_WAIT_MS = 16_000
 
 type IdleStop = {
-  /** Resolves once liveness saw the stopped orcad exit, so a wake cannot reach the dying one. */
+  /** Resolves once liveness saw the stopped openkodod exit, so a wake cannot reach the dying one. */
   exited: PromiseWithResolvers<void>
   /** The one wake in flight, which every later user call joins. */
   waking: Promise<void> | null
@@ -45,15 +45,15 @@ function clearWslHostIdleStop(environmentId: string): void {
 }
 
 /** Every connect to an idle-stopped host (a wake, Start, a due automation) first lets the old
- *  orcad finish exiting, or it would reach the fenced one. */
-export async function waitForIdleStoppedOrcadExit(environmentId: string): Promise<void> {
+ *  openkodod finish exiting, or it would reach the fenced one. */
+export async function waitForIdleStoppedOpenkododExit(environmentId: string): Promise<void> {
   const stop = idleStopped.get(environmentId)
   if (!stop) {
     return
   }
   let timer: ReturnType<typeof setTimeout> | undefined
   const waited = new Promise<void>((resolve) => {
-    timer = setTimeout(resolve, OLD_ORCAD_EXIT_WAIT_MS)
+    timer = setTimeout(resolve, OLD_OPENKODOD_EXIT_WAIT_MS)
   })
   await Promise.race([stop.exited.promise, waited])
   clearTimeout(timer)
@@ -81,13 +81,13 @@ export function pendingWslHostWake(environmentId: string): Promise<void> | null 
   return idleStopped.get(environmentId)?.waking ?? null
 }
 
-/** Liveness reports: ready ends the hold; idle (or the distro stopping) means the old orcad left. */
+/** Liveness reports: ready ends the hold; idle (or the distro stopping) means the old openkodod left. */
 export function withWslHostIdleStop(
   distro: string,
-  connection: WslOrcadConnection | null,
-  status: WslOrcadConnectionStatus
-): WslOrcadConnectionStatus {
-  const environmentId = connection?.environmentId ?? defaultWslOrcadEnvironmentId(distro)
+  connection: WslOpenkododConnection | null,
+  status: WslOpenkododConnectionStatus
+): WslOpenkododConnectionStatus {
+  const environmentId = connection?.environmentId ?? defaultWslOpenkododEnvironmentId(distro)
   const stop = idleStopped.get(environmentId)
   if (status.state === 'ready') {
     clearWslHostIdleStop(environmentId)

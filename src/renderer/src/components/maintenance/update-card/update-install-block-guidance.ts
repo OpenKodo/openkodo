@@ -38,7 +38,7 @@ export function getUpdateInstallBlockGuidance(
     }
   }
   if (block.instances.length > 0 && block.instances.every(({ kind }) => kind === 'browser')) {
-    // A helper an older orcad runs never pauses for installs; ending it leaves orcad and terminals up.
+    // A helper an older openkodod runs never pauses for installs; ending it leaves openkodod and terminals up.
     return {
       title: t('updates.installBlock.readyTitle', 'Your update is ready'),
       summary: t(

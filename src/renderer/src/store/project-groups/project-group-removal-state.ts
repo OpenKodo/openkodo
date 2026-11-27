@@ -14,11 +14,11 @@ import { getFolderWorkspaceHostId } from '../../../../shared/folder-workspaces/f
 // Why: a group id can exist on several hosts; only the deleted owner's rows may be cascaded away.
 export function applyProjectGroupDeleteCascade(
   state: Pick<RepoSlice, 'projectGroups' | 'folderWorkspaces' | 'repos'> &
-    Partial<Pick<AppState, 'trustedOrcaHooks'>>,
+    Partial<Pick<AppState, 'trustedOpenKodoHooks'>>,
   groupId: string,
   ownerHostId: ExecutionHostId | null
 ): Pick<RepoSlice, 'projectGroups' | 'folderWorkspaces' | 'repos' | 'folderWorkspacePathStatuses'> &
-  Partial<Pick<AppState, 'trustedOrcaHooks'>> {
+  Partial<Pick<AppState, 'trustedOpenKodoHooks'>> {
   const ownsRowHost = (rowHostId: string): boolean =>
     ownerHostId ? catalogOwnsHost(ownerHostId, rowHostId) : true
   const ownerGroups = state.projectGroups.filter((group) =>
@@ -31,10 +31,10 @@ export function applyProjectGroupDeleteCascade(
     state.projectGroups.filter(isDeletedGroup).map(projectGroupHookTrustKey)
   )
   return {
-    ...(state.trustedOrcaHooks
+    ...(state.trustedOpenKodoHooks
       ? {
-          trustedOrcaHooks: Object.fromEntries(
-            Object.entries(state.trustedOrcaHooks).filter(([key]) => !removedTrustKeys.has(key))
+          trustedOpenKodoHooks: Object.fromEntries(
+            Object.entries(state.trustedOpenKodoHooks).filter(([key]) => !removedTrustKeys.has(key))
           )
         }
       : {}),

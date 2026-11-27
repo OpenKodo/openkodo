@@ -40,7 +40,7 @@ export type RuntimeWorktreeAgentRow = {
   /** What `worker-start --terminal` takes for this agent: its terminal handle, or a chat's session address. Old hosts omit it. */
   address?: string
   /** The host's OpenKodo id for this agent's conversation (a chat's /clear root); old hosts omit it. */
-  orcaSessionId?: string
+  openkodoSessionId?: string
   parentPaneKey: string | null
   state: AgentStatusState
   workingMode?: AgentWorkingMode

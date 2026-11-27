@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { secretServiceProcessEnvironment } from '../../../linux-secret-service/session-bus-environment'
 
 // cursor-agent's Secret Service item: service "<domain>-credentials", account "<domain>-user", domain "cursor".

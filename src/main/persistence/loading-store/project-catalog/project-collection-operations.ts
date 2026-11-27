@@ -33,7 +33,7 @@ import {
   removeWorkspaceLineageForRemovedFolder
 } from '../workspace-lineage/metadata-lineage-operations'
 import { bumpLocalWorktreeScanGeneration } from '../../../workspaces/catalog/local-worktree-scan-generation'
-import { dropOrcadTerminalRestoreHintsForWorktrees } from '../../migrating-orcad-catalog/terminal-history/orcad-terminal-restore-hint-store'
+import { dropOpenkododTerminalRestoreHintsForWorktrees } from '../../migrating-openkodod-catalog/terminal-history/openkodod-terminal-restore-hint-store'
 import { folderWorkspaceKey } from '../../../../shared/workspace/identity/workspace-scope'
 import {
   applyWslMoveRetainedMarks,
@@ -48,7 +48,7 @@ type ProjectCollectionOperationsRuntime = Pick<
   | 'projectHostOperations'
   | 'state'
   | 'stateWriteListeners'
-  | 'orcadTerminalRestoreHints'
+  | 'openkododTerminalRestoreHints'
 >
 
 const projectCollectionOperationsContext = Symbol('ProjectCollectionOperations')
@@ -185,8 +185,8 @@ export class ProjectCollectionOperations {
     const removed = getFolderWorkspaceOperations(this).removeFolderWorkspace(id)
     if (removed) {
       const workspaceKey = folderWorkspaceKey(id)
-      dropOrcadTerminalRestoreHintsForWorktrees(
-        this[projectCollectionOperationsContext].runtime.orcadTerminalRestoreHints,
+      dropOpenkododTerminalRestoreHintsForWorktrees(
+        this[projectCollectionOperationsContext].runtime.openkododTerminalRestoreHints,
         (worktreeId) => worktreeId === workspaceKey
       )
     }

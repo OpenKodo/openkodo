@@ -16,7 +16,7 @@ export function getFishXdgDataDir(wrapperRoot: string): string {
 }
 
 export function getFishVendorConfSnippetPath(wrapperRoot: string): string {
-  return `${getFishXdgDataDir(wrapperRoot)}/fish/vendor_conf.d/orca-shell-integration.fish`
+  return `${getFishXdgDataDir(wrapperRoot)}/fish/vendor_conf.d/openkodo-shell-integration.fish`
 }
 
 // No-config flags prevent vendor_conf.d from restoring the handoff environment.
@@ -49,7 +49,7 @@ export function getFishXdgDataDirsLaunchEnv(
 export function getFishVendorConfSnippet(): string {
   return `# OpenKodo-generated. Loaded only because OpenKodo put this directory on
 # XDG_DATA_DIRS for one fish launch; the first thing it does is take it off.
-function __orca_fish_xdg_handoff
+function __openkodo_fish_xdg_handoff
     set -q ${FISH_XDG_DATA_DIRS_PREFIX_ENV}; or return 0
     set -l prefix "$${FISH_XDG_DATA_DIRS_PREFIX_ENV}"
     set -e -g ${FISH_XDG_DATA_DIRS_PREFIX_ENV}
@@ -64,14 +64,14 @@ function __orca_fish_xdg_handoff
 
     status is-interactive; or return 0
 ${FISH_CWD_REPORT_BLOCK}
-    function __orca_define_codex --on-event fish_prompt
-        functions -e __orca_define_codex
+    function __openkodo_define_codex --on-event fish_prompt
+        functions -e __openkodo_define_codex
 ${MANAGED_DATA_ACCOUNT_FISH_RESTORE}
 ${getFishCodexShellLaunchPreflight()}${getFishClaudeShellFunction()}
     end
 end
-__orca_fish_xdg_handoff
-functions -e __orca_fish_xdg_handoff
+__openkodo_fish_xdg_handoff
+functions -e __openkodo_fish_xdg_handoff
 `
 }
 

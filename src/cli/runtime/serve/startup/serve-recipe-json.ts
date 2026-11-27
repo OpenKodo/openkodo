@@ -47,7 +47,7 @@ export function waitForRecipeJson(child: ChildProcess): Promise<number> {
         writeIgnoredRecipeStdout()
         return
       }
-      if (getEphemeralVmRecipeResultConnection(parsed.result).type !== 'orca-server') {
+      if (getEphemeralVmRecipeResultConnection(parsed.result).type !== 'openkodo-server') {
         writeIgnoredRecipeStdout()
         return
       }

@@ -1,4 +1,4 @@
-// The one webhook filter: the cloud runs it on each call, the host on stored calls (orca webhooks check)
+// The one webhook filter: the cloud runs it on each call, the host on stored calls (openkodo webhooks check)
 // and for a run's picked fields. Desktop contract values are mirrored and checked for parity.
 
 export const WEBHOOK_FILTER_LIMITS = {

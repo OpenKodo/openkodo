@@ -1,5 +1,5 @@
 import { IMMEDIATE_KILL_REPLY_BUDGET_MS } from '../../../daemon/sessions/immediate-kill-reply-budget'
-import { OrcaRuntimeWithFocusTerminal } from '../../terminal/focus/focus-terminal'
+import { OpenKodoRuntimeWithFocusTerminal } from '../../terminal/focus/focus-terminal'
 
 import { SSH_PROVIDER_UNREGISTERED_REASON } from '../../../../shared/terminal/pty/lifecycle/pty-liveness-verdict'
 import { errorMessage } from '../../../../shared/errors/error-message'
@@ -27,7 +27,7 @@ function isSuccessor(
   return expected != null && current != null && current !== expected
 }
 
-export abstract class OrcaRuntimeWithExplicitCloseTabPtyStops extends OrcaRuntimeWithFocusTerminal {
+export abstract class OpenKodoRuntimeWithExplicitCloseTabPtyStops extends OpenKodoRuntimeWithFocusTerminal {
   /** Captured before asking the window, so a failed close never stops a successor reusing a PTY id. */
   protected captureOwedPtyStops(ptyIds: Iterable<string>): OwedPtyIncarnations {
     return new Map([...ptyIds].map((ptyId) => [ptyId, this.ptysById.get(ptyId)?.incarnationId]))

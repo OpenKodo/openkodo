@@ -3,7 +3,7 @@ import { unlink } from 'node:fs/promises'
 import { writeEncryptedCredential } from '../../credentials/integration-credential-file'
 import {
   LEGACY_WORKSPACE_ID,
-  ensureOrcaDir,
+  ensureOpenKodoDir,
   ensureWorkspaceTokenDir,
   getWorkspaceTokenPath
 } from './linear-credential-paths'
@@ -31,7 +31,7 @@ import type { SecretAtRestProtection } from '../../../shared/secure-storage/secr
 
 export async function saveWorkspaceToken(workspaceId: string, apiKey: string): Promise<void> {
   return inCredentialFileOrder(`${getWorkspaceTokenPath(workspaceId)}.mutation`, async () => {
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     if (workspaceId !== LEGACY_WORKSPACE_ID) {
       await ensureWorkspaceTokenDir()
     }

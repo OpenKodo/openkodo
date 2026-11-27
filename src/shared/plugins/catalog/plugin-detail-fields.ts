@@ -55,7 +55,7 @@ export const pluginCatalogReleaseDetailFields = {
       pluginFieldDoc(
         "Source repository page, https only. OpenKodo links it when it is a github.com or gitlab.com repository of the plugin's publisher.",
         NEXT,
-        ['https://github.com/acme/orca-gleam-syntax']
+        ['https://github.com/acme/openkodo-gleam-syntax']
       )
     ),
   sourceUnavailable: z

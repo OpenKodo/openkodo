@@ -14,9 +14,9 @@ import type { RemoteRuntimeSharedConnectionDiagnostics } from '../../../shared/r
 import { RUNTIME_ENVIRONMENT_DIAGNOSTICS_CHANNEL } from '../../../shared/remote-runtime/host-catalog/runtime-environment-diagnostics'
 import { RUNTIME_ENVIRONMENT_CATALOG_CHANGED_CHANNEL } from '../../../shared/remote-runtime/host-catalog/runtime-environment-catalog-channel'
 import {
-  WSL_ORCAD_ACCOUNT_NOT_APPLIED_CHANNEL,
-  type WslOrcadAccountNotAppliedEvent
-} from '../../../shared/remote-runtime/wsl-hosts/wsl-orcad-account-notice'
+  WSL_OPENKODOD_ACCOUNT_NOT_APPLIED_CHANNEL,
+  type WslOpenkododAccountNotAppliedEvent
+} from '../../../shared/remote-runtime/wsl-hosts/wsl-openkodod-account-notice'
 import {
   subscribeRuntimeEnvironmentFromPreload,
   subscribeCrewAttemptFromPreload,
@@ -24,7 +24,7 @@ import {
   type RuntimeEnvironmentSubscriptionHandle
 } from '../../runtime/runtime-environment-subscriptions'
 import type { PreloadApi } from '../../api-types'
-import { managedOrcadApi } from './managed-orcad-api'
+import { managedOpenkododApi } from './managed-openkodod-api'
 import { runtimePortForwardsApi } from './runtime-port-forwards-api'
 import { getWslHostsApi } from '../wsl/wsl-hosts-api'
 
@@ -103,14 +103,14 @@ export const runtimeEnvironmentsApi = {
     return () => ipcRenderer.removeListener(RUNTIME_ENVIRONMENT_DIAGNOSTICS_CHANNEL, listener)
   },
   onWslAccountNotApplied: (
-    callback: (event: WslOrcadAccountNotAppliedEvent) => void
+    callback: (event: WslOpenkododAccountNotAppliedEvent) => void
   ): (() => void) => {
     const listener = (
       _event: Electron.IpcRendererEvent,
-      data: WslOrcadAccountNotAppliedEvent
+      data: WslOpenkododAccountNotAppliedEvent
     ): void => callback(data)
-    ipcRenderer.on(WSL_ORCAD_ACCOUNT_NOT_APPLIED_CHANNEL, listener)
-    return () => ipcRenderer.removeListener(WSL_ORCAD_ACCOUNT_NOT_APPLIED_CHANNEL, listener)
+    ipcRenderer.on(WSL_OPENKODOD_ACCOUNT_NOT_APPLIED_CHANNEL, listener)
+    return () => ipcRenderer.removeListener(WSL_OPENKODOD_ACCOUNT_NOT_APPLIED_CHANNEL, listener)
   },
   prepareBrowserClientHostPlacement: (args) =>
     ipcRenderer.invoke('runtimeEnvironments:prepareBrowserClientHostPlacement', args),
@@ -150,7 +150,7 @@ export const runtimeEnvironmentsApi = {
     }
   ): Promise<RuntimeEnvironmentSubscriptionHandle> =>
     subscribeRuntimeEnvironmentFromPreload(ipcRenderer, args, callbacks),
-  managedOrcad: managedOrcadApi,
+  managedOpenkodod: managedOpenkododApi,
   portForwards: runtimePortForwardsApi,
   wslHosts: getWslHostsApi()
 } satisfies PreloadApi['runtimeEnvironments']

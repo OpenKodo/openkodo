@@ -6,7 +6,7 @@ const healthy = { socket_open: 400, refuse_401: 3, refuse_country: 0, keys_unava
 type Row = typeof healthy
 const env: WakeAlertsEnv = {
   ACCOUNT_ID: 'acct',
-  DATASET: 'orca_connector_wake_test',
+  DATASET: 'openkodo_connector_wake_test',
   ENVIRONMENT: 'test',
   AE_READ_TOKEN: 'token',
   ALERT_WEBHOOK_URL: 'https://hook.test/post',
@@ -115,8 +115,8 @@ describe('wake alerts', () => {
   })
 
   it('reads Cloudflare errors for the wake Worker, never the relay edge', async () => {
-    expect((await run({})).graphqlScript).toBe('orca-connector-wake')
-    expect((await run({}, {}, { env: { CF_SCRIPT_NAME: 'orca-connector-wake-staging' } })).graphqlScript).toBe('orca-connector-wake-staging')
+    expect((await run({})).graphqlScript).toBe('openkodo-connector-wake')
+    expect((await run({}, {}, { env: { CF_SCRIPT_NAME: 'openkodo-connector-wake-staging' } })).graphqlScript).toBe('openkodo-connector-wake-staging')
   })
 
   it('fires cloudflare-errors from the GraphQL counts', async () => {

@@ -67,7 +67,7 @@ export function createWorktreeUsageSession(worktreeId: string) {
 
 export function createStoreWithState(state: Partial<CodexUsagePersistedState>): CodexUsageStore {
   writeFileSync(
-    join(activeUserData, 'orca-codex-usage.json'),
+    join(activeUserData, 'openkodo-codex-usage.json'),
     JSON.stringify({
       schemaVersion: 7,
       worktreeFingerprint: null,
@@ -91,7 +91,7 @@ export function setupCodexUsageStoreEnv(): { tempUserData: string } {
   const env = { tempUserData: '' }
 
   beforeEach(() => {
-    env.tempUserData = mkdtempSync(join(tmpdir(), 'orca-codex-usage-store-'))
+    env.tempUserData = mkdtempSync(join(tmpdir(), 'openkodo-codex-usage-store-'))
     activeUserData = env.tempUserData
     vi.mocked(scanCodexUsageFilesViaWorker).mockReset()
     vi.mocked(scanCodexUsageFilesViaWorker).mockResolvedValue(createEmptyScanResult())

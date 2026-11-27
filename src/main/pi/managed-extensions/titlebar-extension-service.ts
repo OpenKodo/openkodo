@@ -21,7 +21,7 @@ import { migrateLegacyOmpOverlayState } from './legacy-omp-overlay-migration'
 import type { PiAgentKind } from '../../../shared/agent-launch/catalog/pi-agent-kind'
 
 const PI_AGENT_SUBDIR = 'agent'
-export const OPENKODO_MANAGED_EXTENSION_MARKER = '@orca-managed-pi-extension'
+export const OPENKODO_MANAGED_EXTENSION_MARKER = '@openkodo-managed-pi-extension'
 const OMP_MANAGED_STATUS_EXTENSION_DIR = 'omp-managed-status-extension'
 
 type ManagedExtensionWriteResult = 'written' | 'skipped-user-owned' | 'failed'
@@ -56,7 +56,7 @@ function toSafeOverlayDirName(ptyId: string): string {
   return createHash('sha256').update(ptyId).digest('hex').slice(0, 32)
 }
 
-export function withOrcaManagedExtensionMarker(source: string): string {
+export function withOpenKodoManagedExtensionMarker(source: string): string {
   return source.includes(OPENKODO_MANAGED_EXTENSION_MARKER)
     ? source
     : `// ${OPENKODO_MANAGED_EXTENSION_MARKER}\n${source}`
@@ -134,15 +134,15 @@ export class PiTitlebarExtensionService {
     if (kind !== 'prime-agent') {
       this.writeManagedExtension(
         join(extensionsDir, OPENKODO_PI_EXTENSION_FILE),
-        withOrcaManagedExtensionMarker(getPiTitlebarExtensionSource(kind))
+        withOpenKodoManagedExtensionMarker(getPiTitlebarExtensionSource(kind))
       )
       this.writeManagedExtension(
         join(extensionsDir, OPENKODO_PI_PREFILL_EXTENSION_FILE),
-        withOrcaManagedExtensionMarker(getPiPrefillExtensionSource(kind))
+        withOpenKodoManagedExtensionMarker(getPiPrefillExtensionSource(kind))
       )
     }
     const statusExtensionPath = join(extensionsDir, OPENKODO_PI_AGENT_STATUS_EXTENSION_FILE)
-    const statusSource = withOrcaManagedExtensionMarker(getPiAgentStatusExtensionSource(kind))
+    const statusSource = withOpenKodoManagedExtensionMarker(getPiAgentStatusExtensionSource(kind))
     const statusResult = this.writeManagedExtension(statusExtensionPath, statusSource)
 
     return {
@@ -186,7 +186,9 @@ export class PiTitlebarExtensionService {
     const materializeDefaultHome = options?.materializeDefaultHome !== false
     if (!materializeDefaultHome && (options?.cliOnPath === false || !existsSync(sourceAgentDir))) {
       if (kind === 'omp') {
-        const statusSource = withOrcaManagedExtensionMarker(getPiAgentStatusExtensionSource(kind))
+        const statusSource = withOpenKodoManagedExtensionMarker(
+          getPiAgentStatusExtensionSource(kind)
+        )
         const statusExtensionPath = this.writeOmpFallbackStatusExtension(statusSource)
         return statusExtensionPath
           ? { ...freshConfigEnv, OPENKODO_OMP_STATUS_EXTENSION: statusExtensionPath }

@@ -8,7 +8,7 @@ const LAUNCHER_PID = BASE_PID + 1
 const SERVER_PID = BASE_PID + 2
 const TAGGED_PID = BASE_PID + 3
 
-vi.mock('@orca/process-host', () => ({
+vi.mock('@openkodo/process-host', () => ({
   runProcess: async () => ({
     code: 0,
     timedOut: false,
@@ -43,7 +43,7 @@ afterEach(() => {
 /** `others` unrelated processes of this user, plus a shared server and one of its chat's commands. */
 async function fileReadsForCloses(others: number, launcher: boolean, closes = 1): Promise<number> {
   host.rows = [
-    ...(launcher ? [{ pid: LAUNCHER_PID, parent: 1, name: 'orca-provider-e', env: '' }] : []),
+    ...(launcher ? [{ pid: LAUNCHER_PID, parent: 1, name: 'openkodo-provider-e', env: '' }] : []),
     { pid: SERVER_PID, parent: launcher ? LAUNCHER_PID : 1, name: 'codex', env: '' },
     { pid: TAGGED_PID, parent: SERVER_PID, name: 'sleep', env: 'OPENKODO_CODEX_SHARED_LEASE=a\0' },
     ...Array.from({ length: others }, (_, index) => ({

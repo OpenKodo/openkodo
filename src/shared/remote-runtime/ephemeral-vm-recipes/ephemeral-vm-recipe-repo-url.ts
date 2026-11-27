@@ -1,8 +1,8 @@
 import { stripCredentialsFromMessage } from '../../git/remotes/git-remote-error'
-import type { OrcaVmRecipe } from '../../workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../workspace-setup/openkodo-yaml-hook-types'
 
 export function getProvisionedRootRecipeRepoUrl(
-  checkoutMode: OrcaVmRecipe['checkoutMode'],
+  checkoutMode: OpenKodoVmRecipe['checkoutMode'],
   remoteUrl: string | undefined
 ): string | undefined {
   if (checkoutMode !== 'provisioned-root' || !remoteUrl) {

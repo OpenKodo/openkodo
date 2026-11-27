@@ -12,7 +12,7 @@ export function logProviderChildExit(
   child: Pick<StructuredAgentSessionProviderChild, 'generation' | 'close'>,
   end: {
     expected: boolean
-    exit: Pick<StructuredAgentSessionChildExit, 'reason' | 'closedByOrca'>
+    exit: Pick<StructuredAgentSessionChildExit, 'reason' | 'closedByOpenKodo'>
     failure: SubmissionRejectionFact | undefined
     duringStartup: boolean
   }
@@ -24,8 +24,8 @@ export function logProviderChildExit(
     generation: child.generation,
     // A close OpenKodo made after its own failure still reads as unexpected to the turn.
     endedBy:
-      end.expected || close || end.exit.closedByOrca || end.failure?.kind === 'hostFault'
-        ? 'orca'
+      end.expected || close || end.exit.closedByOpenKodo || end.failure?.kind === 'hostFault'
+        ? 'openkodo'
         : 'agent',
     // The reason can carry the agent's stderr tail; the console line is not redacted downstream.
     reason: redactString(end.exit.reason),

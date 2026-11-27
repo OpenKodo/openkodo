@@ -17,7 +17,7 @@ import type {
 import type { ExecutionHostRegistryEntry } from '../../../../../../shared/execution-host/execution-host-registry-entry'
 
 import { getExecutionHostHealthLabel } from '@/runtime/hosts/display/runtime-host-copy'
-import { pickerExecutionHosts } from '../../../../../../shared/execution-host/managed-orcad-execution-host'
+import { pickerExecutionHosts } from '../../../../../../shared/execution-host/managed-openkodod-execution-host'
 import { getCheckedHostRows } from '../../../../../../shared/workspace-view/workspace-host-visibility'
 import type { RuntimeCompatVerdict } from '../../../../../../shared/remote-runtime/protocol/protocol-compat'
 import type {
@@ -87,7 +87,7 @@ export function buildSidebarHostOptions(
     runtimeStatusByEnvironmentId?: ReadonlyMap<string, RuntimeEnvironmentStatus>
     runtimeEnvironments?: readonly Pick<
       PublicKnownRuntimeEnvironment,
-      'id' | 'name' | 'source' | 'orcadDeployment'
+      'id' | 'name' | 'source' | 'openkododDeployment'
     >[]
     // Apply display-label overrides consistently across sidebar host controls.
     hostLabelOverrides?: ReadonlyMap<ExecutionHostId, string>
@@ -115,7 +115,7 @@ export function buildSidebarHostOptions(
     if (isWslHostRuntimeEnvironment(environment)) {
       wslDistroByHostId.set(toRuntimeExecutionHostId(environment.id), {
         environmentId: environment.id,
-        distro: environment.orcadDeployment.distro
+        distro: environment.openkododDeployment.distro
       })
     }
   }

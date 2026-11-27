@@ -8,8 +8,8 @@ import {
 import { classifyRemotePairingHostname } from '../pairing/remote-pairing-address'
 import { RuntimeEnvironmentReconciliationRecordSchema } from './runtime-environment-reconciliation-record'
 import {
-  OrcadWslDeploymentLinkSchema,
-  type OrcadWslDeploymentLink
+  OpenkododWslDeploymentLinkSchema,
+  type OpenkododWslDeploymentLink
 } from './wsl-host-deployment-link'
 import type { WslHostServerStop } from '../wsl-hosts/wsl-host-types'
 
@@ -42,24 +42,24 @@ export const RuntimeSshTunnelLinkSchema = z.object({
 export type RuntimeSshTunnelLink = z.infer<typeof RuntimeSshTunnelLinkSchema>
 
 /** A server OpenKodo deployed and owns over SSH; unlike sshAccess, it grants lifecycle ownership. */
-export const OrcadSshDeploymentLinkSchema = RuntimeSshTunnelLinkSchema.extend({
+export const OpenkododSshDeploymentLinkSchema = RuntimeSshTunnelLinkSchema.extend({
   // Absent on disk: the sidecar persists SSH links without it, so older builds read them unchanged.
   kind: z.literal('ssh').optional()
 })
-export type OrcadSshDeploymentLink = z.infer<typeof OrcadSshDeploymentLinkSchema>
+export type OpenkododSshDeploymentLink = z.infer<typeof OpenkododSshDeploymentLinkSchema>
 
 /** A server OpenKodo deployed and owns; the WSL kind is persisted only in wsl-host-deployment-store. */
-export const OrcadDeploymentLinkSchema = z.union([
-  OrcadSshDeploymentLinkSchema,
-  OrcadWslDeploymentLinkSchema
+export const OpenkododDeploymentLinkSchema = z.union([
+  OpenkododSshDeploymentLinkSchema,
+  OpenkododWslDeploymentLinkSchema
 ])
-export type OrcadDeploymentLink = z.infer<typeof OrcadDeploymentLinkSchema>
+export type OpenkododDeploymentLink = z.infer<typeof OpenkododDeploymentLinkSchema>
 
 /** The managed deployment OpenKodo owns over SSH; undefined for none or a WSL one. */
-export function getOrcadSshDeployment(environment: {
-  orcadDeployment?: OrcadDeploymentLink | null
-}): OrcadSshDeploymentLink | undefined {
-  const deployment = environment.orcadDeployment
+export function getOpenkododSshDeployment(environment: {
+  openkododDeployment?: OpenkododDeploymentLink | null
+}): OpenkododSshDeploymentLink | undefined {
+  const deployment = environment.openkododDeployment
   return deployment && deployment.kind !== 'wsl' ? deployment : undefined
 }
 
@@ -82,7 +82,7 @@ export const RuntimeSshAccessOperationSchema = RuntimeSshTunnelLinkSchema.omit({
 
 export type RuntimeSshAccessOperation = z.infer<typeof RuntimeSshAccessOperationSchema>
 
-/** The fields shipped builds read and rewrite in orca-environments.json. */
+/** The fields shipped builds read and rewrite in openkodo-environments.json. */
 export const PersistedRuntimeEnvironmentSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
@@ -100,18 +100,18 @@ export const PersistedRuntimeEnvironmentSchema = z.object({
 
 export type PersistedRuntimeEnvironment = z.infer<typeof PersistedRuntimeEnvironmentSchema>
 
-/** Overlay sidecar-only state; never persist these fields in orca-environments.json, which shipped builds strip on rewrite. */
+/** Overlay sidecar-only state; never persist these fields in openkodo-environments.json, which shipped builds strip on rewrite. */
 export const KnownRuntimeEnvironmentSchema = PersistedRuntimeEnvironmentSchema.extend({
   sshAccess: RuntimeSshAccessLinkSchema.optional(),
   pendingSshAccessOperation: RuntimeSshAccessOperationSchema.optional(),
-  orcadDeployment: OrcadDeploymentLinkSchema.optional(),
+  openkododDeployment: OpenkododDeploymentLinkSchema.optional(),
   /** When a migration into this managed server began committing; older snapshots predate it. */
-  orcadMigratedAt: z.string().datetime().optional(),
+  openkododMigratedAt: z.string().datetime().optional(),
   reconciliation: RuntimeEnvironmentReconciliationRecordSchema.optional()
 })
   .refine(
-    ({ pendingSshAccessOperation, sshAccess, orcadDeployment, connectionDependency }) =>
-      !pendingSshAccessOperation || (!sshAccess && !orcadDeployment && !connectionDependency),
+    ({ pendingSshAccessOperation, sshAccess, openkododDeployment, connectionDependency }) =>
+      !pendingSshAccessOperation || (!sshAccess && !openkododDeployment && !connectionDependency),
     {
       message: 'Pending SSH access operations cannot coexist with active SSH access.',
       path: ['pendingSshAccessOperation']
@@ -139,7 +139,7 @@ export const KnownRuntimeEnvironmentSchema = PersistedRuntimeEnvironmentSchema.e
   )
   .refine(
     (environment) => {
-      const deployment = environment.orcadDeployment
+      const deployment = environment.openkododDeployment
       // Keep WSL dependency in its own file: older environment schemas reject new connectionDependency values.
       const dependency = deployment?.kind === 'wsl' ? undefined : 'ssh-tunnel'
       return (
@@ -152,7 +152,7 @@ export const KnownRuntimeEnvironmentSchema = PersistedRuntimeEnvironmentSchema.e
     {
       message:
         'A managed deployment must prefer its own tunnel and exclude independent SSH access.',
-      path: ['orcadDeployment']
+      path: ['openkododDeployment']
     }
   )
 
@@ -238,18 +238,18 @@ export function isUserManagedRuntimeEnvironment(
 
 /** Only the user re-pairs these, with an access link; OpenKodo pairs managed and cloud servers itself. */
 export function isRepairableWithAccessLink(
-  environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>
+  environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'openkododDeployment'>
 ): boolean {
-  return !environment.orcadDeployment && isUserManagedRuntimeEnvironment(environment)
+  return !environment.openkododDeployment && isUserManagedRuntimeEnvironment(environment)
 }
 
 /** Who pairs a server that refused this desktop: the user with a link, OpenKodo over SSH, or OpenKodo on Connect. */
 export type RuntimePairingRepairRoute = 'access-link' | 'ssh' | 'connect'
 
 export function runtimePairingRepairRoute(
-  environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>
+  environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'openkododDeployment'>
 ): RuntimePairingRepairRoute {
-  if (getOrcadSshDeployment(environment)) {
+  if (getOpenkododSshDeployment(environment)) {
     return 'ssh'
   }
   return isRepairableWithAccessLink(environment) ? 'access-link' : 'connect'
@@ -257,9 +257,9 @@ export function runtimePairingRepairRoute(
 
 /** A WSL distro added as a host; keyed by its deployment record's kind, never by its name. */
 export function isWslHostRuntimeEnvironment<
-  T extends { orcadDeployment?: OrcadDeploymentLink | null }
->(environment: T): environment is T & { orcadDeployment: OrcadWslDeploymentLink } {
-  return environment.orcadDeployment?.kind === 'wsl'
+  T extends { openkododDeployment?: OpenkododDeploymentLink | null }
+>(environment: T): environment is T & { openkododDeployment: OpenkododWslDeploymentLink } {
+  return environment.openkododDeployment?.kind === 'wsl'
 }
 
 /**
@@ -267,7 +267,7 @@ export function isWslHostRuntimeEnvironment<
  * neither a recipe VM nor a WSL host, which each have their own place.
  */
 export function isListedRemoteServer(
-  environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'orcadDeployment'>
+  environment: Pick<PublicKnownRuntimeEnvironment, 'source' | 'openkododDeployment'>
 ): boolean {
   return isUserManagedRuntimeEnvironment(environment) && !isWslHostRuntimeEnvironment(environment)
 }
@@ -310,11 +310,11 @@ export function getPreferredPairingOffer(environment: PreferredEndpointSource): 
   }
 }
 
-/** The SSH tunnel a server is reached through; only orcadDeployment also grants lifecycle ownership. */
+/** The SSH tunnel a server is reached through; only openkododDeployment also grants lifecycle ownership. */
 export function getRuntimeSshAccess(
-  environment: Pick<KnownRuntimeEnvironment, 'orcadDeployment' | 'sshAccess'>
+  environment: Pick<KnownRuntimeEnvironment, 'openkododDeployment' | 'sshAccess'>
 ): RuntimeSshTunnelLink | undefined {
-  return getOrcadSshDeployment(environment) ?? environment.sshAccess
+  return getOpenkododSshDeployment(environment) ?? environment.sshAccess
 }
 
 export function getPreferredLoopbackRuntimePort(environment: {

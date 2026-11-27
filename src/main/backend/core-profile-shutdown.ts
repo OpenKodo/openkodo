@@ -1,6 +1,6 @@
 import type { Store } from '../persistence/loading-store/store'
 import { beginProfileShutdownCheckpoint } from '../persistence/profile-shutdown-checkpoint'
-import { flushOrcadProfileStoreForShutdown } from '../orcad/host-lifecycle/orcad-lifecycle'
+import { flushOpenkododProfileStoreForShutdown } from '../openkodod/host-lifecycle/openkodod-lifecycle'
 
 /** Capture acquired profile resources even when activation fails before runtime construction. */
 export class BackendCoreProfileShutdown {
@@ -22,7 +22,7 @@ export class BackendCoreProfileShutdown {
     // Saved while the daemon is still connected; its disconnect runs after this cleanup.
     const [, flushed] = await Promise.allSettled([
       this.paintLedger?.saveReattachedPaintLedger(),
-      this.store ? flushOrcadProfileStoreForShutdown(this.store, this.paneGrids) : undefined
+      this.store ? flushOpenkododProfileStoreForShutdown(this.store, this.paneGrids) : undefined
     ])
     if (flushed.status === 'rejected') {
       throw flushed.reason

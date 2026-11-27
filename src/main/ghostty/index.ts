@@ -12,7 +12,7 @@ import {
 } from '../terminal-config-import/preview'
 import { findGhosttyConfigPaths } from './discovery'
 import { parseGhosttyConfig } from './parser'
-import { mapGhosttyToOrca } from './mapper'
+import { mapGhosttyToOpenKodo } from './mapper'
 import { importGhosttyTheme } from './theme-mapping'
 
 type GhosttyConfig = Record<string, string | string[]>
@@ -102,7 +102,7 @@ const GHOSTTY_IMPORTER: TerminalConfigImporter<GhosttyConfig> = {
   },
   map: async (config, { currentSettings, pickedConfigDir }): Promise<TerminalConfigMapping> => {
     const { theme: rawTheme, ...configKeys } = config
-    const mapped = mapGhosttyToOrca(configKeys, platform() === 'darwin')
+    const mapped = mapGhosttyToOpenKodo(configKeys, platform() === 'darwin')
     const theme = await themeReferencePatch(rawTheme, mapped.diff, pickedConfigDir, currentSettings)
     return {
       diff: { ...mapped.diff, ...theme.diff },

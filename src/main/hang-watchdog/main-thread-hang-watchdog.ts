@@ -68,7 +68,7 @@ export function installMainThreadHangWatchdog(options: {
   let worker: Worker
   try {
     worker = spawnWorkerThread(workerPath, {
-      name: 'orca-main-thread-hang-watchdog',
+      name: 'openkodo-main-thread-hang-watchdog',
       workerData
     })
   } catch (error) {

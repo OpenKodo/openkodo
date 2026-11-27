@@ -1,4 +1,4 @@
-import { EmptyState, List, ListItem } from 'orca'
+import { EmptyState, List, ListItem } from 'openkodo'
 import { toggle, type Todo } from './todos'
 
 export function TodoList({ items }: { items: Todo[] }) {

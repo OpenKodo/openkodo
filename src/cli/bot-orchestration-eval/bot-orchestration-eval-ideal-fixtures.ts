@@ -31,7 +31,7 @@ export const EXPORT_DONE = workerDone(
 
 const EXPORT_WORKSPACE = workspace({
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'fix-flaky-export-test',
   state: 'done',
   byBot: true,
@@ -75,7 +75,7 @@ export const FINISHED_EXPORT_WORLD: World = {
 
 const EMPTY_STATE_WORKSPACE = workspace({
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'eng-9201-empty-state',
   state: 'working',
   byBot: true,

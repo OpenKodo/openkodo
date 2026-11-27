@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { OrchestrationDb } from '../db/orchestration-db'
 import { workerDockSession } from './worker-dock-source'
 import {
@@ -54,7 +54,7 @@ export function workerDockActivityRevision(db: OrchestrationDb): number {
 }
 
 type ActivityRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'readAgentStatusOfPanes'
   | 'readObservedAgentStatusPaneIdentityFn'
   | 'getAgentStatusTerminalHandleForPaneKey'
@@ -92,7 +92,7 @@ function paneSignature(rows: readonly AgentStatusIpcPayload[], now: number): str
 export function workerDockActivitySource(
   db: OrchestrationDb,
   party: string,
-  runtime: ActivityRuntime & Pick<OrcaRuntimeService, 'subscribeAgentStatusRowChanges'>
+  runtime: ActivityRuntime & Pick<OpenKodoRuntimeService, 'subscribeAgentStatusRowChanges'>
 ): { refresh: () => number | null; subscribe: (wake: () => void) => () => void } {
   const panes = new Set<string>()
   const seen = new Map<string, string>()

@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test'
-import { test } from '../../desktop/electron-fixtures/orca-app'
+import { test } from '../../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import {
   ensureTerminalVisible,
@@ -177,26 +177,26 @@ async function expectLandingAndTabOrder(page: Page, groupId: string, landing: st
 
 for (const how of ['Save', 'Cancel', 'Escape'] as const) {
   test(`Add Quick Command from a narrow split pane's ⋯ returns focus to ⋯ after ${how}`, async ({
-    orcaPage
+    openkodoPage
   }) => {
-    const groupId = await seedOwnerPane(orcaPage)
-    await narrowOwnerPane(orcaPage, groupId)
-    await openAddFromPaneActions(orcaPage, groupId)
-    await closeAddDialog(orcaPage, how)
-    await expectLandingAndTabOrder(orcaPage, groupId, 'owner-pane-actions')
+    const groupId = await seedOwnerPane(openkodoPage)
+    await narrowOwnerPane(openkodoPage, groupId)
+    await openAddFromPaneActions(openkodoPage, groupId)
+    await closeAddDialog(openkodoPage, how)
+    await expectLandingAndTabOrder(openkodoPage, groupId, 'owner-pane-actions')
   })
 
   test(`Add Quick Command in a split pane that widens under the draft returns focus after ${how}`, async ({
-    orcaPage
+    openkodoPage
   }) => {
-    const groupId = await seedOwnerPane(orcaPage)
-    await narrowOwnerPane(orcaPage, groupId)
-    await openAddFromPaneActions(orcaPage, groupId)
-    await widenOwnerPane(orcaPage, groupId)
-    await expect(addDialog(orcaPage).getByPlaceholder('Start dev server')).toHaveValue(
+    const groupId = await seedOwnerPane(openkodoPage)
+    await narrowOwnerPane(openkodoPage, groupId)
+    await openAddFromPaneActions(openkodoPage, groupId)
+    await widenOwnerPane(openkodoPage, groupId)
+    await expect(addDialog(openkodoPage).getByPlaceholder('Start dev server')).toHaveValue(
       'Lint the repo'
     )
-    await closeAddDialog(orcaPage, how)
-    await expectLandingAndTabOrder(orcaPage, groupId, 'owner-pane-actions')
+    await closeAddDialog(openkodoPage, how)
+    await expectLandingAndTabOrder(openkodoPage, groupId, 'owner-pane-actions')
   })
 }

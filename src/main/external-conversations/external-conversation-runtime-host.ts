@@ -1,11 +1,11 @@
 // The runtime's own chats, bots and workers, as the conversation seam reaches them.
 import { runtimeBotConversations } from '../bots/bot-conversations'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { readConnectorWorkerActivity } from '../runtime/rpc/methods/orchestration/worker/connector-worker-activity'
 import { runtimeChatHost } from './external-conversation-chat'
 import type { ExternalConversationHost } from './external-conversation-host'
 
-export function runtimeConversationHost(runtime: OrcaRuntimeService): ExternalConversationHost {
+export function runtimeConversationHost(runtime: OpenKodoRuntimeService): ExternalConversationHost {
   return {
     chat: runtimeChatHost(runtime),
     bots: runtimeBotConversations(runtime),

@@ -1,10 +1,10 @@
 import type {
-  OrcaVmRecipe,
-  OrcaVmRecipeLifecycleMode,
-  OrcaVmRecipeTimeoutSeconds
-} from '../../workspace-setup/orca-yaml-hook-types'
+  OpenKodoVmRecipe,
+  OpenKodoVmRecipeLifecycleMode,
+  OpenKodoVmRecipeTimeoutSeconds
+} from '../../workspace-setup/openkodo-yaml-hook-types'
 
-const LIFECYCLE_MODES: readonly OrcaVmRecipeLifecycleMode[] = [
+const LIFECYCLE_MODES: readonly OpenKodoVmRecipeLifecycleMode[] = [
   'create',
   'suspend',
   'resume',
@@ -18,8 +18,8 @@ const LIFECYCLE_MODES: readonly OrcaVmRecipeLifecycleMode[] = [
 export const MAX_EPHEMERAL_VM_RECIPE_TIMEOUT_SECONDS = 24 * 60 * 60
 
 export function getEphemeralVmRecipeTimeoutSeconds(
-  recipe: Pick<OrcaVmRecipe, 'timeoutSeconds'>,
-  mode: OrcaVmRecipeLifecycleMode
+  recipe: Pick<OpenKodoVmRecipe, 'timeoutSeconds'>,
+  mode: OpenKodoVmRecipeLifecycleMode
 ): number | undefined {
   return recipe.timeoutSeconds?.[mode]
 }
@@ -28,8 +28,8 @@ export function getEphemeralVmRecipeTimeoutSeconds(
  * share, so the snapshot never carries timeoutSeconds or passEnv; lifecycle calls re-read them
  * from the repo's openkodo.yaml instead (see getRuntimeRecipeContext). */
 export function toEphemeralVmRuntimeRecipeSnapshot(
-  recipe: OrcaVmRecipe
-): Omit<OrcaVmRecipe, 'timeoutSeconds' | 'passEnv'> {
+  recipe: OpenKodoVmRecipe
+): Omit<OpenKodoVmRecipe, 'timeoutSeconds' | 'passEnv'> {
   const { timeoutSeconds: _timeoutSeconds, passEnv: _passEnv, ...snapshot } = recipe
   return snapshot
 }
@@ -48,7 +48,7 @@ export function formatEphemeralVmRecipeTimeout(seconds: number): string {
 }
 
 export type EphemeralVmRecipeTimeoutParse =
-  | { ok: true; timeoutSeconds?: OrcaVmRecipeTimeoutSeconds }
+  | { ok: true; timeoutSeconds?: OpenKodoVmRecipeTimeoutSeconds }
   | { ok: false; message: string }
 
 /** Accepts one number for every mode, or a map keyed by create/suspend/resume/destroy. */
@@ -73,7 +73,7 @@ export function parseEphemeralVmRecipeTimeoutSeconds(
       message: 'timeoutSeconds must be a number or a map of create/suspend/resume/destroy.'
     }
   }
-  const timeoutSeconds: OrcaVmRecipeTimeoutSeconds = {}
+  const timeoutSeconds: OpenKodoVmRecipeTimeoutSeconds = {}
   for (const [key, seconds] of Object.entries(value)) {
     if (!isLifecycleMode(key)) {
       return {
@@ -89,7 +89,7 @@ export function parseEphemeralVmRecipeTimeoutSeconds(
   return Object.keys(timeoutSeconds).length > 0 ? { ok: true, timeoutSeconds } : { ok: true }
 }
 
-function isLifecycleMode(value: string): value is OrcaVmRecipeLifecycleMode {
+function isLifecycleMode(value: string): value is OpenKodoVmRecipeLifecycleMode {
   return LIFECYCLE_MODES.some((mode) => mode === value)
 }
 

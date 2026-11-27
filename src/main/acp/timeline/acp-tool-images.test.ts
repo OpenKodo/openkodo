@@ -29,7 +29,7 @@ let stateDirectory: string
 let store: AgentSessionAttachmentStore
 
 beforeEach(async () => {
-  stateDirectory = await mkdtemp(join(tmpdir(), 'orca-acp-tool-images-'))
+  stateDirectory = await mkdtemp(join(tmpdir(), 'openkodo-acp-tool-images-'))
   store = new AgentSessionAttachmentStore(agentSessionAttachmentStoreRoot(stateDirectory), {
     hasSession: () => true
   })

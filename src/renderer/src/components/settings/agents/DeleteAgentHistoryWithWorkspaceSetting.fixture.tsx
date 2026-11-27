@@ -1,4 +1,4 @@
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { defineFixture } from '../../../component-fixtures/component-fixture'
 import { useAppStore } from '@/store'
 import { SettingsGroup } from '../section-layout/SettingsGroup'

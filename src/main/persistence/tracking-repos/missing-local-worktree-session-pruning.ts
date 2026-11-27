@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
 import { worktreeWorkspaceKey } from '../../../shared/workspace/identity/workspace-scope'
 import { getRepoIdFromWorktreeId } from '../../../shared/worktree/id'
@@ -11,7 +11,7 @@ import {
   createWorktreeOwnerCandidateCollector,
   getPersistedWorktreeOwnerId
 } from '../restoring-sessions/session-worktree-ownership'
-import { sessionFieldsRemovedWithWorkspace } from '../../orca-profiles/project-transfer/profile-project-session-field-disposition'
+import { sessionFieldsRemovedWithWorkspace } from '../../openkodo-profiles/project-transfer/profile-project-session-field-disposition'
 
 const OWNER_KEYED_FIELDS = [
   'tabsByWorktree',

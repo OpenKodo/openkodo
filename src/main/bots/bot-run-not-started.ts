@@ -1,10 +1,10 @@
 // A bot run whose prompt no chat took: its Couldn't start card goes in the chat it was meant for, else
 // the bot's Chat, so the owner sees why there and can send it again.
 import type { Bot } from '../../shared/bot-types'
-import type { AgentJournalAutomationRunNotStartedItem } from '../../shared/agent-journal-orca-card-items'
+import type { AgentJournalAutomationRunNotStartedItem } from '../../shared/agent-journal-openkodo-card-items'
 import type { BotRunChat } from '../automations/bot-automation-launch'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
-import { appendOrcaChatCard } from '../runtime/orca-chat-card'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
+import { appendOpenKodoChatCard } from '../runtime/openkodo-chat-card'
 import { botChatTakingMail } from '../runtime/rpc/methods/bots-chats'
 import { requireStructuredHost, type botChatSessions } from './bot-chat-session'
 
@@ -45,7 +45,7 @@ export async function showBotRunNotStarted(
 }
 
 export function runtimeBotRunNotStarted(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   chats: BotRunNotStartedDependencies['chats']
 ): BotRunNotStartedDependencies {
   return {
@@ -55,6 +55,6 @@ export function runtimeBotRunNotStarted(
     sessionExists: async (sessionId) =>
       Boolean((await requireStructuredHost(runtime)).deps.store.getConversation(sessionId)),
     append: (sessionId, card) =>
-      appendOrcaChatCard(sessionId, card, "showing a run that couldn't start")
+      appendOpenKodoChatCard(sessionId, card, "showing a run that couldn't start")
   }
 }

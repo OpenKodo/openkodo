@@ -26,9 +26,9 @@ import { runtimeBrowserCommandsFactoryIsAvailable } from '../installation/runtim
 import { hasPairedPageHost } from './browser-client-page-opening'
 import { resolveRemoteCliBrowserScopeSelector } from '../../desktop-browser-bridge/remote-cli-browser-scope'
 import type { RpcContext } from '../../rpc/core'
-import { OrcaRuntimeWithTransitionGraphReloadToTerminalState } from '../../session-graph/session-graph-authority'
+import { OpenKodoRuntimeWithTransitionGraphReloadToTerminalState } from '../../session-graph/session-graph-authority'
 
-export abstract class OrcaRuntimeWithBrowserWorkspaceRouting extends OrcaRuntimeWithTransitionGraphReloadToTerminalState {
+export abstract class OpenKodoRuntimeWithBrowserWorkspaceRouting extends OpenKodoRuntimeWithTransitionGraphReloadToTerminalState {
   async actOnClientPageInitialization(
     params: z.infer<typeof BrowserPageInitializationActionParams>
   ): Promise<void> {
@@ -98,7 +98,7 @@ export abstract class OrcaRuntimeWithBrowserWorkspaceRouting extends OrcaRuntime
     })
   }
 
-  /** On orcad, sends this host's CLI browser commands to the desktop that opted in to serve them. */
+  /** On openkodod, sends this host's CLI browser commands to the desktop that opted in to serve them. */
   routeDesktopBrowserBridgeRpc(
     method: string,
     params: unknown,

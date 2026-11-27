@@ -27,7 +27,7 @@ import { useIntlLocale, useTranslate } from '@/i18n/use-translate'
 const RANGE_OPTIONS: ClaudeUsageRange[] = ['7d', '30d', '90d', 'all']
 const SCOPE_OPTIONS: { value: ClaudeUsageScope; label: string }[] = [
   {
-    value: 'orca',
+    value: 'openkodo',
     get label() {
       return translate(
         'auto.components.stats.ClaudeUsagePane.4f8368c272',

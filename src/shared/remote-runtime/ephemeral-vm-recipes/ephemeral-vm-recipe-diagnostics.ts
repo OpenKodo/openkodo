@@ -17,7 +17,7 @@ export function getEphemeralVmRecipeResultWarnings(
   result: EphemeralVmRecipeResult
 ): EphemeralVmRecipeResultWarning[] {
   const connection = getEphemeralVmRecipeResultConnection(result)
-  if (connection.type !== 'orca-server') {
+  if (connection.type !== 'openkodo-server') {
     return []
   }
   const pairing = parsePairingCode(connection.pairingCode)
@@ -54,7 +54,7 @@ export function redactEphemeralVmRecipeResultForDiagnostics(
 }
 
 function redactConnection(connection: EphemeralVmRecipeConnection): EphemeralVmRecipeConnection {
-  if (connection.type === 'orca-server') {
+  if (connection.type === 'openkodo-server') {
     return { ...connection, pairingCode: 'openkodo://pair?code=[redacted]' }
   }
   return {

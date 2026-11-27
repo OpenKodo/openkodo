@@ -181,7 +181,7 @@ async function writeEndpoint(distro, path, endpoint) {
       '/bin/sh',
       '-c',
       'umask 077; mkdir -p "$(dirname "$1")"; cat > "$1"',
-      'orca-wsl-benchmark',
+      'openkodo-wsl-benchmark',
       path
     ]),
     { input: contents }
@@ -271,7 +271,7 @@ async function main() {
     { allowFailure: true }
   )
   if (nodeVersion.status !== 0 || Number(nodeVersion.stdout.trim().split('.')[0]) < 18) {
-    throw new Error(`WSL distro '${distro}' needs Node.js 18 or newer to run Orca's relay`)
+    throw new Error(`WSL distro '${distro}' needs Node.js 18 or newer to run OpenKodo's relay`)
   }
 
   const bundleDir = join(process.cwd(), 'out', 'relay', 'wsl')
@@ -295,7 +295,7 @@ async function main() {
   let manager = null
   let staller = null
   try {
-    userDataDir = mkdtempSync(join(tmpdir(), 'orca-wsl-relay-bench-'))
+    userDataDir = mkdtempSync(join(tmpdir(), 'openkodo-wsl-relay-bench-'))
     process.env.OPENKODO_USER_DATA_PATH = userDataDir
     const jiti = createJiti(import.meta.url, {
       alias: {
@@ -349,11 +349,13 @@ async function main() {
       await run('wsl.exe', wslArgs(distro, ['/bin/sh', '-c', 'printf %s "$HOME"']))
     ).stdout.trim()
     const instanceKey = `bench-${process.pid}-${Date.now().toString(36)}`
-    const benchmarkRoot = `${guestHome}/.orca-wsl/benchmarks/${instanceKey}`
-    const scriptPath = `${benchmarkRoot}/.orca/agent-hooks/codex-hook.sh`
-    const endpointPath = `${guestHome}/.orca-wsl/agent-hooks/instance-${instanceKey}/endpoint.env`
-    cleanupPaths = [benchmarkRoot, `${guestHome}/.orca-wsl/agent-hooks/instance-${instanceKey}`]
-    if (cleanupPaths.some((cleanupPath) => !cleanupPath.startsWith(`${guestHome}/.orca-wsl/`))) {
+    const benchmarkRoot = `${guestHome}/.openkodo-wsl/benchmarks/${instanceKey}`
+    const scriptPath = `${benchmarkRoot}/.openkodo/agent-hooks/codex-hook.sh`
+    const endpointPath = `${guestHome}/.openkodo-wsl/agent-hooks/instance-${instanceKey}/endpoint.env`
+    cleanupPaths = [benchmarkRoot, `${guestHome}/.openkodo-wsl/agent-hooks/instance-${instanceKey}`]
+    if (
+      cleanupPaths.some((cleanupPath) => !cleanupPath.startsWith(`${guestHome}/.openkodo-wsl/`))
+    ) {
       throw new Error('Refusing to use an unexpected guest cleanup path')
     }
     const disabledTuiAgents = MANAGED_AGENT_HOOK_TARGETS.filter(
@@ -385,7 +387,7 @@ async function main() {
     if (typeof ptyController?.spawn !== 'function') {
       throw new Error('registerPtyHandlers did not install a runtime PTY controller')
     }
-    const survivingSessionId = `orca-wsl-relay-bench-${instanceKey}`
+    const survivingSessionId = `openkodo-wsl-relay-bench-${instanceKey}`
     const spawnSurvivingPty = () =>
       ptyController.spawn({
         cols: TERMINAL_COLS,

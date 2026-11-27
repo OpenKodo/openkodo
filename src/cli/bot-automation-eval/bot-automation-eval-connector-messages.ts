@@ -3,7 +3,7 @@
 import type { EvalHostState } from './bot-automation-eval-host'
 import type { PlaceView } from './bot-automation-eval-connector-places'
 import { slackChannelAt } from './bot-automation-eval-slack'
-import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
+import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-openkodo'
 
 // A worker's pull request reads as its head commit and checks.
 function pullAt(state: EvalHostState, text: string): { author: string; text: string }[] {

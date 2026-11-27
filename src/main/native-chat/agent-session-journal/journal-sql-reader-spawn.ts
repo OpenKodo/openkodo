@@ -13,14 +13,14 @@ export type JournalSqlReaderSpawner = (
 
 const spawnJournalSqlReaderThread: JournalSqlReaderSpawner = (workerPath, workerData, inProcess) =>
   spawnWorkerThread(workerPath, {
-    name: 'orca-journal-sql-reader',
+    name: 'openkodo-journal-sql-reader',
     workerData: { ...workerData, ...inProcess },
     execArgv: []
   })
 
 let spawner = spawnJournalSqlReaderThread
 
-/** Electron main hosts readers in a utility process; orcad and tests keep them as threads. */
+/** Electron main hosts readers in a utility process; openkodod and tests keep them as threads. */
 export function setJournalSqlReaderSpawner(next: JournalSqlReaderSpawner): void {
   spawner = next
 }

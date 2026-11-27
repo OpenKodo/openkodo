@@ -91,7 +91,7 @@ export function isWslHostsServing(env: Readonly<Record<string, string | undefine
 }
 
 // Preload has no disk access, so main stamps the promoted state into the window's argv at birth.
-const SERVE_ONLY_ARGUMENT = '--orca-wsl-hosts-serve-only'
+const SERVE_ONLY_ARGUMENT = '--openkodo-wsl-hosts-serve-only'
 
 export function formatWslHostsServeOnlyArgument(): string {
   return SERVE_ONLY_ARGUMENT
@@ -102,7 +102,7 @@ export function hasWslHostsServeOnlyArgument(argv: readonly string[]): boolean {
 }
 
 // The remote policy closed an internal gate the launch environment opened.
-const POLICY_BLOCKED_ARGUMENT = '--orca-wsl-hosts-policy-blocked'
+const POLICY_BLOCKED_ARGUMENT = '--openkodo-wsl-hosts-policy-blocked'
 
 export function formatWslHostsPolicyBlockedArgument(): string {
   return POLICY_BLOCKED_ARGUMENT

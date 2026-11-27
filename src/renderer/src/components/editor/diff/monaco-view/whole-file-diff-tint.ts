@@ -7,10 +7,10 @@ export function wholeFileDiffTintClass(
   modifiedContent: string
 ): string | undefined {
   if (originalContent.length === 0 && modifiedContent.length > 0) {
-    return 'orca-diff-whole-file-added'
+    return 'openkodo-diff-whole-file-added'
   }
   if (modifiedContent.length === 0 && originalContent.length > 0) {
-    return 'orca-diff-whole-file-deleted'
+    return 'openkodo-diff-whole-file-deleted'
   }
   return undefined
 }

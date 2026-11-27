@@ -1,12 +1,12 @@
-import { spawnProcess } from '@orca/process-host'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { spawnProcess } from '@openkodo/process-host'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { delimiter, join } from 'node:path'
 import type { CommandHandler, HandlerContext } from '../dispatch/dispatch'
 import { printResult } from '../output/command-result-output'
 import { RuntimeClientError } from '../runtime/connection/types'
-import { stripElectronRunAsNode } from '../runtime/orca-app-executable'
+import { stripElectronRunAsNode } from '../runtime/openkodo-app-executable'
 import { rejectRemoteSelectionFlags } from '../dispatch/remote-selection-flag-rejection'
 import {
   buildWslExecArgs,
@@ -191,7 +191,7 @@ async function addClaudeAccount({ client, cwd, json }: HandlerContext): Promise<
 }
 
 async function addCodexAccount({ client, cwd, json }: HandlerContext): Promise<void> {
-  const codexHome = mkdtempSync(join(tmpdir(), 'orca-account-add-codex-'))
+  const codexHome = mkdtempSync(join(tmpdir(), 'openkodo-account-add-codex-'))
   const session: InteractiveLoginSession = {
     child: null,
     registering: false,

@@ -7,9 +7,9 @@ import { installWorkerSendLedger } from '../../../worker-threads/worker-send-led
 import {
   grantCodexProjectTrust,
   listCodexProjectTrustOwnedConfigs,
-  removeOrcaCreatedProjectTrust
+  removeOpenKodoCreatedProjectTrust
 } from './codex-project-trust-transaction'
-import { removeOrcaCreatedAntigravityTrust } from '../../../agent-launch/trust/antigravity-workspace-trust-removal'
+import { removeOpenKodoCreatedAntigravityTrust } from '../../../agent-launch/trust/antigravity-workspace-trust-removal'
 import type {
   CodexProjectTrustWorkerRequest,
   CodexProjectTrustWorkerResponse
@@ -35,10 +35,14 @@ export function handleCodexProjectTrustRequest(
           configFiles: listCodexProjectTrustOwnedConfigs(request.projectPath, request.ledgerPath)
         }
       case 'removeOwned':
-        removeOrcaCreatedProjectTrust(request.configPath, request.projectPath, request.ledgerPath)
+        removeOpenKodoCreatedProjectTrust(
+          request.configPath,
+          request.projectPath,
+          request.ledgerPath
+        )
         return { id: request.id, ok: true }
       case 'removeAntigravityOwned':
-        removeOrcaCreatedAntigravityTrust(request.ledgerPath, request.workspacePath)
+        removeOpenKodoCreatedAntigravityTrust(request.ledgerPath, request.workspacePath)
         return { id: request.id, ok: true }
     }
   } catch (error) {
@@ -49,7 +53,7 @@ export function handleCodexProjectTrustRequest(
 // Imported without a parent port only by its test fixture.
 const port = parentPort
 if (port) {
-  installWorkerSendLedger('orca-codex-project-trust')
+  installWorkerSendLedger('openkodo-codex-project-trust')
   adoptMainResourcesPath()
   port.on('message', async (request: CodexProjectTrustWorkerRequest) => {
     port.postMessage(await handleCodexProjectTrustRequest(request))

@@ -1,5 +1,5 @@
 import { defineMethod } from '../../core'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   agentCommandOverrideDetectionOptions,
   type InstalledAgentDetectionOptions
@@ -25,7 +25,7 @@ import {
 
 /** This host's command overrides, so a configured CLI outside PATH is listed like a detected one. */
 export function hostDetectionOptions(
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): InstalledAgentDetectionOptions | undefined {
   try {
     return agentCommandOverrideDetectionOptions(

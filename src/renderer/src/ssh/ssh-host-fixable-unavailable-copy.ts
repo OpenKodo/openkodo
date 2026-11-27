@@ -1,4 +1,4 @@
-// Mirror main's host-fixable OrcadHostUnavailableReason values; each names what to change on the host.
+// Mirror main's host-fixable OpenkododHostUnavailableReason values; each names what to change on the host.
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 

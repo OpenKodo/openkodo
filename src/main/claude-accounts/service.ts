@@ -116,7 +116,7 @@ export class ClaudeAccountService {
     return this.cancelPendingClaudeLogin?.() ?? false
   }
 
-  /** The desktop supplies an opener; orcad leaves this unset. */
+  /** The desktop supplies an opener; openkodod leaves this unset. */
   setWslSignInLinkOpener(opener: ((signInLink: string) => void) | null): void {
     this.openWslSignInLink = opener
   }

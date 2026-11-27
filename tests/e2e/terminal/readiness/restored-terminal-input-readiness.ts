@@ -31,10 +31,10 @@ export async function waitForRestoredTerminalInputReady(
               continue
             }
             const container = pane.container as HTMLElement & {
-              __orcaE2eTerminalInputReadinessInstanceId?: string
+              __openkodoE2eTerminalInputReadinessInstanceId?: string
             }
-            container.__orcaE2eTerminalInputReadinessInstanceId ??= crypto.randomUUID()
-            const paneInstanceId = container.__orcaE2eTerminalInputReadinessInstanceId
+            container.__openkodoE2eTerminalInputReadinessInstanceId ??= crypto.randomUUID()
+            const paneInstanceId = container.__openkodoE2eTerminalInputReadinessInstanceId
             const output = pane.serializeAddon?.serialize?.() ?? ''
             if (
               pendingAttempts.some(

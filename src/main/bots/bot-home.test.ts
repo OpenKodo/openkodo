@@ -39,7 +39,7 @@ describe('bot home', () => {
   let root: string
 
   beforeEach(async () => {
-    root = await mkdtemp(join(tmpdir(), 'orca-bot-home-'))
+    root = await mkdtemp(join(tmpdir(), 'openkodo-bot-home-'))
   })
 
   afterEach(async () => {
@@ -133,7 +133,7 @@ describe('bot folder names', () => {
     expect(folder).toBe('a'.repeat(39))
   })
 
-  it.each(['OpenKodo', 'orca-dev'])('keeps the %s profile on ~/.openkodo/bots', (profile) => {
+  it.each(['OpenKodo', 'openkodo-dev'])('keeps the %s profile on ~/.openkodo/bots', (profile) => {
     const appData = join('home', 'me', 'Library', 'Application Support')
     const home = join('home', 'me')
     expect(botsRootFolder({ userData: join(appData, profile), appData, home })).toBe(
@@ -142,8 +142,8 @@ describe('bot folder names', () => {
   })
 
   it.each([
-    ['orcad under XDG_DATA_HOME', join('home', 'me', '.local', 'share', 'OpenKodo')],
-    ['a shared-home server', join('home', 'me', '.orca-0a1b2c3d')]
+    ['openkodod under XDG_DATA_HOME', join('home', 'me', '.local', 'share', 'OpenKodo')],
+    ['a shared-home server', join('home', 'me', '.openkodo-0a1b2c3d')]
   ])('keeps %s on ~/.openkodo/bots', (_label, userData) => {
     const paths = {
       userData,
@@ -154,7 +154,7 @@ describe('bot folder names', () => {
     expect(botsRootFolder(paths)).toBe(join('home', 'me', '.openkodo', 'bots'))
   })
 
-  it('keeps an isolated data folder out of ~/.orca', () => {
+  it('keeps an isolated data folder out of ~/.openkodo', () => {
     const paths = {
       userData: join('tmp', 'review617', 'profile'),
       appData: join('home', 'me', 'Library', 'Application Support'),

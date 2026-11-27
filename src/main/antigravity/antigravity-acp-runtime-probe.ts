@@ -36,7 +36,7 @@ async function initializeFromDisposableFolder(
   signal: AbortSignal | undefined,
   check: InitializeCheck | undefined
 ): Promise<InitializeOutcome> {
-  const folder = await mkdtemp(join(tmpdir(), 'orca-antigravity-probe-'))
+  const folder = await mkdtemp(join(tmpdir(), 'openkodo-antigravity-probe-'))
   let connection: AcpAgentConnection | undefined
   const outcome: InitializeOutcome = { initialized: null, failed: false, failure: null }
   try {

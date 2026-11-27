@@ -3,7 +3,7 @@ import {
   worktreeWorkspaceKey
 } from '../../../shared/workspace/identity/workspace-scope'
 import type { FolderWorkspace } from '../../../shared/folder-workspaces/folder-workspace-types'
-import type { OrcaRuntimeWithResolveBrowserNetworkExecutionHostForWorktree } from '../terminal/launch/terminal-workspace-scope'
+import type { OpenKodoRuntimeWithResolveBrowserNetworkExecutionHostForWorktree } from '../terminal/launch/terminal-workspace-scope'
 import type { RuntimeWorktreeListResult } from '../../../shared/worktree/catalog/runtime-worktree-contracts'
 import type { DetectedWorktreeListResult, Worktree } from '../../../shared/worktree/types'
 import type { Repo } from '../../../shared/repository/repo-types'
@@ -19,7 +19,7 @@ import { launchTargetGitSelector } from './catalog/launch-target-git-selector'
 import { RuntimeWorkspacePortOperations } from './ports/runtime-workspace-port-operations'
 import { resolveKeyedFolderWorkspaceSelection } from './catalog/workspace-selector-candidates'
 const DEFAULT_WORKTREE_LIST_LIMIT = 200
-export abstract class OrcaRuntimeWithListManagedWorktrees extends RuntimeWorkspacePortOperations {
+export abstract class OpenKodoRuntimeWithListManagedWorktrees extends RuntimeWorkspacePortOperations {
   protected abstract resolveFolderWorkspaceSelector(
     selector: string,
     requiredHostId?: ExecutionHostId
@@ -27,10 +27,10 @@ export abstract class OrcaRuntimeWithListManagedWorktrees extends RuntimeWorkspa
 
   protected abstract resolveTerminalWorkspaceLaunchTarget(
     ...args: Parameters<
-      OrcaRuntimeWithResolveBrowserNetworkExecutionHostForWorktree['resolveTerminalWorkspaceLaunchTarget']
+      OpenKodoRuntimeWithResolveBrowserNetworkExecutionHostForWorktree['resolveTerminalWorkspaceLaunchTarget']
     >
   ): ReturnType<
-    OrcaRuntimeWithResolveBrowserNetworkExecutionHostForWorktree['resolveTerminalWorkspaceLaunchTarget']
+    OpenKodoRuntimeWithResolveBrowserNetworkExecutionHostForWorktree['resolveTerminalWorkspaceLaunchTarget']
   >
 
   listManagedWorktrees(

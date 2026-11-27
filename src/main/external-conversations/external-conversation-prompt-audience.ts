@@ -14,21 +14,21 @@ import { isConversationReport } from './external-conversation-turn-opener'
  * 'conversation' only when the turn's opening message is this conversation's own delivery, as it was
  * stamped when delivered; for a bot's thread chat, also mail finishing its ask. Anything else (mail
  * from another bot or an item, a turn typed in OpenKodo, a message from before the stamp, a delivery from
- * the conversation the bot's Chat answered before it was linked here) is 'orca', the most restrictive.
+ * the conversation the bot's Chat answered before it was linked here) is 'openkodo', the most restrictive.
  */
 export function promptRaisedBy(
   link: Pick<ExternalConversationLink, 'source' | 'externalId' | 'bot'>,
   opener: AgentJournalRenderItem | null
-): 'conversation' | 'orca' {
+): 'conversation' | 'openkodo' {
   const body = opener?.body
   if (body?.kind !== 'message') {
-    return 'orca'
+    return 'openkodo'
   }
   const from = body.connectorConversation
   if (from && from.source === link.source && from.externalId === link.externalId) {
     return 'conversation'
   }
-  return link.bot?.kind === 'bot' && isConversationReport(body) ? 'conversation' : 'orca'
+  return link.bot?.kind === 'bot' && isConversationReport(body) ? 'conversation' : 'openkodo'
 }
 
 /** Who woke the turn: the first sender of the mail that opened it, by name. */
@@ -50,7 +50,7 @@ export function promptAudience(
   opener: AgentJournalRenderItem | null
 ): ConnectorPromptAudience {
   const raisedBy = promptRaisedBy(link, opener)
-  const woken = raisedBy === 'orca' ? wokenBy(opener) : undefined
+  const woken = raisedBy === 'openkodo' ? wokenBy(opener) : undefined
   const open = fitsId(link.sessionId)
     ? {
         sessionId: link.sessionId,

@@ -39,11 +39,11 @@
 1 src/main/native-chat/agent-session-wire/recovery/structured-agent-session-usage-limit-continue.ts
 1 src/main/native-chat/agent-session-wire/termination/structured-agent-session-idle-sweep.ts
 1 src/main/notifications/desktop-presence-reporter.ts
-1 src/main/orca-profiles/orca-server-sign-in.ts
-1 src/main/orcad/browser-providers/orcad-browser-install-park.ts
-1 src/main/orcad/diagnostics/orcad-event-loop-watchdog.ts
-1 src/main/orcad/instance-lock/orcad-lock-clone-machine.ts
-1 src/main/orcad/host-lifecycle/managed-stop/orcad-stop-request-listener.ts
+1 src/main/openkodo-profiles/openkodo-server-sign-in.ts
+1 src/main/openkodod/browser-providers/openkodod-browser-install-park.ts
+1 src/main/openkodod/diagnostics/openkodod-event-loop-watchdog.ts
+1 src/main/openkodod/instance-lock/openkodod-lock-clone-machine.ts
+1 src/main/openkodod/host-lifecycle/managed-stop/openkodod-stop-request-listener.ts
 1 src/main/plugins/catalog/plugin-auto-updater.ts
 1 src/main/plugins/catalog/plugin-kill-list-service.ts
 1 src/main/plugins/installation/plugin-git-repository.ts
@@ -71,7 +71,7 @@
 1 src/main/startup/main-window/synthetic-title-runtime.ts
 1 src/main/telemetry/wsl-usage-reporter.ts
 1 src/main/webhooks/webhook-recovery-sweep.ts
-1 src/main/wsl/orcad/wsl-orcad-connect-stop-fence.ts
+1 src/main/wsl/openkodod/wsl-openkodod-connect-stop-fence.ts
 1 src/renderer/src/app-shell/storage/use-app-session-persistence.ts
 1 src/renderer/src/components/bots/google/google-account-readiness.ts
 1 src/renderer/src/components/bots/use-bot-tidy-up.ts

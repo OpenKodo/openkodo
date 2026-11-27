@@ -3,7 +3,7 @@ import type {
   AgentJournalRenderItem,
   AgentJournalSubmission
 } from '../../../../../../src/shared/agent-session/journal/agent-session-journal-types'
-import { latestNativeChatOrcaStopCut } from '../../../../../../src/shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import { latestNativeChatOpenKodoStopCut } from '../../../../../../src/shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import {
   failNativeChatInterruptedContinue,
   nativeChatInterruptedContinueState,
@@ -50,7 +50,10 @@ export function useMobileStructuredInterruptedContinue(
   const relayed = useRouteRelaysCapability(
     AGENT_SESSION_PHONE_CONTINUE_INTERRUPTED_RUNTIME_CAPABILITY
   )
-  const cut = useMemo(() => latestNativeChatOrcaStopCut(items, submissions), [items, submissions])
+  const cut = useMemo(
+    () => latestNativeChatOpenKodoStopCut(items, submissions),
+    [items, submissions]
+  )
   const { continueAvailable, offeredTurnItemId, failed } = nativeChatInterruptedContinueState({
     capability: !input.hostSupport
       ? 'unknown'

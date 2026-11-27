@@ -1,7 +1,7 @@
 import { isAbsolute, join } from 'node:path'
 import { defineMethod, defineStreamingMethod, type RpcContext } from '../../core'
 import { rpcCallerOperationKey } from '../../callers/rpc-caller-identity'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   AntigravityAccountMutationParams,
   AntigravityAccountTargetParams,
@@ -12,7 +12,7 @@ import {
 } from '../../../../../shared/rpc-contract/accounts/antigravity-accounts-params'
 import { AntigravityChatAuthConfigSchema } from '../../../../../shared/agent-accounts/antigravity/antigravity-chat-auth-config'
 import { getAntigravityAccountService } from '../../../../antigravity/native-account-host'
-import { antigravityAgyOrcaAccountHome } from '../../../../antigravity/antigravity-agy-orca-home'
+import { antigravityAgyOpenKodoAccountHome } from '../../../../antigravity/antigravity-agy-openkodo-home'
 import { ANTIGRAVITY_CHAT_HOME_FOLDER } from '../../../../antigravity/antigravity-chat-home'
 import { agentModelCatalogFingerprint } from '../../../../native-chat/agent-model-catalog/agent-model-catalog-fingerprint'
 import { agentModelCatalogStore } from '../../../../native-chat/agent-model-catalog/agent-model-catalog-store'
@@ -57,7 +57,7 @@ import {
 import { detectAntigravityChatAuth } from '../../../../antigravity/antigravity-chat-auth-detect'
 import { acpHostBackendInput } from '../../../../acp/launch/acp-launch-command'
 import { ANTIGRAVITY_LAUNCH_SPEC } from '../../../../antigravity/antigravity-acp-launch-spec'
-import { getProfileUserDataPath } from '../../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../../openkodo-profiles/profile-storage-paths'
 import type { AntigravityChatSignInHost } from '../../../../antigravity/antigravity-chat-sign-in'
 
 const stopLiveChats = () => stopStructuredAgentChats('antigravity', 'Antigravity')
@@ -68,13 +68,13 @@ const restartLiveChats = (): Promise<void> =>
     console.warn('[antigravity] chats kept the previous key:', error)
   )
 
-const chatLaunchEnv = (runtime: OrcaRuntimeService) => () =>
+const chatLaunchEnv = (runtime: OpenKodoRuntimeService) => () =>
   resolveHostStructuredAgentLaunchEnvironment('antigravity', runtime.requireStore().getSettings())
 
-const apiKeyStatus = (runtime: OrcaRuntimeService) =>
+const apiKeyStatus = (runtime: OpenKodoRuntimeService) =>
   readAntigravityChatApiKeyStatus(chatLaunchEnv(runtime))
 
-function detectChatAuth(runtime: OrcaRuntimeService) {
+function detectChatAuth(runtime: OpenKodoRuntimeService) {
   // One environment read serves the key check and the ADC lookup. It serves the shell capture
   // chats launch from, refreshed in the background at most every 10s; it waits only for the
   // first capture after a start, so a GEMINI_API_KEY exported by the profile is seen.
@@ -90,10 +90,10 @@ function detectChatAuth(runtime: OrcaRuntimeService) {
   })
 }
 
-function antigravityOrcaHomeCatalogFingerprints(): string[] {
+function antigravityOpenKodoHomeCatalogFingerprints(): string[] {
   const data = getProfileUserDataPath()
   return [
-    antigravityAgyOrcaAccountHome(data),
+    antigravityAgyOpenKodoAccountHome(data),
     { variable: 'GEMINI_HOME', path: join(data, ANTIGRAVITY_CHAT_HOME_FOLDER) }
   ].map((accountHome) =>
     agentModelCatalogFingerprint({ agent: 'antigravity', accountHome, wslDistro: null })
@@ -102,11 +102,14 @@ function antigravityOrcaHomeCatalogFingerprints(): string[] {
 
 /** What agy's own login served: the model lists taken with it, the chats running on it, and the
  *  checks that vouched for it. The catalog of the HOME chats launch with goes once that is known. */
-function forgetAgyLogin(runtime: OrcaRuntimeService): void {
+function forgetAgyLogin(runtime: OpenKodoRuntimeService): void {
   noteAgyLoginChanged()
   const launchHome = sharedAgyLaunchHome(runtime)
   // OpenKodo's homes list with agy's Google login too (Enterprise, the retired server's chats).
-  const own = [...antigravityHostCatalogFingerprints(), ...antigravityOrcaHomeCatalogFingerprints()]
+  const own = [
+    ...antigravityHostCatalogFingerprints(),
+    ...antigravityOpenKodoHomeCatalogFingerprints()
+  ]
   agentModelCatalogStore.forgetSeenRows(own)
   // A listing started after the change, such as a Refresh, is already the new login's.
   const before = agentModelCatalogStore.runningListings()
@@ -121,7 +124,7 @@ function forgetAgyLogin(runtime: OrcaRuntimeService): void {
 }
 
 /** Signs agy in where chats on agy's own home run it, with their environment. */
-const agySignInHost = (runtime: OrcaRuntimeService): AntigravityChatSignInHost => ({
+const agySignInHost = (runtime: OpenKodoRuntimeService): AntigravityChatSignInHost => ({
   agy: async () => {
     const settings = runtime.requireStore().getSettings()
     const shellEnv = await resolveHostStructuredAgentLaunchEnvironment('antigravity', settings)

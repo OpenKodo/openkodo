@@ -1,5 +1,5 @@
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 import { PUSH_TOKEN_INDEX_CHARS } from '../database/push-schema.js'
 
 // Matches the push_devices_token prefix index, then the whole token.

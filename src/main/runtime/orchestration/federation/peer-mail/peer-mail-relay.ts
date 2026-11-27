@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   PeerMailItem,
   PeerMailRelayPayload
@@ -56,7 +56,7 @@ export class PeerMailRelay {
   private unwatch: (() => void) | null = null
 
   constructor(
-    private readonly runtime: OrcaRuntimeService,
+    private readonly runtime: OpenKodoRuntimeService,
     private readonly transport: () => OrchestrationEnvironmentTransport | null
   ) {}
 

@@ -1,7 +1,7 @@
 import { defineMethod } from '../../core'
 import {
   DECLARE_OPENKODO_ACCOUNT_METHOD,
-  DeclareOrcaAccountParamsSchema
+  DeclareOpenKodoAccountParamsSchema
 } from '../../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
 import {
   pairedCreatorInstanceOfTerminal,
@@ -12,11 +12,11 @@ import {
   DelegatedMobileDeviceSyncParamsSchema
 } from '../../../../../shared/remote-runtime/pairing/delegated-mobile-device-contract'
 import {
-  ORCAD_DECLARE_CLIENT_METHOD,
-  ORCAD_PEER_DESKTOPS_METHOD,
-  OrcadDeclareClientParamsSchema,
-  OrcadPeerDesktopsParamsSchema
-} from '../../../../../shared/remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
+  OPENKODOD_DECLARE_CLIENT_METHOD,
+  OPENKODOD_PEER_DESKTOPS_METHOD,
+  OpenkododDeclareClientParamsSchema,
+  OpenkododPeerDesktopsParamsSchema
+} from '../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-peer-desktops-contract'
 import { RegisterDeviceKeyParamsSchema } from '../../../../../shared/remote-runtime/pairing/device-key-registration-contract'
 import { REGISTER_DEVICE_KEY_METHOD } from '../../../../../shared/remote-runtime/pairing/device-key-capability'
 import { EXCHANGE_PAIRING_TICKET_METHOD } from '../../../../../shared/remote-runtime/pairing/ticket-exchange-capability'
@@ -84,9 +84,9 @@ export const PAIRING_METHODS = [
   defineMethod({
     name: DECLARE_OPENKODO_ACCOUNT_METHOD,
     permission: 'device-self',
-    params: DeclareOrcaAccountParamsSchema,
+    params: DeclareOpenKodoAccountParamsSchema,
     handler: (params, ctx) => {
-      ctx.deviceSelf?.declareOrcaAccount(params.account, params.clientInstanceId)
+      ctx.deviceSelf?.declareOpenKodoAccount(params.account, params.clientInstanceId)
       return {}
     }
   }),
@@ -102,10 +102,10 @@ export const PAIRING_METHODS = [
     }
   }),
   defineMethod({
-    name: ORCAD_PEER_DESKTOPS_METHOD,
+    name: OPENKODOD_PEER_DESKTOPS_METHOD,
     // Paired desktops lack pairing-admin; they learn only other desktops' names, never credentials.
     permission: 'workspace',
-    params: OrcadPeerDesktopsParamsSchema,
+    params: OpenkododPeerDesktopsParamsSchema,
     handler: (params, ctx) => {
       if (!ctx.peerDesktops) {
         throw new Error('runtime_device_required')
@@ -114,9 +114,9 @@ export const PAIRING_METHODS = [
     }
   }),
   defineMethod({
-    name: ORCAD_DECLARE_CLIENT_METHOD,
+    name: OPENKODOD_DECLARE_CLIENT_METHOD,
     permission: 'workspace',
-    params: OrcadDeclareClientParamsSchema,
+    params: OpenkododDeclareClientParamsSchema,
     handler: (params, ctx) => {
       if (!ctx.peerDesktops) {
         throw new Error('runtime_device_required')

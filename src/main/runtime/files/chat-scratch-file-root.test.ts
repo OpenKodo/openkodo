@@ -29,7 +29,7 @@ function storeWithFloatingCwd(cwd: string, trusted: string[]): RuntimeStore {
 
 beforeEach(async () => {
   invalidateAuthorizedRootsCache()
-  base = await realpath(await mkdtemp(join(tmpdir(), 'orca-runtime-floating-root-')))
+  base = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-runtime-floating-root-')))
   home = join(base, 'home')
   project = join(base, 'project')
   await mkdir(home)

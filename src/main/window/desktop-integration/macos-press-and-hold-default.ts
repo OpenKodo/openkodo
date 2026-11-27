@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { runProcessSync } from '@orca/process-host'
-import type { ProcessResult } from '@orca/process-host/process-spec'
+import { runProcessSync } from '@openkodo/process-host'
+import type { ProcessResult } from '@openkodo/process-host/process-spec'
 import { writeFileAtomically } from '../../filesystem/atomic-file-publication'
 
 // Opt out of the accent picker once so terminal keys repeat (#14746); later user choices win.
@@ -50,7 +50,7 @@ export type PressAndHoldHost = {
 }
 
 // Unpackaged Electron apps share com.github.Electron; do not change that domain.
-export function isOrcaPreferencesDomain(domain: string): boolean {
+export function isOpenKodoPreferencesDomain(domain: string): boolean {
   return domain === OPENKODO_BUNDLE_ID || domain.startsWith(`${OPENKODO_BUNDLE_ID}.`)
 }
 
@@ -151,7 +151,7 @@ export function ensureMacPressAndHoldDefault(host: PressAndHoldHost): PressAndHo
   }
 
   const domain = host.resolveBundleIdentifier()
-  if (!domain || !isOrcaPreferencesDomain(domain)) {
+  if (!domain || !isOpenKodoPreferencesDomain(domain)) {
     return record('foreign-bundle', domain)
   }
 

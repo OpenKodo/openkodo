@@ -2,7 +2,7 @@
 // Its AppStore import also declares the window.__store and window.api globals these page.evaluate callbacks use.
 import type { AppStore } from '../../../../tests/e2e/desktop/renderer-probes/runtime-types'
 import { randomUUID } from 'node:crypto'
-import { createOrcaSessionId } from '../../../../src/shared/agent-session/identity/orca-session-address'
+import { createOpenKodoSessionId } from '../../../../src/shared/agent-session/identity/openkodo-session-address'
 import type { Page } from '@playwright/test'
 import { operationId, type Arm } from './native-chat-4a-arm'
 import { rendererTime, rpc, visibleChatState } from './native-chat-4a-probes'
@@ -62,7 +62,7 @@ export async function createChat(
   worktreeId: string,
   forkFrom?: { sessionId: string; throughItemId: string }
 ) {
-  const sessionId = createOrcaSessionId(randomUUID)
+  const sessionId = createOpenKodoSessionId(randomUUID)
   const worktree = `id:${worktreeId}`
   const params = {
     envelope: {

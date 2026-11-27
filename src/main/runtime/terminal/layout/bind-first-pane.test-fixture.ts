@@ -7,7 +7,7 @@ import { getPtyExecutionHost } from '../../../../shared/terminal/pty/lifecycle/t
 import { asProfileSessionStore, storeOf } from './profile-session-store.test-fixture'
 import { reusedTerminalIdUnbinding } from '../../../persistence/loading-store/terminal-bindings/reused-terminal-id-unbind'
 import { layoutContainsLeafId } from '../../../../shared/workspace-layout/terminal-topology/terminal-pane-tree'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 export type BoundPane = {
   worktreeId: string
@@ -83,7 +83,7 @@ export function withBoundPane(
 
 /** Bind before registration, creating an in-memory session when absent; no-op with the switch off. */
 export function bindPaneFirst(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   pane: BoundPane,
   hostId = 'local'
 ): void {
@@ -100,7 +100,7 @@ export function bindPaneFirst(
 }
 
 export function movePaneFirst(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   fromTabId: string,
   pane: BoundPane,
   hostId = 'local'
@@ -131,7 +131,7 @@ export function movePaneFirst(
 }
 
 export function registerBoundPty(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   ptyId: string,
   worktreeId: string,
   connectionId: string | null,
@@ -165,7 +165,7 @@ export function committingSpawn<
   Args extends { worktreeId?: string; tabId?: string; leafId?: string },
   Result extends { id: string }
 >(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   spawn: (args: Args) => Promise<Result>,
   hostId = 'local'
 ): (args: Args) => Promise<Result> {
@@ -189,7 +189,7 @@ export function committingSpawn<
 
 /** Bind the pre-spawn pane, refusing one closed since; emulate it for stores without pane writes. */
 function commitIntoWrittenPane(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   args: SpawnArgs,
   result: unknown
 ): void {
@@ -223,7 +223,7 @@ function commitIntoWrittenPane(
 type SpawnArgs = Parameters<NonNullable<RuntimePtyController['spawn']>>[0]
 
 type PtyControllerRuntimePrototype = {
-  setPtyController: (this: OrcaRuntimeService, controller: RuntimePtyController | null) => void
+  setPtyController: (this: OpenKodoRuntimeService, controller: RuntimePtyController | null) => void
 }
 
 const uncommittedControllers = new WeakSet<RuntimePtyController>()
@@ -275,7 +275,7 @@ export function commitFakeSpawnsInRuntimeTests(prototype: PtyControllerRuntimePr
 /** Inventory loss without an exit disconnects and retains recoverable panes.
  * Switch-off builds retain their existing code-0 exit behavior. */
 export async function dropFromHostInventory(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   ptyId: string
 ): Promise<void> {
   if (!OPENKODO_LAYOUT_OWNER_IS_MAIN) {

@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { StringDecoder } from 'node:string_decoder'
 import type { Bot } from '../../shared/bot-types'
 import { botOfHomeWorkspace } from '../../shared/bots/bot-homes'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { readAgentSessionRecordStore } from '../runtime/orchestration/addressing/session-lineage/structured-session-lineage'
 import { botTurns, runtimeBotAutomationSessions } from './bot-automation-sessions'
 import { systemBackgroundRunPower } from './bot-background-run-power'
@@ -99,7 +99,7 @@ async function memoryFiles(folder: string): Promise<TidyUpMemoryFile[]> {
 const turnedOff = (lastError: string): string =>
   `Tidy-up turned off: the last ${LOOK_FAILURES_TO_TURN_OFF} tidy-ups failed. ${lastError}`
 
-export function runtimeTidyUpRunner(runtime: OrcaRuntimeService): BotTidyUpRunner {
+export function runtimeTidyUpRunner(runtime: OpenKodoRuntimeService): BotTidyUpRunner {
   const existing = runners.get(runtime)
   if (existing) {
     return existing

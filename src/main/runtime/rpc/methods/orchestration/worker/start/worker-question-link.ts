@@ -28,7 +28,7 @@ export type WorkerQuestionLink =
 function ownTakerKeys(caller: OrchestrationCallerIdentity): string[] {
   return [
     callerMailTaker(caller),
-    ...(caller.orcaSessionId ? [sessionMailTaker(caller.orcaSessionId)] : [])
+    ...(caller.openkodoSessionId ? [sessionMailTaker(caller.openkodoSessionId)] : [])
   ].map(mailTakerKey)
 }
 

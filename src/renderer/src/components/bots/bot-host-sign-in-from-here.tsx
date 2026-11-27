@@ -4,13 +4,13 @@ import { Button } from '@/components/ui/button'
 import { translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 import {
-  refreshBotHostOrcaAccount,
-  useBotHostOrcaAccount,
-  useBotHostOrcaAccountSettled
-} from '@/lib/bot-host-orca-account'
+  refreshBotHostOpenKodoAccount,
+  useBotHostOpenKodoAccount,
+  useBotHostOpenKodoAccountSettled
+} from '@/lib/bot-host-openkodo-account'
 import { useBotHostHas, useBotHostVerified } from '@/lib/bot-host-status'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY } from '../../../../shared/orca-account-runtime-capabilities'
+import { OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY } from '../../../../shared/openkodo-account-runtime-capabilities'
 
 /**
  * Whether Sign in on <server> can start here: 'start' only for a verified server that takes an
@@ -28,8 +28,8 @@ export type BotHostSignInFromHere =
 export function useBotHostSignInFromHere(hostId: ExecutionHostId): BotHostSignInFromHere {
   const verified = useBotHostVerified(hostId)
   const approves = useBotHostHas(hostId, OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY)
-  const account = useBotHostOrcaAccount(hostId)
-  const settled = useBotHostOrcaAccountSettled(hostId)
+  const account = useBotHostOpenKodoAccount(hostId)
+  const settled = useBotHostOpenKodoAccountSettled(hostId)
   if (!verified) {
     return null
   }
@@ -85,7 +85,7 @@ export function BotHostSignInBlocked({
           variant="outline"
           size="xs"
           className="self-start"
-          onClick={() => void refreshBotHostOrcaAccount(hostId)}
+          onClick={() => void refreshBotHostOpenKodoAccount(hostId)}
         >
           {t('bots.host.signIn.readAgain', 'Try again')}
         </Button>

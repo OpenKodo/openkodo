@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithTitlelessPaneAgentIdentity } from '../wait/titleless-pane-agent-identity'
+import { OpenKodoRuntimeWithTitlelessPaneAgentIdentity } from '../wait/titleless-pane-agent-identity'
 import type { RuntimeAgentPromptWriteOptions } from './agent-prompt-write-options'
 import {
   AGENT_PROMPT_SUBMIT,
@@ -36,7 +36,7 @@ function armsOpenCodePasteRetry(held: HeldAgentPrompt): boolean {
   )
 }
 
-export abstract class OrcaRuntimeWithResubmitHeldAgentPrompt extends OrcaRuntimeWithTitlelessPaneAgentIdentity {
+export abstract class OpenKodoRuntimeWithResubmitHeldAgentPrompt extends OpenKodoRuntimeWithTitlelessPaneAgentIdentity {
   /** The extra Enters a send waits for; OpenCode's paste retry runs on after the send instead. */
   protected resubmitHeldAgentPromptForSend(
     ptyId: string,

@@ -1,4 +1,4 @@
-// Registered by the desktop main process; orcad has no window to open and leaves it unset.
+// Registered by the desktop main process; openkodod has no window to open and leaves it unset.
 let openWindowInBackground: (() => void) | null = null
 
 export function setBackgroundWindowOpener(opener: () => void): void {

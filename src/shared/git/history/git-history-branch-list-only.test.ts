@@ -1,7 +1,7 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { expect, it } from 'vitest'
 import { resolveExecutableCommand } from '../../shell/command-resolution/node-cli-command-resolution'
 import { loadGitHistoryFromExecutor } from './git-history-execution'
@@ -11,7 +11,7 @@ it('lists the commits ahead of the base without push status, statistics or range
   if (!executable) {
     throw new Error('Git is required for the branch history regression')
   }
-  const directory = await mkdtemp(join(tmpdir(), 'orca-branch-history-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-branch-history-'))
   const env = {
     ...Object.fromEntries(
       Object.entries(process.env).filter(([key]) => !key.toUpperCase().startsWith('GIT_'))

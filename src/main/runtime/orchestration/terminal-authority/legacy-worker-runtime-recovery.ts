@@ -2,10 +2,10 @@ import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree
 import { listWorkerRestartOffers } from '../db/worker-dispatch/worker-restart-resume'
 import type { LegacyWorkerTerminalRecoveryPlan } from './release/orchestration-legacy-worker-terminal-recovery'
 import type { LegacyWorkerTerminalRecoveryResult } from './structured-sessions/runtime-legacy-worker-terminal-recovery-types'
-import type { OrcaRuntimeWithAgentPromptRequestCorrelation as PromptCorrelation } from '../../terminal/input/orca-runtime-agent-prompt-request-correlation'
+import type { OpenKodoRuntimeWithAgentPromptRequestCorrelation as PromptCorrelation } from '../../terminal/input/openkodo-runtime-agent-prompt-request-correlation'
 import { RuntimeWorkspaceSessionFlush } from '../../workspaces/session-hosts/runtime-workspace-session-flush'
 import { StartupWorkerAuthorityRestore } from './startup-worker-authority-restore'
-import type { OrcaRuntimeWithGetStructuredAgentSessionCreateSupport as StructuredSessionStartup } from '../../session-tabs/chat/structured-session-create-support'
+import type { OpenKodoRuntimeWithGetStructuredAgentSessionCreateSupport as StructuredSessionStartup } from '../../session-tabs/chat/structured-session-create-support'
 import {
   StructuredAgentSessionLaunchContinuationOnce,
   structuredAgentSessionLaunchContinuationDeps
@@ -18,8 +18,8 @@ import {
 import { reconsiderRestAfterWait } from '../workers/turn-stops/worker-presence-report'
 import type { TerminalWorkerTurnStops } from '../workers/turn-stops/terminal-worker-turn-stops'
 import { agentHookServer } from '../../../agent-hooks/server/agent-hook-server'
-import { isOrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address'
-import { canonicalOrcaSessionId } from '../addressing/session-lineage/canonical-orca-session-id'
+import { isOpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address'
+import { canonicalOpenKodoSessionId } from '../addressing/session-lineage/canonical-openkodo-session-id'
 import { settleRestartCutStart } from '../workers/turn-stops/awaiting-worker-start-report'
 import {
   observeUnconfirmedWorkerStart,
@@ -150,7 +150,7 @@ export abstract class LegacyWorkerRuntimeRecovery extends RuntimeWorkspaceSessio
               // With the setting off a cut waits for its person; only a dismissal tells a coordinator.
               cutByLastRun: automatic ? cutByLastRun : new Set(),
               lineageRoot: (sessionId) =>
-                isOrcaSessionId(sessionId) ? canonicalOrcaSessionId(sessionId) : sessionId,
+                isOpenKodoSessionId(sessionId) ? canonicalOpenKodoSessionId(sessionId) : sessionId,
               open: (sessionId) => host.revealSession(sessionId).catch(() => null),
               lastOutput: (sessionId) => host.readStatusSummary(sessionId)?.lastAssistantMessage,
               offeredCuts: () => host.restartResume.offeredCuts(),
@@ -180,7 +180,7 @@ export abstract class LegacyWorkerRuntimeRecovery extends RuntimeWorkspaceSessio
     }
     const dispatch = db.getDispatchContextById(dispatchId)
     // A chat's Dispatch names its session; only a terminal worker has a screen to read.
-    const handle = dispatch?.assignee_orca_session_id ? null : dispatch?.assignee_handle
+    const handle = dispatch?.assignee_openkodo_session_id ? null : dispatch?.assignee_handle
     const start: UnconfirmedWorkerStart =
       handle && isTerminalHandle(handle) && !isStructuredWorkerHandle(handle)
         ? {

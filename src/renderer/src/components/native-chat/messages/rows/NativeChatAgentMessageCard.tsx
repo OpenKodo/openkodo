@@ -256,7 +256,7 @@ function MergedAgentMessage({
 
 /** Stands in so the name hook runs in every render; its answer is unused without a sender. */
 const NO_SENDER: AgentMessageSource['senders'][number] = {
-  party: { address: '', terminalHandle: null, orcaSessionId: null },
+  party: { address: '', terminalHandle: null, openkodoSessionId: null },
   name: null
 }
 

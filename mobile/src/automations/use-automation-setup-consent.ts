@@ -4,11 +4,11 @@ import {
 } from '../../../src/shared/execution-host/execution-host'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ComponentProps } from 'react'
-import type { PersistedTrustedOrcaHooks } from '../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import type {
-  OrcaHookTrustDrawer,
-  OrcaHookTrustPrompt
-} from '../components/hook-trust/OrcaHookTrustDrawer'
+  OpenKodoHookTrustDrawer,
+  OpenKodoHookTrustPrompt
+} from '../components/hook-trust/OpenKodoHookTrustDrawer'
 import { persistSetupHookTrustApproval } from '../new-workspace/creation/setup-hook-trust'
 import type { RpcClient } from '../transport/rpc/rpc-client-contract'
 import { prepareAutomationSetup } from './automation-setup-preparation'
@@ -16,10 +16,10 @@ import type { AutomationDraft } from './automation-draft'
 import type { AutomationTargets } from './automation-target-inventory'
 
 type Consent = {
-  prompt: OrcaHookTrustPrompt
+  prompt: OpenKodoHookTrustPrompt
   client: RpcClient
   executionHost?: ExecutionHostId
-  trust: PersistedTrustedOrcaHooks
+  trust: PersistedTrustedOpenKodoHooks
   repos: readonly { id: string }[]
   current: () => boolean
   resolve: (decision: 'run' | 'skip' | null) => void
@@ -89,7 +89,7 @@ export function useAutomationSetupConsent(
       setBusy(false)
     }
   }
-  const drawer: ComponentProps<typeof OrcaHookTrustDrawer> = {
+  const drawer: ComponentProps<typeof OpenKodoHookTrustDrawer> = {
     prompt: confirmation?.prompt ?? null,
     visible: confirmation !== null,
     allowAlwaysTrust: parseExecutionHostId(confirmation?.executionHost)?.kind !== 'runtime',

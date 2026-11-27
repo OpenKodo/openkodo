@@ -1,14 +1,14 @@
-import { persistedEntry, type OrcaAtom, type OrcaPersistedEntry } from './declarative-atoms'
+import { persistedEntry, type OpenKodoAtom, type OpenKodoPersistedEntry } from './declarative-atoms'
 import { assertPlainJson } from './declarative-evaluate'
 
 const PERSIST_DEBOUNCE_MS = 400
 
 /** Collects persisted atoms that changed and posts them in one batch, a moment later. */
 export function createPersistQueue(options: {
-  post: (entries: OrcaPersistedEntry[]) => void
+  post: (entries: OpenKodoPersistedEntry[]) => void
   report: (error: unknown) => void
-}): { add: (atom: OrcaAtom<unknown>) => void; flush: () => void } {
-  const pending = new Set<OrcaAtom<unknown>>()
+}): { add: (atom: OpenKodoAtom<unknown>) => void; flush: () => void } {
+  const pending = new Set<OpenKodoAtom<unknown>>()
   let timer: ReturnType<typeof setTimeout> | null = null
 
   function flush(): void {
@@ -16,7 +16,7 @@ export function createPersistQueue(options: {
       clearTimeout(timer)
       timer = null
     }
-    const entries: OrcaPersistedEntry[] = []
+    const entries: OpenKodoPersistedEntry[] = []
     for (const target of pending) {
       const entry = persistedEntry(target)
       if (!entry) {

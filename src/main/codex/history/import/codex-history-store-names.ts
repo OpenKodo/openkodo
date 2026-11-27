@@ -16,8 +16,8 @@ export async function readEntries(folder: string): Promise<Dirent[]> {
   }
 }
 
-// `.orca-import-<runId>-…tmp`: staged by an import, removed by its publish or by a later sweep.
-const IMPORT_STAGED_COPY = /^\.orca-import-([^-]+)-.+\.tmp$/
+// `.openkodo-import-<runId>-…tmp`: staged by an import, removed by its publish or by a later sweep.
+const IMPORT_STAGED_COPY = /^\.openkodo-import-([^-]+)-.+\.tmp$/
 // Another instance's import may still be staging; one untouched for a day has been abandoned.
 const ABANDONED_AFTER_MS = 24 * 60 * 60_000
 

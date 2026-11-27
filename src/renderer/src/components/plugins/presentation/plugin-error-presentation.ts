@@ -19,7 +19,7 @@ export function pluginInstallErrorMessage(cause: unknown): string {
       'openkodo-plugin.json is invalid. Ask the plugin author to fix the manifest.'
     )
   }
-  if (detail.includes('requires orca')) {
+  if (detail.includes('requires openkodo')) {
     return translate(
       'auto.components.settings.pluginError.incompatible',
       'This plugin requires a different OpenKodo version.'
@@ -72,7 +72,7 @@ export function invalidPluginErrorMessage(
 ): string {
   const detail = detailValue.toLowerCase()
   // Why everything but a version gap: the user of an installed copy can't fix its files.
-  if (installed && !detail.includes('requires orca')) {
+  if (installed && !detail.includes('requires openkodo')) {
     return t(
       'auto.components.settings.pluginError.installedManifestUnloadable',
       "This version can't load in this OpenKodo. Update or reinstall it."
@@ -96,7 +96,7 @@ export function invalidPluginErrorMessage(
       'A worker or panel file is missing or unsafe. Fix it, then refresh.'
     )
   }
-  if (detail.includes('requires orca')) {
+  if (detail.includes('requires openkodo')) {
     return t(
       'auto.components.settings.pluginError.incompatible',
       'This plugin requires a different OpenKodo version.'

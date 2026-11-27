@@ -7,7 +7,7 @@ import { TeamUpdateRestartController } from './team-update-restart'
 import { TeamUpdateRestartRecordStore } from './team-update-restart-record'
 
 it('preserves the deadline and allows only one retry in a new launch for the same verified release', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'orca-team-restart-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-team-restart-'))
   const controllers: TeamUpdateRestartController[] = []
   const notices: TeamUpdateRestart[] = []
   const launch = () => {
@@ -52,7 +52,7 @@ it('preserves the deadline and allows only one retry in a new launch for the sam
 })
 
 it('keeps an overdue restart bound to its original profile through native handoff', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'orca-team-restart-'))
+  const directory = await mkdtemp(join(tmpdir(), 'openkodo-team-restart-'))
   const original = { file: join(directory, 'original', 'update.json'), accountId: 'account' }
   const otherProfile = { file: join(directory, 'other', 'update.json'), accountId: 'account' }
   let scope = original

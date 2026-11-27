@@ -5,8 +5,8 @@ import {
   isOfficialPluginChannel
 } from '../catalog/plugin-marketplace-team-policy'
 import type { PluginLockEntry } from '../../../shared/plugins/installation/plugin-install-lockfile'
-import type { RequiredPluginRule } from '../../../shared/orca-profiles/orca-cloud-team-policy'
-import { getActiveTeamCapabilities } from '../../orca-profiles/cloud-auth/active-team-capabilities'
+import type { RequiredPluginRule } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
+import { getActiveTeamCapabilities } from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
 
 export function requiredPluginReleaseAllowed(
   rules: readonly RequiredPluginRule[] | undefined,

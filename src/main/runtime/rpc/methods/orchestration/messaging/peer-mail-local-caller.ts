@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import type { OrchestrationCompatibilityCallerAuthority } from '../../../../orchestration/terminal-authority/orchestration-compatibility-authority'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
@@ -7,7 +7,7 @@ const NOTHING_SENT = { effectsApplied: false } as const
 
 /** The agent on this OpenKodo that mail sent elsewhere answers to: a chat by its session, a terminal by its live pane. */
 export function peerMailLocalCaller(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   from: string | undefined
   orchestrationCaller: OrchestrationEntryCaller | undefined
   attestedCaller: OrchestrationCompatibilityCallerAuthority | undefined

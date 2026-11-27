@@ -231,7 +231,7 @@ export function createPluginFrameEnvelopeHandler(
           options.declarative.onGuestEvent?.(message.event, message.payload)
         } else {
           // A guest's shell-posted chords are page-forgeable; only the preload's count there.
-          // Why subscribed and merges pass: not input; page script posts both via `orca.document`.
+          // Why subscribed and merges pass: not input; page script posts both via `openkodo.document`.
           if (
             message.event === FRAME_EVENTS.editorSubscribed ||
             message.event === FRAME_EVENTS.editorMerges ||

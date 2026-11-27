@@ -1,5 +1,5 @@
 // What a benchmark report states besides pass counts: the agent CLI it ran, and how sure a rate is.
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import type { EvalAgent } from '../bot-automation-eval/bot-automation-eval-host'
 
 /** The agent CLI's own version line, so two reports are compared only on the same build. */

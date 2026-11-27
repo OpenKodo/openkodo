@@ -41,7 +41,7 @@ function fileLine(file: DriveFileSummary): string {
 }
 
 /** OpenKodo's line for a file: only what OpenKodo made (its id, kind, link), never its name. */
-const orcaFileLine = (file: DriveFileSummary) =>
+const openkodoFileLine = (file: DriveFileSummary) =>
   [file.id, kind(file.mimeType), ...(file.link ? [file.link] : [])].join(' · ')
 
 /** Names as Google has them, fenced: a file name or title is anyone's text. */
@@ -75,7 +75,7 @@ export function formatDriveRead(view: DriveReadView): string {
   return [
     capToolOutput(
       [
-        `${orcaFileLine(view.file)} (${view.source})`,
+        `${openkodoFileLine(view.file)} (${view.source})`,
         untrustedContent('the file', [...about, '', view.text || '(no text)'].join('\n'))
       ].join('\n'),
       'Read on with --offset.'
@@ -89,7 +89,7 @@ export function formatDriveRead(view: DriveReadView): string {
 
 export function formatDriveWrite(view: DriveWriteView): string {
   return [
-    `${view.done}${view.folder ? ` into folder ${view.folder.id}` : ''}: ${orcaFileLine(view.file)}`,
+    `${view.done}${view.folder ? ` into folder ${view.folder.id}` : ''}: ${openkodoFileLine(view.file)}`,
     names([`Name: ${view.file.name}`, ...(view.folder ? [`Folder: ${view.folder.name}`] : [])])
   ].join('\n')
 }

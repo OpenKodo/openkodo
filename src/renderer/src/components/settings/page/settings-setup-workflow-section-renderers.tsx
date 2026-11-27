@@ -6,8 +6,8 @@ import { AutomationsSettingsPane } from '../automations/AutomationsSettingsPane'
 import { GeneralPane } from '../general/GeneralPane'
 import { IntegrationsPane } from '../integrations/IntegrationsPane'
 import { MobileSettingsPane } from '../mobile/MobileSettingsPane'
-import { OrcaAccountSettingsPane } from '../accounts/orca/OrcaAccountSettingsPane'
-import { ServerOrcaAccountPane } from '../accounts/orca/ServerOrcaAccountPane'
+import { OpenKodoAccountSettingsPane } from '../accounts/openkodo/OpenKodoAccountSettingsPane'
+import { ServerOpenKodoAccountPane } from '../accounts/openkodo/ServerOpenKodoAccountPane'
 import { SettingsHostScopeUnavailableNotice } from '../host-scope/SettingsHostScopePicker'
 import { SettingsSetupGuidePane } from '../setup-guide/SettingsSetupGuidePane'
 import { ShareSkillsSettingsPane } from '../skills/sharing/ShareSkillsSettingsPane'
@@ -19,7 +19,7 @@ import { SettingsGroup } from '../section-layout/SettingsGroup'
 import { WorkspaceCleanupSettingsPane } from '../workspace-cleanup/WorkspaceCleanupSettingsPane'
 import { runtimeTargetEnvironmentId } from '@/runtime/rpc/targets/runtime-client-target'
 
-export function renderOrcaAccountSettingsSection(
+export function renderOpenKodoAccountSettingsSection(
   context: SettingsRenderContext,
   t: Translate = translate
 ): React.JSX.Element | null {
@@ -32,30 +32,30 @@ export function renderOrcaAccountSettingsSection(
       : null
   return model.showDesktopOnlySettings ? (
     <SettingsSection
-      id="orca-account"
-      title={t('auto.components.settings.orcaAccount.title', 'OpenKodo Account')}
+      id="openkodo-account"
+      title={t('auto.components.settings.openkodoAccount.title', 'OpenKodo Account')}
       description={
         serverName === null
           ? t(
-              'auto.components.settings.orcaAccount.description',
+              'auto.components.settings.openkodoAccount.description',
               'Share work instantly and reach your desktop from OpenKodo Mobile wherever you are.'
             )
           : t(
-              'components.settings.orcaAccount.server.sectionDescription',
+              'components.settings.openkodoAccount.server.sectionDescription',
               'The OpenKodo account {{host}} runs as, for its bots’ Slack, GitHub, Linear and webhooks.',
               { host: serverName }
             )
       }
-      searchEntries={navigation.getSectionSearchEntries('orca-account')}
+      searchEntries={navigation.getSectionSearchEntries('openkodo-account')}
     >
-      {!view.isSectionMounted('orca-account') ? null : !model.settingsHostScope.available ? (
+      {!view.isSectionMounted('openkodo-account') ? null : !model.settingsHostScope.available ? (
         <SettingsHostScopeUnavailableNotice />
       ) : (
         <SettingsGroup bodyClassName="py-4">
           {target.kind === 'environment' ? (
-            <ServerOrcaAccountPane environmentId={target.environmentId} />
+            <ServerOpenKodoAccountPane environmentId={target.environmentId} />
           ) : (
-            <OrcaAccountSettingsPane />
+            <OpenKodoAccountSettingsPane />
           )}
         </SettingsGroup>
       )}

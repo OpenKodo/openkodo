@@ -8,7 +8,7 @@ import {
   type WslHostStatus
 } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 import { onWslHostsNewWorkChanged } from '../../wsl/host-lifecycle/wsl-host-gate'
-import type { WslOrcadConnectionStatus } from '../../wsl/orcad/wsl-orcad-connection-status'
+import type { WslOpenkododConnectionStatus } from '../../wsl/openkodod/wsl-openkodod-connection-status'
 import { wslHostAddProgress } from '../../wsl/host-lifecycle/wsl-host-connection-record'
 
 function broadcast(channel: string, payload: unknown): void {
@@ -28,7 +28,7 @@ export function publishWslHostStatus(status: WslHostStatus): void {
 }
 
 // A dialog not adding the distro ignores these.
-function publishWslHostAddProgress(distro: string, status: WslOrcadConnectionStatus): void {
+function publishWslHostAddProgress(distro: string, status: WslOpenkododConnectionStatus): void {
   const progress = wslHostAddProgress(distro, status)
   if (progress) {
     broadcast(WSL_HOST_ADD_PROGRESS_CHANNEL, progress)

@@ -110,7 +110,7 @@ const { buildWorkspaceBoardPaletteDocuments, matchWorkspaceBoardWorktrees } = aw
 )
 
 const repoMap = new Map([
-  ['repo-1', { id: 'repo-1', name: 'orca', path: '/tmp/orca', branch: 'main' }]
+  ['repo-1', { id: 'repo-1', name: 'openkodo', path: '/tmp/openkodo', branch: 'main' }]
 ])
 const boardWorktrees = Array.from({ length: WORKTREES }, (_, index) => ({
   id: `repo-1::/tmp/worktree-${index}`,

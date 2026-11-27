@@ -3,10 +3,10 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, expect, it } from 'vitest'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { WINDOWS_ANTIGRAVITY_JSON_POST_SCRIPT } from './windows-hook-json-post'
 
-const directory = mkdtempSync(join(tmpdir(), 'orca-agy-json-post-'))
+const directory = mkdtempSync(join(tmpdir(), 'openkodo-agy-json-post-'))
 const script = join(directory, 'hook.cjs')
 writeFileSync(script, WINDOWS_ANTIGRAVITY_JSON_POST_SCRIPT)
 afterAll(() => rmSync(directory, { recursive: true, force: true }))

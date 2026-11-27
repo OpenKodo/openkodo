@@ -196,7 +196,7 @@ export async function getFirstWorkRetryAvailability(
     !worktreePath ||
     isFolderRepo(repo) ||
     resolveGitRouteForHost(getRepoExecutionHostId(repo)).kind !== 'local' ||
-    !deps.canRenameOrcaCreatedBranch(worktreeId)
+    !deps.canRenameOpenKodoCreatedBranch(worktreeId)
   ) {
     return unavailable
   }

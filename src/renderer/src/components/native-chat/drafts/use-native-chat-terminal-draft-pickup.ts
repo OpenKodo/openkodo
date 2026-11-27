@@ -94,25 +94,25 @@ export function useNativeChatTerminalDraftPickup(args: {
   const ownsTabWideLaunchDraft = launchSeed?.ownsTabWideLaunchDraft === true
   const readTerminalDraft = launchSeed?.readTerminalDraft
   const pickedUpRef = useRef(false)
-  const waitedForOrcaDraftRef = useRef(false)
+  const waitedForOpenKodoDraftRef = useRef(false)
   useEffect(() => {
     // Once per chat-view entry: a later read could catch a chat send's own body mid-paste.
     if (pickedUpRef.current) {
       return
     }
-    const orcaDraft = launchDraft && !launchDraft.fromTerminal ? launchDraft : null
-    const orcaDraftResolved = orcaDraft !== null && launchDraftResolved
+    const openkodoDraft = launchDraft && !launchDraft.fromTerminal ? launchDraft : null
+    const openkodoDraftResolved = openkodoDraft !== null && launchDraftResolved
     // Whether a draft OpenKodo typed was already sent is only known from a ready transcript.
-    if (orcaDraft && !orcaDraftResolved && !transcriptReady) {
-      waitedForOrcaDraftRef.current = true
+    if (openkodoDraft && !openkodoDraftResolved && !transcriptReady) {
+      waitedForOpenKodoDraftRef.current = true
       return
     }
     pickedUpRef.current = true
     // An unresolved draft OpenKodo typed owns the line, and one gone unresolved was taken by a chat send whose clear may not have landed.
     // The seed is keyed by tab, so only its owning pane may read one (#16695).
     if (
-      (orcaDraft && !orcaDraftResolved) ||
-      (waitedForOrcaDraftRef.current && !orcaDraft) ||
+      (openkodoDraft && !openkodoDraftResolved) ||
+      (waitedForOpenKodoDraftRef.current && !openkodoDraft) ||
       !ownsTabWideLaunchDraft ||
       !readTerminalDraft ||
       !isTuiAgent(agent)

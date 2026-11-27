@@ -52,7 +52,7 @@ export function gitSigningOffEnv(env = process.env) {
     ''
   ].join('\n')
   const hash = createHash('sha256').update(config).digest('hex').slice(0, 16)
-  const file = join(CACHE_DIR, `orca-vitest-unsigned-${hash}.gitconfig`)
+  const file = join(CACHE_DIR, `openkodo-vitest-unsigned-${hash}.gitconfig`)
   if (!existsSync(file)) {
     mkdirSync(CACHE_DIR, { recursive: true })
     // Concurrent runs may share the cache; rename so no git ever reads a half-written file.

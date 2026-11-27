@@ -38,7 +38,11 @@ export function orchestrationMailFixture(overrides: Partial<MessageRow> = {}): N
           name: 'Review worker',
           agent: 'codex',
           relation: 'worker',
-          party: { address: row.from_handle, terminalHandle: row.from_handle, orcaSessionId: null }
+          party: {
+            address: row.from_handle,
+            terminalHandle: row.from_handle,
+            openkodoSessionId: null
+          }
         }
       ],
       orchestration: {

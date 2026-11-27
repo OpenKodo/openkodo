@@ -1,4 +1,4 @@
-# VS Code Default Themes for Orca
+# VS Code Default Themes for OpenKodo
 
 - VS Code Dark+ (dark)
 - VS Code Dark Modern (dark)
@@ -13,5 +13,5 @@ Converted from the VS Code color theme [Default Themes](https://github.com/micro
 [OpenKodo/openkodo-plugins](https://github.com/OpenKodo/openkodo-plugins). The upstream license notice is kept in [LICENSE](LICENSE).
 
 Visual Studio Code is a trademark of Microsoft Corporation. This port is unofficial and not
-endorsed by Microsoft. VS Code's terminal colors are not part of these themes, so Orca's default
+endorsed by Microsoft. VS Code's terminal colors are not part of these themes, so OpenKodo's default
 terminal colors apply.

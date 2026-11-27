@@ -48,7 +48,7 @@ async function main(): Promise<void> {
     )
     return
   }
-  const out = path.resolve(values.out ?? path.join(os.tmpdir(), `orca-4a-${workload.profile}`))
+  const out = path.resolve(values.out ?? path.join(os.tmpdir(), `openkodo-4a-${workload.profile}`))
   mkdirSync(out, { recursive: true })
   if (values['report-only']) {
     const results = readdirSync(out)

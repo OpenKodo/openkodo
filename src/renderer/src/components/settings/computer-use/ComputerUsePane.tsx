@@ -6,9 +6,9 @@ import type {
   ComputerUsePermissionState,
   ComputerUsePermissionStatus
 } from '../../../../../shared/computer/computer-use-permissions-types'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { useAppStore } from '@/store/index'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
 import { Button } from '../../ui/button'
 import { Badge } from '../../ui/badge'
 import { ComputerUseSkillSetupPanel } from './ComputerUseSkillSetupPanel'
@@ -70,7 +70,7 @@ function statusClass(status: ComputerUsePermissionStatus | undefined): string {
 
 export function ComputerUsePane(): React.JSX.Element {
   const t = useTranslate()
-  const blocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse)
+  const blocked = useOpenKodoTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse)
   if (blocked) {
     return (
       <SettingsGroup id={COMPUTER_USE_SETTINGS_TARGET_ID}>

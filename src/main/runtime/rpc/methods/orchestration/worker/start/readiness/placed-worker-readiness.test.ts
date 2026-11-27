@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import type { WorkerEffect, WorkerSetupReceipt } from '../placement/worker-placement-topology'
 import { handOverWhenReady } from './placed-worker-readiness'
@@ -52,7 +52,7 @@ function structuredStart() {
   const onSetupFailed = vi.fn()
   const start = handOverWhenReady({
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the structured setup wait reads only the methods faked above.
-    runtime: runtime as unknown as OrcaRuntimeService,
+    runtime: runtime as unknown as OpenKodoRuntimeService,
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a structured start reads no session field before hand-over.
     structuredSession: {} as never,
     workerChat: false,

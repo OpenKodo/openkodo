@@ -5,10 +5,10 @@
  * and a host with a Remove still pending is never touched.
  */
 import { findWslHostDeployment } from '../../../shared/remote-runtime/host-store/runtime-environment-wsl-host-store'
-import { ORCAD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
+import { OPENKODOD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 import type { WslHostService } from '../../wsl/host-lifecycle/wsl-host-service'
 import type { WslMoveHostServerState } from '../../persistence/moving-wsl-projects/execution/wsl-move-driver-ports'
-import { defaultWslOrcadEnvironmentId } from '../../wsl/orcad/wsl-orcad-deploy'
+import { defaultWslOpenkododEnvironmentId } from '../../wsl/openkodod/wsl-openkodod-deploy'
 
 export type WslMoveHostConnectMode = 'user' | 'automatic'
 
@@ -19,7 +19,7 @@ export async function wslHostRemovalPending(
 ): Promise<boolean> {
   const record: object | null = await findWslHostDeployment(
     userDataPath,
-    defaultWslOrcadEnvironmentId(distro)
+    defaultWslOpenkododEnvironmentId(distro)
   )
   // Optional until #33843 lands: older records have no such field.
   return !!record && 'pendingStop' in record && !!record.pendingStop
@@ -35,7 +35,7 @@ export async function connectWslMoveHostService(
   distro: string,
   mode: WslMoveHostConnectMode
 ): Promise<boolean> {
-  const environmentId = defaultWslOrcadEnvironmentId(distro)
+  const environmentId = defaultWslOpenkododEnvironmentId(distro)
   if (
     !(await service.recordForEnvironment(environmentId)) ||
     (await wslHostRemovalPending(userDataPath, distro))
@@ -70,7 +70,7 @@ export function wslMoveHostServerState(
   const code = status.deferredUpdate?.code
   return {
     serverState:
-      code === ORCAD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE
+      code === OPENKODOD_NOT_WSL_HOST_LAUNCH_DEFERRAL_CODE
         ? 'restart-offered'
         : code
           ? 'update-pending'

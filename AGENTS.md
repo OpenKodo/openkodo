@@ -3,7 +3,7 @@
 - **Gate**: `pnpm check:changed` runs format, lint, typecheck, the tests that import your changes, and the ratchets your paths select, and prints only failures. Run it once when you are done editing (and again after a rebase or fix), then push. A pass is cached, so don't rerun it "to be sure", and don't also run `pnpm tc`, `pnpm lint`, or the full suite. Never `--no-verify`.
 - **While iterating**: run only what you touched: `pnpm test <file.test.ts> --maxWorkers=2`, `pnpm tc:node|tc:web|tc:cli`, `pnpm exec oxlint <files>`, `pnpm exec oxfmt --write <files>`. Transitive tests and the full suite are CI's job ([details](.github/CONTRIBUTING.md#targeting-local-tests)).
 - Run checks in the foreground with `timeout 900`. Don't background them and poll with `sleep`.
-- Stacked PRs: `ORCA_CODE_QUALITY_BASE=<ref>` or `--base=<ref>`; `--base=HEAD` covers only uncommitted edits.
+- Stacked PRs: `OPENKODO_CODE_QUALITY_BASE=<ref>` or `--base=<ref>`; `--base=HEAD` covers only uncommitted edits.
 - CI: `gh pr checks --watch` or `gh run watch <id> --compact --exit-status` (no polling). Read failures with `gh run view <id> --log-failed`; for long logs, filter with `grep -nE "error|FAIL|✗"` instead of tailing.
 
 # Repo Rules
@@ -18,11 +18,11 @@ All UI work — layout, color, typography, spacing, component selection, UX beha
 
 # Electron UI Validation
 
-- Always run tests and agent-launched apps in the background with `ORCA_BACKGROUND_LAUNCH=1`.
+- Always run tests and agent-launched apps in the background with `OPENKODO_BACKGROUND_LAUNCH=1`.
 - Never steal monitor focus or reveal test windows: no `show()`, `showInactive()`, `bringToFront()`, `app.focus()`, or OS activation. Use CDP screenshots of hidden renderers.
 - Keep native-focus and visible-window tests paused on the user's desktop; run them on an isolated display or CI.
 - Rebuild modified launch-policy code before running an app (stale build wrappers are not safe).
-- Use the `$electron` skill and Playwright CDP for rendered Orca UI checks. Do not use computer-use for Orca UI validation.
+- Use the `$electron` skill and Playwright CDP for rendered OpenKodo UI checks. Do not use computer-use for OpenKodo UI validation.
 - Rendered UI E2E checks need an explicit, reproducible viewport and state.
 - Screenshot presentational components without Electron: `pnpm fixtures:shot <id>` ([fixtures](docs/agents-md-refs/component-fixtures.md)).
 

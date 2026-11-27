@@ -70,13 +70,13 @@
     },
     {
       "name": "quoted text carrying the key",
-      "event": { "text": "orcawh_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" },
+      "event": { "text": "openkodowh_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" },
       "readable": false
     },
     {
       "name": "a display name carrying the key",
       "event": {
-        "actor": "orcawh_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+        "actor": "openkodowh_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
       },
       "readable": false
     },
@@ -88,7 +88,7 @@
     {
       "name": "a URL carrying the key",
       "event": {
-        "url": "https://example.test/hooks/wh_7Kx2pQ9mZbV4tL1r/orcawh_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+        "url": "https://example.test/hooks/wh_7Kx2pQ9mZbV4tL1r/openkodowh_kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
       },
       "readable": false
     },

@@ -2,7 +2,7 @@ import {
   renameStructuredSessionTab,
   type SessionTabProps
 } from '../chat/structured-session-tab-rename'
-import { OrcaRuntimeWithHeadlessPaneMoveToNewTab } from './headless-pane-move-to-new-tab'
+import { OpenKodoRuntimeWithHeadlessPaneMoveToNewTab } from './headless-pane-move-to-new-tab'
 import { botHomePinRefusal, botHomeSessionId } from '../chat/bot-home-snapshot'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
@@ -39,7 +39,7 @@ function paneLayoutEditIsNoOp(
   )
 }
 
-export abstract class RuntimeHeadlessTabProperties extends OrcaRuntimeWithHeadlessPaneMoveToNewTab {
+export abstract class RuntimeHeadlessTabProperties extends OpenKodoRuntimeWithHeadlessPaneMoveToNewTab {
   // Remote tab color/pin need persistence and live publication or the next snapshot reverts them.
   async setMobileSessionTabProps(
     worktreeSelector: string,

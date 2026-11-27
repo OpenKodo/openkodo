@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import {
-  isOrcadUncountedTerminalsDeferral,
-  ORCAD_RECOVERY_CHANGED_STATE_CODE,
-  ORCAD_UPDATE_TERMINALS_RUNNING_CODE,
-  type OrcadManagedDeferral,
-  type OrcadManagedPastLiveTerminals,
-  type OrcadManagedRuntimeStatus
-} from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+  isOpenkododUncountedTerminalsDeferral,
+  OPENKODOD_RECOVERY_CHANGED_STATE_CODE,
+  OPENKODOD_UPDATE_TERMINALS_RUNNING_CODE,
+  type OpenkododManagedDeferral,
+  type OpenkododManagedPastLiveTerminals,
+  type OpenkododManagedRuntimeStatus
+} from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import type { PublicKnownRuntimeEnvironment } from '../../../../../../shared/remote-runtime/host-catalog/runtime-environments'
-import type { ManagedOrcadPreloadApi } from '../../../../../../preload/api/runtime/managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from '../../../../../../preload/api/runtime/managed-openkodod-api'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { managedServerOutcomeLabel } from './managed-server-copy'
 
@@ -24,16 +24,16 @@ export type ManagedServerAction =
   | 'forget'
 
 export type ManagedServerLifecycle = {
-  status: OrcadManagedRuntimeStatus | null
+  status: OpenkododManagedRuntimeStatus | null
   statusError: string | null
-  recovery: OrcadManagedRuntimeStatus['recovery']
+  recovery: OpenkododManagedRuntimeStatus['recovery']
   busy: ManagedServerAction | 'status' | null
   confirmingStop: boolean
   confirmingForget: boolean
   confirmingRestore: boolean
   /** An Update deferred only by running or uncounted terminals, which Update anyway restarts past. */
-  confirmingForceUpdate: OrcadManagedPastLiveTerminals | null
-  setConfirmingForceUpdate: (value: OrcadManagedPastLiveTerminals | null) => void
+  confirmingForceUpdate: OpenkododManagedPastLiveTerminals | null
+  setConfirmingForceUpdate: (value: OpenkododManagedPastLiveTerminals | null) => void
   setConfirmingStop: (value: boolean) => void
   setConfirmingForget: (value: boolean) => void
   setConfirmingRestore: (value: boolean) => void
@@ -43,15 +43,15 @@ export type ManagedServerLifecycle = {
 
 /** The confirmation an Update anyway needs, or null when force cannot pass this result. */
 function forceableTerminalsDeferral(
-  result: { outcome: string } | OrcadManagedDeferral
+  result: { outcome: string } | OpenkododManagedDeferral
 ): 'counted' | 'uncounted' | null {
   if (result.outcome !== 'deferred' || !('code' in result) || result.forceable !== true) {
     return null
   }
-  if (result.code === ORCAD_UPDATE_TERMINALS_RUNNING_CODE) {
+  if (result.code === OPENKODOD_UPDATE_TERMINALS_RUNNING_CODE) {
     return 'counted'
   }
-  return isOrcadUncountedTerminalsDeferral(result.code) ? 'uncounted' : null
+  return isOpenkododUncountedTerminalsDeferral(result.code) ? 'uncounted' : null
 }
 
 function outcomeMessage(result: Parameters<typeof managedServerOutcomeLabel>[0]): string | null {
@@ -67,23 +67,23 @@ export function useManagedServerLifecycle({
   environment,
   onChanged
 }: {
-  api: ManagedOrcadPreloadApi
+  api: ManagedOpenkododPreloadApi
   environment: Pick<PublicKnownRuntimeEnvironment, 'id'>
   onChanged: () => void
 }): ManagedServerLifecycle {
   const mountedRef = useMountedRef()
-  const [status, setStatus] = useState<OrcadManagedRuntimeStatus | null>(null)
+  const [status, setStatus] = useState<OpenkododManagedRuntimeStatus | null>(null)
   const [statusError, setStatusError] = useState<string | null>(null)
   const [busy, setBusy] = useState<ManagedServerAction | 'status' | null>(null)
   const [confirmingStop, setStopConfirmation] = useState(false)
   const [confirmingForget, setForgetConfirmation] = useState(false)
   const [confirmingRestore, setRestoreConfirmation] = useState(false)
   const [forceUpdateRequest, setForceUpdateRequest] =
-    useState<OrcadManagedPastLiveTerminals | null>(null)
+    useState<OpenkododManagedPastLiveTerminals | null>(null)
   // Why one choke point: the row shows one confirmation, so opening any closes the rest.
   const openConfirmation = (
     open: 'stop' | 'forget' | 'restore' | 'forceUpdate' | null,
-    forceUpdate: OrcadManagedPastLiveTerminals | null = null
+    forceUpdate: OpenkododManagedPastLiveTerminals | null = null
   ): void => {
     setStopConfirmation(open === 'stop')
     setForgetConfirmation(open === 'forget')
@@ -93,7 +93,7 @@ export function useManagedServerLifecycle({
   const setConfirmingStop = (value: boolean): void => openConfirmation(value ? 'stop' : null)
   const setConfirmingForget = (value: boolean): void => openConfirmation(value ? 'forget' : null)
   const setConfirmingRestore = (value: boolean): void => openConfirmation(value ? 'restore' : null)
-  const setConfirmingForceUpdate = (value: OrcadManagedPastLiveTerminals | null): void =>
+  const setConfirmingForceUpdate = (value: OpenkododManagedPastLiveTerminals | null): void =>
     openConfirmation(value ? 'forceUpdate' : null, value)
   // Why derived: another desktop's activation, a stop or a migration voids the confirmation.
   const confirmingForceUpdate =
@@ -173,7 +173,7 @@ export function useManagedServerLifecycle({
         action === 'recover' &&
         result.outcome === 'refused' &&
         'code' in result &&
-        result.code === ORCAD_RECOVERY_CHANGED_STATE_CODE
+        result.code === OPENKODOD_RECOVERY_CHANGED_STATE_CODE
       ) {
         setConfirmingRestore(true)
       }

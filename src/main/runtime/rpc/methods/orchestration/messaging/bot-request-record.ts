@@ -4,7 +4,7 @@ import type { BotRequestRecord } from '../../../../../bots/bot-request-view'
 import type { Bot } from '../../../../../../shared/bot-types'
 import type { PairedSender } from '../../../../../../shared/orchestration/mailbox/paired-sender-name'
 import type { BotRequestActsFor } from '../../../../../bots/bot-request-asker'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { runtimeChatHost } from '../../../../../external-conversations/external-conversation-chat'
 import type { ActingSender } from './bot-recipient'
 
@@ -47,7 +47,7 @@ export function botRequestActsFor(
 /** A chat's request sent while its conversation's turn ran: a thread ask passed on to another bot,
  *  whose answer finishes it there (conversation-ask-answer.ts reads it). A worker's is its own. */
 export function askedInConversation(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   acting: Pick<ActingSender, 'sessionId' | 'worker'>
 ): Pick<BotRequestRecord, 'askedInConversation'> {
   const { sessionId } = acting

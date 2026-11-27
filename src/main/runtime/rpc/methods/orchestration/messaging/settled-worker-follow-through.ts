@@ -1,5 +1,5 @@
-import { parseOrcaSessionAddress } from '../../../../../../shared/agent-session/identity/orca-session-address'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import { parseOpenKodoSessionAddress } from '../../../../../../shared/agent-session/identity/openkodo-session-address'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import {
   clearFollowUpMail,
@@ -15,7 +15,7 @@ import {
   peerCoordinatorCaller,
   type OrchestrationEntryCaller
 } from '../../../../orchestration/addressing/orchestration-caller-identity'
-import { resolveOrcaSessionParty } from '../../../../orchestration/addressing/orchestration-party'
+import { resolveOpenKodoSessionParty } from '../../../../orchestration/addressing/orchestration-party'
 import { readStructuredAgentSessionRecord } from '../../../../orchestration/terminal-authority/structured-sessions/structured-worker-authority'
 import { createHash } from 'node:crypto'
 import { escalateWorkerFailure } from '../../../../orchestration/workers/reports/worker-failure-escalation'
@@ -31,7 +31,7 @@ import { afterWorkerStartWait } from '../worker/start/readiness/worker-start-wai
 
 /** After a report settles (or replays): save the worker's conversation, then continue mail it never read. */
 export function followThroughWorkerReport(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string | undefined
 ): void {
@@ -45,7 +45,7 @@ export function followThroughWorkerReport(
 /** Mail the worker never read before it reported is not lost: it goes to the worker's newer Dispatch,
  *  or becomes one, as a send after the report would. Its report marked it, so a restart resumes this. */
 export function continueUnreadWorkerMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string
 ): void {
@@ -67,7 +67,7 @@ const CHAT_FOLLOW_UP_TASK = {
 }
 
 async function continueUnreadMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string
 ): Promise<void> {
@@ -177,7 +177,7 @@ function custodyOf(
 /** Mail held anywhere in a worker's lineage follows its newest follow-up: delivered once that one is ready or
  *  has reported, kept unread on it with one notice when its start failed (so the next send takes it). */
 export function passHeldWorkerMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   followUpId: string
 ): void {
@@ -244,7 +244,7 @@ export function passHeldWorkerMail(
 
 /** Nothing is lost silently: the coordinator hears that its mail did not reach the worker, once per batch. */
 function noticeUnreadMailNotContinued(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string,
   reason: string
@@ -289,7 +289,7 @@ export function settledDispatchId(receipt: unknown): string | undefined {
 
 /** After the open returns, so continuing a worker can use the database it is opening. */
 export function continueRestoredWorkerMailSoon(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   isCurrent: () => boolean
 ): void {
@@ -302,7 +302,7 @@ export function continueRestoredWorkerMailSoon(
 
 /** At startup: continue what a restart interrupted between a report and its follow-up. */
 export function continueAllUnreadWorkerMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb
 ): void {
   try {
@@ -325,11 +325,11 @@ function senderCaller(
     return peerCoordinatorCaller(peerRun)
   }
   const from = message.from_handle
-  const sessionId = parseOrcaSessionAddress(from)
+  const sessionId = parseOpenKodoSessionAddress(from)
   const record = sessionId ? readStructuredAgentSessionRecord(sessionId) : null
   return sessionId && record
     ? {
-        ...resolveOrcaSessionParty(sessionId, db),
+        ...resolveOpenKodoSessionParty(sessionId, db),
         sessionId,
         workspaceId: record.location.workspaceId
       }

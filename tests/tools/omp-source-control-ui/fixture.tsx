@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { getDefaultSettings } from '../../../src/shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../src/shared/openkodo-profiles/constants'
 import type { GlobalSettings } from '../../../src/shared/settings/global-settings-types'
 import { CommitMessageAiPane } from '../../../src/renderer/src/components/settings/source-control/CommitMessageAiPane'
 import { TooltipProvider } from '../../../src/renderer/src/components/ui/tooltip'

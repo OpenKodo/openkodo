@@ -79,7 +79,7 @@ function goalSession(items: AgentJournalRenderItem[], restored = false) {
     }
   })
   const send = (message: Record<string, unknown>) =>
-    journal.handle({ type: 'message', sessionId: 'orca', observedAt: 1_000, message })
+    journal.handle({ type: 'message', sessionId: 'openkodo', observedAt: 1_000, message })
   const result = (uuid: string, subtype: string) =>
     send({
       type: 'result',

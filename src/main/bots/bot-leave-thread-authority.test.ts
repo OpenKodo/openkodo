@@ -38,12 +38,12 @@ const fromThread = (asker: unknown, extra: Record<string, unknown> = {}) => ({
   leaveEligible: true,
   ...extra
 })
-const typedInOrca = { kind: 'message', role: 'user', text: 'leave this thread' }
+const typedInOpenKodo = { kind: 'message', role: 'user', text: 'leave this thread' }
 
 type Sent = Pick<AgentJournalSubmission, 'origin' | 'source' | 'queuedMessageId'>
 // The owner's send from OpenKodo, and OpenKodo's own continue after a restart or a usage limit.
 const PERSON: Sent = { origin: 'client', source: { kind: 'user' } }
-const ORCA: Sent = { origin: 'host' }
+const OPENKODO: Sent = { origin: 'host' }
 
 /** A turn running now, opened by `opener` (sent as `sent`), after an earlier finished turn a person
  *  asked in. */
@@ -69,21 +69,25 @@ function running(opener: unknown, steered: unknown[] = [], sent?: Sent) {
 const cases: [string, ReturnType<typeof running>, ReturnType<typeof leaveThreadRefusal>][] = [
   ['a member asking in this thread', running(fromThread(person())), null],
   ['the owner asking in this thread', running(fromThread(person('owner'))), null],
-  ['the owner typing in OpenKodo', running(typedInOrca, [], PERSON), null],
+  ['the owner typing in OpenKodo', running(typedInOpenKodo, [], PERSON), null],
   // Handed over from the queue: its card, not the send, says who queued it, so it fails safe.
   [
     'a queued message handed over',
-    running(typedInOrca, [], { origin: 'host', queuedMessageId: 'q1' }),
+    running(typedInOpenKodo, [], { origin: 'host', queuedMessageId: 'q1' }),
     'leave_refused_mixed'
   ],
   [
     'a queued message handed over as a client send',
-    running(typedInOrca, [], { origin: 'client', queuedMessageId: 'q1' }),
+    running(typedInOpenKodo, [], { origin: 'client', queuedMessageId: 'q1' }),
     'leave_refused_mixed'
   ],
   // OpenKodo's continue opens the next turn: it never inherits the cut turn's request, or its refusal.
-  ['OpenKodo continuing a cut-short turn', running(typedInOrca, [], ORCA), 'leave_refused_mixed'],
-  ['a message OpenKodo has no send for', running(typedInOrca), 'leave_refused_mixed'],
+  [
+    'OpenKodo continuing a cut-short turn',
+    running(typedInOpenKodo, [], OPENKODO),
+    'leave_refused_mixed'
+  ],
+  ['a message OpenKodo has no send for', running(typedInOpenKodo), 'leave_refused_mixed'],
   ['two people in this thread', running(fromThread(person()), [fromThread(person('owner'))]), null],
   [
     'another Slack app',
@@ -117,18 +121,18 @@ const cases: [string, ReturnType<typeof running>, ReturnType<typeof leaveThreadR
   // A worker's report woke the chat: the person's request before it never counts.
   [
     'a worker’s report after a person’s turn',
-    running({ ...typedInOrca, from: { sessionId: 'worker-1' } }, [], PERSON),
+    running({ ...typedInOpenKodo, from: { sessionId: 'worker-1' } }, [], PERSON),
     'leave_refused_mixed'
   ],
   // Another agent's send through OpenKodo's CLI reads as a user send; its stamp says it was an agent.
   [
     'an agent’s send through OpenKodo',
-    running({ ...typedInOrca, typedBy: { by: 'agent' } }, [], PERSON),
+    running({ ...typedInOpenKodo, typedBy: { by: 'agent' } }, [], PERSON),
     'leave_refused_mixed'
   ],
   [
     'an automation’s run',
-    running({ ...typedInOrca, automationRun: { runId: 'r1' } }, [], PERSON),
+    running({ ...typedInOpenKodo, automationRun: { runId: 'r1' } }, [], PERSON),
     'leave_refused_mixed'
   ],
   [

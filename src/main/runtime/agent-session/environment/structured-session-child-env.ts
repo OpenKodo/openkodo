@@ -1,6 +1,6 @@
 /** Name children by stable OpenKodo session id; provider ids rotate on clear. Reject cross-host claims; retain worker handles for non-orchestration surfaces.
  * Pin the CLI by absolute launcher and user-data path because login shells can reorder PATH; older CLIs refuse the structured marker.
- * Reuse the PTY CLI-path rule: Linux installs as orca-ide to avoid GNOME OpenKodo (#7904). Never fall back to bare or inherited launchers.
+ * Reuse the PTY CLI-path rule: Linux installs as openkodo-ide to avoid GNOME OpenKodo (#7904). Never fall back to bare or inherited launchers.
  * Empty remote selectors to mask the parent env; explicit flags still work, and login profiles can re-export selectors.
  * Omit pane identity: hooks and mobile status assume a live PTY leaf. Resolve worker identity at every spawn, including recovery and clear. */
 
@@ -19,9 +19,9 @@ import {
 } from '../../../../shared/agent-hook-listener/transport/agent-hook-scrub-safe-env'
 import { OPENKODO_STRUCTURED_SESSION_ENV } from '../../../../shared/agent-launch/environment/structured-session-marker'
 import { withCliRuntimeOnPath } from '../../../../shared/shell/command-resolution/node-cli-command-resolution'
-import { prependOrcaCliDirToChildPath } from '../../../cli/launchers/orca-cli-child-path'
+import { prependOpenKodoCliDirToChildPath } from '../../../cli/launchers/openkodo-cli-child-path'
 import { AGENT_HOOK_RUNTIME_ENV_KEYS } from '../../../ipc/pty/host-env/spawn-env-keys'
-import { REMOTE_RUNTIME_SELECTOR_ENV_KEYS } from '../../../ipc/pty/host-env/inherited-orca-identity-env'
+import { REMOTE_RUNTIME_SELECTOR_ENV_KEYS } from '../../../ipc/pty/host-env/inherited-openkodo-identity-env'
 import { resolveStructuredWorkerIdentityForSession } from '../../orchestration/terminal-authority/structured-sessions/structured-worker-authority'
 
 /** Remove inherited pane identity so hooks and the CLI cannot attribute the chat to the host's launching pane; the seal keeps a worker's own handle. */
@@ -53,7 +53,7 @@ export function sealStructuredSessionChild(input: {
   inheritedEnvToDelete: readonly string[]
   cliRuntimeCommand?: string
 }): SealedStructuredSessionChild {
-  // Why: pair before naming the child so this app's CLI dir stays ahead of a runtime dir holding another `orca`.
+  // Why: pair before naming the child so this app's CLI dir stays ahead of a runtime dir holding another `openkodo`.
   const paired = input.cliRuntimeCommand
     ? withCliRuntimeOnPath(input.cliRuntimeCommand, input.env, { platform: process.platform })
     : input.env
@@ -97,7 +97,7 @@ function applyThisAppCli(env: Record<string, string>): Record<string, string> {
     set[key] = ''
   }
   Object.assign(env, set)
-  const launcher = prependOrcaCliDirToChildPath(env, {
+  const launcher = prependOpenKodoCliDirToChildPath(env, {
     isPackaged,
     userDataPath,
     resourcesPath: process.resourcesPath ?? null

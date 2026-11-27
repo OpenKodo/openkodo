@@ -72,8 +72,8 @@ describe('slackMarkupShownText', () => {
     ).toEqual({
       text: 'hey @Ann, see the doc (https://x.dev) in #general @here',
       markdown:
-        'hey [@Ann](<orca-mention:>), see [the doc](<https://x.dev>) in ' +
-        '[#general](<orca-mention:>) [@here](<orca-mention:>)'
+        'hey [@Ann](<openkodo-mention:>), see [the doc](<https://x.dev>) in ' +
+        '[#general](<openkodo-mention:>) [@here](<openkodo-mention:>)'
     })
   })
 
@@ -83,13 +83,13 @@ describe('slackMarkupShownText', () => {
     ).toEqual({
       text: 'hi @john_doe see my *docs* (https://x.com/a) R&D',
       markdown:
-        'hi [@john&#95;doe](<orca-mention:>) see [my &#42;docs&#42;](<https://x.com/a>) R&amp;D'
+        'hi [@john&#95;doe](<openkodo-mention:>) see [my &#42;docs&#42;](<https://x.com/a>) R&amp;D'
     })
   })
 
   it('keeps a label from writing markdown or a link of its own', () => {
     expect(slackMarkupShownText('<@U1|**x**](javascript:y)>')?.markdown).toBe(
-      '[@&#42;&#42;x&#42;&#42;&#93;(javascript:y)](<orca-mention:>)'
+      '[@&#42;&#42;x&#42;&#42;&#93;(javascript:y)](<openkodo-mention:>)'
     )
     expect(slackMarkupShownText('<https://x.dev/a&gt;b|[t](u)>')?.markdown).toBe(
       '[&#91;t&#93;(u)](<https://x.dev/a%3Eb>)'
@@ -103,8 +103,8 @@ describe('slackMarkupShownText', () => {
   })
 
   it("never lets the asker's own text draw a mention", () => {
-    expect(slackMarkupShownText('<@U1|Bob> see [@CEO](orca-mention:)')?.markdown).toBe(
-      '[@Bob](<orca-mention:>) see [@CEO](orca-mention\u200d:)'
+    expect(slackMarkupShownText('<@U1|Bob> see [@CEO](openkodo-mention:)')?.markdown).toBe(
+      '[@Bob](<openkodo-mention:>) see [@CEO](openkodo-mention\u200d:)'
     )
   })
 

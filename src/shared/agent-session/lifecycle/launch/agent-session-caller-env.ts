@@ -1,5 +1,5 @@
 /** Injected session identity resolves the orchestration caller without guessing a terminal. Valid only on the same host/user: refuse claims across SSH, pairing or WSL, and omit it from SSH passthrough. */
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../identity/openkodo-session-address-prefix'
 import { isStructuredWorkerHandle } from '../../../orchestration/workers/structured-worker-handle'
 
 export const OPENKODO_AGENT_SESSION_ID_ENV = 'OPENKODO_AGENT_SESSION_ID'
@@ -20,13 +20,13 @@ export const SHARED_TOOL_PROCESS_SESSION_FILES = [
     sessionIdEnvs: ['HERMES_SESSION_ID', 'HERMES_SESSION_CHAT_ID'],
     homeEnv: 'HERMES_HOME',
     defaultHome: '.hermes',
-    dir: 'orca-sessions'
+    dir: 'openkodo-sessions'
   }
 ] as const
 /** The session ids OpenKodo writes and reads as file names. */
 export const SHARED_TOOL_PROCESS_SESSION_ID_PATTERN = '[A-Za-z0-9_-][A-Za-z0-9_.-]{0,199}'
 /** Set in a bot session's published file; never an environment name, so it is never injected. */
-export const SHARED_TOOL_PROCESS_BOT_FIELD = 'orcaBot'
+export const SHARED_TOOL_PROCESS_BOT_FIELD = 'openkodoBot'
 
 /** A bot run's key to OpenKodo's bot tool relay; the host names the calling bot by it, never by the session id. */
 export const BOT_TOOLS_TOKEN_ENV = 'OPENKODO_BOT_TOOLS_TOKEN'
@@ -56,7 +56,7 @@ export function readInjectedAgentSessionId(
   return value ? value : undefined
 }
 
-/** Match the resolved host mailbox address: workers retain their minted handle; other sessions use orca_session_id:<id>. The CLI cannot call the host resolver. */
+/** Match the resolved host mailbox address: workers retain their minted handle; other sessions use openkodo_session_id:<id>. The CLI cannot call the host resolver. */
 export function injectedSessionAddress(
   env: Readonly<Record<string, string | undefined>> = process.env
 ): string | undefined {

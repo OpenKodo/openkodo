@@ -11,7 +11,7 @@ import {
   getAgentHookConfigPaths,
   type AgentHookInstallStatus
 } from '../../shared/agent-hook-listener/configuration/agent-hook-types'
-import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../shared/orca-profiles/orca-profiles'
+import { DEFAULT_LOCAL_OPENKODO_PROFILE_ID } from '../../shared/openkodo-profiles/openkodo-profiles'
 import type { GlobalSettings } from '../../shared/settings/global-settings-types'
 import type { ProfileStateOfflineLocation } from '../../main/persistence/profile-state/offline-access/profile-state-offline-settings'
 
@@ -41,7 +41,7 @@ async function getProfileStateLocation(): Promise<ProfileStateOfflineLocation | 
 function legacyProfileStateLocation(): ProfileStateOfflineLocation {
   const userDataPath = getDefaultUserDataPath()
   return {
-    dataFile: join(userDataPath, 'orca-data.json'),
+    dataFile: join(userDataPath, 'openkodo-data.json'),
     databaseFile: join(userDataPath, 'profile-state.db'),
     profileId: DEFAULT_LOCAL_OPENKODO_PROFILE_ID
   }
@@ -105,9 +105,9 @@ async function updateAdmittedEnabledOnDisk(enabled: boolean): Promise<{
     }
     // Validate retained recovery evidence and source bytes before creating the index.
     readAgentHookSettingsFromProfileState(legacy)
-    const { ensureActiveOrcaProfile } =
-      await import('../../main/orca-profiles/profile-index-store.js')
-    const profile = ensureActiveOrcaProfile(getDefaultUserDataPath())
+    const { ensureActiveOpenKodoProfile } =
+      await import('../../main/openkodo-profiles/profile-index-store.js')
+    const profile = ensureActiveOpenKodoProfile(getDefaultUserDataPath())
     location = {
       dataFile: profile.dataFile,
       databaseFile: profile.stateDatabaseFile,
@@ -206,7 +206,7 @@ export const AGENT_HOOK_HANDLERS: Record<string, CommandHandler> = {
         'agentHooks.prepareCodexForWslPane',
         {
           codexHome: process.env.CODEX_HOME ?? '',
-          orcaCodexHome: process.env.OPENKODO_CODEX_HOME ?? '',
+          openkodoCodexHome: process.env.OPENKODO_CODEX_HOME ?? '',
           wslDistro: process.env.WSL_DISTRO_NAME
         },
         { timeoutMs: WSL_CODEX_PREPARE_TIMEOUT_MS }

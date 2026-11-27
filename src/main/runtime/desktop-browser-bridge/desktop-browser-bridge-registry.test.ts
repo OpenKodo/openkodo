@@ -27,7 +27,7 @@ function attachDesktop(registry: DesktopBrowserBridgeRegistry) {
 describe('desktop browser bridge host files', () => {
   let dir: string
   beforeEach(async () => {
-    dir = await mkdtemp(path.join(os.tmpdir(), 'orca-bridge-files-'))
+    dir = await mkdtemp(path.join(os.tmpdir(), 'openkodo-bridge-files-'))
   })
   afterEach(async () => {
     await rm(dir, { recursive: true, force: true })

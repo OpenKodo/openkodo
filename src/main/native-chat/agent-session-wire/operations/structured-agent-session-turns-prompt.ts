@@ -168,7 +168,7 @@ export async function performPrompt(
       throw error
     }
     await ctx.journal.appendItem(
-      { provider: 'orca', clientMessageId: `${input.itemId}#delivery` },
+      { provider: 'openkodo', clientMessageId: `${input.itemId}#delivery` },
       {
         kind: 'status',
         ...agentSessionFailureWords(agentSessionFailureFact('answerUnconfirmed'), {

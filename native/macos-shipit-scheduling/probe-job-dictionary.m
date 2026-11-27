@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <dlfcn.h>
 
-@interface NSObject (OrcaShipItProbe)
+@interface NSObject (OpenKodoShipItProbe)
 + (id)shipItJobDictionary;
 - (id)subscribeNext:(void (^)(id))next;
 @end

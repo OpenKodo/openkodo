@@ -2,11 +2,11 @@
 // before a sign-in takes it, and the page its tab shows. Nothing here fetches a returned address.
 import { HOST_ACCOUNT_SIGN_IN_FAILURE_COPY } from '../../shared/agent-accounts/host-account-sign-in-types'
 import type { GoogleSignInPrompt } from '../../shared/google/google-connect-types'
-import type { LoopbackCallbackHold } from '../orca-profiles/cloud-auth/loopback-callback'
+import type { LoopbackCallbackHold } from '../openkodo-profiles/cloud-auth/loopback-callback'
 import {
-  orcaCallbackOutcome,
-  orcaCallbackReceivedPage
-} from '../orca-profiles/cloud-auth/profile-cloud-callback-page'
+  openkodoCallbackOutcome,
+  openkodoCallbackReceivedPage
+} from '../openkodo-profiles/cloud-auth/profile-cloud-callback-page'
 
 export const GOOGLE_CALLBACK_PATH = '/google/callback'
 
@@ -16,16 +16,16 @@ export function googleRedirectUri(port: number): string {
 
 /** How the tab Google returned to ends, once the host has the account saved (or failed). */
 export const GOOGLE_RETURN_PAGES = {
-  signedIn: orcaCallbackOutcome({
+  signedIn: openkodoCallbackOutcome({
     ok: true,
     heading: 'Signed in to Google',
     line: 'You can close this tab and return to OpenKodo.'
   }),
   /** Says why, in the same words OpenKodo and the CLI show. */
   notSignedIn: (reason: string) =>
-    orcaCallbackOutcome({ ok: false, heading: 'Couldn’t sign in to Google', line: reason }),
+    openkodoCallbackOutcome({ ok: false, heading: 'Couldn’t sign in to Google', line: reason }),
   // An ended sign-in, so the cross the other ends show; `ok: null` is a page still waiting and has no icon.
-  cancelled: orcaCallbackOutcome({
+  cancelled: openkodoCallbackOutcome({
     ok: false,
     heading: 'Google sign-in was cancelled',
     line: 'OpenKodo stopped waiting for this sign-in. Return to OpenKodo to sign in again.'
@@ -49,8 +49,8 @@ export function googleFailedReturnPage(
 }
 
 export const GOOGLE_RETURN_HOLD: LoopbackCallbackHold = {
-  received: orcaCallbackReceivedPage(),
-  pending: orcaCallbackOutcome({
+  received: openkodoCallbackReceivedPage(),
+  pending: openkodoCallbackOutcome({
     ok: null,
     heading: 'Finishing sign-in…',
     line: 'Return to OpenKodo to finish.'

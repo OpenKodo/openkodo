@@ -35,7 +35,7 @@ function journal() {
 }
 
 async function failedTurn(name: string): Promise<string> {
-  const key = { provider: 'orca' as const, clientMessageId: `turn-${name}` }
+  const key = { provider: 'openkodo' as const, clientMessageId: `turn-${name}` }
   await journal().appendItem(
     key,
     {
@@ -55,7 +55,7 @@ async function failedTurn(name: string): Promise<string> {
 async function failAtUsageLimit(): Promise<void> {
   const turnItemId = await failedTurn('limited')
   await journal().appendItem(
-    { provider: 'orca', clientMessageId: 'limited-limit' },
+    { provider: 'openkodo', clientMessageId: 'limited-limit' },
     {
       kind: 'status',
       ...agentSessionFailureWords(

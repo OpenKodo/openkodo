@@ -23,7 +23,7 @@ const PROGRAM_STATUS_LEASE_RENEWAL_MS = 10 * 60 * 1000
 const PROGRAM_STATUS_CHILD_HOLD_LAPSE_MS =
   AGENT_STATUS_STALE_AFTER_MS - PROGRAM_STATUS_LEASE_RENEWAL_MS
 
-export abstract class OrcaRuntimeWithCreateTerminalSideEffectCommandCodeDetector extends RuntimeCommandCodeCompletion {
+export abstract class OpenKodoRuntimeWithCreateTerminalSideEffectCommandCodeDetector extends RuntimeCommandCodeCompletion {
   /** Each live OSC 7501 program's latest row payload; renewed while its PTY keeps a live facet. */
   private readonly liveProgramStatusPayloadByPtyId = new Map<
     string,

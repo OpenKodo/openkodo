@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { build, version as esbuildVersion } from 'esbuild'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { nodeExecutable } from '../../../../../config/scripts/performance/check-job-log/check-job-log-byte-cap-benchmark.mjs'
 import { workload } from '../../../../../config/scripts/performance/check-job-log/check-job-log-performance-cases.mjs'
 
@@ -36,7 +36,7 @@ const cpuDescriptors = [8, 63].map((size) => ({
 }))
 
 export async function prepareHostMeasurement(root = process.cwd()) {
-  const directory = await mkdtemp(path.join(tmpdir(), 'orca-check-host-retention-'))
+  const directory = await mkdtemp(path.join(tmpdir(), 'openkodo-check-host-retention-'))
   let ghExecFileStubbed = false
   try {
     const bundle = await build({
@@ -96,7 +96,7 @@ export async function prepareHostMeasurement(root = process.cwd()) {
       sourceHashes[name] = hash(await readFile(path.join(root, name)))
     }
     const program = await realpath(nodeExecutable())
-    const processHostEntry = require.resolve('@orca/process-host')
+    const processHostEntry = require.resolve('@openkodo/process-host')
     const processHostDirectory = path.dirname(processHostEntry)
     const processHostModules = {}
     for (const filename of Object.keys(require.cache)

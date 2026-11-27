@@ -205,7 +205,7 @@ export function observeOrchestrationSender(
   const remote = dispatchId ? db?.getFederatedDispatch(dispatchId) : undefined
   const scope = readWorkerTerminalHostScope(role?.host_scope)
   const local = !remote && scope.kind !== 'remote' && scope.kind !== 'unreadable'
-  const sessionId = !local ? null : (role?.assignee_orca_session_id ?? party.orcaSessionId)
+  const sessionId = !local ? null : (role?.assignee_openkodo_session_id ?? party.openkodoSessionId)
   const chat = sessionId ? structuredChatNaming(sessionId, sources) : null
   const handle = !local ? null : (role?.assignee_handle ?? party.terminalHandle)
   const candidate = handle ? sources.terminal(handle) : null

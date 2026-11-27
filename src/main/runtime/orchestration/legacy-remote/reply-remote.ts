@@ -1,12 +1,12 @@
 import type { OrchestrationDb } from '../db/orchestration-db'
 import type { MessageRow } from '../db/orchestration-records'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { remoteRunHomeUnreachable } from '../../rpc/methods/orchestration/routing'
 import { sendRemoteMessage } from './send-remote'
 
 /** Reply to mirrored remote-Run mail only at its home, through this pane's own Dispatch link. */
 export async function replyToRemoteRunHome(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   original: MessageRow
   params: { body: string; from?: string; run?: string }

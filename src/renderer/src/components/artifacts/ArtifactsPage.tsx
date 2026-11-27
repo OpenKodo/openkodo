@@ -8,8 +8,8 @@ import { persistConfirmationSkipPreference } from '@/components/dismiss/confirma
 import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
 import { useAppStore } from '@/store'
 import { useTranslate } from '@/i18n/use-translate'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { ArtifactCollection } from './ArtifactCollection'
 import { ArtifactDetailDrawer } from './ArtifactDetailDrawer'
 import { ArtifactsPageSkeleton } from './ArtifactsPageSkeleton'
@@ -25,15 +25,15 @@ const LOCAL_RUNTIME = { kind: 'local' } as const
 export default function ArtifactsPage(): React.JSX.Element {
   const t = useTranslate()
   const closePage = useAppStore((state) => state.closeArtifactsPage)
-  const authStatus = useAppStore((state) => state.orcaProfileAuthStatus)
-  const refreshAuth = useAppStore((state) => state.refreshCurrentOrcaProfileAuth)
+  const authStatus = useAppStore((state) => state.openkodoProfileAuthStatus)
+  const refreshAuth = useAppStore((state) => state.refreshCurrentOpenKodoProfileAuth)
   const openSettingsPage = useAppStore((state) => state.openSettingsPage)
   const openSettingsTarget = useAppStore((state) => state.openSettingsTarget)
   const settings = useAppStore((state) => state.settings)
   const updateSettings = useAppStore((state) => state.updateSettings)
   const confirm = useConfirmationDialog()
   // Claim publishing is blocked only after settings load; sharing requires explicit capability opt-in.
-  const publishingBlockedByTeam = useOrcaTeamFeatureBlocked(
+  const publishingBlockedByTeam = useOpenKodoTeamFeatureBlocked(
     OPENKODO_CLOUD_TEAM_POLICY_FLAGS.artifactSharing
   )
   const publishingBlocked = settings ? settings.artifactSharingEnabled !== true : false
@@ -42,7 +42,7 @@ export default function ArtifactsPage(): React.JSX.Element {
   const signedIn = authStatus?.state === 'connected'
   const needsReconnect = authStatus?.state === 'reconnect-required'
   const openAccountSettings = (): void => {
-    openSettingsTarget({ pane: 'orca-account', repoId: null })
+    openSettingsTarget({ pane: 'openkodo-account', repoId: null })
     openSettingsPage()
   }
   const {
@@ -134,7 +134,8 @@ export default function ArtifactsPage(): React.JSX.Element {
       return
     }
     const requestedAccountIsCurrent = (): boolean =>
-      artifactAccountIdentity(useAppStore.getState().orcaProfileAuthStatus) === requestedIdentity
+      artifactAccountIdentity(useAppStore.getState().openkodoProfileAuthStatus) ===
+      requestedIdentity
     if (!requestedAccountIsCurrent()) {
       return
     }

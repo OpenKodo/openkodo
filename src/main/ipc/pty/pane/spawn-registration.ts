@@ -2,7 +2,7 @@ import { classifyTerminalCreationFailure } from '../../../../shared/terminal/pty
 import type { PtyRegistrationClaim } from '../../../runtime/terminal/records/runtime-terminal-state-records'
 import { PaneOwnerContentionError } from './pane-spawn-operation'
 import type { Store } from '../../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { IPtyProvider } from '../../../providers/pty/provider-contract'
 import type { PtySpawnResult } from '../../../providers/pty/spawn-result'
 import {
@@ -20,7 +20,7 @@ import { retirePersistedStablePaneOwner } from './stable-owner'
 
 /** Track before saving; failed save/stop must not make a potentially live process disappear from ownership. */
 export function admitPtySpawnOwnership(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   result: PtySpawnResult
 ): void {
   if (result.isReattach || result.agentSessionEnsure?.disposition === 'adopted') {
@@ -40,7 +40,7 @@ export function admitPtySpawnOwnership(
 
 /** Read incarnation-scoped early-exit proof without throwing; registration reports refusal itself. */
 function exitedBeforeAdmission(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   result: PtySpawnResult
 ): boolean {
   try {
@@ -58,8 +58,8 @@ export async function discardUnpersistedPtySpawn(
   provider: IPtyProvider,
   result: PtySpawnResult,
   runtime:
-    | (Pick<OrcaRuntimeService, 'markPtyLivenessUnverifiable'> &
-        Partial<Pick<OrcaRuntimeService, 'intentionalPtyStops'>>)
+    | (Pick<OpenKodoRuntimeService, 'markPtyLivenessUnverifiable'> &
+        Partial<Pick<OpenKodoRuntimeService, 'intentionalPtyStops'>>)
     | undefined
 ): Promise<void> {
   if (
@@ -113,11 +113,11 @@ export async function discardUnpersistedPtySpawn(
 
 // Successful registration must remain synchronous through spawn publication.
 export function registerPersistedPtySpawn(
-  runtime: OrcaRuntimeService | undefined,
+  runtime: OpenKodoRuntimeService | undefined,
   store: Store | undefined,
   claim: PtyRegistrationClaim | undefined,
   result: PtySpawnResult | undefined,
-  ...args: Parameters<OrcaRuntimeService['registerPty']>
+  ...args: Parameters<OpenKodoRuntimeService['registerPty']>
 ): Promise<never> | undefined {
   try {
     if (claim && !runtime?.narrowPtyRegistration(args[0], claim, args[3]?.incarnationId)) {

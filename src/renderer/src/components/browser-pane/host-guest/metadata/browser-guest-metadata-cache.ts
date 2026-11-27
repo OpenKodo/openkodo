@@ -174,7 +174,7 @@ export function issueBrowserGuestNavigation<T>(
   issue: (guest: Electron.WebviewTag) => T
 ): T | undefined {
   // Still waiting for its profile's extensions: no guest yet, and the attach loads the latest URL.
-  if (!webview || webview.dataset.orcaAttachWaiting) {
+  if (!webview || webview.dataset.openkodoAttachWaiting) {
     return undefined
   }
   const id = readBrowserGuestId(webview)

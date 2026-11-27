@@ -8,10 +8,10 @@ import {
 } from '../../../../../../shared/agent-session/view/structured-agent-session-message-projection'
 import { createStructuredAgentSessionMessageProjection } from '../../../../../../shared/agent-session/view/structured-agent-session-message-stream'
 import { createStructuredQuestionProjection } from '../../../../../../shared/native-chat/transcript/messages/structured-agent-question-projection'
-import { projectStructuredOrcaCardItem } from '../../../../../../shared/structured-automation-saved-projection'
+import { projectStructuredOpenKodoCardItem } from '../../../../../../shared/structured-automation-saved-projection'
 
 export const desktopStructuredTranscript = createStructuredQuestionProjection(
-  projectStructuredOrcaCardItem
+  projectStructuredOpenKodoCardItem
 )
 
 /** Keep host-recorded rejections in place as not sent unless a queue card owns them. */

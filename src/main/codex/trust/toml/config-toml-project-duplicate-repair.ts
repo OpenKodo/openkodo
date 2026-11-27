@@ -20,7 +20,7 @@ const OPENKODO_TRUST_LINE = 'trust_level = "trusted"'
 const loggedRefusals = new Set<string>()
 
 /** Repair known OpenKodo trust duplicates while preserving user tables; refuse ambiguous repairs. */
-export function repairOrcaDuplicateTrustTables(content: string): string {
+export function repairOpenKodoDuplicateTrustTables(content: string): string {
   const lines = content.split('\n')
   const groups = new Map<string, TomlTable[]>()
   for (const table of readTomlTables(lines)) {
@@ -32,7 +32,7 @@ export function repairOrcaDuplicateTrustTables(content: string): string {
   const removedLines = new Set<number>()
   for (const group of groups.values()) {
     const userTables =
-      group.length > 1 ? group.filter((table) => !isOrcaWrittenTable(lines, table)) : []
+      group.length > 1 ? group.filter((table) => !isOpenKodoWrittenTable(lines, table)) : []
     const survivor = group.length === 1 ? group[0] : userTables[0]
     // Identical spellings or multiple user tables are outside this repair's provenance.
     if (
@@ -51,7 +51,7 @@ export function repairOrcaDuplicateTrustTables(content: string): string {
       }
     }
     if (getTrustTableKind(survivor) === 'project') {
-      const insertedLine = findOrcaInsertedTrustLine(lines, survivor)
+      const insertedLine = findOpenKodoInsertedTrustLine(lines, survivor)
       if (insertedLine === 'unsafe') {
         return refuseRepair(content, `duplicate trust_level in ${survivor.header}`)
       }
@@ -115,7 +115,7 @@ function getTrustTableKind(table: TomlTable): TrustTableKind | null {
 }
 
 // Only exact OpenKodo-written shapes can be removed automatically.
-function isOrcaWrittenTable(lines: string[], table: TomlTable): boolean {
+function isOpenKodoWrittenTable(lines: string[], table: TomlTable): boolean {
   const header = stripCr(lines[table.headerLine])
   const body = lines
     .slice(table.headerLine + 1, table.endLine)
@@ -145,19 +145,22 @@ function isOrcaWrittenTable(lines: string[], table: TomlTable): boolean {
 }
 
 // Older OpenKodo inserted a bare line under the header when it missed a quoted key.
-function findOrcaInsertedTrustLine(lines: string[], table: TomlTable): number | 'unsafe' | null {
+function findOpenKodoInsertedTrustLine(
+  lines: string[],
+  table: TomlTable
+): number | 'unsafe' | null {
   const body = lines.slice(table.headerLine + 1, table.endLine).join('\n')
   const entries = findProjectTrustLevelEntries(body)
   if (entries.length < 2) {
     return null
   }
   const [inserted, ...others] = entries
-  const isOrcaInsert =
+  const isOpenKodoInsert =
     inserted?.start === 0 &&
     inserted.line === OPENKODO_TRUST_LINE &&
     others.length === 1 &&
     !/^[ \t]*trust_level/.test(others[0]?.line ?? '')
-  return isOrcaInsert ? table.headerLine + 1 : 'unsafe'
+  return isOpenKodoInsert ? table.headerLine + 1 : 'unsafe'
 }
 
 function findDuplicateTable(content: string): string | null {

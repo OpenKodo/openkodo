@@ -28,7 +28,7 @@ function requireCapturedOwner<T extends { owner?: AutomationOwnerRef | null }>(
 }
 
 /** Prioritize OpenKodo work over queued external probes for the full operation lifetime. */
-function underOrcaPriority<T>(scheduler: ExternalAutomationProbeScheduler, run: () => T): T {
+function underOpenKodoPriority<T>(scheduler: ExternalAutomationProbeScheduler, run: () => T): T {
   const release = scheduler.beginPriorityWork()
   let pending = false
   try {
@@ -56,7 +56,7 @@ export function registerAutomationHandlers(store: Store, service: AutomationServ
     cache: managerCache
   })
   // Runtime RPC CRUD takes the service-installed priority lease.
-  service.externalProbePriority = (run) => underOrcaPriority(probeScheduler, run)
+  service.externalProbePriority = (run) => underOpenKodoPriority(probeScheduler, run)
   // Guard derives one host and manager ID from the captured owner.
   ipcMain.handle(
     'automations:listExternalManagerForOwner',

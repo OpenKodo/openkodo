@@ -100,7 +100,7 @@ export async function createValidationLayout(options = {}) {
         'Pass --temp-parent <dir> or set OPENKODO_CODEX_VALIDATION_TEMP_PARENT to a directory outside it.'
     )
   }
-  const tempRoot = await mkdtemp(path.join(tempParent, 'orca-codex-real-'))
+  const tempRoot = await mkdtemp(path.join(tempParent, 'openkodo-codex-real-'))
   const homeDir = path.join(tempRoot, 'home')
   const userDataDir = path.join(tempRoot, 'user-data')
   await Promise.all([
@@ -128,7 +128,7 @@ async function seedCompletedProfile(layout) {
     ui: { contextualToursAutoEligible: false, projectOrderManualDefaultNoticeDismissed: true }
   }
   await writeFile(
-    path.join(layout.userDataDir, 'orca-data.json'),
+    path.join(layout.userDataDir, 'openkodo-data.json'),
     `${JSON.stringify(profile, null, 2)}\n`
   )
 }
@@ -357,7 +357,7 @@ async function probeTerminalEnvironment(terminalHandle, launchEnv) {
   const marker = `__OPENKODO_CODEX_VALIDATION_${randomUUID()}__`
   const command = [
     'node -e',
-    `"console.log('${marker}:' + JSON.stringify({home: require('node:os').homedir(), codexHome: process.env.CODEX_HOME || null, orcaCodexHome: process.env.OPENKODO_CODEX_HOME || null}))"`
+    `"console.log('${marker}:' + JSON.stringify({home: require('node:os').homedir(), codexHome: process.env.CODEX_HOME || null, openkodoCodexHome: process.env.OPENKODO_CODEX_HOME || null}))"`
   ].join(' ')
   const cli = validationCliCommand()
   execFileSync(
@@ -452,7 +452,7 @@ async function main() {
   })
   const reportPath =
     options.reportPath ??
-    path.join(os.tmpdir(), `orca-codex-real-account-${options.scenario}-${Date.now()}.json`)
+    path.join(os.tmpdir(), `openkodo-codex-real-account-${options.scenario}-${Date.now()}.json`)
   const launchEnv = createValidationEnv(process.env, layout)
   let app = null
   let tripwire = null

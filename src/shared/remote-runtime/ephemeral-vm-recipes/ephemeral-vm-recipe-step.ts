@@ -1,7 +1,7 @@
 import type {
-  OrcaVmRecipe,
-  OrcaVmRecipeLifecycleMode
-} from '../../workspace-setup/orca-yaml-hook-types'
+  OpenKodoVmRecipe,
+  OpenKodoVmRecipeLifecycleMode
+} from '../../workspace-setup/openkodo-yaml-hook-types'
 import type {
   EphemeralVmRecipeContext,
   EphemeralVmRecipeStartArgs
@@ -30,7 +30,7 @@ type RecipeStepArgs = Pick<
 
 export function runRecipeStep(
   args: RecipeStepArgs,
-  mode: OrcaVmRecipeLifecycleMode,
+  mode: OpenKodoVmRecipeLifecycleMode,
   command: string,
   context: EphemeralVmRecipeContext,
   stdin?: string
@@ -55,7 +55,7 @@ export function runRecipeStep(
 }
 
 export function getRecipeStepFailure(
-  recipe: OrcaVmRecipe,
+  recipe: OpenKodoVmRecipe,
   mode: 'create' | 'suspend' | 'resume',
   result: ProcessRunResult
 ): EphemeralVmFailure | null {

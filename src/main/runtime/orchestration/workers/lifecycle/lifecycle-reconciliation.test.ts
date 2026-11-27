@@ -203,7 +203,7 @@ describe('lifecycle reconciliation', () => {
     expect(JSON.parse(persisted?.payload ?? '{}')).toMatchObject({
       taskId: task.id,
       dispatchId: dispatch.id,
-      _orcaLifecycleRejection: { code: 'sender_not_assignee' }
+      _openkodoLifecycleRejection: { code: 'sender_not_assignee' }
     })
     const rereadLogs: string[] = []
     expect(

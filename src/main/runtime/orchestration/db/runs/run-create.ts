@@ -1,15 +1,15 @@
 import type { RunRow } from '../orchestration-records'
 import { generateId } from '../generated-id'
 import type { OrchestrationDb } from '../orchestration-db'
-import type { OrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { mailboxAddressOf } from '../../addressing/orchestration-caller-identity'
 
 type RunCoordinatorParams = {
   objective: string
   coordinatorHandle: string | null
   coordinatorPaneKey: string | null
-  /** The coordinator's bare OpenKodo session id when it is a structured session; see orca-session-address. */
-  coordinatorOrcaSessionId?: OrcaSessionId | null
+  /** The coordinator's bare OpenKodo session id when it is a structured session; see openkodo-session-address. */
+  coordinatorOpenKodoSessionId?: OpenKodoSessionId | null
 }
 
 export function createRun(this: OrchestrationDb, params: RunCoordinatorParams): RunRow {
@@ -34,13 +34,13 @@ export function insertRunRow(
   const coordinator = {
     terminalHandle: params.coordinatorHandle,
     paneKey: params.coordinatorPaneKey,
-    orcaSessionId: params.coordinatorOrcaSessionId ?? null
+    openkodoSessionId: params.coordinatorOpenKodoSessionId ?? null
   }
   this.db
     .prepare(
       `INSERT INTO runs (
-         id, objective, coordinator_handle, coordinator_pane_key, coordinator_orca_session_id,
-         coordinator_orca_session_id_generation, consumer_generation, legacy
+         id, objective, coordinator_handle, coordinator_pane_key, coordinator_openkodo_session_id,
+         coordinator_openkodo_session_id_generation, consumer_generation, legacy
        ) VALUES (?, ?, ?, ?, ?, 1, 1, 0)`
     )
     .run(
@@ -48,7 +48,7 @@ export function insertRunRow(
       params.objective,
       coordinator.terminalHandle,
       coordinator.paneKey,
-      coordinator.orcaSessionId
+      coordinator.openkodoSessionId
     )
   const address = mailboxAddressOf(coordinator)
   if (address !== null) {

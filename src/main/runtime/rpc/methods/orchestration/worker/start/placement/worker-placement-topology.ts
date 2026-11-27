@@ -2,7 +2,7 @@ import type { RuntimeTerminalCreate } from '../../../../../../../../shared/termi
 import type { AgentLaunchPreferences } from '../../../../../../../../shared/agent-session/lifecycle/operations/agent-session-host-authority'
 import { narrowStructuredLaunchSeedOptions } from '../../../../../../../../shared/native-chat/input/session-options/native-chat-session-option-defaults'
 import type { TuiAgent } from '../../../../../../../../shared/agent-launch/catalog/tui-agent'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import { createStructuredWorkerSession } from '../../../structured-workers/orchestration-structured-worker-session'
 import { dispatchReportMailbox } from '../../../../../../orchestration/workers/reports/dispatch-report-mailbox'
@@ -45,7 +45,7 @@ export type WorkerSetupReceipt = {
     | 'not_applicable'
 }
 
-export function requireWorkerAuthority(runtime: OrcaRuntimeService, terminalHandle: string) {
+export function requireWorkerAuthority(runtime: OpenKodoRuntimeService, terminalHandle: string) {
   const authority = runtime.getOrchestrationDispatchAuthority(terminalHandle)
   const paneKey = authority?.paneKey ?? runtime.getTerminalPaneKey(terminalHandle)
   const processIncarnation =
@@ -62,7 +62,7 @@ export function requireWorkerAuthority(runtime: OrcaRuntimeService, terminalHand
 }
 
 export async function createExistingWorktreeWorkerTerminal(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   worktreeId: string
   agent: TuiAgent
   launchPreferences?: AgentLaunchPreferences
@@ -92,7 +92,7 @@ export async function createExistingWorktreeWorkerTerminal(args: {
 
 /** Return structured workers in the terminal authority shape; registry-backed pane/incarnation getters keep requireWorkerAuthority mode-independent. */
 export async function createStructuredWorkerSessionForWorktree(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   worktreeId: string
   agent: TuiAgent
   dispatchId: string
@@ -141,7 +141,7 @@ export function applyWaitForSetupOutcome(
 }
 
 export function monitorWorkerSetup(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   runId: string
   dispatchId: string

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   orchestrationMutationRecoveryError,
   renderCommand
@@ -31,18 +31,26 @@ describe('orchestration mutation recovery', () => {
   it.each([
     [
       'split',
-      ['orca', 'orchestration', 'send', '--pairing-code', 'split-secret', '--subject', 'status'],
+      [
+        'openkodo',
+        'orchestration',
+        'send',
+        '--pairing-code',
+        'split-secret',
+        '--subject',
+        'status'
+      ],
       'split-secret'
     ],
     [
       'equals',
-      ['orca', 'orchestration', 'send', '--pairing-code=equals-secret', '--subject', 'status'],
+      ['openkodo', 'orchestration', 'send', '--pairing-code=equals-secret', '--subject', 'status'],
       'equals-secret'
     ],
     [
       'dispatch split',
       [
-        'orca',
+        'openkodo',
         'orchestration',
         'send',
         '--dispatch-capability',
@@ -55,7 +63,7 @@ describe('orchestration mutation recovery', () => {
     [
       'dispatch equals',
       [
-        'orca',
+        'openkodo',
         'orchestration',
         'send',
         '--dispatch-capability=equals-dispatch-secret',
@@ -92,7 +100,7 @@ describe('orchestration mutation recovery', () => {
         'This mail is still being delivered on devB; nothing more was applied.',
         {
           orchestrationRequestId: 'request_slow',
-          originalCommand: ['orca', 'orchestration', 'send', '--on', 'devB', '--subject', 'hi']
+          originalCommand: ['openkodo', 'orchestration', 'send', '--on', 'devB', '--subject', 'hi']
         }
       )
     )
@@ -103,7 +111,7 @@ describe('orchestration mutation recovery', () => {
     expect(result.data).toMatchObject({
       recovery: {
         retryCommand: [
-          'orca',
+          'openkodo',
           'orchestration',
           'send',
           '--on',
@@ -122,7 +130,7 @@ describe('orchestration mutation recovery', () => {
   it('keeps plain Windows cmd tokens unquoted while still quoting spaces, =, and percent signs', () => {
     const rendered = renderCommand(
       [
-        'orca-dev',
+        'openkodo-dev',
         'orchestration',
         'send',
         '--on',
@@ -138,7 +146,7 @@ describe('orchestration mutation recovery', () => {
     )
 
     expect(rendered).toBe(
-      'orca-dev orchestration send --on devB --subject "two words" "--note=100"^%" safe" --retry-request request_slow'
+      'openkodo-dev orchestration send --on devB --subject "two words" "--note=100"^%" safe" --retry-request request_slow'
     )
   })
 })

@@ -6,7 +6,7 @@
 import { rmSync } from 'node:fs'
 import { join } from 'node:path'
 
-const WAKE_FILE = 'orca-wsl-host-wake.json'
+const WAKE_FILE = 'openkodo-wsl-host-wake.json'
 
 export function deleteLegacyWslHostWakeList(userDataPath: string): void {
   try {

@@ -68,7 +68,7 @@ export type CatalogCardHandlers = {
   openEntry: (pluginKey: string) => void
   installedHandlers: InstalledRowHandlers
   busyPluginKeys: ReadonlySet<string>
-  orcaVersion: string | null
+  openkodoVersion: string | null
   /** A catalog refresh is in flight; installs wait for it. */
   refreshing: boolean
 }
@@ -143,7 +143,7 @@ export function CatalogCard({
         <PluginCardAction
           entry={entry}
           phase={phase}
-          orcaVersion={handlers.orcaVersion}
+          openkodoVersion={handlers.openkodoVersion}
           refreshing={handlers.refreshing}
           onInstall={() => {
             if (listing) {

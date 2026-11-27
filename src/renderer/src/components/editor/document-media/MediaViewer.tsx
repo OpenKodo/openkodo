@@ -85,7 +85,7 @@ export default function MediaViewer({
     onError: (): void => setFailed(true)
   }
   return (
-    <div className="flex h-full min-h-0 flex-col bg-background" data-orca-media-viewer>
+    <div className="flex h-full min-h-0 flex-col bg-background" data-openkodo-media-viewer>
       <div className="flex min-h-0 flex-1 items-center justify-center p-4">
         {failed ? (
           <p className="text-sm text-muted-foreground" role="alert">

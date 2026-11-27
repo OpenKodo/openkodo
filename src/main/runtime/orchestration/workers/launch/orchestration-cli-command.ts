@@ -1,6 +1,6 @@
 import type { RuntimePtyWorktreeRecord } from '../../../terminal/records/runtime-terminal-state-records'
 import { isStructuredWorkerHandle } from '../../../../../shared/orchestration/workers/structured-worker-handle'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { ProjectExecutionRuntimeResolution } from '../../../../../shared/execution-host/project-execution-runtime'
 import { isWslUncPath } from '../../../../../shared/file-access/wsl-paths'
 import { splitWorktreeIdForFilesystem } from '../../../../../shared/worktree/id'
@@ -13,11 +13,11 @@ export type OrchestrationCliCommand =
   | 'openkodo'
   | 'openkodo-dev'
   // Legacy names a paired older host may still send.
-  | 'orca'
-  | 'orca-dev'
-  | 'orca-ide'
+  | 'openkodo'
+  | 'openkodo-dev'
+  | 'openkodo-ide'
 
-/** Dev builds run the CLI as `orca-dev`; a packaged app, or a process with no app, must not advertise it. */
+/** Dev builds run the CLI as `openkodo-dev`; a packaged app, or a process with no app, must not advertise it. */
 export function runtimeOrchestrationCliCommand(): OrchestrationCliCommand | undefined {
   return hasAppEnvironment() && !getAppEnvironment().isPackaged() ? 'openkodo-dev' : undefined
 }
@@ -64,7 +64,7 @@ export function resolveRuntimeTerminalOrchestrationCliCommand(
   }
 ): OrchestrationCliCommand {
   // A structured session runs in this process: it is told what the structured mail lane types.
-  if (isStructuredWorkerHandle(handle) || parseOrcaSessionAddress(handle)) {
+  if (isStructuredWorkerHandle(handle) || parseOpenKodoSessionAddress(handle)) {
     return localOrchestrationCliCommand()
   }
   let pty: RuntimePtyWorktreeRecord | null = null

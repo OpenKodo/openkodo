@@ -1,6 +1,6 @@
 // Closing the Chat a bot's `/new` or agent change replaces. Once it is proven stopped it will never
 // read for its Runs again, so they stop naming it and a later worker ask there is told at once.
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   closeStructuredAgentSessionChild,
   type StructuredAgentSessionCloseOutcome
@@ -10,11 +10,11 @@ import { retireChatRuns } from '../runtime/orchestration/db/runs/retired-coordin
 type Closed = Pick<StructuredAgentSessionCloseOutcome, 'stopped' | 'reason'>
 
 export async function closeReplacedBotChat(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   close: (
     sessionId: string,
-    options: { runtime: OrcaRuntimeService }
+    options: { runtime: OpenKodoRuntimeService }
   ) => Promise<Closed> = closeStructuredAgentSessionChild
 ): Promise<Closed> {
   const closed = await close(sessionId, { runtime })
@@ -26,7 +26,7 @@ export async function closeReplacedBotChat(
 
 /** `/new` and an agent change alike: nothing reads the replaced Chat's unread mail again. */
 export async function dropReplacedChatMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string,
   replaced: string | null
 ): Promise<void> {

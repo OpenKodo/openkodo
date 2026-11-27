@@ -6,7 +6,7 @@ import {
   type WorkspaceKey,
   parseWorkspaceKey
 } from '../../../shared/workspace/identity/workspace-scope'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
 import {
   removeWorkspaceSessionOwners,

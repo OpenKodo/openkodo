@@ -1,8 +1,8 @@
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
-import { getManagedOrcadFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
+import { getManagedOpenkododFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-openkodod-ssh-owner'
 import { listEnvironments } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import {
-  getOrcadSshDeployment,
+  getOpenkododSshDeployment,
   getRuntimeSshAccess,
   type KnownRuntimeEnvironment
 } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
@@ -87,10 +87,10 @@ export async function disconnectSshHostForUser(
 
 /** The status bar's Disconnect of a managed server is a Disconnect of the machine it runs on. */
 export async function disconnectManagedHostOfEnvironmentForUser(
-  environment: Pick<KnownRuntimeEnvironment, 'orcadDeployment'>,
+  environment: Pick<KnownRuntimeEnvironment, 'openkododDeployment'>,
   runtimeLayer: RuntimeLayer
 ): Promise<void> {
-  const targetId = getOrcadSshDeployment(environment)?.sshTargetId
+  const targetId = getOpenkododSshDeployment(environment)?.sshTargetId
   if (targetId) {
     await disconnectSshHostForUser(targetId, runtimeLayer)
   }
@@ -98,9 +98,9 @@ export async function disconnectManagedHostOfEnvironmentForUser(
 
 /** The status bar's Connect of a server lifts the Disconnect of the SSH host it is reached through. */
 export async function liftSshUserDisconnectForEnvironment(
-  environment: Pick<KnownRuntimeEnvironment, 'orcadDeployment' | 'sshAccess'>
+  environment: Pick<KnownRuntimeEnvironment, 'openkododDeployment' | 'sshAccess'>
 ): Promise<void> {
-  const managedHostId = getOrcadSshDeployment(environment)?.sshTargetId
+  const managedHostId = getOpenkododSshDeployment(environment)?.sshTargetId
   if (managedHostId && isSshUserDisconnected(managedHostId)) {
     // Host Connect republishes managed status and restores forwards removed by Disconnect.
     await connectRegisteredSshTarget(managedHostId)
@@ -153,13 +153,13 @@ export async function holdLaunchReconnectOptOuts(
 
 /** Stop and remove persists across reloads and restarts: automatic dials must not deploy a new server. */
 export async function isManagedServerRemovalHeld(
-  target: Pick<SshTarget, 'managedServerRemoved' | 'orcadFence'> | undefined
+  target: Pick<SshTarget, 'managedServerRemoved' | 'openkododFence'> | undefined
 ): Promise<boolean> {
   if (!target?.managedServerRemoved) {
     return false
   }
   // An older desktop ignores the hold and may redeploy; its registered server stays reachable.
-  const environmentId = getManagedOrcadFenceEnvironmentId(target)
+  const environmentId = getManagedOpenkododFenceEnvironmentId(target)
   return (
     !environmentId ||
     !(await listEnvironments(appUserDataPath())).some(

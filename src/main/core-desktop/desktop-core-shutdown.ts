@@ -23,7 +23,7 @@ import { cancelHistoryGc } from '../pty/history/terminal-history-gc'
 import { fenceMainProcessCloudOnQuit } from '../startup/cloud-startup/main-process-connector-startup'
 import { ConnectorTurnEvents } from '../connector-cloud/connector-turn-events'
 import { getCanonicalUserDataPath } from '../persistence/loading-store/user-data-path'
-import { flushUnsavedCloudSessions } from '../orca-profiles/cloud-session/profile-cloud-session-owner'
+import { flushUnsavedCloudSessions } from '../openkodo-profiles/cloud-session/profile-cloud-session-owner'
 import { getWorkspaceCleanupRunner } from '../workspaces/cleanup/workspace-cleanup-runner-registry'
 import { shutdownWatchersOnce } from '../startup/quit/filesystem-watcher-quit-shutdown'
 

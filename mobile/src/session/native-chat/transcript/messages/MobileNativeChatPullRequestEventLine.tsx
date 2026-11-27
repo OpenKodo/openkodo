@@ -19,7 +19,7 @@ import {
   mobileNativeChatEventRowType
 } from './MobileNativeChatEventRow'
 
-/** "CI failing on orca#3 at 8d5f74b": a status row per finished CI result, without the desktop's Hide
+/** "CI failing on openkodo#3 at 8d5f74b": a status row per finished CI result, without the desktop's Hide
  *  button; the phone follows that setting. */
 export function MobileNativeChatPullRequestEventLine({
   block,

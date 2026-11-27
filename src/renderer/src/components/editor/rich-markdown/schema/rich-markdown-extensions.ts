@@ -29,7 +29,7 @@ import {
   createRichMarkdownLiteral
 } from '../raw-source/raw-markdown-html-nodes'
 import {
-  createOrcaDetailsExtensions,
+  createOpenKodoDetailsExtensions,
   getRichMarkdownPlaceholder
 } from '../details/rich-markdown-details-extension'
 import { createMarkdownDocLink } from '../doc-links/rich-markdown-doc-link'
@@ -258,7 +258,7 @@ export function createRichMarkdownExtensions({
     RichMarkdownTaskItem.configure({
       nested: true
     }),
-    ...createOrcaDetailsExtensions(),
+    ...createOpenKodoDetailsExtensions(),
     RichMarkdownTable.configure({
       resizable: false
     }),

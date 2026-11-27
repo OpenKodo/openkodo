@@ -1,5 +1,5 @@
 /**
- * Who a relay-era terminal's `orca` command speaks as, and what it may reach.
+ * Who a relay-era terminal's `openkodo` command speaks as, and what it may reach.
  * COMPAT(legacy-relay-bridge): revisit 2027-01-15.
  *
  * Everything the host sends is a claim. The caller is accepted only as a pane this desktop leased
@@ -8,7 +8,7 @@
  * mailboxes, its own Dispatch or Run, and the other party of that same orchestration.
  */
 import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { OrchestrationDb } from '../../../runtime/orchestration/db/orchestration-db'
 import { isEquivalentPaneKey } from '../../../runtime/orchestration/db/pane-key-match'
 import type {
@@ -48,7 +48,7 @@ function samePane(recorded: string | null | undefined, paneKey: string): boolean
 }
 
 export function resolveLegacyRelayCliCaller(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   env: Readonly<Record<string, string>>,
   livePane: (paneKey: string) => LegacyRelayLivePane | null,
   targetId: string,

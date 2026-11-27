@@ -288,7 +288,7 @@ export const profileStateAuthoritySelectedSchema = z
     backend: z.enum(['json', 'sqlite']),
     classification: z.enum(['neither', 'json-only', 'sqlite-only', 'both']),
     authority_mode: z.enum(['legacy', 'sqlite-candidate', 'sqlite-established']),
-    runtime: z.enum(['desktop', 'orcad']),
+    runtime: z.enum(['desktop', 'openkodod']),
     migrated: z.boolean()
   })
   .strict()

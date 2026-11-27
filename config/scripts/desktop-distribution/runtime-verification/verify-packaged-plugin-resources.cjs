@@ -47,7 +47,7 @@ function hashPackagedPluginTree(root) {
     }
   }
   visit(root)
-  const hash = createHash('sha256').update('orca-plugin-tree-v1\0')
+  const hash = createHash('sha256').update('openkodo-plugin-tree-v1\0')
   for (const file of files) {
     const relativePath = relative(root, file.path).replaceAll('\\', '/')
     hashLength(hash, Buffer.byteLength(relativePath, 'utf8'))
@@ -93,7 +93,7 @@ function verifyPackagedPluginResources(resourcesDir) {
     if (!fromRoot || fromRoot === '..' || fromRoot.startsWith(`..${sep}`) || isAbsolute(fromRoot)) {
       throw new Error('[verify-packaged-plugin-resources] bundled plugin path escapes launch root')
     }
-    const manifestName = ['openkodo-plugin.json', 'orca-plugin.json'].find((name) =>
+    const manifestName = ['openkodo-plugin.json', 'openkodo-plugin.json'].find((name) =>
       existsSync(join(pluginRoot, name))
     )
     if (!manifestName) {
@@ -118,7 +118,7 @@ function verifyPackagedPluginResources(resourcesDir) {
   )
 }
 
-/** Every author typing in the checkout must ship, or `orca plugin types` fails with ENOENT. */
+/** Every author typing in the checkout must ship, or `openkodo plugin types` fails with ENOENT. */
 function verifyPackagedPluginTypings(resourcesDir) {
   for (const dir of ['declarative', 'types']) {
     for (const name of readdirSync(join(sourcePluginsDir, dir))) {

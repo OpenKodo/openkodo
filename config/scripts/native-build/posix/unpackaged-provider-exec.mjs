@@ -5,7 +5,7 @@ import { buildHostProviderExec, providerExecFingerprint } from './build-provider
 /** Unpackaged runs accept a current glibc-floor build; replacing it made packaging rebuild it in Docker. */
 export function ensureUnpackagedProviderExec(root = resolve(import.meta.dirname, '../../../..')) {
   const target = `${process.platform}-${process.arch}`
-  const output = join(root, 'native', 'provider-exec', '.build', target, 'orca-provider-exec')
+  const output = join(root, 'native', 'provider-exec', '.build', target, 'openkodo-provider-exec')
   const stamp = `${output}.sha256`
   if (
     process.platform === 'linux' &&

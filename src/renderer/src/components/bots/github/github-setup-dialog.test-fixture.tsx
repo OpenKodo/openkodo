@@ -7,7 +7,7 @@ import { stopAwaitingGitHub } from '@/lib/bot-github-state'
 import { cancelConnectorConnect } from '@/lib/connector-connect-state'
 import { makeWorktree } from '@/store/slices/worktrees/worktree.test-fixture'
 import { makeRepo } from '../../worktree-jump/worktree-jump-palette-test-fixtures'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import type { Bot } from '../../../../../shared/bot-types'
 import type {
   ConnectorGitHubInstallation,
@@ -92,7 +92,7 @@ export function stubGitHub(
   }
   stateFails = options.state === 'fails'
   stateError = 'fixture_unreachable'
-  useAppStore.setState({ orcaProfileAuthStatus: null })
+  useAppStore.setState({ openkodoProfileAuthStatus: null })
   stateHangs = options.state === 'hangs'
   stateReads = 0
   shownBot = options.bot ?? marketing
@@ -112,7 +112,7 @@ export function stubGitHub(
         : {
             ok: true,
             value: {
-              installUrl: 'https://github.com/apps/orca-ide/installations/new',
+              installUrl: 'https://github.com/apps/openkodo-ide/installations/new',
               account,
               ...(accounts ? { accounts } : {}),
               installations,
@@ -145,7 +145,7 @@ export function stubGitHub(
 
 const WORKSPACE = makeWorktree({ id: 'repo-1::/marketing', repoId: 'repo-1', path: '/marketing' })
 // Link setting = open in OpenKodo, in the bot's workspace.
-export const inOrcaStore = {
+export const inOpenKodoStore = {
   settings: { ...getDefaultSettings('/home/fixture'), openLinksInApp: true },
   activeWorktreeId: WORKSPACE.id,
   repos: [makeRepo()],
@@ -210,9 +210,9 @@ export function failGitHubReads(error = 'fixture_unreachable'): void {
 }
 
 /** This computer's OpenKodo sign-in lapses: setups that need OpenKodo Cloud ask to sign in again. */
-export function signOutOfOrcaCloud(): void {
+export function signOutOfOpenKodoCloud(): void {
   useAppStore.setState({
-    orcaProfileAuthStatus: {
+    openkodoProfileAuthStatus: {
       activeProfileId: 'fixture',
       configured: true,
       state: 'local',

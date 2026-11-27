@@ -53,16 +53,16 @@ function Backdrops(): React.JSX.Element {
   useEffect(() => {
     const root = document.documentElement
     const previousMaterial = root.getAttribute('data-window-material')
-    const previousOpacity = root.style.getPropertyValue('--orca-window-surface-opacity')
+    const previousOpacity = root.style.getPropertyValue('--openkodo-window-surface-opacity')
     root.dataset.windowMaterial = 'blur'
-    root.style.setProperty('--orca-window-surface-opacity', '0.3')
+    root.style.setProperty('--openkodo-window-surface-opacity', '0.3')
     return () => {
       if (previousMaterial === null) {
         root.removeAttribute('data-window-material')
       } else {
         root.setAttribute('data-window-material', previousMaterial)
       }
-      root.style.setProperty('--orca-window-surface-opacity', previousOpacity)
+      root.style.setProperty('--openkodo-window-surface-opacity', previousOpacity)
     }
   }, [])
   const terminalBackground = 'color-mix(in srgb, var(--background) 30%, transparent)'

@@ -1,7 +1,7 @@
 import { posix } from 'node:path'
 import { throwIfSignalAborted } from '../../../shared/concurrency/abort-signal-reason'
-import { runProcess } from '@orca/process-host'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { runProcess } from '@openkodo/process-host'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { lstat, stat, readFile, realpath } from 'node:fs/promises'
 import { wslDistroForCommand } from '../../../shared/file-access/wsl-paths'
 import { parseGitdirMarkerPayload } from '../../../shared/git/metadata/gitdir-marker-payload'
@@ -236,7 +236,7 @@ export async function readWslCheckoutMarkerState(
     guestCommand(
       targetPath,
       (target) =>
-        `orca_git=${target}/.git; orca_meta=$(LC_ALL=C stat -c '%F#%d:%i#%i' -- "$orca_git") && case "$orca_meta" in 'regular file#'*|'regular empty file#'*) orca_rest=\${orca_meta#*#}; orca_id=\${orca_rest%#*}; orca_ino=\${orca_rest#*#}; orca_line=$(LC_ALL=C head -n 1 "$orca_git") && orca_after=$(LC_ALL=C stat -c '%F#%d:%i' -- "$orca_git") && case "$orca_after" in 'regular file#'*|'regular empty file#'*) [ "\${orca_after#*#}" = "$orca_id" ] && printf 'file:%s\\n%s\\n' "$orca_ino" "$orca_line" || printf 'other\\n' ;; *) printf 'other\\n' ;; esac ;; *) printf 'other\\n' ;; esac`
+        `openkodo_git=${target}/.git; openkodo_meta=$(LC_ALL=C stat -c '%F#%d:%i#%i' -- "$openkodo_git") && case "$openkodo_meta" in 'regular file#'*|'regular empty file#'*) openkodo_rest=\${openkodo_meta#*#}; openkodo_id=\${openkodo_rest%#*}; openkodo_ino=\${openkodo_rest#*#}; openkodo_line=$(LC_ALL=C head -n 1 "$openkodo_git") && openkodo_after=$(LC_ALL=C stat -c '%F#%d:%i' -- "$openkodo_git") && case "$openkodo_after" in 'regular file#'*|'regular empty file#'*) [ "\${openkodo_after#*#}" = "$openkodo_id" ] && printf 'file:%s\\n%s\\n' "$openkodo_ino" "$openkodo_line" || printf 'other\\n' ;; *) printf 'other\\n' ;; esac ;; *) printf 'other\\n' ;; esac`
     )
   ).catch((error: unknown) => {
     if (isWslMissingPathError(error)) {

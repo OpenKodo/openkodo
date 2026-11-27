@@ -17,7 +17,7 @@ type PluginFile = { path: string; size: number }
 export const DEV_FOLDER_SKIPPED_DIRECTORIES: ReadonlySet<string> = new Set([
   '.git',
   '.openkodo',
-  '.orca',
+  '.openkodo',
   'node_modules'
 ])
 
@@ -107,7 +107,7 @@ export async function hashPluginTree(
     }
     const hash = createHash('sha256')
     // Length framing prevents delimiter-containing paths/bytes from sharing a hash preimage.
-    hash.update('orca-plugin-tree-v1\0')
+    hash.update('openkodo-plugin-tree-v1\0')
     let totalBytes = 0
     for (const file of files) {
       totalBytes += file.size

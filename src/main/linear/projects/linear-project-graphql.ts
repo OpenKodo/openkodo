@@ -139,7 +139,7 @@ export const OPENKODO_ISSUE_FIELDS = `
 `
 
 export const PROJECTS_QUERY = `
-  query OrcaLinearProjects(
+  query OpenKodoLinearProjects(
     $first: Int
     $after: String
     $filter: ProjectFilter
@@ -159,7 +159,7 @@ export const PROJECTS_QUERY = `
 `
 
 export const SEARCH_PROJECTS_QUERY = `
-  query OrcaLinearProjectSearch(
+  query OpenKodoLinearProjectSearch(
     $term: String!
     $first: Int
     $after: String
@@ -178,7 +178,7 @@ export const SEARCH_PROJECTS_QUERY = `
 `
 
 export const PROJECT_QUERY = `
-  query OrcaLinearProject($id: String!) {
+  query OpenKodoLinearProject($id: String!) {
     project(id: $id) {
       ${OPENKODO_PROJECT_DETAIL_FIELDS}
     }
@@ -186,7 +186,7 @@ export const PROJECT_QUERY = `
 `
 
 export const CREATE_PROJECT_MUTATION = `
-  mutation OrcaLinearProjectCreate($input: ProjectCreateInput!) {
+  mutation OpenKodoLinearProjectCreate($input: ProjectCreateInput!) {
     projectCreate(input: $input) {
       success
       project {
@@ -197,7 +197,7 @@ export const CREATE_PROJECT_MUTATION = `
 `
 
 export const PROJECT_ISSUES_QUERY = `
-  query OrcaLinearProjectIssues(
+  query OpenKodoLinearProjectIssues(
     $id: String!,
     $first: Int,
     $after: String,
@@ -218,7 +218,7 @@ export const PROJECT_ISSUES_QUERY = `
 `
 
 export const PROJECT_TEAMS_QUERY = `
-  query OrcaLinearProjectTeams($id: String!, $first: Int, $after: String) {
+  query OpenKodoLinearProjectTeams($id: String!, $first: Int, $after: String) {
     project(id: $id) {
       teams(first: $first, after: $after) {
         nodes {

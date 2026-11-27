@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithRefreshPtyWorktreeRecordsFromController } from './pty-worktree-refresh'
+import { OpenKodoRuntimeWithRefreshPtyWorktreeRecordsFromController } from './pty-worktree-refresh'
 import type * as PtyControllerContract from './runtime-pty-controller-contract'
 import type { PtyProcessInfo } from '../../../providers/pty/process-info'
 import {
@@ -25,7 +25,7 @@ type HostScopedPtyProcesses = { processes: PtyProcessInfo[]; hostIds: ExecutionH
 
 export type PtyInventoryListing = HostScopedPtyProcesses & { stale: boolean }
 
-export abstract class OrcaRuntimeWithPtyControllerInventoryListing extends OrcaRuntimeWithRefreshPtyWorktreeRecordsFromController {
+export abstract class OpenKodoRuntimeWithPtyControllerInventoryListing extends OpenKodoRuntimeWithRefreshPtyWorktreeRecordsFromController {
   /** The newest aggregate listing, which a superseded targeted read can join. */
   private latestAggregatePtyInventoryListing: {
     generation: number

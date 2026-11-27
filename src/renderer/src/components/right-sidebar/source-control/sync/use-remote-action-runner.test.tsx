@@ -20,7 +20,7 @@ function renderRunner(
   actions: { pushBranch?: () => Promise<void>; rebaseFromBase?: () => Promise<unknown> }
 ) {
   const operationStore = getWorktreeOperationStore(worktreeId, 'local', 'instance-1')
-  operationStore.setState({ orcaRebase: MARKER })
+  operationStore.setState({ openkodoRebase: MARKER })
   const noop = vi.fn(async () => {})
   const { result } = renderHook(() =>
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: test double; every field is stubbed, but vi.fn stubs are looser than the store action signatures.
@@ -57,11 +57,11 @@ it('keeps the post-rebase marker when the push is rejected, and retires it once 
     })
   })
   await expect(rejected.runRemoteAction('push')).resolves.toMatchObject({ status: 'failed' })
-  expect(rejected.operationStore.getState().orcaRebase).toEqual(MARKER)
+  expect(rejected.operationStore.getState().openkodoRebase).toEqual(MARKER)
 
   const landed = renderRunner('wt-push-landed', {})
   await expect(landed.runRemoteAction('push')).resolves.toEqual({ status: 'ok' })
-  expect(landed.operationStore.getState().orcaRebase).toBeNull()
+  expect(landed.operationStore.getState().openkodoRebase).toBeNull()
 })
 
 it("leaves the active worktree's marker alone when the rebase targets another worktree", async () => {
@@ -71,5 +71,5 @@ it("leaves the active worktree's marker alone when the rebase targets another wo
   await runRemoteAction('rebase', {
     target: { target: { kind: 'local' }, worktreeId: 'wt-other', worktreePath: '/repo/wt-other' }
   })
-  expect(operationStore.getState().orcaRebase).toEqual(MARKER)
+  expect(operationStore.getState().openkodoRebase).toEqual(MARKER)
 })

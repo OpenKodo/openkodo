@@ -33,7 +33,7 @@ export const PairedServerAskCard = z.object({
   /** The agent's name and Home chat, where a phone shows the card; absent from older hosts. */
   botName: z.string().nullish(),
   botChatSessionId: z.string().nullish(),
-  /** The server's root chat the ask came from, as `orca_session_id:<id>`. */
+  /** The server's root chat the ask came from, as `openkodo_session_id:<id>`. */
   rootSession: z.string(),
   from: z.object({ label: z.string(), sender: PeerMailSender.nullable() }),
   subject: z.string(),

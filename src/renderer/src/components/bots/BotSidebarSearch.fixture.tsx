@@ -82,7 +82,7 @@ function store(hidePausedBots: boolean, bots: Bot[] = BOTS) {
         id: owner.folderWorkspaceId,
         projectGroupId: 'bots',
         name: owner.name,
-        folderPath: `/home/me/.orca/bots/${owner.folder}`
+        folderPath: `/home/me/.openkodo/bots/${owner.folder}`
       })
     )
   }
@@ -309,7 +309,7 @@ function capped(
           id: owner.folderWorkspaceId,
           projectGroupId: 'bots',
           name: owner.name,
-          folderPath: `/home/me/.orca/bots/${owner.folder}`
+          folderPath: `/home/me/.openkodo/bots/${owner.folder}`
         })
       )
     },

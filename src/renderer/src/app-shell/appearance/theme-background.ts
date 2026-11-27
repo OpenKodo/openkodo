@@ -13,13 +13,13 @@ const SIZE: Record<
 }
 
 const PROPERTIES = [
-  '--orca-theme-background-image',
-  '--orca-theme-background-size',
-  '--orca-theme-background-repeat',
-  '--orca-theme-background-video-fit',
-  '--orca-theme-background-position',
-  '--orca-theme-background-opacity',
-  '--orca-theme-background-surface-opacity'
+  '--openkodo-theme-background-image',
+  '--openkodo-theme-background-size',
+  '--openkodo-theme-background-repeat',
+  '--openkodo-theme-background-video-fit',
+  '--openkodo-theme-background-position',
+  '--openkodo-theme-background-opacity',
+  '--openkodo-theme-background-surface-opacity'
 ] as const
 
 /** Paints (or clears) the theme's image as the body's static background layer; see main.css.
@@ -40,14 +40,17 @@ export function applyThemeBackground(
     return
   }
   const [size, repeat, videoFit] = SIZE[background.size ?? 'cover']
-  // Why JSON quoting: registration only admits orca-plugin-image URLs, and a quoted CSS string cannot break out.
-  root.style.setProperty('--orca-theme-background-image', `url(${JSON.stringify(background.url)})`)
-  root.style.setProperty('--orca-theme-background-size', size)
-  root.style.setProperty('--orca-theme-background-repeat', repeat)
-  root.style.setProperty('--orca-theme-background-video-fit', videoFit)
-  root.style.setProperty('--orca-theme-background-position', background.position ?? 'center')
-  root.style.setProperty('--orca-theme-background-opacity', String(background.opacity ?? 1))
-  root.style.setProperty('--orca-theme-background-surface-opacity', String(surfaceOpacity))
+  // Why JSON quoting: registration only admits openkodo-plugin-image URLs, and a quoted CSS string cannot break out.
+  root.style.setProperty(
+    '--openkodo-theme-background-image',
+    `url(${JSON.stringify(background.url)})`
+  )
+  root.style.setProperty('--openkodo-theme-background-size', size)
+  root.style.setProperty('--openkodo-theme-background-repeat', repeat)
+  root.style.setProperty('--openkodo-theme-background-video-fit', videoFit)
+  root.style.setProperty('--openkodo-theme-background-position', background.position ?? 'center')
+  root.style.setProperty('--openkodo-theme-background-opacity', String(background.opacity ?? 1))
+  root.style.setProperty('--openkodo-theme-background-surface-opacity', String(surfaceOpacity))
   root.dataset.themeBackground = ''
   useThemeBackgroundStore.setState({ active: true })
   syncWindowMaterialWithThemeBackground(true)

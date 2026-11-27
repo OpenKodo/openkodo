@@ -118,7 +118,7 @@ export function useNativeChatSideChatCommand(args: {
     <TItem extends NativeChatPickerItem>(pick: (item: TItem) => void) =>
       (item: TItem) => {
         const leading = autocomplete.mode === 'slash' && autocomplete.dispatchable === true
-        const name = item.kind === 'command' && item.orcaOwned ? item.name : null
+        const name = item.kind === 'command' && item.openkodoOwned ? item.name : null
         if (leading && sideChat && isNativeChatSideChatCommand(name)) {
           // An unavailable row says why; picking it does nothing.
           if (sideChat.notReadyReason === null) {

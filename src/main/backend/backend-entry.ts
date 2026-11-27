@@ -13,9 +13,9 @@ import { backendMessagePort, type BackendNativePort } from './backend-message-po
 import { createDesktopBackendEnvironment } from './node-service-environment'
 import { BackendDocumentPeers } from './backend-document-peers'
 import { BackendServiceLifetime, activateBackendServices } from './service-composition'
-import { acquireOrcadInstanceLock } from '../orcad/instance-lock/orcad-instance-lock'
-import { OrcadInstanceLockError } from '../orcad/instance-lock/orcad-data-root-privacy'
-import { ORCAD_SHUTDOWN_DEADLINE_MS } from '../orcad/host-lifecycle/managed-stop/orcad-stop-deadlines'
+import { acquireOpenkododInstanceLock } from '../openkodod/instance-lock/openkodod-instance-lock'
+import { OpenkododInstanceLockError } from '../openkodod/instance-lock/openkodod-data-root-privacy'
+import { OPENKODOD_SHUTDOWN_DEADLINE_MS } from '../openkodod/host-lifecycle/managed-stop/openkodod-stop-deadlines'
 import { clearWindowsStdHandleInheritance } from '../startup/windows-startup/windows-std-handle-inheritance'
 import { installWindowsIsolatedSpawner } from '../startup/windows-startup/windows-isolated-spawner'
 import { dropE2eSpawnLogOutsideE2e } from '../startup/testing/e2e-spawn-log-env'
@@ -62,12 +62,12 @@ let startup: Promise<void> | undefined
 // Linux: no bootstrap means main died before sending it, and a leaked IPC fd can hide that.
 const bootstrapDeadline =
   process.platform === 'linux'
-    ? setTimeout(() => void stop(), ORCAD_SHUTDOWN_DEADLINE_MS * 2)
+    ? setTimeout(() => void stop(), OPENKODOD_SHUTDOWN_DEADLINE_MS * 2)
     : undefined
 
 function stop(): Promise<void> {
   stopping ??= (async () => {
-    const deadline = setTimeout(() => process.exit(1), ORCAD_SHUTDOWN_DEADLINE_MS)
+    const deadline = setTimeout(() => process.exit(1), OPENKODOD_SHUTDOWN_DEADLINE_MS)
     abort.abort(new Error('Backend is stopping.'))
     documents.closeAll()
     try {
@@ -87,11 +87,11 @@ function stop(): Promise<void> {
 async function acquireServiceLock(userDataPath: string) {
   // Room for an orphaned holder to notice its desktop is gone and finish stopping.
   const ownerWatchSlack = process.platform === 'linux' ? 2 * DESKTOP_OWNER_POLL_MS : 0
-  const deadline = Date.now() + ORCAD_SHUTDOWN_DEADLINE_MS + ownerWatchSlack
+  const deadline = Date.now() + OPENKODOD_SHUTDOWN_DEADLINE_MS + ownerWatchSlack
   while (!abort.signal.aborted) {
     try {
-      return acquireOrcadInstanceLock(join(userDataPath, 'backend-service'), {
-        role: 'orcad',
+      return acquireOpenkododInstanceLock(join(userDataPath, 'backend-service'), {
+        role: 'openkodod',
         enforcePrivateDataRoot: false,
         onExclusivityLost: () => {
           void stop()
@@ -99,8 +99,8 @@ async function acquireServiceLock(userDataPath: string) {
       })
     } catch (error) {
       if (
-        !(error instanceof OrcadInstanceLockError) ||
-        error.code !== 'orcad_instance_lock_held' ||
+        !(error instanceof OpenkododInstanceLockError) ||
+        error.code !== 'openkodod_instance_lock_held' ||
         Date.now() >= deadline
       ) {
         throw error

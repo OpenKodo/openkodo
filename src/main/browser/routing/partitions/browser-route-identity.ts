@@ -2,10 +2,10 @@ import { createHash } from 'node:crypto'
 
 const MAX_IDENTITY_LENGTH = 512
 const PARTITION_IDENTITY_VERSION = 1
-const BROWSER_ROUTE_PARTITION_RE = /^persist:orca-browser-v1-[a-f0-9]{64}$/
+const BROWSER_ROUTE_PARTITION_RE = /^persist:openkodo-browser-v1-[a-f0-9]{64}$/
 
 export type BrowserRoutePartitionIdentity = Readonly<{
-  orcaProfileId: string
+  openkodoProfileId: string
   browserProfileId: string
   authorityConnectionIdentity: string
   executionHostIdentity: string
@@ -20,7 +20,7 @@ export function deriveBrowserRoutePartition(
   identity: BrowserRoutePartitionIdentity
 ): DerivedBrowserRoutePartition {
   const components = [
-    ['orca-profile', identity.orcaProfileId],
+    ['openkodo-profile', identity.openkodoProfileId],
     ['browser-profile', identity.browserProfileId],
     ['authority-connection', identity.authorityConnectionIdentity],
     ['execution-host', identity.executionHostIdentity]
@@ -36,13 +36,13 @@ export function deriveBrowserRoutePartition(
   }
 
   return {
-    partition: `persist:orca-browser-v${PARTITION_IDENTITY_VERSION}-${digest([
-      'orca-browser-route-partition',
+    partition: `persist:openkodo-browser-v${PARTITION_IDENTITY_VERSION}-${digest([
+      'openkodo-browser-route-partition',
       PARTITION_IDENTITY_VERSION,
       ...components
     ])}`,
     bindingFingerprint: digest([
-      'orca-browser-route-partition-binding',
+      'openkodo-browser-route-partition-binding',
       PARTITION_IDENTITY_VERSION,
       ...components
     ])
@@ -51,26 +51,26 @@ export function deriveBrowserRoutePartition(
 
 // Lifecycle ownership must remain derivable without a live connection.
 export function deriveBrowserRoutePartitionStorageScope(scope: {
-  orcaProfileId: string
+  openkodoProfileId: string
   environmentId: string
 }): string {
   return digest([
-    'orca-browser-route-partition-scope',
+    'openkodo-browser-route-partition-scope',
     PARTITION_IDENTITY_VERSION,
-    ['orca-profile', scope.orcaProfileId],
+    ['openkodo-profile', scope.openkodoProfileId],
     ['environment', scope.environmentId]
   ])
 }
 
 // Use a distinct digest domain for direct SSH ownership, independent of paired environments.
 export function deriveLocalSshBrowserRoutePartitionStorageScope(scope: {
-  orcaProfileId: string
+  openkodoProfileId: string
   targetId: string
 }): string {
   return digest([
-    'orca-browser-route-partition-scope',
+    'openkodo-browser-route-partition-scope',
     PARTITION_IDENTITY_VERSION,
-    ['orca-profile', scope.orcaProfileId],
+    ['openkodo-profile', scope.openkodoProfileId],
     ['local-ssh-target', scope.targetId]
   ])
 }

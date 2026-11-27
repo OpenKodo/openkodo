@@ -7,7 +7,7 @@ import { useIntlLocale, useTranslate, type Translate } from '@/i18n/use-translat
 import { pluginOfficialLabel } from '../presentation/plugin-official-label'
 import { Button } from '../../ui/button'
 import {
-  needsNewerOrca,
+  needsNewerOpenKodo,
   pluginEntryManagingTeams,
   type PluginListEntry
 } from '../list/plugin-list-entries'
@@ -42,7 +42,7 @@ import { PluginPageIcon } from './PluginPageIcon'
 type PluginDetailPageProps = {
   entry: PluginListEntry
   busy: boolean
-  orcaVersion: string | null
+  openkodoVersion: string | null
   logsState: PluginLogsState | undefined
   handlers: InstalledRowHandlers
   fetchPreview: (listing: NonNullable<PluginListEntry['listing']>) => Promise<PluginPagePreview>
@@ -81,7 +81,7 @@ function sourceLabel(entry: PluginListEntry, t: Translate = translate): string |
 export function PluginDetailPage({
   entry: currentEntry,
   busy,
-  orcaVersion,
+  openkodoVersion,
   logsState,
   handlers,
   fetchPreview,
@@ -99,7 +99,7 @@ export function PluginDetailPage({
   const model = usePluginPageModel({ entry: currentEntry, fetchPreview, refreshing })
   const { entry, plugin, listing, preview, stale } = model
   const palettes = usePluginArtPalettes(entry.pluginKey, listing?.release?.themePreview)
-  const tooNew = needsNewerOrca(entry.minimumOrca, orcaVersion) !== null
+  const tooNew = needsNewerOpenKodo(entry.minimumOpenKodo, openkodoVersion) !== null
   // Why: a fetched manifest names the plugin exactly; older catalogs only give its key.
   const name = entry.nameShowsPublisher
     ? entry.name
@@ -222,17 +222,17 @@ export function PluginDetailPage({
       <Alert
         tone="warning"
         title={t(
-          'auto.components.settings.PluginDetailPage.needsOrcaTitle',
+          'auto.components.settings.PluginDetailPage.needsOpenKodoTitle',
           'Needs OpenKodo {{value0}} or later',
           {
-            value0: entry.minimumOrca ?? ''
+            value0: entry.minimumOpenKodo ?? ''
           }
         )}
         body={t(
-          'auto.components.settings.PluginDetailPage.needsOrcaBody',
+          'auto.components.settings.PluginDetailPage.needsOpenKodoBody',
           'You have OpenKodo {{value0}}.',
           {
-            value0: orcaVersion ?? ''
+            value0: openkodoVersion ?? ''
           }
         )}
       />

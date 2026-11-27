@@ -22,7 +22,7 @@ const target = { sessionId: 'chat-1', epoch: 'e' }
 let dir = ''
 let db: Database
 beforeEach(() => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-stop-withdrawal-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-stop-withdrawal-'))
   db = new Database(join(dir, 'journal.db'))
   migrateJournalDomainSchema(db)
   ensureAgentSessionAttachmentClaimTables(db)

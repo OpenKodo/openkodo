@@ -2,7 +2,7 @@ import { awaitProviderChildSpawn, directOwnerUnreaped, type ProviderChild } from
 import { DirectProviderChild } from './direct-provider-child'
 import { registerAgentProcess } from '../memory/agent-process-registry'
 import { spawnProviderProcess, type ProviderProcessSpawner } from './provider-process-spawn'
-import { RetryableProcessExitProof } from '@orca/process-host/retryable-process-exit-proof'
+import { RetryableProcessExitProof } from '@openkodo/process-host/retryable-process-exit-proof'
 import type { ProviderProcessLaunch } from './provider-process-launch'
 import { processEnvWithoutAgentSession } from '../../shared/agent-launch/startup/parent-agent-session-env'
 import {

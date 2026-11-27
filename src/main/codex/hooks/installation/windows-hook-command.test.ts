@@ -3,7 +3,7 @@ import { existsSync, mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:
 import { tmpdir } from 'node:os'
 import { delimiter, join } from 'node:path'
 import { createServer } from 'node:http'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { removeTree } from '../../../../shared/file-write/windows-transient-lock-removal'
 import { CODEX_EVENTS } from '../definitions/codex-hook-definition'
 import { buildCodexHookCommand as getManagedCommand } from '../definitions/codex-hook-command-form'
@@ -31,7 +31,7 @@ describe.skipIf(process.platform !== 'win32')('Codex hook delivery through Power
   it.each([windowsPowerShell, ...(windowsPwsh ? [windowsPwsh] : [])])(
     'delivers all eight events exactly once from a Unicode profile through %s',
     async (shell) => {
-      const root = mkdtempSync(join(tmpdir(), 'orca-codex-cjk-'))
+      const root = mkdtempSync(join(tmpdir(), 'openkodo-codex-cjk-'))
       const home = join(root, "测试 사용자 O'Brien")
       mkdirSync(home)
       const scriptPath = join(home, 'codex-hook.cmd')

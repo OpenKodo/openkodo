@@ -78,7 +78,7 @@ export function removeJournalDomainRewindSuffix(
       item.turn_marker=1 OR item.turn_id IS NOT NULL OR item.queue_failure_report_turn_item_id IS NOT NULL
     FROM rewind_context context CROSS JOIN journal_items item ${JOURNAL_REWIND_JOINS}
     WHERE item.session_id=context.session_id AND item.epoch=context.epoch AND item.sequence>?
-      AND NOT (${kept}) AND NOT (substr(item.item_id,1,5)='orca:' AND COALESCE(send.queued,0)=1)`).run(
+      AND NOT (${kept}) AND NOT (substr(item.item_id,1,5)='openkodo:' AND COALESCE(send.queued,0)=1)`).run(
     ...bindings,
     floor
   )

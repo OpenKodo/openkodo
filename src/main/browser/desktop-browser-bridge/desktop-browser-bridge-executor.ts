@@ -164,7 +164,7 @@ async function scopeRequest(
   if (!deps.isHostBrowsingRouted()) {
     throw new BridgeRefusal(
       DESKTOP_BROWSER_BRIDGE_UNROUTED_CODE,
-      `This host's browser tabs browse from your desktop's own network, so its orca CLI cannot use them. Set ${DESKTOP_BROWSER_BRIDGE_ROUTING_SETTING_LABEL} to "SSH host" and, if this host is listed under "${DESKTOP_BROWSER_BRIDGE_ROUTING_OPT_OUT_LABEL}", click "Use SSH host".`
+      `This host's browser tabs browse from your desktop's own network, so its openkodo CLI cannot use them. Set ${DESKTOP_BROWSER_BRIDGE_ROUTING_SETTING_LABEL} to "SSH host" and, if this host is listed under "${DESKTOP_BROWSER_BRIDGE_ROUTING_OPT_OUT_LABEL}", click "Use SSH host".`
     )
   }
   const params: Record<string, unknown> = { ...request.params }

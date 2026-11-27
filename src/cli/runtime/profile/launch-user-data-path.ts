@@ -14,7 +14,7 @@ export function resolveLaunchUserDataPath(env: NodeJS.ProcessEnv = process.env):
   }
   if (launchesDevApp(env)) {
     return resolve(
-      env.OPENKODO_DEV_USER_DATA_PATH || join(dirname(getPlatformUserDataPath()), 'orca-dev')
+      env.OPENKODO_DEV_USER_DATA_PATH || join(dirname(getPlatformUserDataPath()), 'openkodo-dev')
     )
   }
   return getPlatformUserDataPath()

@@ -1,4 +1,4 @@
-import type { AgentJournalOrcaCardItem } from '../../../../shared/agent-journal-orca-card-items'
+import type { AgentJournalOpenKodoCardItem } from '../../../../shared/agent-journal-openkodo-card-items'
 import {
   AGENT_JOURNAL_THREAD_SCOPE,
   type AgentJournalPlainStatusItem
@@ -13,10 +13,10 @@ import type {
 } from '../host/structured-agent-session-host-types'
 
 /** A status line OpenKodo writes into a chat, named so a retry writes it once. */
-export type OrcaStatusLine = { body: AgentJournalPlainStatusItem; messageId: string }
+export type OpenKodoStatusLine = { body: AgentJournalPlainStatusItem; messageId: string }
 
 // One card per started worker or agent launch, per saved version of an automation, and per added tool.
-function orcaCardMessageId(entry: AgentJournalOrcaCardItem | OrcaStatusLine): string {
+function openkodoCardMessageId(entry: AgentJournalOpenKodoCardItem | OpenKodoStatusLine): string {
   if ('messageId' in entry) {
     return entry.messageId
   }
@@ -38,7 +38,7 @@ function orcaCardMessageId(entry: AgentJournalOrcaCardItem | OrcaStatusLine): st
   }
 }
 
-function isBotOwnItemNote(entry: AgentJournalOrcaCardItem | OrcaStatusLine): boolean {
+function isBotOwnItemNote(entry: AgentJournalOpenKodoCardItem | OpenKodoStatusLine): boolean {
   return !('messageId' in entry) && entry.kind === 'bot-item-note' && entry.by === 'bot'
 }
 
@@ -83,7 +83,7 @@ export function structuredAgentStartJournal(
 
   const appendAgentStart = async (
     destination: AgentStartDestination,
-    entry: AgentJournalOrcaCardItem | OrcaStatusLine,
+    entry: AgentJournalOpenKodoCardItem | OpenKodoStatusLine,
     observedAt: number
   ): Promise<void> => {
     const { sessionId } = destination
@@ -99,8 +99,8 @@ export function structuredAgentStartJournal(
     }
     const { journal } = await conversation(sessionId)
     const identity = {
-      provider: 'orca' as const,
-      clientMessageId: orcaCardMessageId(entry)
+      provider: 'openkodo' as const,
+      clientMessageId: openkodoCardMessageId(entry)
     }
     const body = 'messageId' in entry ? entry.body : entry
     // The bot's own item write joins the turn running it, so its adds in one turn draw as one row.

@@ -5,7 +5,7 @@ import type { RuntimeGitContext } from '@/runtime/source-control/git/runtime-git
 import type { ContinueRebaseResult } from '../../../../../../shared/git/status/git-status-types'
 import type { RebaseStopReading } from '../panel/worktree-operation-store'
 import type { SourceControlWorktreeOperationState } from '../panel/use-worktree-operation-state'
-import { recordRebaseStopReading } from './orca-rebase-marker'
+import { recordRebaseStopReading } from './openkodo-rebase-marker'
 
 type OperationStore = SourceControlWorktreeOperationState['operationStore']
 

@@ -26,7 +26,7 @@ describe('Waiting for a client that predates it', () => {
   const moved: BotItemEvent = {
     id: 'e5',
     kind: 'status',
-    actor: { kind: 'orca', why: 'usage-limit' },
+    actor: { kind: 'openkodo', why: 'usage-limit' },
     data: { from: 'working', to: 'waiting', note: 'CI on #9' },
     at: 1
   }

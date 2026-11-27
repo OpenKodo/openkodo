@@ -2,13 +2,13 @@ import type { useProjectGroupSetup } from './workspace-setup/use-project-group-s
 import type { FolderSetupSupport } from '@/lib/workspace/creation/setup/folder-setup-support'
 import type { GitHubWorkItem } from '../../../../shared/github/work-items/work-item-types'
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   SetupRunPolicy
-} from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { SparsePreset } from '../../../../shared/worktree/create-types'
 import type { RetiredNameRegistry } from '../../../../shared/worktree/naming/retired-name-registry'
 import type { GitHubLinkQuery } from '../../../../shared/new-workspace/github-links'
-import type { SetupConfig } from '../../../../shared/workspace-setup/hooks/orca-hook-setup-config'
+import type { SetupConfig } from '../../../../shared/workspace-setup/hooks/openkodo-hook-setup-config'
 
 export type ComposerDerivedModel = {
   groupSetup: ReturnType<typeof useProjectGroupSetup>
@@ -19,7 +19,7 @@ export type ComposerDerivedModel = {
   sparseError: string | null
   parsedLinkedIssueNumber: number | null
   effectiveLinkedPR: number | null
-  currentYamlHooks: OrcaHooks | null
+  currentYamlHooks: OpenKodoHooks | null
   setupConfig: SetupConfig | null
   /** False for a folder project whose host predates folder setup; its setup controls stay hidden. */
   setupSupport: FolderSetupSupport

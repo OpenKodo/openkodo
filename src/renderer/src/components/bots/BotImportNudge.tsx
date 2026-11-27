@@ -10,7 +10,7 @@ import { ownBotHost } from '@/lib/bot-hosts'
 import { botImportNudge } from '../../../../shared/bots/bot-import'
 import { useBotImportSources } from './bot-import-sources'
 
-const DISMISSED_KEY = 'orca.bots.import-nudge-dismissed'
+const DISMISSED_KEY = 'openkodo.bots.import-nudge-dismissed'
 
 export function BotImportNudge({
   open,

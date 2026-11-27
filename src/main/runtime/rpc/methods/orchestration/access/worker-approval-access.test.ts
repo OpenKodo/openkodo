@@ -41,7 +41,7 @@ describe('worker approval access', () => {
     expect(() => allow({ kind: 'paired-device', deviceId: 'laptop-1', agent: true })).toThrow(
       /Only a person can allow apr_1/
     )
-    // An orca CLI from before the agent flag declares nothing.
+    // An openkodo CLI from before the agent flag declares nothing.
     expect(() => allow({ kind: 'paired-device', deviceId: 'laptop-1' }, [])).toThrow(
       /Only a person can allow apr_1/
     )

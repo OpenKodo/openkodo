@@ -1,4 +1,4 @@
-import type { OrcaRuntimeWithRemoveManagedWorktree } from './workspace-removal'
+import type { OpenKodoRuntimeWithRemoveManagedWorktree } from './workspace-removal'
 import type { RuntimeStore } from '../../construction/runtime-store-contract'
 import type { RuntimeWorktreeRemovalTarget } from '../catalog/runtime-worktree-selection'
 import type { Repo } from '../../../../shared/repository/repo-types'
@@ -27,7 +27,7 @@ import { teardownStops } from './owned-session-teardown-policy'
 
 type WorkspaceRegistrationRemovalRuntime = WorktreeTeardownRuntime &
   Pick<
-    OrcaRuntimeWithRemoveManagedWorktree,
+    OpenKodoRuntimeWithRemoveManagedWorktree,
     | 'getLocalProvider'
     | 'onPtyStopped'
     | 'acquireFileWatcherRemoval'

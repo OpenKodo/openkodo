@@ -91,7 +91,7 @@ export function runtimeBrowserCommandsFactorySupportsEngineCapability(capability
   )
 }
 
-/** Hosts without their own identity store (orcad) serve the browser engine's. */
+/** Hosts without their own identity store (openkodod) serve the browser engine's. */
 export function runtimeBrowserEngineIdentity(): RuntimeBrowserIdentity | null {
   return runtimeBrowserCommandsFactoryIsAvailable() ? (currentOptions.identity?.() ?? null) : null
 }

@@ -1,6 +1,6 @@
 import { access, readdir, rm } from 'node:fs/promises'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { SERVE_LAUNCHD_LABEL_PREFIX } from './serve-bundle-coordination'
 
 /** One `openkodo serve service install` unit; profiles other than the default carry a hash suffix. */
@@ -59,13 +59,13 @@ export async function listInstalledServeServiceUnits(
   }
   if (platform === 'linux') {
     const dir = systemdDir(homeDir)
-    return (await listNames(dir, (file) => /^orca-serve(-[0-9a-f]{8})?\.service$/.test(file))).map(
-      (file): InstalledServeServiceUnit => ({
-        manager: 'systemd',
-        name: file,
-        unitPath: join(dir, file)
-      })
-    )
+    return (
+      await listNames(dir, (file) => /^openkodo-serve(-[0-9a-f]{8})?\.service$/.test(file))
+    ).map((file): InstalledServeServiceUnit => ({
+      manager: 'systemd',
+      name: file,
+      unitPath: join(dir, file)
+    }))
   }
   return []
 }

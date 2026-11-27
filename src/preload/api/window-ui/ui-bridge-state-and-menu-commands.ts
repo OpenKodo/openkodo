@@ -2,7 +2,7 @@ import type { MarkdownDocument } from '../../../shared/file-listing/file-documen
 import type { BotDeepLinkOutcome } from '../../../shared/bot-deep-link'
 import type { BrowserTabCreateRequest } from '../../../shared/browser/workspaces/browser-tab-create-request'
 import { ipcRenderer } from 'electron'
-import type { PersistedUIState } from '../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../shared/openkodo-profiles/persisted-ui-state-types'
 import type { KeybindingActionId } from '../../../shared/keybindings/types'
 import type { PreloadApi } from '../../api-types'
 import type {

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { appendFileSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { readJsonlCursorBytes, RolloutReadBatch } from './codex-rollout-async-reads'
 import { applyJsonlCursorBytes, type JsonlCursor } from './codex-rollout-jsonl-format'
 

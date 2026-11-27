@@ -1,8 +1,8 @@
 import type { SkillInstallDestination } from '../../../shared/skills/installation/skill-install-contract'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 
 export async function classifySkillCloudInstallTarget(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   input: { environmentId?: string; destination: SkillInstallDestination }
 ): Promise<'local' | 'remote'> {
   return input.environmentId || (await runtime.skillInstallDestinationUsesSsh(input.destination))

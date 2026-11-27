@@ -1,6 +1,6 @@
 import type { SpeechApi } from '../../../../../preload/api/speech/speech-api'
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
-import { getDefaultVoiceSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultVoiceSettings } from '../../../../../shared/openkodo-profiles/constants'
 import type {
   SpeechErrorEvent,
   SpeechLifecycleEvent,

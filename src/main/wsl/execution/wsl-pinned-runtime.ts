@@ -8,11 +8,11 @@ import {
   nodeRuntimeStoreDir,
   posixNodeRuntimeExecutable,
   probeRemoteNodeRuntimeCommand
-} from '../../managed-server/install/orcad-remote-node-runtime'
+} from '../../managed-server/install/openkodod-remote-node-runtime'
 import {
   REMOTE_NODE_RUNTIME_READY,
   assertRemoteNodeRuntimePromoted
-} from '../../managed-server/install/orcad-remote-node-runtime-report'
+} from '../../managed-server/install/openkodod-remote-node-runtime-report'
 import { getRemoteHostPlatform } from '../../ssh/remote-host/ssh-remote-platform'
 import {
   isGlibcBelow,
@@ -49,7 +49,7 @@ export async function ensureWslPinnedRuntime(
     throw new Error('WSL did not provide an absolute home directory.')
   }
   const host = getRemoteHostPlatform(arch === 'x86_64' ? 'linux-x64' : 'linux-arm64')
-  const runtimeDir = nodeRuntimeStoreDir(host, `${home}/.cache/orca`, target)
+  const runtimeDir = nodeRuntimeStoreDir(host, `${home}/.cache/openkodo`, target)
   const executable = posixNodeRuntimeExecutable(host, runtimeDir)
   const probe = await run({
     script: probeRemoteNodeRuntimeCommand(host, runtimeDir, target),

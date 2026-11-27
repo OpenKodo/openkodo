@@ -3,11 +3,11 @@ import type { BrowserSessionRegistryProfileOptions } from './profiles/browser-se
 import { collectOrphanedBrowserRoutePartitionStorage } from '../routing/partitions/browser-route-partition-storage-runtime'
 // Initialize route registries and ownership probes before profile startup.
 import '../routing/sessions/browser-route-session-runtime'
-import { configureBrowserRoutePartitionBindingsForOrcaProfile } from '../routing/partitions/browser-route-partition-binding-runtime'
+import { configureBrowserRoutePartitionBindingsForOpenKodoProfile } from '../routing/partitions/browser-route-partition-binding-runtime'
 import { configureBrowserSitePermissionStore } from '../site-settings/permissions/browser-site-permission-store'
 import { configureBrowserSiteDisplayStore } from '../site-settings/display/browser-site-display-store'
 import { configureBrowserExtensionProfileDataDirectory } from '../extensions/profile-storage/browser-extension-profile-data-directory'
-import { configurePairedRuntimeBrowserClientHostsForOrcaProfile } from '../client-hosts/lifecycle/paired-runtime-browser-client-host-runtime'
+import { configurePairedRuntimeBrowserClientHostsForOpenKodoProfile } from '../client-hosts/lifecycle/paired-runtime-browser-client-host-runtime'
 import { configureBrowserPasswordVaults } from '../../browser-passwords/browser-password-vaults'
 import { restoreBrowserSessionCookies } from '../cookies/session-restore/browser-session-cookie-restore'
 import { configureBrowserSessionCookieSnapshots } from '../cookies/session-restore/browser-session-cookie-snapshot-file'
@@ -33,18 +33,18 @@ export function initializeBrowserSessionsForApp(
   listenForBrowserGuestPageVisibility()
 
   if (activeProfile) {
-    browserSessionRegistry.configureForOrcaProfile(activeProfile)
+    browserSessionRegistry.configureForOpenKodoProfile(activeProfile)
     configureBrowserSitePermissionStore(activeProfile.profileDirectory)
     configureBrowserSiteDisplayStore(activeProfile.profileDirectory)
     configureBrowserExtensionProfileDataDirectory(activeProfile.profileDirectory)
     configureBrowserPasswordVaults(activeProfile.profileDirectory)
     configureBrowserSessionCookieSnapshots(activeProfile.profileDirectory)
-    configureBrowserRoutePartitionBindingsForOrcaProfile({
-      orcaProfileId: activeProfile.orcaProfileId,
+    configureBrowserRoutePartitionBindingsForOpenKodoProfile({
+      openkodoProfileId: activeProfile.openkodoProfileId,
       profileDirectory: activeProfile.profileDirectory
     })
-    configurePairedRuntimeBrowserClientHostsForOrcaProfile({
-      orcaProfileId: activeProfile.orcaProfileId
+    configurePairedRuntimeBrowserClientHostsForOpenKodoProfile({
+      openkodoProfileId: activeProfile.openkodoProfileId
     })
     void collectOrphanedBrowserRoutePartitionStorage(activeProfile.listLocalSshTargetIds).catch(
       (error) => {

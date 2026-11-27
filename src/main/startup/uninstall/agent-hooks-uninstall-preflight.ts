@@ -5,7 +5,7 @@ import { ElectronAppEnvironment } from '../../host/electron-app-environment'
 import { ensureWindowsAppDataPath } from '../windows-startup/windows-app-data-path'
 
 /** The NSIS uninstaller's flag (config/nsis/openkodo-installer-hooks.nsh); keep the two in sync. */
-export const AGENT_HOOKS_UNINSTALL_FLAG = '--orca-uninstall-remove-agent-hooks'
+export const AGENT_HOOKS_UNINSTALL_FLAG = '--openkodo-uninstall-remove-agent-hooks'
 
 // Uninstall must finish even if an agent's config never answers.
 const UNINSTALL_HOOK_REMOVAL_TIMEOUT_MS = 30_000

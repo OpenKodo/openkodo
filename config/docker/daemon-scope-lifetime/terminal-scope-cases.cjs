@@ -44,21 +44,21 @@ async function startDaemon(bundlePath, nonce, terminals, env = {}, mode = 'candi
   await new Promise((resolve) => runtime.on('exit', resolve))
   await until(() => fs.existsSync(`${resultPath}.daemon`), 'terminal daemon did not start')
   const daemon = JSON.parse(fs.readFileSync(`${resultPath}.daemon`, 'utf8'))
-  const unit = `orca-daemon-${nonce}.scope`
+  const unit = `openkodo-daemon-${nonce}.scope`
   assert.ok(cgroupOf(daemon.pid).endsWith(`/${unit}`), 'daemon is not in its own scope')
   if (mode === 'baseline') {
     return { ...daemon, unit }
   }
   // systemd-run moves itself into the scope before it execs the shell.
   await until(
-    () => daemon.terminals.every((pid) => /\/orca_pty_[^/]+\.scope$/.test(cgroupOf(pid))),
+    () => daemon.terminals.every((pid) => /\/openkodo_pty_[^/]+\.scope$/.test(cgroupOf(pid))),
     `terminals never entered their scopes: ${JSON.stringify(daemon.events)}`
   )
   const scopes = daemon.terminals.map(cgroupOf)
   const slice = scopes[0].split('/').slice(0, -1).join('/')
   assert.equal(new Set(scopes).size, scopes.length, 'two terminals share a scope')
   for (const scope of scopes) {
-    assert.match(scope, /\/orca_ptys_[^/]+\.slice\/orca_pty_[^/]+\.scope$/)
+    assert.match(scope, /\/openkodo_ptys_[^/]+\.slice\/openkodo_pty_[^/]+\.scope$/)
     assert.ok(scope.startsWith(`${slice}/`), 'terminal scopes are not siblings in one slice')
   }
   assert.ok(!slice.includes(unit), 'terminal slice is nested in the daemon scope')

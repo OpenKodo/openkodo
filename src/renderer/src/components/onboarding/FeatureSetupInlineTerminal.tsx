@@ -1,4 +1,4 @@
-// COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+// COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
 import { useCallback, useMemo, useRef, type KeyboardEvent } from 'react'
 import { track } from '@/diagnostics/telemetry/telemetry'
 import { notifyInstalledAgentSkillsChanged } from '@/hooks/skills/discovery/installed-agent-skill-discovery'

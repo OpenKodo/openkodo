@@ -42,7 +42,7 @@ function install(): GuardState | null {
   if (process.platform === 'win32' || REAL_AGENT_CLI_SWITCHES.some((name) => process.env[name])) {
     return null
   }
-  const dir = mkdtempSync(join(tmpdir(), 'orca-agent-cli-guard-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-agent-cli-guard-'))
   const log = join(dir, 'calls.log')
   writeFileSync(log, '')
   const script = [
@@ -66,12 +66,12 @@ function install(): GuardState | null {
 
 declare global {
   // Install once per process; per-file installs would stack PATH entries.
-  var orcaRealAgentCliGuard: GuardState | null | undefined
+  var openkodoRealAgentCliGuard: GuardState | null | undefined
 }
-if (globalThis.orcaRealAgentCliGuard === undefined) {
-  globalThis.orcaRealAgentCliGuard = install()
+if (globalThis.openkodoRealAgentCliGuard === undefined) {
+  globalThis.openkodoRealAgentCliGuard = install()
 }
-const state = globalThis.orcaRealAgentCliGuard
+const state = globalThis.openkodoRealAgentCliGuard
 
 /** Drains recorded calls; only the guard's own self-test should need this. */
 export function takeRealAgentCliCalls(): string[] {

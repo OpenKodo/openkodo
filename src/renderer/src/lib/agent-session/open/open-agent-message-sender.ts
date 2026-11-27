@@ -122,7 +122,7 @@ async function openSender(
     .filter((message) => message.from === party.address)
     .map((message) => message.messageId)
   const state = useAppStore.getState()
-  const root = party.orcaSessionId
+  const root = party.openkodoSessionId
   const known = root
     ? Object.entries(state.unifiedTabsByWorktree).flatMap(([worktreeId, tabs]) =>
         tabs.flatMap((tab) =>
@@ -187,7 +187,7 @@ export async function openOrchestrationDispatch(
     const result = await openDesktopStructuredSession(
       {
         kind: 'sender',
-        party: { address, terminalHandle: null, orcaSessionId: null },
+        party: { address, terminalHandle: null, openkodoSessionId: null },
         messageIds: [],
         displayName: label
       },

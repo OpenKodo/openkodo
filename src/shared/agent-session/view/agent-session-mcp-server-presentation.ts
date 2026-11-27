@@ -9,8 +9,8 @@ export type AgentSessionMcpServerGroup = {
   servers: AgentSessionMcpServer[]
 }
 
-/** Servers OpenKodo added from the host's list (`withOrcaMcpSource` on the host). */
-export const OPENKODO_MCP_SOURCE = 'orca'
+/** Servers OpenKodo added from the host's list (`withOpenKodoMcpSource` on the host). */
+export const OPENKODO_MCP_SOURCE = 'openkodo'
 
 /** OpenKodo's group comes first; the others keep the order the agent listed their first server in. */
 export function groupAgentSessionMcpServers(
@@ -25,9 +25,9 @@ export function groupAgentSessionMcpServers(
       groups.set(server.source, { source: server.source, servers: [server] })
     }
   }
-  const orca = groups.get(OPENKODO_MCP_SOURCE)
-  return orca
-    ? [orca, ...[...groups.values()].filter((group) => group !== orca)]
+  const openkodo = groups.get(OPENKODO_MCP_SOURCE)
+  return openkodo
+    ? [openkodo, ...[...groups.values()].filter((group) => group !== openkodo)]
     : [...groups.values()]
 }
 

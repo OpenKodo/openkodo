@@ -55,7 +55,7 @@ function facts(fields: Partial<BotAutomationFacts> & Pick<BotAutomationFacts, 'i
 const deadline = nextFriday5pm()
 const nora = facts({
   id: 'wait-nora',
-  name: 'Nora’s reply in your #orca thread',
+  name: 'Nora’s reply in your #openkodo thread',
   on: [{ id: 't1', source: 'slack', event: 'message', subject: 'T1:C1:1700.01' }],
   once: { by: deadline }
 })
@@ -66,7 +66,7 @@ const activity: BotActivity = {
   inProgress: [],
   completed: [],
   waits: [
-    row({ ...nora, name: 'Nora’s reply in #orca' }),
+    row({ ...nora, name: 'Nora’s reply in #openkodo' }),
     row(
       facts({
         id: 'wait-ci',

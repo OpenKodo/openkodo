@@ -34,9 +34,9 @@ import {
 } from '../../../../shared/plugins/workers/plugin-worker-hooks'
 import {
   createPluginWorkerApiTables,
-  createPluginWorkerOrcaApi,
-  type PluginWorkerOrcaApi
-} from '../../../../shared/plugins/workers/plugin-worker-orca-api'
+  createPluginWorkerOpenKodoApi,
+  type PluginWorkerOpenKodoApi
+} from '../../../../shared/plugins/workers/plugin-worker-openkodo-api'
 
 export type PluginHostCallError = Error & {
   code: PluginErrorCode
@@ -134,7 +134,7 @@ export function createPluginWorkerRuntime(
       // Why name it: `export function activate` is the usual slip, and OpenKodo never calls it.
       throw new Error(
         typeof readExport(module, 'activate') === 'function'
-          ? `plugin entry ${input.mainEntry} exports activate by name, but OpenKodo calls the default export: write \`export default function activate(orca)\``
+          ? `plugin entry ${input.mainEntry} exports activate by name, but OpenKodo calls the default export: write \`export default function activate(openkodo)\``
           : `plugin entry ${input.mainEntry} has no default-exported activate function`
       )
     }
@@ -143,7 +143,7 @@ export function createPluginWorkerRuntime(
       throw new Error(`plugin entry ${input.mainEntry} has a non-function deactivate export`)
     }
     deactivate = deactivateExport === undefined ? null : () => deactivateExport()
-    const orca: PluginWorkerOrcaApi = createPluginWorkerOrcaApi({
+    const openkodo: PluginWorkerOpenKodoApi = createPluginWorkerOpenKodoApi({
       tables,
       hostCall: (method, params, callOptions) => hostCall(method, params, callOptions?.signal),
       postToPanels: (post) => send(pluginEvent(WORKER_EVENTS.panelPost, post)),
@@ -151,7 +151,7 @@ export function createPluginWorkerRuntime(
       grantedCapabilities: input.grantedCapabilities,
       allowProposed: input.allowProposed === true
     })
-    await activate(orca)
+    await activate(openkodo)
     send(pluginEvent(WORKER_EVENTS.ready, { commands: [...commandHandlers.keys()] }))
   }
 

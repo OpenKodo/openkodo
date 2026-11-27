@@ -21,17 +21,17 @@ export function buildWslExecArgs(
 export function buildWslLoginShellCommand(command: string): string {
   const quotedCommand = quotePosixShell(command)
   return [
-    '_orca_wsl_shell=$(getent passwd "$(id -un)" 2>/dev/null | cut -d: -f7)',
-    'if [ -z "$_orca_wsl_shell" ] || [ ! -x "$_orca_wsl_shell" ]; then',
-    '  _orca_wsl_shell="${SHELL:-/bin/bash}"',
+    '_openkodo_wsl_shell=$(getent passwd "$(id -un)" 2>/dev/null | cut -d: -f7)',
+    'if [ -z "$_openkodo_wsl_shell" ] || [ ! -x "$_openkodo_wsl_shell" ]; then',
+    '  _openkodo_wsl_shell="${SHELL:-/bin/bash}"',
     'fi',
-    'if [ -z "$_orca_wsl_shell" ] || [ ! -x "$_orca_wsl_shell" ]; then',
-    '  _orca_wsl_shell=/bin/sh',
+    'if [ -z "$_openkodo_wsl_shell" ] || [ ! -x "$_openkodo_wsl_shell" ]; then',
+    '  _openkodo_wsl_shell=/bin/sh',
     'fi',
-    '_orca_wsl_shell_name=$(basename "$_orca_wsl_shell" | tr "[:upper:]" "[:lower:]")',
-    'case "$_orca_wsl_shell_name" in',
-    `  sh|dash) exec "$_orca_wsl_shell" -lc ${quotedCommand} ;;`,
-    `  bash|zsh|ksh|mksh|ash) exec "$_orca_wsl_shell" -ilc ${quotedCommand} ;;`,
+    '_openkodo_wsl_shell_name=$(basename "$_openkodo_wsl_shell" | tr "[:upper:]" "[:lower:]")',
+    'case "$_openkodo_wsl_shell_name" in',
+    `  sh|dash) exec "$_openkodo_wsl_shell" -lc ${quotedCommand} ;;`,
+    `  bash|zsh|ksh|mksh|ash) exec "$_openkodo_wsl_shell" -ilc ${quotedCommand} ;;`,
     `  *) exec /bin/sh -lc ${quotedCommand} ;;`,
     'esac'
   ].join('\n')
@@ -55,58 +55,58 @@ export function getWslFishInitCommand(): string {
 
 export function buildWslInteractiveLoginShellCommand(): string {
   return [
-    '_orca_wsl_shell=$(getent passwd "$(id -un)" 2>/dev/null | cut -d: -f7)',
-    'if [ -z "$_orca_wsl_shell" ] || [ ! -x "$_orca_wsl_shell" ]; then',
-    '  _orca_wsl_shell="${SHELL:-/bin/bash}"',
+    '_openkodo_wsl_shell=$(getent passwd "$(id -un)" 2>/dev/null | cut -d: -f7)',
+    'if [ -z "$_openkodo_wsl_shell" ] || [ ! -x "$_openkodo_wsl_shell" ]; then',
+    '  _openkodo_wsl_shell="${SHELL:-/bin/bash}"',
     'fi',
-    'if [ -z "$_orca_wsl_shell" ] || [ ! -x "$_orca_wsl_shell" ]; then',
-    '  _orca_wsl_shell=/bin/sh',
+    'if [ -z "$_openkodo_wsl_shell" ] || [ ! -x "$_openkodo_wsl_shell" ]; then',
+    '  _openkodo_wsl_shell=/bin/sh',
     'fi',
-    '_orca_shell_ready_root=""',
+    '_openkodo_shell_ready_root=""',
     // Use the host-published content-addressed wrapper root, /p-translated by WSLENV. Retain userData fallback for older hosts.
     'if [ -n "${OPENKODO_SHELL_READY_ROOT:-}" ]; then',
-    '  _orca_shell_ready_root="${OPENKODO_SHELL_READY_ROOT%/}"',
+    '  _openkodo_shell_ready_root="${OPENKODO_SHELL_READY_ROOT%/}"',
     'elif [ -n "${OPENKODO_USER_DATA_PATH:-}" ]; then',
-    '  _orca_shell_ready_root="${OPENKODO_USER_DATA_PATH%/}/shell-ready"',
+    '  _openkodo_shell_ready_root="${OPENKODO_USER_DATA_PATH%/}/shell-ready"',
     'fi',
-    '_orca_wsl_shell_name=$(basename "$_orca_wsl_shell" | tr "[:upper:]" "[:lower:]")',
-    'case "$_orca_wsl_shell_name" in',
+    '_openkodo_wsl_shell_name=$(basename "$_openkodo_wsl_shell" | tr "[:upper:]" "[:lower:]")',
+    'case "$_openkodo_wsl_shell_name" in',
     '  bash)',
-    '    if [ -n "${_orca_shell_ready_root:-}" ] && [ -f "${_orca_shell_ready_root}/bash/rcfile" ]; then',
-    '      exec "$_orca_wsl_shell" --rcfile "${_orca_shell_ready_root}/bash/rcfile"',
+    '    if [ -n "${_openkodo_shell_ready_root:-}" ] && [ -f "${_openkodo_shell_ready_root}/bash/rcfile" ]; then',
+    '      exec "$_openkodo_wsl_shell" --rcfile "${_openkodo_shell_ready_root}/bash/rcfile"',
     '    fi',
     '    ;;',
     // A WSL fish pane gets its agent wrappers and cwd hook here, without a shell-ready wrapper.
     // fish before 2.7 rejects -C and would fail the pane; it starts plain.
     // fish 2.x prints --version to stderr, so both streams are read.
     '  fish)',
-    '    _orca_fish_version=$("$_orca_wsl_shell" --version 2>&1)',
-    '    case "${_orca_fish_version##*version }" in',
+    '    _openkodo_fish_version=$("$_openkodo_wsl_shell" --version 2>&1)',
+    '    case "${_openkodo_fish_version##*version }" in',
     '      [01].*|2.[0-6]|2.[0-6].*) ;;',
-    `      *) exec "$_orca_wsl_shell" -l -C ${quotePosixShell(getWslFishInitCommand())} ;;`,
+    `      *) exec "$_openkodo_wsl_shell" -l -C ${quotePosixShell(getWslFishInitCommand())} ;;`,
     '    esac',
     '    ;;',
     '  zsh)',
-    '    if [ -n "${_orca_shell_ready_root:-}" ] && [ -d "${_orca_shell_ready_root}/zsh" ]; then',
-    '      export ZDOTDIR="${_orca_shell_ready_root}/zsh"',
+    '    if [ -n "${_openkodo_shell_ready_root:-}" ] && [ -d "${_openkodo_shell_ready_root}/zsh" ]; then',
+    '      export ZDOTDIR="${_openkodo_shell_ready_root}/zsh"',
     '    fi',
     '    ;;',
     // Why ENV: dash has no rcfile flag or prompt hook; an interactive sh reads $ENV after ~/.profile.
     // The shell expands ENV's value, so a root containing $, ` or \ is skipped, never mangled.
     '  sh|dash|ash)',
-    '    if [ -n "${_orca_shell_ready_root:-}" ] && [ -f "${_orca_shell_ready_root}/sh/env" ]; then',
-    '      case "$_orca_shell_ready_root" in',
+    '    if [ -n "${_openkodo_shell_ready_root:-}" ] && [ -f "${_openkodo_shell_ready_root}/sh/env" ]; then',
+    '      case "$_openkodo_shell_ready_root" in',
     "        *'$'*|*'`'*|*'\\'*) ;;",
     '        *)',
     // If ~/.profile replaces ENV, nothing of ours runs after it to unset this; it then holds only the
     // user's own former ENV value.
     '          if [ -n "${ENV+x}" ]; then export OPENKODO_WSL_USER_ENV="$ENV"; fi',
-    '          export ENV="${_orca_shell_ready_root}/sh/env"',
+    '          export ENV="${_openkodo_shell_ready_root}/sh/env"',
     '          ;;',
     '      esac',
     '    fi',
     '    ;;',
     'esac',
-    'exec "$_orca_wsl_shell" -l'
+    'exec "$_openkodo_wsl_shell" -l'
   ].join('\n')
 }

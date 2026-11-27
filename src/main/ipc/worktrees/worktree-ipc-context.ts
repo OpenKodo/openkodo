@@ -1,6 +1,6 @@
 import type { BrowserWindow } from 'electron'
 import type { Store } from '../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { RuntimeWorktreeLifecycleEvent } from '../../runtime/workspaces/lifecycle/worktree-lifecycle-event'
 import type { SenderScopedRequestCancellations } from '../renderer-requests/sender-scoped-request-cancellation'
 import type { WorktreeRemovalInFlight } from './removal/worktree-removal-coordinator'
@@ -8,7 +8,7 @@ import type { WorktreeRemovalInFlight } from './removal/worktree-removal-coordin
 export type WorktreeIpcContext = {
   mainWindow: BrowserWindow
   store: Store
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   options?: {
     onWorktreeLifecycle?: (event: RuntimeWorktreeLifecycleEvent) => void
   }

@@ -168,7 +168,7 @@ function replying(
       folderWorkspaces: [
         makeFolderWorkspace({
           id: sampleBot.folderWorkspaceId,
-          folderPath: '/home/me/.orca/bots/sample-bot'
+          folderPath: '/home/me/.openkodo/bots/sample-bot'
         })
       ]
     },

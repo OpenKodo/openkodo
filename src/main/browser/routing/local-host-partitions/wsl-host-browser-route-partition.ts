@@ -1,6 +1,6 @@
 /**
  * The route partition a WSL host's in-app browser pages will use, resolved from the environment
- * record alone so a caller can seed it while no page or orcad connection is live.
+ * record alone so a caller can seed it while no page or openkodod connection is live.
  */
 import { classifyRuntimeEnvironmentHost } from '../../../../shared/remote-runtime/host-catalog/runtime-environment-host-kind'
 import {
@@ -22,7 +22,7 @@ import { derivePairedRuntimeBrowserAuthorityIdentity } from '../../client-hosts/
 const OFFLINE_AUTHORITY_RUNTIME_ID = 'wsl-move-offline'
 
 export type WslHostBrowserRouteStorage = {
-  orcaProfileId: string
+  openkodoProfileId: string
   storageScope: string
   /** Survives re-pairs; pages find the jar through it. */
   authorityConnectionIdentity: string
@@ -34,35 +34,35 @@ export type WslHostBrowserRouteStorageResult =
   | { kind: 'stable'; storage: WslHostBrowserRouteStorage }
   | { kind: 'unavailable'; reason: 'destination-not-wsl-host' | 'no-stable-partition' }
 
-/** `stable` only for a WSL host whose partition survives every orcad relaunch and re-pair. */
+/** `stable` only for a WSL host whose partition survives every openkodod relaunch and re-pair. */
 export function wslHostBrowserRouteStorage(
-  orcaProfileId: string,
+  openkodoProfileId: string,
   environment: KnownRuntimeEnvironment
 ): WslHostBrowserRouteStorageResult {
   // Why first: without a deployment link the identity is pairing-scoped, so no host kind is stable.
-  if (!environment.orcadDeployment) {
+  if (!environment.openkododDeployment) {
     return { kind: 'unavailable', reason: 'no-stable-partition' }
   }
   if (classifyRuntimeEnvironmentHost(environment).kind !== 'wsl') {
     return { kind: 'unavailable', reason: 'destination-not-wsl-host' }
   }
   const identity = derivePairedRuntimeBrowserAuthorityIdentity({
-    orcaProfileId,
+    openkodoProfileId,
     environment,
     pairingRevision: environment.pairingRevision ?? environment.createdAt,
     authorityRuntimeId: OFFLINE_AUTHORITY_RUNTIME_ID,
     connection: getPreferredPairedRuntimeConnection(environment)
   })
-  // Why: a pairing-scoped identity moves on the next orcad relaunch, stranding anything copied.
+  // Why: a pairing-scoped identity moves on the next openkodod relaunch, stranding anything copied.
   if (identity.authorityConnectionIdentity === identity.pairingAuthorityConnectionIdentity) {
     return { kind: 'unavailable', reason: 'no-stable-partition' }
   }
   return {
     kind: 'stable',
     storage: {
-      orcaProfileId,
+      openkodoProfileId,
       storageScope: deriveBrowserRoutePartitionStorageScope({
-        orcaProfileId,
+        openkodoProfileId,
         environmentId: environment.id
       }),
       authorityConnectionIdentity: identity.authorityConnectionIdentity,
@@ -82,7 +82,7 @@ export function bindWslHostBrowserRoutePartition(
   // Why: the host's own pages run natively inside the distro, so they name the authority itself.
   const executionHostIdentity = browserAuthorityExecutionHostStorageIdentity(storage.storageScope)
   const identity = (authorityConnectionIdentity: string): BrowserRoutePartitionIdentity => ({
-    orcaProfileId: storage.orcaProfileId,
+    openkodoProfileId: storage.openkodoProfileId,
     browserProfileId,
     authorityConnectionIdentity,
     executionHostIdentity
@@ -90,8 +90,8 @@ export function bindWslHostBrowserRoutePartition(
   const bindings = currentBrowserRoutePartitionBindingStore({
     isPartitionRetained: isBrowserRoutePartitionRetainedByAnyOwner
   })
-  // Why no legacy identity: it hashes the live orcad's runtime id, so a jar bound to it is only
-  // adoptable by a page of that same orcad process.
+  // Why no legacy identity: it hashes the live openkodod's runtime id, so a jar bound to it is only
+  // adoptable by a page of that same openkodod process.
   const derived = resolveBrowserRoutePartitionBinding({
     bindings,
     identity: identity(storage.authorityConnectionIdentity),

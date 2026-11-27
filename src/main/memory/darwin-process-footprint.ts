@@ -1,6 +1,6 @@
 import { access, constants } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 // Bundled helper reads phys_footprint via proc_pid_rusage in a few ms, so every 2 s resource poll can use it.
 const HELPER_EXECUTABLE = 'openkodo-process-footprint'

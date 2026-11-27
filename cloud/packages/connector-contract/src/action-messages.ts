@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { EpochMsSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema } from '@openkodo-cloud/push-contract'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 import {
   CONNECTOR_PLACE_SOURCES,
@@ -10,7 +10,7 @@ import {
 } from './connector-wire-scalars.js'
 
 // The shared verbs a bot takes in a source; a source that doesn't take one answers it as unsupported.
-// Reply is `orca bot reply`, listed so capabilities name it; it answers the run's own conversation,
+// Reply is `openkodo bot reply`, listed so capabilities name it; it answers the run's own conversation,
 // never a ref.
 export const CONNECTOR_ACTION_VERBS = [
   'reply',
@@ -182,9 +182,9 @@ export const ConnectorUploadSchema = z
   })
   .strict()
 export type ConnectorUpload = z.infer<typeof ConnectorUploadSchema>
-// The most files one `orca bot reply` posts with its words.
+// The most files one `openkodo bot reply` posts with its words.
 export const CONNECTOR_REPLY_MAX_FILES = 10
-// The most buttons one `orca bot reply` offers, and the longest label each takes (Slack's own cap).
+// The most buttons one `openkodo bot reply` offers, and the longest label each takes (Slack's own cap).
 export const CONNECTOR_REPLY_MAX_CHOICES = 10
 export const CONNECTOR_REPLY_CHOICE_MAX_CHARS = 75
 
@@ -343,11 +343,11 @@ export type ConnectorIssueFacts = z.infer<typeof ConnectorIssueFactsSchema>
 export const ConnectorActionResultSchema = z.looseObject({
   // The place or message acted on, or made (post).
   target: ConnectorRefViewSchema.optional(),
-  // A post Orca Cloud took and sends shortly; target is then its place, not the message.
+  // A post OpenKodo Cloud took and sends shortly; target is then its place, not the message.
   queued: z.literal(true).optional(),
   // A post that has gone: the message's web link, where the source has one.
   url: z.string().url().optional(),
-  // A post's: why it can't wake an Orca bot it mentions.
+  // A post's: why it can't wake an OpenKodo bot it mentions.
   notices: ConnectorPostNoticesSchema.optional(),
   // A post that made a new issue; target is the issue.
   created: z.literal(true).optional(),
@@ -359,7 +359,7 @@ export const ConnectorActionResultSchema = z.looseObject({
   messages: z.array(ConnectorReadMessageSchema).optional(),
   // The ref to pass as --before for the next older page; absent on the last.
   before: z.string().optional(),
-  // What a read left out, in words (a thread past what Orca reads at once).
+  // What a read left out, in words (a thread past what OpenKodo reads at once).
   note: z.string().optional(),
   // A file read with --download: its bytes as base64 for a machine before `files.direct`; for one
   // that asked to stream, where to GET them, with the ticket as its bearer credential. The answer

@@ -6,7 +6,7 @@ import type { TerminalInputKind } from '../../../../../shared/terminal/input/ter
 import { noteTerminalWebglAtlasTyping } from '@/lib/pane-manager/terminal-rendering/terminal-webgl-atlas-rebuild-interaction'
 import type { RuntimeTerminalSend } from '../../../../../shared/terminal/runtime/runtime-terminal-send-contract'
 
-const DESKTOP_RUNTIME_CLIENT = { id: 'orca-desktop', type: 'desktop' } as const
+const DESKTOP_RUNTIME_CLIENT = { id: 'openkodo-desktop', type: 'desktop' } as const
 
 export function sendRuntimePtyInput(
   ptyId: string,

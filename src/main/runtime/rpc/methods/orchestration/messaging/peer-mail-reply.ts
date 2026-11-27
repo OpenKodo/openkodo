@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
 import type { PeerMailMessageRow } from '../../../../orchestration/db/federation/peer-mail-store'
 import type { MessageRow } from '../../../../orchestration/db/orchestration-records'
@@ -29,7 +29,7 @@ const NOTHING_SENT = { effectsApplied: false } as const
 
 /** A reply to mail that came from another OpenKodo goes back over that mail's conversation. */
 export async function replyOverPeerMail(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   original: MessageRow
   route: PeerMailMessageRow
   params: { body: string; from?: string; on?: string }

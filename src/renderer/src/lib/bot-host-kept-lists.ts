@@ -9,7 +9,7 @@ import type { FolderWorkspace } from '../../../shared/folder-workspaces/folder-w
 import type { BotHostConnectorStatus } from './bot-catalog-snapshot'
 
 // One key per server, so a write carries one server and two windows never overwrite each other's servers.
-const KEY_PREFIX = 'orca.bots.pairedHostList.v2:'
+const KEY_PREFIX = 'openkodo.bots.pairedHostList.v2:'
 const RUNTIME_PREFIX = 'runtime:'
 export const KEPT_BOT_LIST_FLUSH_MS = 1_500
 

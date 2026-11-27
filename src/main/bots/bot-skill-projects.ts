@@ -17,7 +17,7 @@ import type {
   LinkedSkillListing,
   LinkedSkills
 } from '../native-chat/native-chat-skill-roots'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { retireAtRestCommandContext } from '../native-chat/agent-session-wire/options/at-rest-command-context'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 

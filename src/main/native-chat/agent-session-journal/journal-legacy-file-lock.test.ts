@@ -2,7 +2,7 @@ import { captureJournalLegacySourceReceipt } from './database/journal-legacy-sou
 import { existsSync, mkdtempSync, rmSync, writeFileSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { afterEach, expect, it } from 'vitest'
 import {
   acquireJournalLegacyFileLock,
@@ -22,7 +22,7 @@ it.skipIf(process.env.OPENKODO_JOURNAL_NATIVE_LOCK_TEST !== '1')(
   'excludes a real SQLite process without altering source bytes, then releases on EOF',
   async () => {
     expect(existsSync(await journalLegacyFileLockPath())).toBe(true)
-    const root = mkdtempSync(join(tmpdir(), 'orca-journal-file-lock-'))
+    const root = mkdtempSync(join(tmpdir(), 'openkodo-journal-file-lock-'))
     cleanups.push(() => rmSync(root, { recursive: true, force: true }))
     const filename = join(root, 'source.db')
     const { db } = openJournalDatabase(filename)

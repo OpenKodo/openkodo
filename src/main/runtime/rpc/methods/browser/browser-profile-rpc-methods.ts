@@ -14,7 +14,7 @@ import {
 
 /** Clearing a profile's cookies signs the person out everywhere; only their own click in Settings may. */
 export function refuseAgentCookieClear(context: Pick<RpcContext, 'caller'>): void {
-  // An orcad's browser engine hears only from that orcad, which refused agents before forwarding.
+  // An openkodod's browser engine hears only from that openkodod, which refused agents before forwarding.
   if (isAgentRpcCaller(context.caller) && !isBrowserEngineSidecarLaunch()) {
     throw new InvalidArgumentError(
       "Agents can't clear a browser profile's cookies. Clear them from Settings › Browser in OpenKodo."

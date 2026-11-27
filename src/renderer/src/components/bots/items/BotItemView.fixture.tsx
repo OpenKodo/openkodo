@@ -7,7 +7,7 @@ import { BotItemBody } from './BotItemView'
 import {
   getDefaultSettings,
   getDefaultVoiceSettings
-} from '../../../../../shared/orca-profiles/constants'
+} from '../../../../../shared/openkodo-profiles/constants'
 import { botRefKey } from '@/lib/bot-hosts'
 import { updateNativeChatComposerDraft } from '../../native-chat/drafts/native-chat-composer-draft-store'
 
@@ -183,7 +183,10 @@ export const shortPaneLongAnswer = defineFixture({
           { length: 6 },
           (_, index) => `Part ${index + 1}: a full sentence of answer.`
         ).join('\n\n'),
-        images: ['a', 'b', 'c'].map((id) => ({ id, path: `/home/me/.orca/attachments/${id}.png` }))
+        images: ['a', 'b', 'c'].map((id) => ({
+          id,
+          path: `/home/me/.openkodo/attachments/${id}.png`
+        }))
       },
       'immediate'
     ),

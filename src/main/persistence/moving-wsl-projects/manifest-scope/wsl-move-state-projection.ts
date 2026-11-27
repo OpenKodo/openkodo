@@ -4,8 +4,8 @@ import {
   getRepoExecutionHostId,
   type ExecutionHostId
 } from '../../../../shared/execution-host/execution-host'
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
-import type { PersistedUIState } from '../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
+import type { PersistedUIState } from '../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import {
   normalizeWorkspaceSessionKeyToWorkspaceId,
@@ -17,7 +17,7 @@ import {
 } from '../../../../shared/worktree/host-qualified-identity'
 import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 import { getAllWorktreeMetaForHost } from '../../loading-store/worktree-metadata/worktree-identity-metadata'
-import { collectProjectGroups } from '../../migrating-orcad-catalog/source/catalog/orcad-source-catalog'
+import { collectProjectGroups } from '../../migrating-openkodod-catalog/source/catalog/openkodod-source-catalog'
 import {
   canonicalizeWslMoveValue,
   createWslMoveStringNormalizer,

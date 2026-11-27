@@ -1,15 +1,15 @@
 import { createHash } from 'node:crypto'
 import { resolveHookCommandSourcePolicy } from '../../shared/workspace-setup/hooks/hook-command-source-policy'
-import { getSetupTrustContent } from '../../shared/workspace-setup/hooks/orca-hook-setup-config'
-import type { OrcaHooks } from '../../shared/workspace-setup/orca-yaml-hook-types'
+import { getSetupTrustContent } from '../../shared/workspace-setup/hooks/openkodo-hook-setup-config'
+import type { OpenKodoHooks } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { WorkspaceHookOwner } from '../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { SetupDecision, SetupTrustMismatch } from '../../shared/worktree/create-types'
 import type { ApprovedSetupHashes } from '../../shared/worktree/creation/approved-setup-hashes'
 import type { WorktreeDefaultTabsLaunch } from '../../shared/worktree/creation/launch-types'
 import { shouldRunSetupForCreate } from './effective-hook-config'
 
-/** Same digest as the renderer's hashOrcaHookScript, so host and prompt hashes compare. */
-export function hashOrcaHookTrustContent(content: string): string {
+/** Same digest as the renderer's hashOpenKodoHookScript, so host and prompt hashes compare. */
+export function hashOpenKodoHookTrustContent(content: string): string {
   return createHash('sha256').update(content.trim()).digest('hex')
 }
 
@@ -19,7 +19,7 @@ export function hashOrcaHookTrustContent(content: string): string {
  */
 export function checkCreatedWorktreeSetupTrust(
   repo: WorkspaceHookOwner,
-  createdYamlHooks: OrcaHooks | null,
+  createdYamlHooks: OpenKodoHooks | null,
   decision: SetupDecision | undefined,
   approved: ApprovedSetupHashes
 ): SetupTrustMismatch | undefined {
@@ -34,7 +34,7 @@ export function checkCreatedWorktreeSetupTrust(
   if (policy === 'local-only' || !scriptContent || !wouldRunSetup(repo, decision)) {
     return undefined
   }
-  const contentHash = hashOrcaHookTrustContent(scriptContent)
+  const contentHash = hashOpenKodoHookTrustContent(scriptContent)
   const matches = contentHash === approvedSetupHash || approvedSetupHashes?.includes(contentHash)
   return matches ? undefined : { contentHash, scriptContent }
 }
@@ -45,7 +45,7 @@ export function checkCreatedWorktreeSetupTrust(
  */
 export function folderSharedSetupLacksApproval(
   repo: WorkspaceHookOwner,
-  createdYamlHooks: OrcaHooks | null,
+  createdYamlHooks: OpenKodoHooks | null,
   decision: SetupDecision | undefined,
   approved: ApprovedSetupHashes
 ): boolean {

@@ -83,7 +83,7 @@ export const addressFocused = defineFixture({
   width: 640,
   render: () => <Toolbar annotationCount={3} />,
   interact: async (frame) => {
-    frame.querySelector<HTMLInputElement>('[data-orca-browser-address-bar="true"]')?.focus()
+    frame.querySelector<HTMLInputElement>('[data-openkodo-browser-address-bar="true"]')?.focus()
     await settle()
   }
 })

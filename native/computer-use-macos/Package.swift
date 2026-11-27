@@ -3,35 +3,35 @@
 import PackageDescription
 
 let package = Package(
-    name: "OrcaComputerUseMacOS",
+    name: "OpenKodoComputerUseMacOS",
     platforms: [
         // Keep equal to MACOS_DEPLOYMENT_TARGET, the helper's LSMinimumSystemVersion (#20418).
         .macOS("13.4")
     ],
     products: [
         .library(
-            name: "OrcaComputerUseMacOSCore",
-            targets: ["OrcaComputerUseMacOSCore"]
+            name: "OpenKodoComputerUseMacOSCore",
+            targets: ["OpenKodoComputerUseMacOSCore"]
         ),
         .executable(
-            name: "orca-computer-use-macos",
-            targets: ["OrcaComputerUseMacOS"]
+            name: "openkodo-computer-use-macos",
+            targets: ["OpenKodoComputerUseMacOS"]
         )
     ],
     targets: [
         .target(
-            name: "OrcaComputerUseMacOSCore",
-            path: "Sources/OrcaComputerUseMacOSCore"
+            name: "OpenKodoComputerUseMacOSCore",
+            path: "Sources/OpenKodoComputerUseMacOSCore"
         ),
         .executableTarget(
-            name: "OrcaComputerUseMacOS",
-            dependencies: ["OrcaComputerUseMacOSCore"],
-            path: "Sources/OrcaComputerUseMacOS"
+            name: "OpenKodoComputerUseMacOS",
+            dependencies: ["OpenKodoComputerUseMacOSCore"],
+            path: "Sources/OpenKodoComputerUseMacOS"
         ),
         .testTarget(
-            name: "OrcaComputerUseMacOSTests",
-            dependencies: ["OrcaComputerUseMacOSCore"],
-            path: "Tests/OrcaComputerUseMacOSTests"
+            name: "OpenKodoComputerUseMacOSTests",
+            dependencies: ["OpenKodoComputerUseMacOSCore"],
+            path: "Tests/OpenKodoComputerUseMacOSTests"
         )
     ]
 )

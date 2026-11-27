@@ -133,7 +133,7 @@ export function planStructuredAgentSessionDeadGeneration(
   } else if (showUnexpectedExitOutcome) {
     mutations.push({
       kind: 'item',
-      identity: { provider: 'orca', clientMessageId: input.settlementId },
+      identity: { provider: 'openkodo', clientMessageId: input.settlementId },
       body: {
         kind: 'status',
         ...agentSessionFailureWords(

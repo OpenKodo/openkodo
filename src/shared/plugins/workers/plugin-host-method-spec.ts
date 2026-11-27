@@ -13,7 +13,7 @@ export type PluginHostMethodSpec<
   /** Minor in which panels and editors gained a method workers had since `since`. */
   framesSince?: number
   /** Minor in which each optional param was added. Why: an added param is new surface a plugin
-   *  must be able to require (`api.minor`, `engines.orca`), even though the method is older. */
+   *  must be able to require (`api.minor`, `engines.openkodo`), even though the method is older. */
   paramsSince?: Readonly<Record<string, number>>
   /** Minor that deprecated it; it keeps working until the next major. */
   deprecatedSince?: number

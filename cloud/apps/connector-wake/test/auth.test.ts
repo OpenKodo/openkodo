@@ -17,7 +17,7 @@ const ISSUER = 'https://connector.test.invalid'
 async function adminRequest(body: string, claims: Record<string, unknown> = {}, key = KEY): Promise<Request> {
   const token = await new SignJWT({ purpose: 'connector-wake-admin', op: 'wake', bodySha256: createHash('sha256').update(body).digest('base64url'), ...claims })
     .setProtectedHeader({ alg: 'HS256' })
-    .setAudience('orca-connector-wake-admin')
+    .setAudience('openkodo-connector-wake-admin')
     .setIssuer(ISSUER)
     .setIssuedAt()
     .setExpirationTime('60s')
@@ -50,7 +50,7 @@ describe('wake token', async () => {
   it('maps a valid token to its sub:mid host id and refuses other audiences, purposes and short mids', async () => {
     const host = newHost()
     expect(await verifyWakeToken(env, await mintWake(privateKey, host))).toEqual({ ok: true, hostId: host.hostId })
-    expect(await verifyWakeToken(env, await mintWake(privateKey, host, { audience: 'orca-connector' }))).toEqual({ ok: false, reason: 'invalid', code: 'aud' })
+    expect(await verifyWakeToken(env, await mintWake(privateKey, host, { audience: 'openkodo-connector' }))).toEqual({ ok: false, reason: 'invalid', code: 'aud' })
     expect(await verifyWakeToken(env, await mintWake(privateKey, host, { purpose: 'connector-host' }))).toEqual({ ok: false, reason: 'invalid', code: 'claims' })
     expect(await verifyWakeToken(env, await mintWake(privateKey, { sub: 'canary', mid: 'health', hostId: 'canary:health' }))).toEqual({ ok: false, reason: 'invalid', code: 'claims' })
   })

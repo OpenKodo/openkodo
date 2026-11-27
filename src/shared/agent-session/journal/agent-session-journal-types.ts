@@ -20,11 +20,11 @@ import type { AgentSessionContextUsage } from '../conversation-context/agent-ses
 import type { NativeChatBlock, NativeChatRole } from '../../native-chat/native-chat-types'
 import type { AgentMessageSource } from './agent-session-message-source'
 import type { AgentSessionExecutionOptions } from '../options/protocol/agent-session-execution-options'
-import type { AgentJournalOrcaCardItem } from '../../agent-journal-orca-card-items'
+import type { AgentJournalOpenKodoCardItem } from '../../agent-journal-openkodo-card-items'
 export type {
   AgentJournalAgentHandoffItem,
   AgentJournalAgentStartItem
-} from '../../agent-journal-orca-card-items'
+} from '../../agent-journal-openkodo-card-items'
 
 /** Bump only alongside a read-time upcaster in `journal-row-schema.ts`. */
 /** v3 introduced turn items; other rows stay v2. The first v3 row stops older hosts writing (read-only on released builds, failed load here) rather than allowing truncation. */
@@ -303,8 +303,8 @@ type AgentJournalStatusItemFields = {
   /** Present on thread-goal transitions; absent on rows from older hosts. */
   threadGoal?: AgentJournalThreadGoalState
   /** On the row about a reply OpenKodo's own stop cut off: why OpenKodo stopped. Its cause is open (a newer
-   *  host may name one this build does not know), so read it with `readAgentSessionOrcaStop`. */
-  orcaStop?: { cause: string }
+   *  host may name one this build does not know), so read it with `readAgentSessionOpenKodoStop`. */
+  openkodoStop?: { cause: string }
   /** On the derived "Forked from" row: the chat this one was forked from. */
   forkedFrom?: AgentSessionForkedFromMark
 }
@@ -332,7 +332,7 @@ export type AgentJournalStatusItem =
 export type AgentJournalTurnItem = { kind: 'turn' } & AgentJournalTurnLifecycle
 
 export type AgentJournalItemBody =
-  | AgentJournalOrcaCardItem
+  | AgentJournalOpenKodoCardItem
   | AgentJournalMessageItem
   | AgentJournalToolCallItem
   | AgentJournalDiffItem

@@ -5,7 +5,7 @@ import {
   PLUGIN_MANIFEST_FILENAME,
   parseHostPluginManifest,
   qualifiedPluginKey,
-  satisfiesOrcaEngineRange,
+  satisfiesOpenKodoEngineRange,
   type PluginManifest,
   type PluginManifestWithPublisher
 } from '../../../shared/plugins/manifest/plugin-manifest'
@@ -69,10 +69,10 @@ async function readInstallManifest(
     const incompatible = pluginManifestCompatibilityError(raw, hostVersion)
     return { ok: false, error: incompatible ?? `invalid manifest: ${parsed.error}` }
   }
-  if (!satisfiesOrcaEngineRange(hostVersion, parsed.manifest.engines.orca)) {
+  if (!satisfiesOpenKodoEngineRange(hostVersion, parsed.manifest.engines.openkodo)) {
     return {
       ok: false,
-      error: `plugin requires OpenKodo ${parsed.manifest.engines.orca} (this is ${hostVersion})`
+      error: `plugin requires OpenKodo ${parsed.manifest.engines.openkodo} (this is ${hostVersion})`
     }
   }
   return { ok: true, manifest: parsed.manifest }

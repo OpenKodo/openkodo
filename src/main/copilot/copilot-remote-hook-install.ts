@@ -22,7 +22,7 @@ export async function installCopilotHooksRemote(
   remoteHome: string
 ): Promise<AgentHookInstallStatus> {
   const home = remoteHome.replace(/\/$/, '')
-  const remoteConfigPath = `${home}/.copilot/hooks/orca.json`
+  const remoteConfigPath = `${home}/.copilot/hooks/openkodo.json`
   const remoteScriptPath = `${home}/.openkodo/agent-hooks/copilot-hook.sh`
 
   try {
@@ -33,7 +33,7 @@ export async function installCopilotHooksRemote(
         state: 'error',
         configPath: remoteConfigPath,
         managedHooksPresent: false,
-        detail: 'Could not parse remote Copilot hooks/orca.json'
+        detail: 'Could not parse remote Copilot hooks/openkodo.json'
       }
     }
 

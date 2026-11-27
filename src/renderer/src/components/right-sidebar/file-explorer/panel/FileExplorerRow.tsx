@@ -41,7 +41,7 @@ export type FileExplorerRowProps = {
     paths: readonly string[]
   ) => Omit<WorkspaceFileDragSource, 'workspaceId'> | null
   runtimeDownloadContext?: RuntimeFileOperationArgs | null
-  canOpenInOrcaBrowser: boolean
+  canOpenInOpenKodoBrowser: boolean
   canCollapseFolderSubtree: boolean
   targetDir: string
   targetDepth: number
@@ -86,7 +86,7 @@ export function FileExplorerRow({
   sourceWorkspaceId,
   resolveDragSourceOwner,
   runtimeDownloadContext,
-  canOpenInOrcaBrowser,
+  canOpenInOpenKodoBrowser,
   canCollapseFolderSubtree,
   targetDir,
   targetDepth,
@@ -272,7 +272,7 @@ export function FileExplorerRow({
         deleteShortcutLabel={deleteShortcutLabel}
         connectionId={connectionId}
         runtimeDownloadContext={runtimeDownloadContext}
-        canOpenInOrcaBrowser={canOpenInOrcaBrowser}
+        canOpenInOpenKodoBrowser={canOpenInOpenKodoBrowser}
         canCollapseFolderSubtree={canCollapseFolderSubtree}
         targetDir={targetDir}
         targetDepth={targetDepth}

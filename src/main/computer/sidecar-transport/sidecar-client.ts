@@ -18,7 +18,7 @@ import { RuntimeClientError } from '../runtime-client-error'
 import { assertTeamAllowsComputerUse } from '../computer-team-policy'
 import { getForkedChildEntryPath } from '../../worker-threads/forked-child-entry-path'
 
-// Bundled beside orcad.js on servers and under out/main on desktop.
+// Bundled beside openkodod.js on servers and under out/main on desktop.
 export const COMPUTER_SIDECAR_ENTRY_FILENAME = 'computer-sidecar.js'
 
 type ComputerSidecarMethod =

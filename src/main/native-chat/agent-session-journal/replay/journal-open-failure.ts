@@ -14,7 +14,7 @@ import type { StructuredAgentSessionLogger } from '../../agent-session-wire/host
 
 type JournalRefusalReason = AgentSessionRefusalReason<'agent_session_journal_unreadable'>
 
-export type JournalOpenFailure = Exclude<JournalRefusalReason, 'journalWrittenByNewerOrca'>
+export type JournalOpenFailure = Exclude<JournalRefusalReason, 'journalWrittenByNewerOpenKodo'>
 
 export class JournalDamageError extends Error {
   override readonly name = 'JournalDamageError'
@@ -68,13 +68,13 @@ const JOURNAL_OPEN_MESSAGE: Record<JournalRefusalReason, string> = {
   journalCorrupt: agentSessionWriteNoticeEnglish(['historyUnusable']),
   journalUnavailable: agentSessionWriteNoticeEnglish(['historyUnavailable', 'tryAgain']),
   journalStorageFull: agentSessionWriteNoticeEnglish(['diskFull', 'freeDiskSpace']),
-  journalWrittenByNewerOrca: agentSessionWriteNoticeEnglish([
-    'savedByNewerOrca',
-    'updateOrcaToKeepUsing'
+  journalWrittenByNewerOpenKodo: agentSessionWriteNoticeEnglish([
+    'savedByNewerOpenKodo',
+    'updateOpenKodoToKeepUsing'
   ])
 }
 
-export const JOURNAL_NEWER_SCHEMA_MESSAGE = JOURNAL_OPEN_MESSAGE.journalWrittenByNewerOrca
+export const JOURNAL_NEWER_SCHEMA_MESSAGE = JOURNAL_OPEN_MESSAGE.journalWrittenByNewerOpenKodo
 
 export function assertJournalChatReadable(readOnly: boolean): void {
   try {
@@ -84,13 +84,13 @@ export function assertJournalChatReadable(readOnly: boolean): void {
   }
 }
 
-export function isJournalWrittenByNewerOrca(error: unknown): boolean {
+export function isJournalWrittenByNewerOpenKodo(error: unknown): boolean {
   return error instanceof AgentSessionJournalError && error.code === 'journal_read_only'
 }
 
 function journalRefusalReason(error: unknown): JournalRefusalReason {
-  return isJournalWrittenByNewerOrca(error)
-    ? 'journalWrittenByNewerOrca'
+  return isJournalWrittenByNewerOpenKodo(error)
+    ? 'journalWrittenByNewerOpenKodo'
     : classifyJournalOpenFailure(error)
 }
 
@@ -111,13 +111,13 @@ export function journalOpenRefusal(error: unknown): AgentSessionWireRefusal {
   return refuse('agent_session_journal_unreadable', { reason }, message)
 }
 
-export async function refusingNewerOrcaJournal<TOutcome>(
+export async function refusingNewerOpenKodoJournal<TOutcome>(
   run: Promise<TOutcome>
 ): Promise<TOutcome | { ok: false; refusal: AgentSessionWireRefusal }> {
   try {
     return await run
   } catch (error) {
-    if (isJournalWrittenByNewerOrca(error)) {
+    if (isJournalWrittenByNewerOpenKodo(error)) {
       return { ok: false, refusal: journalOpenRefusal(error) }
     }
     throw error

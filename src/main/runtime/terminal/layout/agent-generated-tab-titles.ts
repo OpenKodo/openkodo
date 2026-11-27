@@ -3,7 +3,7 @@
 import { generatedTabTitleForStatus } from '../../../../shared/agent-status/presentation/agent-generated-tab-title-rules'
 import type { AgentStatusIpcPayload } from '../../../../shared/agent-status/contracts/agent-status-ipc-payload'
 import type { AgentStatusOrchestrationContext } from '../../../../shared/agent-status/contracts/agent-status-types'
-import { isOrcaDispatchPrompt } from '../../../../shared/agent-status/presentation/agent-row-primary-text'
+import { isOpenKodoDispatchPrompt } from '../../../../shared/agent-status/presentation/agent-row-primary-text'
 import type { GeneratedTitleTab } from '../../../../shared/agent-status/presentation/agent-generated-tab-title-rules'
 import type {
   GeneratedTabTitle,
@@ -68,7 +68,7 @@ export class AgentGeneratedTabTitles {
         continue
       }
       const labels =
-        (isOrcaDispatchPrompt(row.prompt)
+        (isOpenKodoDispatchPrompt(row.prompt)
           ? this.deps.orchestrationForPaneKey(row.paneKey)
           : undefined) ?? row.orchestration
       const key = `${target.workspace}\0${target.tabId}`

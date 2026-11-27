@@ -14,7 +14,7 @@ export function WorktreeCardReviewActions({
   provider,
   open,
   onOpenChange,
-  onOpenInOrca,
+  onOpenInOpenKodo,
   onUnlink,
   closeHover
 }: {
@@ -23,12 +23,12 @@ export function WorktreeCardReviewActions({
   provider: string
   open?: boolean
   onOpenChange: (open: boolean) => void
-  onOpenInOrca?: (event: MouseEvent) => void
+  onOpenInOpenKodo?: (event: MouseEvent) => void
   onUnlink?: () => void
   closeHover: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()
-  if (!onOpenInOrca && !onUnlink) {
+  if (!onOpenInOpenKodo && !onUnlink) {
     return null
   }
   return (
@@ -39,11 +39,11 @@ export function WorktreeCardReviewActions({
       open={open}
       onOpenChange={onOpenChange}
     >
-      {onOpenInOrca ? (
+      {onOpenInOpenKodo ? (
         <DropdownMenuItem
           onClick={(event) => {
             closeHover()
-            onOpenInOrca(event)
+            onOpenInOpenKodo(event)
           }}
         >
           <MonitorUp className="size-3.5" />
@@ -69,14 +69,14 @@ export function WorktreeCardLinkedReviewActions({
   item,
   review,
   onOpenChange,
-  onOpenInOrca,
+  onOpenInOpenKodo,
   onUnlink,
   closeHover
 }: {
   item: WorkspaceAttachment
   review: WorktreeCardPrDisplay | null
   onOpenChange: (open: boolean) => void
-  onOpenInOrca?: (event: MouseEvent, review?: WorktreeCardPrDisplay) => void
+  onOpenInOpenKodo?: (event: MouseEvent, review?: WorktreeCardPrDisplay) => void
   onUnlink?: (item?: WorkspaceAttachment) => void
   closeHover: () => void
 }): React.JSX.Element {
@@ -88,10 +88,10 @@ export function WorktreeCardLinkedReviewActions({
       number={item.number}
       provider={workspaceAttachmentProviderLabel(item)}
       onOpenChange={onOpenChange}
-      onOpenInOrca={
-        url && item.provider === 'github' && onOpenInOrca
+      onOpenInOpenKodo={
+        url && item.provider === 'github' && onOpenInOpenKodo
           ? (event) =>
-              onOpenInOrca(
+              onOpenInOpenKodo(
                 event,
                 review ?? {
                   provider: 'github',

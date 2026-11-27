@@ -37,7 +37,7 @@ export async function buildRuntimePtySpawnOptions(
     isDaemonHostSpawn: ctx.isDaemonHostSpawn,
     connectionId: args.connectionId,
     skipCodexHomeEnv: ctx.skipCodexHomeEnv,
-    stripInheritedOrcaCodexHome: ctx.stripInheritedOrcaCodexHome,
+    stripInheritedOpenKodoCodexHome: ctx.stripInheritedOpenKodoCodexHome,
     codexResumeHomeSelected: ctx.codexResumeHomeSelected,
     settings
   })

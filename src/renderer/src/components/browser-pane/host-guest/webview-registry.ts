@@ -21,7 +21,7 @@ export type BrowserWebviewMemoryProfile = {
   registeredBrowserGuestCount: number
 }
 
-const DRAG_LISTENER_KEY = '__orcaBrowserPaneDragListeners'
+const DRAG_LISTENER_KEY = '__openkodoBrowserPaneDragListeners'
 let dragListenersAttached = false
 // Retained client-page hosts are not registry webviews but still need native drags to pass through them.
 let dragListenerRetainers = 0

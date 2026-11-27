@@ -1,4 +1,4 @@
-import type { OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab as BrowserOwnership } from '../restoration/mobile-session-publication-preservation'
+import type { OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab as BrowserOwnership } from '../restoration/mobile-session-publication-preservation'
 import type { BrowserTabInfo } from '../../../../shared/browser/runtime/runtime-browser-contracts'
 import type {
   RuntimeMobileSessionTabGroup,

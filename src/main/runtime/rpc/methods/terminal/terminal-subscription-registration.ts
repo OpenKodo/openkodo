@@ -1,7 +1,7 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 
 type RegistrationRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'registerOwnedSubscriptionCleanup'
   | 'subscribeToPtyExit'
   | 'handleMobileSubscribe'

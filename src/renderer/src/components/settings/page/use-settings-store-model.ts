@@ -2,7 +2,7 @@ import { useSupportedGroupHookSettings } from '@/components/settings/repository/
 import type { GeneralSubPage } from '../general/general-sub-pages'
 import type { McpServerSubPage } from '../mcp-servers/mcp-server-sub-page'
 import { useCallback, useMemo, useState } from 'react'
-import type { OrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { ProjectHostSetup } from '../../../../../shared/project/project-types'
 import { DEFAULT_APP_FONT_FAMILY } from '../../../../../shared/app-lifecycle/appearance/app-font-family'
 import { useAppStore } from '../../../store/index'
@@ -113,7 +113,7 @@ export function useSettingsStoreModel() {
   )
 
   const [repoHooksMap, setRepoHooksMap] = useState<
-    Record<string, { hasHooks: boolean; hooks: OrcaHooks | null; mayNeedUpdate: boolean }>
+    Record<string, { hasHooks: boolean; hooks: OpenKodoHooks | null; mayNeedUpdate: boolean }>
   >({})
   const systemPrefersDark = useSystemPrefersDark()
   const isWindows = isWindowsUserAgent()

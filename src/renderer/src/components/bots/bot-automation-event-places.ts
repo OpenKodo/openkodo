@@ -67,7 +67,7 @@ function eitherOf(names: string[], unnamed: number, unnamedWords: string): strin
       })
 }
 
-/** "in #orca", "in OpenKodo/openkodo", or "in a Slack channel" for a rule saved before names. */
+/** "in #openkodo", "in OpenKodo/openkodo", or "in a Slack channel" for a rule saved before names. */
 export function placesPhrase(rule: Rule): string | null {
   if (!rule.in?.length) {
     return null
@@ -79,7 +79,7 @@ export function placesPhrase(rule: Rule): string | null {
   })
 }
 
-/** "in a thread in #orca" for a Slack thread; "on ENG-42" or "on OpenKodo/openkodo#12" otherwise. */
+/** "in a thread in #openkodo" for a Slack thread; "on ENG-42" or "on OpenKodo/openkodo#12" otherwise. */
 export function subjectPhrase(rule: Rule): string | null {
   if (!rule.subject) {
     return null

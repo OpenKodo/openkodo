@@ -26,7 +26,7 @@ describe('derived delivery migration', () => {
     return db
   }
   function databasePath() {
-    const directory = mkdtempSync(join(tmpdir(), 'orca-derived-delivery-'))
+    const directory = mkdtempSync(join(tmpdir(), 'openkodo-derived-delivery-'))
     directories.push(directory)
     return join(directory, 'orchestration.db')
   }
@@ -76,7 +76,11 @@ describe('derived delivery migration', () => {
       status: 'fenced'
     })
     expect(() =>
-      db.acknowledgeRunDelivery({ ...params, deliveryId: 'history_fence', taker: { kind: 'orca' } })
+      db.acknowledgeRunDelivery({
+        ...params,
+        deliveryId: 'history_fence',
+        taker: { kind: 'openkodo' }
+      })
     ).toThrow(expect.objectContaining({ code: 'consumer_fenced' }))
     expect(db.getOrCreateRunDelivery(params)?.messages.map((message) => message.id)).toEqual([
       next.id
@@ -109,7 +113,7 @@ describe('derived delivery migration', () => {
     const second = open(path)
     const batch = first.getOrCreateRunDelivery(params)!
     expect(second.getOrCreateRunDelivery(params)?.delivery.id).toBe(batch.delivery.id)
-    second.markAsRead([message.id], { kind: 'orca' })
+    second.markAsRead([message.id], { kind: 'openkodo' })
     const replacement = second.bindRun({
       runId: run.id,
       coordinatorHandle: 'replacement',
@@ -127,7 +131,7 @@ describe('derived delivery migration', () => {
       first.acknowledgeRunDelivery({
         ...params,
         deliveryId: batch.delivery.id,
-        taker: { kind: 'orca' }
+        taker: { kind: 'openkodo' }
       })
     ).toThrow(expect.objectContaining({ code: 'consumer_fenced' }))
     expect(
@@ -178,7 +182,7 @@ describe('derived delivery migration', () => {
       const params = { runId: run.id, mailboxHandle, consumerGeneration: 0, consumerSource }
       const batch = db.getOrCreateMailboxDelivery(params)!
       const peer = open(path)
-      peer.markAsRead([message.id], { kind: 'orca' })
+      peer.markAsRead([message.id], { kind: 'openkodo' })
       const authority = {
         dispatchId,
         paneKey: 'other:22222222-2222-4222-9222-222222222222',
@@ -207,7 +211,7 @@ describe('derived delivery migration', () => {
         db.acknowledgeMailboxDelivery({
           ...params,
           deliveryId: batch.delivery.id,
-          taker: { kind: 'orca' }
+          taker: { kind: 'openkodo' }
         })
       ).toThrow(expect.objectContaining({ code: 'consumer_fenced' }))
       expect(

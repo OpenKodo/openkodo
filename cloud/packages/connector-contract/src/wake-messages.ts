@@ -6,9 +6,9 @@ export const CONNECTOR_WAKE_FEATURE = 'connector-wake-v1'
 
 export const CONNECTOR_WAKE_PATH = '/v1/connector/wake'
 // Milliseconds since the machine's previous wake socket closed, sent on the upgrade.
-export const CONNECTOR_WAKE_GAP_HEADER = 'x-orca-wake-gap-ms'
+export const CONNECTOR_WAKE_GAP_HEADER = 'x-openkodo-wake-gap-ms'
 // The wake token's audience and purpose (minted by auth beside the connector token).
-export const CONNECTOR_WAKE_TOKEN_AUDIENCE = 'orca-connector-wake'
+export const CONNECTOR_WAKE_TOKEN_AUDIENCE = 'openkodo-connector-wake'
 export const CONNECTOR_WAKE_TOKEN_PURPOSE = 'connector-wake'
 
 // Exact frames, so the server can answer a keepalive without waking the host's object. They match
@@ -83,7 +83,7 @@ export function connectorWakeCloseAction(code: number): ConnectorWakeCloseAction
 // Cloud → wake service: `POST /__admin/wake`, authenticated by an HS256 token with this audience,
 // purpose and op, and the SHA-256 of the exact body.
 export const CONNECTOR_WAKE_ADMIN_PATH = '/__admin/wake'
-export const CONNECTOR_WAKE_ADMIN_AUDIENCE = 'orca-connector-wake-admin'
+export const CONNECTOR_WAKE_ADMIN_AUDIENCE = 'openkodo-connector-wake-admin'
 export const CONNECTOR_WAKE_ADMIN_PURPOSE = 'connector-wake-admin'
 export const CONNECTOR_WAKE_ADMIN_OP = 'wake'
 export const CONNECTOR_WAKE_ADMIN_MAX_HOSTS = 500

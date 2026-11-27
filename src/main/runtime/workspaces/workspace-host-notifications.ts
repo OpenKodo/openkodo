@@ -1,36 +1,36 @@
 import { getRepoRoutingConnectionId } from '../../../shared/execution-host/execution-host'
-import type { OrcaRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession } from '../session-tabs/restoration/mobile-session-hydration'
-import type { OrcaRuntimeWithBuildHeadlessMobileSessionBrowserTabs } from '../session-lifecycle/projection/build-headless-mobile-session-browser-tabs'
-import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged } from '../session-tabs/publication/session-tabs-change-publication'
+import type { OpenKodoRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession } from '../session-tabs/restoration/mobile-session-hydration'
+import type { OpenKodoRuntimeWithBuildHeadlessMobileSessionBrowserTabs } from '../session-lifecycle/projection/build-headless-mobile-session-browser-tabs'
+import type { OpenKodoRuntimeWithScheduleMobileSessionTabsChanged } from '../session-tabs/publication/session-tabs-change-publication'
 import type { RuntimeWorkspaceRepoScanRefresh } from './catalog/workspace-repo-scan-refresh'
 import type { SshConnectionState } from '../../../shared/remote-runtime/ssh/ssh-types'
 import { getPublicSshState } from '../hosts/platform-probe/public-ssh-state'
 import { splitWorktreeId } from '../../../shared/worktree/id'
 import { RuntimeEmulatorBinding } from '../emulator/runtime-emulator-binding'
 
-export abstract class OrcaRuntimeWithNotifySshStateChanged extends RuntimeEmulatorBinding {
+export abstract class OpenKodoRuntimeWithNotifySshStateChanged extends RuntimeEmulatorBinding {
   protected abstract hydrateHeadlessMobileSessionTabsFromWorkspaceSession(
     ...args: Parameters<
-      OrcaRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession['hydrateHeadlessMobileSessionTabsFromWorkspaceSession']
+      OpenKodoRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession['hydrateHeadlessMobileSessionTabsFromWorkspaceSession']
     >
   ): ReturnType<
-    OrcaRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession['hydrateHeadlessMobileSessionTabsFromWorkspaceSession']
+    OpenKodoRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession['hydrateHeadlessMobileSessionTabsFromWorkspaceSession']
   >
 
   protected abstract refreshMobileSessionPtyRecords(
     ...args: Parameters<
-      OrcaRuntimeWithBuildHeadlessMobileSessionBrowserTabs['refreshMobileSessionPtyRecords']
+      OpenKodoRuntimeWithBuildHeadlessMobileSessionBrowserTabs['refreshMobileSessionPtyRecords']
     >
   ): ReturnType<
-    OrcaRuntimeWithBuildHeadlessMobileSessionBrowserTabs['refreshMobileSessionPtyRecords']
+    OpenKodoRuntimeWithBuildHeadlessMobileSessionBrowserTabs['refreshMobileSessionPtyRecords']
   >
 
   protected abstract notifyMobileSessionTabsChangedNow(
     ...args: Parameters<
-      OrcaRuntimeWithScheduleMobileSessionTabsChanged['notifyMobileSessionTabsChangedNow']
+      OpenKodoRuntimeWithScheduleMobileSessionTabsChanged['notifyMobileSessionTabsChangedNow']
     >
   ): ReturnType<
-    OrcaRuntimeWithScheduleMobileSessionTabsChanged['notifyMobileSessionTabsChangedNow']
+    OpenKodoRuntimeWithScheduleMobileSessionTabsChanged['notifyMobileSessionTabsChangedNow']
   >
 
   protected abstract invalidateSshWorktreeScanCacheInternal(
@@ -94,7 +94,7 @@ export abstract class OrcaRuntimeWithNotifySshStateChanged extends RuntimeEmulat
     this.sshRelayRecoveryGenerationByTargetId.set(targetId, generation)
     while (
       this.sshRelayRecoveryGenerationByTargetId.size >
-      OrcaRuntimeWithNotifySshStateChanged.MAX_SSH_RELAY_RECOVERY_GENERATIONS
+      OpenKodoRuntimeWithNotifySshStateChanged.MAX_SSH_RELAY_RECOVERY_GENERATIONS
     ) {
       const oldest = this.sshRelayRecoveryGenerationByTargetId.keys().next()
       if (oldest.done) {

@@ -1,12 +1,12 @@
-import type { OrcaRuntimeWithTransitionGraphReloadToTerminalState as TransitionGraphReloadToTerminalStateMethods } from './session-graph-authority'
-import type { OrcaRuntimeWithBindPtyIncarnationHandle as BindPtyIncarnationHandleMethods } from '../terminal/identity/terminal-handle-bindings'
-import { OrcaRuntimeWithSessionTitleAuthority } from '../session-tabs/publication/session-title-publisher'
+import type { OpenKodoRuntimeWithTransitionGraphReloadToTerminalState as TransitionGraphReloadToTerminalStateMethods } from './session-graph-authority'
+import type { OpenKodoRuntimeWithBindPtyIncarnationHandle as BindPtyIncarnationHandleMethods } from '../terminal/identity/terminal-handle-bindings'
+import { OpenKodoRuntimeWithSessionTitleAuthority } from '../session-tabs/publication/session-title-publisher'
 import type { RuntimeRendererReloadFence } from './renderer-reload-fence'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { rendererStatusReplica } from './renderer-status-replica'
 
-export abstract class OrcaRuntimeWithHasTerminalsForWorktree extends OrcaRuntimeWithSessionTitleAuthority {
+export abstract class OpenKodoRuntimeWithHasTerminalsForWorktree extends OpenKodoRuntimeWithSessionTitleAuthority {
   /** Phone frames held for an unseeded renderer's snapshot are owed once it loses authority. */
   protected releaseUnseededPhoneFrames(): void {
     for (const worktreeId of rendererStatusReplica(this).unseededWorktrees()) {

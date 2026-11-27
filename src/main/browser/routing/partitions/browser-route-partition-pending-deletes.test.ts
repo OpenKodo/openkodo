@@ -15,7 +15,7 @@ let partitions: string
 let listPath: string
 
 beforeEach(() => {
-  root = mkdtempSync(join(tmpdir(), 'orca-partition-deletes-'))
+  root = mkdtempSync(join(tmpdir(), 'openkodo-partition-deletes-'))
   partitions = join(root, 'Partitions')
   listPath = browserRoutePartitionPendingDeletesPath(
     join(root, 'profiles', 'a', 'browser-route-partition-bindings.json')

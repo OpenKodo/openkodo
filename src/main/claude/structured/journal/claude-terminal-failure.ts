@@ -10,7 +10,7 @@ import type { JournalTimelineItemResolution } from '../../../native-chat/agent-s
 import { writeClaudeStopReadings, type ClaudeStopCheck } from '../../claude-stop-readings'
 
 function claudeTerminalFailureIdentity(turnItemId: string): AgentJournalItemIdentity {
-  return { provider: 'orca', clientMessageId: `terminal-failure:claude:${turnItemId}` }
+  return { provider: 'openkodo', clientMessageId: `terminal-failure:claude:${turnItemId}` }
 }
 
 const CLAUDE_VOICE = { agentName: 'Claude', provider: 'claude' } as const

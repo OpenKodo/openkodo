@@ -10,7 +10,7 @@
 import { createHash, randomUUID } from 'node:crypto'
 import { ORCHESTRATION_CONTRACT_VERSION } from '../../../../shared/orchestration/orchestration-runtime-capabilities'
 import { DESKTOP_BROWSER_BRIDGE_SETTING_LABEL } from '../../../../shared/browser/client-hosting/desktop-browser-bridge-protocol'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { RpcResponse } from '../../../runtime/rpc/core'
 import { RpcDispatcher } from '../../../runtime/rpc/dispatcher'
 import { ALL_RPC_METHODS } from '../../../runtime/rpc/methods/rpc-method-registry'
@@ -65,15 +65,15 @@ const LEGACY_RELAY_CLI_HELP =
 
 type LegacyRelayCliServerDeps = {
   targetId: string
-  runtime: () => OrcaRuntimeService | null
+  runtime: () => OpenKodoRuntimeService | null
   /** The per-host switch, read on every call so turning it off applies to the next command. */
   remoteCliControl: () => boolean
   livePane: (paneKey: string) => LegacyRelayLivePane | null
 }
 
-const dispatchers = new WeakMap<OrcaRuntimeService, RpcDispatcher>()
+const dispatchers = new WeakMap<OpenKodoRuntimeService, RpcDispatcher>()
 
-function dispatcherFor(runtime: OrcaRuntimeService): RpcDispatcher {
+function dispatcherFor(runtime: OpenKodoRuntimeService): RpcDispatcher {
   let dispatcher = dispatchers.get(runtime)
   if (!dispatcher) {
     dispatcher = new RpcDispatcher({
@@ -118,7 +118,7 @@ function buildCall(
           types: flag('types'),
           format: has('format') ? true : undefined,
           inject: has('inject') ? true : undefined,
-          compatibilityCliCommand: 'orca',
+          compatibilityCliCommand: 'openkodo',
           run: flag('run'),
           ack: flag('ack'),
           wait: has('wait') ? true : undefined,
@@ -157,7 +157,7 @@ function buildCall(
           resume: flag('resume'),
           options: flag('options'),
           timeoutMs: cappedWait(numberFlag(flags, 'timeout-ms')),
-          compatibilityCliCommand: 'orca'
+          compatibilityCliCommand: 'openkodo'
         }
       }
     case 'orchestration reply':
@@ -183,7 +183,7 @@ function callerFingerprint(targetId: string, env: Record<string, string>): strin
 }
 
 type Invocation = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   caller: LegacyRelayCliCaller
   env: Record<string, string>
   fingerprint: string

@@ -1,8 +1,8 @@
 import type { MobileSessionTabSubscription } from '../../construction/runtime-identity-state'
-import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged as SessionTabsPublication } from '../publication/session-tabs-change-publication'
-import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout as SessionTabsProjection } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
-import type { OrcaRuntimeWithGetTerminalInteractiveWait as GetTerminalInteractiveWaitMethods } from '../../terminal/wait/terminal-interactive-wait'
-import { OrcaRuntimeWithPublishPtyBackedMobileSessionTerminal } from '../publication/pty-backed-session-publication'
+import type { OpenKodoRuntimeWithScheduleMobileSessionTabsChanged as SessionTabsPublication } from '../publication/session-tabs-change-publication'
+import type { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout as SessionTabsProjection } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import type { OpenKodoRuntimeWithGetTerminalInteractiveWait as GetTerminalInteractiveWaitMethods } from '../../terminal/wait/terminal-interactive-wait'
+import { OpenKodoRuntimeWithPublishPtyBackedMobileSessionTerminal } from '../publication/pty-backed-session-publication'
 import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import { hasHostAuthoritativeTerminalMembership } from '../../../persistence/terminal-topology/pane-ownership/terminal-topology-membership'
@@ -14,7 +14,7 @@ import { retireTerminalSurfacesFromSnapshot } from '../../terminal/surface/mobil
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { startedMainTerminalSurfaces } from '../../terminal/surface/main-terminal-surfaces'
 
-export abstract class OrcaRuntimeWithTouchMobileSessionTabsForWorktree extends OrcaRuntimeWithPublishPtyBackedMobileSessionTerminal {
+export abstract class OpenKodoRuntimeWithTouchMobileSessionTabsForWorktree extends OpenKodoRuntimeWithPublishPtyBackedMobileSessionTerminal {
   protected abstract createMobileSessionTabsDelivery(): ReturnType<
     SessionTabsPublication['createMobileSessionTabsDelivery']
   >

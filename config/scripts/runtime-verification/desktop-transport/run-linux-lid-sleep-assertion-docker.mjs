@@ -27,8 +27,8 @@ for (let index = 0; index < args.length; index += 2) {
 }
 const baseline = options.get('--baseline')
 const suffix = `${process.pid}-${Date.now()}`
-const container = options.get('--container') ?? `orca-inhibitor-oracle-${suffix}`
-const image = `orca-inhibitor-oracle:${suffix}`
+const container = options.get('--container') ?? `openkodo-inhibitor-oracle-${suffix}`
+const image = `openkodo-inhibitor-oracle:${suffix}`
 const docker =
   process.env.OPENKODO_DOCKER ??
   (existsSync('/Applications/Docker.app/Contents/Resources/bin/docker')
@@ -42,8 +42,8 @@ const env = {
 }
 const platform =
   process.env.OPENKODO_DOCKER_PLATFORM ?? (process.arch === 'arm64' ? 'linux/arm64' : 'linux/amd64')
-const temp = mkdtempSync(join(tmpdir(), 'orca-inhibitor-oracle-'))
-const remote = `/tmp/orca-inhibitor-oracle-${suffix}`
+const temp = mkdtempSync(join(tmpdir(), 'openkodo-inhibitor-oracle-'))
+const remote = `/tmp/openkodo-inhibitor-oracle-${suffix}`
 
 function runDocker(command, allowFailure = false) {
   const result = spawnSync(docker, command, {

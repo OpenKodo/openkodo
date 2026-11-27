@@ -42,7 +42,7 @@ const message = (text: string): AgentJournalMessageItem => ({
 const failure = agentSessionFailureWords({ kind: 'notSignedIn' }, { surface: 'rejection' })
 
 function fixture() {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-domain-input-recovery-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-domain-input-recovery-'))
   const filename = join(directory, 'journal.sqlite')
   let db = new Database(filename)
   migrateJournalDomainSchema(db)
@@ -170,7 +170,7 @@ it('recovers only pre-open unhanded admissions after restart and leaves handed-o
     fence: 1
   })
   const openedThrough = f.head()
-  const original = f.item('orca:unhanded')!
+  const original = f.item('openkodo:unhanded')!
   f.transaction(() =>
     writeJournalDomainCurrentItem(f.db, target, {
       item: { ...original, sequence: 900 },
@@ -360,7 +360,7 @@ it('keeps the pending-recovery prefix and omits failed or unattempted payloads',
       'clientMessageId' in entry ? entry.clientMessageId : undefined
     )
   ).toEqual(['first'])
-  expect(result.items.map((item) => item.itemId)).toEqual(['orca:first'])
+  expect(result.items.map((item) => item.itemId)).toEqual(['openkodo:first'])
 })
 
 it('rolls back a failed kept card with its rejection and still tries every other close obligation', () => {
@@ -402,7 +402,7 @@ it('preserves command handover when the running-turn write fails, then returns t
   const failed = f.command(operation)
   expect(failed.value).toMatchObject({ failure: { message: 'turn unavailable' } })
   expect(f.attempt('command')?.handover).toMatchObject({ at: now + 30, scope: { kind: 'thread' } })
-  expect(f.item('orca:command-turn%3Acommand')).toBeUndefined()
+  expect(f.item('openkodo:command-turn%3Acommand')).toBeUndefined()
   expect(failed.coordinates.map((entry) => entry.kind)).toEqual(['dispatch'])
   f.db.exec('DROP TRIGGER reject_turn')
   const opened = f.command(operation)
@@ -411,7 +411,7 @@ it('preserves command handover when the running-turn write fails, then returns t
       running: { kind: 'turn', state: 'running', requestedAt: now + 30, startedAt: now + 30 }
     }
   })
-  expect(opened.items.at(-1)).toEqual(f.item('orca:command-turn%3Acommand'))
+  expect(opened.items.at(-1)).toEqual(f.item('openkodo:command-turn%3Acommand'))
 })
 
 it('commits command dispatch first and rolls back its whole result/turn settlement before retry', () => {
@@ -440,7 +440,7 @@ it('commits command dispatch first and rolls back its whole result/turn settleme
   expect(f.attempt('command')?.submission.dispatchState).toBe('rejected')
   expect(f.card('command-card')?.state).toBe('withdrawn')
   expect(f.item(turn.itemId)).toEqual(before)
-  expect(f.item('orca:command-result%3Acommand')).toBeUndefined()
+  expect(f.item('openkodo:command-result%3Acommand')).toBeUndefined()
   expect(failed.items.some((item) => item.itemId === turn.itemId)).toBe(false)
   f.db.exec('DROP TRIGGER reject_terminal')
   const settled = f.command(operation)
@@ -450,7 +450,7 @@ it('commits command dispatch first and rolls back its whole result/turn settleme
     observedAt: before.observedAt,
     body: { state: 'completed', outcome: 'failure', completedAt: now + 30 }
   })
-  expect(f.item('orca:command-result%3Acommand')).toMatchObject({
+  expect(f.item('openkodo:command-result%3Acommand')).toMatchObject({
     turnScope: { kind: 'turn', turnItemId: turn.itemId },
     body: { tone: 'error' }
   })
@@ -474,6 +474,6 @@ it('makes an uncertain command turn unverifiable without manufacturing a failure
     }
   })
   expect(result.value).toEqual({ value: undefined })
-  expect(f.item('orca:command-turn%3Acommand')?.body).toMatchObject({ state: 'unverifiable' })
-  expect(f.item('orca:command-result%3Acommand')).toBeUndefined()
+  expect(f.item('openkodo:command-turn%3Acommand')?.body).toMatchObject({ state: 'unverifiable' })
+  expect(f.item('openkodo:command-result%3Acommand')).toBeUndefined()
 })

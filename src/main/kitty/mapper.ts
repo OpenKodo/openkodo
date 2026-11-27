@@ -147,7 +147,7 @@ function mapOption(
   }
 }
 
-export function mapKittyToOrca(
+export function mapKittyToOpenKodo(
   config: KittyConfig,
   isMacOS: boolean
 ): { diff: Partial<GlobalSettings>; unsupportedKeys: string[] } {

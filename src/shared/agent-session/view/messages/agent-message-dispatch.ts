@@ -63,11 +63,11 @@ function indexOf(workers: readonly OrchestrationSessionWorker[]): WorkerIndex {
 function sameSenderWorkers(
   workers: readonly OrchestrationSessionWorker[],
   index: WorkerIndex,
-  party: { address: string; orcaSessionId: string | null }
+  party: { address: string; openkodoSessionId: string | null }
 ): OrchestrationSessionWorker[] {
   const byAddress = index.byAddress.get(party.address) ?? []
   const bySession =
-    party.orcaSessionId === null ? [] : (index.bySession.get(party.orcaSessionId) ?? [])
+    party.openkodoSessionId === null ? [] : (index.bySession.get(party.openkodoSessionId) ?? [])
   const at =
     bySession.length === 0
       ? byAddress

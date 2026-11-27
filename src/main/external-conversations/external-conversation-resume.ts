@@ -33,7 +33,7 @@ export async function chatAwaitsResume(
       return true
     }
     // Or its newest turn an OpenKodo quit, crash or update cut, which its conversation reads as failed.
-    const cut = await journal.reads.orcaStopCut()
+    const cut = await journal.reads.openkodoStopCut()
     if (!cut || !conversation) {
       return cut !== null
     }
@@ -41,7 +41,7 @@ export async function chatAwaitsResume(
       return false
     }
     // A send admitted during that read moved the chat on.
-    return !(await busy()) && (await journal.reads.orcaStopCut())?.turnItemId === cut.turnItemId
+    return !(await busy()) && (await journal.reads.openkodoStopCut())?.turnItemId === cut.turnItemId
   } catch {
     return false
   }

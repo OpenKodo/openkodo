@@ -5,9 +5,9 @@ import {
   ProfileStateRecoveryCommandError,
   profileStateRepairSectionApproval,
   type ProfileStateRecoveryRepairSection
-} from '../../../../shared/orca-profiles/profile-state-recovery-command'
+} from '../../../../shared/openkodo-profiles/profile-state-recovery-command'
 import type { ProfileStateMaintenance } from '../access/profile-state-access'
-import { profileHasPendingProjectMove } from '../../../orca-profiles/project-transfer/profile-project-move-record'
+import { profileHasPendingProjectMove } from '../../../openkodo-profiles/project-transfer/profile-project-move-record'
 import '../automation-runs/profile-state-automation-runs'
 import { readProfileStateAutomationRunsDocument } from '../automation-runs/profile-state-automation-runs-reader'
 import { profileStateDatabaseBackups } from '../backup/profile-state-backup-path'

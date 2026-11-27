@@ -8,7 +8,7 @@ import type { AgentBrowserBridge } from '../browser/agent-browser/agent-browser-
 import type { GpuFallbackMarker, GpuFallbackEnvironment } from './gpu-recovery/gpu-fallback-marker'
 import type { getDevInstanceIdentity } from './profile-startup/dev-instance-identity'
 import type { createServeDesktopActivationGate } from './serve-launch/serve-desktop-activation'
-import type { ensureActiveOrcaProfile } from '../orca-profiles/profile-index-store'
+import type { ensureActiveOpenKodoProfile } from '../openkodo-profiles/profile-index-store'
 import type { createWindowsShellPathHydration } from './shell-environment/windows-shell-path-hydration'
 import type { ServeOptions } from './serve-launch/serve-options'
 import type { HangDetectionMarker } from '../hang-watchdog/hang-detection-marker'
@@ -29,7 +29,7 @@ import type { ProfileStateRuntimeAdmission } from '../persistence/profile-state/
 export type ProfileStateStartupMetadata = {
   backend: 'sqlite'
   classification: ProfileStateStorageClassification
-  runtime: 'desktop' | 'orcad'
+  runtime: 'desktop' | 'openkodod'
   migrated: boolean
 }
 
@@ -109,7 +109,7 @@ export const mainProcessState = {
   devAgentHookEndpointNamespace: undefined as string | undefined,
   startupDiagnosticsEnabled: false,
   desktopActivationGate: null as ReturnType<typeof createServeDesktopActivationGate> | null,
-  activeOrcaProfile: null as ReturnType<typeof ensureActiveOrcaProfile> | null,
+  activeOpenKodoProfile: null as ReturnType<typeof ensureActiveOpenKodoProfile> | null,
   windowsShellPathHydration: null as ReturnType<typeof createWindowsShellPathHydration> | null,
   shellPathReady: Promise.resolve(),
   hangDetection: null as HangDetectionMarker | null,

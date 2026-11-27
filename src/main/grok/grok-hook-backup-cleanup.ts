@@ -3,7 +3,7 @@ import { lstat, rm, writeFile } from 'node:fs/promises'
 import { readHooksJsonWithRaw } from '../agent-hooks/installation/configuration/hooks-json-read'
 import type { HooksConfig } from '../agent-hooks/installation/configuration/hook-config-schema'
 import { hasErrorCode } from '../daemon/endpoint/identity/daemon-process-inspection'
-import { isOrcaOwnedRemnant, removeManagedGrokHookEntries } from './grok-hook-config-cleanup'
+import { isOpenKodoOwnedRemnant, removeManagedGrokHookEntries } from './grok-hook-config-cleanup'
 import { readGrokHookConfigSnapshot } from './grok-hook-config-file'
 import { getGrokManagedScriptFileName } from './grok-hook-script'
 
@@ -16,7 +16,7 @@ function backupAction(config: HooksConfig | null, raw: string | null): BackupAct
     return null
   }
   const cleanup = removeManagedGrokHookEntries(config, getGrokManagedScriptFileName())
-  if (isOrcaOwnedRemnant(cleanup.config)) {
+  if (isOpenKodoOwnedRemnant(cleanup.config)) {
     return { kind: 'delete' }
   }
   return cleanup.removedAny

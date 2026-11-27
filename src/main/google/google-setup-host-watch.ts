@@ -5,7 +5,7 @@ import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-sc
 import { setPageTextWithheld } from '../browser/agent-browser/agent-browser-withheld-page-text'
 import type { StandingDownloadClaimResolver } from '../browser/guest-lifecycle/manager/downloads/browser-manager-download-creation'
 import { setClientDownloadClaimant } from '../runtime/browser/downloads/client-download-claims'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   answerGoogleSetupCard,
   recordGoogleSetupKeyMissed
@@ -30,7 +30,7 @@ export type GoogleSetupHostBrowser = {
 
 /** Installs the watches; the returned function removes them. */
 export function installGoogleSetupHostWatch(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   browser?: GoogleSetupHostBrowser
 ): () => void {
   const botWorkspace = (botId: string): string | null => {

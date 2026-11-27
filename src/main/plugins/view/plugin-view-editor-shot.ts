@@ -117,7 +117,7 @@ export async function shootPluginEditor(
   // Why a copy: acts are real input, and a shot must never change the author's file.
   const scratchDir =
     acts && !params.inPlace
-      ? await mkdtemp(join(deps.shotScratchRoot?.() ?? tmpdir(), 'orca-editor-shot-'))
+      ? await mkdtemp(join(deps.shotScratchRoot?.() ?? tmpdir(), 'openkodo-editor-shot-'))
       : null
   const shotPath = scratchDir ? join(scratchDir, basename(filePath)) : filePath
   const captureId = randomUUID()

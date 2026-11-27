@@ -149,7 +149,7 @@ export function createAwakeClock(sources: AwakeClockSources = SYSTEM_SOURCES): A
 let systemAwakeClock: AwakeClock | null = null
 
 /** The process-wide awake clock, driven by the system's suspend and resume events where a
- *  publisher exists (desktop) and by its own sampling everywhere (including orcad). */
+ *  publisher exists (desktop) and by its own sampling everywhere (including openkodod). */
 export function getSystemAwakeClock(): AwakeClock {
   if (!systemAwakeClock) {
     const clock = createAwakeClock()

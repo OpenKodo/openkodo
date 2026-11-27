@@ -22,9 +22,9 @@ import { MenuItemBlockedReason } from '@/components/ui/menu-item-blocked-reason'
 import { useTranslate } from '@/i18n/use-translate'
 import { cn } from '@/lib/class-names'
 import {
-  useDeleteOrcaChat,
-  useOrcaChatDeleteHostReason
-} from '@/lib/agent-session/chat-deletion/orca-chat-delete'
+  useDeleteOpenKodoChat,
+  useOpenKodoChatDeleteHostReason
+} from '@/lib/agent-session/chat-deletion/openkodo-chat-delete'
 import type { Bot } from '../../../../shared/bot-types'
 import { botChatOffersDelete, type BotChatTreeChat } from '../../../../shared/bots/bot-chat-tree'
 
@@ -42,8 +42,8 @@ function BotChatMenuItems({
   onOpen: () => void
 }): React.JSX.Element {
   const t = useTranslate()
-  const deleteChat = useDeleteOrcaChat()
-  const hostReason = useOrcaChatDeleteHostReason(bot.hostId)
+  const deleteChat = useDeleteOpenKodoChat()
+  const hostReason = useOpenKodoChatDeleteHostReason(bot.hostId)
   const Item = kind === 'context' ? ContextMenuItem : DropdownMenuItem
   const Separator = kind === 'context' ? ContextMenuSeparator : DropdownMenuSeparator
   const label = t('bots.chats.delete', 'Delete chat')

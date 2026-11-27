@@ -27,7 +27,7 @@ async function waitFor<T>(read: () => T | null, label: string): Promise<T> {
 }
 
 /** The card's issue menu > Open in OpenKodo browser fails; the toast names why, never the link. */
-export const openInOrcaBrowserRefused = defineFixture({
+export const openInOpenKodoBrowserRefused = defineFixture({
   width: 400,
   setup: () =>
     useAppStore.setState((state) => ({

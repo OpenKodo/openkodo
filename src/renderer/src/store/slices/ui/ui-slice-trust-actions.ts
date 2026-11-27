@@ -1,40 +1,45 @@
 import type { UISlice, UISliceGet, UISliceSet } from './ui-slice-contract'
 import { getSetupScriptPromptDismissalKey } from '../../../runtime/repo-hooks/setup-script-prompt'
 import {
-  withOrcaHookRepoAlwaysTrusted,
-  withOrcaHookScriptConfirmed
-} from '../../../../../shared/workspace-setup/hooks/orca-hook-trust-entries'
+  withOpenKodoHookRepoAlwaysTrusted,
+  withOpenKodoHookScriptConfirmed
+} from '../../../../../shared/workspace-setup/hooks/openkodo-hook-trust-entries'
 
 export function createUiTrustActions(set: UISliceSet, _get: UISliceGet): Partial<UISlice> {
   return {
-    trustedOrcaHooks: {},
-    markOrcaHookScriptConfirmed: (repoId, kind, contentHash) =>
+    trustedOpenKodoHooks: {},
+    markOpenKodoHookScriptConfirmed: (repoId, kind, contentHash) =>
       set((s) => {
-        const next = withOrcaHookScriptConfirmed(s.trustedOrcaHooks, repoId, kind, contentHash)
-        if (next === s.trustedOrcaHooks) {
+        const next = withOpenKodoHookScriptConfirmed(
+          s.trustedOpenKodoHooks,
+          repoId,
+          kind,
+          contentHash
+        )
+        if (next === s.trustedOpenKodoHooks) {
           return s
         }
-        window.api.ui.set({ trustedOrcaHooks: next }).catch(console.error)
-        return { trustedOrcaHooks: next }
+        window.api.ui.set({ trustedOpenKodoHooks: next }).catch(console.error)
+        return { trustedOpenKodoHooks: next }
       }),
-    markOrcaHookRepoAlwaysTrusted: (repoId) =>
+    markOpenKodoHookRepoAlwaysTrusted: (repoId) =>
       set((s) => {
-        const next = withOrcaHookRepoAlwaysTrusted(s.trustedOrcaHooks, repoId)
-        if (next === s.trustedOrcaHooks) {
+        const next = withOpenKodoHookRepoAlwaysTrusted(s.trustedOpenKodoHooks, repoId)
+        if (next === s.trustedOpenKodoHooks) {
           return s
         }
-        window.api.ui.set({ trustedOrcaHooks: next }).catch(console.error)
-        return { trustedOrcaHooks: next }
+        window.api.ui.set({ trustedOpenKodoHooks: next }).catch(console.error)
+        return { trustedOpenKodoHooks: next }
       }),
-    clearOrcaHookTrustForRepo: (repoId) =>
+    clearOpenKodoHookTrustForRepo: (repoId) =>
       set((s) => {
-        if (!(repoId in s.trustedOrcaHooks)) {
+        if (!(repoId in s.trustedOpenKodoHooks)) {
           return s
         }
-        const next = { ...s.trustedOrcaHooks }
+        const next = { ...s.trustedOpenKodoHooks }
         delete next[repoId]
-        window.api.ui.set({ trustedOrcaHooks: next }).catch(console.error)
-        return { trustedOrcaHooks: next }
+        window.api.ui.set({ trustedOpenKodoHooks: next }).catch(console.error)
+        return { trustedOpenKodoHooks: next }
       }),
     setupScriptPromptDismissedRepoIds: [],
     dismissSetupScriptPrompt: (repoHostIdentity) =>

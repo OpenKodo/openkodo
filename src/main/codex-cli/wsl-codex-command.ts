@@ -58,7 +58,7 @@ export function buildWslCodexAppServerArgs(
 export function buildWslCodexLoginArgs(
   distro: string,
   linuxHomePath: string,
-  options: { orcaOpensSignInLink?: boolean } = {}
+  options: { openkodoOpensSignInLink?: boolean } = {}
 ): string[] {
   const command = [
     buildCodexPathLookup(),
@@ -68,7 +68,7 @@ export function buildWslCodexLoginArgs(
     'fi',
     `export CODEX_HOME=${quotePosixShell(linuxHomePath)}`,
     // Avoid a second tab when OpenKodo opens the link.
-    ...(options.orcaOpensSignInLink ? ['export BROWSER=true'] : []),
+    ...(options.openkodoOpensSignInLink ? ['export BROWSER=true'] : []),
     'exec "$resolved" login'
   ].join('\n')
   return buildWslCodexShellArgs(distro, command)

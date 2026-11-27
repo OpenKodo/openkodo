@@ -19,8 +19,8 @@ export type NewBotComputer = {
   templatePackages?: boolean
 }
 
-function updateOrcaOn(host: string): string {
-  return translate('bots.list.updateOrcaOn', 'Update OpenKodo on {{host}}', { host })
+function updateOpenKodoOn(host: string): string {
+  return translate('bots.list.updateOpenKodoOn', 'Update OpenKodo on {{host}}', { host })
 }
 
 function refusalWords(refusal: NewBotRefusal, label: string, desktopLabel: string): string {
@@ -28,7 +28,7 @@ function refusalWords(refusal: NewBotRefusal, label: string, desktopLabel: strin
     case 'bots-off':
       return translate('bots.new.botsOffOn', 'Bots are off on {{host}}', { host: label })
     case 'update':
-      return updateOrcaOn(label)
+      return updateOpenKodoOn(label)
     case 'update-desktop':
       return translate('bots.new.updateDesktopFirst', 'Update OpenKodo on {{host}} first', {
         host: desktopLabel
@@ -42,7 +42,7 @@ function listingRefusal(
   desktopLabel: string
 ): string | undefined {
   if (listing?.kind === 'update-needed') {
-    return updateOrcaOn(label)
+    return updateOpenKodoOn(label)
   }
   if (listing?.kind !== 'listed') {
     // Not read yet, or its read failed: nothing says it takes a bot yet; the list reads it again.
@@ -87,7 +87,7 @@ export function newBotComputers(args: {
         host.hostId,
         host.label,
         host.relay === 'update-needed'
-          ? updateOrcaOn(host.label)
+          ? updateOpenKodoOn(host.label)
           : (serverHostDownWord(host) ??
               listingRefusal(listingOf(host.hostId), host.label, desktopLabel))
       )
@@ -102,7 +102,7 @@ function answerRefusal(
   desktop: { label: string; takesCreate: boolean } | null
 ): string | undefined {
   if (answer.kind === 'no-capability') {
-    return updateOrcaOn(label)
+    return updateOpenKodoOn(label)
   }
   if (answer.kind === 'unreachable') {
     return translate('bots.list.offline', 'Offline')

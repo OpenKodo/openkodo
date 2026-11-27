@@ -5,8 +5,8 @@ import {
   agentSessionLeaseFixture,
   agentSessionRecordFixture
 } from '../../../../shared/agent-session/lifecycle/records/agent-session-record.test-fixture'
-import { formatOrcaSessionAddress } from '../../../../shared/agent-session/identity/orca-session-address'
-import { testOrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { formatOpenKodoSessionAddress } from '../../../../shared/agent-session/identity/openkodo-session-address'
+import { testOpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import { createAgentStatusStore } from '../../../../shared/agent-status/store/agent-status-store'
 import { createAgentChildWorkAdmission } from '../../../../shared/agent-status/child-work/agent-status-child-work-admission'
 import { reconcileAgentChildWorkEvidence } from '../../../../shared/agent-status/child-work/agent-status-child-work-reconciliation'
@@ -35,10 +35,10 @@ const {
 } = await import('../terminal-authority/structured-sessions/structured-worker-identity')
 
 // A bot's Home Chat started as HOME and was cleared into LIVE, which its tab now shows.
-const HOME = testOrcaSessionId('5b2e7d3f-9c4a-4f8b-8d26-1e3c7f9a2b48')
-const LIVE = testOrcaSessionId('6c3f8e4a-ad5b-4a9c-9e37-2f4d8a0b3c59')
-const OTHER = testOrcaSessionId('7d4a9f5b-be6c-4bad-af48-3a5e9b1c4d6a')
-const WORKER = testOrcaSessionId('8e5bad6c-cf7d-4cbe-b059-4b6fac2d5e7b')
+const HOME = testOpenKodoSessionId('5b2e7d3f-9c4a-4f8b-8d26-1e3c7f9a2b48')
+const LIVE = testOpenKodoSessionId('6c3f8e4a-ad5b-4a9c-9e37-2f4d8a0b3c59')
+const OTHER = testOpenKodoSessionId('7d4a9f5b-be6c-4bad-af48-3a5e9b1c4d6a')
+const WORKER = testOpenKodoSessionId('8e5bad6c-cf7d-4cbe-b059-4b6fac2d5e7b')
 
 function record(sessionId: string, clearedInto?: string): AgentSessionRecord {
   const base = agentSessionRecordFixture(agentSessionLeaseFixture({ sessionId }))
@@ -86,10 +86,10 @@ afterEach(() => {
 })
 
 /** `worker-start` from a chat records the chat's /clear root as its creator. */
-function workerStartedBy(orcaSessionId: typeof HOME): string {
+function workerStartedBy(openkodoSessionId: typeof HOME): string {
   const task = db.createTask({ runId: 'run_legacy_local', spec: 'Fix the beachball' })
   return db.createStartingWorkerDispatch({
-    creator: { kind: 'session', orcaSessionId },
+    creator: { kind: 'session', openkodoSessionId },
     maxDepth: 10,
     taskId: task.id,
     startOptions: { agent: 'codex' }
@@ -99,10 +99,13 @@ function workerStartedBy(orcaSessionId: typeof HOME): string {
 describe('worker dock source of a cleared chat', () => {
   it('shows the workers its earlier session started in the session its pane shows now', () => {
     const dispatchId = workerStartedBy(HOME)
-    const live = readWorkerDock(db, { party: formatOrcaSessionAddress(LIVE), direction: 'around' })
+    const live = readWorkerDock(db, {
+      party: formatOpenKodoSessionAddress(LIVE),
+      direction: 'around'
+    })
     expect(live.identities.map((row) => row.dispatchId)).toEqual([dispatchId])
     const other = readWorkerDock(db, {
-      party: formatOrcaSessionAddress(OTHER),
+      party: formatOpenKodoSessionAddress(OTHER),
       direction: 'around'
     })
     expect(other.identities).toEqual([])
@@ -161,22 +164,23 @@ describe('worker dock source of a cleared chat', () => {
     )
     for (const session of [HOME, LIVE]) {
       const dock = readWorkerDock(db, {
-        party: formatOrcaSessionAddress(session),
+        party: formatOpenKodoSessionAddress(session),
         direction: 'around'
       })
       expect(dock.rows).toMatchObject([{ state: 'failed', source: HOME }])
     }
     const [failure] = readWorkerDock(db, {
-      party: formatOrcaSessionAddress(LIVE),
+      party: formatOpenKodoSessionAddress(LIVE),
       direction: 'around'
     }).rows
     acknowledgeWorkerDock(db, {
-      party: formatOrcaSessionAddress(LIVE),
+      party: formatOpenKodoSessionAddress(LIVE),
       acknowledged: true,
       settlements: [{ dispatchId: failure.dispatchId, settlement: failure.settlement! }]
     })
     expect(
-      readWorkerDock(db, { party: formatOrcaSessionAddress(HOME), direction: 'around' }).identities
+      readWorkerDock(db, { party: formatOpenKodoSessionAddress(HOME), direction: 'around' })
+        .identities
     ).toEqual([])
   })
 
@@ -210,7 +214,7 @@ describe('worker dock source of a cleared chat', () => {
       structuredHost: 'owned'
     }
     let changed: ((pane: string) => void) | undefined
-    const source = workerDockActivitySource(db, formatOrcaSessionAddress(LIVE), {
+    const source = workerDockActivitySource(db, formatOpenKodoSessionAddress(LIVE), {
       readAgentStatusOfPanes: (panes) => (panes.includes(status.paneKey) ? [status] : []),
       readObservedAgentStatusPaneIdentityFn: () => ({ kind: 'unobserved' }),
       getAgentStatusTerminalHandleForPaneKey: () => undefined,
@@ -223,7 +227,7 @@ describe('worker dock source of a cleared chat', () => {
     const states: string[] = []
     const stop = subscribeWorkerDock(
       db,
-      formatOrcaSessionAddress(LIVE),
+      formatOpenKodoSessionAddress(LIVE),
       (value) => states.push(value.rows[0]?.state ?? ''),
       source
     )
@@ -255,7 +259,7 @@ describe('worker dock source of a cleared chat', () => {
       )
     let statuses: AgentStatusIpcPayload[] = []
     let changed: ((pane: string) => void) | undefined
-    const source = workerDockActivitySource(db, formatOrcaSessionAddress(LIVE), {
+    const source = workerDockActivitySource(db, formatOpenKodoSessionAddress(LIVE), {
       readAgentStatusOfPanes: (panes) => statuses.filter((row) => panes.includes(row.paneKey)),
       readObservedAgentStatusPaneIdentityFn: () => ({ kind: 'unobserved' }),
       getAgentStatusTerminalHandleForPaneKey: () => undefined,
@@ -268,7 +272,7 @@ describe('worker dock source of a cleared chat', () => {
     const states: string[] = []
     const stop = subscribeWorkerDock(
       db,
-      formatOrcaSessionAddress(LIVE),
+      formatOpenKodoSessionAddress(LIVE),
       (value) => states.push(value.rows[0]?.state ?? ''),
       source
     )

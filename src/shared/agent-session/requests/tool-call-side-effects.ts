@@ -79,7 +79,7 @@ const READ_PROGRAMS: Record<string, (args: readonly string[]) => boolean> = {
   cd: () => true,
   git: (args) => gitReads(args),
   gh: (args) => ghReads(args),
-  orca: (args) => orcaReads(args)
+  openkodo: (args) => openkodoReads(args)
 }
 
 const GIT_READS = new Set([
@@ -195,7 +195,7 @@ const OPENKODO_READS: readonly (readonly string[])[] = [
   ['orchestration', 'run-list']
 ]
 
-function orcaReads(args: readonly string[]): boolean {
+function openkodoReads(args: readonly string[]): boolean {
   return (
     !args.some((word) => /^--(join|download|out|offer)/.test(word)) &&
     OPENKODO_READS.some((path) => path.every((word, index) => args[index] === word))
@@ -223,7 +223,7 @@ function unwrapShell(command: string): string {
 /** Whether every command in a shell line only reads. Anything this can't read plainly acts. */
 export function shellCommandOnlyReads(command: string): boolean {
   const line = unwrapShell(command)
-    .replaceAll('"${OPENKODO_CLI_COMMAND:-orca}"', 'orca')
+    .replaceAll('"${OPENKODO_CLI_COMMAND:-openkodo}"', 'openkodo')
     .replace(/\s2>&1(?=\s|$)/g, ' ')
     .replace(/\s2?>\s*\/dev\/null(?=\s|$)/g, ' ')
   // Redirection, substitution, background jobs and here-docs can write or run anything.

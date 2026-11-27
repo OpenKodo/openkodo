@@ -1,7 +1,7 @@
-import { OrcaRuntimeWithMcpStaleTerminals } from '../projection/mcp-stale-terminal-restart'
+import { OpenKodoRuntimeWithMcpStaleTerminals } from '../projection/mcp-stale-terminal-restart'
 import type { RuntimeMobileSessionTabCloseResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 
-export abstract class OrcaRuntimeWithRefuseUnattributedMobileSessionTabClose extends OrcaRuntimeWithMcpStaleTerminals {
+export abstract class OpenKodoRuntimeWithRefuseUnattributedMobileSessionTabClose extends OpenKodoRuntimeWithMcpStaleTerminals {
   async refuseUnattributedMobileSessionTabClose(
     worktreeSelector: string,
     tabId: string

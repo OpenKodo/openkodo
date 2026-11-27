@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { captureStructuredAgentCliSource } from '../../../native-chat/conversation-adoption/structured-agent-cli-source'
 import type { OrchestrationEntryCaller } from '../../orchestration/addressing/orchestration-caller-identity'
 import { isRegistrationFencedUnsubscribe, type RpcContext, type RpcRequest } from '../core'
@@ -41,7 +41,7 @@ export type RpcDispatchStreamingOptions = Pick<
 }
 
 export function rpcContextFromTransport(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   options: RpcDispatchStreamingOptions | undefined,
   orchestrationCaller: OrchestrationEntryCaller | undefined,

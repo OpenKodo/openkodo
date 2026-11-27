@@ -2,9 +2,9 @@
 // whom the request is for, and is closed again when the request went nowhere.
 import type { Bot } from '../../../../../../shared/bot-types'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
   closeBotSession,
   requireStructuredHost,
@@ -13,11 +13,11 @@ import {
 import { showBotSessionTab } from '../../../../../bots/bot-session-tab-show'
 import { botRequestChatTitle, type BotRequestRecord } from '../../../../../bots/bot-request-view'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 
 /** The chat `--chat new` starts in the bot's home; it acts for whom the request is for. */
 async function requestConversation(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: Bot,
   record: BotRequestRecord,
   subject: string
@@ -42,7 +42,7 @@ async function requestConversation(
  *  and the reservation given back. The chat gets a tab in the bot's home and lists under the bot like
  *  a chat opened from the tab bar, whoever it acts for: the owner's OpenKodo holds it either way. */
 export async function admitInNewChat(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: Bot,
   record: BotRequestRecord,
   subject: string,
@@ -82,7 +82,7 @@ export async function admitInNewChat(
 /** The request is already delivered, so a tab that can't be shown only leaves the chat in the bot's
  *  Chats, where it was before; reopening it from there publishes the same tab. */
 async function showConversationTab(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: Bot,
   sessionId: string
 ): Promise<void> {
@@ -92,8 +92,8 @@ async function showConversationTab(
 }
 
 export function sessionAddress(sessionId: string): string {
-  if (!isOrcaSessionId(sessionId)) {
+  if (!isOpenKodoSessionId(sessionId)) {
     throw new OrchestrationError('bot_not_found', 'That bot has no conversation to mail.')
   }
-  return formatOrcaSessionAddress(sessionId)
+  return formatOpenKodoSessionAddress(sessionId)
 }

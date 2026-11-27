@@ -1,6 +1,6 @@
 import type { AgentCliUpdateRow } from '../status-bar/updates/AgentCliUpdateList'
 
-const STORAGE_KEY = 'orca.agentCliUpdateCard.v1'
+const STORAGE_KEY = 'openkodo.agentCliUpdateCard.v1'
 // Claude Code and Codex ship several times a week; a card per release would be a daily nag.
 export const AGENT_CLI_UPDATE_CARD_INTERVAL_MS = 24 * 60 * 60_000
 

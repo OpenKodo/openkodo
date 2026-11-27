@@ -25,9 +25,9 @@ type PageEvent = {
 
 const PROMPT_KINDS: ReadonlySet<string> = new Set(['site-permission', 'http-auth', 'external-app'])
 
-/** A host page's link the phone may open; never the app's own `orca:` links. */
+/** A host page's link the phone may open; never the app's own `openkodo:` links. */
 function phoneCanOpen(url: string | undefined): url is string {
-  return url !== undefined && !/^orca:/i.test(url) && canOpenExternalLink(url)
+  return url !== undefined && !/^openkodo:/i.test(url) && canOpenExternalLink(url)
 }
 
 function downloadNotice(event: PageEvent): string | null {

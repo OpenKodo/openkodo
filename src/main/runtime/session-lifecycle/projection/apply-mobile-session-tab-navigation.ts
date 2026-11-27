@@ -1,8 +1,8 @@
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { selectMobileSessionTab } from '../../session-tabs/layout/mobile-session-tab-selection'
-import type { OrcaRuntimeWithScheduleMobileSessionTabsChanged as MobileSessionPublication } from '../../session-tabs/publication/session-tabs-change-publication'
-import type { OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab as MobileSessionPreservation } from '../../session-tabs/restoration/mobile-session-publication-preservation'
-import { OrcaRuntimeWithPerformMobileSessionPtyRecordsRefresh } from './perform-mobile-session-pty-records-refresh'
+import type { OpenKodoRuntimeWithScheduleMobileSessionTabsChanged as MobileSessionPublication } from '../../session-tabs/publication/session-tabs-change-publication'
+import type { OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab as MobileSessionPreservation } from '../../session-tabs/restoration/mobile-session-publication-preservation'
+import { OpenKodoRuntimeWithPerformMobileSessionPtyRecordsRefresh } from './perform-mobile-session-pty-records-refresh'
 import type { BrowserSessionTabSelectionOptions } from '../../browser/tabs/browser-tab-create-publication'
 import type { ServerPagePopupPresentation } from '../../../browser/guest-lifecycle/popups/browser-popup-ownership'
 import type {
@@ -22,7 +22,7 @@ import {
   cloneTerminalLayoutSnapshot
 } from '../../terminal/surface/mobile-session-layout-projection'
 
-export abstract class OrcaRuntimeWithApplyMobileSessionTabNavigation extends OrcaRuntimeWithPerformMobileSessionPtyRecordsRefresh {
+export abstract class OpenKodoRuntimeWithApplyMobileSessionTabNavigation extends OpenKodoRuntimeWithPerformMobileSessionPtyRecordsRefresh {
   protected abstract createMobileSessionTabsDelivery(): ReturnType<
     MobileSessionPublication['createMobileSessionTabsDelivery']
   >

@@ -94,7 +94,7 @@ export async function dispatchTaskToWorker(params: {
     maxDepth: params.nestedWorkerMaxDepth
   })
 
-  // Dev workers need orca-dev to reach the dev socket.
+  // Dev workers need openkodo-dev to reach the dev socket.
   const preamble = buildDispatchPreamble({
     taskId: task.id,
     dispatchId: dispatch.id,
@@ -102,7 +102,7 @@ export async function dispatchTaskToWorker(params: {
     taskSpec: strippedSpec,
     coordinatorHandle: params.coordinatorHandle,
     workerHandle: targetHandle,
-    devMode: process.env.OPENKODO_USER_DATA_PATH?.includes('orca-dev'),
+    devMode: process.env.OPENKODO_USER_DATA_PATH?.includes('openkodo-dev'),
     ...(runtime.getTerminalOrchestrationCliCommand
       ? { cliCommand: runtime.getTerminalOrchestrationCliCommand(targetHandle) }
       : {}),

@@ -9,7 +9,7 @@ import {
 } from './guest-frame-input-sessions'
 
 const INSERT_TIMEOUT_MS = 10_000
-const INSERT_WORLD_NAME = 'orca-guest-text-insertion'
+const INSERT_WORLD_NAME = 'openkodo-guest-text-insertion'
 
 const insertionScript = (
   text: string,

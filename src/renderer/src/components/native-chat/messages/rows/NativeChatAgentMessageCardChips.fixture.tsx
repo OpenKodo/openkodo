@@ -85,7 +85,7 @@ function chipMail(
       party: {
         address,
         terminalHandle: address.startsWith('term_') ? address : null,
-        orcaSessionId: null
+        openkodoSessionId: null
       },
       name,
       ...(host ? { host } : {}),
@@ -119,7 +119,7 @@ const chipStarted = projectStructuredAgentStartItem({
     dispatchId: 'chip-running',
     task: 'Review the share dialog change and run its tests.',
     worker: {
-      party: { address: 'term_sender', terminalHandle: 'term_sender', orcaSessionId: null },
+      party: { address: 'term_sender', terminalHandle: 'term_sender', openkodoSessionId: null },
       name: 'Parser worker',
       agent: 'codex'
     }
@@ -137,7 +137,7 @@ const longStarted = {
       dispatchId: 'chip-failed',
       task: 'Review the share dialog change.',
       worker: {
-        party: { address: 'term_long', terminalHandle: 'term_long', orcaSessionId: null },
+        party: { address: 'term_long', terminalHandle: 'term_long', openkodoSessionId: null },
         name: longName,
         agent: 'claude'
       }

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { PUSH_HOST_FINGERPRINT_LENGTH } from '@orca-cloud/push-contract/push-limits'
+import { PUSH_HOST_FINGERPRINT_LENGTH } from '@openkodo-cloud/push-contract/push-limits'
 
 // Identical derivation to deriveRelayHostId on the desktop, so a host and a
 // phone reach the same fingerprint from the same X25519 public key.

@@ -78,7 +78,7 @@ export async function readCodexHistoryJournalView(
         { kinds: ['message', 'tool-call', 'diff', 'approval', 'question', 'status', 'turn'] },
         (itemId, _sequence, body, attribution, item) => {
           const identity = parseAgentJournalItemKey(itemId)
-          if (identity?.provider === 'orca' && body.kind === 'message') {
+          if (identity?.provider === 'openkodo' && body.kind === 'message') {
             positions.set(itemId, agentJournalItemPosition(item))
           }
           if (!isRootAgentJournalItem(attribution)) {
@@ -92,7 +92,11 @@ export async function readCodexHistoryJournalView(
           ) {
             hasLegacy = true
           }
-          if (identity?.provider === 'orca' && body.kind === 'message' && body.role === 'user') {
+          if (
+            identity?.provider === 'openkodo' &&
+            body.kind === 'message' &&
+            body.role === 'user'
+          ) {
             nativePromptKeys.add(itemId)
           }
           const turnId = codexTurnIdOfRow(itemId, body, threadId)

@@ -17,15 +17,15 @@ describe('removeTree empty path', () => {
   it('never forwards an empty path to rm, which Bun on Windows resolves to the cwd', async () => {
     const rm = vi.fn(async () => {})
     await removeTree('', { rm })
-    await removeTree('/tmp/orca-remove-tree-missing', { rm })
+    await removeTree('/tmp/openkodo-remove-tree-missing', { rm })
     expect(rm.mock.calls).toEqual([
-      ['/tmp/orca-remove-tree-missing', { recursive: true, force: true }]
+      ['/tmp/openkodo-remove-tree-missing', { recursive: true, force: true }]
     ])
   })
 
   it('never forwards an empty path to rmSync', () => {
     removeTreeSync('')
-    removeTreeSync('/tmp/orca-remove-tree-missing')
-    expect(rmSync.mock.calls.map(([path]) => path)).toEqual(['/tmp/orca-remove-tree-missing'])
+    removeTreeSync('/tmp/openkodo-remove-tree-missing')
+    expect(rmSync.mock.calls.map(([path]) => path)).toEqual(['/tmp/openkodo-remove-tree-missing'])
   })
 })

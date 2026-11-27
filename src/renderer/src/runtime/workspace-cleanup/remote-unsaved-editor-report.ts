@@ -63,7 +63,7 @@ const REPORT_INPUTS: {
 const readReportInputs = Object.values(REPORT_INPUTS)
 
 const UNKNOWN = '\0unknown'
-const REPORTER_ID_KEY = 'orca.workspaceCleanup.unsavedEditorReporterId'
+const REPORTER_ID_KEY = 'openkodo.workspaceCleanup.unsavedEditorReporterId'
 
 // Windows share main's control socket; a per-window id keeps one window's report from replacing another's. Survives reload.
 function windowReporterId(): string {

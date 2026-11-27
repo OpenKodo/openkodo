@@ -1,11 +1,11 @@
-import { OrcaRuntimeWithPickMostRecentActor } from './terminal-layout-queue'
+import { OpenKodoRuntimeWithPickMostRecentActor } from './terminal-layout-queue'
 import type { ApplyLayoutResult, PtyLayoutState, PtyLayoutTarget } from './terminal-layout-state'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type { LayoutApplyReply } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 import type { WindowLayoutCommand } from './runtime-layout-apply'
 import { PaneGridRecorder } from './pane-grid-recording'
 
-export abstract class OrcaRuntimeWithApplyLayout extends OrcaRuntimeWithPickMostRecentActor {
+export abstract class OpenKodoRuntimeWithApplyLayout extends OpenKodoRuntimeWithPickMostRecentActor {
   protected abstract suppressResizesForMs(ms: number): void
   abstract applyLayoutCommand(command: WindowLayoutCommand): Promise<LayoutApplyReply>
   private paneGrids: PaneGridRecorder | null = null
@@ -165,7 +165,7 @@ export abstract class OrcaRuntimeWithApplyLayout extends OrcaRuntimeWithPickMost
     return this.mobileDisplayModes.get(ptyId) ?? this.getDefaultMobileDisplayMode()
   }
 
-  // Why: a headless runtime (openkodo serve, orcad) serves several clients at once, so a phone that
+  // Why: a headless runtime (openkodo serve, openkodod) serves several clients at once, so a phone that
   // only views a terminal must not shrink it for all of them. Phone input or an explicit
   // phone-mode request still claims the size. servesHeadlessGraph is fixed for the process, so
   // a desktop host keeps fitting phones on open and no PTY's mode flips mid-session.

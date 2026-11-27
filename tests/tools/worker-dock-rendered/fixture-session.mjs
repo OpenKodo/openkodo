@@ -59,7 +59,7 @@ export async function createFixtureSession({ base, filter, fixture: FIXTURE }) {
     const opened = pages.get(touch)
     try {
       await opened.page.waitForFunction(
-        () => Boolean(window.__orcaComponentFixtureHost),
+        () => Boolean(window.__openkodoComponentFixtureHost),
         undefined,
         {
           timeout: 60_000
@@ -81,7 +81,7 @@ export async function createFixtureSession({ base, filter, fixture: FIXTURE }) {
     errors.length = 0
     await page.setViewportSize({ width, height })
     await page.evaluate(
-      ([id, fixtureTheme]) => window.__orcaComponentFixtureHost.render(id, fixtureTheme),
+      ([id, fixtureTheme]) => window.__openkodoComponentFixtureHost.render(id, fixtureTheme),
       [`${fixture}:${scene}`, theme]
     )
     await page.waitForFunction(

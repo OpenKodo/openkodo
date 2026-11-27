@@ -10,13 +10,13 @@ import { setupSourceLabel } from '../repositories/mobile-tasks-repository-presen
 import { LIST_LEADING_INSET, ListGroup, ListRow } from '../../components/list/ListGroup'
 import { styles } from '../mobile-tasks-legacy-styles'
 import { translate } from '../../i18n/mobile-i18n'
-import { OrcaHookTrustDrawer } from '../../components/hook-trust/OrcaHookTrustDrawer'
+import { OpenKodoHookTrustDrawer } from '../../components/hook-trust/OpenKodoHookTrustDrawer'
 import type { CreateSetupApproval } from '../../new-workspace/creation/setup-hook-trust'
 import {
   createdSetupRunFailed,
   runReviewedCreatedSetup
 } from '../../new-workspace/creation/created-worktree-setup-review'
-import type { OrcaYamlTrustPrompt } from '../mobile-tasks-project-workspace-types'
+import type { OpenKodoYamlTrustPrompt } from '../mobile-tasks-project-workspace-types'
 
 export function renderMobileTasksWorkspaceSparseDrawer(model: ConnectionPresentationModel) {
   const {
@@ -215,20 +215,20 @@ export function renderMobileTasksSetupTrustDrawer(model: ConnectionPresentationM
 }
 
 // Prompts already acted on: callbacks delivered before the busy render must not act twice.
-const actedPrompts = new WeakSet<OrcaYamlTrustPrompt>()
+const actedPrompts = new WeakSet<OpenKodoYamlTrustPrompt>()
 
-export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentationModel) {
+export function renderMobileTasksOpenKodoYamlTrustDrawer(model: ConnectionPresentationModel) {
   const {
     client,
     createWorkspace,
     creatingKey,
-    orcaYamlTrustPrompt,
+    openkodoYamlTrustPrompt,
     persistSetupHookTrust,
     setError,
-    setOrcaYamlTrustPrompt,
+    setOpenKodoYamlTrustPrompt,
     taskUiReady
   } = model
-  const createWithSetup = (prompt: OrcaYamlTrustPrompt, setup?: CreateSetupApproval) =>
+  const createWithSetup = (prompt: OpenKodoYamlTrustPrompt, setup?: CreateSetupApproval) =>
     createWorkspace(
       prompt.item,
       prompt.repoIdOverride,
@@ -242,13 +242,13 @@ export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentati
       { setup, hostedStartPoint: prompt.hostedStartPoint }
     )
   const approve = (alwaysTrust: boolean) => {
-    const prompt = orcaYamlTrustPrompt
+    const prompt = openkodoYamlTrustPrompt
     // One choice per prompt: a second tap or a decline while this runs must not act again.
     if (!prompt || prompt.approving || actedPrompts.has(prompt)) {
       return
     }
     actedPrompts.add(prompt)
-    setOrcaYamlTrustPrompt({ ...prompt, approving: true })
+    setOpenKodoYamlTrustPrompt({ ...prompt, approving: true })
     void (async () => {
       let notice: string | undefined
       try {
@@ -259,7 +259,7 @@ export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentati
             : createdSetupRunFailed()
           return
         }
-        setOrcaYamlTrustPrompt(null)
+        setOpenKodoYamlTrustPrompt(null)
         if (setupApproval) {
           await createWithSetup(prompt, setupApproval)
         }
@@ -270,7 +270,7 @@ export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentati
         }
         // The prompt stays up after a failed save, so it may be approved again.
         actedPrompts.delete(prompt)
-        setOrcaYamlTrustPrompt(prompt)
+        setOpenKodoYamlTrustPrompt(prompt)
         setError(
           err instanceof Error
             ? err.message
@@ -279,7 +279,7 @@ export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentati
       } finally {
         // The workspace exists either way; opening it ends the review and frees its item.
         if (prompt.created) {
-          setOrcaYamlTrustPrompt(null)
+          setOpenKodoYamlTrustPrompt(null)
           prompt.created.open(notice)
         }
       }
@@ -287,12 +287,12 @@ export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentati
   }
   // Declining a created workspace's setup leaves it as is and opens it.
   const decline = (create: boolean) => {
-    const prompt = orcaYamlTrustPrompt
+    const prompt = openkodoYamlTrustPrompt
     if (!prompt || prompt.approving || actedPrompts.has(prompt)) {
       return
     }
     actedPrompts.add(prompt)
-    setOrcaYamlTrustPrompt(null)
+    setOpenKodoYamlTrustPrompt(null)
     if (prompt.created) {
       prompt.created.open()
     } else if (create) {
@@ -300,13 +300,13 @@ export function renderMobileTasksOrcaYamlTrustDrawer(model: ConnectionPresentati
     }
   }
   return (
-    <OrcaHookTrustDrawer
-      visible={taskUiReady && orcaYamlTrustPrompt != null}
-      prompt={orcaYamlTrustPrompt}
+    <OpenKodoHookTrustDrawer
+      visible={taskUiReady && openkodoYamlTrustPrompt != null}
+      prompt={openkodoYamlTrustPrompt}
       busy={
-        orcaYamlTrustPrompt != null &&
-        (orcaYamlTrustPrompt.approving === true ||
-          (!orcaYamlTrustPrompt.created && creatingKey === orcaYamlTrustPrompt.item.key))
+        openkodoYamlTrustPrompt != null &&
+        (openkodoYamlTrustPrompt.approving === true ||
+          (!openkodoYamlTrustPrompt.created && creatingKey === openkodoYamlTrustPrompt.item.key))
       }
       zIndex={TASK_SECONDARY_DRAWER_Z_INDEX + 1}
       onRunOnce={() => approve(false)}

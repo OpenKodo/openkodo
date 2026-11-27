@@ -10,7 +10,7 @@ import type {
   SshConnectionStatus
 } from '../../../../../shared/remote-runtime/ssh/ssh-types'
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
-import type { OrcaVmRecipe } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { AgentStartupShell } from '../../../../../shared/agent-launch/startup/tui-agent-startup-shell'
 import type { ExecutionHostPlatformFact } from '@/runtime/hosts/platform/execution-host-platform-fact'
 import type { NewWorkspaceProjectOption } from '@/lib/workspace/creation/new-workspace-project-options'
@@ -58,7 +58,7 @@ export type ComposerRuntimeTargetModel = {
   selectedRecipeRepoId: string | null
   selectedRecipeRepoConnectionId: string | null
   ephemeralVmsEnabled: boolean
-  ephemeralVmRecipes: OrcaVmRecipe[]
+  ephemeralVmRecipes: OpenKodoVmRecipe[]
   selectedEphemeralVmRecipeId: string | null
   setSelectedEphemeralVmRecipeId: (recipeId: string | null) => void
   ephemeralVmRecipeError: string | null

@@ -131,12 +131,12 @@ let runtimeHomePath: string
 let previousUserDataPath: string | undefined
 
 const systemHome = (): string => join(fakeHomeDir, '.codex')
-const baselinePath = (): string => join(runtimeHomePath, '.orca-config-settings-baseline.json')
+const baselinePath = (): string => join(runtimeHomePath, '.openkodo-config-settings-baseline.json')
 
 beforeEach(() => {
   denials.reset()
-  fakeHomeDir = realFs.mkdtempSync(join(tmpdir(), 'orca-sta4823-home-'))
-  userDataDir = realFs.mkdtempSync(join(tmpdir(), 'orca-sta4823-data-'))
+  fakeHomeDir = realFs.mkdtempSync(join(tmpdir(), 'openkodo-sta4823-home-'))
+  userDataDir = realFs.mkdtempSync(join(tmpdir(), 'openkodo-sta4823-data-'))
   runtimeHomePath = join(userDataDir, 'codex-runtime-home', 'home')
   previousUserDataPath = process.env.OPENKODO_USER_DATA_PATH
   process.env.OPENKODO_USER_DATA_PATH = userDataDir

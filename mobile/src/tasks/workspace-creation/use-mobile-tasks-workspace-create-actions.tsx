@@ -46,7 +46,7 @@ export function useMobileTasksWorkspaceCreateActions(model: WorkspaceSshStateMod
     setActionItem,
     setCreatingKey,
     setError,
-    setOrcaYamlTrustPrompt,
+    setOpenKodoYamlTrustPrompt,
     setRuntimeTaskSettings,
     setSetupPrompt,
     setWorkspaceAgent,
@@ -54,7 +54,7 @@ export function useMobileTasksWorkspaceCreateActions(model: WorkspaceSshStateMod
     setWorkspaceCreateDraft,
     taskStateHydrated,
     tasksSupported,
-    trustedOrcaHooks,
+    trustedOpenKodoHooks,
     workspaceDetectedAgentIds,
     workspaceLastAutoName
   } = model
@@ -244,14 +244,14 @@ export function useMobileTasksWorkspaceCreateActions(model: WorkspaceSshStateMod
         if (createMayRunSetup(setupDecision, setupResolution.runPolicy) && !approvedSetup) {
           const resolved = await resolveCreateSetupApproval({
             client,
-            trust: trustedOrcaHooks,
+            trust: trustedOpenKodoHooks,
             repos,
             repo: targetRepo,
             createSource: setupHooksCreateSource(params) ?? { kind: 'base' }
           })
           if ('ask' in resolved) {
             setSetupPrompt(null)
-            setOrcaYamlTrustPrompt({
+            setOpenKodoYamlTrustPrompt({
               item,
               ...(repoIdOverride ? { repoIdOverride } : {}),
               setupOverride: 'run',
@@ -298,12 +298,12 @@ export function useMobileTasksWorkspaceCreateActions(model: WorkspaceSshStateMod
           return
         }
         // The host skipped setup because the created branch's differs from what was approved.
-        setOrcaYamlTrustPrompt({
+        setOpenKodoYamlTrustPrompt({
           item,
           ...createdSetupReviewPrompt({
             repo: targetRepo,
             repos,
-            trust: trustedOrcaHooks,
+            trust: trustedOpenKodoHooks,
             mismatch
           }),
           created: { worktreeId: result.worktree.id, open }
@@ -325,7 +325,7 @@ export function useMobileTasksWorkspaceCreateActions(model: WorkspaceSshStateMod
       runtimeTaskSettings,
       taskStateHydrated,
       tasksSupported,
-      trustedOrcaHooks,
+      trustedOpenKodoHooks,
       workspaceDetectedAgentIds,
       workspaceLastAutoName
     ]

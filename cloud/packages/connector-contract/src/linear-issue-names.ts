@@ -73,7 +73,7 @@ export function linearLabelsClash(
 
 /** The id a new issue gets from its post's retry key: the same post always names the same issue. */
 export function linearIssueIdFor(key: string): string {
-  const hex = createHash('sha256').update(`orca-linear-create:${key}`).digest('hex')
+  const hex = createHash('sha256').update(`openkodo-linear-create:${key}`).digest('hex')
   // A version 4 shape with the variant bits set, as Linear takes an id.
   const variant = ((Number.parseInt(hex[16]!, 16) & 0x3) | 0x8).toString(16)
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-4${hex.slice(13, 16)}-${variant}${hex.slice(17, 20)}-${hex.slice(20, 32)}`

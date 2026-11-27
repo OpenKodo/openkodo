@@ -2,13 +2,13 @@ export const GRAB_GUEST_FOUNDATION_SCRIPT = `(function() {
   'use strict';
 
   // Replace page-supplied grab state so extraction uses the newly installed implementation.
-  if (window.__orcaGrab) {
+  if (window.__openkodoGrab) {
     try {
-      if (typeof window.__orcaGrab.cleanup === 'function') {
-        window.__orcaGrab.cleanup();
+      if (typeof window.__openkodoGrab.cleanup === 'function') {
+        window.__openkodoGrab.cleanup();
       }
     } catch(e) {}
-    delete window.__orcaGrab;
+    delete window.__openkodoGrab;
   }
 
   var BUDGET = {

@@ -6,7 +6,7 @@
  * run finds every copy present and changes nothing.
  */
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
-import type { PersistedUIState } from '../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import { getRepoHostIdentityForParts } from '../../../../shared/repository/repo-host-identity'
 import type {
   ManualRepoOrderEntry,

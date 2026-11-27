@@ -18,11 +18,11 @@ import {
 import { join } from 'node:path'
 
 /** Older launches wrote this fixed name; it is never written or removed now, since its author is unknowable. */
-export const CURSOR_OPENING_RULE_FILE = 'orca-standing-instructions.mdc'
+export const CURSOR_OPENING_RULE_FILE = 'openkodo-standing-instructions.mdc'
 
 // Each launch writes its own file named after a hash of its bytes, so a crashed launch's rule is
 // provably OpenKodo's only while its bytes are untouched; an edited one is the user's.
-const OWN_RULE_NAME = /^orca-standing-instructions-([0-9a-f]{32})-[0-9a-f-]{36}\.mdc$/
+const OWN_RULE_NAME = /^openkodo-standing-instructions-([0-9a-f]{32})-[0-9a-f-]{36}\.mdc$/
 // Another OpenKodo process may be mid-open in this folder; only a rule older than any open is a leftover.
 const LEFTOVER_AGE_MS = 10 * 60_000
 
@@ -86,7 +86,10 @@ export async function placeCursorOpeningRule(
   const cursorDir = join(cwd, '.cursor')
   const rulesDir = join(cursorDir, 'rules')
   const bytes = `---\ndescription: OpenKodo's standing instructions for this chat\nalwaysApply: true\n---\n${text}\n`
-  const path = join(rulesDir, `orca-standing-instructions-${bytesHash(bytes)}-${randomUUID()}.mdc`)
+  const path = join(
+    rulesDir,
+    `openkodo-standing-instructions-${bytesHash(bytes)}-${randomUUID()}.mdc`
+  )
   try {
     const made = [
       ...((await exists(cursorDir)) ? [] : [cursorDir]),

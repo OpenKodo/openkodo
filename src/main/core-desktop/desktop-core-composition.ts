@@ -5,7 +5,7 @@ import type { Store } from '../persistence/loading-store/store'
 import type { AutomationUsageClient } from '../../shared/backend/backend-service-contract'
 import type { TerminalSideEffectBatch } from '../../shared/terminal/output/terminal-side-effect-facts'
 import type { RuntimeDesktopWindowStatus } from '../../shared/remote-runtime/session-graph/runtime-session-contracts'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { AgentBrowserBridge } from '../browser/agent-browser/agent-browser-bridge'
 import type { BrowserClientPageAutomationRpc } from '../browser/client-pages/execution/browser-client-page-automation-runtime'
 import { StarNagService } from '../star-nag/service'
@@ -19,7 +19,7 @@ import { BrowserExpectedUrlMismatch } from '../../shared/browser/client-hosting/
 import { BrowserClientPageCommandError } from '../browser/client-pages/execution/browser-client-page-command-failure'
 import { startCodexHooks } from '../codex/hooks/reconciliation/codex-hook-reconcile'
 import { startCodexStateDbBackfillRecoveryInBackground } from '../codex/history/index/codex-state-db-backfill-recovery'
-import { getOrcaManagedCodexHomePath } from '../codex/configuration/homes/codex-home-paths'
+import { getOpenKodoManagedCodexHomePath } from '../codex/configuration/homes/codex-home-paths'
 import { hydrateAgentCliShellPath } from '../agent-hooks/installation/local-agent-cli-presence'
 import { isAgentStatusHooksEnabledForAgent } from '../../shared/agent-hook-listener/configuration/agent-status-hooks-setting'
 import { reconcileStartupManagedAgentHooks } from '../agent-hooks/installation/managed-agent-hook-startup'
@@ -45,7 +45,7 @@ import { prepareWorktreeRemovalsForStore } from '../workspaces/removal/worktree-
 import { worktreeRemovalLifetime } from '../workspaces/removal/worktree-removal-lifetime'
 import { logStartupMilestone } from '../startup/diagnostics/startup-diagnostics'
 import { refreshInstalledOpenCodeStatusPlugins } from '../opencode/status-hooks/opencode-status-plugin-startup-refresh'
-import { pruneDesktopOrcadArtifactCache } from '../orcad/artifact-slots/orcad-artifact-cache-retention'
+import { pruneDesktopOpenkododArtifactCache } from '../openkodod/artifact-slots/openkodod-artifact-cache-retention'
 import { runGatedWslMoveDesktopRewritePass } from '../persistence/moving-wsl-projects/desktop-state/wsl-move-desktop-rewrite'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
 import { reapLeftoverMacOSPermissionStatusHelpers } from '../computer/macos-permissions/macos-permission-status-leftover-reap'
@@ -78,7 +78,7 @@ export type DesktopCoreNative = {
   isQuitting(): boolean
   isNativeUpdateInstallUnderWay(): boolean
   isServeMode(): boolean
-  servedOrcaProfileId(): string | undefined
+  servedOpenKodoProfileId(): string | undefined
   openExternal(url: string): Promise<void>
   /** Power, presence, awake, telemetry and hang observers, started right after removal records load. */
   startObservers(): void
@@ -89,7 +89,7 @@ export type DesktopCoreNative = {
   }
   getDesktopWindowStatus(): RuntimeDesktopWindowStatus
   sendTerminalSideEffects(batch: TerminalSideEffectBatch): void
-  attachBrowserHost(runtime: OrcaRuntimeService): void
+  attachBrowserHost(runtime: OpenKodoRuntimeService): void
   createAgentBrowserBridge(onTabsChanged: (worktreeId?: string) => void): AgentBrowserBridge
   configureBrowserAutomation(executeRpc: BrowserClientPageAutomationRpc): void
   afterFirstWindowShown(task: () => void, fallbackMs: number): void
@@ -145,7 +145,7 @@ function startCoreObservers(core: DesktopCore, store: Store, deps: DesktopCoreCo
   feedAgentSessionStats(core.stats, agentHookServer)
   const usageWorktrees = new UsageWorktreeHistory(
     store,
-    join(getCanonicalUserDataPath(), 'orca-usage-worktree-history.json')
+    join(getCanonicalUserDataPath(), 'openkodo-usage-worktree-history.json')
   )
   core.usageWorktreeHistory = usageWorktrees
   const usage = native.startUsageBackend(usageWorktrees)
@@ -155,7 +155,7 @@ function startCoreObservers(core: DesktopCore, store: Store, deps: DesktopCoreCo
 
 function startBrowserAutomation(
   core: DesktopCore,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   native: DesktopCoreNative
 ): void {
   const agentBrowserBridge = native.createAgentBrowserBridge((worktreeId) =>
@@ -186,7 +186,7 @@ function startBrowserAutomation(
 }
 
 function scheduleDeferredMaintenance(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   store: Store,
   { paths, native }: DesktopCoreComposition,
   releaseProviderMaintenance: () => void
@@ -215,8 +215,8 @@ function scheduleDeferredMaintenance(
     void reapLeftoverMacOSPermissionStatusHelpers()
   })
   afterFirstWindow(() => {
-    void pruneDesktopOrcadArtifactCache(paths.userData).catch((error) => {
-      console.warn('[orcad-artifacts] Failed to bound the slot cache:', error)
+    void pruneDesktopOpenkododArtifactCache(paths.userData).catch((error) => {
+      console.warn('[openkodod-artifacts] Failed to bound the slot cache:', error)
     })
   })
   // The startup pass ran before browser sessions and any window existed, so `browser-cookies` paused.
@@ -246,7 +246,7 @@ export async function composeDesktopCore(
     stats: core.stats!,
     userDataPath: paths.userData,
     isPackaged: paths.isPackaged,
-    servedOrcaProfileId: native.servedOrcaProfileId(),
+    servedOpenKodoProfileId: native.servedOpenKodoProfileId(),
     getDesktopWindowStatus: native.getDesktopWindowStatus,
     sendTerminalSideEffects: native.sendTerminalSideEffects,
     attachBrowserHost: native.attachBrowserHost,
@@ -290,7 +290,7 @@ export async function composeDesktopCore(
   scheduleDeferredMaintenance(runtime, store, deps, () => releaseProviderMaintenance())
   native.startThemeAndSpeech(WORKTREE_TRASH_SWEEP_FALLBACK_MS)
   void providerMaintenanceReady.then(() =>
-    startCodexStateDbBackfillRecoveryInBackground(getOrcaManagedCodexHomePath())
+    startCodexStateDbBackfillRecoveryInBackground(getOpenKodoManagedCodexHomePath())
   )
   // Grok's, Cursor's and Droid's own MCP files follow the host list; off with the MCP servers switch.
   void providerMaintenanceReady.then(() => deps.registerCleanup(startMcpAgentFileSync()))

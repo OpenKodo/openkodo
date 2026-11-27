@@ -6,7 +6,7 @@ import {
 } from '../../shared/connector-work-link-contract'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 import type { ConversationBots } from '../external-conversations/external-conversation-bots'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { runtimeBotChats, startBotSession } from './bot-chat-session'
 import type { BotController } from './bot-controller'
 import type { BotWorkRecord } from './bot-work-record'
@@ -55,7 +55,7 @@ export function botConversations(deps: {
   }
 }
 
-export function runtimeBotConversations(runtime: OrcaRuntimeService): ConversationBots {
+export function runtimeBotConversations(runtime: OpenKodoRuntimeService): ConversationBots {
   const chats = runtimeBotChats(runtime)
   return botConversations({
     bots: runtime.bots,

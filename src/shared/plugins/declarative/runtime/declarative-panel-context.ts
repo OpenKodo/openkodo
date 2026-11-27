@@ -1,6 +1,6 @@
 import { hostAtom, hydrateAtoms } from './declarative-atoms'
 import { readHostMessage, readStoredValues } from './declarative-host-messages'
-import type { OrcaPanelContext } from './declarative-runtime-types'
+import type { OpenKodoPanelContext } from './declarative-runtime-types'
 
 /**
  * The `setup(ctx)` context, and hydration: panel id, visibility and persisted atoms from OpenKodo.
@@ -9,7 +9,7 @@ import type { OrcaPanelContext } from './declarative-runtime-types'
 export function createPanelContext(onRetain?: () => void) {
   const visibility = hostAtom(true)
   const lifetime = new AbortController()
-  const context: OrcaPanelContext = {
+  const context: OpenKodoPanelContext = {
     subscriptions: [],
     signal: lifetime.signal,
     visible: visibility.atom,

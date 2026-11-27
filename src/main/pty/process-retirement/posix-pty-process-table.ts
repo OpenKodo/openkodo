@@ -2,8 +2,8 @@ import { readFileSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { hasControllingTty } from '../../../shared/terminal/pty/native-process/posix-controlling-terminal'
 import { waitForPromiseWithSignal } from '../../../shared/concurrency/abort-signal-reason'
-import { runProcess, runProcessSync } from '@orca/process-host'
-import type { ProcessResult } from '@orca/process-host/process-spec'
+import { runProcess, runProcessSync } from '@openkodo/process-host'
+import type { ProcessResult } from '@openkodo/process-host/process-spec'
 
 const PROCESS_TABLE_TIMEOUT_MS = 1_000
 const PROCESS_TABLE_MAX_BYTES = 1024 * 1024

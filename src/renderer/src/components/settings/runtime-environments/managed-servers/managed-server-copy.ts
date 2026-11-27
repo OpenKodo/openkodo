@@ -1,15 +1,15 @@
 import type {
-  OrcadManagedPendingMigrationRow,
-  OrcadManagedRuntimeStatus
-} from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
-import type { OrcadMigrationBlocker } from '../../../../../../shared/orcad-migration/orcad-migration-preflight'
+  OpenkododManagedPendingMigrationRow,
+  OpenkododManagedRuntimeStatus
+} from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
+import type { OpenkododMigrationBlocker } from '../../../../../../shared/openkodod-migration/openkodod-migration-preflight'
 import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
-import { ORCAD_UPDATE_WSL_MOVE_RUNNING_CODE } from '../../../../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
+import { OPENKODOD_UPDATE_WSL_MOVE_RUNNING_CODE } from '../../../../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 import { dependencyKindLabel } from './managed-server-dependency-kinds'
 
 export function migrationPhaseLabel(
-  phase: OrcadManagedPendingMigrationRow['phase'],
+  phase: OpenkododManagedPendingMigrationRow['phase'],
   t: Translate = translate
 ): string {
   switch (phase) {
@@ -25,7 +25,7 @@ export function migrationPhaseLabel(
 }
 
 export function recoveryLabel(
-  recovery: NonNullable<OrcadManagedRuntimeStatus['recovery']>,
+  recovery: NonNullable<OpenkododManagedRuntimeStatus['recovery']>,
   t: Translate = translate
 ): string {
   switch (recovery.operation) {
@@ -49,7 +49,7 @@ export function recoveryLabel(
 
 /** `null` counts are unknown, never zero: the server did not answer. */
 export function terminalCensusLabel(
-  terminals: OrcadManagedRuntimeStatus['terminals'],
+  terminals: OpenkododManagedRuntimeStatus['terminals'],
   t: Translate = translate
 ): string {
   if (terminals.liveSessions === null) {
@@ -84,37 +84,37 @@ export function uncountedForceUpdateMessage(t: Translate = translate): string {
   )
 }
 
-export function conversionBlockerLabel(blocker: OrcadMigrationBlocker): string {
+export function conversionBlockerLabel(blocker: OpenkododMigrationBlocker): string {
   switch (blocker.code) {
-    case 'orcad_migration_target_not_found':
+    case 'openkodod_migration_target_not_found':
       return translate(
         'auto.components.settings.managedServers.blocker.notFound',
         'The SSH host is gone.'
       )
-    case 'orcad_migration_target_owned':
-    case 'orcad_migration_owner_unrecorded':
+    case 'openkodod_migration_target_owned':
+    case 'openkodod_migration_owner_unrecorded':
       return translate(
         'auto.components.settings.managedServers.blocker.owned',
         'OpenKodo already runs on this SSH host.'
       )
-    case 'orcad_migration_direct_ssh_repositories':
-    case 'orcad_migration_direct_ssh_folder_workspaces':
+    case 'openkodod_migration_direct_ssh_repositories':
+    case 'openkodod_migration_direct_ssh_folder_workspaces':
       return translate(
         'auto.components.settings.managedServers.blocker.catalog',
         'Projects on this host cannot move yet.'
       )
-    case 'orcad_migration_direct_ssh_terminal_leases':
+    case 'openkodod_migration_direct_ssh_terminal_leases':
       return translate(
         'auto.components.settings.managedServers.blocker.terminals',
         'Terminals on this host are still running ({{count}}). Close them first.',
         { count: blocker.terminalLeases.length }
       )
-    case 'orcad_migration_saved_port_forwards':
+    case 'openkodod_migration_saved_port_forwards':
       return translate(
         'auto.components.settings.managedServers.blocker.portForwards',
         'Saved port forwards stay with the SSH host.'
       )
-    case 'orcad_migration_dependent_state':
+    case 'openkodod_migration_dependent_state':
       return translate(
         'auto.components.settings.managedServers.blocker.dependents',
         'State that cannot move yet: {{kinds}}.',
@@ -124,7 +124,7 @@ export function conversionBlockerLabel(blocker: OrcadMigrationBlocker): string {
             .join(', ')
         }
       )
-    case 'orcad_migration_dependency_unverifiable':
+    case 'openkodod_migration_dependency_unverifiable':
       return translate(
         'auto.components.settings.managedServers.blocker.unverifiable',
         'OpenKodo could not read its saved {{sources}}, so it cannot tell what would move.',
@@ -135,30 +135,30 @@ export function conversionBlockerLabel(blocker: OrcadMigrationBlocker): string {
 
 // Main's refusal codes, grouped by what the user does next; its English `reason` never reaches UI.
 const LIVE_TERMINAL_CODES = new Set([
-  'orcad_initial_runtime_live',
-  'orcad_update_strands_live_terminals',
-  'orcad_update_terminals_running',
-  'orcad_update_ends_in_process_terminals',
-  'orcad_rollback_orphans_live_terminals',
-  'orcad_rollback_strands_live_terminals',
-  'orcad_recovery_orphans_live_terminals',
-  'orcad_stop_still_running'
+  'openkodod_initial_runtime_live',
+  'openkodod_update_strands_live_terminals',
+  'openkodod_update_terminals_running',
+  'openkodod_update_ends_in_process_terminals',
+  'openkodod_rollback_orphans_live_terminals',
+  'openkodod_rollback_strands_live_terminals',
+  'openkodod_recovery_orphans_live_terminals',
+  'openkodod_stop_still_running'
 ])
 const UNVERIFIABLE_CODES = new Set([
-  'orcad_initial_runtime_unverifiable',
-  'orcad_update_terminal_census_unavailable',
-  'orcad_update_daemon_protocol_unverifiable',
-  'orcad_rollback_active_identity_unverifiable',
-  'orcad_rollback_census_unavailable',
-  'orcad_rollback_daemon_protocol_unverifiable',
-  'orcad_rollback_snapshot_unverifiable',
-  'orcad_recovery_census_required',
-  'orcad_recovery_unverifiable',
-  'orcad_stop_cancel_unverifiable'
+  'openkodod_initial_runtime_unverifiable',
+  'openkodod_update_terminal_census_unavailable',
+  'openkodod_update_daemon_protocol_unverifiable',
+  'openkodod_rollback_active_identity_unverifiable',
+  'openkodod_rollback_census_unavailable',
+  'openkodod_rollback_daemon_protocol_unverifiable',
+  'openkodod_rollback_snapshot_unverifiable',
+  'openkodod_recovery_census_required',
+  'openkodod_recovery_unverifiable',
+  'openkodod_stop_cancel_unverifiable'
 ])
 const MIGRATION_CODES = new Set([
-  'orcad_rollback_migration_in_progress',
-  'orcad_rollback_crosses_migration'
+  'openkodod_rollback_migration_in_progress',
+  'openkodod_rollback_crosses_migration'
 ])
 
 export function managedServerOutcomeLabel(
@@ -170,7 +170,7 @@ export function managedServerOutcomeLabel(
   t: Translate = translate
 ): string {
   const code = result.code ?? ''
-  if (code === 'orcad_stop_active_environment') {
+  if (code === 'openkodod_stop_active_environment') {
     return t(
       'auto.components.settings.managedServers.outcome.defaultServer',
       'Not done: this server is the default host for new projects. Choose another one under New projects open on before stopping it.'
@@ -188,7 +188,7 @@ export function managedServerOutcomeLabel(
       'Not done: OpenKodo couldn’t confirm what is running on this server. Try again when the host is reachable.'
     )
   }
-  if (code === ORCAD_UPDATE_WSL_MOVE_RUNNING_CODE) {
+  if (code === OPENKODOD_UPDATE_WSL_MOVE_RUNNING_CODE) {
     return t(
       'auto.components.settings.managedServers.outcome.wslMoveRunning',
       'Not done: a project is moving onto this server. OpenKodo updates it once the move finishes.'

@@ -28,14 +28,14 @@ export function codexGoalJournalIdentity(
   occurrence: string
 ): AgentJournalItemIdentity {
   return {
-    provider: 'orca',
+    provider: 'openkodo',
     clientMessageId: `${GOAL_IDENTITY_PREFIX}:${thread}:${signature}:${occurrence}`
   }
 }
 
 export function parseCodexGoalJournalItemId(itemId: string): CodexGoalJournalState | null {
   const identity = parseAgentJournalItemKey(itemId)
-  if (identity?.provider !== 'orca') {
+  if (identity?.provider !== 'openkodo') {
     return null
   }
   const [prefix, thread, signature, occurrence, ...rest] = identity.clientMessageId.split(':')
@@ -87,7 +87,10 @@ export function resolveCodexGoalIdentity(
 ): AgentJournalItemIdentity | null {
   const { thread, signature } = choice
   const newest = newestWithKeyPrefix(
-    agentJournalItemKey({ provider: 'orca', clientMessageId: `${GOAL_IDENTITY_PREFIX}:${thread}:` })
+    agentJournalItemKey({
+      provider: 'openkodo',
+      clientMessageId: `${GOAL_IDENTITY_PREFIX}:${thread}:`
+    })
   )
   const previous = newest ? parseCodexGoalJournalItemId(newest.itemId) : null
   if (previous?.signature === signature) {

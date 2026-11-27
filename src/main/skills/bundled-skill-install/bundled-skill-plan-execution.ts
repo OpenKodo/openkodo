@@ -53,7 +53,7 @@ async function runSkill(run: SkillRun): Promise<BundledSkillOutcome> {
             op.observed.skillDigest === run.entry.digest))
     )
   ) {
-    await recordOrcaCopy(run.input, run.entry)
+    await recordOpenKodoCopy(run.input, run.entry)
   }
   return { name: run.entry.name, status: 'ran', ops }
 }
@@ -62,7 +62,7 @@ async function runSkill(run: SkillRun): Promise<BundledSkillOutcome> {
  * Lets other OpenKodo builds on this host recognise these bytes as OpenKodo's, not a user edit.
  * Execution only: preview stays read-only.
  */
-function recordOrcaCopy(input: BundledSkillPlanInput, entry: BundledSkillPlanEntry) {
+function recordOpenKodoCopy(input: BundledSkillPlanInput, entry: BundledSkillPlanEntry) {
   return recordBundledSkillDigestWritten(
     input.filesystem,
     input.destination.homeDirectory,
@@ -172,7 +172,7 @@ export async function autoUpdateBundledSkills(
       const stale = disprovedPlacements(ops, ran)
       const fresh = { ...entry, ops: entry.ops.filter((op) => !stale.has(op.path)) }
       if (holdsCurrentBundledSkillCopy(fresh)) {
-        await recordOrcaCopy(input, entry)
+        await recordOpenKodoCopy(input, entry)
       }
     }
     return { scope: plan.scope, skills }

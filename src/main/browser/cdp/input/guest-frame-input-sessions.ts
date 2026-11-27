@@ -82,7 +82,7 @@ export async function settleWithin<T>(request: Promise<T>, fallback: T): Promise
 }
 
 /** Hide OpenKodo-owned session traffic that the agent's client did not request. */
-export function isOrcaFrameSessionTraffic(
+export function isOpenKodoFrameSessionTraffic(
   webContents: WebContents,
   method: string,
   params: Record<string, unknown> | undefined,
@@ -228,7 +228,7 @@ const PAGE_SESSION_ATTACH_TIMEOUT_MS = 8_000
 const ATTACH_TIMED_OUT = Symbol('attach-timed-out')
 
 /** A second CDP session on the page itself, hidden from the agent's client like frame sessions. */
-export async function attachOrcaPageSession(
+export async function attachOpenKodoPageSession(
   webContents: WebContents,
   send: GuestSessionCdpSender
 ): Promise<string> {
@@ -283,16 +283,16 @@ export async function attachOrcaPageSession(
 }
 
 /** After its detach: Chromium reports the detach before answering it, so the event stayed hidden. */
-export function releaseOrcaPageSession(webContents: WebContents, sessionId: string): void {
+export function releaseOpenKodoPageSession(webContents: WebContents, sessionId: string): void {
   frameSessionsByGuest.get(webContents)?.ownedSessionIds.delete(sessionId)
 }
 
 /** Best effort: a closed debugger already ended the session. */
-export async function detachOrcaPageSession(
+export async function detachOpenKodoPageSession(
   webContents: WebContents,
   send: GuestSessionCdpSender,
   sessionId: string
 ): Promise<void> {
   await send('Target.detachFromTarget', { sessionId }).catch(() => {})
-  releaseOrcaPageSession(webContents, sessionId)
+  releaseOpenKodoPageSession(webContents, sessionId)
 }

@@ -7,17 +7,17 @@ const mask = (words: string) => maskStorePaths(words, '[image]')
 
 describe('masking attachment-store paths', () => {
   it('masks the whole path from its root, spaces in folder names included', () => {
-    expect(mask(`Saved /Users/Alice Smith/.orca/${STORE}/shot.png ok`)).toBe('Saved [image] ok')
-    expect(mask(`Saved /Users/a/.orca/${STORE}/shot.png`)).toBe('Saved [image]')
+    expect(mask(`Saved /Users/Alice Smith/.openkodo/${STORE}/shot.png ok`)).toBe('Saved [image] ok')
+    expect(mask(`Saved /Users/a/.openkodo/${STORE}/shot.png`)).toBe('Saved [image]')
     expect(mask(`see ~/My Files/${STORE}/a.png`)).toBe('see [image]')
-    expect(mask(`(~/.orca/${STORE}/a.png)`)).toBe('[image]')
+    expect(mask(`(~/.openkodo/${STORE}/a.png)`)).toBe('[image]')
     expect(
       mask(`see src/x and C:\\Users\\Al B\\AppData\\agent-session-attachments\\${ID}\\a.png done`)
     ).toBe('see src/x and [image] done')
   })
 
   it('masks a path written without its root from its first character', () => {
-    expect(mask(`rel .orca/${STORE}/a.png end`)).toBe('rel [image] end')
+    expect(mask(`rel .openkodo/${STORE}/a.png end`)).toBe('rel [image] end')
     expect(mask(`${STORE}/a.png`)).toBe('[image]')
   })
 

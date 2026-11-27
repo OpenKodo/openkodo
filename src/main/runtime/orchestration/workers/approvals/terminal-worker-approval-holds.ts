@@ -32,7 +32,7 @@ import { TERMINAL_APPROVAL_ID_PREFIX } from './worker-approval-report'
 import { TerminalWorkerApprovalBook } from './terminal-worker-approval-book'
 import {
   findHelperHold,
-  orcaMayHoldHelper,
+  openkodoMayHoldHelper,
   promptSummary,
   promptTranscriptPath,
   reportHelperPrompt
@@ -71,7 +71,7 @@ export class TerminalWorkerApprovalHolds
         this.close(other, TERMINAL_ONLY)
         return false
       }
-    } else if (!orcaMayHoldHelper(this.deps, worker)) {
+    } else if (!openkodoMayHoldHelper(this.deps, worker)) {
       return false
     }
     const hold: Hold = {

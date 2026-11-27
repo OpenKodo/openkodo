@@ -20,7 +20,7 @@ const UNAVAILABLE_MODEL_PHRASE =
 
 type RetryParams = Pick<
   ResolvedSourceControlAiGenerationParams,
-  'model' | 'thinkingLevel' | 'usesOrcaDefaultModel' | 'agentArgs' | 'agentCommandOverride'
+  'model' | 'thinkingLevel' | 'usesOpenKodoDefaultModel' | 'agentArgs' | 'agentCommandOverride'
 > & { backslash?: CommandTemplateBackslash }
 
 function isModelUnavailableFailure(
@@ -67,7 +67,7 @@ export function codexUnavailableModelRetryPlan<T extends GenerationArgument>(
   // A model the user picked, in settings or in recipe/override args, should fail visibly.
   if (
     !spec ||
-    !params.usesOrcaDefaultModel ||
+    !params.usesOpenKodoDefaultModel ||
     !isModelUnavailableFailure(params.model, failure) ||
     userArgsPassModel(params, spec)
   ) {
@@ -80,12 +80,15 @@ export function codexUnavailableModelRetryPlan<T extends GenerationArgument>(
   }
   // Codex's buildArgs puts OpenKodo's effort right after its --model; recipe or override effort is kept.
   const modelEnd = model.index + model.consumed
-  const orcaEffort =
+  const openkodoEffort =
     params.thinkingLevel !== undefined &&
     tokens[modelEnd] === '-c' &&
     tokens[modelEnd + 1] === `model_reasoning_effort=${params.thinkingLevel}`
   return {
     ...plan,
-    args: [...plan.args.slice(0, model.index), ...plan.args.slice(modelEnd + (orcaEffort ? 2 : 0))]
+    args: [
+      ...plan.args.slice(0, model.index),
+      ...plan.args.slice(modelEnd + (openkodoEffort ? 2 : 0))
+    ]
   }
 }

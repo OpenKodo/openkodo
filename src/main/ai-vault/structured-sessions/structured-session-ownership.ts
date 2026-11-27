@@ -9,7 +9,7 @@ import {
 import { acquiredAgentSessionAccount } from '../../../shared/agent-session/lifecycle/accounts/agent-session-acquired-account'
 import { CLAUDE_STRUCTURED_AGENT } from '../../claude/structured/claude-structured-agent-definition'
 import { normalizeRuntimePathForComparison } from '../../../shared/file-access/cross-platform-path'
-import { resolveOrcaManagedCodexHomePath } from '../../codex/configuration/homes/codex-home-paths'
+import { resolveOpenKodoManagedCodexHomePath } from '../../codex/configuration/homes/codex-home-paths'
 import { agentSessionOwnerObservationIsLive } from '../../../shared/agent-session/lifecycle/leases/agent-session-lease-adjudication'
 import { defaultAgentChatLabel } from '../../../shared/agent-session/conversation-naming/agent-session-chat-label'
 import type { AiVaultListResult } from '../../../shared/ai-vault/contracts/ai-vault-types'
@@ -171,7 +171,7 @@ function projectedAccountHome(ownership: StructuredProviderSessionOwnership) {
     ownership.provider === 'codex' &&
     !ownership.wslDistro &&
     normalizeRuntimePathForComparison(home.path) ===
-      normalizeRuntimePathForComparison(resolveOrcaManagedCodexHomePath())
+      normalizeRuntimePathForComparison(resolveOpenKodoManagedCodexHomePath())
   ) {
     return undefined
   }

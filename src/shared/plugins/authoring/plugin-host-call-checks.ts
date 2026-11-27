@@ -1,6 +1,6 @@
 import type { PluginSurface } from '../frames/plugin-protocol'
 import type { PluginManifest } from '../manifest/plugin-manifest'
-import { satisfiesOrcaEngineRange } from '../manifest/plugin-manifest-engine-range'
+import { satisfiesOpenKodoEngineRange } from '../manifest/plugin-manifest-engine-range'
 import { PLUGIN_HOST_API_MAJOR } from '../workers/plugin-host-api-major'
 import {
   getPluginHostMethodSpec,
@@ -26,7 +26,7 @@ const MAX_REFERENCES_PER_FILE = 256
 const MAX_QUEUED = 512
 const IMPORT_SUFFIXES = ['', '.js', '.mjs', '.cjs', '.ts', '.tsx', '.mts', '.jsx', '/index.js']
 
-// Why a `host` receiver: `orca.host.call` survives bundling, and an unrelated `fn.call('a.b')` must not count.
+// Why a `host` receiver: `openkodo.host.call` survives bundling, and an unrelated `fn.call('a.b')` must not count.
 const HOST_CALL = /\bhost\s*\??\.\s*(call|has)\s*(?:\?\.\s*)?\(\s*(['"`])([A-Za-z]\w*(?:\.\w+)+)\2/g
 // Why any argument: `has(method)` with a variable is feature detection too.
 const ANY_HAS_CALL = /\bhost\s*\??\.\s*has\s*(?:\?\.\s*)?\(/
@@ -226,10 +226,10 @@ function firstPer(calls: HostCall[], keyOf: (call: HostCall) => string): HostCal
 const thisHostApi = `Host API ${PLUGIN_HOST_API_MAJOR}.${PLUGIN_HOST_API_MINOR}`
 
 /**
- * Host calls this OpenKodo or the declared `engines.orca` cannot serve. Why errors only for unknown
+ * Host calls this OpenKodo or the declared `engines.openkodo` cannot serve. Why errors only for unknown
  * and proposed methods: those fail on every released OpenKodo, while a floor or surface miss may sit
  * behind a guard or in code that surface never runs, which a text scan cannot see. An unknown call
- * is a warning once the plugin calls `orca.host.has` at all; a proposed one needs a literal guard.
+ * is a warning once the plugin calls `openkodo.host.has` at all; a proposed one needs a literal guard.
  * Each deprecation warning starts `deprecated host method <name>`; catalog tooling matches it.
  */
 export async function pluginHostCallFindings(
@@ -237,9 +237,9 @@ export async function pluginHostCallFindings(
   read: PluginCodeReader
 ): Promise<PluginHostCallFindings> {
   const { calls, guarded, detects, notes } = await scanHostCalls(manifest, read)
-  const declared = manifest.engines.orca.slice(2)
+  const declared = manifest.engines.openkodo.slice(2)
   // Why: on OpenKodo before `host.has`, the guard throws, so it protects nothing.
-  const guardWorks = satisfiesOrcaEngineRange(declared, `>=${PLUGIN_HOST_HAS_SINCE}`)
+  const guardWorks = satisfiesOpenKodoEngineRange(declared, `>=${PLUGIN_HOST_HAS_SINCE}`)
   const errors: string[] = []
   const warnings: string[] = []
   for (const call of firstPer(calls, (c) => c.name)) {
@@ -251,10 +251,10 @@ export async function pluginHostCallFindings(
       failure = `${call.file}: calls proposed host method "${call.name}"; only development plugins (openkodo plugin dev) may call it until it is released`
     }
     if (failure !== null && guardWorks && guarded.has(call.name)) {
-      warnings.push(`${failure}; the orca.host.has('${call.name}') guard skips it`)
+      warnings.push(`${failure}; the openkodo.host.has('${call.name}') guard skips it`)
     } else if (failure !== null && guardWorks && detects && spec === null) {
       // Why loose: a guard's argument may be a variable, so any has() may cover this call.
-      warnings.push(`${failure}; the plugin calls orca.host.has, which may guard it`)
+      warnings.push(`${failure}; the plugin calls openkodo.host.has, which may guard it`)
     } else if (failure !== null) {
       errors.push(failure)
     } else if (spec?.deprecatedSince !== undefined) {
@@ -277,11 +277,11 @@ export async function pluginHostCallFindings(
     const needs = pluginHostMethodRelease(spec, call.surface)
     if (
       needs !== null &&
-      !satisfiesOrcaEngineRange(declared, `>=${needs}`) &&
+      !satisfiesOpenKodoEngineRange(declared, `>=${needs}`) &&
       !(guardWorks && guarded.has(call.name))
     ) {
       warnings.push(
-        `engines.orca: must be at least >=${needs}, because ${call.file} calls host method "${call.name}", which needs OpenKodo ${needs}; or guard the call with orca.host.has('${call.name}')${guardWorks ? '' : ` and engines.orca >=${PLUGIN_HOST_HAS_SINCE}, where orca.host.has arrived`}`
+        `engines.openkodo: must be at least >=${needs}, because ${call.file} calls host method "${call.name}", which needs OpenKodo ${needs}; or guard the call with openkodo.host.has('${call.name}')${guardWorks ? '' : ` and engines.openkodo >=${PLUGIN_HOST_HAS_SINCE}, where openkodo.host.has arrived`}`
       )
     }
   }

@@ -20,7 +20,7 @@ export const CONNECTOR_HOST_KEY_FILENAME = 'connector-host-key.json'
 // replace the key until the cloud accepts (it does only right after a fresh sign-in).
 const RESET_PENDING_PREFIX = 'connector-host-key-reset-pending.'
 const MAX_KEY_FILE_BYTES = 4 * 1024
-const PROOF_CONTEXT = 'orca-connector-host-proof/v1'
+const PROOF_CONTEXT = 'openkodo-connector-host-proof/v1'
 
 const KeyFile = z.object({ privateKey: z.string().regex(/^[A-Za-z0-9_-]{40,200}$/) }).strict()
 

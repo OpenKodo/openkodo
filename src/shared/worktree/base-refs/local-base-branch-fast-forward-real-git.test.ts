@@ -35,7 +35,7 @@ type Fixture = {
 
 // `main` is checked out one commit behind `refs/remotes/origin/main`, which edits version.txt and adds added.txt.
 async function createBehindRepo(): Promise<Fixture> {
-  const root = await mkdtemp(join(tmpdir(), 'orca-local-base-ff-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-local-base-ff-'))
   tempRoots.push(root)
   await writeFile(join(root, 'empty-gitconfig'), '')
   const env = isolatedGitEnv(root)

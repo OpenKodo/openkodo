@@ -88,7 +88,7 @@ function desktopCoreNative(store: Store): DesktopCoreNative {
     isQuitting: () => state.isQuitting,
     isNativeUpdateInstallUnderWay,
     isServeMode: () => state.isServeMode,
-    servedOrcaProfileId: () => state.activeOrcaProfile?.profile.id,
+    servedOpenKodoProfileId: () => state.activeOpenKodoProfile?.profile.id,
     openExternal: (url) => shell.openExternal(url),
     startObservers: () => initializeMainProcessObservers(store),
     getWorkingAgentCount: () => state.agentAwakeService?.getWorkingAgentCount() ?? 0,

@@ -1,5 +1,5 @@
-import { runProcess } from '@orca/process-host'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { runProcess } from '@openkodo/process-host'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import {
   buildWslCodexAppServerArgs,
   buildWslCodexIdentityProbe,

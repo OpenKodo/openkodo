@@ -7,7 +7,7 @@ import { readRemoteBrowserEvalJson } from './remote-browser-page-input-model'
 const MAX_SELECT_POPUP_OPTIONS = 2_000
 const MAX_SELECT_POPUP_LABEL_LENGTH = 500
 // The read leaves the opened <select> here so the choice acts on that element, not on whatever has focus.
-const OPENED_SELECT_KEY = `Symbol.for('orca.remote-browser-opened-select')`
+const OPENED_SELECT_KEY = `Symbol.for('openkodo.remote-browser-opened-select')`
 
 // Walks to the focused element through shadow roots and same-origin frames, adding each frame's
 // content offset so the rect is in top-level viewport CSS pixels.

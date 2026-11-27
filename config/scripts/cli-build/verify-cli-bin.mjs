@@ -9,7 +9,7 @@ import { resolveBuildSourceCommit } from '../build-identity/build-source-commit.
 // Packager restamps channel version after compilation; compiled CLI’s commit pins official skill installs.
 function buildOutPackageJson(version, commit) {
   return `${JSON.stringify(
-    { name: 'orca-compiled-output', type: 'commonjs', private: true, version, commit },
+    { name: 'openkodo-compiled-output', type: 'commonjs', private: true, version, commit },
     null,
     2
   )}\n`

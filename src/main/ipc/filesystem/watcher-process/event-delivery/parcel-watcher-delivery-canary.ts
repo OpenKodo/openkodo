@@ -64,7 +64,7 @@ export async function startWatcherDeliveryCanary(
   let canaryDir: string
   let lastEventAt = 0
   try {
-    canaryDir = configuredCanaryDir ?? mkdtempSync(join(tmpdir(), 'orca-watcher-canary-'))
+    canaryDir = configuredCanaryDir ?? mkdtempSync(join(tmpdir(), 'openkodo-watcher-canary-'))
     const watcher = await loadParcelWatcher()
     // Match the Windows subscriptions so the canary never probes for Watchman.
     const opts: ParcelWatcher.Options = process.platform === 'win32' ? { backend: 'windows' } : {}

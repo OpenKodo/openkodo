@@ -5,7 +5,7 @@ import { defineConfig, type UserConfig } from 'electron-vite'
 import type { Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { createInheritedOrcaIdentityFirstGuardPlugin } from './config/build-plugins/inherited-orca-identity-banner'
+import { createInheritedOpenKodoIdentityFirstGuardPlugin } from './config/build-plugins/inherited-openkodo-identity-banner'
 import { createMainEntryPostBanner } from './config/build-plugins/main-entry-post-banner'
 import {
   createSandboxedScriptBundlesPlugin,
@@ -29,20 +29,20 @@ import { resolveBuildSourceCommit } from './config/scripts/build-identity/build-
 
 // Official CI alone injects OPENKODO_BUILD_IDENTITY (stable|rc) and OPENKODO_POSTHOG_WRITE_KEY secrets; other builds substitute literal null.
 // Compile-time substitution gates telemetry at module load without runtime env fallback; declarations live in src/types/build-constants.d.ts.
-const orcaBuildIdentity = process.env.OPENKODO_BUILD_IDENTITY
+const openkodoBuildIdentity = process.env.OPENKODO_BUILD_IDENTITY
 const OPENKODO_BUILD_IDENTITY_LITERAL =
-  orcaBuildIdentity === 'stable' || orcaBuildIdentity === 'rc'
-    ? JSON.stringify(orcaBuildIdentity)
+  openkodoBuildIdentity === 'stable' || openkodoBuildIdentity === 'rc'
+    ? JSON.stringify(openkodoBuildIdentity)
     : 'null'
-const orcaPostHogWriteKey = process.env.OPENKODO_POSTHOG_WRITE_KEY
+const openkodoPostHogWriteKey = process.env.OPENKODO_POSTHOG_WRITE_KEY
 const OPENKODO_POSTHOG_WRITE_KEY_LITERAL =
-  typeof orcaPostHogWriteKey === 'string' && orcaPostHogWriteKey.length > 0
-    ? JSON.stringify(orcaPostHogWriteKey)
+  typeof openkodoPostHogWriteKey === 'string' && openkodoPostHogWriteKey.length > 0
+    ? JSON.stringify(openkodoPostHogWriteKey)
     : 'null'
-const orcaDiagnosticsTokenUrl = process.env.OPENKODO_DIAGNOSTICS_TOKEN_URL
+const openkodoDiagnosticsTokenUrl = process.env.OPENKODO_DIAGNOSTICS_TOKEN_URL
 const OPENKODO_DIAGNOSTICS_TOKEN_URL_LITERAL =
-  typeof orcaDiagnosticsTokenUrl === 'string' && orcaDiagnosticsTokenUrl.length > 0
-    ? JSON.stringify(orcaDiagnosticsTokenUrl)
+  typeof openkodoDiagnosticsTokenUrl === 'string' && openkodoDiagnosticsTokenUrl.length > 0
+    ? JSON.stringify(openkodoDiagnosticsTokenUrl)
     : 'null'
 
 const darkBuildSwitches: {
@@ -54,7 +54,7 @@ const DARK_BUILD_DEFINES = darkBuildSwitches.darkBuildDefines()
 /** Marks a dark switched-on main build so packaging refuses it. */
 function createDarkBuildMarkerPlugin(): Plugin {
   return {
-    name: 'orca-dark-build-marker',
+    name: 'openkodo-dark-build-marker',
     generateBundle() {
       for (const marker of darkBuildSwitches.darkBuildMarkers()) {
         this.emitFile({ type: 'asset', fileName: marker.fileName, source: marker.text })
@@ -192,8 +192,8 @@ export const electronViteConfig: UserConfig = {
       sourcemap: 'hidden',
       // PR fixtures discard maps; official releases must always retain them.
       ...(process.env.OPENKODO_CI_MAIN_SOURCEMAPS === '0' &&
-      orcaBuildIdentity !== 'stable' &&
-      orcaBuildIdentity !== 'rc'
+      openkodoBuildIdentity !== 'stable' &&
+      openkodoBuildIdentity !== 'rc'
         ? { sourcemap: false }
         : {}),
       // Forked daemon-entry.js must be unpacked; its Node resolver cannot reach app.asar, and startup-critical JS must survive partial Windows resource copies.
@@ -216,7 +216,7 @@ export const electronViteConfig: UserConfig = {
         },
         plugins: [
           createPlainNodeEntryGuardPlugin(),
-          createInheritedOrcaIdentityFirstGuardPlugin(),
+          createInheritedOpenKodoIdentityFirstGuardPlugin(),
           createProcessHostDevRebuildPlugin(),
           createDarkBuildMarkerPlugin(),
           createSandboxedScriptBundlesPlugin(),

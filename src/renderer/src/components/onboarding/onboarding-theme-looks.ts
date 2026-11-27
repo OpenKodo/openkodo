@@ -220,7 +220,7 @@ export function buildThemeLooks(
     pluginThemes: readonly PluginThemeRegistration[]
     pluginTerminalThemes: readonly PluginTerminalThemeRegistration[]
     baseline: GlobalSettings
-    labels: { orca: string; builtIn: (base: ThemeLookBase) => string; community: string }
+    labels: { openkodo: string; builtIn: (base: ThemeLookBase) => string; community: string }
   },
   t?: Translate
 ): ThemeLook[] {
@@ -229,7 +229,7 @@ export function buildThemeLooks(
     kind: 'built-in',
     id: builtInThemeLookId(base),
     label: labels.builtIn(base),
-    source: labels.orca,
+    source: labels.openkodo,
     base,
     palette: { ...BUILT_IN_CHROME[base], terminal: currentTerminal(baseline, base) }
   }

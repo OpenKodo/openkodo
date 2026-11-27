@@ -7,7 +7,7 @@ import {
   isStructuredAgentSessionToolAction,
   structuredAgentSessionToolCallBlock
 } from '../../../shared/agent-session/view/messages/structured-agent-session-tool-call-block'
-import { nativeChatStatusRequestOutcome } from '../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import { nativeChatStatusRequestOutcome } from '../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import { structuredAgentSessionStatusStartedAt } from '../../../shared/agent-session/view/structured-agent-session-status-started-at'
 import {
   AGENT_STATUS_TOOL_INPUT_MAX_LENGTH,
@@ -16,7 +16,7 @@ import {
 import { AGENT_STATUS_TOOL_NAME_MAX_LENGTH } from '../../../shared/agent-status/contracts/agent-status-types'
 import { describeToolInput } from '../../../shared/native-chat/tools/native-chat-tool-summary'
 import type { JournalSqlStatusContext } from './journal-sql-status-context'
-import { readJournalSqlOrcaStopCut } from './journal-sql-status-cuts'
+import { readJournalSqlOpenKodoStopCut } from './journal-sql-status-cuts'
 import {
   readJournalSqlRequestStatus,
   readJournalSqlTurnFailure
@@ -93,7 +93,7 @@ export function readJournalSqlStatusState(
   const request = status === 'idle' ? requests.latestRequest : null
   const turnOutcome = nativeChatStatusRequestOutcome(
     request,
-    request ? readJournalSqlOrcaStopCut(state, floor) : null
+    request ? readJournalSqlOpenKodoStopCut(state, floor) : null
   )
   const latestTurn =
     status === 'working'

@@ -3,7 +3,7 @@ import { Terminal } from '@xterm/headless'
 import { createRequire } from 'node:module'
 import { SerializeAddon } from '@xterm/addon-serialize'
 import { Unicode11Addon } from '@xterm/addon-unicode11'
-import { activateOrcaTerminalUnicodeProvider } from '../../../../shared/terminal/appearance/terminal-unicode-provider'
+import { activateOpenKodoTerminalUnicodeProvider } from '../../../../shared/terminal/appearance/terminal-unicode-provider'
 import {
   readSavedCursorRegister,
   serializeWithAbsoluteCursor
@@ -68,7 +68,7 @@ export function createFuzzTerminal(opts: {
     ...(opts.conpty ? { windowsPty: { backend: 'conpty', buildNumber: 19041 } } : {})
   })
   terminal.loadAddon(new Unicode11Addon())
-  activateOrcaTerminalUnicodeProvider(terminal)
+  activateOpenKodoTerminalUnicodeProvider(terminal)
   return terminal
 }
 

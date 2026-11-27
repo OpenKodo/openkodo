@@ -6,7 +6,7 @@ import {
 } from '../../../shared/remote-runtime/relay/relay-frame-decoder'
 
 export const RELAY_VERSION = '0.1.0'
-export const RELAY_SENTINEL = `ORCA-RELAY v${RELAY_VERSION} READY\n`
+export const RELAY_SENTINEL = `OPENKODO-RELAY v${RELAY_VERSION} READY\n`
 
 export const MessageType = {
   Regular: 1,
@@ -16,12 +16,12 @@ export const MessageType = {
 
 // Read one handshake before dispatch so stale --connect bridges cannot drive a mismatched daemon.
 export type HandshakeMessage =
-  | { type: 'orca-relay-handshake'; version: string; endpointCredential?: string }
+  | { type: 'openkodo-relay-handshake'; version: string; endpointCredential?: string }
   // Informational only; bridge/daemon compatibility already requires matching version.
-  | { type: 'orca-relay-handshake-ok'; version: string; runtime?: RelayHandshakeRuntime }
-  | { type: 'orca-relay-handshake-mismatch'; expected: string; got: string }
+  | { type: 'openkodo-relay-handshake-ok'; version: string; runtime?: RelayHandshakeRuntime }
+  | { type: 'openkodo-relay-handshake-mismatch'; expected: string; got: string }
   // A distinct exit distinguishes refused credentials from relay crashes; older bridges reject this type before sentinel.
-  | { type: 'orca-relay-handshake-credential-mismatch' }
+  | { type: 'openkodo-relay-handshake-credential-mismatch' }
 
 export type RelayHandshakeRuntime = { kind: string; version: string }
 
@@ -32,20 +32,20 @@ export function encodeHandshakeFrame(msg: HandshakeMessage): Buffer {
 
 // Validate pre-auth version strings before any reader interpolates hostile JSON into logs.
 const HANDSHAKE_STRING_FIELDS: Readonly<Record<HandshakeMessage['type'], readonly string[]>> = {
-  'orca-relay-handshake': ['version'],
-  'orca-relay-handshake-ok': ['version'],
-  'orca-relay-handshake-mismatch': ['expected', 'got'],
-  'orca-relay-handshake-credential-mismatch': []
+  'openkodo-relay-handshake': ['version'],
+  'openkodo-relay-handshake-ok': ['version'],
+  'openkodo-relay-handshake-mismatch': ['expected', 'got'],
+  'openkodo-relay-handshake-credential-mismatch': []
 }
 
 // Reject present non-string optional fields while preserving legitimate credential omission.
 const HANDSHAKE_OPTIONAL_STRING_FIELDS: Readonly<
   Record<HandshakeMessage['type'], readonly string[]>
 > = {
-  'orca-relay-handshake': ['endpointCredential'],
-  'orca-relay-handshake-ok': [],
-  'orca-relay-handshake-mismatch': [],
-  'orca-relay-handshake-credential-mismatch': []
+  'openkodo-relay-handshake': ['endpointCredential'],
+  'openkodo-relay-handshake-ok': [],
+  'openkodo-relay-handshake-mismatch': [],
+  'openkodo-relay-handshake-credential-mismatch': []
 }
 
 function isHandshakeType(value: unknown): value is HandshakeMessage['type'] {
@@ -74,7 +74,7 @@ export function parseHandshakeMessage(payload: Buffer): HandshakeMessage {
       throw new Error(`Handshake field ${field} is not a string`)
     }
   }
-  if (t === 'orca-relay-handshake-ok' && msg.runtime !== undefined) {
+  if (t === 'openkodo-relay-handshake-ok' && msg.runtime !== undefined) {
     const runtime = msg.runtime
     if (
       typeof runtime !== 'object' ||
@@ -100,7 +100,7 @@ export const STREAM_ACK_WINDOW_CHUNKS = 4
 
 // Large git results follow as bulk-lane git.responseChunk frames; older relays return plain results.
 export type GitResponseStreamMarker = {
-  __orcaGitResponseStream: { streamId: number; totalBytes: number; chunkCount: number }
+  __openkodoGitResponseStream: { streamId: number; totalBytes: number; chunkCount: number }
 }
 
 export const RelayErrorCode = {

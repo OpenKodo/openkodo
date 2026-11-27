@@ -38,8 +38,13 @@ export function mapBodyLinks(
         ...(block.usageLimitTurnItemId !== undefined
           ? { usageLimitTurnItemId: link(block.usageLimitTurnItemId) }
           : {}),
-        ...(block.orcaStop?.turnItemId !== undefined
-          ? { orcaStop: { ...block.orcaStop, turnItemId: link(block.orcaStop.turnItemId) } }
+        ...(block.openkodoStop?.turnItemId !== undefined
+          ? {
+              openkodoStop: {
+                ...block.openkodoStop,
+                turnItemId: link(block.openkodoStop.turnItemId)
+              }
+            }
           : {})
       }
     })
@@ -84,8 +89,8 @@ export function* forkDependencies(
         if (block.usageLimitTurnItemId !== undefined) {
           yield [block.usageLimitTurnItemId, item.itemId]
         }
-        if (block.orcaStop?.turnItemId !== undefined) {
-          yield [block.orcaStop.turnItemId, item.itemId]
+        if (block.openkodoStop?.turnItemId !== undefined) {
+          yield [block.openkodoStop.turnItemId, item.itemId]
         }
       }
       if (block.type === 'tool-call' && block.callId !== undefined) {

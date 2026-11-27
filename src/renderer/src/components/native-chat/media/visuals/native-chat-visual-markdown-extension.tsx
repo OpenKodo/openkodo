@@ -25,10 +25,10 @@ function placeholderAttributes(props: DivProps): {
   hook: unknown
 } {
   return {
-    nonce: 'data-orca-visual' in props ? props['data-orca-visual'] : undefined,
-    file: 'data-orca-visual-file' in props ? props['data-orca-visual-file'] : undefined,
-    title: 'data-orca-visual-title' in props ? props['data-orca-visual-title'] : undefined,
-    hook: 'data-orca-visual-hook' in props ? props['data-orca-visual-hook'] : undefined
+    nonce: 'data-openkodo-visual' in props ? props['data-openkodo-visual'] : undefined,
+    file: 'data-openkodo-visual-file' in props ? props['data-openkodo-visual-file'] : undefined,
+    title: 'data-openkodo-visual-title' in props ? props['data-openkodo-visual-title'] : undefined,
+    hook: 'data-openkodo-visual-hook' in props ? props['data-openkodo-visual-hook'] : undefined
   }
 }
 

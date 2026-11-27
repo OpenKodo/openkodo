@@ -1,6 +1,6 @@
 import bridgePath from '../../../resources/notebook/kernel-bridge.py?asset&asarUnpack'
-import { spawnProcess } from '@orca/process-host'
-import { forceTerminateProcessTree } from '@orca/process-host/process-tree-termination'
+import { spawnProcess } from '@openkodo/process-host'
+import { forceTerminateProcessTree } from '@openkodo/process-host/process-tree-termination'
 import { createNdjsonParser } from '../../shared/json-stream/main-process-ndjson-framer'
 import {
   KERNEL_OUTPUT_TYPES,

@@ -5,7 +5,11 @@ import type {
   ComputerSnapshotResult
 } from '../../../../src/shared/computer/computer-use-runtime-types'
 import { ensureGeditLaunched, findRoleIndex, killGedit, openGeditWindow } from './computer-driver'
-import { ensureOrcaRuntimeLaunched, parseJsonOutput, runOrcaCli } from './computer-cli-driver'
+import {
+  ensureOpenKodoRuntimeLaunched,
+  parseJsonOutput,
+  runOpenKodoCli
+} from './computer-cli-driver'
 
 const isLinux = process.platform === 'linux'
 const e2eOptIn = process.env.OPENKODO_COMPUTER_E2E === '1'
@@ -17,7 +21,7 @@ const GEDIT_TEXT_ROLE =
 async function geditState(windowArgs: string[], restore: boolean): Promise<ComputerSnapshotResult> {
   return parseJsonOutput<{ result: ComputerSnapshotResult }>(
     (
-      await runOrcaCli([
+      await runOpenKodoCli([
         'computer',
         'get-app-state',
         '--app',
@@ -36,7 +40,7 @@ async function focusGeditDocument(windowArgs: string[] = []): Promise<void> {
   const textIndex = findRoleIndex(before.snapshot.treeText, GEDIT_TEXT_ROLE)
   expect(textIndex).toBeGreaterThanOrEqual(0)
 
-  await runOrcaCli([
+  await runOpenKodoCli([
     'computer',
     'click',
     '--app',
@@ -52,7 +56,7 @@ async function focusGeditDocument(windowArgs: string[] = []): Promise<void> {
 
 async function geditWindowArgs(title: string): Promise<string[]> {
   const listed = parseJsonOutput<{ result: ComputerListWindowsResult }>(
-    (await runOrcaCli(['computer', 'list-windows', '--app', 'gedit', '--json'])).stdout
+    (await runOpenKodoCli(['computer', 'list-windows', '--app', 'gedit', '--json'])).stdout
   )
   const window = listed.result.windows.find((candidate) => candidate.title.includes(title))
   expect(window).toBeDefined()
@@ -61,7 +65,7 @@ async function geditWindowArgs(title: string): Promise<string[]> {
 
 describe.skipIf(!isLinux || !e2eOptIn)('computer-use Linux e2e (gedit)', () => {
   beforeAll(async () => {
-    await ensureOrcaRuntimeLaunched()
+    await ensureOpenKodoRuntimeLaunched()
     await ensureGeditLaunched()
   })
 
@@ -72,10 +76,10 @@ describe.skipIf(!isLinux || !e2eOptIn)('computer-use Linux e2e (gedit)', () => {
   test('paste-text mutates the test-owned document', async () => {
     await focusGeditDocument()
 
-    const marker = `orca-linux-paste-${Date.now()}-café-🚀`
+    const marker = `openkodo-linux-paste-${Date.now()}-café-🚀`
     const action = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'paste-text',
           '--app',
@@ -96,7 +100,7 @@ describe.skipIf(!isLinux || !e2eOptIn)('computer-use Linux e2e (gedit)', () => {
 
     const after = parseJsonOutput<{ result: ComputerSnapshotResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'get-app-state',
           '--app',
@@ -119,10 +123,10 @@ describe.skipIf(!isLinux || !e2eOptIn)('computer-use Linux e2e (gedit)', () => {
     const documentIndex = findRoleIndex(target.snapshot.treeText, GEDIT_TEXT_ROLE)
     expect(documentIndex).toBeGreaterThanOrEqual(0)
 
-    const marker = `orca-linux-element-${Date.now()}-élan-🚀`
+    const marker = `openkodo-linux-element-${Date.now()}-élan-🚀`
     const typed = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'type-text',
           '--app',

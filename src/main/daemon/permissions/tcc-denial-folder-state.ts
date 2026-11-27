@@ -1,7 +1,7 @@
 // Folder-class root state read before the app's own opendir can materialize or change it.
 
 import { realpath } from 'node:fs/promises'
-import type { runProcess } from '@orca/process-host'
+import type { runProcess } from '@openkodo/process-host'
 import type { MacTccFolderClass } from '../../../shared/telemetry/daemon-adoption-telemetry'
 import type {
   FolderFlag,

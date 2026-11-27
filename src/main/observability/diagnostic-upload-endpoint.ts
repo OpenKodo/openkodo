@@ -29,7 +29,7 @@ export function resolveDiagnosticTokenEndpoint(): string | null {
   return buildEndpoint
 }
 
-export function resolveDiagnosticOrcaChannel(): 'stable' | 'rc' | 'dev' {
+export function resolveDiagnosticOpenKodoChannel(): 'stable' | 'rc' | 'dev' {
   const ident = resolveDiagnosticBuildIdentity()
   if (ident === 'stable' || ident === 'rc') {
     return ident

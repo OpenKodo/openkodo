@@ -3,18 +3,18 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type * as OrcaRebaseReflog from './orca-rebase-reflog'
+import type * as OpenKodoRebaseReflog from './openkodo-rebase-reflog'
 import { gitPullRebaseFromBase } from './remote-rebase'
 import { continueRebase, readRebaseStopToken } from '../source-control/mutations/rebase-continue'
-import { takeOrcaRebaseProvenance } from '../source-control/mutations/orca-rebase-provenance'
+import { takeOpenKodoRebaseProvenance } from '../source-control/mutations/openkodo-rebase-provenance'
 
 // Lets a case act as another Git that replaces the paused run right after the reflog proof passed.
 const afterReflogProof = vi.hoisted(() => {
   const state: { run: (() => void) | null } = { run: null }
   return state
 })
-vi.mock('./orca-rebase-reflog', async (importOriginal) => {
-  const actual = await importOriginal<typeof OrcaRebaseReflog>()
+vi.mock('./openkodo-rebase-reflog', async (importOriginal) => {
+  const actual = await importOriginal<typeof OpenKodoRebaseReflog>()
   return {
     ...actual,
     headMovedOnlyByRebaseRun: async (
@@ -39,7 +39,7 @@ describe('OpenKodo rebase provenance for hiding Pull afterwards', () => {
 
   /** feature is published; main gains an edit, conflicting with feature's app.txt when asked. */
   function createPublishedFeatureBehindOrigin(conflicting: boolean) {
-    const root = mkdtempSync(join(tmpdir(), 'orca-rebase-provenance-'))
+    const root = mkdtempSync(join(tmpdir(), 'openkodo-rebase-provenance-'))
     tempPaths.push(root)
     const remotePath = join(root, 'remote.git')
     const repoPath = join(root, 'repo')
@@ -54,7 +54,7 @@ describe('OpenKodo rebase provenance for hiding Pull afterwards', () => {
       })
     const write = (file: string, text: string) => writeFileSync(join(repoPath, file), text)
     git('config', 'user.name', 'OpenKodo Test')
-    git('config', 'user.email', 'orca@example.test')
+    git('config', 'user.email', 'openkodo@example.test')
     git('config', 'commit.gpgSign', 'false')
     git('config', 'core.hooksPath', '.git/no-hooks')
     git('remote', 'add', 'origin', remotePath)
@@ -124,7 +124,7 @@ describe('OpenKodo rebase provenance for hiding Pull afterwards', () => {
 
     const { incarnation } = await readRebaseStopToken(repoPath, {})
     expect(incarnation).not.toBeNull()
-    expect(takeOrcaRebaseProvenance(repoPath, 'feature', incarnation)).toBeNull()
+    expect(takeOpenKodoRebaseProvenance(repoPath, 'feature', incarnation)).toBeNull()
   })
 
   it('gives no proof for a paused run this rebase did not create, even with the same endpoints', async () => {
@@ -141,6 +141,6 @@ describe('OpenKodo rebase provenance for hiding Pull afterwards', () => {
 
     const { incarnation } = await readRebaseStopToken(repoPath, {})
     expect(incarnation).not.toBeNull()
-    expect(takeOrcaRebaseProvenance(repoPath, 'feature', incarnation)).toBeNull()
+    expect(takeOpenKodoRebaseProvenance(repoPath, 'feature', incarnation)).toBeNull()
   })
 })

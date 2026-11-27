@@ -136,7 +136,7 @@ export async function handleMarkdownPreviewLinkClick({
       state: useAppStore.getState(),
       worktreeId: sourceRoutingWorktreeId,
       sourceOwner,
-      destination: 'orca'
+      destination: 'openkodo'
     })
     return
   }

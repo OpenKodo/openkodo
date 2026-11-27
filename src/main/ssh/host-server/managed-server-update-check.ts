@@ -2,15 +2,15 @@ import type {
   SshManagedServerUpdateNote,
   SshTarget
 } from '../../../shared/remote-runtime/ssh/ssh-types'
-import type { ManagedOrcadAutoUpdateOutcome } from '../../managed-server/lifecycle/orcad-managed-auto-update'
+import type { ManagedOpenkododAutoUpdateOutcome } from '../../managed-server/lifecycle/openkodod-managed-auto-update'
 import type { HostServerUpdateReason } from './ssh-host-server-connect-events'
-import { ORCAD_ACTIVATION_FENCE_BUSY_CODE } from '../../managed-server/activation/orcad-activation-fence-hold'
+import { OPENKODOD_ACTIVATION_FENCE_BUSY_CODE } from '../../managed-server/activation/openkodod-activation-fence-hold'
 
 export type ManagedServerUpdateDeps = {
   autoUpdate: (
     environmentId: string,
     options: { failedBefore: () => boolean; onUpdating: () => void }
-  ) => Promise<ManagedOrcadAutoUpdateOutcome>
+  ) => Promise<ManagedOpenkododAutoUpdateOutcome>
   /** A failure for this app version suppresses retries within the same launch. */
   recordedUpdateFailure: (target: SshTarget) => string | null
   /** True once an update failed on this host during this app launch; a restart retries once. */
@@ -35,7 +35,7 @@ export async function checkManagedServerUpdate(
   deps: ManagedServerUpdateDeps,
   onUpdating: () => void
 ): Promise<HostServerUpdateOnConnect> {
-  let result: ManagedOrcadAutoUpdateOutcome
+  let result: ManagedOpenkododAutoUpdateOutcome
   try {
     result = await deps.autoUpdate(environmentId, {
       // Read under the lock: overlapping checks may record failure while this one waits.
@@ -69,7 +69,9 @@ export async function checkManagedServerUpdate(
         note: { state: 'deferred', detail: result.reason },
         reason: 'update_deferred',
         recorded: false,
-        ...(result.code === ORCAD_ACTIVATION_FENCE_BUSY_CODE ? { fenceBusy: true as const } : {})
+        ...(result.code === OPENKODOD_ACTIVATION_FENCE_BUSY_CODE
+          ? { fenceBusy: true as const }
+          : {})
       }
     case 'failed':
       deps.recordUpdateFailure(target, result.reason)
@@ -84,7 +86,7 @@ export async function checkManagedServerUpdate(
 }
 
 function skipped(
-  reason: Extract<ManagedOrcadAutoUpdateOutcome, { outcome: 'skipped' }>['reason'],
+  reason: Extract<ManagedOpenkododAutoUpdateOutcome, { outcome: 'skipped' }>['reason'],
   failure: string | null
 ): HostServerUpdateOnConnect {
   switch (reason) {

@@ -88,14 +88,14 @@ export class EdgeEvacuation {
         answered += 1
         console.warn(
           JSON.stringify({
-            event: 'orca_relay_edge_drain_sent',
+            event: 'openkodo_relay_edge_drain_sent',
             outcome: result.outcome,
             ...(result.outcome === 'drained' ? { controls: result.controls } : {})
           })
         )
       } catch (error) {
         if (!(error instanceof EdgeAdminUnavailableError)) { throw error }
-        console.warn(JSON.stringify({ event: 'orca_relay_edge_drain_failed', reason: error.message }))
+        console.warn(JSON.stringify({ event: 'openkodo_relay_edge_drain_failed', reason: error.message }))
       }
     })
     // Pending fences keep the busy cadence, so their backoff (from 60 s) is honoured.
@@ -123,7 +123,7 @@ export class EdgeEvacuation {
         if (!mayBeOnEdge(this.config, identity.relayHostId, identity.userId)) {
           // leaveCeilingPermille is set below a rollout this host was moved under: its asks skip
           // the leave read, so it would be re-placed without its devices. Raise the ceiling.
-          console.error(JSON.stringify({ event: 'orca_relay_edge_row_above_ceiling' }))
+          console.error(JSON.stringify({ event: 'openkodo_relay_edge_row_above_ceiling' }))
         }
         if (this.drainedAt.has(drainKey(identity))) { continue }
         leaving.push(identity)
@@ -185,7 +185,7 @@ export class EdgeEvacuation {
         .catch((error: unknown) =>
           console.warn(
             JSON.stringify({
-              event: 'orca_relay_edge_evacuation_deferred',
+              event: 'openkodo_relay_edge_evacuation_deferred',
               reason: error instanceof Error ? error.message : 'unknown'
             })
           )

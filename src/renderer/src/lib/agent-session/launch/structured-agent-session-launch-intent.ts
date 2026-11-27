@@ -1,5 +1,5 @@
 import { structuredAgentSessionCreateParams } from '../../../../../shared/agent-session/lifecycle/operations/structured-agent-session-create'
-import { createOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { createOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type {
   StructuredAgentSessionCreateParams,
   StructuredAgentSessionFirstMessage,
@@ -99,7 +99,7 @@ export function createStructuredAgentSessionLaunchIntent(
     worktreeId,
     executionHostId ?? resolveStructuredAgentSessionOwner(useAppStore.getState(), worktreeId)
   )
-  const sessionId = createOrcaSessionId(createNonSecureContextUuid)
+  const sessionId = createOpenKodoSessionId(createNonSecureContextUuid)
   if (activate) {
     recordWebSessionFocusIntent(
       structuredAgentSessionFocusOwner(owner.target),

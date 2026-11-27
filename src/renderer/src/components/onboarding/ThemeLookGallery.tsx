@@ -28,12 +28,12 @@ export function useThemeLooks(
       return { dark: [], light: [] }
     }
     const labels = {
-      orca: t('components.onboarding.theme.looks.sourceBuiltIn', 'Built in'),
+      openkodo: t('components.onboarding.theme.looks.sourceBuiltIn', 'Built in'),
       community: t('components.onboarding.theme.looks.sourceCommunity', 'Terminal palette'),
       builtIn: (base: ThemeLookBase) =>
         base === 'dark'
-          ? t('components.onboarding.theme.looks.orcaDark', 'OpenKodo Dark')
-          : t('components.onboarding.theme.looks.orcaLight', 'OpenKodo Light')
+          ? t('components.onboarding.theme.looks.openkodoDark', 'OpenKodo Dark')
+          : t('components.onboarding.theme.looks.openkodoLight', 'OpenKodo Light')
     }
     const build = (base: ThemeLookBase): ThemeLook[] =>
       buildThemeLooks({ base, pluginThemes, pluginTerminalThemes, baseline, labels }, t)

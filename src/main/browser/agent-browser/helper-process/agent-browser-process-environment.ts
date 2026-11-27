@@ -4,7 +4,7 @@ import { writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { isolateFromUserAgentBrowserSettings } from './agent-browser-user-settings-isolation'
 
-const AGENT_BROWSER_SOCKET_DIRECTORY_PREFIX = 'orca-ab-'
+const AGENT_BROWSER_SOCKET_DIRECTORY_PREFIX = 'openkodo-ab-'
 
 /** Per-tab daemon expiry survives OpenKodo crashes and exceeds the bridge command timeout. */
 export const AGENT_BROWSER_IDLE_TIMEOUT_MS = 10 * 60 * 1000

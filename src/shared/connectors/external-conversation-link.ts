@@ -12,7 +12,7 @@ export const CONNECTOR_SOURCE_NAMES: Record<ConnectorSource, string> = {
   discord: 'Discord'
 }
 
-/** Where a conversation's replies land, as a bot reads it: "the Slack thread in #orca", "ENG-42 on Linear". */
+/** Where a conversation's replies land, as a bot reads it: "the Slack thread in #openkodo", "ENG-42 on Linear". */
 export function conversationPlaceText(link: { source: ConnectorSource; place?: string }): string {
   const source = CONNECTOR_SOURCE_NAMES[link.source]
   if (!link.place) {
@@ -30,7 +30,7 @@ export type ChatMailPlace = { place: string; answersThere: boolean }
 export type ExternalConversationBot = { kind: 'bot' | 'bot-chat'; botId: string }
 
 /** Who began a chat's turn: its conversation, or someone in OpenKodo (typing, other chats' mail, automations). */
-export type ExternalConversationTurnSource = 'conversation' | 'orca'
+export type ExternalConversationTurnSource = 'conversation' | 'openkodo'
 
 export type ExternalConversationOpener = {
   role: 'owner' | 'member'
@@ -66,7 +66,7 @@ export type ExternalConversationLink = {
   bot?: ExternalConversationBot
   /** The row title, from the message that started it; absent on links an older OpenKodo wrote. */
   title?: string
-  /** Where it is, as people name it ("#orca", "orca#3412", "ENG-42"); absent until named and from older hosts. */
+  /** Where it is, as people name it ("#openkodo", "openkodo#3412", "ENG-42"); absent until named and from older hosts. */
   place?: string
   /** Whether its chat's latest turn was its conversation's, as the conversation was told; absent until one starts. */
   lastTurn?: ExternalConversationTurnSource

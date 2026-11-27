@@ -1,5 +1,5 @@
 import * as core0 from './runtime-environment-store-operations'
-import * as core1 from './runtime-environment-managed-orcad-operations'
+import * as core1 from './runtime-environment-managed-openkodod-operations'
 import * as core2 from './runtime-environment-ssh-access-operations'
 import * as core3 from './runtime-environment-wsl-host-operations'
 import * as core4 from './runtime-environment-resume-pairing-operations'
@@ -48,30 +48,30 @@ export function executeEnvironmentStoreCommand(
       }
     case 'markEnvironmentUsed':
       return { operation: command.operation, value: core0.markEnvironmentUsed(...command.args) }
-    case 'addManagedOrcadEnvironment':
+    case 'addManagedOpenkododEnvironment':
       return {
         operation: command.operation,
-        value: core1.addManagedOrcadEnvironment(...command.args)
+        value: core1.addManagedOpenkododEnvironment(...command.args)
       }
-    case 'removeManagedOrcadEnvironment':
+    case 'removeManagedOpenkododEnvironment':
       return {
         operation: command.operation,
-        value: core1.removeManagedOrcadEnvironment(...command.args)
+        value: core1.removeManagedOpenkododEnvironment(...command.args)
       }
-    case 'refreshManagedOrcadPairing':
+    case 'refreshManagedOpenkododPairing':
       return {
         operation: command.operation,
-        value: core1.refreshManagedOrcadPairing(...command.args)
+        value: core1.refreshManagedOpenkododPairing(...command.args)
       }
-    case 'moveManagedOrcadLocalPort':
+    case 'moveManagedOpenkododLocalPort':
       return {
         operation: command.operation,
-        value: core1.moveManagedOrcadLocalPort(...command.args)
+        value: core1.moveManagedOpenkododLocalPort(...command.args)
       }
-    case 'recordManagedOrcadMigration':
+    case 'recordManagedOpenkododMigration':
       return {
         operation: command.operation,
-        value: core1.recordManagedOrcadMigration(...command.args)
+        value: core1.recordManagedOpenkododMigration(...command.args)
       }
     case 'prepareRuntimeEnvironmentSshAccessLink':
       return {

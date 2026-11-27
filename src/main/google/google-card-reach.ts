@@ -1,7 +1,7 @@
 import { getBrowserHostLeaseRegistry } from '../runtime/browser-host/leases/browser-host-lease-registry-instance'
 import { getBrowserHostRequestRegistry } from '../runtime/browser-host/leases/browser-host-request-registry'
 import { canPlacePairedPage } from '../runtime/browser/client-pages/browser-client-page-opening'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 
 // Paired windows connected now that said they draw Google setup cards; a released desktop without
 // them could host the sign-in page but would show its owner nothing to press.
@@ -20,7 +20,7 @@ export function registerGoogleCardRenderer(): () => void {
 
 /** No owner window can answer a Google Connect card: no window here, and no paired desktop that
  *  both draws the card and could open Google's sign-in page for this host. */
-export function noWindowAnswersGoogleCards(runtime: OrcaRuntimeService): boolean {
+export function noWindowAnswersGoogleCards(runtime: OpenKodoRuntimeService): boolean {
   return (
     runtime.servesWithoutWindow() &&
     !(

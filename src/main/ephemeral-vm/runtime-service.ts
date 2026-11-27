@@ -1,4 +1,4 @@
-import type { OrcaVmRecipe } from '../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 import {
   listEphemeralVmRuntimes,
   updateEphemeralVmRuntimeStatus
@@ -28,7 +28,7 @@ import {
 export type ProvisionEphemeralVmRuntimeArgs = {
   userDataPath: string
   repoPath: string
-  recipe: OrcaVmRecipe
+  recipe: OpenKodoVmRecipe
   repoId?: string
   projectId?: string
   workspaceId?: string
@@ -37,7 +37,7 @@ export type ProvisionEphemeralVmRuntimeArgs = {
   branch?: string
   ref?: string
   expectedRefHead?: string
-  orcaVersion?: string
+  openkodoVersion?: string
   now?: number
   signal?: AbortSignal
   onStdout?: (chunk: string) => void
@@ -58,7 +58,7 @@ export type ProvisionEphemeralVmRuntimeResult =
 export type CleanupEphemeralVmRuntimeArgs = {
   userDataPath: string
   repoPath: string
-  recipe: OrcaVmRecipe
+  recipe: OpenKodoVmRecipe
   runtimeId: string
   now?: number
   signal?: AbortSignal
@@ -106,7 +106,7 @@ export async function provisionEphemeralVmRuntime(
         branch: args.branch,
         ref: args.ref,
         expectedRefHead: args.expectedRefHead,
-        orcaVersion: args.orcaVersion,
+        openkodoVersion: args.openkodoVersion,
         instanceId: writeAhead.instanceId
       },
       signal: args.signal,

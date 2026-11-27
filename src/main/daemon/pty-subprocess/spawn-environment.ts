@@ -2,7 +2,7 @@ import { getLegacyOpenCodeEnvKeysToDelete } from '../../opencode/status-hooks/le
 import { restoreManagedDataAccountEnvironment } from '../../../shared/agent-launch/environment/managed-data-account-environment'
 import { restoreOrStripOverlayEnv } from '../../../shared/agent-launch/startup/agent-overlay-env'
 import { delimiter } from 'node:path'
-import { dropInheritedOrcaFishHistory } from '../../pty/history/fish-history-session'
+import { dropInheritedOpenKodoFishHistory } from '../../pty/history/fish-history-session'
 import { removeAppImageRuntimeEnv } from '../../pty/shell-startup/appimage-terminal-env'
 import { removeChromiumDisabledSessionBus } from '../../pty/shell-startup/chromium-session-bus-env'
 import { removeChromiumCrashpadPipeName } from '../../pty/shell-startup/chromium-crashpad-pipe-env'
@@ -13,7 +13,7 @@ import { stripLegacyTerminalShimEnv } from '../../pty/shell-startup/legacy-termi
 import { removeInheritedNoColor } from '../../pty/shell-startup/terminal-color-env'
 import { stampInheritedTmuxEnv } from '../../pty/shell-startup/inherited-tmux-env'
 import { resolvePathEnvKey } from '../../pty/environment/windows-path-segment-merge'
-import { dropInheritedOrcaHistFile } from '../../pty/history/worktree-history-file-path'
+import { dropInheritedOpenKodoHistFile } from '../../pty/history/worktree-history-file-path'
 import {
   gitCredentialPromptGuardEnv,
   mergeGitConfigEnvProtocol
@@ -28,7 +28,7 @@ import { applyScrubSafeAgentEnvAliases } from '../../../shared/agent-hook-listen
 import type { TuiAgent } from '../../../shared/agent-launch/catalog/tui-agent'
 import type { PtySubprocessOptions } from './pty-subprocess'
 import { REMOTE_VIEWER_CLIPBOARD_ENV } from '../../../shared/clipboard/remote-viewer-clipboard-env'
-import { ORCAD_SERVER_LAUNCH_ENV_KEYS } from '../../../shared/remote-runtime/serve-supervisor/orcad-server-launch-env'
+import { OPENKODOD_SERVER_LAUNCH_ENV_KEYS } from '../../../shared/remote-runtime/serve-supervisor/openkodod-server-launch-env'
 import { stripInheritedAgentSessionEnv } from '../../../shared/agent-launch/startup/parent-agent-session-env'
 
 const PANE_IDENTITY_ENV_KEYS = [
@@ -41,8 +41,8 @@ const PANE_IDENTITY_ENV_KEYS = [
   'JCODE_RUNTIME_DIR',
   // Per-viewer: an OpenKodo started from a remote viewer's pane must not mark its own local panes.
   REMOTE_VIEWER_CLIPBOARD_ENV,
-  // A server's own launch env; a user's `orcad` in this shell is not that server.
-  ...ORCAD_SERVER_LAUNCH_ENV_KEYS
+  // A server's own launch env; a user's `openkodod` in this shell is not that server.
+  ...OPENKODOD_SERVER_LAUNCH_ENV_KEYS
 ] as const
 const WINDOWS_PATH_ENV_KEY_RE = /^path$/i
 
@@ -71,7 +71,7 @@ function deleteRequestedDaemonEnvKeys(
     }
   }
   // Persistent daemon state may differ from Electron; remove CODEX_HOME only if its OpenKodo overlay owns it.
-  const deleteOrcaOwnedCodexHome =
+  const deleteOpenKodoOwnedCodexHome =
     keys?.includes('OPENKODO_CODEX_HOME') === true &&
     env.OPENKODO_CODEX_HOME !== undefined &&
     env.CODEX_HOME === env.OPENKODO_CODEX_HOME
@@ -94,7 +94,7 @@ function deleteRequestedDaemonEnvKeys(
   for (const key of keys ?? []) {
     delete env[key]
   }
-  if (deleteOrcaOwnedCodexHome) {
+  if (deleteOpenKodoOwnedCodexHome) {
     delete env.CODEX_HOME
   }
 }
@@ -202,10 +202,10 @@ export function createDaemonPtyEnvironment(opts: PtySubprocessOptions): Record<s
   stampInheritedTmuxEnv(env, opts.env)
   stripPiProcessOwnerEnv(env)
   if (opts.env?.fish_history === undefined) {
-    dropInheritedOrcaFishHistory(env)
+    dropInheritedOpenKodoFishHistory(env)
   }
   if (opts.env?.HISTFILE === undefined) {
-    dropInheritedOrcaHistFile(env)
+    dropInheritedOpenKodoHistFile(env)
   }
   if (opts.env?.OPENKODO_HISTFILE === undefined) {
     delete env.OPENKODO_HISTFILE

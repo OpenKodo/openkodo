@@ -96,7 +96,7 @@ function completionFixture(isBot: boolean) {
       const worker: WorkerDockEntry = {
         id: 'fixture-worker',
         dispatchId: 'ctx_fixture_completion',
-        source: `orca_session_id:${sessionId}`,
+        source: `openkodo_session_id:${sessionId}`,
         name: 'Release worker',
         title: 'Verify the release notes',
         kind: 'worker',

@@ -1,17 +1,17 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
-  getOrcaProfileDataFile,
-  getOrcaProfileStateDatabaseFile
-} from '../../../../shared/orca-profiles/profile-state-storage-paths'
+  getOpenKodoProfileDataFile,
+  getOpenKodoProfileStateDatabaseFile
+} from '../../../../shared/openkodo-profiles/profile-state-storage-paths'
 import type { ProfileStateOfflineLocation } from './profile-state-offline-settings'
-import { ProfileStateRecoveryCommandError } from '../../../../shared/orca-profiles/profile-state-recovery-command'
+import { ProfileStateRecoveryCommandError } from '../../../../shared/openkodo-profiles/profile-state-recovery-command'
 
 export function getActiveProfileStateLocation(
   userDataPath: string,
   selectedProfileId?: string
 ): ProfileStateOfflineLocation | undefined {
-  const indexPath = join(userDataPath, 'orca-profile-index.json')
+  const indexPath = join(userDataPath, 'openkodo-profile-index.json')
   const candidates = [indexPath, `${indexPath}.bak`].filter(existsSync)
   if (candidates.length === 0) {
     return undefined
@@ -29,8 +29,8 @@ export function getActiveProfileStateLocation(
         parsed.profiles.some((profile) => isRecord(profile) && profile.id === profileId)
       ) {
         return {
-          dataFile: getOrcaProfileDataFile(profileId, userDataPath),
-          databaseFile: getOrcaProfileStateDatabaseFile(profileId, userDataPath),
+          dataFile: getOpenKodoProfileDataFile(profileId, userDataPath),
+          databaseFile: getOpenKodoProfileStateDatabaseFile(profileId, userDataPath),
           profileId
         }
       }

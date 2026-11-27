@@ -36,7 +36,7 @@ import {
 } from './legacy-wsl-runtime-auth-drain-scripts'
 
 export function runApplyScript(options: DrainApplyInterference = {}): DrainApplyOutcome {
-  const root = mkdtempSync(join(tmpdir(), 'orca-drain-apply-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-drain-apply-'))
   try {
     const legacyHome = join(root, 'legacy')
     const targetHome = join(root, 'account')
@@ -83,7 +83,7 @@ if (
   result.status === 0 &&
   fs.existsSync(process.env.SESSION_COMMIT_MARKER) &&
   target.includes('/account/sessions/') &&
-  target.includes('.orca-bridge-')
+  target.includes('.openkodo-bridge-')
 ) {
   interruptDrainApply(2)
 }
@@ -111,15 +111,15 @@ ${DRAIN_APPLY_INTERRUPTION_JS}
 const args = process.argv.slice(2)
 if (
   process.env.KILL_DESTINATION_RECOVERY === '1' &&
-  args.at(-1)?.endsWith('.orca-drain-destination')
+  args.at(-1)?.endsWith('.openkodo-drain-destination')
 ) {
   interruptDrainApply(1)
   process.exit(1)
 }
 if (
   process.env.CROSS_FILESYSTEM_BRIDGE === '1' &&
-  args.at(-2)?.includes('.orca-drain-session-stage') &&
-  args.at(-1)?.includes('.orca-bridge-')
+  args.at(-2)?.includes('.openkodo-drain-session-stage') &&
+  args.at(-1)?.includes('.openkodo-bridge-')
 ) {
   process.exit(1)
 }
@@ -182,7 +182,7 @@ process.exit(result.status ?? 1)
           KILL_SESSION_LINK: options.killAfterSessionLink ? '1' : '0',
           KILL_SOURCE: options.killAfterSourceRemoval ? '1' : '0',
           PATH: `${binDir}:${process.env.PATH ?? ''}`,
-          SESSION_COMMIT_MARKER: `${markerPath}.orca-drain-session-commit`,
+          SESSION_COMMIT_MARKER: `${markerPath}.openkodo-drain-session-commit`,
           REWRITE_AFTER: options.rewriteAfterHashCall ? String(options.rewriteAfterHashCall) : '',
           REWRITE_AFTER_SESSION_LINK:
             options.replaceTargetAfterSessionLink ||
@@ -198,7 +198,7 @@ process.exit(result.status ?? 1)
             options.rewriteTargetAfterSessionLink || options.replaceTargetAfterSessionLink
               ? targetAuthPath
               : options.rewriteQuarantineAfterSessionLink
-                ? `${markerPath}.orca-drain-live-source`
+                ? `${markerPath}.openkodo-drain-live-source`
                 : legacyAuthPath,
           REWRITE_TARGET:
             options.rewriteTarget === 'source-credentials'
@@ -223,7 +223,7 @@ process.exit(result.status ?? 1)
         options.killDuringSessionCommit)
     ) {
       if (options.rewriteQuarantineBeforeRecovery) {
-        const quarantinePath = `${markerPath}.orca-drain-live-source`
+        const quarantinePath = `${markerPath}.openkodo-drain-live-source`
         chmodSync(quarantinePath, 0o600)
         writeFileSync(quarantinePath, NEWER_AUTH)
       }
@@ -267,17 +267,17 @@ process.exit(result.status ?? 1)
       targetSession: existsSync(join(targetHome, ...RETIRED_SESSION_SEGMENTS))
         ? readFileSync(join(targetHome, ...RETIRED_SESSION_SEGMENTS), 'utf8')
         : null,
-      sourceQuarantineAuth: existsSync(`${markerPath}.orca-drain-live-source`)
-        ? readFileSync(`${markerPath}.orca-drain-live-source`, 'utf8')
+      sourceQuarantineAuth: existsSync(`${markerPath}.openkodo-drain-live-source`)
+        ? readFileSync(`${markerPath}.openkodo-drain-live-source`, 'utf8')
         : null,
-      sourceRecoveryAuth: existsSync(`${markerPath}.orca-drain-source`)
-        ? readFileSync(`${markerPath}.orca-drain-source`, 'utf8')
+      sourceRecoveryAuth: existsSync(`${markerPath}.openkodo-drain-source`)
+        ? readFileSync(`${markerPath}.openkodo-drain-source`, 'utf8')
         : null,
-      destinationRecoveryAuth: existsSync(`${markerPath}.orca-drain-destination`)
-        ? readFileSync(`${markerPath}.orca-drain-destination`, 'utf8')
+      destinationRecoveryAuth: existsSync(`${markerPath}.openkodo-drain-destination`)
+        ? readFileSync(`${markerPath}.openkodo-drain-destination`, 'utf8')
         : null,
-      destinationRecoveryPathExists: existsSync(`${markerPath}.orca-drain-destination-path`),
-      sessionCommitMarkerExists: existsSync(`${markerPath}.orca-drain-session-commit`)
+      destinationRecoveryPathExists: existsSync(`${markerPath}.openkodo-drain-destination-path`),
+      sessionCommitMarkerExists: existsSync(`${markerPath}.openkodo-drain-session-commit`)
     }
   } finally {
     rmSync(root, { recursive: true, force: true })

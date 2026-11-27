@@ -52,7 +52,10 @@ async function approveOnce(
   if (!denial?.event) {
     return { status: 'unsupported' }
   }
-  const identity = { provider: 'orca' as const, clientMessageId: `auto-review-approval:${itemId}` }
+  const identity = {
+    provider: 'openkodo' as const,
+    clientMessageId: `auto-review-approval:${itemId}`
+  }
   // One approval per denial, as Codex's own list forgets a denial once it is approved.
   if (await journal.reads.hasRecordedItem(agentJournalItemKey(identity))) {
     return { status: 'approved' }

@@ -6,7 +6,7 @@ import {
 } from '../lineage/runtime-worktree-lineage-resolution'
 import { RuntimeLineageError, LINEAGE_PARENT_AMBIGUOUS } from '../lineage/runtime-lineage-error'
 import type { Repo } from '../../../../shared/repository/repo-types'
-import { OrcaRuntimeWithGroupFolderSetup } from './runtime-group-folder-setup-host'
+import { OpenKodoRuntimeWithGroupFolderSetup } from './runtime-group-folder-setup-host'
 import type { RuntimeManagedWorktreeCreateArgs } from './runtime-managed-worktree-create-types'
 import type { CreateWorktreeResult } from '../../../../shared/worktree/create-types'
 import { isFolderRepo } from '../../../../shared/repository/repo-kind'
@@ -36,7 +36,7 @@ import { applyWorkspaceCreatePluginHook } from '../../../plugins/hooks/workspace
 import { withProjectWorktreeCreate } from '../../../workspaces/creation/worktree-create-in-flight'
 import { createdWorktreeLifecycleIdentity } from '../lifecycle/worktree-lifecycle-event'
 
-export abstract class OrcaRuntimeWithCreateManagedWorktree extends OrcaRuntimeWithGroupFolderSetup {
+export abstract class OpenKodoRuntimeWithCreateManagedWorktree extends OpenKodoRuntimeWithGroupFolderSetup {
   abstract resolveLineageForWorktreeCreate(
     input?: WorktreeLineageInput,
     childRepo?: Repo

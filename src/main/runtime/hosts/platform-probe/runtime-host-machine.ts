@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
-import { runProcess } from '@orca/process-host'
-import { windowsPowerShellPath } from '@orca/process-host/windows-system-binary'
+import { runProcess } from '@openkodo/process-host'
+import { windowsPowerShellPath } from '@openkodo/process-host/windows-system-binary'
 import type { HostMachine } from '../../../../shared/execution-host/host-machine-line'
 import { withTimeout } from '../../../../shared/concurrency/promise-timeout-fallback'
 import {

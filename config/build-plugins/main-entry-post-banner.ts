@@ -2,9 +2,9 @@ import { resolve } from 'node:path'
 import type { Rollup } from 'vite'
 import { createBootstrapFatalExitBanner } from './bootstrap-fatal-exit-banner'
 import {
-  createInheritedOrcaIdentityDropBanner,
+  createInheritedOpenKodoIdentityDropBanner,
   HOST_ENTRY_FILE_NAMES
-} from './inherited-orca-identity-banner'
+} from './inherited-openkodo-identity-banner'
 import { MAIN_BUILD_ENTRY_POINTS } from './main-build-entry-points'
 
 // postBanner lands after minification and Rolldown shifts index.js.map past it, keeping crash traces on the right line.
@@ -13,7 +13,7 @@ export function createMainEntryPostBanner(
   startupDiagnosticsBanner: (chunkName: string) => string
 ): string {
   const identityDrop = HOST_ENTRY_FILE_NAMES.has(chunk.fileName)
-    ? createInheritedOrcaIdentityDropBanner()
+    ? createInheritedOpenKodoIdentityDropBanner()
     : ''
   if (chunk.fileName !== 'index.js') {
     return identityDrop

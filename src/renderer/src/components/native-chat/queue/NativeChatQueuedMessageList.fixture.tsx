@@ -15,7 +15,7 @@ const sender = (name: string): AgentMessageSource => ({
   kind: 'agent',
   senders: [
     {
-      party: { address: name, terminalHandle: null, orcaSessionId: null },
+      party: { address: name, terminalHandle: null, openkodoSessionId: null },
       name
     }
   ],

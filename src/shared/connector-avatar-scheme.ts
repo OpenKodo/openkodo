@@ -1,7 +1,7 @@
 import { isConnectorAvatarUrl } from './connector-message-asker'
 
 /** A connector asker's picture, fetched once by the desktop and served from its cache. */
-export const CONNECTOR_AVATAR_SCHEME = 'orca-connector-avatar'
+export const CONNECTOR_AVATAR_SCHEME = 'openkodo-connector-avatar'
 const PREFIX = `${CONNECTOR_AVATAR_SCHEME}://image/`
 
 function base64Url(text: string): string {

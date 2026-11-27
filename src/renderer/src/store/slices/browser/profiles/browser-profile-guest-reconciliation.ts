@@ -39,7 +39,7 @@ export function reconcileBrowserProfileGuests(get: BrowserSliceGet, workspaceId:
         sessionPartition: tab.sessionPartition ?? null,
         localProfiles: state.browserSessionProfilesByHostId[LOCAL_EXECUTION_HOST_ID],
         mirroredProfiles: state.browserSessionProfiles,
-        activeOrcaProfileId: state.activeOrcaProfileId
+        activeOpenKodoProfileId: state.activeOpenKodoProfileId
       })
   // The route gate owns preparing/error; a profile callback cannot grant local egress.
   if (!partition) {

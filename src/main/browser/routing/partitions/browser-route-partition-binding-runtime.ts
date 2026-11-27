@@ -5,18 +5,18 @@ import { BrowserRoutePartitionBindingStore } from './browser-route-partition-bin
 const BINDING_FILE_NAME = 'browser-route-partition-bindings.json'
 const PARTITION_DATA_DIRECTORY_NAME = 'Partitions'
 let bindingFilePathOverride: string | null = null
-let activeOrcaProfileId: string | null = null
+let activeOpenKodoProfileId: string | null = null
 
-export function configureBrowserRoutePartitionBindingsForOrcaProfile(options: {
-  orcaProfileId: string
+export function configureBrowserRoutePartitionBindingsForOpenKodoProfile(options: {
+  openkodoProfileId: string
   profileDirectory: string
 }): void {
   bindingFilePathOverride = join(options.profileDirectory, BINDING_FILE_NAME)
-  activeOrcaProfileId = options.orcaProfileId
+  activeOpenKodoProfileId = options.openkodoProfileId
 }
 
-export function activeBrowserRoutePartitionOrcaProfileId(): string | null {
-  return activeOrcaProfileId
+export function activeBrowserRoutePartitionOpenKodoProfileId(): string | null {
+  return activeOpenKodoProfileId
 }
 
 export function routePartitionDataRoot(): string {

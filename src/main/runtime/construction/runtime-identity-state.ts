@@ -86,7 +86,7 @@ export type MobileSessionTabSubscription = {
   acceptsWorktree?: (worktree: string) => boolean
 }
 
-export abstract class OrcaRuntimeWithRuntimeId extends RuntimeBotConstructionHooks {
+export abstract class OpenKodoRuntimeWithRuntimeId extends RuntimeBotConstructionHooks {
   protected getLeafKey(tabId: string, leafId: string): string {
     return `${tabId}::${leafId}`
   }

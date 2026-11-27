@@ -55,12 +55,12 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
     setLinearWorkspaces,
     setMergeMethodProjectRow,
     setMergeMethodTaskItem,
-    setOrcaYamlTrustPrompt,
+    setOpenKodoYamlTrustPrompt,
     setPendingGitHubProjectViewSelection,
     setPendingHostedMerge,
     setPendingHostedStateChange,
     setPendingProjectGitHubMerge,
-    setProjectRepoNotInOrca,
+    setProjectRepoNotInOpenKodo,
     setProjectRowDetail,
     setProjectRowItem,
     setProvider,
@@ -89,7 +89,7 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
     setShowFilterSheet,
     setTaskStateHydrated,
     setTasksSupportState,
-    setTrustedOrcaHooks,
+    setTrustedOpenKodoHooks,
     setVisibleProviders,
     taskResumeRef,
     visibleProviders
@@ -176,7 +176,7 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
     // A read from this document: Tasks acts on it (launch settings, hook trust, resume writes).
     function applyHydration(hydration: TaskHydration): void {
       setRuntimeTaskSettings(hydration.settings)
-      setTrustedOrcaHooks(hydration.ui?.trustedOrcaHooks ?? {})
+      setTrustedOpenKodoHooks(hydration.ui?.trustedOpenKodoHooks ?? {})
       taskResumeRef.current = hydration.ui?.taskResumeState ?? {}
       applyView(hydration)
       setTaskStateHydrated(true)
@@ -185,8 +185,8 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
     if (!client || connState !== 'connected') {
       taskResumeRef.current = {}
       setRuntimeTaskSettings({})
-      setTrustedOrcaHooks({})
-      setOrcaYamlTrustPrompt(null)
+      setTrustedOpenKodoHooks({})
+      setOpenKodoYamlTrustPrompt(null)
       setGithubProjectHiddenFieldIdsByView({})
       setTaskStateHydrated(false)
       setTasksSupportState({ kind: 'unknown', client: null })
@@ -207,7 +207,7 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
       setShowGitHubProjectViewPicker(false)
       setShowGitHubProjectFieldsPicker(false)
       setPendingGitHubProjectViewSelection(null)
-      setProjectRepoNotInOrca(null)
+      setProjectRepoNotInOpenKodo(null)
       setDetailPayload(null)
       setProjectRowDetail(null)
       setShowCreateTargetPicker(false)
@@ -241,7 +241,7 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
     setShowGitHubProjectViewPicker(false)
     setShowGitHubProjectFieldsPicker(false)
     setPendingGitHubProjectViewSelection(null)
-    setProjectRepoNotInOrca(null)
+    setProjectRepoNotInOpenKodo(null)
     setDetailPayload(null)
     setProjectRowDetail(null)
     setShowCreateTargetPicker(false)
@@ -304,7 +304,7 @@ export function useMobileTasksRuntimeHydration(model: ClientSettingsActionsModel
         setPendingGitHubProjectViewSelection(null)
         setActionItem(null)
         setProjectRowItem(null)
-        setProjectRepoNotInOrca(null)
+        setProjectRepoNotInOpenKodo(null)
         setDetailPayload(null)
         setProjectRowDetail(null)
         setShowCreateTask(false)

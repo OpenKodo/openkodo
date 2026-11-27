@@ -4,8 +4,8 @@ import {
   preserveLegacyPendingNavigation,
   resolveMobileSessionActiveTab
 } from '../layout/mobile-session-tab-selection'
-import type { OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab as StoredMobileSnapshotHasStalePreservedTabMethods } from './mobile-session-publication-preservation'
-import { OrcaRuntimeWithSyncMobileSessionTabs } from './mobile-session-reconciliation'
+import type { OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab as StoredMobileSnapshotHasStalePreservedTabMethods } from './mobile-session-publication-preservation'
+import { OpenKodoRuntimeWithSyncMobileSessionTabs } from './mobile-session-reconciliation'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { RuntimeMobileSessionTerminalTab } from '../../../../shared/remote-runtime/session-graph/runtime-mobile-session-tab-contracts'
 import {
@@ -23,7 +23,7 @@ import {
   collectBrowserGroupAssignment
 } from '../../session-lifecycle/projection/mobile-session-browser-group-projection'
 
-export abstract class OrcaRuntimeWithMergePreservedHeadlessMobileSessionTabs extends OrcaRuntimeWithSyncMobileSessionTabs {
+export abstract class OpenKodoRuntimeWithMergePreservedHeadlessMobileSessionTabs extends OpenKodoRuntimeWithSyncMobileSessionTabs {
   protected abstract collectPreservedHeadlessMobileSessionTabs(
     ...args: Parameters<
       StoredMobileSnapshotHasStalePreservedTabMethods['collectPreservedHeadlessMobileSessionTabs']

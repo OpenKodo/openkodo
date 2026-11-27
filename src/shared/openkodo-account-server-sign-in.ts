@@ -1,0 +1,129 @@
+import type { HostAccountSignInPhase } from './agent-accounts/host-account-sign-in-types'
+import type { OpenKodoCloudOrgSummary } from './openkodo-profiles/openkodo-profiles'
+
+/** Where the host saves its sign-in; sign-in is refused unless it is sealed. */
+export type OpenKodoAccountStorage =
+  | { kind: 'os-keychain' }
+  /** Sealed with a key kept on the host; `warning` is shown at sign-in and in status. */
+  | { kind: 'host-key'; warning: string }
+  | { kind: 'refused'; reason: string }
+
+/** The host's one OpenKodo account as it reports it to a client. */
+export type OpenKodoAccountServerStatus = {
+  state: 'signed-in' | 'signed-out' | 'reconnect-required' | 'unconfigured'
+  email?: string
+  displayName?: string
+  orgId?: string
+  orgName?: string
+  organizations?: OpenKodoCloudOrgSummary[]
+  /** When OpenKodo Cloud last confirmed the session (capability refresh), epoch ms. */
+  lastConfirmedAt?: number
+  /** Why the host signed out on its own, when it knows. */
+  reason?: string
+  storage: OpenKodoAccountStorage
+}
+
+/** `switch-account` replaces a signed-in account; `sign-in` is refused while one is signed in. */
+export type OpenKodoAccountSignInIntent = 'sign-in' | 'switch-account'
+
+export type OpenKodoAccountMachinePlatform = 'macos' | 'linux' | 'windows'
+
+/** Everything the client needs to build the authorize link; the verifier stays on the host. */
+export type OpenKodoAccountAuthorizeRequest = {
+  authorizeEndpoint: string
+  /** The client refuses when this is not its own OpenKodo Cloud, before spending the single-use code. */
+  authorizeOrigin: string
+  clientId: string
+  scope: string
+  codeChallenge: string
+  codeChallengeMethod: 'S256'
+  state: string
+  nonce: string
+  localProfileId: string
+  machineLabel: string
+  machinePlatform: OpenKodoAccountMachinePlatform
+  /** The page that shows a code to paste, for terminal and phone sign-ins. */
+  hostedCodePageUrl: string
+}
+
+/** Approve in any browser: the person opens the link, checks the code matches, and approves;
+ * the host learns of it from OpenKodo Cloud, so nothing is copied back. */
+export type OpenKodoAccountApprovalPrompt = {
+  kind: 'approve-in-browser'
+  verificationUrl: string
+  /** Shown in the terminal and on the approval page, so the person can tell the two belong together. */
+  userCode: string
+  machineLabel: string
+  expiresAt: number
+}
+
+// Why a fixed list: a paired computer sends this link and the phone opens it, so the phone can't take
+// that computer's word for which site its OpenKodo Cloud is.
+// Why a prefix and not `new URL().origin`: React Native's URL reads parts with regexes, not a real
+// parser. The computer always sends the normalized link, so its text starts with the origin and `/`.
+// Keep in step with PRODUCTION_API_BASE_URL in profile-cloud-auth-config.ts if the sign-in host moves.
+const OPENKODO_CLOUD_SIGN_IN_PAGE_PREFIXES: readonly string[] = ['https://login.onopenkodo.dev/']
+
+/** Whether `url` is an https page of OpenKodo Cloud's own sign-in site. */
+export function isOpenKodoCloudSignInPage(url: string): boolean {
+  return OPENKODO_CLOUD_SIGN_IN_PAGE_PREFIXES.some((prefix) => url.startsWith(prefix))
+}
+
+export type OpenKodoAccountSignInPrompt =
+  | OpenKodoAccountAuthorizeRequest
+  | OpenKodoAccountApprovalPrompt
+
+export function isOpenKodoAccountApprovalPrompt(
+  prompt: OpenKodoAccountSignInPrompt | undefined
+): prompt is OpenKodoAccountApprovalPrompt {
+  return prompt !== undefined && 'kind' in prompt && prompt.kind === 'approve-in-browser'
+}
+
+export type OpenKodoAccountSignInStatus = {
+  flowId: string
+  provider: OpenKodoAccountSignInIntent
+  revision: number
+  phase: HostAccountSignInPhase
+  prompt?: OpenKodoAccountSignInPrompt
+  error?: string
+  account?: OpenKodoAccountServerStatus
+}
+
+export type OpenKodoAccountSignInFrom = 'desktop' | 'terminal' | 'phone'
+
+/** Whether a host's sign-in belongs to the OpenKodo Cloud this client signs in to. */
+export function isSameOpenKodoCloudOrigin(
+  request: Pick<OpenKodoAccountAuthorizeRequest, 'authorizeOrigin' | 'authorizeEndpoint'>,
+  clientAuthorizeEndpoint: string
+): boolean {
+  try {
+    const client = new URL(clientAuthorizeEndpoint).origin
+    return (
+      request.authorizeOrigin === client && new URL(request.authorizeEndpoint).origin === client
+    )
+  } catch {
+    return false
+  }
+}
+
+/** The client builds the link itself and never opens one a host sends. */
+export function buildOpenKodoAccountAuthorizeUrl(
+  request: OpenKodoAccountAuthorizeRequest,
+  redirectUri: string,
+  signInFrom: OpenKodoAccountSignInFrom
+): string {
+  const url = new URL(request.authorizeEndpoint)
+  url.searchParams.set('client_id', request.clientId)
+  url.searchParams.set('response_type', 'code')
+  url.searchParams.set('redirect_uri', redirectUri)
+  url.searchParams.set('scope', request.scope)
+  url.searchParams.set('nonce', request.nonce)
+  url.searchParams.set('state', request.state)
+  url.searchParams.set('code_challenge', request.codeChallenge)
+  url.searchParams.set('code_challenge_method', request.codeChallengeMethod)
+  url.searchParams.set('local_profile_id', request.localProfileId)
+  url.searchParams.set('machine_label', request.machineLabel)
+  url.searchParams.set('machine_platform', request.machinePlatform)
+  url.searchParams.set('sign_in_from', signInFrom)
+  return url.toString()
+}

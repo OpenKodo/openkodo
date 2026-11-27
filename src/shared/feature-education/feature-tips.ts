@@ -9,7 +9,7 @@ export type FeatureTipId =
   | 'chat-ui-here'
   | 'bots-teammate'
   | 'voice-dictation'
-  | 'orca-cli'
+  | 'openkodo-cli'
   | 'cmd-j-palette'
   | 'agent-session-search'
 
@@ -125,7 +125,7 @@ export const FEATURE_TIPS = [
     completedByFeatureInteractions: []
   },
   {
-    id: 'orca-cli',
+    id: 'openkodo-cli',
     priority: 'new',
     title: 'Let agents drive OpenKodo with the OpenKodo CLI',
     description: 'Enable agents to coordinate child worktrees and communicate between worktrees.',
@@ -186,7 +186,7 @@ export function normalizeFeatureTipIds(value: unknown): FeatureTipSeenId[] {
 export function getCompletedFeatureTipIds(state: CompletedFeatureTipState): Set<FeatureTipId> {
   const completedIds = new Set<FeatureTipId>()
   if (state.cliInstalled) {
-    completedIds.add('orca-cli')
+    completedIds.add('openkodo-cli')
   }
   if (state.voiceDictationEnabled) {
     completedIds.add('voice-dictation')

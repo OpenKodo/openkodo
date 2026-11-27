@@ -2,7 +2,7 @@ import { existsSync, realpathSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { join, sep } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { z } from 'zod'
 import { pathInsidePluginRoot } from '../../../shared/plugins/artifacts/plugin-root-containment'
 import type { PluginDeclarativeNode } from '../../../shared/plugins/declarative/plugin-declarative-catalog'
@@ -188,7 +188,7 @@ async function runCheckChild(dir: string, input: CheckChildInput, appRoot?: stri
 
 /**
  * The scenario names `<entry>.check.ts` defines for a panel, in order; empty without the file.
- * Loads the fixture (it may import `orca/testing`), but mounts nothing.
+ * Loads the fixture (it may import `openkodo/testing`), but mounts nothing.
  */
 export async function readPluginCheckScenarioNames(
   dir: string,

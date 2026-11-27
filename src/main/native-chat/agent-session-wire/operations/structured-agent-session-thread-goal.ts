@@ -49,7 +49,7 @@ export function refuseThreadGoalUnsupported(
 
 /** Operation identity makes replay upsert the same objective row. */
 function objectiveIdentity(clientOperationId: string): AgentJournalItemIdentity {
-  return { provider: 'orca', clientMessageId: `thread-goal:${clientOperationId}` }
+  return { provider: 'openkodo', clientMessageId: `thread-goal:${clientOperationId}` }
 }
 
 export async function performThreadGoalChange(

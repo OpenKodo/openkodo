@@ -19,7 +19,7 @@ import {
   browserRouteSessionRegistry,
   browserRouteWebContentsRegistry
 } from '../../browser/routing/sessions/browser-route-session-runtime'
-import '../../../shared/orca-profiles/constants'
+import '../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../shared/browser/browser-blank-page'
 import {
   DOC_PREVIEW_PARTITION,
@@ -56,7 +56,7 @@ import {
 import { associateBrowserExtensionSidePanelGuest } from '../../browser/extensions/side-panel/browser-extension-side-panel-guests'
 import { WEB_CONTENTS_MAX_LISTENERS_PER_EVENT } from '../web-contents-listener-budget'
 
-/** orca-preview is outside normal browser URL admission; require the doc partition and a main-minted user-preview grant. */
+/** openkodo-preview is outside normal browser URL admission; require the doc partition and a main-minted user-preview grant. */
 function isAdmissibleDocPreviewAttach(partition: string, src: string): boolean {
   if (partition !== DOC_PREVIEW_PARTITION) {
     return false

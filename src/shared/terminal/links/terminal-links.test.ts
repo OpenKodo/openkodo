@@ -189,8 +189,10 @@ describe('terminal path helpers', () => {
 
   describe('plain-text file:// URIs', () => {
     it('does not also emit a bare-path link for the URI body', () => {
-      const links = extractTerminalFileLinks('file:///Users/dev/orca/report.html')
-      expect(links.map((link) => link.displayText)).toEqual(['file:///Users/dev/orca/report.html'])
+      const links = extractTerminalFileLinks('file:///Users/dev/openkodo/report.html')
+      expect(links.map((link) => link.displayText)).toEqual([
+        'file:///Users/dev/openkodo/report.html'
+      ])
     })
   })
 })

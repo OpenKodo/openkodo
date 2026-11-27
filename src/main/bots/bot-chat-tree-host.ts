@@ -16,7 +16,7 @@ import {
   type AgentSessionRecordReader
 } from '../runtime/orchestration/addressing/session-lineage/structured-session-lineage'
 import type { OrchestrationDb } from '../runtime/orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { readDispatchWorkers } from '../runtime/rpc/methods/orchestration/worker/session-workers-method'
 import type { BotBackgroundRuns } from './bot-background-run-records'
 import { buildBotChatBase, orderedBaseChats, readBotChatInputs } from './bot-chat-tree-base'
@@ -239,7 +239,7 @@ const sharedTreeBuilds = createSharedBotBuilds<BotChatTreeRead>()
 
 /** A full read is shared by every caller asking at once; a page read is one caller's own. */
 export function readSharedBotChatTree(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: BotChatTreeParams
 ): Promise<BotChatTreeRead> {
   const host = runtimeBotChatTreeHost(runtime)
@@ -248,7 +248,7 @@ export function readSharedBotChatTree(
     : readBotChatTree(host, params)
 }
 
-export function runtimeBotChatTreeHost(runtime: OrcaRuntimeService): BotChatTreeHost {
+export function runtimeBotChatTreeHost(runtime: OpenKodoRuntimeService): BotChatTreeHost {
   return {
     ...runtimeBotActivityHost(runtime),
     sessionRecords: async () => {
@@ -268,7 +268,7 @@ export function runtimeBotChatTreeHost(runtime: OrcaRuntimeService): BotChatTree
 
 /** The runtime's one chat-tree index: fed by the record store's commits and the database's Dispatch
  *  changes, it tells the runtime's notices which bots each change concerns. */
-export function runtimeBotChatTreeIndex(runtime: OrcaRuntimeService): BotChatTreeIndex {
+export function runtimeBotChatTreeIndex(runtime: OpenKodoRuntimeService): BotChatTreeIndex {
   const activity = runtimeBotActivityHost(runtime)
   return createBotChatTreeIndex({
     bots: () => runtime.bots.list(),

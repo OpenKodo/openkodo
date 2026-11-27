@@ -43,12 +43,12 @@ export function wslGuestShellPaths(
       return quotePosixShell(path)
     }
     letters.add(drive.letter)
-    const root = `"\${orca_drive_${drive.letter}%/}"`
+    const root = `"\${openkodo_drive_${drive.letter}%/}"`
     return drive.tail ? `${root}${quotePosixShell(`/${drive.tail}`)}` : root
   })
   const prelude = [...letters]
     .map((letter) => {
-      const name = `orca_drive_${letter}`
+      const name = `openkodo_drive_${letter}`
       return (
         `${name}=$(wslpath -u '${letter.toUpperCase()}:\\' 2>/dev/null) && case "$${name}" in /*) ;; *) false ;; esac || ` +
         `{ echo "OpenKodo could not find drive ${letter.toUpperCase()}: in this WSL distro" >&2; exit ${Math.trunc(failureExitCode)}; }; `

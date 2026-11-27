@@ -1,5 +1,5 @@
 import { setTimeout as delay } from 'node:timers/promises'
-import { OrcaRuntimeWithRecordAgentPromptLifecycleState } from '../output/terminal-output-generation'
+import { OpenKodoRuntimeWithRecordAgentPromptLifecycleState } from '../output/terminal-output-generation'
 import type { TerminalOscLinkRange } from '../../../../shared/terminal/links/terminal-osc-link-ranges'
 import type { PtyProviderBufferSnapshot } from '../../../providers/pty/provider-contract'
 import type { RuntimeTerminalWriteOptions } from '../input/runtime-terminal-writer'
@@ -21,7 +21,7 @@ const ENDPOINT_REATTACH_INPUT_WAIT_MS = 10_000
  *  pane's terminal. */
 export type RemoteTerminalViewer = { deviceId: string | undefined; followsHostRespawn: boolean }
 
-export abstract class OrcaRuntimeWithNotifyRemoteTerminalViewPresenceChanged extends OrcaRuntimeWithRecordAgentPromptLifecycleState {
+export abstract class OpenKodoRuntimeWithNotifyRemoteTerminalViewPresenceChanged extends OpenKodoRuntimeWithRecordAgentPromptLifecycleState {
   protected abstract serializeTerminalBufferFromAvailableState(
     ptyId: string,
     opts?: { scrollbackRows?: number }

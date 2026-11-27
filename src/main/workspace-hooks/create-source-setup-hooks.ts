@@ -1,6 +1,6 @@
 import type { Repo } from '../../shared/repository/repo-types'
-import type { OrcaHooks } from '../../shared/workspace-setup/orca-yaml-hook-types'
-import { parseOrcaYaml } from '../../shared/workspace-setup/orca-yaml'
+import type { OpenKodoHooks } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
+import { parseOpenKodoYaml } from '../../shared/workspace-setup/openkodo-yaml'
 import { scopeHooksToRepoKind } from '../../shared/folder-workspaces/folder-workspace-hooks'
 import { isFolderRepo } from '../../shared/repository/repo-kind'
 import { resolveWorktreeAddBaseRef } from '../../shared/worktree/base-refs/base-ref'
@@ -52,7 +52,7 @@ export async function readCreateSourceSetupHooks(args: {
   source: SetupHooksCreateSource
   runtime: CreateSourceSetupHooksRuntime
   gitOptions: LocalGitExecOptions
-}): Promise<{ hooks: OrcaHooks | null } | undefined> {
+}): Promise<{ hooks: OpenKodoHooks | null } | undefined> {
   if (isFolderRepo(args.repo)) {
     return undefined
   }
@@ -78,7 +78,7 @@ export async function readCreateSourceSetupHooks(args: {
   }
   try {
     const ref = await step(() => resolveCreateSourceRef(args, gated, step))
-    return ref ? await step(() => readOrcaYamlAtRef(args.repo, ref, gated)) : undefined
+    return ref ? await step(() => readOpenKodoYamlAtRef(args.repo, ref, gated)) : undefined
   } catch {
     return undefined
   }
@@ -142,11 +142,11 @@ async function resolveCreateSourceRef(
     : null
 }
 
-async function readOrcaYamlAtRef(
+async function readOpenKodoYamlAtRef(
   repo: Repo,
   ref: string,
   gitOptions: LocalGitExecOptions
-): Promise<{ hooks: OrcaHooks | null } | undefined> {
+): Promise<{ hooks: OpenKodoHooks | null } | undefined> {
   for (const name of ['openkodo.yaml', 'openkodo.yaml']) {
     const { stdout: entry } = await gitExecFileAsync(['ls-tree', ref, '--', name], {
       cwd: repo.path,
@@ -163,7 +163,7 @@ async function readOrcaYamlAtRef(
       cwd: repo.path,
       ...gitOptions
     })
-    return { hooks: scopeHooksToRepoKind(repo, parseOrcaYaml(stdout)) }
+    return { hooks: scopeHooksToRepoKind(repo, parseOpenKodoYaml(stdout)) }
   }
   return { hooks: null }
 }

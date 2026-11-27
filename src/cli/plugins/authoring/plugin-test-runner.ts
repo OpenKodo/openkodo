@@ -2,13 +2,13 @@ import { existsSync } from 'node:fs'
 import { mkdir, readdir, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { selectPluginTestNode, type PluginTestNode } from './plugin-test-node'
 
 /** Plugin test files `openkodo plugin test` runs. */
 export const PLUGIN_TEST_FILE = /\.test\.(?:tsx?|mts|jsx?|mjs)$/i
 // Not plugin sources: dependencies, OpenKodo's own generated files, VCS and build output.
-const SKIPPED_DIRS = new Set(['node_modules', '.orca', '.git', 'dist', 'out', 'coverage'])
+const SKIPPED_DIRS = new Set(['node_modules', '.openkodo', '.git', 'dist', 'out', 'coverage'])
 
 const defaultAppRoot = (): string => join(__dirname, '..', '..', '..', '..')
 
@@ -16,10 +16,10 @@ const defaultAppRoot = (): string => join(__dirname, '..', '..', '..', '..')
 export function pluginTestingFiles(appRoot = defaultAppRoot()) {
   const dir = join(appRoot, 'resources', 'plugins', 'declarative')
   return {
-    runtime: join(dir, 'orca-runtime.mjs'),
-    testing: join(dir, 'orca-testing.mjs'),
-    hooks: join(dir, 'orca-test-hooks.mjs'),
-    register: join(dir, 'orca-test-register.mjs')
+    runtime: join(dir, 'openkodo-runtime.mjs'),
+    testing: join(dir, 'openkodo-testing.mjs'),
+    hooks: join(dir, 'openkodo-test-hooks.mjs'),
+    register: join(dir, 'openkodo-test-register.mjs')
   }
 }
 
@@ -49,7 +49,7 @@ export function pluginTestRunner(dir: string): { runner: PluginTestRunner; entry
   return existsSync(vitest) ? { runner: 'vitest', entry: vitest } : { runner: 'node' }
 }
 
-/** A Vite config that resolves `orca` like the guest's import map and transpiles like OpenKodo. */
+/** A Vite config that resolves `openkodo` like the guest's import map and transpiles like OpenKodo. */
 export function pluginVitestConfig(files: ReturnType<typeof pluginTestingFiles>): string {
   const url = (path: string): string => JSON.stringify(pathToFileURL(path).href)
   const path = (value: string): string => JSON.stringify(value)
@@ -61,7 +61,7 @@ export default {
   esbuild: false,
   plugins: [
     {
-      name: 'orca-plugin-sources',
+      name: 'openkodo-plugin-sources',
       enforce: 'pre',
       transform(code, id) {
         const file = id.split('?')[0]
@@ -72,14 +72,14 @@ export default {
   ],
   resolve: {
     alias: [
-      { find: /^orca$/, replacement: ${path(files.runtime)} },
-      { find: /^orca\\/jsx-(?:dev-)?runtime$/, replacement: ${path(files.runtime)} },
-      { find: /^orca\\/testing$/, replacement: ${path(files.testing)} }
+      { find: /^openkodo$/, replacement: ${path(files.runtime)} },
+      { find: /^openkodo\\/jsx-(?:dev-)?runtime$/, replacement: ${path(files.runtime)} },
+      { find: /^openkodo\\/testing$/, replacement: ${path(files.testing)} }
     ]
   },
   test: {
     include: ['**/*.test.{ts,tsx,mts,js,jsx,mjs}'],
-    exclude: ['**/node_modules/**', '**/.orca/**'],
+    exclude: ['**/node_modules/**', '**/.openkodo/**'],
     // One runtime instance for the panel and the kit: never let vite-node externalize them.
     server: { deps: { inline: [/resources[\\\\/]plugins[\\\\/]declarative/] } }
   }
@@ -104,11 +104,11 @@ export async function runPluginTests(options: {
   const env = { ...process.env, ...node.env, OPENKODO_PLUGIN_TEST_ROOT: options.dir }
   let args: string[]
   if (selected.runner === 'vitest' && selected.entry) {
-    const configDir = join(options.dir, '.orca', 'test')
+    const configDir = join(options.dir, '.openkodo', 'test')
     await mkdir(configDir, { recursive: true })
-    // `.orca/` is OpenKodo's generated folder; it keeps itself out of Git.
-    if (!existsSync(join(options.dir, '.orca', '.gitignore'))) {
-      await writeFile(join(options.dir, '.orca', '.gitignore'), '*\n')
+    // `.openkodo/` is OpenKodo's generated folder; it keeps itself out of Git.
+    if (!existsSync(join(options.dir, '.openkodo', '.gitignore'))) {
+      await writeFile(join(options.dir, '.openkodo', '.gitignore'), '*\n')
     }
     const config = join(configDir, 'vitest.config.mjs')
     await writeFile(config, pluginVitestConfig(testing))

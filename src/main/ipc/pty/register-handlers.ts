@@ -1,7 +1,7 @@
 import { createLocalPtyStartupPromises } from './provider/local-startup-promises'
 
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { Store } from '../../persistence/loading-store/store'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
 import { LocalPtyProvider } from '../../providers/local-pty/local-pty-provider'
@@ -67,13 +67,13 @@ import {
   resolveCodexResumeLaunch,
   stripSequencedStartupResumeArgv
 } from './host-env/codex-resume'
-import { ensureLinuxTerminalOrcaCliShimDir } from '../../cli/launchers/linux-terminal-orca-cli-shim'
+import { ensureLinuxTerminalOpenKodoCliShimDir } from '../../cli/launchers/linux-terminal-openkodo-cli-shim'
 
 import { bindTerminalPaneStatusLifecycle } from './pane/terminal-pane-status-lifecycle'
 
 export function registerPtyHandlers(
   mainWindow?: PtyRendererDelivery,
-  runtime?: OrcaRuntimeService,
+  runtime?: OpenKodoRuntimeService,
   getSelectedCodexHomePath?: GetSelectedCodexHomePath,
   getSettings?: () => GlobalSettings,
   prepareClaudeAuth?: PrepareClaudeAuth,
@@ -83,7 +83,7 @@ export function registerPtyHandlers(
   if (process.platform === 'linux') {
     const appEnvironment = getAppEnvironment()
     if (appEnvironment.isPackaged()) {
-      ensureLinuxTerminalOrcaCliShimDir({ userDataPath: appEnvironment.getPath('userData') })
+      ensureLinuxTerminalOpenKodoCliShimDir({ userDataPath: appEnvironment.getPath('userData') })
     }
   }
   const ipcMain = getPtyIpc()

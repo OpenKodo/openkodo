@@ -27,7 +27,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
     usage: 'openkodo status [--json]',
     allowedFlags: [...GLOBAL_FLAGS],
     notes: [
-      "caller.orcaSessionId is this agent's OpenKodo session ID, as OpenKodo resolved it, when the agent runs as an OpenKodo session; otherwise caller is omitted."
+      "caller.openkodoSessionId is this agent's OpenKodo session ID, as OpenKodo resolved it, when the agent runs as an OpenKodo session; otherwise caller is omitted."
     ],
     examples: ['openkodo status', 'openkodo status --json']
   },

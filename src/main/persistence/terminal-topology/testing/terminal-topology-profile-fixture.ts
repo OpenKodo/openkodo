@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { getDefaultWorkspaceSession } from '../../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../../../../shared/openkodo-profiles/constants'
 import { DelayedAuthority } from '../../loading-store/profile-writing/profile-state-delayed-authority-fixture'
 import { Store } from '../../loading-store/store'
 import { buildProfileStateCutoverFixture } from '../../profile-state-cutover-fixture'
@@ -45,7 +45,7 @@ export async function openTopologyStoreWithAuthority(
   }
   const authority = new DelayedAuthority(inner)
   const store = new Store({
-    dataFile: join(directory, 'orca-data.json'),
+    dataFile: join(directory, 'openkodo-data.json'),
     profileStateAuthority: authority
   })
   trackedStores.push(store)

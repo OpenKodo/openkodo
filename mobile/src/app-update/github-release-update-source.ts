@@ -5,9 +5,9 @@ import { isNewerReleaseVersion } from './app-update-source'
 
 const REPO_API = 'https://api.github.com/repos/OpenKodo/openkodo'
 // Use tag refs: newest-first release/Atom windows can fill with desktop releases and hide mobile updates; Android releases all carry prerelease flag.
-/** dev.orca.app releases: Google's Play-signed universal APK. */
+/** dev.openkodo.app releases: Google's Play-signed universal APK. */
 export const ANDROID_RELEASE_TAG_PREFIX = 'android-v'
-/** com.stably.orca.mobile releases, signed with the Expo debug key. */
+/** dev.openkodo.mobile releases, signed with the Expo debug key. */
 export const RETIRED_ANDROID_RELEASE_TAG_PREFIX = 'mobile-android-v'
 // Probe bounded older candidates: workflow tags before APK build, so failed build can leave unpublished tag.
 const MAX_RELEASE_PROBES = 3

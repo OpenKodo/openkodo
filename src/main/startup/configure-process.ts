@@ -222,12 +222,12 @@ export function configureDevUserDataPath(isDev: boolean): void {
   }
   const overrideUserDataPath = process.env.OPENKODO_DEV_USER_DATA_PATH
   if (overrideUserDataPath) {
-    // Why: run-electron-vite-dev.mjs resolves a per-worktree (or shared orca-dev) profile here; repros also pass isolated ones.
+    // Why: run-electron-vite-dev.mjs resolves a per-worktree (or shared openkodo-dev) profile here; repros also pass isolated ones.
     app.setPath('userData', overrideUserDataPath)
     return
   }
-  // Why: launches that bypass the dev runner still need a dev-only path, or they overwrite the packaged app's runtime pointer under userData and break the orca CLI.
-  app.setPath('userData', join(app.getPath('appData'), 'orca-dev'))
+  // Why: launches that bypass the dev runner still need a dev-only path, or they overwrite the packaged app's runtime pointer under userData and break the openkodo CLI.
+  app.setPath('userData', join(app.getPath('appData'), 'openkodo-dev'))
 }
 
 function areSameE2EHomePath(left: string, right: string): boolean {
@@ -238,7 +238,7 @@ function areSameE2EHomePath(left: string, right: string): boolean {
     : normalizedLeft === normalizedRight
 }
 
-export function configureOrcaUserDataPathEnv(): void {
+export function configureOpenKodoUserDataPathEnv(): void {
   const userDataPath = app.getPath('userData')
   // Validate final userData before instance locking; preflight catches refusals and exits serve.
   const serveProfileRefusal = checkServeUserDataPath({

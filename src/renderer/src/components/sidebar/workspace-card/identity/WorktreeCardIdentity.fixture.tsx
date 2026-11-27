@@ -1,9 +1,9 @@
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import { defineFixture } from '../../../../component-fixtures/component-fixture'
 import { makeRepo, makeWorktree } from '../../../worktree-jump/worktree-jump-palette-test-fixtures'
 import WorktreeCard from '../surface/WorktreeCard'
 
-const repo = { ...makeRepo(), displayName: 'orca' }
+const repo = { ...makeRepo(), displayName: 'openkodo' }
 const worktree = makeWorktree('identity-fixture', 'Primary workspace', {
   branch: 'main',
   isMainWorktree: true,
@@ -38,7 +38,7 @@ export const primarySparse = defineFixture({
 const imageRepo = {
   ...makeRepo(),
   id: 'repo-image',
-  displayName: 'orca-app',
+  displayName: 'openkodo-app',
   repoIcon: {
     type: 'image' as const,
     source: 'upload' as const,

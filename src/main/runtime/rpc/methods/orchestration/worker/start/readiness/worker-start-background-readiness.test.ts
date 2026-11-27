@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import '../../../../../../orchestration/db/contract-constants'
 import '../../../../../../orchestration/db/messages/mailbox-routing-page'
@@ -60,7 +60,7 @@ function promptPane(cleared: () => boolean) {
     notifyMessageArrived: () => {}
   }
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the wait reads only the terminal methods faked above.
-  return { runtime: runtime as unknown as OrcaRuntimeService, repaint: () => repaint?.() }
+  return { runtime: runtime as unknown as OpenKodoRuntimeService, repaint: () => repaint?.() }
 }
 
 /** A worker whose startup prompt the person answers at `answeredAt`: the pane repaints once, then
@@ -95,7 +95,7 @@ function answeredPromptWorker(answeredAt: number) {
 
 /** A real Dispatch whose created terminal is in its custody, as placement leaves it. */
 function startingDispatch(liveIncarnation?: string) {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-never-ready-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-never-ready-'))
   const db = new OrchestrationDb(join(directory, 'orchestration.db'))
   cleanups.push(() => {
     db.close()

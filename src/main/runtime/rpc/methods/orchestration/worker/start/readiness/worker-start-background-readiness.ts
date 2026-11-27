@@ -5,7 +5,7 @@ import type {
   RuntimeTerminalWait,
   RuntimeTerminalWaitBlockedReason
 } from '../../../../../../../../shared/terminal/runtime/runtime-terminal-contracts'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../../orchestration/db/orchestration-db'
 import {
   reportBlockedWorkerStart,
@@ -63,7 +63,7 @@ export function readinessStillPending(
 
 /** The PTY behind a waiting worker's pane: the one its launch created, else whatever backs the handle now. */
 export function workerPanePtyId(
-  runtime: Pick<OrcaRuntimeService, 'getTerminalPtyIdForHandle'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getTerminalPtyIdForHandle'>,
   handle: string,
   readiness: WorkerReadinessWaitArgs
 ): string | null {
@@ -74,7 +74,7 @@ export function workerPanePtyId(
 }
 
 export type AwaitingWorkerStart = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   dispatchId: string
   terminalHandle: string
@@ -323,7 +323,7 @@ async function stillBlocked({ runtime, terminalHandle }: AwaitingWorkerStart): P
 
 /** Resolves on the pane's next output, its exit or an abort, whichever is first. */
 function nextOutput(
-  runtime: Pick<OrcaRuntimeService, 'subscribeToTerminalData' | 'waitForTerminal'>,
+  runtime: Pick<OpenKodoRuntimeService, 'subscribeToTerminalData' | 'waitForTerminal'>,
   handle: string,
   ptyId: string | null,
   signal: AbortSignal

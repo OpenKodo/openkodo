@@ -50,7 +50,7 @@ async function isRegistered(path: string): Promise<boolean> {
 
 beforeEach(async () => {
   // Canonicalize macOS /var temp paths to match Git's /private/var output.
-  scratchDir = await realpath(await mkdtemp(join(tmpdir(), 'orca-worktree-removal-')))
+  scratchDir = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-worktree-removal-')))
   repoPath = join(scratchDir, 'repo')
   workspaceRoot = join(scratchDir, 'workspaces')
   worktreePath = join(workspaceRoot, 'repo', 'feature')

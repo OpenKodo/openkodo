@@ -1,8 +1,8 @@
 import { recognizeAgentLaunchCommand } from '../../../../shared/agent-launch/startup/agent-command-line-intent'
-import type { OrcadFeature } from './orcad-readiness'
+import type { OpenkododFeature } from './openkodod-readiness'
 
-const ACCOUNTS: readonly OrcadFeature[] = ['accounts']
-const NONE: readonly OrcadFeature[] = []
+const ACCOUNTS: readonly OpenkododFeature[] = ['accounts']
+const NONE: readonly OpenkododFeature[] = []
 
 type TerminalCreateLaunchFields = {
   command?: string
@@ -19,7 +19,7 @@ type TerminalCreateLaunchFields = {
  */
 export function terminalCreateFeatureRequirement(
   params: TerminalCreateLaunchFields
-): readonly OrcadFeature[] {
+): readonly OpenkododFeature[] {
   const agentLaunch =
     params.agent !== undefined ||
     params.launchAgent !== undefined ||
@@ -33,13 +33,13 @@ export function terminalCreateFeatureRequirement(
 /** Reusing a live terminal starts no process, so it needs no account home. */
 export function agentLaunchFeatureRequirement(params: {
   reuseTerminal?: unknown
-}): readonly OrcadFeature[] {
+}): readonly OpenkododFeature[] {
   return params.reuseTerminal ? NONE : ACCOUNTS
 }
 
 /** Only an explicit ensure may start an agent; attaching to an existing session is restore latency. */
 export function ensureAgentSessionFeatureRequirement(params: {
   kind?: unknown
-}): readonly OrcadFeature[] {
+}): readonly OpenkododFeature[] {
   return params.kind === 'explicit' ? ACCOUNTS : NONE
 }

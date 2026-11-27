@@ -71,8 +71,8 @@ export default function ProjectViewWrapper({
         onClose={() => rowActions.setSlugDialog(null)}
       />
       <ProjectMissingRepoDialog
-        missingRepo={rowActions.missingDialogs.repoNotInOrca}
-        onClose={() => rowActions.setRepoNotInOrca(null)}
+        missingRepo={rowActions.missingDialogs.repoNotInOpenKodo}
+        onClose={() => rowActions.setRepoNotInOpenKodo(null)}
         onAddRepo={addRepo}
       />
     </div>

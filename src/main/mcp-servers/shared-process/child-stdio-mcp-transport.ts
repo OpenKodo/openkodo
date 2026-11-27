@@ -1,5 +1,5 @@
 // An MCP transport over a child OpenKodo started itself, so the SDK's client speaks to it without the
-// SDK spawning anything: the child comes from @orca/process-host, which owns Windows quoting and hiding.
+// SDK spawning anything: the child comes from @openkodo/process-host, which owns Windows quoting and hiding.
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { ReadBuffer, serializeMessage } from '@modelcontextprotocol/sdk/shared/stdio.js'
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js'

@@ -15,11 +15,11 @@ export const CODEX_EXECUTABLE = /^codex(\.(exe|cmd|bat|ps1))?$/i
 const POSIX_PREFIX = `/bin/sh -c ${quoteStartupArg(
   `if [ "$${OPENKODO_IMAGE_PROTOCOL_ENV}" = ${OPENKODO_IMAGE_PROTOCOL_VALUE} ] && [ -z "\${KITTY_WINDOW_ID+x}" ]; then export KITTY_WINDOW_ID=${CODEX_KITTY_WINDOW_ID}; fi; exec "$@"`,
   'posix'
-)} orca-codex `
+)} openkodo-codex `
 const POWERSHELL_PREFIX =
-  `& { $orcaKitty = $env:${OPENKODO_IMAGE_PROTOCOL_ENV} -ceq '${OPENKODO_IMAGE_PROTOCOL_VALUE}' -and -not (Test-Path Env:KITTY_WINDOW_ID); ` +
-  `if ($orcaKitty) { $env:KITTY_WINDOW_ID = '${CODEX_KITTY_WINDOW_ID}' }; try { `
-const POWERSHELL_SUFFIX = ' } finally { if ($orcaKitty) { Remove-Item Env:KITTY_WINDOW_ID } } }'
+  `& { $openkodoKitty = $env:${OPENKODO_IMAGE_PROTOCOL_ENV} -ceq '${OPENKODO_IMAGE_PROTOCOL_VALUE}' -and -not (Test-Path Env:KITTY_WINDOW_ID); ` +
+  `if ($openkodoKitty) { $env:KITTY_WINDOW_ID = '${CODEX_KITTY_WINDOW_ID}' }; try { `
+const POWERSHELL_SUFFIX = ' } finally { if ($openkodoKitty) { Remove-Item Env:KITTY_WINDOW_ID } } }'
 
 /** Bare Codex uses the interactive shell function. Scope the hint for literal targets that bypass it. */
 export function withCodexStartupImageCommand(command: string, shell: AgentStartupShell): string {

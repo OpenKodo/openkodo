@@ -12,8 +12,8 @@ import {
   clickAddRepositories,
   clickWhenShown,
   failGitHubReads,
-  signOutOfOrcaCloud,
-  inOrcaStore,
+  signOutOfOpenKodoCloud,
+  inOpenKodoStore,
   marketing,
   settle,
   stubGitHub
@@ -98,7 +98,7 @@ function dialogShot(options: {
   state?: 'hangs' | 'fails'
 }): ReturnType<typeof defineFixture> {
   return defineFixture({
-    ...(options.failedWhilePending ? { store: inOrcaStore } : {}),
+    ...(options.failedWhilePending ? { store: inOpenKodoStore } : {}),
     width: options.width + 32,
     setup: () => {
       stubGitHub({
@@ -110,7 +110,7 @@ function dialogShot(options: {
         state: options.state
       })
       if (options.cloudSignedOut) {
-        signOutOfOrcaCloud()
+        signOutOfOpenKodoCloud()
       }
       pinShot(options.width)
     },
@@ -126,7 +126,7 @@ function dialogShot(options: {
       if (options.failedWhilePending !== undefined) {
         await clickAddRepositories()
         if (options.failedWhilePending === 'cloud') {
-          signOutOfOrcaCloud()
+          signOutOfOpenKodoCloud()
         } else {
           failGitHubReads(options.failedWhilePending === 'signedOut' ? 'signed_out' : undefined)
         }

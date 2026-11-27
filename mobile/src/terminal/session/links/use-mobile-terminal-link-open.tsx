@@ -8,7 +8,7 @@ export function useMobileTerminalLinkOpen(
     MobileSessionController,
     'activeHandleRef' | 'linkOpenMode' | 'activeSessionTab'
   >,
-  openInOrca: ((url: string) => void) | undefined
+  openInOpenKodo: ((url: string) => void) | undefined
 ) {
   const { activeHandleRef, linkOpenMode } = controller
   const tabId = controller.activeSessionTab?.id
@@ -22,15 +22,15 @@ export function useMobileTerminalLinkOpen(
       if (handle !== activeHandleRef.current) {
         return
       }
-      openMobileWebLink(url, linkOpenMode, openInOrca, (link) => setAsked({ url: link, tabId }))
+      openMobileWebLink(url, linkOpenMode, openInOpenKodo, (link) => setAsked({ url: link, tabId }))
     },
-    [activeHandleRef, linkOpenMode, openInOrca, tabId]
+    [activeHandleRef, linkOpenMode, openInOpenKodo, tabId]
   )
   const terminalLinkSheet =
     asked && asked.tabId === tabId ? (
       <MobileLinkActionSheet
         url={asked.url}
-        openInOrca={openInOrca}
+        openInOpenKodo={openInOpenKodo}
         onClose={() => setAsked(null)}
       />
     ) : null

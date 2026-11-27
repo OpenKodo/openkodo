@@ -12,7 +12,9 @@ function getShellReadyWrapperBaseDir(): string {
   const userDataPath = process.env.OPENKODO_USER_DATA_PATH
   // Avoid legacy shell-ready/ trees still overwritten by old daemons.
   // The temp fallback trusts nonempty preplanted files; production must seed OPENKODO_USER_DATA_PATH before spawning.
-  return userDataPath ? join(userDataPath, 'shell-wrappers') : join(tmpdir(), 'orca-shell-wrappers')
+  return userDataPath
+    ? join(userDataPath, 'shell-wrappers')
+    : join(tmpdir(), 'openkodo-shell-wrappers')
 }
 
 // Cache by base directory so changing OPENKODO_USER_DATA_PATH invalidates the digest.

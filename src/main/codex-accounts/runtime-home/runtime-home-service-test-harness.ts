@@ -28,7 +28,7 @@ export function setRealHomeRoutableForTest(enabled: boolean): void {
   if (enabled) {
     delete process.env.CODEX_HOME
   } else {
-    process.env.CODEX_HOME = join(tmpdir(), 'orca-test-custom-codex-home')
+    process.env.CODEX_HOME = join(tmpdir(), 'openkodo-test-custom-codex-home')
   }
 }
 
@@ -100,7 +100,7 @@ export function createStore(settings: GlobalSettings) {
 export function createManagedAuth(rootDir: string, accountId: string, auth: string): string {
   const managedHomePath = join(rootDir, 'codex-accounts', accountId, 'home')
   mkdirSync(managedHomePath, { recursive: true })
-  writeFileSync(join(managedHomePath, '.orca-managed-home'), `${accountId}\n`, 'utf-8')
+  writeFileSync(join(managedHomePath, '.openkodo-managed-home'), `${accountId}\n`, 'utf-8')
   writeFileSync(join(managedHomePath, 'auth.json'), auth, 'utf-8')
   return managedHomePath
 }
@@ -166,8 +166,8 @@ export function setupRuntimeHomeTest(): void {
   vi.clearAllMocks()
   testState.previousCodexHome = process.env.CODEX_HOME
   setRealHomeRoutableForTest(true)
-  testState.userDataDir = mkdtempSync(join(tmpdir(), 'orca-runtime-home-'))
-  testState.fakeHomeDir = mkdtempSync(join(tmpdir(), 'orca-codex-home-'))
+  testState.userDataDir = mkdtempSync(join(tmpdir(), 'openkodo-runtime-home-'))
+  testState.fakeHomeDir = mkdtempSync(join(tmpdir(), 'openkodo-codex-home-'))
   // Keep Windows profile and registry path probes inside the fake home.
   vi.doMock('../../windows/windows-native-registry', () => ({
     loadWindowsNativeRegistry: () => {

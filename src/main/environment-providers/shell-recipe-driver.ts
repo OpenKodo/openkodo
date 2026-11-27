@@ -1,7 +1,7 @@
 // openkodo.yaml environment recipes and plugin VM recipes as an environment provider: each lifecycle
 // call runs the recipe's shell step, exactly as the runtime service did before the driver seam.
 import { z } from 'zod'
-import type { OrcaVmRecipe } from '../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 import {
   EphemeralVmRecipeResultSchema,
   type EphemeralVmRecipeResult,
@@ -59,7 +59,7 @@ export class ShellRecipeDriver implements EnvironmentProviderDriver {
   private readonly statuses = new Map<string, EnvironmentStatus>()
 
   constructor(
-    private readonly recipe: OrcaVmRecipe,
+    private readonly recipe: OpenKodoVmRecipe,
     private readonly repoPath: string
   ) {
     this.capabilities = {

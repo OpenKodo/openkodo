@@ -12,7 +12,7 @@ import {
   taskNotFoundError,
   taskNotStartableError
 } from '../../coordinator/dispatch/task-dispatch-refusal'
-import { dispatchAssigneeOrcaSessionId } from '../../addressing/session-lineage/dispatch-assignee-orca-session-id'
+import { dispatchAssigneeOpenKodoSessionId } from '../../addressing/session-lineage/dispatch-assignee-openkodo-session-id'
 import { assertTakesNewWork } from '../worker-terminal/worker-terminal-transfer'
 import {
   DISPATCH_LINK_COLUMNS,
@@ -73,7 +73,7 @@ export function createDispatchContext(
       launchTokenHash: launchTokenHash ?? null,
       assigneeHandle,
       assigneePaneKey: assigneePaneKey ?? null,
-      assigneeOrcaSessionId: dispatchAssigneeOrcaSessionId({
+      assigneeOpenKodoSessionId: dispatchAssigneeOpenKodoSessionId({
         handle: assigneeHandle,
         processIncarnation
       }),
@@ -150,14 +150,14 @@ export function getDispatchContextById(
 /** The newest Dispatches a chat created, by the OpenKodo session id it is addressed by. */
 export function listDispatchIdsCreatedBySession(
   this: OrchestrationDb,
-  orcaSessionId: string,
+  openkodoSessionId: string,
   limit: number
 ): string[] {
   const rows = this.db
     .prepare(
-      'SELECT id FROM dispatch_contexts WHERE creator_orca_session_id = ? ORDER BY rowid DESC LIMIT ?'
+      'SELECT id FROM dispatch_contexts WHERE creator_openkodo_session_id = ? ORDER BY rowid DESC LIMIT ?'
     )
-    .all(orcaSessionId, limit)
+    .all(openkodoSessionId, limit)
   return rows.flatMap((row) =>
     typeof row === 'object' && row !== null && 'id' in row && typeof row.id === 'string'
       ? [row.id]
@@ -168,43 +168,48 @@ export function listDispatchIdsCreatedBySession(
 /** A Dispatch and the chat or pane that created it. */
 export type CreatedDispatch = {
   id: string
-  creatorOrcaSessionId: string | null
+  creatorOpenKodoSessionId: string | null
   creatorPaneKey: string | null
 }
 
 // Each creator column is matched through its own index; ids arrive as one JSON array, so no variable limit.
 export const DISPATCHES_CREATED_BY_ANY_SQL = `
   WITH created AS (
-    SELECT rowid AS seq, id, status, creator_orca_session_id, creator_pane_key FROM dispatch_contexts
-    WHERE creator_orca_session_id IN (SELECT value FROM json_each(?1))
+    SELECT rowid AS seq, id, status, creator_openkodo_session_id, creator_pane_key FROM dispatch_contexts
+    WHERE creator_openkodo_session_id IN (SELECT value FROM json_each(?1))
     UNION
-    SELECT rowid AS seq, id, status, creator_orca_session_id, creator_pane_key FROM dispatch_contexts
+    SELECT rowid AS seq, id, status, creator_openkodo_session_id, creator_pane_key FROM dispatch_contexts
     WHERE creator_pane_key IN (SELECT value FROM json_each(?2))
   )
-  SELECT id, creator_orca_session_id, creator_pane_key FROM created
+  SELECT id, creator_openkodo_session_id, creator_pane_key FROM created
   WHERE status IN ('pending', 'dispatched')
   UNION
-  SELECT id, creator_orca_session_id, creator_pane_key FROM (
+  SELECT id, creator_openkodo_session_id, creator_pane_key FROM (
     SELECT * FROM created ORDER BY seq DESC LIMIT ?3
   )`
 
 /** In one query: every unsettled Dispatch these chats or panes created, and their newest `recentLimit` of any status. */
 export function listDispatchesCreatedByAny(
   this: OrchestrationDb,
-  creators: { orcaSessionIds: readonly string[]; paneKeys: readonly string[] },
+  creators: { openkodoSessionIds: readonly string[]; paneKeys: readonly string[] },
   recentLimit: number
 ): CreatedDispatch[] {
   const rows = this.db
     .prepare(DISPATCHES_CREATED_BY_ANY_SQL)
-    .all(JSON.stringify(creators.orcaSessionIds), JSON.stringify(creators.paneKeys), recentLimit)
+    .all(
+      JSON.stringify(creators.openkodoSessionIds),
+      JSON.stringify(creators.paneKeys),
+      recentLimit
+    )
   return rows.flatMap((row) =>
     typeof row === 'object' && row !== null && 'id' in row && typeof row.id === 'string'
       ? [
           {
             id: row.id,
-            creatorOrcaSessionId:
-              'creator_orca_session_id' in row && typeof row.creator_orca_session_id === 'string'
-                ? row.creator_orca_session_id
+            creatorOpenKodoSessionId:
+              'creator_openkodo_session_id' in row &&
+              typeof row.creator_openkodo_session_id === 'string'
+                ? row.creator_openkodo_session_id
                 : null,
             creatorPaneKey:
               'creator_pane_key' in row && typeof row.creator_pane_key === 'string'
@@ -218,7 +223,7 @@ export function listDispatchesCreatedByAny(
 
 export const DISPATCH_LINKS_CREATED_BY_ANY_SQL = `
   SELECT ${DISPATCH_LINK_COLUMNS} FROM dispatch_contexts d ${DISPATCH_LINK_JOINS}
-  WHERE d.creator_orca_session_id IN (SELECT value FROM json_each(?1))
+  WHERE d.creator_openkodo_session_id IN (SELECT value FROM json_each(?1))
   UNION
   SELECT ${DISPATCH_LINK_COLUMNS} FROM dispatch_contexts d ${DISPATCH_LINK_JOINS}
   WHERE d.creator_pane_key IN (SELECT value FROM json_each(?2))`
@@ -226,12 +231,12 @@ export const DISPATCH_LINKS_CREATED_BY_ANY_SQL = `
 /** Every Dispatch these chats or panes created, of any age, with only the columns that place it. */
 export function listDispatchLinksCreatedByAny(
   this: OrchestrationDb,
-  creators: { orcaSessionIds: readonly string[]; paneKeys: readonly string[] }
+  creators: { openkodoSessionIds: readonly string[]; paneKeys: readonly string[] }
 ): DispatchCreatorLink[] {
   return dispatchLinkRows(
     this.db
       .prepare(DISPATCH_LINKS_CREATED_BY_ANY_SQL)
-      .all(JSON.stringify(creators.orcaSessionIds), JSON.stringify(creators.paneKeys))
+      .all(JSON.stringify(creators.openkodoSessionIds), JSON.stringify(creators.paneKeys))
   )
 }
 

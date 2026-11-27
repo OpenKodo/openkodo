@@ -135,7 +135,7 @@ export function connectorHello(
   const envelope = {
     v: 1,
     contract: CONNECTOR_CONTRACT_VERSION,
-    orcaVersion: machine.orcaVersion,
+    openkodoVersion: machine.openkodoVersion,
     platform: process.platform,
     runtime: machine.runtime,
     hostName: machine.hostName(),

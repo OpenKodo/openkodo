@@ -206,8 +206,8 @@ function MobileNativeChatMessageImpl({
     return botRow
   }
   // A hand-over: its divider, then any goal as the owner's message (the projection gave it those words).
-  const tookOver = message.orcaNotice === 'took-over' ? message.tookOver : undefined
-  if (message.orcaNotice === 'took-over' && !tookOver?.goal) {
+  const tookOver = message.openkodoNotice === 'took-over' ? message.tookOver : undefined
+  if (message.openkodoNotice === 'took-over' && !tookOver?.goal) {
     return tookOver ? (
       <MobileNativeChatTookOverRow rowId={rowId} workspace={tookOver.workspace} />
     ) : (

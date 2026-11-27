@@ -2,9 +2,9 @@ import {
   normalizeMobileSessionTabSelection,
   restoreLegacyMobileSessionNavigation
 } from '../layout/mobile-session-tab-selection'
-import type { OrcaRuntimeWithBuildHeadlessMobileSessionBrowserTabs as BuildHeadlessMobileSessionBrowserTabsMethods } from '../../session-lifecycle/projection/build-headless-mobile-session-browser-tabs'
-import type { OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab as StoredMobileSnapshotHasStalePreservedTabMethods } from './mobile-session-publication-preservation'
-import type { OrcaRuntimeWithReconcileHeadlessMobileSessionBrowserTabs as ReconcileHeadlessMobileSessionBrowserTabsMethods } from '../../session-lifecycle/projection/reconcile-headless-mobile-session-browser-tabs'
+import type { OpenKodoRuntimeWithBuildHeadlessMobileSessionBrowserTabs as BuildHeadlessMobileSessionBrowserTabsMethods } from '../../session-lifecycle/projection/build-headless-mobile-session-browser-tabs'
+import type { OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab as StoredMobileSnapshotHasStalePreservedTabMethods } from './mobile-session-publication-preservation'
+import type { OpenKodoRuntimeWithReconcileHeadlessMobileSessionBrowserTabs as ReconcileHeadlessMobileSessionBrowserTabsMethods } from '../../session-lifecycle/projection/reconcile-headless-mobile-session-browser-tabs'
 import { RuntimeSessionTabsInventoryPublication } from '../inventory/session-tabs-inventory-publication'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import { getRuntimeBrowserPageRegistry } from '../../browser/client-pages/runtime-browser-page-registry'
@@ -31,7 +31,7 @@ import {
 import { appendBrowserTabOrder } from '../../session-lifecycle/projection/mobile-session-browser-group-projection'
 import { headlessMobileSnapshotContentUnchanged } from '../publication/mobile-session-snapshot-equality'
 
-export abstract class OrcaRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession extends RuntimeSessionTabsInventoryPublication {
+export abstract class OpenKodoRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession extends RuntimeSessionTabsInventoryPublication {
   protected abstract buildHeadlessMobileSessionBrowserTabs(
     ...args: Parameters<
       BuildHeadlessMobileSessionBrowserTabsMethods['buildHeadlessMobileSessionBrowserTabs']

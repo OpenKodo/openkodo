@@ -22,7 +22,7 @@ import {
   GoogleSignInWaitParams,
   GoogleStatusParams
 } from '../../../../shared/rpc-contract/google-params'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { Bot } from '../../../../shared/bot-types'
 import { BotFailureError } from '../../../../shared/bots/bot-failure-copy'
 import { defineMethod, InvalidArgumentError, type RpcContext } from '../core'
@@ -61,7 +61,7 @@ function refuseFromBot(botToken: string | undefined, context: RpcContext): void 
 }
 
 async function statusView(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   connect: GoogleConnect
 ): Promise<Omit<GoogleStatusView, 'accounts'>> {
   return {

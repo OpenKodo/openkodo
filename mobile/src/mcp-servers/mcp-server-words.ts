@@ -76,7 +76,7 @@ export const isAllMcpWorkspaces = (workspaces: PhoneMcpWorkspaces): boolean =>
 export const isMcpWorkspaceOn = (workspaces: PhoneMcpWorkspaces, key: string): boolean =>
   workspaces.on.includes(key) || (workspaces.later && !workspaces.off.includes(key))
 
-/** "All", "All but orca-docs", "orca" or "None"; `names` maps a workspace key to its name. */
+/** "All", "All but openkodo-docs", "openkodo" or "None"; `names` maps a workspace key to its name. */
 export function mcpWorkspacesValue(
   workspaces: PhoneMcpWorkspaces,
   names: ReadonlyMap<string, string>,

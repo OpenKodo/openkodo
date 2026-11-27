@@ -258,7 +258,7 @@ export function wslMovedProjectOnHost(
   const environment = environments.find((candidate) => candidate.id === host.environmentId)
   return environment &&
     isWslHostRuntimeEnvironment(environment) &&
-    environment.orcadDeployment.distro.toLowerCase() === project.distro.toLowerCase()
+    environment.openkododDeployment.distro.toLowerCase() === project.distro.toLowerCase()
     ? project
     : null
 }

@@ -4,7 +4,7 @@ import { getClaudeAgentViewService } from '../../claude/agent-view/agent-view-se
 import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron'
 import type { Store } from '../../persistence/loading-store/store'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { listSystemFontFamilies } from '../../window/desktop-integration/system-fonts'
 import { registerSettingsImportHandlers } from './settings-import-handlers'
 import { setMainUiLanguage } from '../../i18n/main-i18n'

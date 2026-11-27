@@ -1,5 +1,5 @@
 import { isQuietBotResult, quietBotResultText } from '../../../bot-quiet-result'
-import { isNativeChatOrcaCard } from '../../native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../../native-chat-openkodo-card'
 import { nativeChatRowRunsPullRequestCreate } from '../../tools/native-chat-opened-pull-requests'
 import type { NativeChatMessage } from '../../native-chat-types'
 import { deriveNativeChatRowContent } from '../row-content/native-chat-row-content'
@@ -13,8 +13,8 @@ function fromOtherAgent(message: NativeChatMessage): boolean {
  *  OpenKodo's own notice, another agent's message (item, worker or chat mail) or an automation's run. */
 function opensWithoutAsking(message: NativeChatMessage): boolean {
   return (
-    message.orcaNotice === 'card-answer' ||
-    message.orcaNotice === 'bot-created' ||
+    message.openkodoNotice === 'card-answer' ||
+    message.openkodoNotice === 'bot-created' ||
     message.automationRun !== undefined ||
     fromOtherAgent(message)
   )
@@ -23,7 +23,7 @@ function opensWithoutAsking(message: NativeChatMessage): boolean {
 /** A row a quiet turn still draws: OpenKodo's cards, another agent's message and the automation run. */
 function staysInQuietTurn(message: NativeChatMessage): boolean {
   return (
-    (isNativeChatOrcaCard(message) && message.orcaNotice !== 'card-answer') ||
+    (isNativeChatOpenKodoCard(message) && message.openkodoNotice !== 'card-answer') ||
     message.automationRun !== undefined ||
     fromOtherAgent(message)
   )

@@ -33,6 +33,19 @@
           }
         ]
       }
+    },
+    {
+      "files": ["src/bots/MobileBotImportSheet.tsx"],
+      "rules": {
+        "max-lines": [
+          "error",
+          {
+            "max": 420,
+            "skipBlankLines": true,
+            "skipComments": true
+          }
+        ]
+      }
     }
   ]
 }

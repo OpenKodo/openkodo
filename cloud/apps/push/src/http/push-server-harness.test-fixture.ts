@@ -10,10 +10,10 @@ import {
   type PushHostKeypair
 } from '../host-auth/host-challenge-answering.test-fixture.js'
 import { openInMemoryPushDatabase } from '../database/push-database.js'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 import { createPushServer } from '../push-server.js'
 
-export const GATEWAY_ORIGIN = 'https://push.onorca.dev'
+export const GATEWAY_ORIGIN = 'https://push.onopenkodo.dev'
 export const APNS_TOKEN = 'a'.repeat(64)
 export const FCM_TOKEN = 'cQ1abcDEF_gh:APA91bZZ-zz0123456789abcdefghijklmnopqrstuvwxyz'
 
@@ -44,8 +44,8 @@ export function testPushConfig(): PushConfig {
     dataDir: './data/push-test',
     databasePoolMax: 10,
     apns: { keyPem: privateKey, keyId: 'ABCDE12345', teamId: 'TEAM123456' },
-    apnsTopic: 'com.stably.orca.mobile',
-    fcmProjectId: 'onorca-cloud',
+    apnsTopic: 'dev.openkodo.mobile',
+    fcmProjectId: 'onopenkodo-cloud',
     trustedProxyHops: 0
   }
 }

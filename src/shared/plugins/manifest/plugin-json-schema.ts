@@ -12,8 +12,8 @@ import {
 // Why the format in the file name: a later breaking format publishes beside v2, so a URL an author
 // pinned never changes meaning under them.
 export const PLUGIN_SCHEMA_DIRECTORY = 'docs/schemas/plugins'
-export const PLUGIN_MANIFEST_SCHEMA_FILE = 'orca-plugin.v2.schema.json'
-export const PLUGIN_CATALOG_SCHEMA_FILE = 'orca-catalog.v2.schema.json'
+export const PLUGIN_MANIFEST_SCHEMA_FILE = 'openkodo-plugin.v2.schema.json'
+export const PLUGIN_CATALOG_SCHEMA_FILE = 'openkodo-catalog.v2.schema.json'
 /** Git ref for published schemas; switch to the first v2 release tag when it ships. */
 export const PLUGIN_SCHEMA_GIT_REF = 'main'
 export const PLUGIN_SCHEMA_BASE_URL = `https://raw.githubusercontent.com/OpenKodo/openkodo/${PLUGIN_SCHEMA_GIT_REF}/${PLUGIN_SCHEMA_DIRECTORY}/`
@@ -66,7 +66,7 @@ export function pluginSchemaGeneratedFiles(): Record<string, string> {
       file: 'openkodo-plugin.json',
       schemaFile: PLUGIN_MANIFEST_SCHEMA_FILE,
       sinceNote:
-        '`Since` is the first OpenKodo release that reads the field; raise `engines.orca` when you use a newer one.',
+        '`Since` is the first OpenKodo release that reads the field; raise `engines.openkodo` when you use a newer one.',
       appendix: PLUGIN_MANIFEST_POLICY_NOTES
     }),
     'docs/reference/plugin-catalog.md': renderPluginSchemaReference(catalog, {

@@ -89,7 +89,7 @@ function clearJournalDomainContext(
     target,
     {
       kind: 'item',
-      identity: { provider: 'orca', clientMessageId: `context-clear:${boundary.operationId}` },
+      identity: { provider: 'openkodo', clientMessageId: `context-clear:${boundary.operationId}` },
       body: {
         kind: 'status',
         text: 'Context cleared',

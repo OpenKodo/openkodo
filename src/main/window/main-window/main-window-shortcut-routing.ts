@@ -65,7 +65,7 @@ export function installMainWindowShortcutRouting(args: {
 
     const capturedTerminalActionId =
       focusedShortcutContext.context === 'terminal' &&
-      focusedShortcutContext.terminalShortcutPolicy === 'orca-first' &&
+      focusedShortcutContext.terminalShortcutPolicy === 'openkodo-first' &&
       windowShortcutActionCapturesTerminal(action)
         ? getWindowShortcutActionId(action)
         : null

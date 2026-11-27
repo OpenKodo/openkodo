@@ -1,6 +1,6 @@
 # Jira board lanes reorder by drag
 
-Run `ORCA_BACKGROUND_LAUNCH=1 node tests/tools/jira-board-column-order-rendered/run.mjs`.
+Run `OPENKODO_BACKGROUND_LAUNCH=1 node tests/tools/jira-board-column-order-rendered/run.mjs`.
 
 Uses the production `TaskPageJiraBoard` and its lane-order storage in a hidden Electron
 renderer with the canonical CSS. All windows stay invisible and unfocused. No dependency

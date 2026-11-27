@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const mobileDir = fileURLToPath(new URL('../../../../mobile', import.meta.url))
 
-export const ROUTE_ENTRY_NAMESPACE = 'orca-route-entry'
+export const ROUTE_ENTRY_NAMESPACE = 'openkodo-route-entry'
 
 export const isScriptOutput = (path) => path.endsWith('.js')
 

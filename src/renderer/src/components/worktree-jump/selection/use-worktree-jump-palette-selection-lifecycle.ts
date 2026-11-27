@@ -97,7 +97,7 @@ export function useWorktreeJumpPaletteSelectionLifecycle({
       previousBrowserFocusTargetRef.current =
         activeTabType === 'browser' &&
         document.activeElement instanceof HTMLElement &&
-        document.activeElement.closest('[data-orca-browser-address-bar="true"]')
+        document.activeElement.closest('[data-openkodo-browser-address-bar="true"]')
           ? 'address-bar'
           : 'webview'
       previousFocusElementRef.current =

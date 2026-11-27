@@ -22,7 +22,7 @@ export type ClaudeThemeOwnership = {
 
 type OwnershipByConfigDir = Map<string, ClaudeThemeOwnership>
 
-// Why under ~/.orca, not userData: every OpenKodo build on this machine must agree on what it replaced.
+// Why under ~/.openkodo, not userData: every OpenKodo build on this machine must agree on what it replaced.
 function ownershipPath(): string {
   return join(openKodoHomePath(), 'claude-theme-sync.json')
 }

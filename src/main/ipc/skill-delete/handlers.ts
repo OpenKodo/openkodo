@@ -1,6 +1,6 @@
 import { app } from 'electron'
 import type { Store } from '../../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import {
   SkillDeleteRequestSchema,
   type SkillDeletePlan,
@@ -16,7 +16,10 @@ import { resolveSkillDiscoveryTarget } from '../../skills/discovery/skill-discov
 import { handleMainWindowSkillIpc } from '../skills/skill-ipc-main-window'
 
 /** Local IPC only: remote scan/delete use renderer runtime RPC, so their capability checks stay on that transport. */
-export function registerSkillDeleteIpcHandlers(store: Store, runtime?: OrcaRuntimeService): void {
+export function registerSkillDeleteIpcHandlers(
+  store: Store,
+  runtime?: OpenKodoRuntimeService
+): void {
   const dependencies: SkillDeleteRequestDependencies = {
     repos: () => store.getRepos(),
     ...(runtime

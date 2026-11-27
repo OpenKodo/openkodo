@@ -36,7 +36,7 @@ import { createWebMobileApi } from './preload-api/host-capabilities/web-mobile-a
 import { createWebNativeChatApi } from './preload-api/agents/web-native-chat-api'
 import { createNotificationsApi } from './preload-api/app/web-notifications-api'
 import { createWebOnboardingApi } from './preload-api/app/web-onboarding-api'
-import { createWebOrcaProfilesApi } from './preload-api/app/web-orca-profiles-api'
+import { createWebOpenKodoProfilesApi } from './preload-api/app/web-openkodo-profiles-api'
 import { createWebPlatformApi } from './preload-api/host-capabilities/web-platform-api'
 import { createWebPluginsApi } from './preload-api/host-capabilities/web-plugins-api'
 import { createRateLimitsApi } from './preload-api/agents/web-rate-limits-api'
@@ -79,7 +79,7 @@ function createWebPreloadApi(): Omit<Partial<PreloadApi>, 'settings' | 'plugins'
     ...createWebPlatformApi(),
     ...createWebWorkspacePortsApi(),
     linkPreview: createWebLinkPreviewApi(),
-    ...createWebOrcaProfilesApi(),
+    ...createWebOpenKodoProfilesApi(),
     ...createWebE2EApi(),
     ...createWebSettingsApi(),
     keybindings: createWebKeybindingsApi(),

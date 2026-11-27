@@ -20,7 +20,7 @@ import {
 } from '../../../shared/plugins/images/plugin-image-url'
 import type { PluginCatalogRelease } from '../../../shared/plugins/catalog/plugin-catalog-release'
 import { estimatePluginAddedAt } from '../../../shared/plugins/catalog/plugin-added-at'
-import type { RequiredPluginRule } from '../../../shared/orca-profiles/orca-cloud-team-policy'
+import type { RequiredPluginRule } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import type { PluginMarketplaceTeamPolicy } from './plugin-marketplace-team-policy'
 import { requiredPluginReleaseAllowed } from '../installation/required-plugin-release-policy'
 

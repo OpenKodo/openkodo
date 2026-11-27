@@ -1,6 +1,6 @@
 // An ask a paired server's agent sent an agent here is admitted as the owner's own mail, through
 // the peer-mail bot path, once allowed or approved; the waiting row goes in the admission's write.
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { OrchestrationError } from '../../orchestration-error'
 import { ClientAskPayload } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 import { deliverPeerMailToBot } from '../../../rpc/methods/orchestration/federation/peer-mail-bot-delivery'
@@ -16,7 +16,7 @@ import { toSafeDisplayLine } from '../../../../../shared/text/display-text-safet
 // Admissions running now, by message id, so two answers or two passes never admit one ask twice.
 const admitting = new Set<string>()
 
-async function admit(runtime: OrcaRuntimeService, row: PairedServerAskRow): Promise<void> {
+async function admit(runtime: OpenKodoRuntimeService, row: PairedServerAskRow): Promise<void> {
   const db = runtime.getOrchestrationDb()
   const parsed = ClientAskPayload.safeParse(safeJson(row.payload))
   // The pairing the ask came under, kept here: admitting needs no connection, and the answer goes
@@ -77,7 +77,7 @@ async function admit(runtime: OrcaRuntimeService, row: PairedServerAskRow): Prom
 /** Admits every ask of this server (or every server) that is allowed or approved; one pass at a
  *  time per ask. */
 export async function admitPairedServerAsks(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   environmentId?: string
 ): Promise<void> {
   const db = runtime.getOrchestrationDb()

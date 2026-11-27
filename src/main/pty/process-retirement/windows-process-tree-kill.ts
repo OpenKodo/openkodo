@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { admitSelfInitiatedTreeKill } from './own-chromium-tree-kill-guard'
 
 export type WindowsTreeKiller = (rootPid: number, deps?: { site?: string }) => Promise<void>

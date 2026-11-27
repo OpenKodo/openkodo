@@ -1,11 +1,11 @@
 // Signed front-door header. A stateless ingress proxy (one hostname per ingress, e.g. the Hong Kong
 // one for mainland China hosts) re-originates requests to the relay edge and adds
-//   x-orca-ingress: v1 <name> <origin> <client-ip> <unix-seconds> <hmac-sha256 base64url>
+//   x-openkodo-ingress: v1 <name> <origin> <client-ip> <unix-seconds> <hmac-sha256 base64url>
 // The MAC covers everything before it, under a secret shared by the edge and its ingresses. The
 // edge trusts the fields only when the MAC verifies inside the skew window; otherwise it behaves as
 // if the header were absent. Both sides use WebCrypto (Node 24 and Workers).
 
-export const INGRESS_HEADER = 'x-orca-ingress'
+export const INGRESS_HEADER = 'x-openkodo-ingress'
 export const INGRESS_MAX_SKEW_SECONDS = 120
 // Secrets shorter than this are a misconfiguration, not a key.
 export const INGRESS_SECRET_MIN_LENGTH = 32

@@ -6,7 +6,7 @@ import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { performance } from 'node:perf_hooks'
 import { build } from 'esbuild'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { createCheckLogFixture } from './check-job-log-test-fixture.mjs'
 import {
   assertWatchdogExit,
@@ -52,7 +52,7 @@ export async function prepareBenchmark(
   root = process.cwd(),
   { profile = false, compareBaseline = true } = {}
 ) {
-  const directory = await mkdtemp(path.join(os.tmpdir(), 'orca-check-log-benchmark-'))
+  const directory = await mkdtemp(path.join(os.tmpdir(), 'openkodo-check-log-benchmark-'))
   try {
     const baseline = new Map()
     const current = new Map()

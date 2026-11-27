@@ -104,7 +104,7 @@ function interactionSource(observation: SourceObservation): FirstAgentInteractio
   if (observation.name === 'agent_prompt_sent') {
     return UNATTRIBUTED_LAUNCH_SOURCES.has(observation.props.launch_source)
       ? 'unattributed_prompt'
-      : 'orca_send'
+      : 'openkodo_send'
   }
   return null
 }

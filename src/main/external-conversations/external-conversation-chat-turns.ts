@@ -283,7 +283,7 @@ export class ChatTurns {
         origin === 'local' && !shared && Boolean(opener && isConversationReport(opener.body))
       if (!heard && !reported) {
         // No one in the thread asked: a bot's turn OpenKodo raised tells how it went, never what it said.
-        if (linked.link.bot && promptRaisedBy(linked.link, turn.opener ?? null) === 'orca') {
+        if (linked.link.bot && promptRaisedBy(linked.link, turn.opener ?? null) === 'openkodo') {
           endAdoptedTurn(end, this.deps.promptsAudience, turn)
         }
         return end.leave.settle()

@@ -1,5 +1,5 @@
-import { assertWslDistroAllowed } from '@orca/process-host/wsl-distro-allowlist'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { assertWslDistroAllowed } from '@openkodo/process-host/wsl-distro-allowlist'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { getDefaultWslDistro } from '../../../wsl/discovery/distro-catalog'
 import { parseWslPath } from '../../../wsl/filesystem/unc-path-access'
 import type { WslUncPathInfo as WslPathInfo } from '../../../../shared/file-access/wsl-paths'
@@ -273,7 +273,7 @@ export function withWslPreparation(
       '/bin/sh',
       '-c',
       preparation.script,
-      'orca-generation',
+      'openkodo-generation',
       ...preparation.args,
       ...command.args.slice(execIndex + 1)
     ]

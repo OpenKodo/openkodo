@@ -6,7 +6,7 @@ import {
 describe('relay protocol contract', () => {
   it('locks the complete host key-possession transcript', () => {
     const transcript = buildHostProofTranscript({
-      relayOrigin: 'https://relay.onorca.dev',
+      relayOrigin: 'https://relay.onopenkodo.dev',
       relayEphemeralPublicKey: new Uint8Array(32).fill(1),
       challengeNonce: new Uint8Array(24).fill(4),
       challengeId: 'challenge-1',

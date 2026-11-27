@@ -41,7 +41,7 @@ export function beginEphemeralVmProvisioning(
   args: ProvisionEphemeralVmRuntimeArgs
 ): EphemeralVmWriteAhead {
   const writeAhead: EphemeralVmWriteAhead = {
-    instanceId: `orca-${randomUUID()}`,
+    instanceId: `openkodo-${randomUUID()}`,
     createdAt: args.now ?? Date.now(),
     launched: false
   }

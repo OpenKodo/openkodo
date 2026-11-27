@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { RpcContext } from '../../../rpc/core'
 import { remoteForwardRequestId } from './remote-owned-calls'
 
@@ -8,11 +8,11 @@ import { remoteForwardRequestId } from './remote-owned-calls'
  * Never one shared identity for every terminal, so two callers reusing an ID never collide.
  */
 export function remoteForwardCallerNamespace(
-  runtime: Pick<OrcaRuntimeService, 'getOrchestrationDb' | 'getTerminalPaneKey'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getOrchestrationDb' | 'getTerminalPaneKey'>,
   ctx: Pick<RpcContext, 'orchestrationCaller' | 'orchestrationCompatibilityEvidence'>,
   callerHandle: string | undefined
 ): string {
-  const session = ctx.orchestrationCaller?.orcaSessionId
+  const session = ctx.orchestrationCaller?.openkodoSessionId
   if (session) {
     return `session:${session}`
   }
@@ -29,7 +29,7 @@ export function remoteForwardCallerNamespace(
 export type RemoteForwardKey = { key: string; requestId: string }
 
 export function remoteForwardKey(
-  runtime: Pick<OrcaRuntimeService, 'getOrchestrationDb' | 'getTerminalPaneKey'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getOrchestrationDb' | 'getTerminalPaneKey'>,
   ctx: Pick<RpcContext, 'orchestrationCaller' | 'orchestrationCompatibilityEvidence'>,
   callerHandle: string | undefined,
   requestId: string | undefined

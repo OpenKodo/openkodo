@@ -2,9 +2,9 @@ import type {
   SkillCloudOperation,
   SkillCloudOptions
 } from '../../../shared/skills/sharing/skill-cloud-contract'
-import { ensureActiveOrcaProfile } from '../../orca-profiles/profile-index-store'
-import { getOrcaCloudAuthConfig } from '../../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import { runWithFreshOrcaCloudSession } from '../../orca-profiles/cloud-session/profile-cloud-session-refresh'
+import { ensureActiveOpenKodoProfile } from '../../openkodo-profiles/profile-index-store'
+import { getOpenKodoCloudAuthConfig } from '../../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import { runWithFreshOpenKodoCloudSession } from '../../openkodo-profiles/cloud-session/profile-cloud-session-refresh'
 import {
   allowsArtifactCloudAuthOverride,
   resolveArtifactCloudApiUrl
@@ -16,7 +16,7 @@ export async function runSkillCloudOperation<T>(input: {
   operation(token: string, apiUrl: string): Promise<T>
 }): Promise<SkillCloudOperation<T>> {
   const apiUrl = resolveArtifactCloudApiUrl(input.options.apiUrl)
-  const active = ensureActiveOrcaProfile(input.userDataPath)
+  const active = ensureActiveOpenKodoProfile(input.userDataPath)
   const stamp = {
     profileId: active.profile.id,
     userId: active.profile.cloud?.userId,
@@ -24,7 +24,7 @@ export async function runSkillCloudOperation<T>(input: {
     organizationId: active.profile.cloud?.activeOrgId ?? ''
   }
   const assertCurrent = () => {
-    const current = ensureActiveOrcaProfile(input.userDataPath)
+    const current = ensureActiveOpenKodoProfile(input.userDataPath)
     if (
       current.profile.id !== stamp.profileId ||
       current.profile.cloud?.userId !== stamp.userId ||
@@ -43,11 +43,11 @@ export async function runSkillCloudOperation<T>(input: {
     assertCurrent()
     return { status: 'ok', value }
   }
-  const config = getOrcaCloudAuthConfig()
+  const config = getOpenKodoCloudAuthConfig()
   if (!config.configured) {
     return { status: 'unconfigured', message: config.setupMessage }
   }
-  const result = await runWithFreshOrcaCloudSession(
+  const result = await runWithFreshOpenKodoCloudSession(
     config.config,
     active,
     input.userDataPath,

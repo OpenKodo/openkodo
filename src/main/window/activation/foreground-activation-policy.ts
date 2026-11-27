@@ -9,13 +9,13 @@ type ActivationPolicyApp = {
 
 type PolicyEnv = Readonly<Record<string, string | undefined>>
 
-/** orcad's headless browser provider: a serve process on a throwaway profile that no user drives. */
-export function isOrcadSidecarLaunch(env: PolicyEnv = process.env): boolean {
-  return env.OPENKODO_ORCAD_SIDECAR === '1'
+/** openkodod's headless browser provider: a serve process on a throwaway profile that no user drives. */
+export function isOpenkododSidecarLaunch(env: PolicyEnv = process.env): boolean {
+  return env.OPENKODO_OPENKODOD_SIDECAR === '1'
 }
 
 function isExplicitBackgroundLaunch(env: PolicyEnv): boolean {
-  return env.OPENKODO_BACKGROUND_LAUNCH === '1' || isOrcadSidecarLaunch(env)
+  return env.OPENKODO_BACKGROUND_LAUNCH === '1' || isOpenkododSidecarLaunch(env)
 }
 
 /** True when this process must not steal focus, raise windows, or activate the app. */

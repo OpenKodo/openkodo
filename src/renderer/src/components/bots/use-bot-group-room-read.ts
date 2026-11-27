@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useAppStore } from '@/store'
 import { isWorkspaceFlagSet } from '@/store/slices/workspace-attention/workspace-unread-flag-reads'
-import { isOrcaWindowForegroundFocused } from '@/attention/orca-window-foreground-focus'
+import { isOpenKodoWindowForegroundFocused } from '@/attention/openkodo-window-foreground-focus'
 import { folderWorkspaceKey } from '../../../../shared/workspace/identity/workspace-scope'
 
 /** An open room reads the unread a member's reply raised on its home while it was already on
@@ -13,7 +13,7 @@ export function useBotGroupRoomRead(
   const workspaceId = folderWorkspaceId === undefined ? null : folderWorkspaceKey(folderWorkspaceId)
   const unread = useAppStore((s) => workspaceId !== null && isWorkspaceFlagSet(s, workspaceId))
   useEffect(() => {
-    if (unread && isVisible && workspaceId !== null && isOrcaWindowForegroundFocused()) {
+    if (unread && isVisible && workspaceId !== null && isOpenKodoWindowForegroundFocused()) {
       useAppStore
         .getState()
         .readOnScreenAttention(

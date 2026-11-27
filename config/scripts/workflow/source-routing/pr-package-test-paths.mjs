@@ -55,9 +55,9 @@ const SHARED_PACKAGE_PREFIXES = [
   'config/scripts/desktop-distribution/macos/',
   'config/scripts/build/mobile-web-app/build-',
   'config/scripts/native-build/composition/build-',
-  'config/scripts/orcad-distribution/prebuilds/build-',
-  'config/scripts/orcad-distribution/template/build-',
-  'config/scripts/orcad-distribution/server-bundle/build-',
+  'config/scripts/openkodod-distribution/prebuilds/build-',
+  'config/scripts/openkodod-distribution/template/build-',
+  'config/scripts/openkodod-distribution/server-bundle/build-',
   'config/scripts/plugin-build/declarative-runtime/build-',
   'config/scripts/terminal-dependencies/serialize-addon/build-',
   'config/scripts/build-identity/build-',
@@ -70,7 +70,7 @@ const SHARED_PACKAGE_PREFIXES = [
   'config/scripts/electron-installation/platform-layout/install-electron-package-binary',
   'config/scripts/verify-packaged',
   'config/scripts/desktop-distribution/runtime-verification/verify-packaged',
-  'config/scripts/orcad-distribution/template/verify-packaged',
+  'config/scripts/openkodod-distribution/template/verify-packaged',
   'config/scripts/verify-skills-cli-runtime',
   'config/scripts/runtime-verification/skills-cli/verify-skills-cli-runtime',
   'config/scripts/run-electron-vite',
@@ -85,14 +85,14 @@ const SHARED_PACKAGE_PREFIXES = [
   'resources/skills/',
   // The packaged CLI ships tsc output beside node_modules, so any CLI module's imports can break it (#48778).
   'src/cli/',
-  // The MCP SDK is a bundled devDependency here: `orca mcp connect`'s bridge and the shared server
+  // The MCP SDK is a bundled devDependency here: `openkodo mcp connect`'s bridge and the shared server
   // processes import it, and only the packaged app checks what that pulls in (#48770 shipped ajv).
   'src/main/mcp-servers/',
   // Packaged CLI launch and Electron entry/native loading.
   'src/main/cli/',
   'src/main/index.ts',
   'src/main/node-runtime/',
-  'src/main/orcad/native-runtime/',
+  'src/main/openkodod/native-runtime/',
   'src/main/startup/cli-launch/',
   'src/main/startup/configure-process.ts',
   'src/main/startup/main-process-preflight',
@@ -102,7 +102,7 @@ const SHARED_PACKAGE_PREFIXES = [
   'src/preload/',
   'src/shared/cli/',
   'src/shared/desktop-distribution/',
-  'src/shared/remote-runtime/orcad-distribution/',
+  'src/shared/remote-runtime/openkodod-distribution/',
   'src/wsl-guest/',
   ...NATIVE_RUNTIME_PREFIXES
 ]
@@ -141,9 +141,9 @@ export const LINUX_PACKAGE_PREFIXES = [
   // The Linux package job also exercises AppImage launch, daemon teardown, and watchdog startup.
   'src/main/daemon/',
   'src/main/hang-watchdog/',
-  'src/main/orcad/orcad-local-serve-selection-entry.ts',
-  'src/main/orcad/runtime-launch/',
-  'src/main/orcad/serve-startup/',
+  'src/main/openkodod/openkodod-local-serve-selection-entry.ts',
+  'src/main/openkodod/runtime-launch/',
+  'src/main/openkodod/serve-startup/',
   'src/main/providers/local-pty/',
   'src/main/pty/',
   'src/main/startup/linux-display/',
@@ -202,7 +202,7 @@ export const WINDOWS_BOUNDARY_TESTS = [
   'src/main/codex/hooks/installation/windows-hook-command.test.ts',
   'src/main/windows/windows-process-tree-command-line-patch.test.ts',
   'src/main/cli/wsl/wsl-cli-powershell-boundary.test.ts',
-  'src/main/orca-profiles/profile-index-store.test.ts',
+  'src/main/openkodo-profiles/profile-index-store.test.ts',
   'src/shared/secure-storage/secure-path-windows-acl.win32.test.ts',
   'src/main/runtime/rpc/server/pairing/unreadable-secret-store-preservation.win32.test.ts',
   'src/main/browser/network/tunnels/remote-browser-socks-client-owner.test.ts',
@@ -239,14 +239,14 @@ const WINDOWS_BOUNDARY_PREFIXES = [
   'src/main/browser/network/tunnels/remote-browser-socks-client-owner',
   'src/main/cli/wsl/',
   'src/main/codex/hooks/',
-  'src/main/orca-profiles/',
+  'src/main/openkodo-profiles/',
   'src/main/persistence/profile-state/',
   'src/main/runtime/files/watch/windows-file-watch',
   'src/main/runtime/rpc/server/pairing/',
   'src/main/windows/',
   'src/shared/file-watch/windows-',
   'src/shared/file-write/windows-',
-  'src/shared/orca-profiles/',
+  'src/shared/openkodo-profiles/',
   'src/shared/secure-storage/'
 ]
 

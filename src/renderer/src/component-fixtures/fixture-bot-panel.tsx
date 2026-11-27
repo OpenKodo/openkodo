@@ -60,7 +60,7 @@ export function stubBotPanel(
 ): () => void {
   return () => {
     // The page is reused across fixtures: each panel starts with its default folds.
-    window.localStorage.removeItem('orca.bots.panelFolds')
+    window.localStorage.removeItem('openkodo.bots.panelFolds')
     stubBots([bot])
     // No connector is linked; their reads answer as an unlinked account's do.
     const unlinked = { state: async () => ({ ok: false, error: { code: 'not_linked' } }) }
@@ -192,7 +192,7 @@ export function botPanelPage(open: boolean, chatState: AgentStatusState | null):
         id: fixtureCos.folderWorkspaceId,
         projectGroupId: 'bots',
         name: fixtureCos.name,
-        folderPath: `/home/me/.orca/bots/${fixtureCos.folder}`
+        folderPath: `/home/me/.openkodo/bots/${fixtureCos.folder}`
       })
     ],
     agentStatusByPaneKey: acceptedAgentStatuses(

@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, realpathSync, rmSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
@@ -12,7 +12,7 @@ const reporters = process.argv.slice(2)
 if (reporters.some((argument) => !argument.startsWith('--reporter='))) {
   throw new Error('Only additional Vitest reporters are accepted')
 }
-const scratch = realpathSync(mkdtempSync(join(tmpdir(), 'orca-mobile-tests-')))
+const scratch = realpathSync(mkdtempSync(join(tmpdir(), 'openkodo-mobile-tests-')))
 const abort = new AbortController()
 const closed = new Set()
 let signalExitCode

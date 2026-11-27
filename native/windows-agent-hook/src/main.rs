@@ -1,5 +1,5 @@
-//! Orca's native Windows agent hook, registered as `orca-agent-hook.exe <agent>`: answers
-//! the agent's reply, then posts the hook payload to Orca's loopback listener and waits for
+//! OpenKodo's native Windows agent hook, registered as `openkodo-agent-hook.exe <agent>`: answers
+//! the agent's reply, then posts the hook payload to OpenKodo's loopback listener and waits for
 //! the reply, so status events arrive in the order the agent emitted them.
 //!
 //! Why native: the `.cmd` form costs a cmd.exe start (plus the user's AutoRun) and
@@ -72,7 +72,7 @@ fn agent(name: &str) -> Option<Agent> {
             reply: b"",
             exit_vars: &[],
             stdin_limits: Some(&ANTIGRAVITY_STDIN_LIMITS),
-            event_var: Some("ORCA_ANTIGRAVITY_EVENT"),
+            event_var: Some("OPENKODO_ANTIGRAVITY_EVENT"),
             exit_code: ANTIGRAVITY_HANDLED_EXIT_CODE,
         }),
         _ => None,
@@ -87,7 +87,7 @@ fn main() {
         let _ = stdout.write_all(reply);
         let _ = stdout.flush();
     }
-    // Why no stdin for an unknown agent: a newer Orca may register one this copy predates.
+    // Why no stdin for an unknown agent: a newer OpenKodo may register one this copy predates.
     let exit_code = agent.as_ref().map_or(0, |agent| agent.exit_code);
     if let Some(agent) = agent {
         run(&agent);
@@ -97,14 +97,14 @@ fn main() {
 }
 
 fn run(agent: &Agent) {
-    // Why: refresh the listener coordinates for terminals that survived an Orca restart.
+    // Why: refresh the listener coordinates for terminals that survived an OpenKodo restart.
     let endpoint = read_endpoint_file();
     let coordinate = |key: &str| endpoint_value(&endpoint, key).unwrap_or_else(|| var(key));
-    let port = coordinate("ORCA_AGENT_HOOK_PORT");
-    let token = coordinate("ORCA_AGENT_HOOK_TOKEN");
-    // Why (#11549): without Orca's env the hook ran outside an Orca pane, where the caller
+    let port = coordinate("OPENKODO_AGENT_HOOK_PORT");
+    let token = coordinate("OPENKODO_AGENT_HOOK_TOKEN");
+    // Why (#11549): without OpenKodo's env the hook ran outside an OpenKodo pane, where the caller
     // may abandon stdin; exit before reading it.
-    if port.is_empty() || token.is_empty() || var("ORCA_PANE_KEY").is_empty() {
+    if port.is_empty() || token.is_empty() || var("OPENKODO_PANE_KEY").is_empty() {
         return;
     }
     let is_set = |name: &&str| !var(name).is_empty();
@@ -125,12 +125,12 @@ fn run(agent: &Agent) {
         }
     };
     let mut form = vec![
-        ("paneKey", var("ORCA_PANE_KEY")),
-        ("tabId", var("ORCA_TAB_ID")),
-        ("launchToken", var("ORCA_AGENT_LAUNCH_TOKEN")),
-        ("worktreeId", var("ORCA_WORKTREE_ID")),
-        ("env", coordinate("ORCA_AGENT_HOOK_ENV")),
-        ("version", coordinate("ORCA_AGENT_HOOK_VERSION")),
+        ("paneKey", var("OPENKODO_PANE_KEY")),
+        ("tabId", var("OPENKODO_TAB_ID")),
+        ("launchToken", var("OPENKODO_AGENT_LAUNCH_TOKEN")),
+        ("worktreeId", var("OPENKODO_WORKTREE_ID")),
+        ("env", coordinate("OPENKODO_AGENT_HOOK_ENV")),
+        ("version", coordinate("OPENKODO_AGENT_HOOK_VERSION")),
     ];
     if let Some(event_var) = agent.event_var {
         form.push(("hook_event_name", var(event_var)));
@@ -147,7 +147,7 @@ fn var(name: &str) -> String {
 /// The file src/shared/agent-hook-listener/endpoint-publication.ts writes, or "" if unreadable.
 fn read_endpoint_file() -> String {
     let mut text = String::new();
-    let read = File::open(var("ORCA_AGENT_HOOK_ENDPOINT")).and_then(|file| {
+    let read = File::open(var("OPENKODO_AGENT_HOOK_ENDPOINT")).and_then(|file| {
         file.take(ENDPOINT_FILE_BYTE_LIMIT)
             .read_to_string(&mut text)
     });
@@ -190,7 +190,7 @@ fn post(source: &str, port: &str, token: &str, form: &[(&str, String)], payload:
     let mut request = format!(
         "POST /hook/{source} HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\n\
          Content-Type: application/x-www-form-urlencoded\r\n\
-         X-Orca-Agent-Hook-Token: {token}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+         X-OpenKodo-Agent-Hook-Token: {token}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
         body.len()
     )
     .into_bytes();

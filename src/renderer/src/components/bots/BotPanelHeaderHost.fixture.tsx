@@ -104,7 +104,7 @@ function scene(width: number, rows: Row[], groups = false) {
         makeFolderWorkspace({
           id: fixtureCos.folderWorkspaceId,
           name: fixtureCos.name,
-          folderPath: `~/.orca/bots/${fixtureCos.folder}`,
+          folderPath: `~/.openkodo/bots/${fixtureCos.folder}`,
           executionHostId: hostId
         })
       )

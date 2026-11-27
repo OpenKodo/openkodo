@@ -156,7 +156,7 @@ export class HostRelay extends HostRelayDirector {
       phase: 'hello',
       claims,
       origin,
-      caps: [...parseRelayHostCapabilities(request.headers.get('x-orca-host-capabilities') ?? '')],
+      caps: [...parseRelayHostCapabilities(request.headers.get('x-openkodo-host-capabilities') ?? '')],
       deadline: Date.now() + RELAY_PROTOCOL_LIMITS.firstFrameDeadlineMs,
       openedAt: Date.now()
     })

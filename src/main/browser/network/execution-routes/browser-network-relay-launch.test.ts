@@ -13,7 +13,7 @@ let relayPath: string
 let previousRelayPath: string | undefined
 
 beforeEach(() => {
-  relayPath = mkdtempSync(join(tmpdir(), 'orca-relay-launch-'))
+  relayPath = mkdtempSync(join(tmpdir(), 'openkodo-relay-launch-'))
   const wsl = join(relayPath, 'wsl')
   mkdirSync(wsl)
   writeFileSync(join(wsl, 'wsl-browser-network-relay.js'), '')
@@ -44,11 +44,11 @@ function fakeChild(): BrowserNetworkRelayChild & { stdout: PassThrough } {
 it('hands the tunnel exactly the bytes after the readiness sentinel', async () => {
   const child = fakeChild()
   const launching = launchBrowserNetworkRelay(
-    { homeDir: '.orca-remote/browser-network', run: async () => child },
+    { homeDir: '.openkodo-remote/browser-network', run: async () => child },
     new AbortController().signal
   )
   await new Promise((resolve) => setImmediate(resolve))
-  child.stdout.write('Welcome to the sandbox\nORCA-BROWSER-NET')
+  child.stdout.write('Welcome to the sandbox\nOPENKODO-BROWSER-NET')
   child.stdout.write(Buffer.concat([Buffer.from('WORK-RELAY v2 READY\n'), Buffer.from([0, 1, 2])]))
   const relay = await launching
   const first = new Promise<Buffer>((resolve) => relay.stdout.once('data', resolve))

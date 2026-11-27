@@ -2,7 +2,7 @@ import { mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import type { Page } from '@playwright/test'
-import '../../desktop/electron-fixtures/orca-app'
+import '../../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import { focusActiveTerminalInput } from '../../terminal/input/terminal'
 import {
@@ -42,7 +42,9 @@ export async function waitForBoundPanes(page: Page, count: number): Promise<void
 }
 
 export async function addFolderWorkspace(page: Page): Promise<FolderWorkspaceSetup> {
-  const folderPath = realpathSync(mkdtempSync(path.join(os.tmpdir(), 'orca-e2e-parity-folder-')))
+  const folderPath = realpathSync(
+    mkdtempSync(path.join(os.tmpdir(), 'openkodo-e2e-parity-folder-'))
+  )
   const cleanup = (): void => rmSync(folderPath, { recursive: true, force: true })
   const repoId = await page.evaluate(async (folder) => {
     const result = await window.api.repos.add({ path: folder, kind: 'folder' })

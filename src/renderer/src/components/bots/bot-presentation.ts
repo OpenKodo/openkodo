@@ -31,7 +31,7 @@ const IS_WINDOWS = navigator.userAgent.includes('Windows')
 
 /** A bot's home, shown from the user's home rather than as a full path. */
 export function botFolderDisplay(folder: string, windows = IS_WINDOWS): string {
-  return windows ? `%USERPROFILE%\\.orca\\bots\\${folder}` : `~/.openkodo/bots/${folder}`
+  return windows ? `%USERPROFILE%\\.openkodo\\bots\\${folder}` : `~/.openkodo/bots/${folder}`
 }
 
 /** A bot chat its agent refused, as native chat words it. Its host calls itself this computer, so

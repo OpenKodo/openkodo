@@ -2,7 +2,7 @@ import { UnsealedCredentialNotice } from '../../provider-accounts/UnsealedCreden
 import type { SecretAtRestProtection } from '../../../../../shared/secure-storage/secret-at-rest-protection'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
-import { getDefaultVoiceSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultVoiceSettings } from '../../../../../shared/openkodo-profiles/constants'
 import type { SpeechModelManifest, VoiceSettings } from '../../../../../shared/speech/speech-types'
 import { toast } from 'sonner'
 import { useAppStore } from '@/store/index'

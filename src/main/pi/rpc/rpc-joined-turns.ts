@@ -25,7 +25,7 @@ export class PiRpcJoinedTurns {
     this.joined.delete(clientMessageId)
     return {
       state: 'accepted',
-      providerIdentity: { provider: 'orca', clientMessageId },
+      providerIdentity: { provider: 'openkodo', clientMessageId },
       ...(turn ? { answeredInTurn: { turn, via: 'steer' } } : {})
     }
   }

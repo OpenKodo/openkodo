@@ -25,7 +25,7 @@ import type {
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 import { nativeChatRestartStillStarting } from '@/components/native-chat-recovery/offers/native-chat-restart-runtimes'
 import { showChatOpenUnavailable, type ChatOpenUnavailable } from './chat-open-failure-toast'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 
 type StructuredSessionActivationDeps = StructuredSessionOpenAdapterDeps & {
   unavailable: (agent?: string, context?: ChatOpenUnavailable) => void
@@ -130,9 +130,9 @@ function openingSessionId(source: StructuredSessionOpenSource): string | undefin
     ? source.structuredSession.sessionId
     : source.kind === 'notification'
       ? source.sessionId
-      : (source.party.orcaSessionId ??
+      : (source.party.openkodoSessionId ??
         source.fallback?.sessionId ??
-        parseOrcaSessionAddress(source.party.address) ??
+        parseOpenKodoSessionAddress(source.party.address) ??
         undefined)
 }
 

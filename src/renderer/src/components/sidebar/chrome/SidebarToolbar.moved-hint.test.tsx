@@ -6,7 +6,7 @@ import { Dialog } from 'radix-ui'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useAppStore } from '@/store'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import SidebarToolbar from './SidebarToolbar'
 import {
   WORKSPACE_BOARD_MOVED_HINT_DURATION_MS,

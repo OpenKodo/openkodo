@@ -27,7 +27,7 @@ export function buildEnvironmentSetupAgentPrompt(args: {
       ? `\`openkodo vm recipe doctor ${args.recipeId} --json\``
       : '`openkodo vm recipe doctor <recipe-id> --json`'
   const lines = [
-    'Use the orca-per-workspace-env skill to make this repo run in a per-workspace environment. If the skill is not installed, load it with `openkodo skills get orca-per-workspace-env`.',
+    'Use the openkodo-per-workspace-env skill to make this repo run in a per-workspace environment. If the skill is not installed, load it with `openkodo skills get openkodo-per-workspace-env`.',
     '',
     'Goal: write or repair `environmentRecipes` and `scripts.setup` in openkodo.yaml, plus any scripts they call.',
     `- Run ${recipeDoctor} and fix every failing check.`,

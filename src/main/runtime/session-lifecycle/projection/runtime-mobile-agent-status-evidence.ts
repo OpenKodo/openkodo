@@ -113,6 +113,8 @@ export function demoteRuntimeMobileAgentStatus(
     ...(status.orchestration ? { orchestration: status.orchestration } : {}),
     ...completedTurnFields(status),
     ...(status.providerSession ? { providerSession: status.providerSession } : {}),
-    ...(status.orcaSessionId !== undefined ? { orcaSessionId: status.orcaSessionId } : {})
+    ...(status.openkodoSessionId !== undefined
+      ? { openkodoSessionId: status.openkodoSessionId }
+      : {})
   }
 }

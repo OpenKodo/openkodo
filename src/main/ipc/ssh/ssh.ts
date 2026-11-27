@@ -6,7 +6,7 @@ import type { SshConnectionManager } from '../../ssh/connection/ssh-connection-m
 import { getSshTargetRegistryStore } from '../../ssh/targets/ssh-target-registry'
 import { registerSshBrowseHandler } from './ssh-browse'
 import { submitCredential } from './ssh-passphrase'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { connectInFlight } from './ssh-connect-attempt-registry'
 import { registerPlainSshTerminalHandlers } from './plain-ssh-terminal-handlers'
 import { connectionManager } from './ssh-ipc-context'
@@ -34,7 +34,7 @@ let currentGetMainWindow: () => BrowserWindow | null = () => null
 export async function registerSshHandlers(
   store: Store,
   getMainWindow: () => BrowserWindow | null,
-  runtime?: OrcaRuntimeService,
+  runtime?: OpenKodoRuntimeService,
   hostInitialization?: Promise<void>
 ): Promise<{ connectionManager: SshConnectionManager; sshStore: SshConnectionStore }> {
   // macOS window recreation re-registers handlers; remove old channels to avoid duplicate registration.

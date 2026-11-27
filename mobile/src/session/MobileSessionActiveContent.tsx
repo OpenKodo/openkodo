@@ -25,7 +25,7 @@ import { styles } from './mobile-session-styles'
 import { renderAnimatedToast } from '../components/feedback/TransientToast'
 import type { MobileSessionController } from './use-mobile-session-controller'
 import { useMobileSessionContentKeyboardLift } from '../terminal/session/input-controls/use-mobile-session-keyboard-lift'
-import { useOpenUrlInOrca } from '../browser/tab-navigation/use-open-url-in-orca'
+import { useOpenUrlInOpenKodo } from '../browser/tab-navigation/use-open-url-in-openkodo'
 import { useMobileTerminalLinkOpen } from '../terminal/session/links/use-mobile-terminal-link-open'
 import { useWorkspaceExecutionHost } from '../navigation/workspace-execution-host'
 import { useOpenHostAccounts } from '../accounts/use-open-mobile-accounts'
@@ -120,8 +120,8 @@ export function MobileSessionActiveContent({
   } = controller
   const { keyboardLift, activeTerminalKeyboardLift, toastAnimatedStyle } =
     useMobileSessionContentKeyboardLift(controller)
-  const openUrlInOrca = useOpenUrlInOrca(controller)
-  const terminalLinks = useMobileTerminalLinkOpen(controller, openUrlInOrca)
+  const openUrlInOpenKodo = useOpenUrlInOpenKodo(controller)
+  const terminalLinks = useMobileTerminalLinkOpen(controller, openUrlInOpenKodo)
   const hostProfile = useHostProfile(hostId)
   const hostTitle = useHostDisplay(hostProfile).title
   const nativeChatHostOutage = mobileSessionNativeChatHostOutage(controller, hostTitle, t)
@@ -369,7 +369,7 @@ export function MobileSessionActiveContent({
                     keyboardInset={keyboardLift}
                     // A workspace routed to another server stops with that server, whose name the phone lacks.
                     hostName={executionHost === undefined && hostProfile ? hostTitle : null}
-                    onOpenUrlInOrca={openUrlInOrca}
+                    onOpenUrlInOpenKodo={openUrlInOpenKodo}
                     linkOpenMode={controller.linkOpenMode}
                     hostOutage={nativeChatHostOutage}
                     onRunInTerminal={nativeChatTerminalRunner(controller)}

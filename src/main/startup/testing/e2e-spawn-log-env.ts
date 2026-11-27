@@ -1,4 +1,4 @@
-import { E2E_SPAWN_LOG_ENV } from '@orca/process-host/spawn-observer'
+import { E2E_SPAWN_LOG_ENV } from '@openkodo/process-host/spawn-observer'
 
 /**
  * The e2e spawn log records full argv, which can include tokens; tests only. Outside e2e mode

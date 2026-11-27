@@ -228,8 +228,6 @@ brew install --cask OpenKodo/openkodo/openkodo
 # Upgrade an existing install
 brew upgrade --cask OpenKodo/openkodo/openkodo
 
-# Arch Linux (AUR) — or stably-openkodo-git to build from source
-yay -S stably-openkodo-bin
 ```
 
 ### Мобильное приложение — iOS, Android

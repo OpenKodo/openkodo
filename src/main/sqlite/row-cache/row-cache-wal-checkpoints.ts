@@ -71,7 +71,7 @@ parentPort.on('message', ({ id, path, force }) => {
 
 export function spawnRowCacheCheckpointWorker(): ReturnType<WorkerThreadFactory> {
   return spawnWorkerThread(rowCacheCheckpointWorkerSource, {
-    name: 'orca-row-cache-checkpoint',
+    name: 'openkodo-row-cache-checkpoint',
     eval: true
   })
 }

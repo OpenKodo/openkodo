@@ -33,7 +33,7 @@ export function pollClientHarness() {
       toFake: ['setTimeout', 'clearTimeout', 'setInterval', 'clearInterval', 'Date', 'performance'],
       now: SERVER_NOW
     })
-    state.userDataPath = mkdtempSync(join(tmpdir(), 'orca-connector-client-'))
+    state.userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-connector-client-'))
     state.fake = new FakeConnectorCloud()
     state.wake = new FakeWakeSockets()
   })

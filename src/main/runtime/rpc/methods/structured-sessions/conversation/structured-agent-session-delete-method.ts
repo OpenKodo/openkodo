@@ -1,6 +1,6 @@
 import { defineMethod } from '../../../core'
 import { OptionsParams } from '../../../../../../shared/rpc-contract/structured-agent-session/structured-agent-session-params'
-import { deleteOrcaChat } from '../../../../../native-chat/chat-deletion/orca-chat-delete'
+import { deleteOpenKodoChat } from '../../../../../native-chat/chat-deletion/openkodo-chat-delete'
 import { ownerOnly } from '../../bots-caller-gates'
 import { requireStructuredCapability } from '../creation/structured-agent-session-gate'
 
@@ -12,6 +12,6 @@ export const STRUCTURED_AGENT_SESSION_DELETE_METHOD = defineMethod({
   handler: async (params, ctx) => {
     requireStructuredCapability(ctx)
     ownerOnly(ctx, 'Only the owner deletes chats, in OpenKodo.')
-    return deleteOrcaChat(ctx.runtime, params.sessionId)
+    return deleteOpenKodoChat(ctx.runtime, params.sessionId)
   }
 })

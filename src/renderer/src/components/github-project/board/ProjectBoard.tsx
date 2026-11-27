@@ -20,7 +20,7 @@ import type {
 } from '../../../../../shared/github/projects/project-types'
 
 const COLUMN_WIDTH_PX = 272
-const CARD_DRAG_MIME = 'application/x-orca-project-row'
+const CARD_DRAG_MIME = 'application/x-openkodo-project-row'
 
 type Props = {
   table: GitHubProjectTable

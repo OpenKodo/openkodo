@@ -165,7 +165,7 @@ async function extractToTemporaryCatalog(root, tempDir) {
   // Treat extraction as check evidence, not another committed catalog feature authors must synchronize.
   const [{ runProcessSync }, { describeProcessFailure }, { resolvePinnedBunExecutable }] =
     await Promise.all([
-      import('@orca/process-host'),
+      import('@openkodo/process-host'),
       import('../../tool-invocation/process-failure-message.mjs'),
       import('../../tool-invocation/pinned-bun-executable.mjs')
     ])
@@ -189,7 +189,7 @@ async function extractToTemporaryCatalog(root, tempDir) {
 }
 
 export async function main(root = process.cwd()) {
-  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'orca-i18next-extraction-'))
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'openkodo-i18next-extraction-'))
 
   try {
     const [extractedCatalog, englishCatalog, keyEvidence] = await Promise.all([

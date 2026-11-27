@@ -71,7 +71,7 @@ import {
 import {
   renderMobileTasksWorkspaceSparseDrawer,
   renderMobileTasksSetupTrustDrawer,
-  renderMobileTasksOrcaYamlTrustDrawer
+  renderMobileTasksOpenKodoYamlTrustDrawer
 } from './workspace-creation/mobile-tasks-workspace-trust-drawers'
 import {
   renderMobileTasksProjectMissingRepoDrawer,
@@ -264,7 +264,7 @@ export function MobileTasksLegacySurface({ model }: { model: ConnectionPresentat
 
         {renderMobileTasksSetupTrustDrawer(model)}
 
-        {renderMobileTasksOrcaYamlTrustDrawer(model)}
+        {renderMobileTasksOpenKodoYamlTrustDrawer(model)}
 
         {renderMobileTasksProjectMissingRepoDrawer(model)}
 

@@ -13,7 +13,7 @@ import {
 import { isConnectingSshStatus } from '@/ssh/ssh-connection-recoverability'
 import type { SshConnectionStatus } from '../../../../../shared/remote-runtime/ssh/ssh-types'
 import { isRuntimeOwnedSshTargetId } from '../../../../../shared/execution-host/execution-host'
-import { getOrcadSshDeployment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
+import { getOpenkododSshDeployment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { isConnectedRuntimeHostState } from '../../../../../shared/remote-runtime/host-status/runtime-host-connection-state'
 import { runtimeHostConnectionStateForEntry } from '@/runtime/hosts/connections/runtime-host-connection-state'
 
@@ -145,7 +145,7 @@ export function resolveBrowserRouteHostConnection(
     return resolveWorktreeHostConnection(state, statuses, worktreeId, targetId, null)
   }
   const environmentId = state.runtimeEnvironments?.find(
-    (environment) => getOrcadSshDeployment(environment)?.sshTargetId === targetId
+    (environment) => getOpenkododSshDeployment(environment)?.sshTargetId === targetId
   )?.id
   if (!environmentId) {
     return LOCAL_HOST_CONNECTION

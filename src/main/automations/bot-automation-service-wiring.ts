@@ -1,5 +1,5 @@
 import type { Store } from '../persistence/loading-store/store'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { AutomationService } from './automation-service'
 import { createBotAutomationDispatcher } from './bot-automation-launch'
 import { runtimeBotAutomationSessions } from '../bots/bot-automation-sessions'
@@ -10,7 +10,7 @@ import { runtimeBotWaits } from '../bots/bot-waits'
 import { runtimeChatHost } from '../external-conversations/external-conversation-chat'
 
 /** The scheduler's bot side: runs that open in a bot's chat, and the alert when one cannot. */
-export function botAutomationServiceOptions(runtime: OrcaRuntimeService) {
+export function botAutomationServiceOptions(runtime: OpenKodoRuntimeService) {
   return {
     botDispatcher: createBotAutomationDispatcher(
       runtimeBotAutomationSessions(runtime),
@@ -44,7 +44,7 @@ export function botAutomationServiceOptions(runtime: OrcaRuntimeService) {
 export function bindBotAutomations(
   service: AutomationService,
   store: Store,
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): void {
   service.once = runtimeBotWaits(runtime)
   runtime.inAutomationLane = (automationId, operation) =>

@@ -12,7 +12,7 @@ import {
   redactKagiSessionToken
 } from '../../../../../shared/browser/navigation/browser-url'
 import type { BrowserLoadError } from '../../../../../shared/browser/workspaces/browser-workspace-types'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import { BROWSER_GUEST_RECOVERY_ERROR_CODE } from '../host-guest/recovery/browser-page-guest-recovery'
 import {
@@ -83,9 +83,9 @@ export function navigateBrowserPageToUrl({
     recoveryNavigationValidationRef.current = recoveryLoadError
       ? { committed: false, started: false, targetUrl: normalizedBrowserModelUrl }
       : null
-    if (webview.dataset.orcaAttachWaiting) {
+    if (webview.dataset.openkodoAttachWaiting) {
       // No page yet: it opens with this once its profile's extensions are ready (unredacted).
-      webview.dataset.orcaAttachRequestedUrl = targetUrl
+      webview.dataset.openkodoAttachRequestedUrl = targetUrl
     }
     issueBrowserGuestNavigation(webview, () => {
       webview.src = targetUrl

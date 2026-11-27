@@ -25,7 +25,7 @@ import {
 import { runBrowserExtensionToolbarAction } from '../actions/browser-extension-toolbar'
 import { noteBrowserExtensionUserGesture } from '../permissions/browser-extension-user-gesture'
 
-function isOrcaShortcut(input: Electron.Input): boolean {
+function isOpenKodoShortcut(input: Electron.Input): boolean {
   const overrides = browserManager.getKeybindingOverrides()
   return KEYBINDING_DEFINITIONS.some((definition) =>
     keybindingMatchesAction(definition.id, input, process.platform, overrides)
@@ -60,7 +60,7 @@ export function observeBrowserExtensionCommands(contents: Electron.WebContents):
     const session = contents.session
     const browserProfileId = getBrowserExtensionProfileIdForSession(session)
     const match = browserProfileId ? findCommand(session, input) : null
-    if (!browserProfileId || !match || isOrcaShortcut(input)) {
+    if (!browserProfileId || !match || isOpenKodoShortcut(input)) {
       return
     }
     event.preventDefault()

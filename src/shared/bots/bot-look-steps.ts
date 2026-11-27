@@ -31,9 +31,9 @@ export type LookStep = { position: number } & (
     }
 )
 
-/** A bot's commands name OpenKodo's CLI through a shell default; the owner knows it as `orca`. */
-export function withPlainOrcaCli(text: string): string {
-  return text.replaceAll('"${OPENKODO_CLI_COMMAND:-orca}"', 'orca')
+/** A bot's commands name OpenKodo's CLI through a shell default; the owner knows it as `openkodo`. */
+export function withPlainOpenKodoCli(text: string): string {
+  return text.replaceAll('"${OPENKODO_CLI_COMMAND:-openkodo}"', 'openkodo')
 }
 
 /** Shown while a look runs; older steps scroll off. */
@@ -80,7 +80,7 @@ function connectorStep(
 ): Omit<Extract<LookStep, { kind: 'read' | 'find' | 'check' | 'connections' }>, 'position'> | null {
   const words = shellWords(command)
   const at = words.indexOf('connector')
-  if (at < 1 || !words.slice(0, at).some((word) => /orca/i.test(word))) {
+  if (at < 1 || !words.slice(0, at).some((word) => /openkodo/i.test(word))) {
     return null
   }
   const verb = words[at + 1]

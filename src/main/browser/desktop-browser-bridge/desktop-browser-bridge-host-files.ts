@@ -1,4 +1,4 @@
-/** Upload and download for an SSH host's agent: the files are the host's, so this desktop pulls the named ones from orcad and streams downloads back, never touching a path the host names. */
+/** Upload and download for an SSH host's agent: the files are the host's, so this desktop pulls the named ones from openkodod and streams downloads back, never touching a path the host names. */
 import { randomUUID } from 'node:crypto'
 import { rm } from 'node:fs/promises'
 import path from 'node:path'

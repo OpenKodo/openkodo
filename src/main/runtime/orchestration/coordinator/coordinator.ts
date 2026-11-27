@@ -194,7 +194,7 @@ export class Coordinator {
 
     this.db.markAsRead(
       messages.map((m) => m.id),
-      { kind: 'orca' }
+      { kind: 'openkodo' }
     )
   }
 

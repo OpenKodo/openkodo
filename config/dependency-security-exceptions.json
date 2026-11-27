@@ -4,7 +4,7 @@
     "package": "picomatch",
     "version": "4.0.4",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -17,7 +17,7 @@
     "package": "picomatch",
     "version": "4.0.7",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -30,7 +30,7 @@
     "package": "picomatch",
     "version": "2.3.2",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -43,7 +43,7 @@
     "package": "picomatch",
     "version": "4.0.7",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -56,7 +56,7 @@
     "package": "picomatch",
     "version": "4.0.7",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -69,7 +69,7 @@
     "package": "zod",
     "version": "3.25.76",
     "advisory": "GHSA-mrhx-c7xc-m3w5",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "Vercel requires Zod 3, which has no fixed upstream release. Backport the upper collection-size gate from colinhacks/zod#6652 for the v3 and bundled v4 entrypoints; installed-dependency regression tests cover sync and async parsing. Remove when a fixed Zod 3 release or compatible consumer upgrade is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -82,7 +82,7 @@
     "package": "picomatch",
     "version": "2.3.2",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -95,7 +95,7 @@
     "package": "picomatch",
     "version": "4.0.5",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -108,7 +108,7 @@
     "package": "picomatch",
     "version": "2.3.2",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {
@@ -121,7 +121,7 @@
     "package": "picomatch",
     "version": "4.0.7",
     "advisory": "GHSA-fc5q-39xc-vjpf",
-    "owner": "Orca maintainers",
+    "owner": "OpenKodo maintainers",
     "reason": "picomatch has no fixed upstream release (covers <= 4.0.7). Backport repeated-wildcard extglob analysis and single-star quantifier collapse so +(*) and +(*a) cannot emit nested unbounded regex quantifiers. Remove when a fixed upstream release is available.",
     "expires": "2026-12-20",
     "patch": {

@@ -52,7 +52,7 @@ export function toConnectorEvent(
         : null
     case 'prompt':
       if (
-        event.prompt.raisedBy === 'orca' &&
+        event.prompt.raisedBy === 'openkodo' &&
         !cloudFeatures.has(CONNECTOR_CLOUD_PROMPTS_AUDIENCE_FEATURE)
       ) {
         return null

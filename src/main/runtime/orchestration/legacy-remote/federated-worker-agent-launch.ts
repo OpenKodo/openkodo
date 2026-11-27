@@ -4,7 +4,7 @@ import type { RuntimeTerminalCreate } from '../../../../shared/terminal/runtime/
 import type { AgentLaunchPreferences } from '../../../../shared/agent-session/lifecycle/operations/agent-session-host-authority'
 import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent'
 import { executeAgentLaunch } from '../../../agent-launch/agent-launch-executor'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { OrchestrationDb } from '../db/orchestration-db'
 import { resolveUnattendedSetupDecision } from '../../../workspace-hooks/effective-hook-config'
 import { WORKER_START_VOCABULARY } from '../../rpc/methods/orchestration/structured-workers/orchestration-worker-start-mode'
@@ -21,7 +21,7 @@ import type { Worktree } from '../../../../shared/worktree/types'
 const TERMINAL_ONLY_MESSAGE = 'A federated worker starts a terminal agent only.'
 
 export async function launchFederatedWorkerAgent(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   params: FederationAttachStartInput
   agent: TuiAgent | undefined

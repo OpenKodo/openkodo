@@ -2,13 +2,13 @@ import type { AppState } from '@/store/types'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import {
   canUseRepoWideTrust,
-  isOrcaHookContentApproved,
-  isOrcaHookRepoIdOnSeveralHosts,
-  isOrcaHookRepoTrusted,
-  type OrcaHookTrustKind
-} from '../../../../shared/workspace-setup/hooks/orca-hook-trust-entries'
+  isOpenKodoHookContentApproved,
+  isOpenKodoHookRepoIdOnSeveralHosts,
+  isOpenKodoHookRepoTrusted,
+  type OpenKodoHookTrustKind
+} from '../../../../shared/workspace-setup/hooks/openkodo-hook-trust-entries'
 import { MODAL_DISMISSED_KEY } from '@/store/slices/ui/modal-slot-dismissal'
-import { hashOrcaHookScript } from './orca-hook-trust'
+import { hashOpenKodoHookScript } from './openkodo-hook-trust'
 import { findHookRepo } from './hook-owner-resolution'
 
 export type HookTrustContext = 'workspace' | 'vm' | 'automation'
@@ -19,7 +19,7 @@ export function usesVersionedHookTrust(
   repoId: string,
   context: HookTrustContext
 ): boolean {
-  return context === 'vm' || isOrcaHookRepoIdOnSeveralHosts(state.repos, repoId)
+  return context === 'vm' || isOpenKodoHookRepoIdOnSeveralHosts(state.repos, repoId)
 }
 
 export function isDesktopHookRepoTrusted(
@@ -28,8 +28,8 @@ export function isDesktopHookRepoTrusted(
   context: HookTrustContext
 ): boolean {
   return context === 'vm'
-    ? canUseRepoWideTrust(state.trustedOrcaHooks, state.repos, repoId)
-    : isOrcaHookRepoTrusted(state.trustedOrcaHooks, state.repos, repoId)
+    ? canUseRepoWideTrust(state.trustedOpenKodoHooks, state.repos, repoId)
+    : isOpenKodoHookRepoTrusted(state.trustedOpenKodoHooks, state.repos, repoId)
 }
 
 const NEVER_CANCEL_TRUST_CHECK = (): boolean => false
@@ -43,7 +43,7 @@ export const RUN_ANY: HookTrustApproval = { decision: 'run' }
 export async function confirmScriptContent(
   state: AppState,
   repoId: string,
-  scriptKind: OrcaHookTrustKind,
+  scriptKind: OpenKodoHookTrustKind,
   scriptContent: string,
   hostId?: ExecutionHostId,
   isCancelled: () => boolean = NEVER_CANCEL_TRUST_CHECK,
@@ -59,16 +59,16 @@ export async function confirmScriptContent(
   }
 
   const versionOnly = usesVersionedHookTrust(state, repoId, context)
-  const contentHash = await hashOrcaHookScript(scriptContent)
+  const contentHash = await hashOpenKodoHookScript(scriptContent)
   if (isCancelled() || signal?.aborted) {
     return SKIP
   }
   const approved: HookTrustApproval = { decision: 'run', approvedContentHash: contentHash }
-  const existingHash = state.trustedOrcaHooks[repoId]?.[scriptKind]?.contentHash
+  const existingHash = state.trustedOpenKodoHooks[repoId]?.[scriptKind]?.contentHash
   if (
     !scriptContent ||
     (versionOnly &&
-      isOrcaHookContentApproved(state.trustedOrcaHooks, repoId, scriptKind, contentHash))
+      isOpenKodoHookContentApproved(state.trustedOpenKodoHooks, repoId, scriptKind, contentHash))
   ) {
     return approved
   }
@@ -96,7 +96,7 @@ export async function confirmScriptContent(
       state.closeModal()
     }
     signal?.addEventListener('abort', cancel, { once: true })
-    state.openModal('confirm-orca-yaml-hooks', {
+    state.openModal('confirm-openkodo-yaml-hooks', {
       repoId,
       repoName,
       scriptKind,
@@ -104,7 +104,7 @@ export async function confirmScriptContent(
       contentHash,
       previouslyApproved,
       versionOnly,
-      repoWideTrust: !isOrcaHookRepoIdOnSeveralHosts(state.repos, repoId),
+      repoWideTrust: !isOpenKodoHookRepoIdOnSeveralHosts(state.repos, repoId),
       automation: context === 'automation',
       ...(skippedSetupReview ? { skippedSetupReview } : {}),
       onResolve: settle,

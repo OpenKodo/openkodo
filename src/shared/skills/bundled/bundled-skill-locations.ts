@@ -54,7 +54,7 @@ export function collapseHomePath(path: string, homeDirectory: string): string {
 export function skillBackupDirectory(homeDirectory: string): string {
   const separator = /^[a-z]:[\\/]|^\\\\/iu.test(homeDirectory) ? '\\' : '/'
   const home = homeDirectory.replace(/[\\/]+$/u, '')
-  return [home, '.agents', '.orca-skill-backups'].join(separator)
+  return [home, '.agents', '.openkodo-skill-backups'].join(separator)
 }
 
 function agentNames(agents: readonly string[]): string[] {

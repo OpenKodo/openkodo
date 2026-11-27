@@ -26,7 +26,7 @@ export type RemoteBrowserRichPaste = {
 }
 
 const RPC_OPTIONS = { timeoutMs: 15_000, suppressFeatureInteraction: true }
-const STAGED_PASTE_KEY = `Symbol.for('orca.remoteBrowserPaste')`
+const STAGED_PASTE_KEY = `Symbol.for('openkodo.remoteBrowserPaste')`
 // The request JSON escapes the expression again, so it is what must fit the host's inbound frame.
 const STAGE_REQUEST_BYTES =
   REMOTE_RUNTIME_MAX_INBOUND_REQUEST_JSON_BYTES - REMOTE_RUNTIME_REQUEST_ENVELOPE_RESERVE_BYTES

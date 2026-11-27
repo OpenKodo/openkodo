@@ -21,7 +21,7 @@ describe("overlapping command marks in a local agent's pane", () => {
   let exits: string[]
 
   beforeEach(async () => {
-    userDataPath = mkdtempSync(join(tmpdir(), 'orca-marked-exit-'))
+    userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-marked-exit-'))
     server = new AgentHookServer()
     await server.start({ env: 'production', userDataPath })
     exits = []

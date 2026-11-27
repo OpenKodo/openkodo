@@ -8,10 +8,10 @@ import {
 } from '@/lib/workspace/creation/project-host-setup-options'
 import { NewWorkspaceComposerProjectSection } from './NewWorkspaceComposerProjectSection'
 
-const orcaRepo: Repo = {
-  id: 'orca-local',
-  path: '/Users/alice/Projects/orca',
-  displayName: 'orca',
+const openkodoRepo: Repo = {
+  id: 'openkodo-local',
+  path: '/Users/alice/Projects/openkodo',
+  displayName: 'openkodo',
   badgeColor: '#8b5cf6',
   repoIcon: {
     type: 'image',
@@ -21,10 +21,10 @@ const orcaRepo: Repo = {
   addedAt: 1
 }
 
-const personalOrcaRepo: Repo = {
-  id: 'personal-orca-local',
-  path: '/Users/alice/Projects/personal-orca',
-  displayName: 'orca-cloud',
+const personalOpenKodoRepo: Repo = {
+  id: 'personal-openkodo-local',
+  path: '/Users/alice/Projects/personal-openkodo',
+  displayName: 'openkodo-cloud',
   badgeColor: '#14b8a6',
   repoIcon: null,
   addedAt: 2
@@ -39,25 +39,25 @@ const apiRepo: Repo = {
   addedAt: 3
 }
 
-const fixtureRepos = [orcaRepo, personalOrcaRepo, apiRepo]
+const fixtureRepos = [openkodoRepo, personalOpenKodoRepo, apiRepo]
 
 const projects: NewWorkspaceProjectOption[] = [
   {
     kind: 'project',
-    id: 'orca',
-    projectId: 'orca',
-    displayName: 'orca',
-    badgeColor: orcaRepo.badgeColor,
-    repo: orcaRepo,
+    id: 'openkodo',
+    projectId: 'openkodo',
+    displayName: 'openkodo',
+    badgeColor: openkodoRepo.badgeColor,
+    repo: openkodoRepo,
     detail: 'OpenKodo/openkodo'
   },
   {
     kind: 'project',
-    id: 'personal-orca',
-    projectId: 'personal-orca',
-    displayName: 'orca-cloud',
-    badgeColor: personalOrcaRepo.badgeColor,
-    repo: personalOrcaRepo,
+    id: 'personal-openkodo',
+    projectId: 'personal-openkodo',
+    displayName: 'openkodo-cloud',
+    badgeColor: personalOpenKodoRepo.badgeColor,
+    repo: personalOpenKodoRepo,
     detail: 'OpenKodo/openkodo-cloud'
   },
   {
@@ -84,27 +84,27 @@ const hosts: ProjectHostSetupOption[] = [
   {
     kind: 'ready',
     id: 'local',
-    projectId: 'orca',
-    repoId: 'orca-local',
+    projectId: 'openkodo',
+    repoId: 'openkodo-local',
     hostId: 'local',
     label: 'MacBook Pro',
     detail: 'Local',
-    path: '/Users/alice/Projects/orca'
+    path: '/Users/alice/Projects/openkodo'
   },
   {
     kind: 'ready',
     id: 'remote',
-    projectId: 'orca',
-    repoId: 'orca-remote',
+    projectId: 'openkodo',
+    repoId: 'openkodo-remote',
     hostId: 'ssh:devbox',
     label: 'Dev server',
     detail: 'SSH',
-    path: '/home/alice/projects/orca'
+    path: '/home/alice/projects/openkodo'
   },
   {
     kind: 'needs-setup',
     id: 'windows',
-    projectId: 'orca',
+    projectId: 'openkodo',
     hostId: 'runtime:windows',
     label: 'Windows workstation',
     detail: 'Project location not set',
@@ -119,7 +119,7 @@ function ProjectAndHostPreview({
 }: {
   folderOnly?: boolean
 }): React.JSX.Element {
-  const [project, setProject] = useState(folderOnly ? 'folder' : 'orca')
+  const [project, setProject] = useState(folderOnly ? 'folder' : 'openkodo')
   const [host, setHost] = useState('local')
   return (
     <div className="space-y-4 rounded-xl border border-border bg-background p-4">
@@ -156,7 +156,7 @@ function ProjectAndHostPreview({
         onConnectSelectedRepo={async () => {}}
         sshStatusLabel="Connected"
         connectButtonLabel="Connect"
-        selectedProjectName="orca"
+        selectedProjectName="openkodo"
       />
     </div>
   )

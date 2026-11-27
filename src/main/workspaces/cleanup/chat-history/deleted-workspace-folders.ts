@@ -4,7 +4,7 @@ import type { RuntimeStore } from '../../../runtime/construction/runtime-store-c
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
 import { parseWslUncPath } from '../../../../shared/file-access/wsl-paths'
 import { splitWorktreeId } from '../../../../shared/worktree/id'
-import { buildKnownOrcaWorkspaceLayouts } from '../../../../shared/worktree/visibility/ownership'
+import { buildKnownOpenKodoWorkspaceLayouts } from '../../../../shared/worktree/visibility/ownership'
 import { isPathAbsentError } from '../../../filesystem/local-file-io/filesystem-path-containment'
 import { readAllWorktreeMetaForHost } from '../../../persistence/host-qualified-worktree-meta'
 import { listWorkspaceCleanupOwnedRepos } from '../workspace-cleanup-run-evidence'
@@ -248,7 +248,7 @@ export async function readWorkspaceParents(
     if (!repoName || parseWslUncPath(repo.path)) {
       continue
     }
-    for (const layout of buildKnownOrcaWorkspaceLayouts(settings, repo)) {
+    for (const layout of buildKnownOpenKodoWorkspaceLayouts(settings, repo)) {
       if (!layout.nestWorkspaces || parseWslUncPath(layout.path)) {
         continue
       }

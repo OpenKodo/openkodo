@@ -6,11 +6,11 @@ import { spec, WORKER_ONLY } from './plugin-host-method-spec'
 
 /**
  * OpenKodo state and actions a full-access worker cannot reach from Node: its workspaces, terminals
- * and agents. Each runs the runtime method the `orca` CLI runs, on the host that owns the
+ * and agents. Each runs the runtime method the `openkodo` CLI runs, on the host that owns the
  * workspace (local, WSL or SSH), so a mod acts exactly as `openkodo terminal create` would.
  */
 
-/** Provisional release floor for host API 1.7, for plugins that require it in `engines.orca`
+/** Provisional release floor for host API 1.7, for plugins that require it in `engines.openkodo`
  *  instead of checking `host.has`; not a stock-release claim. */
 export const PLUGIN_HOST_API_1_7_SINCE = '1.4.259'
 

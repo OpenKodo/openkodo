@@ -1,4 +1,4 @@
-import { needsNewerOrca, type PluginListEntry } from '../list/plugin-list-entries'
+import { needsNewerOpenKodo, type PluginListEntry } from '../list/plugin-list-entries'
 import { pluginFilterKinds } from '../list/plugin-list-filter'
 import { pickNewPlugins } from '../../../../../shared/plugins/catalog/plugin-added-at'
 import { pluginListedAt } from '../list/plugin-listed-at'
@@ -16,13 +16,13 @@ export const PLUGIN_FEATURED_LIMIT = 4
 export const PLUGIN_NEWLY_ADDED_LIMIT = 8
 
 /** A plugin someone could install from a highlight row right now. */
-function isOfferable(entry: PluginListEntry, orcaVersion: string | null): boolean {
+function isOfferable(entry: PluginListEntry, openkodoVersion: string | null): boolean {
   const listing = entry.listing
   return Boolean(
     listing &&
     !entry.installed &&
     !listing.blockedByKillList &&
-    !needsNewerOrca(entry.minimumOrca, orcaVersion)
+    !needsNewerOpenKodo(entry.minimumOpenKodo, openkodoVersion)
   )
 }
 
@@ -35,10 +35,10 @@ function isOfferable(entry: PluginListEntry, orcaVersion: string | null): boolea
 export function pickFeaturedPlugins(
   entries: readonly PluginListEntry[],
   installCounts: Readonly<Record<string, number>>,
-  orcaVersion: string | null
+  openkodoVersion: string | null
 ): PluginListEntry[] {
   const counted = entries
-    .filter((entry) => entry.installCountEligible && isOfferable(entry, orcaVersion))
+    .filter((entry) => entry.installCountEligible && isOfferable(entry, openkodoVersion))
     .flatMap((entry) => {
       const count = installCounts[entry.pluginKey]
       return typeof count === 'number' && count > 0
@@ -88,11 +88,11 @@ export function pickFeaturedPlugins(
  */
 export function pickNewlyAddedPlugins(
   entries: readonly PluginListEntry[],
-  orcaVersion: string | null,
+  openkodoVersion: string | null,
   now: number
 ): PluginListEntry[] {
   return pickNewPlugins(
-    entries.filter((entry) => isOfferable(entry, orcaVersion)),
+    entries.filter((entry) => isOfferable(entry, openkodoVersion)),
     pluginListedAt,
     now,
     { limit: PLUGIN_NEWLY_ADDED_LIMIT }
@@ -108,12 +108,13 @@ export function pickNewlyAddedPlugins(
 export function pickCatalogHighlights(
   entries: readonly PluginListEntry[],
   installCounts: Readonly<Record<string, number>>,
-  orcaVersion: string | null,
+  openkodoVersion: string | null,
   now: number
 ): { featured: PluginListEntry[]; newlyAdded: PluginListEntry[] } {
-  const newlyAdded = pickNewlyAddedPlugins(entries, orcaVersion, now)
+  const newlyAdded = pickNewlyAddedPlugins(entries, openkodoVersion, now)
   return {
-    featured: newlyAdded.length > 0 ? pickFeaturedPlugins(entries, installCounts, orcaVersion) : [],
+    featured:
+      newlyAdded.length > 0 ? pickFeaturedPlugins(entries, installCounts, openkodoVersion) : [],
     newlyAdded
   }
 }

@@ -97,7 +97,7 @@ if (workerFixture) {
     })
   )
 } else {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-json-parser-benchmark-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-json-parser-benchmark-'))
   try {
     writeJsonParserFixtures(directory)
     global.gc()

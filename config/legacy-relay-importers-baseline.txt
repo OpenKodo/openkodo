@@ -2,10 +2,10 @@
 # The relay retirement (2027-01-15) deletes the folder and edits exactly these files.
 # Prune: pnpm check:legacy-relay-fence-ratchet --prune
 src/main/ipc/pty/runtime/kill.ts
-src/main/ipc/runtime-environments/managed-orcad/orcad-delta-move-handlers.ts
+src/main/ipc/runtime-environments/managed-openkodod/openkodod-delta-move-handlers.ts
 src/main/ipc/ssh/ssh-connect-flow.ts
 src/main/ipc/ssh/ssh-host-server-on-connect-wiring.ts
 src/main/ipc/ssh/ssh-session-teardown.ts
 src/main/ipc/ssh/ssh.ts
 src/main/managed-server/install/remote-install-model.ts
-src/main/managed-server/lifecycle/orcad-runtime-conversion-wiring.ts
+src/main/managed-server/lifecycle/openkodod-runtime-conversion-wiring.ts

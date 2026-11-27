@@ -33,7 +33,7 @@ beforeEach(async () => {
     now: () => Date.now(),
     powerMonitor: null
   })
-  userDataPath = mkdtempSync(join(tmpdir(), 'orca-question-awake-'))
+  userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-question-awake-'))
   server = new AgentHookServer()
   await server.start({ env: 'production', userDataPath })
   unbind = bindAgentAwakeToHookStatus(server, awake)

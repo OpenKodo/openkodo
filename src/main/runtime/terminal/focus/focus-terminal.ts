@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithWaitForLeafPtyId } from '../view/renderer-terminal-snapshot'
+import { OpenKodoRuntimeWithWaitForLeafPtyId } from '../view/renderer-terminal-snapshot'
 import type { RuntimeTerminalFocus } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import type {
   RuntimeTerminalReveal,
@@ -8,9 +8,9 @@ import { parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id
 import type { PtyPaneOf } from '../surface/pty-pane-query'
 import { getLatestPtyTitle } from '../../workspaces/process-listing/runtime-worktree-status-projection'
 import { copySleepingAgentLaunchConfig } from '../launch/runtime-agent-launch-resolution'
-import type { OrcaRuntimeWithBuildPtyTerminalSummary as PtyTerminalSummaryMethods } from '../query/pty-terminal-summary'
+import type { OpenKodoRuntimeWithBuildPtyTerminalSummary as PtyTerminalSummaryMethods } from '../query/pty-terminal-summary'
 
-export abstract class OrcaRuntimeWithFocusTerminal extends OrcaRuntimeWithWaitForLeafPtyId {
+export abstract class OpenKodoRuntimeWithFocusTerminal extends OpenKodoRuntimeWithWaitForLeafPtyId {
   protected abstract getPtyManualTitle(
     ...args: Parameters<PtyTerminalSummaryMethods['getPtyManualTitle']>
   ): ReturnType<PtyTerminalSummaryMethods['getPtyManualTitle']>

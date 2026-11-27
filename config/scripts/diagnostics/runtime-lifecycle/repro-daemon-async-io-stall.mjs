@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { setTimeout as delay } from 'node:timers/promises'
 import { build } from 'esbuild'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { spawn } from 'node-pty'
 
 // Fault injection validates the failure boundary; the incident's workers were idle, not saturated.
@@ -15,7 +15,7 @@ if (process.platform === 'win32' || process.env.UV_THREADPOOL_SIZE !== '1') {
   )
 }
 
-const dir = mkdtempSync(join(tmpdir(), 'orca-async-io-repro-'))
+const dir = mkdtempSync(join(tmpdir(), 'openkodo-async-io-repro-'))
 const fifo = join(dir, 'blocked-open')
 let terminal
 let healthTerminal

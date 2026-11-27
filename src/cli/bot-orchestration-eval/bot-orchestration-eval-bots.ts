@@ -26,7 +26,7 @@ import {
 } from '../../main/bots/bot-request-view'
 import { EVAL_BOT, type EvalHostState } from '../bot-automation-eval/bot-automation-eval-host'
 import { OWNER_SLACK_ID } from '../bot-automation-eval/bot-automation-eval-slack'
-import type { StandInIo } from './bot-orchestration-eval-orca'
+import type { StandInIo } from './bot-orchestration-eval-openkodo'
 import type { StandInMessage } from './bot-orchestration-eval-mail'
 
 /** Another bot as the stand-in keeps it. */
@@ -144,8 +144,8 @@ export function sendToBot(
   const value = record(state, target, purpose)
   const message: StandInMessage = {
     id: messageId,
-    from_handle: `orca_session_id:${EVAL_BOT.id}`,
-    to_handle: `orca_session_id:${target.id}`,
+    from_handle: `openkodo_session_id:${EVAL_BOT.id}`,
+    to_handle: `openkodo_session_id:${target.id}`,
     type: purpose,
     subject: String(params.subject),
     body: String(params.body ?? ''),
@@ -174,8 +174,8 @@ export function botRequestMail(input: {
   }
   return {
     id: input.id,
-    from_handle: `orca_session_id:${input.from.id}`,
-    to_handle: `orca_session_id:${EVAL_BOT.id}`,
+    from_handle: `openkodo_session_id:${input.from.id}`,
+    to_handle: `openkodo_session_id:${EVAL_BOT.id}`,
     type: input.purpose,
     subject: input.subject,
     body: input.body,
@@ -195,8 +195,8 @@ export function botAnswerMail(input: {
 }): StandInMessage {
   return {
     id: input.id,
-    from_handle: `orca_session_id:${input.from.id}`,
-    to_handle: `orca_session_id:${EVAL_BOT.id}`,
+    from_handle: `openkodo_session_id:${input.from.id}`,
+    to_handle: `openkodo_session_id:${EVAL_BOT.id}`,
     type: 'status',
     subject: `Re: ${input.subject}`,
     body: input.body,
@@ -218,8 +218,8 @@ export function botUnansweredMail(input: {
 }): StandInMessage {
   return {
     id: input.id,
-    from_handle: `orca_session_id:${input.from.id}`,
-    to_handle: `orca_session_id:${EVAL_BOT.id}`,
+    from_handle: `openkodo_session_id:${input.from.id}`,
+    to_handle: `openkodo_session_id:${EVAL_BOT.id}`,
     type: 'status',
     subject: `Re: ${input.subject}`,
     body: botRequestUnansweredText(record(input.state, input.from, input.purpose), 'ended'),

@@ -46,7 +46,7 @@ function NativeChatDockBox({
         scrolls ? t('components.native-chat.dock.label', 'Message box and prompts') : undefined
       }
       // Once the transcript gives up its floor, the dock reaches the pane top: clear the pane's title actions.
-      className="scrollbar-sleek flex min-h-0 shrink flex-col focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring [[data-native-chat-dock-fit~=transcript]_&]:pt-[var(--orca-pane-title-height,calc(var(--spacing)*6))] [[data-native-chat-dock-fit~=dock]_&]:overflow-y-auto [[data-native-chat-dock-fit~=dock]_&>*]:shrink-0!"
+      className="scrollbar-sleek flex min-h-0 shrink flex-col focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring [[data-native-chat-dock-fit~=transcript]_&]:pt-[var(--openkodo-pane-title-height,calc(var(--spacing)*6))] [[data-native-chat-dock-fit~=dock]_&]:overflow-y-auto [[data-native-chat-dock-fit~=dock]_&>*]:shrink-0!"
     >
       {children}
     </div>

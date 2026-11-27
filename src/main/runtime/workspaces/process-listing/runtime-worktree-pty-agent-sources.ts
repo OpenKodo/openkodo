@@ -14,7 +14,7 @@ import type { AgentSessionStatusSummary } from '../../../../shared/agent-session
 import { structuredAgentSessionPaneKey } from '../../../../shared/agent-session/view/structured-agent-session-projection'
 import { structuredAgentSessionIdFromTabId } from '../../../../shared/agent-session/view/structured-agent-session-tab-id'
 import type { RuntimeWorktreeAgentSource } from './runtime-worktree-agent-source'
-import { createChatOrcaSessionIdResolver } from '../../orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { createChatOpenKodoSessionIdResolver } from '../../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 
 export type ConnectedPtyEvidence = {
   tabIds: ReadonlySet<string>
@@ -49,13 +49,13 @@ export function collectRuntimeWorktreePtyAgentSources(args: {
   mirroredWorktreeIdByTabId: ReadonlyMap<string, string>
   connectedPtyEvidence: ConnectedPtyEvidence
   /** A chat's /clear root: the OpenKodo session ID its row names. Defaults to this host's records. */
-  chatOrcaSessionId?: (sessionId: string) => string
+  chatOpenKodoSessionId?: (sessionId: string) => string
 }): RuntimeWorktreeAgentSource[] {
   const rowSources = new Map<
     string,
     RuntimeWorktreeAgentSource & { payload: ParsedAgentStatusPayload }
   >()
-  let chatOrcaSessionId = args.chatOrcaSessionId
+  let chatOpenKodoSessionId = args.chatOpenKodoSessionId
   for (const source of args.hookSnapshots) {
     const identity = source.structuredHost
       ? null
@@ -80,10 +80,10 @@ export function collectRuntimeWorktreePtyAgentSources(args: {
       entry.structuredHost && entry.connectionId === null && entry.tabId
         ? structuredAgentSessionIdFromTabId(entry.tabId)
         : null
-    const orcaSessionId =
-      entry.orcaSessionId ??
+    const openkodoSessionId =
+      entry.openkodoSessionId ??
       (chatSessionId
-        ? (chatOrcaSessionId ??= createChatOrcaSessionIdResolver())(chatSessionId)
+        ? (chatOpenKodoSessionId ??= createChatOpenKodoSessionIdResolver())(chatSessionId)
         : undefined)
     rowSources.set(entry.paneKey, {
       paneKey: entry.paneKey,
@@ -99,7 +99,7 @@ export function collectRuntimeWorktreePtyAgentSources(args: {
       ...(entry.workingMode ? { workingMode: entry.workingMode } : {}),
       agentType: entry.agentType ?? null,
       ...(entry.providerSession?.id ? { providerSessionId: entry.providerSession.id } : {}),
-      ...(orcaSessionId ? { orcaSessionId } : {}),
+      ...(openkodoSessionId ? { openkodoSessionId } : {}),
       prompt: entry.prompt,
       lastAssistantMessage: entry.lastAssistantMessage ?? null,
       toolName: entry.toolName ?? null,

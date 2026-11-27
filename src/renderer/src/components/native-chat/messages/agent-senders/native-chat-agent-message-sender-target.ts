@@ -54,7 +54,7 @@ function replacedAt(state: AppState, sender: AgentMessageSender, location: Sende
   // Without a saved kind nothing can veto, so the row isn't read.
   return Boolean(
     saved &&
-    !sender.party.orcaSessionId &&
+    !sender.party.openkodoSessionId &&
     knownDifferent(saved, readAgentMessageSenderRow(state, location)?.agentType)
   )
 }
@@ -175,11 +175,11 @@ export function agentMessageSenderReplacedOnHandle(
 ): boolean {
   const location = locateLegacyAgentMessageSender(
     state,
-    { party: { address: handle, terminalHandle: handle, orcaSessionId: null }, name: null },
+    { party: { address: handle, terminalHandle: handle, openkodoSessionId: null }, name: null },
     host
   )
   return Boolean(
     location &&
-    replacedAt(state, { ...sender, party: { ...sender.party, orcaSessionId: null } }, location)
+    replacedAt(state, { ...sender, party: { ...sender.party, openkodoSessionId: null } }, location)
   )
 }

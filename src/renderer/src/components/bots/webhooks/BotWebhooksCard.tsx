@@ -17,8 +17,8 @@ import { askBotInChat } from './ask-bot-in-chat'
 import { useBotWebhooks, WEBHOOK_AGO_TICK_MS } from './use-webhook-data'
 import { webhookSetUpDraft } from './use-webhooks-connector'
 import { WebhookHookRow } from './WebhookHookRow'
-import { signedOutConnectorFace } from '../orca-cloud-sign-in'
-import { useOrcaCloudSignedOut } from '../orca-cloud-signed-out'
+import { signedOutConnectorFace } from '../openkodo-cloud-sign-in'
+import { useOpenKodoCloudSignedOut } from '../openkodo-cloud-signed-out'
 
 function rowFace(
   hooks: readonly WebhookSummary[],
@@ -60,7 +60,7 @@ export function BotWebhooksCard({
   const t = useTranslate()
   const read = useBotWebhooks(botTarget(bot), bot.id)
   const now = useNow(WEBHOOK_AGO_TICK_MS)
-  const signedOut = useOrcaCloudSignedOut(bot.hostId)
+  const signedOut = useOpenKodoCloudSignedOut(bot.hostId)
   // Without webhooks on the cloud or this OpenKodo, or with none made yet, there is no row.
   if (read.status !== 'ready' || read.value.length === 0) {
     return null

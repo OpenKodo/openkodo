@@ -21,7 +21,7 @@ let host: HeavyWorkerHost = {
   pauseMessage: () => null
 }
 
-/** Electron main hosts these in a utility process; orcad, the AI Vault child and tests keep threads. */
+/** Electron main hosts these in a utility process; openkodod, the AI Vault child and tests keep threads. */
 export function setHeavyWorkerHost(next: HeavyWorkerHost): void {
   host = next
 }

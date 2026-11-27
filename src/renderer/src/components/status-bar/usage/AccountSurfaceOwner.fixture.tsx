@@ -1,5 +1,5 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { createEmptyRateLimitState } from '../../../../../shared/agent-usage/rate-limits/rate-limit-state-factory'
 import type { ExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import type { Repo } from '../../../../../shared/repository/repo-types'
@@ -117,7 +117,7 @@ function fixture(
           runtimeId: 'fixture',
           preferredEndpointId: 'fixture',
           endpoints: [],
-          orcadDeployment: { kind: 'wsl', distro: 'Ubuntu', localPort: 1234, remotePort: 1234 }
+          openkododDeployment: { kind: 'wsl', distro: 'Ubuntu', localPort: 1234, remotePort: 1234 }
         } satisfies PublicKnownRuntimeEnvironment
       ],
       runtimeEnvironmentCatalogHydrated: true,

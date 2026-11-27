@@ -17,7 +17,7 @@ import {
   normalizeWorkspaceLinkedItem
 } from '../../../shared/workspace-attachments/workspace-linked-item'
 import { isWorkspaceLinkedItemSourceContextMatch } from '../../../shared/workspace-attachments/workspace-linked-item-source-context'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import {
   pruneUnreferencedWorktreeIdentityMeta,
   removeWorktreeMetadataForHost

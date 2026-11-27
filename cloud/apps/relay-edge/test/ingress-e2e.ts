@@ -1,7 +1,7 @@
 // Local end to end: the edge Worker (wrangler dev over https, object backend) behind the ingress
 // proxy (apps/relay-ingress) on localhost with a throwaway self-signed certificate. Drives the
 // SHIPPED desktop control client and data transport, and phone-like sockets, through the proxy.
-//   pnpm --filter @orca-cloud/relay-contract build && npx tsx test/ingress-e2e.ts
+//   pnpm --filter @openkodo-cloud/relay-contract build && npx tsx test/ingress-e2e.ts
 import { spawn, execFileSync, type ChildProcess } from 'node:child_process'
 import { randomBytes } from 'node:crypto'
 import { createServer } from 'node:http'

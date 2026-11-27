@@ -2,7 +2,7 @@ import { callRuntimeEnvironment } from '../runtime-environments/requests/runtime
 import { isRemoteRuntimeConnectionReady } from '../runtime-environments/connections/runtime-environment-request-connections'
 import { resolveEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import { getPreferredPairedRuntimeConnection } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
-import { requestOrcadTerminalCensus } from '../../managed-server/lifecycle/orcad-terminal-census-client'
+import { requestOpenkododTerminalCensus } from '../../managed-server/lifecycle/openkodod-terminal-census-client'
 import type { WslHostRuntimeAccess } from '../../wsl/host-lifecycle/wsl-host-server-stop'
 
 export function wslHostRuntimeAccess(getUserDataPath: () => string): WslHostRuntimeAccess {
@@ -27,7 +27,7 @@ export function wslHostRuntimeAccess(getUserDataPath: () => string): WslHostRunt
       return response.result
     },
     census: async (environmentId) =>
-      requestOrcadTerminalCensus(
+      requestOpenkododTerminalCensus(
         getPreferredPairedRuntimeConnection(
           await resolveEnvironment(getUserDataPath(), environmentId)
         ),

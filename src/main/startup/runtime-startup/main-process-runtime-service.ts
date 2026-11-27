@@ -15,13 +15,13 @@ import { LOCAL_EXECUTION_HOST_ID } from '../../../shared/execution-host/executio
 import { sessionSearchScopeCatalogFromStore } from '../../ai-vault-search/scope/session-search-store-scope-catalog'
 import { getCanonicalUserDataPath } from '../../persistence/loading-store/user-data-path'
 import { translateMain } from '../../i18n/main-i18n'
-import { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { getLocalPtyProvider } from '../../ipc/pty/provider/registry'
 import { clearProviderPtyState } from '../../ipc/pty/provider/state-cleanup'
 import { agentHookServer } from '../../agent-hooks/server/agent-hook-server'
 import { toAgentStatusIpcPayload } from '../../agent-hooks/server/server-status-identity'
 import { loadAgentSessionClaimSigner } from '../../runtime/agent-session/ownership/agent-session-claim-identity'
-import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
 import type { Store } from '../../persistence/loading-store/store'
 import type { StatsCollector } from '../../stats/collector'
 import type { DesktopCore } from '../../core-desktop/desktop-core'
@@ -35,7 +35,7 @@ import { resolveTuiAgentLaunchEnv } from '../../../shared/agent-launch/choices/t
 import { createOrchestrationEnvironmentTransport } from '../../ipc/runtime-environments/requests/orchestration-environment-transport'
 import { trackRuntimeEnvironmentVerifiedTransitions } from '../../ipc/runtime-environments/status/runtime-environment-verified-transitions'
 import { onRuntimeEnvironmentStatusPublished } from '../../ipc/runtime-environments/status/runtime-environment-status-owner'
-import { installWslOrcadAccountShim } from '../wsl-startup/wsl-orcad-account-env-wiring'
+import { installWslOpenkododAccountShim } from '../wsl-startup/wsl-openkodod-account-env-wiring'
 import {
   codexStructuredLaunchHomeResolvers,
   prepareCodexRuntimeHomeForLaunch
@@ -61,24 +61,24 @@ export type DesktopRuntimeServiceDeps = {
   stats: StatsCollector
   userDataPath: string
   isPackaged: boolean
-  servedOrcaProfileId: string | undefined
+  servedOpenKodoProfileId: string | undefined
   getDesktopWindowStatus: () => RuntimeDesktopWindowStatus
   sendTerminalSideEffects: (batch: TerminalSideEffectBatch) => void
   /** Browser guests, offscreen tab links and profile changes report into this runtime. */
-  attachBrowserHost: (runtime: OrcaRuntimeService) => void
+  attachBrowserHost: (runtime: OpenKodoRuntimeService) => void
   registerCleanup: (cleanup: () => void) => void
 }
 
 export function initializeMainProcessRuntime(
   core: DesktopCore,
   deps: DesktopRuntimeServiceDeps
-): OrcaRuntimeService {
+): OpenKodoRuntimeService {
   const { store, stats, userDataPath } = deps
   // Desktop and headless serve alike: whichever runs the profile's cleanup reports through here.
   installLegacyJournalRetirementReporting()
   // Process-scope subscription covers desktop, headless serve and fleet status.
   const observedPaneIdentities = new AgentStatusObservedPaneIdentities()
-  const runtime = new OrcaRuntimeService(store, stats, {
+  const runtime = new OpenKodoRuntimeService(store, stats, {
     getSetupTerminalTitle: () => translateMain('worktree.setupTerminalTitle', 'Setup'),
     ...agentHookRuntimeDeps(agentHookServer, observedPaneIdentities, () => store.getSettings()),
     prepareClaudeAuth: (target) => core.claudeRuntimeAuth!.prepareForClaudeLaunch(target),
@@ -92,7 +92,7 @@ export function initializeMainProcessRuntime(
     // Serve can activate in place; wire now, but enable desktop scanners only for a ready renderer.
     onTerminalSideEffects: deps.sendTerminalSideEffects,
     getDesktopWindowStatus: deps.getDesktopWindowStatus,
-    servedOrcaProfileId: deps.servedOrcaProfileId,
+    servedOpenKodoProfileId: deps.servedOpenKodoProfileId,
     attestAgentHookCompatibilityAuthority: (candidate) =>
       agentHookServer.attestCompatibilityAuthority(candidate),
     canRecoverPersistentLocalPtys: () => getDaemonProvider() !== null,
@@ -171,7 +171,7 @@ export function initializeMainProcessRuntime(
 
 export function configureRuntimeServices(
   core: DesktopCore,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   {
     store,
     userDataPath,
@@ -191,7 +191,7 @@ export function configureRuntimeServices(
     requireHttps: isPackaged
   })
   runtime.setAccountServices({ claudeAccounts, codexAccounts, rateLimits })
-  installWslOrcadAccountShim(store)
+  installWslOpenkododAccountShim(store)
   runtime.setCommitMessageAgentEnvironmentResolvers({
     // Resolve every Codex launch through runtime-home, including default-account hooks/auth.
     prepareForCodexLaunch: prepareCodexRuntimeHomeForLaunch,

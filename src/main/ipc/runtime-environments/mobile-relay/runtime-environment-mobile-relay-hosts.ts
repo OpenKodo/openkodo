@@ -21,7 +21,7 @@ import type {
 import {
   prepareManagedRuntimeRequest,
   type ManagedRuntimeCallPreparation
-} from '../managed-orcad/runtime-environment-managed-tunnel'
+} from '../managed-openkodod/runtime-environment-managed-tunnel'
 import { wslHostsGateOpen } from '../../../wsl/host-lifecycle/wsl-host-gate'
 import type { WslHostPhoneReach } from '../../../wsl/host-lifecycle/wsl-host-phone-reach'
 import {
@@ -49,7 +49,7 @@ import { onRuntimeEnvironmentStatusPublished } from '../status/runtime-environme
 import { watchRuntimeEnvironmentRegistry } from '../catalog/runtime-environment-preference'
 import { getRuntimeEnvironmentTransportGeneration } from '../connections/runtime-environment-transport-generation'
 import { getRuntimeEnvironmentRegistryRoot } from '../catalog/runtime-environment-registry-root'
-import { recipeVmServerState } from '../managed-orcad/runtime-environment-recipe-vm-wake'
+import { recipeVmServerState } from '../managed-openkodod/runtime-environment-recipe-vm-wake'
 import { RECIPE_VM_PHONE_OPEN_HOLD_MS } from '../../../../shared/remote-runtime/recipe-vm-wake'
 
 const retirementListeners = new Set<(environmentId: string) => void>()
@@ -133,7 +133,7 @@ export function createRuntimeEnvironmentMobileRelayHosts(): MobileDesktopRelayHo
           id: environment.id,
           name: environment.name,
           source: environment.source,
-          orcadDeployment: environment.orcadDeployment,
+          openkododDeployment: environment.openkododDeployment,
           pairingRevision: pairingRevision(environment),
           runtimeId: environment.runtimeId,
           ...(environment.pairedDeviceId ? { pairedDeviceId: environment.pairedDeviceId } : {}),

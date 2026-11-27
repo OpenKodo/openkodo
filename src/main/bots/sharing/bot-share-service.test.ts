@@ -13,7 +13,7 @@ import { readBotShareable } from './bot-share-sources'
 let root: string
 
 beforeEach(async () => {
-  root = await mkdtemp(join(tmpdir(), 'orca-bot-share-service-test-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-bot-share-service-test-'))
   useBotToolCredentialsRoot(join(root, 'credentials'))
 })
 

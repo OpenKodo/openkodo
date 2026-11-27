@@ -76,7 +76,7 @@ export const foldedHeader = defineFixture({
         id: owner.folderWorkspaceId,
         projectGroupId: 'bots',
         name: owner.name,
-        folderPath: `/home/me/.orca/bots/${owner.folder}`,
+        folderPath: `/home/me/.openkodo/bots/${owner.folder}`,
         isUnread: owner.id === 'docs'
       })
     ),
@@ -110,7 +110,7 @@ function localizedHeader(
           id: owner.folderWorkspaceId,
           projectGroupId: 'bots',
           name: owner.name,
-          folderPath: `/home/me/.orca/bots/${owner.folder}`
+          folderPath: `/home/me/.openkodo/bots/${owner.folder}`
         })
       ),
       agentStatusByPaneKey: acceptedAgentStatuses(
@@ -162,7 +162,7 @@ const HOMES = (owners: readonly Pick<Bot, 'folderWorkspaceId' | 'name' | 'folder
       id: owner.folderWorkspaceId,
       projectGroupId: 'bots',
       name: owner.name,
-      folderPath: `/home/me/.orca/bots/${owner.folder}`
+      folderPath: `/home/me/.openkodo/bots/${owner.folder}`
     })
   )
 

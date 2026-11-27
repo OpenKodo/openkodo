@@ -19,7 +19,7 @@ import { useIntlLocale, useTranslate } from '@/i18n/use-translate'
 const RANGE_OPTIONS: CodexUsageRange[] = ['7d', '30d', '90d', 'all']
 const SCOPE_OPTIONS: { value: CodexUsageScope; label: string }[] = [
   {
-    value: 'orca',
+    value: 'openkodo',
     get label() {
       return translate('auto.components.stats.CodexUsagePane.201766b754', 'OpenKodo worktrees only')
     }

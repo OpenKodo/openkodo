@@ -41,7 +41,7 @@ async function signIn(
     const url = String(input)
     if (url.startsWith('https://oauth2.googleapis.com/token')) {
       const form = new URLSearchParams(String(init?.body))
-      if (form.get('code') === 'orca-key-check') {
+      if (form.get('code') === 'openkodo-key-check') {
         const gone = goneApps.includes(form.get('client_id') ?? '')
         return Response.json({ error: gone ? 'invalid_client' : 'invalid_grant' }, { status: 400 })
       }

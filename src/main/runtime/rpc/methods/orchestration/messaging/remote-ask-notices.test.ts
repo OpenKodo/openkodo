@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import {
   openRemoteRunLink,
   remoteServerPin
@@ -11,7 +11,7 @@ import {
   recordRemoteAskAnswered
 } from '../../../../orchestration/db/remote-owned/remote-dispatch-records'
 import { startRestingQuestionReconciler } from '../../../../orchestration/mailbox/questions/question-reconciler.test-fixture'
-import { testOrcaSessionId } from '../../../../../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { testOpenKodoSessionId } from '../../../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import { remoteAskNotices, retryRemoteAskNotices } from './remote-ask-notices'
 
 const call = vi.hoisted(() => ({ send: vi.fn() }))
@@ -19,13 +19,13 @@ vi.mock('../../../../orchestration/federation/remote-owned/remote-owned-calls', 
   callRemoteOwnedServer: (...args: unknown[]) => call.send(...args)
 }))
 
-const COORDINATOR = testOrcaSessionId('33333333-3333-4333-8333-333333333333')
+const COORDINATOR = testOpenKodoSessionId('33333333-3333-4333-8333-333333333333')
 const UNREACHABLE = Object.assign(new Error('offline'), { code: 'remote_runtime_unavailable' })
 
 describe("a paired worker's question its coordinator here stopped on", () => {
   let db: OrchestrationDb
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: these paths read only the stubbed members.
-  const runtime = {} as unknown as OrcaRuntimeService
+  const runtime = {} as unknown as OpenKodoRuntimeService
 
   beforeEach(() => {
     db = new OrchestrationDb(':memory:')
@@ -39,7 +39,7 @@ describe("a paired worker's question its coordinator here stopped on", () => {
       objective: 'o',
       coordinatorHandle: null,
       coordinatorPaneKey: null,
-      coordinatorOrcaSessionId: COORDINATOR
+      coordinatorOpenKodoSessionId: COORDINATOR
     })
     const link = openRemoteRunLink(db, run.id, {
       environmentId: 'env_box',
@@ -179,7 +179,7 @@ describe("a paired worker's question its coordinator here stopped on", () => {
       objective: 'o',
       coordinatorHandle: null,
       coordinatorPaneKey: null,
-      coordinatorOrcaSessionId: COORDINATOR
+      coordinatorOpenKodoSessionId: COORDINATOR
     })
     importBoxQuestion(run.id, () => COORDINATOR)
     await decided(reconciler)

@@ -5,7 +5,7 @@ import { resolveLaunchUserDataPath } from '../profile/launch-user-data-path'
 import { appImageEphemeralRootOf } from '../../../shared/desktop-distribution/appimage/appimage-ephemeral-root'
 
 /** A remote server’s Node-based CLI cannot start a local app server. */
-export function canStartOrcaServer(env: NodeJS.ProcessEnv): boolean {
+export function canStartOpenKodoServer(env: NodeJS.ProcessEnv): boolean {
   const override = env.OPENKODO_APP_EXECUTABLE
   return (
     (typeof override === 'string' && override.trim().length > 0) || env.ELECTRON_RUN_AS_NODE === '1'
@@ -18,7 +18,7 @@ export function appCliName(_platform: NodeJS.Platform): string {
 }
 
 const NOT_AN_APP_CLI =
-  "This `orca` command isn't running from an installed OpenKodo app. On a host OpenKodo reaches over SSH, it belongs to that connection's server and can't start one of its own."
+  "This `openkodo` command isn't running from an installed OpenKodo app. On a host OpenKodo reaches over SSH, it belongs to that connection's server and can't start one of its own."
 
 export function serverOnlyServeMessage(platform: NodeJS.Platform): string {
   return `${NOT_AN_APP_CLI} Install the OpenKodo app on this machine and run \`${appCliName(platform)} serve\` from a plain login shell, or set OPENKODO_APP_EXECUTABLE to the OpenKodo app executable.`
@@ -34,7 +34,7 @@ function isVersionScopedDir(dir: string, userData: string): boolean {
   return (
     inside === '' ||
     (!inside.startsWith('..') && !isAbsolute(inside)) ||
-    dir.includes('orcad-artifacts') ||
+    dir.includes('openkodod-artifacts') ||
     appImageEphemeralRootOf(dir) !== null
   )
 }
@@ -86,7 +86,7 @@ export function resolveServiceCommand(
   }
   throw new RuntimeClientError(
     'cli_not_found',
-    canStartOrcaServer(deps.env)
+    canStartOpenKodoServer(deps.env)
       ? `Could not find the \`${name}\` command on PATH. Install it from OpenKodo Settings, or pass --command <absolute path>.`
       : serverOnlyServiceInstallMessage(deps.platform)
   )

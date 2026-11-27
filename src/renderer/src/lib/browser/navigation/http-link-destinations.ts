@@ -49,7 +49,7 @@ export type WorkspaceHttpLinkBrowserOpener = (
 
 // Keep original terminal catalog keys: their shipped translations are now shared with native chat.
 
-export type HttpLinkDestination = 'orca' | 'system'
+export type HttpLinkDestination = 'openkodo' | 'system'
 
 export type HttpLinkActionDestinations = {
   primary: HttpLinkDestination
@@ -62,7 +62,7 @@ export type HttpLinkAction = {
   run: () => void | Promise<void>
 }
 
-export function canSourceOwnerOpenInOrca(
+export function canSourceOwnerOpenInOpenKodo(
   sourceOwner: HttpLinkSourceOwner,
   canOpenOwnedBrowser: boolean
 ): boolean {
@@ -81,12 +81,12 @@ export function httpLinkActionDestinationsFor(
   url?: string,
   worktreeId?: string | null
 ): HttpLinkActionDestinations {
-  if (!canSourceOwnerOpenInOrca(sourceOwner, canOpenOwnedBrowser)) {
+  if (!canSourceOwnerOpenInOpenKodo(sourceOwner, canOpenOwnedBrowser)) {
     return { primary: 'system' }
   }
   return settings?.openLinksInApp === true || isRemoteLoopbackHttpLink(url, sourceOwner, worktreeId)
-    ? { primary: 'orca', alternate: 'system' }
-    : { primary: 'system', alternate: 'orca' }
+    ? { primary: 'openkodo', alternate: 'system' }
+    : { primary: 'system', alternate: 'openkodo' }
 }
 
 export function httpLinkDirectClickDestination(
@@ -100,8 +100,11 @@ export function httpLinkDestinationLabel(
   destination: HttpLinkDestination,
   t: Translate = translate
 ): string {
-  return destination === 'orca'
-    ? t('auto.components.terminal.pane.TerminalLinkActionPopover.orcaBrowser', 'OpenKodo Browser')
+  return destination === 'openkodo'
+    ? t(
+        'auto.components.terminal.pane.TerminalLinkActionPopover.openkodoBrowser',
+        'OpenKodo Browser'
+      )
     : t('auto.components.terminal.pane.TerminalLinkActionPopover.systemBrowser', 'System Browser')
 }
 
@@ -127,7 +130,7 @@ export function buildHttpLinkActions(
   }
   const secondaryActions =
     source &&
-    (destinations?.primary === 'orca' || destinations?.alternate === 'orca') &&
+    (destinations?.primary === 'openkodo' || destinations?.alternate === 'openkodo') &&
     canHttpLinkOpenInSourceGroup(
       source.worktreeId,
       source.sourceTabId,
@@ -193,7 +196,7 @@ export function openRoutedHttpLink(url: string, deps: RoutedHttpLinkOptions): vo
       ...(linkContext ? { linkContext } : {}),
       allowRemoteInApp: true,
       worktreeId: deps.worktreeId,
-      forceInApp: deps.forceDestination === 'orca',
+      forceInApp: deps.forceDestination === 'openkodo',
       forceSystemBrowser: deps.forceDestination === 'system',
       sourceOwner,
       ...(deps.onBrowserOpenComplete ? { onBrowserOpenComplete: deps.onBrowserOpenComplete } : {})
@@ -229,12 +232,12 @@ export function openRoutedHttpLink(url: string, deps: RoutedHttpLinkOptions): vo
 
   // Prevent native navigation before awaiting the initial routing-preference dialog.
   void Promise.resolve(preferenceDecision)
-    .then((openInOrca) => {
+    .then((openInOpenKodo) => {
       openHttpLink(url, {
         ...(linkContext ? { linkContext } : {}),
         allowRemoteInApp: true,
         worktreeId: deps.worktreeId,
-        forceSystemBrowser: !openInOrca,
+        forceSystemBrowser: !openInOpenKodo,
         sourceOwner,
         ...(deps.onBrowserOpenComplete ? { onBrowserOpenComplete: deps.onBrowserOpenComplete } : {})
       })

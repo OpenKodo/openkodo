@@ -26,7 +26,7 @@ import {
   reusablePairingOffer,
   withoutExpiredUnboundOffers
 } from './pairing-offer-expiry'
-import { sameOrcaAccount } from './paired-device-typist'
+import { sameOpenKodoAccount } from './paired-device-typist'
 import {
   mobilePairingConnectionModeOf,
   findPrincipalDevice,
@@ -34,7 +34,7 @@ import {
   type AuthenticatedPrincipalBinding,
   lookupDeviceKeyRow,
   type DeviceEntry,
-  type DeviceOrcaAccount,
+  type DeviceOpenKodoAccount,
   type DeviceKeyLookup,
   type PendingOfferOptions,
   type TokenDeviceEntry
@@ -198,17 +198,17 @@ export class DeviceRegistry extends DeviceRegistrySightings {
   }
 
   /** A paired desktop's claimed OpenKodo account; null forgets it (signed out). */
-  setOrcaAccount(deviceId: string, account: DeviceOrcaAccount | null): boolean {
+  setOpenKodoAccount(deviceId: string, account: DeviceOpenKodoAccount | null): boolean {
     const current = this.getDevice(deviceId)
     if (current?.scope !== 'runtime') {
       return false
     }
-    if (sameOrcaAccount(current.orcaAccount, account)) {
+    if (sameOpenKodoAccount(current.openkodoAccount, account)) {
       return true
     }
     return this.replaceRow(deviceId, (device) => {
-      const { orcaAccount: _dropped, ...rest } = device
-      return account ? { ...rest, orcaAccount: account } : rest
+      const { openkodoAccount: _dropped, ...rest } = device
+      return account ? { ...rest, openkodoAccount: account } : rest
     })
   }
 

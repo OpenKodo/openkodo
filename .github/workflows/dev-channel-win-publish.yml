@@ -58,7 +58,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for required in orca-windows-setup.exe orca-windows-setup.exe.blockmap latest.yml; do
+          for required in openkodo-windows-setup.exe openkodo-windows-setup.exe.blockmap latest.yml; do
             if [[ ! -s "staged-windows/$required" ]]; then
               echo "::error::Missing or empty staged Windows artifact: $required"
               exit 1
@@ -93,7 +93,7 @@ jobs:
           app-id: ${{ secrets.HOURLY_RELEASE_APP_ID }}
           private-key: ${{ secrets.HOURLY_RELEASE_APP_PRIVATE_KEY }}
           owner: stablyai
-          repositories: orca-${{ inputs.channel }}
+          repositories: openkodo-${{ inputs.channel }}
 
       - name: Confirm the target release is live
         shell: bash
@@ -113,7 +113,7 @@ jobs:
           timeout_minutes: 5
           max_attempts: 2
           retry_wait_seconds: 10
-          command: gh release upload "$TAG" staged-windows/orca-windows-setup.exe staged-windows/orca-windows-setup.exe.blockmap staged-windows/latest.yml --clobber --repo "OpenKodo/openkodo-$CHANNEL"
+          command: gh release upload "$TAG" staged-windows/openkodo-windows-setup.exe staged-windows/openkodo-windows-setup.exe.blockmap staged-windows/latest.yml --clobber --repo "OpenKodo/openkodo-$CHANNEL"
         env:
           GH_TOKEN: ${{ steps.app_token.outputs.token }}
 
@@ -124,7 +124,7 @@ jobs:
         run: |
           set -euo pipefail
           assets="$(gh release view "$TAG" --repo "OpenKodo/openkodo-$CHANNEL" --json assets --jq '.assets[].name')"
-          for required in latest.yml orca-windows-setup.exe orca-windows-setup.exe.blockmap; do
+          for required in latest.yml openkodo-windows-setup.exe openkodo-windows-setup.exe.blockmap; do
             if ! grep -qx "$required" <<<"$assets"; then
               echo "::error::$TAG is missing $required; Windows could not install this build."
               exit 1

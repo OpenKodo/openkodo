@@ -40,7 +40,7 @@ export function isPluginHookName(name: string): name is PluginHookName {
 export const pluginHookContributionSchema = z
   .object({
     event: z.enum(PLUGIN_HOOK_NAMES).meta({
-      ...pluginFieldDoc('Hook the worker handles with `orca.hooks.on`.', PLUGIN_HOOKS_SINCE),
+      ...pluginFieldDoc('Hook the worker handles with `openkodo.hooks.on`.', PLUGIN_HOOKS_SINCE),
       [PLUGIN_ENUM_SINCE_KEY]: PLUGIN_HOOK_SINCE
     }),
     onError: z

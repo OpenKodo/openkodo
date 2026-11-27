@@ -1,11 +1,11 @@
-import type { PersistedTrustedOrcaHooks } from '../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import { folderIdOfSelector } from '../../../../src/shared/workspace/identity/workspace-scope'
-import type { OrcaHookTrustPrompt } from '../../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../../components/hook-trust/OpenKodoHookTrustDrawer'
 import { newWorkspaceUiStateRead } from '../../new-workspace/creation/runtime/new-workspace-operations'
 import {
-  isOrcaHookTrusted,
-  usesVersionedOrcaHookTrust,
-  wasOrcaHookPreviouslyApproved
+  isOpenKodoHookTrusted,
+  usesVersionedOpenKodoHookTrust,
+  wasOpenKodoHookPreviouslyApproved
 } from '../../new-workspace/creation/setup-hook-trust'
 import type { Worktree } from '../../worktree/workspace-list/workspace-list-types'
 import { worktreeArchiveHookTrustRead } from '../host-screen-operations'
@@ -15,8 +15,8 @@ type ArchiveHookDecision =
   | { kind: 'run' | 'skip' }
   | {
       kind: 'ask'
-      prompt: OrcaHookTrustPrompt
-      trust: PersistedTrustedOrcaHooks
+      prompt: OpenKodoHookTrustPrompt
+      trust: PersistedTrustedOpenKodoHooks
       repos: readonly { id: string }[] | null
     }
 
@@ -51,10 +51,10 @@ export async function decideArchiveHookRun(
     if (!ui.accepted) {
       return { kind: 'skip' }
     }
-    const trust = ui.value?.trustedOrcaHooks ?? {}
+    const trust = ui.value?.trustedOpenKodoHooks ?? {}
     if (
       archiveTrust.contentHash === args.approvedArchiveHash ||
-      isOrcaHookTrusted(trust, args.repos, repoId, 'archive', archiveTrust.contentHash)
+      isOpenKodoHookTrusted(trust, args.repos, repoId, 'archive', archiveTrust.contentHash)
     ) {
       return { kind: 'run' }
     }
@@ -68,8 +68,8 @@ export async function decideArchiveHookRun(
         repoName: args.item.repo,
         scriptContent: archiveTrust.scriptContent,
         contentHash: archiveTrust.contentHash,
-        previouslyApproved: wasOrcaHookPreviouslyApproved(trust, repoId, 'archive'),
-        versionOnly: usesVersionedOrcaHookTrust(args.repos, repoId)
+        previouslyApproved: wasOpenKodoHookPreviouslyApproved(trust, repoId, 'archive'),
+        versionOnly: usesVersionedOpenKodoHookTrust(args.repos, repoId)
       }
     }
   } catch {

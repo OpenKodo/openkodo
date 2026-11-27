@@ -19,7 +19,7 @@ import {
 } from './codex-config-guest-carry-forward'
 import type { CodexRegistrationPromotion } from './config-plugin-registration-promotion'
 
-const SETTINGS_BASELINE_FILE = '.orca-config-settings-baseline.json'
+const SETTINGS_BASELINE_FILE = '.openkodo-config-settings-baseline.json'
 
 export type CodexSettingsConflict = {
   runtime: string | null

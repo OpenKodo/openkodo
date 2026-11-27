@@ -23,7 +23,7 @@ import { addGitHubAccount, openGitHubInstall } from '@/lib/bot-github-install-re
 import { isPairedWebClientWindow } from '@/app-shell/chrome/desktop-window-chrome'
 import { useGitHubWhoCanAsk } from './use-github-who-can-ask'
 import type { BotWhoCanAskService } from '../BotWhoCanAskList'
-import { signedOutConnectorFace } from '../orca-cloud-sign-in'
+import { signedOutConnectorFace } from '../openkodo-cloud-sign-in'
 import { BOT_SLACK_DESKTOP_ERRORS } from '../../../../../shared/connector-bot-slack-contract'
 
 type GitHubCardFace = {

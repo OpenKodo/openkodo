@@ -2,14 +2,14 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { vi } from 'vitest'
-import { getDefaultWorkspaceSession } from '../../../../shared/orca-profiles/constants'
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
+import { getDefaultWorkspaceSession } from '../../../../shared/openkodo-profiles/constants'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
 import type { RuntimeSyncWindowGraph } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { closeTerminalTabInWorkspaceSession } from '../../../../shared/workspace-session/workspace-session-terminal-tab-close'
 import { ProfileStateSqliteAuthority } from '../../../persistence/profile-state/profile-state-sqlite-authority'
 import { DelayedAuthority } from '../../../persistence/loading-store/profile-writing/profile-state-delayed-authority-fixture'
 import { Store } from '../../../persistence/loading-store/store'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { buildHeadlessMobileSessionTerminalTabs } from '../../terminal/surface/mobile-session-terminal-projection'
 import { setRuntimeDesktopSurface } from '../../construction/runtime-desktop-surface'
 import { advanceTerminalTopologyRevision } from '../../../persistence/terminal-topology/pane-ownership/terminal-topology-membership'
@@ -30,13 +30,13 @@ function deferred(): { promise: Promise<void>; resolve: () => void } {
 }
 
 export async function createAcknowledgedTabRetirementFixture(bound = false) {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-close-ack-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-close-ack-'))
   const databasePath = join(directory, 'profile-state.db')
   const authority = new DelayedAuthority(
     new ProfileStateSqliteAuthority(databasePath, 'ack-retirement')
   )
   const store = new Store({
-    dataFile: join(directory, 'orca-data.json'),
+    dataFile: join(directory, 'openkodo-data.json'),
     profileStateAuthority: authority
   })
   store.addRepo({
@@ -94,7 +94,7 @@ export async function createAcknowledgedTabRetirementFixture(bound = false) {
     requestRenderer: () => Promise.reject(new Error('unexpected renderer request')),
     holdRendererPublication: () => () => {}
   })
-  const runtime = new OrcaRuntimeService(store)
+  const runtime = new OpenKodoRuntimeService(store)
   runtime.attachWindow(1)
   if (bound) {
     runtime.registerPty('pty-a', ACK_WORKTREE, null, {

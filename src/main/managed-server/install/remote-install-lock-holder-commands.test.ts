@@ -26,7 +26,7 @@ import {
 import { getRemoteHostPlatform } from '../../ssh/remote-host/ssh-remote-platform'
 
 const host = getRemoteHostPlatform('linux-x64')
-const OWNER = '.orca-fence-owner'
+const OWNER = '.openkodo-fence-owner'
 const first = { fileName: OWNER, token: 't-first' }
 const second = { fileName: OWNER, token: 't-second' }
 const hasFlock =
@@ -44,7 +44,7 @@ afterEach(() => {
 })
 
 function lockOwnedBy(token: string): string {
-  const root = mkdtempSync(join(tmpdir(), 'orca-lock-holder-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-lock-holder-'))
   roots.push(root)
   const lock = join(root, '.install-lock')
   mkdirSync(lock)
@@ -222,7 +222,7 @@ describe.skipIf(!hasFlock)('flock-backed install lock, run for real', () => {
       const localRoots: string[] = []
       const localChildren: ChildProcessWithoutNullStreams[] = []
       const localLockOwnedBy = (token: string): string => {
-        const root = mkdtempSync(join(tmpdir(), 'orca-lock-holder-'))
+        const root = mkdtempSync(join(tmpdir(), 'openkodo-lock-holder-'))
         localRoots.push(root)
         const lock = join(root, '.install-lock')
         mkdirSync(lock)

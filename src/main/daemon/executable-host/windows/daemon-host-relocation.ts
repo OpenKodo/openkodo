@@ -82,7 +82,7 @@ function resolveEntrySourcePath(resourcesPath: string, observedEntryPath?: strin
   return existsSync(nested) ? nested : (observedEntryPath ?? nested)
 }
 
-/** orcad is packaged plain Node; require an Electron asar root before attempting relocation. */
+/** openkodod is packaged plain Node; require an Electron asar root before attempting relocation. */
 function isPackagedElectronWin32(): boolean {
   const environment = getAppEnvironment()
   return (

@@ -7,7 +7,7 @@
     "7f7c951583d9": {
       "name": "ui.set#2",
       "ordinal": 4,
-      "json": "{\"id\":\"frame-2\",\"deviceToken\":\"recording-device\",\"method\":\"ui.set\",\"params\":{\"trustedOrcaHooks\":{\"repo-1\":{\"all\":{\"approvedAt\":1767225600000}}}}}"
+      "json": "{\"id\":\"frame-2\",\"deviceToken\":\"recording-device\",\"method\":\"ui.set\",\"params\":{\"trustedOpenKodoHooks\":{\"repo-1\":{\"all\":{\"approvedAt\":1767225600000}}}}}"
     },
     "8eac7ca88434": {
       "name": "ui.set#1",
@@ -65,7 +65,7 @@
         {
           "name": "params",
           "value": {
-            "trustedOrcaHooks": {
+            "trustedOpenKodoHooks": {
               "repo-1": {
                 "all": {
                   "approvedAt": 1767225600000

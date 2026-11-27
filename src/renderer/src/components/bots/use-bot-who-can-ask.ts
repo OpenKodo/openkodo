@@ -12,7 +12,7 @@ import {
   type HostAccessRequest
 } from '@/lib/bot-access-requests'
 import { updateBot } from '@/lib/bot-catalog'
-import { useBotHostOnOwnAccount } from '@/lib/bot-host-orca-account'
+import { useBotHostOnOwnAccount } from '@/lib/bot-host-openkodo-account'
 import {
   BOT_MAX_MEMBERS,
   botMemberSource,
@@ -31,7 +31,7 @@ import {
 import { useConfirmBotAccess } from './bot-access-confirm'
 import { botErrorMessage } from './bot-presentation'
 import type { BotWhoCanAskService } from './BotWhoCanAskList'
-import { useOrcaCloudSignedOut } from './orca-cloud-signed-out'
+import { useOpenKodoCloudSignedOut } from './openkodo-cloud-signed-out'
 import { useBotHostLabel } from './use-bot-host-label'
 
 // A request's row repeats no name: Slack's real name often equals the display name.
@@ -95,7 +95,7 @@ export function useBotWhoCanAsk(bot: Bot, service: BotWhoCanAskService) {
   const takes = service.accessRequests
   const forThisList = (request: HostAccessRequest): boolean => forList(bot, takes, request)
   const requests = useWhoCanAskRequests(bot, service)
-  const requestsWaitOnSignIn = useOrcaCloudSignedOut(bot.hostId) && takes !== undefined
+  const requestsWaitOnSignIn = useOpenKodoCloudSignedOut(bot.hostId) && takes !== undefined
 
   // An add past a limit saves nobody; say who and which limit.
   const fullMessage = (error: unknown): string | null => {

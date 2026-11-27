@@ -5,7 +5,7 @@ import type { BotImportDone, BotImportPlan } from '../../bots/bot-import-cards'
 import type { BotRequestCard } from '../../bots/bot-request-card'
 import type { GoogleSetupCardRef } from '../../google/google-setup-card'
 import type { ComposioSetupCardRef } from '../../composio/composio-setup-card'
-import type { AgentJournalToolAddedItem } from '../../agent-journal-orca-card-items'
+import type { AgentJournalToolAddedItem } from '../../agent-journal-openkodo-card-items'
 
 /** Each card a status line can carry in place of its text, by its field. */
 export type NativeChatBotCardFieldValues = {

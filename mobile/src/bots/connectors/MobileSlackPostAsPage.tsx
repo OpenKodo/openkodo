@@ -31,7 +31,7 @@ export function slackPosterNames(
   t: Translate
 ): Record<SlackPostAs, string> {
   return {
-    person: installed.poster?.name || t('bots.slack.postAs.orcaUser', 'OpenKodo user'),
+    person: installed.poster?.name || t('bots.slack.postAs.openkodoUser', 'OpenKodo user'),
     computer: installed.computerName || hostName
   }
 }
@@ -157,7 +157,7 @@ export function MobileSlackPostAsPage(props: {
           <ListRow
             key={choice}
             leading={face(choice)}
-            title={t('bots.slack.postAs.viaOrca', '{{name}} (via OpenKodo)', {
+            title={t('bots.slack.postAs.viaOpenKodo', '{{name}} (via OpenKodo)', {
               name: names[choice]
             })}
             subtitle={t('bots.slack.postAs.sample', 'Ship it after that')}

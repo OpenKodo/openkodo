@@ -1,5 +1,5 @@
 import type { RuntimeTerminalWaitBlockedReason } from '../../../../../shared/terminal/runtime/runtime-terminal-contracts'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { WorkerDispatchRow } from '../../db/orchestration-records'
 import { redactWorkerTerminalView } from '../../terminal-authority/views/worker-terminal-redaction'
@@ -34,7 +34,7 @@ const BLOCKED_SCREENS: Record<RuntimeTerminalWaitBlockedReason, string> = {
 
 /** The worker's last screen lines for a report, with any capability redacted; undefined when unreadable. */
 export function readWorkerStartScreen(
-  runtime: Pick<OrcaRuntimeService, 'readTerminal'>,
+  runtime: Pick<OpenKodoRuntimeService, 'readTerminal'>,
   handle: string
 ): Promise<string | undefined> {
   return Promise.resolve()
@@ -49,7 +49,7 @@ export function readWorkerStartScreen(
 
 /** Told once per Dispatch, whichever screens follow: the coordinator only needs to fetch a person. */
 export async function reportBlockedWorkerStart(
-  runtime: Pick<OrcaRuntimeService, 'readTerminal' | 'notifyMessageArrived'>,
+  runtime: Pick<OpenKodoRuntimeService, 'readTerminal' | 'notifyMessageArrived'>,
   db: OrchestrationDb,
   dispatchId: string,
   handle: string,
@@ -122,7 +122,7 @@ export function reportNeverReadyWorkerStart(
 export function settleRestartCutStart(
   db: OrchestrationDb,
   dispatchId: string,
-  runtime: Pick<OrcaRuntimeService, 'getRuntimeId' | 'notifyMessageArrived'> &
+  runtime: Pick<OpenKodoRuntimeService, 'getRuntimeId' | 'notifyMessageArrived'> &
     Partial<StructuredChatCloseRuntime>
 ): WorkerDispatchRow | undefined {
   const worker = db.getWorkerDispatch(dispatchId)
@@ -182,7 +182,7 @@ function closeCutStructuredWorkerSession(
     })
 }
 
-type StructuredChatCloseRuntime = Pick<OrcaRuntimeService, 'ensureStructuredAgentSessionHost'> &
+type StructuredChatCloseRuntime = Pick<OpenKodoRuntimeService, 'ensureStructuredAgentSessionHost'> &
   StructuredSessionSurfaceRuntime
 
 function canCloseStructuredChat(

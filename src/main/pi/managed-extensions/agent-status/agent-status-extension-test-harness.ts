@@ -193,7 +193,7 @@ export function createAgentStatusExtensionHarness(args: {
     },
     pid: args.pid ?? AGENT_STATUS_EXTENSION_SELF_PID,
     title: args.title ?? 'node',
-    argv: args.argv ?? ['node', '/usr/bin/orca']
+    argv: args.argv ?? ['node', '/usr/bin/openkodo']
   }
 
   const context: Record<string, unknown> = {

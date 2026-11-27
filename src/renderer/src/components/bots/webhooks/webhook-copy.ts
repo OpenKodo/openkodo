@@ -7,7 +7,7 @@ import type { WebhookAdapterId } from '../../../../../shared/connector-webhook-c
 import type { AutomationBotResultsTo } from '../../../../../shared/automations/automation-definition'
 import type { WebhookSummary } from '../../../../../shared/rpc-contract/webhooks-params'
 import type { WebhookErrorCode } from './webhook-host-client'
-import { readOrcaCloudSignedOut } from '../orca-cloud-signed-out'
+import { readOpenKodoCloudSignedOut } from '../openkodo-cloud-signed-out'
 import { getRuntimeTargetHostId } from '@/runtime/rpc/targets/runtime-client-target'
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 import {
@@ -160,7 +160,7 @@ export function webhookErrorMessage(
       return translate('bots.webhooks.errors.notFound', 'This webhook was deleted.')
     case 'webhooks_unavailable':
       // Signed out, the cloud that takes the calls can't be reached; that is the reason, not support.
-      return readOrcaCloudSignedOut(getRuntimeTargetHostId(target))
+      return readOpenKodoCloudSignedOut(getRuntimeTargetHostId(target))
         ? translate('bots.webhooks.errors.signedOut', 'Paused while signed out of OpenKodo.')
         : translate('bots.webhooks.errors.unavailable', 'Webhooks aren’t available right now.')
     case 'host_offline':

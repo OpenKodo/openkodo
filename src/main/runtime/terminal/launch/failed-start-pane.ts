@@ -19,7 +19,7 @@ import {
   stopReplacedTerminals
 } from '../recovery/layout-command-pane-starts'
 import { allocateTerminalPaneIdentity } from '../identity/runtime-terminal-pane-identity'
-import { OrcaRuntimeWithCreateTerminal } from './terminal-create'
+import { OpenKodoRuntimeWithCreateTerminal } from './terminal-create'
 import { mainOwnsTabLayout } from './main-owned-tab-layout'
 import { PaneOwnerContentionError } from '../../../ipc/pty/pane/pane-spawn-operation'
 import type { TerminalWorkspaceCreationEvidence } from './terminal-workspace-scope'
@@ -43,7 +43,7 @@ export async function startKeepingFailedPane<T>(
   }
 }
 
-export abstract class OrcaRuntimeWithFailedStartPanes extends OrcaRuntimeWithCreateTerminal {
+export abstract class OpenKodoRuntimeWithFailedStartPanes extends OpenKodoRuntimeWithCreateTerminal {
   /** `ref` is the terminal whose title changed or the pane key whose start facts did. */
   protected abstract markPaneLiveTitlesDirty(ref: string): void
   abstract applyLayoutCommand(command: WindowLayoutCommand): Promise<LayoutApplyReply>

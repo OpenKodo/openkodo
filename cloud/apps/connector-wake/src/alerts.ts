@@ -18,7 +18,7 @@ export { RULES, type WakeAlertsEnv }
 // Analytics Engine ingestion is not instant.
 const LAG_MIN = 2
 const REPEAT_MS = 60 * 60_000
-const DEFAULT_SCRIPT_NAME = 'orca-connector-wake'
+const DEFAULT_SCRIPT_NAME = 'openkodo-connector-wake'
 const STATE_KEY = 'firing'
 
 type Minute = { ago: number; counts: Counts }

@@ -16,7 +16,7 @@ import { tmpdir } from 'node:os'
 import { dirname, join, relative, resolve, sep } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { pathToFileURL } from 'node:url'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { nativeRuntimeModules } from '../node-addons/native-build-entry.cjs'
 import { buildCounterbalancedSchedule } from '../../performance/measurement/counterbalanced-benchmark-schedule.mjs'
 import { summarizeBenchmarkSamples } from '../../performance/measurement/benchmark-sample-summary.mjs'
@@ -153,9 +153,12 @@ function binaryReceipt(snapshot) {
     join(dirname(require.resolve('node-pty/package.json')), 'build/Release/conpty.node'),
     join(dirname(require.resolve('node-pty/package.json')), 'build/Release/conpty/conpty.dll'),
     join(dirname(require.resolve('node-pty/package.json')), 'build/Release/conpty/OpenConsole.exe'),
-    join(snapshot, 'native/windows-notifications/build/Release/orca_windows_notifications.node'),
-    join(snapshot, 'native/windows-registry/build/Release/orca_windows_registry.node'),
-    join(snapshot, 'native/windows-security/build/Release/orca_windows_security.node'),
+    join(
+      snapshot,
+      'native/windows-notifications/build/Release/openkodo_windows_notifications.node'
+    ),
+    join(snapshot, 'native/windows-registry/build/Release/openkodo_windows_registry.node'),
+    join(snapshot, 'native/windows-security/build/Release/openkodo_windows_security.node'),
     join(
       dirname(require.resolve('@vscode/windows-process-tree/package.json')),
       'build/Release/windows_process_tree.node'
@@ -185,7 +188,7 @@ export async function benchmarkWindowsNativePreparation(
   const output = join(root, '.build/windows-native-benchmark')
   mkdirSync(output, { recursive: true })
   const temporary = mkdtempSync(
-    join(process.env.RUNNER_TEMP || tmpdir(), 'orca-native-comparison-')
+    join(process.env.RUNNER_TEMP || tmpdir(), 'openkodo-native-comparison-')
   )
   const archive = join(temporary, 'source.tar')
   const headers = join(temporary, 'headers')

@@ -42,16 +42,16 @@ if (!process.env.G1_LOCAL_DIR) {
 function lbHeaders(raw: string[], clientIp: string): [string, string][] {
   const out: [string, string][] = []
   for (let i = 0; i < raw.length; i += 2) {
-    if (!/^(host|x-orca-.*|cf-connecting-ip)$/i.test(raw[i]!)) { out.push([raw[i]!, raw[i + 1]!]) }
+    if (!/^(host|x-openkodo-.*|cf-connecting-ip)$/i.test(raw[i]!)) { out.push([raw[i]!, raw[i + 1]!]) }
   }
   return out.concat([
     ['host', `127.0.0.1:${EDGE_PORT}`],
     // Local dev has no Cloudflare in front: the emulated egress address, which wrangler dev passes
     // through, stands in for the load balancer's egress range. Direct callers keep 127.0.0.1.
     ['cf-connecting-ip', LB_EGRESS],
-    ['x-orca-ingress', `v1s cn ${FRONT} ${TOKEN}`],
-    ['x-orca-client-ip', clientIp.replace(/^::ffff:/, '')],
-    ['x-orca-client-country', 'CN']
+    ['x-openkodo-ingress', `v1s cn ${FRONT} ${TOKEN}`],
+    ['x-openkodo-client-ip', clientIp.replace(/^::ffff:/, '')],
+    ['x-openkodo-client-country', 'CN']
   ])
 }
 

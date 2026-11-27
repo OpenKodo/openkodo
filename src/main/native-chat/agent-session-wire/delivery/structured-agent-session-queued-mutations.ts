@@ -19,7 +19,7 @@ import {
   QueuedMessageNotConsumableError,
   QueuedMessageNotOwedError
 } from '../../agent-session-journal/queued-messages/queued-message-consume-error'
-import { refusingNewerOrcaJournal } from '../../agent-session-journal/replay/journal-open-failure'
+import { refusingNewerOpenKodoJournal } from '../../agent-session-journal/replay/journal-open-failure'
 import {
   journalRowReceiptResult,
   type MutationPlan
@@ -88,7 +88,7 @@ export function mutateQueued<TValue>(
     context,
     caller,
     envelope,
-    { ...plan, run: (ctx) => refusingNewerOrcaJournal(plan.run(ctx)) },
+    { ...plan, run: (ctx) => refusingNewerOpenKodoJournal(plan.run(ctx)) },
     openForWrite(context, envelope)
   )
 }

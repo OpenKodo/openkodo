@@ -2,7 +2,7 @@ import {
   normalizeMobileSessionTabSelection,
   selectMobileSessionTab
 } from '../layout/mobile-session-tab-selection'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { RuntimeMobileSessionAgentTab } from '../../../../shared/remote-runtime/session-graph/runtime-mobile-session-tab-contracts'
 import type { RuntimeMobileSessionTabsSnapshot } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { defaultAgentChatLabel } from '../../../../shared/agent-session/conversation-naming/agent-session-chat-label'
@@ -135,7 +135,10 @@ export type StructuredSessionRawPublicationInput = Pick<
 > & { eligible?: () => boolean; savedOrder?: MainSessionTabRows }
 
 export function projectStructuredSessionTab(
-  runtime: Pick<OrcaRuntimeService, 'mobileSessionTabsByWorktree' | 'storeMobileSessionSnapshot'>,
+  runtime: Pick<
+    OpenKodoRuntimeService,
+    'mobileSessionTabsByWorktree' | 'storeMobileSessionSnapshot'
+  >,
   input: StructuredSessionRawPublicationInput,
   emit: (snapshot: RuntimeMobileSessionTabsSnapshot) => void
 ): void {

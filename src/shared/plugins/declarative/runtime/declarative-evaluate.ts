@@ -2,16 +2,19 @@ import {
   PLUGIN_DECLARATIVE_EDIT_PROP,
   pluginDeclarativeValueControl
 } from '../plugin-declarative-message-names'
-import { Fragment, isOrcaElement, type OrcaComponent } from './declarative-elements'
+import { Fragment, isOpenKodoElement, type OpenKodoComponent } from './declarative-elements'
 
-export type OrcaWireNode = {
+export type OpenKodoWireNode = {
   type: string
   key: string
   props: Record<string, unknown>
-  children: (OrcaWireNode | string)[]
+  children: (OpenKodoWireNode | string)[]
 }
-export type OrcaCallback = (...args: unknown[]) => unknown
-export type OrcaEvaluation = { tree: OrcaWireNode | null; callbacks: Map<string, OrcaCallback> }
+export type OpenKodoCallback = (...args: unknown[]) => unknown
+export type OpenKodoEvaluation = {
+  tree: OpenKodoWireNode | null
+  callbacks: Map<string, OpenKodoCallback>
+}
 
 // Why: a clean error beats a guest stack overflow from a self-rendering component.
 const MAX_EVALUATION_DEPTH = 512
@@ -24,7 +27,7 @@ const IGNORED_PROPS: ReadonlySet<string> = new Set([
   PLUGIN_DECLARATIVE_EDIT_PROP
 ])
 
-function isCallback(value: unknown): value is OrcaCallback {
+function isCallback(value: unknown): value is OpenKodoCallback {
   return typeof value === 'function'
 }
 
@@ -87,7 +90,7 @@ function withoutUndefined(value: unknown): unknown {
   return copy
 }
 
-function assertUniqueKeys(children: (OrcaWireNode | string)[], parent: string): void {
+function assertUniqueKeys(children: (OpenKodoWireNode | string)[], parent: string): void {
   const seen = new Set<string>()
   for (const child of children) {
     if (typeof child !== 'string') {
@@ -116,12 +119,12 @@ function hashId(text: string): string {
  * counting null/false gaps), and every function prop an id derived from the node's key path and the
  * prop name, so the same control keeps the same id across renders.
  */
-export function evaluateOrcaTree(
-  component: OrcaComponent,
+export function evaluateOpenKodoTree(
+  component: OpenKodoComponent,
   /** Newest edit id processed per value control's onChange callback. */
   editsSeen: ReadonlyMap<string, number> = new Map()
-): OrcaEvaluation {
-  const callbacks = new Map<string, OrcaCallback>()
+): OpenKodoEvaluation {
+  const callbacks = new Map<string, OpenKodoCallback>()
 
   function callbackId(path: string, prop: string): string {
     const base = hashId(`${path}|${prop}`)
@@ -138,7 +141,7 @@ export function evaluateOrcaTree(
     key: string,
     parentPath: string,
     depth: number
-  ): OrcaWireNode {
+  ): OpenKodoWireNode {
     if (!/^[A-Z]/.test(type)) {
       throw new TypeError(
         `<${type.slice(0, 64)}> is not an OpenKodo component; panels never render DOM`
@@ -166,7 +169,7 @@ export function evaluateOrcaTree(
       wireProps[PLUGIN_DECLARATIVE_EDIT_PROP] =
         typeof id === 'string' ? (editsSeen.get(id) ?? 0) : 0
     }
-    const children: (OrcaWireNode | string)[] = []
+    const children: (OpenKodoWireNode | string)[] = []
     const list = Array.isArray(props.children) ? props.children : [props.children]
     list.forEach((child, index) => emit(child, `#${index}`, '', children, path, depth + 1))
     assertUniqueKeys(children, `<${type}>`)
@@ -178,7 +181,7 @@ export function evaluateOrcaTree(
     value: unknown,
     slot: string,
     scope: string,
-    out: (OrcaWireNode | string)[],
+    out: (OpenKodoWireNode | string)[],
     parentPath: string,
     depth: number
   ): void {
@@ -198,7 +201,7 @@ export function evaluateOrcaTree(
       )
       return
     }
-    if (!isOrcaElement(value)) {
+    if (!isOpenKodoElement(value)) {
       throw new TypeError(`a ${describe(value)} is not a valid child; render a component or text`)
     }
     const { type, props } = value
@@ -211,11 +214,11 @@ export function evaluateOrcaTree(
     } else if (typeof type === 'string') {
       out.push(hostNode(type, props, key, parentPath, depth))
     } else {
-      throw new TypeError('invalid element type; import components from "orca"')
+      throw new TypeError('invalid element type; import components from "openkodo"')
     }
   }
 
-  const root: (OrcaWireNode | string)[] = []
+  const root: (OpenKodoWireNode | string)[] = []
   emit(component({}), '#0', '', root, '', 0)
   const nodes = root.map((child, index) =>
     typeof child === 'string'

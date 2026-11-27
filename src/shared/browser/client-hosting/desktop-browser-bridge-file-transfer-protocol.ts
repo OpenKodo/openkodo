@@ -1,11 +1,11 @@
-/** An SSH host's agent uploads its own files into, and downloads to its own disk from, desktop tabs. The desktop never reads or writes a path the host names: it pulls the named files from orcad and pushes download bytes back. */
+/** An SSH host's agent uploads its own files into, and downloads to its own disk from, desktop tabs. The desktop never reads or writes a path the host names: it pulls the named files from openkodod and pushes download bytes back. */
 import { z } from 'zod'
 import {
   BROWSER_CLIENT_FILE_CHANNEL_CHUNK_MAX_BYTES,
   BROWSER_CLIENT_FILE_CHANNEL_TRANSFER_MAX_BYTES
 } from './browser-client-file-channel-protocol'
 
-/** Desktops without it never receive upload or download; orcad refuses those as "update the desktop". */
+/** Desktops without it never receive upload or download; openkodod refuses those as "update the desktop". */
 export const DESKTOP_BROWSER_BRIDGE_FILE_TRANSFER_CAPABILITY =
   'browser.desktopBridge.file-transfer.v1'
 
@@ -26,7 +26,7 @@ export const DesktopBrowserBridgeFileReadParams = z.object({
 })
 export type DesktopBrowserBridgeFileReadParams = z.infer<typeof DesktopBrowserBridgeFileReadParams>
 
-/** A piece of the download orcad asked for by `transferId`; orcad alone knows where it goes. */
+/** A piece of the download openkodod asked for by `transferId`; openkodod alone knows where it goes. */
 export const DesktopBrowserBridgeDownloadWriteParams = z.object({
   attachmentId: Identity,
   transferId: Identity,

@@ -4,7 +4,7 @@ type ProcessSpec = { program: string; args: string[] }
 const { runProcess } = vi.hoisted(() => ({
   runProcess: vi.fn<(spec: ProcessSpec) => Promise<unknown>>()
 }))
-vi.mock('@orca/process-host', () => ({ runProcess }))
+vi.mock('@openkodo/process-host', () => ({ runProcess }))
 vi.mock('../linux-secret-service/session-bus-environment', () => ({
   secretServiceProcessEnvironment: async () => ({})
 }))

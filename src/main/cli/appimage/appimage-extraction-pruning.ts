@@ -93,7 +93,7 @@ async function removeInstalledEndpoint(
 
   const displacedPath = join(
     dirname(endpointPath),
-    `.orca-preserved-installed-${process.pid}-${randomUUID()}`
+    `.openkodo-preserved-installed-${process.pid}-${randomUUID()}`
   )
   try {
     await rename(endpointPath, displacedPath)

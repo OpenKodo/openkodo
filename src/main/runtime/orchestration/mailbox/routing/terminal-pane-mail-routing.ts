@@ -2,7 +2,7 @@ import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../shared/workspace-l
 import type { TerminalIdentityReadContext } from '../../../terminal/query/terminal-identity-read-context'
 import { ptyRecordForPaneKey } from '../../../terminal/query/pty-pane-record'
 import type { RuntimeTerminalAgentPresenceOptions } from '../../../terminal/query/runtime-terminal-agent-presence'
-import { OrcaRuntimeWithPruneMobileSessionTabGroupLayout } from '../../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout } from '../../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
 import type { RuntimePtyWorktreeRecord } from '../../../terminal/records/runtime-terminal-state-records'
 import {
   isTerminalLeafId,
@@ -33,7 +33,7 @@ import { resolveTerminalIdentityFromProbes } from '../../../terminal/identity/te
 import { observeChatWorkerWorking } from '../../workers/turn-stops/chat-worker-turn-stops'
 import { ChatWorkerModelWait } from '../../workers/turn-stops/chat-worker-model-wait'
 
-export abstract class OrcaRuntimeWithGetPtyRecordForPaneKey extends OrcaRuntimeWithPruneMobileSessionTabGroupLayout {
+export abstract class OpenKodoRuntimeWithGetPtyRecordForPaneKey extends OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout {
   protected terminalIdentitySources = () => ({
     handles: this.handles,
     sshTerminals: this.orchestrationCompatibilitySshTerminals,

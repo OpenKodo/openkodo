@@ -1,9 +1,9 @@
 import { retireMobileSessionTabSelection } from '../layout/mobile-session-tab-selection'
 import { LOCAL_EXECUTION_HOST_ID } from '../../../../shared/execution-host/execution-host'
-import type { OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab as BrowserOwnership } from '../restoration/mobile-session-publication-preservation'
-import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout as PruneMobileSessionTabGroupLayoutMethods } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import type { OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab as BrowserOwnership } from '../restoration/mobile-session-publication-preservation'
+import type { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout as PruneMobileSessionTabGroupLayoutMethods } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
 import type { RuntimeHeadlessTabGroups as HeadlessTabGroupsMethods } from '../layout/headless-tab-group-moves'
-import { OrcaRuntimeWithStructuredSessionTabProjection } from './restored-chat-tab-changes'
+import { OpenKodoRuntimeWithStructuredSessionTabProjection } from './restored-chat-tab-changes'
 import type { BrowserTabInfo } from '../../../../shared/browser/runtime/runtime-browser-contracts'
 import type {
   RuntimeMobileSessionAgentTab,
@@ -36,7 +36,7 @@ import {
   type StructuredSessionSurface
 } from '../../agent-session/lifecycle/structured-agent-session-close'
 
-export abstract class OrcaRuntimeWithCloseStructuredAgentSessionTab extends OrcaRuntimeWithStructuredSessionTabProjection {
+export abstract class OpenKodoRuntimeWithCloseStructuredAgentSessionTab extends OpenKodoRuntimeWithStructuredSessionTabProjection {
   protected abstract isHeadlessOwnedMobileBrowserTab(
     ...args: Parameters<BrowserOwnership['isHeadlessOwnedMobileBrowserTab']>
   ): ReturnType<BrowserOwnership['isHeadlessOwnedMobileBrowserTab']>

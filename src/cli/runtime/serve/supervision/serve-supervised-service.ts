@@ -1,6 +1,6 @@
 import { SINGLE_INSTANCE_ALREADY_RUNNING_EXIT_CODE } from '../../../../shared/app-lifecycle/launch/single-instance-exit-code'
-import { ORCAD_EXIT_TERMINALS_NOT_DURABLE } from '../../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
-import { orcadStaleLockReclaimCommand } from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-stale-lock-reclaim'
+import { OPENKODOD_EXIT_TERMINALS_NOT_DURABLE } from '../../../../shared/remote-runtime/serve-supervisor/serve-supervised-terminal-durability'
+import { openkododStaleLockReclaimCommand } from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-stale-lock-reclaim'
 import {
   brakeForBuild,
   clearServeSupervisorBrake,
@@ -273,14 +273,14 @@ export async function superviseServeService(options: SupervisedServeOptions): Pr
           // An occupied profile warrants standby, not a crash-brake failure.
           const delayMs = standbyDelayMs(standbyAttempt++, random)
           log(
-            `[serve] Another OpenKodo serves this profile, or holds it and cannot be shown to have stopped; checking again in ${Math.round(delayMs / 1000)}s.${process.platform === 'linux' ? ` If its message says it may have stopped, \`${orcadStaleLockReclaimCommand(options.userDataPath, null)}\` checks it.` : ''}`
+            `[serve] Another OpenKodo serves this profile, or holds it and cannot be shown to have stopped; checking again in ${Math.round(delayMs / 1000)}s.${process.platform === 'linux' ? ` If its message says it may have stopped, \`${openkododStaleLockReclaimCommand(options.userDataPath, null)}\` checks it.` : ''}`
           )
           await sleep(delayMs)
           continue
         }
         failure =
-          code === ORCAD_EXIT_TERMINALS_NOT_DURABLE
-            ? `exited with code ${code}: the terminal daemon did not start, and terminals outside it would not survive a restart (orcad's log above has the cause)`
+          code === OPENKODOD_EXIT_TERMINALS_NOT_DURABLE
+            ? `exited with code ${code}: the terminal daemon did not start, and terminals outside it would not survive a restart (openkodod's log above has the cause)`
             : `exited with code ${code}`
       } else {
         const error: unknown = attempt.settled.reason

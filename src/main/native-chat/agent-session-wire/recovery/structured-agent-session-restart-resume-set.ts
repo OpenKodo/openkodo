@@ -68,7 +68,7 @@ export type StructuredAgentSessionResumeSetInput = {
   supportsRecord: (record: AgentSessionRecord) => boolean
   latestPrompt: (sessionId: string) => string | Promise<string>
   movedOn: (marker: AgentSessionResumeMarker) => boolean | Promise<boolean>
-  savedByNewerOrca: (sessionId: string) => boolean
+  savedByNewerOpenKodo: (sessionId: string) => boolean
   /** may-be-held relaxes ownership only, preserving all other eligibility checks. */
   leaseState?: 'must-be-released' | 'may-be-held'
 }
@@ -105,7 +105,7 @@ export async function structuredAgentSessionResumableSet(
       continue
     }
     // Preserve newer-chat offers for a build that can act on them.
-    if (input.savedByNewerOrca(marker.sessionId)) {
+    if (input.savedByNewerOpenKodo(marker.sessionId)) {
       continue
     }
     const model = normalizeOptionalField(record.options?.model, AGENT_MODEL_MAX_LENGTH)

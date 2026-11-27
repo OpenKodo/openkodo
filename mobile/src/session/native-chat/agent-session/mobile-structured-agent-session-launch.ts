@@ -24,7 +24,7 @@ import {
   structuredAgentSupportProbe
 } from './mobile-structured-create-operations'
 import { randomV4Uuid } from '../../../platform/random-v4-uuid'
-import { createOrcaSessionId } from '../../../../../src/shared/agent-session/identity/orca-session-address'
+import { createOpenKodoSessionId } from '../../../../../src/shared/agent-session/identity/openkodo-session-address'
 import { rememberMobileCreatedStructuredSession } from './mobile-created-structured-sessions'
 
 // Partial: the reply is read before it is checked.
@@ -56,7 +56,7 @@ function createParamsFor(
   tabPlacement: StructuredAgentSessionCreateParams['tabPlacement']
 ): StructuredAgentSessionCreateParams {
   return structuredAgentSessionCreateParams({
-    sessionId: createOrcaSessionId(randomV4Uuid),
+    sessionId: createOpenKodoSessionId(randomV4Uuid),
     worktree,
     agent,
     ...(forkFrom ? { forkFrom } : {}),

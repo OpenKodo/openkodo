@@ -7,7 +7,7 @@ import { assertLocalCwdWorktreeSelector } from '../hosts/local-environment-selec
 import { isLaunchedByAnotherRuntime } from '../runtime/connection/runtime-source-fence'
 import { getOptionalStringFlag, getRequiredStringFlag } from '../arguments/flags'
 import { readEnclosingWorkspaceCatalog } from './enclosing-workspace-catalog'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/openkodo-session-address-prefix'
 import { createChatCallerEvidence } from '../orchestration/identity/orchestration-compatibility-envelope'
 import type { OrchestrationPartyLocationResult } from '../../shared/orchestration/orchestration-caller-status'
 import type { ExecutionHostId } from '../../shared/execution-host/execution-host'

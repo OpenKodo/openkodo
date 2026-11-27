@@ -237,7 +237,7 @@ export function codexPromptIdentity(input: {
   const threadId = codexJournalPromptIdPart(input.threadId)
   const promptKey = codexJournalPromptIdPart(input.promptKey)
   return {
-    provider: 'orca',
+    provider: 'openkodo',
     clientMessageId: `codex-prompt:${threadId}:${promptKey}${suffix}`
   }
 }

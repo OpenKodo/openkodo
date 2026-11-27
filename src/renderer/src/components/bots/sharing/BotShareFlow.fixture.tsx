@@ -3,8 +3,8 @@ import { defineFixture } from '../../../component-fixtures/component-fixture'
 import type { Bot } from '../../../../../shared/bot-types'
 import type { BotShareCandidateSummary } from '../../../../../shared/bots/bot-package'
 import { BOT_SHARE_ERRORS } from '../../../../../shared/bots/bot-share-errors'
-import { OPENKODO_CONNECTED } from '../orca-sign-in.test-fixture'
-import { signedOutStore } from '../orca-cloud-sign-in-host-fixture'
+import { OPENKODO_CONNECTED } from '../openkodo-sign-in.test-fixture'
+import { signedOutStore } from '../openkodo-cloud-sign-in-host-fixture'
 import { BotShareFlow } from './BotShareFlow'
 import type { BotShareLink } from './use-bot-share-link'
 
@@ -33,7 +33,7 @@ const longBot: Bot = {
   avatar: null
 }
 
-const URL = 'https://app.onorca.dev/bots/share/k7Qm2xR9vTb4'
+const URL = 'https://app.onopenkodo.dev/bots/share/k7Qm2xR9vTb4'
 
 function candidate(change: Partial<BotShareCandidateSummary> = {}): BotShareCandidateSummary {
   return {
@@ -50,7 +50,7 @@ function candidate(change: Partial<BotShareCandidateSummary> = {}): BotShareCand
       name: 'Bot builder',
       purpose: 'Builds and maintains OpenKodo bots for the team.',
       agentHint: 'claude',
-      skills: [{ name: 'orca' }, { name: 'website' }],
+      skills: [{ name: 'openkodo' }, { name: 'website' }],
       tools: [],
       connectors: [],
       schedules: [],
@@ -65,9 +65,9 @@ function candidate(change: Partial<BotShareCandidateSummary> = {}): BotShareCand
       soulLines: 19,
       skills: [
         {
-          name: 'orca',
+          name: 'openkodo',
           description: 'Drive OpenKodo worktrees, terminals and the browser',
-          homePath: 'skills/orca'
+          homePath: 'skills/openkodo'
         },
         {
           name: 'website',
@@ -163,7 +163,7 @@ async function click(name: string): Promise<void> {
 }
 const settle = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 300))
 
-const base = { width: 760, store: { orcaProfileAuthStatus: OPENKODO_CONNECTED } }
+const base = { width: 760, store: { openkodoProfileAuthStatus: OPENKODO_CONNECTED } }
 const flow = (bot: Bot, link?: BotShareLink | null) => () => (
   <BotShareFlow bot={bot} link={link} onClose={() => {}} />
 )
@@ -329,7 +329,7 @@ export const emptyParts = defineFixture({
         const base = candidate()
         return ok({
           candidate: candidate({
-            notIncluded: ['allowed-tools in orca', 'scripts/run.sh in orca'],
+            notIncluded: ['allowed-tools in openkodo', 'scripts/run.sh in openkodo'],
             available: { ...base.available, skills: [], schedules: [] },
             automationIds: { schedules: [], eventSuggestions: [] }
           })
@@ -367,7 +367,7 @@ export const skillsPage = defineFixture({
       prepare: async () =>
         ok({
           candidate: candidate(),
-          last: { selection: { skills: ['orca', 'website'] }, setupNote: '' }
+          last: { selection: { skills: ['openkodo', 'website'] }, setupNote: '' }
         })
     }),
   render: flow(builder, null),
@@ -382,7 +382,7 @@ export const skillsLeftOut = defineFixture({
         ok({
           candidate: candidate({
             leftOut: [
-              { kind: 'skill', name: 'orca', why: 'duplicate', from: 'team-skills' },
+              { kind: 'skill', name: 'openkodo', why: 'duplicate', from: 'team-skills' },
               { kind: 'skill', name: 'deploy', why: 'link' },
               { kind: 'skill', name: 'datasets', why: 'size' }
             ]

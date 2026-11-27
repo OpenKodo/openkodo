@@ -7,11 +7,11 @@ import {
   type AgentPermissionGlobalSettings
 } from '../../../shared/agent-launch/permissions/tui-agent-permission-choice'
 import type { RuntimeRpcResponse } from '../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
-import type { WslOrcadHostCapabilityVerdict } from '../orcad/wsl-orcad-host-environments'
+import type { WslOpenkododHostCapabilityVerdict } from '../openkodod/wsl-openkodod-host-environments'
 
 export type WslHostPermissionSeed = {
   local: AgentPermissionGlobalSettings
-  hostSupports: (capability: string) => Promise<WslOrcadHostCapabilityVerdict>
+  hostSupports: (capability: string) => Promise<WslOpenkododHostCapabilityVerdict>
   call: (method: string, params: unknown) => Promise<RuntimeRpcResponse<unknown>>
 }
 

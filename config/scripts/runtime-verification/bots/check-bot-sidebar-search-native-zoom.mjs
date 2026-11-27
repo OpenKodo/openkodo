@@ -52,8 +52,8 @@ async function setup(theme) {
   )
   await page.waitForFunction(() => document.documentElement.dataset.fixtureState === 'ready')
   await page.evaluate(() => {
-    window.api.ui.getZoomLevel = window.__orcaNativeZoom.get
-    window.api.ui.setZoomLevel = window.__orcaNativeZoom.set
+    window.api.ui.getZoomLevel = window.__openkodoNativeZoom.get
+    window.api.ui.setZoomLevel = window.__openkodoNativeZoom.set
     const frame = document.querySelector('#component-fixture-frame')
     Object.assign(frame.style, { padding: '0', width: '220px' })
     document.querySelector('[data-sidebar-window]').style.height = '100dvh'
@@ -102,7 +102,7 @@ async function observe() {
         .hasAttribute('data-bot-search-field-only'),
       overscroll: getComputedStyle(scroller).overscrollBehaviorY,
       wheel: window.__botWheelHit,
-      level: window.__orcaNativeZoom.get(),
+      level: window.__openkodoNativeZoom.get(),
       cssHeight: innerHeight
     }
   })

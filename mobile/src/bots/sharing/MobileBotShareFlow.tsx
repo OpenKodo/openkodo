@@ -30,7 +30,7 @@ import {
   publishPhoneBotShare,
   type PhoneShareCandidate
 } from './bot-share-operations'
-import { useHostOrcaSignIn } from './use-host-orca-sign-in'
+import { useHostOpenKodoSignIn } from './use-host-openkodo-sign-in'
 import { usePhoneBotShareCandidate } from './use-phone-bot-share-candidate'
 import type { PhoneShareLinkState } from './use-phone-bot-share-link'
 import { ShareFoot, ShareOverview, type Phase } from './MobileBotShareOverview'
@@ -71,7 +71,7 @@ export function MobileBotShareFlow(props: ShareFlowProps) {
   const [error, setError] = useState<{ message: string; moved: boolean } | null>(null)
   const [nav, setNav] = useState<SharePage[]>([])
   const clipboard = useClipboardWriter()
-  const signIn = useHostOrcaSignIn(client, reread)
+  const signIn = useHostOpenKodoSignIn(client, reread)
   const popPage = nav.length > 0 ? () => setNav((current) => current.slice(0, -1)) : null
   useBottomDrawerModalHostBackClaim(popPage)
   useBackClaim(

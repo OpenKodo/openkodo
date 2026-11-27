@@ -9,7 +9,7 @@ import type { RuntimeWorktreeRecord } from '../../shared/worktree/catalog/runtim
 import type { SshTargetSummary } from '../../shared/remote-runtime/ssh/ssh-types'
 import type { Repo } from '../../shared/repository/repo-types'
 import { getRepoRoutingConnectionId } from '../../shared/execution-host/execution-host'
-import { getManagedOrcadSshTargetId } from '../../shared/execution-host/managed-orcad-execution-host'
+import { getManagedOpenkododSshTargetId } from '../../shared/execution-host/managed-openkodod-execution-host'
 import { listEnvironments } from '../../shared/remote-runtime/host-store/runtime-environment-store'
 import { RuntimeClient } from '../runtime/client'
 import { fetchSshTargetSummaries } from '../hosts/host-selector-alternatives'
@@ -102,7 +102,7 @@ export async function routeAutomationCreate<
   const server =
     repo && connectionId && client.isRemote === false
       ? (await listEnvironments(client.userDataPath)).find(
-          (environment) => getManagedOrcadSshTargetId(environment) === connectionId
+          (environment) => getManagedOpenkododSshTargetId(environment) === connectionId
         )
       : undefined
   if (!repo || !server) {

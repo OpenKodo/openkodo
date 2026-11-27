@@ -12,7 +12,7 @@ import { PLUGIN_INSTALL_HANDLERS } from './plugin-install'
 let cwd: string
 
 beforeEach(async () => {
-  cwd = await mkdtemp(join(tmpdir(), 'orca-plugin-install-'))
+  cwd = await mkdtemp(join(tmpdir(), 'openkodo-plugin-install-'))
 })
 
 afterEach(async () => {

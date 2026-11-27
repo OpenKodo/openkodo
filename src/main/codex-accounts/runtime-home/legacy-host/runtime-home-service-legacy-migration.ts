@@ -150,7 +150,7 @@ export abstract class CodexRuntimeHomeLegacyMigration extends CodexRuntimeHomePa
         continue
       }
       const managedHomePath = join(managedAccountsRoot, entry.name, 'home')
-      if (existsSync(join(managedHomePath, '.orca-managed-home'))) {
+      if (existsSync(join(managedHomePath, '.openkodo-managed-home'))) {
         managedHomes.push(managedHomePath)
       }
     }
@@ -291,7 +291,7 @@ export abstract class CodexRuntimeHomeLegacyMigration extends CodexRuntimeHomePa
     const extension = extname(runtimeFilePath)
     const basename = runtimeFilePath.slice(0, runtimeFilePath.length - extension.length)
     const suffix = attempt === 0 ? '' : `-${attempt}`
-    return `${basename}.orca-legacy-${accountId}${suffix}${extension}`
+    return `${basename}.openkodo-legacy-${accountId}${suffix}${extension}`
   }
 
   protected appendMigrationDiagnostic(record: Record<string, string>): void {

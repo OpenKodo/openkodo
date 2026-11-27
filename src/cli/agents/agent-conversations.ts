@@ -24,7 +24,7 @@ import {
 } from '../../shared/agent-conversations/agent-conversation-contracts'
 import { AGENT_STATUS_STATES } from '../../shared/agent-status/contracts/agent-status-types'
 import type { RuntimeWorktreeRecord } from '../../shared/worktree/catalog/runtime-worktree-contracts'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../shared/agent-session/identity/openkodo-session-address-prefix'
 import {
   AGENT_SESSION_UNATTACHED_REFUSAL_CODE,
   isUnattachedAgentSessionReadRefusal
@@ -106,9 +106,9 @@ async function callAgentMethod<TResult>(client: RuntimeClient, method: string, p
   })
 }
 
-function address(row: { orcaSessionId: string | null }): string {
-  return row.orcaSessionId
-    ? `${OPENKODO_SESSION_ADDRESS_PREFIX}${row.orcaSessionId}`
+function address(row: { openkodoSessionId: string | null }): string {
+  return row.openkodoSessionId
+    ? `${OPENKODO_SESSION_ADDRESS_PREFIX}${row.openkodoSessionId}`
     : 'none yet (OpenKodo names a terminal agent after its first report)'
 }
 
@@ -142,7 +142,7 @@ function formatAgentList(result: WithAnnotatedHostScope<AgentListResult>): strin
 }
 
 function formatAgentShow(result: AgentShowResult): string {
-  const id = `${OPENKODO_SESSION_ADDRESS_PREFIX}${result.orcaSessionId}`
+  const id = `${OPENKODO_SESSION_ADDRESS_PREFIX}${result.openkodoSessionId}`
   if (result.places.length === 0) {
     return `Agent ${id} (${result.kind}) isn't open in any workspace right now.`
   }

@@ -5,8 +5,8 @@ export const WEBHOOK_HOOK_ID_PATTERN = /^wh_[A-Za-z0-9]{16}$/
 export const WEBHOOK_CALL_ID_PATTERN = /^call_[A-Za-z0-9]{20}$/
 
 // 256 random bits, base64url. The prefix lets secret scanners and the outbound redaction find a key anywhere.
-export const WEBHOOK_KEY_PREFIX = 'orcawh_'
-export const WEBHOOK_KEY_PATTERN = /^orcawh_[A-Za-z0-9_-]{43}$/
+export const WEBHOOK_KEY_PREFIX = 'openkodowh_'
+export const WEBHOOK_KEY_PATTERN = /^openkodowh_[A-Za-z0-9_-]{43}$/
 
 // Callers POST to <base>/hooks/<hookId> with the key as a Bearer token, or to <base>/hooks/<hookId>/<key>.
 export const WEBHOOK_PATH_PREFIX = '/hooks/'
@@ -61,9 +61,9 @@ const KEY_IN_PATH = String.raw`(?<=\/hooks\/wh_[A-Za-z0-9]{16}\/)[^\s/?#"'<>)\]]
 const KEY_IN_TEXT = new RegExp(`${KEY_TOKEN}|${KEY_IN_PATH}`, 'g')
 
 /** What a webhook key becomes in a stored call or an outbound post. */
-export const REDACTED_WEBHOOK_KEY = '[orca webhook key]'
+export const REDACTED_WEBHOOK_KEY = '[openkodo webhook key]'
 
-/** The text with every webhook key in it replaced, for text that leaves Orca. */
+/** The text with every webhook key in it replaced, for text that leaves OpenKodo. */
 export function redactWebhookKeys(text: string, replacement = REDACTED_WEBHOOK_KEY): string {
   return text.replace(KEY_IN_TEXT, replacement)
 }

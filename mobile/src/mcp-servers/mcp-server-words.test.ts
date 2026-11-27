@@ -4,9 +4,9 @@ import { ALL_MCP_WORKSPACES, isMcpWorkspaceOn, toggleMcpWorkspace } from './mcp-
 // The phone writes these choices straight to the host; a wrong one turns a server on in a repo the user excluded.
 describe('toggleMcpWorkspace', () => {
   it('picks only the tapped workspace from All, so later ones stay off', () => {
-    expect(toggleMcpWorkspace(ALL_MCP_WORKSPACES, 'orca')).toEqual({
+    expect(toggleMcpWorkspace(ALL_MCP_WORKSPACES, 'openkodo')).toEqual({
       later: false,
-      on: ['orca'],
+      on: ['openkodo'],
       off: []
     })
   })
@@ -19,8 +19,12 @@ describe('toggleMcpWorkspace', () => {
     expect(appOff).toEqual({ later: true, on: [], off: ['docs', 'app'] })
     expect(isMcpWorkspaceOn(appOff, 'app')).toBe(false)
 
-    const only = { later: false, on: ['orca'], off: [] }
-    expect(toggleMcpWorkspace(only, 'orca')).toEqual({ later: false, on: [], off: [] })
-    expect(toggleMcpWorkspace(only, 'app')).toEqual({ later: false, on: ['orca', 'app'], off: [] })
+    const only = { later: false, on: ['openkodo'], off: [] }
+    expect(toggleMcpWorkspace(only, 'openkodo')).toEqual({ later: false, on: [], off: [] })
+    expect(toggleMcpWorkspace(only, 'app')).toEqual({
+      later: false,
+      on: ['openkodo', 'app'],
+      off: []
+    })
   })
 })

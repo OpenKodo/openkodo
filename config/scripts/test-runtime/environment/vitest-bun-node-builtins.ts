@@ -3,7 +3,7 @@ import os from 'node:os'
 import { vi } from 'vitest'
 
 declare global {
-  var orcaBunNodeBuiltinsNormalized: boolean | undefined
+  var openkodoBunNodeBuiltinsNormalized: boolean | undefined
 }
 
 // Bun on Windows deletes the cwd for a recursive rm('') (oven-sh/bun#47420). Node fails
@@ -27,7 +27,7 @@ function stopRecursiveRemovalOfEmptyPath(api: typeof fs | typeof fs.promises, na
 }
 
 if (process.versions.bun) {
-  if (!globalThis.orcaBunNodeBuiltinsNormalized) {
+  if (!globalThis.openkodoBunNodeBuiltinsNormalized) {
     const access = fs.promises.access
     // Bun resolves access() with null; Node's Promise<void> resolves with undefined.
     fs.promises.access = async (...args) => {
@@ -36,7 +36,7 @@ if (process.versions.bun) {
     stopRecursiveRemovalOfEmptyPath(fs, 'rm')
     stopRecursiveRemovalOfEmptyPath(fs, 'rmSync')
     stopRecursiveRemovalOfEmptyPath(fs.promises, 'rm')
-    globalThis.orcaBunNodeBuiltinsNormalized = true
+    globalThis.openkodoBunNodeBuiltinsNormalized = true
   }
 
   // Child fixtures exercise the application's Node runtime, independently of Vitest's runtime.

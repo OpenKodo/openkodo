@@ -20,7 +20,7 @@ export type NativeChatPickerItem =
       argumentHint?: string
       aliases?: readonly string[]
       skillCollision: boolean
-      orcaOwned?: true
+      openkodoOwned?: true
       /** The provider reported this as its built-in command. */
       builtin?: true
     }
@@ -99,18 +99,20 @@ export function buildNativeChatPickerItems(
   const available = commandAvailable
     ? commands.filter(({ name }) => commandAvailable(name))
     : commands
-  const orcaNames = new Set(available.filter((c) => c.orcaOwned).map((command) => command.name))
+  const openkodoNames = new Set(
+    available.filter((c) => c.openkodoOwned).map((command) => command.name)
+  )
   const resolvedCommands = available.filter(
     (command) =>
-      command.orcaOwned ||
+      command.openkodoOwned ||
       !(
-        orcaNames.has(command.name) ||
+        openkodoNames.has(command.name) ||
         (sharedSigil && command.kindUnspecified && skillNames.has(command.name))
       )
   )
   // OpenKodo runs its own rows whatever the skills are called, so a namesake skill keeps its row.
   const commandNames = new Set(
-    resolvedCommands.filter((command) => !command.orcaOwned).map((command) => command.name)
+    resolvedCommands.filter((command) => !command.openkodoOwned).map((command) => command.name)
   )
   const commandItems = rankItems(
     resolvedCommands.map((command, index) => ({
@@ -125,8 +127,8 @@ export function buildNativeChatPickerItems(
           ? sanitizePickerText(command.argumentHint, 80)
           : undefined,
         ...(command.aliases ? { aliases: command.aliases } : {}),
-        skillCollision: sharedSigil && !command.orcaOwned && skillNames.has(command.name),
-        ...(command.orcaOwned ? { orcaOwned: true as const } : {}),
+        skillCollision: sharedSigil && !command.openkodoOwned && skillNames.has(command.name),
+        ...(command.openkodoOwned ? { openkodoOwned: true as const } : {}),
         ...(command.builtin ? { builtin: true as const } : {})
       },
       stableOrder: index

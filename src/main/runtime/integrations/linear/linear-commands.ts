@@ -1,13 +1,13 @@
 import type { RuntimeTerminalShow } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree-path-identity'
-import { OrcaRuntimeWithRepositoryCommands } from '../../construction/runtime-repository-command-state'
+import { OpenKodoRuntimeWithRepositoryCommands } from '../../construction/runtime-repository-command-state'
 import { RuntimeLinearCommands } from './runtime-linear-connection-commands'
 import {
   readWorktreeMetaForHost,
   worktreeRowTarget
 } from '../../../persistence/host-qualified-worktree-meta'
 
-export abstract class OrcaRuntimeWithLinearCommands extends OrcaRuntimeWithRepositoryCommands {
+export abstract class OpenKodoRuntimeWithLinearCommands extends OpenKodoRuntimeWithRepositoryCommands {
   abstract showTerminal(handle: string): Promise<RuntimeTerminalShow>
 
   protected abstract listResolvedWorktrees(): Promise<ResolvedWorktree[]>

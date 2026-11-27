@@ -13,7 +13,7 @@ import {
 } from '@/lib/workspace-ports/workspace-port-actions'
 import {
   getPortOpenBrowserTooltipLabel,
-  resolvePortOpenInOrcaBrowser
+  resolvePortOpenInOpenKodoBrowser
 } from '@/lib/workspace-ports/workspace-port-browser-open'
 import { useLocalhostLabelRouteForPort } from '@/lib/workspace-ports/workspace-port-localhost-label-selector'
 import { addressForPort } from '@/lib/workspace-ports/workspace-port-urls'
@@ -128,7 +128,7 @@ function WorktreePortRow({ port }: { port: WorkspacePort }): React.JSX.Element {
     (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
       recordFeatureInteraction('ports')
-      const openInOrcaBrowser = resolvePortOpenInOrcaBrowser({
+      const openInOpenKodoBrowser = resolvePortOpenInOpenKodoBrowser({
         settings,
         // Only pointer clicks carry system-browser modifier intent; keyboard activation has detail zero.
         event: event.detail > 0 ? event : null,
@@ -139,7 +139,7 @@ function WorktreePortRow({ port }: { port: WorkspacePort }): React.JSX.Element {
         runtimeTarget,
         createBrowserTab,
         setRemoteBrowserPageHandle,
-        openInOrcaBrowser,
+        openInOpenKodoBrowser,
         localhostLabelRoute
       }).then((result) => {
         if (!result.ok) {

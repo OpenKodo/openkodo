@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithSplitTerminal } from './terminal-split'
+import { OpenKodoRuntimeWithSplitTerminal } from './terminal-split'
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
 import type { TerminalPaneSplitSource } from '../../../../shared/feature-education/feature-education-telemetry'
 import type { RuntimeTerminalSplit } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
@@ -35,7 +35,7 @@ export type TerminalSplitOptions = Pick<TerminalCreateOptions, 'terminalImageVie
   preAllocatedHandle?: string
 }
 
-export abstract class OrcaRuntimeWithSplitPtyBackedTerminal extends OrcaRuntimeWithSplitTerminal {
+export abstract class OpenKodoRuntimeWithSplitPtyBackedTerminal extends OpenKodoRuntimeWithSplitTerminal {
   protected async splitPtyBackedTerminal(
     pty: RuntimePtyWorktreeRecord,
     opts: TerminalSplitOptions = {},

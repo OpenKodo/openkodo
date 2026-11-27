@@ -1,7 +1,7 @@
 /** Fans a host's finished cleanup run out within the renderer, whichever transport delivered it. */
 import type { WorkspaceCleanupRunFinishedEvent } from '../../../../../shared/workspace-cleanup/workspace-cleanup-run'
 
-export const WORKSPACE_CLEANUP_RUN_FINISHED_EVENT = 'orca:workspace-cleanup-run-finished'
+export const WORKSPACE_CLEANUP_RUN_FINISHED_EVENT = 'openkodo:workspace-cleanup-run-finished'
 
 /** `environmentId` names the server whose runner finished; null is this app's own runner. */
 export type WorkspaceCleanupRunFinishedWindowDetail = {

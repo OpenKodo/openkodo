@@ -155,7 +155,7 @@ function BundledLinearAgentSkillInstallCta({
                   ? t('auto.components.settings.AgentSkillSetupPanel.installing', 'Installing...')
                   : replacePaths
                     ? t(
-                        'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
+                        'auto.components.settings.AgentSkillSetupPanel.replaceWithOpenKodoCopy',
                         'Replace with OpenKodo’s'
                       )
                     : action.kind === 'run' && action.changes
@@ -197,7 +197,7 @@ export function LinearAgentSkillInstallCta(
   props: LinearAgentSkillInstallCtaProps
 ): React.JSX.Element {
   const activeRuntime = useActiveProjectSkillRuntime()
-  // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+  // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
   if (activeRuntime.agentRuntime?.runtime === 'wsl') {
     return <WslLinearAgentSkillInstallCta {...props} runtime={activeRuntime.agentRuntime} />
   }

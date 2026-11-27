@@ -3,7 +3,7 @@ import type { TerminalCursorContext } from './terminal-composer-draft'
 // Why: Pi draws no prompt glyph. Its editor is the rows between two full-width `─` rules. Text can sit
 // inside a rule: `↑ N more` / `↓ N more` when scrolled, and Pi's working, retry or compaction status
 // (`── ⠋ Working... ───`) in the top rule. Pi shows no placeholder, so any undimmed text between the
-// rules is the user's draft. No regex: esbuild keeps `─` in regex literals, breaking the ASCII orcad bundle.
+// rules is the user's draft. No regex: esbuild keeps `─` in regex literals, breaking the ASCII openkodod bundle.
 function isPiEditorRule(row: string | undefined): boolean {
   const trimmed = row?.trimEnd() ?? ''
   return trimmed.startsWith('─') && trimmed.endsWith('─')

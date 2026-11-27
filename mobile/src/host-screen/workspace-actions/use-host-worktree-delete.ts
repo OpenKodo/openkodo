@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from 'react'
-import type { PersistedTrustedOrcaHooks } from '../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import { ARCHIVE_HOOK_FAILED_REMOVAL_CODE } from '../../../../src/shared/worktree/removal/archive-hook-removal-gate'
-import type { OrcaHookTrustPrompt } from '../../components/hook-trust/OrcaHookTrustDrawer'
-import { persistOrcaHookTrustApproval } from '../../new-workspace/creation/setup-hook-trust'
+import type { OpenKodoHookTrustPrompt } from '../../components/hook-trust/OpenKodoHookTrustDrawer'
+import { persistOpenKodoHookTrustApproval } from '../../new-workspace/creation/setup-hook-trust'
 import { triggerError, triggerSuccess } from '../../platform/haptics/haptics'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'
 import { requestWorktreeRemove } from './worktree-remove-request'
@@ -20,8 +20,8 @@ type ArchiveHookWaiver = { allowFailedArchiveHook?: true }
 
 export type ArchiveHookTrustRequest = RowClients & {
   item: Worktree
-  prompt: OrcaHookTrustPrompt
-  trust: PersistedTrustedOrcaHooks
+  prompt: OpenKodoHookTrustPrompt
+  trust: PersistedTrustedOpenKodoHooks
   repos: readonly { id: string }[] | null
   waiver: ArchiveHookWaiver
 }
@@ -198,7 +198,7 @@ export function useHostWorktreeDelete(args: {
         return
       }
       try {
-        await persistOrcaHookTrustApproval({
+        await persistOpenKodoHookTrustApproval({
           client: request.desktopClient,
           trust: request.trust,
           repos: request.repos,

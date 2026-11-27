@@ -254,12 +254,12 @@ function buildWindowsStartupCommand(
     // User startup may invoke policy-gated .ps1; apply relief in-payload to avoid the flagged command-line switch.
     // Silence/restore module-autoload progress so stderr stays clean. Stop routes nonterminating autoload errors
     // to a reporting catch; never rethrow and abort startup over a broken security module.
-    "$orcaProgress = $ProgressPreference; $ProgressPreference = 'SilentlyContinue'",
+    "$openkodoProgress = $ProgressPreference; $ProgressPreference = 'SilentlyContinue'",
     'try { Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force -ErrorAction Stop } ' +
       'catch { [Console]::Error.WriteLine("OpenKodo: could not relax the execution policy for this " + ' +
       '"session (" + $_.FullyQualifiedErrorId + "). A startup command that runs a .ps1 " + ' +
       '"may be blocked.") }',
-    '$ProgressPreference = $orcaProgress',
+    '$ProgressPreference = $openkodoProgress',
     `$marker = ${quotePowerShellLiteral(markerPath)}`,
     'if ([string]::IsNullOrWhiteSpace($marker)) {',
     '  [Console]::Error.WriteLine("Missing setup marker path.")',

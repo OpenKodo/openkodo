@@ -90,7 +90,7 @@ function parseCliJson(output) {
   return JSON.parse(text)
 }
 
-async function callOrca(cli, args, options = {}) {
+async function callOpenKodo(cli, args, options = {}) {
   const result = await runCommand(cli, [...args, '--json'], options)
   const parsed = parseCliJson(result.stdout)
   if (parsed.ok === false) {
@@ -150,14 +150,14 @@ async function tryCloseTerminal(cli, handle, cwd) {
     return
   }
   try {
-    await callOrca(cli, ['terminal', 'close', '--terminal', handle], { cwd })
+    await callOpenKodo(cli, ['terminal', 'close', '--terminal', handle], { cwd })
   } catch {
     // Best-effort cleanup; the report is more useful than a close failure.
   }
 }
 
 async function parentMain() {
-  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'orca')
+  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'openkodo')
   const mode = argValue('mode', DEFAULT_MODE)
   if (!new Set(['wire', 'codex-like']).has(mode)) {
     throw new Error('--mode must be wire or codex-like')
@@ -169,14 +169,17 @@ async function parentMain() {
   const discardReport = hasFlag('discard-report')
   const marker = `marker_${randomUUID().replace(/-/g, '')}`
   const spec = buildLongSpec(sizeKb, marker)
-  const tempDir = path.join(tmpdir(), `orca-orchestration-long-prompt-${process.pid}-${Date.now()}`)
+  const tempDir = path.join(
+    tmpdir(),
+    `openkodo-orchestration-long-prompt-${process.pid}-${Date.now()}`
+  )
   await mkdir(tempDir, { recursive: true })
   const workerReportPath = path.join(tempDir, 'worker-report.json')
 
   console.log(`runtime: ${cli} status`)
-  await callOrca(cli, ['status'], { cwd })
+  await callOpenKodo(cli, ['status'], { cwd })
 
-  const coordinator = await callOrca(
+  const coordinator = await callOpenKodo(
     cli,
     [
       'terminal',
@@ -210,7 +213,7 @@ async function parentMain() {
     '--timeout-ms',
     String(timeoutMs)
   ].join(' ')
-  const worker = await callOrca(
+  const worker = await callOpenKodo(
     cli,
     [
       'terminal',
@@ -231,7 +234,7 @@ async function parentMain() {
 
   let taskId = null
   try {
-    await callOrca(
+    await callOpenKodo(
       cli,
       [
         'terminal',
@@ -245,7 +248,7 @@ async function parentMain() {
       ],
       { cwd }
     )
-    const task = await callOrca(
+    const task = await callOpenKodo(
       cli,
       [
         'orchestration',
@@ -264,7 +267,7 @@ async function parentMain() {
       throw new Error('Could not create orchestration task')
     }
 
-    const dispatch = await callOrca(
+    const dispatch = await callOpenKodo(
       cli,
       [
         'orchestration',
@@ -370,7 +373,7 @@ function parseInjectedIds(text) {
 }
 
 async function fakeWorkerMain() {
-  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'orca')
+  const cli = argValue('cli', process.env.OPENKODO_REPRO_CLI ?? 'openkodo')
   const mode = argValue('mode', DEFAULT_MODE)
   const reportPath = argValue('report')
   const marker = argValue('marker')
@@ -393,7 +396,7 @@ async function fakeWorkerMain() {
       return { attempted: false, reason: 'missing-dispatch-identifiers' }
     }
     try {
-      await callOrca(cli, [
+      await callOpenKodo(cli, [
         'orchestration',
         'send',
         '--type',
@@ -469,12 +472,12 @@ async function main() {
     console.log(`Usage:
   node tests/tools/repro-orchestration-long-prompt.mjs [--mode codex-like|wire] [--size-kb 80]
 
-The parent mode requires a running Orca runtime and creates temporary Orca
+The parent mode requires a running OpenKodo runtime and creates temporary OpenKodo
 terminals. The fake worker records whether orchestration dispatch delivered a
 long prompt in a safe agent-input contract.
 
 Options:
-  --cli <path>         Orca CLI command (default: OPENKODO_REPRO_CLI or orca)
+  --cli <path>         OpenKodo CLI command (default: OPENKODO_REPRO_CLI or openkodo)
   --worktree <path>   Worktree path for temporary terminals (default: cwd)
   --timeout-ms <n>    Wait budget for terminal/report operations
   --keep-terminals    Leave temporary terminals open for inspection

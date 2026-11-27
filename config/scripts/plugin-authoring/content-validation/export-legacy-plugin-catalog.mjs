@@ -1,7 +1,7 @@
-// Writes the frozen orca-marketplace.json that Orca builds before catalog format 2 read, from
-// orca-catalog.json. Why generated: those builds reject any key they do not know, so the file
+// Writes the frozen openkodo-marketplace.json that OpenKodo builds before catalog format 2 read, from
+// openkodo-catalog.json. Why generated: those builds reject any key they do not know, so the file
 // carries only the original fields and authors should never edit it by hand.
-// Usage: node export-legacy-plugin-catalog.mjs [orca-catalog.json] [orca-marketplace.json]
+// Usage: node export-legacy-plugin-catalog.mjs [openkodo-catalog.json] [openkodo-marketplace.json]
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -23,8 +23,8 @@ export function legacyPluginCatalog(catalog) {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(import.meta.filename)) {
-  const input = process.argv[2] ?? 'orca-catalog.json'
-  const output = process.argv[3] ?? 'orca-marketplace.json'
+  const input = process.argv[2] ?? 'openkodo-catalog.json'
+  const output = process.argv[3] ?? 'openkodo-marketplace.json'
   const catalog = JSON.parse(readFileSync(input, 'utf8'))
   writeFileSync(output, `${JSON.stringify(legacyPluginCatalog(catalog), null, 2)}\n`)
   console.log(`wrote ${output} with ${catalog.plugins.length} plugins`)

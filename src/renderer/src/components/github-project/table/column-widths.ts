@@ -1,7 +1,7 @@
 // Keep cosmetic widths per device in localStorage; frozen columns use pixels, later columns use fr weights.
 import type { GitHubProjectField } from '../../../../../shared/github/projects/project-types'
 
-const STORAGE_KEY = 'orca.githubProject.columnWidths'
+const STORAGE_KEY = 'openkodo.githubProject.columnWidths'
 
 export const DEFAULT_TITLE_WIDTH = 360
 export const DEFAULT_FIELD_WIDTH = 140

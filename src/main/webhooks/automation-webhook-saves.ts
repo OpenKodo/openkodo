@@ -9,14 +9,14 @@ import type { Automation } from '../../shared/automations/automation-definition'
 import type { Bot } from '../../shared/bot-types'
 import { WEBHOOKS_NOT_CONNECTED } from './webhook-hooks'
 import type { AutomationWebhooks } from './webhook-host-service'
-import type { OrcaSignInServer } from '../../shared/bots/host-orca-sign-in'
+import type { OpenKodoSignInServer } from '../../shared/bots/host-openkodo-sign-in'
 
 export class AutomationWebhookSaves {
   // Only a desktop signed in to OpenKodo Cloud hosts the connector, so only it makes webhooks.
   private webhooks: AutomationWebhooks | null = null
 
   /** This host's name when it is a headless server, whose signed-out refusal names it; set with the runtime. */
-  signInServer: () => OrcaSignInServer = () => null
+  signInServer: () => OpenKodoSignInServer = () => null
 
   set(webhooks: AutomationWebhooks | null): void {
     this.webhooks = webhooks

@@ -1,10 +1,10 @@
-import type { OrcadManagedRuntimeStatus } from '../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododManagedRuntimeStatus } from '../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 
 function count(value: number | null): string {
   return value === null ? 'unverifiable' : String(value)
 }
 
-export function formatManagedServerStatus(status: OrcadManagedRuntimeStatus): string {
+export function formatManagedServerStatus(status: OpenkododManagedRuntimeStatus): string {
   const lines = [
     `Active version: ${status.activeVersion ?? 'none'}${status.activeAppVersion ? ` (OpenKodo ${status.activeAppVersion})` : ''}`,
     `Previous version: ${status.previousVersion ?? 'none'}${status.rollbackAvailable ? ' (rollback available)' : ''}`,

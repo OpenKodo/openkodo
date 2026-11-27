@@ -1,6 +1,6 @@
 import { app, session, webContents, type Session, type WebContents } from 'electron'
 import { closeRouteGuest } from '../guest-authority/browser-route-guest-guard'
-import { activeBrowserRoutePartitionOrcaProfileId } from '../partitions/browser-route-partition-binding-runtime'
+import { activeBrowserRoutePartitionOpenKodoProfileId } from '../partitions/browser-route-partition-binding-runtime'
 import {
   isBrowserRoutePartitionRetainedByAnyOwner,
   registerBrowserRoutePartitionRetentionProbe
@@ -60,11 +60,15 @@ export function preparedLocalSshBrowserPartition(
   targetId: string,
   browserProfileId: string
 ): string | null {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     return null
   }
-  const { partition } = deriveLocalSshBrowserPartition(orcaProfileId, targetId, browserProfileId)
+  const { partition } = deriveLocalSshBrowserPartition(
+    openkodoProfileId,
+    targetId,
+    browserProfileId
+  )
   return isLocalSshBrowserPartition(partition) ? partition : null
 }
 
@@ -123,8 +127,8 @@ async function prepareFresh(
   input: { targetId: string; browserProfileId: string; skipProbe?: boolean },
   storage: PendingLocalSshPartition['storage']
 ): Promise<PreparedLocalSshPartition> {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     throw new Error('browser_local_route_profile_unavailable')
   }
   browserSessionRegistry.requireRouteBrowserProfile(input.browserProfileId)
@@ -140,7 +144,7 @@ async function prepareFresh(
     }
   }
   const derived = bindLocalSshBrowserPartitionFor(
-    orcaProfileId,
+    openkodoProfileId,
     input.targetId,
     input.browserProfileId
   )

@@ -12,7 +12,7 @@ import { listWorkerTerminalResources } from '../worker-terminal/worker-terminal-
 import { listFederatedDispatchesByIds } from '../../legacy-remote-home/federated-dispatch-store'
 import type { FederatedDispatchRow } from '../orchestration-records'
 import { readSessionPartyRows, type SessionPartyRows } from '../worker-terminal/session-party-rows'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 
 export type ConnectorWorkerRow = ReturnType<typeof listWorkerTerminalResources>[number]
 
@@ -39,7 +39,7 @@ const CONNECTOR_DISPATCHES_SQL = `
     FROM json_each(?1) s
     JOIN dispatch_contexts d ON d.rowid IN (
       SELECT rowid FROM dispatch_contexts
-       WHERE creator_orca_session_id = s.value
+       WHERE creator_openkodo_session_id = s.value
        ORDER BY rowid DESC LIMIT ?2
     )
    WHERE d.creator_turn_source = 'connector'`
@@ -101,7 +101,7 @@ export function readConnectorWorkerCandidates(
   }
 }
 
-// What resolveOrcaSessionParty reads for a chat assignee; a chat is no worker, so both usually miss.
+// What resolveOpenKodoSessionParty reads for a chat assignee; a chat is no worker, so both usually miss.
 function readChatParties(
   connection: OrchestrationDbConnection,
   candidates: readonly ConnectorWorkerCandidate[]
@@ -109,7 +109,9 @@ function readChatParties(
   return readSessionPartyRows.call(
     connection,
     candidates.flatMap(({ row }) => {
-      const chat = row.agentTerminalHandle ? parseOrcaSessionAddress(row.agentTerminalHandle) : null
+      const chat = row.agentTerminalHandle
+        ? parseOpenKodoSessionAddress(row.agentTerminalHandle)
+        : null
       return chat ? [chat] : []
     })
   )

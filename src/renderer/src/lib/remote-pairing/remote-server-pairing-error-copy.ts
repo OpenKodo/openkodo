@@ -109,10 +109,10 @@ const COPY: Record<RemoteServerPairingFailureCode, (name: string | null) => stri
             name
           }
         ),
-  idNeedsNewerOrca: () =>
+  idNeedsNewerOpenKodo: () =>
     translate(
-      'runtime.remoteServerPairingErrors.idNeedsNewerOrca',
-      REMOTE_SERVER_PAIRING_FAILURE_COPY.idNeedsNewerOrca
+      'runtime.remoteServerPairingErrors.idNeedsNewerOpenKodo',
+      REMOTE_SERVER_PAIRING_FAILURE_COPY.idNeedsNewerOpenKodo
     ),
   hostSaveFailed: () =>
     translate(

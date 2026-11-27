@@ -1,6 +1,6 @@
 // An automation run's result as a note in its bot's Chat: the person sees it, the bot reads it later.
 
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { AutomationBotTarget } from '../../shared/automations/automation-definition'
 import { hasAutomationSchedule } from '../../shared/automation-event-triggers'
 import {
@@ -9,7 +9,7 @@ import {
   makeAutomationResultNote,
   type AutomationResultNote
 } from '../../shared/bots/bot-automation-result-note'
-import { writeStructuredAgentSessionOrcaNote } from '../native-chat/agent-session-wire/structured-agent-session-orca-note'
+import { writeStructuredAgentSessionOpenKodoNote } from '../native-chat/agent-session-wire/structured-agent-session-openkodo-note'
 import { requireStructuredHost, type runtimeBotChats } from './bot-chat-session'
 import type { Bot } from '../../shared/bot-types'
 import type { BotRunResult } from './bot-run-results'
@@ -65,11 +65,11 @@ function botRunResultNote(
 }
 
 export function runtimeNoteToChat(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   chats: ReturnType<typeof runtimeBotChats>
 ): BotRunNoteDependencies['noteToChat'] {
   return async (bot, note) =>
-    writeStructuredAgentSessionOrcaNote(
+    writeStructuredAgentSessionOpenKodoNote(
       await requireStructuredHost(runtime),
       await chats.ensure(bot.id),
       automationResultNoteClientMessageId(note.runId),

@@ -3,7 +3,7 @@ import {
   getRepoExecutionHostId,
   LOCAL_EXECUTION_HOST_ID
 } from '../../../shared/execution-host/execution-host'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { getRepoKind } from '../../../shared/repository/repo-kind'
 import { sshRemotePtyLeaseAllowsReattach } from '../../../shared/remote-runtime/ssh/ssh-types'
 import { worktreeWorkspaceKey } from '../../../shared/workspace/identity/workspace-scope'

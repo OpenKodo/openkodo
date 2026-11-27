@@ -172,7 +172,7 @@ async function createSkillBundleArchiveUnobserved(
     foldedNames.add(foldedName)
   }
   await dependencies.afterSourcesObserved?.()
-  const workDirectory = await mkdtemp(join(tmpdir(), 'orca-skill-bundle-'))
+  const workDirectory = await mkdtemp(join(tmpdir(), 'openkodo-skill-bundle-'))
   const skillsRoot = join(workDirectory, 'skills')
   const verificationDirectory = join(workDirectory, 'verification')
   const temporaryArchive = `${input.archivePath}.${process.pid}.${randomUUID()}.tmp`

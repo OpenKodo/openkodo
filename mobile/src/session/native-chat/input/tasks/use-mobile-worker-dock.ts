@@ -13,9 +13,9 @@ import {
   type WorkerDockEntry
 } from '../../../../../../src/shared/orchestration/dock/worker-dock'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../../src/shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../../src/shared/agent-session/identity/openkodo-session-address'
 
 const NONE: readonly WorkerDockEntry[] = []
 
@@ -46,7 +46,8 @@ export function useMobileWorkerDock({
   sessionId: string | null
   presence: WorkerDockPresence | undefined
 }): readonly WorkerDockEntry[] {
-  const party = sessionId && isOrcaSessionId(sessionId) ? formatOrcaSessionAddress(sessionId) : null
+  const party =
+    sessionId && isOpenKodoSessionId(sessionId) ? formatOpenKodoSessionAddress(sessionId) : null
   const connected = connState === 'connected'
   const [rows, setRows] = useState<{ party: string; list: readonly WorkerDockEntry[] } | null>(null)
   // Bumped to reopen a stream that ended other than by refusal.

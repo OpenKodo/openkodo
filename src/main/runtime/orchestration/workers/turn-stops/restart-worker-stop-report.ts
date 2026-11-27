@@ -208,7 +208,7 @@ export async function reportWorkerStopsAcrossRestart(
     if (isWorkerStartOrStopUndecided(state) || deps.resuming?.(dispatchId)) {
       continue
     }
-    const sessionId = dispatch.assignee_orca_session_id
+    const sessionId = dispatch.assignee_openkodo_session_id
     const paneKey = dispatch.assignee_pane_key
     if (!sessionId) {
       if (paneKey) {
@@ -234,7 +234,7 @@ export async function reportWorkerStopsAcrossRestart(
       continue
     }
     deps.armBackgroundWait?.(dispatchId)
-    const session = db.getDispatchContextById(dispatchId)?.assignee_orca_session_id
+    const session = db.getDispatchContextById(dispatchId)?.assignee_openkodo_session_id
     if (!session || (awaitingDecision && !awaitingDecision.has(session))) {
       visit(dispatchId, () => void reconsiderWorkerRest(db, dispatchId, deps.reportDeps))
     }

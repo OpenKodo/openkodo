@@ -44,9 +44,9 @@ The route regression invokes the production renderer payload builder, RPC schema
 
 Reviewed the lead's pre-fix log `/tmp/openkodo-native-chat-before.log`: both agent cases failed on the unexpected `undefined` command preceding Setup, while nine controls passed. Reviewed `/tmp/openkodo-native-chat-tests.log`: seven files passed, 1,451 tests passed and one skipped. Supplemental validation is attributed below.
 
-P2 test hardening resolved during final review: the split control now asserts that `ORCA_TAB_ID` is a nonempty string before comparing the two panes' values.
+P2 test hardening resolved during final review: the split control now asserts that `OPENKODO_TAB_ID` is a nonempty string before comparing the two panes' values.
 
-Independent baseline run: `ORCA_BACKGROUND_LAUNCH=1 pnpm test` for `runtime-local-worktree-terminal-startup.test.ts`, `runtime-worktree-terminal-provisioning.test.ts`, `runtime-folder-worktree-create.test.ts`, and `rpc/methods/worktree-create-args.test.ts` passed all 37 tests in four files. These existing tests establish controls; they do not demonstrate the new regression fix.
+Independent baseline run: `OPENKODO_BACKGROUND_LAUNCH=1 pnpm test` for `runtime-local-worktree-terminal-startup.test.ts`, `runtime-worktree-terminal-provisioning.test.ts`, `runtime-folder-worktree-create.test.ts`, and `rpc/methods/worktree-create-args.test.ts` passed all 37 tests in four files. These existing tests establish controls; they do not demonstrate the new regression fix.
 
 The added node typecheck include names only the pure, type-only-importing renderer payload builder used by the regression; it follows existing cross-layer fixture includes and introduces no runtime renderer dependency.
 

@@ -40,7 +40,7 @@ async function createRepo(
   linked: number,
   initArgs: (root: string) => string[] = () => []
 ): Promise<{ repoPath: string; remoteOid: string }> {
-  const root = await mkdtemp(join(tmpdir(), 'orca-base-refresh-perf-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-base-refresh-perf-'))
   roots.push(root)
   const repoPath = join(root, 'repo')
   execFileSync('git', ['init', '--quiet', ...initArgs(root), repoPath])
@@ -89,7 +89,7 @@ beforeEach(() => {
   // Real Git children run here, so the fake clock follows real time while no bound waits it out.
   vi.useFakeTimers({ shouldAdvanceTime: true })
   vi.stubEnv('GIT_CONFIG_NOSYSTEM', '1')
-  vi.stubEnv('GIT_CONFIG_GLOBAL', join(tmpdir(), `orca-no-global-gitconfig-${process.pid}`))
+  vi.stubEnv('GIT_CONFIG_GLOBAL', join(tmpdir(), `openkodo-no-global-gitconfig-${process.pid}`))
 })
 
 afterEach(async () => {

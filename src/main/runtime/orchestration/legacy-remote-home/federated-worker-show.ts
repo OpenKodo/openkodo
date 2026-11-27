@@ -4,7 +4,7 @@ import { exposeDispatchContext } from '../../rpc/methods/orchestration/worker/ob
 import { OrchestrationError } from '../orchestration-error'
 import { liveFederatedHomeAutoReleaseAt } from '../terminal-authority/release/worker-terminal-ownership'
 import type { DispatchContextRow, FederatedDispatchRow } from '../db/orchestration-records'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import {
   callFederatedWorkerShow,
   exposeFederatedWorkerObservation,
@@ -17,7 +17,7 @@ import { applyConfirmedFederatedReleaseHomeProjection } from './federated-worker
 
 /** Query host evidence: push-fed fleet snapshots cover only local panes and would fabricate unverifiable for federated workers. */
 export function projectFederatedFleetWorker(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   dispatchId: string
   environmentId: string
@@ -56,7 +56,7 @@ export function projectFederatedFleetWorker(args: {
 }
 
 export async function showFederatedWorker(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   dispatchId: string
   dispatch: DispatchContextRow

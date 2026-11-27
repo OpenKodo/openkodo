@@ -4,7 +4,7 @@ import { createEncryptedApiKeyFileStore } from '../credentials/encrypted-api-key
 // provider keys. Only the API key is stored; plan and quota are fetched live.
 const store = createEncryptedApiKeyFileStore({
   fileName: 'openkodo-key',
-  envelopePrefix: 'orca:openkodo:',
+  envelopePrefix: 'openkodo:openkodo:',
   providerLabel: 'OpenKodo',
   logScope: '[openkodo]'
 })

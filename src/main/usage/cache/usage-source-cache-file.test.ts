@@ -14,7 +14,7 @@ describe('usage source cache file', () => {
   let directory: string
 
   beforeEach(() => {
-    directory = mkdtempSync(join(tmpdir(), 'orca-usage-source-cache-'))
+    directory = mkdtempSync(join(tmpdir(), 'openkodo-usage-source-cache-'))
   })
 
   afterEach(() => {
@@ -22,7 +22,7 @@ describe('usage source cache file', () => {
   })
 
   it('moves inline records of a legacy cache into the sidecar and returns only the report', async () => {
-    const cacheFile = join(directory, 'orca-claude-usage.json')
+    const cacheFile = join(directory, 'openkodo-claude-usage.json')
     const legacy = {
       schemaVersion: 6,
       worktreeFingerprint: '[]',

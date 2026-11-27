@@ -5,7 +5,7 @@ import {
   wslMoveSourcePathToLinux,
   type WslMappedDrive
 } from '../../../../shared/wsl-move/wsl-mapped-drive-paths'
-import type { OrcadMigrationPathRewriter } from '../../migrating-orcad-catalog/path-rewrite/orcad-migration-path-rewrite'
+import type { OpenkododMigrationPathRewriter } from '../../migrating-openkodod-catalog/path-rewrite/openkodod-migration-path-rewrite'
 
 export type UncToLinuxRewriteOptions = {
   /** Told each drive letter a rewrite mapped, so a move journals only the drives it names. */
@@ -18,7 +18,7 @@ export function createUncToLinuxPathRewriter(
   distro: string,
   mappedDrives: readonly WslMappedDrive[] = [],
   options: UncToLinuxRewriteOptions = {}
-): OrcadMigrationPathRewriter {
+): OpenkododMigrationPathRewriter {
   const fileUrl = new RegExp(`^file://(?:wsl\\.localhost|wsl\\$)/([^/]+)(/.*)?$`, 'i')
   const noted = (value: string, mapped: string | null): string | null => {
     const letter = mapped === null ? null : DRIVE_LETTER.exec(value)?.[1]

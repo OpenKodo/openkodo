@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Model idle output backlog, sequential return/open and reconnect storms on large paired remotes.
-// restart-proxy uses orca open plus status/list storm; it does not kill desktop.
+// restart-proxy uses openkodo open plus status/list storm; it does not kill desktop.
 // Run: OPENKODO_FREEZE_ENV=paired-remote OPENKODO_FREEZE_SCENARIO=idle-backlog-open node config/scripts/diagnostics/remote-freeze/live-remote-realistic-freeze-repro.mjs
 import { spawnSync } from 'node:child_process'
 import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { createOrcaRpc } from './live-remote-freeze-rpc.mjs'
+import { createOpenKodoRpc } from './live-remote-freeze-rpc.mjs'
 import { startStatusWatchdog } from './live-remote-status-watchdog.mjs'
 import { BoundedLiveFreezeHistory } from './live-freeze-bounded-history.mjs'
 import {
@@ -61,8 +61,8 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const rpc = createOrcaRpc({ envName })
-const { orcaJsonSync, orcaJsonAsync, runReconnectRefreshStorm, runRestartProxy } = rpc
+const rpc = createOpenKodoRpc({ envName })
+const { openkodoJsonSync, openkodoJsonAsync, runReconnectRefreshStorm, runRestartProxy } = rpc
 
 async function mapPool(items, concurrency, worker) {
   const results = Array.from({ length: items.length })
@@ -86,17 +86,17 @@ function floodCommand(marker) {
   return `node -e ${JSON.stringify(script)} ${JSON.stringify(marker)}`
 }
 
-function sampleOrcaIfPossible() {
+function sampleOpenKodoIfPossible() {
   if (process.platform !== 'darwin') {
     return null
   }
   try {
-    const status = orcaJsonSync(['status'], { local: true }).result
+    const status = openkodoJsonSync(['status'], { local: true }).result
     const pid = status?.app?.pid
     if (!pid) {
       return null
     }
-    const out = path.join(reportDir, `orca-sample-realistic-${Date.now()}.txt`)
+    const out = path.join(reportDir, `openkodo-sample-realistic-${Date.now()}.txt`)
     const sampled = spawnSync('sample', [String(pid), '5', '-file', out], {
       timeout: 20_000,
       stdio: 'ignore'
@@ -108,7 +108,7 @@ function sampleOrcaIfPossible() {
 }
 
 function listLiveTerminalHandles() {
-  const listed = orcaJsonSync(['terminal', 'list'])
+  const listed = openkodoJsonSync(['terminal', 'list'])
   const terms = listed.result?.terminals || []
   return terms
     .filter((t) => typeof t.handle === 'string' && t.handle.startsWith('term_'))
@@ -136,14 +136,14 @@ async function main() {
     `[realistic-freeze] scenario=${scenario} env=${envName} create=${createCount} idleMs=${idleMs} openCount=${openCount} paceMs=${paceMs}`
   )
 
-  const local = orcaJsonSync(['status'], { local: true })
-  const remote = orcaJsonSync(['status'])
+  const local = openkodoJsonSync(['status'], { local: true })
+  const remote = openkodoJsonSync(['status'])
   notes.push(
     `local version=${local.result?.runtime?.appVersion} pid=${local.result?.app?.pid}`,
     `remote version=${remote.result?.runtime?.appVersion} state=${remote.result?.runtime?.state}`
   )
 
-  const worktrees = orcaJsonSync(['worktree', 'list']).result
+  const worktrees = openkodoJsonSync(['worktree', 'list']).result
   const wtList = worktrees?.worktrees || worktrees?.items || worktrees || []
   if (!Array.isArray(wtList) || wtList.length === 0) {
     throw new Error(`No worktrees on environment ${envName}`)
@@ -165,7 +165,7 @@ async function main() {
         }
         const marker = `REALISTIC_${Date.now()}_${i}`
         try {
-          const createdTerm = await orcaJsonAsync(
+          const createdTerm = await openkodoJsonAsync(
             [
               'terminal',
               'create',
@@ -219,7 +219,7 @@ async function main() {
 
   try {
     const parkHandle = openList[0]
-    const parked = await orcaJsonAsync(['terminal', 'switch', '--terminal', parkHandle], {
+    const parked = await openkodoJsonAsync(['terminal', 'switch', '--terminal', parkHandle], {
       timeoutMs: 60_000
     })
     notes.push(`park switch ms=${parked.elapsedMs.toFixed(0)} handle=${parkHandle}`)
@@ -249,7 +249,7 @@ async function main() {
       maxJobMs: storm.maxJobMs
     })
   } else if (scenario === 'restart-proxy') {
-    console.log('[realistic-freeze] restart proxy: orca open + refresh storm (no process kill)')
+    console.log('[realistic-freeze] restart proxy: openkodo open + refresh storm (no process kill)')
     const restart = await runRestartProxy(notes)
     reconnectRefreshMs = Math.max(restart.wallMs, restart.storm.wallMs, restart.storm.maxJobMs)
     phases.push({
@@ -286,7 +286,7 @@ async function main() {
         batch.map(async (handle, batchIndex) => {
           const index = offset + batchIndex
           try {
-            const sw = await orcaJsonAsync(['terminal', 'switch', '--terminal', handle], {
+            const sw = await openkodoJsonAsync(['terminal', 'switch', '--terminal', handle], {
               timeoutMs: opTimeoutMs
             })
             return { handle, index, ms: sw.elapsedMs, ok: true, timedOut: false }
@@ -376,7 +376,7 @@ async function main() {
     for (let i = 0; i < openList.length; i += 1) {
       const handle = openList[i]
       try {
-        const sw = await orcaJsonAsync(['terminal', 'switch', '--terminal', handle], {
+        const sw = await openkodoJsonAsync(['terminal', 'switch', '--terminal', handle], {
           timeoutMs: opTimeoutMs
         })
         openOk += 1
@@ -450,7 +450,7 @@ async function main() {
   let statusHangMs = 0
   const statusStarted = performance.now()
   try {
-    const statusProbe = await orcaJsonAsync(['status'], {
+    const statusProbe = await openkodoJsonAsync(['status'], {
       local: true,
       timeoutMs: permanentTimeoutMs
     })
@@ -465,7 +465,7 @@ async function main() {
 
   let memoryProbeMs = null
   try {
-    const mem = await orcaJsonAsync(['diagnostics', 'memory'], {
+    const mem = await openkodoJsonAsync(['diagnostics', 'memory'], {
       local: true,
       timeoutMs: permanentTimeoutMs
     })
@@ -512,7 +512,7 @@ async function main() {
 
   let samplePath = null
   if (signals.softFreeze || signals.hardFreeze || fullApp.foreverUiLockupObserved) {
-    samplePath = sampleOrcaIfPossible()
+    samplePath = sampleOpenKodoIfPossible()
     if (samplePath) {
       notes.push(`sample=${samplePath}`)
     } else {

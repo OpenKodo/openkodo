@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger
 } from '../../ui/dropdown-menu'
 import { useRuntimeServersPage } from './runtime-servers-page-context'
-import { getManagedOrcadApi } from '../../../runtime/hosts/installation/managed-orcad-api-availability'
+import { getManagedOpenkododApi } from '../../../runtime/hosts/installation/managed-openkodod-api-availability'
 
 function AddServerMenuItem({
   icon,
@@ -46,7 +46,7 @@ export function RuntimeServersHeaderActions(): React.JSX.Element {
   const { setDialog, addButtonRef } = useRuntimeServersPage()
   const addMenuTriggerRef = useRef<HTMLButtonElement>(null)
   const openSettingsTarget = useAppStore((state) => state.openSettingsTarget)
-  const canInstall = getManagedOrcadApi() !== undefined
+  const canInstall = getManagedOpenkododApi() !== undefined
 
   return (
     <ButtonGroup>

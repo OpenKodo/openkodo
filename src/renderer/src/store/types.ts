@@ -41,7 +41,7 @@ import type { CommitMessageGenerationSlice } from './slices/hosted-review/genera
 import type { PinnedTabCloseConfirmSlice } from './slices/tabs/pinned-tab-close-confirm'
 import type { RecentlyClosedTerminalTabsSlice } from './terminals/tabs/recently-closed-terminal-tabs'
 import type { RecentlyClosedTabsSlice } from './slices/tabs/recently-closed-tabs'
-import type { OrcaProfilesSlice } from './slices/orca-profiles/create-orca-profiles-slice'
+import type { OpenKodoProfilesSlice } from './slices/openkodo-profiles/create-openkodo-profiles-slice'
 import type { NewIssueDraftSlice } from './slices/task-creation/new-issue-draft'
 import type { FeedbackDraftSlice } from './slices/feedback/feedback-draft'
 import type { TaskCreationDraftsSlice } from './slices/task-creation/task-creation-drafts'
@@ -95,7 +95,7 @@ export type AppState = RepoSlice &
   PinnedTabCloseConfirmSlice &
   RecentlyClosedTerminalTabsSlice &
   RecentlyClosedTabsSlice &
-  OrcaProfilesSlice &
+  OpenKodoProfilesSlice &
   NewIssueDraftSlice &
   FeedbackDraftSlice &
   TaskCreationDraftsSlice &

@@ -19,7 +19,7 @@ export async function prepareStatusFeed(): Promise<void> {
     return
   }
   let now = 1
-  root = await mkdtemp(join(tmpdir(), 'orca-rpc-status-'))
+  root = await mkdtemp(join(tmpdir(), 'openkodo-rpc-status-'))
   const journal = await journals.open({
     stateDirectory: root,
     now: () => now,

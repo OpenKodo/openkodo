@@ -84,7 +84,7 @@ function giveMacExecutableUniqueUuid(executable, appId, uuidName = basename(exec
   const changes = rewriteMachOUuids(buffer, appId, uuidName)
   // The edit breaks Electron's linker ad hoc signature and arm64 kills unsigned code, but identity-less builds skip app signing.
   // Signed outside the bundle: in place, codesign would treat it as the bundle and require its unsigned siblings be signed.
-  const staging = mkdtempSync(join(tmpdir(), 'orca-executable-uuid-'))
+  const staging = mkdtempSync(join(tmpdir(), 'openkodo-executable-uuid-'))
   try {
     const staged = join(staging, name)
     writeFileSync(staged, buffer, { mode: 0o755 })

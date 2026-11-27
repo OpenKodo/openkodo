@@ -28,7 +28,7 @@ import { grokTextTaskPreservesAccount, runGrokTextTask } from '../../grok/grok-t
 
 type TextInput = Parameters<NonNullable<StructuredAgentSessionAdapter['generateText']>>[0]
 
-const NAMING_CLIENT_INFO = { name: 'orca-chat-naming', version: '1' }
+const NAMING_CLIENT_INFO = { name: 'openkodo-chat-naming', version: '1' }
 
 /** Disposable native tasks belong to the adapter so shutdown also owns uncertain closes. */
 export class AcpTextTasks {
@@ -127,7 +127,7 @@ export class AcpTextTasks {
         ),
         signal
       )
-      cwd = await mkdtemp(join(tmpdir(), 'orca-chat-name-'))
+      cwd = await mkdtemp(join(tmpdir(), 'openkodo-chat-name-'))
       if (spec.agent === 'grok') {
         cwd = await realpath(cwd)
       }

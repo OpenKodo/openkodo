@@ -2,7 +2,7 @@
 // seconds per bot, since the work record checks each worker it lists.
 import type { BotItem } from '../../shared/bots/bot-items'
 import type { BotWorkerSummary } from '../../shared/bots/bot-work-list'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { type BotActiveWorkSection, botActiveWorkSection } from './bot-active-work'
 import type { BotItemRecord } from './bot-items-schema'
 
@@ -73,11 +73,11 @@ export function createBotActiveWorkReader() {
   }
 }
 
-const readers = new WeakMap<OrcaRuntimeService, ReturnType<typeof createBotActiveWorkReader>>()
+const readers = new WeakMap<OpenKodoRuntimeService, ReturnType<typeof createBotActiveWorkReader>>()
 
 /** The runtime's reads for a turn of one of `botId`'s chats. */
 export function readBotActiveWork(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string
 ): Promise<BotActiveWorkSection> {
   const reader = readers.get(runtime) ?? createBotActiveWorkReader()

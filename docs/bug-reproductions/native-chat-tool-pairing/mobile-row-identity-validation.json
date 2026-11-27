@@ -1,6 +1,6 @@
 {
   "recordedAt": "2026-10-10T03:38:12.628Z",
-  "root": "/Users/nwparker/orca/workspaces/orca/perf-2",
+  "root": "/Users/nwparker/openkodo/workspaces/openkodo/perf-2",
   "baselineRef": "224cae59a671b67ecffdda2a4fa2795b4086ca11",
   "overlaidFile": "mobile/src/session/MobileNativeChatToolRun.tsx",
   "harnessSha256": "cebf78e4d1730b87a8586edfddfabd63d993d875401bd7408535324bf0f3f7f8",

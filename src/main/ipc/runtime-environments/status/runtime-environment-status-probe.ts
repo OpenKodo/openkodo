@@ -1,6 +1,6 @@
 import { resolveEnvironment } from '../../../../shared/remote-runtime/host-store/runtime-environment-store'
 import {
-  getOrcadSshDeployment,
+  getOpenkododSshDeployment,
   getPreferredPairedRuntimeConnection,
   getPreferredPairingOffer,
   type KnownRuntimeEnvironment
@@ -69,8 +69,8 @@ async function repairedSameServer(
     const after = await resolveEnvironment(userDataPath, before.id)
     return (
       (after.pairingRevision ?? after.createdAt) !== (before.pairingRevision ?? before.createdAt) &&
-      getOrcadSshDeployment(before) !== undefined &&
-      getOrcadSshDeployment(after) !== undefined &&
+      getOpenkododSshDeployment(before) !== undefined &&
+      getOpenkododSshDeployment(after) !== undefined &&
       getPreferredPairingOffer(after).publicKeyB64 === getPreferredPairingOffer(before).publicKeyB64
     )
   } catch {

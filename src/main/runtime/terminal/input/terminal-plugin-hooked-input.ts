@@ -1,7 +1,7 @@
 import type { RuntimeTerminalSend } from '../../../../shared/terminal/runtime/runtime-terminal-send-contract'
 import { assertLegacyAiVaultResumeCommandAllowed } from '../../../ai-vault/structured-sessions/structured-session-ownership'
 import type { RuntimeTerminalWriteOptions } from './runtime-terminal-writer'
-import { OrcaRuntimeWithControllerKnowsPtyIsLive } from './terminal-input-dispatch'
+import { OpenKodoRuntimeWithControllerKnowsPtyIsLive } from './terminal-input-dispatch'
 import type { RuntimeAgentPromptWriteOptions } from './agent-prompt-write-options'
 import {
   agentPromptHookApplies,
@@ -17,7 +17,7 @@ type TerminalSendAction = { text?: string; enter?: boolean; interrupt?: boolean 
 /** Text and prompts OpenKodo writes to terminals pass plugin hooks first (`terminal.send`,
  *  `agent.prompt.before`), in order per terminal; with no plugin listing one, a write adds no
  *  await. */
-export abstract class OrcaRuntimeWithPluginHookedTerminalInput extends OrcaRuntimeWithControllerKnowsPtyIsLive {
+export abstract class OpenKodoRuntimeWithPluginHookedTerminalInput extends OpenKodoRuntimeWithControllerKnowsPtyIsLive {
   protected readonly pluginHookOrder = new TerminalPluginHookOrder()
 
   async sendTerminal(

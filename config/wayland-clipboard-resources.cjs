@@ -22,7 +22,9 @@ function ensureBundledWaylandClipboard(archEnum, root = join(__dirname, '..'), r
   if (
     result.error ||
     result.status !== 0 ||
-    !existsSync(join(root, 'native', 'wayland-clipboard', '.build', arch, 'orca-wayland-clipboard'))
+    !existsSync(
+      join(root, 'native', 'wayland-clipboard', '.build', arch, 'openkodo-wayland-clipboard')
+    )
   ) {
     throw new Error('The Linux package requires a built Wayland clipboard helper.')
   }

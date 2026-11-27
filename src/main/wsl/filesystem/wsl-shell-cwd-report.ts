@@ -12,40 +12,40 @@ if [ -n "\${OPENKODO_WSL_USER_ENV:-}" ]; then
   unset OPENKODO_WSL_USER_ENV
   # The shell expands ENV's value before reading it; a here-document does the same without
   # parsing the user's quotes as shell syntax.
-  eval "IFS= read -r __orca_user_env <<__OPENKODO_USER_ENV_EOF
+  eval "IFS= read -r __openkodo_user_env <<__OPENKODO_USER_ENV_EOF
 $ENV
 __OPENKODO_USER_ENV_EOF
 "
-  if [ -r "$__orca_user_env" ]; then
-    . "$__orca_user_env"
+  if [ -r "$__openkodo_user_env" ]; then
+    . "$__openkodo_user_env"
   fi
-  unset __orca_user_env
+  unset __openkodo_user_env
 else
   unset ENV OPENKODO_WSL_USER_ENV
 fi
 if [ -n "\${WSL_DISTRO_NAME:-}" ]; then
-  __orca_wsl_cwd_report() {
+  __openkodo_wsl_cwd_report() {
     LC_ALL=C
-    __orca_p=$PWD
-    __orca_e=
-    while [ -n "$__orca_p" ]; do
-      __orca_r=\${__orca_p#?}
-      __orca_c=\${__orca_p%"$__orca_r"}
-      __orca_p=$__orca_r
-      case $__orca_c in
-        [A-Za-z0-9/._~-]) __orca_e=$__orca_e$__orca_c ;;
-        *) __orca_e=$__orca_e$(printf '%%%02X' $(( $(printf '%d' "'$__orca_c") & 255 ))) ;;
+    __openkodo_p=$PWD
+    __openkodo_e=
+    while [ -n "$__openkodo_p" ]; do
+      __openkodo_r=\${__openkodo_p#?}
+      __openkodo_c=\${__openkodo_p%"$__openkodo_r"}
+      __openkodo_p=$__openkodo_r
+      case $__openkodo_c in
+        [A-Za-z0-9/._~-]) __openkodo_e=$__openkodo_e$__openkodo_c ;;
+        *) __openkodo_e=$__openkodo_e$(printf '%%%02X' $(( $(printf '%d' "'$__openkodo_c") & 255 ))) ;;
       esac
     done
-    printf '\\033]7;file://%s\\007' "$__orca_e"
+    printf '\\033]7;file://%s\\007' "$__openkodo_e"
   }
   case $PS1 in
-    *__orca_wsl_cwd_report*) ;;
+    *__openkodo_wsl_cwd_report*) ;;
     *)
       if [ -n "\${BASH_VERSION:-}" ] || [ -n "\${BB_ASH_VERSION:-}" ]; then
-        PS1='\\[$(__orca_wsl_cwd_report)\\]'"$PS1"
+        PS1='\\[$(__openkodo_wsl_cwd_report)\\]'"$PS1"
       else
-        PS1='$(__orca_wsl_cwd_report)'"$PS1"
+        PS1='$(__openkodo_wsl_cwd_report)'"$PS1"
       fi
       ;;
   esac

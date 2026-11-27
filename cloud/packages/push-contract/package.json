@@ -1,5 +1,5 @@
 {
-  "name": "@orca-cloud/push-contract",
+  "name": "@openkodo-cloud/push-contract",
   "version": "0.0.0",
   "private": true,
   "type": "module",

@@ -15,7 +15,7 @@ import {
 } from '../toml/config-toml-plugin-registration-tables'
 import { readPromotedSettingValuesFromContent } from '../toml/config-toml-promoted-setting-values'
 
-export const CODEX_GUEST_CARRY_FORWARD_MARKER = '# orca: tab edit kept from before the update'
+export const CODEX_GUEST_CARRY_FORWARD_MARKER = '# openkodo: tab edit kept from before the update'
 
 /**
  * Tab edits an older OpenKodo had not yet written to a WSL distro's config. OpenKodo no longer writes

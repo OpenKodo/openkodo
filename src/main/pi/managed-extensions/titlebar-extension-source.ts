@@ -2,7 +2,7 @@ import { getPiTitlebarLifetimeSourceLines } from './titlebar-extension-lifetime-
 import type { PiAgentKind } from '../../../shared/agent-launch/catalog/pi-agent-kind'
 import { getPiOmpRuntimeDetectionSourceLines } from './agent-status/agent-status-runtime-detection-source'
 
-export const OPENKODO_PI_EXTENSION_FILE = 'orca-titlebar-spinner.ts'
+export const OPENKODO_PI_EXTENSION_FILE = 'openkodo-titlebar-spinner.ts'
 
 export function getPiTitlebarExtensionSource(kind: PiAgentKind = 'pi'): string {
   // OMP paints this marker natively; detect bare-shell OMP too, which can run inside a Pi-kind pane.

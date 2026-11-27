@@ -1,5 +1,5 @@
-// An admin's device removal on the host (or the pairing CLI's add) lands in the file while orcad
-// runs; a later save from orcad's memory must never resurrect a removed device.
+// An admin's device removal on the host (or the pairing CLI's add) lands in the file while openkodod
+// runs; a later save from openkodod's memory must never resurrect a removed device.
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -12,7 +12,7 @@ import { DEVICE_REGISTRY_FILENAME } from './mobile-pairing-files'
 let dir: string
 
 beforeEach(() => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-device-registry-edit-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-device-registry-edit-'))
 })
 
 afterEach(() => {
@@ -28,7 +28,7 @@ function fileIds(): string[] {
   return rows.map((row) => row.deviceId)
 }
 
-/** What an admin does on the host: drop one row from the file, outside orcad. */
+/** What an admin does on the host: drop one row from the file, outside openkodod. */
 function removeOnDisk(deviceId: string): void {
   const path = join(dir, DEVICE_REGISTRY_FILENAME)
   const rows: { deviceId: string }[] = JSON.parse(readFileSync(path, 'utf8'))
@@ -82,7 +82,7 @@ describe('device registry saves over an externally edited file', () => {
     expect(registry.getDevice(added.deviceId)).not.toBeNull()
   })
 
-  // Review of #35483: a stale writer (an old orcad's flush during an upgrade overlap) puts back a
+  // Review of #35483: a stale writer (an old openkodod's flush during an upgrade overlap) puts back a
   // device this process revoked; the next save must not adopt it.
   it('never re-adopts a device this process removed when a stale writer puts it back', () => {
     const { registry, desktop, phone } = pairedRegistry()

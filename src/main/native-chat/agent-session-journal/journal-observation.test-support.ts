@@ -41,7 +41,7 @@ export async function readTestJournalSubmissions(
   const entries: { submission: AgentJournalSubmission; ordinal: number }[] = []
   for (const key of keys) {
     const identity = parseAgentJournalItemKey(key)
-    if (identity?.provider === 'orca') {
+    if (identity?.provider === 'openkodo') {
       const submission = await journal.reads.submission(identity.clientMessageId)
       if (submission) {
         const { ordinal } = await journal.reads.input({

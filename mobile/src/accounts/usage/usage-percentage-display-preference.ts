@@ -8,7 +8,7 @@ import { useShellStorage } from '../../platform/shell-storage/shell-storage'
 import { persistMirrored } from '../../storage/mirrored-storage-keys'
 
 // Per device, like desktop's setting: one phone can show remaining while the desktop shows used.
-export const USAGE_PERCENTAGE_DISPLAY_KEY = 'orca:usagePercentageDisplay'
+export const USAGE_PERCENTAGE_DISPLAY_KEY = 'openkodo:usagePercentageDisplay'
 
 let current: UsagePercentageDisplay = normalizeUsagePercentageDisplay(undefined)
 let revision = 0

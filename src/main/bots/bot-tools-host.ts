@@ -5,7 +5,7 @@ import { setTimeout as delay } from 'node:timers/promises'
 import { mkdir } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { z } from 'zod'
 import type {
   BotInheritedTool,

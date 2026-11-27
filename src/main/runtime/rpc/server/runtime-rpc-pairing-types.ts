@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { RpcAnyMethodDeclaration } from '../core'
 import type { DeviceRegistry } from './pairing/device-registry'
 import type { E2EEKeypair } from './pairing/e2ee-keypair'
@@ -29,8 +29,8 @@ export function formatWsEndpoint(host: string, port: number): string {
   return `ws://${host.includes(':') ? `[${host}]` : host}:${port}`
 }
 
-export type OrcaRuntimeRpcServerOptions = {
-  runtime: OrcaRuntimeService
+export type OpenKodoRuntimeRpcServerOptions = {
+  runtime: OpenKodoRuntimeService
   userDataPath: string
   pid?: number
   platform?: NodeJS.Platform

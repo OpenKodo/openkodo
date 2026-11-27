@@ -111,13 +111,13 @@ export function UpdateDownloadingContent({
 export function UpdateReadyToInstallContent({
   version,
   requiredByTeam,
-  requiredByOrca,
+  requiredByOpenKodo,
   onRestart,
   onClose
 }: {
   version: string
   requiredByTeam?: boolean
-  requiredByOrca?: boolean
+  requiredByOpenKodo?: boolean
   onRestart: () => void
   onClose: () => void
 }): React.JSX.Element {
@@ -141,7 +141,7 @@ export function UpdateReadyToInstallContent({
         )}
       </div>
       <p className="text-sm text-muted-foreground">
-        {requiredByOrca
+        {requiredByOpenKodo
           ? t(
               'updates.emergencyRequired.summary',
               'OpenKodo {{version}} is required. Restart to update.',

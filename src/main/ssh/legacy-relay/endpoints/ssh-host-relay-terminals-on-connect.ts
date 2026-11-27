@@ -17,17 +17,17 @@ import {
   validateRemoteHome
 } from '../../remote-host/ssh-remote-platform'
 import {
-  assessOrcadMigrationTerminals,
+  assessOpenkododMigrationTerminals,
   terminalsRunElsewhere,
   type HostRelayTerminalProof
-} from '../../migration-source/orcad-migration-terminal-gate'
+} from '../../migration-source/openkodod-migration-terminal-gate'
 
 export async function relayTerminalsOnConnect(args: {
   store: Pick<Store, 'getSshRemotePtyLeases'>
   targetId: string
   censusHost: () => Promise<HostRelayEndpointCensus>
 }): Promise<HostServerTerminalVerdict> {
-  const proof = await assessOrcadMigrationTerminals(args.store, args.targetId, async () =>
+  const proof = await assessOpenkododMigrationTerminals(args.store, args.targetId, async () =>
     hostTerminalProofFromCensus(await args.censusHost())
   )
   if (proof.verdict === 'exited') {

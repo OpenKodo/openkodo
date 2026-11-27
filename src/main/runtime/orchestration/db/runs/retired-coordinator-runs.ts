@@ -3,10 +3,10 @@
 // them: its Runs are unbound in one write, so their open worker asks are told now and a later ask
 // finds no coordinator and is told at once. `run-use` still binds them to a new coordinator.
 import type { OrchestrationDb } from '../orchestration-db'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationCoordinatorKey } from '../../addressing/orchestration-caller-identity'
 import { runLifecycleWriteTransaction } from '../lifecycle-write-transaction-runner'
-import { isOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 
 function retireCoordinatorRuns(
   db: OrchestrationDb,
@@ -23,8 +23,8 @@ function retireCoordinatorRuns(
 }
 
 export function retireCoordinatorChatRuns(db: OrchestrationDb, sessionId: string): void {
-  if (isOrcaSessionId(sessionId)) {
-    retireCoordinatorRuns(db, { orcaSessionId: sessionId, paneKey: null, terminalHandle: null })
+  if (isOpenKodoSessionId(sessionId)) {
+    retireCoordinatorRuns(db, { openkodoSessionId: sessionId, paneKey: null, terminalHandle: null })
   }
 }
 
@@ -34,12 +34,12 @@ export function retireCoordinatorPaneRuns(db: OrchestrationDb, paneKey: string):
   if (db.runsBoundToPane(paneKey).length === 0) {
     return
   }
-  retireCoordinatorRuns(db, { orcaSessionId: null, paneKey, terminalHandle: null })
+  retireCoordinatorRuns(db, { openkodoSessionId: null, paneKey, terminalHandle: null })
 }
 
 /** A replaced or deleted chat; the replacement or delete stands even when its Runs can't be retired. */
 export function retireChatRuns(
-  runtime: Pick<OrcaRuntimeService, 'getOrchestrationDb'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getOrchestrationDb'>,
   sessionId: string | null | undefined
 ): void {
   if (!sessionId) {

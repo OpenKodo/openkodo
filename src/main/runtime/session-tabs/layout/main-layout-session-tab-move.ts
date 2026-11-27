@@ -1,5 +1,5 @@
 // Move main-owned tabs through layout commands so every view follows main without a window relay.
-import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import type { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import type {
   RuntimeMobileSessionTabMove,
@@ -9,19 +9,19 @@ import type {
 import { translateSessionTabMove } from '../../../../shared/workspace-layout/old-client/old-client-method-translation'
 import { resolveSessionTabRow } from '../../../../shared/workspace-layout/old-client/old-client-session-tab-rows'
 import { startedMainTerminalSurfaces } from '../../terminal/surface/main-terminal-surfaces'
-import { OrcaRuntimeWithMainLayoutRenames } from './main-layout-renames'
+import { OpenKodoRuntimeWithMainLayoutRenames } from './main-layout-renames'
 import { liveTerminalsOfTab } from '../../session-lifecycle/close/closed-tab-terminal'
 import type { WorkspaceLayout } from '../../../../shared/workspace-layout/workspace-layout-model'
 import type { CommandOf } from '../../../../shared/workspace-layout/workspace-layout-command-types'
 import { isPaneColumnSplitDropNoOp } from '../../../../shared/workspace-layout/tab-groups/pane-column-split-drop-no-op'
 import { selectMobileSessionTab } from './mobile-session-tab-selection'
 
-export abstract class OrcaRuntimeWithMainLayoutTabMoves extends OrcaRuntimeWithMainLayoutRenames {
+export abstract class OpenKodoRuntimeWithMainLayoutTabMoves extends OpenKodoRuntimeWithMainLayoutRenames {
   protected abstract toMobileSessionTabsResult(
     ...args: Parameters<
-      OrcaRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']
+      OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']
     >
-  ): ReturnType<OrcaRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']>
+  ): ReturnType<OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']>
 
   /** A closed tab's rows' live terminals, read before main's close drops their panes. */
   protected liveTerminalsOfClosedTab(

@@ -4,7 +4,7 @@ import {
   parseWorktreePreparationOwnerPid,
   parseWorktreePreparationPathOwnerPid
 } from '../../../../shared/worktree/creation/create-preparation'
-import { orcadDataRootIsOnLocalDisk } from '../../../orcad/instance-lock/orcad-data-root-locality'
+import { openkododDataRootIsOnLocalDisk } from '../../../openkodod/instance-lock/openkodod-data-root-locality'
 import { profileStateAccessMachineIdentity } from '../../../persistence/profile-state/access/profile-state-access-identity'
 import type { AddWorktreeOptions } from '../../../git/worktrees/worktree-operation-options'
 import { listWorktreeGraph } from '../../../git/worktrees/catalog/worktree-scan-cache'
@@ -35,7 +35,7 @@ export type PreparationOwnerProbe = {
 
 const defaultOwnerProbe: PreparationOwnerProbe = {
   machineIdentity: profileStateAccessMachineIdentity,
-  repoIsOnLocalDisk: orcadDataRootIsOnLocalDisk,
+  repoIsOnLocalDisk: openkododDataRootIsOnLocalDisk,
   isProcessAlive
 }
 

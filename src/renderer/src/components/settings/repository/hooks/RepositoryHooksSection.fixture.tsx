@@ -3,8 +3,8 @@ import { RepositoryHooksSection } from './RepositoryHooksSection'
 
 const repo = {
   id: 'fixture-repo',
-  path: '/Users/dev/orca',
-  displayName: 'orca',
+  path: '/Users/dev/openkodo',
+  displayName: 'openkodo',
   badgeColor: '#737373',
   addedAt: 0,
   kind: 'git' as const,

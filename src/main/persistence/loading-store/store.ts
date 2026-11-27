@@ -16,7 +16,7 @@ import {
   type StoreDomains,
   type StoreDomainOperations
 } from './store-domain-composition'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { dropInvalidWorkspaceLayoutsAtLoad } from '../restoring-sessions/invalid-workspace-layout-purge'
 import {
@@ -151,7 +151,7 @@ export class Store {
     // Imported snapshots cannot own the live hook server or write their source file.
     if (!imported) {
       // Finish interrupted blob installs; shell history waits for post-attach live-process evidence.
-      this.domains.orcadMigrationBlobInstalls.installPendingOrcadMigrationReceivedBlobs()
+      this.domains.openkododMigrationBlobInstalls.installPendingOpenkododMigrationReceivedBlobs()
       for (const entry of initial?.unboundPaneAliases ?? []) {
         agentHookServer.registerPaneKeyAlias(
           entry.legacyPaneKey,

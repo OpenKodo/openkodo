@@ -9,7 +9,7 @@ import type {
   StructuredMailboxPointerHost,
   StructuredMailOwner
 } from '../runtime/orchestration/mailbox/structured-pointer/structured-mailbox-pointer-host-contract'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { isBotGroupMemberSession } from '../../shared/bots/bot-group'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 import { BotGroupStore } from './bot-group-store'
@@ -47,17 +47,17 @@ import { botGroupRoomChat } from './bot-group-automation-run'
 import { nameBotGroupMemberChats } from './bot-group-member-chat-names'
 import type { BotChatLookup } from '../runtime/integrations/automations/runtime-automation-target'
 
-const runtimes = new WeakMap<OrcaRuntimeService, BotGroupRuntime>()
+const runtimes = new WeakMap<OpenKodoRuntimeService, BotGroupRuntime>()
 /** `homeChat`, also finding the group rooms a bot is a member of, where its automations may run. */
 export function withGroupRoomChats(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   homeChat: BotChatLookup
 ): BotChatLookup {
   return async (bot, id) =>
     botGroupRoomChat(runtimeBotGroups(runtime), bot, id) ?? homeChat(bot, id)
 }
 
-export function runtimeBotGroups(runtime: OrcaRuntimeService): BotGroupRuntime {
+export function runtimeBotGroups(runtime: OpenKodoRuntimeService): BotGroupRuntime {
   let groups = runtimes.get(runtime)
   if (!groups) {
     groups = new BotGroupRuntime(runtime)
@@ -67,7 +67,7 @@ export function runtimeBotGroups(runtime: OrcaRuntimeService): BotGroupRuntime {
 }
 
 /** The room a group member session talks in; null for any other session. */
-export function botGroupRoomOfSession(runtime: OrcaRuntimeService, sessionId: string) {
+export function botGroupRoomOfSession(runtime: OpenKodoRuntimeService, sessionId: string) {
   return isBotGroupMemberSession(sessionId)
     ? runtimeBotGroups(runtime).store.memberOf(sessionId)
     : null
@@ -75,7 +75,7 @@ export function botGroupRoomOfSession(runtime: OrcaRuntimeService, sessionId: st
 
 /** A member's turn ended, so its reply is in the room: the group's home reads unread until seen.
  *  Where the host owns unread it skips a room on screen; elsewhere the open room clears it. */
-export function markBotGroupRoomUnread(runtime: OrcaRuntimeService, sessionId: string): void {
+export function markBotGroupRoomUnread(runtime: OpenKodoRuntimeService, sessionId: string): void {
   const group = botGroupRoomOfSession(runtime, sessionId)?.group
   if (!group) {
     return
@@ -94,7 +94,7 @@ export function markBotGroupRoomUnread(runtime: OrcaRuntimeService, sessionId: s
  *  restart left between reservation and native admission. */
 /** Bot rules for a chat's mail: group rules for group members, and a paused bot's chats hold
  *  theirs; other sessions pass through. */
-export function botMailOwner(runtime: OrcaRuntimeService): StructuredMailOwner {
+export function botMailOwner(runtime: OpenKodoRuntimeService): StructuredMailOwner {
   return {
     mailHeld: (sessionId) => pausedBotChatHoldsMail(runtime, sessionId),
     beforeSend: (input) =>
@@ -107,7 +107,7 @@ export function botMailOwner(runtime: OrcaRuntimeService): StructuredMailOwner {
 }
 
 export function assertBotGroupQueuedMessageAllowed(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   messageId: string
 ): void {
@@ -116,7 +116,10 @@ export function assertBotGroupQueuedMessageAllowed(
   }
 }
 
-export function startBotGroupsSoon(runtime: OrcaRuntimeService, isCurrent: () => boolean): void {
+export function startBotGroupsSoon(
+  runtime: OpenKodoRuntimeService,
+  isCurrent: () => boolean
+): void {
   setTimeout(() => {
     // A database closed before this ran (shutdown, tests) has nothing left to start.
     const warn = (error: unknown) => console.warn('[bot-groups] start was cut short', error)
@@ -151,7 +154,7 @@ export class BotGroupRuntime {
     { state: 'checking' | 'answered' | 'open'; at: number }
   >()
 
-  constructor(readonly runtime: OrcaRuntimeService) {
+  constructor(readonly runtime: OpenKodoRuntimeService) {
     this.store = new BotGroupStore(runtime.getOrchestrationDb().db)
   }
 

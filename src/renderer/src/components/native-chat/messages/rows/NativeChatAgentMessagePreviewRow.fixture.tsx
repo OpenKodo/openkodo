@@ -60,7 +60,7 @@ function mail(
         party: {
           address: sender.address,
           terminalHandle: sender.address.startsWith('term_') ? sender.address : null,
-          orcaSessionId: null
+          openkodoSessionId: null
         }
       }
     ],
@@ -140,7 +140,7 @@ const started = projectStructuredAgentStartItem({
       party: {
         address: 'dispatch:parser',
         terminalHandle: null,
-        orcaSessionId: null
+        openkodoSessionId: null
       },
       name: 'Parser worker'
     }
@@ -163,7 +163,7 @@ const startedLong = projectStructuredAgentStartItem({
     dispatchId: 'start-long-dispatch',
     task: 'Review OpenKodo/openkodo#47079 (head 9c1f7a2) for the usage switch and continue flow.',
     worker: {
-      party: { address: 'dispatch:review-long', terminalHandle: null, orcaSessionId: null },
+      party: { address: 'dispatch:review-long', terminalHandle: null, openkodoSessionId: null },
       name: 'Review #47079 usage switch continue'
     }
   }

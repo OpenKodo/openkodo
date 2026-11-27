@@ -15,7 +15,7 @@ export function peerMailSenderSnapshot(
   return JSON.stringify({
     version: 1,
     sender: {
-      party: { address: label, terminalHandle: null, orcaSessionId: null },
+      party: { address: label, terminalHandle: null, openkodoSessionId: null },
       name: agentMessageSenderName(sender.bot?.name ?? sender.name ?? label),
       ...(sender.agent ? { agent: sender.agent } : {}),
       ...(sender.bot ? { bot: true } : {}),

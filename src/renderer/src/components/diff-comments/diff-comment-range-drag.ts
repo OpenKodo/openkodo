@@ -100,8 +100,8 @@ export function installDiffCommentRangeDrag({
         range: new Range(range.startLine, 1, range.endLine, 1),
         options: {
           isWholeLine: true,
-          className: 'orca-diff-comment-range-highlight',
-          marginClassName: 'orca-diff-comment-range-margin'
+          className: 'openkodo-diff-comment-range-highlight',
+          marginClassName: 'openkodo-diff-comment-range-margin'
         }
       }
     ])

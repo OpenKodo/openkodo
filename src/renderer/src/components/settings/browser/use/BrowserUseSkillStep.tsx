@@ -11,7 +11,7 @@ type Props = {
   skillError: string | null
   disabled?: boolean
   target: BundledSkillTarget | null
-  // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+  // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
   terminalRuntime?: LocalAgentRuntime
   onBeforeInstall?: () => void | Promise<void>
   onRecheck: () => void | Promise<unknown>

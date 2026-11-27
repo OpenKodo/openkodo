@@ -1,5 +1,5 @@
 // Updates can close this connection mid-call; report the outcome from status after the runtime returns.
-import type { OrcadManagedRuntimeStatus } from '../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododManagedRuntimeStatus } from '../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import type { HandlerContext } from '../dispatch/dispatch'
 import { printResult } from '../output/command-result-output'
 import { RuntimeClientError } from '../runtime/connection/types'
@@ -15,9 +15,9 @@ export async function reportAfterClosedConnection(
 ): Promise<void> {
   for (let attempt = 0; attempt < STATUS_ATTEMPTS; attempt++) {
     await sleep(STATUS_RETRY_MS)
-    let response: RuntimeRpcSuccess<OrcadManagedRuntimeStatus>
+    let response: RuntimeRpcSuccess<OpenkododManagedRuntimeStatus>
     try {
-      response = await client.call<OrcadManagedRuntimeStatus>('managedServer.status', selector)
+      response = await client.call<OpenkododManagedRuntimeStatus>('managedServer.status', selector)
     } catch {
       continue
     }

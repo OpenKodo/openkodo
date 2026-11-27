@@ -8,9 +8,9 @@ import {
   openInMemoryCloudDatabase
 } from './cloud-database.js'
 
-const postgresUrl = process.env.ORCA_CLOUD_DATABASE_TEST_URL
+const postgresUrl = process.env.OPENKODO_CLOUD_DATABASE_TEST_URL
 const opened: CloudDatabase[] = []
-const dataDir = mkdtempSync(join(tmpdir(), 'orca-cloud-database-after-commit-'))
+const dataDir = mkdtempSync(join(tmpdir(), 'openkodo-cloud-database-after-commit-'))
 
 afterEach(async () => {
   await Promise.all(opened.splice(0).map((database) => database.close()))

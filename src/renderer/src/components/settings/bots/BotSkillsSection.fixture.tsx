@@ -13,7 +13,7 @@ const OPENKODO_SKILLS = [
   ['electron', 'Launch and validate Electron apps over CDP'],
   ['perf', 'Audit slow UI, input lag, high CPU, leaks'],
   ['ref-oss', 'Look at local open-source reference repos'],
-  ['orca-rc-release-audit', 'Audit an RC against the last stable release'],
+  ['openkodo-rc-release-audit', 'Audit an RC against the last stable release'],
   ['readiness-checklist', 'Exhaustive pre-release readiness review'],
   ...Array.from({ length: 55 }, (_, index) => [`skill-${index}`, 'More'])
 ].map(([name, description]) => ({ name: name!, description: description! }))
@@ -30,7 +30,7 @@ function repo(id: string, extra: Partial<Repo> = {}): Repo {
 }
 
 const REPOS = [
-  repo('orca'),
+  repo('openkodo'),
   repo('notes-app'),
   repo('website'),
   repo('api', { connectionId: 'gpu-box' }),
@@ -39,12 +39,12 @@ const REPOS = [
 
 /** A template bot's own skill, and one an older version left in Claude's folder. */
 const OWN: BotOwnSkillsView = {
-  skillsDir: '/Users/owner/.orca/bots/pr-review/skills',
+  skillsDir: '/Users/owner/.openkodo/bots/pr-review/skills',
   skills: [
     {
       name: 'pr-review-checklist',
       description: 'What to check on every pull request',
-      folder: '/Users/owner/.orca/bots/pr-review/skills/pr-review-checklist',
+      folder: '/Users/owner/.openkodo/bots/pr-review/skills/pr-review-checklist',
       loadedBy: ['claude', 'agents']
     }
   ],
@@ -52,18 +52,18 @@ const OWN: BotOwnSkillsView = {
     {
       name: 'house-style',
       description: 'Our review tone',
-      folder: '/Users/owner/.orca/bots/pr-review/.claude/skills/house-style',
+      folder: '/Users/owner/.openkodo/bots/pr-review/.claude/skills/house-style',
       loadedBy: ['claude']
     }
   ]
 }
 
 const VIEWS: Record<string, BotSkillProjectView> = {
-  orca: {
-    repoId: 'orca',
-    name: 'orca',
+  openkodo: {
+    repoId: 'openkodo',
+    name: 'openkodo',
     status: 'local',
-    skillsDir: '/Users/owner/globex/orca/.agents/skills',
+    skillsDir: '/Users/owner/globex/openkodo/.agents/skills',
     skills: OPENKODO_SKILLS
   },
   'notes-app': {
@@ -164,7 +164,7 @@ function Page({ bot, skills }: { bot: Bot; skills: boolean }): React.JSX.Element
   )
 }
 
-const linked = atlas({ skillProjects: ['orca', 'api', 'website'] })
+const linked = atlas({ skillProjects: ['openkodo', 'api', 'website'] })
 
 export const before = defineFixture({
   width: 720,
@@ -189,7 +189,7 @@ export const projectsLinked = defineFixture({
   interact: async (frame) => {
     await new Promise((resolve) => setTimeout(resolve, 100))
     const rows = Array.from(frame.querySelectorAll<HTMLButtonElement>('button[aria-expanded]'))
-    rows.find((button) => button.textContent === 'orca')?.click()
+    rows.find((button) => button.textContent === 'openkodo')?.click()
   }
 })
 
@@ -197,7 +197,7 @@ export const linkPicker = defineFixture({
   width: 720,
   store: { repos: REPOS },
   setup: () => stubRuntime(),
-  render: () => <Page bot={atlas({ skillProjects: ['orca'] })} skills />,
+  render: () => <Page bot={atlas({ skillProjects: ['openkodo'] })} skills />,
   interact: async (frame) => {
     const link = Array.from(frame.querySelectorAll<HTMLButtonElement>('button')).find(
       (button) => button.textContent === 'Link a project'
@@ -211,7 +211,7 @@ export const listedForGrok = defineFixture({
   width: 720,
   store: { repos: REPOS },
   setup: () => stubRuntime(),
-  render: () => <Page bot={atlas({ agent: 'grok', skillProjects: ['orca'] })} skills />
+  render: () => <Page bot={atlas({ agent: 'grok', skillProjects: ['openkodo'] })} skills />
 })
 
 export const noneLinked = defineFixture({

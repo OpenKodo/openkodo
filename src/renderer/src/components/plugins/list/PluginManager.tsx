@@ -40,7 +40,7 @@ import {
   type PluginListFilter
 } from './plugin-list-filter'
 import { PluginDetailPage } from '../page/PluginDetailPage'
-import { useOrcaVersion, type PluginPageNavigation } from '../state/use-plugin-page-navigation'
+import { useOpenKodoVersion, type PluginPageNavigation } from '../state/use-plugin-page-navigation'
 import type { PluginLogsState } from '../state/use-plugin-logs'
 
 function resultCountLabel(count: number, t: Translate = translate): string {
@@ -132,12 +132,12 @@ export function PluginManager({
     isFromInstallLink
   })
   const prefetch = usePluginHoverPrefetch(catalog.fetchPreview)
-  const orcaVersion = useOrcaVersion()
+  const openkodoVersion = useOpenKodoVersion()
   const entries = usePluginManagerEntries(
     plugins,
     catalog.listings,
     catalog.sources,
-    orcaVersion,
+    openkodoVersion,
     t
   )
   const allEntries = [...entries.installed, ...entries.available]
@@ -172,7 +172,7 @@ export function PluginManager({
     install,
     prefetch,
     openEntry,
-    orcaVersion,
+    openkodoVersion,
     refreshing: catalog.refreshBusy,
     installedHandlers: rowHandlers,
     busyPluginKeys
@@ -262,7 +262,7 @@ export function PluginManager({
         key={updateDialog.opens}
         open={updateDialog.entries !== null}
         entries={updateDialog.entries ?? []}
-        orcaVersion={orcaVersion}
+        openkodoVersion={openkodoVersion}
         onClose={updateDialog.close}
         onUpdated={onInstalled}
       />
@@ -294,7 +294,7 @@ export function PluginManager({
           key={openedEntry.pluginKey}
           entry={openedEntry}
           busy={busyPluginKeys.has(openedEntry.pluginKey)}
-          orcaVersion={orcaVersion}
+          openkodoVersion={openkodoVersion}
           logsState={logsByPlugin[openedEntry.pluginKey]}
           handlers={rowHandlers}
           fetchPreview={catalog.fetchPreview}
@@ -369,7 +369,7 @@ export function PluginManager({
             {!narrowed && !catalog.loading && !pluginsLoading && !pluginsError ? (
               <PluginCatalogHighlights
                 entries={allEntries}
-                orcaVersion={orcaVersion}
+                openkodoVersion={openkodoVersion}
                 cardHandlers={cardHandlers}
               />
             ) : null}

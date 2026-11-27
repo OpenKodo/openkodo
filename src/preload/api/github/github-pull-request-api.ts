@@ -211,8 +211,8 @@ export type GithubPullRequestApi = {
       sourceContext?: TaskSourceContext | null
     }
   ) => Promise<GitHubCommentResult>
-  checkOrcaStarred: () => Promise<boolean | null>
-  starOrca: (source: AppStarSource) => Promise<boolean>
+  checkOpenKodoStarred: () => Promise<boolean | null>
+  starOpenKodo: (source: AppStarSource) => Promise<boolean>
   /** Quota-exempt; cached for 30s unless force is true. */
   rateLimit: (args?: { force?: boolean }) => Promise<GetRateLimitResult>
   /** Detects missing scopes and shell tokens shadowing keyring credentials. */

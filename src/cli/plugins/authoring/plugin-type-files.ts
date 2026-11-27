@@ -6,16 +6,16 @@ import { parsePluginManifest } from '../../../shared/plugins/manifest/plugin-man
 import { findPluginManifestFile } from './plugin-manifest-file'
 
 /** Plugin-relative folder `openkodo plugin types` owns; dev hashing and loading skip it. */
-export const PLUGIN_TYPES_DIR = '.orca/types'
+export const PLUGIN_TYPES_DIR = '.openkodo/types'
 
-/** Host, frame (`window.orca`), worker (`orca/worker`) and test kit (`orca/testing`) typings,
+/** Host, frame (`window.openkodo`), worker (`openkodo/worker`) and test kit (`openkodo/testing`) typings,
  *  under resources/plugins/types. */
 const PLUGIN_SURFACE_TYPINGS = [
-  { dir: 'orca-host', file: 'orca-host.d.ts' },
-  { dir: 'orca-frame', file: 'orca-frame.d.ts' },
-  { dir: 'orca-worker', file: 'orca-worker.d.ts' },
-  { dir: 'orca-services', file: 'orca-services.d.ts' },
-  { dir: 'orca-testing', file: 'orca-testing.d.ts' }
+  { dir: 'openkodo-host', file: 'openkodo-host.d.ts' },
+  { dir: 'openkodo-frame', file: 'openkodo-frame.d.ts' },
+  { dir: 'openkodo-worker', file: 'openkodo-worker.d.ts' },
+  { dir: 'openkodo-services', file: 'openkodo-services.d.ts' },
+  { dir: 'openkodo-testing', file: 'openkodo-testing.d.ts' }
 ] as const
 
 // Why one tsconfig the plugin extends: the typings and JSX settings then track the OpenKodo that wrote
@@ -30,22 +30,22 @@ const TYPES_TSCONFIG = {
     allowImportingTsExtensions: true,
     isolatedModules: true,
     jsx: 'react-jsx',
-    jsxImportSource: 'orca',
+    jsxImportSource: 'openkodo',
     lib: ['ES2022', 'DOM'],
-    // tsc 7 reaches `orca` via the symlinked path and the typeRoots via the realpath, so a plugin
+    // tsc 7 reaches `openkodo` via the symlinked path and the typeRoots via the realpath, so a plugin
     // under a symlink (macOS /tmp) loads the typings twice (TS2300 duplicate identifiers).
     preserveSymlinks: true,
     typeRoots: ['.'],
-    types: ['orca', ...PLUGIN_SURFACE_TYPINGS.map(({ dir }) => dir)]
+    types: ['openkodo', ...PLUGIN_SURFACE_TYPINGS.map(({ dir }) => dir)]
   }
 }
 
-/** The `orca` module's typings, split by size; written as one `orca/index.d.ts`. */
+/** The `openkodo` module's typings, split by size; written as one `openkodo/index.d.ts`. */
 export const OPENKODO_MODULE_TYPINGS = [
-  'orca.d.ts',
-  'orca-components.d.ts',
-  'orca-components-layout.d.ts',
-  'orca-components-data.d.ts'
+  'openkodo.d.ts',
+  'openkodo-components.d.ts',
+  'openkodo-components-layout.d.ts',
+  'openkodo-components-data.d.ts'
 ] as const
 
 const GENERATED_NOTE =
@@ -59,30 +59,30 @@ function defaultTypingsRoot(): string {
     : join(appRoot, 'resources', 'plugins')
 }
 
-async function readOrcaPluginTypings(typingsRoot: string): Promise<string> {
+async function readOpenKodoPluginTypings(typingsRoot: string): Promise<string> {
   const parts = await Promise.all(
     OPENKODO_MODULE_TYPINGS.map((file) => readFile(join(typingsRoot, 'declarative', file), 'utf8'))
   )
   return parts.join('\n')
 }
 
-/** Every typings file `openkodo plugin types` writes, keyed by its `.orca/types` folder. */
-export async function readOrcaAuthorTypings(): Promise<Record<string, string>> {
+/** Every typings file `openkodo plugin types` writes, keyed by its `.openkodo/types` folder. */
+export async function readOpenKodoAuthorTypings(): Promise<Record<string, string>> {
   const typingsRoot = defaultTypingsRoot()
-  const typings: Record<string, string> = { orca: await readOrcaPluginTypings(typingsRoot) }
+  const typings: Record<string, string> = { openkodo: await readOpenKodoPluginTypings(typingsRoot) }
   for (const { dir, file } of PLUGIN_SURFACE_TYPINGS) {
     typings[dir] = await readFile(join(typingsRoot, 'types', file), 'utf8')
   }
   return typings
 }
 
-/** Writes `.orca/types/<folder>/index.d.ts` per typings file, a `tsconfig.json` listing them, and
- *  a `.gitignore` that ignores `.orca/`. */
+/** Writes `.openkodo/types/<folder>/index.d.ts` per typings file, a `tsconfig.json` listing them, and
+ *  a `.gitignore` that ignores `.openkodo/`. */
 export async function writePluginTypeFiles(pluginDir: string): Promise<string[]> {
-  const typings = await readOrcaAuthorTypings()
-  const files: Record<string, string> = { '.orca/.gitignore': '*\n' }
+  const typings = await readOpenKodoAuthorTypings()
+  const files: Record<string, string> = { '.openkodo/.gitignore': '*\n' }
   for (const [dir, text] of Object.entries(typings)) {
-    await mkdir(join(pluginDir, '.orca', 'types', dir), { recursive: true })
+    await mkdir(join(pluginDir, '.openkodo', 'types', dir), { recursive: true })
     files[`${PLUGIN_TYPES_DIR}/${dir}/index.d.ts`] = GENERATED_NOTE + text
   }
   files[`${PLUGIN_TYPES_DIR}/tsconfig.json`] = `${JSON.stringify(TYPES_TSCONFIG, null, 2)}\n`
@@ -95,7 +95,7 @@ export async function writePluginTypeFiles(pluginDir: string): Promise<string[]>
 /** A folder gets typings on dev load when it has them, its tsconfig wants them, or it has a
  *  TS/TSX entry or a components panel. */
 export async function pluginFolderWantsTypes(pluginDir: string): Promise<boolean> {
-  if (existsSync(join(pluginDir, '.orca', 'types'))) {
+  if (existsSync(join(pluginDir, '.openkodo', 'types'))) {
     return true
   }
   const tsconfig = await readFile(join(pluginDir, 'tsconfig.json'), 'utf8').catch(() => '')

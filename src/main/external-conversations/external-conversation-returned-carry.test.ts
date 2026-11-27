@@ -36,7 +36,7 @@ const ACCOUNT = 'account-a'
 let dir = ''
 let db: Database
 beforeEach(() => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-returned-carry-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-returned-carry-'))
   db = new Database(join(dir, 'journal.db'))
   migrateJournalDomainSchema(db)
   ensureAgentSessionAttachmentClaimTables(db)

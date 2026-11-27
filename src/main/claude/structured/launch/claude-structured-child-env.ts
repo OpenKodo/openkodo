@@ -1,4 +1,4 @@
-import { withOrcaClaudeChatEntrypoint } from '../../../../shared/agent-launch/startup/claude-chat-entrypoint'
+import { withOpenKodoClaudeChatEntrypoint } from '../../../../shared/agent-launch/startup/claude-chat-entrypoint'
 import { waitForPromiseWithSignal } from '../../../../shared/concurrency/abort-signal-reason'
 import {
   assertStructuredAgentResolutionCurrent,
@@ -107,7 +107,7 @@ export function claudeChildEnv(
 
 // Version probes need the launch runtime and PATH, without auth credentials.
 export function claudeProbeEnv(sources: ClaudeChildEnvSources): Record<string, string> {
-  return withOrcaClaudeChatEntrypoint(
+  return withOpenKodoClaudeChatEntrypoint(
     applyClaudeEnvPatch(
       claudeChildEnv(sources),
       {},

@@ -1,7 +1,7 @@
 import ts from 'typescript-api'
 
 function normalizeBrandTokens(text) {
-  return text.replace(/OPENKODO_|ORCA_/g, 'BRAND_')
+  return text.replace(/openkodod|openkodo|orcad|orca/gi, 'BRAND')
 }
 
 function assertionTokens(source) {

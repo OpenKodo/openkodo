@@ -1,4 +1,4 @@
-import { EpochMsSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 
@@ -18,7 +18,7 @@ export const PR_EVENT_TYPES = [
 const Text = z.string().min(1).max(CONNECTOR_LIMITS.maxDisplayTextLength)
 
 // One event on a pull request its bots' owner opened, for the machine to match to the worker whose
-// workspace is that branch at that commit. Never a fork's, nor written by the Orca app itself.
+// workspace is that branch at that commit. Never a fork's, nor written by the OpenKodo app itself.
 export const PrEventSchema = z.object({
   // The source's own id for it: one wake per key.
   key: z.string().min(1).max(256),

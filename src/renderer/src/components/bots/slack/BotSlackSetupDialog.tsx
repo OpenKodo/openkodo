@@ -51,10 +51,10 @@ import {
   slackReconnectTitle
 } from './SlackReconnectStep'
 import {
-  OrcaCloudSignInDialogBody,
-  OrcaCloudSignInGate,
-  orcaCloudSignInReason
-} from '../orca-cloud-sign-in'
+  OpenKodoCloudSignInDialogBody,
+  OpenKodoCloudSignInGate,
+  openkodoCloudSignInReason
+} from '../openkodo-cloud-sign-in'
 
 const SLACK = { id: 'slack', Icon: SlackIcon } as const
 
@@ -94,7 +94,7 @@ function BotSlackSetupFlow({
       comeBack()
     }
   }, [away, settled, comeBack])
-  const ownEmail = useAppStore((state) => state.orcaProfileAuthStatus?.cloud?.email ?? null)
+  const ownEmail = useAppStore((state) => state.openkodoProfileAuthStatus?.cloud?.email ?? null)
   const [checkedSlack, setCheckedSlack] = useState(false)
   // The token form instead of this computer's offered sign-in: chosen, or already in use when the
   // offer arrives, so a late offer never takes away a token being typed (it shows above the form).
@@ -105,9 +105,9 @@ function BotSlackSetupFlow({
   // step signs in that server instead.
   if (step.kind === 'failed' && signedOutHere(step, hostName)) {
     return (
-      <OrcaCloudSignInDialogBody
+      <OpenKodoCloudSignInDialogBody
         title={title}
-        reason={orcaCloudSignInReason('slack')}
+        reason={openkodoCloudSignInReason('slack')}
         onCancel={onClose}
         onSignedIn={retry}
       />
@@ -328,7 +328,7 @@ function BotSlackSetupFlow({
               <BotSlackPostAs bot={bot} slack={installedState} setupState={step.setupState} />
             ) : null}
             <DialogFooter>
-              <SlackOpenAppButton bot={bot} slack={installedState} onOpenedInOrca={onClose} />
+              <SlackOpenAppButton bot={bot} slack={installedState} onOpenedInOpenKodo={onClose} />
               <Button autoFocus onClick={onClose}>
                 {t('bots.slack.setup.done', 'Done')}
               </Button>
@@ -405,14 +405,14 @@ export function BotSlackSetupDialog({
       botName={bot.name}
       waiting
     >
-      <OrcaCloudSignInGate
+      <OpenKodoCloudSignInGate
         hostId={bot.hostId}
         title={title}
-        reason={orcaCloudSignInReason('slack')}
+        reason={openkodoCloudSignInReason('slack')}
         onCancel={close}
       >
         <BotSlackSetupFlow bot={bot} teamId={teamId} title={title} onClose={close} aside={aside} />
-      </OrcaCloudSignInGate>
+      </OpenKodoCloudSignInGate>
     </ConnectorSetupDialog>
   )
 }

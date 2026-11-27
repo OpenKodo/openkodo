@@ -5,17 +5,17 @@ import type { Worktree } from '../../../../shared/worktree/types'
 import { AgentSessionContinuationDialog } from './AgentSessionContinuationDialog'
 
 const repo: Repo = {
-  id: 'orca',
-  path: '/Users/me/orca',
-  displayName: 'orca',
+  id: 'openkodo',
+  path: '/Users/me/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }
 
 const worktree: Worktree = {
-  id: 'orca::/Users/me/orca/workspaces/fix-login',
+  id: 'openkodo::/Users/me/openkodo/workspaces/fix-login',
   repoId: repo.id,
-  path: '/Users/me/orca/workspaces/fix-login',
+  path: '/Users/me/openkodo/workspaces/fix-login',
   displayName: 'fix-login',
   branch: 'fix-login',
   head: 'abc123',

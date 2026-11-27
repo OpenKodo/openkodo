@@ -1,5 +1,5 @@
 import type { ExecutionHostId } from '../execution-host/execution-host'
-import type { PersistedUIState } from '../orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../openkodo-profiles/persisted-ui-state-types'
 import {
   isHiddenByKindSwitch,
   type WorkspaceKind,

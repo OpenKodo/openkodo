@@ -100,9 +100,9 @@ async function g1(key: KeyLike): Promise<void> {
   const forged = desktop(ACCOUNT, FRONT, host, jwt, {
     dialOrigin: EDGE,
     extraHeaders: {
-      'x-orca-ingress': `v1s ${INGRESS_NAME} ${FRONT} ${randomBytes(32).toString('base64url')}`,
-      'x-orca-client-ip': '198.51.100.7',
-      'x-orca-client-country': 'CN'
+      'x-openkodo-ingress': `v1s ${INGRESS_NAME} ${FRONT} ${randomBytes(32).toString('base64url')}`,
+      'x-openkodo-client-ip': '198.51.100.7',
+      'x-openkodo-client-country': 'CN'
     }
   })
   const forgedAck = await forged.connect().catch((e: Error) => e)

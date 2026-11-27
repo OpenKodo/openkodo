@@ -30,7 +30,7 @@ export async function fillMonorepoReleaseImages(
   }
   const manifestBytes =
     (await readBlob(`${prefix}/openkodo-plugin.json`, MANIFEST_MAX_BYTES).catch(() => null)) ??
-    (await readBlob(`${prefix}/orca-plugin.json`, MANIFEST_MAX_BYTES).catch(() => null))
+    (await readBlob(`${prefix}/openkodo-plugin.json`, MANIFEST_MAX_BYTES).catch(() => null))
   const manifest = manifestBytes ? parseManifest(manifestBytes, memo?.manifests) : null
   const read = new Map<string, Buffer>()
   const images = await catalogImagesFromManifest({

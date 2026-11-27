@@ -1,12 +1,12 @@
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import type { OrcadManagedStaleLockReclaimResult } from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododManagedStaleLockReclaimResult } from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import {
-  ORCAD_RECLAIM_STALE_LOCK_FLAG,
-  type OrcadStaleLockEvidence
-} from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-stale-lock-reclaim'
+  OPENKODOD_RECLAIM_STALE_LOCK_FLAG,
+  type OpenkododStaleLockEvidence
+} from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-stale-lock-reclaim'
 import type { SshManagedServerStatus } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
-import type { ManagedOrcadPreloadApi } from '../../../../../../preload/api/runtime/managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from '../../../../../../preload/api/runtime/managed-openkodod-api'
 import { quotePosixShellUnlessPlain } from '../../../../../../shared/shell/launch/shell-argument-quoting'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { formatUiRelativeTime } from '@/i18n/relative-time-format'
@@ -28,15 +28,15 @@ import {
   DialogWarning
 } from '../../../ui/dialog-parts'
 import { Label } from '../../../ui/label'
-import { getManagedOrcadApi } from '../../../../runtime/hosts/installation/managed-orcad-api-availability'
+import { getManagedOpenkododApi } from '../../../../runtime/hosts/installation/managed-openkodod-api-availability'
 
 /** Offered only when the slot's own refusal named the command, so that build supports it. */
 export function canRecoverSshHostServer(status: SshManagedServerStatus | undefined): boolean {
   return Boolean(
-    getManagedOrcadApi() &&
+    getManagedOpenkododApi() &&
     status?.kind === 'managed' &&
     status.serving?.state === 'unverifiable' &&
-    status.serving.detail.includes(ORCAD_RECLAIM_STALE_LOCK_FLAG)
+    status.serving.detail.includes(OPENKODOD_RECLAIM_STALE_LOCK_FLAG)
   )
 }
 
@@ -45,7 +45,7 @@ export function staleLockReclaimCommandFrom(detail: string): string | null {
   return (
     detail
       .match(/`([^`]*)`/g)
-      ?.find((quoted) => quoted.includes(ORCAD_RECLAIM_STALE_LOCK_FLAG))
+      ?.find((quoted) => quoted.includes(OPENKODOD_RECLAIM_STALE_LOCK_FLAG))
       ?.slice(1, -1) ?? null
   )
 }
@@ -62,7 +62,7 @@ export function SshHostRecoverServerDialog({
   onOpenChange: (open: boolean) => void
   onChanged: () => void
 }): React.JSX.Element | null {
-  const api = getManagedOrcadApi()
+  const api = getManagedOpenkododApi()
   if (!api || !open) {
     return null
   }
@@ -82,7 +82,7 @@ function OpenRecoverServerDialog({
   onOpenChange,
   onChanged
 }: {
-  api: ManagedOrcadPreloadApi
+  api: ManagedOpenkododPreloadApi
   status: SshManagedServerStatus | undefined
   onOpenChange: (open: boolean) => void
   onChanged: () => void
@@ -95,7 +95,7 @@ function OpenRecoverServerDialog({
       : null
   )
   const mountedRef = useMountedRef()
-  const [check, setCheck] = useState<OrcadManagedStaleLockReclaimResult | null>(null)
+  const [check, setCheck] = useState<OpenkododManagedStaleLockReclaimResult | null>(null)
   const [confirmed, setConfirmed] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -233,7 +233,7 @@ function OpenRecoverServerDialog({
   )
 }
 
-function EligibleLock({ evidence }: { evidence: OrcadStaleLockEvidence }): React.JSX.Element {
+function EligibleLock({ evidence }: { evidence: OpenkododStaleLockEvidence }): React.JSX.Element {
   const t = useTranslate()
   return (
     <DialogDisclosure label={t('components.settings.recoverServer.details', 'Details')}>
@@ -242,7 +242,7 @@ function EligibleLock({ evidence }: { evidence: OrcadStaleLockEvidence }): React
   )
 }
 
-function LockEvidence({ evidence }: { evidence: OrcadStaleLockEvidence }): React.JSX.Element {
+function LockEvidence({ evidence }: { evidence: OpenkododStaleLockEvidence }): React.JSX.Element {
   const t = useTranslate()
   const intlLocale = useIntlLocale()
   return (
@@ -265,7 +265,7 @@ function CheckOutcome({
   check,
   detail
 }: {
-  check: OrcadManagedStaleLockReclaimResult
+  check: OpenkododManagedStaleLockReclaimResult
   detail: string
 }): React.JSX.Element {
   const t = useTranslate()

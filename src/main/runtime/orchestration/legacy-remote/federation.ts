@@ -171,7 +171,7 @@ export const ORCHESTRATION_FEDERATION_ATTACH_METHODS = [
             launch.receipt = reusedWorkerLaunchReceipt(runtime, launch.receipt, {
               address: terminalHandle,
               terminalHandle,
-              orcaSessionId: null
+              openkodoSessionId: null
             })
             effects.push({
               kind: 'terminal',

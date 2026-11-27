@@ -42,19 +42,19 @@ function worker(
   }
 }
 
-const ask = worker(3, 'ORCA-20', 'Migrate the orders schema', 'needs-you', 6, {
+const ask = worker(3, 'OPENKODO-20', 'Migrate the orders schema', 'needs-you', 6, {
   changedAt: minutes(1),
   question: 'Approve: run the migration against the staging copy of the orders database?'
 })
-const failed = worker(4, 'ORCA-21', 'Split the dock read model', 'failed', 8, {
+const failed = worker(4, 'OPENKODO-21', 'Split the dock read model', 'failed', 8, {
   changedAt: minutes(3),
   reason: 'Typecheck failed: 3 errors in worker-dock-read.ts',
   settlement: 'settled:ctx_bot_4',
   resultId: 'result:ctx_bot_4'
 })
 const rows = [
-  worker(1, 'ORCA-18', 'Fix streaming journal amplification', 'running', 12),
-  worker(2, 'ORCA-19', 'Fix repeated worktree catalog scans', 'running', 9),
+  worker(1, 'OPENKODO-18', 'Fix streaming journal amplification', 'running', 12),
+  worker(2, 'OPENKODO-19', 'Fix repeated worktree catalog scans', 'running', 9),
   ask,
   failed
 ]
@@ -107,7 +107,7 @@ function composerChat(expanded: boolean, footer?: ReactNode) {
       <div className="min-h-0 flex-1 space-y-2 p-3">
         <p className="text-xs text-muted-foreground">Perf Issue · Home Chat</p>
         <p className="text-sm text-chat-foreground">
-          Both fix workers are running in parallel; ORCA-20 needs your approval.
+          Both fix workers are running in parallel; OPENKODO-20 needs your approval.
         </p>
       </div>
       <NativeChatComposerField
@@ -119,7 +119,7 @@ function composerChat(expanded: boolean, footer?: ReactNode) {
         }
         draftScopeKey="fixture:worker-dock-composer"
         textareaRef={{ current: null }}
-        draft="Ship both fixes once ORCA-20 is approved"
+        draft="Ship both fixes once OPENKODO-20 is approved"
         disabled={false}
         hasPty
         canSend

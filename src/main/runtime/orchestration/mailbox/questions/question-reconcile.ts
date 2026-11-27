@@ -36,7 +36,7 @@ const QUESTION_KINDS: readonly QuestionKind[] = ['worker-ask', 'remote-ask', 'bo
 export type QuestionNoticeWriter = (notice: QuestionNotice) => 'told' | 'unverified' | 'sending'
 
 // Takers that never run again: a caller with no agent behind it, or a drop.
-const NEVER_RUNS = /^(shell|reply|orca|dropped:.*)$/
+const NEVER_RUNS = /^(shell|reply|openkodo|dropped:.*)$/
 
 function wakePending(db: OrchestrationDb, facts: QuestionPartyFacts, party: string): boolean {
   return facts.mailboxes(party).some(

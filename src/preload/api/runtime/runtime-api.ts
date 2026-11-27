@@ -7,7 +7,7 @@ import type {
   CrewSubscriptionAttemptCallbacks,
   CrewSubscriptionSetupResult
 } from '../../../shared/remote-runtime/host-catalog/runtime-environment-subscription-setup'
-import type { ManagedOrcadPreloadApi } from './managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from './managed-openkodod-api'
 import type { RuntimePortForwardsPreloadApi } from './runtime-port-forwards-api'
 import type { WslHostsPreloadApi } from '../wsl/wsl-hosts-api'
 import type { RuntimeHostStatusSnapshot } from '../../../shared/remote-runtime/host-status/runtime-host-status'
@@ -30,7 +30,7 @@ import type {
   BrowserPageCreationPlacement
 } from '../../../shared/browser/client-hosting/browser-client-host-placement'
 import type { RemoteRuntimeSharedConnectionDiagnostics } from '../../../shared/remote-runtime/control/remote-runtime-shared-control-types'
-import type { WslOrcadAccountNotAppliedEvent } from '../../../shared/remote-runtime/wsl-hosts/wsl-orcad-account-notice'
+import type { WslOpenkododAccountNotAppliedEvent } from '../../../shared/remote-runtime/wsl-hosts/wsl-openkodod-account-notice'
 
 export type RuntimeEnvironmentSubscriptionHandle = {
   unsubscribe: () => void
@@ -150,7 +150,7 @@ export type RuntimeApi = {
     ) => () => void
     // Absent in the web client, which has no desktop account shim.
     onWslAccountNotApplied?: (
-      callback: (event: WslOrcadAccountNotAppliedEvent) => void
+      callback: (event: WslOpenkododAccountNotAppliedEvent) => void
     ) => () => void
     prepareBrowserClientHostPlacement: (
       args: BrowserClientHostPlacementPreparationRequest
@@ -194,7 +194,7 @@ export type RuntimeApi = {
       }
     ) => Promise<RuntimeEnvironmentSubscriptionHandle>
     // Only desktop clients deploy servers over SSH.
-    managedOrcad?: ManagedOrcadPreloadApi
+    managedOpenkodod?: ManagedOpenkododPreloadApi
     // Only desktop clients listen on their own loopback for a server's ports.
     portForwards?: RuntimePortForwardsPreloadApi
     // Only Windows desktops (or e2e fakes) host WSL distros.

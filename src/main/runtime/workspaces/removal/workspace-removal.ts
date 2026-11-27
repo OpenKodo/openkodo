@@ -43,7 +43,7 @@ import {
 import { worktreeHostIdentity } from '../../../persistence/worktree-meta-host-identity'
 import { archiveMarkStep } from '../archive/workspace-archive-checkout'
 
-export abstract class OrcaRuntimeWithRemoveManagedWorktree extends RuntimeWorkspaceMetadata {
+export abstract class OpenKodoRuntimeWithRemoveManagedWorktree extends RuntimeWorkspaceMetadata {
   abstract removeWorktreeMetadataAndHistory(
     store: RuntimeStore,
     worktreeId: string,

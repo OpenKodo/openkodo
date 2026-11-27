@@ -36,7 +36,7 @@ export async function commentAsMaker(
   }
   const sent = await sendItemRequest(context, {
     type: 'status',
-    to: `orca_session_id:${chat.sessionId}`,
+    to: `openkodo_session_id:${chat.sessionId}`,
     messageId: `msg_item_${randomUUID().replaceAll('-', '')}`,
     ...botItemMakerCommentMail(item, writer.bot.name, text, images)
   })

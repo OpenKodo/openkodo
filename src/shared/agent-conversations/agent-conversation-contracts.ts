@@ -7,7 +7,7 @@ export type AgentConversationKind = 'chat' | 'terminal'
 export type AgentConversationRow = {
   /** The conversation's OpenKodo session ID (a chat's /clear root); null for a terminal agent the
    *  host has not named yet, which no command can address by ID. */
-  orcaSessionId: string | null
+  openkodoSessionId: string | null
   kind: AgentConversationKind
   agent: string | null
   state: AgentStatusState
@@ -30,7 +30,7 @@ export type AgentListResult = {
 }
 
 export type AgentShowResult = {
-  orcaSessionId: string
+  openkodoSessionId: string
   kind: AgentConversationKind
   /** Open places, each with the same title and last reply as its `list` row. */
   places: AgentConversationRow[]
@@ -49,7 +49,7 @@ type AgentReadEntryBody =
   | { kind: 'error'; text: string }
 
 export type AgentReadResult = {
-  orcaSessionId: string
+  openkodoSessionId: string
   kind: AgentConversationKind
   agent: string | null
   /** `chat`: the chat's own history; `transcript`: the terminal agent's transcript file. */

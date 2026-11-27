@@ -89,7 +89,7 @@ describe("a bot's tools file", () => {
 
   it('moves values an older OpenKodo left inline the first time the file is read', async () => {
     const folder = tempDir('bot-tools-file-')
-    mkdirSync(join(folder, '.orca'), { recursive: true })
+    mkdirSync(join(folder, '.openkodo'), { recursive: true })
     writeFileSync(
       botToolsPath(folder),
       JSON.stringify({
@@ -240,7 +240,7 @@ describe('saving a tool', () => {
       ])
       const [server] = await readBotToolServers(folder)
       const id = server && 'credential' in server ? server.credential! : ''
-      chmodSync(join(folder, '.orca'), 0o500)
+      chmodSync(join(folder, '.openkodo'), 0o500)
       try {
         await expect(
           changeBotToolServers(folder, () => [
@@ -248,7 +248,7 @@ describe('saving a tool', () => {
           ])
         ).rejects.toThrow()
       } finally {
-        chmodSync(join(folder, '.orca'), 0o700)
+        chmodSync(join(folder, '.openkodo'), 0o700)
       }
       expect(readBotToolCredential(folder, id)).toEqual({
         url: 'https://old.test/mcp',

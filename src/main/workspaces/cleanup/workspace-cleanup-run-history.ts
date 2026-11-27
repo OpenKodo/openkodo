@@ -9,7 +9,7 @@ import {
   type WorkspaceCleanupRun
 } from '../../../shared/workspace-cleanup/workspace-cleanup-run'
 
-const HISTORY_FILE_NAME = 'orca-workspace-cleanup-runs.json'
+const HISTORY_FILE_NAME = 'openkodo-workspace-cleanup-runs.json'
 const HISTORY_VERSION = 1
 
 type PersistedWorkspaceCleanupRunHistory = {

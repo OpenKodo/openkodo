@@ -1,10 +1,10 @@
 // The runtime's items host, wired to its stores, chat records and bots.
 import type { Bot } from '../../shared/bot-types'
 import type { BotChangeScope } from '../../shared/bots/bot-change-scope'
-import { isOrcaSessionId } from '../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../shared/agent-session/identity/openkodo-session-address'
 import { allLinks } from '../external-conversations/external-conversation-links'
 import type { RuntimeStore } from '../runtime/construction/runtime-store-contract'
-import { createCanonicalOrcaSessionResolver } from '../runtime/orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { createCanonicalOpenKodoSessionResolver } from '../runtime/orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import { readAgentSessionRecordStore } from '../runtime/orchestration/addressing/session-lineage/structured-session-lineage'
 import { BotItemsHost, type BotItemsHostDeps } from './bot-items-runtime'
 import type { BotWorkRuntime } from './bot-work-runtime'
@@ -22,8 +22,8 @@ export function runtimeBotItems(runtime: {
 }): BotItemsHost {
   const rootOf = (sessionId: string) => {
     const records = readAgentSessionRecordStore()
-    return records && isOrcaSessionId(sessionId)
-      ? createCanonicalOrcaSessionResolver(records)(sessionId)
+    return records && isOpenKodoSessionId(sessionId)
+      ? createCanonicalOpenKodoSessionResolver(records)(sessionId)
       : sessionId
   }
   return new BotItemsHost({

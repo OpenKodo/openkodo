@@ -1,5 +1,5 @@
 import { defineFixture } from '../../../component-fixtures/component-fixture'
-import { getDefaultSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../shared/openkodo-profiles/constants'
 import { RUNTIME_PROTOCOL_VERSION } from '../../../../../shared/remote-runtime/protocol/protocol-version'
 import { createEmptyRateLimitState } from '../../../../../shared/agent-usage/rate-limits/rate-limit-state-factory'
 import type { ProviderRateLimits } from '../../../../../shared/agent-usage/rate-limits/rate-limit-types'
@@ -134,7 +134,7 @@ function fixture(provider: 'claude' | 'codex', wsl = false) {
           name: wsl ? 'WSL Ubuntu' : 'Windows PC',
           ...(wsl
             ? {
-                orcadDeployment: {
+                openkododDeployment: {
                   kind: 'wsl' as const,
                   distro: 'Ubuntu',
                   localPort: 1234,

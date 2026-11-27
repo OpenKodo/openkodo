@@ -22,7 +22,7 @@ export function createGitHubComposerLinkEventHandlers(onCloseLinkBubble: () => v
       }
       onCloseLinkBubble()
       const modKey = isMac ? event.metaKey : event.ctrlKey
-      openAppHttpLink(href, { destination: event.shiftKey && modKey ? 'system' : 'orca' })
+      openAppHttpLink(href, { destination: event.shiftKey && modKey ? 'system' : 'openkodo' })
       return true
     },
     handleAuxClick: (view, event) => {

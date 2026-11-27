@@ -1,5 +1,5 @@
 // Main-owned early launch tabs are written before launch and withdrawn through main close; paired-runtime workspaces retain window relay.
-import { OrcaRuntimeWithCloseStructuredAgentSessionTab } from '../chat/structured-session-tab-close'
+import { OpenKodoRuntimeWithCloseStructuredAgentSessionTab } from '../chat/structured-session-tab-close'
 import type {
   AgentLaunchTabPublished,
   AgentLaunchTabPublishRequest
@@ -23,7 +23,7 @@ function placementFallback(
   return asked?.afterTabId !== undefined && !anchored ? 'active-group' : undefined
 }
 
-export abstract class OrcaRuntimeWithMainLayoutAgentLaunchTabs extends OrcaRuntimeWithCloseStructuredAgentSessionTab {
+export abstract class OpenKodoRuntimeWithMainLayoutAgentLaunchTabs extends OpenKodoRuntimeWithCloseStructuredAgentSessionTab {
   protected abstract getPtyRecordForPaneKey(
     paneKey: string,
     context?: TerminalIdentityReadContext

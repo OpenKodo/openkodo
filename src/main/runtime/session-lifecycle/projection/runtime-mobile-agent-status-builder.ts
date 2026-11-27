@@ -59,12 +59,16 @@ export function buildRuntimeMobileAgentStatus(
   const providerSession = hookRow.providerSession
     ? {
         providerSession: hookRow.providerSession,
-        ...(hookRow.orcaSessionId !== undefined ? { orcaSessionId: hookRow.orcaSessionId } : {})
+        ...(hookRow.openkodoSessionId !== undefined
+          ? { openkodoSessionId: hookRow.openkodoSessionId }
+          : {})
       }
     : retained?.providerSession
       ? {
           providerSession: retained.providerSession,
-          ...(retained.orcaSessionId !== undefined ? { orcaSessionId: retained.orcaSessionId } : {})
+          ...(retained.openkodoSessionId !== undefined
+            ? { openkodoSessionId: retained.openkodoSessionId }
+            : {})
         }
       : {}
   const leaf = host.getLeaf(tab)

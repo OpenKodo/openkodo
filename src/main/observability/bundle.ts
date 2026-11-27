@@ -21,7 +21,7 @@ export type CollectBundleOptions = {
   readonly platform: string
   readonly arch: string
   readonly osRelease: string
-  readonly orcaChannel: 'stable' | 'rc' | 'dev'
+  readonly openkodoChannel: 'stable' | 'rc' | 'dev'
   readonly nativeHangRecord?: Record<string, unknown>
 }
 
@@ -40,7 +40,7 @@ type BundleHeader = {
   readonly platform: string
   readonly arch: string
   readonly os_release: string
-  readonly orca_channel: 'stable' | 'rc' | 'dev'
+  readonly openkodo_channel: 'stable' | 'rc' | 'dev'
   readonly collected_at: string
   readonly schema_version: 1
 }
@@ -166,7 +166,7 @@ export function collectBundle(opts: CollectBundleOptions): CollectedBundle {
     platform: opts.platform,
     arch: opts.arch,
     os_release: opts.osRelease,
-    orca_channel: opts.orcaChannel,
+    openkodo_channel: opts.openkodoChannel,
     collected_at: new Date().toISOString(),
     schema_version: 1
   }

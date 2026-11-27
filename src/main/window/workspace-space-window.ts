@@ -67,7 +67,7 @@ export function createOrFocusWorkspaceSpaceWindow(
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
-      partition: 'orca-workspace-space-window',
+      partition: 'openkodo-workspace-space-window',
       webviewTag: false,
       ...(wslArguments.length > 0 ? { additionalArguments: wslArguments } : {})
     }

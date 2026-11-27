@@ -21,7 +21,7 @@ const card: PairedServerAskCard = {
   messageId: 'msg_1',
   environmentId: 'env_s',
   botId: 'docs',
-  rootSession: 'orca_session_id:chat_plain',
+  rootSession: 'openkodo_session_id:chat_plain',
   from: { label: 'Claude on Lab server', sender: null },
   subject: 'Where is the guide?',
   body: '',
@@ -38,17 +38,21 @@ describe('asks from agents on a paired server', () => {
   it("opens the server chat the ask came from, even when its agent isn't a bot", () => {
     render(<PairedAskNeedRow bot={docs} card={card} />)
     fireEvent.click(screen.getAllByRole('button', { name: /Open/ })[0]!)
-    expect(mocks.open).toHaveBeenCalledWith('orca_session_id:chat_plain', 'Claude on Lab server', {
-      kind: 'environment',
-      environmentId: 'env_s'
-    })
+    expect(mocks.open).toHaveBeenCalledWith(
+      'openkodo_session_id:chat_plain',
+      'Claude on Lab server',
+      {
+        kind: 'environment',
+        environmentId: 'env_s'
+      }
+    )
   })
 
   it('never reads the card list for a chat on this computer', () => {
     mocks.call.mockResolvedValue({ cards: [] })
-    renderHook(() => usePairedServerCardsForChat(null, 'orca_session_id:chat_here'))
+    renderHook(() => usePairedServerCardsForChat(null, 'openkodo_session_id:chat_here'))
     expect(mocks.call).not.toHaveBeenCalled()
-    renderHook(() => usePairedServerCardsForChat('env_s', 'orca_session_id:chat_plain'))
+    renderHook(() => usePairedServerCardsForChat('env_s', 'openkodo_session_id:chat_plain'))
     expect(mocks.call).toHaveBeenCalledWith(expect.anything(), 'pairedServerAsks.list', {})
   })
 })

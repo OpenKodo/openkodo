@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { RpcContext, RpcMethod, RpcRequest } from '../../../rpc/core'
 import {
   checkDeclaredOrchestrationAccess,
@@ -7,7 +7,7 @@ import {
 } from '../../../rpc/methods/orchestration/access/orchestration-method-access'
 import { emptyWorkerListPage } from '../../../rpc/methods/orchestration/worker/worker-list-method'
 import { ORCHESTRATION_FLEET_PAGE_MAX } from '../../../../../shared/orchestration/fleet/orchestration-fleet-projection'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import { WorkerStartParams } from '../../../../../shared/rpc-contract/orchestration/orchestration-worker-start-params'
 import { isOrchestrationMutation } from '../../../../../shared/orchestration/orchestration-rpc-contract'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -56,7 +56,7 @@ type Values = Record<string, unknown>
  * worker of its own. A paired OpenKodo's calls always run here: pairing is one-way.
  */
 export async function routeRemoteOwnedCall(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   method: RpcMethod,
   request: RpcRequest,
   params: unknown,
@@ -119,7 +119,7 @@ export async function routeRemoteOwnedCall(
 
 /** `--on <server>`: a start, a list, or a receipt lookup there; send and reply --on to anything else stay peer mail. */
 async function routeServerCall(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   access: OrchestrationMethodAccessDeclaration,
   values: Values,
@@ -254,7 +254,7 @@ function paramsForServer(access: OrchestrationMethodAccessDeclaration, values: V
 }
 
 async function forwardToLink(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   { link, dispatchId }: RemoteSubject,
   method: string,
   access: OrchestrationMethodAccessDeclaration,

@@ -59,7 +59,7 @@ export function bundledSkillSetupAttentionMessage(plan: BundledSkillPlan): strin
       )
     case 'edited':
       return translate(
-        'auto.components.settings.bundledSkillSetupCopy.attentionDiffersFromOrca',
+        'auto.components.settings.bundledSkillSetupCopy.attentionDiffersFromOpenKodo',
         "Needs attention · This copy differs from OpenKodo's"
       )
     case 'other':

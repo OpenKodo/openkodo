@@ -14,7 +14,7 @@ import { randomUUID } from 'node:crypto'
 import { withSelectedTabs } from './headless-tab-group-selection'
 import type { TabGroupLayoutNode } from '../../../../shared/workspace-layout/tab-groups/tab-types'
 import type { RuntimeMobileSessionTabOrder } from './mobile-session-tab-order'
-import type { OrcaRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
+import type { OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout } from '../../session-lifecycle/projection/prune-mobile-session-tab-group-layout'
 
 export abstract class RuntimeHeadlessTabGroups extends RuntimeHeadlessTabProperties {
   protected abstract resolveMobileSessionHostTabId(
@@ -27,9 +27,9 @@ export abstract class RuntimeHeadlessTabGroups extends RuntimeHeadlessTabPropert
 
   protected abstract toMobileSessionTabsResult(
     ...args: Parameters<
-      OrcaRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']
+      OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']
     >
-  ): ReturnType<OrcaRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']>
+  ): ReturnType<OpenKodoRuntimeWithPruneMobileSessionTabGroupLayout['toMobileSessionTabsResult']>
 
   protected moveHeadlessMobileSessionTab(
     worktreeId: string,

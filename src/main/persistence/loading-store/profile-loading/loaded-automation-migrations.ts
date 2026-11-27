@@ -1,4 +1,4 @@
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
 import { backfillLegacyAutomationContexts } from '../../scheduling-automations/automation-context-migration'
 import { migrateAutomationOwners } from '../../../automations/ownership/automation-owner-migration'
 import { reseedLoadedAutomationZones } from '../../scheduling-automations/automation-zone-reseed'

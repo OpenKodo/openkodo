@@ -71,15 +71,15 @@ export const downloading = row(installing('downloading'))
 export const downloadingWide = row(installing('downloading'), 'Antigravity', 520)
 export const unpacking = row(installing('extracting'))
 export const verifying = row(installing('verifying'))
-export const externalWithoutOrcaCopy = row({ ...base, source: 'external' })
-export const externalWithOrcaCopy = row({
+export const externalWithoutOpenKodoCopy = row({ ...base, source: 'external' })
+export const externalWithOpenKodoCopy = row({
   ...base,
   source: 'external',
   installedVersion: '1.5.0',
   installedCurrent: true,
   canRemove: true
 })
-export const installedByOrca = row({
+export const installedByOpenKodo = row({
   ...base,
   source: 'managed',
   installedVersion: '1.5.0',

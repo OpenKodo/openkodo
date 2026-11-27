@@ -7,7 +7,7 @@ import { windowsFsPath } from '../../wsl/filesystem/wsl-unc-drive-fs-path'
 import { readFile } from 'node:fs/promises'
 import type { WorkspaceHookOwner } from '../../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { Repo } from '../../../shared/repository/repo-types'
-import type { OrcaHooks } from '../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { getEffectiveHooks, hasHooksFile, loadHooks } from '../../workspace-hooks/hooks'
 import { inspectWorkspaceHooks } from '../../workspace-hooks/workspace-hook-inspection'
 import { getEffectiveSetupRunPolicy } from '../../workspace-hooks/effective-hook-config'
@@ -15,13 +15,13 @@ import { resolveHookCommandSourcePolicy } from '../../../shared/workspace-setup/
 import {
   getSetupConfig,
   getSetupTrustContent
-} from '../../../shared/workspace-setup/hooks/orca-hook-setup-config'
+} from '../../../shared/workspace-setup/hooks/openkodo-hook-setup-config'
 import { isENOENT } from '../../filesystem/local-file-io/filesystem-path-containment'
 import { isFolderRepo } from '../../../shared/repository/repo-kind'
 import { inspectSetupScriptImportCandidates } from '../../../shared/workspace-setup/setup-script-imports'
 import { joinWorktreeRelativePath } from '../files/paths/runtime-relative-paths'
 import { blockedWslDistroForPath } from '../../wsl/filesystem/wsl-unc-access-gate'
-import { hashOrcaHookTrustContent } from '../../workspace-hooks/created-worktree-setup-trust'
+import { hashOpenKodoHookTrustContent } from '../../workspace-hooks/created-worktree-setup-trust'
 import type { SetupHooksCreateSource } from '../../../shared/worktree/setup-hooks-create-source'
 
 type RuntimeRepositoryHooksCommandsDeps<TRepo extends WorkspaceHookOwner> = {
@@ -29,7 +29,7 @@ type RuntimeRepositoryHooksCommandsDeps<TRepo extends WorkspaceHookOwner> = {
   readCreateSourceHooks: (
     repo: TRepo,
     source: SetupHooksCreateSource
-  ) => Promise<{ hooks: OrcaHooks | null } | undefined>
+  ) => Promise<{ hooks: OpenKodoHooks | null } | undefined>
 }
 
 export class RuntimeRepositoryHooksCommands<TRepo extends WorkspaceHookOwner = Repo> {
@@ -127,12 +127,12 @@ export class RuntimeRepositoryHooksCommands<TRepo extends WorkspaceHookOwner = R
 }
 
 function hookTrust(scriptContent: string): { contentHash: string; scriptContent: string } {
-  return { contentHash: hashOrcaHookTrustContent(scriptContent), scriptContent }
+  return { contentHash: hashOpenKodoHookTrustContent(scriptContent), scriptContent }
 }
 
 function archiveTrust(
   repo: WorkspaceHookOwner,
-  sharedHooks: OrcaHooks | null
+  sharedHooks: OpenKodoHooks | null
 ): { contentHash: string; scriptContent: string } | null {
   const localArchive = repo.hookSettings?.scripts.archive?.trim()
   const policy = resolveHookCommandSourcePolicy(repo.hookSettings?.commandSourcePolicy, {

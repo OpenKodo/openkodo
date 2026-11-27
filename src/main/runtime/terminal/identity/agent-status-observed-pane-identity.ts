@@ -4,10 +4,10 @@ import {
   type ObservedAgentStatusPaneIdentity
 } from '../../../ipc/agent-hooks/agent-status-ipc-boundary'
 import type { EnrichedAgentHookEventPayload } from '../../../agent-hooks/server/server-types'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 type ObservedStatusRuntime = AgentStatusRuntimeEnrichment &
-  Partial<Pick<OrcaRuntimeService, 'clearSavedTerminalLaunchOnAgentHook'>>
+  Partial<Pick<OpenKodoRuntimeService, 'clearSavedTerminalLaunchOnAgentHook'>>
 
 /** Bounded like the hook server's own per-pane maps; eviction only degrades a row to `unobserved`. */
 const MAX_OBSERVED_PANES = 1024

@@ -8,8 +8,8 @@ import { parseExpectedSigners } from './verify-windows-inner-signature.mjs'
 // Smart App Control refuses to load any unsigned Windows binary, so every one we ship must be signed.
 
 const WINDOWS_BINARY_EXTENSION = /\.(exe|dll|node)$/iu
-// The orcad template's Linux/macOS addons are data for SSH hosts, not Windows binaries.
-const NON_WINDOWS_ORCAD_TEMPLATE = /^resources\/orcad-template\/targets\/(?!win32-)/iu
+// The openkodod template's Linux/macOS addons are data for SSH hosts, not Windows binaries.
+const NON_WINDOWS_OPENKODOD_TEMPLATE = /^resources\/openkodod-template\/targets\/(?!win32-)/iu
 
 const SCRIPT_PATH =
   'config/scripts/desktop-distribution/windows/verify-windows-payload-signatures.mjs'
@@ -50,7 +50,8 @@ ConvertTo-Json -InputObject @($rows) -Compress
 /** `relativePath` uses forward slashes. */
 export function isWindowsPayloadBinary(relativePath) {
   return (
-    WINDOWS_BINARY_EXTENSION.test(relativePath) && !NON_WINDOWS_ORCAD_TEMPLATE.test(relativePath)
+    WINDOWS_BINARY_EXTENSION.test(relativePath) &&
+    !NON_WINDOWS_OPENKODOD_TEMPLATE.test(relativePath)
   )
 }
 
@@ -136,7 +137,7 @@ export function formatSignatureLine(signature) {
 
 // One PowerShell process for the whole payload, not one per file.
 export function readPayloadSignatures(root, relativePaths, spawnSyncImpl = spawnSync) {
-  const listDir = mkdtempSync(join(tmpdir(), 'orca-payload-signatures-'))
+  const listDir = mkdtempSync(join(tmpdir(), 'openkodo-payload-signatures-'))
   try {
     const listPath = join(listDir, 'files.txt')
     writeFileSync(listPath, relativePaths.join('\n'), 'utf8')

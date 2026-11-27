@@ -9,7 +9,7 @@ import type { BundledSkillOpOutcome } from './bundled-skill-plan'
 
 const SKILLS = '/home/u/.agents/skills'
 const op = (fields: Partial<BundledSkillOpOutcome>): BundledSkillOpOutcome => ({
-  path: `${SKILLS}/orca`,
+  path: `${SKILLS}/openkodo`,
   kind: 'update',
   status: 'failed',
   error: 'EXDEV',
@@ -19,25 +19,25 @@ const op = (fields: Partial<BundledSkillOpOutcome>): BundledSkillOpOutcome => ({
 describe('bundled skill backup refusal notices', () => {
   it('offers a moved-aside copy again unless the host marks this result its only notice', () => {
     const beside = bundledSkillOpRefusalNotice(
-      'orca',
+      'openkodo',
       op({
         contentApplied: true,
-        backupRefusal: { path: `${SKILLS}/.orca.orca-old-1`, source: 'moved-aside' }
+        backupRefusal: { path: `${SKILLS}/.openkodo.openkodo-old-1`, source: 'moved-aside' }
       })
     )
     expect(beside).toEqual({
-      skill: 'orca',
-      path: `${SKILLS}/.orca.orca-old-1`,
+      skill: 'openkodo',
+      path: `${SKILLS}/.openkodo.openkodo-old-1`,
       source: 'moved-aside',
       contentApplied: true,
       offeredAgain: true
     })
     const formerRoot = bundledSkillOpRefusalNotice(
-      'orca',
+      'openkodo',
       op({
         contentApplied: true,
         backupRefusal: {
-          path: '/home/u/.gemini/skills/.orca.orca-old-2',
+          path: '/home/u/.gemini/skills/.openkodo.openkodo-old-2',
           source: 'moved-aside',
           onlyNotice: true
         }
@@ -47,11 +47,11 @@ describe('bundled skill backup refusal notices', () => {
   })
 
   it('never infers a refusal from a generic EXDEV', () => {
-    expect(bundledSkillOpRefusalNotice('orca', op({}))).toBeNull()
+    expect(bundledSkillOpRefusalNotice('openkodo', op({}))).toBeNull()
     expect(
       bundledSkillRefusalNotices({
         scope: 'global',
-        skills: [{ name: 'orca', status: 'ran', ops: [op({})] }]
+        skills: [{ name: 'openkodo', status: 'ran', ops: [op({})] }]
       })
     ).toEqual([])
   })

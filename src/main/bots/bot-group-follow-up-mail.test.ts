@@ -54,7 +54,7 @@ function start(followUpOf?: string): string {
 }
 
 beforeEach(() => {
-  directory = mkdtempSync(join(tmpdir(), 'orca-room-follow-up-'))
+  directory = mkdtempSync(join(tmpdir(), 'openkodo-room-follow-up-'))
 })
 afterEach(() => {
   db.close()
@@ -89,7 +89,7 @@ function room() {
     objective: 'o',
     coordinatorHandle: 'term_c',
     coordinatorPaneKey: null,
-    coordinatorOrcaSessionId: null
+    coordinatorOpenKodoSessionId: null
   }).id
   const first = start()
   store.bindWorker(first, 'op-1')
@@ -188,7 +188,7 @@ describe("a room worker's follow-up reports", () => {
     const mail = db.insertMessage({
       runId,
       from: `dispatch:${start(first)}`,
-      to: `orca_session_id:${SESSION}`,
+      to: `openkodo_session_id:${SESSION}`,
       subject: 'done after stop',
       type: 'worker_done'
     })

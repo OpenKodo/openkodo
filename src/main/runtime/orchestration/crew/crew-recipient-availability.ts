@@ -40,7 +40,7 @@ export function crewRecipientAvailability(
     return {
       ...party,
       terminalHandle,
-      paneKey: party.orcaSessionId
+      paneKey: party.openkodoSessionId
         ? null
         : terminalHandle
           ? terminal.livePane(terminalHandle)
@@ -56,12 +56,12 @@ export function crewRecipientAvailability(
   const caller = inputs.prepare(
     publicFirst
       .map((candidate) => keys.get(candidate)!)
-      .filter((key) => key.orcaSessionId || key.terminalHandle),
+      .filter((key) => key.openkodoSessionId || key.terminalHandle),
     {
       address: self.address,
-      terminalHandle: self.terminalHandle ?? (self.orcaSessionId ? null : self.address),
-      orcaSessionId: self.orcaSessionId,
-      paneKey: self.orcaSessionId
+      terminalHandle: self.terminalHandle ?? (self.openkodoSessionId ? null : self.address),
+      openkodoSessionId: self.openkodoSessionId,
+      paneKey: self.openkodoSessionId
         ? null
         : (deps.callerPaneForHandle ?? deps.paneForHandle)(self.terminalHandle ?? self.address)
     }
@@ -78,16 +78,16 @@ export function crewRecipientAvailability(
   const qualify = inputs.qualification(
     caller,
     () => {
-      if (!caller.terminalHandle && caller.orcaSessionId) {
-        return { kind: 'session', orcaSessionId: caller.orcaSessionId }
+      if (!caller.terminalHandle && caller.openkodoSessionId) {
+        return { kind: 'session', openkodoSessionId: caller.openkodoSessionId }
       }
       const projection = (deps.openIdentityRead?.() ?? deps).callerProjection
       if (!projection || !caller.terminalHandle) {
         throw new Error('Crew attested caller is unavailable')
       }
       const captured = projection(caller.terminalHandle)
-      return captured.kind === 'terminal' && caller.orcaSessionId
-        ? { ...captured, orcaSessionId: caller.orcaSessionId }
+      return captured.kind === 'terminal' && caller.openkodoSessionId
+        ? { ...captured, openkodoSessionId: caller.openkodoSessionId }
         : captured
     },
     () => {
@@ -119,7 +119,7 @@ export function crewRecipientAvailability(
       }
     }
     const key = keys.get(candidate)!
-    if ((key.orcaSessionId || key.terminalHandle) && admitted(candidate.party.address)) {
+    if ((key.openkodoSessionId || key.terminalHandle) && admitted(candidate.party.address)) {
       publicCandidates.push(candidate)
     }
   }
@@ -136,7 +136,7 @@ export function crewRecipientAvailability(
         const supported = available(keys.get(candidate)!)
         if (supported === undefined) {
           // A recorded worker with no current identity is an authoritative refusal.
-          const id = candidate.party.orcaSessionId
+          const id = candidate.party.openkodoSessionId
           if (id && inputs.identityCovered(id) && !inputs.keyFor(id)) {
             continue
           }

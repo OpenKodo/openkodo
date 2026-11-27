@@ -35,7 +35,7 @@ describe('missed-run grace after a wake (daily 09:00 run, 60 min grace)', () => 
   let countedSleep = 0
 
   beforeEach(() => {
-    testState.dir = mkdtempSync(join(tmpdir(), 'orca-automations-wake-test-'))
+    testState.dir = mkdtempSync(join(tmpdir(), 'openkodo-automations-wake-test-'))
     vi.useFakeTimers({
       toFake: [
         'Date',

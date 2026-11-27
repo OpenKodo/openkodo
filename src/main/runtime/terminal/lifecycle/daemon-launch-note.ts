@@ -18,10 +18,10 @@ import {
   retireLaunch,
   type LaunchEvidence
 } from '../launch/launch-evidence'
-import { OrcaRuntimeWithInvalidateAllHandlesForPty } from './pty-handle-invalidation'
+import { OpenKodoRuntimeWithInvalidateAllHandlesForPty } from './pty-handle-invalidation'
 
 /** Main's admitted launch, kept in the daemon so a reattach after a main restart can re-arm it. */
-export abstract class OrcaRuntimeWithDaemonLaunchNote extends OrcaRuntimeWithInvalidateAllHandlesForPty {
+export abstract class OpenKodoRuntimeWithDaemonLaunchNote extends OpenKodoRuntimeWithInvalidateAllHandlesForPty {
   abstract readLaunchedAgentForeground(
     ptyId: string,
     agent: TuiAgent

@@ -3,11 +3,11 @@ import { PrioritySemaphore } from '../../shared/concurrency/priority-semaphore'
 import { isDefinitiveAbsence } from '../../shared/errors/definitive-filesystem-absence'
 import { readNodeFileWithinLimit } from '../../shared/file-content/node-bounded-file-reader'
 import { scopeHooksToRepoKind } from '../../shared/folder-workspaces/folder-workspace-hooks'
-import { parseOrcaYaml } from '../../shared/workspace-setup/orca-yaml'
-import { MAX_OPENKODO_YAML_BYTES } from '../../shared/workspace-setup/orca-yaml-file-limit'
+import { parseOpenKodoYaml } from '../../shared/workspace-setup/openkodo-yaml'
+import { MAX_OPENKODO_YAML_BYTES } from '../../shared/workspace-setup/openkodo-yaml-file-limit'
 import type { WorkspaceHookOwner } from '../../shared/workspace-setup/hooks/workspace-hook-owner'
 import { blockedWslDistroForPath } from '../wsl/filesystem/wsl-unc-access-gate'
-import { orcaYamlPath } from './hooks'
+import { openkodoYamlPath } from './hooks'
 import { iterateLfScriptLines } from './setup-runner-script-text'
 
 // Unknown keys suggest a newer config format; let the UI offer an update.
@@ -20,7 +20,7 @@ const RECOGNIZED_OPENKODO_YAML_KEYS = new Set([
   'worktree'
 ])
 
-function hasUnrecognizedOrcaYamlKeys(content: string): boolean {
+function hasUnrecognizedOpenKodoYamlKeys(content: string): boolean {
   for (const line of iterateLfScriptLines(content)) {
     // A bare key: is valid YAML when its block value follows on the next line.
     const match = line.match(/^([A-Za-z][A-Za-z0-9_-]*):(\s|$)/)
@@ -61,7 +61,7 @@ export async function inspectWorkspaceHooks(
 }
 
 async function readWorkspaceHookConfig(repo: Pick<WorkspaceHookOwner, 'path' | 'kind'>) {
-  const yamlPath = orcaYamlPath(repo.path)
+  const yamlPath = openkodoYamlPath(repo.path)
   let content: string
   try {
     const { buffer } = await readNodeFileWithinLimit(yamlPath, MAX_OPENKODO_YAML_BYTES, {
@@ -78,10 +78,10 @@ async function readWorkspaceHookConfig(repo: Pick<WorkspaceHookOwner, 'path' | '
     return { hasHooks, hooks: null, mayNeedUpdate: false }
   }
 
-  const hooks = scopeHooksToRepoKind(repo, parseOrcaYaml(content))
+  const hooks = scopeHooksToRepoKind(repo, parseOpenKodoYaml(content))
   return {
     hasHooks: true,
     hooks,
-    mayNeedUpdate: !hooks && hasUnrecognizedOrcaYamlKeys(content)
+    mayNeedUpdate: !hooks && hasUnrecognizedOpenKodoYamlKeys(content)
   }
 }

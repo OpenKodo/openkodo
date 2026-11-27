@@ -49,7 +49,7 @@ export function openBotHostPage(
     openBotToolSignInPage(url)
     return 'system-browser'
   }
-  return openOnServer(hostId, url, options.bot) ? 'orca-browser' : 'unrouted'
+  return openOnServer(hostId, url, options.bot) ? 'openkodo-browser' : 'unrouted'
 }
 
 /**
@@ -110,7 +110,7 @@ export function openOnServer(hostId: ExecutionHostId, url: string, ref?: BotRef)
   ) {
     return false
   }
-  return openAppHttpLink(url, { worktreeId, forceInApp: true }) === 'orca-browser'
+  return openAppHttpLink(url, { worktreeId, forceInApp: true }) === 'openkodo-browser'
 }
 
 // The server's own browser only: never this device's, even when its SSH host browses from here.

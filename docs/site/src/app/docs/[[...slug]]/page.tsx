@@ -6,7 +6,7 @@ import { findNeighbour } from 'fumadocs-core/page-tree'
 import { Prose } from '@/components/docs/prose'
 import { source } from '@/lib/source'
 
-const siteUrl = 'https://orca.dev'
+const siteUrl = 'https://openkodo.dev'
 
 export function generateStaticParams() {
   return source.generateParams()
@@ -25,29 +25,29 @@ export async function generateMetadata({
   const { title, description, keywords } = page.data
   const ogImagePath = slug && slug.length > 0 ? `/docs/og/${slug.join('/')}` : '/docs/og'
   return {
-    title: `${title} — Orca Docs`,
-    description: description ?? `${title} — Orca documentation.`,
+    title: `${title} — OpenKodo Docs`,
+    description: description ?? `${title} — OpenKodo documentation.`,
     keywords,
     alternates: { canonical: `${siteUrl}${page.url}` },
     openGraph: {
       type: 'article',
-      title: `${title} — Orca Docs`,
-      description: description ?? `${title} — Orca documentation.`,
+      title: `${title} — OpenKodo Docs`,
+      description: description ?? `${title} — OpenKodo documentation.`,
       url: `${siteUrl}${page.url}`,
-      siteName: 'Orca',
+      siteName: 'OpenKodo',
       images: [
         {
           url: ogImagePath,
           width: 1200,
           height: 630,
-          alt: `${title} — Orca Docs`
+          alt: `${title} — OpenKodo Docs`
         }
       ]
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} — Orca Docs`,
-      description: description ?? `${title} — Orca documentation.`,
+      title: `${title} — OpenKodo Docs`,
+      description: description ?? `${title} — OpenKodo documentation.`,
       images: [ogImagePath]
     }
   }

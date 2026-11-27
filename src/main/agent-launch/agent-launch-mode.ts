@@ -16,7 +16,7 @@ import type {
   StructuredAgentCreateSupportReply
 } from '../../shared/agent-session/lifecycle/operations/structured-agent-create-support-reply'
 import type { WorkspaceLaunchKind } from '../../shared/agent-launch/contracts/workspace-launch-kind'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { AgentLaunchSurface } from '../../shared/agent-launch/contracts/agent-launch-surface'
 import { formatAgentTypeLabel } from '../../shared/agent-status/presentation/agent-type-label'
 import { AgentLaunchSurfaceUnavailableError } from './agent-launch-surface-refusal'
@@ -147,7 +147,7 @@ export function decideAgentLaunchMode(args: {
     return blocked(BLOCKER_REASON['client-capability'])
   }
   if (preference === 'lineage' && CHATS_WITHOUT_OPENKODO_IDENTITY.includes(agent)) {
-    return blocked('chat_cannot_run_orca_commands')
+    return blocked('chat_cannot_run_openkodo_commands')
   }
   if (preference === 'lineage') {
     return {
@@ -174,7 +174,7 @@ export function decideAgentLaunchMode(args: {
 
 /** Refuse explicit chat only before effects; a created workspace keeps its terminal fallback. */
 export async function resolveAgentLaunchModeOnHost(
-  runtime: Pick<OrcaRuntimeService, 'getStructuredAgentSessionCreateSupport'> &
+  runtime: Pick<OpenKodoRuntimeService, 'getStructuredAgentSessionCreateSupport'> &
     WslHostChatSettingsSource,
   receipt: AgentLaunchModeReceipt,
   worktreeId: string | undefined,
@@ -208,7 +208,7 @@ export async function resolveAgentLaunchModeOnHost(
 
 /** Unknown host support must fall back to a terminal. */
 async function readStructuredCreateSupport(
-  runtime: Pick<OrcaRuntimeService, 'getStructuredAgentSessionCreateSupport'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getStructuredAgentSessionCreateSupport'>,
   worktreeId: string,
   agent: TuiAgent | undefined
 ): Promise<StructuredAgentCreateSupportReply | null> {

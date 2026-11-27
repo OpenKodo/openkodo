@@ -29,7 +29,7 @@ export type ServeUpdateHandoffState =
     }
 
 export type ServeSupervisorMessage = {
-  type: 'orca:serve-ready'
+  type: 'openkodo:serve-ready'
   version: string
   runtimeId: string
 }
@@ -67,7 +67,7 @@ export function parseServeSupervisorMessage(value: unknown): ServeSupervisorMess
   }
   const message = value as Record<string, unknown>
   if (
-    message.type !== 'orca:serve-ready' ||
+    message.type !== 'openkodo:serve-ready' ||
     typeof message.version !== 'string' ||
     message.version.length === 0 ||
     typeof message.runtimeId !== 'string' ||

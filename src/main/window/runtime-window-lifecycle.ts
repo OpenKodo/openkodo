@@ -9,7 +9,7 @@ import type { TerminalTabCreateReply } from '../../shared/workspace-layout/termi
 import { runWorktreeChangeInvalidators } from '../ipc/worktrees/listing/worktree-change-invalidators'
 import { requestAgentLaunchTabPublishFromRenderer } from './renderer-relays/agent-launch-tab-publish-relay'
 import { requestAgentPaneActivityFromRenderer } from './renderer-relays/agent-pane-activity-relay'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { registerRendererDocumentNavigation } from './security/renderer-document-navigation'
 import { createRuntimeRendererNotificationSender } from './renderer-relays/runtime-renderer-notification-sender'
 import { requestSessionTabCloseFromRenderer } from './renderer-relays/session-tab-close-request-relay'
@@ -25,7 +25,7 @@ let activeRuntimeNotifierToken: number | null = null
 
 export function registerRuntimeWindowLifecycle(
   mainWindow: BrowserWindow,
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): void {
   const notifierToken = ++runtimeNotifierTokenCounter
   activeRuntimeNotifierToken = notifierToken

@@ -7,13 +7,13 @@ import {
   isAntigravityHostAccountHome,
   readyAntigravityHostAcpVersion
 } from '../../../../antigravity/antigravity-host-acp'
-import { isAntigravityAgyOrcaAccountHome } from '../../../../antigravity/antigravity-agy-orca-home'
+import { isAntigravityAgyOpenKodoAccountHome } from '../../../../antigravity/antigravity-agy-openkodo-home'
 import { getStructuredAgentSessionHost } from '../../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import { resolveHostStructuredAgentLaunchEnvironment } from '../../../agent-session/launch/structured-agent-launch-support'
 import { acpHostBackendInput } from '../../../../acp/launch/acp-launch-command'
 import { ANTIGRAVITY_LAUNCH_SPEC } from '../../../../antigravity/antigravity-acp-launch-spec'
-import { getProfileUserDataPath } from '../../../../orca-profiles/profile-storage-paths'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import { getProfileUserDataPath } from '../../../../openkodo-profiles/profile-storage-paths'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   antigravityAgySignIn,
   savedChatAuthIsPersonal,
@@ -26,12 +26,12 @@ const CHAT_BACKEND_WAIT_MS = 1_500
 const LAUNCH_HOME_WAIT_MS = 1_000
 
 /** Where new chats on this host run, and agy's own sign-in for those on its home. */
-async function hostChatRoute(runtime: OrcaRuntimeService) {
+async function hostChatRoute(runtime: OpenKodoRuntimeService) {
   const settings = runtime.requireStore().getSettings()
-  const orcaHome = !savedChatAuthIsPersonal(settings.antigravityChatAuth)
+  const openkodoHome = !savedChatAuthIsPersonal(settings.antigravityChatAuth)
   // Enterprise runs on OpenKodo's home but with agy's login, so its sign-in is read too.
-  if (orcaHome && !savedChatAuthUsesAgyLogin(settings.antigravityChatAuth)) {
-    return { agy: false as const, orcaHome }
+  if (openkodoHome && !savedChatAuthUsesAgyLogin(settings.antigravityChatAuth)) {
+    return { agy: false as const, openkodoHome }
   }
   const env = await resolveHostStructuredAgentLaunchEnvironment('antigravity', settings)
   // Someone is looking (a chat or Settings), so agy may be started once to answer.
@@ -42,12 +42,12 @@ async function hostChatRoute(runtime: OrcaRuntimeService) {
     settings,
     { startsProgram: true }
   )
-  return { agy: input ? await antigravityAgySignIn(input) : ('unknown' as const), orcaHome }
+  return { agy: input ? await antigravityAgySignIn(input) : ('unknown' as const), openkodoHome }
 }
 
 /** Asks agy's sign-in for Google-account chats without waiting, so every surface that subscribes
  *  to it (a chat, Settings) gets an answer, not only the one that asked first. */
-export function readAgySignInInBackground(runtime: OrcaRuntimeService): void {
+export function readAgySignInInBackground(runtime: OpenKodoRuntimeService): void {
   void hostChatRoute(runtime).catch((error: unknown) =>
     console.warn("[antigravity] agy's sign-in couldn't be read:", error)
   )
@@ -56,7 +56,7 @@ export function readAgySignInInBackground(runtime: OrcaRuntimeService): void {
 /** The HOME new host agy chats launch with, when it shares the login an account switch changes;
  *  a login shell or the agent's settings can set one other than OpenKodo's own. Unknown after
  *  LAUNCH_HOME_WAIT_MS, or when unreadable. */
-export function sharedAgyLaunchHome(runtime: OrcaRuntimeService): Promise<string | undefined> {
+export function sharedAgyLaunchHome(runtime: OpenKodoRuntimeService): Promise<string | undefined> {
   const read = async (): Promise<string | undefined> => {
     // agy's login is in the system keyring, which every HOME shares, unless it keeps a file per HOME.
     if (process.platform === 'win32' || (await antigravityUsesFileStoreAsync(process.env))) {
@@ -76,7 +76,7 @@ export function sharedAgyLaunchHome(runtime: OrcaRuntimeService): Promise<string
 
 /** Adds whether new chats on this host run on agy, and so on the account these rows switch. */
 export async function withAntigravityChatBackend(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   target: AntigravityAccountTarget,
   state: AntigravityAccountState
 ): Promise<AntigravityAccountState> {
@@ -86,20 +86,20 @@ export async function withAntigravityChatBackend(
   }
   // A cold agy check takes seconds; the rows don't wait for it, and a later refresh shows it.
   const route = await withTimeout(
-    hostChatRoute(runtime).catch(() => ({ agy: 'unknown' as const, orcaHome: false })),
+    hostChatRoute(runtime).catch(() => ({ agy: 'unknown' as const, openkodoHome: false })),
     CHAT_BACKEND_WAIT_MS,
     null
   )
   if (route === null) {
     return state
   }
-  const agy = route.orcaHome ? false : route.agy
+  const agy = route.openkodoHome ? false : route.agy
   const version = agy === 'signedIn' ? readyAntigravityHostAcpVersion() : null
   return {
     ...state,
     chatUsesAgy: agy === 'signedIn',
     chatAgySignedOut: agy === 'signedOut',
-    ...(route.orcaHome ? { chatKeyOnAgy: true } : {}),
+    ...(route.openkodoHome ? { chatKeyOnAgy: true } : {}),
     ...(version ? { chatAgyVersion: version } : {})
   }
 }
@@ -120,7 +120,7 @@ export function restartIdleAgyChats(target: AntigravityAccountTarget): void {
     const home =
       host.sessionAgent(id) === 'antigravity' ? host.childAccountHome(id, true) : undefined
     // OpenKodo's homes use agy's Google login too (Enterprise, the retired server's chats).
-    if (home && (isAntigravityHostAccountHome(home) || isAntigravityAgyOrcaAccountHome(home))) {
+    if (home && (isAntigravityHostAccountHome(home) || isAntigravityAgyOpenKodoAccountHome(home))) {
       void host.releaseIdleSession(id, true).catch((error: unknown) => {
         console.warn('[antigravity] an idle chat kept the previous account:', error)
       })

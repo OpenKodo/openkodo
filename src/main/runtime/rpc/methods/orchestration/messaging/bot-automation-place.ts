@@ -3,7 +3,7 @@
 import { isFinalAutomationRunStatus } from '../../../../../../shared/automations/history/automation-run'
 import { isConnectorSource } from '../../../../../../shared/automation-event-triggers'
 import type { BotWakingPlace } from '../../../../../bots/bot-request-asker'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { AutomationRunMessage } from '../../../../../../shared/automations/automation-run-message'
 
 /** The automation run in progress in this chat: the one its prompt records, read among that
@@ -11,7 +11,7 @@ import type { AutomationRunMessage } from '../../../../../../shared/automations/
  *  one in progress. Where its event happened, never whom the chat acts for, which the
  *  conversation's own record says. */
 function runningAutomationRun(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   recorded?: { automationId: string; runId: string }
 ) {
@@ -29,7 +29,7 @@ function runningAutomationRun(
 
 /** The thread, issue or pull request a running automation run's event happened on. */
 export function automationPlace(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   recorded: AutomationRunMessage | undefined,
   /** The thread conversation this chat answers, if any. */

@@ -162,7 +162,7 @@ export const deliverAppendSystemPromptInstructions = givenEachStart(async ({ fil
 
 // Kiro keeps steering sent on `session/new` with the session, so a reopen keeps the preamble it began with.
 export const deliverKiroInstructions = keptWithSession(async ({ text }) => ({
-  sessionMeta: { kiro: { steering: [{ name: 'orca', inclusion: 'always', content: text }] } }
+  sessionMeta: { kiro: { steering: [{ name: 'openkodo', inclusion: 'always', content: text }] } }
 }))
 
 // Droid rebuilds its system prompt at every start from the file each launch passes.
@@ -209,7 +209,7 @@ export const deliverQwenCodeInstructions = givenEachStart(async ({ text, cwd }) 
 // Cline rebuilds its system prompt from the folder's rules at every start, reopens included
 // (checked live on 3.0.75); `.cline/rules` sits beside the user's own `.clinerules`.
 export const deliverClineInstructions = givenEachStart(async ({ text, cwd }) => {
-  await writeFolderContextFile(cwd, join('.cline', 'rules', 'orca.md'), 'Cline', text)
+  await writeFolderContextFile(cwd, join('.cline', 'rules', 'openkodo.md'), 'Cline', text)
   return {}
 })
 
@@ -232,7 +232,7 @@ export const deliverCodeBuddyInstructions = givenEachStart(async ({ text, cwd })
 // Only an instructions file applies at once: an AGENTS.md there counts as nested and loads on demand.
 export const deliverCopilotInstructions = givenEachStart(async ({ text, folder, env }) => {
   const dir = await folder(
-    join('.github', 'instructions', 'orca.instructions.md'),
+    join('.github', 'instructions', 'openkodo.instructions.md'),
     `---\napplyTo: "**"\n---\n${text}\n`
   )
   // The list is comma-separated, so a folder with a comma in its path would silently go unread.

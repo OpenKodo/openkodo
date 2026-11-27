@@ -7,7 +7,7 @@ import { runCoordinatorKey } from '../../addressing/orchestration-caller-identit
 function readerless(run: RunRow, retiredChat?: string): boolean {
   const key = runCoordinatorKey(run)
   if (key.terminalHandle === null && key.paneKey === null) {
-    return key.orcaSessionId === null || key.orcaSessionId === retiredChat
+    return key.openkodoSessionId === null || key.openkodoSessionId === retiredChat
   }
   return false
 }

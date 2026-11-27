@@ -53,7 +53,7 @@ function harness(extra: Partial<Env> = {}) {
     EDGE_BACKEND: 'spike',
     SPIKE_DEBUG: '1',
     RELAY_JWKS: '{"keys":[]}',
-    RELAY_JWT_AUDIENCE: 'orca-relay',
+    RELAY_JWT_AUDIENCE: 'openkodo-relay',
     PING_INTERVAL_MS: '30000',
     SILENCE_TIMEOUT_MS: '75000',
     ORPHAN_GRACE_MS: '30000',
@@ -120,8 +120,8 @@ describe('token-mode ingress (a load balancer that cannot sign)', () => {
   const lb = (over: Record<string, string> = {}) => ({
     [INGRESS_HEADER]: `v1s cn https://cn.relay.example ${TOKEN}`,
     'cf-connecting-ip': '34.96.3.9',
-    'x-orca-client-ip': '198.51.100.7',
-    'x-orca-client-country': 'CN',
+    'x-openkodo-client-ip': '198.51.100.7',
+    'x-openkodo-client-country': 'CN',
     ...over
   })
 
@@ -131,7 +131,7 @@ describe('token-mode ingress (a load balancer that cannot sign)', () => {
     for (const headers of seen.forwarded) {
       expect(headers['x-edge-origin']).toBe('https://cn.relay.example')
       expect(headers['x-edge-place']).toBe('local/cn')
-      expect([headers[INGRESS_HEADER], headers['x-orca-client-ip'], headers['x-orca-client-country']]).toEqual([undefined, undefined, undefined])
+      expect([headers[INGRESS_HEADER], headers['x-openkodo-client-ip'], headers['x-openkodo-client-country']]).toEqual([undefined, undefined, undefined])
     }
     expect((await harness(tokenEnv).send(lb({ 'cf-connecting-ip': '2001:db8:a:ffff::1' }))).limiterKeys).toEqual(['phone:198.51.100.7'])
   })
@@ -142,8 +142,8 @@ describe('token-mode ingress (a load balancer that cannot sign)', () => {
       lb({ [INGRESS_HEADER]: `v1s cn https://cn.relay.example ${TOKEN.slice(1)}` }),
       lb({ [INGRESS_HEADER]: `v1s cn https://evil.example ${TOKEN}` }),
       lb({ [INGRESS_HEADER]: `v1s cn https://cn.relay.example ${TOKEN} extra` }),
-      lb({ 'x-orca-client-ip': '' }),
-      lb({ 'x-orca-client-ip': '198.51.100.7, 203.0.113.5' }),
+      lb({ 'x-openkodo-client-ip': '' }),
+      lb({ 'x-openkodo-client-ip': '198.51.100.7, 203.0.113.5' }),
       { 'cf-connecting-ip': '34.127.200.1' }
     ]) {
       const h = harness(tokenEnv)

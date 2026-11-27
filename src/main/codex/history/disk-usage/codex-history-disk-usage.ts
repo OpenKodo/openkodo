@@ -32,7 +32,7 @@ const REUSE_MS = 5 * 60_000
 function createWorker(): Worker {
   return spawnWorkerThread(
     resolveWorkerThreadEntryPath(currentWorkerEntryLayout(__dirname), WORKER_FILENAME),
-    { name: 'orca-codex-history-disk-usage' }
+    { name: 'openkodo-codex-history-disk-usage' }
   )
 }
 

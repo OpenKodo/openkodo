@@ -39,7 +39,7 @@ export const AGENT_CONVERSATION_METHODS = [
     handler: async (params, { runtime }): Promise<AgentShowResult> => {
       const resolved = await resolveAgentConversation(runtime, params.id)
       return {
-        orcaSessionId: resolved.orcaSessionId,
+        openkodoSessionId: resolved.openkodoSessionId,
         kind: resolved.kind,
         places: await agentConversationPlaces(runtime, resolved)
       }

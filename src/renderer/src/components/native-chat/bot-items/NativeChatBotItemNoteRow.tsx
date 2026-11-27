@@ -131,7 +131,7 @@ function LinkName({ link }: { link: BotItemNoteLineLink }): React.JSX.Element {
       party: {
         address: worker.address,
         terminalHandle: worker.address.startsWith('term_') ? worker.address : null,
-        orcaSessionId: null
+        openkodoSessionId: null
       },
       name: link.name
     }

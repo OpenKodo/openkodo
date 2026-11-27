@@ -8,7 +8,7 @@ import {
 import { useActiveProjectSkillRuntime } from '@/hooks/skills/runtime/useActiveProjectSkillRuntime'
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '../../../../store/index'
-import '../../../../../../shared/orca-profiles/constants'
+import '../../../../../../shared/openkodo-profiles/constants'
 import type { ExecutionHostId } from '../../../../../../shared/execution-host/execution-host'
 import { BROWSER_FAMILY_LABELS } from '../../../../../../shared/browser/browser-family-labels'
 import { SearchableSetting } from '../../section-layout/SearchableSetting'

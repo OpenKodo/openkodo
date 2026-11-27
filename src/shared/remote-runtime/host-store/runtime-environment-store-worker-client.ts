@@ -168,7 +168,7 @@ function dispatch(): void {
               currentWorkerEntryLayout(__dirname),
               'runtime-environment-store-worker-entry.js'
             ),
-            { name: 'orca-environment-store', execArgv: [] }
+            { name: 'openkodo-environment-store', execArgv: [] }
           )
       const current: Owner = { worker, writes: 0 }
       owner = current

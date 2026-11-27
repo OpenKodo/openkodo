@@ -27,11 +27,11 @@ export function resolveManagedWslCodexShellPreflightTarget(
   env: WslShellPreflightEnvironment
 ): ManagedWslCodexShellPreflightTarget | null {
   const codexHome = env.CODEX_HOME?.trim()
-  const orcaCodexHome = env.OPENKODO_CODEX_HOME?.trim()
+  const openkodoCodexHome = env.OPENKODO_CODEX_HOME?.trim()
   const wslDistro = env.WSL_DISTRO_NAME?.trim()
   if (
     !codexHome ||
-    codexHome !== orcaCodexHome ||
+    codexHome !== openkodoCodexHome ||
     !wslDistro ||
     /[\\/\r\n]/.test(wslDistro) ||
     !isAbsolutePosixPathWithoutDotSegments(codexHome)

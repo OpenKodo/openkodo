@@ -212,7 +212,7 @@ function normalizeGrokUserQueryBlock(block: NativeChatBlock): NativeChatBlock[] 
 }
 
 const GROK_PASTED_IMAGE_QUERY = new RegExp(
-  String.raw`^((?:[a-z]:[\\/]|\/|[\\/]{2}[^\\/\r\n]+[\\/][^\\/\r\n]+[\\/])(?:.*?[\\/])?orca-paste-[^\\/\r\n]+?` +
+  String.raw`^((?:[a-z]:[\\/]|\/|[\\/]{2}[^\\/\r\n]+[\\/][^\\/\r\n]+[\\/])(?:.*?[\\/])?openkodo-paste-[^\\/\r\n]+?` +
     AGENT_SESSION_PASTED_IMAGE_SUFFIX_SOURCE +
     String.raw`)([\s\S]*)$`,
   'i'

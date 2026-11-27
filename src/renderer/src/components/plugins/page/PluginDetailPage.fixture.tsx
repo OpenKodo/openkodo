@@ -35,7 +35,7 @@ function communityListing(
       commit: 'd'.repeat(40),
       contentHash: 'e'.repeat(64),
       execution: 'data',
-      minimumOrca: '1.4.245',
+      minimumOpenKodo: '1.4.245',
       types,
       repository: `https://github.com/octocat/${id}.git`
     }
@@ -75,7 +75,7 @@ function render(entries: readonly PluginListEntry[], entry = main): React.JSX.El
       <PluginDetailPage
         entry={entry}
         busy={false}
-        orcaVersion="1.4.250"
+        openkodoVersion="1.4.250"
         logsState={undefined}
         handlers={{
           onOpen: () => undefined,

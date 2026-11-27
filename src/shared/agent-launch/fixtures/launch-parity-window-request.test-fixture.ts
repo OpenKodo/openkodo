@@ -212,6 +212,6 @@ export function expectedWindowProvider(
     ...(request.startupCommandDelivery
       ? { startupCommandDelivery: request.startupCommandDelivery }
       : {}),
-    orcaEnv: IDENTITY_ENV_KEYS.filter((key) => key in env)
+    openkodoEnv: IDENTITY_ENV_KEYS.filter((key) => key in env)
   }
 }

@@ -11,12 +11,12 @@ import type {
 } from '../../../shared/wsl-move/wsl-drive-unc-conversion-types'
 import { relaunchApp } from '../../startup/quit/app-relaunch'
 import { gitExecFileAsync } from '../../git/command-runner/git-exec-file'
-import { readProfileProjectTransferState } from '../../orca-profiles/project-transfer/profile-project-domain-state'
-import { getOrcaProfileListState } from '../../orca-profiles/profile-index-store'
-import { getProfileUserDataPath } from '../../orca-profiles/profile-storage-paths'
+import { readProfileProjectTransferState } from '../../openkodo-profiles/project-transfer/profile-project-domain-state'
+import { getOpenKodoProfileListState } from '../../openkodo-profiles/profile-index-store'
+import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
 import type { Store } from '../../persistence/loading-store/store'
 import { pauseWslMoveScope } from '../../persistence/moving-wsl-projects/execution/wsl-move-driver-pause'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { quitProcess } from '../../startup/quit/process-quit-request'
 import { startWslDriveUncConversion } from '../../wsl/filesystem/wsl-drive-unc-conversion-run'
 import {
@@ -45,7 +45,7 @@ export const WSL_DRIVE_UNC_CONVERSION_CHANNELS = [
 
 export function registerWslDriveUncConversionHandlers(
   store: Store,
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): void {
   for (const channel of WSL_DRIVE_UNC_CONVERSION_CHANNELS) {
     ipcMain.removeHandler(channel)
@@ -59,7 +59,7 @@ export function registerWslDriveUncConversionHandlers(
       }
       const request = parseRequest(args)
       const userDataPath = app.getPath('userData')
-      const { activeProfileId } = getOrcaProfileListState()
+      const { activeProfileId } = getOpenKodoProfileListState()
       return startWslDriveUncConversion(
         {
           userDataPath,

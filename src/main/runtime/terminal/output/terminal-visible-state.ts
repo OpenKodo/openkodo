@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithCaptureProviderTerminalBuffer } from './provider-buffer-capture'
+import { OpenKodoRuntimeWithCaptureProviderTerminalBuffer } from './provider-buffer-capture'
 import { TERMINAL_INTERACTIVE_WAIT_PROBE_TIMEOUT_MS } from '../wait/terminal-interactive-probe-budget'
 import type { RuntimeTerminalProjection } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { buildPreview } from './tail/terminal-tail-state'
@@ -19,7 +19,7 @@ import { HeadlessEmulator } from '../../../daemon/emulation/headless-emulator'
 import { withTimeout } from '../../../../shared/concurrency/promise-timeout-fallback'
 import type { PtyProviderBufferSnapshot } from '../../../providers/pty/provider-contract'
 
-export abstract class OrcaRuntimeWithVisibleSnapshotPreview extends OrcaRuntimeWithCaptureProviderTerminalBuffer {
+export abstract class OpenKodoRuntimeWithVisibleSnapshotPreview extends OpenKodoRuntimeWithCaptureProviderTerminalBuffer {
   protected async visibleSnapshotPreview(ptyId: string, preview: string): Promise<string> {
     const knownAlternateScreen = this.isTerminalAlternateScreen(ptyId)
     const providerModeUnknown =

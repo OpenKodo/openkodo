@@ -1,4 +1,4 @@
-import { readProcessReportHeader } from '../orcad/native-runtime/native-host-abi'
+import { readProcessReportHeader } from '../openkodod/native-runtime/native-host-abi'
 
 export type GlibcVersion = { major: number; minor: number }
 export type LinuxLibcFacts = { libc: 'glibc' | 'musl'; glibc: GlibcVersion | null }

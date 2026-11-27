@@ -4,7 +4,7 @@ import {
   providerDiagnosticOf
 } from '../../../../shared/agent-session/failures/agent-session-failure'
 import type { CodexAppServerConnection } from '../../app-server/codex-app-server-connection-types'
-import { closeProcessRegistry } from '@orca/process-host/close-process-registry'
+import { closeProcessRegistry } from '@openkodo/process-host/close-process-registry'
 import {
   cancelCodexAcquisitionAttempt,
   type CodexAcquisitionRegistry,
@@ -21,7 +21,7 @@ export function handleCodexSessionExit(input: {
   connection: CodexAppServerConnection | null
   error: Error
   /** Includes root exits reported during or after an OpenKodo close attempt. */
-  closedByOrca?: true
+  closedByOpenKodo?: true
   prompts?: CodexSession['prompts']
   onEvent?: (event: CodexStructuredSessionEvent) => void
   logger?: StructuredAgentSessionLogger
@@ -38,15 +38,15 @@ export function handleCodexSessionExit(input: {
     type: 'ended',
     sessionId: input.sessionId,
     // Preserve the initiating close reason when its exit arrives.
-    reason: ((input.closedByOrca && session.orcaClose?.reason) || input.error).message,
+    reason: ((input.closedByOpenKodo && session.openkodoClose?.reason) || input.error).message,
     // OpenKodo-initiated closes are host faults, regardless of the exit report. No spawn ENOENT reaches
     // here: a session registers only after the CLI answered thread/start, so the acquire path owns it.
     failure:
-      input.closedByOrca || providerOutcomeLost(input.error)
+      input.closedByOpenKodo || providerOutcomeLost(input.error)
         ? agentSessionFailureFact('hostFault')
         : agentSessionFailureFact('providerExited', { detail: providerDiagnosticOf(input.error) }),
-    cause: session.orcaClose?.requested ? 'requested-close' : 'unexpected-exit',
-    ...(input.closedByOrca && input.connection?.closeResult
+    cause: session.openkodoClose?.requested ? 'requested-close' : 'unexpected-exit',
+    ...(input.closedByOpenKodo && input.connection?.closeResult
       ? {
           processExit: {
             root: input.connection.closeResult.root,
@@ -113,7 +113,7 @@ export async function closeCodexPublishedSession(
     return true
   }
   // Preserve unexpected-death settlement when sink failure forces a close.
-  session.orcaClose ??= {
+  session.openkodoClose ??= {
     requested: options?.requestedClose ?? true,
     reason: options?.unexpectedReason ?? new Error('codex session closed')
   }
@@ -127,8 +127,8 @@ export async function closeCodexPublishedSession(
       sessions,
       sessionId,
       connection: session.connection,
-      error: session.orcaClose.reason,
-      closedByOrca: true,
+      error: session.openkodoClose.reason,
+      closedByOpenKodo: true,
       prompts: session.prompts,
       ...(onEvent ? { onEvent } : {}),
       ...(options?.logger ? { logger: options.logger } : {})

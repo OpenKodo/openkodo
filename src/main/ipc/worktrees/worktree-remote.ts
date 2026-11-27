@@ -52,7 +52,7 @@ import { getHostedReviewForBranch } from '../../source-control/hosted-review'
 import type { ForgeProviderId } from '../../source-control/forge-provider'
 import { validateGitPushTarget } from '../../git/remotes/push-target-validation'
 import { gitExecFileAsync } from '../../git/command-runner/git-exec-file'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type {
   RemoteFetchResult,
   RemoteTrackingBase
@@ -391,7 +391,7 @@ export function recordWorkspaceLineageForCreatedWorktree(
 
 /** Same refusal as the RPC create, before any checkout exists: a well-formed ref from another store. */
 async function assertCreatableCrossStoreParent(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   parent: NonNullable<CreateWorktreeArgs['crossStoreParent']>
 ): Promise<void> {
   // IPC args are unchecked.
@@ -402,7 +402,7 @@ async function assertCreatableCrossStoreParent(
 }
 
 async function spawnLocalStartupAndSetupTerminals(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   worktree: Worktree
   startup: CreateWorktreeArgs['startup']
   setup: CreateWorktreeResult['setup']
@@ -998,7 +998,7 @@ export function createLocalWorktree(
   repo: Repo,
   store: Store,
   mainWindow: BrowserWindow,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   timing: WorktreeCreateTimingRecorder = createWorktreeCreateTimingRecorder(),
   onWorkspaceCreated?: (worktreeId: string) => void
 ): Promise<CreateWorktreeResult> {
@@ -1034,7 +1034,7 @@ async function performLocalWorktreeCreate(
   mainWindow: BrowserWindow,
   rearm: PreparationRearmHolder,
   timing: WorktreeCreateTimingRecorder,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   pathClaim: WorktreeCreatePathClaim,
   onWorkspaceCreated?: (worktreeId: string) => void
 ): Promise<CreateWorktreeResult> {
@@ -1705,10 +1705,10 @@ async function performLocalWorktreeCreate(
     lastActivityAt: now,
     // createdAt protects the new worktree from ambient PTY bumps for CREATE_GRACE_MS.
     createdAt: now,
-    orcaCreatedAt: now,
-    orcaCreationSource: 'desktop',
+    openkodoCreatedAt: now,
+    openkodoCreationSource: 'desktop',
     creatorProvenance: { kind: 'host' },
-    orcaCreationWorkspaceLayout: getWorktreeCreationLayout(repo, settings),
+    openkodoCreationWorkspaceLayout: getWorktreeCreationLayout(repo, settings),
     ...(args.automationProvenance ? { automationProvenance: args.automationProvenance } : {}),
     ...(args.cliProvenance ? { cliProvenance: args.cliProvenance } : {}),
     baseRef: metadataBaseRef,

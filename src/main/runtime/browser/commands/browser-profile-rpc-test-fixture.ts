@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { RpcDispatcher } from '../../rpc/dispatcher'
 import { BROWSER_PROFILE_METHODS } from '../../rpc/methods/browser/browser-profile-rpc-methods'
 import { RuntimeBrowserProfiles } from './browser-profiles'
@@ -31,7 +31,7 @@ export function browserProfileRpcFixture(executorRuntimeId: string, outerRuntime
     { replace: unavailable },
     { browserTabClose: unavailable }
   )
-  const runtime = new OrcaRuntimeService(null)
+  const runtime = new OpenKodoRuntimeService(null)
   vi.spyOn(runtime, 'getRuntimeId').mockReturnValue(outerRuntimeId)
   vi.spyOn(runtime, 'browserProfileList').mockImplementation(() => profiles.browserProfileList())
   vi.spyOn(runtime, 'browserProfileImportFromBrowser').mockImplementation(

@@ -1,6 +1,6 @@
 import { prepareStructuredWorkspaceAuthority } from './structured-workspace-authority'
 import type { AgentSessionExecutionLocation } from '../../../../shared/agent-session/lifecycle/agent-session-record'
-import { OrcaRuntimeWithStructuredSessionAccountHome } from './structured-session-account-home'
+import { OpenKodoRuntimeWithStructuredSessionAccountHome } from './structured-session-account-home'
 import {
   isNativeLocalLocation,
   LOCAL_EXECUTION_HOST_ID,
@@ -17,19 +17,19 @@ import { parseWorkspaceKey } from '../../../../shared/workspace/identity/workspa
 import { composeWorktreeId, splitWorktreeIdForFilesystem } from '../../../../shared/worktree/id'
 import { resolveWorktreeHostRouting } from '../../workspaces/catalog/worktree-launch-host-repo'
 import type { RuntimeWorkspaceFileTargets } from '../../workspaces/workspace-file-session-targets'
-import type { OrcaRuntimeWithTransitionGraphReloadToTerminalState } from '../../session-graph/session-graph-authority'
+import type { OpenKodoRuntimeWithTransitionGraphReloadToTerminalState } from '../../session-graph/session-graph-authority'
 import type { RuntimeWorkspaceCatalog } from '../../workspaces/catalog/workspace-catalog'
 import type { RuntimeWorkspaceSelectors } from '../../workspaces/workspace-selectors'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import type { NotificationAttentionAcknowledgement } from '../../../../shared/notifications/notification-settings-types'
 
-export abstract class StructuredSessionWorkspaceScope extends OrcaRuntimeWithStructuredSessionAccountHome {
+export abstract class StructuredSessionWorkspaceScope extends OpenKodoRuntimeWithStructuredSessionAccountHome {
   protected abstract resolveFolderWorkspaceSelector(
     ...args: Parameters<
-      OrcaRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceSelector']
+      OpenKodoRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceSelector']
     >
   ): ReturnType<
-    OrcaRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceSelector']
+    OpenKodoRuntimeWithTransitionGraphReloadToTerminalState['resolveFolderWorkspaceSelector']
   >
 
   protected abstract buildResolvedWorktreeFromId(

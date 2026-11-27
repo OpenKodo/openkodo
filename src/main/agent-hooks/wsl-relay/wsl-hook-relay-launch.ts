@@ -1,10 +1,10 @@
 import type { ChildProcessWithoutNullStreams } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { relayBundleCandidates } from '../../wsl/execution/relay-bundle-paths'
 import { withWslGuestLauncherRevision } from '../../wsl/execution/wsl-guest-launcher-revision'
-import { orcadPosixNodeRuntimeGlobs } from '../../managed-server/install/orcad-node-runtime-globs'
+import { openkododPosixNodeRuntimeGlobs } from '../../managed-server/install/openkodod-node-runtime-globs'
 
 import type { MultiplexerTransport } from '../../ssh/protocol/ssh-multiplexer-transport-writer'
 import {
@@ -12,7 +12,7 @@ import {
   type waitForWslRelaySentinel,
   type WslRelayStartupFailure
 } from './wsl-hook-relay-sentinel'
-import { addOrcaWslInteropEnv } from '../../pty/shell-startup/wsl-orca-env'
+import { addOpenKodoWslInteropEnv } from '../../pty/shell-startup/wsl-openkodo-env'
 import { runWslProcess } from '../../wsl/execution/wsl-runner'
 import { resolveWslExecutablePath } from '../../wsl/execution/wsl-executable-path'
 import { buildWslExecArgs } from '../../../shared/shell/wsl/wsl-login-shell-command'
@@ -54,15 +54,15 @@ function guestRelayDirExpr(version: string): string {
 /** Probe candidate Node versions: noninteractive sh may miss a newer nvm installation. */
 export function buildGuestLaunchScript(version: string): string {
   const dir = guestRelayDirExpr(version)
-  // A WSL host distro may have no system node but usually has orcad's pinned runtime.
-  const [orcadRuntime, orcadMachineRuntimes] = orcadPosixNodeRuntimeGlobs()
+  // A WSL host distro may have no system node but usually has openkodod's pinned runtime.
+  const [openkododRuntime, openkododMachineRuntimes] = openkododPosixNodeRuntimeGlobs()
   return [
     '#!/bin/sh',
     `d="${dir}"`,
     `v="$(cat "$d/${WSL_HOOK_RELAY_VERSION_FILE}" 2>/dev/null || true)"`,
     `[ -n "$${WSL_HOOK_RELAY_VERSION_ENV}" ] && [ "$v" = "$${WSL_HOOK_RELAY_VERSION_ENV}" ] || exit ${WSL_HOOK_RELAY_STALE_EXIT_CODE}`,
     'n=""',
-    `for c in "$(command -v node 2>/dev/null || true)" "$HOME/.nvm/versions/node"/*/bin/node /usr/local/bin/node /usr/bin/node "$HOME/.local/bin/node" ${orcadRuntime} ${orcadMachineRuntimes}; do`,
+    `for c in "$(command -v node 2>/dev/null || true)" "$HOME/.nvm/versions/node"/*/bin/node /usr/local/bin/node /usr/bin/node "$HOME/.local/bin/node" ${openkododRuntime} ${openkododMachineRuntimes}; do`,
     '  [ -n "$c" ] && [ -x "$c" ] || continue',
     `  if "$c" -e 'process.exit(Number(process.versions.node.split(".")[0])>=18?0:1)' 2>/dev/null; then`,
     '    n="$c"',
@@ -233,6 +233,6 @@ export function buildWslRelaySpawnEnv(
   }
   // The guest derives its endpoint path; do not translate the Windows endpoint through WSLENV.
   delete env.OPENKODO_AGENT_HOOK_ENDPOINT
-  addOrcaWslInteropEnv(env as Record<string, string>)
+  addOpenKodoWslInteropEnv(env as Record<string, string>)
   return env
 }

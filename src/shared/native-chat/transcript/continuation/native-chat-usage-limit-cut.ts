@@ -7,7 +7,10 @@ import type { AgentJournalRenderItem } from '../../../agent-session/journal/agen
 import type { AgentJournalCardSubmission } from '../../../agent-session/requests/agent-session-queued-submission'
 import type { AgentSessionUsageLimit } from '../../../agent-session/failures/agent-session-usage-limit'
 import type { UsageLimitContinueIdentity } from '../../../agent-session/lifecycle/stopping/agent-session-usage-limit-continue'
-import { findInNativeChatTurn, latestNativeChatTurnSinceRequest } from './native-chat-orca-stop-cut'
+import {
+  findInNativeChatTurn,
+  latestNativeChatTurnSinceRequest
+} from './native-chat-openkodo-stop-cut'
 
 /** What the agent is sent when the person continues a turn its usage limit ended. */
 export const NATIVE_CHAT_USAGE_LIMIT_CONTINUE_MESSAGE = 'Continue where you left off.'

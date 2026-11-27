@@ -14,7 +14,7 @@ import { useMountedRef } from '@/hooks/useMountedRef'
 import { useTranslate } from '@/i18n/use-translate'
 import { hasGitHubBackedProject, type PreflightIssue } from './landing-preflight-issues'
 import { useLandingPreflightRuntime } from './landing-preflight-runtime'
-import { useLandingOrcaStarState, type LandingStarState } from './landing-github-star-state'
+import { useLandingOpenKodoStarState, type LandingStarState } from './landing-github-star-state'
 import { openAppHttpLink } from '@/lib/browser/navigation/app-http-link-open'
 import {
   LANDING_ACTION_BUTTON_CLASS,
@@ -68,7 +68,7 @@ function GitHubStarButton({
       return
     }
     setState('starred')
-    const ok = await window.api.gh.starOrca('landing')
+    const ok = await window.api.gh.starOpenKodo('landing')
     if (!ok) {
       if (mountedRef.current) {
         setState('web-fallback')
@@ -230,7 +230,7 @@ export default function Landing(): React.JSX.Element {
 
   // Probe the active execution host, including remote runtimes.
   const { preflightIssues } = useLandingPreflightRuntime()
-  const [starState, setStarState] = useLandingOrcaStarState()
+  const [starState, setStarState] = useLandingOpenKodoStarState()
 
   const createWorktreeShortcut = useShortcutKeyDetails('workspace.create')
   const previousWorktreeShortcut = useShortcutKeyDetails('worktree.navigateUp')

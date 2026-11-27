@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslate } from '@/i18n/use-translate'
 import { useAppStore } from '@/store'
 import type { Bot } from '../../../../../shared/bot-types'
-import { useOrcaCloudSignedOut } from '../orca-cloud-signed-out'
+import { useOpenKodoCloudSignedOut } from '../openkodo-cloud-signed-out'
 import { BotShareOfflineRow, BotShareUpdatedLine } from '../sharing/BotShareDialog'
 import { BotSharePreview } from '../sharing/BotShareFlow'
 import { useBotShareLink, type LinkRead } from '../sharing/use-bot-share-link'
@@ -23,7 +23,7 @@ export function BotSharingGroup({
   open: (page: BotSettingsPage) => void
 }): React.JSX.Element {
   const t = useTranslate()
-  const { read } = useBotShareLink(bot.id, undefined, useOrcaCloudSignedOut())
+  const { read } = useBotShareLink(bot.id, undefined, useOpenKodoCloudSignedOut())
   const link = read.kind === 'read' ? read.link : undefined
   const value =
     link === null
@@ -45,7 +45,7 @@ export function BotSharingGroup({
 }
 
 export function BotSharingPage({ bot }: { bot: Bot }): React.JSX.Element {
-  const linkState = useBotShareLink(bot.id, undefined, useOrcaCloudSignedOut())
+  const linkState = useBotShareLink(bot.id, undefined, useOpenKodoCloudSignedOut())
   const { read, reread } = linkState
   const [sharing, setSharing] = useState(false)
   return (

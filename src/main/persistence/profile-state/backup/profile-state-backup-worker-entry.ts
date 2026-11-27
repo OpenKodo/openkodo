@@ -3,7 +3,7 @@ import { writeProfileStateBackup } from './profile-state-backup-job'
 import { isRecord } from '../documents/profile-state-document-validation'
 import { installWorkerSendLedger } from '../../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-profile-state-backup')
+installWorkerSendLedger('openkodo-profile-state-backup')
 
 if (!parentPort) {
   throw new Error('Profile state backup must run on a worker thread')

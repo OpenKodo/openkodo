@@ -7,7 +7,7 @@ import { pasteTextIntoTextControl } from '../../text-input/paste/text-control-pa
 import { createTextControlRejectedResult } from '../../text-input/paste/text-control-paste-diagnostics'
 import { findOwnedTextControlPasteTarget } from '../../text-input/paste/text-control-paste-ownership'
 
-export const APP_MENU_PASTE_EVENT = 'orca-app-menu-paste'
+export const APP_MENU_PASTE_EVENT = 'openkodo-app-menu-paste'
 
 export type AppMenuPasteRequestResult =
   | { status: 'handled'; target: 'terminal' | 'text-control' }

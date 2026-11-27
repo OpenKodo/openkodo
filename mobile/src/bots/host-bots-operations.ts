@@ -235,7 +235,7 @@ const botRowLinkSchema = z.looseObject({
   paneKey: z.string(),
   title: z.string().optional(),
   place: z.string().optional(),
-  lastTurn: z.enum(['conversation', 'orca']).optional()
+  lastTurn: z.enum(['conversation', 'openkodo']).optional()
 })
 
 /** Each folder's thread links, for its bot row's line: which panes are its threads, and where. */

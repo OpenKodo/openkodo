@@ -15,7 +15,7 @@ import {
   shouldCapSwitchTargets,
   worktreeSelector
 } from './live-remote-bulk-open-freeze-metrics.mjs'
-import { createOrcaRpc } from './live-remote-freeze-rpc.mjs'
+import { createOpenKodoRpc } from './live-remote-freeze-rpc.mjs'
 
 const root = path.resolve(import.meta.dirname, '../../../..')
 const reportDir = path.join(root, 'test-results', 'freeze-repro')
@@ -31,7 +31,7 @@ const createWorktreeSpan = Math.max(1, readFreezeNumberEnv('OPENKODO_FREEZE_CREA
 const preFloodMs = Math.max(0, readFreezeNumberEnv('OPENKODO_FREEZE_PRE_FLOOD_MS', 3000))
 const scratchDir = process.env.OPENKODO_FREEZE_SCRATCH || ''
 
-const { orcaJsonSync, orcaJsonAsync } = createOrcaRpc({ envName })
+const { openkodoJsonSync, openkodoJsonAsync } = createOpenKodoRpc({ envName })
 
 async function mapPool(items, concurrency, worker) {
   const results = Array.from({ length: items.length })
@@ -48,17 +48,17 @@ async function mapPool(items, concurrency, worker) {
   return results
 }
 
-function sampleOrcaIfPossible() {
+function sampleOpenKodoIfPossible() {
   if (process.platform !== 'darwin') {
     return null
   }
   try {
-    const status = orcaJsonSync(['status'], { local: true }).result
+    const status = openkodoJsonSync(['status'], { local: true }).result
     const pid = status?.app?.pid
     if (!pid) {
       return null
     }
-    const out = path.join(reportDir, `orca-sample-${Date.now()}.txt`)
+    const out = path.join(reportDir, `openkodo-sample-${Date.now()}.txt`)
     const sampled = spawnSync('sample', [String(pid), '5', '-file', out], {
       timeout: 20_000,
       stdio: 'ignore'
@@ -86,14 +86,14 @@ async function main() {
     `[live-freeze] env=${envName} create=${createCount} passes=${switchPasses} parallel=${parallel}`
   )
 
-  const status = orcaJsonSync(['status'])
+  const status = openkodoJsonSync(['status'])
   notes.push(
     `remote version=${status.result?.runtime?.appVersion} state=${status.result?.runtime?.state}`
   )
-  const local = orcaJsonSync(['status'], { local: true })
+  const local = openkodoJsonSync(['status'], { local: true })
   notes.push(`local version=${local.result?.runtime?.appVersion} pid=${local.result?.app?.pid}`)
 
-  const worktrees = orcaJsonSync(['worktree', 'list']).result
+  const worktrees = openkodoJsonSync(['worktree', 'list']).result
   const wtList = worktrees?.worktrees || worktrees?.items || worktrees || []
   if (!Array.isArray(wtList) || wtList.length === 0) {
     throw new Error(`No worktrees on environment ${envName}`)
@@ -117,7 +117,7 @@ async function main() {
       }
       const marker = `LIVE_BULK_${Date.now()}_${i}`
       try {
-        const createdTerm = await orcaJsonAsync(
+        const createdTerm = await openkodoJsonAsync(
           [
             'terminal',
             'create',
@@ -157,7 +157,7 @@ async function main() {
 
   let live = []
   try {
-    const listed = orcaJsonSync(['terminal', 'list'])
+    const listed = openkodoJsonSync(['terminal', 'list'])
     const terms = listed.result?.terminals || []
     live = terms
       .filter(
@@ -205,7 +205,7 @@ async function main() {
       const batchResults = await Promise.all(
         batch.map(async (handle) => {
           try {
-            const sw = await orcaJsonAsync(['terminal', 'switch', '--terminal', handle], {
+            const sw = await openkodoJsonAsync(['terminal', 'switch', '--terminal', handle], {
               timeoutMs: 90_000
             })
             return { handle, ms: sw.elapsedMs, ok: true }
@@ -245,10 +245,10 @@ async function main() {
   const bulkWallMs = performance.now() - switchStarted
   const avgSwitchMs = switchCount ? sumSwitchMs / switchCount : 0
 
-  const statusProbe = orcaJsonSync(['status'], { local: true })
+  const statusProbe = openkodoJsonSync(['status'], { local: true })
   let memoryProbeMs = null
   try {
-    const mem = orcaJsonSync(['diagnostics', 'memory'], { local: true, timeoutMs: 120_000 })
+    const mem = openkodoJsonSync(['diagnostics', 'memory'], { local: true, timeoutMs: 120_000 })
     memoryProbeMs = mem.elapsedMs
     notes.push(`memory diagnostic ms=${mem.elapsedMs.toFixed(0)}`)
   } catch (error) {
@@ -266,7 +266,7 @@ async function main() {
 
   let samplePath = null
   if (softFreeze || hardFreeze) {
-    samplePath = sampleOrcaIfPossible()
+    samplePath = sampleOpenKodoIfPossible()
     if (samplePath) {
       notes.push(`sample=${samplePath}`)
     } else {

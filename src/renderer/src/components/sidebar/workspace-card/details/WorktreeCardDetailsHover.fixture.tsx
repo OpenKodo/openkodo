@@ -81,7 +81,7 @@ const review = {
 const linearIssue = {
   identifier: 'ORC-412',
   title: 'Sidebar hovercard should summarize linked tasks without crowding the PR row',
-  url: 'https://linear.app/orca/issue/ORC-412',
+  url: 'https://linear.app/openkodo/issue/ORC-412',
   stateName: 'In Progress',
   stateType: 'started',
   labels: ['design', 'sidebar']
@@ -90,7 +90,7 @@ const linearIssue = {
 const jiraIssue = {
   identifier: 'PLAT-2087',
   title: 'Rotate staging webhook signing secrets',
-  url: 'https://orca.atlassian.net/browse/PLAT-2087'
+  url: 'https://openkodo.atlassian.net/browse/PLAT-2087'
 }
 
 function workspaceWith(linkedItems: WorkspaceAttachment[]): Worktree {
@@ -126,9 +126,9 @@ export const githubIssueWithReview = defineFixture({
       review={review}
       onManageLinks={noop}
       onEditIssue={noop}
-      onOpenGitHubIssueInOrca={noop}
+      onOpenGitHubIssueInOpenKodo={noop}
       onOpenIssueInBrowser={noop}
-      onOpenReviewInOrca={noop}
+      onOpenReviewInOpenKodo={noop}
       onUnlinkReview={noop}
     />
   )
@@ -142,8 +142,8 @@ export const linearIssueWithReview = defineFixture({
       linearIssue={linearIssue}
       review={{ ...review, state: 'open', status: 'pending' }}
       onManageLinks={noop}
-      onOpenLinearIssueInOrca={noop}
-      onOpenReviewInOrca={noop}
+      onOpenLinearIssueInOpenKodo={noop}
+      onOpenReviewInOpenKodo={noop}
     />
   )
 })
@@ -176,7 +176,7 @@ export const closedIssueManyLabels = defineFixture({
       review={null}
       onManageLinks={noop}
       onEditIssue={noop}
-      onOpenGitHubIssueInOrca={noop}
+      onOpenGitHubIssueInOpenKodo={noop}
       onOpenIssueInBrowser={noop}
     />
   )
@@ -201,7 +201,7 @@ export const linkedCollection = defineFixture({
       linearIssue={linearIssue}
       review={review}
       onManageLinks={noop}
-      onOpenReviewInOrca={noop}
+      onOpenReviewInOpenKodo={noop}
     />
   )
 })
@@ -224,7 +224,7 @@ export const narrowLongMetadata = defineFixture({
         onManageLinks={noop}
         onEditIssue={noop}
         onOpenIssueInBrowser={noop}
-        onOpenReviewInOrca={noop}
+        onOpenReviewInOpenKodo={noop}
       />
     </>
   )

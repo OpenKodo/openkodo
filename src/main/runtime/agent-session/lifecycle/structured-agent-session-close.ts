@@ -1,7 +1,7 @@
 import type { StructuredAgentSessionCloseWork } from '../../../native-chat/agent-session-wire/termination/structured-agent-session-close-work'
 import type { StructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-host'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { runsForBot } from '../../../bots/bot-session-tabs'
 import type { StructuredAgentSessionCloseCause } from '../../../native-chat/agent-session-wire/termination/structured-agent-session-host-lifetime'
 import {
@@ -19,7 +19,7 @@ export type StructuredAgentSessionCloseOutcome = {
 }
 
 export type StructuredSessionSurfaceRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'currentLocalStructuredSessionPresentation'
   | 'captureStructuredAgentSessionPresentation'
   | 'retireStructuredAgentSessionTabFromSnapshot'
@@ -271,7 +271,7 @@ export async function closeCapturedStructuredSession(
   sessionId: string,
   cause: StructuredAgentSessionCloseCause,
   surface: StructuredSessionSurface | null,
-  runtime: StructuredSessionSurfaceRuntime & Partial<Pick<OrcaRuntimeService, 'bots'>>
+  runtime: StructuredSessionSurfaceRuntime & Partial<Pick<OpenKodoRuntimeService, 'bots'>>
 ): Promise<boolean> {
   if (surface && !structuredSessionSurfaceIsCurrent(host, sessionId, surface, runtime)) {
     return false

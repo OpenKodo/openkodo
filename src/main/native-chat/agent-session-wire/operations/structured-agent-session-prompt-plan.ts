@@ -1,5 +1,5 @@
 import type { AgentSessionPromptResult } from '../../../../shared/agent-session/agent-session-wire'
-import { refusingNewerOrcaJournal } from '../../agent-session-journal/replay/journal-open-failure'
+import { refusingNewerOpenKodoJournal } from '../../agent-session-journal/replay/journal-open-failure'
 import type { MutationPlan } from './structured-agent-session-mutation-plans'
 import {
   promptAnswerReceipt,
@@ -29,7 +29,7 @@ export function promptPlan(
       unwritten: (value) => promptAnswerReceipt(value)
     },
     acceptanceRecord: { kind: 'validated-plan' },
-    run: (ctx) => refusingNewerOrcaJournal(performPrompt(ctx, params)),
+    run: (ctx) => refusingNewerOpenKodoJournal(performPrompt(ctx, params)),
     replay: (_ctx, _outcome, receipt) => acceptedPromptAnswer(receipt)
   }
 }

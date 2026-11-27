@@ -1,6 +1,6 @@
 import { spawn, type SpawnOptions } from 'node:child_process'
-import { spawnProcess } from '@orca/process-host'
-import type { ProcessSpec } from '@orca/process-host/process-spec'
+import { spawnProcess } from '@openkodo/process-host'
+import type { ProcessSpec } from '@openkodo/process-host/process-spec'
 import {
   SERVE_UPDATE_HANDOFF_PATH_ENV,
   getServeUpdateHandoffPath
@@ -26,20 +26,23 @@ import {
   getExecutableAppArgs,
   resolveAppChildCwd,
   resolveAppRoot,
-  resolveForegroundOrcaExecutable,
+  resolveForegroundOpenKodoExecutable,
   stripElectronRunAsNode
-} from './orca-app-executable'
+} from './openkodo-app-executable'
 import {
   SERVE_RUNTIME_ELECTRON,
   SERVE_RUNTIME_ENV
-} from '../../shared/remote-runtime/serve-supervisor/orcad-local-serve-selection'
+} from '../../shared/remote-runtime/serve-supervisor/openkodod-local-serve-selection'
 import { findBundledWebClientRoot } from '../../shared/web-client/bundled-web-client-root'
-import { resolveLocalServeRuntime, serveWithOrcad } from './serve/startup/serve-orcad-launch'
+import {
+  resolveLocalServeRuntime,
+  serveWithOpenkodod
+} from './serve/startup/serve-openkodod-launch'
 import { findAppSpeechRecognizerDir } from './app-launch/serve-speech-recognizer'
 import {
   serveOptionArgs,
-  type ServeOrcaAppArgs
-} from '../../shared/remote-runtime/serve-supervisor/orcad-serve-argv'
+  type ServeOpenKodoAppArgs
+} from '../../shared/remote-runtime/serve-supervisor/openkodod-serve-argv'
 import { waitForRecipeJson } from './serve/startup/serve-recipe-json'
 import {
   preflightElectronServe,
@@ -69,14 +72,14 @@ import {
 
 const STARTUP_ABORT_MS = 30_000
 
-export function launchOrcaApp(): void {
+export function launchOpenKodoApp(): void {
   const overrideCommand = process.env.OPENKODO_OPEN_COMMAND
   if (typeof overrideCommand === 'string' && overrideCommand.trim().length > 0) {
     spawnDetached(overrideCommand, [], { shell: true })
     return
   }
 
-  // Launch on the same profile whose metadata openOrca awaits.
+  // Launch on the same profile whose metadata openOpenKodo awaits.
   const userDataPath = resolveLaunchUserDataPath()
   const overrideExecutable = process.env.OPENKODO_APP_EXECUTABLE
   if (typeof overrideExecutable === 'string' && overrideExecutable.trim().length > 0) {
@@ -140,17 +143,17 @@ function spawnDetached(command: string, args: string[], options: SpawnOptions): 
     stdio: 'ignore',
     ...options
   })
-  // Handle asynchronous spawn errors; openOrca reports startup failure via its timeout.
+  // Handle asynchronous spawn errors; openOpenKodo reports startup failure via its timeout.
   child.once('error', () => {})
   child.unref()
 }
 
-export function serveOrcaApp(args: ServeOrcaAppArgs = {}): Promise<number> {
+export function serveOpenKodoApp(args: ServeOpenKodoAppArgs = {}): Promise<number> {
   // Install the PID 1 reaper before spawning so orphaned descendants are collected.
   reexecThisServeUnderInitReaper()
   noteServeSupervisorStart()
-  const executable = resolveForegroundOrcaExecutable()
-  // Runtime selection, orcad, and Electron must use the same profile.
+  const executable = resolveForegroundOpenKodoExecutable()
+  // Runtime selection, openkodod, and Electron must use the same profile.
   const userDataPath = resolveLaunchUserDataPath()
   if (args.supervise) {
     // Successful relocation replaces this process and never resolves.
@@ -178,7 +181,7 @@ export function serveOrcaApp(args: ServeOrcaAppArgs = {}): Promise<number> {
 
 function serveOnce(
   executable: string,
-  args: ServeOrcaAppArgs,
+  args: ServeOpenKodoAppArgs,
   userDataPath: string
 ): Promise<number> {
   if (process.env[SERVE_RUNTIME_ENV] === SERVE_RUNTIME_ELECTRON) {
@@ -189,7 +192,7 @@ function serveOnce(
 
 async function serveWithSelectedRuntime(
   executable: string,
-  args: ServeOrcaAppArgs,
+  args: ServeOpenKodoAppArgs,
   userDataPath: string
 ): Promise<number> {
   const selection = await resolveLocalServeRuntime({
@@ -198,14 +201,14 @@ async function serveWithSelectedRuntime(
     userDataPath,
     usesMacUpdateHandoff: args.recipeJson !== true && getMacAppBundlePath(executable) !== null
   })
-  if (selection.kind === 'orcad') {
-    // Exit 3 waits for the profile owner; orcad’s exit 78 would count against the crash brake.
+  if (selection.kind === 'openkodod') {
+    // Exit 3 waits for the profile owner; openkodod’s exit 78 would count against the crash brake.
     const refusal = args.supervise ? await refuseIfProfileServed(args, userDataPath) : null
     if (refusal !== null) {
       return refusal
     }
-    process.stderr.write(`[serve] running on orcad ${selection.version}\n`)
-    return serveWithOrcad(
+    process.stderr.write(`[serve] running on openkodod ${selection.version}\n`)
+    return serveWithOpenkodod(
       selection,
       args,
       userDataPath,
@@ -232,7 +235,7 @@ function servedAppImageForBrowser(executable: string): string | undefined {
 
 function serveWithElectron(
   executable: string,
-  args: ServeOrcaAppArgs,
+  args: ServeOpenKodoAppArgs,
   userDataPath: string
 ): Promise<number> {
   const preflight = preflightElectronServe(args, userDataPath)
@@ -246,7 +249,7 @@ function serveWithElectron(
 
 function spawnElectronServe(
   executable: string,
-  args: ServeOrcaAppArgs,
+  args: ServeOpenKodoAppArgs,
   userDataPath: string
 ): Promise<number> {
   const pinned = pinServeUserDataPath(

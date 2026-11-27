@@ -1,7 +1,7 @@
 /** The notice writer for every question a taker holds: bot questions tell their asking agent, and
  *  worker asks tell their worker, here or on the paired computer that runs it. */
 
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { QuestionNoticeWriter } from '../../../../orchestration/mailbox/questions/question-reconcile'
 import type { ChatStateReader } from '../../../../../native-chat/agent-session-wire/observations/chat-turn-running'
 import { botQuestionNotices } from './bot-question-notices'
@@ -9,7 +9,7 @@ import { workerAskNotices } from './worker-ask-notices'
 import { remoteAskNotices } from './remote-ask-notices'
 
 export async function agentQuestionNotices(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   taker: string,
   messageIds: readonly string[],
   readChat?: ChatStateReader

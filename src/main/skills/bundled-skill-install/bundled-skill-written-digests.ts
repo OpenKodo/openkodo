@@ -10,7 +10,7 @@ const SHA256_HEX = /^[0-9a-f]{64}$/u
  * reads what the others wrote, so a copy a newer build installed is not mistaken for a user edit.
  */
 function writtenDigestPath(homeDirectory: string, name: string, digest: string): string {
-  return join(homeDirectory, '.agents', '.orca-skill-digests', name, digest)
+  return join(homeDirectory, '.agents', '.openkodo-skill-digests', name, digest)
 }
 
 /** Whether some OpenKodo build on this host installed `SKILL.md` text with this digest. */

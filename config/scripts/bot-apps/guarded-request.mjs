@@ -159,7 +159,7 @@ export function createGuardedClient({
 
   async function send(method, target, extraHeaders = {}, body = undefined) {
     const headers = {
-      'user-agent': 'orca-bot-app-check',
+      'user-agent': 'openkodo-bot-app-check',
       'accept-encoding': 'identity',
       ...extraHeaders
     }

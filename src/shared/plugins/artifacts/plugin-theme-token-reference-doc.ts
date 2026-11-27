@@ -163,10 +163,10 @@ const FRAME_ONLY_ROLES: Record<string, string> = {
   '--font-mono': 'Monospace font stack for code'
 }
 
-/** The `--orca-*` CSS variables panel and editor frames get, with what each paints. */
+/** The `--openkodo-*` CSS variables panel and editor frames get, with what each paints. */
 export function pluginFrameThemeVariables(): { variable: string; token: string; paints: string }[] {
   return PANEL_DESIGN_TOKEN_ALLOWLIST.map((token) => ({
-    variable: `--orca-${token.slice(2)}`,
+    variable: `--openkodo-${token.slice(2)}`,
     token,
     paints: isAppThemeToken(token) ? TOKEN_ROLES[token] : (FRAME_ONLY_ROLES[token] ?? '')
   }))

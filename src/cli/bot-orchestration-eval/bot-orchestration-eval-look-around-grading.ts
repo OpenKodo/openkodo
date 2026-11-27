@@ -11,7 +11,8 @@ export const onlySuggests: TurnCheck = (turn) => [
     .map((write) => `look-around wrote ${write.method}`),
   ...turn.commands
     .filter(
-      (argv) => !lookAroundCommandAllowed(['orca', ...argv].map((word) => `'${word}'`).join(' '))
+      (argv) =>
+        !lookAroundCommandAllowed(['openkodo', ...argv].map((word) => `'${word}'`).join(' '))
     )
     .map((argv) => `look-around tried refused command: ${argv.join(' ')}`),
   ...(isQuietBotResult(turn.reply) ? [] : ['look-around did not finish quietly'])

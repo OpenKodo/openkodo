@@ -17,7 +17,7 @@ import {
   profileStateWriterPatching
 } from '../documents/profile-state-patched-domains'
 
-installWorkerSendLedger('orca-profile-state-writer')
+installWorkerSendLedger('openkodo-profile-state-writer')
 
 if (!parentPort) {
   throw new Error('Profile state writer requires a worker thread')

@@ -2,7 +2,7 @@
 // turn by index alone and OpenKodo's request records by id, so a person's thread or a handed-over
 // request's place. Nothing reads the chat's history, its automation runs or its earlier record; an
 // automation's prompt names no place here (its record can't say which thread its results answer).
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { BotWakingPlace } from '../../../../../bots/bot-request-asker'
 import { readNewestBotActingTurn } from '../../../../../bots/bot-acting-turn-read'
@@ -14,7 +14,7 @@ import { workspaceOf } from './bot-recipient'
 /** The thread, issue or pull request the running turn's work started in; null when none, or when
  *  only reading the whole chat could tell (thrown as `JournalWindowNotIndexed`). */
 export async function readBotTurnOrigin(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   sessionId: string
 ): Promise<BotWakingPlace | null> {

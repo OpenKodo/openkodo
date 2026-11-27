@@ -1,4 +1,4 @@
-import type { AgentJournalOrcaCardItem } from '../../../../shared/agent-journal-orca-card-items'
+import type { AgentJournalOpenKodoCardItem } from '../../../../shared/agent-journal-openkodo-card-items'
 import type { AgentJournalCursor } from '../../../../shared/agent-session/journal/agent-session-journal-identity'
 import type {
   AgentJournalPlainStatusItem,
@@ -39,7 +39,7 @@ export type JournalWriterStep =
       epoch: string
       reservedBytes: number
       /** OpenKodo's own cards and status lines; each named once by its identity. */
-      body: AgentJournalOrcaCardItem | AgentJournalPlainStatusItem
+      body: AgentJournalOpenKodoCardItem | AgentJournalPlainStatusItem
     })
   | {
       kind: 'resolved-item'

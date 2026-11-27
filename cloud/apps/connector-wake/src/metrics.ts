@@ -7,7 +7,7 @@ export type MetricEvent =
   | 'socket_open'
   // label = close code the desktop or runtime gave.
   | 'socket_close'
-  // Desktop-reported gap since its previous socket closed (x-orca-wake-gap-ms), value = ms.
+  // Desktop-reported gap since its previous socket closed (x-openkodo-wake-gap-ms), value = ms.
   | 'reconnect_gap'
   // Every refusal the Worker or object sends: label '<status or code>', reason 'token' | 'country' | 'shape' | 'frame';
   // a 'token' refusal's detail is the check that failed (jwt.ts WAKE_REFUSE_CODES).

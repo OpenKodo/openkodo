@@ -4,10 +4,10 @@ import type {
   HostServerOnConnectDeps,
   HostServerOnConnectResult
 } from './ssh-host-server-on-connect'
-import { orcadMigrationConflictGuidance } from '../../managed-server/migration/cutover/orcad-migration-conflict-guidance'
+import { openkododMigrationConflictGuidance } from '../../managed-server/migration/cutover/openkodod-migration-conflict-guidance'
 import { boundedDetail, setupFailure, type SetupFailure } from './ssh-host-server-setup-failure'
 import { isSshSessionStartFailure } from '../connection/ssh-session-start-failure'
-import { classifyOrcadHostUnavailable } from '../../orcad/diagnostics/orcad-host-unavailable'
+import { classifyOpenkododHostUnavailable } from '../../openkodod/diagnostics/openkodod-host-unavailable'
 import {
   reportHostServerSetupError,
   type HostServerDecisionTrace
@@ -25,8 +25,8 @@ export function setupFailed(
   if (isSshSessionStartFailure(error)) {
     return sshSessionStartFailed(target, deps, empty, error)
   }
-  const unavailable = classifyOrcadHostUnavailable(error)
-  const conflict = empty ? null : orcadMigrationConflictGuidance(error)
+  const unavailable = classifyOpenkododHostUnavailable(error)
+  const conflict = empty ? null : openkododMigrationConflictGuidance(error)
   if (conflict) {
     return unfinished(target, deps, unavailable, empty, 'refused', { detail: conflict })
   }
@@ -55,7 +55,7 @@ export function deferred(
   empty: boolean
 ): Promise<HostServerOnConnectResult> {
   console.warn(`[ssh] Managed OpenKodo server setup deferred (${result.code}):`, result.reason)
-  const unavailable = classifyOrcadHostUnavailable({ code: result.code })
+  const unavailable = classifyOpenkododHostUnavailable({ code: result.code })
   return unfinished(target, deps, unavailable, empty, 'deferred', {
     detail: result.reason,
     code: result.code
@@ -80,7 +80,7 @@ async function unfinished(
   // Re-read the journal: abort may have released the fence or discovered commit.
   const held = !empty && !unavailable && deps.hasUnfinishedConversion(target)
   if (!unavailable) {
-    // Publish host-specific setup detail, including bounded orcad.log tail when available.
+    // Publish host-specific setup detail, including bounded openkodod.log tail when available.
     return {
       route: 'unserved',
       reason,
@@ -92,5 +92,5 @@ async function unfinished(
     }
   }
   deps.recordUnavailable(target, unavailable)
-  return { route: 'unserved', reason: 'orcad_unavailable', detail: unavailable }
+  return { route: 'unserved', reason: 'openkodod_unavailable', detail: unavailable }
 }

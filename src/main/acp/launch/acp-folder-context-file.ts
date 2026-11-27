@@ -6,27 +6,27 @@ import { realFolderUnderRoot } from '../../filesystem/real-folder-under-root'
 const header = (agentName: string) =>
   `<!-- OpenKodo writes this file for ${agentName} chats in this folder; edits are replaced. -->`
 
-const BLOCK_START = '<!-- orca:begin -->'
-const BLOCK_END = '<!-- orca:end -->'
+const BLOCK_START = '<!-- openkodo:begin -->'
+const BLOCK_END = '<!-- openkodo:end -->'
 
 /** OpenKodo's own file is replaced whole; a file the user wrote keeps their text and gets OpenKodo's block. */
-function withOrcaText(existing: string | null, rawText: string, agentName: string): string {
-  const text = rawText.replace(/<!--\s*orca:(begin|end)\s*-->/g, '')
+function withOpenKodoText(existing: string | null, rawText: string, agentName: string): string {
+  const text = rawText.replace(/<!--\s*openkodo:(begin|end)\s*-->/g, '')
   if (existing === null || existing.startsWith(header(agentName))) {
     return `${header(agentName)}\n\n${text}\n`
   }
   const block = `${BLOCK_START}\n${text}\n${BLOCK_END}`
-  const range = orcaBlockRange(existing)
+  const range = openkodoBlockRange(existing)
   if (range) {
     return existing.slice(0, range.start) + block + existing.slice(range.end)
   }
   return `${existing.trimEnd()}\n\n${block}\n`
 }
 
-function orcaBlockRange(existing: string): { start: number; end: number } | null {
+function openkodoBlockRange(existing: string): { start: number; end: number } | null {
   // Only markers alone on their lines count, so text that quotes them is left alone; the last
   // pair wins, so a stray one the user wrote earlier cannot swallow their text.
-  const marks = [...existing.matchAll(/^<!-- orca:(begin|end) -->\r?$/gm)]
+  const marks = [...existing.matchAll(/^<!-- openkodo:(begin|end) -->\r?$/gm)]
   // Take the last begin that is followed by an end with no other begin between them.
   const start = marks.findLast((mark, i) => mark[1] === 'begin' && marks[i + 1]?.[1] === 'end')
   const end = start && marks[marks.indexOf(start) + 1]
@@ -67,7 +67,7 @@ export async function writeFolderContextFile(
   } else {
     await mkdir(dirname(target), { recursive: true })
   }
-  await replaceWhole(target, withOrcaText(existing, text, agentName))
+  await replaceWhole(target, withOpenKodoText(existing, text, agentName))
 }
 
 /** Takes OpenKodo's text back out of `cwd`'s `path`: deletes a file OpenKodo wrote for `agentName`, or
@@ -87,7 +87,7 @@ export async function removeFolderContextFile(
     await rm(target, { force: true })
     return
   }
-  const range = orcaBlockRange(existing)
+  const range = openkodoBlockRange(existing)
   if (range) {
     const before = existing.slice(0, range.start).trimEnd()
     const after = existing.slice(range.end).trimStart()

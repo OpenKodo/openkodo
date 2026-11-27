@@ -1,6 +1,6 @@
 // Share single-line previews and multiline bodies with surrogate-safe cuts; agent-status-types.ts owns payload shapes and caps.
 
-import { compactDispatchPromptForStatus } from '../../orchestration/workers/orca-dispatch-status-prompt'
+import { compactDispatchPromptForStatus } from '../../orchestration/workers/openkodo-dispatch-status-prompt'
 import { BOT_CREATED_STATUS_LABEL, isBotCreatedKickoff } from '../../bot-created-kickoff'
 import { tookOverStatusLabel } from '../../native-chat/took-over-notice'
 

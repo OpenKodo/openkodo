@@ -2,10 +2,10 @@
 
 ## Build and Run
 
-- `ORCA_BACKGROUND_LAUNCH=1 pnpm run test:e2e` builds with `--mode e2e`, which exposes
+- `OPENKODO_BACKGROUND_LAUNCH=1 pnpm run test:e2e` builds with `--mode e2e`, which exposes
   `window.__store`.
 - For iteration, build with `pnpm exec electron-vite build --mode e2e`, then run
-  `ORCA_BACKGROUND_LAUNCH=1 SKIP_BUILD=1 pnpm run test:e2e …` only while that build is current.
+  `OPENKODO_BACKGROUND_LAUNCH=1 SKIP_BUILD=1 pnpm run test:e2e …` only while that build is current.
   A plain build omits `window.__store`; if tests time out waiting for it, rebuild in E2E
   mode before changing the harness.
 

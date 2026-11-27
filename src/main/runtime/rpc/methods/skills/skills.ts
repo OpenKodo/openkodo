@@ -32,7 +32,7 @@ import {
   resolveSkillDiscoveryTarget
 } from '../../../../skills/discovery/skill-discovery-target'
 import { SKILL_INSTALL_RESULT_V2_CAPABILITY } from '../../../../../shared/skills/capabilities/skill-install-capability'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { parseExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import {
   AGENT_SKILL_SHARING_UNSUPPORTED_ENVIRONMENT_CODE,
@@ -50,7 +50,7 @@ import { runAsWslUserAct, wslDistroForPath } from '../../../../wsl/filesystem/ws
 // Use the same target resolution for discovery and delete-plan roots, including WSL.
 export function resolveDiscoveryTarget(
   params: z.infer<typeof SkillDiscoveryTargetSchema>,
-  runtime: Pick<OrcaRuntimeService, 'resolveProjectRuntimeForWorktree'>,
+  runtime: Pick<OpenKodoRuntimeService, 'resolveProjectRuntimeForWorktree'>,
   options: { refuseStoppedWslDistro?: boolean } = {}
 ) {
   const target = params.projectRuntime
@@ -65,7 +65,7 @@ export function resolveDiscoveryTarget(
 // A caller naming only the workspace gets its folder from the host, which refuses SSH workspaces like desktop.
 async function withWorkspaceCwd(
   params: z.infer<typeof SkillsDiscoverParams>,
-  runtime: Pick<OrcaRuntimeService, 'resolveRuntimeFileTarget'>
+  runtime: Pick<OpenKodoRuntimeService, 'resolveRuntimeFileTarget'>
 ): Promise<z.infer<typeof SkillsDiscoverParams>> {
   if (params.cwd?.trim() || !params.worktreeId) {
     return params
@@ -78,7 +78,7 @@ async function withWorkspaceCwd(
 }
 
 function skillDeleteDependencies(
-  runtime: Pick<OrcaRuntimeService, 'listRepos' | 'resolveSkillDiscoveryProviderRoots'>
+  runtime: Pick<OpenKodoRuntimeService, 'listRepos' | 'resolveSkillDiscoveryProviderRoots'>
 ): SkillDeleteRequestDependencies {
   return {
     repos: () => runtime.listRepos(),
@@ -130,19 +130,19 @@ export const SKILL_METHODS = [
   }),
   // The host plans OpenKodo's skills on its own disk; a paired client never sends a WSL target.
   defineMethod({
-    name: 'skills.planBundledOrca',
+    name: 'skills.planBundledOpenKodo',
     permission: 'workspace',
     params: BundledSkillPlanRequestSchema,
     handler: (params, { runtime }) => runtime.planLocalBundledSkills(params)
   }),
   defineMethod({
-    name: 'skills.executeBundledOrca',
+    name: 'skills.executeBundledOpenKodo',
     permission: 'skills-admin',
     params: BundledSkillExecuteRequestSchema,
     handler: (params, { runtime }) => runtime.executeLocalBundledSkills(params)
   }),
   defineMethod({
-    name: 'skills.autoUpdateBundledOrca',
+    name: 'skills.autoUpdateBundledOpenKodo',
     permission: 'skills-admin',
     params: BundledSkillAutoUpdateRequestSchema,
     handler: (params, { runtime }) => runtime.autoUpdateLocalBundledSkills(params)

@@ -2,7 +2,7 @@ import React, { useId, useMemo, useRef, useState } from 'react'
 import { Loader2, LogIn, LogOut, Settings } from 'lucide-react'
 import { useAppStore } from '@/store/index'
 import { cn } from '@/lib/class-names'
-import type { OrcaProfileCloudSummary } from '../../../../shared/orca-profiles/orca-profiles'
+import type { OpenKodoProfileCloudSummary } from '../../../../shared/openkodo-profiles/openkodo-profiles'
 import { useTranslate } from '@/i18n/use-translate'
 import { useOptionalShortcutLabel } from '@/lib/keyboard/useShortcutLabel'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -20,7 +20,7 @@ import {
   type HelpMenuController,
   type SetupMilestones
 } from '@/components/sidebar/chrome/help-menu-controller'
-import { OrcaProfileSignOutConfirmDialog } from '@/components/orca-profiles/OrcaProfileSignOutConfirmDialog'
+import { OpenKodoProfileSignOutConfirmDialog } from '@/components/openkodo-profiles/OpenKodoProfileSignOutConfirmDialog'
 import { getTitlebarSidebarToggle } from '@/app-shell/chrome/titlebar-sidebar-toggle-ref'
 import { refocusTriggerIfFocusLost } from './AppRailCustomizeMenu'
 import { APP_RAIL_ICON_SIZE, APP_RAIL_ICON_STROKE_WIDTH, AppRailButton } from './AppRailButton'
@@ -29,7 +29,7 @@ export type AppRailAccount = { name: string; email: string | undefined; initial:
 
 /** How the signed-in account reads on the rail: its name (else email, else `fallbackName`) and that name's initial. */
 export function appRailAccount(
-  cloud: OrcaProfileCloudSummary | undefined,
+  cloud: OpenKodoProfileCloudSummary | undefined,
   fallbackName: string
 ): AppRailAccount {
   const email = cloud?.email.trim() || undefined
@@ -80,17 +80,17 @@ export function AppRailAccountMenu({
   tabStop: boolean
 }): React.JSX.Element {
   const t = useTranslate()
-  const signedIn = useAppStore((s) => s.orcaProfileAuthStatus?.state === 'connected')
+  const signedIn = useAppStore((s) => s.openkodoProfileAuthStatus?.state === 'connected')
   // A stable store reference, so the rail re-renders only when the auth status changes.
-  const cloud = useAppStore((s) => s.orcaProfileAuthStatus?.cloud)
-  const fallbackName = t('auto.components.settings.orcaAccount.account', 'OpenKodo account')
+  const cloud = useAppStore((s) => s.openkodoProfileAuthStatus?.cloud)
+  const fallbackName = t('auto.components.settings.openkodoAccount.account', 'OpenKodo account')
   const account = useMemo(
     () => (signedIn ? appRailAccount(cloud, fallbackName) : null),
     [signedIn, cloud, fallbackName]
   )
-  const canSignIn = useAppStore((s) => s.orcaProfileAuthStatus?.configured === true)
-  const reconnect = useAppStore((s) => s.orcaProfileAuthStatus?.state === 'reconnect-required')
-  const signingIn = useAppStore((s) => Boolean(s.orcaProfileSignInProgress))
+  const canSignIn = useAppStore((s) => s.openkodoProfileAuthStatus?.configured === true)
+  const reconnect = useAppStore((s) => s.openkodoProfileAuthStatus?.state === 'reconnect-required')
+  const signingIn = useAppStore((s) => Boolean(s.openkodoProfileSignInProgress))
   const settingsShortcut = useOptionalShortcutLabel('app.settings')
   const setupDescriptionId = useId()
   // The sign-out dialog opens from a menu row, so it has no trigger of its own to hand focus back to.
@@ -111,7 +111,7 @@ export function AppRailAccountMenu({
       return
     }
     setSigningOut(true)
-    const result = await useAppStore.getState().signOutCurrentOrcaProfile()
+    const result = await useAppStore.getState().signOutCurrentOpenKodoProfile()
     setSigningOut(false)
     if (result) {
       setSignOutOpen(false)
@@ -197,7 +197,7 @@ export function AppRailAccountMenu({
           ) : canSignIn ? (
             <DropdownMenuItem
               disabled={signingIn}
-              onSelect={() => void useAppStore.getState().connectCurrentOrcaProfile()}
+              onSelect={() => void useAppStore.getState().connectCurrentOpenKodoProfile()}
             >
               {signingIn ? (
                 <Loader2 className="size-3.5 animate-spin" />
@@ -205,9 +205,9 @@ export function AppRailAccountMenu({
                 <LogIn className="size-3.5" />
               )}
               {signingIn
-                ? t('auto.components.OrcaSignInProgress.signingIn', 'Signing in…')
+                ? t('auto.components.OpenKodoSignInProgress.signingIn', 'Signing in…')
                 : reconnect
-                  ? t('auto.components.settings.orcaAccount.signInAgain', 'Sign in again')
+                  ? t('auto.components.settings.openkodoAccount.signInAgain', 'Sign in again')
                   : t('appRail.signIn', 'Sign in')}
             </DropdownMenuItem>
           ) : null}
@@ -230,7 +230,7 @@ export function AppRailAccountMenu({
               <DropdownMenuSeparator />
               <DropdownMenuItem onSelect={() => setSignOutOpen(true)}>
                 <LogOut className="size-3.5" />
-                {t('auto.components.settings.orcaAccount.signOut', 'Sign out')}
+                {t('auto.components.settings.openkodoAccount.signOut', 'Sign out')}
               </DropdownMenuItem>
             </>
           ) : null}
@@ -245,7 +245,7 @@ export function AppRailAccountMenu({
           )}
         </span>
       ) : null}
-      <OrcaProfileSignOutConfirmDialog
+      <OpenKodoProfileSignOutConfirmDialog
         open={signOutOpen}
         onOpenChange={setSignOutOpen}
         onConfirm={() => void confirmSignOut()}

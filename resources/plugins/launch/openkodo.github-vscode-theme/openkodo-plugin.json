@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": "https://github.com/OpenKodo/openkodo-plugins/tree/main/plugins/github-vscode-theme",
   "engines": {
-    "orca": ">=1.4.245"
+    "openkodo": ">=1.4.245"
   },
   "contributes": {
     "themes": [

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { spawnProcess } from '@orca/process-host'
+import type { spawnProcess } from '@openkodo/process-host'
 import { createFakeSpawnedChild } from '../../shared/__fixtures__/fake-spawned-child'
 import { listAgentProcessRoots, noteAgentProcessChat } from '../memory/agent-process-registry'
 import { spawnManagedProviderProcess } from './managed-provider-process'

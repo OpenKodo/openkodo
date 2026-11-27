@@ -1,10 +1,10 @@
 /**
- * A structured agent session as a mail address: `orca_session_id:<id>`, the OpenKodo-minted id every agent is
+ * A structured agent session as a mail address: `openkodo_session_id:<id>`, the OpenKodo-minted id every agent is
  * told is its public address. Recipient routing and pointer delivery both read these rules off the
  * durable session record, so the two can never disagree about which sessions mail can reach.
  *
  * The address names a conversation, not one session of it: any session of a `/clear` lineage names
- * the lineage root's address (`canonicalOrcaSessionId`), and mail reaches the lineage's live session.
+ * the lineage root's address (`canonicalOpenKodoSessionId`), and mail reaches the lineage's live session.
  *
  * A released lease does not end a session: the host stops an idle chat's agent, and the send that
  * points its mail starts it again. For mail, a conversation has ended only when its chat was closed.
@@ -13,14 +13,14 @@
 import type { SessionPartyReader } from '../../addressing/session-party-reader'
 import type { AgentSessionConversationView } from '../../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES as CODES } from '../../../../../shared/orchestration/orchestration-session-caller-codes'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { OrchestrationError } from '../../orchestration-error'
 import {
-  resolveOrcaSessionParty,
+  resolveOpenKodoSessionParty,
   type OrchestrationSessionParty
 } from '../../addressing/orchestration-party'
 import {
@@ -30,16 +30,16 @@ import {
   type AgentSessionRecordReader
 } from '../../addressing/session-lineage/structured-session-lineage'
 
-export type OrcaAgentSessionLookup =
+export type OpenKodoAgentSessionLookup =
   | { kind: 'found'; record: AgentSessionConversationView }
   /** The id is a provider's own session id, which rotates on `/clear`; this names the OpenKodo id. */
-  | { kind: 'provider-id'; orcaSessionId: string }
+  | { kind: 'provider-id'; openkodoSessionId: string }
   | { kind: 'unknown' }
 
-export function lookupOrcaAgentSession(
+export function lookupOpenKodoAgentSession(
   store: AgentSessionRecordReader,
   id: string
-): OrcaAgentSessionLookup {
+): OpenKodoAgentSessionLookup {
   const record = store.getRecord(id)
   if (record) {
     return { kind: 'found', record }
@@ -52,7 +52,7 @@ export function lookupOrcaAgentSession(
         .find((candidate) =>
           candidate.providerHandleChain.some(({ handle }) => handle.nativeId === id)
         )?.sessionId ?? null)
-  return owner ? { kind: 'provider-id', orcaSessionId: owner } : { kind: 'unknown' }
+  return owner ? { kind: 'provider-id', openkodoSessionId: owner } : { kind: 'unknown' }
 }
 
 export type StructuredSessionMailReach =
@@ -108,7 +108,7 @@ function sessionTabVisibility(
  *  chats. It holds no rows and is dropped with the pass; nothing it answers outlives an await. */
 export type StructuredSessionReachContext = {
   running: (sessionId: string) => LineageRunningSession
-  addressable: (id: OrcaSessionId) => boolean
+  addressable: (id: OpenKodoSessionId) => boolean
 }
 
 export function createStructuredSessionReachContext(
@@ -147,7 +147,7 @@ export function structuredSessionMailReachWith(
 /** Read-only target admission, shared with consumers holding committed source facts. */
 export function deriveStructuredSessionMailReach(
   running: LineageRunningSession,
-  addressable: (id: OrcaSessionId) => boolean,
+  addressable: (id: OpenKodoSessionId) => boolean,
   visibility: () => { present: boolean; isListed: (id: string) => boolean } | undefined
 ): StructuredSessionMailReach {
   if (running.kind === 'unverifiable') {
@@ -157,7 +157,7 @@ export function deriveStructuredSessionMailReach(
     return { kind: 'other-host' }
   }
   const live = running.record
-  if (isOrcaSessionId(live.sessionId) && !addressable(live.sessionId)) {
+  if (isOpenKodoSessionId(live.sessionId) && !addressable(live.sessionId)) {
     // Lost worker identity cannot act through the caller resolver and therefore cannot read mail.
     return { kind: 'ended', reason: 'worker-identity-lost' }
   }
@@ -171,12 +171,12 @@ export function deriveStructuredSessionMailReach(
 
 /** Exclude only proven lost worker identity, which the party resolver refuses in every role. */
 export function addressableSessionParty(
-  sessionId: OrcaSessionId,
+  sessionId: OpenKodoSessionId,
   db: SessionPartyReader | null | undefined,
   store?: Pick<AgentSessionRecordReader, 'listRecords'> | null
 ): OrchestrationSessionParty | null {
   try {
-    return resolveOrcaSessionParty(sessionId, db, store)
+    return resolveOpenKodoSessionParty(sessionId, db, store)
   } catch (error) {
     if (error instanceof OrchestrationError && error.code === CODES.notLive) {
       return null

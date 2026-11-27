@@ -202,7 +202,7 @@ export async function spawnAndPublishSession(
     staging.current = stageStartupCommand({
       command: opts.command,
       shellPath: subprocess.shellPath,
-      orcaBuiltLine: opts.launchAgent !== undefined
+      openkodoBuiltLine: opts.launchAgent !== undefined
     })
     const notice = startupStagingFailureNotice(staging.current)
     if (notice) {

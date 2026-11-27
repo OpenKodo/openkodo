@@ -1,7 +1,7 @@
 /** Structured chats have no startup command to sequence after setup, so the start waits on Setup explicitly.
  * No applicable wait needs no receipt; a wait that loses sight of Setup records wait_unevaluated and fails the start. */
 
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import type { WorkerEffect, WorkerSetupReceipt } from '../placement/worker-placement-topology'
 
 export type StructuredWorkerSetupGate = {
@@ -24,7 +24,7 @@ export type StructuredWorkerSetupWatch = {
 
 /** Null when no wait applies: no wait-for-setup policy, Setup not running, or no setup terminal. */
 export function watchStructuredWorkerSetup(args: {
-  runtime: Pick<OrcaRuntimeService, 'waitForSetupTerminalCompletion'>
+  runtime: Pick<OpenKodoRuntimeService, 'waitForSetupTerminalCompletion'>
   setup: WorkerSetupReceipt
   effects: WorkerEffect[]
 }): StructuredWorkerSetupWatch | null {

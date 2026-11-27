@@ -1,8 +1,8 @@
 /**
- * Node module hooks for running a plugin's own tests in plain Node: `orca` and `orca/testing`
+ * Node module hooks for running a plugin's own tests in plain Node: `openkodo` and `openkodo/testing`
  * resolve to the files OpenKodo ships beside this one, and plugin sources (.ts, .tsx, .mts, .jsx) are
  * transpiled and resolved exactly as OpenKodo's build-less loader does, so a test runs the code OpenKodo
- * runs. Bundled to resources/plugins/declarative/orca-test-hooks.mjs (see orca-test-register.mjs).
+ * runs. Bundled to resources/plugins/declarative/openkodo-test-hooks.mjs (see openkodo-test-register.mjs).
  */
 import { existsSync, readFileSync, realpathSync, statSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
@@ -17,9 +17,9 @@ import { pluginModuleCandidatePaths } from '../source-loading/plugin-module-cand
 import { findPluginManifestPath } from '../artifacts/plugin-manifest-file'
 import { transformPluginSource } from '../source-loading/plugin-source-sucrase-transform'
 import {
-  isOrcaSpecifier,
-  pluginWorkerOrcaImportMessage
-} from '../workers/child-runtime/plugin-worker-orca-import'
+  isOpenKodoSpecifier,
+  pluginWorkerOpenKodoImportMessage
+} from '../workers/child-runtime/plugin-worker-openkodo-import'
 
 type ResolveResult = { url: string; shortCircuit?: boolean; format?: string }
 type NextResolve = (specifier: string, context: ResolveContext) => Promise<ResolveResult>
@@ -32,10 +32,10 @@ type LoadResult = {
 type NextLoad = (url: string, context: unknown) => Promise<LoadResult>
 
 const OPENKODO_FILES: Record<string, string> = {
-  orca: './orca-runtime.mjs',
-  'orca/jsx-runtime': './orca-runtime.mjs',
-  'orca/jsx-dev-runtime': './orca-runtime.mjs',
-  'orca/testing': './orca-testing.mjs'
+  openkodo: './openkodo-runtime.mjs',
+  'openkodo/jsx-runtime': './openkodo-runtime.mjs',
+  'openkodo/jsx-dev-runtime': './openkodo-runtime.mjs',
+  'openkodo/testing': './openkodo-testing.mjs'
 }
 const SOURCE_EXTENSION = /\.(?:tsx?|mts|jsx)$/i
 const TEST_FILE = /\.test\.[cm]?[jt]sx?$/i
@@ -75,7 +75,7 @@ async function workerEntryUrl(): Promise<string | null> {
 }
 
 /** The worker's module graph: its files load and resolve as OpenKodo's worker host does, not as
- *  frame modules (Node resolution, packages allowed, `.ts`/`.mts` only, no `orca` at run time). */
+ *  frame modules (Node resolution, packages allowed, `.ts`/`.mts` only, no `openkodo` at run time). */
 const workerModules = new Set<string>()
 const workerEntry = await workerEntryUrl()
 if (workerEntry) {
@@ -87,8 +87,8 @@ async function resolveWorkerImport(
   context: ResolveContext,
   nextResolve: NextResolve
 ): Promise<ResolveResult> {
-  if (isOrcaSpecifier(specifier)) {
-    throw new Error(pluginWorkerOrcaImportMessage(specifier))
+  if (isOpenKodoSpecifier(specifier)) {
+    throw new Error(pluginWorkerOpenKodoImportMessage(specifier))
   }
   let result: ResolveResult
   try {
@@ -117,9 +117,9 @@ export async function resolve(
   context: ResolveContext,
   nextResolve: NextResolve
 ): Promise<ResolveResult> {
-  const orcaFile = OPENKODO_FILES[specifier]
-  if (orcaFile) {
-    return { url: new URL(orcaFile, import.meta.url).href, shortCircuit: true }
+  const openkodoFile = OPENKODO_FILES[specifier]
+  if (openkodoFile) {
+    return { url: new URL(openkodoFile, import.meta.url).href, shortCircuit: true }
   }
   if (context.parentURL && workerModules.has(context.parentURL)) {
     return resolveWorkerImport(specifier, context, nextResolve)

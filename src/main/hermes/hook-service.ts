@@ -17,10 +17,10 @@ import {
   disablePlugin,
   enablePlugin,
   getConfigEnablement,
-  installOrcaStatusContent,
+  installOpenKodoStatusContent,
   parseHermesConfig,
-  refreshProfileOrcaStatusContent,
-  removeOrcaStatusContent,
+  refreshProfileOpenKodoStatusContent,
+  removeOpenKodoStatusContent,
   updateConfigContent
 } from './hermes-config-yaml'
 import { getHermesHome } from './hermes-default-home'
@@ -48,8 +48,8 @@ function buildStatus(configPath: string, config: HermesConfig): AgentHookInstall
   const details = [
     pluginFiles.detail,
     enablement.detail,
-    !enablement.enabled ? 'orca-status is not enabled in Hermes config.yaml' : null,
-    enablement.disabled ? 'orca-status is disabled in Hermes config.yaml' : null
+    !enablement.enabled ? 'openkodo-status is not enabled in Hermes config.yaml' : null,
+    enablement.disabled ? 'openkodo-status is disabled in Hermes config.yaml' : null
   ].filter((detail): detail is string => Boolean(detail))
 
   let state: AgentHookInstallState
@@ -88,7 +88,7 @@ function updateManagedProfiles(
       if (!parsed.ok || next.content === null) {
         continue
       }
-      // Config first: a failed write must not leave orca-status enabled without its plugin.
+      // Config first: a failed write must not leave openkodo-status enabled without its plugin.
       if (next.content !== parsed.content) {
         writeConfigFile(configPath, next.content)
       }
@@ -143,7 +143,7 @@ async function installRemoteManagedProfiles(sftp: SFTPWrapper, profilesDir: stri
         continue
       }
       const existing = await readTextFileRemote(sftp, `${home}/config.yaml`)
-      const next = refreshProfileOrcaStatusContent(existing)
+      const next = refreshProfileOpenKodoStatusContent(existing)
       if (next.content !== null) {
         await writeRemoteHome(sftp, home, existing, next.content)
       }
@@ -186,7 +186,7 @@ export class HermesHookService {
       }
     }
 
-    const next = installOrcaStatusContent(parsed.content)
+    const next = installOpenKodoStatusContent(parsed.content)
     if (next.content === null) {
       return {
         agent: 'hermes',
@@ -201,7 +201,7 @@ export class HermesHookService {
       writeConfigFile(configPath, next.content)
     }
     reloadStaleGateway(dirname(configPath))
-    updateManagedProfiles(refreshProfileOrcaStatusContent, (pluginDir) => {
+    updateManagedProfiles(refreshProfileOpenKodoStatusContent, (pluginDir) => {
       writePluginFiles(pluginDir)
       reloadStaleGateway(dirname(dirname(pluginDir)))
     })
@@ -213,7 +213,7 @@ export class HermesHookService {
     const remoteConfigPath = `${remoteRoot}/.hermes/config.yaml`
     try {
       const existing = await readTextFileRemote(sftp, remoteConfigPath)
-      const next = installOrcaStatusContent(existing)
+      const next = installOpenKodoStatusContent(existing)
       if (next.content === null) {
         return {
           agent: 'hermes',
@@ -255,7 +255,7 @@ export class HermesHookService {
         detail: `Could not parse Hermes config.yaml: ${parsed.detail}`
       }
     }
-    const next = removeOrcaStatusContent(parsed.content)
+    const next = removeOpenKodoStatusContent(parsed.content)
     if (next.content === null) {
       return {
         agent: 'hermes',
@@ -272,7 +272,7 @@ export class HermesHookService {
     if (getPluginFilesState(pluginDir).managed) {
       rmSync(pluginDir, { recursive: true, force: true })
     }
-    updateManagedProfiles(removeOrcaStatusContent, (dir) =>
+    updateManagedProfiles(removeOpenKodoStatusContent, (dir) =>
       rmSync(dir, { recursive: true, force: true })
     )
     return this.getStatus()

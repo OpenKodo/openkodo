@@ -1,5 +1,5 @@
 import type { FolderWorkspace } from '../../../shared/folder-workspaces/folder-workspace-types'
-import type { PersistedUIState } from '../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedUIState } from '../../../shared/openkodo-profiles/persisted-ui-state-types'
 import type { ProjectGroup } from '../../../shared/project/groups/project-group-types'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
 import { parseAppSshPtyId, toAppSshPtyId } from '../../../shared/remote-runtime/ssh/ssh-pty-id'

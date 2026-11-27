@@ -16,13 +16,13 @@ import { botOfSession } from '../../../bots/bot-session-tabs'
 import { LOOK_AROUND_REFUSAL } from '../../../bots/bot-look-around-policy'
 import { refuseBotGroupRoomCard } from '../../../bots/bot-group-session-access'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod, InvalidArgumentError } from '../core'
-import { orcaSignInServer } from '../../../bots/orca-sign-in-server'
+import { openkodoSignInServer } from '../../../bots/openkodo-sign-in-server'
 
 /** The bot whose own chat on this host asks; never one a paired device or a Look around names. */
 function offeringBot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   callerSessionId: string,
   pairedDeviceId: string | undefined
 ): Bot {
@@ -42,7 +42,7 @@ export async function postConnectorOffer(
   callerSessionId: string,
   bot: Pick<Bot, 'name'>,
   offer: ConnectorOffer,
-  runtime: Pick<OrcaRuntimeService, 'servesWithoutWindow'>
+  runtime: Pick<OpenKodoRuntimeService, 'servesWithoutWindow'>
 ): Promise<void> {
   refuseBotGroupRoomCard(callerSessionId)
   const host = getStructuredAgentSessionHost()
@@ -54,7 +54,7 @@ export async function postConnectorOffer(
   await host.appendAgentStart(
     destination,
     {
-      body: connectorOfferBody(offer, bot.name, orcaSignInServer(runtime)),
+      body: connectorOfferBody(offer, bot.name, openkodoSignInServer(runtime)),
       messageId: `connector-offer:${randomUUID()}`
     },
     Date.now()
@@ -72,7 +72,7 @@ export const BOT_CONNECTOR_OFFER_METHOD = defineMethod({
       bot,
       source,
       runtime.getConnectorCloud()?.status(),
-      orcaSignInServer(runtime)
+      openkodoSignInServer(runtime)
     )
     if (signIn) {
       if (signIn.offered) {

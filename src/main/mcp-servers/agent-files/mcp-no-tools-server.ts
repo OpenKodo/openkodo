@@ -38,6 +38,6 @@ function initializeResult(requested: unknown, version: string) {
         ? requested
         : LATEST_PROTOCOL_VERSION,
     capabilities: { tools: {} },
-    serverInfo: { name: 'orca', version }
+    serverInfo: { name: 'openkodo', version }
   }
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react'
 import { useTranslate } from '@/i18n/use-translate'
-import { isOrcaWindowForegroundFocused } from '@/attention/orca-window-foreground-focus'
+import { isOpenKodoWindowForegroundFocused } from '@/attention/openkodo-window-foreground-focus'
 import {
   readWslProviderUsage,
   requestWslOwnerUsage,
@@ -123,7 +123,7 @@ export function useWslOwnerUsage(
     const delay = Math.max(0, expiresAt - Date.now()) + EXPIRY_SLACK_MS
     // Why skip in the background: the focus listener re-reads when the window comes back.
     const reread = (): void => {
-      if (isOrcaWindowForegroundFocused()) {
+      if (isOpenKodoWindowForegroundFocused()) {
         void requestWslOwnerUsage(distro, selection)
       }
     }

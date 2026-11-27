@@ -1,6 +1,6 @@
 // #48712: a read whose registry lookup fails returns the settings as they are, not as they were.
 import { describe, expect, it, vi } from 'vitest'
-import { getDefaultSettings } from '../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../shared/openkodo-profiles/constants'
 import type { GlobalSettings } from '../../../../shared/settings/global-settings-types'
 import type { Store } from '../../../persistence/loading-store/store'
 

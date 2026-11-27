@@ -1,9 +1,9 @@
 import path from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { BROWSER_SIDECAR_OWNER_ENV } from '../../../../src/shared/browser/runtime/browser-sidecar-lifetime'
 import { resolveElectronExecutable } from '../../desktop/daemon-lifecycle/daemon-generation-runtime-fixture'
-import { getOrcaElectronLaunchArgs } from '../../desktop/electron-fixtures/electron-launch-args'
-import { isolatedServeProfile } from '../../remote/paired-runtime/client-hosts/orca-serve-cli-host'
+import { getOpenKodoElectronLaunchArgs } from '../../desktop/electron-fixtures/electron-launch-args'
+import { isolatedServeProfile } from '../../remote/paired-runtime/client-hosts/openkodo-serve-cli-host'
 
 // An IPC owner must be disconnectable independently of Playwright's app connection.
 export function launchOwnedBrowserForE2E(profile: string): ReturnType<typeof spawnProcess> {
@@ -15,7 +15,7 @@ export function launchOwnedBrowserForE2E(profile: string): ReturnType<typeof spa
   return spawnProcess({
     program: resolveElectronExecutable(process.cwd()),
     args: [
-      ...getOrcaElectronLaunchArgs(path.join(process.cwd(), 'out', 'main', 'index.js'), false),
+      ...getOpenKodoElectronLaunchArgs(path.join(process.cwd(), 'out', 'main', 'index.js'), false),
       '--serve',
       '--serve-port',
       '0',

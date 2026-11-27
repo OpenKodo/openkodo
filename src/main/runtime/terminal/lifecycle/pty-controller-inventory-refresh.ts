@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithPtyControllerInventoryListing } from './pty-controller-inventory-listing'
+import { OpenKodoRuntimeWithPtyControllerInventoryListing } from './pty-controller-inventory-listing'
 
 import type * as PtyControllerContract from './runtime-pty-controller-contract'
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../../shared/workspace/identity/floating-workspace-id'
@@ -23,14 +23,14 @@ import {
 import { parseAppSshPtyId } from '../../../../shared/remote-runtime/ssh/ssh-pty-id'
 import { indexFloatingSnapshotPtyBindings } from './floating-snapshot-pty-bindings'
 import { NO_OBSERVING_PROVIDER_REASON } from '../../../../shared/terminal/pty/lifecycle/pty-liveness-verdict'
-import { buildControllerTerminalIdentities } from './orca-runtime-build-controller-terminal-identities'
+import { buildControllerTerminalIdentities } from './openkodo-runtime-build-controller-terminal-identities'
 import { retireOrchestrationAuthorityAbsentFromInventory } from '../../orchestration/terminal-authority/runtime-restored-orchestration-authority-sweep'
 import { worktreeIdsEqual } from '../../../../shared/worktree/id'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { exitingPtyIdsOf } from '../adoption/unshown-live-terminal-placement'
 import { awaitReattachedTerminalPaint } from '../input/terminal-command-paint-record'
 
-export abstract class OrcaRuntimeWithRefreshPtyWorktreeRecordsWithControllerInventory extends OrcaRuntimeWithPtyControllerInventoryListing {
+export abstract class OpenKodoRuntimeWithRefreshPtyWorktreeRecordsWithControllerInventory extends OpenKodoRuntimeWithPtyControllerInventoryListing {
   protected async refreshPtyWorktreeRecordsWithControllerInventory(
     resolvedWorktrees: ResolvedWorktree[],
     targetWorktreeId: string | null = null,

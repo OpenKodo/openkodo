@@ -200,7 +200,7 @@ export const createSettingsSlice: StateCreator<AppState, [], [], SettingsSlice> 
         runtimeEnvironments,
         runtimeStatusSubscriptionsFor(store).readStatuses()
       ) ||
-      // Why: coverage is blind to catalog edits from another client or the orca CLI.
+      // Why: coverage is blind to catalog edits from another client or the openkodo CLI.
       isRuntimeCatalogListingStale()
     ) {
       void get().hydrateRuntimeEnvironmentStatuses()

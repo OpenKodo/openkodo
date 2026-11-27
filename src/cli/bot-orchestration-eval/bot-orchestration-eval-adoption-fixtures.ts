@@ -9,7 +9,7 @@ export const ML_REPO = '5e1f0c2a-7d4b-4c1e-9a8f-2b6d3e4f5a61'
 // Named "webhooks" for the first thing it did; its PR merged long ago and its agent has done bots work since.
 export const WEBHOOKS: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'webhooks',
   branch: 'alice/headless-automation-sleep-per-run',
   ago: 25 * MINUTE,
@@ -51,7 +51,7 @@ export const WEBHOOKS: AdoptionFixture = {
 
 const AUTOMATIONS_IMPROVE: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'automations-improve',
   ago: 15 * MINUTE,
   pr: {
@@ -78,7 +78,7 @@ const AUTOMATIONS_IMPROVE: AdoptionFixture = {
 
 const AUTOMATION_RESULTS: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'automation-results-design',
   branch: 'automation-results-dev-preview',
   ago: 2 * HOUR,
@@ -97,7 +97,7 @@ const AUTOMATION_RESULTS: AdoptionFixture = {
 
 const CRON_PREVIEW: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'cron-preview',
   branch: 'alice/schedule-next-runs',
   ago: 50 * MINUTE,
@@ -114,7 +114,7 @@ const CRON_PREVIEW: AdoptionFixture = {
 
 const TRIGGER_COPY: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'trigger-options-copy',
   branch: 'trigger-options-plain-words',
   ago: 5 * HOUR,
@@ -138,7 +138,7 @@ const TRIGGER_COPY: AdoptionFixture = {
 // Automations work too, but its agent is closed: nothing to hand off, so never on a card.
 const AUTOMATION_DOCS: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'automation-docs',
   branch: 'docs/automations-guide',
   ago: 3 * HOUR,
@@ -179,7 +179,7 @@ const GPU_LOADER: AdoptionFixture = {
 // Its PR merged nine days ago; its agent has moved on to terminal search since.
 const SIDEBAR_PERF: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'sidebar-perf',
   ago: 10 * MINUTE,
   pr: {
@@ -215,7 +215,7 @@ const SIDEBAR_PERF: AdoptionFixture = {
 // Another bot's already: actionable, so only ownership keeps it out of an offer.
 const RELEASE: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'release-1.4.231',
   branch: 'release/1.4.231',
   ago: 35 * MINUTE,
@@ -235,7 +235,7 @@ const RELEASE: AdoptionFixture = {
 // Bots work no bot owns yet, while Atlas exists for exactly that.
 const SLACK_THREADS: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'slack-thread-replies',
   branch: 'bots/slack-thread-replies',
   ago: 40 * MINUTE,
@@ -261,7 +261,7 @@ const SLACK_THREADS: AdoptionFixture = {
 // workspaces its agent started all work on bot tools.
 const COORDINATOR: AdoptionFixture = {
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name: 'nightly-cleanup',
   branch: 'alice/nightly-cleanup',
   ago: 10 * MINUTE,
@@ -279,7 +279,7 @@ const COORDINATOR: AdoptionFixture = {
 
 const coordinated = (name: string, asked: string, said: string): AdoptionFixture => ({
   repoId: OPENKODO_REPO,
-  repo: 'orca',
+  repo: 'openkodo',
   name,
   parent: COORDINATOR.name,
   ago: 15 * MINUTE,

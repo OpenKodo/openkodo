@@ -1,5 +1,5 @@
 import { useAutomationSetupConsent } from './use-automation-setup-consent'
-import { OrcaHookTrustDrawer } from '../components/hook-trust/OrcaHookTrustDrawer'
+import { OpenKodoHookTrustDrawer } from '../components/hook-trust/OpenKodoHookTrustDrawer'
 import { useMobileColorScheme } from '../theme/use-mobile-color-scheme'
 import { useAutomationRuns, type AutomationRunScope } from './use-automation-runs'
 import { useState, type ReactNode } from 'react'
@@ -394,7 +394,7 @@ export function AutomationManager(props: {
           onRun={() => runNow(row)}
         />
       ) : null}
-      <OrcaHookTrustDrawer {...setupConsent.drawer} />
+      <OpenKodoHookTrustDrawer {...setupConsent.drawer} />
     </>
   )
 }

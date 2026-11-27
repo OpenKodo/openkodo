@@ -15,10 +15,10 @@ export function mobileNativeChatBotCardRow(
   fontScale: number,
   foldedIntoRequest: boolean
 ): React.JSX.Element | null {
-  if (message.orcaNotice === 'card-answer') {
+  if (message.openkodoNotice === 'card-answer') {
     return <View testID={mobileNativeChatRowId(rowId)} />
   }
-  if (message.orcaNotice === 'bot-created') {
+  if (message.openkodoNotice === 'bot-created') {
     return <MobileNativeChatBotCreatedRow rowId={rowId} />
   }
   const card = nativeChatBotMessageCardOf(message)

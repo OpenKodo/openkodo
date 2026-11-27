@@ -81,7 +81,7 @@ export class CodexConfigMirror {
       return this.readHostConfig()
     }
 
-    const managedRootMarker = '/.local/share/orca/codex-accounts/'
+    const managedRootMarker = '/.local/share/openkodo/codex-accounts/'
     const markerIndex = wslInfo.linuxPath.indexOf(managedRootMarker)
     if (markerIndex === -1) {
       return null

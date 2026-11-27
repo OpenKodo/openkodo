@@ -262,8 +262,8 @@ let started = false
 export function processDeviceStore(): DeviceStore {
   if (processStore === null) {
     const roots = {
-      cache: new Directory(Paths.cache, 'orca-store', 'v1').uri,
-      draft: new Directory(Paths.document, 'orca-drafts', 'v1').uri
+      cache: new Directory(Paths.cache, 'openkodo-store', 'v1').uri,
+      draft: new Directory(Paths.document, 'openkodo-drafts', 'v1').uri
     }
     processStore = createDeviceStore({
       fileSystem: createExpoGenerationFileSystem(roots.cache),

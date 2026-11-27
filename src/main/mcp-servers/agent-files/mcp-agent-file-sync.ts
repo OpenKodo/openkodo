@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path'
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import { errnoCodeOrUnknown } from '../../../shared/errors/errno-code'
 import { MCP_FILE_AGENTS, type McpFileAgent } from '../../../shared/mcp-servers/mcp-servers'
-import { thisAppOrcaCliLauncher } from '../../cli/launchers/this-app-orca-cli-launcher'
+import { thisAppOpenKodoCliLauncher } from '../../cli/launchers/this-app-openkodo-cli-launcher'
 import {
   readAgentConfigText,
   writeAgentConfigIfUnchanged
@@ -35,9 +35,9 @@ import {
   isEmptyMcpAgentFile,
   mcpAgentFileServerNames,
   mcpAgentFileValue,
-  otherOrcasServerNames,
-  withOrcaEntries,
-  withoutOrcaEntries,
+  otherOpenKodosServerNames,
+  withOpenKodoEntries,
+  withoutOpenKodoEntries,
   type McpAgentFileEdit
 } from './mcp-agent-file-text'
 
@@ -158,7 +158,7 @@ async function syncFileOnce(
       ? record.before
       : current === null
         ? null
-        : withoutOrcaEntries(
+        : withoutOpenKodoEntries(
             edit,
             current,
             record?.entries ?? {},
@@ -171,15 +171,15 @@ async function syncFileOnce(
   // keeps in the agent itself: that server runs from there, not twice. Another OpenKodo's bridge entry
   // under the bare name (an older build) doesn't count as the user's; a copy of this OpenKodo's own entry
   // the user renamed does.
-  const orcaNames =
-    before === null ? new Set<string>() : otherOrcasServerNames(edit, before, deps.userDataPath)
+  const openkodoNames =
+    before === null ? new Set<string>() : otherOpenKodosServerNames(edit, before, deps.userDataPath)
   const adding = new Map(
     [...wanted].filter(([name, entry]) => {
       const serverName = mcpHostServerNameOfEntry(name, entry.env, deps.userDataPath) ?? name
-      return !taken?.has(name) && !(taken?.has(serverName) && !orcaNames.has(serverName))
+      return !taken?.has(name) && !(taken?.has(serverName) && !openkodoNames.has(serverName))
     })
   )
-  const added = adding.size > 0 ? withOrcaEntries(edit, before, adding) : before
+  const added = adding.size > 0 ? withOpenKodoEntries(edit, before, adding) : before
   if (taken === null || (added !== null && mcpAgentFileServerNames(edit, added) === null)) {
     deps.log(`[mcp-servers] OpenKodo's entries wouldn't fit ${path}, so it's left as it is`)
     return true
@@ -252,13 +252,13 @@ export function startMcpAgentFileSync(): () => void {
   const folder = mcpHostListFolder()
   const userDataPath = getAppEnvironment().getPath('userData')
   // Once: this run of OpenKodo's launcher doesn't move.
-  const launcher = thisAppOrcaCliLauncher(userDataPath)
+  const launcher = thisAppOpenKodoCliLauncher(userDataPath)
   const deps = (): McpAgentFileSyncDeps => ({
     folder,
     userDataPath,
     launcher,
     context: { homeDir: homedir(), env: process.env, platform: process.platform },
-    ledger: new McpAgentFileLedger(join(folder, '.orca', 'agent-files-ledger.json')),
+    ledger: new McpAgentFileLedger(join(folder, '.openkodo', 'agent-files-ledger.json')),
     log: (message) => console.warn(message)
   })
   let running = false

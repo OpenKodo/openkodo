@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { mkdtemp, readFile, rm, stat } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { parseGitRepositoryIdentity } from '../../../shared/plugins/catalog/plugin-marketplace'
 import {
   pluginCatalogReleaseEntry,
@@ -83,7 +83,7 @@ async function committedReleaseEntry(
   commit: string,
   sourcePath: string | undefined
 ): Promise<{ entry: PluginCatalogRelease } | { note: string }> {
-  const tree = await mkdtemp(join(tmpdir(), 'orca-plugin-release-'))
+  const tree = await mkdtemp(join(tmpdir(), 'openkodo-plugin-release-'))
   try {
     try {
       await materializePluginGitTree({

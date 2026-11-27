@@ -1,14 +1,14 @@
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 
 // Per host runtime, per client socket, per reporting window: the workspaces holding unsaved editor buffers.
 const reportsByRuntime = new WeakMap<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   Map<string, Map<string, ReadonlySet<string>>>
 >()
 
 /** Replaces what one client window reported; every report on a socket goes away when it closes. */
 export function reportClientUnsavedEditors(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   connectionId: string,
   reporterId: string,
   worktreeIds: readonly string[]
@@ -35,7 +35,7 @@ export function reportClientUnsavedEditors(
 }
 
 /** Workspaces any connected client has unsaved editor buffers in. */
-export function listClientUnsavedEditorWorktreeIds(runtime: OrcaRuntimeService): Set<string> {
+export function listClientUnsavedEditorWorktreeIds(runtime: OpenKodoRuntimeService): Set<string> {
   const ids = new Set<string>()
   for (const byReporter of reportsByRuntime.get(runtime)?.values() ?? []) {
     for (const reported of byReporter.values()) {

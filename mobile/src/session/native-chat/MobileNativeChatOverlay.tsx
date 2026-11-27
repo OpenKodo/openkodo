@@ -61,7 +61,7 @@ type Props = {
   /** Opens the accounts of the host that runs this chat; absent when the phone can't reach them. */
   onOpenAccounts?: () => void
   /** Opens tapped links in OpenKodo's browser; absent where the host can't open a browser tab. */
-  onOpenUrlInOrca?: (url: string) => void
+  onOpenUrlInOpenKodo?: (url: string) => void
   linkOpenMode: MobileLinkOpenMode
   /** Opens a host terminal tab in this chat's workspace running `command`. */
   onRunInTerminal: (command: string) => void
@@ -112,7 +112,7 @@ function MobileNativeChatOverlayContent({
   getSendCompletionGeneration,
   keyboardInset,
   hostName,
-  onOpenUrlInOrca,
+  onOpenUrlInOpenKodo,
   linkOpenMode,
   onRunInTerminal,
   hostOutage = null,
@@ -281,7 +281,7 @@ function MobileNativeChatOverlayContent({
     <MobileNativeChatRowOverlaysHost
       conversation={{ surfaceId: sendSurfaceId, sessionId }}
       imageSource={imageSource}
-      onOpenUrlInOrca={onOpenUrlInOrca}
+      onOpenUrlInOpenKodo={onOpenUrlInOpenKodo}
       linkOpenMode={linkOpenMode}
       rewind={controller.nativeChatRewind}
     >

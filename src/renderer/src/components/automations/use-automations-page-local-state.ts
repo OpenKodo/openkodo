@@ -4,7 +4,7 @@ import type {
   ExternalAutomationJob,
   ExternalAutomationManager
 } from '../../../../shared/automations/external/external-automation'
-import type { OrcaHooks } from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { useContextualTour } from '@/components/contextual-tours/use-contextual-tour'
 import type { AutomationDraft } from './authoring/AutomationEditorDialog'
 import { AUTOMATION_DEFAULT_TIME } from './authoring/automation-draft-model'
@@ -125,10 +125,10 @@ export function useAutomationsPageLocalState(store: AutomationsPageStoreState) {
   const setupDecisionDefaultSignatureRef = useRef<string | null>(null)
   const setupDecisionTouchedRef = useRef(false)
   const automationHookCheckPromisesRef = useRef<
-    Map<string, Promise<{ hooks: OrcaHooks | null; ok: boolean }>>
+    Map<string, Promise<{ hooks: OpenKodoHooks | null; ok: boolean }>>
   >(new Map())
   const [automationYamlHooksByRepoKey, setAutomationYamlHooksByRepoKey] = useState<
-    Record<string, OrcaHooks | null>
+    Record<string, OpenKodoHooks | null>
   >({})
   const [draft, setDraft] = useState<AutomationDraft>({
     name: '',

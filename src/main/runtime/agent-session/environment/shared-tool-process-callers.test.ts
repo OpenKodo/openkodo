@@ -7,8 +7,8 @@ const SEALED = {
   OPENKODO_TERMINAL_HANDLE: 'structworker_a',
   OPENKODO_BOT_TOOLS_TOKEN: 'bot-a-secret',
   OPENKODO_STRUCTURED_SESSION: '1',
-  OPENKODO_USER_DATA_PATH: '/orca-data',
-  OPENKODO_CLI_COMMAND: '/orca-data/cli/bin/orca',
+  OPENKODO_USER_DATA_PATH: '/openkodo-data',
+  OPENKODO_CLI_COMMAND: '/openkodo-data/cli/bin/openkodo',
   OPENKODO_ENVIRONMENT: ''
 }
 
@@ -42,8 +42,8 @@ describe('SharedToolProcessSession', () => {
       OPENKODO_TERMINAL_HANDLE: null,
       OPENKODO_BOT_TOOLS_TOKEN: null,
       OPENKODO_STRUCTURED_SESSION: '1',
-      OPENKODO_USER_DATA_PATH: '/orca-data',
-      OPENKODO_CLI_COMMAND: '/orca-data/cli/bin/orca',
+      OPENKODO_USER_DATA_PATH: '/openkodo-data',
+      OPENKODO_CLI_COMMAND: '/openkodo-data/cli/bin/openkodo',
       OPENKODO_ENVIRONMENT: ''
     })
     expect(Object.values(tools)).not.toContain('bot-a-secret')

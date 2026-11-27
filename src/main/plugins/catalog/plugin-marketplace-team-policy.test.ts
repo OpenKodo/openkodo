@@ -2,7 +2,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
-import type { OrcaCloudCapabilities } from '../../../shared/orca-profiles/orca-cloud-capabilities'
+import type { OpenKodoCloudCapabilities } from '../../../shared/openkodo-profiles/openkodo-cloud-capabilities'
 import {
   OFFICIAL_MARKETPLACE_GIT_SOURCE,
   pluginMarketplaceListingSchema
@@ -12,7 +12,7 @@ import { PluginMarketplaceService } from './plugin-marketplace-service'
 import { PluginMarketplaceStore } from './plugin-marketplace-store'
 
 it('protects managed catalogs from both governing teams and blocks excluded sources', async () => {
-  const pluginsDataDir = await mkdtemp(join(tmpdir(), 'orca-plugin-policy-'))
+  const pluginsDataDir = await mkdtemp(join(tmpdir(), 'openkodo-plugin-policy-'))
   const store = new PluginMarketplaceStore(pluginsDataDir)
   const community = COMMUNITY_MARKETPLACE_GIT_SOURCE
   const member = { ...community, url: 'https://git.example.com/member/catalog.git' }
@@ -22,7 +22,7 @@ it('protects managed catalogs from both governing teams and blocks excluded sour
     ref: 'main'
   } as const
   const secondInternal = { ...internal, url: 'https://git.example.com/another-team/catalog.git' }
-  let capabilities: OrcaCloudCapabilities | undefined = {
+  let capabilities: OpenKodoCloudCapabilities | undefined = {
     flags: {
       team_settings: true,
       'plugins.official': false,
@@ -77,7 +77,7 @@ it('protects managed catalogs from both governing teams and blocks excluded sour
 })
 
 it('keeps discovery and install lookups within every governing version range and catalog', async () => {
-  const pluginsDataDir = await mkdtemp(join(tmpdir(), 'orca-plugin-range-'))
+  const pluginsDataDir = await mkdtemp(join(tmpdir(), 'openkodo-plugin-range-'))
   const store = new PluginMarketplaceStore(pluginsDataDir)
   const internal = {
     kind: 'git',
@@ -86,7 +86,7 @@ it('keeps discovery and install lookups within every governing version range and
   } as const
   const other = { ...internal, url: 'https://git.example.com/other/catalog.git' }
   const pluginKey = 'acme.theme'
-  const policy: NonNullable<OrcaCloudCapabilities['teamPolicy']> = {
+  const policy: NonNullable<OpenKodoCloudCapabilities['teamPolicy']> = {
     orgIds: ['org_a', 'org_b'],
     internalCatalogs: [internal, other],
     requiredPlugins: [pluginKey],
@@ -119,7 +119,7 @@ it('keeps discovery and install lookups within every governing version range and
             commit: String(index + 1).repeat(40),
             contentHash: String(index + 1).repeat(64),
             execution: 'data',
-            minimumOrca: version === '1.5.0' ? '3.0.0' : '1.0.0'
+            minimumOpenKodo: version === '1.5.0' ? '3.0.0' : '1.0.0'
           }))
         }
       ]

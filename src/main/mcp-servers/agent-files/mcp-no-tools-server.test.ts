@@ -11,7 +11,7 @@ describe('answerWithNoTools', () => {
     const client = new Client({ name: 'probe', version: '1' })
     await client.connect(clientSide)
 
-    expect(client.getServerVersion()).toEqual({ name: 'orca', version: '9.9.9' })
+    expect(client.getServerVersion()).toEqual({ name: 'openkodo', version: '9.9.9' })
     expect(client.getServerCapabilities()).toEqual({ tools: {} })
     await expect(client.listTools()).resolves.toEqual({ tools: [] })
     await expect(client.ping()).resolves.toEqual({})

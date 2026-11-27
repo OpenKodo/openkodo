@@ -147,7 +147,7 @@ export async function fastForwardLocalBaseBranch(
       git.updateRefUnlessInUse(repoPath, fullRef, [
         'update-ref',
         '-m',
-        `orca: fast-forward to ${remoteTrackingRef}`,
+        `openkodo: fast-forward to ${remoteTrackingRef}`,
         fullRef,
         remoteOid,
         localOid

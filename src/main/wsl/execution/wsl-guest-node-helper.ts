@@ -57,7 +57,7 @@ export async function runWslGuestNodeHelper(args: {
   }
   const node = await ensureWslPinnedRuntime(
     run,
-    join(getAppEnvironment().getPath('userData'), 'orcad-artifacts'),
+    join(getAppEnvironment().getPath('userData'), 'openkodod-artifacts'),
     AbortSignal.timeout(180_000)
   )
   const guestHelper = await run({

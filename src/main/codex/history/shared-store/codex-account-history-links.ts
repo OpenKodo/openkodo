@@ -67,7 +67,7 @@ const PRIVATE_DIRECTORIES = new Set([
 const HISTORY_DIRECTORIES = new Set(['sessions', 'archived_sessions'])
 // Linked before any history, so a home never writes shared rollouts under private locks.
 // Present from the first unlinked folder until the databases moved aside, so a retry finishes.
-const UNSHARE_PENDING = '.orca-unshare-pending'
+const UNSHARE_PENDING = '.openkodo-unshare-pending'
 
 /**
  * `shared` once the home's history resolves to the store; `incomplete` when it does but some entry
@@ -89,7 +89,7 @@ export type CodexAccountHistoryShareArgs = {
 function isSharedDirectoryName(name: string): boolean {
   return (
     !PRIVATE_DIRECTORIES.has(name) &&
-    !name.startsWith('.orca') &&
+    !name.startsWith('.openkodo') &&
     !name.endsWith(MERGE_PENDING_SUFFIX)
   )
 }
@@ -176,8 +176,8 @@ export async function isCodexAccountHistoryLinked(
 /**
  * Replaces the account home's folders with links into the store (the user's ~/.codex), moving
  * the home's own entries there first; the store's copy wins a name conflict and the home's copy
- * stays in `<folder>.orca-profile-merge`, and a rollout form the store must not hold beside its
- * twin waits in `.orca-set-aside-rollouts`. Nothing is deleted. Codex's databases follow once the
+ * stays in `<folder>.openkodo-profile-merge`, and a rollout form the store must not hold beside its
+ * twin waits in `.openkodo-set-aside-rollouts`. Nothing is deleted. Codex's databases follow once the
  * history is linked.
  */
 export async function shareCodexAccountHistory(

@@ -5,8 +5,8 @@ import { useAppStore } from '@/store/index'
 import type { SlashCommandSuggestion } from '../../../../../../shared/native-chat/input/commands/native-chat-slash-commands'
 import {
   NATIVE_CHAT_RESUME_COMMAND,
-  withNativeChatOrcaCommands
-} from '../../../../../../shared/native-chat/input/commands/native-chat-orca-commands'
+  withNativeChatOpenKodoCommands
+} from '../../../../../../shared/native-chat/input/commands/native-chat-openkodo-commands'
 import type { AgentType } from '../../../../../../shared/agent-status/contracts/agent-status-types'
 import { isAiVaultAgent } from '../../../../../../shared/ai-vault/contracts/ai-vault-types'
 import { selectAiVaultPanelWorkspace } from '@/components/right-sidebar/ai-vault/scope/ai-vault-panel-workspace'
@@ -32,7 +32,7 @@ export function withNativeChatResumeCommand(
   fork = false,
   t: Translate = translate
 ): SlashCommandSuggestion[] {
-  return withNativeChatOrcaCommands(commands, {
+  return withNativeChatOpenKodoCommands(commands, {
     resume: t('components.native-chat.resumeCommand.description', 'Open Agent Session History'),
     resumeArgumentHint: t('components.native-chat.resumeCommand.argumentHint', '[search]'),
     ...(accountUsage
@@ -238,7 +238,7 @@ export function useNativeChatResumeCommand(args: {
       (item: TItem) => {
         const leading = autocomplete.mode === 'slash' && autocomplete.dispatchable
         // An explicit OpenKodo command pick overrides an earlier same-named skill pick.
-        if (leading && item.kind === 'command' && item.orcaOwned) {
+        if (leading && item.kind === 'command' && item.openkodoOwned) {
           if (
             item.name !== 'resume' &&
             !(item.name === 'usage' && usage) &&

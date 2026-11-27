@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
-import { windowsPowerShellPath } from '@orca/process-host/windows-system-binary'
+import { windowsPowerShellPath } from '@openkodo/process-host/windows-system-binary'
 import { writeShellWrapperFiles } from '../../pty/shell-startup/shell-wrapper-file-writer'
 import {
   getBundledLauncherPath,
@@ -11,7 +11,7 @@ import {
 import { DEV_COMMAND_NAME } from '../installation/cli-install-constants'
 import { buildColocatedWslLauncher, buildWslBridgeScript } from './wsl-cli-scripts'
 
-/** Packaged builds share `orca-ide` with guest registration; dev builds get their own name. */
+/** Packaged builds share `openkodo-ide` with guest registration; dev builds get their own name. */
 export function getWslCliCommandName(isPackaged: boolean): string {
   return isPackaged ? LINUX_CLI_COMMAND_NAME : DEV_COMMAND_NAME
 }
@@ -43,7 +43,7 @@ export function getManagedWslCliDir(opts: {
   const directory = join(opts.userDataPath, 'wsl-managed-cli', digest)
   const files = [
     [join(directory, getWslCliCommandName(opts.isPackaged)), launcher],
-    [join(directory, 'orca-wsl-bridge.ps1'), bridge]
+    [join(directory, 'openkodo-wsl-bridge.ps1'), bridge]
   ] as const
   const ready =
     files.every(([path]) => existsSync(path)) ||

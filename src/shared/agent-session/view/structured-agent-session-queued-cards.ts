@@ -123,7 +123,7 @@ export function projectQueuedMessageCards(
         message.state === 'returned' ||
         message.paused === true ||
         session.queuePaused === true ||
-        !isOrcaNoticeSend(message.body)
+        !isOpenKodoNoticeSend(message.body)
     )
     .sort((left, right) => left.position - right.position)
   // Establish semantic membership before handoff filtering, including during catch-up.
@@ -180,7 +180,7 @@ export function projectQueuedMessageCards(
   return cards.filter((card) => card.state === 'returned' || !handedOff.has(card.messageId))
 }
 
-function isOrcaNoticeSend(body: AgentSessionQueuedMessage['body']): boolean {
+function isOpenKodoNoticeSend(body: AgentSessionQueuedMessage['body']): boolean {
   return (
     body.origin === 'bot-created' || body.origin === 'card-answer' || body.origin === 'took-over'
   )

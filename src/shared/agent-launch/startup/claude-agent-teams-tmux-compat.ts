@@ -1,7 +1,7 @@
 export type ClaudeAgentTeamsMode = 'off' | 'in-process' | 'native-panes-shim'
 
 /** Where OpenKodo's agent-teams launch points its synthetic TMUX; no tmux server listens there. */
-export const CLAUDE_AGENT_TEAMS_TMUX_DIR = '/tmp/orca-claude-agent-teams/'
+export const CLAUDE_AGENT_TEAMS_TMUX_DIR = '/tmp/openkodo-claude-agent-teams/'
 
 export type ParsedTmuxCommand = {
   command: string

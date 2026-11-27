@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import type { OrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { checkRuntimeHooks } from '@/runtime/repo-hooks/runtime-hooks-client'
 import type { AutomationDraft } from './AutomationEditorDialog'
 import {
@@ -79,7 +79,7 @@ export function useAutomationsPageSetupState({
       repoId: string,
       hostId?: ExecutionHostId,
       options: { background?: boolean } = {}
-    ): Promise<OrcaHooks | null> => {
+    ): Promise<OpenKodoHooks | null> => {
       const key = getAutomationHooksCacheKey(repoId, hostId)
       if (Object.hasOwn(automationYamlHooksByRepoKey, key)) {
         return automationYamlHooksByRepoKey[key] ?? null
@@ -100,7 +100,8 @@ export function useAutomationsPageSetupState({
           : Promise.reject(new Error('The project host is unknown.'))
       )
         .then((result) => ({
-          hooks: result.status === 'error' ? null : ((result.hooks as OrcaHooks | null) ?? null),
+          hooks:
+            result.status === 'error' ? null : ((result.hooks as OpenKodoHooks | null) ?? null),
           ok: result.status !== 'error'
         }))
         .catch(() => ({ hooks: null, ok: false }))

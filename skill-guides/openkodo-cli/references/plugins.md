@@ -43,12 +43,12 @@ Exit codes: `0` ok, `1` error, `2` `plugin_invalid`, `3` `approval_required` or 
    repository owner (`local` for a folder); an `openkodo-` id prefix is reserved. `components` is a TSX
    panel with no build step; `.ts`/`.tsx` files load as written, importing only `openkodo` and
    relative files. `plugin types <dir>` (also run by `plugin dev load`) writes the typings to
-   `.orca/types/`, which the plugin's `tsconfig.json` extends.
+   `.openkodo/types/`, which the plugin's `tsconfig.json` extends.
 2. Edit the files. Field rules: `docs/reference/plugin-manifest.md`, `plugin-themes.md`,
    `plugin-theme-tokens.md`, `plugin-syntax.md` and `plugin-authoring.md` in the OpenKodo repository.
 3. `plugin validate` until it passes. It is offline and never runs plugin code. For components
    panels, `plugin check` also renders each panel once in Node and reports runtime errors with
-   file:line, and `plugin test` runs the plugin's `*.test.ts(x)` files with `orca/testing`
+   file:line, and `plugin test` runs the plugin's `*.test.ts(x)` files with `openkodo/testing`
    (see `docs/reference/plugin-declarative-ui.md`, "Testing"). Both run the plugin's code
    unsandboxed on this machine: use them only on code you trust.
 4. `plugin dev load <dir>` adds the folder to Settings → Plugins → Development folders on the
@@ -70,7 +70,7 @@ Exit codes: `0` ok, `1` error, `2` `plugin_invalid`, `3` `approval_required` or 
    `{ pluginKey, name, result }`; a handler failure is `plugin_request_failed` with the worker's
    code in `error.data.requestCode`.
 5. See what you built: `plugin shot <plugin-key> --json` writes a PNG of a panel exactly as OpenKodo
-   draws it (default `.orca/shots/<plugin-key>-<panel>.png`, in the plugin folder when run inside
+   draws it (default `.openkodo/shots/<plugin-key>-<panel>.png`, in the plugin folder when run inside
    one; `--width` applies to that capture only, and `--theme` too but only while OpenKodo's window is
    hidden or minimized, else `themeApplied: false` with a `themeReason`) and lists the errors the
    panel showed or logged; read the image file. A components panel's shot also waits for its
@@ -188,7 +188,7 @@ There is no publish command. Use Git and `gh` with the user's own credentials:
 2. Set `version` in `openkodo-plugin.json`, commit, then tag that commit `v<version>` and push the
    tag: `git tag -a v1.2.0 -m v1.2.0 && git push origin v1.2.0`.
 3. Add the `openkodo-plugin` topic to the repository: `gh repo edit <owner>/<repo> --add-topic openkodo-plugin`.
-4. Check the listing status at `https://www.onorca.dev/plugins/<owner>/<repo>`.
+4. Check the listing status at `https://www.onopenkodo.dev/plugins/<owner>/<repo>`.
 
 For a catalog (`openkodo-catalog.json`), commit the plugin and run `plugin release-entry <dir>`: it
 prints the `releases` entry for `HEAD` (and the `source.path` for a plugin in a subdirectory) to

@@ -64,7 +64,7 @@ export async function requestMobilePairingOffer(
     address?: string
     connectionMode?: MobilePairingConnectionMode
     rotate?: boolean
-    // Unset leaves the offer without an expiry, as headless serve/orcad mint today.
+    // Unset leaves the offer without an expiry, as headless serve/openkodod mint today.
     offerTtlMs?: number
     createdByDeviceId?: string
   },

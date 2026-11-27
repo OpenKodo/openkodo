@@ -25,7 +25,7 @@ import {
 } from '../../frames/plugin-protocol'
 
 /**
- * A stand-in for OpenKodo's custom editor host: runs the frame shell's real `window.orca` (document
+ * A stand-in for OpenKodo's custom editor host: runs the frame shell's real `window.openkodo` (document
  * API and session included) against an in-memory file, so editor sync logic tests in plain Node.
  */
 
@@ -44,8 +44,8 @@ export type MockEditorEdit = {
   refused?: string
 }
 export type MockEditorHost = {
-  /** The frame API, also installed as `globalThis.orca`. */
-  readonly orca: MockEditorFrameApi
+  /** The frame API, also installed as `globalThis.openkodo`. */
+  readonly openkodo: MockEditorFrameApi
   /** The file as OpenKodo holds it now: text, or undefined for a bytes file. */
   readonly text: string | undefined
   readonly bytes: Uint8Array | undefined
@@ -93,14 +93,14 @@ function copy(content: CustomEditorContent): CustomEditorContent {
   return content.kind === 'text' ? content : { kind: 'bytes', bytes: content.bytes.slice(0) }
 }
 
-/** Installs `globalThis.orca` for a custom editor over `file`; one at a time, like `mount`. */
+/** Installs `globalThis.openkodo` for a custom editor over `file`; one at a time, like `mount`. */
 export function mockEditorHost(
   file: MockEditorFile,
   options: MockEditorHostOptions = {}
 ): MockEditorHost {
   current?.dispose()
   if (!SHELL_SCRIPT) {
-    throw new Error('orca/testing: the frame shell script is missing')
+    throw new Error('openkodo/testing: the frame shell script is missing')
   }
   let content = toContent('text' in file ? file.text : file.bytes)
   const kind = content.kind
@@ -116,7 +116,7 @@ export function mockEditorHost(
   const deliver = (message: Record<string, unknown>): void => {
     queueMicrotask(() => {
       if (!disposed) {
-        receive({ orca: PLUGIN_PROTOCOL_VERSION, ...message })
+        receive({ openkodo: PLUGIN_PROTOCOL_VERSION, ...message })
       }
     })
   }
@@ -205,7 +205,7 @@ export function mockEditorHost(
   })
 
   const frameWindow: MockEditorShellWindow = {
-    __orcaPluginFrameTransport: {
+    __openkodoPluginFrameTransport: {
       send: (message) => fromFrame(isFrameMessage(message) ? message : {}),
       subscribe: (fn: (message: unknown) => void) => {
         receive = fn
@@ -227,14 +227,18 @@ export function mockEditorHost(
     `(function (window, document, navigator) {\n'use strict'\n${SHELL_SCRIPT}\n})`
   )
   run(frameWindow, frameDocument, { language: options.locale ?? 'en-US' })
-  const orca: unknown = Object.getOwnPropertyDescriptor(frameWindow, 'orca')?.value
-  if (!isMockEditorFrameApi(orca)) {
-    throw new Error('orca/testing: the frame shell did not define window.orca')
+  const openkodo: unknown = Object.getOwnPropertyDescriptor(frameWindow, 'openkodo')?.value
+  if (!isMockEditorFrameApi(openkodo)) {
+    throw new Error('openkodo/testing: the frame shell did not define window.openkodo')
   }
-  Object.defineProperty(globalThis, 'orca', { value: orca, configurable: true, writable: true })
+  Object.defineProperty(globalThis, 'openkodo', {
+    value: openkodo,
+    configurable: true,
+    writable: true
+  })
 
   const host: MockEditorHost = {
-    orca,
+    openkodo,
     get text() {
       return content.kind === 'text' ? content.text : undefined
     },
@@ -283,8 +287,8 @@ export function mockEditorHost(
     dispose() {
       disposed = true
       flushes.clear()
-      if (Object.getOwnPropertyDescriptor(globalThis, 'orca')?.value === orca) {
-        Reflect.deleteProperty(globalThis, 'orca')
+      if (Object.getOwnPropertyDescriptor(globalThis, 'openkodo')?.value === openkodo) {
+        Reflect.deleteProperty(globalThis, 'openkodo')
       }
       if (current === host) {
         current = null

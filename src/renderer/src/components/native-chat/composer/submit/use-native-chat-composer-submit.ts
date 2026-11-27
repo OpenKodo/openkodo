@@ -63,7 +63,7 @@ export function useNativeChatComposerSubmit(args: {
   sendPty: () => void
   sendStructured: NativeChatStructuredComposerSend
   /** Commands OpenKodo owns, like `/resume`; `consume` true means the draft never reaches the agent. */
-  orcaCommands?: Pick<NativeChatResumeCommand, 'consume' | 'matchesDraft'>
+  openkodoCommands?: Pick<NativeChatResumeCommand, 'consume' | 'matchesDraft'>
   setDraft: (value: string) => void
   setCaret: (caret: number) => void
 }): {
@@ -73,8 +73,15 @@ export function useNativeChatComposerSubmit(args: {
 } {
   const { caret, disabled, draft, draftScopeKey, imageAttachments, sendPty, sendStructured } = args
   const held = args.held === true
-  const { agent, orcaCommands, setCaret, setDraft, structuredTransport, submitEmpty, textareaRef } =
-    args
+  const {
+    agent,
+    openkodoCommands,
+    setCaret,
+    setDraft,
+    structuredTransport,
+    submitEmpty,
+    textareaRef
+  } = args
   const threadGoal = structuredTransport?.threadGoal
   const [entered, setEntered] = useState(false)
   const active = entered && structuredTransport !== undefined
@@ -83,7 +90,7 @@ export function useNativeChatComposerSubmit(args: {
     <TItem extends NativeChatPickerItem>(pick: (item: TItem) => void) =>
       (item: TItem) => {
         const mode =
-          item.kind === 'command' && item.orcaOwned
+          item.kind === 'command' && item.openkodoOwned
             ? agentSessionInteractionCommand(agent ?? '', item.token)
             : null
         const modePick =
@@ -194,7 +201,7 @@ export function useNativeChatComposerSubmit(args: {
   const send = useCallback(
     (intent?: NativeChatComposerSendIntent) => {
       // Before goal mode too: a navigation command must never become an objective.
-      if (orcaCommands?.consume(draft)) {
+      if (openkodoCommands?.consume(draft)) {
         return
       }
       if (held) {
@@ -233,7 +240,7 @@ export function useNativeChatComposerSubmit(args: {
     [
       active,
       submitEmpty,
-      orcaCommands,
+      openkodoCommands,
       disabled,
       draft,
       draftScopeKey,
@@ -256,7 +263,7 @@ export function useNativeChatComposerSubmit(args: {
     : draft
   const messageDelivery =
     !(active && threadGoal !== undefined) &&
-    !orcaCommands?.matchesDraft(draft) &&
+    !openkodoCommands?.matchesDraft(draft) &&
     !(
       structuredTransport &&
       !promptHasInteractionModeSkill(

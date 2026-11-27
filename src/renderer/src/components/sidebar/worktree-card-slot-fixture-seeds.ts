@@ -37,9 +37,9 @@ export type WorkspaceSeed = {
 }
 
 export const FIXTURE_REPO: Repo = {
-  id: 'repo-orca',
-  path: '/repo/orca',
-  displayName: 'orca',
+  id: 'repo-openkodo',
+  path: '/repo/openkodo',
+  displayName: 'openkodo',
   badgeColor: '#737373',
   addedAt: 0
 }
@@ -47,8 +47,8 @@ export const FIXTURE_REPO: Repo = {
 export function makeWorktree(seed: WorkspaceSeed, now: number): Worktree {
   return {
     id: seed.id,
-    repoId: 'repo-orca',
-    path: `/repo/orca/${seed.name}`,
+    repoId: 'repo-openkodo',
+    path: `/repo/openkodo/${seed.name}`,
     displayName: seed.name,
     branch: `user/${seed.name}`,
     head: 'abc123',

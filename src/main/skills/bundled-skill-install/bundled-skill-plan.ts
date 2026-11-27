@@ -78,7 +78,7 @@ const WRITES_SHARED_CURRENT = new Set<BundledSkillOp['kind']>([
 
 type PlannedTarget = {
   op: BundledSkillOp
-  holdsOrcaCopy: boolean
+  holdsOpenKodoCopy: boolean
   formerInstalled: boolean
   leaves: BundledSkillOp[]
 }
@@ -196,7 +196,7 @@ async function planTarget(
       : files('replace')
   }
 
-  const holdsOrcaCopy =
+  const holdsOpenKodoCopy =
     former.installed || Boolean(restoreFrom) || OPENKODO_COPY_CLASSES.has(folderClass)
   const decision = await decide()
   // Only a folder holding just OpenKodo's SKILL.md; a swap would move an agent's files to backups.
@@ -214,7 +214,7 @@ async function planTarget(
     op.kind === 'keep'
       ? formerLeavesBesideKeep(former.leaves, keptBesideAgentFiles(op, shared?.besideAgentFiles))
       : former.leaves
-  const result = { holdsOrcaCopy, formerInstalled: former.installed, leaves }
+  const result = { holdsOpenKodoCopy, formerInstalled: former.installed, leaves }
   const writes = op.kind !== 'keep' && op.kind !== 'leave'
   if (!writes && op.cleanup.length === 0 && !op.previous?.length) {
     return { op, ...result }
@@ -276,7 +276,7 @@ async function planSkill(
       ops: targets.flatMap((target) => [target.op, ...target.leaves])
     }
   }
-  if (!targets.some((target) => target.holdsOrcaCopy)) {
+  if (!targets.some((target) => target.holdsOpenKodoCopy)) {
     return null
   }
   // Only repair an existing agent link into an empty shared slot; other updates must not create a new shared copy.

@@ -1,5 +1,5 @@
 // Main writes and starts its owned splits under the proposed pane id; every view attaches to that terminal.
-import { OrcaRuntimeWithSplitPtyBackedTerminal } from './terminal-split-surface'
+import { OpenKodoRuntimeWithSplitPtyBackedTerminal } from './terminal-split-surface'
 import type { RuntimeTerminalSplit } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { mainOwnsTabLayout } from './main-owned-tab-layout'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
@@ -39,7 +39,7 @@ export type SplitPaneInMainOptions = Pick<TerminalCreateOptions, 'terminalImageV
   preAllocatedHandle?: string
 }
 
-export abstract class OrcaRuntimeWithSplitPaneInMain extends OrcaRuntimeWithSplitPtyBackedTerminal {
+export abstract class OpenKodoRuntimeWithSplitPaneInMain extends OpenKodoRuntimeWithSplitPtyBackedTerminal {
   /** Whether main's layout holds the tab, so main writes and starts its splits. */
   protected ownsTabLayout(worktreeId: string, tabId: string): boolean {
     return mainOwnsTabLayout(this.getWorkspaceSessionHostIdsForTab(worktreeId, tabId))

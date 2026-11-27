@@ -14,7 +14,7 @@ import {
   subscribeToBotChanges
 } from '@/lib/bot-catalog-snapshot'
 import { botHostHas } from '@/lib/bot-host-status'
-import { useBotHostOrcaAccounts } from '@/lib/bot-host-orca-account'
+import { useBotHostOpenKodoAccounts } from '@/lib/bot-host-openkodo-account'
 import { BOTS_CONNECTORS_RUNTIME_CAPABILITY } from '../../../../../shared/bot-runtime-capabilities'
 import {
   getLocalExecutionHostLabel,
@@ -95,8 +95,8 @@ export function useBotSettingsAccounts(
   computers: readonly BotSettingsComputer[]
 ): BotSettingsAccount[] {
   const servers = computers.filter((computer) => !computer.local && computer.state === 'live')
-  const statuses = useBotHostOrcaAccounts(servers.map((computer) => computer.hostId))
-  const ownEmail = useAppStore((state) => state.orcaProfileAuthStatus?.cloud?.email ?? null)
+  const statuses = useBotHostOpenKodoAccounts(servers.map((computer) => computer.hostId))
+  const ownEmail = useAppStore((state) => state.openkodoProfileAuthStatus?.cloud?.email ?? null)
   const own = computers.find((computer) => computer.local)
   const accounts = new Map<string | null, BotSettingsAccount>()
   if (own) {

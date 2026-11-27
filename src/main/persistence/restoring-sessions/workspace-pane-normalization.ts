@@ -1,7 +1,7 @@
 import type {
   LegacyPaneKeyAliasEntry,
   PersistedState
-} from '../../../shared/orca-profiles/persisted-state-types'
+} from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { TerminalLayoutSnapshot } from '../../../shared/workspace-layout/terminal-tab-types'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
 import type { MigrationUnsupportedPtyEntry } from '../../../shared/agent-status/contracts/agent-status-ipc-payload'

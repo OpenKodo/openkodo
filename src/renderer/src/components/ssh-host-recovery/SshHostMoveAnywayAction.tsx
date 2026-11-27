@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '../ui/dialog'
-import { getManagedOrcadApi } from '../../runtime/hosts/installation/managed-orcad-api-availability'
+import { getManagedOpenkododApi } from '../../runtime/hosts/installation/managed-openkodod-api-availability'
 
 /** Offered only for a refusal that saved state alone causes. */
 export function canMoveSshHostAnyway(status: SshManagedServerStatus | undefined): boolean {
@@ -24,7 +24,7 @@ export function canMoveSshHostAnyway(status: SshManagedServerStatus | undefined)
     status?.kind === 'relay' &&
     status.reason === 'refused' &&
     status.canLeaveBehind &&
-    getManagedOrcadApi()
+    getManagedOpenkododApi()
   )
 }
 
@@ -43,7 +43,7 @@ export function SshHostMoveAnywayDialog({
   onChanged: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()
-  const api = getManagedOrcadApi()
+  const api = getManagedOpenkododApi()
   const mountedRef = useMountedRef()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)

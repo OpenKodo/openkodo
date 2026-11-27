@@ -4,7 +4,7 @@ import type {
 } from '../../../../../../shared/browser/workspaces/browser-workspace-types'
 import { createNonSecureContextUuid as createBrowserUuid } from '../../../../../../shared/identifiers/non-secure-context-uuid'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../../../shared/workspace-layout/layout-owner-switch'
-import '../../../../../../shared/orca-profiles/constants'
+import '../../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import type {
   PersistedBrowserPage,

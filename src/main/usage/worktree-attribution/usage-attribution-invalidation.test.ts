@@ -77,10 +77,14 @@ describe('reattributeUsageSourcesForWorktrees', () => {
   })
 
   it('treats a removed macOS /private/tmp alias as the same worktree path', async () => {
-    const alias = [source('aliased', 'cwd:/private/tmp/orca-removed-wt/src')]
+    const alias = [source('aliased', 'cwd:/private/tmp/openkodo-removed-wt/src')]
     const added = fingerprint([
       main,
-      { worktreeId: 'repo::/tmp/orca-removed-wt', path: '/tmp/orca-removed-wt', displayName: 'x' }
+      {
+        worktreeId: 'repo::/tmp/openkodo-removed-wt',
+        path: '/tmp/openkodo-removed-wt',
+        displayName: 'x'
+      }
     ])
     const retained = await reattributeUsageSourcesForWorktrees(alias, fingerprint([main]), added)
     if (process.platform === 'darwin') {
@@ -91,7 +95,7 @@ describe('reattributeUsageSourcesForWorktrees', () => {
   })
 
   it('follows a symlinked cwd only for providers whose attribution resolves it', async () => {
-    const root = await realpath(await mkdtemp(join(tmpdir(), 'orca-attribution-link-')))
+    const root = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-attribution-link-')))
     try {
       await mkdir(join(root, 'real', 'src'), { recursive: true })
       await symlink(join(root, 'real'), join(root, 'link'), 'junction')
@@ -127,7 +131,7 @@ describe('reattributeUsageSourcesForWorktrees', () => {
   })
 
   it('re-checks a symlinked worktree on any catalog change, since its target may have moved', async () => {
-    const root = await realpath(await mkdtemp(join(tmpdir(), 'orca-attribution-retarget-')))
+    const root = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-attribution-retarget-')))
     try {
       await mkdir(join(root, 'old'))
       await mkdir(join(root, 'new'))

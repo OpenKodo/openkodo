@@ -15,7 +15,7 @@ fi`
 
 export function buildWslLauncher(
   windowsLauncherPath: string,
-  bridgePath = '${XDG_DATA_HOME:-$HOME/.local/share}/orca/orca-wsl-bridge.ps1'
+  bridgePath = '${XDG_DATA_HOME:-$HOME/.local/share}/openkodo/openkodo-wsl-bridge.ps1'
 ): string {
   return buildLauncher(
     windowsLauncherPath,
@@ -31,7 +31,7 @@ export function buildColocatedWslLauncher(
 ): string {
   return buildLauncher(
     windowsLauncherPath,
-    '"$(dirname -- "$0")/orca-wsl-bridge.ps1"',
+    '"$(dirname -- "$0")/openkodo-wsl-bridge.ps1"',
     `OPENKODO_POWERSHELL=$(wslpath -u ${quotePosixShellDoubleQuotedApostrophe(windowsPowerShellPath)})
 if [ ! -x "$OPENKODO_POWERSHELL" ]; then
   echo "OpenKodo WSL CLI requires Windows interop and access to $OPENKODO_POWERSHELL." >&2
@@ -131,7 +131,7 @@ try {
   if ($args.Count -lt 1) {
     throw 'Invalid OpenKodo WSL CLI bridge invocation.'
   }
-  [string]$OrcaLauncher = $args[0]
+  [string]$OpenKodoLauncher = $args[0]
   [string]$WslCwd = ''
   [string]$WslDistro = ''
   [int]$ForwardArgStart = 1
@@ -164,11 +164,11 @@ try {
   } else {
     $env:OPENKODO_CLI_WSL_DISTRO = $WslDistro
   }
-  $LauncherDirectory = Split-Path -Parent $OrcaLauncher
+  $LauncherDirectory = Split-Path -Parent $OpenKodoLauncher
   Push-Location -LiteralPath $LauncherDirectory
   # Why: Windows PowerShell 5.1 cannot losslessly splat strings to native argv.
   $StartInfo = [System.Diagnostics.ProcessStartInfo]::new()
-  $StartInfo.FileName = $OrcaLauncher
+  $StartInfo.FileName = $OpenKodoLauncher
 ${bridgeLines(setAppEnv)}  $StartInfo.Arguments = (($ForwardArgs | ForEach-Object {
     ConvertTo-NativeCommandLineArgument $_
   }) -join ' ')
@@ -199,7 +199,7 @@ exit $exitCode
 function buildDevCliEnv(cliEntryPath: string): string[] {
   return [
     "$env:ELECTRON_RUN_AS_NODE = '1'",
-    "if (-not $env:OPENKODO_APP_EXECUTABLE) { $env:OPENKODO_APP_EXECUTABLE = $OrcaLauncher; $env:OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT = '1' }",
+    "if (-not $env:OPENKODO_APP_EXECUTABLE) { $env:OPENKODO_APP_EXECUTABLE = $OpenKodoLauncher; $env:OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT = '1' }",
     '$env:OPENKODO_NODE_OPTIONS = $env:NODE_OPTIONS',
     '$env:OPENKODO_NODE_REPL_EXTERNAL_MODULE = $env:NODE_REPL_EXTERNAL_MODULE',
     'Remove-Item Env:NODE_OPTIONS, Env:NODE_REPL_EXTERNAL_MODULE -ErrorAction SilentlyContinue',
@@ -212,8 +212,8 @@ function bridgeLines(lines: readonly string[]): string {
 }
 
 export function getBridgePathFromCommandPath(commandPath: string): string {
-  // Current and legacy command names share one bridge under ~/.local/share/orca.
-  return `${commandPath.replace(/\/\.local\/bin\/(?:orca|orca-ide)$/, '/.local/share/orca')}/orca-wsl-bridge.ps1`
+  // Current and legacy command names share one bridge under ~/.local/share/openkodo.
+  return `${commandPath.replace(/\/\.local\/bin\/(?:openkodo|openkodo-ide)$/, '/.local/share/openkodo')}/openkodo-wsl-bridge.ps1`
 }
 
 export function buildSafeReplaceGuard(path: string, managedMarker: string): string {
@@ -235,7 +235,7 @@ export function buildRegistrationLockPrelude(commandPath: string): string {
   // flock serializes separate OpenKodo installs; the per-distro queue covers only this process.
   return [
     `if command -v flock >/dev/null 2>&1 && mkdir -p ${quotePosixShellDoubleQuotedApostrophe(lockDir)} 2>/dev/null; then`,
-    `  exec 9>${quotePosixShellDoubleQuotedApostrophe(`${lockDir}/.orca-wsl-cli.lock`)}`,
+    `  exec 9>${quotePosixShellDoubleQuotedApostrophe(`${lockDir}/.openkodo-wsl-cli.lock`)}`,
     '  flock -x -w 30 9',
     'fi'
   ].join('\n')

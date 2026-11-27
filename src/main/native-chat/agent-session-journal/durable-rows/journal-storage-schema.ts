@@ -74,7 +74,7 @@ export const storedFailureFact = AgentSessionFailureFactSchema.extend({
 const salvaged = z.unknown().optional()
 const sender = z.object({
   party: z
-    .object({ address: salvaged, terminalHandle: salvaged, orcaSessionId: salvaged })
+    .object({ address: salvaged, terminalHandle: salvaged, openkodoSessionId: salvaged })
     .nullable()
     .optional(),
   name: salvaged,
@@ -126,7 +126,7 @@ const block = z.discriminatedUnion('type', [
       .object({ operationId: z.string(), afterFence: z.number(), clearedAt: z.number() })
       .optional(),
     failure: storedFailureFact.optional(),
-    orcaStop: z.object({ cause: z.string(), turnItemId: text }).optional(),
+    openkodoStop: z.object({ cause: z.string(), turnItemId: text }).optional(),
     usageLimitTurnItemId: text,
     ...storedBotStatusNotes,
     automationResultCleared: z.literal(true).optional(),

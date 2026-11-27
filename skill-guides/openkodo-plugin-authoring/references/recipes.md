@@ -10,7 +10,7 @@ plugin is `trusted-worker`. `openkodo plugin create <dir> --template worker-pane
 (protocol, worker, panel and tests for both); example `hello-worker-panel` adds settings and events.
 
 - Declare the contract once in a file both include (`src/protocol.ts`):
-  `declare module 'orca' { interface PluginRequests { 'todos.list': { input: { done?: boolean }; output: Todo[] } } interface PluginPanelEvents { 'todos.changed': { count: number } } }`.
+  `declare module 'openkodo' { interface PluginRequests { 'todos.list': { input: { done?: boolean }; output: Todo[] } } interface PluginPanelEvents { 'todos.changed': { count: number } } }`.
   Declared names are typed on both sides; any other name carries JSON.
 - Worker: `openkodo.panels.handle(name, async (input, { panel, signal }) => output)` answers;
   `openkodo.panels.post(event, payload, { panel? })` pushes to every open panel of the plugin, or to
@@ -19,7 +19,7 @@ plugin is `trusted-worker`. `openkodo plugin create <dir> --template worker-pane
   starts the worker when needed; `plugin.on(event, handler)` hears posts. It rejects with
   `unknown_method` (no handler), `timeout` (default 30 s, max 120 s; the handler's `signal` aborts
   then and when the panel closes), `unavailable` (no worker), or the `code` the handler threw.
-- The worker's `main` must `export default function activate(orca)`; a named
+- The worker's `main` must `export default function activate(openkodo)`; a named
   `export function activate` is never called. It runs once when the worker starts; an optional
   `export function deactivate()` is awaited before it stops. An idle worker stops and restarts on
   its next command, event or panel request.
@@ -57,14 +57,14 @@ agent events with `on(...)` (frames: `openkodo.on`) without `contributes.events`
 ## Reacting to events in a worker
 
 List each in `contributes.events` (`{ "on": "<event>" }`) with the capability `references/events.md`
-shows, then `openkodo.events.on(event, handler)` in `activate(orca)`. Fire one at the dev plugin with
+shows, then `openkodo.events.on(event, handler)` in `activate(openkodo)`. Fire one at the dev plugin with
 `openkodo plugin dev emit . <event> --data '<json>'`, or unit-test it with `mountWorker` (see
 `references/workflow.md`).
 
 ## A status bar item a worker updates
 
 Declare it in `contributes.statusBarItems` (`{ "id", "text"?, "icon"?, "tone"?, "tooltip"?,
-"command"? }`, `engines.orca` `>=1.4.248`); a static item needs only `declarative`, and pressing it
+"command"? }`, `engines.openkodo` `>=1.4.248`); a static item needs only `declarative`, and pressing it
 runs `command`, one of the plugin's own `contributes.commands`. From a worker, change it with
 `openkodo.host.call('statusBar.update', { id, text, tone, tooltip, visible })`; fields you leave out
 keep their value and `visible: false` hides it. Bind a key to the same command with
@@ -74,11 +74,11 @@ keep their value and `visible: false` hides it. Bind a key to the same command w
 ## Changing or refusing what OpenKodo does (hooks)
 
 `trusted-worker` with `main`; list each hook in `contributes.hooks` (`{ "event": "terminal.send" }`)
-and set `engines.orca` to at least `>=1.4.248`. Events, results and what `next` may change are in
+and set `engines.openkodo` to at least `>=1.4.248`. Events, results and what `next` may change are in
 `references/host-api.md` (Hooks). Start from `openkodo plugin create <dir> --template hook`.
 
 ```ts
-export default function activate(orca: OrcaWorkerApi) {
+export default function activate(openkodo: OpenKodoWorkerApi) {
   openkodo.hooks.on('terminal.send', (event) => {
     if (event.text.includes('rm -rf /')) return { deny: 'blocked by my mod' }
     // Returning nothing passes the event on unchanged; `next({ ...event, text })` rewrites it.
@@ -106,7 +106,7 @@ let the action through, so count blocks after deciding (`void openkodo.host.call
 
 A `sandboxed-ui` custom editor around a canvas or diagram library; start from
 `openkodo plugin create <dir> --template editor`. Set `"frame": "isolated"` on the editor
-(`engines.orca` `>=1.4.248`) so browser clients open the file in Source instead of a fallback.
+(`engines.openkodo` `>=1.4.248`) so browser clients open the file in Source instead of a fallback.
 There is no bundler or network: copy the library's ESM build into the plugin and map it,
 `<script type="importmap">{ "imports": { "lib": "./vendor/lib.js" } }</script>` (16 MiB a script,
 1 MiB a `.ts` file; no `eval`). For types, write a small declaration beside the copied file
@@ -127,7 +127,7 @@ export const start = () =>
 // library.onChange((scene) => doc.change(scene)), doc.onReplace((scene) => library.load(scene)).
 
 // editor/sync.test.ts, run by `openkodo plugin test`:
-import { assert, mockEditorHost, test } from 'orca/testing'
+import { assert, mockEditorHost, test } from 'openkodo/testing'
 test('merges an agent write that lands while an edit waits', async () => {
   const host = mockEditorHost({ text: '{"elements":[]}' })
   const doc = await (await import('./sync.ts')).start()
@@ -164,7 +164,7 @@ replacement) need `workspace:write` and the desktop app. Panels get none.
 ## Replacing one of OpenKodo's own actions
 
 Give a worker command `"replaces": "view.tasks"` (any action a declarative `action` may name;
-`engines.orca` `>=1.4.248`) and register it with `openkodo.commands.register`. OpenKodo runs it when that
+`engines.openkodo` `>=1.4.248`) and register it with `openkodo.commands.register`. OpenKodo runs it when that
 action fires from its shortcut, the palette or a menu, and its own action when the worker fails or
 takes over 2 s. To wrap OpenKodo's own, call `openkodo.host.call('commands.run', { action: 'view.tasks' })`
 (`workspace:write`) from the command: it always runs the built-in. The person can switch the

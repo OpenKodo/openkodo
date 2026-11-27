@@ -65,7 +65,7 @@ export function useNewBotAgentChoices(client: RpcClient | null): NewBotAgentChoi
 }
 
 /** A server signed in to another OpenKodo account than the paired computer's: that account's email. */
-export function useOtherOrcaAccount(
+export function useOtherOpenKodoAccount(
   server: RpcClient | null,
   paired: RpcClient | null
 ): string | null {

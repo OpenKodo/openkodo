@@ -19,7 +19,7 @@ import type { ExternalConversationLink } from '../../shared/connectors/external-
 import { structuredAgentSessionStatusPaneKey } from '../../shared/agent-session/view/structured-agent-session-tab'
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 import { latestLiveAgentStatusRowsByPaneKey } from '../../shared/agent-status/live-agent-status-rows'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { readDispatchWorkers } from '../runtime/rpc/methods/orchestration/worker/session-workers-method'
 import type { BotUpNext } from '../../shared/bots/bot-look-around'
 import { lookAroundUpNext } from './bot-look-around-state'
@@ -29,7 +29,7 @@ import { createSharedBotBuilds } from './shared-bot-builds'
 import type { BotActivityRead } from '../../shared/bots/bot-activity-schema'
 
 /** The chats and panes whose Dispatches are the bot's workers. */
-export type BotWorkerCreators = { orcaSessionIds: string[]; paneKeys: string[] }
+export type BotWorkerCreators = { openkodoSessionIds: string[]; paneKeys: string[] }
 
 export type BotActivityHost = {
   bots: () => readonly Bot[]
@@ -207,7 +207,7 @@ export async function readBotActivity(
     ...links.map((link) => link.sessionId)
   ]
   const creators: BotWorkerCreators = {
-    orcaSessionIds: [...new Set(chatSessionIds)],
+    openkodoSessionIds: [...new Set(chatSessionIds)],
     paneKeys: [
       ...new Set([
         ...chatSessionIds.map(structuredAgentSessionStatusPaneKey),
@@ -237,7 +237,7 @@ export async function readBotActivity(
   return { ...activity, readAt, ...(upNext ? { upNext } : {}) }
 }
 
-export function runtimeBotActivityHost(runtime: OrcaRuntimeService): BotActivityHost {
+export function runtimeBotActivityHost(runtime: OpenKodoRuntimeService): BotActivityHost {
   return {
     bots: () => runtime.bots.list(),
     externalConversations: (folderWorkspaceId) =>
@@ -290,7 +290,7 @@ export function runtimeBotActivityHost(runtime: OrcaRuntimeService): BotActivity
           ? [
               {
                 worker,
-                creatorSessionId: dispatch.creatorOrcaSessionId,
+                creatorSessionId: dispatch.creatorOpenKodoSessionId,
                 creatorPaneKey: dispatch.creatorPaneKey
               }
             ]
@@ -304,7 +304,7 @@ const sharedActivityBuilds = createSharedBotBuilds<BotActivityRead>()
 
 /** Callers share builds, so more open clients do not multiply the work. */
 export function readSharedBotActivity(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string,
   host: BotActivityHost = runtimeBotActivityHost(runtime)
 ): Promise<BotActivityRead> {

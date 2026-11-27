@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { GlobalSettings } from '../../shared/settings/global-settings-types'
-import { getDefaultSettings } from '../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../shared/openkodo-profiles/constants'
 import { telemetryAtLaunch, telemetryWithOptIn } from './consent'
 
 const ENV = [

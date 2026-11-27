@@ -1,11 +1,11 @@
 import {
-  getOrcadSshDeployment,
+  getOpenkododSshDeployment,
   type PublicKnownRuntimeEnvironment
 } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
 
 type CatalogEnvironment = Pick<
   PublicKnownRuntimeEnvironment,
-  'id' | 'createdAt' | 'pairingRevision' | 'orcadDeployment' | 'hostKeyFingerprint'
+  'id' | 'createdAt' | 'pairingRevision' | 'openkododDeployment' | 'hostKeyFingerprint'
 >
 
 /** Ids whose pairing rotated since the previous catalog. */
@@ -30,12 +30,12 @@ function sameRegistration(
   after: CatalogEnvironment | undefined
 ): boolean {
   // Hand-paired replacement requires both saved keys; without them identity cannot be proven.
-  if (before && after && !before.orcadDeployment && !after.orcadDeployment) {
+  if (before && after && !before.openkododDeployment && !after.openkododDeployment) {
     return Boolean(before.hostKeyFingerprint && after.hostKeyFingerprint)
   }
   // Why SSH only: a WSL deployment takes the stricter re-pair path until its host identity lands.
-  const left = before && getOrcadSshDeployment(before)
-  const right = after && getOrcadSshDeployment(after)
+  const left = before && getOpenkododSshDeployment(before)
+  const right = after && getOpenkododSshDeployment(after)
   return Boolean(
     left &&
     right &&

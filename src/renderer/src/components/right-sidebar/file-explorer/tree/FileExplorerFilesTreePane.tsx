@@ -219,7 +219,7 @@ export function FileExplorerFilesTreePane({
           sourceWorkspaceId={tree.sourceWorkspaceId}
           dirCache={tree.dirCache}
           runtimeDownloadContext={runtimeDownloadContext}
-          canOpenInOrcaBrowser={canOpenWorkspaceFileBrowserForPath}
+          canOpenInOpenKodoBrowser={canOpenWorkspaceFileBrowserForPath}
           onClick={handleRowClick}
           onDoubleClick={handleDoubleClick}
           onViewFile={handleClick}

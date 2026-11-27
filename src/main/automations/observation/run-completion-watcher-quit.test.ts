@@ -43,7 +43,7 @@ function freshHistory(): RunHistory {
 }
 
 /** One OpenKodo process: its window graph, its view of the agent's status, and the run history it writes. */
-function startOrca(history: RunHistory) {
+function startOpenKodo(history: RunHistory) {
   let graphAvailable = true
   let quitting = false
   const pendingWaits: ((error: Error) => void)[] = []
@@ -115,7 +115,7 @@ describe('AutomationRunCompletionWatcher across an OpenKodo quit', () => {
 
   it('leaves a run watched at quit for the next start, which completes it from the agent done', async () => {
     const history = freshHistory()
-    const first = startOrca(history)
+    const first = startOpenKodo(history)
     first.watcher.watch(history.run)
     await settle()
 
@@ -125,7 +125,7 @@ describe('AutomationRunCompletionWatcher across an OpenKodo quit', () => {
     expect(history.results).toEqual([])
     expect(history.run.status).toBe('dispatched')
 
-    const second = startOrca(history)
+    const second = startOpenKodo(history)
     second.agentFinished()
     second.watcher.reconcileRetainedRuns([history.run])
     await settle()
@@ -134,25 +134,25 @@ describe('AutomationRunCompletionWatcher across an OpenKodo quit', () => {
 
   it('leaves a run watched when the native update install closes the window long before will-quit', async () => {
     const history = freshHistory()
-    const orca = startOrca(history)
-    orca.watcher.watch(history.run)
+    const openkodo = startOpenKodo(history)
+    openkodo.watcher.watch(history.run)
     await settle()
 
-    orca.startNativeUpdateInstall()
-    await orca.closeWindow()
+    openkodo.startNativeUpdateInstall()
+    await openkodo.closeWindow()
     await settle()
-    orca.watcher.dispose()
+    openkodo.watcher.dispose()
     expect(history.results).toEqual([])
     expect(history.run.status).toBe('dispatched')
   })
 
   it('fails a run whose wait broke with no quit under way', async () => {
     const history = freshHistory()
-    const orca = startOrca(history)
-    orca.watcher.watch(history.run)
+    const openkodo = startOpenKodo(history)
+    openkodo.watcher.watch(history.run)
     await settle()
 
-    await orca.closeWindow()
+    await openkodo.closeWindow()
     await settle()
     expect(history.results.map((result) => result.status)).toEqual(['dispatch_failed'])
   })

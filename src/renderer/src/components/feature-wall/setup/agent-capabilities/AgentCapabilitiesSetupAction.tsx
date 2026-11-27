@@ -14,8 +14,8 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '@/store/index'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { AgentCapabilityStatusNote, AgentCapabilityStatusPill } from './AgentCapabilityStatusBadges'
 import {
   bundledSkillInstallNeedsAttention,
@@ -64,7 +64,9 @@ function AgentCapabilitiesSetupForRuntime(
   }
 ): React.JSX.Element {
   const { onBrowserUseSkillInstalledChange, onOrchestrationSkillInstalledChange } = props
-  const computerUseBlocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse)
+  const computerUseBlocked = useOpenKodoTeamFeatureBlocked(
+    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse
+  )
   const { readiness, installStatus } = useAgentCapabilitySetupStatus(computerUseBlocked)
   const featureSetupDefaultsAppliedRef = useRef(false)
   const featureSetupChangedByUserRef = useRef(false)
@@ -147,7 +149,7 @@ function AgentCapabilitiesSetupForRuntime(
           }
         )
       }
-      // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+      // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
       if (legacyWsl) {
         const command = buildAgentFeatureSkillInstallCommand(result.skillNames)
         await window.api.ui.writeClipboardText(
@@ -196,7 +198,7 @@ function AgentCapabilitiesSetupForRuntime(
 
   return (
     <div className="space-y-5">
-      {/* COMPAT(wsl-bridge): removed when WSL runs as an orcad host. */}
+      {/* COMPAT(wsl-bridge): removed when WSL runs as an openkodod host. */}
       {wslSetup ? (
         <FeatureSetupInlineTerminal
           command={wslSetup.command}
@@ -287,7 +289,7 @@ function AgentCapabilitySetupControls(props: {
               {props.setupBusyLabel ??
                 (props.installAction?.kind === 'replace'
                   ? t(
-                      'auto.components.settings.AgentSkillSetupPanel.replaceWithOrcaCopy',
+                      'auto.components.settings.AgentSkillSetupPanel.replaceWithOpenKodoCopy',
                       'Replace with OpenKodo’s'
                     )
                   : props.installAction?.kind === 'run' && props.installAction.changes

@@ -7,7 +7,7 @@ import { ClaudeSlashCommandCatalog } from './claude-slash-command-catalog'
 import { readClaudeControlResponses } from '../sdk-transport/claude-control-responses'
 import type { ClaudeCliLaunch } from '../cli-capabilities/claude-cli-flag-support'
 
-const REQUEST_ID = 'orca-command-discovery'
+const REQUEST_ID = 'openkodo-command-discovery'
 
 // initialize lists the live chat command surface without spending an API turn.
 const CLAUDE_COMMAND_LIST_STDIN = `${JSON.stringify({

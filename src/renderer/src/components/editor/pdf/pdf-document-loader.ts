@@ -1,11 +1,11 @@
 import * as pdfjsLib from 'pdfjs-dist'
 import { buildPdfJsDocumentOptions } from './pdf-js-document-options'
-import { createOrcaMediaRangeTransport } from './pdf-orca-media-range-transport'
+import { createOpenKodoMediaRangeTransport } from './pdf-openkodo-media-range-transport'
 import { translate } from '@/i18n/i18n'
 
 type PdfLoadingTask = ReturnType<typeof pdfjsLib.getDocument>
 
-/** Bytes (raw or base64), or an orca-media URL (with its size) pdf.js reads by range. */
+/** Bytes (raw or base64), or an openkodo-media URL (with its size) pdf.js reads by range. */
 export type PdfDocumentSource =
   | { bytes: Uint8Array }
   | { base64: string }
@@ -75,11 +75,11 @@ export function createPdfDocumentLoader({
         'url' in source
           ? source.length
             ? {
-                range: createOrcaMediaRangeTransport(source.url, source.length, (error) =>
+                range: createOpenKodoMediaRangeTransport(source.url, source.length, (error) =>
                   failRange(error)
                 )
               }
-            : // orca-media refuses fetch, so a URL is only readable through its sized range transport.
+            : // openkodo-media refuses fetch, so a URL is only readable through its sized range transport.
               pdfLoadFailedMessage()
           : 'bytes' in source
             ? // pdf.js transfers the buffer to its worker; the caller keeps its own copy.

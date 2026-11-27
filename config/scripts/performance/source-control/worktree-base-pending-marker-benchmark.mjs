@@ -25,7 +25,7 @@ if (STEADY_TICKS >= TOTAL_TICKS) {
   throw new Error('OPENKODO_PENDING_MARKER_BENCH_STEADY_TICKS must be smaller than total ticks')
 }
 
-const root = await mkdtemp(join(os.tmpdir(), 'orca-pending-marker-bench-'))
+const root = await mkdtemp(join(os.tmpdir(), 'openkodo-pending-marker-bench-'))
 const markerPaths = new Set()
 for (let index = 0; index < CANDIDATE_COUNT; index += 1) {
   const candidate = join(root, `ordinary-folder-${index}`)

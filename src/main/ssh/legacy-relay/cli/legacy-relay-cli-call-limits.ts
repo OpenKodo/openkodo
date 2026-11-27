@@ -5,7 +5,7 @@
  */
 import { ORCHESTRATION_ASK_MAX_TIMEOUT_MS } from '../../../../shared/orchestration/mailbox/orchestration-ask-timeout'
 import { isDurableMutation } from '../../../../shared/orchestration/orchestration-rpc-contract'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { RpcAnyMethodDeclaration } from '../../../runtime/rpc/core'
 import { ALL_RPC_METHODS } from '../../../runtime/rpc/methods/rpc-method-registry'
 import {
@@ -80,7 +80,7 @@ export async function runLegacyRelayCliCall<T>(
 
 /** Exact method/principal/payload receipts may replay. Check while caller identity is registered because hashing reads its pane. */
 export function isExactLegacyRelayCliReplay(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   fingerprint: string,
   requestId: string,
   call: LegacyRelayCliCall

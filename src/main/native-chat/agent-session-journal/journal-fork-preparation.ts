@@ -114,7 +114,7 @@ export class JournalForkPreparation {
             const submission: AgentJournalSubmission = JSON.parse(String(row.payload_json))
             const keys = savedRewindKeys([submission])
             const itemId = agentJournalItemKey({
-              provider: 'orca',
+              provider: 'openkodo',
               clientMessageId: submission.clientMessageId
             })
             this.db

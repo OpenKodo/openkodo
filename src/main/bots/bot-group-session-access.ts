@@ -1,10 +1,13 @@
 import { isBotGroupMemberSession } from '../../shared/bots/bot-group'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { InvalidArgumentError } from '../runtime/rpc/core'
 import { runtimeBotGroups } from './bot-group-runtime'
 
 /** Any caller, a person or an agent, may operate a group member session while it is still a member. */
-export function assertBotGroupSessionAccess(runtime: OrcaRuntimeService, sessionId: string): void {
+export function assertBotGroupSessionAccess(
+  runtime: OpenKodoRuntimeService,
+  sessionId: string
+): void {
   if (isBotGroupMemberSession(sessionId) && !runtimeBotGroups(runtime).store.memberOf(sessionId)) {
     throw new Error('This bot is no longer a member of the group.')
   }

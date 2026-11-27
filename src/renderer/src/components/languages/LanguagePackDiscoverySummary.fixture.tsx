@@ -63,7 +63,7 @@ function LanguageRow({
                     label: hint.kind === 'browse' ? 'System' : 'System (English)'
                   },
                   { value: 'en', label: 'English' },
-                  { value: 'plugin:ebbop.orca-italian/it', label: 'italiano' }
+                  { value: 'plugin:ebbop.openkodo-italian/it', label: 'italiano' }
                 ]
               }
             ]}
@@ -168,7 +168,7 @@ export const settingsRowCommunityActive = defineFixture({
   render: () => (
     <LanguageRow
       hint={{ kind: 'community', publisher: 'ebbop', previousName: 'English (System)' }}
-      value="plugin:ebbop.orca-italian/it"
+      value="plugin:ebbop.openkodo-italian/it"
     />
   )
 })

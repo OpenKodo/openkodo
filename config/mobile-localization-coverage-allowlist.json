@@ -149,7 +149,7 @@
   {
     "filePath": "mobile/src/new-workspace/creation/forms/NewWorkspaceSetupScriptField.tsx",
     "kind": "jsx-text",
-    "text": "orca.yaml",
+    "text": "openkodo.yaml",
     "dynamic": false,
     "count": 1
   },
@@ -282,14 +282,14 @@
   {
     "filePath": "mobile/src/settings/about-screen.tsx",
     "kind": "jsx-attribute:title",
-    "text": "@orca_build",
+    "text": "@openkodo_build",
     "dynamic": false,
     "count": 1
   },
   {
     "filePath": "mobile/src/settings/about-screen.tsx",
     "kind": "jsx-attribute:title",
-    "text": "orca.dev",
+    "text": "openkodo.dev",
     "dynamic": false,
     "count": 1
   },

@@ -1,7 +1,7 @@
 /** AppImage swaps leave running copies stale; re-exec at the same PID to preserve service tracking. */
 import { readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   readAppImageSourceOfNamespace,
   resolveAppImageCacheKey,

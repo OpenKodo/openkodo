@@ -14,7 +14,7 @@ import { readWorktreeMetaForRepo } from '../../../persistence/host-qualified-wor
 import { hostWorktreeTarget } from '../../../../shared/worktree/host-qualified-identity'
 import { getRepoOwnedWorktreeMeta } from '../../../workspaces/catalog/worktree-metadata-ownership'
 import {
-  buildKnownOrcaWorkspaceLayouts,
+  buildKnownOpenKodoWorkspaceLayouts,
   toDetectedWorktree
 } from '../../../../shared/worktree/visibility/ownership'
 import { isLegacyRepoForExternalWorktreeVisibility } from '../../../../shared/worktree/visibility/external-worktree-visibility'
@@ -142,7 +142,7 @@ export function buildDetectedGitWorktrees(
   allMetaOverride?: Record<string, WorktreeMeta>
 ): DetectedWorktree[] {
   const settings = store.getSettings()
-  const knownOrcaLayouts = buildKnownOrcaWorkspaceLayouts(settings, repo)
+  const knownOpenKodoLayouts = buildKnownOpenKodoWorkspaceLayouts(settings, repo)
   const isLegacyRepoForVisibility = isLegacyRepoForExternalWorktreeVisibility(repo)
   const allMeta = allMetaOverride ?? store.getAllWorktreeMeta?.()
   const repoOwnerCount = store.getRepos().filter((candidate) => candidate.id === repo.id).length
@@ -177,7 +177,7 @@ export function buildDetectedGitWorktrees(
       worktree,
       meta,
       settings,
-      knownOrcaLayouts,
+      knownOpenKodoLayouts,
       isLegacyRepoForVisibility,
       worktreeVisibilitySourceMatcher
     })
@@ -201,7 +201,7 @@ export function buildDetectedGitWorktrees(
       worktree: mergeWorktree(repo.id, gitWorktree, backfilledMeta, repo.displayName),
       meta: backfilledMeta,
       settings,
-      knownOrcaLayouts,
+      knownOpenKodoLayouts,
       isLegacyRepoForVisibility,
       worktreeVisibilitySourceMatcher
     })

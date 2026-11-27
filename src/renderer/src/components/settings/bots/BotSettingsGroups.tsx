@@ -23,7 +23,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
 import { useHostBots } from '@/lib/bot-catalog'
-import { useBotHostOrcaAccount } from '@/lib/bot-host-orca-account'
+import { useBotHostOpenKodoAccount } from '@/lib/bot-host-openkodo-account'
 import { botHostTarget } from '@/lib/bot-hosts'
 import { useAppStore } from '@/store'
 import type { Bot } from '../../../../../shared/bot-types'
@@ -239,7 +239,7 @@ function ServerEnableRow({
 /** The account a live server runs as, or why it has none. */
 function useServerAccountLine(computer: BotSettingsComputer): string | null {
   const t = useTranslate()
-  const account = useBotHostOrcaAccount(computer.hostId)
+  const account = useBotHostOpenKodoAccount(computer.hostId)
   if (!account || account.state === 'unconfigured') {
     return null
   }
@@ -341,7 +341,7 @@ function ComposioKeySection({
 /** This computer's group: its connectors, Google and Composio key; its switch is at the top. */
 function LocalGroup({ computer }: { computer: BotSettingsComputer }): React.JSX.Element {
   const t = useTranslate()
-  const email = useAppStore((state) => state.orcaProfileAuthStatus?.cloud?.email ?? null)
+  const email = useAppStore((state) => state.openkodoProfileAuthStatus?.cloud?.email ?? null)
   return (
     <SettingsGroup icon={Laptop} title={computer.name} detail={email}>
       <ComputerBots computer={computer} />

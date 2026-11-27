@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type {
   HookCommandSourcePolicy,
-  OrcaHooks,
+  OpenKodoHooks,
   RepoHookSettings,
   SetupAgentStartupPolicy,
   SetupRunPolicy
-} from '../../../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { WorkspaceHookOwner } from '../../../../../../shared/workspace-setup/hooks/workspace-hook-owner'
 import { Button } from '@/components/ui/button'
 import type { Repo } from '../../../../../../shared/repository/repo-types'
@@ -43,7 +43,7 @@ type RepositoryHooksSectionProps = {
   showArchive?: boolean
   yamlPresentation?: HookYamlPresentation
   setupExample?: string
-  yamlHooks: OrcaHooks | null
+  yamlHooks: OpenKodoHooks | null
   hasHooksFile: boolean
   hooksInspectionReady: boolean
   mayNeedUpdate: boolean

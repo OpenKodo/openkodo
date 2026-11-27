@@ -22,11 +22,11 @@ async function loadNodePty(): Promise<typeof pty> {
 }
 
 function daemonEnvironmentDiagSuffix(): string {
-  const orca = process.env.OPENKODO_APP_VERSION?.trim() || '0.0.0-dev'
+  const openkodo = process.env.OPENKODO_APP_VERSION?.trim() || '0.0.0-dev'
   const systemVersion =
     (process as NodeJS.Process & { getSystemVersion?: () => string }).getSystemVersion?.() ||
     release()
-  return ` (orca: ${orca}, arch: ${process.arch}, platform: ${process.platform} ${systemVersion})`
+  return ` (openkodo: ${openkodo}, arch: ${process.arch}, platform: ${process.platform} ${systemVersion})`
 }
 
 function formatMissingDaemonPathError(kind: 'helper' | 'cwd', path: string): DaemonProtocolError {

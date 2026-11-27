@@ -15,14 +15,14 @@ import {
   host,
   RelativeTime,
   ui
-} from 'orca'
+} from 'openkodo'
 
 // When this panel module loaded: RelativeTime keeps "…ago" current with no timer of our own.
 const loadedAt = Date.now()
 
 const README = `## Components Gallery
 
-Everything here is drawn by Orca from plain data. Links such as
+Everything here is drawn by OpenKodo from plain data. Links such as
 [the components guide](https://github.com/OpenKodo/openkodo) open in your browser.
 
 - **Tables** page and sort
@@ -49,7 +49,7 @@ export function ContentTab() {
         <IconButton icon="settings" label="Settings" tooltip="Gallery settings" />
       </Toolbar>
       <Callout tone="accent" title="Catalog 2">
-        <Text>These components need Orca 1.4.247 or newer (ui.catalog {ui.catalog}).</Text>
+        <Text>These components need OpenKodo 1.4.247 or newer (ui.catalog {ui.catalog}).</Text>
         <Text muted size="xs">
           Opened <RelativeTime at={loadedAt} format="long" />
         </Text>

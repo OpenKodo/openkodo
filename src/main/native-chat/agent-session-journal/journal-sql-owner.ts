@@ -61,7 +61,7 @@ export class JournalSqlOwner {
     )
   ) {
     this.worker = spawnWorkerThread(workerPath, {
-      name: 'orca-journal-sql-writer',
+      name: 'openkodo-journal-sql-writer',
       workerData: { filename, stateDirectory },
       execArgv: []
     })

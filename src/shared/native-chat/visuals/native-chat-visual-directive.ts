@@ -1,12 +1,12 @@
-// Shared desktop/web/mobile visual grammar: ::orca-visual{file="chart.html" title="Usage"}. Must occupy a whole case-sensitive line,
+// Shared desktop/web/mobile visual grammar: ::openkodo-visual{file="chart.html" title="Usage"}. Must occupy a whole case-sensitive line,
 // with up to three leading spaces/trailing horizontal whitespace or CR. Attributes use lowercase keys and unescaped quoted values
 // (no quote/backslash/control characters). file is required; title optional; reject duplicate keys, ignore unknown keys for newer agents.
 
 import { WEBHOOK_HOOK_ID_PATTERN } from '../../connector-webhook-contract'
 
-export const NATIVE_CHAT_VISUAL_DIRECTIVE_MARKER = '::orca-visual{'
-// ::orca-webhook{hook="wh_…"}: the webhook card. Only the hook id is in the line; the card reads the rest from the host.
-export const NATIVE_CHAT_WEBHOOK_DIRECTIVE_MARKER = '::orca-webhook{'
+export const NATIVE_CHAT_VISUAL_DIRECTIVE_MARKER = '::openkodo-visual{'
+// ::openkodo-webhook{hook="wh_…"}: the webhook card. Only the hook id is in the line; the card reads the rest from the host.
+export const NATIVE_CHAT_WEBHOOK_DIRECTIVE_MARKER = '::openkodo-webhook{'
 const DIRECTIVE_MARKERS = [
   NATIVE_CHAT_VISUAL_DIRECTIVE_MARKER,
   NATIVE_CHAT_WEBHOOK_DIRECTIVE_MARKER
@@ -188,8 +188,8 @@ function fenceStep(fence: string | null, bare: string): { fence: string | null; 
   return opener ? { fence: opener, code: true } : { fence: null, code: false }
 }
 
-// Bots wrote ::orca-idea{text="…"} lines in their first message until 2026-11-09; old transcripts still hold them.
-const LEGACY_IDEA_DIRECTIVE_MARKER = '::orca-idea{'
+// Bots wrote ::openkodo-idea{text="…"} lines in their first message until 2026-11-09; old transcripts still hold them.
+const LEGACY_IDEA_DIRECTIVE_MARKER = '::openkodo-idea{'
 
 /** Old transcripts' idea lines as plain list lines of their text; fenced code keeps them as written. */
 export function withLegacyNativeChatIdeasAsList(text: string): string {

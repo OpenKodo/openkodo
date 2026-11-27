@@ -20,7 +20,7 @@ import {
 } from './automation-event-prompt'
 import { captureAutomationRunMessage } from './automation-run-message-capture'
 import type { BotRunFields } from '../bots/bot-chat-session'
-import type { AgentJournalAutomationRunNotStartedItem } from '../../shared/agent-journal-orca-card-items'
+import type { AgentJournalAutomationRunNotStartedItem } from '../../shared/agent-journal-openkodo-card-items'
 import { BotSessionRefusedError } from '../bots/bot-session-refused-error'
 
 /** Where a bot run's prompt goes; each resolves to the structured session and message that took it. */

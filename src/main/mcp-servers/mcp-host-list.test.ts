@@ -114,7 +114,7 @@ describe("a host's MCP server list", () => {
 
   it('gives a hand-edited entry an id once, and a server whose workspaces it can’t read is on nowhere', async () => {
     const folder = tempDir('mcp-host-list-')
-    mkdirSync(join(folder, '.orca'), { recursive: true })
+    mkdirSync(join(folder, '.openkodo'), { recursive: true })
     writeFileSync(
       botToolsPath(folder),
       JSON.stringify({

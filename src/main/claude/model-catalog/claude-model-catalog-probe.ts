@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import { agentModelCatalogInputStamp } from '../../native-chat/agent-model-catalog/agent-model-catalog-input-stamp'
-import { withOrcaClaudeChatEntrypoint } from '../../../shared/agent-launch/startup/claude-chat-entrypoint'
+import { withOpenKodoClaudeChatEntrypoint } from '../../../shared/agent-launch/startup/claude-chat-entrypoint'
 import { waitForPromiseWithSignal } from '../../../shared/concurrency/abort-signal-reason'
 import type { ClaudeCliLaunch } from '../cli-capabilities/claude-cli-flag-support'
 import {
@@ -95,7 +95,7 @@ export async function runClaudeListing(
       },
       {
         site: request.site,
-        inheritedEnv: withOrcaClaudeChatEntrypoint(env, process.platform),
+        inheritedEnv: withOpenKodoClaudeChatEntrypoint(env, process.platform),
         signal: request.signal
       }
     )
@@ -210,9 +210,9 @@ export function createClaudeModelCatalogProbe(
             assertStructuredAgentResolutionCurrent(runOperation)
             signal?.throwIfAborted()
             const requests = [
-              'orca-model-discovery',
-              'orca-model-settings',
-              'orca-signin-discovery'
+              'openkodo-model-discovery',
+              'openkodo-model-settings',
+              'openkodo-signin-discovery'
             ]
             const settled = new Set<string>()
             const replies = new Map<string, unknown>()
@@ -222,12 +222,12 @@ export function createClaudeModelCatalogProbe(
                 command,
                 args: [...prefixArgs, ...argsFor(strictMcp, settingSources)],
                 ...(listIn ? { cwd: listIn } : {}),
-                stdin: `${CLAUDE_MODEL_LIST_STDIN}${JSON.stringify({ type: 'control_request', request_id: 'orca-model-settings', request: { subtype: 'get_settings' } })}\n${JSON.stringify({ type: 'control_request', request_id: 'orca-signin-discovery', request: { subtype: 'initialize' } })}\n`
+                stdin: `${CLAUDE_MODEL_LIST_STDIN}${JSON.stringify({ type: 'control_request', request_id: 'openkodo-model-settings', request: { subtype: 'get_settings' } })}\n${JSON.stringify({ type: 'control_request', request_id: 'openkodo-signin-discovery', request: { subtype: 'initialize' } })}\n`
               },
               {
                 site: 'claude-model-catalog-probe',
                 // The listing runs from the account folder; relative PATH entries still mean the chat's.
-                inheritedEnv: withOrcaClaudeChatEntrypoint(
+                inheritedEnv: withOpenKodoClaudeChatEntrypoint(
                   launchDirectory ? envWithPathRelativeTo(env, launchDirectory) : env,
                   process.platform
                 ),
@@ -253,12 +253,12 @@ export function createClaudeModelCatalogProbe(
                   }
                   if (
                     settled.size > previous &&
-                    listedModels(replies.get('orca-model-discovery')).length > 0
+                    listedModels(replies.get('openkodo-model-discovery')).length > 0
                   ) {
                     publish?.(
                       readClaudeCatalogObservation(replies, env, account),
-                      record(record(replies.get('orca-signin-discovery'))?.account) !== null &&
-                        record(record(replies.get('orca-model-settings'))?.effective) !== null
+                      record(record(replies.get('openkodo-signin-discovery'))?.account) !== null &&
+                        record(record(replies.get('openkodo-model-settings'))?.effective) !== null
                     )
                   }
                 },

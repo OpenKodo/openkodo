@@ -132,7 +132,7 @@ export function readClaudeHistoryPrompts(
     return result
   }
   for (const itemId of userItemIds) {
-    if (parseAgentJournalItemKey(itemId)?.provider !== 'orca') {
+    if (parseAgentJournalItemKey(itemId)?.provider !== 'openkodo') {
       continue
     }
     const uuid = claudePromptUuidForSubmission(sessionId, itemId)

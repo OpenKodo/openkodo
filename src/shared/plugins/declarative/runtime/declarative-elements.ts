@@ -1,21 +1,21 @@
-/** JSX element factory for the guest `orca` module. Elements are plain data until rendered. */
+/** JSX element factory for the guest `openkodo` module. Elements are plain data until rendered. */
 
-export const OPENKODO_ELEMENT = Symbol.for('orca.declarative.element')
-export const Fragment = Symbol.for('orca.declarative.fragment')
+export const OPENKODO_ELEMENT = Symbol.for('openkodo.declarative.element')
+export const Fragment = Symbol.for('openkodo.declarative.fragment')
 
-export type OrcaProps = Record<string, unknown>
-/** Loosely typed on purpose: author-facing prop types live in the published `orca` typings. */
-export type OrcaComponent = (props: OrcaProps) => unknown
-export type OrcaElementType = string | typeof Fragment | OrcaComponent
+export type OpenKodoProps = Record<string, unknown>
+/** Loosely typed on purpose: author-facing prop types live in the published `openkodo` typings. */
+export type OpenKodoComponent = (props: OpenKodoProps) => unknown
+export type OpenKodoElementType = string | typeof Fragment | OpenKodoComponent
 
-export type OrcaElement = {
+export type OpenKodoElement = {
   readonly $$typeof: typeof OPENKODO_ELEMENT
-  readonly type: OrcaElementType
-  readonly props: OrcaProps
+  readonly type: OpenKodoElementType
+  readonly props: OpenKodoProps
   readonly key: string | undefined
 }
 
-export function isOrcaElement(value: unknown): value is OrcaElement {
+export function isOpenKodoElement(value: unknown): value is OpenKodoElement {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -24,7 +24,11 @@ export function isOrcaElement(value: unknown): value is OrcaElement {
   )
 }
 
-function createElement(type: OrcaElementType, props: OrcaProps, key: unknown): OrcaElement {
+function createElement(
+  type: OpenKodoElementType,
+  props: OpenKodoProps,
+  key: unknown
+): OpenKodoElement {
   return Object.freeze({
     $$typeof: OPENKODO_ELEMENT,
     type,
@@ -34,17 +38,21 @@ function createElement(type: OrcaElementType, props: OrcaProps, key: unknown): O
 }
 
 /** Automatic runtime (`jsx`/`jsxs`/`jsxDEV`): children arrive inside `props`. */
-export function jsx(type: OrcaElementType, props: OrcaProps | null, key?: unknown): OrcaElement {
+export function jsx(
+  type: OpenKodoElementType,
+  props: OpenKodoProps | null,
+  key?: unknown
+): OpenKodoElement {
   const { key: propKey, ...rest } = props ?? {}
   return createElement(type, rest, key ?? propKey)
 }
 
 /** Classic runtime (`h`, `jsxFactory`): children arrive as trailing arguments. */
 export function h(
-  type: OrcaElementType,
-  props: OrcaProps | null,
+  type: OpenKodoElementType,
+  props: OpenKodoProps | null,
   ...children: unknown[]
-): OrcaElement {
+): OpenKodoElement {
   const { key, ...rest } = props ?? {}
   if (children.length > 0) {
     rest.children = children.length === 1 ? children[0] : children

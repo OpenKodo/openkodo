@@ -14,12 +14,12 @@ import { skillBackupLocation, type SkillBackupHost } from './skill-backup-locati
 
 // Seeded data only: a made-up home.
 const HOME = '/home/dev'
-const NAME = 'orca-cli'
+const NAME = 'openkodo-cli'
 const SHARED = `${HOME}/.agents/skills/${NAME}`
-const FORMER = `${HOME}/.codex/skills/orca`
+const FORMER = `${HOME}/.codex/skills/openkodo`
 const LOCAL: SkillBackupHost = { kind: 'local' }
 const REMOTE: SkillBackupHost = { kind: 'remote', name: 'build-box' }
-const BACKUP = `${HOME}/.agents/.orca-skill-backups/${NAME}-2026-11-22T09-14-03-512Z-4f1c2a9e-7b3d-4e8a-9c21-6d0e5f3b8a17`
+const BACKUP = `${HOME}/.agents/.openkodo-skill-backups/${NAME}-2026-11-22T09-14-03-512Z-4f1c2a9e-7b3d-4e8a-9c21-6d0e5f3b8a17`
 const WITH_EXTRAS: BundledSkillObserved = {
   kind: 'folder',
   entries: ['SKILL.md:file', 'agents:directory'],
@@ -138,7 +138,7 @@ export const realEdit = rowFixture([leave(SHARED, SKILL_ONLY, {})])
 export const linkCopy = rowFixture([
   leave(
     `${HOME}/.claude/skills/${NAME}`,
-    { kind: 'link', target: '/opt/skills/orca-cli' },
+    { kind: 'link', target: '/opt/skills/openkodo-cli' },
     {
       role: 'agent',
       agents: ['claude'],

@@ -47,7 +47,7 @@ import { ClaudeAgentTeamsService } from '../terminal/agent-teams/claude-agent-te
 import { teardownFolderWorkspacePtys } from '../workspaces/removal/folder-workspace-pty-teardown'
 import { countRepoTerminalsNotKnownExited } from '../workspaces/removal/project-removal-impact'
 
-export abstract class OrcaRuntimeWithPreservedBranchCleanup extends RuntimeAgentStatusSources {
+export abstract class OpenKodoRuntimeWithPreservedBranchCleanup extends RuntimeAgentStatusSources {
   protected abstract finishGroupFolderCreation: Calls.FinishGroupFolderCreation
   declare acquireFileWatcherRemoval: Calls.AcquireFileWatcherRemoval
   protected abstract tryGetWorkspaceSessionHostIdForWorktree(

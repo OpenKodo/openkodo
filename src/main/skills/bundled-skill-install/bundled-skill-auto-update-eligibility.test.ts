@@ -50,7 +50,7 @@ function lateWriterFilesystem(home: SkillHome): BundledSkillFilesystem {
     ...nativeBundledSkillFilesystem,
     rename: async (source, destination) => {
       await nativeBundledSkillFilesystem.rename(source, destination)
-      if (source === target && basename(destination).startsWith('.alpha.orca-old')) {
+      if (source === target && basename(destination).startsWith('.alpha.openkodo-old')) {
         await writeFile(join(destination, 'SKILL.md'), text('alpha', 'late edit'))
       }
     }
@@ -81,7 +81,7 @@ describe('per-skill silent update of unedited OpenKodo copies', () => {
     const home = await makeSkillHome()
     await writeCopy(skillPath(home, 'shared', 'alpha'), text('alpha', 'old'))
     // An interrupted swap: the target is gone and OpenKodo's old copy waits to be restored.
-    await writeCopy(join(dirname(home.shared), '.bravo.orca-old-1'), text('bravo', 'old'))
+    await writeCopy(join(dirname(home.shared), '.bravo.openkodo-old-1'), text('bravo', 'old'))
     await writeCopy(skillPath(home, 'shared', 'charlie'), text('charlie', 'my own notes'))
 
     const result = await autoUpdateInstalledBundledSkills({ ...input(home), names: NAMES })
@@ -142,7 +142,7 @@ describe('per-skill silent update of unedited OpenKodo copies', () => {
     const unwritableBackups = (filesystem: BundledSkillFilesystem): BundledSkillFilesystem => ({
       ...filesystem,
       rename: async (source, target) => {
-        if (basename(dirname(target)) === '.orca-skill-backups') {
+        if (basename(dirname(target)) === '.openkodo-skill-backups') {
           throw Object.assign(new Error('denied'), { code: 'EACCES' })
         }
         return filesystem.rename(source, target)
@@ -157,7 +157,7 @@ describe('per-skill silent update of unedited OpenKodo copies', () => {
     const outcome = result.skills[0]?.ops[0]
     expect(outcome).toMatchObject({ status: 'failed', error: 'EACCES' })
     const stranded = outcome?.strandedPath ?? ''
-    expect(basename(stranded)).toMatch(/^\.alpha\.orca-old/u)
+    expect(basename(stranded)).toMatch(/^\.alpha\.openkodo-old/u)
     expect(await readFile(join(stranded, 'SKILL.md'), 'utf8')).toBe(text('alpha', 'late edit'))
     expect(await readSkill(home, 'shared', 'alpha')).toBe(text('alpha', 'new'))
 

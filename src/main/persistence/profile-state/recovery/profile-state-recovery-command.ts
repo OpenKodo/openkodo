@@ -4,7 +4,7 @@ import {
   type ProfileStateRecoverySelector,
   type ProfileStateExportsResult,
   type ProfileStateRollbackResult
-} from '../../../../shared/orca-profiles/profile-state-recovery-command'
+} from '../../../../shared/openkodo-profiles/profile-state-recovery-command'
 import { getActiveProfileStateLocation } from '../offline-access/profile-state-active-location'
 import {
   profileStateJsonExportPath,
@@ -32,7 +32,7 @@ import { writeVersionedProfileStateExport } from '../legacy-json/profile-state-v
 import { readProfileStateDomain } from '../documents/profile-state-domain-reader'
 import { repairProfileStateSections } from './profile-state-section-repair'
 import { isRecord } from '../documents/profile-state-document-validation'
-import { profileHasPendingProjectMove } from '../../../orca-profiles/project-transfer/profile-project-move-record'
+import { profileHasPendingProjectMove } from '../../../openkodo-profiles/project-transfer/profile-project-move-record'
 import {
   invalidateHttp1CompatibilityMarker,
   writeHttp1CompatibilityMarker

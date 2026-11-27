@@ -144,7 +144,7 @@ describe('interrupted swaps', () => {
       { ...input, filesystem: crashingFilesystem(2) },
       plan.planDigest
     )
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     const [backup] = await readdir(backups)
     expect(result.skills[0].ops[0]).toMatchObject({
       status: 'failed',
@@ -165,7 +165,7 @@ describe('interrupted swaps', () => {
     const filesystem: BundledSkillFilesystem = {
       ...nativeBundledSkillFilesystem,
       rename: async (source, target) => {
-        if (target === home.shared && source.includes('.orca-stage-')) {
+        if (target === home.shared && source.includes('.openkodo-stage-')) {
           await mkdir(target)
           throw Object.assign(new Error('new occupant'), { code: 'EEXIST' })
         }
@@ -189,7 +189,7 @@ describe('interrupted swaps', () => {
     const filesystem: BundledSkillFilesystem = {
       ...nativeBundledSkillFilesystem,
       rename: async (source, target) => {
-        if (target === home.shared && source.includes('.orca-stage-')) {
+        if (target === home.shared && source.includes('.openkodo-stage-')) {
           throw Object.assign(new Error('placement failed'), { code: 'EIO' })
         }
         return nativeBundledSkillFilesystem.rename(source, target)
@@ -207,7 +207,7 @@ describe('interrupted swaps', () => {
     expect(await readFile(join(home.shared, 'SKILL.md'), 'utf8')).toBe(edited)
     expect(await readFile(join(home.shared, 'notes.md'), 'utf8')).toBe('user payload')
     expect((await stat(home.shared)).mode).toBe(modeBefore)
-    expect(await readdir(join(home.home, '.agents', '.orca-skill-backups'))).toEqual([])
+    expect(await readdir(join(home.home, '.agents', '.openkodo-skill-backups'))).toEqual([])
     expect(await leftoverSiblings(home.shared)).toEqual([])
     expect((await previewBundledSkillInstall(input)).planDigest).toBe(plan.planDigest)
   })
@@ -245,7 +245,7 @@ describe('cross-drive backup refusal', () => {
       }
       const edited = `${OLD_TEXT}Local edit\n`
       await writeCopy(target, edited, { 'notes.md': 'user payload' })
-      const backups = join(home.home, '.agents', '.orca-skill-backups')
+      const backups = join(home.home, '.agents', '.openkodo-skill-backups')
       let refused = false
       let treeReadsAfterRefusal = 0
       const countRefusedTreeRead = (path: string) => {
@@ -289,7 +289,9 @@ describe('cross-drive backup refusal', () => {
       })
       if (content === 'files') {
         expect(result.skills[0].ops.find((op) => op.path === home.claude)?.status).toBe('skipped')
-        expect(await snapshot(join(home.home, '.agents', '.orca-skill-digests'))).toBe('missing')
+        expect(await snapshot(join(home.home, '.agents', '.openkodo-skill-digests'))).toBe(
+          'missing'
+        )
       }
       expect(treeReadsAfterRefusal).toBe(0)
       expect(await readFile(join(target, 'SKILL.md'), 'utf8')).toBe(edited)
@@ -312,7 +314,7 @@ describe('cross-drive backup refusal', () => {
   it('detects a write during publication and preserves it through refusal and a fresh recovery plan', async () => {
     const home = await makeSkillHome()
     await writeCopy(home.shared, OLD_TEXT)
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     let oldPath = ''
     const filesystem: BundledSkillFilesystem = {
       ...nativeBundledSkillFilesystem,
@@ -322,7 +324,7 @@ describe('cross-drive backup refusal', () => {
         }
         if (source === home.shared) {
           oldPath = target
-        } else if (source.includes('.orca-stage-') && target === home.shared) {
+        } else if (source.includes('.openkodo-stage-') && target === home.shared) {
           await writeFile(join(oldPath, 'SKILL.md'), 'edited during publication\n')
         }
         return nativeBundledSkillFilesystem.rename(source, target)
@@ -343,7 +345,7 @@ describe('cross-drive backup refusal', () => {
       { path: home.claude, status: 'done' }
     ])
     expect(await readFile(join(home.claude, 'SKILL.md'), 'utf8')).toBe(NEW_TEXT)
-    expect(await readdir(join(home.home, '.agents', '.orca-skill-digests', NAME))).toEqual([
+    expect(await readdir(join(home.home, '.agents', '.openkodo-skill-digests', NAME))).toEqual([
       plan.skills[0].digest
     ])
     expect(await readFile(join(oldPath, 'SKILL.md'), 'utf8')).toBe('edited during publication\n')
@@ -376,7 +378,7 @@ describe('cross-drive backup refusal', () => {
     const former = join(dirname(home.shared), alias)
     await writeCopy(home.shared, OLD_TEXT)
     await writeCopy(former, OLD_TEXT)
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     const late = lateEditingFilesystem(backups, former)
     const input = {
       ...serviceInput(home, { agents: ['claude'] }),
@@ -428,7 +430,7 @@ describe('cross-drive backup refusal', () => {
       await writeCopy(home.shared, NEW_TEXT)
       await writeFile(join(home.shared, 'notes.md'), 'agent notes\n')
       await writeCopy(former, OLD_TEXT)
-      const backups = join(home.home, '.agents', '.orca-skill-backups')
+      const backups = join(home.home, '.agents', '.openkodo-skill-backups')
       // The kept copy can change while its former name is being retired.
       const late = lateEditingFilesystem(backups, former, async () => {
         if (kept === 'changed') {
@@ -490,10 +492,10 @@ function refusingFilesystem(
 describe('refusal outcomes', () => {
   it('reports a backup that finished before a later refusal', async () => {
     const home = await makeSkillHome()
-    const leftover = join(dirname(home.shared), `.${NAME}.orca-old-earlier`)
+    const leftover = join(dirname(home.shared), `.${NAME}.openkodo-old-earlier`)
     await writeCopy(home.shared, `${OLD_TEXT}Local edit\n`)
     await writeCopy(leftover, `${OLD_TEXT}Earlier edit\n`)
-    const backups = join(home.home, '.agents', '.orca-skill-backups')
+    const backups = join(home.home, '.agents', '.openkodo-skill-backups')
     const input = serviceInput(home, { agents: [], force: [home.shared] })
     const plan = await previewBundledSkillInstall(input)
     expect(plan.skills[0].ops[0].cleanup).toMatchObject([{ path: leftover, action: 'backup' }])
@@ -521,7 +523,7 @@ describe('refusal outcomes', () => {
     const filesystem: BundledSkillFilesystem = {
       ...nativeBundledSkillFilesystem,
       rename: async (source, target) => {
-        if (source.includes('.orca-stage-') && target === home.shared) {
+        if (source.includes('.openkodo-stage-') && target === home.shared) {
           throw Object.assign(new Error('cross-device rename'), { code: 'EXDEV' })
         }
         return nativeBundledSkillFilesystem.rename(source, target)
@@ -544,11 +546,11 @@ describe('refusal outcomes', () => {
     'links to a %s current copy only if it is rechecked after its cleanup is refused',
     async (parent) => {
       const home = await makeSkillHome()
-      const leftover = join(dirname(home.shared), `.${NAME}.orca-old-earlier`)
+      const leftover = join(dirname(home.shared), `.${NAME}.openkodo-old-earlier`)
       await writeCopy(home.shared, NEW_TEXT)
       await writeCopy(leftover, `${OLD_TEXT}Earlier edit\n`)
-      const backups = join(home.home, '.agents', '.orca-skill-backups')
-      const digests = join(home.home, '.agents', '.orca-skill-digests')
+      const backups = join(home.home, '.agents', '.openkodo-skill-backups')
+      const digests = join(home.home, '.agents', '.openkodo-skill-digests')
       const input = serviceInput(home, { agents: ['claude'] })
       const plan = await previewBundledSkillInstall(input)
       expect(plan.skills[0].ops.map((op) => [op.path, op.kind])).toEqual([
@@ -613,7 +615,7 @@ describe('the disk changing under a plan', () => {
     expect(result.skills[0].ops.map((op) => [op.kind, op.status])).toEqual([['replace', 'changed']])
     expect(await readFile(join(home.shared, 'SKILL.md'), 'utf8')).toBe(text)
     expect(await readFile(auxiliaryPath, 'utf8')).toBe('raced\n')
-    expect(await readdir(join(home.home, '.agents', '.orca-skill-backups'))).toEqual([])
+    expect(await readdir(join(home.home, '.agents', '.openkodo-skill-backups'))).toEqual([])
     expect(await leftoverSiblings(home.shared)).toEqual([])
   })
 
@@ -664,7 +666,7 @@ describe('the disk changing under a plan', () => {
       ...nativeBundledSkillFilesystem,
       rename: async (source, target) => {
         await nativeBundledSkillFilesystem.rename(source, target)
-        if (target.includes('.orca-old-')) {
+        if (target.includes('.openkodo-old-')) {
           await writeFile(join(target, 'SKILL.md'), 'raced\n')
         }
       }

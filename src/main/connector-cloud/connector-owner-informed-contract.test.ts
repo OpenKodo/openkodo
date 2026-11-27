@@ -50,7 +50,7 @@ it.each(corpus.valid.filter((entry) => entry.schema === 'events'))(
   'sends canonical event request: $name',
   async ({ input }) => {
     const request = EventRequest.parse(input)
-    const dir = mkdtempSync(join(tmpdir(), 'orca-event-contract-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-event-contract-'))
     try {
       const events = new ConnectorTurnEvents(dir, 'owner')
       events.useCloudFeatures(

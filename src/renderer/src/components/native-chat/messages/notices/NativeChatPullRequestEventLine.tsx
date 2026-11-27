@@ -37,7 +37,7 @@ function LineLink({
   )
 }
 
-/** "CI failing on orca#3 at 8d5f74b": a status row per finished CI result, hideable like the other chat cards. */
+/** "CI failing on openkodo#3 at 8d5f74b": a status row per finished CI result, hideable like the other chat cards. */
 export function NativeChatPullRequestEventLine({
   block,
   messageId,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { AutomationRun } from '../../shared/automations/history/automation-run'
 import { normalizeLoadedAutomationRuns } from '../persistence/loading-store/profile-loading/normalize-loaded-state-collections'
-import type { PersistedState } from '../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../shared/openkodo-profiles/persisted-state-types'
 import {
   deliverBotRunResult,
   type BotRunDeliveryDependencies,

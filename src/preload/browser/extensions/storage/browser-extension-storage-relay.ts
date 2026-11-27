@@ -1,7 +1,7 @@
 import type { BrowserExtensionMainWorldBridge } from '../api/browser-extension-main-world'
 
 /** Main-only namespace carrying page storage writes to the worker; never installed on `chrome`. */
-export const PRELOAD_STORAGE_RELAY_NAMESPACE = 'orcaStorageRelay'
+export const PRELOAD_STORAGE_RELAY_NAMESPACE = 'openkodoStorageRelay'
 
 export type BrowserExtensionStorageContext = 'page' | 'worker'
 
@@ -23,7 +23,7 @@ export function installBrowserExtensionStorageRelay(
   bridge: BrowserExtensionMainWorldBridge,
   context: BrowserExtensionStorageContext
 ): void {
-  const relayNamespace = 'orcaStorageRelay'
+  const relayNamespace = 'openkodoStorageRelay'
   const isObject = (value: unknown): value is ApiObject =>
     value !== null && typeof value === 'object'
   const isCallable = (value: unknown): value is ExtensionCallable => typeof value === 'function'
@@ -161,7 +161,7 @@ export function installBrowserExtensionStorageRelay(
       if (!isCallable(native)) {
         continue
       }
-      define(area, method, function orcaStorageWrite(...input: unknown[]): unknown {
+      define(area, method, function openkodoStorageWrite(...input: unknown[]): unknown {
         const args = [...input]
         const last = args.at(-1)
         const callback = isCallable(last) ? last : undefined

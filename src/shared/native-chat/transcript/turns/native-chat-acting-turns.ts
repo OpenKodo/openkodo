@@ -4,7 +4,7 @@ import { nativeChatBotMessageCardOf } from '../../bot-cards/native-chat-bot-card
 
 // The openkodo and gh invocations that post where someone else reads them.
 const POSTS =
-  /(?:\borca\}?"?\s+(?:slack\s+(?:post|attach)|bot\s+reply|linear\s+(?:comment|create|save-issue))|\bgh\s+(?:pr|issue)\s+(?:comment|review|create))\b/
+  /(?:\bopenkodo\}?"?\s+(?:slack\s+(?:post|attach)|bot\s+reply|linear\s+(?:comment|create|save-issue))|\bgh\s+(?:pr|issue)\s+(?:comment|review|create))\b/
 
 function toolCommand(input: unknown): string {
   const command =

@@ -71,7 +71,7 @@ const eventsSubscribeResult = z.object({ ok: z.literal(true) })
 export const PLUGIN_PANEL_BRIDGE_API = {
   'plugin.request': spec({
     summary:
-      "Asks the plugin's own worker to run the handler it registered with `orca.panels.handle(name)`, starting the worker if needed; resolves with what the handler returned. `unknown_method` when no handler has that name.",
+      "Asks the plugin's own worker to run the handler it registered with `openkodo.panels.handle(name)`, starting the worker if needed; resolves with what the handler returned. `unknown_method` when no handler has that name.",
     since: 2,
     scope: 'plugin-private',
     capability: null,
@@ -94,7 +94,7 @@ export const PLUGIN_PANEL_BRIDGE_API = {
   }),
   'events.subscribe': spec({
     summary:
-      "Delivers a workspace, agent or editor event to this panel as `orca.on(event)`; needs the event's read capability, when it has one. The frame APIs call it for you.",
+      "Delivers a workspace, agent or editor event to this panel as `openkodo.on(event)`; needs the event's read capability, when it has one. The frame APIs call it for you.",
     since: 2,
     scope: 'plugin-private',
     capability: null,

@@ -35,7 +35,7 @@ export type RebaseAutoStashSetting = boolean | 'unsupported' | null
  * behind is pinned at the first match: the old copies never change count at the same upstream tip,
  * so a different count means the local history was reset or rewritten outside OpenKodo.
  */
-export type OrcaRebaseMarker = {
+export type OpenKodoRebaseMarker = {
   branch: string
   upstreamOid: string
   state: 'done' | 'active'
@@ -72,7 +72,7 @@ export type WorktreeOperationRecord = {
   rebaseStop: RebaseStopReading | null
   rebaseStopInspectFailure: RebaseStopInspectFailure | null
   // OpenKodo started this rebase; once done it hides Pull/Sync/Fast-forward, never enables a force path.
-  orcaRebase: OrcaRebaseMarker | null
+  openkodoRebase: OpenKodoRebaseMarker | null
   remoteActionError: SourceControlActionError | null
   remoteActionSequence: number
   generateInFlight: boolean
@@ -118,7 +118,7 @@ function createRecord(draftKey: string): WorktreeOperationRecord {
     rebaseAutoStash: null,
     rebaseStop: null,
     rebaseStopInspectFailure: null,
-    orcaRebase: null,
+    openkodoRebase: null,
     remoteActionError: null,
     remoteActionSequence: 0,
     generateInFlight: false,

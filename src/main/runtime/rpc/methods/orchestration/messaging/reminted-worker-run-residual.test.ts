@@ -3,7 +3,7 @@
 // replacement process in the pane, or a stale handle recovery refused, never reads the old Dispatch mail.
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { RpcContext } from '../../../core'
 import { createOrchestrationRpcHarness } from '../rpc-test-harness'
 import { createRootDispatch } from '../../../../orchestration/db/root-dispatch-test-fixture'
@@ -20,7 +20,7 @@ const HOST_SCOPE = JSON.stringify({ kind: 'local', hostId: 'local' })
 describe('Run check draining a pre-bind Dispatch after its worker process changed', () => {
   const harness = createOrchestrationRpcHarness()
   let db: OrchestrationDb
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let ctx: RpcContext
   // The live handle in the worker pane and the process it runs; tests swap them to model a restart.
   let liveHandle = WORKER_HANDLE

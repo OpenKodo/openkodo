@@ -8,7 +8,7 @@ import type { TuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent
 import type { SleepingAgentLaunchConfig } from '../../../../shared/agent-session/lifecycle/agent-session-resume'
 import { recordFreshLaunch, retireLaunch } from '../launch/launch-evidence'
 import type { DaemonLaunchNote } from '../../../daemon/protocol/daemon-launch-note-protocol'
-import { OrcaRuntimeWithDaemonLaunchNote } from './daemon-launch-note'
+import { OpenKodoRuntimeWithDaemonLaunchNote } from './daemon-launch-note'
 import { isValidTerminalTabId } from '../../../../shared/workspace-layout/terminal-surfaces/terminal-tab-id'
 import { isTerminalLeafId, makePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import { isTuiAgent } from '../../../../shared/agent-launch/catalog/tui-agent-config'
@@ -23,7 +23,7 @@ import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layo
 import { mainTerminalRegistered } from '../surface/main-terminal-surfaces'
 import { assertPaneBoundAtRegistration, isRuntimeHostedWorkspace } from './bind-first-registration'
 
-export abstract class OrcaRuntimeWithRegisterPty extends OrcaRuntimeWithDaemonLaunchNote {
+export abstract class OpenKodoRuntimeWithRegisterPty extends OpenKodoRuntimeWithDaemonLaunchNote {
   protected abstract ensurePtyBackedMobileSurfaceForRendererTab(
     worktreeId: string,
     tabId: string

@@ -15,10 +15,10 @@ import {
   killNotepad
 } from './computer-driver'
 import {
-  ensureOrcaRuntimeLaunched,
+  ensureOpenKodoRuntimeLaunched,
   parseJsonOutput,
-  runOrcaCli,
-  stopOrcaRuntime
+  runOpenKodoCli,
+  stopOpenKodoRuntime
 } from './computer-cli-driver'
 import { editableRolePattern, focusNotepadDocument } from './notepad-document'
 import {
@@ -34,7 +34,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
   let notepadPath = ''
 
   async function saveNotepad() {
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'hotkey',
       '--app',
@@ -48,20 +48,20 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
   }
 
   beforeAll(async () => {
-    await ensureOrcaRuntimeLaunched()
+    await ensureOpenKodoRuntimeLaunched()
     notepadPath = await ensureNotepadLaunched()
   })
 
   afterAll(async () => {
     await killNotepad()
-    await stopOrcaRuntime()
+    await stopOpenKodoRuntime()
   })
 
   test('hotkey and Unicode paste-text replace the document selection', async () => {
     const app = getNotepadAppSelector()
-    const first = `orca-windows-first-${Date.now()}`
+    const first = `openkodo-windows-first-${Date.now()}`
     await focusNotepadDocument(app)
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'paste-text',
       '--app',
@@ -73,7 +73,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       '--json'
     ])
 
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'hotkey',
       '--app',
@@ -85,8 +85,8 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       '--json'
     ])
 
-    const marker = `orca-windows-replaced-café Ω 漢字 ${Date.now()}`
-    await runOrcaCli([
+    const marker = `openkodo-windows-replaced-café Ω 漢字 ${Date.now()}`
+    await runOpenKodoCli([
       'computer',
       'paste-text',
       '--app',
@@ -104,13 +104,21 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
   test('click and type-text send synthetic input to the document', async () => {
     const app = getNotepadAppSelector()
     const before = parseJsonOutput<{ result: ComputerSnapshotResult }>(
-      (await runOrcaCli(['computer', 'get-app-state', '--app', app, '--no-screenshot', '--json']))
-        .stdout
+      (
+        await runOpenKodoCli([
+          'computer',
+          'get-app-state',
+          '--app',
+          app,
+          '--no-screenshot',
+          '--json'
+        ])
+      ).stdout
     )
     const documentIndex = findRoleIndex(before.result.snapshot.treeText, editableRolePattern)
     expect(documentIndex).toBeGreaterThanOrEqual(0)
 
-    await runOrcaCli([
+    await runOpenKodoCli([
       'computer',
       'click',
       '--app',
@@ -125,7 +133,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
     const marker = ` typed-${Date.now()}`
     const typed = parseJsonOutput<{ result: ComputerActionResult }>(
       (
-        await runOrcaCli([
+        await runOpenKodoCli([
           'computer',
           'type-text',
           '--app',
@@ -146,7 +154,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
   test('a covered window screenshot shows the window, not what covers it', async () => {
     const app = getNotepadAppSelector()
     const notepadWindow = parseJsonOutput<{ result: ComputerListWindowsResult }>(
-      (await runOrcaCli(['computer', 'list-windows', '--app', app, '--json'])).stdout
+      (await runOpenKodoCli(['computer', 'list-windows', '--app', app, '--json'])).stdout
     ).result.windows[0]
     const bounds = {
       x: notepadWindow.x ?? 0,
@@ -156,7 +164,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
     }
     const cover = await launchWindowFixture(
       [
-        "$form.Text = 'orca-e2e-cover'",
+        "$form.Text = 'openkodo-e2e-cover'",
         "$form.FormBorderStyle = 'None'",
         "$form.StartPosition = 'Manual'",
         '$form.TopMost = $true',
@@ -169,7 +177,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       // Prove the cover really hides Notepad, so the screenshot check below can fail.
       expect(await countMagentaPixelRatio(bounds)).toBeGreaterThan(0.9)
       const state = parseJsonOutput<{ result: ComputerSnapshotResult }>(
-        (await runOrcaCli(['computer', 'get-app-state', '--app', app, '--json'])).stdout
+        (await runOpenKodoCli(['computer', 'get-app-state', '--app', app, '--json'])).stdout
       )
       const screenshotPath = state.result.screenshot?.path
       if (!screenshotPath) {
@@ -186,16 +194,16 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
     // A topmost second window comes first in z-order, so Process.MainWindowHandle moves to it.
     const fixture = await launchWindowFixture(
       [
-        "$form.Text = 'orca-e2e-target'",
+        "$form.Text = 'openkodo-e2e-target'",
         '$button = New-Object System.Windows.Forms.Button',
         "$button.Text = 'Target press'",
-        "$button.Add_Click({ $form.Text = 'orca-e2e-pressed' })",
+        "$button.Add_Click({ $form.Text = 'openkodo-e2e-pressed' })",
         '$form.Controls.Add($button)',
         "$targetPath = Join-Path $PSScriptRoot 'target-window'"
       ].join('\n'),
       [
         '$second = New-Object System.Windows.Forms.Form',
-        "$second.Text = 'orca-e2e-second'",
+        "$second.Text = 'openkodo-e2e-second'",
         '$second.TopMost = $true',
         '$second.Show()',
         '[IO.File]::WriteAllText($targetPath, [string][int64]$form.Handle)'
@@ -210,7 +218,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       const targetWindowId = Number(await readFile(targetPath, 'utf8'))
       const main = parseJsonOutput<{ result: ComputerSnapshotResult }>(
         (
-          await runOrcaCli([
+          await runOpenKodoCli([
             'computer',
             'get-app-state',
             '--app',
@@ -220,10 +228,10 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
           ])
         ).stdout
       ).result
-      expect(main.snapshot.window.title).toBe('orca-e2e-second')
+      expect(main.snapshot.window.title).toBe('openkodo-e2e-second')
       const state = parseJsonOutput<{ result: ComputerSnapshotResult }>(
         (
-          await runOrcaCli([
+          await runOpenKodoCli([
             'computer',
             'get-app-state',
             '--app',
@@ -236,7 +244,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
         ).stdout
       ).result
       expect(state.snapshot.window.id).toBe(targetWindowId)
-      expect(state.snapshot.window.title).toBe('orca-e2e-target')
+      expect(state.snapshot.window.title).toBe('openkodo-e2e-target')
       const button = findRoleIndex(
         state.snapshot.treeText,
         /^\s*(\d+)\s+button Target press(?:,|$)/m
@@ -244,7 +252,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       expect(button, state.snapshot.treeText).toBeGreaterThanOrEqual(0)
       const pressed = parseJsonOutput<{ result: ComputerActionResult }>(
         (
-          await runOrcaCli([
+          await runOpenKodoCli([
             'computer',
             'click',
             '--app',
@@ -260,7 +268,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       ).result
       expect(pressed.action?.path).toBe('accessibility')
       expect(pressed.snapshot.window.id).toBe(targetWindowId)
-      expect(pressed.snapshot.window.title).toBe('orca-e2e-pressed')
+      expect(pressed.snapshot.window.title).toBe('openkodo-e2e-pressed')
     } finally {
       await closeWindowFixture(fixture)
     }
@@ -269,7 +277,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
   test('a hung window reports a timeout error and later calls still succeed', async () => {
     const hung = await launchHungWindowFixture()
     try {
-      const failure = await runOrcaCli([
+      const failure = await runOpenKodoCli([
         'computer',
         'get-app-state',
         '--app',
@@ -284,7 +292,7 @@ describe.skipIf(!isWindows || !e2eOptIn)('computer-use Windows e2e (Notepad)', (
       expect(failure).toMatch(/"code":\s*"action_timeout"/)
 
       const apps = parseJsonOutput<{ result: ComputerListAppsResult }>(
-        (await runOrcaCli(['computer', 'list-apps', '--json'])).stdout
+        (await runOpenKodoCli(['computer', 'list-apps', '--json'])).stdout
       )
       expect(apps.result.apps.some((entry) => entry.pid === hung.pid)).toBe(true)
     } finally {

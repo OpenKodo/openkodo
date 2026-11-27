@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslate } from '@/i18n/use-translate'
 import { useAppStore } from '@/store'
 import { useBotHostLabel } from './use-bot-host-label'
-import { startBotHostSignIn } from '@/lib/bot-host-orca-account'
+import { startBotHostSignIn } from '@/lib/bot-host-openkodo-account'
 import { showSignInBesidePage } from './BotConnectorsHostNotice'
 import { BotHostSignInBlocked, useBotHostSignInFromHere } from './bot-host-sign-in-from-here'
 import type { Bot } from '../../../../shared/bot-types'
@@ -49,7 +49,7 @@ export function BotHostSignInButton({
     <Button
       onClick={() => {
         onClose()
-        openSettingsTarget({ pane: 'orca-account', repoId: null })
+        openSettingsTarget({ pane: 'openkodo-account', repoId: null })
         openSettingsPage()
       }}
     >

@@ -25,7 +25,7 @@ function serverSelector(
 }
 
 /** Only an agent its own OpenKodo verifies counts; a person's shell keeps --environment = run it there. */
-async function isOrcaVerifiedAgent(): Promise<boolean> {
+async function isOpenKodoVerifiedAgent(): Promise<boolean> {
   if (!readInjectedAgentSessionId() && !process.env.OPENKODO_AGENT_LAUNCH_TOKEN?.trim()) {
     return false
   }
@@ -67,7 +67,7 @@ export async function refuseAgentServerRoute(
     return
   }
   const server = serverSelector(ctx.flags)
-  if (!server || !(await isOrcaVerifiedAgent())) {
+  if (!server || !(await isOpenKodoVerifiedAgent())) {
     return
   }
   const { name, route } = server

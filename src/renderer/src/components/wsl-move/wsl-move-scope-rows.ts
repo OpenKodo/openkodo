@@ -52,16 +52,16 @@ export const wslMoveDistroOfPath = wslHostMovableDistroOfPath
 
 /** The added WSL host of a distro, matched as WSL matches names: case-insensitively. */
 export function findWslHostForDistro(
-  environments: readonly Pick<PublicKnownRuntimeEnvironment, 'name' | 'orcadDeployment'>[],
+  environments: readonly Pick<PublicKnownRuntimeEnvironment, 'name' | 'openkododDeployment'>[],
   distro: string
 ): { distro: string; name: string } | null {
   const wanted = distro.toLowerCase()
   for (const environment of environments) {
     if (
       isWslHostRuntimeEnvironment(environment) &&
-      environment.orcadDeployment.distro.toLowerCase() === wanted
+      environment.openkododDeployment.distro.toLowerCase() === wanted
     ) {
-      return { distro: environment.orcadDeployment.distro, name: environment.name }
+      return { distro: environment.openkododDeployment.distro, name: environment.name }
     }
   }
   return null

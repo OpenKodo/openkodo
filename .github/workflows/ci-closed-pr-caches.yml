@@ -35,7 +35,7 @@ jobs:
               ['windows-typecheck-parity', 'windows-typecheck-parity.yml'],
               ['docs-pr', 'docs.yml'],
               ['cloud-verify-refs/pull', 'cloud-verify.yml', '/merge'],
-              ['win-orcad-serve-switch-e2e', 'win-orcad-serve-switch-e2e.yml'],
+              ['win-openkodod-serve-switch-e2e', 'win-openkodod-serve-switch-e2e.yml'],
               ['pi-provider-runtime', 'pi-provider-runtime.yml'],
               ['coding-plan-contract', 'zcode-credential-contract.yml', '-credentials'],
               ['release-javascript-comparison', 'release-javascript-benchmark.yml'],

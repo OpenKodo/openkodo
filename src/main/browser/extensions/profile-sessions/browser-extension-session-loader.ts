@@ -71,7 +71,7 @@ const profileIdByPartition = new Map<string, string>()
 const unloadingByProfileId = new Map<string, Promise<void>>()
 const reattachRequestedProfileIds = new Set<string>()
 const PRELOAD_FILE_NAME = 'browser-extension-preload.js'
-const PRELOAD_ID = 'orca-browser-extension-frame'
+const PRELOAD_ID = 'openkodo-browser-extension-frame'
 
 // Workers load OpenKodo's API shim from their own script instead.
 function registerExtensionPreload(sess: Electron.Session): void {

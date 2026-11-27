@@ -16,8 +16,8 @@ import type { CallerOwnedSignInChannel } from '../runtime/caller-owned-sign-in-f
 import {
   serveHeldLoopbackCallback,
   type HeldLoopbackReturn
-} from '../orca-profiles/cloud-auth/loopback-callback'
-import { createOrcaCloudPkceSecrets } from '../orca-profiles/cloud-auth/profile-cloud-pkce'
+} from '../openkodo-profiles/cloud-auth/loopback-callback'
+import { createOpenKodoCloudPkceSecrets } from '../openkodo-profiles/cloud-auth/profile-cloud-pkce'
 import { checkGoogleClientKey } from './google-client-check'
 import { exchangeFailureCategory, signInFailure } from './google-sign-in-failures'
 import { checkGoogleServices } from './google-readiness'
@@ -138,7 +138,7 @@ export async function runGoogleSignIn(
     throw new Error(NO_GOOGLE_CLIENT)
   }
   channel.signal.throwIfAborted()
-  const { codeVerifier, codeChallenge, state } = createOrcaCloudPkceSecrets()
+  const { codeVerifier, codeChallenge, state } = createOpenKodoCloudPkceSecrets()
   const expiresAt = deps.now() + GOOGLE_SIGN_IN_TTL_MS
   const expected: { current: GoogleSignInExpectation | null } = { current: null }
 

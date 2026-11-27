@@ -4,7 +4,7 @@
 // restart, is refused.
 import { BotRunSendAgainParams } from '../../../../shared/rpc-contract/bots-params'
 import type { AgentJournalItemBody } from '../../../../shared/agent-session/journal/agent-session-journal-types'
-import type { AgentJournalAutomationRunNotStartedItem } from '../../../../shared/agent-journal-orca-card-items'
+import type { AgentJournalAutomationRunNotStartedItem } from '../../../../shared/agent-journal-openkodo-card-items'
 import { readAutomationRunMessage } from '../../../../shared/automations/automation-run-message'
 import { runKeyedSerializedOperation } from '../../../../shared/concurrency/keyed-serialized-operations'
 import type { StructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-host'

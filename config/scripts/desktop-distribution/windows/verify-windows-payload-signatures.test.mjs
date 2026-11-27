@@ -14,7 +14,7 @@ const SIGNPATH = 'CN=SignPath Foundation, O=SignPath Foundation, L=Lewes, S=Dela
 const MICROSOFT = 'CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US'
 
 function makePayload(files) {
-  const root = mkdtempSync(join(tmpdir(), 'orca-payload-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-payload-'))
   for (const file of files) {
     mkdirSync(dirname(join(root, file)), { recursive: true })
     writeFileSync(join(root, file), '')
@@ -37,13 +37,13 @@ function fakePowerShell(signerFor) {
 describe('listWindowsPayloadBinaries', () => {
   it('walks the whole tree with forward-slash relative paths', () => {
     const root = makePayload([
-      'Orca.exe',
+      'OpenKodo.exe',
       'resources/app.asar',
       'resources/node_modules/node-pty/build/Release/conpty.node',
-      'resources/orcad-template/targets/linux-x64-musl/node_modules/node-pty/build/Release/pty.node'
+      'resources/openkodod-template/targets/linux-x64-musl/node_modules/node-pty/build/Release/pty.node'
     ])
     expect(listWindowsPayloadBinaries(root)).toEqual([
-      'Orca.exe',
+      'OpenKodo.exe',
       'resources/node_modules/node-pty/build/Release/conpty.node'
     ])
   })
@@ -53,7 +53,7 @@ describe('findSignatureOffenders', () => {
   it('accepts the expected signer and Microsoft vendor signatures only when valid', () => {
     const offenders = findSignatureOffenders(
       [
-        { path: 'Orca.exe', status: 'Valid', signerSubject: SIGNPATH },
+        { path: 'OpenKodo.exe', status: 'Valid', signerSubject: SIGNPATH },
         { path: 'conpty.dll', status: 'Valid', signerSubject: MICROSOFT },
         { path: 'conpty.node', status: 'NotSigned', signerSubject: null },
         { path: 'tampered.dll', status: 'HashMismatch', signerSubject: SIGNPATH },
@@ -111,12 +111,12 @@ describe('findSignatureOffenders', () => {
 describe('verifyWindowsPayloadSignatures', () => {
   it('checks every binary in one PowerShell call and reports the unsigned ones', () => {
     const root = makePayload([
-      'Orca.exe',
+      'OpenKodo.exe',
       'resources/node_modules/node-pty/build/Release/conpty.node',
       'resources/node_modules/node-pty/build/Release/conpty/conpty.dll'
     ])
     const signers = {
-      'Orca.exe': SIGNPATH,
+      'OpenKodo.exe': SIGNPATH,
       'resources/node_modules/node-pty/build/Release/conpty/conpty.dll': MICROSOFT
     }
     const spawn = fakePowerShell((path) => signers[path] ?? null)
@@ -148,7 +148,7 @@ describe('verifyWindowsPayloadSignatures', () => {
   })
 
   it('fails when PowerShell returns a different number of rows', () => {
-    const root = makePayload(['Orca.exe', 'a.dll'])
+    const root = makePayload(['OpenKodo.exe', 'a.dll'])
     const spawn = vi.fn(() => ({ status: 0, stdout: '[]', stderr: '' }))
     expect(() =>
       verifyWindowsPayloadSignatures({ root, platform: 'win32', spawnSyncImpl: spawn })
@@ -174,27 +174,27 @@ describe('main', () => {
   }
 
   it('fails a required check, lists the offenders and says how to allow a vendor', () => {
-    const root = makePayload(['Orca.exe', 'resources/bin/orca.exe'])
+    const root = makePayload(['OpenKodo.exe', 'resources/bin/openkodo.exe'])
     const summary = join(root, 'summary.json')
     const result = run([root, '--summary', summary], (path) =>
-      path === 'Orca.exe' ? SIGNPATH : null
+      path === 'OpenKodo.exe' ? SIGNPATH : null
     )
     expect(result.code).toBe(1)
     expect(result.output).toContain('1 of 2 Windows binaries lack a trusted signature')
-    expect(result.output).toContain('resources/bin/orca.exe')
+    expect(result.output).toContain('resources/bin/openkodo.exe')
     expect(result.output).toContain("add the signer's CN and O to VENDOR_IDENTITIES")
     expect(JSON.parse(readFileSync(summary, 'utf8'))).toEqual({ checked: 2, offenders: 1 })
   })
 
   it('passes a required check when everything is signed', () => {
-    const root = makePayload(['Orca.exe'])
+    const root = makePayload(['OpenKodo.exe'])
     const result = run([root], () => SIGNPATH)
     expect(result.code).toBe(0)
     expect(result.output).toBe('All 1 Windows binaries in the payload carry a trusted signature.')
   })
 
   it('treats a PowerShell timeout as a check that could not run', () => {
-    const root = makePayload(['Orca.exe'])
+    const root = makePayload(['OpenKodo.exe'])
     const log = vi.spyOn(console, 'log').mockImplementation(() => {})
     const error = vi.spyOn(console, 'error').mockImplementation(() => {})
     try {
@@ -212,7 +212,7 @@ describe('main', () => {
   })
 
   it('only reports in advisory mode, even when the check cannot run', () => {
-    const root = makePayload(['Orca.exe'])
+    const root = makePayload(['OpenKodo.exe'])
     const unsigned = run([root, '--mode', 'advisory'], () => null)
     expect(unsigned.code).toBe(0)
     expect(unsigned.output).toContain('::notice::1 Windows binaries lack a trusted signature')
@@ -220,7 +220,7 @@ describe('main', () => {
   })
 
   it('exits 2 when a required check cannot run', () => {
-    const result = run([join(tmpdir(), 'orca-payload-does-not-exist')], () => SIGNPATH)
+    const result = run([join(tmpdir(), 'openkodo-payload-does-not-exist')], () => SIGNPATH)
     expect(result.code).toBe(2)
   })
 })

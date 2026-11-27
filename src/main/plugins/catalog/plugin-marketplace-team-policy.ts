@@ -1,8 +1,8 @@
-import type { OrcaCloudCapabilities } from '../../../shared/orca-profiles/orca-cloud-capabilities'
+import type { OpenKodoCloudCapabilities } from '../../../shared/openkodo-profiles/openkodo-cloud-capabilities'
 import {
   OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags,
   type RequiredPluginRule
-} from '../../../shared/orca-profiles/orca-cloud-team-policy'
+} from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import {
   isOfficialMarketplaceGitSource,
   isSameGitRepository,
@@ -24,7 +24,7 @@ function sameCatalog(left: CatalogSource, right: CatalogSource): boolean {
 
 function findInternalCatalog(
   source: CatalogSource,
-  capabilities: OrcaCloudCapabilities | undefined
+  capabilities: OpenKodoCloudCapabilities | undefined
 ) {
   return capabilities?.teamPolicy?.internalCatalogs?.find((catalog) => sameCatalog(catalog, source))
 }
@@ -37,7 +37,7 @@ export function isOfficialPluginChannel(source: CatalogSource): boolean {
 
 export function getCatalogManagingTeams(
   source: CatalogSource,
-  capabilities: OrcaCloudCapabilities | undefined
+  capabilities: OpenKodoCloudCapabilities | undefined
 ): string[] | undefined {
   if (!findInternalCatalog(source, capabilities)) {
     return undefined
@@ -58,7 +58,7 @@ export function isCommunityPluginChannel(source: CatalogSource): boolean {
 
 export function allowsTeamCatalogSource(
   source: CatalogSource,
-  capabilities: OrcaCloudCapabilities | undefined
+  capabilities: OpenKodoCloudCapabilities | undefined
 ): boolean {
   if (capabilities?.flags[flags.plugins] === false) {
     return false
@@ -76,7 +76,7 @@ export function allowsTeamCatalogSource(
 }
 
 export class PluginMarketplaceTeamPolicy {
-  constructor(private readonly getCapabilities?: () => OrcaCloudCapabilities | undefined) {}
+  constructor(private readonly getCapabilities?: () => OpenKodoCloudCapabilities | undefined) {}
 
   allows(source: PluginMarketplaceGitSource, capabilities = this.getCapabilities?.()): boolean {
     return allowsTeamCatalogSource(source, capabilities)

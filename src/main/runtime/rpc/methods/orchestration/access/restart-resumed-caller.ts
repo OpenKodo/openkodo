@@ -2,7 +2,7 @@ import type { OrchestrationCompatibilityEvidence } from '../../../../../../share
 import { readWorkerResumeSession } from '../../../../orchestration/db/dispatch-context/worker-follow-up-lineage'
 import { paneConversation } from '../../../../orchestration/workers/restart-resume/pane-runs-conversation'
 import { isTerminalHandle } from '../../../../../../shared/terminal/terminal-handle-prefix'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import {
   WORKER_RESTART_OFFERED_STAGE,
   WORKER_RESTART_RESUMED_STAGE
@@ -14,7 +14,7 @@ import {
  */
 export function restartResumedCallerHandle(
   runtime: Pick<
-    OrcaRuntimeService,
+    OpenKodoRuntimeService,
     | 'getLiveTerminalPaneKey'
     | 'getTerminalHandleForPaneKey'
     | 'getExistingOrchestrationDb'

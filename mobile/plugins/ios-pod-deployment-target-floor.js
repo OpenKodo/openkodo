@@ -5,7 +5,7 @@ const { withPodfile } = require('expo/config-plugins')
 // is what lets the app resize on iPhone Duo, so raise those targets to the app's own.
 // Expo SDK 58 and React Native 0.88 require iOS 16.4.
 const DEPLOYMENT_TARGET_FLOOR = '16.4'
-const MARKER = '# orca: pod deployment target floor'
+const MARKER = '# openkodo: pod deployment target floor'
 const POST_INSTALL = 'post_install do |installer|'
 
 const FLOOR_SNIPPET = `

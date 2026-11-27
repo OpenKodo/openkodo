@@ -1,6 +1,6 @@
 import { closeStructuredAgentSessionChild } from '../../../../../../agent-session/lifecycle/structured-agent-session-close'
 import { OrchestrationError } from '../../../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import {
   discardStructuredWorkerSession,
   releaseStructuredWorkerSession
@@ -9,7 +9,7 @@ import type { createStructuredWorkerSessionForWorktree } from '../placement/work
 
 /** Keep refused tasks reachable with their worker custody until retry or release; other partial starts retire their surface. */
 export async function tearDownFailedWorkerStart(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   structuredSession: Awaited<ReturnType<typeof createStructuredWorkerSessionForWorktree>> | null
   dispatchId: string
   error: unknown

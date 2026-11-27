@@ -22,7 +22,7 @@ import type { AppApi, E2EApi, PlatformApi } from './api/app-api'
 import type { AutomationsApi } from './api/automations/automation-api'
 import type { BrowserApi } from './api/browser/browser-api'
 import type { CliApi } from './api/cli-install/cli-install-api'
-import type { OrcaUninstallApi } from './api/orca-uninstall/orca-uninstall-api'
+import type { OpenKodoUninstallApi } from './api/openkodo-uninstall/openkodo-uninstall-api'
 import type { CrashReportsApi, FeedbackApi } from './api/diagnostics/crash-report-api'
 import type { DashboardApi, TerminalPreviewApi } from './api/window-ui/dashboard-api'
 import type { DocPreviewApi } from './api/document-preview/doc-preview-api'
@@ -41,7 +41,7 @@ import type { LinearApi } from './api/work-items/linear-api'
 import type { MobileApi } from './api/mobile/mobile-api'
 import type { NativeChatApi } from './api/native-chat/native-chat-api'
 import type { OnboardingApi, StarNagApi } from './api/onboarding/onboarding-api'
-import type { OrcaProfileApi } from './api/profiles/orca-profile-api'
+import type { OpenKodoProfileApi } from './api/profiles/openkodo-profile-api'
 import type {
   ComputerUsePermissionsApi,
   DeveloperPermissionsApi,
@@ -98,7 +98,7 @@ type Merged<T> = { [K in keyof T]: T[K] }
 
 export type PreloadApi = {
   app: AppApi
-  orcaProfiles: OrcaProfileApi
+  openkodoProfiles: OpenKodoProfileApi
   platform: PlatformApi
   e2e: E2EApi
   repos: RepositoryApi
@@ -135,7 +135,7 @@ export type PreloadApi = {
   codexAccounts: CodexAccountsApi
   claudeAccounts: ClaudeAccountsApi
   cli: CliApi
-  orcaUninstall: OrcaUninstallApi
+  openkodoUninstall: OpenKodoUninstallApi
   codexConfigSync: CodexConfigSyncApi
   preflight: PreflightApi
   notifications: NotificationsApi

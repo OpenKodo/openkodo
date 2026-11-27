@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import * as z from 'zod'
-import type { ReservedRect, WindowSafeArea } from '../../../modules/orca-reserved-regions/src'
+import type { ReservedRect, WindowSafeArea } from '../../../modules/openkodo-reserved-regions/src'
 import {
   BRIDGE_MAX_SAFE_AREA_INSET,
   BridgeSafeAreaInsetsSchema,

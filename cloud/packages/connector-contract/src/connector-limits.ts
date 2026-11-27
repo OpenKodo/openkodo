@@ -32,11 +32,11 @@ export const CONNECTOR_LIMITS = {
   maxActivitySteps: 20,
   // The admitted deliveries one reply event settles; a longer group goes as several events.
   maxReplyDeliveryIds: 100,
-  // A prompt's text for a card that links to Orca (its header, questions and option labels).
+  // A prompt's text for a card that links to OpenKodo (its header, questions and option labels).
   maxPromptTextBytes: 1500,
   // Who woke the turn that raised a prompt, by name.
   maxPromptWokenByChars: 64,
-  // The option labels a prompt answered in Orca chose.
+  // The option labels a prompt answered in OpenKodo chose.
   maxPromptAnsweredWithChars: 80,
   // An owner's reply that answers a free-text question.
   maxAnswerTextChars: 4000,
@@ -89,7 +89,7 @@ export const CONNECTOR_LIMITS = {
   maxEarlierOwnMessages: 10,
   maxEarlierOwnText: 4000,
   maxEarlierOwnFiles: 10,
-  // Orca's note on where a bot was asked (asker.note).
+  // OpenKodo's note on where a bot was asked (asker.note).
   maxAskerNoteLength: 4000,
   // People one bot's hello lists in sharedWith: a size budget, not a product limit. At every cap they
   // add under 24 KB to the bot, inside its share of a hello.

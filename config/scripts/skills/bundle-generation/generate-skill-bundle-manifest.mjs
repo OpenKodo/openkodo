@@ -240,10 +240,11 @@ function withDigests(ledger, additions) {
 
 /** Digests a base ledger listed that this one lost. */
 function findDroppedReleasedDigests(baseLedger, ledger) {
+  // The ledger is add-only by digest, not by skill name: a renamed skill keeps
+  // every digest it shipped, so a rename cannot silently retire install bytes.
+  const shipped = new Set(Object.values(ledger.skills ?? {}).flat())
   return Object.entries(baseLedger.skills ?? {}).flatMap(([name, digests]) =>
-    digests
-      .filter((digest) => !(ledger.skills[name] ?? []).includes(digest))
-      .map((digest) => `${name}:${digest}`)
+    digests.filter((digest) => !shipped.has(digest)).map((digest) => `${name}:${digest}`)
   )
 }
 

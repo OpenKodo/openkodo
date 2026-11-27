@@ -117,7 +117,7 @@ export const REPO_METHODS = [
         context
       )
   }),
-  // Older hosts answer method_not_found; clients then fall back to <host home>/orca/projects.
+  // Older hosts answer method_not_found; clients then fall back to <host home>/openkodo/projects.
   defineMethod({
     name: 'repo.defaultCreateParent',
     permission: 'workspace',

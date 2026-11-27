@@ -1,7 +1,7 @@
 import { originalPluginPosition } from './declarative-source-maps'
 
 /** Mirrors PLUGIN_FRAME_RESERVED_SEGMENT: OpenKodo's own files (this runtime) are never the culprit. */
-export const OPENKODO_RESERVED_PATH_PREFIX = '/__orca/'
+export const OPENKODO_RESERVED_PATH_PREFIX = '/__openkodo/'
 
 const STACK_FRAME_URL = /([a-z][a-z0-9+.-]*:\/\/[^\s()]+):(\d+):(\d+)\)?\s*$/i
 // A transpile or import error module already names `file:line:column`; its `throw` frame is noise.
@@ -14,7 +14,7 @@ function pageBase(): string | null {
 type PluginFrame = { path: string; line: number; column: number }
 
 /** The plugin file a stack line runs in, at its source position; null for OpenKodo's or foreign code. */
-function pluginFrame(stackLine: string, base: string): PluginFrame | 'orca' | null {
+function pluginFrame(stackLine: string, base: string): PluginFrame | 'openkodo' | null {
   const match = STACK_FRAME_URL.exec(stackLine)
   const url = match?.[1]
   if (!match || !url?.startsWith(base)) {
@@ -22,7 +22,7 @@ function pluginFrame(stackLine: string, base: string): PluginFrame | 'orca' | nu
   }
   const path = `/${url.slice(base.length).split(/[?#]/)[0] ?? ''}`
   if (path.startsWith(OPENKODO_RESERVED_PATH_PREFIX)) {
-    return 'orca'
+    return 'openkodo'
   }
   const generated = { line: Number(match[2]), column: Number(match[3]) }
   const at = originalPluginPosition(url, generated.line, generated.column) ?? generated
@@ -39,7 +39,7 @@ const formatFrame = (frame: PluginFrame): string => `${frame.path}:${frame.line}
 export function pluginErrorLocation(stack: string, base: string): string | null {
   for (const line of stack.split('\n')) {
     const frame = pluginFrame(line, base)
-    if (frame && frame !== 'orca') {
+    if (frame && frame !== 'openkodo') {
       return formatFrame(frame)
     }
   }
@@ -77,7 +77,7 @@ export function describePluginErrorForLog(error: unknown, base = pageBase()): st
       return []
     }
     const frame = pluginFrame(line, base)
-    if (frame === 'orca') {
+    if (frame === 'openkodo') {
       return []
     }
     const closing = line.trimEnd().endsWith(')') ? ')' : ''

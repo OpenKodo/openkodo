@@ -4,7 +4,7 @@ import {
   TUI_AGENT_AUTO_PICK_ORDER
 } from '../../../../../../../../shared/agent-launch/catalog/tui-agent-selection'
 import type { TuiAgent } from '../../../../../../../../shared/agent-launch/catalog/tui-agent'
-import type { OrcaRuntimeService } from '../../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../../../orchestration/orchestration-error'
 import type { FederationAttachStartInput } from '../../../../../../../../shared/rpc-contract/orchestration/orchestration-federation-start-params'
 import {
@@ -55,7 +55,7 @@ export function validateFederatedWorkerStartPlacement(
 export function prepareLocalWorkerStart(args: {
   params: WorkerStartInput
   createsWorktree: boolean
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   openCodeModelLaunchSupported?: boolean
 }): { agent: TuiAgent | undefined; launch: WorkerStartLaunch } {
   const { params, createsWorktree, runtime } = args
@@ -90,7 +90,7 @@ export function prepareLocalWorkerStart(args: {
 export function prepareFederationAttachmentWorkerStart(args: {
   params: FederationAttachStartInput
   createsWorktree: boolean
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   openCodeModelLaunchSupported?: boolean
 }): { agent: TuiAgent | undefined; launch: WorkerStartLaunch } {
   const { params, createsWorktree, runtime } = args
@@ -133,7 +133,7 @@ export function prepareFederationAttachmentWorkerStart(args: {
 }
 
 function resolveWorkerStartAgent(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   openCodeModelLaunchSupported?: boolean
   createsWorktree: boolean
   terminal?: string

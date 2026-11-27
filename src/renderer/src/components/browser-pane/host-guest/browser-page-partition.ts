@@ -1,6 +1,6 @@
 import type { BrowserSessionProfile } from '../../../../../shared/browser/workspaces/browser-workspace-types'
 import { OPENKODO_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
-import { getOrcaProfileBrowserDefaultPartition } from '../../../../../shared/orca-profiles/orca-profiles'
+import { getOpenKodoProfileBrowserDefaultPartition } from '../../../../../shared/openkodo-profiles/openkodo-profiles'
 import { unadmittedBrowserPartition } from '../../../../../shared/browser/profiles/browser-profile-scope'
 
 export function resolveBrowserPagePartition({
@@ -8,17 +8,17 @@ export function resolveBrowserPagePartition({
   sessionPartition,
   localProfiles,
   mirroredProfiles,
-  activeOrcaProfileId
+  activeOpenKodoProfileId
 }: {
   sessionProfileId: string | null
   sessionPartition: string | null
   localProfiles: readonly BrowserSessionProfile[] | undefined
   mirroredProfiles: readonly BrowserSessionProfile[]
-  activeOrcaProfileId: string | null
+  activeOpenKodoProfileId: string | null
 }): string {
   const browserSessionProfiles = localProfiles ?? mirroredProfiles
-  const fallbackBrowserPartition = activeOrcaProfileId
-    ? getOrcaProfileBrowserDefaultPartition(activeOrcaProfileId)
+  const fallbackBrowserPartition = activeOpenKodoProfileId
+    ? getOpenKodoProfileBrowserDefaultPartition(activeOpenKodoProfileId)
     : null
   const defaultSessionProfile = browserSessionProfiles.find((p) => p.id === 'default') ?? null
   const sessionProfile = sessionProfileId

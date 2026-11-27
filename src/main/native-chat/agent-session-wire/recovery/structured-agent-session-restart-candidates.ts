@@ -26,7 +26,7 @@ export function createStructuredAgentSessionRestartCandidateReader(deps: {
   adapter: StructuredAgentSessionAdapter
   agents: Pick<StructuredAgentRegistry, 'definition'>
   movedOn: (marker: AgentSessionResumeMarker) => Promise<boolean>
-  savedByNewerOrca: (sessionId: string) => boolean
+  savedByNewerOpenKodo: (sessionId: string) => boolean
 }): StructuredAgentSessionRestartCandidateReader {
   return (markers, leaseState) =>
     structuredAgentSessionResumableSet({
@@ -34,7 +34,7 @@ export function createStructuredAgentSessionRestartCandidateReader(deps: {
       getRecord: deps.getRecord,
       supportsRecord: (record) => hostCanStartRecord(deps, record),
       movedOn: deps.movedOn,
-      savedByNewerOrca: deps.savedByNewerOrca,
+      savedByNewerOpenKodo: deps.savedByNewerOpenKodo,
       latestPrompt: (sessionId) => {
         const session = deps.sessions.get(sessionId)
         return session
@@ -56,18 +56,18 @@ export function createStructuredAgentSessionRestartCandidateReaders(
     derive: createStructuredAgentSessionRestartCandidateReader(deps),
     deriveAtSend: createStructuredAgentSessionRestartCandidateReader({
       ...deps,
-      savedByNewerOrca: () => false
+      savedByNewerOpenKodo: () => false
     })
   }
 }
 
 /** Transient newer-chat flags, re-derived by reveal; listing must never spend their offers. */
-export function createNewerOrcaChats(databaseIsNewer: () => boolean) {
+export function createNewerOpenKodoChats(databaseIsNewer: () => boolean) {
   const chats = new Set<string>()
   return {
     has: (sessionId: string): boolean => databaseIsNewer() || chats.has(sessionId),
     note: (sessionId: string, revealed: { openRefusal?: AgentSessionWireRefusal } | null): void => {
-      if (revealed?.openRefusal?.details?.reason === 'journalWrittenByNewerOrca') {
+      if (revealed?.openRefusal?.details?.reason === 'journalWrittenByNewerOpenKodo') {
         chats.add(sessionId)
       } else {
         chats.delete(sessionId)

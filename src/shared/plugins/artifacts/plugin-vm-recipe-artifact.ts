@@ -2,8 +2,8 @@ import { z } from 'zod'
 import {
   OPENKODO_VM_RECIPE_ID_PATTERN,
   OPENKODO_VM_RECIPE_ID_RULE
-} from '../../workspace-setup/orca-yaml'
-import type { OrcaVmRecipe } from '../../workspace-setup/orca-yaml-hook-types'
+} from '../../workspace-setup/openkodo-yaml'
+import type { OpenKodoVmRecipe } from '../../workspace-setup/openkodo-yaml-hook-types'
 
 const recipeCommandSchema = z
   .string()
@@ -18,7 +18,7 @@ const pluginVmRecipeArtifactSchema = z
     id: z.string().regex(OPENKODO_VM_RECIPE_ID_PATTERN, OPENKODO_VM_RECIPE_ID_RULE),
     name: z.string().trim().min(1).max(128),
     description: z.string().trim().min(1).max(1024).optional(),
-    checkoutMode: z.enum(['orca-worktree', 'provisioned-root']).optional(),
+    checkoutMode: z.enum(['openkodo-worktree', 'provisioned-root']).optional(),
     create: recipeCommandSchema,
     suspend: recipeCommandSchema.optional(),
     resume: recipeCommandSchema.optional(),
@@ -40,7 +40,7 @@ export type PluginVmRecipeCommand = {
   command: string
 }
 
-export function parsePluginVmRecipeArtifact(raw: string): OrcaVmRecipe {
+export function parsePluginVmRecipeArtifact(raw: string): OpenKodoVmRecipe {
   const parsed = pluginVmRecipeArtifactSchema.parse(JSON.parse(raw))
   const destroyDisabled = parsed.destroy === 'none'
   return {
@@ -56,7 +56,7 @@ export function parsePluginVmRecipeArtifact(raw: string): OrcaVmRecipe {
   }
 }
 
-export function listPluginVmRecipeCommands(recipe: OrcaVmRecipe): PluginVmRecipeCommand[] {
+export function listPluginVmRecipeCommands(recipe: OpenKodoVmRecipe): PluginVmRecipeCommand[] {
   return [
     { phase: 'create', command: recipe.create },
     ...(recipe.suspend ? [{ phase: 'suspend' as const, command: recipe.suspend }] : []),

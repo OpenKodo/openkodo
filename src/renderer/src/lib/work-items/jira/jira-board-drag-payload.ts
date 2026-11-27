@@ -1,7 +1,7 @@
 import { measureUtf8ByteLength } from '../../../../../shared/text/utf8-byte-limits'
 
-export const JIRA_BOARD_DRAG_ISSUE_MIME = 'application/x-orca-jira-issue-ref'
-export const JIRA_BOARD_DRAG_COLUMN_MIME = 'application/x-orca-jira-board-column'
+export const JIRA_BOARD_DRAG_ISSUE_MIME = 'application/x-openkodo-jira-issue-ref'
+export const JIRA_BOARD_DRAG_COLUMN_MIME = 'application/x-openkodo-jira-board-column'
 export const JIRA_BOARD_DRAG_ISSUE_REF_MAX_BYTES = 1024
 
 // Why: Jira issue keys are only unique per site, so the payload carries both.

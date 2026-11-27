@@ -86,7 +86,7 @@ async function setupOpenCode2Status(ctx) {
     // Wrap bare OpenCode 2 session records for shared lineage lookup's data.id contract.
     const client = { session: { get: async (input, options) => { const result = await ctx.session.get(input, options); return result && typeof result.id === "string" ? { data: result } : result; } } };
     // Hot reload disposes plugins while turns continue.
-    hooks = await OrcaOpenCodeStatusPlugin({ client, sessionsOutliveDispose: true });
+    hooks = await OpenKodoOpenCodeStatusPlugin({ client, sessionsOutliveDispose: true });
     if (!hooks || typeof hooks.event !== "function") return noop;
     const promptRegistration = await ctx.session.hook("prompt", async (properties) => {
       await hooks.event({ event: { type: "session.next.prompt.admitted", properties } });
@@ -100,7 +100,7 @@ async function setupOpenCode2Status(ctx) {
       }
     };
     const consuming = consume().catch((error) => {
-      if (!controller.signal.aborted) console.warn("[orca-hook] event subscription failed:", error.message);
+      if (!controller.signal.aborted) console.warn("[openkodo-hook] event subscription failed:", error.message);
     });
     return async () => {
       try {

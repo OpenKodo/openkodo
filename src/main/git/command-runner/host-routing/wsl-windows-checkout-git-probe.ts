@@ -1,6 +1,6 @@
 import { stat } from 'node:fs/promises'
 import { win32 } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { resolveSelectedLocalCommand } from '../../../ipc/command-path/command-path-resolver'
 import { runWslProcess, type WslResult, type WslSpec } from '../../../wsl/execution/wsl-runner'
 import { translateUncArgForWsl } from './wsl-path-translation'

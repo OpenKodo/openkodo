@@ -40,6 +40,6 @@ export function recordAdmittedTurn(
       reported: () => isConversationReport(body)
     })
   if (link && (owned || !joinsRunningTurn)) {
-    recordLastTurn(deps, link, owned ? 'conversation' : 'orca', workspace)
+    recordLastTurn(deps, link, owned ? 'conversation' : 'openkodo', workspace)
   }
 }

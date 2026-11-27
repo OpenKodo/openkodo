@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   settleBotRequestFailure,
   settleBotRequestTurn
@@ -33,7 +33,7 @@ import type { StructuredAgentSessionRequestFailure } from '../native-chat/agent-
 
 /** A bot session's turn ended: settle the request it answered, and raise its group room. */
 export function botTurnEnded(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   turnId: string,
   ended?: TurnEndedVerdict
@@ -67,7 +67,7 @@ export type BotSessionHooks = {
 
 /** The turn's live-work slot; a slow or failed read keeps what the chat last got (undefined). */
 function activeWorkSlot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string
 ): Promise<BotActiveWorkSection | undefined> {
   return withTimeout<BotActiveWorkSection | undefined>(
@@ -77,7 +77,7 @@ function activeWorkSlot(
   )
 }
 
-export function botSessionHooks(runtime: OrcaRuntimeService): BotSessionHooks {
+export function botSessionHooks(runtime: OpenKodoRuntimeService): BotSessionHooks {
   const isOwnerChat = createBotOwnerChatCheck({
     getOrchestrationDb: () => runtime.getOrchestrationDb(),
     listAutomationRuns: () => runtime.listAutomationRuns(),

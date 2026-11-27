@@ -14,7 +14,7 @@ import {
   UnsupportedSftpPathError
 } from './system-ssh-sftp-path'
 import { SystemSshCommandExitError, throwIfAborted } from '../system-ssh-operation-lifecycle'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 /** Subsystem refusal permits transport fallback. */
 class SftpSubsystemUnavailableError extends Error {

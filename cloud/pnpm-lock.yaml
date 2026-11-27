@@ -169,7 +169,7 @@ importers:
 
   .:
     devDependencies:
-      '@orca/process-host':
+      '@openkodo/process-host':
         specifier: link:../src/packages/process-host
         version: link:../src/packages/process-host
       '@types/node':
@@ -224,10 +224,10 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.6
         version: 2.1.6(hono@4.13.17)
-      '@orca-cloud/cloud-database':
+      '@openkodo-cloud/cloud-database':
         specifier: workspace:*
         version: link:../../packages/cloud-database
-      '@orca-cloud/push-contract':
+      '@openkodo-cloud/push-contract':
         specifier: workspace:*
         version: link:../../packages/push-contract
       google-auth-library:
@@ -267,10 +267,10 @@ importers:
       '@hono/node-server':
         specifier: ^2.1.6
         version: 2.1.6(hono@4.13.17)
-      '@orca-cloud/postgres-schema':
+      '@openkodo-cloud/postgres-schema':
         specifier: workspace:*
         version: link:../../packages/postgres-schema
-      '@orca-cloud/relay-contract':
+      '@openkodo-cloud/relay-contract':
         specifier: workspace:*
         version: link:../../packages/relay-contract
       hono:
@@ -384,7 +384,7 @@ importers:
 
   apps/relay-ingress:
     dependencies:
-      '@orca-cloud/relay-contract':
+      '@openkodo-cloud/relay-contract':
         specifier: workspace:*
         version: link:../../packages/relay-contract
     devDependencies:
@@ -409,7 +409,7 @@ importers:
 
   packages/cloud-database:
     dependencies:
-      '@orca-cloud/postgres-schema':
+      '@openkodo-cloud/postgres-schema':
         specifier: workspace:*
         version: link:../postgres-schema
       pg:
@@ -434,7 +434,7 @@ importers:
 
   packages/connector-contract:
     dependencies:
-      '@orca-cloud/push-contract':
+      '@openkodo-cloud/push-contract':
         specifier: workspace:*
         version: link:../push-contract
       zod:

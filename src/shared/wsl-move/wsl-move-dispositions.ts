@@ -1,6 +1,6 @@
 /** Exhaustive state dispositions for local WSL project moves. Typed stores are compile-checked; tests census localStorage/SQLite. Sibling tables cover UI, storage and out-of-store state.
- * Item numbers refer to docs/design/wsl-via-orcad-lossless-mover.md §2. */
-import type { PersistedState } from '../orca-profiles/persisted-state-types'
+ * Item numbers refer to docs/design/wsl-via-openkodod-lossless-mover.md §2. */
+import type { PersistedState } from '../openkodo-profiles/persisted-state-types'
 import type { WorkspaceSessionState } from '../workspace-session/workspace-session-state-types'
 
 export type WslMoveDisposition =
@@ -113,9 +113,9 @@ export const PERSISTED_STATE_DISPOSITIONS = {
     62,
     'A one-time migration marker for bots.'
   ),
-  orcadMigrationImportReceipts: notApplicableDisposition(67, 'Mover-owned.'),
-  orcadMigrationEvictedReceipts: notApplicableDisposition(67, 'Mover-owned.'),
-  orcadMigrationStagedCatalogs: notApplicableDisposition(68, 'Mover-owned.'),
+  openkododMigrationImportReceipts: notApplicableDisposition(67, 'Mover-owned.'),
+  openkododMigrationEvictedReceipts: notApplicableDisposition(67, 'Mover-owned.'),
+  openkododMigrationStagedCatalogs: notApplicableDisposition(68, 'Mover-owned.'),
   onboarding: notApplicableDisposition(62),
   featureInteractionTelemetryBuckets: notApplicableDisposition(62),
   codexResetCreditAttemptLedger: notApplicableDisposition(62),

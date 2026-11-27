@@ -112,7 +112,7 @@ export function structuredAgentSessionRideAlong(
       }
       await ctx.journal.appendItem(
         {
-          provider: 'orca',
+          provider: 'openkodo',
           clientMessageId: `turn-context:${submission.clientMessageId}`
         },
         plan.note,

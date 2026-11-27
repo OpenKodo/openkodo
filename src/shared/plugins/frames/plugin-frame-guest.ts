@@ -3,25 +3,25 @@ import { bytesToHex, utf8ToBytes } from '@noble/hashes/utils'
 
 /**
  * Desktop plugin frames run as `<webview>` guests, one partition (session, process, storage) per
- * plugin, served from `orca-plugin-frame://<key>/<path>`. Main and renderer derive the same key.
+ * plugin, served from `openkodo-plugin-frame://<key>/<path>`. Main and renderer derive the same key.
  * See docs/reference/plugin-isolated-frames.md.
  */
 
-export const PLUGIN_FRAME_SCHEME = 'orca-plugin-frame'
-export const PLUGIN_FRAME_PARTITION_PREFIX = 'persist:orca-plugin-'
-/** `sendToHost` / `webview.send` channel carrying the `{orca:1, …}` envelopes. */
-export const PLUGIN_FRAME_IPC_CHANNEL = 'orca-plugin-frame'
+export const PLUGIN_FRAME_SCHEME = 'openkodo-plugin-frame'
+export const PLUGIN_FRAME_PARTITION_PREFIX = 'persist:openkodo-plugin-'
+/** `sendToHost` / `webview.send` channel carrying the `{openkodo:1, …}` envelopes. */
+export const PLUGIN_FRAME_IPC_CHANNEL = 'openkodo-plugin-frame'
 /** Preload → host only: modifier chords from trusted keydowns, the one source of a guest save. */
-export const PLUGIN_FRAME_KEY_CHANNEL = 'orca-plugin-frame-key'
+export const PLUGIN_FRAME_KEY_CHANNEL = 'openkodo-plugin-frame-key'
 /** One-shot main-world handoff from the guest preload to OpenKodo's injected frame shell. */
-export const PLUGIN_FRAME_TRANSPORT_GLOBAL = '__orcaPluginFrameTransport'
+export const PLUGIN_FRAME_TRANSPORT_GLOBAL = '__openkodoPluginFrameTransport'
 /** One-shot main-world hook letting OpenKodo's declarative boot script post `ui.*` events. */
-export const PLUGIN_DECLARATIVE_POST_GLOBAL = '__orcaDeclarativePost'
+export const PLUGIN_DECLARATIVE_POST_GLOBAL = '__openkodoDeclarativePost'
 /** OpenKodo-served files under the reserved prefix (plugin-frame-protocol.ts). */
 export const PLUGIN_DECLARATIVE_HOST_FILE = 'declarative-host.html'
-export const PLUGIN_DECLARATIVE_RUNTIME_FILE = 'orca-runtime.mjs'
+export const PLUGIN_DECLARATIVE_RUNTIME_FILE = 'openkodo-runtime.mjs'
 /** Paths under this prefix are reserved for files OpenKodo ships; plugin files there are never served. */
-export const PLUGIN_FRAME_RESERVED_SEGMENT = '__orca'
+export const PLUGIN_FRAME_RESERVED_SEGMENT = '__openkodo'
 
 const FRAME_KEY_PATTERN = /^[0-9a-f]{16}$/
 
@@ -38,7 +38,7 @@ export function pluginFramePartition(frameKey: string): string {
   return `${PLUGIN_FRAME_PARTITION_PREFIX}${frameKey}`
 }
 
-/** The frame key of an `orca-plugin-` partition, or null for any other partition. */
+/** The frame key of an `openkodo-plugin-` partition, or null for any other partition. */
 export function readPluginFramePartitionKey(partition: string): string | null {
   if (!partition.startsWith(PLUGIN_FRAME_PARTITION_PREFIX)) {
     return null
@@ -93,7 +93,7 @@ export function parsePluginFrameUrl(url: string): PluginFrameUrlTarget | null {
       return null
     }
     // Why decoded checks: `%2F` or `%5C` must not smuggle a separator into one segment.
-    // Why trailing dots and spaces: Windows strips them, so `__orca.` or `app.js ` would name
+    // Why trailing dots and spaces: Windows strips them, so `__openkodo.` or `app.js ` would name
     // another file than the one checked.
     if (
       segment.length === 0 ||

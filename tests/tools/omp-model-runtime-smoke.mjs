@@ -22,7 +22,7 @@ const { AuthStorage } = await import(
 const { SessionManager } = await import(
   pathToFileURL(resolve(reference, 'packages/coding-agent/src/session/session-manager.ts')).href
 )
-const root = await mkdtemp(join(tmpdir(), 'orca-omp-model-'))
+const root = await mkdtemp(join(tmpdir(), 'openkodo-omp-model-'))
 const posts = []
 const server = Bun.serve({
   port: 0,
@@ -52,7 +52,7 @@ try {
   if (!from || !to) {
     throw new Error('missing bundled models')
   }
-  const extensionPath = join(root, 'orca-agent-status.ts')
+  const extensionPath = join(root, 'openkodo-agent-status.ts')
   await writeFile(extensionPath, getPiAgentStatusExtensionSource('omp'))
   const result = await createAgentSession({
     cwd: root,
@@ -69,7 +69,7 @@ try {
   session = result.session
   const command = result.extensionsResult.extensions
     .flatMap((extension) => [...extension.commands.entries()])
-    .find(([name]) => name === 'orca-model')?.[1]
+    .find(([name]) => name === 'openkodo-model')?.[1]
   const runner = session.extensionRunner
   if (!command || !runner) {
     throw new Error('generated command was not loaded')
@@ -104,7 +104,7 @@ try {
       (post) =>
         post.payload?.hook_event_name === 'model_select' &&
         post.payload?.model === after &&
-        post.payload?.model_switch_command === 'orca-model'
+        post.payload?.model_switch_command === 'openkodo-model'
     )
   ) {
     throw new Error('Missing model and capability HTTP report')
@@ -118,7 +118,7 @@ try {
         messages: session.messages.length,
         posts,
         scope:
-          'Actual OMP SDK session, extension loader, registered generated Orca command and OMP setModel; runner actions bound as in OMP ExtensionUIController, synthetic credentials, no model generation'
+          'Actual OMP SDK session, extension loader, registered generated OpenKodo command and OMP setModel; runner actions bound as in OMP ExtensionUIController, synthetic credentials, no model generation'
       },
       null,
       2

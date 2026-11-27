@@ -49,17 +49,22 @@ const refused = (
   ...fields
 })
 
-const LONG = 'orca-cli-orchestration-and-worktree-handoff'
+const LONG = 'openkodo-cli-orchestration-and-worktree-handoff'
 const REVIEW_BACKUP =
-  '/Users/sam/.agents/.orca-skill-backups/orca-review-2026-11-24T10-00-00-000Z-1'
-const FORMER_ROOT_COPY = `/Users/sam/.gemini/skills/.${LONG}.orca-old-0c6e2f19-91aa-4d0b-8f3e-5a2b7c9d1e44`
+  '/Users/sam/.agents/.openkodo-skill-backups/openkodo-review-2026-11-24T10-00-00-000Z-1'
+const FORMER_ROOT_COPY = `/Users/sam/.gemini/skills/.${LONG}.openkodo-old-0c6e2f19-91aa-4d0b-8f3e-5a2b7c9d1e44`
 const linked = (name: string): BundledSkillOpOutcome => ({
   path: `/Users/sam/.claude/skills/${name}`,
   kind: 'link',
   status: 'done'
 })
 
-const NARROW_ROWS: ReadonlySet<string> = new Set(['orca-cli', 'electron', 'orca-review', LONG])
+const NARROW_ROWS: ReadonlySet<string> = new Set([
+  'openkodo-cli',
+  'electron',
+  'openkodo-review',
+  LONG
+])
 
 function Rows({
   backup,
@@ -71,10 +76,12 @@ function Rows({
   const show = (name: string): boolean => !only || only.has(name)
   return (
     <div className="bg-background px-4">
-      {show('orca-cli') &&
+      {show('openkodo-cli') &&
         row(
-          'orca-cli',
-          [refused('orca-cli', 'in-place', '/Volumes/Work/project/.agents/skills/orca-cli')],
+          'openkodo-cli',
+          [
+            refused('openkodo-cli', 'in-place', '/Volumes/Work/project/.agents/skills/openkodo-cli')
+          ],
           backup
         )}
       {show('orchestration') &&
@@ -86,26 +93,36 @@ function Rows({
           ],
           backup
         )}
-      {show('orca-linear') &&
+      {show('openkodo-linear') &&
         row(
-          'orca-linear',
+          'openkodo-linear',
           [
-            refused('orca-linear', 'leftover', `${SKILLS}/.orca-linear.orca-old-3f2a9c1e`, {
-              kind: 'keep',
-              currentConfirmed: true
-            }),
-            linked('orca-linear')
+            refused(
+              'openkodo-linear',
+              'leftover',
+              `${SKILLS}/.openkodo-linear.openkodo-old-3f2a9c1e`,
+              {
+                kind: 'keep',
+                currentConfirmed: true
+              }
+            ),
+            linked('openkodo-linear')
           ],
           backup
         )}
-      {show('orca-plan') &&
+      {show('openkodo-plan') &&
         row(
-          'orca-plan',
+          'openkodo-plan',
           [
-            refused('orca-plan', 'moved-aside', `${SKILLS}/.orca-planner.orca-old-5c09b7d2`, {
-              kind: 'keep',
-              currentConfirmed: true
-            })
+            refused(
+              'openkodo-plan',
+              'moved-aside',
+              `${SKILLS}/.openkodo-planner.openkodo-old-5c09b7d2`,
+              {
+                kind: 'keep',
+                currentConfirmed: true
+              }
+            )
           ],
           backup
         )}
@@ -129,24 +146,29 @@ function Rows({
         row(
           'electron',
           [
-            refused('electron', 'moved-aside', `${SKILLS}/.electron.orca-old-7b1d44e0`, {
+            refused('electron', 'moved-aside', `${SKILLS}/.electron.openkodo-old-7b1d44e0`, {
               kind: 'update',
               contentApplied: true,
-              strandedPath: `${SKILLS}/.electron.orca-old-7b1d44e0`
+              strandedPath: `${SKILLS}/.electron.openkodo-old-7b1d44e0`
             })
           ],
           backup
         )}
-      {show('orca-review') &&
+      {show('openkodo-review') &&
         row(
-          'orca-review',
+          'openkodo-review',
           [
-            refused('orca-review', 'moved-aside', `${SKILLS}/.orca-review.orca-old-2e8f`, {
-              kind: 'update',
-              contentApplied: true,
-              backupPath: REVIEW_BACKUP,
-              backupPaths: [REVIEW_BACKUP]
-            })
+            refused(
+              'openkodo-review',
+              'moved-aside',
+              `${SKILLS}/.openkodo-review.openkodo-old-2e8f`,
+              {
+                kind: 'update',
+                contentApplied: true,
+                backupPath: REVIEW_BACKUP,
+                backupPaths: [REVIEW_BACKUP]
+              }
+            )
           ],
           backup
         )}

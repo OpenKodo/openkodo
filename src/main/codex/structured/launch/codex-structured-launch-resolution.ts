@@ -38,7 +38,7 @@ import type { CodexStructuredLaunch } from '../session-lifecycle/codex-structure
 import { codexStructuredPermissionPolicy } from '../../../../shared/agent-launch/permissions/codex-permission-policy'
 import { codexArgsMcpServerNames, codexStructuredLaunchArgs } from './codex-structured-launch-args'
 import { codexReadOnlyThreadConfig } from '../prompts/codex-structured-read-only'
-import { codexOrcaHooksOffArgs } from './codex-structured-orca-hooks-off'
+import { codexOpenKodoHooksOffArgs } from './codex-structured-openkodo-hooks-off'
 import { getSystemCodexHomePath } from '../../configuration/homes/codex-home-paths'
 import {
   LEGACY_NATIVE_CHAT_VISUALS_DIR_ENV,
@@ -211,7 +211,7 @@ export function codexStructuredLaunchPart(
         // A custom command may be a wrapper that depends on its folder; it never shares a server.
         ...(configuredProgram ? { customCommand: true } : {}),
         // Before the user's args: a later -c table replaces this one, so their hooks.state wins.
-        args: [...prefixArgs, ...codexOrcaHooksOffArgs(codexHome), ...args, 'app-server'],
+        args: [...prefixArgs, ...codexOpenKodoHooksOffArgs(codexHome), ...args, 'app-server'],
         codexHome: accountHome.path,
         resumeThreadId,
         ...(supersedeIfUnsaved ? { supersedeIfUnsaved } : {}),

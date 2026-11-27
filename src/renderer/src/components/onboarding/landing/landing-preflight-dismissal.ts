@@ -6,7 +6,7 @@ import type { Repo } from '../../../../../shared/repository/repo-types'
 
 // Snapshot GitHub identities on dismissal; show the nudge again only when a new GitHub project appears.
 
-const STORAGE_PREFIX = 'orca.preflightBanner.dismissed.'
+const STORAGE_PREFIX = 'openkodo.preflightBanner.dismissed.'
 
 type DismissalRecord = {
   githubKeys: string[]

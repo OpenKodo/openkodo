@@ -7,7 +7,7 @@ const { withDangerousMod } = require('expo/config-plugins')
 // scene connect, though, and iOS may disconnect the app's only scene in the background and
 // reconnect it later. Reattach the running root then, so a reconnect keeps the app's state
 // instead of starting a second React Native instance.
-const MARKER = 'orca: UIScene reconnect'
+const MARKER = 'openkodo: UIScene reconnect'
 const EXTENSION_POINT = '  // Extension point for config plugins.\n'
 const TEMPLATE_CLASS = 'class SceneDelegate: ExpoAppSceneDelegate {\n'
 

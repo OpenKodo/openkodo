@@ -112,7 +112,7 @@ const chats = [
   chat(docs, {
     state: 'done',
     updatedAt: now - 60 * MIN,
-    lastAssistantMessage: 'Fixed the typo, opened orca#3412'
+    lastAssistantMessage: 'Fixed the typo, opened openkodo#3412'
   })
 ]
 
@@ -128,8 +128,8 @@ function repo(id: string, displayName: string, executionHostId: ExecutionHostId)
 }
 
 const REPOS = {
-  orcaHere: repo('orca-local', 'orca', 'local'),
-  orcaM4: repo('orca-m4', 'orca', M4),
+  openkodoHere: repo('openkodo-local', 'openkodo', 'local'),
+  openkodoM4: repo('openkodo-m4', 'openkodo', M4),
   webLinux: repo('web-linux', 'web', LINUX),
   docsLinux: repo('docs-linux', 'docs', LINUX)
 }
@@ -170,14 +170,14 @@ const WORKERS: Record<string, Line[]> = {
     {
       id: 'notes',
       title: 'Draft release notes',
-      repo: REPOS.orcaM4,
+      repo: REPOS.openkodoM4,
       agent: 'codex',
       state: 'done'
     },
     {
       id: 'bump',
       title: 'Bump version to 1.4.231',
-      repo: REPOS.orcaHere,
+      repo: REPOS.openkodoHere,
       agent: 'codex',
       state: 'done'
     }
@@ -186,7 +186,7 @@ const WORKERS: Record<string, Line[]> = {
     {
       id: 'flaky',
       title: 'Fix flaky sidebar test',
-      repo: REPOS.orcaM4,
+      repo: REPOS.openkodoM4,
       agent: 'claude',
       state: 'working'
     },
@@ -197,7 +197,13 @@ const WORKERS: Record<string, Line[]> = {
       agent: 'claude',
       state: 'working'
     },
-    { id: 'label', title: 'Label new issues', repo: REPOS.orcaHere, agent: 'claude', state: 'done' }
+    {
+      id: 'label',
+      title: 'Label new issues',
+      repo: REPOS.openkodoHere,
+      agent: 'claude',
+      state: 'done'
+    }
   ],
   builder: [
     {
@@ -258,7 +264,7 @@ function homeOf(owner: Bot) {
   return makeFolderWorkspace({
     id: owner.folderWorkspaceId,
     name: owner.name,
-    folderPath: `~/orca-bots/${owner.folder}`,
+    folderPath: `~/openkodo-bots/${owner.folder}`,
     executionHostId: owner.hostId,
     isUnread: owner === release
   })

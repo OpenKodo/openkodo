@@ -14,7 +14,7 @@ import { resolveDraftPasteReadyTimeoutMs } from '../../../../shared/agent-launch
 import { TUI_AGENT_CONFIG } from '../../../../shared/agent-launch/catalog/tui-agent-config'
 import { draftPasteReadySignalHasMarker } from '../../../../shared/agent-launch/startup/readiness/draft-paste-ready-scanner'
 import { nameOnlyIdleNeedsCorroboration } from './tui-idle-evidence'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import {
   failOnLaunchedAgentExit,
   launchedAgentExitMessage,
@@ -30,11 +30,11 @@ export function getLaunchedAgentReadinessLane(agent: TuiAgent): LaunchedAgentRea
 }
 
 export type LaunchedAgentReadinessRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'waitForTerminal' | 'waitForFreshWorkerComposer'
 > &
   Partial<
-    Pick<OrcaRuntimeService, 'getPtyLivenessVerdict' | 'readExitedLaunchOutput'> &
+    Pick<OpenKodoRuntimeService, 'getPtyLivenessVerdict' | 'readExitedLaunchOutput'> &
       LaunchedAgentExitRuntime
   >
 

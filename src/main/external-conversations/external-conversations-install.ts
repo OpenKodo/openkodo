@@ -38,13 +38,13 @@ import { liveEmptyTurnRetry } from './external-conversation-reply-empty-retry'
 import { ConnectorReplyRecovery } from './external-conversation-reply-recovery'
 import { endRestartCutTurns, heldTurnEnds } from './external-conversation-restart-cuts'
 import type { OrchestrationDb } from '../runtime/orchestration/db/orchestration-db'
-import { canonicalOrcaSessionId } from '../runtime/orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../runtime/orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import { threadActsFor } from '../../shared/bots/bot-acts-for'
 import {
   readBotConversationActsFor,
   type BotConversationActsForSources
 } from '../bots/bot-conversation-acts-for'
-import { isOrcaSessionId } from '../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../shared/agent-session/identity/openkodo-session-address'
 import {
   CONNECTOR_CLOUD_PROMPTS_AUDIENCE_FEATURE,
   type ConnectorCloudFeature
@@ -73,7 +73,7 @@ export function installExternalConversations(
     getConnectorCloud?: () =>
       | (SlackMirrorCloud & {
           refResolver(): ConnectorRefResolver | null
-          orcaAccountName(): string
+          openkodoAccountName(): string
           repliesFilled(): void
           reply: LeaveLinesCloud['reply']
         })
@@ -100,7 +100,7 @@ export function installExternalConversations(
       new SlackMirror({
         store,
         cloud: () => runtime.getConnectorCloud?.() ?? null,
-        orcaName: () => runtime.getConnectorCloud?.()?.orcaAccountName() ?? '',
+        openkodoName: () => runtime.getConnectorCloud?.()?.openkodoAccountName() ?? '',
         botSetting: (botId) => store.getBots?.().find((bot) => bot.id === botId)?.slackMirror,
         readMessage: async (sessionId, itemId) => {
           const reads = await getStructuredAgentSessionHost()?.journalReads(sessionId)
@@ -190,7 +190,7 @@ export function installExternalConversations(
       actsForOf: (sessionId) => {
         const recorded = readBotConversationActsFor(
           runtime,
-          isOrcaSessionId(sessionId) ? canonicalOrcaSessionId(sessionId) : sessionId
+          isOpenKodoSessionId(sessionId) ? canonicalOpenKodoSessionId(sessionId) : sessionId
         )
         return recorded && threadActsFor(recorded.actsFor)
       },

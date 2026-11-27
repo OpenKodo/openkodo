@@ -7,7 +7,7 @@ import type { OrchestrationAccessRuleInput } from './orchestration-method-access
 import type { RpcContext } from '../../../core'
 
 /** A person, proven by the transport: the desktop app's own IPC, a phone's pairing, or a paired
- *  window that says so; never the orca CLI, an agent session, or a paired OpenKodo's forwarded call. */
+ *  window that says so; never the openkodo CLI, an agent session, or a paired OpenKodo's forwarded call. */
 export function isPersonCaller(
   ctx: Pick<RpcContext, 'caller' | 'orchestrationCaller' | 'clientKind' | 'clientCapabilities'>
 ): boolean {
@@ -27,7 +27,7 @@ export type WorkerApprovalAccess = { answeredBy: 'person' | 'coordinator'; reaso
 
 /** Approve requires a person, or an agent caller when the user's setting is on; deny allows an agent
  *  or a person. A person is proven by the transport: the desktop app's own IPC, a phone's pairing, or
- *  a paired window that says so; the orca CLI never does, so an older CLI fails closed. An agent session and a
+ *  a paired window that says so; the openkodo CLI never does, so an older CLI fails closed. An agent session and a
  *  paired OpenKodo's forwarded call are agents. The setting read is this machine's, which runs the worker. */
 export function workerApprovalAccess({
   params,

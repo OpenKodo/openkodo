@@ -11,15 +11,15 @@ import { PLUGIN_TYPES_DIR } from './plugin-type-files'
 
 const WORKER_TS = `// A guard: OpenKodo asks this worker before it types text into a terminal (terminal.send).
 // OpenKodo transpiles this file when it loads: no build step.
-import type { OrcaWorkerApi } from 'orca/worker'
+import type { OpenKodoWorkerApi } from 'openkodo/worker'
 
 const BLOCKED = [/\\brm\\s+-rf\\s+\\/(?:\\s|$)/, /\\bmkfs\\b/]
 
-export default function activate(orca: OrcaWorkerApi): void {
-  orca.hooks.on('terminal.send', (event) => {
+export default function activate(openkodo: OpenKodoWorkerApi): void {
+  openkodo.hooks.on('terminal.send', (event) => {
     // Decide first: an awaited call before returning could fail or time out and let it through.
     if (BLOCKED.some((pattern) => pattern.test(event.text))) {
-      orca.log(\`blocked in \${event.terminalId}: \${event.text}\`)
+      openkodo.log(\`blocked in \${event.terminalId}: \${event.text}\`)
       return { deny: 'blocked by the guard plugin' }
     }
     // Returning nothing passes the send on unchanged.
@@ -29,7 +29,7 @@ export default function activate(orca: OrcaWorkerApi): void {
 `
 
 const WORKER_TEST_TS = `// Runs the hook as OpenKodo would, with this worker as the only plugin in the chain.
-import { assert, mountWorker, test } from 'orca/testing'
+import { assert, mountWorker, test } from 'openkodo/testing'
 import * as main from './worker'
 
 const send = (text: string) => ({ terminalId: 't1', text, enter: true, inputKind: 'driving' as const })
@@ -55,7 +55,7 @@ export function hook(input: PluginTemplateInput): PluginTemplate {
       'Worker-only hook that refuses dangerous terminal commands, with a test (needs --approve to load)',
     files: {
       'openkodo-plugin.json': manifest(input, 'Refuses dangerous commands sent to terminals.', {
-        engines: { orca: `>=${PLUGIN_HOOKS_SINCE}` },
+        engines: { openkodo: `>=${PLUGIN_HOOKS_SINCE}` },
         execution: 'trusted-worker',
         pluginApi: 1,
         main: 'src/worker.ts',
@@ -67,7 +67,7 @@ export function hook(input: PluginTemplateInput): PluginTemplate {
       'tsconfig.json': json({ extends: `./${PLUGIN_TYPES_DIR}/tsconfig.json`, include: ['src'] }),
       'README.md': readme(
         input,
-        `A guard (\`src/worker.ts\`) on the \`terminal.send\` hook: before OpenKodo, the CLI or a plugin types text into a terminal, the worker can refuse it with \`{ deny }\` or pass it on. \`"onError": "deny"\` in \`openkodo-plugin.json\` makes a crash or timeout refuse the send too. \`openkodo plugin test .\` runs \`src/worker.test.ts\` with \`orca/testing\`; with the folder loaded, \`openkodo plugin dev hook . terminal.send --data '{"terminalId":"t1","text":"rm -rf /","enter":true,"inputKind":"driving"}'\` prints what the chain decides.`
+        `A guard (\`src/worker.ts\`) on the \`terminal.send\` hook: before OpenKodo, the CLI or a plugin types text into a terminal, the worker can refuse it with \`{ deny }\` or pass it on. \`"onError": "deny"\` in \`openkodo-plugin.json\` makes a crash or timeout refuse the send too. \`openkodo plugin test .\` runs \`src/worker.test.ts\` with \`openkodo/testing\`; with the folder loaded, \`openkodo plugin dev hook . terminal.send --data '{"terminalId":"t1","text":"rm -rf /","enter":true,"inputKind":"driving"}'\` prints what the chain decides.`
       ),
       ...COMMON_FILES
     }

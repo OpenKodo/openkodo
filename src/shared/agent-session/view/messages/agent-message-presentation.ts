@@ -99,7 +99,7 @@ export function agentMessageSenderCanOpen(sender: AgentMessageSender): boolean {
     !sender.party.address.startsWith('dispatch:') &&
     !(
       sender.party.address.startsWith('run:') &&
-      !sender.party.orcaSessionId &&
+      !sender.party.openkodoSessionId &&
       !sender.party.terminalHandle
     )
   )

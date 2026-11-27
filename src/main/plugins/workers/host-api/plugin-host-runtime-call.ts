@@ -4,7 +4,7 @@ import type { PluginHostServices } from './plugin-host-method-bindings'
 import { PluginHostCallError, PluginRuntimeCallError } from './plugin-host-call-scope'
 import type { PluginHostRendererActions } from '../../view/plugin-host-renderer-actions'
 
-/** The runtime RPC the `orca` CLI calls, run in process; rejects with the runtime's error.
+/** The runtime RPC the `openkodo` CLI calls, run in process; rejects with the runtime's error.
  *  `beforeEffect` runs right before the runtime acts, after its own waits; a throw refuses it.
  *  `plugin` names who the call acts for, which the runtime records where it keeps provenance. */
 export type PluginRuntimeRpc = (

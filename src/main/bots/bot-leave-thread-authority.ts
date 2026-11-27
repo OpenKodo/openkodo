@@ -7,7 +7,7 @@ import type {
   AgentJournalSubmission
 } from '../../shared/agent-session/journal/agent-session-journal-types'
 import { isRunningAgentJournalTurn } from '../../shared/agent-session/lifecycle/records/agent-session-turn-record'
-import { typedInOrcaByPerson } from './bot-typed-in-orca'
+import { typedInOpenKodoByPerson } from './bot-typed-in-openkodo'
 import { isRootTurnRecord, turnMessages } from './bot-turn-messages'
 import { askedInThread } from '../external-conversations/external-conversation-leave-eligibility'
 
@@ -32,7 +32,7 @@ function eligible(
     return false
   }
   if (body.origin === undefined) {
-    return typedInOrcaByPerson(item, submissions)
+    return typedInOpenKodoByPerson(item, submissions)
   }
   if (body.origin !== 'connector' || body.memorySource || !body.asker) {
     return false

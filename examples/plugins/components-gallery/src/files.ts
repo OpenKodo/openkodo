@@ -1,5 +1,5 @@
 // A stand-in data source: 240 files served a page at a time, as a real backend would.
-import type { TableSort } from 'orca'
+import type { TableSort } from 'openkodo'
 
 export type FileRow = { path: string; name: string; kind: 'source' | 'test' | 'doc'; size: number }
 

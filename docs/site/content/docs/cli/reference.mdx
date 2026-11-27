@@ -197,7 +197,7 @@ openkodo orchestration send --to '<terminal-from-find>' --subject 'Status' --bod
 openkodo orchestration send --to '<mailbox-from-find>' --subject 'Status' --body 'Status?' --type question
 ```
 
-Mailboxes are `dispatch:<id>` or `orca_session_id:<id>`; a `run:<id>` addresses a coordinator. Find never sends messages or assigns ownership. Adding references from a shell does not associate that shell with an agent.
+Mailboxes are `dispatch:<id>` or `openkodo_session_id:<id>`; a `run:<id>` addresses a coordinator. Find never sends messages or assigns ownership. Adding references from a shell does not associate that shell with an agent.
 
 ## Terminals
 
@@ -251,14 +251,14 @@ Lists the agent CLIs OpenKodo detects on the host that can start: agents turned 
 
 ```bash
 openkodo agent list --json
-openkodo agent show orca_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json
-openkodo agent read orca_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --limit 10
-openkodo agent read orca_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json
+openkodo agent show openkodo_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json
+openkodo agent read openkodo_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --limit 10
+openkodo agent read openkodo_session_id:3540ecf3-47c3-4876-b825-81bf5d6b3595 --json
 ```
 
-Every agent, chat or terminal, has an OpenKodo session ID (`orca_session_id:<id>`), what Copy OpenKodo Session ID copies. `agent list` lists agents in this host's workspaces with their IDs; a terminal agent shows none until it first reports to OpenKodo. A chat keeps its ID across `/clear`; a terminal agent gets a new one. IDs belong to the host that runs the agent: agents on other hosts are not listed, and the output names those hosts with the `--environment` that lists them. A finished terminal agent stays listed as `done` while asleep, even after OpenKodo restarts, unless it was reopened and slept again before doing anything new. An agent put to sleep mid-turn is not listed. After reopening, a terminal agent reappears only once it reports to OpenKodo (for Codex, on its next turn). `agent read` still reads it in all these cases. `agent show` shows a listed sleeping agent's last state and where it wakes when its workspace is reopened.
+Every agent, chat or terminal, has an OpenKodo session ID (`openkodo_session_id:<id>`), what Copy OpenKodo Session ID copies. `agent list` lists agents in this host's workspaces with their IDs; a terminal agent shows none until it first reports to OpenKodo. A chat keeps its ID across `/clear`; a terminal agent gets a new one. IDs belong to the host that runs the agent: agents on other hosts are not listed, and the output names those hosts with the `--environment` that lists them. A finished terminal agent stays listed as `done` while asleep, even after OpenKodo restarts, unless it was reopened and slept again before doing anything new. An agent put to sleep mid-turn is not listed. After reopening, a terminal agent reappears only once it reports to OpenKodo (for Codex, on its next turn). `agent read` still reads it in all these cases. `agent show` shows a listed sleeping agent's last state and where it wakes when its workspace is reopened.
 
-`agent read` reads the conversation, not a screen: a chat's history, or a terminal agent's own transcript. The agent need not be running and reading never starts it. A terminal agent can be read while OpenKodo knows where its transcript is (it is open, or asleep in a workspace; on Windows, a sleeping WSL agent only once its tab is reopened). The read can start with a state (`state` in `--json`) for the latest turn its own history records: `working` means that history shows an unfinished turn, so its reply may not be there yet, and `done` means the turn ended with its reply in the read. A terminal agent that exited mid-turn may keep reading `working`; check `openkodo agent show`. No state means unknown, never done. `agent list` and `agent show` report the last state known to OpenKodo, which may differ. To message an agent, use `openkodo orchestration send` with its terminal handle (a terminal agent) or `orca_session_id:<id>` (a chat), not `openkodo terminal send`; a sleeping terminal agent can't be messaged, so reopen its workspace first.
+`agent read` reads the conversation, not a screen: a chat's history, or a terminal agent's own transcript. The agent need not be running and reading never starts it. A terminal agent can be read while OpenKodo knows where its transcript is (it is open, or asleep in a workspace; on Windows, a sleeping WSL agent only once its tab is reopened). The read can start with a state (`state` in `--json`) for the latest turn its own history records: `working` means that history shows an unfinished turn, so its reply may not be there yet, and `done` means the turn ended with its reply in the read. A terminal agent that exited mid-turn may keep reading `working`; check `openkodo agent show`. No state means unknown, never done. `agent list` and `agent show` report the last state known to OpenKodo, which may differ. To message an agent, use `openkodo orchestration send` with its terminal handle (a terminal agent) or `openkodo_session_id:<id>` (a chat), not `openkodo terminal send`; a sleeping terminal agent can't be messaged, so reopen its workspace first.
 
 ## Chats
 

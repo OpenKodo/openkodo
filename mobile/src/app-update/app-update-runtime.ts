@@ -2,7 +2,7 @@ import Constants from 'expo-constants'
 import * as Linking from 'expo-linking'
 import { useSyncExternalStore } from 'react'
 import { AppState, Platform } from 'react-native'
-import { OrcaPlayStorePresence } from '../../modules/orca-play-store-presence/src'
+import { OpenKodoPlayStorePresence } from '../../modules/openkodo-play-store-presence/src'
 import {
   loadAppUpdatePreferences,
   saveAppUpdateCheck,
@@ -20,13 +20,13 @@ import {
 // expoConfig is embedded binary manifest because app does not use expo-updates; SDK 55 removed nativeAppVersion. Revisit version source if adopting OTA updates.
 export const installedAppVersion: string | null = Constants.expoConfig?.version ?? null
 
-/** The GitHub APK's package. OpenKodo moved to Google Play as dev.orca.app, so this app gets no more updates. */
+/** The GitHub APK's package. OpenKodo moved to Google Play as dev.openkodo.app, so this app gets no more updates. */
 export const isRetiredGithubAndroidApp =
-  Platform.OS === 'android' && Constants.expoConfig?.android?.package === 'com.stably.orca.mobile'
+  Platform.OS === 'android' && Constants.expoConfig?.android?.package === 'dev.openkodo.mobile'
 
 /** Play delivers this install's updates and forbids other update channels. */
 export const isGooglePlayInstall =
-  Platform.OS === 'android' && (OrcaPlayStorePresence?.isInstalledByPlayStore() ?? false)
+  Platform.OS === 'android' && (OpenKodoPlayStorePresence?.isInstalledByPlayStore() ?? false)
 
 /** The channel that installed this binary. */
 function resolveAppUpdateSource(): AppUpdateSource | null {

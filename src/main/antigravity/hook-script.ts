@@ -79,8 +79,8 @@ export function getManagedScript(
     '  --data-urlencode "env=${OPENKODO_AGENT_HOOK_ENV}" \\',
     '  --data-urlencode "version=${OPENKODO_AGENT_HOOK_VERSION}" \\',
     '  --data-urlencode "hook_event_name=${OPENKODO_ANTIGRAVITY_EVENT}" \\',
-    '  --data-urlencode "agentProcess=${orca_agent_process}" \\',
-    '  --data-urlencode "tmuxPane=${orca_tmux_pane}" \\',
+    '  --data-urlencode "agentProcess=${openkodo_agent_process}" \\',
+    '  --data-urlencode "tmuxPane=${openkodo_tmux_pane}" \\',
     '  --data-urlencode "payload@-" >/dev/null 2>&1 || spool_hook_event',
     'exit 0',
     ''

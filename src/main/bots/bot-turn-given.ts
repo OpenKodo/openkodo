@@ -32,7 +32,7 @@ export type BotTurnGiven = BotTurnSkills & {
   /** The journal read through at the last turn end; null before the first. */
   scannedThrough: number | null
   /** OpenKodo's Tools and Rules: the host's now, and what the agent holds. */
-  orcaRules: BotTurnRules
+  openkodoRules: BotTurnRules
 }
 
 /** What a launch gave its agent: the files when `delivered`, and nothing yet of memory/ or turns. */
@@ -43,7 +43,7 @@ export function launchedBotTurnGiven(launch: {
   delivered: boolean
   memoryRecord: number
   skillProjects: string | null
-  orcaRules: BotLaunchedRules
+  openkodoRules: BotLaunchedRules
 }): BotTurnGiven {
   const { files, delivered } = launch
   return {
@@ -62,6 +62,6 @@ export function launchedBotTurnGiven(launch: {
     skillsNow: null,
     skills: fingerprint(null),
     skillProjects: launch.skillProjects,
-    orcaRules: botLaunchedTurnRules(launch.orcaRules)
+    openkodoRules: botLaunchedTurnRules(launch.openkodoRules)
   }
 }

@@ -5,7 +5,7 @@ import { expect, it } from 'vitest'
 import { agentModelCatalogInputStamp } from './agent-model-catalog-input-stamp'
 
 it('invalidates the catalog stamp when the runnable CLI behind a same-named directory changes', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'orca-catalog-path-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-catalog-path-'))
   try {
     const command = 'fixture-agent'
     const windows = process.platform === 'win32'

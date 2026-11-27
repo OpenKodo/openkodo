@@ -156,7 +156,7 @@ export function useMonacoGitBlame(params: {
               showIfCollapsed: true,
               after: {
                 content: formatLineBlameSummary(line),
-                inlineClassName: 'orca-git-blame-inline'
+                inlineClassName: 'openkodo-git-blame-inline'
               },
               ...(line.kind === 'commit' ? { hoverMessage: blameHoverMarkdown(line.commit) } : {})
             }

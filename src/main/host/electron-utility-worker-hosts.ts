@@ -71,7 +71,7 @@ export function installElectronJournalReaderHost(): void {
   setJournalSqlReaderSpawner((filename, workerData, inProcessWorkerData) =>
     host.spawn({
       filename,
-      name: 'orca-journal-sql-reader',
+      name: 'openkodo-journal-sql-reader',
       workerData,
       ...(inProcessWorkerData ? { inProcessWorkerData } : {}),
       ...largeSendLog()

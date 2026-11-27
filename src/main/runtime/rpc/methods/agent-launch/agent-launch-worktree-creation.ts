@@ -5,7 +5,7 @@ import type { RuntimeTerminalCreate } from '../../../../../shared/terminal/runti
 import { callerLaunchSource } from '../../../../agent-launch/agent-started-telemetry'
 import { buildCliWorkspaceProvenance } from '../../../../../shared/worktree/creation/cli-workspace-provenance'
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   finishAutomationWorkspaceProvenanceRequest,
   releaseAutomationWorkspaceProvenanceRequest,
@@ -161,8 +161,8 @@ function withoutHostActivation(params: WorktreeCreateParams): WorktreeCreatePara
 }
 
 export async function waitForStructuredSetup(
-  runtime: Pick<OrcaRuntimeService, 'waitForSetupTerminalCompletion'>,
-  receipt: Awaited<ReturnType<OrcaRuntimeService['createManagedWorktree']>>['setupReceipt']
+  runtime: Pick<OpenKodoRuntimeService, 'waitForSetupTerminalCompletion'>,
+  receipt: Awaited<ReturnType<OpenKodoRuntimeService['createManagedWorktree']>>['setupReceipt']
 ): Promise<void> {
   if (
     !receipt ||

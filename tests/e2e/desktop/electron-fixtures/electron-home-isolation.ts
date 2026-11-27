@@ -11,7 +11,7 @@ const RESTRICTED_ENV_KEYS = new Set([
   'OPENKODO_CODEX_HOME',
   'ZCODE_DATA_BASE_DIR',
   'ZCODE_PERSONAL_PROVIDER_CONFIG_FILE',
-  // Why: Orca's spawn hook writes Claude folder trust into the config this names.
+  // Why: OpenKodo's spawn hook writes Claude folder trust into the config this names.
   'CLAUDE_CONFIG_DIR',
   'OPENKODO_E2E_USER_DATA_DIR',
   'OPENKODO_E2E_HOME_DIR',
@@ -76,7 +76,7 @@ export function createElectronHomeIsolation({
   realHome = os.homedir()
 }: ElectronHomeIsolationOptions): ElectronHomeIsolation {
   assertOverlayDoesNotReplaceIsolation(launchEnv, 'launchEnv')
-  assertOverlayDoesNotReplaceIsolation(extraEnv, 'orcaAppExtraEnv')
+  assertOverlayDoesNotReplaceIsolation(extraEnv, 'openkodoAppExtraEnv')
 
   const requestedIsolatedHome = path.join(userDataDir, 'home')
   mkdirSync(requestedIsolatedHome, { recursive: true, mode: 0o700 })

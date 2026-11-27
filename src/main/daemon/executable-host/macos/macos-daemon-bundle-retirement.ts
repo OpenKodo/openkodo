@@ -1,6 +1,6 @@
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { rm } from '../../../filesystem/asar-transparent-fs'
 import { MAC_TERMINAL_HOST_BUNDLE } from './macos-daemon-bundle'
 

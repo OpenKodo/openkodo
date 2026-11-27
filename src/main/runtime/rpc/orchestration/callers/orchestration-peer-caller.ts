@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { RpcMethod, RpcRequest, RpcStreamingMethod } from '../../core'
 import type { RpcDispatchStreamingOptions } from '../../dispatch/dispatcher-stream-options'
 import { OrchestrationError } from '../../../orchestration/orchestration-error'
@@ -18,7 +18,7 @@ const NO_EFFECTS = { effectsApplied: false } as const
  * The declared caller field then names the peer, as a session's names the session.
  */
 export function admitOrchestrationPeerCall(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   method: RpcMethod | RpcStreamingMethod,
   options: RpcDispatchStreamingOptions | undefined

@@ -48,7 +48,7 @@ export function createBrowserApi(): NonNullable<Partial<PreloadApi>['browser']> 
     onNavigationUpdate: () => noopUnsubscribe,
     onActivateView: () => noopUnsubscribe,
     onPaneFocus: () => noopUnsubscribe,
-    onOpenLinkInOrcaTab: () => noopUnsubscribe,
+    onOpenLinkInOpenKodoTab: () => noopUnsubscribe,
     cancelDownload: () => Promise.resolve(false),
     copyServerDownload: () =>
       Promise.reject(new Error('Saving a server download is unavailable in paired web clients.')),

@@ -14,7 +14,7 @@ import type { VerifiedCrx } from './browser-extension-crx'
 import { getBrowserExtensionInstallStore } from './browser-extension-install-store'
 import {
   forgetPreparedBrowserExtensionDirectory,
-  refuseOrcaFileCollisions
+  refuseOpenKodoFileCollisions
 } from './browser-extension-load-directory'
 import {
   readBrowserExtensionManifest,
@@ -93,7 +93,7 @@ export async function stageWebStoreExtension(crx: VerifiedCrx): Promise<StagedWe
       directory
     )
     // Why here: once OpenKodo's own files are written, a package file at their paths can't be told apart.
-    await refuseOrcaFileCollisions(directory, manifest)
+    await refuseOpenKodoFileCollisions(directory, manifest)
     const manifestText = JSON.stringify(manifest, null, 2)
     await writeFile(join(directory, 'manifest.json'), manifestText)
     // Why written here: the manifest OpenKodo later loads is always the one this prompt shows.

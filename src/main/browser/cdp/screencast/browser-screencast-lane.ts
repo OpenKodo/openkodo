@@ -1,6 +1,6 @@
 import type { Debugger, WebContents } from 'electron'
 import {
-  detachOrcaPageSession,
+  detachOpenKodoPageSession,
   type GuestSessionCdpSender
 } from '../input/guest-frame-input-sessions'
 import type { BrowserScreencastFrameMetadata } from '../../../../shared/browser/screencast/browser-screencast-protocol'
@@ -162,7 +162,7 @@ export function createBrowserScreencastLane(
         // Detaching another session ends its screencast with it.
         await (cdpSessionId === undefined
           ? sendCommand('Page.stopScreencast').catch(() => {})
-          : detachOrcaPageSession(webContents, deps.sendPageCommand, cdpSessionId))
+          : detachOpenKodoPageSession(webContents, deps.sendPageCommand, cdpSessionId))
       }).finally(close)
     }
   }

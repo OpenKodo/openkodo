@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { AppState } from 'react-native'
-import { OrcaPlayStorePresence } from '../../modules/orca-play-store-presence/src'
+import { OpenKodoPlayStorePresence } from '../../modules/openkodo-play-store-presence/src'
 import { isRetiredGithubAndroidApp } from '../app-update/app-update-runtime'
 import { loadKeptRetiredAppAt, saveKeptRetiredAppAt } from '../storage/app-update-preferences'
 
@@ -16,7 +16,7 @@ const REMIND_AFTER_MS = 7 * 24 * 60 * 60 * 1000
 
 // Checked once: the native call is cheap, and an install mid-session is rare.
 export const playStoreAvailable: boolean =
-  isRetiredGithubAndroidApp && (OrcaPlayStorePresence?.isPlayStoreInstalled() ?? true)
+  isRetiredGithubAndroidApp && (OpenKodoPlayStorePresence?.isPlayStoreInstalled() ?? true)
 
 const listeners = new Set<() => void>()
 let state: AppMoveState = { screen: null, cameFromPlay: false }

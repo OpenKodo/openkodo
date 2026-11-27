@@ -40,7 +40,7 @@ export const ORCHESTRATION_PAIRED_WORKER_APPROVALS_RUNTIME_CAPABILITY =
 /** A person on a paired window may Clear and Stop a chat's workers in its dock, as on this computer. */
 export const ORCHESTRATION_PAIRED_WORKER_DOCK_OWNER_RUNTIME_CAPABILITY =
   'orchestration.paired-worker-dock-owner.v1' as const
-/** Sent by a paired window or phone, never by the orca CLI: its approvals are the person's. */
+/** Sent by a paired window or phone, never by the openkodo CLI: its approvals are the person's. */
 export const ORCHESTRATION_PERSON_APPROVALS_CLIENT_CAPABILITY =
   'orchestration.person-approvals.v1' as const
 export const ORCHESTRATION_FEDERATION_CONTROL_MAIL_PROTOCOL_VERSION = 2 as const

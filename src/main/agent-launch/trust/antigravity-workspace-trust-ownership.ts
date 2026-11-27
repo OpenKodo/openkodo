@@ -1,10 +1,10 @@
 import { join, resolve } from 'node:path'
 import { createAgentTrustOwnershipLedger } from './agent-trust-ownership-ledger'
-import { getOrcaUserDataPath } from '../../codex/configuration/homes/codex-home-paths'
+import { getOpenKodoUserDataPath } from '../../codex/configuration/homes/codex-home-paths'
 
 /** OpenKodo's record of the Antigravity entries it created; also the key serializing their edits. */
 export function getAntigravityTrustLedgerPath(): string {
-  return join(getOrcaUserDataPath(), 'antigravity-workspace-trust-created.json')
+  return join(getOpenKodoUserDataPath(), 'antigravity-workspace-trust-created.json')
 }
 
 // Why resolve, not realpath: removal runs after the worktree directory is gone.
@@ -14,7 +14,7 @@ const antigravityTrustOwnership = createAgentTrustOwnershipLedger(
 )
 
 /** Records the `trustedWorkspaces` entry OpenKodo appended for `workspacePath`. */
-export function recordOrcaCreatedAntigravityTrust(
+export function recordOpenKodoCreatedAntigravityTrust(
   settingsPath: string,
   workspacePath: string,
   entry: string

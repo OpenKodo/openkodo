@@ -49,7 +49,7 @@ export type AntigravitySwitchableMethod = Exclude<Method, 'oauth-business'>
 export type NativeChatAntigravityAuthTarget = {
   host: RuntimeClientTarget
   /** OpenKodo's installed agy or the person's own; null until the host says, or while none is. */
-  agy: 'orcas' | 'yours' | null
+  agy: 'openkodos' | 'yours' | null
   /** The version of OpenKodo's installed agy, when the host has reported one. */
   managedVersion: string | null
   /** This chat runs on agy's own home and Google login, whatever method new chats use. */

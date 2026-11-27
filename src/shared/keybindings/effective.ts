@@ -186,7 +186,7 @@ export function getEffectiveKeybindingsForDefinition(
 export function normalizeTerminalShortcutPolicy(
   policy: TerminalShortcutPolicy | null | undefined
 ): TerminalShortcutPolicy {
-  return policy === 'terminal-first' ? 'terminal-first' : 'orca-first'
+  return policy === 'terminal-first' ? 'terminal-first' : 'openkodo-first'
 }
 
 const TUI_CONFLICT_ACTIONS = new Set<KeybindingActionId>([
@@ -256,7 +256,7 @@ export function keybindingIsActiveInContext(
     return true
   }
   // Why: OpenKodo-first keeps app shortcuts inside terminals; terminal-first is the escape hatch for shells and TUIs.
-  if (normalizeTerminalShortcutPolicy(options.terminalShortcutPolicy) === 'orca-first') {
+  if (normalizeTerminalShortcutPolicy(options.terminalShortcutPolicy) === 'openkodo-first') {
     return true
   }
   return isKeybindingAllowedInTerminal(definition)

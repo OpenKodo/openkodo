@@ -14,7 +14,7 @@ import {
 } from '../../../bots/bot-chat-session'
 import { chatThatTookIt } from '../../../bots/bot-automation-sessions'
 import { forgetPairedReads } from '../../../bots/bot-paired-handed-agents'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { ownerOnly } from './bots-caller-gates'
 import { defineMethod, InvalidArgumentError } from '../core'
 
@@ -81,7 +81,7 @@ export const BOT_TAKE_OVER_METHOD = defineMethod({
 /** A paired computer's workspace keeps its link to the bot in that computer's store; the bot keeps
  *  where to ask, so its Activity can show the agents there. */
 async function rememberPairedWorkspace(
-  runtime: Pick<OrcaRuntimeService, 'bots' | 'callOrchestrationWorkerServer'>,
+  runtime: Pick<OpenKodoRuntimeService, 'bots' | 'callOrchestrationWorkerServer'>,
   bot: Bot,
   workspace: BotTakeOver['workspace']
 ): Promise<void> {

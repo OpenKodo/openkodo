@@ -1,6 +1,6 @@
 import type { SshTarget } from '../../../../shared/remote-runtime/ssh/ssh-types'
-import type { CensusHostRelayTerminals } from '../../migration-source/orcad-migration-terminal-gate'
-import { requireManagedOrcadInfrastructure } from '../../../managed-server/lifecycle/orcad-managed-runtime-context'
+import type { CensusHostRelayTerminals } from '../../migration-source/openkodod-migration-terminal-gate'
+import { requireManagedOpenkododInfrastructure } from '../../../managed-server/lifecycle/openkodod-managed-runtime-context'
 import {
   beginSshHostCensus,
   currentSshOwner,
@@ -14,7 +14,7 @@ import {
 
 export function censusHostRelayTerminalsFor(target: SshTarget): CensusHostRelayTerminals {
   const census = async (): ReturnType<CensusHostRelayTerminals> => {
-    const { connectionManager } = requireManagedOrcadInfrastructure()
+    const { connectionManager } = requireManagedOpenkododInfrastructure()
     return hostTerminalProofFromCensus(
       await censusSshHostRelaysBeforeSession(await connectionManager.connect(target), target.id)
     )
@@ -36,7 +36,7 @@ async function censusOutsideConnect<T>(target: SshTarget, census: () => Promise<
 
 /** Release transports opened only for census unless a connect or tunnel adopted them. */
 async function closeUnadoptedCensusTransport(targetId: string, owner: symbol): Promise<void> {
-  const { connectionManager } = requireManagedOrcadInfrastructure()
+  const { connectionManager } = requireManagedOpenkododInfrastructure()
   const opened = connectionManager.getConnection(targetId)
   if (opened && isSshConnectionSolelyOwnedBy(opened, owner)) {
     await connectionManager.disconnectConnection(targetId, opened).catch((error: unknown) => {

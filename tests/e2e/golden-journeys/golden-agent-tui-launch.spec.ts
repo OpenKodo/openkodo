@@ -1,4 +1,4 @@
-import { test } from '../desktop/electron-fixtures/orca-app'
+import { test } from '../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import {
   configureGoldenStubAgent,
@@ -15,23 +15,23 @@ import { getTerminalContent } from '../terminal/layout/terminal-pane-identity'
 
 test.use({ launchEnv: getGoldenStubAgentLaunchEnv() })
 
-test('launches an agent TUI with a live multiline composer', async ({ orcaPage }) => {
-  await waitForSessionReady(orcaPage)
-  await waitForActiveWorktree(orcaPage)
-  await ensureTerminalVisible(orcaPage)
-  await configureGoldenStubAgent(orcaPage)
-  await launchGoldenStubAgentFromNewTab(orcaPage)
+test('launches an agent TUI with a live multiline composer', async ({ openkodoPage }) => {
+  await waitForSessionReady(openkodoPage)
+  await waitForActiveWorktree(openkodoPage)
+  await ensureTerminalVisible(openkodoPage)
+  await configureGoldenStubAgent(openkodoPage)
+  await launchGoldenStubAgentFromNewTab(openkodoPage)
 
-  const activeTab = orcaPage.locator('[data-testid="sortable-tab"][data-active="true"]')
+  const activeTab = openkodoPage.locator('[data-testid="sortable-tab"][data-active="true"]')
   await expect(activeTab).toHaveAttribute('data-tab-title', /Codex|Golden Stub Agent/i)
 
-  await focusActiveTerminalInput(orcaPage)
-  await orcaPage.keyboard.type('hello from e2e')
-  await orcaPage.keyboard.press('Shift+Enter')
-  await orcaPage.keyboard.type('second line')
+  await focusActiveTerminalInput(openkodoPage)
+  await openkodoPage.keyboard.type('hello from e2e')
+  await openkodoPage.keyboard.press('Shift+Enter')
+  await openkodoPage.keyboard.type('second line')
 
   await expect
-    .poll(() => getTerminalContent(orcaPage), { timeout: 10_000 })
+    .poll(() => getTerminalContent(openkodoPage), { timeout: 10_000 })
     .toContain('> hello from e2e\r\n  second line')
-  expect(await getTerminalContent(orcaPage)).not.toContain('GOLDEN_STUB_AGENT_SUBMITTED')
+  expect(await getTerminalContent(openkodoPage)).not.toContain('GOLDEN_STUB_AGENT_SUBMITTED')
 })

@@ -11,14 +11,14 @@ export function isRuntimeOwnedSshTarget(target: SshTarget): boolean {
 }
 
 /** A host serving (or being set up for) a managed OpenKodo server: visible, but never a direct relay. */
-export function isManagedOrcadSshTarget(target: SshTarget): boolean {
-  return target.orcadFence !== undefined || target.orcadProvisioning !== undefined
+export function isManagedOpenkododSshTarget(target: SshTarget): boolean {
+  return target.openkododFence !== undefined || target.openkododProvisioning !== undefined
 }
 
 /** Managed hosts cannot serve direct relays unless older retained projects still require their previous relay. */
 export function allowsDirectSshRelay(target: SshTarget): boolean {
-  if (target.orcadProvisioning) {
+  if (target.openkododProvisioning) {
     return false
   }
-  return !target.orcadFence || target.orcadFence.sourceChangedAt !== undefined
+  return !target.openkododFence || target.openkododFence.sourceChangedAt !== undefined
 }

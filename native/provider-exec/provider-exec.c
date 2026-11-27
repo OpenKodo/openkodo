@@ -4,10 +4,10 @@
 // the next reaper. The leader starts its own session, forks the same-session owner-pipe
 // watcher, reports both on fd 5, waits for the owner's GO on fd 4, then execs the CLI with its argv,
 // environment, signal mask and dispositions unchanged.
-// Usage: orca-provider-exec --cli-input-fd7 <stdinEndGraceMs> <sigtermGraceMs> <session|one-shot>
+// Usage: openkodo-provider-exec --cli-input-fd7 <stdinEndGraceMs> <sigtermGraceMs> <session|one-shot>
 //          <stdin-end|stdin-end-and-sigterm> -- <command> [args...]
 // The fixed --cli-input-fd7 prefix identifies the private input protocol.
-// Linux also: orca-provider-exec --exec-without-inherited-fds -- <command> [args...] execs in place
+// Linux also: openkodo-provider-exec --exec-without-inherited-fds -- <command> [args...] execs in place
 // keeping only fds 0-2 and NODE_CHANNEL_FD, so a durable child can't hold the launcher's sockets.
 #if !defined(__APPLE__)
 #define _POSIX_C_SOURCE 200809L
@@ -203,16 +203,16 @@ static int exec_without_inherited_fds(char *argv[]) {
     if (channel != NULL &&
             (parse_ms(channel, INT_MAX, &channel_fd) != 0 || channel_fd < 3 ||
                 fcntl((int)channel_fd, F_GETFD) < 0)) {
-        fputs("orca-provider-exec: NODE_CHANNEL_FD is not an open descriptor\n", stderr);
+        fputs("openkodo-provider-exec: NODE_CHANNEL_FD is not an open descriptor\n", stderr);
         return EXIT_USAGE;
     }
     if (cloexec_inherited_fds() != 0 ||
             (channel != NULL && set_cloexec((int)channel_fd, 0) != 0)) {
-        fputs("orca-provider-exec: could not close inherited descriptors\n", stderr);
+        fputs("openkodo-provider-exec: could not close inherited descriptors\n", stderr);
         return EXIT_BOOTSTRAP;
     }
     execvp(argv[0], argv);
-    fprintf(stderr, "orca-provider-exec: exec %s failed: %s\n", argv[0], strerror(errno));
+    fprintf(stderr, "openkodo-provider-exec: exec %s failed: %s\n", argv[0], strerror(errno));
     return EXIT_EXEC_FAILED;
 }
 #endif
@@ -255,7 +255,7 @@ enum { TREE_UNPROVABLE = -2 };
 // reaper_start before it is known: never provable, or not read yet (a startup read failed).
 enum { REAPER_UNPROVEN = -1, REAPER_START_UNREAD = -2 };
 // Inherited by every tool the CLI starts, so one reparented to launchd is still found on macOS.
-#define TREE_TAG_NAME "ORCA_PROVIDER_TREE"
+#define TREE_TAG_NAME "OPENKODO_PROVIDER_TREE"
 
 // Exact process identities kept sorted, so each lookup is a binary search.
 struct identity {
@@ -1125,7 +1125,7 @@ static int drop_stale_members(struct tree_scan *scan, const struct proc_row *lea
 }
 
 #if defined(__linux__)
-// Older glibc headers lack the numbers; both are the same on every architecture Orca builds.
+// Older glibc headers lack the numbers; both are the same on every architecture OpenKodo builds.
 #if !defined(SYS_pidfd_open)
 #define SYS_pidfd_open 434
 #endif

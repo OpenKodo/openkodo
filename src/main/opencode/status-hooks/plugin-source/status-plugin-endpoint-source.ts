@@ -39,7 +39,7 @@ export function getStatusPluginEndpointSource(): string[] {
     '    // Warn on malformed/unreadable files; absence is normal before installation.',
     '    if (err && err.code !== "ENOENT" && !warnedBadEndpoint) {',
     '      warnedBadEndpoint = true;',
-    '      console.warn("[orca-hook] failed to parse endpoint file:", err.message);',
+    '      console.warn("[openkodo-hook] failed to parse endpoint file:", err.message);',
     '    }',
     '    return null;',
     '  }',

@@ -15,7 +15,7 @@ describe('gitPullRebaseFromBase with rebase.autoStash', () => {
   })
 
   function createDirtyFeatureBehindOrigin(dirtyFile: string, dirtyText: string) {
-    const root = mkdtempSync(join(tmpdir(), 'orca-rebase-autostash-'))
+    const root = mkdtempSync(join(tmpdir(), 'openkodo-rebase-autostash-'))
     tempPaths.push(root)
     const remotePath = join(root, 'remote.git')
     const repoPath = join(root, 'repo')
@@ -29,7 +29,7 @@ describe('gitPullRebaseFromBase with rebase.autoStash', () => {
       })
     const write = (file: string, text: string) => writeFileSync(join(repoPath, file), text)
     git('config', 'user.name', 'OpenKodo Test')
-    git('config', 'user.email', 'orca@example.test')
+    git('config', 'user.email', 'openkodo@example.test')
     git('config', 'commit.gpgSign', 'false')
     git('config', 'core.hooksPath', '.git/no-hooks')
     git('config', 'rebase.autoStash', 'true')

@@ -50,13 +50,13 @@ function failingWriteOf(filename: string): HostIdentityWrite {
 describe('ensureHostInstanceIdentity', () => {
   let dir: string
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), 'orca-host-instance-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-host-instance-'))
   })
 
   it('rotates the identity and clears pairings when OPENKODO_INSTANCE_ID changes', async () => {
     ensureHostInstanceIdentity(dir, vmA)
     const source = await pairedHost(dir)
-    const clone = mkdtempSync(join(tmpdir(), 'orca-host-instance-clone-'))
+    const clone = mkdtempSync(join(tmpdir(), 'openkodo-host-instance-clone-'))
     cpSync(dir, clone, { recursive: true })
 
     ensureHostInstanceIdentity(clone, vmB)
@@ -142,7 +142,7 @@ describe('ensureHostInstanceIdentity', () => {
     expect(() => ensureHostInstanceIdentity(dir, vmB, failFinalMarker)).toThrow(/simulated crash/)
 
     expect(() =>
-      rotateHostIdentity(dir, null, failingWriteOf('orca-e2ee-keypair.json.next'))
+      rotateHostIdentity(dir, null, failingWriteOf('openkodo-e2ee-keypair.json.next'))
     ).not.toThrow()
     expect((await identity(dir)).registry.validateToken(before.token)).toBeNull()
     expect(readdirSync(dir).filter((name) => name.endsWith('.next'))).toEqual([])

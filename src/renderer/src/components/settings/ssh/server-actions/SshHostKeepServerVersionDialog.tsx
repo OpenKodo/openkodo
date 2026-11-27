@@ -11,11 +11,11 @@ import {
   DialogHeader,
   DialogTitle
 } from '../../../ui/dialog'
-import { getManagedOrcadApi } from '../../../../runtime/hosts/installation/managed-orcad-api-availability'
+import { getManagedOpenkododApi } from '../../../../runtime/hosts/installation/managed-openkodod-api-availability'
 
 /** Offer migration of changes made by an older build or retain the managed server’s version. */
 export function hasSshHostSourceChanged(target: SshTarget): boolean {
-  return Boolean(getManagedOrcadApi() && target.orcadFence?.sourceChangedAt)
+  return Boolean(getManagedOpenkododApi() && target.openkododFence?.sourceChangedAt)
 }
 
 export function SshHostKeepServerVersionDialog({
@@ -30,7 +30,7 @@ export function SshHostKeepServerVersionDialog({
   onChanged: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()
-  const api = getManagedOrcadApi()
+  const api = getManagedOpenkododApi()
   const mountedRef = useMountedRef()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -38,7 +38,7 @@ export function SshHostKeepServerVersionDialog({
     setError(null)
     onOpenChange(next)
   }
-  if (!api || !target.orcadFence?.sourceChangedAt) {
+  if (!api || !target.openkododFence?.sourceChangedAt) {
     return null
   }
   const keepServerVersion = async (): Promise<void> => {

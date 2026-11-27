@@ -1,4 +1,4 @@
-import type { runProcess as runNativeProcess } from '@orca/process-host'
+import type { runProcess as runNativeProcess } from '@openkodo/process-host'
 import { MAX_NATIVE_HANG_REPORT_BYTES } from './native-hang-report'
 import {
   emptyHangStacks,
@@ -140,7 +140,7 @@ export function captureNativeHang(options: {
   const done = (async (): Promise<void> => {
     let runProcess: typeof runNativeProcess
     try {
-      runProcess = (await import('@orca/process-host')).runProcess
+      runProcess = (await import('@openkodo/process-host')).runProcess
     } catch {
       publish({ ...baseline, state: 'failed', completedAt: Date.now(), cleanup: 'unverified' })
       return

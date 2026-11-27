@@ -5,7 +5,7 @@ import {
   unsafePluginDisplayTextPaths
 } from './plugin-display-text'
 import { pluginCapabilitySchema } from '../capabilities/plugin-capabilities'
-import { orcaEngineRangeSchema } from './plugin-manifest-engine-range'
+import { openkodoEngineRangeSchema } from './plugin-manifest-engine-range'
 import {
   pluginContributesFields,
   pluginReservedContributesFields
@@ -41,7 +41,7 @@ import {
 } from '../contributions/plugin-execution-profile'
 
 /**
- * Plugin manifest v1 and v2 (`orca-plugin.json` at the plugin root). The
+ * Plugin manifest v1 and v2 (`openkodo-plugin.json` at the plugin root). The
  * `contributes` key names deliberately mirror common Electron-ecosystem
  * manifest conventions so future adapters stay cheap.
  *
@@ -52,7 +52,10 @@ import {
 const SEMVER_RE =
   /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*))*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/
 
-export { orcaEngineRangeSchema, satisfiesOrcaEngineRange } from './plugin-manifest-engine-range'
+export {
+  openkodoEngineRangeSchema,
+  satisfiesOpenKodoEngineRange
+} from './plugin-manifest-engine-range'
 
 const V1 = PLUGIN_SCHEMA_SINCE_V1
 const NEXT = PLUGIN_MANIFEST_V2_SINCE
@@ -69,7 +72,7 @@ const authorFields = {
 }
 const authorDoc = pluginFieldDoc('Who maintains the plugin.', V1)
 const enginesFields = {
-  orca: orcaEngineRangeSchema.meta(
+  openkodo: openkodoEngineRangeSchema.meta(
     pluginFieldDoc(
       `Oldest OpenKodo release this plugin runs on, as \`>=x.y.z\`. Raise it to the newest "Since" of any field you use; a format 2 manifest needs at least \`>=${NEXT}\`, because older OpenKodo cannot read format 2.`,
       V1,
@@ -115,7 +118,9 @@ const pluginManifestFields = {
     .max(2048)
     .optional()
     .meta(
-      pluginFieldDoc('Source repository URL.', V1, ['https://github.com/acme/orca-gleam-syntax'])
+      pluginFieldDoc('Source repository URL.', V1, [
+        'https://github.com/acme/openkodo-gleam-syntax'
+      ])
     ),
   ...pluginManifestDetailFields,
   icon: pluginRelativePathSchema
@@ -132,7 +137,7 @@ const pluginManifestFields = {
     .optional()
     .meta(
       pluginPathFieldDoc(
-        `Node entry run in an out-of-process plugin worker: a \`.js\`/\`.mjs\` module, or a \`.ts\`/\`.mts\` module that OpenKodo transpiles when it loads (needs \`engines.orca\` \`>=${PLUGIN_SOURCE_MODULES_SINCE}\`). Requires the \`trusted-worker\` execution profile, and is required by it, by \`contributes.events\`, by \`contributes.hooks\` and by any command without an \`action\`.`,
+        `Node entry run in an out-of-process plugin worker: a \`.js\`/\`.mjs\` module, or a \`.ts\`/\`.mts\` module that OpenKodo transpiles when it loads (needs \`engines.openkodo\` \`>=${PLUGIN_SOURCE_MODULES_SINCE}\`). Requires the \`trusted-worker\` execution profile, and is required by it, by \`contributes.events\`, by \`contributes.hooks\` and by any command without an \`action\`.`,
         V1,
         ['dist/main.mjs']
       )
@@ -181,7 +186,7 @@ export const pluginManifestV2Object = z
     publisher: pluginIdSchema.optional().meta({
       deprecated: true,
       ...pluginFieldDoc(
-        `Deprecated: leave it out. OpenKodo derives the publisher from where the plugin comes from, the way a Go module is named by its repository path: the repository owner for the official and community catalogs and for Git URL installs (\`acme\` for \`github.com/acme/gleam-syntax\`), and \`local\` for a folder. A value here is ignored for catalog and Git installs. Leaving it out needs \`engines.orca\` of at least \`>=${PLUGIN_DERIVED_PUBLISHER_SINCE}\`, because older OpenKodo requires it; if you keep it for older OpenKodo, it must equal the repository owner. Reserved owners (\`openkodo\`, \`official\`, \`anthropic\`, \`openai\`, \`github\` and any starting \`orca\`) and ids starting \`orca-\` install only from OpenKodo's official catalog.`,
+        `Deprecated: leave it out. OpenKodo derives the publisher from where the plugin comes from, the way a Go module is named by its repository path: the repository owner for the official and community catalogs and for Git URL installs (\`acme\` for \`github.com/acme/gleam-syntax\`), and \`local\` for a folder. A value here is ignored for catalog and Git installs. Leaving it out needs \`engines.openkodo\` of at least \`>=${PLUGIN_DERIVED_PUBLISHER_SINCE}\`, because older OpenKodo requires it; if you keep it for older OpenKodo, it must equal the repository owner. Reserved owners (\`openkodo\`, \`official\`, \`anthropic\`, \`openai\`, \`github\` and any starting \`openkodo\`) and ids starting \`openkodo-\` install only from OpenKodo's official catalog.`,
         V1,
         ['acme']
       )
@@ -254,7 +259,7 @@ export {
 
 export const PLUGIN_MANIFEST_FILENAME = 'openkodo-plugin.json'
 /** Name used before the OpenKodo rebrand. Only read, never written, so installed plugins keep loading. */
-export const LEGACY_PLUGIN_MANIFEST_FILENAME = 'orca-plugin.json'
+export const LEGACY_PLUGIN_MANIFEST_FILENAME = 'openkodo-plugin.json'
 export const PLUGIN_MANIFEST_FILENAMES = [
   PLUGIN_MANIFEST_FILENAME,
   LEGACY_PLUGIN_MANIFEST_FILENAME
@@ -299,7 +304,7 @@ export function parsePluginManifest(raw: unknown): PluginManifestParseResult {
   return iconFloor ? { ok: false, error: iconFloor } : parsed
 }
 
-/** Runtime read for install, discovery and update. Callers must still check engines.orca
+/** Runtime read for install, discovery and update. Callers must still check engines.openkodo
  *  against the host, which is what actually gates loading. */
 export function parseHostPluginManifest(raw: unknown): PluginManifestParseResult {
   return parseWith(hostPluginManifestSchema, raw)

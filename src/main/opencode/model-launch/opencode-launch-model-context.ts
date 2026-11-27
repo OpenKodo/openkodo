@@ -1,13 +1,13 @@
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import {
   forceTerminateProcessTree,
   signalProcessTree
-} from '@orca/process-host/process-tree-termination'
+} from '@openkodo/process-host/process-tree-termination'
 import { randomBytes } from 'node:crypto'
 import { setTimeout as delay } from 'node:timers/promises'
 import { z } from 'zod'
 import { withTimeout } from '../../../shared/concurrency/promise-timeout-fallback'
-import { createOutputSink } from '@orca/process-host/bounded-output-sink'
+import { createOutputSink } from '@openkodo/process-host/bounded-output-sink'
 import { readFetchResponseJsonWithinLimit } from '../../../shared/network/fetch-response-body'
 import { cancelUnreadResponseBody } from '../../lib/unread-response-body'
 import type { ProviderChild } from '../../provider-process/provider-child'

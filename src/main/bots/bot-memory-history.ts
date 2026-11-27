@@ -20,7 +20,7 @@ import {
   removeStaleOwnerOnlyStaging,
   writeOwnerOnlyFileDurable
 } from '../filesystem/owner-only-durable-file-write'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 
 /** At most this many rows a bot, newest kept. */
 const MAX_ROWS = 1_000

@@ -201,7 +201,7 @@ export function handleRequest(
             hideDefaultBranchWorkspace: false,
             filterRepoIds: [],
             collapsedGroups: [],
-            trustedOrcaHooks: {}
+            trustedOpenKodoHooks: {}
           }
         })
       )
@@ -268,7 +268,7 @@ export function handleRequest(
       respond(
         success(request.id, {
           worktree: {
-            id: next?.worktreeId ?? `repo-1::/tmp/orca-mobile-repro/${name}`,
+            id: next?.worktreeId ?? `repo-1::/tmp/openkodo-mobile-repro/${name}`,
             worktreeId: next?.worktreeId
           }
         })

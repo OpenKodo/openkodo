@@ -41,7 +41,7 @@ import {
   SettingsSection,
   settingsScreenStyles
 } from '../../../src/settings/settings-screen-frame'
-import { HostOrcaVersionSection } from '../../../src/host-screen/identity/HostOrcaVersionSection'
+import { HostOpenKodoVersionSection } from '../../../src/host-screen/identity/HostOpenKodoVersionSection'
 
 export default function EditHostScreen() {
   useMobileColorScheme()
@@ -310,7 +310,7 @@ export default function EditHostScreen() {
               />
             </SettingsSection>
 
-            <HostOrcaVersionSection />
+            <HostOpenKodoVersionSection />
 
             <SettingsSection>
               <ListRow

@@ -12,7 +12,7 @@ afterEach(async () => {
 
 // Own file: the shutdown abort is process-wide and permanent.
 it('stops running plugin Git on quit and refuses to start more', async () => {
-  const cwd = await mkdtemp(join(tmpdir(), 'orca-plugin-git-shutdown-test-'))
+  const cwd = await mkdtemp(join(tmpdir(), 'openkodo-plugin-git-shutdown-test-'))
   roots.push(cwd)
   // A 30 s child: without the abort this test exceeds its default timeout.
   const running = runPluginGit(['-c', 'alias.hang=!touch started && sleep 30', 'hang'], cwd)

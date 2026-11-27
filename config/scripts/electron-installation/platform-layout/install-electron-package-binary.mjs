@@ -161,7 +161,7 @@ async function installElectronPackageBinary(sharedEntry) {
   if (sharedEntry !== null && adoptSharedElectronDist(sharedEntry, electronDistDir)) {
     return
   }
-  const tempDir = mkdtempSync(resolve(tmpdir(), 'orca-electron-'))
+  const tempDir = mkdtempSync(resolve(tmpdir(), 'openkodo-electron-'))
   const persistentCacheRoot =
     process.env.OPENKODO_ELECTRON_PACKAGE_CACHE_ROOT || process.env.ELECTRON_CACHE || null
   const cacheRoot = persistentCacheRoot ?? join(tempDir, 'cache')

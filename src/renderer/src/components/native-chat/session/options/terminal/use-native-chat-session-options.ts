@@ -52,7 +52,7 @@ export function useNativeChatSessionOptions(args: {
   const reportedModel = status?.model
   const reportingSessionId = status?.providerSession?.id
   const reportedEffort = status?.providerSession?.effort
-  const canSwitchOmpModel = status?.modelSwitchCommand === 'orca-model'
+  const canSwitchOmpModel = status?.modelSwitchCommand === 'openkodo-model'
   // Host discovery can resolve a reported id the seed families only matched by family.
   const [discoveredModelsRevision, setDiscoveredModelsRevision] = useState(0)
   const discoveryContext = useMemo(

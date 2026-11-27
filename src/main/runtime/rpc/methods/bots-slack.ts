@@ -18,7 +18,7 @@ import {
 } from '../../../connector-cloud/bots-cloud-client'
 import { botSlackApps, type Bot, type BotSlackApp } from '../../../../shared/bot-types'
 import { CONNECT_ACCOUNT_CHANGED } from '../../../connector-cloud/connector-connect'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod, type RpcContext } from '../core'
 
 /** The bot's Slack workspaces after one is set up (added, or its app replaced) or removed. */
@@ -46,7 +46,7 @@ export function withHostCloudClient<T>(
 
 // The cloud's answer stands even if the local record cannot follow it (e.g. the bot was just deleted).
 async function recordSlack(
-  runtime: Pick<OrcaRuntimeService, 'bots'>,
+  runtime: Pick<OpenKodoRuntimeService, 'bots'>,
   botId: string,
   change: Parameters<typeof nextSlackApps>[1]
 ): Promise<void> {

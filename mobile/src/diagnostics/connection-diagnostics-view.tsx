@@ -106,7 +106,7 @@ export function ConnectionDiagnosticsView({
                 </Text>
                 <Text style={styles.diagnosisText}>{diagnosis.likelyCause}</Text>
                 <Text style={styles.diagnosisNext}>{diagnosis.nextStep}</Text>
-                {diagnosis.reportability === 'orca-relay' && (
+                {diagnosis.reportability === 'openkodo-relay' && (
                   <>
                     <Text style={styles.privacyHint}>
                       {t(

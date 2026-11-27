@@ -13,7 +13,7 @@ export function configureMacMenuDeadKeyGuard(): void {
     const addon: unknown = requireNative(
       join(
         app.isPackaged ? process.resourcesPath : join(app.getAppPath(), 'out/native'),
-        'orca_menu_dead_key.node'
+        'openkodo_menu_dead_key.node'
       )
     )
     if (

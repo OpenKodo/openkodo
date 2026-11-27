@@ -14,8 +14,8 @@ import {
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { afterEach, expect, it, vi } from 'vitest'
-import * as processHost from '@orca/process-host'
-import { runProcess } from '@orca/process-host'
+import * as processHost from '@openkodo/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { reclaimWorktreeGeneratedFiles } from './reclaim-worktree-generated-files.mjs'
 
 const roots = []
@@ -27,7 +27,7 @@ afterEach(async () => {
 })
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'orca-generated-reclaim-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-generated-reclaim-'))
   roots.push(root)
   const repoRoot = join(root, 'main')
   const sibling = join(root, 'sibling')

@@ -23,7 +23,7 @@ export function json(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`
 }
 
-/** `engine`: a newer `engines.orca` floor, for templates that use newer fields. */
+/** `engine`: a newer `engines.openkodo` floor, for templates that use newer fields. */
 export function manifest(
   input: PluginTemplateInput,
   description: string,
@@ -37,7 +37,7 @@ export function manifest(
     name: input.name,
     version: '0.1.0',
     description,
-    engines: { orca: engine },
+    engines: { openkodo: engine },
     ...fields
   })
 }
@@ -61,8 +61,8 @@ https://github.com/OpenKodo/openkodo/blob/main/docs/reference/plugin-authoring.m
 }
 
 // Why -text: Git must not rewrite line endings, or the content hash differs per checkout.
-// `.orca/` holds the typings `openkodo plugin types` writes; they are regenerated, never committed.
+// `.openkodo/` holds the typings `openkodo plugin types` writes; they are regenerated, never committed.
 export const COMMON_FILES = {
   '.gitattributes': '* -text\n',
-  '.gitignore': 'node_modules/\n.orca/\n'
+  '.gitignore': 'node_modules/\n.openkodo/\n'
 }

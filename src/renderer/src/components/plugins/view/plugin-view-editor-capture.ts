@@ -159,7 +159,7 @@ export async function captureOpenEditor(
         ? 'The editor did not load its document in time.'
         : subscription.met
           ? null
-          : `The editor never asked for its document (orca.document.get or onDidChange) within ${PLUGIN_EDITOR_SUBSCRIBE_TIMEOUT_MS / 1000}s.`,
+          : `The editor never asked for its document (openkodo.document.get or onDidChange) within ${PLUGIN_EDITOR_SUBSCRIBE_TIMEOUT_MS / 1000}s.`,
       colorScheme: dark ? 'dark' : 'light',
       themeApplied: wantDark !== null && dark === wantDark,
       settled: load.met,

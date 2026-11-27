@@ -30,7 +30,7 @@ import {
 const HISTORY = 'history.jsonl'
 const PENDING = `${HISTORY}${MERGE_PENDING_SUFFIX}`
 // Track Windows hardlink identity to detect replacement of the shared file.
-const LINK_RECORD = `${HISTORY}.orca-profile-link`
+const LINK_RECORD = `${HISTORY}.openkodo-profile-link`
 
 export function lstatIfPresent(file: string): Stats | undefined {
   try {
@@ -206,7 +206,7 @@ export function mergeClaudeProfilePromptHistory(
   }
   let aside: string | undefined
   if (current) {
-    aside = nextFreePath(join(profile, replaced ? `${HISTORY}.orca-profile-conflict` : PENDING))
+    aside = nextFreePath(join(profile, replaced ? `${HISTORY}.openkodo-profile-conflict` : PENDING))
     renameFileWithWindowsRetry(source, aside)
   }
   try {

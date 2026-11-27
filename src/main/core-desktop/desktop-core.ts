@@ -5,10 +5,10 @@ import type { CodexAccountService } from '../codex-accounts/service'
 import type { CodexRuntimeHomeService } from '../codex-accounts/runtime-home-service'
 import type { ClaudeAccountService } from '../claude-accounts/service'
 import type { ClaudeRuntimeAuthService } from '../claude-accounts/runtime-auth-service'
-import type { OrcaAccountService } from '../orca-profiles/orca-account-service'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoAccountService } from '../openkodo-profiles/openkodo-account-service'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { RateLimitService } from '../rate-limits/service/rate-limit-service'
-import type { OrcaRuntimeRpcServer } from '../runtime/rpc/server/runtime-rpc'
+import type { OpenKodoRuntimeRpcServer } from '../runtime/rpc/server/runtime-rpc'
 import type { RelayHost } from '../runtime/mobile-cloud-relay/relay-host-install'
 import type { DesktopPushService } from '../runtime/push/desktop-push-service'
 import type { StarNagService } from '../star-nag/service'
@@ -40,11 +40,11 @@ export class DesktopCore {
   codexSessionMigration: ReturnType<typeof createCodexSessionMigrationScheduler> | null = null
   claudeAccounts: ClaudeAccountService | null = null
   claudeRuntimeAuth: ClaudeRuntimeAuthService | null = null
-  orcaAccount: OrcaAccountService | null = null
+  openkodoAccount: OpenKodoAccountService | null = null
   stopTeamPolicyRefresh: (() => void) | null = null
-  runtime: OrcaRuntimeService | null = null
+  runtime: OpenKodoRuntimeService | null = null
   rateLimits: RateLimitService | null = null
-  runtimeRpc: OrcaRuntimeRpcServer | null = null
+  runtimeRpc: OpenKodoRuntimeRpcServer | null = null
   readonly serveReadinessPublisher = new ServeReadinessPublisher()
   relayHost: RelayHost | null = null
   desktopPushService: DesktopPushService | null = null

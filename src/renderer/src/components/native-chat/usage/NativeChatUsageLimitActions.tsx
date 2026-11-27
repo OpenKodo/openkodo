@@ -19,8 +19,8 @@ import { ProviderAccountChatButton } from '@/components/status-bar/accounts/Prov
 import { isTuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent-config'
 import { callStructuredAgentSession } from '@/runtime/native-chat/requests/structured-agent-session-call'
 import { executionHostIdForStructuredTarget } from '@/runtime/native-chat/session-ownership/structured-agent-session-owner'
-import { NativeChatOrcaStopContext } from '@/components/native-chat/messages/notices/native-chat-orca-stop-context'
-import type { NativeChatOrcaStopView } from '@/components/native-chat/messages/notices/native-chat-orca-stop-context'
+import { NativeChatOpenKodoStopContext } from '@/components/native-chat/messages/notices/native-chat-openkodo-stop-context'
+import type { NativeChatOpenKodoStopView } from '@/components/native-chat/messages/notices/native-chat-openkodo-stop-context'
 import { resolveNativeChatSessionContext } from '@/components/native-chat/pane/routing/native-chat-session-context'
 import type { AgentSessionOptionsResult } from '../../../../../shared/agent-session/options/protocol/agent-session-options-result'
 import type { NativeChatMessage } from '../../../../../shared/native-chat/native-chat-types'
@@ -48,7 +48,7 @@ export function NativeChatUsageLimitActionsProvider({
   pane: Omit<NativeChatStructuredViewProps, 'mode'>
   directory: NativeChatFileLinkContext | null
   messages: readonly NativeChatMessage[]
-  view: NativeChatOrcaStopView
+  view: NativeChatOpenKodoStopView
   recovery: {
     readCurrent: boolean
     canSwitchAccount: boolean | undefined
@@ -224,9 +224,9 @@ export function NativeChatUsageLimitActionsProvider({
   )
   return (
     <UsageLimitActionsContext.Provider value={actions}>
-      <NativeChatOrcaStopContext.Provider value={stopView}>
+      <NativeChatOpenKodoStopContext.Provider value={stopView}>
         {children}
-      </NativeChatOrcaStopContext.Provider>
+      </NativeChatOpenKodoStopContext.Provider>
       {request ? (
         <AgentSessionContinuationDialog
           open

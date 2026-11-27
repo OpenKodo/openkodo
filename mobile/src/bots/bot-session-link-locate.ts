@@ -141,7 +141,7 @@ export async function locateBotSessionLink(
             const located = structuredOpenLocation.interpret(
               await structuredOpenLocation.request(
                 client,
-                { address: `orca_session_id:${sessionId}` },
+                { address: `openkodo_session_id:${sessionId}` },
                 options
               )
             )

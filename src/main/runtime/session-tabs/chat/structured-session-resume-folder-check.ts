@@ -10,7 +10,7 @@ import {
 } from '../../../native-chat/agent-session-journal/history-import/adopted-transcript-source'
 import { StructuredSessionWorkspaceScope } from './structured-session-workspace-scope'
 
-export abstract class OrcaRuntimeWithStructuredResumeFolderCheck extends StructuredSessionWorkspaceScope {
+export abstract class OpenKodoRuntimeWithStructuredResumeFolderCheck extends StructuredSessionWorkspaceScope {
   /** Create's other-folder refusal for a resume, asked before a client closes the terminal running
    *  the conversation. Finds the transcript as create does; anything else is left to create. */
   async assertStructuredAdoptionFolder(

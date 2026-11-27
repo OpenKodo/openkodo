@@ -44,25 +44,25 @@ export async function readBotAgentChoices(client: RpcClient): Promise<BotAgent[]
   return (await readNewBotAgentChoices(client)).agents
 }
 
-const orcaAccountStatusRead = bindDeferredRpcOperation(
+const openkodoAccountStatusRead = bindDeferredRpcOperation(
   defineRpcOperation({
-    name: 'orca-account.status',
-    method: 'orcaAccount.status',
+    name: 'openkodo-account.status',
+    method: 'openkodoAccount.status',
     acceptance: 'require-result-or-throw-message',
     barrier: 'after-caller-barrier',
     read: rpcResultVariant(
-      'orca-account-status',
+      'openkodo-account-status',
       z.looseObject({ state: z.string(), email: z.string().optional() })
     )
   })
 )
 
 /** The host's OpenKodo sign-in, as its status says it; null when it can't say (an older host, a failed read). */
-export async function readOrcaAccount(
+export async function readOpenKodoAccount(
   client: RpcClient
 ): Promise<{ state: string; email?: string } | null> {
   try {
-    return orcaAccountStatusRead.interpret(await orcaAccountStatusRead.request(client))
+    return openkodoAccountStatusRead.interpret(await openkodoAccountStatusRead.request(client))
   } catch {
     return null
   }
@@ -70,6 +70,6 @@ export async function readOrcaAccount(
 
 /** The account a host is signed in to, or null when it isn't (or can't say). */
 export async function readSignedInEmail(client: RpcClient): Promise<string | null> {
-  const account = await readOrcaAccount(client)
+  const account = await readOpenKodoAccount(client)
   return account?.state === 'signed-in' && account.email ? account.email : null
 }

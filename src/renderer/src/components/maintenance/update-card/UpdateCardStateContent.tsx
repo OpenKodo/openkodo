@@ -120,7 +120,7 @@ export function UpdateCardStateContent({
         <RequiredUpdateRestartContent
           version={status.version}
           restart={status.teamRestart}
-          requiredByOrca={status.requiredByOrca}
+          requiredByOpenKodo={status.requiredByOpenKodo}
           onRestart={onInstallRetry}
         />
       )
@@ -133,7 +133,7 @@ export function UpdateCardStateContent({
       <UpdateReadyToInstallContent
         version={status.version}
         requiredByTeam={status.requiredByTeam}
-        requiredByOrca={status.requiredByOrca}
+        requiredByOpenKodo={status.requiredByOpenKodo}
         onRestart={onInstallRetry}
         onClose={onCollapse}
       />

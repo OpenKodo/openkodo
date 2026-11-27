@@ -13,7 +13,7 @@ describe('daemons outside the inventory', () => {
     }
   })
   function runtimeDir(pidFiles: Record<string, number | string>): string {
-    const dir = mkdtempSync(join(tmpdir(), 'orca-unasked-daemon-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-unasked-daemon-'))
     dirs.push(dir)
     for (const [name, pid] of Object.entries(pidFiles)) {
       writeFileSync(join(dir, name), typeof pid === 'string' ? pid : JSON.stringify({ pid }))
@@ -107,7 +107,7 @@ describe('daemons outside the inventory', () => {
 
   it('treats an unreadable runtime directory as possibly owned', async () => {
     await expect(
-      mayUnaskedDaemonRunSessions(join(tmpdir(), 'orca-missing-runtime-dir'), new Set())
+      mayUnaskedDaemonRunSessions(join(tmpdir(), 'openkodo-missing-runtime-dir'), new Set())
     ).resolves.toBe(true)
     await expect(mayUnaskedDaemonRunSessions(null, new Set())).resolves.toBe(true)
   })

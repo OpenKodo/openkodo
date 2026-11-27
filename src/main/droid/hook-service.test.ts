@@ -45,7 +45,7 @@ describe('Droid managed hooks', () => {
   let settingsPath: string
 
   beforeEach(() => {
-    home = mkdtempSync(join(tmpdir(), 'orca-droid-hooks-'))
+    home = mkdtempSync(join(tmpdir(), 'openkodo-droid-hooks-'))
     factoryDir = join(home, '.factory')
     hooksPath = join(factoryDir, 'hooks.json')
     settingsPath = join(factoryDir, 'settings.json')
@@ -66,10 +66,10 @@ describe('Droid managed hooks', () => {
   it.each(['local', 'remote'] as const)(
     'adds %s managed hooks to hooks.json only for events it defines',
     async (target) => {
-      const staleOrca = {
+      const staleOpenKodo = {
         hooks: [{ type: 'command', command: '/old/.openkodo/agent-hooks/droid-hook.sh' }]
       }
-      const settingsHooks = { Stop: [...USER_STOP, staleOrca], PreToolUse: USER_GUARD }
+      const settingsHooks = { Stop: [...USER_STOP, staleOpenKodo], PreToolUse: USER_GUARD }
       writeFileSync(settingsPath, JSON.stringify({ model: 'x', hooks: settingsHooks }))
       const hooksFile = { Stop: USER_STOP, showHookOutput: false }
       writeFileSync(hooksPath, JSON.stringify(hooksFile))

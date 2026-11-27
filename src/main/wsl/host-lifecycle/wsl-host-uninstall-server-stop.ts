@@ -1,4 +1,4 @@
-// Uninstall only: end each running WSL host's terminals and orcad, so its distro can stop.
+// Uninstall only: end each running WSL host's terminals and openkodod, so its distro can stop.
 // No paired connection exists by then, so the server's own CLI inside the distro stands in for RPC.
 import { z } from 'zod'
 import { errorMessage } from '../../../shared/errors/error-message'
@@ -8,19 +8,19 @@ import { execCommand } from '../../ssh/remote-exec/remote-exec-command'
 import { listRunningWslDistrosAsync } from '../discovery/distro-catalog'
 import { readWslHostRecordsQuietly } from './wsl-host-connection-record'
 import {
-  decommissionWslHostOrcad,
+  decommissionWslHostOpenkodod,
   stopWslHostServer,
   type WslHostTerminalLeftover
 } from './wsl-host-server-stop'
-import { defaultWslOrcadEnvironmentId } from '../orcad/wsl-orcad-deploy'
-import { createWslOrcadHostTransport } from '../orcad/wsl-orcad-host-transport'
-import type { WslOrcadHostTarget } from '../orcad/wsl-orcad-host-target'
+import { defaultWslOpenkododEnvironmentId } from '../openkodod/wsl-openkodod-deploy'
+import { createWslOpenkododHostTransport } from '../openkodod/wsl-openkodod-host-transport'
+import type { WslOpenkododHostTarget } from '../openkodod/wsl-openkodod-host-target'
 
 /** Per distro; the uninstaller waits on the whole preflight. The guest steps below are a fixed
  * handful of wsl.exe calls whatever the terminal count, leaving most of this for decommission. */
 export const WSL_HOST_UNINSTALL_STOP_TIMEOUT_MS = 30_000
 
-/** orcad writes this launcher into its data root; older slots without a CLI have none. */
+/** openkodod writes this launcher into its data root; older slots without a CLI have none. */
 const GUEST_CLI = '"$HOME/.openkodo/cli/bin/openkodo"'
 
 const TerminalListSchema = z.object({
@@ -100,14 +100,14 @@ export async function stopWslHostServerFromGuest(
   distro: string,
   signal: AbortSignal
 ): Promise<WslHostServerStop> {
-  const target: WslOrcadHostTarget = {
+  const target: WslOpenkododHostTarget = {
     kind: 'wsl',
-    id: defaultWslOrcadEnvironmentId(distro),
+    id: defaultWslOpenkododEnvironmentId(distro),
     distro,
     label: distro
   }
   // The signal also ends decommission's own wsl.exe calls once the budget runs out.
-  const transport = createWslOrcadHostTransport({ target, commandLoops: false, signal })
+  const transport = createWslOpenkododHostTransport({ target, commandLoops: false, signal })
   const run = (command: string): Promise<string> => execCommand(transport, command, { signal })
   const cli = async (args: string): Promise<unknown> =>
     parseCliJson(await run(`${GUEST_CLI} ${args} --json`))
@@ -133,7 +133,7 @@ export async function stopWslHostServerFromGuest(
       servingRuntimeId: async () =>
         StatusSchema.parse(await cli('status')).result.runtime.runtimeId ?? null,
       closeBridge: async () => {},
-      decommission: decommissionWslHostOrcad(target, transport)
+      decommission: decommissionWslHostOpenkodod(target, transport)
     })
   } finally {
     transport.dispose()

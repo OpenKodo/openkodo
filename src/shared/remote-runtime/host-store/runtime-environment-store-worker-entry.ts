@@ -5,7 +5,7 @@ import { runEnvironmentStoreBatch } from './runtime-environment-store-batch'
 import type { EnvironmentStoreRequest } from './runtime-environment-store-worker-protocol'
 import { installWorkerSendLedger } from '../../../main/worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-environment-store')
+installWorkerSendLedger('openkodo-environment-store')
 
 if (!parentPort) {
   throw new Error('Environment store worker requires a parent')

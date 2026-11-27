@@ -45,7 +45,7 @@ export async function removeWslHostServer(
         }))
     }
     await connector.disconnect(record.distro)
-    // Without its holder the distro stops once nothing started in it (a peer's orcad, user jobs) runs.
+    // Without its holder the distro stops once nothing started in it (a peer's openkodod, user jobs) runs.
     await connector.releaseHolder(record.distro)
   }
   serverStop = noteServerKeptForPeers(userDataPath, record.environmentId, serverStop)

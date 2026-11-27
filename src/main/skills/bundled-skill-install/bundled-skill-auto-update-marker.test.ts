@@ -68,7 +68,7 @@ describe('automatic update digest marker', () => {
       ['keep', 'changed'],
       ['link', 'skipped']
     ])
-    expect(await snapshot(join(home.home, '.agents', '.orca-skill-digests'))).toBe('missing')
+    expect(await snapshot(join(home.home, '.agents', '.openkodo-skill-digests'))).toBe('missing')
   })
 
   it('still records a marker for a current copy on a record-only call', async () => {
@@ -77,7 +77,7 @@ describe('automatic update digest marker', () => {
     const input = serviceInput(home, { agents: [], installedOnly: true })
     const plan = await previewBundledSkillInstall(input)
     await autoUpdateInstalledBundledSkills({ ...input, names: [NAME], recordOnly: true })
-    expect(await snapshot(join(home.home, '.agents', '.orca-skill-digests', NAME))).not.toBe(
+    expect(await snapshot(join(home.home, '.agents', '.openkodo-skill-digests', NAME))).not.toBe(
       'missing'
     )
     expect(plan.skills[0].ops[0].kind).toBe('keep')
@@ -93,7 +93,7 @@ describe('automatic update digest marker', () => {
       // stage left over (a recovery keep), and the canonical link that retires the former name.
       await writeCopy(home.shared, other)
       await writeCopy(former, NEW_TEXT)
-      await mkdir(join(dirname(home.claude), `.${ALIAS}.orca-stage-abc`), { recursive: true })
+      await mkdir(join(dirname(home.claude), `.${ALIAS}.openkodo-stage-abc`), { recursive: true })
       const input = {
         ...serviceInput(home, { agents: ['claude'], installedOnly: true }),
         sources: [{ ...NEW_SOURCE, aliases: [ALIAS] }]
@@ -106,7 +106,7 @@ describe('automatic update digest marker', () => {
         NAME,
         shared?.observed.kind === 'folder' ? (shared.observed.skillDigest ?? '') : ''
       )
-      const digests = join(home.home, '.agents', '.orca-skill-digests', NAME)
+      const digests = join(home.home, '.agents', '.openkodo-skill-digests', NAME)
       const before = await snapshot(digests)
       const plan = await previewBundledSkillInstall(input)
       expect(plan.skills[0].ops.map((op) => [op.path, op.kind, op.reason])).toEqual([
@@ -145,7 +145,7 @@ describe('automatic update digest marker', () => {
       await linkDirectory(home.shared, home.claude)
     }
     await writeCopy(former, NEW_TEXT)
-    await mkdir(join(dirname(home.claude), `.${ALIAS}.orca-stage-abc`), { recursive: true })
+    await mkdir(join(dirname(home.claude), `.${ALIAS}.openkodo-stage-abc`), { recursive: true })
     const input = {
       ...serviceInput(home, { agents: ['claude'], installedOnly: true }),
       sources: [{ ...NEW_SOURCE, aliases: [ALIAS] }]
@@ -166,7 +166,7 @@ describe('automatic update digest marker', () => {
       [home.claude, canonical === 'existing link' ? 'keep' : 'link', [former]],
       [former, 'keep', undefined]
     ])
-    return { former, input, digests: join(home.home, '.agents', '.orca-skill-digests', NAME) }
+    return { former, input, digests: join(home.home, '.agents', '.openkodo-skill-digests', NAME) }
   }
 
   it.each(['changed', 'unchanged'] as const)(

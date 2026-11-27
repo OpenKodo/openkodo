@@ -1,9 +1,9 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import type { StructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-host'
 
 /** Reveals a chat session and publishes its tab without taking focus. */
 export async function publishChatTabInBackground(
-  runtime: Pick<OrcaRuntimeService, 'publishStructuredAgentSessionTab'>,
+  runtime: Pick<OpenKodoRuntimeService, 'publishStructuredAgentSessionTab'>,
   host: Pick<StructuredAgentSessionHost, 'revealSession'>,
   sessionId: string
 ): Promise<void> {

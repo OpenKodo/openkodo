@@ -32,21 +32,21 @@ export type RealHomeCodexHookEntryPlan =
       untouchedLabels: ReadonlySet<CodexEventLabel>
     }
 
-type OrcaHandler = {
+type OpenKodoHandler = {
   groupIndex: number
   hook: HookCommandConfig
   form: number
 }
 
-function findOrcaHandlers(
+function findOpenKodoHandlers(
   definitions: HookDefinition[],
-  isOrcaCommand: (command: string | undefined) => boolean,
+  isOpenKodoCommand: (command: string | undefined) => boolean,
   command: string
-): OrcaHandler[] {
+): OpenKodoHandler[] {
   return definitions.flatMap((definition, groupIndex) =>
     Array.isArray(definition.hooks)
       ? definition.hooks.flatMap((hook) =>
-          isOrcaCommand(hook.command)
+          isOpenKodoCommand(hook.command)
             ? [{ groupIndex, hook, form: readCodexHookCommandForm(hook.command, command) }]
             : []
         )
@@ -54,14 +54,14 @@ function findOrcaHandlers(
   )
 }
 
-function isOrcaOnlyGroup(
+function isOpenKodoOnlyGroup(
   definition: HookDefinition,
-  isOrcaCommand: (command: string | undefined) => boolean
+  isOpenKodoCommand: (command: string | undefined) => boolean
 ): boolean {
   return (
     Object.keys(definition).every((key) => key === 'hooks') &&
     Array.isArray(definition.hooks) &&
-    definition.hooks.every((hook) => isOrcaCommand(hook.command))
+    definition.hooks.every((hook) => isOpenKodoCommand(hook.command))
   )
 }
 
@@ -81,11 +81,11 @@ export function planRealHomeCodexHookEntries(args: {
   hooks: HooksByEvent
   sourcePath: string
   material: Pick<CodexManagedHookInstallMaterial, 'events' | 'command'>
-  isOrcaCommand: (command: string | undefined) => boolean
+  isOpenKodoCommand: (command: string | undefined) => boolean
   /** Convert older forms at startup/opt-in, never on launch. */
   convertOlderForms: boolean
 }): RealHomeCodexHookEntryPlan {
-  const { material, isOrcaCommand, sourcePath } = args
+  const { material, isOpenKodoCommand, sourcePath } = args
   const command = material.command
   // Preserve unplanned events, which may belong to a newer build.
   const pruned: HooksByEvent = { ...args.hooks }
@@ -98,10 +98,10 @@ export function planRealHomeCodexHookEntries(args: {
   for (const eventName of material.events) {
     const label = CODEX_EVENT_LABEL[eventName]
     const current = Array.isArray(args.hooks[eventName]) ? args.hooks[eventName] : []
-    const handlers = findOrcaHandlers(current, isOrcaCommand, command)
+    const handlers = findOpenKodoHandlers(current, isOpenKodoCommand, command)
     const holdsOlderForm =
       current.some((definition) =>
-        [definition.command, definition.bash, definition.powershell].some(isOrcaCommand)
+        [definition.command, definition.bash, definition.powershell].some(isOpenKodoCommand)
       ) || handlers.some((handler) => handler.hook.command !== command)
     if (
       handlers.some((handler) => handler.form > CODEX_HOOK_COMMAND_FORM) ||
@@ -111,12 +111,12 @@ export function planRealHomeCodexHookEntries(args: {
       continue
     }
     const keeper = handlers.find((handler) =>
-      isOrcaOnlyGroup(current[handler.groupIndex]!, isOrcaCommand)
+      isOpenKodoOnlyGroup(current[handler.groupIndex]!, isOpenKodoCommand)
     )
-    const rest = removeManagedCommands(current, isOrcaCommand)
+    const rest = removeManagedCommands(current, isOpenKodoCommand)
     // Keep the surviving group in place to preserve user approval keys.
     const slot = keeper
-      ? removeManagedCommands(current.slice(0, keeper.groupIndex), isOrcaCommand).length
+      ? removeManagedCommands(current.slice(0, keeper.groupIndex), isOpenKodoCommand).length
       : rest.length
     const keptGroup = keeper && current[keeper.groupIndex]!
     const prunedDefinitions = keptGroup

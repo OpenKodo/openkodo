@@ -6,7 +6,7 @@ import { findSkillFiles } from '../../../skills/discovery/skill-root-file-walk'
 import { runSkillCandidateTasks } from '../../../skills/filesystem/skill-candidate-concurrency'
 import {
   getSystemCodexHomePath,
-  resolveOrcaManagedCodexHomePath
+  resolveOpenKodoManagedCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import { readCopiedResourceSource } from '../../configuration/homes/codex-managed-home-resource-copy-marker'
 import { parse as parseToml } from 'smol-toml'
@@ -75,7 +75,7 @@ export function createCodexSkillSourcesStamp(
   const now = options.now ?? Date.now
   const home = options.homeDir ?? homedir
   const systemCodexHome = options.systemCodexHome ?? getSystemCodexHomePath
-  const managedCodexHome = options.managedCodexHome ?? resolveOrcaManagedCodexHomePath
+  const managedCodexHome = options.managedCodexHome ?? resolveOpenKodoManagedCodexHomePath
   const roots = createTimedMemo<string>(now)
   const chains = createTimedMemo<string[]>(now)
   const markers = createTimedMemo<string | null>(now)

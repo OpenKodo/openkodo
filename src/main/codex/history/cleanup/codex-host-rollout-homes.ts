@@ -14,9 +14,9 @@ import {
 } from '../../../codex-accounts/managed-homes/host-codex-managed-home-ownership'
 import { GUEST_CODEX_ACCOUNTS_ROOT_SEGMENTS } from '../../../codex-accounts/managed-homes/guest-codex-account-homes'
 import {
-  getOrcaUserDataPath,
+  getOpenKodoUserDataPath,
   getSystemCodexHomePath,
-  resolveOrcaManagedCodexHomePath
+  resolveOpenKodoManagedCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import { resolveHostCodexSessionSourceHome } from '../rollouts/codex-session-source-home'
 
@@ -94,10 +94,10 @@ export async function listHostCodexRolloutHomeSources(
       dirname(codexHomeSessionsDir()),
       getSystemCodexHomePath(),
       resolveHostCodexSessionSourceHome(settings),
-      resolveOrcaManagedCodexHomePath()
+      resolveOpenKodoManagedCodexHomePath()
     ]),
     accounts: [
-      ...(await listAccountHomeCandidates(join(getOrcaUserDataPath(), 'codex-accounts'))),
+      ...(await listAccountHomeCandidates(join(getOpenKodoUserDataPath(), 'codex-accounts'))),
       // A headless host keeps its own accounts under the user's home.
       ...(await listAccountHomeCandidates(join(homedir(), ...GUEST_CODEX_ACCOUNTS_ROOT_SEGMENTS)))
     ]
@@ -119,7 +119,7 @@ export async function listHostCodexRolloutHomes(
     homes: uniqueHostHomes([
       dirname(codexHomeSessionsDir()),
       getSystemCodexHomePath(),
-      resolveOrcaManagedCodexHomePath(),
+      resolveOpenKodoManagedCodexHomePath(),
       ...ownedAccountHomes(accounts),
       ...configuredAdditionalCodexHomePaths()
     ]),

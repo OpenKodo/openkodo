@@ -1,4 +1,4 @@
-import '../../orca-profiles/constants'
+import '../../openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../browser-blank-page'
 import { getCurrentLocalPlatform } from '../../execution-host/execution-host'
 import { encodeWellFormedURIComponent } from '../../text/well-formed-uri-component'

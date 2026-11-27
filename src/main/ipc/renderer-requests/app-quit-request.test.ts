@@ -17,7 +17,7 @@ function quitRequest({
     mainFrame,
     isDestroyed: () => false,
     getType: () => type,
-    getURL: () => 'file:///orca/index.html'
+    getURL: () => 'file:///openkodo/index.html'
   }
   return { sender, senderFrame: fromSubframe ? {} : mainFrame }
 }

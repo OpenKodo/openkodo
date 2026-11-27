@@ -1,7 +1,7 @@
 import type { RemoteServerPairingFailureFields } from '../pairing/remote-server-pairing-failure-copy'
 import type { SecurePathHardeningReport } from '../../secure-storage/secure-path-hardening-report'
 import type * as core0 from './runtime-environment-store-operations'
-import type * as core1 from './runtime-environment-managed-orcad-operations'
+import type * as core1 from './runtime-environment-managed-openkodod-operations'
 import type * as core2 from './runtime-environment-ssh-access-operations'
 import type * as core3 from './runtime-environment-wsl-host-operations'
 import type * as core4 from './runtime-environment-resume-pairing-operations'
@@ -35,24 +35,24 @@ export type EnvironmentStoreCommand =
     }
   | { operation: 'markEnvironmentUsed'; args: Parameters<typeof core0.markEnvironmentUsed> }
   | {
-      operation: 'addManagedOrcadEnvironment'
-      args: Parameters<typeof core1.addManagedOrcadEnvironment>
+      operation: 'addManagedOpenkododEnvironment'
+      args: Parameters<typeof core1.addManagedOpenkododEnvironment>
     }
   | {
-      operation: 'removeManagedOrcadEnvironment'
-      args: Parameters<typeof core1.removeManagedOrcadEnvironment>
+      operation: 'removeManagedOpenkododEnvironment'
+      args: Parameters<typeof core1.removeManagedOpenkododEnvironment>
     }
   | {
-      operation: 'refreshManagedOrcadPairing'
-      args: Parameters<typeof core1.refreshManagedOrcadPairing>
+      operation: 'refreshManagedOpenkododPairing'
+      args: Parameters<typeof core1.refreshManagedOpenkododPairing>
     }
   | {
-      operation: 'moveManagedOrcadLocalPort'
-      args: Parameters<typeof core1.moveManagedOrcadLocalPort>
+      operation: 'moveManagedOpenkododLocalPort'
+      args: Parameters<typeof core1.moveManagedOpenkododLocalPort>
     }
   | {
-      operation: 'recordManagedOrcadMigration'
-      args: Parameters<typeof core1.recordManagedOrcadMigration>
+      operation: 'recordManagedOpenkododMigration'
+      args: Parameters<typeof core1.recordManagedOpenkododMigration>
     }
   | {
       operation: 'prepareRuntimeEnvironmentSshAccessLink'
@@ -122,24 +122,24 @@ export type EnvironmentStoreSuccess =
     }
   | { operation: 'markEnvironmentUsed'; value: ReturnType<typeof core0.markEnvironmentUsed> }
   | {
-      operation: 'addManagedOrcadEnvironment'
-      value: ReturnType<typeof core1.addManagedOrcadEnvironment>
+      operation: 'addManagedOpenkododEnvironment'
+      value: ReturnType<typeof core1.addManagedOpenkododEnvironment>
     }
   | {
-      operation: 'removeManagedOrcadEnvironment'
-      value: ReturnType<typeof core1.removeManagedOrcadEnvironment>
+      operation: 'removeManagedOpenkododEnvironment'
+      value: ReturnType<typeof core1.removeManagedOpenkododEnvironment>
     }
   | {
-      operation: 'refreshManagedOrcadPairing'
-      value: ReturnType<typeof core1.refreshManagedOrcadPairing>
+      operation: 'refreshManagedOpenkododPairing'
+      value: ReturnType<typeof core1.refreshManagedOpenkododPairing>
     }
   | {
-      operation: 'moveManagedOrcadLocalPort'
-      value: ReturnType<typeof core1.moveManagedOrcadLocalPort>
+      operation: 'moveManagedOpenkododLocalPort'
+      value: ReturnType<typeof core1.moveManagedOpenkododLocalPort>
     }
   | {
-      operation: 'recordManagedOrcadMigration'
-      value: ReturnType<typeof core1.recordManagedOrcadMigration>
+      operation: 'recordManagedOpenkododMigration'
+      value: ReturnType<typeof core1.recordManagedOpenkododMigration>
     }
   | {
       operation: 'prepareRuntimeEnvironmentSshAccessLink'

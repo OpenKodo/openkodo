@@ -16,7 +16,7 @@ export type ServeServiceSpec = {
 export type ServeServiceInput = {
   platform: NodeJS.Platform
   homeDir: string
-  /** Absolute path of the stable `orca` launcher, never a version-specific executable. */
+  /** Absolute path of the stable `openkodo` launcher, never a version-specific executable. */
   command: string
   userDataPath: string
   /** The profile's userData when no override is set; that profile gets the plain name. */
@@ -81,7 +81,7 @@ export function renderServeService(input: ServeServiceInput): ServeServiceSpec {
       content: renderLaunchAgent(name, argv, env, logPath)
     }
   }
-  const name = suffix ? `orca-serve-${suffix}.service` : 'orca-serve.service'
+  const name = suffix ? `openkodo-serve-${suffix}.service` : 'openkodo-serve.service'
   return {
     manager,
     name,

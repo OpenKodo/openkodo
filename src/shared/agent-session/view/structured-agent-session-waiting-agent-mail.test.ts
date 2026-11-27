@@ -31,7 +31,7 @@ const FROM: AgentMessageSource = {
   kind: 'agent',
   senders: [
     {
-      party: { address: 'term_w', terminalHandle: 'term_w', orcaSessionId: null },
+      party: { address: 'term_w', terminalHandle: 'term_w', openkodoSessionId: null },
       name: 'Worker',
       agent: 'claude'
     }
@@ -90,7 +90,7 @@ const rejectedAs = (reason: string): Partial<AgentJournalSubmission> => ({
 /** The hand-off's own transcript row, which the host writes as it takes the card. */
 function sentRow(queuedMessageId: string, sequence: number): AgentJournalRenderItem {
   return {
-    itemId: `orca:${queuedMessageId}-send`,
+    itemId: `openkodo:${queuedMessageId}-send`,
     revision: 0,
     sequence,
     observedAt: sequence,
@@ -138,7 +138,7 @@ function drawn(host: {
 }
 
 const waitingRow = (id: string) => ({
-  id: `orca:${id}`,
+  id: `openkodo:${id}`,
   by: 'agent',
   waiting: true,
   actsOn: id
@@ -174,7 +174,7 @@ describe("another agent's message while the chat is busy", () => {
       phase: 'sending'
     }
     expect(drawn({ sends: [sending], queued: [card('mail', 1)] }).rows).toEqual([
-      { id: 'orca:typed', by: 'person', waiting: false, actsOn: null },
+      { id: 'openkodo:typed', by: 'person', waiting: false, actsOn: null },
       waitingRow('mail')
     ])
   })
@@ -187,7 +187,7 @@ describe("another agent's message while the chat is busy", () => {
         items: [sentRow('mail', 5)]
       })
     ).toEqual({
-      rows: [{ id: 'orca:mail-send', by: 'agent', waiting: false, actsOn: null }],
+      rows: [{ id: 'openkodo:mail-send', by: 'agent', waiting: false, actsOn: null }],
       cards: []
     })
   })
@@ -246,9 +246,9 @@ describe("worker mail, which the host delivers past a Stop and ahead of the pers
     ...FROM,
     orchestration: {
       message: 'mail-notice',
-      mailbox: 'orca_session_id:chat',
+      mailbox: 'openkodo_session_id:chat',
       dispatchId: null,
-      messages: [{ messageId: 'msg_1', runId: '', from: 'orca_session_id:worker' }]
+      messages: [{ messageId: 'msg_1', runId: '', from: 'openkodo_session_id:worker' }]
     }
   }
 
@@ -266,7 +266,7 @@ describe("worker mail, which the host delivers past a Stop and ahead of the pers
         queuePaused: true
       })
     ).toEqual({
-      rows: [{ id: 'orca:mail-send', by: 'agent', waiting: false, actsOn: null }],
+      rows: [{ id: 'openkodo:mail-send', by: 'agent', waiting: false, actsOn: null }],
       cards: ['follow-up']
     })
   })
@@ -279,7 +279,7 @@ describe("worker mail, which the host delivers past a Stop and ahead of the pers
         items: [sentRow('mail', 5)]
       })
     ).toEqual({
-      rows: [{ id: 'orca:mail-send', by: 'agent', waiting: false, actsOn: null }],
+      rows: [{ id: 'openkodo:mail-send', by: 'agent', waiting: false, actsOn: null }],
       cards: ['follow-up']
     })
   })

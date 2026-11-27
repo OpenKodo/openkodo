@@ -16,7 +16,7 @@ import { parseBotAddress } from '../../../../../../shared/bot-roster'
 import { uploadBufferWith } from '../../../../../ipc/agent-attachments/agent-session-attachment-upload'
 import type { OrchestrationWorkerServer } from '../../../../orchestration/federation/environment-transport'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 
 const CALL_TIMEOUT_MS = 30_000
 const MB = 1024 * 1024
@@ -30,7 +30,7 @@ function refused(message: string): OrchestrationError {
 
 /** The paired OpenKodo's store paths for `files`, in order; undefined when there are none. */
 export async function uploadPeerMailFiles(
-  runtime: Pick<OrcaRuntimeService, 'callOrchestrationWorkerServer'>,
+  runtime: Pick<OpenKodoRuntimeService, 'callOrchestrationWorkerServer'>,
   server: OrchestrationWorkerServer,
   params: { to?: string; item?: string; files?: string[] }
 ): Promise<string[] | undefined> {

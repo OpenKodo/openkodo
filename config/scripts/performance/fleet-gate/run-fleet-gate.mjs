@@ -103,7 +103,7 @@ function isolatedEnv(runDir, userDataDir) {
   ]) {
     fs.mkdirSync(path.join(home, dir), { recursive: true })
   }
-  // Drop the launching Orca's own values so the copy never attaches to it.
+  // Drop the launching OpenKodo's own values so the copy never attaches to it.
   const env = Object.fromEntries(
     Object.entries(process.env).filter(
       ([key]) =>

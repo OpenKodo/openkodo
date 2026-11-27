@@ -11,7 +11,7 @@ vi.mock('./transcript-file-discovery', () => ({ listClaudeTranscriptFiles: vi.fn
 
 let directory: string
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'orca-claude-worktree-change-'))
+  directory = await mkdtemp(join(tmpdir(), 'openkodo-claude-worktree-change-'))
 })
 afterEach(async () => {
   vi.restoreAllMocks()

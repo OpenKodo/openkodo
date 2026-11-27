@@ -25,7 +25,7 @@ type EmergencyUpdatePolicy = z.infer<typeof emergencyUpdatePolicySchema>
 
 const EMERGENCY_UPDATE_POLICY: ReleaseAssetPolicySpec<EmergencyUpdatePolicy> = {
   name: 'emergency-update-policy',
-  releaseTag: 'orca-update-policy',
+  releaseTag: 'openkodo-update-policy',
   assetName: 'emergency-update-policy.json',
   maxBytes: 4096,
   parse: (text) => {

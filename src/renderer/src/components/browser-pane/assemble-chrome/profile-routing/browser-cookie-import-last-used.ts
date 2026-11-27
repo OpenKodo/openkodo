@@ -1,7 +1,7 @@
 import type { BrowserCookieImportSource } from './browser-cookie-import-picker-rows'
 
 // Every page imports this desktop's browsers, so one remembered source serves them all.
-const LAST_USED_KEY = 'orca.browser.cookieImport.lastUsedSource'
+const LAST_USED_KEY = 'openkodo.browser.cookieImport.lastUsedSource'
 
 export function readBrowserCookieImportLastUsed(): BrowserCookieImportSource | null {
   try {

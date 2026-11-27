@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { PeerMailRelayPayload } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 import { resolveBareOrchestrationRecipient } from '../../../rpc/methods/orchestration/messaging/recipient-routing'
 import type { OrchestrationDb } from '../../db/orchestration-db'
@@ -12,7 +12,7 @@ import { settlePeerQuestionsOut } from './peer-questions-out'
 /** Stores a reply on a conversation this OpenKodo opened, once; a replay finds the stored row. Pulled
  *  from a paired server, or returned by a paired computer whose agents this OpenKodo's agents asked. */
 export function storePeerReply(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   conversation: PeerMailConversationRow,
   messageId: string,

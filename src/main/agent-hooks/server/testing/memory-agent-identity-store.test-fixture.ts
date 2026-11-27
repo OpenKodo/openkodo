@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto'
 import {
-  isOrcaSessionId,
-  type OrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  type OpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { AgentProviderKey } from '../../identity/agent-provider-key'
 import type {
   AgentIdentityClient,
@@ -13,35 +13,38 @@ import { AgentHookServerAgentIdentities } from '../server-agent-identities'
 /** An identity store held in memory: one stable id per key and store path, answered
  *  asynchronously, with no worker thread or file. */
 export class MemoryAgentIdentityClient implements AgentIdentityClient {
-  private readonly ids = new Map<string, OrcaSessionId>()
+  private readonly ids = new Map<string, OpenKodoSessionId>()
 
   async identify(path: string, key: AgentProviderKey): Promise<AgentIdentityLookup> {
     const keyString = JSON.stringify([path, key])
     const id = this.ids.get(keyString) ?? `${key.agent}_${randomUUID()}`
-    if (!isOrcaSessionId(id)) {
+    if (!isOpenKodoSessionId(id)) {
       return undefined
     }
     this.ids.set(keyString, id)
     return { id }
   }
 
-  async has(path: string, orcaSessionId: string): Promise<boolean> {
+  async has(path: string, openkodoSessionId: string): Promise<boolean> {
     const pathPrefix = JSON.stringify([path]).slice(0, -1)
-    return [...this.ids].some(([key, id]) => id === orcaSessionId && key.startsWith(pathPrefix))
+    return [...this.ids].some(([key, id]) => id === openkodoSessionId && key.startsWith(pathPrefix))
   }
 
   async providerKeyOf(
     path: string,
-    orcaSessionId: string
+    openkodoSessionId: string
   ): Promise<{ key: AgentProviderKey | null }> {
     const linked = [...this.ids].find(([keyString, id]) => {
-      return id === orcaSessionId && keyString.startsWith(JSON.stringify([path]).slice(0, -1))
+      return id === openkodoSessionId && keyString.startsWith(JSON.stringify([path]).slice(0, -1))
     })
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: map keys are JSON.stringify([path, key]) written above.
     return { key: linked ? (JSON.parse(linked[0]) as [string, AgentProviderKey])[1] : null }
   }
 
-  async idsOfProviderSession(path: string, providerSessionId: string): Promise<OrcaSessionId[]> {
+  async idsOfProviderSession(
+    path: string,
+    providerSessionId: string
+  ): Promise<OpenKodoSessionId[]> {
     const pathPrefix = JSON.stringify([path]).slice(0, -1)
     return [...this.ids]
       .filter(

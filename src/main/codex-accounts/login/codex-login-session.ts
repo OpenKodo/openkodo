@@ -121,7 +121,7 @@ async function runCodexLoginProcess(
       ? {
           command: dependencies.wslCommand,
           args: buildWslCodexLoginArgs(wslInfo.distro, wslInfo.linuxPath, {
-            orcaOpensSignInLink: openAuthUrl !== null
+            openkodoOpensSignInLink: openAuthUrl !== null
           }),
           env: process.env,
           codexCommand: 'codex',

@@ -5,9 +5,9 @@ import {
   LOCAL_EXECUTION_HOST_ID,
   parseExecutionHostId
 } from '../../../../../shared/execution-host/execution-host'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_PARTITION } from '../../../../../shared/browser/browser-session-partition'
-import { getOrcaProfileBrowserDefaultPartition } from '../../../../../shared/orca-profiles/orca-profiles'
+import { getOpenKodoProfileBrowserDefaultPartition } from '../../../../../shared/openkodo-profiles/openkodo-profiles'
 import { resolveNewBrowserTabProfile } from '@/store/slices/browser/profiles/browser-new-tab-profile'
 
 function createPartitionResolver(
@@ -20,8 +20,8 @@ function createPartitionResolver(
   const defaultPartition =
     profiles.get('default')?.partition ??
     (hostId === LOCAL_EXECUTION_HOST_ID
-      ? ((state.activeOrcaProfileId
-          ? getOrcaProfileBrowserDefaultPartition(state.activeOrcaProfileId)
+      ? ((state.activeOpenKodoProfileId
+          ? getOpenKodoProfileBrowserDefaultPartition(state.activeOpenKodoProfileId)
           : null) ?? OPENKODO_BROWSER_PARTITION)
       : null)
   return (id, explicit) => {

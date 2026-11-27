@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { FOLDER_WORKSPACE_INSTANCE_SEPARATOR } from '../../shared/worktree/id'
 import { windowsFsPath } from '../wsl/filesystem/wsl-unc-drive-fs-path'
 
-const FOLDER_RUNNER_DIR = '.orca'
+const FOLDER_RUNNER_DIR = '.openkodo'
 
 // One directory per workspace, so removal deletes it without listing its siblings' runners.
 function runnerDirName(worktreeId: string): string {
@@ -34,8 +34,8 @@ export function newFolderSetupRunnerPath(
 }
 
 /** A folder may itself be a Git checkout; keep its runners out of `git status` without editing its files. */
-export async function ignoreFolderSetupRunners(orcaDirFsPath: string): Promise<void> {
-  await writeFile(join(orcaDirFsPath, '.gitignore'), 'setup-runner-*\n.gitignore\n', {
+export async function ignoreFolderSetupRunners(openkodoDirFsPath: string): Promise<void> {
+  await writeFile(join(openkodoDirFsPath, '.gitignore'), 'setup-runner-*\n.gitignore\n', {
     flag: 'wx'
   }).catch(() => undefined)
 }

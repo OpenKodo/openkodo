@@ -3,10 +3,10 @@ import {
   parseExecutionHostId,
   toSshExecutionHostId
 } from '../../../shared/execution-host/execution-host'
-import { getManagedOrcadFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-orcad-ssh-owner'
+import { getManagedOpenkododFenceEnvironmentId } from '../../../shared/remote-runtime/ssh/managed-openkodod-ssh-owner'
 import { listEnvironments } from '../../../shared/remote-runtime/host-store/runtime-environment-store'
 import {
-  getOrcadSshDeployment,
+  getOpenkododSshDeployment,
   getRuntimeSshAccess,
   type KnownRuntimeEnvironment
 } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
@@ -14,7 +14,7 @@ import type { SshTarget } from '../../../shared/remote-runtime/ssh/ssh-types'
 import { fingerprintRuntimeSshTarget } from '../../ssh/runtime-access/runtime-ssh-target-fingerprint'
 
 export type ListRuntimeEnvironments = () => Promise<
-  readonly Pick<KnownRuntimeEnvironment, 'id' | 'orcadDeployment' | 'sshAccess'>[]
+  readonly Pick<KnownRuntimeEnvironment, 'id' | 'openkododDeployment' | 'sshAccess'>[]
 >
 
 export const listAppRuntimeEnvironments: ListRuntimeEnvironments = async () =>
@@ -49,8 +49,8 @@ export async function isEditorSshHostForOwner(
   if (target.generation !== link.sshTargetGeneration) {
     return false
   }
-  if (getOrcadSshDeployment(environment)) {
-    return getManagedOrcadFenceEnvironmentId(target) === environment.id
+  if (getOpenkododSshDeployment(environment)) {
+    return getManagedOpenkododFenceEnvironmentId(target) === environment.id
   }
   // Edits retain generation, so also pin the settings used to verify SSH access.
   const access = environment.sshAccess

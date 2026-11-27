@@ -1,5 +1,5 @@
 import { createMobileSessionTabsDelivery } from './mobile-session-tabs-delivery'
-import { OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab } from '../restoration/mobile-session-publication-preservation'
+import { OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab } from '../restoration/mobile-session-publication-preservation'
 import type { BrowserTabInfo } from '../../../../shared/browser/runtime/runtime-browser-contracts'
 import type {
   RuntimeMobileSessionClientTab,
@@ -17,7 +17,7 @@ import { readCreatedWorkspaceLaunch } from '../../../agent-launch/agent-launch-c
 import type { AgentSenderRevision } from '../../../../shared/orchestration/mailbox/agent-sender-associations'
 import { worktreeIdsEqual } from '../../../../shared/worktree/id'
 
-export abstract class OrcaRuntimeWithScheduleMobileSessionTabsChanged extends OrcaRuntimeWithStoredMobileSnapshotHasStalePreservedTab {
+export abstract class OpenKodoRuntimeWithScheduleMobileSessionTabsChanged extends OpenKodoRuntimeWithStoredMobileSnapshotHasStalePreservedTab {
   protected scheduleMobileSessionTabsChanged(worktreeId: string): void {
     this.pendingMobileSessionTabsChangeSequenceByWorktree.set(
       worktreeId,

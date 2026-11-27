@@ -3,7 +3,7 @@ import { setRuntimeDesktopSurface } from '../../../../../../construction/runtime
 import {
   setupLayoutOwnerRuntime,
   WORKTREE_ID
-} from '../../../../../../terminal/layout/orca-runtime-layout-owner-start-fixture'
+} from '../../../../../../terminal/layout/openkodo-runtime-layout-owner-start-fixture'
 import type { WorkerEffect, WorkerSetupReceipt } from '../placement/worker-placement-topology'
 import { watchStructuredWorkerSetup } from './worker-start-structured-setup-gate'
 

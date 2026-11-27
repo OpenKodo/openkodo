@@ -88,16 +88,18 @@ export function WorktreeCardMetaDetailsHover({
       hoverControl={card.detailsHoverControl}
       onEditIssue={affiliateListMode ? undefined : card.handleEditIssue}
       onEditComment={affiliateListMode ? undefined : card.handleEditComment}
-      onOpenGitHubIssueInOrca={
+      onOpenGitHubIssueInOpenKodo={
         metaIssue && 'url' in metaIssue && metaIssue.url
-          ? card.handleOpenGitHubIssueInOrca
+          ? card.handleOpenGitHubIssueInOpenKodo
           : undefined
       }
       onOpenIssueInBrowser={
         metaIssue && 'url' in metaIssue && metaIssue.url ? card.handleOpenIssueInBrowser : undefined
       }
-      onOpenLinearIssueInOrca={card.linearIssue?.url ? card.handleOpenLinearIssueInOrca : undefined}
-      onOpenReviewInOrca={repo ? card.handleOpenReviewInOrca : undefined}
+      onOpenLinearIssueInOpenKodo={
+        card.linearIssue?.url ? card.handleOpenLinearIssueInOpenKodo : undefined
+      }
+      onOpenReviewInOpenKodo={repo ? card.handleOpenReviewInOpenKodo : undefined}
       onOpenReviewInBrowser={metaReview?.url ? card.handleOpenReviewInBrowser : undefined}
       onOpenAutomation={affiliateListMode ? undefined : card.handleOpenAutomation}
       onOpenAutomationRun={affiliateListMode ? undefined : card.handleOpenAutomationRun}
@@ -178,9 +180,9 @@ export function WorktreeCardIdentityHover({
       onRenameWorkspaceTitle={affiliateListMode ? undefined : card.handleRenameTitle}
       onEditIssue={affiliateListMode ? undefined : card.handleEditIssue}
       onEditComment={affiliateListMode ? undefined : card.handleEditComment}
-      onOpenGitHubIssueInOrca={
+      onOpenGitHubIssueInOpenKodo={
         hoverIssue && 'url' in hoverIssue && hoverIssue.url
-          ? card.handleOpenGitHubIssueInOrca
+          ? card.handleOpenGitHubIssueInOpenKodo
           : undefined
       }
       onOpenIssueInBrowser={
@@ -188,8 +190,10 @@ export function WorktreeCardIdentityHover({
           ? card.handleOpenIssueInBrowser
           : undefined
       }
-      onOpenLinearIssueInOrca={card.linearIssue?.url ? card.handleOpenLinearIssueInOrca : undefined}
-      onOpenReviewInOrca={repo ? card.handleOpenReviewInOrca : undefined}
+      onOpenLinearIssueInOpenKodo={
+        card.linearIssue?.url ? card.handleOpenLinearIssueInOpenKodo : undefined
+      }
+      onOpenReviewInOpenKodo={repo ? card.handleOpenReviewInOpenKodo : undefined}
       onOpenReviewInBrowser={hoverReview?.url ? card.handleOpenReviewInBrowser : undefined}
       onOpenAutomation={affiliateListMode ? undefined : card.handleOpenAutomation}
       onOpenAutomationRun={affiliateListMode ? undefined : card.handleOpenAutomationRun}

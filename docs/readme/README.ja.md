@@ -225,8 +225,6 @@ brew install --cask OpenKodo/openkodo/openkodo
 # 既存のインストールをアップグレード
 brew upgrade --cask OpenKodo/openkodo/openkodo
 
-# Arch Linux (AUR) — or stably-openkodo-git to build from source
-yay -S stably-openkodo-bin
 ```
 
 ### モバイル Companion — iOS, Android

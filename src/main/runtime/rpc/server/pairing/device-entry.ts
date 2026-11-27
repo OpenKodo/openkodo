@@ -6,14 +6,14 @@ import type { RelayDeviceBinding } from '../../../mobile-cloud-relay/pairing/rel
 import type { RuntimeDeviceGrant } from '../../callers/rpc-method-permission'
 import type { NetworkSourceClass } from '../../transports/websocket/source-admission/network-source-class'
 
-export type DeviceOrcaAccount = { id: string; name: string; computer?: string }
+export type DeviceOpenKodoAccount = { id: string; name: string; computer?: string }
 
 /** Who typed a device's messages: the account claim, its computer, and the relayed phone if any. */
-export type PairedDeviceTypist = DeviceOrcaAccount & { phone?: string }
+export type PairedDeviceTypist = DeviceOpenKodoAccount & { phone?: string }
 
 export type PairedDeviceAccountLookup = (
   pairedDeviceId: string,
-  connectionClaim?: DeviceOrcaAccount | null
+  connectionClaim?: DeviceOpenKodoAccount | null
 ) => PairedDeviceTypist | null
 
 export type DeviceEntry = {
@@ -36,7 +36,7 @@ export type DeviceEntry = {
   parentDeviceId?: string
   // The OpenKodo account a paired desktop says it is signed in to (a plain claim, set on each connect);
   // names who typed its messages in a bot's Slack thread. A relayed phone reads its parent's.
-  orcaAccount?: DeviceOrcaAccount
+  openkodoAccount?: DeviceOpenKodoAccount
   phoneKey?: string
   // Grant only at pairing; absent on older rows means no administrative powers.
   grants?: RuntimeDeviceGrant[]

@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "orca_windows_notifications",
+      "target_name": "openkodo_windows_notifications",
       "sources": ["src/addon.cc"],
       "include_dirs": ["<!@(node -p \"require('node-addon-api').include\")"],
       "defines": ["NAPI_DISABLE_CPP_EXCEPTIONS", "UNICODE", "_UNICODE"],

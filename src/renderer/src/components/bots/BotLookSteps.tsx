@@ -11,7 +11,7 @@ import { nativeChatToolLineLabel } from '../../../../shared/native-chat/tools/na
 import {
   LOOK_STEPS_SHOWN,
   lookSteps,
-  withPlainOrcaCli,
+  withPlainOpenKodoCli,
   type LookStep
 } from '../../../../shared/bots/bot-look-steps'
 import { GitHubIcon } from '../icons/GitHubIcon'
@@ -55,7 +55,7 @@ function stepText(step: LookStep): string {
     case 'tool': {
       // The words the chat's own row shows for this call.
       const label = nativeChatToolLineLabel(step.call, step.result)
-      const target = withPlainOrcaCli(label.target)
+      const target = withPlainOpenKodoCli(label.target)
       return label.verb ? `${nativeChatToolRowVerb(label.verb)} ${target}` : target
     }
   }

@@ -17,7 +17,7 @@ import {
   BROWSER_IDENTITY_RUNTIME_CAPABILITY,
   BROWSER_TAB_CREATE_KNOWN_ID_RUNTIME_CAPABILITY
 } from '../../../shared/browser/runtime/browser-runtime-capabilities'
-import { orcaAccountRuntimeCapabilities } from '../../orca-profiles/orca-server-sign-in'
+import { openkodoAccountRuntimeCapabilities } from '../../openkodo-profiles/openkodo-server-sign-in'
 import { googleRuntimeCapabilities } from '../../google/google-connect'
 import {
   runtimeBrowserCommandsFactoryIsHeadless,
@@ -27,9 +27,9 @@ import {
   runtimeBrowserUnavailableCause
 } from '../browser/installation/runtime-browser-commands-factory'
 import { isBrowserIdentityModeStoreInitialized } from '../../browser/identity/mode/browser-identity-mode-store'
-import { servesLocalWslMigrationSource } from '../../orcad/migration/orcad-migration-wsl-destination'
-import { ORCAD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY } from '../../../shared/remote-runtime/protocol/orcad-runtime-capabilities'
-import { advertisedOrcadMigrationDestinationCapabilities } from '../../orcad/migration/orcad-migration-destination-capabilities'
+import { servesLocalWslMigrationSource } from '../../openkodod/migration/openkodod-migration-wsl-destination'
+import { OPENKODOD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY } from '../../../shared/remote-runtime/protocol/openkodod-runtime-capabilities'
+import { advertisedOpenkododMigrationDestinationCapabilities } from '../../openkodod/migration/openkodod-migration-destination-capabilities'
 import { USAGE_CREDENTIALS_RUNTIME_CAPABILITY } from '../../../shared/remote-runtime/protocol/account-runtime-capabilities'
 import {
   MIN_COMPATIBLE_RUNTIME_CLIENT_VERSION,
@@ -76,7 +76,7 @@ import { darkSwitchRuntimeCapabilities } from '../construction/dark-switch-runti
 import { supportsDurableTerminalPromptDelivery } from '../terminal/input/durable-terminal-prompt-delivery-support'
 import { RuntimeWorkspaceChangeEvents } from '../workspaces/catalog/runtime-workspace-change-events'
 
-export abstract class OrcaRuntimeWithGetStatus extends RuntimeWorkspaceChangeEvents {
+export abstract class OpenKodoRuntimeWithGetStatus extends RuntimeWorkspaceChangeEvents {
   getStatus(): RuntimeStatus {
     // Advertise screencast for renderer/offscreen backends; headless ownership prevents client-local fallback.
     const hasRenderer = Boolean(this.hasAuthoritativeWindow())
@@ -89,7 +89,7 @@ export abstract class OrcaRuntimeWithGetStatus extends RuntimeWorkspaceChangeEve
       process.platform === 'win32' && isWindowsProcessStartTimeAvailable()
     const capabilities: NonNullable<RuntimeStatus['capabilities']> = RUNTIME_CAPABILITIES.filter(
       (capability) =>
-        // The browser engine (an orcad's sidecar app may be older) holds the profiles these clear.
+        // The browser engine (an openkodod's sidecar app may be older) holds the profiles these clear.
         ((capability !== BROWSER_GOOGLE_COOKIE_CLEAR_CAPABILITY &&
           capability !== BROWSER_PROFILE_COOKIE_CLEAR_CAPABILITY) ||
           runtimeBrowserCommandsFactorySupportsEngineCapability(capability)) &&
@@ -115,16 +115,16 @@ export abstract class OrcaRuntimeWithGetStatus extends RuntimeWorkspaceChangeEve
     if (hasOffscreen || hasHeadlessCommands) {
       capabilities.push(BROWSER_HEADLESS_RUNTIME_CAPABILITY)
     }
-    // Only initialized identity stores can serve this process-wide, pre-ready mode; orcad serves its engine's.
+    // Only initialized identity stores can serve this process-wide, pre-ready mode; openkodod serves its engine's.
     if (isBrowserIdentityModeStoreInitialized() || runtimeBrowserEngineIdentity()) {
       capabilities.push(BROWSER_IDENTITY_RUNTIME_CAPABILITY)
     }
     // Only the daemon inside a distro can receive that distro's projects.
     if (servesLocalWslMigrationSource()) {
-      capabilities.push(ORCAD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY)
+      capabilities.push(OPENKODOD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY)
     }
     // Advertise only installed blob kinds; senders refuse unsupported kinds instead of silently losing staged data.
-    capabilities.push(...advertisedOrcadMigrationDestinationCapabilities())
+    capabilities.push(...advertisedOpenkododMigrationDestinationCapabilities())
     // Certificate proceed belongs to whichever process hosts the page, renderer or offscreen.
     if (canBrowse) {
       capabilities.push(
@@ -144,7 +144,7 @@ export abstract class OrcaRuntimeWithGetStatus extends RuntimeWorkspaceChangeEve
     if (hasOffscreen) {
       capabilities.push(BROWSER_TAB_PROFILE_SWITCH_RUNTIME_CAPABILITY)
     }
-    capabilities.push(...orcaAccountRuntimeCapabilities())
+    capabilities.push(...openkodoAccountRuntimeCapabilities())
     capabilities.push(...googleRuntimeCapabilities())
     if (getManagedServerActions()) {
       capabilities.push(MANAGED_SERVER_RUNTIME_CAPABILITY)

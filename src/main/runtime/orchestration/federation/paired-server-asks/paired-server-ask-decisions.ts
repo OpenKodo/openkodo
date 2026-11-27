@@ -1,6 +1,6 @@
 // A person's answer to a card on this computer or its phone: allow once, always allow the server,
 // or deny. The first answer to find the card waiting wins.
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { ClientAskPayload } from '../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 import { runLifecycleWriteTransaction } from '../../db/lifecycle-write-transaction-runner'
 import {
@@ -17,7 +17,7 @@ export type PairedServerDecision = 'once' | 'always' | 'deny'
 
 /** A person's answer to a card; false when another answer got there first. */
 export function decidePairedServerAsk(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   messageId: string,
   decision: PairedServerDecision
 ): boolean {

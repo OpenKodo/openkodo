@@ -11,7 +11,7 @@ describe('watchWindowsRuntimeFileExplorer', () => {
     'ends the watch with a terminal error when its root directory is deleted',
     async () => {
       const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
-      const root = mkdtempSync(join(tmpdir(), 'orca-windows-file-watch-'))
+      const root = mkdtempSync(join(tmpdir(), 'openkodo-windows-file-watch-'))
       const batches: FsChangeEvent[][] = []
       const terminalErrors: string[] = []
       const dispose = watchWindowsRuntimeFileExplorer(

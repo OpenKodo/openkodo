@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import pg from 'pg'
 import { parseIntoClientConfig } from 'pg-connection-string'
-import { applyPostgresSchema, schemaLockTarget } from '@orca-cloud/postgres-schema'
+import { applyPostgresSchema, schemaLockTarget } from '@openkodo-cloud/postgres-schema'
 import { applyOwnedPostgresSchema } from './schema-migration-owner.js'
 
 const POSTGRES_LOCK_TIMEOUT_MS = 1_000
@@ -67,7 +67,7 @@ class AfterCommitQueue {
 function logAfterCommitFailure(error: unknown): void {
   console.warn(
     JSON.stringify({
-      event: 'orca_cloud_database_after_commit_failed',
+      event: 'openkodo_cloud_database_after_commit_failed',
       error: error instanceof Error ? error.name : typeof error
     })
   )
@@ -281,7 +281,7 @@ class PostgresDatabase implements CloudDatabase {
         }
         console.warn(
           JSON.stringify({
-            event: `orca_${this.service}_postgres_transaction_retry`,
+            event: `openkodo_${this.service}_postgres_transaction_retry`,
             code: String((error as { code?: unknown }).code),
             attempt
           })
@@ -361,7 +361,7 @@ async function applySchemaOnUntimedPool(
   try {
     if (!migrationOwner) {
       await applyPostgresSchema(schemaStatements, (statement) => database.query(statement), {
-        eventPrefix: `orca_${service}_postgres_schema`,
+        eventPrefix: `openkodo_${service}_postgres_schema`,
         // No catalog pre-check: lock timeout cannot prove DDL already exists, so retain bounded retry.
         retryLockTimeout: true
       })
@@ -388,7 +388,7 @@ async function applySchemaOnUntimedPool(
 export function absorbPostgresClientErrors(pool: Pick<pg.Pool, 'on'>, service: string): void {
   pool.on('error', () => {
     // Handle idle pg errors after the pool removes failed clients; otherwise transient SQL faults crash-loop the service.
-    console.warn(`[orca-${service}] idle PostgreSQL client failed`)
+    console.warn(`[openkodo-${service}] idle PostgreSQL client failed`)
   })
   // The pool's own listener is off while a client is checked out, so a session Postgres ends mid-use
   // (an idle-in-transaction timeout, a proxy reset) would throw an unhandled 'error' and kill the
@@ -398,14 +398,14 @@ export function absorbPostgresClientErrors(pool: Pick<pg.Pool, 'on'>, service: s
     client.on('error', (error) => {
       // Past the handshake, so its error carries no connection string.
       console.warn(
-        `[orca-${service}] PostgreSQL client failed: ${String((error as { code?: unknown }).code)} ${error.message}`
+        `[openkodo-${service}] PostgreSQL client failed: ${String((error as { code?: unknown }).code)} ${error.message}`
       )
     })
   })
 }
 
 export type OpenCloudDatabaseInput = {
-  // Names the SQLite file and every log event, e.g. 'push' -> orca-push.sqlite, orca_push_postgres_*.
+  // Names the SQLite file and every log event, e.g. 'push' -> openkodo-push.sqlite, openkodo_push_postgres_*.
   service: string
   schemaStatements: string[]
   databaseUrl?: string
@@ -444,7 +444,7 @@ export async function openCloudDatabase(input: OpenCloudDatabaseInput): Promise<
     database = new PostgresDatabase(pool, input.service)
   } else {
     mkdirSync(input.dataDir, { recursive: true })
-    const sqlite = new DatabaseSync(join(input.dataDir, `orca-${input.service}.sqlite`), {
+    const sqlite = new DatabaseSync(join(input.dataDir, `openkodo-${input.service}.sqlite`), {
       readOnly: input.readOnly ?? false
     })
     if (!input.readOnly) {

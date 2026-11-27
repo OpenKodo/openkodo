@@ -95,7 +95,7 @@ export function connectorRefResolver(
   }
 }
 
-// The name a ref's own find gives it ("#orca", "owner/name#12"); the ref itself when it can't say.
+// The name a ref's own find gives it ("#openkodo", "owner/name#12"); the ref itself when it can't say.
 async function refLabel(
   transport: ConnectorTransport,
   signal: AbortSignal,

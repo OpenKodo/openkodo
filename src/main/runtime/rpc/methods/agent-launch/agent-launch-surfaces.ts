@@ -21,7 +21,7 @@ import { supportedStructuredSeedOptions } from '../../../agent-session/installat
 import { deliverTerminalAgentLaunchPrompt } from './agent-launch-terminal-prompt'
 import { AgentLaunchSessionAlreadyExistsError } from '../../../../../shared/agent-launch/contracts/agent-launch-session-already-exists'
 import { AGENT_SESSION_CREATE_MESSAGE_RUNTIME_CAPABILITY } from '../../../../../shared/agent-session/lifecycle/operations/agent-session-create-capabilities'
-import { createOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { createOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { toAgentLaunchPreferences } from '../../../../../shared/agent-launch/choices/agent-launch-preferences'
 import { paneIdentity } from '../../../terminal/identity/runtime-terminal-pane-identity'
 import {
@@ -60,7 +60,7 @@ export function agentLaunchSurfaceFactory(
       firstMessage,
       signal
     }) => {
-      const sessionId = requested ?? createOrcaSessionId(randomUUID)
+      const sessionId = requested ?? createOpenKodoSessionId(randomUUID)
       const supported = supportedStructuredSeedOptions(
         agent,
         narrowStructuredLaunchSeedOptions(options)

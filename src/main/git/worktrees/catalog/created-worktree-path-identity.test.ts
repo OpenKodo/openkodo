@@ -22,7 +22,7 @@ async function git(args: string[], cwd: string): Promise<void> {
 }
 
 beforeEach(async () => {
-  scratchDir = await realpath(await mkdtemp(join(tmpdir(), 'orca-created-worktree-path-')))
+  scratchDir = await realpath(await mkdtemp(join(tmpdir(), 'openkodo-created-worktree-path-')))
 })
 
 afterEach(async () => {

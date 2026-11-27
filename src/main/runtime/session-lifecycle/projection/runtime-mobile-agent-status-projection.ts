@@ -87,7 +87,9 @@ export function renewRuntimeMobileAgentStatusFromPtyTitle(
     ...(status.tabId ? { tabId: status.tabId } : {}),
     ...(status.terminalTitle ? { terminalTitle: status.terminalTitle } : {}),
     ...(status.providerSession ? { providerSession: status.providerSession } : {}),
-    ...(status.orcaSessionId !== undefined ? { orcaSessionId: status.orcaSessionId } : {}),
+    ...(status.openkodoSessionId !== undefined
+      ? { openkodoSessionId: status.openkodoSessionId }
+      : {}),
     ...(state === 'done' ? completedTurnFields(status) : {})
   })
   const titleConfirmsState =
@@ -147,7 +149,7 @@ export function renewRuntimeMobileAgentStatusFromPtyTitle(
 export type RuntimeHookAgentRowLookup = {
   providerSession: AgentProviderSessionMetadata | null
   /** The host's OpenKodo id for that provider session's conversation (see `AgentStatusEntry`). */
-  orcaSessionId: string | null | undefined
+  openkodoSessionId: string | null | undefined
   providerSessionAgentType: string | null
   providerSessionReceivedAt: number | null
   agentType: string | null
@@ -209,7 +211,7 @@ export function selectRuntimeHookAgentRowForPane(
   }
   return {
     providerSession: session?.providerSession ?? null,
-    orcaSessionId: session?.orcaSessionId,
+    openkodoSessionId: session?.openkodoSessionId,
     providerSessionAgentType: session?.agentType ?? null,
     providerSessionReceivedAt: session?.receivedAt ?? null,
     agentType: agent?.agentType ?? null,

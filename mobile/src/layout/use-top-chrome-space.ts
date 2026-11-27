@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, useWindowDimensions, type HostInstance } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import type { ReservedRect } from '../../modules/orca-reserved-regions/src'
+import type { ReservedRect } from '../../modules/openkodo-reserved-regions/src'
 import { useTopChromeOcclusions } from './reserved-regions'
 import { topChromeSpace } from './top-chrome-space'
 

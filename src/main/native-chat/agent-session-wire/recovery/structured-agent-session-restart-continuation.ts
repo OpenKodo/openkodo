@@ -123,7 +123,7 @@ function restartNoteWriter(
     }
     await session.journal.appendItem(
       {
-        provider: 'orca',
+        provider: 'openkodo',
         clientMessageId: `${RESTART_CONTINUATION_ROW_PREFIX}${sessionId}:${host.now()}`
       },
       { kind: 'status', text, ...(tone ? { tone } : {}) },

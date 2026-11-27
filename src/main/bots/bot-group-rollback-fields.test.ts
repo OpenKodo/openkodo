@@ -75,7 +75,7 @@ function room(question = 'q-1') {
   const arrive = (requestId: string, answer: string) =>
     orchestration.insertPeerMailMessage({
       conversationId: conversation.conversation_id,
-      remoteParty: 'orca_session_id:atlas',
+      remoteParty: 'openkodo_session_id:atlas',
       message: {
         id: `msg_${requestId}`,
         from: 'Atlas on Build Box',

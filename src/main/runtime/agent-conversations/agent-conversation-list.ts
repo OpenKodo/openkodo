@@ -39,7 +39,7 @@ export function projectAgentConversationList(
         continue
       }
       agents.push({
-        orcaSessionId: row.orcaSessionId ?? null,
+        openkodoSessionId: row.openkodoSessionId ?? null,
         // A chat's pane key leads with its tab id.
         kind: structuredAgentSessionIdFromTabId(row.paneKey) === null ? 'terminal' : 'chat',
         agent: row.agentType,
@@ -89,7 +89,7 @@ export async function agentConversationPlaces(
   },
   resolved: ResolvedAgentConversation
 ): Promise<AgentConversationRow[]> {
-  const { orcaSessionId } = resolved
+  const { openkodoSessionId } = resolved
   // One namer per show, as one `worktree.ps` pass names its rows.
   const name = runtime.orchestrationSenderNames.agentRowNamer()
   const tabOf = (status: { paneKey: string; tabId?: string }) =>
@@ -120,7 +120,7 @@ export async function agentConversationPlaces(
       )
     )
     return {
-      orcaSessionId,
+      openkodoSessionId,
       kind: resolved.kind,
       agent: status.agentType ?? null,
       state: status.state,
@@ -153,7 +153,7 @@ async function agentConversationStatuses(resolved: ResolvedAgentConversation) {
   } else {
     // Sleeping panes too, as `agent list` lists them.
     paneKeys = (
-      (await agentHookServer.terminalAgentPlaces(resolved.orcaSessionId, {
+      (await agentHookServer.terminalAgentPlaces(resolved.openkodoSessionId, {
         includeSleeping: true
       })) ?? []
     ).map((place) => place.paneKey)
@@ -164,7 +164,7 @@ async function agentConversationStatuses(resolved: ResolvedAgentConversation) {
       const ours =
         resolved.kind === 'chat'
           ? status.structuredHost !== undefined
-          : status.orcaSessionId === resolved.orcaSessionId
+          : status.openkodoSessionId === resolved.openkodoSessionId
       return worktreeId && ours ? [{ ...status, worktreeId }] : []
     })
   )

@@ -5,7 +5,7 @@ import { readWorkerDock, readWorkerDockResult } from '../../dock/worker-dock-rea
 import { projectWorkerFleet } from '../../../rpc/methods/orchestration/worker/fleet/worker-list-projection'
 
 const SESSION = '11111111-1111-4111-8111-111111111111'
-const PARTY = `orca_session_id:${SESSION}`
+const PARTY = `openkodo_session_id:${SESSION}`
 const NOW = Date.parse('2026-11-25T12:00:00Z')
 
 let db: OrchestrationDb
@@ -25,7 +25,7 @@ function startedWorker(): string {
     startOptions: { agent: 'codex' }
   })
   db.db
-    .prepare('UPDATE dispatch_contexts SET creator_orca_session_id = ? WHERE id = ?')
+    .prepare('UPDATE dispatch_contexts SET creator_openkodo_session_id = ? WHERE id = ?')
     .run(SESSION, dispatch.id)
   return dispatch.id
 }

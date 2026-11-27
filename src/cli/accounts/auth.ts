@@ -5,12 +5,12 @@ import { rejectRemoteSelectionFlags } from '../dispatch/remote-selection-flag-re
 import {
   OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY,
   OPENKODO_ACCOUNT_SERVER_SIGN_IN_RUNTIME_CAPABILITY
-} from '../../shared/orca-account-runtime-capabilities'
+} from '../../shared/openkodo-account-runtime-capabilities'
 import {
-  isOrcaAccountApprovalPrompt,
-  type OrcaAccountServerStatus,
-  type OrcaAccountSignInStatus
-} from '../../shared/orca-account-server-sign-in'
+  isOpenKodoAccountApprovalPrompt,
+  type OpenKodoAccountServerStatus,
+  type OpenKodoAccountSignInStatus
+} from '../../shared/openkodo-account-server-sign-in'
 import { type AuthInterruptSource, processInterrupts } from './auth-interrupts'
 import { assertHostCapability, driveHostSignIn } from './host-sign-in-driver'
 
@@ -32,11 +32,11 @@ function rejectRemoteFlags(ctx: HandlerContext, command: string): void {
   )
 }
 
-function describeStorageWarning(status: OrcaAccountServerStatus): string | null {
+function describeStorageWarning(status: OpenKodoAccountServerStatus): string | null {
   return status.storage.kind === 'host-key' ? `Note: ${status.storage.warning}` : null
 }
 
-function formatStatus(status: OrcaAccountServerStatus): string {
+function formatStatus(status: OpenKodoAccountServerStatus): string {
   const lines: string[] = []
   if (status.state === 'signed-in') {
     const org = status.orgName ? ` · ${status.orgName}` : ''
@@ -66,7 +66,7 @@ function formatStatus(status: OrcaAccountServerStatus): string {
 }
 
 /** Picks an org by id or exact name, case-insensitively. */
-function findOrg(status: OrcaAccountServerStatus, wanted: string): string {
+function findOrg(status: OpenKodoAccountServerStatus, wanted: string): string {
   const needle = wanted.trim().toLowerCase()
   const match = status.organizations?.find(
     (org) => org.orgId.toLowerCase() === needle || org.name.toLowerCase() === needle
@@ -92,21 +92,25 @@ export async function runAuthLogin(
   }
   // Hosts from before approve-in-browser would show a paste prompt this command no longer reads.
   await assertHostSupportsSignIn(ctx, OPENKODO_ACCOUNT_APPROVE_IN_BROWSER_RUNTIME_CAPABILITY)
-  const started = await ctx.client.call<OrcaAccountSignInStatus>('orcaAccount.signIn.start', {
-    switchAccount: ctx.flags.get('switch') === true,
-    approveInBrowser: true
-  })
+  const started = await ctx.client.call<OpenKodoAccountSignInStatus>(
+    'openkodoAccount.signIn.start',
+    {
+      switchAccount: ctx.flags.get('switch') === true,
+      approveInBrowser: true
+    }
+  )
   const done = await driveHostSignIn(ctx, {
     flow: started.result,
-    methods: { wait: 'orcaAccount.signIn.wait', cancel: 'orcaAccount.signIn.cancel' },
+    methods: { wait: 'openkodoAccount.signIn.wait', cancel: 'openkodoAccount.signIn.cancel' },
     interrupts,
-    accepts: (waiting) => isOrcaAccountApprovalPrompt(waiting.prompt),
+    accepts: (waiting) => isOpenKodoAccountApprovalPrompt(waiting.prompt),
     onWaiting: async (waiting) => {
       const prompt = waiting.prompt
-      if (!isOrcaAccountApprovalPrompt(prompt)) {
+      if (!isOpenKodoAccountApprovalPrompt(prompt)) {
         return
       }
-      const before = (await ctx.client.call<OrcaAccountServerStatus>('orcaAccount.status')).result
+      const before = (await ctx.client.call<OpenKodoAccountServerStatus>('openkodoAccount.status'))
+        .result
       const warning = describeStorageWarning(before)
       process.stderr.write(
         [
@@ -141,7 +145,7 @@ export async function runAuthLogin(
   let account = done.account
   if (typeof orgFlag === 'string') {
     account = (
-      await ctx.client.call<OrcaAccountServerStatus>('orcaAccount.selectOrg', {
+      await ctx.client.call<OpenKodoAccountServerStatus>('openkodoAccount.selectOrg', {
         orgId: findOrg(account, orgFlag)
       })
     ).result
@@ -162,7 +166,7 @@ export const AUTH_HANDLERS: Record<string, CommandHandler> = {
   'auth status': async (ctx) => {
     rejectRemoteFlags(ctx, 'openkodo auth status')
     await assertHostSupportsSignIn(ctx)
-    const status = await ctx.client.call<OrcaAccountServerStatus>('orcaAccount.status')
+    const status = await ctx.client.call<OpenKodoAccountServerStatus>('openkodoAccount.status')
     printResult(status, ctx.json, formatStatus)
     if (status.result.state !== 'signed-in') {
       process.exitCode = 1
@@ -171,7 +175,7 @@ export const AUTH_HANDLERS: Record<string, CommandHandler> = {
   'auth logout': async (ctx) => {
     rejectRemoteFlags(ctx, 'openkodo auth logout')
     await assertHostSupportsSignIn(ctx)
-    const status = await ctx.client.call<OrcaAccountServerStatus>('orcaAccount.signOut')
+    const status = await ctx.client.call<OpenKodoAccountServerStatus>('openkodoAccount.signOut')
     printResult(status, ctx.json, formatStatus)
   }
 }

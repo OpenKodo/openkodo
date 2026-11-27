@@ -16,9 +16,9 @@ import {
   writeRuntimeEnvironmentSidecarEntry
 } from './runtime-environment-sidecar'
 import {
-  addManagedOrcadEnvironment,
-  removeManagedOrcadEnvironment
-} from './runtime-environment-managed-orcad-operations'
+  addManagedOpenkododEnvironment,
+  removeManagedOpenkododEnvironment
+} from './runtime-environment-managed-openkodod-operations'
 import { readPersistedEnvironmentStore } from './runtime-environment-store-file'
 
 const pairing = {
@@ -37,7 +37,7 @@ function readJson(path: string): { environments?: unknown[]; entries?: Record<st
 describe('runtime environment store with records this build cannot read', () => {
   let userDataPath: string
   beforeEach(() => {
-    userDataPath = mkdtempSync(join(tmpdir(), 'orca-environment-unreadable-'))
+    userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-environment-unreadable-'))
     vi.spyOn(console, 'warn').mockImplementation(() => {})
   })
   afterEach(async () => {
@@ -123,7 +123,7 @@ describe('runtime environment store with records this build cannot read', () => 
       userDataPath,
       readPersistedEnvironmentStore(userDataPath).environments,
       alpha,
-      { orcadMigratedAt: new Date(0).toISOString() }
+      { openkododMigratedAt: new Date(0).toISOString() }
     )
 
     expect(readJson(getRuntimeEnvironmentSidecarPath(userDataPath)).entries?.future).toEqual(
@@ -138,11 +138,11 @@ describe('runtime environment store with records this build cannot read', () => 
     }
 
     function setup() {
-      const pinned = addManagedOrcadEnvironment(userDataPath, {
+      const pinned = addManagedOpenkododEnvironment(userDataPath, {
         id: 'pinned',
         name: 'Pinned',
         pairingCode: encodePairingOffer({ ...pairing, endpoint: 'ws://127.0.0.1:41000/runtime' }),
-        orcadDeployment: tunnel,
+        openkododDeployment: tunnel,
         now: 100
       })
       const other = add('Other')
@@ -159,7 +159,7 @@ describe('runtime environment store with records this build cannot read', () => 
       const { pinned, other, sidecarPath } = setup()
       const storeBefore = readFileSync(getEnvironmentStorePath(userDataPath), 'utf8')
 
-      expect(() => removeManagedOrcadEnvironment(userDataPath, pinned.id)).toThrow(
+      expect(() => removeManagedOpenkododEnvironment(userDataPath, pinned.id)).toThrow(
         'newer version of OpenKodo'
       )
       expect(readFileSync(getEnvironmentStorePath(userDataPath), 'utf8')).toBe(storeBefore)

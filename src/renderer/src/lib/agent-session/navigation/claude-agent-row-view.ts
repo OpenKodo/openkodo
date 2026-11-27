@@ -128,7 +128,7 @@ export async function viewClaudeAgentFromRow(agent: DashboardAgentRow): Promise<
           terminal: terminal.handle,
           sessionId,
           ...(!parentDestination ? { agentId } : {}),
-          client: { id: 'orca-desktop', type: 'desktop' }
+          client: { id: 'openkodo-desktop', type: 'desktop' }
         },
         { timeoutMs: 8000, ...options }
       )

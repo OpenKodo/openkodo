@@ -57,7 +57,7 @@ it('relays an approval as waiting when a parallel call finishes behind a questio
 })
 
 it('does not relay a closed question as work after the turn and its child ended', () => {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-relayed-question-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-relayed-question-'))
   try {
     // Only a child the rollout knows outlives the root's Stop.
     const rollout = [

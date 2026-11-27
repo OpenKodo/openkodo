@@ -6,7 +6,7 @@ import {
   type BotItemNoteBy
 } from '../../shared/bots/bot-item-note'
 import type { BotItemLinkView } from '../../shared/bots/bot-items'
-import { appendOrcaChatCard } from '../runtime/orca-chat-card'
+import { appendOpenKodoChatCard } from '../runtime/openkodo-chat-card'
 import type { BotItemsRemote } from './bot-items-ops'
 import type { BotItemEventRecord, BotItemRecord } from './bot-items-schema'
 
@@ -34,7 +34,7 @@ export function appendBotItemNote(
   note: AgentJournalBotItemNoteItem | null
 ): void {
   if (note) {
-    appendOrcaChatCard(sessionId, note, 'showing an item change in its chat')
+    appendOpenKodoChatCard(sessionId, note, 'showing an item change in its chat')
   }
 }
 

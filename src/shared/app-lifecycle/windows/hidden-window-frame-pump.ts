@@ -3,7 +3,7 @@
  * webContents.invalidate() does not change that, so CDP Page.captureScreenshot under
  * OPENKODO_BACKGROUND_LAUNCH=1 waits forever. A one-frame renderer style flip does produce a frame.
  */
-const HIDDEN_WINDOW_FRAME_PUMP_ARGUMENT = '--orca-hidden-window-frame-pump'
+const HIDDEN_WINDOW_FRAME_PUMP_ARGUMENT = '--openkodo-hidden-window-frame-pump'
 
 export const HIDDEN_WINDOW_FRAME_PUMP_STOP_CHANNEL = 'window:hidden-frame-pump-stop'
 export const HIDDEN_WINDOW_FRAME_PUMP_INTERVAL_MS = 750

@@ -9,7 +9,7 @@ import {
   update,
   type TableSort,
   type TreeItem
-} from 'orca'
+} from 'openkodo'
 import { folderChildren, PAGE_SIZE, sortedFiles } from './files'
 
 export const sort = atom<TableSort>({ column: 'name', direction: 'asc' })

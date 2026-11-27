@@ -3,9 +3,9 @@ import type {
   OrchestrationWorkerServer
 } from './environment-transport'
 import type { RuntimeOrchestrationEnvelope } from '../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
-import { OrcaRuntimeWithHasExactPersistedTerminalSurfaceIdentity } from '../../workspaces/persisted-surfaces/has-exact-persisted-terminal-surface-identity'
+import { OpenKodoRuntimeWithHasExactPersistedTerminalSurfaceIdentity } from '../../workspaces/persisted-surfaces/has-exact-persisted-terminal-surface-identity'
 
-export abstract class RuntimeFederationOperations extends OrcaRuntimeWithHasExactPersistedTerminalSurfaceIdentity {
+export abstract class RuntimeFederationOperations extends OpenKodoRuntimeWithHasExactPersistedTerminalSurfaceIdentity {
   async resolveOrchestrationWorkerServer(selector: string): Promise<OrchestrationWorkerServer> {
     return await this.orchestrationFederation.resolveWorkerServer(selector)
   }

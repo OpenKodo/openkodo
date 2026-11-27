@@ -18,7 +18,7 @@ const ref = () => ({
   worktreeFingerprint: null
 })
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'orca-claude-stream-'))
+  directory = await mkdtemp(join(tmpdir(), 'openkodo-claude-stream-'))
 })
 afterEach(async () => {
   await rm(directory, { recursive: true, force: true })

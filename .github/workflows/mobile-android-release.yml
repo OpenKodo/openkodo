@@ -1,7 +1,7 @@
 name: Mobile Android Release
 
 # Release Android independently so App Store review cannot block its shipping cadence.
-# dev.orca.app ships on Google Play and as an APK on GitHub; both are the same Play-signed build.
+# dev.openkodo.app ships on Google Play and as an APK on GitHub; both are the same Play-signed build.
 on:
   push:
     tags:
@@ -41,14 +41,14 @@ jobs:
       # Play only accepts bundles signed with the upload key, and re-signs them with Google's app signing key.
       - name: Check upload key configuration
         env:
-          ORCA_ANDROID_KEYSTORE_BASE64: ${{ secrets.ORCA_ANDROID_KEYSTORE_BASE64 }}
-          ORCA_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ORCA_ANDROID_KEYSTORE_PASSWORD }}
-          ORCA_ANDROID_KEY_ALIAS: ${{ secrets.ORCA_ANDROID_KEY_ALIAS }}
-          ORCA_ANDROID_KEY_PASSWORD: ${{ secrets.ORCA_ANDROID_KEY_PASSWORD }}
+          OPENKODO_ANDROID_KEYSTORE_BASE64: ${{ secrets.OPENKODO_ANDROID_KEYSTORE_BASE64 }}
+          OPENKODO_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.OPENKODO_ANDROID_KEYSTORE_PASSWORD }}
+          OPENKODO_ANDROID_KEY_ALIAS: ${{ secrets.OPENKODO_ANDROID_KEY_ALIAS }}
+          OPENKODO_ANDROID_KEY_PASSWORD: ${{ secrets.OPENKODO_ANDROID_KEY_PASSWORD }}
         run: |
           set -euo pipefail
           missing=()
-          for name in ORCA_ANDROID_KEYSTORE_BASE64 ORCA_ANDROID_KEYSTORE_PASSWORD ORCA_ANDROID_KEY_ALIAS ORCA_ANDROID_KEY_PASSWORD; do
+          for name in OPENKODO_ANDROID_KEYSTORE_BASE64 OPENKODO_ANDROID_KEYSTORE_PASSWORD OPENKODO_ANDROID_KEY_ALIAS OPENKODO_ANDROID_KEY_PASSWORD; do
             if [ -z "${!name:-}" ]; then
               missing+=("$name")
             fi
@@ -90,29 +90,29 @@ jobs:
 
       - name: Decode upload keystore
         env:
-          ORCA_ANDROID_KEYSTORE_BASE64: ${{ secrets.ORCA_ANDROID_KEYSTORE_BASE64 }}
+          OPENKODO_ANDROID_KEYSTORE_BASE64: ${{ secrets.OPENKODO_ANDROID_KEYSTORE_BASE64 }}
         run: |
           set -euo pipefail
           umask 077
-          printf '%s' "$ORCA_ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/orca-release.keystore"
+          printf '%s' "$OPENKODO_ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/openkodo-release.keystore"
 
       - name: Build Play app bundle
         env:
-          ORCA_ANDROID_REQUIRE_RELEASE_SIGNING: 'true'
-          ORCA_ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/orca-release.keystore
-          ORCA_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ORCA_ANDROID_KEYSTORE_PASSWORD }}
-          ORCA_ANDROID_KEY_ALIAS: ${{ secrets.ORCA_ANDROID_KEY_ALIAS }}
-          ORCA_ANDROID_KEY_PASSWORD: ${{ secrets.ORCA_ANDROID_KEY_PASSWORD }}
+          OPENKODO_ANDROID_REQUIRE_RELEASE_SIGNING: 'true'
+          OPENKODO_ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/openkodo-release.keystore
+          OPENKODO_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.OPENKODO_ANDROID_KEYSTORE_PASSWORD }}
+          OPENKODO_ANDROID_KEY_ALIAS: ${{ secrets.OPENKODO_ANDROID_KEY_ALIAS }}
+          OPENKODO_ANDROID_KEY_PASSWORD: ${{ secrets.OPENKODO_ANDROID_KEY_PASSWORD }}
         run: cd android && ./gradlew bundleRelease
 
       - name: Remove upload keystore
         if: always()
-        run: rm -f "$RUNNER_TEMP/orca-release.keystore"
+        run: rm -f "$RUNNER_TEMP/openkodo-release.keystore"
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v7
         with:
-          name: orca-mobile-aab
+          name: openkodo-mobile-aab
           path: mobile/android/app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
 
@@ -142,7 +142,7 @@ jobs:
       - name: Download AAB artifact
         uses: actions/download-artifact@v8
         with:
-          name: orca-mobile-aab
+          name: openkodo-mobile-aab
           path: mobile/build/play
 
       - name: Setup Ruby and fastlane
@@ -154,13 +154,13 @@ jobs:
 
       - name: Write Play service account key
         env:
-          ORCA_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.ORCA_PLAY_SERVICE_ACCOUNT_JSON }}
+          OPENKODO_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.OPENKODO_PLAY_SERVICE_ACCOUNT_JSON }}
         run: |
           set -euo pipefail
           umask 077
           key="$RUNNER_TEMP/play-service-account.json"
-          printf '%s' "$ORCA_PLAY_SERVICE_ACCOUNT_JSON" > "$key"
-          echo "ORCA_PLAY_JSON_KEY_PATH=$key" >> "$GITHUB_ENV"
+          printf '%s' "$OPENKODO_PLAY_SERVICE_ACCOUNT_JSON" > "$key"
+          echo "OPENKODO_PLAY_JSON_KEY_PATH=$key" >> "$GITHUB_ENV"
 
       # Production promotion stays a manual step in Play Console.
       - name: Upload to the internal testing track
@@ -208,13 +208,13 @@ jobs:
 
       - name: Write Play service account key
         env:
-          ORCA_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.ORCA_PLAY_SERVICE_ACCOUNT_JSON }}
+          OPENKODO_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.OPENKODO_PLAY_SERVICE_ACCOUNT_JSON }}
         run: |
           set -euo pipefail
           umask 077
           key="$RUNNER_TEMP/play-service-account.json"
-          printf '%s' "$ORCA_PLAY_SERVICE_ACCOUNT_JSON" > "$key"
-          echo "ORCA_PLAY_JSON_KEY_PATH=$key" >> "$GITHUB_ENV"
+          printf '%s' "$OPENKODO_PLAY_SERVICE_ACCOUNT_JSON" > "$key"
+          echo "OPENKODO_PLAY_JSON_KEY_PATH=$key" >> "$GITHUB_ENV"
 
       # Fails unless the V3.0 signer is Google's Play app signing key.
       - name: Download and verify the Play-signed universal APK
@@ -246,7 +246,7 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v7
         with:
-          name: orca-mobile-apk
+          name: openkodo-mobile-apk
           path: |
             mobile/build/play/app-release.apk
             mobile/build/play/app-release.apk.sha256
@@ -335,13 +335,13 @@ jobs:
               fi
             fi
             if [ ! -s "$notes_file" ]; then
-              printf 'Orca Mobile Android %s\n' "$tag" > "$notes_file"
+              printf 'OpenKodo Mobile Android %s\n' "$tag" > "$notes_file"
             fi
             write_notes_with_verification
 
             gh release create "$tag" \
               --repo "$GITHUB_REPOSITORY" \
-              --title "Orca Mobile Android $tag" \
+              --title "OpenKodo Mobile Android $tag" \
               --prerelease \
               --latest=false \
               --notes-file "$notes_file" \

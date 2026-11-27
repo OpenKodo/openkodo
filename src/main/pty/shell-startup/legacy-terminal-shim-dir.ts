@@ -13,7 +13,7 @@ import {
 const LEGACY_TERMINAL_ATTRIBUTION_ENABLE_ENV_KEY = 'OPENKODO_ENABLE_GIT_ATTRIBUTION'
 const LEGACY_TERMINAL_ATTRIBUTION_BYPASS_ENV_KEY = 'OPENKODO_ATTRIBUTION_BYPASS'
 
-const LEGACY_SHIM_ROOT_DIR = 'orca-terminal-attribution'
+const LEGACY_SHIM_ROOT_DIR = 'openkodo-terminal-attribution'
 // Distinguish retired version 7 so rollback rewrites tombstones instead of treating them as active wrappers.
 const LEGACY_SHIM_VERSION = '7-neutralized'
 const NEUTRALIZATION_RETRY_DELAYS_MS = [1_000, 5_000, 15_000, 30_000]
@@ -118,7 +118,7 @@ function writeNeutralWrappers(rootDir: string): void {
 }
 
 function writeFileAtomically(filePath: string, contents: string, mode: number): void {
-  const temporaryPath = `${filePath}.orca-neutralizing-${process.pid}`
+  const temporaryPath = `${filePath}.openkodo-neutralizing-${process.pid}`
   try {
     rmSync(temporaryPath, { force: true, recursive: true })
     writeFileSync(temporaryPath, contents, { encoding: 'utf8', flag: 'wx', mode })

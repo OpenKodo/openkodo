@@ -26,7 +26,7 @@ export function getNativeOpenCodeSqliteClient(): Promise<OpenCodeSqliteWorkerCli
         if (!workerPath) {
           throw new Error(`OpenCode SQLite worker entry not found under ${__dirname}`)
         }
-        return spawnWorkerThread(workerPath, { name: 'orca-opencode-sqlite-reader' })
+        return spawnWorkerThread(workerPath, { name: 'openkodo-opencode-sqlite-reader' })
       }
     })
   })

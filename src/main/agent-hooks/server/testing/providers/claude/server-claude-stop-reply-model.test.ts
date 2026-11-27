@@ -34,10 +34,10 @@ let transcriptPath: string
 let server: AgentHookServer
 
 beforeEach(async () => {
-  root = mkdtempSync(join(tmpdir(), 'orca-stop-reply-model-'))
+  root = mkdtempSync(join(tmpdir(), 'openkodo-stop-reply-model-'))
   transcriptPath = join(root, `${SESSION}.jsonl`)
   server = new AgentHookServer()
-  await server.start({ env: 'production', userDataPath: join(root, 'orca') })
+  await server.start({ env: 'production', userDataPath: join(root, 'openkodo') })
 })
 
 afterEach(() => {

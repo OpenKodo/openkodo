@@ -5,7 +5,7 @@ import { homedir } from 'node:os'
 import { promisify } from 'node:util'
 import { buildPosixCommandPathLookupScript } from '../../../shared/shell/command-resolution/posix-command-path-lookup'
 import { getSystemCliInstallDirectories } from '../../../shared/shell/command-resolution/system-cli-install-dirs'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   beginLocalCommandSelection,
   isCommandOnLocalPath,

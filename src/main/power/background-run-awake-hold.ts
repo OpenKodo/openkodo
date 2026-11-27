@@ -1,6 +1,6 @@
 // Keeps the host from idle-sleeping while a bot's background run (Tidy-up, Look around) works.
 // Only the desktop process can hold the system awake; it installs the hold at startup, and a host
-// without one (orcad) runs without it.
+// without one (openkodod) runs without it.
 
 export type BackgroundRunAwakeHold = () => () => void
 

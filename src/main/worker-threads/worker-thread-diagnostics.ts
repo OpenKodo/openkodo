@@ -176,7 +176,7 @@ function annotateCrashReport(
   const spaces = mainHeapSpaces()
   const annotations: [string, string][] = [
     [
-      'orca-isolate-heap',
+      'openkodo-isolate-heap',
       `main=${Math.round(mainHeap / MB)}MB old=${spaces.mainOldMB}MB ` +
         `large=${spaces.mainLargeObjectMB}MB total=${Math.round(total / MB)}MB ` +
         `workers=${heaps.length} at=${new Date().toISOString()}`
@@ -186,7 +186,7 @@ function annotateCrashReport(
   for (let index = 0; index < REPORTED_WORKERS; index += 1) {
     const sample = heaps[index]
     annotations.push([
-      `orca-worker-${index}`,
+      `openkodo-worker-${index}`,
       sample ? workerAnnotation(sample, ledger.get(sample.entry.threadId)) : ''
     ])
   }
@@ -216,13 +216,13 @@ function readRetention(): Retention {
 function retentionAnnotations({ reads, lanes }: Retention): [string, string][] {
   return [
     [
-      'orca-reader-pool',
+      'openkodo-reader-pool',
       `flight=${reads.inFlight} unconsumed=${reads.unconsumed} wait=${reads.waiting} ` +
         `oldest=${reads.oldestWaitMs}ms held=${Math.round(reads.outstandingBytes / MB)}MB ` +
         `recv=${Math.round(reads.receivedBytes / MB)}MB cons=${Math.round(reads.consumedBytes / MB)}MB exp=${reads.creditWaitsExpired}`
     ],
     [
-      'orca-chat-subscribers',
+      'openkodo-chat-subscribers',
       `busy=${lanes.busy} pending=${lanes.pending} oldest=${lanes.oldestMs}ms ` +
         `liveText=${Math.round(lanes.liveTextBytes / MB)}MB capped=${liveTextCapReachedCount()}`
     ]
@@ -266,7 +266,7 @@ function workerAnnotation(sample: WorkerHeap, slot: WorkerSendLedgerEntry | unde
 
 /** Written before the reader gets the request, so an abort mid-read still names it. */
 function annotateReaderRequest(reader: number, request: JournalReaderRunningRequest | null): void {
-  const key = `orca-reader-${reader}`
+  const key = `openkodo-reader-${reader}`
   try {
     if (request) {
       const value =

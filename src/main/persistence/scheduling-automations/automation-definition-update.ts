@@ -33,7 +33,7 @@ import {
   normalizeAutomationSetupDecisionForWorkspaceMode
 } from './automation-context-migration'
 import { updatedAutomationSchedule } from './automation-schedule-operations'
-import { refuseManagedOrcadHost } from '../../automations/ownership/orcad-fenced-automation'
+import { refuseManagedOpenkododHost } from '../../automations/ownership/openkodod-fenced-automation'
 import {
   automationProjectionContext,
   automationWorkspaceSshPin,
@@ -229,7 +229,13 @@ export function mergeAutomationUpdate(
     workspaceSshPin,
     workspaceSshPinMoved
   })
-  refuseManagedOrcadHost(operations.state, executionTarget, workspaceSshPin, current, previousPin)
+  refuseManagedOpenkododHost(
+    operations.state,
+    executionTarget,
+    workspaceSshPin,
+    current,
+    previousPin
+  )
   if (options?.destination) {
     assertExecutionTargetMatchesDestination(executionTarget, options.destination, workspaceSshPin)
   }

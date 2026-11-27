@@ -12,7 +12,10 @@ export type ReportFollowUpAction =
 
 type FollowUpCommandAction = Exclude<ReportFollowUpAction, { kind: 'information' }>
 
-export function formatReportFollowUpCommand(action: FollowUpCommandAction, cli = 'orca'): string {
+export function formatReportFollowUpCommand(
+  action: FollowUpCommandAction,
+  cli = 'openkodo'
+): string {
   switch (action.kind) {
     case 'send':
       return `${cli} orchestration send --to dispatch:${action.dispatchId} --subject "..." --body "..."`
@@ -34,7 +37,7 @@ function quoteArgument(name: string): string {
 }
 
 /** The action line every view prints under a finished task's report, and the refusal repeats. */
-export function formatReportFollowUpLine(action: ReportFollowUpAction, cli = 'orca'): string {
+export function formatReportFollowUpLine(action: ReportFollowUpAction, cli = 'openkodo'): string {
   if (action.kind === 'information') {
     return 'For your information: there is nothing to answer'
   }

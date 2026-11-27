@@ -199,7 +199,7 @@ export function isExpectedAgentProcess(
   )
 }
 
-/** Agents whose process names (orca, acli, cn, vibe) also belong to ordinary tools. */
+/** Agents whose process names (openkodo, acli, cn, vibe) also belong to ordinary tools. */
 export const GENERIC_PROCESS_NAME_AGENTS: ReadonlySet<TerminalAgent> = new Set([
   'claude-agent-teams',
   'rovo',
@@ -207,7 +207,7 @@ export const GENERIC_PROCESS_NAME_AGENTS: ReadonlySet<TerminalAgent> = new Set([
   'mistral-vibe'
 ])
 
-/** Before writing to `agent`: its expectedProcess, or a name it is recognized by (dsh-TUI 0.19 runs as `dsh-tui`, not `dsh`); generic names such as Agent Teams' `orca` launcher prove nothing. */
+/** Before writing to `agent`: its expectedProcess, or a name it is recognized by (dsh-TUI 0.19 runs as `dsh-tui`, not `dsh`); generic names such as Agent Teams' `openkodo` launcher prove nothing. */
 export function isAgentForegroundProcess(
   processName: string | null | undefined,
   agent: TuiAgent

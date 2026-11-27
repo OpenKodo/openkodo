@@ -3,7 +3,7 @@ import { credentialFileExists, inCredentialFileOrder } from '../../credentials/c
 import { readFile, writeFile } from 'node:fs/promises'
 import {
   LEGACY_WORKSPACE_ID,
-  ensureOrcaDir,
+  ensureOpenKodoDir,
   getWorkspaceFilePath,
   getWorkspaceLoginPath,
   getWorkspaceTokenPath
@@ -89,7 +89,7 @@ export async function getWorkspaceFile(): Promise<LinearWorkspaceFile> {
 
 export async function writeWorkspaceFile(file: LinearWorkspaceFile): Promise<void> {
   return inCredentialFileOrder(getWorkspaceFilePath(), async () => {
-    await ensureOrcaDir()
+    await ensureOpenKodoDir()
     const persistedWorkspaces = file.workspaces.filter(
       (workspace) => workspace.id !== LEGACY_WORKSPACE_ID
     )

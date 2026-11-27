@@ -1,7 +1,7 @@
 import type { TerminalSplitOptions } from './terminal-split-surface'
 import type { SplitPaneInMainOptions, SplitPaneSource } from './terminal-split-in-main'
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
-import { OrcaRuntimeWithStopExplicitlyClosedTabPtys } from '../../session-tabs/terminal-retirement/explicit-terminal-close-stops'
+import { OpenKodoRuntimeWithStopExplicitlyClosedTabPtys } from '../../session-tabs/terminal-retirement/explicit-terminal-close-stops'
 import type { RuntimeTerminalSplit } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { randomUUID } from 'node:crypto'
 import {
@@ -13,7 +13,7 @@ import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layo
 import type { Worktree } from '../../../../shared/worktree/types'
 import { applyRemoteViewerLaunchEnv } from './remote-viewer-launch-env'
 
-export abstract class OrcaRuntimeWithSplitTerminal extends OrcaRuntimeWithStopExplicitlyClosedTabPtys {
+export abstract class OpenKodoRuntimeWithSplitTerminal extends OpenKodoRuntimeWithStopExplicitlyClosedTabPtys {
   protected abstract splitPtyBackedTerminal(
     pty: RuntimePtyWorktreeRecord,
     opts?: TerminalSplitOptions,

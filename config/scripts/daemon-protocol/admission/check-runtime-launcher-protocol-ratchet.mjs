@@ -10,23 +10,23 @@ import {
   parseDaemonProtocolFacts
 } from '../schema-facts/daemon-protocol-facts.mjs'
 
-/** Files that decide which runtime executable launches orcad or the terminal daemon. */
+/** Files that decide which runtime executable launches openkodod or the terminal daemon. */
 export const RUNTIME_LAUNCHER_PATHS = [
-  // orcad handoff to its bundled runtime, and the pinned runtimes it can hand off to.
-  'src/main/orcad/runtime-launch/orcad-bundled-runtime.ts',
-  'src/main/orcad/launcher.ts',
-  'config/scripts/orcad-distribution/server-bundle/orcad-entry-build.mjs',
+  // openkodod handoff to its bundled runtime, and the pinned runtimes it can hand off to.
+  'src/main/openkodod/runtime-launch/openkodod-bundled-runtime.ts',
+  'src/main/openkodod/launcher.ts',
+  'config/scripts/openkodod-distribution/server-bundle/openkodod-entry-build.mjs',
   'src/shared/node-runtime/node-runtime-pin.ts',
   'src/main/node-runtime/pinned-runtime-materializer.ts',
   'src/main/node-runtime/runtime-archive-download.ts',
-  'src/main/managed-server/install/orcad-remote-node-runtime.ts',
-  // orcad slot layout: which runtime file a packaged slot carries.
-  'src/shared/remote-runtime/orcad-distribution/orcad-artifacts.ts',
-  'config/scripts/orcad-distribution/server-bundle/build-orcad.mjs',
-  'config/scripts/orcad-distribution/prebuilds/build-orcad-node.mjs',
-  'config/scripts/orcad-distribution/template/build-orcad-template.mjs',
+  'src/main/managed-server/install/openkodod-remote-node-runtime.ts',
+  // openkodod slot layout: which runtime file a packaged slot carries.
+  'src/shared/remote-runtime/openkodod-distribution/openkodod-artifacts.ts',
+  'config/scripts/openkodod-distribution/server-bundle/build-openkodod.mjs',
+  'config/scripts/openkodod-distribution/prebuilds/build-openkodod-node.mjs',
+  'config/scripts/openkodod-distribution/template/build-openkodod-template.mjs',
   // Remote slot runtime selection.
-  'src/main/managed-server/install/orcad-remote-runtime.ts',
+  'src/main/managed-server/install/openkodod-remote-runtime.ts',
   // Terminal daemon host launch: which executable the daemon child is forked from.
   'src/main/daemon/launch/daemon-launched-child.ts',
   'src/main/daemon/launch/daemon-launched-child-spawn.ts',

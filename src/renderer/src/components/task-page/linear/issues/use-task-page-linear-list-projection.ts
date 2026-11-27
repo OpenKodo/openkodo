@@ -1,6 +1,6 @@
 import type { TaskPageLinearListSelectionModel } from './use-task-page-linear-list-selection'
 import { useMemo, useCallback, useEffect } from 'react'
-import { filterLinearIssuesBySearchQuery } from '@/components/task-page/linear/issues/task-page-linear-in-orca-issues'
+import { filterLinearIssuesBySearchQuery } from '@/components/task-page/linear/issues/task-page-linear-in-openkodo-issues'
 import {
   clampLinearIssueListLimit,
   LINEAR_ISSUE_LIST_MAX
@@ -39,11 +39,11 @@ export function useTaskPageLinearListProjectionPrelude(model: TaskPageLinearList
   } = model
   const filteredLinearIssues = useMemo(() => {
     const searchedIssues =
-      linearMode === 'in-orca'
+      linearMode === 'in-openkodo'
         ? filterLinearIssuesBySearchQuery(displayedLinearIssues, appliedLinearSearch)
         : displayedLinearIssues
     // Linked-workspace mode has no fetch-more path; team filtering would silently hide linked tickets.
-    if (activeLinearIssueContextLabel || linearMode === 'in-orca') {
+    if (activeLinearIssueContextLabel || linearMode === 'in-openkodo') {
       return searchedIssues
     }
     // Why: team options can arrive after issue rows render; treat an empty selection as "all" until reconciliation sets teams.

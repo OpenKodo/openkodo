@@ -1,10 +1,10 @@
 import type { BrowserWindow } from 'electron'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { wakeFolderRepoGitUpgradeWatch } from '../worktrees/listing/folder-repo-git-upgrade-wake'
 import { scheduleCurrentWorktreeBaseDirectoryWatcherSync } from '../worktrees/creation/worktree-base-directory-watcher'
 
 type RepoRemoteClientNotifier = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'notifyReposChangedForRemoteClients' | 'notifyAutomationsChanged'
 >
 

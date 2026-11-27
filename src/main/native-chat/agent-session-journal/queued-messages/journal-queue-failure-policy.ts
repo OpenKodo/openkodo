@@ -42,7 +42,7 @@ export function reportedTurnItemId(item: AgentJournalRenderItem): string | null 
     return null
   }
   const identity = parseAgentJournalItemKey(item.itemId)
-  if (identity?.provider === 'orca' && identity.clientMessageId.startsWith('command-result:')) {
+  if (identity?.provider === 'openkodo' && identity.clientMessageId.startsWith('command-result:')) {
     return null
   }
   return turnScope.turnItemId

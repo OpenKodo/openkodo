@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { PeerMailDeliverParams } from '../../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { resolveBareOrchestrationRecipient } from '../messaging/recipient-routing'
@@ -11,7 +11,7 @@ const NOTHING_DELIVERED = { effectsApplied: false } as const
  *  `landedAgain` reads whether a copy landed while the recipient was being prepared; `received`
  *  makes the answer for a stored copy from its mailbox and whether a waiter takes it. */
 export async function storePeerMailForAgent<R>(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: Pick<
     z.infer<typeof PeerMailDeliverParams>,
     'conversationId' | 'messageId' | 'senderLabel' | 'subject' | 'type' | 'priority' | 'threadId'

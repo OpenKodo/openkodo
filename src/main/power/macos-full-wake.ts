@@ -3,7 +3,7 @@
 // kIOPMSystemCapabilityGraphics and leaves it by gaining it back, while display sleep alone keeps
 // the capability. `pmset -g systemstate` prints the current capabilities, so the reading holds for
 // a process that has seen no wake yet.
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 export type PmsetRun = (args: string[]) => Promise<string>
 

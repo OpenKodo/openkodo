@@ -5,7 +5,7 @@ import {
 import { useEffect, useLayoutEffect, type MutableRefObject, type RefObject } from 'react'
 import { useAppStore } from '@/store/index'
 import { normalizeBrowserNavigationUrl } from '../../../../../shared/browser/navigation/browser-url'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../shared/browser/browser-blank-page'
 import { normalizeBrowserGuestSrc } from '../../../../../shared/browser/extensions/browser-extension-url'
 import {
@@ -64,7 +64,7 @@ export function useBrowserPageWebviewUrlSync({
 
   useEffect(() => {
     const webview = webviewRef.current
-    if (!webview || webview.dataset.orcaAttachPending) {
+    if (!webview || webview.dataset.openkodoAttachPending) {
       return
     }
     const page = useAppStore

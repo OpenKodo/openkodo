@@ -96,7 +96,7 @@ export function getDeleteWorktreeDialogCopy(
         )
       : args.isFolderWorkspaceDelete
         ? t(
-            'auto.components.sidebar.DeleteWorktreeDialog.removeSingleFolderFromOrca',
+            'auto.components.sidebar.DeleteWorktreeDialog.removeSingleFolderFromOpenKodo',
             'Removes it from OpenKodo. The folder on disk is kept.'
           )
         : t(

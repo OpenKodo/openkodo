@@ -1,6 +1,6 @@
 import { webContents } from 'electron'
 import { BrowserCertificateTrustController } from '../../certificate-trust/browser-certificate-trust-controller'
-import '../../../../shared/orca-profiles/constants'
+import '../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../shared/browser/browser-blank-page'
 import { normalizeBrowserNavigationUrl } from '../../../../shared/browser/navigation/browser-url'
 // oxlint-disable-next-line import/no-cycle -- browser subsystem singleton hub (browserManager); breaking it needs DI and test-mock updates, left for a human
@@ -9,7 +9,7 @@ import { BrowserManagerEventForwarding } from './browser-manager-event-forwardin
 type OpenLinkInTab = (url: string, activate: boolean) => void
 
 export class BrowserManager extends BrowserManagerEventForwarding {
-  protected openLinkInOrcaTab(
+  protected openLinkInOpenKodoTab(
     browserTabId: string,
     rawUrl: string,
     activate?: boolean,
@@ -20,7 +20,7 @@ export class BrowserManager extends BrowserManagerEventForwarding {
     const open: OpenLinkInTab | null = renderer
       ? // The renderer owns OpenKodo's tab model; forward the validated URL for materialization.
         (url, activateTab) =>
-          renderer.send('browser:open-link-in-orca-tab', {
+          renderer.send('browser:open-link-in-openkodo-tab', {
             browserPageId: browserTabId,
             url,
             // An agent's link must not move the desktop user's view.
@@ -39,7 +39,7 @@ export class BrowserManager extends BrowserManagerEventForwarding {
     return true
   }
 
-  /** Headless serve pages have no renderer tab model; the runtime opens tabs in their workspace. A page with no workspace (orcad's Electron browser) has no tab list to open into. */
+  /** Headless serve pages have no renderer tab model; the runtime opens tabs in their workspace. A page with no workspace (openkodod's Electron browser) has no tab list to open into. */
   private resolveOffscreenTabOpener(browserTabId: string): OpenLinkInTab | null {
     const opener = this.offscreenTabOpener
     const webContentsId = this.webContentsIdByTabId.get(browserTabId)

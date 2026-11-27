@@ -23,13 +23,13 @@ import { botTurnFor } from '../../../bots/bot-turn-for'
 import { sessionCallerOf } from '../../orchestration/addressing/orchestration-caller-identity'
 import { noteBotRequestPost } from './orchestration/messaging/bot-request-outcome'
 import { connectorPostAttempts } from '../../../external-conversations/connector-post-attempts'
-import { orcaSignInServer } from '../../../bots/orca-sign-in-server'
+import { openkodoSignInServer } from '../../../bots/openkodo-sign-in-server'
 import {
   hostNotSignedIn,
-  orcaCloudNeedsSignIn,
+  openkodoCloudNeedsSignIn,
   serverSignInSteps,
-  type OrcaSignInServer
-} from '../../../../shared/bots/host-orca-sign-in'
+  type OpenKodoSignInServer
+} from '../../../../shared/bots/host-openkodo-sign-in'
 
 /** A refusal whose code the CLI reads and whose message a bot can act on. */
 export class ConnectorActError extends Error {
@@ -55,7 +55,10 @@ function searchedWorkspace(key: { source: string; externalId: string } | undefin
 }
 
 /** The host signed out of OpenKodo, for the bot to relay: a headless server names itself and how it signs in. */
-function signedOutError(host: { server: OrcaSignInServer; botName: string }): ConnectorActError {
+function signedOutError(host: {
+  server: OpenKodoSignInServer
+  botName: string
+}): ConnectorActError {
   const steps = serverSignInSteps(host.server, host.botName, 'bot')
   return new ConnectorActError(
     'connector_not_connected',
@@ -70,7 +73,7 @@ export function actFailure(
   verb: string,
   ref: string | undefined,
   failure: { status: number | null; error: string | null; sessionRefused?: true },
-  host: { server: OrcaSignInServer; botName: string }
+  host: { server: OpenKodoSignInServer; botName: string }
 ): ConnectorActError {
   // Signed out, or a sign-in the connector-token route still refused after the session refresh.
   if (failure.sessionRefused || (failure.status === 401 && failure.error === 'signed_out')) {
@@ -136,8 +139,8 @@ export async function actAsBot(
   const features = cloud?.cloudFeatures()
   // Signed out, or a sign-in OpenKodo Cloud refused after its hello (features stay cached): say so, and
   // on a headless server how it signs in, before calling a cloud that would refuse it.
-  if (cloud && orcaCloudNeedsSignIn(cloud.status())) {
-    throw signedOutError({ server: orcaSignInServer(runtime), botName: bot.name })
+  if (cloud && openkodoCloudNeedsSignIn(cloud.status())) {
+    throw signedOutError({ server: openkodoSignInServer(runtime), botName: bot.name })
   }
   if (!cloud || !features) {
     throw new ConnectorActError(
@@ -271,7 +274,7 @@ export async function actAsBot(
   }
   if (!answer.ok) {
     throw actFailure(verb, ref, answer, {
-      server: orcaSignInServer(runtime),
+      server: openkodoSignInServer(runtime),
       botName: bot.name
     })
   }

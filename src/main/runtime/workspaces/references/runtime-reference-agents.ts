@@ -14,9 +14,9 @@ import {
   structuredAgentSessionTabId
 } from '../../../../shared/agent-session/view/structured-agent-session-projection'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { peekOpenedAgentSessionRecordStore } from '../../agent-session/records/agent-session-record-store-slot'
 import type { OrchestrationDb } from '../../orchestration/db/orchestration-db'
 import { structuredSessionMailReach } from '../../orchestration/mailbox/routing/structured-session-mail-address'
@@ -104,8 +104,8 @@ export function createReferenceAgentIndex(
         ...record.providerHandleChain.map(({ handle }) => handle.nativeId)
       ],
       liveness: local ? observeStructuredSession(record.sessionId).status : 'unverifiable',
-      ...(reachable && isOrcaSessionId(record.sessionId)
-        ? { mailbox: formatOrcaSessionAddress(record.sessionId) }
+      ...(reachable && isOpenKodoSessionId(record.sessionId)
+        ? { mailbox: formatOpenKodoSessionAddress(record.sessionId) }
         : {})
     })
   }

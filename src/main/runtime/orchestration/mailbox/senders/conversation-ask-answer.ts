@@ -3,8 +3,8 @@
 // item mail carrying the owner's answer to a question the chat asked during such a turn.
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { MessageRow } from '../../db/orchestration-records'
-import { canonicalOrcaSessionId } from '../../addressing/session-lineage/canonical-orca-session-id'
-import { isOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { canonicalOpenKodoSessionId } from '../../addressing/session-lineage/canonical-openkodo-session-id'
+import { isOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { BOT_ITEM_MAIL_SENDER } from '../../../../../shared/bots/bot-item-note-runs'
 
 /** The request a reply answers: its answer payload names it, else its thread is it. */
@@ -32,9 +32,9 @@ function answeredRequestId(
 
 const sameSession = (a: string, b: string): boolean =>
   a === b ||
-  (isOrcaSessionId(a) &&
-    isOrcaSessionId(b) &&
-    canonicalOrcaSessionId(a) === canonicalOrcaSessionId(b))
+  (isOpenKodoSessionId(a) &&
+    isOpenKodoSessionId(b) &&
+    canonicalOpenKodoSessionId(a) === canonicalOpenKodoSessionId(b))
 
 /** Whether OpenKodo's item mail carries the owner's answer to a question the reading chat asked; item
  *  mail answers no request, so this is its whole check. */

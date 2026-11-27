@@ -25,9 +25,9 @@ import type { RuntimeTerminalTitleEvidence } from './runtime-worktree-ps-activit
 import type { RuntimeWorktreeAgentSource } from './runtime-worktree-agent-source'
 import { structuredAgentSessionIdFromTabId } from '../../../../shared/agent-session/view/structured-agent-session-tab-id'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 
 type OrchestrationDisplay = {
   taskTitle?: string | null
@@ -42,7 +42,9 @@ function agentAddress(source: RuntimeWorktreeAgentSource): string | undefined {
   }
   const sessionId =
     source.structuredHost && source.tabId ? structuredAgentSessionIdFromTabId(source.tabId) : null
-  return sessionId && isOrcaSessionId(sessionId) ? formatOrcaSessionAddress(sessionId) : undefined
+  return sessionId && isOpenKodoSessionId(sessionId)
+    ? formatOpenKodoSessionAddress(sessionId)
+    : undefined
 }
 
 const UNLISTED: AgentListVerdict = { listed: false }
@@ -115,7 +117,7 @@ export function attachRuntimeWorktreeAgentRows(args: {
     const row: RuntimeWorktreeAgentRow = {
       paneKey: source.paneKey,
       ...(address ? { address } : {}),
-      ...(source.orcaSessionId ? { orcaSessionId: source.orcaSessionId } : {}),
+      ...(source.openkodoSessionId ? { openkodoSessionId: source.openkodoSessionId } : {}),
       parentPaneKey,
       state: source.state,
       ...(source.workingMode ? { workingMode: source.workingMode } : {}),

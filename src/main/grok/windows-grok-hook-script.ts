@@ -17,15 +17,15 @@ export function buildWindowsGrokHookScript(): string {
     'if defined OPENKODO_AGENT_HOOK_ENDPOINT if exist "%OPENKODO_AGENT_HOOK_ENDPOINT%" call "%OPENKODO_AGENT_HOOK_ENDPOINT%" 2>nul',
     ...buildWindowsHookEnvironmentGuardLines(),
     'set "OPENKODO_GROK_HOME="',
-    'if not defined GROK_HOME goto :orca_grok_home_ready',
-    `if not "%GROK_HOME:~${GROK_HOME_ENVELOPE_MAX_LENGTH},1%"=="" goto :orca_grok_home_ready`,
+    'if not defined GROK_HOME goto :openkodo_grok_home_ready',
+    `if not "%GROK_HOME:~${GROK_HOME_ENVELOPE_MAX_LENGTH},1%"=="" goto :openkodo_grok_home_ready`,
     // setx can store a trailing quote, which is illegal in paths and breaks cmd parsing; strip it first.
     'set "OPENKODO_GROK_HOME=%GROK_HOME:"=%"',
-    'if not defined OPENKODO_GROK_HOME goto :orca_grok_home_ready',
+    'if not defined OPENKODO_GROK_HOME goto :openkodo_grok_home_ready',
     'if "%OPENKODO_GROK_HOME:~-1%"=="\\" set "OPENKODO_GROK_HOME=%OPENKODO_GROK_HOME%."',
     // Leave room for the trailing-backslash sentinel in the relay envelope.
     `if not "%OPENKODO_GROK_HOME:~${GROK_HOME_ENVELOPE_MAX_LENGTH},1%"=="" set "OPENKODO_GROK_HOME="`,
-    ':orca_grok_home_ready',
+    ':openkodo_grok_home_ready',
     WINDOWS_GROK_HOOK_POST_COMMAND,
     'exit /b 0',
     ''

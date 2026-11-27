@@ -6,7 +6,7 @@ import { getSecretStore, hasSecretStore } from '../../../../shared/secure-storag
 import { writeSecureFile } from '../../../../shared/secure-storage/secure-file'
 import type { CdpCookie } from '../browser-cdp-cookie'
 
-const SNAPSHOT_FORMAT = 'orca-browser-session-cookies-v1'
+const SNAPSHOT_FORMAT = 'openkodo-browser-session-cookies-v1'
 const SNAPSHOT_DIRECTORY = 'browser-session-cookies'
 const ROUTE_SNAPSHOT_DIRECTORY = 'route-partitions'
 

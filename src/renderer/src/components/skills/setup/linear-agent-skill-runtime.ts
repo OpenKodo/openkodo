@@ -5,7 +5,7 @@ import { translate } from '@/i18n/i18n'
 import type { Translate } from '@/i18n/use-translate'
 import type { LocalAgentRuntime } from '../../../lib/skills/runtime/skill-runtime-command'
 
-const LOCAL_DISMISS_STORAGE_KEY_PREFIX = 'orca.linearTicketsSkill.setupDismissed'
+const LOCAL_DISMISS_STORAGE_KEY_PREFIX = 'openkodo.linearTicketsSkill.setupDismissed'
 
 export type LinearAgentSkillPromptSettings = Pick<
   GlobalSettings,

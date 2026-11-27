@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import type { OrcaProfileCloudSummary } from '../../../../shared/orca-profiles/orca-profiles'
+import type { OpenKodoProfileCloudSummary } from '../../../../shared/openkodo-profiles/openkodo-profiles'
 import { appRailAccount } from './AppRailAccountMenu'
 
-const CLOUD: OrcaProfileCloudSummary = {
+const CLOUD: OpenKodoProfileCloudSummary = {
   cloudProfileId: 'c1',
   userId: 'u1',
   email: 'alex@example.com',

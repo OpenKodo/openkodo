@@ -1,6 +1,6 @@
-import type { OrcaCloudAuthConfig } from '../../orca-profiles/cloud-auth/profile-cloud-auth-config'
+import type { OpenKodoCloudAuthConfig } from '../../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
 import type { MobilePairingConnectionContext } from '../rpc/server/runtime-rpc-pairing-types'
-import type { OrcaRuntimeRpcServer } from '../rpc/server/runtime-rpc'
+import type { OpenKodoRuntimeRpcServer } from '../rpc/server/runtime-rpc'
 import type {
   DeviceCredentialInstalled,
   PairingGetEndpointsParams,
@@ -26,10 +26,10 @@ import { RelayDemandLedger } from './demand/relay-demand-ledger'
 import { createRelayRegionPreferenceReader } from './region-selection/relay-region-preference-reader'
 
 type DesktopRelayServiceOptions = {
-  authConfig: OrcaCloudAuthConfig
+  authConfig: OpenKodoCloudAuthConfig
   userDataPath: string
   appVersion: string
-  runtimeRpc: OrcaRuntimeRpcServer
+  runtimeRpc: OpenKodoRuntimeRpcServer
   onStatus: MobileRelayStatusPublisher
 }
 
@@ -42,7 +42,7 @@ const PHONE_REQUEST_READINESS_WAIT_MS = 10_000
 export class DesktopRelayService {
   private readonly coordinator: RelayAuthCoordinator
   private readonly revokeOutbox: RelayRevokeOutbox
-  private readonly runtimeRpc: OrcaRuntimeRpcServer
+  private readonly runtimeRpc: OpenKodoRuntimeRpcServer
   private readonly demandLedger: RelayDemandLedger
   private demandExpiryTimer: ReturnType<typeof setTimeout> | null = null
   private livenessTimer: ReturnType<typeof setInterval> | null = null

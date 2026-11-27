@@ -19,8 +19,8 @@ Pass `--json` to every `openkodo plugin` command and branch on `error.code`, not
 - **Your files:** a new folder, ideally its own Git repository, with `openkodo-plugin.json` at its
   root, made by `openkodo plugin create` (never overwrites). Paths are on the machine that runs OpenKodo;
   with `--environment` pass an absolute path on that server.
-- **Types:** `openkodo plugin types <dir>` (also run by `dev watch`) writes `.orca/types/` for every
-  surface; the plugin's `tsconfig.json` extends `./.orca/types/tsconfig.json`. Never edit `.orca/`.
+- **Types:** `openkodo plugin types <dir>` (also run by `dev watch`) writes `.openkodo/types/` for every
+  surface; the plugin's `tsconfig.json` extends `./.openkodo/types/tsconfig.json`. Never edit `.openkodo/`.
 - **Ground truth:** the references below match this OpenKodo. Read them instead of guessing.
 
 ## Pick the shape
@@ -38,10 +38,10 @@ Use the lowest `execution` profile that covers the request; it decides what the 
 | A sidebar panel of lists, forms, buttons, status                                    | `sandboxed-ui`; `panels` entry `.tsx` with `"ui": "components"`     | `--template components`; example `hello-tsx`         |
 | A sidebar panel needing its own HTML, canvas or libraries                           | `sandboxed-ui`; `panels` entry `.html` (or `.ts`/`.tsx`)            | `--template panel`                                   |
 | A palette command or shortcut for a built-in OpenKodo action                        | `declarative`; `commands[].action`, `keybindings`                   | hand-written; fields in `references/manifest.md`     |
-| A command that runs code, storage, secrets, terminal text                           | `trusted-worker`; `main`, `commands` (no `action`), `capabilities`  | example `hello-orca`                                 |
+| A command that runs code, storage, secrets, terminal text                           | `trusted-worker`; `main`, `commands` (no `action`), `capabilities`  | example `hello-openkodo`                             |
 | A panel backed by its own Node code, storage or settings                            | `trusted-worker`; `main`, a panel, `capabilities`, `settings`       | `--template worker-panel`                            |
 | Settings the user edits in OpenKodo's Settings                                      | `contributes.settings` and `settings:own`                           | `references/manifest.md`                             |
-| Reacting to workspace or agent status changes                                       | `trusted-worker`; `main`, `contributes.events`, `*:read` capability | example `hello-orca`                                 |
+| Reacting to workspace or agent status changes                                       | `trusted-worker`; `main`, `contributes.events`, `*:read` capability | example `hello-openkodo`                             |
 | Changing or refusing terminal text, workspace creates or agent launches and prompts | `trusted-worker`; `main`, `contributes.hooks`                       | `--template hook`; `references/recipes.md`           |
 | A virtual machine environment recipe                                                | `declarative`; `contributes.vmRecipes`                              | hand-written; fields in `references/manifest.md`     |
 | A status bar item (a worker can update it)                                          | `declarative`; `contributes.statusBarItems`                         | `references/recipes.md`                              |
@@ -55,17 +55,17 @@ with `terminal:send` can.
 
 - `.ts`, `.tsx`, `.mts` and `.jsx` load as written; transpiling never type-checks, so run
   `npx tsc -p .`.
-- Panels and frame scripts import only `openkodo`, `orca/*` and relative files (`./todos` finds
+- Panels and frame scripts import only `openkodo`, `openkodo/*` and relative files (`./todos` finds
   `todos.tsx`, `todos.ts`, then `todos/index.*`). A bare package such as `react` fails: copy its
-  ESM files in, or bundle with `--external:openkodo --external:'orca/*'` (example `hello-components`).
+  ESM files in, or bundle with `--external:openkodo --external:'openkodo/*'` (example `hello-components`).
 - A worker `main` is `.js`, `.mjs`, `.ts` or `.mts`. Bare imports resolve as Node does, but do not
-  commit `node_modules/`; bundle npm dependencies. `orca/worker` is types only: `import type`.
+  commit `node_modules/`; bundle npm dependencies. `openkodo/worker` is types only: `import type`.
 
 ## The loop
 
 1. `openkodo plugin create ./my-plugin --template components --json`. Leave out `--publisher`.
 2. In a background terminal, run `openkodo plugin dev watch ./my-plugin --check --shot
-   ./my-plugin/.orca/shots --json` and keep reading it (events in `references/workflow.md`).
+   ./my-plugin/.openkodo/shots --json` and keep reading it (events in `references/workflow.md`).
    Consent exits `3`: see [Approval](#approval).
 3. Edit and save. Each save prints `reloaded`, a `check` of what each panel drew or threw, and a
    `shot` whose `path` is a PNG of the panel exactly as OpenKodo draws it: read the image and fix
@@ -98,10 +98,10 @@ fingerprint OpenKodo did not give you. New capabilities or changed commands prin
 
 ## Gotchas
 
-- `engines.orca` must cover the newest `Since` you use (`references/manifest.md`); components,
+- `engines.openkodo` must cover the newest `Since` you use (`references/manifest.md`); components,
   build-less entries and leaving out `publisher` need `>=1.4.246`. Ids starting `openkodo-` are reserved.
 - `plugin validate` also checks each literal `openkodo.host.call('name')`: an unknown or proposed
-  method fails (warns when the plugin feature-detects with `openkodo.host.has`); one newer than `engines.orca` or
+  method fails (warns when the plugin feature-detects with `openkodo.host.has`); one newer than `engines.openkodo` or
   wrong for the surface warns. The plugin directory runs it on the latest OpenKodo release.
 - `update(atom, fn)` takes an updater only; `set(atom, value)` stores a value. Both throw while
   rendering. Components panels have no hooks and no DOM: state lives in atoms.
@@ -111,12 +111,12 @@ fingerprint OpenKodo did not give you. New capabilities or changed commands prin
 - A save that fails to load keeps the last good render with an inline `file:line:col` error.
 - No network: requests outside the plugin's files fail. Ship assets and load them relatively.
 - `shell.openExternal` and `files.saveAs` need a press on a settled control; never call on load.
-- A worker's `main` must `export default function activate(orca)`.
+- A worker's `main` must `export default function activate(openkodo)`.
 - A worker save restarts the worker and drops its in-memory state; keep counters and caches you need across saves in `openkodo.storage`.
 - A plugin holds at most 2,000 files and 50 MiB; each transpiled file 1 MiB.
 - Custom editors: sync with `openkodo.document.session()`. `plugin check` fails on an editor's syntax
   errors, missing files and refused imports without running it (and warns on `eval`); test its
-  sync in Node with `mockEditorHost({ text })` from `orca/testing` (`replace`, `conflictNext`,
+  sync in Node with `mockEditorHost({ text })` from `openkodo/testing` (`replace`, `conflictNext`,
   `flush`, `edits`).
 
 ## Conditional references
@@ -132,5 +132,5 @@ need (`--references` lists them; `--full` if `--reference` is rejected).
 | Writing a components panel: components, props, atoms, `host`                         | `references/components.md` |
 | Calling the host from a worker, frame or panel; capabilities                         | `references/host-api.md`   |
 | Subscribing to worker, frame or panel events and their payloads                      | `references/events.md`     |
-| Writing or fixing `openkodo-plugin.json`, choosing `engines.orca`                    | `references/manifest.md`   |
+| Writing or fixing `openkodo-plugin.json`, choosing `engines.openkodo`                | `references/manifest.md`   |
 | Running any `openkodo plugin` command you have not used in this task                 | `references/cli.md`        |

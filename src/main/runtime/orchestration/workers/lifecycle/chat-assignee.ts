@@ -1,9 +1,9 @@
 import type { SessionPartyReader } from '../../addressing/session-party-reader'
 import type { AgentSessionConversationView } from '../../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
-import { parseOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { parseOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 
-import type { OrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { DISPATCH_CONTEXT_COLUMN_LIST } from '../../db/row-column-lists'
 import type { DispatchContextRow } from '../../db/orchestration-records'
@@ -22,8 +22,8 @@ import {
 /** The chat a Dispatch assignee handle names; null for a terminal or a structured worker. */
 export function chatAssigneeSessionId(
   assigneeHandle: string | null | undefined
-): OrcaSessionId | null {
-  return assigneeHandle ? parseOrcaSessionAddress(assigneeHandle) : null
+): OpenKodoSessionId | null {
+  return assigneeHandle ? parseOpenKodoSessionAddress(assigneeHandle) : null
 }
 
 export type ChatAssigneeObservation =
@@ -34,7 +34,7 @@ export type ChatAssigneeObservation =
 
 /** Idle chats remain live; only closed chats exited, while missing or remote records are unverifiable. */
 export function observeChatAssignee(
-  sessionId: OrcaSessionId,
+  sessionId: OpenKodoSessionId,
   db: SessionPartyReader | null | undefined,
   store: AgentSessionRecordReader | null = readAgentSessionRecordStore()
 ): ChatAssigneeObservation {

@@ -1,4 +1,4 @@
-// .orca/issue-command is local; openkodo.yaml supplies the tracked project default.
+// .openkodo/issue-command is local; openkodo.yaml supplies the tracked project default.
 import { readFileSync, existsSync, mkdirSync, writeFileSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadHooks } from './hooks'
@@ -13,7 +13,7 @@ import {
 
 type IssueCommandGitOptions = GitRuntimeOptions | (() => GitRuntimeOptions)
 
-const OPENKODO_DIR = '.orca'
+const OPENKODO_DIR = '.openkodo'
 const ISSUE_COMMAND_FILENAME = 'issue-command'
 
 export function getIssueCommandFilePath(repoPath: string): string {
@@ -144,12 +144,12 @@ export async function writeIssueCommand(
       return
     }
 
-    const orcaDir = join(repoPath, OPENKODO_DIR)
-    if (!existsSync(orcaDir)) {
-      mkdirSync(orcaDir, { recursive: true })
+    const openkodoDir = join(repoPath, OPENKODO_DIR)
+    if (!existsSync(openkodoDir)) {
+      mkdirSync(openkodoDir, { recursive: true })
     }
     if (!(await isIssueCommandIgnoredByGit(repoPath, options))) {
-      ensureOrcaDirIgnored(repoPath)
+      ensureOpenKodoDirIgnored(repoPath)
     }
     writeFileSync(filePath, `${trimmed}\n`, 'utf-8')
   } catch (err) {
@@ -195,20 +195,20 @@ async function isIssueCommandIgnoredByGit(
   }
 }
 
-function ensureOrcaDirIgnored(repoPath: string): void {
+function ensureOpenKodoDirIgnored(repoPath: string): void {
   const gitignorePath = join(repoPath, '.gitignore')
   try {
     if (existsSync(gitignorePath)) {
       const content = readFileSync(gitignorePath, 'utf-8')
-      if (/^\.orca\/?$/m.test(content)) {
+      if (/^\.openkodo\/?$/m.test(content)) {
         return
       }
       const separator = content.endsWith('\n') ? '' : '\n'
-      writeFileSync(gitignorePath, `${content}${separator}.orca\n`, 'utf-8')
+      writeFileSync(gitignorePath, `${content}${separator}.openkodo\n`, 'utf-8')
     } else {
-      writeFileSync(gitignorePath, '.orca\n', 'utf-8')
+      writeFileSync(gitignorePath, '.openkodo\n', 'utf-8')
     }
   } catch {
-    console.warn('[hooks] Could not update .gitignore to exclude .orca')
+    console.warn('[hooks] Could not update .gitignore to exclude .openkodo')
   }
 }

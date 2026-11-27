@@ -26,7 +26,7 @@ import {
   type ExecutionHostId
 } from '../../../shared/execution-host/execution-host'
 import { invalidateAuthorizedRootsCacheForRepo } from '../../ipc/worktrees/removal/registered-worktree-roots-scoped-invalidation'
-import { dropOrcaCreatedAgentTrustForRemovedWorktree } from './removal/worktree-removal-agent-trust-cleanup'
+import { dropOpenKodoCreatedAgentTrustForRemovedWorktree } from './removal/worktree-removal-agent-trust-cleanup'
 import {
   resumeInterruptedWorktreeRemovals,
   retryFailedWorktreeRemoval,
@@ -42,7 +42,7 @@ import {
 import { RuntimeAgentLaunchPreparation } from '../terminal/launch/runtime-agent-launch-preparation'
 import { worktreeHostIdentity } from '../../persistence/worktree-meta-host-identity'
 
-export abstract class OrcaRuntimeWithResolveWorktreeRemovalTarget extends RuntimeAgentLaunchPreparation {
+export abstract class OpenKodoRuntimeWithResolveWorktreeRemovalTarget extends RuntimeAgentLaunchPreparation {
   protected abstract resolveExplicitWorktreeIdScoped(
     worktreeId: string,
     requiredHostId?: ExecutionHostId
@@ -199,7 +199,7 @@ export abstract class OrcaRuntimeWithResolveWorktreeRemovalTarget extends Runtim
     // Trust is keyed by this path in local files, so another host's repo copy doesn't keep it.
     const pretrustDrop =
       options.dropAgentTrust && !worktreeOwnedByOtherHost
-        ? dropOrcaCreatedAgentTrustForRemovedWorktree(worktreeId)
+        ? dropOpenKodoCreatedAgentTrustForRemovedWorktree(worktreeId)
         : undefined
     if (!preservesSameIdOwner) {
       // Do not rescue surviving paired PTYs into a recreated occupant of the same path-derived id.

@@ -7,12 +7,12 @@ import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { build } from 'esbuild'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 const piRoot = resolve(process.argv[2] || '')
 assert.ok(process.argv[2], 'Pass an installed pi-coding-agent package directory')
 // Inside the repo's node_modules, so the bundle's external packages (zod) resolve from the repo.
-const scratch = await mkdtemp(join(process.cwd(), 'node_modules', '.orca-pi-owner-'))
+const scratch = await mkdtemp(join(process.cwd(), 'node_modules', '.openkodo-pi-owner-'))
 const received = []
 const server = createServer(async (request, response) => {
   let body = ''
@@ -23,7 +23,7 @@ const server = createServer(async (request, response) => {
   response.end('{}')
 })
 try {
-  const bundle = join(scratch, 'orca.cjs')
+  const bundle = join(scratch, 'openkodo.cjs')
   await build({
     stdin: {
       contents:

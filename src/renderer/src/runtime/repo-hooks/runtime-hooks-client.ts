@@ -1,5 +1,5 @@
 import type { GroupHookCheckResult } from '../../../../shared/project/groups/project-group-hooks'
-import type { OrcaHooks } from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { ExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import type { SetupScriptImportCandidate } from '../../../../shared/workspace-setup/setup-script-imports'
 import { callRuntimeRpc } from '../rpc/calls/runtime-rpc-call'
@@ -20,7 +20,7 @@ function getHookInspectionTarget(hostId: ExecutionHostId): RuntimeClientTarget {
 export type HookCheckResult = {
   status?: 'ok' | 'error'
   hasHooks: boolean
-  hooks: OrcaHooks | null
+  hooks: OpenKodoHooks | null
   mayNeedUpdate: boolean
   /** A background check refused because the repo's WSL distro is stopped or didn't answer. */
   unavailable?: 'wsl-distro-stopped' | 'wsl-distro-unverifiable'

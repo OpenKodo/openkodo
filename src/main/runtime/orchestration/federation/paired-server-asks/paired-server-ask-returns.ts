@@ -1,7 +1,7 @@
 // Replies and notices this computer's agents owe asks from a paired server's agents wait in its
 // relay queue; it hands them back as soon as one is queued, since the server can't pull from here.
 import { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { PairedServerAsks } from './paired-server-asks-pull'
 
 const RETURN_TIMEOUT_MS = 15_000
@@ -24,7 +24,10 @@ const OWED_SQL = `SELECT DISTINCT c.conversation_id FROM peer_mail_conversations
   ORDER BY c.conversation_id`
 
 /** One page to the server; true when more may be waiting. */
-async function returnPage(runtime: OrcaRuntimeService, asks: PairedServerAsks): Promise<boolean> {
+async function returnPage(
+  runtime: OpenKodoRuntimeService,
+  asks: PairedServerAsks
+): Promise<boolean> {
   const db = runtime.getOrchestrationDb()
   const conversations = db.db
     .prepare(OWED_SQL)
@@ -76,7 +79,7 @@ async function returnPage(runtime: OrcaRuntimeService, asks: PairedServerAsks): 
 /** Hands back what is owed now; a failure leaves it queued for the next wake or pull. A call while
  *  one runs makes it page again, and resolves when it ends. */
 export function flushPairedServerReturns(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   asks: PairedServerAsks
 ): Promise<void> {
   const flushing = flushingByRuntime.get(runtime) ?? new Map<string, Flush>()

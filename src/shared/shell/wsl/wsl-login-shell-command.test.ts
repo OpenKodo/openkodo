@@ -35,7 +35,7 @@ describe('wsl login shell command helpers', () => {
   it.skipIf(process.platform === 'win32')(
     'resolves env-node launchers from the current login-shell PATH on every run',
     () => {
-      const root = mkdtempSync(join(tmpdir(), 'orca-wsl-login-codex-'))
+      const root = mkdtempSync(join(tmpdir(), 'openkodo-wsl-login-codex-'))
       const tools = join(root, 'tools')
       const loginBin = join(root, 'login')
       const v1Bin = join(root, 'nvm-v1')
@@ -93,7 +93,9 @@ describe('wsl login shell command helpers', () => {
     }
 
     // Fence interactive rc/motd stdout before comparing command output byte-for-byte.
-    const captured = buildWslCapturedLoginShellCommand('orca_value=ok; printf "<%s>" "$orca_value"')
+    const captured = buildWslCapturedLoginShellCommand(
+      'openkodo_value=ok; printf "<%s>" "$openkodo_value"'
+    )
 
     expect(
       captured.readStdout(
@@ -158,13 +160,13 @@ describe('wsl login shell command helpers', () => {
 describe('in-guest wrapper root resolution', () => {
   it('resolves the published root ahead of the legacy path under a real shell', () => {
     const script = buildWslInteractiveLoginShellCommand()
-    const prologue = script.split('_orca_wsl_shell_name=')[0] as string
+    const prologue = script.split('_openkodo_wsl_shell_name=')[0] as string
     const probe = [
       'OPENKODO_SHELL_READY_ROOT=/mnt/c/ud/shell-wrappers/deadbeefdeadbeef/shell-ready',
       'OPENKODO_USER_DATA_PATH=/mnt/c/ud',
       'export OPENKODO_SHELL_READY_ROOT OPENKODO_USER_DATA_PATH',
       prologue,
-      'printf "%s" "$_orca_shell_ready_root"'
+      'printf "%s" "$_openkodo_shell_ready_root"'
     ].join('\n')
     const result = spawnSync('sh', ['-c', probe], { encoding: 'utf8' })
     expect(result.status).toBe(0)

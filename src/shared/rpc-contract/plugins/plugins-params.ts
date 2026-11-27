@@ -85,7 +85,7 @@ export const PluginDevRequestParams = z
     pluginKey: z.string().refine(isQualifiedPluginKey, 'invalid qualified plugin key').optional(),
     name: pluginBridgeNameSchema,
     input: z.json().optional(),
-    /** The caller panel id the handler sees, so a test can target `orca.panels.post`. */
+    /** The caller panel id the handler sees, so a test can target `openkodo.panels.post`. */
     panel: pluginPanelCallerSchema.shape.id.optional(),
     timeoutMs: z.number().int().min(1).max(PLUGIN_PANEL_REQUEST_MAX_TIMEOUT_MS).optional()
   })

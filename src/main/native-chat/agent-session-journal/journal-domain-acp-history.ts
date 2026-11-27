@@ -125,7 +125,7 @@ export function readJournalDomainAcpHistory(
     turns.push({ itemId, userItemId })
     if (
       !userItemId ||
-      parseAgentJournalItemKey(userItemId)?.provider !== 'orca' ||
+      parseAgentJournalItemKey(userItemId)?.provider !== 'openkodo' ||
       identity.recordId !== `turn-lifecycle:${String(row.turn_id)}`
     ) {
       continue

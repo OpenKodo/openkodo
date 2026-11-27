@@ -42,7 +42,7 @@ export function pluginRelativeTimeTickMs(diffMs: number): number {
   return size < 60_000 ? 1000 : size < 3_600_000 ? 15_000 : 300_000
 }
 
-/** The words for `at` seen at `now`, in `locale`; the host and `orca/testing` share this. */
+/** The words for `at` seen at `now`, in `locale`; the host and `openkodo/testing` share this. */
 export function formatPluginRelativeTime(
   at: number,
   now: number,

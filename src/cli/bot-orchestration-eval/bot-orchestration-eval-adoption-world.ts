@@ -17,7 +17,7 @@ import { ML_REPO } from './bot-orchestration-eval-adoption-fixtures'
 const CLUTTER: AdoptionFixture[] = [
   {
     repoId: OPENKODO_REPO,
-    repo: 'orca',
+    repo: 'openkodo',
     name: 'mobile-ota',
     ago: 3 * DAY,
     pr: { number: 30048, state: 'merged', title: 'Mobile: OTA update channel', checks: 'success' }
@@ -31,7 +31,7 @@ const CLUTTER: AdoptionFixture[] = [
   },
   {
     repoId: OPENKODO_REPO,
-    repo: 'orca',
+    repo: 'openkodo',
     name: 'regex-question',
     ago: 2 * DAY,
     agents: [
@@ -61,7 +61,7 @@ const CLUTTER: AdoptionFixture[] = [
   },
   ...Array.from({ length: 12 }, (_, index): AdoptionFixture => ({
     repoId: OPENKODO_REPO,
-    repo: 'orca',
+    repo: 'openkodo',
     name: `old-task-${index + 1}`,
     ago: (10 + index * 2) * DAY,
     pr: {

@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { translate } from '@/i18n/i18n'
 import { useTranslate } from '@/i18n/use-translate'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS as flags } from '../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { usePluginInstallTrust } from '../state/use-plugin-install-trust'
 import { Button } from '../../ui/button'
 import {
@@ -43,8 +43,8 @@ export function PluginDevelopmentDialog({
 }: PluginDevelopmentDialogProps): React.JSX.Element {
   const t = useTranslate()
   const confirmTrust = usePluginInstallTrust(open)
-  const pluginsBlocked = useOrcaTeamFeatureBlocked(flags.plugins)
-  const memberSourcesBlocked = useOrcaTeamFeatureBlocked(flags.allowMemberSources)
+  const pluginsBlocked = useOpenKodoTeamFeatureBlocked(flags.plugins)
+  const memberSourcesBlocked = useOpenKodoTeamFeatureBlocked(flags.allowMemberSources)
   const teamBlocked = pluginsBlocked || memberSourcesBlocked
   const [pathInput, setPathInput] = useState('')
   const [error, setError] = useState<string | null>(null)

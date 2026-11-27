@@ -60,7 +60,7 @@ export type PluginFrameProtocolDependencies = {
   now?: () => number
   /** The host's current theme, baked into each document so the first paint matches. */
   currentTheme?: () => PluginFrameTheme | null
-  /** Bytes of resources/plugins/declarative/orca-runtime.mjs, the guest `orca` module. */
+  /** Bytes of resources/plugins/declarative/openkodo-runtime.mjs, the guest `openkodo` module. */
   readDeclarativeRuntime?: () => Promise<Uint8Array>
   /** Transpiles `.ts/.tsx/.mts/.jsx`; shared across sessions so its cache is too. */
   compileSourceModule?: PluginSourceModuleCompiler
@@ -104,8 +104,8 @@ type FrameAsset = {
 }
 
 /**
- * Serves `orca-plugin-frame://<key>/<path>` from the plugin root with the same containment and
- * content-integrity checks as panel entries. Anything else, including `__orca/`, is 404.
+ * Serves `openkodo-plugin-frame://<key>/<path>` from the plugin root with the same containment and
+ * content-integrity checks as panel entries. Anything else, including `__openkodo/`, is 404.
  */
 export function createPluginFrameRequestHandler(
   dependencies: PluginFrameProtocolDependencies,
@@ -161,7 +161,7 @@ export function createPluginFrameRequestHandler(
       return notFound()
     }
     if (target.reserved) {
-      const body = await readOrcaFile(dependencies, plugin, target.segments, request.url)
+      const body = await readOpenKodoFile(dependencies, plugin, target.segments, request.url)
       return body ? bufferedResponse(request, body.contentType, body.bytes) : notFound()
     }
     try {
@@ -256,8 +256,8 @@ export function createPluginFrameRequestHandler(
   }
 }
 
-/** `__orca/*`: only files OpenKodo ships, never the plugin's own files under that name. */
-async function readOrcaFile(
+/** `__openkodo/*`: only files OpenKodo ships, never the plugin's own files under that name. */
+async function readOpenKodoFile(
   dependencies: PluginFrameProtocolDependencies,
   plugin: ValidDiscoveredPlugin,
   segments: readonly string[],

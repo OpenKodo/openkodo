@@ -7,7 +7,7 @@ import type {
   CodexRolloutReferencesWorkerData
 } from './codex-rollout-history-references-protocol'
 
-installWorkerSendLedger('orca-codex-rollout-references')
+installWorkerSendLedger('openkodo-codex-rollout-references')
 
 // Listing and diffing archive-sized folders before each deletion stays off Electron main.
 

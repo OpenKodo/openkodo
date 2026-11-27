@@ -1,5 +1,5 @@
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks'
-import { RELAY_REGION_METRIC_SEGMENTS, type RelayRegion } from '@orca-cloud/relay-contract/relay-regions'
+import { RELAY_REGION_METRIC_SEGMENTS, type RelayRegion } from '@openkodo-cloud/relay-contract/relay-regions'
 import type { ControlRenewalOutcome } from '../control-leases/control-renewal-statement.js'
 import type { ControlRenewalFlush } from '../control-leases/control-renewal-batch.js'
 import type { CellInventoryHoldCounts } from '../database/cell-inventory-hold-samples.js'
@@ -556,8 +556,8 @@ export class RelayObservability implements RelayRuntimeObserver {
   recordReadiness(observation: RelayReadinessObservation): void {
     this.write({
       severity: observation.ready && !observation.degraded ? 'INFO' : 'WARNING',
-      message: 'Orca Relay readiness check',
-      event: 'orca_relay_readiness_check',
+      message: 'OpenKodo Relay readiness check',
+      event: 'openkodo_relay_readiness_check',
       metricVersion: 1,
       ...this.identity,
       ...observation
@@ -569,9 +569,9 @@ export class RelayObservability implements RelayRuntimeObserver {
     this.write({
       severity: event.grace === 'recovered' ? 'INFO' : 'WARNING',
       message: entered
-        ? 'Orca Relay readiness entered last-known-good grace'
-        : 'Orca Relay readiness left last-known-good grace',
-      event: entered ? 'orca_relay_readiness_grace_entered' : 'orca_relay_readiness_grace_left',
+        ? 'OpenKodo Relay readiness entered last-known-good grace'
+        : 'OpenKodo Relay readiness left last-known-good grace',
+      event: entered ? 'openkodo_relay_readiness_grace_entered' : 'openkodo_relay_readiness_grace_left',
       metricVersion: 1,
       ...this.identity,
       ...event
@@ -694,8 +694,8 @@ export class RelayObservability implements RelayRuntimeObserver {
     this.eventLoop.reset()
     this.write({
       severity: 'INFO',
-      message: 'Orca Relay runtime metrics',
-      event: 'orca_relay_runtime_metrics',
+      message: 'OpenKodo Relay runtime metrics',
+      event: 'openkodo_relay_runtime_metrics',
       metricVersion: 2,
       fixLevel: RELAY_FIX_LEVEL,
       role: this.identity.role,

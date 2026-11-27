@@ -1,7 +1,7 @@
 // A paired server's workspace attached to one of this store's folders keeps that link only in its own
 // store: cleanup asks each paired server once per run for its saved cross-store links
 // (`worktree.lineageList`, as the desktop's lineage refresh does). Saved links don't depend on a Git scan.
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { readCallerStoreInstallationId } from '../../runtime/hosts/platform-probe/host-descriptor'
 import { getCanonicalUserDataPath } from '../../persistence/loading-store/user-data-path'
 import { toRuntimeExecutionHostId } from '../../../shared/execution-host/execution-host'
@@ -42,7 +42,7 @@ export type PairedFolderChildren = {
 }
 
 export type PairedFolderChildrenRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'listOrchestrationWorkerServers' | 'callOrchestrationWorkerServer' | 'getRuntimeId'
 >
 

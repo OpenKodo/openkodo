@@ -4,14 +4,14 @@ import { z } from 'zod'
 import { parsePairingCode } from '../../../shared/remote-runtime/pairing/pairing'
 import type { WslHostConnector } from './wsl-host-connector-contract'
 import type {
-  WslOrcadConnection,
-  WslOrcadConnectionDependencies
-} from '../orcad/wsl-orcad-connection-types'
+  WslOpenkododConnection,
+  WslOpenkododConnectionDependencies
+} from '../openkodod/wsl-openkodod-connection-types'
 import type {
-  WslOrcadConnectIntent,
-  WslOrcadConnectionStatus
-} from '../orcad/wsl-orcad-connection-status'
-import { defaultWslOrcadEnvironmentId } from '../orcad/wsl-orcad-deploy'
+  WslOpenkododConnectIntent,
+  WslOpenkododConnectionStatus
+} from '../openkodod/wsl-openkodod-connection-status'
+import { defaultWslOpenkododEnvironmentId } from '../openkodod/wsl-openkodod-deploy'
 import {
   stopWslHostServer,
   wslHostRuntimeStopSteps,
@@ -37,7 +37,7 @@ const fakeWslHostsSchema = () =>
     pairingCode: z.string().min(1),
     /** Each distro the fake is asked to start, one per line, so e2e can prove nothing respawns. */
     connectLogFile: z.string().optional(),
-    /** `missing` stands in for a build shipped without the orcad template. */
+    /** `missing` stands in for a build shipped without the openkodod template. */
     serverFiles: z.enum(['present', 'missing']).optional(),
     /** A stop the fake does not report, as when liveness sees only a quick reboot: a runtime call must. */
     stopSilently: z.boolean().optional()
@@ -56,7 +56,7 @@ export function readFakeWslHostsConfig(
 
 export function createFakeWslHostConnector(
   config: FakeWslHostsConfig,
-  onChange: NonNullable<WslOrcadConnectionDependencies['onChange']>,
+  onChange: NonNullable<WslOpenkododConnectionDependencies['onChange']>,
   options: {
     isKnownDistro: (distro: string) => boolean | Promise<boolean>
     runtime: WslHostRuntimeAccess
@@ -64,7 +64,7 @@ export function createFakeWslHostConnector(
 ): WslHostConnector {
   const offer = parsePairingCode(config.pairingCode)
   const port = offer ? Number(new URL(offer.endpoint).port) : 0
-  const active = new Map<string, WslOrcadConnection>()
+  const active = new Map<string, WslOpenkododConnection>()
   const key = (distro: string): string => distro.toLowerCase()
   const readDistros = (): z.infer<ReturnType<typeof fakeDistrosSchema>> =>
     config.distrosFile
@@ -74,15 +74,15 @@ export function createFakeWslHostConnector(
   const isStopped = (distro: string): boolean =>
     Boolean(config.distrosFile) &&
     readDistros().some((entry) => key(entry.name) === key(distro) && entry.state === 'stopped')
-  const dropBridge = (distro: string, status: WslOrcadConnectionStatus): void => {
+  const dropBridge = (distro: string, status: WslOpenkododConnectionStatus): void => {
     if (active.delete(key(distro))) {
       onChange(distro, null, status)
     }
   }
   const connect = async (
     distro: string,
-    intent?: WslOrcadConnectIntent
-  ): Promise<WslOrcadConnection> => {
+    intent?: WslOpenkododConnectIntent
+  ): Promise<WslOpenkododConnection> => {
     // Same guard as the real connector: nothing starts for a host that is gone.
     if (!(await options.isKnownDistro(distro))) {
       throw new Error(`${distro} is no longer a WSL host; OpenKodo will not start anything for it.`)
@@ -108,9 +108,9 @@ export function createFakeWslHostConnector(
       appendFileSync(config.connectLogFile, `${distro}\n`)
     }
     onChange(distro, null, { state: 'connecting' })
-    const connection: WslOrcadConnection = {
+    const connection: WslOpenkododConnection = {
       distro,
-      environmentId: defaultWslOrcadEnvironmentId(distro),
+      environmentId: defaultWslOpenkododEnvironmentId(distro),
       localPort: port,
       remotePort: port,
       fullVersion: 'e2e',
@@ -131,7 +131,7 @@ export function createFakeWslHostConnector(
         ...distro,
         id: `00000000-0000-4000-8000-${String(index + 1).padStart(12, '0')}`
       })),
-    readOrcadPublicKey: async () => null,
+    readOpenkododPublicKey: async () => null,
     connect,
     get: (distro) => active.get(key(distro)) ?? null,
     isReachable: async (distro) => !isStopped(distro) && active.has(key(distro)),

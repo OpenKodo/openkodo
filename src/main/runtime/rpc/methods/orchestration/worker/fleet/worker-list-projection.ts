@@ -9,7 +9,7 @@ import {
   type WorkerTerminalListState
 } from '../../../../../orchestration/terminal-authority/release/worker-terminal-ownership'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { createSessionWorkerLivenessReader } from '../../../../../orchestration/workers/lifecycle/session-worker-liveness'
 import {
   applyFederatedFleetObservations,
@@ -104,7 +104,7 @@ export function projectWorkerFleet(args: {
 
 /** worker-list's projection of these rows; includeRemote layers on execution-host verdicts. */
 export async function projectWorkerListFleet(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   rows: ReturnType<OrchestrationDb['listWorkerTerminalResources']>,
   options: { limit: number; completeProjection?: boolean; includeRemote?: boolean }
 ) {

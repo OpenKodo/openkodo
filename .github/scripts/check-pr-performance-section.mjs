@@ -2,8 +2,8 @@ import { appendFileSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
 const MAX_BODY_LENGTH = 65_536
-const LOC_START = '<!-- orca-pr-loc -->'
-const LOC_END = '<!-- /orca-pr-loc -->'
+const LOC_START = '<!-- openkodo-pr-loc -->'
+const LOC_END = '<!-- /openkodo-pr-loc -->'
 
 function inlineCodeIndex(line) {
   const runs = []

@@ -23,9 +23,12 @@ afterEach(async () => rig?.dispose())
 
 /** A finished root turn ended by its account's usage limit, resetting a minute after `clock`. */
 async function appendUsageLimitedTurn(journal: AgentSessionJournal, clock: number, name: string) {
-  const turnItemId = agentJournalItemKey({ provider: 'orca', clientMessageId: `limited-${name}` })
+  const turnItemId = agentJournalItemKey({
+    provider: 'openkodo',
+    clientMessageId: `limited-${name}`
+  })
   await journal.appendItem(
-    { provider: 'orca', clientMessageId: `limited-${name}` },
+    { provider: 'openkodo', clientMessageId: `limited-${name}` },
     {
       kind: 'turn',
       turnId: name,
@@ -38,7 +41,7 @@ async function appendUsageLimitedTurn(journal: AgentSessionJournal, clock: numbe
     { fence: 1, turnScope: AGENT_JOURNAL_THREAD_SCOPE }
   )
   await journal.appendItem(
-    { provider: 'orca', clientMessageId: `${name}-limit` },
+    { provider: 'openkodo', clientMessageId: `${name}-limit` },
     {
       kind: 'status',
       ...agentSessionFailureWords(
@@ -303,7 +306,7 @@ it('keeps the agent when the journal moves under its work read, without holding 
     if (request.operation.kind === 'child-work' && moving > 0) {
       moving -= 1
       await journal.appendItem(
-        { provider: 'orca', clientMessageId: `streamed-${moving}` },
+        { provider: 'openkodo', clientMessageId: `streamed-${moving}` },
         {
           kind: 'status',
           ...agentSessionFailureWords(agentSessionFailureFact('providerRetrying'), {

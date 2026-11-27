@@ -4,14 +4,14 @@ import type {
   RuntimeConstructionBindings as Bindings,
   RuntimeConstructionDependencies
 } from './runtime-construction-dependencies'
-import type { OrcaRuntimeWithRuntimeId as IdentityState } from './runtime-identity-state'
-import type { OrcaRuntimeWithStopRequestedPtyIds as ServiceState } from './runtime-service-state'
-import type { OrcaRuntimeWithPreservedBranchCleanup as HostServices } from './runtime-host-services'
+import type { OpenKodoRuntimeWithRuntimeId as IdentityState } from './runtime-identity-state'
+import type { OpenKodoRuntimeWithStopRequestedPtyIds as ServiceState } from './runtime-service-state'
+import type { OpenKodoRuntimeWithPreservedBranchCleanup as HostServices } from './runtime-host-services'
 
 import type { RuntimeEdgeCommandSurface } from './runtime-edge-command-controller'
-import type { OrcaRuntimeWithListManagedWorktrees as ListManagedWorktrees } from '../workspaces/managed-workspace-operations'
+import type { OpenKodoRuntimeWithListManagedWorktrees as ListManagedWorktrees } from '../workspaces/managed-workspace-operations'
 import type { ProjectExecutionRuntimeResolution } from '../../../shared/execution-host/project-execution-runtime'
-import { OrcaRuntimeWithBots } from '../orca-runtime-bots'
+import { OpenKodoRuntimeWithBots } from '../openkodo-runtime-bots'
 
 import type { RuntimeStore } from './runtime-store-contract'
 import { installGitHubProjectAccounts } from '../../github/accounts/github-project-account'
@@ -60,7 +60,7 @@ import { setPRConflictSummaryRemoteFetches } from '../../github/pull-requests/co
 import { DESKTOP_TERMINAL_SCROLLBACK_ROWS_DEFAULT } from '../../../shared/terminal/replay/terminal-scrollback-policy'
 
 // oxlint-disable-next-line typescript/no-unsafe-declaration-merging -- SAFETY: The constructor installs every checked canonical surface.
-export abstract class OrcaRuntimeWithStateFields extends OrcaRuntimeWithBots {
+export abstract class OpenKodoRuntimeWithStateFields extends OpenKodoRuntimeWithBots {
   declare protected readonly getLocalProviderFn: HostServices['getLocalProviderFn']
   declare readonly onPtyStopped: HostServices['onPtyStopped']
   declare protected readonly onTerminalAgentStatus: HostServices['onTerminalAgentStatus']
@@ -315,7 +315,7 @@ export abstract class OrcaRuntimeWithStateFields extends OrcaRuntimeWithBots {
 }
 
 // oxlint-disable-next-line typescript/consistent-type-definitions -- SAFETY: This merge models the constructor-installed canonical methods.
-export interface OrcaRuntimeWithStateFields
+export interface OpenKodoRuntimeWithStateFields
   extends
     RuntimeFileCommandSurface,
     RuntimeGitCommandSurface,

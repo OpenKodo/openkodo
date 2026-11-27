@@ -37,7 +37,7 @@ describe('requestRelayAssignment origin alternates', () => {
     await assign(director.fetch)
     expect(director.requests).toHaveLength(1)
     expect(director.requests[0].url).toBe(`${DIRECTOR_URL}/v1/assign`)
-    expect(director.requests[0].headers.get('x-orca-host-capabilities')).toBe(
+    expect(director.requests[0].headers.get('x-openkodo-host-capabilities')).toBe(
       'origin-alternates-v1, front-door-auth-v1'
     )
   })

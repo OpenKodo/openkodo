@@ -11,7 +11,7 @@ afterEach(cleanup)
 
 const PROMPT = 'Audit the release checklist for the billing service and list gaps, changing no...'
 const ERROR =
-  'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git. Set `SOME_TIMEOUT_MS` and restart. Abandoned by orca_session_id:00000000-0000-4000-8000-000000000000.'
+  'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git. Set `SOME_TIMEOUT_MS` and restart. Abandoned by openkodo_session_id:00000000-0000-4000-8000-000000000000.'
 const result: WorkerDockResult = {
   id: 'result-1',
   dispatchId: 'ctx-1',
@@ -62,11 +62,11 @@ it('shows the prompt once, the state on its own line, one reason and the raw err
   expect(document.querySelector('[data-worker-dock-card-reason]')).toHaveTextContent(
     'Creating the worktree took longer than 180 seconds, so OpenKodo stopped Git.'
   )
-  expect(screen.queryByText(/orca_session_id/)).toBeNull()
+  expect(screen.queryByText(/openkodo_session_id/)).toBeNull()
   const details = screen.getByRole('button', { name: 'Show details' })
   expect(details).toHaveAttribute('aria-expanded', 'false')
   fireEvent.click(details)
-  expect(screen.getByText(/orca_session_id/).tagName).toBe('PRE')
+  expect(screen.getByText(/openkodo_session_id/).tagName).toBe('PRE')
   expect(screen.getByRole('button', { name: 'Hide details' })).toHaveAttribute(
     'aria-expanded',
     'true'

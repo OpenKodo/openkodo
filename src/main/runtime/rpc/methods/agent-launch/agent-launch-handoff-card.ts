@@ -1,7 +1,7 @@
 import type { AgentLaunchResult } from '../../../../../shared/agent-launch/contracts/agent-launch-intent'
-import { isOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
+import { isOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
 
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import type { AgentLaunchParams } from '../../../../../shared/rpc-contract/agent-launch/agent-launch-params'
 import {
   prepareAgentCreationCard,
@@ -26,12 +26,12 @@ function prepareHandoffRecord(
   params: AgentLaunchParams & { operationId: string },
   context: RpcContext
 ): (result: AgentLaunchResult) => void {
-  // Only the orca CLI on this host names a chat here; windows and phones launch for a person, and a remote CLI's chat is on its own host.
+  // Only the openkodo CLI on this host names a chat here; windows and phones launch for a person, and a remote CLI's chat is on its own host.
   const callerSessionId = context.orchestrationCompatibilityEvidence?.agentSessionId
   if (
     context.caller?.kind !== 'local-cli' ||
     callerSessionId === undefined ||
-    !isOrcaSessionId(callerSessionId)
+    !isOpenKodoSessionId(callerSessionId)
   ) {
     return () => {}
   }

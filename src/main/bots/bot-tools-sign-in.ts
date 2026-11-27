@@ -209,7 +209,7 @@ async function claudeLogin(
   const folder = await claudeSignInFolder(cli, servers)
   // Windows has no sh for the helper, so Claude opens the browser there itself.
   const capture = process.platform !== 'win32'
-  const dir = await mkdtemp(join(tmpdir(), 'orca-bot-tool-sign-in-'))
+  const dir = await mkdtemp(join(tmpdir(), 'openkodo-bot-tool-sign-in-'))
   const helper = join(dir, 'browser')
   if (capture) {
     await writeFile(helper, LINK_HELPER, { mode: 0o700 })

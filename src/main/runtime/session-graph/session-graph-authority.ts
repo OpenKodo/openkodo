@@ -6,8 +6,8 @@ import {
   type ExecutionHostId
 } from '../../../shared/execution-host/execution-host'
 import { WORKSPACE_ON_OTHER_RUNTIME } from '../../../shared/remote-runtime/protocol/preflight-runtime-capabilities'
-import type { OrcaRuntimeWithResolveBrowserNetworkExecutionHostForWorktree as ResolveBrowserNetworkExecutionHostForWorktreeMethods } from '../terminal/launch/terminal-workspace-scope'
-import { OrcaRuntimeWithHasTerminalsForWorktree } from './session-graph-reload-lifecycle'
+import type { OpenKodoRuntimeWithResolveBrowserNetworkExecutionHostForWorktree as ResolveBrowserNetworkExecutionHostForWorktreeMethods } from '../terminal/launch/terminal-workspace-scope'
+import { OpenKodoRuntimeWithHasTerminalsForWorktree } from './session-graph-reload-lifecycle'
 import { HEADLESS_RUNTIME_WINDOW_ID } from '../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../shared/workspace-layout/layout-owner-switch'
 import { startedMainTerminalSurfaces } from '../terminal/surface/main-terminal-surfaces'
@@ -35,7 +35,7 @@ import {
 } from '../workspaces/catalog/workspace-selector-candidates'
 import type { ResolvedWorktree } from '../workspaces/catalog/runtime-worktree-path-identity'
 
-export abstract class OrcaRuntimeWithTransitionGraphReloadToTerminalState extends OrcaRuntimeWithHasTerminalsForWorktree {
+export abstract class OpenKodoRuntimeWithTransitionGraphReloadToTerminalState extends OpenKodoRuntimeWithHasTerminalsForWorktree {
   getAuthoritativeWindowId(missingWindowMessage = 'No renderer window available'): number {
     const windowId = this.getAvailableAuthoritativeWindowId()
     if (windowId === null) {

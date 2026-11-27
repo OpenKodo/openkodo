@@ -14,7 +14,7 @@ import type { SshConnectionState } from '../remote-runtime/ssh/ssh-types'
 import type { RuntimeEnvironmentSource } from '../remote-runtime/host-catalog/runtime-environments'
 import type { GlobalSettings } from '../settings/global-settings-types'
 import type { Repo } from '../repository/repo-types'
-import { annotateManagedOrcadExecutionHosts } from './managed-orcad-execution-host'
+import { annotateManagedOpenkododExecutionHosts } from './managed-openkodod-execution-host'
 import { getSshConnectionHealth, type EphemeralVmHostLifecycle } from './execution-host-health'
 import { applyEphemeralVmHostLifecycles } from './execution-host-vm-lifecycle'
 import type {
@@ -210,7 +210,7 @@ export function buildExecutionHostRegistry(args: {
     })
   }
 
-  annotateManagedOrcadExecutionHosts({
+  annotateManagedOpenkododExecutionHosts({
     hosts,
     runtimeEnvironments: args.runtimeEnvironments ?? [],
     sshConnectionStates: args.sshConnectionStates

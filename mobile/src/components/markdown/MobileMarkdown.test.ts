@@ -5,7 +5,7 @@ describe('normalizeMobileMarkdownPreviewHtml', () => {
   it('normalizes common README HTML into readable Markdown preview text', () => {
     const normalized = normalizeMobileMarkdownPreviewHtml(`
 <h1 align="center">
-  <a href="https://onOrca.dev"><img src="resources/build/icon.png" alt="OpenKodo" width="64" /></a>
+  <a href="https://onOpenKodo.dev"><img src="resources/build/icon.png" alt="OpenKodo" width="64" /></a>
   OpenKodo
 </h1>
 
@@ -16,7 +16,7 @@ describe('normalizeMobileMarkdownPreviewHtml', () => {
 </p>
 `)
 
-    expect(normalized).toContain('# [OpenKodo](https://onOrca.dev)')
+    expect(normalized).toContain('# [OpenKodo](https://onOpenKodo.dev)')
     expect(normalized).toContain('[GitHub stars](https://github.com/OpenKodo/openkodo/stargazers)')
     expect(normalized).toContain('**The AI Orchestrator**')
     expect(normalized).not.toContain('<h1')
@@ -61,8 +61,8 @@ describe('normalizeMobileMarkdownPreviewHtml', () => {
     expect(normalizeMobileMarkdownPreviewHtml('<T> is a type parameter')).toBe(
       '<T> is a type parameter'
     )
-    expect(normalizeMobileMarkdownPreviewHtml('<mailto:orca@example.com>')).toBe(
-      '<mailto:orca@example.com>'
+    expect(normalizeMobileMarkdownPreviewHtml('<mailto:openkodo@example.com>')).toBe(
+      '<mailto:openkodo@example.com>'
     )
     expect(
       normalizeMobileMarkdownPreviewHtml(

@@ -62,7 +62,7 @@ function buildGrandchildLaunch(channel, fixtureToken) {
   return {
     program: path.join(process.env.SystemRoot, 'System32', 'wscript.exe'),
     args: [
-      path.join(__dirname, 'real-orca-detached-launcher.vbs'),
+      path.join(__dirname, 'real-openkodo-detached-launcher.vbs'),
       process.execPath,
       __filename,
       '--grandchild-member',
@@ -75,13 +75,13 @@ function buildGrandchildLaunch(channel, fixtureToken) {
 
 // Prefer the public package extraResources stages; only packages that predate it ship the private out/ copy.
 function packagedProcessHostPath(resourcesDir) {
-  const packageDir = path.join(resourcesDir, 'node_modules', '@orca', 'process-host')
+  const packageDir = path.join(resourcesDir, 'node_modules', '@openkodo', 'process-host')
   if (existsSync(path.join(packageDir, 'package.json'))) {
     return packageDir
   }
   // A present package without its manifest is broken output, not an older layout.
   if (existsSync(packageDir)) {
-    throw new Error(`packaged @orca/process-host has no package.json: ${packageDir}`)
+    throw new Error(`packaged @openkodo/process-host has no package.json: ${packageDir}`)
   }
   return path.join(
     resourcesDir,
@@ -267,7 +267,7 @@ async function exercise(resourcesDir, fixtureExecutable) {
   }
 
   const fixtureToken = randomBytes(32).toString('hex')
-  const channel = `\\\\.\\pipe\\orca-pty-native-capability-${fixtureToken}`
+  const channel = `\\\\.\\pipe\\openkodo-pty-native-capability-${fixtureToken}`
   const fixtures = createFixtureServer(channel, fixtureToken)
   stage('fixture-listen:start')
   await waitForBarrier(fixtures.listening, 'fixture server listen')

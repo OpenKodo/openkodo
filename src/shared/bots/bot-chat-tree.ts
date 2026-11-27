@@ -41,7 +41,7 @@ export type BotChatTreeChat = {
   chatId: string
   title: string
   origin: BotChatOrigin
-  /** The thread's place or the automation's name, e.g. '#orca'. */
+  /** The thread's place or the automation's name, e.g. '#openkodo'. */
   originLabel?: string
   live: 'replying' | 'needs-you' | 'idle'
   /** The session running the chat now, when a /clear moved it past `chatId`: its status is keyed

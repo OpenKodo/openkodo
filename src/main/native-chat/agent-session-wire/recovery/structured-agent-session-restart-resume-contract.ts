@@ -1,4 +1,4 @@
-import type { AgentSessionOrcaStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-orca-stop'
+import type { AgentSessionOpenKodoStopCause } from '../../../../shared/agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import type { AgentSessionResumeTrigger } from '../../../../shared/agent-session/lifecycle/resume/agent-session-resume-marker'
 import type { createInterruptedContinuation } from './structured-agent-session-interrupted-continuation'
 import type { StructuredAgentSessionContinuationOutcome } from './structured-agent-session-restart-continuation'
@@ -10,7 +10,7 @@ import type {
 } from './structured-agent-session-restart-resume-set'
 
 export type StructuredAgentSessionRestartCut = {
-  cause: AgentSessionOrcaStopCause
+  cause: AgentSessionOpenKodoStopCause
   turnId: string
   /** The turn was asking its person: the prompt's item when known. */
   waitingOnPerson?: true

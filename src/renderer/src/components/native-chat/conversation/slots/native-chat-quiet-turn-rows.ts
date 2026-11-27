@@ -72,7 +72,7 @@ export function nativeChatBotIntroTurn(
   messages: readonly NativeChatMessage[]
 ): string | undefined {
   const { turnKeys, turnStatuses } = input
-  const kickoff = messages.findIndex((message) => message.orcaNotice === 'bot-created')
+  const kickoff = messages.findIndex((message) => message.openkodoNotice === 'bot-created')
   const key = kickoff === -1 ? undefined : turnKeys[kickoff]
   if (key === undefined) {
     return undefined

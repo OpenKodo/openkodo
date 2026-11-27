@@ -1,4 +1,4 @@
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
 import type { Context, MiddlewareHandler } from 'hono'
 
 const REFILL_WINDOW_MS = 60_000

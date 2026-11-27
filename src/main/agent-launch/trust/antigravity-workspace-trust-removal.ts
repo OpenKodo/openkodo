@@ -8,7 +8,10 @@ import { createAgentTrustOwnershipLedger } from './agent-trust-ownership-ledger'
  * any the user had or changed. Runs on the Codex project trust worker so its reads and Windows
  * rename retries stay off Electron main. Never throws.
  */
-export function removeOrcaCreatedAntigravityTrust(ledgerPath: string, workspacePath: string): void {
+export function removeOpenKodoCreatedAntigravityTrust(
+  ledgerPath: string,
+  workspacePath: string
+): void {
   // Why resolve, not realpath: removal runs after the worktree directory is gone.
   const ownership = createAgentTrustOwnershipLedger(
     () => ledgerPath,

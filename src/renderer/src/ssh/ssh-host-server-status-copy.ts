@@ -23,19 +23,19 @@ import { sshHostSetupRemedyText } from './ssh-host-setup-remedy-copy'
 export type SshHostServerStatusLine = {
   text: string
   tone: 'muted' | 'warning' | 'destructive'
-  /** Main's untranslated cause, with the host's orcad.log tail when there is one; shown on request. */
+  /** Main's untranslated cause, with the host's openkodod.log tail when there is one; shown on request. */
   detail?: string
   /** A muted second line, e.g. what moving onto the host does and doesn't touch. */
   hint?: string
 }
 
 export function sshHostServerStatusLine(
-  target: Pick<SshTarget, 'label' | 'orcadFence' | 'managedServerUnavailable'>,
+  target: Pick<SshTarget, 'label' | 'openkododFence' | 'managedServerUnavailable'>,
   state: Pick<SshConnectionState, 'managedServer'> | undefined,
   t: Translate = translate
 ): SshHostServerStatusLine | null {
   const status = state?.managedServer
-  if (target.orcadFence?.sourceChangedAt) {
+  if (target.openkododFence?.sourceChangedAt) {
     return sourceChangedLine(t)
   }
   if (status?.kind === 'managed' && status.serving) {
@@ -62,7 +62,7 @@ export function sshHostServerStatusLine(
     return automationsLeftDisabledLine(status.automationsLeftDisabled, t)
   }
   // A healthy managed server is the default; the card stays quiet unless something needs attention.
-  if (status?.kind === 'managed' || (!status && target.orcadFence)) {
+  if (status?.kind === 'managed' || (!status && target.openkododFence)) {
     return null
   }
   if (status?.kind === 'setting-up') {
@@ -113,7 +113,7 @@ export function sshTargetConnectFailureText(
   return sshConnectFailureText(state, published || extractIpcErrorMessage(error, fallback))
 }
 
-// Mirror main's ORCAD_TUNNEL_UNAVAILABLE_REASON.
+// Mirror main's OPENKODOD_TUNNEL_UNAVAILABLE_REASON.
 const TUNNEL_UNAVAILABLE = 'ssh_tunnel_unavailable'
 
 function sourceChangedLine(t: Translate = translate): SshHostServerStatusLine {
@@ -126,7 +126,7 @@ function sourceChangedLine(t: Translate = translate): SshHostServerStatusLine {
   }
 }
 
-/** `reason` is main's OrcadHostUnavailableReason; an unknown one is shown only as a detail. */
+/** `reason` is main's OpenkododHostUnavailableReason; an unknown one is shown only as a detail. */
 function unavailableLine(
   reason: string | undefined,
   t: Translate = translate
@@ -297,7 +297,7 @@ function unservedLine(
           'OpenKodo couldn’t confirm that terminals started by an older version of OpenKodo have exited. Reconnect to try again.'
         )
       }
-    case 'orcad_unavailable':
+    case 'openkodod_unavailable':
       return unavailableLine(status.detail, t)
     case 'source_changed':
       return sourceChangedLine(t)

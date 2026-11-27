@@ -8,7 +8,7 @@ import { typography } from '../../../theme/mobile-theme'
 import { serifFontFamily } from '../../../theme/mobile-serif-font'
 import { CHAT_PROSE_SCALE } from '../transcript/messages/mobile-native-chat-message-styles'
 
-export const NATIVE_CHAT_TEXT_KEY = 'orca:nativeChatText'
+export const NATIVE_CHAT_TEXT_KEY = 'openkodo:nativeChatText'
 
 export type NativeChatFont = 'system' | 'serif' | 'mono'
 export type NativeChatLineSpacing = 'compact' | 'default' | 'relaxed'

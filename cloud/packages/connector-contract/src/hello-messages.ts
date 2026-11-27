@@ -1,4 +1,4 @@
-import { OpaqueIdSchema, SequenceSchema } from '@orca-cloud/push-contract'
+import { OpaqueIdSchema, SequenceSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { CONNECTOR_LIMITS } from './connector-limits.js'
 import { readHelloTriggers } from './trigger-messages.js'
@@ -15,7 +15,7 @@ export const CONNECTOR_PROMPT_KINDS = ['approval', 'question'] as const
 // deliveries for pull requests its bots' owner opened. threadCatchUp: a start or send's context may
 // carry 'bot' and 'more' items. batchedSends: a conversation's sends queued behind its start or
 // send may come in the same poll, and the machine runs them with it as one turn. ownDmChats: a bot
-// start for a DM that ran in the bot's Chat opens the DM a chat of its own. askerNote: Orca's lines on
+// start for a DM that ran in the bot's Chat opens the DM a chat of its own. askerNote: OpenKodo's lines on
 // where a bot was asked come as asker.note, apart from the asker's words.
 export const CONNECTOR_FEATURES = [
   'answer',
@@ -57,7 +57,7 @@ export const ConnectorBotWorkspaceSchema = z
 
 const isSlackRow = (workspace: { source: string }) => workspace.source === 'slack'
 
-// A string source with no workspaces this cloud knows (a newer machine's, or a hook or Orca).
+// A string source with no workspaces this cloud knows (a newer machine's, or a hook or OpenKodo).
 const isNotPlaceSource = (entry: unknown) =>
   typeof entry === 'object' &&
   entry !== null &&
@@ -93,14 +93,14 @@ export const ConnectorBotSchema = z.object({
   // The chat-service user ids the owner lets ask the bot.
   members: z.array(z.string().min(1).max(32)).max(CONNECTOR_LIMITS.maxBotMembers),
   paused: z.boolean(),
-  // How people name the bot where bots share one app ("@Orca reviewer", label bot:reviewer).
+  // How people name the bot where bots share one app ("@OpenKodo reviewer", label bot:reviewer).
   handle: z
     .string()
     .max(CONNECTOR_LIMITS.maxBotHandleLength)
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
     .optional(),
   sharedAppWorkspaces: BotWorkspacesSchema,
-  // The Orca accounts and invited emails the owner shared the bot with, to a cloud listing
+  // The OpenKodo accounts and invited emails the owner shared the bot with, to a cloud listing
   // bots.shares. Replaces the cloud's list for the bot; absent, it isn't shared.
   sharedWith: z.array(ConnectorBotShareSchema).max(CONNECTOR_LIMITS.maxBotShares).optional(),
   // What the owner says the bot is for, shown to the people it is shared with (botPurpose on

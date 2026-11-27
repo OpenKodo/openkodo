@@ -1,6 +1,6 @@
 import type { DeviceScope } from '../../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { RelayDeviceBinding } from '../../../mobile-cloud-relay/pairing/relay-revoke-outbox'
-import type { DeviceEntry, DeviceOrcaAccount } from './device-entry'
+import type { DeviceEntry, DeviceOpenKodoAccount } from './device-entry'
 import { parseMobilePushRegistration } from '../../../../../shared/notifications/mobile-push-contract'
 import { isDevicePublicKeyB64 } from '../../../../../shared/remote-runtime/pairing/device-key-proof'
 import { isExchangeDeviceToken } from '../../../../../shared/remote-runtime/pairing/ticket-exchange-contract'
@@ -48,7 +48,7 @@ function isTimestamp(value: unknown): value is number {
 }
 
 /** Null for a row without a usable identity; the caller must treat the registry as doubtful. */
-function validOrcaAccount(value: unknown): DeviceOrcaAccount | undefined {
+function validOpenKodoAccount(value: unknown): DeviceOpenKodoAccount | undefined {
   return typeof value === 'object' &&
     value !== null &&
     'id' in value &&
@@ -96,7 +96,7 @@ export function normalizeLoadedDeviceRow(device: unknown): DeviceEntry | null {
     // Bad push metadata must not fail registry load and strand all devices.
     pushRegistration: parseMobilePushRegistration(device.pushRegistration),
     parentDeviceId: typeof device.parentDeviceId === 'string' ? device.parentDeviceId : undefined,
-    orcaAccount: validOrcaAccount(device.orcaAccount),
+    openkodoAccount: validOpenKodoAccount(device.openkodoAccount),
     phoneKey: typeof device.phoneKey === 'string' ? device.phoneKey : undefined,
     credentialRevision:
       typeof device.credentialRevision === 'number' &&

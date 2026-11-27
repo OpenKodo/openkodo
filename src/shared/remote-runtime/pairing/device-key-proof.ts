@@ -3,12 +3,12 @@ import nacl from 'tweetnacl'
 // share-send: a teammate's held message (bot-team-share-seal.ts), never a connection's proof.
 export type DeviceProofPurpose = 'auth' | 'redeem' | 'register' | 'share-send'
 
-const DOMAIN = 'orca-device-proof/v1'
+const DOMAIN = 'openkodo-device-proof/v1'
 const TRANSCRIPT_HASH_BYTES = 32
 const PUBLIC_KEY_BYTES = 32
 const SIGNATURE_BYTES = 64
 
-/** `orca-device-proof/v1 \0 purpose \0 transcriptHash`: one connection, one purpose. */
+/** `openkodo-device-proof/v1 \0 purpose \0 transcriptHash`: one connection, one purpose. */
 export function encodeDeviceProofMessage(
   purpose: DeviceProofPurpose,
   transcriptHash: Uint8Array

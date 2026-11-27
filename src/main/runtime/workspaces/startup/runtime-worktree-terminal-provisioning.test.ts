@@ -15,7 +15,7 @@ import {
 it.skipIf(process.platform === 'win32')(
   'a wait-for-setup wrapped setup records its completion token and prints it when it ends',
   async () => {
-    const directory = mkdtempSync(join(tmpdir(), 'orca-wrapped-setup-'))
+    const directory = mkdtempSync(join(tmpdir(), 'openkodo-wrapped-setup-'))
     try {
       const runnerScriptPath = join(directory, 'setup.sh')
       writeFileSync(runnerScriptPath, 'echo installing\nexit 3\n')

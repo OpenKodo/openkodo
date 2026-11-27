@@ -1,5 +1,5 @@
 import type { RuntimeHeadlessTabGroups as HeadlessTabGroupsMethods } from './headless-tab-group-moves'
-import { OrcaRuntimeWithCloseHeadlessMobileTerminalTab } from '../terminal-retirement/headless-terminal-tab-close'
+import { OpenKodoRuntimeWithCloseHeadlessMobileTerminalTab } from '../terminal-retirement/headless-terminal-tab-close'
 import {
   recordPtySurface,
   spawnSurfaceClaimSequence
@@ -18,7 +18,7 @@ import {
 /** Where the client dropped the new tab, in the host's group ids. */
 export type MovedPanePlacement = { targetGroupId: string; index?: number }
 
-export abstract class OrcaRuntimeWithHeadlessPaneMoveToNewTab extends OrcaRuntimeWithCloseHeadlessMobileTerminalTab {
+export abstract class OpenKodoRuntimeWithHeadlessPaneMoveToNewTab extends OpenKodoRuntimeWithCloseHeadlessMobileTerminalTab {
   protected abstract persistHeadlessTabGroups(
     ...args: Parameters<HeadlessTabGroupsMethods['persistHeadlessTabGroups']>
   ): ReturnType<HeadlessTabGroupsMethods['persistHeadlessTabGroups']>

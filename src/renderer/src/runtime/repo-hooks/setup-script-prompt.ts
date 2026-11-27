@@ -1,7 +1,7 @@
 import { getDefaultRepoHookSettings } from '../../../../shared/workspace-setup/repo-hook-settings-defaults'
 import { resolveHookCommandSourcePolicy } from '../../../../shared/workspace-setup/hooks/hook-command-source-policy'
 import type { SetupScriptImportCandidate } from '../../../../shared/workspace-setup/setup-script-imports'
-import type { RepoHookSettings } from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { RepoHookSettings } from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { Repo } from '../../../../shared/repository/repo-types'
 import type { HookCheckResult } from '@/runtime/repo-hooks/runtime-hooks-client'
 import { isRuntimeScopeForbiddenError } from '@/runtime/rpc/calls/runtime-rpc-result'

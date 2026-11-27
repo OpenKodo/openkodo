@@ -4,7 +4,7 @@ import type {
   RunRow
 } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { interruptedAcknowledgedCheck } from '../routing'
 import { checkWorkerMailbox } from './check-worker'
 import { acknowledgedOnlyReceipt, handsOverBatch } from './mailbox-message-receipt'
@@ -33,7 +33,7 @@ export type RecoveredRunChecker = {
 export async function checkRunPendingMail(
   args: {
     params: z.infer<typeof CheckParams>
-    runtime: OrcaRuntimeService
+    runtime: OpenKodoRuntimeService
     db: OrchestrationDb
     run: RunRow
     handle: string
@@ -112,8 +112,8 @@ export async function checkRunPendingMail(
   if (
     residual &&
     residual.run_id !== run.id &&
-    (residual.assignee_orca_session_id === null ||
-      residual.assignee_orca_session_id === caller.orcaSessionId) &&
+    (residual.assignee_openkodo_session_id === null ||
+      residual.assignee_openkodo_session_id === caller.openkodoSessionId) &&
     callerHoldsDispatchPane(residual, paneKey) &&
     assigneeRun(residual)?.id === run.id &&
     (residualAck || !db.hasOutstandingMailboxDelivery(address))

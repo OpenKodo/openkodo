@@ -7,7 +7,7 @@ import { getIntegrationsPaneSearchEntries } from '@/components/settings/integrat
 import { getLinearAgentSkillPaneSearchEntries } from '@/components/settings/skills/linear/linear-agent-skill-search'
 import { getMcpServersPaneSearchEntries } from '@/components/settings/mcp-servers/mcp-servers-search'
 import { getMobileSettingsPaneSearchEntries } from '@/components/settings/mobile/mobile-settings-search'
-import { OrcaLogoSettingsIcon } from '@/components/settings/page/orca-logo-settings-icon'
+import { OpenKodoLogoSettingsIcon } from '@/components/settings/page/openkodo-logo-settings-icon'
 import { getOrchestrationPaneSearchEntries } from '@/components/settings/orchestration/orchestration-search'
 import { getVoicePaneSearchEntries } from '@/components/settings/voice/voice-pane-search'
 import { getWorkspaceCleanupSettingsSearchEntries } from '@/components/settings/workspace-cleanup/workspace-cleanup-settings-search'
@@ -155,7 +155,7 @@ export function buildSetupSettingsSections(
         'auto.hooks.useSettingsNavigationMetadata.5f32ac08f3',
         'Finish the onboarding checklist for core OpenKodo workflows.'
       ),
-      icon: OrcaLogoSettingsIcon,
+      icon: OpenKodoLogoSettingsIcon,
       searchEntries: [
         {
           title: t('auto.hooks.useSettingsNavigationMetadata.ded9e9032f', 'Onboarding checklist'),

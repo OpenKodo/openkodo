@@ -2,9 +2,9 @@
 // the owner opened, and the normal automation create for each schedule, turned off.
 import { botsRootFolder, localBotHomeFilesystem } from '../../../bots/bot-home'
 import type { BotShareCreateDeps } from '../../../bots/sharing/bot-share-create'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
-export function botShareCreateDeps(runtime: OrcaRuntimeService): BotShareCreateDeps {
+export function botShareCreateDeps(runtime: OpenKodoRuntimeService): BotShareCreateDeps {
   return {
     bots: runtime.bots,
     filesystem: localBotHomeFilesystem,

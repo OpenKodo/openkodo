@@ -3,7 +3,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { RpcContext } from '../../../core'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { DispatchContextRow } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationCompatibilityEvidence } from '../../../../../../shared/orchestration/orchestration-compatibility-evidence'
 import { createOrchestrationRpcHarness } from '../rpc-test-harness'
@@ -21,7 +21,7 @@ describe('worker reports after a restart reissues the worker terminal handle', (
   const harness = createOrchestrationRpcHarness()
   const { coordinatorPaneKey } = harness
   let db: OrchestrationDb
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let ctx: RpcContext
 
   afterEach(() => {

@@ -8,7 +8,7 @@ import {
 import {
   RUNTIME_IDLE_STOPPED_ERROR_CODE,
   RUNTIME_IDLE_STOPPED_MESSAGE
-} from '../orcad-lifecycle/orcad-idle-stop-signal'
+} from '../openkodod-lifecycle/openkodod-idle-stop-signal'
 import type { RemoteRuntimeSharedControlConnectionOptions } from './remote-runtime-shared-control-types'
 
 type HoldOptions = Pick<

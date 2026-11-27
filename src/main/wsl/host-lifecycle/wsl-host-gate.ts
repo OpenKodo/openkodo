@@ -8,7 +8,7 @@ import {
   resolveWslHostsGateState,
   type WslHostsGateState
 } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-internal-gate'
-import type { OrcadDeploymentLink } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
+import type { OpenkododDeploymentLink } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import { wslHostRunRefusal, WSL_HOST_REMOVING_MESSAGE } from './wsl-host-add-admission'
 import type {
   WslHostsMovedProjects,
@@ -173,13 +173,13 @@ export function wslHostsServing(): boolean {
 
 /** A persisted WSL host while the gate is closed: left on disk, but never listed or reached. */
 export function isGatedOffWslHost(environment: {
-  orcadDeployment?: OrcadDeploymentLink | null
+  openkododDeployment?: OpenkododDeploymentLink | null
 }): boolean {
-  return environment.orcadDeployment?.kind === 'wsl' && !wslHostsServing()
+  return environment.openkododDeployment?.kind === 'wsl' && !wslHostsServing()
 }
 
 export function assertWslHostReachable(environment: {
-  orcadDeployment?: OrcadDeploymentLink | null
+  openkododDeployment?: OpenkododDeploymentLink | null
 }): void {
   if (isGatedOffWslHost(environment)) {
     throw new Error(WSL_HOSTS_GATED_OFF_MESSAGE)

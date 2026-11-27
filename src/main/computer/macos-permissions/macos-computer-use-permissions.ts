@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { assertTeamAllowsComputerUse } from '../computer-team-policy'
 import { RuntimeClientError } from '../runtime-client-error'
 import {
@@ -35,7 +35,7 @@ let setupGeneration = 0
 // Opens that arrive mid-reset wait for it, so reset's helper cleanup can't kill what they open.
 let resetInProgress: Promise<ComputerUsePermissionResetResult> | null = null
 
-/** `locale` comes from the desktop caller; orcad and CLI opens leave the helper on its default copy. */
+/** `locale` comes from the desktop caller; openkodod and CLI opens leave the helper on its default copy. */
 export function openComputerUsePermissions(
   permissionId?: ComputerUsePermissionId,
   options: { locale?: string; skipGranted?: boolean } = {}
@@ -307,8 +307,8 @@ async function resetComputerUsePermissionsAsync(): Promise<ComputerUsePermission
 async function closeExistingPermissionHelpers(): Promise<void> {
   // Preserve concurrent status probes when replacing permission-setup helpers.
   const setupHelperPatterns = [
-    'orca-computer-use-macos[[:space:]]+--permission([[:space:]]|$)',
-    'orca-computer-use-macos[[:space:]]+--permissions([[:space:]]|$)'
+    'openkodo-computer-use-macos[[:space:]]+--permission([[:space:]]|$)',
+    'openkodo-computer-use-macos[[:space:]]+--permissions([[:space:]]|$)'
   ]
   for (const pattern of setupHelperPatterns) {
     // Only actual completion permits a later launch; a timeout can settle before child exit.

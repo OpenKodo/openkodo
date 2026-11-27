@@ -11,7 +11,7 @@ import { useAppStore } from '@/store/index'
 import { MobileRelayBetaNotice } from '../../mobile/pairing/MobileRelayBetaNotice'
 import { openAppHttpLink } from '@/lib/browser/navigation/app-http-link-open'
 
-const OPENKODO_IOS_APP_STORE_URL = 'https://apps.apple.com/app/orca-ide/id6766130217'
+const OPENKODO_IOS_APP_STORE_URL = 'https://apps.apple.com/app/openkodo-ide/id6766130217'
 const OPENKODO_ANDROID_APK_URL = 'https://openkodo.dev/download/android'
 
 export function MobileSettingsPane(): React.JSX.Element {

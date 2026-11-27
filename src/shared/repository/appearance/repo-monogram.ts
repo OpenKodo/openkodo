@@ -53,7 +53,7 @@ export function suggestRepoMonogram(displayName: string, taken: Iterable<string>
   const candidates = [
     ...(rest.length > 0 ? rest.map((word) => lead + word[0]) : []),
     lead + (later[0] ?? ''),
-    // Consonants carry a word's shape (`orca` → OR, OC), so they beat vowels as fallbacks.
+    // Consonants carry a word's shape (`openkodo` → OR, OC), so they beat vowels as fallbacks.
     ...later.filter(isConsonant).map((character) => lead + character),
     ...later.map((character) => lead + character),
     ...rest.map((word) => word[0] + (word[1] ?? '')),

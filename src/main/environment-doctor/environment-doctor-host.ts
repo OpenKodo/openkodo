@@ -1,7 +1,7 @@
 import { access, mkdtemp, readFile, rm, stat, statfs, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import {
   findCommandsOnLocalPath,
   resolveCommandOnLocalPath
@@ -66,7 +66,7 @@ export function createHostEnvironmentDoctorDeps(
       return Number(stats.bavail) * Number(stats.bsize)
     },
     runSetupScript: async ({ worktreePath, rootPath, script }) => {
-      const dir = await mkdtemp(join(tmpdir(), 'orca-env-doctor-'))
+      const dir = await mkdtemp(join(tmpdir(), 'openkodo-env-doctor-'))
       try {
         // Like OpenKodo's runner: Windows uses cmd unless the script's shebang asks for a POSIX shell.
         const bash =

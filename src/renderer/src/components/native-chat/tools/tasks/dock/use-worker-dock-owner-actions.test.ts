@@ -19,7 +19,7 @@ vi.mock('@/runtime/rpc/calls/runtime-rpc-call', () => ({
     new Promise((resolve, reject) => rpc.calls.push({ method, params, resolve, reject }))
 }))
 
-const party = 'orca_session_id:11111111-1111-4111-8111-111111111111'
+const party = 'openkodo_session_id:11111111-1111-4111-8111-111111111111'
 const row = (dispatchId: string): WorkerDockRowView => ({
   id: `home/source/worker/${dispatchId}`,
   dispatchId,

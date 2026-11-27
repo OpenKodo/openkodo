@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithResumeAgentSessionInWorkspace } from './resume-agent-session-in-workspace'
+import { OpenKodoRuntimeWithResumeAgentSessionInWorkspace } from './resume-agent-session-in-workspace'
 import { retireReplacedPaneBinding } from '../../../ipc/pty/pane/pane-owner-replacement'
 import { makePaneKey, parsePaneKey } from '../../../../shared/workspace-layout/stable-pane-id'
 import { isRemoteRuntimePtyId } from '../../../../shared/remote-runtime/remote-runtime-pty-id'
@@ -24,7 +24,7 @@ export type AgentPaneRestartResult =
   | { ok: true; ptyId: string }
   | { ok: false; reason: AgentPaneRestartRefusal }
 
-export abstract class OrcaRuntimeWithRestartAgentPaneInPlace extends OrcaRuntimeWithResumeAgentSessionInWorkspace {
+export abstract class OpenKodoRuntimeWithRestartAgentPaneInPlace extends OpenKodoRuntimeWithResumeAgentSessionInWorkspace {
   private readonly agentPaneRestartsByPaneKey = new Set<string>()
   protected abstract readonly sleepResumeRecords: WorktreeSleepResumeRecorder
 

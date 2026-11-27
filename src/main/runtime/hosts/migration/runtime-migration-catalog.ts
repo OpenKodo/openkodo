@@ -1,61 +1,64 @@
 import type {
-  OrcadMigrationCatalogAbortResult,
-  OrcadMigrationCatalogReference,
-  OrcadMigrationCatalogReferenceAbortResult,
-  OrcadMigrationCatalogState,
-  OrcadMigrationManifest
-} from '../../../../shared/orcad-migration/orcad-migration-manifest'
+  OpenkododMigrationCatalogAbortResult,
+  OpenkododMigrationCatalogReference,
+  OpenkododMigrationCatalogReferenceAbortResult,
+  OpenkododMigrationCatalogState,
+  OpenkododMigrationManifest
+} from '../../../../shared/openkodod-migration/openkodod-migration-manifest'
 import type {
-  OrcadMigrationSnapshotChunkRequest,
-  OrcadMigrationSnapshotChunkResult
-} from '../../../../shared/orcad-migration/orcad-migration-scrollback'
+  OpenkododMigrationSnapshotChunkRequest,
+  OpenkododMigrationSnapshotChunkResult
+} from '../../../../shared/openkodod-migration/openkodod-migration-scrollback'
 import type {
-  OrcadMigrationBlobChunkRequest,
-  OrcadMigrationBlobChunkResult,
-  OrcadMigrationBlobDescriptor
-} from '../../../../shared/orcad-migration/orcad-migration-blob-transfer'
+  OpenkododMigrationBlobChunkRequest,
+  OpenkododMigrationBlobChunkResult,
+  OpenkododMigrationBlobDescriptor
+} from '../../../../shared/openkodod-migration/openkodod-migration-blob-transfer'
 import {
-  abortStagedOrcadMigrationCatalogByReferenceDurably,
-  abortStagedOrcadMigrationCatalogDurably,
-  commitStagedOrcadMigrationCatalogDurably,
-  getOrcadMigrationCatalogState,
-  stageOrcadMigrationCatalogDurably
-} from './orcad-migration-catalog-import'
-import { OrcaRuntimeWithResolveExitWaiters } from '../../terminal/wait/terminal-wait-settlements'
+  abortStagedOpenkododMigrationCatalogByReferenceDurably,
+  abortStagedOpenkododMigrationCatalogDurably,
+  commitStagedOpenkododMigrationCatalogDurably,
+  getOpenkododMigrationCatalogState,
+  stageOpenkododMigrationCatalogDurably
+} from './openkodod-migration-catalog-import'
+import { OpenKodoRuntimeWithResolveExitWaiters } from '../../terminal/wait/terminal-wait-settlements'
 import type { RuntimeStore } from '../../construction/runtime-store-contract'
 
 type MigrationStoreKey =
-  | 'stageOrcadMigrationCatalog'
-  | 'commitStagedOrcadMigrationCatalog'
-  | 'stageOrcadMigrationSnapshotChunk'
-  | 'stageOrcadMigrationBlobChunk'
-  | 'abortStagedOrcadMigrationCatalog'
-  | 'abortStagedOrcadMigrationCatalogByReference'
-  | 'getOrcadMigrationCatalogState'
+  | 'stageOpenkododMigrationCatalog'
+  | 'commitStagedOpenkododMigrationCatalog'
+  | 'stageOpenkododMigrationSnapshotChunk'
+  | 'stageOpenkododMigrationBlobChunk'
+  | 'abortStagedOpenkododMigrationCatalog'
+  | 'abortStagedOpenkododMigrationCatalogByReference'
+  | 'getOpenkododMigrationCatalogState'
   | 'flushPendingOrThrowAsync'
 
-export abstract class OrcaRuntimeWithMigrationCatalog extends OrcaRuntimeWithResolveExitWaiters {
-  async stageOrcadMigrationCatalog(
-    manifest: OrcadMigrationManifest,
+export abstract class OpenKodoRuntimeWithMigrationCatalog extends OpenKodoRuntimeWithResolveExitWaiters {
+  async stageOpenkododMigrationCatalog(
+    manifest: OpenkododMigrationManifest,
     options: { signal?: AbortSignal } = {}
-  ): Promise<OrcadMigrationCatalogState> {
-    return stageOrcadMigrationCatalogDurably({
-      store: this.requireMigrationStore('stageOrcadMigrationCatalog', 'flushPendingOrThrowAsync'),
+  ): Promise<OpenkododMigrationCatalogState> {
+    return stageOpenkododMigrationCatalogDurably({
+      store: this.requireMigrationStore(
+        'stageOpenkododMigrationCatalog',
+        'flushPendingOrThrowAsync'
+      ),
       manifest,
       signal: options.signal
     })
   }
 
-  async commitStagedOrcadMigrationCatalog(
-    manifest: OrcadMigrationManifest,
+  async commitStagedOpenkododMigrationCatalog(
+    manifest: OpenkododMigrationManifest,
     options: {
       signal?: AbortSignal
-      expectedBlobs?: readonly OrcadMigrationBlobDescriptor[]
+      expectedBlobs?: readonly OpenkododMigrationBlobDescriptor[]
     } = {}
-  ): Promise<OrcadMigrationCatalogState> {
-    return commitStagedOrcadMigrationCatalogDurably({
+  ): Promise<OpenkododMigrationCatalogState> {
+    return commitStagedOpenkododMigrationCatalogDurably({
       store: this.requireMigrationStore(
-        'commitStagedOrcadMigrationCatalog',
+        'commitStagedOpenkododMigrationCatalog',
         'flushPendingOrThrowAsync'
       ),
       manifest,
@@ -69,30 +72,29 @@ export abstract class OrcaRuntimeWithMigrationCatalog extends OrcaRuntimeWithRes
     })
   }
 
-  stageOrcadMigrationSnapshotChunk(
-    request: OrcadMigrationSnapshotChunkRequest
-  ): OrcadMigrationSnapshotChunkResult {
+  stageOpenkododMigrationSnapshotChunk(
+    request: OpenkododMigrationSnapshotChunkRequest
+  ): OpenkododMigrationSnapshotChunkResult {
     // SAFETY: The virtual Store may differ from the checked Store; preserve its native failure.
-    return this.requireMigrationStore('stageOrcadMigrationSnapshotChunk')
-      .stageOrcadMigrationSnapshotChunk!(request)
+    return this.requireMigrationStore('stageOpenkododMigrationSnapshotChunk')
+      .stageOpenkododMigrationSnapshotChunk!(request)
   }
 
-  stageOrcadMigrationBlobChunk(
-    request: OrcadMigrationBlobChunkRequest
-  ): OrcadMigrationBlobChunkResult {
+  stageOpenkododMigrationBlobChunk(
+    request: OpenkododMigrationBlobChunkRequest
+  ): OpenkododMigrationBlobChunkResult {
     // SAFETY: The virtual Store may differ from the checked Store; preserve its native failure.
-    return this.requireMigrationStore('stageOrcadMigrationBlobChunk').stageOrcadMigrationBlobChunk!(
-      request
-    )
+    return this.requireMigrationStore('stageOpenkododMigrationBlobChunk')
+      .stageOpenkododMigrationBlobChunk!(request)
   }
 
-  async abortStagedOrcadMigrationCatalog(
-    manifest: OrcadMigrationManifest,
+  async abortStagedOpenkododMigrationCatalog(
+    manifest: OpenkododMigrationManifest,
     options: { signal?: AbortSignal } = {}
-  ): Promise<OrcadMigrationCatalogAbortResult> {
-    return abortStagedOrcadMigrationCatalogDurably({
+  ): Promise<OpenkododMigrationCatalogAbortResult> {
+    return abortStagedOpenkododMigrationCatalogDurably({
       store: this.requireMigrationStore(
-        'abortStagedOrcadMigrationCatalog',
+        'abortStagedOpenkododMigrationCatalog',
         'flushPendingOrThrowAsync'
       ),
       manifest,
@@ -100,13 +102,13 @@ export abstract class OrcaRuntimeWithMigrationCatalog extends OrcaRuntimeWithRes
     })
   }
 
-  async abortStagedOrcadMigrationCatalogByReference(
-    reference: OrcadMigrationCatalogReference,
+  async abortStagedOpenkododMigrationCatalogByReference(
+    reference: OpenkododMigrationCatalogReference,
     options: { signal?: AbortSignal } = {}
-  ): Promise<OrcadMigrationCatalogReferenceAbortResult> {
-    return abortStagedOrcadMigrationCatalogByReferenceDurably({
+  ): Promise<OpenkododMigrationCatalogReferenceAbortResult> {
+    return abortStagedOpenkododMigrationCatalogByReferenceDurably({
       store: this.requireMigrationStore(
-        'abortStagedOrcadMigrationCatalogByReference',
+        'abortStagedOpenkododMigrationCatalogByReference',
         'flushPendingOrThrowAsync'
       ),
       reference,
@@ -114,21 +116,23 @@ export abstract class OrcaRuntimeWithMigrationCatalog extends OrcaRuntimeWithRes
     })
   }
 
-  getOrcadMigrationCatalogState(manifest: OrcadMigrationManifest): OrcadMigrationCatalogState {
-    return getOrcadMigrationCatalogState({
-      store: this.requireMigrationStore('getOrcadMigrationCatalogState'),
+  getOpenkododMigrationCatalogState(
+    manifest: OpenkododMigrationManifest
+  ): OpenkododMigrationCatalogState {
+    return getOpenkododMigrationCatalogState({
+      store: this.requireMigrationStore('getOpenkododMigrationCatalogState'),
       manifest,
       worktreeHasLiveShells: this.migrationWorktreeHasLiveShells
     })
   }
 
   /** Install deferred migrated history after host-shell discovery; unanswered inventory retries on the next catalog query. */
-  async installPendingOrcadMigrationShellHistory(): Promise<void> {
+  async installPendingOpenkododMigrationShellHistory(): Promise<void> {
     const store = this.store
     // Every daemon start calls this; no pending blobs must cost no inventory.
     if (
-      !store?.installPendingOrcadMigrationReceivedBlobs ||
-      !store.hasPendingOrcadMigrationShellHistory?.()
+      !store?.installPendingOpenkododMigrationReceivedBlobs ||
+      !store.hasPendingOpenkododMigrationShellHistory?.()
     ) {
       return
     }
@@ -139,26 +143,28 @@ export abstract class OrcaRuntimeWithMigrationCatalog extends OrcaRuntimeWithRes
         ...(await this.getResolvedWorktreeMap()).values()
       ]))
     ) {
-      console.warn('[orcad-migration] shell history waits: the terminal inventory did not answer')
+      console.warn(
+        '[openkodod-migration] shell history waits: the terminal inventory did not answer'
+      )
       return
     }
-    store.installPendingOrcadMigrationReceivedBlobs({
+    store.installPendingOpenkododMigrationReceivedBlobs({
       worktreeHasLiveShells: this.migrationWorktreeHasLiveShells
     })
   }
 
   override onPtyExit(
-    ...args: Parameters<OrcaRuntimeWithResolveExitWaiters['onPtyExit']>
-  ): ReturnType<OrcaRuntimeWithResolveExitWaiters['onPtyExit']> {
+    ...args: Parameters<OpenKodoRuntimeWithResolveExitWaiters['onPtyExit']>
+  ): ReturnType<OpenKodoRuntimeWithResolveExitWaiters['onPtyExit']> {
     const worktreeId = this.ptysById.get(args[0])?.worktreeId
     const result = super.onPtyExit(...args)
     if (worktreeId) {
       try {
-        this.store?.installDeferredOrcadMigrationShellHistory?.(worktreeId, {
+        this.store?.installDeferredOpenkododMigrationShellHistory?.(worktreeId, {
           worktreeHasLiveShells: this.migrationWorktreeHasLiveShells
         })
       } catch (error) {
-        console.error('[orcad-migration] installing deferred shell history failed:', error)
+        console.error('[openkodod-migration] installing deferred shell history failed:', error)
       }
     }
     return result

@@ -40,7 +40,7 @@ export function isRecipeVmLostContact(
     )
   }
   return (
-    runtime.connectionMode === 'orca-server' &&
+    runtime.connectionMode === 'openkodo-server' &&
     runtime.runtimeEnvironmentId !== undefined &&
     evidence.isServerContactLost(runtime.runtimeEnvironmentId)
   )

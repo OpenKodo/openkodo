@@ -14,11 +14,11 @@ import { botOfSession } from '../../../bots/bot-session-tabs'
 import { LOOK_AROUND_REFUSAL } from '../../../bots/bot-look-around-policy'
 import { refuseBotGroupRoomCard } from '../../../bots/bot-group-session-access'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { defineMethod, InvalidArgumentError } from '../core'
 
 function callingBot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   callerSessionId: string,
   pairedDeviceId: string | undefined
 ) {

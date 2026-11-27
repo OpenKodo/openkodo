@@ -42,8 +42,8 @@ function reading(usedPercent: number, updatedAt: number): ProviderRateLimits {
 /** A chat cut on account A at a reset `resetsAt` (none when null), then relaunched on account B. */
 async function relaunchedChat(resetsAt: number | null = RESET, autoContinue = true) {
   let clock = NOW
-  let homePath = join(tmpdir(), 'orca-usage-fixture', 'a')
-  const nextHome = join(tmpdir(), 'orca-usage-fixture', 'b')
+  let homePath = join(tmpdir(), 'openkodo-usage-fixture', 'a')
+  const nextHome = join(tmpdir(), 'openkodo-usage-fixture', 'b')
   const readingSource = { home: nextHome, provenance: 'fixture' }
   const settings = {}
   let limits: ProviderRateLimits | null = null
@@ -89,7 +89,7 @@ async function relaunchedChat(resetsAt: number | null = RESET, autoContinue = tr
   await store.setSessionTabVisibility(SESSION, true)
   const journal = (await host.conversation(SESSION)).journal
   const cutFence = fence()
-  const turn = { provider: 'orca' as const, clientMessageId: 'usage-limited' }
+  const turn = { provider: 'openkodo' as const, clientMessageId: 'usage-limited' }
   const turnItemId = agentJournalItemKey(turn)
   await journal.appendItem(
     turn,
@@ -105,7 +105,7 @@ async function relaunchedChat(resetsAt: number | null = RESET, autoContinue = tr
     { fence: cutFence, turnScope: AGENT_JOURNAL_THREAD_SCOPE }
   )
   await journal.appendItem(
-    { provider: 'orca', clientMessageId: 'limit' },
+    { provider: 'openkodo', clientMessageId: 'limit' },
     {
       kind: 'status',
       ...agentSessionFailureWords(

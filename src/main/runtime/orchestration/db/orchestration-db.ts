@@ -17,7 +17,7 @@ import {
 import { createTables } from './schema/create-tables'
 import { createPeerRunQueueTriggers } from './peer-runs/peer-run-queue-sql'
 import { migrate } from './schema/migrate'
-import { backfillStructuredWorkerOrcaSessionIds } from './schema/structured-worker-orca-session-backfill'
+import { backfillStructuredWorkerOpenKodoSessionIds } from './schema/structured-worker-openkodo-session-backfill'
 import { reconcileSettledWorkerDispatches } from './worker-dispatch/worker-dispatch-settlement'
 import { installWorkerStatusNotice, type DispatchRowChange } from './worker-status-notice'
 import { refreshOutstandingDeliveryTrigger } from './schema/migrate-v41'
@@ -102,7 +102,7 @@ class OrchestrationDbCore {
     backfillFederatedStubHomeRuns(this.db)
     // After every open step that creates Runs, before any step that deletes work.
     installRemovedWorkCapture(this.db, removedWorkCaptureWasIntact)
-    backfillStructuredWorkerOrcaSessionIds(this.db)
+    backfillStructuredWorkerOpenKodoSessionIds(this.db)
     this.db.exec(`
       DROP INDEX IF EXISTS idx_dispatch_creator_account_work;
       CREATE INDEX IF NOT EXISTS idx_dispatch_contexts_run ON dispatch_contexts(run_id);
@@ -175,7 +175,7 @@ class OrchestrationDbCore {
       const db = this as unknown as OrchestrationDb
       const sessions = new Set<string>()
       for (const id of changed) {
-        const sessionId = db.getDispatchContextById(id)?.creator_orca_session_id
+        const sessionId = db.getDispatchContextById(id)?.creator_openkodo_session_id
         if (sessionId) {
           sessions.add(sessionId)
         }

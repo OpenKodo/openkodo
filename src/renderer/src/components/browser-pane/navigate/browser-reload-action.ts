@@ -47,7 +47,7 @@ export function reloadBrowserPageWebview(
   { ignoreCache }: { ignoreCache: boolean }
 ): BrowserPageWebviewReloadResult {
   // No page yet while it waits for its profile's extensions; it loads once they are ready.
-  if (webview.dataset.orcaAttachWaiting) {
+  if (webview.dataset.openkodoAttachWaiting) {
     return 'not-ready'
   }
   try {

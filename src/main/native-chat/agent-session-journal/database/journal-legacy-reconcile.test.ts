@@ -48,7 +48,7 @@ function turn(itemId: string, seq: number): ItemRow {
 }
 
 /** An older OpenKodo's writable open, adding a chat with its record, tab and saved history. */
-function olderOrcaChat(original: Database.Database, sessionId: string, history: JournalRow[]) {
+function olderOpenKodoChat(original: Database.Database, sessionId: string, history: JournalRow[]) {
   runJournalTransaction(original, () => {
     publishJournalSessionEpoch(original, { sessionId, workspaceId: 'workspace' }, 'epoch')
     history.forEach((row) => insertJournalRow(original, sessionId, row))
@@ -102,13 +102,13 @@ function items(db: Database.Database, sessionId: string): string[] {
 }
 
 it('keeps every chat and turn an older OpenKodo saved after a downgrade, without changing either side', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'converted', rows)
-  olderOrcaChat(original, 'unopened', rows)
-  olderOrcaChat(original, 'closed', rows)
+  olderOpenKodoChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'unopened', rows)
+  olderOpenKodoChat(original, 'closed', rows)
   original
     .prepare('INSERT INTO agent_session_records VALUES(?,?)')
     .run('empty', JSON.stringify({ sessionId: 'empty', lease: { sessionId: 'empty' } }))
@@ -133,7 +133,7 @@ it('keeps every chat and turn an older OpenKodo saved after a downgrade, without
       .prepare('INSERT INTO agent_session_attachment_claims VALUES(?,?,?)')
       .run('older-upload', 'converted', 100)
   })
-  olderOrcaChat(original, 'started-older', [rows[0], turn('started-turn', 2)])
+  olderOpenKodoChat(original, 'started-older', [rows[0], turn('started-turn', 2)])
   original.pragma('wal_checkpoint(TRUNCATE)')
   const originalBytes = createHash('sha256')
     .update(readFileSync(journalDatabasePath(root)))
@@ -198,11 +198,11 @@ it('keeps every chat and turn an older OpenKodo saved after a downgrade, without
 })
 
 it('fills in revisions for chats converted before they were kept, then still keeps later turns', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'converted', rows)
   original.pragma('wal_checkpoint(TRUNCATE)')
   const first = await upgrade(root)
   expect(await first.convert('converted')).toBe('epoch')
@@ -266,12 +266,12 @@ function tabbedChats(db: Database.Database): string[] {
 }
 
 it('keeps closed chats closed and adds no copies when a file from before revisions were kept upgrades', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
   for (let index = 0; index < 100; index += 1) {
-    olderOrcaChat(original, `chat-${index}`, rows)
+    olderOpenKodoChat(original, `chat-${index}`, rows)
   }
   original.prepare("DELETE FROM agent_session_tabs WHERE session_id!='chat-0'").run()
   const first = await upgrade(root)
@@ -297,14 +297,14 @@ it('keeps closed chats closed and adds no copies when a file from before revisio
 })
 
 it('keeps only what an older OpenKodo wrote after a file from before revisions were kept copied it', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'open', rows)
-  olderOrcaChat(original, 'closed', rows)
-  olderOrcaChat(original, 'idle', rows)
-  olderOrcaChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'open', rows)
+  olderOpenKodoChat(original, 'closed', rows)
+  olderOpenKodoChat(original, 'idle', rows)
+  olderOpenKodoChat(original, 'converted', rows)
   original
     .prepare('INSERT INTO agent_session_records VALUES(?,?)')
     .run('empty', JSON.stringify({ sessionId: 'empty', lease: { sessionId: 'empty' } }))
@@ -321,7 +321,7 @@ it('keeps only what an older OpenKodo wrote after a file from before revisions w
 
   // The older OpenKodo continues one converted chat and starts another.
   insertJournalRow(original, 'converted', turn('older-turn', tip + 1))
-  olderOrcaChat(original, 'started-older', [rows[0], turn('started-turn', 2)])
+  olderOpenKodoChat(original, 'started-older', [rows[0], turn('started-turn', 2)])
   const known = ['closed', 'converted', 'idle', 'open', 'started-older']
   const compared = await upgrade(root)
   // With no revision to compare, the open reads no history; a background pass compares it.
@@ -360,11 +360,11 @@ it('keeps only what an older OpenKodo wrote after a file from before revisions w
 })
 
 it('keeps a message an older OpenKodo queued in a chat from before revisions were kept', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'queued', rows)
+  olderOpenKodoChat(original, 'queued', rows)
   const first = await upgrade(root)
   expect(await first.convert('queued')).toBe('epoch')
   asOlderChatStore(first.db)
@@ -402,13 +402,13 @@ it('keeps a message an older OpenKodo queued in a chat from before revisions wer
 })
 
 it('records a chat it cannot keep and does not retry it until the older OpenKodo writes it again', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'kept', rows)
+  olderOpenKodoChat(original, 'kept', rows)
   await (await upgrade(root)).close()
-  olderOrcaChat(original, 'refused', [rows[0], turn('refused-turn', 2)])
+  olderOpenKodoChat(original, 'refused', [rows[0], turn('refused-turn', 2)])
   original.pragma('wal_checkpoint(TRUNCATE)')
 
   const blocked = openJournalDomainDatabase(journalDomainDatabasePath(root)).db
@@ -439,11 +439,11 @@ it('records a chat it cannot keep and does not retry it until the older OpenKodo
 })
 
 it('keeps a fresh copy when another build readied a copy before its history converted here', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'converted', rows)
   const first = await upgrade(root)
   expect(await first.convert('converted')).toBe('epoch')
   await first.close()
@@ -474,11 +474,11 @@ it('keeps a fresh copy when another build readied a copy before its history conv
 })
 
 it('leaves a copy whose history failed to convert to an open, not to every idle pass', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'converted', rows)
   const first = await upgrade(root)
   expect(await first.convert('converted')).toBe('epoch')
   await first.close()
@@ -517,14 +517,14 @@ it('leaves a copy whose history failed to convert to an open, not to every idle 
 it.each(['ABORT', 'ROLLBACK'] as const)(
   'isolates a %s claim refusal and retains recovery across launches',
   async (mode) => {
-    const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+    const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
     cleanup.push(() => rmSync(root, { recursive: true, force: true }))
     const { db: original } = openJournalDatabase(journalDatabasePath(root))
     cleanup.push(() => original.close())
-    olderOrcaChat(original, 'existing', rows)
+    olderOpenKodoChat(original, 'existing', rows)
     await (await upgrade(root)).close()
     for (const id of ['before', 'rejected', 'after']) {
-      olderOrcaChat(original, id, [rows[0], turn(`${id}-turn`, 2)])
+      olderOpenKodoChat(original, id, [rows[0], turn(`${id}-turn`, 2)])
       original
         .prepare('INSERT INTO agent_session_attachment_claims VALUES(?,?,?)')
         .run(`upload-${id}`, id, 100)
@@ -578,7 +578,7 @@ it.each(['ABORT', 'ROLLBACK'] as const)(
     ).toBeDefined()
     kept.db.exec('DROP TRIGGER refuse_claim')
     await kept.close()
-    olderOrcaChat(original, 'later', [rows[0], turn('later-turn', 2)])
+    olderOpenKodoChat(original, 'later', [rows[0], turn('later-turn', 2)])
     original.pragma('wal_checkpoint(TRUNCATE)')
 
     const again = await upgrade(root)
@@ -635,11 +635,11 @@ it.each(['ABORT', 'ROLLBACK'] as const)(
 )
 
 it('keeps attachment-only claims even when the original history is unchanged', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'existing', rows)
+  olderOpenKodoChat(original, 'existing', rows)
   await (await upgrade(root)).close()
   original
     .prepare('INSERT INTO agent_session_attachment_claims VALUES(?,?,?)')
@@ -659,11 +659,11 @@ it('keeps attachment-only claims even when the original history is unchanged', a
 })
 
 it('keeps the original upload custody when a forced copy cannot be adopted', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'converted', rows)
   const first = await upgrade(root)
   expect(await first.convert('converted')).toBe('epoch')
   first.db
@@ -710,11 +710,11 @@ it('keeps the original upload custody when a forced copy cannot be adopted', asy
 })
 
 it('queues a history compare even when the chat has a refused claim', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'converted', rows)
+  olderOpenKodoChat(original, 'converted', rows)
   const first = await upgrade(root)
   expect(await first.convert('converted')).toBe('epoch')
   asOlderChatStore(first.db)
@@ -735,14 +735,14 @@ it('queues a history compare even when the chat has a refused claim', async () =
 })
 
 it('records a failed chat even when the original changes during reconciliation', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'existing', rows)
+  olderOpenKodoChat(original, 'existing', rows)
   await (await upgrade(root)).close()
-  olderOrcaChat(original, 'rejected', [rows[0], turn('rejected-turn', 2)])
-  olderOrcaChat(original, 'after', [rows[0], turn('after-turn', 2)])
+  olderOpenKodoChat(original, 'rejected', [rows[0], turn('rejected-turn', 2)])
+  olderOpenKodoChat(original, 'after', [rows[0], turn('after-turn', 2)])
   original.pragma('wal_checkpoint(TRUNCATE)')
   const { db } = openJournalDomainDatabase(journalDomainDatabasePath(root))
   cleanup.push(() => db.close())
@@ -772,13 +772,13 @@ it('records a failed chat even when the original changes during reconciliation',
 })
 
 it('releases failed custody holds after the older store removes the chat', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'existing', rows)
+  olderOpenKodoChat(original, 'existing', rows)
   await (await upgrade(root)).close()
-  olderOrcaChat(original, 'rejected', [rows[0], turn('rejected-turn', 2)])
+  olderOpenKodoChat(original, 'rejected', [rows[0], turn('rejected-turn', 2)])
   original
     .prepare('INSERT INTO agent_session_attachment_claims VALUES(?,?,?)')
     .run('held-upload', 'rejected', 100)
@@ -804,11 +804,11 @@ it('releases failed custody holds after the older store removes the chat', async
 })
 
 it('clears a failure an earlier build saved when a damaged original could not read the chat', async () => {
-  const root = mkdtempSync(join(tmpdir(), 'orca-legacy-reconcile-'))
+  const root = mkdtempSync(join(tmpdir(), 'openkodo-legacy-reconcile-'))
   cleanup.push(() => rmSync(root, { recursive: true, force: true }))
   const { db: original } = openJournalDatabase(journalDatabasePath(root))
   cleanup.push(() => original.close())
-  olderOrcaChat(original, 'kept', rows)
+  olderOpenKodoChat(original, 'kept', rows)
   const first = await upgrade(root)
   // What a build before the damage check saved for each chat of a file missing journal_sessions.
   first.db
@@ -819,7 +819,7 @@ it('clears a failure an earlier build saved when a damaged original could not re
     )
   await first.close()
   // The repaired original is written again, and the chat reads at the revision shown here.
-  olderOrcaChat(original, 'later', rows)
+  olderOpenKodoChat(original, 'later', rows)
   original.pragma('wal_checkpoint(TRUNCATE)')
   const repaired = await upgrade(root)
   cleanup.push(repaired.close)

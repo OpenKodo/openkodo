@@ -1,4 +1,4 @@
-import { OpaqueIdSchema } from '@orca-cloud/push-contract'
+import { OpaqueIdSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 
 // A GitHub user or organization login: letters, digits and hyphens, not starting with a hyphen,
@@ -14,7 +14,7 @@ const GitHubUserSchema = z.object({
   login: z.string().regex(GITHUB_LOGIN_PATTERN)
 })
 
-// GET `${github}/state`: the GitHub user the account is linked as, the Orca app's installations that
+// GET `${github}/state`: the GitHub user the account is linked as, the OpenKodo app's installations that
 // user can reach, and the bot their requests go to when they name none.
 export const ConnectorGitHubStateSchema = z.object({
   installUrl: z.string().url(),
@@ -34,8 +34,8 @@ export const ConnectorGitHubStateSchema = z.object({
 export const ConnectorGitHubLinkStartRequestSchema = z.object({ v: z.literal(1) })
 export const ConnectorGitHubLinkStartSchema = z.object({ authorizeUrl: z.string().url() })
 
-// The single-use token the browser that finished a GitHub sign-in hands to Orca
-// (orca://github/link?t=<token>), as Linear's link token; it lives 10 minutes.
+// The single-use token the browser that finished a GitHub sign-in hands to OpenKodo
+// (openkodo://github/link?t=<token>), as Linear's link token; it lives 10 minutes.
 export const GITHUB_LINK_TOKEN_PATTERN = /^[A-Za-z0-9_-]{43}$/
 
 // POST `${github}/links/preview` (whom the token names; it stays usable) and `…/links/confirm`

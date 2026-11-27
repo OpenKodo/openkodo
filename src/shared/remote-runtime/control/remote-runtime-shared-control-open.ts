@@ -8,10 +8,10 @@ import type { PairedRuntimeConnection } from '../pairing/paired-runtime-connecti
 import { RemoteRuntimeClientError } from '../remote-runtime-client-error'
 import { remoteRuntimeUnavailableError } from '../requests/remote-runtime-request-frames'
 import {
-  ORCAD_IDLE_STOP_CLOSE_CODE,
+  OPENKODOD_IDLE_STOP_CLOSE_CODE,
   RUNTIME_IDLE_STOPPED_ERROR_CODE,
   RUNTIME_IDLE_STOPPED_MESSAGE
-} from '../orcad-lifecycle/orcad-idle-stop-signal'
+} from '../openkodod-lifecycle/openkodod-idle-stop-signal'
 import {
   openRemoteRuntimeWebSocket,
   type RemoteRuntimeWebSocket
@@ -61,7 +61,7 @@ export function openSharedControlSocket(
       if (callbacks.getCurrentSocket() === ws) {
         callbacks.onSocketClosed(
           // Pending requests fail with this code, which tells callers they were never dispatched.
-          code === ORCAD_IDLE_STOP_CLOSE_CODE
+          code === OPENKODOD_IDLE_STOP_CLOSE_CODE
             ? new RemoteRuntimeClientError(
                 RUNTIME_IDLE_STOPPED_ERROR_CODE,
                 RUNTIME_IDLE_STOPPED_MESSAGE
@@ -178,7 +178,7 @@ export async function openPreparedSharedControlSocket(
       ...args.callbacks,
       onSocketClosed: (error, cause, close) => {
         // Before the close is handled, so the retry it schedules already sees the hold.
-        if (close?.code === ORCAD_IDLE_STOP_CLOSE_CODE) {
+        if (close?.code === OPENKODOD_IDLE_STOP_CLOSE_CODE) {
           options.onIdleStop?.()
         }
         onSocketClosed(error, cause, close)

@@ -27,10 +27,10 @@ import {
   nativeChatNoticeLook,
   type NativeChatNoticeTone
 } from '../../../../../../shared/native-chat/transcript/notices/native-chat-notice'
-import { useNativeChatOrcaStopView } from './native-chat-orca-stop-context'
+import { useNativeChatOpenKodoStopView } from './native-chat-openkodo-stop-context'
 import { NativeChatInterruptedContinueButton } from '../../usage/NativeChatInterruptedContinue'
-import { nativeChatOrcaStopRowText } from '../../../../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-words'
-import { sayNativeChatOrcaStopTranslated } from './native-chat-orca-stop-words-text'
+import { nativeChatOpenKodoStopRowText } from '../../../../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-words'
+import { sayNativeChatOpenKodoStopTranslated } from './native-chat-openkodo-stop-words-text'
 import { openBotSettings } from '@/components/bots/bot-settings-open'
 import {
   BOT_CONTEXT_NOTE_COPY,
@@ -109,7 +109,7 @@ export function NativeChatNoticeRow({
 }): React.JSX.Element {
   const t = useTranslate()
   useTranslation()
-  const orcaStopView = useNativeChatOrcaStopView()
+  const openkodoStopView = useNativeChatOpenKodoStopView()
 
   if (block.presentation === NATIVE_CHAT_GOAL_CHECK_SUMMARY) {
     return <NativeChatGoalCheckNotice text={block.text} />
@@ -249,14 +249,15 @@ export function NativeChatNoticeRow({
     )
   }
   // Name OpenKodo and its host as the stop cause; without host context, preserve the original words.
-  const { orcaStop } = block
-  const { hostLabel, remoteHost, continueAvailable, wslDistro } = orcaStopView
+  const { openkodoStop } = block
+  const { hostLabel, remoteHost, continueAvailable, wslDistro } = openkodoStopView
   // A paired server with no name to show is still a remote server; its id is not a name.
   const machine =
-    hostLabel ?? (remoteHost ? sayNativeChatOrcaStopTranslated('unnamedServer') : null)
-  const named = orcaStop !== undefined && machine !== null
+    hostLabel ?? (remoteHost ? sayNativeChatOpenKodoStopTranslated('unnamedServer') : null)
+  const named = openkodoStop !== undefined && machine !== null
   const continueOffered =
-    orcaStop?.turnItemId !== undefined && orcaStop.turnItemId === orcaStopView.offeredTurnItemId
+    openkodoStop?.turnItemId !== undefined &&
+    openkodoStop.turnItemId === openkodoStopView.offeredTurnItemId
   const failure = readWholeAgentSessionFailureFact(block.failure)
   // Reword only text fully described by its fact; other host text may carry command advice.
   const factSurface =
@@ -290,11 +291,11 @@ export function NativeChatNoticeRow({
         )
       : undefined
   const text = named
-    ? nativeChatOrcaStopRowText(
-        orcaStop.cause,
+    ? nativeChatOpenKodoStopRowText(
+        openkodoStop.cause,
         machine,
         { continueAvailable, remoteHost },
-        sayNativeChatOrcaStopTranslated
+        sayNativeChatOpenKodoStopTranslated
       )
     : failure && factSurface
       ? agentSessionFailureSentence(
@@ -319,7 +320,7 @@ export function NativeChatNoticeRow({
             )
           : (agentSessionRestartNoteText(block.text, t) ?? agentSessionGoalControlWords(block.text))
   const failureDetail = agentSessionFailureDetailText(failure)
-  if (block.orcaStop === undefined && failure?.kind === 'usageLimitReached') {
+  if (block.openkodoStop === undefined && failure?.kind === 'usageLimitReached') {
     return (
       <NativeChatUsageLimitRow
         block={block}
@@ -328,7 +329,7 @@ export function NativeChatNoticeRow({
         detail={failureDetail?.trim() ? failureDetail : undefined}
         active={
           block.usageLimitTurnItemId !== undefined &&
-          block.usageLimitTurnItemId === orcaStopView.usageLimitTurnItemId
+          block.usageLimitTurnItemId === openkodoStopView.usageLimitTurnItemId
         }
       />
     )
@@ -363,7 +364,7 @@ export function NativeChatNoticeRow({
         {Icon ? <Icon aria-hidden="true" className="mt-0.5 size-4 shrink-0" /> : null}
         <p className="min-w-0 flex-1 whitespace-pre-wrap break-words">{text}</p>
         {continueOffered ? (
-          <NativeChatInterruptedContinueButton onContinue={orcaStopView.continueNow} />
+          <NativeChatInterruptedContinueButton onContinue={openkodoStopView.continueNow} />
         ) : null}
       </div>
       <NativeChatSetupButton failureKind={block.failure?.kind} rowId={messageId} />

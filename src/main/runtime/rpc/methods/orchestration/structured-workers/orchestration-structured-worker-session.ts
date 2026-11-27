@@ -23,7 +23,7 @@ import type { TuiAgent } from '../../../../../../shared/agent-launch/catalog/tui
 import { ANTIGRAVITY_LEVEL_SUFFIX } from '../../../../../../shared/agent-session/options/catalog-providers/agent-session-option-catalog-antigravity'
 import { antigravityListedFamilySelection } from '../../../../../acp/acp-dialects/antigravity-dialect'
 import type { AgentSessionRecord } from '../../../../../../shared/agent-session/lifecycle/agent-session-record'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { mintAgentSessionOperationId } from '../../../../orchestration/mailbox/structured-pointer/structured-pointer-operation-id'
 import { structuredPointerCallerKey } from '../../../../orchestration/mailbox/structured-pointer/structured-mailbox-pointer-host'
@@ -53,7 +53,7 @@ const handlesBySessionId = new Map<string, string>()
 /** Every stop/release/abandon must drop identity and parked mail across the worker's /clear lineage, even after restart lost its binding. */
 export function releaseStructuredWorkerSession(
   workerSessionId: string | null | undefined,
-  runtime?: Pick<OrcaRuntimeService, 'forgetStructuredSessionMail'>
+  runtime?: Pick<OpenKodoRuntimeService, 'forgetStructuredSessionMail'>
 ): void {
   if (!workerSessionId) {
     return
@@ -126,7 +126,7 @@ async function seedListedAntigravityFamily(
 }
 
 export async function createStructuredWorkerSession(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   worktreeId: string
   agent: TuiAgent
   dispatchId: string

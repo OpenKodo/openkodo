@@ -8,7 +8,10 @@ export const BROWSER_TUNNEL_ALLOW_ALL_DESTINATIONS_ENV =
 export const BROWSER_TUNNEL_DESTINATION_BLOCKED = 'destination_blocked'
 
 // not_loopback: a paired port forward named a host off the server's own loopback.
-export type BrowserTunnelDestinationBlockReason = 'link_local' | 'orca_listener' | 'not_loopback'
+export type BrowserTunnelDestinationBlockReason =
+  | 'link_local'
+  | 'openkodo_listener'
+  | 'not_loopback'
 
 export class BrowserTunnelDestinationBlockedError extends Error {
   constructor(readonly reason: BrowserTunnelDestinationBlockReason) {
@@ -124,22 +127,22 @@ function ownAddressList(interfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): BlockL
   return list
 }
 
-const orcaListenerPorts = new Map<number, number>()
+const openkodoListenerPorts = new Map<number, number>()
 
 /** Marks a host port as an OpenKodo control/proxy listener that paired browser tunnels must not reach. */
-export function reserveBrowserTunnelOrcaListenerPort(port: number): () => void {
-  orcaListenerPorts.set(port, (orcaListenerPorts.get(port) ?? 0) + 1)
+export function reserveBrowserTunnelOpenKodoListenerPort(port: number): () => void {
+  openkodoListenerPorts.set(port, (openkodoListenerPorts.get(port) ?? 0) + 1)
   let released = false
   return () => {
     if (released) {
       return
     }
     released = true
-    const count = (orcaListenerPorts.get(port) ?? 1) - 1
+    const count = (openkodoListenerPorts.get(port) ?? 1) - 1
     if (count <= 0) {
-      orcaListenerPorts.delete(port)
+      openkodoListenerPorts.delete(port)
     } else {
-      orcaListenerPorts.set(port, count)
+      openkodoListenerPorts.set(port, count)
     }
   }
 }
@@ -160,8 +163,8 @@ export function browserTunnelAddressBlockReason(
   if ((linkLocalAddresses ??= buildBlockList(LINK_LOCAL_RULES)).check(address, type)) {
     return 'link_local'
   }
-  if (orcaListenerPorts.has(port) && isHostOwnAddress(address, type)) {
-    return 'orca_listener'
+  if (openkodoListenerPorts.has(port) && isHostOwnAddress(address, type)) {
+    return 'openkodo_listener'
   }
   return null
 }
@@ -195,10 +198,10 @@ export function browserTunnelTargetBlockReason(
     return 'link_local'
   }
   if (
-    orcaListenerPorts.has(port) &&
+    openkodoListenerPorts.has(port) &&
     (normalized === 'localhost' || normalized.endsWith('.localhost'))
   ) {
-    return 'orca_listener'
+    return 'openkodo_listener'
   }
   return browserTunnelAddressBlockReason(
     isIP(host) === 0 ? (inetAtonIPv4(normalized) ?? host) : host,

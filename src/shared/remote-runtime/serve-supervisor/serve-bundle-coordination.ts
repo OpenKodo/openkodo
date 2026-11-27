@@ -5,8 +5,8 @@ import { dirname, join } from 'node:path'
 /** launchd label prefix `openkodo serve service install` writes; only those supervisors register. */
 export const SERVE_LAUNCHD_LABEL_PREFIX = 'dev.openkodo.serve'
 export const SERVE_COORDINATION_PROTOCOL = 1
-/** orcad restarts its own browser helper; under the serve prefix so older installers park it too. */
-export const ORCAD_BROWSER_PARK_LABEL = `${SERVE_LAUNCHD_LABEL_PREFIX}.orcad-browser`
+/** openkodod restarts its own browser helper; under the serve prefix so older installers park it too. */
+export const OPENKODOD_BROWSER_PARK_LABEL = `${SERVE_LAUNCHD_LABEL_PREFIX}.openkodod-browser`
 /** A registration this stale belongs to a supervisor that is gone or wedged. */
 export const SERVE_SUPERVISOR_HEARTBEAT_STALE_MS = 15_000
 export const SERVE_SUPERVISOR_HEARTBEAT_MS = 3_000
@@ -46,7 +46,7 @@ export function macAppBundleOf(executable: string): string | null {
 
 /** Electron's default macOS userData base, shared by every profile of one user. */
 export function macCoordinationRoot(homeDir: string): string {
-  return join(homeDir, 'Library', 'Application Support', 'orca')
+  return join(homeDir, 'Library', 'Application Support', 'openkodo')
 }
 
 export function bundleCoordinationDir(realBundlePath: string, macUserDataRoot: string): string {

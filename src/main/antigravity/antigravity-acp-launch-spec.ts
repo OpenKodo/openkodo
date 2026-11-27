@@ -6,9 +6,9 @@ import { homedir } from 'node:os'
 import type { AcpLaunchSpec } from '../acp/launch/acp-launch-contract'
 import type { AcpSessionModelDiscovery } from '../acp/discovery/acp-model-discovery-policy'
 import {
-  antigravityAgyOrcaHomeRevision,
+  antigravityAgyOpenKodoHomeRevision,
   antigravityChatRunsOnAgyHome,
-  onAntigravityAgyOrcaHomeChanged
+  onAntigravityAgyOpenKodoHomeChanged
 } from './antigravity-chat-route'
 import { OPENKODO_ACP_CLIENT_INFO } from '../acp/launch/acp-client-info'
 import { windowsLocalAppDataBinDirectories } from '../acp/launch/acp-windows-install-directories'
@@ -19,13 +19,13 @@ import {
 } from '../acp/acp-dialects/antigravity-dialect'
 import type { AgentSessionAccountHome } from '../../shared/agent-session/lifecycle/accounts/agent-session-account-home'
 import {
-  agyOrcaHomeArgs,
-  antigravityAgyOrcaAccount,
-  antigravityAgyOrcaAccountHome,
-  antigravityLegacyOrcaAccount,
-  antigravityOrcaHomeFolder,
+  agyOpenKodoHomeArgs,
+  antigravityAgyOpenKodoAccount,
+  antigravityAgyOpenKodoAccountHome,
+  antigravityLegacyOpenKodoAccount,
+  antigravityOpenKodoHomeFolder,
   ANTIGRAVITY_AGY_CHAT_HOME_FOLDER
-} from './antigravity-agy-orca-home'
+} from './antigravity-agy-openkodo-home'
 import {
   resumeInvocationFromOptions,
   type StructuredAgentSessionHistory
@@ -37,7 +37,7 @@ import {
   compareAppVersions,
   isValidAppVersion
 } from '../../shared/app-lifecycle/identity/app-version'
-import { scrubAgyOrcaHomeEnvironment } from './antigravity-agy-orca-home-environment'
+import { scrubAgyOpenKodoHomeEnvironment } from './antigravity-agy-openkodo-home-environment'
 import { ANTIGRAVITY_LAUNCH_GATE } from './antigravity-chat-account'
 import { discardAgyListingSession } from './agy-listing-session-discard'
 import {
@@ -152,14 +152,14 @@ const ANTIGRAVITY_AGY_LAUNCH_SPEC = {
 const ANTIGRAVITY_AGY_OPENKODO_HOME_LAUNCH_SPEC: AcpLaunchSpec = {
   ...ANTIGRAVITY_AGY_LAUNCH_SPEC,
   readsAntigravityChatAuth: true,
-  scrubEnvironment: scrubAgyOrcaHomeEnvironment,
+  scrubEnvironment: scrubAgyOpenKodoHomeEnvironment,
   dialect: ANTIGRAVITY_AGY_OPENKODO_HOME_DIALECT,
-  account: antigravityAgyOrcaAccount
+  account: antigravityAgyOpenKodoAccount
 }
 
 /** The OpenKodo-home spec for one home: agy is pointed at it on every launch. */
-function agyOrcaHomeSpec(home: AgentSessionAccountHome): AcpLaunchSpec | null {
-  const folder = antigravityOrcaHomeFolder(home)
+function agyOpenKodoHomeSpec(home: AgentSessionAccountHome): AcpLaunchSpec | null {
+  const folder = antigravityOpenKodoHomeFolder(home)
   if (!folder) {
     return null
   }
@@ -167,9 +167,9 @@ function agyOrcaHomeSpec(home: AgentSessionAccountHome): AcpLaunchSpec | null {
     ...ANTIGRAVITY_AGY_OPENKODO_HOME_LAUNCH_SPEC,
     account:
       folder === ANTIGRAVITY_AGY_CHAT_HOME_FOLDER
-        ? antigravityAgyOrcaAccount
-        : antigravityLegacyOrcaAccount,
-    args: (options) => [...ANTIGRAVITY_AGY_LAUNCH_SPEC.args(options), ...agyOrcaHomeArgs(home)]
+        ? antigravityAgyOpenKodoAccount
+        : antigravityLegacyOpenKodoAccount,
+    args: (options) => [...ANTIGRAVITY_AGY_LAUNCH_SPEC.args(options), ...agyOpenKodoHomeArgs(home)]
   }
 }
 
@@ -177,18 +177,19 @@ export const ANTIGRAVITY_LAUNCH_SPEC = {
   ...ANTIGRAVITY_AGY_LAUNCH_SPEC,
   hostBackend: {
     spec: ANTIGRAVITY_AGY_LAUNCH_SPEC,
-    pins: (home) => isAntigravityHostAccountHome(home) || antigravityOrcaHomeFolder(home) !== null,
+    pins: (home) =>
+      isAntigravityHostAccountHome(home) || antigravityOpenKodoHomeFolder(home) !== null,
     ownLogin: isAntigravityHostAccountHome,
     followsSelectionBeforeFirstTurn: true,
-    specFor: agyOrcaHomeSpec,
+    specFor: agyOpenKodoHomeSpec,
     otherSpecs: [ANTIGRAVITY_AGY_OPENKODO_HOME_LAUNCH_SPEC],
     // The saved method alone picks the home, so nothing here waits on agy.
     select: async (input) =>
       antigravityChatRunsOnAgyHome(input.settings.antigravityChatAuth)
         ? antigravityHostAccountHome(input.homePath)
-        : antigravityAgyOrcaAccountHome(input.stateDirectory),
+        : antigravityAgyOpenKodoAccountHome(input.stateDirectory),
     // A key coming or going decides whether key chats and their listings run.
-    selectionRevision: antigravityAgyOrcaHomeRevision,
-    onSelectionChanged: onAntigravityAgyOrcaHomeChanged
+    selectionRevision: antigravityAgyOpenKodoHomeRevision,
+    onSelectionChanged: onAntigravityAgyOpenKodoHomeChanged
   }
 } satisfies AcpLaunchSpec

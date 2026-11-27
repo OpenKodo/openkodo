@@ -221,7 +221,7 @@ export async function acquireCodexStructuredSession(input: {
               connection: acquisition.connection,
               error,
               // A previously unproven OpenKodo close still owns this exit.
-              ...(exit?.expected ? { closedByOrca: true as const } : {}),
+              ...(exit?.expected ? { closedByOpenKodo: true as const } : {}),
               ...(deps.logger ? { logger: deps.logger } : {}),
               prompts: acquisition.prompts,
               ...(deps.onEvent ? { onEvent: deps.onEvent } : {})

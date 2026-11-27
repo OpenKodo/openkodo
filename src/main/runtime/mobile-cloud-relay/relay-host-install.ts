@@ -1,15 +1,15 @@
-// The cloud relay on any host: the desktop app, Electron `openkodo serve` and orcad.
-import { getOrcaCloudAuthConfig } from '../../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import { onTeamFeatureBlockChanged } from '../../orca-profiles/cloud-auth/active-team-capabilities'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/orca-profiles/orca-cloud-team-policy'
-import type { OrcaRuntimeRpcServer } from '../rpc/server/runtime-rpc'
+// The cloud relay on any host: the desktop app, Electron `openkodo serve` and openkodod.
+import { getOpenKodoCloudAuthConfig } from '../../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import { onTeamFeatureBlockChanged } from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
+import type { OpenKodoRuntimeRpcServer } from '../rpc/server/runtime-rpc'
 import { RELAY_HOST_CLOSE_REASON } from '../../../shared/remote-runtime/relay/relay-host-close-reason'
 import type { MobileRelayStatusPublisher } from '../../../shared/remote-runtime/relay/mobile-relay-status'
 import { DesktopRelayService } from './desktop-relay-service'
 import { createDesktopRelayServiceInstaller } from './desktop-relay-service-installer'
 
 export type RelayHostOptions = {
-  runtimeRpc: OrcaRuntimeRpcServer
+  runtimeRpc: OpenKodoRuntimeRpcServer
   /** This host's own data folder, so the relay serves its own OpenKodo account and keys. */
   userDataPath: string
   appVersion: string
@@ -42,7 +42,7 @@ export function installRelayHost(options: RelayHostOptions): RelayHost {
     whenNetworkReady: options.whenNetworkReady,
     isFenced: options.isFenced,
     create: () => {
-      const cloudAuth = getOrcaCloudAuthConfig()
+      const cloudAuth = getOpenKodoCloudAuthConfig()
       return cloudAuth.configured
         ? new DesktopRelayService({
             authConfig: cloudAuth.config,

@@ -1,6 +1,6 @@
 import { KeyRound, Play } from 'lucide-react'
 import type React from 'react'
-import type { OrcaHooks } from '../../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import { isRecipeEnvNamePassed } from '../../../../../../shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-recipe-env'
 import { Button } from '../../../ui/button'
 import { useTranslate } from '@/i18n/use-translate'
@@ -9,7 +9,7 @@ import { isWindowsUserAgent } from '@/app-shell/platform/user-agent-platform'
 type RecipeCatalogEntry = Awaited<
   ReturnType<typeof window.api.ephemeralVm.listRecipeCatalog>
 >[number]
-type Recipe = NonNullable<OrcaHooks['environmentRecipes']>[number]
+type Recipe = NonNullable<OpenKodoHooks['environmentRecipes']>[number]
 
 const MAX_LISTED_ENV_NAMES = 6
 

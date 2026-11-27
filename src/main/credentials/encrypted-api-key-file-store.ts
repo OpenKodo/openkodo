@@ -13,7 +13,7 @@ import type { SecretAtRestProtection } from '../../shared/secure-storage/secret-
 import { ApiKeyFileUnreadableError } from './api-key-file-unreadable-error'
 
 type EncryptedApiKeyFileStore = {
-  /** Envelope location and prefix used by orcad's plaintext migration. */
+  /** Envelope location and prefix used by openkodod's plaintext migration. */
   envelopeFile: () => { path: string; envelopePrefix: string }
   protection: () => Promise<SecretAtRestProtection | null>
   has: () => Promise<boolean>
@@ -41,12 +41,12 @@ export function createEncryptedApiKeyFileStore({
     payload: Buffer
   }
 
-  function getOrcaDir(): string {
+  function getOpenKodoDir(): string {
     return openKodoHomePath()
   }
 
   function getApiKeyPath(): string {
-    return join(getOrcaDir(), fileName)
+    return join(getOpenKodoDir(), fileName)
   }
 
   function encodeApiKeyEnvelope(kind: ApiKeyEnvelope['kind'], payload: Buffer): string {

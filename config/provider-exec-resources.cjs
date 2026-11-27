@@ -2,7 +2,7 @@ const { spawnSync } = require('node:child_process')
 const { chmodSync, existsSync, lstatSync } = require('node:fs')
 const { join } = require('node:path')
 
-const PROVIDER_EXEC_BUILD_EXECUTABLE = 'orca-provider-exec'
+const PROVIDER_EXEC_BUILD_EXECUTABLE = 'openkodo-provider-exec'
 const PROVIDER_EXEC_EXECUTABLE = 'openkodo-provider-exec'
 
 // electron-builder `Arch` enum: x64=1, arm64=3. POSIX provider CLIs cannot launch without it.

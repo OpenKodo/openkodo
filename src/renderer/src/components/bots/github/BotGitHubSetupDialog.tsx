@@ -30,10 +30,10 @@ import { BOT_SLACK_DESKTOP_ERRORS } from '../../../../../shared/connector-bot-sl
 import { botErrorMessage } from '../bot-presentation'
 import { BotWhoCanAskList } from '../BotWhoCanAskList'
 import {
-  OrcaCloudSignInDialogBody,
-  OrcaCloudSignInGate,
-  orcaCloudSignInReason
-} from '../orca-cloud-sign-in'
+  OpenKodoCloudSignInDialogBody,
+  OpenKodoCloudSignInGate,
+  openkodoCloudSignInReason
+} from '../openkodo-cloud-sign-in'
 import { ConnectWaiting, ConnectorSetupHeader, connectorSetupFor } from '../connector-connect-parts'
 import { useConfirmConnectorSignOut } from '../connector-sign-out-confirm'
 import { botGitHubErrorMessage, gitHubPushesAs } from './bot-github-copy'
@@ -170,9 +170,9 @@ function BotGitHubSetupFlow({
   // step signs in that server instead.
   if (step.kind === 'failed' && signedOutHere(step, hostName)) {
     return (
-      <OrcaCloudSignInDialogBody
+      <OpenKodoCloudSignInDialogBody
         title={title}
-        reason={orcaCloudSignInReason('github')}
+        reason={openkodoCloudSignInReason('github')}
         onCancel={onClose}
         onSignedIn={() => refreshBotGitHub(bot.hostId)}
         // A trip to GitHub still followed keeps its Minimize; otherwise Cancel is the way out.
@@ -400,10 +400,10 @@ export function BotGitHubSetupDialog({
       >
         {open ? (
           <div className="flex min-w-0 flex-col gap-4">
-            <OrcaCloudSignInGate
+            <OpenKodoCloudSignInGate
               hostId={bot.hostId}
               title={title}
-              reason={orcaCloudSignInReason('github')}
+              reason={openkodoCloudSignInReason('github')}
               onCancel={closeGitHubInstall}
               resume={() => refreshBotGitHub(bot.hostId)}
               corner={
@@ -418,7 +418,7 @@ export function BotGitHubSetupDialog({
                 title={title}
                 onClose={closeGitHubInstall}
               />
-            </OrcaCloudSignInGate>
+            </OpenKodoCloudSignInGate>
           </div>
         ) : null}
       </DialogContent>

@@ -1,4 +1,4 @@
-import type { PersistedTrustedOrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { FeatureInteractionId } from '../../../../../shared/feature-education/interactions/feature-interaction-catalog'
 import type { FeatureInteractionState } from '../../../../../shared/feature-education/interactions/feature-interactions'
 import type {
@@ -7,7 +7,7 @@ import type {
 } from '../../../../../shared/feature-education/feature-tips'
 import type { ChatUiLaunchTipVariant } from '../../../../../shared/feature-education/chat-ui-launch-tip-audience'
 import type { ContextualTourId } from '../../../../../shared/feature-education/contextual-tours/contextual-tours'
-import type { OrcaHookTrustKind } from '../../../../../shared/workspace-setup/hooks/orca-hook-trust-entries'
+import type { OpenKodoHookTrustKind } from '../../../../../shared/workspace-setup/hooks/openkodo-hook-trust-entries'
 import type { SettingsNavigationTarget } from '../../../components/settings/navigation/settings-navigation-types'
 import type { ExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import type { WslMovedProject } from '../../../../../shared/wsl-move/wsl-moved-project'
@@ -56,7 +56,7 @@ export type UISliceContextual = {
     | 'bot-templates'
     | 'feature-tips'
     | 'new-workspace-composer'
-    | 'confirm-orca-yaml-hooks'
+    | 'confirm-openkodo-yaml-hooks'
     | 'diagram-viewer'
     | 'agent-session-history'
     | 'chat-account-usage'
@@ -106,14 +106,14 @@ export type UISliceContextual = {
   completeContextualTour: (id?: ContextualTourId) => void
   cancelContextualTour: (id?: ContextualTourId) => void
   markContextualToursSeen: (ids: ContextualTourId[]) => void
-  trustedOrcaHooks: PersistedTrustedOrcaHooks
-  markOrcaHookScriptConfirmed: (
+  trustedOpenKodoHooks: PersistedTrustedOpenKodoHooks
+  markOpenKodoHookScriptConfirmed: (
     repoId: string,
-    kind: OrcaHookTrustKind,
+    kind: OpenKodoHookTrustKind,
     contentHash: string
   ) => void
-  markOrcaHookRepoAlwaysTrusted: (repoId: string) => void
-  clearOrcaHookTrustForRepo: (repoId: string) => void
+  markOpenKodoHookRepoAlwaysTrusted: (repoId: string) => void
+  clearOpenKodoHookTrustForRepo: (repoId: string) => void
   setupScriptPromptDismissedRepoIds: readonly string[]
   dismissSetupScriptPrompt: (repoHostIdentity: string) => void
   setupGuideSidebarDismissed: boolean

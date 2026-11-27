@@ -6,7 +6,7 @@ import { exportProfileStateJson, importProfileStateJson } from './profile-state-
 import { readProfileStateDocuments } from './profile-state-document-reader'
 import { readProfileStateRevision } from '../database/profile-state-revision'
 import { openProfileStateDatabase } from '../database/profile-state-database'
-import { profileStateDatabaseFile } from '../../../../shared/orca-profiles/profile-state-storage-paths'
+import { profileStateDatabaseFile } from '../../../../shared/openkodo-profiles/profile-state-storage-paths'
 
 const temporaryDirectories: string[] = []
 
@@ -20,7 +20,7 @@ function openTestDatabase(): {
   directory: string
   db: ReturnType<typeof openProfileStateDatabase>['db']
 } {
-  const directory = mkdtempSync(join(tmpdir(), 'orca-profile-state-documents-'))
+  const directory = mkdtempSync(join(tmpdir(), 'openkodo-profile-state-documents-'))
   temporaryDirectories.push(directory)
   return {
     directory,

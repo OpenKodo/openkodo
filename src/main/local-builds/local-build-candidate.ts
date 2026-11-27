@@ -9,7 +9,7 @@ import {
   OPENKODO_APP_ID,
   parseLocalBuildCompatibility,
   type LocalBuildCompatibility
-} from '../../shared/remote-runtime/orcad-distribution/local-build-compatibility'
+} from '../../shared/remote-runtime/openkodod-distribution/local-build-compatibility'
 import { isValidAppVersion } from '../../shared/app-lifecycle/identity/app-version'
 
 const MAX_MANIFEST_BYTES = 256 * 1024

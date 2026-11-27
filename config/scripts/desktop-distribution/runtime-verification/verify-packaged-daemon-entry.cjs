@@ -10,7 +10,7 @@ const {
 } = require('../../macos/terminal-host-bundle/macos-terminal-host-bundle.cjs')
 const {
   daemonProtocolVersion
-} = require('../../../../src/shared/remote-runtime/orcad-distribution/local-build-compatibility-contract.json')
+} = require('../../../../src/shared/remote-runtime/openkodod-distribution/local-build-compatibility-contract.json')
 
 // Require exact asar-unpacked daemon entry on every platform; missing path indicates layout regression and must not silently skip.
 function assertPackagedDaemonEntryExists(resourcesDir) {
@@ -270,7 +270,7 @@ async function verifyPackagedMacTerminalHostBoots(appPath, { arch, required }) {
   }
   const stderr = []
   // Boot clone outside build tree so ancestor node_modules cannot satisfy missing packaged dependency.
-  const isolated = mkdtempSync(join(tmpdir(), 'orca-terminal-host-boot-'))
+  const isolated = mkdtempSync(join(tmpdir(), 'openkodo-terminal-host-boot-'))
   const clone = join(isolated, basename(paths.bundle))
   try {
     const cloned = spawnSync('/bin/cp', ['-cR', paths.bundle, clone], { encoding: 'utf8' })

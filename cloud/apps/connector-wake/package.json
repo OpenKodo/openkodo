@@ -1,5 +1,5 @@
 {
-  "name": "@orca-cloud/connector-wake",
+  "name": "@openkodo-cloud/connector-wake",
   "private": true,
   "version": "0.0.0",
   "type": "module",

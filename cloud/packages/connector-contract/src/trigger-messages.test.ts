@@ -23,7 +23,7 @@ const bot = { ownerUserId: 'U0OWNER', members: ['U0MEMBER'], botUserId: 'U0BOT' 
 const hello = {
   v: 1,
   contract: 1,
-  orcaVersion: '1.4.230',
+  openkodoVersion: '1.4.230',
   platform: 'darwin',
   runtime: 'desktop',
   hostName: 'mac',

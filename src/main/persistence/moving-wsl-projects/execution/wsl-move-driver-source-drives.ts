@@ -139,7 +139,7 @@ export function wslMoveStartDroppedProjects(
   const left = (
     kind: keyof WslMoveIds,
     id: string,
-    row: { path: string; orcadRetained?: unknown }
+    row: { path: string; openkododRetained?: unknown }
   ) =>
     !moving[kind].includes(id) &&
     (!asked || asked[kind].includes(id)) &&
@@ -154,7 +154,7 @@ export function wslMoveStartDroppedProjects(
           isLocalWslMoveRow(folder) &&
           left('folderWorkspaceIds', folder.id, {
             path: folder.folderPath,
-            orcadRetained: folder.orcadRetained
+            openkododRetained: folder.openkododRetained
           })
       )
       .map((folder) => ({ kind: 'folder' as const, id: folder.id, name: folder.name }))
@@ -165,7 +165,7 @@ export function wslMoveStartDroppedProjects(
 function changedDriveRows(
   fresh: readonly WslMappedDrive[],
   expected: readonly WslMappedDrive[]
-): (row: { path: string; orcadRetained?: unknown }) => boolean {
+): (row: { path: string; openkododRetained?: unknown }) => boolean {
   const changed = new Set(
     expected
       .filter((seen) => {
@@ -175,5 +175,5 @@ function changedDriveRows(
       .map((drive) => drive.letter.toUpperCase())
   )
   // A retained row was moved earlier; it isn't this start's to leave.
-  return (row) => !row.orcadRetained && changed.has(wslMoveDriveLetterOf(row.path) ?? '')
+  return (row) => !row.openkododRetained && changed.has(wslMoveDriveLetterOf(row.path) ?? '')
 }

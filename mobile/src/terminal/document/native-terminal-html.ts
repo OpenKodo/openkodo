@@ -20,9 +20,9 @@ export function xtermWebViewSource(start: {
   shown: boolean
 }) {
   const startValues =
-    `window.__orcaTerminalTextScale = ${JSON.stringify(start.textScale)};\n` +
-    `window.__orcaTerminalFontStyle = ${JSON.stringify(start.fontStyle)};\n` +
-    `window.__orcaTerminalShown = ${JSON.stringify(start.shown)};\n`
+    `window.__openkodoTerminalTextScale = ${JSON.stringify(start.textScale)};\n` +
+    `window.__openkodoTerminalFontStyle = ${JSON.stringify(start.fontStyle)};\n` +
+    `window.__openkodoTerminalShown = ${JSON.stringify(start.shown)};\n`
   const fontCss = terminalBundledFontCss(start.fontStyle.font)
   const shell = fontCss
     ? TERMINAL_HTML_DOCUMENT_SHELL.replace('</head>', () => `<style>${fontCss}</style>\n</head>`)

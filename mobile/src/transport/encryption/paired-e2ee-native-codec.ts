@@ -8,7 +8,7 @@ export type PairedE2EENativeCodec = {
   openSecretbox(box: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array | null
   /** XSalsa20-Poly1305 secretbox seal, byte-identical to tweetnacl's `secretbox`. */
   sealSecretbox(message: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array
-  /** Throws on a body that is not one well-formed gzip member. See orca-gzip-utf8-codec. */
+  /** Throws on a body that is not one well-formed gzip member. See openkodo-gzip-utf8-codec. */
   gunzip(input: Uint8Array, outputLimit: number): Uint8Array
   /** Off the JS thread; Hermes has no brotli, so there is no JS fallback. */
   brotliDecompress(input: Uint8Array, outputLimit: number): Promise<Uint8Array<ArrayBuffer>>

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { oweRemoteDispatchStop, remoteStopKey } from '../../db/remote-owned/remote-dispatch-records'
 import { getOpenRemoteRunLink, type RemoteRunLinkRow } from '../../db/remote-owned/remote-run-links'
 import { settleRemoteAttemptHere } from '../../db/remote-owned/remote-placements'
@@ -11,7 +11,7 @@ import { remoteServerName } from './remote-owned-reads'
 
 /** A stop is owed until the server proves it; the ordinary stop answers when it can, and the pull loop resends otherwise. */
 export async function stopRemoteWorker(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   link: RemoteRunLinkRow,
   dispatchId: string,
   forward: RemoteForwardKey | undefined
@@ -44,7 +44,7 @@ export async function stopRemoteWorker(
 
 /** The server did not answer a stop: the Task half runs here at once, as a local stop's does, and the stop stays owed until the server proves it. */
 async function settleUnansweredStop(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   link: RemoteRunLinkRow,
   dispatchId: string
 ) {
@@ -63,7 +63,7 @@ async function settleUnansweredStop(
  * here at once, so the Task can be retried, and the worker there is left to run.
  */
 export async function settleUnansweredAbandon(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   link: RemoteRunLinkRow,
   dispatchId: string
 ) {

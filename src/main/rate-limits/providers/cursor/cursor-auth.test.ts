@@ -2,10 +2,10 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { readCursorAuthSession } from './cursor-auth'
 
-vi.mock('@orca/process-host', () => ({ runProcess: vi.fn() }))
+vi.mock('@openkodo/process-host', () => ({ runProcess: vi.fn() }))
 vi.mock('../../../foreign-sqlite-readers/foreign-sqlite-reader-spawn', () => ({
   readCursorDesktopProfile: vi.fn(async () => ({ status: 'missing' }))
 }))

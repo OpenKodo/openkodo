@@ -4,8 +4,8 @@ import { isRecord } from '../../../shared/agent-status/child-work/agent-status-c
 
 export type AgentIdentityWorkerRequest =
   | { id: number; kind: 'identify'; path: string; key: AgentProviderKey }
-  | { id: number; kind: 'has'; path: string; orcaSessionId: string }
-  | { id: number; kind: 'providerKeyOf'; path: string; orcaSessionId: string }
+  | { id: number; kind: 'has'; path: string; openkodoSessionId: string }
+  | { id: number; kind: 'providerKeyOf'; path: string; openkodoSessionId: string }
   | { id: number; kind: 'idsOfProviderSession'; path: string; providerSessionId: string }
 
 /** A reverse lookup this file can't serve by index: a newer build's read-only file without one.

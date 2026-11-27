@@ -149,14 +149,14 @@ export const readFailed = fixture({ result: { status: 'failed', message: null } 
 export const underGoal = fixture({ servers: SIGN_IN_SERVERS }, { underGoal: true })
 
 // A host with MCP servers on: OpenKodo's group first, and the link to its settings.
-export const orcaServers = fixture(
+export const openkodoServers = fixture(
   {
     servers: [
       server('claude.ai Notion', 'connected', { source: 'claudeai', toolCount: 77 }),
-      server('Linear', 'connected', { source: 'orca', toolCount: 23 }),
-      server('Sentry', 'needs-auth', { source: 'orca', canSignIn: true }),
-      server('Postgres', 'connected', { source: 'orca', toolCount: 8 }),
-      server('Context7', 'connected', { source: 'orca', toolCount: 2 })
+      server('Linear', 'connected', { source: 'openkodo', toolCount: 23 }),
+      server('Sentry', 'needs-auth', { source: 'openkodo', canSignIn: true }),
+      server('Postgres', 'connected', { source: 'openkodo', toolCount: 8 }),
+      server('Context7', 'connected', { source: 'openkodo', toolCount: 2 })
     ]
   },
   { manageable: true }

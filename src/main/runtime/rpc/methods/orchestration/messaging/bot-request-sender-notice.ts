@@ -4,7 +4,7 @@
 import type { MessageRow } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { BotRequestOutcome } from '../../../../orchestration/db/bot-requests/bot-request-outcomes'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { botRequestUnansweredText } from '../../../../../bots/bot-request-view'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { awaitsAnswer } from '../../../../../bots/bot-request-policy'
@@ -22,17 +22,17 @@ import {
   readAgentSessionRecordStore,
   resolveLineageRunningSession
 } from '../../../../orchestration/addressing/session-lineage/structured-session-lineage'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import {
-  isOrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../../../shared/agent-session/identity/orca-session-address'
-import { lookupOrcaAgentSession } from '../../../../orchestration/mailbox/routing/structured-session-mail-address'
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../../../shared/agent-session/identity/openkodo-session-address'
+import { lookupOpenKodoAgentSession } from '../../../../orchestration/mailbox/routing/structured-session-mail-address'
 import { runLifecycleWriteTransaction } from '../../../../orchestration/db/lifecycle-write-transaction-runner'
 
 // Session senders resolve against the session records, which a restart leaves uninstalled until asked.
 export async function ensureSenderRecords(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   requests: readonly (MessageRow | null | undefined)[]
 ): Promise<void> {
   if (requests.some((request) => request && mayNameSession(request.from_handle))) {
@@ -43,7 +43,7 @@ export async function ensureSenderRecords(
 /** False leaves the request as it was: its sender cannot be verified yet, so a later end retries.
  *  `settled` runs in the same write as the outcome whenever the request is settled here. */
 export function tellSender(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   request: MessageRow,
   outcome: BotRequestOutcome,
@@ -88,7 +88,7 @@ export function tellSender(
 
 /** A request from a paired computer is told over the conversation it came on, from the bot's own address. */
 function tellPeerSender(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   request: MessageRow,
   outcome: BotRequestOutcome,
@@ -129,7 +129,7 @@ function tellPeerSender(
 // 'unverified': the session records are not installed, or its /clear lineage can't be read yet,
 // which proves neither.
 function reachableSender(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   request: MessageRow
 ): ReturnType<typeof resolveReplyRecipient> | 'gone' | 'unverified' {
@@ -156,8 +156,8 @@ function reachableSender(
 /** A known session whose /clear successor has no readable record yet: not proof that it ended. */
 function senderLineageUnproven(from: string): boolean {
   const sessionId = from.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
-    ? parseOrcaSessionAddress(from)
-    : isOrcaSessionId(from)
+    ? parseOpenKodoSessionAddress(from)
+    : isOpenKodoSessionId(from)
       ? from
       : null
   const store = sessionId ? readAgentSessionRecordStore() : null
@@ -165,12 +165,12 @@ function senderLineageUnproven(from: string): boolean {
     return false
   }
   try {
-    const found = lookupOrcaAgentSession(store, sessionId)
+    const found = lookupOpenKodoAgentSession(store, sessionId)
     const known =
       found.kind === 'found'
         ? found.record.sessionId
         : found.kind === 'provider-id'
-          ? found.orcaSessionId
+          ? found.openkodoSessionId
           : null
     return known !== null && resolveLineageRunningSession(store, known).kind === 'unverifiable'
   } catch {

@@ -5,7 +5,7 @@ const state = vi.hoisted(() => ({
   repos: [],
   worktreesByRepo: {},
   settings: null,
-  activeOrcaProfileId: null,
+  activeOpenKodoProfileId: null,
   browserSessionProfilesByHostId: {},
   groupsByWorktree: {},
   layoutByWorktree: {},

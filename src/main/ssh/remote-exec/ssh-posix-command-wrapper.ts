@@ -17,7 +17,7 @@ export function wrapRemoteCommandForPosixShell(
   const runDecoded = 'decoded=${decoded%_}; exec /bin/sh -c "$decoded"'
   const decodeAndRun = `decoded=$(printf %b "$@" && printf _) || exit $?; ${runDecoded}`
   const chunkArguments = encodedChunks.map(quotePosixShell).join(' ')
-  const wrapped = `exec /bin/sh -c ${quotePosixShell(decodeAndRun)} orca-command ${chunkArguments}`
+  const wrapped = `exec /bin/sh -c ${quotePosixShell(decodeAndRun)} openkodo-command ${chunkArguments}`
   if (
     options.compress === false ||
     Buffer.byteLength(wrapped) <= REMOTE_COMMAND_COMPRESSION_THRESHOLD_BYTES
@@ -36,7 +36,7 @@ export function wrapRemoteCommandForPosixShell(
     `{ echo ${REMOTE_COMMAND_DECODER_UNAVAILABLE} >&2; exit ${REMOTE_COMMAND_DECODER_UNAVAILABLE_EXIT}; }; ` +
     'decoded=$(printf %s "$@" | { base64 -d 2>/dev/null || base64 -D; } | gzip -dc && printf _) || ' +
     `exit $?; ${runDecoded}`
-  const compressedWrapped = `exec /bin/sh -c ${quotePosixShell(decompressAndRun)} orca-command ${compressedArguments}`
+  const compressedWrapped = `exec /bin/sh -c ${quotePosixShell(decompressAndRun)} openkodo-command ${compressedArguments}`
   return Buffer.byteLength(compressedWrapped) < Buffer.byteLength(wrapped)
     ? compressedWrapped
     : wrapped

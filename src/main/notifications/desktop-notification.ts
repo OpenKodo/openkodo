@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import type { Notification } from 'electron'
 
 const pendingShows = new WeakSet<Notification>()

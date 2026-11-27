@@ -21,7 +21,7 @@
         ],
         "raisedBy": "conversation",
         "open": {
-          "sessionId": "orca_session_id:s1",
+          "sessionId": "openkodo_session_id:s1",
           "itemId": "p1"
         }
       }
@@ -44,10 +44,10 @@
             "label": "Roomy"
           }
         ],
-        "raisedBy": "orca",
+        "raisedBy": "openkodo",
         "wokenBy": "Eng-Bot-Builder",
         "open": {
-          "sessionId": "orca_session_id:s1",
+          "sessionId": "openkodo_session_id:s1",
           "itemId": "p1"
         }
       }
@@ -65,10 +65,10 @@
             "label": "Allow"
           }
         ],
-        "raisedBy": "orca",
+        "raisedBy": "openkodo",
         "wokenBy": "Eng-Bot-Builder",
         "open": {
-          "sessionId": "orca_session_id:s1",
+          "sessionId": "openkodo_session_id:s1",
           "itemId": "p1"
         }
       }
@@ -112,7 +112,7 @@
           }
         ],
         "open": {
-          "sessionId": "orca_session_id:s1"
+          "sessionId": "openkodo_session_id:s1"
         }
       }
     },
@@ -137,7 +137,7 @@
       }
     },
     {
-      "name": "a prompt answered in Orca, with what was chosen",
+      "name": "a prompt answered in OpenKodo, with what was chosen",
       "schema": "event",
       "input": {
         "kind": "prompt",
@@ -145,7 +145,7 @@
           "source": "slack",
           "externalId": "T1:C9:1792.9"
         },
-        "paneKey": "structured:tab:orca_session_id:s1",
+        "paneKey": "structured:tab:openkodo_session_id:s1",
         "prompt": {
           "kind": "question",
           "promptId": "p1",
@@ -219,7 +219,7 @@
               "promptId": "private-prompt",
               "question": "Review the private sample?",
               "options": [],
-              "raisedBy": "orca",
+              "raisedBy": "openkodo",
               "open": {
                 "sessionId": "sample-session",
                 "itemId": "private-prompt"
@@ -254,7 +254,7 @@
                   "promptId": "private-prompt",
                   "question": "Review the private sample?",
                   "options": [],
-                  "raisedBy": "orca",
+                  "raisedBy": "openkodo",
                   "open": {
                     "sessionId": "sample-session",
                     "itemId": "private-prompt"
@@ -297,7 +297,7 @@
               "promptId": "private-prompt",
               "question": "Review the private sample?",
               "options": [],
-              "raisedBy": "orca",
+              "raisedBy": "openkodo",
               "open": {
                 "sessionId": "sample-session",
                 "itemId": "private-prompt"
@@ -320,7 +320,7 @@
                   "promptId": "private-prompt",
                   "question": "Review the private sample?",
                   "options": [],
-                  "raisedBy": "orca",
+                  "raisedBy": "openkodo",
                   "open": {
                     "sessionId": "sample-session",
                     "itemId": "private-prompt"
@@ -416,7 +416,7 @@
             "label": "Roomy"
           }
         ],
-        "raisedBy": "orca"
+        "raisedBy": "openkodo"
       }
     },
     {
@@ -437,7 +437,7 @@
             "label": "Roomy"
           }
         ],
-        "raisedBy": "orca",
+        "raisedBy": "openkodo",
         "wokenBy": "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
       },
       "parsed": {
@@ -455,7 +455,7 @@
             "label": "Roomy"
           }
         ],
-        "raisedBy": "orca"
+        "raisedBy": "openkodo"
       }
     },
     {
@@ -532,7 +532,7 @@
           "source": "slack",
           "externalId": "T1:C9:1792.9"
         },
-        "paneKey": "structured:tab:orca_session_id:s1",
+        "paneKey": "structured:tab:openkodo_session_id:s1",
         "prompt": {
           "kind": "question",
           "promptId": "p1",
@@ -558,7 +558,7 @@
           "source": "slack",
           "externalId": "T1:C9:1792.9"
         },
-        "paneKey": "structured:tab:orca_session_id:s1",
+        "paneKey": "structured:tab:openkodo_session_id:s1",
         "prompt": {
           "kind": "question",
           "promptId": "p1",
@@ -625,7 +625,7 @@
               "promptId": "private-prompt",
               "question": "Review the private sample?",
               "options": [],
-              "raisedBy": "orca",
+              "raisedBy": "openkodo",
               "open": {
                 "sessionId": "sample-session",
                 "itemId": "private-prompt"
@@ -705,7 +705,7 @@
               "promptId": "private-prompt",
               "question": "Review the private sample?",
               "options": [],
-              "raisedBy": "orca",
+              "raisedBy": "openkodo",
               "open": {
                 "sessionId": "sample-session",
                 "itemId": "private-prompt"
@@ -739,7 +739,7 @@
                   "promptId": "private-prompt",
                   "question": "Review the private sample?",
                   "options": [],
-                  "raisedBy": "orca",
+                  "raisedBy": "openkodo",
                   "open": {
                     "sessionId": "sample-session",
                     "itemId": "private-prompt"
@@ -781,7 +781,7 @@
               "promptId": "private-prompt",
               "question": "Review the private sample?",
               "options": [],
-              "raisedBy": "orca",
+              "raisedBy": "openkodo",
               "open": {
                 "sessionId": "sample-session",
                 "itemId": "private-prompt"

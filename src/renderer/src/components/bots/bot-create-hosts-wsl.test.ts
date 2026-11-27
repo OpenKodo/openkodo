@@ -3,13 +3,13 @@ import { botCreateHosts } from './bot-create-hosts'
 import type { WslHostStatus } from '../../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 
 const environment = (id: string) =>
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: botCreateHosts reads only id, name and orcadDeployment here
+  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: botCreateHosts reads only id, name and openkododDeployment here
   ({
     id,
     name: `${id} (WSL)`,
     endpoints: [],
     preferredEndpointId: null,
-    orcadDeployment: { kind: 'wsl', distro: id }
+    openkododDeployment: { kind: 'wsl', distro: id }
   }) as never
 
 const status = (environmentId: string, state: WslHostStatus['state']): WslHostStatus => ({

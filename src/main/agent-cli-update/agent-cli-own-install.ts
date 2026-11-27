@@ -12,7 +12,7 @@ import {
   resolveHostStructuredAgentLaunchEnvironment,
   type LaunchEnvironmentSettings
 } from '../runtime/agent-session/launch/structured-agent-launch-support'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { acpLaunchSpecFor } from '../acp/launch/acp-launch-registry'
 
 export type AgentCliUpdateSettings = LaunchEnvironmentSettings &

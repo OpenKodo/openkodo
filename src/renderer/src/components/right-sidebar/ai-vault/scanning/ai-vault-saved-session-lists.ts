@@ -15,7 +15,7 @@ import type {
 } from '../../../../../../shared/ai-vault/contracts/ai-vault-types'
 import type { AiVaultSessionLimit } from '../session-list/ai-vault-session-limit'
 
-const DATABASE_NAME = 'orca-ai-vault-session-lists'
+const DATABASE_NAME = 'openkodo-ai-vault-session-lists'
 const DATABASE_VERSION = 1
 const LISTS = 'lists'
 const SAVED_AT = 'savedAt'
@@ -44,14 +44,14 @@ function savedListsAvailable(): boolean {
 // Profiles share one IndexedDB, so each key names its profile.
 function storageKey(
   key: string,
-  profileId = useAppStore.getState().activeOrcaProfileId
+  profileId = useAppStore.getState().activeOpenKodoProfileId
 ): string | null {
   return savedListsAvailable() && profileId ? JSON.stringify([profileId, key]) : null
 }
 
 // After a restart the panel can mount, and even finish a scan, before startup has loaded the profile list.
 function loadedProfileId(): Promise<string | null> {
-  const current = useAppStore.getState().activeOrcaProfileId
+  const current = useAppStore.getState().activeOpenKodoProfileId
   if (current || !savedListsAvailable()) {
     return Promise.resolve(current)
   }
@@ -63,8 +63,8 @@ function loadedProfileId(): Promise<string | null> {
     }
     const timer = setTimeout(() => finish(null), PROFILE_WAIT_MS)
     const unsubscribe = useAppStore.subscribe((state) => {
-      if (state.activeOrcaProfileId) {
-        finish(state.activeOrcaProfileId)
+      if (state.activeOpenKodoProfileId) {
+        finish(state.activeOpenKodoProfileId)
       }
     })
   })

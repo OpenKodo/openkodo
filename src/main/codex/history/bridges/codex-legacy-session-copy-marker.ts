@@ -17,7 +17,7 @@ export type LegacyCopiedSessionMarker = {
 }
 
 export function legacySessionCopyMarkerPath(managedHome: string, relativePath: string): string {
-  return join(managedHome, '.orca-session-copies', `${relativePath}.json`)
+  return join(managedHome, '.openkodo-session-copies', `${relativePath}.json`)
 }
 
 // Optional fields fall back to absent, so a marker an older build wrote stays readable.

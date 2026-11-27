@@ -71,12 +71,12 @@ const {
   verifyPackagedWindowsNodePty
 } = require('./scripts/desktop-distribution/runtime-verification/verify-packaged-node-pty-job-ownership.cjs')
 const {
-  assertOrcadTemplateBuilt,
-  finalizePackagedOrcadTemplate,
-  orcadTemplateExtraResource,
-  orcadTemplateNodeModulesExtraResource,
-  orcadTemplateMacSignIgnore
-} = require('./scripts/orcad-distribution/template/packaged-orcad-template.cjs')
+  assertOpenkododTemplateBuilt,
+  finalizePackagedOpenkododTemplate,
+  openkododTemplateExtraResource,
+  openkododTemplateNodeModulesExtraResource,
+  openkododTemplateMacSignIgnore
+} = require('./scripts/openkodod-distribution/template/packaged-openkodod-template.cjs')
 const {
   verifySkillsCliRuntime
 } = require('./scripts/runtime-verification/skills-cli/verify-skills-cli-runtime.cjs')
@@ -126,11 +126,11 @@ const devChannelBuildVersion = isHourlyChannel
       : undefined
 // Separate dev-channel repos: 24 hourly tags/day would evict stable/RC from the ten-entry release feed; isolate adhoc/daily from hourly subscribers too.
 const devChannelRepo = isHourlyChannel
-  ? 'orca-hourly'
+  ? 'openkodo-hourly'
   : isDailyChannel
-    ? 'orca-daily'
+    ? 'openkodo-daily'
     : isAdhocChannel
-      ? 'orca-adhoc'
+      ? 'openkodo-adhoc'
       : null
 const appId = 'dev.openkodo.app'
 const featureWallResources = {
@@ -162,7 +162,7 @@ const bundledPluginResources = {
   from: 'resources/plugins/launch',
   to: 'plugins/launch'
 }
-// electron-builder always drops `*.d.ts` from app files, so `orca plugin types` reads these copies.
+// electron-builder always drops `*.d.ts` from app files, so `openkodo plugin types` reads these copies.
 const pluginAuthorTypingsResources = {
   from: 'resources/plugins',
   to: 'plugins',
@@ -183,8 +183,8 @@ const commonExtraResources = [
     filter: ['journal-file-lock', 'journal-file-lock.exe']
   },
   relayExtraResource,
-  orcadTemplateExtraResource,
-  orcadTemplateNodeModulesExtraResource,
+  openkododTemplateExtraResource,
+  openkododTemplateNodeModulesExtraResource,
   ...bundledRipgrepExtraResources,
   bundledPluginResources,
   pluginAuthorTypingsResources,
@@ -194,7 +194,7 @@ const commonExtraResources = [
   emojiShortcodeDatasetResource
 ]
 // electron-builder replaces these defaults when `depends` is configured; retain
-// Electron's loader requirements alongside Orca's headless-host dependencies.
+// Electron's loader requirements alongside OpenKodo's headless-host dependencies.
 const debElectronRuntimeDependencies = [
   'libgtk-3-0',
   'libnotify4',
@@ -287,11 +287,11 @@ module.exports = {
     '!**/.vscode/*',
     // Repo inputs already bundled/copied through extraResources would bloat app.asar.
     '!src{,/**/*}',
-    '!out/orcad{,/**/*}',
-    // Never in app.asar: the template ships via orcadTemplateExtraResource; prebuilds are build inputs.
-    '!out/orcad-*{,/**/*}',
-    '!out/.orcad-*{,/**/*}',
-    // Why: the pinned Node a local orcad build references (~120 MB) and its download cache.
+    '!out/openkodod{,/**/*}',
+    // Never in app.asar: the template ships via openkododTemplateExtraResource; prebuilds are build inputs.
+    '!out/openkodod-*{,/**/*}',
+    '!out/.openkodod-*{,/**/*}',
+    // Why: the pinned Node a local openkodod build references (~120 MB) and its download cache.
     '!out/runtimes{,/**/*}',
     '!out/node-runtime-cache{,/**/*}',
     '!config{,/**/*}',
@@ -333,7 +333,7 @@ module.exports = {
     // extraResources already ships relay; duplicating it in asar added 14MB and let script-heuristic quarantine gut the whole archive (#20966/#20972).
     '!out/relay{,/**/*}',
     '!electron.vite.config.{js,ts,mjs,cjs}',
-    '!{.oxlintrc.json,.oxfmtrc.json,components.json,opencode.json,orca.yaml,pnpm-workspace.yaml,vite.web.config.ts}',
+    '!{.oxlintrc.json,.oxfmtrc.json,components.json,opencode.json,openkodo.yaml,pnpm-workspace.yaml,vite.web.config.ts}',
     '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,CHANGELOG.md,README.md}',
     '!{.env,.env.*,.npmrc,pnpm-lock.yaml}',
     '!tsconfig.json',
@@ -345,7 +345,7 @@ module.exports = {
     '!resources/plugins/launch/**',
     // afterPack copies the target's speech engine to resources/node_modules; asar would duplicate it and ship other variants.
     '!node_modules/{transcribe-cpp,@transcribe-cpp,koffi,@koromix}{,/**/*}',
-    // CLI shim belongs beside resources/bin/orca.exe; unpacking source creates a second .cmd without its executable (#7351).
+    // CLI shim belongs beside resources/bin/openkodo.exe; unpacking source creates a second .cmd without its executable (#7351).
     '!resources/win32{,/**/*}'
   ],
   // Node-mode CLI/daemon/foreign SQLite reader/serve entries cannot read asar; unpack their shared/main dependencies too.
@@ -370,7 +370,7 @@ module.exports = {
     'out/main/hermes/**',
     'out/main/filesystem/asar-transparent-fs.js',
     'out/main/filesystem/macos-tree-clone.js',
-    'out/main/orca-profiles/profile-index-store.js',
+    'out/main/openkodo-profiles/profile-index-store.js',
     'out/main/persistence/profile-state/**',
     'out/main/plugins/artifacts/plugin-artifact-validation.js',
     'out/main/plugins/artifacts/plugin-content-hash.js',
@@ -378,12 +378,12 @@ module.exports = {
     'out/main/plugins/catalog/plugin-catalog-release-entry.js',
     'out/main/environment-doctor/environment-doctor.js',
     'out/main/environment-doctor/environment-doctor-host.js',
-    // `orca plugin test` and `orca plugin check` load the runtime, kit and hooks in Node.
+    // `openkodo plugin test` and `openkodo plugin check` load the runtime, kit and hooks in Node.
     'resources/plugins/declarative/*.mjs',
     'out/main/skills/bundled-skill-install/bundled-skill-local-host.js',
     'out/main/skills/bundled-skill-install/bundled-skill-installation.js',
     'out/main/startup/network-compatibility/http1-compatibility-marker.js',
-    // `orca agent hooks` gives main hook code an app environment in the CLI process.
+    // `openkodo agent hooks` gives main hook code an app environment in the CLI process.
     'out/main/backend/node-service-environment.js',
     'out/main/mcp-servers/agent-files/mcp-connect-bridge.js',
     'out/main/daemon-entry.js',
@@ -400,9 +400,9 @@ module.exports = {
     'out/main/browser-extension-native-host-supervisor-entry.js',
     'out/main/computer-sidecar.js',
     'out/main/parcel-watcher-process-entry.js',
-    'out/main/orcad/orcad-local-serve-selection-entry.js',
-    'out/main/orcad/instance-lock/orcad-stale-lock-reclaim.js',
-    'out/main/orcad/profile-state/orcad-host-identity-reset.js',
+    'out/main/openkodod/openkodod-local-serve-selection-entry.js',
+    'out/main/openkodod/instance-lock/openkodod-stale-lock-reclaim.js',
+    'out/main/openkodod/profile-state/openkodod-host-identity-reset.js',
     'out/main/chunks/**',
     'out/renderer/**',
     'out/mobile-web/**',
@@ -423,15 +423,19 @@ module.exports = {
     context,
     mobileWebBundleDir = MOBILE_WEB_BUNDLE_DIR,
     ensureWaylandClipboard = ensureBundledWaylandClipboard,
-    orcadTemplateDir = join(__dirname, '..', orcadTemplateExtraResource.from),
+    openkododTemplateDir = join(__dirname, '..', openkododTemplateExtraResource.from),
     ensureProviderExec = ensureBundledProviderExec
   ) => {
     // The template is the server every SSH host gets, so a dark test template must never ship.
-    assertNotDarkBuild([join(__dirname, '..', 'out', 'main'), mobileWebBundleDir, orcadTemplateDir])
+    assertNotDarkBuild([
+      join(__dirname, '..', 'out', 'main'),
+      mobileWebBundleDir,
+      openkododTemplateDir
+    ])
     assertPackagedNativeVariantsInstalled(context.electronPlatformName, context.arch)
     assertBundledRipgrepInstalled()
     assertProcessHostOutputBuilt()
-    assertOrcadTemplateBuilt()
+    assertOpenkododTemplateBuilt()
     assertMobileWebBundleBuilt(mobileWebBundleDir)
     if (context.electronPlatformName === 'linux') {
       ensureWaylandClipboard(context.arch)
@@ -490,7 +494,7 @@ module.exports = {
         resourcesDir,
         architecture,
         'macos-menu-dead-key',
-        'orca_menu_dead_key.node'
+        'openkodo_menu_dead_key.node'
       )
       await signMacStandaloneHelper(menuDeadKeyAddon, 'Menu dead-key guard', context.packager)
       const version = context.packager.appInfo.version
@@ -575,7 +579,7 @@ module.exports = {
     for (const filename of agentBrowserDrivers) {
       // Upstream executable bits vary (notably darwin-x64); restore them so packaged execFile works.
       chmodSync(join(resourcesDir, filename), 0o755)
-      // The orcad template hashes this exact file next, so app signing must not rewrite it later.
+      // The openkodod template hashes this exact file next, so app signing must not rewrite it later.
       if (context.electronPlatformName === 'darwin') {
         await signMacStandaloneHelper(
           join(resourcesDir, filename),
@@ -585,10 +589,10 @@ module.exports = {
         )
       }
     }
-    await finalizePackagedOrcadTemplate(resourcesDir, {
+    await finalizePackagedOpenkododTemplate(resourcesDir, {
       platform: context.electronPlatformName,
       signMacBinary: (path) =>
-        signMacStandaloneHelper(path, 'orcad template binary', context.packager)
+        signMacStandaloneHelper(path, 'openkodod template binary', context.packager)
     })
     chmodUnixCliLaunchers(resourcesDir, context.electronPlatformName)
     if (context.electronPlatformName === 'darwin') {
@@ -642,17 +646,17 @@ module.exports = {
         to: 'bin/openkodo.cmd'
       },
       {
-        from: 'native/windows-cli-launcher/.build/orca.exe',
+        from: 'native/windows-cli-launcher/.build/openkodo.exe',
         to: 'bin/openkodo.exe'
       },
       {
-        from: 'native/windows-cli-launcher/.build/orca-administrator-restart.exe',
+        from: 'native/windows-cli-launcher/.build/openkodo-administrator-restart.exe',
         to: 'bin/openkodo-administrator-restart.exe'
       },
       // Why resources/bin: SignPath signs every unsigned PE under win-unpacked, and the hook
       // installer copies this signed file into ~/.openkodo/agent-hooks (#20913).
       {
-        from: 'native/windows-agent-hook/.build/orca-agent-hook.exe',
+        from: 'native/windows-agent-hook/.build/openkodo-agent-hook.exe',
         to: 'bin/openkodo-agent-hook.exe'
       },
       {
@@ -704,8 +708,8 @@ module.exports = {
       : {}),
     signIgnore: [
       ...bundledRipgrepMacSignIgnore,
-      ...orcadTemplateMacSignIgnore,
-      // afterPack signs it before the orcad template hashes it.
+      ...openkododTemplateMacSignIgnore,
+      // afterPack signs it before the openkodod template hashes it.
       '/Contents/Resources/agent-browser-darwin-[^/]+$',
       ...macTerminalHostSignIgnore
     ],
@@ -734,20 +738,20 @@ module.exports = {
     // macOS 26 UNUserNotificationCenter aborts helpers launched from Resources; execute from Contents/MacOS (#7929).
     extraFiles: [
       {
-        from: 'native/notification-status-macos/.build/release/orca-notification-status',
+        from: 'native/notification-status-macos/.build/release/openkodo-notification-status',
         to: 'MacOS/openkodo-notification-status'
       },
       {
-        from: 'native/keyboard-layout-macos/.build/release/orca-keyboard-layout',
+        from: 'native/keyboard-layout-macos/.build/release/openkodo-keyboard-layout',
         to: 'MacOS/openkodo-keyboard-layout'
       },
       {
-        from: 'native/process-footprint-macos/.build/release/orca-process-footprint',
+        from: 'native/process-footprint-macos/.build/release/openkodo-process-footprint',
         to: 'MacOS/openkodo-process-footprint'
       },
       // Nested executables belong in Contents/MacOS, where afterPack signs them before the app.
       {
-        from: 'native/provider-exec/.build/darwin-${arch}/orca-provider-exec',
+        from: 'native/provider-exec/.build/darwin-${arch}/openkodo-provider-exec',
         to: 'MacOS/openkodo-provider-exec'
       }
     ],
@@ -787,11 +791,11 @@ module.exports = {
       ...commonExtraResources,
       ...createPackagedRuntimeNodeModuleResources('linux'),
       {
-        from: 'native/wayland-clipboard/.build/${arch}/orca-wayland-clipboard',
+        from: 'native/wayland-clipboard/.build/${arch}/openkodo-wayland-clipboard',
         to: 'bin/openkodo-wayland-clipboard'
       },
       {
-        from: 'native/provider-exec/.build/linux-${arch}/orca-provider-exec',
+        from: 'native/provider-exec/.build/linux-${arch}/openkodo-provider-exec',
         to: 'bin/openkodo-provider-exec'
       },
       {
@@ -821,7 +825,7 @@ module.exports = {
   deb: {
     packageName: 'openkodo',
     artifactName: 'openkodo_${version}_${arch}.${ext}',
-    // Headless Chromium still needs display service; orca serve starts packaged Xvfb when available (ensure-virtual-display.ts).
+    // Headless Chromium still needs display service; openkodo serve starts packaged Xvfb when available (ensure-virtual-display.ts).
     depends: [
       ...debElectronRuntimeDependencies,
       'python3',
@@ -911,10 +915,10 @@ async function signMacComputerUseHelper(helperAppPath, packager) {
     findInstalledMacSigningIdentity(codeSigningInfo?.keychainFile) ??
     (isMacRelease ? null : '-')
   if (!identity) {
-    throw new Error('Missing signing identity for Orca Computer Use helper app')
+    throw new Error('Missing signing identity for OpenKodo Computer Use helper app')
   }
   // Why: TCC grants attach to this nested app's code identity. Sign it before
-  // the outer Orca.app is sealed so production builds preserve that identity.
+  // the outer OpenKodo.app is sealed so production builds preserve that identity.
   execFileSync('codesign', codesignArgs(identity, helperAppPath), { stdio: 'inherit' })
   execFileSync('codesign', ['--verify', '--deep', '--strict', helperAppPath], {
     stdio: 'inherit'

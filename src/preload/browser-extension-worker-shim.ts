@@ -192,7 +192,7 @@ const bridge: BrowserExtensionMainWorldBridge = {
   passesFilter: passesBrowserExtensionEventFilter
 }
 
-const INSTALLED = Symbol.for('orca.browserExtensionWorkerApi')
+const INSTALLED = Symbol.for('openkodo.browserExtensionWorkerApi')
 // Why only once, and only in the service worker: a second copy (the worker importing its own
 // script again, or a page's own Worker on that file) would take the event stream from the first.
 if (

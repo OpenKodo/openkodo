@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { createServer, connect, type Server, type Socket } from 'node:net'
 import { createInterface } from 'node:readline'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   loadWindowsSecurityAsync,
@@ -12,7 +12,7 @@ import {
   createFakeWindowsSecurity,
   FAKE_USER_SID
 } from '../../../../shared/secure-storage/windows-security-addon.test-fixture'
-import type { TcpClientOwner } from '@orca/windows-security'
+import type { TcpClientOwner } from '@openkodo/windows-security'
 import {
   findProcNetTcpClientUid,
   verifySocksClientOwner

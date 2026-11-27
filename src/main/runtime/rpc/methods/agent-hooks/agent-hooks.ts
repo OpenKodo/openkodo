@@ -15,7 +15,7 @@ export const AGENT_HOOK_METHODS = [
       return await prepareManagedWslCodexHomeBeforeShellLaunch({
         env: {
           CODEX_HOME: params.codexHome,
-          OPENKODO_CODEX_HOME: params.orcaCodexHome,
+          OPENKODO_CODEX_HOME: params.openkodoCodexHome,
           WSL_DISTRO_NAME: params.wslDistro
         },
         hooksEnabled: isAgentStatusHooksEnabledForAgent(

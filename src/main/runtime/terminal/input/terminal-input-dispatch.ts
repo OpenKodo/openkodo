@@ -6,7 +6,7 @@ import type {
   RuntimeTerminalPromptDelivery,
   RuntimeTerminalSend
 } from '../../../../shared/terminal/runtime/runtime-terminal-send-contract'
-import { OrcaRuntimeWithResolveTerminalPane } from '../recovery/resolve-terminal-pane'
+import { OpenKodoRuntimeWithResolveTerminalPane } from '../recovery/resolve-terminal-pane'
 import { wrapTerminalBracketedPasteText } from '../../../../shared/terminal/input/terminal-bracketed-paste-text'
 import { PROVEN_ABSENT_LEAF_PTY_TTL_MS } from './proven-absent-leaf-pty'
 import { pruneExpiredProvenAbsentLeafPtyVerdicts } from './proven-absent-leaf-pty-verdicts'
@@ -22,7 +22,7 @@ import {
 } from '../../../../shared/agent-launch/startup/agent-prompt-injection'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 
-export abstract class OrcaRuntimeWithControllerKnowsPtyIsLive extends OrcaRuntimeWithResolveTerminalPane {
+export abstract class OpenKodoRuntimeWithControllerKnowsPtyIsLive extends OpenKodoRuntimeWithResolveTerminalPane {
   protected abstract writeTerminalAction(
     ptyId: string,
     action: { text?: string; enter?: boolean; interrupt?: boolean },

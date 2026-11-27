@@ -40,7 +40,7 @@ export function useNativeChatComposerCommandPicker(
     }
 ): {
   picker: NativeChatPickerState
-  orcaCommands: NativeChatResumeCommand
+  openkodoCommands: NativeChatResumeCommand
   /** Send opens a `/btw` or `/side` draft as a side chat, so the editor shows it as one. */
   sideChat: boolean
 } {
@@ -87,7 +87,7 @@ export function useNativeChatComposerCommandPicker(
   const completeItem = useCallback(
     (item: NativeChatPickerItem) => {
       complete(item)
-      if (item.kind === 'command' && item.orcaOwned && isNativeChatSideChatCommand(item.name)) {
+      if (item.kind === 'command' && item.openkodoOwned && isNativeChatSideChatCommand(item.name)) {
         textareaRef.current?.pillSideChatCommand?.()
       }
     },
@@ -110,7 +110,7 @@ export function useNativeChatComposerCommandPicker(
     matchesDraft: resumeMatches,
     interceptPick: resumeIntercept
   } = resume
-  const orcaCommands = useMemo(
+  const openkodoCommands = useMemo(
     (): NativeChatResumeCommand => ({
       matchesDraft: (draft) => sideMatches(draft) || resumeMatches(draft),
       consume: (draft) => sideConsume(draft) || resumeConsume(draft),
@@ -120,7 +120,7 @@ export function useNativeChatComposerCommandPicker(
   )
   return {
     picker,
-    orcaCommands,
+    openkodoCommands,
     sideChat: mode === undefined && structuredTransport?.sideChat !== undefined
   }
 }

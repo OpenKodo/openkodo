@@ -74,7 +74,7 @@ export function getPluginFilesState(pluginDir = getPluginDir()): {
     return {
       present: true,
       managed,
-      detail: managed ? null : 'Hermes orca-status plugin exists but is not OpenKodo-managed'
+      detail: managed ? null : 'Hermes openkodo-status plugin exists but is not OpenKodo-managed'
     }
   } catch (error) {
     return {

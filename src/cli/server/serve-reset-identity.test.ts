@@ -6,16 +6,16 @@ import { resetServeHostIdentity } from './serve-reset-identity'
 import { loadOrCreateE2EEKeypair } from '../../main/runtime/rpc/server/pairing/e2ee-keypair'
 import { DeviceRegistry } from '../../main/runtime/rpc/server/pairing/device-registry'
 import {
-  acquireOrcadInstanceLock,
-  ORCAD_LOCK_FILE_NAME
-} from '../../main/orcad/instance-lock/orcad-instance-lock'
+  acquireOpenkododInstanceLock,
+  OPENKODOD_LOCK_FILE_NAME
+} from '../../main/openkodod/instance-lock/openkodod-instance-lock'
 import {
   ensureHostInstanceIdentity,
   hostInstanceIdFromEnv
 } from '../../main/runtime/host-instance-identity'
 
 function pairedProfile() {
-  const dir = mkdtempSync(join(tmpdir(), 'orca-reset-identity-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-reset-identity-'))
   chmodSync(dir, 0o700)
   const registry = new DeviceRegistry(dir)
   const { token } = registry.addDevice('Phone')
@@ -43,17 +43,17 @@ describe('resetServeHostIdentity', () => {
 
   it('keeps the notice that the last run crashed, and leaves no lock after a clean one', async () => {
     const before = pairedProfile()
-    const lockPath = join(before.dir, ORCAD_LOCK_FILE_NAME)
+    const lockPath = join(before.dir, OPENKODOD_LOCK_FILE_NAME)
     await resetServeHostIdentity(before.dir)
     expect(existsSync(lockPath)).toBe(false)
 
-    // What an orcad killed before releasing its lock leaves behind; the pid is past any pid_max.
-    const crashed = acquireOrcadInstanceLock(before.dir)
+    // What an openkodod killed before releasing its lock leaves behind; the pid is past any pid_max.
+    const crashed = acquireOpenkododInstanceLock(before.dir)
     crashed.release()
     writeFileSync(lockPath, JSON.stringify({ ...crashed.record, pid: 99_999_999 }))
     await resetServeHostIdentity(before.dir)
 
-    const next = acquireOrcadInstanceLock(before.dir)
+    const next = acquireOpenkododInstanceLock(before.dir)
     try {
       expect(next.previousUnexpectedExit).toMatchObject({ pid: 99_999_999 })
     } finally {
@@ -63,7 +63,7 @@ describe('resetServeHostIdentity', () => {
 
   it('refuses while an OpenKodo holds the profile lock and changes nothing', async () => {
     const before = pairedProfile()
-    const lock = acquireOrcadInstanceLock(before.dir)
+    const lock = acquireOpenkododInstanceLock(before.dir)
     try {
       await expect(resetServeHostIdentity(before.dir)).rejects.toThrow(/Stop OpenKodo/)
     } finally {
@@ -78,7 +78,7 @@ describe('resetServeHostIdentity', () => {
     async () => {
       const before = pairedProfile()
       chmodSync(before.dir, 0o755)
-      const lock = acquireOrcadInstanceLock(before.dir, { role: 'desktop' })
+      const lock = acquireOpenkododInstanceLock(before.dir, { role: 'desktop' })
       try {
         await expect(resetServeHostIdentity(before.dir)).rejects.toThrow(/Stop OpenKodo/)
       } finally {

@@ -1,12 +1,12 @@
 import type { BotWriteTurn } from '../../../bots/bot-owner-writes'
 import { botOfSession } from '../../../bots/bot-session-tabs'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { readBotTurn } from './orchestration/messaging/bot-recipient'
 
 /** The calling bot's turn, for a write it makes as its owner; null outside a bot's chat. A session id
  *  names a chat only on its own host, so a paired client's names none. */
 export async function readBotWriteTurn(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   callerSessionId: string | undefined,
   pairedDeviceId: string | undefined
 ): Promise<BotWriteTurn | null> {

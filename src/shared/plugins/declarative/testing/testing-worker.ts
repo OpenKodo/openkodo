@@ -7,8 +7,8 @@ import { runPluginWorkerHookHandlers } from '../../workers/plugin-worker-hooks'
 import type { PluginWorkerPanelPost } from '../../workers/plugin-panel-bridge-protocol'
 import {
   createPluginWorkerApiTables,
-  createPluginWorkerOrcaApi
-} from '../../workers/plugin-worker-orca-api'
+  createPluginWorkerOpenKodoApi
+} from '../../workers/plugin-worker-openkodo-api'
 import type { MockHost } from './testing-host'
 import { hostError } from './testing-host-error'
 
@@ -45,7 +45,7 @@ function messageOf(error: unknown): string {
 }
 
 /**
- * Runs a worker's `activate(orca)` with the same `orca` object OpenKodo builds, over the mock host:
+ * Runs a worker's `activate(openkodo)` with the same `openkodo` object OpenKodo builds, over the mock host:
  * events arrive only when listed, payloads are checked against OpenKodo's schemas, and commands and
  * panel requests run with an abort signal as OpenKodo runs them.
  */
@@ -68,8 +68,8 @@ export async function mountWorker(module: WorkerModule, options: MountWorkerOpti
   if (typeof activate !== 'function') {
     throw new TypeError(
       typeof module.activate === 'function'
-        ? 'mountWorker: the module exports activate by name, but OpenKodo calls the default export: write `export default function activate(orca)`'
-        : 'mountWorker: the module has no default-exported activate(orca) function'
+        ? 'mountWorker: the module exports activate by name, but OpenKodo calls the default export: write `export default function activate(openkodo)`'
+        : 'mountWorker: the module has no default-exported activate(openkodo) function'
     )
   }
   const deactivateExport = module.deactivate
@@ -77,7 +77,7 @@ export async function mountWorker(module: WorkerModule, options: MountWorkerOpti
     throw new TypeError('mountWorker: the module exports a deactivate that is not a function')
   }
 
-  const orca = createPluginWorkerOrcaApi({
+  const openkodo = createPluginWorkerOpenKodoApi({
     tables,
     hostCall: (method, params) => host.worker.call(method, params),
     postToPanels: (post) => void posts.push(post),
@@ -91,7 +91,7 @@ export async function mountWorker(module: WorkerModule, options: MountWorkerOpti
     }
   })
 
-  await activate(orca)
+  await activate(openkodo)
   const undeclared = options.commands
     ? [...tables.commands.keys()].find((id) => !options.commands?.includes(id))
     : undefined
@@ -112,9 +112,9 @@ export async function mountWorker(module: WorkerModule, options: MountWorkerOpti
 
   return {
     host,
-    /** What the worker passed to `orca.log`, in order. */
+    /** What the worker passed to `openkodo.log`, in order. */
     logs,
-    /** What the worker sent with `orca.panels.post`, in order. */
+    /** What the worker sent with `openkodo.panels.post`, in order. */
     posts,
     /** Calls OpenKodo would refuse, even ones the worker caught. */
     get refusals() {
@@ -180,7 +180,7 @@ export async function mountWorker(module: WorkerModule, options: MountWorkerOpti
       await host.idle()
       return result
     },
-    /** A panel's `plugin.request(name, input)`, answered by the worker's `orca.panels.handle`. */
+    /** A panel's `plugin.request(name, input)`, answered by the worker's `openkodo.panels.handle`. */
     async request(
       name: string,
       input?: unknown,

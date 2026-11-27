@@ -1,5 +1,5 @@
 // Windowless main-owned layout fixture: apply in memory and notify writes so terminal listings refresh.
-import { getDefaultWorkspaceSession } from '../../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../../../../shared/openkodo-profiles/constants'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import type { TerminalPaneLayoutNode } from '../../../../shared/workspace-layout/terminal-tab-types'
 import type { LayoutCommand } from '../../../../shared/workspace-layout/workspace-layout-command-types'
@@ -10,7 +10,7 @@ import {
   withDurableRuntimeStore,
   withRuntimePaneAdmission
 } from '../../construction/test-context/runtime-durable-store-fixture'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
 export const REPO = {
   id: 'repo-1',
@@ -96,7 +96,7 @@ export async function setupMainOwnedWorkspace(opts: { split?: boolean; pinned?: 
     })
   )
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the fake carries every store method a close, rename and sleep reach.
-  const runtime = new OrcaRuntimeService(store as never)
+  const runtime = new OpenKodoRuntimeService(store as never)
   const stopped: string[] = []
   runtime.setPtyController({
     write: () => true,
@@ -113,7 +113,7 @@ export async function setupMainOwnedWorkspace(opts: { split?: boolean; pinned?: 
     const leafId = index === 0 ? LEAF_A : LEAF_B
     runtime.registerPty(ptyId, WORKTREE_ID, null, { tabId: TAB_ID, leafId })
   }
-  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: both members are declared on OrcaRuntimeService's inheritance chain.
+  // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: both members are declared on OpenKodoRuntimeService's inheritance chain.
   const internals = runtime as unknown as {
     issuePtyHandle: (pty: unknown) => string
     ptysById: Map<string, { title?: string | null; titleUpdatedAt?: number }>

@@ -239,7 +239,7 @@ export async function buildSyntheticFleetSeed({ seedDir, workDir, corpusDir, bui
   fs.rmSync(workDir, { recursive: true, force: true })
   fs.mkdirSync(workDir, { recursive: true })
   fs.writeFileSync(
-    path.join(workDir, 'orca-data.json'),
+    path.join(workDir, 'openkodo-data.json'),
     `${JSON.stringify(completedOnboardingProfile(), null, 2)}\n`
   )
   const { page, close } = await launch(workDir)

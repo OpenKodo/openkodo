@@ -17,7 +17,7 @@ export const PLUGIN_SOURCE_MODULES_SINCE = PLUGIN_PANEL_UI_SINCE
 export const PLUGIN_PANEL_BRIDGE_SINCE = PLUGIN_PANEL_UI_SINCE
 /** First release that reads `customEditors[].frame`, so an editor can require isolated frames. */
 export const PLUGIN_EDITOR_FRAME_SINCE = '1.4.248'
-/** First release that runs `contributes.hooks` and `orca.hooks.on`. */
+/** First release that runs `contributes.hooks` and `openkodo.hooks.on`. */
 export const PLUGIN_HOOKS_SINCE = '1.4.248'
 /** Workers act on workspaces, terminals and agents: `workspace:write`, `terminal:read`, `agent:launch`. */
 export const PLUGIN_HOST_ACTIONS_SINCE = '1.4.248'
@@ -28,7 +28,7 @@ export const PLUGIN_PANEL_PATH_ICON_SINCE = '1.4.274'
 
 type PluginFieldDoc = {
   description: string
-  'x-orca-since': string
+  'x-openkodo-since': string
   examples?: unknown[]
 }
 
@@ -53,6 +53,6 @@ export function pluginFieldDoc(
   examples?: readonly unknown[]
 ): PluginFieldDoc {
   return examples
-    ? { description, 'x-orca-since': since, examples: [...examples] }
-    : { description, 'x-orca-since': since }
+    ? { description, 'x-openkodo-since': since, examples: [...examples] }
+    : { description, 'x-openkodo-since': since }
 }

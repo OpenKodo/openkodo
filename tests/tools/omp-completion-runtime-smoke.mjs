@@ -8,7 +8,7 @@ import { join } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
 import { build, transform } from 'esbuild'
 
-const scratch = await mkdtemp(join(tmpdir(), 'orca-omp-completion-'))
+const scratch = await mkdtemp(join(tmpdir(), 'openkodo-omp-completion-'))
 const received = []
 let rejectCompletion = true
 const server = createServer(async (request, response) => {

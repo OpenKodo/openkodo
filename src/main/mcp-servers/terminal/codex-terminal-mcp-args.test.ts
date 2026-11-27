@@ -54,7 +54,7 @@ describe('a WSL terminal’s guest wrapper in Codex overrides', () => {
   it('passes through the POSIX shell a WSL distro runs as literal strings', () => {
     const wrapper = mcpEnvWrapperCommand(
       {
-        launcher: '/mnt/c/Users/A B/orca-ide',
+        launcher: '/mnt/c/Users/A B/openkodo-ide',
         id: 'id-pg-000001',
         agent: 'codex',
         workspaceId: null
@@ -73,7 +73,7 @@ describe('a WSL server that runs the guest’s openkodo under Codex', () => {
   it('passes on the interop variables Codex would otherwise leave out', () => {
     const connect = {
       name: 'linear',
-      command: '/mnt/c/Users/A/orca-ide',
+      command: '/mnt/c/Users/A/openkodo-ide',
       args: ['mcp', 'connect', 'id-linear-01', '--agent', 'codex']
     }
     const plain = { name: 'fs', command: 'npx', args: ['fs-mcp'] }

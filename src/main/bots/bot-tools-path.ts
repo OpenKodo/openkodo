@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { z } from 'zod'
 
-export const botToolsPath = (folder: string): string => join(folder, '.orca', 'bot-tools.json')
+export const botToolsPath = (folder: string): string => join(folder, '.openkodo', 'bot-tools.json')
 
 const ToolsFile = z.object({
   servers: z.array(z.unknown())

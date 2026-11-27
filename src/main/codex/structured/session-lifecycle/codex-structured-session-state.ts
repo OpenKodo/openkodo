@@ -150,7 +150,7 @@ export type CodexSession = Pick<CodexBotLaunchOptions, 'readOnly'> & {
   /** First observed child exit survives rejected settlement admission. */
   exitObservedAt?: number
   /** Preserve the initiating close's cause and reason through later exit reports. */
-  orcaClose?: { requested: boolean; reason: Error }
+  openkodoClose?: { requested: boolean; reason: Error }
   fence: number
   acquisitionGeneration: string
   threadId: string

@@ -25,7 +25,7 @@ describe('serve update handoff', () => {
     vi.resetModules()
     appMock.getVersion.mockReturnValue('1.0.51')
     appMock.quit.mockReset()
-    root = mkdtempSync(join(tmpdir(), 'orca-serve-handoff-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-serve-handoff-'))
     getCanonicalUserDataPathMock.mockReturnValue(root)
     process.env[SERVE_UPDATE_HANDOFF_PATH_ENV] = getServeUpdateHandoffPath(root)
   })
@@ -103,11 +103,11 @@ describe('serve update handoff', () => {
       const profile = join(root, 'OpenKodo')
       mkdirSync(profile)
       // Case-sensitive volumes have no second spelling to accept.
-      if (!existsSync(join(root, 'orca'))) {
+      if (!existsSync(join(root, 'openkodo'))) {
         context.skip()
       }
       getCanonicalUserDataPathMock.mockReturnValue(profile)
-      process.env[SERVE_UPDATE_HANDOFF_PATH_ENV] = getServeUpdateHandoffPath(join(root, 'orca'))
+      process.env[SERVE_UPDATE_HANDOFF_PATH_ENV] = getServeUpdateHandoffPath(join(root, 'openkodo'))
       const { hasServeUpdateSupervisor, requestServeUpdateHandoff } =
         await import('./serve-update-handoff')
 

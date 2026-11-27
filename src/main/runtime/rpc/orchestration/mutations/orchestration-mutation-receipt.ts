@@ -1,25 +1,25 @@
 import { createHash } from 'node:crypto'
 import { isTerminalPromptMutation } from '../../../../../shared/orchestration/orchestration-rpc-contract'
 import { parsePaneKey } from '../../../../../shared/workspace-layout/stable-pane-id'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationEntryCaller } from '../../../orchestration/addressing/orchestration-caller-identity'
 
 export const EFFECT_FREE_WORKER_DONE_CHECKPOINT = JSON.stringify({
   pending: { effectFree: 'worker_done' }
 })
 
-const REPLAY_NUDGE_KEY = '__orcaReplayNudge'
+const REPLAY_NUDGE_KEY = '__openkodoReplayNudge'
 
 export type MutationReplayNudge =
   | { kind: 'messages'; targets: { to: string; type: string }[] }
   | { kind: 'federation'; runId?: string; environmentId?: string }
 
-const CALLER_OPENKODO_SESSION_ID_KEY = '__orcaCallerOrcaSessionId'
+const CALLER_OPENKODO_SESSION_ID_KEY = '__openkodoCallerOpenKodoSessionId'
 // A paired OpenKodo's address names its conversation, so one Run's receipt never answers another's.
-const PEER_CALLER_KEY = '__orcaPeerCaller'
+const PEER_CALLER_KEY = '__openkodoPeerCaller'
 
 export function replayStableCallerParams(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: unknown,
   caller?: OrchestrationEntryCaller,
   method?: string
@@ -32,8 +32,8 @@ export function replayStableCallerParams(
   const result: Record<string, unknown> =
     caller?.kind === 'peer'
       ? { ...source, [PEER_CALLER_KEY]: caller.address }
-      : caller?.orcaSessionId
-        ? { ...source, [CALLER_OPENKODO_SESSION_ID_KEY]: caller.orcaSessionId }
+      : caller?.openkodoSessionId
+        ? { ...source, [CALLER_OPENKODO_SESSION_ID_KEY]: caller.openkodoSessionId }
         : { ...source }
   if (method === 'orchestration.federationImport' && Array.isArray(result.items)) {
     result.items = result.items.map((item: Record<string, unknown>) => {

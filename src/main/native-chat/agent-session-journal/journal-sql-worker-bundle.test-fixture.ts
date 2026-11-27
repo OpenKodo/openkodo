@@ -1,4 +1,4 @@
-// @orca-isolated-worker -- Suite hooks own the temporary SQL worker bundle.
+// @openkodo-isolated-worker -- Suite hooks own the temporary SQL worker bundle.
 import { build } from 'esbuild'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -8,7 +8,7 @@ import { afterAll, beforeAll } from 'vitest'
 let bundleRoot = ''
 
 beforeAll(async () => {
-  bundleRoot = mkdtempSync(join(tmpdir(), 'orca-journal-sql-worker-'))
+  bundleRoot = mkdtempSync(join(tmpdir(), 'openkodo-journal-sql-worker-'))
   await build({
     entryPoints: [
       resolve('src/main/native-chat/agent-session-journal/journal-sql-worker-entry.ts'),

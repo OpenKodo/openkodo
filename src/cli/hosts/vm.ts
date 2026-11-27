@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { CommandHandler } from '../dispatch/dispatch'
 import { RuntimeClientError } from '../runtime/connection/types'
-import { parseOrcaYaml } from '../../shared/workspace-setup/orca-yaml'
+import { parseOpenKodoYaml } from '../../shared/workspace-setup/openkodo-yaml'
 import {
   getEphemeralVmRecipeResultProjectRoot,
   type EphemeralVmRecipeDoctorCheck,
@@ -16,7 +16,7 @@ import {
   runEphemeralVmRecipeCleanup,
   runEphemeralVmRecipeStart
 } from '../../shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-recipe-runner'
-import type { OrcaVmRecipe } from '../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoVmRecipe } from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 
 export const VM_HANDLERS: Record<string, CommandHandler> = {
   'vm recipe doctor': async ({ flags, cwd, json }) => {
@@ -54,7 +54,7 @@ function doctorRecipe(repoPath: string, recipeId: string): DoctorResult {
       ok: false,
       checks: [
         {
-          id: 'orca_yaml.exists',
+          id: 'openkodo_yaml.exists',
           status: 'fail',
           message: `No openkodo.yaml found at ${yamlPath}`,
           remediation: 'Add environmentRecipes to the repo openkodo.yaml.'
@@ -63,9 +63,9 @@ function doctorRecipe(repoPath: string, recipeId: string): DoctorResult {
     }
   }
 
-  const hooks = parseOrcaYaml(readTextFile(yamlPath))
+  const hooks = parseOpenKodoYaml(readTextFile(yamlPath))
   const parseCheck: EphemeralVmRecipeDoctorCheck = {
-    id: 'orca_yaml.parse',
+    id: 'openkodo_yaml.parse',
     status: hooks ? 'pass' : 'fail',
     message: hooks
       ? 'openkodo.yaml parsed successfully.'
@@ -257,8 +257,8 @@ function buildProvisionFailureRemediation(stderr: string, stdout: string): strin
     : 'Check recipe stderr and ensure stdout contains the VM recipe result JSON.'
 }
 
-function loadRecipe(repoPath: string, recipeId: string): OrcaVmRecipe | null {
-  const hooks = parseOrcaYaml(readTextFile(setupYamlPath(repoPath)))
+function loadRecipe(repoPath: string, recipeId: string): OpenKodoVmRecipe | null {
+  const hooks = parseOpenKodoYaml(readTextFile(setupYamlPath(repoPath)))
   return hooks?.environmentRecipes?.find((entry) => entry.id === recipeId) ?? null
 }
 

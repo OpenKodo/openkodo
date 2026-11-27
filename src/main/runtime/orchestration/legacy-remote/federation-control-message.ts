@@ -1,6 +1,6 @@
 import { MESSAGE_TYPES, type MessagePriority, type MessageType } from '../db/orchestration-records'
 import { BOT_ITEM_MAIL_SENDER } from '../../../../shared/bots/bot-item-note-runs'
-import { callerMailProvenance } from '../db/messages/message-orca-provenance'
+import { callerMailProvenance } from '../db/messages/message-openkodo-provenance'
 import type { OrchestrationDb } from '../db/orchestration-db'
 import { OrchestrationError } from '../orchestration-error'
 

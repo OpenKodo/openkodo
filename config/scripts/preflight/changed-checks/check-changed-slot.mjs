@@ -6,7 +6,7 @@ import path from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { setTimeout as delay } from 'node:timers/promises'
 
-const slotDirectory = path.join(homedir(), '.cache', 'orca', 'preflight')
+const slotDirectory = path.join(homedir(), '.cache', 'openkodo', 'preflight')
 const slotFile = path.join(slotDirectory, `${hostname()}.sqlite`)
 const WAITING = 'Waiting for another local check:changed run to finish…'
 // Lanes, in turn order. A ticket that stops checking in is moved to SILENT once, out of every

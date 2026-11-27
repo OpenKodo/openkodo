@@ -102,4 +102,4 @@ export const composioLogoUrl = (slug: string): string =>
   `https://logos.composio.dev/api/${encodeURIComponent(slug)}`
 
 /** The Composio user a bot's sign-ins belong to, so each bot connects its own apps. */
-export const composioUserOfBot = (botId: string): string => `orca-bot-${botId}`
+export const composioUserOfBot = (botId: string): string => `openkodo-bot-${botId}`

@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { getAppEnvironment } from '../../../../shared/app-lifecycle/app-environment'
 import { waitForPromiseWithSignal } from '../../../../shared/concurrency/abort-signal-reason'
-import { OPENCODE_WSL_TEXT_TASK_FILENAME } from '../../../../shared/remote-runtime/orcad-distribution/remote-bundle-artifacts'
+import { OPENCODE_WSL_TEXT_TASK_FILENAME } from '../../../../shared/remote-runtime/openkodod-distribution/remote-bundle-artifacts'
 import { SearchSubprocessLineAccumulator } from '../../../../shared/process-streams/search-subprocess-lines'
 import { relayBundleCandidates } from '../../../wsl/execution/relay-bundle-paths'
 import { ensureWslPinnedRuntime } from '../../../wsl/execution/wsl-pinned-runtime'
@@ -87,7 +87,7 @@ async function prepareGuestRuntime(distro: string): Promise<OpenCodeWslGuestRunt
   if (!node?.startsWith('/')) {
     node = await ensureWslPinnedRuntime(
       run,
-      join(getAppEnvironment().getPath('userData'), 'orcad-artifacts'),
+      join(getAppEnvironment().getPath('userData'), 'openkodod-artifacts'),
       AbortSignal.timeout(PREPARATION_TIMEOUT_MS)
     )
   }

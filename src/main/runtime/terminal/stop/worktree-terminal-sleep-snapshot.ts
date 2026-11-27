@@ -1,7 +1,7 @@
 import type { RuntimeClientEvent } from '../../../../shared/remote-runtime/session-graph/runtime-client-events'
-import { OrcaRuntimeWithSleepResolvedWorktreeTerminals } from './worktree-terminal-sleep'
+import { OpenKodoRuntimeWithSleepResolvedWorktreeTerminals } from './worktree-terminal-sleep'
 
-export abstract class OrcaRuntimeWithTerminalSleepSnapshot extends OrcaRuntimeWithSleepResolvedWorktreeTerminals {
+export abstract class OpenKodoRuntimeWithTerminalSleepSnapshot extends OpenKodoRuntimeWithSleepResolvedWorktreeTerminals {
   getTerminalSleepClientEventSnapshot(): RuntimeClientEvent[] {
     const events: RuntimeClientEvent[] = []
     const sleepStates = [...this.terminalSleepStateByHostWorktree.values()].sort((a, b) =>

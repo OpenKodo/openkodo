@@ -5,24 +5,24 @@ import { join } from 'node:path'
 
 export const LEGACY_WORKSPACE_ID = 'legacy'
 
-function getOrcaDir(): string {
+function getOpenKodoDir(): string {
   return openKodoHomePath()
 }
 
 function getLegacyTokenPath(): string {
-  return join(getOrcaDir(), 'linear-token.enc')
+  return join(getOpenKodoDir(), 'linear-token.enc')
 }
 
 export function getLegacyViewerPath(): string {
-  return join(getOrcaDir(), 'linear-viewer.json')
+  return join(getOpenKodoDir(), 'linear-viewer.json')
 }
 
 export function getWorkspaceFilePath(): string {
-  return join(getOrcaDir(), 'linear-workspaces.json')
+  return join(getOpenKodoDir(), 'linear-workspaces.json')
 }
 
 export function getWorkspaceTokenDir(): string {
-  return join(getOrcaDir(), 'linear-tokens')
+  return join(getOpenKodoDir(), 'linear-tokens')
 }
 
 export function getWorkspaceTokenPath(workspaceId: string): string {
@@ -37,8 +37,8 @@ export function getWorkspaceLoginPath(workspaceId: string): string {
   return join(getWorkspaceTokenDir(), `${Buffer.from(workspaceId).toString('base64url')}.login.enc`)
 }
 
-export async function ensureOrcaDir(): Promise<void> {
-  const dir = getOrcaDir()
+export async function ensureOpenKodoDir(): Promise<void> {
+  const dir = getOpenKodoDir()
   if (!(await credentialFileExists(dir))) {
     await mkdir(dir, { recursive: true })
   }

@@ -17,7 +17,7 @@ import {
 } from '../../bots/bot-automation-event-places'
 import { AUTOMATION_EDITOR_SECTION_LABEL_CLASS, Field } from '../automation-page-parts'
 
-/** "On a Slack message · in a thread in #orca · from Nora · containing “deploy”": one event, by name. */
+/** "On a Slack message · in a thread in #openkodo · from Nora · containing “deploy”": one event, by name. */
 export function eventTriggerLine(trigger: AutomationEventTrigger): string {
   const rule = isConnectorTrigger(trigger) ? trigger : null
   const webhook = isWebhookTrigger(trigger) ? trigger : null

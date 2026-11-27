@@ -60,7 +60,7 @@ export type StartPluginWorkerOptions = {
   /** A development plugin, whose `host.has` also answers for proposed methods. */
   allowProposed?: boolean
   executeHostCall: PluginWorkerHostCallExecutor
-  /** `orca.panels.post` from this worker, already shape-checked. */
+  /** `openkodo.panels.post` from this worker, already shape-checked. */
   onPanelPost?: (post: PluginWorkerPanelPost) => void
   log: PluginWorkerLogSink
   readyTimeoutMs?: number

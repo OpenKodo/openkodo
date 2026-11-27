@@ -27,7 +27,7 @@ const MIN_WIDTH = 480
 const MIN_HEIGHT = 360
 const DEFAULT_WIDTH = 960
 const DEFAULT_HEIGHT = 720
-const DASHBOARD_POPOUT_PARTITION = 'orca-dashboard-popout'
+const DASHBOARD_POPOUT_PARTITION = 'openkodo-dashboard-popout'
 
 // Reuse the companion window across Pop Out requests.
 let dashboardPopoutWindow: BrowserWindow | null = null

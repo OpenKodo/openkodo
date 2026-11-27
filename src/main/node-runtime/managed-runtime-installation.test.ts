@@ -39,7 +39,7 @@ let data: string
 let root: string
 
 beforeEach(async () => {
-  data = await mkdtemp(join(tmpdir(), 'orca-runtime-autoupdate-'))
+  data = await mkdtemp(join(tmpdir(), 'openkodo-runtime-autoupdate-'))
   root = join(data, 'agent-runtimes', 'server')
 })
 
@@ -289,7 +289,7 @@ it('keeps its backoff across host restarts, so a failing update is not fetched o
   const first = installation(fetcher)
   await first.updateIfBehind()
   expect((await settled(first)).operation?.phase).toBe('failed')
-  // orcad idle-exits and a client reconnects: each start is a new installation.
+  // openkodod idle-exits and a client reconnects: each start is a new installation.
   for (let start = 0; start < 3; start += 1) {
     vi.setSystemTime(Date.now() + 10 * 60_000)
     await installation(fetcher).updateIfBehind()
@@ -479,7 +479,7 @@ describe('limits on automatic attempts', () => {
     vi.useFakeTimers({ toFake: ['Date'] })
     await seedRelease(OLD)
     const fetcher = refuse()
-    // An orcad that restarts every hour, each start running its check.
+    // An openkodod that restarts every hour, each start running its check.
     for (let hour = 0; hour < 30 * 24; hour += 1) {
       const host = installation(fetcher)
       await host.updateIfBehind()

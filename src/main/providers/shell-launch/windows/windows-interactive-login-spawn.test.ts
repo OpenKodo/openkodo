@@ -14,7 +14,7 @@ function withWindows<T>(fn: () => T): T {
 }
 
 function encodedValue(value: string): string {
-  return `Read-OrcaValue '${Buffer.from(value).toString('base64')}'`
+  return `Read-OpenKodoValue '${Buffer.from(value).toString('base64')}'`
 }
 
 /** Positional-independent so the argv shape can change without silently reading the wrong slot. */
@@ -23,9 +23,14 @@ function decodedScript(args: string[]): string {
   return Buffer.from(payload, 'base64').toString('utf16le')
 }
 
-function relayFilePathFromSpawnArgs(args: string[], variableName: 'PID' | 'OrcaExitCode'): string {
+function relayFilePathFromSpawnArgs(
+  args: string[],
+  variableName: 'PID' | 'OpenKodoExitCode'
+): string {
   const encodedPath = decodedScript(args).match(
-    new RegExp(`WriteAllText\\(\\(Read-OrcaValue '([^']+)'\\), \\[string\\]\\$${variableName}\\)`)
+    new RegExp(
+      `WriteAllText\\(\\(Read-OpenKodoValue '([^']+)'\\), \\[string\\]\\$${variableName}\\)`
+    )
   )?.[1]
   if (!encodedPath) {
     throw new Error(`${variableName} relay path is missing`)
@@ -38,7 +43,7 @@ describe('buildWindowsHostInteractiveLoginSpawn', () => {
     const spawn = withWindows(() =>
       buildWindowsHostInteractiveLoginSpawn('C:\\Tools\\claude.cmd', ['auth', 'login'])
     )
-    const exitCodeFilePath = relayFilePathFromSpawnArgs(spawn.args, 'OrcaExitCode')
+    const exitCodeFilePath = relayFilePathFromSpawnArgs(spawn.args, 'OpenKodoExitCode')
 
     await expect(spawn.readExitCode()).resolves.toBeNull()
     writeFileSync(exitCodeFilePath, '1')

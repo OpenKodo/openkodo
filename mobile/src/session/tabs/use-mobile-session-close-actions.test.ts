@@ -2,7 +2,7 @@ import { createElement } from 'react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { act, create, type ReactTestRenderer } from 'react-test-renderer'
 import { afterEach, expect, it } from 'vitest'
-import { createOrcaQueryClient } from '../../query/orca-query-client'
+import { createOpenKodoQueryClient } from '../../query/openkodo-query-client'
 import { HostStatusGatesContext } from '../../components/host-connection/host-protocol-gates-context'
 import { mountFixture } from '../../test-support/rpc-recording/react-mounting/recorder-fixture-shape'
 import type { HostStatusGates } from '../../transport/connection/host-status-gates'
@@ -100,7 +100,7 @@ function mountSession(pendingSelection: PendingSessionSelection | null) {
     renderer = create(
       createElement(
         QueryClientProvider,
-        { client: createOrcaQueryClient() },
+        { client: createOpenKodoQueryClient() },
         createElement(HostStatusGatesContext.Provider, { value: gates }, createElement(Harness))
       )
     )

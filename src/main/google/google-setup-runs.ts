@@ -67,7 +67,7 @@ export class GoogleSetupRuns {
 
   constructor(
     private readonly path: () => string = () =>
-      join(dirname(getDataFile()), 'orca-google-setup-runs.json'),
+      join(dirname(getDataFile()), 'openkodo-google-setup-runs.json'),
     private readonly now: () => number = Date.now
   ) {}
 

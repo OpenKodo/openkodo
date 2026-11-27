@@ -108,7 +108,7 @@ function defaultWorkerFactory(): Worker {
   if (!existsSync(workerPath)) {
     throw new Error(`Port scan command worker entry not found: ${workerPath}`)
   }
-  return spawnWorkerThread(workerPath, { name: 'orca-port-scan' })
+  return spawnWorkerThread(workerPath, { name: 'openkodo-port-scan' })
 }
 
 let sharedClient: PortScanCommandClient | null = null

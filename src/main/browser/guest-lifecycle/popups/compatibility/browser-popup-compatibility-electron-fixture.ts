@@ -153,18 +153,18 @@ async function createHost(name: string, partition: string, nativeControl = false
             throw new Error('Route guest registration failed')
           }
           guest.on('console-message', ({ message }) => {
-            if (message === 'orca-popup-fixture:fence' && registry && routeIdentity) {
+            if (message === 'openkodo-popup-fixture:fence' && registry && routeIdentity) {
               routeClaim = registry.claimGuestLifecycle(routeIdentity)
               if (routeClaim) {
                 routeGranted = !registry.revokeNavigation(routeClaim)
               }
               writeStatus()
-            } else if (message === 'orca-popup-fixture:grant' && registry && routeClaim) {
+            } else if (message === 'openkodo-popup-fixture:grant' && registry && routeClaim) {
               routeGranted = registry.grantReconciledNavigation(routeClaim)
               writeStatus()
-            } else if (message === 'orca-popup-fixture:close') {
+            } else if (message === 'openkodo-popup-fixture:close') {
               guest.close()
-            } else if (message === 'orca-popup-fixture:snapshot') {
+            } else if (message === 'openkodo-popup-fixture:snapshot') {
               writeStatus()
             } else {
               native.handleMessage(message)
@@ -204,7 +204,7 @@ async function run(): Promise<void> {
   phase = 'ready'
   writeStatus()
   const localPartition = 'popup-fixture-local'
-  const routePartition = `persist:orca-browser-v1-${'a'.repeat(64)}`
+  const routePartition = `persist:openkodo-browser-v1-${'a'.repeat(64)}`
   const localSession = session.fromPartition(localPartition)
   const routeSession = session.fromPartition(routePartition)
   fixtureRouteSession = routeSession

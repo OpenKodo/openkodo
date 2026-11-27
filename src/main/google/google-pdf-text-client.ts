@@ -18,7 +18,7 @@ function createWorker(): Worker {
   if (!existsSync(path)) {
     throw new Error(`PDF text worker entry not found: ${path}`)
   }
-  return spawnWorkerThread(path, { name: 'orca-google-pdf-text' })
+  return spawnWorkerThread(path, { name: 'openkodo-google-pdf-text' })
 }
 
 let queue: WorkerThreadRequestQueue<PdfTextWorkerRequest, PdfTextWorkerResponse> | null = null

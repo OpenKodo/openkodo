@@ -108,8 +108,8 @@ const runtimeConfigPath = (): string => join(runtimeHome(), 'config.toml')
 
 beforeEach(() => {
   denials.reset()
-  fakeHomeDir = realFs.mkdtempSync(join(tmpdir(), 'orca-sta4737-home-'))
-  userDataDir = realFs.mkdtempSync(join(tmpdir(), 'orca-sta4737-data-'))
+  fakeHomeDir = realFs.mkdtempSync(join(tmpdir(), 'openkodo-sta4737-home-'))
+  userDataDir = realFs.mkdtempSync(join(tmpdir(), 'openkodo-sta4737-data-'))
   previousUserDataPath = process.env.OPENKODO_USER_DATA_PATH
   process.env.OPENKODO_USER_DATA_PATH = userDataDir
   homedirMock.mockReturnValue(fakeHomeDir)
@@ -218,10 +218,10 @@ describe('STA-4737 promotion must not rebuild a system config it could not read'
 })
 
 it('preserves the original hook trust provenance when its snapshot cannot be read', () => {
-  const provenancePath = join(runtimeHome(), '.orca-hook-trust-provenance.json')
+  const provenancePath = join(runtimeHome(), '.openkodo-hook-trust-provenance.json')
   const recorded = JSON.stringify({
     version: 1,
-    entries: { 'orca-hooks:stop:0:0': { trustedHash: 'sha256:orca', enabled: true } }
+    entries: { 'openkodo-hooks:stop:0:0': { trustedHash: 'sha256:openkodo', enabled: true } }
   })
   realFs.writeFileSync(runtimeConfigPath(), 'model = "m"\n', 'utf-8')
   realFs.writeFileSync(provenancePath, recorded, 'utf-8')

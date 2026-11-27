@@ -53,7 +53,7 @@ export const pluginPanelPathIconSchema = z
         description: `\`stroke\` (default) draws the outline 2 units wide with round caps and joins, like Lucide, which suits a viewBox of about 24; validation warns above ${PLUGIN_PANEL_PATH_ICON_STROKE_VIEW_BOX_MAX}. \`fill\` fills the shape.`
       })
   })
-  .meta({ 'x-orca-since': PLUGIN_PANEL_PATH_ICON_SINCE })
+  .meta({ 'x-openkodo-since': PLUGIN_PANEL_PATH_ICON_SINCE })
 
 export type PluginPanelPathIcon = z.infer<typeof pluginPanelPathIconSchema>
 

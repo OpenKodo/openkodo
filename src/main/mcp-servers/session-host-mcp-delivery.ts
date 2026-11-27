@@ -58,7 +58,7 @@ export async function deliverHostMcpServers(
 }
 
 /** The agent's answer with the servers this session got from the host's list under OpenKodo's group. */
-export function withOrcaMcpSource(
+export function withOpenKodoMcpSource(
   sessionId: string,
   result: AgentSessionMcpResult
 ): AgentSessionMcpResult {

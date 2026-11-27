@@ -8,7 +8,7 @@ export async function initializeCodexAppServerConnection(
   await connection.request(
     'initialize',
     {
-      clientInfo: { name: 'orca_desktop', title: 'OpenKodo', version: '0.0.0' },
+      clientInfo: { name: 'openkodo_desktop', title: 'OpenKodo', version: '0.0.0' },
       capabilities: {
         experimentalApi: true,
         requestAttestation: false,

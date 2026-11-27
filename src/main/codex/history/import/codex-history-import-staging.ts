@@ -35,9 +35,9 @@ export async function pickImportForm(
   return !compressed?.isFile() || plainWins(plain, compressed) ? key : compressedName
 }
 
-/** `.orca-import-<runId>-<uuid>.tmp`: never a rollout name, and swept once its run is long gone. */
+/** `.openkodo-import-<runId>-<uuid>.tmp`: never a rollout name, and swept once its run is long gone. */
 export function stagedImportPath(folder: string, runId: string): string {
-  return join(folder, `.orca-import-${runId}-${randomUUID()}.tmp`)
+  return join(folder, `.openkodo-import-${runId}-${randomUUID()}.tmp`)
 }
 
 // Store folders a probe found without hard links; tried again once the setting changes or OpenKodo restarts.

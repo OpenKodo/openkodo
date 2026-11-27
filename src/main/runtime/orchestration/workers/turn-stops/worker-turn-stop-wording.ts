@@ -1,6 +1,6 @@
 import { redactString } from '../../../../../shared/observability/redactor'
 import { replaceDispatchCapabilities } from '../../terminal-authority/views/worker-terminal-redaction'
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import { describeCoordinatorAnswer, describeHelperHold } from './worker-approval-text'
 import type { WorkerTurnStop, WorkerTurnStopReason } from './worker-turn-stop-report'
 import { workerBackgroundWaitNoticeText } from './worker-background-wait-notice'

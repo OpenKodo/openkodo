@@ -1,4 +1,4 @@
-import { EpochMsSchema } from '@orca-cloud/push-contract'
+import { EpochMsSchema } from '@openkodo-cloud/push-contract'
 import { z } from 'zod'
 import { ConnectorMessageFileSchema } from './action-messages.js'
 import { CONNECTOR_LIMITS } from './connector-limits.js'

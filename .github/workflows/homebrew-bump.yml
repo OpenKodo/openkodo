@@ -1,6 +1,6 @@
 name: Homebrew Cask Bump
 
-# Update desktop stable/RC casks in stablyai/homebrew-orca with release DMG hashes through release-cut workflow_call or manual backfill. Avoid release.published because mobile/non-desktop releases lack those DMGs and must never rewrite casks.
+# Update desktop stable/RC casks in stablyai/homebrew-openkodo with release DMG hashes through release-cut workflow_call or manual backfill. Avoid release.published because mobile/non-desktop releases lack those DMGs and must never rewrite casks.
 
 on:
   workflow_call:
@@ -27,7 +27,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout orca
+      - name: Checkout openkodo
         uses: actions/checkout@v6
 
       - name: Resolve tag and version
@@ -54,11 +54,11 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$ ]]; then
-            token="orca@rc"
-            branch_token="orca-rc"
+            token="openkodo@rc"
+            branch_token="openkodo-rc"
           elif [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            token="orca"
-            branch_token="orca"
+            token="openkodo"
+            branch_token="openkodo"
           else
             echo "::error::Unsupported desktop tag shape: $TAG" >&2
             exit 1
@@ -85,11 +85,11 @@ jobs:
           mkdir -p dmgs
           gh release download "$TAG" \
             --repo "${{ github.repository }}" \
-            --pattern 'orca-macos-arm64.dmg' \
-            --pattern 'orca-macos-x64.dmg' \
+            --pattern 'openkodo-macos-arm64.dmg' \
+            --pattern 'openkodo-macos-x64.dmg' \
             --dir dmgs
-          arm=$(sha256sum dmgs/orca-macos-arm64.dmg | awk '{print $1}')
-          intel=$(sha256sum dmgs/orca-macos-x64.dmg  | awk '{print $1}')
+          arm=$(sha256sum dmgs/openkodo-macos-arm64.dmg | awk '{print $1}')
+          intel=$(sha256sum dmgs/openkodo-macos-x64.dmg  | awk '{print $1}')
           echo "arm=$arm"     >>"$GITHUB_OUTPUT"
           echo "intel=$intel" >>"$GITHUB_OUTPUT"
 
@@ -124,12 +124,12 @@ jobs:
           app-id: 2590194
           private-key: ${{ secrets.BUFO_BOT_PRIVATE_KEY }}
           owner: stablyai
-          repositories: homebrew-orca
+          repositories: homebrew-openkodo
 
       - name: Checkout tap
         uses: actions/checkout@v6
         with:
-          repository: stablyai/homebrew-orca
+          repository: stablyai/homebrew-openkodo
           path: tap
           token: ${{ steps.app-token.outputs.token }}
 

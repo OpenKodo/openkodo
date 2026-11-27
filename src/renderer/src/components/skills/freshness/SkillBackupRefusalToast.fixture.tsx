@@ -11,8 +11,8 @@ import type { BundledSkillTarget } from '@/lib/skills/runtime/bundled-skill-targ
 import { reportPreservedEdits, reportUncertainOutcome } from './skill-freshness-auto-update'
 
 const SKILLS = '/Users/sam/.agents/skills'
-const BACKUPS = '/Users/sam/.agents/.orca-skill-backups'
-const ASIDE = `${SKILLS}/.electron.orca-old-7b1d44e0`
+const BACKUPS = '/Users/sam/.agents/.openkodo-skill-backups'
+const ASIDE = `${SKILLS}/.electron.openkodo-old-7b1d44e0`
 
 function result(ops: Record<string, BundledSkillOpOutcome>): BundledSkillInstallResult {
   return {
@@ -49,25 +49,25 @@ const movedAside = result({
   }
 })
 const putBack = result({
-  'orca-cli': {
-    path: `${SKILLS}/orca-cli`,
+  'openkodo-cli': {
+    path: `${SKILLS}/openkodo-cli`,
     kind: 'keep',
     status: 'failed',
     error: 'EXDEV',
     currentConfirmed: true,
     backupRefusal: {
-      path: '/Users/sam/.gemini/skills/orca-cli',
+      path: '/Users/sam/.gemini/skills/openkodo-cli',
       source: 'in-place',
       onlyNotice: true
     }
   }
 })
 const backups = result({
-  'orca-plan': {
-    path: `${SKILLS}/orca-plan`,
+  'openkodo-plan': {
+    path: `${SKILLS}/openkodo-plan`,
     kind: 'keep',
     status: 'done',
-    backupPath: `${BACKUPS}/orca-plan-2026-11-24T10-00-00-000Z-1`
+    backupPath: `${BACKUPS}/openkodo-plan-2026-11-24T10-00-00-000Z-1`
   },
   orchestration: {
     path: `${SKILLS}/orchestration`,

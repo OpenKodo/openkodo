@@ -26,7 +26,7 @@ import type { OrchestrationPartyIdentity as OrchestrationCallerIdentity } from '
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import type { RunRow } from '../../../../orchestration/db/orchestration-records'
 import type { RpcContext } from '../../../core'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { SendParams } from './send-params'
 import {
   botAddressReach,
@@ -52,7 +52,7 @@ type SendParamsInput = Pick<
 
 /** Whether an address could reach a bot; decided without waiting, so other mail is stored as before. */
 export function mayReachBot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   to: string,
   sender: OrchestrationCallerIdentity
 ): boolean {
@@ -111,7 +111,7 @@ export async function sendToBot(
 }
 
 type SendBotRequestArgs = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   db: OrchestrationDb
   params: SendParamsInput
   from: string
@@ -273,7 +273,7 @@ async function admitBotRequestMail(
       priority: params.priority,
       threadId: params.threadId,
       payload,
-      orcaAuthored: 'bot-request' as const,
+      openkodoAuthored: 'bot-request' as const,
       senderPaneKey: args.senderPaneKey,
       runId: recipient.runId,
       answerSenderSnapshot: args.senderSnapshot

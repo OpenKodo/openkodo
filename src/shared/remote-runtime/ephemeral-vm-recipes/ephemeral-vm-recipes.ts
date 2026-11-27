@@ -67,9 +67,9 @@ export const EphemeralVmRecipeSshTargetSchema = z
   })
   .strict()
 
-const EphemeralVmRecipeOrcaServerConnectionSchema = z
+const EphemeralVmRecipeOpenKodoServerConnectionSchema = z
   .object({
-    type: z.literal('orca-server'),
+    type: z.literal('openkodo-server'),
     pairingCode: z.string().min(1),
     projectRoot: z.string().min(1)
   })
@@ -84,7 +84,7 @@ const EphemeralVmRecipeSshConnectionSchema = z
   .strict()
 
 export const EphemeralVmRecipeConnectionSchema = z.discriminatedUnion('type', [
-  EphemeralVmRecipeOrcaServerConnectionSchema,
+  EphemeralVmRecipeOpenKodoServerConnectionSchema,
   EphemeralVmRecipeSshConnectionSchema
 ])
 
@@ -172,7 +172,7 @@ export function parseEphemeralVmRecipeResult(stdout: string): EphemeralVmRecipeR
     return { ok: false, error: result.error.issues[0]?.message ?? 'Invalid recipe result.' }
   }
   const connection = getEphemeralVmRecipeResultConnection(result.data)
-  if (connection.type === 'orca-server' && !parsePairingCode(connection.pairingCode)) {
+  if (connection.type === 'openkodo-server' && !parsePairingCode(connection.pairingCode)) {
     return { ok: false, ...ephemeralVmFailure('recipeResultPairingCodeInvalid') }
   }
   if (!isAbsoluteRuntimePath(connection.projectRoot)) {
@@ -188,7 +188,7 @@ export function getEphemeralVmRecipeResultConnection(
     return result.connection
   }
   return {
-    type: 'orca-server',
+    type: 'openkodo-server',
     pairingCode: result.pairingCode,
     projectRoot: result.projectRoot
   }
@@ -200,15 +200,15 @@ export function getEphemeralVmRecipeResultProjectRoot(result: EphemeralVmRecipeR
 
 export function getEphemeralVmRecipeResultCheckoutMode(
   result: EphemeralVmRecipeResult
-): 'orca-worktree' | 'provisioned-root' {
-  return result.schemaVersion === 2 ? 'provisioned-root' : 'orca-worktree'
+): 'openkodo-worktree' | 'provisioned-root' {
+  return result.schemaVersion === 2 ? 'provisioned-root' : 'openkodo-worktree'
 }
 
 export function getEphemeralVmRecipeResultPairingCode(
   result: EphemeralVmRecipeResult
 ): string | null {
   const connection = getEphemeralVmRecipeResultConnection(result)
-  return connection.type === 'orca-server' ? connection.pairingCode : null
+  return connection.type === 'openkodo-server' ? connection.pairingCode : null
 }
 
 export function isAbsoluteRuntimePath(path: string): boolean {

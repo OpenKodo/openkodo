@@ -130,7 +130,10 @@ export function useGlobalKeybindings(args: {
           terminalShortcutPolicy
         })
       const notifyTerminalCapture = (actionId: KeybindingActionId): void => {
-        if (context !== 'terminal' || (terminalShortcutPolicy ?? 'orca-first') !== 'orca-first') {
+        if (
+          context !== 'terminal' ||
+          (terminalShortcutPolicy ?? 'openkodo-first') !== 'openkodo-first'
+        ) {
           return
         }
         showTerminalShortcutCaptureNotification({

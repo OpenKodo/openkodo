@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { OPENKODO_TAB_SESSION_PREFIX } from './agent-browser-session-name'
 
 const SWEEP_TIMEOUT_MS = 5_000

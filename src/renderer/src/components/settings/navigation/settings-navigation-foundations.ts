@@ -3,7 +3,7 @@ import type { GlobalSettings } from '../../../../../shared/settings/global-setti
 import type { SpeechModelState } from '../../../../../shared/speech/speech-types'
 import type { SourceControlAiSettings } from '../../../../../shared/source-control/ai/settings/source-control-ai-settings-types'
 import { normalizeSourceControlAiSettings } from '../../../../../shared/source-control/ai/settings/source-control-ai-settings'
-import { getDefaultVoiceSettings } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultVoiceSettings } from '../../../../../shared/openkodo-profiles/constants'
 import type {
   SettingsNavSection,
   SettingsNavTarget

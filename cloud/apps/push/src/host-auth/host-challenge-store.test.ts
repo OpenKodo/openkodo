@@ -7,9 +7,9 @@ import {
 import { PushHostChallengeStore } from './host-challenge-store.js'
 
 import { openInMemoryPushDatabase } from '../database/push-database.js'
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 
-const GATEWAY_ORIGIN = 'https://push.onorca.dev'
+const GATEWAY_ORIGIN = 'https://push.onopenkodo.dev'
 
 describe('push host challenge store', () => {
   let database: PushDatabase

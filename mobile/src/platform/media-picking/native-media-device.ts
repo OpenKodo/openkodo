@@ -13,7 +13,7 @@ export function ownsStagedMediaUri(uri: string): boolean {
 }
 
 function stagedMediaFile(extension: string): FsFile {
-  return new FsFile(Paths.cache, `orca-media-${Date.now()}-${Math.random()}.${extension}`)
+  return new FsFile(Paths.cache, `openkodo-media-${Date.now()}-${Math.random()}.${extension}`)
 }
 
 // Another app may still read the last file handed to it, so a folder's earlier contents are cleared only when the next one starts.

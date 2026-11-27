@@ -7,7 +7,7 @@ import {
   type AgentSessionReadVisualResult
 } from '../../../../../../shared/rpc-contract/structured-agent-session/agent-session-visual-params'
 import { nativeChatScratchFolderFor } from '../../../../../native-chat/conversation-files/native-chat-scratch-folder'
-import { getProfileUserDataPath } from '../../../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../../../openkodo-profiles/profile-storage-paths'
 import { readNativeChatVisualFile } from '../../../../../native-chat/conversation-files/native-chat-visual-file-read'
 import { defineMethod } from '../../../core'
 import { requireInstalledStructuredHost } from '../creation/structured-agent-session-gate'

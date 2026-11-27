@@ -20,8 +20,8 @@ import type { WorkerThreadRole } from './worker-thread-roles'
  * main thread's diagnostics and the hang watchdog can name a sender even when the main thread is
  * stuck receiving that message. Fixed size: SLOTS workers, no allocation per send.
  */
-const LEDGER_KEY = 'orca.worker-send-ledger.v1'
-const LARGE_SEND_LOG_KEY = 'orca.worker-large-send-log.v1'
+const LEDGER_KEY = 'openkodo.worker-send-ledger.v1'
+const LARGE_SEND_LOG_KEY = 'openkodo.worker-large-send-log.v1'
 const SLOTS = 48
 const SLOT_BYTES = 192
 const TEXT_BYTES = 40
@@ -147,7 +147,9 @@ export function installWorkerSendLedger(role: WorkerThreadRole): void {
 
 /** A shared entry (the foreign SQLite reader) serves several roles; the spawn's own name is exact. */
 function spawnedRole(entryRole: WorkerThreadRole): string {
-  return typeof threadName === 'string' && threadName.startsWith('orca') ? threadName : entryRole
+  return typeof threadName === 'string' && threadName.startsWith('openkodo')
+    ? threadName
+    : entryRole
 }
 
 function recordSend(view: DataView, shape: WorkerMessageShape): void {

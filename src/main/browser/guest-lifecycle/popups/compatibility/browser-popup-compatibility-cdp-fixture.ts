@@ -1,6 +1,6 @@
-// @orca-isolated-worker: the Electron app, mock server and temp root live at module level, one per test file.
+// @openkodo-isolated-worker: the Electron app, mock server and temp root live at module level, one per test file.
 import type { PopupCompatibilityStatus } from './browser-popup-compatibility-status'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { createServer } from 'node:http'
 import { createServer as createPortServer } from 'node:net'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -36,7 +36,7 @@ export type PopupFixtureReceipt = {
   fetchUser: string
 }
 export const receipts: PopupFixtureReceipt[] = []
-const root = mkdtempSync(join(tmpdir(), 'orca-popup-compatibility-'))
+const root = mkdtempSync(join(tmpdir(), 'openkodo-popup-compatibility-'))
 let fixture: ReturnType<typeof spawnProcess> | null = null
 export let browser: Browser | null = null
 export let origin = ''
@@ -220,7 +220,7 @@ beforeAll(async () => {
 afterEach(async () => {
   const route = pages.get('route')
   if (route && !route.isClosed()) {
-    await route.evaluate('console.log("orca-popup-fixture:restore-authority")')
+    await route.evaluate('console.log("openkodo-popup-fixture:restore-authority")')
   }
   const local = pages.get('local')
   if (local && !local.isClosed()) {

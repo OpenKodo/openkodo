@@ -19,7 +19,7 @@ export function pluginFileExistsIn(
 }
 
 /** Marks the request for a `.ts` frame entry's module; the same path without it is its page. */
-export const PLUGIN_SOURCE_MODULE_QUERY = 'orca-module'
+export const PLUGIN_SOURCE_MODULE_QUERY = 'openkodo-module'
 
 /** The page OpenKodo serves for a `.tsx`/`.ts` frame entry: it only loads that entry as a module. */
 export function pluginSourceModuleDocumentBody(relativePath: string): string {

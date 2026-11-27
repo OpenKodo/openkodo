@@ -22,14 +22,14 @@ import {
 } from '../definitions/codex-hook-definition'
 import { buildCodexHookCommand as getManagedCommand } from '../definitions/codex-hook-command-form'
 import {
-  approvalsAtOrcaEntries,
-  findOrcaEntrySlots,
+  approvalsAtOpenKodoEntries,
+  findOpenKodoEntrySlots,
   getManagedCodexHookHome,
-  isKnownOrcaHash,
-  readKnownOrcaHashes,
+  isKnownOpenKodoHash,
+  readKnownOpenKodoHashes,
   getRealHomeCodexHookHome,
   type CodexHookHome
-} from '../../trust/hooks/codex-hook-orca-approvals'
+} from '../../trust/hooks/codex-hook-openkodo-approvals'
 import type { CodexHookAnswer } from '../../trust/hooks/codex-hook-trust-derivation'
 import { readKnownCodexHookAnswer } from '../../trust/hooks/codex-hook-hash-lookup'
 import { resolveCodexHookStatusHome } from './codex-hook-reconcile'
@@ -102,7 +102,7 @@ function readHomeStatus(
   if (!config) {
     return status('error', false, 'Could not parse Codex hooks.json')
   }
-  const slots = findOrcaEntrySlots(config.hooks, command)
+  const slots = findOpenKodoEntrySlots(config.hooks, command)
   // Distinguish unreadable config from absence, which reads as an empty map.
   let trustStates: ReadonlyMap<string, CodexHookTrustState>
   let spelled: (key: string) => boolean = () => false
@@ -116,7 +116,7 @@ function readHomeStatus(
   }
   // Windows Codex ignores approvals kept only under the forward-slash key.
   const approvals = new Map(
-    [...approvalsAtOrcaEntries(trustStates, slots, home.keySourcePaths, command)].map(
+    [...approvalsAtOpenKodoEntries(trustStates, slots, home.keySourcePaths, command)].map(
       ([eventLabel, held]) => [eventLabel, held.filter((approval) => spelled(approval.key))]
     )
   )
@@ -129,13 +129,14 @@ function readHomeStatus(
       return status('partial', true, `OpenKodo's hook entry is installed, but ${reason}`)
     }
     // Known or local approvals may stand until Codex answers.
-    const known = readKnownOrcaHashes(home, command)
+    const known = readKnownOpenKodoHashes(home, command)
     const approved =
       trustReadError === null &&
       [...approvals].every(([eventLabel, held]) =>
         held.some(
           (approval) =>
-            approval.enabled !== false && isKnownOrcaHash(known, eventLabel, approval.trustedHash)
+            approval.enabled !== false &&
+            isKnownOpenKodoHash(known, eventLabel, approval.trustedHash)
         )
       )
     return approved
@@ -195,7 +196,7 @@ function describeInlineApprovals(
   }
   const command = getManagedCommand(getManagedScriptPath())
   const hooks = readHooksJson(home.hooksJsonPath)?.hooks
-  const slots = findOrcaEntrySlots(hooks, command)
+  const slots = findOpenKodoEntrySlots(hooks, command)
   const probes: CodexTrustEntry[] = CODEX_EVENTS.flatMap((eventName) => {
     const label = CODEX_EVENT_LABEL[eventName]
     const hook = buildCodexManagedHook(command, eventName)

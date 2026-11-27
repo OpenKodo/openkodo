@@ -33,7 +33,7 @@ export function worker(index: number, state: WorkerDockRowView['state'], remote:
     id: `dock:${index}`,
     dispatchId: `ctx_fixture_${index}`,
     source: SOURCE,
-    name: `ORCA-${30 + index}`,
+    name: `OPENKODO-${30 + index}`,
     title: TITLES[index % TITLES.length],
     model: 'gpt-6.1-sol',
     state,

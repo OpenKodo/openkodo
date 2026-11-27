@@ -168,7 +168,7 @@
       "statusDetails": {
         "runningListUnavailable": "Windows не сообщила, запущен ли дистрибутив.",
         "guestUnanswered": "Дистрибутив запущен, но не ответил на проверочный запрос OpenKodo.",
-        "orcadUnanswered": "Сервер OpenKodo в дистрибутиве не ответил.",
+        "openkododUnanswered": "Сервер OpenKodo в дистрибутиве не ответил.",
         "restartGaveUp_one": "Не удалось перезапустить сервер OpenKodo в {{distro}} после {{count}} попытки",
         "restartGaveUp_other": "Не удалось перезапустить сервер OpenKodo в {{distro}} после {{count}} попытки",
         "serviceUnconfirmed": "Служба WSL не подтвердила, запущен ли дистрибутив.",
@@ -772,11 +772,11 @@
         "restartingAdministrator": "Перезапуск…",
         "administratorSearchDescription": "Посмотрите права OpenKodo в Windows или перезапустите приложение с разрешения администратора.",
         "10aafff216": "Открыть управление сессиями",
-        "confirmOrcaAdministratorRestart": "Перезапустить OpenKodo от имени администратора?",
+        "confirmOpenKodoAdministratorRestart": "Перезапустить OpenKodo от имени администратора?",
         "administratorRestartSummary": "Локальные терминалы и агенты закроются. Windows запросит подтверждение.",
-        "orcaCouldNotRestart": "Не удалось перезапустить OpenKodo.",
+        "openkodoCouldNotRestart": "Не удалось перезапустить OpenKodo.",
         "manualAdministratorSteps": "Шаги вручную",
-        "restartOrca": "Перезапустить"
+        "restartOpenKodo": "Перезапустить"
       }
     },
     "appearance": {
@@ -1292,7 +1292,7 @@
   "menu": {
     "checkForUpdates": "Проверить обновления…",
     "settings": "Настройки",
-    "exploreOrca": "Возможности OpenKodo",
+    "exploreOpenKodo": "Возможности OpenKodo",
     "gettingStarted": "Начало работы с OpenKodo",
     "reportCrash": "Сообщить о сбое…",
     "file": "Файл",
@@ -1324,7 +1324,7 @@
     "quitAndStopAllSessionsTooltip": "Также останавливает все сессии терминалов, в том числе с запущенными агентами. При обычном выходе сессии продолжают работать, и OpenKodo подключается к ним при следующем запуске."
   },
   "tray": {
-    "openOrca": "Открыть OpenKodo",
+    "openOpenKodo": "Открыть OpenKodo",
     "quit": "Выход",
     "minimizeNotice": {
       "body": "OpenKodo продолжает работать в системном трее"
@@ -1627,7 +1627,7 @@
         "jira": {
           "856083302c": "Запрос подключения Jira заменён более новым."
         },
-        "orca": {
+        "openkodo": {
           "profiles": {
             "612f7f6861": "Не удалось создать профиль",
             "319d7cf39b": "Облачный профиль создан",
@@ -2214,8 +2214,8 @@
           "differentLauncher": "{{path}} указывает на другой лаунчер.",
           "launcherMissing": "В этой сборке OpenKodo отсутствует встроенный лаунчер CLI.",
           "noWslDistro": "Нет доступных дистрибутивов WSL.",
-          "notOrcaLauncherScript": "{{path}} существует, но это не скрипт запуска OpenKodo.",
-          "notOrcaSymlink": "{{path}} существует, но это не символическая ссылка OpenKodo.",
+          "notOpenKodoLauncherScript": "{{path}} существует, но это не скрипт запуска OpenKodo.",
+          "notOpenKodoSymlink": "{{path}} существует, но это не символическая ссылка OpenKodo.",
           "olderLauncher": "{{path}} содержит устаревший лаунчер OpenKodo.",
           "platformUnsupported": "Регистрация CLI не реализована на этой платформе.",
           "readlinkPermissionDenied": "У OpenKodo нет разрешения на проверку {{path}}. Проверьте разрешения для пути и его родительского каталога и повторите попытку.",
@@ -2925,8 +2925,8 @@
         "addHost": "Добавить сервер",
         "addSshHost": "Добавить SSH-сервер",
         "addSshHostHint": "Использовать существующий компьютер по SSH",
-        "addRemoteOrcaServer": "Добавить удалённый сервер OpenKodo",
-        "addRemoteOrcaServerHint": "Подключить другую среду выполнения OpenKodo",
+        "addRemoteOpenKodoServer": "Добавить удалённый сервер OpenKodo",
+        "addRemoteOpenKodoServerHint": "Подключить другую среду выполнения OpenKodo",
         "hostConnectionFailed": "Не удалось подключиться",
         "connect": "Подключиться",
         "reconnect": "Подключиться снова",
@@ -4342,7 +4342,7 @@
             "switchTerminal": "Переключить терминал",
             "openTaskTerminal": "Открыть терминал задачи",
             "systemBrowser": "Системный браузер",
-            "orcaBrowser": "Браузер OpenKodo",
+            "openkodoBrowser": "Браузер OpenKodo",
             "terminalLinkSettings": "Настройки ссылок терминала",
             "copyLink": "Копировать ссылку",
             "copied": "Скопировано",
@@ -5899,7 +5899,7 @@
           "updateAction_other": "Обновить {{count}} навыка"
         },
         "SkillUpdateRow": {
-          "replaceWithOrca": "Заменить копией из OpenKodo (с резервной копией)"
+          "replaceWithOpenKodo": "Заменить копией из OpenKodo (с резервной копией)"
         },
         "SkillFreshnessStatusPill": {
           "updateAvailable": "Доступно обновление",
@@ -6317,7 +6317,7 @@
           "installAvailable": "Доступна установка",
           "otherBuild": "Установлено другой версией OpenKodo",
           "otherBuildKept": "Сохранено: записано другой версией OpenKodo",
-          "differsFromOrca": "Эта копия отличается от копии OpenKodo",
+          "differsFromOpenKodo": "Эта копия отличается от копии OpenKodo",
           "replaceMovesFolder": "При замене вся папка, включая дополнительные файлы, будет перемещена в {{folder}}.",
           "replaceMovesFolderOnHost": "При замене вся папка, включая дополнительные файлы, будет перемещена в {{folder}} на {{host}}.",
           "replaceMovesLink": "При замене эта ссылка будет перемещена в {{folder}}.",
@@ -6539,7 +6539,7 @@
           "removeWithChildrenMixed_many": "Удалить <target/> и <descendants>{{count}} дочерних рабочих пространств</descendants> из OpenKodo. Рабочие деревья Git также будут удалены из git и с диска; для рабочих пространств на основе папок будет удалена только запись в OpenKodo.",
           "removeWithChildrenGit_few": "Удалить <target/> и <descendants>{{count}} дочерних рабочих пространства</descendants> из git и удалить их папки рабочих пространств.",
           "removeWithChildrenGit_many": "Удалить <target/> и <descendants>{{count}} дочерних рабочих пространств</descendants> из git и удалить их папки рабочих пространств.",
-          "removeSingleFolderFromOrca": "Удаляет его из OpenKodo. Папка на диске сохраняется.",
+          "removeSingleFolderFromOpenKodo": "Удаляет его из OpenKodo. Папка на диске сохраняется.",
           "deleteSingleWorktreeAndBranch": "Удаляет рабочее дерево и локальные изменения. Ветка удаляется, если она уже слита."
         },
         "DeleteWorktreeDirtyChangeHint": {
@@ -6592,7 +6592,7 @@
           "8851b77327": "Этот путь проверен локально.",
           "sshConnectionUnavailable": "SSH-соединение «{{connection}}» не найдено или не подключено"
         },
-        "OrcaYamlTrustDialog": {
+        "OpenKodoYamlTrustDialog": {
           "f3e2b868fb": "Выполнить хуки",
           "43b7bec4cd": "Не выполнять",
           "setupChangedTitle": "Скрипт настройки {{repo}} изменился — запустить новую версию?",
@@ -6980,7 +6980,7 @@
           "c7fa72ead0": "Изменить заметки",
           "93cbea12c2": "Заметки",
           "dbe2d18972": "Другие действия с {{value0}}",
-          "openInOrcaBrowser": "Открыть в браузере OpenKodo",
+          "openInOpenKodoBrowser": "Открыть в браузере OpenKodo",
           "2c67730e07": "Открыть в OpenKodo",
           "807b13b9ec": "Изменить задачу",
           "moreIssueActions": "Другие действия с задачей",
@@ -7571,7 +7571,7 @@
           "sshConfigPickerEmptyHint": "Добавьте туда запись Host или вернитесь и введите параметры вручную.",
           "sshConfigPickerNoMatchHint": "Попробуйте другой фильтр или вернитесь и введите параметры вручную.",
           "sshConfigPickerMoreResults": "Показаны первые {{value0}} совпадений. Уточните фильтр для поиска остальных.",
-          "sshConfigPickerInOrca": "В OpenKodo",
+          "sshConfigPickerInOpenKodo": "В OpenKodo",
           "sshConfigPickerPreviouslyRemoved": "Убрано из OpenKodo",
           "sshConfigPickerBack": "Назад",
           "fillFromSshConfig": "Заполнить из ~/.ssh/config…",
@@ -7583,7 +7583,7 @@
           "sshConfigPickerRetry": "Попробовать ещё раз",
           "sshConfigPickerResolving": "Чтение…",
           "pairingHelpShareComputer": "Создайте это на другом компьютере: Настройки → Удалённые серверы OpenKodo → Поделиться этим компьютером.",
-          "nameInOrca": "Имя в OpenKodo",
+          "nameInOpenKodo": "Имя в OpenKodo",
           "sshConfigPickerImportDescription": "Выберите сервер, чтобы заполнить форму, или добавьте все новые серверы в список серверов OpenKodo.",
           "sshImportSynced_one": "В OpenKodo добавлен {{count}} сервер.",
           "sshImportSynced_few": "В OpenKodo добавлены {{count}} сервера.",
@@ -7803,7 +7803,7 @@
           "showError": "Не удалось показать найденные рабочие деревья. Повторите попытку."
         },
         "repoHeaderProjectActions": {
-          "hideNonOrcaWorktrees": "Скрыть рабочие деревья, созданные вне OpenKodo",
+          "hideNonOpenKodoWorktrees": "Скрыть рабочие деревья, созданные вне OpenKodo",
           "showHiddenWorktrees": "Показать скрытые рабочие деревья"
         },
         "useWorktreeCardLinkedDetails": {
@@ -8130,7 +8130,7 @@
           "retrySetup": "Повторить",
           "installing": "Установка…",
           "hostUnavailable": "OpenKodo пока не может установить навыки на компьютере этого рабочего пространства.",
-          "replaceWithOrcaCopy": "Заменить версией OpenKodo",
+          "replaceWithOpenKodoCopy": "Заменить версией OpenKodo",
           "copyCommandAria": "Копировать команду",
           "ed197f59a2": "Копировать команду",
           "failedToCopyCommand": "Не удалось скопировать команду.",
@@ -9669,7 +9669,7 @@
           "removing": "Удаление…",
           "testing": "Проверка…",
           "select": "Выбрать {{label}}",
-          "orcaServer": "Сервер OpenKodo",
+          "openkodoServer": "Сервер OpenKodo",
           "moreActions": "Другие действия для {{label}}",
           "testConnection": "Проверить подключение",
           "edit": "Изменить…",
@@ -12199,13 +12199,13 @@
           "notificationPlayground": "Проверка уведомлений",
           "notificationPlaygroundDescription": "Действия для проверки расположения уведомлений, восстановления и переноса длинного текста при разработке.",
           "devOnly": "Только для разработки",
-          "orcaCloud": "cloud service",
-          "orcaCloudDescription": "Предпросмотр входа в облако OpenKodo только для разработки. Скрыт в рабочей версии; при разработке также появляется в переключателе учётных записей боковой панели после задания OPENKODO_CLOUD_API_URL и OPENKODO_CLOUD_CLIENT_ID.",
-          "orcaCloudStatus": "Статус",
-          "orcaCloudSignOut": "Выйти",
-          "orcaCloudConnect": "Подключить профиль",
-          "orcaCloudRefresh": "Обновить статус",
-          "orcaCloudNotConfigured": "Задайте OPENKODO_CLOUD_API_URL и OPENKODO_CLOUD_CLIENT_ID для предпросмотра входа cloud service в этой сборке разработки.",
+          "openkodoCloud": "cloud service",
+          "openkodoCloudDescription": "Предпросмотр входа в облако OpenKodo только для разработки. Скрыт в рабочей версии; при разработке также появляется в переключателе учётных записей боковой панели после задания OPENKODO_CLOUD_API_URL и OPENKODO_CLOUD_CLIENT_ID.",
+          "openkodoCloudStatus": "Статус",
+          "openkodoCloudSignOut": "Выйти",
+          "openkodoCloudConnect": "Подключить профиль",
+          "openkodoCloudRefresh": "Обновить статус",
+          "openkodoCloudNotConfigured": "Задайте OPENKODO_CLOUD_API_URL и OPENKODO_CLOUD_CLIENT_ID для предпросмотра входа cloud service в этой сборке разработки.",
           "deleteAnywayClicked": "Нажато «Всё равно удалить»"
         },
         "EphemeralVmRecipeRow": {
@@ -12304,7 +12304,7 @@
                 "tickets": "задачи",
                 "issues": "задачи",
                 "skill": "навык",
-                "orcaLinear": "openkodo-linear"
+                "openkodoLinear": "openkodo-linear"
               }
             }
           }
@@ -12450,9 +12450,9 @@
         },
         "BrowserLinkRoutingModifierSetting": {
           "titleSystem": "Удерживайте Shift для открытия в системном браузере",
-          "titleOrca": "Удерживайте Shift для открытия в OpenKodo",
+          "titleOpenKodo": "Удерживайте Shift для открытия в OpenKodo",
           "descriptionSystem": "Ссылки открываются в OpenKodo; {{chord}} + щелчок открывает ссылку в системном браузере.",
-          "descriptionOrca": "Ссылки открываются в системном браузере. Если включено, {{chord}} + щелчок открывает ссылку во встроенном браузере OpenKodo."
+          "descriptionOpenKodo": "Ссылки открываются в системном браузере. Если включено, {{chord}} + щелчок открывает ссылку во встроенном браузере OpenKodo."
         },
         "BrowserLinkRoutingBackgroundSetting": {
           "title": "Открывать ссылки в фоне",
@@ -12859,7 +12859,7 @@
           "09f41ce46c": "Показывать кнопку артефактов",
           "7b2b114099": "Открыть артефакты"
         },
-        "orcaAccount": {
+        "openkodoAccount": {
           "connected": "Подключена",
           "reconnectRequired": "Срок действия сессии истёк. Войдите снова, чтобы пользоваться облачными функциями.",
           "unavailable": "Вход в OpenKodo недоступен в этой сборке.",
@@ -13113,9 +13113,9 @@
             "confirmForget": "Забыть на этом компьютере",
             "keepLinked": "Сохранить связь",
             "forgetDescription": "Удаляет связь с сервером здесь, не обращаясь к нему. Если сервер станет доступен, OpenKodo всё ещё может работать на нём.",
-            "orcaVersion": "OpenKodo на этом сервере: {{version}}",
-            "stopOrcaDescription": "Останавливает OpenKodo на SSH-сервере и удаляет её из списка.",
-            "updateOrcaOnHost": "Обновить OpenKodo на этом сервере",
+            "openkodoVersion": "OpenKodo на этом сервере: {{version}}",
+            "stopOpenKodoDescription": "Останавливает OpenKodo на SSH-сервере и удаляет её из списка.",
+            "updateOpenKodoOnHost": "Обновить OpenKodo на этом сервере",
             "updateAnyway": "Всё равно обновить",
             "notNow": "Не сейчас",
             "forceUpdate": "На этом хосте работают терминалы. Во время обновления они продолжат работу, а их панели подключатся снова после перезапуска сервера OpenKodo."
@@ -13446,7 +13446,7 @@
           "confirm": "Восстановить"
         },
         "SshTargetList": {
-          "addedInOrca": "Добавлено в OpenKodo",
+          "addedInOpenKodo": "Добавлено в OpenKodo",
           "fromConfig": "Из ~/.ssh/config",
           "filteredCount": "{{count}} из {{total}}",
           "selectManualGroup": "Выбрать все серверы, добавленные в OpenKodo",
@@ -13582,7 +13582,7 @@
           "attentionSharedNotCurrent": "Требует внимания · Общая копия, используемая папкой, отличается от копии OpenKodo",
           "resultUpdateSkippedPlaces": "{{result}} · Обновление пропущено в местах установки ({{places}}): {{reason}}",
           "resultUpdateSkippedAgent": "{{result}} · Обновление пропущено для {{agent}}: {{reason}}",
-          "attentionDiffersFromOrca": "Требует внимания · Эта копия отличается от копии OpenKodo",
+          "attentionDiffersFromOpenKodo": "Требует внимания · Эта копия отличается от копии OpenKodo",
           "replaceMovesCopyToBackup": "При замене текущая копия, включая дополнительные файлы, будет перемещена в резервную копию.",
           "replaceMovesCopyToFolder": "При замене текущая копия, включая дополнительные файлы, будет перемещена в {{folder}}.",
           "replaceMovesCopyToFolderOnHost": "При замене текущая копия, включая дополнительные файлы, будет перемещена в {{folder}} на {{host}}."
@@ -13635,7 +13635,7 @@
           "close": "Закрыть",
           "retry": "Повторить",
           "updated": "Обновлено",
-          "needsOrca": "Требуется OpenKodo {{value0}} или новее",
+          "needsOpenKodo": "Требуется OpenKodo {{value0}} или новее",
           "current": "Уже установлено",
           "newShortcuts": "Сочетания клавиш",
           "newCommands": "Команды",
@@ -13721,8 +13721,8 @@
           "stoppedTitle": "Остановлен после ошибки",
           "stoppedBody": "Он постоянно падал. Перезапустите, чтобы попробовать снова.",
           "invalidTitle": "OpenKodo не может загрузить этот плагин",
-          "needsOrcaTitle": "Требуется OpenKodo {{value0}} или новее",
-          "needsOrcaBody": "У вас OpenKodo {{value0}}.",
+          "needsOpenKodoTitle": "Требуется OpenKodo {{value0}} или новее",
+          "needsOpenKodoBody": "У вас OpenKodo {{value0}}.",
           "newerTitle": "Доступна более новая версия",
           "newerBody": "Каталог изменился, пока вы были на этой странице.",
           "showNewer": "Показать новую",
@@ -13829,12 +13829,12 @@
           "viewError": "Показать ошибку",
           "copyId": "Копировать ID плагина",
           "checkUpdate": "Проверить обновления",
-          "bundledWithOrca": "В комплекте OpenKodo",
+          "bundledWithOpenKodo": "В комплекте OpenKodo",
           "installName": "Установить {{value0}}",
           "crashedOnce": "Один сбой",
           "updateLabel": "Обновить {{value0}} до {{value1}}",
           "update": "Обновить до {{value0}}",
-          "needsOrca": "Требуется OpenKodo {{value0}}",
+          "needsOpenKodo": "Требуется OpenKodo {{value0}}",
           "rollbackTo": "Откатить до {{value0}}…",
           "copyContentHash": "Копировать хеш содержимого",
           "reviewUpdate": "Проверить обновление",
@@ -16505,7 +16505,7 @@
                   "6d2b0a84e1": "Недоступно в этой сборке",
                   "notInstalled": "Не установлено",
                   "needsMacAccess": "Нужны разрешения macOS",
-                  "requiresOrcaDesktop": "Требуется OpenKodo Desktop"
+                  "requiresOpenKodoDesktop": "Требуется OpenKodo Desktop"
                 }
               }
             }
@@ -18183,7 +18183,7 @@
             "zoomIn": "Увеличить",
             "resetZoom": "Сбросить масштаб",
             "appearance": "Внешний вид",
-            "appearanceMatchOrca": "Как в OpenKodo",
+            "appearanceMatchOpenKodo": "Как в OpenKodo",
             "appearanceLight": "Светлая",
             "appearanceDark": "Тёмная",
             "zoomPercent": "Масштаб {{value0}}%"
@@ -19114,11 +19114,11 @@
           "preference": {
             "dialog": {
               "keep": {
-                "orca": {
+                "openkodo": {
                   "button": "Оставить OpenKodo"
                 }
               },
-              "orca": {
+              "openkodo": {
                 "button": "Открыть в OpenKodo"
               },
               "system": {
@@ -19239,7 +19239,7 @@
           "copy": "Копировать"
         }
       },
-      "orca": {
+      "openkodo": {
         "profiles": {
           "signout": {
             "confirm": {
@@ -19617,7 +19617,7 @@
         "c77189bc0c": "Обновить фильтр",
         "19af906d12": "Сохранить фильтр"
       },
-      "OrcaSignInProgress": {
+      "OpenKodoSignInProgress": {
         "waiting": "Ожидание входа в браузере",
         "copyLink": "Копировать ссылку входа",
         "copied": "Ссылка входа скопирована",
@@ -19981,8 +19981,8 @@
           "lightLooks": "Светлые стили",
           "moreThemes": "Ещё темы",
           "next": "Ещё стили",
-          "orcaDark": "OpenKodo Тёмная",
-          "orcaLight": "OpenKodo Светлая",
+          "openkodoDark": "OpenKodo Тёмная",
+          "openkodoLight": "OpenKodo Светлая",
           "pluginsHint": "Больше тем доступно в виде плагинов.",
           "previous": "Предыдущие стили",
           "showsWhenDark": "Показывается, когда система в тёмном режиме",
@@ -20171,10 +20171,10 @@
         "diskFull": "Диск на компьютере, где работает этот чат, заполнен.",
         "freeDiskSpace": "Освободите место на этом диске и повторите попытку.",
         "savedInOtherFolder": "Этот разговор сохранён в другой папке.",
-        "savedByNewerOrca": "Чаты сохранены более новой версией OpenKodo.",
-        "updateOrcaToKeepUsing": "Обновите OpenKodo, чтобы продолжить работу с ними.",
-        "chatSavedByNewerOrca": "Этот чат сохранён более новой версией OpenKodo.",
-        "updateOrcaToOpenChat": "Обновите OpenKodo, чтобы открыть его.",
+        "savedByNewerOpenKodo": "Чаты сохранены более новой версией OpenKodo.",
+        "updateOpenKodoToKeepUsing": "Обновите OpenKodo, чтобы продолжить работу с ними.",
+        "chatSavedByNewerOpenKodo": "Этот чат сохранён более новой версией OpenKodo.",
+        "updateOpenKodoToOpenChat": "Обновите OpenKodo, чтобы открыть его.",
         "unsupported": "На компьютере с этим чатом нужна более новая OpenKodo. Обновите её и повторите попытку.",
         "notAvailable": "В этом чате действие недоступно.",
         "cannotRunHere": "Здесь OpenKodo не может запустить этого агента в чате.",
@@ -20278,12 +20278,12 @@
         "stoppedBeforeStart": "Остановлено вручную",
         "dismiss": "Скрыть",
         "copyError": "Копировать ошибку",
-        "orcaStopUpdate": "Во время ответа OpenKodo на {{machine}} перезапустилась для обновления.",
-        "orcaStopQuit": "Во время ответа OpenKodo на {{machine}} была закрыта.",
-        "orcaStopCrash": "Во время ответа OpenKodo на {{machine}} неожиданно завершилась.",
-        "orcaStopRemote": "Во время ответа OpenKodo на {{machine}} остановилась.",
-        "orcaStopCanContinue": "Вы можете продолжить этот разговор.",
-        "orcaStopUnnamedServer": "удалённом сервере",
+        "openkodoStopUpdate": "Во время ответа OpenKodo на {{machine}} перезапустилась для обновления.",
+        "openkodoStopQuit": "Во время ответа OpenKodo на {{machine}} была закрыта.",
+        "openkodoStopCrash": "Во время ответа OpenKodo на {{machine}} неожиданно завершилась.",
+        "openkodoStopRemote": "Во время ответа OpenKodo на {{machine}} остановилась.",
+        "openkodoStopCanContinue": "Вы можете продолжить этот разговор.",
+        "openkodoStopUnnamedServer": "удалённом сервере",
         "permissionDenied": "{{agent}} отказал в разрешении. Подробнее.",
         "safetyReviewApproved": "{{agent}} одобрил это действие. Подробнее.",
         "safetyReview": "{{agent}} сообщил о предупреждении проверки безопасности. Подробнее.",
@@ -20778,7 +20778,7 @@
         "cancel": "Отмена",
         "reason": "Причина",
         "needsAccess": "Требуется доступ к",
-        "needsNewerOrca": "Для этого запроса нужна более новая версия OpenKodo.",
+        "needsNewerOpenKodo": "Для этого запроса нужна более новая версия OpenKodo.",
         "plan": {
           "file": "Файл плана",
           "reviewTitle": "Проверить предложенный план",
@@ -20931,10 +20931,10 @@
         "deferredNote": "Загружается по запросу. Не входит в использованный объём."
       },
       "contextMenu": {
-        "copyOrcaSessionId": "Копировать ID сессии OpenKodo",
-        "orcaSessionIdCopied": "ID сессии OpenKodo скопирован",
-        "orcaSessionIdCopyFailed": "Не удалось скопировать ID сессии OpenKodo",
-        "orcaSessionIdTooltip": "ID этого чата в OpenKodo. У самого агента в CLI свой ID сессии. Агенты используют ID OpenKodo, чтобы обращаться друг к другу через OpenKodo."
+        "copyOpenKodoSessionId": "Копировать ID сессии OpenKodo",
+        "openkodoSessionIdCopied": "ID сессии OpenKodo скопирован",
+        "openkodoSessionIdCopyFailed": "Не удалось скопировать ID сессии OpenKodo",
+        "openkodoSessionIdTooltip": "ID этого чата в OpenKodo. У самого агента в CLI свой ID сессии. Агенты используют ID OpenKodo, чтобы обращаться друг к другу через OpenKodo."
       },
       "dismissDeliveryNotice": "Скрыть",
       "addSelectionToChat": "Добавить в чат",
@@ -21538,8 +21538,8 @@
         "signInGoogle": "Войти через Google",
         "yourAgy": "Ваш agy",
         "yourAgyVersion": "Ваш agy · v{{version}}",
-        "orcasAgy": "agy из OpenKodo",
-        "orcasAgyVersion": "agy из OpenKodo · v{{version}}",
+        "openkodosAgy": "agy из OpenKodo",
+        "openkodosAgyVersion": "agy из OpenKodo · v{{version}}",
         "runsOn": "Запускается через: {{program}}",
         "keepsOwnLogin": "Этот чат сохраняет собственный вход agy через Google. Новые чаты используют способ входа: {{method}}.",
         "apiKeyEnvironment": "Из вашего окружения",
@@ -22661,8 +22661,8 @@
       "routing": {
         "preference": {
           "dialog": {
-            "keepInOrcaTitle": "Продолжать открывать ссылки из терминала в OpenKodo?",
-            "openInOrcaTitle": "Открывать ссылки из терминала в OpenKodo?",
+            "keepInOpenKodoTitle": "Продолжать открывать ссылки из терминала в OpenKodo?",
+            "openInOpenKodoTitle": "Открывать ссылки из терминала в OpenKodo?",
             "shortcutSummary": "{{shortcut}}-щелчок один раз открывает системный браузер. Это можно изменить в настройках."
           }
         }
@@ -22677,7 +22677,7 @@
     },
     "sidebar": {
       "ForgetSshWorkspaceDialog": {
-        "removeFromOrcaTitle": "Убрать {{name}} из OpenKodo?",
+        "removeFromOpenKodoTitle": "Убрать {{name}} из OpenKodo?",
         "ghostHostLine": "{{host}} больше не сохранённый хост. Файлы остаются на нём.",
         "disconnectedHostLine": "{{host}} не подключён. Файлы остаются на хосте.",
         "filesStayLine": "Файлы остаются на {{host}}.",
@@ -22869,7 +22869,7 @@
     },
     "eyebrowNew": "Новое",
     "eyebrowTip": "Совет",
-    "orcaCli": {
+    "openkodoCli": {
       "title": "Позвольте агентам управлять OpenKodo через OpenKodo CLI",
       "description": "Позвольте агентам координировать дочерние рабочие деревья и обмениваться сообщениями между рабочими деревьями.",
       "cta": "Установить CLI и навыки"
@@ -24453,7 +24453,7 @@
       "failed": "Невозможно проверить: не удалось обновить локальные терминалы. Показаны терминалы по последним наблюдениям.",
       "retry": "Повторить",
       "loading": "Загрузка терминалов…",
-      "noLocalOrcaPtys": "Нет локальных PTY OpenKodo",
+      "noLocalOpenKodoPtys": "Нет локальных PTY OpenKodo",
       "openNamed": "Открыть {{terminal}}",
       "endNamed": "Завершить {{terminal}}",
       "endShort": "Завершить",
@@ -24860,7 +24860,7 @@
       "alreadyPairedAddAgain": "Этот сервер уже сопряжён как «{{name}}». Чтобы обновить подключение, добавьте его снова в разделе Настройки > Удалённые серверы OpenKodo.",
       "alreadyPairedUnreadable": "Этот сервер уже сопряжён как «{{name}}», но эта версия OpenKodo не может прочитать его сохранённые настройки.",
       "nameTaken": "Сервер с именем «{{name}}» уже существует.",
-      "idNeedsNewerOrca": "Сервер с этим идентификатором уже существует в формате, для которого нужна более новая версия OpenKodo.",
+      "idNeedsNewerOpenKodo": "Сервер с этим идентификатором уже существует в формате, для которого нужна более новая версия OpenKodo.",
       "hostSaveFailed": "OpenKodo проверила сервер, но не смогла сохранить его. Проверьте локальное хранилище настроек и повторите попытку.",
       "repairSaveFailed": "OpenKodo проверила сервер, но не смогла сохранить новое сопряжение. Проверьте локальное хранилище настроек и повторите попытку.",
       "repairCloudWorkspace": "Этот сервер принадлежит облачному рабочему пространству, которое повторно сопрягает его при возобновлении работы."
@@ -25660,7 +25660,7 @@
         "noAgents": "Нет агентов",
         "noAgentsAvailable": "Нет доступных агентов",
         "pictureLoading": "Загрузка изображения…",
-        "updateOrca": "Обновите OpenKodo"
+        "updateOpenKodo": "Обновите OpenKodo"
       }
     },
     "apps": {

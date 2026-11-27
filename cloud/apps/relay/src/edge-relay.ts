@@ -1,5 +1,5 @@
-import { ASSIGNMENT_LIMITS } from '@orca-cloud/relay-contract'
-import type { RelayRegion } from '@orca-cloud/relay-contract/relay-regions'
+import { ASSIGNMENT_LIMITS } from '@openkodo-cloud/relay-contract'
+import type { RelayRegion } from '@openkodo-cloud/relay-contract/relay-regions'
 import type { RelayAssignment } from './assignment/assignment-store.js'
 import { lockedSelector, registerExistingOnlyCell, requireSelectorMatchesAdmission } from './cell/admission/cell-admission-selector.js'
 import type { RelayDatabase, SqlRow } from './database/database.js'
@@ -189,7 +189,7 @@ export class EdgeAssignments {
       const pushed = await this.pushOnto(transaction, identity, epoch, region)
       console.warn(
         JSON.stringify({
-          event: 'orca_relay_edge_moved',
+          event: 'openkodo_relay_edge_moved',
           fromCellId: text(row, 'cell_id'),
           assignmentEpoch: pushed
         })
@@ -311,7 +311,7 @@ export class EdgeAssignments {
         )
       }
     })
-    console.warn(JSON.stringify({ event: 'orca_relay_edge_exported', devices: devices.length }))
+    console.warn(JSON.stringify({ event: 'openkodo_relay_edge_exported', devices: devices.length }))
     return true
   }
 
@@ -325,7 +325,7 @@ export class EdgeAssignments {
     )
     console.warn(
       JSON.stringify({
-        event: 'orca_relay_edge_export_skipped',
+        event: 'openkodo_relay_edge_export_skipped',
         reason,
         ...(failingForMs === undefined ? {} : { failingForMs }),
         devicesRemoved: removed.length

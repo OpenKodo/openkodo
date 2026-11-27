@@ -5,7 +5,9 @@ export function pluginDisplayNameFromKey(pluginKey: string): string {
     .at(-1)!
     .split(/[-_]+/)
     .map((word) =>
-      word.toLowerCase() === 'orca' ? 'OpenKodo' : `${word[0]?.toUpperCase() ?? ''}${word.slice(1)}`
+      word.toLowerCase() === 'openkodo'
+        ? 'OpenKodo'
+        : `${word[0]?.toUpperCase() ?? ''}${word.slice(1)}`
     )
     .join(' ')
 }

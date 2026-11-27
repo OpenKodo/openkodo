@@ -11,7 +11,7 @@ import type {
   GitHubProjectViewSummary
 } from './github-project-reference'
 import type { GitHubProjectIdentity as GitHubProjectRef } from '../../../../src/shared/github/projects/project-identity'
-import type { PersistedTrustedOrcaHooks } from '../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import type { SparsePreset } from '../../../../src/shared/worktree/create-types'
 import type { WorkspaceAgentChoice } from '../../new-workspace/creation/workspace-agent-selection'
 import type {
@@ -30,8 +30,8 @@ import type {
   RuntimeTaskSettings
 } from '../mobile-tasks-view-state-types'
 import type {
-  OrcaYamlTrustPrompt,
-  ProjectRepoNotInOrcaPrompt,
+  OpenKodoYamlTrustPrompt,
+  ProjectRepoNotInOpenKodoPrompt,
   SetupPrompt,
   TaskItem,
   WorkspaceCreateDraft,
@@ -98,8 +98,11 @@ export function useMobileTasksWorkspaceAndProjectState(model: RouteAndItemStateM
   const [linearSubIssueTitle, setLinearSubIssueTitle] = useState('')
   const [taskStateHydrated, setTaskStateHydrated] = useState(false)
   const [runtimeTaskSettings, setRuntimeTaskSettings] = useState<RuntimeTaskSettings>({})
-  const [trustedOrcaHooks, setTrustedOrcaHooks] = useState<PersistedTrustedOrcaHooks>({})
-  const [orcaYamlTrustPrompt, setOrcaYamlTrustPrompt] = useState<OrcaYamlTrustPrompt | null>(null)
+  const [trustedOpenKodoHooks, setTrustedOpenKodoHooks] = useState<PersistedTrustedOpenKodoHooks>(
+    {}
+  )
+  const [openkodoYamlTrustPrompt, setOpenKodoYamlTrustPrompt] =
+    useState<OpenKodoYamlTrustPrompt | null>(null)
   const [githubProjectSettings, setGithubProjectSettings] = useState<GitHubProjectSettings>(
     EMPTY_GITHUB_PROJECT_SETTINGS
   )
@@ -157,8 +160,8 @@ export function useMobileTasksWorkspaceAndProjectState(model: RouteAndItemStateM
   const [projectIssueTypesLoading, setProjectIssueTypesLoading] = useState(false)
   const [projectIssueTypesError, setProjectIssueTypesError] = useState('')
   const [projectMutating, setProjectMutating] = useState(false)
-  const [projectRepoNotInOrca, setProjectRepoNotInOrca] =
-    useState<ProjectRepoNotInOrcaPrompt | null>(null)
+  const [projectRepoNotInOpenKodo, setProjectRepoNotInOpenKodo] =
+    useState<ProjectRepoNotInOpenKodoPrompt | null>(null)
   const taskDetailHandoff = useBottomDrawerFollowUp(() => model.setActionItem(null))
   const projectRowHandoff = useBottomDrawerFollowUp(() => setProjectRowItem(null))
   const repoPickerHandoff = useBottomDrawerFollowUp(() => setWorkspaceRepoPickerItem(null))
@@ -231,7 +234,7 @@ export function useMobileTasksWorkspaceAndProjectState(model: RouteAndItemStateM
     setSetupPrompt,
     // A created workspace's review, including its approved run, keeps its item busy until it settles.
     creatingKey:
-      creatingKey ?? (orcaYamlTrustPrompt?.created ? orcaYamlTrustPrompt.item.key : null),
+      creatingKey ?? (openkodoYamlTrustPrompt?.created ? openkodoYamlTrustPrompt.item.key : null),
     setCreatingKey,
     mutatingStatus,
     tryBeginMutation,
@@ -249,10 +252,10 @@ export function useMobileTasksWorkspaceAndProjectState(model: RouteAndItemStateM
     setTaskStateHydrated,
     runtimeTaskSettings,
     setRuntimeTaskSettings,
-    trustedOrcaHooks,
-    setTrustedOrcaHooks,
-    orcaYamlTrustPrompt,
-    setOrcaYamlTrustPrompt,
+    trustedOpenKodoHooks,
+    setTrustedOpenKodoHooks,
+    openkodoYamlTrustPrompt,
+    setOpenKodoYamlTrustPrompt,
     githubProjectSettings,
     setGithubProjectSettings,
     githubProjects,
@@ -337,8 +340,8 @@ export function useMobileTasksWorkspaceAndProjectState(model: RouteAndItemStateM
     setProjectIssueTypesError,
     projectMutating,
     setProjectMutating,
-    projectRepoNotInOrca,
-    setProjectRepoNotInOrca
+    projectRepoNotInOpenKodo,
+    setProjectRepoNotInOpenKodo
   })
 }
 

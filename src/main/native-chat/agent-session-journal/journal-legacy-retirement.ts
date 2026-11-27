@@ -1,9 +1,9 @@
 import { JournalLegacyIneligibleError } from './journal-legacy-retention-error'
-import { ownsOrcadProfileDirectory } from '../../orcad/instance-lock/orcad-instance-lock-hold'
+import { ownsOpenkododProfileDirectory } from '../../openkodod/instance-lock/openkodod-instance-lock-hold'
 import {
   journalDatabasePath,
   journalDomainDatabasePath,
-  journalRunningOrcaVersion
+  journalRunningOpenKodoVersion
 } from './database/journal-host-database'
 import {
   legacyDestinationIdentity,
@@ -80,11 +80,11 @@ export class JournalLegacyRetirement {
     conversions: Pick<JournalSqlConversions, 'ensure'>,
     boundary: () => Promise<boolean>,
     private readonly report: (error: unknown) => void,
-    private readonly ownsProfile = () => ownsOrcadProfileDirectory(directory),
+    private readonly ownsProfile = () => ownsOpenkododProfileDirectory(directory),
     private readonly lock = acquireJournalLegacyFileLock,
     rest: (started: number) => Promise<void> = async () => {},
     private readonly eligibility = createJournalLegacyFileEligibility(),
-    private readonly version = journalRunningOrcaVersion(),
+    private readonly version = journalRunningOpenKodoVersion(),
     private readonly deletes = LEGACY_JOURNAL_RETIREMENT_DELETES
   ) {
     this.filename = journalDatabasePath(directory)

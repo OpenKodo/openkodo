@@ -8,7 +8,7 @@ import {
 } from './plugin-template-files'
 import { PLUGIN_TYPES_DIR } from './plugin-type-files'
 
-const PANEL_TSX = `import { atom, Badge, Button, Heading, Row, Stack, Text, read, set, update } from 'orca'
+const PANEL_TSX = `import { atom, Badge, Button, Heading, Row, Stack, Text, read, set, update } from 'openkodo'
 
 const count = atom(0)
 
@@ -35,7 +35,7 @@ export default function Panel() {
 `
 
 const PANEL_TEST_TSX = `// \`openkodo plugin test .\` runs this in Node with the same runtime and checks OpenKodo uses.
-import { assert, mount, test } from 'orca/testing'
+import { assert, mount, test } from 'openkodo/testing'
 import * as panel from './panel'
 
 test('counts presses and resets', async () => {
@@ -79,7 +79,7 @@ export function components(input: PluginTemplateInput): PluginTemplate {
       'tsconfig.json': json({ extends: `./${PLUGIN_TYPES_DIR}/tsconfig.json`, include: ['src'] }),
       'README.md': readme(
         input,
-        `A right-sidebar panel written in TSX. OpenKodo transpiles \`src/panel.tsx\` when the panel loads, so there is no build step and no build folder: edit, save, and the panel reloads. \`openkodo plugin types .\` (also run by \`openkodo plugin dev watch\`) writes the editor typings to \`${PLUGIN_TYPES_DIR}/\`, which \`tsconfig.json\` extends; run \`npx tsc -p .\` to type-check. \`openkodo plugin test .\` runs \`src/panel.test.tsx\` in Node with \`orca/testing\`, and \`openkodo plugin check .\` renders the panel once and reports errors with file:line. Import only \`orca\` and relative files.`
+        `A right-sidebar panel written in TSX. OpenKodo transpiles \`src/panel.tsx\` when the panel loads, so there is no build step and no build folder: edit, save, and the panel reloads. \`openkodo plugin types .\` (also run by \`openkodo plugin dev watch\`) writes the editor typings to \`${PLUGIN_TYPES_DIR}/\`, which \`tsconfig.json\` extends; run \`npx tsc -p .\` to type-check. \`openkodo plugin test .\` runs \`src/panel.test.tsx\` in Node with \`openkodo/testing\`, and \`openkodo plugin check .\` renders the panel once and reports errors with file:line. Import only \`openkodo\` and relative files.`
       ),
       ...COMMON_FILES
     }

@@ -59,7 +59,7 @@ export async function fetchPluginMarketplace(
 }
 
 /** Reads only the catalog index blobs, so the rest of the repository is never written out.
- *  Prefers orca-catalog.json; repositories that only publish the frozen v1 file still load. */
+ *  Prefers openkodo-catalog.json; repositories that only publish the frozen v1 file still load. */
 async function readMarketplaceAtCommit(
   repository: string,
   commit: string,

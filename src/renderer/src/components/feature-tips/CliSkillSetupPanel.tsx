@@ -51,7 +51,7 @@ function BundledCliSkillSetupPanel(): React.JSX.Element {
 
 export function CliSkillSetupPanel(): React.JSX.Element {
   const runtime = useActiveProjectSkillRuntime()
-  // COMPAT(wsl-bridge): removed when WSL runs as an orcad host.
+  // COMPAT(wsl-bridge): removed when WSL runs as an openkodod host.
   return runtime.agentRuntime?.runtime === 'wsl' ? (
     <CliSkillSetupTerminal />
   ) : (

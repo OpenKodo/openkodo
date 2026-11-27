@@ -1,4 +1,4 @@
-import type { CloudDatabase as PushDatabase } from '@orca-cloud/cloud-database/cloud-database'
+import type { CloudDatabase as PushDatabase } from '@openkodo-cloud/cloud-database/cloud-database'
 
 export type PushReadinessOptions = {
   cacheMs?: number

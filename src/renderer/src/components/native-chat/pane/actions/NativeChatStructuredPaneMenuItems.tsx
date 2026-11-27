@@ -10,19 +10,19 @@ import { useTranslate } from '@/i18n/use-translate'
 import { useShortcutLabel } from '@/lib/keyboard/useShortcutLabel'
 import { structuredAgentSessionPaneKey } from '../../../../../../shared/agent-session/view/structured-agent-session-projection'
 import { NativeChatProviderSessionIdMenuItem } from './NativeChatProviderSessionIdMenuItem'
-import { NativeChatCopyOrcaSessionIdMenuItem } from './NativeChatCopyOrcaSessionIdMenuItem'
+import { NativeChatCopyOpenKodoSessionIdMenuItem } from './NativeChatCopyOpenKodoSessionIdMenuItem'
 import { useStructuredChatPaneActions } from './use-structured-chat-pane-actions'
 
 export function NativeChatStructuredPaneMenuItems({
   pane,
   leadingSeparator,
   splitShortcutLabels,
-  resolveOrcaSessionId
+  resolveOpenKodoSessionId
 }: {
   pane: { tabId: string; worktreeId: string; groupId: string; sessionId: string }
   leadingSeparator: boolean
   splitShortcutLabels?: { right: string; down: string }
-  resolveOrcaSessionId?: () => Promise<string | null>
+  resolveOpenKodoSessionId?: () => Promise<string | null>
 }): React.JSX.Element {
   const t = useTranslate()
   const actions = useStructuredChatPaneActions(pane.tabId, pane.worktreeId, pane.groupId)
@@ -46,14 +46,16 @@ export function NativeChatStructuredPaneMenuItems({
         {t('components.native-chat.splitDown', 'Split Down')}
         <DropdownMenuShortcut>{splitShortcutLabels?.down}</DropdownMenuShortcut>
       </DropdownMenuItem>
-      {providerSessionId || resolveOrcaSessionId ? (
+      {providerSessionId || resolveOpenKodoSessionId ? (
         <>
           <DropdownMenuSeparator />
           {providerSessionId ? (
             <NativeChatProviderSessionIdMenuItem sessionId={providerSessionId} />
           ) : null}
-          {resolveOrcaSessionId ? (
-            <NativeChatCopyOrcaSessionIdMenuItem resolveOrcaSessionId={resolveOrcaSessionId} />
+          {resolveOpenKodoSessionId ? (
+            <NativeChatCopyOpenKodoSessionIdMenuItem
+              resolveOpenKodoSessionId={resolveOpenKodoSessionId}
+            />
           ) : null}
         </>
       ) : null}

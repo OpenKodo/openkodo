@@ -213,7 +213,7 @@ async function streamDownload(
       await response.body.cancel().catch(() => {})
       throw brokeOff(file.name, written)
     }
-    const total = Number(response.headers.get('x-orca-file-size') ?? Number.NaN)
+    const total = Number(response.headers.get('x-openkodo-file-size') ?? Number.NaN)
     if (Number.isSafeInteger(total)) {
       expected = total
     }

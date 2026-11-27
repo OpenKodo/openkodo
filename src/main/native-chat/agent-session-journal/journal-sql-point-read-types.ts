@@ -29,7 +29,7 @@ import type { JournalItemEcho } from './projection/journal-item-echo'
 import type { JournalInputRead, JournalInputReadResult } from './journal-input-reads'
 import type { HostUsageLimitCut } from '../agent-session-wire/recovery/structured-agent-session-usage-limit-chain'
 import type { JournalStatusState } from './journal-status-state'
-import type { NativeChatOrcaStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-orca-stop-cut'
+import type { NativeChatOpenKodoStopCut } from '../../../shared/native-chat/transcript/continuation/native-chat-openkodo-stop-cut'
 import type {
   JournalStatusIndicatorRead,
   JournalStatusIndicators
@@ -72,7 +72,7 @@ export type JournalSqlPointRead = {
     | { kind: 'status-indicators'; input: JournalStatusIndicatorRead }
     | { kind: 'status-state'; currentFence?: number | null }
     | { kind: 'usage-limit-cut' }
-    | { kind: 'orca-stop-cut' }
+    | { kind: 'openkodo-stop-cut' }
     | { kind: 'input-read'; operation: JournalInputRead }
     | { kind: 'metadata' }
     | { kind: 'item'; itemId: string }
@@ -120,7 +120,7 @@ export type JournalSqlPointReadResult =
   | { kind: 'status-indicators'; indicators: JournalStatusIndicators }
   | { kind: 'status-state'; status: JournalStatusState }
   | { kind: 'usage-limit-cut'; cut: HostUsageLimitCut | null }
-  | { kind: 'orca-stop-cut'; cut: NativeChatOrcaStopCut | null }
+  | { kind: 'openkodo-stop-cut'; cut: NativeChatOpenKodoStopCut | null }
   | { kind: 'input-read'; result: JournalInputReadResult }
   | {
       kind: 'metadata'

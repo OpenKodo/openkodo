@@ -1,7 +1,7 @@
 import type { z } from 'zod'
 import { createNotificationStreamFilter } from './notification-stream-policy'
 import { defineStreamingMethod, defineMethod, type RpcContext } from '../../core'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import {
   NotificationGetMissedSinceParams,
   NotificationPushCoverageParams,
@@ -15,7 +15,10 @@ import {
 let notificationsSubscriptionSeq = 0
 
 type DesktopPresenceReportContext = Pick<RpcContext, 'clientKind' | 'connectionId' | 'signal'> & {
-  runtime: Pick<OrcaRuntimeService, 'reportDesktopClientPresence' | 'registerSubscriptionCleanup'>
+  runtime: Pick<
+    OpenKodoRuntimeService,
+    'reportDesktopClientPresence' | 'registerSubscriptionCleanup'
+  >
 }
 
 /** Only a paired desktop's own socket speaks for a desktop; the report lives as long as it. */
@@ -34,7 +37,7 @@ export function reportDesktopPresence(
 }
 
 type PushCoverageContext = Pick<RpcContext, 'clientKind'> & {
-  runtime: Pick<OrcaRuntimeService, 'coveredMobilePushTokenDigests'>
+  runtime: Pick<OpenKodoRuntimeService, 'coveredMobilePushTokenDigests'>
 }
 
 /** A mirroring desktop skips the phones this host already pushed; a phone of its own still gets the alert. */

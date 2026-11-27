@@ -1,4 +1,4 @@
-import { parseOrcaSessionAddress } from '../../agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../agent-session/identity/openkodo-session-address'
 
 export type OrchestrationAgentReference = {
   label: string
@@ -11,7 +11,7 @@ export type OrchestrationAgentReference = {
 export function isPublicOrchestrationAddress(address: string): boolean {
   return (
     /^(?:term_[a-zA-Z0-9_-]+|(?:dispatch|run):[a-zA-Z0-9_-]+)$/.test(address) ||
-    parseOrcaSessionAddress(address) !== null
+    parseOpenKodoSessionAddress(address) !== null
   )
 }
 

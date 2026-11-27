@@ -2,10 +2,10 @@
 import type { WslHostAddResult } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
 import type { Store } from '../../persistence/loading-store/store'
-import { pushWslOrcadHostAccountEnv } from '../../wsl/orcad/wsl-orcad-host-account-push'
-import { pushWslOrcadHostChatAutoName } from '../../wsl/orcad/wsl-orcad-host-chat-naming-push'
+import { pushWslOpenkododHostAccountEnv } from '../../wsl/openkodod/wsl-openkodod-host-account-push'
+import { pushWslOpenkododHostChatAutoName } from '../../wsl/openkodod/wsl-openkodod-host-chat-naming-push'
 import { seedWslHostAgentPermission } from '../../wsl/host-lifecycle/wsl-host-permission-seed'
-import { wslOrcadHostSupports } from '../../wsl/orcad/wsl-orcad-host-environments'
+import { wslOpenkododHostSupports } from '../../wsl/openkodod/wsl-openkodod-host-environments'
 import { callRuntimeEnvironment } from '../runtime-environments/requests/runtime-environment-transport-routing'
 
 // Add waits for the seed, so a slow host must not hold the dialog for the default RPC timeout.
@@ -23,7 +23,7 @@ export async function seedHostPermission(
     local,
     call,
     hostSupports: (capability) =>
-      wslOrcadHostSupports(environmentId, capability, () => call('status.get', undefined))
+      wslOpenkododHostSupports(environmentId, capability, () => call('status.get', undefined))
   }).catch((error) => {
     console.warn(`[wsl-hosts] Could not copy agent permissions to ${environmentId}:`, error)
   })
@@ -67,12 +67,12 @@ export function pushHostAccounts(
 ): void {
   const call = (method: string, params: unknown) =>
     callRuntimeEnvironment(getUserDataPath(), environmentId, method, params)
-  void pushWslOrcadHostAccountEnv({
+  void pushWslOpenkododHostAccountEnv({
     environmentId,
     distro,
     call,
     hostSupports: (capability) =>
-      wslOrcadHostSupports(environmentId, capability, () => call('status.get', undefined))
+      wslOpenkododHostSupports(environmentId, capability, () => call('status.get', undefined))
   })
 }
 
@@ -92,12 +92,12 @@ export function pushHostChatAutoName(
       params,
       CHAT_AUTO_NAME_PUSH_TIMEOUT_MS
     )
-  void pushWslOrcadHostChatAutoName(
+  void pushWslOpenkododHostChatAutoName(
     {
       environmentId,
       call,
       hostSupports: (capability) =>
-        wslOrcadHostSupports(environmentId, capability, () => call('status.get', undefined))
+        wslOpenkododHostSupports(environmentId, capability, () => call('status.get', undefined))
     },
     () => store.getSettings().nativeChatAutoName !== false
   )

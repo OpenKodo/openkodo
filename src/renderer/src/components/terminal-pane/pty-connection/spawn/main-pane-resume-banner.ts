@@ -16,7 +16,7 @@ import type { PtyConnectResult } from '../../pty-transport/pty-transport-types'
 type Outcomes = Record<string, TerminalPaneResumeOutcome>
 
 // Why session storage: a reload reattaches the same start, which showed its banner already.
-const SHOWN_STARTS_KEY = 'orca.mainPaneResumeBannersShown'
+const SHOWN_STARTS_KEY = 'openkodo.mainPaneResumeBannersShown'
 
 const startOf = ({ ptyId, ptyGeneration }: TerminalPaneResumeOutcome): string =>
   `${ptyId}#${ptyGeneration ?? ''}`

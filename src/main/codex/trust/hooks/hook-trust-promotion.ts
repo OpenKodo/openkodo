@@ -11,7 +11,7 @@ import { createManagedCommandMatcher } from '../../../agent-hooks/installation/c
 import type { HookDefinition } from '../../../agent-hooks/installation/configuration/hook-config-schema'
 import { readHooksJson } from '../../../agent-hooks/installation/configuration/hooks-json-read'
 import {
-  getOrcaManagedCodexHomePath,
+  getOpenKodoManagedCodexHomePath,
   getSystemCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import {
@@ -52,7 +52,7 @@ type HookTrustProvenance = { version: number; entries: Map<string, HookTrustProv
 const EVENTS_UNRECORDED_BY_PROVENANCE_V1: ReadonlySet<CodexEventLabel> = new Set(['session_end'])
 
 export function getProvenancePath(runtimeHomePath: string): string {
-  return join(runtimeHomePath, '.orca-hook-trust-provenance.json')
+  return join(runtimeHomePath, '.openkodo-hook-trust-provenance.json')
 }
 
 /** Missing, unreadable or malformed provenance cannot establish an approval's origin. */
@@ -101,7 +101,7 @@ function provenanceIsUnreadable(provenancePath: string): boolean {
 
 /** Snapshot after all trust writes to distinguish OpenKodo changes from later user approvals. */
 export function snapshotCodexRuntimeHookTrustProvenance(
-  runtimeHomePath: string = getOrcaManagedCodexHomePath()
+  runtimeHomePath: string = getOpenKodoManagedCodexHomePath()
 ): boolean {
   if (provenanceIsUnreadable(getProvenancePath(runtimeHomePath))) {
     return false
@@ -139,7 +139,7 @@ export function snapshotCodexRuntimeHookTrustProvenance(
 
 /** Promote user approvals into canonical config before the mirror replaces runtime trust. */
 export function promoteCodexRuntimeHookApprovalsToSystem(
-  runtimeHomePath: string = getOrcaManagedCodexHomePath()
+  runtimeHomePath: string = getOpenKodoManagedCodexHomePath()
 ): boolean {
   try {
     promoteCodexRuntimeHookApprovalsToSystemUnsafe(runtimeHomePath)

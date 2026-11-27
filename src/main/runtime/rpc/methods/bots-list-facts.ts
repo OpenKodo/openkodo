@@ -2,9 +2,9 @@
 // and its Needs you items that aren't stale, for its row and a phone's Items count (when they were
 // counted and when the next goes stale, so a window orders this against an items notice's counts).
 import { listBotWaits } from '../../../../shared/bots/bot-list-waits'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
-export async function listedBotsFacts(runtime: OrcaRuntimeService) {
+export async function listedBotsFacts(runtime: OpenKodoRuntimeService) {
   const needsYou = await runtime.botItems.needsYouCounts(Date.now())
   return {
     // A failed count says nothing, so a window keeps the counts it has.

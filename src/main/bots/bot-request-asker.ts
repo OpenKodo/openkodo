@@ -16,7 +16,7 @@ import {
 } from '../../shared/bots/bot-acts-for'
 import { originOf, requestsOriginPlace } from './bot-request-origin-place'
 import { carriedAskersOf, stampedPerson } from './bot-stamped-askers'
-import { typedInOrcaByOwner } from './bot-typed-in-orca'
+import { typedInOpenKodoByOwner } from './bot-typed-in-openkodo'
 import { isRootTurnRecord, isRootUserMessage, turnMessages } from './bot-turn-messages'
 
 /** The conversation a request came in, as OpenKodo Cloud names it. */
@@ -320,7 +320,7 @@ export function readBotActingTurnWithin(
       )
       // Only the newest turn: one a worker's report reads back to is not the turn now running.
       const typedByOwner =
-        index === 0 && window.every((item) => typedInOrcaByOwner(item, submissions))
+        index === 0 && window.every((item) => typedInOpenKodoByOwner(item, submissions))
       const askedBy = openers.flatMap((entry) =>
         entry.reading.kind === 'asker'
           ? [entry.reading.asker]

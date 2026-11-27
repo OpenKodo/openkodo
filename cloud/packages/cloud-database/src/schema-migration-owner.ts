@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto'
-import { applyPostgresSchema, sqlWithoutComments } from '@orca-cloud/postgres-schema'
+import { applyPostgresSchema, sqlWithoutComments } from '@openkodo-cloud/postgres-schema'
 import type { CloudDatabase } from './cloud-database.js'
 
 // How long a booting instance waits for another's schema step before its boot fails and retries.
 const MIGRATION_LOCK_WAIT_MS = 60_000
 const DATA_STATEMENT = /^(?:INSERT|UPDATE|DELETE)\b/i
 // Data statements a database has run, so later boots never repeat them.
-const DATA_CHANGES_LEDGER = `CREATE TABLE IF NOT EXISTS orca_schema_data_changes (
+const DATA_CHANGES_LEDGER = `CREATE TABLE IF NOT EXISTS openkodo_schema_data_changes (
   statement_sha256 TEXT PRIMARY KEY,
   applied_at BIGINT NOT NULL
 )`
@@ -19,7 +19,7 @@ async function runDataStatementOnce(
 ): Promise<void> {
   const hash = createHash('sha256').update(statement).digest('hex')
   const [done] = await transaction.query(
-    'SELECT 1 AS done FROM orca_schema_data_changes WHERE statement_sha256 = ?',
+    'SELECT 1 AS done FROM openkodo_schema_data_changes WHERE statement_sha256 = ?',
     [hash]
   )
   if (done) {
@@ -27,12 +27,12 @@ async function runDataStatementOnce(
   }
   const [result] = await transaction.query(statement)
   await transaction.query(
-    'INSERT INTO orca_schema_data_changes (statement_sha256, applied_at) VALUES (?, ?)',
+    'INSERT INTO openkodo_schema_data_changes (statement_sha256, applied_at) VALUES (?, ?)',
     [hash, Date.now()]
   )
   console.log(
     JSON.stringify({
-      event: `orca_${service}_postgres_schema_data_change_applied`,
+      event: `openkodo_${service}_postgres_schema_data_change_applied`,
       statement: sqlWithoutComments(statement).split('\n')[0],
       rows: Number(result?.changes ?? 0)
     })
@@ -52,7 +52,7 @@ export async function applyOwnedPostgresSchema(input: {
   beforeSchema?: (transaction: CloudDatabase) => Promise<void>
 }): Promise<void> {
   const { session, transaction, service, schemaStatements, lockTimeoutMs, beforeSchema } = input
-  const lockKey = `orca-${service}-schema-migration`
+  const lockKey = `openkodo-${service}-schema-migration`
   await session.query(`SET lock_timeout = ${MIGRATION_LOCK_WAIT_MS}`)
   await session.query('SELECT pg_advisory_lock(hashtext(?::text))', [lockKey])
   try {
@@ -68,7 +68,7 @@ export async function applyOwnedPostgresSchema(input: {
           ? transaction((tx) => runDataStatementOnce(tx, service, statement))
           : session.query(statement),
       {
-        eventPrefix: `orca_${service}_postgres_schema`,
+        eventPrefix: `openkodo_${service}_postgres_schema`,
         catalogQuery: async (sql, params) => await session.query(sql, params)
       }
     )

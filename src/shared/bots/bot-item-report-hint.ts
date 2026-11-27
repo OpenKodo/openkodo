@@ -26,7 +26,7 @@ function postedIn(place: string, cli: string): string {
     : ''
 }
 
-export function formatBotItemReportHint(item: BotItemReportFact, cli = 'orca'): string {
+export function formatBotItemReportHint(item: BotItemReportFact, cli = 'openkodo'): string {
   const doneMeans = item.doneMeans ? oneLine(item.doneMeans) : ''
   const status = botItemStatusName(item.status, (_key, fallback) => fallback)
   return [

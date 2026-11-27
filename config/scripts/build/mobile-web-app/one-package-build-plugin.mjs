@@ -2,7 +2,7 @@ import { realpathSync } from 'node:fs'
 import { dirname, join, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const PACKAGE_BUILD_PLUGIN_NAME = 'orca-one-package-build'
+const PACKAGE_BUILD_PLUGIN_NAME = 'openkodo-one-package-build'
 const mobileDir = fileURLToPath(new URL('../../../../mobile', import.meta.url))
 
 const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')

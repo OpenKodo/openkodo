@@ -36,7 +36,7 @@ import {
   refreshMuseManagedHooksFile
 } from './hook-settings'
 import {
-  hasOrcaEnvVars,
+  hasOpenKodoEnvVars,
   MUSE_MANAGED_HOOK_ENV_VARS,
   parseMuseSettingsText,
   readMuseSettingsSource,
@@ -296,7 +296,10 @@ export class MuseHookService {
     }
     // Builds before the env-var cleanup dropped only the pointer; finish those too.
     const pointer = source.config.managed_hooks_path
-    if (pointer === managedHooksPath || (pointer === undefined && hasOrcaEnvVars(source.config))) {
+    if (
+      pointer === managedHooksPath ||
+      (pointer === undefined && hasOpenKodoEnvVars(source.config))
+    ) {
       const nextText = serializeMuseSettings(source.text, undefined)
       if (source.text !== nextText) {
         writeHooksJson(configPath, source.config, { serialized: nextText })

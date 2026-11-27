@@ -227,7 +227,7 @@ export function journalSqlReads(
       (await read({ kind: 'status-state', currentFence })).status,
     input,
     usageLimitCut: async () => (await read({ kind: 'usage-limit-cut' })).cut,
-    orcaStopCut: async () => (await read({ kind: 'orca-stop-cut' })).cut,
+    openkodoStopCut: async () => (await read({ kind: 'openkodo-stop-cut' })).cut,
     pendingSubmissions: async () => (await input({ kind: 'pending-submissions' })).submissions,
     newestTurn: async () => (await input({ kind: 'newest-turn' })).turn,
     namedTurn: async (turnId) => (await read({ kind: 'named-turn', turnId })).turn,

@@ -5,9 +5,9 @@ import type { Repo } from '../../../../shared/repository/repo-types'
 import { normalizeRuntimePathForComparison } from '../../../../shared/file-access/cross-platform-path'
 import { composeWorktreeId } from '../../../../shared/worktree/id'
 import type { PullRequestChange } from '../../../github/pull-requests/refresh/pull-request-changed-events'
-import { OrcaRuntimeWithGetStatus } from '../../hosts/runtime-status'
+import { OpenKodoRuntimeWithGetStatus } from '../../hosts/runtime-status'
 
-export abstract class RuntimeWorkspaceCatalogEvents extends OrcaRuntimeWithGetStatus {
+export abstract class RuntimeWorkspaceCatalogEvents extends OpenKodoRuntimeWithGetStatus {
   abstract invalidateResolvedWorktreeCache(): void
 
   abstract invalidateWorktreeScanCacheForRepo(repoId: string): void

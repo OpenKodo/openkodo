@@ -1,6 +1,6 @@
 // The questions this OpenKodo's agents asked agents on paired computers, kept until an answer or notice
 // for each comes back, so an unpair or re-pair tells the askers still waiting that none will come.
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import { runLifecycleWriteTransaction } from '../../db/lifecycle-write-transaction-runner'
 import { resolveBareOrchestrationRecipient } from '../../../rpc/methods/orchestration/messaging/recipient-routing'
@@ -69,7 +69,7 @@ export function settlePeerQuestionsOut(
 /** Tells each asker still waiting on that computer that no answer will come: it was removed (no
  *  `server`), or re-paired, so questions sent under an older pairing are lost with it. */
 export function tellUnpairedPeerQuestions(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   params: { environmentId: string } &
     // `currentPairing` keeps the questions sent under it, as a re-paired server's pairing does.

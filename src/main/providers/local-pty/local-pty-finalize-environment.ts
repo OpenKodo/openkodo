@@ -1,7 +1,7 @@
 import { win32 as pathWin32 } from 'node:path'
 import { shouldUseShellReadyStartupDelivery } from '../../../shared/agent-launch/startup/codex-startup-delivery'
 import { expandWindowsPathEnvironmentVariables } from '../../../shared/shell/launch/windows-environment-expansion'
-import { dropInheritedOrcaFishHistory } from '../../pty/history/fish-history-session'
+import { dropInheritedOpenKodoFishHistory } from '../../pty/history/fish-history-session'
 import { dropIncoherentCondaActivationEnv } from '../../pty/shell-startup/conda-activation-env'
 import { stripLegacyTerminalShimEnv } from '../../pty/shell-startup/legacy-terminal-shim-dir'
 import {
@@ -21,7 +21,7 @@ import {
   type HistoryInjectionResult
 } from '../../pty/history/terminal-history'
 import { addWslEnvKeys } from '../../../shared/shell/wsl/wsl-env'
-import { dropInheritedOrcaHistFile } from '../../pty/history/worktree-history-file-path'
+import { dropInheritedOpenKodoHistFile } from '../../pty/history/worktree-history-file-path'
 import { promoteAgentTeamsShimPath } from './local-pty-launch-context'
 import type { LocalPtyLaunchPlan } from './local-pty-launch-plan'
 import type { LocalPtyProviderOptions } from './local-pty-provider-types'
@@ -80,9 +80,9 @@ export function finalizeLocalPtySpawnEnvironment(args: {
     // History-off bypasses injectHistoryEnv, so clear inherited OpenKodo history explicitly (#11146).
     delete env.OPENKODO_HISTFILE
     // Exported fish_history must not select the launching workspace history when isolation is off.
-    dropInheritedOrcaFishHistory(env)
+    dropInheritedOpenKodoFishHistory(env)
     // Exported HISTFILE must not select the launching workspace history when isolation is off.
-    dropInheritedOrcaHistFile(env)
+    dropInheritedOpenKodoHistFile(env)
   }
 
   if (!plan.wslInfo && process.platform !== 'win32') {

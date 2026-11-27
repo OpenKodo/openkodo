@@ -3,7 +3,7 @@ import { translate } from '@/i18n/i18n'
 import { useTranslate, type Translate } from '@/i18n/use-translate'
 import { Button } from '../../ui/button'
 import { StatusWord } from '../list/PluginStatusWord'
-import { needsNewerOrca, type PluginListEntry } from '../list/plugin-list-entries'
+import { needsNewerOpenKodo, type PluginListEntry } from '../list/plugin-list-entries'
 import { installedPluginControls, type InstalledRowHandlers } from '../list/PluginManagerRows'
 import type { PluginInstallPhase } from '../state/use-plugin-install-action'
 import { usePluginInUse } from '../state/use-plugin-in-use'
@@ -30,7 +30,7 @@ function installsInOneClick(entry: PluginListEntry): boolean {
 export function PluginCardAction({
   entry,
   phase,
-  orcaVersion,
+  openkodoVersion,
   onInstall,
   onOpen,
   installedHandlers,
@@ -40,7 +40,7 @@ export function PluginCardAction({
   entry: PluginListEntry
   refreshing?: boolean
   phase: PluginInstallPhase | null
-  orcaVersion: string | null
+  openkodoVersion: string | null
   onInstall: () => void
   onOpen: () => void
   installedHandlers: InstalledRowHandlers
@@ -85,13 +85,17 @@ export function PluginCardAction({
   if (entry.listing?.blockedByKillList) {
     return <StatusWord kind="blocked" />
   }
-  const needsOrca = needsNewerOrca(entry.minimumOrca, orcaVersion)
-  if (needsOrca) {
+  const needsOpenKodo = needsNewerOpenKodo(entry.minimumOpenKodo, openkodoVersion)
+  if (needsOpenKodo) {
     return (
       <span className="text-xs whitespace-nowrap text-status-warning-text">
-        {t('auto.components.settings.PluginManagerRows.needsOrca', 'Needs OpenKodo {{value0}}', {
-          value0: needsOrca
-        })}
+        {t(
+          'auto.components.settings.PluginManagerRows.needsOpenKodo',
+          'Needs OpenKodo {{value0}}',
+          {
+            value0: needsOpenKodo
+          }
+        )}
       </span>
     )
   }

@@ -3,9 +3,9 @@ import {
   DEFAULT_MAX_OUTPUT_BYTES,
   type LaunchedProcess,
   type ProcessSpec
-} from '@orca/process-host/process-spec'
-import { windowsTreeKillFor } from '@orca/process-host/windows-tree-kill'
-import { forceTerminateProcessTree } from '@orca/process-host/process-tree-termination'
+} from '@openkodo/process-host/process-spec'
+import { windowsTreeKillFor } from '@openkodo/process-host/windows-tree-kill'
+import { forceTerminateProcessTree } from '@openkodo/process-host/process-tree-termination'
 import { recordSubprocessSpawn } from '../../../diagnostics/main-thread-churn-probe'
 import {
   canSpawnOnWorkerThread,

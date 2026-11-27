@@ -7,7 +7,7 @@ import {
 } from './config-toml-line-scan'
 
 // An account home's databases live with the shared history store; the line is OpenKodo's, per home.
-export const CODEX_SHARED_SQLITE_HOME_MARKER = '# orca: Codex history shared across accounts'
+export const CODEX_SHARED_SQLITE_HOME_MARKER = '# openkodo: Codex history shared across accounts'
 
 /** Remove OpenKodo's line so it never reaches the user's own ~/.codex config. */
 export function stripCodexSharedSqliteHome(config: string): string {
@@ -31,7 +31,7 @@ export function stripCodexSharedSqliteHome(config: string): string {
 export function readCodexSharedSqliteHome(config: string): string | null {
   const line = findTopLevelSqliteHomeLine(config)
   if (line) {
-    const match = /^sqlite_home = (".*") # orca: /.exec(line.trimEnd())
+    const match = /^sqlite_home = (".*") # openkodo: /.exec(line.trimEnd())
     if (match && line.trimEnd().endsWith(CODEX_SHARED_SQLITE_HOME_MARKER)) {
       try {
         const value: unknown = JSON.parse(match[1])

@@ -28,7 +28,7 @@ export function linuxNativeToolchainImage(root, docker) {
     .update(readFileSync(join(nativeDir, 'Dockerfile')))
     .digest('hex')
     .slice(0, 16)
-  const image = `orca-wayland-clipboard-build:${imageHash}`
+  const image = `openkodo-wayland-clipboard-build:${imageHash}`
   docker(['build', '-t', image, nativeDir])
   return image
 }
@@ -43,7 +43,7 @@ export function buildWaylandClipboard({
   }
   const nativeDir = join(root, 'native', 'wayland-clipboard')
   const outputDir = join(nativeDir, '.build', arch)
-  const output = join(outputDir, 'orca-wayland-clipboard')
+  const output = join(outputDir, 'openkodo-wayland-clipboard')
   const fingerprint = waylandClipboardFingerprint(root, arch)
   const stamp = `${output}.sha256`
   function verifyOutput() {
@@ -85,7 +85,7 @@ export function buildWaylandClipboard({
     image,
     'sh',
     '-ec',
-    'case "$1" in x64) compiler=x86_64-linux-gnu-gcc;; arm64) compiler=aarch64-linux-gnu-gcc;; esac; "$compiler" -O2 -Wall -Wextra -Werror -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fPIE -pie -Wl,-z,relro,-z,now /source/wayland-clipboard.c /source/x11-clipboard-publisher.c -ldl -o /output/orca-wayland-clipboard; case "$(uname -m):$1" in x86_64:x64|aarch64:arm64) python3 /source/protocol_test.py /output/orca-wayland-clipboard; python3 /source/x11_test.py /output/orca-wayland-clipboard;; esac',
+    'case "$1" in x64) compiler=x86_64-linux-gnu-gcc;; arm64) compiler=aarch64-linux-gnu-gcc;; esac; "$compiler" -O2 -Wall -Wextra -Werror -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fPIE -pie -Wl,-z,relro,-z,now /source/wayland-clipboard.c /source/x11-clipboard-publisher.c -ldl -o /output/openkodo-wayland-clipboard; case "$(uname -m):$1" in x86_64:x64|aarch64:arm64) python3 /source/protocol_test.py /output/openkodo-wayland-clipboard; python3 /source/x11_test.py /output/openkodo-wayland-clipboard;; esac',
     'build',
     arch
   ])

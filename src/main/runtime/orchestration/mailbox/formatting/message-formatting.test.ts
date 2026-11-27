@@ -8,14 +8,14 @@ import {
   type MessageFormattingOptions
 } from './message-formatting'
 
-const PAIRED_LABEL = 'orca_session_id:f2d72b85-0000-4000-8000-000000000000 on MacBook Pro (7)'
+const PAIRED_LABEL = 'openkodo_session_id:f2d72b85-0000-4000-8000-000000000000 on MacBook Pro (7)'
 
 function message(overrides: Partial<MessageRow> = {}): MessageRow {
   return {
     id: 'msg_1',
     run_id: 'run_1',
     from_handle: 'term_abc',
-    to_handle: 'orca_session_id:11111111-1111-4111-8111-111111111111',
+    to_handle: 'openkodo_session_id:11111111-1111-4111-8111-111111111111',
     subject: 'Review the sidebar change',
     body: 'Please look at the diff.',
     type: 'handoff',

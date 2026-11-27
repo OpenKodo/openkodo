@@ -5,7 +5,7 @@ import { join } from 'node:path'
 
 /** Two feature commits each conflict with one main commit on the same files. */
 export function createConflictingRebaseRepo(tempPaths: string[]) {
-  const repoPath = mkdtempSync(join(tmpdir(), 'orca-continue-rebase-'))
+  const repoPath = mkdtempSync(join(tmpdir(), 'openkodo-continue-rebase-'))
   tempPaths.push(repoPath)
   const git = (...args: string[]): string =>
     execFileSync('git', args, {
@@ -17,7 +17,7 @@ export function createConflictingRebaseRepo(tempPaths: string[]) {
   const write = (file: string, text: string) => writeFileSync(join(repoPath, file), text)
   git('init', '--quiet', '-b', 'main')
   git('config', 'user.name', 'OpenKodo Test')
-  git('config', 'user.email', 'orca@example.test')
+  git('config', 'user.email', 'openkodo@example.test')
   git('config', 'commit.gpgSign', 'false')
   git('config', 'core.hooksPath', '.git/no-hooks')
   // Local, so Git and the code under test agree whatever the machine's global config says.

@@ -5,9 +5,9 @@
 set -euo pipefail
 
 ORG="OpenKodo"
-ADHOC_REPO="$ORG/orca-adhoc"
-MAIN_REPO="$ORG/orca"
-APP_SLUG="orca-hourly-release"
+ADHOC_REPO="$ORG/openkodo-adhoc"
+MAIN_REPO="$ORG/openkodo"
+APP_SLUG="openkodo-hourly-release"
 
 fail() {
   echo "error: $*" >&2
@@ -25,7 +25,7 @@ else
   # --add-readme supplies the commit required to create a release tag in a new repo.
   gh repo create "$ADHOC_REPO" \
     --public \
-    --description "Adhoc macOS dev builds of Orca, cut from unlanded branches. Not a source repo." \
+    --description "Adhoc macOS dev builds of OpenKodo, cut from unlanded branches. Not a source repo." \
     --add-readme \
     --disable-issues \
     --disable-wiki ||
@@ -62,7 +62,7 @@ Could not do it from here${INSTALL_ID:+ (needs an Organization Owner)}. Do it in
   1. Open:  https://github.com/organizations/$ORG/settings/installations
   2. Configure  ->  $APP_SLUG
   3. Repository access  ->  Only select repositories  ->  add $ADHOC_REPO
-     (keep orca-hourly/orca-daily selected; all dev channels use this one App)
+     (keep openkodo-hourly/openkodo-daily selected; all dev channels use this one App)
   4. Save.
 EOF
 fi

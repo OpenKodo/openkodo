@@ -23,7 +23,7 @@ function createWorker(): HostedWorkerThread {
   if (!existsSync(path)) {
     throw new Error(`Workspace space scan worker entry not found: ${path}`)
   }
-  return spawnHeavyWorker(path, { name: 'orca-workspace-space-scan' })
+  return spawnHeavyWorker(path, { name: 'openkodo-workspace-space-scan' })
 }
 
 let queue: WorkerThreadRequestQueue<

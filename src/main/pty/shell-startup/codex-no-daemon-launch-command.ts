@@ -1,5 +1,5 @@
 import { isAbsolute, win32 as pathWin32 } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { tokenizeStartupCommand } from '../../../shared/agent-launch/startup/tui-agent-startup-shell'
 import { CODEX_EXECUTABLE } from '../../../shared/agent-launch/startup/codex-startup-image-command'
 import { resolveLocalWindowsAgentStartupShell } from '../../../shared/shell/launch/windows-terminal-shell'

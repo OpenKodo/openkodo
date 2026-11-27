@@ -191,7 +191,7 @@ export function useComposerRuntimeTargetSelection(input: ComposerRuntimeTargetSe
     worktreesByRepo
   ])
 
-  // SSH deploys the shim as orca; Linux’s local orca-ide rename must not affect remote commands.
+  // SSH deploys the shim as openkodo; Linux’s local openkodo-ide rename must not affect remote commands.
   const selectedRepoIsRemote = selectedRepo ? repoIsRemote(selectedRepo) : false
 
   const selectedRepoStartupShell = resolveExecutionHostAgentStartupShell(

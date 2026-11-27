@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import { structuredMailboxCustody } from '../../../../orchestration/mailbox/routing/structured-session-mail-target'
 import { readStructuredMailAdmitFacts } from '../../../../orchestration/mailbox/structured-pointer/structured-mailbox-pointer-host'
@@ -11,7 +11,10 @@ import type { SendRecipientWarning } from './recipient-routing'
 /** The receipt line for mail the delivery gate would hold right now; null when it would deliver.
  *  Never throws: the mail is already stored, so a failed read must not fail the send. */
 export async function sendDeliveryHoldWarning(
-  runtime: Pick<OrcaRuntimeService, 'readTerminalMailHold' | 'getTerminalOrchestrationCliCommand'>,
+  runtime: Pick<
+    OpenKodoRuntimeService,
+    'readTerminalMailHold' | 'getTerminalOrchestrationCliCommand'
+  >,
   db: OrchestrationDb,
   recipient: string
 ): Promise<SendRecipientWarning | null> {
@@ -24,7 +27,10 @@ export async function sendDeliveryHoldWarning(
 }
 
 async function readDeliveryHoldWarning(
-  runtime: Pick<OrcaRuntimeService, 'readTerminalMailHold' | 'getTerminalOrchestrationCliCommand'>,
+  runtime: Pick<
+    OpenKodoRuntimeService,
+    'readTerminalMailHold' | 'getTerminalOrchestrationCliCommand'
+  >,
   db: OrchestrationDb,
   recipient: string
 ): Promise<SendRecipientWarning | null> {
@@ -63,7 +69,10 @@ async function readDeliveryHoldWarning(
  *  a waiting `check --wait` took is read by that call, so no hold applies to it. */
 export async function withDeliveryHoldWarning<T>(
   sent: T,
-  runtime: Pick<OrcaRuntimeService, 'readTerminalMailHold' | 'getTerminalOrchestrationCliCommand'>,
+  runtime: Pick<
+    OpenKodoRuntimeService,
+    'readTerminalMailHold' | 'getTerminalOrchestrationCliCommand'
+  >,
   db: OrchestrationDb,
   recipient: string,
   takenByWaiter: boolean

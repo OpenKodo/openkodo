@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process'
-import { windowsPowerShellPath } from '@orca/process-host/windows-system-binary'
+import { windowsPowerShellPath } from '@openkodo/process-host/windows-system-binary'
 import { isExecutableFile } from '../../cli/command-paths/cli-install-path-format'
 import { reportComputerDiagnostic } from '../sidecar-transport/computer-sidecar-diagnostics'
 import { RuntimeClientError } from '../runtime-client-error'

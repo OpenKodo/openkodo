@@ -1,14 +1,14 @@
 import type Database from '../../../sqlite/sync-database'
 import { DISPATCH_PANE_KEY_MATCH_SUFFIX_SQL } from './pane-key-match'
-import type { OrcaSessionId } from '../../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { DispatchCreatorTurnSource } from './dispatch-depth'
 
 /** Centralize live-worker inserts to enforce depth; callers retain transactions, receipts and companion writes. */
 
 export const DISPATCH_CONTEXT_CLAIM_SQL = `INSERT INTO dispatch_contexts (
   id, run_id, task_id, contract_version, launch_token_hash,
-  assignee_handle, assignee_pane_key, assignee_orca_session_id, process_incarnation,
-  creator_dispatch_id, creator_handle, creator_pane_key, creator_orca_session_id,
+  assignee_handle, assignee_pane_key, assignee_openkodo_session_id, process_incarnation,
+  creator_dispatch_id, creator_handle, creator_pane_key, creator_openkodo_session_id,
   creator_turn_source, status, failure_count, depth, dispatched_at
 )
 SELECT ?, run_id, id, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'dispatched', ?, ?, datetime('now')
@@ -38,7 +38,7 @@ WHERE id = ? AND status = 'ready'
 
 const STARTING_DISPATCH_CONTEXT_SQL = `INSERT INTO dispatch_contexts (
    id, run_id, task_id, contract_version, launch_token_hash, retry_of_dispatch_id,
-   creator_dispatch_id, creator_handle, creator_pane_key, creator_orca_session_id,
+   creator_dispatch_id, creator_handle, creator_pane_key, creator_openkodo_session_id,
    creator_turn_source, depth, status, failure_count, dispatched_at, follow_up_of_dispatch_id,
    origin_ref, for_message_id, chat_lineage
  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, datetime('now'), ?, ?, ?, ?)`
@@ -65,12 +65,12 @@ export function claimDispatchContextRow(
     launchTokenHash: string | null
     assigneeHandle: string
     assigneePaneKey: string | null
-    assigneeOrcaSessionId?: OrcaSessionId | null
+    assigneeOpenKodoSessionId?: OpenKodoSessionId | null
     processIncarnation: string | null
     creatorDispatchId?: string | null
     creatorHandle?: string | null
     creatorPaneKey?: string | null
-    creatorOrcaSessionId?: OrcaSessionId | null
+    creatorOpenKodoSessionId?: OpenKodoSessionId | null
     creatorTurnSource?: DispatchCreatorTurnSource | null
     priorFailures: number
     depth: number
@@ -87,12 +87,12 @@ export function claimDispatchContextRow(
       params.launchTokenHash,
       params.assigneeHandle,
       params.assigneePaneKey,
-      params.assigneeOrcaSessionId ?? null,
+      params.assigneeOpenKodoSessionId ?? null,
       params.processIncarnation,
       params.creatorDispatchId ?? null,
       params.creatorHandle ?? null,
       params.creatorPaneKey ?? null,
-      params.creatorOrcaSessionId ?? null,
+      params.creatorOpenKodoSessionId ?? null,
       params.creatorTurnSource ?? null,
       params.priorFailures,
       params.depth,
@@ -119,7 +119,7 @@ export function insertStartingDispatchContextRow(
     creatorDispatchId?: string | null
     creatorHandle?: string | null
     creatorPaneKey?: string | null
-    creatorOrcaSessionId?: OrcaSessionId | null
+    creatorOpenKodoSessionId?: OpenKodoSessionId | null
     creatorTurnSource?: DispatchCreatorTurnSource | null
     priorFailures: number
     followUpOfDispatchId?: string | null
@@ -139,7 +139,7 @@ export function insertStartingDispatchContextRow(
     params.creatorDispatchId ?? null,
     params.creatorHandle ?? null,
     params.creatorPaneKey ?? null,
-    params.creatorOrcaSessionId ?? null,
+    params.creatorOpenKodoSessionId ?? null,
     params.creatorTurnSource ?? null,
     params.depth,
     params.priorFailures,

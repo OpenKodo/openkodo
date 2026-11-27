@@ -38,7 +38,7 @@ export async function flushOrchestrationStdout(): Promise<void> {
 export function isDevCliInvocation(): boolean {
   return (
     process.env.OPENKODO_DEV_CLI_INVOCATION === '1' ||
-    (process.env.OPENKODO_USER_DATA_PATH?.includes('orca-dev') ?? false)
+    (process.env.OPENKODO_USER_DATA_PATH?.includes('openkodo-dev') ?? false)
   )
 }
 

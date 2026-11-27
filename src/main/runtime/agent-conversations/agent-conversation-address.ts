@@ -1,19 +1,19 @@
-import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/orca-session-address-prefix'
+import { OPENKODO_SESSION_ADDRESS_PREFIX } from '../../../shared/agent-session/identity/openkodo-session-address-prefix'
 import {
-  isOrcaSessionId,
-  parseOrcaSessionAddress,
-  type OrcaSessionId
-} from '../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress,
+  type OpenKodoSessionId
+} from '../../../shared/agent-session/identity/openkodo-session-address'
 import { isTerminalHandle } from '../../../shared/terminal/terminal-handle-prefix'
 import type { AgentSessionConversationView } from '../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
 import { AGENT_CONVERSATION_REFUSAL_CODES as CODES } from '../../../shared/agent-conversations/agent-conversation-contracts'
-import { lookupOrcaAgentSession } from '../orchestration/mailbox/routing/structured-session-mail-address'
+import { lookupOpenKodoAgentSession } from '../orchestration/mailbox/routing/structured-session-mail-address'
 import {
   conversationRecordReader,
   readAgentSessionRecordStore,
   type AgentSessionRecordReader
 } from '../orchestration/addressing/session-lineage/structured-session-lineage'
-import { canonicalOrcaSessionId } from '../orchestration/addressing/session-lineage/canonical-orca-session-id'
+import { canonicalOpenKodoSessionId } from '../orchestration/addressing/session-lineage/canonical-openkodo-session-id'
 import { agentHookServer } from '../../agent-hooks/server/agent-hook-server'
 import type { AgentSessionRecordStore } from '../agent-session/records/agent-session-record-store'
 import { AgentConversationRefusal } from './agent-conversation-refusal'
@@ -23,11 +23,11 @@ export type ResolvedAgentConversation =
   | {
       kind: 'chat'
       /** The conversation's /clear root, the ID Copy OpenKodo Session ID copies. */
-      orcaSessionId: OrcaSessionId
+      openkodoSessionId: OpenKodoSessionId
       record: AgentSessionConversationView
       store: AgentSessionRecordReader
     }
-  | { kind: 'terminal'; orcaSessionId: OrcaSessionId }
+  | { kind: 'terminal'; openkodoSessionId: OpenKodoSessionId }
 
 /** One OpenKodo session ID to the conversation it names on this host: chats first, from the chat
  *  store alone, then this host's terminal agent ids. Resolution reads records only; it never
@@ -40,10 +40,10 @@ export async function resolveAgentConversation(
   if (isTerminalHandle(text)) {
     throw new AgentConversationRefusal(
       CODES.terminalHandle,
-      `${text} is a terminal handle, which changes when the terminal restarts. Use \`openkodo terminal …\` for it, or the agent's \`orca_session_id:\` from \`openkodo agent list\`.`
+      `${text} is a terminal handle, which changes when the terminal restarts. Use \`openkodo terminal …\` for it, or the agent's \`openkodo_session_id:\` from \`openkodo agent list\`.`
     )
   }
-  const id = orcaSessionIdOf(text)
+  const id = openkodoSessionIdOf(text)
   const store =
     readAgentSessionRecordStore() ??
     (await runtime
@@ -51,15 +51,15 @@ export async function resolveAgentConversation(
       .then(conversationRecordReader)
       .catch(() => null))
   // A provider's own id is matched as typed; only OpenKodo IDs are respelled.
-  const asTyped = store ? lookupOrcaAgentSession(store, text) : null
+  const asTyped = store ? lookupOpenKodoAgentSession(store, text) : null
   if (asTyped?.kind === 'provider-id') {
-    throw providerIdRefusal(text, [asTyped.orcaSessionId], store)
+    throw providerIdRefusal(text, [asTyped.openkodoSessionId], store)
   }
-  const found = store && id ? (id === text ? asTyped : lookupOrcaAgentSession(store, id)) : null
+  const found = store && id ? (id === text ? asTyped : lookupOpenKodoAgentSession(store, id)) : null
   if (found?.kind === 'found' && store && id) {
     return {
       kind: 'chat',
-      orcaSessionId: canonicalOrcaSessionId(id, store),
+      openkodoSessionId: canonicalOpenKodoSessionId(id, store),
       record: found.record,
       store
     }
@@ -67,7 +67,7 @@ export async function resolveAgentConversation(
   if (id) {
     const known = await agentHookServer.isTerminalAgentId(id)
     if (known === true) {
-      return { kind: 'terminal', orcaSessionId: id }
+      return { kind: 'terminal', openkodoSessionId: id }
     }
     if (known === undefined) {
       throw new AgentConversationRefusal(
@@ -106,9 +106,9 @@ export async function resolveAgentConversation(
       )
 }
 
-/** The OpenKodo ID `text` spells: an `orca_session_id:` address or a bare ID. Older IDs spell their
+/** The OpenKodo ID `text` spells: an `openkodo_session_id:` address or a bare ID. Older IDs spell their
  *  UUID with underscores, so a hyphenated legacy `<agent>_<uuid>` is respelled to match. */
-function orcaSessionIdOf(text: string): OrcaSessionId | null {
+function openkodoSessionIdOf(text: string): OpenKodoSessionId | null {
   const bare = (
     text.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
       ? text.slice(OPENKODO_SESSION_ADDRESS_PREFIX.length)
@@ -118,20 +118,20 @@ function orcaSessionIdOf(text: string): OrcaSessionId | null {
     '_$1_$2_$3_$4_$5'
   )
   return text.startsWith(OPENKODO_SESSION_ADDRESS_PREFIX)
-    ? parseOrcaSessionAddress(`${OPENKODO_SESSION_ADDRESS_PREFIX}${bare}`)
-    : isOrcaSessionId(bare)
+    ? parseOpenKodoSessionAddress(`${OPENKODO_SESSION_ADDRESS_PREFIX}${bare}`)
+    : isOpenKodoSessionId(bare)
       ? bare
       : null
 }
 
 function providerIdRefusal(
   given: string,
-  orcaSessionIds: readonly string[],
+  openkodoSessionIds: readonly string[],
   store: AgentSessionRecordReader | null
 ): AgentConversationRefusal {
-  const addresses = orcaSessionIds.map(
+  const addresses = openkodoSessionIds.map(
     (id) =>
-      `${OPENKODO_SESSION_ADDRESS_PREFIX}${isOrcaSessionId(id) ? canonicalOrcaSessionId(id, store) : id}`
+      `${OPENKODO_SESSION_ADDRESS_PREFIX}${isOpenKodoSessionId(id) ? canonicalOpenKodoSessionId(id, store) : id}`
   )
   return new AgentConversationRefusal(
     CODES.providerId,

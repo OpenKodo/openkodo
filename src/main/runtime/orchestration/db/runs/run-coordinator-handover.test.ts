@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { testOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { testOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import { OrchestrationDb } from '../orchestration-db'
 import { dispatchReportMailbox } from '../../workers/reports/dispatch-report-mailbox'
-import { currentRunCoordinatorOrcaSessionId } from './run-coordinator-orca-session'
+import { currentRunCoordinatorOpenKodoSessionId } from './run-coordinator-openkodo-session'
 import { handOverCoordinatorChatRuns } from './run-coordinator-handover'
 
-const CLOSED = testOrcaSessionId('7b0c4c55-1f7e-4c55-9d43-1b1a8c3c0a01')
-const HOME = testOrcaSessionId('7b0c4c55-1f7e-4c55-9d43-1b1a8c3c0a02')
-const party = (orcaSessionId: typeof HOME) => ({
-  orcaSessionId,
+const CLOSED = testOpenKodoSessionId('7b0c4c55-1f7e-4c55-9d43-1b1a8c3c0a01')
+const HOME = testOpenKodoSessionId('7b0c4c55-1f7e-4c55-9d43-1b1a8c3c0a02')
+const party = (openkodoSessionId: typeof HOME) => ({
+  openkodoSessionId,
   paneKey: null,
   terminalHandle: null
 })
@@ -23,13 +23,13 @@ describe('handing a closed chat’s Runs over', () => {
       objective: 'home work',
       coordinatorHandle: null,
       coordinatorPaneKey: null,
-      coordinatorOrcaSessionId: HOME
+      coordinatorOpenKodoSessionId: HOME
     })
     const room = db.createRun({
       objective: 'room work',
       coordinatorHandle: null,
       coordinatorPaneKey: null,
-      coordinatorOrcaSessionId: CLOSED
+      coordinatorOpenKodoSessionId: CLOSED
     })
     const task = db.createTask({ runId: room.id, spec: 'work' })
     const dispatch = db.createDispatchContext({
@@ -57,7 +57,7 @@ describe('handing a closed chat’s Runs over', () => {
         .map((run) => run.id)
         .toSorted()
     ).toEqual([own.id, room.id].toSorted())
-    expect(currentRunCoordinatorOrcaSessionId(db.getRun(room.id)!)).toBe(HOME)
+    expect(currentRunCoordinatorOpenKodoSessionId(db.getRun(room.id)!)).toBe(HOME)
     expect(dispatchReportMailbox(db, dispatch)).toBe(`run:${room.id}`)
     expect(db.getMessageById(pointed.id)).toMatchObject({ read: 0, delivered_at: null })
     expect(handOverCoordinatorChatRuns(db, CLOSED, HOME)).toBe(false)

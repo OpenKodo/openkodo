@@ -1,18 +1,18 @@
-/** Stop terminals by handle, then managed-decommission orcad/daemon. Claim stopped only with zero-session census, exact serving-orcad identity and retired daemon evidence. */
+/** Stop terminals by handle, then managed-decommission openkodod/daemon. Claim stopped only with zero-session census, exact serving-openkodod identity and retired daemon evidence. */
 import { z } from 'zod'
 import { errorMessage } from '../../../shared/errors/error-message'
-import type { OrcadDecommissionResult } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-decommission'
-import { ORCAD_MANAGED_REMOTE_PORT } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
-import type { OrcadTerminalCensus } from '../../../shared/remote-runtime/orcad-lifecycle/orcad-terminal-census'
+import type { OpenkododDecommissionResult } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-decommission'
+import { OPENKODOD_MANAGED_REMOTE_PORT } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
+import type { OpenkododTerminalCensus } from '../../../shared/remote-runtime/openkodod-lifecycle/openkodod-terminal-census'
 import type { RuntimeTerminalListResult } from '../../../shared/terminal/runtime/runtime-terminal-contracts'
 import { wslHostServerStopReason } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-failure-copy'
 import type { WslHostServerStop } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
-import type { OrcadHostTransport } from '../../managed-server/install/orcad-host-transport'
-import { readRemoteOrcadManagedStopTarget } from '../../managed-server/lifecycle/orcad-managed-remote-stop'
-import { managedOrcadSlot } from '../../managed-server/lifecycle/orcad-managed-runtime-context'
-import { resolveOrcadRemoteContext } from '../../managed-server/install/orcad-remote-context'
-import { decommissionRemoteOrcad } from '../../managed-server/install/orcad-remote-decommission'
-import type { WslOrcadHostTarget } from '../orcad/wsl-orcad-host-target'
+import type { OpenkododHostTransport } from '../../managed-server/install/openkodod-host-transport'
+import { readRemoteOpenkododManagedStopTarget } from '../../managed-server/lifecycle/openkodod-managed-remote-stop'
+import { managedOpenkododSlot } from '../../managed-server/lifecycle/openkodod-managed-runtime-context'
+import { resolveOpenkododRemoteContext } from '../../managed-server/install/openkodod-remote-context'
+import { decommissionRemoteOpenkodod } from '../../managed-server/install/openkodod-remote-decommission'
+import type { WslOpenkododHostTarget } from '../openkodod/wsl-openkodod-host-target'
 import { readWslHostPeerDesktops, type WslHostPeerDesktops } from './wsl-host-peer-desktops'
 
 const CENSUS_ATTEMPTS = 20
@@ -24,17 +24,17 @@ export type WslHostTerminalLeftover = { handle: string; worktreeId: string; reas
 export type WslHostServerStopSteps = {
   /** Which other desktops share this server; throws when it can't say. */
   peerDesktops: () => Promise<WslHostPeerDesktops>
-  /** Closes every terminal orcad runs; returns the ones that refused instead of stopping. */
+  /** Closes every terminal openkodod runs; returns the ones that refused instead of stopping. */
   endTerminals: () => Promise<WslHostTerminalLeftover[]>
-  census: () => Promise<OrcadTerminalCensus>
-  /** The runtime id of the orcad the bridge is serving; read before the bridge closes. */
+  census: () => Promise<OpenkododTerminalCensus>
+  /** The runtime id of the openkodod the bridge is serving; read before the bridge closes. */
   servingRuntimeId: () => Promise<string | null>
   /** After the bridge closed: liveness must not see this exit as a crash to recover. */
   closeBridge: () => Promise<void>
   decommission: (
-    census: OrcadTerminalCensus,
+    census: OpenkododTerminalCensus,
     servingRuntimeId: string | null
-  ) => Promise<OrcadDecommissionResult>
+  ) => Promise<OpenkododDecommissionResult>
   sleep?: (ms: number) => Promise<void>
   /** A census that already waits on its own needs no retries; default 20, 250 ms apart. */
   censusAttempts?: number
@@ -123,7 +123,7 @@ export async function stopWslHostServer(steps: WslHostServerStopSteps): Promise<
 export type WslHostRuntimeAccess = {
   isReady?: (environmentId: string) => boolean | Promise<boolean>
   call: (environmentId: string, method: string, params: unknown) => Promise<unknown>
-  census: (environmentId: string) => Promise<OrcadTerminalCensus>
+  census: (environmentId: string) => Promise<OpenkododTerminalCensus>
 }
 
 // Only what removal reads from each live terminal.
@@ -135,7 +135,7 @@ const TerminalHandlesSchema = z.object({
 
 const RuntimeIdSchema = z.object({ runtimeId: z.string().min(1) })
 
-/** Closing terminals, counting what is left and naming the serving orcad, all through its RPC. */
+/** Closing terminals, counting what is left and naming the serving openkodod, all through its RPC. */
 export function wslHostRuntimeStopSteps(
   access: WslHostRuntimeAccess,
   environmentId: string
@@ -164,28 +164,28 @@ export function wslHostRuntimeStopSteps(
   }
 }
 
-/** After bridge close, decommission via wsl.exe only if recorded active orcad matches the previously serving runtime; re-add may have adopted another instance. */
-export function decommissionWslHostOrcad(
-  target: WslOrcadHostTarget,
-  transport: OrcadHostTransport
+/** After bridge close, decommission via wsl.exe only if recorded active openkodod matches the previously serving runtime; re-add may have adopted another instance. */
+export function decommissionWslHostOpenkodod(
+  target: WslOpenkododHostTarget,
+  transport: OpenkododHostTransport
 ): WslHostServerStopSteps['decommission'] {
   return async (census, servingRuntimeId) => {
-    const context = await resolveOrcadRemoteContext(target, transport)
-    const slot = managedOrcadSlot(context, ORCAD_MANAGED_REMOTE_PORT)
+    const context = await resolveOpenkododRemoteContext(target, transport)
+    const slot = managedOpenkododSlot(context, OPENKODOD_MANAGED_REMOTE_PORT)
     const active = context.activationRecord.active
     if (active) {
-      const stopTarget = await readRemoteOrcadManagedStopTarget(slot, active)
+      const stopTarget = await readRemoteOpenkododManagedStopTarget(slot, active)
       const recordedRuntimeId = stopTarget.state === 'ready' ? stopTarget.context.runtimeId : null
       if (!servingRuntimeId || recordedRuntimeId !== servingRuntimeId) {
         return {
           outcome: 'refused',
           verdict: 'unverifiable',
-          code: 'orcad_wsl_host_serving_instance_unproven',
+          code: 'openkodod_wsl_host_serving_instance_unproven',
           reason:
-            'the orcad this computer was connected to is not the one the distro records as active, so OpenKodo could not prove it stopped.'
+            'the openkodod this computer was connected to is not the one the distro records as active, so OpenKodo could not prove it stopped.'
         }
       }
     }
-    return decommissionRemoteOrcad({ ...slot, record: context.activationRecord, census })
+    return decommissionRemoteOpenkodod({ ...slot, record: context.activationRecord, census })
   }
 }

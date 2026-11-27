@@ -6,7 +6,7 @@ import { AGENT_SESSION_COMPACTION_SKIPPED_PRESENTATION } from '../../../agent-se
 import { AGENT_SESSION_HOOK_SENT_BACK_PRESENTATION } from '../../../agent-session/journal/agent-session-hook-outcome'
 import { AGENT_SESSION_GOAL_CHECK_PRESENTATION } from '../../../agent-session/thread-goals/agent-session-goal-check-display'
 import { NATIVE_CHAT_GOAL_CHECK_SUMMARY } from '../turns/native-chat-thread-goal-rows'
-import { AGENT_SESSION_OPENKODO_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-orca-stop'
+import { AGENT_SESSION_OPENKODO_STOP_PRESENTATION } from '../../../agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import { AGENT_SESSION_TURN_NOTICE_PRESENTATION } from '../../../agent-session/journal/agent-session-turn-notice'
 import { NATIVE_CHAT_ADVISOR_PRESENTATION } from '../notices/native-chat-notice'
 import {
@@ -25,7 +25,7 @@ import {
   type NativeChatMessage,
   type NativeChatRole
 } from '../../native-chat-types'
-import { isNativeChatOrcaCard } from '../../native-chat-orca-card'
+import { isNativeChatOpenKodoCard } from '../../native-chat-openkodo-card'
 
 /** Each surface supplies its own row-content results so folding sees exactly the prose it renders. */
 export type NativeChatTurnFoldRow = {
@@ -97,10 +97,12 @@ function deriveTurnFoldRow(
     role: message.role,
     rendersProse: nativeChatRowRendersProse(message) && !message.blocks.some(isImageOperation),
     draws:
-      hasReceipt || isNativeChatOrcaCard(message) || nativeChatRowRendersContent(message.blocks),
+      hasReceipt ||
+      isNativeChatOpenKodoCard(message) ||
+      nativeChatRowRendersContent(message.blocks),
     // Use raw roster blocks: empty rosters render no block, making their plain-text twin the sole spawn record.
     outlivesTurn:
-      isNativeChatOrcaCard(message) ||
+      isNativeChatOpenKodoCard(message) ||
       message.blocks.some(
         (block) =>
           isSubagentGroupBlock(block) ||

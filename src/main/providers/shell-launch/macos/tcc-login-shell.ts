@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { existsSync } from 'node:fs'
 import { userInfo } from 'node:os'
 import { basename } from 'node:path'
@@ -297,7 +297,7 @@ export function wrapShellSpawnForMacosTccAttribution(
       '-p',
       '-c',
       trampoline,
-      'orca-tcc-login',
+      'openkodo-tcc-login',
       shellEnvValue,
       file,
       ...args

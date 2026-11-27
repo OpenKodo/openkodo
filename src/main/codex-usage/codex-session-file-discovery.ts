@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { existsSync, lstatSync } from 'node:fs'
 import { realpath, readdir, stat } from 'node:fs/promises'
 import {
-  getOrcaManagedCodexHomePath,
+  getOpenKodoManagedCodexHomePath,
   getSystemCodexHomePath
 } from '../codex/configuration/homes/codex-home-paths'
 import { getCodexAccountHomeSessionDirectories } from '../codex/history/rollouts/codex-account-home-discovery'
@@ -65,7 +65,7 @@ function appendDiscoveredFiles(target: string[], source: readonly string[]): voi
 
 export function getCodexSessionsDirectory(): string {
   // The primary runtime uses an OpenKodo-owned home regardless of ambient CODEX_HOME.
-  return join(getOrcaManagedCodexHomePath(), 'sessions')
+  return join(getOpenKodoManagedCodexHomePath(), 'sessions')
 }
 
 function ownedSessionsDirectory(home: string): string[] {
@@ -90,7 +90,7 @@ export function getCodexSessionDirectories(): string[] {
 }
 
 function hasLegacyCopiedSessionBridgeMarkers(): boolean {
-  return existsSync(join(getOrcaManagedCodexHomePath(), '.orca-session-copies'))
+  return existsSync(join(getOpenKodoManagedCodexHomePath(), '.openkodo-session-copies'))
 }
 
 export async function listCodexSessionFiles(): Promise<string[]> {

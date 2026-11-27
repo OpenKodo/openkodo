@@ -1,5 +1,5 @@
 // No files move: prove rewritten paths identify the same objects before fencing anything.
-import { ORCAD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY } from '../../../../shared/remote-runtime/protocol/orcad-runtime-capabilities'
+import { OPENKODOD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY } from '../../../../shared/remote-runtime/protocol/openkodod-runtime-capabilities'
 import { isDrvfsLinuxPath } from '../../../../shared/file-access/wsl-paths'
 import {
   wslMoveSourcePathToLinux,
@@ -96,7 +96,7 @@ export type WslMoveHostReadiness = 'ready' | 'update-host'
 
 /** Older host templates must update before accepting WSL-source moves. */
 export function wslMoveHostReadiness(capabilities: readonly string[]): WslMoveHostReadiness {
-  return capabilities.includes(ORCAD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY)
+  return capabilities.includes(OPENKODOD_MIGRATION_LOCAL_WSL_SOURCE_RUNTIME_CAPABILITY)
     ? 'ready'
     : 'update-host'
 }

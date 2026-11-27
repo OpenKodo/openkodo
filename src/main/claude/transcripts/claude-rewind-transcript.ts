@@ -144,5 +144,5 @@ export function spawnClaudeConversationWorker(workerData: unknown) {
   const entry = installed
     ? installed
     : new URL('./claude-conversation-fork-worker-entry.ts', import.meta.url)
-  return spawnHeavyWorker(entry, { name: 'orca-claude-rewind-transcript', workerData })
+  return spawnHeavyWorker(entry, { name: 'openkodo-claude-rewind-transcript', workerData })
 }

@@ -11,15 +11,15 @@ import type {
   WslHostAddProgress,
   WslHostStatus
 } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-types'
-import type { WslOrcadConnection } from '../orcad/wsl-orcad-connection-types'
-import type { WslOrcadConnectionStatus } from '../orcad/wsl-orcad-connection-status'
-import type { WslLivenessUnverifiableReason } from '../orcad/wsl-orcad-liveness-verdict'
+import type { WslOpenkododConnection } from '../openkodod/wsl-openkodod-connection-types'
+import type { WslOpenkododConnectionStatus } from '../openkodod/wsl-openkodod-connection-status'
+import type { WslLivenessUnverifiableReason } from '../openkodod/wsl-openkodod-liveness-verdict'
 
 /** Saves an explicit re-pair or a moved bridge; true when the pairing changed. */
 export async function persistWslHostConnection(
   userDataPath: string,
   record: WslHostDeploymentRecord,
-  connection: WslOrcadConnection
+  connection: WslOpenkododConnection
 ): Promise<boolean> {
   try {
     return (
@@ -39,7 +39,7 @@ export async function persistWslHostConnection(
 export async function saveWslHostConnection(
   deps: { userDataPath: () => string; pairingChanged: (environmentId: string) => void },
   record: WslHostDeploymentRecord | null,
-  connections: { get(distro: string): WslOrcadConnection | null } | null
+  connections: { get(distro: string): WslOpenkododConnection | null } | null
 ): Promise<void> {
   const connection = record ? connections?.get(record.distro) : null
   if (
@@ -53,8 +53,8 @@ export async function saveWslHostConnection(
 
 export function toWslHostStatus(
   record: WslHostDeploymentRecord,
-  status: WslOrcadConnectionStatus,
-  connection: WslOrcadConnection | null = null
+  status: WslOpenkododConnectionStatus,
+  connection: WslOpenkododConnection | null = null
 ): WslHostStatus {
   return {
     environmentId: record.environmentId,
@@ -75,7 +75,7 @@ export function toWslHostStatus(
 const UNVERIFIABLE_DETAIL_CODES: Record<WslLivenessUnverifiableReason, WslHostStatusDetailCode> = {
   'running-list-unavailable': 'runningListUnavailable',
   'guest-unanswered': 'guestUnanswered',
-  'orcad-unanswered': 'orcadUnanswered'
+  'openkodod-unanswered': 'openkododUnanswered'
 }
 
 type WslHostStatusDetail = Pick<WslHostStatus, 'detail' | 'detailCode' | 'detailParams'>
@@ -94,7 +94,7 @@ function codedDetail(
 
 function wslHostStatusDetail(
   record: WslHostDeploymentRecord,
-  status: WslOrcadConnectionStatus
+  status: WslOpenkododConnectionStatus
 ): WslHostStatusDetail {
   if (status.state === 'unverifiable') {
     const { text, code } = wslHostStatusDetailText(UNVERIFIABLE_DETAIL_CODES[status.reason])
@@ -114,7 +114,7 @@ function wslHostStatusDetail(
 /** Only a connecting change names what an Add waits for; null for every other state. */
 export function wslHostAddProgress(
   distro: string,
-  status: WslOrcadConnectionStatus
+  status: WslOpenkododConnectionStatus
 ): WslHostAddProgress | null {
   if (status.state !== 'connecting') {
     return null

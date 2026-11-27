@@ -24,9 +24,9 @@ type ComposerAsyncStateInput = Pick<
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import type {
-  OrcaHooks,
+  OpenKodoHooks,
   SetupAgentStartupPolicy
-} from '../../../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { IssueCommandReadResult } from '@/runtime/repo-hooks/runtime-hooks-client'
 import type { WorkspaceCreateErrorDisplay } from '@/lib/workspace/creation/workspace-create-error-format'
 import type { GitHubWorkItem } from '../../../../shared/github/work-items/work-item-types'
@@ -62,7 +62,7 @@ export function useComposerAsyncState(input: ComposerAsyncStateInput) {
   } = input
   const { getInitialAutoManagedWorkspaceName, getInitialGitHubPrStartPointSelection } = decisions
 
-  const [yamlHooks, setYamlHooks] = useState<OrcaHooks | null>(null)
+  const [yamlHooks, setYamlHooks] = useState<OpenKodoHooks | null>(null)
 
   const [checkedHooksContextKey, setCheckedHooksContextKey] = useState<string | null>(null)
 

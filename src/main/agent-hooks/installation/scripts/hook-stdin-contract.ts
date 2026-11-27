@@ -51,7 +51,7 @@ const POSIX_HOOK_JSON_STDIN_PYTHON = [
 ].join('\n')
 
 // Embed the script once to avoid oversized command lines flagged by EDR.
-const POSIX_HOOK_JSON_STDIN_PYTHON_VAR = 'orca_hook_json_stdin_py'
+const POSIX_HOOK_JSON_STDIN_PYTHON_VAR = 'openkodo_hook_json_stdin_py'
 export const POSIX_HOOK_JSON_STDIN_PRELUDE: readonly string[] = [
   `${POSIX_HOOK_JSON_STDIN_PYTHON_VAR}='${POSIX_HOOK_JSON_STDIN_PYTHON}'`
 ]
@@ -109,7 +109,7 @@ export function buildPosixHookSpoolLines(source: string, eventNameVar?: string):
     eventArg,
     ' "$(spool_json_escape "${OPENKODO_PANE_KEY:-}")" "$(spool_json_escape "${OPENKODO_TAB_ID:-}")" "$(spool_json_escape "${OPENKODO_WORKTREE_ID:-}")" "$(spool_json_escape "${OPENKODO_AGENT_HOOK_ENV:-}")" "$(spool_json_escape "${OPENKODO_AGENT_HOOK_VERSION:-}")" "$(spool_json_escape "${OPENKODO_AGENT_LAUNCH_TOKEN:-}")" "$(spool_json_escape "',
     source,
-    '")" "$spool_now" "$(spool_json_escape "${orca_agent_process:-}")" "$(spool_json_escape "${orca_tmux_pane:-}")" "$payload"; } >> "$spool_file" 2>/dev/null || :'
+    '")" "$spool_now" "$(spool_json_escape "${openkodo_agent_process:-}")" "$(spool_json_escape "${openkodo_tmux_pane:-}")" "$payload"; } >> "$spool_file" 2>/dev/null || :'
   )
   return [
     'spool_hook_event() {',

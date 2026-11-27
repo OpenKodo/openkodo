@@ -14,12 +14,12 @@ import {
 export function SlackOpenAppButton({
   bot,
   slack,
-  onOpenedInOrca
+  onOpenedInOpenKodo
 }: {
   bot: Pick<Bot, 'id' | 'name' | 'hostId'>
   slack: ConnectorBotSlackState | null | undefined
   /** The page opened in OpenKodo's own browser, behind whatever shows this button. */
-  onOpenedInOrca?: () => void
+  onOpenedInOpenKodo?: () => void
 }): React.JSX.Element | null {
   const t = useTranslate()
   if (slack?.state !== 'installed') {
@@ -34,8 +34,8 @@ export function SlackOpenAppButton({
           slackAppMessagesUrl(slack.appId, slack.teamId),
           { bot, local: 'system' }
         )
-        if (opened === 'orca-browser') {
-          onOpenedInOrca?.()
+        if (opened === 'openkodo-browser') {
+          onOpenedInOpenKodo?.()
         }
       }}
     >

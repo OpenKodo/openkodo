@@ -25,7 +25,7 @@ import type { Bot } from '../../../../../shared/bot-types'
 import type { ExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import type { AutomationEventTrigger } from '../../../../../shared/automation-event-triggers'
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
-import type { OrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { ProjectHostSetup } from '../../../../../shared/project/project-types'
 import type { Repo } from '../../../../../shared/repository/repo-types'
 import type { TuiAgent } from '../../../../../shared/agent-launch/catalog/tui-agent'
@@ -98,7 +98,7 @@ type AutomationEditorDialogProps = {
   canSave: boolean
   repos: readonly Repo[]
   projectHostSetups: readonly ProjectHostSetup[]
-  automationYamlHooksByRepoKey: Record<string, OrcaHooks | null>
+  automationYamlHooksByRepoKey: Record<string, OpenKodoHooks | null>
   getAutomationHooksCacheKey: (repoId: string) => string
   repoMap: Map<string, Repo>
   worktrees: Worktree[]

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type JSX } from 'react'
 import { toast } from 'sonner'
-import { getDefaultVoiceSettings } from '../../../../shared/orca-profiles/constants'
+import { getDefaultVoiceSettings } from '../../../../shared/openkodo-profiles/constants'
 import {
   ORCHESTRATION_ENABLED_STORAGE_KEY,
   ORCHESTRATION_SETUP_DISMISSED_STORAGE_KEY,
@@ -21,11 +21,11 @@ import { installCliFromFeatureTip } from './feature-tip-cli-install-action'
 import { getFeatureTipForModal } from './feature-tip-modal-state'
 import { localizeFeatureTip } from './feature-tip-copy'
 import {
-  getOrcaCliFeatureTipTelemetrySource,
+  getOpenKodoCliFeatureTipTelemetrySource,
   trackChatUiFeatureTipAction,
   trackCmdJPaletteFeatureTipAcknowledged,
-  trackOrcaCliFeatureTipSetupClicked,
-  trackOrcaCliFeatureTipSetupResult
+  trackOpenKodoCliFeatureTipSetupClicked,
+  trackOpenKodoCliFeatureTipSetupResult
 } from './feature-tip-telemetry'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { isWebClientLocation } from '@/app-shell/platform/web-client-location'
@@ -177,7 +177,7 @@ export default function FeatureTipsModal(): JSX.Element | null {
       }
       case 'learn-cmd-j-palette': {
         trackCmdJPaletteFeatureTipAcknowledged(
-          getOrcaCliFeatureTipTelemetrySource(modalData.source)
+          getOpenKodoCliFeatureTipTelemetrySource(modalData.source)
         )
         closeModal()
         break
@@ -217,13 +217,13 @@ export default function FeatureTipsModal(): JSX.Element | null {
           mountedRef.current &&
           activeModalRef.current === 'feature-tips' &&
           setupRequestIdRef.current === setupRequestId
-        const telemetrySource = getOrcaCliFeatureTipTelemetrySource(modalData.source)
-        trackOrcaCliFeatureTipSetupClicked(telemetrySource)
+        const telemetrySource = getOpenKodoCliFeatureTipTelemetrySource(modalData.source)
+        trackOpenKodoCliFeatureTipSetupClicked(telemetrySource)
         setPrimaryBusy(true)
         try {
           const result = await installCliFromFeatureTip(() => window.api.cli.install())
           if (result.kind === 'installed') {
-            trackOrcaCliFeatureTipSetupResult(telemetrySource, 'installed')
+            trackOpenKodoCliFeatureTipSetupResult(telemetrySource, 'installed')
             if (!canApplySetupResult()) {
               return
             }
@@ -238,7 +238,7 @@ export default function FeatureTipsModal(): JSX.Element | null {
             return
           }
 
-          trackOrcaCliFeatureTipSetupResult(telemetrySource, 'needs_attention')
+          trackOpenKodoCliFeatureTipSetupResult(telemetrySource, 'needs_attention')
           if (!canApplySetupResult()) {
             return
           }
@@ -270,7 +270,7 @@ export default function FeatureTipsModal(): JSX.Element | null {
             import.meta.env.DEV &&
             message.includes('Development mode uses a generated launcher for validation only')
           ) {
-            trackOrcaCliFeatureTipSetupResult(telemetrySource, 'dev_preview')
+            trackOpenKodoCliFeatureTipSetupResult(telemetrySource, 'dev_preview')
             if (!canApplySetupResult()) {
               return
             }
@@ -285,7 +285,7 @@ export default function FeatureTipsModal(): JSX.Element | null {
             return
           }
 
-          trackOrcaCliFeatureTipSetupResult(telemetrySource, 'failed')
+          trackOpenKodoCliFeatureTipSetupResult(telemetrySource, 'failed')
           if (canApplySetupResult()) {
             toast.error(formatCliUserFacingDetail(message) || message)
           }

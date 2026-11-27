@@ -1,4 +1,4 @@
-import type { OrcaHooks } from '../../../shared/workspace-setup/orca-yaml-hook-types'
+import type { OpenKodoHooks } from '../../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { PublicKnownRuntimeEnvironment } from '../../../shared/remote-runtime/host-catalog/runtime-environments'
 import type { EphemeralVmRecipeDoctorResult } from '../../../shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-recipes'
 import type { EphemeralVmRecipeResultWarning } from '../../../shared/remote-runtime/ephemeral-vm-recipes/ephemeral-vm-recipe-diagnostics'
@@ -14,8 +14,8 @@ export type EphemeralVmApi = {
   listRecipes: (args: { repoId: string }) => Promise<{
     status: 'ok' | 'error'
     repoPath: string | null
-    recipes: OrcaHooks['environmentRecipes']
-    diagnostics: NonNullable<OrcaHooks['environmentRecipeDiagnostics']>
+    recipes: OpenKodoHooks['environmentRecipes']
+    diagnostics: NonNullable<OpenKodoHooks['environmentRecipeDiagnostics']>
     message?: string
     messageCode?: string
     messageParams?: Record<string, string | number>
@@ -25,8 +25,8 @@ export type EphemeralVmApi = {
       repoId: string
       repoName: string
       repoPath: string
-      recipes: NonNullable<OrcaHooks['environmentRecipes']>
-      diagnostics: NonNullable<OrcaHooks['environmentRecipeDiagnostics']>
+      recipes: NonNullable<OpenKodoHooks['environmentRecipes']>
+      diagnostics: NonNullable<OpenKodoHooks['environmentRecipeDiagnostics']>
     }[]
   >
   /** Credential-like variable names (never values) recipe scripts would inherit from OpenKodo. */
@@ -44,7 +44,7 @@ export type EphemeralVmApi = {
   }) => Promise<
     | {
         ok: true
-        connectionType: 'orca-server'
+        connectionType: 'openkodo-server'
         runtime: EphemeralVmProvisionedRuntimeRecord
         environment: PublicKnownRuntimeEnvironment
         stderr: string

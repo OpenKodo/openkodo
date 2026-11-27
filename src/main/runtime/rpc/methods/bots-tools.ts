@@ -26,7 +26,7 @@ import {
 import { ClaudeMirrorScrubs } from '../../../bots/bot-tool-secret-scrub'
 import { existsSync } from 'node:fs'
 import { botToolRelay } from '../../../bots/tool-relay/bot-tool-relay'
-import { getProfileUserDataPath } from '../../../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../../../openkodo-profiles/profile-storage-paths'
 import {
   botToolProblems,
   hasBotToolsCli,
@@ -51,8 +51,8 @@ import { readBotToolDetails, resolveBotToolInput } from '../../../bots/bot-tool-
 import { claudeConfigDirEnvPatch } from '../../../claude/structured/launch/claude-config-dir-pin'
 import { structuredAgentHostLaunchSources } from '../../agent-session/launch/structured-agent-launch-support'
 import { structuredAgentRuntimeMetadata } from '../../agent-session/installation/structured-agent-runtime-metadata'
-import type { OrcaRuntimeService } from '../../orca-runtime'
-import { appendOrcaChatCard } from '../../orca-chat-card'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
+import { appendOpenKodoChatCard } from '../../openkodo-chat-card'
 import { defineMethod, InvalidArgumentError } from '../core'
 import { refuseFromLook, targetBot } from './bots-tools-target'
 
@@ -60,7 +60,10 @@ const botToolSignInFolder = (botId: string): string =>
   join(getProfileUserDataPath(), 'bot-tool-sign-in', botId)
 
 /** The bot's tools on this host, with the agent CLI and account its next turn runs for Claude Code and Codex. */
-export async function botToolsHome(runtime: OrcaRuntimeService, bot: Bot): Promise<BotToolsHome> {
+export async function botToolsHome(
+  runtime: OpenKodoRuntimeService,
+  bot: Bot
+): Promise<BotToolsHome> {
   const agent = bot.agent
   return toolsHomeFor(runtime, agent, {
     botId: bot.id,
@@ -76,7 +79,7 @@ export async function botToolsHome(runtime: OrcaRuntimeService, bot: Bot): Promi
 
 /** A tools folder with the agent CLI and account a new chat runs for Claude Code and Codex. */
 export async function toolsHomeFor(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   agent: BotAgent,
   folder: BotToolsFolder
 ): Promise<BotToolsHome> {
@@ -107,13 +110,16 @@ export async function toolsHomeFor(
   }
 }
 
-const scrubs = new WeakMap<OrcaRuntimeService, ClaudeMirrorScrubs>()
+const scrubs = new WeakMap<OpenKodoRuntimeService, ClaudeMirrorScrubs>()
 
 /**
  * Moves saved values an older OpenKodo left in the bot's tools file, and in the Claude config of the
  * account its CLI runs on now, to the credential store; throws when that can't be done.
  */
-export async function scrubBotToolSecrets(runtime: OrcaRuntimeService, bot: Bot): Promise<void> {
+export async function scrubBotToolSecrets(
+  runtime: OpenKodoRuntimeService,
+  bot: Bot
+): Promise<void> {
   await readBotToolServers(botHomeFolder(bot))
   if (bot.agent !== 'claude' || !existsSync(botToolSignInFolder(bot.id))) {
     return
@@ -130,7 +136,10 @@ export async function scrubBotToolSecrets(runtime: OrcaRuntimeService, bot: Bot)
 }
 
 /** Signs a bot's tools out before the bot is deleted; a CLI that can't run doesn't stop the delete. */
-export async function forgetDeletedBotTools(runtime: OrcaRuntimeService, bot: Bot): Promise<void> {
+export async function forgetDeletedBotTools(
+  runtime: OpenKodoRuntimeService,
+  bot: Bot
+): Promise<void> {
   forgetBotToolSignIns(bot.id)
   forgetBotToolsEpoch(botHomeFolder(bot))
   await botToolsHome(runtime, bot)
@@ -212,7 +221,7 @@ export const BOT_TOOLS_METHODS = [
           tool: added,
           addedAt: Date.now()
         }
-        appendOrcaChatCard(caller, card, 'showing an added tool in its chat')
+        appendOpenKodoChatCard(caller, card, 'showing an added tool in its chat')
       }
       return { tool }
     }

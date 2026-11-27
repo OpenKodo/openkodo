@@ -13,9 +13,9 @@ import {
 } from '../../../../../../../shared/orchestration/dock/worker-dock'
 import { currentOnOlderHosts } from './worker-dock-older-host-roster'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId
-} from '../../../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId
+} from '../../../../../../../shared/agent-session/identity/openkodo-session-address'
 
 type State = {
   snapshot: WorkerDockSnapshot | null
@@ -240,8 +240,8 @@ export function useWorkerDockFeed(
   )
   const key = `${target.kind === 'local' ? 'local' : target.environmentId}\0${sessionId}\0${presence?.revision.split(':')[0] ?? ''}`
   let feed = feeds.get(key)
-  if (!feed && presence && isOrcaSessionId(sessionId)) {
-    feed = new WorkerDockFeed(target, formatOrcaSessionAddress(sessionId))
+  if (!feed && presence && isOpenKodoSessionId(sessionId)) {
+    feed = new WorkerDockFeed(target, formatOpenKodoSessionAddress(sessionId))
     feeds.set(key, feed)
     if (feeds.size > 32) {
       for (const [cachedKey, cached] of feeds) {
@@ -280,7 +280,7 @@ export function useWorkerDockColdSeed(
 ) {
   const key = `${target.kind === 'local' ? 'local' : target.environmentId}\0${sessionId}`
   useEffect(() => {
-    if (!visible || presence || !isOrcaSessionId(sessionId) || seededSources.has(key)) {
+    if (!visible || presence || !isOpenKodoSessionId(sessionId) || seededSources.has(key)) {
       return
     }
     let stop: (() => void) | undefined
@@ -294,7 +294,7 @@ export function useWorkerDockColdSeed(
       }
       seedingSources.add(key)
       void callRuntimeRpc(target, 'orchestration.workerDockRead', {
-        party: formatOrcaSessionAddress(sessionId),
+        party: formatOpenKodoSessionAddress(sessionId),
         seed: true,
         includeRows: false,
         currentOnly: true

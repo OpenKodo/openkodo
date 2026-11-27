@@ -1,5 +1,5 @@
 import { FLOATING_TERMINAL_WORKTREE_ID } from '../../../shared/workspace/identity/floating-workspace-id'
-import { isOrcaWindowForegroundFocused } from '@/attention/orca-window-foreground-focus'
+import { isOpenKodoWindowForegroundFocused } from '@/attention/openkodo-window-foreground-focus'
 import { isStructuredTab } from '../../../shared/agent-session/view/structured-agent-session-tab'
 import type {
   Tab,
@@ -87,7 +87,7 @@ export function onScreenWorkspaceIds(state: AutoAckTargetState): string[] {
 
 export function isWorkspaceOnScreen(state: AutoAckTargetState, workspaceId: string): boolean {
   return (
-    isOrcaWindowForegroundFocused() &&
+    isOpenKodoWindowForegroundFocused() &&
     isPresenceConfirmed() &&
     onScreenWorkspaceIds(state).includes(workspaceId)
   )
@@ -101,7 +101,7 @@ export function isTabOnScreen(
   surfaceKind: AutoAckTabTarget['surfaceKind']
 ): boolean {
   return (
-    isOrcaWindowForegroundFocused() &&
+    isOpenKodoWindowForegroundFocused() &&
     isPresenceConfirmed() &&
     resolveAutoAckTabTargets(state).some(
       (target) =>

@@ -20,7 +20,7 @@ export async function checkGoogleClientKey(
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
         grant_type: 'authorization_code',
-        code: 'orca-key-check',
+        code: 'openkodo-key-check',
         redirect_uri: 'http://127.0.0.1',
         client_id: client.clientId,
         client_secret: client.clientSecret

@@ -6,25 +6,25 @@ import DeleteWorktreeDialog from './DeleteWorktreeDialog'
 import { toWorktreeDeleteIdentities } from './worktree-delete-request'
 
 const parentRepo: Repo = {
-  id: 'orca',
-  path: '/projects/orca',
-  displayName: 'orca',
+  id: 'openkodo',
+  path: '/projects/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }
 
 const childRepo: Repo = {
   ...parentRepo,
-  id: 'orca-cloud',
-  path: '/projects/orca-cloud',
-  displayName: 'orca-cloud'
+  id: 'openkodo-cloud',
+  path: '/projects/openkodo-cloud',
+  displayName: 'openkodo-cloud'
 }
 
 const parent: Worktree = {
-  id: 'orca::/workspaces/orca/enterprise-control-plane',
+  id: 'openkodo::/workspaces/openkodo/enterprise-control-plane',
   instanceId: 'parent-instance',
   repoId: parentRepo.id,
-  path: '/workspaces/orca/enterprise-control-plane',
+  path: '/workspaces/openkodo/enterprise-control-plane',
   displayName: 'Enterprise Control Plane',
   head: 'abc123',
   branch: 'enterprise-control-plane',
@@ -52,7 +52,9 @@ const childPaths = [
 ]
 
 function reviewFixture(nested = false) {
-  const childPath = nested ? `${parent.path}/Team-Policies` : '/workspaces/orca-cloud/Team-Policies'
+  const childPath = nested
+    ? `${parent.path}/Team-Policies`
+    : '/workspaces/openkodo-cloud/Team-Policies'
   const child: Worktree = {
     ...parent,
     id: `${childRepo.id}::${childPath}`,

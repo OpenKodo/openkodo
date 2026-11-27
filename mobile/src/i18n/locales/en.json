@@ -285,7 +285,7 @@
       "updateStepsServiceManager": "Update it with its package manager or service manager.",
       "updateStepsSourceCheckout": "Update it from its source checkout.",
       "updateStepsServer": "Update OpenKodo on the server, then restart it.",
-      "orcaVersion": "OpenKodo version"
+      "openkodoVersion": "OpenKodo version"
     }
   },
   "app": {
@@ -3138,10 +3138,10 @@
       "diskFull": "The disk on the computer running this chat is full.",
       "freeDiskSpace": "Free up space on that disk, then try again.",
       "savedInOtherFolder": "This conversation was saved in another folder.",
-      "savedByNewerOrca": "Chats were saved by a newer OpenKodo.",
-      "updateOrcaToKeepUsing": "Update OpenKodo to keep using them.",
-      "chatSavedByNewerOrca": "This chat was saved by a newer OpenKodo.",
-      "updateOrcaToOpenChat": "Update OpenKodo to open it.",
+      "savedByNewerOpenKodo": "Chats were saved by a newer OpenKodo.",
+      "updateOpenKodoToKeepUsing": "Update OpenKodo to keep using them.",
+      "chatSavedByNewerOpenKodo": "This chat was saved by a newer OpenKodo.",
+      "updateOpenKodoToOpenChat": "Update OpenKodo to open it.",
       "unsupported": "This needs a newer OpenKodo on the computer running this chat. Update OpenKodo there, then try again.",
       "notAvailable": "This isn't available in this chat.",
       "cannotRunHere": "OpenKodo can't run this agent in a chat here.",
@@ -3271,7 +3271,7 @@
       "outsideWorkspace": "This file is outside the workspace. Open it on desktop to view it."
     },
     "linkActionSheet": {
-      "openInOrca": "Open in OpenKodo browser",
+      "openInOpenKodo": "Open in OpenKodo browser",
       "openInBrowser": "Open in system browser",
       "copyLink": "Copy link"
     },
@@ -3337,7 +3337,7 @@
       "default": "Default",
       "workspaceDefault": "Workspace default"
     },
-    "orcaCommands": {
+    "openkodoCommands": {
       "desktopOnly": "Available in the desktop app"
     }
   },
@@ -3616,7 +3616,7 @@
       "continuedOutside": "Continued outside this chat.",
       "continuedOutsideRewound": "Continued outside this chat. Earlier replies above are no longer in this conversation's history."
     },
-    "orcaStop": {
+    "openkodoStop": {
       "update": "OpenKodo on {{machine}} restarted for an update while this response was in progress.",
       "quit": "OpenKodo on {{machine}} was closed while this response was in progress.",
       "crash": "OpenKodo on {{machine}} stopped unexpectedly while this response was in progress.",
@@ -5177,7 +5177,7 @@
       "reply": "Reply"
     },
     "projectDetailDrawer": {
-      "repositoryNotInOrca": "Repository not in OpenKodo",
+      "repositoryNotInOpenKodo": "Repository not in OpenKodo",
       "addRepositoryFromDesktop": "{{repository}} is not added to OpenKodo. Add this repository from the desktop app, then refresh mobile Tasks.",
       "openInGitHub": "Open in GitHub",
       "copyRepository": "Copy repository",
@@ -5522,7 +5522,7 @@
   },
   "bots": {
     "link": {
-      "updateOrca": "Update OpenKodo",
+      "updateOpenKodo": "Update OpenKodo",
       "openRequestFailed": "Couldn’t open request",
       "botNotFound": "Bot not found",
       "openOn": "Open {{name}} On",
@@ -5603,7 +5603,7 @@
       "signedOut": "Signed out of OpenKodo",
       "computerFoot": "Its connectors, tools and files live on {{host}}.",
       "computerDetail": "Runs this bot’s chats, tools and automations",
-      "orcaAccount": "OpenKodo account",
+      "openkodoAccount": "OpenKodo account",
       "folder": "Folder",
       "copyPath": "Copy path",
       "pathCopied": "Path copied",
@@ -5859,7 +5859,7 @@
       "title": "Bot templates",
       "blank": "Blank bot",
       "blankLine": "Tell it what it’s for in its first chat.",
-      "byOrca": "{{category}} · by OpenKodo",
+      "byOpenKodo": "{{category}} · by OpenKodo",
       "useTemplate": "Use template…",
       "backToTemplates": "Back to templates",
       "firstChat": "What it does first",
@@ -6311,7 +6311,7 @@
       "showPausedAction": "Show paused"
     },
     "list": {
-      "updateOrcaOn": "Update OpenKodo on {{host}}",
+      "updateOpenKodoOn": "Update OpenKodo on {{host}}",
       "cantReach": "Can’t reach {{host}}. Its bots show when it’s back.",
       "noBotsYet": "No bots yet.",
       "offline": "Offline",
@@ -7258,8 +7258,8 @@
       "postAs": {
         "title": "Post as",
         "changeOn": "Change it on {{host}}",
-        "orcaUser": "OpenKodo user",
-        "viaOrca": "{{name}} (via OpenKodo)",
+        "openkodoUser": "OpenKodo user",
+        "viaOpenKodo": "{{name}} (via OpenKodo)",
         "sample": "Ship it after that",
         "linePlain": "When you reply to a Slack thread from OpenKodo, it posts as {{name}}.",
         "approve": "Approve in Slack",
@@ -7811,8 +7811,8 @@
         "description": "Choose how {{bot}} signs in to your Gmail, Calendar and Drive.",
         "self": "Self hosted",
         "selfNote": "Your own Google app.",
-        "orca": "OpenKodo hosted",
-        "orcaNote": "Sign in with Google.",
+        "openkodo": "OpenKodo hosted",
+        "openkodoNote": "Sign in with Google.",
         "soon": "Soon"
       },
       "importFromTeam": "Import a setup file from your team",
@@ -8616,8 +8616,8 @@
     "signIn": "Sign in",
     "projectsOnly": "{{projects}} only",
     "moreFor": "More for {{name}}",
-    "moveToOrca": "Move to OpenKodo",
-    "copyToOrca": "Copy to OpenKodo",
+    "moveToOpenKodo": "Move to OpenKodo",
+    "copyToOpenKodo": "Copy to OpenKodo",
     "signInAgain": "Sign in again",
     "signOut": "Sign out",
     "workspaces": "Workspaces",

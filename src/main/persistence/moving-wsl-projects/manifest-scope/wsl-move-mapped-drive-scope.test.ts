@@ -9,7 +9,7 @@ import {
 import { createWslMoveStringNormalizer } from './wsl-move-canonical-form'
 import { createUncToLinuxPathRewriter } from './wsl-move-path-rewriter'
 import { collectWslMoveScope } from './wsl-move-scope'
-import { rewriteOrcadMigrationWorktreeId } from '../../migrating-orcad-catalog/path-rewrite/orcad-migration-path-rewrite'
+import { rewriteOpenkododMigrationWorktreeId } from '../../migrating-openkodod-catalog/path-rewrite/openkodod-migration-path-rewrite'
 
 const W = { letter: 'W', share: '\\\\wsl.localhost\\Ubuntu' }
 
@@ -86,7 +86,7 @@ describe('the move path rewriter with mapped drives', () => {
   const rewriter = createUncToLinuxPathRewriter('Ubuntu', [W])
 
   it('rewrites W: worktree ids, paths and file URLs to Linux', () => {
-    expect(rewriteOrcadMigrationWorktreeId('repoId::W:\\home\\me\\App', rewriter)).toBe(
+    expect(rewriteOpenkododMigrationWorktreeId('repoId::W:\\home\\me\\App', rewriter)).toBe(
       'repoId::/home/me/App'
     )
     expect(rewriter.path('W:\\home\\me\\App\\src', 'maybe-absolute')).toBe('/home/me/App/src')

@@ -174,18 +174,18 @@ export function formatMessageBannerWithContent(
   const payload = msg.payload ? appendField(msg.payload, '[Payload: ', ']') : undefined
 
   if (authority === 'current' && options.followUp) {
-    lines.push(`[${formatReportFollowUpLine(options.followUp, options.cliCommand ?? 'orca')}]`)
+    lines.push(`[${formatReportFollowUpLine(options.followUp, options.cliCommand ?? 'openkodo')}]`)
   } else if (authority === 'current') {
     const explicitFrom =
       msg.to_handle.startsWith('run:') || msg.to_handle.startsWith('dispatch:')
         ? ''
         : ` --from ${msg.to_handle}`
     lines.push(
-      `[Reply: ${options.cliCommand ?? 'orca'} orchestration reply --id ${msg.id}${explicitFrom} --body "..."]`
+      `[Reply: ${options.cliCommand ?? 'openkodo'} orchestration reply --id ${msg.id}${explicitFrom} --body "..."]`
     )
   }
   if (authority === 'current' && options.reportItem) {
-    lines.push(`[${formatBotItemReportHint(options.reportItem, options.cliCommand ?? 'orca')}]`)
+    lines.push(`[${formatBotItemReportHint(options.reportItem, options.cliCommand ?? 'openkodo')}]`)
   }
   lines.push(SEPARATOR)
 
@@ -213,7 +213,7 @@ export function orchestrationCheckRunFlag(mailboxHandle: string | undefined): st
 export function formatMessagePointer(
   count: number,
   mailboxHandle?: string,
-  cliCommand: OrchestrationCliCommand = 'orca',
+  cliCommand: OrchestrationCliCommand = 'openkodo',
   heldDeliveryId?: string,
   terminalHandle?: string,
   /** Named so a check that comes back empty is still traceable to the mail it was woken for. */

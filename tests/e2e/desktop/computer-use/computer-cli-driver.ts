@@ -6,42 +6,42 @@ import { promisify } from 'node:util'
 import { createElectronHomeIsolation } from '../electron-fixtures/electron-home-isolation'
 
 const execFileAsync = promisify(execFile)
-const RUNTIME_METADATA_FILE = 'orca-runtime.json'
-let orcaDevUserDataPath: string | null = null
-let orcaServeProcess: ChildProcess | null = null
-let orcaServeStdout = ''
-let orcaServeStderr = ''
+const RUNTIME_METADATA_FILE = 'openkodo-runtime.json'
+let openkodoDevUserDataPath: string | null = null
+let openkodoServeProcess: ChildProcess | null = null
+let openkodoServeStdout = ''
+let openkodoServeStderr = ''
 
 export type CliResult = {
   stdout: string
   stderr: string
 }
 
-type RunOrcaCliOptions = {
+type RunOpenKodoCliOptions = {
   retryMissingRuntimeMetadata?: boolean
 }
 
-export async function runOrcaCli(
+export async function runOpenKodoCli(
   args: string[],
-  options: RunOrcaCliOptions = {}
+  options: RunOpenKodoCliOptions = {}
 ): Promise<CliResult> {
   try {
-    return await runOrcaCliOnce(args)
+    return await runOpenKodoCliOnce(args)
   } catch (error) {
     if (
       options.retryMissingRuntimeMetadata !== false &&
       isMissingRuntimeMetadataError(args, error)
     ) {
       // Windows can lose the dev runtime while launching the fixture app; reopen once before the desktop action.
-      await ensureOrcaRuntimeLaunched()
-      return await runOrcaCliOnce(args)
+      await ensureOpenKodoRuntimeLaunched()
+      return await runOpenKodoCliOnce(args)
     }
     throw error
   }
 }
 
-async function runOrcaCliOnce(args: string[]): Promise<CliResult> {
-  const devCli = join(process.cwd(), 'config/scripts/development/launch/orca-dev.mjs')
+async function runOpenKodoCliOnce(args: string[]): Promise<CliResult> {
+  const devCli = join(process.cwd(), 'config/scripts/development/launch/openkodo-dev.mjs')
   const command = process.env.OPENKODO_COMPUTER_CLI ?? process.execPath
   const cliArgs = process.env.OPENKODO_COMPUTER_CLI ? args : [devCli, ...args]
   const env = process.env.OPENKODO_COMPUTER_CLI
@@ -62,21 +62,21 @@ async function runOrcaCliOnce(args: string[]): Promise<CliResult> {
   }
 }
 
-export async function ensureOrcaRuntimeLaunched(): Promise<void> {
+export async function ensureOpenKodoRuntimeLaunched(): Promise<void> {
   if (!process.env.OPENKODO_COMPUTER_CLI && process.platform === 'win32') {
-    await ensureOrcaRuntimeServed()
+    await ensureOpenKodoRuntimeServed()
     return
   }
-  await runOrcaCli(['open', '--json'], { retryMissingRuntimeMetadata: false })
-  await waitForOrcaRuntimeReady()
+  await runOpenKodoCli(['open', '--json'], { retryMissingRuntimeMetadata: false })
+  await waitForOpenKodoRuntimeReady()
 }
 
-export async function stopOrcaRuntime(): Promise<void> {
-  const processToStop = orcaServeProcess
+export async function stopOpenKodoRuntime(): Promise<void> {
+  const processToStop = openkodoServeProcess
   if (!processToStop?.pid) {
     return
   }
-  orcaServeProcess = null
+  openkodoServeProcess = null
   if (process.platform === 'win32') {
     try {
       await execFileAsync('taskkill.exe', ['/PID', String(processToStop.pid), '/T', '/F'])
@@ -92,16 +92,16 @@ export function parseJsonOutput<T>(stdout: string): T {
   return JSON.parse(stdout) as T
 }
 
-async function getComputerE2eOrcaDevUserDataPath(): Promise<string> {
-  if (!orcaDevUserDataPath) {
+async function getComputerE2eOpenKodoDevUserDataPath(): Promise<string> {
+  if (!openkodoDevUserDataPath) {
     // Use a fresh profile so a retained dev runtime cannot execute stale provider code.
-    orcaDevUserDataPath = await mkdtemp(join(tmpdir(), 'orca-computer-runtime-'))
+    openkodoDevUserDataPath = await mkdtemp(join(tmpdir(), 'openkodo-computer-runtime-'))
   }
-  return orcaDevUserDataPath
+  return openkodoDevUserDataPath
 }
 
-async function waitForOrcaRuntimeReady(): Promise<void> {
-  const userDataPath = await getComputerE2eOrcaDevUserDataPath()
+async function waitForOpenKodoRuntimeReady(): Promise<void> {
+  const userDataPath = await getComputerE2eOpenKodoDevUserDataPath()
   const metadataPath = join(userDataPath, RUNTIME_METADATA_FILE)
   const deadline = Date.now() + 15000
   let lastError: unknown = null
@@ -111,7 +111,9 @@ async function waitForOrcaRuntimeReady(): Promise<void> {
       await access(metadataPath)
       const status = parseJsonOutput<{
         result: { runtime: { reachable: boolean } }
-      }>((await runOrcaCli(['status', '--json'], { retryMissingRuntimeMetadata: false })).stdout)
+      }>(
+        (await runOpenKodoCli(['status', '--json'], { retryMissingRuntimeMetadata: false })).stdout
+      )
       if (status.result.runtime.reachable) {
         return
       }
@@ -123,47 +125,47 @@ async function waitForOrcaRuntimeReady(): Promise<void> {
 
   const detail = [
     lastError instanceof Error ? `Last error: ${lastError.message}` : null,
-    orcaServeStdout.trim() ? `serve stdout: ${orcaServeStdout.trim()}` : null,
-    orcaServeStderr.trim() ? `serve stderr: ${orcaServeStderr.trim()}` : null
+    openkodoServeStdout.trim() ? `serve stdout: ${openkodoServeStdout.trim()}` : null,
+    openkodoServeStderr.trim() ? `serve stderr: ${openkodoServeStderr.trim()}` : null
   ]
     .filter(Boolean)
     .join(' ')
-  throw new Error(`Orca runtime metadata was not ready at ${metadataPath}.${detail}`)
+  throw new Error(`OpenKodo runtime metadata was not ready at ${metadataPath}.${detail}`)
 }
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-async function ensureOrcaRuntimeServed(): Promise<void> {
-  if (!orcaServeProcess || orcaServeProcess.exitCode !== null) {
-    const devCli = join(process.cwd(), 'config/scripts/development/launch/orca-dev.mjs')
+async function ensureOpenKodoRuntimeServed(): Promise<void> {
+  if (!openkodoServeProcess || openkodoServeProcess.exitCode !== null) {
+    const devCli = join(process.cwd(), 'config/scripts/development/launch/openkodo-dev.mjs')
     const env = await createComputerE2ERuntimeEnv()
-    orcaServeStdout = ''
-    orcaServeStderr = ''
-    orcaServeProcess = spawn(process.execPath, [devCli, 'serve', '--no-pairing', '--json'], {
+    openkodoServeStdout = ''
+    openkodoServeStderr = ''
+    openkodoServeProcess = spawn(process.execPath, [devCli, 'serve', '--no-pairing', '--json'], {
       env,
       windowsHide: true
     })
-    orcaServeProcess.stdout?.on('data', (chunk) => {
-      orcaServeStdout += String(chunk)
+    openkodoServeProcess.stdout?.on('data', (chunk) => {
+      openkodoServeStdout += String(chunk)
     })
-    orcaServeProcess.stderr?.on('data', (chunk) => {
-      orcaServeStderr += String(chunk)
+    openkodoServeProcess.stderr?.on('data', (chunk) => {
+      openkodoServeStderr += String(chunk)
     })
-    orcaServeProcess.once('exit', () => {
-      orcaServeProcess = null
+    openkodoServeProcess.once('exit', () => {
+      openkodoServeProcess = null
     })
     process.once('exit', () => {
-      orcaServeProcess?.kill()
+      openkodoServeProcess?.kill()
     })
   }
-  await waitForOrcaRuntimeReady()
+  await waitForOpenKodoRuntimeReady()
 }
 
 async function createComputerE2ERuntimeEnv(): Promise<NodeJS.ProcessEnv> {
   const userDataDir =
-    process.env.OPENKODO_DEV_USER_DATA_PATH ?? (await getComputerE2eOrcaDevUserDataPath())
+    process.env.OPENKODO_DEV_USER_DATA_PATH ?? (await getComputerE2eOpenKodoDevUserDataPath())
   // Strip ELECTRON_RUN_AS_NODE or the Electron child runs as plain Node.
   const { ELECTRON_RUN_AS_NODE: _electronRunAsNode, ...inheritedEnv } = process.env
   void _electronRunAsNode
@@ -190,6 +192,6 @@ function isMissingRuntimeMetadataError(args: string[], error: unknown): boolean 
   const message = String((error as { message?: unknown }).message)
   return (
     message.includes('"code": "runtime_unavailable"') &&
-    message.includes('Could not read Orca runtime metadata')
+    message.includes('Could not read OpenKodo runtime metadata')
   )
 }

@@ -1,6 +1,6 @@
 // A request bound for a chat whose last turn stopped at a usage limit queues there, and the sender is
 // told why it waits. After any other failure the request runs as the chat's next turn.
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { chatHoldsAgentMail } from './bot-chat-mail-hold'
 import { botRequestSentNext, type BotRequestRecord } from './bot-request-view'
 
@@ -9,7 +9,7 @@ export type HeldChat = { chat: string; home: boolean }
 
 /** The chat a request goes to, when a usage-limited turn holds it; null when none does. */
 export async function failureHeldChat(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   chat: string | null,
   home: boolean
 ): Promise<HeldChat | null> {

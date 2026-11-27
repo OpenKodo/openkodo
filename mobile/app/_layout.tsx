@@ -15,9 +15,9 @@ import { colors } from '../src/theme/mobile-theme'
 import { startMobileAppearance } from '../src/theme/mobile-appearance'
 import { themedStyleSheet } from '../src/theme/themed-styles'
 import { useMobileColorScheme } from '../src/theme/use-mobile-color-scheme'
-import { OrcaLogo } from '../src/components/icons/OrcaLogo'
+import { OpenKodoLogo } from '../src/components/icons/OpenKodoLogo'
 import { RpcClientProvider } from '../src/transport/connection/client-context'
-import { OrcaQueryProvider } from '../src/query/orca-query-provider'
+import { OpenKodoQueryProvider } from '../src/query/openkodo-query-provider'
 import { getNotificationNavigationTarget } from '../src/notifications/navigation/notification-routing'
 import { useOpenNotificationRoute } from '../src/notifications/navigation/use-open-notification-route'
 import {
@@ -51,7 +51,7 @@ const appearanceReady = startMobileAppearance()
 // Likewise the UI language: the saved choice and its catalog load under the splash.
 const languageReady = startMobileUiLanguage()
 
-// Create orca-desktop channel at boot: background FCM can arrive before socket subscription, and Android drops unknown-channel pushes.
+// Create openkodo-desktop channel at boot: background FCM can arrive before socket subscription, and Android drops unknown-channel pushes.
 void ensureDesktopNotificationChannel().catch(() => {})
 // Channel names show in Android settings; rename them in the active language.
 subscribeMobileUiLanguage(() => {
@@ -194,7 +194,7 @@ export default function RootLayout() {
 
   return (
     <RpcClientProvider>
-      <OrcaQueryProvider>
+      <OpenKodoQueryProvider>
         <View style={styles.root} onLayout={onNavigatorLayout}>
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
           <SideRailProvider>
@@ -213,7 +213,7 @@ export default function RootLayout() {
                   name="index"
                   options={{
                     headerShown: false,
-                    headerTitle: () => <OrcaLogo size={22} />
+                    headerTitle: () => <OpenKodoLogo size={22} />
                   }}
                 />
                 <Stack.Screen name="pair-scan" options={{ headerShown: false }} />
@@ -251,7 +251,7 @@ export default function RootLayout() {
           </SideRailProvider>
           {isRetiredGithubAndroidApp ? <AppMoveScreen /> : null}
         </View>
-      </OrcaQueryProvider>
+      </OpenKodoQueryProvider>
     </RpcClientProvider>
   )
 }

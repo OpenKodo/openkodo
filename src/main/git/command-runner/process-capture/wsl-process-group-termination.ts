@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import type { ProcessTerminationBarrier } from '@orca/process-host/process-spec'
+import type { ProcessTerminationBarrier } from '@openkodo/process-host/process-spec'
 import { quotePosixShell } from '../../../../shared/shell/launch/shell-argument-quoting'
 import { runWslProcess } from '../../../wsl/execution/wsl-runner'
 import {
@@ -53,12 +53,12 @@ export function createWslProcessGroupTermination(distro: string): WslProcessGrou
       }
     }
     const script = [
-      '_orca_group=$1',
-      `kill -${signal} "-$_orca_group" 2>/dev/null || :`,
-      '_orca_attempt=0',
-      'while kill -0 "-$_orca_group" 2>/dev/null; do',
-      `  [ "$_orca_attempt" -ge ${GUEST_TERMINATION_ATTEMPTS} ] && exit 1`,
-      '  _orca_attempt=$((_orca_attempt + 1))',
+      '_openkodo_group=$1',
+      `kill -${signal} "-$_openkodo_group" 2>/dev/null || :`,
+      '_openkodo_attempt=0',
+      'while kill -0 "-$_openkodo_group" 2>/dev/null; do',
+      `  [ "$_openkodo_attempt" -ge ${GUEST_TERMINATION_ATTEMPTS} ] && exit 1`,
+      '  _openkodo_attempt=$((_openkodo_attempt + 1))',
       `  sleep ${GUEST_TERMINATION_INTERVAL_SECONDS}`,
       'done'
     ].join('\n')
@@ -86,11 +86,11 @@ export function createWslProcessGroupTermination(distro: string): WslProcessGrou
       // BusyBox setsid lacks --wait; without a new session, report no group to avoid killing another owner.
       const script = [
         'if setsid --wait true 2>/dev/null; then',
-        `  exec setsid --wait sh -c ${quotePosixShell(reportGroup)} orca-wsl-process-group "$@"`,
+        `  exec setsid --wait sh -c ${quotePosixShell(reportGroup)} openkodo-wsl-process-group "$@"`,
         'fi',
         'exec "$@"'
       ].join('\n')
-      return ['sh', '-c', script, 'orca-wsl-process-group', ...args]
+      return ['sh', '-c', script, 'openkodo-wsl-process-group', ...args]
     },
     stripControlOutput: (stderr) => stderr.replace(new RegExp(`${marker}\\d+\\r?\\n?`, 'g'), '')
   }

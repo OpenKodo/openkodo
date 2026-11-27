@@ -186,7 +186,7 @@ export function RemoteServerFields({
     >
       <div className="space-y-1.5">
         <Label htmlFor="add-server-name">
-          {t('auto.components.sidebar.AddRemoteHostDialog.nameInOrca', 'Name in OpenKodo')}
+          {t('auto.components.sidebar.AddRemoteHostDialog.nameInOpenKodo', 'Name in OpenKodo')}
         </Label>
         <Input
           id="add-server-name"

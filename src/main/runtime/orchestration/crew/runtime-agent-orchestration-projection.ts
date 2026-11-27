@@ -107,7 +107,9 @@ export class RuntimeAgentOrchestrationProjection {
             ...new Set([
               ...terminals.keys(),
               ...[...source.rows()].flatMap((row) =>
-                row.assignee_orca_session_id ? [scope.resolve(row.assignee_orca_session_id)] : []
+                row.assignee_openkodo_session_id
+                  ? [scope.resolve(row.assignee_openkodo_session_id)]
+                  : []
               )
             ])
           ].flatMap((pane) => this.deps.getAgentStatusForPaneKey!(pane, withoutDispatchBinding))

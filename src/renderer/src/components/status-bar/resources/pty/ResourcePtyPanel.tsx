@@ -186,7 +186,7 @@ export function ResourcePtyPanel({
         )}
         {inventory.observedAt !== null && sessions.length === 0 && (
           <p className="p-3 text-xs text-muted-foreground">
-            {t('resourceManager.pty.noLocalOrcaPtys', 'No local OpenKodo PTYs')}
+            {t('resourceManager.pty.noLocalOpenKodoPtys', 'No local OpenKodo PTYs')}
           </p>
         )}
         <ResourcePtyList

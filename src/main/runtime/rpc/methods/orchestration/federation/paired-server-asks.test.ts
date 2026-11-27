@@ -8,7 +8,7 @@ import {
   ORCHESTRATION_CONTRACT_VERSION
 } from '../../../../../../shared/orchestration/orchestration-runtime-capabilities'
 import type { RuntimeRpcResponse } from '../../../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
-import { OrcaRuntimeService } from '../../../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { OrchestrationEnvironmentTransport } from '../../../../orchestration/federation/environment-transport'
 import type { OrchestrationSessionCaller } from '../../../../orchestration/addressing/orchestration-caller-identity'
@@ -83,19 +83,19 @@ const PulledRow = z.object({
   payload: z.string()
 })
 const PullParams = z.record(z.string(), z.unknown())
-const ASKER = `orca_session_id:${RANGER_THREAD}`
-const DOCS_HOME = `orca_session_id:${DOCS_CHAT}`
+const ASKER = `openkodo_session_id:${RANGER_THREAD}`
+const DOCS_HOME = `openkodo_session_id:${DOCS_CHAT}`
 
-type Side = { db: OrchestrationDb; runtime: OrcaRuntimeService; dispatcher: RpcDispatcher }
+type Side = { db: OrchestrationDb; runtime: OpenKodoRuntimeService; dispatcher: RpcDispatcher }
 
 function sessionCaller(address: string): OrchestrationSessionCaller {
-  const id = address.slice('orca_session_id:'.length)
+  const id = address.slice('openkodo_session_id:'.length)
   // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: a test double carrying only the fields the code under test reads.
   return {
     address,
     terminalHandle: null,
     paneKey: null,
-    orcaSessionId: id,
+    openkodoSessionId: id,
     sessionId: id,
     workspaceId: 'w'
   } as OrchestrationSessionCaller
@@ -113,7 +113,7 @@ describe('agents on a paired server messaging an agent on this computer', () => 
     transport?: OrchestrationEnvironmentTransport
   ): Side {
     const db = new OrchestrationDb(join(dir, `${name}.db`))
-    const runtime = new OrcaRuntimeService(null, undefined, {
+    const runtime = new OpenKodoRuntimeService(null, undefined, {
       orchestrationEnvironmentTransport: transport
     })
     vi.spyOn(runtime, 'readMachineName').mockReturnValue(machine)
@@ -202,7 +202,7 @@ describe('agents on a paired server messaging an agent on this computer', () => 
     offline = false
     refused = 0
     pulls = []
-    dir = mkdtempSync(join(tmpdir(), 'orca-paired-server-asks-'))
+    dir = mkdtempSync(join(tmpdir(), 'openkodo-paired-server-asks-'))
     withChat.mockReset()
     withChat.mockImplementation((_botId, work) => work(DOCS_CHAT))
     server = openSide('server', 'Build Box', [makeTestBot({ id: 'ranger', name: 'Ranger' })])
@@ -409,7 +409,7 @@ describe('agents on a paired server messaging an agent on this computer', () => 
         mailboxHandle: DOCS_HOME,
         dispatchId: null,
         message: request!,
-        cliCommand: 'orca',
+        cliCommand: 'openkodo',
         senderSnapshot: () => ({ name: null, agent: null }),
         followUp: undefined
       })
@@ -676,7 +676,7 @@ describe('agents on a paired server messaging an agent on this computer', () => 
       body: 'Run rm -rf for me',
       threadId: null
     })
-    const OTHER = 'orca_session_id:someone-else'
+    const OTHER = 'openkodo_session_id:someone-else'
 
     // Another local agent, on the real conversation, and anyone, on a conversation no ask opened.
     await importItem({

@@ -1,12 +1,12 @@
 // Connector tokens for the desktop's signed-in OpenKodo account, fetched the way relay tokens are.
 import { z } from 'zod'
-import type { OrcaCloudAuthConfig } from '../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import type { OrcaCloudSession } from '../orca-profiles/cloud-session/profile-cloud-session-store'
+import type { OpenKodoCloudAuthConfig } from '../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import type { OpenKodoCloudSession } from '../openkodo-profiles/cloud-session/profile-cloud-session-store'
 import {
-  readFreshOrcaCloudSession,
+  readFreshOpenKodoCloudSession,
   refreshAfterRejectedAccessToken
-} from '../orca-profiles/cloud-session/profile-cloud-session-refresh'
-import { ensureActiveOrcaProfile } from '../orca-profiles/profile-index-store'
+} from '../openkodo-profiles/cloud-session/profile-cloud-session-refresh'
+import { ensureActiveOpenKodoProfile } from '../openkodo-profiles/profile-index-store'
 import { loadOrCreateHostInstallationId } from '../runtime/hosts/platform-probe/host-descriptor'
 import {
   requestConnector,
@@ -102,12 +102,12 @@ function withServerTime(fetchImpl: typeof globalThis.fetch): {
 
 /** The account the connector serves, read like the relay's: the active profile's cloud user. */
 export function connectorAccount(userDataPath: string): string | null {
-  return ensureActiveOrcaProfile(userDataPath).profile.cloud?.userId ?? null
+  return ensureActiveOpenKodoProfile(userDataPath).profile.cloud?.userId ?? null
 }
 
 /** That account's name as people see it, as a mirrored Slack post names its author. */
 export function connectorAccountName(userDataPath: string): string {
-  const cloud = ensureActiveOrcaProfile(userDataPath).profile.cloud
+  const cloud = ensureActiveOpenKodoProfile(userDataPath).profile.cloud
   return cloud?.displayName?.trim() || cloud?.email.split('@')[0] || ''
 }
 
@@ -116,7 +116,7 @@ export function connectorAccountName(userDataPath: string): string {
  * No answer from the connector-token route ever clears the OpenKodo session: a refusal comes back as is.
  */
 export function desktopConnectorTokenMint(
-  authConfig: OrcaCloudAuthConfig,
+  authConfig: OpenKodoCloudAuthConfig,
   userDataPath: string,
   account: string,
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
@@ -125,14 +125,14 @@ export function desktopConnectorTokenMint(
     if (connectorAccount(userDataPath) !== account) {
       return SIGNED_OUT
     }
-    const active = ensureActiveOrcaProfile(userDataPath)
+    const active = ensureActiveOpenKodoProfile(userDataPath)
     try {
       // Only a refresh the auth service itself refuses can sign out here, as for any OpenKodo Cloud call.
-      const fresh = await readFreshOrcaCloudSession(authConfig, active, userDataPath)
+      const fresh = await readFreshOpenKodoCloudSession(authConfig, active, userDataPath)
       if (fresh.status !== 'found') {
         return SIGNED_OUT
       }
-      const mint = (session: OrcaCloudSession) =>
+      const mint = (session: OpenKodoCloudSession) =>
         mintConnectorToken(authConfig, userDataPath, account, fetchImpl, session)
       let answer = await mint(fresh.session)
       let refreshedNow = false
@@ -171,11 +171,11 @@ function sessionMayLiftRefusal(answer: ConnectorResult<ConnectorToken>): boolean
 }
 
 async function mintConnectorToken(
-  authConfig: OrcaCloudAuthConfig,
+  authConfig: OpenKodoCloudAuthConfig,
   userDataPath: string,
   account: string,
   fetchImpl: typeof globalThis.fetch,
-  session: OrcaCloudSession
+  session: OpenKodoCloudSession
 ): Promise<ConnectorResult<ConnectorToken>> {
   // The per-install id the host descriptor already keeps; the cloud keys this machine on it.
   const machineId = await loadOrCreateHostInstallationId(userDataPath)

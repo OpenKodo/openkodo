@@ -3,12 +3,12 @@ import {
   renderPluginHostMethodMembers
 } from '../authoring/plugin-host-typings'
 
-/** Markers around the generated region of resources/plugins/declarative/orca.d.ts. */
+/** Markers around the generated region of resources/plugins/declarative/openkodo.d.ts. */
 export const OPENKODO_HOST_TYPINGS_BEGIN = '  // <generated: host methods, from plugin-host-api.ts>'
 export const OPENKODO_HOST_TYPINGS_END = '  // </generated>'
 
-/** The panel's host methods as `HostMethods`, from the same generator as `.orca/types/orca-host`. */
-export function renderOrcaHostTypings(): string {
+/** The panel's host methods as `HostMethods`, from the same generator as `.openkodo/types/openkodo-host`. */
+export function renderOpenKodoHostTypings(): string {
   return [
     OPENKODO_HOST_TYPINGS_BEGIN,
     '  export type HostMethods = {',
@@ -23,15 +23,15 @@ export function renderOrcaHostTypings(): string {
 }
 
 /** `file` with its generated region replaced; throws when the markers are missing. */
-export function spliceOrcaHostTypings(file: string): string {
+export function spliceOpenKodoHostTypings(file: string): string {
   const begin = file.indexOf(OPENKODO_HOST_TYPINGS_BEGIN)
   const end = file.indexOf(OPENKODO_HOST_TYPINGS_END, begin)
   if (begin === -1 || end === -1) {
-    throw new Error('orca.d.ts lacks the generated host-method markers')
+    throw new Error('openkodo.d.ts lacks the generated host-method markers')
   }
   return (
     file.slice(0, begin) +
-    renderOrcaHostTypings() +
+    renderOpenKodoHostTypings() +
     file.slice(end + OPENKODO_HOST_TYPINGS_END.length)
   )
 }

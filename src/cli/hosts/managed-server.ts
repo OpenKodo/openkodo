@@ -1,16 +1,16 @@
 import type {
-  OrcadManagedCancelStopResult,
-  OrcadManagedDeployResult,
-  OrcadManagedForgetResult,
-  OrcadManagedRecoveryResult,
-  OrcadManagedRollbackResult,
-  OrcadManagedRuntimeStatus,
-  OrcadManagedStopResult
-} from '../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+  OpenkododManagedCancelStopResult,
+  OpenkododManagedDeployResult,
+  OpenkododManagedForgetResult,
+  OpenkododManagedRecoveryResult,
+  OpenkododManagedRollbackResult,
+  OpenkododManagedRuntimeStatus,
+  OpenkododManagedStopResult
+} from '../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import {
-  ORCAD_RECOVERY_CHANGED_STATE_CODE,
-  isOrcadUncountedTerminalsDeferral
-} from '../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+  OPENKODOD_RECOVERY_CHANGED_STATE_CODE,
+  isOpenkododUncountedTerminalsDeferral
+} from '../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import { MANAGED_SERVER_RUNTIME_CAPABILITY } from '../../shared/remote-runtime/protocol/host-runtime-capabilities'
 import type { RuntimeStatus } from '../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { CommandHandler, HandlerContext } from '../dispatch/dispatch'
@@ -116,7 +116,7 @@ function isSettled<TResult extends Outcome, TSettled extends TResult['outcome']>
 
 export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
   'environment status': async (context) => {
-    const response = await callManagedServer<OrcadManagedRuntimeStatus>(
+    const response = await callManagedServer<OpenkododManagedRuntimeStatus>(
       context,
       'managedServer.status',
       selectorOf(context)
@@ -125,14 +125,14 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
   },
   'environment update': async (context) => {
     const force = context.flags.get('force') === true
-    // Like the desktop's confirm: force alone never ends terminals orcad runs itself when they cannot be counted.
+    // Like the desktop's confirm: force alone never ends terminals openkodod runs itself when they cannot be counted.
     const endInProcessTerminals = force && context.flags.get('yes') === true
     const params = {
       ...selectorOf(context),
       force,
       ...(endInProcessTerminals ? { endInProcessTerminals } : {})
     }
-    const response = await callExpectingRestart<OrcadManagedDeployResult>(
+    const response = await callExpectingRestart<OpenkododManagedDeployResult>(
       context,
       'managedServer.update',
       params
@@ -152,13 +152,13 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
         !endInProcessTerminals &&
         result.outcome === 'deferred' &&
         result.forceable === true &&
-        isOrcadUncountedTerminalsDeferral(result.code)
+        isOpenkododUncountedTerminalsDeferral(result.code)
           ? 'To update anyway, re-run with --force --yes: it goes ahead only if no terminal daemon is running, and terminals the server runs itself end.'
           : null
     )
   },
   'environment rollback': async (context) => {
-    const response = await callExpectingRestart<OrcadManagedRollbackResult>(
+    const response = await callExpectingRestart<OpenkododManagedRollbackResult>(
       context,
       'managedServer.rollback',
       selectorOf(context)
@@ -182,7 +182,7 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
         `Restoring ${params.selector}'s prelaunch snapshot discards what the rejected build changed. Re-run with --yes to confirm.`
       )
     }
-    const response = await callManagedServer<OrcadManagedRecoveryResult>(
+    const response = await callManagedServer<OpenkododManagedRecoveryResult>(
       context,
       'managedServer.recover',
       acceptChangedState ? { ...params, acceptChangedState } : params
@@ -196,7 +196,9 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
           ? `Recovered ${result.environment.name} (${result.resolution}); active version ${result.activeVersion ?? 'none'}.`
           : 'Nothing to recover.',
       (result) =>
-        !acceptChangedState && 'code' in result && result.code === ORCAD_RECOVERY_CHANGED_STATE_CODE
+        !acceptChangedState &&
+        'code' in result &&
+        result.code === OPENKODOD_RECOVERY_CHANGED_STATE_CODE
           ? 'To restore it from the CLI, re-run with --accept-changed-state --yes.'
           : null
     )
@@ -209,7 +211,7 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
         `Stopping ${params.selector} ends its terminals and unlinks it from this machine. Re-run with --yes to confirm.`
       )
     }
-    const response = await callManagedServer<OrcadManagedStopResult>(
+    const response = await callManagedServer<OpenkododManagedStopResult>(
       context,
       'managedServer.stop',
       params
@@ -230,7 +232,7 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
         `Forgetting ${params.selector} unlinks it from this machine without stopping it on its host. Re-run with --yes to confirm.`
       )
     }
-    const response = await callManagedServer<OrcadManagedForgetResult>(
+    const response = await callManagedServer<OpenkododManagedForgetResult>(
       context,
       'managedServer.forget',
       params
@@ -240,11 +242,11 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
       context.json,
       ['forgotten'],
       () =>
-        `Unlinked ${params.selector} from this machine and disconnected its SSH host. The host was not contacted, so orcad may still be running there; connect the host to set its server up again.`
+        `Unlinked ${params.selector} from this machine and disconnected its SSH host. The host was not contacted, so openkodod may still be running there; connect the host to set its server up again.`
     )
   },
   'environment cancel-stop': async (context) => {
-    const response = await callManagedServer<OrcadManagedCancelStopResult>(
+    const response = await callManagedServer<OpenkododManagedCancelStopResult>(
       context,
       'managedServer.cancelStop',
       selectorOf(context)
@@ -254,7 +256,7 @@ export const MANAGED_SERVER_HANDLERS: Record<string, CommandHandler> = {
         case 'canceled':
           return `Stop withdrawn; the server keeps serving ${result.activeVersion}.`
         case 'already-stopped':
-          return 'orcad had already exited. Run `openkodo environment stop --yes` to unlink it.'
+          return 'openkodod had already exited. Run `openkodo environment stop --yes` to unlink it.'
         case 'none':
           return 'No stop is pending.'
       }

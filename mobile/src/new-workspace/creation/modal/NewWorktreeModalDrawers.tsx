@@ -16,9 +16,9 @@ import type {
 import { getMobileWorkspaceRepoBadgeColor } from '../forms/new-worktree-modal-types'
 import { PickerListDrawer } from '../../../components/sheets/PickerListDrawer'
 import {
-  OrcaHookTrustDrawer,
-  type OrcaHookTrustPrompt
-} from '../../../components/hook-trust/OrcaHookTrustDrawer'
+  OpenKodoHookTrustDrawer,
+  type OpenKodoHookTrustPrompt
+} from '../../../components/hook-trust/OpenKodoHookTrustDrawer'
 import { SmartWorkspaceSourceDrawer } from '../../source-selection/presentation/SmartWorkspaceSourceDrawer'
 import type { JiraSite, JiraSiteSelection } from '../../../../../src/shared/jira/jira-types'
 import type { NewWorktreeDrawerView } from './use-new-worktree-drawer-navigation'
@@ -43,7 +43,7 @@ export function NewWorktreeModalDrawers(props: {
   runTargetPickerItems: NewWorkspaceRunTargetOption<MobileWorkspaceRepo>[]
   pickerAgentOptions: NewWorktreeAgentOption[]
   selectedAgent: NewWorktreeAgentOption
-  setupTrustPrompt: OrcaHookTrustPrompt | null
+  setupTrustPrompt: OpenKodoHookTrustPrompt | null
   creating: boolean
   onSourceRepoChange: (repo: MobileWorkspaceRepo) => void
   onRepoChange: (repo: MobileWorkspaceRepo) => void
@@ -112,7 +112,7 @@ export function NewWorktreeModalDrawers(props: {
         renderIcon={(agent) => <MobileAgentIcon agentId={agent.id} size={20} />}
       />
 
-      <OrcaHookTrustDrawer
+      <OpenKodoHookTrustDrawer
         visible={props.visible && props.drawerView === 'trust' && props.setupTrustPrompt != null}
         prompt={props.setupTrustPrompt}
         busy={props.creating}

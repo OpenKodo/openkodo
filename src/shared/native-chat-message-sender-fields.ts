@@ -15,7 +15,7 @@ export function nativeChatMessageSenderFields(
   role: NativeChatMessage['role']
 ): Pick<
   NativeChatMessage,
-  'from' | 'asker' | 'typedByOther' | 'orcaNotice' | 'tookOver' | 'automationRun'
+  'from' | 'asker' | 'typedByOther' | 'openkodoNotice' | 'tookOver' | 'automationRun'
 > {
   if (body.kind !== 'message' || role !== 'user') {
     return {}
@@ -27,11 +27,11 @@ export function nativeChatMessageSenderFields(
     return { automationRun }
   }
   if (body.origin === 'bot-created' || body.origin === 'card-answer') {
-    return { orcaNotice: body.origin }
+    return { openkodoNotice: body.origin }
   }
   if (body.origin === 'took-over') {
     const tookOver = readTookOverNotice(body.tookOver)
-    return { orcaNotice: 'took-over', ...(tookOver ? { tookOver } : {}) }
+    return { openkodoNotice: 'took-over', ...(tookOver ? { tookOver } : {}) }
   }
   const from = readAgentMessageSource(body.from)
   const asker = body.origin === 'connector' ? readConnectorMessageAsker(body.asker) : undefined

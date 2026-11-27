@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-appimage=${1:-/input/orca.AppImage}
+appimage=${1:-/input/openkodo.AppImage}
 startup_timeout_seconds=90
 if [[ $# -gt 1 ]]; then
   echo "usage: run-appimage-desktop-startup-case.sh [appimage]" >&2
@@ -14,7 +14,7 @@ remove_state_dir_on_exit=${OPENKODO_STARTUP_STATE_DIR_CLEANUP:-0}
 if [[ -n "${OPENKODO_STARTUP_STATE_DIR:-}" ]]; then
   state_dir=$OPENKODO_STARTUP_STATE_DIR
 else
-  if ! state_dir=$(mktemp -d /tmp/orca-appimage-startup.XXXXXX); then
+  if ! state_dir=$(mktemp -d /tmp/openkodo-appimage-startup.XXXXXX); then
     echo 'FAIL: unable to create the AppImage startup state directory' >&2
     exit 1
   fi
@@ -133,7 +133,7 @@ dump_logs() {
 
 cleanup_state_dir() {
   [[ "$remove_state_dir_on_exit" == 1 ]] || return 0
-  [[ "$state_dir" =~ ^/tmp/orca-appimage-startup\.[^/]+$ ]] || return 0
+  [[ "$state_dir" =~ ^/tmp/openkodo-appimage-startup\.[^/]+$ ]] || return 0
   [[ -d "$state_dir" && ! -L "$state_dir" && -O "$state_dir" ]] || return 0
   rm -rf -- "$state_dir"
 }
@@ -258,7 +258,7 @@ if ! identity_alive "$launcher_pid" "$launcher_start_ticks"; then
 fi
 
 collect_process_tree
-shim="$profile/linux-orca-cli-shim/orca"
+shim="$profile/linux-openkodo-cli-shim/openkodo"
 [[ -x "$shim" ]] || { echo 'FAIL: first-use desktop shim was not written' >&2; exit 1; }
 bundled_cli=$(sed -n "s/^launcher='\([^']*\)'$/\1/p" "$shim")
 [[ "$bundled_cli" == */resources/bin/openkodo && -x "$bundled_cli" ]]
@@ -272,7 +272,7 @@ while ((SECONDS < deadline)); do
     report_launcher_exit 'runtime transport readiness'
   fi
   if read -r runtime_pid runtime_id < <(jq -er '[.pid, .runtimeId] | @tsv' \
-      "$profile/orca-runtime.json" 2>/dev/null) &&
+      "$profile/openkodo-runtime.json" 2>/dev/null) &&
     [[ "$runtime_pid" =~ ^[1-9][0-9]*$ && -n "$runtime_id" ]] &&
     OPENKODO_USER_DATA_PATH="$profile" timeout --kill-after=1s 2s "$bundled_cli" status --json \
       > "$state_dir/readiness-status.json" 2> "$state_dir/readiness-status.stderr" &&

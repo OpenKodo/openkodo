@@ -26,7 +26,7 @@ export function assemblePtySpawnEnvDeletions(input: {
   isDaemonHostSpawn: boolean
   connectionId: string | null | undefined
   skipCodexHomeEnv: boolean
-  stripInheritedOrcaCodexHome: boolean
+  stripInheritedOpenKodoCodexHome: boolean
   codexResumeHomeSelected: boolean
   settings: GlobalSettings | undefined
 }): { env: Record<string, string> | undefined; envToDelete: string[] } {
@@ -55,7 +55,7 @@ export function assemblePtySpawnEnvDeletions(input: {
       getInheritedAgentSessionStampEnvKeysToDelete(env),
       input.skipCodexHomeEnv ? CODEX_HOME_ENV_KEYS : [],
       // Persistent daemons must compare their own merged Codex home markers.
-      input.stripInheritedOrcaCodexHome ? ['OPENKODO_CODEX_HOME'] : []
+      input.stripInheritedOpenKodoCodexHome ? ['OPENKODO_CODEX_HOME'] : []
     ) ?? []
   if (input.codexResumeHomeSelected) {
     envToDelete = removeCodexHomeDeletionRequests(envToDelete) ?? []

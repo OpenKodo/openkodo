@@ -1,4 +1,4 @@
-import { RUNTIME_IDLE_STOPPED_ERROR_CODE } from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-idle-stop-signal'
+import { RUNTIME_IDLE_STOPPED_ERROR_CODE } from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-idle-stop-signal'
 import type { RuntimeRpcResponse } from '../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 
 function isIdleStopRefusal(value: unknown): boolean {

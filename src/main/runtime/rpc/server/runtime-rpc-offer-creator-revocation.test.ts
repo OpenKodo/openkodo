@@ -4,14 +4,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { parsePairingCode } from '../../../../shared/remote-runtime/pairing/pairing'
-import { OrcaRuntimeService } from '../../orca-runtime'
-import { OrcaRuntimeRpcServer } from './runtime-rpc'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
+import { OpenKodoRuntimeRpcServer } from './runtime-rpc'
 
 describe('revoking a paired client', () => {
   it('revokes the links minted from its terminal, used or not, and keeps the owner’s', async () => {
-    const userDataPath = mkdtempSync(join(tmpdir(), 'orca-offer-creator-revoke-'))
-    const server = new OrcaRuntimeRpcServer({
-      runtime: new OrcaRuntimeService(),
+    const userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-offer-creator-revoke-'))
+    const server = new OpenKodoRuntimeRpcServer({
+      runtime: new OpenKodoRuntimeService(),
       userDataPath,
       enableWebSocket: true,
       wsPort: 0

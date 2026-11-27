@@ -26,8 +26,8 @@ export function journalDomainDatabasePath(stateDirectory: string): string {
 /** The OpenKodo version that copied this profile; its original journal stays until a later version runs. */
 export const JOURNAL_LEGACY_CONVERTED_BY = 'journal.legacy-converted-by.v1'
 
-/** This host's own release: the desktop's, or the bundle orcad stamps for itself at start. */
-export function journalRunningOrcaVersion(): string | null {
+/** This host's own release: the desktop's, or the bundle openkodod stamps for itself at start. */
+export function journalRunningOpenKodoVersion(): string | null {
   return process.env.OPENKODO_APP_VERSION?.trim() || null
 }
 

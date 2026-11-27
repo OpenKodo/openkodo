@@ -41,7 +41,7 @@ const DOCS_URL = 'https://openkodo.dev/docs'
 const CHANGELOG_URL = 'https://openkodo.dev/changelog'
 const GITHUB_URL = 'https://github.com/OpenKodo/openkodo'
 const DISCORD_URL = 'https://discord.gg/fzjDKHxv8Q'
-const X_URL = 'https://x.com/orca_build'
+const X_URL = 'https://x.com/openkodo_build'
 const NO_UPDATE_CHECK_MODIFIERS = {
   altKey: false,
   ctrlKey: false,
@@ -136,7 +136,7 @@ export function useHelpMenuController(
   const [feedbackOpen, setFeedbackOpen] = useState(false)
   // Retain the mounted dialog through its closing animation.
   const [feedbackDialogMounted, setFeedbackDialogMounted] = useState(false)
-  const [isRestartingOrca, setIsRestartingOrca] = useState(false)
+  const [isRestartingOpenKodo, setIsRestartingOpenKodo] = useState(false)
   const lastShowOnboardingAtRef = React.useRef(0)
   const updateCheckModifiersRef = React.useRef(NO_UPDATE_CHECK_MODIFIERS)
   const mountedRef = useMountedRef()
@@ -164,17 +164,17 @@ export function useHelpMenuController(
     void showOnboardingFromRenderer()
   }
 
-  const handleRestartOrca = (): void => {
-    if (isRestartingOrca) {
+  const handleRestartOpenKodo = (): void => {
+    if (isRestartingOpenKodo) {
       return
     }
-    setIsRestartingOrca(true)
+    setIsRestartingOpenKodo(true)
     toast.info(
       t('auto.components.sidebar.SidebarSettingsHelpMenu.5161eef55d', 'Restarting OpenKodo…')
     )
     void window.api.app.restart().catch((error) => {
       if (mountedRef.current) {
-        setIsRestartingOrca(false)
+        setIsRestartingOpenKodo(false)
         toast.error(
           t(
             'auto.components.sidebar.SidebarSettingsHelpMenu.4e8f5710d3',
@@ -273,7 +273,7 @@ export function useHelpMenuController(
           {t('auto.components.sidebar.SidebarSettingsHelpMenu.29c56f30ee', 'Check for Updates')}
         </DropdownMenuItem>
         {innerSeparator}
-        <DropdownMenuItem onSelect={handleRestartOrca} disabled={isRestartingOrca}>
+        <DropdownMenuItem onSelect={handleRestartOpenKodo} disabled={isRestartingOpenKodo}>
           <RotateCw className="size-3.5" />
           {t('auto.components.sidebar.SidebarSettingsHelpMenu.ad3d3ed7f1', 'Restart OpenKodo')}
         </DropdownMenuItem>

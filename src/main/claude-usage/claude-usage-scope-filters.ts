@@ -18,7 +18,7 @@ export function getFilteredDaily(
     if (cutoff && entry.day < cutoff) {
       return false
     }
-    if (scope === 'orca' && entry.worktreeId === null) {
+    if (scope === 'openkodo' && entry.worktreeId === null) {
       return false
     }
     return true
@@ -40,7 +40,7 @@ export function getFilteredSessions(
     if (cutoff && day < cutoff) {
       return false
     }
-    if (scope === 'orca') {
+    if (scope === 'openkodo') {
       return session.locationBreakdown.some((entry) => entry.worktreeId !== null)
     }
     return true

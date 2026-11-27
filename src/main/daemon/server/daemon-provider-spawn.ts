@@ -1,6 +1,6 @@
 import { connect, type Socket } from 'node:net'
 import { basename, isAbsolute } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { hostedProviderOwners } from './hosted-provider-owners'
 import {
   HOSTED_PROVIDER_PIPE_FDS,
@@ -9,7 +9,7 @@ import {
 } from '../protocol/daemon-provider-process-protocol'
 
 const CONNECT_TIMEOUT_MS = 5_000
-const PROVIDER_OWNER_EXECUTABLE = 'orca-provider-exec'
+const PROVIDER_OWNER_EXECUTABLE = 'openkodo-provider-exec'
 
 const launchString = (value: unknown): value is string =>
   typeof value === 'string' && !value.includes('\0')

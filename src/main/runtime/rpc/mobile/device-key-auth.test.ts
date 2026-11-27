@@ -91,13 +91,13 @@ function harness(registry: DeviceRegistry, metadata?: MobileSocketTransportMetad
 }
 
 function freshRegistry(): DeviceRegistry {
-  return new DeviceRegistry(mkdtempSync(join(tmpdir(), 'orca-device-key-')))
+  return new DeviceRegistry(mkdtempSync(join(tmpdir(), 'openkodo-device-key-')))
 }
 
 describe('device-key authentication (host)', () => {
   it('forks a pre-ticket token row per installation, then authenticates the key and keeps the token working', () => {
     // Rows paired before single-use tickets may be shared by several installations.
-    const dir = mkdtempSync(join(tmpdir(), 'orca-device-key-'))
+    const dir = mkdtempSync(join(tmpdir(), 'openkodo-device-key-'))
     const legacy = {
       deviceId: 'legacy-phone',
       name: 'Phone',

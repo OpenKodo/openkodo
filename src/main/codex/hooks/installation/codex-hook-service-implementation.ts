@@ -4,7 +4,7 @@ import type { AgentHookInstallStatus } from '../../../../shared/agent-hook-liste
 import { dedupeInFlightRun } from '../../../runtime/concurrency/in-flight-run-dedupe'
 import { refreshManagedScriptIfPresent } from '../../../agent-hooks/installation/scripts/managed-hook-script-refresh'
 import { writeManagedScript } from '../../../agent-hooks/installation/scripts/managed-hook-script-write'
-import { getOrcaManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
+import { getOpenKodoManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
 import { getManagedScriptPath } from '../definitions/codex-hook-definition'
 import {
   refreshCodexRuntimeUserHooksExclusively,
@@ -223,7 +223,7 @@ export class CodexHookService {
 
   // Managed accounts pass their own CODEX_HOME; plain terminal launches skip waiting for Codex's answer.
   async install(
-    runtimeHomePath: string = getOrcaManagedCodexHomePath(),
+    runtimeHomePath: string = getOpenKodoManagedCodexHomePath(),
     launchesCodex = true,
     isHooksEnabled: () => boolean = () => true
   ): Promise<AgentHookInstallStatus> {
@@ -239,7 +239,7 @@ export class CodexHookService {
     configPreparation?: CodexLaunchConfigPreparation
   ): Promise<AgentHookInstallStatus> {
     return this.localLaunchPreparation.installForLaunchPrep(
-      runtimeHomePath ?? getOrcaManagedCodexHomePath(),
+      runtimeHomePath ?? getOpenKodoManagedCodexHomePath(),
       launchesCodex,
       isHooksEnabled,
       configPreparation
@@ -253,7 +253,7 @@ export class CodexHookService {
     configPreparation?: CodexLaunchConfigPreparation
   ): Promise<AgentHookInstallStatus> {
     return this.localLaunchPreparation.refreshRuntimeUserHooksForLaunchPrep(
-      runtimeHomePath ?? getOrcaManagedCodexHomePath(),
+      runtimeHomePath ?? getOpenKodoManagedCodexHomePath(),
       (home) => this.getStatus(home),
       configPreparation
     )
@@ -268,7 +268,7 @@ export class CodexHookService {
   }
 
   refreshRuntimeUserHooks(
-    runtimeHomePath: string = getOrcaManagedCodexHomePath()
+    runtimeHomePath: string = getOpenKodoManagedCodexHomePath()
   ): Promise<AgentHookInstallStatus> {
     this.localLaunchPreparation.clear()
     return runExclusivelyForRuntimeAndSystemTrustConfig(runtimeHomePath, () =>
@@ -286,7 +286,7 @@ export class CodexHookService {
 
   remove(): Promise<AgentHookInstallStatus> {
     this.localLaunchPreparation.clear()
-    return runExclusivelyForRuntimeAndSystemTrustConfig(getOrcaManagedCodexHomePath(), () =>
+    return runExclusivelyForRuntimeAndSystemTrustConfig(getOpenKodoManagedCodexHomePath(), () =>
       this.removeExclusively()
     )
   }

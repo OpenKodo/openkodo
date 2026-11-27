@@ -33,7 +33,7 @@ export const card = defineFixture({
         messageId: 'msg_1',
         environmentId: 'env_m4',
         botId: 'literature',
-        rootSession: 'orca_session_id:chat_coding',
+        rootSession: 'openkodo_session_id:chat_coding',
         from: {
           label: "Coding on Jinwoo's M4 Air",
           sender: {

@@ -1,6 +1,6 @@
 import { terminalLaunchFacts } from '../../../../shared/agent-session/lifecycle/agent-session-resume'
-import type { OrcaRuntimeWithCreateTerminal } from '../launch/terminal-create'
-import { OrcaRuntimeWithRestoredHandlePaneStart } from '../surface/restored-handle-pane-start'
+import type { OpenKodoRuntimeWithCreateTerminal } from '../launch/terminal-create'
+import { OpenKodoRuntimeWithRestoredHandlePaneStart } from '../surface/restored-handle-pane-start'
 import type {
   RuntimeTerminalRead,
   RuntimeTerminalResolvePane,
@@ -26,11 +26,11 @@ import { readStructuredWorkerTerminal } from '../../orchestration/terminal-autho
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
 import { workspaceSessionListsTerminalTab } from '../../../../shared/workspace-session/workspace-session-terminal-tab-close'
 
-export abstract class OrcaRuntimeWithResolveTerminalPane extends OrcaRuntimeWithRestoredHandlePaneStart {
+export abstract class OpenKodoRuntimeWithResolveTerminalPane extends OpenKodoRuntimeWithRestoredHandlePaneStart {
   protected abstract assertLiveTerminalHandleTargetsPty(handle: string, expectedPtyId: string): void
   abstract createTerminal(
-    ...args: Parameters<OrcaRuntimeWithCreateTerminal['createTerminal']>
-  ): ReturnType<OrcaRuntimeWithCreateTerminal['createTerminal']>
+    ...args: Parameters<OpenKodoRuntimeWithCreateTerminal['createTerminal']>
+  ): ReturnType<OpenKodoRuntimeWithCreateTerminal['createTerminal']>
 
   abstract getTerminalHandleForPaneKey(paneKey: string): string | null
   abstract getPtyExecutionHostMetadata(

@@ -8,7 +8,7 @@ import {
   writeFileSync
 } from 'node:fs'
 import { buildSync } from 'esbuild'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -43,7 +43,7 @@ function quota() {
   )
 }
 beforeEach(() => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-zcode-v2-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-zcode-v2-'))
   host = {
     home: dir,
     platform: 'linux',
@@ -298,7 +298,7 @@ describe('external v2 file boundaries', () => {
           await fetchZcodeRateLimits({
             credentialHost: host,
             planCredential: {
-              apiKey: 'synthetic-orca-key',
+              apiKey: 'synthetic-openkodo-key',
               baseUrl: 'https://api.z.ai'
             }
           })

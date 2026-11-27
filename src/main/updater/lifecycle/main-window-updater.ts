@@ -17,8 +17,8 @@ import {
   getActiveTeamCapabilities,
   getActiveTeamProfileScope,
   onTeamCapabilitiesInvalidated
-} from '../../orca-profiles/cloud-auth/active-team-capabilities'
-import { getOrcaProfileDirectory } from '../../orca-profiles/profile-storage-paths'
+} from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
+import { getOpenKodoProfileDirectory } from '../../openkodo-profiles/profile-storage-paths'
 import {
   checkForUpdatesFromMenu,
   dismissAvailableUpdate,
@@ -34,7 +34,7 @@ import {
 } from '../updater-service'
 import type { PreQuitCleanupFailureMode, UpdateInstallMode } from './updater-state'
 import type { UpdaterSetupOptions } from './updater-setup'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { hasWorkingUpdateAgents } from './update-agent-activity'
 import {
   getEmergencyUpdateFloor,
@@ -123,8 +123,8 @@ function buildUpdaterSetupOptions(
         return (
           scope && {
             file: join(
-              getOrcaProfileDirectory(scope.profileId, scope.root),
-              'required-orca-update.json'
+              getOpenKodoProfileDirectory(scope.profileId, scope.root),
+              'required-openkodo-update.json'
             ),
             accountId: scope.userId
           }
@@ -153,7 +153,7 @@ function setupAutoUpdaterWithAppProxy(
 /** Headless serve has no window-driven setup; defer the slow require past readiness so remote updater support becomes available (#22261). */
 export function setupHeadlessServeAutoUpdater(
   nativeSettings: NativeSettingsProjection,
-  runtime: Pick<OrcaRuntimeService, 'getAgentStatusSnapshotFn'>,
+  runtime: Pick<OpenKodoRuntimeService, 'getAgentStatusSnapshotFn'>,
   options: UpdaterSetupHooks
 ): void {
   setImmediate(() => {

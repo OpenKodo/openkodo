@@ -13,7 +13,7 @@ export type BotPanelFoldId =
   | 'items-stale'
   | 'items-closed'
 
-const FOLDS_KEY = 'orca.bots.panelFolds'
+const FOLDS_KEY = 'openkodo.bots.panelFolds'
 
 type Folds = Record<string, readonly string[]>
 

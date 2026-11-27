@@ -2,8 +2,8 @@ import type { AuthenticatedMobileSocket } from './mobile-socket-wiring'
 import {
   IDLE_PASSIVE_CLIENT_CAPABILITY,
   IDLE_PASSIVE_CONTROL_CLIENT_CAPABILITY
-} from '../../../../shared/remote-runtime/protocol/orcad-runtime-capabilities'
-import { ORCAD_DECLARE_CLIENT_METHOD } from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-peer-desktops-contract'
+} from '../../../../shared/remote-runtime/protocol/openkodod-runtime-capabilities'
+import { OPENKODOD_DECLARE_CLIENT_METHOD } from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-peer-desktops-contract'
 import { DECLARE_OPENKODO_ACCOUNT_METHOD } from '../../../../shared/remote-runtime/pairing/paired-desktop-account-contract'
 
 type CapabilityHolder = Pick<AuthenticatedMobileSocket, 'clientCapabilities'>
@@ -37,7 +37,7 @@ export function countIdleBlockingConnections<Socket>(
 // declarations, and its 30 s presence report.
 const DESKTOP_BOOKKEEPING_METHODS: ReadonlySet<string> = new Set([
   'status.get',
-  ORCAD_DECLARE_CLIENT_METHOD,
+  OPENKODOD_DECLARE_CLIENT_METHOD,
   DECLARE_OPENKODO_ACCOUNT_METHOD,
   'notifications.reportDesktopPresence'
 ])

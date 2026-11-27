@@ -1,8 +1,8 @@
-import { withOrcaClaudeChatEntrypoint } from '../../../shared/agent-launch/startup/claude-chat-entrypoint'
+import { withOpenKodoClaudeChatEntrypoint } from '../../../shared/agent-launch/startup/claude-chat-entrypoint'
 import { awaitProviderChildSpawn, type ProviderChild } from '../../provider-process/provider-child'
 import type { ProviderProcessSpawner } from '../../provider-process/provider-process-spawn'
 import type { SpawnOptions as ClaudeAgentSdkSpawnOptions } from '@anthropic-ai/claude-agent-sdk'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import {
   spawnManagedProviderProcess,
   type ManagedProviderProcess
@@ -72,7 +72,7 @@ export function createClaudeCodeProcessSpawn(
         {
           spawnImpl,
           platform,
-          inheritedEnv: withOrcaClaudeChatEntrypoint(definedEnv(options.env), platform),
+          inheritedEnv: withOpenKodoClaudeChatEntrypoint(definedEnv(options.env), platform),
           site: 'claude-stream-json-teardown',
           policy: (supervised) => claudeChildClosePolicy(supervised, platform),
           acceptClose: claudeChildCloseProven

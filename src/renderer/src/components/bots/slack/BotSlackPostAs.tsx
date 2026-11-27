@@ -14,7 +14,7 @@ import { cn } from '@/lib/class-names'
 import { botSlackCalls } from '@/lib/bot-connector-host-calls'
 import { openBotHostPageOrSay } from '@/lib/bot-host-page'
 import { refreshBotSlack } from '@/lib/bot-slack-state'
-import { useBotHostOrcaAccount } from '@/lib/bot-host-orca-account'
+import { useBotHostOpenKodoAccount } from '@/lib/bot-host-openkodo-account'
 import type { Bot } from '../../../../../shared/bot-types'
 import type {
   ConnectorBotSlackState,
@@ -50,7 +50,7 @@ export function BotSlackPostAs({
 }): React.JSX.Element | null {
   const t = useTranslate()
   const hostLabel = useBotHostLabel(bot.hostId)
-  const hostAccount = useBotHostOrcaAccount(bot.hostId)
+  const hostAccount = useBotHostOpenKodoAccount(bot.hostId)
   const [open, setOpen] = useState(false)
   // The panel's pick, before it is sent for approval; null once it matches what is posted as.
   const [asked, setAsked] = useState<SlackPostAs | null>(null)
@@ -73,7 +73,7 @@ export function BotSlackPostAs({
       slack.poster?.name ||
       hostAccount?.displayName ||
       hostAccount?.email?.split('@')[0] ||
-      t('bots.slack.postAs.orcaUser', 'OpenKodo user'),
+      t('bots.slack.postAs.openkodoUser', 'OpenKodo user'),
     avatar: (
       <ConnectorAvatar
         avatarUrl={slack.poster?.avatarUrl}
@@ -254,7 +254,7 @@ function SlackPostPreview({
       <span className="min-w-0 flex-1 pr-5">
         <span className="flex min-w-0 items-baseline gap-1">
           <span className="truncate text-[13px] leading-[18px] font-black">
-            {t('bots.slack.postAs.viaOrca', '{{name}} (via OpenKodo)', { name: poster.name })}
+            {t('bots.slack.postAs.viaOpenKodo', '{{name}} (via OpenKodo)', { name: poster.name })}
           </span>
           <span className="shrink-0 rounded-sm bg-[var(--slack-muted)]/15 px-0.5 text-[9px] leading-3 font-bold text-[var(--slack-muted)]">
             {t('bots.slack.postAs.app', 'APP')}

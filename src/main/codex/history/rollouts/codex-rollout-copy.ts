@@ -82,7 +82,7 @@ export async function copyCodexRolloutWithoutOverwrite(
   sourcePath: string,
   targetPath: string
 ): Promise<'copied' | 'existing'> {
-  const temporaryPath = join(dirname(targetPath), `.orca-backfill-${randomUUID()}.tmp`)
+  const temporaryPath = join(dirname(targetPath), `.openkodo-backfill-${randomUUID()}.tmp`)
   const source = await stat(sourcePath, { bigint: true })
   try {
     await stageRolloutCopy(source, sourcePath, temporaryPath)

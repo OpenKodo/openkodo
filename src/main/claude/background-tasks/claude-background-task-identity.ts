@@ -31,7 +31,7 @@ export function claudeBackgroundTaskIdentity(
     generation > 1
       ? `claude-background-task:${taskId}#${generation}`
       : `claude-background-task:${taskId}`
-  return { provider: 'orca', clientMessageId: key }
+  return { provider: 'openkodo', clientMessageId: key }
 }
 
 /** Choose among the task's saved incarnations, which all share its key prefix. */
@@ -62,7 +62,7 @@ export function indexClaudeBackgroundTask(
   linkage: AgentJournalProducerLinkage
 ): void {
   const identity = parseAgentJournalItemKey(itemId)
-  if (identity?.provider !== 'orca') {
+  if (identity?.provider !== 'openkodo') {
     return
   }
   const base = `claude-background-task:${taskId}`

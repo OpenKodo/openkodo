@@ -1,5 +1,5 @@
 import { queryWindowsProcessLinksFresh } from '../../providers/foreground/windows/process-rows'
-import { readOrcaChromiumProcessPids } from './orca-chromium-process-pids'
+import { readOpenKodoChromiumProcessPids } from './openkodo-chromium-process-pids'
 
 /** `own` proves ancestry, not PTY identity: a recycled PID under another OpenKodo child still qualifies. */
 export type WindowsTreeKillTarget = 'own' | 'absent' | 'foreign' | 'unknown'
@@ -17,7 +17,7 @@ export function classifyWindowsTreeKillTarget(
   rootPid: number,
   rows: readonly ProcessLink[],
   ownerPid: number,
-  ownChromiumPids: ReadonlySet<number> = readOrcaChromiumProcessPids()
+  ownChromiumPids: ReadonlySet<number> = readOpenKodoChromiumProcessPids()
 ): WindowsTreeKillTarget {
   // Never let a corrupt root PID authorize killing OpenKodo itself.
   if (!Number.isInteger(rootPid) || rootPid <= 0 || rootPid === ownerPid) {
@@ -112,6 +112,6 @@ export async function verifyWindowsTreeKillTarget(
     rootPid,
     rows,
     deps.ownerPid ?? process.pid,
-    deps.ownChromiumPids ?? readOrcaChromiumProcessPids()
+    deps.ownChromiumPids ?? readOpenKodoChromiumProcessPids()
   )
 }

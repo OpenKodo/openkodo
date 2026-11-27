@@ -40,7 +40,7 @@ export function acpStructuredAgentDefinition(spec: AcpLaunchSpec): StructuredAge
       // Narrowed by each agent's advertised startup capabilities.
       imagePrompts: true,
       steering: 'queue',
-      approvalEnforcement: 'orca'
+      approvalEnforcement: 'openkodo'
     },
     ...(managedRuntime && { managedRuntime: () => managedRuntime.pin() !== null }),
     ...(isManagedAgentCli(agent) && { managedRuntime: () => managedAgentCli(agent).available() }),

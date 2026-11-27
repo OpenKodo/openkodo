@@ -24,7 +24,7 @@ let launcher = ''
 
 beforeEach(() => {
   const userData = tempDir('mcp-terminal-user-data-')
-  launcher = join(tempDir('mcp-terminal-cli-'), 'orca')
+  launcher = join(tempDir('mcp-terminal-cli-'), 'openkodo')
   writeFileSync(launcher, '#!/bin/sh\n')
   setAppEnvironment({
     getPath: () => userData,

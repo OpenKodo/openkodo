@@ -18,9 +18,9 @@ import {
   type BrowserScreencastLaneController
 } from './browser-screencast-lane'
 import {
-  attachOrcaPageSession,
-  detachOrcaPageSession,
-  releaseOrcaPageSession
+  attachOpenKodoPageSession,
+  detachOpenKodoPageSession,
+  releaseOpenKodoPageSession
 } from '../input/guest-frame-input-sessions'
 import { sendGuestCdpCommand } from '../debugger/guest-cdp-command'
 import {
@@ -119,7 +119,7 @@ export async function startBrowserScreencast(
       onStopped: () => {
         lanes.delete(lane)
         if (cdpSessionId !== undefined) {
-          releaseOrcaPageSession(webContents, cdpSessionId)
+          releaseOpenKodoPageSession(webContents, cdpSessionId)
         }
       }
     })
@@ -147,12 +147,12 @@ export async function startBrowserScreencast(
       }
       const cdpSessionId = rootLaneIsFree()
         ? undefined
-        : await attachOrcaPageSession(webContents, (method, params, sessionId) =>
+        : await attachOpenKodoPageSession(webContents, (method, params, sessionId) =>
             sendGuestCdpCommand(webContents, method, params, sessionId)
           )
       if (cdpSessionId !== undefined && (closed || stopping)) {
         // Stop already ended the lanes it knew of; this session would outlive the stream.
-        await detachOrcaPageSession(webContents, sendPageCommand, cdpSessionId)
+        await detachOpenKodoPageSession(webContents, sendPageCommand, cdpSessionId)
         throw new BrowserError('browser_error', 'Browser stream ended.')
       }
       const opened = createLane(cdpSessionId, budget, viewers)

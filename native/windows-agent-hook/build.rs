@@ -27,8 +27,8 @@ fn main() {
         "LegalCopyright",
         "Copyright (C) OpenKodo. All rights reserved.",
     );
-    resource.set("InternalName", "orca-agent-hook.exe");
-    resource.set("OriginalFilename", "orca-agent-hook.exe");
+    resource.set("InternalName", "openkodo-agent-hook.exe");
+    resource.set("OriginalFilename", "openkodo-agent-hook.exe");
     resource.set("FileVersion", &format!("{major}.{minor}.{patch}.0"));
     resource.set("ProductVersion", &version);
     resource.set_version_info(

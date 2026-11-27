@@ -29,7 +29,7 @@ export type EdgeControlFlags = {
 
 export const EDGE_CONTROL_DEFAULTS: EdgeControlFlags = { mode: 'on' }
 export const EDGE_CONTROL_OBJECT_NAME = 'director/edge.json'
-export const EDGE_CONTROL_APPLIED_EVENT = 'orca_relay_edge_control_applied'
+export const EDGE_CONTROL_APPLIED_EVENT = 'openkodo_relay_edge_control_applied'
 
 const EdgeControlFlagsSchema = z.object({
   mode: z.enum(['on', 'off', 'down']).default(EDGE_CONTROL_DEFAULTS.mode),

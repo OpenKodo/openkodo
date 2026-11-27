@@ -14,7 +14,7 @@ import type {
   AgentSessionBackgroundTaskRunState
 } from '../agent-session/background-tasks/agent-session-background-task-wire'
 import type { AgentSessionTokenUsage } from '../agent-session/conversation-context/agent-session-context-usage'
-import type { AgentSessionOrcaStop } from '../agent-session/lifecycle/stopping/agent-session-orca-stop'
+import type { AgentSessionOpenKodoStop } from '../agent-session/lifecycle/stopping/agent-session-openkodo-stop'
 import type { AgentSessionFailureFact } from '../agent-session/failures/agent-session-failure'
 import type {
   AgentJournalMessageSendMode,
@@ -30,7 +30,7 @@ import type {
   AgentJournalAutomationSavedItem,
   AgentJournalWaitEndedItem,
   AutomationRunNotStartedRow
-} from '../agent-journal-orca-card-items'
+} from '../agent-journal-openkodo-card-items'
 import type { AutomationRunMessage } from '../automations/automation-run-message'
 import type { WaitEnding } from '../automation-once'
 import type { BotAutomationFacts } from '../bots/bot-automation-rows'
@@ -75,7 +75,7 @@ export type NativeChatTextBlock = {
   /** On a status line that reports a failure: what failed, typed. */
   failure?: AgentSessionFailureFact
   /** On the line about a reply OpenKodo's own stop cut off: why, and the turn it cut. */
-  orcaStop?: AgentSessionOrcaStop & { turnItemId?: string }
+  openkodoStop?: AgentSessionOpenKodoStop & { turnItemId?: string }
   /** On the "Forked from" divider: the source chat it links to. */
   forkedFrom?: AgentSessionForkedFromMark
   /** On a usage-limit line: the turn the limit ended, which its Continue picks up. */
@@ -286,7 +286,7 @@ export type NativeChatMessage = AgentJournalProducerLinkage & {
   /** On OpenKodo's own turn to a bot it just created: a notice row, never the person's bubble. On an
    *  owner's card answer: nothing, since the card shows its receipt. On OpenKodo's turn handing the bot a
    *  workspace: a divider, and the owner's goal as their words. */
-  orcaNotice?: 'bot-created' | 'card-answer' | 'took-over'
+  openkodoNotice?: 'bot-created' | 'card-answer' | 'took-over'
   /** Beside `took-over`: what its divider and goal show. */
   tookOver?: TookOverNotice
   /** On a bot automation run's message: the run, drawn as the automation's row, never the person's. */

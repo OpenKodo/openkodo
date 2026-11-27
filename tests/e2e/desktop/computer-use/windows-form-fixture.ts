@@ -10,7 +10,7 @@ export type WindowFixture = { pid: number; dir: string }
 
 // Test-owned WinForms window; `onShown` runs on its UI thread once the window is visible.
 export async function launchWindowFixture(formSetup: string, onShown = ''): Promise<WindowFixture> {
-  const dir = await mkdtemp(join(tmpdir(), 'orca-computer-windows-fixture-'))
+  const dir = await mkdtemp(join(tmpdir(), 'openkodo-computer-windows-fixture-'))
   const readyPath = join(dir, 'ready')
   const scriptPath = join(dir, 'fixture.ps1')
   // Why: Windows PowerShell 5.1 reads BOM-less scripts as ANSI, which corrupts non-ASCII temp paths.
@@ -62,10 +62,10 @@ export async function launchWindowFixture(formSetup: string, onShown = ''): Prom
 export function launchHungWindowFixture(): Promise<WindowFixture> {
   return launchWindowFixture(
     [
-      "$form.Text = 'orca-e2e-hung'",
-      'Add-Type -Name Kernel -Namespace OrcaFixture -MemberDefinition \'[DllImport("kernel32.dll")] public static extern void Sleep(uint ms);\''
+      "$form.Text = 'openkodo-e2e-hung'",
+      'Add-Type -Name Kernel -Namespace OpenKodoFixture -MemberDefinition \'[DllImport("kernel32.dll")] public static extern void Sleep(uint ms);\''
     ].join('\n'),
-    '[OrcaFixture.Kernel]::Sleep(120000)'
+    '[OpenKodoFixture.Kernel]::Sleep(120000)'
   )
 }
 

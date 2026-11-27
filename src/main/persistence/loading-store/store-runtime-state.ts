@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { removeStaleDurableWriteTempFiles } from '../../filesystem/durable-file-write'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type {
   WorkspaceSessionOperationListener,
   WorkspaceSessionWriteListener
@@ -34,8 +34,8 @@ import type {
 } from '../scheduling-automations/automation-owner-projection'
 import type { ProfileStatePersistenceAuthority } from './profile-writing/profile-state-authority'
 import type { AutomationRun } from '../../../shared/automations/history/automation-run'
-import { resolveNewPaneShellPath } from '../migrating-orcad-catalog/terminal-history/orcad-shell-history-installer'
-import { OrcadTerminalRestoreHintStore } from '../migrating-orcad-catalog/terminal-history/orcad-terminal-restore-hint-store'
+import { resolveNewPaneShellPath } from '../migrating-openkodod-catalog/terminal-history/openkodod-shell-history-installer'
+import { OpenkododTerminalRestoreHintStore } from '../migrating-openkodod-catalog/terminal-history/openkodod-terminal-restore-hint-store'
 
 export type DurableProfileStateMutation<T> = {
   value: T
@@ -65,8 +65,8 @@ export class StoreRuntimeState {
   automationListProjectionCache: AutomationListProjectionCache | null = null
   activeViewPreference!: ActiveViewPreference
   readonly terminalScrollbackSnapshotStorage: TerminalScrollbackSnapshotStorage
-  readonly orcadMigrationBlobRoot: string
-  readonly orcadTerminalRestoreHints: OrcadTerminalRestoreHintStore
+  readonly openkododMigrationBlobRoot: string
+  readonly openkododTerminalRestoreHints: OpenkododTerminalRestoreHintStore
   /** Retain exported scrollback blobs until their in-flight migrations finish reading. */
   readonly retainedScrollbackRefsByMigrationId = new Map<string, ReadonlySet<string>>()
   writeTimer: ReturnType<typeof setTimeout> | null = null
@@ -84,7 +84,7 @@ export class StoreRuntimeState {
   lastWrittenStateHash: string | null = null
   lastDurableWriteGeneration = -1
   /** Required durable generation for locally committed migrations; disk-loaded receipts have no entry. */
-  readonly orcadMigrationCommitWriteGenerations = new Map<string, number>()
+  readonly openkododMigrationCommitWriteGenerations = new Map<string, number>()
   firstPendingSaveAt: number | null = null
   /** Null requests complete-document fallback. */
   dirtyProfileStateDomains: Set<string> | null = new Set()
@@ -153,7 +153,9 @@ export class StoreRuntimeState {
       snapshotRoot: profileSnapshotRoot,
       fallbackSnapshotRoot: legacySnapshotRoot === profileSnapshotRoot ? null : legacySnapshotRoot
     }
-    this.orcadMigrationBlobRoot = join(dirname(this.dataFile), 'orcad-migration-blobs')
-    this.orcadTerminalRestoreHints = new OrcadTerminalRestoreHintStore(this.orcadMigrationBlobRoot)
+    this.openkododMigrationBlobRoot = join(dirname(this.dataFile), 'openkodod-migration-blobs')
+    this.openkododTerminalRestoreHints = new OpenkododTerminalRestoreHintStore(
+      this.openkododMigrationBlobRoot
+    )
   }
 }

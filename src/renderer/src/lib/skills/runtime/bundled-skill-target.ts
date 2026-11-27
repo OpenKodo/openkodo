@@ -5,9 +5,9 @@ import {
   type ExecutionHostId
 } from '../../../../../shared/execution-host/execution-host'
 import {
-  getManagedOrcadSshTargetId,
-  type ManagedOrcadEnvironmentSummary
-} from '../../../../../shared/execution-host/managed-orcad-execution-host'
+  getManagedOpenkododSshTargetId,
+  type ManagedOpenkododEnvironmentSummary
+} from '../../../../../shared/execution-host/managed-openkodod-execution-host'
 import type { ProjectExecutionRuntimeResolution } from '../../../../../shared/execution-host/project-execution-runtime'
 import type { RuntimeClientTarget } from '../../../../../shared/remote-runtime/host-catalog/runtime-client-target'
 
@@ -34,14 +34,14 @@ export function bundledSkillTargetKey(target: BundledSkillTarget): string {
 /** An SSH host's owner id, rewritten to the managed server that serves that host, if any. */
 export function servingExecutionHostId(
   hostId: ExecutionHostId | null,
-  runtimeEnvironments: readonly ManagedOrcadEnvironmentSummary[] | undefined
+  runtimeEnvironments: readonly ManagedOpenkododEnvironmentSummary[] | undefined
 ): string | null {
   const owner = parseExecutionHostId(hostId)
   if (owner?.kind !== 'ssh') {
     return hostId
   }
   const server = runtimeEnvironments?.find(
-    (environment) => getManagedOrcadSshTargetId(environment) === owner.targetId
+    (environment) => getManagedOpenkododSshTargetId(environment) === owner.targetId
   )
   return server ? toRuntimeExecutionHostId(server.id.trim()) : hostId
 }

@@ -3,7 +3,7 @@ import type { TaskSourceContext } from '../work-items/task-source-context'
 import type { TuiAgent } from '../agent-launch/catalog/tui-agent'
 import type { DiffComment } from '../file-review/diff-comment-types'
 import type { SmartTier } from '../sidebar-list/sorting/sort-stamps'
-import type { OrcadRetainedMarker } from '../remote-runtime/orcad-lifecycle/orcad-retained-marker'
+import type { OpenkododRetainedMarker } from '../remote-runtime/openkodod-lifecycle/openkodod-retained-marker'
 import type { ExternalConversationLink } from '../connectors/external-conversation-link'
 import type {
   WorkspaceCreatorProvenance,
@@ -45,7 +45,7 @@ export type FolderWorkspace = {
   updatedAt: number
   diffComments?: DiffComment[]
   /** Local row a WSL host now owns, kept for a downgrade; set only by the mover's retention pass. */
-  orcadRetained?: OrcadRetainedMarker
+  openkododRetained?: OpenkododRetainedMarker
   /** See {@link WorktreeMeta.externalConversations}. */
   externalConversations?: ExternalConversationLink[]
 }

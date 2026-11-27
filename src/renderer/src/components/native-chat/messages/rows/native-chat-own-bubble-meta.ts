@@ -20,7 +20,10 @@ export function nativeChatRowEndsInOwnBubbleMeta(message: NativeChatMessage): bo
     return false
   }
   // Of the OpenKodo notices, only a takeover with a goal goes on to draw the bubble.
-  if (message.orcaNotice && !(message.orcaNotice === 'took-over' && message.tookOver?.goal)) {
+  if (
+    message.openkodoNotice &&
+    !(message.openkodoNotice === 'took-over' && message.tookOver?.goal)
+  ) {
     return false
   }
   const blocks = nativeChatMessageRowBlocks(message)

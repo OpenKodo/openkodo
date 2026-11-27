@@ -10,7 +10,7 @@ import type { ProjectExecutionRuntimeResolution } from '../../../../shared/execu
 import type { StartupCommandDelivery } from '../../../../shared/agent-launch/startup/codex-startup-delivery'
 import type { GlobalSettings } from '../../../../shared/settings/global-settings-types'
 import type { TerminalStartupCwdMissingDirFallback } from '../../../../shared/shell/launch/terminal-startup-cwd'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { Store } from '../../../persistence/loading-store/store'
 import type { PtySpawnResult } from '../../../providers/pty/spawn-result'
 import type {
@@ -107,7 +107,7 @@ export type AdoptStablePaneResult = {
 }
 
 export type PtySpawnIpcDeps = PtySpawnCodexResumeDeps & {
-  runtime?: OrcaRuntimeService
+  runtime?: OpenKodoRuntimeService
   store?: Store
   getSettings?: () => GlobalSettings
   getSelectedCodexHomePath?: GetSelectedCodexHomePath

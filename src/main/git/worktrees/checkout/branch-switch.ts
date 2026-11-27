@@ -116,7 +116,7 @@ function changedFilesReason(status: GitStatusResult): string {
   if (submodule) {
     return `Commit, stash or clean the changes inside submodule ${submodule.path} before switching branches.`
   }
-  if (first && first.path.startsWith('.orca/browser-downloads/')) {
+  if (first && first.path.startsWith('.openkodo/browser-downloads/')) {
     return `Move or delete the downloaded file ${first.path} before switching branches.`
   }
   const files = count === 1 ? `1 changed file (${first?.path ?? ''})` : `${count} changed files`

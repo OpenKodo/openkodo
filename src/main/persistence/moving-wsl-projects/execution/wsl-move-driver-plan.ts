@@ -44,7 +44,7 @@ import {
 
 export const WSL_MOVE_MANIFEST_TOO_LARGE_PREFIX = 'wsl_move_manifest_too_large:'
 // Thrown by manifest parsing past the absolute cap, before the journal's own budget can explain.
-const MANIFEST_OVER_CAP = 'orcad_migration_manifest_too_large'
+const MANIFEST_OVER_CAP = 'openkodod_migration_manifest_too_large'
 const MANIFEST_OVER_CAP_MESSAGE =
   'The saved state of these projects is too large to move in one step. Move fewer projects at a time, or close unused tabs and clear old terminal history first.'
 

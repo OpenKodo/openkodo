@@ -3,7 +3,7 @@ import { getRemoteRuntimePtyOwner } from '@/runtime/hosted-terminals/identity/re
 import type { AgentQuestionAnsweredInferenceRequest } from '../../../../../../shared/agent-status/lifecycle/agent-question-answered-intent'
 
 /** Send a question inference to the process that owns the pane's hook state: this desktop's main
- *  for local PTYs, the owning runtime (e.g. orcad on an SSH host) for a Codex skip on a remote one. */
+ *  for local PTYs, the owning runtime (e.g. openkodod on an SSH host) for a Codex skip on a remote one. */
 export function routeQuestionAnsweredInference(
   ptyId: string | null,
   request: AgentQuestionAnsweredInferenceRequest

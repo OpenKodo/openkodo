@@ -1,4 +1,4 @@
-// Writes a minimal valid out/mobile-web bundle for non-qualification CI test lanes that never ship orcad.
+// Writes a minimal valid out/mobile-web bundle for non-qualification CI test lanes that never ship openkodod.
 import { createRequire } from 'node:module'
 import {
   MOBILE_WEB_BUNDLE_ENTRYPOINT,
@@ -15,7 +15,10 @@ const { MOBILE_WEB_BUNDLE_DIR, assertMobileWebBundleBuilt } = createRequire(impo
 )
 
 export async function writePlaceholderMobileWebBundle(outDir = MOBILE_WEB_BUNDLE_DIR) {
-  const bytes = Buffer.from('<!doctype html><meta charset="utf-8"><title>Orca</title>\n', 'utf8')
+  const bytes = Buffer.from(
+    '<!doctype html><meta charset="utf-8"><title>OpenKodo</title>\n',
+    'utf8'
+  )
   const [desktopVersion, protocolWindow] = await Promise.all([
     readDesktopVersion(),
     readProtocolWindow()

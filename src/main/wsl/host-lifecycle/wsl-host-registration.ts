@@ -1,4 +1,4 @@
-/** Admit, refuse duplicate orcad ownership, connect (possibly booting), then persist the environment and WSL record. */
+/** Admit, refuse duplicate openkodod ownership, connect (possibly booting), then persist the environment and WSL record. */
 import { errorMessage } from '../../../shared/errors/error-message'
 import { addWslHostEnvironment } from '../../../shared/remote-runtime/host-store/runtime-environment-wsl-host-store'
 import type { WslHostDeploymentRecord } from '../../../shared/remote-runtime/host-store/wsl-host-deployment-store'
@@ -13,9 +13,9 @@ import {
 } from './wsl-host-add-admission'
 import { abandonWslHostAdd, connectForWslHostAdd } from './wsl-host-first-connect'
 import type { WslHostConnector, WslHostServiceDependencies } from './wsl-host-connector-contract'
-import { wslHostSshManagedRefusal } from './wsl-host-ssh-orcad-conflict'
-import type { WslOrcadConnection } from '../orcad/wsl-orcad-connection-types'
-import { defaultWslOrcadEnvironmentId } from '../orcad/wsl-orcad-deploy'
+import { wslHostSshManagedRefusal } from './wsl-host-ssh-openkodod-conflict'
+import type { WslOpenkododConnection } from '../openkodod/wsl-openkodod-connection-types'
+import { defaultWslOpenkododEnvironmentId } from '../openkodod/wsl-openkodod-deploy'
 
 /** What registration reads from and reports to the service that owns the hosts. */
 export type WslHostRegistrationContext = {
@@ -30,7 +30,7 @@ export type WslHostRegistrationContext = {
   recordForEnvironment: (
     environmentId: string
   ) => WslHostDeploymentRecord | null | Promise<WslHostDeploymentRecord | null>
-  setReady: (record: WslHostDeploymentRecord, connection: WslOrcadConnection) => void
+  setReady: (record: WslHostDeploymentRecord, connection: WslOpenkododConnection) => void
 }
 
 export async function registerWslHost(
@@ -62,12 +62,12 @@ export async function registerWslHost(
   const { distro } = admission
   const userDataPath = context.deps.userDataPath()
   const sharing = await wslHostSshManagedRefusal(distro.name, userDataPath, (name) =>
-    context.wsl().readOrcadPublicKey(name)
+    context.wsl().readOpenkododPublicKey(name)
   )
   if (sharing) {
     return sharing
   }
-  const environmentId = defaultWslOrcadEnvironmentId(distro.name)
+  const environmentId = defaultWslOpenkododEnvironmentId(distro.name)
   const connected = await connectForWslHostAdd(context.wsl(), distro.name, () =>
     generation === context.disableGeneration()
       ? wslHostNewWorkRefusal(context.deps)

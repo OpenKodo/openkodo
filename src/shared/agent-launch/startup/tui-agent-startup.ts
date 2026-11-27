@@ -45,7 +45,7 @@ export function buildAgentStartupPlan(args: {
   agentEnv?: Record<string, string> | null
   sessionOptions?: Record<string, SessionOptionValue>
   sessionOptionsOverrideAgentArgs?: boolean
-  /** Remote Linux deploys orca, so skip the local-only orca-ide rename. */
+  /** Remote Linux deploys openkodo, so skip the local-only openkodo-ide rename. */
   isRemote?: boolean
   /** OpenKodo types into this launch after start, so a startup update prompt would take that input. */
   suppressStartupUpdatePrompt?: boolean

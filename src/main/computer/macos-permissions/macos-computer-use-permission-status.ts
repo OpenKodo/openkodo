@@ -1,4 +1,4 @@
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import type {
   ComputerUsePermissionId,
   ComputerUsePermissionStatus,
@@ -70,7 +70,7 @@ export function resolveComputerUseHelperUnavailableReason(): string | null {
     return 'OpenKodo Computer Use.app was not found'
   }
   if (!resolveMacOSComputerUseExecutablePath()) {
-    return `${helperAppPath}/Contents/MacOS/orca-computer-use-macos was not found`
+    return `${helperAppPath}/Contents/MacOS/openkodo-computer-use-macos was not found`
   }
   return null
 }

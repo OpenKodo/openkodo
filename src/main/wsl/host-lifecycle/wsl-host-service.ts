@@ -21,14 +21,14 @@ import {
   toWslHostStatus
 } from './wsl-host-connection-record'
 import { sameWslDistro, wslHostRunRefusal } from './wsl-host-add-admission'
-import type { WslOrcadConnection } from '../orcad/wsl-orcad-connection-types'
+import type { WslOpenkododConnection } from '../openkodod/wsl-openkodod-connection-types'
 import { registerWslHost } from './wsl-host-registration'
 import { connectWslHostForUser } from './wsl-host-user-connect'
 import { WslHostStatusBoard } from './wsl-host-status-board'
 import { withWslHostIds } from './wsl-host-records'
 import { wslHolderKeepPolicy } from './wsl-orphan-holder-release'
 import { readdPendingWslHost, removeWslHostServer } from './wsl-host-removal'
-import type { WslOrcadConnectionStatus } from '../orcad/wsl-orcad-connection-status'
+import type { WslOpenkododConnectionStatus } from '../openkodod/wsl-openkodod-connection-status'
 
 export class WslHostService {
   private connector: WslHostConnector | null = null
@@ -59,8 +59,8 @@ export class WslHostService {
   /** C5's `onChange`: persist what moved, then tell the UI. */
   async handleConnectionChange(
     distro: string,
-    connection: WslOrcadConnection | null,
-    status: WslOrcadConnectionStatus
+    connection: WslOpenkododConnection | null,
+    status: WslOpenkododConnectionStatus
   ): Promise<void> {
     const key = wslDistroHolderKey(distro)
     const change = {}
@@ -348,8 +348,8 @@ export class WslHostService {
 
   private setStatus(
     record: WslHostDeploymentRecord,
-    status: WslOrcadConnectionStatus,
-    connection: WslOrcadConnection | null = null
+    status: WslOpenkododConnectionStatus,
+    connection: WslOpenkododConnection | null = null
   ): void {
     if (status.state === 'distro-stopped') {
       this.connectionChanges.delete(wslDistroHolderKey(record.distro))

@@ -5,9 +5,9 @@ import type { NativeChatTextBlock } from '../../../../../shared/native-chat/nati
 import type { AgentSessionUsageLimitWindow } from '../../../../../shared/agent-session/failures/agent-session-usage-limit'
 import { ProviderAccountChatButton } from '@/components/status-bar/accounts/ProviderAccountChatButton'
 import {
-  NativeChatOrcaStopContext,
-  type NativeChatOrcaStopView
-} from '../messages/notices/native-chat-orca-stop-context'
+  NativeChatOpenKodoStopContext,
+  type NativeChatOpenKodoStopView
+} from '../messages/notices/native-chat-openkodo-stop-context'
 import { NativeChatNoticeRow } from '../messages/notices/NativeChatNoticeRow'
 import { UsageLimitActionsContext, type UsageLimitActions } from './NativeChatUsageLimitActions'
 import type { NativeChatUsageLimitAutoContinueState } from './native-chat-usage-limit-auto-continue-setting'
@@ -89,7 +89,7 @@ function UsageLimitPanes({
   widths: readonly number[]
 }): ReactNode {
   const [now] = useState(Date.now)
-  const view = useMemo<NativeChatOrcaStopView>(
+  const view = useMemo<NativeChatOpenKodoStopView>(
     () => ({
       hostLabel: null,
       remoteHost: false,
@@ -120,7 +120,7 @@ function UsageLimitPanes({
     [state]
   )
   return (
-    <NativeChatOrcaStopContext.Provider value={view}>
+    <NativeChatOpenKodoStopContext.Provider value={view}>
       <UsageLimitActionsContext.Provider value={actions}>
         <div className="native-chat-appearance flex flex-col gap-4 p-3">
           {widths.map((width) => (
@@ -135,7 +135,7 @@ function UsageLimitPanes({
           ))}
         </div>
       </UsageLimitActionsContext.Provider>
-    </NativeChatOrcaStopContext.Provider>
+    </NativeChatOpenKodoStopContext.Provider>
   )
 }
 

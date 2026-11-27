@@ -1,8 +1,8 @@
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import type { OrcadDeltaMovePreview } from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododDeltaMovePreview } from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import type { SshTarget } from '../../../../../../shared/remote-runtime/ssh/ssh-types'
-import type { ManagedOrcadPreloadApi } from '../../../../../../preload/api/runtime/managed-orcad-api'
+import type { ManagedOpenkododPreloadApi } from '../../../../../../preload/api/runtime/managed-openkodod-api'
 import { useMountedRef } from '@/hooks/useMountedRef'
 import { useTranslate } from '@/i18n/use-translate'
 import { Button } from '../../../ui/button'
@@ -21,7 +21,7 @@ import {
 import { deltaMoveRowLabel } from './ssh-host-delta-move-copy'
 
 type SshHostDeltaMoveDialogProps = {
-  api: ManagedOrcadPreloadApi
+  api: ManagedOpenkododPreloadApi
   target: SshTarget | null
   onClose: () => void
   onFinished: () => void
@@ -36,7 +36,7 @@ export function SshHostDeltaMoveDialog({
 }: SshHostDeltaMoveDialogProps): React.JSX.Element {
   const t = useTranslate()
   const mountedRef = useMountedRef()
-  const [preview, setPreview] = useState<OrcadDeltaMovePreview | null>(null)
+  const [preview, setPreview] = useState<OpenkododDeltaMovePreview | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [running, setRunning] = useState(false)
   // Key by target ID so reloads with fresh target objects cannot reset a running move.

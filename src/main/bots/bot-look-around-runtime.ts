@@ -1,7 +1,7 @@
 // The runtime's one Look around runner, shared by the scheduler tick, Look now and a bot's onboarding.
 import { folderWorkspaceKey } from '../../shared/workspace/identity/workspace-scope'
 import type { AutomationService } from '../automations/automation-service'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { botTurns, runtimeBotAutomationSessions } from './bot-automation-sessions'
 import { systemBackgroundRunPower } from './bot-background-run-power'
 import { requireStructuredHost } from './bot-chat-session'
@@ -20,7 +20,7 @@ import { watchBotTurnEnds } from './bot-run-turn-watch'
 const runners = new WeakMap<object, BotLookAroundRunner>()
 const continuedLookWatches = new WeakSet<object>()
 
-export function runtimeLookAroundRunner(runtime: OrcaRuntimeService): BotLookAroundRunner {
+export function runtimeLookAroundRunner(runtime: OpenKodoRuntimeService): BotLookAroundRunner {
   watchContinuedLooksOnce(runtime)
   const existing = runners.get(runtime)
   if (existing) {
@@ -63,7 +63,7 @@ export function runtimeLookAroundRunner(runtime: OrcaRuntimeService): BotLookAro
 
 /** A look its usage limit stopped finishes in the turn that continues it, whoever sends it.
  *  Watched once per runtime; a host that couldn't start yet is tried again on the next call. */
-function watchContinuedLooksOnce(runtime: OrcaRuntimeService): void {
+function watchContinuedLooksOnce(runtime: OpenKodoRuntimeService): void {
   if (continuedLookWatches.has(runtime)) {
     return
   }
@@ -80,7 +80,7 @@ function watchContinuedLooksOnce(runtime: OrcaRuntimeService): void {
  *  while it runs. */
 export function bindLookAroundToAutomations(
   service: Pick<AutomationService, 'onTick'>,
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): void {
   // Deferred so a failure here, even building a runner, never stops the scheduler's own tick.
   service.onTick = () => {

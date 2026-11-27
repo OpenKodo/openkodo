@@ -1,23 +1,26 @@
 import { getAppEnvironment } from '../../shared/app-lifecycle/app-environment'
-import { startOrcadWithHost } from '../orcad/host-lifecycle/orcad-lifecycle'
-import type { OrcadHandle, OrcadOptions } from '../orcad/serve-startup/orcad-start-contract'
+import { startOpenkododWithHost } from '../openkodod/host-lifecycle/openkodod-lifecycle'
+import type {
+  OpenkododHandle,
+  OpenkododOptions
+} from '../openkodod/serve-startup/openkodod-start-contract'
 import { activateBackendServices } from './service-composition'
 import { BackendCoreProfileShutdown } from './core-profile-shutdown'
 
 export type BackendCoreHost = {
   userDataPath: string
   supervised: boolean
-  options: OrcadOptions
+  options: OpenkododOptions
   prepareCliLauncher(): Promise<void>
   prepareSecrets(userDataPath: string): Promise<void>
   runQuitHandlers(): void
 }
 
-export async function startBackendCore(host: BackendCoreHost): Promise<OrcadHandle> {
+export async function startBackendCore(host: BackendCoreHost): Promise<OpenkododHandle> {
   const { userDataPath } = host
   let closeObservability = (): Promise<void> => Promise.resolve()
   const profileShutdown = new BackendCoreProfileShutdown()
-  const { readiness, instance, stop } = await startOrcadWithHost(
+  const { readiness, instance, stop } = await startOpenkododWithHost(
     userDataPath,
     (registerCleanup) =>
       activateBackendServices({

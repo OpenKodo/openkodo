@@ -133,7 +133,7 @@ export const store = {
       id: fixtureCos.folderWorkspaceId,
       projectGroupId: 'bots',
       name: fixtureCos.name,
-      folderPath: '/home/fixture/.orca/bots/cos'
+      folderPath: '/home/fixture/.openkodo/bots/cos'
     })
   ]
 }

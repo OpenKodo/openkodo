@@ -12,7 +12,7 @@ import { resolveEnvironment } from '../../../../shared/remote-runtime/host-store
 import {
   resolveManagedRuntimeEnvironment,
   type ManagedRuntimeCallPreparation
-} from '../managed-orcad/runtime-environment-managed-tunnel'
+} from '../managed-openkodod/runtime-environment-managed-tunnel'
 import { recordRuntimeEnvironmentUsage } from '../../../../shared/remote-runtime/host-store/runtime-environment-usage-record'
 import type * as Rpc from '../../../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 import { subscribeRemoteRuntimeTransport } from '../../../../shared/remote-runtime/requests/remote-runtime-subscription-transport'

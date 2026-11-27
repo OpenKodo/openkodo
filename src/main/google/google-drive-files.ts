@@ -153,7 +153,7 @@ export function multipart(
   metadata: Record<string, unknown>,
   media: { body: Buffer; contentType: string }
 ): { body: Uint8Array<ArrayBuffer>; contentType: string } {
-  const boundary = `orca-${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`
+  const boundary = `openkodo-${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`
   const head = [
     `--${boundary}`,
     'Content-Type: application/json; charset=UTF-8',

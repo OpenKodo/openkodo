@@ -1,6 +1,6 @@
 import { homedir } from 'node:os'
 import { resolve } from 'node:path'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type { ProviderProcessSpawner } from '../../provider-process/provider-process-spawn'
 import { isRecord } from '../../../shared/agent-status/child-work/agent-status-child-work-value-guards'
 import {

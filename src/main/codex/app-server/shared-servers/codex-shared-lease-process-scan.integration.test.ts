@@ -23,9 +23,9 @@ afterEach(async () => {
 /** A shell under the launcher's name stands in for it (the scan reads only the launcher's subtree);
  *  `; :` keeps each tagged shell as its command's parent. */
 async function fakeLauncher(script: string): Promise<number> {
-  const dir = await mkdtemp(join(tmpdir(), 'orca-lease-scan-'))
+  const dir = await mkdtemp(join(tmpdir(), 'openkodo-lease-scan-'))
   dirs.push(dir)
-  const launcherPath = join(dir, 'orca-provider-exec')
+  const launcherPath = join(dir, 'openkodo-provider-exec')
   await copyFile('/bin/sh', launcherPath)
   await chmod(launcherPath, 0o755)
   const launcher = spawn(launcherPath, ['-c', script], {

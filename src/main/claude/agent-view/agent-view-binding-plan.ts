@@ -48,7 +48,7 @@ export function withClaudeAgentViewShortcut(config: HooksConfig): HooksConfig | 
 }
 
 export const ownership = { owner: 'OpenKodo/openkodo/claude-agent-view' }
-export const markerName = 'orca-agent-view.json'
+export const markerName = 'openkodo-agent-view.json'
 
 function shortcutOwnership(config: HooksConfig, next: HooksConfig): HooksConfig {
   const block = config !== next && Array.isArray(next.bindings) ? next.bindings.at(-1) : undefined

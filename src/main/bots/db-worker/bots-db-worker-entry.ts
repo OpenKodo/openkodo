@@ -13,7 +13,7 @@ import type {
 } from './bots-db-worker-protocol'
 import { installWorkerSendLedger } from '../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-bots-db')
+installWorkerSendLedger('openkodo-bots-db')
 
 /** A store the worker opened: runs one named call, or answers that it has no such call. */
 type OpenStore = {

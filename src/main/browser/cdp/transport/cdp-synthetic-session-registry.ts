@@ -71,14 +71,14 @@ export class CdpSyntheticSessionRegistry {
   private nextSyntheticPageSessionId(): string {
     this.nextClientSessionOrdinal += 1
     return this.nextClientSessionOrdinal === 1
-      ? 'orca-proxy-session'
-      : `orca-proxy-session-${this.nextClientSessionOrdinal}`
+      ? 'openkodo-proxy-session'
+      : `openkodo-proxy-session-${this.nextClientSessionOrdinal}`
   }
 
   private nextSyntheticBrowserSessionId(): string {
     this.nextClientBrowserSessionOrdinal += 1
     return this.nextClientBrowserSessionOrdinal === 1
-      ? 'orca-proxy-browser-session'
-      : `orca-proxy-browser-session-${this.nextClientBrowserSessionOrdinal}`
+      ? 'openkodo-proxy-browser-session'
+      : `openkodo-proxy-browser-session-${this.nextClientBrowserSessionOrdinal}`
   }
 }

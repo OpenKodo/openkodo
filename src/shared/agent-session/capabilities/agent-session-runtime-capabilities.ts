@@ -14,7 +14,7 @@ import { STRUCTURED_AGENT_SESSION_SURFACE_RUNTIME_CAPABILITIES } from './structu
 import {
   AGENT_SESSION_DELETE_RUNTIME_CAPABILITY,
   AGENT_SESSION_PHONE_DELETE_RUNTIME_CAPABILITY
-} from '../chat-deletion/orca-chat-delete'
+} from '../chat-deletion/openkodo-chat-delete'
 
 export const AGENT_SESSION_BOUNDARY_RUNTIME_CAPABILITY =
   'agent-session.session-boundary.v1' as const

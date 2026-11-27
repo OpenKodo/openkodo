@@ -9,7 +9,7 @@ import {
 } from 'node:fs'
 import { dirname, isAbsolute, join, normalize, relative, sep } from 'node:path'
 import {
-  getOrcaManagedCodexHomePath,
+  getOpenKodoManagedCodexHomePath,
   getSystemCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import { listCodexSessionJsonlFilesIncrementally } from '../rollouts/codex-session-file-listing'
@@ -74,14 +74,14 @@ export async function syncSystemCodexSessionsIntoManagedHomeIncrementally(
     return { scannedFiles: 0, linkedFiles: 0 }
   }
 
-  const managedHome = getOrcaManagedCodexHomePath()
+  const managedHome = getOpenKodoManagedCodexHomePath()
   const managedSessionsRoot = join(managedHome, 'sessions')
   const summary: CodexSessionBridgeSummary = { scannedFiles: 0, linkedFiles: 0 }
   const readBudget: LegacySessionCopyReadBudget = {
     bytes: LEGACY_COPY_READ_BUDGET_BYTES,
     limit: LEGACY_COPY_READ_BUDGET_BYTES
   }
-  const hasLegacyCopies = existsSync(join(managedHome, '.orca-session-copies'))
+  const hasLegacyCopies = existsSync(join(managedHome, '.openkodo-session-copies'))
   try {
     for await (const systemSessionFilePath of listCodexSessionJsonlFilesIncrementally(
       systemSessionsRoot,
@@ -194,7 +194,7 @@ function replaceSymlinkSessionBridgeWithHardlink(
       return false
     }
 
-    replacementPath = `${targetPath}.orca-link-${process.pid}-${Date.now()}`
+    replacementPath = `${targetPath}.openkodo-link-${process.pid}-${Date.now()}`
     if (!tryHardlinkCodexSessionFile(sourcePath, replacementPath)) {
       return false
     }
@@ -219,7 +219,7 @@ function replaceSymlinkSessionBridgeWithHardlink(
 export function getLegacyCopiedCodexSessionBridgeScanPreference(
   sessionFilePath: string
 ): LegacyCopiedCodexSessionBridgeScanPreference | null {
-  const managedSessionsRoot = join(getOrcaManagedCodexHomePath(), 'sessions')
+  const managedSessionsRoot = join(getOpenKodoManagedCodexHomePath(), 'sessions')
   const relativePath = relative(managedSessionsRoot, sessionFilePath)
   if (
     relativePath === '' ||
@@ -256,7 +256,7 @@ function readLegacyCopiedSessionMarker(relativePath: string): LegacyCopiedSessio
   try {
     return parseLegacyCopiedSessionMarker(
       readFileSync(
-        legacySessionCopyMarkerPath(getOrcaManagedCodexHomePath(), relativePath),
+        legacySessionCopyMarkerPath(getOpenKodoManagedCodexHomePath(), relativePath),
         'utf-8'
       )
     )
@@ -276,5 +276,7 @@ function fileStatsMatchMarker(
 }
 
 function clearLegacyCopiedSessionMarker(relativePath: string): void {
-  rmSync(legacySessionCopyMarkerPath(getOrcaManagedCodexHomePath(), relativePath), { force: true })
+  rmSync(legacySessionCopyMarkerPath(getOpenKodoManagedCodexHomePath(), relativePath), {
+    force: true
+  })
 }

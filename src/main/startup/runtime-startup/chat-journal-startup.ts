@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import { agentSessionRecordStoreHostServing } from '../../runtime/agent-session/records/agent-session-record-store-serving'
 import { isHostShuttingDown } from '../quit/host-shutdown-state'
 import { mainProcessState as state } from '../main-process-state'
@@ -15,7 +15,7 @@ let windowFence: Promise<unknown> = Promise.resolve()
 
 /** Serve boots the saved-chat writer now; desktop waits for the first-window fence, so window creation keeps the disk. */
 export function beginChatJournalStartup(
-  runtime: Pick<OrcaRuntimeService, 'beginStructuredAgentSessionStartupOpen' | 'requireStore'>,
+  runtime: Pick<OpenKodoRuntimeService, 'beginStructuredAgentSessionStartupOpen' | 'requireStore'>,
   serveMode: boolean
 ): void {
   // Detection counts OpenKodo's copies from launch, before the release reclaim in chatJournalHostServing.

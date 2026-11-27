@@ -1,11 +1,11 @@
 // Send/wait/read on an unstarted restored pane shares main's starter, then acts on its terminal.
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../../../shared/workspace-layout/layout-owner-switch'
-import { OrcaRuntimeWithGetTerminalInteractiveWait } from '../wait/terminal-interactive-wait'
+import { OpenKodoRuntimeWithGetTerminalInteractiveWait } from '../wait/terminal-interactive-wait'
 import { startedMainTerminalSurfaces } from './main-terminal-surfaces'
 import { MOBILE_TERMINAL_SURFACE_TIMEOUT_MS } from '../view/terminal-surface-deadlines'
 import type { RestoredPane } from '../recovery/restored-pane-start'
 
-export abstract class OrcaRuntimeWithRestoredHandlePaneStart extends OrcaRuntimeWithGetTerminalInteractiveWait {
+export abstract class OpenKodoRuntimeWithRestoredHandlePaneStart extends OpenKodoRuntimeWithGetTerminalInteractiveWait {
   /** Return null synchronously unless main must start this saved pane; use the started terminal's handle until binding/adoption catches up. */
   startRestoredHandlePane(
     handle: string,

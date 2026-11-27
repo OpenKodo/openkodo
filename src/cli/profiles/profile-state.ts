@@ -17,7 +17,7 @@ import {
   type ProfileStateExportsResult,
   type ProfileStateRollbackResult,
   type ProfileStateRecoverySelector
-} from '../../shared/orca-profiles/profile-state-recovery-command'
+} from '../../shared/openkodo-profiles/profile-state-recovery-command'
 import {
   canLaunchProfileStateRecovery,
   launchProfileStateRecovery

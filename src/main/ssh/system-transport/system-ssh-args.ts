@@ -5,7 +5,7 @@ export type SystemSshBuildArgsOptions = {
   configFile?: string
   resolvedConfig?: SystemSshResolvedConfig | null
   disableControlMaster?: boolean
-  suppressOrcaControlMaster?: boolean
+  suppressOpenKodoControlMaster?: boolean
   gssapiOnly?: boolean
   nonInteractive?: boolean
   /** Keeps OpenSSH's channel-open failures on stderr even under a quieter configured LogLevel. */
@@ -43,7 +43,7 @@ export function buildSshArgs(target: SshTarget, options?: SystemSshBuildArgsOpti
   args.push('-T')
 
   // Reuse one SSH connection across execs to avoid a fresh handshake per command.
-  const controlPath = getOrcaControlSocketPath(target, options)
+  const controlPath = getOpenKodoControlSocketPath(target, options)
   const forceDisableControlMaster =
     options?.disableControlMaster === true ||
     target.systemSshConnectionReuse === false ||
@@ -134,16 +134,16 @@ export function buildForwardProcessSshArgs(
   return buildSshArgs(target, {
     ...options,
     loopbackRoute: undefined,
-    suppressOrcaControlMaster: true,
+    suppressOpenKodoControlMaster: true,
     disableControlMaster: true
   })
 }
 
-export function getOrcaControlSocketPath(
+export function getOpenKodoControlSocketPath(
   target: SshTarget,
   options?: SystemSshBuildArgsOptions
 ): string | null {
-  if (shouldDisableOrcaControlMaster(target, options)) {
+  if (shouldDisableOpenKodoControlMaster(target, options)) {
     return null
   }
   return getControlSocketPath(target, options?.resolvedConfig, options?.gssapiOnly === true)
@@ -162,8 +162,8 @@ export function getSystemSshBuildArgsFromOperationOptions(
   if (options?.disableControlMaster === true) {
     buildArgsOptions.disableControlMaster = true
   }
-  if (options?.suppressOrcaControlMaster === true) {
-    buildArgsOptions.suppressOrcaControlMaster = true
+  if (options?.suppressOpenKodoControlMaster === true) {
+    buildArgsOptions.suppressOpenKodoControlMaster = true
   }
   if (options?.gssapiOnly === true) {
     buildArgsOptions.gssapiOnly = true
@@ -180,7 +180,7 @@ export function getSystemSshBuildArgsFromOperationOptions(
   return Object.keys(buildArgsOptions).length === 0 ? undefined : buildArgsOptions
 }
 
-function shouldDisableOrcaControlMaster(
+function shouldDisableOpenKodoControlMaster(
   target: SshTarget,
   options?: SystemSshBuildArgsOptions
 ): boolean {
@@ -189,7 +189,7 @@ function shouldDisableOrcaControlMaster(
     isOpenSshConfigBackedTarget(target) && options?.resolvedConfig == null
   return (
     options?.disableControlMaster === true ||
-    options?.suppressOrcaControlMaster === true ||
+    options?.suppressOpenKodoControlMaster === true ||
     target.systemSshConnectionReuse === false ||
     unresolvedConfigBackedTarget ||
     (hasUserConfiguredControlMaster(options?.resolvedConfig) && options?.gssapiOnly !== true)

@@ -7,9 +7,9 @@ export type SshHostServerSetupRemedy =
 
 // A later connect clears these by itself: another run held the host, or the host didn't answer a probe.
 const RETRYABLE_SETUP_CODES: ReadonlySet<string> = new Set([
-  'orcad_activation_fence_busy',
-  'orcad_candidate_preflight_unanswered',
-  'orcad_update_terminal_census_unavailable'
+  'openkodod_activation_fence_busy',
+  'openkodod_candidate_preflight_unanswered',
+  'openkodod_update_terminal_census_unavailable'
 ])
 
 export function sshHostServerSetupRemedy(code: string | undefined): SshHostServerSetupRemedy {
@@ -18,9 +18,9 @@ export function sshHostServerSetupRemedy(code: string | undefined): SshHostServe
     return 'retry'
   }
   switch (code) {
-    case 'orcad_snapshot_space_insufficient':
+    case 'openkodod_snapshot_space_insufficient':
       return 'free-host-space'
-    case 'orcad_initial_runtime_live':
+    case 'openkodod_initial_runtime_live':
       return 'stop-unmanaged-runtime'
     default:
       return 'see-details'

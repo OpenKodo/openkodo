@@ -5,7 +5,7 @@ import {
   persistSetupHookTrustApproval,
   type CreateSetupApproval
 } from '../../new-workspace/creation/setup-hook-trust'
-import type { OrcaHookTrustPrompt } from '../../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../../components/hook-trust/OpenKodoHookTrustDrawer'
 import { useCallback, useLayoutEffect, useState } from 'react'
 import type { TaskProvider } from '../../../../src/shared/work-items/task-providers'
 import type { GitHubPreset, TaskResumeState } from '../mobile-tasks-view-state-types'
@@ -32,14 +32,14 @@ export function useMobileTasksClientSettingsActions(model: ProjectRepositoryReso
     setGithubSourceFallbacks,
     setGithubCountedTotalPages,
     setItems,
-    setOrcaYamlTrustPrompt,
+    setOpenKodoYamlTrustPrompt,
     setSetupPrompt,
     setShowWorkspaceAdvanced,
     setShowWorkspaceAgentPicker,
     setShowWorkspaceBaseBranchPicker,
     setShowWorkspaceCreateRepoPicker,
     setShowWorkspaceSparsePicker,
-    setTrustedOrcaHooks,
+    setTrustedOpenKodoHooks,
     setWorkspaceAgent,
     setWorkspaceAgentOverridden,
     setWorkspaceBaseBranch,
@@ -66,7 +66,7 @@ export function useMobileTasksClientSettingsActions(model: ProjectRepositoryReso
     setWorkspaceSshState,
     taskResumeRef,
     taskUiReady,
-    trustedOrcaHooks
+    trustedOpenKodoHooks
   } = model
   const queryClient = useQueryClient()
   // Each write also lands in the kept hydration, so the next visit opens where this one left.
@@ -210,7 +210,7 @@ export function useMobileTasksClientSettingsActions(model: ProjectRepositoryReso
 
   const persistSetupHookTrust = useCallback(
     async (
-      prompt: Pick<OrcaHookTrustPrompt, 'repoId' | 'contentHash'>,
+      prompt: Pick<OpenKodoHookTrustPrompt, 'repoId' | 'contentHash'>,
       alwaysTrust: boolean
     ): Promise<CreateSetupApproval | null> => {
       if (!client) {
@@ -218,17 +218,17 @@ export function useMobileTasksClientSettingsActions(model: ProjectRepositoryReso
       }
       const trusted = await persistSetupHookTrustApproval({
         client,
-        trust: trustedOrcaHooks,
+        trust: trustedOpenKodoHooks,
         repos,
         repoId: prompt.repoId,
         contentHash: prompt.contentHash,
         alwaysTrust
       })
-      setTrustedOrcaHooks(trusted)
-      keepUi({ trustedOrcaHooks: trusted })
+      setTrustedOpenKodoHooks(trusted)
+      keepUi({ trustedOpenKodoHooks: trusted })
       return approvedCreateSetup(repos, prompt, alwaysTrust)
     },
-    [client, keepUi, repos, trustedOrcaHooks]
+    [client, keepUi, repos, trustedOpenKodoHooks]
   )
 
   const resetWorkspaceCreateState = useCallback((): void => {
@@ -262,7 +262,7 @@ export function useMobileTasksClientSettingsActions(model: ProjectRepositoryReso
     setShowWorkspaceBaseBranchPicker(false)
     setShowWorkspaceSparsePicker(false)
     setSetupPrompt(null)
-    setOrcaYamlTrustPrompt(null)
+    setOpenKodoYamlTrustPrompt(null)
   }, [])
   return Object.assign(model, {
     keepSettings,

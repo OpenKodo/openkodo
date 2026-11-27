@@ -1,5 +1,5 @@
 import { ArrowUpCircle, RefreshCw, RotateCcw, ServerOff, Trash2, Wrench } from 'lucide-react'
-import type { OrcadManagedRuntimeStatus } from '../../../../../../shared/remote-runtime/orcad-lifecycle/orcad-managed-runtime'
+import type { OpenkododManagedRuntimeStatus } from '../../../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-managed-runtime'
 import { translate } from '@/i18n/i18n'
 import { useTranslate, type Translate } from '@/i18n/use-translate'
 import { LoadingSpinner } from '../../../ui/LoadingSpinner'
@@ -16,7 +16,7 @@ import type { ManagedServerLifecycle } from './use-managed-server-lifecycle'
 
 // Unloaded status means unknown; only loaded evidence can claim Not running.
 export function managedServerVersionLabel(
-  status: OrcadManagedRuntimeStatus | null,
+  status: OpenkododManagedRuntimeStatus | null,
   statusError: string | null,
   t: Translate = translate
 ): string {
@@ -66,7 +66,7 @@ export function ManagedServerDetailLines({
     <div className="space-y-0.5 text-xs text-muted-foreground">
       <p>
         {t(
-          'auto.components.settings.managedServers.row.orcaVersion',
+          'auto.components.settings.managedServers.row.openkodoVersion',
           'OpenKodo on this host: {{version}}',
           {
             version: managedServerVersionLabel(status, statusError, t)
@@ -248,7 +248,7 @@ export function ManagedServerConfirmations({
     return (
       <ConfirmStrip
         message={t(
-          'auto.components.settings.managedServers.row.stopOrcaDescription',
+          'auto.components.settings.managedServers.row.stopOpenKodoDescription',
           'Stops OpenKodo on the SSH host and removes it from this list.'
         )}
         confirmLabel={t(
@@ -327,7 +327,7 @@ export function ManagedServerMenuItems({
       <DropdownMenuItem disabled={disabled} onSelect={() => void run('update')}>
         <ArrowUpCircle />
         {t(
-          'auto.components.settings.managedServers.row.updateOrcaOnHost',
+          'auto.components.settings.managedServers.row.updateOpenKodoOnHost',
           'Update OpenKodo on this host'
         )}
       </DropdownMenuItem>

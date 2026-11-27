@@ -1,5 +1,5 @@
-import { OrcaRuntimeWithCreateRuntimeOwnedMobileSessionTerminal } from '../launch/mobile-terminal-owned-create'
-import type { OrcaRuntimeWithResolveTerminalSplitSourceAuthority } from '../launch/terminal-split-source-authority'
+import { OpenKodoRuntimeWithCreateRuntimeOwnedMobileSessionTerminal } from '../launch/mobile-terminal-owned-create'
+import type { OpenKodoRuntimeWithResolveTerminalSplitSourceAuthority } from '../launch/terminal-split-source-authority'
 import type { RuntimeMobileSessionCreateTerminalResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import type { RuntimeMobileSessionTerminalClientTab } from '../../../../shared/remote-runtime/session-graph/runtime-mobile-session-tab-contracts'
 import { MOBILE_TERMINAL_SURFACE_TIMEOUT_MS } from './terminal-surface-deadlines'
@@ -11,13 +11,13 @@ import type {
   RuntimePtyWorktreeRecord
 } from '../records/runtime-terminal-state-records'
 
-export abstract class OrcaRuntimeWithWaitForMobileTerminalSurface extends OrcaRuntimeWithCreateRuntimeOwnedMobileSessionTerminal {
+export abstract class OpenKodoRuntimeWithWaitForMobileTerminalSurface extends OpenKodoRuntimeWithCreateRuntimeOwnedMobileSessionTerminal {
   protected abstract resolveTerminalSplitSourceAuthority(
     ...args: Parameters<
-      OrcaRuntimeWithResolveTerminalSplitSourceAuthority['resolveTerminalSplitSourceAuthority']
+      OpenKodoRuntimeWithResolveTerminalSplitSourceAuthority['resolveTerminalSplitSourceAuthority']
     >
   ): ReturnType<
-    OrcaRuntimeWithResolveTerminalSplitSourceAuthority['resolveTerminalSplitSourceAuthority']
+    OpenKodoRuntimeWithResolveTerminalSplitSourceAuthority['resolveTerminalSplitSourceAuthority']
   >
 
   protected waitForMobileTerminalSurface(

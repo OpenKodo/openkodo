@@ -36,20 +36,20 @@ export function createProjectGroupCatalogActions(
       const validHookOwners = new Set(
         projectGroups.filter((group) => group.parentPath).map(projectGroupHookTrustKey)
       )
-      const retiredKeys = Object.keys(s.trustedOrcaHooks).filter((key) => {
+      const retiredKeys = Object.keys(s.trustedOpenKodoHooks).filter((key) => {
         const host = projectGroupHookTrustHost(key)
         return host && catalogOwnsHost(catalog.hostId, host) && !validHookOwners.has(key)
       })
       if (arrayElementsUnchanged(projectGroups, s.projectGroups) && retiredKeys.length === 0) {
         return s
       }
-      const trustedOrcaHooks = { ...s.trustedOrcaHooks }
+      const trustedOpenKodoHooks = { ...s.trustedOpenKodoHooks }
       for (const key of retiredKeys) {
-        delete trustedOrcaHooks[key]
+        delete trustedOpenKodoHooks[key]
       }
       return {
         projectGroups,
-        trustedOrcaHooks,
+        trustedOpenKodoHooks,
         folderWorkspacePathStatuses: {}
       }
     })

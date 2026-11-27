@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import { parseRoutableExecutionHostId } from '../../../../../shared/execution-host/execution-host'
 import type { PreflightAgentDetection } from '../../../../../shared/rpc-contract/preflight/preflight-params'
 import { getSshHostServerStatus } from '../../../../ssh/host-server/ssh-host-server-status'
@@ -14,7 +14,7 @@ import { OrchestrationError } from '../../../orchestration/orchestration-error'
 import { parseWorkspaceKey } from '../../../../../shared/workspace/identity/workspace-scope'
 
 type InstalledAgentsRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'showManagedWorktree'
   | 'resolveManagedFolderWorkspace'
   | 'requireStore'

@@ -1,5 +1,5 @@
 import type { PreloadApi } from '../../../../../preload/api-types'
-import { getDefaultWorkspaceSession } from '../../../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../../../../../shared/openkodo-profiles/constants'
 import {
   LOCAL_EXECUTION_HOST_ID,
   normalizeExecutionHostId,

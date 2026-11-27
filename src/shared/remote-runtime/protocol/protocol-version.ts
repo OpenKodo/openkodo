@@ -25,7 +25,7 @@ import { PAIRING_OFFER_CREATOR_RUNTIME_CAPABILITY } from '../pairing/pairing-off
 import { FILES_RUNTIME_CAPABILITIES } from '../../file-access/files-runtime-capabilities'
 import { HOST_RUNTIME_CAPABILITIES } from './host-runtime-capabilities'
 import { MOBILE_RUNTIME_CAPABILITIES } from './mobile-runtime-capabilities'
-import { ORCAD_RUNTIME_CAPABILITIES } from './orcad-runtime-capabilities'
+import { OPENKODOD_RUNTIME_CAPABILITIES } from './openkodod-runtime-capabilities'
 import { ORCHESTRATION_RUNTIME_CAPABILITIES } from '../../orchestration/orchestration-runtime-capabilities'
 import { PREFLIGHT_RUNTIME_CAPABILITIES } from './preflight-runtime-capabilities'
 import {
@@ -82,7 +82,7 @@ export const RUNTIME_CAPABILITIES = /* @__PURE__ */ (() =>
     ...PAIRING_TICKET_EXCHANGE_RUNTIME_CAPABILITIES,
     PAIRING_OFFER_CREATOR_RUNTIME_CAPABILITY,
     ...MOBILE_RUNTIME_CAPABILITIES,
-    ...ORCAD_RUNTIME_CAPABILITIES,
+    ...OPENKODOD_RUNTIME_CAPABILITIES,
     ...ORCHESTRATION_RUNTIME_CAPABILITIES,
     ...agentLaunchCapabilities.AGENT_LAUNCH_RUNTIME_CAPABILITIES,
     ...AGENT_SESSION_RUNTIME_CAPABILITIES,

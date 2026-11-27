@@ -3,11 +3,11 @@ import {
   PLUGIN_DECLARATIVE_CATALOG_VERSION,
   PLUGIN_DECLARATIVE_COMPONENT_PROPS
 } from '../plugin-declarative-message-names'
-import type { OrcaBridge, OrcaDisposable, OrcaTheme } from './declarative-renderer'
+import type { OpenKodoBridge, OpenKodoDisposable, OpenKodoTheme } from './declarative-renderer'
 
-/** The same facade frames get as `window.orca`, typed in orca.d.ts. */
-export type OrcaHostCallOptions = { signal?: AbortSignal; timeoutMs?: number }
-type SdkSource = { bridge: () => OrcaBridge | null; theme: () => OrcaTheme }
+/** The same facade frames get as `window.openkodo`, typed in openkodo.d.ts. */
+export type OpenKodoHostCallOptions = { signal?: AbortSignal; timeoutMs?: number }
+type SdkSource = { bridge: () => OpenKodoBridge | null; theme: () => OpenKodoTheme }
 
 function hostError(code: string, message: string): Error {
   return Object.assign(new Error(message), { code, retryable: code === 'timeout' })
@@ -21,9 +21,13 @@ function isComponentTag(name: string): name is keyof typeof PLUGIN_DECLARATIVE_C
   return Object.hasOwn(PLUGIN_DECLARATIVE_COMPONENT_PROPS, name)
 }
 
-export function createOrcaSdk(source: SdkSource) {
+export function createOpenKodoSdk(source: SdkSource) {
   const host = Object.freeze({
-    call(method: string, params?: unknown, options: OrcaHostCallOptions = {}): Promise<unknown> {
+    call(
+      method: string,
+      params?: unknown,
+      options: OpenKodoHostCallOptions = {}
+    ): Promise<unknown> {
       const bridgeHost = source.bridge()?.host
       if (!bridgeHost) {
         return unavailable('host.call')
@@ -75,7 +79,7 @@ export function createOrcaSdk(source: SdkSource) {
       return source.bridge()?.locale ?? 'en'
     },
     /** Reading it while rendering re-renders on light/dark switches. */
-    get theme(): OrcaTheme {
+    get theme(): OpenKodoTheme {
       return source.theme()
     },
     client: 'desktop' as const
@@ -104,7 +108,7 @@ export function createOrcaSdk(source: SdkSource) {
     }
   })
 
-  function on(event: string, handler: (payload: unknown) => void): OrcaDisposable {
+  function on(event: string, handler: (payload: unknown) => void): OpenKodoDisposable {
     if (typeof event !== 'string' || isReservedPluginDeclarativeEvent(event)) {
       throw new TypeError(`"${String(event)}" is not an event plugins can subscribe to`)
     }

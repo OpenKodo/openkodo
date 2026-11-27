@@ -60,7 +60,7 @@ export function useDocumentAppearance(): void {
   const surfaceOpacity = useAppStore((s) => s.settings?.terminalBackgroundOpacity ?? 1)
   useEffect(() => {
     document.documentElement.style.setProperty(
-      '--orca-window-surface-opacity',
+      '--openkodo-window-surface-opacity',
       String(surfaceOpacity)
     )
   }, [surfaceOpacity])

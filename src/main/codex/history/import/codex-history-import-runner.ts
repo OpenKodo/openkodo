@@ -4,7 +4,7 @@ import { normalizeRuntimePathForComparison } from '../../../../shared/file-acces
 import type { GlobalSettings } from '../../../../shared/settings/global-settings-types'
 import { isCodexHistorySharedAcrossAccounts } from '../../../codex-accounts/runtime-home/routing/codex-history-sharing'
 import {
-  getOrcaUserDataPath,
+  getOpenKodoUserDataPath,
   getSystemCodexHomePath
 } from '../../configuration/homes/codex-home-paths'
 import { resolveHostCodexSessionSourceHome } from '../rollouts/codex-session-source-home'
@@ -21,7 +21,7 @@ const PUBLISH_HEAL_INTERVAL_MS = 60_000
 // Names this run's staged copies, so a sweep never removes one still to be published.
 const IMPORT_RUN_ID = randomUUID().replaceAll('-', '').slice(0, 12)
 const IMPORT_LEDGER_PATH = (): string =>
-  join(getOrcaUserDataPath(), 'codex-account-history', 'import-ledger.json')
+  join(getOpenKodoUserDataPath(), 'codex-account-history', 'import-ledger.json')
 
 export type CodexHistoryImportSettings = Pick<
   GlobalSettings,

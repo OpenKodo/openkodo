@@ -3,7 +3,10 @@ import { Copy, Folder, Laptop, Server, UserRound } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { useTranslate } from '@/i18n/use-translate'
-import { useBotHostOrcaAccount, useBotHostOrcaAccountSettled } from '@/lib/bot-host-orca-account'
+import {
+  useBotHostOpenKodoAccount,
+  useBotHostOpenKodoAccountSettled
+} from '@/lib/bot-host-openkodo-account'
 import { useBotHostOffline } from '@/lib/bot-host-views'
 import { useAppStore } from '@/store'
 import type { Bot } from '../../../../../shared/bot-types'
@@ -31,9 +34,9 @@ export function BotComputerPage({
   const t = useTranslate()
   const host = useBotHostLabel(bot.hostId)
   const name = useBotComputerName(bot)
-  const serverAccount = useBotHostOrcaAccount(bot.hostId)
-  const serverAccountSettled = useBotHostOrcaAccountSettled(bot.hostId)
-  const ownAccount = useAppStore((state) => state.orcaProfileAuthStatus)
+  const serverAccount = useBotHostOpenKodoAccount(bot.hostId)
+  const serverAccountSettled = useBotHostOpenKodoAccountSettled(bot.hostId)
+  const ownAccount = useAppStore((state) => state.openkodoProfileAuthStatus)
   const offline = useBotHostOffline(bot.hostId)
   // Checking… until the sign-in is read; nothing when it can't be (offline, an older server).
   const accountLine = (): string | undefined => {
@@ -84,7 +87,7 @@ export function BotComputerPage({
       />
       <SettingsInsetRow
         icon={<UserRound />}
-        title={t('bots.settingsView.orcaAccount', 'OpenKodo account')}
+        title={t('bots.settingsView.openkodoAccount', 'OpenKodo account')}
         detail={accountLine()}
       />
       <SettingsInsetRow

@@ -52,7 +52,7 @@ const SETTINGS_NAV_TARGETS = [
   'shared-links',
   'automations',
   'bots',
-  'orca-account',
+  'openkodo-account',
   'linear',
   'setup-guide',
   'servers',
@@ -63,7 +63,7 @@ const SETTINGS_NAV_TARGETS = [
 
 const SETTINGS_NAV_INTENTS = [
   'add-quick-command',
-  'add-remote-orca-server',
+  'add-remote-openkodo-server',
   'add-ssh-host',
   'native-accounts',
   // Closes Settings when the target pane is already showing.

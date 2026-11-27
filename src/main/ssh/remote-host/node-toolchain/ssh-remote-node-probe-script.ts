@@ -3,30 +3,30 @@
 // sshd exec lacks profile-only MISE_DATA_DIR/NVM_DIR; read relocated data-dir assignments from dotfiles.
 export const REMOTE_NODE_PATH_PROBE_SCRIPT = `
 command -v node 2>/dev/null
-orca_dotfile_dirs() {
-  orca_var_name=$1
-  orca_dirs=$2
-  for orca_file in "$HOME/.profile" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.zprofile" "$HOME/.zshrc"
+openkodo_dotfile_dirs() {
+  openkodo_var_name=$1
+  openkodo_dirs=$2
+  for openkodo_file in "$HOME/.profile" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.zprofile" "$HOME/.zshrc"
   do
-    [ -r "$orca_file" ] || continue
-    orca_dir_from_file=$(sed -n "s/^[[:space:]]*export[[:space:]][[:space:]]*$orca_var_name[[:space:]]*=[[:space:]]*//p; s/^[[:space:]]*$orca_var_name[[:space:]]*=[[:space:]]*//p" "$orca_file" | tail -n 1)
-    case "$orca_dir_from_file" in
-      \\"*\\") orca_dir_from_file=\${orca_dir_from_file#\\"}; orca_dir_from_file=\${orca_dir_from_file%%\\"*} ;;
-      \\'*\\') orca_dir_from_file=\${orca_dir_from_file#\\'}; orca_dir_from_file=\${orca_dir_from_file%%\\'*} ;;
-      *) orca_dir_from_file=\${orca_dir_from_file%%[[:space:]]*} ;;
+    [ -r "$openkodo_file" ] || continue
+    openkodo_dir_from_file=$(sed -n "s/^[[:space:]]*export[[:space:]][[:space:]]*$openkodo_var_name[[:space:]]*=[[:space:]]*//p; s/^[[:space:]]*$openkodo_var_name[[:space:]]*=[[:space:]]*//p" "$openkodo_file" | tail -n 1)
+    case "$openkodo_dir_from_file" in
+      \\"*\\") openkodo_dir_from_file=\${openkodo_dir_from_file#\\"}; openkodo_dir_from_file=\${openkodo_dir_from_file%%\\"*} ;;
+      \\'*\\') openkodo_dir_from_file=\${openkodo_dir_from_file#\\'}; openkodo_dir_from_file=\${openkodo_dir_from_file%%\\'*} ;;
+      *) openkodo_dir_from_file=\${openkodo_dir_from_file%%[[:space:]]*} ;;
     esac
-    case "$orca_dir_from_file" in
-      '$XDG_DATA_HOME'*) orca_dir_from_file="\${XDG_DATA_HOME:-$HOME/.local/share}\${orca_dir_from_file#'$XDG_DATA_HOME'}" ;;
-      '$HOME'*) orca_dir_from_file="$HOME\${orca_dir_from_file#'$HOME'}" ;;
-      "~/"*) orca_dir_from_file="$HOME/\${orca_dir_from_file#\\~/}" ;;
+    case "$openkodo_dir_from_file" in
+      '$XDG_DATA_HOME'*) openkodo_dir_from_file="\${XDG_DATA_HOME:-$HOME/.local/share}\${openkodo_dir_from_file#'$XDG_DATA_HOME'}" ;;
+      '$HOME'*) openkodo_dir_from_file="$HOME\${openkodo_dir_from_file#'$HOME'}" ;;
+      "~/"*) openkodo_dir_from_file="$HOME/\${openkodo_dir_from_file#\\~/}" ;;
     esac
-    [ -n "$orca_dir_from_file" ] && orca_dirs="$orca_dirs
-$orca_dir_from_file"
+    [ -n "$openkodo_dir_from_file" ] && openkodo_dirs="$openkodo_dirs
+$openkodo_dir_from_file"
   done
-  printf '%s\\n' "$orca_dirs"
+  printf '%s\\n' "$openkodo_dirs"
 }
 nvm_dirs=\${NVM_DIR:-"$HOME/.nvm"}
-nvm_dirs=$(orca_dotfile_dirs NVM_DIR "$nvm_dirs")
+nvm_dirs=$(openkodo_dotfile_dirs NVM_DIR "$nvm_dirs")
 printf '%s\\n' "$nvm_dirs" | while IFS= read -r nvm_dir
 do
   [ -n "$nvm_dir" ] || continue
@@ -36,7 +36,7 @@ do
   done
 done
 mise_dirs=\${MISE_DATA_DIR:-\${XDG_DATA_HOME:-$HOME/.local/share}/mise}
-mise_dirs=$(orca_dotfile_dirs MISE_DATA_DIR "$mise_dirs")
+mise_dirs=$(openkodo_dotfile_dirs MISE_DATA_DIR "$mise_dirs")
 printf '%s\\n' "$mise_dirs" | while IFS= read -r mise_dir
 do
   [ -n "$mise_dir" ] || continue

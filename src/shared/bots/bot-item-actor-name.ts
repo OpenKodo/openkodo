@@ -7,7 +7,7 @@ export function botItemActorName(event: BotItemEvent, item: BotItem, t: Translat
   switch (event.actor.kind) {
     case 'owner':
       return t('bots.items.activity.you', 'You')
-    case 'orca':
+    case 'openkodo':
       return 'OpenKodo'
     case 'bot':
       if (event.actor.botId === item.owner.botId) {

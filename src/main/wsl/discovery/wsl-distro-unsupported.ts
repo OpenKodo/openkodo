@@ -2,19 +2,19 @@
  * Distros that can't host OpenKodo's server, each refused with the step that fixes it. There is no
  * fallback once the WSL bridge is gone, so a refusal must say what to run, not only what failed.
  */
-import { OrcadHostUnsupportedError } from '../../orcad/diagnostics/orcad-host-unavailable'
-import { OrcadHostGlibcUnsupportedError } from '../../managed-server/lifecycle/orcad-runtime-target'
-import { RemoteNodeRuntimeSelfTestError } from '../../managed-server/install/orcad-remote-node-runtime-report'
+import { OpenkododHostUnsupportedError } from '../../openkodod/diagnostics/openkodod-host-unavailable'
+import { OpenkododHostGlibcUnsupportedError } from '../../managed-server/lifecycle/openkodod-runtime-target'
+import { RemoteNodeRuntimeSelfTestError } from '../../managed-server/install/openkodod-remote-node-runtime-report'
 import { wslHostAddRefusalText } from '../../../shared/remote-runtime/wsl-hosts/wsl-host-failure-copy'
 
-/** Keeps OrcadHostUnsupportedError's name, so callers that classify by name still see it. */
-export class WslDistroVersion1Error extends OrcadHostUnsupportedError {
+/** Keeps OpenkododHostUnsupportedError's name, so callers that classify by name still see it. */
+export class WslDistroVersion1Error extends OpenkododHostUnsupportedError {
   constructor(readonly distro: string) {
     super(wslHostAddRefusalText('wsl1', { distro }).text)
   }
 }
 
-export class WslDistroNotRegisteredError extends OrcadHostUnsupportedError {
+export class WslDistroNotRegisteredError extends OpenkododHostUnsupportedError {
   constructor(readonly distro: string) {
     super(wslHostAddRefusalText('notRegistered', { distro }).text)
   }
@@ -39,7 +39,7 @@ const NIXOS_STUB_LOADER = /NixOS cannot run dynamically linked executables/
 
 /** The shared server refusal plus the step that fixes it in a distro; null when there is none. */
 export function wslUnsupportedDistroFixMessage(error: unknown): string | null {
-  if (error instanceof OrcadHostGlibcUnsupportedError) {
+  if (error instanceof OpenkododHostGlibcUnsupportedError) {
     return (
       `${error.message} Use a Linux release with glibc 2.28 or newer ` +
       '(for example Ubuntu 20.04 or Debian 10 and later).'

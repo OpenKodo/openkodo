@@ -16,7 +16,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createInterface } from 'node:readline'
 import { zstdCompressSync } from 'node:zlib'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { afterEach, describe, expect, it } from 'vitest'
 import { shareCodexAccountHistory, unshareCodexAccountHistory } from './codex-account-history-links'
 
@@ -62,7 +62,7 @@ function fixture(platform?: NodeJS.Platform) {
   mkdirSync(join(store, 'sessions', DAY), { recursive: true })
   mkdirSync(join(account, 'sessions', DAY), { recursive: true })
   if (!platform && process.platform === 'win32') {
-    writeFileSync(join(account, '.orca-managed-home'), 'account-1\n')
+    writeFileSync(join(account, '.openkodo-managed-home'), 'account-1\n')
   }
   const pending = join(root, 'index-pending')
   const warnings: unknown[] = []
@@ -108,12 +108,12 @@ describe('shareCodexAccountHistory', () => {
     expect(realpathSync(join(f.account, 'memories'))).toBe(join(f.store, 'memories'))
     expect(readFileSync(join(f.store, 'sessions', DAY, ROLLOUT), 'utf8')).toBe('store version\n')
     expect(readFileSync(join(f.store, 'sessions', DAY, OTHER), 'utf8')).toBe('account only\n')
-    expect(readFileSync(join(f.account, 'sessions.orca-profile-merge', DAY, ROLLOUT), 'utf8')).toBe(
-      'account version\n'
-    )
+    expect(
+      readFileSync(join(f.account, 'sessions.openkodo-profile-merge', DAY, ROLLOUT), 'utf8')
+    ).toBe('account version\n')
     expect(readdirSync(f.pending)).toEqual([OTHER])
     expect(readFileSync(join(f.account, 'config.toml'), 'utf8')).toBe(
-      `sqlite_home = ${JSON.stringify(f.store)} # orca: Codex history shared across accounts\n`
+      `sqlite_home = ${JSON.stringify(f.store)} # openkodo: Codex history shared across accounts\n`
     )
     expect(lstatSync(join(f.account, 'auth.json')).isFile()).toBe(true)
     expect(lstatSync(join(f.account, 'log')).isSymbolicLink()).toBe(false)
@@ -128,7 +128,7 @@ describe('shareCodexAccountHistory', () => {
     await f.share()
 
     expect(readFileSync(join(f.store, 'sessions', DAY, ROLLOUT), 'utf8')).toBe('same file\n')
-    expect(existsSync(join(f.account, 'sessions.orca-profile-merge'))).toBe(false)
+    expect(existsSync(join(f.account, 'sessions.openkodo-profile-merge'))).toBe(false)
     expect(readdirSync(f.pending)).toEqual([ROLLOUT])
     expect(f.warnings).toEqual([])
   })
@@ -146,9 +146,9 @@ describe('shareCodexAccountHistory', () => {
 
     expect(realpathSync(join(f.account, 'sessions'))).toBe(join(f.store, 'sessions'))
     expect(readFileSync(join(f.store, 'sessions', DAY, OTHER), 'utf8')).toBe('private while off\n')
-    expect(readFileSync(join(f.account, 'sessions.orca-profile-merge', DAY, ROLLOUT), 'utf8')).toBe(
-      'account version\n'
-    )
+    expect(
+      readFileSync(join(f.account, 'sessions.openkodo-profile-merge', DAY, ROLLOUT), 'utf8')
+    ).toBe('account version\n')
   })
 
   it('keeps one form of a rollout in the store and sets the other aside', async () => {
@@ -178,10 +178,12 @@ describe('shareCodexAccountHistory', () => {
 
     expect(readdirSync(storeDay).sort()).toEqual([`${ROLLOUT}.zst`, OTHER, `${OTHER}.zst`])
     expect(readdirSync(join(f.store, 'sessions', '2026', '11', '15'))).toEqual([`${ROLLOUT}.zst`])
-    const setAside = join(f.account, '.orca-set-aside-rollouts', 'sessions', '2026', '11')
+    const setAside = join(f.account, '.openkodo-set-aside-rollouts', 'sessions', '2026', '11')
     expect(readdirSync(join(setAside, '14'))).toEqual([ROLLOUT])
     expect(readdirSync(join(setAside, '15'))).toEqual([ROLLOUT])
-    const manifest = JSON.parse(readFileSync(join(f.account, '.orca-history-cleanup.json'), 'utf8'))
+    const manifest = JSON.parse(
+      readFileSync(join(f.account, '.openkodo-history-cleanup.json'), 'utf8')
+    )
     expect(manifest).toMatchObject({
       version: 1,
       sharedPasses: 1,
@@ -191,13 +193,15 @@ describe('shareCodexAccountHistory', () => {
 
   it('renames the ownership marker before a Windows home gets junctions', async () => {
     const f = fixture('win32')
-    writeFileSync(join(f.account, '.orca-managed-home'), 'account-1\n')
+    writeFileSync(join(f.account, '.openkodo-managed-home'), 'account-1\n')
     writeFileSync(join(f.account, 'history.jsonl'), '{"id":"legacy"}\n')
 
     expect(await f.share()).toBe('shared')
 
-    expect(existsSync(join(f.account, '.orca-managed-home'))).toBe(false)
-    expect(readFileSync(join(f.account, '.orca-managed-home-linked'), 'utf8')).toBe('account-1\n')
+    expect(existsSync(join(f.account, '.openkodo-managed-home'))).toBe(false)
+    expect(readFileSync(join(f.account, '.openkodo-managed-home-linked'), 'utf8')).toBe(
+      'account-1\n'
+    )
     expect(readFileSync(join(f.account, 'history.jsonl'), 'utf8')).toBe('{"id":"legacy"}\n')
   })
 
@@ -244,7 +248,7 @@ describe('shareCodexAccountHistory', () => {
 
   it('keeps history apart while a thread lock the merge kept beside the store copy is held', async () => {
     const f = fixture()
-    const kept = join(f.account, 'thread-writer-locks.orca-profile-merge')
+    const kept = join(f.account, 'thread-writer-locks.openkodo-profile-merge')
     const lock = join(kept, '0199a1b2-c3d4-7e5f-8a9b-0c1d2e3f4a5c.lock')
     mkdirSync(join(f.store, 'thread-writer-locks'))
     symlinkSync(
@@ -282,9 +286,9 @@ describe('unshareCodexAccountHistory', () => {
     expect(readFileSync(join(f.account, 'config.toml'), 'utf8')).toBe('')
     expect(readFileSync(join(f.store, 'sessions', DAY, OTHER), 'utf8')).toBe('shared earlier\n')
     expect(existsSync(join(f.account, 'state_5.sqlite'))).toBe(false)
-    const [held] = readdirSync(join(f.account, '.orca-pre-share-db'))
+    const [held] = readdirSync(join(f.account, '.openkodo-pre-share-db'))
     expect(
-      readFileSync(join(f.account, '.orca-pre-share-db', held, 'state_5.sqlite'), 'utf8')
+      readFileSync(join(f.account, '.openkodo-pre-share-db', held, 'state_5.sqlite'), 'utf8')
     ).toBe('pre-share index')
   })
 })

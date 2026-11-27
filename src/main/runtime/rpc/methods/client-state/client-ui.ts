@@ -9,8 +9,8 @@ import {
   omitPairingLocalUiFields,
   type PairedUiState
 } from '../../../../../shared/remote-runtime/pairing/pairing-local-ui-fields'
-import type { PersistedUIState } from '../../../../../shared/orca-profiles/persisted-ui-state-types'
-import { isWorkspaceHostScope } from '../../../../../shared/orcad-migration/orcad-migration-client-state-value-validation'
+import type { PersistedUIState } from '../../../../../shared/openkodo-profiles/persisted-ui-state-types'
+import { isWorkspaceHostScope } from '../../../../../shared/openkodod-migration/openkodod-migration-client-state-value-validation'
 import { defineMethod, type RpcContext } from '../../core'
 import { keepSessionPicksOnBot } from '../../../../bots/bot-session-option-picks'
 import { assertTeamAllowsBots, botsBlockedByTeam } from '../../../../bots/bot-team-policy'

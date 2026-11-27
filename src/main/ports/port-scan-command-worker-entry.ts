@@ -10,7 +10,7 @@ import {
 } from './port-scan-command-protocol'
 import { installWorkerSendLedger } from '../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-port-scan')
+installWorkerSendLedger('openkodo-port-scan')
 
 // Worker-only, Electron-free imports keep inline CreateProcessW stalls off main; the client dispatches serially (#11161).
 

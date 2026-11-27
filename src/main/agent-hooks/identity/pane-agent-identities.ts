@@ -4,7 +4,7 @@ import {
 } from '../../../shared/agent-hook-listener/transport/wsl-hook-relay-contract'
 import type { AgentProviderSessionMetadata } from '../../../shared/agent-session/lifecycle/agent-session-resume'
 import { providerSessionLocatorIdentifies } from '../../../shared/agent-session/lifecycle/resume/agent-provider-session-equality'
-import type { OrcaSessionId } from '../../../shared/agent-session/identity/orca-session-address'
+import type { OpenKodoSessionId } from '../../../shared/agent-session/identity/openkodo-session-address'
 import { sameProviderKey, type AgentProviderKey } from './agent-provider-key'
 import { AgentIdentityWorkerClient, type AgentIdentityClient } from './agent-identity-worker-client'
 import { AgentIdentityDemand, type KeyDemand } from './agent-identity-demand'
@@ -60,16 +60,16 @@ export function agentSightingOf(row: {
  *  worker has not answered yet, or failed; a later admission or Copy click asks again). */
 export type RowAgentIdentity = {
   key: AgentProviderKey
-  id: OrcaSessionId | null
+  id: OpenKodoSessionId | null
   /** Not yet answered by the store: published as null so Copy stays offered and waits. */
   pending?: true
   /** The store authority that answered; an answer from a replaced store is never carried. */
   authority?: number
 }
 
-/** What a row publishes as `orcaSessionId`: its id; null while a failed link may still succeed
+/** What a row publishes as `openkodoSessionId`: its id; null while a failed link may still succeed
  *  (Copy retries); nothing for a settled read-only miss, where Copy could never succeed. */
-export function publishedOrcaSessionId(
+export function publishedOpenKodoSessionId(
   identity: RowAgentIdentity | undefined
 ): string | null | undefined {
   return identity?.id ?? (identity?.pending ? null : undefined)
@@ -153,7 +153,7 @@ export class PaneAgentIdentities {
 
   /** An explicit request (a Copy click): joins the key's demand, or sends it once during the
    *  failure backoff. Null when the store cannot name it within the wait. */
-  async identify(sighting: ProviderSessionSighting): Promise<OrcaSessionId | null> {
+  async identify(sighting: ProviderSessionSighting): Promise<OpenKodoSessionId | null> {
     const key = agentProviderKeyOf(sighting)
     return key ? this.demand.identify(this.keyString(key), key) : null
   }
@@ -178,7 +178,7 @@ export class PaneAgentIdentities {
 
   async idsOfProviderSession(
     providerSessionId: string
-  ): Promise<OrcaSessionId[] | ReverseLookupUnavailable | undefined> {
+  ): Promise<OpenKodoSessionId[] | ReverseLookupUnavailable | undefined> {
     return this.demand.lookup(`idsOfProviderSession\0${providerSessionId}`, (client, path) =>
       client.idsOfProviderSession(path, providerSessionId)
     )

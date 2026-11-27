@@ -60,7 +60,7 @@ openkodo agent launch --agent codex --worktree id:<repoId>::<worktreePath> --pro
 Handoff to an agent that is already running:
 
 ```text
-openkodo orchestration send --to <terminal handle or orca_session_id:<chat id>> --subject "<task name>" --body "<task brief>" --json
+openkodo orchestration send --to <terminal handle or openkodo_session_id:<chat id>> --subject "<task name>" --body "<task brief>" --json
 ```
 
 ## Starting agents
@@ -73,9 +73,9 @@ If a launch reply is lost, use the returned `operationId` to re-issue the exact 
 
 ## Agents by ID
 
-Every agent, chat or terminal, has an OpenKodo session ID (`orca_session_id:<id>`; what Copy OpenKodo Session ID copies). Use it to find and read agents:
+Every agent, chat or terminal, has an OpenKodo session ID (`openkodo_session_id:<id>`; what Copy OpenKodo Session ID copies). Use it to find and read agents:
 
-- `openkodo agent list --json` lists agents in this host's workspaces, with `orcaSessionId`, `kind` (chat or terminal), state, workspace and last reply. A terminal agent has no ID until it first reports to OpenKodo. Agents on other hosts are not listed; the output names those hosts and the `--environment` to use. A finished terminal agent stays listed as done while asleep, even after OpenKodo restarts, unless it was reopened and slept again before doing anything new. An agent put to sleep mid-turn is not listed. After reopening, a terminal agent reappears only once it reports to OpenKodo (for Codex, on its next turn). `agent read <id>` still reads it in all these cases.
+- `openkodo agent list --json` lists agents in this host's workspaces, with `openkodoSessionId`, `kind` (chat or terminal), state, workspace and last reply. A terminal agent has no ID until it first reports to OpenKodo. Agents on other hosts are not listed; the output names those hosts and the `--environment` to use. A finished terminal agent stays listed as done while asleep, even after OpenKodo restarts, unless it was reopened and slept again before doing anything new. An agent put to sleep mid-turn is not listed. After reopening, a terminal agent reappears only once it reports to OpenKodo (for Codex, on its next turn). `agent read <id>` still reads it in all these cases.
 - `openkodo agent show <id> --json` shows where one agent is (none if closed, two if resumed in two panes). A listed sleeping terminal agent shows its last state and where it wakes when its workspace is reopened.
 - `openkodo agent read <id> --json` reads what the agent said: a chat's history or a terminal agent's transcript, never its screen. It needs no running agent and never starts one. `state` describes the latest turn in this read's own history: `working` means that history shows an unfinished turn and the reply may not be there yet; a missing `state` means unknown, never done. A terminal agent that exited mid-turn may keep reading `working`; check `openkodo agent show`. `agent list`/`show` report the last state known to OpenKodo, which may differ. A terminal agent is readable while OpenKodo knows its transcript (open, or asleep in a workspace; on Windows, a sleeping WSL agent only once its tab is reopened).
 
@@ -90,11 +90,11 @@ Never use heredocs (<<) or here-strings (<<<); they can hang the shell.
 If send, reply or worker-start fails, do only what the CLI prints and keep that file unchanged. Never retry on your own or with a new ID.
 
 ```text
-openkodo orchestration send --to <terminal handle or orca_session_id:<chat id>> [--type question|dispatch|merge_ready|handoff] --subject "<topic>" --body "<message>" --json
+openkodo orchestration send --to <terminal handle or openkodo_session_id:<chat id>> [--type question|dispatch|merge_ready|handoff] --subject "<topic>" --body "<message>" --json
 ```
 
 - Set `--type` for what you need: `question` when you want an answer (the receiver gets a reply hint), `dispatch` to give it a task, `merge_ready` when your branch is ready to merge, `handoff` to pass work on. Without `--type` the mail is `status`, an update that needs no answer.
-- Address a terminal agent by its terminal handle (`launch.outcome.handle`, or from `terminal list`); its OpenKodo session ID is refused for sending today. Address a chat by `orca_session_id:<id>`.
+- Address a terminal agent by its terminal handle (`launch.outcome.handle`, or from `terminal list`); its OpenKodo session ID is refused for sending today. Address a chat by `openkodo_session_id:<id>`.
 - To find a terminal agent by its tab's name, match that name to a tab `title` in `terminal list --include-visual-layouts --json` and use the handle of the terminal in that tab. A terminal's own `title` is the agent's running title, and an agent may put the task's words in it, so it can repeat the name you are looking for. Chat tabs are not in that list; find a chat by its `title` in `agent list --json`. If no tab or several terminals match, ask the user. In a terminal, `OPENKODO_TERMINAL_HANDLE`, when set, is your own handle; never send to it.
 - A one-way message needs no Task or Run. For a terminal, the warning that it "is a live terminal-only mailbox" and delivery "is not durable after that terminal closes" is expected; it only means the mail is lost if that terminal closes.
 - For ordinary mail, the receipt means the mail was stored, not that the agent read it or started work. Exception: a send to a finished worker's `dispatch:<id>` can start a follow-up Task, and OpenKodo enters its body in the worker as that task's prompt (the receipt says so). Follow progress with `agent read` or `terminal read`.
@@ -110,7 +110,7 @@ openkodo orchestration send --to <terminal handle or orca_session_id:<chat id>> 
 
 An OpenKodo worktree is OpenKodo's tracked view of a repo checkout, its metadata, terminals, browser tabs, and UI state.
 
-Its id is a two-part address, `<repoId>::<worktreePath>`, such as `repo-123::/Users/me/orca/fix-login`. Copy the whole `id` field from `openkodo worktree create --json` or `openkodo worktree list --json`. `repo-123` alone names only the repo.
+Its id is a two-part address, `<repoId>::<worktreePath>`, such as `repo-123::/Users/me/openkodo/fix-login`. Copy the whole `id` field from `openkodo worktree create --json` or `openkodo worktree list --json`. `repo-123` alone names only the repo.
 
 For local creation, omit `--repo` and `--project` to stay in the caller's project. Use `--parent-worktree active` for a child of the current workspace. Project selection and parent selection are separate: a native folder parent supplies lineage, not a Git destination, so pass an explicit Git target when creating from a folder outside any managed checkout. Otherwise, pass `--repo` or `--project` only when deliberately creating in another project, or when OpenKodo asks you to disambiguate. Outside any OpenKodo-managed project, pass an explicit target. With a paired server, discover and use that server's exact target instead of the local cwd.
 
@@ -231,7 +231,7 @@ openkodo reference find STA-1234 --json
 - Repeat create `--reference` to seed links before setup/agent startup. Do not combine it with legacy `--pr`, `--issue`, `--linear-issue`, `--gitlab-issue`, or `--gitlab-mr` flags. Legacy `worktree set --pr` still appends/selects; `linkedItems` remains the worktree output field.
 - Find accepts a full URL or native issue key such as `STA-1234`; no bare numbers or custom shorthand. It searches stored links across sources, not conversation text (`openkodo search`). Narrow with `--worktree` or `--repo`; optionally `--include-archived`, `--limit` (default 50 workspaces). Check `truncated` before assuming complete coverage. Remote selectors refer to the execution host; never use local `current` for a paired host.
 - Find returns all known agents in each matching workspace. `linked: true` requires recorded reference/session evidence; `linked: false` means ownership is unknown. Check `liveness` (`live`, `unverifiable`, `exited`) and choose the intended agent; never infer ownership merely from workspace membership.
-- Message the agent with `orchestration send` to the returned `mailbox` (`dispatch:<id>` / `orca_session_id:<id>`) when there is one, otherwise to its exact `terminal` handle. A `dispatch:<id>` mailbox means the agent is a supervised worker. A `run:<id>` targets a coordinator. Find does not send, and adding links from a shell records no agent ownership.
+- Message the agent with `orchestration send` to the returned `mailbox` (`dispatch:<id>` / `openkodo_session_id:<id>`) when there is one, otherwise to its exact `terminal` handle. A `dispatch:<id>` mailbox means the agent is a supervised worker. A `run:<id>` targets a coordinator. Find does not send, and adding links from a shell records no agent ownership.
 
 ```text
 openkodo orchestration send --to <terminal-from-find> --subject "Status" --body "Status?" --type question --json

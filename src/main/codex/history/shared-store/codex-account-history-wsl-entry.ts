@@ -21,7 +21,7 @@ async function main(): Promise<void> {
     console.error(error instanceof Error ? error.message : String(error))
   }
   // Beside the guest's account homes, so it is per store and never inside the user's ~/.codex.
-  const pendingDir = join(homedir(), '.local', 'share', 'orca', 'codex-index-pending')
+  const pendingDir = join(homedir(), '.local', 'share', 'openkodo', 'codex-index-pending')
   let result: string
   if (mode === 'unshare') {
     const complete = await unshareCodexAccountHistory({ accountHome, storeHome, onWarning })

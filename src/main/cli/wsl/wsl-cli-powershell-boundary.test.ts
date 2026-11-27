@@ -16,8 +16,8 @@ const FORWARDED_ARGS = [
   'tui-idle',
   '--wsl',
   'forwarded-wsl-value',
-  '--orca',
-  'forwarded-orca-value',
+  '--openkodo',
+  'forwarded-openkodo-value',
   '--debug',
   'forwarded-debug-value',
   '--deps',
@@ -36,9 +36,9 @@ describe('WSL CLI PowerShell boundary', () => {
   it.skipIf(process.platform !== 'win32')(
     'preserves native argv and exit status through Windows PowerShell 5.1',
     async () => {
-      const root = await mkdtemp(join(tmpdir(), 'orca-wsl-powershell-boundary-'))
+      const root = await mkdtemp(join(tmpdir(), 'openkodo-wsl-powershell-boundary-'))
       const fixtureDir = join(root, 'fixture with spaces')
-      const bridgePath = join(fixtureDir, 'orca-wsl-bridge.ps1')
+      const bridgePath = join(fixtureDir, 'openkodo-wsl-bridge.ps1')
       const targetPath = join(fixtureDir, 'argv-target.cjs')
       const wslCwd = join(root, 'WSL cwd with spaces')
 
@@ -132,10 +132,10 @@ describe('WSL CLI PowerShell boundary', () => {
   it.skipIf(process.platform !== 'win32')(
     'pins a non-ASCII app identity and the dev launcher env through Windows PowerShell 5.1',
     async () => {
-      const root = await mkdtemp(join(tmpdir(), 'orca-wsl-managed-bridge-'))
+      const root = await mkdtemp(join(tmpdir(), 'openkodo-wsl-managed-bridge-'))
       const userDataPath = join(root, "张三's O\u2019Brien OpenKodo")
       const cliEntryPath = join(root, 'cli \u2018entry\u2019.cjs')
-      const bridgePath = join(root, 'orca-wsl-bridge.ps1')
+      const bridgePath = join(root, 'openkodo-wsl-bridge.ps1')
       try {
         await writeFile(bridgePath, buildWslBridgeScript({ userDataPath, cliEntryPath }), 'utf8')
         await writeFile(

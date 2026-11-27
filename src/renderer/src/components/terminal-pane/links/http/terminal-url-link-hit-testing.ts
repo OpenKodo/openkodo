@@ -86,7 +86,11 @@ export function handleTerminalHttpLink(
         ...deps,
         url,
         openInSourceGroup: () =>
-          openRoutedHttpLink(url, { ...deps, forceDestination: 'orca', openInSourceGroup: true })
+          openRoutedHttpLink(url, {
+            ...deps,
+            forceDestination: 'openkodo',
+            openInSourceGroup: true
+          })
       }
     )
   })

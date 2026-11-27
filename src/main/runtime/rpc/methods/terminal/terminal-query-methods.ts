@@ -4,9 +4,9 @@ import { remoteFileContentBudget } from '../files/files-remote-content-budget'
 import { remoteRpcResultExceedsContentBudget } from '../../../../../shared/remote-runtime/rpc/remote-rpc-content-budget'
 import { agentHookServer } from '../../../../agent-hooks/server/agent-hook-server'
 import {
-  formatOrcaSessionAddress,
-  type OrcaSessionAddress
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  type OpenKodoSessionAddress
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
   TerminalAgentId,
   TerminalHandle,
@@ -76,7 +76,10 @@ export const TERMINAL_QUERY_METHODS = [
     name: 'terminal.agentId',
     permission: 'workspace',
     params: TerminalAgentId,
-    handler: async (params, { runtime }): Promise<{ orcaSessionId: OrcaSessionAddress | null }> => {
+    handler: async (
+      params,
+      { runtime }
+    ): Promise<{ openkodoSessionId: OpenKodoSessionAddress | null }> => {
       // Re-read on each look: the pane may wake or sleep while the worker answers.
       const id = await agentHookServer.resolvePaneAgentId(
         params.paneKey,
@@ -84,7 +87,7 @@ export const TERMINAL_QUERY_METHODS = [
           runtime.getWorkspaceSessionForWorktree(params.worktreeId)
             ?.sleepingAgentSessionsByPaneKey?.[params.paneKey]
       )
-      return { orcaSessionId: id ? formatOrcaSessionAddress(id) : null }
+      return { openkodoSessionId: id ? formatOpenKodoSessionAddress(id) : null }
     }
   }),
   defineMethod({

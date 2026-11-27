@@ -29,7 +29,7 @@ export function shouldSkipCodexHomeEnvForWindowsShell(
 }
 
 // System-default real-home launches must remove inherited OpenKodo overrides when no managed home is selected.
-export function shouldStripInheritedOrcaCodexHome(args: {
+export function shouldStripInheritedOpenKodoCodexHome(args: {
   target: CodexAccountSelectionTarget
   selectedCodexHomePath: string | null
   skipCodexHomeEnv: boolean
@@ -43,18 +43,18 @@ export function shouldStripInheritedOrcaCodexHome(args: {
 export const CODEX_HOME_ENV_KEYS = ['CODEX_HOME', 'OPENKODO_CODEX_HOME'] as const
 
 // Remove only overrides matching OpenKodo's private marker, then drop the marker so wrappers cannot restore them; preserve user CODEX_HOME (#8606).
-export function stripInheritedOrcaCodexHomeOverride(baseEnv: Record<string, string>): void {
-  for (const key of getLocalOrcaCodexHomeEnvKeysToDelete(baseEnv)) {
+export function stripInheritedOpenKodoCodexHomeOverride(baseEnv: Record<string, string>): void {
+  for (const key of getLocalOpenKodoCodexHomeEnvKeysToDelete(baseEnv)) {
     delete baseEnv[key]
   }
 }
 
 // Local spawns share this environment; persistent daemons must compare their own inherited values.
-export function getLocalOrcaCodexHomeEnvKeysToDelete(env: Record<string, string>): string[] {
-  const inheritedOrcaOverride = env.OPENKODO_CODEX_HOME ?? process.env.OPENKODO_CODEX_HOME
+export function getLocalOpenKodoCodexHomeEnvKeysToDelete(env: Record<string, string>): string[] {
+  const inheritedOpenKodoOverride = env.OPENKODO_CODEX_HOME ?? process.env.OPENKODO_CODEX_HOME
   const inheritedCodexHome = env.CODEX_HOME ?? process.env.CODEX_HOME
   const keysToDelete = ['OPENKODO_CODEX_HOME']
-  if (inheritedOrcaOverride && inheritedCodexHome === inheritedOrcaOverride) {
+  if (inheritedOpenKodoOverride && inheritedCodexHome === inheritedOpenKodoOverride) {
     keysToDelete.push('CODEX_HOME')
   }
   return keysToDelete

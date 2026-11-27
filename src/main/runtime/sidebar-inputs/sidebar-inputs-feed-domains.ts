@@ -11,7 +11,7 @@ import type { RuntimeClientEvent } from '../../../shared/remote-runtime/session-
 import type { RuntimeStore } from '../construction/runtime-store-contract'
 import { savedWorkspaceCatalog } from '../../persistence/profile-save-domains'
 
-import type { OrcaRuntimeWithSidebarTemporal } from './orca-runtime-sidebar-temporal'
+import type { OpenKodoRuntimeWithSidebarTemporal } from './openkodo-runtime-sidebar-temporal'
 import type { PairedServerRowsSnapshot } from '../../../shared/sidebar-list/feed-facts/paired-server-rows'
 import type { PairedServerRowsProducer } from './workspace-rows/paired-server-rows-producer'
 import type { WorkspaceLifecycleQueue } from '../workspaces/lifecycle/workspace-lifecycle-queue'
@@ -31,7 +31,7 @@ import { parseExecutionHostId } from '../../../shared/execution-host/execution-h
 import { keyWorkspaceActivityByRow } from '../../../shared/sidebar-list/feed-facts/workspace-activity-facts'
 
 export type SidebarInputsFeedSources = {
-  facts: OrcaRuntimeWithSidebarTemporal
+  facts: OpenKodoRuntimeWithSidebarTemporal
   pairedServerRows: PairedServerRowsProducer
   workspaceLifecycle: WorkspaceLifecycleQueue
   workspaceRows: WorkspaceRowsProducer

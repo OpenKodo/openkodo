@@ -18,13 +18,13 @@ import {
 import type { DesktopBrowserBridgeOutcome } from './desktop-browser-bridge-executor'
 
 const RESULT_TIMEOUT_MS = 30_000
-// Keep browser errors within orcad's result-schema limits.
+// Keep browser errors within openkodod's result-schema limits.
 const MAX_ERROR_CODE_LENGTH = 128
 const MAX_ERROR_MESSAGE_LENGTH = 4096
 
 type SendRequest = NonNullable<RemoteRuntimeTransportSubscription['sendRequest']>
 
-/** Calls orcad on behalf of one forwarded command; file transfers outlive it, so it stays usable until the attachment ends. */
+/** Calls openkodod on behalf of one forwarded command; file transfers outlive it, so it stays usable until the attachment ends. */
 export type DesktopBrowserBridgeHostChannel = {
   attachmentId: string
   requestId: string
@@ -128,7 +128,7 @@ export class DesktopBrowserBridgeConnection {
   }
 
   private async answer(attachmentId: string, request: DesktopBrowserBridgeRequest): Promise<void> {
-    // Cancel queued commands once orcad has stopped waiting.
+    // Cancel queued commands once openkodod has stopped waiting.
     const cancelled = new AbortController()
     this.cancellations.set(request.requestId, cancelled)
     const signals = [this.revoked.signal, cancelled.signal]
@@ -152,7 +152,7 @@ export class DesktopBrowserBridgeConnection {
     if (this.closed || this.attachmentId !== attachmentId || !sendRequest) {
       return
     }
-    // Only revocation stops the upload: orcad's own timer bounds it by refusing late chunks.
+    // Only revocation stops the upload: openkodod's own timer bounds it by refusing late chunks.
     const params = await resultParams(
       sendRequest,
       attachmentId,

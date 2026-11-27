@@ -1,7 +1,7 @@
 /**
  * `openkodo plugin check` for custom editors, without a running OpenKodo: every file an editor entry
  * loads (its local `<script src>`, inline module scripts, and their relative imports) is
- * transpiled and resolved exactly as the frame loader does. Shipped in orca-test-hooks.mjs.
+ * transpiled and resolved exactly as the frame loader does. Shipped in openkodo-test-hooks.mjs.
  */
 import { realpathSync } from 'node:fs'
 import { posix } from 'node:path'

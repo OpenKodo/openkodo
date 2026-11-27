@@ -4,7 +4,7 @@ import { useAppStore } from '@/store/index'
 import type { AppState } from '@/store/types'
 import { TOGGLE_WORKSPACE_BOARD_EVENT } from '@/components/sidebar/workspace-board/surface/useWorkspaceBoardPanel'
 import { APP_RAIL_DESTINATION_IDS } from '@/components/app-rail/app-rail-layout'
-import { getDefaultSettings } from '../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../shared/openkodo-profiles/constants'
 import { createAppCommandHandlers, type AppShortcutState } from './app-command-handlers'
 
 // Invariant: with the rail on, a rail page hides the workspace list, so the list commands must first return to

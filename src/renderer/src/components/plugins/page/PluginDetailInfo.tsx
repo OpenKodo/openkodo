@@ -131,13 +131,13 @@ export function PluginDetailInfo({
               value={formatPluginInstallCount(installCount, intlLocale)}
             />
           ) : null}
-          {entry.minimumOrca ? (
+          {entry.minimumOpenKodo ? (
             <InfoRow
               label={t('auto.components.settings.PluginDetailPage.requires', 'Requires')}
               value={t(
                 'auto.components.settings.PluginDetailPage.requiresValue',
                 'OpenKodo {{value0}} or later',
-                { value0: entry.minimumOrca }
+                { value0: entry.minimumOpenKodo }
               )}
             />
           ) : null}

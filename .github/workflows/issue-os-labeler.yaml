@@ -37,12 +37,12 @@ jobs:
             // Metadata headings in accepted order; equal rank = current/legacy names of one field.
             const HEADING_RANKS = new Map([
               ["Summary", 1],
-              ["Where were you using Orca?", 2],
+              ["Where were you using OpenKodo?", 2],
               ["Client", 2],
               ["Operating system", 3],
               ["Host operating system", 3],
               ["Remote host operating system", 4],
-              ["Orca version", 5],
+              ["OpenKodo version", 5],
               ["Coding harness and version", 6],
               ["Details", 7],
               ["Reproduction steps", 7],
@@ -61,14 +61,14 @@ jobs:
             const WHERE_IS_MOBILE = new Map([
               ["desktop only", false],
               ["desktop + ssh host", false],
-              ["desktop + orca server", false],
+              ["desktop + openkodo server", false],
               ["desktop + wsl", false],
               ["mobile app", true],
               ["web browser", false],
               ["other", false],
               ["desktop (this computer)", false],
               ["desktop + ssh", false],
-              ["desktop + orca remote server", false],
+              ["desktop + openkodo remote server", false],
               ["mobile (ios)", true],
               ["mobile (android)", true],
               ["web / browser", false],
@@ -159,7 +159,7 @@ jobs:
             // Returns the managed labels the body asks for, or null to leave the issue untouched.
             function desiredLabelsFor(body) {
               const fields = readFormFields(body);
-              if (!fields || !fields.has("Orca version")) {
+              if (!fields || !fields.has("OpenKodo version")) {
                 return null;
               }
               const osHeading = ["Operating system", "Host operating system"].find((name) =>
@@ -182,8 +182,8 @@ jobs:
               }
 
               // The current heading wins by presence, even when blank.
-              const whereChoices = fields.has("Where were you using Orca?")
-                ? ["Where were you using Orca?", WHERE_IS_MOBILE]
+              const whereChoices = fields.has("Where were you using OpenKodo?")
+                ? ["Where were you using OpenKodo?", WHERE_IS_MOBILE]
                 : fields.has("Client")
                   ? ["Client", CLIENT_IS_MOBILE]
                   : null;

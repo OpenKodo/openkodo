@@ -286,7 +286,7 @@ export const WORKTREE_HANDLERS: Record<string, CommandHandler> = {
     printResult(result, json, (value) =>
       // Hosts that predate waiting answer on acceptance.
       value.removing
-        ? 'removed: false\nOrca is still deleting the checkout in the background.'
+        ? 'removed: false\nOpenKodo is still deleting the checkout in the background.'
         : value.removed === true
           ? 'removed: true'
           : 'Removal is not confirmed.'

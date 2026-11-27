@@ -1,14 +1,14 @@
 import { createHash, createHmac, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto'
-import { ASSIGNMENT_LIMITS } from '@orca-cloud/relay-contract/assignment-invariants'
-import { RELAY_DEFAULT_REGION, type RelayRegion } from '@orca-cloud/relay-contract/relay-regions'
-import { AuthRefreshSchema, DeviceRevokeSchema, HostChallengeAckSchema, HostHelloSchema, InviteCreateSchema, RELAY_HOST_CAPABILITY_PENDING_CONN_DETAILS, RELAY_HOST_CAPABILITY_IDLE_REGIONAL_REHOME } from '@orca-cloud/relay-contract/control-messages'
-import { buildHostChallengePlaintext, buildHostProofMacInput, buildHostProofTranscript } from '@orca-cloud/relay-contract/host-proof-transcript'
-import { CONTROL_CONTINUITY_LIMITS } from '@orca-cloud/relay-contract/control-continuity'
-import { DeviceCredentialInstallSchema, DeviceCredentialInstallStatusSchema, DeviceResumeConfirmSchema } from '@orca-cloud/relay-contract/credential-messages'
-import { RELAY_PROTOCOL_LIMITS } from '@orca-cloud/relay-contract/protocol-limits'
-import { RELAY_CLOSE_CODE, RELAY_PHONE_CLOSE_REASON, type RelayPhoneCloseReason } from '@orca-cloud/relay-contract/close-codes'
-import type { IdleRegionalRehomeCommit, IdleRegionalRehomeDeferReason, IdleRegionalRehomeResult } from '@orca-cloud/relay-contract/idle-regional-rehome'
-import type { RelayHostCloseReason } from '@orca-cloud/relay-contract/host-close-reason'
+import { ASSIGNMENT_LIMITS } from '@openkodo-cloud/relay-contract/assignment-invariants'
+import { RELAY_DEFAULT_REGION, type RelayRegion } from '@openkodo-cloud/relay-contract/relay-regions'
+import { AuthRefreshSchema, DeviceRevokeSchema, HostChallengeAckSchema, HostHelloSchema, InviteCreateSchema, RELAY_HOST_CAPABILITY_PENDING_CONN_DETAILS, RELAY_HOST_CAPABILITY_IDLE_REGIONAL_REHOME } from '@openkodo-cloud/relay-contract/control-messages'
+import { buildHostChallengePlaintext, buildHostProofMacInput, buildHostProofTranscript } from '@openkodo-cloud/relay-contract/host-proof-transcript'
+import { CONTROL_CONTINUITY_LIMITS } from '@openkodo-cloud/relay-contract/control-continuity'
+import { DeviceCredentialInstallSchema, DeviceCredentialInstallStatusSchema, DeviceResumeConfirmSchema } from '@openkodo-cloud/relay-contract/credential-messages'
+import { RELAY_PROTOCOL_LIMITS } from '@openkodo-cloud/relay-contract/protocol-limits'
+import { RELAY_CLOSE_CODE, RELAY_PHONE_CLOSE_REASON, type RelayPhoneCloseReason } from '@openkodo-cloud/relay-contract/close-codes'
+import type { IdleRegionalRehomeCommit, IdleRegionalRehomeDeferReason, IdleRegionalRehomeResult } from '@openkodo-cloud/relay-contract/idle-regional-rehome'
+import type { RelayHostCloseReason } from '@openkodo-cloud/relay-contract/host-close-reason'
 import nacl from 'tweetnacl'
 import type WebSocket from 'ws'
 import type { RawData } from 'ws'
@@ -492,7 +492,7 @@ export class HostSessionRegistry {
     this.reregistration = state
     console.warn(
       JSON.stringify({
-        event: 'orca_relay_cell_reregistration_started',
+        event: 'openkodo_relay_cell_reregistration_started',
         ...this.logIdentity(),
         controls: queued
       })
@@ -544,7 +544,7 @@ export class HostSessionRegistry {
     clearInterval(state.timer)
     this.reregistration = null
     console.warn(
-      JSON.stringify({ event: 'orca_relay_cell_reregistration_finished', ...this.logIdentity() })
+      JSON.stringify({ event: 'openkodo_relay_cell_reregistration_finished', ...this.logIdentity() })
     )
   }
 
@@ -639,7 +639,7 @@ export class HostSessionRegistry {
           if (entry.stalls % REREGISTER_STALL_LOG_EVERY === 0) {
             console.warn(
               JSON.stringify({
-                event: 'orca_relay_cell_reregistration_stalled',
+                event: 'openkodo_relay_cell_reregistration_stalled',
                 ...this.logIdentity(),
                 relayHostIdDigest: relayHostLogDigest(session.relayHostId),
                 stalls: entry.stalls,
@@ -660,7 +660,7 @@ export class HostSessionRegistry {
         }
         console.warn(
           JSON.stringify({
-            event: 'orca_relay_cell_reregistration_gave_up',
+            event: 'openkodo_relay_cell_reregistration_gave_up',
             ...this.logIdentity(),
             relayHostIdDigest: relayHostLogDigest(session.relayHostId),
             assignmentEpoch: epoch,
@@ -770,7 +770,7 @@ export class HostSessionRegistry {
     timer.unref?.()
     console.warn(
       JSON.stringify({
-        event: 'orca_relay_cell_seat_demoted',
+        event: 'openkodo_relay_cell_seat_demoted',
         ...this.logIdentity(),
         relayHostIdDigest: relayHostLogDigest(session.relayHostId),
         assignmentEpoch: request.epoch
@@ -832,7 +832,7 @@ export class HostSessionRegistry {
       const elapsedMs = this.now() - acceptStartedAt
       this.observer.recordClientAcceptAbandoned?.(stage, elapsedMs)
       console.warn(
-        JSON.stringify({ event: 'orca_relay_client_accept_abandoned', stage, elapsedMs })
+        JSON.stringify({ event: 'openkodo_relay_client_accept_abandoned', stage, elapsedMs })
       )
       return true
     }
@@ -1225,7 +1225,7 @@ export class HostSessionRegistry {
           closeInfo.trigger.includes('oversize')
         ) {
           console.warn(
-            `[orca-relay] splice closed host=${relayHostLogDigest(session.relayHostId)}` +
+            `[openkodo-relay] splice closed host=${relayHostLogDigest(session.relayHostId)}` +
               ` trigger=${closeInfo.trigger} code=${closeInfo.code}` +
               ` reason=${JSON.stringify(closeInfo.reason)}`
           )
@@ -1277,7 +1277,7 @@ export class HostSessionRegistry {
     this.observer.recordClientAcceptCompleted?.({ totalMs, stageMs, phonePath: pending.phonePath })
     console.log(
       JSON.stringify({
-        event: 'orca_relay_client_accept_completed',
+        event: 'openkodo_relay_client_accept_completed',
         ...this.logIdentity(),
         ...this.sessionPlacementLogFields(session),
         credentialKind: pending.reservation.credentialKind,
@@ -1328,7 +1328,7 @@ export class HostSessionRegistry {
     session.controlRttLoggedAt = now
     console.log(
       JSON.stringify({
-        event: 'orca_relay_host_control_rtt',
+        event: 'openkodo_relay_host_control_rtt',
         ...this.logIdentity(),
         ...this.sessionPlacementLogFields(session),
         relayHostIdDigest: relayHostLogDigest(session.relayHostId),
@@ -1417,7 +1417,7 @@ export class HostSessionRegistry {
           // Untruncated, unlike peer-supplied close reasons: this is the
           // primary diagnostic for the next rejection class.
           .replace(/[^\x20-\x7e]/g, '')
-        console.warn(`[orca-relay] ${context} failed: ${message}`)
+        console.warn(`[openkodo-relay] ${context} failed: ${message}`)
         socket?.close(RELAY_CLOSE_CODE.LIMIT_EXCEEDED, 'relay temporarily unavailable')
       })
       // Terminal: a throw in the handler above must not itself crash the process.
@@ -2080,7 +2080,7 @@ export class HostSessionRegistry {
   private logSeatDrift(relayHostId: string, detail: Record<string, unknown>): void {
     console.warn(
       JSON.stringify({
-        event: 'orca_relay_cell_seat_log_drift',
+        event: 'openkodo_relay_cell_seat_log_drift',
         ...this.logIdentity(),
         relayHostIdDigest: relayHostLogDigest(relayHostId),
         ...detail
@@ -2150,7 +2150,7 @@ export class HostSessionRegistry {
       // One line per control close makes reconnect churners attributable by
       // host digest without exposing the raw relay host id.
       console.warn(
-        `[orca-relay] control closed host=${relayHostLogDigest(session.relayHostId)}` +
+        `[openkodo-relay] control closed host=${relayHostLogDigest(session.relayHostId)}` +
           ` gen=${session.generation} state=${session.state} ageMs=${this.now() - wiredAt}` +
           ` app=${JSON.stringify(printableCloseReason(appVersion))}` +
           ` splices=${session.closingCounts?.splices ?? session.activeSplices.size}` +
@@ -2329,7 +2329,7 @@ export class HostSessionRegistry {
                 session.socket?.close(RELAY_CLOSE_CODE.DRAINING, 'control migration completed')
                 return
               }
-              console.warn('[orca-relay] control activity recovery failed')
+              console.warn('[openkodo-relay] control activity recovery failed')
             }
             return
           }
@@ -2341,12 +2341,12 @@ export class HostSessionRegistry {
             // SKIP LOCKED defers this host, not the batch; next tick 15s vs 105s lease is safe, and flush metrics already count it.
             return
           }
-          console.warn('[orca-relay] control activity renewal failed')
+          console.warn('[openkodo-relay] control activity renewal failed')
         })
         // Terminal handler: a throw inside the async catch above (e.g. a
         // future await) must not become a process-killing rejection.
         .catch(() => {
-          console.warn('[orca-relay] control activity renewal handling failed')
+          console.warn('[openkodo-relay] control activity renewal handling failed')
         })
     }
     if (now - session.lastPongAt > 75_000) {
@@ -2399,7 +2399,7 @@ export class HostSessionRegistry {
     if (forcedConnections > 0) {
       console.warn(
         JSON.stringify({
-          event: 'orca_relay_host_drain_forced_close',
+          event: 'openkodo_relay_host_drain_forced_close',
           ...this.logIdentity(),
           ...this.sessionPlacementLogFields(session),
           relayHostIdDigest: relayHostLogDigest(session.relayHostId),
@@ -2471,7 +2471,7 @@ export class HostSessionRegistry {
       if (!settled) {
         console.warn(
           JSON.stringify({
-            event: 'orca_relay_host_drain_release_slow',
+            event: 'openkodo_relay_host_drain_release_slow',
             ...this.logIdentity(),
             relayHostIdDigest: relayHostLogDigest(session.relayHostId),
             waitedMs: this.now() - startedAt
@@ -2709,7 +2709,7 @@ export class HostSessionRegistry {
     } catch {
       // Why: expiry cleanup is the durable fallback; a transient SQL failure while
       // closing a socket must not become an unhandled rejection that kills the cell.
-      console.warn('[orca-relay] activity release deferred to lease cleanup')
+      console.warn('[openkodo-relay] activity release deferred to lease cleanup')
     }
   }
 
@@ -2717,7 +2717,7 @@ export class HostSessionRegistry {
     // Why: reservation deadlines and basis cleanup are durable recovery paths;
     // transient SQL errors during socket callbacks must stay process-contained.
     void this.store.failReservation(reservation).catch(() => {
-      console.warn('[orca-relay] reservation release deferred to credential cleanup')
+      console.warn('[openkodo-relay] reservation release deferred to credential cleanup')
     })
   }
 
@@ -2751,7 +2751,7 @@ export class HostSessionRegistry {
 
   private deactivateBasisBestEffort(connId: string): void {
     void this.store.deactivateBasis(connId).catch(() => {
-      console.warn('[orca-relay] basis deactivation deferred to credential cleanup')
+      console.warn('[openkodo-relay] basis deactivation deferred to credential cleanup')
     })
   }
 }
@@ -2763,7 +2763,7 @@ function controlErrorCode(type: string, error: unknown): string {
   if (error instanceof RelayStoreError) return error.code
   const slug = relayErrorSlug(error)
   if (slug) return slug
-  console.warn(`[orca-relay] control ${type} failed: ${describeRelayFailure(error)}`)
+  console.warn(`[openkodo-relay] control ${type} failed: ${describeRelayFailure(error)}`)
   return isRelayDatabaseTransientError(error) ? 'database_transient' : 'control_operation_failed'
 }
 

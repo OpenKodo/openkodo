@@ -6,7 +6,7 @@ import { ActionSheetContent } from '../components/sheets/ActionSheetModal'
 import { BottomDrawer } from '../components/bottom-drawer/BottomDrawer'
 import { BottomDrawerModalHost } from '../components/bottom-drawer/bottom-drawer-modal-host'
 import { ConfirmModal } from '../components/sheets/ConfirmModal'
-import { OrcaHookTrustDrawer } from '../components/hook-trust/OrcaHookTrustDrawer'
+import { OpenKodoHookTrustDrawer } from '../components/hook-trust/OpenKodoHookTrustDrawer'
 import { NewWorktreeModalController } from '../new-workspace/creation/modal/NewWorktreeModalController'
 import { hostNewWorktreeSessionRoute } from '../host-new-worktree-session-route'
 import type { Worktree } from '../worktree/workspace-list/workspace-list-types'
@@ -134,7 +134,7 @@ export function HostScreenOverlays({ controller }: { controller: HostScreenContr
           )}
         </BottomDrawer>
 
-        <OrcaHookTrustDrawer
+        <OpenKodoHookTrustDrawer
           visible={actions.archiveTrustRequest != null}
           prompt={actions.archiveTrustRequest?.prompt ?? null}
           onRunOnce={() => void actions.approveArchiveTrust(false)}

@@ -1,4 +1,4 @@
-/** Only orcad-local CLI browser calls forward to desktops; paired clients must never bounce back. */
+/** Only openkodod-local CLI browser calls forward to desktops; paired clients must never bounce back. */
 import { stat } from 'node:fs/promises'
 import path from 'node:path'
 import { BrowserError } from '../../browser/browser-error'
@@ -77,7 +77,7 @@ export async function routeDesktopBrowserBridgeRpc(options: {
     assertClientOpenableUrl(String(params.url))
   }
   let workspaceId: string | undefined
-  // Only orcad can resolve its host's path/branch/active selectors.
+  // Only openkodod can resolve its host's path/branch/active selectors.
   if (typeof params.worktree === 'string' && params.worktree.length > 0) {
     workspaceId = (await options.resolveWorkspace(params.worktree)).id
     params.worktree = `id:${workspaceId}`
@@ -121,7 +121,7 @@ export async function routeDesktopBrowserBridgeRpc(options: {
   return { handled: true, result }
 }
 
-// The desktop never sees a path on this host: it reads named files from orcad and streams downloads back.
+// The desktop never sees a path on this host: it reads named files from openkodod and streams downloads back.
 async function hostFileTransfer(
   method: string,
   params: Record<string, unknown>

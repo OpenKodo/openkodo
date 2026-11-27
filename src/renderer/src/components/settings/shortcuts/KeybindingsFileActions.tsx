@@ -69,7 +69,7 @@ export function KeybindingsFileActions(): React.JSX.Element {
     return snapshot?.path ?? keybindingSnapshot?.path ?? null
   }
 
-  const editKeybindingsInOrca = async (): Promise<void> => {
+  const editKeybindingsInOpenKodo = async (): Promise<void> => {
     // The editor opens in the floating workspace, which a browser tab cannot host.
     const unavailable = floatingWorkspaceUnavailableReason()
     if (unavailable) {
@@ -167,7 +167,7 @@ export function KeybindingsFileActions(): React.JSX.Element {
         variant="ghost"
         size="xs"
         className="rounded-none border-0 shadow-none"
-        onClick={() => void editKeybindingsInOrca()}
+        onClick={() => void editKeybindingsInOpenKodo()}
       >
         <FileText className="size-3" />
         {t('auto.components.settings.KeybindingsFileActions.ad58206841', 'Edit file in OpenKodo')}

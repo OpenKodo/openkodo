@@ -5,7 +5,7 @@ import {
   parseExecutionHostId,
   type ExecutionHostId
 } from '../../../shared/execution-host/execution-host'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { WorkspaceSessionState } from '../../../shared/workspace-session/workspace-session-state-types'
 import { parseWorkspaceKey } from '../../../shared/workspace/identity/workspace-scope'
 import { isWorktreeCatalogVersionBefore } from '../../../shared/worktree/catalog/catalog-version'
@@ -68,7 +68,7 @@ function dropInvalidWorkspaces(
 /** Before listing, purge only unregistered repos; paired-host and staged-migration repos still count. */
 export function dropInvalidWorkspaceLayoutsAtLoad(store: PurgeStore, state: PersistedState): void {
   const repoIds = new Set(store.getRepos().map((repo) => repo.id))
-  for (const staged of state.orcadMigrationStagedCatalogs ?? []) {
+  for (const staged of state.openkododMigrationStagedCatalogs ?? []) {
     for (const repo of staged.manifest.payload.repositories) {
       repoIds.add(repo.id)
     }

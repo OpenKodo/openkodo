@@ -14,7 +14,6 @@ import {
 } from './appimage/appimage-extracted-root'
 import { isAppImageStableLauncherReady } from './appimage/appimage-stable-launcher'
 import { CliPathRegistration } from './command-paths/cli-path-registration'
-import { removeLinuxBareOrcaDispatcher } from './launchers/linux-bare-orca-dispatcher'
 
 export class CliInstaller extends CliPathRegistration {
   isAppImageRegistrationOwnedBySibling(status: CliInstallStatus): boolean {
@@ -139,7 +138,7 @@ export class CliInstaller extends CliPathRegistration {
       await this.installSymlink(status)
       await this.removeLegacyLinuxCommandIfManaged(status.launcherPath)
     } else if (this.isWindowsPackagedBundledCommand(status.commandPath, status.launcherPath)) {
-      // Why: packaged Windows already ships resources/bin/orca.exe; registration only owns the PATH entry.
+      // Why: packaged Windows already ships resources/bin/openkodo.exe; registration only owns the PATH entry.
     } else {
       await mkdir(dirname(status.commandPath), { recursive: true })
       await this.installWindowsWrapper(status.commandPath, status.launcherPath)
@@ -165,7 +164,6 @@ export class CliInstaller extends CliPathRegistration {
   }
 
   private async removeUnlocked(): Promise<CliInstallStatus> {
-    await this.removeLinuxBareOrcaDispatcher()
     const status = await this.getStatus()
     if (!status.supported || !status.commandPath || !status.launcherPath || !status.installMethod) {
       await this.removeLinuxAppImagePayloads()
@@ -206,21 +204,6 @@ export class CliInstaller extends CliPathRegistration {
 
     await this.removeLinuxAppImagePayloads()
     return this.getStatus()
-  }
-
-  // Removing the `orca` command also retires the bare-name dispatcher headless serve installed.
-  private async removeLinuxBareOrcaDispatcher(): Promise<void> {
-    if (this.platform !== 'linux' || this.commandPathOverride) {
-      return
-    }
-    try {
-      await removeLinuxBareOrcaDispatcher(this.homePath)
-    } catch (error) {
-      console.warn(
-        '[cli] Could not remove the bare openkodo dispatcher:',
-        error instanceof Error ? error.message : String(error)
-      )
-    }
   }
 
   private async removeLinuxAppImagePayloads(): Promise<void> {

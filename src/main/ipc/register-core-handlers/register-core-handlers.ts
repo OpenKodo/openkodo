@@ -4,11 +4,11 @@ import { registerWslMoveWiring } from '../wsl/wsl-move-driver-wiring'
 import { registerWslDriveProjectHandlers } from '../wsl/wsl-drive-project-handlers'
 import { installProjectRuntimeGitRouter } from '../../workspaces/execution-host/project-runtime-git-router'
 import { registerCliHandlers } from '../cli'
-import { registerOrcaUninstallHandlers } from '../orca-uninstall'
+import { registerOpenKodoUninstallHandlers } from '../openkodo-uninstall'
 import { registerPreflightHandlers } from '../preflight/preflight'
 import type { Store } from '../../persistence/loading-store/store'
 import { resolveDesktopAuthorizedPath } from '../filesystem/access/local-file-access-resolution'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 import type { StatsCollector } from '../../stats/collector'
 import { registerFilesystemHandlers } from '../filesystem/filesystem'
 import type { CommitMessageAgentEnvironmentResolvers } from '../../text-generation/execution/commit-message-agent-environment'
@@ -65,7 +65,7 @@ import { registerEmulatorScrcpyTouchHandler } from '../emulator/emulator-scrcpy-
 import { registerEmulatorScrcpyKeyboardHandler } from '../emulator/emulator-scrcpy-keyboard'
 import { registerSpeechHandlers } from '../speech'
 import { registerTerminalRenderDesyncEvidenceHandler } from '../terminal-views/terminal-render-desync-evidence'
-import { registerOrcaProfileHandlers } from '../profiles/orca-profiles'
+import { registerOpenKodoProfileHandlers } from '../profiles/openkodo-profiles'
 import { registerCodexAccountHandlers } from '../accounts/codex-accounts'
 import { registerAgentHookHandlers } from '../agent-hooks/agent-hooks'
 import { registerCodexConfigSyncHandlers } from '../accounts/codex-config-sync'
@@ -114,7 +114,7 @@ let registration: Promise<void> | null = null
 
 export async function registerCoreHandlers(
   store: Store,
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   stats: StatsCollector,
   codexAccounts: CodexAccountService,
   claudeAccounts: ClaudeAccountService,
@@ -147,7 +147,7 @@ export async function registerCoreHandlers(
       onBeforeRelaunchExit: () => closeNotificationDismissalsBeforeRelaunch(runtime)
     })
     registerCliHandlers()
-    registerOrcaUninstallHandlers(store)
+    registerOpenKodoUninstallHandlers(store)
     registerPreflightHandlers(store)
     registerCodexAccountHandlers(codexAccounts, () => store.getSettings())
     registerAgentHookHandlers(runtime, { getPtyIdForPaneKey })
@@ -202,10 +202,10 @@ export async function registerCoreHandlers(
       registerPluginHandlers(store, pluginService, marketplaceServices)
     }
     registerTelemetryHandlers(store)
-    if (!lifecycleOptions.orcaAccount) {
+    if (!lifecycleOptions.openkodoAccount) {
       throw new Error('OpenKodo account service must be initialized before core handlers')
     }
-    registerOrcaProfileHandlers(store, lifecycleOptions.orcaAccount, {
+    registerOpenKodoProfileHandlers(store, lifecycleOptions.openkodoAccount, {
       onBeforeRelaunch: lifecycleOptions.onBeforeRelaunch
     })
     registerBrowserHandlers(store)

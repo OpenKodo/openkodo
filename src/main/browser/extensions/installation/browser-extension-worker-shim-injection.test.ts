@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { withBrowserExtensionModuleShimImport } from './browser-extension-worker-shim-injection'
 
-const LOAD = 'import "/orca-extension-api.js";'
+const LOAD = 'import "/openkodo-extension-api.js";'
 
 describe('module worker shim import', () => {
   it.each([

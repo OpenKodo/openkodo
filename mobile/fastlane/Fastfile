@@ -10,14 +10,14 @@ default_platform(:ios)
 MOBILE_ROOT = File.expand_path("..", __dir__)
 # Fastlane runs from mobile/fastlane regardless of the caller’s working directory.
 APP_CONFIG_PATH = File.join(MOBILE_ROOT, "app.json")
-WORKSPACE = File.join(MOBILE_ROOT, "ios", "Orca.xcworkspace")
+WORKSPACE = File.join(MOBILE_ROOT, "ios", "OpenKodo.xcworkspace")
 BUILD_OUTPUT_DIRECTORY = File.join(MOBILE_ROOT, "build")
-SCHEME = "Orca"
-BUNDLE_ID = "com.stably.orca.mobile"
+SCHEME = "OpenKodo"
+BUNDLE_ID = "dev.openkodo.mobile"
 TESTFLIGHT_GROUPS = ["peeps"].freeze
-DEFAULT_TESTFLIGHT_CHANGELOG = "Latest Orca Mobile updates and fixes.".freeze
+DEFAULT_TESTFLIGHT_CHANGELOG = "Latest OpenKodo Mobile updates and fixes.".freeze
 TESTFLIGHT_PROCESSING_TIMEOUT_SECONDS = 20 * 60
-# Google's Play app signing key for dev.orca.app. Play and GitHub installs both carry it, so each updates the other.
+# Google's Play app signing key for dev.openkodo.app. Play and GitHub installs both carry it, so each updates the other.
 PLAY_APP_SIGNING_CERT_SHA256 = "A0:A6:67:69:42:B2:DE:E1:F3:5F:B0:F6:FC:A0:AE:63:B5:65:4E:42:6C:A3:1A:DA:4C:F9:BE:09:2B:D7:DA:07".freeze
 PLAY_APK_DOWNLOAD_ATTEMPTS = 20
 PLAY_APK_DOWNLOAD_RETRY_SECONDS = 30
@@ -184,10 +184,10 @@ platform :ios do
     config.fetch("expo").fetch("ios")["buildNumber"] = build_number.to_s
     write_mobile_app_config(config)
 
-    UI.message("Prepared Orca Mobile iOS #{version} (#{build_number})")
+    UI.message("Prepared OpenKodo Mobile iOS #{version} (#{build_number})")
   end
 
-  desc "Build, sign, and upload Orca Mobile to App Store Connect / TestFlight"
+  desc "Build, sign, and upload OpenKodo Mobile to App Store Connect / TestFlight"
   lane :build_and_upload do
     api_key = app_store_connect_api_key_from_env
 
@@ -220,7 +220,7 @@ platform :ios do
         },
       },
       output_directory: BUILD_OUTPUT_DIRECTORY,
-      output_name: "Orca.ipa",
+      output_name: "OpenKodo.ipa",
       clean: true,
     )
 
@@ -272,7 +272,7 @@ platform :ios do
     )
   end
 
-  desc "Build, upload, and distribute Orca Mobile to external TestFlight testers"
+  desc "Build, upload, and distribute OpenKodo Mobile to external TestFlight testers"
   lane :release do
     build_and_upload
 
@@ -289,7 +289,7 @@ platform :android do
   lane :upload_internal do |options|
     upload_to_play_store(
       package_name: android_package,
-      json_key: ENV.fetch("ORCA_PLAY_JSON_KEY_PATH"),
+      json_key: ENV.fetch("OPENKODO_PLAY_JSON_KEY_PATH"),
       track: "internal",
       aab: options.fetch(:aab),
       # Checks the bundle against Play and discards the edit, so nothing is released.
@@ -310,7 +310,7 @@ platform :android do
       attempts += 1
       download_universal_apk_from_google_play(
         package_name: android_package,
-        json_key: ENV.fetch("ORCA_PLAY_JSON_KEY_PATH"),
+        json_key: ENV.fetch("OPENKODO_PLAY_JSON_KEY_PATH"),
         version_code: Integer(options.fetch(:version_code)),
         destination: destination,
         certificate_sha256_hash: PLAY_APP_SIGNING_CERT_SHA256,

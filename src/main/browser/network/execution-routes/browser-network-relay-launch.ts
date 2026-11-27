@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import type { Readable, Writable } from 'node:stream'
 import { relayBundleCandidates } from '../../../wsl/execution/relay-bundle-paths'
 import { withWslGuestLauncherRevision } from '../../../wsl/execution/wsl-guest-launcher-revision'
-import { orcadPosixNodeRuntimeGlobs } from '../../../managed-server/install/orcad-node-runtime-globs'
+import { openkododPosixNodeRuntimeGlobs } from '../../../managed-server/install/openkodod-node-runtime-globs'
 import {
   WSL_BROWSER_NETWORK_RELAY_BUNDLE_NAME,
   WSL_BROWSER_NETWORK_RELAY_NO_NODE_EXIT_CODE,
@@ -62,15 +62,15 @@ function relayDir(homeDir: string, version: string): string {
 
 /** launch.sh finds its own directory, so one script serves every host's relay home. */
 export function buildBrowserNetworkRelayLaunchScript(version: string): string {
-  // A host may have no system node but usually has orcad's pinned runtime.
-  const [orcadRuntime, orcadMachineRuntimes] = orcadPosixNodeRuntimeGlobs()
+  // A host may have no system node but usually has openkodod's pinned runtime.
+  const [openkododRuntime, openkododMachineRuntimes] = openkododPosixNodeRuntimeGlobs()
   return [
     '#!/bin/sh',
     'd="${0%/*}"',
     `v="$(cat "$d/${WSL_BROWSER_NETWORK_RELAY_VERSION_FILE}" 2>/dev/null || true)"`,
     `[ "$v" = '${version}' ] || exit ${WSL_BROWSER_NETWORK_RELAY_STALE_EXIT_CODE}`,
     'n=""',
-    `for c in "$(command -v node 2>/dev/null || true)" "$HOME/.nvm/versions/node"/*/bin/node /usr/local/bin/node /usr/bin/node "$HOME/.local/bin/node" ${orcadRuntime} ${orcadMachineRuntimes}; do`,
+    `for c in "$(command -v node 2>/dev/null || true)" "$HOME/.nvm/versions/node"/*/bin/node /usr/local/bin/node /usr/bin/node "$HOME/.local/bin/node" ${openkododRuntime} ${openkododMachineRuntimes}; do`,
     '  [ -n "$c" ] && [ -x "$c" ] || continue',
     `  if "$c" -e 'process.exit(Number(process.versions.node.split(".")[0])>=18?0:1)' 2>/dev/null; then`,
     '    n="$c"',

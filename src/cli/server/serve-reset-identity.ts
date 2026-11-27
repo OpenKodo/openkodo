@@ -8,9 +8,9 @@ const RESET_WARNING =
   'paired device. Desktops and phones paired with it must pair again.'
 
 export async function resetServeHostIdentity(userDataPath: string): Promise<void> {
-  // Lazy: only this command needs orcad's lock code.
+  // Lazy: only this command needs openkodod's lock code.
   const { resetHostIdentityUnderLock } =
-    await import('../../main/orcad/profile-state/orcad-host-identity-reset.js')
+    await import('../../main/openkodod/profile-state/openkodod-host-identity-reset.js')
   const result = resetHostIdentityUnderLock(userDataPath)
   if (result.status === 'missing') {
     throw new RuntimeClientError(

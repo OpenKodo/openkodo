@@ -18,7 +18,7 @@ import type {
 } from '../../../../../preload/api/terminal/pty-management-api'
 
 const POLL_INTERVAL_MS = 60_000
-const DISMISSED_KEY = 'orca.severedTerminalDaemonBanner.dismissed'
+const DISMISSED_KEY = 'openkodo.severedTerminalDaemonBanner.dismissed'
 
 function incarnationKey(daemon: PtyManagementSeveredDaemon): string {
   return `${daemon.bootId}:${daemon.pid}:${daemon.linuxStartTicks}`

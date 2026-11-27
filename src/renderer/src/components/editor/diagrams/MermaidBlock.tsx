@@ -51,7 +51,7 @@ let renderSequence = 0
 
 function nextMermaidRenderId(): string {
   renderSequence += 1
-  return `orcaMermaid${renderSequence}`
+  return `openkodoMermaid${renderSequence}`
 }
 
 /** Render SVG with a source/error fallback so invalid syntax cannot break the preview. */
@@ -189,7 +189,7 @@ function ExpandableDiagram({
       <button
         ref={buttonRef}
         type="button"
-        data-orca-export-hide="true"
+        data-openkodo-export-hide="true"
         aria-label={label}
         title={label}
         onClick={(event) => {

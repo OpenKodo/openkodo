@@ -5,9 +5,9 @@ import { View, type HostInstance } from 'react-native'
 import { ArrowUpRight, Trash2 } from 'lucide-react-native'
 import {
   AGENT_SESSION_PHONE_DELETE_RUNTIME_CAPABILITY,
-  orcaChatDeleteRefusalText,
-  type OrcaChatDeleteResult
-} from '../../../src/shared/agent-session/chat-deletion/orca-chat-delete'
+  openkodoChatDeleteRefusalText,
+  type OpenKodoChatDeleteResult
+} from '../../../src/shared/agent-session/chat-deletion/openkodo-chat-delete'
 import { botChatOffersDelete, type BotChatTreeChat } from '../../../src/shared/bots/bot-chat-tree'
 import type { PresentAutomationSheet } from '../automations/AutomationSheets'
 import { PullDownMenu } from '../components/nav-bar/PullDownMenu'
@@ -40,7 +40,7 @@ export function useMobileBotChatDelete(
   }
   const remove = async (chat: BotChatTreeChat) => {
     try {
-      const result = await callAgentSession<OrcaChatDeleteResult>(
+      const result = await callAgentSession<OpenKodoChatDeleteResult>(
         client,
         'agentSession.delete',
         { sessionId: chat.chatId },
@@ -53,7 +53,7 @@ export function useMobileBotChatDelete(
         panel.routeBot.refresh()
         return
       }
-      showToast(orcaChatDeleteRefusalText(t, result.reason))
+      showToast(openkodoChatDeleteRefusalText(t, result.reason))
     } catch {
       showToast(t('chats.delete.failed', "Couldn't delete the chat"))
     }

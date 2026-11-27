@@ -1,5 +1,5 @@
 import { isIP } from 'node:net'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 type PythonSystemProxy = {
   proxies: Readonly<Record<string, string>>

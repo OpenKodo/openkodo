@@ -53,7 +53,7 @@ async function main(): Promise<void> {
         none: dialWake(origin, ''),
         otherKey: dialWake(origin, await mintWake(other.privateKey, host, { issuer: ISSUER })),
         expired: dialWake(origin, await mint(host, { expiresIn: Math.floor(Date.now() / 1000) - 120 })),
-        relayAudience: dialWake(origin, await mint(host, { audience: 'orca-connector' })),
+        relayAudience: dialWake(origin, await mint(host, { audience: 'openkodo-connector' })),
         connectorPurpose: dialWake(origin, await mint(host, { purpose: 'connector-host' })),
         otherIssuer: dialWake(origin, await mintWake(privateKey, host, { issuer: 'https://evil.invalid' })),
         shortMid: dialWake(origin, await mint({ sub: 'acct', mid: 'health', hostId: 'acct:health' }))
@@ -94,7 +94,7 @@ async function main(): Promise<void> {
       const otherBody = await adminWake(origin, ids, ADMIN, { tokenBody: JSON.stringify({ hosts: [newHost().hostId] }) })
       const otherOp = await adminWake(origin, ids, ADMIN, { op: 'erase' })
       const otherPurpose = await adminWake(origin, ids, ADMIN, { purpose: 'edge-admin' })
-      const otherAudience = await adminWake(origin, ids, ADMIN, { audience: 'orca-relay-edge-admin' })
+      const otherAudience = await adminWake(origin, ids, ADMIN, { audience: 'openkodo-relay-edge-admin' })
       const otherIssuer = await adminWake(origin, ids, { ...ADMIN, issuer: 'https://evil.invalid' })
       const statuses = [forged, otherBody, otherOp, otherPurpose, otherAudience, otherIssuer].map((r) => r.status)
       record('P1 forged key, other body/op/purpose/audience/issuer: all 401', statuses.every((s) => s === 401), statuses.join('/'))

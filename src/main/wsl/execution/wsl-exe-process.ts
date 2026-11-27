@@ -1,6 +1,6 @@
-import { runProcess } from '@orca/process-host'
-import type { ProcessResult, ProcessSpec } from '@orca/process-host/process-spec'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { runProcess } from '@openkodo/process-host'
+import type { ProcessResult, ProcessSpec } from '@openkodo/process-host/process-spec'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { resolveWslInteropSpawnCwd } from './wsl-interop-spawn-directory'
 
 export const WSL_PROBE_TIMEOUT_MS = 5000

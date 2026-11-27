@@ -1,12 +1,12 @@
 import { closeRetriedFailedSetup } from './worker-bound-terminal-close'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 import { completeWorkerTerminalRelease } from './worker-release-completion'
 
 /** Release the failed attempt's terminal on retry-of: archive output, preserve user takeover and retain interrupted cleanup for recovery.
  * Best-effort only; cleanup never blocks or fails the new start. */
 export function releaseRetriedWorkerTerminal(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   start: { retryOf?: string; terminal?: string }
 ): void {
@@ -51,7 +51,7 @@ export function releaseRetriedWorkerTerminal(
 
 /** A retry that became ready replaces the failed attempt, so the setup terminal it kept open closes. */
 export function closeFailedSetupOnceRetryReady(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   retryOf: string | undefined,
   outcome: unknown

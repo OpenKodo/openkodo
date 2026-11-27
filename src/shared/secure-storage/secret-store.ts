@@ -22,7 +22,7 @@ export type SecretStore = {
 }
 
 /** Keep the installed store through vi.resetModules; a module-local slot would disappear from re-imported graphs. */
-const SLOT = Symbol.for('orca.host.secretStore')
+const SLOT = Symbol.for('openkodo.host.secretStore')
 
 type Slot = { [SLOT]?: SecretStore | null }
 

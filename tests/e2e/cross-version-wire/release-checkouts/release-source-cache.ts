@@ -147,7 +147,7 @@ export async function resolveSharedReleaseCacheRoot(
     return undefined
   }
   try {
-    const { runProcess } = await import('@orca/process-host')
+    const { runProcess } = await import('@openkodo/process-host')
     const result = await runProcess({
       program: 'git',
       args: ['rev-parse', '--git-common-dir'],
@@ -162,7 +162,7 @@ export async function resolveSharedReleaseCacheRoot(
     if (!common || common.includes('\n')) {
       return undefined
     }
-    return join(resolve(repoRoot, common), 'orca-cache', 'release-source')
+    return join(resolve(repoRoot, common), 'openkodo-cache', 'release-source')
   } catch {
     return undefined
   }

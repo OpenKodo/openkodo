@@ -5,7 +5,7 @@ import { writeFileAtomically } from '../../filesystem/atomic-file-publication'
 import { grantCodexProjectTrustOffMain } from '../../codex/trust/project-trust/codex-project-trust-worker-client'
 import { runExclusivelyForCodexTrustConfig } from '../../codex/trust/toml/codex-trust-config-mutation-queue'
 import { canonicalizeAgentTrustPath as canonicalize } from './agent-trust-path-canonicalization'
-import { recordOrcaCreatedAntigravityTrust } from './antigravity-workspace-trust-ownership'
+import { recordOpenKodoCreatedAntigravityTrust } from './antigravity-workspace-trust-ownership'
 import type { TuiAgentConfig } from '../../../shared/agent-launch/catalog/tui-agent-config-types'
 
 export type AgentTrustPreset = NonNullable<TuiAgentConfig['preflightTrust']>
@@ -103,7 +103,7 @@ export function markAntigravityWorkspaceTrusted(
     mkdirSync(configDir, { recursive: true })
   }
   writeFileAtomically(configPath, `${JSON.stringify(config, null, 2)}\n`)
-  recordOrcaCreatedAntigravityTrust(configPath, workspacePath, absPath)
+  recordOpenKodoCreatedAntigravityTrust(configPath, workspacePath, absPath)
 }
 
 /** Kimi Code 2.3.1 keeps one exact-folder record per cwd (workspaceTrust/trustRecord.ts). */

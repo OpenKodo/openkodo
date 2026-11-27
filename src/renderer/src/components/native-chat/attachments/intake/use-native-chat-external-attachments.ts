@@ -59,7 +59,7 @@ export type UseNativeChatExternalAttachmentsArgs = {
   setNotice: (notice: string | null) => void
 }
 
-/** Upload client-local files to the owning agent’s store or its worktree's .orca/drops before referencing them. */
+/** Upload client-local files to the owning agent’s store or its worktree's .openkodo/drops before referencing them. */
 export function useNativeChatExternalAttachments({
   terminalTabId,
   draftScopeKey,

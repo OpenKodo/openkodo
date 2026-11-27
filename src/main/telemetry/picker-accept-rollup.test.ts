@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getDefaultSettings } from '../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../shared/openkodo-profiles/constants'
 import type { GlobalSettings } from '../../shared/settings/global-settings-types'
 import type { Store } from '../persistence/loading-store/store'
 import { flushPickerAccepts, rollUpPickerAccept } from './picker-accept-rollup'

@@ -3,14 +3,14 @@ import type { AutomationDispatchResult } from '../../../shared/automations/histo
 import type { Repo } from '../../../shared/repository/repo-types'
 import { checkCreatedWorktreeSetupTrust } from '../../workspace-hooks/created-worktree-setup-trust'
 import { loadHooks } from '../../workspace-hooks/hooks'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 
 /**
  * Report on the run when its new workspace's setup was skipped because the branch's setup differs
  * from what was approved for the automation; nobody is there to see a prompt.
  */
 export async function automationRunSetupSkip(
-  runtime: Pick<OrcaRuntimeService, 'showManagedWorktree'>,
+  runtime: Pick<OpenKodoRuntimeService, 'showManagedWorktree'>,
   automation: Pick<Automation, 'workspaceMode' | 'setupDecision' | 'setupTrustHash'>,
   repo: Repo,
   workspaceId: string

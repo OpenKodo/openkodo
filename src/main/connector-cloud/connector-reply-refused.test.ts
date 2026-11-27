@@ -34,7 +34,7 @@ async function sentAgainAfter(
   failure: ConnectorFailure
 ): Promise<{ sameHello: boolean; postedNext: number }> {
   let posted = 0
-  const dir = mkdtempSync(join(tmpdir(), 'orca-reply-refused-'))
+  const dir = mkdtempSync(join(tmpdir(), 'openkodo-reply-refused-'))
   dirs.push(dir)
   const events = new ConnectorTurnEvents(dir, 'ada', undefined, {
     journal: () => ({

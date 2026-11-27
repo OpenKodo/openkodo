@@ -18,7 +18,7 @@ import {
 const OPENKODO_PR_REMOTE_NAME_PATTERN =
   /^pr-(?:head|[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?)(?:-[0-9]{1,2})?$/
 
-export function isOrcaGeneratedPrRemoteName(name: string): boolean {
+export function isOpenKodoGeneratedPrRemoteName(name: string): boolean {
   return OPENKODO_PR_REMOTE_NAME_PATTERN.test(name)
 }
 
@@ -35,7 +35,7 @@ async function listPrRemoteCandidates(
     return []
   }
   return [...parseGitRemoteFetchUrls(stdout)]
-    .filter(([name]) => isOrcaGeneratedPrRemoteName(name))
+    .filter(([name]) => isOpenKodoGeneratedPrRemoteName(name))
     .map(([name, url]) => ({ name, url }))
 }
 

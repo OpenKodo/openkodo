@@ -31,14 +31,14 @@ export type JournalSqlFailure = {
   queued?: { messageId: string; expected?: 'waiting' | 'returned'; owed?: 'stale' | 'unavailable' }
 }
 
-type JournalSourceContent = 'journalCorrupt' | 'journalWrittenByNewerOrca'
+type JournalSourceContent = 'journalCorrupt' | 'journalWrittenByNewerOpenKodo'
 const SOURCE_CONTENT = Symbol('journal source content diagnosis')
 
 /** Only the original-source preparation transport supplies this marker. */
 export function journalSqlSourceContent(error: unknown): JournalSourceContent | undefined {
   if (error instanceof Error && SOURCE_CONTENT in error) {
     const content = error[SOURCE_CONTENT]
-    if (content === 'journalCorrupt' || content === 'journalWrittenByNewerOrca') {
+    if (content === 'journalCorrupt' || content === 'journalWrittenByNewerOpenKodo') {
       return content
     }
   }
@@ -58,7 +58,7 @@ export function journalSqlSourceFailure(error: unknown): JournalSqlFailure {
   const refusal = failure.refusal
   if (refusal?.code === 'agent_session_journal_unreadable') {
     const reason = refusal.details?.reason
-    if (reason === 'journalCorrupt' || reason === 'journalWrittenByNewerOrca') {
+    if (reason === 'journalCorrupt' || reason === 'journalWrittenByNewerOpenKodo') {
       failure.sourceContent = reason
     }
   }

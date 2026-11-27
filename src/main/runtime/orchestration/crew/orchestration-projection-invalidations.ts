@@ -16,7 +16,7 @@ export function installProjectionInvalidations(db: OrchestrationDb): void {
           `'dispatch:' || ${r}.id`,
           `'task:' || ${r}.task_id`,
           `'handle:' || ${r}.assignee_handle`,
-          `'session:' || ${r}.assignee_orca_session_id`
+          `'session:' || ${r}.assignee_openkodo_session_id`
         ]
           .map(tracked)
           .join(' ')}`

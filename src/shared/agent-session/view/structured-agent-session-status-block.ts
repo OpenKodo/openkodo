@@ -6,7 +6,7 @@ import { AGENT_SESSION_TURN_NOTICE_PRESENTATION } from '../journal/agent-session
 import { readWholeAgentSessionFailureFact } from '../failures/agent-session-failure'
 import type { AgentJournalStatusItem } from '../journal/agent-session-journal-types'
 import type { AgentJournalTurnScope } from '../journal/agent-session-journal-turn-scope'
-import { readAgentSessionOrcaStop } from '../lifecycle/stopping/agent-session-orca-stop'
+import { readAgentSessionOpenKodoStop } from '../lifecycle/stopping/agent-session-openkodo-stop'
 import { automationResultNoteOf } from '../../bots/bot-automation-result-note'
 import { botMemoryUpdatedNoteOf } from '../../bots/bot-memory-updated-note'
 import { botContextNoteOf } from '../../bots/bot-context-note'
@@ -30,7 +30,7 @@ export function structuredAgentSessionStatusBlock(
   itemId?: string
 ): NativeChatTextBlock {
   const failure = readWholeAgentSessionFailureFact(body.failure)
-  const orcaStop = readAgentSessionOrcaStop(body.orcaStop)
+  const openkodoStop = readAgentSessionOpenKodoStop(body.openkodoStop)
   const automationResult = automationResultNoteOf(body)
   const botContext = botContextNoteOf(body)
   const botMemoryUpdated = botMemoryUpdatedNoteOf(body)
@@ -41,7 +41,7 @@ export function structuredAgentSessionStatusBlock(
   const botImportDone = botImportDoneOf(body)
   const botRequest = botRequestCardOf(body)
   const modelFallback =
-    !failure && !orcaStop && body.presentation === undefined && body.tone === undefined
+    !failure && !openkodoStop && body.presentation === undefined && body.tone === undefined
       ? readClaudeModelFallbackFrame(body.providerFrame)
       : null
   const googleSetup = googleSetupCardOf(body)
@@ -83,10 +83,10 @@ export function structuredAgentSessionStatusBlock(
     ...(failure?.kind === 'usageLimitReached' && turnScope?.kind === 'turn'
       ? { usageLimitTurnItemId: turnScope.turnItemId }
       : {}),
-    ...(orcaStop
+    ...(openkodoStop
       ? {
-          orcaStop: {
-            ...orcaStop,
+          openkodoStop: {
+            ...openkodoStop,
             ...(turnScope?.kind === 'turn' ? { turnItemId: turnScope.turnItemId } : {})
           }
         }

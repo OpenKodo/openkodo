@@ -16,15 +16,18 @@ import type { SidebarInputsFeedDomain } from '../../../../../../main/runtime/sid
 
 const ENVIRONMENT_ID = 'env-1'
 const SERVER_HOST_ID = toRuntimeExecutionHostId(ENVIRONMENT_ID)
-const OPENKODO_UPSTREAM = { owner: 'openkodo', repo: 'orca' }
+const OPENKODO_UPSTREAM = { owner: 'openkodo', repo: 'openkodo' }
 
 const isServerHost = (hostId: string | null | undefined): boolean =>
   parseExecutionHostId(hostId)?.kind === 'runtime'
 
 // Model unstamped server catalog responses, including an ungrouped copy of the grouped OpenKodo project.
-const SERVER_ORCA = repo('orca-srv', 'orca', { path: '/srv/orca', upstream: OPENKODO_UPSTREAM })
+const SERVER_OPENKODO = repo('openkodo-srv', 'openkodo', {
+  path: '/srv/openkodo',
+  upstream: OPENKODO_UPSTREAM
+})
 const SERVER_ANSWERS = {
-  'repo.list': { repos: [repo('api', 'api'), SERVER_ORCA] },
+  'repo.list': { repos: [repo('api', 'api'), SERVER_OPENKODO] },
   'projectGroup.list': {
     groups: [
       group('pg-server-folders', 'Server folders', {
@@ -38,7 +41,7 @@ const SERVER_ANSWERS = {
 
 // Saved for only some repos, as after a drag that predates the rest: unranked ones keep fetch order.
 const SAVED_REPO_ORDER = [
-  { hostId: SERVER_HOST_ID, repoId: SERVER_ORCA.id },
+  { hostId: SERVER_HOST_ID, repoId: SERVER_OPENKODO.id },
   { hostId: 'local' as const, repoId: 'lab' }
 ]
 
@@ -47,7 +50,7 @@ export function windowCatalogFromServerAnswers(base: Partial<AppState>): Partial
   const target = { kind: 'environment', environmentId: ENVIRONMENT_ID } as const
   const local = (base.repos ?? [])
     .filter((entry) => !isServerHost(entry.executionHostId))
-    .map((entry) => (entry.id === 'orca' ? { ...entry, upstream: OPENKODO_UPSTREAM } : entry))
+    .map((entry) => (entry.id === 'openkodo' ? { ...entry, upstream: OPENKODO_UPSTREAM } : entry))
   const fetched = SERVER_ANSWERS['repo.list'].repos.map((entry) => adoptEndpointRepo(target, entry))
   const repos = applyManualRepoOrder(
     mergeFetchedReposForHost(local, fetched, SERVER_HOST_ID),
@@ -74,7 +77,7 @@ export function windowCatalogFromServerAnswers(base: Partial<AppState>): Partial
     ],
     worktreesByRepo: {
       ...base.worktreesByRepo,
-      [SERVER_ORCA.id]: [mainWt(SERVER_ORCA, { hostId: SERVER_HOST_ID, sortOrder: 2 })]
+      [SERVER_OPENKODO.id]: [mainWt(SERVER_OPENKODO, { hostId: SERVER_HOST_ID, sortOrder: 2 })]
     }
   }
 }

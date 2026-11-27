@@ -13,8 +13,8 @@ import { listPluginsForClients } from '../discovery/plugin-client-list'
 import { readPluginCurrentPointer } from './plugin-current-pointer'
 import { installStagedPluginTree } from './plugin-install-staging'
 import { getRequiredTeamPlugins } from './plugin-team-install-policy'
-import { createDefaultLocalOrcaProfile } from '../../../shared/orca-profiles/orca-profiles'
-import { initializeActiveTeamProfile } from '../../orca-profiles/cloud-auth/active-team-capabilities'
+import { createDefaultLocalOpenKodoProfile } from '../../../shared/openkodo-profiles/openkodo-profiles'
+import { initializeActiveTeamProfile } from '../../openkodo-profiles/cloud-auth/active-team-capabilities'
 import { loadPluginDevFolder } from '../development/plugin-dev-folders'
 
 const roots: string[] = []
@@ -38,7 +38,7 @@ async function writePluginSource(
       publisher: 'samples',
       name: 'Demo',
       version: '1.0.0',
-      engines: { orca: '>=1.0.0' },
+      engines: { openkodo: '>=1.0.0' },
       pluginApi: 1,
       contributes: {
         panels: [{ id: 'panel', title: 'Panel', entry: panelEntry }],
@@ -61,9 +61,9 @@ afterEach(async () => {
 
 describe('installPluginFromLocalPath', () => {
   it('lists installed plugins in installation order even when IDs sort differently', async () => {
-    const userDataPath = await tempRoot('orca-plugin-order-')
-    const firstSource = await tempRoot('orca-plugin-first-')
-    const secondSource = await tempRoot('orca-plugin-second-')
+    const userDataPath = await tempRoot('openkodo-plugin-order-')
+    const firstSource = await tempRoot('openkodo-plugin-first-')
+    const secondSource = await tempRoot('openkodo-plugin-second-')
     await writePluginSource(firstSource, { id: 'z-first' })
     await writePluginSource(secondSource, { id: 'a-second' })
     const pluginsDir = join(userDataPath, 'plugins')
@@ -98,9 +98,9 @@ describe('installPluginFromLocalPath', () => {
   it.each(['equal', 'missing'] as const)(
     'orders plugin IDs by code point when install times are %s',
     async (times) => {
-      const userDataPath = await tempRoot('orca-plugin-tie-')
-      const zSource = await tempRoot('orca-plugin-z-')
-      const aaSource = await tempRoot('orca-plugin-aa-')
+      const userDataPath = await tempRoot('openkodo-plugin-tie-')
+      const zSource = await tempRoot('openkodo-plugin-z-')
+      const aaSource = await tempRoot('openkodo-plugin-aa-')
       await writePluginSource(zSource, { id: 'z' })
       await writePluginSource(aaSource, { id: 'aa' })
       const pluginsDir = join(userDataPath, 'plugins')
@@ -157,8 +157,8 @@ describe('installPluginFromLocalPath', () => {
   )
 
   it('restores the previous current pointer when lockfile publication fails', async () => {
-    const sourcePath = await tempRoot('orca-plugin-source-')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const sourcePath = await tempRoot('openkodo-plugin-source-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await writePluginSource(sourcePath)
     const first = await installPluginFromLocalPath({ pluginsDir, sourcePath, hostVersion: '1.4.0' })
     expect(first.ok).toBe(true)
@@ -182,9 +182,9 @@ describe('installPluginFromLocalPath', () => {
   })
 
   it('preserves legacy lock provenance during a same-content reinstall', async () => {
-    const firstSource = await tempRoot('orca-plugin-source-')
-    const secondSource = await tempRoot('orca-plugin-source-')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const firstSource = await tempRoot('openkodo-plugin-source-')
+    const secondSource = await tempRoot('openkodo-plugin-source-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await writePluginSource(firstSource)
     await writePluginSource(secondSource)
     const first = await installPluginFromLocalPath({
@@ -214,9 +214,9 @@ describe('installPluginFromLocalPath', () => {
   })
 
   it('serializes concurrent installs so lockfile entries are not lost', async () => {
-    const firstSource = await tempRoot('orca-plugin-source-')
-    const secondSource = await tempRoot('orca-plugin-source-')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const firstSource = await tempRoot('openkodo-plugin-source-')
+    const secondSource = await tempRoot('openkodo-plugin-source-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await writePluginSource(firstSource, { id: 'first' })
     await writePluginSource(secondSource, { id: 'second' })
 
@@ -232,10 +232,10 @@ describe('installPluginFromLocalPath', () => {
   })
 
   it('copies a plugin reached through a linked source directory as a real directory without .git', async () => {
-    const parent = await tempRoot('orca-plugin-linked-')
+    const parent = await tempRoot('openkodo-plugin-linked-')
     const realSource = join(parent, 'real-source')
     const linkedSource = join(parent, 'linked-source')
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
     await mkdir(realSource)
     await writePluginSource(realSource)
     await mkdir(join(realSource, '.git'))
@@ -261,11 +261,11 @@ describe('installPluginFromLocalPath', () => {
 
 describe('removeInstalledPlugin', () => {
   it('blocks development folders under team rules and keeps the installed required plugin discoverable', async () => {
-    const userDataPath = await tempRoot('orca-dev-policy-')
-    const source = await tempRoot('orca-dev-policy-source-')
+    const userDataPath = await tempRoot('openkodo-dev-policy-')
+    const source = await tempRoot('openkodo-dev-policy-source-')
     const pluginsDir = join(userDataPath, 'plugins')
     const pluginKey = 'samples.demo'
-    const localProfile = createDefaultLocalOrcaProfile(1)
+    const localProfile = createDefaultLocalOpenKodoProfile(1)
     initializeActiveTeamProfile(userDataPath, localProfile)(undefined)
     await writePluginSource(source)
     const installed = await installPluginFromLocalPath({
@@ -341,8 +341,8 @@ describe('removeInstalledPlugin', () => {
   })
 
   it('revokes activation for an approved install that conflicts with a team release rule', async () => {
-    const userDataPath = await tempRoot('orca-required-plugin-')
-    const stagingDir = await tempRoot('orca-required-plugin-source-')
+    const userDataPath = await tempRoot('openkodo-required-plugin-')
+    const stagingDir = await tempRoot('openkodo-required-plugin-source-')
     const pluginsDir = join(userDataPath, 'plugins')
     const pluginKey = 'samples.demo'
     const requiredCatalog = {
@@ -377,7 +377,7 @@ describe('removeInstalledPlugin', () => {
       email: 'member@example.test',
       linkedAt: 1
     }
-    const localProfile = createDefaultLocalOrcaProfile(1)
+    const localProfile = createDefaultLocalOpenKodoProfile(1)
     const applyRequirement = (version: string) =>
       initializeActiveTeamProfile(userDataPath, { ...localProfile, cloud })({
         accessToken: 'access',
@@ -451,9 +451,9 @@ describe('removeInstalledPlugin', () => {
   })
 
   it('rejects a resolved uninstall target outside its root', async () => {
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
-    const pluginsDataDir = await tempRoot('orca-plugin-data-')
-    const outside = await tempRoot('orca-plugin-outside-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
+    const pluginsDataDir = await tempRoot('openkodo-plugin-data-')
+    const outside = await tempRoot('openkodo-plugin-outside-')
     const marker = join(outside, 'keep.txt')
     await writeFile(marker, 'keep')
     await symlink(
@@ -473,8 +473,8 @@ describe('removeInstalledPlugin', () => {
   })
 
   it('runs beforeRemove before deleting files and keeps them when it fails', async () => {
-    const pluginsDir = await tempRoot('orca-plugin-installs-')
-    const pluginsDataDir = await tempRoot('orca-plugin-data-')
+    const pluginsDir = await tempRoot('openkodo-plugin-installs-')
+    const pluginsDataDir = await tempRoot('openkodo-plugin-data-')
     const key = 'samples.demo'
     await mkdir(join(pluginsDir, key))
     await writeFile(join(pluginsDir, key, 'content'), 'installed')

@@ -22,7 +22,7 @@ export const WORKER_EVENTS = {
   log: 'log',
   fatal: 'fatal',
   shutdown: 'shutdown',
-  /** worker → host, {@link PluginWorkerPanelPost}: `orca.panels.post`. */
+  /** worker → host, {@link PluginWorkerPanelPost}: `openkodo.panels.post`. */
   panelPost: 'panel.post',
   /** host → worker, {@link PluginDataChanged}: a panel or the person changed storage or settings. */
   dataChanged: 'data.changed'
@@ -32,7 +32,7 @@ export const WORKER_EVENTS = {
 export const WORKER_METHODS = {
   invokeCommand: 'command.invoke',
   deliverEvent: 'event.deliver',
-  /** A panel's `plugin.request`, answered by the handler from `orca.panels.handle`. */
+  /** A panel's `plugin.request`, answered by the handler from `openkodo.panels.handle`. */
   panelRequest: 'panel.request',
   /** One hook, answered with a decision (plugin-worker-hooks.ts). */
   runHook: 'hook.run'

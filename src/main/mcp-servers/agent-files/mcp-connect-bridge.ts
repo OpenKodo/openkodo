@@ -9,7 +9,7 @@ import {
 } from '@modelcontextprotocol/sdk/client/streamableHttp.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import type { JSONRPCMessage } from '@modelcontextprotocol/sdk/types.js'
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import { errnoCodeOrUnknown } from '../../../shared/errors/errno-code'
 import { answerWithNoTools } from './mcp-no-tools-server'
 
@@ -18,7 +18,7 @@ type HttpConnection = Extract<McpServerConnection, { url: string }>
 
 /** A replayed handshake that gets no answer fails the message instead of holding every later one. */
 const HANDSHAKE_TIMEOUT_MS = 30_000
-const RECONNECT_ID = 'orca-reconnect-'
+const RECONNECT_ID = 'openkodo-reconnect-'
 
 const stdinEnded = (): Promise<void> =>
   new Promise((resolve) => {

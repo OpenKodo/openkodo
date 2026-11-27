@@ -165,7 +165,7 @@ it('shares a transaction among small item writes but commits two 200 KB tool out
               options: { fence: 1, turnScope: { kind: 'thread' } },
               resolution: {
                 kind: 'literal',
-                identity: { provider: 'orca', clientMessageId: `call${id}` },
+                identity: { provider: 'openkodo', clientMessageId: `call${id}` },
                 body: {
                   kind: 'tool-call',
                   name: 'shell',

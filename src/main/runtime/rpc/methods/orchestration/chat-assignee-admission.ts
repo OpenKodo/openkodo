@@ -1,10 +1,10 @@
 import type { AgentSessionConversationView } from '../../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
 import {
-  formatOrcaSessionAddress,
-  type OrcaSessionId
-} from '../../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  type OpenKodoSessionId
+} from '../../../../../shared/agent-session/identity/openkodo-session-address'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES as CODES } from '../../../../../shared/orchestration/orchestration-session-caller-codes'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { AgentLaunchModeReceipt as WorkerStartModeReceipt } from '../../../../../shared/agent-launch/contracts/agent-launch-intent'
 import { observeChatAssignee } from '../../../orchestration/workers/lifecycle/chat-assignee'
 import type { OrchestrationDb } from '../../../orchestration/db/orchestration-db'
@@ -22,14 +22,14 @@ const NO_EFFECTS = 'No effects were applied.'
 export const CHAT_WORKER_AUTHORITY = { paneKey: null, processIncarnation: null } as const
 
 /** The chat a party is, whichever name reached it: a structured worker's handle names its chat too. Null for a terminal. */
-export function chatAssigneeOf(party: OrchestrationParty): OrcaSessionId | null {
-  return party.orcaSessionId
+export function chatAssigneeOf(party: OrchestrationParty): OpenKodoSessionId | null {
+  return party.openkodoSessionId
 }
 
 /** Use the same reach rules as mail before creating anything; return the assignee's currently running session. */
 export async function admitChatAssignee(
-  runtime: Pick<OrcaRuntimeService, 'ensureStructuredAgentSessionHost'>,
-  sessionId: OrcaSessionId,
+  runtime: Pick<OpenKodoRuntimeService, 'ensureStructuredAgentSessionHost'>,
+  sessionId: OpenKodoSessionId,
   db: OrchestrationDb
 ): Promise<AgentSessionConversationView> {
   // A failed install leaves no store, which the refusal below names.
@@ -38,7 +38,7 @@ export async function admitChatAssignee(
   // Read after every wait: the store this admission checks is the one it then observes.
   const store = readAgentSessionRecordStore()
   const refusal = refuseUndeliverableSessionRecipient(
-    { sessionId, address: formatOrcaSessionAddress(sessionId) },
+    { sessionId, address: formatOpenKodoSessionAddress(sessionId) },
     store,
     db,
     terminalRecipient,
@@ -60,14 +60,14 @@ export async function admitChatAssignee(
 
 /** A coordinator can't be its own worker: it would answer its own task forever. */
 export function refuseChatSelfAssignment(args: {
-  sessionId: OrcaSessionId
-  coordinatorSessionId: OrcaSessionId | null | undefined
+  sessionId: OpenKodoSessionId
+  coordinatorSessionId: OpenKodoSessionId | null | undefined
   remedy: string
 }): void {
   if (args.sessionId === args.coordinatorSessionId) {
     throw new OrchestrationError(
       'terminal_is_coordinator',
-      `${formatOrcaSessionAddress(args.sessionId)} is this coordinator's own OpenKodo session ID. ${args.remedy}`
+      `${formatOpenKodoSessionAddress(args.sessionId)} is this coordinator's own OpenKodo session ID. ${args.remedy}`
     )
   }
 }
@@ -75,12 +75,12 @@ export function refuseChatSelfAssignment(args: {
 /** A chat adopted as a worker is given the task, not launched; the decided mode stands. */
 export function chatWorkerMode(
   mode: WorkerStartModeReceipt,
-  chat: OrcaSessionId | null
+  chat: OpenKodoSessionId | null
 ): WorkerStartModeReceipt {
   return chat
     ? {
         ...mode,
-        detail: `--terminal names the chat ${formatOrcaSessionAddress(chat)}; its task goes to that chat and no agent is launched.`
+        detail: `--terminal names the chat ${formatOpenKodoSessionAddress(chat)}; its task goes to that chat and no agent is launched.`
       }
     : mode
 }

@@ -1,7 +1,7 @@
 import { OPENKODO_ISSUE_FIELDS, OPENKODO_PROJECT_FIELDS } from '../projects/linear-project-graphql'
 
 export const CUSTOM_VIEWS_QUERY = `
-  query OrcaLinearCustomViews(
+  query OpenKodoLinearCustomViews(
     $first: Int,
     $filter: CustomViewFilter,
     $orderBy: PaginationOrderBy
@@ -42,7 +42,7 @@ export const CUSTOM_VIEWS_QUERY = `
 `
 
 export const CUSTOM_VIEW_QUERY = `
-  query OrcaLinearCustomView($id: String!) {
+  query OpenKodoLinearCustomView($id: String!) {
     customView(id: $id) {
       id
       name
@@ -74,7 +74,7 @@ export const CUSTOM_VIEW_QUERY = `
 `
 
 export const CUSTOM_VIEW_ISSUES_QUERY = `
-  query OrcaLinearCustomViewIssues(
+  query OpenKodoLinearCustomViewIssues(
     $id: String!,
     $first: Int,
     $after: String,
@@ -97,7 +97,7 @@ export const CUSTOM_VIEW_ISSUES_QUERY = `
 `
 
 export const CUSTOM_VIEW_PROJECTS_QUERY = `
-  query OrcaLinearCustomViewProjects($id: String!, $first: Int, $orderBy: PaginationOrderBy) {
+  query OpenKodoLinearCustomViewProjects($id: String!, $first: Int, $orderBy: PaginationOrderBy) {
     customView(id: $id) {
       id
       modelName

@@ -7,7 +7,7 @@ import { homedir } from 'node:os'
 import { isAbsolute, resolve as resolvePath } from 'node:path'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js'
-import { dropInheritedOrcaIdentityEnv } from '../../ipc/pty/host-env/inherited-orca-identity-env'
+import { dropInheritedOpenKodoIdentityEnv } from '../../ipc/pty/host-env/inherited-openkodo-identity-env'
 import { resolveCommandOnLocalPath } from '../../ipc/command-path/command-path-resolver'
 import {
   hostShellEnvironment,
@@ -59,7 +59,7 @@ async function prepareLaunch(server: McpCommandServer): Promise<SharedMcpLaunch>
     policy: { inheritAll: true, names: [] }
   })
   // It serves every session, so it carries none's identity.
-  dropInheritedOrcaIdentityEnv(env)
+  dropInheritedOpenKodoIdentityEnv(env)
   // Case-insensitive on Windows, so the server's `Path` replaces the shell's `PATH`.
   const withServer = overlayEnvironmentVariables(env, server.env ?? {}, process.platform)
   const cwd = homedir()

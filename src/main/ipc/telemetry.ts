@@ -31,7 +31,7 @@ const MAIN_OWNED_TELEMETRY_EVENTS = new Set<EventName>([
   'browser_extension_installed',
   'browser_extension_used',
   'browser_extensions_banner_assigned',
-  'app_starred_orca',
+  'app_starred_openkodo',
   'codex_history_move_status',
   'codex_legacy_history_import',
   'legacy_journal_retirement',

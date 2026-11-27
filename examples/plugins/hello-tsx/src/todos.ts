@@ -1,8 +1,8 @@
-import { atom, derived, read, set, update } from 'orca'
+import { atom, derived, read, set, update } from 'openkodo'
 
 export type Todo = { id: number; title: string; done: boolean }
 
-// Keyed and persisted: the list survives closing the panel and restarting Orca.
+// Keyed and persisted: the list survives closing the panel and restarting OpenKodo.
 export const todos = atom<Todo[]>(
   'todos',
   [

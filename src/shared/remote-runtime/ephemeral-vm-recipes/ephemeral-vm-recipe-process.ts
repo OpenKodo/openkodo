@@ -3,9 +3,9 @@ import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { StringDecoder } from 'node:string_decoder'
 import type { EphemeralVmRecipeContext } from './ephemeral-vm-recipe-runner'
 import { buildRecipeInheritedEnv } from './ephemeral-vm-recipe-env'
-import { admitProcessTreeKill } from '@orca/process-host/process-tree-kill-gate'
-import { GrowingByteBuffer } from '@orca/process-host/growing-byte-buffer'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { admitProcessTreeKill } from '@openkodo/process-host/process-tree-kill-gate'
+import { GrowingByteBuffer } from '@openkodo/process-host/growing-byte-buffer'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 
 export const DEFAULT_MAX_CAPTURE_BYTES = 1024 * 1024
 const CANCEL_FORCE_KILL_DELAY_MS = 5_000
@@ -277,6 +277,6 @@ function buildRecipeEnv(
     OPENKODO_REPO_REF: context.ref ?? '',
     OPENKODO_REPO_REF_HEAD: context.expectedRefHead ?? '',
     OPENKODO_RECIPE_RESULT_SCHEMA_VERSION: String(resultSchemaVersion),
-    OPENKODO_VERSION: context.orcaVersion ?? ''
+    OPENKODO_VERSION: context.openkodoVersion ?? ''
   }
 }

@@ -116,7 +116,7 @@ export type PluginHostServices = {
   panels?: PluginPanelBridgeServices | null
   /** Absent where no OpenKodo window draws a status bar. */
   statusBar?: PluginStatusBarServices | null
-  /** The runtime methods the `orca` CLI calls, for workspace actions; absent without a runtime. */
+  /** The runtime methods the `openkodo` CLI calls, for workspace actions; absent without a runtime. */
   runtimeRpc?: PluginRuntimeRpc | null
   /** OpenKodo's window, for actions only it can take; absent in headless serve. */
   renderer?: PluginHostRendererActions | null

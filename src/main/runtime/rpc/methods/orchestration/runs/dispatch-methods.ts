@@ -12,9 +12,9 @@ import {
   DispatchParams,
   DispatchShowParams
 } from '../../../../../../shared/rpc-contract/orchestration/orchestration-params'
-import { formatOrcaSessionAddress } from '../../../../../../shared/agent-session/identity/orca-session-address'
+import { formatOpenKodoSessionAddress } from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
-  orcaSessionIdOrHandle,
+  openkodoSessionIdOrHandle,
   resolveDispatchAssigneeParty
 } from '../../../../orchestration/addressing/orchestration-party'
 import {
@@ -62,8 +62,8 @@ export const ORCHESTRATION_DISPATCH_METHODS = [
           dispatchId: 'ctx_dryrun',
           canDispatchSubWorkers: previewDepth < maxDepth,
           taskSpec: task.spec,
-          coordinatorHandle: orcaSessionIdOrHandle(params.from ?? 'coordinator', db),
-          workerHandle: assignee ? orcaSessionIdOrHandle(assignee, db) : 'worker',
+          coordinatorHandle: openkodoSessionIdOrHandle(params.from ?? 'coordinator', db),
+          workerHandle: assignee ? openkodoSessionIdOrHandle(assignee, db) : 'worker',
           devMode: params.devMode,
           ...(assignee ? { cliCommand: runtime.getTerminalOrchestrationCliCommand(assignee) } : {})
         })
@@ -103,7 +103,7 @@ export const ORCHESTRATION_DISPATCH_METHODS = [
         // The session wins over `--from`, so a chat calling with none is still refused here.
         refuseChatSelfAssignment({
           sessionId: chatAssignee,
-          coordinatorSessionId: orchestrationCaller?.orcaSessionId,
+          coordinatorSessionId: orchestrationCaller?.openkodoSessionId,
           remedy: 'Dispatch to a different agent, or use worker-start to create one.'
         })
       }
@@ -154,8 +154,8 @@ export const ORCHESTRATION_DISPATCH_METHODS = [
         dispatchId: ctx.id,
         canDispatchSubWorkers: ctx.depth < runtime.getNestedWorkerMaxDepth(),
         taskSpec: task.spec,
-        coordinatorHandle: orcaSessionIdOrHandle(params.from ?? 'coordinator', db),
-        workerHandle: orcaSessionIdOrHandle(to, db),
+        coordinatorHandle: openkodoSessionIdOrHandle(params.from ?? 'coordinator', db),
+        workerHandle: openkodoSessionIdOrHandle(to, db),
         devMode: params.devMode,
         cliCommand: runtime.getTerminalOrchestrationCliCommand(to)
       })
@@ -228,9 +228,9 @@ export const ORCHESTRATION_DISPATCH_METHODS = [
         }
         const workerHandle = ctx?.assignee_handle ?? 'worker'
         // Only a pre-dispatch preview may use the inspecting caller as a stand-in.
-        const coordinatorHandle = ctx?.creator_orca_session_id
-          ? formatOrcaSessionAddress(ctx.creator_orca_session_id)
-          : orcaSessionIdOrHandle((ctx ? ctx.creator_handle : params.from) ?? 'coordinator', db)
+        const coordinatorHandle = ctx?.creator_openkodo_session_id
+          ? formatOpenKodoSessionAddress(ctx.creator_openkodo_session_id)
+          : openkodoSessionIdOrHandle((ctx ? ctx.creator_handle : params.from) ?? 'coordinator', db)
         const preamble = buildDispatchPreamble({
           taskId: task.id,
           // Use the real Dispatch id for matching previews; use a placeholder before dispatch.
@@ -238,7 +238,7 @@ export const ORCHESTRATION_DISPATCH_METHODS = [
           canDispatchSubWorkers: (ctx?.depth ?? 1) < runtime.getNestedWorkerMaxDepth(),
           taskSpec: task.spec,
           coordinatorHandle,
-          workerHandle: orcaSessionIdOrHandle(workerHandle, db),
+          workerHandle: openkodoSessionIdOrHandle(workerHandle, db),
           devMode: params.devMode,
           ...(ctx ? { cliCommand: runtime.getTerminalOrchestrationCliCommand(workerHandle) } : {})
         })

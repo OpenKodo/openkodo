@@ -4,7 +4,7 @@ import type {
   OrchestrationWorkerReadSource
 } from '../../../../../../../shared/orchestration/workers/orchestration-worker-output'
 import type { RuntimeTerminalState } from '../../../../../../../shared/terminal/runtime/runtime-terminal-contracts'
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../../orchestration/orchestration-error'
 import {
   createWorkerOutputSourceIdentity,
@@ -20,7 +20,7 @@ import type { AgentType } from '../../../../../../../shared/agent-status/contrac
 import { isWslHookRelayConnectionId } from '../../../../../../../shared/agent-hook-listener/transport/wsl-hook-relay-contract'
 
 export async function readExactWorkerOutput(args: {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   dispatchId: string
   terminalHandle: string
   workerState: string

@@ -10,9 +10,9 @@ import type { AgentSessionRecord } from '../../../../shared/agent-session/lifecy
 import { CLI_CONVERSATION_ADOPTING_AGENTS } from '../../../../shared/agent-session/view/structured-agent-cli-conversation-adoption'
 import { recordConversationKey } from '../../../native-chat/conversation-adoption/structured-conversation-key'
 import type { StructuredAgentCliSourceRoute } from '../../../native-chat/conversation-adoption/structured-agent-cli-source'
-import { OrcaRuntimeWithGetWorktreePs } from '../../workspaces/process-listing/workspace-process-listing'
+import { OpenKodoRuntimeWithGetWorktreePs } from '../../workspaces/process-listing/workspace-process-listing'
 
-export abstract class OrcaRuntimeWithStructuredSessionCliWriterHost extends OrcaRuntimeWithGetWorktreePs {
+export abstract class OpenKodoRuntimeWithStructuredSessionCliWriterHost extends OpenKodoRuntimeWithGetWorktreePs {
   getStructuredAgentCliSourceRoute(source: {
     workspaceId: string
     paneKey: string

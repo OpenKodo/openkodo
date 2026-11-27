@@ -1,7 +1,7 @@
 // The owner's names as this computer knows them, so a memory line that says "Dana picked" reads as
 // the owner deciding. From the account's full name (macOS) and git's user.name, every word of each;
 // none when neither is set, and then only the word "owner" counts.
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 let names: Promise<string[]> | null = null
 
@@ -14,7 +14,7 @@ const NOT_NAMES = new Set([
   'bot',
   'claude',
   'codex',
-  'orca',
+  'openkodo',
   'the',
   'test',
   'team',

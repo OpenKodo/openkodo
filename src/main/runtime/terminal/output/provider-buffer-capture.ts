@@ -2,7 +2,7 @@ import type {
   RuntimeHeadlessTerminal,
   RuntimeVisibleTerminalState
 } from '../records/runtime-terminal-state-records'
-import { OrcaRuntimeWithSerializeTerminalBufferFromAvailableState } from './terminal-buffer-selection'
+import { OpenKodoRuntimeWithSerializeTerminalBufferFromAvailableState } from './terminal-buffer-selection'
 import type {
   PtyProviderBufferSnapshot,
   PtyProviderBufferSnapshotOptions
@@ -27,7 +27,7 @@ import {
 import { VISIBLE_TERMINAL_SNAPSHOT_TIMEOUT_MS } from './provider-snapshot-budget'
 import { isNativeWindowsConptyPty } from './terminal-model-query-authority'
 
-export abstract class OrcaRuntimeWithCaptureProviderTerminalBuffer extends OrcaRuntimeWithSerializeTerminalBufferFromAvailableState {
+export abstract class OpenKodoRuntimeWithCaptureProviderTerminalBuffer extends OpenKodoRuntimeWithSerializeTerminalBufferFromAvailableState {
   protected abstract readVisibleTerminalState(
     ptyId: string
   ): Promise<RuntimeVisibleTerminalState | null>

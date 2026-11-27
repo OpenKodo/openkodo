@@ -4,7 +4,7 @@
 
 import type { MessageRow } from '../../../../orchestration/db/orchestration-records'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import {
   botAnswerView,
   botRequestAnswerRef,
@@ -78,7 +78,7 @@ export function botAnswerOf(
 /** The room turn a group member's answer to a request shows on, read before the reply is written;
  *  null outside a group room, or where the room cannot show it. Never fails the reply. */
 export async function groupAnswerTurn(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   original: MessageRow,
   callerSessionId: string | undefined,
   body: string
@@ -117,7 +117,7 @@ export function isBotAnswerTo(payload: string | null | undefined, requestId: str
 
 /** After a post: when it went where the request it answers was asked, the request is answered there. */
 export async function noteBotRequestPost(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   ref: string | undefined
 ): Promise<void> {
@@ -136,7 +136,7 @@ export async function noteBotRequestPost(
 /** A turn on a request ended: with no answer and no work still running for it, the sender is told.
  *  A failed turn is told by `settleBotRequestFailure`, which knows why. */
 export async function settleBotRequestTurn(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   turnId: string,
   ended?: TurnEndedVerdict
@@ -148,7 +148,7 @@ export async function settleBotRequestTurn(
 
 /** A bot's request failed: the sender hears why, in the words its chat and worker escalations show. */
 export async function settleBotRequestFailure(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   failure: StructuredAgentSessionRequestFailure
 ): Promise<void> {
   if (!botOfSession(runtime.bots, failure.sessionId)) {
@@ -169,7 +169,7 @@ export async function settleBotRequestFailure(
 }
 
 async function settleBotRequests(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   turnId: string,
   {
@@ -218,7 +218,7 @@ async function continuesAfterUsageLimit(sessionId: string): Promise<boolean> {
 
 /** Requests a bot will never read: it was paused or deleted, or its Chat replaced. */
 export async function dropUnreadBotRequests(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   botId: string,
   why: 'paused' | 'deleted' | 'new-chat' | 'chat-deleted',
   /** Only those mailed to this conversation (the Chat a new one replaced, or a deleted chat). */

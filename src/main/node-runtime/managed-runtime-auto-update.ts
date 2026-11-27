@@ -1,5 +1,5 @@
 // When OpenKodo brings its own copy of a pinned runtime up to date without a click, and how often it
-// tries. The record outlives the host process: a host that restarts often (orcad idle-exits) must
+// tries. The record outlives the host process: a host that restarts often (openkodod idle-exits) must
 // not download a release again on every start after it failed or was cancelled.
 
 import { randomUUID } from 'node:crypto'

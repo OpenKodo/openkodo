@@ -1,13 +1,13 @@
 import { app, session } from 'electron'
 import { randomUUID } from 'node:crypto'
 import { join } from 'node:path'
-import '../../../../shared/orca-profiles/constants'
+import '../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_PARTITION } from '../../../../shared/browser/browser-session-partition'
 import {
   DEFAULT_LOCAL_OPENKODO_PROFILE_ID,
-  getOrcaProfileBrowserDefaultPartition,
-  getOrcaProfileBrowserSessionPartition
-} from '../../../../shared/orca-profiles/orca-profiles'
+  getOpenKodoProfileBrowserDefaultPartition,
+  getOpenKodoProfileBrowserSessionPartition
+} from '../../../../shared/openkodo-profiles/openkodo-profiles'
 import type {
   BrowserSessionProfile,
   BrowserSessionProfileScope
@@ -59,7 +59,7 @@ type ExtensionIdListKey = 'enabledExtensionIdsByProfileId' | 'pinnedExtensionIds
 type ExtensionIdListUpdate = (byProfile: Record<string, string[]>) => Record<string, string[]>
 
 export type BrowserSessionRegistryProfileOptions = {
-  orcaProfileId: string
+  openkodoProfileId: string
   profileDirectory: string
 }
 
@@ -67,7 +67,7 @@ export type BrowserSessionRegistryProfileOptions = {
 
 class BrowserSessionRegistry {
   private readonly profiles = new BrowserSessionProfileMap()
-  private activeOrcaProfileId = DEFAULT_LOCAL_OPENKODO_PROFILE_ID
+  private activeOpenKodoProfileId = DEFAULT_LOCAL_OPENKODO_PROFILE_ID
   private metadataPathOverride: string | null = null
   private defaultPartition = OPENKODO_BROWSER_PARTITION
   // Why: profiles change from IPC, the CLI and managed-profile owners; open windows and paired clients only learn of it here.
@@ -78,10 +78,10 @@ class BrowserSessionRegistry {
     this.resetDefaultProfile()
   }
 
-  configureForOrcaProfile(options: BrowserSessionRegistryProfileOptions): void {
-    this.activeOrcaProfileId = options.orcaProfileId
+  configureForOpenKodoProfile(options: BrowserSessionRegistryProfileOptions): void {
+    this.activeOpenKodoProfileId = options.openkodoProfileId
     this.metadataPathOverride = join(options.profileDirectory, BROWSER_SESSION_META_FILE_NAME)
-    this.defaultPartition = getOrcaProfileBrowserDefaultPartition(options.orcaProfileId)
+    this.defaultPartition = getOpenKodoProfileBrowserDefaultPartition(options.openkodoProfileId)
     this.profiles.clear()
     this.resetDefaultProfile()
   }
@@ -119,7 +119,7 @@ class BrowserSessionRegistry {
     const meta = this.loadPersistedMeta()
     const migration = inspectRetiredBrowserSessionProfileUserAgentModes(
       meta.profiles,
-      this.activeOrcaProfileId
+      this.activeOpenKodoProfileId
     )
     if (migration.noticePending) {
       // Migration bookkeeping must not block session startup.
@@ -185,7 +185,7 @@ class BrowserSessionRegistry {
     applyPendingBrowserCookieImports({
       resolveMetadataPath: () => this.metadataPath,
       defaultPartition: this.defaultPartition,
-      activeOrcaProfileId: this.activeOrcaProfileId
+      activeOpenKodoProfileId: this.activeOpenKodoProfileId
     })
   }
 
@@ -257,7 +257,7 @@ class BrowserSessionRegistry {
       return null
     }
     const id = randomUUID()
-    const partition = getOrcaProfileBrowserSessionPartition(this.activeOrcaProfileId, id)
+    const partition = getOpenKodoProfileBrowserSessionPartition(this.activeOpenKodoProfileId, id)
     const profile: BrowserSessionProfile = { id, scope, partition, label, source: null, owner }
     try {
       await installBrowserSessionPartitionPolicies(profile)
@@ -336,7 +336,7 @@ class BrowserSessionRegistry {
   /** False when it rejected an entry: a profile on disk the registry lacks, not a deleted one. */
   hydrateFromPersisted(profiles: BrowserSessionProfile[]): boolean {
     const valid = profiles.filter((profile) =>
-      isValidPersistedBrowserSessionProfile(profile, this.activeOrcaProfileId)
+      isValidPersistedBrowserSessionProfile(profile, this.activeOpenKodoProfileId)
     )
     for (const profile of valid) {
       this.profiles.set(profile.id, profile)

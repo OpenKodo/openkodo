@@ -4,7 +4,7 @@ import { acquireElectronDebugger, type ElectronDebuggerLease } from './electron-
 import type { CdpClientResponseWriter } from '../transport/cdp-client-response-writer'
 import type { CdpSyntheticSessionRegistry } from '../transport/cdp-synthetic-session-registry'
 import { sendGuestCdpCommand } from './guest-cdp-command'
-import { isOrcaFrameSessionTraffic } from '../input/guest-frame-input-sessions'
+import { isOpenKodoFrameSessionTraffic } from '../input/guest-frame-input-sessions'
 import type { CapturePaintHold } from './guest-paint-hold'
 
 export class CdpDebuggerChannel {
@@ -49,7 +49,7 @@ export class CdpDebuggerChannel {
         string | undefined
       ]
       // Hide OpenKodo-owned frame sessions that the client did not request.
-      if (isOrcaFrameSessionTraffic(this.webContents, method, params, sessionId || undefined)) {
+      if (isOpenKodoFrameSessionTraffic(this.webContents, method, params, sessionId || undefined)) {
         return
       }
       const client = this.getClient()

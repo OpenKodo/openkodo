@@ -35,7 +35,7 @@ if (!parent) {
   throw new Error('The worker host must run as an Electron utility process')
 }
 
-const LOADED = 'orca-hosted-worker-loaded'
+const LOADED = 'openkodo-hosted-worker-loaded'
 const control = parent
 const workers = new Map<number, Worker>()
 const ports = new Map<number, WorkerPort>()

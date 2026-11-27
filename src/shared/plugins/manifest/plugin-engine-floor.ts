@@ -1,7 +1,10 @@
 import { z, type RefinementCtx } from 'zod'
 import { formatPluginSchemaPath } from './plugin-schema-issues'
 import { PLUGIN_ENUM_SINCE_KEY } from './plugin-engine-floor-keys'
-import { orcaEngineRangeSchema, satisfiesOrcaEngineRange } from './plugin-manifest-engine-range'
+import {
+  openkodoEngineRangeSchema,
+  satisfiesOpenKodoEngineRange
+} from './plugin-manifest-engine-range'
 import { isPluginJsonObject } from './plugin-json-object'
 
 type Floor = { version: string; path: readonly PropertyKey[] }
@@ -14,7 +17,7 @@ function newer(
   if (typeof version !== 'string') {
     return current
   }
-  return current === null || !satisfiesOrcaEngineRange(current.version, `>=${version}`)
+  return current === null || !satisfiesOpenKodoEngineRange(current.version, `>=${version}`)
     ? { version, path }
     : current
 }
@@ -26,7 +29,7 @@ function sinceOf(
   floor: Floor | null
 ) {
   const meta = z.globalRegistry.get(schema)
-  let next = newer(floor, meta?.['x-orca-since'], path)
+  let next = newer(floor, meta?.['x-openkodo-since'], path)
   const enumSince = meta?.[PLUGIN_ENUM_SINCE_KEY]
   if (typeof value === 'string' && isPluginJsonObject(enumSince)) {
     next = newer(next, enumSince[value], path)
@@ -79,7 +82,7 @@ function walk(
   return current
 }
 
-/** The release a manifest must at least declare in engines.orca, and the field that needs it. */
+/** The release a manifest must at least declare in engines.openkodo, and the field that needs it. */
 export function pluginEngineFloor(
   schema: z.core.$ZodType,
   manifest: unknown
@@ -93,19 +96,19 @@ export function pluginEngineFloor(
  *  field the plugin uses, so authors may not under-declare it. */
 export function validatePluginEngineFloor(
   schema: z.core.$ZodType,
-  manifest: { engines: { orca: string } },
+  manifest: { engines: { openkodo: string } },
   ctx: RefinementCtx
 ): void {
   // Why: an unreadable range already has its own issue; a floor message on top is noise.
-  if (!orcaEngineRangeSchema.safeParse(manifest.engines.orca).success) {
+  if (!openkodoEngineRangeSchema.safeParse(manifest.engines.openkodo).success) {
     return
   }
   const floor = pluginEngineFloor(schema, manifest)
-  const declared = manifest.engines.orca.slice(2)
-  if (floor && !satisfiesOrcaEngineRange(declared, `>=${floor.version}`)) {
+  const declared = manifest.engines.openkodo.slice(2)
+  if (floor && !satisfiesOpenKodoEngineRange(declared, `>=${floor.version}`)) {
     ctx.addIssue({
       code: 'custom',
-      path: ['engines', 'orca'],
+      path: ['engines', 'openkodo'],
       message: `must be at least >=${floor.version}, because ${floor.field} needs OpenKodo ${floor.version}`
     })
   }

@@ -38,14 +38,14 @@ export function normalizeAgentStatusMetadata(
     !authorityRestartId &&
     !data.paneOwner &&
     data.executionHost !== 'shared' &&
-    data.orcaSessionId === undefined
+    data.openkodoSessionId === undefined
   ) {
     return undefined
   }
   return {
     ...(authorityRestartId ? { authorityRestartId } : {}),
     ...(data.providerSession ? { providerSession: data.providerSession } : {}),
-    ...(data.orcaSessionId !== undefined ? { orcaSessionId: data.orcaSessionId } : {}),
+    ...(data.openkodoSessionId !== undefined ? { openkodoSessionId: data.openkodoSessionId } : {}),
     ...(data.launchToken ? { launchToken: data.launchToken } : {}),
     ...(data.launchConfig !== undefined ? { launchConfig: data.launchConfig } : {}),
     ...(data.paneOwner ? { paneOwner: data.paneOwner } : {}),

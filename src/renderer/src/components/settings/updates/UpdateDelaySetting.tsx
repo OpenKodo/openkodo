@@ -16,7 +16,7 @@ import { uiNumberFormat } from '@/i18n/ui-intl-formatters'
 import { openAppHttpLinkFromAnchor } from '@/lib/browser/navigation/app-http-link-open'
 import type { DelayedUpdate, UpdateStatus } from '../../../../../shared/updater/update-status-types'
 import { getReleaseNotesUrlForVersion } from '../../../../../shared/updater/release-channel'
-import { getOrcaCloudTeamCapabilities } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { getOpenKodoCloudTeamCapabilities } from '../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import {
   isDelayedUpdatePending,
   normalizeUpdateDelayDays,
@@ -62,7 +62,8 @@ export function UpdateDelaySetting(): React.JSX.Element {
   const intlLocale = useIntlLocale()
   const delayDays = useAppStore((s) => normalizeUpdateDelayDays(s.settings?.updateDelayDays))
   const teamDelayDays = useAppStore(
-    (s) => getOrcaCloudTeamCapabilities(s.orcaProfileAuthStatus)?.teamPolicy?.updateDelayDays
+    (s) =>
+      getOpenKodoCloudTeamCapabilities(s.openkodoProfileAuthStatus)?.teamPolicy?.updateDelayDays
   )
   const updateSettings = useAppStore((s) => s.updateSettings)
   const updateStatus = useAppStore((s) => s.updateStatus)

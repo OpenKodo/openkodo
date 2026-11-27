@@ -3,7 +3,7 @@
 import { botConnectorServices, type BotConnectorsView } from '../../shared/bots/bot-connectors-view'
 import type { EvalHostState } from './bot-automation-eval-host'
 import { workspaces } from './bot-automation-eval-connector'
-import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-orca'
+import type { StandInIo } from '../bot-orchestration-eval/bot-orchestration-eval-openkodo'
 import { LEAVE_THREAD_REFUSALS } from '../../shared/connectors/connector-leave-thread-copy'
 import { RuntimeClientError } from '../runtime/connection/types'
 

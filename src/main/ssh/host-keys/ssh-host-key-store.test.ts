@@ -34,8 +34,8 @@ let directory: string
 let storeFile: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'orca-host-key-store-'))
-  storeFile = getSshHostKeyStoreFile(join(directory, 'orca-data.json'))
+  directory = await mkdtemp(join(tmpdir(), 'openkodo-host-key-store-'))
+  storeFile = getSshHostKeyStoreFile(join(directory, 'openkodo-data.json'))
 })
 
 afterEach(async () => {
@@ -57,7 +57,7 @@ describe('ssh host key store', () => {
 /** Reject and preserve unknown future store versions; treating them as empty then rewriting v1 would destroy newer trust records. */
 describe('a host key store written by a newer version', () => {
   it('is not trusted and not overwritten', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'orca-host-key-store-'))
+    const dir = await mkdtemp(join(tmpdir(), 'openkodo-host-key-store-'))
     const storeFile = join(dir, 'ssh-host-keys.json')
     const future = JSON.stringify({
       version: 99,

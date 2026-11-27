@@ -3,7 +3,7 @@
 // return reaches (a server's own page in OpenKodo's browser) and waits on the host for its end.
 import { useEffect, useSyncExternalStore } from 'react'
 import { useAppStore } from '@/store'
-import { signedInOrcaAccount } from './signed-in-orca-account'
+import { signedInOpenKodoAccount } from './signed-in-openkodo-account'
 import { refreshBotGitHub } from './bot-github-state'
 import { refreshBotLinear } from './bot-linear-state'
 import { connectorTripCalls } from './bot-connector-host-calls'
@@ -301,7 +301,7 @@ export function useResumeAfterConnect(
     }
   })
   const onOpened = (destination: HttpLinkDestination): void => {
-    if (destination === 'orca-browser') {
+    if (destination === 'openkodo-browser') {
       onStepAside?.()
     }
   }
@@ -337,9 +337,9 @@ function watchSignedInAccount(): void {
     return
   }
   watching = true
-  shownAccount = signedInOrcaAccount()
+  shownAccount = signedInOpenKodoAccount()
   useAppStore.subscribe(() => {
-    const account = signedInOrcaAccount()
+    const account = signedInOpenKodoAccount()
     if (account === shownAccount) {
       return
     }

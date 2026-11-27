@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../orchestration/db/orchestration-db'
 import type { MessageRow } from '../../../../orchestration/db/orchestration-records'
 import type { MailTaker } from '../../../../orchestration/db/messages/mail-taker'
@@ -40,7 +40,7 @@ export class CheckMailReconciliation {
   private readonly host = createStructuredMailboxPointerHost()
 
   constructor(
-    private readonly runtime: OrcaRuntimeService,
+    private readonly runtime: OpenKodoRuntimeService,
     private readonly db: OrchestrationDb,
     /** Who this check hands the questions it reads to. */
     readonly taker: MailTaker,

@@ -2,9 +2,9 @@ import { resolveHostCodexSessionSourceHome } from '../../../codex/history/rollou
 import { startSystemCodexSessionBridgeInBackground } from '../../../codex/history/bridges/codex-session-bridge'
 import { isCodexHistorySharedAcrossAccounts } from './codex-history-sharing'
 import {
-  getOrcaManagedCodexHomePath,
+  getOpenKodoManagedCodexHomePath,
   getSystemCodexHomePath,
-  resolveOrcaManagedCodexHomePath,
+  resolveOpenKodoManagedCodexHomePath,
   syncSystemCodexResourcesIntoManagedHome
 } from '../../../codex/configuration/homes/codex-home-paths'
 import { syncSystemConfigIntoManagedCodexHome } from '../../../codex/configuration/settings/codex-config-mirror'
@@ -72,7 +72,7 @@ export abstract class CodexRuntimeHomeLaunch extends CodexRuntimeHomeRouting {
     syncSystemCodexResourcesIntoManagedHome()
     if (options?.deferConfigSync) {
       options.deferConfigSync({
-        runtimeHomePath: getOrcaManagedCodexHomePath(),
+        runtimeHomePath: getOpenKodoManagedCodexHomePath(),
         systemHomePath: getSystemCodexHomePath()
       })
     } else {
@@ -106,12 +106,12 @@ export abstract class CodexRuntimeHomeLaunch extends CodexRuntimeHomeRouting {
       // Predict launch's route after deselection while leaving the selection untouched.
       return !hasCustomCodexHomeOverrideForLaunch(launchEnv)
         ? null
-        : resolveOrcaManagedCodexHomePath()
+        : resolveOpenKodoManagedCodexHomePath()
     }
     // Avoid getRuntimeHomePath(), which creates the mirror directory.
     return this.isHostSystemDefaultRealHomeSelected(launchEnv)
       ? null
-      : resolveOrcaManagedCodexHomePath()
+      : resolveOpenKodoManagedCodexHomePath()
   }
 
   async prepareForCodexLaunchAsync(

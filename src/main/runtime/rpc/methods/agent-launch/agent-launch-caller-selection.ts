@@ -5,7 +5,7 @@
 import type { AgentLaunchResult as AgentLaunchPublishedSurface } from '../../../../../shared/agent-launch/contracts/agent-launch-intent'
 
 import { parsePaneKey } from '../../../../../shared/workspace-layout/stable-pane-id'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { RpcContext } from '../../core'
 import { clientRendersStructuredAgent } from '../structured-sessions/structured-agent-session-policy'
 import type { AgentLaunchParams } from '../../../../../shared/rpc-contract/agent-launch/agent-launch-params'
@@ -18,7 +18,7 @@ export function agentLaunchCallerNavigationId(context: Pick<RpcContext, 'caller'
 
 /** Bookkeeping, never a gate: the agent already runs, so a failure here only leaves the view as it was. */
 async function selectAgentLaunchTabForCaller(
-  runtime: Pick<OrcaRuntimeService, 'selectCreatedMobileSessionTabForClient'>,
+  runtime: Pick<OpenKodoRuntimeService, 'selectCreatedMobileSessionTabForClient'>,
   surface: AgentLaunchPublishedSurface,
   clientNavigationId: string
 ): Promise<void> {

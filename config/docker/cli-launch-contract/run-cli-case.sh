@@ -9,7 +9,7 @@ command_timeout_seconds=${OPENKODO_TEST_COMMAND_TIMEOUT_SECONDS:-60}
 
 if ((EUID == 0)); then
   # Reproduce extracted AppImage sandbox ownership as an unprivileged user.
-  exec runuser --user orca --preserve-environment -- "$0" "$@"
+  exec runuser --user openkodo --preserve-environment -- "$0" "$@"
 fi
 
 # Guard the restricted-userns precondition instead of accepting a false pass.

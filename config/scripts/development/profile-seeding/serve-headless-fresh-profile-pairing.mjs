@@ -8,7 +8,7 @@ import { createInterface } from 'node:readline'
 
 const scriptDir = import.meta.dirname
 const repoRoot = path.resolve(scriptDir, '../../..', '..')
-const orcaDevScript = path.join(scriptDir, '../launch/openkodo-dev.mjs')
+const openkodoDevScript = path.join(scriptDir, '../launch/openkodo-dev.mjs')
 const ensureNativeRuntimeScript = path.join(
   scriptDir,
   '../../native-build/node-addons/ensure-native-runtime.mjs'
@@ -37,7 +37,7 @@ const serveArgs = withDefaultPairingAddress(parsed.serveArgs)
 ensureElectronRuntime()
 
 const profileDir =
-  fixedProfileDir ?? mkdtempSync(path.join(tmpdir(), 'orca-headless-pairing-profile-'))
+  fixedProfileDir ?? mkdtempSync(path.join(tmpdir(), 'openkodo-headless-pairing-profile-'))
 const ownsProfileDir = !fixedProfileDir
 mkdirSync(profileDir, { recursive: true })
 const isolatedHome = path.join(profileDir, 'home')
@@ -62,9 +62,11 @@ Object.assign(childEnv, {
 })
 
 console.error(`[headless-pairing] userData=${profileDir}`)
-console.error(`[headless-pairing] starting: orca-dev serve --json${formatForwardedArgs(serveArgs)}`)
+console.error(
+  `[headless-pairing] starting: openkodo-dev serve --json${formatForwardedArgs(serveArgs)}`
+)
 
-child = spawn(process.execPath, [orcaDevScript, 'serve', '--json', ...serveArgs], {
+child = spawn(process.execPath, [openkodoDevScript, 'serve', '--json', ...serveArgs], {
   cwd: repoRoot,
   detached: process.platform !== 'win32',
   env: childEnv,
@@ -120,7 +122,7 @@ function parseArgs(args) {
 
 function printHelp() {
   console.log(
-    `Usage: node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs [--keep] [orca serve flags]\n\nStarts orca-dev serve --json with a fresh isolated userData profile, ensures Electron's dev runtime is usable, and prints the pairing URL.\n\nWrapper flags:\n  --keep        Keep the fresh profile after the server exits.\n  -h, --help    Show this help.\n\nForwarded examples:\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --port 6768\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --pairing-address 100.64.1.20\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --mobile-pairing\n\nEnvironment:\n  OPENKODO_HEADLESS_PAIRING_ADDRESS=<host|host:port|ws://...>  Override the auto pairing address.\n  OPENKODO_HEADLESS_PAIRING_PROFILE_DIR=/path/to/profile       Use a fixed profile directory.\n`
+    `Usage: node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs [--keep] [openkodo serve flags]\n\nStarts openkodo-dev serve --json with a fresh isolated userData profile, ensures Electron's dev runtime is usable, and prints the pairing URL.\n\nWrapper flags:\n  --keep        Keep the fresh profile after the server exits.\n  -h, --help    Show this help.\n\nForwarded examples:\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --port 6768\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --pairing-address 100.64.1.20\n  node config/scripts/development/profile-seeding/serve-headless-fresh-profile-pairing.mjs --mobile-pairing\n\nEnvironment:\n  OPENKODO_HEADLESS_PAIRING_ADDRESS=<host|host:port|ws://...>  Override the auto pairing address.\n  OPENKODO_HEADLESS_PAIRING_PROFILE_DIR=/path/to/profile       Use a fixed profile directory.\n`
   )
 }
 
@@ -212,10 +214,10 @@ function printReadyLine(line) {
   } catch {
     return false
   }
-  if (!payload || payload.type !== 'orca_server_ready') {
+  if (!payload || payload.type !== 'openkodo_server_ready') {
     return false
   }
-  console.log(`Orca server ready: ${payload.boundEndpoint ?? 'websocket unavailable'}`)
+  console.log(`OpenKodo server ready: ${payload.boundEndpoint ?? 'websocket unavailable'}`)
   if (payload.pairing?.endpoint) {
     console.log(`Pairing endpoint: ${payload.pairing.endpoint}`)
   }
@@ -240,7 +242,7 @@ function stopChild(signal) {
   stopAttempts += 1
   const targetSignal = stopAttempts > 1 ? 'SIGKILL' : signal
   if (process.platform === 'win32' && child.pid) {
-    // Windows child.kill targets only orca-dev; taskkill reaches CLI/Electron descendants holding fresh profile open.
+    // Windows child.kill targets only openkodo-dev; taskkill reaches CLI/Electron descendants holding fresh profile open.
     const killer = spawn('taskkill', ['/pid', String(child.pid), '/t', '/f'], {
       stdio: 'ignore',
       windowsHide: true
@@ -249,7 +251,7 @@ function stopChild(signal) {
     return
   }
   if (process.platform !== 'win32' && child.pid) {
-    // Kill POSIX group spanning synchronous orca-dev/CLI/Electron ownership to avoid orphan serve.
+    // Kill POSIX group spanning synchronous openkodo-dev/CLI/Electron ownership to avoid orphan serve.
     try {
       process.kill(-child.pid, targetSignal)
       return
@@ -269,7 +271,7 @@ function cleanupProfile() {
     console.error(`[headless-pairing] kept ${profileDir}`)
     return
   }
-  if (!existsSync(profileDir) || !profileDir.includes('orca-headless-pairing-profile-')) {
+  if (!existsSync(profileDir) || !profileDir.includes('openkodo-headless-pairing-profile-')) {
     console.error(`[headless-pairing] skipped cleanup for unexpected profile path: ${profileDir}`)
     return
   }

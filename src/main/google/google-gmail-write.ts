@@ -44,7 +44,7 @@ export function parseDraftRef(ref: string): string {
 }
 
 function multipartUpload(metadata: unknown, raw: string): { body: string; contentType: string } {
-  const boundary = `orca-${randomBytes(12).toString('hex')}`
+  const boundary = `openkodo-${randomBytes(12).toString('hex')}`
   return {
     contentType: `multipart/related; boundary=${boundary}`,
     body: [

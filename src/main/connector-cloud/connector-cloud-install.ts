@@ -1,8 +1,8 @@
 import { CONNECTOR_CLOUD_MENTIONED_FEATURE } from '../../shared/connector-cloud-features'
 import { getAppEnvironment } from '../../shared/app-lifecycle/app-environment'
 import { runtimeConversationHost } from '../external-conversations/external-conversation-runtime-host'
-import { getOrcaCloudAuthConfig } from '../orca-profiles/cloud-auth/profile-cloud-auth-config'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import { getOpenKodoCloudAuthConfig } from '../openkodo-profiles/cloud-auth/profile-cloud-auth-config'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { RuntimeStore } from '../runtime/construction/runtime-store-contract'
 import { ConnectorCloud } from './connector-cloud'
 import { resolveConnectorOrigin } from './connector-origin'
@@ -34,7 +34,7 @@ export type ConnectorCloudStore = ConnectorPlacesStore &
   Required<Pick<RuntimeStore, 'listAutomations' | 'listAutomationRuns'>>
 
 export type ConnectorCloudHost = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   store: ConnectorCloudStore
   /** This host's own data folder: its OpenKodo account and install id, never another computer's. */
   userDataPath: string
@@ -57,7 +57,7 @@ export function createConnectorCloud({
   gitHubInstallations,
   webhooks
 }: ConnectorCloudHost): ConnectorCloud | null {
-  const auth = getOrcaCloudAuthConfig()
+  const auth = getOpenKodoCloudAuthConfig()
   if (!auth.configured) {
     return null
   }
@@ -115,7 +115,7 @@ export function createConnectorCloud({
     replyJournal: () => getStructuredAgentSessionHost()?.deps.store.connectorReplies() ?? null,
     machine: {
       runtime: kind,
-      orcaVersion: environment.getVersion(),
+      openkodoVersion: environment.getVersion(),
       hostName: () => runtime.readMachineName(),
       seam: () => runtime.getExternalConversationSeam(),
       resetConversations: () => runtime.getExternalConversationSeam()?.resetAccount(),
@@ -189,7 +189,10 @@ export function createConnectorCloud({
 }
 
 /** A bot thread's mute as its link keeps it. */
-function threadMuteDeps(runtime: OrcaRuntimeService, store: ConnectorCloudStore): ThreadMuteDeps {
+function threadMuteDeps(
+  runtime: OpenKodoRuntimeService,
+  store: ConnectorCloudStore
+): ThreadMuteDeps {
   return {
     waiting: new Map(),
     read: (key) => readThreadMute(store, key),

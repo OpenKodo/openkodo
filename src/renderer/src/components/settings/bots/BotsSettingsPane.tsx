@@ -1,7 +1,7 @@
 import type { GlobalSettings } from '../../../../../shared/settings/global-settings-types'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/orca-profiles/orca-cloud-team-policy'
+import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { useTranslate } from '@/i18n/use-translate'
-import { useOrcaTeamFeatureBlocked } from '@/lib/orca-team-policy'
+import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
 import { SettingsSwitchRow } from '../form-controls/SettingsFormControls'
 import { useBotSettingsAccounts, useBotSettingsComputers } from './bot-settings-computers'
 import { BotAccountGroup, BotComputerGroup } from './BotSettingsGroups'
@@ -17,7 +17,7 @@ export function BotsSettingsPane({
   const t = useTranslate()
   const computers = useBotSettingsComputers()
   const accounts = useBotSettingsAccounts(computers)
-  const blocked = useOrcaTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots)
+  const blocked = useOpenKodoTeamFeatureBlocked(OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots)
   const enabled = !blocked && settings.botsEnabled !== false
   const enableRow = (
     <SettingsSwitchRow

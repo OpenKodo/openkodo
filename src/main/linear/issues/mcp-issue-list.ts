@@ -42,7 +42,7 @@ type WorkspaceIssuePage = {
 type IssueListReadBudget = { limit: number | null; deadline: number }
 
 const LIST_ISSUES_QUERY = `
-  query OrcaLinearListIssues(
+  query OpenKodoLinearListIssues(
     $first: Int!
     $after: String
     $filter: IssueFilter

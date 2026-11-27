@@ -49,7 +49,7 @@ export function failedWorkerStartHasOutput(
   const unboundReuse =
     reusesTerminal(worker) &&
     !dispatch?.assignee_handle &&
-    !dispatch?.assignee_orca_session_id &&
+    !dispatch?.assignee_openkodo_session_id &&
     !db.getFederatedDispatch(worker.dispatch_id)
   return Boolean(worker.agent_terminal_handle || dispatch?.assignee_handle) && !unboundReuse
 }

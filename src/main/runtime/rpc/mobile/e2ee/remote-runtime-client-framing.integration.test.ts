@@ -143,7 +143,7 @@ function latchedHosts(): string[] {
 }
 
 beforeEach(() => {
-  userDataPath = mkdtempSync(join(tmpdir(), 'orca-e2ee-v2-latch-'))
+  userDataPath = mkdtempSync(join(tmpdir(), 'openkodo-e2ee-v2-latch-'))
   configureRemoteRuntimeE2EEV2HostLatch(userDataPath)
 })
 

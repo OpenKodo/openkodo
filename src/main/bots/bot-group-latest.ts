@@ -5,7 +5,7 @@ import {
   botGroupTurnOperation,
   isBotGroupMemberSession
 } from '../../shared/bots/bot-group'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { requireStructuredHost } from './bot-chat-session'
 import { runtimeBotGroups } from './bot-group-runtime'
 import { handOffGroupMentions } from './bot-group-mention-handoffs'
@@ -13,7 +13,7 @@ import { handOffGroupMentions } from './bot-group-mention-handoffs'
 /** A member's turn `turnId` ended: if it finished with a reply, that reply is the room's newest
  *  post, unless a post saved after the turn ended is newer. */
 export async function noteBotGroupMemberReply(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string,
   turnId: string
 ): Promise<void> {

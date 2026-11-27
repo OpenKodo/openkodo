@@ -26,8 +26,8 @@ import {
   handleManagedSharedControlRefusal,
   recoverRefusedManagedPairing
 } from './pairing/runtime-environment-managed-pairing-refusal'
-import { setManagedOrcadPairingRepairedListener } from '../../managed-server/lifecycle/orcad-managed-pairing-repaired-listener'
-import { forgetManagedOrcadAutomaticFailures } from '../../managed-server/lifecycle/orcad-managed-tunnel'
+import { setManagedOpenkododPairingRepairedListener } from '../../managed-server/lifecycle/openkodod-managed-pairing-repaired-listener'
+import { forgetManagedOpenkododAutomaticFailures } from '../../managed-server/lifecycle/openkodod-managed-tunnel'
 import { registerRuntimeEnvironmentRecoveryHandler } from './connectivity/runtime-environment-recovery-handler'
 import { registerRuntimeEnvironmentRepairHandler } from './pairing/runtime-environment-repair-handler'
 import {
@@ -36,13 +36,13 @@ import {
 } from './connections/runtime-environment-transport-generation'
 import { resetSharedControlSupport } from './connections/runtime-environment-shared-control-support'
 import { RUNTIME_ENVIRONMENT_HANDLER_CHANNELS } from './runtime-environment-handler-channels'
-import { registerOrcadRuntimeLifecycleHandlers } from './managed-orcad/orcad-runtime-lifecycle-handlers'
-import { registerOrcadRuntimeConversionHandlers } from './managed-orcad/orcad-runtime-conversion-handlers'
-import { registerOrcadDeltaMoveHandlers } from './managed-orcad/orcad-delta-move-handlers'
-import { registerOrcadLeaveBehindHandlers } from './managed-orcad/orcad-leave-behind-handlers'
-import { registerOrcadRuntimeMaintenanceHandlers } from './managed-orcad/orcad-runtime-maintenance-handlers'
+import { registerOpenkododRuntimeLifecycleHandlers } from './managed-openkodod/openkodod-runtime-lifecycle-handlers'
+import { registerOpenkododRuntimeConversionHandlers } from './managed-openkodod/openkodod-runtime-conversion-handlers'
+import { registerOpenkododDeltaMoveHandlers } from './managed-openkodod/openkodod-delta-move-handlers'
+import { registerOpenkododLeaveBehindHandlers } from './managed-openkodod/openkodod-leave-behind-handlers'
+import { registerOpenkododRuntimeMaintenanceHandlers } from './managed-openkodod/openkodod-runtime-maintenance-handlers'
 import { clearPublishedManagedServer } from '../ssh/ssh-renderer-broadcast'
-import { clearManagedServerNotes } from './managed-orcad/runtime-environment-managed-tunnel'
+import { clearManagedServerNotes } from './managed-openkodod/runtime-environment-managed-tunnel'
 import { reconcileOrphanedRuntimeSessions } from './catalog/runtime-environment-session-reconcile'
 import { readSavedRuntimeEnvironmentIds } from './catalog/runtime-environment-saved-ids'
 import { registerRuntimeSshAccessHandlers } from './connectivity/runtime-ssh-access-handlers'
@@ -194,24 +194,24 @@ export async function registerRuntimeEnvironmentHandlers(
   registerRuntimeEnvironmentPassiveHandlers(getUserDataPath, (environment, method, response) =>
     recordHostRepoCatalogAnswer(store, environment, method, response)
   )
-  setManagedOrcadPairingRepairedListener(invalidateRuntimeEnvironmentTransport)
+  setManagedOpenkododPairingRepairedListener(invalidateRuntimeEnvironmentTransport)
   setRefusedPairingHandlers({
     recover: async (environmentId) =>
       await recoverRefusedManagedPairing(getUserDataPath(), environmentId),
     sharedControl: async (environmentId) =>
       await handleManagedSharedControlRefusal(getUserDataPath(), environmentId),
     connectRequested: (environmentId) =>
-      forgetManagedOrcadAutomaticFailures(getUserDataPath(), environmentId)
+      forgetManagedOpenkododAutomaticFailures(getUserDataPath(), environmentId)
   })
   registerRuntimeSshAccessHandlers({
     getUserDataPath,
     invalidateTransport: invalidateRuntimeEnvironmentTransport
   })
-  registerOrcadRuntimeLifecycleHandlers({ getUserDataPath })
-  registerOrcadRuntimeConversionHandlers(getUserDataPath)
-  registerOrcadDeltaMoveHandlers(getUserDataPath)
-  registerOrcadLeaveBehindHandlers()
-  registerOrcadRuntimeMaintenanceHandlers({
+  registerOpenkododRuntimeLifecycleHandlers({ getUserDataPath })
+  registerOpenkododRuntimeConversionHandlers(getUserDataPath)
+  registerOpenkododDeltaMoveHandlers(getUserDataPath)
+  registerOpenkododLeaveBehindHandlers()
+  registerOpenkododRuntimeMaintenanceHandlers({
     getUserDataPath,
     getActiveEnvironmentId: () => store.getSettings().activeRuntimeEnvironmentId,
     invalidateTransport: invalidateRuntimeEnvironmentTransport,

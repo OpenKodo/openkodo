@@ -1,5 +1,5 @@
 import type { ProfileSaveDomains } from '../profile-save-domains'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type {
   RemovedSshTargetTombstone,
   SshTarget

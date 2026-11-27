@@ -22,8 +22,8 @@ import type {
 import { structuredSessionSlashCommands } from '../../../../../../src/shared/agent-session/view/structured-agent-session-slash-menu'
 import {
   NATIVE_CHAT_RESUME_COMMAND,
-  withNativeChatOrcaCommands
-} from '../../../../../../src/shared/native-chat/input/commands/native-chat-orca-commands'
+  withNativeChatOpenKodoCommands
+} from '../../../../../../src/shared/native-chat/input/commands/native-chat-openkodo-commands'
 import {
   isNativeChatSideChatCommand,
   withNativeChatSideChatCommands
@@ -74,7 +74,7 @@ export function mobileComposerCatalog({
   }
   const reported = structured?.reported
   const commands = structured
-    ? withMobileOrcaCommands(
+    ? withMobileOpenKodoCommands(
         structuredSessionSlashCommands(
           agent,
           structured.conversationCommands,
@@ -95,12 +95,12 @@ export function mobileComposerCatalog({
 }
 
 /** Desktop's OpenKodo rows: `/fork` and `/usage` run here; `/resume`, `/side` and `/btw` say they are desktop-only. */
-function withMobileOrcaCommands(
+function withMobileOpenKodoCommands(
   commands: readonly SlashCommandSuggestion[],
   structured: MobileComposerStructuredCatalog
 ): SlashCommandSuggestion[] {
   const desktopOnly = mobileDesktopOnlyCommandNotice()
-  const rows = withNativeChatOrcaCommands(commands, {
+  const rows = withNativeChatOpenKodoCommands(commands, {
     resume: desktopOnly,
     ...(structured.accountUsage
       ? {
@@ -129,12 +129,12 @@ function withMobileOrcaCommands(
     unavailableReason: desktopOnly
   })
   // Desktop puts its working rows first; rows that only explain themselves go last here.
-  const own = sideRows.filter((row) => row.orcaOwned && isNativeChatSideChatCommand(row.name))
+  const own = sideRows.filter((row) => row.openkodoOwned && isNativeChatSideChatCommand(row.name))
   return [...sideRows.filter((row) => !own.includes(row)), ...own]
 }
 
 export function mobileDesktopOnlyCommandNotice(): string {
-  return translate('session.orcaCommands.desktopOnly', 'Available in the desktop app')
+  return translate('session.openkodoCommands.desktopOnly', 'Available in the desktop app')
 }
 
 /** OpenKodo commands the phone lists but leaves to the desktop app, never sending them as text. */

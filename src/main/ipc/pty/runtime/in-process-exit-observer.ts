@@ -1,12 +1,12 @@
 import { onLocalPtyExit } from '../../../providers/local-pty/local-pty-session-operations'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 
 // Window reactivation reinstalls the PTY controller; keep one exit observer.
 let stopObservingInProcessExits: (() => void) | null = null
 
 /** Feed this process's own PTY exits to the runtime's exit proof; replaces any earlier observer. */
 export function observeInProcessWorkerExits(
-  runtime: Pick<OrcaRuntimeService, 'recordInProcessPtyExit'> | undefined
+  runtime: Pick<OpenKodoRuntimeService, 'recordInProcessPtyExit'> | undefined
 ): void {
   stopObservingInProcessExits?.()
   stopObservingInProcessExits = runtime

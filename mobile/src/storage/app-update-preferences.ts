@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as z from 'zod'
 
-const LAST_CHECKED_AT_KEY = 'orca:appUpdate:lastCheckedAt'
-const LATEST_KEY = 'orca:appUpdate:latest'
-const DISMISSED_VERSION_KEY = 'orca:appUpdate:dismissedVersion'
+const LAST_CHECKED_AT_KEY = 'openkodo:appUpdate:lastCheckedAt'
+const LATEST_KEY = 'openkodo:appUpdate:latest'
+const DISMISSED_VERSION_KEY = 'openkodo:appUpdate:dismissedVersion'
 
 export type KnownAppUpdate = { readonly version: string; readonly url: string }
 
@@ -61,7 +61,7 @@ export async function saveDismissedAppUpdateVersion(version: string): Promise<vo
   await AsyncStorage.setItem(DISMISSED_VERSION_KEY, version)
 }
 
-const KEPT_RETIRED_APP_AT_KEY = 'orca:appUpdate:keptRetiredAppAt'
+const KEPT_RETIRED_APP_AT_KEY = 'openkodo:appUpdate:keptRetiredAppAt'
 
 /** When the person last chose to keep the retired GitHub app, or null. */
 export async function loadKeptRetiredAppAt(): Promise<number | null> {

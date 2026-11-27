@@ -1,16 +1,16 @@
 import { randomUUID } from 'node:crypto'
-import { PUSH_LIMITS } from '@orca-cloud/push-contract/push-limits'
+import { PUSH_LIMITS } from '@openkodo-cloud/push-contract/push-limits'
 import type {
   ApnsEnvironment,
   PushDeviceSummary,
   PushPlatform
-} from '@orca-cloud/push-contract/device-registration-messages'
+} from '@openkodo-cloud/push-contract/device-registration-messages'
 import type {
   CloudDatabase as PushDatabase,
   SqlRow
-} from '@orca-cloud/cloud-database/cloud-database'
+} from '@openkodo-cloud/cloud-database/cloud-database'
 
-const DEVICE_CAP_LOCK_PREFIX = 'orca-push-device-cap:'
+const DEVICE_CAP_LOCK_PREFIX = 'openkodo-push-device-cap:'
 
 export type PushDeviceRegistration = {
   registrationId: string

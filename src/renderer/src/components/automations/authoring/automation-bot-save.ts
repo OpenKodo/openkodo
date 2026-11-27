@@ -19,7 +19,7 @@ import { buildDraftSchedule } from './automation-draft-model'
 import {
   createAutomationOnDestination,
   saveExistingAutomation
-} from './automation-orca-save-operations'
+} from './automation-openkodo-save-operations'
 import { completeAutomationSave } from './automation-save-completion'
 import type { AutomationSaveContext } from './automation-save-context'
 import {

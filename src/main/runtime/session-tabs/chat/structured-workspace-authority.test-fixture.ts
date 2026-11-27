@@ -1,6 +1,6 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 
-export const availableRevealWorkspace: OrcaRuntimeService['prepareStructuredAgentSessionRevealWorkspace'] =
+export const availableRevealWorkspace: OpenKodoRuntimeService['prepareStructuredAgentSessionRevealWorkspace'] =
   async () => ({
     current: () => true,
     check: () => {},

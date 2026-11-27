@@ -1,10 +1,10 @@
-import type { PersistedTrustedOrcaHooks } from '../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import {
   PROJECT_GROUP_FOLDER_SETUP_RUNTIME_CAPABILITY,
   WORKTREE_RUN_APPROVED_SETUP_RUNTIME_CAPABILITY
 } from '../../../../src/shared/remote-runtime/protocol/worktree-runtime-capabilities'
 import type { SetupTrustMismatch } from '../../../../src/shared/worktree/create-types'
-import type { OrcaHookTrustPrompt } from '../../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../../components/hook-trust/OpenKodoHookTrustDrawer'
 import { translate } from '../../i18n/mobile-i18n'
 import type { RpcClient } from '../../transport/rpc/rpc-client-contract'
 import { isMobileMethodUnavailableError } from '../../transport/rpc/mobile-method-unavailable'
@@ -12,7 +12,10 @@ import {
   worktreeCreateCapabilityRead,
   worktreeRunApprovedSetupRun
 } from './mobile-workspace-create-operations'
-import { usesVersionedOrcaHookTrust, wasOrcaHookPreviouslyApproved } from './setup-hook-trust'
+import {
+  usesVersionedOpenKodoHookTrust,
+  wasOpenKodoHookPreviouslyApproved
+} from './setup-hook-trust'
 
 /** The create's reply when the host skipped setup because the created branch's differs from the approved one. */
 export function readSetupTrustMismatch(result: unknown): SetupTrustMismatch | undefined {
@@ -37,9 +40,9 @@ export function readSetupTrustMismatch(result: unknown): SetupTrustMismatch | un
 export function createdSetupReviewPrompt(args: {
   repo: { id: string; displayName: string }
   repos: readonly { id: string }[]
-  trust: PersistedTrustedOrcaHooks
+  trust: PersistedTrustedOpenKodoHooks
   mismatch: SetupTrustMismatch
-}): OrcaHookTrustPrompt {
+}): OpenKodoHookTrustPrompt {
   return {
     kind: 'setup',
     review: 'created-branch',
@@ -47,8 +50,8 @@ export function createdSetupReviewPrompt(args: {
     repoName: args.repo.displayName,
     scriptContent: args.mismatch.scriptContent,
     contentHash: args.mismatch.contentHash,
-    previouslyApproved: wasOrcaHookPreviouslyApproved(args.trust, args.repo.id, 'setup'),
-    versionOnly: usesVersionedOrcaHookTrust(args.repos, args.repo.id)
+    previouslyApproved: wasOpenKodoHookPreviouslyApproved(args.trust, args.repo.id, 'setup'),
+    versionOnly: usesVersionedOpenKodoHookTrust(args.repos, args.repo.id)
   }
 }
 

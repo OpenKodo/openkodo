@@ -1,8 +1,8 @@
 import { isProjectGroupHookTrustKey } from '../../../../../shared/workspace-setup/hooks/workspace-hook-owner'
 import { normalizeExplorerDisplayRootByWorktree } from '../../../../../shared/file-listing/file-explorer-display-root'
 import type { AppState } from '../../types'
-import type { PersistedTrustedOrcaHooks } from '../../../../../shared/workspace-setup/orca-yaml-hook-types'
-import type { PersistedUIState } from '../../../../../shared/orca-profiles/persisted-ui-state-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../../shared/workspace-setup/openkodo-yaml-hook-types'
+import type { PersistedUIState } from '../../../../../shared/openkodo-profiles/persisted-ui-state-types'
 import type {
   ActivityBarPosition,
   TaskViewPresetId,
@@ -17,7 +17,7 @@ import {
 import { isTopLevelView } from '../../../../../shared/ui-chrome/top-level-view'
 import { resolveVisibleWorkspaceHostIds } from '../../../../../shared/workspace-view/workspace-host-visibility'
 import { persistedUIValuesEqual } from '../../../../../shared/collections/persisted-ui-equality'
-import '../../../../../shared/orca-profiles/constants'
+import '../../../../../shared/openkodo-profiles/constants'
 import type { UISlice } from './ui-slice-contract'
 
 const MIN_SIDEBAR_WIDTH = 220
@@ -49,29 +49,29 @@ export function sanitizePersistedRepoIds(value: unknown): string[] {
   return value.filter((repoId): repoId is string => typeof repoId === 'string')
 }
 
-export function sanitizeTrustedOrcaHooks(trust: unknown): PersistedTrustedOrcaHooks {
+export function sanitizeTrustedOpenKodoHooks(trust: unknown): PersistedTrustedOpenKodoHooks {
   if (!isPlainPersistedRecord(trust)) {
     return {}
   }
-  const next: PersistedTrustedOrcaHooks = {}
+  const next: PersistedTrustedOpenKodoHooks = {}
   for (const [repoId, entry] of Object.entries(trust)) {
     if (!isSafePersistedRecordKey(repoId) || !isPlainPersistedRecord(entry)) {
       continue
     }
-    next[repoId] = entry as PersistedTrustedOrcaHooks[string]
+    next[repoId] = entry as PersistedTrustedOpenKodoHooks[string]
   }
   return next
 }
 
-export function hydrateTrustedOrcaHooks(
+export function hydrateTrustedOpenKodoHooks(
   trust: unknown,
   validRepoIds: Set<string>
-): PersistedTrustedOrcaHooks {
-  const sanitized = sanitizeTrustedOrcaHooks(trust)
+): PersistedTrustedOpenKodoHooks {
+  const sanitized = sanitizeTrustedOpenKodoHooks(trust)
   if (validRepoIds.size === 0) {
     return sanitized
   }
-  const next: PersistedTrustedOrcaHooks = {}
+  const next: PersistedTrustedOpenKodoHooks = {}
   for (const [repoId, entry] of Object.entries(sanitized)) {
     if (validRepoIds.has(repoId) || isProjectGroupHookTrustKey(repoId)) {
       next[repoId] = entry

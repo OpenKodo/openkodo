@@ -1,5 +1,5 @@
 import type { Tab } from '../../../../shared/workspace-layout/tab-groups/tab-types'
-import { OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce } from '../../session-tabs/chat/structured-session-tab-restoration'
+import { OpenKodoRuntimeWithRestoreStructuredAgentSessionTabsOnce } from '../../session-tabs/chat/structured-session-tab-restoration'
 import type { RuntimeWorktreeTerminalSleepResult } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
 import type {
   WorkspaceSleepNotice,
@@ -34,7 +34,7 @@ export type RecipeWorkspaceRemovalHooks = {
   describe: (hostId: string) => ReadonlyMap<string, RecipeEnvironmentDescription>
 }
 
-export abstract class RuntimeWorkspaceSleepOperations extends OrcaRuntimeWithRestoreStructuredAgentSessionTabsOnce {
+export abstract class RuntimeWorkspaceSleepOperations extends OpenKodoRuntimeWithRestoreStructuredAgentSessionTabsOnce {
   // Switch point: only a build where main produces the sidebar's inputs queues lifecycle commands.
   readonly workspaceLifecycle = OPENKODO_SIDEBAR_INPUTS_IS_MAIN
     ? new WorkspaceLifecycleQueue()

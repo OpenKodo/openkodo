@@ -25,6 +25,6 @@ export function clipAtWord(value: string, limit: number): string {
   // earlier one would leave too little.
   const lastSpace = line[room.length] === ' ' ? room.length : room.lastIndexOf(' ')
   const cut = lastSpace > room.length / 2 ? room.slice(0, lastSpace) : room
-  // Escaped: the orcad server bundle must stay ASCII.
+  // Escaped: the openkodod server bundle must stay ASCII.
   return `${cut.trimEnd().replace(/[\s,;:\u2013\u2014-]+$/u, '')}\u2026`
 }

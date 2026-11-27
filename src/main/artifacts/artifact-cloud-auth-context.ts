@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto'
-import { ensureActiveOrcaProfile } from '../orca-profiles/profile-index-store'
-import type { ActiveOrcaProfileState } from '../orca-profiles/profile-index-store'
+import { ensureActiveOpenKodoProfile } from '../openkodo-profiles/profile-index-store'
+import type { ActiveOpenKodoProfileState } from '../openkodo-profiles/profile-index-store'
 import {
   readCloudSession,
   takeCloudSessionTicket
-} from '../orca-profiles/cloud-session/profile-cloud-session-owner'
+} from '../openkodo-profiles/cloud-session/profile-cloud-session-owner'
 import {
   type ArtifactShareScope,
   captureArtifactShareLifecycle,
@@ -52,7 +52,7 @@ function tokenFingerprint(token: string): string {
 }
 
 function authContext(
-  active: ActiveOrcaProfileState,
+  active: ActiveOpenKodoProfileState,
   scope: ArtifactShareScope,
   userDataPath: string,
   allowance: ArtifactRateLimitAllowance,
@@ -62,7 +62,7 @@ function authContext(
   // Sign-in and sign-out advance this before any network wait; token rotation does not.
   const sessionGeneration = takeCloudSessionTicket(active.profile.id, userDataPath).generation
   const assertCurrent = (): void => {
-    const current = ensureActiveOrcaProfile(userDataPath)
+    const current = ensureActiveOpenKodoProfile(userDataPath)
     const cloudCurrent =
       !expectedCloud ||
       (current.profile.cloud?.userId === expectedCloud.userId &&
@@ -111,7 +111,7 @@ function authContext(
 }
 
 export function storedSessionAuthContext(
-  active: ActiveOrcaProfileState,
+  active: ActiveOpenKodoProfileState,
   apiOrigin: string,
   userDataPath: string,
   allowance: ArtifactRateLimitAllowance
@@ -138,7 +138,7 @@ export function storedSessionAuthContext(
 }
 
 export function explicitTokenAuthContext(
-  active: ActiveOrcaProfileState,
+  active: ActiveOpenKodoProfileState,
   apiOrigin: string,
   token: string,
   userDataPath: string,

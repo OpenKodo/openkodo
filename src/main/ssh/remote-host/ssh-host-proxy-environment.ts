@@ -26,7 +26,7 @@ const POWERSHELL_PROBE = [
   `Write-Output ('${MARKER} ' + $k + '=' + $h) } }`
 ].join(' ')
 
-/** Reads the proxy variables an SSH exec session gets, the environment processes launched over SSH (such as orcad) run with. */
+/** Reads the proxy variables an SSH exec session gets, the environment processes launched over SSH (such as openkodod) run with. */
 export async function readSshHostProxyEnvironment(
   conn: ProxyEnvironmentTransport,
   signal?: AbortSignal

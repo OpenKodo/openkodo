@@ -8,7 +8,7 @@ import {
 } from '../ownership/run-target-resolution'
 import type { AutomationRunWriter } from '../run-history/run-writer'
 import { wslMoveRepoBackoff } from '../../persistence/moving-wsl-projects/orchestration/wsl-move-background-backoff'
-import { isOrcadFencedAutomation } from '../ownership/orcad-fenced-automation'
+import { isOpenkododFencedAutomation } from '../ownership/openkodod-fenced-automation'
 import type { AutomationRunEvent } from '../../../shared/automation-event-triggers'
 import { blockedWslDistroForPath } from '../../wsl/filesystem/wsl-unc-access-gate'
 import { getLocalProjectWorktreeGitOptions } from '../../workspaces/execution-host/project-runtime-git-options'
@@ -91,7 +91,7 @@ export async function recordRefusedAutomationRun(input: {
   automation: Automation
   allowRemoteHostScheduling: boolean
 }): Promise<void> {
-  if (isOrcadFencedAutomation(input.store, input.automation)) {
+  if (isOpenkododFencedAutomation(input.store, input.automation)) {
     return
   }
   const target = resolveAutomationRunTarget(input.store, input.automation, {

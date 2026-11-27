@@ -9,7 +9,7 @@ import { createRootDispatch } from '../root-dispatch-test-fixture'
 const runId = 'run_legacy_local'
 const NEW_INDEXES = [
   'idx_dispatch_contexts_origin',
-  'idx_dispatch_creator_orca_session_id',
+  'idx_dispatch_creator_openkodo_session_id',
   'idx_dispatch_creator_pane_key',
   'idx_bot_requests_send',
   'idx_bot_requests_awaiting',
@@ -47,7 +47,7 @@ describe('v47-v48 bot dispatch migrations', () => {
   })
 
   function dbPath(): string {
-    const root = mkdtempSync(join(tmpdir(), 'orca-bot-dispatch-migration-'))
+    const root = mkdtempSync(join(tmpdir(), 'openkodo-bot-dispatch-migration-'))
     tempRoots.push(root)
     return join(root, 'orchestration.db')
   }

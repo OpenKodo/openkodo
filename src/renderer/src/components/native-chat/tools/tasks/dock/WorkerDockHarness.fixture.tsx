@@ -201,8 +201,11 @@ function Harness({
     () => rows.map((row) => ({ ...row, hasModel: Boolean(row.model) })),
     [rows]
   )
-  const owner = useWorkerDockOwnerActions(LOCAL, `orca_session_id:${SOURCE}`, identities, (row) =>
-    record({ action: 'open', id: row.id })
+  const owner = useWorkerDockOwnerActions(
+    LOCAL,
+    `openkodo_session_id:${SOURCE}`,
+    identities,
+    (row) => record({ action: 'open', id: row.id })
   )
   return (
     <>

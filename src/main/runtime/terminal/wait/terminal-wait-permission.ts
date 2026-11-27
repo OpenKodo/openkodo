@@ -1,4 +1,4 @@
-import { OrcaRuntimeWithAgentPromptRequestCorrelation } from '../input/orca-runtime-agent-prompt-request-correlation'
+import { OpenKodoRuntimeWithAgentPromptRequestCorrelation } from '../input/openkodo-runtime-agent-prompt-request-correlation'
 import type { RuntimeTerminalAgentStatusSnapshot } from '../query/runtime-terminal-agent-status-query'
 import type { AgentStatus } from '../../../../shared/agent-status/title/agent-title-core'
 import type { RuntimeTerminalWaitBlockedReason } from '../../../../shared/terminal/runtime/runtime-terminal-contracts'
@@ -31,14 +31,14 @@ import {
 import { selectFreshExplicitAgentStatusRow } from '../../workspaces/process-listing/runtime-hook-agent-row-selection'
 import { isClaudeDialogHoldingPane } from './claude-open-dialog-hold'
 
-import type { OrcaRuntimeWithStopExactTerminalsForWorktree } from '../stop/worktree-terminal-stop-targets'
+import type { OpenKodoRuntimeWithStopExactTerminalsForWorktree } from '../stop/worktree-terminal-stop-targets'
 
 export type TerminalWaitPermissionInputs = ReturnType<
-  OrcaRuntimeWithResolveAuthoritativeTerminalWaitPermission['getTerminalWaitPermissionInputs']
+  OpenKodoRuntimeWithResolveAuthoritativeTerminalWaitPermission['getTerminalWaitPermissionInputs']
 >
 
 export type TerminalWaitStatusEvidence = Parameters<
-  OrcaRuntimeWithResolveAuthoritativeTerminalWaitPermission['resolveAuthoritativeTerminalWaitPermission']
+  OpenKodoRuntimeWithResolveAuthoritativeTerminalWaitPermission['resolveAuthoritativeTerminalWaitPermission']
 >[1]
 
 export type TerminalInteractiveWaitEvidence = {
@@ -48,12 +48,14 @@ export type TerminalInteractiveWaitEvidence = {
   unconfirmed: boolean
 }
 
-export abstract class OrcaRuntimeWithResolveAuthoritativeTerminalWaitPermission extends OrcaRuntimeWithAgentPromptRequestCorrelation {
+export abstract class OpenKodoRuntimeWithResolveAuthoritativeTerminalWaitPermission extends OpenKodoRuntimeWithAgentPromptRequestCorrelation {
   protected abstract getExistingTerminalHandlesForPtyId(
     ...args: Parameters<
-      OrcaRuntimeWithStopExactTerminalsForWorktree['getExistingTerminalHandlesForPtyId']
+      OpenKodoRuntimeWithStopExactTerminalsForWorktree['getExistingTerminalHandlesForPtyId']
     >
-  ): ReturnType<OrcaRuntimeWithStopExactTerminalsForWorktree['getExistingTerminalHandlesForPtyId']>
+  ): ReturnType<
+    OpenKodoRuntimeWithStopExactTerminalsForWorktree['getExistingTerminalHandlesForPtyId']
+  >
 
   readOpenCodeStartupPromptOwner(ptyId: string, incarnationId: string, launchToken: string) {
     const pty = this.ptysById.get(ptyId)

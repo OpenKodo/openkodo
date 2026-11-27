@@ -32,7 +32,7 @@ export type NativeChatBotKickoffView = {
 export const NativeChatBotKickoffContext = createContext<NativeChatBotKickoffView | null>(null)
 
 function nativeChatKickoffLive(messages: readonly NativeChatMessage[]): boolean {
-  const kickoff = messages.findLastIndex((message) => message.orcaNotice === 'bot-created')
+  const kickoff = messages.findLastIndex((message) => message.openkodoNotice === 'bot-created')
   return kickoff !== -1 && !messages.slice(kickoff + 1).some((message) => message.role === 'user')
 }
 
@@ -88,7 +88,7 @@ export function useNativeChatBotKickoffView(
     ]
   )
   const firstKickoffId =
-    messages.find((message) => message.orcaNotice === 'bot-created')?.id ?? null
+    messages.find((message) => message.openkodoNotice === 'bot-created')?.id ?? null
   return useMemo(
     () => ({
       live,

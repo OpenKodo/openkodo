@@ -104,7 +104,7 @@ const context = {
 let dir: string
 let runs: GoogleSetupRuns
 beforeEach(() => {
-  dir = mkdtempSync(join(tmpdir(), 'orca-google-setup-start-'))
+  dir = mkdtempSync(join(tmpdir(), 'openkodo-google-setup-start-'))
   runs = new GoogleSetupRuns(() => join(dir, 'runs.json'))
   state.runs = runs
   state.offers = 0

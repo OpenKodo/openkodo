@@ -11,7 +11,7 @@ import { colors, feedback, spacing } from '../theme/mobile-theme'
 import { themedStyleSheet } from '../theme/themed-styles'
 import { useMobileColorScheme } from '../theme/use-mobile-color-scheme'
 import type { RpcClient } from '../transport/rpc/rpc-client-contract'
-import { readOrcaAccount } from './new-bot-host-reads'
+import { readOpenKodoAccount } from './new-bot-host-reads'
 
 export function MobileBotComputerPage(props: {
   client: RpcClient | null
@@ -35,7 +35,7 @@ export function MobileBotComputerPage(props: {
       return
     }
     let live = true
-    void readOrcaAccount(client).then((answer) => {
+    void readOpenKodoAccount(client).then((answer) => {
       if (live) {
         setAccount(answer)
       }
@@ -82,7 +82,7 @@ export function MobileBotComputerPage(props: {
         />
         <ListRow
           leading={icon(CircleUserRound)}
-          title={t('bots.settings.orcaAccount', 'OpenKodo account')}
+          title={t('bots.settings.openkodoAccount', 'OpenKodo account')}
           value={accountLine}
         />
         {folderPath ? (

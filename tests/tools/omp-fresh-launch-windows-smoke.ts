@@ -2,12 +2,12 @@ import { mkdtempSync, writeFileSync, readFileSync, rmSync, mkdirSync } from 'nod
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import assert from 'node:assert/strict'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { withFreshOmpLaunch } from '../../src/shared/agent-launch/startup/omp-fresh-launch'
 if (process.platform !== 'win32') {
   throw new Error('Run this smoke on a Windows host')
 }
-const root = mkdtempSync(join(tmpdir(), 'orca-fresh-windows-'))
+const root = mkdtempSync(join(tmpdir(), 'openkodo-fresh-windows-'))
 const config = join(root, 'fresh settings.yml')
 const capture = join(root, 'calls')
 const results: { shell: 'cmd' | 'powershell'; state: string; code: number; passed: boolean }[] = []

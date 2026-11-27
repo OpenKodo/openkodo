@@ -1,10 +1,10 @@
 import { stat } from 'node:fs/promises'
 import { dirname } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 
 // Older builds launched probes through LaunchServices, which could leave one suspended forever.
 const LEFTOVER_PROBE =
-  /^\/.*\/Contents\/MacOS\/orca-computer-use-macos --permission-status-file (\/.*\/orca-computer-use-permissions-[A-Za-z0-9]{6}\/status\.json)$/
+  /^\/.*\/Contents\/MacOS\/openkodo-computer-use-macos --permission-status-file (\/.*\/openkodo-computer-use-permissions-[A-Za-z0-9]{6}\/status\.json)$/
 // Those probes gave up after 10 s, so an older one is leaked even if its probe directory survived a crash.
 const LEFTOVER_PROBE_MIN_AGE_SECONDS = 60
 

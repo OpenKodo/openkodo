@@ -1,10 +1,10 @@
 import { Loader2, RefreshCw, Share2 } from 'lucide-react'
-import { OrcaSignInWaitNotice } from '@/components/orca-profiles/OrcaSignInProgress'
+import { OpenKodoSignInWaitNotice } from '@/components/openkodo-profiles/OpenKodoSignInProgress'
 import { Button } from '@/components/ui/button'
 import { useTranslate } from '@/i18n/use-translate'
 import { cn } from '@/lib/class-names'
 import type { Bot } from '../../../../../shared/bot-types'
-import { OrcaCloudSignInButton } from '../orca-cloud-sign-in'
+import { OpenKodoCloudSignInButton } from '../openkodo-cloud-sign-in'
 import { SettingsInsetGroup } from '../settings-view/BotSettingsRows'
 import type { BotShareFlagSpot } from '../../../../../shared/bots/bot-share-flag-spots'
 import type { BotShareContext } from './bot-share-pages'
@@ -102,7 +102,7 @@ export function Footer({
   const needsSignIn = read.kind === 'signIn'
   const foot = cn(FOOT, needsSignIn && 'flex-wrap')
   const signInNotice = needsSignIn && (
-    <OrcaSignInWaitNotice
+    <OpenKodoSignInWaitNotice
       className="basis-full"
       cancelLabel={t('bots.share.cancelSignIn', 'Cancel sign-in')}
     />
@@ -137,7 +137,7 @@ export function Footer({
           {t('bots.share.cancel', 'Cancel')}
         </Button>
         {needsSignIn ? (
-          <OrcaCloudSignInButton onSignedIn={onReload} />
+          <OpenKodoCloudSignInButton onSignedIn={onReload} />
         ) : (
           <Button
             type="button"
@@ -229,10 +229,10 @@ export function Footer({
       </Button>
     )
     primary = needsSignIn ? (
-      <OrcaCloudSignInButton disabled={busy} onSignedIn={onReload}>
+      <OpenKodoCloudSignInButton disabled={busy} onSignedIn={onReload}>
         <Share2 />
         {t('bots.share.signInToPublish', 'Sign in to publish')}
-      </OrcaCloudSignInButton>
+      </OpenKodoCloudSignInButton>
     ) : (
       <Button type="button" disabled={off || read.kind !== 'read'} onClick={onPublish}>
         {busy ? <Loader2 className="animate-spin" /> : <Share2 />}

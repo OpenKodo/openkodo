@@ -6,9 +6,9 @@ import {
   type TerminalFontStyle
 } from '../terminal/preferences/terminal-font-style'
 
-const PINS_PREFIX = 'orca:pins:'
+const PINS_PREFIX = 'openkodo:pins:'
 // Push-service consent is independent of legacy socket notifications.
-const NOTIF_KEY = 'orca:pushServiceNotificationsEnabled'
+const NOTIF_KEY = 'openkodo:pushServiceNotificationsEnabled'
 
 export type PushNotificationsPreference = {
   readonly value: boolean | null
@@ -35,7 +35,7 @@ export async function savePushNotificationsEnabled(enabled: boolean): Promise<vo
   await AsyncStorage.setItem(NOTIF_KEY, String(enabled))
 }
 
-const REMOTE_PUSH_HOST_REGISTRATIONS_KEY = 'orca:remotePushHostRegistrations'
+const REMOTE_PUSH_HOST_REGISTRATIONS_KEY = 'openkodo:remotePushHostRegistrations'
 
 // Persist unregister retries: disabling while a host is offline otherwise leaves its gateway token live.
 export type RemotePushHostRegistrations = {
@@ -70,8 +70,8 @@ export async function saveRemotePushHostRegistrations(
   await AsyncStorage.setItem(REMOTE_PUSH_HOST_REGISTRATIONS_KEY, JSON.stringify(value))
 }
 
-const TEXT_SCALE_KEY = 'orca:terminalTextScale'
-const FONT_STYLE_KEY = 'orca:terminalFontStyle'
+const TEXT_SCALE_KEY = 'openkodo:terminalTextScale'
+const FONT_STYLE_KEY = 'openkodo:terminalFontStyle'
 
 // Older builds stored 50–200% presets; snap those to the nearest whole point. The fallback is the device default.
 export async function loadTerminalTextScale(fallback: number): Promise<number> {
@@ -104,7 +104,7 @@ export async function saveTerminalFontStyle(style: TerminalFontStyle): Promise<v
   await persistMirrored(FONT_STYLE_KEY, JSON.stringify(style))
 }
 
-const SIDEBAR_WIDTH_KEY = 'orca:hostSidebarWidth'
+const SIDEBAR_WIDTH_KEY = 'openkodo:hostSidebarWidth'
 
 // Caller also caps this tablet/foldable sidebar against the window to preserve detail space.
 export const HOST_SIDEBAR_MIN_WIDTH = 280
@@ -135,7 +135,7 @@ export async function saveHostSidebarWidth(width: number): Promise<void> {
   await persistMirrored(SIDEBAR_WIDTH_KEY, value)
 }
 
-const DOCK_WIDTH_KEY = 'orca:hostDockWidth'
+const DOCK_WIDTH_KEY = 'openkodo:hostDockWidth'
 
 // Match left sidebar bounds; caller caps the dock against window width to preserve terminal space.
 export const HOST_DOCK_MIN_WIDTH = 280
@@ -167,10 +167,10 @@ export async function saveHostDockWidth(width: number): Promise<void> {
 }
 
 /** Where a web link tapped in terminal output or chat opens; 'ask' shows the link sheet each time. */
-export type MobileLinkOpenMode = 'ask' | 'orca-browser' | 'phone-browser'
+export type MobileLinkOpenMode = 'ask' | 'openkodo-browser' | 'phone-browser'
 
 // The key predates chat links following this choice; renaming it would drop saved choices.
-const LINK_OPEN_MODE_KEY = 'orca:terminalLinkOpenMode'
+const LINK_OPEN_MODE_KEY = 'openkodo:terminalLinkOpenMode'
 export const DEFAULT_LINK_OPEN_MODE: MobileLinkOpenMode = 'ask'
 let linkOpenModeWriteBarrier: Promise<void> | null = null
 
@@ -178,7 +178,7 @@ export async function loadLinkOpenMode(): Promise<MobileLinkOpenMode> {
   await linkOpenModeWriteBarrier
   try {
     const raw = await AsyncStorage.getItem(LINK_OPEN_MODE_KEY)
-    return raw === 'ask' || raw === 'phone-browser' || raw === 'orca-browser'
+    return raw === 'ask' || raw === 'phone-browser' || raw === 'openkodo-browser'
       ? raw
       : DEFAULT_LINK_OPEN_MODE
   } catch {
@@ -225,7 +225,7 @@ export async function savePinnedIds(hostId: string, ids: Set<string>): Promise<v
 }
 
 export type TerminalSplitLayout = 'auto' | 'side-by-side' | 'stacked'
-const TERMINAL_SPLIT_LAYOUT_KEY = 'orca:terminalSplitLayout'
+const TERMINAL_SPLIT_LAYOUT_KEY = 'openkodo:terminalSplitLayout'
 let terminalSplitLayoutWrite: Promise<void> = Promise.resolve()
 
 export async function loadTerminalSplitLayout(): Promise<TerminalSplitLayout> {

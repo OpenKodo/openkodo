@@ -1,4 +1,4 @@
-import type { DeviceEntry, DeviceOrcaAccount, PairedDeviceTypist } from './device-entry'
+import type { DeviceEntry, DeviceOpenKodoAccount, PairedDeviceTypist } from './device-entry'
 
 /** Who typed a device's messages: a desktop's claim on the sending connection (several desktops can
  *  share one row), or a phone's through the installation that relays it or minted its pairing, as
@@ -7,8 +7,8 @@ import type { DeviceEntry, DeviceOrcaAccount, PairedDeviceTypist } from './devic
 export function pairedDeviceTypistOf(
   deviceId: string,
   getDevice: (deviceId: string) => DeviceEntry | null,
-  connectionClaim: DeviceOrcaAccount | null,
-  claimOfInstance: (ownerDeviceId: string, clientInstanceId: string) => DeviceOrcaAccount | null
+  connectionClaim: DeviceOpenKodoAccount | null,
+  claimOfInstance: (ownerDeviceId: string, clientInstanceId: string) => DeviceOpenKodoAccount | null
 ): PairedDeviceTypist | null {
   const device = getDevice(deviceId)
   if (!device) {
@@ -34,7 +34,7 @@ export function pairedDeviceTypistOf(
 // Pairing names desktops "Runtime <date>" or "CLI <date>", which say nothing about the computer.
 const DATED_PAIRING_NAME = /^(Runtime|CLI) \d/
 
-function withComputer(account: DeviceOrcaAccount, device: DeviceEntry): DeviceOrcaAccount {
+function withComputer(account: DeviceOpenKodoAccount, device: DeviceEntry): DeviceOpenKodoAccount {
   const computer =
     account.computer || (DATED_PAIRING_NAME.test(device.name) ? undefined : device.name)
   return { id: account.id, name: account.name, ...(computer ? { computer } : {}) }
@@ -54,9 +54,9 @@ function phoneNameOf(device: DeviceEntry, computer: string | undefined): string 
   return name.trim() || undefined
 }
 
-export function sameOrcaAccount(
-  left: DeviceOrcaAccount | null | undefined,
-  right: DeviceOrcaAccount | null | undefined
+export function sameOpenKodoAccount(
+  left: DeviceOpenKodoAccount | null | undefined,
+  right: DeviceOpenKodoAccount | null | undefined
 ): boolean {
   return left?.id === right?.id && left?.name === right?.name && left?.computer === right?.computer
 }

@@ -32,7 +32,7 @@ export async function refuseLocalManagementSelector(
   const named = await savedEnvironmentNamedLocal()
   throw new RuntimeClientError(
     'invalid_argument',
-    `--environment local names this machine's own OpenKodo, not a saved environment, so \`orca ${commandPath.join(' ')}\` cannot act on it.`,
+    `--environment local names this machine's own OpenKodo, not a saved environment, so \`openkodo ${commandPath.join(' ')}\` cannot act on it.`,
     {
       nextSteps: [
         ...(named

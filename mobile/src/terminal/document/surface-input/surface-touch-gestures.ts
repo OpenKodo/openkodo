@@ -25,7 +25,7 @@ import { stopSurfaceTouchGestures } from './surface-touch-gesture-stop'
 
 const RELEASE_VELOCITY_MAX_AGE_MS = 100
 
-type TerminalGestureSurface = HTMLElement & { __orcaSurfaceHandlersAttached?: boolean }
+type TerminalGestureSurface = HTMLElement & { __openkodoSurfaceHandlersAttached?: boolean }
 
 export type TerminalTouchState = {
   active: boolean
@@ -71,10 +71,10 @@ export function attachSurfaceEventHandlers(
   scope: TerminalDocumentScope,
   targetSurface: TerminalGestureSurface
 ) {
-  if (!targetSurface || targetSurface.__orcaSurfaceHandlersAttached) {
+  if (!targetSurface || targetSurface.__openkodoSurfaceHandlersAttached) {
     return
   }
-  targetSurface.__orcaSurfaceHandlersAttached = true
+  targetSurface.__openkodoSurfaceHandlersAttached = true
   // Each hidden replay replacement needs handlers; wiring only the first surface breaks scrolling after tab switches.
   targetSurface.addEventListener(
     'mousedown',

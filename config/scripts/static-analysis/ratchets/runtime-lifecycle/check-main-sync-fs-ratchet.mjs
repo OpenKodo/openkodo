@@ -4,7 +4,7 @@ import { createGatedCallCollector } from '../../process-boundaries/gated-call-us
 import { runCountRatchet } from '../../ratchet-baseline/ratchet-baseline.mjs'
 import { readEventLoopSources } from '../../process-boundaries/main-blocking-import-graph.mjs'
 
-// Sync fs on Electron main stalls every window (and in the daemon/orcad, every terminal); per-spawn/RPC/focus stat and read sweeps were a recurring lag source (#39805, #35967, #38481).
+// Sync fs on Electron main stalls every window (and in the daemon/openkodod, every terminal); per-spawn/RPC/focus stat and read sweeps were a recurring lag source (#39805, #35967, #38481).
 
 const BASELINE_PATH = 'config/main-sync-fs-baseline.txt'
 // src/shared runs on main too; leaving it out would let a helper move bypass the gate.
@@ -102,7 +102,7 @@ export async function main(root = process.cwd(), arg = undefined, sources = unde
       collect: () => counts,
       unit: 'sync fs call(s)',
       fix: [
-        `Sync fs blocks the thread it runs on: Electron main (every window) or the daemon/orcad loop (every terminal). ${ADVICE}.`,
+        `Sync fs blocks the thread it runs on: Electron main (every window) or the daemon/openkodod loop (every terminal). ${ADVICE}.`,
         `A one-shot startup or shutdown use may raise the file's count in ${BASELINE_PATH} with reviewer sign-off.`
       ]
     },

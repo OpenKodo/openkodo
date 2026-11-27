@@ -229,7 +229,7 @@ function applyJournalRowFacts(
     if (row.retireSubmission === true) {
       retireRewoundJournalSubmission(state, row.itemId)
       const identity = parseAgentJournalItemKey(row.itemId)
-      if (marker5 && identity?.provider === 'orca') {
+      if (marker5 && identity?.provider === 'openkodo') {
         state.submissions.delete(identity.clientMessageId)
         state.receipts.delete(identity.clientMessageId)
       }

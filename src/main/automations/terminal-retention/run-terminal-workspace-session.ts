@@ -1,8 +1,8 @@
 import type { AutomationRun } from '../../../shared/automations/history/automation-run'
 import { parsePaneKey } from '../../../shared/workspace-layout/stable-pane-id'
-import type { OrcaRuntimeService } from '../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../runtime/openkodo-runtime'
 
-type WorkspaceSessionReader = Pick<OrcaRuntimeService, 'getWorkspaceSessionForWorktree'>
+type WorkspaceSessionReader = Pick<OpenKodoRuntimeService, 'getWorkspaceSessionForWorktree'>
 
 /** A desktop visit stamps the shown tab's focus; main-created run tabs start unstamped. */
 export function runTabWasFocused(runtime: WorkspaceSessionReader, run: AutomationRun): boolean {

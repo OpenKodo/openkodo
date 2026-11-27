@@ -104,7 +104,7 @@ export const CHANGED_STATES: Record<string, DropdownActionInputs> = {
     primaryActionKind: 'stage'
   }),
   // OpenKodo's own rebase integrated the upstream tip: Pull/Sync/FF/Push would undo it or be rejected.
-  orcaRebased: state({
+  openkodoRebased: state({
     upstreamStatus: { hasUpstream: true, upstreamName: 'origin/feature', ahead: 3, behind: 2 },
     rebaseBehindCount: 0,
     suppressPullAfterRebase: true

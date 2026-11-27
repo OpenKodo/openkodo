@@ -10,7 +10,7 @@ import {
 import { readAgentToolCall, type AgentToolCallOwner } from './agent-tool-call-reader'
 
 /** Sent by hook scripts that print OpenKodo's answer as Claude Code's PreToolUse decision. */
-export const AGENT_TOOL_DECISION_HEADER = 'x-orca-hook-decision'
+export const AGENT_TOOL_DECISION_HEADER = 'x-openkodo-hook-decision'
 export const CLAUDE_PRE_TOOL_USE_DECISION = 'claude-pre-tool-use-v1'
 // Why 6 s: the script waits 8 s at most, so OpenKodo answers (or passes) before it gives up.
 const DECISION_BUDGET_MS = 6_000

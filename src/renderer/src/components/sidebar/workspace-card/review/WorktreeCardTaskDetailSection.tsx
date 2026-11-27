@@ -93,12 +93,12 @@ export function WorktreeCardTaskActions({
 }): React.JSX.Element | null {
   const t = useTranslate()
   const github = item.provider === 'github'
-  const openInOrca = !isCardTask
+  const openInOpenKodo = !isCardTask
     ? undefined
     : github
-      ? actions.onOpenGitHubIssueInOrca
+      ? actions.onOpenGitHubIssueInOpenKodo
       : item.provider === 'linear'
-        ? actions.onOpenLinearIssueInOrca
+        ? actions.onOpenLinearIssueInOpenKodo
         : undefined
   const onEdit = isCardTask && github ? actions.onEditIssue : undefined
   const { onCopyLink, onOpenIssueInBrowser } = actions
@@ -117,8 +117,8 @@ export function WorktreeCardTaskActions({
       }
       onOpenChange={onOpenChange}
     >
-      {url && openInOrca ? (
-        <DropdownMenuItem onClick={openInOrca}>
+      {url && openInOpenKodo ? (
+        <DropdownMenuItem onClick={openInOpenKodo}>
           <MonitorUp className="size-3.5" />
           {t('auto.components.sidebar.WorktreeCardMeta.2c67730e07', 'Open in OpenKodo')}
         </DropdownMenuItem>
@@ -127,7 +127,7 @@ export function WorktreeCardTaskActions({
         <DropdownMenuItem onClick={() => onOpenIssueInBrowser(url)}>
           <Globe className="size-3.5" />
           {t(
-            'auto.components.sidebar.WorktreeCardMeta.openInOrcaBrowser',
+            'auto.components.sidebar.WorktreeCardMeta.openInOpenKodoBrowser',
             'Open in OpenKodo browser'
           )}
         </DropdownMenuItem>

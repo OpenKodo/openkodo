@@ -101,9 +101,9 @@ jobs:
         id: module-cache
         if: inputs.module_cache == 'cold' || inputs.module_cache == 'warm'
         env:
-          ORCA_UNIT_SHARD_INDEX: ${{ matrix.shard.index }}
-          ORCA_UNIT_SHARD_COUNT: ${{ matrix.shard.count }}
-          ORCA_UNIT_CACHE_NAMESPACE: ${{ inputs.module_cache_namespace }}
+          OPENKODO_UNIT_SHARD_INDEX: ${{ matrix.shard.index }}
+          OPENKODO_UNIT_SHARD_COUNT: ${{ matrix.shard.count }}
+          OPENKODO_UNIT_CACHE_NAMESPACE: ${{ inputs.module_cache_namespace }}
         run: node config/scripts/ci/unit-cache/ci-unit-module-cache.mjs identity
 
       # The key pins config, plugins, lockfile and runtimes; the newest producer for it wins.
@@ -121,8 +121,8 @@ jobs:
       - name: Validate restored unit module cache or use cold transforms
         if: steps.module-cache.outputs.key != ''
         env:
-          ORCA_UNIT_CACHE_RESTORE_HIT: ${{ steps.module-cache-restore.outputs.cache-matched-key != '' }}
-          ORCA_UNIT_CACHE_MODE: ${{ inputs.module_cache }}
+          OPENKODO_UNIT_CACHE_RESTORE_HIT: ${{ steps.module-cache-restore.outputs.cache-matched-key != '' }}
+          OPENKODO_UNIT_CACHE_MODE: ${{ inputs.module_cache }}
         run: node config/scripts/ci/unit-cache/ci-unit-module-cache.mjs prepare
 
       - uses: actions/download-artifact@v8
@@ -143,13 +143,13 @@ jobs:
 
       - name: Test shard
         env:
-          NODE_COMPILE_CACHE: ${{ runner.temp }}/orca-node-compile-cache-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.node }}-${{ matrix.shard.index }}
-          ORCA_BALANCE_UNIT_SHARDS: '1'
-          ORCA_BACKGROUND_LAUNCH: '1'
-          ORCA_UNIT_PHASE_REPORT: ${{ inputs.phase_diagnostics && 'ci-shards/unit-phases.json' || '' }}
+          NODE_COMPILE_CACHE: ${{ runner.temp }}/openkodo-node-compile-cache-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.node }}-${{ matrix.shard.index }}
+          OPENKODO_BALANCE_UNIT_SHARDS: '1'
+          OPENKODO_BACKGROUND_LAUNCH: '1'
+          OPENKODO_UNIT_PHASE_REPORT: ${{ inputs.phase_diagnostics && 'ci-shards/unit-phases.json' || '' }}
         run: |
-          ORCA_SHARD_SOURCE_SHA="$(git rev-parse HEAD)"
-          export ORCA_SHARD_SOURCE_SHA
+          OPENKODO_SHARD_SOURCE_SHA="$(git rev-parse HEAD)"
+          export OPENKODO_SHARD_SOURCE_SHA
           node config/scripts/test-runtime/execution-policy/run-vitest.mjs run --config config/vitest.config.ts \
             --shard=${{ matrix.shard.index }}/${{ matrix.shard.count }} \
             ${{ inputs.runner == 'blacksmith-8vcpu-ubuntu-2404' && '--maxWorkers=8' || (runner.arch == 'ARM64' || inputs.runner == 'blacksmith-4vcpu-ubuntu-2404' || inputs.runner == 'ubuntu-24.04') && '--maxWorkers=4' || '' }}

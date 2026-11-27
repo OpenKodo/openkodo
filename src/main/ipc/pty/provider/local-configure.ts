@@ -1,7 +1,7 @@
 import { getClaudeAgentViewService } from '../../../claude/agent-view/agent-view-service'
 import { inheritOmpLaunchEnvironment } from '../host-env/omp-launch-environment'
 import { getAppEnvironment } from '../../../../shared/app-lifecycle/app-environment'
-import type { OrcaRuntimeService } from '../../../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../runtime/openkodo-runtime'
 import type { GlobalSettings } from '../../../../shared/settings/global-settings-types'
 import { isAgentStatusHooksEnabled } from '../../../../shared/agent-hook-listener/configuration/agent-status-hooks-setting'
 import { isPwshAvailableAsync } from '../../../pty/shell-startup/pwsh'
@@ -9,9 +9,9 @@ import { LocalPtyProvider } from '../../../providers/local-pty/local-pty-provide
 import type { LocalPtyProviderOptions } from '../../../providers/local-pty/local-pty-provider-types'
 import { runAsWslLaunchUserAct } from '../../../wsl/discovery/wsl-background-exec-gate'
 import {
-  addOrcaWslInteropEnv,
+  addOpenKodoWslInteropEnv,
   stampWslOrchestrationCompatibilityHost
-} from '../../../pty/shell-startup/wsl-orca-env'
+} from '../../../pty/shell-startup/wsl-openkodo-env'
 import type { CodexAccountSelectionTarget } from '../../../../shared/agent-accounts/codex/codex-selection-lane'
 import { buildPtyHostEnv } from '../host-env/assembly'
 import { detectBareShellPluginAgentsOnPath } from '../../../agent-hooks/installation/bare-shell-plugin-agent-presence'
@@ -19,7 +19,7 @@ import { stampRuntimeSourceEnv } from '../../../../shared/remote-runtime/host-ca
 import { getRuntimeSourceStamp } from '../../../runtime/hosts/platform-probe/host-descriptor'
 import {
   getCompatibleSelectedCodexHomePath,
-  shouldStripInheritedOrcaCodexHome
+  shouldStripInheritedOpenKodoCodexHome
 } from '../host-env/codex-home'
 import type { GetSelectedCodexHomePath } from '../host-env/types'
 import { isCurrentPtyExit, ptyOwnership } from './ownership-state'
@@ -31,7 +31,7 @@ import { awaitExplicitAgentPluginGuestReadiness } from '../../../agent-hooks/wsl
 import { prepareAntigravityAccountForLaunch } from '../../../antigravity/native-account-launch'
 
 export function configureLocalPtyProvider(args: {
-  runtime?: OrcaRuntimeService
+  runtime?: OpenKodoRuntimeService
   getSettings?: () => GlobalSettings
   getSelectedCodexHomePath?: GetSelectedCodexHomePath
   trustedTerminalHandleEnv: Set<string>
@@ -96,7 +96,7 @@ export function configureLocalPtyProvider(args: {
       userDataPath: getAppEnvironment().getPath('userData'),
       selectedCodexHomePath,
       skipCodexHomeEnv,
-      stripInheritedOrcaCodexHome: shouldStripInheritedOrcaCodexHome({
+      stripInheritedOpenKodoCodexHome: shouldStripInheritedOpenKodoCodexHome({
         target: codexSelectionTarget,
         selectedCodexHomePath,
         skipCodexHomeEnv,
@@ -136,7 +136,7 @@ export function configureLocalPtyProvider(args: {
       getRuntimeSourceStamp(runtime, getAppEnvironment().getPath('userData'))
     )
     if (ctx?.isWsl === true) {
-      addOrcaWslInteropEnv(env)
+      addOpenKodoWslInteropEnv(env)
     }
     return env
   }

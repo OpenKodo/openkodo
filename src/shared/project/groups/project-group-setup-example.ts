@@ -8,7 +8,7 @@ export function projectGroupSetupExample(
   const windows = platform === 'win32'
   const comment = windows ? 'REM' : '#'
   const shell = windows ? 'cmd' : 'posix'
-  const command = windows ? 'orca' : '"${OPENKODO_CLI_COMMAND:-orca}"'
+  const command = windows ? 'openkodo' : '"${OPENKODO_CLI_COMMAND:-openkodo}"'
   const workspaceName = windows ? '"%OPENKODO_WORKSPACE_NAME%"' : '"$OPENKODO_WORKSPACE_NAME"'
   return [
     `${comment} Repo IDs are local to this machine; review them before sharing this script.`,

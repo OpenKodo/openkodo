@@ -111,7 +111,7 @@ export function createRepoAddActions(
         const repoIdentity = getRepoHostIdentity(repo)
         const alreadyAdded = get().repos.some((r) => getRepoHostIdentity(r) === repoIdentity)
         if (alreadyAdded) {
-          get().clearOrcaHookTrustForRepo(repo.id)
+          get().clearOpenKodoHookTrustForRepo(repo.id)
         }
         set((s) => {
           if (s.repos.some((r) => getRepoHostIdentity(r) === repoIdentity)) {
@@ -143,7 +143,7 @@ export function createRepoAddActions(
             }
           )
           // Why: the cross-profile advisory applies to SSH-added projects too; the presence lookup already keys on connection/host.
-          await warnIfProjectKnownInAnotherProfile(repo, get().activeOrcaProfileId)
+          await warnIfProjectKnownInAnotherProfile(repo, get().activeOpenKodoProfileId)
           // Why after the set(): the project row carrying the runtime override only exists once the repo is in state.
           warnIfProjectCrossesWslFilesystemBoundary(repo, get().projects, get().settings)
         }

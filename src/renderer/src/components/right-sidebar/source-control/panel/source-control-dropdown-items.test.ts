@@ -107,11 +107,11 @@ describe('resolveDropdownItems owner-approved differences from main', () => {
   })
 
   it('hides Pull, Sync, Fast-forward and Push after OpenKodo rebased, keeping Force Push', () => {
-    expect(menuRows(CHANGED_STATES.orcaRebased)).toEqual(['force_push Replaces ↓2', 'fetch'])
+    expect(menuRows(CHANGED_STATES.openkodoRebased)).toEqual(['force_push Replaces ↓2', 'fetch'])
   })
 
   it('hides Commit & Sync after OpenKodo rebased, even with staged changes', () => {
-    const staged = { ...CHANGED_STATES.orcaRebased, stagedCount: 3, hasMessage: true }
+    const staged = { ...CHANGED_STATES.openkodoRebased, stagedCount: 3, hasMessage: true }
     expect(menuRows(staged)).toContain('commit_push')
     expect(menuRows(staged)).not.toContain('commit_sync')
   })

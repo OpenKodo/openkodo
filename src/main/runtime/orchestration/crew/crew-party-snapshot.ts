@@ -4,7 +4,7 @@ import {
   type OrchestrationCrewSnapshot,
   type OrchestrationCrewRow
 } from '../../../../shared/orchestration/orchestration-crew'
-import { parseOrcaSessionAddress } from '../../../../shared/agent-session/identity/orca-session-address'
+import { parseOpenKodoSessionAddress } from '../../../../shared/agent-session/identity/openkodo-session-address'
 import { isPublicOrchestrationAddress } from '../../../../shared/orchestration/mailbox/orchestration-agent-reference'
 import { createLineageRunningSessionResolver } from '../addressing/session-lineage/structured-session-lineage'
 import { crewDisplayName, crewTaskDisplay } from './crew-rules'
@@ -70,7 +70,7 @@ export function buildCrewSnapshot(
       }
     }
   }
-  const rawSession = parseOrcaSessionAddress(address)
+  const rawSession = parseOpenKodoSessionAddress(address)
   let self = party(
     rawSession,
     rawSession ? null : address,
@@ -143,10 +143,10 @@ export function buildCrewSnapshot(
   ): OrchestrationCrewRow => {
     const display = crewTaskDisplay(assignment)
     const title = display.taskTitle || display.displayName
-    const live = target.orcaSessionId ? runningSession(target.orcaSessionId) : null
+    const live = target.openkodoSessionId ? runningSession(target.openkodoSessionId) : null
     const worker = assignment ? host.workersById.get(assignment.id) : undefined
     const evidence =
-      worker && !target.orcaSessionId
+      worker && !target.openkodoSessionId
         ? statusForFleetWorker(worker, host.statusIndex)
         : target.paneKey
           ? host.statusesByPane.get(target.paneKey)
@@ -168,7 +168,7 @@ export function buildCrewSnapshot(
       relevance.addPane(worker?.paneKey)
       relevance.addPane(target.terminalHandle ? deps.paneForHandle(target.terminalHandle) : null)
       for (const id of [
-        target.orcaSessionId,
+        target.openkodoSessionId,
         live?.kind === 'here' ? live.sessionId : null,
         worker?.agentTerminalHandle
       ]) {
@@ -247,7 +247,7 @@ export function buildCrewSnapshot(
   const selectedTraffic = traffic.flatMap((message) => {
     let targetAddress = addressOf(message.peer)
     if (!targetAddress) {
-      const parsed = parseOrcaSessionAddress(message.peer)
+      const parsed = parseOpenKodoSessionAddress(message.peer)
       targetAddress = party(parsed, parsed ? null : message.peer, null, message.peer)?.address
     }
     if (!targetAddress || targetAddress === self.address) {
@@ -259,7 +259,7 @@ export function buildCrewSnapshot(
     const targetAddress = target.address
     let row = rows.get(targetAddress)
     if (!row) {
-      const sendAddress = target.orcaSessionId
+      const sendAddress = target.openkodoSessionId
         ? target.address
         : (target.terminalHandle ??
           (target.address.startsWith('dispatch:') || target.address.startsWith('run:')

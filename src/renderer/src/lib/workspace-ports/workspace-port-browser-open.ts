@@ -1,6 +1,6 @@
 import { translate } from '@/i18n/i18n'
 
-export function shouldOpenWorkspacePortInOrcaBrowser(
+export function shouldOpenWorkspacePortInOpenKodoBrowser(
   settings: { openLinksInApp?: boolean } | null | undefined
 ): boolean {
   return settings?.openLinksInApp === true
@@ -27,7 +27,7 @@ export function getPortOpenBrowserTooltipLabel(openLabel: string, isMac?: boolea
 
 type PortOpenClickEvent = Pick<MouseEvent, 'metaKey' | 'ctrlKey' | 'shiftKey'>
 
-export function resolvePortOpenInOrcaBrowser({
+export function resolvePortOpenInOpenKodoBrowser({
   settings,
   event,
   isMac
@@ -40,5 +40,5 @@ export function resolvePortOpenInOrcaBrowser({
   if (event?.shiftKey && (isMac ? event.metaKey : event.ctrlKey)) {
     return false
   }
-  return shouldOpenWorkspacePortInOrcaBrowser(settings)
+  return shouldOpenWorkspacePortInOpenKodoBrowser(settings)
 }

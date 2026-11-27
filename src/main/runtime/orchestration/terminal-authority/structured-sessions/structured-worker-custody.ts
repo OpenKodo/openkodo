@@ -3,8 +3,8 @@
 
 import type { AgentSessionConversationView } from '../../../../../shared/agent-session/lifecycle/leases/agent-session-conversation-view'
 import { buildOrchestrationTaskDisplayMetadata } from '../../../../../shared/orchestration/orchestration-task-display'
-import { isOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { canonicalOrcaSessionId } from '../../addressing/session-lineage/canonical-orca-session-id'
+import { isOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { canonicalOpenKodoSessionId } from '../../addressing/session-lineage/canonical-openkodo-session-id'
 import type { RunningStructuredSession } from '../../addressing/session-lineage/structured-session-lineage'
 import type { OrchestrationDb } from '../../db/orchestration-db'
 import type { WorkerDispatchState } from '../../db/orchestration-records'
@@ -175,7 +175,9 @@ function ownedWorkerIncarnation(
     return null
   }
   const incarnation = structuredWorkerProcessIncarnation(
-    isOrcaSessionId(record.sessionId) ? canonicalOrcaSessionId(record.sessionId) : record.sessionId
+    isOpenKodoSessionId(record.sessionId)
+      ? canonicalOpenKodoSessionId(record.sessionId)
+      : record.sessionId
   )
   const owned = db.db
     .prepare(

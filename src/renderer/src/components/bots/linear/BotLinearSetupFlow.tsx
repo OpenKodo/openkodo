@@ -43,7 +43,7 @@ import {
 } from './bot-linear-copy'
 import { LinkedPeople } from './LinearSetupParts'
 import { botLinearSetupStep, withLinearWorkspace } from './linear-setup-step'
-import { OrcaCloudSignInDialogBody, orcaCloudSignInReason } from '../orca-cloud-sign-in'
+import { OpenKodoCloudSignInDialogBody, openkodoCloudSignInReason } from '../openkodo-cloud-sign-in'
 
 export const LINEAR = { id: 'linear', Icon: LinearIcon } as const
 
@@ -182,9 +182,9 @@ export function BotLinearSetupFlow({
   // step signs in that server instead.
   if (step.kind === 'failed' && signedOutHere(step, hostName)) {
     return (
-      <OrcaCloudSignInDialogBody
+      <OpenKodoCloudSignInDialogBody
         title={title}
-        reason={orcaCloudSignInReason('linear')}
+        reason={openkodoCloudSignInReason('linear')}
         onCancel={onClose}
         onSignedIn={() => refreshBotLinear(bot.hostId)}
       />

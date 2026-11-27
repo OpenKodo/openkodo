@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
-// Connecting Linear or GitHub in one browser trip: the owner signs in (and installs Orca there if it
-// is missing), and the browser hands the result back to the Orca that started it.
+// Connecting Linear or GitHub in one browser trip: the owner signs in (and installs OpenKodo there if it
+// is missing), and the browser hands the result back to the OpenKodo that started it.
 // Slack (POST `${slack}/connect` and `…/connect/redeem`) is a sign-in only, with these same schemas:
 // it links the person in the Slack workspace they signed in to (the redeem's workspace is the Slack
 // team) and installs nothing, so install answers 'none'.
@@ -18,7 +18,7 @@ export const CONNECT_LOGIN_KEY_PATTERN = /^[A-Za-z0-9_-]{43}$/
 
 // Where the cloud's last redirect lands on the starting machine:
 // http://127.0.0.1:<loopbackPort>/connector/done?r=<result>&n=<loopbackNonce>. Without a loopback,
-// the browser ends on a page whose "Open Orca" opens orca://<linear|github>/link?t=<result>.
+// the browser ends on a page whose "Open OpenKodo" opens openkodo://<linear|github>/link?t=<result>.
 export const CONNECTOR_CONNECT_LOOPBACK_PATH = '/connector/done'
 
 // POST `${linear|github|slack}/connect`: starts a trip for the signed-in account; a new start voids the
@@ -43,7 +43,7 @@ export const ConnectorConnectStartRequestSchema = z
   })
 export const ConnectorConnectStartSchema = z.object({ authorizeUrl: z.string().url() })
 
-// What the trip did about installing Orca where the person works: installed (now or already),
+// What the trip did about installing OpenKodo where the person works: installed (now or already),
 // needs_admin (Linear: they can't install it; a workspace admin can), requested (GitHub: an
 // organization owner has to approve), none (not installed: the install was cancelled or failed).
 export const CONNECTOR_CONNECT_INSTALL_OUTCOMES = [
@@ -77,7 +77,7 @@ export const ConnectorConnectRedeemSchema = z.object({
 // The 409s: expired (unknown, used or past its 10 minutes, or voided by a later start),
 // wrong_account (another account started the trip), not_a_member (a Linear guest, inactive user or
 // app). An account links several people and a person several accounts, so already_linked is no
-// longer sent; it stays listed for the Orcas that still read it.
+// longer sent; it stays listed for the OpenKodos that still read it.
 export const CONNECTOR_CONNECT_ERRORS = [
   'expired',
   'wrong_account',

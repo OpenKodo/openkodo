@@ -13,11 +13,11 @@ import {
 } from './ssh-posix-command-wrapper'
 
 // csh/tcsh read ~/.tcshrc even for `-c`, zsh reads .zshenv, fish reads config.fish: test the parser, not the developer's rc files.
-const emptyShellHome = mkdtempSync(join(tmpdir(), 'orca-wrapper-shell-home-'))
+const emptyShellHome = mkdtempSync(join(tmpdir(), 'openkodo-wrapper-shell-home-'))
 afterAll(() => rmSync(emptyShellHome, { recursive: true, force: true }))
 
 function shimDir(tools: Record<string, string>): string {
-  const bin = mkdtempSync(join(tmpdir(), 'orca-wrapper-shims-'))
+  const bin = mkdtempSync(join(tmpdir(), 'openkodo-wrapper-shims-'))
   for (const [name, script] of Object.entries(tools)) {
     writeFileSync(join(bin, name), `#!/bin/sh\n${script}\n`)
     chmodSync(join(bin, name), 0o755)

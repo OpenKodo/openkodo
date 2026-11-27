@@ -1,4 +1,4 @@
-import { satisfiesOrcaEngineRange } from '../manifest/plugin-manifest-engine-range'
+import { satisfiesOpenKodoEngineRange } from '../manifest/plugin-manifest-engine-range'
 import {
   PLUGIN_COMPONENTS_CATALOG_2_SINCE,
   PLUGIN_COMPONENTS_CATALOG_4_SINCE,
@@ -47,7 +47,9 @@ export const PLUGIN_SCHEMA_NEWEST_SINCE = [
   PLUGIN_HOST_API_1_9_SINCE,
   PLUGIN_HOST_API_1_10_SINCE,
   PLUGIN_MCP_SERVERS_SINCE
-].reduce((newest, version) => (satisfiesOrcaEngineRange(version, `>=${newest}`) ? version : newest))
+].reduce((newest, version) =>
+  satisfiesOpenKodoEngineRange(version, `>=${newest}`) ? version : newest
+)
 
 /**
  * The version plugins are gated against. Why not the app version alone: development and local
@@ -57,7 +59,7 @@ export const PLUGIN_SCHEMA_NEWEST_SINCE = [
  * nothing for them.
  */
 export function pluginHostVersion(appVersion: string): string {
-  return satisfiesOrcaEngineRange(appVersion, `>=${PLUGIN_SCHEMA_NEWEST_SINCE}`)
+  return satisfiesOpenKodoEngineRange(appVersion, `>=${PLUGIN_SCHEMA_NEWEST_SINCE}`)
     ? appVersion
     : PLUGIN_SCHEMA_NEWEST_SINCE
 }

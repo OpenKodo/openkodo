@@ -27,10 +27,10 @@ const CLAUDE_JSON = `{
     "playwright": { "type": "stdio", "command": "npx", "args": ["@playwright/mcp"] }
   },
   "projects": {
-    "/work/orca": { "mcpServers": { "db": { "command": "pg-mcp", "args": [] } }, "disabledMcpServers": ["db"] },
+    "/work/openkodo": { "mcpServers": { "db": { "command": "pg-mcp", "args": [] } }, "disabledMcpServers": ["db"] },
     "/work/docs": { "mcpServers": { "db": { "command": "pg-mcp", "args": [] } } },
     "/elsewhere": { "mcpServers": { "lost": { "command": "lost-mcp" } } },
-    "/orca-data/bot-tool-sign-in/b1": { "mcpServers": { "bot": { "type": "http", "url": "https://bot.dev/mcp" } } }
+    "/openkodo-data/bot-tool-sign-in/b1": { "mcpServers": { "bot": { "type": "http", "url": "https://bot.dev/mcp" } } }
   }
 }
 `
@@ -46,7 +46,7 @@ url = "https://mcp.linear.app/mcp"
 `
 
 beforeEach(() => {
-  home = mkdtempSync(join(tmpdir(), 'orca-mcp-import-'))
+  home = mkdtempSync(join(tmpdir(), 'openkodo-mcp-import-'))
   write('.claude.json', CLAUDE_JSON)
   write('.codex/config.toml', CODEX_TOML)
   write(
@@ -75,7 +75,7 @@ beforeEach(() => {
   )
   write(
     '.cursor/mcp.json',
-    '{ "mcpServers": { "cur": { "url": "https://cur.dev/mcp" }, "orca-linear": { "command": "/Applications/OpenKodo.app/Contents/Resources/bin/orca", "args": ["mcp", "connect", "linear"] } } }'
+    '{ "mcpServers": { "cur": { "url": "https://cur.dev/mcp" }, "openkodo-linear": { "command": "/Applications/OpenKodo.app/Contents/Resources/bin/openkodo", "args": ["mcp", "connect", "linear"] } } }'
   )
   write(
     '.factory/mcp.json',
@@ -90,7 +90,9 @@ afterEach(() => {
 
 describe('agent MCP config discovery and move', () => {
   it('lists every agent’s own servers, merged by name and URL, without OpenKodo’s own entries', async () => {
-    const found = await discoverAgentMcpServers(context(), (path) => path.startsWith('/orca-data/'))
+    const found = await discoverAgentMcpServers(context(), (path) =>
+      path.startsWith('/openkodo-data/')
+    )
     expect(
       found.map((row) => [
         row.server.name,
@@ -124,20 +126,20 @@ describe('agent MCP config discovery and move', () => {
   it('moves a server: removes exactly its entries, keeps formatting, and backs each file up', async () => {
     const profile = (id: string, auth: string) =>
       write(
-        `orca-data/claude-profiles/${id}/home/.claude.json`,
+        `openkodo-data/claude-profiles/${id}/home/.claude.json`,
         `{\n  "mcpServers": {\n    "github": { "type": "http", "url": "${GITHUB}"${auth} },\n    "own": { "command": "own" }\n  }\n}\n`
       )
     profile('same', '')
     profile('edited', ', "headers": { "Authorization": "Bearer mine" }')
     const host: AgentMcpImportHost = {
       context: context(),
-      userDataPath: join(home, 'orca-data'),
+      userDataPath: join(home, 'openkodo-data'),
       workspaceFor: (path) =>
         ({
-          '/work/orca': { key: 'repo-1', name: 'orca' },
+          '/work/openkodo': { key: 'repo-1', name: 'openkodo' },
           '/work/docs': { key: 'repo-2', name: 'docs' }
         })[path] ?? null,
-      isOrcaProject: (path) => path.startsWith('/orca-data/')
+      isOpenKodoProject: (path) => path.startsWith('/openkodo-data/')
     }
     const rows = await listAgentMcpServers(host)
     const row = (name: string) => rows.find((found) => found.name === name)!
@@ -174,8 +176,8 @@ describe('agent MCP config discovery and move', () => {
     expect(read('.claude.json')).toBe(
       CLAUDE_JSON.replace(`\n    "github": { "type": "http", "url": "${GITHUB}" },`, '')
         .replace(
-          `\n    "/work/orca": { "mcpServers": { "db": { "command": "pg-mcp", "args": [] } }, "disabledMcpServers": ["db"] },`,
-          `\n    "/work/orca": { "mcpServers": { }, "disabledMcpServers": ["db"] },`
+          `\n    "/work/openkodo": { "mcpServers": { "db": { "command": "pg-mcp", "args": [] } }, "disabledMcpServers": ["db"] },`,
+          `\n    "/work/openkodo": { "mcpServers": { }, "disabledMcpServers": ["db"] },`
         )
         .replace(
           `\n    "/work/docs": { "mcpServers": { "db": { "command": "pg-mcp", "args": [] } } },`,
@@ -186,8 +188,8 @@ describe('agent MCP config discovery and move', () => {
       `# keep me\nmodel = "o3"\n\n# about linear\n[mcp_servers.linear]\nurl = "https://mcp.linear.app/mcp"\n`
     )
     expect(read('.codex/config.toml.bak')).toBe(CODEX_TOML)
-    expect(read('orca-data/claude-profiles/same/home/.claude.json')).not.toContain('github')
-    expect(read('orca-data/claude-profiles/edited/home/.claude.json')).toContain('github')
+    expect(read('openkodo-data/claude-profiles/same/home/.claude.json')).not.toContain('github')
+    expect(read('openkodo-data/claude-profiles/edited/home/.claude.json')).toContain('github')
   })
 
   it('reads Grok’s file-wide disable list and leaves servers with tool limits in Grok', () => {

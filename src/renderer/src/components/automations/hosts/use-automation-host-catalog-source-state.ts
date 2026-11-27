@@ -3,7 +3,7 @@ import { useRuntimeStatusByEnvironmentId } from '@/store/slices/runtime-status/v
 import { useAppStore } from '@/store/index'
 import { getPairedWebClientEnvironmentId } from '@/app-shell/platform/paired-web-client-host'
 import type { PublicKnownRuntimeEnvironment } from '../../../../../shared/remote-runtime/host-catalog/runtime-environments'
-import { getManagedOrcadSshTargetId } from '../../../../../shared/execution-host/managed-orcad-execution-host'
+import { getManagedOpenkododSshTargetId } from '../../../../../shared/execution-host/managed-openkodod-execution-host'
 import type {
   AutomationCatalogRuntimeSource,
   AutomationCatalogSshSource,
@@ -57,7 +57,7 @@ export function useAutomationHostCatalogSourceState({
       runtimeEnvironments.map((environment) => {
         const bucket = sshStateByEnvironment.get(environment.id)
         const status = runtimeStatusByEnvironmentId.get(environment.id)
-        const managedSshTargetId = getManagedOrcadSshTargetId(environment)
+        const managedSshTargetId = getManagedOpenkododSshTargetId(environment)
         return {
           environmentId: environment.id,
           label: environment.name,

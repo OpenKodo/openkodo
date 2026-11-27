@@ -5,7 +5,7 @@ import { piMcpServersConfig, piMcpServersExtensionSource } from '../../bots/bot-
 import {
   getDefaultPiAgentDir,
   OPENKODO_MANAGED_EXTENSION_MARKER,
-  withOrcaManagedExtensionMarker
+  withOpenKodoManagedExtensionMarker
 } from '../../pi/managed-extensions/titlebar-extension-service'
 import { writePluginFileAtomically } from '../../plugins/installation/plugin-atomic-file-write'
 import {
@@ -21,13 +21,13 @@ import {
 } from './terminal-mcp-delivery'
 
 export const PI_TERMINAL_MCP_SERVERS_ENV = 'OPENKODO_PI_MCP_SERVERS'
-const PI_TERMINAL_MCP_EXTENSION_FILE = 'orca-mcp-servers.ts'
+const PI_TERMINAL_MCP_EXTENSION_FILE = 'openkodo-mcp-servers.ts'
 
 /** Writes OpenKodo's marked extension into the Pi agent dir; a user's own file of that name stays. */
 async function installPiMcpExtension(agentDir: string): Promise<boolean> {
   const dir = join(agentDir, 'extensions')
   const path = join(dir, PI_TERMINAL_MCP_EXTENSION_FILE)
-  const source = withOrcaManagedExtensionMarker(
+  const source = withOpenKodoManagedExtensionMarker(
     piMcpServersExtensionSource(PI_TERMINAL_MCP_SERVERS_ENV)
   )
   try {

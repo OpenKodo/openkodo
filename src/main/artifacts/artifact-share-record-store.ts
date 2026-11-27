@@ -8,7 +8,7 @@ import {
   serializeArtifactFileChange,
   writeArtifactFileWhileCurrent
 } from './artifact-guarded-secure-write'
-import { getOrcaProfileDirectory } from '../orca-profiles/profile-storage-paths'
+import { getOpenKodoProfileDirectory } from '../openkodo-profiles/profile-storage-paths'
 import {
   pruneRecords,
   type ArtifactShareRecord,
@@ -24,7 +24,7 @@ import {
 export type { ArtifactShareScope } from './artifact-share-record-retention'
 
 function recordPath(profileId: string, userDataPath: string): string {
-  return join(getOrcaProfileDirectory(profileId, userDataPath), 'artifact-shares.json')
+  return join(getOpenKodoProfileDirectory(profileId, userDataPath), 'artifact-shares.json')
 }
 
 function readRecords(

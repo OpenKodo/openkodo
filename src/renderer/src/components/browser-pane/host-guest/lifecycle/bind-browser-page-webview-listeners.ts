@@ -6,7 +6,7 @@ import {
 import { getBrowserDisplayTitle } from '../../../../../../shared/browser/browser-display-title'
 import { publishNativeChatVisualGuestTheme } from '@/components/native-chat/media/visuals/NativeChatVisualGuestThemePublisher'
 import { normalizeBrowserGuestSrc } from '../../../../../../shared/browser/extensions/browser-extension-url'
-import '../../../../../../shared/orca-profiles/constants'
+import '../../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import { parkBrowserPageViewport } from '../viewport/browser-page-viewport'
 import { subscribeBrowserSystemResume } from '../recovery/browser-system-resume'
@@ -147,7 +147,7 @@ export function bindBrowserPageWebviewListeners({
 
   webview.addEventListener('did-attach', handleDidAttach)
   const attachedNavigationReady = (): void => {
-    delete webview.dataset.orcaAttachPending
+    delete webview.dataset.openkodoAttachPending
   }
   webview.addEventListener('did-finish-load', attachedNavigationReady)
   webview.addEventListener('did-fail-load', attachedNavigationReady)
@@ -226,7 +226,7 @@ export function bindBrowserPageWebviewListeners({
     const initialUrl =
       normalizeBrowserGuestSrc(initialBrowserUrlRef.current) ?? OPENKODO_BROWSER_BLANK_URL
     lastKnownWebviewUrlRef.current = initialUrl
-    webview.dataset.orcaAttachPending = 'true'
+    webview.dataset.openkodoAttachPending = 'true'
     startBrowserPageDeferredAttach({
       webview,
       browserTabId,
@@ -234,7 +234,7 @@ export function bindBrowserPageWebviewListeners({
       lastKnownWebviewUrlRef,
       onFailed: () => guestRecovery.recoverRenderer()
     })
-  } else if (webview.dataset.orcaAttachMarker) {
+  } else if (webview.dataset.openkodoAttachMarker) {
     resumeParkedBrowserPageAttach(webview)
   } else if (isPaintableRef.current && !isBrowserPageAttachWaiting(webview)) {
     settleParkedBrowserPageAttach(webview)

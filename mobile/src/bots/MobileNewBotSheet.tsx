@@ -42,7 +42,7 @@ import {
   NewBotPicture,
   NewBotRunsOnRow,
   useNewBotAgentChoices,
-  useOtherOrcaAccount
+  useOtherOpenKodoAccount
 } from './MobileNewBotPickers'
 
 type NewBotSheetProps = {
@@ -137,7 +137,7 @@ function NewBotForm(props: NewBotSheetProps) {
   // kept; until it answers, the kept one shows.
   const kept = picked && (!choices?.length || choices.includes(picked)) ? picked : undefined
   const agent = kept ?? answer?.defaultAgent ?? choices?.[0] ?? 'claude'
-  const otherAccount = useOtherOrcaAccount(
+  const otherAccount = useOtherOpenKodoAccount(
     computer?.hostId.startsWith('runtime:') ? client : null,
     computer ? props.pairedClientFor(computer.id) : null
   )

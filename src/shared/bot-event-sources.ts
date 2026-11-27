@@ -15,11 +15,11 @@ import {
   hostNotSignedIn,
   unknownHostSignInHint,
   withServerSignInSteps
-} from './bots/host-orca-sign-in'
+} from './bots/host-openkodo-sign-in'
 
 // An older host's bots omit the connectors it doesn't have. webhooks: whether the OpenKodo Cloud of the
 // bot's host takes webhooks; a webhook needs no account, so the cloud alone decides.
-// cloudSignedOut: the bot's host isn't signed in to OpenKodo Cloud (orcaCloudNeedsSignIn), so nothing
+// cloudSignedOut: the bot's host isn't signed in to OpenKodo Cloud (openkodoCloudNeedsSignIn), so nothing
 // reaches it through OpenKodo Cloud.
 export type BotConnectors = Pick<Bot, 'name'> &
   Partial<Pick<Bot, 'slack' | 'github' | 'linear' | 'google'>> & {

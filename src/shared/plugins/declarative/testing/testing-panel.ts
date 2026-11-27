@@ -5,8 +5,11 @@ import {
   pluginDeclarativePersistPayloadSchema
 } from '../plugin-declarative-messages'
 import type { PluginDeclarativeNode } from '../plugin-declarative-catalog'
-import { installOrcaDeclarativeRuntime } from '../runtime/orca-module'
-import type { OrcaDeclarativeRuntime, OrcaPanelModule } from '../runtime/declarative-runtime-types'
+import { installOpenKodoDeclarativeRuntime } from '../runtime/openkodo-module'
+import type {
+  OpenKodoDeclarativeRuntime,
+  OpenKodoPanelModule
+} from '../runtime/declarative-runtime-types'
 import type { MockHost } from './testing-host'
 import {
   describeQuery,
@@ -59,9 +62,9 @@ const nextTask = (): Promise<void> =>
 
 export async function mountPanel(
   target:
-    | OrcaPanelModule
+    | OpenKodoPanelModule
     | ((props: Record<string, unknown>) => unknown)
-    | Promise<OrcaPanelModule>,
+    | Promise<OpenKodoPanelModule>,
   options: MountOptions
 ) {
   const host = options.host
@@ -142,7 +145,7 @@ export async function mountPanel(
     }
   }
 
-  const runtime: OrcaDeclarativeRuntime = installOrcaDeclarativeRuntime({
+  const runtime: OpenKodoDeclarativeRuntime = installOpenKodoDeclarativeRuntime({
     post,
     awaitHydration: true,
     colorScheme: options.theme ?? 'dark',
@@ -272,7 +275,7 @@ export async function mountPanel(
       emit(event, payload)
       await settled()
     },
-    /** What the plugin's worker posts with `orca.panels.post`; `plugin.on` handlers hear it. */
+    /** What the plugin's worker posts with `openkodo.panels.post`; `plugin.on` handlers hear it. */
     async post(event: string, payload: unknown): Promise<void> {
       data.post(event, payload)
       await settled()

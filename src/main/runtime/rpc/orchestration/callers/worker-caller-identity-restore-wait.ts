@@ -1,4 +1,4 @@
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { RpcRequest } from '../../core'
 import type { OrchestrationCallerField } from '../../methods/orchestration/access/orchestration-method-access'
 import { isDispatchMutationMessageType } from '../../../../../shared/rpc-contract/orchestration/orchestration-params'
@@ -16,7 +16,7 @@ const WORKER_REPORT_METHODS: ReadonlySet<string> = new Set([
  * nothing needs to wait, so ordinary admission stays synchronous.
  */
 export function waitForRestoredWorkerCallerIdentity(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   request: RpcRequest,
   callerField: OrchestrationCallerField | undefined,
   signals: readonly (AbortSignal | undefined)[]

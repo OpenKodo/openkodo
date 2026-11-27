@@ -26,7 +26,7 @@ export function nativeChatFirstScreen(
   refused: BotSetupRefusal | null = null
 ): NativeChatFirstScreen | null {
   // The latest kickoff: Try again sends another.
-  const notice = messages.findLastIndex((message) => message.orcaNotice === 'bot-created')
+  const notice = messages.findLastIndex((message) => message.openkodoNotice === 'bot-created')
   const turn = notice === -1 ? [] : messages.slice(notice + 1)
   if (notice === -1 || turn.some((message) => message.role === 'user')) {
     return null

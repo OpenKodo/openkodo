@@ -1,10 +1,10 @@
-import type { OrcaRuntimeService } from '../../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import type { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
 
 /** Stops a start still waiting on its agent. Nothing was typed and no worker identity was bound yet,
  *  so the terminal this start created is closed by its custody alone; a reused one is left as is. */
 export async function stopAwaitingWorker(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   dispatchId: string,
   handle: string

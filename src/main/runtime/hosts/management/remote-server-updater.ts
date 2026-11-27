@@ -41,7 +41,7 @@ export function configureRemoteServerUpdater(next: RemoteServerUpdaterAdapter): 
   configured = true
 }
 
-// Why: orcad never wires an updater, so it must not advertise updater.remote-control.v1.
+// Why: openkodod never wires an updater, so it must not advertise updater.remote-control.v1.
 export function isRemoteServerUpdaterConfigured(): boolean {
   return configured
 }

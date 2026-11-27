@@ -1,4 +1,4 @@
-/** The `window.orca` an editor frame gets, as much of it as mockEditorHost's tests drive. */
+/** The `window.openkodo` an editor frame gets, as much of it as mockEditorHost's tests drive. */
 
 export type MockEditorSession = {
   readonly value: unknown
@@ -28,7 +28,7 @@ export type MockEditorFrameApi = {
 
 /** The frame shell's view of the page it runs in. */
 export type MockEditorShellWindow = {
-  __orcaPluginFrameTransport: {
+  __openkodoPluginFrameTransport: {
     send(message: unknown): void
     subscribe(receive: (message: unknown) => void): void
   }

@@ -33,7 +33,7 @@ type HostWatch = {
   retryAttempt: number
 }
 
-// Why not sooner: right after orcad exits the host may still read ready until its supervisor verifies.
+// Why not sooner: right after openkodod exits the host may still read ready until its supervisor verifies.
 const RETRY_DELAYS_MS = [30_000, 120_000, 300_000]
 
 /** Counts agents working on this machine's WSL hosts from the host's own session stream, so a

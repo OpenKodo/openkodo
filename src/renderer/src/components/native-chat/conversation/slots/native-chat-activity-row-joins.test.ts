@@ -25,7 +25,7 @@ const update = (id: string): NativeChatMessage =>
       kind: 'agent',
       senders: [
         {
-          party: { address: `term_${id}`, terminalHandle: `term_${id}`, orcaSessionId: null },
+          party: { address: `term_${id}`, terminalHandle: `term_${id}`, openkodoSessionId: null },
           name: 'Reviewer',
           relation: 'worker'
         }

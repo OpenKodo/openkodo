@@ -1,4 +1,4 @@
-// @orca-isolated-worker: a real worker and its closed owner belong to this test file.
+// @openkodo-isolated-worker: a real worker and its closed owner belong to this test file.
 import type * as WorkerSpawn from '../../../main/worker-threads/worker-thread-spawn'
 import type * as WorkerEntry from '../../../main/worker-threads/worker-thread-entry-path'
 import type { Worker } from 'node:worker_threads'
@@ -26,7 +26,7 @@ vi.mock('../../../main/worker-threads/worker-thread-spawn', async (importOrigina
 let bundleRoot: string | undefined
 function workerPath(): string {
   if (!bundleRoot) {
-    bundleRoot = mkdtempSync(join(tmpdir(), 'orca-environment-worker-'))
+    bundleRoot = mkdtempSync(join(tmpdir(), 'openkodo-environment-worker-'))
     buildSync({
       entryPoints: [
         resolve('src/shared/remote-runtime/host-store/runtime-environment-store-worker-entry.ts')

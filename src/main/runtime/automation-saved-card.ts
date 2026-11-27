@@ -1,6 +1,6 @@
 import type { Automation } from '../../shared/automations/automation-definition'
 import { botAutomationFacts } from '../../shared/bots/bot-automation-rows'
-import { appendOrcaChatCard } from './orca-chat-card'
+import { appendOpenKodoChatCard } from './openkodo-chat-card'
 
 /** Show what a chat's agent saved in that chat only. Never fails the save. */
 export function recordAutomationSavedCard(
@@ -18,6 +18,6 @@ export function recordAutomationSavedCard(
       : {})
   }
   if (callerSessionId) {
-    appendOrcaChatCard(callerSessionId, body, 'showing a saved automation in its chat')
+    appendOpenKodoChatCard(callerSessionId, body, 'showing a saved automation in its chat')
   }
 }

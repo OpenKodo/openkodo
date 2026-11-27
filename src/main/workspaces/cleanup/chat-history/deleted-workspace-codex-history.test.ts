@@ -57,7 +57,7 @@ describe('sweepDeletedWorkspaceChatHistory with Codex rollouts', () => {
   it.skipIf(process.platform === 'win32')(
     'deletes every name a rollout has across Codex homes unless any copy ran elsewhere',
     async () => {
-      root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
+      root = mkdtempSync(join(tmpdir(), 'openkodo-codex-history-'))
       vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
       const appWorkspaces = join(root, 'workspaces', 'app')
       mkdirSync(join(appWorkspaces, 'live'), { recursive: true })
@@ -80,19 +80,22 @@ describe('sweepDeletedWorkspaceChatHistory with Codex rollouts', () => {
       const sharedArchived = write(join(account, 'archived_sessions', NAME('1')), rollout(gone))
       symlinkSync(join(root, 'missing'), join(managed, ...DATED, `${NAME('1')}.zst`))
       const marker = write(
-        join(managed, '.orca-session-copies', '2026', '11', '01', `${NAME('1')}.json`),
+        join(managed, '.openkodo-session-copies', '2026', '11', '01', `${NAME('1')}.json`),
         '{}'
       )
       // A legacy copy's own bytes, set aside when its name was pointed at the source, past a gap
       // an interrupted cleanup left at .1.
       const aside = write(
-        join(managed, ...DATED, `${NAME('1')}.orca-legacy-copy.2`),
+        join(managed, ...DATED, `${NAME('1')}.openkodo-legacy-copy.2`),
         rollout(gone, [gone])
       )
       // What a swap leaves beside it: the empty probe, and an earlier attempt's unused reservation.
-      const asideProbe = write(join(managed, ...DATED, `${NAME('1')}.orca-legacy-copy.probe`), '')
+      const asideProbe = write(
+        join(managed, ...DATED, `${NAME('1')}.openkodo-legacy-copy.probe`),
+        ''
+      )
       const unusedReservation = write(
-        join(managed, ...DATED, `${NAME('1')}.orca-legacy-copy.3`),
+        join(managed, ...DATED, `${NAME('1')}.openkodo-legacy-copy.3`),
         ''
       )
 
@@ -221,7 +224,7 @@ describe('sweepDeletedWorkspaceChatHistory with Codex rollouts', () => {
 
 describe('deleteCodexRolloutsPermanently with forked chats', () => {
   it('keeps a rollout while a surviving fork reads its history, and deletes it after its forks', async () => {
-    root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-codex-history-'))
     vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
     const home = join(root, 'codex')
     mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })
@@ -283,7 +286,7 @@ describe('deleteCodexRolloutsPermanently with forked chats', () => {
 
 describe('deleteCodexRolloutsPermanently with a fork archived during the sweep', () => {
   it('keeps the parent of a fork created and archived between two deletions', async () => {
-    root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-codex-history-'))
     vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
     const home = join(root, 'codex')
     mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })
@@ -338,7 +341,7 @@ describe('deleteCodexRolloutsPermanently with a fork restored during the sweep',
   it.each(restores)(
     'keeps the parent when its deleted fork comes back (%o)',
     async ({ mode, packed }) => {
-      root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
+      root = mkdtempSync(join(tmpdir(), 'openkodo-codex-history-'))
       vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
       const home = join(root, 'codex')
       mkdirSync(join(home, 'thread-writer-locks'), { recursive: true })
@@ -383,7 +386,7 @@ describe('deleteCodexRolloutsPermanently with a fork restored during the sweep',
 
 describe('deleteCodexRolloutsPermanently across many Codex homes', () => {
   it('deletes an unreferenced rollout when more homes have archives than one sweep re-lists', async () => {
-    root = mkdtempSync(join(tmpdir(), 'orca-codex-history-'))
+    root = mkdtempSync(join(tmpdir(), 'openkodo-codex-history-'))
     vi.stubEnv('OPENKODO_USER_DATA_PATH', join(root, 'user-data'))
     const homes = Array.from({ length: 30 }, (_, index) => join(root, `home-${index}`))
     for (const home of homes) {

@@ -12,7 +12,7 @@ import {
   createElectronHomeIsolation,
   assertElectronResolvedIsolatedHome
 } from '../../../../tests/e2e/desktop/electron-fixtures/electron-home-isolation'
-import { getOrcaElectronLaunchArgs } from '../../../../tests/e2e/desktop/electron-fixtures/electron-launch-args'
+import { getOpenKodoElectronLaunchArgs } from '../../../../tests/e2e/desktop/electron-fixtures/electron-launch-args'
 import { retryTransientMainEvaluate } from '../../../../tests/e2e/desktop/electron-fixtures/electron-main-evaluate-retry'
 import { closeElectronAppForE2E } from '../../../../tests/e2e/desktop/electron-fixtures/electron-process-shutdown'
 import { getE2ECompletedOnboardingProfile } from '../../../../tests/e2e/desktop/electron-fixtures/e2e-completed-onboarding-profile'
@@ -150,7 +150,7 @@ export async function launchArm(
   stubCommand: string
 ): Promise<Launch> {
   mkdirSync(userDataDir, { recursive: true })
-  const profile = path.join(userDataDir, 'orca-data.json')
+  const profile = path.join(userDataDir, 'openkodo-data.json')
   if (!existsSync(profile)) {
     writeFileSync(profile, `${JSON.stringify(getE2ECompletedOnboardingProfile(), null, 2)}\n`)
   }
@@ -165,7 +165,7 @@ export async function launchArm(
   const launchedAtEpochMs = Date.now()
   const app = await electron.launch({
     executablePath: arm.electronPath,
-    args: getOrcaElectronLaunchArgs(path.join(arm.root, 'out', 'main', 'index.js'), false),
+    args: getOpenKodoElectronLaunchArgs(path.join(arm.root, 'out', 'main', 'index.js'), false),
     env: {
       ...isolation.env,
       NODE_ENV: 'development',

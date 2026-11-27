@@ -13,7 +13,7 @@ import { validateSkillPackageName } from '../skills/packages/skill-package-manif
 import type { BotTextFlagKind } from './bot-text-scan'
 
 export const BOT_PACKAGE_SCHEMA_VERSION = 1
-export const BOT_PACKAGE_MANIFEST_PATH = 'dev.orca.bot-sharing/bot.json'
+export const BOT_PACKAGE_MANIFEST_PATH = 'dev.openkodo.bot-sharing/bot.json'
 export const BOT_PACKAGE_SOUL_PATH = 'SOUL.md'
 export const BOT_PACKAGE_AVATAR_PATH = BOT_AVATAR_FILE
 export const BOT_PACKAGE_MAX_MANIFEST_BYTES = 256 * 1024

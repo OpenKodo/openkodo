@@ -23,8 +23,8 @@ export const KIMI_HOOK_EVENTS = [
 ] as const
 
 const MARKERS: ManagedTomlMarkers = {
-  startMarker: '# >>> orca-managed-kimi-hooks (managed by OpenKodo; do not edit) >>>',
-  endMarker: '# <<< orca-managed-kimi-hooks <<<'
+  startMarker: '# >>> openkodo-managed-kimi-hooks (managed by OpenKodo; do not edit) >>>',
+  endMarker: '# <<< openkodo-managed-kimi-hooks <<<'
 }
 const HOOK_TABLE_HEADER = '[[hooks]]'
 

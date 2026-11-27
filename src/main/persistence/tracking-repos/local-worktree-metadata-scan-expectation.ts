@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from 'node:util'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import type { GlobalSettings } from '../../../shared/settings/global-settings-types'
 import type { Project } from '../../../shared/project/project-types'
 import type { Repo } from '../../../shared/repository/repo-types'

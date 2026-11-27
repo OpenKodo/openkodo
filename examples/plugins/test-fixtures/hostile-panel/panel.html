@@ -149,31 +149,33 @@
       document.getElementById('bridge').addEventListener('click', function () {
         expectRefusal(
           'oversized-message',
-          window.orca.host.call('workspace.readContext', { padding: 'x'.repeat(128 * 1024) }),
+          window.openkodo.host.call('workspace.readContext', { padding: 'x'.repeat(128 * 1024) }),
           'too_large'
         )
 
         // Floods must spend rate budget before parsing; the final valid call proves it. A srcdoc
         // iframe can post raw invalid, pong and binary messages; an isolated guest (its own top
-        // window, no raw channel) can only flood through orca.host.call.
+        // window, no raw channel) can only flood through openkodo.host.call.
         setTimeout(function () {
           // Past the 120-per-10-seconds panel budget.
           for (var i = 0; i < 150; i++) {
             if (window.parent !== window) {
               var payload =
                 i % 3 === 0
-                  ? { orca: 1, kind: 'evt', event: 'pong', payload: i }
+                  ? { openkodo: 1, kind: 'evt', event: 'pong', payload: i }
                   : i % 3 === 1
                     ? { type: 'invalid-hostile-message', sequence: i }
                     : new Uint8Array(2048)
               window.parent.postMessage(payload, '*')
             } else {
-              window.orca.host.call('invalid.hostileFlood', { sequence: i }).catch(function () {})
+              window.openkodo.host
+                .call('invalid.hostileFlood', { sequence: i })
+                .catch(function () {})
             }
           }
           expectRefusal(
             'message-flood',
-            window.orca.host.call('workspace.readContext', {}),
+            window.openkodo.host.call('workspace.readContext', {}),
             'rate_limited'
           )
         }, 150)
@@ -191,7 +193,7 @@
         if (
           event.source === window.parent &&
           event.data &&
-          event.data.type === 'orca-hostile-busy-probe'
+          event.data.type === 'openkodo-hostile-busy-probe'
         ) {
           enterBusyLoop()
         }

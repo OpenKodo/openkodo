@@ -58,7 +58,7 @@ type FileExplorerRowContextMenuProps = Pick<
   | 'deleteShortcutLabel'
   | 'connectionId'
   | 'runtimeDownloadContext'
-  | 'canOpenInOrcaBrowser'
+  | 'canOpenInOpenKodoBrowser'
   | 'canCollapseFolderSubtree'
   | 'targetDir'
   | 'targetDepth'
@@ -82,7 +82,7 @@ export function FileExplorerRowContextMenu({
   deleteShortcutLabel,
   connectionId,
   runtimeDownloadContext,
-  canOpenInOrcaBrowser,
+  canOpenInOpenKodoBrowser,
   canCollapseFolderSubtree,
   targetDir,
   targetDepth,
@@ -120,7 +120,7 @@ export function FileExplorerRowContextMenu({
   const revealBlocked = isRevealOrEditorOpenBlocked(revealOwner)
   // Why: only opened files save outside projects; main refuses tree edits under an outside folder link.
   const writesBlocked = node.outsideProject === true
-  const handleOpenInOrcaBrowser = useCallback(() => {
+  const handleOpenInOpenKodoBrowser = useCallback(() => {
     if (!activeWorktreeId) {
       return
     }
@@ -210,8 +210,8 @@ export function FileExplorerRowContextMenu({
           {t('auto.components.right.sidebar.FileExplorerRow.1d8e182c32', 'View File')}
         </ContextMenuItem>
       )}
-      {!node.isDirectory && activeWorktreeId && canOpenInOrcaBrowser && (
-        <ContextMenuItem onSelect={handleOpenInOrcaBrowser}>
+      {!node.isDirectory && activeWorktreeId && canOpenInOpenKodoBrowser && (
+        <ContextMenuItem onSelect={handleOpenInOpenKodoBrowser}>
           <Globe />
           {t(
             'auto.components.right.sidebar.FileExplorerRow.dd112c81d2',

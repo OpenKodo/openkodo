@@ -1,6 +1,6 @@
 import type { ChildProcess } from 'node:child_process'
 import type { EventEmitter } from 'node:events'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { withCliRuntimeOnPath } from '../../../../shared/shell/command-resolution/node-cli-command-resolution'
 import { parseWslUncPath } from '../../../../shared/file-access/wsl-paths'
 import { buildWslCodexAppServerArgs } from '../../../codex-cli/wsl-codex-command'

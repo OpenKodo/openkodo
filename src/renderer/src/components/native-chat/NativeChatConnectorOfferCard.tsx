@@ -26,8 +26,8 @@ import {
 import { NativeChatOfferActions, useNativeChatOffer } from './NativeChatOfferActions'
 import { NativeChatGoogleOfferCard } from './NativeChatGoogleOfferCard'
 import { notReaching, ServerSignInOffer, SignInOffer } from './NativeChatSignInOffer'
-import { OrcaCloudSignInLine, orcaCloudSignInReason } from '../bots/orca-cloud-sign-in'
-import { useOrcaCloudNeedsSignIn } from '../bots/orca-cloud-signed-out'
+import { OpenKodoCloudSignInLine, openkodoCloudSignInReason } from '../bots/openkodo-cloud-sign-in'
+import { useOpenKodoCloudNeedsSignIn } from '../bots/openkodo-cloud-signed-out'
 import { BotConnectorsHostNotice, useServerNoticeState } from '../bots/BotConnectorsHostNotice'
 import { useBotHostLabel } from '../bots/use-bot-host-label'
 
@@ -195,13 +195,13 @@ function ServerOffer(props: OfferProps): React.JSX.Element {
 function LocalOffer(
   props: OfferProps & { offer: { source: LinkedOfferSource } }
 ): React.JSX.Element {
-  const needsSignIn = useOrcaCloudNeedsSignIn()
+  const needsSignIn = useOpenKodoCloudNeedsSignIn()
   return (
     <SourceOffer
       {...props}
       pause={
         needsSignIn ? (
-          <OrcaCloudSignInLine text={orcaCloudSignInReason(props.offer.source)} />
+          <OpenKodoCloudSignInLine text={openkodoCloudSignInReason(props.offer.source)} />
         ) : undefined
       }
     />

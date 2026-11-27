@@ -17,7 +17,7 @@ import type { GoogleHttp } from './google-token-endpoint'
 const PROBE_TIMEOUT_MS = 10_000
 const MAX_DETAIL_CHARS = 200
 // Docs and Sheets have no list call within their scopes; a made-up id answers 404 once the API is on.
-const ABSENT_ID = 'orca-readiness-check'
+const ABSENT_ID = 'openkodo-readiness-check'
 
 const PROBES: Record<GoogleService, { url: string; absentIsReady?: true }> = {
   gmail: { url: 'https://gmail.googleapis.com/gmail/v1/users/me/profile' },

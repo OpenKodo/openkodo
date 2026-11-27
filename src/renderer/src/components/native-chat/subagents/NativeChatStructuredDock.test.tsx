@@ -24,7 +24,7 @@ const dock = () => (
     hasWork={false}
     strip={<div data-testid="strip" />}
     target={{ kind: 'local' }}
-    party="orca_session_id:11111111-1111-4111-8111-111111111111"
+    party="openkodo_session_id:11111111-1111-4111-8111-111111111111"
     isVisible
   />
 )

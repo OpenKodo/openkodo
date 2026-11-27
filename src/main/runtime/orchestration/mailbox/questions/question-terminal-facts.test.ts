@@ -39,7 +39,7 @@ describe("a terminal taker's pending wake", () => {
       purpose: 'question',
       depth: 1,
       record: '{}',
-      message: { from: 'orca_session_id:asker', to: HANDLE, subject: 'q', type: 'question' }
+      message: { from: 'openkodo_session_id:asker', to: HANDLE, subject: 'q', type: 'question' }
     })
     const id = admitted.kind === 'sent' ? admitted.message.id : ''
     db.markAsRead([id], { kind: 'terminal', handle: HANDLE })

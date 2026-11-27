@@ -8,7 +8,7 @@ import {
 } from '../../../src/shared/bots/bot-chat-tree'
 
 // The phone's manual chat folds, kept like the desktop's (each client keeps its own) and read by every Activity sheet.
-const STORAGE_KEY = 'orca.bots.chatFolds'
+const STORAGE_KEY = 'openkodo.bots.chatFolds'
 
 let folds: Record<string, BotChatFold> = {}
 let loading: Promise<void> | null = null

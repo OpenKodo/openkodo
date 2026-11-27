@@ -5,7 +5,7 @@ import {
   preserveBrowserPageLoadingOwner,
   revokeBrowserPageLoadingOwner
 } from '@/lib/browser/browser-page-loading-ownership'
-import '../../../../../../shared/orca-profiles/constants'
+import '../../../../../../shared/openkodo-profiles/constants'
 import { OPENKODO_BROWSER_BLANK_URL } from '../../../../../../shared/browser/browser-blank-page'
 import {
   browserWorkspaceMirrorFieldsEqual,

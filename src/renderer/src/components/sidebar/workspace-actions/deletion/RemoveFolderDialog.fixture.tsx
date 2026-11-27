@@ -4,18 +4,18 @@ import type { Worktree } from '../../../../../../shared/worktree/types'
 import RemoveFolderDialog from './RemoveFolderDialog'
 
 const repo: Repo = {
-  id: 'orca',
-  path: '/Users/me/orca/orca',
-  displayName: 'orca',
+  id: 'openkodo',
+  path: '/Users/me/openkodo/openkodo',
+  displayName: 'openkodo',
   badgeColor: '',
   addedAt: 1
 }
 
 const mainWorktree: Worktree = {
-  id: 'orca::/Users/me/orca/orca',
+  id: 'openkodo::/Users/me/openkodo/openkodo',
   repoId: repo.id,
-  path: '/Users/me/orca/orca',
-  displayName: 'orca',
+  path: '/Users/me/openkodo/openkodo',
+  displayName: 'openkodo',
   branch: 'main',
   head: 'abc123',
   isBare: false,
@@ -32,10 +32,10 @@ const mainWorktree: Worktree = {
 }
 
 function linkedWorktree(name: string): Worktree {
-  const path = `/Users/me/orca/workspaces/orca/${name}`
+  const path = `/Users/me/openkodo/workspaces/openkodo/${name}`
   return {
     ...mainWorktree,
-    id: `orca::${path}`,
+    id: `openkodo::${path}`,
     path,
     displayName: name,
     branch: name,

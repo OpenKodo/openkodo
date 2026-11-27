@@ -4,7 +4,7 @@ import type { NotificationSourceId } from '../../../../../shared/notifications/n
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../ui/collapsible'
 import { NotificationSettingToggle } from './NotificationSettingToggle'
 import { useNotificationSourceOptions } from './use-notification-source-options'
-import { pickerExecutionHosts } from '../../../../../shared/execution-host/managed-orcad-execution-host'
+import { pickerExecutionHosts } from '../../../../../shared/execution-host/managed-openkodod-execution-host'
 import { useTranslate } from '@/i18n/use-translate'
 import { translateHostDisplayLabel } from '../../../runtime/hosts/display/execution-host-label'
 import { useBoundedHostRows } from '../../host-picker/use-bounded-host-rows'

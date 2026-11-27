@@ -2,7 +2,7 @@ import { applyRemoteViewerLaunchEnv } from './remote-viewer-launch-env'
 import type { MobileTerminalCommandOptions, MobileTerminalCommand } from './mobile-terminal-startup'
 import type { RuntimePtyWorktreeRecord } from '../records/runtime-terminal-state-records'
 import type { TerminalWorkspaceLaunchScope } from '../../orchestration/terminal-authority/structured-sessions/runtime-legacy-worker-terminal-recovery-types'
-import { OrcaRuntimeWithMobileChatForkCreate } from './mobile-terminal-chat-fork-create'
+import { OpenKodoRuntimeWithMobileChatForkCreate } from './mobile-terminal-chat-fork-create'
 import type { RuntimeMobileSessionCreateTerminalResult } from '../../../../shared/remote-runtime/session-graph/runtime-session-contracts'
 import { getRuntimeDesktopSurface } from '../../construction/runtime-desktop-surface'
 import {
@@ -19,7 +19,7 @@ import { anchorTabOfCreate, mainPlacedAfter } from './mobile-terminal-create-anc
 import type { MobileTerminalCreateOptions } from './mobile-terminal-create'
 import { noteCallerOpenedTerminal } from '../../rpc/server/pairing/paired-terminal-creators'
 
-export abstract class OrcaRuntimeWithRunCreateMobileSessionTerminal extends OrcaRuntimeWithMobileChatForkCreate {
+export abstract class OpenKodoRuntimeWithRunCreateMobileSessionTerminal extends OpenKodoRuntimeWithMobileChatForkCreate {
   protected abstract resolveMobileSessionTerminalCommand(
     workspace: TerminalWorkspaceLaunchScope,
     opts: MobileTerminalCommandOptions

@@ -4,22 +4,22 @@ import {
   deriveLocalSshBrowserRoutePartitionStorageScope
 } from '../partitions/browser-route-identity'
 import {
-  activeBrowserRoutePartitionOrcaProfileId,
+  activeBrowserRoutePartitionOpenKodoProfileId,
   currentBrowserRoutePartitionBindingStore
 } from '../partitions/browser-route-partition-binding-runtime'
 import { isBrowserRoutePartitionRetainedByAnyOwner } from '../partitions/browser-route-partition-retention'
 import { releaseEvictedBrowserRoutePartitionStorage } from '../partitions/browser-route-partition-storage-dependencies'
 import { browserSessionRegistry } from '../../sessions/profiles/browser-session-registry'
 
-const AUTHORITY_CONNECTION_IDENTITY_TAG = 'orca-local-ssh-browser'
+const AUTHORITY_CONNECTION_IDENTITY_TAG = 'openkodo-local-ssh-browser'
 const AUTHORITY_CONNECTION_IDENTITY_VERSION = 1
 
 // Keep the identity stable across restarts to preserve cookies.
-export function localSshBrowserAuthorityConnectionIdentity(orcaProfileId: string): string {
+export function localSshBrowserAuthorityConnectionIdentity(openkodoProfileId: string): string {
   return JSON.stringify([
     AUTHORITY_CONNECTION_IDENTITY_TAG,
     AUTHORITY_CONNECTION_IDENTITY_VERSION,
-    orcaProfileId
+    openkodoProfileId
   ])
 }
 
@@ -28,11 +28,11 @@ export function boundLocalSshBrowserPartition(
   targetId: string,
   browserProfileId: string
 ): string | null {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     return null
   }
-  const derived = deriveLocalSshBrowserPartition(orcaProfileId, targetId, browserProfileId)
+  const derived = deriveLocalSshBrowserPartition(openkodoProfileId, targetId, browserProfileId)
   const persisted = currentBrowserRoutePartitionBindingStore().get(derived.partition)
   if (persisted === null) {
     return null
@@ -48,13 +48,13 @@ export function boundLocalSshBrowserPartitionsForProfile(
   targetIds: readonly string[],
   browserProfileId: string
 ): string[] {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId || targetIds.length === 0) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId || targetIds.length === 0) {
     return []
   }
   const bindings = currentBrowserRoutePartitionBindingStore().listBindings()
   return targetIds.flatMap((targetId) => {
-    const derived = deriveLocalSshBrowserPartition(orcaProfileId, targetId, browserProfileId)
+    const derived = deriveLocalSshBrowserPartition(openkodoProfileId, targetId, browserProfileId)
     // A different fingerprint is another identity's jar.
     return bindings.get(derived.partition)?.fingerprint === derived.bindingFingerprint
       ? [derived.partition]
@@ -64,20 +64,20 @@ export function boundLocalSshBrowserPartitionsForProfile(
 
 /** Binds the jar this target's pages of this profile will use, so Settings can fill it before any page opens. */
 export function bindLocalSshBrowserPartition(targetId: string, browserProfileId: string): string {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     throw new Error('browser_local_route_profile_unavailable')
   }
   browserSessionRegistry.requireRouteBrowserProfile(browserProfileId)
-  return bindLocalSshBrowserPartitionFor(orcaProfileId, targetId, browserProfileId).partition
+  return bindLocalSshBrowserPartitionFor(openkodoProfileId, targetId, browserProfileId).partition
 }
 
 export function bindLocalSshBrowserPartitionFor(
-  orcaProfileId: string,
+  openkodoProfileId: string,
   targetId: string,
   browserProfileId: string
 ): ReturnType<typeof deriveBrowserRoutePartition> {
-  const derived = deriveLocalSshBrowserPartition(orcaProfileId, targetId, browserProfileId)
+  const derived = deriveLocalSshBrowserPartition(openkodoProfileId, targetId, browserProfileId)
   const bindings = currentBrowserRoutePartitionBindingStore({
     isPartitionRetained: isBrowserRoutePartitionRetainedByAnyOwner
   })
@@ -86,7 +86,7 @@ export function bindLocalSshBrowserPartitionFor(
     const evicted = bindings.set(
       derived.partition,
       derived.bindingFingerprint,
-      deriveLocalSshBrowserRoutePartitionStorageScope({ orcaProfileId, targetId })
+      deriveLocalSshBrowserRoutePartitionStorageScope({ openkodoProfileId, targetId })
     )
     if (evicted.length > 0) {
       void releaseEvictedBrowserRoutePartitionStorage(
@@ -103,14 +103,14 @@ export function bindLocalSshBrowserPartitionFor(
 }
 
 export function deriveLocalSshBrowserPartition(
-  orcaProfileId: string,
+  openkodoProfileId: string,
   targetId: string,
   browserProfileId: string
 ): ReturnType<typeof deriveBrowserRoutePartition> {
   return deriveBrowserRoutePartition({
-    orcaProfileId,
+    openkodoProfileId,
     browserProfileId,
-    authorityConnectionIdentity: localSshBrowserAuthorityConnectionIdentity(orcaProfileId),
+    authorityConnectionIdentity: localSshBrowserAuthorityConnectionIdentity(openkodoProfileId),
     executionHostIdentity: sshExecutionHostStorageIdentity(targetId)
   })
 }

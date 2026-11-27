@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import type { AiVaultAgent } from '../../../../shared/ai-vault/contracts/ai-vault-types'
 import { invalidateDeletedAiVaultSessionPaths } from '../../../ai-vault/deletion/host-session-delete'
 import { isDefinitiveAbsence } from '../../../../shared/errors/definitive-filesystem-absence'
-import { resolveOrcaManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
+import { resolveOpenKodoManagedCodexHomePath } from '../../configuration/homes/codex-home-paths'
 import { rolloutNames, rolloutStem } from './codex-rollout-names'
 import { freedBytesOf, readName, readNames, type NameState } from './codex-rollout-name-states'
 import { holdCodexRolloutForDeletion } from '../rollouts/codex-rollout-deletion-guard'
@@ -81,7 +81,7 @@ async function deleteRollout(
     }
     const names = [
       ...rolloutNames(homes, stem),
-      ...legacyCopyAsideNames(resolveOrcaManagedCodexHomePath(), stem)
+      ...legacyCopyAsideNames(resolveOpenKodoManagedCodexHomePath(), stem)
     ]
     // After the open check: a chat still open never reads the import folder (which can start WSL).
     const protectedRoots = await resolveProtectedRoots(listed, stem)
@@ -184,7 +184,7 @@ async function deleteRollout(
     }
     // A name another process links meanwhile is a fresh candidate for the next sweep's full checks.
     await removeCopyMarker(
-      join(resolveOrcaManagedCodexHomePath(), '.orca-session-copies', `${stem}.json`),
+      join(resolveOpenKodoManagedCodexHomePath(), '.openkodo-session-copies', `${stem}.json`),
       protectedRoots
     ).catch(() => undefined)
   } catch (error) {

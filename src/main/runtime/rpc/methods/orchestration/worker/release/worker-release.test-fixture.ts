@@ -2,7 +2,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { expect, vi } from 'vitest'
 import { OrchestrationDb } from '../../../../../orchestration/db/orchestration-db'
-import { OrcaRuntimeService } from '../../../../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../../../../openkodo-runtime'
 import { isStreamingMethod, eraseRpcMethods, type RpcContext } from '../../../../core'
 import { ORCHESTRATION_METHODS } from '../../orchestration'
 import { recordWorkerResumeSession } from '../../../../../orchestration/db/dispatch-context/worker-follow-up-lineage'
@@ -40,7 +40,7 @@ export function deferred<T>(): {
 /** A runtime with one coordinator and a worker terminal `term_worker`, its pane and process stubbed. */
 export function createWorkerReleaseFixture() {
   const db = new OrchestrationDb(':memory:')
-  const runtime = new OrcaRuntimeService()
+  const runtime = new OpenKodoRuntimeService()
   runtime.setOrchestrationDb(db)
   vi.spyOn(runtime, 'getTerminalPaneKey').mockImplementation((handle) =>
     handle === 'term_coord' ? coordinatorPaneKey : handle === 'term_worker' ? workerPaneKey : null
@@ -48,7 +48,7 @@ export function createWorkerReleaseFixture() {
   vi.spyOn(runtime, 'getTerminalProcessIncarnation').mockImplementation((handle) =>
     handle === 'term_worker' ? workerIncarnation : null
   )
-  const liveAuthority: OrcaRuntimeService['getOrchestrationDispatchAuthority'] = (handle) =>
+  const liveAuthority: OpenKodoRuntimeService['getOrchestrationDispatchAuthority'] = (handle) =>
     handle === 'term_worker'
       ? // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the stub supplies only the authority fields worker start reads.
         ({
@@ -80,7 +80,7 @@ export function createWorkerReleaseFixture() {
     status: 'running',
     exitCode: null
   })
-  vi.spyOn(runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('orca')
+  vi.spyOn(runtime, 'getTerminalOrchestrationCliCommand').mockReturnValue('openkodo')
   vi.spyOn(runtime, 'sendTerminalAgentPrompt').mockResolvedValue({
     handle: 'term_worker',
     accepted: true,

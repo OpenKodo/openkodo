@@ -3,7 +3,7 @@ import type { WorktreeMeta } from '../../../../shared/worktree/meta-types'
 import type { DiffCommentBaseMutation } from '../../../../shared/file-review/diff-comment-mutation'
 import { displayNameUpdatePinsLabel } from '../../../../shared/worktree/metadata/display-name-provenance'
 import { parseExecutionHostId } from '../../../../shared/execution-host/execution-host'
-import { stripOrcaProvenanceMetaUpdates } from '../../../workspaces/removal/worktree-removal-safety'
+import { stripOpenKodoProvenanceMetaUpdates } from '../../../workspaces/removal/worktree-removal-safety'
 import { getRepoIdFromWorktreeId } from '../../../../shared/worktree/id'
 import {
   isWorkspaceKey,
@@ -68,7 +68,7 @@ export function registerWorktreeMetadataHandlers(context: WorktreeIpcContext): v
               firstAgentMessageRenameError: null
             }
           : validatedUpdates
-      const sanitizedUpdates = stripOrcaProvenanceMetaUpdates(updates)
+      const sanitizedUpdates = stripOpenKodoProvenanceMetaUpdates(updates)
       // Late terminal activity must not resurrect a removed folder instance (#22712).
       if (isRemovedFolderWorkspaceInstance(store, args.worktreeId, executionHostId)) {
         return null

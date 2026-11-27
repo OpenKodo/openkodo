@@ -179,7 +179,7 @@ function withoutTrailingSeparator(bytes: string): string {
 }
 
 /** Removes the table only while it still holds exactly what OpenKodo wrote; throws to keep the record for a retry. */
-export function removeOrcaCreatedProjectTrust(
+export function removeOpenKodoCreatedProjectTrust(
   configPath: string,
   projectPath: string,
   ledgerPath: string

@@ -8,7 +8,7 @@ import {
   isHostCodexHomeForWsl,
   isWslCodexHomeForHost
 } from '../../pty/shell-startup/codex-home-wsl-env'
-import { addOrcaWslInteropEnv } from '../../pty/shell-startup/wsl-orca-env'
+import { addOpenKodoWslInteropEnv } from '../../pty/shell-startup/wsl-openkodo-env'
 import {
   POWERLEVEL10K_WIZARD_DISABLE_ENV,
   seedPowerlevel10kWizardEnv
@@ -192,7 +192,7 @@ export function createPtyShellLaunchPlan(
       delete env.OPENKODO_CODEX_HOME
     }
     if (pathWin32.basename(shellPath).toLowerCase() === 'wsl.exe') {
-      addOrcaWslInteropEnv(env)
+      addOpenKodoWslInteropEnv(env)
     }
   } else {
     rescrubDaemonPtyEnvironment(env, opts)

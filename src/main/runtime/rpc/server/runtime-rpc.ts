@@ -1,11 +1,11 @@
 // Why: the single security boundary for the bundled CLI — auth-token enforcement, metadata publication, transport orchestration.
 import { RuntimeRpcMobilePairing } from './runtime-rpc-mobile-pairing'
 import { publishHostDescriptor } from '../../hosts/platform-probe/host-descriptor'
-import type { OrcaRuntimeRpcServerOptions } from './runtime-rpc-pairing-types'
+import type { OpenKodoRuntimeRpcServerOptions } from './runtime-rpc-pairing-types'
 import {
-  ORCAD_IDLE_STOP_CLOSE_CODE,
-  ORCAD_IDLE_STOP_CLOSE_REASON
-} from '../../../../shared/remote-runtime/orcad-lifecycle/orcad-idle-stop-signal'
+  OPENKODOD_IDLE_STOP_CLOSE_CODE,
+  OPENKODOD_IDLE_STOP_CLOSE_REASON
+} from '../../../../shared/remote-runtime/openkodod-lifecycle/openkodod-idle-stop-signal'
 
 export type RuntimeRpcClientActivity = {
   openConnections: number
@@ -13,8 +13,8 @@ export type RuntimeRpcClientActivity = {
   lastRequestAt: number
 }
 
-export class OrcaRuntimeRpcServer extends RuntimeRpcMobilePairing {
-  constructor(options: OrcaRuntimeRpcServerOptions) {
+export class OpenKodoRuntimeRpcServer extends RuntimeRpcMobilePairing {
+  constructor(options: OpenKodoRuntimeRpcServerOptions) {
     super(options)
   }
 
@@ -38,8 +38,8 @@ export class OrcaRuntimeRpcServer extends RuntimeRpcMobilePairing {
     this.idleStopFenced = true
     const clean = this.clientRequestsInFlight === 0
     this.mobileSocketWiring?.closeAllConnections(
-      clean ? ORCAD_IDLE_STOP_CLOSE_CODE : 1012,
-      clean ? ORCAD_IDLE_STOP_CLOSE_REASON : 'orcad stopping'
+      clean ? OPENKODOD_IDLE_STOP_CLOSE_CODE : 1012,
+      clean ? OPENKODOD_IDLE_STOP_CLOSE_REASON : 'openkodod stopping'
     )
   }
 

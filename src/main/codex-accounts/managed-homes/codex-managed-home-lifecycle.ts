@@ -45,7 +45,7 @@ const KEEP_ON_REMOVAL_SCRIPT = [
   'home=$1',
   'kept() {',
   '  case "${1##*/}" in',
-  '    *.orca-profile-merge) return 0 ;;',
+  '    *.openkodo-profile-merge) return 0 ;;',
   `    ${KEPT_HISTORY.join(' | ')}) return 0 ;;`,
   `    *.sqlite | *.sqlite-wal | *.sqlite-shm) [ -f "$home/${HISTORY_CLEANUP_MANIFEST}" ] ;;`,
   '    *) return 1 ;;',
@@ -120,7 +120,7 @@ export class CodexManagedHomeLifecycle {
     const managedHomePath = join(this.paths.getRoot(), accountId, 'home')
     mkdirSync(managedHomePath, { recursive: true })
     // Cleanup requires this ownership marker before deleting the home.
-    writeFileSync(join(managedHomePath, '.orca-managed-home'), `${accountId}\n`, 'utf-8')
+    writeFileSync(join(managedHomePath, '.openkodo-managed-home'), `${accountId}\n`, 'utf-8')
     return {
       managedHomePath: await this.paths.assert(managedHomePath, accountId),
       managedHomeRuntime: 'host',
@@ -249,8 +249,8 @@ export class CodexManagedHomeLifecycle {
       throw new Error('Could not resolve the active WSL home directory for Codex login.')
     }
 
-    const linuxPath = `${home.replace(/\/$/, '')}/.local/share/orca/codex-accounts/${accountId}/home`
-    const markerPath = `${linuxPath}/.orca-managed-home`
+    const linuxPath = `${home.replace(/\/$/, '')}/.local/share/openkodo/codex-accounts/${accountId}/home`
+    const markerPath = `${linuxPath}/.openkodo-managed-home`
     const created = await runWslProcess({
       distro,
       loginPath: 'none',
@@ -290,14 +290,14 @@ export class CodexManagedHomeLifecycle {
           'set -euo pipefail',
           `candidate=${quotePosixShell(linuxHomePath)}`,
           `expected_marker=${quotePosixShell(expectedAccountId)}`,
-          'managed_root="${HOME%/}/.local/share/orca/codex-accounts"',
+          'managed_root="${HOME%/}/.local/share/openkodo/codex-accounts"',
           'candidate_real=$(readlink -f -- "$candidate" 2>/dev/null || true)',
           'managed_root_real=$(readlink -f -- "$managed_root" 2>/dev/null || true)',
           'test -n "$candidate_real"',
           'test -n "$managed_root_real"',
           'case "$candidate_real" in "$managed_root_real"/*/home) ;; *) exit 0 ;; esac',
-          'test -f "$candidate_real/.orca-managed-home"',
-          'test "$(cat "$candidate_real/.orca-managed-home")" = "$expected_marker"',
+          'test -f "$candidate_real/.openkodo-managed-home"',
+          'test "$(cat "$candidate_real/.openkodo-managed-home")" = "$expected_marker"',
           'rm -rf -- "$candidate_real"',
           'parent_dir=$(dirname -- "$candidate_real")',
           'case "$parent_dir" in "$managed_root_real"/*) rmdir -- "$parent_dir" 2>/dev/null || true ;; esac'

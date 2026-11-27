@@ -16,7 +16,7 @@ import { isDefinitiveAbsence } from '../../shared/errors/definitive-filesystem-a
 import { renameFileWithWindowsRetryAsync } from '../../shared/file-write/windows-retry-file-operations'
 
 /** Where a folder waits while its entries move into the shared one; conflicts stay here. */
-export const MERGE_PENDING_SUFFIX = '.orca-profile-merge'
+export const MERGE_PENDING_SUFFIX = '.openkodo-profile-merge'
 
 export type MergedDirectoryLinkOutcome = 'linked' | 'unchanged' | 'user-owned'
 

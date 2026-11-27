@@ -51,7 +51,7 @@ export type PluginRuntimeDelegate = {
   listAgentStatuses?(): readonly PluginAgentStatusRow[]
   /** Dispatched orchestration task titles by pane key; absent where no runtime dispatches tasks. */
   listAgentTaskTitles?(): ReadonlyMap<string, string>
-  /** The runtime RPC the `orca` CLI calls, in process; absent where none is bound. */
+  /** The runtime RPC the `openkodo` CLI calls, in process; absent where none is bound. */
   callRuntime?: PluginRuntimeRpc
 }
 

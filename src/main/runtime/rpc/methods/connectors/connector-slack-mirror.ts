@@ -7,12 +7,12 @@ import {
 } from '../../../../../shared/rpc-contract/connectors/connector-params'
 import { defineMethod } from '../../core'
 import { ownerOnly } from '../bots-caller-gates'
-import type { OrcaRuntimeService } from '../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../openkodo-runtime'
 import type { SlackMirror } from '../../../../external-conversations/slack-mirror'
 
 const REFUSAL = 'Only the owner can change what posts to Slack'
 
-function requireMirror(runtime: Pick<OrcaRuntimeService, 'getSlackMirror'>): SlackMirror {
+function requireMirror(runtime: Pick<OpenKodoRuntimeService, 'getSlackMirror'>): SlackMirror {
   const mirror = runtime.getSlackMirror()
   if (!mirror) {
     throw new Error('connectors_disabled')

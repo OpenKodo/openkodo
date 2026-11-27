@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { z } from 'zod'
-import { getProfileUserDataPath } from '../orca-profiles/profile-storage-paths'
+import { getProfileUserDataPath } from '../openkodo-profiles/profile-storage-paths'
 import { SALVAGE, salvageLineDate, salvageLineHash } from './bot-memory-salvage'
 
 export function salvageStoreFile(userDataPath: string): string {

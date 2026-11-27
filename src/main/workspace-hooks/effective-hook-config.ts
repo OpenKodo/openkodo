@@ -2,9 +2,9 @@ import { getDefaultRepoHookSettings } from '../../shared/workspace-setup/repo-ho
 import { resolveHookCommandSourcePolicy } from '../../shared/workspace-setup/hooks/hook-command-source-policy'
 import type {
   HookCommandSourcePolicy,
-  OrcaHooks,
+  OpenKodoHooks,
   SetupRunPolicy
-} from '../../shared/workspace-setup/orca-yaml-hook-types'
+} from '../../shared/workspace-setup/openkodo-yaml-hook-types'
 import type { WorkspaceHookOwner } from '../../shared/workspace-setup/hooks/workspace-hook-owner'
 import type { SetupDecision } from '../../shared/worktree/create-types'
 import type { WorktreeDefaultTabsLaunch } from '../../shared/worktree/creation/launch-types'
@@ -30,8 +30,8 @@ function getEffectiveHookScript(
 
 export function getEffectiveHooksFromConfig(
   repo: WorkspaceHookOwner,
-  yamlHooks: OrcaHooks | null
-): OrcaHooks | null {
+  yamlHooks: OpenKodoHooks | null
+): OpenKodoHooks | null {
   const localSetup = repo.hookSettings?.scripts.setup
   const localArchive = repo.hookSettings?.scripts.archive
   const rawPolicy = repo.hookSettings?.commandSourcePolicy
@@ -92,7 +92,7 @@ export function resolveUnattendedSetupDecision(
 }
 
 export function getDefaultTabsLaunch(
-  hooks: OrcaHooks | null,
+  hooks: OpenKodoHooks | null,
   repo: WorkspaceHookOwner,
   decision: SetupDecision = 'inherit'
 ): WorktreeDefaultTabsLaunch | undefined {

@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { OrcaRuntimeService } from '../../orca-runtime'
+import { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { OrchestrationDb } from '../../orchestration/db/orchestration-db'
 import { getQuestionTaker } from '../../orchestration/db/messages/mail-taker'
 import { dropReaderlessRunQuestions } from '../../orchestration/db/questions/readerless-run-questions'
-import { getDefaultWorkspaceSession } from '../../../../shared/orca-profiles/constants'
+import { getDefaultWorkspaceSession } from '../../../../shared/openkodo-profiles/constants'
 import type { WorkspaceSessionState } from '../../../../shared/workspace-session/workspace-session-state-types'
 import { collectLeafIds } from '../../../../shared/workspace-layout/terminal-topology/terminal-pane-layout-tree'
 import { withDurableRuntimeStore } from '../../construction/test-context/runtime-durable-store-fixture'
@@ -15,13 +15,13 @@ const SIBLING_LEAF = 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee'
 
 describe("a Run whose coordinator's terminal ended", () => {
   let db: OrchestrationDb
-  let runtime: OrcaRuntimeService
+  let runtime: OpenKodoRuntimeService
   let runId: string
   let dispatchId: string
 
   beforeEach(() => {
     db = new OrchestrationDb(':memory:')
-    runtime = new OrcaRuntimeService(null)
+    runtime = new OpenKodoRuntimeService(null)
     runtime.setOrchestrationDb(db)
     runtime.registerPty('pty-c', 'wt', null, {
       tabId: 'tab_c',
@@ -32,7 +32,7 @@ describe("a Run whose coordinator's terminal ended", () => {
       objective: 'o',
       coordinatorHandle: 'term_c',
       coordinatorPaneKey: PANE,
-      coordinatorOrcaSessionId: null
+      coordinatorOpenKodoSessionId: null
     }).id
     const task = db.createTask({ spec: 'w', runId })
     dispatchId = db.createStartingWorkerDispatch({
@@ -121,7 +121,7 @@ describe("a Run whose coordinator's terminal ended", () => {
       flushOrThrow: () => undefined
     })
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the fake carries every store method a renderer close reaches.
-    const window = new OrcaRuntimeService(store as never)
+    const window = new OpenKodoRuntimeService(store as never)
     window.setOrchestrationDb(db)
     db.bindRun({ runId, coordinatorHandle: null, coordinatorPaneKey: `tab_s:${OTHER_LEAF}` })
     if (sleptTerminal) {

@@ -32,7 +32,7 @@ import { formatOptionalPrimaryShortcutLabel } from '@/lib/keyboard/useShortcutLa
 import { useAppStore } from '@/store'
 import { isEditableTarget } from '@/lib/text-input/focus/editable-target'
 import { findEditablePrimarySelectionPasteTarget } from '@/lib/clipboard/primary-selection/primary-selection-paste'
-import { NativeChatCopyOrcaSessionIdMenuItem } from './NativeChatCopyOrcaSessionIdMenuItem'
+import { NativeChatCopyOpenKodoSessionIdMenuItem } from './NativeChatCopyOpenKodoSessionIdMenuItem'
 import { NativeChatSelectionQuote } from '../../selection-quotes/NativeChatSelectionQuote'
 import { NativeChatPaneMenuItems } from './NativeChatPaneMenuItems'
 import { NativeChatStructuredPaneMenuItems } from './NativeChatStructuredPaneMenuItems'
@@ -80,7 +80,7 @@ export type UseNativeChatContextMenuArgs = {
   chatPane?: { tabId: string; worktreeId: string; groupId: string; sessionId: string }
   chatSession?: NativeChatSessionMenuSource
   /** A structured chat tab's OpenKodo session ID; a chat in a terminal pane is that terminal's agent. */
-  resolveOrcaSessionId?: () => Promise<string | null>
+  resolveOpenKodoSessionId?: () => Promise<string | null>
 } & NativeChatContextMenuTargetArgs
 
 export type NativeChatContextMenuTargetArgs = {
@@ -148,7 +148,7 @@ export function useNativeChatContextMenu({
   splitShortcutLabels,
   chatPane,
   chatSession,
-  resolveOrcaSessionId,
+  resolveOpenKodoSessionId,
   messageListRef,
   fileLinkContext = null,
   rewind,
@@ -181,7 +181,10 @@ export function useNativeChatContextMenu({
     target.slackPostedItemId !== null
   const hasSessionItems = onFind !== undefined || onHandOff !== undefined || showTerminalPaneActions
   const hasItems =
-    hasEditItems || hasSessionItems || chatPane !== undefined || resolveOrcaSessionId !== undefined
+    hasEditItems ||
+    hasSessionItems ||
+    chatPane !== undefined ||
+    resolveOpenKodoSessionId !== undefined
 
   if (!enabled && state.open) {
     setState({ ...state, open: false, image: undefined })
@@ -342,15 +345,17 @@ export function useNativeChatContextMenu({
               pane={chatPane}
               leadingSeparator={hasEditItems || hasSessionItems}
               splitShortcutLabels={splitShortcutLabels}
-              resolveOrcaSessionId={resolveOrcaSessionId}
+              resolveOpenKodoSessionId={resolveOpenKodoSessionId}
             />
           ) : null}
           {showTerminalPaneActions ? (
             <NativeChatPaneMenuItems actions={actions} splitShortcutLabels={splitShortcutLabels} />
-          ) : !chatPane && resolveOrcaSessionId ? (
+          ) : !chatPane && resolveOpenKodoSessionId ? (
             <>
               {hasEditItems || hasSessionItems ? <DropdownMenuSeparator /> : null}
-              <NativeChatCopyOrcaSessionIdMenuItem resolveOrcaSessionId={resolveOrcaSessionId} />
+              <NativeChatCopyOpenKodoSessionIdMenuItem
+                resolveOpenKodoSessionId={resolveOpenKodoSessionId}
+              />
             </>
           ) : null}
         </DropdownMenuContent>

@@ -45,7 +45,7 @@ import {
   resolveHiddenProbeCwd
 } from '../../../lib/hidden-probe-cwd'
 import { quotePosixShell } from '../../../../shared/shell/launch/shell-argument-quoting'
-import { windowsSystem32Binary } from '@orca/process-host/windows-system-binary'
+import { windowsSystem32Binary } from '@openkodo/process-host/windows-system-binary'
 import { resolveWslInteropSpawnCwd } from '../../../wsl/execution/wsl-interop-spawn-directory'
 import { blockedWslDistroForPath } from '../../../wsl/filesystem/wsl-unc-access-gate'
 import {

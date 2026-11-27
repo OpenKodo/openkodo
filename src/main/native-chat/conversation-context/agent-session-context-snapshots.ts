@@ -28,7 +28,7 @@ const SNAPSHOT_SWEEP_INTERVAL_MS = 60 * 60 * 1000
 
 export function agentSessionContextSnapshotRoot(stateDirectory: string): string {
   const profile = createHash('sha256').update(resolve(stateDirectory)).digest('hex').slice(0, 16)
-  return getOwnedTempStagingRoot(tmpdir(), `orca-handoff-${profile}`)
+  return getOwnedTempStagingRoot(tmpdir(), `openkodo-handoff-${profile}`)
 }
 
 /** One snapshot per chat, replaced on each hand-off and swept by age and folder size. Parts stream to disk in order. */

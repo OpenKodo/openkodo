@@ -51,7 +51,7 @@ type WslCliRegistrationReconciliationOptions = {
   getHostLauncherTarget?: () => Promise<string | null>
   registry?: WslCliRegistrationRegistry
   /** Distros OpenKodo deployed a WSL host into; only those may be inspected for an unrecorded registration. */
-  listOrcaHostDistros?: () => string[]
+  listOpenKodoHostDistros?: () => string[]
   listRunningDistros?: () => Promise<string[]>
   /** Settled read taken right before each repair spawns. */
   isDistroRunning?: (distro: string) => Promise<boolean>
@@ -117,7 +117,7 @@ export async function reconcileManagedWslCliRegistrations(
     : null
   const appVersion = options.appVersion ?? ''
   const inspectableDistros = await (
-    options.listOrcaHostDistros ?? (async () => await orcaHostDistros(options.userDataPath))
+    options.listOpenKodoHostDistros ?? (async () => await openkodoHostDistros(options.userDataPath))
   )()
   const candidates = await registry.getCandidates(availableDistros, {
     currentTarget,
@@ -217,7 +217,7 @@ export async function reconcileManagedWslCliRegistrations(
   return [...results, ...deferred]
 }
 
-async function orcaHostDistros(userDataPath: string): Promise<string[]> {
+async function openkodoHostDistros(userDataPath: string): Promise<string[]> {
   try {
     return (await readWslHostDeployments(userDataPath)).deployments.map((record) => record.distro)
   } catch {

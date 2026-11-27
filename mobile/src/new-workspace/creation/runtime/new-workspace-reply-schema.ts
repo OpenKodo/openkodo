@@ -1,5 +1,5 @@
 import * as z from 'zod'
-import type { SetupRunPolicy } from '../../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { SetupRunPolicy } from '../../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import {
   hostUnionArms,
   salvagedOptional,
@@ -43,17 +43,17 @@ export const newWorkspaceRepoHooksSchema = z.looseObject({
 })
 
 // Salvage malformed approvals per repo, failing closed without rejecting whole reply; pass unknown entries through because ui.set writes blob back.
-const trustedOrcaHookApprovalSchema = z.looseObject({
+const trustedOpenKodoHookApprovalSchema = z.looseObject({
   contentHash: z.string(),
   approvedAt: z.number()
 })
 
-const trustedOrcaHookRepoSchema = z.looseObject({
+const trustedOpenKodoHookRepoSchema = z.looseObject({
   all: salvagedOptional('all', z.looseObject({ approvedAt: z.number() })),
-  setup: salvagedOptional('setup', trustedOrcaHookApprovalSchema),
-  archive: salvagedOptional('archive', trustedOrcaHookApprovalSchema),
-  issueCommand: salvagedOptional('issueCommand', trustedOrcaHookApprovalSchema),
-  vmRecipe: salvagedOptional('vmRecipe', trustedOrcaHookApprovalSchema)
+  setup: salvagedOptional('setup', trustedOpenKodoHookApprovalSchema),
+  archive: salvagedOptional('archive', trustedOpenKodoHookApprovalSchema),
+  issueCommand: salvagedOptional('issueCommand', trustedOpenKodoHookApprovalSchema),
+  vmRecipe: salvagedOptional('vmRecipe', trustedOpenKodoHookApprovalSchema)
 })
 
 // Total ui.get reader preserves optional trust default for every shape: unawaited caller has no catch, so throwing would also skip available-provider setup.
@@ -64,9 +64,9 @@ export const newWorkspaceUiTrustSchema = z
       'ui',
       z
         .looseObject({
-          trustedOrcaHooks: salvagedOptional(
-            'trustedOrcaHooks',
-            salvagingRecord(z.string(), trustedOrcaHookRepoSchema)
+          trustedOpenKodoHooks: salvagedOptional(
+            'trustedOpenKodoHooks',
+            salvagingRecord(z.string(), trustedOpenKodoHookRepoSchema)
           )
         })
         .nullable()

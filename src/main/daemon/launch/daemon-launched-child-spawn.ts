@@ -1,5 +1,5 @@
-import { forkProcess, type ForkSpec } from '@orca/process-host/fork-process'
-import { spawnProcess } from '@orca/process-host'
+import { forkProcess, type ForkSpec } from '@openkodo/process-host/fork-process'
+import { spawnProcess } from '@openkodo/process-host'
 import type { ChildProcess } from 'node:child_process'
 import { getAppEnvironment } from '../../../shared/app-lifecycle/app-environment'
 import { removeChromiumDisabledSessionBus } from '../../pty/shell-startup/chromium-session-bus-env'

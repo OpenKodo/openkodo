@@ -2,7 +2,7 @@ import { ChevronRight } from 'lucide-react-native'
 import { Pressable, Text, View } from 'react-native'
 import { openAppMoveScreen, playStoreAvailable } from '../app-move/app-move-gate'
 import { isRetiredGithubAndroidApp } from '../app-update/app-update-runtime'
-import { OrcaLogo } from '../components/icons/OrcaLogo'
+import { OpenKodoLogo } from '../components/icons/OpenKodoLogo'
 import { useMobileTranslation } from '../i18n/use-mobile-translation'
 import { colors, radii, spacing } from '../theme/mobile-theme'
 import { themedStyleSheet } from '../theme/themed-styles'
@@ -27,7 +27,7 @@ export function MobileHomeAppMoveBanner() {
       onPress={openAppMoveScreen}
     >
       <View style={styles.tile}>
-        <OrcaLogo size={18} />
+        <OpenKodoLogo size={18} />
       </View>
       <View style={styles.text}>
         <Text style={styles.title}>{title}</Text>

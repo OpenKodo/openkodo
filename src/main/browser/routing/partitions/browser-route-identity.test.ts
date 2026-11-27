@@ -6,29 +6,29 @@ import {
 } from './browser-route-identity'
 
 const identity = {
-  orcaProfileId: 'orca/profile:alpha',
+  openkodoProfileId: 'openkodo/profile:alpha',
   browserProfileId: 'browser/profile:default',
   authorityConnectionIdentity: 'paired/runtime:authority',
   executionHostIdentity: 'ssh/target:private.example'
 }
 
 const pinnedIdentity = {
-  orcaProfileId: 'orca/profile:alpha',
+  openkodoProfileId: 'openkodo/profile:alpha',
   browserProfileId: 'browser/profile:default',
   authorityConnectionIdentity: 'paired-runtime:authority-a',
-  executionHostIdentity: '["orca-browser-execution-host-storage",1,"authority","env-a"]'
+  executionHostIdentity: '["openkodo-browser-execution-host-storage",1,"authority","env-a"]'
 }
 
 describe('browser route partition identity', () => {
   it('keeps delimiter-containing components structurally distinct', () => {
     const left = deriveBrowserRoutePartition({
       ...identity,
-      orcaProfileId: 'a',
+      openkodoProfileId: 'a',
       browserProfileId: 'b:c'
     })
     const right = deriveBrowserRoutePartition({
       ...identity,
-      orcaProfileId: 'a:b',
+      openkodoProfileId: 'a:b',
       browserProfileId: 'c'
     })
 
@@ -38,7 +38,7 @@ describe('browser route partition identity', () => {
   it('makes every identity component load-bearing', () => {
     const derived = [
       identity,
-      { ...identity, orcaProfileId: 'orca/profile:beta' },
+      { ...identity, openkodoProfileId: 'openkodo/profile:beta' },
       { ...identity, browserProfileId: 'browser/profile:work' },
       { ...identity, authorityConnectionIdentity: 'paired/runtime:other' },
       { ...identity, executionHostIdentity: 'ssh/target:other.example' }
@@ -48,31 +48,32 @@ describe('browser route partition identity', () => {
     expect(new Set(derived.map((entry) => entry.bindingFingerprint)).size).toBe(derived.length)
   })
 
-  // Persisted names must remain stable to avoid silently relocating cookie jars.
+  // Persisted names are pinned per identity. The rebrand renamed their domain
+  // separator, so jars written by pre-rename builds are intentionally left behind.
   it('pins the derived partition and fingerprint against silent relocation', () => {
     expect(deriveBrowserRoutePartition(pinnedIdentity)).toEqual({
       partition:
-        'persist:orca-browser-v1-955a5db671b210d053d64d1e557d8cdf1e60e1e6cb710a033f1b5cd1b61e6586',
-      bindingFingerprint: 'fe69d9d83ab889b68eeb185f12821e4e0e77dcc91fc4cb7672c88e7818a4ded7'
+        'persist:openkodo-browser-v1-ca8a1fae90dce63bcf72a9d8401246ca45febeb0b40fdf8279fec3cb9e6cda9e',
+      bindingFingerprint: 'fd20f835c00d9aea80b27767df6d7bac01eac19d84e10f41be5073b20bfc9555'
     })
   })
 
   it('scopes partition ownership to one openkodo profile and one environment', () => {
     const scope = deriveBrowserRoutePartitionStorageScope({
-      orcaProfileId: 'orca/profile:alpha',
+      openkodoProfileId: 'openkodo/profile:alpha',
       environmentId: 'environment-a'
     })
 
-    expect(scope).toBe('2821c92c85c9724ddb6136aeeec266a84fc5a9ea00f61faacef8db89bea79fb4')
+    expect(scope).toBe('ad97004721b11d69c71719e14141d3995d5267f71ec10b4c68997d8c8b6ab22b')
     expect(
       deriveBrowserRoutePartitionStorageScope({
-        orcaProfileId: 'orca/profile:alpha',
+        openkodoProfileId: 'openkodo/profile:alpha',
         environmentId: 'environment-b'
       })
     ).not.toBe(scope)
     expect(
       deriveBrowserRoutePartitionStorageScope({
-        orcaProfileId: 'orca/profile:beta',
+        openkodoProfileId: 'openkodo/profile:beta',
         environmentId: 'environment-a'
       })
     ).not.toBe(scope)

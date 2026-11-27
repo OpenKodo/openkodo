@@ -22,7 +22,7 @@ import {
   createFakeWslHostConnector,
   readFakeWslHostsConfig
 } from '../../wsl/host-lifecycle/wsl-host-e2e-fake-connector'
-import { hasOrcadTemplate } from '../../orcad/artifact-slots/orcad-artifact-materializer'
+import { hasOpenkododTemplate } from '../../openkodod/artifact-slots/openkodod-artifact-materializer'
 import { WslHostService } from '../../wsl/host-lifecycle/wsl-host-service'
 import { WslHostVisibleWorkByWindow } from './wsl-host-visible-work-windows'
 import type { WslHostAutomationWake } from '../../wsl/host-lifecycle/wsl-host-automation-wake'
@@ -43,7 +43,7 @@ import { readWslHostRecordsQuietly } from '../../wsl/host-lifecycle/wsl-host-con
 import { retireRemovedRuntimeEnvironment } from '../runtime-environments/catalog/runtime-environment-removal-cleanup'
 import { getRuntimeEnvironmentStatus } from '../runtime-environments/status/runtime-environment-status-probe'
 import { reconcileWslHostBridgePorts } from '../../../shared/remote-runtime/host-store/runtime-environment-wsl-host-store'
-import { changesWslHostAccounts } from '../../wsl/orcad/wsl-orcad-host-account-push'
+import { changesWslHostAccounts } from '../../wsl/openkodod/wsl-openkodod-host-account-push'
 import {
   addWslHostThenSeedPermission,
   pushHostAccounts,
@@ -77,7 +77,7 @@ async function createService(args: WslHostHandlerArgs): Promise<WslHostService |
   let automationWake: WslHostAutomationWake | null = null
   const runGate = {
     isEnabled: () => args.store.getSettings().experimentalWslHosts === true,
-    hasServerFiles: fake ? () => fake.serverFiles !== 'missing' : hasOrcadTemplate
+    hasServerFiles: fake ? () => fake.serverFiles !== 'missing' : hasOpenkododTemplate
   }
   const created = new WslHostService({
     userDataPath: args.getUserDataPath,

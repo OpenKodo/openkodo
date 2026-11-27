@@ -1,4 +1,4 @@
-import { recoverOrcadManagedTunnelsAfterHostResume } from '../../managed-server/lifecycle/orcad-managed-tunnel'
+import { recoverOpenkododManagedTunnelsAfterHostResume } from '../../managed-server/lifecycle/openkodod-managed-tunnel'
 import { getSshConnectionManager } from '../../ssh/targets/ssh-target-registry'
 import { errorMessage } from '../../../shared/errors/error-message'
 import { sshDesktopHost } from '../../ssh/application/ssh-desktop-host'
@@ -21,7 +21,7 @@ export function retrySshConnectionsAfterNetworkReturn(): void {
     return
   }
   // Probe transports that still appear connected after wake; keepalive may not detect them yet.
-  void recoverOrcadManagedTunnelsAfterHostResume(getUserDataPath(), {
+  void recoverOpenkododManagedTunnelsAfterHostResume(getUserDataPath(), {
     attempts: RESUME_PROBE_ATTEMPTS,
     timeoutMs: RESUME_PROBE_TIMEOUT_MS
   }).catch((err) => {

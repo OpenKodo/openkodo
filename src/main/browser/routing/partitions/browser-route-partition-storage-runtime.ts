@@ -17,7 +17,7 @@ import {
   deletePendingBrowserRoutePartitionDirectories
 } from './browser-route-partition-pending-deletes'
 import {
-  activeBrowserRoutePartitionOrcaProfileId,
+  activeBrowserRoutePartitionOpenKodoProfileId,
   currentBrowserRoutePartitionBindingFilePath
 } from './browser-route-partition-binding-runtime'
 import { browserRoutePartitionStorageDependencies } from './browser-route-partition-storage-dependencies'
@@ -32,8 +32,8 @@ export type BrowserRoutePartitionStorageClear = {
 export async function collectOrphanedBrowserRoutePartitionStorage(
   listLocalSshTargetIds?: () => string[]
 ): Promise<string[]> {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     return []
   }
   const dependencies = browserRoutePartitionStorageDependencies(
@@ -60,7 +60,7 @@ export async function collectOrphanedBrowserRoutePartitionStorage(
   )
   const liveStorageScopes = new Set(
     (await listEnvironments(getRuntimeEnvironmentRegistryRoot())).map((environment) =>
-      deriveBrowserRoutePartitionStorageScope({ orcaProfileId, environmentId: environment.id })
+      deriveBrowserRoutePartitionStorageScope({ openkodoProfileId, environmentId: environment.id })
     )
   )
   if (!listLocalSshTargetIds) {
@@ -68,7 +68,7 @@ export async function collectOrphanedBrowserRoutePartitionStorage(
   }
   for (const targetId of listLocalSshTargetIds()) {
     liveStorageScopes.add(
-      deriveLocalSshBrowserRoutePartitionStorageScope({ orcaProfileId, targetId })
+      deriveLocalSshBrowserRoutePartitionStorageScope({ openkodoProfileId, targetId })
     )
   }
   const orphans = findOrphanedBrowserRoutePartitions(dependencies, liveStorageScopes)
@@ -84,14 +84,14 @@ export async function collectOrphanedBrowserRoutePartitionStorage(
 export async function clearBrowserRoutePartitionStorageForEnvironment(
   environmentId: string
 ): Promise<BrowserRoutePartitionStorageClear> {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     return { clearedPartitions: [], livePartitions: [] }
   }
   const dependencies = storageDependencies()
   const partitions = findBrowserRoutePartitionsForStorageScope(
     dependencies,
-    deriveBrowserRoutePartitionStorageScope({ orcaProfileId, environmentId })
+    deriveBrowserRoutePartitionStorageScope({ openkodoProfileId, environmentId })
   )
   if (partitions.length === 0) {
     return { clearedPartitions: [], livePartitions: [] }
@@ -104,14 +104,14 @@ export async function clearBrowserRoutePartitionStorageForEnvironment(
 export async function clearBrowserRoutePartitionStorageForLocalSshTarget(
   targetId: string
 ): Promise<BrowserRoutePartitionStorageClear> {
-  const orcaProfileId = activeBrowserRoutePartitionOrcaProfileId()
-  if (!orcaProfileId) {
+  const openkodoProfileId = activeBrowserRoutePartitionOpenKodoProfileId()
+  if (!openkodoProfileId) {
     return { clearedPartitions: [], livePartitions: [] }
   }
   const dependencies = storageDependencies()
   const partitions = findBrowserRoutePartitionsForStorageScope(
     dependencies,
-    deriveLocalSshBrowserRoutePartitionStorageScope({ orcaProfileId, targetId })
+    deriveLocalSshBrowserRoutePartitionStorageScope({ openkodoProfileId, targetId })
   )
   if (partitions.length === 0) {
     return { clearedPartitions: [], livePartitions: [] }

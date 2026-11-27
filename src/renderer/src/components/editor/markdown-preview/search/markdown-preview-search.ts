@@ -35,7 +35,7 @@ export type MarkdownPreviewSearchInstance = DomTextSearchInstance
 const DOCUMENT_ONLY_SCOPE: DomTextSearchScope = {
   rejectElement: (element) =>
     element.closest(
-      '.markdown-annotation-controls,[data-orca-export-hide],.code-block-copy-btn,.mermaid-block'
+      '.markdown-annotation-controls,[data-openkodo-export-hide],.code-block-copy-btn,.mermaid-block'
     ) !== null,
   joinedTextSelector: 'code'
 }

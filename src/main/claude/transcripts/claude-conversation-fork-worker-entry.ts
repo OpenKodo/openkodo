@@ -16,7 +16,7 @@ import {
 } from './claude-conversation-fork-boundary'
 import { installWorkerSendLedger } from '../../worker-threads/worker-send-ledger'
 
-installWorkerSendLedger('orca-claude-rewind-transcript')
+installWorkerSendLedger('openkodo-claude-rewind-transcript')
 
 export type ClaudeConversationForkWork = {
   sourcePath: string

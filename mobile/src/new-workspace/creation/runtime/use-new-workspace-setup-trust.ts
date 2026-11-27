@@ -1,7 +1,7 @@
 import { useRef, useState, type Dispatch, type SetStateAction } from 'react'
-import type { PersistedTrustedOrcaHooks } from '../../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import type { SetupDecision } from '../../../../../src/shared/worktree/create-types'
-import type { OrcaHookTrustPrompt } from '../../../components/hook-trust/OrcaHookTrustDrawer'
+import type { OpenKodoHookTrustPrompt } from '../../../components/hook-trust/OpenKodoHookTrustDrawer'
 import type { RpcClient } from '../../../transport/rpc/rpc-client-contract'
 import type { MobileComposerCreateSelection } from '../../source-selection/mobile-composer-source-types'
 import type { NewWorktreeDrawerView } from '../modal/use-new-worktree-drawer-navigation'
@@ -21,7 +21,7 @@ export type CreateOptions = {
 
 export type CreatedWorkspace = { worktreeId: string; name: string; warning?: string }
 
-export type SheetSetupTrustPrompt = OrcaHookTrustPrompt & {
+export type SheetSetupTrustPrompt = OpenKodoHookTrustPrompt & {
   selection?: MobileComposerCreateSelection
   /** The workspace exists; only its skipped setup is under review. */
   created?: CreatedWorkspace
@@ -30,8 +30,8 @@ export type SheetSetupTrustPrompt = OrcaHookTrustPrompt & {
 export function useNewWorkspaceSetupTrust(args: {
   client: RpcClient | null
   repos: readonly { id: string }[]
-  trustedOrcaHooks: PersistedTrustedOrcaHooks
-  setTrustedOrcaHooks: (trust: PersistedTrustedOrcaHooks) => void
+  trustedOpenKodoHooks: PersistedTrustedOpenKodoHooks
+  setTrustedOpenKodoHooks: (trust: PersistedTrustedOpenKodoHooks) => void
   transitionDrawer: (view: Exclude<NewWorktreeDrawerView, 'transition'>) => void
   setError: Dispatch<SetStateAction<string>>
   createInFlight: () => boolean
@@ -56,13 +56,13 @@ export function useNewWorkspaceSetupTrust(args: {
     try {
       const nextTrust = await persistSetupHookTrustApproval({
         client: args.client,
-        trust: args.trustedOrcaHooks,
+        trust: args.trustedOpenKodoHooks,
         repos: args.repos,
         repoId: prompt.repoId,
         contentHash: prompt.contentHash,
         alwaysTrust
       })
-      args.setTrustedOrcaHooks(nextTrust)
+      args.setTrustedOpenKodoHooks(nextTrust)
       setPrompt(null)
       if (prompt.created) {
         const notice = await runReviewedCreatedSetup(

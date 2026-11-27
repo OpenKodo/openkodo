@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "orca_menu_dead_key",
+      "target_name": "openkodo_menu_dead_key",
       "sources": ["menu-dead-key.m"],
       "xcode_settings": {
         "CLANG_ENABLE_OBJC_ARC": "YES",

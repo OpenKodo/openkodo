@@ -6,7 +6,7 @@ type EnvLike = Record<string, string | undefined>
 
 const ZSH_STARTUP_FILES = ['.zshenv', '.zshrc', '.zprofile', '.zlogin'] as const
 
-export function isOrcaOwnedZshWrapperDir(dir: string): boolean {
+export function isOpenKodoOwnedZshWrapperDir(dir: string): boolean {
   const normalized = dir.replace(/\/+$/, '')
   if (!normalized) {
     return false
@@ -22,7 +22,7 @@ function usableInheritedZdotdir(value: string | undefined): string | null {
     return null
   }
   const normalized = value.replace(/\/+$/, '')
-  if (!normalized || isOrcaOwnedZshWrapperDir(normalized)) {
+  if (!normalized || isOpenKodoOwnedZshWrapperDir(normalized)) {
     return null
   }
   if (!ZSH_STARTUP_FILES.some((file) => existsSync(`${normalized}/${file}`))) {

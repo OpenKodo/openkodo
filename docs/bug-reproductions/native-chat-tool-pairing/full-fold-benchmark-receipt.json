@@ -1,7 +1,7 @@
 {
   "commands": [
-    "ORCA_BACKGROUND_LAUNCH=1 node --expose-gc config/scripts/performance/native-chat/native-chat-fold-benchmark.mjs --memory-control > /tmp/openkodo-chat-full-fold-memory-control.json",
-    "ORCA_BACKGROUND_LAUNCH=1 node --expose-gc config/scripts/performance/native-chat/native-chat-fold-benchmark.mjs > /tmp/openkodo-chat-full-fold-final.json"
+    "OPENKODO_BACKGROUND_LAUNCH=1 node --expose-gc config/scripts/performance/native-chat/native-chat-fold-benchmark.mjs --memory-control > /tmp/openkodo-chat-full-fold-memory-control.json",
+    "OPENKODO_BACKGROUND_LAUNCH=1 node --expose-gc config/scripts/performance/native-chat/native-chat-fold-benchmark.mjs > /tmp/openkodo-chat-full-fold-final.json"
   ],
   "artifactPromotion": "Final JSON copied only after successful process exit, all 54 cases completed, and memory-control validation passed.",
   "artifactFormatting": {

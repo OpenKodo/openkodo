@@ -6,7 +6,7 @@ import type { OrchestrationDb } from '../runtime/orchestration/db/orchestration-
 /** How deep a worker's own workers are followed back to the chat that started the first. */
 const WORKER_CHAIN_MAX_DEPTH = 8
 
-type Creators = { orcaSessionIds: string[]; paneKeys: string[] }
+type Creators = { openkodoSessionIds: string[]; paneKeys: string[] }
 
 /** Every Dispatch the bot's chats started, and the ones their workers started in turn, each with its
  *  chat; kept so a changed or new Dispatch updates it in place instead of a walk of the whole history. */
@@ -23,7 +23,7 @@ export class BotDispatchPlacement {
     private readonly chatOfPaneKey: (paneKey: string) => string | null,
     creators: Creators
   ) {
-    this.creatorSessions = new Set(creators.orcaSessionIds)
+    this.creatorSessions = new Set(creators.openkodoSessionIds)
     this.creatorPanes = new Set(creators.paneKeys)
   }
 
@@ -31,7 +31,7 @@ export class BotDispatchPlacement {
   walk(db: OrchestrationDb): this {
     this.walkFrom(
       db,
-      { orcaSessionIds: [...this.creatorSessions], paneKeys: [...this.creatorPanes] },
+      { openkodoSessionIds: [...this.creatorSessions], paneKeys: [...this.creatorPanes] },
       0
     )
     return this
@@ -40,14 +40,14 @@ export class BotDispatchPlacement {
   private walkFrom(db: OrchestrationDb, creators: Creators, fromDepth: number): void {
     let frontier = creators
     for (let depth = fromDepth; depth < WORKER_CHAIN_MAX_DEPTH; depth += 1) {
-      const next: Creators = { orcaSessionIds: [], paneKeys: [] }
+      const next: Creators = { openkodoSessionIds: [], paneKeys: [] }
       for (const link of db.listDispatchLinksCreatedByAny(frontier)) {
         if (this.found.has(link.id)) {
           continue
         }
         this.place(link, depth, this.creditedChat(link, depth), next)
       }
-      if (next.orcaSessionIds.length === 0 && next.paneKeys.length === 0) {
+      if (next.openkodoSessionIds.length === 0 && next.paneKeys.length === 0) {
         break
       }
       frontier = next
@@ -56,9 +56,12 @@ export class BotDispatchPlacement {
 
   private place(link: DispatchCreatorLink, depth: number, chatId: string | null, next: Creators) {
     this.found.set(link.id, { dispatch: dispatchOf(link, chatId), depth })
-    if (link.assigneeOrcaSessionId && !this.workerSessions.has(link.assigneeOrcaSessionId)) {
-      this.workerSessions.set(link.assigneeOrcaSessionId, { chatId, depth: depth + 1 })
-      next.orcaSessionIds.push(link.assigneeOrcaSessionId)
+    if (
+      link.assigneeOpenKodoSessionId &&
+      !this.workerSessions.has(link.assigneeOpenKodoSessionId)
+    ) {
+      this.workerSessions.set(link.assigneeOpenKodoSessionId, { chatId, depth: depth + 1 })
+      next.openkodoSessionIds.push(link.assigneeOpenKodoSessionId)
     }
     if (link.assigneePaneKey && !this.workerPanes.has(link.assigneePaneKey)) {
       this.workerPanes.set(link.assigneePaneKey, { chatId, depth: depth + 1 })
@@ -67,7 +70,7 @@ export class BotDispatchPlacement {
   }
 
   private creditedChat(link: DispatchCreatorLink, depth: number): string | null {
-    const { creatorOrcaSessionId: session, creatorPaneKey: pane } = link
+    const { creatorOpenKodoSessionId: session, creatorPaneKey: pane } = link
     if (depth === 0) {
       return (
         (session ? this.chatOfSession(session) : null) ?? (pane ? this.chatOfPaneKey(pane) : null)
@@ -82,7 +85,7 @@ export class BotDispatchPlacement {
 
   /** The depth a Dispatch with this creator sits at under the bot, or null when it is none of the bot's. */
   private depthOf(link: DispatchCreatorLink): number | null {
-    const { creatorOrcaSessionId: session, creatorPaneKey: pane } = link
+    const { creatorOpenKodoSessionId: session, creatorPaneKey: pane } = link
     if ((session && this.creatorSessions.has(session)) || (pane && this.creatorPanes.has(pane))) {
       return 0
     }
@@ -106,9 +109,9 @@ export class BotDispatchPlacement {
       return 'none'
     }
     const chatId = known ? known.dispatch.chatId : this.creditedChat(link, depth)
-    const next: Creators = { orcaSessionIds: [], paneKeys: [] }
+    const next: Creators = { openkodoSessionIds: [], paneKeys: [] }
     this.place(link, depth, chatId, next)
-    if (next.orcaSessionIds.length > 0 || next.paneKeys.length > 0) {
+    if (next.openkodoSessionIds.length > 0 || next.paneKeys.length > 0) {
       this.walkFrom(db, next, depth + 1)
       return 'changed'
     }

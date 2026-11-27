@@ -190,15 +190,15 @@ export class StructuredAgentSessionStartupAttempts {
   childEnded(
     sessionId: string,
     child: StructuredAgentSessionProviderChildIdentity,
-    ended: { byOrca: boolean; failure?: SubmissionRejectionFact; reason?: string | null } = {
-      byOrca: false
+    ended: { byOpenKodo: boolean; failure?: SubmissionRejectionFact; reason?: string | null } = {
+      byOpenKodo: false
     }
   ): void {
     const tracked = this.tracking(sessionId, child)
     if (ended.failure) {
       const cause = new Error(ended.reason ?? 'OpenKodo stopped the agent while it started')
       this.failed(sessionId, child, new AgentSessionStartFailure(cause, 'never', ended.failure))
-    } else if (tracked && (ended.byOrca || !this.ownsOpen(sessionId, child))) {
+    } else if (tracked && (ended.byOpenKodo || !this.ownsOpen(sessionId, child))) {
       this.settle(sessionId, tracked, 'ended')
     }
   }

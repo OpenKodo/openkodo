@@ -3,7 +3,7 @@ import { expect, it, vi } from 'vitest'
 import { journalDomainImportState } from './journal-domain-import-rows'
 import {
   cleanup,
-  continueInOlderOrca,
+  continueInOlderOpenKodo,
   fakeLease,
   profile
 } from './journal-legacy-retirement.test-fixture'
@@ -382,7 +382,7 @@ it('reports copies as partial when a quit lost a copy converted before its count
   const events = recordEvents()
   const continued = await profile()
   await continued.convert('unopened')
-  continueInOlderOrca(continued.filename, 'unopened')
+  continueInOlderOpenKodo(continued.filename, 'unopened')
   await initializeJournalDomainDatabase(continued.root)
   const copy = String(
     continued.db

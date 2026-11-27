@@ -2,7 +2,7 @@ import {
   type WorkspaceKey,
   worktreeWorkspaceKey
 } from '../../../shared/workspace/identity/workspace-scope'
-import type { PersistedState } from '../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../shared/openkodo-profiles/persisted-state-types'
 import { withCrossStoreChildKey } from '../../../shared/worktree/lineage/cross-store-lineage-records'
 import { migrateWorkspaceSessionWorktreeIdentity } from './worktree-identity-session-migration'
 import { replaceWorkspaceSessionPartitions } from '../restoring-sessions/workspace-session-partition-replacement'

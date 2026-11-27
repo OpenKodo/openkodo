@@ -20,7 +20,7 @@ export function startBrowserPageDeferredAttach({
   lastKnownWebviewUrlRef: MutableRefObject<string | null>
   onFailed: () => void
 }): void {
-  webview.dataset.orcaAttachWaiting = 'true'
+  webview.dataset.openkodoAttachWaiting = 'true'
   const prepare = (url: string, first: boolean): Promise<string> =>
     window.api.browser.preparePageAttach({
       browserPageId: browserTabId,
@@ -33,45 +33,45 @@ export function startBrowserPageDeferredAttach({
     let marker = await prepare(initialUrl, true)
     let preparedUrl = initialUrl
     for (
-      let requestedUrl = webview.dataset.orcaAttachRequestedUrl;
+      let requestedUrl = webview.dataset.openkodoAttachRequestedUrl;
       // A closed or replaced tab's webview leaves the document; re-preparing would recreate its page.
       requestedUrl && requestedUrl !== preparedUrl && webview.isConnected;
-      requestedUrl = webview.dataset.orcaAttachRequestedUrl
+      requestedUrl = webview.dataset.openkodoAttachRequestedUrl
     ) {
       lastKnownWebviewUrlRef.current = requestedUrl
       preparedUrl = requestedUrl
       marker = await prepare(requestedUrl, false)
     }
-    delete webview.dataset.orcaAttachRequestedUrl
+    delete webview.dataset.openkodoAttachRequestedUrl
     return marker
   }
   void prepareLatest()
     .then((marker) => {
-      delete webview.dataset.orcaAttachWaiting
+      delete webview.dataset.openkodoAttachWaiting
       // Why not the component's ref: a workspace switch remounts this tab onto the same webview.
       if (webview.isConnected) {
         issueBrowserGuestNavigation(webview, () => {
           webview.src = marker
         })
       } else {
-        webview.dataset.orcaAttachMarker = marker
+        webview.dataset.openkodoAttachMarker = marker
       }
     })
     .catch(() => {
-      delete webview.dataset.orcaAttachWaiting
+      delete webview.dataset.openkodoAttachWaiting
       onFailed()
     })
 }
 
 /** Still waiting for its profile's extensions: no page to drive or validate yet. */
 export function isBrowserPageAttachWaiting(webview: Electron.WebviewTag): boolean {
-  return webview.dataset.orcaAttachWaiting !== undefined
+  return webview.dataset.openkodoAttachWaiting !== undefined
 }
 
 /** A tab remounted after its wait ended while it was out of the document attaches now. */
 export function resumeParkedBrowserPageAttach(webview: Electron.WebviewTag): void {
-  const marker = webview.dataset.orcaAttachMarker
-  delete webview.dataset.orcaAttachMarker
+  const marker = webview.dataset.openkodoAttachMarker
+  delete webview.dataset.openkodoAttachMarker
   if (marker) {
     issueBrowserGuestNavigation(webview, () => {
       webview.src = marker
@@ -81,12 +81,12 @@ export function resumeParkedBrowserPageAttach(webview: Electron.WebviewTag): voi
 
 /** Attached while parked: its first load may have finished with no listener bound to see it. */
 export function settleParkedBrowserPageAttach(webview: Electron.WebviewTag): void {
-  if (!webview.dataset.orcaAttachPending) {
+  if (!webview.dataset.openkodoAttachPending) {
     return
   }
   try {
     if (!webview.isLoading()) {
-      delete webview.dataset.orcaAttachPending
+      delete webview.dataset.openkodoAttachPending
     }
   } catch {
     // No guest attached yet.

@@ -18,7 +18,7 @@ export type SttWorkerRequest =
   | { type: 'attach-audio'; streamId: string }
 
 export type SttWorkerProcess = Omit<WorkerRequestTransport, 'unref'> & {
-  /** False when the process can't take a port (orcad's forked child), so audio stays on IPC. */
+  /** False when the process can't take a port (openkodod's forked child), so audio stays on IPC. */
   attachAudioPort(streamId: string, port: MessagePortMain): boolean
 }
 export type SpawnSttWorkerProcess = () => SttWorkerProcess

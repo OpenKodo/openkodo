@@ -17,14 +17,15 @@ export const SKILL_DELETE_CAPABILITY = 'skills.delete.v1' as const
 export const SKILL_DELETE_UPDATE_REQUIRED_MESSAGE =
   'Update OpenKodo on the selected machine to delete skills.'
 
-/** skills.planBundledOrca/executeBundledOrca v1 freezes op/reason enums; unknown values render “Needs attention”. */
-export const BUNDLED_OPENKODO_SKILL_CAPABILITY = 'skills.bundled-orca.v1' as const
+/** skills.planBundledOpenKodo/executeBundledOpenKodo v1 freezes op/reason enums; unknown values render “Needs attention”. */
+export const BUNDLED_OPENKODO_SKILL_CAPABILITY = 'skills.bundled-openkodo.v1' as const
 /** The host recognizes canonical names and can migrate former placements. */
-export const BUNDLED_OPENKODO_SKILL_RENAMES_CAPABILITY = 'skills.bundled-orca-renames.v1' as const
+export const BUNDLED_OPENKODO_SKILL_RENAMES_CAPABILITY =
+  'skills.bundled-openkodo-renames.v1' as const
 
-/** Gates skills.autoUpdateBundledOrca; older hosts fall back to asking before every update. */
+/** Gates skills.autoUpdateBundledOpenKodo; older hosts fall back to asking before every update. */
 export const BUNDLED_OPENKODO_SKILL_AUTO_UPDATE_CAPABILITY =
-  'skills.bundled-orca-auto-update.v1' as const
+  'skills.bundled-openkodo-auto-update.v1' as const
 
 export const BUNDLED_OPENKODO_SKILL_UPDATE_REQUIRED_MESSAGE =
   'Update OpenKodo on the server to update its OpenKodo skills.'

@@ -1,4 +1,4 @@
-import { spawnProcess } from '@orca/process-host'
+import { spawnProcess } from '@openkodo/process-host'
 import type { spawnCodexAppServerConnection } from '../codex-app-server-connection'
 import type { ProviderProcessSpawner } from '../../../provider-process/provider-process-spawn'
 import { readWindowsProcessIdentityTableFresh } from '../../../windows/windows-process-table'

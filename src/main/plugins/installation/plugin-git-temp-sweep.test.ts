@@ -24,14 +24,14 @@ async function aged(path: string, ageMs: number): Promise<string> {
 }
 
 it('removes only stale plugin Git temp folders and never follows a symlink', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'orca-plugin-sweep-test-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-plugin-sweep-test-'))
   roots.push(root)
   const oldClone = await mkdtemp(join(root, PLUGIN_GIT_CLONE_TEMP_PREFIX))
   await mkdir(join(oldClone, 'repository'))
   await aged(oldClone, TWO_HOURS)
   await aged(await mkdtemp(join(root, PLUGIN_GIT_LS_REMOTE_TEMP_PREFIX)), TWO_HOURS)
   const freshClone = await aged(await mkdtemp(join(root, PLUGIN_GIT_CLONE_TEMP_PREFIX)), 60_000)
-  const unrelated = await aged(await mkdtemp(join(root, 'orca-plugin-gitx')), TWO_HOURS)
+  const unrelated = await aged(await mkdtemp(join(root, 'openkodo-plugin-gitx')), TWO_HOURS)
   const outside = join(root, 'outside')
   await mkdir(outside)
   await writeFile(join(outside, 'keep.txt'), 'keep')

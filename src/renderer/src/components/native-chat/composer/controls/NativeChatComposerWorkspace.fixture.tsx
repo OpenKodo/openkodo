@@ -1,7 +1,7 @@
 import { defineFixture } from '../../../../component-fixtures/component-fixture'
 import type { Repo } from '../../../../../../shared/repository/repo-types'
 import type { Worktree } from '../../../../../../shared/worktree/types'
-import { getDefaultSettings } from '../../../../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../../../../shared/openkodo-profiles/constants'
 import { NativeChatComposerWorkspace } from './NativeChatComposerWorkspace'
 import { nativeChatAppearanceStyle } from '../../appearance/native-chat-appearance-style'
 import { useAppStore } from '@/store'
@@ -11,7 +11,7 @@ function workspaceFixture({
   width = 640,
   hostId = 'local',
   folder = false,
-  checkout = 'orca',
+  checkout = 'openkodo',
   folderName = 'notes',
   machineName = '',
   fontSize
@@ -27,8 +27,8 @@ function workspaceFixture({
 } = {}) {
   const repo: Repo = {
     id: 'composer-preview',
-    path: '/preview/orca',
-    displayName: 'orca',
+    path: '/preview/openkodo',
+    displayName: 'openkodo',
     badgeColor: '',
     addedAt: 1,
     kind: folder ? 'folder' : 'git',

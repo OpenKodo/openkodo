@@ -1,6 +1,6 @@
 import type { z } from 'zod'
 import type { PeerMailDeliverParams } from '../../../../../../shared/rpc-contract/orchestration/orchestration-peer-mail-params'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { OrchestrationError } from '../../../../orchestration/orchestration-error'
 import { routeBotMail } from '../messaging/bot-chat-address'
 import { botAddressReach } from '../messaging/bot-recipient'
@@ -13,7 +13,7 @@ const admitting = new Set<string>()
 /** Peer mail that reaches a bot is admitted as this OpenKodo's own bot mail is, for the owner: a paired
  *  computer has full access here. `{ to }` is mail for an agent that is no bot, stored as peer mail. */
 export async function deliverPeerMailToBot(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   params: z.infer<typeof PeerMailDeliverParams>,
   peerFingerprint: string,
   senderSnapshot: string | undefined,
@@ -27,7 +27,7 @@ export async function deliverPeerMailToBot(
     address: params.senderLabel,
     terminalHandle: null,
     paneKey: null,
-    orcaSessionId: null
+    openkodoSessionId: null
   }
   const named = params.chat !== undefined || params.item !== undefined
   // A reply carries no type and is stored as a local reply is, never as a new request.

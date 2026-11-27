@@ -53,7 +53,7 @@ function parseArgs(argv) {
   return result
 }
 
-function withoutOrcaEnvironment(extra = {}) {
+function withoutOpenKodoEnvironment(extra = {}) {
   return {
     ...Object.fromEntries(
       Object.entries(process.env).filter(([key]) => !key.startsWith('OPENKODO_'))
@@ -125,7 +125,7 @@ function assertProtocolStdout(fileName, stdout) {
 }
 
 function readGeneratedScripts(home, minMtime) {
-  const hooksDir = join(home, '.orca', 'agent-hooks')
+  const hooksDir = join(home, '.openkodo', 'agent-hooks')
   return MANAGED_SCRIPTS.map(([fileName, source]) => {
     const path = join(hooksDir, fileName)
     const stats = statSync(path)
@@ -194,7 +194,7 @@ function nextRequest(server) {
 }
 
 async function verifyNoOpWrites(scripts, home, payload) {
-  const commandCodeBin = mkdtempSync(join(tmpdir(), 'orca-hook-command-code-bin-'))
+  const commandCodeBin = mkdtempSync(join(tmpdir(), 'openkodo-hook-command-code-bin-'))
   symlinkSync('/bin/cat', join(commandCodeBin, 'cat'))
   try {
     for (const script of scripts) {
@@ -205,7 +205,7 @@ async function verifyNoOpWrites(scripts, home, payload) {
       const result = await runShell(
         ['/bin/sh ', JSON.stringify(script.path)].join(''),
         payload,
-        withoutOrcaEnvironment({
+        withoutOpenKodoEnvironment({
           HOME: home,
           PATH: path,
           OPENKODO_AGENT_HOOK_ENDPOINT: ''
@@ -239,7 +239,7 @@ async function verifyClaudeDevinSkip(scripts, home, payload) {
     const result = await runShell(
       ['/bin/sh ', JSON.stringify(claude.path)].join(''),
       payload,
-      withoutOrcaEnvironment({
+      withoutOpenKodoEnvironment({
         DEVIN_PROJECT_DIR: join(home, 'devin-project'),
         HOME: home,
         OPENKODO_AGENT_HOOK_ENDPOINT: '',
@@ -273,7 +273,7 @@ async function verifyForwarding(scripts, home, payload) {
       const result = await runShell(
         ['/bin/sh ', JSON.stringify(script.path)].join(''),
         payload,
-        withoutOrcaEnvironment({
+        withoutOpenKodoEnvironment({
           HOME: home,
           OPENKODO_AGENT_HOOK_ENDPOINT: '',
           OPENKODO_AGENT_HOOK_PORT: String(address.port),
@@ -298,7 +298,7 @@ async function verifyForwarding(scripts, home, payload) {
           )
         )
       }
-      if (request.headers['x-orca-agent-hook-token'] !== 'electron-verification-token') {
+      if (request.headers['x-openkodo-agent-hook-token'] !== 'electron-verification-token') {
         throw new Error([script.fileName, ' lost the hook token header'].join(''))
       }
       if (form.get('payload') !== payload) {
@@ -321,29 +321,29 @@ async function verifyInstalledLauncher(home, payload) {
   )
   if (
     !command ||
-    !command.includes('"${HOME-}/.orca/agent-hooks/claude-hook.sh"') ||
+    !command.includes('"${HOME-}/.openkodo/agent-hooks/claude-hook.sh"') ||
     !command.includes('] && [ -r ') ||
     !command.includes('else { command -p cat')
   ) {
     throw new Error('Electron did not install the guarded Claude launcher')
   }
-  const scratch = mkdtempSync(join(tmpdir(), 'orca-hook-launcher-'))
+  const scratch = mkdtempSync(join(tmpdir(), 'openkodo-hook-launcher-'))
   try {
     const missingResult = await runShell(
       command,
       payload,
-      withoutOrcaEnvironment({ HOME: scratch })
+      withoutOpenKodoEnvironment({ HOME: scratch })
     )
     assertSuccessfulWrite(missingResult, 'installed missing-script launcher')
 
-    const failingPath = join(scratch, '.orca', 'agent-hooks', 'claude-hook.sh')
-    mkdirSync(join(scratch, '.orca', 'agent-hooks'), { recursive: true })
+    const failingPath = join(scratch, '.openkodo', 'agent-hooks', 'claude-hook.sh')
+    mkdirSync(join(scratch, '.openkodo', 'agent-hooks'), { recursive: true })
     writeFileSync(failingPath, '#!/bin/sh\ncat >/dev/null\nexit 7\n', 'utf8')
     chmodSync(failingPath, 0o755)
     const failingResult = await runShell(
       command,
       payload,
-      withoutOrcaEnvironment({ HOME: scratch })
+      withoutOpenKodoEnvironment({ HOME: scratch })
     )
     if (failingResult.exitCode !== 7 || failingResult.stdinErrors.length > 0) {
       throw new Error('Installed launcher did not preserve a running script failure')

@@ -2,12 +2,12 @@ import type { OrchestrationDb } from '../../../../orchestration/db/orchestration
 import type { MessageRow } from '../../../../orchestration/db/orchestration-records'
 import type { WorkerLineage } from '../../../../orchestration/db/dispatch-context/worker-follow-up-lineage'
 import { completionReportFollowUp } from '../../../../orchestration/workers/reports/report-follow-up-action'
-import { resolveOrcaSessionParty } from '../../../../orchestration/addressing/orchestration-party'
+import { resolveOpenKodoSessionParty } from '../../../../orchestration/addressing/orchestration-party'
 import type { OrchestrationPartyIdentity as OrchestrationCallerIdentity } from '../../../../../../shared/orchestration/mailbox/orchestration-party-identity'
 import {
-  isOrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../../../shared/agent-session/identity/orca-session-address'
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../../../shared/agent-session/identity/openkodo-session-address'
 import {
   formatNotYoursReplyRefusal,
   type ReportFollowUpAction
@@ -19,14 +19,14 @@ import { orchestrationCallerIdentity } from '../runs/run-scope'
 import { resolveReplyRecipient } from './recipient-routing'
 import type { TerminalAgentRecipient } from './session-recipient'
 import { creatorSession } from './bot-recipient'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import type { StructuredMailFollowUp } from '../../../../orchestration/mailbox/structured-pointer/structured-mailbox-pointer-host-contract'
 
 /** What a view prints in place of `[Reply:]` for this reader, in reply's own order: a finished task's
  *  report offers its follow-up, mail reply would refuse the reader names the send that works, and
  *  status a bot got from another says there is nothing to answer. */
 export function replyFollowUp(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   message: MessageRow,
   reader: { party: OrchestrationCallerIdentity; sessionId: string } | undefined,
@@ -44,7 +44,7 @@ export function replyFollowUp(
 }
 
 /** A chat's reply follow-up, as structured mail shows it to the chat that reads it. */
-export function chatReplyFollowUp(runtime: OrcaRuntimeService): StructuredMailFollowUp {
+export function chatReplyFollowUp(runtime: OpenKodoRuntimeService): StructuredMailFollowUp {
   return (db, message, sessionId) => replyFollowUp(runtime, db, message, chatReader(db, sessionId))
 }
 
@@ -53,11 +53,11 @@ export function chatReader(
   db: OrchestrationDb,
   sessionId: string
 ): { party: OrchestrationCallerIdentity; sessionId: string } | undefined {
-  if (!isOrcaSessionId(sessionId)) {
+  if (!isOpenKodoSessionId(sessionId)) {
     return undefined
   }
   try {
-    return { party: resolveOrcaSessionParty(sessionId, db), sessionId }
+    return { party: resolveOpenKodoSessionParty(sessionId, db), sessionId }
   } catch {
     return undefined
   }
@@ -67,13 +67,13 @@ export function chatReader(
  *  in a bot's chat comes from the bot a request went to, the party the mail went to, or the bot's own
  *  worker. Every `[Reply:]` hint asks this too. */
 export function refusedReplyFollowUp(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   original: MessageRow,
   replier: { identity: OrchestrationCallerIdentity; sessionId: string | null }
 ): ReportFollowUpAction | null {
   const request = db.getBotRequest(original.id)
-  const senderSession = parseOrcaSessionAddress(original.from_handle)
+  const senderSession = parseOpenKodoSessionAddress(original.from_handle)
   const senderBot = senderSession ? botOfSession(runtime.bots, senderSession) : null
   if (request) {
     const replierBot = replier.sessionId ? botOfSession(runtime.bots, replier.sessionId) : null
@@ -96,7 +96,7 @@ export function refusedReplyFollowUp(
 
 /** Who runs a printed `[Reply:]` hint: the mail's reader (a chat's own party), declaring the mail's address. */
 export function hintReplier(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   message: MessageRow,
   reader: { party: OrchestrationCallerIdentity; sessionId: string } | undefined
 ): { identity: OrchestrationCallerIdentity; sessionId: string | null } {
@@ -114,7 +114,7 @@ export function hintReplier(
 
 /** Where a reply goes, once OpenKodo knows `refusedReplyFollowUp` accepts the replier. */
 export function resolveCheckedReplyRecipient(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   db: OrchestrationDb,
   original: MessageRow,
   replying: {

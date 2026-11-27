@@ -6,7 +6,7 @@
  * again on the next remount. A pin that silently forgets itself is worse than one that cannot be
  * set, so the page's store is the app's, reached over the `storage` grant.
  *
- * An allowlist and not a passthrough. Everything the app keeps under `orca:` is in one namespace —
+ * An allowlist and not a passthrough. Everything the app keeps under `openkodo:` is in one namespace —
  * paired hosts, push registrations — and a page that could write any of them could rewrite state
  * the native app owns. A prefix is listed only where the key carries an id the desktop chooses; the
  * rest are exact.
@@ -17,45 +17,45 @@
  * (rulings-ota-c7.md ruling 7).
  */
 export const TERMINAL_SHORTCUT_STORAGE_KEYS = [
-  'orca:terminal-accessory-layout',
-  'orca:custom-accessory-keys'
+  'openkodo:terminal-accessory-layout',
+  'openkodo:custom-accessory-keys'
 ] as const
 
 export const TERMINAL_SETTINGS_STORAGE_KEYS = [
   ...TERMINAL_SHORTCUT_STORAGE_KEYS,
-  'orca:terminalTextScale',
-  'orca:terminalFontStyle',
-  'orca:terminalAutocompleteEnabled',
-  'orca:terminalLinkOpenMode',
+  'openkodo:terminalTextScale',
+  'openkodo:terminalFontStyle',
+  'openkodo:terminalAutocompleteEnabled',
+  'openkodo:terminalLinkOpenMode',
   /** Chat text size, font and spacing, so an open chat follows Settings too. */
-  'orca:nativeChatText',
+  'openkodo:nativeChatText',
   /** Used or remaining on usage bars, so an open Accounts page follows Settings. */
-  'orca:usagePercentageDisplay'
+  'openkodo:usagePercentageDisplay'
 ] as const
 
 export const PAGE_STORAGE_EXACT_KEYS = [
-  'orca:last-visited-worktree',
-  'orca:hostSidebarWidth',
-  'orca:hostDockWidth',
-  'orca:terminal-accessory-layout',
-  'orca:custom-accessory-keys',
-  'orca:defaultSessionView',
+  'openkodo:last-visited-worktree',
+  'openkodo:hostSidebarWidth',
+  'openkodo:hostDockWidth',
+  'openkodo:terminal-accessory-layout',
+  'openkodo:custom-accessory-keys',
+  'openkodo:defaultSessionView',
   /** Legacy journal access for embedded pages served by older hosts. */
-  'orca:mobileStructuredSendOperations:v1',
-  'orca:terminalTextScale',
-  'orca:terminalAutocompleteEnabled',
+  'openkodo:mobileStructuredSendOperations:v1',
+  'openkodo:terminalTextScale',
+  'openkodo:terminalAutocompleteEnabled',
   /** Whether a terminal link opens in OpenKodo's browser or the phone's. */
-  'orca:terminalLinkOpenMode',
+  'openkodo:terminalLinkOpenMode',
   /** The split terminal's chosen direction. */
-  'orca:terminalSplitLayout',
+  'openkodo:terminalSplitLayout',
   /** Terminal font, line spacing and weight. */
-  'orca:terminalFontStyle',
+  'openkodo:terminalFontStyle',
   /** Chat text size, font and spacing; a pinch in a chat saves here. */
-  'orca:nativeChatText',
+  'openkodo:nativeChatText',
   /** The New Tab sheet's Chat or CLI pick. */
-  'orca:newAgentSurface',
+  'openkodo:newAgentSurface',
   /** Whether usage bars show the percentage used or remaining. */
-  'orca:usagePercentageDisplay'
+  'openkodo:usagePercentageDisplay'
 ] as const
 
 /**
@@ -64,11 +64,11 @@ export const PAGE_STORAGE_EXACT_KEYS = [
  * the host sends these only to a page whose `ready` named them in `storageKeys`.
  */
 export const NEGOTIATED_PAGE_STORAGE_KEYS = [
-  'orca:terminalSplitLayout',
-  'orca:terminalFontStyle',
-  'orca:nativeChatText',
-  'orca:newAgentSurface',
-  'orca:usagePercentageDisplay'
+  'openkodo:terminalSplitLayout',
+  'openkodo:terminalFontStyle',
+  'openkodo:nativeChatText',
+  'openkodo:newAgentSurface',
+  'openkodo:usagePercentageDisplay'
 ] as const
 
 /** Whether a page that declared `storageKeys` (null: declared nothing) reads this key in `init`. */
@@ -93,10 +93,10 @@ export function pageStorageForReader(
 }
 
 export const PAGE_STORAGE_KEY_PREFIXES = [
-  'orca:pins:',
-  'orca:nativeChatTabs:',
-  'orca:terminalLiveInputDisabled:',
-  'orca:terminalDrafts:'
+  'openkodo:pins:',
+  'openkodo:nativeChatTabs:',
+  'openkodo:terminalLiveInputDisabled:',
+  'openkodo:terminalDrafts:'
 ] as const
 
 export const PAGE_STORAGE_MAX_VALUE_CHARS = 16 * 1024
@@ -135,9 +135,9 @@ export function pageRouteWorkspace(
 }
 
 const WORKSPACE_KEY_PREFIXES = [
-  'orca:nativeChatTabs:',
-  'orca:terminalLiveInputDisabled:',
-  'orca:terminalDrafts:'
+  'openkodo:nativeChatTabs:',
+  'openkodo:terminalLiveInputDisabled:',
+  'openkodo:terminalDrafts:'
 ] as const
 
 export function workspaceScopedKey(prefix: string, hostId: string, worktreeId: string): string {
@@ -164,7 +164,7 @@ export function pageStorageKeysForRoute(hostId: string, routePathname: string): 
       : WORKSPACE_KEY_PREFIXES.map((prefix) =>
           workspaceScopedKey(prefix, hostId, workspace.worktreeId)
         )
-  return [...PAGE_STORAGE_EXACT_KEYS, `orca:pins:${hostId}`, ...scoped].filter(isPageStorageKey)
+  return [...PAGE_STORAGE_EXACT_KEYS, `openkodo:pins:${hostId}`, ...scoped].filter(isPageStorageKey)
 }
 
 // Narrow key shapes to this host/workspace; host-area pages additionally reach this host’s other workspaces.

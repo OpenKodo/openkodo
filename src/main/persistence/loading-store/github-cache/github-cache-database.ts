@@ -1,5 +1,5 @@
 import { dirname, join } from 'node:path'
-import type { PersistedState } from '../../../../shared/orca-profiles/persisted-state-types'
+import type { PersistedState } from '../../../../shared/openkodo-profiles/persisted-state-types'
 import {
   KeyedJsonRowCache,
   parseKeyedJsonRows,
@@ -20,7 +20,7 @@ const GITHUB_CACHE_SCHEMA_VERSION = 2
 const KINDS: readonly GitHubCacheKind[] = ['pr', 'issue']
 
 export function getGithubCacheDatabaseFile(dataFile: string): string {
-  return join(dirname(dataFile), 'orca-github-cache.db')
+  return join(dirname(dataFile), 'openkodo-github-cache.db')
 }
 
 /**

@@ -14,7 +14,7 @@ import { NativeChatAutomationSavedRow } from './NativeChatAutomationSavedRow'
 const HOOK = 'wh_SetupCardTest001'
 // A hook the host no longer has: its read fails.
 const GONE = 'wh_SetupCardGone001'
-const URL = `https://connector.orca.dev/hooks/${HOOK}/secret-key`
+const URL = `https://connector.openkodo.dev/hooks/${HOOK}/secret-key`
 const writes: string[] = []
 const reveals: unknown[] = []
 

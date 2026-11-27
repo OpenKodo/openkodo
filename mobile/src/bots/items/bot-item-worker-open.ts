@@ -23,7 +23,7 @@ async function locateBotItemWorker(
       current,
       source: {
         kind: 'sender',
-        party: { address: `dispatch:${dispatchId}`, terminalHandle: null, orcaSessionId: null },
+        party: { address: `dispatch:${dispatchId}`, terminalHandle: null, openkodoSessionId: null },
         messageIds: []
       }
     })

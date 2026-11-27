@@ -3,10 +3,10 @@ import { NativeChatPullRequestEventLine } from './NativeChatPullRequestEventLine
 import { NativeChatOpenedPullRequestCard } from '../../tools/pull-requests/NativeChatOpenedPullRequestCard'
 
 // Journal keys percent-encode the line's client message id, as the host writes them.
-const MESSAGE_ID = 'orca:pr-event%3Agithub.com%2FOpenKodo%2Fopenkodo%233%3A8d5f74b3c0e1d2f3%3A1'
+const MESSAGE_ID = 'openkodo:pr-event%3Agithub.com%2FOpenKodo%2Fopenkodo%233%3A8d5f74b3c0e1d2f3%3A1'
 const AT = Date.parse('2026-11-18T18:20:00Z')
 const LONG_MESSAGE_ID =
-  'orca:pr-event%3Agithub.com%2FOpenKodo%2Fsome-very-long-repository-name%2312345%3Aabc1234def5678%3A1'
+  'openkodo:pr-event%3Agithub.com%2FOpenKodo%2Fsome-very-long-repository-name%2312345%3Aabc1234def5678%3A1'
 
 // Keyboard focus shows the Hide button, as card hover does, without a pointer in the headless shot.
 function focusHide(frame: HTMLElement): void {
@@ -25,13 +25,13 @@ export const failingBesideOpenedCard = defineFixture({
           {
             provider: 'github',
             url: 'https://github.com/OpenKodo/openkodo/pull/3',
-            slug: { owner: 'openkodo', repo: 'orca' },
+            slug: { owner: 'openkodo', repo: 'openkodo' },
             number: 3
           }
         ]}
       />
       <NativeChatPullRequestEventLine
-        block={{ type: 'text', text: 'CI failing on orca#3 at 8d5f74b', tone: 'failure' }}
+        block={{ type: 'text', text: 'CI failing on openkodo#3 at 8d5f74b', tone: 'failure' }}
         messageId={MESSAGE_ID}
         timestamp={AT}
       />
@@ -42,7 +42,7 @@ export const greenHideShown = defineFixture({
   width: 560,
   render: () => (
     <NativeChatPullRequestEventLine
-      block={{ type: 'text', text: 'CI green on orca#3 at 8d5f74b', tone: 'success' }}
+      block={{ type: 'text', text: 'CI green on openkodo#3 at 8d5f74b', tone: 'success' }}
       messageId={MESSAGE_ID}
       timestamp={AT}
     />

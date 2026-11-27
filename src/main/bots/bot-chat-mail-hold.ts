@@ -1,13 +1,13 @@
 /** Whether a bot's chat would hold another agent's mail instead of waking for it. */
 
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import { requireStructuredHost } from './bot-chat-session'
 
 /** A chat whose last turn stopped at a usage limit holds other agents' mail until automatic continue
  *  runs at the reset or its owner continues it; other failures do not hold it. An unreadable chat is
  *  taken as not holding it. */
 export async function chatHoldsAgentMail(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string
 ): Promise<boolean> {
   try {

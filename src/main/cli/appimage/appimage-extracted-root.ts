@@ -2,7 +2,7 @@ import { lstatSync, readlinkSync } from 'node:fs'
 import { mkdir, mkdtemp, rename, rm, rmdir, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { resolveCachedAppImagePayloadRoot } from './appimage-cache-layout'
 
 import { removeExtractedAppImagePayload } from './appimage-payload-removal'
@@ -26,7 +26,7 @@ import {
   resolveAppImageStableLauncherPath
 } from './appimage-stable-launcher'
 
-const CACHE_DIR_SEGMENTS = ['orca', 'appimage'] as const
+const CACHE_DIR_SEGMENTS = ['openkodo', 'appimage'] as const
 const EXTRACT_OUTPUT_DIR = 'squashfs-root'
 const MAX_GENERATION_ATTEMPTS = 2
 const EXTRACTION_STAGING_PREFIX = '.extract-'

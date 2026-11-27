@@ -31,7 +31,7 @@ export function TerminalFontPreview({ textScale, fontStyle, columnsWidth, height
   )
   const apply = () =>
     webViewRef.current?.injectJavaScript(
-      `window.__orcaPreview && window.__orcaPreview(${lookJson});true;`
+      `window.__openkodoPreview && window.__openkodoPreview(${lookJson});true;`
     )
   useEffect(apply, [lookJson])
 

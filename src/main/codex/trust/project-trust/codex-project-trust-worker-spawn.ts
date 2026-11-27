@@ -12,7 +12,7 @@ export function spawnCodexProjectTrustWorker(): WorkerRequestTransport {
   return spawnWorkerThread(
     resolveWorkerThreadEntryPath(currentWorkerEntryLayout(__dirname), WORKER_ENTRY_FILENAME),
     {
-      name: 'orca-codex-project-trust',
+      name: 'openkodo-codex-project-trust',
       // Hook commands on Windows resolve a bundled binary from main's resources folder.
       workerData: { resourcesPath: 'resourcesPath' in process ? process.resourcesPath : undefined }
     }

@@ -21,15 +21,15 @@ export function useTerminalLinkRoutingPreference({
         return openLinksInAppPreferencePromiseRef.current
       }
       const preferencePromise = (async () => {
-        const openInOrca = await requestLinkRoutingPreference({
+        const openInOpenKodo = await requestLinkRoutingPreference({
           openLinksInAppDefault: settingsRef.current?.openLinksInApp === true,
           url
         })
         await updateSettings({
-          openLinksInApp: openInOrca,
+          openLinksInApp: openInOpenKodo,
           openLinksInAppPreferencePrompted: true
         })
-        return openInOrca
+        return openInOpenKodo
       })()
       openLinksInAppPreferencePromiseRef.current = preferencePromise
       void preferencePromise.finally(() => {

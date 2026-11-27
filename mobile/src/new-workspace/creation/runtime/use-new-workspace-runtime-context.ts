@@ -1,6 +1,6 @@
 import { optionalSettingsRead } from '../../../settings/mobile-settings-read-operations'
 import { useCallback, useEffect, useState } from 'react'
-import type { PersistedTrustedOrcaHooks } from '../../../../../src/shared/workspace-setup/orca-yaml-hook-types'
+import type { PersistedTrustedOpenKodoHooks } from '../../../../../src/shared/workspace-setup/openkodo-yaml-hook-types'
 import type { RpcAcceptedResult } from '../../../transport/rpc/rpc-accepted-result'
 import type { RpcClient } from '../../../transport/rpc/rpc-client-contract'
 import type { RpcResponse } from '../../../transport/rpc/rpc-wire-types'
@@ -40,7 +40,7 @@ function settledValue(
 type OwnedRuntimeContext = {
   owner: { hostId: string | undefined; serverId: string | undefined }
   runtimeSettings: NewWorktreeRuntimeSettings | null
-  trustedOrcaHooks: PersistedTrustedOrcaHooks
+  trustedOpenKodoHooks: PersistedTrustedOpenKodoHooks
   availableProviders: TaskProvider[]
 }
 
@@ -52,8 +52,8 @@ export function useNewWorkspaceRuntimeContext(
 ): {
   runtimeSettings: NewWorktreeRuntimeSettings | null
   setRuntimeSettings: (settings: NewWorktreeRuntimeSettings) => void
-  trustedOrcaHooks: PersistedTrustedOrcaHooks
-  setTrustedOrcaHooks: (trust: PersistedTrustedOrcaHooks) => void
+  trustedOpenKodoHooks: PersistedTrustedOpenKodoHooks
+  setTrustedOpenKodoHooks: (trust: PersistedTrustedOpenKodoHooks) => void
   availableProviders: TaskProvider[]
   jiraConnection: MobileJiraConnection
 } {
@@ -62,7 +62,7 @@ export function useNewWorkspaceRuntimeContext(
   const [context, setContext] = useState<OwnedRuntimeContext>(() => ({
     owner: { hostId, serverId },
     runtimeSettings: null,
-    trustedOrcaHooks: {},
+    trustedOpenKodoHooks: {},
     availableProviders: []
   }))
   const { owner } = context
@@ -71,12 +71,12 @@ export function useNewWorkspaceRuntimeContext(
     setContext({
       owner: { hostId, serverId },
       runtimeSettings: null,
-      trustedOrcaHooks: {},
+      trustedOpenKodoHooks: {},
       availableProviders: []
     })
   }
   const runtimeSettings = matchesOwner ? context.runtimeSettings : null
-  const trustedOrcaHooks = matchesOwner ? context.trustedOrcaHooks : {}
+  const trustedOpenKodoHooks = matchesOwner ? context.trustedOpenKodoHooks : {}
   const availableProviders = matchesOwner ? context.availableProviders : []
   const publish = useCallback(
     (patch: Partial<Omit<OwnedRuntimeContext, 'owner'>>) => {
@@ -88,8 +88,8 @@ export function useNewWorkspaceRuntimeContext(
     (settings: NewWorktreeRuntimeSettings) => publish({ runtimeSettings: settings }),
     [publish]
   )
-  const setTrustedOrcaHooks = useCallback(
-    (trust: PersistedTrustedOrcaHooks) => publish({ trustedOrcaHooks: trust }),
+  const setTrustedOpenKodoHooks = useCallback(
+    (trust: PersistedTrustedOpenKodoHooks) => publish({ trustedOpenKodoHooks: trust }),
     [publish]
   )
   // Tasks can offer Jira setup; the composer requires a connected site.
@@ -131,7 +131,7 @@ export function useNewWorkspaceRuntimeContext(
       if (uiRes.status === 'fulfilled') {
         const ui = newWorkspaceUiStateRead.interpret(uiRes.value)
         if (ui.accepted) {
-          setTrustedOrcaHooks(ui.value?.trustedOrcaHooks ?? {})
+          setTrustedOpenKodoHooks(ui.value?.trustedOpenKodoHooks ?? {})
         }
       }
 
@@ -163,13 +163,13 @@ export function useNewWorkspaceRuntimeContext(
     return () => {
       stale = true
     }
-  }, [visible, client, hostId, publish, setRuntimeSettings, setTrustedOrcaHooks])
+  }, [visible, client, hostId, publish, setRuntimeSettings, setTrustedOpenKodoHooks])
 
   return {
     runtimeSettings,
     setRuntimeSettings,
-    trustedOrcaHooks,
-    setTrustedOrcaHooks,
+    trustedOpenKodoHooks,
+    setTrustedOpenKodoHooks,
     availableProviders,
     jiraConnection
   }

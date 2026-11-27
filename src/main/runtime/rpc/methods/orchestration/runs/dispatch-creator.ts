@@ -3,13 +3,13 @@ import {
   sessionCallerOf,
   type OrchestrationEntryCaller
 } from '../../../../orchestration/addressing/orchestration-caller-identity'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { orchestrationCallerIdentity } from './run-scope'
 import { runtimeChatHost } from '../../../../../external-conversations/external-conversation-chat'
 
 /** Use runtime-attested pane/incarnation for nesting identity; remote attachment matching requires the exact process and params are untrusted. */
 export function resolveDispatchCreator(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   callerHandle: string | undefined,
   callerSession: OrchestrationEntryCaller | undefined
 ): DispatchCreator {
@@ -33,8 +33,8 @@ export function resolveDispatchCreator(
       : {}
   if (caller.terminalHandle === null) {
     // A handle-less session: its OpenKodo session id is its whole identity.
-    return caller.orcaSessionId
-      ? { kind: 'session', orcaSessionId: caller.orcaSessionId, ...turnSource }
+    return caller.openkodoSessionId
+      ? { kind: 'session', openkodoSessionId: caller.openkodoSessionId, ...turnSource }
       : { kind: 'system' }
   }
   const authority = runtime.getOrchestrationDispatchAuthority?.(caller.terminalHandle)
@@ -47,7 +47,7 @@ export function resolveDispatchCreator(
       runtime.getTerminalPaneKey(caller.terminalHandle) ??
       undefined,
     processIncarnation: authority?.processIncarnation ?? undefined,
-    ...(caller.orcaSessionId ? { orcaSessionId: caller.orcaSessionId } : {}),
+    ...(caller.openkodoSessionId ? { openkodoSessionId: caller.openkodoSessionId } : {}),
     ...turnSource
   }
 }

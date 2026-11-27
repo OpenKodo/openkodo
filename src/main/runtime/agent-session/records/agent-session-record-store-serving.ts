@@ -1,9 +1,9 @@
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { isHostShuttingDown } from '../../../startup/quit/host-shutdown-state'
 import { createStructuredAgentSessionLogger } from '../../../native-chat/agent-session-wire/host/structured-agent-session-logger'
 
 type ServingRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   'openAgentSessionRecordStore' | 'startPullRequestWatches'
 >
 

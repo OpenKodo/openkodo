@@ -39,7 +39,7 @@ export type PluginHostCustomEditor = {
   contentKind?: 'text' | 'bytes'
   /** Absent on hosts that predate the field: `any`. */
   frame?: 'any' | 'isolated'
-  /** orca-plugin-image URL of the editor's tab icon; absent when it declares none. */
+  /** openkodo-plugin-image URL of the editor's tab icon; absent when it declares none. */
   icon?: string
 }
 
@@ -48,7 +48,7 @@ export type PluginHostNewFile = {
   title: string
   /** Suffix, with the dot, of the untitled file it creates. */
   extension: string
-  /** orca-plugin-image URL; absent when it declares none. */
+  /** openkodo-plugin-image URL; absent when it declares none. */
   icon?: string
 }
 
@@ -56,7 +56,7 @@ export type PluginHostFont = {
   /** The manifest's family name; clients register it as `pluginFontFamilyName`. */
   family: string
   faces: {
-    /** orca-plugin-image URL main serves while the plugin is enabled. */
+    /** openkodo-plugin-image URL main serves while the plugin is enabled. */
     url: string
     weight: string
     style: 'normal' | 'italic'
@@ -76,7 +76,7 @@ export type PluginHostListEntry = {
   execution?: PluginExecutionProfile
   /** What the installed manifest contributes; absent on hosts that predate it. */
   types?: readonly PluginCatalogType[]
-  /** Declared images (format 2 manifests), as orca-plugin-image URLs main serves. */
+  /** Declared images (format 2 manifests), as openkodo-plugin-image URLs main serves. */
   images?: PluginHostImages
   /** SPDX license expression from the manifest. */
   license?: string

@@ -138,7 +138,7 @@ export abstract class BrowserManagerState extends BrowserManagerViewportScrollSt
     guestWebContentsId: number,
     rootGuestWebContentsId: number
   ): boolean
-  protected abstract openLinkInOrcaTab(
+  protected abstract openLinkInOpenKodoTab(
     browserTabId: string,
     rawUrl: string,
     activate?: boolean,

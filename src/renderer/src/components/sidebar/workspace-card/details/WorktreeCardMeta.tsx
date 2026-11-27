@@ -57,10 +57,10 @@ export function WorktreeCardDetailsHover({
   onWorkspaceTitleEditingChange,
   onEditIssue,
   onEditComment,
-  onOpenGitHubIssueInOrca,
+  onOpenGitHubIssueInOpenKodo,
   onOpenIssueInBrowser,
-  onOpenLinearIssueInOrca,
-  onOpenReviewInOrca,
+  onOpenLinearIssueInOpenKodo,
+  onOpenReviewInOpenKodo,
   onUnlinkReview,
   onOpenAutomation,
   onOpenAutomationRun,
@@ -119,9 +119,9 @@ export function WorktreeCardDetailsHover({
   )
   const taskActions = getWorktreeCardTaskActions(closeHover, {
     onEditIssue,
-    onOpenGitHubIssueInOrca,
+    onOpenGitHubIssueInOpenKodo,
     onOpenIssueInBrowser,
-    onOpenLinearIssueInOrca
+    onOpenLinearIssueInOpenKodo
   })
   const showIdentityHeader = Boolean(branchName || workspaceTitle)
   const attachments = getWorkspaceAttachments(workspace ?? {})
@@ -199,7 +199,7 @@ export function WorktreeCardDetailsHover({
                 onManageLinks={onManageLinks ? dismissAndRun(onManageLinks) : undefined}
                 reviewMenuOpen={reviewMenuOpen}
                 onReviewMenuOpenChange={handleReviewMenuOpenChange}
-                onOpenReviewInOrca={onOpenReviewInOrca}
+                onOpenReviewInOpenKodo={onOpenReviewInOpenKodo}
                 onOpenLink={onOpenLink}
                 onUnlinkReview={onUnlinkReview}
                 closeHover={closeHover}
@@ -232,7 +232,7 @@ export function WorktreeCardDetailsHover({
                 item={item}
                 review={live}
                 onOpenChange={handleReviewMenuOpenChange}
-                onOpenInOrca={onOpenReviewInOrca}
+                onOpenInOpenKodo={onOpenReviewInOpenKodo}
                 onUnlink={onUnlinkReview}
                 closeHover={closeHover}
               />

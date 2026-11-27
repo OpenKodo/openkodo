@@ -96,7 +96,9 @@ try {
   await capture(page, 'after.png')
 
   expect(report.after).toEqual(['Done', 'To Do', 'In Progress'])
-  report.saved = await page.evaluate(() => localStorage.getItem('orca.jira.board-column-order.v1'))
+  report.saved = await page.evaluate(() =>
+    localStorage.getItem('openkodo.jira.board-column-order.v1')
+  )
 
   // A keyboard user can only repeat a move if focus follows the lane. Two presses in a
   // row prove it, in the browser rather than in a DOM shim.

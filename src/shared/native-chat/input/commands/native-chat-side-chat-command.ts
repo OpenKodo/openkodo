@@ -25,7 +25,7 @@ export function withNativeChatSideChatCommands(
     name,
     description: copy.unavailableReason ?? copy[name],
     argumentHint: copy.argumentHint,
-    orcaOwned: true
+    openkodoOwned: true
   }))
   // Ahead of the agent's own, as OpenKodo's built-ins are, so a long catalog never pushes them out.
   return [...rows, ...commands.filter(({ name }) => !isNativeChatSideChatCommand(name))]

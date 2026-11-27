@@ -3,7 +3,7 @@ import {
   openInMemoryCloudDatabase,
   type CloudDatabase,
   type OpenCloudDatabaseInput
-} from '@orca-cloud/cloud-database/cloud-database'
+} from '@openkodo-cloud/cloud-database/cloud-database'
 import { pushSchemaStatements } from './push-schema.js'
 
 export async function openPushDatabase(

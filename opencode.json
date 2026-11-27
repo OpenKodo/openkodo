@@ -18,13 +18,13 @@
     "typescript": {
       "disabled": true
     },
-    "orca-typescript": {
+    "openkodo-typescript": {
       "command": ["node", "config/scripts/typecheck/language-server/agent-typescript-lsp.mjs"],
       "extensions": [".ts", ".tsx", ".mts", ".cts", ".js", ".jsx", ".mjs", ".cjs"]
     }
   },
   "mcp": {
-    "orca-component-fixtures": {
+    "openkodo-component-fixtures": {
       "type": "local",
       "command": [
         "node",

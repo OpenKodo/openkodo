@@ -98,7 +98,7 @@ export function useModalReturnFocus(
     if (focusCapturedElement()) {
       return
     }
-    focusFirstMatchingSurface(['[data-orca-emulator-frame="true"] [tabindex]'])
+    focusFirstMatchingSurface(['[data-openkodo-emulator-frame="true"] [tabindex]'])
   }, [focusCapturedElement, focusFirstMatchingSurface])
 
   const focusFallbackSurface = useCallback((): void => {
@@ -131,7 +131,7 @@ export function useModalReturnFocus(
       : null
     // Capture from onOpenAutoFocus before Radix changes focus, preserving address-bar/editor/simulator identity.
     const browserTarget =
-      tabType === 'browser' && activeElement?.closest('[data-orca-browser-address-bar="true"]')
+      tabType === 'browser' && activeElement?.closest('[data-openkodo-browser-address-bar="true"]')
         ? 'address-bar'
         : 'webview'
     capturedElementRef.current = isRestorableFocusedElement(activeElement) ? activeElement : null

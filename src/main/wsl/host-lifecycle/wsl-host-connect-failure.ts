@@ -1,15 +1,15 @@
 import { errorMessage } from '../../../shared/errors/error-message'
 import { RemoteRuntimeClientError } from '../../../shared/remote-runtime/remote-runtime-client-error'
-import { OrcadHostUnsupportedError } from '../../orcad/diagnostics/orcad-host-unavailable'
+import { OpenkododHostUnsupportedError } from '../../openkodod/diagnostics/openkodod-host-unavailable'
 import {
   WslDistroNotRunningError,
-  WslOrcadLaunchDeferredError
-} from '../orcad/wsl-orcad-connection-errors'
+  WslOpenkododLaunchDeferredError
+} from '../openkodod/wsl-openkodod-connection-errors'
 import {
-  OrcadManagedIdentityError,
-  OrcadManagedPairingRejectedError
-} from '../../managed-server/lifecycle/orcad-managed-tunnel-identity'
-import { OrcadManagedPairingRepairFailedError } from '../../managed-server/lifecycle/orcad-managed-pairing-repair-failure'
+  OpenkododManagedIdentityError,
+  OpenkododManagedPairingRejectedError
+} from '../../managed-server/lifecycle/openkodod-managed-tunnel-identity'
+import { OpenkododManagedPairingRepairFailedError } from '../../managed-server/lifecycle/openkodod-managed-pairing-repair-failure'
 
 /**
  * Liveness keeps reconnecting a running host whose connect failed, so a call that met the failure
@@ -18,14 +18,14 @@ import { OrcadManagedPairingRepairFailedError } from '../../managed-server/lifec
  */
 export function retryableConnectFailure(distro: string, error: unknown): unknown {
   if (
-    error instanceof WslOrcadLaunchDeferredError ||
-    error instanceof OrcadHostUnsupportedError ||
+    error instanceof WslOpenkododLaunchDeferredError ||
+    error instanceof OpenkododHostUnsupportedError ||
     error instanceof WslDistroNotRunningError ||
     // A foreign or unpaired server, or a failed re-pair, needs the user (as on the SSH tunnel path);
     // retrying would run a full deploy per pane until the deadline.
-    error instanceof OrcadManagedIdentityError ||
-    error instanceof OrcadManagedPairingRejectedError ||
-    error instanceof OrcadManagedPairingRepairFailedError
+    error instanceof OpenkododManagedIdentityError ||
+    error instanceof OpenkododManagedPairingRejectedError ||
+    error instanceof OpenkododManagedPairingRepairFailedError
   ) {
     return error
   }

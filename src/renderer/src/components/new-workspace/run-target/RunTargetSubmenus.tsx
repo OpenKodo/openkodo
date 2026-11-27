@@ -278,11 +278,11 @@ export function AddHostSubmenuRow({
             <RunTargetRow
               icon={<Cloud className="size-3.5 shrink-0 text-muted-foreground" />}
               label={t(
-                'auto.components.NewWorkspaceComposerCard.addRemoteOrcaServer',
+                'auto.components.NewWorkspaceComposerCard.addRemoteOpenKodoServer',
                 'Add Remote OpenKodo Server'
               )}
               detail={t(
-                'auto.components.NewWorkspaceComposerCard.addRemoteOrcaServerHint',
+                'auto.components.NewWorkspaceComposerCard.addRemoteOpenKodoServerHint',
                 'Pair another OpenKodo runtime'
               )}
               armed={hoveredKey === 'remote'}

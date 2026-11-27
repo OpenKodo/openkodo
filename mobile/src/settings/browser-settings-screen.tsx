@@ -26,7 +26,7 @@ function linkModeOptions(t: Translate): PickerOption<MobileLinkOpenMode>[] {
       )
     },
     {
-      value: 'orca-browser',
+      value: 'openkodo-browser',
       label: t('settings.browserSettingsScreen.desktopBrowser', 'OpenKodo browser on desktop'),
       subtitle: t(
         'settings.browserSettingsScreen.desktopBrowserDescription',

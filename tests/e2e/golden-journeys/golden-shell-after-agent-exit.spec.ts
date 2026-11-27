@@ -1,4 +1,4 @@
-import { test } from '../desktop/electron-fixtures/orca-app'
+import { test } from '../desktop/electron-fixtures/openkodo-app'
 import { expect } from '@playwright/test'
 import {
   configureGoldenStubAgent,
@@ -26,39 +26,43 @@ function buildSplitMarkerEcho(prefix: string, suffix: string): { command: string
   return { command, marker: `${prefix}${suffix}` }
 }
 
-test('opens a clean live shell after an agent exits', async ({ orcaPage }) => {
-  await waitForSessionReady(orcaPage)
-  await waitForActiveWorktree(orcaPage)
-  await ensureTerminalVisible(orcaPage)
-  await configureGoldenStubAgent(orcaPage)
-  await launchGoldenStubAgentFromNewTab(orcaPage)
+test('opens a clean live shell after an agent exits', async ({ openkodoPage }) => {
+  await waitForSessionReady(openkodoPage)
+  await waitForActiveWorktree(openkodoPage)
+  await ensureTerminalVisible(openkodoPage)
+  await configureGoldenStubAgent(openkodoPage)
+  await launchGoldenStubAgentFromNewTab(openkodoPage)
 
-  await orcaPage.keyboard.type('exit')
-  await orcaPage.keyboard.press('Enter')
-  await waitForTerminalOutput(orcaPage, GOLDEN_STUB_EXIT_MARKER, 15_000)
+  await openkodoPage.keyboard.type('exit')
+  await openkodoPage.keyboard.press('Enter')
+  await waitForTerminalOutput(openkodoPage, GOLDEN_STUB_EXIT_MARKER, 15_000)
 
-  const tabsBeforeShell = await orcaPage.locator('[data-testid="sortable-tab"]').count()
-  await orcaPage.getByRole('button', { name: 'New tab' }).click({ force: true })
-  await orcaPage
+  const tabsBeforeShell = await openkodoPage.locator('[data-testid="sortable-tab"]').count()
+  await openkodoPage.getByRole('button', { name: 'New tab' }).click({ force: true })
+  await openkodoPage
     .getByRole('menu')
     .getByRole('button', { name: /New Terminal/i })
     .first()
     .click({ force: true })
-  await expect(orcaPage.locator('[data-testid="sortable-tab"]')).toHaveCount(tabsBeforeShell + 1)
-  const shellPtyId = await waitForActivePanePtyId(orcaPage)
+  await expect(openkodoPage.locator('[data-testid="sortable-tab"]')).toHaveCount(
+    tabsBeforeShell + 1
+  )
+  const shellPtyId = await waitForActivePanePtyId(openkodoPage)
   // A bound pane can precede transport readiness; wait or marker keystrokes may be dropped.
-  expect(await waitForRestoredTerminalInputReady(orcaPage, shellPtyId)).toBe(true)
+  expect(await waitForRestoredTerminalInputReady(openkodoPage, shellPtyId)).toBe(true)
 
   const afterAgent = buildSplitMarkerEcho('after-', 'agent')
-  await focusActiveTerminalInput(orcaPage)
-  await orcaPage.keyboard.type(afterAgent.command)
-  await orcaPage.keyboard.press('Enter')
-  await waitForTerminalOutput(orcaPage, afterAgent.marker, 15_000)
+  await focusActiveTerminalInput(openkodoPage)
+  await openkodoPage.keyboard.type(afterAgent.command)
+  await openkodoPage.keyboard.press('Enter')
+  await waitForTerminalOutput(openkodoPage, afterAgent.marker, 15_000)
 
   const afterShiftEnter = buildSplitMarkerEcho('after-shift-', 'enter')
-  await orcaPage.keyboard.press('Shift+Enter')
-  await orcaPage.keyboard.type(afterShiftEnter.command)
-  await orcaPage.keyboard.press('Enter')
-  await waitForTerminalOutput(orcaPage, afterShiftEnter.marker, 15_000)
-  await expect(orcaPage.locator('[data-testid="sortable-tab"]')).toHaveCount(tabsBeforeShell + 1)
+  await openkodoPage.keyboard.press('Shift+Enter')
+  await openkodoPage.keyboard.type(afterShiftEnter.command)
+  await openkodoPage.keyboard.press('Enter')
+  await waitForTerminalOutput(openkodoPage, afterShiftEnter.marker, 15_000)
+  await expect(openkodoPage.locator('[data-testid="sortable-tab"]')).toHaveCount(
+    tabsBeforeShell + 1
+  )
 })

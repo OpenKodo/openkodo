@@ -6,7 +6,7 @@
  * restart between two probes goes unseen, so OpenKodo's own wake also allows one re-read; a restart
  * outside OpenKodo with no wake after it keeps the old root until the next noticed stop or wake.
  */
-import { runProcess } from '@orca/process-host'
+import { runProcess } from '@openkodo/process-host'
 import { waitForPromiseWithSignal } from '../../../shared/concurrency/abort-signal-reason'
 import { buildPosixStdoutFence } from '../../../shared/shell/launch/posix-stdout-fence'
 import { buildWslExecArgs } from '../../../shared/shell/wsl/wsl-login-shell-command'

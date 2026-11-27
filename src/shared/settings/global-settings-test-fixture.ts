@@ -1,7 +1,7 @@
 import { expect, vi } from 'vitest'
 import * as shell from '../agent-launch/startup/tui-agent-startup-shell'
 import type { GlobalSettings } from './global-settings-types'
-import { getDefaultVoiceSettings } from '../orca-profiles/constants'
+import { getDefaultVoiceSettings } from '../openkodo-profiles/constants'
 import { getDefaultNotificationSettings } from '../notifications/notification-settings-defaults'
 import { buildDefaultSettings } from './default-global-settings'
 

@@ -12,7 +12,7 @@ import { printResult } from '../output/command-result-output'
 import { RuntimeClientError } from '../runtime/connection/types'
 import { callerChat } from '../automations/automation-caller-chat'
 import { formatBotChats, type BotChatsResult } from './bot-chats-format'
-import { orcaCloudNeedsSignIn } from '../../shared/bots/host-orca-sign-in'
+import { openkodoCloudNeedsSignIn } from '../../shared/bots/host-openkodo-sign-in'
 
 export function formatBot(bot: Bot): string {
   return `${bot.name} (${bot.agent}${bot.paused ? ', paused' : ''})  id: ${bot.id}`
@@ -75,7 +75,7 @@ export async function findBot(
     githubEvents2: result.githubEvents2 === true,
     githubWorkflows: result.githubWorkflows === true,
     githubCiFinished: result.githubCiFinished === true,
-    cloudSignedOut: orcaCloudNeedsSignIn(result.connectorStatus),
+    cloudSignedOut: openkodoCloudNeedsSignIn(result.connectorStatus),
     ...(result.signInServer !== undefined ? { signInServer: result.signInServer } : {})
   }
 }

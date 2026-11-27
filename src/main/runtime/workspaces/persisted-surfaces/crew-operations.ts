@@ -8,14 +8,14 @@ import { getPublishedHostDescriptor } from '../../hosts/platform-probe/host-desc
 import { existsSync } from 'node:fs'
 import type { OrchestrationDb } from '../../orchestration/db/orchestration-db'
 import { CrewChanges } from '../../orchestration/crew/crew-changes'
-import { OrcaRuntimeWithWebhookOperations } from './webhook-operations'
+import { OpenKodoRuntimeWithWebhookOperations } from './webhook-operations'
 import { subscribeWorkerApprovals } from '../../orchestration/crew/worker-approval-stream'
 import { readCrewApprovals } from '../../orchestration/crew/crew-query'
 import {
-  formatOrcaSessionAddress,
-  isOrcaSessionId,
-  parseOrcaSessionAddress
-} from '../../../../shared/agent-session/identity/orca-session-address'
+  formatOpenKodoSessionAddress,
+  isOpenKodoSessionId,
+  parseOpenKodoSessionAddress
+} from '../../../../shared/agent-session/identity/openkodo-session-address'
 import type { OrchestrationWorkerApprovalsFrame } from '../../../../shared/orchestration/orchestration-crew'
 import { getStructuredAgentSessionHost } from '../../../native-chat/agent-session-wire/host/structured-agent-session-registry'
 import {
@@ -23,7 +23,7 @@ import {
   workerDockSourceSessions
 } from '../../orchestration/dock/worker-dock-source'
 
-export abstract class OrcaRuntimeWithCrewOperations extends OrcaRuntimeWithWebhookOperations {
+export abstract class OpenKodoRuntimeWithCrewOperations extends OpenKodoRuntimeWithWebhookOperations {
   abstract readonly agentTransitions: Pick<AgentTransitionDetector, 'subscribe'>
 
   private unwatchCrewDb: (() => void) | undefined
@@ -108,18 +108,22 @@ export abstract class OrcaRuntimeWithCrewOperations extends OrcaRuntimeWithWebho
     party: string,
     emit: (frame: OrchestrationWorkerApprovalsFrame) => void
   ): () => void {
-    const parsed = parseOrcaSessionAddress(party)
+    const parsed = parseOpenKodoSessionAddress(party)
     return subscribeWorkerApprovals(
       {
         mailboxes: () => {
           const db = this._orchestrationDb
           // Workers address a cleared chat (a bot's Home Chat) at its /clear root.
-          const orcaSessionId = parsed && workerDockSourceOfSession(parsed)
-          return db && orcaSessionId && isOrcaSessionId(orcaSessionId)
+          const openkodoSessionId = parsed && workerDockSourceOfSession(parsed)
+          return db && openkodoSessionId && isOpenKodoSessionId(openkodoSessionId)
             ? [
-                ...new Set([party, formatOrcaSessionAddress(orcaSessionId)]),
+                ...new Set([party, formatOpenKodoSessionAddress(openkodoSessionId)]),
                 ...db
-                  .runsBoundToCoordinator({ orcaSessionId, paneKey: null, terminalHandle: null })
+                  .runsBoundToCoordinator({
+                    openkodoSessionId,
+                    paneKey: null,
+                    terminalHandle: null
+                  })
                   .map((run) => `run:${run.id}`)
               ]
             : []

@@ -38,32 +38,32 @@ export function getPosixCodexShellLaunchPreflight(): string {
 # report the alias text, and the subshell leaves the user's own alias intact.
 # Why || : twice — zsh alone aborts inside the substitution, but every shell's
 # assignment adopts its exit status, so an absent codex trips set -e in bash too.
-__orca_codex_binary="$(unalias codex 2>/dev/null || :; command -v codex 2>/dev/null || :)"
+__openkodo_codex_binary="$(unalias codex 2>/dev/null || :; command -v codex 2>/dev/null || :)"
 # Why typeset -f: a user's own codex function wins; command -v prints its bare name, which -x tests against the cwd.
-if ! typeset -f codex >/dev/null 2>&1 && [[ -n "\${__orca_codex_binary:-}" && -x "\${__orca_codex_binary}" ]]; then
+if ! typeset -f codex >/dev/null 2>&1 && [[ -n "\${__openkodo_codex_binary:-}" && -x "\${__openkodo_codex_binary}" ]]; then
   # Why the function reserved word: it suppresses alias expansion of the name,
   # which otherwise rewrites this header at parse time and aborts the whole file.
   function codex {
     # Why local: zsh's warn_create_global warns for each global a function creates.
-    local __orca_codex_arg __orca_codex_isolate="\${OPENKODO_CODEX_ISOLATE:-1}" __orca_codex_identity="\${OPENKODO_CODEX_ISOLATE:-1}"
+    local __openkodo_codex_arg __openkodo_codex_isolate="\${OPENKODO_CODEX_ISOLATE:-1}" __openkodo_codex_identity="\${OPENKODO_CODEX_ISOLATE:-1}"
     if [[ "\${${REMOTE_VIEWER_CLIPBOARD_ENV}:-}" == 1 && -z "\${SSH_CONNECTION+x}" && -z "\${SSH_TTY+x}" ]]; then
       local -x SSH_CONNECTION='${CODEX_REMOTE_VIEWER_SSH_CONNECTION}'
     fi
     if [[ -n "\${OPENKODO_CODEX_LAUNCH_PREFLIGHT:-}" && -x "\${OPENKODO_CODEX_LAUNCH_PREFLIGHT}" ]]; then
       "\${OPENKODO_CODEX_LAUNCH_PREFLIGHT}" agent hooks prepare-codex >/dev/null 2>&1 || :
     fi
-    for __orca_codex_arg in "$@"; do
-      case "$__orca_codex_arg" in
-        --no-daemon) __orca_codex_isolate=0 ;;
-        ${CODEX_SHARED_SERVER_ARGS.join('|')}|--remote=*) __orca_codex_isolate=0 __orca_codex_identity=0 ;;
+    for __openkodo_codex_arg in "$@"; do
+      case "$__openkodo_codex_arg" in
+        --no-daemon) __openkodo_codex_isolate=0 ;;
+        ${CODEX_SHARED_SERVER_ARGS.join('|')}|--remote=*) __openkodo_codex_isolate=0 __openkodo_codex_identity=0 ;;
       esac
     done
-    if [[ "$__orca_codex_identity" != 0 ]]; then
+    if [[ "$__openkodo_codex_identity" != 0 ]]; then
 ${CODEX_COMMAND_IDENTITY_ENV_KEYS.map((key) => `      [[ -z "\${${key}:-}" || "\${${key}}" == *"'"* ]] || set -- -c "${identitySetArg(key, `\${${key}}`)}" "$@"`).join('\n')}
       [[ "\${SSH_CONNECTION:-}" != '${CODEX_REMOTE_VIEWER_SSH_CONNECTION}' ]] || set -- -c "${CLEAR_SSH_MARKER_ARG}" "$@"
     fi
     # Why probe every launch: a cached answer goes stale across an upgrade, and 0.155 and older exit 2 on the flag.
-    if [[ "$__orca_codex_isolate" != 0 ]]; then
+    if [[ "$__openkodo_codex_isolate" != 0 ]]; then
       case "$(command codex --help 2>/dev/null </dev/null)" in *--no-daemon*) set -- --no-daemon "$@" ;; esac
     fi
     if [[ "\${${OPENKODO_IMAGE_PROTOCOL_ENV}:-}" == '${OPENKODO_IMAGE_PROTOCOL_VALUE}' && -z "\${KITTY_WINDOW_ID+x}" ]]; then
@@ -72,7 +72,7 @@ ${CODEX_COMMAND_IDENTITY_ENV_KEYS.map((key) => `      [[ -z "\${${key}:-}" || "\
     command codex "$@"
   }
 fi
-unset __orca_codex_binary
+unset __openkodo_codex_binary
 `
 }
 
@@ -80,8 +80,8 @@ export function getFishCodexShellLaunchPreflight(): string {
   return `# Why captured: an unquoted (type -t codex) expands to zero words when codex is
 # absent, leaving "test = file" — fish then errors instead of failing closed.
 # Quoting in place is not the fix; fish never substitutes inside double quotes.
-set -l __orca_codex_type (type -t codex 2>/dev/null)
-if test "$__orca_codex_type" = file
+set -l __openkodo_codex_type (type -t codex 2>/dev/null)
+if test "$__openkodo_codex_type" = file
   function codex
     if test -x "$OPENKODO_CODEX_LAUNCH_PREFLIGHT"
       command "$OPENKODO_CODEX_LAUNCH_PREFLIGHT" agent hooks prepare-codex >/dev/null 2>&1; or true
@@ -105,14 +105,14 @@ ${CODEX_COMMAND_IDENTITY_ENV_KEYS.map((key) => `      test -n "$${key}"; and not
     end
   end
 end
-set -e __orca_codex_type`
+set -e __openkodo_codex_type`
 }
 
 // Keep the identity loop compact to share PowerShell’s command-line budget with startup commands.
 export function getPowerShellCodexShellLaunchPreflight(): string {
-  return `$orcaCodexCommand = Get-Command codex -ErrorAction SilentlyContinue | Select-Object -First 1
-if ($orcaCodexCommand -and
-    $orcaCodexCommand.CommandType -in @("Application", "ExternalScript")) {
+  return `$openkodoCodexCommand = Get-Command codex -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($openkodoCodexCommand -and
+    $openkodoCodexCommand.CommandType -in @("Application", "ExternalScript")) {
     function Global:codex {
         $exe = Get-Command codex -CommandType Application,ExternalScript -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty Source
         if (-not $exe) {
@@ -149,7 +149,7 @@ if ($orcaCodexCommand -and
             foreach ($k in ${CODEX_COMMAND_IDENTITY_ENV_KEYS.map((key) => `'${key}'`).join(',')}) { $v = [Environment]::GetEnvironmentVariable($k); if ($v -and -not $v.Contains("'")) { $identity += '-c', "${identitySetArg('$k', '$v')}" } }
             if ($remoteClip -or $env:SSH_CONNECTION -ceq '${CODEX_REMOTE_VIEWER_SSH_CONNECTION}') { $identity += '-c', "${CLEAR_SSH_MARKER_ARG}" }
         }
-        $argv = @(__OrcaEscapeNativeArgs $exe (@($identity) + @($args)))
+        $argv = @(__OpenKodoEscapeNativeArgs $exe (@($identity) + @($args)))
         if ($remoteClip) { $env:SSH_CONNECTION = '${CODEX_REMOTE_VIEWER_SSH_CONNECTION}' }
         $kitty = $env:${OPENKODO_IMAGE_PROTOCOL_ENV} -ceq '${OPENKODO_IMAGE_PROTOCOL_VALUE}' -and -not (Test-Path Env:KITTY_WINDOW_ID)
         if ($kitty) { $env:KITTY_WINDOW_ID = '${CODEX_KITTY_WINDOW_ID}' }
@@ -167,5 +167,5 @@ if ($orcaCodexCommand -and
         $global:LASTEXITCODE = $LASTEXITCODE
     }
 }
-Remove-Variable orcaCodexCommand -ErrorAction SilentlyContinue`
+Remove-Variable openkodoCodexCommand -ErrorAction SilentlyContinue`
 }

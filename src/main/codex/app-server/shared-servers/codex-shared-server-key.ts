@@ -57,7 +57,7 @@ export async function codexSharedServerSpec(
 ): Promise<CodexSharedServerSpec> {
   const generation = await launchGeneration(launch, codexVersion)
   // A --config value may be a path Codex resolves from its folder, so such a launch keeps its own.
-  const cwd = configValues(launch.args).some((value) => !isOrcaHooksState(value))
+  const cwd = configValues(launch.args).some((value) => !isOpenKodoHooksState(value))
     ? launch.cwd
     : sharedServerFolder(launch)
   const env = { ...launch.env }
@@ -116,7 +116,7 @@ const HOOK_STATE_OFF = /"((?:[^"\\]|\\.)*)"=\{enabled=false\}/g
 /** OpenKodo's own hooks-off override (`hooks.state={"<absolute hooks.json>:<event>:<g>:<h>"=
  *  {enabled=false},…}`): every entry names a hooks.json by absolute path, so nothing in it
  *  depends on the folder. Any other hooks.state value counts as folder-sensitive. */
-function isOrcaHooksState(value: string): boolean {
+function isOpenKodoHooksState(value: string): boolean {
   const body = /^hooks\.state=\{(.+)\}$/.exec(value)?.[1]
   if (!body || body.replace(HOOK_STATE_OFF, '').replace(/,/g, '') !== '') {
     return false

@@ -53,7 +53,7 @@ export const DOWNGRADE_DETAIL: Record<AgentLaunchDowngradeReason, string> = {
   structured_unsupported_on_host: 'the execution host cannot create one here',
   chat_runtime_not_installed:
     "its chat runtime isn't installed on this host (install it from a new chat tab in OpenKodo)",
-  chat_cannot_run_orca_commands:
+  chat_cannot_run_openkodo_commands:
     "this agent's chats can't run OpenKodo commands as themselves yet, so a chat worker couldn't report"
 }
 

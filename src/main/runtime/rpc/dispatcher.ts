@@ -14,7 +14,7 @@ import { guardedRpcCallContext, rpcCallContext } from './rpc-call-context'
 import { successResponse } from './responses/rpc-response'
 import { withoutMethodsThisHostDoesNotServe } from './methods/terminal/session-terminal-scrollback'
 import { emulatorProbe, emulatorProbeError } from '../../emulator/emulator-probe'
-import type { OrcaRuntimeService } from '../orca-runtime'
+import type { OpenKodoRuntimeService } from '../openkodo-runtime'
 import { isDurableMutation } from '../../../shared/orchestration/orchestration-rpc-contract'
 import type { OrchestrationEntryCaller } from '../orchestration/addressing/orchestration-caller-identity'
 import {
@@ -30,11 +30,14 @@ import { recordRuntimeFeatureInteraction } from './dispatch/runtime-feature-inte
 import type { RpcCallerScope } from './callers/rpc-caller-scope'
 import { runWithActiveRpcCaller } from './callers/active-call'
 import { admitRpcRequest } from './dispatch/rpc-request-admission-prologue'
-import { resolveOrcadFeatureRequirement, rpcMethodFeatureWait } from './startup/orcad-readiness'
+import {
+  resolveOpenkododFeatureRequirement,
+  rpcMethodFeatureWait
+} from './startup/openkodod-readiness'
 import { routeRemoteOwnedCall } from '../orchestration/federation/remote-owned/remote-owned-route'
 
 export type DispatcherOptions = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   methods: readonly RpcAnyMethodDeclaration[]
   /** Pins every call to this scope, for in-process bridges that relay a non-owner caller. */
   callerScope?: RpcCallerScope
@@ -48,7 +51,7 @@ type AdmittedUnaryCall = {
 }
 
 export class RpcDispatcher {
-  private readonly runtime: OrcaRuntimeService
+  private readonly runtime: OpenKodoRuntimeService
   private readonly registry: RpcRegistry
   private readonly orchestrationMutations: OrchestrationMutationExecutor
   private readonly legacyOrchestration: OrchestrationLegacyCompatibility
@@ -83,7 +86,7 @@ export class RpcDispatcher {
     }
     try {
       const featureWait = rpcMethodFeatureWait(
-        resolveOrcadFeatureRequirement(admission.method.requires, admission.params),
+        resolveOpenkododFeatureRequirement(admission.method.requires, admission.params),
         [options?.signal, options?.connectionSignal]
       )
       if (featureWait) {
@@ -135,7 +138,7 @@ export class RpcDispatcher {
     }
     const { method, request, params, caller } = admission
     const featureWait = rpcMethodFeatureWait(
-      resolveOrcadFeatureRequirement(method.requires, params),
+      resolveOpenkododFeatureRequirement(method.requires, params),
       [options?.signal, options?.connectionSignal]
     )
     if (featureWait) {

@@ -13,7 +13,7 @@ import {
 } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { runProcessSync } from '@orca/process-host'
+import { runProcessSync } from '@openkodo/process-host'
 import { wrapPosixHookCommand } from '../commands/posix-hook-command'
 import { wrapWindowsHookCommand } from '../commands/windows-hook-command'
 import { writeHooksJson } from '../configuration/hooks-json-write'
@@ -28,7 +28,7 @@ let tmpDir: string
 let configPath: string
 
 beforeEach(() => {
-  tmpDir = mkdtempSync(join(tmpdir(), 'orca-installer-utils-test-'))
+  tmpDir = mkdtempSync(join(tmpdir(), 'openkodo-installer-utils-test-'))
   configPath = join(tmpDir, 'settings.json')
 })
 
@@ -166,7 +166,7 @@ describe('wrapWindowsHookCommand', () => {
   it.skipIf(process.platform !== 'win32')(
     'executes a script path containing a cmd.exe caret literally',
     () => {
-      const scriptDir = join(tmpDir, 'home with ^ caret', '.orca', 'agent-hooks')
+      const scriptDir = join(tmpDir, 'home with ^ caret', '.openkodo', 'agent-hooks')
       mkdirSync(scriptDir, { recursive: true })
       const scriptPath = join(scriptDir, 'codex-hook.cmd')
       writeFileSync(scriptPath, '@echo off\r\nexit /b 7\r\n', 'utf-8')
@@ -194,7 +194,7 @@ describe('wrapRuntimeHomeHookCommand', () => {
   it('executes the destination HOME script for the current runtime', () => {
     const sourceHome = join(tmpDir, 'source profile')
     const destinationHome = join(tmpDir, "destination $HOME ' & profile")
-    const sourceScriptDir = join(sourceHome, '.orca', 'agent-hooks')
+    const sourceScriptDir = join(sourceHome, '.openkodo', 'agent-hooks')
     const destinationScriptDir = join(destinationHome, '.openkodo', 'agent-hooks')
     mkdirSync(sourceScriptDir, { recursive: true })
     mkdirSync(destinationScriptDir, { recursive: true })
@@ -234,7 +234,7 @@ describe('wrapRuntimeHomeHookCommand', () => {
       program: shell,
       args: [
         '-c',
-        wrapRuntimeHomeHookCommand('missing-orca-hook', { neutralJsonWhenMissing: true })
+        wrapRuntimeHomeHookCommand('missing-openkodo-hook', { neutralJsonWhenMissing: true })
       ],
       env: { ...process.env, HOME: tmpDir.replaceAll('\\', '/') },
       input: 'x'.repeat(1_000_000),

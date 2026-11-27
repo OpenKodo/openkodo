@@ -1,7 +1,7 @@
 import type { MarkdownDocument } from '../../../../../../shared/file-listing/file-document'
 import { slug as slugMarkdownHeading } from 'github-slugger'
 
-export const MARKDOWN_DOC_LINK_PREFIX = '#orca-doc-link='
+export const MARKDOWN_DOC_LINK_PREFIX = '#openkodo-doc-link='
 
 type MarkdownTextNode = {
   type: 'text'

@@ -4,7 +4,7 @@ import {
 } from '../../../shared/execution-host/execution-host'
 import type { GitAdmissionTier } from '../../../shared/rpc-contract/source-control/git-admission-tier-params'
 import type { LocalProjectGhExecOptions } from '../../workspaces/execution-host/project-runtime-git-options'
-import { OrcaRuntimeWithPreservedBranchCleanup } from './runtime-host-services'
+import { OpenKodoRuntimeWithPreservedBranchCleanup } from './runtime-host-services'
 import { createRuntimeFileWatcherRemoval } from '../workspaces/removal/runtime-file-watcher-removal'
 import {
   isChatScratchWorktreeId,
@@ -29,7 +29,7 @@ import { RuntimeFileWatches } from '../files/watch/file-watches'
 import { RuntimeTerminalPathResolver } from '../terminal/terminal-path-resolver'
 import type { RuntimeFileCommandHost } from '../files/file-command-host'
 
-export abstract class OrcaRuntimeWithFileCommands extends OrcaRuntimeWithPreservedBranchCleanup {
+export abstract class OpenKodoRuntimeWithFileCommands extends OpenKodoRuntimeWithPreservedBranchCleanup {
   protected abstract hydrateHeadlessMobileSessionTabsFromWorkspaceSession(
     worktreeId?: string,
     options?: { force?: boolean }

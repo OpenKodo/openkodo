@@ -34,7 +34,7 @@ import type {
   AgentJournalSnapshot,
   AgentJournalTurnJoin
 } from '../../shared/agent-session/journal/agent-session-journal-types'
-import { testOrcaSessionId } from '../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { testOpenKodoSessionId } from '../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import type { BotRequestRecord } from './bot-request-view'
 import { TerminalHostCapError } from '../../shared/terminal/pty/lifecycle/terminal-host-cap-refusal'
 import { exposeUtcTimestamp } from '../runtime/orchestration/db/utc-timestamp'
@@ -55,7 +55,7 @@ vi.mock('./bot-chat-session', async (original) => ({
 
 const target = { sessionId: 'chat', epoch: 'epoch' }
 // The chat as orchestration records its starts' creator.
-const CHAT_SESSION = testOrcaSessionId('00000000-0000-4000-8000-00000000c4a7')
+const CHAT_SESSION = testOpenKodoSessionId('00000000-0000-4000-8000-00000000c4a7')
 const turnOf = (id: string) => codexTurnLifecycleIdentity('chat', id)
 const TURN_A = turnOf('turn-a')
 const TURN_B = turnOf('turn-b')
@@ -69,7 +69,7 @@ let now = 1_800_000_000_000
 let ordinal = 0
 
 beforeEach(() => {
-  directory = mkdtempSync(join(tmpdir(), 'orca-bot-request-settlement-'))
+  directory = mkdtempSync(join(tmpdir(), 'openkodo-bot-request-settlement-'))
   journalDb = new Database(join(directory, 'journal.sqlite'))
   migrateJournalDomainSchema(journalDb)
   ensureAgentSessionAttachmentClaimTables(journalDb)
@@ -89,7 +89,7 @@ beforeEach(() => {
     objective: 'asker',
     coordinatorHandle: null,
     coordinatorPaneKey: null,
-    coordinatorOrcaSessionId: testOrcaSessionId('00000000-0000-4000-8000-00000000a5c0')
+    coordinatorOpenKodoSessionId: testOpenKodoSessionId('00000000-0000-4000-8000-00000000a5c0')
   }).id
 })
 afterEach(() => {
@@ -129,7 +129,7 @@ function request(subject: string): string {
     purpose: 'handoff',
     depth: 1,
     record: JSON.stringify(record),
-    message: { from: ASKER(), to: 'orca_session_id:chat', subject, type: 'handoff', runId }
+    message: { from: ASKER(), to: 'openkodo_session_id:chat', subject, type: 'handoff', runId }
   })
   if (admitted.kind !== 'sent') {
     throw new Error(`not admitted: ${admitted.kind}`)
@@ -326,7 +326,7 @@ it('names the host terminal cap when a worker start the failed turn made was ref
   // The chat's own worker start, refused at the cap while its turn ran.
   const task = db.createTask({ runId, spec: 'review' })
   const { dispatch } = db.createStartingWorkerDispatch({
-    creator: { kind: 'session', orcaSessionId: CHAT_SESSION },
+    creator: { kind: 'session', openkodoSessionId: CHAT_SESSION },
     maxDepth: Number.MAX_SAFE_INTEGER,
     taskId: task.id,
     startOptions: {}

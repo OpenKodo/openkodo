@@ -39,7 +39,7 @@ export function scaleRecord(sessionId: string, workspaceId = 'workspace-1', link
 }
 
 export async function scaleDirectory() {
-  const root = await mkdtemp(join(tmpdir(), 'orca-session-scale-'))
+  const root = await mkdtemp(join(tmpdir(), 'openkodo-session-scale-'))
   roots.push(root)
   return root
 }

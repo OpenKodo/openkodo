@@ -8,15 +8,15 @@ import { readPowerShellProfileEnvValues } from '../../../pty/shell-startup/power
 
 export function hasCustomCodexHomeOverride(env: NodeJS.ProcessEnv = process.env): boolean {
   const codexHome = env.CODEX_HOME?.trim()
-  const orcaCodexHome = env.OPENKODO_CODEX_HOME?.trim()
+  const openkodoCodexHome = env.OPENKODO_CODEX_HOME?.trim()
   const normalizedCodexHome = codexHome ? normalizePathForComparison(codexHome) : undefined
-  const normalizedOrcaCodexHome = orcaCodexHome
-    ? normalizePathForComparison(orcaCodexHome)
+  const normalizedOpenKodoCodexHome = openkodoCodexHome
+    ? normalizePathForComparison(openkodoCodexHome)
     : undefined
   // Custom native homes need ownership tracking before OpenKodo can safely mutate and clean them.
   return Boolean(
     normalizedCodexHome &&
-    normalizedCodexHome !== normalizedOrcaCodexHome &&
+    normalizedCodexHome !== normalizedOpenKodoCodexHome &&
     normalizedCodexHome !== normalizePathForComparison(getSystemCodexHomePath())
   )
 }

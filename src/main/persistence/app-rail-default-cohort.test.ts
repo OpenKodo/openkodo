@@ -11,7 +11,7 @@ vi.mock('electron', () => ({
 
 describe('app rail default cohort', () => {
   beforeEach(() => {
-    testState.dir = mkdtempSync(join(tmpdir(), 'orca-app-rail-default-'))
+    testState.dir = mkdtempSync(join(tmpdir(), 'openkodo-app-rail-default-'))
   })
 
   afterEach(async () => {

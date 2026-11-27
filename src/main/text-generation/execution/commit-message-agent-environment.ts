@@ -34,7 +34,7 @@ function cloneProcessEnv(): Record<string, string> {
 }
 
 // System-default routing strips only OpenKodo-marked inherited CODEX_HOME overlays; preserve user overrides.
-function withoutOrcaCodexHomeOverride(base: Record<string, string>): Record<string, string> {
+function withoutOpenKodoCodexHomeOverride(base: Record<string, string>): Record<string, string> {
   const env = { ...base }
   if (env.OPENKODO_CODEX_HOME && env.CODEX_HOME === env.OPENKODO_CODEX_HOME) {
     delete env.CODEX_HOME
@@ -137,8 +137,8 @@ export async function prepareLocalCommitMessageAgentEnv(
         return {
           ok: true,
           env: codexHomeForTarget
-            ? { ...withoutOrcaCodexHomeOverride(base), CODEX_HOME: codexHomeForTarget }
-            : withoutOrcaCodexHomeOverride(base)
+            ? { ...withoutOpenKodoCodexHomeOverride(base), CODEX_HOME: codexHomeForTarget }
+            : withoutOpenKodoCodexHomeOverride(base)
         }
       }
       if (codexHomePath && wslCodexHome) {
@@ -149,7 +149,7 @@ export async function prepareLocalCommitMessageAgentEnv(
         ok: true,
         env: codexHomePath
           ? { ...base, CODEX_HOME: codexHomePath }
-          : withoutOrcaCodexHomeOverride(base)
+          : withoutOpenKodoCodexHomeOverride(base)
       }
     }
 

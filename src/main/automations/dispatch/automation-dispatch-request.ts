@@ -30,9 +30,9 @@ import {
   type AutomationRunFailure
 } from '../../../shared/automations/history/automation-run-failure-copy'
 import {
-  isOrcadFencedAutomation,
-  ORCAD_FENCED_AUTOMATION
-} from '../ownership/orcad-fenced-automation'
+  isOpenkododFencedAutomation,
+  OPENKODOD_FENCED_AUTOMATION
+} from '../ownership/openkodod-fenced-automation'
 import { AutomationDispatchCancelledError } from './automation-dispatch-cancelled-error'
 import { isTuiAgent } from '../../../shared/agent-launch/catalog/tui-agent-config'
 
@@ -99,8 +99,8 @@ export async function requestAutomationDispatch(
       )
     }
     // A refusal row would change the fenced export; restart strands the run instead.
-    if (isOrcadFencedAutomation(ctx.store, automation)) {
-      throw new AutomationDispatchCancelledError(ORCAD_FENCED_AUTOMATION)
+    if (isOpenkododFencedAutomation(ctx.store, automation)) {
+      throw new AutomationDispatchCancelledError(OPENKODOD_FENCED_AUTOMATION)
     }
     return current
   }

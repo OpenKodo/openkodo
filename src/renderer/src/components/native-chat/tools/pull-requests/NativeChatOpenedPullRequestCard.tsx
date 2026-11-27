@@ -49,7 +49,7 @@ const STATE_TEXT_TONE: Record<GitHubWorkItem['state'], string> = {
   closed: 'text-rose-600 dark:text-rose-300'
 }
 
-/** `orca#3`, or `owner/other#5` for another repo than the chat's own, which the card can't read. */
+/** `openkodo#3`, or `owner/other#5` for another repo than the chat's own, which the card can't read. */
 function pullRequestName(
   pullRequest: NativeChatOpenedPullRequest,
   githubRepo: NativeChatGitHubRepo | null
@@ -216,7 +216,7 @@ function PullRequestStateIcon({ item }: { item: GitHubWorkItem | null }): React.
   })
 }
 
-/** "Opened orca#3 · title": one pull request, its name opening it. */
+/** "Opened openkodo#3 · title": one pull request, its name opening it. */
 function OneOpenedPullRequest({
   pullRequest,
   action,
@@ -257,7 +257,7 @@ function OneOpenedPullRequest({
   )
 }
 
-/** "Opened orca#3": the pull requests a turn's own commands opened; several open into one list. */
+/** "Opened openkodo#3": the pull requests a turn's own commands opened; several open into one list. */
 export function NativeChatOpenedPullRequestCard({
   pullRequests,
   timestamp

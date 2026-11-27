@@ -28,7 +28,7 @@ const workerUpdate = (id: string, name: string): NativeChatMessage =>
       kind: 'agent',
       senders: [
         {
-          party: { address: `term_${id}`, terminalHandle: `term_${id}`, orcaSessionId: null },
+          party: { address: `term_${id}`, terminalHandle: `term_${id}`, openkodoSessionId: null },
           name,
           agent: 'claude',
           relation: 'worker'
@@ -50,7 +50,7 @@ const itemMail: AgentMessageSource = {
     message: 'mail-notice',
     mailbox: 'term_agent',
     dispatchId: null,
-    messages: [{ messageId: 'msg_item_1', runId: 'r', from: 'orca:items' }]
+    messages: [{ messageId: 'msg_item_1', runId: 'r', from: 'openkodo:items' }]
   }
 }
 

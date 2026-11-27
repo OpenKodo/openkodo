@@ -17,7 +17,7 @@ const ExternalConversationLinkSchema = z.object({
   bot: z.object({ kind: z.enum(['bot', 'bot-chat']), botId: z.string().min(1) }).optional(),
   title: z.string().optional(),
   place: z.string().optional(),
-  lastTurn: z.enum(['conversation', 'orca']).optional(),
+  lastTurn: z.enum(['conversation', 'openkodo']).optional(),
   adoptedTurn: z.object({ itemId: z.string().min(1), at: z.number().positive() }).optional(),
   seenAt: z.number().nullable().optional(),
   // Mirror facts read loosely: a malformed one is dropped alone, never the link.

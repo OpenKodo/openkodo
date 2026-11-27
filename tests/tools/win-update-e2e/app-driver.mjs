@@ -35,12 +35,12 @@ export async function launchInstalledApp({
   const {
     ELECTRON_RUN_AS_NODE: _drop,
     CODEX_HOME: _codexHome,
-    OPENKODO_CODEX_HOME: _orcaCodexHome,
+    OPENKODO_CODEX_HOME: _openkodoCodexHome,
     ...cleanEnv
   } = process.env
   void _drop
   void _codexHome
-  void _orcaCodexHome
+  void _openkodoCodexHome
   const restrictedExtraEnvKey = Object.keys(extraEnv).find((key) =>
     RESTRICTED_E2E_ENV_KEYS.has(key.toUpperCase())
   )
@@ -54,7 +54,7 @@ export async function launchInstalledApp({
   // Isolate Codex home separately: relocating userData does not change Node home.
   const requestedIsolatedHome = path.join(userDataDir, 'home')
   mkdirSync(requestedIsolatedHome, { recursive: true })
-  // Canonicalize Windows 8.3 home aliases so Git worktree paths match Orca’s comparisons.
+  // Canonicalize Windows 8.3 home aliases so Git worktree paths match OpenKodo’s comparisons.
   const isolatedHome = realpathSync.native(requestedIsolatedHome)
   const app = await electron.launch({
     executablePath: exePath,
@@ -243,7 +243,7 @@ async function createWorkspaceFromSeededRepo(page, timeoutMs) {
 const OVERLAY_DISMISS_LABELS = ['Got it', 'Dismiss setup scripts', 'Dismiss tip', 'Dismiss update']
 const FEATURE_TIP_DIALOG_TITLES = [
   'Chat UI is here',
-  'Let agents drive Orca with the Orca CLI',
+  'Let agents drive OpenKodo with the OpenKodo CLI',
   'Search every agent session'
 ]
 

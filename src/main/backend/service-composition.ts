@@ -1,4 +1,4 @@
-import { startOrcadEventLoopWatchdog } from '../orcad/diagnostics/orcad-event-loop-watchdog'
+import { startOpenkododEventLoopWatchdog } from '../openkodod/diagnostics/openkodod-event-loop-watchdog'
 
 export type BackendServiceCleanup = (state: { failed: boolean }) => void | Promise<void>
 
@@ -44,7 +44,7 @@ export async function activateBackendServices<T>(options: {
   registerCleanup: (cleanup: BackendServiceCleanup) => void
   activate: (registerCleanup: (cleanup: BackendServiceCleanup) => void) => Promise<T>
 }): Promise<T> {
-  const watchdog = startOrcadEventLoopWatchdog({ supervised: options.supervised })
+  const watchdog = startOpenkododEventLoopWatchdog({ supervised: options.supervised })
   options.registerCleanup(() => watchdog?.stop())
   return options.activate(options.registerCleanup)
 }

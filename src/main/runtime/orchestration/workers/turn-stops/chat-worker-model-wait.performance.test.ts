@@ -3,8 +3,8 @@ import type {
   AgentJournalItemBody,
   AgentJournalRenderItem
 } from '../../../../../shared/agent-session/journal/agent-session-journal-types'
-import { formatOrcaSessionAddress } from '../../../../../shared/agent-session/identity/orca-session-address'
-import { testOrcaSessionId } from '../../../../../shared/agent-session/identity/orca-session-address-test-fixture'
+import { formatOpenKodoSessionAddress } from '../../../../../shared/agent-session/identity/openkodo-session-address'
+import { testOpenKodoSessionId } from '../../../../../shared/agent-session/identity/openkodo-session-address-test-fixture'
 import { OrchestrationDb } from '../../db/orchestration-db'
 import '../../db/contract-constants'
 import '../../db/messages/mailbox-routing-page'
@@ -13,7 +13,7 @@ import '../../db/attempt-outcome-projection'
 import { createRootDispatch } from '../../db/root-dispatch-test-fixture'
 import { ChatWorkerModelWait, type ChatModelWaitJournal } from './chat-worker-model-wait'
 
-const SESSION = testOrcaSessionId('7a1c3e55-2b8d-4f90-9c16-3d5e8f0a7b42')
+const SESSION = testOpenKodoSessionId('7a1c3e55-2b8d-4f90-9c16-3d5e8f0a7b42')
 const MINUTE = 60_000
 
 beforeEach(() => {
@@ -35,7 +35,7 @@ it('reads a streaming tool row once per read in flight, not once per commit', as
   createRootDispatch(
     db,
     db.createTask({ spec: 'work', runId: run.id }).id,
-    formatOrcaSessionAddress(SESSION)
+    formatOpenKodoSessionAddress(SESSION)
   )
   let body: AgentJournalItemBody = {
     kind: 'tool-call',

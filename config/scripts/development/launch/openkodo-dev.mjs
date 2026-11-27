@@ -15,13 +15,13 @@ const cliEntry =
 handOffToSessionCli()
 
 if (!existsSync(cliEntry)) {
-  console.error("orca-dev: CLI not built yet. Run 'pnpm run build:cli' first.")
+  console.error("openkodo-dev: CLI not built yet. Run 'pnpm run build:cli' first.")
   process.exit(1)
 }
 
 // Why: target the profile this checkout's `pnpm dev` uses (per-worktree in linked worktrees).
 process.env.OPENKODO_USER_DATA_PATH = resolveDevCliUserDataPath({ repoRoot })
-// Why: custom dev profiles do not necessarily contain "orca-dev" in their path; carry explicit provenance into the CLI.
+// Why: custom dev profiles do not necessarily contain "openkodo-dev" in their path; carry explicit provenance into the CLI.
 process.env.OPENKODO_DEV_CLI_INVOCATION = '1'
 
 const electronExecutable = getElectronExecutable()
@@ -30,7 +30,7 @@ if (!process.env.OPENKODO_APP_EXECUTABLE && isRunnableFile(electronExecutable)) 
   process.env.OPENKODO_APP_EXECUTABLE_NEEDS_APP_ROOT = '1'
 }
 
-// Why: headless `orca-dev serve` skips the Electron dev runner that normally installs terminal CLI shims.
+// Why: headless `openkodo-dev serve` skips the Electron dev runner that normally installs terminal CLI shims.
 prepareDevCliTerminalWrappers({
   repoRoot,
   userDataPath: process.env.OPENKODO_USER_DATA_PATH,

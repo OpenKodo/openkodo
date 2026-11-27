@@ -7,7 +7,7 @@ import type {
   RpcStreamingMethod
 } from '../core'
 import { errorResponse } from '../responses/rpc-response'
-import type { OrcaRuntimeService } from '../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../openkodo-runtime'
 import { orchestrationMigrationFence } from '../orchestration/compatibility/orchestration-contract-fence'
 import { runtimeSourceFence } from './runtime-source-admission'
 import type { RpcDispatchStreamingOptions } from './dispatcher-stream-options'
@@ -27,7 +27,7 @@ import { admitOrchestrationPeerCall } from '../orchestration/callers/orchestrati
 import { waitForRestoredWorkerCallerIdentity } from '../orchestration/callers/worker-caller-identity-restore-wait'
 
 type RpcRequestAdmissionDeps = {
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
   registry: RpcRegistry
   meta: RpcEnvelopeMeta
   pinnedCallerScope?: RpcCallerScope

@@ -10,7 +10,7 @@ export type ResourceOwnerUsage = { memory: number }
 
 /** OpenKodo's tracked memory by who started it, so no single total reads as OpenKodo's own usage. */
 export type ResourceOwnerSplit = {
-  orca: ResourceOwnerUsage
+  openkodo: ResourceOwnerUsage
   agents: ResourceOwnerUsage
   yourProcesses: ResourceOwnerUsage
 }
@@ -38,7 +38,7 @@ export function splitSnapshotByOwner(
       ;(isAgent ? agents : yourProcesses).memory += session.memory
     }
   }
-  return { orca: { memory: snapshot.app.memory }, agents, yourProcesses }
+  return { openkodo: { memory: snapshot.app.memory }, agents, yourProcesses }
 }
 
 /** Agent processes no listed chat row accounts for, such as a server several chats share. */

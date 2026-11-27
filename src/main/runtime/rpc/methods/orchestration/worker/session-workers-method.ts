@@ -20,7 +20,7 @@ import type { FederatedDispatchRow } from '../../../../orchestration/db/orchestr
 import type { SessionPartyReader } from '../../../../orchestration/addressing/session-party-reader'
 import { exposeUtcTimestamp } from '../../../../orchestration/db/utc-timestamp'
 import { defineOrchestrationMethod } from '../access/orchestration-method-access'
-import type { OrcaRuntimeService } from '../../../../orca-runtime'
+import type { OpenKodoRuntimeService } from '../../../../openkodo-runtime'
 import { resolveStructuredWorkerForDispatch } from '../structured-workers/orchestration-structured-worker-lifecycle'
 import {
   ensureSessionWorkerRecords,
@@ -58,7 +58,7 @@ export const ORCHESTRATION_SESSION_WORKERS_METHODS = [
 ]
 
 export type SessionWorkersRuntime = Pick<
-  OrcaRuntimeService,
+  OpenKodoRuntimeService,
   | 'getOrchestrationDb'
   | 'getOrchestrationFleetAgentStatusSnapshot'
   | 'ensureStructuredAgentSessionHost'

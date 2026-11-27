@@ -17,7 +17,7 @@ import { nameNewHome, type BotHomeHost } from './bot-home-chat-name'
 export { BOT_CREATED_KICKOFF } from '../../shared/bot-created-kickoff'
 import type { StructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-host'
 import { getStructuredAgentSessionHost } from '../native-chat/agent-session-wire/host/structured-agent-session-registry'
-import type { OrcaRuntimeService } from '../runtime/orca-runtime'
+import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import {
   sendAgentTurn,
   type StructuredAgentTurnHost,
@@ -244,7 +244,7 @@ export function botWorkspaceSelector(bot: Pick<Bot, 'folderWorkspaceId'>): strin
 
 /** Installs the native-chat host on first use. */
 export async function requireStructuredHost(
-  runtime: OrcaRuntimeService
+  runtime: OpenKodoRuntimeService
 ): Promise<StructuredAgentSessionHost> {
   await runtime.ensureStructuredAgentSessionHost()
   const installed = getStructuredAgentSessionHost()
@@ -259,7 +259,7 @@ export async function requireStructuredHost(
  *  under the caller's id so its turn can be found. A `background` one (a thread's or a run's) gets no
  *  tab; it waits in the bot's Activity. */
 export async function startBotSession(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   bot: Bot,
   input: {
     sessionId?: string
@@ -336,7 +336,7 @@ export async function startBotSession(
 
 /** Stops a bot's conversation and removes its tab; its history stays. */
 export function closeBotSession(
-  runtime: OrcaRuntimeService,
+  runtime: OpenKodoRuntimeService,
   sessionId: string
 ): ReturnType<typeof closeStructuredAgentSessionChild> {
   return closeStructuredAgentSessionChild(sessionId, { runtime })
@@ -348,7 +348,7 @@ export function botOnAgent(bot: Bot, agent: BotAgent | undefined): Bot {
   return agent && agent !== bot.agent ? botOnSetup(bot, { agent }) : bot
 }
 
-export function runtimeBotChats(runtime: OrcaRuntimeService) {
+export function runtimeBotChats(runtime: OpenKodoRuntimeService) {
   return botChatSessions({
     bots: runtime.bots,
     host: () => requireStructuredHost(runtime),

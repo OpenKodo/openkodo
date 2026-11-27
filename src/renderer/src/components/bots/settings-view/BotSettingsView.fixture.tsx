@@ -39,7 +39,7 @@ const builder: Bot = {
   linear: null,
   github: {},
   google: true,
-  skillProjects: ['orca', 'website'],
+  skillProjects: ['openkodo', 'website'],
   chatSessionId: null,
   createdAt: 1,
   updatedAt: 1
@@ -119,12 +119,12 @@ function stub(bot: Bot = builder): void {
       ...(params.botId
         ? {
             own: {
-              skillsDir: '/Users/owner/.orca/bots/release-notes/skills',
+              skillsDir: '/Users/owner/.openkodo/bots/release-notes/skills',
               skills: [
                 {
                   name: 'release-notes-style',
                   description: 'House style for release notes',
-                  folder: '/Users/owner/.orca/bots/release-notes/skills/release-notes-style',
+                  folder: '/Users/owner/.openkodo/bots/release-notes/skills/release-notes-style',
                   loadedBy: ['claude', 'agents']
                 }
               ],
@@ -175,12 +175,12 @@ function View({ host, bot }: { host: BotSettingsHost; bot: Bot }): React.JSX.Ele
 }
 
 const store = {
-  repos: [repo('orca'), repo('website')],
+  repos: [repo('openkodo'), repo('website')],
   folderWorkspaces: [
     makeFolderWorkspace({
       id: 'fw-builder',
       name: 'Bot builder',
-      folderPath: '/Users/owner/.orca/bots/bot-builder'
+      folderPath: '/Users/owner/.openkodo/bots/bot-builder'
     })
   ]
 }
@@ -278,7 +278,7 @@ function sharedLink(): void {
               value: [
                 {
                   id: 'k7Qm2xR9vTb4',
-                  url: 'https://app.onorca.dev/bots/share/k7Qm2xR9vTb4',
+                  url: 'https://app.onopenkodo.dev/bots/share/k7Qm2xR9vTb4',
                   packageId: 'package-1',
                   name: botPackageName(builder.id),
                   createdAt: '2026-10-30T15:00:00.000Z',

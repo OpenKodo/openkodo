@@ -6,9 +6,9 @@ import {
   getCanonicalUserDataPath,
   migrateMobilePairingDataToCanonicalUserDataPath
 } from '../../persistence/loading-store/user-data-path'
-import { OrcaRuntimeRpcServer } from '../../runtime/rpc/server/runtime-rpc'
+import { OpenKodoRuntimeRpcServer } from '../../runtime/rpc/server/runtime-rpc'
 import { resolveServePinnedBindHost } from '../serve-launch/serve-pinned-bind-host'
-import { isOrcadSidecarLaunch } from '../../window/activation/foreground-activation-policy'
+import { isOpenkododSidecarLaunch } from '../../window/activation/foreground-activation-policy'
 import type { MainWindowOpenOptions } from '../../window/main-window/main-window-contracts'
 import { registerMobileHandlers } from '../../ipc/mobile'
 import { createRuntimeEnvironmentMobileRelayHosts } from '../../ipc/runtime-environments/mobile-relay/runtime-environment-mobile-relay-hosts'
@@ -67,7 +67,7 @@ export type MainProcessRuntimeLaunchOptions = {
 function installRuntimeRpc(
   runtime: RuntimeService,
   serveOptions: ReturnType<typeof getServeOptions> | null
-): OrcaRuntimeRpcServer {
+): OpenKodoRuntimeRpcServer {
   // Migrate pairing credentials from late-resolved userData before switching to the canonical path.
   migrateMobilePairingDataToCanonicalUserDataPath(app.getPath('userData'))
   // Use OS-assigned ports for concurrent E2E Electron instances to avoid EADDRINUSE.
@@ -80,10 +80,10 @@ function installRuntimeRpc(
   // STA-1511: separate dev port from packaged OpenKodo so pairing/repro URLs do not fall back unpredictably.
   const devWsPort = !app.isPackaged && !isE2E ? 6769 : undefined
   const pinnedBindHost = resolveServePinnedBindHost({
-    orcadSidecar: isOrcadSidecarLaunch(),
+    openkododSidecar: isOpenkododSidecarLaunch(),
     serveOptions
   })
-  const runtimeRpc = new OrcaRuntimeRpcServer({
+  const runtimeRpc = new OpenKodoRuntimeRpcServer({
     runtime,
     // Pairing must use pre-setName canonical userData or restarts can lose devices.
     userDataPath: getCanonicalUserDataPath(),
@@ -149,7 +149,7 @@ function installRuntimeRpc(
 
 async function launchServeMode(
   runtime: RuntimeService,
-  runtimeRpc: OrcaRuntimeRpcServer,
+  runtimeRpc: OpenKodoRuntimeRpcServer,
   serveOptions: NonNullable<ReturnType<typeof getServeOptions>>
 ): Promise<void> {
   // Headless serve has no first paint to prioritize; apply persisted proxy before relay/CLI/RPC fetchers.
@@ -226,7 +226,7 @@ async function launchServeMode(
 }
 
 async function launchDesktopMode(
-  runtimeRpc: OrcaRuntimeRpcServer,
+  runtimeRpc: OpenKodoRuntimeRpcServer,
   shellPathReady: Promise<void>,
   desktopWindow: BrowserWindow | null,
   openMainWindow: MainProcessRuntimeLaunchOptions['openMainWindow']

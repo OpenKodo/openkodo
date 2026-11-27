@@ -1,6 +1,9 @@
 import { useTranslate } from '../../../i18n/use-translate'
 import { useAppStore } from '../../../store/index'
-import { OrcaSignInButton, OrcaSignInWaitNotice } from '../../orca-profiles/OrcaSignInProgress'
+import {
+  OpenKodoSignInButton,
+  OpenKodoSignInWaitNotice
+} from '../../openkodo-profiles/OpenKodoSignInProgress'
 
 export function MobileRelaySignInPanel({
   reconnectRequired
@@ -8,7 +11,7 @@ export function MobileRelaySignInPanel({
   reconnectRequired: boolean
 }): React.JSX.Element {
   const t = useTranslate()
-  const browserWaiting = useAppStore((state) => Boolean(state.orcaProfileSignInProgress?.link))
+  const browserWaiting = useAppStore((state) => Boolean(state.openkodoProfileSignInProgress?.link))
 
   return (
     <div
@@ -23,7 +26,7 @@ export function MobileRelaySignInPanel({
       data-testid="anywhere-sign-in-panel"
     >
       {browserWaiting ? (
-        <OrcaSignInWaitNotice className="min-w-0 flex-1" />
+        <OpenKodoSignInWaitNotice className="min-w-0 flex-1" />
       ) : (
         <p className="min-w-0 flex-1 text-xs text-muted-foreground">
           {t(
@@ -32,7 +35,7 @@ export function MobileRelaySignInPanel({
           )}
         </p>
       )}
-      <OrcaSignInButton size="sm" className="shrink-0">
+      <OpenKodoSignInButton size="sm" className="shrink-0">
         {reconnectRequired
           ? t(
               'auto.components.settings.MobilePairingConnectionOptions.signInAgain',
@@ -42,7 +45,7 @@ export function MobileRelaySignInPanel({
               'auto.components.settings.MobilePairingConnectionOptions.signIn',
               'Sign in for Relay'
             )}
-      </OrcaSignInButton>
+      </OpenKodoSignInButton>
     </div>
   )
 }

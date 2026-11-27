@@ -1,7 +1,7 @@
 import '../assets/main.css'
 
 import ReactDOM from 'react-dom/client'
-import { getDefaultSettings } from '../../../shared/orca-profiles/constants'
+import { getDefaultSettings } from '../../../shared/openkodo-profiles/constants'
 import { applyDocumentTheme } from '../app-shell/appearance/document-theme'
 import { installBodyOverlayAttributes } from '../lib/overlay-interaction/body-overlay-attributes'
 import { useAppStore } from '../store/index'
@@ -123,7 +123,7 @@ async function listFixtures(): Promise<FixtureSummary[]> {
 }
 
 const host: ComponentFixtureHost = { render: renderFixture, list: listFixtures }
-Object.assign(window, { __orcaComponentFixtureHost: host })
+Object.assign(window, { __openkodoComponentFixtureHost: host })
 
 const requestedId = params.get('id')
 applyTheme(pageTheme)
