@@ -34,10 +34,6 @@ import { TERMINAL_DAEMON_METHODS } from './terminal/terminal-daemon'
 import { ACCOUNT_METHODS } from './accounts/accounts'
 import { ANTIGRAVITY_ACCOUNT_METHODS } from './accounts/antigravity-accounts'
 import { OPENKODO_ACCOUNT_METHODS } from './openkodo-account'
-import { GOOGLE_METHODS } from './google'
-import { GOOGLE_READ_METHODS } from './google-read'
-import { GOOGLE_FILES_METHODS } from './google-files'
-import { GOOGLE_WRITE_METHODS } from './google-write'
 import { USAGE_CREDENTIAL_METHODS } from './accounts/usage-credentials'
 import { PREFLIGHT_METHODS } from './preflight/preflight'
 import { SESSION_TAB_METHODS } from './session-tabs/session-tabs'
@@ -103,8 +99,6 @@ import { BOT_TIDY_UP_METHODS } from './bots-tidy-up'
 import { BOT_WORK_METHODS } from './bots-work'
 import { BOT_ITEMS_METHODS } from './bots-items'
 import { BOT_CONNECTOR_OFFER_METHOD } from './bots-connector-offer'
-import { GOOGLE_SETUP_METHODS } from './bots-google-setup'
-import { GOOGLE_SETUP_SAVED_KEY_METHODS } from './bots-google-setup-saved-key'
 import { BOT_REQUEST_OUTCOME_METHOD } from './bots-request-outcome'
 import { WORKTREE_RELEASE_BOT_HOME_METHOD } from './bots-home-release'
 import { BOT_CREATE_OFFER_METHOD } from './bots-create-offer'
@@ -176,8 +170,6 @@ const BOT_RPC_METHODS = [
   ...BOT_WORK_METHODS,
   ...BOT_ITEMS_METHODS,
   BOT_CONNECTOR_OFFER_METHOD,
-  ...GOOGLE_SETUP_METHODS,
-  ...GOOGLE_SETUP_SAVED_KEY_METHODS,
   BOT_REQUEST_OUTCOME_METHOD,
   WORKTREE_RELEASE_BOT_HOME_METHOD,
   BOT_CREATE_OFFER_METHOD,
@@ -219,10 +211,6 @@ const SERVICE_RPC_METHODS = [
   ...ACCOUNT_METHODS,
   ...ANTIGRAVITY_ACCOUNT_METHODS,
   ...OPENKODO_ACCOUNT_METHODS,
-  ...GOOGLE_METHODS,
-  ...GOOGLE_READ_METHODS,
-  ...GOOGLE_FILES_METHODS,
-  ...GOOGLE_WRITE_METHODS,
   ...USAGE_CREDENTIAL_METHODS,
   ...PREFLIGHT_METHODS,
   ...SESSION_TAB_METHODS,

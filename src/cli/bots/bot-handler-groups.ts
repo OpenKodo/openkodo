@@ -81,67 +81,6 @@ export const BOT_HANDLER_GROUPS: HandlerGroup[] = [
     load: async () => (await import('./bot-composio.js')).BOT_COMPOSIO_HANDLERS
   },
   {
-    name: 'google',
-    keys: [
-      'google status',
-      'google client import',
-      'google client export',
-      'google connect',
-      'google disconnect',
-      'google bot'
-    ],
-    load: async () => (await import('../google/google.js')).GOOGLE_HANDLERS
-  },
-  {
-    name: 'google-default',
-    keys: ['google default'],
-    load: async () => (await import('../google/google-default-account.js')).GOOGLE_DEFAULT_HANDLERS
-  },
-  {
-    name: 'google-read',
-    keys: ['gmail search', 'gmail read', 'calendar list', 'calendar get', 'contacts find'],
-    load: async () => (await import('../google/google-read.js')).GOOGLE_READ_HANDLERS
-  },
-  {
-    name: 'google-files',
-    keys: [
-      'drive search',
-      'drive list',
-      'drive read',
-      'drive upload',
-      'drive mkdir',
-      'drive move',
-      'drive share',
-      'docs read',
-      'docs create',
-      'docs append',
-      'docs replace',
-      'docs comment',
-      'sheets create',
-      'sheets read',
-      'sheets write',
-      'sheets append',
-      'sheets upsert'
-    ],
-    load: async () => (await import('../google/google-files.js')).GOOGLE_FILES_HANDLERS
-  },
-  {
-    name: 'google-write',
-    keys: [
-      'gmail draft',
-      'gmail send',
-      'gmail archive',
-      'gmail label',
-      'gmail mark-read',
-      'calendar create',
-      'calendar update',
-      'calendar delete',
-      'calendar respond',
-      'calendar suggest-time'
-    ],
-    load: async () => (await import('../google/google-write.js')).GOOGLE_WRITE_HANDLERS
-  },
-  {
     name: 'slack',
     keys: [
       'slack find',

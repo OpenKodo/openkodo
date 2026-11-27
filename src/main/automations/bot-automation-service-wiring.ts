@@ -4,7 +4,6 @@ import type { AutomationService } from './automation-service'
 import { createBotAutomationDispatcher } from './bot-automation-launch'
 import { runtimeBotAutomationSessions } from '../bots/bot-automation-sessions'
 import { bindLookAroundToAutomations } from '../bots/bot-look-around-runtime'
-import { bindGoogleTriggersToAutomations } from '../google/google-trigger-runtime'
 import { runtimeBotRunRefusals, runtimeBotRunResults } from '../bots/bot-run-results'
 import { runtimeBotWaits } from '../bots/bot-waits'
 import { runtimeChatHost } from '../external-conversations/external-conversation-chat'
@@ -43,12 +42,11 @@ export function botAutomationServiceOptions(runtime: OpenKodoRuntimeService) {
 /** Bots' waits, Look around and Google triggers, on the runtime's scheduler. */
 export function bindBotAutomations(
   service: AutomationService,
-  store: Store,
+  _store: Store,
   runtime: OpenKodoRuntimeService
 ): void {
   service.once = runtimeBotWaits(runtime)
   runtime.inAutomationLane = (automationId, operation) =>
     service.runInAutomationLane(automationId, operation)
   bindLookAroundToAutomations(service, runtime)
-  bindGoogleTriggersToAutomations(service, store, runtime)
 }

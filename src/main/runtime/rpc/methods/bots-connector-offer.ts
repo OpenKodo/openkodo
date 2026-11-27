@@ -1,17 +1,14 @@
 // `openkodo bot connectors --offer`: a bot that needs Slack, Linear, GitHub or Google asks OpenKodo to put a
 // Connect card in its chat, instead of telling its owner where to click.
-import { noWindowAnswersGoogleCards } from '../../../google/google-card-reach'
 import { randomUUID } from 'node:crypto'
 import type { Bot } from '../../../../shared/bot-types'
 import {
   connectorOfferBody,
   connectorOfferReply,
-  googleOfferReply,
   signInOfferReply,
   type ConnectorOffer
 } from '../../../../shared/bots/bot-connector-offer'
 import { BotConnectorOffer } from '../../../../shared/rpc-contract/bots-look-around-params'
-import { hostGoogleBotState } from '../../../bots/bot-google-access'
 import { botOfSession } from '../../../bots/bot-session-tabs'
 import { LOOK_AROUND_REFUSAL } from '../../../bots/bot-look-around-policy'
 import { refuseBotGroupRoomCard } from '../../../bots/bot-group-session-access'
@@ -88,13 +85,14 @@ export const BOT_CONNECTOR_OFFER_METHOD = defineMethod({
     if (source === 'webhook') {
       throw new InvalidArgumentError('Webhooks are offered only as Sign in.')
     }
-    const answer: ReturnType<typeof connectorOfferReply> =
-      source === 'google'
-        ? googleOfferReply(await hostGoogleBotState(bot), {
-            headless: noWindowAnswersGoogleCards(runtime),
-            botName: bot.name
-          })
-        : connectorOfferReply(bot, source, workspace)
+    if (source === 'google') {
+      return { offered: false, message: 'Google is not available in this build.' }
+    }
+    const answer: ReturnType<typeof connectorOfferReply> = connectorOfferReply(
+      bot,
+      source,
+      workspace
+    )
     const { addAccess, ...reply } = answer
     if (reply.offered) {
       await postConnectorOffer(

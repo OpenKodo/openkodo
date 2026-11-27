@@ -79,7 +79,6 @@
 1 src/main/artifacts/artifact-guarded-secure-write.ts # per artifact write: writeSecureFileAsync keeps only its renameSync in the fence-check turn so a sign-out clear cannot land between; replaces sync reads, stage and fsync
 1 src/main/artifacts/artifact-publisher.ts
 8 src/main/artifacts/artifact-share-record-store.ts
-1 src/main/automations/bot-automation-service-wiring.ts
 1 src/main/automations/external-managers/external-manager-discovery.ts
 1 src/main/automations/external-managers/scoped-external-automations.ts
 1 src/main/automations/launch/automation-run-setup-skip.ts
@@ -538,12 +537,6 @@
 1 src/main/github/repositories/github-enterprise-repository.ts
 1 src/main/github/repositories/github-repository-identity.ts
 5 src/main/github/repositories/github-ssh-host-alias-resolution.ts
-2 src/main/google/google-drive-read.ts
-1 src/main/google/google-pdf-text-client.ts
-1 src/main/google/google-pdf-text-worker-entry.ts
-2 src/main/google/google-setup-runs.ts
-2 src/main/google/google-trigger-runtime.ts
-1 src/main/google/google-trigger-state.ts
 1 src/main/grok-accounts/status.ts
 1 src/main/grok/grok-hook-backup-cleanup.ts
 1 src/main/grok/grok-text-task.ts
@@ -1224,7 +1217,6 @@
 11 src/main/runtime/rpc/methods/bots-tools.ts
 1 src/main/runtime/rpc/methods/bots.ts
 1 src/main/runtime/rpc/methods/browser/browser-identity-rpc.ts
-1 src/main/runtime/rpc/methods/google-files.ts
 1 src/main/runtime/rpc/methods/host-management/environment-doctor.ts
 1 src/main/runtime/rpc/methods/host-management/host-capabilities.ts
 1 src/main/runtime/rpc/methods/host-management/managed-runtime-install.ts

@@ -6,7 +6,6 @@ import {
   installOpenKodoServerSignIn,
   OpenKodoServerSignIn
 } from '../openkodo-profiles/openkodo-server-sign-in'
-import { GoogleConnect, installGoogleConnect } from '../google/google-connect'
 import type { BotController } from '../bots/bot-controller'
 import type { ConnectorCloud } from '../connector-cloud/connector-cloud'
 import type { OpenkododRelay } from './openkodod-relay'
@@ -83,7 +82,4 @@ export function installOpenkododOpenKodoAccount(
   // A rotation saved only in memory would be replayed after restart and end the session family.
   getAppEnvironment().onWillQuit(flushUnsavedCloudSessions)
   registerCleanup(() => installOpenKodoServerSignIn(null))
-  // No browser here: Google sign-in prints its link and takes the pasted address, or a paired desktop's.
-  installGoogleConnect(new GoogleConnect())
-  registerCleanup(() => installGoogleConnect(null))
 }

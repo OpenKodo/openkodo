@@ -18,7 +18,6 @@ import {
   BROWSER_TAB_CREATE_KNOWN_ID_RUNTIME_CAPABILITY
 } from '../../../shared/browser/runtime/browser-runtime-capabilities'
 import { openkodoAccountRuntimeCapabilities } from '../../openkodo-profiles/openkodo-server-sign-in'
-import { googleRuntimeCapabilities } from '../../google/google-connect'
 import {
   runtimeBrowserCommandsFactoryIsHeadless,
   runtimeBrowserCommandsFactorySupportsEngineCapability,
@@ -145,7 +144,6 @@ export abstract class OpenKodoRuntimeWithGetStatus extends RuntimeWorkspaceChang
       capabilities.push(BROWSER_TAB_PROFILE_SWITCH_RUNTIME_CAPABILITY)
     }
     capabilities.push(...openkodoAccountRuntimeCapabilities())
-    capabilities.push(...googleRuntimeCapabilities())
     if (getManagedServerActions()) {
       capabilities.push(MANAGED_SERVER_RUNTIME_CAPABILITY)
     }

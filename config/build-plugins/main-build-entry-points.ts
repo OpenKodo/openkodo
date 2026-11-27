@@ -73,8 +73,6 @@ export const MAIN_BUILD_ENTRY_POINTS: Record<string, string> = {
   'workspace-space-scan-worker-entry': resolve(
     'src/main/workspaces/space-analysis/workspace-space-scan-worker-entry.ts'
   ),
-  // A long PDF's text extraction would freeze the window on the main thread.
-  'google-pdf-text-worker-entry': resolve('src/main/google/google-pdf-text-worker-entry.ts'),
   // Why: a first account setup can merge a large history tree with sync fs calls.
   'claude-profile-setup-worker-entry': resolve(
     'src/main/claude-accounts/profiles/setup/claude-profile-setup-worker-entry.ts'

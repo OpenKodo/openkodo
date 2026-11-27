@@ -47,8 +47,7 @@ export const OPENKODOD_CHILD_ENTRY_POINTS = {
   codexProjectTrust: 'src/main/codex/trust/project-trust/codex-project-trust-worker-entry.ts',
   claudeConversationFork: 'src/main/claude/transcripts/claude-conversation-fork-worker-entry.ts',
   usageScanWorker: 'src/main/usage/scan-worker/usage-scan-worker-entry.ts',
-  sttWorker: 'src/main/speech/stt-worker.ts',
-  googlePdfText: 'src/main/google/google-pdf-text-worker-entry.ts'
+  sttWorker: 'src/main/speech/stt-worker.ts'
 }
 
 /** Each child ships flat beside openkodod.js under its source basename; the runtime resolvers look there. */

@@ -236,9 +236,6 @@ export async function activateBackendRuntime(
     await import('../openkodod/host-runtime/openkodod-emulator-bridge')
   installOpenkododEmulatorBridge(runtime, registerCleanup)
   const relay = await installOpenkododRelayAndAccount(runtime, registerCleanup)
-  // Agents here set Google up through a paired desktop's browser; their key and secret stay here.
-  const { installGoogleSetupHostWatch } = await import('../google/google-setup-host-watch')
-  registerCleanup(installGoogleSetupHostWatch(runtime))
 
   // Restore prior desktop-pushed account selection before automations or CLI launches.
   const { restoreOpenkododHostAccountLaunchEnv } =

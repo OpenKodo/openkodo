@@ -1,12 +1,9 @@
 import { powerMonitor } from 'electron'
-import { join } from 'node:path'
 import type { ConnectorCloud } from '../../connector-cloud/connector-cloud'
 import { installConnectorHost } from '../../connector-cloud/connector-host-install'
-import { registerGoogleSetupHandlers } from '../../ipc/google-setup'
 import { registerSlackHandOffHandlers } from '../../ipc/slack-hand-off'
 import { registerAvatarGenerationHandlers } from '../../avatar-generation/avatar-generation-ipc'
-import { browserManager } from '../../browser/guest-lifecycle/manager/browser-manager'
-import { installGoogleSetupHostWatch } from '../../google/google-setup-host-watch'
+// removed browser manager import:  '../../browser/guest-lifecycle/manager/browser-manager'
 import { getProfileUserDataPath } from '../../openkodo-profiles/profile-storage-paths'
 import { mainProcessState as state } from '../main-process-state'
 
@@ -27,17 +24,10 @@ export function installMainProcessConnectorCloud(serve: boolean): void {
     kind: serve ? 'serve' : 'desktop',
     isFenced: () => state.isQuitting
   })
-  // `openkodo serve` runs agents too, with its own offscreen browser or a paired desktop's.
-  installGoogleSetupHostWatch(runtime, {
-    setStandingDownloadClaim: (resolver) => browserManager.setStandingDownloadClaim(resolver),
-    getWorktreeIdForTab: (id) => browserManager.getWorktreeIdForTab(id),
-    keyStagingDir: join(userDataPath, 'google-setup-keys')
-  })
   if (serve) {
     return
   }
   powerMonitor.on('resume', host.refreshLinearLogins)
-  registerGoogleSetupHandlers()
   registerSlackHandOffHandlers(() => runtime.getConnectorCloud())
   registerAvatarGenerationHandlers(() => runtime.getCommitMessageAgentEnvironmentResolvers())
 }

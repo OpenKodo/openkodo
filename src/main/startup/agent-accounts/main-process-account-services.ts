@@ -16,7 +16,6 @@ import {
   installOpenKodoServerSignIn,
   OpenKodoServerSignIn
 } from '../../openkodo-profiles/openkodo-server-sign-in'
-import { GoogleConnect, installGoogleConnect } from '../../google/google-connect'
 import { setBotToolSignInBrowser } from '../../bots/tool-oauth/bot-tool-sign-in-flows'
 
 export type DesktopAccountServiceDeps = {
@@ -61,7 +60,6 @@ export async function initializeMainProcessAccountServices(
   core.openkodoAccount = createDesktopOpenKodoAccountService(openExternal)
   // A paired client may sign this host in too (D3); the desktop keeps its own window sign-in.
   installOpenKodoServerSignIn(new OpenKodoServerSignIn({ account: core.openkodoAccount }))
-  installGoogleConnect(new GoogleConnect({ openBrowser: openExternal }))
   setBotToolSignInBrowser(openExternal)
   // Defer shared-home migration; compatibility launches re-arm non-destructive scans for new rollouts (#4444, #8612, #12480).
   core.codexSessionMigration.scheduleInitialRun()

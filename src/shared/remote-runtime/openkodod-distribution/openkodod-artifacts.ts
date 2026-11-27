@@ -286,8 +286,6 @@ export const OPENKODOD_ARTIFACTS: readonly OpenkododArtifact[] = [
   { filename: 'usage-scan-worker-entry.js' },
   // Dictation loads the recognizer named by openkodo serve (#31174).
   { filename: 'stt-worker.js' },
-  // Reads a Drive PDF's text off the event loop for `openkodo drive read`.
-  { filename: 'google-pdf-text-worker-entry.js' },
   // The forked computer sidecar finds platform runtimes beside itself (#31777).
   { filename: OPENKODOD_COMPUTER_SIDECAR_ENTRY },
   ...OPENKODOD_COMPUTER_USE_RUNTIME_ARTIFACTS.map((filename) => ({ filename })),

@@ -34,15 +34,9 @@ import {
   parseWebhookTrigger,
   WEBHOOK_TRIGGER_OPTIONS
 } from '../webhooks/webhook-trigger-spec'
-import {
-  describeGoogleTrigger,
-  formatGoogleTrigger,
-  GOOGLE_TRIGGER_OPTIONS,
-  parseGoogleTrigger
-} from '../google/google-event-trigger-spec'
-import { GOOGLE_EVENT_SOURCES, isGoogleTrigger } from '../../shared/automation-google-triggers'
 
 type ConnectorEventSource = AutomationConnectorEventTrigger['source']
+import { isGoogleTrigger } from '../../shared/automation-google-triggers'
 
 const FILTER_KEYS = ['in', 'contains', 'subject', 'from', 'on', 'label', 'run'] as const
 type FilterKey = (typeof FILTER_KEYS)[number]
@@ -56,11 +50,7 @@ function invalid(message: string): RuntimeClientError {
 
 const CONNECTOR_SOURCES: readonly ConnectorEventSource[] = ['slack', 'github', 'linear']
 // Offered only for a bot whose host's OpenKodo Cloud takes webhooks.
-const ALL_SOURCES: readonly AutomationEventSource[] = [
-  ...CONNECTOR_SOURCES,
-  ...GOOGLE_EVENT_SOURCES,
-  'webhook'
-]
+const ALL_SOURCES: readonly AutomationEventSource[] = [...CONNECTOR_SOURCES, 'webhook']
 
 const EVENTS: Pick<AutomationConnectorEventTrigger, 'source' | 'event'>[] = [
   ...AUTOMATION_EVENT_KINDS.slack.map((event) => ({ source: 'slack' as const, event })),
@@ -125,7 +115,7 @@ export function formatAutomationEventTrigger(trigger: AutomationEventTrigger): s
     return formatWebhookTrigger(trigger)
   }
   if (isGoogleTrigger(trigger)) {
-    return formatGoogleTrigger(trigger)
+    throw invalid('Google triggers are not available in this build.')
   }
   return [
     `${trigger.source}.${trigger.event}`,
@@ -146,9 +136,6 @@ export function parseAutomationEventTrigger(spec: string): AutomationEventTrigge
   }
   if (head[3] === 'webhook.call') {
     return parseWebhookTrigger(spec, entriesOf(spec, rest))
-  }
-  if (head[3] === 'gmail.new_email' || head[3] === 'calendar.starting_soon') {
-    return parseGoogleTrigger(spec, head[3], entriesOf(spec, rest))
   }
   const filters = filtersOf(spec, rest)
   const sourceEvent = eventOf(head[3])
@@ -229,7 +216,7 @@ export function describeAutomationEventTrigger(trigger: AutomationEventTrigger):
     return describeWebhookTrigger(trigger)
   }
   if (isGoogleTrigger(trigger)) {
-    return describeGoogleTrigger(trigger)
+    throw invalid('Google triggers are not available in this build.')
   }
   const words: Record<string, string> = EVENT_WORDS[trigger.source]
   return [
@@ -261,11 +248,6 @@ export function formatAutomationTriggerOptions(
   const sources = offeredEventSources(only, bot).map((source) => {
     if (source === 'webhook') {
       return WEBHOOK_TRIGGER_OPTIONS
-    }
-    if (isGoogleTrigger({ source })) {
-      return bot && !heard?.includes(source)
-        ? `${source}: none of these start ${bot.name}: Google is off for it. Its owner can turn it on with \`openkodo google bot "${bot.name}" --on\`.`
-        : GOOGLE_TRIGGER_OPTIONS[source]
     }
     const words: Record<string, string> = EVENT_WORDS[source]
     if (bot && !heard?.includes(source)) {

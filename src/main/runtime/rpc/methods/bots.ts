@@ -15,7 +15,6 @@ import {
   BotSlackIconUpload,
   BotSlackIconWanted
 } from '../../../../shared/rpc-contract/bot-avatar-params'
-import { googleSetupRuns } from '../../../google/google-setup-runs'
 import { readSharedBotActivity } from '../../../bots/bot-activity-host'
 import { runtimeBotChats, startBotSession, botOnAgent } from '../../../bots/bot-chat-session'
 import { readPairedBotRosters, withPairedBotRosters } from '../../../bots/paired-bot-rosters'
@@ -268,7 +267,6 @@ export const BOT_METHODS = [
         await composioBotsOf(runtime).forget(bot.id)
       }
       await dropUnreadBotRequests(runtime, params.botId, 'deleted')
-      googleSetupRuns().forget(params.botId)
       return deleted
     }
   }),
