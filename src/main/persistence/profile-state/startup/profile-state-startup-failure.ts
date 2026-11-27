@@ -220,7 +220,7 @@ export function profileStatePublicationFailureText(
     ),
     translate(
       'profileState.startupFailure.publicationMoveData',
-      'Close OpenKodo and orcad before checking folder permissions or moving the complete OpenKodo data directory to a writable local filesystem that supports hard links, such as APFS, NTFS, or ext4.'
+      'Close OpenKodo and OpenKodo Runtime before checking folder permissions or moving the complete OpenKodo data directory to a writable local filesystem that supports hard links, such as APFS, NTFS, or ext4.'
     ),
     translate(
       'profileState.startupFailure.publicationKeepFiles',

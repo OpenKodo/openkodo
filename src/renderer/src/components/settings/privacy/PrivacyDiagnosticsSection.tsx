@@ -314,12 +314,12 @@ function DiagnosticsDisabledStateNote({
           'auto.components.settings.PrivacyDiagnosticsRows.5a7cbe069a',
           'DO_NOT_TRACK=1 is set — creating and sending diagnostic files is disabled.'
         )
-      : reason === 'orca_telemetry_disabled'
+      : reason === 'openkodo_telemetry_disabled'
         ? t(
             'auto.components.settings.PrivacyDiagnosticsRows.63d03261d1',
             'OPENKODO_TELEMETRY_DISABLED=1 is set — creating and sending diagnostic files is disabled.'
           )
-        : reason === 'orca_diagnostics_disabled'
+        : reason === 'openkodo_diagnostics_disabled'
           ? t(
               'auto.components.settings.PrivacyDiagnosticsRows.d37e92a06b',
               'OPENKODO_DIAGNOSTICS_DISABLED=1 is set — app diagnostics are off.'

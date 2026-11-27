@@ -42,8 +42,8 @@ export type ObservabilityConsent = {
   readonly bundleEnabled: boolean
   readonly disabledReason?:
     | 'do_not_track'
-    | 'orca_telemetry_disabled'
-    | 'orca_diagnostics_disabled'
+    | 'openkodo_telemetry_disabled'
+    | 'openkodo_diagnostics_disabled'
     | 'ci'
 }
 
@@ -77,7 +77,7 @@ export function resolveObservabilityConsent(): ObservabilityConsent {
     return {
       localFileEnabled: false,
       bundleEnabled: false,
-      disabledReason: 'orca_diagnostics_disabled'
+      disabledReason: 'openkodo_diagnostics_disabled'
     }
   }
   if (dnt || orcaDisabled) {
@@ -85,7 +85,7 @@ export function resolveObservabilityConsent(): ObservabilityConsent {
     return {
       localFileEnabled: true,
       bundleEnabled: false,
-      disabledReason: dnt ? 'do_not_track' : 'orca_telemetry_disabled'
+      disabledReason: dnt ? 'do_not_track' : 'openkodo_telemetry_disabled'
     }
   }
 

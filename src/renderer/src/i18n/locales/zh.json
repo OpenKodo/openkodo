@@ -11184,7 +11184,7 @@
             "94e04427f6": "环境",
             "664f1a8984": "持续集成",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "不跟踪",
             "83a6cd79b3": "不跟踪",
             "f7a2d9f137": "禁用遥测传输的环境变量",
@@ -26069,7 +26069,7 @@
       "writerUnavailable": "OpenKodo 无法启动配置文件保存功能。请重新启动 OpenKodo；如果问题仍然存在，请修复或重新安装此版本",
       "publicationUnavailable": "OpenKodo 无法将配置文件状态安全地保存到 {{directory}}",
       "publicationNeedsHardLinks": "此位置必须支持硬链接，且 OpenKodo 需要创建硬链接的权限",
-      "publicationMoveData": "在检查文件夹权限，或将整个 OpenKodo 数据目录移动到支持硬链接的可写本地文件系统（如 APFS、NTFS 或 ext4）之前，请关闭 OpenKodo 和 orcad",
+      "publicationMoveData": "在检查文件夹权限，或将整个 OpenKodo 数据目录移动到支持硬链接的可写本地文件系统（如 APFS、NTFS 或 ext4）之前，请关闭 OpenKodo 和 OpenKodo Runtime",
       "publicationKeepFiles": "请保留原始目录和所有恢复文件"
     }
   },

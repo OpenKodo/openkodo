@@ -12234,7 +12234,7 @@
             "94e04427f6": "env",
             "664f1a8984": "continuous integration",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "do_not_track",
             "83a6cd79b3": "do not track",
             "f7a2d9f137": "Environment variables that disable telemetry transmission.",
@@ -26877,7 +26877,7 @@
       "writerUnavailable": "OpenKodo could not start profile persistence. Restart OpenKodo; if the problem continues, repair or reinstall this build.",
       "publicationUnavailable": "OpenKodo could not safely publish profile state in {{directory}}.",
       "publicationNeedsHardLinks": "This location must support hard links, and OpenKodo needs permission to create them.",
-      "publicationMoveData": "Close OpenKodo and orcad before checking folder permissions or moving the complete OpenKodo data directory to a writable local filesystem that supports hard links, such as APFS, NTFS, or ext4.",
+      "publicationMoveData": "Close OpenKodo and OpenKodo Runtime before checking folder permissions or moving the complete OpenKodo data directory to a writable local filesystem that supports hard links, such as APFS, NTFS, or ext4.",
       "publicationKeepFiles": "Keep the original directory and all recovery files."
     }
   },

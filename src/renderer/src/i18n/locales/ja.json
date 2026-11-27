@@ -10740,7 +10740,7 @@
             "94e04427f6": "環境",
             "664f1a8984": "継続的インテグレーション",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "追跡しない",
             "83a6cd79b3": "追跡しない",
             "f7a2d9f137": "テレメトリ送信を無効にする環境変数。",
@@ -24955,7 +24955,7 @@
       "writerUnavailable": "OpenKodo はプロファイルの保存処理を開始できませんでした。OpenKodo を再起動してください。問題が続く場合は、このビルドを修復するか再インストールしてください。",
       "publicationUnavailable": "OpenKodo はプロファイル状態を {{directory}} に安全に保存できませんでした。",
       "publicationNeedsHardLinks": "この場所はハードリンクをサポートしている必要があり、OpenKodo にはその作成権限が必要です。",
-      "publicationMoveData": "フォルダーの権限を確認したり、OpenKodo のデータディレクトリ全体を、APFS、NTFS、ext4 などのハードリンクをサポートする書き込み可能なローカルファイルシステムに移動したりする前に、OpenKodo と orcad を終了してください。",
+      "publicationMoveData": "フォルダーの権限を確認したり、OpenKodo のデータディレクトリ全体を、APFS、NTFS、ext4 などのハードリンクをサポートする書き込み可能なローカルファイルシステムに移動したりする前に、OpenKodo と OpenKodo Runtime を終了してください。",
       "publicationKeepFiles": "元のディレクトリとすべての復旧用ファイルを保持してください。"
     }
   },

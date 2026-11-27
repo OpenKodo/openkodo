@@ -7204,7 +7204,7 @@
             "94e04427f6": "env",
             "664f1a8984": "integração contínua",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "do_not_track",
             "83a6cd79b3": "não rastrear",
             "f7a2d9f137": "Variáveis de ambiente que desativam a transmissão de telemetria.",
@@ -24920,7 +24920,7 @@
       "writerUnavailable": "O OpenKodo não conseguiu iniciar o salvamento do perfil. Reinicie o OpenKodo; se o problema continuar, repare ou reinstale esta compilação.",
       "publicationUnavailable": "O OpenKodo não conseguiu salvar o estado do perfil com segurança em {{directory}}.",
       "publicationNeedsHardLinks": "Este local precisa oferecer suporte a links físicos, e o OpenKodo precisa de permissão para criá-los.",
-      "publicationMoveData": "Feche o OpenKodo e o orcad antes de verificar as permissões da pasta ou mover todo o diretório de dados do OpenKodo para um sistema de arquivos local gravável que ofereça suporte a links físicos, como APFS, NTFS ou ext4.",
+      "publicationMoveData": "Feche o OpenKodo e o OpenKodo Runtime antes de verificar as permissões da pasta ou mover todo o diretório de dados do OpenKodo para um sistema de arquivos local gravável que ofereça suporte a links físicos, como APFS, NTFS ou ext4.",
       "publicationKeepFiles": "Mantenha o diretório original e todos os arquivos de recuperação."
     }
   },

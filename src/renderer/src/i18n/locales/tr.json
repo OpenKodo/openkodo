@@ -12075,7 +12075,7 @@
             "94e04427f6": "env",
             "664f1a8984": "sürekli entegrasyon",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "do_not_track",
             "83a6cd79b3": "izleme reddi",
             "f7a2d9f137": "Telemetri iletimini devre dışı bırakan ortam değişkenleri.",
@@ -26496,7 +26496,7 @@
       "writerUnavailable": "OpenKodo'da profil kaydı başlatılamadı. OpenKodo'yı yeniden başlatın; sorun devam ederse bu derlemeyi onarın veya yeniden yükleyin.",
       "publicationUnavailable": "Profil durumu OpenKodo tarafından {{directory}} konumuna güvenli bir şekilde kaydedilemedi.",
       "publicationNeedsHardLinks": "Bu konum sabit bağlantıları desteklemeli ve OpenKodo'nın bunları oluşturma izni olmalıdır.",
-      "publicationMoveData": "Klasör izinlerini kontrol etmeden veya OpenKodo veri dizininin tamamını APFS, NTFS ya da ext4 gibi sabit bağlantıları destekleyen yazılabilir bir yerel dosya sistemine taşımadan önce OpenKodo ve orcad uygulamalarını kapatın.",
+      "publicationMoveData": "Klasör izinlerini kontrol etmeden veya OpenKodo veri dizininin tamamını APFS, NTFS ya da ext4 gibi sabit bağlantıları destekleyen yazılabilir bir yerel dosya sistemine taşımadan önce OpenKodo ve OpenKodo Runtime uygulamalarını kapatın.",
       "publicationKeepFiles": "Özgün dizini ve tüm kurtarma dosyalarını saklayın."
     }
   },

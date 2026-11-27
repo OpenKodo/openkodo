@@ -10729,7 +10729,7 @@
             "94e04427f6": "環境",
             "664f1a8984": "持續整合",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "do_not_track",
             "83a6cd79b3": "不追蹤",
             "f7a2d9f137": "停用遙測傳輸的環境變數。",
@@ -23668,7 +23668,7 @@
       "writerUnavailable": "OpenKodo 無法啟動設定檔儲存功能。請重新啟動 OpenKodo；若問題持續發生，請修復或重新安裝此版本。",
       "publicationUnavailable": "OpenKodo 無法將設定檔狀態安全地儲存至 {{directory}}。",
       "publicationNeedsHardLinks": "此位置必須支援硬連結，且 OpenKodo 需要建立硬連結的權限。",
-      "publicationMoveData": "在檢查資料夾權限，或將整個 OpenKodo 資料目錄移至支援硬連結的可寫入本機檔案系統（例如 APFS、NTFS 或 ext4）之前，請關閉 OpenKodo 和 orcad。",
+      "publicationMoveData": "在檢查資料夾權限，或將整個 OpenKodo 資料目錄移至支援硬連結的可寫入本機檔案系統（例如 APFS、NTFS 或 ext4）之前，請關閉 OpenKodo 和 OpenKodo Runtime。",
       "publicationKeepFiles": "請保留原始目錄和所有復原檔案。"
     }
   },

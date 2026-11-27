@@ -10898,7 +10898,7 @@
             "94e04427f6": "env",
             "664f1a8984": "Kontinuierliche Integration",
             "5854a5c752": "CI",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "do_not_track",
             "83a6cd79b3": "Nicht verfolgen",
             "f7a2d9f137": "Umgebungsvariablen, die die Übertragung von Telemetriedaten deaktivieren.",
@@ -24168,7 +24168,7 @@
       "writerUnavailable": "OpenKodo konnte die Profilspeicherung nicht starten. OpenKodo neu starten; falls das Problem weiterhin besteht, diesen Build reparieren oder neu installieren.",
       "publicationUnavailable": "OpenKodo konnte den Profilzustand nicht sicher in {{directory}} speichern.",
       "publicationNeedsHardLinks": "Dieser Speicherort muss Hardlinks unterstützen, und OpenKodo benötigt die Berechtigung, sie zu erstellen.",
-      "publicationMoveData": "OpenKodo und orcad schließen, bevor die Ordnerberechtigungen geprüft werden oder das gesamte OpenKodo-Datenverzeichnis auf ein beschreibbares lokales Dateisystem mit Hardlink-Unterstützung wie APFS, NTFS oder ext4 verschoben wird.",
+      "publicationMoveData": "OpenKodo und OpenKodo Runtime schließen, bevor die Ordnerberechtigungen geprüft werden oder das gesamte OpenKodo-Datenverzeichnis auf ein beschreibbares lokales Dateisystem mit Hardlink-Unterstützung wie APFS, NTFS oder ext4 verschoben wird.",
       "publicationKeepFiles": "Das ursprüngliche Verzeichnis und alle Wiederherstellungsdateien aufbewahren."
     }
   },

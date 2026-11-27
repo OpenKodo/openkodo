@@ -10761,7 +10761,7 @@
             "94e04427f6": "env",
             "664f1a8984": "intégration continue",
             "5854a5c752": "ci",
-            "69637f4dc4": "orca_telemetry_disabled",
+            "69637f4dc4": "openkodo_telemetry_disabled",
             "058550f6bc": "do_not_track",
             "83a6cd79b3": "do not track",
             "f7a2d9f137": "Variables d'environnement qui désactivent l'envoi des données de télémétrie.",
@@ -24399,7 +24399,7 @@
       "writerUnavailable": "OpenKodo n'a pas pu démarrer l'enregistrement du profil. Redémarrez OpenKodo ; si le problème persiste, réparez ou réinstallez cette version.",
       "publicationUnavailable": "OpenKodo n'a pas pu enregistrer l'état du profil en toute sécurité dans {{directory}}.",
       "publicationNeedsHardLinks": "Cet emplacement doit prendre en charge les liens physiques, et OpenKodo doit avoir l'autorisation de les créer.",
-      "publicationMoveData": "Fermez OpenKodo et orcad avant de vérifier les autorisations du dossier ou de déplacer tout le répertoire de données d'OpenKodo vers un système de fichiers local accessible en écriture et prenant en charge les liens physiques, comme APFS, NTFS ou ext4.",
+      "publicationMoveData": "Fermez OpenKodo et OpenKodo Runtime avant de vérifier les autorisations du dossier ou de déplacer tout le répertoire de données d'OpenKodo vers un système de fichiers local accessible en écriture et prenant en charge les liens physiques, comme APFS, NTFS ou ext4.",
       "publicationKeepFiles": "Conservez le répertoire d'origine et tous les fichiers de récupération."
     }
   },
