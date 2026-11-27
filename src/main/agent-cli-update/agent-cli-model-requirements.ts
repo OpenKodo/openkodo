@@ -11,7 +11,7 @@ import bundled from './agent-cli-model-requirements.json'
 
 // Every released app reads this path, so the file must stay where it is.
 const LIST_URL =
-  'https://raw.githubusercontent.com/stablyai/orca/main/src/main/agent-cli-update/agent-cli-model-requirements.json'
+  'https://raw.githubusercontent.com/OpenKodo/openkodo/main/src/main/agent-cli-update/agent-cli-model-requirements.json'
 const REFRESH_MS = 60 * 60_000
 const LIST_TIMEOUT_MS = 10_000
 

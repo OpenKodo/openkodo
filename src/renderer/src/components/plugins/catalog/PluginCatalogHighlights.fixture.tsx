@@ -205,7 +205,7 @@ function renderPage(pageEntries: readonly PluginListEntry[]): () => React.JSX.El
       id: 'community',
       title: 'OpenKodo Community Plugins',
       // Why unverified with the URL: community sources are not official, so the app names the repo.
-      detail: 'unverified · https://github.com/stablyai/orca-community-plugins.git'
+      detail: 'unverified · https://github.com/OpenKodo/openkodo-community-plugins.git'
     }
   ]
   return () => (

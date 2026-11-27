@@ -17,7 +17,7 @@ function isOrcaInstallUrl(data: string): boolean {
       case 'https://testflight.apple.com':
         return path === '/join/YjeGMQBA'
       case 'https://github.com':
-        return /^\/stablyai\/orca\/releases\/download\/mobile-android-v[^/]+\/app-release\.apk$/.test(
+        return /^\/OpenKodo\/openkodo\/releases\/download\/mobile-android-v[^/]+\/app-release\.apk$/.test(
           path
         )
       default:

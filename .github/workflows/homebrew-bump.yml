@@ -165,7 +165,7 @@ jobs:
           # Backfills can race an existing branch; update its PR title when creation finds one.
           gh pr create \
             --title "$TITLE" \
-            --body "Automated bump of $CASK_PATH from stablyai/orca release $TAG." \
+            --body "Automated bump of $CASK_PATH from OpenKodo/openkodo release $TAG." \
             --base main \
             --head "$branch" \
             || gh pr edit "$branch" --title "$TITLE"

@@ -1,5 +1,5 @@
-import type { Page } from '@stablyai/playwright-test'
-import { expect } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { getRepoExecutionHostId } from '../../../../src/shared/execution-host/execution-host'
 import { getRepoHostIdentityForParts } from '../../../../src/shared/repository/repo-host-identity'
 

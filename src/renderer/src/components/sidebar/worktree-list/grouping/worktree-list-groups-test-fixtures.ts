@@ -55,7 +55,7 @@ export const remoteWorktree: Worktree = {
 }
 
 export const project: Project = {
-  id: 'github:stablyai/orca',
+  id: 'github:OpenKodo/openkodo',
   displayName: 'OpenKodo',
   badgeColor: '#737373',
   sourceRepoIds: [repo.id, remoteRepo.id],

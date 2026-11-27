@@ -113,7 +113,7 @@ function main() {
     process.exit(1)
   }
   console.log(
-    `Dev-channel packaging verified: ${channel} on ${platform} → stablyai/${CHANNEL_REPOS[channel]} @ ${config.extraMetadata?.version}`
+    `Dev-channel packaging verified: ${channel} on ${platform} → OpenKodo/${CHANNEL_REPOS[channel]} @ ${config.extraMetadata?.version}`
   )
 }
 

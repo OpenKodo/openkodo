@@ -1,4 +1,4 @@
-import { expect, type Page } from '@stablyai/playwright-test'
+import { expect, type Page } from '@playwright/test'
 
 // Scope to the sidebar because Landing renders another Add project button when no workspace is open.
 function sidebarHeaderActions(page: Page) {

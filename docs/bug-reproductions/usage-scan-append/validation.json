@@ -86,7 +86,7 @@
     "memoryComparisons": 21,
     "mismatches": 0
   },
-  "renderedEvidence": "https://github.com/stablyai/orca/blob/nwparker/perf-native-chat-tool-pairing/docs/bug-reproductions/native-chat-tool-pairing/rendered-validation.json",
+  "renderedEvidence": "https://github.com/OpenKodo/openkodo/blob/nwparker/perf-native-chat-tool-pairing/docs/bug-reproductions/native-chat-tool-pairing/rendered-validation.json",
   "usageComparison": "comparison.jsonl",
   "memoryComparison": "codex-parser-memory.json",
   "independentReviews": "Pair identity/order and orphan indices; append/cold parity; duplicate maxima and first attribution; ownership recovery; pinned generation/coverage/cleanup; aggregation compatibility; benchmark instrumentation and provenance.",

@@ -1,4 +1,4 @@
-import type { ElectronApplication, Page } from '@stablyai/playwright-test'
+import type { ElectronApplication, Page } from '@playwright/test'
 
 // Reveal only on isolated displays when visibility is required to unpark subscriptions; background mode forbids it.
 export type PairedClientWindowRevealReport = {

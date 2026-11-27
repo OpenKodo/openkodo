@@ -1,5 +1,5 @@
 import '../../../desktop/electron-fixtures/orca-app'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 import type { PairedElectronClient } from '../client-hosts/paired-electron-client'
 import { focusActiveTerminalInput, waitForActivePanePtyId } from '../../../terminal/input/terminal'
 import { getTerminalContent } from '../../../terminal/layout/terminal-pane-identity'

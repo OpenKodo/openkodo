@@ -23,7 +23,7 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
     ],
     examples: [
       'openkodo project setups',
-      'openkodo project setups --project github:stablyai/openkodo',
+      'openkodo project setups --project github:OpenKodo/openkodo',
       'openkodo project setups --host local',
       'openkodo project setups --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3'
     ]
@@ -41,8 +41,8 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
       "--project takes a project id or an existing project's name. A remote-backed Git folder's project id usually comes from its remote: github:owner/repo, github:<host>/owner/repo for GitHub Enterprise, or git:<host>/<path> for other remotes."
     ],
     examples: [
-      'openkodo project setup-existing-folder --project github:stablyai/openkodo --host local --path ~/openkodo',
-      'openkodo project setup-existing-folder --project github:stablyai/openkodo --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --path /home/me/openkodo --kind git --json'
+      'openkodo project setup-existing-folder --project github:OpenKodo/openkodo --host local --path ~/openkodo',
+      'openkodo project setup-existing-folder --project github:OpenKodo/openkodo --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --path /home/me/openkodo --kind git --json'
     ]
   },
   {
@@ -66,8 +66,8 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
       'SSH targets are cloned through the desktop UI because the desktop client owns SSH connections.'
     ],
     examples: [
-      'openkodo project setup-clone --project github:stablyai/openkodo --host local --url https://github.com/OpenKodo/openkodo.git --destination ~/src',
-      'openkodo project setup-clone --project github:stablyai/openkodo --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --url https://github.com/OpenKodo/openkodo.git --destination /srv --json'
+      'openkodo project setup-clone --project github:OpenKodo/openkodo --host local --url https://github.com/OpenKodo/openkodo.git --destination ~/src',
+      'openkodo project setup-clone --project github:OpenKodo/openkodo --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --url https://github.com/OpenKodo/openkodo.git --destination /srv --json'
     ]
   },
   {
@@ -94,7 +94,7 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
       'Use setup-existing-folder when OpenKodo should import and manage an actual checkout path now.'
     ],
     examples: [
-      'openkodo project setup-create --project github:stablyai/openkodo --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --state setting-up --method provisioned --json'
+      'openkodo project setup-create --project github:OpenKodo/openkodo --host runtime:03ef704c-b180-4b10-998d-e28fbd5de9a3 --state setting-up --method provisioned --json'
     ]
   },
   {
@@ -120,8 +120,8 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
       'Path and availability state changes are only supported for independent setup records.'
     ],
     examples: [
-      'openkodo project setup-update --setup github:stablyai/openkodo::gpu --display-name "GPU VM"',
-      'openkodo project setup-update --setup github:stablyai/openkodo::gpu --path /srv/openkodo --state ready --json'
+      'openkodo project setup-update --setup github:OpenKodo/openkodo::gpu --display-name "GPU VM"',
+      'openkodo project setup-update --setup github:OpenKodo/openkodo::gpu --path /srv/openkodo --state ready --json'
     ]
   },
   {
@@ -135,6 +135,6 @@ export const PROJECT_COMMAND_SPECS: CommandSpec[] = [
       'Repo-backed setups remove the registered repo compatibility record.',
       'Refuses while the project has open terminals or saved workspace details; --force removes it anyway.'
     ],
-    examples: ['openkodo project setup-delete --setup github:stablyai/openkodo::gpu --json']
+    examples: ['openkodo project setup-delete --setup github:OpenKodo/openkodo::gpu --json']
   }
 ]

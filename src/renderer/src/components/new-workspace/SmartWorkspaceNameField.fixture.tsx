@@ -41,7 +41,7 @@ const linearStatusFixture: LinearConnectionStatus = {
     {
       id: 'ws-stably',
       organizationId: 'org-stably',
-      organizationName: 'Stably',
+      organizationName: 'OpenKodo',
       displayName: 'Dev User',
       email: 'dev@stably.ai'
     },
@@ -68,7 +68,7 @@ function makeLinearIssue(
     workspaceName,
     identifier,
     title,
-    url: `https://linear.app/stably/issue/${identifier}`,
+    url: `https://linear.app/acme/issue/${identifier}`,
     state: { name: 'Todo', type: 'unstarted', color: '#94a3b8' },
     team: { id: 'team-1', name: workspaceName, key: 'STA' },
     labels: [],
@@ -82,14 +82,14 @@ const linearIssuesFixture: LinearIssue[] = [
   makeLinearIssue(
     'lin-1',
     'ws-stably',
-    'Stably',
+    'OpenKodo',
     'STA-3699',
     'Update installer swaps app.asar under the running renderer'
   ),
   makeLinearIssue(
     'lin-2',
     'ws-stably',
-    'Stably',
+    'OpenKodo',
     'STA-6457',
     '[Bug]: AppImage squashfs is unmounted before helper exits'
   ),

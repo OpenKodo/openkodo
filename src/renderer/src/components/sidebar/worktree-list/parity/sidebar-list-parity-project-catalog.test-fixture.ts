@@ -16,7 +16,7 @@ import type { SidebarInputsFeedDomain } from '../../../../../../main/runtime/sid
 
 const ENVIRONMENT_ID = 'env-1'
 const SERVER_HOST_ID = toRuntimeExecutionHostId(ENVIRONMENT_ID)
-const OPENKODO_UPSTREAM = { owner: 'stablyai', repo: 'orca' }
+const OPENKODO_UPSTREAM = { owner: 'openkodo', repo: 'orca' }
 
 const isServerHost = (hostId: string | null | undefined): boolean =>
   parseExecutionHostId(hostId)?.kind === 'runtime'

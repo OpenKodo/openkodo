@@ -1,4 +1,4 @@
-import { defineConfig } from '@stablyai/playwright-test'
+import { defineConfig } from '@playwright/test'
 import { isAgent } from 'std-env'
 import { resolveBuildSourceCommit } from '../config/scripts/build-identity/build-source-commit.mjs'
 

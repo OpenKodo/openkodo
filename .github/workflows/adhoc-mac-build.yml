@@ -7,7 +7,7 @@ on:
     inputs:
       ref:
         # Default empty ref to the dispatch picker; prefer main’s workflow plus explicit branch input to build old branches with current YAML.
-        description: 'Branch, tag, or SHA to build — must live in stablyai/orca; PR refs are refused (default: the branch selected above)'
+        description: 'Branch, tag, or SHA to build — must live in OpenKodo/openkodo; PR refs are refused (default: the branch selected above)'
         required: false
         default: ''
         type: string
@@ -27,14 +27,14 @@ concurrency:
 
 env:
   ORCA_BACKGROUND_LAUNCH: '1'
-  ADHOC_REPO: stablyai/orca-adhoc
+  ADHOC_REPO: OpenKodo/openkodo-adhoc
   # Retain by month rather than count so bursts cannot evict recent experiments or sparse periods keep them forever.
   ADHOC_RETAIN_DAYS: 30
 
 jobs:
   # Resolve once before source execution so concurrent pushes cannot mix slot/template/desktop commits.
   resolve-ref:
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     runs-on: blacksmith-2vcpu-ubuntu-2404
     timeout-minutes: 5
     permissions:
@@ -52,7 +52,7 @@ jobs:
           set -euo pipefail
           case "$REQUESTED_REF" in
             refs/pull/*|pull/*)
-              echo "::error::Refusing to build PR ref '$REQUESTED_REF': this workflow signs with release credentials, so it only builds branches, tags, or commits of stablyai/orca. Push the code to a branch of this repo instead."
+              echo "::error::Refusing to build PR ref '$REQUESTED_REF': this workflow signs with release credentials, so it only builds branches, tags, or commits of OpenKodo/openkodo. Push the code to a branch of this repo instead."
               exit 1
               ;;
           esac
@@ -80,12 +80,12 @@ jobs:
             sha=""
           done
           if [[ -z "$sha" ]]; then
-            echo "::error::'$REQUESTED_REF' does not resolve to a branch, tag, or commit of stablyai/orca."
+            echo "::error::'$REQUESTED_REF' does not resolve to a branch, tag, or commit of OpenKodo/openkodo."
             exit 1
           fi
           # Lazy-fetchable SHAs can be PR-only; require reachability from a trusted branch/tag, not local object presence.
           if [[ -z "$(git -C "$scratch" for-each-ref --count=1 --format='%(refname)' --contains "$sha" refs/heads refs/tags)" ]]; then
-            echo "::error::Commit $REQUESTED_REF is not reachable from any branch or tag of stablyai/orca; refusing to build it with release credentials."
+            echo "::error::Commit $REQUESTED_REF is not reachable from any branch or tag of OpenKodo/openkodo; refusing to build it with release credentials."
             exit 1
           fi
           echo "Vetted $REQUESTED_REF -> $sha"
@@ -193,7 +193,7 @@ jobs:
   prepare-adhoc-mac-release:
     needs: [resolve-ref, orcad-template-support, release-javascript]
     if: >-
-      !cancelled() && github.repository == 'stablyai/orca' &&
+      !cancelled() && github.repository == 'OpenKodo/openkodo' &&
       needs.orcad-template-support.result == 'success' &&
       needs.release-javascript.result == 'success'
     environment: adhoc-mac-build
@@ -235,7 +235,7 @@ jobs:
             --draft \
             --notes "Adhoc macOS and Windows dev build of \`$REF\` at commit \`$short_sha\`.
 
-          Built from [\`stablyai/orca@$short_sha\`](https://github.com/stablyai/orca/commit/$SHA), cut by @$ACTOR.
+          Built from [\`OpenKodo/openkodo@$short_sha\`](https://github.com/OpenKodo/openkodo/commit/$SHA), cut by @$ACTOR.
 
           **Unlanded and unvetted.** This is somebody's branch, not main. No tests
           ran. The macOS build is signed and notarized like a release, so it installs
@@ -260,7 +260,7 @@ jobs:
       ]
     # Start after template qualification: overlapping ~2.5 min of preparation left both Macs idle ~7 min.
     if: >-
-      !cancelled() && github.repository == 'stablyai/orca' &&
+      !cancelled() && github.repository == 'OpenKodo/openkodo' &&
       needs.orcad-template-support.result == 'success' &&
       (needs.orcad-template.result == 'success' || needs.orcad-template-support.outputs.ships != 'true') &&
       needs.release-javascript.result == 'success' &&
@@ -639,7 +639,7 @@ jobs:
   build-adhoc-win:
     needs: [resolve-ref, orcad-template-support, release-javascript]
     if: >-
-      !cancelled() && github.repository == 'stablyai/orca' &&
+      !cancelled() && github.repository == 'OpenKodo/openkodo' &&
       needs.orcad-template-support.result == 'success' &&
       needs.release-javascript.result == 'success'
     permissions:

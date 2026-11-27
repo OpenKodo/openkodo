@@ -1,7 +1,7 @@
 // Check every live frame for model-rule breaches and changed identities, including transient breaches.
 // Settled steps also compare disk rules/roundtrip, drawn/client/expected/restarted layouts, marker echo and unexpected remounts.
 
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 import type { RuntimeClient } from '../../../../src/cli/runtime/client'
 import type { WorkspaceLayoutModel } from '../../../../src/shared/workspace-layout/workspace-layout-model'
 import {

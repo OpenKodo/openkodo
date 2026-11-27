@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/openkodo-catalog.v2.schema.json",
+  "$id": "https://raw.githubusercontent.com/OpenKodo/openkodo/main/docs/schemas/plugins/openkodo-catalog.v2.schema.json",
   "title": "Orca plugin catalog",
   "description": "The openkodo-catalog.json file that lists installable plugins and their releases.",
   "type": "object",

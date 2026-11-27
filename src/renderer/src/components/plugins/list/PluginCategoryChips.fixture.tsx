@@ -8,7 +8,7 @@ function entry(pluginKey: string, categories: string[]): PluginListEntry {
   return pluginListEntryFromListing({
     marketplaceSourceId: 'community',
     marketplaceName: 'OpenKodo Community Plugins',
-    marketplaceOwner: 'stablyai',
+    marketplaceOwner: 'openkodo',
     marketplaceCommit: 'c'.repeat(40),
     pluginKey,
     source: { kind: 'git', url: `https://github.com/${pluginKey}.git`, ref: 'main' },

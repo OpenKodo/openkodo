@@ -13,7 +13,7 @@ const DEFAULT_MARKETING_REPO = path.join(
   homedir(),
   'source',
   'repos',
-  'Stably',
+  'OpenKodo',
   'orca-marketing-website'
 )
 const MARKETING_REPO = process.env.OPENKODO_MARKETING_REPO || DEFAULT_MARKETING_REPO

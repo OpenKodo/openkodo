@@ -1,7 +1,7 @@
 // Drive packaged production DOM/ARIA without E2E-only stores. Prove input through command-written filesystem sentinels rather than canvas scraping.
 // Marker canary attributes console flashes; ~500ms heartbeat proves the session remains active.
 
-import { _electron as electron } from '@stablyai/playwright-test'
+import { _electron as electron } from '@playwright/test'
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, realpathSync, writeFileSync } from 'node:fs'
 import path from 'node:path'

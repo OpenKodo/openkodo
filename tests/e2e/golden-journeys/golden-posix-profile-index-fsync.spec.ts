@@ -1,7 +1,7 @@
 import { readFileSync, rmSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { test } from '../desktop/electron-fixtures/orca-app'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 
 test.use({ seedTestRepo: false })
 test.skip(process.platform === 'win32', 'Restrictive-umask fsync regression is POSIX-only')

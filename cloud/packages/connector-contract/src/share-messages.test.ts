@@ -71,9 +71,9 @@ describe('bot shares contract', () => {
     const invite = (email: string) =>
       ConnectorHelloRequestSchema.safeParse({ ...hello, bots: [{ ...bot, sharedWith: [{ shareId: 's1', email }] }] })
         .success
-    expect(invite('alice@stably.ai')).toBe(true)
-    expect(invite('Alice@stably.ai')).toBe(false)
-    expect(invite(' alice@stably.ai')).toBe(false)
+    expect(invite('alice@example.com')).toBe(true)
+    expect(invite('Alice@example.com')).toBe(false)
+    expect(invite(' alice@example.com')).toBe(false)
     for (const malformed of ['a@@b.co', '@ab.co', 'ab@']) {
       expect(invite(malformed)).toBe(false)
     }
@@ -89,7 +89,7 @@ describe('bot shares contract', () => {
     expect(ConnectorHelloRequestSchema.parse({ ...hello, triggers: [rule] }).triggers).toEqual([])
 
     const base = { deliveryId: 'd1', seq: 1, expiresAt: 1, shareId: 's1', botId: 'bot-1' }
-    const resolved = { ...base, kind: 'share_resolved', email: 'alice@stably.ai', accountId: 'acct-1' }
+    const resolved = { ...base, kind: 'share_resolved', email: 'alice@example.com', accountId: 'acct-1' }
     const onShare = { source: 'orca', externalId: 's1' }
     expect(ConnectorDeliverySchema.safeParse({ ...resolved, conversation: onShare }).success).toBe(true)
     // Another share's queue would let it pass that share's accept.

@@ -1,6 +1,6 @@
 // Require deliberately slept workspaces to stay cold in both renderer PTYs and host state (#10205).
-import type { Locator, Page } from '@stablyai/playwright-test'
-import { expect } from '@stablyai/playwright-test'
+import type { Locator, Page } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { ensureTerminalVisible } from '../../desktop/renderer-probes/store'
 import { waitForActivePanePtyId } from '../../terminal/input/terminal'
 import { waitForActiveTerminalManager } from '../../terminal/layout/terminal-pane-operations'

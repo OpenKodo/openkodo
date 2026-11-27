@@ -40,17 +40,17 @@ export const marketing: Bot = {
   updatedAt: 1
 }
 
-export const stablyai: ConnectorGitHubInstallation = {
+export const openkodo: ConnectorGitHubInstallation = {
   installationId: '1',
-  accountLogin: 'stablyai',
+  accountLogin: 'openkodo',
   repositories: [
-    { fullName: 'stablyai/orca' },
-    { fullName: 'stablyai/website' },
+    { fullName: 'OpenKodo/openkodo' },
+    { fullName: 'openkodo/website' },
     { fullName: 'acme/widgets' }
   ]
 }
 
-let installations: ConnectorGitHubInstallation[] = [stablyai]
+let installations: ConnectorGitHubInstallation[] = [openkodo]
 let account: { userId: string; login: string } | null = { userId: '42', login: 'carol-gh' }
 /** Several GitHub users linked to this OpenKodo account; unset means only `account`. */
 let accounts: ConnectorGitHubLinkedAccount[] | undefined
@@ -78,7 +78,7 @@ export function stubGitHub(
   } = {}
 ): void {
   delete document.documentElement.dataset.githubDialogShot
-  installations = options.with ?? [stablyai]
+  installations = options.with ?? [openkodo]
   account = options.signedIn === false ? null : { userId: '42', login: 'carol-gh' }
   accounts = options.logins?.map((login, index) => ({
     userId: String(42 + index),

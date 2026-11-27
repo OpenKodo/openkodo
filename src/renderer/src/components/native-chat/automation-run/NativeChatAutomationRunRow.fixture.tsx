@@ -15,7 +15,7 @@ import {
 
 const AT = new Date(2026, 10, 12, 19, 14).getTime()
 const MERGE_PROMPT =
-  'Check stablyai/orca#41979.\nIf CI is green and it has an approval, merge it with a squash.\nIf CI failed, tell me which job failed.\nOtherwise say nothing.\nNever force-push.\nUse the merge queue if one is on.'
+  'Check OpenKodo/openkodo#41979.\nIf CI is green and it has an approval, merge it with a squash.\nIf CI failed, tell me which job failed.\nOtherwise say nothing.\nNever force-push.\nUse the merge queue if one is on.'
 const ANSWER_PROMPT = 'Answer the question if you know it; else ask me.'
 
 function automation(name: string, facts: Partial<BotAutomationFacts> = {}): BotAutomationFacts {
@@ -46,10 +46,10 @@ function github(event: string, place: string, rest: Partial<AutomationRunMessage
 
 const waitRun: AutomationRunMessage = {
   runId: 'run-wait',
-  automation: automation('PR stablyai/orca#41979: green, then merge', { once: {} }),
+  automation: automation('PR OpenKodo/openkodo#41979: green, then merge', { once: {} }),
   trigger: 'event',
   wait: { kind: 'event', at: AT },
-  event: github('ci_passed', 'stablyai/orca#41979'),
+  event: github('ci_passed', 'OpenKodo/openkodo#41979'),
   instructionsLength: MERGE_PROMPT.length
 }
 
@@ -58,7 +58,7 @@ const quoteRun: AutomationRunMessage = {
   runId: 'run-member',
   automation: automation('Answer PR questions'),
   trigger: 'event',
-  event: github('comment', 'stablyai/orca#41812', {
+  event: github('comment', 'OpenKodo/openkodo#41812', {
     actor: 'nora',
     text: QUOTE,
     asker: 'member'
@@ -74,7 +74,7 @@ const unknownRun: AutomationRunMessage = {
   event: {
     source: 'github',
     event: 'issue_opened',
-    place: 'stablyai/orca#42001',
+    place: 'OpenKodo/openkodo#42001',
     occurredAt: AT - 120_000,
     text: LONG,
     textShortened: true,
@@ -150,7 +150,9 @@ const folded = (
   <div className="space-y-2">
     {row({ run: waitRun })}
     {row({ run: quoteRun })}
-    {row({ run: { ...quoteRun, runId: 'run-2', event: github('comment', 'stablyai/orca#41760') } })}
+    {row({
+      run: { ...quoteRun, runId: 'run-2', event: github('comment', 'OpenKodo/openkodo#41760') }
+    })}
     {row({ run: deadlineRun })}
     {row({ run: scheduledRun })}
     {row({ run: hookRun })}

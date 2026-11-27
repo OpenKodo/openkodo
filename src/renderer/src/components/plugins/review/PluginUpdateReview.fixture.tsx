@@ -60,13 +60,13 @@ const installedExcalidraw: PluginHostListEntry = {
   restarts: 0,
   source: {
     kind: 'marketplace',
-    reference: 'https://github.com/stablyai/orca-plugins.git (plugins/excalidraw)',
-    url: 'https://github.com/stablyai/orca-plugins.git',
+    reference: 'https://github.com/OpenKodo/openkodo-plugins.git (plugins/excalidraw)',
+    url: 'https://github.com/OpenKodo/openkodo-plugins.git',
     path: 'plugins/excalidraw',
     resolvedCommit: 'a'.repeat(40),
     contentHash: 'b'.repeat(64),
     marketplace: {
-      reference: 'https://github.com/stablyai/orca-plugins.git',
+      reference: 'https://github.com/OpenKodo/openkodo-plugins.git',
       ref: 'main',
       resolvedCommit: 'c'
     }
@@ -96,7 +96,11 @@ function preview(
     marketplaceOwner: 'openkodo',
     marketplaceCommit: 'c',
     pluginKey: official ? entry.pluginKey : mermaidEntry.pluginKey,
-    source: { kind: 'git', url: 'https://github.com/stablyai/orca-excalidraw.git', ref: 'v2.3.1' },
+    source: {
+      kind: 'git',
+      url: 'https://github.com/OpenKodo/openkodo-excalidraw.git',
+      ref: 'v2.3.1'
+    },
     resolvedCommit: 'd'.repeat(40),
     contentHash: 'e'.repeat(64),
     consentFingerprint: 'next',

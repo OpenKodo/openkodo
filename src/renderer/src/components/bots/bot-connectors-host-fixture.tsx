@@ -187,7 +187,7 @@ export function stub(options: StubOptions): void {
                 }
               ]
             : []),
-          { installationId: '1', accountLogin: 'stablyai', repositories: null }
+          { installationId: '1', accountLogin: 'openkodo', repositories: null }
         ],
         defaultBotId: null,
         accounts: [

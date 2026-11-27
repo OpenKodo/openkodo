@@ -18,7 +18,7 @@ function previewFor(
   return {
     marketplaceSourceId: 'official',
     marketplaceName: 'OpenKodo Plugins',
-    marketplaceOwner: 'stablyai',
+    marketplaceOwner: 'openkodo',
     marketplaceCommit: 'c',
     pluginKey,
     source: { kind: 'git', url: 'https://github.com/acme/plugin.git', ref: 'v1' },

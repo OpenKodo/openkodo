@@ -5,9 +5,9 @@ import { ProjectPeekPopover } from './ProjectPeekPopover'
 
 const avatar = {
   type: 'image',
-  src: 'https://github.com/stablyai.png?size=64',
+  src: 'https://github.com/OpenKodo.png?size=64',
   source: 'github',
-  label: 'stablyai/orca'
+  label: 'OpenKodo/openkodo'
 } as const
 
 const githubRepo: Repo = {
@@ -20,9 +20,9 @@ const githubRepo: Repo = {
   worktreeBaseRef: 'origin/main',
   upstream: null,
   gitRemoteIdentity: {
-    canonicalKey: 'github.com/stablyai/orca',
+    canonicalKey: 'github.com/OpenKodo/openkodo',
     remoteName: 'origin',
-    remoteUrl: 'git@github.com:stablyai/orca.git'
+    remoteUrl: 'git@github.com:OpenKodo/openkodo.git'
   }
 }
 
@@ -77,9 +77,9 @@ const longRepo: Repo = {
   addedAt: 5,
   worktreeBaseRef: 'origin/release/2026-11-hotfix-candidate',
   gitRemoteIdentity: {
-    canonicalKey: 'github.com/stablyai/customer-onboarding-flow-redesign',
+    canonicalKey: 'github.com/OpenKodo/customer-onboarding-flow-redesign',
     remoteName: 'origin',
-    remoteUrl: 'git@github.com:stablyai/customer-onboarding-flow-redesign.git'
+    remoteUrl: 'git@github.com:OpenKodo/customer-onboarding-flow-redesign.git'
   }
 }
 

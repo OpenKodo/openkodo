@@ -1,5 +1,5 @@
-import type { Page } from '@stablyai/playwright-test'
-import { expect } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
+import { expect } from '@playwright/test'
 import { test } from '../../desktop/electron-fixtures/orca-app'
 import { waitForActiveWorktree, waitForSessionReady } from '../../desktop/renderer-probes/store'
 

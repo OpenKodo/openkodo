@@ -1,4 +1,4 @@
-import type { ElectronApplication } from '@stablyai/playwright-test'
+import type { ElectronApplication } from '@playwright/test'
 import { retryTransientMainEvaluate } from '../../../../tests/e2e/desktop/electron-fixtures/electron-main-evaluate-retry'
 
 export type HostWork = {

@@ -1,7 +1,7 @@
 // Arm-neutral 4a probes: renderer-clock end points, host CPU/event-loop work, memory and on-disk storage, read from outside product code.
 import { readdirSync, statSync } from 'node:fs'
 import path from 'node:path'
-import type { ElectronApplication, Page } from '@stablyai/playwright-test'
+import type { ElectronApplication, Page } from '@playwright/test'
 import { summarizeEventLoopDelay } from '../../../../tests/e2e/desktop/renderer-probes/event-loop-delay-report'
 
 export { installVisibilityProbe, watchMarkers } from './native-chat-4a-visibility'

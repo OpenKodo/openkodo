@@ -123,7 +123,7 @@ export const AUTOMATION_COMMAND_SPECS: CommandSpec[] = [
       'The name defaults to "PR <owner/repo#n>". Without --prompt, the run reads the pull request and says what it needs next.'
     ],
     examples: [
-      'openkodo automations watch-pr stablyai/openkodo#482 --bot ranger --prompt "Fix what fails, then say when it is ready to merge"',
+      'openkodo automations watch-pr OpenKodo/openkodo#482 --bot ranger --prompt "Fix what fails, then say when it is ready to merge"',
       'openkodo automations watch-pr https://github.com/OpenKodo/openkodo/pull/482 --bot ranger --for 45m'
     ]
   },

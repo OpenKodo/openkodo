@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Provision stablyai/orca-adhoc for adhoc-mac-build.yml. Keep unlanded branch builds out of main’s hourly feed.
+# Provision OpenKodo/openkodo-adhoc for adhoc-mac-build.yml. Keep unlanded branch builds out of main’s hourly feed.
 # Reuse hourly’s App credentials; this only widens its installation.
 # Run once after setup-hourly-release-token.sh: bash config/scripts/release/operations/setup-adhoc-release-repo.sh
 set -euo pipefail
 
-ORG="stablyai"
+ORG="OpenKodo"
 ADHOC_REPO="$ORG/orca-adhoc"
 MAIN_REPO="$ORG/orca"
 APP_SLUG="orca-hourly-release"

@@ -31,7 +31,7 @@ export function pluginSourceHistoryUrl(
 }
 
 /**
- * Who publishes an update and where its history is: "Official · stablyai", or an amber
+ * Who publishes an update and where its history is: "Official · openkodo", or an amber
  * "Community plugin · owner" whose trust advice shows on hover.
  */
 export function PluginUpdatePublisher({

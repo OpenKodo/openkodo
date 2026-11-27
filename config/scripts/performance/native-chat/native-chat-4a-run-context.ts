@@ -1,7 +1,7 @@
 // What every 4a operation family receives, plus the one helper that turns a timed action into a row sample.
 import { existsSync, renameSync } from 'node:fs'
 import path from 'node:path'
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 import { copyProfile, launchArm, stopArm, type Arm, type Launch } from './native-chat-4a-arm'
 import { ConversionObserver } from './native-chat-4a-sqlite-observer'
 import type { Manifest } from './native-chat-4a-fixture'

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/openkodo-plugin.v2.schema.json",
+  "$id": "https://raw.githubusercontent.com/OpenKodo/openkodo/main/docs/schemas/plugins/openkodo-plugin.v2.schema.json",
   "title": "Orca plugin manifest",
   "description": "The openkodo-plugin.json file at the root of an Orca plugin (manifest format 2).",
   "type": "object",

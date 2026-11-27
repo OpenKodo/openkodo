@@ -22,14 +22,14 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  DAILY_REPO: stablyai/orca-daily
+  DAILY_REPO: OpenKodo/openkodo-daily
   # Keep ~30 days so a regression can be bisected without holding a full year.
   DAILY_RETAIN_COUNT: 30
 
 jobs:
   # Why: the app and the orcad template it ships must come from one commit, so resolve main once.
   resolve-main:
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
@@ -62,7 +62,7 @@ jobs:
     needs:
       - resolve-main
       - orcad-template
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     outputs:
       tag: ${{ steps.release.outputs.tag }}
       version: ${{ steps.daily.outputs.version }}
@@ -279,7 +279,7 @@ jobs:
           cat >"$notes_file" <<EOF
           Automated daily macOS and Windows dev build from commit \`$short_sha\`.
 
-          Built from [\`stablyai/orca@$short_sha\`](https://github.com/stablyai/orca/commit/$SHA).
+          Built from [\`OpenKodo/openkodo@$short_sha\`](https://github.com/OpenKodo/openkodo/commit/$SHA).
 
           **Unvetted.** No tests ran. The macOS build is signed and notarized like a
           release, so it installs through Orca's in-app updater and opens from a manual

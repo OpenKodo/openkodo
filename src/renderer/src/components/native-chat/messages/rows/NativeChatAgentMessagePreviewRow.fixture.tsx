@@ -161,7 +161,7 @@ const startedLong = projectStructuredAgentStartItem({
   body: {
     kind: 'agent-start',
     dispatchId: 'start-long-dispatch',
-    task: 'Review stablyai/orca#47079 (head 9c1f7a2) for the usage switch and continue flow.',
+    task: 'Review OpenKodo/openkodo#47079 (head 9c1f7a2) for the usage switch and continue flow.',
     worker: {
       party: { address: 'dispatch:review-long', terminalHandle: null, orcaSessionId: null },
       name: 'Review #47079 usage switch continue'

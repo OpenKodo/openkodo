@@ -147,7 +147,7 @@ const PULLS: EvalGithubThread[] = [
 
 const ADOPTION_GITHUB = {
   repos: GITHUB.repos.map((repo) =>
-    repo.fullName === 'stablyai/orca' ? { ...repo, threads: [...repo.threads, ...PULLS] } : repo
+    repo.fullName === 'OpenKodo/openkodo' ? { ...repo, threads: [...repo.threads, ...PULLS] } : repo
   )
 }
 

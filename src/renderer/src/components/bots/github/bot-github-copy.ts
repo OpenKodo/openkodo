@@ -95,7 +95,7 @@ export function gitHubMention(bot: Pick<Bot, 'folder'>): string {
   return `${GITHUB_BOT_MENTION} ${bot.folder}`
 }
 
-/** One line for the installs, e.g. "3 repositories in stablyai"; the full list is gitHubInstallationLabel. */
+/** One line for the installs, e.g. "3 repositories in openkodo"; the full list is gitHubInstallationLabel. */
 export function gitHubInstallationsSummary(
   installations: readonly ConnectorGitHubInstallation[]
 ): string {

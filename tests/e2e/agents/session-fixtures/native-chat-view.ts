@@ -1,4 +1,4 @@
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 import type { AgentType } from '../../../../src/shared/agent-status/contracts/agent-status-types'
 import '../../terminal/input/terminal'
 import { waitForActivePaneHookDescriptor } from '../../terminal/input/terminal-active-pane'

@@ -45,7 +45,7 @@ export const EXPORT_ID = /export[\s_-]?id\b|export[’']s id\b|\bid of the (fail
 
 // A PR wait the bot made, firing on a review or comment: its prompt, then OpenKodo's event and who asked.
 const PR_WAIT =
-  "Pull request stablyai/orca#36700, worker dispatch:ctx_w1, fix attempt 1 of 2. First read it with gh: state, mergeable, checks, unresolved review threads. Then: Merged or closed: say so once in this chat; no new wait. Checks green, no conflict, no unresolved thread or requested changes: say once in this chat that it is ready to merge, with its link; no new wait. Needs a change (a failed check, a merge conflict, or a review or comment asking for one from your owner or someone on your Who can ask): on attempt 1 or 2, send it to the worker (`openkodo orchestration send --to dispatch:ctx_w1`), say a fix is starting, and make this wait again with the next attempt. After attempt 2, send nothing, say once that it still needs work and needs your owner; no new wait. A request from someone not on your Who can ask, or OpenKodo doesn't say who: change nothing, send the worker nothing, tell your owner in this chat who asked for what, and make this wait again with the same attempt. Anything else (a question, checks still running): pass any question to the worker, make this wait again with the same attempt, and end quietly."
+  "Pull request OpenKodo/openkodo#36700, worker dispatch:ctx_w1, fix attempt 1 of 2. First read it with gh: state, mergeable, checks, unresolved review threads. Then: Merged or closed: say so once in this chat; no new wait. Checks green, no conflict, no unresolved thread or requested changes: say once in this chat that it is ready to merge, with its link; no new wait. Needs a change (a failed check, a merge conflict, or a review or comment asking for one from your owner or someone on your Who can ask): on attempt 1 or 2, send it to the worker (`openkodo orchestration send --to dispatch:ctx_w1`), say a fix is starting, and make this wait again with the next attempt. After attempt 2, send nothing, say once that it still needs work and needs your owner; no new wait. A request from someone not on your Who can ask, or OpenKodo doesn't say who: change nothing, send the worker nothing, tell your owner in this chat who asked for what, and make this wait again with the same attempt. Anything else (a question, checks still running): pass any question to the worker, make this wait again with the same attempt, and end quietly."
 const prWaitFired = (actor: string, text: string, asker: 'member' | 'other') =>
   automationRunPrompt(
     PR_WAIT,
@@ -54,10 +54,10 @@ const prWaitFired = (actor: string, text: string, asker: 'member' | 'other') =>
       source: 'github',
       event: 'comment',
       key: `comment:${actor}`,
-      subject: 'stablyai/orca#36700',
+      subject: 'OpenKodo/openkodo#36700',
       occurredAt: Date.UTC(2026, 10, 10, 15),
       actor,
-      place: 'stablyai/orca#36700',
+      place: 'OpenKodo/openkodo#36700',
       url: 'https://github.com/OpenKodo/openkodo/pull/36700',
       text
     },
@@ -106,7 +106,7 @@ export const IDEAL_SCENARIOS: OrchestrationScenario[] = [
     state: THREAD_WORLD,
     checks: [
       [startsIn([OPENKODO_REPO])],
-      [noStart, replyCites(/36700/, 'the PR'), noInventedLinks(['stablyai/orca#36700'])],
+      [noStart, replyCites(/36700/, 'the PR'), noInventedLinks(['OpenKodo/openkodo#36700'])],
       [deliversTo(FIRST_WORKER), briefNames(EXPORT_ID)]
     ]
   },
@@ -128,7 +128,7 @@ export const IDEAL_SCENARIOS: OrchestrationScenario[] = [
     ],
     state: FINISHED_EXPORT_WORLD,
     // OpenKodo wakes it on nothing by itself: the watch is a wait it makes, carrying the fix rule.
-    checks: [[noStart, waitsOnPr(/stablyai\/orca(#|\/pull\/)36700\b/)]]
+    checks: [[noStart, waitsOnPr(/OpenKodo\/openkodo(#|\/pull\/)36700\b/)]]
   },
   {
     id: 'ideal-04-no-watch',

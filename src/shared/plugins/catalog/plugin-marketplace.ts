@@ -190,7 +190,7 @@ export const marketplaceHeaderFields = {
     pluginFieldDoc('Catalog display name.', NEXT, ['OpenKodo Plugins'])
   ),
   owner: marketplaceOwnerSchema.meta(
-    pluginFieldDoc('Account that publishes the catalog.', NEXT, ['stablyai'])
+    pluginFieldDoc('Account that publishes the catalog.', NEXT, ['openkodo'])
   )
 }
 
@@ -293,7 +293,7 @@ function repositoryIdentity(host: string, repositoryPath: string): GitRepository
     .replace(/^\/+|\/+$/g, '')
     .split('/')
     .filter(Boolean)
-  // Why: the scp form is not normalized, so `stablyai/../evil` would read as the official owner.
+  // Why: the scp form is not normalized, so `openkodo/../evil` would read as the official owner.
   if (segments.length < 2 || segments.includes('..')) {
     return null
   }

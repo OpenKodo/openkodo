@@ -22,14 +22,14 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  HOURLY_REPO: stablyai/orca-hourly
+  HOURLY_REPO: OpenKodo/openkodo-hourly
   # Keep ~3 days of history so a regression can be bisected across a weekend.
   HOURLY_RETAIN_COUNT: 72
 
 jobs:
   # Avoid occupying the limited Mac pool when main has not moved.
   preflight:
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
@@ -268,7 +268,7 @@ jobs:
             --draft \
             --notes "Automated hourly macOS and Windows dev build from commit \`$short_sha\`.
 
-          Built from [\`stablyai/orca@$short_sha\`](https://github.com/stablyai/orca/commit/$SHA).
+          Built from [\`OpenKodo/openkodo@$short_sha\`](https://github.com/OpenKodo/openkodo/commit/$SHA).
 
           **Unvetted.** No tests ran. The macOS build is signed and notarized like a
           release, so it installs through Orca's in-app updater and opens from a manual

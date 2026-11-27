@@ -3,7 +3,7 @@
 import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 import { bundleFromCheckout, type Arm } from './native-chat-4a-arm'
 import { history } from './native-chat-4a-session'
 import { diffPatch, type Workload } from './native-chat-4a-workloads'

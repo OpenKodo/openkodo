@@ -20,7 +20,7 @@ concurrency:
 jobs:
   update:
     # Badge updates belong to the upstream repository.
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     runs-on: ubuntu-latest
     steps:
       - name: Generate badge update token

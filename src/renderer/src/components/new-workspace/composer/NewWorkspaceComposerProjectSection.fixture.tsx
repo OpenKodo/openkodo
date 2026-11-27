@@ -49,7 +49,7 @@ const projects: NewWorkspaceProjectOption[] = [
     displayName: 'orca',
     badgeColor: orcaRepo.badgeColor,
     repo: orcaRepo,
-    detail: 'stablyai/orca'
+    detail: 'OpenKodo/openkodo'
   },
   {
     kind: 'project',
@@ -58,7 +58,7 @@ const projects: NewWorkspaceProjectOption[] = [
     displayName: 'orca-cloud',
     badgeColor: personalOrcaRepo.badgeColor,
     repo: personalOrcaRepo,
-    detail: 'stablyai/orca-cloud'
+    detail: 'OpenKodo/openkodo-cloud'
   },
   {
     kind: 'project',
@@ -67,7 +67,7 @@ const projects: NewWorkspaceProjectOption[] = [
     displayName: 'platform-api',
     badgeColor: apiRepo.badgeColor,
     repo: apiRepo,
-    detail: 'stablyai/platform-api'
+    detail: 'openkodo/platform-api'
   },
   {
     kind: 'project-group',

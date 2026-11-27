@@ -282,7 +282,7 @@ export const gitHubPageMenu = defineFixture({
   width: 420,
   setup: () => fresh({ linearLinked: true, composio: false }),
   render: () => <Panel bot={base} />,
-  interact: () => openPageMenu('GitHub · stablyai', 'GitHub · stablyai')
+  interact: () => openPageMenu('GitHub · OpenKodo', 'GitHub · OpenKodo')
 })
 
 /** Add to <bot>, Google signed in here: Add continues to which accounts the bot may use. */

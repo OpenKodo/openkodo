@@ -1,6 +1,6 @@
 // Count xterm creations so remounts outside relaunch, reload or daemon restart fail.
 
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 
 declare global {
   // oxlint-disable-next-line typescript-eslint/consistent-type-definitions -- declaration merging requires interface

@@ -1,5 +1,5 @@
-import type { Page } from '@stablyai/playwright-test'
-import { expect } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
+import { expect } from '@playwright/test'
 
 // Re-enable screenReaderMode on each read: parking or reconnect can replace the xterm instance and its accessibility DOM.
 // Return null while the pane/tree is absent so callers keep polling.

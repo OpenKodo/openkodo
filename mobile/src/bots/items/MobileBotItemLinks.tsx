@@ -66,7 +66,7 @@ function checksWord(checks: string | null, t: Translate): string | null {
         : null
 }
 
-/** The desktop tooltip's line: "Open · Checks failing · stablyai/orca#41230". */
+/** The desktop tooltip's line: "Open · Checks failing · OpenKodo/openkodo#41230". */
 function gitHubStateLine(row: BotItemGitHubRow, t: Translate): string {
   return [stateWord(row, t), checksWord(row.checks, t), `${row.repo}#${row.number}`]
     .filter(Boolean)

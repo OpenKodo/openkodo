@@ -169,7 +169,7 @@ export const ROOT_HELP_TEXT_SECONDARY = [
   '  $ openkodo repo list',
   '  $ openkodo worktree create --name agent-task --agent codex --prompt "hi"',
   '  $ openkodo worktree create --repo name:openkodo --name cli-test-1 --issue 273',
-  '  $ openkodo worktree create --repo name:openkodo --name linear-task --linear-issue https://linear.app/stably/issue/STA-335/test-issue',
+  '  $ openkodo worktree create --repo name:openkodo --name linear-task --linear-issue https://linear.app/acme/issue/STA-335/test-issue',
   '  $ openkodo worktree create --name linear-task --linear-issue STA-335',
   '  $ openkodo worktree show --worktree branch:Jinwoo-H/cli',
   '  $ openkodo worktree current',

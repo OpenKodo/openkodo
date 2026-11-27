@@ -89,7 +89,7 @@ function eventWord(event: AutomationRunMessageEvent, say: SayAutomationRun): str
   return event.replayed ? lowerFirst(word) : word
 }
 
-/** "#41812" from "stablyai/orca#41812"; any other place as it is. */
+/** "#41812" from "OpenKodo/openkodo#41812"; any other place as it is. */
 function shortPlace(place: string): string {
   return /#\d+$/.exec(place)?.[0] ?? place
 }

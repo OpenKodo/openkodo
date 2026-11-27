@@ -27,7 +27,7 @@
 
 set -euo pipefail
 
-REPO="${REPO:-stablyai/orca}"
+REPO="${REPO:-OpenKodo/openkodo}"
 BUCKET="${BUCKET:-orca-downloads}"
 PUBLIC_BASE="${PUBLIC_BASE:-https://downloads.orca.dev}"
 WEBSITE_ASSETS=(orca-macos-arm64.dmg orca-macos-x64.dmg orca-windows-setup.exe orca-linux.AppImage)

@@ -106,7 +106,7 @@ export function getRuntimeRecipeContext(
   const repo = runtime.repoId ? getRecipeRepo(store, runtime.repoId) : null
   if (!repo?.ok) {
     // Why: a re-added or removed repo must not strand the VM; the snapshot plus recorded checkout
-    // path are everything destroy needs (stablyai/orca#17293). Only trust the path while it still
+    // path are everything destroy needs (OpenKodo/openkodo#17293). Only trust the path while it still
     // holds the same recipe, so a different checkout later placed there can't run its scripts.
     const fallback = runtime.recipe && runtime.repoPath ? runtime.recipe : null
     if (fallback && runtime.repoPath) {

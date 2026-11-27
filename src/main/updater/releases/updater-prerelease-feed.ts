@@ -27,7 +27,7 @@ let olderReleasesCache: {
 
 // Atom includes stable and prerelease tags without channel filtering.
 const ENTRY_RE = /<entry>([\s\S]*?)<\/entry>/g
-const TAG_HREF_RE = /href="https:\/\/github\.com\/stablyai\/orca\/releases\/tag\/([^"]+)"/
+const TAG_HREF_RE = /href="https:\/\/github\.com\/OpenKodo\/openkodo\/releases\/tag\/([^"]+)"/
 const ENTRY_UPDATED_RE = /<updated>([^<]+)<\/updated>/
 
 export function normalizeTagToVersion(tag: string): string {
@@ -85,7 +85,7 @@ export async function fetchLatestStableReleaseTag(): Promise<string | null> {
       return null
     }
     const target = new URL(response.redirectUrl, latestUrl)
-    const match = target.pathname.match(/^\/stablyai\/orca\/releases\/tag\/([^/]+)$/)
+    const match = target.pathname.match(/^\/OpenKodo\/openkodo\/releases\/tag\/([^/]+)$/)
     if (target.origin !== 'https://github.com' || !match) {
       return null
     }

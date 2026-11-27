@@ -151,7 +151,7 @@ const layout = chat('layout', 'Feedback on HTML layout', {
 })
 const review = chat('review', 'Review #40189 dictation retry', {
   origin: 'github',
-  originLabel: 'stablyai/orca#40189',
+  originLabel: 'OpenKodo/openkodo#40189',
   unread: true,
   lastActiveAt: now - 5 * 3_600_000,
   preview: 'Approved with one nit on the retry backoff.',

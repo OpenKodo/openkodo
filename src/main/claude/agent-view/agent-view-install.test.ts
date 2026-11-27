@@ -110,7 +110,7 @@ it.each([false, true])(
     writeFileSync(
       join(legacy, '.claude-plugin', 'orca-managed.json'),
       JSON.stringify({
-        owner: 'stablyai/orca/claude-agent-view',
+        owner: 'OpenKodo/openkodo/claude-agent-view',
         binding: { context: 'Chat', chord: 'ctrl+alt+g' }
       })
     )

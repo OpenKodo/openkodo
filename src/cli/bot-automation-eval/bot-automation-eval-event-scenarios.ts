@@ -82,8 +82,8 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
   {
     id: 'github-pr-opened',
     category: 'github',
-    message: 'Whenever a pull request is opened in stablyai/orca, review it.',
-    grade: expectCreate({ triggers: [{ on: 'github.pr_opened', in: ['stablyai/orca'] }] })
+    message: 'Whenever a pull request is opened in OpenKodo/openkodo, review it.',
+    grade: expectCreate({ triggers: [{ on: 'github.pr_opened', in: ['OpenKodo/openkodo'] }] })
   },
   {
     id: 'github-ci-failed',
@@ -100,16 +100,16 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
   {
     id: 'github-pr-pushed-subject',
     category: 'github',
-    message: 'Tell me whenever new commits get pushed to stablyai/orca#482.',
+    message: 'Tell me whenever new commits get pushed to OpenKodo/openkodo#482.',
     grade: expectCreate({
-      triggers: [{ on: 'github.pr_pushed', subject: 'stablyai/orca#482' }]
+      triggers: [{ on: 'github.pr_pushed', subject: 'OpenKodo/openkodo#482' }]
     })
   },
   {
     id: 'github-mentioned-repo',
     category: 'github',
-    message: "When I'm @-mentioned in a GitHub comment in stablyai/orca, draft a reply for me.",
-    grade: expectCreate({ triggers: [{ on: 'github.mentioned', in: ['stablyai/orca'] }] })
+    message: "When I'm @-mentioned in a GitHub comment in OpenKodo/openkodo, draft a reply for me.",
+    grade: expectCreate({ triggers: [{ on: 'github.mentioned', in: ['OpenKodo/openkodo'] }] })
   },
   {
     id: 'linear-assigned',
@@ -137,9 +137,9 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
     id: 'mixed-issue-crash',
     category: 'mixed',
     message:
-      'When someone opens an issue in stablyai/orca, if it looks like a crash report, try to reproduce it.',
+      'When someone opens an issue in OpenKodo/openkodo, if it looks like a crash report, try to reproduce it.',
     grade: expectCreate({
-      triggers: [{ on: 'github.issue_opened', in: ['stablyai/orca'] }],
+      triggers: [{ on: 'github.issue_opened', in: ['OpenKodo/openkodo'] }],
       prompt: [/crash/i, /reproduc/i]
     })
   },
@@ -157,10 +157,10 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
     id: 'mixed-schedule-and-event',
     category: 'mixed',
     message:
-      'Keep the changelog draft current: update it every day at 6pm, and also right away whenever a pull request is merged in stablyai/orca.',
+      'Keep the changelog draft current: update it every day at 6pm, and also right away whenever a pull request is merged in OpenKodo/openkodo.',
     // The draft is the outcome: nothing to report, or a note where it happened, is fine.
     grade: expectCreate({
-      triggers: [{ on: 'github.pr_merged', in: ['stablyai/orca'] }],
+      triggers: [{ on: 'github.pr_merged', in: ['OpenKodo/openkodo'] }],
       schedule: { hour: 18, minute: 0, days: EVERY_DAY },
       prompt: [/changelog/i],
       resultsTo: ['chat', 'none', 'thread']
@@ -178,13 +178,13 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
   {
     id: 'filter-subject-comments',
     category: 'filters',
-    message: 'When anyone leaves feedback on stablyai/orca#900, address it.',
+    message: 'When anyone leaves feedback on OpenKodo/openkodo#900, address it.',
     // Addressing it is the outcome, on the pull request: no report, or one there, is fine.
     grade: expectCreate({
-      triggers: [{ on: 'github.comment', subject: 'stablyai/orca#900' }],
+      triggers: [{ on: 'github.comment', subject: 'OpenKodo/openkodo#900' }],
       optionalTriggers: [
-        { on: 'github.review_comment', subject: 'stablyai/orca#900' },
-        { on: 'github.review', subject: 'stablyai/orca#900' }
+        { on: 'github.review_comment', subject: 'OpenKodo/openkodo#900' },
+        { on: 'github.review', subject: 'OpenKodo/openkodo#900' }
       ],
       resultsTo: ['chat', 'none', 'thread']
     })
@@ -204,10 +204,10 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
     id: 'ideal-08-labeled-issue',
     category: 'github',
     message:
-      'any time a bug with the export label gets filed in stablyai/orca, have a first look at it',
+      'any time a bug with the export label gets filed in OpenKodo/openkodo, have a first look at it',
     grade: (outcome) => {
       const created = expectCreate({
-        triggers: [{ on: 'github.issue_opened', in: ['stablyai/orca'] }],
+        triggers: [{ on: 'github.issue_opened', in: ['OpenKodo/openkodo'] }],
         prompt: [/export/i]
       })(outcome)
       return created.length && expectQuestion(/label/i)(outcome).length ? created : []
@@ -223,7 +223,7 @@ export const EVENT_SCENARIOS: EvalScenario[] = [
   {
     id: 'missing-github-connector',
     category: 'ask',
-    message: 'If CI fails on stablyai/orca, look into why and tell me what broke.',
+    message: 'If CI fails on OpenKodo/openkodo, look into why and tell me what broke.',
     ...botWith({}),
     grade: expectMissingConnector(/github/i)
   }

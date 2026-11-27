@@ -16,7 +16,7 @@ function communityListing(
   return {
     marketplaceSourceId: 'community',
     marketplaceName: 'OpenKodo Community Plugins',
-    marketplaceOwner: 'stablyai',
+    marketplaceOwner: 'openkodo',
     marketplaceCommit: 'c',
     pluginKey: `octocat.${id}`,
     source: {

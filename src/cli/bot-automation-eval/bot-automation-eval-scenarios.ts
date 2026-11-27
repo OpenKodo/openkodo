@@ -167,7 +167,8 @@ export const EVAL_SCENARIOS: EvalScenario[] = [
   {
     id: 'ask-github-release',
     category: 'ask',
-    message: 'When a new release is published in stablyai/orca, write release notes for the blog.',
+    message:
+      'When a new release is published in OpenKodo/openkodo, write release notes for the blog.',
     grade: (outcome) => [
       ...expectNoWrites(outcome),
       ...(/release/i.test(outcome.reply) ? [] : ['reply does not mention releases'])
@@ -261,12 +262,12 @@ export const EVAL_SCENARIOS: EvalScenario[] = [
   {
     id: 'edit-narrow-repo',
     category: 'edit',
-    message: 'Make my issue triage automation only run for stablyai/orca.',
+    message: 'Make my issue triage automation only run for OpenKodo/openkodo.',
     automations: [ISSUE_TRIAGE],
     grade: expectEdit(ISSUE_TRIAGE.id, (updates) =>
       // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the real CLI parsed each --on.
       gradeTriggers(updates.on as AutomationEventTrigger[] | undefined, [
-        { on: 'github.issue_opened', in: ['stablyai/orca'] }
+        { on: 'github.issue_opened', in: ['OpenKodo/openkodo'] }
       ])
     )
   }

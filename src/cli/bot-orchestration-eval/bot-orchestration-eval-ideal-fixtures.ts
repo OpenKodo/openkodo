@@ -15,7 +15,7 @@ import {
 
 type World = Partial<EvalHostState>
 
-const OPENKODO_GITHUB = { id: 900001, fullName: 'stablyai/orca' }
+const OPENKODO_GITHUB = { id: 900001, fullName: 'OpenKodo/openkodo' }
 const ACME_SITE_REPO = '0b6f2c1e-6d0e-4f5c-9a51-2f7c3b8e9d10'
 const EXPORT_HEAD = 'a1b2c3d4e5f60718293a4b5c6d7e8f9012345678'
 

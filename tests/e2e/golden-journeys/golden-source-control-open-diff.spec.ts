@@ -1,7 +1,7 @@
 import { realpathSync } from 'node:fs'
 import path from 'node:path'
 import { test } from '../desktop/electron-fixtures/orca-app'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 import {
   cleanupGoldenWorktree,
   createGoldenWorktree,

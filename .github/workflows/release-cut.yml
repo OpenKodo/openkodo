@@ -46,7 +46,7 @@ concurrency:
 jobs:
   cut:
     # Limit version/tag mutations to canonical repo; fork schedules must not diverge their main and conflict upstream.
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:

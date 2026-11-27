@@ -23,7 +23,7 @@ const loadedAt = Date.now()
 const README = `## Components Gallery
 
 Everything here is drawn by Orca from plain data. Links such as
-[the components guide](https://github.com/stablyai/orca) open in your browser.
+[the components guide](https://github.com/OpenKodo/openkodo) open in your browser.
 
 - **Tables** page and sort
 - **Trees** load children lazily

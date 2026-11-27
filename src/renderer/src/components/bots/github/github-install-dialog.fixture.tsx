@@ -8,15 +8,15 @@ import {
   marketing,
   settle,
   setGitHubInstallations,
-  stablyai,
+  openkodo,
   stubGitHub
 } from './github-setup-dialog.test-fixture'
 
 // What GitHub's install page saved: a repository on the first install, and a new organization.
 const afterGitHub: ConnectorGitHubInstallation[] = [
   {
-    ...stablyai,
-    repositories: [...(stablyai.repositories ?? []), { fullName: 'stablyai/handbook' }]
+    ...openkodo,
+    repositories: [...(openkodo.repositories ?? []), { fullName: 'openkodo/handbook' }]
   },
   {
     installationId: '2',
@@ -62,7 +62,7 @@ function Scene({ chatWidth = 300 }: { chatWidth?: number }): React.JSX.Element {
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="border-b border-border px-3 py-2.5 text-xs text-muted-foreground">
-            github.com/organizations/stablyai/settings/installations
+            github.com/organizations/openkodo/settings/installations
           </div>
           <div className="grid flex-1 place-items-center text-sm text-muted-foreground">
             GitHub&apos;s install page (OpenKodo browser pane)
@@ -99,9 +99,9 @@ export const done = defineFixture({
       with: [
         {
           installationId: '1',
-          accountLogin: 'stablyai',
+          accountLogin: 'openkodo',
           repositories: ['orca', 'website', 'handbook', 'api', 'plugins', 'devex', 'widgets'].map(
-            (name) => ({ fullName: `stablyai/${name}` })
+            (name) => ({ fullName: `openkodo/${name}` })
           )
         }
       ]

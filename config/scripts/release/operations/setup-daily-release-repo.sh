@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Provision stablyai/orca-daily for daily-mac-build.yml. Keep daily cuts out of hourly’s 72-entry retention window.
+# Provision OpenKodo/openkodo-daily for daily-mac-build.yml. Keep daily cuts out of hourly’s 72-entry retention window.
 # Reuse hourly’s App credentials; this only widens its installation.
 # Run once after setup-hourly-release-token.sh: bash config/scripts/release/operations/setup-daily-release-repo.sh
 #
 set -euo pipefail
 
-ORG="stablyai"
+ORG="OpenKodo"
 DAILY_REPO="$ORG/orca-daily"
 MAIN_REPO="$ORG/orca"
 APP_SLUG="orca-hourly-release"

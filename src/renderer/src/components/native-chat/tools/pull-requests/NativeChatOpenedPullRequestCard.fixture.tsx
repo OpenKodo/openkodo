@@ -5,7 +5,7 @@ import type { NativeChatOpenedPullRequest } from '../../../../../../shared/nativ
 const pullRequest: NativeChatOpenedPullRequest = {
   provider: 'github',
   url: 'https://github.com/OpenKodo/openkodo/pull/3',
-  slug: { owner: 'stablyai', repo: 'orca' },
+  slug: { owner: 'openkodo', repo: 'orca' },
   number: 3
 }
 
@@ -33,8 +33,8 @@ export const severalOpened = defineFixture({
         { ...pullRequest, url: 'https://github.com/OpenKodo/openkodo/pull/4', number: 4 },
         {
           provider: 'github',
-          url: 'https://github.com/stablyai/website/pull/12',
-          slug: { owner: 'stablyai', repo: 'website' },
+          url: 'https://github.com/openkodo/website/pull/12',
+          slug: { owner: 'openkodo', repo: 'website' },
           number: 12
         }
       ]}

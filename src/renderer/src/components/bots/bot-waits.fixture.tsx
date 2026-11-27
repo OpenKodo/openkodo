@@ -70,8 +70,8 @@ const activity: BotActivity = {
     row(
       facts({
         id: 'wait-ci',
-        name: 'CI on stablyai/orca#400',
-        on: [{ id: 't2', source: 'github', event: 'ci_failed', subject: 'stablyai/orca#400' }],
+        name: 'CI on OpenKodo/openkodo#400',
+        on: [{ id: 't2', source: 'github', event: 'ci_failed', subject: 'OpenKodo/openkodo#400' }],
         once: {}
       })
     )

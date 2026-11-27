@@ -32,7 +32,7 @@ try {
     platform: 'node',
     format: 'cjs',
     outfile,
-    external: ['electron', '@stablyai/playwright-test'],
+    external: ['electron', '@playwright/test'],
     logLevel: 'silent'
   })
   const { readPersistedProfileState, partitionsFromProfileRoot, checkWorkspaceLayoutRules } =

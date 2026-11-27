@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Fleet-scale perf gate: OLD vs NEW on a ~1,900-workspace synthetic profile. Usage: docs/readme/fleet-perf-gate.md.
-import { _electron as electron } from '@stablyai/playwright-test'
+import { _electron as electron } from '@playwright/test'
 import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import os from 'node:os'

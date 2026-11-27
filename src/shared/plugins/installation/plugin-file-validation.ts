@@ -75,7 +75,7 @@ export function pluginManifestWarnings(raw: unknown): string[] {
   ]
 }
 
-// Why stablyai passes: install alone knows the catalog, and only the official one may use it.
+// Why the official publisher passes: install alone knows the catalog, and only the official one may use it.
 function reservedPublisherError(publisher: string): string | null {
   return isReservedPluginPublisher(publisher) && publisher !== OFFICIAL_PLUGIN_PUBLISHER
     ? `"${publisher}" is reserved for official OpenKodo plugins; use your own name`

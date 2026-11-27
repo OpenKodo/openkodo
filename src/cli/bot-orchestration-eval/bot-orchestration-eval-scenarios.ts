@@ -68,7 +68,7 @@ export type OrchestrationScenario = {
 const readsResult: TurnCheck[] = [
   noStart,
   replyCites(/pull\/30901|#30901/, 'the PR the worker opened'),
-  noInventedLinks(['stablyai/orca#30901'])
+  noInventedLinks(['OpenKodo/openkodo#30901'])
 ]
 
 export const ORCHESTRATION_SCENARIOS: OrchestrationScenario[] = [

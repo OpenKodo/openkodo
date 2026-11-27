@@ -1,5 +1,5 @@
-import { expect } from '@stablyai/playwright-test'
-import type { Page } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
+import type { Page } from '@playwright/test'
 import { buildSidebarFeedRows } from '../../../../src/shared/sidebar-list/feed/sidebar-feed-rows'
 import { buildSidebarFeedCatalog } from '../../../../src/shared/sidebar-list/catalog/sidebar-feed-catalog'
 import { buildHostFeedView } from '../../../../mobile/src/host-screen/sidebar-feed/host-sidebar-feed-inputs'

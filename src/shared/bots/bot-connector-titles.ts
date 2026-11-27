@@ -9,7 +9,7 @@ export type BotConnectorTitleParts = {
   hints?: readonly (string | null | undefined)[]
 }
 
-/** "GitHub · stablyai", drawn so a narrow row cuts the service before the name. */
+/** "GitHub · OpenKodo", drawn so a narrow row cuts the service before the name. */
 export type BotConnectorTitle = { service: string; name: string | null }
 
 /** The title as one line; `separator` is the translated " · ". */

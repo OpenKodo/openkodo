@@ -1,6 +1,6 @@
 // Count tab-strip renders through the renderer’s React DevTools commit hook.
 
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 
 type Fiber = {
   tag: number

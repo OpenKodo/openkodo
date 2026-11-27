@@ -7,7 +7,7 @@ import {
   type ElectronApplication,
   type Page,
   type TestInfo
-} from '@stablyai/playwright-test'
+} from '@playwright/test'
 
 import type { ContextualTourId } from '../../../../../src/shared/feature-education/contextual-tours/contextual-tours'
 import { getE2ECompletedOnboardingProfile } from '../../../desktop/electron-fixtures/e2e-completed-onboarding-profile'

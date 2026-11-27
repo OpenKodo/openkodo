@@ -78,7 +78,7 @@ concurrency:
 
 jobs:
   build-win:
-    if: github.repository == 'stablyai/orca'
+    if: github.repository == 'OpenKodo/openkodo'
     # Use mac workflows’ same environment for cross-repo App secrets.
     environment: adhoc-mac-build
     # The fast image has VS Build Tools 2022; signed release provenance stays separate.
@@ -133,11 +133,11 @@ jobs:
           git init -q --bare --ref-format=reftable "$scratch"
           git -C "$scratch" fetch -q --filter=tree:0 "$REPO_URL" '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
           if ! git -C "$scratch" rev-parse --verify --quiet "$REQUESTED_SHA^{commit}" >/dev/null; then
-            echo "::error::Commit $REQUESTED_SHA is not in stablyai/orca."
+            echo "::error::Commit $REQUESTED_SHA is not in OpenKodo/openkodo."
             exit 1
           fi
           if [[ -z "$(git -C "$scratch" for-each-ref --contains "$REQUESTED_SHA" refs/heads refs/tags | head -1)" ]]; then
-            echo "::error::Commit $REQUESTED_SHA is not reachable from any branch or tag of stablyai/orca; refusing to build it."
+            echo "::error::Commit $REQUESTED_SHA is not reachable from any branch or tag of OpenKodo/openkodo; refusing to build it."
             exit 1
           fi
           echo "Vetted $CHANNEL $TAG at $REQUESTED_SHA"
@@ -313,8 +313,8 @@ jobs:
           GH_TOKEN: ${{ steps.app_token.outputs.token }}
         run: |
           set -euo pipefail
-          if ! gh release view "$TAG" --repo "stablyai/orca-$CHANNEL" --json tagName >/dev/null 2>&1; then
-            echo "::error::Release $TAG no longer exists in stablyai/orca-$CHANNEL; the mac leg most likely failed and discarded it. Not creating a Windows-only release."
+          if ! gh release view "$TAG" --repo "OpenKodo/openkodo-$CHANNEL" --json tagName >/dev/null 2>&1; then
+            echo "::error::Release $TAG no longer exists in OpenKodo/openkodo-$CHANNEL; the mac leg most likely failed and discarded it. Not creating a Windows-only release."
             exit 1
           fi
 
@@ -343,7 +343,7 @@ jobs:
           GH_TOKEN: ${{ steps.app_token.outputs.token }}
         run: |
           set -euo pipefail
-          assets="$(gh release view "$TAG" --repo "stablyai/orca-$CHANNEL" --json assets --jq '.assets[].name')"
+          assets="$(gh release view "$TAG" --repo "OpenKodo/openkodo-$CHANNEL" --json assets --jq '.assets[].name')"
           echo "Assets on $TAG:"
           echo "$assets"
           for required in latest.yml orca-windows-setup.exe; do

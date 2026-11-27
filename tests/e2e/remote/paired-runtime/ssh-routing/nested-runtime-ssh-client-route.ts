@@ -1,5 +1,5 @@
 import '../../../desktop/electron-fixtures/orca-app'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 import type {
   createRuntimeDesktopPairingOffer,
   PairedElectronClient

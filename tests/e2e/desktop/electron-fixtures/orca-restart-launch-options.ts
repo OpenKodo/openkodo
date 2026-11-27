@@ -1,4 +1,4 @@
-import type { ElectronApplication } from '@stablyai/playwright-test'
+import type { ElectronApplication } from '@playwright/test'
 
 /** Per-launch options for `createRestartSession().launch`. */
 export type LaunchOptions = {

@@ -30,7 +30,7 @@ const GRID_TWO_FULL_ROWS = [
 
 type PluginListGroupProps = {
   title: string
-  /** Trust and origin after the title, e.g. "verified · stablyai". */
+  /** Trust and origin after the title, e.g. "verified · openkodo". */
   detail?: string
   /** Right-aligned summary, e.g. "6 of 48". */
   aside?: React.ReactNode

@@ -5,7 +5,7 @@ import { assertCloudTakesTriggers, CI_FINISHED_TRIGGERS_UNSUPPORTED } from './bo
 const ALL = { own: true, github2: true, workflows: true, ciFinished: true }
 
 describe('assertCloudTakesTriggers: github.ci_finished', () => {
-  const subject = 'stablyai/orca#482'
+  const subject = 'OpenKodo/openkodo#482'
   const ciFinished: AutomationEventTrigger = {
     id: 'r1',
     source: 'github',

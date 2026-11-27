@@ -1,6 +1,6 @@
 import { stripAnsiEscapeSequences } from '../../../src/shared/terminal/protocol/escape/ansi-escape-sequences'
 import { test } from '../desktop/electron-fixtures/orca-app'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 import { ensureTerminalVisible } from '../desktop/renderer-probes/store'
 import { focusActiveTerminalInput, waitForActivePanePtyId } from '../terminal/input/terminal'
 import { waitForActiveTerminalManager } from '../terminal/layout/terminal-pane-operations'

@@ -27,7 +27,7 @@ the validation required before rolling out the updated images and host pins.
   and invoke rights only, never those mutation permissions.
 - `apps/push` and `packages/push-contract`: the mobile push gateway that holds
   the APNs key and sends to phones through APNs and FCM, and its wire contract.
-  Deployment and operations are owned by the private `stablyai/orca-cloud` repository.
+  Deployment and operations are owned by the private `OpenKodo/openkodo-cloud` repository.
 - `packages/connector-contract`: the wire contract between Orca and the
   connector service, which receives Slack, Linear and GitHub events for signed-in
   Orcas. The hosted service is run by Orca and is not in this repository; Orca
@@ -58,7 +58,7 @@ and local development. Configure it with `ORCA_PUSH_PUBLIC_URL`, `ORCA_PUSH_FCM_
 `ORCA_PUSH_APNS_KEY_ID`, `ORCA_PUSH_APPLE_TEAM_ID`, all three or none), and
 optionally `ORCA_PUSH_APNS_TOPIC`. The FCM credential comes from
 the runtime service account, so no key material is configured for Android. See
-[push gateway operations](https://github.com/stablyai/orca-cloud/blob/main/cloud/docs/push-gateway.md) for deployment and recovery.
+[push gateway operations](https://github.com/OpenKodo/openkodo-cloud/blob/main/cloud/docs/push-gateway.md) for deployment and recovery.
 
 Logging is aggregate counters only. Tokens, notification titles, notification
 bodies, and full host fingerprints never reach a log line.
@@ -67,7 +67,7 @@ bodies, and full host fingerprints never reach a log line.
 
 The relay runtime and wire contracts are public. Production and staging Terraform,
 backend configuration, operator tools, runbooks, broker image assembly, and deployment
-workflows live in the private `stablyai/orca-cloud` repository. That repository pins
+workflows live in the private `OpenKodo/openkodo-cloud` repository. That repository pins
 an immutable public source revision and combines it with its deployment configuration.
 
 `Cloud Verify` here builds and tests public runtime code, audits dependencies, scans

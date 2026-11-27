@@ -3,7 +3,7 @@
 import type { AppStore } from '../../../../tests/e2e/desktop/renderer-probes/runtime-types'
 import { randomUUID } from 'node:crypto'
 import { createOrcaSessionId } from '../../../../src/shared/agent-session/identity/orca-session-address'
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 import { operationId, type Arm } from './native-chat-4a-arm'
 import { rendererTime, rpc, visibleChatState } from './native-chat-4a-probes'
 

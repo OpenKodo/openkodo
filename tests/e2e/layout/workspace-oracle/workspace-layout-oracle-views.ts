@@ -1,4 +1,4 @@
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 import type { RuntimeClient } from '../../../../src/cli/runtime/client'
 import {
   LOCAL_EXECUTION_HOST_ID,

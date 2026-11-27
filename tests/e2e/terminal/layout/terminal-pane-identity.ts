@@ -1,6 +1,6 @@
 import type { RuntimeTerminalSummary } from '../../../../src/shared/terminal/runtime/runtime-terminal-contracts'
 import { makePaneKey } from '../../../../src/shared/workspace-layout/stable-pane-id'
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 
 export type PaneIdentitySnapshot = {
   tabId: string

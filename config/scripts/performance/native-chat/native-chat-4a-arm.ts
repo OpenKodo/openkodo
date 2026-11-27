@@ -7,11 +7,7 @@ import { chmodSync, constants, cpSync, existsSync, mkdirSync, writeFileSync } fr
 import { createRequire } from 'node:module'
 import path from 'node:path'
 import { build } from 'esbuild'
-import {
-  _electron as electron,
-  type ElectronApplication,
-  type Page
-} from '@stablyai/playwright-test'
+import { _electron as electron, type ElectronApplication, type Page } from '@playwright/test'
 import {
   createElectronHomeIsolation,
   assertElectronResolvedIsolatedHome

@@ -31,13 +31,13 @@ So a packaged macOS GUI app starts its daemon from a private copy that the updat
 - `macos-daemon-launchd.ts` runs the copy's Node on the copy's `daemon-entry.js` as a
   non-persistent launchd job, so the daemon has Orca's own identity rather than the UI process's
   replaceable path. The label is fixed per profile and protocol
-  (`com.stablyai.orca.terminal.<profile hash>.v<protocol>`). Before bootstrap a stopped job with
+  (`dev.openkodo.terminal.<profile hash>.v<protocol>`). Before bootstrap a stopped job with
   that label is booted out. A running job gets a bounded wait for shutdown and launchd retirement;
   a job still running afterward gets the retired-service recovery below for this protocol's label
   only, and stays fatal unless that recovery releases it; an unreadable job is fatal. `--entry-path` stays the installed
   app's entry, which the replacement preflight compares. The job file is 0600 and deleted right
   after bootstrap, because the environment may hold credentials. It sets
-  `AssociatedBundleIdentifiers` to `com.stablyai.orca`, which is how a launchd job not installed
+  `AssociatedBundleIdentifiers` to `dev.openkodo.app`, which is how a launchd job not installed
   through SMAppService names the app it belongs to for Local Network access. Readiness is the
   normal authenticated handshake, fenced by the launch nonce.
 
@@ -49,7 +49,7 @@ Only Developer ID builds exercise the helper path in practice. A local ad hoc bu
 requirement is a cdhash, which the helper (a different binary) cannot match, so it falls back to the
 fork.
 
-## Why the helper is `com.stablyai.orca`
+## Why the helper is `dev.openkodo.app`
 
 TCC records grants against the designated requirement, which for Orca is the identifier plus team.
 Signing the helper with the app's own identifier lets it inherit every existing grant, including Full
@@ -140,7 +140,7 @@ shared by every install of that Node build, so with it Orca's terminals and any 
 that Node shared Local Network decisions in both directions, and LAN access was blocked while System
 Settings showed Orca allowed (#21988).
 
-Local Network also caches one UUID per bundle id, and the helper shares `com.stablyai.orca` with
+Local Network also caches one UUID per bundle id, and the helper shares `dev.openkodo.app` with
 the app. A helper UUID of its own keeps replacing the app's cached UUID and back: in testing it
 flip-flopped, blocked some terminal and app connections, and prompted again after an update. So
 packaging gives the helper exactly the main executable's UUID per CPU type (#41676: derived from

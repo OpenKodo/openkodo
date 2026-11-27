@@ -36,7 +36,7 @@ export const NEW_SOURCE: BundledSkillSource = {
 }
 export const NPX_LOCK = JSON.stringify({
   version: 3,
-  skills: { [NAME]: { source: 'stablyai/orca', skillFolderHash: 'b59f2737' } }
+  skills: { [NAME]: { source: 'OpenKodo/openkodo', skillFolderHash: 'b59f2737' } }
 })
 
 export type SkillHome = {

@@ -4,7 +4,7 @@
 
 <p align="center">
   <b>The OpenKodo subscription, inside an agent IDE.</b><br />
-  An open-source fork of <a href="https://github.com/stablyai/orca">Orca</a> (MIT), adapted so a new account can sign in, pick a model and start coding without configuring a CLI by hand.
+  An open-source fork of <a href="https://github.com/OpenKodo/openkodo">Orca</a> (MIT), adapted so a new account can sign in, pick a model and start coding without configuring a CLI by hand.
 </p>
 
 <p align="center">
@@ -63,4 +63,4 @@ Build and packaging follow Orca's scripts (`pnpm build`, `pnpm run build:mac`, a
 
 ## License and attribution
 
-MIT. This project is a fork of [Orca](https://github.com/stablyai/orca), copyright Lovecast Inc., and keeps the original license. See [ATTRIBUTION.md](./ATTRIBUTION.md). "Orca" and the Orca marks belong to their owners; OpenKodo Code is an independent fork and is not endorsed by the Orca project.
+MIT. This project is a fork of [Orca](https://github.com/OpenKodo/openkodo), copyright Lovecast Inc., and keeps the original license. See [ATTRIBUTION.md](./ATTRIBUTION.md). "Orca" and the Orca marks belong to their owners; OpenKodo Code is an independent fork and is not endorsed by the Orca project.

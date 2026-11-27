@@ -71,7 +71,7 @@ const composerProjects: NewWorkspaceProjectOption[] = [
     projectId: 'orca',
     displayName: 'orca',
     badgeColor: 'var(--muted-foreground)',
-    detail: 'stablyai/orca'
+    detail: 'OpenKodo/openkodo'
   },
   {
     kind: 'project',
@@ -79,7 +79,7 @@ const composerProjects: NewWorkspaceProjectOption[] = [
     projectId: 'platform-api',
     displayName: 'platform-api',
     badgeColor: 'var(--muted-foreground)',
-    detail: 'stablyai/platform-api'
+    detail: 'OpenKodo/platform-api'
   }
 ]
 

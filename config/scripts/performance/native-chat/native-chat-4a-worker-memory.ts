@@ -1,4 +1,4 @@
-import type { ElectronApplication } from '@stablyai/playwright-test'
+import type { ElectronApplication } from '@playwright/test'
 
 /** Process-wide NodeWorker inventory; read-only Runtime.evaluate, with no pause on worker start. */
 export async function workerMemory(app: ElectronApplication) {

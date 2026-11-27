@@ -2,7 +2,7 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 import {
   EVENT_LOOP_DELAY_REPORT_FILE,
   type EventLoopDelayWindow

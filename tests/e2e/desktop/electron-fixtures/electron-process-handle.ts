@@ -1,5 +1,5 @@
 import type { ChildProcess } from 'node:child_process'
-import type { ElectronApplication } from '@stablyai/playwright-test'
+import type { ElectronApplication } from '@playwright/test'
 
 const processByApp = new WeakMap<ElectronApplication, ChildProcess>()
 

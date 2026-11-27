@@ -1,5 +1,5 @@
 import { history } from './native-chat-4a-session'
-import type { Page } from '@stablyai/playwright-test'
+import type { Page } from '@playwright/test'
 
 export const burstCallIds = (tag: string): string[] =>
   Array.from({ length: 8 }, (_, index) => `toolu_4a_${tag}_${index + 1}`)

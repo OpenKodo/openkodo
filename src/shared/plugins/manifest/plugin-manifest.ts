@@ -94,7 +94,7 @@ const pluginManifestFields = {
   // Why both ids: bare-id global uniqueness is unverifiable without a registry.
   publisher: pluginIdSchema.meta(
     pluginFieldDoc(
-      "Publisher slug, kebab-case. Must be the GitHub or GitLab user or organization that owns the repository (`acme` for `github.com/acme/gleam-syntax`), or the official and community catalogs reject the listing. The reserved names `constructor` and `prototype` are refused. The publishers `stablyai`, `official`, `anthropic`, `openai`, `github` and any starting `orca` (any case), and ids starting `orca-`, install only from OpenKodo's official catalog.",
+      "Publisher slug, kebab-case. Must be the GitHub or GitLab user or organization that owns the repository (`acme` for `github.com/acme/gleam-syntax`), or the official and community catalogs reject the listing. The reserved names `constructor` and `prototype` are refused. The publishers `official`, `anthropic`, `openai`, `github` and any starting `openkodo` (any case), and ids starting `openkodo-`, install only from OpenKodo's official catalog.",
       V1,
       ['acme']
     )
@@ -181,7 +181,7 @@ export const pluginManifestV2Object = z
     publisher: pluginIdSchema.optional().meta({
       deprecated: true,
       ...pluginFieldDoc(
-        `Deprecated: leave it out. OpenKodo derives the publisher from where the plugin comes from, the way a Go module is named by its repository path: the repository owner for the official and community catalogs and for Git URL installs (\`acme\` for \`github.com/acme/gleam-syntax\`), and \`local\` for a folder. A value here is ignored for catalog and Git installs. Leaving it out needs \`engines.orca\` of at least \`>=${PLUGIN_DERIVED_PUBLISHER_SINCE}\`, because older OpenKodo requires it; if you keep it for older OpenKodo, it must equal the repository owner. Reserved owners (\`stablyai\`, \`official\`, \`anthropic\`, \`openai\`, \`github\` and any starting \`orca\`) and ids starting \`orca-\` install only from OpenKodo's official catalog.`,
+        `Deprecated: leave it out. OpenKodo derives the publisher from where the plugin comes from, the way a Go module is named by its repository path: the repository owner for the official and community catalogs and for Git URL installs (\`acme\` for \`github.com/acme/gleam-syntax\`), and \`local\` for a folder. A value here is ignored for catalog and Git installs. Leaving it out needs \`engines.orca\` of at least \`>=${PLUGIN_DERIVED_PUBLISHER_SINCE}\`, because older OpenKodo requires it; if you keep it for older OpenKodo, it must equal the repository owner. Reserved owners (\`openkodo\`, \`official\`, \`anthropic\`, \`openai\`, \`github\` and any starting \`orca\`) and ids starting \`orca-\` install only from OpenKodo's official catalog.`,
         V1,
         ['acme']
       )

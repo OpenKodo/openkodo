@@ -6,7 +6,7 @@
 #   bash config/scripts/diagnostics/macos-launch/macos-launch-diagnostics.sh --tag v1.4.42-rc.1
 set -euo pipefail
 
-REPO="${OPENKODO_DIAGNOSTIC_REPO:-stablyai/orca}"
+REPO="${OPENKODO_DIAGNOSTIC_REPO:-OpenKodo/openkodo}"
 TAG="${OPENKODO_DIAGNOSTIC_TAG:-}"
 KEEP=0
 

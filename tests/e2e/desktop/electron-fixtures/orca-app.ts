@@ -7,7 +7,7 @@ import {
   type Page,
   type ElectronApplication,
   type TestInfo
-} from '@stablyai/playwright-test'
+} from '@playwright/test'
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'

@@ -10,7 +10,7 @@ describe('normalizeMobileMarkdownPreviewHtml', () => {
 </h1>
 
 <p align="center">
-  <a href="https://github.com/OpenKodo/openkodo/stargazers"><img src="https://badgen.net/github/stars/stablyai/orca" alt="GitHub stars" /></a>
+  <a href="https://github.com/OpenKodo/openkodo/stargazers"><img src="https://badgen.net/github/stars/OpenKodo/openkodo" alt="GitHub stars" /></a>
   <strong>The AI Orchestrator</strong><br/>
   Run Codex side-by-side.
 </p>

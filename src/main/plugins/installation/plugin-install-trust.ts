@@ -19,7 +19,7 @@ export function pluginInstallTrustError(
     return null
   }
   // Why the catalog and not the repository: a direct Git URL or another catalog could point
-  // at any stablyai repository, including one never meant to ship.
+  // at any OpenKodo repository, including one never meant to ship.
   return source.kind === 'marketplace' &&
     isOfficialMarketplaceGitSource(source.marketplace.url) &&
     isOfficialOrganizationGitSource(source.plugin.url)

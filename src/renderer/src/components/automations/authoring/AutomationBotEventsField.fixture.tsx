@@ -34,7 +34,7 @@ const named: AutomationConnectorEventTrigger[] = [
     source: 'github',
     event: 'pr_opened',
     in: ['github:42:777'],
-    names: { 'github:42:777': 'stablyai/orca' }
+    names: { 'github:42:777': 'OpenKodo/openkodo' }
   },
   {
     id: 'on-4',

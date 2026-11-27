@@ -11,7 +11,7 @@ export const CLAUDE_AGENT_VIEW_PLUGIN_FILES: Record<string, string> = {
     name: CLAUDE_AGENT_VIEW_PLUGIN,
     version: '0.2.0',
     description: 'Open Claude subagents from the OpenKodo sidebar',
-    author: { name: 'stablyai' },
+    author: { name: 'OpenKodo' },
     license: 'MIT'
   }),
   'hooks/hooks.json': JSON.stringify({ modules: ['./register.js'] }),

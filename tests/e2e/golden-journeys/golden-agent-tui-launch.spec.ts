@@ -1,5 +1,5 @@
 import { test } from '../desktop/electron-fixtures/orca-app'
-import { expect } from '@stablyai/playwright-test'
+import { expect } from '@playwright/test'
 import {
   configureGoldenStubAgent,
   getGoldenStubAgentLaunchEnv,

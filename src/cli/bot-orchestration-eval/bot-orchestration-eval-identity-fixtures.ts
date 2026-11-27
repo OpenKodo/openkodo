@@ -10,7 +10,7 @@ import {
 } from '../bot-automation-eval/bot-automation-eval-gh'
 import { EMPTY_WORLD } from './bot-orchestration-eval-fixtures'
 
-export const OPENKODO_GH = 'stablyai/orca'
+export const OPENKODO_GH = 'OpenKodo/openkodo'
 export const API_GH = 'acme/api'
 /** The owner's private repository: their `gh` reads it, the shared GitHub app never could. */
 export const PRIVATE_GH = 'acme/billing'
