@@ -808,6 +808,8 @@ module.exports = {
       },
       featureWallResources
     ],
+    // Stable names: the download page links these, so a version bump must not break it.
+    artifactName: 'openkodo-linux.${ext}',
     // Keep local artifacts aligned with the release pipeline.
     target: ['AppImage', 'deb', 'rpm'],
     maintainer: 'OpenKodo',
