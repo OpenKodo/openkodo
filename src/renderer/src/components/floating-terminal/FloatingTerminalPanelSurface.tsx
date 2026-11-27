@@ -157,9 +157,6 @@ export function renderFloatingTerminalPanelSurface(
                   groupActiveTabId={activeTab?.id ?? null}
                   activeFileId={activeEditorUnifiedId}
                   activeBrowserTabId={activeBrowserId}
-                  activeSimulatorTabId={
-                    activeTab?.contentType === 'simulator' ? activeTab.id : null
-                  }
                   activeTabType={activeTabType}
                   onActivateFile={model.commands.activateEditor}
                   onCloseFile={closeFloatingItemConfirmed}
@@ -236,7 +233,6 @@ export function renderFloatingTerminalPanelSurface(
                     backgroundMountTabIds={null}
                     activationDeferredMountTabIds={null}
                     mountRetainedBrowserOverlay={true}
-                    mountEmulatorOverlay={true}
                     // Why: the active workspace's listener owns the chord while the panel overlays it.
                     ownsNativeChatToggleShortcut={false}
                   />

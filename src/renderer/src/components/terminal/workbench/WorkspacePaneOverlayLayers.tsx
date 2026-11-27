@@ -1,7 +1,6 @@
 import type { ActivityTerminalPortalTarget } from '../../activity/terminal-portal/activity-terminal-portal'
 import TerminalPaneOverlayLayer from '../../terminal-pane/mounting/TerminalPaneOverlayLayer'
 import { RetainedBrowserPaneOverlayLayer } from '../../browser-pane/assemble-chrome/BrowserPaneOverlayLayer'
-import EmulatorPaneOverlayLayer from '../../emulator-pane/EmulatorPaneOverlayLayer'
 import StructuredAgentSessionPaneOverlayLayer from '../../native-chat/pane/routing/StructuredAgentSessionPaneOverlayLayer'
 import AiVaultSessionDropLayer from '../../tab-group/drag/AiVaultSessionDropLayer'
 import type { HiddenTerminalPrewarm } from '../../terminal-pane/controller/terminal-pane-types'
@@ -19,7 +18,6 @@ export function WorkspacePaneOverlayLayers({
   backgroundMountTabIds,
   activationDeferredMountTabIds,
   mountRetainedBrowserOverlay,
-  mountEmulatorOverlay,
   surfaceReleased = false,
   ownsNativeChatToggleShortcut = true
 }: {
@@ -34,7 +32,6 @@ export function WorkspacePaneOverlayLayers({
   backgroundMountTabIds: ReadonlySet<string> | null
   activationDeferredMountTabIds: ReadonlySet<string> | null
   mountRetainedBrowserOverlay: boolean
-  mountEmulatorOverlay: boolean
   /** Parked hidden workspace: its drop target remounts on return. */
   surfaceReleased?: boolean
   /** Floating overlays leave the toggle chord to the active workspace; duplicate listeners would both toggle. */
@@ -60,9 +57,6 @@ export function WorkspacePaneOverlayLayers({
         isWorktreeActive={isVisible}
         mountEligible={mountRetainedBrowserOverlay}
       />
-      {mountEmulatorOverlay ? (
-        <EmulatorPaneOverlayLayer worktreeId={worktreeId} isWorktreeActive={isVisible} />
-      ) : null}
       {/* Chat retention bounds itself; its reader position lives only in the mounted view. */}
       <StructuredAgentSessionPaneOverlayLayer
         worktreeId={worktreeId}

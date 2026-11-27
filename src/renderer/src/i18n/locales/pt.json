@@ -2728,8 +2728,6 @@
         "93d88d20bf": "Aparência",
         "2d0659f6f0": "Abas globais de terminal, navegador e markdown.",
         "65b19f5bde": "Espaço de Trabalho Flutuante",
-        "3d65d3f1b9": "Configure o suporte a emulador mobile para o OpenKodo e agentes de código.",
-        "1e761cff2b": "Emulador Mobile",
         "e815fd01bd": "Página inicial, roteamento de links e cookies de sessão.",
         "8c197f74a1": "Navegador",
         "42ae40842f": "Comandos de terminal salvos, com escopo global ou por projeto.",
@@ -2885,9 +2883,7 @@
       },
       "ensure": {
         "simulator": {
-          "tab": {
-            "372d21d428": "Emulador Mobile"
-          }
+          "tab": {}
         }
       },
       "fix": {
@@ -2964,9 +2960,7 @@
         },
         "mobile": {
           "emulator": {
-            "tab": {
-              "bf4f2a8a72": "Não foi possível iniciar o emulador. Verifique a configuração do emulador iOS ou Android e tente outro dispositivo."
-            }
+            "tab": {}
           }
         }
       },
@@ -5304,44 +5298,7 @@
         },
         "mobile": {
           "emulator": {
-            "search": {
-              "2348045036": "Escolha qual dispositivo de emulador o OpenKodo abre por padrão.",
-              "2bb2e09225": "skill mobile",
-              "bbe4267416": "tipo de emulador",
-              "64494f03c3": "anexar emulador",
-              "6f728f1456": "toque no emulador",
-              "f8b871d655": "cli do agente",
-              "2e0b45b2ba": "Use comandos da CLI do OpenKodo para listar, anexar, tocar e digitar em um emulador mobile.",
-              "8ef0f08d36": "runtime",
-              "27397fe8e9": "ferramentas de linha de comando do Xcode",
-              "7650063d17": "simctl",
-              "3211e7acf9": "xcrun",
-              "42bfab45d8": "disponibilidade",
-              "ea1f51b980": "Verifica se o Xcode, simctl, serve-sim e os dispositivos de emulador estão prontos.",
-              "04c5f5d901": "dispositivo",
-              "25d7bfbcd4": "udid",
-              "ec3c4043fd": "ipad padrão",
-              "1dc8c52ffa": "iphone padrão",
-              "ab4814f3c5": "simulador padrão",
-              "b8ddd13195": "emulador do agente",
-              "1ad6fb6230": "dispositivo padrão",
-              "ac0a985873": "skill de emulador",
-              "9353854ff3": "emulador openkodo",
-              "d4b7833894": "cli do openkodo",
-              "84e5706975": "serve-sim",
-              "7c5a8a2bee": "xcode",
-              "bec7231663": "ipad",
-              "49727355a3": "iphone",
-              "6b6407dc1f": "emulador",
-              "2d67f708ce": "simulador",
-              "c5eca29310": "simulador ios",
-              "25159de808": "emulador mobile",
-              "9595354cff": "Configure o suporte a emulador mobile para o OpenKodo e agentes de código.",
-              "de556a0911": "Disponibilidade do Emulador",
-              "b8c9f903eb": "Dispositivo de Emulador Padrão",
-              "0d6e7dba38": "Controle via CLI do Agente",
-              "f8468700d1": "Emulador Mobile"
-            }
+            "search": {}
           },
           "pane": {
             "search": {
@@ -5691,7 +5648,6 @@
           "6d1a27e193": "Tema, zoom, aparência do aplicativo e do terminal, barras laterais e barra de status.",
           "2b4474780a": "Aparência",
           "3d9adfe6a5": "Abas globais de terminal, navegador e markdown.",
-          "01f9d36292": "Configure o suporte a emulador mobile para o OpenKodo e agentes de código.",
           "ad9788036f": "Página inicial, roteamento de links e cookies de sessão.",
           "c46215ea03": "Navegador",
           "6742c7932c": "Comandos de terminal salvos, com escopo global ou por projeto.",
@@ -5729,7 +5685,6 @@
           "noSettingsFoundForQuery": "Nenhuma configuração encontrada para \"{{value0}}\"",
           "045db77e21": "Hosts SSH",
           "c0900fa64a": "Origens de Tarefas",
-          "129ae9859c": "Emulador Mobile",
           "022effa46f": "Servidores OpenKodo Remotos",
           "d09b9d8f00": "Git e Controle de Versão",
           "3eac6fb97f": "Ferramentas de Dev",
@@ -7893,23 +7848,7 @@
           "c535cbdd09": "Não foi possível carregar as sessões.",
           "0e07cc838b": "Gerenciar Sessões"
         },
-        "MobileEmulatorSettingsPane": {
-          "19d39113b6": "Permita que agentes de código controlem o emulador mobile ativo com comandos da CLI do OpenKodo.",
-          "8aec2f99a0": "Atualizar disponibilidade do emulador",
-          "ae1612c58c": "Disponibilidade",
-          "f9af91ea26": "Mostra a ação Novo Emulador Mobile e permite que agentes se conectem ao emulador ativo.",
-          "bc39d0f115": "Configure o suporte a emulador mobile para o OpenKodo e agentes de código.",
-          "a4f1c82d90": "Desativado",
-          "b5e2d93e01": "Verificando...",
-          "c6f3ea4f12": "Pronto",
-          "d704fb5023": "Precisa de configuração",
-          "06b06429c6": "Verificando o suporte do Android SDK e do Simulador iOS.",
-          "6d1483d4a0": "1 dispositivo de emulador detectado.",
-          "0a452d4d3b": "{{value0}} dispositivos de emulador detectados.",
-          "d2d8632e0d": "Emulador Mobile",
-          "b1e5af97e9": "Ativar Emulador Mobile",
-          "fd698d2d47": "Controle do Emulador Mobile por Agente"
-        },
+        "MobileEmulatorSettingsPane": {},
         "SettingsFormControls": {
           "42a4d15a30": "Nenhuma fonte correspondente.",
           "b55371ea18": "Fontes",
@@ -8280,14 +8219,7 @@
           "cb65c75b11": "Abrindo...",
           "f2d4f877b2": "Abrir GitHub"
         },
-        "MobileEmulatorAgentControlRow": {
-          "8af7a8bc38": "Os comandos têm como alvo o emulador ativo da worktree atual. As coordenadas são normalizadas de 0 a 1.",
-          "c7f3fe0a6e": "Comandos comuns do emulador",
-          "d94ca6a623": "Permite que agentes usem comandos da CLI do OpenKodo, incluindo controle do emulador mobile.",
-          "67e19ee03c": "Skill da CLI do OpenKodo",
-          "ff4b7e65d6": "Permita que agentes de código controlem o emulador mobile ativo com comandos da CLI do OpenKodo.",
-          "10243e70ff": "Controle do Emulador Mobile por Agente"
-        },
+        "MobileEmulatorAgentControlRow": {},
         "MobileNetworkInterfaceSection": {
           "b2c384cfd6": "Nenhuma interface encontrada"
         },
@@ -8412,19 +8344,7 @@
           "hostCollectionProjectScopes": "Coleção de hosts + escopos de projeto",
           "terminalQuickCommandHostCollections": "Os comandos são salvos no host OpenKodo selecionado e depois têm escopo global ou de uma configuração de projeto. Comandos deste dispositivo também permanecem disponíveis em espaços de trabalho remotos."
         },
-        "MobileEmulatorSdkStatus": {
-          "027cbf668a": "Android SDK",
-          "f6d080d128": "Usando o caminho configurado",
-          "7fe4bd5907": "Detectado em",
-          "2784f0b22d": "Não encontrado. Instale o Android Studio e depois crie um Dispositivo Virtual.",
-          "b94ff260e6": "Baixar Android Studio",
-          "18925b082d": "Localizar pasta do SDK",
-          "8c52684db8": "Limpar",
-          "76eb88b88e": "Simulador iOS (Xcode)",
-          "c6f3ea4f12": "Pronto",
-          "e4f14b50d7": "Instale o Xcode e adicione um runtime do Simulador iOS.",
-          "63fe73a1ea": "Não foi possível atualizar a pasta do Android SDK."
-        },
+        "MobileEmulatorSdkStatus": {},
         "TaskSourceLinearSetup": {
           "connectTitle": "Conectar Linear",
           "connectDescription": "Adicione uma chave de API pessoal para que o OpenKodo possa navegar por issues e abrir espaços de trabalho com contexto de ticket.",
@@ -8800,16 +8720,7 @@
           "3e5b7c6c25": "Link de sessão do Kagi salvo.",
           "0911d5fa4c": "Digite um link de sessão privada do Kagi de https://kagi.com/search?token=..."
         },
-        "MobileEmulatorExamples": {
-          "edf13dd03b": "Copiar",
-          "c12b253997": "Copiar prompt de exemplo",
-          "d151e25078": "\"",
-          "b525ff2b12": "\"",
-          "4daa95f25a": "Cole qualquer um destes no Claude Code, Codex, ou outro agente em um projeto onde a skill da CLI do OpenKodo está instalada.",
-          "0820b3f84f": "Experimente — prompts de exemplo",
-          "1f608e7d60": "Falha ao copiar o prompt.",
-          "2b077b5544": "Prompt copiado."
-        },
+        "MobileEmulatorExamples": {},
         "OpenAiTranscriptionKeyDialog": {
           "d246b2bdb3": "As chaves do runtime local são armazenadas em ~/.openkodo usando armazenamento criptografado do Electron quando disponível.",
           "c3380e4ca5": "sk-...",
@@ -17799,14 +17710,7 @@
                   "6d8b6b4117": "novo arquivo",
                   "b330f72434": "mark",
                   "37ff3ddca1": "abrir markdown",
-                  "164c394bab": "abrir arquivo",
-                  "bbaf4f85a4": "emulador móvel",
-                  "3784b83bd4": "emulador",
-                  "a63847a742": "simulador",
-                  "1baeb07c17": "simulador de iOS",
-                  "8a580f88cf": "iPhone",
-                  "7ecdc5ef08": "iPad",
-                  "14965cc123": "móvel"
+                  "164c394bab": "abrir arquivo"
                 }
               }
             }
@@ -17868,8 +17772,6 @@
             "b1a132357f": "Nova aba",
             "4f327c8b3d": "Abrir Markdown...",
             "3d5d6c960d": "Novo Markdown",
-            "fd2b42aaa3": "Novo Emulador Móvel",
-            "b426bb2615": "Ir para o Emulador Móvel",
             "4833fb2cbe": "Nova Aba do Navegador",
             "d364f3c8d4": "Novo Terminal",
             "7c1313d237": "Novo Terminal:",
@@ -17889,7 +17791,6 @@
             "2c38630a01": "O espaço de trabalho não existe mais",
             "4f0d9a71c2": "A aba não existe mais",
             "d7d496a451": "A página do navegador não existe mais",
-            "7726ce9970": "A aba do emulador móvel não existe mais",
             "chooseAction": "Escolha uma ação.",
             "searchProvider": "Buscar {{value0}}",
             "openPage": "Abrir página",
@@ -18867,83 +18768,40 @@
       },
       "emulator": {
         "pane": {
-          "EmulatorPane": {
-            "59b08fa031": "Nenhum emulador conectado"
-          },
+          "EmulatorPane": {},
           "emulator": {
             "device": {
-              "frame": {
-                "9406c15775": "Tela do emulador",
-                "8f25ffaf8a": "Tela do emulador, teclado capturado. Pressione Esc para liberar."
-              }
+              "frame": {}
             },
             "pane": {
-              "toolbar": {
-                "06e10d7356": "Encerrar emulador",
-                "e7a0d1897e": "Início",
-                "6bd8dff42a": "Girar",
-                "81b3571a07": "Conectar",
-                "868c0f2938": "Processando…"
-              }
+              "toolbar": {}
             },
             "screen": {
               "stream": {
-                "content": {
-                  "8b1a0d8694": "Pré-visualização do emulador",
-                  "36841af608": "Stream desconectado",
-                  "5f818f12ab": "Conectando emulador…",
-                  "5ee64cd44e": "Tela do emulador"
-                }
+                "content": {}
               }
             }
           },
           "use": {
             "emulator": {
               "frame": {
-                "stream": {
-                  "f1c0179002": "O stream não está produzindo quadros."
-                }
+                "stream": {}
               }
             },
             "mobile": {
               "emulator": {
                 "agent": {
                   "setup": {
-                    "state": {
-                      "35dea1ae12": "O controle de agente está pronto.",
-                      "c94ff11e91": "Não foi possível verificar novamente o status da configuração.",
-                      "skillNotInstalled": "A skill da CLI do OpenKodo ainda não está instalada."
-                    }
+                    "state": {}
                   }
                 }
               }
             }
           },
-          "MobileEmulatorAgentSetupGuide": {
-            "2fda9ff015": "Configurar controle de agente",
-            "0ac0fef514": "O controle de agente está pronto.",
-            "2bdfff8763": "Controle de agente (opcional).",
-            "d10ae98046": "Concluído",
-            "3756cbeca7": "Agora não",
-            "6d950431d2": "Ocultar",
-            "ebceac65a4": "Configurar",
-            "3f003507f4": "Abrir configuração",
-            "installSkillPrompt": "Instale a skill da CLI do OpenKodo quando quiser que os agentes controlem este simulador."
-          },
-          "MobileEmulatorAgentSetupGuideSteps": {
-            "21f5687c07": "Skill da CLI do OpenKodo",
-            "64fb057667": "Ensina aos agentes os comandos openkodo emulator para esta worktree."
-          },
-          "MobileEmulatorTabIntroCallout": {
-            "1924982130": "Descartar",
-            "5789936d9a": "Pré-visualize simuladores iOS enquanto os agentes controlam a tela.",
-            "8014b4b80b": "Manter",
-            "6e051a40b7": "Ocultar"
-          },
-          "useEmulatorScreenKeyboard": {
-            "pasteTooLarge": "A colagem é muito grande para a entrada de teclado do emulador.",
-            "pasteTargetUnavailable": "A colagem do teclado do emulador falhou porque o dispositivo não está pronto."
-          }
+          "MobileEmulatorAgentSetupGuide": {},
+          "MobileEmulatorAgentSetupGuideSteps": {},
+          "MobileEmulatorTabIntroCallout": {},
+          "useEmulatorScreenKeyboard": {}
         }
       },
       "rightSidebar": {
@@ -19218,7 +19076,6 @@
         "c4afa68159": "Tente uma worktree, projeto, configuração, ação, título de aba, prompt de agente, URL, PR ou porta.",
         "dbd9d87eec": "Nenhum resultado corresponde à sua busca",
         "2c38630a01": "O espaço de trabalho não existe mais",
-        "7726ce9970": "A aba do emulador móvel não existe mais",
         "d7d496a451": "A página do navegador não existe mais",
         "50a1d11d5b": "Abas Abertas",
         "088d66d980": "Ações e Configurações",
@@ -24635,7 +24492,6 @@
       "tabNewTerminal": "Nova aba de terminal",
       "tabNewAgent": "Nova aba de agente (agente padrão)",
       "tabNewBrowser": "Nova aba do navegador",
-      "tabNewSimulator": "Nova aba de emulador mobile",
       "tabNewMarkdown": "Nova aba de Markdown",
       "tabOpenMarkdown": "Abrir aba de Markdown",
       "tabClose": "Fechar aba ativa",
@@ -25567,67 +25423,11 @@
     }
   },
   "emulator": {
-    "errors": {
-      "disabled": "O Emulador Mobile está desativado nas Configurações.",
-      "notAvailable": "O Emulador Mobile não está disponível.",
-      "noSession": "Nenhuma sessão de emulador está ativa",
-      "noDeviceSpecified": "Nenhum dispositivo de emulador especificado. Escolha um dispositivo padrão em Configurações > Emulador Mobile ou informe um dispositivo.",
-      "workspaceChanged": "O espaço de trabalho mudou durante a inicialização do emulador. Reconecte o emulador.",
-      "noIosSimulators": "Nenhum simulador iOS encontrado. Adicione um em Xcode Settings > Platforms.",
-      "simctlUnavailable": "xcrun simctl não está disponível.",
-      "simulatorToolsUnavailable": "As ferramentas do Xcode Simulator não estão disponíveis. Instale a versão completa do Xcode, abra-o uma vez e selecione-o com `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer`.",
-      "requiresMacosXcode": "O Simulador iOS requer macOS com Xcode Command Line Tools.",
-      "simulatorNotFound": "Simulador {{udid}} não encontrado. Crie um em Xcode > Window > Devices and Simulators.",
-      "serveSimUnavailable": "serve-sim não está disponível.",
-      "serveSimNoEndpoints": "serve-sim não retornou endpoints de streaming.",
-      "serveSimEndpointUnreachable": "serve-sim foi iniciado, mas seu endpoint de streaming não está acessível.",
-      "deviceHubInputBlocked": "O Device Hub do Xcode assumiu a entrada deste simulador, então toques e digitação não chegarão até ele. Feche o Device Hub e conecte o simulador novamente.",
-      "androidSdkMissing": "Android SDK não encontrado. Instale o Android Studio e defina ANDROID_HOME.",
-      "adbUnavailable": "adb não está disponível.",
-      "noAndroidDevices": "Nenhum dispositivo Android ou AVD encontrado. Crie um no Android Studio.",
-      "androidDeviceNotRunning": "O dispositivo Android \"{{device}}\" não está em execução. Inicie-o primeiro.",
-      "unknownDeviceOrAvd": "\"{{device}}\" não é um dispositivo em execução nem um AVD conhecido.",
-      "avdBootTimeout": "O AVD \"{{avdName}}\" não terminou de inicializar a tempo.",
-      "avdExitedBeforeBoot": "O AVD \"{{avdName}}\" parou antes de terminar de inicializar: {{detail}}",
-      "scrcpyDownloadFailed": "Não foi possível baixar o servidor scrcpy: {{detail}}",
-      "scrcpyServerInvalid": "O servidor scrcpy baixado era inválido ou estava incompleto."
-    },
-    "pane": {
-      "listDevicesFailed": "Não foi possível listar os dispositivos de emulador.",
-      "noDevices": "Nenhum dispositivo de emulador encontrado. Adicione um Simulador iOS no Xcode ou um dispositivo virtual Android no Android Studio.",
-      "startFailed": "Não foi possível iniciar o emulador. Verifique se o Xcode (iOS) ou o Android Studio (Android) está configurado e tente outro dispositivo.",
-      "shutdownFailed": "Não foi possível desligar o emulador. Tente novamente ou encerre-o pelo gerenciador de emuladores."
-    },
-    "settings": {
-      "availabilityCheckFailed": "Não foi possível verificar a disponibilidade do emulador."
-    },
-    "opening": {
-      "ask": "Perguntar sempre",
-      "notFound": "Não encontrado",
-      "when": "Ao abrir",
-      "description": "Aplica-se às novas abas de emulador neste computador. As sessões existentes dos espaços de trabalho permanecem conectadas.",
-      "lastUsed": "Último usado",
-      "specific": "Dispositivo específico",
-      "fixed": "Dispositivo padrão",
-      "fixedDescription": "Escolha um dispositivo existente. Se ele estiver ausente ou indisponível, será solicitado outro, em vez de iniciar outra plataforma.",
-      "choose": "Escolher dispositivo",
-      "missing": "O dispositivo salvo não está mais neste computador. Escolha outro dispositivo.",
-      "unavailable": "O runtime do dispositivo salvo está indisponível. Escolha outro dispositivo ou instale seu runtime.",
-      "askPrompt": "Escolha um dispositivo para abrir.",
-      "firstUse": "Escolha seu primeiro dispositivo. O OpenKodo lembrará as seleções bem-sucedidas neste computador."
-    },
-    "picker": {
-      "starting": "Iniciando",
-      "choose": "Escolher emulador",
-      "search": "Buscar dispositivos…",
-      "empty": "Nenhum dispositivo encontrado",
-      "used": "Dispositivos usados",
-      "other": "Outros dispositivos neste computador",
-      "unavailable": "Runtimes indisponíveis",
-      "runtimeUnavailable": "Runtime indisponível",
-      "running": "Em execução",
-      "stopped": "Parado"
-    }
+    "errors": {},
+    "pane": {},
+    "settings": {},
+    "opening": {},
+    "picker": {}
   },
   "ephemeralVm": {
     "errors": {

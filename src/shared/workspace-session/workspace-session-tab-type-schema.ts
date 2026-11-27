@@ -9,7 +9,6 @@ export const tabContentTypeSchema = z.enum([
   'git-graph',
   'agent-session',
   'browser',
-  'simulator',
   'room'
 ])
 
@@ -17,6 +16,5 @@ export const workspaceVisibleTabTypeSchema = z.enum([
   'terminal',
   'editor',
   'agent-session',
-  'browser',
-  'simulator'
+  'browser'
 ])

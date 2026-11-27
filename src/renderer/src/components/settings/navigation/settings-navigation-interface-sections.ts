@@ -23,8 +23,7 @@ export function buildInterfaceSettingsSections(
     isWebClient,
     hostQueuesMessages,
     typedChatPermissions,
-    managedBrowserCreationEnabled,
-    mobileEmulatorCreationEnabled
+    managedBrowserCreationEnabled
   }: SettingsNavigationBuildOptions,
   t: Translate = translate
 ): SettingsNavSection[] {
@@ -100,8 +99,7 @@ export function buildInterfaceSettingsSections(
       ),
       icon: Keyboard,
       searchEntries: getShortcutsPaneSearchEntries({
-        includeManagedBrowser: managedBrowserCreationEnabled,
-        includeMobileEmulator: mobileEmulatorCreationEnabled
+        includeManagedBrowser: managedBrowserCreationEnabled
       }),
       group: 'interface'
     },

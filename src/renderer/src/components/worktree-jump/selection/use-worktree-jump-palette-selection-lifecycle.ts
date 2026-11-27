@@ -36,7 +36,6 @@ export function useWorktreeJumpPaletteSelectionLifecycle({
   hasQuery,
   searchScopeWorktrees,
   browserPageEntries,
-  simulatorTabEntries,
   workspaceTabEntries,
   middleItems,
   taskItems,
@@ -75,10 +74,7 @@ export function useWorktreeJumpPaletteSelectionLifecycle({
 }: WorktreeJumpPaletteSelectionLifecycleInput) {
   const hasAnyWorktrees = visibleWorktreesForState.length > 0
   const hasAnySearchableWorktrees = hasQuery ? searchScopeWorktrees.length > 0 : hasAnyWorktrees
-  const hasAnyOpenTabs =
-    browserPageEntries.length > 0 ||
-    simulatorTabEntries.length > 0 ||
-    workspaceTabEntries.length > 0
+  const hasAnyOpenTabs = browserPageEntries.length > 0 || workspaceTabEntries.length > 0
   const hasAnyMiddleResults = middleItems.length > 0
   useEffect(() => {
     if (visible && !wasVisibleRef.current) {

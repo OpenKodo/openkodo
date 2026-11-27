@@ -5,10 +5,8 @@ import type { BuiltInWindowsTerminalShell } from '../../../../../shared/shell/la
 import { isClipboardTextByteLengthOverLimit } from '../../../../../shared/clipboard/clipboard-text'
 
 export type TabCreateMenuOptionKind =
-  | 'go-to-simulator'
   | 'new-browser'
   | 'new-markdown'
-  | 'new-simulator'
   | 'new-terminal'
   | 'new-terminal-shell'
   | 'open-markdown'
@@ -38,8 +36,6 @@ export type TabCreateMenuOptionsContext = {
   hasNewBrowser: boolean
   hasNewMarkdown: boolean
   hasOpenMarkdown: boolean
-  hasSimulator: boolean
-  simulatorIsGoTo: boolean
   terminalOnly: boolean
   windowsShellEntries?: readonly { label: string; shell: BuiltInWindowsTerminalShell }[]
 }
@@ -156,26 +152,6 @@ export function buildTabCreateMenuOptions(
         t('auto.components.tab.bar.tab.create.menu.options.5f17fb9d0c', 'markdown'),
         t('auto.components.tab.bar.tab.create.menu.options.44caaf7b36', 'md'),
         t('auto.components.tab.bar.tab.create.menu.options.164c394bab', 'open file')
-      ]
-    })
-  }
-
-  if (context.hasSimulator) {
-    const label = context.simulatorIsGoTo
-      ? t('auto.components.tab.bar.TabBar.b426bb2615', 'Go to Mobile Emulator')
-      : t('auto.components.tab.bar.TabBar.fd2b42aaa3', 'New Mobile Emulator')
-    options.push({
-      id: context.simulatorIsGoTo ? 'go-to-simulator' : 'new-simulator',
-      kind: context.simulatorIsGoTo ? 'go-to-simulator' : 'new-simulator',
-      label,
-      keywords: [
-        t('auto.components.tab.bar.tab.create.menu.options.bbaf4f85a4', 'mobile emulator'),
-        t('auto.components.tab.bar.tab.create.menu.options.3784b83bd4', 'emulator'),
-        t('auto.components.tab.bar.tab.create.menu.options.a63847a742', 'simulator'),
-        t('auto.components.tab.bar.tab.create.menu.options.1baeb07c17', 'ios simulator'),
-        t('auto.components.tab.bar.tab.create.menu.options.8a580f88cf', 'iphone'),
-        t('auto.components.tab.bar.tab.create.menu.options.7ecdc5ef08', 'ipad'),
-        t('auto.components.tab.bar.tab.create.menu.options.14965cc123', 'mobile')
       ]
     })
   }

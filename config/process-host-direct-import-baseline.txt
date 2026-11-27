@@ -16,11 +16,6 @@ src/main/codex-accounts/service.ts
 src/main/daemon/endpoint/identity/daemon-process-identity-query.ts
 src/main/daemon/endpoint/identity/daemon-process-inspection.ts
 src/main/daemon/endpoint/identity/daemon-process-start-time.ts
-src/main/emulator/android/android-avd-boot.ts
-src/main/emulator/serve-sim-helper-processes.ts
-src/main/emulator/serve-sim-runtime-materializer.ts
-src/main/emulator/simctl-simulator-devices.ts
-src/main/emulator/simulator-app-visibility.ts
 src/main/external-editors/external-editor-launch.ts
 src/main/git/command-runner/process-capture/exec-file-capture.ts
 src/main/git/command-runner/git-stream-child-spawn.ts

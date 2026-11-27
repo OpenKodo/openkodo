@@ -83,10 +83,7 @@ function getFloatingWorkspaceVisibleTabs(
         .filter((file) => file.worktreeId === FLOATING_TERMINAL_WORKTREE_ID)
         .map((file) => file.id)
     ),
-    new Set(
-      (store.browserTabsByWorktree[FLOATING_TERMINAL_WORKTREE_ID] ?? []).map((tab) => tab.id)
-    ),
-    new Set(groupTabs.filter((tab) => tab.contentType === 'simulator').map((tab) => tab.id))
+    new Set((store.browserTabsByWorktree[FLOATING_TERMINAL_WORKTREE_ID] ?? []).map((tab) => tab.id))
   )
 }
 

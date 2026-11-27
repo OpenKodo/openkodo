@@ -4,7 +4,6 @@ import type { NewTabMenuArrangeable } from '../../../../../shared/new-tab-menu/n
 
 // Ids persisted in newTabMenuLayout; renaming one loses users' saved placement.
 export const CREATE_ROW_TERMINAL_ID = 'terminal'
-export const CREATE_ROW_MOBILE_EMULATOR_ID = 'mobile-emulator'
 
 /** One icon in the + menu's create row. */
 export type TabBarCreateRowItem = NewTabMenuArrangeable & {

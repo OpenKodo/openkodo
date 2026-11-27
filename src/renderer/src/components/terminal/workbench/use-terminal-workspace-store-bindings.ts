@@ -31,9 +31,6 @@ export function useTerminalWorkspaceStoreBindings(controller: TerminalWorkspaceF
   const terminalShortcutPolicy = useAppStore(
     (state) => state.settings?.terminalShortcutPolicy ?? 'openkodo-first'
   )
-  const mobileEmulatorEnabled = useAppStore(
-    (state) => state.settings?.mobileEmulatorEnabled !== false
-  )
   const setActiveTabType = useAppStore((state) => state.setActiveTabType)
   const setActiveFile = useAppStore((state) => state.setActiveFile)
   const closeFile = useAppStore((state) => state.closeFile)
@@ -86,7 +83,6 @@ export function useTerminalWorkspaceStoreBindings(controller: TerminalWorkspaceF
     activeTabType,
     keybindings,
     terminalShortcutPolicy,
-    mobileEmulatorEnabled,
     setActiveTabType,
     setActiveFile,
     closeFile,

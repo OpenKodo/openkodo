@@ -19,7 +19,6 @@
 1 src/main/daemon/process-scopes/daemon-user-manager-lifetime.ts
 1 src/main/daemon/process-scopes/terminal-scopes.ts
 1 src/main/daemon/pty-subprocess/shell-launch-plan.ts
-1 src/main/emulator/serve-sim-runtime-materializer.ts
 3 src/main/filesystem/atomic-file-publication.ts
 1 src/main/git/command-runner/git-exec-file-sync.ts
 1 src/main/git/repositories/discovery/repo-detection-command.ts

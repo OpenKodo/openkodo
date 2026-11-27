@@ -17,8 +17,7 @@ export function closesThroughLayoutOwner(contentType: Tab['contentType']): boole
   return (
     isEditorTabContentType(contentType) ||
     contentType === 'browser' ||
-    contentType === 'agent-session' ||
-    contentType === 'simulator'
+    contentType === 'agent-session'
   )
 }
 

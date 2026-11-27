@@ -194,7 +194,6 @@ export default function TabGroupPanel({
       onNewTerminalTab={commands.newTerminalTab}
       onNewTerminalWithShell={commands.newTerminalWithShell}
       onNewBrowserTab={commands.newBrowserTab}
-      onNewSimulatorTab={commands.newSimulatorTab}
       onOpenEntry={commands.openEntry}
       onNewFileTab={commands.newFileTab}
       onSetCustomTitle={commands.setTabCustomTitle}
@@ -209,7 +208,6 @@ export default function TabGroupPanel({
         activeTab && toVisibleTabType(activeTab.contentType) !== 'editor' ? null : activeTab?.id
       }
       activeBrowserTabId={activeTab?.contentType === 'browser' ? activeTab.entityId : null}
-      activeSimulatorTabId={activeTab?.contentType === 'simulator' ? activeTab.id : null}
       activeTabType={activeTab ? toVisibleTabType(activeTab.contentType) : 'editor'}
       onActivateFile={commands.activateEditor}
       onCloseFile={commands.closeItem}

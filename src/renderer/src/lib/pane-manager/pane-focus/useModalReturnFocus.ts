@@ -94,13 +94,6 @@ export function useModalReturnFocus(
     ])
   }, [focusCapturedElement, focusFirstMatchingSurface])
 
-  const focusSimulatorSurface = useCallback((): void => {
-    if (focusCapturedElement()) {
-      return
-    }
-    focusFirstMatchingSurface(['[data-openkodo-emulator-frame="true"] [tabindex]'])
-  }, [focusCapturedElement, focusFirstMatchingSurface])
-
   const focusFallbackSurface = useCallback((): void => {
     focusFirstMatchingSurface(['.xterm-helper-textarea', '.monaco-editor textarea'])
   }, [focusFirstMatchingSurface])
@@ -175,8 +168,6 @@ export function useModalReturnFocus(
         focusTerminalTabSurface(action.tabId, action.leafId)
       } else if (action.kind === 'editor') {
         focusEditorSurface()
-      } else if (action.kind === 'simulator') {
-        focusSimulatorSurface()
       } else if (action.kind === 'surface' && !preferCapturedElement) {
         focusFallbackSurface()
       }
@@ -191,7 +182,6 @@ export function useModalReturnFocus(
     focusCapturedElement,
     focusEditorSurface,
     focusFallbackSurface,
-    focusSimulatorSurface,
     preferCapturedElement,
     requestBrowserFocus
   ])

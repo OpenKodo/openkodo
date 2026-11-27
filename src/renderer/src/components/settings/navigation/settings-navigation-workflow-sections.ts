@@ -5,7 +5,6 @@ import { getCommitMessageAiPaneSearchEntries } from '@/components/settings/sourc
 import { getFloatingWorkspaceSearchEntries } from '@/components/settings/floating-workspaces/floating-workspace-search'
 import { getGitProviderApiBudgetSearchEntries } from '@/components/settings/source-control/git-provider-api-budget-search'
 import { getGitPaneSearchEntries } from '@/components/settings/source-control/git-search'
-import { getMobileEmulatorSearchEntries } from '@/components/settings/mobile/emulator/mobile-emulator-search'
 import { getQuickCommandsPaneSearchEntries } from '@/components/settings/quick-commands/quick-commands-search'
 import { getShareSkillsSettingsSearchEntries } from '@/components/settings/skills/sharing/share-skills-settings-search'
 import { getTasksPaneSearchEntries } from '@/components/settings/tasks/tasks-search'
@@ -23,8 +22,7 @@ import {
   ListChecks,
   PanelsTopLeft,
   Play,
-  SquareTerminal,
-  TabletSmartphone
+  SquareTerminal
 } from 'lucide-react'
 import type { SettingsNavigationBuildOptions } from './settings-navigation-build-options'
 
@@ -172,21 +170,6 @@ export function buildWorkflowSettingsSections(
             ),
             icon: Globe,
             searchEntries: getBrowserPaneCombinedSearchEntries(),
-            group: 'workflows'
-          }
-        ]
-      : []),
-    ...(showDesktopOnlySettings
-      ? [
-          {
-            id: 'mobile-emulator',
-            title: t('auto.hooks.useSettingsNavigationMetadata.1e761cff2b', 'Mobile Emulator'),
-            description: t(
-              'auto.hooks.useSettingsNavigationMetadata.3d65d3f1b9',
-              'Configure mobile emulator support for OpenKodo and coding agents.'
-            ),
-            icon: TabletSmartphone,
-            searchEntries: getMobileEmulatorSearchEntries(),
             group: 'workflows'
           }
         ]

@@ -64,7 +64,6 @@ export function buildSettingsNavigationMetadata(
     hostQueuesMessages = false,
     typedChatPermissions = false,
     managedBrowserCreationEnabled = !isWebClient,
-    mobileEmulatorCreationEnabled = !isWebClient,
     isDev = import.meta.env.DEV,
     isLinearConnected = false,
     mcpServersAvailable = false,
@@ -82,7 +81,6 @@ export function buildSettingsNavigationMetadata(
     hostQueuesMessages?: boolean
     typedChatPermissions?: boolean
     managedBrowserCreationEnabled?: boolean
-    mobileEmulatorCreationEnabled?: boolean
     isDev?: boolean
     isLinearConnected?: boolean
     mcpServersAvailable?: boolean
@@ -120,7 +118,6 @@ export function buildSettingsNavigationMetadata(
     hostQueuesMessages,
     typedChatPermissions,
     managedBrowserCreationEnabled,
-    mobileEmulatorCreationEnabled,
     isDev,
     isLinearConnected,
     mcpServersAvailable,
@@ -157,14 +154,12 @@ export function useSettingsNavigationMetadata(
   const bots = useBots(botsEnabled)
   const projectHostSetupProjection = useProjectHostSetupProjection()
   const settings = useAppStore((state) => state.settings)
-  const [managedBrowserCreationEnabled, mobileEmulatorCreationEnabled] =
-    useAppStoreWithHostStatuses((state, statuses) => {
-      const policy = getClientCreationActionPolicy(state, state.activeWorktreeId, statuses)
-      return [
-        policy['managed-browser'].state === 'enabled',
-        policy['mobile-emulator'].state === 'enabled'
-      ] as const
-    }, shallow)
+  const managedBrowserCreationEnabled = useAppStoreWithHostStatuses(
+    (state, statuses) =>
+      getClientCreationActionPolicy(state, state.activeWorktreeId, statuses)['managed-browser']
+        .state === 'enabled',
+    shallow
+  )
   const typedChatPermissions = useChatSettingsOwnPermissions()
   const hostQueuesMessages = useStructuredAgentSessionHostQueuesMessages({ kind: 'local' })
   const isMac = isMacUserAgent()
@@ -216,7 +211,6 @@ export function useSettingsNavigationMetadata(
           hostQueuesMessages,
           typedChatPermissions,
           managedBrowserCreationEnabled,
-          mobileEmulatorCreationEnabled,
           isDev: import.meta.env.DEV,
           isLinearConnected,
           mcpServersAvailable,
@@ -241,7 +235,6 @@ export function useSettingsNavigationMetadata(
       hostQueuesMessages,
       typedChatPermissions,
       managedBrowserCreationEnabled,
-      mobileEmulatorCreationEnabled,
       isLinearConnected,
       mcpServersAvailable,
       repos,

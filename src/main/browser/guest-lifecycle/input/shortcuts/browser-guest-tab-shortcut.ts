@@ -17,14 +17,12 @@ const TAB_ACTIONS_WITHOUT_KEYBOARD_OWNER = new Set<KeybindingActionId>([
 export function matchesGuestTabShortcut(
   input: WindowShortcutInput,
   platform: NodeJS.Platform,
-  keybindings: KeybindingOverrides | undefined,
-  isMobileEmulatorEnabled: boolean
+  keybindings: KeybindingOverrides | undefined
 ): boolean {
   return KEYBINDING_DEFINITIONS.some(
     (definition) =>
       definition.scope === 'tabs' &&
       !TAB_ACTIONS_WITHOUT_KEYBOARD_OWNER.has(definition.id) &&
-      (definition.id !== 'tab.newSimulator' || isMobileEmulatorEnabled) &&
       keybindingMatchesAction(definition.id, input, platform, keybindings)
   )
 }

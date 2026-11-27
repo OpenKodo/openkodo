@@ -19,11 +19,6 @@ import {
   type BrowserPaletteSearchResult,
   type SearchableBrowserPage
 } from '@/lib/browser/palette/browser-palette-search'
-import { searchSimulatorTabs } from '@/lib/simulator/search/simulator-palette-search'
-import type {
-  SearchableSimulatorTab,
-  SimulatorPaletteSearchResult
-} from '@/lib/simulator/search/simulator-palette-search-types'
 import { getUnifiedTabPaletteExecutionHostId } from '@/lib/workspace/ownership/unified-tab-host-ownership'
 import type { TerminalAgent } from '../../../../../shared/agent-status/identity/terminal-agent'
 import '@/lib/workspace/search/tabs/workspace-tab-search-types'
@@ -33,14 +28,13 @@ import type {
   WorkspaceTabContentType
 } from '@/lib/workspace/search/tabs/workspace-tab-search-types'
 import type { WorkspaceTabPaletteSearchResult } from '@/lib/workspace/search/tabs/workspace-tab-palette-results'
-import type { Translate } from '@/i18n/use-translate'
 
 export const OPEN_TAB_SEARCH_RESULT_LIMIT = 4
 
 // Why its own guard: searchWorkspaceTabs has no size limit of its own.
 export const OPEN_TAB_SEARCH_QUERY_MAX_BYTES = 2 * 1024
 
-export type OpenTabSearchSource = 'workspace' | 'browser' | 'simulator'
+export type OpenTabSearchSource = 'workspace' | 'browser'
 
 type OpenTabSearchResultBase = {
   executionHostId: ExecutionHostId
@@ -71,17 +65,10 @@ export type OpenTabSearchResult =
       url: string
       faviconUrl: string | null
     })
-  | (OpenTabSearchResultBase & {
-      source: 'simulator'
-      contentType: 'simulator'
-      tabId: string
-      groupId: string
-    })
 
 export type OpenTabSearchInput = {
   workspaceTabs: readonly SearchableWorkspaceTab[]
   browserPages: readonly SearchableBrowserPage[]
-  simulatorTabs: readonly SearchableSimulatorTab[]
   query: string
   context?: PaletteSearchContext
   retainedResultId?: string | null
@@ -97,8 +84,7 @@ type RankedResult = {
 
 const SOURCE_RANK: Record<OpenTabSearchSource, number> = {
   workspace: 0,
-  browser: 1,
-  simulator: 2
+  browser: 1
 }
 
 function isOpenTabSearchQueryTooLarge(
@@ -108,10 +94,7 @@ function isOpenTabSearchQueryTooLarge(
   return isClipboardTextByteLengthOverLimit(query, maxBytes)
 }
 
-type EngineResult =
-  | WorkspaceTabPaletteSearchResult
-  | BrowserPaletteSearchResult
-  | SimulatorPaletteSearchResult
+type EngineResult = WorkspaceTabPaletteSearchResult | BrowserPaletteSearchResult
 
 function getMatchedText(result: EngineResult): string | null {
   return result.secondaryRanges.length > 0 ? result.secondaryText : null
@@ -161,16 +144,12 @@ function rank<TEngine extends EngineResult>(
   })
 }
 
-export function searchOpenTabCandidates(
-  {
-    workspaceTabs,
-    browserPages,
-    simulatorTabs,
-    query,
-    context: suppliedContext
-  }: OpenTabSearchInput,
-  t?: Translate
-): OpenTabSearchResult[] {
+export function searchOpenTabCandidates({
+  workspaceTabs,
+  browserPages,
+  query,
+  context: suppliedContext
+}: OpenTabSearchInput): OpenTabSearchResult[] {
   const trimmed = query.trim()
   if (!trimmed || isOpenTabSearchQueryTooLarge(query)) {
     return []
@@ -224,17 +203,6 @@ export function searchOpenTabCandidates(
         url: result.url,
         faviconUrl: result.faviconUrl
       })
-    ),
-    ...rank(
-      'simulator',
-      searchSimulatorTabs([...simulatorTabs], trimmed, { context, fieldMode: 'omnibox' }, t),
-      (result) => ({
-        ...baseResult(result, result.executionHostId ?? LOCAL_EXECUTION_HOST_ID),
-        source: 'simulator',
-        contentType: 'simulator',
-        tabId: result.tabId,
-        groupId: result.groupId
-      })
     )
   ]
     .sort((a, b) => {
@@ -256,8 +224,8 @@ export function searchOpenTabCandidates(
     .map((ranked) => ranked.result)
 }
 
-export function searchOpenTabs(input: OpenTabSearchInput, t?: Translate): OpenTabSearchResult[] {
-  return capOpenTabSearchCandidates(searchOpenTabCandidates(input, t), input.retainedResultId)
+export function searchOpenTabs(input: OpenTabSearchInput): OpenTabSearchResult[] {
+  return capOpenTabSearchCandidates(searchOpenTabCandidates(input), input.retainedResultId)
 }
 
 export function capOpenTabSearchCandidates(

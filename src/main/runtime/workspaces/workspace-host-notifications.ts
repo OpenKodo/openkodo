@@ -6,9 +6,9 @@ import type { RuntimeWorkspaceRepoScanRefresh } from './catalog/workspace-repo-s
 import type { SshConnectionState } from '../../../shared/remote-runtime/ssh/ssh-types'
 import { getPublicSshState } from '../hosts/platform-probe/public-ssh-state'
 import { splitWorktreeId } from '../../../shared/worktree/id'
-import { RuntimeEmulatorBinding } from '../emulator/runtime-emulator-binding'
+import { RuntimeBrowserHostBindings } from '../browser/installation/runtime-browser-host-bindings'
 
-export abstract class OpenKodoRuntimeWithNotifySshStateChanged extends RuntimeEmulatorBinding {
+export abstract class OpenKodoRuntimeWithNotifySshStateChanged extends RuntimeBrowserHostBindings {
   protected abstract hydrateHeadlessMobileSessionTabsFromWorkspaceSession(
     ...args: Parameters<
       OpenKodoRuntimeWithHydrateHeadlessMobileSessionTabsFromWorkspaceSession['hydrateHeadlessMobileSessionTabsFromWorkspaceSession']

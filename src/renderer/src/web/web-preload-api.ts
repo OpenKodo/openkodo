@@ -14,7 +14,7 @@ import { createWebAgentStatusApi } from './preload-api/agents/web-agent-status-a
 import { createWebAiVaultApi } from './preload-api/agents/web-ai-vault-api'
 import { createRuntimeUsageProviderApi } from '../runtime/usage-analytics/runtime-usage-provider-api'
 import { createWebAppApi } from './preload-api/app/web-app-api'
-import { createBrowserApi, createEmulatorApi } from './preload-api/browser/web-browser-api'
+import { createBrowserApi } from './preload-api/browser/web-browser-api'
 import { createCliApi } from './preload-api/host-capabilities/web-cli-api'
 import { createWebDiagnosticsApi } from './preload-api/diagnostics/web-diagnostics-api'
 import { withFallback } from './preload-api/web-fallback-api'
@@ -97,7 +97,6 @@ function createWebPreloadApi(): Omit<Partial<PreloadApi>, 'settings' | 'plugins'
     fs: createFileApi(),
     git: createGitApi(),
     browser: createBrowserApi(),
-    emulator: createEmulatorApi(),
     gh: createGitHubApi(),
     gl: createGitLabApi(),
     hostedReview: createRuntimeNamespaceApi('hostedReview'),

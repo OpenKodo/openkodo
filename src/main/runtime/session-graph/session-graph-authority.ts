@@ -24,10 +24,7 @@ import {
 } from '../../wsl/filesystem/wsl-unc-access-gate'
 import { wslDistroHoldMessage } from '../../../shared/remote-runtime/wsl-hosts/wsl-distro-stopped-hold'
 import type { TerminalWorkspaceLaunchScope } from '../orchestration/terminal-authority/structured-sessions/runtime-legacy-worker-terminal-recovery-types'
-import {
-  folderWorkspaceKey,
-  parseWorkspaceKey
-} from '../../../shared/workspace/identity/workspace-scope'
+import { folderWorkspaceKey } from '../../../shared/workspace/identity/workspace-scope'
 import {
   folderCatalogOf,
   resolveKeyedFolderWorkspace,
@@ -234,23 +231,6 @@ export abstract class OpenKodoRuntimeWithTransitionGraphReloadToTerminalState ex
       throw new Error('selector_not_found')
     }
     return this.folderWorkspaceToResolvedWorktree(folderWorkspace)
-  }
-
-  protected async resolveEmulatorWorkspaceId(selector: string): Promise<string> {
-    const key = selector.startsWith('id:') ? selector.slice(3) : selector
-    const parsed = parseWorkspaceKey(key)
-    // Emulator association needs a unique folder identity, not a physical launch host.
-    if (parsed?.type === 'folder') {
-      const rows =
-        this.store
-          ?.getFolderWorkspaces?.()
-          .filter((workspace) => workspace.id === parsed.folderWorkspaceId) ?? []
-      if (rows.length !== 1) {
-        throw new Error(rows.length ? 'selector_ambiguous' : 'selector_not_found')
-      }
-      return folderWorkspaceKey(rows[0].id)
-    }
-    return (await this.resolveWorkspaceSelector(selector)).id
   }
 
   protected resolveBrowserWorkspace(selector: string): Promise<ResolvedWorktree> {

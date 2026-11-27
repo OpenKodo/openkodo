@@ -206,8 +206,6 @@ export type RuntimeStore = {
     terminalQuickCommands?: GlobalSettings['terminalQuickCommands']
     gitlabProjects?: GlobalSettings['gitlabProjects']
     mobileAutoRestoreFitMs?: number | null
-    mobileEmulatorEnabled?: boolean
-    mobileEmulatorDefaultDeviceUdid?: string | null
     machineName?: GlobalSettings['machineName']
     voice?: VoiceSettings
     claudeAgentTeamsMode?: GlobalSettings['claudeAgentTeamsMode']

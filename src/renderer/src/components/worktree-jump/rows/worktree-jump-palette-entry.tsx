@@ -13,10 +13,7 @@ import {
   WorktreeJumpPaletteProjectRow
 } from './worktree-jump-palette-project-action-rows'
 import { WorktreeJumpPaletteWorkspaceTabRow } from './worktree-jump-palette-workspace-tab-row'
-import {
-  WorktreeJumpPaletteBrowserRow,
-  WorktreeJumpPaletteSimulatorRow
-} from './worktree-jump-palette-browser-simulator-rows'
+import { WorktreeJumpPaletteBrowserRow } from './worktree-jump-palette-browser-simulator-rows'
 import { useTranslate } from '@/i18n/use-translate'
 import { WorktreeJumpPaletteExtraRow } from './worktree-jump-palette-extra-row'
 
@@ -130,15 +127,6 @@ export function WorktreeJumpPaletteEntry({
   if (entry.type === 'extra') {
     return (
       <WorktreeJumpPaletteExtraRow entry={entry} renderKey={renderKey} controller={controller} />
-    )
-  }
-  if (entry.type === 'simulator-tab') {
-    return (
-      <WorktreeJumpPaletteSimulatorRow
-        entry={entry}
-        renderKey={renderKey}
-        controller={controller}
-      />
     )
   }
   return (

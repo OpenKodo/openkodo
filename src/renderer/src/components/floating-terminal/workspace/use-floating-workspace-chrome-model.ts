@@ -33,7 +33,6 @@ export function useFloatingWorkspaceChromeModel() {
     activeTab &&
     activeTab.contentType !== 'terminal' &&
     activeTab.contentType !== 'browser' &&
-    activeTab.contentType !== 'simulator' &&
     activeTab.contentType !== 'agent-session'
       ? activeTab.id
       : null
@@ -43,16 +42,14 @@ export function useFloatingWorkspaceChromeModel() {
   const activeEditorFile = activeEditorUnifiedId
     ? (model.editorItems.find((item) => item.tabId === activeEditorUnifiedId) ?? null)
     : null
-  const activeTabType: 'browser' | 'terminal' | 'simulator' | 'editor' | 'agent-session' =
+  const activeTabType: 'browser' | 'terminal' | 'editor' | 'agent-session' =
     activeTab?.contentType === 'browser'
       ? 'browser'
       : activeTab?.contentType === 'terminal'
         ? 'terminal'
         : activeTab?.contentType === 'agent-session'
           ? 'agent-session'
-          : activeTab?.contentType === 'simulator'
-            ? 'simulator'
-            : 'editor'
+          : 'editor'
 
   const hasVisibleFloatingTabs = surface.kind === 'workspace'
 
@@ -70,7 +67,7 @@ export function useFloatingWorkspaceChromeModel() {
         if (tab.contentType === 'browser') {
           return model.browserItems.some((item) => item.tabId === tab.id)
         }
-        if (tab.contentType === 'simulator' || tab.contentType === 'agent-session') {
+        if (tab.contentType === 'agent-session') {
           return true
         }
         return model.editorItems.some((item) => item.tabId === tab.id)

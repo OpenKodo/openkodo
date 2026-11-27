@@ -72,8 +72,8 @@ export function selectFloatingVisibleTabCount(state: FloatingVisibleTabCountStat
       count += terminalIds.has(tab.entityId) ? 1 : 0
     } else if (tab.contentType === 'browser') {
       count += browserIds.has(tab.entityId) ? 1 : 0
-    } else if (tab.contentType === 'simulator' || tab.contentType === 'agent-session') {
-      // Simulator/structured-chat tabs have no backing records; unified tabs are the visible floating items.
+    } else if (tab.contentType === 'agent-session') {
+      // Structured-chat tabs have no backing records; unified tabs are the visible floating items.
       count += 1
     } else {
       count += editorIds.has(tab.entityId) ? 1 : 0

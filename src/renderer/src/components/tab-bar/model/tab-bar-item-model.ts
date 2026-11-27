@@ -43,8 +43,7 @@ export type TabBarItem =
       isPinned: boolean
       data: BrowserWorkspace & { tabId?: string }
     }
-  | { type: 'simulator'; id: string; unifiedTabId: string; isPinned: boolean; data: Tab }
-  /** A bot group's room, drawn from its unified tab alone like the simulator. */
+  /** A bot group's room, drawn from its unified tab alone. */
   | { type: 'room'; id: string; unifiedTabId: string; isPinned: boolean; data: Tab }
   | {
       type: 'agent-session'
@@ -142,7 +141,6 @@ export function buildOrderedTabItems({
   terminalIds,
   editorFileIds,
   browserTabIds,
-  simulatorTabIds,
   roomTabIds = [],
   agentSessionTabIds,
   terminalMap,
@@ -155,7 +153,6 @@ export function buildOrderedTabItems({
   terminalIds: string[]
   editorFileIds: string[]
   browserTabIds: string[]
-  simulatorTabIds: string[]
   roomTabIds?: string[]
   agentSessionTabIds: string[]
   terminalMap: Map<string, TerminalTab & { unifiedTabId?: string }>
@@ -169,7 +166,7 @@ export function buildOrderedTabItems({
     terminalIds,
     editorFileIds,
     browserTabIds,
-    [...simulatorTabIds, ...roomTabIds],
+    roomTabIds,
     agentSessionTabIds
   )
   const items: TabBarItem[] = []
@@ -211,7 +208,7 @@ export function buildOrderedTabItems({
       continue
     }
     const recordless = unifiedTabByVisibleId.get(id)
-    if (recordless?.contentType === 'simulator' || recordless?.contentType === 'room') {
+    if (recordless?.contentType === 'room') {
       items.push({
         type: recordless.contentType,
         id,
@@ -255,31 +252,21 @@ export function findActiveVisibleTabId(
     activeTabId: string | null
     activeFileId?: string | null
     activeBrowserTabId?: string | null
-    activeSimulatorTabId?: string | null
     activeTabType?: WorkspaceVisibleTabType
   }
 ): string | null {
   const activeItem = items.find((item) => {
     if (item.type === 'terminal') {
-      return (
-        (active.activeTabType === 'terminal' || active.activeTabType === 'simulator') &&
-        item.id === active.activeTabId
-      )
+      return active.activeTabType === 'terminal' && item.id === active.activeTabId
     }
     if (item.type === 'browser') {
       return active.activeTabType === 'browser' && item.id === active.activeBrowserTabId
-    }
-    if (item.type === 'simulator') {
-      return active.activeTabType === 'simulator' && item.id === active.activeSimulatorTabId
     }
     if (item.type === 'agent-session' || item.type === 'room') {
       // Structured-chat callers pass their unified tab ID; the background terminal’s activeTabId cannot identify this item.
       return active.activeTabType === 'agent-session' && item.id === active.activeTabId
     }
-    return (
-      (active.activeTabType === 'editor' || active.activeTabType === 'simulator') &&
-      active.activeFileId === item.id
-    )
+    return active.activeTabType === 'editor' && active.activeFileId === item.id
   })
   return activeItem?.id ?? null
 }

@@ -22,7 +22,6 @@ import type { PluginMarketplaceService } from '../plugins/catalog/plugin-marketp
 import type { PluginMarketplaceInstaller } from '../plugins/catalog/plugin-marketplace-installer'
 import type { KeybindingService } from '../keybindings/keybinding-service'
 import type { MobileRelayStatusDetail } from '../../shared/remote-runtime/relay/mobile-relay-status'
-import type { EmulatorBridge } from '../emulator/emulator-bridge'
 import type { createCodexSessionMigrationScheduler } from '../codex/history/backfill/codex-session-migration-scheduler'
 import type { Store } from '../persistence/loading-store/store'
 import type { RendererShutdownCheckpointService } from './renderer-shutdown-checkpoint-service'
@@ -65,7 +64,6 @@ export class DesktopCore {
   pluginAutoUpdater: PluginAutoUpdater | null = null
   pluginUpdateReviewNotices: PluginUpdateReviewNotices | null = null
   keybindings: KeybindingService | null = null
-  emulatorBridge: EmulatorBridge | null = null
   skillTransactionRecovery: Promise<unknown> = Promise.resolve()
   rendererCheckpoint: RendererShutdownCheckpointService | null = null
 

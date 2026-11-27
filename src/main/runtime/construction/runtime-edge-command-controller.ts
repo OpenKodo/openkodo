@@ -3,7 +3,6 @@ import type { BrowserScreencastResult } from '../../../shared/browser/runtime/ru
 import { runWithRequestedPageUrl } from '../../browser/cdp/input/browser-expected-page-url'
 import type { RuntimeBrowserCommandHost } from '../browser/commands/browser-command-contracts'
 import type { RuntimeBrowserCommands } from '../browser/commands/browser-commands'
-import { RuntimeEmulatorCommands } from '../emulator/runtime-emulator-commands'
 import { RuntimeBrowserScreencastController } from '../browser/screencast/runtime-browser-screencast-controller'
 import { createRuntimeBrowserCommands } from '../browser/installation/runtime-browser-commands-factory'
 import { RuntimeJiraCommands } from '../integrations/jira/runtime-jira-commands'
@@ -24,12 +23,9 @@ type BrowserSurface = Omit<PublicMethods<RuntimeBrowserCommands>, 'browserScreen
   ): Promise<void>
 }
 
-export type RuntimeEdgeCommandSurface = BrowserSurface &
-  PublicMethods<RuntimeJiraCommands> &
-  PublicMethods<RuntimeEmulatorCommands>
+export type RuntimeEdgeCommandSurface = BrowserSurface & PublicMethods<RuntimeJiraCommands>
 
 type ScreencastDependencies = ConstructorParameters<typeof RuntimeBrowserScreencastController>[0]
-type EmulatorHost = ConstructorParameters<typeof RuntimeEmulatorCommands>[0]
 
 const BROWSER_COMMAND_NAMES = [
   'browserSnapshot',
@@ -170,14 +166,12 @@ export class RuntimeEdgeCommandController {
   private readonly jira: RuntimeJiraCommands
   private readonly browser: RuntimeBrowserCommands
   private readonly screencasts: RuntimeBrowserScreencastController
-  private readonly emulator: RuntimeEmulatorCommands
   readonly surface: RuntimeEdgeCommandSurface
 
   constructor(args: {
     browserHost: RuntimeBrowserCommandHost
     jiraHost: ConstructorParameters<typeof RuntimeJiraCommands>[0]
     screencast: Omit<ScreencastDependencies, 'getCommands'>
-    emulatorHost: EmulatorHost
     getBrowserCommands?: () => RuntimeBrowserCommands
   }) {
     this.jira = new RuntimeJiraCommands(args.jiraHost)
@@ -186,12 +180,10 @@ export class RuntimeEdgeCommandController {
       ...args.screencast,
       getCommands: () => args.getBrowserCommands?.() ?? this.browser
     })
-    this.emulator = new RuntimeEmulatorCommands(args.emulatorHost)
     // oxlint-disable-next-line typescript/consistent-type-assertions -- SAFETY: the bound name lists are checked against the classes above; spreading loses their key types.
     this.surface = {
       ...bindPrefixedMethods(this.jira, 'jira'),
       ...bindBrowserMethods(this.browser, BROWSER_COMMAND_NAMES),
-      ...bindPrefixedMethods(this.emulator, 'emulator'),
       browserScreencast: (params, options) => this.screencasts.start(params, options)
     } as RuntimeEdgeCommandSurface
   }

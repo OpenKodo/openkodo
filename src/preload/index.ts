@@ -62,7 +62,6 @@ import { petApi } from './api/pets/pet-bridge'
 import { appIconApi } from './api/window-ui/app-icon-bridge'
 import { browserPasswordsApi } from './api/browser/browser-passwords-bridge'
 import { browserApi } from './api/browser/browser-bridge'
-import { emulatorApi } from './api/emulator/emulator-bridge'
 import { hooksApi } from './api/agent-hooks/hooks-bridge'
 import { ephemeralVmApi } from './api/cloud-workspaces/ephemeral-vm-bridge'
 import { cacheApi } from './api/github/cache-bridge'
@@ -177,7 +176,6 @@ const api = {
   appIcon: appIconApi,
   browser: browserApi,
   browserPasswords: browserPasswordsApi,
-  emulator: emulatorApi,
   hooks: hooksApi,
   ephemeralVm: ephemeralVmApi,
   cache: cacheApi,

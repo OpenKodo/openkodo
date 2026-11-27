@@ -2512,9 +2512,7 @@
       },
       "ensure": {
         "simulator": {
-          "tab": {
-            "372d21d428": "Mobil Emülatör"
-          }
+          "tab": {}
         }
       },
       "fix": {
@@ -2606,9 +2604,7 @@
         },
         "mobile": {
           "emulator": {
-            "tab": {
-              "bf4f2a8a72": "Emülatör başlatılamadı. iOS veya Android emülatör kurulumunu kontrol edip başka bir cihaz deneyin."
-            }
+            "tab": {}
           }
         }
       },
@@ -3073,10 +3069,7 @@
         "serverSshUpdateRequired": "SSH cihazlarındaki bağlantı noktalarını görmek için sunucuyu güncelleyin.",
         "hostMismatch": "Sunucu, bu çalışma alanının çalıştığı cihaz yerine başka bir cihazı taradı."
       },
-      "emulator": {
-        "androidSdkNotFound": "Android SDK bulunamadı. Android Studio'yu yükleyin ve ANDROID_HOME değişkenini ayarlayın.",
-        "xcodeSimulatorToolsUnavailable": "Xcode Simulator araçları kullanılamıyor. Xcode'un tam sürümünü yükleyin, bir kez açın, ardından `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` komutuyla seçin."
-      },
+      "emulator": {},
       "rateLimits": {
         "errors": {
           "chatgptAuthRequired": "Kullanım sınırlarını okumak için ChatGPT’de oturum açmanız gerekiyor",
@@ -3226,8 +3219,6 @@
         "93d88d20bf": "Görünüm",
         "2d0659f6f0": "Genel terminal, tarayıcı ve markdown sekmeleri.",
         "65b19f5bde": "Yüzen Çalışma Alanı",
-        "3d65d3f1b9": "OpenKodo ve kodlama ajanları için mobil emülatör desteğini yapılandırın.",
-        "1e761cff2b": "Mobil Emülatör",
         "e815fd01bd": "Ana sayfa, bağlantı yönlendirme ve oturum çerezleri.",
         "8c197f74a1": "Tarayıcı",
         "42ae40842f": "Genel veya proje bazında kapsamlandırılmış, kayıtlı terminal komutları.",
@@ -4486,7 +4477,6 @@
         "c4afa68159": "Bir worktree, proje, ayar, işlem, sekme başlığı, ajan istemi, URL, PR veya port deneyin.",
         "dbd9d87eec": "Aramanızla eşleşen sonuç yok",
         "2c38630a01": "Çalışma alanı artık mevcut değil",
-        "7726ce9970": "Mobil emülatör sekmesi artık mevcut değil",
         "d7d496a451": "Tarayıcı sayfası artık mevcut değil",
         "50a1d11d5b": "Açık Sekmeler",
         "088d66d980": "İşlemler ve Ayarlar",
@@ -5559,8 +5549,6 @@
             "b1a132357f": "Yeni sekme",
             "4f327c8b3d": "Markdown Aç...",
             "3d5d6c960d": "Yeni Markdown",
-            "fd2b42aaa3": "Yeni Mobil Emülatör",
-            "b426bb2615": "Mobil Emülatöre Git",
             "4833fb2cbe": "Yeni Tarayıcı Sekmesi",
             "d364f3c8d4": "Yeni Terminal",
             "7c1313d237": "Yeni Terminal:",
@@ -5580,7 +5568,6 @@
             "2c38630a01": "Çalışma alanı artık mevcut değil",
             "4f0d9a71c2": "Sekme artık mevcut değil",
             "d7d496a451": "Tarayıcı sayfası artık mevcut değil",
-            "7726ce9970": "Mobil emülatör sekmesi artık mevcut değil",
             "chooseAction": "Bir eylem seçin.",
             "searchProvider": "{{value0}} içinde ara",
             "openPage": "Sayfayı aç",
@@ -5640,14 +5627,7 @@
                   "6d8b6b4117": "yeni dosya",
                   "b330f72434": "mark",
                   "37ff3ddca1": "markdown aç",
-                  "164c394bab": "dosya aç",
-                  "bbaf4f85a4": "mobil emülatör",
-                  "3784b83bd4": "emülatör",
-                  "a63847a742": "simülatör",
-                  "1baeb07c17": "ios simülatör",
-                  "8a580f88cf": "iphone",
-                  "7ecdc5ef08": "ipad",
-                  "14965cc123": "mobil"
+                  "164c394bab": "dosya aç"
                 }
               }
             }
@@ -9616,41 +9596,9 @@
           "detectedServers_other": "{{detected}} algılandı · {{count}} sunucu",
           "283bebb198": "MCP Yapılandırmaları"
         },
-        "MobileEmulatorAgentControlRow": {
-          "8af7a8bc38": "Komutlar, geçerli worktree için etkin emülatörü hedefler. Koordinatlar 0..1 aralığında normalleştirilir.",
-          "c7f3fe0a6e": "Yaygın emülatör komutları",
-          "d94ca6a623": "Ajanların mobil emülatör kontrolü de dahil olmak üzere OpenKodo CLI komutlarını kullanmasını sağlar.",
-          "67e19ee03c": "OpenKodo CLI becerisi",
-          "ff4b7e65d6": "Kodlama ajanlarının OpenKodo CLI komutlarıyla etkin mobil emülatörü kontrol etmesine izin verin.",
-          "10243e70ff": "Ajan Mobil Emülatör Kontrolü"
-        },
-        "MobileEmulatorExamples": {
-          "edf13dd03b": "Kopyala",
-          "c12b253997": "Örnek istemi kopyala",
-          "d151e25078": "\"",
-          "b525ff2b12": "\"",
-          "4daa95f25a": "OpenKodo CLI becerisinin yüklü olduğu bir projede bunlardan birini Claude Code, Codex veya başka bir ajana yapıştırın.",
-          "0820b3f84f": "Deneyin - örnek istemler",
-          "1f608e7d60": "İstem kopyalanamadı.",
-          "2b077b5544": "İstem kopyalandı."
-        },
-        "MobileEmulatorSettingsPane": {
-          "19d39113b6": "Kodlama ajanlarının OpenKodo CLI komutlarıyla etkin mobil emülatörü kontrol etmesine izin verin.",
-          "8aec2f99a0": "Emülatör kullanılabilirliğini yenile",
-          "ae1612c58c": "Kullanılabilirlik",
-          "f9af91ea26": "Yeni Mobil Emülatör eylemini gösterir ve ajanların etkin emülatöre bağlanmasına izin verir.",
-          "bc39d0f115": "OpenKodo ve kodlama ajanları için mobil emülatör desteğini yapılandırın.",
-          "a4f1c82d90": "Devre Dışı",
-          "b5e2d93e01": "Kontrol ediliyor...",
-          "c6f3ea4f12": "Hazır",
-          "d704fb5023": "Kurulum gerekli",
-          "06b06429c6": "Android SDK ve iOS Simulator desteği kontrol ediliyor.",
-          "6d1483d4a0": "1 emülatör cihazı algılandı.",
-          "0a452d4d3b": "{{value0}} emülatör cihazı algılandı.",
-          "d2d8632e0d": "Mobil Emülatör",
-          "b1e5af97e9": "Mobil Emülatörü Etkinleştir",
-          "fd698d2d47": "Ajan Mobil Emülatör Kontrolü"
-        },
+        "MobileEmulatorAgentControlRow": {},
+        "MobileEmulatorExamples": {},
+        "MobileEmulatorSettingsPane": {},
         "MobileNetworkInterfaceSection": {
           "b2c384cfd6": "Arayüz bulunamadı"
         },
@@ -10238,7 +10186,6 @@
           "6d1a27e193": "Tema, yakınlaştırma, uygulama ve terminal görünümü, kenar çubukları ve durum çubuğu.",
           "2b4474780a": "Görünüm",
           "3d9adfe6a5": "Genel terminal, tarayıcı ve markdown sekmeleri.",
-          "01f9d36292": "OpenKodo ve kodlama ajanları için mobil emülatör desteğini yapılandırın.",
           "ad9788036f": "Ana sayfa, bağlantı yönlendirmesi ve oturum çerezleri.",
           "c46215ea03": "Tarayıcı",
           "6742c7932c": "Genel olarak veya proje başına kapsamlandırılmış, kayıtlı terminal komutları.",
@@ -10276,7 +10223,6 @@
           "noSettingsFoundForQuery": "\"{{value0}}\" için ayar bulunamadı",
           "045db77e21": "SSH Sunucuları",
           "c0900fa64a": "Görev Kaynakları",
-          "129ae9859c": "Mobil Emülatör",
           "022effa46f": "Uzak OpenKodo Sunucuları",
           "d09b9d8f00": "Git ve Kaynak Kontrolü",
           "3eac6fb97f": "Geliştirici Araçları",
@@ -11835,44 +11781,7 @@
         },
         "mobile": {
           "emulator": {
-            "search": {
-              "2348045036": "OpenKodo'nın varsayılan olarak hangi emülatör cihazını açacağını seçin.",
-              "2bb2e09225": "mobil beceri",
-              "bbe4267416": "emülatör türü",
-              "64494f03c3": "emülatöre bağlanma",
-              "6f728f1456": "emülatörde dokunma",
-              "f8b871d655": "ajan cli",
-              "2e0b45b2ba": "Bir mobil emülatörü listelemek, ona bağlanmak, dokunmak ve yazı yazmak için OpenKodo CLI komutlarını kullanın.",
-              "8ef0f08d36": "çalışma zamanı",
-              "27397fe8e9": "xcode komut satırı araçları",
-              "7650063d17": "simctl",
-              "3211e7acf9": "xcrun",
-              "42bfab45d8": "kullanılabilirlik",
-              "ea1f51b980": "Xcode, simctl, serve-sim ve emülatör cihazlarının hazır olup olmadığını denetleyin.",
-              "04c5f5d901": "cihaz",
-              "25d7bfbcd4": "udid",
-              "ec3c4043fd": "varsayılan ipad",
-              "1dc8c52ffa": "varsayılan iphone",
-              "ab4814f3c5": "varsayılan simülatör",
-              "b8ddd13195": "ajan emülatörü",
-              "1ad6fb6230": "varsayılan cihaz",
-              "ac0a985873": "emülatör becerisi",
-              "9353854ff3": "openkodo emülatörü",
-              "d4b7833894": "openkodo cli",
-              "84e5706975": "serve-sim",
-              "7c5a8a2bee": "xcode",
-              "bec7231663": "ipad",
-              "49727355a3": "iphone",
-              "6b6407dc1f": "emülatör",
-              "2d67f708ce": "simülatör",
-              "c5eca29310": "ios simülatörü",
-              "25159de808": "mobil emülatör",
-              "9595354cff": "OpenKodo ve kodlama ajanları için mobil emülatör desteğini yapılandırın.",
-              "de556a0911": "Emülatör Kullanılabilirliği",
-              "b8c9f903eb": "Varsayılan Emülatör Cihazı",
-              "0d6e7dba38": "Ajan CLI Kontrolü",
-              "f8468700d1": "Mobil Emülatör"
-            }
+            "search": {}
           },
           "pane": {
             "search": {
@@ -12939,19 +12848,7 @@
           "distroRequired": "Projeler WSL'i devralabilmeden önce bir WSL dağıtımı seçin.",
           "wslDescription": "Çalışma zamanlarını geçersiz kılmayan projeler için WSL üzerinden {{value0}} içinde ajanları tespit edin ve başlatın."
         },
-        "MobileEmulatorSdkStatus": {
-          "027cbf668a": "Android SDK",
-          "f6d080d128": "Yapılandırılmış yol kullanılıyor",
-          "7fe4bd5907": "Şurada tespit edildi",
-          "2784f0b22d": "Bulunamadı. Android Studio'yu yükleyin, ardından bir Sanal Cihaz oluşturun.",
-          "b94ff260e6": "Android Studio'yu İndir",
-          "18925b082d": "SDK klasörünü bul",
-          "8c52684db8": "Temizle",
-          "76eb88b88e": "iOS Simulator (Xcode)",
-          "c6f3ea4f12": "Hazır",
-          "e4f14b50d7": "Xcode'u yükleyin ve bir iOS Simulator runtime'ı ekleyin.",
-          "63fe73a1ea": "Android SDK klasörü güncellenemedi."
-        },
+        "MobileEmulatorSdkStatus": {},
         "AppearanceAdvancedDisclosure": {
           "advanced": "Gelişmiş"
         },
@@ -17568,83 +17465,40 @@
       },
       "emulator": {
         "pane": {
-          "EmulatorPane": {
-            "59b08fa031": "Bağlı emülatör yok"
-          },
+          "EmulatorPane": {},
           "emulator": {
             "device": {
-              "frame": {
-                "9406c15775": "Emülatör ekranı",
-                "8f25ffaf8a": "Emülatör ekranı, klavye yakalandı. Bırakmak için Escape tuşuna basın."
-              }
+              "frame": {}
             },
             "pane": {
-              "toolbar": {
-                "06e10d7356": "Emülatörü kapat",
-                "e7a0d1897e": "Ana Ekran",
-                "6bd8dff42a": "Döndür",
-                "81b3571a07": "Bağlan",
-                "868c0f2938": "Çalışıyor…"
-              }
+              "toolbar": {}
             },
             "screen": {
               "stream": {
-                "content": {
-                  "8b1a0d8694": "Emülatör önizlemesi",
-                  "36841af608": "Yayın bağlantısı kesildi",
-                  "5f818f12ab": "Emülatöre bağlanılıyor…",
-                  "5ee64cd44e": "Emülatör ekranı"
-                }
+                "content": {}
               }
             }
           },
           "use": {
             "emulator": {
               "frame": {
-                "stream": {
-                  "f1c0179002": "Yayın kare üretmiyor."
-                }
+                "stream": {}
               }
             },
             "mobile": {
               "emulator": {
                 "agent": {
                   "setup": {
-                    "state": {
-                      "35dea1ae12": "Ajan kontrolü hazır.",
-                      "skillNotInstalled": "OpenKodo CLI becerisi henüz yüklü değil.",
-                      "c94ff11e91": "Kurulum durumu yeniden kontrol edilemedi."
-                    }
+                    "state": {}
                   }
                 }
               }
             }
           },
-          "MobileEmulatorAgentSetupGuide": {
-            "2fda9ff015": "Ajan kontrolünü kurun",
-            "0ac0fef514": "Ajan kontrolü hazır.",
-            "2bdfff8763": "Ajan kontrolü (isteğe bağlı).",
-            "d10ae98046": "Bitti",
-            "3756cbeca7": "Şimdi değil",
-            "6d950431d2": "Gizle",
-            "ebceac65a4": "Kur",
-            "installSkillPrompt": "Ajanların bu simülatörü kullanmasını istediğinizde OpenKodo CLI becerisini yükleyin.",
-            "3f003507f4": "Kurulumu aç"
-          },
-          "MobileEmulatorAgentSetupGuideSteps": {
-            "21f5687c07": "OpenKodo CLI becerisi",
-            "64fb057667": "Ajanlara bu worktree için openkodo emulator komutlarını öğretir."
-          },
-          "MobileEmulatorTabIntroCallout": {
-            "1924982130": "Kapat",
-            "5789936d9a": "Ajanlar ekranı kullanırken iOS simülatörlerini önizleyin.",
-            "8014b4b80b": "Tut",
-            "6e051a40b7": "Gizle"
-          },
-          "useEmulatorScreenKeyboard": {
-            "pasteTooLarge": "Yapıştırılan içerik emülatör klavye girişi için çok büyük.",
-            "pasteTargetUnavailable": "Cihaz hazır olmadığı için emülatör klavye yapıştırma başarısız oldu."
-          }
+          "MobileEmulatorAgentSetupGuide": {},
+          "MobileEmulatorAgentSetupGuideSteps": {},
+          "MobileEmulatorTabIntroCallout": {},
+          "useEmulatorScreenKeyboard": {}
         }
       },
       "editor": {
@@ -24063,7 +23917,6 @@
         "closePane": "Bölmeyi kapat",
         "files": "Dosyalar",
         "markdown": "Markdown",
-        "mobileEmulator": "Mobil Emülatör",
         "new": "Yeni",
         "newNamedAgent": "Yeni {{agent}} ajanı",
         "noMatches": "Eşleşme yok",
@@ -26211,7 +26064,6 @@
       "tabNewTerminal": "Yeni terminal sekmesi",
       "tabNewAgent": "Yeni ajan sekmesi (varsayılan ajan)",
       "tabNewBrowser": "Yeni tarayıcı sekmesi",
-      "tabNewSimulator": "Yeni mobil emülatör sekmesi",
       "tabNewMarkdown": "Yeni Markdown sekmesi",
       "tabOpenMarkdown": "Markdown sekmesi aç",
       "tabClose": "Etkin sekmeyi kapat",
@@ -27161,67 +27013,11 @@
     }
   },
   "emulator": {
-    "errors": {
-      "disabled": "Mobil Emülatör, Ayarlar bölümünde devre dışı.",
-      "notAvailable": "Mobil Emülatör kullanılamıyor.",
-      "noSession": "Etkin emülatör oturumu yok",
-      "noDeviceSpecified": "Emülatör cihazı belirtilmedi. Ayarlar > Mobil Emülatör bölümünden varsayılan bir cihaz seçin veya bir cihaz belirtin.",
-      "workspaceChanged": "Emülatör başlatılırken çalışma alanı değişti. Emülatörü yeniden bağlayın.",
-      "noIosSimulators": "Hiç iOS Simulator bulunamadı. Xcode Settings > Platforms bölümünden bir tane ekleyin.",
-      "simctlUnavailable": "xcrun simctl kullanılamıyor.",
-      "simulatorToolsUnavailable": "Xcode Simulator araçları kullanılamıyor. Xcode'un tam sürümünü yükleyin, bir kez açın, ardından `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` komutuyla seçin.",
-      "requiresMacosXcode": "iOS Simulator için macOS ve Xcode Command Line Tools gerekir.",
-      "simulatorNotFound": "Simülatör {{udid}} bulunamadı. Xcode > Window > Devices and Simulators üzerinden bir tane oluşturun.",
-      "serveSimUnavailable": "serve-sim kullanılamıyor.",
-      "serveSimNoEndpoints": "serve-sim, akış uç noktalarını döndürmedi.",
-      "serveSimEndpointUnreachable": "serve-sim başladı ancak akış uç noktasına erişilemiyor.",
-      "deviceHubInputBlocked": "Xcode'un Device Hub uygulaması bu simülatörün girişini devraldığı için dokunmalar ve yazılanlar ona ulaşmıyor. Device Hub'dan çıkın, ardından simülatörü yeniden bağlayın.",
-      "androidSdkMissing": "Android SDK bulunamadı. Android Studio'yu yükleyin ve ANDROID_HOME değişkenini ayarlayın.",
-      "adbUnavailable": "adb kullanılamıyor.",
-      "noAndroidDevices": "Android cihazı veya AVD bulunamadı. Android Studio'da bir tane oluşturun.",
-      "androidDeviceNotRunning": "\"{{device}}\" adlı Android cihazı çalışmıyor. Önce başlatın.",
-      "unknownDeviceOrAvd": "\"{{device}}\", çalışan bir cihaz veya bilinen bir AVD değil.",
-      "avdBootTimeout": "\"{{avdName}}\" adlı AVD'nin açılışı zamanında tamamlanmadı.",
-      "avdExitedBeforeBoot": "\"{{avdName}}\" adlı AVD açılışı tamamlanmadan durdu: {{detail}}",
-      "scrcpyDownloadFailed": "scrcpy sunucusu indirilemedi: {{detail}}",
-      "scrcpyServerInvalid": "İndirilen scrcpy sunucusu geçersizdi veya eksikti."
-    },
-    "pane": {
-      "listDevicesFailed": "Emülatör cihazları listelenemedi.",
-      "noDevices": "Emülatör cihazı bulunamadı. Xcode'da bir iOS Simulator veya Android Studio'da bir Android Virtual Device ekleyin.",
-      "startFailed": "Emülatör başlatılamadı. Xcode (iOS) veya Android Studio (Android) kurulumunun tamamlandığından emin olun, ardından başka bir cihaz deneyin.",
-      "shutdownFailed": "Emülatör kapatılamadı. Yeniden deneyin veya emülatör yöneticinizden durdurun."
-    },
-    "settings": {
-      "availabilityCheckFailed": "Emülatörün kullanılabilirliği kontrol edilemedi."
-    },
-    "opening": {
-      "ask": "Her seferinde sor",
-      "notFound": "Bulunamadı",
-      "when": "Açarken",
-      "description": "Bu bilgisayardaki yeni emülatör sekmeleri için geçerlidir. Mevcut çalışma alanı oturumları bağlı kalır.",
-      "lastUsed": "Son kullanılan",
-      "specific": "Belirli bir cihaz",
-      "fixed": "Varsayılan cihaz",
-      "fixedDescription": "Mevcut bir cihaz seçin. Cihaz eksik veya kullanılamıyorsa farklı bir platform başlatmak yerine başka bir seçim yapmanız istenir.",
-      "choose": "Cihaz seç",
-      "missing": "Kayıtlı cihaz artık bu bilgisayarda değil. Başka bir cihaz seçin.",
-      "unavailable": "Kayıtlı cihazın çalışma zamanı kullanılamıyor. Başka bir cihaz seçin veya çalışma zamanını yükleyin.",
-      "askPrompt": "Açılacak bir cihaz seçin.",
-      "firstUse": "İlk cihazınızı seçin. OpenKodo bu bilgisayarda başarılı seçimleri hatırlar."
-    },
-    "picker": {
-      "starting": "Başlatılıyor",
-      "stopped": "Durduruldu",
-      "choose": "Emülatör seç",
-      "search": "Cihazlarda ara…",
-      "empty": "Eşleşen cihaz yok",
-      "used": "Kullanılan cihazlar",
-      "other": "Bu bilgisayardaki diğer cihazlar",
-      "unavailable": "Kullanılamayan çalışma zamanları",
-      "runtimeUnavailable": "Çalışma zamanı kullanılamıyor",
-      "running": "Çalışıyor"
-    }
+    "errors": {},
+    "pane": {},
+    "settings": {},
+    "opening": {},
+    "picker": {}
   },
   "ephemeralVm": {
     "errors": {
@@ -30758,12 +30554,7 @@
     }
   },
   "emulatorPane": {
-    "tabIntro": {
-      "hiddenFromMenu": "Mobil Emülatör + menüsünden kaldırıldı",
-      "hiddenFromMenuHint": "Geri getirmek için simge sırasının sonundaki dişliyi kullanın.",
-      "undoHide": "Geri al",
-      "saveFailed": "+ menüsü güncellenemedi."
-    }
+    "tabIntro": {}
   },
   "languages": {
     "search": "Dillerde ara",

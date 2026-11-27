@@ -14,7 +14,6 @@ import { matchesGuestTabShortcut } from './browser-guest-tab-shortcut'
 import { textInputOwnsComposition } from '../../../../../shared/keybindings/text-input-shortcut-policy'
 
 export type ShouldForwardDictationShortcut = () => boolean
-export type IsMobileEmulatorEnabled = () => boolean
 export type GuestShortcutInput = WindowShortcutInput & {
   isAutoRepeat?: boolean
   isComposing?: boolean
@@ -27,7 +26,6 @@ export type GuestShortcutForwardContext = {
   resolveRenderer: ResolveRenderer
   isLocalRenderer?: (renderer: Electron.WebContents) => boolean
   shouldForwardDictationShortcut?: ShouldForwardDictationShortcut
-  isMobileEmulatorEnabled?: IsMobileEmulatorEnabled
   getKeybindings?: () => KeybindingOverrides | undefined
   resolveWorktreeId?: (browserTabId: string) => string | null
   resolveWorkspaceId?: (browserTabId: string) => string | null
@@ -48,7 +46,6 @@ export function forwardGuestShortcutInput(
     resolveRenderer,
     isLocalRenderer,
     shouldForwardDictationShortcut,
-    isMobileEmulatorEnabled,
     getKeybindings,
     resolveWorktreeId,
     resolveWorkspaceId,
@@ -93,12 +90,7 @@ export function forwardGuestShortcutInput(
       forwardsDictation ||
       matchesPlugins ||
       // Why: OpenKodo claims a held tab chord on every repeat but acts once, so repeats never reach the page.
-      matchesGuestTabShortcut(
-        input,
-        process.platform,
-        keybindings,
-        isMobileEmulatorEnabled?.() ?? true
-      )
+      matchesGuestTabShortcut(input, process.platform, keybindings)
     ) {
       event.preventDefault()
       return true
@@ -237,15 +229,7 @@ export function forwardGuestShortcutInput(
       return false
     }
     renderer.send('ui:dictationKeyDown')
-  } else if (
-    matchesPlugins ||
-    matchesGuestTabShortcut(
-      input,
-      process.platform,
-      keybindings,
-      isMobileEmulatorEnabled?.() ?? true
-    )
-  ) {
+  } else if (matchesPlugins || matchesGuestTabShortcut(input, process.platform, keybindings)) {
     // Why: replay into the renderer's own tab-shortcut handler so a page answers tab chords exactly as the rest of OpenKodo does.
     const { key, code, alt, meta, control, shift, doubleTapModifier } = input
     const shortcut: BrowserPageTabShortcut = {

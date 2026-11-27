@@ -195,12 +195,7 @@ export function setGroupRatios(
 }
 
 type NewGroupOpen = CommandOf<
-  | 'createTerminalTab'
-  | 'openEditorTab'
-  | 'openBrowserTab'
-  | 'openAgentSessionTab'
-  | 'openSimulatorTab'
-  | 'openRoomTab'
+  'createTerminalTab' | 'openEditorTab' | 'openBrowserTab' | 'openAgentSessionTab' | 'openRoomTab'
 >
 
 /** Open into the named group or create it beside the split target atomically. A group already held by main takes the open without splitting. */

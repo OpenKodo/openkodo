@@ -79,8 +79,7 @@ it('a policy-refused open still names its cause', async () => {
   const { getClientCreationActionPolicy } =
     await import('../../workspace/creation/surface-policy/client-creation-action-policy')
   vi.mocked(getClientCreationActionPolicy).mockReturnValueOnce({
-    'managed-browser': { state: 'hidden', reason: 'Managed browser tabs are unavailable.' },
-    'mobile-emulator': { state: 'hidden', reason: 'Mobile Emulator is unavailable.' }
+    'managed-browser': { state: 'hidden', reason: 'Managed browser tabs are unavailable.' }
   })
   const error = await openWorkspaceBrowserTab({
     workspaceId: 'wt',

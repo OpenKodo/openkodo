@@ -67,9 +67,6 @@ export function resolveZoomTarget(args: {
   if (activeView !== 'terminal') {
     return 'ui'
   }
-  if (activeTabType === 'simulator') {
-    return 'simulator'
-  }
   // Why: with focus outside the pane, the chord belongs to OpenKodo's own zoom.
   if (activeTabType === 'browser') {
     return 'ui'

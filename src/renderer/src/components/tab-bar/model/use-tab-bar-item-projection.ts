@@ -50,7 +50,6 @@ export function useTabBarItemProjection({
     activeTabId,
     activeFileId,
     activeBrowserTabId,
-    activeSimulatorTabId,
     activeTabType,
     expandedPaneByTabId
   } = props
@@ -73,13 +72,6 @@ export function useTabBarItemProjection({
     [editorFiles]
   )
   const browserTabIds = useMemo(() => browserTabs?.map((tab) => tab.id) ?? [], [browserTabs])
-  const simulatorTabIds = useMemo(
-    () =>
-      unifiedTabs
-        .filter((tab) => tab.groupId === resolvedGroupId && tab.contentType === 'simulator')
-        .map((tab) => tab.id),
-    [unifiedTabs, resolvedGroupId]
-  )
   const roomTabIds = useMemo(
     () =>
       unifiedTabs
@@ -98,7 +90,6 @@ export function useTabBarItemProjection({
         terminalIds,
         editorFileIds,
         browserTabIds,
-        simulatorTabIds,
         roomTabIds,
         agentSessionTabIds,
         terminalMap,
@@ -112,7 +103,6 @@ export function useTabBarItemProjection({
       terminalIds,
       editorFileIds,
       browserTabIds,
-      simulatorTabIds,
       roomTabIds,
       agentSessionTabIds,
       terminalMap,
@@ -145,17 +135,9 @@ export function useTabBarItemProjection({
         activeTabId,
         activeFileId,
         activeBrowserTabId,
-        activeSimulatorTabId,
         activeTabType
       }),
-    [
-      activeBrowserTabId,
-      activeFileId,
-      activeSimulatorTabId,
-      activeTabId,
-      activeTabType,
-      orderedItems
-    ]
+    [activeBrowserTabId, activeFileId, activeTabId, activeTabType, orderedItems]
   )
   const activeUnifiedTabId = useMemo(
     () => orderedItems.find((item) => item.id === activeVisibleTabId)?.unifiedTabId ?? null,

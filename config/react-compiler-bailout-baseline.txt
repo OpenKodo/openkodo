@@ -146,11 +146,6 @@
 1 src/renderer/src/components/editor/rich-markdown/review/useRichMarkdownReviewData.ts
 1 src/renderer/src/components/editor/rich-markdown/review/useRichMarkdownReviewRailController.ts
 12 src/renderer/src/components/editor/rich-markdown/tables/RichMarkdownTableControls.tsx
-1 src/renderer/src/components/emulator-pane/agent-setup/use-mobile-emulator-agent-setup-state.ts
-3 src/renderer/src/components/emulator-pane/session/use-emulator-pane-session.ts
-1 src/renderer/src/components/emulator-pane/session/use-emulator-pane-shutdown.ts
-1 src/renderer/src/components/emulator-pane/streaming/emulator-screen-stream-content.tsx
-1 src/renderer/src/components/emulator-pane/streaming/use-emulator-video-stream.ts
 1 src/renderer/src/components/feature-tips/FeatureTipsModal.tsx
 1 src/renderer/src/components/feature-wall/FeatureWallTourSurface.tsx
 1 src/renderer/src/components/feature-wall/agents-orchestration/OrchestrationPage.tsx
@@ -415,7 +410,6 @@
 1 src/renderer/src/components/settings/general/GlobalWorktreeVisibilitySourcesSetting.tsx
 1 src/renderer/src/components/settings/general/WorkspaceDirectorySetting.tsx
 2 src/renderer/src/components/settings/mobile/MobilePane.tsx
-1 src/renderer/src/components/settings/mobile/emulator/MobileEmulatorSettingsPane.tsx
 1 src/renderer/src/components/settings/mobile/pairing/use-mobile-paired-device-revocation.ts
 1 src/renderer/src/components/settings/navigation/use-settings-navigation-model.ts
 1 src/renderer/src/components/settings/navigation/useSettingsNavigationMetadata.ts
@@ -677,7 +671,6 @@
 1 src/renderer/src/components/worktree-jump/selection/use-worktree-jump-palette-selection-lifecycle.ts
 1 src/renderer/src/components/worktree-jump/state/use-worktree-jump-palette-local-state.ts
 2 src/renderer/src/components/worktree-jump/state/use-worktree-jump-palette-store-state.ts
-1 src/renderer/src/components/worktree-jump/tabs/use-worktree-jump-palette-open-tabs.ts
 2 src/renderer/src/components/worktree-jump/tasks/use-worktree-jump-palette-task-search.ts
 2 src/renderer/src/components/worktree-jump/tasks/use-worktree-jump-palette-task-url.ts
 1 src/renderer/src/components/worktree-jump/workspaces/use-worktree-jump-palette-quick-actions.ts

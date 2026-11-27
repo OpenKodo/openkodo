@@ -2,8 +2,6 @@ import type { Repo } from '../../../../../shared/repository/repo-types'
 import type { Worktree } from '../../../../../shared/worktree/types'
 import { buildSearchableBrowserPages } from '@/lib/browser/palette/browser-palette-page-entries'
 import type { SearchableBrowserPage } from '@/lib/browser/palette/browser-palette-search'
-import { buildSearchableSimulatorTabs } from '@/lib/simulator/search/simulator-palette-search'
-import type { SearchableSimulatorTab } from '@/lib/simulator/search/simulator-palette-search-types'
 import '@/lib/workspace/search/tabs/workspace-tab-search-types'
 import { buildSearchableWorkspaceTabEntries } from '@/lib/workspace/search/tabs/workspace-tab-palette-entry-builder'
 import type { SearchableWorkspaceTab } from '@/lib/workspace/search/tabs/workspace-tab-search-types'
@@ -19,12 +17,10 @@ import {
 } from '../../../../../shared/execution-host/execution-host'
 import { getPaletteOwnershipWorktreeIds } from '@/lib/workspace/ownership/unified-tab-host-ownership'
 import type { StructuredChatTabNames } from '@/runtime/native-chat/naming/structured-chat-tab-name'
-import type { Translate } from '@/i18n/use-translate'
 
 export type OpenTabSearchEntries = {
   workspaceTabs: readonly SearchableWorkspaceTab[]
   browserPages: readonly SearchableBrowserPage[]
-  simulatorTabs: readonly SearchableSimulatorTab[]
 }
 
 export type OpenTabSearchEntryState = Pick<
@@ -203,8 +199,7 @@ export function buildOpenTabSearchEntries(
   state: OpenTabSearchEntryState,
   agentState: OpenTabSearchAgentState,
   chatNames: StructuredChatTabNames,
-  excludedTabId: string | null = null,
-  t?: Translate
+  excludedTabId: string | null = null
 ): OpenTabSearchEntries {
   const scope = openTabSearchScope(state)
   const excludedTab = state.unifiedTabsByWorktree[state.worktree.id]?.find(
@@ -233,18 +228,7 @@ export function buildOpenTabSearchEntries(
       generatedTitlesEnabled: state.generatedTitlesEnabled,
       chatNames
     }),
-    browserPages: buildOpenTabSearchBrowserPages(state, scope),
-    simulatorTabs: buildSearchableSimulatorTabs(
-      {
-        ...scope,
-        unifiedTabsByWorktree: state.unifiedTabsByWorktree,
-        activeGroupIdByWorktree: state.activeGroupIdByWorktree,
-        groupsByWorktree: state.groupsByWorktree,
-        activeWorktreeId: state.activeWorktreeId,
-        activeTabType: state.activeTabType
-      },
-      t
-    )
+    browserPages: buildOpenTabSearchBrowserPages(state, scope)
   }
   return {
     workspaceTabs: entries.workspaceTabs.filter((entry) => entry.tab.id !== excludedTabId),
@@ -255,7 +239,6 @@ export function buildOpenTabSearchEntries(
           entry.workspace.id === excludedTab.entityId &&
           entry.workspace.activePageId === entry.page.id
         )
-    ),
-    simulatorTabs: entries.simulatorTabs.filter((entry) => entry.tab.id !== excludedTabId)
+    )
   }
 }

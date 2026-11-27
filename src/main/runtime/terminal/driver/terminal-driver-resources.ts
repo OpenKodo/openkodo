@@ -87,8 +87,6 @@ export abstract class OpenKodoRuntimeWithTerminalDrivers extends OpenKodoRuntime
   declare protected readonly accounts: RuntimeAccountController
   declare protected readonly getPairedDeviceNameFn: (pairedDeviceId: string) => string | null
   abstract retireRuntimeOwnedBrowserSessionTab(worktreeId: string, browserPageId: string): boolean
-  protected abstract resolveEmulatorWorkspaceId(selector: string): Promise<string>
-  protected abstract resolveEmulatorCleanupWorkspaceId(selector: string): Promise<string>
   abstract requireStore(): RuntimeStore
   abstract getRuntimeId(): string
   abstract hasRawTerminalViewSubscriber(ptyId: string): boolean
@@ -225,22 +223,7 @@ export abstract class OpenKodoRuntimeWithTerminalDrivers extends OpenKodoRuntime
       notifyRemoteViewersChanged: (browserPageId, hasRemoteViewers) =>
         this.notifier?.browserRemoteViewersChanged?.(browserPageId, hasRemoteViewers)
     },
-    getBrowserCommands: () => this.browserCommands,
-    emulatorHost: {
-      getEmulatorBridge: () => this.emulatorBridge,
-      resolveEmulatorWorkspaceId: (selector) => this.resolveEmulatorWorkspaceId(selector),
-      resolveEmulatorCleanupWorkspaceId: (selector) =>
-        this.resolveEmulatorCleanupWorkspaceId(selector),
-      getAuthoritativeWindowId: () => this.getAuthoritativeWindowId(),
-      getSettings: () => this.requireStore().getSettings(),
-      updateEmulatorSettings: (updates) => {
-        const store = this.requireStore()
-        if (!store.updateSettings) {
-          throw new Error('This host cannot save emulator preferences.')
-        }
-        store.updateSettings(updates, { notifyListeners: true })
-      }
-    }
+    getBrowserCommands: () => this.browserCommands
   })
 
   // Tests and diagnostics replace screencast startup; other edge methods stay pre-bound.

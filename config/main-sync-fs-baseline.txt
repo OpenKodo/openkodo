@@ -218,12 +218,6 @@
 4 src/main/devin/hook-config-json.ts
 3 src/main/dsh/dsh-hook-packages.ts
 3 src/main/dsh/hook-service.ts
-1 src/main/emulator/android/android-sdk-host-discovery.ts
-7 src/main/emulator/android/scrcpy-server-download.ts
-1 src/main/emulator/emulator-probe.ts
-2 src/main/emulator/serve-sim-detached-session.ts
-7 src/main/emulator/serve-sim-execution.ts
-17 src/main/emulator/serve-sim-runtime-materializer.ts
 12 src/main/external-editors/external-editor-launch.ts
 13 src/main/filesystem/atomic-file-publication.ts
 9 src/main/filesystem/durable-file-write.ts

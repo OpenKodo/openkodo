@@ -158,9 +158,6 @@ function projectTab(tab: LayoutTab, scope: Scope): RuntimeMobileSessionSnapshotT
     case 'check-details':
       // Virtual views have no file to read and no compatible session.tabs kind.
       return []
-    // A simulator needs the desktop to draw it; the window lists none either.
-    case 'simulator':
-      return []
     // Old clients have no room view; a room reopens from its sidebar row.
     case 'room':
       return []

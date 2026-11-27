@@ -26,7 +26,6 @@ import { createKeyedTrailingEdgeCoalescer } from '../../../runtime/client/events
 
 export type BrowserManagerSettings = {
   keybindings?: KeybindingOverrides
-  mobileEmulatorEnabled?: boolean
 }
 
 /** A link a headless serve page asked to open as an OpenKodo tab beside it. */

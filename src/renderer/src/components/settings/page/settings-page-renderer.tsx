@@ -36,7 +36,6 @@ import {
 import {
   renderBrowserSettingsSection,
   renderFloatingWorkspaceSettingsSection,
-  renderMobileEmulatorSettingsSection,
   renderQuickCommandsSettingsSection,
   renderTerminalSettingsSection
 } from './settings-interface-primary-section-renderers'
@@ -198,7 +197,6 @@ export function renderSettingsPage(
                   {renderTerminalSettingsSection(context, t)}
                   {renderQuickCommandsSettingsSection(context, t)}
                   {renderBrowserSettingsSection(context, t)}
-                  {renderMobileEmulatorSettingsSection(context, t)}
                   {renderFloatingWorkspaceSettingsSection(context, t)}
                   {renderAppearanceSettingsSection(context, t)}
                   {renderChatSettingsSection(context)}

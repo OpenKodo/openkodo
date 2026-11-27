@@ -25,7 +25,6 @@ export function buildShortcutRowVisibility(
     terminalShortcutPolicy: TerminalShortcutPolicy
     platform: NodeJS.Platform
     managedBrowserCreationEnabled: boolean
-    mobileEmulatorCreationEnabled: boolean
     agentDashboardEnabled: boolean
     settingsSearchQuery: string
     shortcutQuery: string
@@ -45,7 +44,6 @@ export function buildShortcutRowVisibility(
         (item) =>
           (options.managedBrowserCreationEnabled ||
             (item.id !== 'tab.newBrowser' && item.id !== 'tab.newBrowserSplitRight')) &&
-          (options.mobileEmulatorCreationEnabled || item.id !== 'tab.newSimulator') &&
           // Binding an experimental action while disabled would silently do nothing.
           (options.agentDashboardEnabled || item.id !== 'dashboard.toggle')
       )

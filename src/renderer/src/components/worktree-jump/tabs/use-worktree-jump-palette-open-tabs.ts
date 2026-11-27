@@ -4,11 +4,6 @@ import {
   searchBrowserPages,
   type SearchableBrowserPage
 } from '@/lib/browser/palette/browser-palette-search'
-import {
-  buildSearchableSimulatorTabs,
-  searchSimulatorTabs
-} from '@/lib/simulator/search/simulator-palette-search'
-import type { SearchableSimulatorTab } from '@/lib/simulator/search/simulator-palette-search-types'
 import '@/lib/workspace/search/tabs/workspace-tab-search-types'
 import type { SearchableWorkspaceTab } from '@/lib/workspace/search/tabs/workspace-tab-search-types'
 import { createWorkspaceTabPaletteIndex } from '@/lib/workspace/search/tabs/workspace-tab-palette-index'
@@ -19,7 +14,6 @@ import { getPaletteWorktreeIdentity } from '@/lib/workspace/search/palette-repo-
 import type {
   BrowserPaletteItem,
   OpenTabPaletteItem,
-  SimulatorPaletteItem,
   WorkspaceTabPaletteItem,
   WorktreePaletteItem
 } from '../worktree-jump-palette-model'
@@ -28,15 +22,11 @@ import { encodePaletteIdentity } from '../../../../../shared/palette-match/palet
 import {
   buildBrowserPaletteItems,
   buildOpenTabPaletteItems,
-  buildSimulatorPaletteItems,
   buildWorkspaceTabPaletteItems
 } from './worktree-jump-palette-open-tab-items'
-import { useUiLanguageRevision } from '@/i18n/use-ui-language-revision'
 import { useStructuredChatTabNames } from '@/runtime/native-chat/naming/structured-chat-name-observation'
-import { useTranslate } from '@/i18n/use-translate'
 
 const EMPTY_BROWSER_PAGE_ENTRIES: SearchableBrowserPage[] = []
-const EMPTY_SIMULATOR_TAB_ENTRIES: SearchableSimulatorTab[] = []
 const EMPTY_WORKSPACE_TAB_ENTRIES: SearchableWorkspaceTab[] = []
 
 export function useWorktreeJumpPaletteOpenTabs({
@@ -74,8 +64,6 @@ export function useWorktreeJumpPaletteOpenTabs({
   hidesPaletteWorkspace,
   resolveWorktree
 }: WorktreeJumpPaletteOpenTabsInput) {
-  const t = useTranslate()
-  const languageRevision = useUiLanguageRevision()
   const chatNames = useStructuredChatTabNames()
   const browserPageEntries = useMemo<SearchableBrowserPage[]>(() => {
     if (!paletteStatusInputsActive) {
@@ -116,50 +104,6 @@ export function useWorktreeJumpPaletteOpenTabs({
         context: paletteSearchContext
       }),
     [browserPageEntries, deferredQuery, paletteSearchContext]
-  )
-  const simulatorTabEntries = useMemo<SearchableSimulatorTab[]>(() => {
-    if (!paletteStatusInputsActive) {
-      return EMPTY_SIMULATOR_TAB_ENTRIES
-    }
-    return buildSearchableSimulatorTabs({
-      worktrees: browserSortedWorktrees,
-      ownershipWorktrees: workspaces,
-      repoMap,
-      repoMapByHostIdentity: repoByHostIdentity,
-      worktreeOrder,
-      unifiedTabsByWorktree,
-      activeGroupIdByWorktree,
-      groupsByWorktree,
-      activeWorktreeId,
-      activeWorkspaceExecutionHostId,
-      activeTabType
-    })
-  }, [
-    paletteStatusInputsActive,
-    activeGroupIdByWorktree,
-    activeTabType,
-    activeWorktreeId,
-    activeWorkspaceExecutionHostId,
-    workspaces,
-    browserSortedWorktrees,
-    groupsByWorktree,
-    repoByHostIdentity,
-    repoMap,
-    unifiedTabsByWorktree,
-    worktreeOrder
-  ])
-  const simulatorMatches = useMemo(
-    () =>
-      searchSimulatorTabs(
-        simulatorTabEntries,
-        deferredQuery.trim(),
-        {
-          context: paletteSearchContext
-        },
-        t
-      ),
-    // oxlint-disable-next-line react-hooks/exhaustive-deps -- simulator titles translate the default label.
-    [simulatorTabEntries, deferredQuery, paletteSearchContext, languageRevision, t]
   )
   const buildWorkspaceTabEntries = useMemo(
     () => (paletteStatusInputsActive ? createWorkspaceTabPaletteIndex() : null),
@@ -273,26 +217,20 @@ export function useWorktreeJumpPaletteOpenTabs({
     () => buildBrowserPaletteItems(browserMatches),
     [browserMatches]
   )
-  const simulatorItems = useMemo<SimulatorPaletteItem[]>(
-    () => buildSimulatorPaletteItems(simulatorMatches),
-    [simulatorMatches]
-  )
   const workspaceTabItems = useMemo<WorkspaceTabPaletteItem[]>(
     () => buildWorkspaceTabPaletteItems(workspaceTabMatches),
     [workspaceTabMatches]
   )
   const openTabItems = useMemo<OpenTabPaletteItem[]>(
-    () => buildOpenTabPaletteItems({ browserItems, simulatorItems, workspaceTabItems }),
-    [browserItems, simulatorItems, workspaceTabItems]
+    () => buildOpenTabPaletteItems({ browserItems, workspaceTabItems }),
+    [browserItems, workspaceTabItems]
   )
 
   return {
     browserPageEntries,
-    simulatorTabEntries,
     workspaceTabEntries,
     worktreeItems,
     browserItems,
-    simulatorItems,
     workspaceTabItems,
     openTabItems
   }

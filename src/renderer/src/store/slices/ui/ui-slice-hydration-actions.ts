@@ -258,8 +258,6 @@ export function createUiHydrationActions(set: UISliceSet, _get: UISliceGet): Par
           setupGuideBrowserMilestoneLegacyComplete:
             ui.setupGuideBrowserMilestoneLegacyComplete === true,
           browserImportHintHidden: ui.browserImportHintHidden === true,
-          mobileEmulatorTabIntroDismissed: ui.mobileEmulatorTabIntroDismissed === true,
-          mobileEmulatorAgentSetupDismissed: ui.mobileEmulatorAgentSetupDismissed === true,
           projectOrderManualDefaultNoticeDismissed:
             ui.projectOrderManualDefaultNoticeDismissed === true,
           // Why: treat only explicit true as dismissed so a false from migration still surfaces.

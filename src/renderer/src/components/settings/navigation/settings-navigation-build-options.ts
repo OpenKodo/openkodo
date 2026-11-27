@@ -14,7 +14,6 @@ export type SettingsNavigationBuildOptions = {
   hostQueuesMessages: boolean
   typedChatPermissions?: boolean
   managedBrowserCreationEnabled: boolean
-  mobileEmulatorCreationEnabled: boolean
   isDev: boolean
   isLinearConnected: boolean
   /** This computer or the default host serves `mcpServers.*`. */

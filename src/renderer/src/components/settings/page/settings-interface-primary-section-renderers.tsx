@@ -1,6 +1,5 @@
 import { BrowserPane } from '../browser/BrowserPane'
 import { FloatingWorkspacePane } from '../floating-workspaces/FloatingWorkspacePane'
-import { MobileEmulatorSettingsPane } from '../mobile/emulator/MobileEmulatorSettingsPane'
 import { QuickCommandsPane } from '../quick-commands/QuickCommandsPane'
 import { TerminalPane } from '../terminal/TerminalPane'
 import { SettingsSection } from '../section-layout/SettingsSection'
@@ -90,31 +89,6 @@ export function renderBrowserSettingsSection(
           settings={model.settings}
           updateSettings={model.updateSettings}
           onOpenComputerUse={actions.openComputerUseFromBrowser}
-        />
-      ) : null}
-    </SettingsSection>
-  ) : null
-}
-
-export function renderMobileEmulatorSettingsSection(
-  context: SettingsRenderContext,
-  t: Translate = translate
-): React.JSX.Element | null {
-  const { model, navigation, view } = context
-  return model.showDesktopOnlySettings ? (
-    <SettingsSection
-      id="mobile-emulator"
-      title={t('auto.components.settings.Settings.129ae9859c', 'Mobile emulator')}
-      description={t(
-        'auto.components.settings.Settings.01f9d36292',
-        'Configure mobile emulator support for OpenKodo and coding agents.'
-      )}
-      searchEntries={navigation.getSectionSearchEntries('mobile-emulator')}
-    >
-      {view.isSectionMounted('mobile-emulator') ? (
-        <MobileEmulatorSettingsPane
-          settings={model.settings}
-          updateSettings={model.updateSettings}
         />
       ) : null}
     </SettingsSection>

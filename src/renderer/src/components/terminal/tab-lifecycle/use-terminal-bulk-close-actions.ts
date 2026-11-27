@@ -96,8 +96,6 @@ export function useTerminalBulkCloseActions(
           closeBrowserTab(id, browserCloseOptions)
           // closeBrowserTab announces the MRU target before guest teardown can trigger bridge fallback.
           destroyWorkspaceWebviews(state.browserPagesByWorkspace, id)
-        } else if (unifiedTab?.contentType === 'simulator') {
-          state.closeUnifiedTab(unifiedTab.id)
         }
       }
       state.closeUnifiedTabs(closingEditorIds)

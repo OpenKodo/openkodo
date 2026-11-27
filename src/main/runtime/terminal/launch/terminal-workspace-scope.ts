@@ -20,10 +20,6 @@ import {
   resolveWorktreeHostRouting,
   resolveWorktreeLaunchHost
 } from '../../workspaces/catalog/worktree-launch-host-repo'
-import {
-  folderWorkspaceKey,
-  parseWorkspaceKey
-} from '../../../../shared/workspace/identity/workspace-scope'
 import type { FolderWorkspace } from '../../../../shared/folder-workspaces/folder-workspace-types'
 import { launchTargetGitSelector } from '../../workspaces/catalog/launch-target-git-selector'
 import type { ResolvedWorktree } from '../../workspaces/catalog/runtime-worktree-path-identity'
@@ -101,14 +97,6 @@ export abstract class OpenKodoRuntimeWithResolveBrowserNetworkExecutionHostForWo
         ? { sshState: getRegisteredSshState(parsedHost.targetId) }
         : {})
     })
-  }
-
-  protected async resolveEmulatorCleanupWorkspaceId(selector: string): Promise<string> {
-    const workspaceSelector = selector.startsWith('id:') ? selector.slice(3) : selector
-    const parsed = parseWorkspaceKey(workspaceSelector)
-    return parsed?.type === 'folder'
-      ? folderWorkspaceKey(parsed.folderWorkspaceId)
-      : this.resolveEmulatorWorkspaceId(selector)
   }
 
   // Floating terminals and chats must use the panel's configured floating directory.

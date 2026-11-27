@@ -6,7 +6,6 @@ import { createNonSecureContextUuid as createBrowserUuid } from '../../../../../
 import { createWebRuntimeSessionBrowserTab } from '@/runtime/browser/creation/web-runtime-browser-creation'
 import { createWebRuntimeSessionTerminal } from '@/runtime/hosted-terminals/creation/web-runtime-terminal-creation'
 import { isWebRuntimeSessionActive } from '@/runtime/web-session-tabs-sync/identity/web-runtime-session-environment'
-import { openMobileEmulatorTab } from '@/lib/simulator/launch/open-mobile-emulator-tab'
 import { persistAgentLaunchTabOrder } from '@/lib/agent-session/launch/pane/launch-agent-tab-order'
 import { buildDuplicatedBrowserTabOptions } from '@/lib/browser/workspace/duplicate-browser-tab-options'
 import { browserWorkspaceHasRemoteOwner } from '@/runtime/browser/ownership/remote-browser-tab-ownership'
@@ -63,19 +62,6 @@ export function useTerminalCreateActions(controller: TerminalColdActivationContr
     },
     [activeWorktreeId, createTab, openNewTerminalTabInActiveWorkspace, setActiveTabType]
   )
-
-  const handleNewSimulatorTab = useCallback(() => {
-    if (!activeWorktreeId) {
-      return
-    }
-    const targetGroupId =
-      useAppStore.getState().activeGroupIdByWorktree[activeWorktreeId] ??
-      useAppStore.getState().groupsByWorktree[activeWorktreeId]?.[0]?.id
-    void openMobileEmulatorTab(activeWorktreeId, {
-      placement: 'rightSplit',
-      targetGroupId: targetGroupId ?? undefined
-    }).catch(showClientCreationActionError)
-  }, [activeWorktreeId])
 
   const openNewBrowserTab = useCallback(
     (splitDirection?: TabSplitDirection) => {
@@ -190,7 +176,6 @@ export function useTerminalCreateActions(controller: TerminalColdActivationContr
 
   return {
     handleNewTab,
-    handleNewSimulatorTab,
     handleNewBrowserTab,
     handleNewBrowserTabSplitRight,
     handleOpenEntry,

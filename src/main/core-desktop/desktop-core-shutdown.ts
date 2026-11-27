@@ -36,7 +36,6 @@ const REF_MAINTENANCE_QUIT_DEADLINE_MS = 2_000
 export type DesktopCoreShutdownNative = {
   /** Before schedulers, plugins and sessions stop: native observers, diagnostics and tray. */
   afterPushStopped(): void
-  /** Before emulator stop and the final save: browser guests, cookies and routes. */
   retireBrowsers(): NamedQuitTeardown[]
   /** After the final-save chain starts: the usage child and paired browser client hosts. */
   stopUsageBackend(): Promise<void> | undefined
@@ -176,7 +175,6 @@ export function beginDesktopCoreShutdown(
   const botSlackIconRecordsFlush =
     runtime?.bots.slackIcons.shownRecords.finalSave() ?? Promise.resolve()
   const browserJoins = native.retireBrowsers()
-  const emulatorShutdown = runtime?.getEmulatorBridge()?.destroyAllSessions() ?? Promise.resolve()
   const finalStore = profile.store
   const beginSshShutdownAndFinalSave = (removalStopped: boolean) => {
     // Mark SSH leases detached synchronously immediately before final flush; no await may separate mutation from save.
@@ -246,7 +244,6 @@ export function beginDesktopCoreShutdown(
     ...browserJoins,
     { name: 'runtime-rpc', promise: rpcStopAndClear },
     { name: 'watchers', promise: watcherShutdown },
-    { name: 'emulator', promise: emulatorShutdown },
     ...browserClientHostJoins,
     { name: 'ssh', promise: sshShutdown },
     { name: 'plugin-hosts', promise: pluginHostShutdown },

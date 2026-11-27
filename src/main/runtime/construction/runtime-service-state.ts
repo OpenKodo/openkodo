@@ -19,7 +19,6 @@ import { RuntimeWorktreeLifecycleEvents } from '../workspaces/lifecycle/runtime-
 import type { RuntimeWorktreeLifecycleEvent } from '../workspaces/lifecycle/worktree-lifecycle-event'
 import type { AgentBrowserBridge } from '../../browser/agent-browser/agent-browser-bridge'
 import type { BrowserBackend } from '../../browser/browser-backend'
-import type { EmulatorBridge } from '../../emulator/emulator-bridge'
 import { RuntimeResolvedWorktreeCache } from '../workspaces/catalog/runtime-resolved-worktree-cache'
 import { BotWorktreeLineageController } from '../workspaces/lineage/runtime-bot-worktree-lineage-controller'
 import { createRuntimeAgentProjections } from './runtime-agent-projections'
@@ -93,8 +92,6 @@ export abstract class OpenKodoRuntimeWithStopRequestedPtyIds extends OpenKodoRun
   protected agentBrowserBridge: AgentBrowserBridge | null = null
 
   protected offscreenBrowserBackend: BrowserBackend | null = null
-
-  protected emulatorBridge: EmulatorBridge | null = null
 
   protected readonly resolvedWorktrees = new RuntimeResolvedWorktreeCache()
 

@@ -173,7 +173,6 @@ describe('a passive desktop control socket', () => {
         hasChatProviders: () => false,
         hasStagedMigration: () => false,
         automationsBusy: () => false,
-        emulatorsBusy: async () => false,
         activationFenceExists: async () => false
       },
       stop: () => {

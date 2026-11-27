@@ -1652,9 +1652,7 @@
       },
       "ensure": {
         "simulator": {
-          "tab": {
-            "372d21d428": "手機模擬器"
-          }
+          "tab": {}
         }
       },
       "fix": {
@@ -1731,9 +1729,7 @@
         },
         "mobile": {
           "emulator": {
-            "tab": {
-              "bf4f2a8a72": "無法啟動模擬器。請檢查 iOS 或 Android 模擬器設定，然後嘗試其他裝置。"
-            }
+            "tab": {}
           }
         }
       },
@@ -2231,8 +2227,6 @@
         "93d88d20bf": "外觀",
         "2d0659f6f0": "全域終端機、瀏覽器和 Markdown 分頁。",
         "65b19f5bde": "浮動工作區",
-        "3d65d3f1b9": "設定 OpenKodo 和程式開發代理程式的手機模擬器支援。",
-        "1e761cff2b": "手機模擬器",
         "e815fd01bd": "首頁、連結路由和工作階段 cookie。",
         "8c197f74a1": "瀏覽器",
         "42ae40842f": "已儲存的終端機命令，可套用至全域或個別專案。",
@@ -3463,7 +3457,6 @@
         "c4afa68159": "可搜尋工作樹、專案、設定、操作、分頁標題、代理程式提示詞、URL、PR 或連接埠。",
         "dbd9d87eec": "沒有結果符合您的搜尋",
         "2c38630a01": "工作區不再存在",
-        "7726ce9970": "手機模擬器分頁不再存在",
         "d7d496a451": "瀏覽器頁面不再存在",
         "50a1d11d5b": "已開啟的分頁",
         "088d66d980": "操作與設定",
@@ -4484,8 +4477,6 @@
             "b1a132357f": "新分頁",
             "4f327c8b3d": "開啟 Markdown...",
             "3d5d6c960d": "新 Markdown",
-            "fd2b42aaa3": "新的手機模擬器",
-            "b426bb2615": "轉到手機模擬器",
             "4833fb2cbe": "新瀏覽器分頁",
             "d364f3c8d4": "新終端機",
             "7c1313d237": "新終端機：",
@@ -4505,7 +4496,6 @@
             "2c38630a01": "工作區已不存在",
             "4f0d9a71c2": "分頁已不存在",
             "d7d496a451": "瀏覽器頁面已不存在",
-            "7726ce9970": "行動模擬器分頁已不存在",
             "chooseAction": "請選擇一項操作。",
             "searchProvider": "使用 {{value0}} 搜尋",
             "openPage": "開啟頁面",
@@ -4565,14 +4555,7 @@
                   "6d8b6b4117": "新檔案",
                   "b330f72434": "markdown",
                   "37ff3ddca1": "開啟 markdown",
-                  "164c394bab": "開啟檔案",
-                  "bbaf4f85a4": "行動裝置模擬器",
-                  "3784b83bd4": "模擬器",
-                  "a63847a742": "模擬器",
-                  "1baeb07c17": "iOS 模擬器",
-                  "8a580f88cf": "iPhone",
-                  "7ecdc5ef08": "iPad",
-                  "14965cc123": "行動版"
+                  "164c394bab": "開啟檔案"
                 }
               }
             }
@@ -8323,41 +8306,9 @@
           "detectedServers_other": "已偵測到 {{detected}} 個 · {{count}} 個伺服器",
           "283bebb198": "MCP 設定檔"
         },
-        "MobileEmulatorAgentControlRow": {
-          "8af7a8bc38": "命令會作用於目前工作樹中使用中的模擬器。座標會正規化至 0..1 範圍。",
-          "c7f3fe0a6e": "常用模擬器命令",
-          "d94ca6a623": "使代理程式能夠使用 OpenKodo CLI 命令，包括手機模擬器控制。",
-          "67e19ee03c": "OpenKodo CLI 技能",
-          "ff4b7e65d6": "讓程式開發代理程式使用 OpenKodo CLI 命令控制使用中的手機模擬器。",
-          "10243e70ff": "代理程式控制手機模擬器"
-        },
-        "MobileEmulatorExamples": {
-          "edf13dd03b": "複製",
-          "c12b253997": "複製範例提示詞",
-          "d151e25078": "」",
-          "b525ff2b12": "「",
-          "4daa95f25a": "將其中任何內容貼上到安裝了 OpenKodo CLI 技能的專案中的 Claude Code、Codex 或其他代理程式中。",
-          "0820b3f84f": "嘗試一下 — 範例提示詞",
-          "1f608e7d60": "複製提示詞失敗。",
-          "2b077b5544": "已複製提示詞。"
-        },
-        "MobileEmulatorSettingsPane": {
-          "19d39113b6": "讓程式開發代理程式使用 OpenKodo CLI 命令控制使用中的手機模擬器。",
-          "8aec2f99a0": "重新整理模擬器可用性",
-          "ae1612c58c": "可用性",
-          "f9af91ea26": "顯示「新增手機模擬器」操作，並允許代理程式連線至使用中的模擬器。",
-          "bc39d0f115": "設定對 OpenKodo 和程式開發代理程式的手機模擬器支援。",
-          "a4f1c82d90": "已停用",
-          "b5e2d93e01": "檢查中...",
-          "c6f3ea4f12": "就緒",
-          "d704fb5023": "需要設定",
-          "06b06429c6": "正在檢查 Android SDK 和 iOS Simulator 支援。",
-          "6d1483d4a0": "偵測到 1 個模擬器裝置。",
-          "0a452d4d3b": "偵測到 {{value0}} 個模擬器裝置。",
-          "d2d8632e0d": "手機模擬器",
-          "b1e5af97e9": "啟用手機模擬器",
-          "fd698d2d47": "代理程式控制手機模擬器"
-        },
+        "MobileEmulatorAgentControlRow": {},
+        "MobileEmulatorExamples": {},
+        "MobileEmulatorSettingsPane": {},
         "MobileNetworkInterfaceSection": {
           "b2c384cfd6": "沒有找到介面"
         },
@@ -8931,7 +8882,6 @@
           "6d1a27e193": "主題、縮放、應用程式和終端機外觀、側邊欄和狀態列。",
           "2b4474780a": "外觀",
           "3d9adfe6a5": "全域終端機、瀏覽器和 Markdown 分頁。",
-          "01f9d36292": "設定 OpenKodo 和程式開發代理程式的手機模擬器支援。",
           "ad9788036f": "首頁、連結路由和工作階段 cookie。",
           "c46215ea03": "瀏覽器",
           "6742c7932c": "已儲存的終端機命令，可供全域或個別專案使用。",
@@ -8969,7 +8919,6 @@
           "noSettingsFoundForQuery": "找不到符合「{{value0}}」的設定",
           "045db77e21": "SSH 遠端主機",
           "c0900fa64a": "任務來源",
-          "129ae9859c": "手機模擬器",
           "022effa46f": "遠端 OpenKodo 伺服器",
           "d09b9d8f00": "Git 和原始碼控制",
           "3eac6fb97f": "開發工具",
@@ -10494,44 +10443,7 @@
         },
         "mobile": {
           "emulator": {
-            "search": {
-              "2348045036": "選擇 OpenKodo 預設開啟的模擬器裝置。",
-              "2bb2e09225": "手機技能",
-              "bbe4267416": "模擬器類型",
-              "64494f03c3": "模擬器附加",
-              "6f728f1456": "模擬器點按",
-              "f8b871d655": "代理程式 CLI",
-              "2e0b45b2ba": "使用 OpenKodo CLI 命令列出及附加手機模擬器，並在其中點按及輸入文字。",
-              "8ef0f08d36": "執行階段",
-              "27397fe8e9": "xcode 命令列工具",
-              "7650063d17": "simctl",
-              "3211e7acf9": "xcrun",
-              "42bfab45d8": "可用性",
-              "ea1f51b980": "檢查 Xcode、simctl、serve-sim 和模擬器裝置是否準備就緒。",
-              "04c5f5d901": "裝置",
-              "25d7bfbcd4": "UDID",
-              "ec3c4043fd": "預設 ipad",
-              "1dc8c52ffa": "預設 iPhone",
-              "ab4814f3c5": "預設模擬器",
-              "b8ddd13195": "代理程式模擬器",
-              "1ad6fb6230": "預設裝置",
-              "ac0a985873": "模擬器技能",
-              "9353854ff3": "OpenKodo 模擬器",
-              "d4b7833894": "OpenKodo CLI",
-              "84e5706975": "serve-sim",
-              "7c5a8a2bee": "Xcode",
-              "bec7231663": "iPad",
-              "49727355a3": "iPhone",
-              "6b6407dc1f": "模擬器",
-              "2d67f708ce": "模擬器",
-              "c5eca29310": "ios 模擬器",
-              "25159de808": "手機模擬器",
-              "9595354cff": "設定 OpenKodo 和程式設計代理程式的手機模擬器支援。",
-              "de556a0911": "模擬器可用性",
-              "b8c9f903eb": "預設模擬器裝置",
-              "0d6e7dba38": "代理程式 CLI 控制",
-              "f8468700d1": "手機模擬器"
-            }
+            "search": {}
           },
           "pane": {
             "search": {
@@ -11591,19 +11503,7 @@
           "distroRequired": "專案繼承 WSL 前，請先選擇一個 WSL 發行版。",
           "wslDescription": "對於未覆寫執行環境的專案，透過 WSL 在 {{value0}} 中偵測並啟動代理程式。"
         },
-        "MobileEmulatorSdkStatus": {
-          "027cbf668a": "Android SDK",
-          "f6d080d128": "正在使用設定的路徑",
-          "7fe4bd5907": "偵測位置",
-          "2784f0b22d": "未找到。請安裝 Android Studio，然後建立虛擬裝置。",
-          "b94ff260e6": "下載 Android Studio",
-          "18925b082d": "定位 SDK 資料夾",
-          "8c52684db8": "清除",
-          "76eb88b88e": "iOS 模擬器 (Xcode)",
-          "c6f3ea4f12": "已就緒",
-          "e4f14b50d7": "請安裝 Xcode 並新增 iOS 模擬器執行環境。",
-          "63fe73a1ea": "無法更新 Android SDK 資料夾。"
-        },
+        "MobileEmulatorSdkStatus": {},
         "AppearanceAdvancedDisclosure": {
           "advanced": "進階"
         },
@@ -15990,83 +15890,40 @@
       },
       "emulator": {
         "pane": {
-          "EmulatorPane": {
-            "59b08fa031": "沒有已連線的模擬器"
-          },
+          "EmulatorPane": {},
           "emulator": {
             "device": {
-              "frame": {
-                "9406c15775": "模擬器螢幕",
-                "8f25ffaf8a": "模擬器螢幕，已擷取鍵盤輸入。按 Escape 鍵釋放。"
-              }
+              "frame": {}
             },
             "pane": {
-              "toolbar": {
-                "06e10d7356": "關閉模擬器",
-                "e7a0d1897e": "主畫面",
-                "6bd8dff42a": "旋轉",
-                "81b3571a07": "連線",
-                "868c0f2938": "處理中…"
-              }
+              "toolbar": {}
             },
             "screen": {
               "stream": {
-                "content": {
-                  "8b1a0d8694": "模擬器預覽",
-                  "36841af608": "串流已中斷連線",
-                  "5f818f12ab": "正在連線模擬器...",
-                  "5ee64cd44e": "模擬器螢幕"
-                }
+                "content": {}
               }
             }
           },
           "use": {
             "emulator": {
               "frame": {
-                "stream": {
-                  "f1c0179002": "串流未產生影格。"
-                }
+                "stream": {}
               }
             },
             "mobile": {
               "emulator": {
                 "agent": {
                   "setup": {
-                    "state": {
-                      "35dea1ae12": "代理程式控制已就緒。",
-                      "skillNotInstalled": "OpenKodo CLI 技能尚未安裝。",
-                      "c94ff11e91": "無法重新檢查設定狀態。"
-                    }
+                    "state": {}
                   }
                 }
               }
             }
           },
-          "MobileEmulatorAgentSetupGuide": {
-            "2fda9ff015": "設定代理程式控制",
-            "0ac0fef514": "代理程式控制已就緒。",
-            "2bdfff8763": "代理程式控制（可選）。",
-            "d10ae98046": "完成",
-            "3756cbeca7": "暫不",
-            "6d950431d2": "隱藏",
-            "ebceac65a4": "設定",
-            "installSkillPrompt": "如需讓代理程式操作此模擬器，請安裝 OpenKodo CLI 技能。",
-            "3f003507f4": "開啟設定"
-          },
-          "MobileEmulatorAgentSetupGuideSteps": {
-            "21f5687c07": "OpenKodo CLI 技能",
-            "64fb057667": "教導代理程式使用此工作樹的 openkodo emulator 命令。"
-          },
-          "MobileEmulatorTabIntroCallout": {
-            "1924982130": "關閉",
-            "5789936d9a": "在代理程式控制螢幕時預覽 iOS 模擬器。",
-            "8014b4b80b": "保留",
-            "6e051a40b7": "隱藏"
-          },
-          "useEmulatorScreenKeyboard": {
-            "pasteTooLarge": "模擬器鍵盤輸入的貼上內容過大。",
-            "pasteTargetUnavailable": "模擬器鍵盤貼上失敗，因為裝置尚未就緒。"
-          }
+          "MobileEmulatorAgentSetupGuide": {},
+          "MobileEmulatorAgentSetupGuideSteps": {},
+          "MobileEmulatorTabIntroCallout": {},
+          "useEmulatorScreenKeyboard": {}
         }
       },
       "editor": {
@@ -23386,7 +23243,6 @@
       "tabNewTerminal": "新增終端機分頁",
       "tabNewAgent": "新增代理程式分頁（預設代理程式）",
       "tabNewBrowser": "新增瀏覽器分頁",
-      "tabNewSimulator": "新增行動裝置模擬器分頁",
       "tabNewMarkdown": "新增 Markdown 分頁",
       "tabOpenMarkdown": "開啟 Markdown 分頁",
       "tabClose": "關閉目前分頁",
@@ -24221,67 +24077,11 @@
     }
   },
   "emulator": {
-    "errors": {
-      "disabled": "手機模擬器已在設定中停用。",
-      "notAvailable": "手機模擬器無法使用。",
-      "noSession": "沒有作用中的模擬器工作階段",
-      "noDeviceSpecified": "未指定模擬器裝置。請在設定 > 手機模擬器中選擇預設裝置，或傳入裝置。",
-      "workspaceChanged": "模擬器啟動期間工作區已變更。請重新連接模擬器。",
-      "noIosSimulators": "找不到 iOS 模擬器。請在 Xcode Settings > Platforms 中新增一個。",
-      "simctlUnavailable": "無法使用 xcrun simctl。",
-      "simulatorToolsUnavailable": "無法使用 Xcode Simulator 工具。請安裝完整版 Xcode，開啟一次，然後使用 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 選取它。",
-      "requiresMacosXcode": "iOS 模擬器需要已安裝 Xcode Command Line Tools 的 macOS。",
-      "simulatorNotFound": "找不到模擬器 {{udid}}。請透過 Xcode > Window > Devices and Simulators 建立一個。",
-      "serveSimUnavailable": "無法使用 serve-sim。",
-      "serveSimNoEndpoints": "serve-sim 未傳回串流端點。",
-      "serveSimEndpointUnreachable": "serve-sim 已啟動，但無法連線至其串流端點。",
-      "deviceHubInputBlocked": "Xcode 的 Device Hub 已接管此模擬器的輸入，因此點按和輸入都無法送達。請結束 Device Hub，然後重新連接模擬器。",
-      "androidSdkMissing": "找不到 Android SDK。請安裝 Android Studio 並設定 ANDROID_HOME。",
-      "adbUnavailable": "無法使用 adb。",
-      "noAndroidDevices": "找不到 Android 裝置或 AVD。請在 Android Studio 中建立一個。",
-      "androidDeviceNotRunning": "Android 裝置「{{device}}」尚未執行。請先啟動它。",
-      "unknownDeviceOrAvd": "「{{device}}」不是正在執行的裝置，也不是已知的 AVD。",
-      "avdBootTimeout": "AVD「{{avdName}}」未在時限內完成啟動。",
-      "avdExitedBeforeBoot": "AVD「{{avdName}}」在完成啟動前已停止：{{detail}}",
-      "scrcpyDownloadFailed": "無法下載 scrcpy 伺服器：{{detail}}",
-      "scrcpyServerInvalid": "下載的 scrcpy 伺服器無效或不完整。"
-    },
-    "pane": {
-      "listDevicesFailed": "無法列出模擬器裝置。",
-      "noDevices": "找不到模擬器裝置。請在 Xcode 中新增 iOS 模擬器，或在 Android Studio 中新增 Android 虛擬裝置。",
-      "startFailed": "無法啟動模擬器。請確認已設定好 Xcode（iOS）或 Android Studio（Android），然後嘗試其他裝置。",
-      "shutdownFailed": "無法關閉模擬器。請重試，或從模擬器管理程式停止它。"
-    },
-    "settings": {
-      "availabilityCheckFailed": "無法檢查模擬器是否可用。"
-    },
-    "opening": {
-      "when": "開啟時",
-      "description": "適用於此電腦上的新模擬器分頁。現有工作區工作階段會保持連線。",
-      "lastUsed": "上次使用的裝置",
-      "ask": "每次詢問",
-      "specific": "指定裝置",
-      "fixed": "預設裝置",
-      "fixedDescription": "選擇現有裝置。如果裝置遺失或無法使用，系統會提示選擇其他裝置，而不會啟動不同的平台。",
-      "choose": "選擇裝置",
-      "notFound": "找不到",
-      "missing": "儲存的裝置已不在此電腦上。請選擇其他裝置。",
-      "unavailable": "儲存的裝置執行階段無法使用。請選擇其他裝置或安裝其執行階段。",
-      "askPrompt": "選擇要開啟的裝置。",
-      "firstUse": "選擇第一部裝置。OpenKodo 會記住在此電腦上成功選取的裝置。"
-    },
-    "picker": {
-      "choose": "選擇模擬器",
-      "search": "搜尋裝置…",
-      "empty": "沒有符合的裝置",
-      "used": "使用過的裝置",
-      "other": "此電腦上的其他裝置",
-      "unavailable": "無法使用的執行階段",
-      "runtimeUnavailable": "執行階段無法使用",
-      "running": "執行中",
-      "starting": "正在啟動",
-      "stopped": "已停止"
-    }
+    "errors": {},
+    "pane": {},
+    "settings": {},
+    "opening": {},
+    "picker": {}
   },
   "ephemeralVm": {
     "errors": {

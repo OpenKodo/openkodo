@@ -159,14 +159,6 @@ export function useTerminalWorktreePrewarm(controller: TerminalColdActivationCon
       }
       narrowingUndo.flush(worktreeId)
       const state = useAppStore.getState()
-      // Restricting the surface drops its emulator overlay and loses the simulator's local state.
-      if (
-        (state.unifiedTabsByWorktree[worktreeId] ?? []).some(
-          (tab) => tab.contentType === 'simulator'
-        )
-      ) {
-        return
-      }
       const mounted = c.mountedWorktreeIdsRef.current.has(worktreeId)
       const restrictions = c.backgroundMountTabIdsByWorktreeRef.current
       const parked = c.effectiveParkedTerminalWorktreeIds.has(worktreeId)

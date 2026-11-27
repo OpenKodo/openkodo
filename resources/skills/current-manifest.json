@@ -50,38 +50,6 @@
       ]
     },
     {
-      "name": "openkodo-emulator",
-      "sourcePath": "skills/openkodo-emulator",
-      "packageDigest": "e0df87f4bf275eca2b619168f65bde68bd17e88169b4ee0c71b3f116d7f8c580",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "size": 2723,
-          "executable": false,
-          "classification": "text",
-          "exactSha256": "14a17c14e2cd1734f3b1c013b7ff22204ed2875e8d651297c2080cd4d99debe0",
-          "textNormalizedSha256": "14a17c14e2cd1734f3b1c013b7ff22204ed2875e8d651297c2080cd4d99debe0",
-          "identitySha256": "14a17c14e2cd1734f3b1c013b7ff22204ed2875e8d651297c2080cd4d99debe0"
-        }
-      ]
-    },
-    {
-      "name": "openkodo-emulator-android",
-      "sourcePath": "skills/openkodo-emulator-android",
-      "packageDigest": "e82f65df1e1f8869a5cfd158305f662e9ffb73e07cc3df1a8c95dfba039d800b",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "size": 2612,
-          "executable": false,
-          "classification": "text",
-          "exactSha256": "0cdd2a82530bf32df48b0a6e1c26ec7a8b28e7eb20e53dc35d771ce12b31d32b",
-          "textNormalizedSha256": "0cdd2a82530bf32df48b0a6e1c26ec7a8b28e7eb20e53dc35d771ce12b31d32b",
-          "identitySha256": "0cdd2a82530bf32df48b0a6e1c26ec7a8b28e7eb20e53dc35d771ce12b31d32b"
-        }
-      ]
-    },
-    {
       "name": "openkodo-jira",
       "sourcePath": "skills/openkodo-jira",
       "packageDigest": "89a3021c4480167dacf9904fe53411f1e19b49b5d78a2ce301bea3302f78c9ec",

@@ -14,9 +14,6 @@ export function layoutHoldsOnlyOverlayViews(
   const tabs = useAppStore.getState().unifiedTabsByWorktree[worktreeId] ?? []
   const tabById = new Map<string, (typeof tabs)[number]>()
   for (const tab of tabs) {
-    if (tab.contentType === 'simulator') {
-      return false
-    }
     tabById.set(tab.id, tab)
   }
   return groups.every((group) => {

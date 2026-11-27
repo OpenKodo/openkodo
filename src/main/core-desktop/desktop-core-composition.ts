@@ -9,7 +9,6 @@ import type { OpenKodoRuntimeService } from '../runtime/openkodo-runtime'
 import type { AgentBrowserBridge } from '../browser/agent-browser/agent-browser-bridge'
 import type { BrowserClientPageAutomationRpc } from '../browser/client-pages/execution/browser-client-page-automation-runtime'
 import { StarNagService } from '../star-nag/service'
-import { EmulatorBridge } from '../emulator/emulator-bridge'
 import { RpcDispatcher } from '../runtime/rpc/dispatcher'
 import {
   DESKTOP_RPC_CALLER,
@@ -152,11 +151,7 @@ function startCoreObservers(core: DesktopCore, store: Store, deps: DesktopCoreCo
   core.codexUsage = usage.codexUsage
 }
 
-function startBrowserAutomation(
-  core: DesktopCore,
-  runtime: OpenKodoRuntimeService,
-  native: DesktopCoreNative
-): void {
+function startBrowserAutomation(runtime: OpenKodoRuntimeService, native: DesktopCoreNative): void {
   const agentBrowserBridge = native.createAgentBrowserBridge((worktreeId) =>
     runtime.notifyMobileSessionTabsChanged(worktreeId)
   )
@@ -179,9 +174,6 @@ function startBrowserAutomation(
     }
     return response.result
   })
-  // Only OpenKodo-managed emulator helpers belong to workspaces; external serve-sim stays independent. macOS capability gates live in CLI/runtime.
-  core.emulatorBridge = new EmulatorBridge()
-  runtime.setEmulatorBridge(core.emulatorBridge)
 }
 
 function scheduleDeferredMaintenance(
@@ -277,7 +269,7 @@ export async function composeDesktopCore(
   core.starNag = new StarNagService(store, core.stats!)
   core.starNag.start()
   core.starNag.registerIpcHandlers()
-  startBrowserAutomation(core, runtime, native)
+  startBrowserAutomation(runtime, native)
   let releaseProviderMaintenance: () => void = () => {}
   const providerMaintenanceReady = new Promise<void>((resolve) => {
     releaseProviderMaintenance = resolve

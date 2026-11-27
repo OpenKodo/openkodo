@@ -1,7 +1,6 @@
 import { createPortal } from 'react-dom'
 import type { TerminalTab } from '../../../../../shared/workspace-layout/terminal-tab-types'
 import { useAppStore } from '../../../store/index'
-import { selectActiveTabForWorktree } from '../../../store/slices/tabs/active-tab-selection'
 import TabBar from '../../tab-bar/TabBar'
 import type { TerminalController } from './use-terminal-controller'
 
@@ -39,16 +38,13 @@ export function TerminalTitlebarTabs({
     handleDuplicateBrowserTab,
     handleNewBrowserTab,
     handleNewFile,
-    handleNewSimulatorTab,
     handleNewTab,
     handleOpenEntry,
     handleTogglePaneExpand,
     makePreviewFilePermanent,
-    mobileEmulatorEnabled,
     pinFile,
     renderedActiveWorktreeId,
     setActiveFile,
-    setActiveTab,
     setActiveTabType,
     setTabColor,
     setTabCustomTitle,
@@ -58,11 +54,6 @@ export function TerminalTitlebarTabs({
     worktreeClientHostedBrowserRows,
     worktreeFiles
   } = controller
-  const activeSimulatorTabId = useAppStore((state) =>
-    activeTabType === 'simulator' && renderedActiveWorktreeId
-      ? (selectActiveTabForWorktree(state, renderedActiveWorktreeId)?.id ?? null)
-      : null
-  )
   if (!renderedActiveWorktreeId || effectiveActiveLayout || !titlebarTabsTarget) {
     return null
   }
@@ -78,7 +69,6 @@ export function TerminalTitlebarTabs({
       onNewTerminalTab={() => handleNewTab()}
       onNewTerminalWithShell={handleNewTab}
       onNewBrowserTab={handleNewBrowserTab}
-      onNewSimulatorTab={mobileEmulatorEnabled ? handleNewSimulatorTab : undefined}
       onOpenEntry={handleOpenEntry}
       onNewFileTab={handleNewFile}
       onSetCustomTitle={setTabCustomTitle}
@@ -90,17 +80,8 @@ export function TerminalTitlebarTabs({
       clientHostedBrowserRows={worktreeClientHostedBrowserRows}
       activeFileId={activeFileId}
       activeBrowserTabId={activeBrowserTabId}
-      activeSimulatorTabId={activeSimulatorTabId}
       activeTabType={activeTabType}
       onActivateFile={(fileId) => {
-        const unifiedTabs =
-          useAppStore.getState().unifiedTabsByWorktree[renderedActiveWorktreeId ?? ''] ?? []
-        const unifiedTab = unifiedTabs.find((tab) => tab.id === fileId)
-        if (unifiedTab?.contentType === 'simulator') {
-          setActiveTab(fileId)
-          setActiveTabType('simulator', renderedActiveWorktreeId)
-          return
-        }
         setActiveFile(fileId)
         setActiveTabType('editor', renderedActiveWorktreeId)
       }}

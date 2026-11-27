@@ -18,7 +18,6 @@ import {
   forwardGuestShortcutInput,
   type GuestShortcutForwardContext,
   type GuestShortcutInput,
-  type IsMobileEmulatorEnabled,
   type ShouldForwardDictationShortcut
 } from './browser-guest-shortcut-dispatch'
 
@@ -30,7 +29,6 @@ export function setupGuestShortcutForwarding(args: {
   resolveRenderer: ResolveRenderer
   isLocalRenderer?: (renderer: Electron.WebContents) => boolean
   shouldForwardDictationShortcut?: ShouldForwardDictationShortcut
-  isMobileEmulatorEnabled?: IsMobileEmulatorEnabled
   getKeybindings?: () => KeybindingOverrides | undefined
   resolveWorktreeId?: (browserTabId: string) => string | null
   resolveWorkspaceId?: (browserTabId: string) => string | null
@@ -43,7 +41,6 @@ export function setupGuestShortcutForwarding(args: {
     resolveRenderer,
     isLocalRenderer,
     shouldForwardDictationShortcut,
-    isMobileEmulatorEnabled,
     getKeybindings,
     resolveWorktreeId,
     resolveWorkspaceId,
@@ -58,7 +55,6 @@ export function setupGuestShortcutForwarding(args: {
     resolveRenderer,
     isLocalRenderer,
     shouldForwardDictationShortcut,
-    isMobileEmulatorEnabled,
     getKeybindings,
     resolveWorktreeId,
     resolveWorkspaceId,

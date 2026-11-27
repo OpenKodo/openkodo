@@ -43,10 +43,8 @@ export function handleTerminalWorkspaceKeyDown(
     handleNewBrowserTab,
     handleNewBrowserTabSplitRight,
     handleNewFile,
-    handleNewSimulatorTab,
     handleNewTab,
     keybindings,
-    mobileEmulatorEnabled,
     terminalShortcutPolicy
   } = controller
   // Let the focused Settings recorder capture shortcuts without executing them.
@@ -147,17 +145,6 @@ export function handleTerminalWorkspaceKeyDown(
       ensureClientCreationActionAllowed(activeWorktreeId, 'managed-browser')
     ) {
       handleNewBrowserTabSplitRight()
-    }
-    return
-  }
-  if (!event.repeat && mobileEmulatorEnabled && matchShortcut('tab.newSimulator')) {
-    event.preventDefault()
-    notifyTerminalCapture('tab.newSimulator')
-    if (!ensureClientCreationActionAllowed(activeWorktreeId, 'mobile-emulator')) {
-      return
-    }
-    if (!floatingWorkspaceFocused) {
-      handleNewSimulatorTab()
     }
     return
   }

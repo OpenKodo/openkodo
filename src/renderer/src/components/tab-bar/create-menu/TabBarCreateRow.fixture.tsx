@@ -9,7 +9,6 @@ import {
   PenTool,
   Presentation,
   Sheet,
-  Smartphone,
   TerminalSquare,
   Workflow,
   type LucideIcon
@@ -57,13 +56,6 @@ const BUILT_IN: TabBarCreateRowItem[] = [
     label: 'Open Markdown...',
     icon: <FileText className={ICON} />,
     actionId: 'tab.openMarkdown',
-    run: noop
-  },
-  {
-    id: 'mobile-emulator',
-    label: 'New Mobile Emulator',
-    icon: <Smartphone className={ICON} />,
-    actionId: 'tab.newSimulator',
     run: noop
   }
 ]

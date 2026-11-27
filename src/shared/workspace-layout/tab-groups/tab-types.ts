@@ -24,16 +24,10 @@ export type TabContentType =
   | 'git-graph'
   | 'agent-session'
   | 'browser'
-  | 'simulator'
   /** A bot group's room; its entity is the group id. */
   | 'room'
 
-export type WorkspaceVisibleTabType =
-  | 'terminal'
-  | 'editor'
-  | 'agent-session'
-  | 'browser'
-  | 'simulator'
+export type WorkspaceVisibleTabType = 'terminal' | 'editor' | 'agent-session' | 'browser'
 export type CtrlTabOrderMode = 'mru' | 'sequential'
 
 /** What each tab kind is, in one place, so a new kind must state every trait. */
@@ -54,7 +48,6 @@ export const TAB_CONTENT_TRAITS: Record<
   'git-graph': { renderableWithoutRecord: false, visibleType: 'editor' },
   'agent-session': { renderableWithoutRecord: true, visibleType: 'agent-session' },
   browser: { renderableWithoutRecord: false, visibleType: 'browser' },
-  simulator: { renderableWithoutRecord: true, visibleType: 'simulator' },
   // A room is a chat surface, shown where an agent chat is.
   room: { renderableWithoutRecord: true, visibleType: 'agent-session' }
 }

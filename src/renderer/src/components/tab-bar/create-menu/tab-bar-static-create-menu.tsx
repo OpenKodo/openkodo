@@ -1,37 +1,24 @@
 import React from 'react'
-import { FilePlus, FileText, Globe, Smartphone, TerminalSquare } from 'lucide-react'
+import { FilePlus, FileText, Globe, TerminalSquare } from 'lucide-react'
 import { useTranslate } from '@/i18n/use-translate'
-import { MobileEmulatorTabIntroCallout } from '../../emulator-pane/tab-intro/MobileEmulatorTabIntroCallout'
-import { NewTabMenuTipSlot } from '../menu-fit/NewTabMenuTipSlot'
 import { ShellIcon } from '../../terminal/shells/ShellIcon'
 import { useAppStore } from '@/store/index'
 import { usePluginNewFiles } from '@/store/plugins/file-creation/plugin-new-files'
 import { PluginContributionIcon } from '../../plugins/PluginContributionIcon'
 import type { WindowsShellMenuEntry } from './tab-bar-windows-shell-options'
-import {
-  isMacOs,
-  type resolveWindowsPowerShellImplementationSetting
-} from '../model/use-tab-bar-runtime-model'
+import type { resolveWindowsPowerShellImplementationSetting } from '../model/use-tab-bar-runtime-model'
 import type { TabBarProps } from '../tab-bar-props'
 import { resolveWindowsShellLaunchTarget } from './windows-shell-launch'
 import { TabBarCreateRow } from './TabBarCreateRow'
 import { NEW_TAB_MENU_LAYOUT_SETTING } from '../../../../../shared/new-tab-menu/new-tab-menu-layout'
-import {
-  CREATE_ROW_MOBILE_EMULATOR_ID,
-  CREATE_ROW_TERMINAL_ID,
-  type TabBarCreateRowItem
-} from './tab-bar-create-row-item'
+import { CREATE_ROW_TERMINAL_ID, type TabBarCreateRowItem } from './tab-bar-create-row-item'
 
 const ICON_CLASS = 'size-4'
 
 export function TabBarStaticCreateMenu({
   groupId,
   terminalOnly,
-  mobileEmulatorEnabled,
   managedBrowserCreationEnabled,
-  mobileEmulatorCreationEnabled,
-  workspaceHasSimulatorTab,
-  showMobileEmulatorIntroCallout,
   props,
   windowsShellEntries,
   defaultWindowsPowerShellImplementation,
@@ -41,11 +28,7 @@ export function TabBarStaticCreateMenu({
   props: TabBarProps
   groupId: string
   terminalOnly: boolean
-  mobileEmulatorEnabled: boolean
   managedBrowserCreationEnabled: boolean
-  mobileEmulatorCreationEnabled: boolean
-  workspaceHasSimulatorTab: boolean
-  showMobileEmulatorIntroCallout: boolean
   windowsShellEntries: WindowsShellMenuEntry[] | undefined
   defaultWindowsPowerShellImplementation: ReturnType<
     typeof resolveWindowsPowerShellImplementationSetting
@@ -59,12 +42,10 @@ export function TabBarStaticCreateMenu({
     onNewTerminalTab,
     onNewTerminalWithShell,
     onNewBrowserTab,
-    onNewSimulatorTab,
     onNewFileTab,
     onOpenFileTab
   } = props
   const pluginNewFiles = usePluginNewFiles()
-  const simulatorAvailable = !terminalOnly && mobileEmulatorEnabled && mobileEmulatorCreationEnabled
 
   const terminalItems: TabBarCreateRowItem[] =
     windowsShellEntries && onNewTerminalWithShell
@@ -152,67 +133,16 @@ export function TabBarStaticCreateMenu({
           }
         ]
       : []
-  const simulatorItems: TabBarCreateRowItem[] =
-    onNewSimulatorTab && simulatorAvailable
-      ? [
-          {
-            id: CREATE_ROW_MOBILE_EMULATOR_ID,
-            label: workspaceHasSimulatorTab
-              ? t('auto.components.tab.bar.TabBar.b426bb2615', 'Go to Mobile Emulator')
-              : t('auto.components.tab.bar.TabBar.fd2b42aaa3', 'New Mobile Emulator'),
-            icon: <Smartphone className={ICON_CLASS} />,
-            actionId: 'tab.newSimulator',
-            run: onNewSimulatorTab
-          }
-        ]
-      : // Only surfaces that can host an emulator offer turning it back on.
-        newTabMenuSurface === 'tab-bar' &&
-          !terminalOnly &&
-          !mobileEmulatorEnabled &&
-          mobileEmulatorCreationEnabled
-        ? [
-            {
-              // Why: the customizer is where people look for a missing icon, so it can turn the feature back on.
-              id: CREATE_ROW_MOBILE_EMULATOR_ID,
-              label: t('auto.components.tab.bar.TabBar.fd2b42aaa3', 'New Mobile Emulator'),
-              icon: <Smartphone className={ICON_CLASS} />,
-              actionId: 'tab.newSimulator',
-              run: () => {},
-              enable: () => useAppStore.getState().updateSettings({ mobileEmulatorEnabled: true })
-            }
-          ]
-        : []
   const items =
     newTabMenuSurface === 'floating-panel'
-      ? [
-          ...markdownItems,
-          ...openMarkdownItems,
-          ...terminalItems,
-          ...browserItems,
-          ...simulatorItems
-        ]
-      : [
-          ...terminalItems,
-          ...browserItems,
-          ...markdownItems,
-          ...openMarkdownItems,
-          ...simulatorItems
-        ]
+      ? [...markdownItems, ...openMarkdownItems, ...terminalItems, ...browserItems]
+      : [...terminalItems, ...browserItems, ...markdownItems, ...openMarkdownItems]
 
   return (
     <TabBarCreateRow
       items={items}
       customizable={!terminalOnly}
       layoutSetting={NEW_TAB_MENU_LAYOUT_SETTING[newTabMenuSurface]}
-      renderBelow={(shownIds, anchor) => (
-        <NewTabMenuTipSlot
-          eligible={
-            showMobileEmulatorIntroCallout && isMacOs && shownIds.has(CREATE_ROW_MOBILE_EMULATOR_ID)
-          }
-        >
-          <MobileEmulatorTabIntroCallout anchor={anchor} />
-        </NewTabMenuTipSlot>
-      )}
     />
   )
 }

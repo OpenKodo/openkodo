@@ -19,7 +19,6 @@ export type TabBarItemSurfaceProps = Pick<
   | 'activeTabId'
   | 'activeFileId'
   | 'activeBrowserTabId'
-  | 'activeSimulatorTabId'
   | 'activeTabType'
   | 'expandedPaneByTabId'
   | 'onCloseSplitPane'
@@ -65,7 +64,6 @@ export function renderTabBarItems({
     activeTabId,
     activeFileId,
     activeBrowserTabId,
-    activeSimulatorTabId,
     activeTabType,
     expandedPaneByTabId
   } = props
@@ -88,20 +86,15 @@ export function renderTabBarItems({
       return false
     }
     if (item.type === 'terminal') {
-      return (
-        (activeTabType === 'terminal' || activeTabType === 'simulator') && item.id === activeTabId
-      )
+      return activeTabType === 'terminal' && item.id === activeTabId
     }
     if (item.type === 'browser') {
       return activeTabType === 'browser' && activeBrowserTabId === item.id
     }
-    if (item.type === 'simulator') {
-      return activeTabType === 'simulator' && item.id === activeSimulatorTabId
-    }
     if (item.type === 'agent-session' || item.type === 'room') {
       return activeTabType === 'agent-session' && item.id === activeTabId
     }
-    return (activeTabType === 'editor' || activeTabType === 'simulator') && activeFileId === item.id
+    return activeTabType === 'editor' && activeFileId === item.id
   }
 
   const unpinnedCount = items.filter((item) => !item.isPinned).length

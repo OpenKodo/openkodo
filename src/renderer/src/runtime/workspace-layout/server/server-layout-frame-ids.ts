@@ -41,7 +41,6 @@ const TAB_ID_RULES: Record<TabContentType, 'terminal' | 'kept'> = {
   'git-graph': 'kept',
   'agent-session': 'kept',
   browser: 'kept',
-  simulator: 'kept',
   room: 'kept'
 }
 

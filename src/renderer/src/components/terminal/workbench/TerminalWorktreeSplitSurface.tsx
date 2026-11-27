@@ -114,7 +114,6 @@ export const WorktreeSplitSurface = React.memo(function WorktreeSplitSurface({
           hasDeferredBackgroundMounts: hasPendingBackgroundMounts,
           needsBrowserGuestPaint
         })}
-        mountEmulatorOverlay={isVisible || !hasPendingBackgroundMounts}
       />
     </div>
   )

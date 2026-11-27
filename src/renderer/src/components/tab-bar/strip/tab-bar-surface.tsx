@@ -83,11 +83,7 @@ export function renderTabBarSurface(
   } = props
   const {
     resolvedGroupId,
-    mobileEmulatorEnabled,
     managedBrowserCreationEnabled,
-    mobileEmulatorCreationEnabled,
-    workspaceHasSimulatorTab,
-    showMobileEmulatorIntroCallout,
     windowsTerminalCapabilities,
     defaultWindowsPowerShellImplementation
   } = runtime
@@ -326,11 +322,7 @@ export function renderTabBarSurface(
               props={props}
               groupId={resolvedGroupId}
               terminalOnly={terminalOnly}
-              mobileEmulatorEnabled={mobileEmulatorEnabled}
               managedBrowserCreationEnabled={managedBrowserCreationEnabled}
-              mobileEmulatorCreationEnabled={mobileEmulatorCreationEnabled}
-              workspaceHasSimulatorTab={workspaceHasSimulatorTab}
-              showMobileEmulatorIntroCallout={showMobileEmulatorIntroCallout}
               windowsShellEntries={windowsShellEntries}
               defaultWindowsPowerShellImplementation={defaultWindowsPowerShellImplementation}
               pwshAvailable={windowsTerminalCapabilities.pwshAvailable}

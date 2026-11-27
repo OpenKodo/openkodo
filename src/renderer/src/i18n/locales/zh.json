@@ -1827,9 +1827,7 @@
       },
       "ensure": {
         "simulator": {
-          "tab": {
-            "372d21d428": "手机模拟器"
-          }
+          "tab": {}
         }
       },
       "fix": {
@@ -1921,9 +1919,7 @@
         },
         "mobile": {
           "emulator": {
-            "tab": {
-              "bf4f2a8a72": "无法启动模拟器，请检查 iOS 或 Android 模拟器设置，然后尝试其他设备"
-            }
+            "tab": {}
           }
         }
       },
@@ -2331,10 +2327,7 @@
           "wslWindowsOnly": "WSL CLI 注册仅适用于 Windows"
         }
       },
-      "emulator": {
-        "androidSdkNotFound": "未找到 Android SDK，请安装 Android Studio 并设置 ANDROID_HOME",
-        "xcodeSimulatorToolsUnavailable": "Xcode 模拟器工具不可用，请安装完整的 Xcode，打开一次，然后运行 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它"
-      },
+      "emulator": {},
       "rateLimits": {
         "errors": {
           "chatgptAuthRequired": "需要 ChatGPT 认证才能读取速率限制",
@@ -2541,8 +2534,6 @@
         "93d88d20bf": "外观",
         "2d0659f6f0": "全局终端、浏览器和 Markdown 标签页",
         "65b19f5bde": "浮动工作区",
-        "3d65d3f1b9": "为 OpenKodo 与编码代理配置手机模拟器",
-        "1e761cff2b": "手机模拟器",
         "e815fd01bd": "主页、链接路由和会话 Cookie",
         "8c197f74a1": "浏览器",
         "42ae40842f": "已保存的终端命令，可全局或按项目",
@@ -3771,7 +3762,6 @@
         "c4afa68159": "尝试工作树、项目、设置、操作、标签页标题、智能体提示、URL、PR 或端口",
         "dbd9d87eec": "没有结果符合您的搜索",
         "2c38630a01": "工作区不再存在",
-        "7726ce9970": "手机模拟器选项卡不再存在",
         "d7d496a451": "浏览器页面不再存在",
         "50a1d11d5b": "打开标签页",
         "088d66d980": "操作与设置",
@@ -4833,8 +4823,6 @@
             "b1a132357f": "新标签页",
             "4f327c8b3d": "打开 Markdown...",
             "3d5d6c960d": "新 Markdown",
-            "fd2b42aaa3": "新的手机模拟器",
-            "b426bb2615": "转到手机模拟器",
             "4833fb2cbe": "新浏览器选项卡",
             "d364f3c8d4": "新终端",
             "7c1313d237": "新终端：",
@@ -4856,7 +4844,6 @@
             "2c38630a01": "工作区已不存在",
             "4f0d9a71c2": "标签页已不存在",
             "d7d496a451": "浏览器页面已不存在",
-            "7726ce9970": "移动模拟器标签页已不存在",
             "chooseAction": "请选择一项操作",
             "searchProvider": "使用 {{value0}} 搜索"
           },
@@ -4914,14 +4901,7 @@
                   "6d8b6b4117": "新文件",
                   "b330f72434": "markdown",
                   "37ff3ddca1": "打开 markdown",
-                  "164c394bab": "打开文件",
-                  "bbaf4f85a4": "移动端模拟器",
-                  "3784b83bd4": "模拟器",
-                  "a63847a742": "模拟器",
-                  "1baeb07c17": "iOS 模拟器",
-                  "8a580f88cf": "iPhone",
-                  "7ecdc5ef08": "iPad",
-                  "14965cc123": "移动端"
+                  "164c394bab": "打开文件"
                 }
               }
             }
@@ -8737,41 +8717,9 @@
           "detectedServers_other": "已检测到 {{detected}} 个 · {{count}} 个服务器",
           "283bebb198": "MCP 配置"
         },
-        "MobileEmulatorAgentControlRow": {
-          "8af7a8bc38": "命令针对当前工作树的活动模拟器，坐标从 0..1 标准化",
-          "c7f3fe0a6e": "常用模拟器命令",
-          "d94ca6a623": "使代理能够使用 OpenKodo CLI 命令，包括手机模拟器控制",
-          "67e19ee03c": "OpenKodo CLI 技能",
-          "ff4b7e65d6": "让编码代理使用 OpenKodo CLI 命令控制活动手机模拟器",
-          "10243e70ff": "智能体手机模拟器控制"
-        },
-        "MobileEmulatorExamples": {
-          "edf13dd03b": "复制",
-          "c12b253997": "复制示例提示",
-          "d151e25078": "”",
-          "b525ff2b12": "“",
-          "4daa95f25a": "将其中任何内容粘贴到安装了 OpenKodo CLI 技能的项目中的 Claude Code、Codex 或其他代理中",
-          "0820b3f84f": "尝试一下 - 示例提示",
-          "1f608e7d60": "复制提示失败",
-          "2b077b5544": "已复制提示"
-        },
-        "MobileEmulatorSettingsPane": {
-          "19d39113b6": "让编码代理使用 OpenKodo CLI 命令控制活动手机模拟器",
-          "8aec2f99a0": "刷新模拟器可用性",
-          "ae1612c58c": "可用性",
-          "f9af91ea26": "显示\"新建手机模拟器\"操作并允许代理连接到活动模拟器",
-          "bc39d0f115": "为 OpenKodo 与编码代理配置手机模拟器",
-          "a4f1c82d90": "已禁用",
-          "b5e2d93e01": "检查中...",
-          "c6f3ea4f12": "就绪",
-          "d704fb5023": "需要设置",
-          "06b06429c6": "正在检查 Android SDK 和 iOS 模拟器支持",
-          "6d1483d4a0": "已检测 1 个模拟器设备",
-          "0a452d4d3b": "已检测 {{value0}} 个模拟器设备",
-          "d2d8632e0d": "手机模拟器",
-          "b1e5af97e9": "启用手机模拟器",
-          "fd698d2d47": "智能体手机模拟器控制"
-        },
+        "MobileEmulatorAgentControlRow": {},
+        "MobileEmulatorExamples": {},
+        "MobileEmulatorSettingsPane": {},
         "MobileNetworkInterfaceSection": {
           "b2c384cfd6": "没有找到接口"
         },
@@ -9351,7 +9299,6 @@
           "6d1a27e193": "主题、缩放、应用与终端外观，以及侧边栏和状态栏",
           "2b4474780a": "外观",
           "3d9adfe6a5": "全局终端、浏览器和 Markdown 标签页",
-          "01f9d36292": "为 OpenKodo 与编码代理配置手机模拟器",
           "ad9788036f": "主页、链接路由和会话 cookie",
           "c46215ea03": "浏览器",
           "6742c7932c": "已保存的终端命令，可全局或按项目",
@@ -9389,7 +9336,6 @@
           "noSettingsFoundForQuery": "找不到“{{value0}}”的设置",
           "045db77e21": "SSH 远程主机",
           "c0900fa64a": "任务来源",
-          "129ae9859c": "手机模拟器",
           "022effa46f": "远程 OpenKodo 服务器",
           "d09b9d8f00": "Git 和源代码控制",
           "3eac6fb97f": "开发工具",
@@ -10944,44 +10890,7 @@
         },
         "mobile": {
           "emulator": {
-            "search": {
-              "2348045036": "选择 OpenKodo 默认打开的模拟器设备",
-              "2bb2e09225": "手机技能",
-              "bbe4267416": "模拟器类型",
-              "64494f03c3": "模拟器附加",
-              "6f728f1456": "模拟器抽头",
-              "f8b871d655": "代理客户端",
-              "2e0b45b2ba": "使用 OpenKodo CLI 命令列出、附加、点击和输入手机模拟器",
-              "8ef0f08d36": "运行时",
-              "27397fe8e9": "xcode 命令行工具",
-              "7650063d17": "模拟控制",
-              "3211e7acf9": "xcrun",
-              "42bfab45d8": "可用性",
-              "ea1f51b980": "检查Xcode、simctl、serve-sim和模拟器设备是否准备就绪",
-              "04c5f5d901": "设备",
-              "25d7bfbcd4": "乌迪德",
-              "ec3c4043fd": "默认ipad",
-              "1dc8c52ffa": "默认 iPhone",
-              "ab4814f3c5": "默认模拟器",
-              "b8ddd13195": "代理模拟器",
-              "1ad6fb6230": "默认设备",
-              "ac0a985873": "模拟器技能",
-              "9353854ff3": "OpenKodo 模拟器",
-              "d4b7833894": "OpenKodo CLI",
-              "84e5706975": "serve-sim",
-              "7c5a8a2bee": "Xcode",
-              "bec7231663": "iPad",
-              "49727355a3": "iPhone",
-              "6b6407dc1f": "模拟器",
-              "2d67f708ce": "模拟器",
-              "c5eca29310": "iOS 模拟器",
-              "25159de808": "移动端模拟器",
-              "9595354cff": "配置对 OpenKodo 和编码代理的手机模拟器支持",
-              "de556a0911": "模拟器可用性",
-              "b8c9f903eb": "默认模拟器设备",
-              "0d6e7dba38": "智能体 CLI 控制",
-              "f8468700d1": "手机模拟器"
-            }
+            "search": {}
           },
           "pane": {
             "search": {
@@ -12129,19 +12038,7 @@
           "distroRequired": "项目继承 WSL 前，请先选择一个 WSL 发行版",
           "wslDescription": "对于未覆盖运行时的项目，通过 WSL 在 {{value0}} 中检测并启动代理"
         },
-        "MobileEmulatorSdkStatus": {
-          "027cbf668a": "Android SDK",
-          "f6d080d128": "正在使用配置的路径",
-          "7fe4bd5907": "检测位置",
-          "2784f0b22d": "未找到，请安装 Android Studio，然后创建虚拟设备",
-          "b94ff260e6": "下载 Android Studio",
-          "18925b082d": "定位 SDK 文件夹",
-          "8c52684db8": "清除",
-          "76eb88b88e": "iOS 模拟器 (Xcode)",
-          "c6f3ea4f12": "就绪",
-          "e4f14b50d7": "请安装 Xcode 并添加 iOS 模拟器运行时",
-          "63fe73a1ea": "无法更新 Android SDK 文件夹"
-        },
+        "MobileEmulatorSdkStatus": {},
         "AppearanceAdvancedDisclosure": {
           "advanced": "高级"
         },
@@ -16686,83 +16583,40 @@
       },
       "emulator": {
         "pane": {
-          "EmulatorPane": {
-            "59b08fa031": "没有连接模拟器"
-          },
+          "EmulatorPane": {},
           "emulator": {
             "device": {
-              "frame": {
-                "9406c15775": "模拟器屏幕",
-                "8f25ffaf8a": "模拟器屏幕，键盘捕获，按 Esc 键释放"
-              }
+              "frame": {}
             },
             "pane": {
-              "toolbar": {
-                "06e10d7356": "关闭模拟器",
-                "e7a0d1897e": "家",
-                "6bd8dff42a": "旋转",
-                "81b3571a07": "连接",
-                "868c0f2938": "处理中…"
-              }
+              "toolbar": {}
             },
             "screen": {
               "stream": {
-                "content": {
-                  "8b1a0d8694": "模拟器预览",
-                  "36841af608": "流已断开连接",
-                  "5f818f12ab": "正在连接模拟器...",
-                  "5ee64cd44e": "模拟器屏幕"
-                }
+                "content": {}
               }
             }
           },
           "use": {
             "emulator": {
               "frame": {
-                "stream": {
-                  "f1c0179002": "流不生成帧"
-                }
+                "stream": {}
               }
             },
             "mobile": {
               "emulator": {
                 "agent": {
                   "setup": {
-                    "state": {
-                      "35dea1ae12": "代理控制已就绪",
-                      "c94ff11e91": "无法重新检查设置状态",
-                      "skillNotInstalled": "OpenKodo CLI 技能尚未安装"
-                    }
+                    "state": {}
                   }
                 }
               }
             }
           },
-          "MobileEmulatorAgentSetupGuide": {
-            "2fda9ff015": "设置代理控制",
-            "0ac0fef514": "代理控制已就绪",
-            "2bdfff8763": "代理控制(可选)",
-            "d10ae98046": "完成",
-            "3756cbeca7": "暂不",
-            "6d950431d2": "隐藏",
-            "ebceac65a4": "设置",
-            "3f003507f4": "打开设置",
-            "installSkillPrompt": "如需让智能体操作此模拟器，请安装 OpenKodo CLI 技能"
-          },
-          "MobileEmulatorAgentSetupGuideSteps": {
-            "21f5687c07": "OpenKodo CLI 技能",
-            "64fb057667": "教授代理此工作区的 openkodo 模拟器命令"
-          },
-          "MobileEmulatorTabIntroCallout": {
-            "1924982130": "关闭",
-            "5789936d9a": "在代理控制屏幕时预览 iOS 模拟器",
-            "8014b4b80b": "保留",
-            "6e051a40b7": "隐藏"
-          },
-          "useEmulatorScreenKeyboard": {
-            "pasteTooLarge": "模拟器键盘输入的粘贴内容过大",
-            "pasteTargetUnavailable": "模拟器键盘粘贴失败，因为设备尚未就绪"
-          }
+          "MobileEmulatorAgentSetupGuide": {},
+          "MobileEmulatorAgentSetupGuideSteps": {},
+          "MobileEmulatorTabIntroCallout": {},
+          "useEmulatorScreenKeyboard": {}
         }
       },
       "editor": {
@@ -23051,7 +22905,6 @@
         "closePane": "关闭窗格",
         "files": "文件",
         "markdown": "Markdown",
-        "mobileEmulator": "手机模拟器",
         "new": "新建",
         "newNamedAgent": "新建 {{agent}} 智能体",
         "noMatches": "没有匹配项",
@@ -25798,7 +25651,6 @@
       "tabNewTerminal": "新建终端标签页",
       "tabNewAgent": "新建智能体标签页（默认智能体）",
       "tabNewBrowser": "新建浏览器标签页",
-      "tabNewSimulator": "新建手机模拟器标签页",
       "tabNewMarkdown": "新建 Markdown 标签页",
       "tabOpenMarkdown": "打开 Markdown 标签页",
       "tabClose": "关闭当前标签页",
@@ -26789,67 +26641,11 @@
     }
   },
   "emulator": {
-    "errors": {
-      "disabled": "手机模拟器已在设置中禁用",
-      "notAvailable": "手机模拟器不可用",
-      "noSession": "没有活动的模拟器会话",
-      "noDeviceSpecified": "未指定模拟器设备。请在设置 > 手机模拟器中选择默认设备，或传入设备",
-      "workspaceChanged": "模拟器启动期间工作区已更改。请重新连接模拟器",
-      "noIosSimulators": "未找到 iOS 模拟器。请在 Xcode Settings > Platforms 中添加一个",
-      "simctlUnavailable": "xcrun simctl 不可用",
-      "simulatorToolsUnavailable": "Xcode Simulator 工具不可用。请安装完整版 Xcode，打开一次，然后使用 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 选择它",
-      "requiresMacosXcode": "iOS 模拟器需要安装了 Xcode Command Line Tools 的 macOS",
-      "simulatorNotFound": "未找到模拟器 {{udid}}。请通过 Xcode > Window > Devices and Simulators 创建一个",
-      "serveSimUnavailable": "serve-sim 不可用",
-      "serveSimNoEndpoints": "serve-sim 未返回流端点",
-      "serveSimEndpointUnreachable": "serve-sim 已启动，但无法访问其流端点",
-      "deviceHubInputBlocked": "Xcode 的 Device Hub 已接管此模拟器的输入，因此点按和输入都无法送达。请退出 Device Hub，然后重新连接模拟器。",
-      "androidSdkMissing": "未找到 Android SDK。请安装 Android Studio 并设置 ANDROID_HOME",
-      "adbUnavailable": "adb 不可用",
-      "noAndroidDevices": "未找到 Android 设备或 AVD。请在 Android Studio 中创建一个",
-      "androidDeviceNotRunning": "Android 设备“{{device}}”未运行。请先启动它",
-      "unknownDeviceOrAvd": "“{{device}}”不是正在运行的设备，也不是已知的 AVD",
-      "avdBootTimeout": "AVD “{{avdName}}”未能及时完成启动",
-      "avdExitedBeforeBoot": "AVD “{{avdName}}”在完成启动前已停止：{{detail}}",
-      "scrcpyDownloadFailed": "无法下载 scrcpy 服务器：{{detail}}",
-      "scrcpyServerInvalid": "下载的 scrcpy 服务器无效或不完整"
-    },
-    "pane": {
-      "listDevicesFailed": "无法列出模拟器设备",
-      "noDevices": "未找到模拟器设备。请在 Xcode 中添加 iOS 模拟器，或在 Android Studio 中添加 Android 虚拟设备",
-      "startFailed": "无法启动模拟器。请确保已配置好 Xcode（iOS）或 Android Studio（Android），然后尝试其他设备",
-      "shutdownFailed": "无法关闭模拟器。请重试，或通过模拟器管理器停止它"
-    },
-    "settings": {
-      "availabilityCheckFailed": "无法检查模拟器可用性"
-    },
-    "opening": {
-      "when": "打开时",
-      "description": "适用于此计算机上的新模拟器标签页。现有工作区会话将保持连接。",
-      "lastUsed": "上次使用的设备",
-      "ask": "每次询问",
-      "specific": "指定设备",
-      "fixed": "默认设备",
-      "fixedDescription": "选择现有设备。如果设备缺失或不可用，系统会提示选择其他设备，而不会启动其他平台。",
-      "choose": "选择设备",
-      "notFound": "未找到",
-      "missing": "保存的设备已不在此计算机上。请选择其他设备。",
-      "unavailable": "保存的设备运行时不可用。请选择其他设备或安装其运行时。",
-      "askPrompt": "选择要打开的设备。",
-      "firstUse": "选择第一台设备。OpenKodo 会记住在此计算机上成功选择的设备。"
-    },
-    "picker": {
-      "choose": "选择模拟器",
-      "search": "搜索设备…",
-      "empty": "没有匹配的设备",
-      "used": "使用过的设备",
-      "other": "此计算机上的其他设备",
-      "unavailable": "不可用的运行时",
-      "runtimeUnavailable": "运行时不可用",
-      "running": "运行中",
-      "starting": "正在启动",
-      "stopped": "已停止"
-    }
+    "errors": {},
+    "pane": {},
+    "settings": {},
+    "opening": {},
+    "picker": {}
   },
   "ephemeralVm": {
     "errors": {
@@ -30286,12 +30082,7 @@
     }
   },
   "emulatorPane": {
-    "tabIntro": {
-      "hiddenFromMenu": "已从 + 菜单中移除手机模拟器",
-      "hiddenFromMenuHint": "可通过图标行末尾的齿轮按钮恢复",
-      "undoHide": "撤销",
-      "saveFailed": "无法更新 + 菜单"
-    }
+    "tabIntro": {}
   },
   "languages": {
     "search": "搜索语言",

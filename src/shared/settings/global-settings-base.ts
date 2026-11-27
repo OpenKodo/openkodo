@@ -1,5 +1,4 @@
 import type { AntigravityChatAuthSettings } from '../agent-accounts/antigravity/antigravity-chat-auth-config'
-import type { EmulatorOpeningSettings } from '../emulator/emulator-opening-preferences'
 import type { BrowserExtensionGlobalSettings } from '../browser/extensions/browser-extension-settings'
 import type { ClaudeAgentViewSettings } from '../agent-hook-listener/providers/claude/view/claude-agent-view'
 import type { WorktreeCardDisplaySettings } from '../worktree/card-display-settings-types'
@@ -46,7 +45,6 @@ type DesktopWindowSettings = {
 
 /** Settings groups owned by their feature modules and composed into GlobalSettings. */
 export type GlobalSettingsBase = AntigravityChatAuthSettings &
-  EmulatorOpeningSettings &
   SshRemoteControlSettings &
   ClaudeAgentViewSettings &
   NativeChatGlobalSettings &

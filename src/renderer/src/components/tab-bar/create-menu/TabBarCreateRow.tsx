@@ -26,7 +26,6 @@ import { TabBarCreateRowCustomizer } from './TabBarCreateRowCustomizer'
 import { CREATE_ROW_HIGHLIGHT_CLASS, TabBarCreateRowIcons } from './TabBarCreateRowIcons'
 import { useCreateRowScroller } from './use-create-row-scroller'
 import { isPressedPointer, useCreateRowHoverTooltip } from './use-create-row-hover-tooltip'
-import type { IntroArrowAnchor } from '../../emulator-pane/tab-intro/use-intro-arrow'
 
 const EMPTY_LAYOUT: NewTabMenuLayout = { order: [], hidden: [] }
 
@@ -38,14 +37,11 @@ const EMPTY_LAYOUT: NewTabMenuLayout = { order: [], hidden: [] }
 export function TabBarCreateRow({
   items,
   customizable,
-  layoutSetting,
-  renderBelow
+  layoutSetting
 }: {
   items: readonly TabBarCreateRowItem[]
   customizable: boolean
   layoutSetting: keyof NewTabMenuSettings
-  /** Content tied to shown items, e.g. an intro for an icon the user has not hidden. */
-  renderBelow?: (shownIds: ReadonlySet<string>, anchor: IntroArrowAnchor) => React.ReactNode
 }): React.JSX.Element {
   const t = useTranslate()
   const closeMenu = useDropdownMenuClose()
@@ -66,13 +62,11 @@ export function TabBarCreateRow({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const pointerInside = useRef(false)
   const hoverTooltip = useCreateRowHoverTooltip()
-  const { scrollerRef, scroller, attachScroller, overflow, revealIcon } = useCreateRowScroller()
+  const { scrollerRef, attachScroller, overflow, revealIcon } = useCreateRowScroller()
   const [recordingActionId, setRecordingActionId] = useState<KeybindingActionId | null>(null)
   const customizeIndex = visible.length
   const active = Math.min(activeIndex, customizeIndex)
   const keyboardActive = rowFocused && keyboardNav
-  const visibleIds = visible.map((item) => item.id)
-  const below = renderBelow?.(new Set(visibleIds), { scroller, order: visibleIds.join(' ') })
 
   useShortcutRecorderFocus(recordingActionId !== null)
 
@@ -96,7 +90,6 @@ export function TabBarCreateRow({
             </DropdownMenuItem>
           )
         })}
-        {below}
       </>
     )
   }
@@ -267,7 +260,6 @@ export function TabBarCreateRow({
       <span className="sr-only" aria-live="polite">
         {keyboardActive ? (activeItem?.label ?? customizeLabel) : ''}
       </span>
-      {below}
     </>
   )
 }

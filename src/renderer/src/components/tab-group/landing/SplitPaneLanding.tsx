@@ -1,7 +1,7 @@
 import { shallow } from 'zustand/shallow'
 import { useAppStoreWithHostStatuses } from '@/store/slices/runtime-status/views/use-runtime-status-view'
 import { useCallback, useRef, useState } from 'react'
-import { FilePlus, Globe, Smartphone, TerminalSquare } from 'lucide-react'
+import { FilePlus, Globe, TerminalSquare } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useAppStore } from '../../../store/index'
 import { useOptionalShortcutLabel } from '@/lib/keyboard/useShortcutLabel'
@@ -12,11 +12,6 @@ import {
 } from '@/lib/workspace/creation/surface-policy/client-creation-action-error'
 import { openNewTerminalTabInWorkspace } from '@/store/terminals/tabs/creation/terminal-active-workspace-creation'
 import { getWorkspaceClientCreationActionPolicy } from '@/lib/workspace/creation/surface-policy/client-creation-action-policy'
-import { openMobileEmulatorTab } from '@/lib/simulator/launch/open-mobile-emulator-tab'
-import {
-  ensureSimulatorTab,
-  getSimulatorTabForWorktree
-} from '@/lib/simulator/tabs/ensure-simulator-tab'
 import { useFileListWorktree } from '@/store/workspaces/selection/use-selected-worktree'
 import { useMeasuredWidth } from '@/components/right-sidebar/layout/right-sidebar-measured-width'
 import { Button } from '@/components/ui/button'
@@ -64,18 +59,15 @@ export function SplitPaneLanding({
   )
   const worktreePath = useFileListWorktree(worktreeId)?.path ?? null
   // Why: paired web clients without host streaming hide these, as the tab bar's + menu does.
-  const [browserEnabled, emulatorEnabled] = useAppStoreWithHostStatuses((state, statuses) => {
-    const policy = getWorkspaceClientCreationActionPolicy(state, worktreeId, statuses)
-    return [
-      policy['managed-browser'].state === 'enabled',
-      state.settings?.mobileEmulatorEnabled !== false &&
-        policy['mobile-emulator'].state === 'enabled'
-    ] as const
-  }, shallow)
+  const browserEnabled = useAppStoreWithHostStatuses(
+    (state, statuses) =>
+      getWorkspaceClientCreationActionPolicy(state, worktreeId, statuses)['managed-browser']
+        .state === 'enabled',
+    shallow
+  )
   const terminalShortcut = useOptionalShortcutLabel('tab.newTerminal')
   const browserShortcut = useOptionalShortcutLabel('tab.newBrowser')
   const markdownShortcut = useOptionalShortcutLabel('tab.newMarkdown')
-  const emulatorShortcut = useOptionalShortcutLabel('tab.newSimulator')
 
   const openTerminal = (): void => {
     void openNewTerminalTabInWorkspace(useAppStore.getState, worktreeId, groupId).catch(
@@ -97,17 +89,6 @@ export function SplitPaneLanding({
       .openNewMarkdownInActiveWorkspace(groupId)
       .catch(showClientCreationActionError)
   }
-  const openEmulator = (): void => {
-    // A workspace has one emulator; the + menu brings an existing one forward the same way.
-    if (getSimulatorTabForWorktree(worktreeId)) {
-      void ensureSimulatorTab(worktreeId, { surfacePane: true })
-      return
-    }
-    void openMobileEmulatorTab(worktreeId, { targetGroupId: groupId }).catch(
-      showClientCreationActionError
-    )
-  }
-
   const actions: LandingAction[] = [
     {
       id: 'terminal',
@@ -131,16 +112,7 @@ export function SplitPaneLanding({
       label: t('components.tabGroup.splitPaneLanding.markdown', 'Markdown'),
       shortcut: markdownShortcut,
       onSelect: openMarkdown
-    },
-    emulatorEnabled
-      ? {
-          id: 'emulator',
-          icon: Smartphone,
-          label: t('components.tabGroup.splitPaneLanding.mobileEmulator', 'Mobile emulator'),
-          shortcut: emulatorShortcut,
-          onSelect: openEmulator
-        }
-      : null
+    }
   ].filter(
     (action): action is LandingAction => action !== null && landingQueryMatches(action.label, query)
   )

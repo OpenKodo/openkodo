@@ -201,8 +201,6 @@ export function getDefaultUIState(): PersistedUIState {
     trayMinimizeNoticeShown: false,
     // Why: fresh profiles start on the new default, so nothing was overridden to report.
     osc52ClipboardDefaultOnNoticePending: false,
-    mobileEmulatorTabIntroDismissed: false,
-    mobileEmulatorAgentSetupDismissed: false,
     pluginsAlphaNoticeDismissed: false,
     // Why: only upgraded profiles saw the old ordering, so only they get the one-time notice.
     projectOrderManualDefaultNoticeDismissed: true,

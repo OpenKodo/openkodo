@@ -69,8 +69,6 @@ const STATIC_TITLE_COPY = {
   'tab.newBrowser': () => translate('keybindings.title.tabNewBrowser', 'New browser tab'),
   'tab.newBrowserSplitRight': () =>
     translate('keybindings.title.tabNewBrowserSplitRight', 'New browser tab in right split'),
-  'tab.newSimulator': () =>
-    translate('keybindings.title.tabNewSimulator', 'New mobile emulator tab'),
   'tab.newMarkdown': () => translate('keybindings.title.tabNewMarkdown', 'New markdown tab'),
   'tab.openMarkdown': () => translate('keybindings.title.tabOpenMarkdown', 'Open markdown tab'),
   'tab.close': () => translate('keybindings.title.tabClose', 'Close active tab'),

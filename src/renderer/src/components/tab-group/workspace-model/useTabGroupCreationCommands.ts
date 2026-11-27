@@ -7,26 +7,18 @@ import { createWebRuntimeSessionTerminal } from '../../../runtime/hosted-termina
 import { isWebRuntimeSessionActive } from '../../../runtime/web-session-tabs-sync/identity/web-runtime-session-environment'
 import { openTabBarEntry } from '../../tab-bar/create-entry/tab-create-entry-action'
 import type { TabCreateEntryArgs } from '../../tab-bar/create-entry/tab-create-entry-action'
-import { openMobileEmulatorTab } from '@/lib/simulator/launch/open-mobile-emulator-tab'
-import {
-  ensureSimulatorTab,
-  getSimulatorTabForWorktree
-} from '@/lib/simulator/tabs/ensure-simulator-tab'
 import { buildDuplicatedBrowserTabOptions } from '@/lib/browser/workspace/duplicate-browser-tab-options'
 import { runtimeEnvironmentIdOrLocalUnlessTwin } from '@/lib/workspace/ownership/worktree-runtime-owner'
 import { browserWorkspaceHasRemoteOwner } from '@/runtime/browser/ownership/remote-browser-tab-ownership'
 import { getClientCreationActionPolicy } from '@/lib/workspace/creation/surface-policy/client-creation-action-policy'
 import { translate } from '@/i18n/i18n'
-import type { TabGroupWorktreeSnapshot } from './useTabGroupItemProjections'
 
 export function useTabGroupCreationCommands({
   groupId,
-  worktreeId,
-  worktreeState
+  worktreeId
 }: {
   groupId: string
   worktreeId: string
-  worktreeState: TabGroupWorktreeSnapshot
 }) {
   const createTab = useAppStore((state) => state.createTab)
   const setActiveTab = useAppStore((state) => state.setActiveTab)
@@ -48,20 +40,6 @@ export function useTabGroupCreationCommands({
         toast.error(error instanceof Error ? error.message : String(error))
       })
     },
-    newSimulatorTab: worktreeState.mobileEmulatorEnabled
-      ? () => {
-          if (getSimulatorTabForWorktree(worktreeId)) {
-            void ensureSimulatorTab(worktreeId, { surfacePane: true })
-            return
-          }
-          void openMobileEmulatorTab(worktreeId, {
-            placement: 'rightSplit',
-            targetGroupId: groupId
-          }).catch((error) => {
-            toast.error(error instanceof Error ? error.message : String(error))
-          })
-        }
-      : undefined,
     openEntry: async (args: TabCreateEntryArgs) => {
       await openTabBarEntry(args)
     },

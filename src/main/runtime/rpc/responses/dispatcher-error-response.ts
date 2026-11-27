@@ -10,7 +10,7 @@ import {
 } from '../core'
 
 import { computerUseErrorRecoveryData } from '../../../../shared/computer/computer-use-error-recovery'
-import { errorResponse, mapEmulatorError, mapRuntimeError } from './rpc-response'
+import { errorResponse, mapRuntimeError } from './rpc-response'
 import { PluginHookDeniedError } from '../../../plugins/hooks/plugin-hook-dispatch'
 
 export function invalidArgumentResponse(
@@ -51,9 +51,6 @@ export function mapDispatcherError(
   }
   if (request.method.startsWith('browser.')) {
     return mapBrowserError(request.id, meta, error)
-  }
-  if (request.method.startsWith('emulator.')) {
-    return mapEmulatorError(request.id, meta, error)
   }
   return mapRuntimeError(request.id, meta, error)
 }

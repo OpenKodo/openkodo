@@ -39,7 +39,6 @@ function TabBarInner(props: TabBarProps): React.JSX.Element {
     onNewTerminalTab,
     onNewTerminalWithShell,
     onNewBrowserTab,
-    onNewSimulatorTab,
     onNewFileTab,
     onOpenFileTab,
     onPinFile
@@ -51,10 +50,7 @@ function TabBarInner(props: TabBarProps): React.JSX.Element {
     resolvedGroupId: runtime.resolvedGroupId,
     showAgentLaunchItems: props.showAgentLaunchItems,
     terminalOnly,
-    mobileEmulatorEnabled: runtime.mobileEmulatorEnabled,
     managedBrowserCreationEnabled: runtime.managedBrowserCreationEnabled,
-    mobileEmulatorCreationEnabled: runtime.mobileEmulatorCreationEnabled,
-    workspaceHasSimulatorTab: runtime.workspaceHasSimulatorTab,
     showWindowsShellMenu: runtime.showWindowsShellMenu,
     projectRuntimeShellMenuMode: runtime.projectRuntimeShellMenuMode,
     defaultWindowsShell: runtime.defaultWindowsShell,
@@ -64,7 +60,6 @@ function TabBarInner(props: TabBarProps): React.JSX.Element {
     onNewTerminalTab,
     onNewTerminalWithShell,
     onNewBrowserTab,
-    onNewSimulatorTab,
     onNewFileTab,
     onOpenFileTab
   })

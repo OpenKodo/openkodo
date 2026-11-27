@@ -58,9 +58,6 @@ export function getActiveEntityIdForTabType(
   if (activeTabType === 'agent-session') {
     return activeAgentSessionEntityId
   }
-  if (activeTabType === 'simulator') {
-    return activeTabId
-  }
   return activeTabId
 }
 

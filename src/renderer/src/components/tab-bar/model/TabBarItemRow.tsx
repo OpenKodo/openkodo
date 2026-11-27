@@ -2,7 +2,6 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { shallow } from 'zustand/shallow'
 import type { GitFileStatus } from '../../../../../shared/git/status/git-status-types'
-import type { OpenFile } from '../../../store/slices/editor/types/open-file'
 import SortableTab from '../terminal-tabs/SortableTab'
 import TerminalSortableTab from '../terminal-tabs/TerminalSortableTab'
 import EditorFileTab from '../editor-tabs/EditorFileTab'
@@ -33,7 +32,6 @@ import {
 import { useBotHomeRuleApplies } from '@/lib/bot-host-status'
 import { BotAvatar } from '../../bots/BotAvatar'
 import { BotGroupTabIcon, useBotGroupTabMembers } from '../../bots/BotGroupTabIcon'
-import { formatSimulatorTabLabel } from '@/lib/simulator/tabs/simulator-tab-label'
 import { botGroupRoomSessions } from '@/lib/bot-group-room-sessions'
 import { terminalTabHasUnreadActivity } from '../terminal-tabs/terminal-tab-activity-status'
 import { useTranslate } from '@/i18n/use-translate'
@@ -284,21 +282,6 @@ function TabBarItemRow({
     onActivate: () => actions.activateFile(item.id),
     onClose: () => actions.closeFile(item.id),
     onCloseAll: actions.closeAllFiles
-  }
-  if (item.type === 'simulator') {
-    const simulatorLabel = formatSimulatorTabLabel(item.data.label, t)
-    const simulatorFile: OpenFile & { tabId: string } = {
-      id: item.id,
-      tabId: item.id,
-      filePath: simulatorLabel,
-      relativePath: simulatorLabel,
-      worktreeId,
-      language: 'simulator',
-      isPreview: false,
-      isDirty: false,
-      mode: 'edit'
-    }
-    return <EditorFileTab {...fileTabProps} file={simulatorFile} onMakePermanent={() => {}} />
   }
   return (
     <EditorFileTab

@@ -23,7 +23,6 @@ import {
 } from './browser/browser-request-ipc-bridge'
 import { registerBrowserTabActivateIpcBridge } from './browser/browser-tab-activate-ipc-bridge'
 import { registerBrowserStateIpcBridge } from './browser/browser-state-ipc-bridge'
-import { registerContentCreationIpcBridge } from '../../lib/simulator/launch/content-creation-ipc-bridge'
 import { registerDirectSshStateIpcBridge } from './direct-ssh/direct-ssh-state-ipc-bridge'
 import { registerRuntimePortForwardsIpcBridge } from './runtime-events/runtime-port-forwards-ipc-bridge'
 import { registerEphemeralVmLifecycleIpcBridge } from '../../runtime/ephemeral-vm/ephemeral-vm-lifecycle-ipc-bridge'
@@ -183,7 +182,6 @@ export function installAppLifetimeIpcEvents(): () => void {
   registerMobileAndTerminalCloseIpcBridge(unsubs, backgroundWakeDispatcher.request)
   registerUpdaterStatusIpcBridge(unsubs)
   registerBrowserStateIpcBridge(unsubs, isRuntimeEnvironmentActive)
-  registerContentCreationIpcBridge(unsubs, isRuntimeEnvironmentActive)
   registerBrowserRequestIpcBridge(unsubs)
   signalBrowserTabRequestsReadyAfterRestore(unsubs)
   registerBrowserTabActivateIpcBridge(unsubs)

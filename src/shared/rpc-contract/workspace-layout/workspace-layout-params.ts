@@ -248,17 +248,6 @@ const SetDefaultTabsAppliedCommand = z.object({
   workspace: OnPane.workspace
 })
 
-/** A simulator tab under the id the window drew it with, which is also its entity. */
-const OpenSimulatorTabCommand = z.object({
-  type: z.literal('openSimulatorTab'),
-  ...OnTab,
-  groupId: z.string().min(1).optional(),
-  afterTabId: z.string().min(1).optional(),
-  index: z.number().int().nonnegative().optional(),
-  createdAt: z.number().int().nonnegative().optional(),
-  split: NewGroupSplit
-})
-
 /** Move restored editor tabs to the window-resolved owning workspace, preserving proposed IDs (F42). */
 const MoveTabToWorkspaceCommand = z.object({
   type: z.literal('moveTabToWorkspace'),
@@ -329,7 +318,6 @@ export const LayoutApplyParams = z.object({
     OpenEditorTabCommand,
     OpenAgentSessionTabCommand,
     PromotePreviewTabCommand,
-    OpenSimulatorTabCommand,
     OpenRoomTabCommand,
     MoveTabToWorkspaceCommand,
     RenameEditorFilesCommand,

@@ -1,9 +1,8 @@
 import type React from 'react'
-import { Smartphone } from 'lucide-react'
 import { CommandItem } from '@/components/ui/command'
 import { getPaletteHostBadge } from '@/components/cmd-j/palette-host-badge'
 import { useTranslate } from '@/i18n/use-translate'
-import type { BrowserPaletteItem, SimulatorPaletteItem } from '../worktree-jump-palette-model'
+import type { BrowserPaletteItem } from '../worktree-jump-palette-model'
 import type { WorktreeJumpPaletteController } from '../use-worktree-jump-palette-controller'
 import {
   PaletteHostBadgeChip,
@@ -15,97 +14,6 @@ import { formatPaletteSessionAge } from '@/components/cmd-j/palette-session-age'
 import { resolvePaletteRepoForWorktree } from '@/lib/workspace/search/palette-repo-resolution'
 import { BrowserFavicon } from '@/components/browser-pane/describe-page/browser-favicon'
 import { getRepoExecutionHostId } from '../../../../../shared/execution-host/execution-host'
-
-export function WorktreeJumpPaletteSimulatorRow({
-  entry,
-  renderKey,
-  controller
-}: {
-  entry: SimulatorPaletteItem
-  renderKey: string
-  controller: WorktreeJumpPaletteController
-}): React.JSX.Element {
-  const t = useTranslate()
-  const result = entry.result
-  const simulatorWorktree = controller.resolveWorktree(result.worktreeId, result.executionHostId)
-  const simulatorRepo = simulatorWorktree
-    ? resolvePaletteRepoForWorktree(
-        simulatorWorktree,
-        controller.repoMap,
-        controller.repoByHostIdentity
-      )
-    : undefined
-  const simulatorRepoName = simulatorRepo?.displayName ?? result.repoName
-  const simulatorHostBadge = getPaletteHostBadge(
-    result.executionHostId ?? (simulatorRepo && getRepoExecutionHostId(simulatorRepo)),
-    controller.hostOptions,
-    controller.hostFilterActive
-  )
-  const simulatorSessionAge = formatPaletteSessionAge(
-    result.lastActiveAt ?? null,
-    controller.paletteNowMs,
-    t
-  )
-
-  return (
-    <CommandItem
-      value={renderKey}
-      onSelect={() => controller.handleSelectItem(entry)}
-      shape="palette-row"
-    >
-      <div className="flex h-5 w-4 shrink-0 items-center justify-center self-start text-muted-foreground/85">
-        <Smartphone className="size-3.5" aria-hidden="true" />
-      </div>
-      <div className="min-w-0 flex-1 overflow-hidden">
-        <div className="flex items-center justify-between gap-2.5">
-          <div className="min-w-0 flex-1 overflow-hidden">
-            <PaletteOpenTabPrimaryLine
-              title={result.title}
-              titleRanges={result.titleRanges}
-              secondaryText={result.secondaryText}
-              secondaryRanges={result.secondaryRanges}
-              secondaryMatches={result.secondaryMatches}
-              sessionAge={simulatorSessionAge}
-              leadingBadges={
-                <>
-                  {result.isCurrentTab && (
-                    <span className="shrink-0 self-center rounded-[6px] border border-border/60 bg-background/45 px-1.5 py-px text-[9px] font-medium leading-normal text-muted-foreground/88">
-                      {t('auto.components.WorktreeJumpPalette.52404f8096', 'Current Tab')}
-                    </span>
-                  )}
-                  {!result.isCurrentTab && result.isCurrentWorktree && (
-                    <span className="shrink-0 self-center rounded-[6px] border border-border/60 bg-background/45 px-1.5 py-px text-[9px] font-medium leading-normal text-muted-foreground/88">
-                      {t('auto.components.WorktreeJumpPalette.c5081f2814', 'Current Worktree')}
-                    </span>
-                  )}
-                </>
-              }
-            />
-            {result.typeAliasMatches.length ? (
-              <span className="sr-only">
-                {result.typeAliasMatches.map((match) => match.text).join(', ')}
-              </span>
-            ) : null}
-          </div>
-          <div className="flex min-w-0 max-w-[40%] items-center justify-end gap-1.5">
-            <PaletteHostBadgeChip badge={simulatorHostBadge} />
-            <PaletteLocationChip
-              repoName={simulatorRepoName}
-              repoRanges={result.repoRanges}
-              repoColor={simulatorRepo?.badgeColor}
-              worktreeName={result.worktreeName}
-              worktreeRanges={result.worktreeRanges}
-            />
-            <PaletteRowShortcutBadge
-              index={controller.recentTabShortcutIndexByItem.get(entry)}
-              modifierKeys={controller.digitShortcutModifiers}
-            />
-          </div>
-        </div>
-      </div>
-    </CommandItem>
-  )
-}
 
 export function WorktreeJumpPaletteBrowserRow({
   entry,

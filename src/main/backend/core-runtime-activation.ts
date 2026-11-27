@@ -232,9 +232,6 @@ export async function activateBackendRuntime(
   const { wireGitHubIssueLinkTitleFill } =
     await import('../github/workspace-links/github-issue-link-title-wiring')
   registerCleanup(wireGitHubIssueLinkTitleFill(profileStore, runtime))
-  const { installOpenkododEmulatorBridge } =
-    await import('../openkodod/host-runtime/openkodod-emulator-bridge')
-  installOpenkododEmulatorBridge(runtime, registerCleanup)
   const relay = await installOpenkododRelayAndAccount(runtime, registerCleanup)
 
   // Restore prior desktop-pushed account selection before automations or CLI launches.
@@ -360,8 +357,6 @@ export async function activateBackendRuntime(
     agentStates: () => agentHookServer.getStatusSnapshot(),
     hasStagedMigration: () => profileStore.hasStagedOpenkododMigrationCatalog(),
     automationsBusy: () => openkododSchedulersKeepHostBusy(runtime, profileStore),
-    emulatorsBusy: async () =>
-      (await runtime.getEmulatorBridge()?.hasLiveManagedSessions()) ?? false,
     registerCleanup
   })
   return { readiness }
