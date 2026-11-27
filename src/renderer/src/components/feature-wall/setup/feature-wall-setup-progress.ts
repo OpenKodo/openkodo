@@ -14,10 +14,6 @@ export type FeatureWallSetupProgressInput = {
   featureInteractions: FeatureInteractionState
   hasConnectedTaskSource: boolean
   browserUseSkillInstalled: boolean
-  computerUseBlocked?: boolean
-  computerUseSkillInstalled: boolean
-  computerUsePermissionsReady: boolean
-  computerUseUnavailable?: boolean
   orchestrationSkillInstalled: boolean
   gitRepoCount: number
   worktreesByRepo: Record<string, Worktree[]>
@@ -45,21 +41,11 @@ function countAvailableNonMainWorktrees(worktreesByRepo: Record<string, Worktree
 
 export type AgentCapabilitiesState = {
   browserUseSkillInstalled: boolean
-  computerUseBlocked?: boolean | undefined
-  computerUseSkillInstalled: boolean
-  computerUseReady: boolean
-  computerUseUnavailable: boolean
   orchestrationSkillInstalled: boolean
 }
 
 export function isAgentCapabilitiesDone(state: AgentCapabilitiesState): boolean {
-  return (
-    state.browserUseSkillInstalled &&
-    (state.computerUseBlocked ||
-      (state.computerUseSkillInstalled &&
-        (state.computerUseReady || state.computerUseUnavailable))) &&
-    state.orchestrationSkillInstalled
-  )
+  return state.browserUseSkillInstalled && state.orchestrationSkillInstalled
 }
 
 // Upgrade eligibility keeps the pre-browser rules as the live checklist evolves.
@@ -79,11 +65,7 @@ export function hasCompletedPreBrowserSetup(input: FeatureWallSetupProgressInput
 }
 
 function setupGuideAgentCapabilitiesDone(input: FeatureWallSetupProgressInput): boolean {
-  return isAgentCapabilitiesDone({
-    ...input,
-    computerUseReady: input.computerUsePermissionsReady,
-    computerUseUnavailable: input.computerUseUnavailable === true
-  })
+  return isAgentCapabilitiesDone(input)
 }
 
 export function getFeatureWallSetupProgress(

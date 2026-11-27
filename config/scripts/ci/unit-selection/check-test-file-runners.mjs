@@ -29,12 +29,6 @@ const NON_UNIT_TEST_RUNNERS = [
     mirrors: ["testDir: '.'", "testMatch: '*.spec.ts'"]
   },
   {
-    name: 'computer-use e2e',
-    include: ['tests/e2e/desktop/computer-use/computer-*.e2e.ts'],
-    sources: ['tests/e2e/vitest.config.ts'],
-    mirrors: ["'tests/e2e/desktop/computer-use/computer-*.e2e.ts'"]
-  },
-  {
     name: 'bot automation eval (pnpm eval:bot-automations)',
     manual: true,
     include: ['src/cli/bot-automation-eval/*.eval.ts'],

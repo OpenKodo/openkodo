@@ -7953,11 +7953,7 @@
           "80bffd32bf": "Cookies importieren",
           "bd7d68f138": "Aus Datei…"
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "Falls der Cookie-Import nicht geeignet ist, kann Computer Use lokale Apps steuern und gegebenenfalls bestehende angemeldete Browser-Sitzungen nutzen. Den OpenKodo Computer Use-Skill installieren; unter macOS sind zusätzlich Datenschutzberechtigungen erforderlich.",
-          "333984cf90": "Bestehende Browser-Sitzung verwenden",
-          "9895ed44de": "Computer Use öffnen"
-        },
+        "BrowserUseComputerUseNotice": {},
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "Browser-Nutzung durch Agenten aktivieren"
         },
@@ -15682,13 +15678,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "Installiert",
-            "1b51644c2d": "Agenten die Steuerung des Desktops ermöglichen: den Cursor bewegen, klicken und in beliebigen Apps tippen.",
-            "362a07517d": "Computersteuerung",
             "5e8fe5a72d": "Agenten direkten Zugriff auf OpenKodos Browser geben, damit sie Seiten testen, Screenshots erstellen und anhand der angezeigten Inhalte handeln können.",
             "e638da007a": "Browsersteuerung durch Agenten",
             "c61c91e642": "Agenten die Koordination über OpenKodo ermöglichen, um große Aufgaben mit mehreren Schritten bis zum Abschluss voranzubringen.",
             "ac07f8887f": "Agenten-Orchestrierung",
-            "e9eb197e12": "Berechtigungen für die Computersteuerung geöffnet",
             "c605f51f2b": "Funktionen eingerichtet",
             "1aa657d8f4": "Die Einrichtung einiger Funktionen erfordert Aufmerksamkeit",
             "installSkills": "Skills installieren",
@@ -15879,13 +15872,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "Installiert",
-                  "5c9293e51a": "App-Zugriff wird geprüft",
                   "aa8e143a2f": "Installation konnte nicht geprüft werden",
                   "9b33e7fb13": "Installation wird geprüft",
-                  "6d2b0a84e1": "In dieser Version nicht verfügbar",
-                  "notInstalled": "Nicht installiert",
-                  "needsMacAccess": "macOS-Zugriff erforderlich",
-                  "requiresOpenKodoDesktop": "OpenKodo Desktop erforderlich"
+                  "notInstalled": "Nicht installiert"
                 }
               }
             }

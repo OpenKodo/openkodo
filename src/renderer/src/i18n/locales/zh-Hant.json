@@ -7784,11 +7784,7 @@
           "80bffd32bf": "匯入 Cookie",
           "bd7d68f138": "從檔案..."
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "如果 cookie 匯入不合適，「電腦使用」可以控制本機應用程式，並可視情況使用瀏覽器現有的已登入工作階段。安裝 OpenKodo Computer Use 技能； macOS 還需要隱私權限。",
-          "333984cf90": "使用現有的瀏覽器工作階段",
-          "9895ed44de": "開啟電腦使用"
-        },
+        "BrowserUseComputerUseNotice": {},
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "啟用代理程式使用瀏覽器"
         },
@@ -15476,13 +15472,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "已安裝",
-            "1b51644c2d": "讓代理程式控制桌面、移動游標、按一下並在任何應用程式中鍵入。",
-            "362a07517d": "電腦控制",
             "5e8fe5a72d": "讓代理程式直接存取 OpenKodo 的瀏覽器，以便測試頁面、擷取螢幕畫面並根據所見內容執行操作。",
             "e638da007a": "代理程式瀏覽器操作",
             "c61c91e642": "讓代理程式透過 OpenKodo 進行協調，以確保大型、多步驟的任務順利完成。",
             "ac07f8887f": "代理程式編排",
-            "e9eb197e12": "已開啟「電腦控制」權限設定",
             "c605f51f2b": "能力設定就緒",
             "1aa657d8f4": "一些能力設定需要注意",
             "installSkills": "安裝技能",
@@ -15673,13 +15666,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "已安裝",
-                  "5c9293e51a": "檢查應用程式存取權限",
                   "aa8e143a2f": "無法檢查安裝",
                   "9b33e7fb13": "檢查安裝",
-                  "6d2b0a84e1": "此版本不可用",
-                  "notInstalled": "未安裝",
-                  "needsMacAccess": "需要 macOS 存取權限",
-                  "requiresOpenKodoDesktop": "需要 OpenKodo Desktop"
+                  "notInstalled": "未安裝"
                 }
               }
             }

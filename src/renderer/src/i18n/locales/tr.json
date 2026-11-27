@@ -9045,11 +9045,7 @@
           "80bffd32bf": "Çerezleri İçe Aktar",
           "bd7d68f138": "Dosyadan…"
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "Çerez içe aktarma uygun değilse Computer Use, yerel uygulamaları kontrol edebilir ve uygun olduğunda mevcut oturum açılmış tarayıcı oturumlarını kullanabilir. OpenKodo Computer Use becerisini yükleyin; macOS ayrıca gizlilik izinleri gerektirir.",
-          "333984cf90": "Mevcut bir tarayıcı oturumunu kullan",
-          "9895ed44de": "Computer Use'u Aç"
-        },
+        "BrowserUseComputerUseNotice": {},
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "Ajan Tarayıcı Kullanımını Etkinleştir"
         },
@@ -17041,13 +17037,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "Kuruldu",
-            "1b51644c2d": "Ajanların masaüstünü kontrol etmesine izin verin; herhangi bir uygulamada imleci hareket ettirebilir, tıklayabilir ve yazabilirler.",
-            "362a07517d": "Bilgisayar Kullanımı",
             "5e8fe5a72d": "Ajanlara OpenKodo'nın tarayıcısına doğrudan erişim verin; böylece sayfaları test edebilir, ekran görüntüsü alabilir ve gördükleri üzerinde işlem yapabilirler.",
             "e638da007a": "Ajan Tarayıcı Kullanımı",
             "c61c91e642": "Büyük, çok adımlı görevlerin tamamlanmaya devam etmesi için ajanların OpenKodo üzerinden koordinasyon sağlamasına izin verin.",
             "ac07f8887f": "Ajan Orkestrasyonu",
-            "e9eb197e12": "Bilgisayar Kullanımı izinleri açıldı",
             "c605f51f2b": "Yetenek kurulumu hazır",
             "1aa657d8f4": "Bazı yetenek kurulumları dikkat gerektiriyor",
             "installSkills": "Becerileri yükle",
@@ -17238,13 +17231,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "Kuruldu",
-                  "5c9293e51a": "uygulama erişimi kontrol ediliyor",
                   "aa8e143a2f": "Kurulum kontrol edilemedi",
                   "9b33e7fb13": "Kurulum kontrol ediliyor",
-                  "6d2b0a84e1": "Bu derlemede kullanılamıyor",
-                  "notInstalled": "Yüklü değil",
-                  "needsMacAccess": "macOS erişimi gerekiyor",
-                  "requiresOpenKodoDesktop": "OpenKodo Desktop gerekiyor"
+                  "notInstalled": "Yüklü değil"
                 }
               }
             }

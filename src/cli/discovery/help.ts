@@ -247,12 +247,6 @@ function formatCommandFlagHelp(flag: string, commandPath: string[]): string {
   if (command === 'chat rename' && flag === 'name') {
     return '--name <text>         New name for the chat'
   }
-  if (flag === 'key' && command === 'computer hotkey') {
-    return '--key <key-combo>      Modifier chord with one key, e.g. CmdOrCtrl+A'
-  }
-  if (flag === 'key' && command === 'computer press-key') {
-    return '--key <key>            Single key, e.g. Return, Escape, Tab, Left, or PageUp'
-  }
   return formatFlagHelp(flag)
 }
 

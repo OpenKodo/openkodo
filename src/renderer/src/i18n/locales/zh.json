@@ -8205,11 +8205,7 @@
           "80bffd32bf": "导入 Cookie",
           "bd7d68f138": "从文件..."
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "如果 cookie 导入不合适，“计算机使用”可以控制本地应用程序，并可以在适用的情况下使用现有的登录浏览器会话。安装 OpenKodo Computer Use 技能； macOS 还需要隐私权限。",
-          "333984cf90": "使用现有的浏览器会话",
-          "9895ed44de": "开放计算机使用"
-        },
+        "BrowserUseComputerUseNotice": {},
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "启用智能体浏览器使用"
         },
@@ -16159,13 +16155,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "已安装",
-            "1b51644c2d": "让代理控制桌面、手机光标、单击并在任何应用程序中键入",
-            "362a07517d": "计算机控制",
             "5e8fe5a72d": "让代理直接访问 OpenKodo 的浏览器，以便测试页面、捕获屏幕截图并根据所见内容执行操作",
             "e638da007a": "代理浏览器使用",
             "c61c91e642": "让代理通过 OpenKodo 进行协调，以确保大型、多步骤的任务顺利完成",
             "ac07f8887f": "代理编排",
-            "e9eb197e12": "打开计算机使用权限",
             "c605f51f2b": "能力设置就绪",
             "1aa657d8f4": "一些能力设置需要注意",
             "installSkills": "安装技能",
@@ -16356,13 +16349,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "已安装",
-                  "5c9293e51a": "检查应用程序访问权限",
                   "aa8e143a2f": "无法检查安装",
                   "9b33e7fb13": "检查安装",
-                  "6d2b0a84e1": "此版本不可用",
-                  "needsMacAccess": "需要 macOS 访问权限",
-                  "notInstalled": "未安装",
-                  "requiresOpenKodoDesktop": "需要 OpenKodo 桌面应用"
+                  "notInstalled": "未安装"
                 }
               }
             }

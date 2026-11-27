@@ -1,5 +1,4 @@
 import {
-  COMPUTER_USE_SKILL_NAME,
   OPENKODO_LINEAR_SKILL_NAME,
   OPENKODO_CLI_SKILL_NAME,
   ORCHESTRATION_SKILL_NAME
@@ -14,31 +13,24 @@ import {
 import type { EventProps } from '../../../../shared/telemetry/telemetry-event-classification'
 import type { BundledSkillInstallState } from '@/hooks/skills/installation/use-bundled-skill-install'
 
-export type OnboardingFeatureSetupId =
-  | 'browserUse'
-  | 'computerUse'
-  | 'orchestration'
-  | 'linearTickets'
+export type OnboardingFeatureSetupId = 'browserUse' | 'orchestration' | 'linearTickets'
 
 export type OnboardingFeatureSetupSelection = Record<OnboardingFeatureSetupId, boolean>
 
 export const DEFAULT_ONBOARDING_FEATURE_SETUP_SELECTION: OnboardingFeatureSetupSelection = {
   browserUse: true,
-  computerUse: true,
   orchestration: true,
   linearTickets: false
 }
 
 export const ONBOARDING_FEATURE_SETUP_IDS: readonly OnboardingFeatureSetupId[] = [
   'browserUse',
-  'computerUse',
   'orchestration',
   'linearTickets'
 ]
 
 const FEATURE_SKILL_NAMES: Record<OnboardingFeatureSetupId, string> = {
   browserUse: OPENKODO_CLI_SKILL_NAME,
-  computerUse: COMPUTER_USE_SKILL_NAME,
   orchestration: ORCHESTRATION_SKILL_NAME,
   linearTickets: OPENKODO_LINEAR_SKILL_NAME
 }
@@ -48,7 +40,6 @@ const FEATURE_TELEMETRY_IDS: Record<
   EventProps<'onboarding_feature_setup_toggled'>['feature']
 > = {
   browserUse: 'browser_use',
-  computerUse: 'computer_use',
   orchestration: 'orchestration',
   linearTickets: 'linear_tickets'
 }
@@ -62,7 +53,6 @@ export type OnboardingFeatureSetupResult = {
   selectedIds: OnboardingFeatureSetupId[]
   // The caller installs these with the bundled installer.
   skillNames: string[]
-  computerUsePermissionsOpened: boolean
   warnings: OnboardingFeatureSetupWarning[]
 }
 
@@ -99,7 +89,6 @@ export function onboardingFeatureSetupTelemetryFeature(
 // Why: Linear ticket setup is a recommended add-on, not onboarding progress.
 const ONBOARDING_PROGRESS_FEATURE_SETUP_IDS: readonly OnboardingFeatureSetupId[] = [
   'browserUse',
-  'computerUse',
   'orchestration'
 ]
 
@@ -108,7 +97,6 @@ export function onboardingFeatureSetupTelemetrySelection(
 ): EventProps<'onboarding_feature_setup_terminal_opened'> {
   return {
     browser_use: selection.browserUse,
-    computer_use: selection.computerUse,
     linear_tickets: selection.linearTickets,
     orchestration: selection.orchestration,
     selected_count: ONBOARDING_PROGRESS_FEATURE_SETUP_IDS.filter((id) => selection[id]).length
@@ -145,7 +133,6 @@ export function onboardingFeatureSetupRunTelemetry(
     ...onboardingFeatureSetupTelemetrySelection(selection),
     cli_touched: false,
     skill_install_result: installResult,
-    computer_use_permissions_opened: result.computerUsePermissionsOpened,
     warning_count: result.warnings.length
   }
 }
@@ -181,7 +168,6 @@ export async function runOnboardingFeatureSetup(
   const selectedIds = selectedOnboardingFeatureSetupIds(selection)
   const warnings: OnboardingFeatureSetupWarning[] = []
   const skillNames = onboardingFeatureSetupSkillNames(selection)
-  let computerUsePermissionsOpened = false
 
   deps.setStorageItem(BROWSER_USE_ENABLED_STORAGE_KEY, selection.browserUse ? '1' : '0')
   deps.setStorageItem(ORCHESTRATION_ENABLED_STORAGE_KEY, selection.orchestration ? '1' : '0')
@@ -191,8 +177,8 @@ export async function runOnboardingFeatureSetup(
   deps.notifyOrchestrationStateChanged()
 
   if (selectedIds.length === 0) {
-    return { selectedIds, skillNames, computerUsePermissionsOpened, warnings }
+    return { selectedIds, skillNames, warnings }
   }
 
-  return { selectedIds, skillNames, computerUsePermissionsOpened, warnings }
+  return { selectedIds, skillNames, warnings }
 }

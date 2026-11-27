@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 import { useAppStore } from '@/store/index'
-import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { isGitRepoKind } from '../../../../shared/repository/repo-kind'
 import { getRepoExecutionHostId } from '../../../../shared/execution-host/execution-host'
 import { checkRuntimeHooks } from '@/runtime/repo-hooks/runtime-hooks-client'
@@ -9,7 +7,6 @@ import { getLocalPreflightContext } from '@/runtime/hosts/preflight/local-prefli
 import { hasEffectiveSetupCommand } from '@/runtime/repo-hooks/setup-script-status'
 import { getProviderRuntimeContextKey } from '@/runtime/hosts/observations/provider-runtime-context'
 import {
-  COMPUTER_USE_SKILL_NAME,
   OPENKODO_CLI_SKILL_NAME,
   ORCHESTRATION_SKILL_NAME
 } from '@/lib/skills/installation/agent-feature-skill-names'
@@ -23,7 +20,6 @@ import type { FeatureWallSetupProgress } from '../feature-wall/setup/feature-wal
 import { deriveIntegrationConnectionStatus } from '../feature-wall/setup/integrations/use-integration-connection-status'
 import { useSetupGuideBrowserMilestoneProgress } from './setup-guide-browser-milestone-progress'
 import {
-  getComputerUsePermissionSetupState,
   getCurrentSetupScriptProbeState,
   getSetupGuideProgressReady,
   getSetupScriptProbeSignature
@@ -71,13 +67,6 @@ export function useSetupGuideProgress(
     readSetupScriptProbeCache,
     readSetupScriptProbeCache
   )
-  const [computerUsePermissionsReady, setComputerUsePermissionsReady] = useState(false)
-  const [computerUsePermissionStatusChecked, setComputerUsePermissionStatusChecked] =
-    useState(false)
-  const [computerUseUnavailable, setComputerUseUnavailable] = useState(false)
-  const computerUseBlocked = useOpenKodoTeamFeatureBlocked(
-    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse
-  )
   const skillOptions = {
     enabled: shouldRefreshCoreState && activeSkillRuntime.enabled,
     discoveryTarget: activeSkillRuntime.discoveryTarget,
@@ -87,11 +76,6 @@ export function useSetupGuideProgress(
   }
   const { installed: detectedBrowserUseSkillInstalled, loading: detectedBrowserUseSkillLoading } =
     useInstalledAgentSkill(OPENKODO_CLI_SKILL_NAME, skillOptions)
-  const { installed: computerUseSkillInstalled, loading: computerUseSkillLoading } =
-    useInstalledAgentSkill(COMPUTER_USE_SKILL_NAME, {
-      ...skillOptions,
-      enabled: skillOptions.enabled && !computerUseBlocked
-    })
   const {
     installed: detectedOrchestrationSkillInstalled,
     loading: detectedOrchestrationSkillLoading
@@ -192,50 +176,6 @@ export function useSetupGuideProgress(
     }
   }, [orderedGitRepos, settings, setupScriptProbeSignature, shouldRefreshCoreState])
 
-  const readComputerUsePermissions = useCallback(async (isStale: () => boolean): Promise<void> => {
-    const status = null
-    if (isStale()) {
-      return
-    }
-    const permissionState = getComputerUsePermissionSetupState(status)
-    setComputerUsePermissionStatusChecked(true)
-    setComputerUsePermissionsReady(permissionState.ready)
-    setComputerUseUnavailable(permissionState.unavailable)
-  }, [])
-
-  const shouldReadComputerUsePermissions =
-    shouldRefreshCoreState && !computerUseBlocked && computerUseSkillInstalled
-  useEffect(() => {
-    if (!shouldReadComputerUsePermissions) {
-      // Unavailable steps must clear stale permission state before readiness is derived.
-      setComputerUsePermissionStatusChecked(false)
-      setComputerUsePermissionsReady(false)
-      setComputerUseUnavailable(false)
-      return
-    }
-    let stale = false
-    const refreshComputerUsePermissions = (): void => {
-      void readComputerUsePermissions(() => stale)
-    }
-    refreshComputerUsePermissions()
-    const handleFocus = (): void => {
-      void refreshComputerUsePermissions()
-    }
-    const handleVisibilityChange = (): void => {
-      if (document.visibilityState === 'visible') {
-        void refreshComputerUsePermissions()
-      }
-    }
-    // Users grant OS permissions elsewhere; refresh on return without remounting.
-    window.addEventListener('focus', handleFocus)
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-    return () => {
-      stale = true
-      window.removeEventListener('focus', handleFocus)
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    }
-  }, [readComputerUsePermissions, shouldReadComputerUsePermissions])
-
   const taskSourceStatus = deriveIntegrationConnectionStatus({
     preflightStatus,
     preflightStatusChecked,
@@ -265,12 +205,8 @@ export function useSetupGuideProgress(
     linearStatusChecked: true,
     jiraStatusChecked: true,
     browserUseSkillDiscoveryLoading: detectedBrowserUseSkillLoading,
-    computerUseSkillDiscoveryLoading: !computerUseBlocked && computerUseSkillLoading,
     orchestrationSkillDiscoveryLoading: detectedOrchestrationSkillLoading,
-    setupScriptProbeReady: currentSetupScriptProbe.ready,
-    computerUseSkillInstalled: !computerUseBlocked && computerUseSkillInstalled,
-    computerUsePermissionStatusChecked:
-      shouldReadComputerUsePermissions && computerUsePermissionStatusChecked
+    setupScriptProbeReady: currentSetupScriptProbe.ready
   })
 
   const { rawProgress, preBrowserSetupComplete } = useMemo(
@@ -283,11 +219,6 @@ export function useSetupGuideProgress(
         browserUseSkillInstalled: shouldRefreshCoreState
           ? detectedBrowserUseSkillInstalled
           : browserUseSkillInstalled,
-        computerUseBlocked,
-        computerUseSkillInstalled,
-        computerUsePermissionsReady:
-          shouldReadComputerUsePermissions && computerUsePermissionsReady,
-        computerUseUnavailable: shouldReadComputerUsePermissions && computerUseUnavailable,
         orchestrationSkillInstalled: shouldRefreshCoreState
           ? detectedOrchestrationSkillInstalled
           : orchestrationSkillInstalled,
@@ -299,11 +230,6 @@ export function useSetupGuideProgress(
       shouldRefreshCoreState,
       browserUseSkillInstalled,
       ready,
-      computerUseUnavailable,
-      computerUsePermissionsReady,
-      computerUseBlocked,
-      computerUseSkillInstalled,
-      shouldReadComputerUsePermissions,
       detectedBrowserUseSkillInstalled,
       detectedOrchestrationSkillInstalled,
       featureInteractions,

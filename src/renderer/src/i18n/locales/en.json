@@ -9204,11 +9204,7 @@
           "80bffd32bf": "Import cookies",
           "bd7d68f138": "From file…"
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "If cookie import is not the right fit, Computer Use can control local apps and may use existing logged-in browser sessions where applicable. Install the OpenKodo Computer Use skill; macOS also requires privacy permissions.",
-          "333984cf90": "Use an existing browser session",
-          "9895ed44de": "Open computer use"
-        },
+        "BrowserUseComputerUseNotice": {},
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "Enable agent browser use"
         },
@@ -17230,13 +17226,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "Installed",
-            "1b51644c2d": "Let agents control the desktop, moving the cursor, clicking, and typing in any app.",
-            "362a07517d": "Computer Use",
             "5e8fe5a72d": "Give agents direct access to OpenKodo's browser so they can test pages, capture screenshots, and act on what they see.",
             "e638da007a": "Agent Browser Use",
             "c61c91e642": "Let agents coordinate through OpenKodo to keep large, multi-step tasks moving to completion.",
             "ac07f8887f": "Agent Orchestration",
-            "e9eb197e12": "Opened Computer Use permissions",
             "c605f51f2b": "Capability setup ready",
             "1aa657d8f4": "Some capability setup needs attention",
             "installSkills": "Install skills",
@@ -17427,13 +17420,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "Installed",
-                  "5c9293e51a": "checking app access",
                   "aa8e143a2f": "Could not check install",
                   "9b33e7fb13": "Checking install",
-                  "6d2b0a84e1": "Unavailable in this build",
-                  "notInstalled": "Not installed",
-                  "needsMacAccess": "Needs macOS access",
-                  "requiresOpenKodoDesktop": "Requires OpenKodo Desktop"
+                  "notInstalled": "Not installed"
                 }
               }
             }

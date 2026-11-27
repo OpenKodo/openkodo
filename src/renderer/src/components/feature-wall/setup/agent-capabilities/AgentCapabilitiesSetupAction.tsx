@@ -8,14 +8,12 @@ import { FeatureSetupInlineTerminal } from '../../../onboarding/FeatureSetupInli
 import { buildAgentFeatureSkillInstallCommand } from '@/lib/skills/installation/agent-feature-install-commands'
 import { buildSkillCommandForRuntime } from '../../../../lib/skills/runtime/skill-runtime-command'
 import type { OnboardingFeatureSetupRuntimeContext } from '../../../onboarding/onboarding-feature-setup-runtime'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, Download, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/class-names'
 import { useAppStore } from '@/store/index'
-import { useOpenKodoTeamFeatureBlocked } from '@/lib/openkodo-team-policy'
-import { OPENKODO_CLOUD_TEAM_POLICY_FLAGS } from '../../../../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { AgentCapabilityStatusNote, AgentCapabilityStatusPill } from './AgentCapabilityStatusBadges'
 import {
   bundledSkillInstallNeedsAttention,
@@ -64,19 +62,13 @@ function AgentCapabilitiesSetupForRuntime(
   }
 ): React.JSX.Element {
   const { onBrowserUseSkillInstalledChange, onOrchestrationSkillInstalledChange } = props
-  const computerUseBlocked = useOpenKodoTeamFeatureBlocked(
-    OPENKODO_CLOUD_TEAM_POLICY_FLAGS.computerUse
-  )
-  const { readiness, installStatus } = useAgentCapabilitySetupStatus(computerUseBlocked)
+  const { readiness, installStatus } = useAgentCapabilitySetupStatus()
   const featureSetupDefaultsAppliedRef = useRef(false)
   const featureSetupChangedByUserRef = useRef(false)
   const [requestedSetup, setFeatureSetup] = useState<OnboardingFeatureSetupSelection>(
     DEFAULT_ONBOARDING_FEATURE_SETUP_SELECTION
   )
-  const featureSetup = useMemo(
-    () => (computerUseBlocked ? { ...requestedSetup, computerUse: false } : requestedSetup),
-    [computerUseBlocked, requestedSetup]
-  )
+  const featureSetup = requestedSetup
   const [setupBusyLabel, setSetupBusyLabel] = useState<string | null>(null)
   const recordFeatureInteraction = useAppStore((s) => s.recordFeatureInteraction)
   const activeRuntime = props.runtime
@@ -112,15 +104,10 @@ function AgentCapabilitiesSetupForRuntime(
     featureSetupDefaultsAppliedRef.current = true
     setFeatureSetup(getDefaultAgentCapabilitySetupSelection(readiness))
   }, [readiness])
-  const handleFeatureSetupChange = useCallback(
-    (value: OnboardingFeatureSetupSelection): void => {
-      featureSetupChangedByUserRef.current = true
-      setFeatureSetup((previous) =>
-        computerUseBlocked ? { ...value, computerUse: previous.computerUse } : value
-      )
-    },
-    [computerUseBlocked]
-  )
+  const handleFeatureSetupChange = useCallback((value: OnboardingFeatureSetupSelection): void => {
+    featureSetupChangedByUserRef.current = true
+    setFeatureSetup(value)
+  }, [])
   const handleStartFeatureSetup = useCallback(async (): Promise<void> => {
     if (setupBusyLabel !== null) {
       return
@@ -130,9 +117,6 @@ function AgentCapabilitiesSetupForRuntime(
       const result = await runOnboardingFeatureSetup(featureSetup)
       if (featureSetup.browserUse) {
         recordFeatureInteraction('agent-browser-setup')
-      }
-      if (featureSetup.computerUse) {
-        recordFeatureInteraction('computer-use-setup')
       }
       if (featureSetup.orchestration) {
         recordFeatureInteraction('agent-orchestration-setup')
@@ -175,14 +159,6 @@ function AgentCapabilitiesSetupForRuntime(
           )
         )
       }
-      if (result.computerUsePermissionsOpened) {
-        toast.message(
-          translate(
-            'auto.components.feature.wall.AgentCapabilitiesSetupAction.e9eb197e12',
-            'Opened Computer Use permissions'
-          )
-        )
-      }
     } finally {
       setSetupBusyLabel(null)
     }
@@ -219,7 +195,6 @@ function AgentCapabilitiesSetupForRuntime(
           onStartFeatureSetup={() => void handleStartFeatureSetup()}
           allReady={isAgentCapabilityReadinessComplete(readiness)}
           installStatus={installStatus}
-          computerUseBlocked={computerUseBlocked}
         />
       )}
     </div>
@@ -235,7 +210,6 @@ function AgentCapabilitySetupControls(props: {
   onStartFeatureSetup: () => void
   allReady: boolean
   installStatus: Record<OnboardingFeatureSetupId, AgentCapabilityInstallStatus>
-  computerUseBlocked: boolean
 }): React.JSX.Element {
   const t = useTranslate()
   const hasSelectedFeatures = hasSelectedOnboardingFeatureSetup(props.featureSetup)
@@ -256,7 +230,6 @@ function AgentCapabilitySetupControls(props: {
         value={props.featureSetup}
         onChange={props.onFeatureSetupChange}
         installStatus={props.installStatus}
-        computerUseBlocked={props.computerUseBlocked}
       />
       {showSetupAction && showAllReady ? (
         <p className="mt-6 flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -322,15 +295,12 @@ function AgentCapabilitySetupChecklist(props: {
   value: OnboardingFeatureSetupSelection
   onChange: (value: OnboardingFeatureSetupSelection) => void
   installStatus: Record<OnboardingFeatureSetupId, AgentCapabilityInstallStatus>
-  computerUseBlocked: boolean
 }): React.JSX.Element {
   const t = useTranslate()
   return (
     <section className="mt-6">
       <div className="grid gap-3 md:grid-cols-3">
-        {AGENT_CAPABILITY_SETUP_ROWS.filter(
-          (row) => !props.computerUseBlocked || row.id !== 'computerUse'
-        ).map((row) => {
+        {AGENT_CAPABILITY_SETUP_ROWS.map((row) => {
           const selected = props.value[row.id]
           const installStatus = props.installStatus[row.id]
           return (

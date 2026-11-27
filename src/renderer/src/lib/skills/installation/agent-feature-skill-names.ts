@@ -1,5 +1,4 @@
 export const OPENKODO_CLI_SKILL_NAME = 'openkodo-cli'
-export const COMPUTER_USE_SKILL_NAME = 'openkodo-computer-use'
 export const ORCHESTRATION_SKILL_NAME = 'orchestration'
 export const EPHEMERAL_VMS_SKILL_NAME = 'openkodo-per-workspace-env'
 export const OPENKODO_LINEAR_SKILL_NAME = 'openkodo-linear'

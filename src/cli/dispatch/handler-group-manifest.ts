@@ -163,28 +163,6 @@ export const HANDLER_GROUPS: readonly HandlerGroup[] = [
       (await import('../orchestration/orchestration-handlers.js')).ORCHESTRATION_HANDLERS
   },
   {
-    name: 'computer',
-    keys: [
-      'computer capabilities',
-      'computer list-apps',
-      'computer permissions',
-      'computer launch-app',
-      'computer list-windows',
-      'computer get-app-state',
-      'computer wait',
-      'computer click',
-      'computer perform-secondary-action',
-      'computer scroll',
-      'computer drag',
-      'computer type-text',
-      'computer press-key',
-      'computer hotkey',
-      'computer paste-text',
-      'computer set-value'
-    ],
-    load: async () => (await import('../computer/computer.js')).COMPUTER_HANDLERS
-  },
-  {
     name: 'mcp',
     keys: ['mcp connect'],
     load: async () => (await import('../mcp/mcp-connect.js')).MCP_HANDLERS

@@ -130,14 +130,6 @@ export const OPENKODOD_PORT_SCAN_COMMAND_WORKER_ENTRY = 'port-scan-command-worke
 export const OPENKODOD_SESSION_SCANNER_SERVICE_ENTRY = 'session-scanner-service-entry.js'
 /** Worker thread SessionSearchWorkerClient loads; without it remote session search is unavailable. */
 export const OPENKODOD_SESSION_SEARCH_WORKER_ENTRY = 'session-search-worker-entry.js'
-// Equals COMPUTER_SIDECAR_ENTRY_FILENAME, and the desktop's out/main entry name.
-export const OPENKODOD_COMPUTER_SIDECAR_ENTRY = 'computer-sidecar.js'
-/** Plain scripts, one copy for every target: each platform's sidecar runs only its own. */
-export const OPENKODOD_COMPUTER_USE_RUNTIME_ARTIFACTS = [
-  'computer-use-linux/runtime.py',
-  'computer-use-windows/runtime.ps1'
-] as const
-
 // Kept here because build-openkodod.mjs imports this manifest directly under Node type stripping.
 export const OPENKODOD_RIPGREP_ARTIFACTS = [
   'ripgrep/linux-x64/rg',
@@ -286,9 +278,6 @@ export const OPENKODOD_ARTIFACTS: readonly OpenkododArtifact[] = [
   { filename: 'usage-scan-worker-entry.js' },
   // Dictation loads the recognizer named by openkodo serve (#31174).
   { filename: 'stt-worker.js' },
-  // The forked computer sidecar finds platform runtimes beside itself (#31777).
-  { filename: OPENKODOD_COMPUTER_SIDECAR_ENTRY },
-  ...OPENKODOD_COMPUTER_USE_RUNTIME_ARTIFACTS.map((filename) => ({ filename })),
   // Target-specific even when the JavaScript bundle is shared across packaged slots.
   { filename: OPENKODOD_SERVER_TARGET_FILENAME },
   // openkodod never depends on a host runtime or host-installed native module.

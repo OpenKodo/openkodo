@@ -9,7 +9,6 @@ import {
   type RpcResponse
 } from '../core'
 
-import { computerUseErrorRecoveryData } from '../../../../shared/computer/computer-use-error-recovery'
 import { errorResponse, mapRuntimeError } from './rpc-response'
 import { PluginHookDeniedError } from '../../../plugins/hooks/plugin-hook-dispatch'
 
@@ -18,15 +17,7 @@ export function invalidArgumentResponse(
   meta: RpcEnvelopeMeta,
   message: string
 ): RpcResponse {
-  return errorResponse(
-    request.id,
-    meta,
-    'invalid_argument',
-    message,
-    request.method.startsWith('computer.')
-      ? computerUseErrorRecoveryData('invalid_argument')
-      : undefined
-  )
+  return errorResponse(request.id, meta, 'invalid_argument', message)
 }
 
 export function mapDispatcherError(

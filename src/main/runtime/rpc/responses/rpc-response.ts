@@ -24,8 +24,6 @@ import { CONNECTOR_ACT_ERROR_CODES } from '../../../../shared/connector-action-c
 import { BOTS_DISABLED_CODE } from '../../../../shared/bots-switch'
 import { ORCHESTRATION_SESSION_CALLER_ERROR_CODES } from '../../../../shared/orchestration/orchestration-session-caller-codes'
 import { ORCHESTRATION_FEDERATION_ERROR_CODES } from '../../../../shared/orchestration/orchestration-federation-error-codes'
-import { computerUseErrorRecoveryData } from '../../../../shared/computer/computer-use-error-recovery'
-import { COMPUTER_ERROR_CODES } from '../../../../shared/computer/computer-use-runtime-types'
 import { TerminalSplitOutcomeError } from '../../../../shared/workspace-layout/terminal-topology/terminal-split-outcome'
 import { WslHostWindowsDriveRefusalError } from '../../../../shared/remote-runtime/wsl-hosts/wsl-host-windows-drive-refusal'
 import { wslDistroHoldRpcFailure } from '../../../../shared/remote-runtime/wsl-hosts/wsl-distro-stopped-hold'
@@ -80,7 +78,6 @@ export function errorResponse(
   }
 }
 
-const COMPUTER_PASSTHROUGH_CODES: ReadonlySet<string> = new Set(Object.values(COMPUTER_ERROR_CODES))
 const LINEAR_PASSTHROUGH_CODES: ReadonlySet<string> = new Set(LINEAR_ERROR_CODES)
 const STRUCTURED_RUNTIME_PASSTHROUGH_CODES: ReadonlySet<string> = new Set([
   ...CONNECTOR_ACT_ERROR_CODES,
@@ -205,15 +202,6 @@ export function mapRuntimeError(id: string, meta: RpcEnvelopeMeta, error: unknow
   ) {
     // Keep the existing RPC code while preserving structured details.
     return errorResponse(id, meta, 'runtime_error', message, error.data)
-  }
-  if (
-    error instanceof Error &&
-    'code' in error &&
-    typeof (error as { code: unknown }).code === 'string' &&
-    COMPUTER_PASSTHROUGH_CODES.has((error as { code: string }).code)
-  ) {
-    const code = (error as { code: string }).code
-    return errorResponse(id, meta, code, message, computerUseErrorRecoveryData(code, message))
   }
   if (
     error instanceof Error &&

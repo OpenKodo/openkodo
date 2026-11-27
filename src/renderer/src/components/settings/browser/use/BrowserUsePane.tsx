@@ -18,7 +18,6 @@ import {
   getBrowserUsePaneSearchEntries
 } from './browser-use-search'
 import { BrowserUseExamples } from './BrowserUseExamples'
-import { BrowserUseComputerUseNotice } from './BrowserUseComputerUseNotice'
 import { BrowserUseEnableSwitch } from './BrowserUseEnableSwitch'
 import { BrowserUseSkillStep } from './BrowserUseSkillStep'
 import { BrowserUseCookieImportStep } from './BrowserUseCookieImportStep'
@@ -28,13 +27,11 @@ type BrowserUseSetupProps = {
   /** The host the pane's host picker shows; the skill is checked and installed there. */
   hostId: ExecutionHostId
   onConfigureMoreBrowsers?: () => void
-  onOpenComputerUse?: () => void
 }
 
 export function BrowserUseSetup({
   hostId,
-  onConfigureMoreBrowsers,
-  onOpenComputerUse
+  onConfigureMoreBrowsers
 }: BrowserUseSetupProps): React.JSX.Element {
   const t = useTranslate()
   const searchQuery = useAppStore((s) => s.settingsSearchQuery)
@@ -149,10 +146,6 @@ export function BrowserUseSetup({
           />
         </div>
       </div>
-
-      {onOpenComputerUse ? (
-        <BrowserUseComputerUseNotice onOpenComputerUse={onOpenComputerUse} />
-      ) : null}
 
       {showSkillStep ? (
         <SearchableSetting

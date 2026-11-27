@@ -1,5 +1,4 @@
 import { formatBrowserActionEffects } from '../browser/browser-format'
-import { prepareComputerCliJsonResult } from '../computer/computer-format'
 import type { RuntimeRpcSuccess } from '../../shared/remote-runtime/rpc/runtime-rpc-envelope'
 
 export function printResult<TResult>(
@@ -8,7 +7,7 @@ export function printResult<TResult>(
   formatter: (value: TResult) => string
 ): void {
   if (json) {
-    console.log(JSON.stringify(prepareComputerCliJsonResult(response), null, 2))
+    console.log(JSON.stringify(response, null, 2))
     return
   }
   console.log(formatter(response.result) + formatBrowserActionEffects(response.result))

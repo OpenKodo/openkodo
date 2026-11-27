@@ -123,31 +123,7 @@ export function useSettingsNavigationActions(
     ]
   )
 
-  const openComputerUseFromBrowser = useCallback(async () => {
-    if (!(await confirmDiscardSourceControlAiPromptChanges())) {
-      return
-    }
-    cancelPendingSettingsTargetFocus({ pendingFocusTargetRef, pendingFocusWatchRef })
-    pendingNavSectionRef.current = 'computer-use'
-    pendingScrollTargetRef.current = 'computer-use'
-    if (settingsSearchQuery !== '') {
-      setSettingsSearchQuery('')
-      return
-    }
-    // Pending refs cannot schedule the jump effect; trigger a render.
-    setPendingNavRequestTick((tick) => tick + 1)
-  }, [
-    confirmDiscardSourceControlAiPromptChanges,
-    pendingNavSectionRef,
-    pendingScrollTargetRef,
-    pendingFocusTargetRef,
-    pendingFocusWatchRef,
-    setPendingNavRequestTick,
-    setSettingsSearchQuery,
-    settingsSearchQuery
-  ])
-
-  return { scrollToSection, openSettingsSearchResult, openComputerUseFromBrowser }
+  return { scrollToSection, openSettingsSearchResult }
 }
 
 export type SettingsNavigationActions = ReturnType<typeof useSettingsNavigationActions>

@@ -7815,11 +7815,7 @@
           "80bffd32bf": "Importer des cookies",
           "bd7d68f138": "Depuis un fichier…"
         },
-        "BrowserUseComputerUseNotice": {
-          "79209b37b9": "Si l'import de cookies ne convient pas, Computer Use peut contrôler des apps locales et, le cas échéant, réutiliser des sessions de navigateur déjà connectées. Installez la skill OpenKodo Computer Use ; macOS exige aussi des autorisations de confidentialité.",
-          "333984cf90": "Utiliser une session de navigateur existante",
-          "9895ed44de": "Ouvrir Computer Use"
-        },
+        "BrowserUseComputerUseNotice": {},
         "BrowserUseEnableSwitch": {
           "ce4d6f80d8": "Activer Agent Browser Use"
         },
@@ -15622,13 +15618,10 @@
         "wall": {
           "AgentCapabilitiesSetupAction": {
             "b8dc9dd8a2": "Installés",
-            "1b51644c2d": "Laissez les agents contrôler le bureau : déplacer le curseur, cliquer et taper dans n'importe quelle application.",
-            "362a07517d": "Computer Use",
             "5e8fe5a72d": "Donnez aux agents un accès direct au navigateur d'OpenKodo pour tester des pages, capturer des captures d'écran et agir sur ce qu'ils voient.",
             "e638da007a": "Agent Browser Use",
             "c61c91e642": "Laissez les agents se coordonner via OpenKodo pour faire avancer jusqu'au bout les grandes tâches en plusieurs étapes.",
             "ac07f8887f": "Orchestration d'agents",
-            "e9eb197e12": "Autorisations Computer Use ouvertes",
             "c605f51f2b": "Configuration des capacités prête",
             "1aa657d8f4": "Certaines configurations de capacités demandent votre attention",
             "installSkills": "Installer les skills",
@@ -15819,13 +15812,9 @@
               "setup": {
                 "status": {
                   "8eccfcb314": "Installés",
-                  "5c9293e51a": "vérification de l'accès à l'app",
                   "aa8e143a2f": "Impossible de vérifier l'installation",
                   "9b33e7fb13": "Vérification de l'installation",
-                  "6d2b0a84e1": "Indisponible dans ce build",
-                  "needsMacAccess": "Nécessite l'accès macOS",
-                  "notInstalled": "Non installée",
-                  "requiresOpenKodoDesktop": "Nécessite OpenKodo Desktop"
+                  "notInstalled": "Non installée"
                 }
               }
             }

@@ -252,7 +252,6 @@ export const onboardingFeatureSetupRunSchema = z
       'connect_host',
       'failed'
     ]),
-    computer_use_permissions_opened: z.boolean(),
     warning_count: z.number().int().nonnegative(),
     cohort: cohortSchema
   })
