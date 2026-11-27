@@ -29,6 +29,10 @@ import {
   type ReleaseChannel
 } from '../../../../../shared/updater/release-channel'
 
+const OFFERED_CHANNELS = RELEASE_CHANNELS.filter(
+  (channel) => channel === 'stable' || channel === 'rc'
+)
+
 const CHANNEL_DESCRIPTIONS: Record<ReleaseChannel, (t: Translate) => string> = {
   stable: (t) =>
     t(
@@ -201,7 +205,7 @@ export function ReleaseChannelSection(): React.JSX.Element {
           ariaLabel={title}
           wrap
           // Show unsupported channels disabled with reasons so users can discover why they are unavailable.
-          options={RELEASE_CHANNELS.map((channel) => {
+          options={OFFERED_CHANNELS.map((channel) => {
             const supported = isChannelSupportedOnPlatform(channel, platform)
             const label = getReleaseChannelLabel(channel, t)
             return {

@@ -15,10 +15,6 @@ import { callRuntimeRpc } from '@/runtime/rpc/calls/runtime-rpc-call'
 import { useShallow } from 'zustand/react/shallow'
 import { useAppStore } from '@/store'
 import type { AppState } from '@/store/types'
-import {
-  isOpenKodoCloudTeamFeatureBlocked,
-  OPENKODO_CLOUD_TEAM_POLICY_FLAGS
-} from '../../../shared/openkodo-profiles/openkodo-cloud-team-policy'
 import { activateAndRevealFolderWorkspace } from './workspace/activation/worktree-activation'
 import {
   activateStructuredAgentSessionById,
@@ -197,14 +193,9 @@ export function readBotsEnabled(): boolean {
   return botsEnabled(useAppStore.getState())
 }
 
-function botsEnabled(state: AppState): boolean {
-  return (
-    state.settings?.botsEnabled !== false &&
-    !isOpenKodoCloudTeamFeatureBlocked(
-      state.openkodoProfileAuthStatus,
-      OPENKODO_CLOUD_TEAM_POLICY_FLAGS.bots
-    )
-  )
+function botsEnabled(_state: AppState): boolean {
+  // Bots are an inherited workbench surface, retired for OpenKodo Code.
+  return false
 }
 
 /** Makes the bot on `hostId`; it answers stamped with that host, so calls about it go there. */

@@ -11,8 +11,36 @@ import { formatCommandScopedFlagHelp } from './command-scoped-flag-help'
 import { FLAG_HELP_TEXT } from './flag-help-text'
 import { ROOT_HELP_TEXT_PRIMARY } from './root-help-text-primary'
 import { ROOT_HELP_TEXT_SECONDARY } from './root-help-text-secondary'
+import { RETIRED_CLI_COMMANDS } from '../../shared/product-surface/retired-features'
 
-const ROOT_HELP_TEXT = [ROOT_HELP_TEXT_PRIMARY, ROOT_HELP_TEXT_SECONDARY].join('\n')
+const RETIRED_HELP_HEADINGS = new Set([
+  'Accounts:',
+  'Artifacts:',
+  'Automations:',
+  'Bots:',
+  'Computer Use:',
+  'Emulator:',
+  'Integrations:',
+  'Mobile:'
+])
+
+function withoutRetiredCommands(text: string): string {
+  return text
+    .split('\n')
+    .filter((line) => {
+      const trimmed = line.trim()
+      if (RETIRED_HELP_HEADINGS.has(trimmed)) {
+        return false
+      }
+      const command = trimmed.split(/\s+/)[0]
+      return !RETIRED_CLI_COMMANDS.has(command)
+    })
+    .join('\n')
+}
+
+const ROOT_HELP_TEXT = withoutRetiredCommands(
+  [ROOT_HELP_TEXT_PRIMARY, ROOT_HELP_TEXT_SECONDARY].join('\n')
+)
 // Command lines only: leaves paths, `openkodo://` and quoted non-command names intact.
 const CLI_COMMAND_WORD = /(^|[\s`(])openkodo(?=\s|$)/gm
 

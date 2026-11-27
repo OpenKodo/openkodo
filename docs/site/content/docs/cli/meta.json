@@ -1,13 +1,5 @@
 {
   "title": "OpenKodo CLI & Skills",
   "defaultOpen": true,
-  "pages": [
-    "overview",
-    "reference",
-    "orchestration",
-    "automations",
-    "computer-use",
-    "worktree-checkpoints",
-    "skills"
-  ]
+  "pages": ["overview", "reference", "orchestration", "worktree-checkpoints", "skills"]
 }

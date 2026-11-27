@@ -24,6 +24,7 @@ import { getGeneralEditorSearchDescriptors } from '../editor/general-editor-sear
 import { GENERAL_SUB_PAGE_ENTRY_ANCHORS } from '../general/general-setting-anchors'
 import { getGeneralSubPageTitle } from '../general/general-sub-pages'
 import { translate } from '@/i18n/i18n'
+import { isRetiredSettingsSection } from '../../../../../shared/product-surface/retired-features'
 
 export function useSettingsNavigationModel(
   model: SettingsStoreModel,
@@ -125,10 +126,12 @@ export function useSettingsNavigationModel(
   ])
   const navSections = useMemo(
     () =>
-      baseNavSections.map((section) => {
-        const installStatus = capabilityInstallStatusBySectionId.get(section.id)
-        return installStatus ? { ...section, installStatus } : section
-      }),
+      baseNavSections
+        .filter((section) => !isRetiredSettingsSection(section.id))
+        .map((section) => {
+          const installStatus = capabilityInstallStatusBySectionId.get(section.id)
+          return installStatus ? { ...section, installStatus } : section
+        }),
     [baseNavSections, capabilityInstallStatusBySectionId]
   )
   const navSectionById = useMemo(

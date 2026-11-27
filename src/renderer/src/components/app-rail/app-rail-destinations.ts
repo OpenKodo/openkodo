@@ -1,11 +1,6 @@
 import type { AppState } from '@/store/types'
 import { useAppStore } from '@/store/index'
-import {
-  shouldShowArtifactsButton,
-  shouldShowAutomationsButton,
-  shouldShowMobileButton,
-  shouldShowSkillsButton
-} from '@/components/sidebar/chrome/SidebarNav'
+import { shouldShowSkillsButton } from '@/components/sidebar/chrome/SidebarNav'
 import { navigateFromRail } from './app-rail-navigation'
 import { APP_RAIL_DESTINATION_IDS, type AppRailDestinationId } from './app-rail-layout'
 
@@ -16,11 +11,12 @@ const DESTINATION_VISIBLE: Record<
   AppRailDestinationId,
   (settings: AppState['settings']) => boolean
 > = {
-  tasks: (settings) => settings?.showTasksButton !== false,
-  automations: shouldShowAutomationsButton,
-  artifacts: shouldShowArtifactsButton,
+  // Retired surfaces stay in the tree but never appear in the rail.
+  tasks: () => false,
+  automations: () => false,
+  artifacts: () => false,
   skills: shouldShowSkillsButton,
-  mobile: shouldShowMobileButton
+  mobile: () => false
 }
 
 // The settings Settings' "Show … button" switches write, so Customize persists through the same path.
