@@ -24,10 +24,7 @@ const english = (_key: string, fallback: string, values?: Record<string, unknown
 
 describe('bot failure codes', () => {
   it('ships every code in the desktop and phone English catalogs, word for word', () => {
-    for (const catalog of [
-      'src/renderer/src/i18n/locales/en.json',
-      'mobile/src/i18n/locales/en.json'
-    ]) {
+    for (const catalog of ['src/renderer/src/i18n/locales/en.json']) {
       const en = JSON.parse(readFileSync(join(ROOT, catalog), 'utf8'))
       expect(en.bots.failures).toEqual(BOT_FAILURE_COPY)
     }

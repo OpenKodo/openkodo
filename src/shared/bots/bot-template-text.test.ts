@@ -40,7 +40,7 @@ describe('template words in the English catalogs', () => {
     return words
   }
 
-  it.each(['src/renderer/src/i18n/locales/en.json', 'mobile/src/i18n/locales/en.json'])(
+  it.each(['src/renderer/src/i18n/locales/en.json'])(
     '%s holds exactly the templates’ English',
     (catalog) => {
       expect(catalogWords(catalog)).toEqual(expected)

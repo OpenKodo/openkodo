@@ -27,10 +27,7 @@ function translatorFor(entries: Record<string, unknown>) {
 
 describe('app lines', () => {
   it('ships every app line in the desktop and phone English catalogs, word for word', () => {
-    for (const file of [
-      'src/renderer/src/i18n/locales/en.json',
-      'mobile/src/i18n/locales/en.json'
-    ]) {
+    for (const file of ['src/renderer/src/i18n/locales/en.json']) {
       const t = translatorFor(catalog(file))
       for (const app of BOT_MCP_APPS) {
         expect(t(`bots.apps.line.${app.id}`, '')).toBe(app.line)

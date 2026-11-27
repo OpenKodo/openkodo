@@ -55,15 +55,6 @@ const NON_UNIT_TEST_RUNNERS = [
     sources: ['tests/tools/benchmarks/bot-chat-tree/vitest.bot-chat-tree-bench.config.ts'],
     mirrors: ["'tests/tools/benchmarks/bot-chat-tree/bot-chat-tree-notices-benchmark.ts'"]
   },
-  {
-    name: 'mobile',
-    include: ['mobile/src/**/*.test.ts', 'mobile/src/**/*.test.tsx', 'mobile/scripts/**/*.test.ts'],
-    sources: ['mobile/vitest.config.ts'],
-    mirrors: [
-      'root: import.meta.dirname',
-      "'src/**/*.test.ts', 'src/**/*.test.tsx', 'scripts/**/*.test.ts'"
-    ]
-  },
   ...['push', 'relay'].map((app) => ({
     name: `cloud ${app}`,
     include: [`cloud/apps/${app}/src/**/*.test.ts`],

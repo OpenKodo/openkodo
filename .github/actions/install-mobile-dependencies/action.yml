@@ -1,0 +1,7 @@
+name: Install mobile dependencies
+description: The mobile app is retired; kept as a no-op for existing workflows.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: echo "mobile app retired; nothing to install"

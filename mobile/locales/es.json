@@ -1,9 +1,0 @@
-{
-  "ios": {
-    "NSCameraUsageDescription": "Permite que OpenKodo use la cámara para escanear códigos QR.",
-    "NSLocalNetworkUsageDescription": "OpenKodo se conecta a la aplicación de escritorio en tu LAN.",
-    "NSMicrophoneUsageDescription": "Permite que OpenKodo use tu micrófono para el dictado por voz, transcrito en este teléfono o en tu ordenador vinculado.",
-    "NSPhotoLibraryAddUsageDescription": "Permite que OpenKodo guarde imágenes de tus sesiones en Fotos.",
-    "NSPhotoLibraryUsageDescription": "Permite que OpenKodo adjunte fotos de tu fototeca a una sesión de terminal en tu escritorio emparejado."
-  }
-}

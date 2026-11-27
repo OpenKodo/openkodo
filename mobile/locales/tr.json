@@ -1,9 +1,0 @@
-{
-  "ios": {
-    "NSCameraUsageDescription": "OpenKodo'nın QR kodlarını taramak için kamerayı kullanmasına izin verin.",
-    "NSLocalNetworkUsageDescription": "OpenKodo, yerel ağınızdaki masaüstü uygulamasına bağlanır.",
-    "NSMicrophoneUsageDescription": "OpenKodo’nın sesli dikte için mikrofonunuzu kullanmasına izin verin; konuşma bu telefonda veya eşlenmiş bilgisayarınızda yazıya dökülür.",
-    "NSPhotoLibraryAddUsageDescription": "OpenKodo'nın oturumlarınızdaki görselleri Fotoğraflar'a kaydetmesine izin verin.",
-    "NSPhotoLibraryUsageDescription": "OpenKodo'nın arşivinizdeki fotoğrafları eşleştirdiğiniz masaüstü bilgisayardaki bir terminal oturumuna eklemesine izin verin."
-  }
-}

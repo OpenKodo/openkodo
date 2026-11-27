@@ -165,53 +165,6 @@ export const VERIFY_CHECKS = [
     ]
   },
   {
-    name: 'mobile localization',
-    args: ['config/scripts/localization/catalog-validation/verify-mobile-localization.mjs'],
-    inputs: [
-      'mobile/app/',
-      'mobile/src/',
-      'mobile/web-entry/',
-      'mobile/app.json',
-      'mobile/locales/',
-      'src/shared/i18n/ui-locale',
-      'config/scripts/verify-mobile-localization',
-      'config/scripts/localization/catalog-validation/verify-mobile-localization',
-      'config/scripts/verify-localization-',
-      'config/scripts/localization/catalog-validation/verify-localization-',
-      'config/scripts/localization/source-extraction/verify-localization-',
-      'config/scripts/generate-runtime-required-english-catalog',
-      'config/scripts/localization/catalog-validation/generate-runtime-required-english-catalog',
-      'config/scripts/localization-surfaces',
-      'config/scripts/localization/catalog-validation/localization-surfaces'
-    ]
-  },
-  {
-    name: 'mobile localization coverage',
-    args: [
-      'config/scripts/localization/source-extraction/audit-localization-coverage.mjs',
-      '--check',
-      '--source-root',
-      'mobile/app',
-      '--source-root',
-      'mobile/src',
-      '--source-root',
-      'mobile/web-entry',
-      '--allowlist',
-      'config/mobile-localization-coverage-allowlist.json'
-    ],
-    inputs: [
-      'mobile/app/',
-      'mobile/src/',
-      'mobile/web-entry/',
-      'config/mobile-localization-coverage-allowlist.json',
-      'config/scripts/audit-localization-coverage',
-      'config/scripts/localization/source-extraction/audit-localization-coverage',
-      'config/scripts/localization/source-extraction/localization-visible-object-keys',
-      'config/scripts/localization/source-extraction/localization-ast-queries',
-      'config/scripts/localization/source-extraction/localization-coded-copy-rules'
-    ]
-  },
-  {
     // CI's predicate, narrowed locally to sources with translation evidence.
     name: 'localization extraction',
     args: ['config/scripts/localization/source-extraction/verify-localization-extraction.mjs'],
@@ -241,18 +194,10 @@ export const VERIFY_CHECKS = [
     args: ['config/scripts/ci/unit-selection/check-test-file-runners.mjs'],
     inputs: [
       'config/scripts/ci/unit-selection/dependency-graph/ci-unit-files.mjs',
-      'tests/playwright.config.ts',
-      'mobile/vitest.config.ts'
+      'tests/playwright.config.ts'
     ],
     matches: (files) =>
       files.some((file) => TEST_FILE.test(file) || /vitest[^/]*\.config/.test(file))
-  },
-  {
-    name: 'mobile shared dependency versions',
-    args: [
-      'config/scripts/package-manager/lockfile-contracts/check-mobile-shared-dependency-versions.mjs'
-    ],
-    inputs: ['mobile/package.json', 'mobile/pnpm-lock.yaml']
   },
   {
     name: 'readme local links',

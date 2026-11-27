@@ -1,0 +1,7 @@
+name: Build mobile web bundle
+description: Writes the placeholder bundle that replaces the retired mobile app.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: node config/scripts/build/mobile-web-app/write-placeholder-mobile-web-bundle.mjs

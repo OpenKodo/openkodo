@@ -1,9 +1,0 @@
-{
-  "platforms": ["ios", "android"],
-  "ios": {
-    "modules": ["OpenKodoGzipUtf8CodecModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.openkodogziputf8codec.OpenKodoGzipUtf8CodecModule"]
-  }
-}

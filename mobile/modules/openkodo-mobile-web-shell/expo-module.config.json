@@ -1,9 +1,0 @@
-{
-  "platforms": ["ios", "android"],
-  "ios": {
-    "modules": ["OpenKodoMobileWebShellModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.openkodomobilewebshell.OpenKodoMobileWebShellModule"]
-  }
-}

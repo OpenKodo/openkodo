@@ -20,8 +20,6 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Install mobile dependencies
-        run: pnpm -C mobile install --frozen-lockfile
       - name: Build JavaScript, CLI and web clients
         run: pnpm build:release:javascript
       - name: Ensure Electron runtime
