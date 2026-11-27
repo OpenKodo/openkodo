@@ -1,7 +1,6 @@
 import { LinearIcon } from '@/components/icons/LinearIcon'
 import { getAccountsPaneSearchEntries } from '@/components/settings/accounts/accounts-search'
 import { getAgentsPaneSearchEntries } from '@/components/settings/agents/agents-search'
-import { getComputerUsePaneSearchEntries } from '@/components/settings/computer-use/computer-use-search'
 import { getGeneralPaneSearchEntries } from '@/components/settings/general/general-search'
 import { getIntegrationsPaneSearchEntries } from '@/components/settings/integrations/integrations-search'
 import { getLinearAgentSkillPaneSearchEntries } from '@/components/settings/skills/linear/linear-agent-skill-search'
@@ -19,7 +18,6 @@ import {
   Bot,
   BrushCleaning,
   Mic,
-  MousePointerClick,
   Network,
   Plug,
   SlidersHorizontal,
@@ -115,17 +113,6 @@ export function buildCapabilitySettingsSections(
       : []),
     ...(showDesktopOnlySettings
       ? [
-          {
-            id: 'computer-use',
-            title: t('auto.hooks.useSettingsNavigationMetadata.b35e92364b', 'Computer Use'),
-            description: t(
-              'auto.hooks.useSettingsNavigationMetadata.0059bd17f3',
-              'Enable agents to control any app on your computer.'
-            ),
-            icon: MousePointerClick,
-            searchEntries: getComputerUsePaneSearchEntries(),
-            group: 'capabilities'
-          },
           {
             id: 'voice',
             title: t('auto.hooks.useSettingsNavigationMetadata.6a50cdcd7c', 'Voice'),

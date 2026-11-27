@@ -3,10 +3,6 @@ import type {
   RefreshAgentsResult
 } from '../../../../../preload/api/preflight/preflight-api'
 import type { PreloadApi } from '../../../../../preload/api-types'
-import type {
-  ComputerUsePermissionSetupResult,
-  ComputerUsePermissionStatusResult
-} from '../../../../../shared/computer/computer-use-permissions-types'
 import type { SkillDiscoveryResult } from '../../../../../shared/skills/discovery/skills'
 import type {
   SkillDeletePlan,
@@ -15,7 +11,6 @@ import type {
 import { SKILL_DELETE_CAPABILITY } from '../../../../../shared/skills/capabilities/skill-install-capability'
 import { callRuntimeResult, getRemoteRuntimeStatus } from '../../runtime/client/web-runtime-calls'
 import { requireActiveEnvironmentOrNull } from '../../runtime/client/web-runtime-session'
-import { getBrowserPlatform } from '../web-storage'
 
 export function createPreflightApi(): NonNullable<Partial<PreloadApi>['preflight']> {
   const fallbackStatus: PreflightStatus = {
@@ -110,45 +105,6 @@ export function createDeveloperPermissionsApi(): NonNullable<
         testedAt: Date.now(),
         failure: 'unsupported'
       } as const)
-  }
-}
-
-export function createComputerUsePermissionsApi(): NonNullable<
-  Partial<PreloadApi>['computerUsePermissions']
-> {
-  return {
-    getStatus: () =>
-      callRuntimeResult<ComputerUsePermissionStatusResult>(
-        'computer.permissionsStatus',
-        {},
-        15_000
-      ),
-    openSetup: (args) =>
-      callRuntimeResult<ComputerUsePermissionSetupResult>(
-        'computer.permissions',
-        args ?? {},
-        15_000
-      ).catch((error: unknown) => {
-        // Only a host without this method falls back; real failures (e.g. a cancelled Open) must surface.
-        if (!(error instanceof Error && 'code' in error && error.code === 'method_not_found')) {
-          throw error
-        }
-        return {
-          platform: getBrowserPlatform(),
-          helperAppPath: null,
-          openedSettings: false,
-          launchedHelper: false,
-          nextStep: 'Computer-use permissions are managed on the OpenKodo server.'
-        }
-      }),
-    reset: () =>
-      Promise.resolve({
-        platform: getBrowserPlatform(),
-        helperAppPath: null,
-        helperUnavailableReason: 'web_client',
-        bundleId: null,
-        permissions: []
-      })
   }
 }
 

@@ -283,35 +283,18 @@ function useComputerUsePermissionStatus(enabled: boolean): {
       return
     }
 
-    let stale = false
     const refresh = (): void => {
       setStatus((current) => ({ ...current, checking: true }))
-      window.api.computerUsePermissions
-        .getStatus()
-        .then((next) => {
-          if (stale) {
-            return
-          }
-          setStatus({
-            ready:
-              next.helperUnavailableReason === null &&
-              next.permissions.every((permission) => permission.status !== 'not-granted'),
-            checking: false,
-            unavailableReason: next.helperUnavailableReason
-          })
-        })
-        .catch(() => {
-          if (stale) {
-            return
-          }
-          setStatus({ ready: false, checking: false, unavailableReason: null })
-        })
+      setStatus({
+        ready: false,
+        checking: false,
+        unavailableReason: 'Computer Use is not available in this build'
+      })
     }
 
     refresh()
     window.addEventListener('focus', refresh)
     return () => {
-      stale = true
       window.removeEventListener('focus', refresh)
     }
   }, [enabled])

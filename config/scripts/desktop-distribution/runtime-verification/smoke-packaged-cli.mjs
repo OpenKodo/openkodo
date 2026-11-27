@@ -49,37 +49,27 @@ try {
       timeout: 30_000
     })
 
-  const [
-    ,
-    listResult,
-    openkodoCliResult,
-    openkodoComputerUseResult,
-    computerUseResult,
-    installResult,
-    updateResult
-  ] = await Promise.all([
-    run(['--help']),
-    run(['skills', 'list', '--json']),
-    run(['skills', 'get', 'openkodo-cli']),
-    run(['skills', 'get', 'openkodo-computer-use']),
-    run(['skills', 'get', 'computer-use']),
-    run([
-      'skills',
-      'install',
-      '--skill',
-      'openkodo-cli',
-      '--agent',
-      'codex',
-      '--dry-run',
-      '--json'
-    ]),
-    run(['skills', 'update', '--skill', 'openkodo-cli', '--dry-run', '--json'])
-  ])
+  const [, listResult, openkodoCliResult, openkodoComputerUseResult, installResult, updateResult] =
+    await Promise.all([
+      run(['--help']),
+      run(['skills', 'list', '--json']),
+      run(['skills', 'get', 'openkodo-cli']),
+      run([
+        'skills',
+        'install',
+        '--skill',
+        'openkodo-cli',
+        '--agent',
+        'codex',
+        '--dry-run',
+        '--json'
+      ]),
+      run(['skills', 'update', '--skill', 'openkodo-cli', '--dry-run', '--json'])
+    ])
   const list = JSON.parse(listResult.stdout)
   assert(list.topics.some((topic) => topic.name === 'openkodo-cli'))
   assert.match(openkodoCliResult.stdout, /name: openkodo-cli/)
   assert.match(openkodoComputerUseResult.stdout, /name: openkodo-computer-use/)
-  assert.match(computerUseResult.stdout, /name: openkodo-computer-use/)
   const install = JSON.parse(installResult.stdout)
   const update = JSON.parse(updateResult.stdout)
   assert.equal(install.executed, false)

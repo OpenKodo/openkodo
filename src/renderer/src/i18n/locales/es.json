@@ -611,9 +611,6 @@
     "mobile": {
       "teamDisabledRelay": "Tu equipo desactivó relay. Usa LAN."
     },
-    "computerUse": {
-      "teamDisabled": "Tu equipo desactivó Computer Use."
-    },
     "artifacts": {
       "teamDisabled": "Tu equipo desactivó el uso compartido de artefactos."
     },
@@ -1708,8 +1705,6 @@
         "5f32ac08f3": "Completa la lista de configuración inicial para los flujos de trabajo principales de OpenKodo.",
         "8ac3de82f5": "Dictado local de voz a texto con modelos en el dispositivo.",
         "6a50cdcd7c": "Voz",
-        "0059bd17f3": "Permite que los agentes controlen cualquier app en tu computadora.",
-        "b35e92364b": "Computer Use",
         "cd50cec5d7": "Coordina múltiples coding agents a través de OpenKodo.",
         "58a868e8e4": "Orquestación",
         "7c79d3b7bf": "Opcional",
@@ -7626,30 +7621,6 @@
           "54038660e0": "comando",
           "25350d670f": "personalizado"
         },
-        "ComputerUsePane": {
-          "1735461723": "Permite a los agents inspeccionar y operar apps de escritorio locales.",
-          "93255aaf18": "Skill OpenKodo Computer Use",
-          "45f8e22c2e": "Abrir",
-          "d95d1cfab8": "Actualizar",
-          "0c29da5805": "Listo",
-          "3383ea1aab": "No se pudieron restablecer los permisos de Computer Use",
-          "f189f448a3": "Restablecer acceso de Computer Use",
-          "5c45349665": "No se pudieron abrir los permisos de Computer Use",
-          "7801ac08ec": "Los permisos de Computer Use solo se requieren en macOS",
-          "740766c291": "La configuración de Computer Use ya está completa",
-          "697005758f": "Se abrió Privacidad y seguridad de macOS",
-          "2168fa5ab0": "No se pudieron cargar los permisos de Computer Use",
-          "0c9a33f468": "Captura ventanas de apps para que los agents puedan inspeccionar el estado visual.",
-          "07bbe4c4cb": "Capturas de pantalla",
-          "4d03dec2d0": "Lee árboles de interfaz de apps y realiza las acciones solicitadas.",
-          "6b5a2cd3a5": "Accesibilidad",
-          "6b17602073": "Restablecer acceso",
-          "506f2acf7a": "Restableciendo acceso...",
-          "statusGranted": "Otorgada",
-          "statusUnsupported": "Solo MacOS",
-          "statusNotEnabled": "No habilitado",
-          "794807aa21": "Privacidad y seguridad de macOS en cola; una solicitud más reciente o un restablecimiento puede reemplazarla"
-        },
         "DeveloperPermissionsPane": {
           "4c17304beb": "Actualizar",
           "6326a4c5cc": "Usa estos controles cuando una CLI, una app local o una herramienta de automatización necesite permisos de privacidad de macOS. OpenKodo no pregunta al iniciar.",
@@ -8639,7 +8610,6 @@
           "6855b0f77d": "Termina los flujos de trabajo principales que hacen que OpenKodo sea útil para el trabajo de agentes en paralelo.",
           "6d119427ef": "Lista de verificación de incorporación",
           "5063bb47a5": "Voz",
-          "7118953f14": "Permite que los agentes controlen cualquier app en tu computadora.",
           "475980f53d": "Coordina varios agentes de codificación a través de OpenKodo.",
           "00c3a7950d": "Orquestación",
           "21f09426ea": "Opcional. OpenKodo funciona con tus inicios de sesión de proveedores existentes; agrega cuentas solo si quieres que OpenKodo te ayude a cambiar entre ellas.",
@@ -8669,7 +8639,6 @@
           "d09b9d8f00": "Git y control de código fuente",
           "3eac6fb97f": "Herramientas de desarrollo",
           "4198aae333": "Cuentas de proveedores de IA",
-          "3f3e11cb5d": "Computer Use",
           "084f34826d": "Estadísticas y uso",
           "742ca66ea6": "Privacidad y telemetría",
           "c2bb9fc528": "Espacio de trabajo flotante",
@@ -9758,20 +9727,6 @@
             }
           }
         },
-        "computer": {
-          "use": {
-            "search": {
-              "6e88da3508": "skill",
-              "798be54d7e": "automatización",
-              "e27f8bafbf": "captura de pantalla",
-              "26c1290d83": "grabación de pantalla",
-              "82f01c2d2c": "accesibilidad",
-              "fefb452f5b": "uso de la computadora",
-              "9210db582b": "Permite que los agentes inspeccionen capturas de pantalla y controlen aplicaciones locales cuando lo pidas.",
-              "c3c3d70b5e": "Uso de la computadora"
-            }
-          }
-        },
         "developer": {
           "permissions": {
             "search": {
@@ -10193,7 +10148,6 @@
               "machineName": "nombre del equipo",
               "machine": "máquina",
               "hostname": "hostname",
-              "computer": "equipo",
               "rename": "renombrar",
               "name": "nombre"
             }
@@ -11220,18 +11174,6 @@
               }
             }
           }
-        },
-        "computerUseSummary": {
-          "permissionsRequired_one": "Se requiere {{value0}} permiso antes de que los agentes puedan operar ventanas de apps.",
-          "permissionsRequired_other": "Se requieren {{value0}} permisos antes de que los agentes puedan operar ventanas de apps.",
-          "permissionsRequired_many": "Se requieren {{value0}} permisos antes de que los agentes puedan operar ventanas de apps.",
-          "checkingTitle": "Comprobando el acceso a Computer Use.",
-          "checkingDescription": "OpenKodo está comprobando los permisos de privacidad de macOS para el helper de Computer Use.",
-          "unavailableTitle": "Computer Use no está disponible.",
-          "unavailableDescription": "Los permisos de Computer Use no están disponibles porque {{value0}}.",
-          "readyTitle": "Computer Use está listo.",
-          "readyDescription": "Los agentes pueden inspeccionar y operar ventanas de apps cuando se lo pidas.",
-          "permissionsTitle": "Completa la configuración para usar apps locales."
         },
         "WorkspaceDirectorySetting": {
           "1a2b3c4d5e": "Predeterminado del cliente",
@@ -19762,7 +19704,6 @@
         "resolver": "Respondido en {{device}}",
         "cancelledBy": "Cancelado en {{device}}",
         "thisComputer": "este ordenador",
-        "computer": "el ordenador",
         "otherDevice": "otro dispositivo"
       },
       "backgroundTasks": {
@@ -25416,7 +25357,6 @@
       "colorInk": "Tinta",
       "noChatAgents": "No hay agentes de chat disponibles en este ordenador.",
       "change": "Cambiar",
-      "computer": "Ordenador",
       "computerHint": "Dónde se ejecuta el bot.",
       "computerAccountHint": "Dónde se ejecuta el bot, con la sesión de OpenKodo iniciada como {{account}}.",
       "useChatDefaults": "Usar los valores predeterminados del chat",

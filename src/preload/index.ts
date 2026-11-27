@@ -52,7 +52,6 @@ import { dashboardApi } from './api/window-ui/dashboard-bridge'
 import { terminalPreviewApi } from './api/terminal/terminal-preview-bridge'
 import { macosTccPromptsApi } from './api/desktop-permissions/macos-tcc-prompts-bridge'
 import { developerPermissionsApi } from './api/desktop-permissions/developer-permissions-bridge'
-import { computerUsePermissionsApi } from './api/desktop-permissions/computer-use-permissions-bridge'
 import { shellApi } from './api/terminal/shell-bridge'
 import { botChangesApi } from './api/bot-changes-bridge'
 import { googleSetupApi } from './api/google-setup-bridge'
@@ -168,7 +167,6 @@ const api = {
   terminalPreview: terminalPreviewApi,
   macosTccPrompts: macosTccPromptsApi,
   developerPermissions: developerPermissionsApi,
-  computerUsePermissions: computerUsePermissionsApi,
   shell: shellApi,
   botChanges: botChangesApi,
   googleSetup: googleSetupApi,

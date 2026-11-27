@@ -1,7 +1,3 @@
-import type {
-  ComputerUsePermissionSetupResult,
-  ComputerUsePermissionStatusResult
-} from '../../../../shared/computer/computer-use-permissions-types'
 import {
   COMPUTER_USE_SKILL_NAME,
   OPENKODO_LINEAR_SKILL_NAME,
@@ -71,8 +67,6 @@ export type OnboardingFeatureSetupResult = {
 }
 
 export type OnboardingFeatureSetupDeps = {
-  getComputerUsePermissionStatus: () => Promise<ComputerUsePermissionStatusResult>
-  openComputerUsePermissionSetup: () => Promise<ComputerUsePermissionSetupResult>
   setStorageItem: (key: string, value: string) => void
   removeStorageItem: (key: string) => void
   notifyOrchestrationStateChanged: () => void
@@ -163,8 +157,6 @@ export function createOnboardingFeatureSetupDeps(): OnboardingFeatureSetupDeps {
   }
 
   return {
-    getComputerUsePermissionStatus: () => window.api.computerUsePermissions.getStatus(),
-    openComputerUsePermissionSetup: () => window.api.computerUsePermissions.openSetup(),
     setStorageItem: (key, value) => localStorage.setItem(key, value),
     removeStorageItem: (key) => localStorage.removeItem(key),
     notifyOrchestrationStateChanged: notifyOrchestrationSetupStateChanged
@@ -202,35 +194,5 @@ export async function runOnboardingFeatureSetup(
     return { selectedIds, skillNames, computerUsePermissionsOpened, warnings }
   }
 
-  if (selection.computerUse) {
-    try {
-      const status = await deps.getComputerUsePermissionStatus()
-      // A missing macOS helper reports ungranted permissions too; guard before openSetup to avoid an IPC error.
-      if (status.helperUnavailableReason) {
-        warnings.push({
-          featureId: 'computerUse',
-          message: status.helperUnavailableReason
-        })
-      } else {
-        const needsMacPermissions =
-          status.platform === 'darwin' &&
-          status.permissions.some((permission) => permission.status !== 'granted')
-        if (needsMacPermissions) {
-          await deps.openComputerUsePermissionSetup()
-          computerUsePermissionsOpened = true
-        }
-      }
-    } catch (error) {
-      warnings.push({
-        featureId: 'computerUse',
-        message: formatFeatureSetupError(error)
-      })
-    }
-  }
-
   return { selectedIds, skillNames, computerUsePermissionsOpened, warnings }
-}
-
-function formatFeatureSetupError(error: unknown): string {
-  return error instanceof Error ? error.message : String(error)
 }

@@ -39,7 +39,6 @@ import { registerDashboardPopoutHandlers } from '../dashboard/dashboard-popout'
 import { registerWorkspaceSpaceWindowHandlers } from '../workspace-space/workspace-space-window'
 import { registerTerminalPreviewHandlers } from '../terminal-views/terminal-preview'
 import { registerDeveloperPermissionHandlers } from '../developer-permissions/developer-permissions'
-import { registerComputerUsePermissionHandlers } from '../computer-use-permissions'
 import { setAgentBrowserBridgeRef, registerBrowserHandlers } from '../browser/browser'
 import { registerBrowserServerDownloadCopyHandlers } from '../browser/browser-server-download-copy-ipc'
 import { setTrustedBrowserRendererWebContentsId } from '../browser/browser-renderer-trust'
@@ -186,7 +185,6 @@ export async function registerCoreHandlers(
     // Diagnostics and telemetry register independent channels and keep separate data paths.
     registerDiagnosticsHandlers()
     registerTerminalRenderDesyncEvidenceHandler()
-    registerComputerUsePermissionHandlers()
     registerSettingsHandlers(store, agentAwakeService)
     registerSkillsHandlers(store, runtime)
     registerSkillDeleteIpcHandlers(store, runtime)

@@ -193,7 +193,7 @@ export function useSetupGuideProgress(
   }, [orderedGitRepos, settings, setupScriptProbeSignature, shouldRefreshCoreState])
 
   const readComputerUsePermissions = useCallback(async (isStale: () => boolean): Promise<void> => {
-    const status = await window.api.computerUsePermissions.getStatus().catch(() => null)
+    const status = null
     if (isStale()) {
       return
     }

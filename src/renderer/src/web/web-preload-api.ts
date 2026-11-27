@@ -24,7 +24,6 @@ import { createWebGithubCacheApi } from './preload-api/github/web-github-cache-a
 import { createGitHubApi } from './preload-api/github/web-github-api'
 import { createGitLabApi } from './preload-api/gitlab/web-gitlab-api'
 import {
-  createComputerUsePermissionsApi,
   createDeveloperPermissionsApi,
   createPreflightApi,
   createSkillsApi
@@ -145,7 +144,6 @@ function createWebPreloadApi(): Omit<Partial<PreloadApi>, 'settings' | 'plugins'
         Promise.resolve({ state: 'synced', reason: null, systemConfigPath: '' } as const)
     },
     developerPermissions: createDeveloperPermissionsApi(),
-    computerUsePermissions: createComputerUsePermissionsApi(),
     updater: createUpdaterApi(),
     shell: createShellApi(),
     skills: createSkillsApi(),

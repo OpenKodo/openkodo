@@ -1548,9 +1548,6 @@
     "mobile": {
       "teamDisabledRelay": "relay ekibiniz tarafından kapatıldı. LAN kullanın."
     },
-    "computerUse": {
-      "teamDisabled": "Computer Use ekibiniz tarafından kapatıldı."
-    },
     "artifacts": {
       "teamDisabled": "Artifact paylaşımı ekibiniz tarafından kapatıldı."
     },
@@ -3252,8 +3249,6 @@
         "5f32ac08f3": "Temel OpenKodo iş akışları için katılım kontrol listesini tamamlayın.",
         "8ac3de82f5": "Cihaz üzerindeki modellerle yerel sesten metne dikte.",
         "6a50cdcd7c": "Ses",
-        "0059bd17f3": "Ajanların bilgisayarınızdaki herhangi bir uygulamayı kontrol etmesini etkinleştirin.",
-        "b35e92364b": "Bilgisayar Kullanımı",
         "cd50cec5d7": "OpenKodo üzerinden birden fazla kodlama ajanını koordine edin.",
         "58a868e8e4": "Orkestrasyon",
         "7c79d3b7bf": "Opsiyonel",
@@ -9184,30 +9179,6 @@
           "54038660e0": "komut",
           "25350d670f": "özel"
         },
-        "ComputerUsePane": {
-          "1735461723": "Ajanların yerel masaüstü uygulamalarını incelemesini ve çalıştırmasını sağlar.",
-          "93255aaf18": "OpenKodo Computer Use becerisi",
-          "45f8e22c2e": "Aç",
-          "d95d1cfab8": "Yenile",
-          "0c29da5805": "Hazır",
-          "3383ea1aab": "Computer Use izinleri sıfırlanamadı",
-          "f189f448a3": "Computer Use erişimini sıfırla",
-          "5c45349665": "Computer Use izinleri açılamadı",
-          "7801ac08ec": "Computer Use izinleri yalnızca macOS'ta gereklidir",
-          "740766c291": "Computer Use kurulumu zaten tamamlandı",
-          "697005758f": "macOS Gizlilik ve Güvenlik açıldı",
-          "2168fa5ab0": "Computer Use izinleri yüklenemedi",
-          "0c9a33f468": "Ajanların görsel durumu inceleyebilmesi için uygulama pencerelerini yakalayın.",
-          "07bbe4c4cb": "Ekran Görüntüleri",
-          "4d03dec2d0": "Uygulama arayüz ağaçlarını okuyun ve istenen eylemleri gerçekleştirin.",
-          "6b5a2cd3a5": "Erişilebilirlik",
-          "6b17602073": "Erişimi sıfırla",
-          "506f2acf7a": "Erişim sıfırlanıyor...",
-          "statusGranted": "Verildi",
-          "statusUnsupported": "Yalnızca macOS",
-          "statusNotEnabled": "Etkin değil",
-          "794807aa21": "macOS Gizlilik ve Güvenlik sıraya alındı; daha yeni bir istek veya sıfırlama bunun yerini alabilir"
-        },
         "DeveloperPermissionsPane": {
           "4c17304beb": "Yenile",
           "6326a4c5cc": "Bir CLI, yerel uygulama veya otomasyon aracının macOS gizlilik erişimine ihtiyacı olduğunda bu kontrolleri kullanın. OpenKodo başlangıçta sormaz.",
@@ -10281,7 +10252,6 @@
           "6855b0f77d": "OpenKodo'yı paralel ajan çalışması için kullanışlı kılan temel iş akışlarını tamamlayın.",
           "6d119427ef": "Başlangıç kontrol listesi",
           "5063bb47a5": "Ses",
-          "7118953f14": "Ajanların bilgisayarınızdaki herhangi bir uygulamayı kontrol etmesini sağlayın.",
           "475980f53d": "OpenKodo üzerinden birden fazla kodlama ajanını koordine edin.",
           "00c3a7950d": "Orkestrasyon",
           "21f09426ea": "İsteğe bağlı. OpenKodo, mevcut sağlayıcı girişlerinizle çalışır; hesapları yalnızca OpenKodo'nın aralarında geçiş yapmanıza yardımcı olmasını istiyorsanız ekleyin.",
@@ -10311,7 +10281,6 @@
           "d09b9d8f00": "Git ve Kaynak Kontrolü",
           "3eac6fb97f": "Geliştirici Araçları",
           "4198aae333": "AI Sağlayıcı Hesapları",
-          "3f3e11cb5d": "Bilgisayar Kullanımı",
           "084f34826d": "İstatistikler ve Kullanım",
           "742ca66ea6": "Gizlilik ve Telemetri",
           "c2bb9fc528": "Yüzen Çalışma Alanı",
@@ -11422,20 +11391,6 @@
             }
           }
         },
-        "computer": {
-          "use": {
-            "search": {
-              "6e88da3508": "beceri",
-              "798be54d7e": "otomasyon",
-              "e27f8bafbf": "ekran görüntüsü",
-              "26c1290d83": "ekran kaydı",
-              "82f01c2d2c": "erişilebilirlik",
-              "fefb452f5b": "bilgisayar kullanımı",
-              "9210db582b": "İstediğinizde ajanların ekran görüntülerini incelemesine ve yerel uygulamaları çalıştırmasına izin verin.",
-              "c3c3d70b5e": "Bilgisayar Kullanımı"
-            }
-          }
-        },
         "developer": {
           "permissions": {
             "search": {
@@ -11873,7 +11828,6 @@
               "machineName": "makine adı",
               "machine": "makine",
               "hostname": "ana makine adı",
-              "computer": "bilgisayar",
               "rename": "yeniden adlandır",
               "name": "ad"
             }
@@ -12851,17 +12805,6 @@
         "ProviderHostScopeControl": {
           "scope_label": "{{value0}}: {{value1}}",
           "change_host": "Uzak Sunucuları Aç"
-        },
-        "computerUseSummary": {
-          "checkingTitle": "Computer Use erişimi kontrol ediliyor.",
-          "checkingDescription": "OpenKodo, Computer Use yardımcısı için macOS gizlilik izinlerini kontrol ediyor.",
-          "unavailableTitle": "Computer Use kullanılamıyor.",
-          "unavailableDescription": "Computer Use izinleri şu nedenle kullanılamıyor: {{value0}}.",
-          "readyTitle": "Computer Use hazır.",
-          "readyDescription": "İstediğinizde ajanlar uygulama pencerelerini inceleyip çalıştırabilir.",
-          "permissionsTitle": "Yerel uygulamaları kullanmak için kurulumu tamamlayın.",
-          "permissionsRequired_one": "Ajanların uygulama pencerelerini çalıştırabilmesi için {{value0}} izin gerekiyor.",
-          "permissionsRequired_other": "Ajanların uygulama pencerelerini çalıştırabilmesi için {{value0}} izin gerekiyor."
         },
         "providerAccountScope": {
           "remoteServer": "Uzak sunucu: {{value0}}",
@@ -21295,7 +21238,6 @@
         "resolver": "{{device}} üzerinde yanıtlandı",
         "cancelledBy": "{{device}} üzerinde iptal edildi",
         "thisComputer": "bu bilgisayar",
-        "computer": "bilgisayar",
         "otherDevice": "başka bir cihaz"
       },
       "notices": {
@@ -27911,7 +27853,6 @@
       "colorSky": "Gök Mavisi",
       "colorSlate": "Arduvaz grisi",
       "colorWhite": "Beyaz",
-      "computer": "Bilgisayar",
       "computerAccountHint": "Botun çalıştığı yer; OpenKodo oturumu {{account}} hesabıyla açık.",
       "computerHint": "Botun çalıştığı yer.",
       "folder": "Klasör: {{path}}",
@@ -29031,7 +28972,6 @@
       "name": "Bot adı",
       "rename": "{{name}} adını değiştir",
       "agent": "Ajan ve model",
-      "computer": "Bilgisayar",
       "deleteBot": "Botu sil…",
       "openAsFile": "Dosya olarak aç",
       "backToSettings": "Ayarlara dön",

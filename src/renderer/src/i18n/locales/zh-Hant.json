@@ -1161,9 +1161,6 @@
     "mobile": {
       "teamDisabledRelay": "您的團隊已關閉 relay。請使用區域網路。"
     },
-    "computerUse": {
-      "teamDisabled": "您的團隊已關閉電腦控制。"
-    },
     "artifacts": {
       "teamDisabled": "您的團隊已關閉成品分享。"
     },
@@ -2257,8 +2254,6 @@
         "5f32ac08f3": "完成 OpenKodo 核心工作流程的入門清單。",
         "8ac3de82f5": "使用裝置端模型進行本機語音轉文字聽寫。",
         "6a50cdcd7c": "語音",
-        "0059bd17f3": "使代理程式能夠控制您電腦上的任何應用程式。",
-        "b35e92364b": "電腦控制",
         "cd50cec5d7": "透過 OpenKodo 協調多個程式開發代理程式。",
         "58a868e8e4": "編排",
         "7c79d3b7bf": "可選",
@@ -7920,30 +7915,6 @@
           "54038660e0": "命令",
           "25350d670f": "自訂"
         },
-        "ComputerUsePane": {
-          "1735461723": "使代理程式能夠檢查和操作本機桌面應用程式。",
-          "93255aaf18": "OpenKodo Computer Use 技能",
-          "45f8e22c2e": "開啟",
-          "d95d1cfab8": "重新整理",
-          "0c29da5805": "就緒",
-          "3383ea1aab": "無法重設電腦使用權限",
-          "f189f448a3": "重設電腦使用存取權限",
-          "5c45349665": "無法開啟電腦使用權限",
-          "7801ac08ec": "僅在 macOS 上需要電腦使用權限",
-          "740766c291": "電腦使用設定已完成",
-          "697005758f": "已開啟 macOS「隱私權與安全性」",
-          "2168fa5ab0": "無法載入電腦使用權限",
-          "0c9a33f468": "擷取應用程式視窗，以便代理程式可以檢查視覺狀態。",
-          "07bbe4c4cb": "截圖",
-          "4d03dec2d0": "讀取應用程式介面樹並執行請求的操作。",
-          "6b5a2cd3a5": "輔助使用",
-          "6b17602073": "重設存取權限",
-          "506f2acf7a": "正在重設存取...",
-          "statusGranted": "已授予",
-          "statusUnsupported": "僅限 macOS",
-          "statusNotEnabled": "未啟用",
-          "794807aa21": "已將 macOS「隱私權與安全性」加入佇列；較新的要求或重設可能會取代它"
-        },
         "DeveloperPermissionsPane": {
           "4c17304beb": "重新整理",
           "6326a4c5cc": "當 CLI、本機應用程式或自動化工具需要 macOS 隱私存取時，請使用這些控制項。 OpenKodo 在啟動時不會詢問。",
@@ -8974,7 +8945,6 @@
           "6855b0f77d": "完成核心工作流程，讓 OpenKodo 有效協助代理程式並行工作。",
           "6d119427ef": "入門清單",
           "5063bb47a5": "語音",
-          "7118953f14": "使代理程式能夠控制您電腦上的任何應用程式。",
           "475980f53d": "透過 OpenKodo 協調多個程式開發代理程式。",
           "00c3a7950d": "編排",
           "21f09426ea": "可選。 OpenKodo 可與您現有的供應商登入配合使用；僅當您希望 OpenKodo 幫助在帳戶之間切換時才新增帳戶。",
@@ -9004,7 +8974,6 @@
           "d09b9d8f00": "Git 和原始碼控制",
           "3eac6fb97f": "開發工具",
           "4198aae333": "AI 供應商帳戶",
-          "3f3e11cb5d": "電腦控制",
           "084f34826d": "統計和用量",
           "742ca66ea6": "隱私與遙測",
           "c2bb9fc528": "浮動工作區",
@@ -10097,20 +10066,6 @@
             }
           }
         },
-        "computer": {
-          "use": {
-            "search": {
-              "6e88da3508": "技能",
-              "798be54d7e": "自動化",
-              "e27f8bafbf": "截圖",
-              "26c1290d83": "螢幕錄製",
-              "82f01c2d2c": "輔助使用",
-              "fefb452f5b": "電腦控制",
-              "9210db582b": "當您要求時，允許代理程式檢查螢幕截圖並操作本機應用程式。",
-              "c3c3d70b5e": "電腦控制"
-            }
-          }
-        },
         "developer": {
           "permissions": {
             "search": {
@@ -10532,7 +10487,6 @@
               "machineName": "機器名稱",
               "machine": "機器",
               "hostname": "主機名稱",
-              "computer": "電腦",
               "rename": "重新命名",
               "name": "名稱"
             }
@@ -11503,17 +11457,6 @@
         "ProviderHostScopeControl": {
           "scope_label": "{{value0}}：{{value1}}",
           "change_host": "開啟遠端伺服器"
-        },
-        "computerUseSummary": {
-          "checkingTitle": "正在檢查電腦控制存取權限。",
-          "checkingDescription": "OpenKodo 正在檢查電腦控制助手的 macOS 隱私權限。",
-          "unavailableTitle": "電腦控制無法使用。",
-          "unavailableDescription": "電腦控制權限無法使用，因為 {{value0}}。",
-          "readyTitle": "電腦控制已就緒。",
-          "readyDescription": "當你要求時，代理程式可以檢查並操作應用程式視窗。",
-          "permissionsTitle": "完成設定以使用本機應用程式。",
-          "permissionsRequired_one": "需取得 {{value0}} 項權限，代理程式才能操作應用程式視窗。",
-          "permissionsRequired_other": "在代理程式可操作應用程式視窗前需要 {{value0}} 項權限。"
         },
         "providerAccountScope": {
           "remoteServer": "遠端伺服器：{{value0}}",
@@ -19413,7 +19356,6 @@
         "resolver": "已在 {{device}} 回答",
         "cancelledBy": "已在 {{device}} 取消",
         "thisComputer": "這部電腦",
-        "computer": "電腦",
         "otherDevice": "其他裝置"
       },
       "notices": {
@@ -24503,7 +24445,6 @@
       "colorInk": "墨黑",
       "noChatAgents": "此電腦上沒有可用的聊天代理程式。",
       "change": "改變",
-      "computer": "電腦",
       "computerHint": "機器人執行的位置。",
       "computerAccountHint": "機器人執行的位置，以 {{account}} 身份登入 OpenKodo。",
       "useChatDefaults": "使用聊天預設設定",

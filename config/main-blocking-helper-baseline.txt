@@ -365,11 +365,6 @@
 6 src/main/command-code/hook-service.ts
 7 src/main/composio/composio-bot-tool.ts
 5 src/main/composio/composio-bots.ts
-1 src/main/computer/macos-native/macos-native-provider-paths.ts
-1 src/main/computer/macos-permissions/macos-computer-use-permission-status-gate.ts
-6 src/main/computer/macos-permissions/macos-computer-use-permission-status.ts
-5 src/main/computer/macos-permissions/macos-computer-use-permissions.ts
-7 src/main/computer/sidecar-transport/sidecar-client.ts
 2 src/main/connector-cloud/connector-cloud-install.ts
 1 src/main/connector-cloud/connector-cloud.ts
 3 src/main/connector-cloud/connector-host-install.ts
@@ -582,7 +577,6 @@
 1 src/main/ipc/browser/browser.ts
 7 src/main/ipc/cli.ts
 1 src/main/ipc/command-path/command-path-directory-worker-client.ts
-2 src/main/ipc/computer-use-permissions.ts
 2 src/main/ipc/custom-app-icon.ts
 22 src/main/ipc/diagnostics.ts
 1 src/main/ipc/emulator/emulator-video-stream.ts
@@ -1230,7 +1224,6 @@
 11 src/main/runtime/rpc/methods/bots-tools.ts
 1 src/main/runtime/rpc/methods/bots.ts
 1 src/main/runtime/rpc/methods/browser/browser-identity-rpc.ts
-15 src/main/runtime/rpc/methods/computer/computer.ts
 1 src/main/runtime/rpc/methods/google-files.ts
 1 src/main/runtime/rpc/methods/host-management/environment-doctor.ts
 1 src/main/runtime/rpc/methods/host-management/host-capabilities.ts

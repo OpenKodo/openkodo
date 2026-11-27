@@ -48,7 +48,6 @@ import { refreshInstalledOpenCodeStatusPlugins } from '../opencode/status-hooks/
 import { pruneDesktopOpenkododArtifactCache } from '../openkodod/artifact-slots/openkodod-artifact-cache-retention'
 import { runGatedWslMoveDesktopRewritePass } from '../persistence/moving-wsl-projects/desktop-state/wsl-move-desktop-rewrite'
 import { OPENKODO_LAYOUT_OWNER_IS_MAIN } from '../../shared/workspace-layout/layout-owner-switch'
-import { reapLeftoverMacOSPermissionStatusHelpers } from '../computer/macos-permissions/macos-permission-status-leftover-reap'
 import { repairDuplicatePtyPanesOnStart } from '../runtime/terminal/identity/moved-pane-owner-rekey'
 import { WslUsageReporter } from '../telemetry/wsl-usage-reporter'
 import { ALL_RPC_METHODS } from '../runtime/rpc/methods/rpc-method-registry'
@@ -209,10 +208,6 @@ function scheduleDeferredMaintenance(
   })
   afterFirstWindow(() => {
     new WslUsageReporter(store, paths.userData).start()
-  })
-  // Suspended permission probes left by older builds hold LaunchServices slots until every app launch hangs.
-  afterFirstWindow(() => {
-    void reapLeftoverMacOSPermissionStatusHelpers()
   })
   afterFirstWindow(() => {
     void pruneDesktopOpenkododArtifactCache(paths.userData).catch((error) => {

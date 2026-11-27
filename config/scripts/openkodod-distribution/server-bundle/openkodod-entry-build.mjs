@@ -48,7 +48,6 @@ export const OPENKODOD_CHILD_ENTRY_POINTS = {
   claudeConversationFork: 'src/main/claude/transcripts/claude-conversation-fork-worker-entry.ts',
   usageScanWorker: 'src/main/usage/scan-worker/usage-scan-worker-entry.ts',
   sttWorker: 'src/main/speech/stt-worker.ts',
-  computerSidecar: 'src/main/computer/computer-sidecar.ts',
   googlePdfText: 'src/main/google/google-pdf-text-worker-entry.ts'
 }
 

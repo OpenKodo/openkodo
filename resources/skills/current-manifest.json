@@ -50,22 +50,6 @@
       ]
     },
     {
-      "name": "openkodo-computer-use",
-      "sourcePath": "skills/openkodo-computer-use",
-      "packageDigest": "b0002f72b492ffbf85bf538f6cb19dda2d275faab619d3f1de88153eb788bcdc",
-      "files": [
-        {
-          "path": "SKILL.md",
-          "size": 2705,
-          "executable": false,
-          "classification": "text",
-          "exactSha256": "2becf648338832d428c08904085cdfcf4484aaea4fa4e8eb6a3e57e916d56a0f",
-          "textNormalizedSha256": "2becf648338832d428c08904085cdfcf4484aaea4fa4e8eb6a3e57e916d56a0f",
-          "identitySha256": "2becf648338832d428c08904085cdfcf4484aaea4fa4e8eb6a3e57e916d56a0f"
-        }
-      ]
-    },
-    {
       "name": "openkodo-emulator",
       "sourcePath": "skills/openkodo-emulator",
       "packageDigest": "e0df87f4bf275eca2b619168f65bde68bd17e88169b4ee0c71b3f116d7f8c580",

@@ -17,7 +17,6 @@ export const MAIN_BUILD_ENTRY_POINTS: Record<string, string> = {
   'plugin-source-transpile-worker-entry': resolve(
     'src/main/plugins/panels/plugin-source-transpile-worker-entry.ts'
   ),
-  'computer-sidecar': resolve('src/main/computer/computer-sidecar.ts'),
   'claude-conversation-fork-worker-entry': resolve(
     'src/main/claude/transcripts/claude-conversation-fork-worker-entry.ts'
   ),

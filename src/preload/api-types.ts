@@ -43,7 +43,6 @@ import type { NativeChatApi } from './api/native-chat/native-chat-api'
 import type { OnboardingApi, StarNagApi } from './api/onboarding/onboarding-api'
 import type { OpenKodoProfileApi } from './api/profiles/openkodo-profile-api'
 import type {
-  ComputerUsePermissionsApi,
   DeveloperPermissionsApi,
   MacosTccPromptsApi,
   NotificationsApi
@@ -144,7 +143,6 @@ export type PreloadApi = {
   terminalPreview: TerminalPreviewApi
   macosTccPrompts: MacosTccPromptsApi
   developerPermissions: DeveloperPermissionsApi
-  computerUsePermissions: ComputerUsePermissionsApi
   shell: ShellApi
   botChanges: BotChangesApi
   googleSetup: GoogleSetupApi

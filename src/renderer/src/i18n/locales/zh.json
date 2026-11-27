@@ -1344,9 +1344,6 @@
     "mobile": {
       "teamDisabledRelay": "你的团队已关闭 relay，请使用局域网"
     },
-    "computerUse": {
-      "teamDisabled": "你的团队已关闭“计算机控制”"
-    },
     "artifacts": {
       "teamDisabled": "你的团队已关闭产物分享"
     }
@@ -2567,8 +2564,6 @@
         "5f32ac08f3": "完成 OpenKodo 核心工作流的入门清单",
         "8ac3de82f5": "设备端模型本地语音转文字",
         "6a50cdcd7c": "语音",
-        "0059bd17f3": "让代理控制本机应用",
-        "b35e92364b": "计算机控制",
         "cd50cec5d7": "通过 OpenKodo 协调多个编码代理",
         "58a868e8e4": "编排",
         "7c79d3b7bf": "可选",
@@ -8344,30 +8339,6 @@
           "54038660e0": "命令",
           "25350d670f": "风俗"
         },
-        "ComputerUsePane": {
-          "1735461723": "使代理能够检查和操作本地桌面应用程序",
-          "93255aaf18": "OpenKodo Computer Use 技能",
-          "45f8e22c2e": "打开",
-          "d95d1cfab8": "刷新",
-          "0c29da5805": "就绪",
-          "3383ea1aab": "无法重置计算机使用权限",
-          "f189f448a3": "重置计算机使用访问权限",
-          "5c45349665": "无法打开计算机使用权限",
-          "7801ac08ec": "仅在 macOS 上需要计算机使用权限",
-          "740766c291": "计算机使用设置已完成",
-          "697005758f": "打开 macOS 隐私和安全",
-          "2168fa5ab0": "无法加载计算机使用权限",
-          "0c9a33f468": "捕获应用程序窗口，以便代理可以检查视觉状态",
-          "07bbe4c4cb": "截图",
-          "4d03dec2d0": "读取应用程序界面树并执行请求的操作",
-          "6b5a2cd3a5": "无障碍",
-          "6b17602073": "重置访问权限",
-          "506f2acf7a": "正在重置访问...",
-          "statusGranted": "已授予",
-          "statusUnsupported": "仅限 macOS",
-          "statusNotEnabled": "未启用",
-          "794807aa21": "macOS 隐私与安全性已加入队列；较新的请求或重置可能会替换它"
-        },
         "DeveloperPermissionsPane": {
           "4c17304beb": "刷新",
           "6326a4c5cc": "当 CLI、本地应用程序或自动化工具需要 macOS 隐私访问时，请使用这些控件，OpenKodo 在启动时不会询问",
@@ -9394,7 +9365,6 @@
           "6855b0f77d": "完成 OpenKodo 并行代理工作流所需的核心步骤",
           "6d119427ef": "入门清单",
           "5063bb47a5": "语音",
-          "7118953f14": "让代理控制本机应用",
           "475980f53d": "通过 OpenKodo 协调多个编码代理",
           "00c3a7950d": "编排",
           "21f09426ea": "OpenKodo 可直接使用你现有的提供商登录，需要在账户间切换时再添加账户",
@@ -9424,7 +9394,6 @@
           "d09b9d8f00": "Git 和源代码控制",
           "3eac6fb97f": "开发工具",
           "4198aae333": "AI 提供商账户",
-          "3f3e11cb5d": "计算机控制",
           "084f34826d": "统计和使用情况",
           "742ca66ea6": "隐私与遥测",
           "c2bb9fc528": "浮动工作区",
@@ -10531,20 +10500,6 @@
             }
           }
         },
-        "computer": {
-          "use": {
-            "search": {
-              "6e88da3508": "技能",
-              "798be54d7e": "自动化",
-              "e27f8bafbf": "截屏",
-              "26c1290d83": "屏幕录制",
-              "82f01c2d2c": "可达性",
-              "fefb452f5b": "计算机控制",
-              "9210db582b": "当您要求时，允许代理检查屏幕截图并操作本地应用程序",
-              "c3c3d70b5e": "计算机控制"
-            }
-          }
-        },
         "developer": {
           "permissions": {
             "search": {
@@ -10982,7 +10937,6 @@
               "machineName": "机器名称",
               "machine": "机器",
               "hostname": "主机名",
-              "computer": "电脑",
               "rename": "重命名",
               "name": "名称"
             }
@@ -12029,17 +11983,6 @@
               }
             }
           }
-        },
-        "computerUseSummary": {
-          "permissionsRequired_one": "在智能体可操作应用窗口前需要 {{value0}} 项权限",
-          "permissionsRequired_other": "在代理可操作应用窗口前需要 {{value0}} 项权限",
-          "checkingTitle": "正在检查计算机控制访问权限",
-          "checkingDescription": "OpenKodo 正在检查计算机控制助手的 macOS 隐私权限",
-          "unavailableTitle": "计算机控制不可用",
-          "unavailableDescription": "计算机控制权限不可用，因为 {{value0}}",
-          "readyTitle": "计算机控制已就绪",
-          "readyDescription": "当你要求时，代理可以检查并操作应用窗口",
-          "permissionsTitle": "完成设置以使用本地应用"
         },
         "WorkspaceDirectorySetting": {
           "1a2b3c4d5e": "客户端默认值",
@@ -20626,7 +20569,6 @@
         "resolver": "已在 {{device}} 上回答",
         "cancelledBy": "已在 {{device}} 上取消",
         "thisComputer": "此电脑",
-        "computer": "电脑",
         "otherDevice": "其他设备"
       },
       "notices": {
@@ -27659,7 +27601,6 @@
       "runsOnAs": "在 <host/> 上以 <account/> 身份使用 <agent/> 运行",
       "noChatAgents": "此电脑上没有可用的聊天智能体",
       "change": "更改",
-      "computer": "电脑",
       "computerHint": "bot 运行的位置",
       "computerAccountHint": "bot 运行的位置，以 {{account}} 身份登录 OpenKodo",
       "useChatDefaults": "使用聊天默认设置",
@@ -29037,7 +28978,6 @@
       "name": "Bot 名称",
       "rename": "重命名 {{name}}",
       "agent": "智能体和模型",
-      "computer": "电脑",
       "deleteBot": "删除 bot…",
       "openAsFile": "以文件形式打开",
       "backToSettings": "返回设置",

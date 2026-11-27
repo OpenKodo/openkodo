@@ -398,7 +398,6 @@ module.exports = {
     'out/main/journal-sql-reader-entry.js',
     'out/main/plugin-host-entry.js',
     'out/main/browser-extension-native-host-supervisor-entry.js',
-    'out/main/computer-sidecar.js',
     'out/main/parcel-watcher-process-entry.js',
     'out/main/openkodod/openkodod-local-serve-selection-entry.js',
     'out/main/openkodod/instance-lock/openkodod-stale-lock-reclaim.js',
@@ -663,10 +662,6 @@ module.exports = {
         from: 'node_modules/@agent-browser/cli-win32-x64-msvc/bin/agent-browser.exe',
         to: 'agent-browser-win32-x64.exe'
       },
-      {
-        from: 'native/computer-use-windows/runtime.ps1',
-        to: 'computer-use-windows/runtime.ps1'
-      },
       featureWallResources
     ]
   },
@@ -728,10 +723,6 @@ module.exports = {
       {
         from: 'node_modules/@agent-browser/cli-darwin-${arch}/bin/agent-browser',
         to: 'agent-browser-darwin-${arch}'
-      },
-      {
-        from: 'native/computer-use-macos/.build/release/OpenKodo Computer Use.app',
-        to: 'OpenKodo Computer Use.app'
       },
       featureWallResources
     ],
@@ -805,10 +796,6 @@ module.exports = {
       {
         from: 'node_modules/@agent-browser/cli-linux-${arch}-gnu/bin/agent-browser',
         to: 'agent-browser-linux-${arch}'
-      },
-      {
-        from: 'native/computer-use-linux/runtime.py',
-        to: 'computer-use-linux/runtime.py'
       },
       featureWallResources
     ],
@@ -993,13 +980,7 @@ async function signMacStandaloneHelper(helperPath, helperName, packager, entitle
 function codesignArgs(identity, targetPath) {
   const args = ['--force', '--deep', '--sign', identity]
   if (isMacRelease) {
-    args.push(
-      '--options',
-      'runtime',
-      '--timestamp',
-      '--entitlements',
-      resolve(__dirname, '../resources/build/entitlements.computer-use.mac.plist')
-    )
+    args.push('--options', 'runtime', '--timestamp', '--entitlements')
   }
   args.push(targetPath)
   return args
