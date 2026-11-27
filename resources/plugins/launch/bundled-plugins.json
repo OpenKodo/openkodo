@@ -4,12 +4,12 @@
     {
       "pluginKey": "openkodo.github-vscode-theme",
       "path": "openkodo.github-vscode-theme",
-      "contentHash": "49657a201405f3ba896feae38248588ad9db7116e823943ac317685c600e38f6"
+      "contentHash": "56794f6e786c045a134cd5b4a000d83575724ab5ba2bcad2cfbec38ab8e68f74"
     },
     {
       "pluginKey": "openkodo.vscode-default-themes",
       "path": "openkodo.vscode-default-themes",
-      "contentHash": "473d5eb34352ede3b2bc83bb41288713ac4e4a06dba29709ab42eefcc6d7d38a"
+      "contentHash": "405ac2b6fd8a75f97141fc48ad2c1d7b32cb7ccf12c2bcf5c54559c4fcc22867"
     }
   ]
 }
